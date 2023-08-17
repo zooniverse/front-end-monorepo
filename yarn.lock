@@ -16321,9 +16321,9 @@ styled-jsx@5.1.1:
     client-only "0.0.1"
 
 superagent@^8.0.6, superagent@^8.0.8, superagent@~8.1.0:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/superagent/-/superagent-8.1.1.tgz#85a16937c5fcc3cf1966e8ca53a64a294335b38a"
-  integrity sha512-5jVAXxfqR15KFq3trY7q0ySvzXWPsnkWgzoUkfgxeFDMPSFhsdnko9RQ/vBo3JLOcMErLReBFZQJNmH6y9IM3A==
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/superagent/-/superagent-8.1.2.tgz#03cb7da3ec8b32472c9d20f6c2a57c7f3765f30b"
+  integrity sha512-6WTxW1EB6yCxV5VFOIPQruWGHqc3yI7hEmZK6h+pyk69Lk/Ut7rLUY6W/ONF2MjBuGjvmMiIpsrVJ2vjrHlslA==
   dependencies:
     component-emitter "^1.3.0"
     cookiejar "^2.1.4"
