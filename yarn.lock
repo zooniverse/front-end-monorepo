@@ -3696,20 +3696,20 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@storybook/addon-a11y@~7.3.0":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.3.1.tgz#689aa68b8447f0a3a330e4ac526878e6a027714b"
-  integrity sha512-rvh1rYaOpBSKXVpWWkeaJEBHkH1yEjbW+mFixeS8HMV0ozwRPM+BdXS91qYV9kwl0+dHqy+K3Fx8XWTaCr6y6A==
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.3.2.tgz#ca79b724a371b83186c61294bf7988ec5bcbd079"
+  integrity sha512-tEWOHoeGNDAlw1yztEmjJ/MrNelHT5OneMuqoXSyJsozPbYg/jXm6j3k/lZ/Pg3IMAZq1XxP23LQifql9O/YZA==
   dependencies:
-    "@storybook/addon-highlight" "7.3.1"
-    "@storybook/channels" "7.3.1"
-    "@storybook/client-logger" "7.3.1"
-    "@storybook/components" "7.3.1"
-    "@storybook/core-events" "7.3.1"
+    "@storybook/addon-highlight" "7.3.2"
+    "@storybook/channels" "7.3.2"
+    "@storybook/client-logger" "7.3.2"
+    "@storybook/components" "7.3.2"
+    "@storybook/core-events" "7.3.2"
     "@storybook/global" "^5.0.0"
-    "@storybook/manager-api" "7.3.1"
-    "@storybook/preview-api" "7.3.1"
-    "@storybook/theming" "7.3.1"
-    "@storybook/types" "7.3.1"
+    "@storybook/manager-api" "7.3.2"
+    "@storybook/preview-api" "7.3.2"
+    "@storybook/theming" "7.3.2"
+    "@storybook/types" "7.3.2"
     axe-core "^4.2.0"
     lodash "^4.17.21"
     react-resize-detector "^7.1.2"
@@ -3836,15 +3836,6 @@
     "@storybook/node-logger" "7.3.2"
     "@storybook/preview-api" "7.3.2"
     ts-dedent "^2.0.0"
-
-"@storybook/addon-highlight@7.3.1":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-highlight/-/addon-highlight-7.3.1.tgz#7c19a16d6c4b5ac2f45e2eca5dd250ffe87cb8de"
-  integrity sha512-RkiD2hH8JR4ISNXIxnyt3zZ4i8gNmbXR7FptmBk4bnYULHa3iWE+NZxmlpDUUO+50iPmjstgVgDId1aNeLhP0w==
-  dependencies:
-    "@storybook/core-events" "7.3.1"
-    "@storybook/global" "^5.0.0"
-    "@storybook/preview-api" "7.3.1"
 
 "@storybook/addon-highlight@7.3.2":
   version "7.3.2"
