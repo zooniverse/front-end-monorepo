@@ -846,7 +846,6 @@ describe('components > ClassifierContainer', function () {
     afterEach(function () {
       sinon.restore()
       nock.cleanAll()
-      cleanStore()
     })
 
     it('should show tasks in French', async function () {
