@@ -71,7 +71,7 @@ export default function Error404({ locale = 'en' }) {
 
             <Heading level="2" textAlign="center" style={{ maxWidth: '100%' }}>Nothing here</Heading>
 
-            The page you're looking for no longer exists.
+            The page you&apos;re looking for no longer exists.
             <br />
             Return to the
             &nbsp;
