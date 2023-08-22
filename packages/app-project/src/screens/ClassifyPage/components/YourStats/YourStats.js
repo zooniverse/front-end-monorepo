@@ -6,7 +6,7 @@ import DailyClassificationsChart from './components/DailyClassificationsChart'
 import ContentBox from '@shared/components/ContentBox'
 import Stat from '@shared/components/Stat'
 
-function YourStats (props) {
+function YourStats(props) {
   const { counts, projectName } = props
   const { t } = useTranslation('screens')
 
@@ -18,10 +18,12 @@ function YourStats (props) {
       <Box border={{ color: 'light-5', side: 'bottom' }} pad={{ bottom: 'small' }}>
         <Grid columns={['1fr', '1fr']} gap='small'>
           <Stat
+            className="test-classify-your-stats-today-count"
             label={t('Classify.YourStats.todaysCount')}
             value={counts.today}
           />
           <Stat
+            className="test-classify-your-stats-total-count"
             label={t('Classify.YourStats.totalCount')}
             value={counts.total}
           />
