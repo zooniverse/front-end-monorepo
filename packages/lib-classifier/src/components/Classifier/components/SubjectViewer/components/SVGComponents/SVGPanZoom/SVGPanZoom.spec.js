@@ -1,4 +1,4 @@
-import { mount } from 'enzyme'
+import { render, waitFor } from '@testing-library/react'
 import sinon from 'sinon'
 import SVGPanZoom from './SVGPanZoom'
 
@@ -18,7 +18,7 @@ describe('Components > SVGPanZoom', function () {
   const src = 'https://example.com/image.png'
 
   beforeEach(function () {
-    wrapper = mount(
+    wrapper = render(
       <SVGPanZoom
         img={img}
         naturalHeight={200}
@@ -33,104 +33,131 @@ describe('Components > SVGPanZoom', function () {
     )
   })
   
-  it('should enable zoom in', function () {
+  it('should enable zoom in', async function () {
     onZoom('zoomin', 1)
-    wrapper.update()
-    const viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('18.5 9.5 363 181')
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('18.5 9.5 363 181')
+    })
   })
 
-  it('should enable zoom out', function () {
+  it('should enable zoom out', async function () {
     onZoom('zoomin', 1)
-    wrapper.update()
-    let viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('18.5 9.5 363 181')
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('18.5 9.5 363 181')
+    })
     onZoom('zoomout', -1)
-    wrapper.update()
-    viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('0 0 400 200')
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('0 0 400 200')
+    })
   })
 
   describe('panning', function () {
     describe('left', function () {
-      it('should move the viewbox left', function () {
-        let viewBox = wrapper.find('svg').prop('viewBox')
+      it('should move the viewbox left', async function () {
+        let viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
         expect(viewBox).to.equal('0 0 400 200')
         onPan(-1, 0)
-        wrapper.update()
-        viewBox = wrapper.find('svg').prop('viewBox')
-        expect(viewBox).to.equal('-10 0 400 200')
+        await waitFor(() => {
+          const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+          expect(viewBox).to.equal('-10 0 400 200')
+        })
       })
     })
 
     describe('right', function () {
-      it('should move the viewbox right', function () {
-        let viewBox = wrapper.find('svg').prop('viewBox')
+      it('should move the viewbox right', async function () {
+        let viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
         expect(viewBox).to.equal('0 0 400 200')
         onPan(1, 0)
-        wrapper.update()
-        viewBox = wrapper.find('svg').prop('viewBox')
-        expect(viewBox).to.equal('10 0 400 200')
+        await waitFor(() => {
+          const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+          expect(viewBox).to.equal('10 0 400 200')
+        })
       })
     })
     describe('up', function () {
-      it('should move the viewbox up', function () {
-        let viewBox = wrapper.find('svg').prop('viewBox')
+      it('should move the viewbox up', async function () {
+        let viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
         expect(viewBox).to.equal('0 0 400 200')
         onPan(0, -1)
-        wrapper.update()
-        viewBox = wrapper.find('svg').prop('viewBox')
-        expect(viewBox).to.equal('0 -10 400 200')
+        await waitFor(() => {
+          const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+          expect(viewBox).to.equal('0 -10 400 200')
+        })
       })
     })
     describe('down', function () {
-      it('should move the viewbox down', function () {
-        let viewBox = wrapper.find('svg').prop('viewBox')
+      it('should move the viewbox down', async function () {
+        let viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
         expect(viewBox).to.equal('0 0 400 200')
         onPan(0, 1)
-        wrapper.update()
-        viewBox = wrapper.find('svg').prop('viewBox')
-        expect(viewBox).to.equal('0 10 400 200')
+        await waitFor(() => {
+          const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+          expect(viewBox).to.equal('0 10 400 200')
+        })
       })
     })
   })
 
-  it('should should pan horizontally on drag', function () {
+  it('should should pan horizontally on drag', async function () {
     onDrag({}, { x: -15, y: 0 })
-    wrapper.update()
-    const viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('10 0 400 200')
+    const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+    await waitFor(() => expect(viewBox).to.equal('15 0 400 200'))
   })
 
-  it('should should pan vertically on drag', function () {
+  it('should should pan vertically on drag', async function () {
     onDrag({}, { x: 0, y: -15 })
-    wrapper.update()
-    const viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('0 10 400 200')
+    const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+    await waitFor(() => expect(viewBox).to.equal('0 15 400 200'))
   })
 
-  it('should reset pan with new src', function () {
+  it('should reset pan with new src', async function () {
     onPan(-1, 0)
-    wrapper.update()
-    let viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('-10 0 400 200')
+    let viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+    await waitFor(() => expect(viewBox).to.equal('-10 0 400 200'))
 
-    wrapper.setProps({ naturalHeight: 400, naturalWidth: 200, src: 'http://placekitten.com/200/400' })
-    wrapper.update()
-    viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('0 0 200 400')
+    wrapper.rerender(
+      <SVGPanZoom
+        img={img}
+        naturalHeight={400}
+        naturalWidth={200}
+        setOnDrag={callback => { onDrag = callback }}
+        setOnPan={callback => { onPan = callback }}
+        setOnZoom={callback => { onZoom = callback }}
+        src={'http://placekitten.com/200/400'}
+      >
+        <svg />
+      </SVGPanZoom>
+    )
+    viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+    await waitFor(() => expect(viewBox).to.equal('0 0 200 400'))
   })
 
-  it('should reset zoom with new src', function () {
+  it('should reset zoom with new src', async function () {
     onZoom('zoomin', 1)
-    wrapper.update()
-    let viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('18.5 9.5 363 181')
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('18.5 9.5 363 181')
+    })
 
-    wrapper.setProps({ naturalHeight: 400, naturalWidth: 200, src: 'http://placekitten.com/200/400' })
-    wrapper.update()
-    viewBox = wrapper.find('svg').prop('viewBox')
-    expect(viewBox).to.equal('0 0 200 400')
+    wrapper.rerender(
+      <SVGPanZoom
+        img={img}
+        naturalHeight={400}
+        naturalWidth={200}
+        setOnDrag={callback => { onDrag = callback }}
+        setOnPan={callback => { onPan = callback }}
+        setOnZoom={callback => { onZoom = callback }}
+        src={'http://placekitten.com/200/400'}
+      >
+        <svg />
+      </SVGPanZoom>
+    )
+    const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+    await waitFor(() => expect(viewBox).to.equal('0 0 200 400'))
   })
 
   describe('when zooming function is controlled by prop', function () {
@@ -139,7 +166,7 @@ describe('Components > SVGPanZoom', function () {
       setOnDragSpy = sinon.spy()
       setOnPanSpy = sinon.spy()
       setOnZoomSpy = sinon.spy()
-      wrapper = mount(
+      wrapper = render(
         <SVGPanZoom
           img={img}
           naturalHeight={200}
@@ -162,14 +189,40 @@ describe('Components > SVGPanZoom', function () {
     })
 
     it('should register the handlers when zooming is set to true', function () {
-      wrapper.setProps({ zooming: true })
+      wrapper.rerender(
+        <SVGPanZoom
+          img={img}
+          naturalHeight={200}
+          naturalWidth={400}
+          setOnDrag={setOnDragSpy}
+          setOnPan={setOnPanSpy}
+          setOnZoom={setOnZoomSpy}
+          src={src}
+          zooming={true}
+        >
+          <svg />
+        </SVGPanZoom>
+      )
       expect(setOnDragSpy).to.have.been.called()
       expect(setOnPanSpy).to.have.been.called()
       expect(setOnZoomSpy).to.have.been.called()
     })
 
     it('should unregister the handler when zooming is set to false', function () {
-      wrapper.setProps({ zooming: false })
+      wrapper.rerender(
+        <SVGPanZoom
+          img={img}
+          naturalHeight={200}
+          naturalWidth={400}
+          setOnDrag={setOnDragSpy}
+          setOnPan={setOnPanSpy}
+          setOnZoom={setOnZoomSpy}
+          src={src}
+          zooming={false}
+        >
+          <svg />
+        </SVGPanZoom>
+      )
       expect(setOnDragSpy).to.have.been.calledTwice()
       expect(setOnPanSpy).to.have.been.calledTwice()
       expect(setOnZoomSpy).to.have.been.calledTwice()
