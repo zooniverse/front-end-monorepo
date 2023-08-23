@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import { cloneElement, useEffect, useState } from 'react'
 
@@ -25,7 +26,7 @@ function SVGPanZoom({
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {
-    setOnDrag(onDrag)
+    setOnDrag(debounce(onDrag, 10))
     setOnPan(onPan)
     setOnZoom(onZoom)
   }
