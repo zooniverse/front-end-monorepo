@@ -35,12 +35,16 @@ function convertEvent(event, canvas) {
   return svgCoordinateEvent
 }
 
+const DEFAULT_COORDS = {
+  x: 0,
+  y: 0
+}
 const DEFAULT_HANDLER = event => true
 
 function draggable(WrappedComponent) {
   function Draggable({
     children,
-    coords: initialCoords,
+    coords: initialCoords = DEFAULT_COORDS,
     dragStart = DEFAULT_HANDLER,
     dragMove = DEFAULT_HANDLER,
     dragEnd = DEFAULT_HANDLER,
@@ -51,10 +55,6 @@ function draggable(WrappedComponent) {
     const [dragging, setDragging] = useState(false)
     const [coords, setCoords] = useState(initialCoords)
     const [pointerId, setPointerId] = useState(-1)
-
-    function getBoundingClientRect() {
-      return wrappedComponent.current.getBoundingClientRect()
-    }
 
     function onDragStart(event) {
       event.stopPropagation()
@@ -113,15 +113,6 @@ function draggable(WrappedComponent) {
     )
   }
 
-  Draggable.defaultProps = {
-    coords: {
-      x: 0,
-      y: 0
-    },
-    dragStart: () => true,
-    dragMove: () => true,
-    dragEnd: () => true
-  }
   const name =
     WrappedComponent.displayName ||
     WrappedComponent.name ||
