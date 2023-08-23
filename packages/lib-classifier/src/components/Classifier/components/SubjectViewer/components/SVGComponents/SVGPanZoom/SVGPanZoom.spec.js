@@ -104,14 +104,18 @@ describe('Components > SVGPanZoom', function () {
 
   it('should should pan horizontally on drag', async function () {
     onDrag({}, { x: -15, y: 0 })
-    const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-    await waitFor(() => expect(viewBox).to.equal('15 0 400 200'))
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('15 0 400 200')
+    })
   })
 
   it('should should pan vertically on drag', async function () {
     onDrag({}, { x: 0, y: -15 })
-    const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-    await waitFor(() => expect(viewBox).to.equal('0 15 400 200'))
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('0 15 400 200')
+    })
   })
 
   it('should reset pan with new src', async function () {
