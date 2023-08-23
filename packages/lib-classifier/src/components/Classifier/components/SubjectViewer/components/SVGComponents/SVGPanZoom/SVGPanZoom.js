@@ -124,7 +124,7 @@ function SVGPanZoom({
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`,
-        svgmaxheight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+        svgMaxHeight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
       })}
     </div>
   )
