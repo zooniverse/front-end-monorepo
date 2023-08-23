@@ -2,6 +2,7 @@ import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import { cloneElement, useEffect, useState } from 'react'
 
+const DEFAULT_HANDLER = () => true
 function SVGPanZoom({
   children,
   img,
@@ -10,9 +11,9 @@ function SVGPanZoom({
   minZoom = 1,
   naturalHeight,
   naturalWidth,
-  setOnDrag = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  setOnDrag = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   src,
   zooming = true
 }) {
@@ -32,9 +33,9 @@ function SVGPanZoom({
   }
 
   function disableZoom() {
-    setOnDrag(() => true)
-    setOnPan(() => true)
-    setOnZoom(() => true)
+    setOnDrag(DEFAULT_HANDLER)
+    setOnPan(DEFAULT_HANDLER)
+    setOnZoom(DEFAULT_HANDLER)
   }
 
   useEffect(function onZoomChange() {
