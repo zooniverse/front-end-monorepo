@@ -1,9 +1,10 @@
 import { Blank } from 'grommet-icons'
 
-export default function TalkIcon (props) {
+export default function TalkIcon(props) {
   return (
     <Blank
       viewBox='0 0 24 24'
+      data-testid="talk-icon"
       {...props}
     >
       <path
