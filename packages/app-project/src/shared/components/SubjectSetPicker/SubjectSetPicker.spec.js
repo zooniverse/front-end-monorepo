@@ -1,101 +1,63 @@
-import { shallow } from 'enzyme'
-import { Paragraph } from 'grommet'
-import Link from 'next/link'
-
-import SubjectSetPicker, { StyledHeading } from './SubjectSetPicker'
-import SubjectSetCard from './components/SubjectSetCard'
-import { mockWorkflow } from './helpers'
+import { Grommet } from 'grommet'
+import { render, screen, waitFor } from '@testing-library/react'
+import { within } from '@testing-library/dom'
+import { composeStory } from '@storybook/react'
+import Meta, { Default, Tablet } from './SubjectSetPicker.stories.js'
+import { SubjectSetPickerMock, SubjectSetPickerBaseURL } from './SubjectSetPicker.mock'
 
 describe('Component > SubjectSetPicker', function () {
-  let wrapper
+  [Default, Tablet].forEach(function (Story) { 
+    describe(`${Story.name} Story`, function () {
+      beforeEach(function () {
+        const StoryComponent = composeStory(Story, Meta)
+        render(<Grommet><StoryComponent /></Grommet>)
+      })
+    
+      it('should contain the heading text', function () {
+        expect(screen.getByText('SubjectSetPicker.heading')).to.exist()
+      })
+    
+      it('should contain the byline text', function () {
+        expect(screen.getByText('SubjectSetPicker.byline')).to.exist()
+      })
+    
+      it('should render the correct number of subject cards', function () {
+        const cards = document.getElementsByClassName('subject-set-card')
+        expect(cards.length).to.equal(SubjectSetPickerMock.subjectSets.length)
+      })
+    
+      SubjectSetPickerMock.subjectSets.forEach((subjectSet, index) => {
+        it(`should find the subject set name at index ${index}`, async function () {
+          const card = screen.getByTestId(`subject-set-card-${subjectSet.id}`)
+          await expect(within(card).getByText(subjectSet.display_name)).to.exist()
+        })
+    
+        it(`should find the subject set total subjects at index ${index}`, async function () {
+          const card = screen.getByTestId(`subject-set-card-${subjectSet.id}`)
+          await expect(within(card).getByText(`${subjectSet.set_member_subjects_count} subjects`)).to.exist()
+        })
+    
+        it(`should find the subject set completion at index ${index}`, async function () {
+          await expect(screen.getByTestId(`test-subject-set-card-${subjectSet.id}`).getAttribute('href'))
+            .to.equal(`${SubjectSetPickerBaseURL}/workflow/${Object.keys(subjectSet.completeness)[0]}/subject-set/${subjectSet.id}`)
+        })
+      })
 
-  before(function () {
-    wrapper = shallow(
-      <SubjectSetPicker
-        baseUrl='/projects/test-owner/test-project/classify'
-        title={mockWorkflow.displayName}
-        workflow={mockWorkflow}
-      />
-    )
-  })
+      it('should render completed Subject Sets after incomplete Subject Sets', async function () {
+        // Assuming un-sorted array from SubjectSetPickerMock is: [
+        //   { id: '85771', completeness: 1 },
+        //   { id: '85772', completeness: 0 },
+        //   { id: '85773', completeness: 0.67 },
+        // ]
 
-  describe('content heading', function () {
-    let heading
-
-    before(function () {
-      heading = wrapper.find(StyledHeading)
-    })
-
-    it('should contain the heading text', function () {
-      expect(heading.children().first().text()).to.equal('SubjectSetPicker.heading')
-      /** The translation function will simply return keys in a testing env */
-    })
-
-    it('should have an xsmall top margin', function () {
-      expect(heading.props().margin.top).to.equal('xsmall')
-    })
-
-    it('should have no bottom margin', function () {
-      expect(heading.props().margin.bottom).to.equal('none')
-    })
-  })
-
-  describe('content byline', function () {
-    let description
-
-    before(function () {
-      description = wrapper.find(Paragraph)
-    })
-
-    it('should contain the byline text', function () {
-      expect(description.children().first().text()).to.equal('SubjectSetPicker.byline')
-      /** The translation function will simply return keys in a testing env */
-    })
-
-    it('should have a small top margin', function () {
-      expect(description.props().margin.top).to.equal('15px')
-    })
-
-    it('should have a larger bottom margin', function () {
-      expect(description.props().margin.bottom).to.equal('medium')
-    })
-  })
-
-  describe('subject set cards', function () {
-
-    it('should render the correct amount', function () {
-      const cards = wrapper.find(SubjectSetCard)
-      expect(cards.length).to.equal(mockWorkflow.subjectSets.length)
-    })
-
-    it('should render completed Subject Sets after incomplete Subject Sets', function () {
-      const cards = wrapper.find(SubjectSetCard)
-
-      // Assuming un-sorted array is: [
-      //   { 'Ultraman Series', completeness: 1 },
-      //   { 'Transformers Series', completeness: 0 },
-      //   { 'Overwatch Series', completeness: 0.67 },
-      // ]
-      expect(cards.at(0).props().display_name).to.equal('Transformers Series')
-      expect(cards.at(0).props().completeness).to.equal(0)
-
-      expect(cards.at(1).props().display_name).to.equal('Overwatch Series')
-      expect(cards.at(1).props().completeness).to.equal(0.67)
-
-      expect(cards.at(2).props().display_name).to.equal('Ultraman Series')
-      expect(cards.at(2).props().completeness).to.equal(1)
-    })
-  })
-
-  describe('Back link', function () {
-    let link
-
-    before(function () {
-      link = wrapper.find(Link).first()
-    })
-
-    it('should link to the base URL', function () {
-      expect(link.prop('href')).to.equal('/projects/test-owner/test-project/classify')
+        await waitFor(function() {
+          const cards = document.getElementsByClassName('test-subject-set-card');
+          expect(cards.length).to.equal(3)
+          expect(cards[0].dataset.testid).to.equal(`test-subject-set-card-${SubjectSetPickerMock.subjectSets[1].id}`)
+          expect(cards[1].dataset.testid).to.equal(`test-subject-set-card-${SubjectSetPickerMock.subjectSets[2].id}`)
+          expect(cards[2].dataset.testid).to.equal(`test-subject-set-card-${SubjectSetPickerMock.subjectSets[0].id}`)
+        })
+      })
     })
   })
 })

@@ -88,18 +88,18 @@ function SubjectSetPicker ({
             const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
             const panoptesCompleteness = subjectSet.completeness[workflow.id]
             return (
-              <Link
-                key={subjectSet.id}
-                href={addQueryParams(href)}
-                passHref
-              >
-                <Anchor>
-                  <SubjectSetCard
-                    {...subjectSet}
-                    completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
-                  />
-                </Anchor>
-              </Link>
+                <Link
+                  key={subjectSet.id}
+                  href={addQueryParams(href)}
+                  passHref
+                >
+                  <Anchor className="test-subject-set-card" data-testid={`test-subject-set-card-${subjectSet.id}`}>
+                    <SubjectSetCard
+                      {...subjectSet}
+                      completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
+                    />
+                  </Anchor>
+                </Link>
             )
           })}
         </Grid>
