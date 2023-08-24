@@ -1,108 +1,88 @@
-import { shallow } from 'enzyme'
-import { Anchor } from 'grommet'
-import { FavouritesButton, Media } from '@zooniverse/react-components'
-
-import SubjectPreview from './SubjectPreview'
-import { CollectionsButton, TalkLink } from './components'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { Plain, Transcription, Video } from './SubjectPreview.stories.js'
+import { SubjectPreviewState } from './SubjectPreview.mock.js'
 
 describe('Component > SubjectPreview', function () {
-  let wrapper
-  const subject = {
-    favorite: false,
-    id: '12345',
-    locations: [
-      { 'image/jpeg': 'https://somedomain/photo.jpg' }
-    ],
-    toggleFavourite: () => false
-  }
-  const slug = 'owner/projectName'
+  [Plain, Transcription, Video].forEach(Component => {
+    describe(`${Component.name} logged in story`, function () {
+      beforeEach(function () {
+        const Story = composeStory(Component, Meta)
+        render(<Story />)
+      })
 
-  before(function () {
-    wrapper = shallow(
-      <SubjectPreview
-        isLoggedIn
-        subject={subject}
-        slug={slug}
-      />
-    )
-  })
+      it('should link to the subject Talk page from the preview media', function () {
+        expect(screen.getByTestId(`subject-preview-link-${SubjectPreviewState.subjectId}`)).to.have.property('href')
+          .to.equal(`https://localhost/projects/${SubjectPreviewState.slug}/talk/subjects/${SubjectPreviewState.subjectId}`)
+      })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+      it('should display the subject image preview media', function () {
+        expect(screen.getByTestId(`subject-image-${SubjectPreviewState.subjectId}`)).to.exist()
+      })
 
-  describe('the preview media', function () {
-    let link
-    let media
+      it('should have a talk link', function () {
+        expect(screen.getByText('SubjectPreview.TalkLink.label')).to.exist()
+      })
 
-    before(function () {
-      link = wrapper.find(Anchor)
-      media = link.find(Media)
+      it('should have a favorites button', function () {
+        expect(screen.getByText('Add to favorites')).to.exist()
+      })
+
+      it('should be able to add to favorites', function () {
+        expect(screen.getByRole('checkbox', { checked: false })).to.exist()
+      })
+
+      it('should not have favorites disabled', function () {
+        expect(screen.getByRole('checkbox', { checked: false })).to.have.property('disabled').to.equal(false)
+      })
+
+      it('should have a collections button', function () {
+        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+      })
+
+      it('should have collections enabled', function () {
+        expect(screen.getByTestId('subject-collections-button')).to.have.property('disabled').to.equal(false)
+      })
     })
 
-    it('should link to the subject Talk page', function () {
-      expect(link.prop('href')).to.equal(`/projects/${slug}/talk/subjects/${subject.id}`)
-    })
+    describe(`${Component.name} logged out story`, function () {
+      beforeEach(function () {
+        const Story = composeStory(Component, Meta)
+        render(<Story isLoggedIn={false} />)
+      })
 
-    it('should display the first subject location', function () {
-      expect(media.prop('src')).to.equal('https://somedomain/photo.jpg')
-    })
+      it('should link to the subject Talk page from the preview media', function () {
+        expect(screen.getByTestId(`subject-preview-link-${SubjectPreviewState.subjectId}`)).to.have.property('href')
+          .to.equal(`https://localhost/projects/${SubjectPreviewState.slug}/talk/subjects/${SubjectPreviewState.subjectId}`)
+      })
 
-    it('should have alt text', function () {
-      expect(media.prop('alt')).to.equal('subject 12345')
-    })
-  })
+      it('should display the subject image preview media', function () {
+        expect(screen.getByTestId(`subject-image-${SubjectPreviewState.subjectId}`)).to.exist()
+      })
 
-  it('should have a talk link', function () {
-    expect(wrapper.find(TalkLink).length).to.equal(1)
-  })
+      it('should have a talk link', function () {
+        expect(screen.getByText('SubjectPreview.TalkLink.label')).to.exist()
+      })
 
-  describe('the favourites button', function () {
-    let favouritesButton
+      it('should have a favorites button', function () {
+        expect(screen.getByText('Add to favorites')).to.exist()
+      })
 
-    beforeEach(function () {
-      favouritesButton = wrapper.find(FavouritesButton)
-    })
+      it('should be able to add to favorites', function () {
+        expect(screen.getByRole('checkbox', { checked: false })).to.exist()
+      })
 
-    it('should exist', function () {
-      expect(favouritesButton.length).to.equal(1)
-    })
+      it('should have favorites disabled', function () {
+        expect(screen.getByRole('checkbox', { checked: false })).to.have.property('disabled').to.equal(true)
+      })
 
-    it('should be enabled', function () {
-      expect(favouritesButton.prop('disabled')).to.be.false()
-    })
+      it('should have a collections button', function () {
+        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+      })
 
-    it('should not be checked', function () {
-      expect(favouritesButton.prop('checked')).to.be.false()
-    })
-  })
-
-  describe('the collections button', function () {
-    it('should exist', function () {
-      expect(wrapper.find(CollectionsButton).length).to.equal(1)
-    })
-
-    it('should be enabled', function () {
-      expect(wrapper.find(CollectionsButton).prop('disabled')).to.be.false()
-    })
-  })
-
-  describe('without a logged-in user', function () {
-    before(function () {
-      wrapper = shallow(
-        <SubjectPreview
-          subject={subject}
-          slug={slug}
-        />
-      )
-    })
-
-    it('should disable favourites', function () {
-      expect(wrapper.find(FavouritesButton).prop('disabled')).to.be.true()
-    })
-
-    it('should disable collections', function () {
-      expect(wrapper.find(CollectionsButton).prop('disabled')).to.be.true()
+      it('should have collections disabled', function () {
+        expect(screen.getByTestId('subject-collections-button')).to.have.property('disabled').to.equal(true)
+      })
     })
   })
 })

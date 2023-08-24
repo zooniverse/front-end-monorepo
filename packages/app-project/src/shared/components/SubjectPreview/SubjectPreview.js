@@ -10,7 +10,7 @@ const defaultSubject = {
   toggleFavorite: () => false,
   locations: []
 }
-function SubjectPreview ({
+function SubjectPreview({
   height = '250px',
   isLoggedIn = false,
   placeholder,
@@ -28,6 +28,7 @@ function SubjectPreview ({
       fill
     >
       <Anchor
+        data-testid={`subject-preview-link-${subject.id}`}
         href={href}
       >
         <Box
@@ -37,6 +38,7 @@ function SubjectPreview ({
           width={width}
         >
           <Media
+            data-testid={`subject-image-${subject.id}`}
             alt={`subject ${subject.id}`}
             height={700}
             placeholder={placeholder}
