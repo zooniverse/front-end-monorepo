@@ -1,53 +1,48 @@
-import { inject, observer } from 'mobx-react'
+import { useContext } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { Component } from 'react'
-import { withRouter } from 'next/router'
-
+import { useRouter } from 'next/router'
 import ProjectStatistics from './ProjectStatistics'
 
-function storeMapper (stores) {
-  const { project } = stores.store
+function useStore() {
+  const { store } = useContext(MobXProviderContext)
+
   return {
-    classifications: project['classifications_count'],
-    completedSubjects: project['retired_subjects_count'],
-    projectName: project['display_name'],
-    subjects: project['subjects_count'],
-    volunteers: project['classifiers_count']
+    classifications: store?.project?.classifications_count,
+    completedSubjects: store?.project?.retired_subjects_count,
+    projectName: store?.project?.display_name,
+    subjects: store?.project?.subjects_count,
+    volunteers: store?.project?.classifiers_count
   }
 }
 
-class ProjectStatisticsContainer extends Component {
-  getLinkProps () {
-    const { router } = this.props
-    const owner = router?.query?.owner
-    const project = router?.query?.project
-    return {
-      href: `/projects/${owner}/${project}/stats`
-    }
+const ProjectStatisticsContainer = ({ className }) => {
+  const {
+    classifications,
+    completedSubjects,
+    projectName,
+    subjects,
+    volunteers
+  } = useStore()
+
+  const router = useRouter()
+  const owner = router?.query?.owner
+  const project = router?.query?.project
+  const linkProps = {
+    href: `/projects/${owner}/${project}/stats`
   }
 
-  render () {
-    const {
-      className,
-      classifications,
-      completedSubjects,
-      projectName,
-      subjects,
-      volunteers
-    } = this.props
-
-    return (
-      <ProjectStatistics
-        className={className}
-        classifications={classifications}
-        completedSubjects={completedSubjects}
-        linkProps={this.getLinkProps()}
-        projectName={projectName}
-        subjects={subjects}
-        volunteers={volunteers}
-      />
-    )
-  }
+  return (
+    <ProjectStatistics
+      className={className}
+      classifications={classifications}
+      completedSubjects={completedSubjects}
+      linkProps={linkProps}
+      projectName={projectName}
+      subjects={subjects}
+      volunteers={volunteers}
+    />
+  )
 }
 
 ProjectStatisticsContainer.propTypes = {
@@ -57,16 +52,4 @@ ProjectStatisticsContainer.propTypes = {
   volunteers: PropTypes.number
 }
 
-ProjectStatisticsContainer.defaultProps = {
-  classifications: 0,
-  completedSubjects: 0,
-  subjects: 0,
-  volunteers: 0
-}
-
-const DecoratedProjectStatisticsContainer = inject(storeMapper)(withRouter(observer(ProjectStatisticsContainer)))
-
-export {
-  DecoratedProjectStatisticsContainer as default,
-  ProjectStatisticsContainer
-}
+export default observer(ProjectStatisticsContainer)

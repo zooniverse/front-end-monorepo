@@ -21,17 +21,16 @@ const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
 `
 
-function ProjectStatistics (props) {
+function ProjectStatistics ({
+	className,
+	classifications,
+	completedSubjects,
+	linkProps,
+	projectName,
+	subjects,
+	volunteers
+}) {
   const { t } = useTranslation('components')
-  const {
-    className,
-    classifications,
-    completedSubjects,
-    linkProps,
-    projectName,
-    subjects,
-    volunteers
-  } = props
 
   return (
     <ContentBox
@@ -61,18 +60,22 @@ function ProjectStatistics (props) {
           />
           <NumbersGrid>
             <Stat
+              className="test-stat-project-statistics-volunteers"
               value={volunteers}
               label={t('ProjectStatistics.volunteers')}
             />
             <Stat
+              className="test-stat-project-statistics-classifications"
               value={classifications}
               label={t('ProjectStatistics.classifications')}
             />
             <Stat
+              className="test-stat-project-statistics-subjects"
               value={subjects}
               label={t('ProjectStatistics.subjects')}
             />
             <Stat
+              className="test-stat-project-statistics-completed-subjects"
               value={completedSubjects}
               label={t('ProjectStatistics.completedSubjects')}
             />
@@ -91,13 +94,6 @@ ProjectStatistics.propTypes = {
   projectName: string,
   subjects: number.isRequired,
   volunteers: number.isRequired
-}
-
-ProjectStatistics.defaultProps = {
-  classifications: 0,
-  completedSubjects: 0,
-  subjects: 0,
-  volunteers: 0
 }
 
 export default ProjectStatistics
