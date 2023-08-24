@@ -7,7 +7,7 @@ function getBySlug (params) {
   const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (queryParams.slug && typeof queryParams.slug !== 'string') return raiseError('Projects: Get request slug must be a string.', 'typeError')
-  if (queryParams.slug && queryParams.slug.includes('projects')) {
+  if (queryParams.slug?.startsWith('projects/') || queryParams.slug?.startsWith('/projects/')) {
     queryParams.slug = getProjectSlugFromURL(queryParams.slug)
   }
 
