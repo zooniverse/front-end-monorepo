@@ -120,8 +120,10 @@ describe('Components > SVGPanZoom', function () {
 
   it('should reset pan with new src', async function () {
     onPan(-1, 0)
-    let viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-    await waitFor(() => expect(viewBox).to.equal('-10 0 400 200'))
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('-10 0 400 200')
+    })
 
     wrapper.rerender(
       <SVGPanZoom
@@ -136,8 +138,10 @@ describe('Components > SVGPanZoom', function () {
         <svg />
       </SVGPanZoom>
     )
-    viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-    await waitFor(() => expect(viewBox).to.equal('0 0 200 400'))
+    await waitFor(() => {
+      const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
+      expect(viewBox).to.equal('0 0 200 400')
+    })
   })
 
   it('should reset zoom with new src', async function () {
@@ -166,7 +170,7 @@ describe('Components > SVGPanZoom', function () {
 
   describe('when zooming function is controlled by prop', function () {
     let setOnDragSpy, setOnPanSpy, setOnZoomSpy, wrapper
-    before(function () {
+    beforeEach(function () {
       setOnDragSpy = sinon.spy()
       setOnPanSpy = sinon.spy()
       setOnZoomSpy = sinon.spy()
@@ -213,6 +217,20 @@ describe('Components > SVGPanZoom', function () {
     })
 
     it('should unregister the handler when zooming is set to false', function () {
+      wrapper.rerender(
+        <SVGPanZoom
+          img={img}
+          naturalHeight={200}
+          naturalWidth={400}
+          setOnDrag={setOnDragSpy}
+          setOnPan={setOnPanSpy}
+          setOnZoom={setOnZoomSpy}
+          src={src}
+          zooming={true}
+        >
+          <svg />
+        </SVGPanZoom>
+      )
       wrapper.rerender(
         <SVGPanZoom
           img={img}
