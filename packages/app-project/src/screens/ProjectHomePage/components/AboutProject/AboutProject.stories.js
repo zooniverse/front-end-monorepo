@@ -1,13 +1,14 @@
-import AboutProject from './AboutProject'
-
-const description = 'This is some descriptive text'
-const projectName = 'Test Project'
+import { Provider } from 'mobx-react'
+import AboutProjectComponent from './index'
+import { AboutProjectMock } from './AboutProject.mock'
 
 export default {
   title: 'Project App / Screens / Project Home / About Project',
-  component: AboutProject
+  component: AboutProjectComponent
 }
 
-export const Default = () => (
-  <AboutProject description={description} projectName={projectName} />
+export const AboutProject = () => (
+  <Provider store={AboutProjectMock}>
+    <AboutProjectComponent />
+  </Provider>
 )
