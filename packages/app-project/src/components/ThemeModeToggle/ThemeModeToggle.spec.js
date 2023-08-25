@@ -1,15 +1,24 @@
-import { shallow } from 'enzyme'
-
-import ThemeModeToggle from './ThemeModeToggle'
-
-let wrapper
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import { Grommet } from 'grommet'
+import { zooTheme } from '@zooniverse/grommet-theme'
+import Meta, { ThemeModeToggle } from './ThemeModeToggle.stories.js'
 
 describe('Component > ThemeModeToggle', function () {
-  before(function () {
-    wrapper = shallow(<ThemeModeToggle />)
+  beforeEach(function () {
+    const ThemeModeToggleStory = composeStory(ThemeModeToggle, Meta)
+    render(
+      <Grommet theme={zooTheme}>
+        <ThemeModeToggleStory />
+      </Grommet>
+    )
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should render the switch text', function () {
+    expect(screen.getByText('ThemeModeToggle.switchToDark')).to.be.ok()
+  })
+
+  it('should have an accessible lable', function () {
+    expect(screen.getByLabelText('ThemeModeToggle.switchToDark')).to.be.ok()
   })
 })

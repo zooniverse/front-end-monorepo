@@ -1,20 +1,14 @@
-import { Box } from 'grommet'
-import ThemeModeToggle from './ThemeModeToggle'
+import ThemeModeToggleComponent from './index'
+import { Provider } from 'mobx-react'
+import { ThemeModeToggleMock } from './ThemeModeToggle.mock'
 
 export default {
   title: 'Project App / Shared / ThemeModeToggle',
-  component: ThemeModeToggle,
-  argTypes: {
-    onClick: {
-      action: 'clicked'
-    }
-  }
+  component: ThemeModeToggleComponent,
 }
 
-export const Default = ({ onClick, screenSize }) => {
-  return (
-    <Box pad='medium'>
-      <ThemeModeToggle onClick={onClick} screenSize={screenSize} />
-    </Box>
-  )
-}
+export const ThemeModeToggle = () => (
+  <Provider store={ThemeModeToggleMock}>
+    <ThemeModeToggleComponent />
+  </Provider>
+)
