@@ -89,7 +89,7 @@
     "mocha": "~10.2.0",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
-    "rehype-stringify": "~8.0.0",
+    "rehype-stringify": "~10.0.0",
     "remark-rehype": "~8.1.0",
     "sinon": "~15.2.0",
     "sinon-chai": "~3.7.0",
