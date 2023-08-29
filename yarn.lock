@@ -4613,14 +4613,14 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.4.0.tgz#12f137f00f2a209cb49a4084475dd93f23e0678a"
   integrity sha512-TLpb8a2hnWJoRLqoXpMADh82BFfRZll6JI2Waf1FjnvJ4SF9eS0zBbxybrjW3lFAHWy2XJi+rwcK8FiPj0iBoQ==
 
-"@storybook/react-webpack5@~7.3.0":
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/@storybook/react-webpack5/-/react-webpack5-7.3.2.tgz#f6d85dddcb4de583ab968f8ed00f4b6ce3075c54"
-  integrity sha512-Ps+OQ7GnK37cFWpFjD9y2SvMxh29qP5q4V0HYS6u/T0cALsgLGeg3T54llGUkXGH1/WVIfxm7PQPh7+ISMhOJQ==
+"@storybook/react-webpack5@~7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@storybook/react-webpack5/-/react-webpack5-7.4.0.tgz#084be7488809b7874654be4e90da3024c4bdf37b"
+  integrity sha512-dhcWU1gpY3KgbrHJwd10ND+VdOVU07QVeijRnR0qONnruOCXKawjhTGoWdCOWXkWX5IZjjLczMflnmrQ2eSkjA==
   dependencies:
-    "@storybook/builder-webpack5" "7.3.2"
-    "@storybook/preset-react-webpack" "7.3.2"
-    "@storybook/react" "7.3.2"
+    "@storybook/builder-webpack5" "7.4.0"
+    "@storybook/preset-react-webpack" "7.4.0"
+    "@storybook/react" "7.4.0"
     "@types/node" "^16.0.0"
 
 "@storybook/react@7.3.2", "@storybook/react@~7.3.0":
