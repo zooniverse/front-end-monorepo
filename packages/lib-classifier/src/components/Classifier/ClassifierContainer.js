@@ -1,7 +1,8 @@
+import asyncStates from '@zooniverse/async-states'
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
-import { applySnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { StrictMode, useEffect } from 'react';
 import i18n from '../../translations/i18n'
@@ -96,6 +97,7 @@ export default function ClassifierContainer({
     language: locale
   })
   const workflowStrings = workflowTranslation?.strings
+  const workflowIsReady = !!workflowSnapshot && !!workflowStrings
 
   /* Init a mobx store if store is null, or load from session storage when cachePanoptesData is true
       - storeEnvironment is the auth env and clients
@@ -115,27 +117,33 @@ export default function ClassifierContainer({
     When a project is fetched from Panoptes and it isn't already in the classifier store.
     (Do this before storing a workflow below)
   */
-  if (project?.id) {
-    const storedProject = classifierStore.projects.active
-    const projectChanged = project.id !== storedProject?.id
-
-    if (projectChanged) {
-      const { projects } = classifierStore
-      projects.setResources([project])
-      projects.setActive(project.id)
-    }
+  const storedProject = classifierStore.projects.active
+  if (project?.id && !storedProject) {
+    applySnapshot(classifierStore.projects, {
+      active: project.id,
+      loadingState: asyncStates.success,
+      resources: {
+        [project.id]: project
+      }
+    })
   }
 
   /*
     When a workflow is fetched from Panoptes and it isn’t already in the classifier store.
   */
- const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
-
- if (workflowSnapshot?.id && workflowStrings) {
-   workflowSnapshot.strings = workflowStrings
-    if (!storedWorkflow) {
-      classifierStore.workflows.setResources([workflowSnapshot])
+  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+  if (workflowIsReady && !storedWorkflow) {
+    const storedWorkflows = getSnapshot(classifierStore.workflows)
+    const newWorkflows = { ...storedWorkflows }
+    newWorkflows.loadingState = asyncStates.success
+    newWorkflows.resources = {
+      ...storedWorkflows.resources,
+      [workflowSnapshot.id]: {
+        ...workflowSnapshot,
+        strings: workflowStrings
+      }
     }
+    applySnapshot(classifierStore.workflows, newWorkflows)
   }
 
   /*
@@ -228,7 +236,6 @@ export default function ClassifierContainer({
   - the workflow has loaded.
   - the project has been added to the store.
   */
-  const workflowIsReady = !!workflowSnapshot?.strings
   const projectIsReady = !!classifierStore.projects.active
   const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
 
