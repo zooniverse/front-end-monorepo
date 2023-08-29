@@ -11,9 +11,9 @@
     "@jridgewell/trace-mapping" "^0.3.9"
 
 "@artsy/fresnel@~6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-6.2.0.tgz#ca47b02e28080c2c4a4831e4ded974bee1125dd1"
-  integrity sha512-y3ngWw9Snh+ajGU/RuvYNlKY9slON6aVeLT10vYSfk2w6tSImqSuGDr4tTQb50CvLXqaUy+0Oyh7MwvmQJvZZg==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-6.2.1.tgz#792098dab88a2cf375058404edb2f709c7994a18"
+  integrity sha512-UAyHZU64Vie3sLDdL3qD+7pODGzKNu9pSpxGKpDOCaiBvCDZnFXIfJEEfV9v9i+QiJJwzO+lqsFwvw6YiJeXFQ==
 
 "@aw-web-design/x-default-browser@1.4.126":
   version "1.4.126"
