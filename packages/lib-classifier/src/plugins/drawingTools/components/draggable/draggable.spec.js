@@ -1,5 +1,6 @@
-import { forwardRef } from 'react';
-import { mount } from 'enzyme'
+import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { forwardRef } from 'react'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -7,7 +8,7 @@ import draggable from './draggable'
 
 describe('draggable', function () {
   const StubComponent = forwardRef((props, ref) => {
-    return <p ref={ref}>Hello there!</p>
+    return <p id='pointer-target' ref={ref}>Hello there!</p>
   })
   const Draggable = draggable(StubComponent)
   const onStart = sinon.stub()
@@ -25,10 +26,9 @@ describe('draggable', function () {
       inverse: sinon.stub()
     }))
   }
-  let wrapper
 
-  before(function () {
-    wrapper = mount(
+  beforeEach(function () {
+    render(
       <SVGContext.Provider value={{ svg: mockSVG }}>
         <svg>
           <Draggable
@@ -39,20 +39,16 @@ describe('draggable', function () {
         </svg>
       </SVGContext.Provider>
     )
-      .find(Draggable)
+  })
+
+  afterEach(function () {
+    sinon.resetHistory()
   })
 
   describe('on pointer down', function () {
-    before(function () {
-      const fakeEvent = {
-        preventDefault () {
-          return true
-        },
-        stopPropagation () {
-          return true
-        }
-      }
-      wrapper.simulate('pointerdown', fakeEvent)
+    beforeEach(async function () {
+      const user = userEvent.setup()
+      await user.pointer({ keys: '[MouseLeft>]', target: document.querySelector('#pointer-target') })
     })
 
     it('should start dragging', function () {
@@ -61,16 +57,12 @@ describe('draggable', function () {
   })
 
   describe('on pointer move', function () {
-    before(function () {
-      const fakeEvent = {
-        preventDefault () {
-          return true
-        },
-        stopPropagation () {
-          return true
-        }
-      }
-      wrapper.simulate('pointermove', fakeEvent)
+    beforeEach(async function () {
+      const user = userEvent.setup()
+      await user.pointer([
+        { keys: '[MouseLeft>]', target: document.querySelector('#pointer-target') },
+        { coords: { x: 10, y: 10 }}
+      ])
     })
 
     it('should drag to a new position', function () {
@@ -79,17 +71,13 @@ describe('draggable', function () {
   })
 
   describe('on pointer up', function () {
-    before(function () {
-      const fakeEvent = {
-        currentTarget: {},
-        preventDefault () {
-          return true
-        },
-        stopPropagation () {
-          return true
-        }
-      }
-      wrapper.simulate('pointerup', fakeEvent)
+    beforeEach(async function () {
+      const user = userEvent.setup()
+      await user.pointer([
+        { keys: '[MouseLeft>]', target: document.querySelector('#pointer-target') },
+        { coords: { x: 10, y: 10 }},
+        { keys: '[/MouseLeft]' },
+      ])
     })
 
     it('should stop dragging', function () {
