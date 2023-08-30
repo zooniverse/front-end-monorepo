@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import App from './components/App'
 
 function getQueryParams() {
@@ -16,4 +16,5 @@ function getQueryParams() {
 }
 
 const { language, subject, subjectSet, workflow } = getQueryParams()
-ReactDOM.render(<App locale={language} subjectID={subject} subjectSetID={subjectSet} workflowID={workflow} />, document.getElementById('root'))
+const root = createRoot(document.getElementById('root'))
+root.render(<App locale={language} subjectID={subject} subjectSetID={subjectSet} workflowID={workflow} />)
