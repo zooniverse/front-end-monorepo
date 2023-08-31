@@ -4,7 +4,7 @@ import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import { StrictMode, useEffect } from 'react';
+import { useEffect } from 'react';
 import i18n from '../../translations/i18n'
 import {
   env,
@@ -241,20 +241,18 @@ export default function ClassifierContainer({
 
   try {
     return (
-      <StrictMode>
-        <Provider classifierStore={classifierStore}>
-          {classifierIsReady ?
-            <Classifier
-              onError={onError}
-              showTutorial={showTutorial}
-              subjectSetID={subjectSetID}
-              subjectID={subjectID}
-              workflowSnapshot={workflowSnapshot}
-            /> :
-            <Paragraph>Loading…</Paragraph>
-          }
-        </Provider>
-      </StrictMode>
+      <Provider classifierStore={classifierStore}>
+        {classifierIsReady ?
+          <Classifier
+            onError={onError}
+            showTutorial={showTutorial}
+            subjectSetID={subjectSetID}
+            subjectID={subjectID}
+            workflowSnapshot={workflowSnapshot}
+          /> :
+          <Paragraph>Loading…</Paragraph>
+        }
+      </Provider>
     )
   } catch (error) {
     const info = {

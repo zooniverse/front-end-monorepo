@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import { useEffect } from 'react';
+import { StrictMode, useEffect } from 'react';
 
 import { useStores } from '@hooks'
 import Layout from './components/Layout'
@@ -56,10 +56,10 @@ function Classifier({
 
   try {
     return (
-      <>
+      <StrictMode>
         <Layout />
         {showTutorial && <ModalTutorial />}
-      </>
+      </StrictMode>
     )
   } catch (error) {
     const info = {
