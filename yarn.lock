@@ -12677,9 +12677,9 @@ mobx-utils@~6.0.4:
   integrity sha512-fPNt0vJnHwbQx9MojJFEnJLfM3EMGTtpy4/qOOW6xueh1mPofMajrbYAUvByMYAvCJnpy1A5L0t+ZVB5niKO4g==
 
 mobx@~6.10.0:
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.10.0.tgz#3537680fe98d45232cc19cc8f76280bd8bb6b0b7"
-  integrity sha512-WMbVpCMFtolbB8swQ5E2YRrU+Yu8iLozCVx3CdGjbBKlP7dFiCSuiG06uea3JCFN5DnvtAX7+G5Bp82e2xu0ww==
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.10.1.tgz#4bf9a838d7a99dc7f9d6cdf35e2ea1bd62f5561a"
+  integrity sha512-oKibSy1GDJI+KfCKbqgFbxYt7DcpZ6jkq9byTzr9AYDGWOg4snI9Ux21U3hpFqhK4Ouw78CJQomRDbfXo1R6pg==
 
 mocha@~10.2.0:
   version "10.2.0"
