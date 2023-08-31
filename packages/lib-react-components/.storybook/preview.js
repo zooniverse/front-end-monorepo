@@ -2,6 +2,7 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import i18n from '../src/translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+import { StrictMode } from 'react'
 
 const background = {
   dark: 'dark-1',
@@ -24,14 +25,16 @@ const globalTypes = {
 const decorators = [
   (Story, context) => {
     return (
-      <Grommet
-        background={background}
-        theme={zooTheme}
-        themeMode={context.globals.theme}
-        full
-      >
-        <Story />
-      </Grommet>
+      <StrictMode>
+        <Grommet
+          background={background}
+          theme={zooTheme}
+          themeMode={context.globals.theme}
+          full
+        >
+          <Story />
+        </Grommet>
+      </StrictMode>
     )
   }
 ]
