@@ -1,10 +1,9 @@
 {
   "404": {
-    "heading": "Nothing here",
+    "heading": "Nothing here.",
     "message": "The page you're looking for no longer exists.",
-    "returnHome": "Return to the home page",
-    "or": "or",
-    "findNewProject": "find a new project to explore"
+    "returnHome": "Return to the homepage",
+    "findNewProject": "Find a new project to explore"
   },
   "Announcements": {
     "AuthenticationInvitation": {
