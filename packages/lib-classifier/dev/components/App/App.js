@@ -3,7 +3,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import { Button, CheckBox, Grommet, Box, base as baseTheme } from 'grommet'
 import _ from 'lodash'
 import oauth from 'panoptes-client/lib/oauth'
-import React from 'react'
+import { Component } from 'react'
 
 import Classifier from '../../../src/components/Classifier'
 import localeMenu from './localeMenu.js'
@@ -11,7 +11,7 @@ import localeMenu from './localeMenu.js'
 const onAddToCollection = (subjectId) => console.log(subjectId)
 const onCompleteClassification = (classification, subject) => console.log('onComplete', classification, subject)
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.selectLocale = this.selectLocale.bind(this)
