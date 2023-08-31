@@ -93,7 +93,7 @@ const subjectSets = [
   }
 ]
 
-const WORKFLOW = {
+export const SubjectSetPickerMock = {
   completeness: 0.37,
   displayName: 'Question Workflow (grouped)',
   grouped: true,
@@ -101,4 +101,4 @@ const WORKFLOW = {
   subjectSets
 }
 
-export default WORKFLOW
+export const SubjectSetPickerBaseURL = '/projects/test-owner/test-project/classify'
