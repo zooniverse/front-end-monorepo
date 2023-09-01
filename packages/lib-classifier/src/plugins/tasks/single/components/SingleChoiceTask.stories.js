@@ -1,10 +1,11 @@
 import asyncStates from '@zooniverse/async-states'
 import { MockTask } from '@stories/components'
-import SingleChoiceTask from './SingleChoiceTask'
+import { SingleChoiceTaskDataMock } from './SingleChoiceTask.mock'
+import SingleChoiceTaskComponent from './SingleChoiceTask'
 
 export default {
   title: 'Tasks / Single Choice Question',
-  component: SingleChoiceTask,
+  component: SingleChoiceTaskComponent,
   args: {
     isThereTaskHelp: true,
     required: false,
@@ -20,26 +21,12 @@ export default {
   }
 }
 
-export function Default({ isThereTaskHelp, required, subjectReadyState }) {
-  const tasks = {
-    init: {
-      answers: [{ label: 'yes' }, { label: 'no' }],
-      required,
-      strings: {
-        help: isThereTaskHelp ? 'Choose an answer from the choices given, then press Done.' : '',
-        question: 'Is there a cat?',
-        'answers.0.label': 'yes',
-        'answers.1.label': 'no'
-      },
-      taskKey: 'init',
-      type: 'single'
-    }
-  }
+export function SingleChoiceQuestion({ isThereTaskHelp = false, required = false, subjectReadyState }) {
   return (
     <MockTask
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
-      tasks={tasks}
+      tasks={SingleChoiceTaskDataMock({ isThereTaskHelp, required })}
     />
   )
 }

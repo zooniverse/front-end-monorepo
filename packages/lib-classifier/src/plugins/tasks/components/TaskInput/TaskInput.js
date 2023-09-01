@@ -124,6 +124,7 @@ export function TaskInput (props) {
       theme={theme}
     >
       <input
+        data-testid={`test-task-input-${index}`}
         autoFocus={autoFocus}
         checked={checked}
         disabled={disabled}
