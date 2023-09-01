@@ -19,7 +19,8 @@
         "@stories": "./src/stories",
         "@test": "./test",
         "@translations": "./src/translations",
-        "@viewers": "./src/components/Classifier/components/SubjectViewer"
+        "@viewers": "./src/components/Classifier/components/SubjectViewer",
+        "@storybook_config": "./.storybook"
       }
     }]
   ],

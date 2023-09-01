@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { withRequireUserText } from './withRequireUser.mock'
-import { composeStory } from '@storybook/react'
-import Meta, { LoggedIn, LoggedOut } from './withRequireUser.stories'
+import { LoggedIn, LoggedOut } from './withRequireUser.stories'
+import SpecStory from '@storybook_config/specStory'
 
 describe('withRequireUser', function () {
   describe('behavior when logged in', function () {
     beforeEach(function () {
-			const LoggedInStory = composeStory(LoggedIn, Meta)
-			render(<LoggedInStory />)
+      const LoggedInStory = SpecStory(LoggedIn)
+      render(<LoggedInStory />)
     })
 
     it('should render the wrapped component', function () {
@@ -15,15 +15,15 @@ describe('withRequireUser', function () {
     })
 
     it('shouldn\'t include a message to log in', function () {
-			// doesn't have translation so we use the key
+      // doesn't have translation so we use the key
       expect(screen.queryByText('RequireUser.text')).to.be.null()
     })
   })
 
-	describe('behavior when not logged in', function () {
+  describe('behavior when not logged in', function () {
     beforeEach(function () {
-			const LoggedOutStory = composeStory(LoggedOut, Meta)
-			render(<LoggedOutStory />)
+      const LoggedOutStory = SpecStory(LoggedOut)
+      render(<LoggedOutStory />)
     })
 
     it('should render the wrapped component', function () {
@@ -31,7 +31,7 @@ describe('withRequireUser', function () {
     })
 
     it('should include a message to log in', function () {
-			// doesn't have translation so we use the key
+      // doesn't have translation so we use the key
       expect(screen.queryByText('RequireUser.text')).to.exist()
     })
   })
