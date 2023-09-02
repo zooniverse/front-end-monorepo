@@ -1,8 +1,8 @@
 import { composeStory } from '@storybook/react'
 import preview from './preview.js'
 
-export const SpecStory = (StoryComponent) => {
-  return composeStory(StoryComponent, preview)
+export const specStory = (...args) => {
+  return composeStory(...args, preview)
 }
 
-export default SpecStory
+export default specStory

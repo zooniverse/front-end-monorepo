@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { withRequireUserText } from './withRequireUser.mock'
-import { LoggedIn, LoggedOut } from './withRequireUser.stories'
-import SpecStory from '@storybook_config/specStory'
+import Meta, { LoggedIn, LoggedOut } from './withRequireUser.stories'
+import specStory from '@storybook_config/specStory'
 
 describe('withRequireUser', function () {
   describe('behavior when logged in', function () {
     beforeEach(function () {
-      const LoggedInStory = SpecStory(LoggedIn)
+      const LoggedInStory = specStory(LoggedIn, Meta)
       render(<LoggedInStory />)
     })
 
@@ -22,7 +22,7 @@ describe('withRequireUser', function () {
 
   describe('behavior when not logged in', function () {
     beforeEach(function () {
-      const LoggedOutStory = SpecStory(LoggedOut)
+      const LoggedOutStory = specStory(LoggedOut, Meta)
       render(<LoggedOutStory />)
     })
 
