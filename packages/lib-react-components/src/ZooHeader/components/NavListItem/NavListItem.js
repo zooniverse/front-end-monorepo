@@ -21,9 +21,9 @@ export const StyledNavListItem = styled(Anchor)`
 `
 
 // TODO: This component is causing a styled-components error and needs a fix
-function NavListItem ({ className, color, label, theme, url }) {
+function NavListItem ({ className, color, label, margin, theme, url }) {
   return (
-    <StyledNavListItem className={className} color={color} href={url} theme={theme} >
+    <StyledNavListItem className={className} color={color} href={url} margin={margin} theme={theme} >
       <SpacedText
         size='xsmall'
         weight='bold'
@@ -46,6 +46,7 @@ NavListItem.defaultProps = {
 NavListItem.propTypes = {
   color: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+  margin: PropTypes.object,
   theme: PropTypes.object,
   url: PropTypes.string.isRequired
 }

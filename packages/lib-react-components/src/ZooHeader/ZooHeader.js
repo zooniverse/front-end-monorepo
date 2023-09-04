@@ -103,29 +103,38 @@ export default function ZooHeader({
           mainHeaderNavListURLs={mainHeaderNavListURLs}
         />
       </Box>
-      <SignedOutUserNavigation
-        adminNavLinkLabel={adminNavLinkLabel}
-        adminNavLinkURL={adminNavLinkURL}
-        isAdmin={isAdmin}
-        isNarrow={isNarrow}
-        mainHeaderNavListLabels={mainHeaderNavListLabels}
-        mainHeaderNavListURLs={mainHeaderNavListURLs}
-        register={register}
-        signIn={signIn}
-        user={user}
-      />
-      <SignedInUserNavigation
-        adminNavLinkLabel={adminNavLinkLabel}
-        adminNavLinkURL={adminNavLinkURL}
-        isAdmin={isAdmin}
-        isNarrow={isNarrow}
-        mainHeaderNavListLabels={mainHeaderNavListLabels}
-        mainHeaderNavListURLs={mainHeaderNavListURLs}
-        unreadMessages={unreadMessages}
-        unreadNotifications={unreadNotifications}
-        signOut={signOut}
-        user={user}
-      />
+      <Box
+        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
+        as='nav'
+        align='center'
+        direction='row'
+      >
+        {Object.keys(user).length === 0 ?
+          <SignedOutUserNavigation
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            isAdmin={isAdmin}
+            isNarrow={isNarrow}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+            register={register}
+            signIn={signIn}
+            user={user}
+          /> :
+          <SignedInUserNavigation
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            isAdmin={isAdmin}
+            isNarrow={isNarrow}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+            unreadMessages={unreadMessages}
+            unreadNotifications={unreadNotifications}
+            signOut={signOut}
+            user={user}
+          />
+        }
+      </Box>
     </StyledHeader>
   )
 }
