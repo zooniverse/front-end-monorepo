@@ -67,6 +67,7 @@ function JSONDataViewer({
     >
       <Viewer
         data={data}
+        experimentalSelectionTool
         interactionMode={interactionMode}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
