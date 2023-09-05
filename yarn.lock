@@ -3106,16 +3106,6 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
-"@sentry-internal/tracing@7.66.0":
-  version "7.66.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.66.0.tgz#45ea607917d55a5bcaa3229341387ff6ed9b3a2b"
-  integrity sha512-3vCgC2hC3T45pn53yTDVcRpHoJTBxelDPPZVsipAbZnoOVPkj7n6dNfDhj3I3kwWCBPahPkXmE+R4xViR8VqJg==
-  dependencies:
-    "@sentry/core" "7.66.0"
-    "@sentry/types" "7.66.0"
-    "@sentry/utils" "7.66.0"
-    tslib "^2.4.1 || ^1.9.3"
-
 "@sentry-internal/tracing@7.67.0":
   version "7.67.0"
   resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.67.0.tgz#08e8fc22951fc8218a0468c6e80ef00bd556e60d"
@@ -3126,7 +3116,7 @@
     "@sentry/utils" "7.67.0"
     tslib "^2.4.1 || ^1.9.3"
 
-"@sentry/browser@7.67.0":
+"@sentry/browser@7.67.0", "@sentry/browser@~7.67.0":
   version "7.67.0"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.67.0.tgz#4fcb764ff678367ae0c1419b772e7ec7805792bf"
   integrity sha512-5J7QUGJVKiltVJPSHwlBu/xmicNB7g5ARcgH8YEyu2LoxjLvZPUqWRD/zTWVYyW20sbgExrB39oyRwmkzN449A==
@@ -3136,18 +3126,6 @@
     "@sentry/replay" "7.67.0"
     "@sentry/types" "7.67.0"
     "@sentry/utils" "7.67.0"
-    tslib "^2.4.1 || ^1.9.3"
-
-"@sentry/browser@~7.66.0":
-  version "7.66.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.66.0.tgz#9aa3078f8914d2f8acb4ad9fc7b2011c80e357f5"
-  integrity sha512-rW037rf8jkhyykG38+HUdwkRCKHJEMM5NkCqPIO5zuuxfLKukKdI2rbvgJ93s3/9UfsTuDFcKFL1u43mCn6sDw==
-  dependencies:
-    "@sentry-internal/tracing" "7.66.0"
-    "@sentry/core" "7.66.0"
-    "@sentry/replay" "7.66.0"
-    "@sentry/types" "7.66.0"
-    "@sentry/utils" "7.66.0"
     tslib "^2.4.1 || ^1.9.3"
 
 "@sentry/cli@^1.74.6":
@@ -3161,15 +3139,6 @@
     progress "^2.0.3"
     proxy-from-env "^1.1.0"
     which "^2.0.2"
-
-"@sentry/core@7.66.0":
-  version "7.66.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.66.0.tgz#8968f2a9e641d33e3750a8e24d1d39953680c4f2"
-  integrity sha512-WMAEPN86NeCJ1IT48Lqiz4MS5gdDjBwP4M63XP4msZn9aujSf2Qb6My5uT87AJr9zBtgk8MyJsuHr35F0P3q1w==
-  dependencies:
-    "@sentry/types" "7.66.0"
-    "@sentry/utils" "7.66.0"
-    tslib "^2.4.1 || ^1.9.3"
 
 "@sentry/core@7.67.0":
   version "7.67.0"
@@ -3233,15 +3202,6 @@
     hoist-non-react-statics "^3.3.2"
     tslib "^2.4.1 || ^1.9.3"
 
-"@sentry/replay@7.66.0":
-  version "7.66.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.66.0.tgz#5469144192824e7688c475ed29586a8cce6606f6"
-  integrity sha512-5Y2SlVTOFTo3uIycv0mRneBakQtLgWkOnsJaC5LB0Ip0TqVKiMCbQ578vvXp+yvRj4LcS1gNd98xTTNojBoQNg==
-  dependencies:
-    "@sentry/core" "7.66.0"
-    "@sentry/types" "7.66.0"
-    "@sentry/utils" "7.66.0"
-
 "@sentry/replay@7.67.0":
   version "7.67.0"
   resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.67.0.tgz#b8865d28dddb5eff7b4fc2aa5d3ba05ceb16403a"
@@ -3251,23 +3211,10 @@
     "@sentry/types" "7.67.0"
     "@sentry/utils" "7.67.0"
 
-"@sentry/types@7.66.0":
-  version "7.66.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.66.0.tgz#4ec290cc6a3dd2024a61a0bffb468cedb409f7fb"
-  integrity sha512-uUMSoSiar6JhuD8p7ON/Ddp4JYvrVd2RpwXJRPH1A4H4Bd4DVt1mKJy1OLG6HdeQv39XyhB1lPZckKJg4tATPw==
-
 "@sentry/types@7.67.0":
   version "7.67.0"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.67.0.tgz#1f11e1c23d47869a25f7f37279a72fa7d1daef45"
   integrity sha512-GV/Hxdsp/hes1YQGPGgSUG1IHRNQVJMnCfYcpuZtZI6CvNJ+7qNOLkdmC/xGFwfpYH9kYsFBvmGsmeC6yUENYA==
-
-"@sentry/utils@7.66.0":
-  version "7.66.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.66.0.tgz#2e37c96610f26bc79ac064fca4222ea91fece68d"
-  integrity sha512-9GYUVgXjK66uXXcLXVMXVzlptqMtq1eJENCuDeezQiEFrNA71KkLDg00wESp+LL+bl3wpVTBApArpbF6UEG5hQ==
-  dependencies:
-    "@sentry/types" "7.66.0"
-    tslib "^2.4.1 || ^1.9.3"
 
 "@sentry/utils@7.67.0":
   version "7.67.0"
