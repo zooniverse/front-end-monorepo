@@ -43,7 +43,7 @@ When "Clone markers in all frames" is unchecked/disabled in the project builder:
 - The frame that the volunteer added the mark to should be recorded in its annotation
 - If a volunteer drags a mark to a new position, that new position should only apply to the dragged mark
 
-## Consequnces
+## Consequences
 
 To implement the drawing tools on Separate Frames Viewer, refactoring of InteractionLayer's handling of "current frame" is needed. The InteractionLayer is displayed on top of a subject image, and it is aware that is should only show/draw/edit marks for the current frame. However, it pulls the "current frame" value from the Subject Viewer Store. Then, when a mark is drawn on any subject viewer in FEM, the "current frame" is recorded in the annotation.
 
