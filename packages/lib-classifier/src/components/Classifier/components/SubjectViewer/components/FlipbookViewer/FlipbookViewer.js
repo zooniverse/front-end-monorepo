@@ -132,11 +132,17 @@ FlipbookViewer.propTypes = {
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
+  limit_subject_height: PropTypes.bool,
+  /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
+  /** withKeyZoom() is for using keyboard pan and zoom controls while focused on the subject image */
+  onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */
   playIterations: PropTypes.number,
+  /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
+  rotation: PropTypes.number,
   /** Passed from the Subject Viewer Store */
   setOnPan: PropTypes.func,
   /** Passed from the Subject Viewer Store */
