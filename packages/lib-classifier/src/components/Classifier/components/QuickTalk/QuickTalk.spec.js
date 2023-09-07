@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { QuickTalk } from './QuickTalk'
@@ -84,7 +84,7 @@ describe('Component > QuickTalk', function () {
       await user.click(screen.queryByRole('button', quickTalkButton_target))
 
       expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist()
+      await waitFor(() => expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist())
     })
   })
 

@@ -14,40 +14,40 @@ const SpacedBox = styled(Box)`
 `
 
 function NarrowGenericAnnouncement(props) {
-  const {
-    announcement,
-    children,
-    closeFn,
-    color,
-    dismissable
-  } = props
+	const {
+		announcement,
+		children,
+		closeFn,
+		color,
+		dismissable
+	} = props
 
-  return (
-    <Box align='center' background={color} fill='horizontal' pad={{ horizontal: 'small', vertical: 'xsmall'} }>
-      <Box align='center' direction='row' gap='small' justify='between'>
-        <SpacedBox direction='column'>
-          <Markdownz components={markdownzComponents}>
-            {announcement}
-          </Markdownz>
-        </SpacedBox>
-        {children}
-        {dismissable &&
-          <CloseButton closeFn={closeFn} />}
-      </Box>
-    </Box>
-  )
+	return (
+		<Box align='center' background={color} fill='horizontal' pad={{ horizontal: 'small', vertical: 'xsmall' }}>
+			<Box align='center' direction='row' gap='small' justify='between'>
+				<SpacedBox direction='column'>
+					<Markdownz components={markdownzComponents}>
+						{announcement}
+					</Markdownz>
+				</SpacedBox>
+				{children}
+				{dismissable &&
+					<CloseButton closeFn={closeFn} />}
+			</Box>
+		</Box>
+	)
 }
 
 NarrowGenericAnnouncement.defaultProps = {
-  dismissable: false,
-  closeFn: () => {}
+	dismissable: false,
+	closeFn: () => { }
 }
 
 NarrowGenericAnnouncement.propTypes = {
-  announcement: string.isRequired,
-  closeFn: func,
-  color: string.isRequired,
-  dismissable: bool
+	announcement: string.isRequired,
+	closeFn: func,
+	color: string.isRequired,
+	dismissable: bool
 }
 
 export default NarrowGenericAnnouncement

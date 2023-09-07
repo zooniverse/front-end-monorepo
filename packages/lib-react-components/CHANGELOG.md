@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.5] 2023-08-15
+
+### Changed
+- add `sideEffects: false` to enable pruning of unused exports during tree-shaking.
+
 ## [1.5.4] 2023-06-01
 
 ### Fixed

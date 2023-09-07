@@ -1,22 +1,24 @@
 import Project from './Project'
 
-let model
-
-const stub = {
-  id: '1',
-  configuration: {
-    foo: 'bar'
-  },
-  'display_name': 'Foobar',
-  links: {
-    arrayLink: [
-      'foobar'
-    ]
-  },
-  slug: 'zooniverse/foobar'
-}
-
 describe('Model > Project', function () {
+  let model
+
+  const stub = {
+    id: '1',
+    configuration: {
+      foo: 'bar'
+    },
+    links: {
+      arrayLink: [
+        'foobar'
+      ]
+    },
+    strings: {
+      display_name: 'Foobar'
+    },
+    slug: 'zooniverse/foobar'
+  }
+
   before(function () {
     model = Project.create(stub)
   })
@@ -30,7 +32,7 @@ describe('Model > Project', function () {
   })
 
   it('should have a `display_name` property', function () {
-    expect(model.display_name).to.equal(stub.display_name)
+    expect(model.display_name).to.equal(stub.strings.display_name)
   })
 
   it('should have a `links` property', function () {

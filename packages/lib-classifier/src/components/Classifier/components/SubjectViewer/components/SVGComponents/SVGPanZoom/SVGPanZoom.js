@@ -1,6 +1,8 @@
+import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import { cloneElement, useEffect, useState } from 'react'
 
+const DEFAULT_HANDLER = () => true
 function SVGPanZoom({
   children,
   img,
@@ -9,9 +11,9 @@ function SVGPanZoom({
   minZoom = 1,
   naturalHeight,
   naturalWidth,
-  setOnDrag = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  setOnDrag = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   src,
   zooming = true
 }) {
@@ -25,16 +27,21 @@ function SVGPanZoom({
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {
-    setOnDrag(onDrag)
+    setOnDrag(debounce(onDrag, 10))
     setOnPan(onPan)
     setOnZoom(onZoom)
   }
 
   function disableZoom() {
-    setOnDrag(() => true)
-    setOnPan(() => true)
-    setOnZoom(() => true)
+    setOnDrag(DEFAULT_HANDLER)
+    setOnPan(DEFAULT_HANDLER)
+    setOnZoom(DEFAULT_HANDLER)
   }
+
+  useEffect(function onZoomChange() {
+    const newViewBox = scaledViewBox(zoom)
+    setViewBox(newViewBox)
+  }, [zoom])
 
   useEffect(() => {
     if (zooming) {
@@ -42,12 +49,6 @@ function SVGPanZoom({
       return disableZoom
     }
   }, [zooming, src])
-
-  useEffect(
-    function onZoomChange() {
-      const newViewBox = scaledViewBox(zoom)
-      setViewBox(newViewBox)
-    }, [zoom])
 
   useEffect(() => {
     setZoom(1)
@@ -75,16 +76,18 @@ function SVGPanZoom({
 
   function onDrag(event, difference) {
     setViewBox((prevViewBox) => {
-      const newViewBox = Object.assign({}, prevViewBox)
-      newViewBox.x -= difference.x / 1.5
-      newViewBox.y -= difference.y / 1.5
+      const newViewBox = {
+        ...prevViewBox,
+        x: prevViewBox.x - difference.x,
+        y: prevViewBox.y - difference.y
+      }
       return newViewBox
     })
   }
 
   function onPan(dx, dy) {
     setViewBox((prevViewBox) => {
-      const newViewBox = Object.assign({}, prevViewBox)
+      const newViewBox = { ...prevViewBox }
       newViewBox.x += dx * 10
       newViewBox.y += dy * 10
       return newViewBox
@@ -113,7 +116,7 @@ function SVGPanZoom({
     }
   }
 
-  const { x, y, width, height } = scaledViewBox(zoom)
+  const { x, y, width, height } = viewBox
   const scale = imageScale(img)
 
   return (

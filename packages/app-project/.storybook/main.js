@@ -14,6 +14,7 @@ function webpackFinal(config, options) {
       ...webpackConfig.resolve.fallback,
       "url": false,
       crypto: false,
+      fs: false,
       path: 'path-browserify'
     }
   }

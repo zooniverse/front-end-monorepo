@@ -1,27 +1,20 @@
-import { shallow } from 'enzyme'
-
-import GenericAnnouncement from './GenericAnnouncement'
-import NarrowGenericAnnouncement from './components/NarrowGenericAnnouncement'
-import WideGenericAnnouncement from './components/WideGenericAnnouncement'
-
-const ANNOUNCEMENT = 'Arcu scelerisque curae eu sapien euismod nisl, viverra gravida donec interdum tempor vulputate nec, nam morbi rhoncus porta sollicitudin.'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { Default, Dismissable } from './GenericAnnouncement.stories.js'
+import { AnnouncementText } from './GenericAnnouncement.mock'
 
 describe('Component > ProjectAnnouncement', function () {
-  let wrapper
+	it('should render the GenericProjectAnnouncement component without a close button', function () {
+		const DefaultStory = composeStory(Default, Meta)
+		render(<DefaultStory />)
+		expect(screen.findByText(AnnouncementText)).to.exist();
+		expect(screen.queryByRole('button', { name: 'close' })).to.be.null()
+	})
 
-  before(function () {
-    wrapper = shallow(<GenericAnnouncement announcement={ANNOUNCEMENT} closeFn={() => {}} />)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render the NarrowProjectAnnouncement component', function () {
-    expect(wrapper.find(NarrowGenericAnnouncement)).to.have.lengthOf(1)
-  })
-
-  it('should render the WideProjectAnnouncement component', function () {
-    expect(wrapper.find(WideGenericAnnouncement)).to.have.lengthOf(1)
-  })
+	it('should render the GenericProjectAnnouncement component with a close button', function () {
+		const DismissableStory = composeStory(Dismissable, Meta)
+		render(<DismissableStory />)
+		expect(screen.findByText(AnnouncementText)).to.exist();
+		expect(screen.findByRole('button', { name: 'close' })).to.be.ok()
+	})
 })

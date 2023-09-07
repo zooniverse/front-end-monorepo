@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
@@ -110,7 +110,7 @@ describe('Component > PreviousMarks', function () {
   })
 
   describe('when there are drawing task annotations', function () {
-    it('should render disabled drawing marks per task by frame', function () {
+    it('should render disabled drawing marks per task by frame', async function () {
       render(
         <PreviousMarks />,
         {
@@ -124,11 +124,13 @@ describe('Component > PreviousMarks', function () {
         expect(mark.getAttribute('tabindex')).to.equal('-1')
       })
       store.subjectViewer.setFrame(1)
-      marks = document.querySelectorAll('g.drawingMark')
-      expect(marks).to.have.lengthOf(2)
-      marks.forEach(mark => {
-        expect(mark.getAttribute('aria-disabled')).to.equal('true')
-        expect(mark.getAttribute('tabindex')).to.equal('-1')
+      await waitFor(() => {
+        const marks = document.querySelectorAll('g.drawingMark')
+        expect(marks).to.have.lengthOf(2)
+        marks.forEach(mark => {
+          expect(mark.getAttribute('aria-disabled')).to.equal('true')
+          expect(mark.getAttribute('tabindex')).to.equal('-1')
+        })
       })
       store.subjectViewer.setFrame(0)
     })
@@ -165,7 +167,7 @@ describe('Component > PreviousMarks', function () {
   })
 
   describe('when shown marks is NONE', function () {
-    it('should not show any marks', function ()  {
+    it('should not show any marks', async function ()  {
       render(
         <PreviousMarks />,
         {
@@ -175,8 +177,10 @@ describe('Component > PreviousMarks', function () {
       expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
       store.workflowSteps.interactionTask.togglePreviousMarks(SHOWN_MARKS.NONE)
       expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
-      const marks = document.querySelectorAll('g.drawingMark')
-      expect(marks).to.have.lengthOf(0)
+      await waitFor(() => {
+        const marks = document.querySelectorAll('g.drawingMark')
+        expect(marks).to.have.lengthOf(0)
+      })
     })
   })
 })

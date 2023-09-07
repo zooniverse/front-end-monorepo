@@ -1,25 +1,15 @@
-import { shallow } from 'enzyme'
-
-import { ProjectName } from './ProjectName'
-
-let wrapper
-const PROJECT_NAME = 'Foobar'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { ProjectName } from './ProjectName.stories.js'
+import { ProjectNameMock } from './ProjectName.mock'
 
 describe('Component > ProjectName', function () {
   before(function () {
-    wrapper = shallow(<ProjectName screenSize='medium' projectName={PROJECT_NAME} />)
+    const ProjectNameStory = composeStory(ProjectName, Meta)
+    render(<ProjectNameStory />)
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render the `name` prop', function () {
-    expect(wrapper.text()).to.include(PROJECT_NAME)
-  })
-
-  it('should render null if props.screenSize is small', function () {
-    wrapper.setProps({ screenSize: 'small' })
-    expect(wrapper.html()).to.be.null()
+  it('should render the project name', function () {
+    expect(screen.getByText(ProjectNameMock.project.display_name)).to.exist()
   })
 })

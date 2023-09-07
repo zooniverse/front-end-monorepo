@@ -84,6 +84,15 @@ describe('components > ClassifierContainer', function () {
         .get('/project_roles')
         .query(true)
         .reply(200, { project_roles: [] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -170,6 +179,15 @@ describe('components > ClassifierContainer', function () {
         .reply(200, { project_roles: [{ roles }] })
         .get('/me')
         .reply(200, { users: [mockUser] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -249,6 +267,15 @@ describe('components > ClassifierContainer', function () {
         .get('/project_roles')
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -336,6 +363,15 @@ describe('components > ClassifierContainer', function () {
         .get('/project_roles')
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -423,6 +459,15 @@ describe('components > ClassifierContainer', function () {
         .get('/project_roles')
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -510,6 +555,15 @@ describe('components > ClassifierContainer', function () {
         .get('/project_roles')
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -597,6 +651,15 @@ describe('components > ClassifierContainer', function () {
         .get('/project_roles')
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
 
       firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
@@ -677,6 +740,15 @@ describe('components > ClassifierContainer', function () {
       sinon.replace(window, 'Image', MockSubjectImage)
       const roles = []
       mockPanoptesAPI()
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
       userRequests = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/project_preferences')
         .query(true)
@@ -839,14 +911,13 @@ describe('components > ClassifierContainer', function () {
       )
       const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = frenchSnapshot.tasks.T0
-      const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
+      const getAnswerInput = (answer, index) => within(tabPanel).findByRole('radio', { name: frenchSnapshot.strings[`tasks.T0.answers.${index}.label`] })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
     })
 
     afterEach(function () {
       sinon.restore()
       nock.cleanAll()
-      cleanStore()
     })
 
     it('should show tasks in French', async function () {
@@ -858,7 +929,7 @@ describe('components > ClassifierContainer', function () {
         expect(radioButton.name).to.equal('T0')
         expect(radioButton.disabled).to.be.true()
       })
-      //expect(translationRequests.isDone()).to.be.true()
+      expect(translationRequests.isDone()).to.be.true()
     })
   })
 })

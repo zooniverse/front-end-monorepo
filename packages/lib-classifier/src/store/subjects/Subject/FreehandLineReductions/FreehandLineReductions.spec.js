@@ -35,15 +35,18 @@ describe('Models > FreehandLineReductions', () => {
   })
 
   it('should find a current mark', () => {
-    reductionsModel.reductions.forEach(reduction => expect(reduction.data.markId).to.equal('clhhuqm9'))
-    expect(reductionsModel.findCurrentTaskMark(reductionsTaskStub)).not.to.be.empty()
+    reductionsModel.reductions.forEach(reduction => {
+      expect(reduction.data.data[0].markId).to.equal('clhhuqm9')
+    })
+    expect(reductionsModel.findCurrentTaskMarks(reductionsTaskStub)).not.to.be.empty()
   })
 
   it('should have array of x and y values', () => {
-    let caesarMark = reductionsModel.findCurrentTaskMark(reductionsTaskStub)
-    expect(caesarMark.pathX).to.be.a('array')
-    expect(caesarMark.pathY).to.be.a('array')
-    expect(caesarMark.pathX).not.to.be.empty()
-    expect(caesarMark.pathY).not.to.be.empty()
+    let caesarMarks = reductionsModel.findCurrentTaskMarks(reductionsTaskStub)
+    expect(caesarMarks).to.be.a('array')
+    expect(caesarMarks[0].pathX).to.be.a('array')
+    expect(caesarMarks[0].pathY).to.be.a('array')
+    expect(caesarMarks[0].pathX).not.to.be.empty()
+    expect(caesarMarks[0].pathY).not.to.be.empty()
   })
 })
