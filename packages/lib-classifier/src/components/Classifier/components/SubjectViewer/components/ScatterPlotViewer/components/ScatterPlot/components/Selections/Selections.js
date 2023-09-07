@@ -233,6 +233,7 @@ function Selections({
           onBrushStart={onStartSelection}
           onBrushEnd={onEndSelection}
           selectedBoxStyle={brushStyle}
+          useWindowMoveEvents
           width={width}
           xScale={xScale}
           yScale={yScale}
