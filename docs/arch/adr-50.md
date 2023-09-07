@@ -21,7 +21,7 @@ Configurable options in the project builder handled by the separate frames viewe
     - Defaults to false
     - `workflow.configuration.multi_image_clone_markers`
 
-Choosing the appropriate separate frames viewer layout is up to the project team. For instance, a subject with portrait-oriented images will easily be displayed in a 3-column grid in constrast to a subject with landscape-oriented images which would work best in a 1-column layout.
+Choosing the appropriate separate frames viewer layout is up to the project team. For instance, a subject with portrait-oriented images will easily be displayed in a 3-column grid in contrast to a subject with landscape-oriented images which would work best in a 1-column layout.
 
 Regardless of the selected layout, the component code will switch to the 1-column layout when an individual frame's width in the browser is less than `minFrameWidth` as defined in SeparateFramesViewer.js. This is to prevent subject images from shrinking to un-classifiable sizes.
 
