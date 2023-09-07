@@ -54,7 +54,6 @@ function storeMapper (classifierStore) {
   }
 }
 
-const DEFAULT_HANDLER = () => true
 const SUBJECT = {
   id: '',
   locations: []
@@ -62,8 +61,8 @@ const SUBJECT = {
 
 export function LightCurveViewerContainer({
   data = null,
-  drawFeedbackBrushes = DEFAULT_HANDLER,
   feedback = false,
+  feedbackBrushes = []
 }) {
   const {
     activeDataVisTask,
@@ -105,10 +104,10 @@ export function LightCurveViewerContainer({
         currentTask={activeDataVisTask}
         dataExtent={dataExtent}
         dataPoints={dataPoints}
-        drawFeedbackBrushes={drawFeedbackBrushes}
         enableAnnotate={enableAnnotate}
         enableMove={enableMove}
         feedback={feedback}
+        feedbackBrushes={feedbackBrushes}
         interactionMode={interactionMode}
         onKeyDown={onKeyZoom}
         setOnPan={setOnPan}
@@ -120,7 +119,6 @@ export function LightCurveViewerContainer({
 }
 
 LightCurveViewerContainer.propTypes = {
-  drawFeedbackBrushes: PropTypes.func,
   feedback: PropTypes.bool,
   subject: PropTypes.shape({
     id: PropTypes.string,
