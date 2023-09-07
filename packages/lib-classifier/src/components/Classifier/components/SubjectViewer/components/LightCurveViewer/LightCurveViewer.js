@@ -40,6 +40,45 @@ const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100 // milliseconds
 const PAN_DISTANCE = 20
 
+function drawFeedbackBrushes(d3annotationsLayer, repositionBrush, feedbackBrushes) {
+  feedbackBrushes.forEach(feedbackBrush => {
+    feedbackBrush.brush = brushX()
+  })
+
+  // Join the D3 brush objects with our internal annotationBrushes array
+  const brushSelection = d3annotationsLayer
+    .selectAll('.brush')
+    .data(feedbackBrushes, (d) => d.id)
+
+  // Set up new brushes
+  brushSelection.enter()
+    .insert('g', '.brush')
+    .attr('class', 'brush')
+    .attr('id', (brush) => (`brush-${brush.id}`))
+    .each(function applyBrushLogic(feedbackBrush) { // Don't use ()=>{}
+      feedbackBrush.brush(select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
+    })
+
+  // Reposition/re-draw brushes
+  feedbackBrushes.forEach((feedbackBrush) => {
+    const d3brush = d3annotationsLayer.select(`#brush-${feedbackBrush.id}`)
+    d3brush
+      .attr('class', 'brush')
+      .selectAll('.selection')
+      .style('fill', () => {
+        if (feedbackBrush.success === true) {
+          return 'green'
+        } else if (feedbackBrush.success === false) {
+          return 'red'
+        } else {
+          return 'white'
+        }
+      })
+
+    repositionBrush(feedbackBrush, d3brush)
+  })
+}
+
 class LightCurveViewer extends Component {
   constructor (props) {
     super(props)
@@ -124,6 +163,7 @@ class LightCurveViewer extends Component {
   componentWillUnmount () {
     this.zoom && this.zoom.on('zoom', null)
     this.d3svg && this.d3svg.on('zoom', null)
+    this.svgContainer.current?.replaceChildren()
   }
 
   clearChart () {
@@ -147,7 +187,7 @@ class LightCurveViewer extends Component {
       chartStyle,
       dataExtent,
       dataPoints,
-      drawFeedbackBrushes,
+      feedbackBrushes,
       innerMargin,
       outerMargin
     } = this.props
@@ -197,7 +237,7 @@ class LightCurveViewer extends Component {
       if (this.props.feedback) {
         this.updateInteractionMode('move')
         this.disableBrushEvents()
-        drawFeedbackBrushes?.(this.d3annotationsLayer, this.repositionBrush)
+        drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush, feedbackBrushes)
       } else {
         this.updateAnnotationBrushes()
         this.initBrushes()
@@ -423,7 +463,7 @@ class LightCurveViewer extends Component {
     if (this.props.feedback) {
       this.updateInteractionMode('move')
       this.disableBrushEvents()
-      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush)
+      drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush, this.props.feedbackBrushes)
     } else {
       this.updateAnnotationBrushes()
     }
