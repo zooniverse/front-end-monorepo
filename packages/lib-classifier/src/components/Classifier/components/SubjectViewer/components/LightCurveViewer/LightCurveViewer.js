@@ -124,6 +124,7 @@ class LightCurveViewer extends Component {
   componentWillUnmount () {
     this.zoom && this.zoom.on('zoom', null)
     this.d3svg && this.d3svg.on('zoom', null)
+    this.svgContainer.current?.replaceChildren()
   }
 
   clearChart () {
