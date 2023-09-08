@@ -51,3 +51,4 @@
 - [ADR 49: Flipbook Viewer](adr-49.md)
 - [ADR 50: Separate Frames Viewer](adr-50.md)
 - [ADR 51: User Group Stats Page](adr-51.md)
+- [ADR 52: User Stats Page](adr-52.md)
