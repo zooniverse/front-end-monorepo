@@ -52,3 +52,4 @@
 - [ADR 50: Separate Frames Viewer](adr-50.md)
 - [ADR 51: User Group Stats Page](adr-51.md)
 - [ADR 52: User Stats Page](adr-52.md)
+- [ADR 53: Logged-In User Homepage](adr-53.md)
