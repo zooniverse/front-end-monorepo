@@ -22,6 +22,7 @@ const Overlay = styled(Box)`
 `
 
 const PageContent = styled(Box)`
+  line-height: 2em;
   z-index: 3;
 `
 
@@ -65,20 +66,22 @@ export default function Error404({
         />
 
         <PageContent
-          height="44px"
           alignContent="center"
           justify="center"
           textAlign="center"
         >
-          <Paragraph textAlign="center" style={{ lineHeight: '2em' }}>
+          <Paragraph textAlign="center">
             <Image
               id="404-logo"
               fit="contain"
-              height="44px"
+              height="44"
+              width="132"
               alt="404"
               src={`/projects/assets/logoWhite404.png`}
             />
-            <Heading level="2" textAlign="center" style={{ maxWidth: '100%' }}>{t('404.heading')}</Heading>
+          </Paragraph>
+          <Heading level="2" textAlign="center" style={{ maxWidth: '100%' }}>{t('404.heading')}</Heading>
+          <Paragraph textAlign="center">
             {t('404.message')}
             <br />
             <Anchor
