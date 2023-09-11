@@ -43,7 +43,7 @@ describe('Component > TeamsContainer', function () {
   })
 
   it('should have a sidebar nav with accessible label', function () {
-    const sideBar = screen.getByLabelText('Filter by team location')
+    const sideBar = screen.getByLabelText('Team.sideBarLabel')
     expect(sideBar).to.be.ok()
   })
 

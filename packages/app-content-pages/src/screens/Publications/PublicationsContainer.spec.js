@@ -48,7 +48,7 @@ describe('Component > PublicationsContainer', function () {
   })
 
   it('should have sidebar nav with accessible label', function () {
-    const sideBar = screen.getByLabelText('Filter by category')
+    const sideBar = screen.getByLabelText('Publications.sideBarLabel')
     expect(sideBar).to.be.ok()
   })
 
