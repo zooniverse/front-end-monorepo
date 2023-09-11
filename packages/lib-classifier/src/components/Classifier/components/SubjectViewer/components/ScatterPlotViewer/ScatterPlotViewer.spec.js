@@ -2,14 +2,13 @@ import { composeStory } from '@storybook/react'
 import { render } from '@testing-library/react'
 
 import Meta, { Default, ErrorBars, KeplerLightCurve } from './ScatterPlotViewer.stories.js'
-import projectAnnotations from '../../../../../../../.storybook/preview'
 
 describe('Component > ScatterPlotViewer', function () {
   describe('default plot', function () {
     let chart
 
     beforeEach(function () {
-      const MockScatterPlotViewer = composeStory(Default, Meta, projectAnnotations)
+      const MockScatterPlotViewer = composeStory(Default, Meta)
       render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
       chart = document.querySelector('svg.scatterPlot')
     })
@@ -36,7 +35,7 @@ describe('Component > ScatterPlotViewer', function () {
     let chart
 
     beforeEach(function () {
-      const MockScatterPlotViewer = composeStory(ErrorBars, Meta, projectAnnotations)
+      const MockScatterPlotViewer = composeStory(ErrorBars, Meta)
       render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
       chart = document.querySelector('svg.scatterPlot')
     })
@@ -63,7 +62,7 @@ describe('Component > ScatterPlotViewer', function () {
     let chart
 
     beforeEach(function () {
-      const MockScatterPlotViewer = composeStory(KeplerLightCurve, Meta, projectAnnotations)
+      const MockScatterPlotViewer = composeStory(KeplerLightCurve, Meta)
       render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
       chart = document.querySelector('svg.scatterPlot')
     })

@@ -20,6 +20,7 @@ export default function SpacedText({
   weight = 'normal',
   ...props
 }) {
+	console.log('STyled text in here damnit')
   return (
     <StyledText
       margin={margin}

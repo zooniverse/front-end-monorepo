@@ -4,7 +4,6 @@ import Router from 'next/router'
 import { composeStory } from '@storybook/react'
 import { within } from '@testing-library/dom'
 
-import projectAnnotations from '../../../.storybook/preview.js'
 import mockData from './TeamsContainer.mock.json'
 import Meta, { Default } from './Teams.stories.js'
 
@@ -26,7 +25,7 @@ function RouterMock({ children }) {
 }
 
 describe('Component > TeamsContainer', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
     render(
