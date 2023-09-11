@@ -10,6 +10,7 @@ module.exports = {
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@stores': path.resolve(__dirname, 'stores'),
       '@test': path.resolve(__dirname, 'test'),
+      "@storybook_config": path.resolve(__dirname, ".storybook"),
       'sentry.edge.config.js': path.resolve(__dirname, 'sentry.edge.config.js')
     }
   }

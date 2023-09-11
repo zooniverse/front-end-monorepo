@@ -5,6 +5,11 @@
       "lodash": {
         "transform": "lodash/${member}"
       }
+    }],
+    ["module-resolver", {
+      "alias": {
+        "@storybook_config": "./.storybook"
+      }
     }]
   ],
   "presets": [
