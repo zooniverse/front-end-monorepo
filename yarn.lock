@@ -5251,14 +5251,14 @@
     lodash "^4.17.21"
     prop-types "^15.6.1"
 
-"@visx/scale@3.2.0", "@visx/scale@~3.2.0":
+"@visx/scale@3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@visx/scale/-/scale-3.2.0.tgz#a10a41e77331061819e4c9568e76158f3489a951"
   integrity sha512-8XOZ+LDr/QVC61EBtO4xvcRJQ/M0bfQHme/EJsiZU5DabrD3cHJAOxNW6pLF5PkvDGQII2V3delijNPDqTiTNg==
   dependencies:
     "@visx/vendor" "3.2.0"
 
-"@visx/scale@3.3.0":
+"@visx/scale@3.3.0", "@visx/scale@~3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@visx/scale/-/scale-3.3.0.tgz#552e6ee6f6fda22825e49cf7f091d867f9477c9b"
   integrity sha512-H569k7eQEUcFE/X1Zojcb4rUwxurIU4yso21uAuKvXnZcGpDOTr/3YXXHb1JJqOKfLcZtYZWXok6QVDj5ZGtCw==
