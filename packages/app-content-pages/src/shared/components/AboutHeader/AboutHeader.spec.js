@@ -2,9 +2,7 @@ import { render } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
-
 import Meta, { Default } from './AboutHeader.stories.js'
-import projectAnnotations from '../../../../.storybook/preview.js'
 
 function RouterMock({ children }) {
   const mockRouter = {
@@ -24,7 +22,7 @@ function RouterMock({ children }) {
 }
 
 describe('Component > AboutHeader', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta)
 
   before(function () {
     render(
