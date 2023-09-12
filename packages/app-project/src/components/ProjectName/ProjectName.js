@@ -1,4 +1,5 @@
-import { SpacedText, withResponsiveContext } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 

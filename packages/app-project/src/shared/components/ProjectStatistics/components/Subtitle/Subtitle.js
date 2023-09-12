@@ -1,5 +1,5 @@
 import { Heading } from 'grommet'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 import { object, oneOfType, string } from 'prop-types'
 import styled from 'styled-components'
 

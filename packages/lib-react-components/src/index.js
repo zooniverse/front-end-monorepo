@@ -18,7 +18,7 @@ export { default as ZooHeader } from './ZooHeader/index.js'
 export { default as ZooniverseLogo } from './ZooniverseLogo/index.js'
 export { default as ZooniverseLogotype } from './ZooniverseLogotype/index.js'
 
-export { default as pxToRem } from './helpers/pxToRem.js'
+export { default as pxToRem } from './helpers/pxToRem/index.js'
 export { default as withCustomFormik } from './helpers/withCustomFormik/index.js'
 export { default as withOnlyRenderOnBrowser } from './helpers/withOnlyRenderOnBrowser/index.js'
 export { default as withResponsiveContext } from './helpers/withResponsiveContext/index.js'

@@ -1,4 +1,5 @@
-import { withThemeContext, Markdownz } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import theme from './theme'
 import { Box } from 'grommet'
 

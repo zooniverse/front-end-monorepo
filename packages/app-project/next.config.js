@@ -52,6 +52,9 @@ const nextConfig = {
       lodash: {
         transform: 'lodash/{{member}}',
       },
+      '@zooniverse/react-components': {
+        transform: '@zooniverse/react-components/{{member}}'
+      }
     },
   },
 
