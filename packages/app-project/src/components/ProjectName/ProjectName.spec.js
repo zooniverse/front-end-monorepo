@@ -10,6 +10,6 @@ describe('Component > ProjectName', function () {
   })
 
   it('should render the project name', function () {
-    expect(screen.getByText(ProjectNameMock.project.display_name)).to.exist()
+    expect(screen.getByText(ProjectNameMock.projectName)).to.exist()
   })
 })
