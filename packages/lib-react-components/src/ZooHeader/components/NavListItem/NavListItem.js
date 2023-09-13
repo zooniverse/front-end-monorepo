@@ -20,7 +20,6 @@ export const StyledNavListItem = styled(Anchor)`
   }
 `
 
-// TODO: This component is causing a styled-components error and needs a fix
 function NavListItem ({ className, color, label, margin, theme, url }) {
   return (
     <StyledNavListItem className={className} color={color} href={url} margin={margin} theme={theme} >
