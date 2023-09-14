@@ -1,6 +1,8 @@
 (From https://github.com/joelparkerhenderson/architecture-decision-record#adr-example-templates)
 
-Please add new ADRs to the Table of Contents [README.md](./arch/README.md).
+Developer Notes:
+- Please add new ADRs to the Table of Contents [README.md](./arch/README.md).
+- If your new ADR supersedes decisions in a previous ADR, please reference the old ADR in the new ADR. Additionally, old ADRs can be updated to add links to the superseding ADRs at the top of the file (append-only). Do not edit the information and decisions in the older ADR.
 
 # Title
 
