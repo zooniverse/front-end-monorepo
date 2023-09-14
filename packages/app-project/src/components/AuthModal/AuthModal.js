@@ -1,4 +1,6 @@
-import { Modal, Tabs, Tab, withOnlyRenderOnBrowser, withThemeContext } from '@zooniverse/react-components'
+import { Modal, Tabs, Tab } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
+import withOnlyRenderOnBrowser from '@zooniverse/react-components/helpers/withOnlyRenderOnBrowser'
 import { func, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 

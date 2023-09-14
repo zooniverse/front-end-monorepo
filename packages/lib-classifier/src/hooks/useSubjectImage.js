@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useProgressiveImage } from '@zooniverse/react-components'
+import { useProgressiveImage } from '@zooniverse/react-components/hooks'
 
 // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
 export const PLACEHOLDER_URL = 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'

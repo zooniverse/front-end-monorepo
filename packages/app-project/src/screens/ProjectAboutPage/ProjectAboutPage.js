@@ -7,9 +7,10 @@ import { useTranslation } from 'next-i18next'
 import StandardLayout from '@shared/components/StandardLayout'
 import {
   SpacedHeading,
-  SpacedText,
-  withResponsiveContext
+  SpacedText
 } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
+
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'

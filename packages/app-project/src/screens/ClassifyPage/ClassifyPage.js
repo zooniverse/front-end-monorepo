@@ -2,7 +2,7 @@ import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useCallback, useState } from 'react'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
 import ThemeModeToggle from '@components/ThemeModeToggle'
