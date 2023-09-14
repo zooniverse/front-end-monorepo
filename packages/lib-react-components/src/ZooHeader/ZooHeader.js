@@ -32,6 +32,7 @@ export const StyledLogoAnchor = styled(Anchor)`
 `
 
 const defaultHandler = () => true
+const signedOutUserNavPadding = { horizontal: 'medium', vertical: 'small' }
 
 export default function ZooHeader({
   breakpoint = 960,
@@ -72,6 +73,7 @@ export default function ZooHeader({
     t('ZooHeader.mainHeaderNavListLabels.build')
   ]
 
+  const userNavigationPadding = Object.keys(user).length === 0 ? signedOutUserNavPadding : undefined
   return (
     <StyledHeader
       ref={ref}
@@ -108,6 +110,7 @@ export default function ZooHeader({
         as='nav'
         align='center'
         direction='row'
+        pad={userNavigationPadding}
       >
         {Object.keys(user).length === 0 ?
           <SignedOutUserNavigation
