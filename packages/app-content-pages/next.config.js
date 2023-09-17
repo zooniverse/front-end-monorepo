@@ -85,6 +85,10 @@ const nextConfig = {
       alias: {
         ...config.resolve.alias,
         ...webpackConfig.resolve.alias
+      },
+      fallback: {
+        ...config.resolve.fallback,
+        ...webpackConfig.resolve.fallback
       }
     }
     return config
