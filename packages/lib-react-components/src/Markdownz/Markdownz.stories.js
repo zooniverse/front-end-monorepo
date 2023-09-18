@@ -41,7 +41,7 @@ export const GridExample = () => (
   <Grid columns={['small', 'flex']} gap='8%'>
     <Box>Sidebar Here</Box>
     <Box>
-      <Markdownz>{markdownInGrid}</Markdownz>
+      <Markdownz projectSlug='zooniverse/snapshot-wakanda'>{markdownInGrid}</Markdownz>
     </Box>
   </Grid>
 )
