@@ -45,12 +45,12 @@ export function renderMedia(nodeProps) {
 
 const componentMappings = {
   a: Anchor,
-  h1: ({ children }) => <Heading level='1'>{children}</Heading>,
-  h2: ({ children }) => <Heading level='2'>{children}</Heading>,
-  h3: ({ children }) => <Heading level='3'>{children}</Heading>,
-  h4: ({ children }) => <Heading level='4'>{children}</Heading>,
-  h5: ({ children }) => <Heading level='5'>{children}</Heading>,
-  h6: ({ children }) => <Heading level='6'>{children}</Heading>,
+  h1: ({ id, children }) => <Heading id={id} level='1'>{children}</Heading>,
+  h2: ({ id, children }) => <Heading id={id} level='2'>{children}</Heading>,
+  h3: ({ id, children }) => <Heading id={id} level='3'>{children}</Heading>,
+  h4: ({ id, children }) => <Heading id={id} level='4'>{children}</Heading>,
+  h5: ({ id, children }) => <Heading id={id} level='5'>{children}</Heading>,
+  h6: ({ id, children }) => <Heading id={id} level='6'>{children}</Heading>,
   hr: () => <hr style={{ width: '100%' }} />,
   img: renderMedia,
   p: Paragraph,
