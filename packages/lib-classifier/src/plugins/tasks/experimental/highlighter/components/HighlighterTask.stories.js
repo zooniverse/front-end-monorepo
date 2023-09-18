@@ -45,7 +45,7 @@ export function Default ({
         },
         {
           'color': '#fced54',
-          'label': 'Collector Name'
+          'label': 'Collector Name with Extra Text'
         },
         {
           'color': '#ee7bcf',
@@ -58,7 +58,7 @@ export function Default ({
         instruction: 'Highlight the text',
         'highlighterLabels.0.label': 'Species Name',
         'highlighterLabels.1.label': 'Location',
-        'highlighterLabels.2.label': 'Collector Name',
+        'highlighterLabels.2.label': 'Collector Name with Extra Text',
         'highlighterLabels.3.label': 'Habitat'
       },
       taskKey: 'T0',
