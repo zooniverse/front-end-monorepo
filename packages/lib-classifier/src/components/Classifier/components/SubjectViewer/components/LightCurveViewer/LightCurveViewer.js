@@ -731,6 +731,9 @@ class LightCurveViewer extends Component {
         onKeyDown={this.props.onKeyDown}
         tabIndex={0}
         ref={this.svgContainer}
+        style={{
+          touchAction: 'pinch-zoom'
+        }}
       />
     )
   }

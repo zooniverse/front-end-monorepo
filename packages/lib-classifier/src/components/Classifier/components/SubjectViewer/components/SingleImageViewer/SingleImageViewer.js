@@ -46,7 +46,7 @@ function SingleImageViewer(props) {
           focusable
           onKeyDown={onKeyDown}
           style={{
-            touchAction: enableInteractionLayer ? 'pinch-zoom' : 'unset',
+            touchAction: 'pinch-zoom',
             maxHeight: svgMaxHeight,
             maxWidth: limitSubjectHeight ? `${width}px` : '100%'
           }}
