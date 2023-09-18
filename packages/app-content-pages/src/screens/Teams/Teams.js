@@ -51,7 +51,7 @@ function TeamComponent ({
       <Box as='ul'>
         {filters.map(filter => (
           <StyledLi key={filter.name}>
-            <Link href={filter.slug ? `#${filter.slug}` : ''} passHref>
+            <Link legacyBehavior href={filter.slug ? `#${filter.slug}` : ''} passHref>
               <StyledButton
                 active={filter.active}
                 label={filter.name}
