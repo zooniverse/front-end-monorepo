@@ -27,6 +27,10 @@ export function renderMedia(nodeProps) {
   const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
   let alt = nodeProps.alt
   const src = nodeProps.src
+  if (src.startsWith('https://cdn.jsdelivr.net/gh/jdecked/twemoji')) {
+    // Replace twemoji images with their alt text.
+    return alt
+  }
   const match = alt.match(imgSizeRegex)
 
   if (match && match.length > 0) {
