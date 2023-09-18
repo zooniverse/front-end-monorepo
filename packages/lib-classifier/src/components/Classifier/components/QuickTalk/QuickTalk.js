@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { withResponsiveContext } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 import { Anchor, Box, Button, Heading, Keyboard, Paragraph } from 'grommet'
 import { Chat, Close, FormNextLink } from 'grommet-icons'
 import styled from 'styled-components'

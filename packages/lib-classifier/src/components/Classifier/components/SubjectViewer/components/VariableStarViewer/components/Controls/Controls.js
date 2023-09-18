@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import styled from 'styled-components'
-import { PlainButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
+import { PlainButton, SpacedText } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import { useTranslation } from '@translations/i18n'
 
 import FlipIcon from '../FlipIcon'

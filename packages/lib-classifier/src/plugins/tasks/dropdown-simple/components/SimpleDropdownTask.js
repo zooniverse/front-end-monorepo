@@ -1,4 +1,5 @@
-import { Markdownz, pxToRem } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
+import pxToRem from '@zooniverse/react-components/helpers/pxToRem'
 import { Box, Select, Text, TextInput } from 'grommet'
 import { Down } from 'grommet-icons'
 import { observer } from 'mobx-react'

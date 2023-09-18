@@ -1,5 +1,5 @@
 import { normalizeColor } from 'grommet/utils'
-import { getGradientShade } from '@zooniverse/react-components'
+import getGradientShade from '@zooniverse/react-components/helpers/getGradientShade'
 import { css } from 'styled-components'
 
 const theme = {

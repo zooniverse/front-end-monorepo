@@ -3,9 +3,18 @@
   "description": "Zooniverse React Components",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./*": {
+      "import": "./dist/esm/*/index.js",
+      "require": "./dist/cjs/*/index.js"
+    }
+  },
   "sideEffects": false,
   "repository": {
     "type": "git",
@@ -19,8 +28,8 @@
     "lint": "zoo-standard --fix | snazzy",
     "prepare": "yarn build",
     "start": "start-storybook -p 6007",
-    "test": "mocha --config ./test/.mocharc.json \"./src/**/*.spec.js\"",
-    "test:ci": "mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\"",
+    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
+    "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build"
   },
@@ -71,7 +80,7 @@
     "@storybook/react-webpack5": "~7.4.0",
     "@testing-library/dom": "~9.3.0",
     "@testing-library/react": "~14.0.0",
-    "@testing-library/user-event": "~14.4.0",
+    "@testing-library/user-event": "~14.5.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/standard": "~2.0.0",
@@ -91,7 +100,7 @@
     "react-dom": "~18.2.0",
     "rehype-stringify": "~8.0.0",
     "remark-rehype": "~8.1.0",
-    "sinon": "~15.2.0",
+    "sinon": "~16.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.4.0",

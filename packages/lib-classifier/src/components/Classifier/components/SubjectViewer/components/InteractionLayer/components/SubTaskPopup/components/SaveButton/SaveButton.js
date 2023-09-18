@@ -1,4 +1,5 @@
-import { PrimaryButton, withThemeContext } from '@zooniverse/react-components'
+import { PrimaryButton } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import { bool, func } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 

@@ -2,10 +2,10 @@ import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import {
-  withResponsiveContext,
   Media,
   ZooniverseLogo
 } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 import { useTranslation } from 'next-i18next'
 
 import ContentBox from '@shared/components/ContentBox'

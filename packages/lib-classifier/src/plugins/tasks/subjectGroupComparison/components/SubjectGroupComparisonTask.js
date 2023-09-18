@@ -1,4 +1,5 @@
-import { Markdownz, pxToRem } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
+import pxToRem from '@zooniverse/react-components/helpers/pxToRem'
 import { Box, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'

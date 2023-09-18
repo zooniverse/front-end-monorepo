@@ -3,8 +3,6 @@ import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import { composeStory } from '@storybook/react'
 import { within } from '@testing-library/dom'
-
-import projectAnnotations from '../../../.storybook/preview.js'
 import mockData from './TeamsContainer.mock.json'
 import Meta, { Default } from './Teams.stories.js'
 
@@ -26,7 +24,7 @@ function RouterMock({ children }) {
 }
 
 describe('Component > TeamsContainer', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
     render(
@@ -45,7 +43,7 @@ describe('Component > TeamsContainer', function () {
   })
 
   it('should have a sidebar nav with accessible label', function () {
-    const sideBar = screen.getByLabelText('Filter by team location')
+    const sideBar = screen.getByLabelText('Team.sideBarLabel')
     expect(sideBar).to.be.ok()
   })
 

@@ -5,7 +5,6 @@ import Router from 'next/router'
 import { composeStory } from '@storybook/react'
 
 import Meta, { Default } from './Publications.stories.js'
-import projectAnnotations from '../../../.storybook/preview.js'
 
 function RouterMock({ children }) {
   const mockRouter = {
@@ -28,7 +27,7 @@ function RouterMock({ children }) {
 }
 
 describe('Component > PublicationsContainer', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
     render(
@@ -49,7 +48,7 @@ describe('Component > PublicationsContainer', function () {
   })
 
   it('should have sidebar nav with accessible label', function () {
-    const sideBar = screen.getByLabelText('Filter by category')
+    const sideBar = screen.getByLabelText('Publications.sideBarLabel')
     expect(sideBar).to.be.ok()
   })
 

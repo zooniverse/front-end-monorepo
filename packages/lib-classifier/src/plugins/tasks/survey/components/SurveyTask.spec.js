@@ -1,15 +1,13 @@
 import { expect } from 'chai'
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
-import projectAnnotations from '../../../../../.storybook/preview'
-
 import Meta, { Default, NoFiltersNoInstruction } from './SurveyTask.stories'
 
 describe('SurveyTask', function () {
   describe('when choices are showing / without a selected choice', function () {
     describe('with task instruction', function () {
       it('should show the instruction', function () {
-        const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+        const DefaultStory = composeStory(Default, Meta)
         render(<DefaultStory />)
 
         const instruction = screen.findByText('Select the animals you see in the image.')
@@ -22,7 +20,7 @@ describe('SurveyTask', function () {
       let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
 
       before(function () {
-        const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+        const DefaultStory = composeStory(Default, Meta)
         render(<DefaultStory />)
         // filterButton is the Filter button above the choices
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
@@ -65,7 +63,7 @@ describe('SurveyTask', function () {
       let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
 
       before(function () {
-        const NoFiltersNoInstructionStory = composeStory(NoFiltersNoInstruction, Meta, projectAnnotations)
+        const NoFiltersNoInstructionStory = composeStory(NoFiltersNoInstruction, Meta)
         render(<NoFiltersNoInstructionStory />)
         // filterButton is the Filter button above the choices
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')

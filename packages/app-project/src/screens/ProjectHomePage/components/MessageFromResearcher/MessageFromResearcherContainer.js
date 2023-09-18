@@ -1,7 +1,5 @@
 import { inject, observer } from 'mobx-react'
 import { arrayOf, shape, string } from 'prop-types'
-import { Component } from 'react'
-import { get } from 'lodash'
 import MessageFromResearcher from './MessageFromResearcher'
 
 function storeMapper (stores) {
@@ -11,62 +9,39 @@ function storeMapper (stores) {
   }
 }
 
-class MessageFromResearcherContainer extends Component {
-  getMessage () {
-    return this.props.project.researcher_quote
-  }
-
-  getResearcher () {
-    const { project } = this.props
-    const researcherId = project.configuration.researcherID
-    const isUserId = /^\d+$/.test(researcherId)
-    if (isUserId) {
-      const user = project.owners.find(owner => owner.id === researcherId)
-      if (user) {
-        return user
-      }
+function getResearcher ({ project }) {
+  const researcherId = project.configuration.researcherID
+  const isUserId = /^\d+$/.test(researcherId)
+  if (isUserId) {
+    const user = project.owners.find(owner => owner.id === researcherId)
+    if (user) {
+      return user
     }
-    return undefined
   }
+  return undefined
+}
 
-  getResearcherAvatar () {
-    const { project } = this.props
-    const researcher = this.getResearcher()
-    let avatar
+function MessageFromResearcherContainer({ project }) {
+  let message = project.researcher_quote
+  let researcher = getResearcher({ project })
+  let avatar = (message)
+    ? (researcher?.avatar_src)
+      ? researcher.avatar_src
+      : project.avatar.src
+    : null
+  let researcherName = (researcher && researcher.display_name)
+    ? researcher.display_name
+    : project.display_name
+  let talkLink = `/projects/${project.slug}/talk`
 
-    if (project.researcher_quote) {
-      avatar = researcher
-        ? get(researcher, 'avatar_src')
-        : get(project, 'avatar.src')
-    }
-
-    return avatar
-  }
-
-  getResearcherName () {
-    const researcher = this.getResearcher()
-    return (researcher && researcher.display_name)
-      ? researcher.display_name
-      : this.props.project.display_name
-  }
-
-  getTalkLink () {
-    const { project } = this.props
-    return `/projects/${project.slug}/talk`
-  }
-
-  render () {
-    const { researcher_quote } = this.props.project
-
-    return (
-      <MessageFromResearcher
-        avatar={this.getResearcherAvatar()}
-        message={researcher_quote}
-        researcher={this.getResearcherName()}
-        talkLink={this.getTalkLink()}
-      />
-    )
-  }
+  return (
+    <MessageFromResearcher
+      avatar={avatar}
+      message={message}
+      researcher={researcherName}
+      talkLink={talkLink}
+    />
+  )
 }
 
 MessageFromResearcherContainer.propTypes = {

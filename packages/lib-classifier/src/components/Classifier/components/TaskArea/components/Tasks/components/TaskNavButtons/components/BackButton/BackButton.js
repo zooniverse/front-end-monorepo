@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types'
 import { Button, Text } from 'grommet'
 import styled, { css } from 'styled-components'
-import { withThemeContext } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import theme from './theme'
 import { useTranslation } from '@translations/i18n'
 

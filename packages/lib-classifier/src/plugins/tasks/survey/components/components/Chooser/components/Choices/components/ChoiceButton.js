@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components'
-import { withThemeContext } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import theme from './theme'
 

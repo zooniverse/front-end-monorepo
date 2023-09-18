@@ -70,22 +70,18 @@ export default function SignedInUserNavigation({
 
   if (Object.keys(user).length > 0 && signOut) {
     return (
-      <Box
-        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
-        as='nav'
-        align='center'
-        direction='row'
-        gap='small'
-      >
+      <>
         <NavListItem
           color={unreadNotifications ? 'accent-1' : '#B2B2B2'}
           label={notificationLabel}
+          margin={{ right: 'small' }}
           unread={unreadNotifications}
           url={`${host}/notifications`}
         />
         <NavListItem
           color={unreadMessages ? 'accent-1' : '#B2B2B2'}
           label={messagesLabel}
+          margin={{ right: 'small' }}
           unread={unreadMessages}
           url={`${host}/inbox`}
         />
@@ -101,7 +97,7 @@ export default function SignedInUserNavigation({
             mainHeaderNavListLabels={mainHeaderNavListLabels}
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />}
-      </Box>
+      </>
     )
   }
 

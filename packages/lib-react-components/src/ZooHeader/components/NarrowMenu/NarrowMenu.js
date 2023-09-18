@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
 
 export default function NarrowMenu({
+  children,
   dropBackground = 'brand',
   icon,
   items,
@@ -23,7 +24,9 @@ export default function NarrowMenu({
       label={label}
       size={size}
       {...props}
-    />
+    >
+      {children}
+    </Menu>
   )
 }
 
