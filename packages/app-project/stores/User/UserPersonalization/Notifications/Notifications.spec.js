@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { applySnapshot } from 'mobx-state-tree'
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
@@ -150,6 +151,45 @@ describe('Stores > Notifications', function () {
       })
     })
 
+    describe('when the response includes conversations as an empty array', function () {
+      const mockResponse = {
+        body: {
+          conversations: [],
+          meta: {
+            next_page: undefined
+          }
+        }
+      }
+
+      before(function () {
+        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(mockResponse))
+
+        rootStore = initStore(true, {
+          user
+        })
+        applySnapshot(rootStore, {
+          user: {
+            personalization: {
+              notifications: {
+                unreadConversationsIds: ['1', '2', '3']
+              }
+            }
+          }
+        })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadConversationsIds()
+      })
+
+      after(function () {
+        talkAPI.get.restore()
+      })
+
+      it('should keep the unreadConversationsIds as an empty array', function () {
+        expect(rootStore.user.personalization.notifications.unreadConversationsIds.length).to.equal(0)
+      })
+    })
+
     describe('when the request errors', function () {
       before(function () {
         sinon.stub(console, 'error')
@@ -233,6 +273,46 @@ describe('Stores > Notifications', function () {
       })
 
       it('should keep the unreadNotificationsCount as zero', function () {
+        expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.equal(0)
+      })
+    })
+
+    describe('when the response includes a meta notifications count of zero', function () {
+      const mockResponseWithMetaCountZero = {
+        body: {
+          meta: {
+            notifications: {
+              count: 0
+            }
+          }
+        }
+      }
+
+      before(function () {
+        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(mockResponseWithMetaCountZero))
+
+        rootStore = initStore(true, {
+          user
+        })
+        applySnapshot(rootStore, {
+          user: {
+            personalization: {
+              notifications: {
+                unreadNotificationsCount: 5
+              }
+            }
+          }
+        })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadNotificationsCount()
+      })
+
+      after(function () {
+        talkAPI.get.restore()
+      })
+
+      it('should set the unreadNotificationsCount to zero', function () {
         expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.equal(0)
       })
     })
