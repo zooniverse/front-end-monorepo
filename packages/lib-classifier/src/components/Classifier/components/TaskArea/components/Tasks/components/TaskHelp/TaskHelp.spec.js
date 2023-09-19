@@ -1,31 +1,95 @@
-import { Modal } from '@zooniverse/react-components'
-import { Button } from 'grommet'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-import TaskHelp, { StyledPlainButton as NeedHelpButton } from './TaskHelp'
+import TaskHelp from './TaskHelp'
 
-const tasks = [{
+const tasksWithOneTask = [{
   taskKey: 'init',
   help: '# Try this'
 }]
 
+const tasksWithThreeTasks = [{
+  taskKey: 'init',
+  help: '# Try this'
+}, {
+  taskKey: 'T0',
+  help: ''
+}, {
+  taskKey: 'T1',
+  help: '# Try this again'
+}]
+
 describe('TaskHelp', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<TaskHelp tasks={tasks} />)
-    expect(wrapper).to.be.ok()
+  it('should show a button to open the task(s) help modal', function () {
+    render(<TaskHelp tasks={tasksWithOneTask} />)
+
+    const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+    expect(needHelpButton).to.be.ok()
   })
 
-  it('should render the modal when the need help button is clicked', function () {
-    const wrapper = shallow(<TaskHelp tasks={tasks} />)
-    wrapper.find(NeedHelpButton).simulate('click')
-    expect(wrapper.find(Modal).prop('active')).to.be.true()
+  describe('with a single task', function () {
+    let user
+    
+    beforeEach(function () {
+      user = userEvent.setup({ delay: null })
+    })
+
+    it('should show the help text for a single task', async function () {
+      render(<TaskHelp tasks={tasksWithOneTask} />)
+      
+      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      await user.click(needHelpButton)
+
+      expect(screen.getByText('Try this')).to.be.ok()
+    })
+  
+    it('should not show any <hr />', async function () {
+      render(<TaskHelp tasks={tasksWithOneTask} />)
+      
+      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      await user.click(needHelpButton)
+      
+      expect(screen.queryByRole('separator')).to.be.null()
+    })
+
+    it('should no longer show the modal when the close button is clicked', async function () {
+      render(<TaskHelp tasks={tasksWithOneTask} />)
+      
+      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      await user.click(needHelpButton)
+      
+      expect(screen.getByText('Try this')).to.be.ok()
+      const closeButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.close' })
+      await user.click(closeButton)
+      
+      expect(screen.queryByText('Try this')).to.be.null()
+    })
   })
 
-  it('should no longer render the modal when the close button is clicked', function () {
-    const wrapper = shallow(<TaskHelp tasks={tasks} />)
-    wrapper.find(NeedHelpButton).simulate('click')
-    expect(wrapper.find(Modal).prop('active')).to.be.true()
-    wrapper.find(Button).simulate('click')
-    expect(wrapper.find(Modal).prop('active')).to.be.false()
+  describe('with multiple tasks', function () {
+    let user
+
+    beforeEach(function () {
+      user = userEvent.setup({ delay: null })
+    })
+
+    it('should show the help text for multiple tasks', async function () {
+      render(<TaskHelp tasks={tasksWithThreeTasks} />)
+
+      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      await user.click(needHelpButton)
+
+      expect(screen.getByText('Try this')).to.be.ok()
+      expect(screen.getByText('Try this again')).to.be.ok()
+    })
+
+    it('should show the expected <hr />', async function () {
+      render(<TaskHelp tasks={tasksWithThreeTasks} />)
+
+      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      await user.click(needHelpButton)
+
+      expect(screen.getAllByRole('separator')).to.have.lengthOf(1)  
+    })
   })
 })
