@@ -150,6 +150,9 @@ export default function ScatterPlot({
     <Chart
       className='scatterPlot'
       height={parentHeight}
+      style={{
+        touchAction: 'pinch-zoom'
+      }}
       width={parentWidth}
     >
       <Background fill={background} />
