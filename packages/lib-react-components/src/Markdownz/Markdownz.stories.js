@@ -4,12 +4,53 @@ import styled from 'styled-components'
 import Markdownz from './Markdownz'
 import readme from './README.md'
 import markdownExample from '../../.storybook/lib/example.md'
+import { examples } from './helpers/storybookExamples'
 import markdownInGrid from './markdownGridExample.md'
 
 const TableRowWithBorder = styled(TableRow)`
   border-top: solid thin black;
   border-bottom: solid thin black;
 `
+
+function MarkdownTableRow({ label, content, ...props }) {
+  return (
+    <tr>
+      <th scope="row" border="bottom">
+        {label}
+      </th>
+      <td border="bottom">
+        <code>{content}</code>
+        <Markdownz {...props}>
+          {content}
+        </Markdownz>
+      </td>
+    </tr>
+  )
+}
+
+function MarkdownExamplesTable(props) {
+  return (
+    <table style={{ width: '100%'}}>
+      <colgroup>
+         <col span="1" style={{ width: '20%' }}/>
+         <col span="1" style={{ width: '80%' }}/>
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col" border="bottom">
+            Content
+          </th>
+          <th scope="col" border="bottom">
+            Markdown
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {examples.map(rowProps => <MarkdownTableRow key={props.label} {...rowProps} {...props} />)}
+      </tbody>
+    </table>
+  )
+}
 
 export default {
   title: 'Components / Markdownz',
@@ -23,18 +64,31 @@ export default {
   }
 }
 
-export const Default = () => <Markdownz>{markdownExample}</Markdownz>
+export const Default = () => (
+  <>
+    <MarkdownExamplesTable />
+    <Markdownz>
+      {markdownExample}
+    </Markdownz>
+  </>
+)
 
 export const InProjectContext = () => (
-  <Markdownz projectSlug='zooniverse/snapshot-wakanda'>
-    {markdownExample}
-  </Markdownz>
+  <>
+    <MarkdownExamplesTable projectSlug='zooniverse/snapshot-wakanda' />
+    <Markdownz>
+      {markdownExample}
+    </Markdownz>
+  </>
 )
 
 export const WithCustomComponents = () => (
-  <Markdownz components={{ tr: TableRowWithBorder }}>
-    {markdownExample}
-  </Markdownz>
+  <>
+    <MarkdownExamplesTable components={{ tr: TableRowWithBorder }} />
+    <Markdownz>
+      {markdownExample}
+    </Markdownz>
+  </>
 )
 
 export const GridExample = () => (
