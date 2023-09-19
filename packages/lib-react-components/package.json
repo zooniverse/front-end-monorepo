@@ -3,7 +3,8 @@
   "description": "Zooniverse React Components",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "version": "1.6.0",
+  "version": "1.6.1",
+  "main": "dist/cjs/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -63,8 +64,8 @@
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "mobx-state-tree": "~5.x.x",
-    "react": ">= 16.14",
-    "react-dom": ">= 16.14",
+    "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0",
     "styled-components": "5.x.x"
   },
   "devDependencies": {
@@ -79,7 +80,7 @@
     "@storybook/react-webpack5": "~7.4.0",
     "@testing-library/dom": "~9.3.0",
     "@testing-library/react": "~14.0.0",
-    "@testing-library/user-event": "~14.4.0",
+    "@testing-library/user-event": "~14.5.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/standard": "~2.0.0",
