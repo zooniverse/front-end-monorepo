@@ -56,7 +56,7 @@
     "remark-footnotes": "2.0.0",
     "remark-react": "~8.0.0",
     "remark-sub-super": "~1.0.16",
-    "remark-toc": "~5.1.1",
+    "remark-toc": "~9.0.0",
     "unist-util-visit": "~1.4.0"
   },
   "peerDependencies": {
