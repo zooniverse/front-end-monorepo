@@ -4233,6 +4233,14 @@
     "@storybook/client-logger" "7.4.2"
     "@storybook/preview-api" "7.4.2"
 
+"@storybook/core-client@7.4.3":
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/@storybook/core-client/-/core-client-7.4.3.tgz#d563dcb5a9ec913829f9edc93a9fac3d1c7b8c8a"
+  integrity sha512-YRt07TxC+HUtnyvbpJbY8d2+2QfFExBL7zRbms9tIRorddWfPBq+lA2RS9zcjUJJJtNSz1+ST70FuGr1N3AXGg==
+  dependencies:
+    "@storybook/client-logger" "7.4.3"
+    "@storybook/preview-api" "7.4.3"
+
 "@storybook/core-common@7.4.2":
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/@storybook/core-common/-/core-common-7.4.2.tgz#6f2873cb49e893967764839cb240c18df737372b"
@@ -4654,7 +4662,7 @@
     "@storybook/react" "7.4.2"
     "@types/node" "^16.0.0"
 
-"@storybook/react@7.4.2", "@storybook/react@~7.4.0":
+"@storybook/react@7.4.2":
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.4.2.tgz#a5b5f0f2e63ca60936e874eca243082d0eb2544c"
   integrity sha512-8bAnSOpDTiE1c9pSkIKRipvqbuZP6Hu1CYaG1RXWF8AIBsjiV9+SsR919Flj1UiCmcw4BLO/ZIvIDGny4ktHhA==
@@ -4666,6 +4674,33 @@
     "@storybook/preview-api" "7.4.2"
     "@storybook/react-dom-shim" "7.4.2"
     "@storybook/types" "7.4.2"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^16.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@~7.4.0":
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.4.3.tgz#68e5858bbdc644d57ab47afc49342d153dad8983"
+  integrity sha512-koF1GLPBY5rm8t+6i70Iw6Ep/6T2C+XAlnP1dO/ZJAv8mmeQmOw+Kwh6nNPG8bthm0l1nImgqRw2ZwCD2AFoSA==
+  dependencies:
+    "@storybook/client-logger" "7.4.3"
+    "@storybook/core-client" "7.4.3"
+    "@storybook/docs-tools" "7.4.3"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "7.4.3"
+    "@storybook/react-dom-shim" "7.4.3"
+    "@storybook/types" "7.4.3"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^16.0.0"
