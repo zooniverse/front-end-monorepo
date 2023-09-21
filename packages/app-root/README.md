@@ -3,5 +3,4 @@
 ### Node
 ```sh
 yarn dev
-yarn storybook
 ```

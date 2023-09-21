@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
-    <main>
+    <div>
       <p>This is app-root HomePage</p>
-    </main>
+    </div>
   )
 }
