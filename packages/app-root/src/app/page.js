@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
     <div>
-      <p>This is app-root HomePage</p>
+      <p>This is the zooniverse.org home page</p>
     </div>
   )
 }
