@@ -78,7 +78,8 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
-        img={subjectImage.current}
+        key={viewerLocation.url}
+        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
@@ -97,8 +98,9 @@ const FlipbookViewer = ({
           rotate={rotation}
           width={img.naturalWidth}
         >
-          <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
+          <g role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
+              ref={subjectImage}
               invert={invert}
               move={move}
               naturalHeight={img.naturalHeight}

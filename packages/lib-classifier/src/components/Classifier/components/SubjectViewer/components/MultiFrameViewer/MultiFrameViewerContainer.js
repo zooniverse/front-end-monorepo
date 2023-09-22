@@ -120,7 +120,8 @@ function MultiFrameViewerContainer({
           locations={subject.locations}
         />
         <SVGPanZoom
-          img={subjectImage.current}
+          key={img.src}
+          imgRef={subjectImage}
           limitSubjectHeight={limitSubjectHeight}
           maxZoom={5}
           minZoom={0.1}
@@ -139,17 +140,16 @@ function MultiFrameViewerContainer({
             rotate={rotation}
             width={img.naturalWidth}
           >
-            <g ref={subjectImage}>
-              <SVGImage
-                invert={invert}
-                move={move}
-                naturalHeight={img.naturalHeight}
-                naturalWidth={img.naturalWidth}
-                onDrag={onDrag}
-                src={img.src}
-                subjectID={subjectID}
-              />
-            </g>
+            <SVGImage
+              ref={subjectImage}
+              invert={invert}
+              move={move}
+              naturalHeight={img.naturalHeight}
+              naturalWidth={img.naturalWidth}
+              onDrag={onDrag}
+              src={img.src}
+              subjectID={subjectID}
+            />
           </SingleImageViewer>
         </SVGPanZoom>
       </Box>
