@@ -13,6 +13,7 @@ import ConsensusPopup from './components/ConsensusPopup'
 
 export const ConsensusLine = styled('g')`
   cursor: pointer;
+  filter: drop-shadow(1px 1px 4px #5c5c5c);
 
   &:focus {
     ${props => css`outline: solid 4px ${props.focusColor};`}
@@ -86,7 +87,7 @@ function TranscribedLines({
   const transcribedLines = lines.filter(line => !line.consensusReached)
   const fills = {
     transcribed: 'drawing-pink',
-    complete: 'light-5'
+    complete: 'light-4'
   }
 
   const focusColor = theme.global.colors[theme.global.colors.focus]
