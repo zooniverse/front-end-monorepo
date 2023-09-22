@@ -20,6 +20,7 @@ import remarkSubSuper from 'remark-sub-super'
 import externalLinks from 'remark-external-links'
 import toc from 'remark-toc'
 import ping from './lib/ping'
+import breaks from 'remark-breaks'
 import footnotes from 'remark-footnotes'
 import Media from '../Media'
 import withThemeContext from '../helpers/withThemeContext'
@@ -127,6 +128,7 @@ function Markdownz({
       .use(emoji)
       .use(remarkSubSuper)
       .use(externalLinks)
+      .use(breaks)
       .use(footnotes, { inlineNotes: true })
       .use(ping, {
         ping: pingCallback,

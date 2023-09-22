@@ -5,7 +5,7 @@ import {
   FrameCarousel,
   StyledControlButton,
   StyledMedia,
-  StyledFrame
+  StyledLabel
 } from './FrameCarousel'
 
 describe('Component > FrameCarousel', function () {
@@ -46,7 +46,7 @@ describe('Component > FrameCarousel', function () {
   })
 
   it('should render a label, input and an img for each location', function () {
-    const labels = wrapper.find(StyledFrame)
+    const labels = wrapper.find(StyledLabel)
     const inputs = wrapper.find('input')
     const images = wrapper.find(StyledMedia)
     expect(labels).to.have.lengthOf(numberOfFrames)
