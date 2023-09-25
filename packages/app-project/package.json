@@ -77,7 +77,7 @@
     "chai-dom": "~1.11.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
-    "eslint-config-next": "~12.3.0",
+    "eslint-config-next": "~13.5.3",
     "eslint-plugin-jsx-a11y": "~6.7.0",
     "jsdom": "~22.1.0",
     "mocha": "~10.2.0",
