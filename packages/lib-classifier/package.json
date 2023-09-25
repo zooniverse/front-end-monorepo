@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.23.1",
-    "@sentry/browser": "~7.70.0",
+    "@sentry/browser": "~7.71.0",
     "@visx/axis": "~3.3.0",
     "@visx/brush": "~3.3.0",
     "@visx/event": "~3.3.0",
