@@ -1,0 +1,31 @@
+{
+  "name": "@zooniverse/user",
+  "description": "A library for Zooniverse user and user group pages",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "0.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "type": "module",
+  "repository": "https://github.com/zooniverse/front-end-monorepo.git",
+  "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:es6",
+    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored",
+    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored",
+    "dev": "echo \"nothing with dev yet\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "prop-types": "^15.8.1",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "webpack": "~5.88.0",
+    "webpack-cli": "~5.1.0"
+  },
+  "engines": {
+    "node": ">=18.13"
+  }
+}
