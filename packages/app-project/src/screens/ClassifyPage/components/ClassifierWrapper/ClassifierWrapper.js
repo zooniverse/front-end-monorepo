@@ -45,10 +45,6 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
-  /* setClassifierSubjectID() is called when the subject changes inside the classifier component
-     subjectID comes from classifierProps in ClassifyPage */
-  const [classifierSubjectID, setClassifierSubjectID] = useState(subjectID)
-
   const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
   router = router || nextRouter
@@ -81,22 +77,18 @@ export default function ClassifierWrapper({
   if (subjectSetID) {
     baseURL = `${baseURL}/subject-set/${subjectSetID}`
   }
-
-  if (router.query.subjectID && classifierSubjectID) {
-    const subjectPageURL = `${baseURL}/subject/${classifierSubjectID}`
-    /* True when the classifier subject changed, but new id is not yet reflected in the url */
-    if (router?.query.subjectID !== classifierSubjectID) {
-      const href = addQueryParams(subjectPageURL)
-      router.push(href, href, { shallow: true })
-    }
-  }
+  const subjectInURL = router?.query.subjectID !== undefined
 
   /*
     Track the current classification subject, when it changes inside the classifier.
   */
   const onSubjectChange = useCallback((subject) => {
-    setClassifierSubjectID(subject?.id)
-  }, [])
+    if (subjectInURL) {
+      const subjectPageURL = `${baseURL}/subject/${subject.id}`
+      const href = addQueryParams(subjectPageURL)
+      router.replace(href, href, { shallow: true })
+    }
+  }, [baseURL, router.replace, subjectInURL])
 
   const addFavourites = collections?.addFavourites
   const removeFavourites = collections?.removeFavourites
