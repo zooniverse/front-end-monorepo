@@ -38,7 +38,7 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
       fill={color}
       ref={ref}
       stroke={color}
-      strokeWidth={2}
+      strokeWidth={4 / scale}
     >
       <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
       <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
