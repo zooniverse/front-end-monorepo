@@ -43,10 +43,13 @@ function SVGImageWithRef({
     width: naturalWidth,
   }
 
+  const ImageComponent = move ? DraggableImage : 'image'
+  if (move) {
+    props.dragMove = onDrag
+  }
   return (
-    <DraggableImage
+    <ImageComponent
       ref={ref}
-      dragMove={onDrag}
       {...props}
     />
   )
