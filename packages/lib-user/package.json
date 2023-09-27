@@ -26,7 +26,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {},
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@zooniverse/panoptes-js": "~0.4.0"
+  },
   "devDependencies": {
     "@babel/cli": "~7.22.5",
     "@babel/core": "~7.22.0",
