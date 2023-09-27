@@ -63,7 +63,7 @@ function SingleImageViewerContainer({
 
     return (
       <SVGPanZoom
-        key={img.src}
+        key={`${img.naturalWidth}-${img.naturalHeight}`}
         imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
