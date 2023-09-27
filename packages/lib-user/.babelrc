@@ -1,5 +1,9 @@
 {
-  "plugins": [],
+  "plugins": [
+    ["@babel/plugin-transform-runtime", {
+      "helpers": false
+    }]
+  ],
   "presets": [
     ["@babel/preset-react", {
       "runtime": "automatic"
