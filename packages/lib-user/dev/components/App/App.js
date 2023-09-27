@@ -1,132 +1,110 @@
 import oauth from 'panoptes-client/lib/oauth'
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 
 import { GroupStats, UserStats } from '../../../src/index.js'
 
-// TODO: refactor App as functional component?
+function App ({
+  groups = null,
+  users = null
+}) {
+  const [loading, setLoading] = useState(false)
+  const [userAuth, setUserAuth] = useState(null)
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    
-    this.state = {
-      loading: false,
-      userAuth: null
-    }
-  }
+  useEffect(() => {
+    async function initAuthorization () {
+      setLoading(true)
 
-  componentDidMount () {
-    this.initAuthorization()
-  }
-
-  initAuthorization () {
-    this.setState({ loading: true })
-
-    // TODO: create new oauth staging app
-    return oauth.init('7532a403edf16f31fb2a210b8a49f59553d45064e6c292679c3eac53631d73d1')
-      .then((userAuth) => {
-        this.setState({ loading: false, userAuth })
-        history.replaceState(null, document.title, location.pathname + location.search)
-      })
-  }
-
-  async getBearerToken () {
-    const token = await oauth.checkBearerToken()
-    if (token) {
-      return `Bearer ${token.access_token}`
-    }
-
-    return ''
-  }
-
-  login () {
-    oauth.signIn(window.location.origin)
-  }
-
-  logout () {
-    oauth.signOut()
-      .then(userAuth => {
-        this.setState({ userAuth })
-      })
-  }
-
-  render () {
-    const { groups, users } = this.props
-    const { userAuth } = this.state
-
-    let content = (
-      <div>
-        <h2>Key Components - urls (zooniverse.org/...)</h2>
-        <ul>
-          <li>homepage</li>
-          <li>
-            profile page (public) - users/[login]
-            <ul>
-              <li>
-                <a href="./?users=[login]/stats">user stats page (private) - users/[login]/stats</a>
-                <ul>
-                  <li>certificate - users/[login]/stats/certificate</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="./?groups=[user_group_id]">group stats page - groups/[id]</a>
-          </li>
-            <ul>
-              <li>contributors - groups/[id]/contributors</li>
-            </ul>
-        </ul>
-      </div>
-    )
-
-    if (groups) {
-      const subpaths = groups.split('/')
-    
-      if (subpaths[0] === '[user_group_id]') {
-        content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
-      } else if (subpaths[1] === 'contributors') {
-        content = <p>Group contributors component goes here.</p>
-      } else {
-        content = <GroupStats />
+      try {
+        const userAuth = await oauth.init('357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d');
+        setUserAuth(userAuth);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
     }
-  
-    if (users) {
-      const subpaths = users.split('/')
 
-      if (subpaths[0] === '[login]') {
-        content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
-      } else if (subpaths[1] === 'stats') {
-        content = (
-          <UserStats
-            authClient={oauth}
-            login={subpaths[0]}
-          />
-        )
-      }
-    }
+    initAuthorization()
+  }, [])
+
+  const login = () => oauth.signIn(window.location.origin)
+  const logout = () => oauth.signOut().then(setUserAuth)
+
+  let content = (
+    <div>
+      <h2>Key Components - urls (zooniverse.org/...)</h2>
+      <ul>
+        <li>homepage</li>
+        <li>
+          profile page (public) - users/[login]
+          <ul>
+            <li>
+              <a href="./?users=[login]/stats">user stats page (private) - users/[login]/stats</a>
+              <ul>
+                <li>certificate - users/[login]/stats/certificate</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="./?groups=[user_group_id]">group stats page - groups/[id]</a>
+        </li>
+          <ul>
+            <li>contributors - groups/[id]/contributors</li>
+          </ul>
+      </ul>
+    </div>
+  )
+
+  if (groups) {
+    const subpaths = groups.split('/')
   
-    return (
-      <main>
-        <header>
-          <h1><a href="./">lib-user</a></h1>
-          {userAuth ? (
-            <button onClick={this.logout.bind(this)}>
-              Logout
-            </button>
-          ) : (
-            <button onClick={this.login.bind(this)}>
-              Login
-            </button>
-          )}
-        </header>
+    if (subpaths[0] === '[user_group_id]') {
+      content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
+    } else if (subpaths[1] === 'contributors') {
+      content = <p>Group contributors component goes here.</p>
+    } else {
+      content = <GroupStats />
+    }
+  }
+
+  if (users) {
+    const subpaths = users.split('/')
+
+    if (subpaths[0] === '[login]') {
+      content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
+    } else if (subpaths[1] === 'stats') {
+      content = (
+        <UserStats
+          authClient={oauth}
+          login={subpaths[0]}
+        />
+      )
+    }
+  }
+
+  return (
+    <main>
+      <header>
+        <h1><a href="./">lib-user</a></h1>
+        {userAuth ? (
+          <button onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <button onClick={login}>
+            Login
+          </button>
+        )}
+      </header>
+      {loading ? 
+        <p>Loading...</p> : (
         <div>
           {content}
         </div>
-      </main>
-    )
-  }
+      )}
+    </main>
+  )
 }
 
 export default App
