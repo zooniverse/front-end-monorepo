@@ -1,16 +1,26 @@
 import { createRoot } from 'react-dom/client'
 
-import { GroupStats, UserStats } from '../src/index.js'
+import App from './components/App'
 
-const App = () => {
-  return (
-    <div>
-      <h1>lib-user</h1>
-      <GroupStats />
-      <UserStats />
-    </div>
-  )
+function getQueryParams() {
+  if (window.location) {
+    const url = new URL(window.location)
+    const { searchParams } = url
+    const queryParams = {}
+    searchParams.forEach((value, key) => {
+      queryParams[key] = value
+    })
+    return queryParams
+  }
+
+  return {}
 }
 
+const { groups, users } = getQueryParams()
 const root = createRoot(document.getElementById('root'))
-root.render(<App />)
+root.render(
+  <App
+    groups={groups}
+    users={users}
+  />
+)
