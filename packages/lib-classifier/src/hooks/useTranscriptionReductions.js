@@ -50,14 +50,21 @@ export default function useTranscriptionReductions() {
     async function checkSubject() {
       const authorization = await getBearerToken(authClient)
       const alreadySeen = await checkUser(caesarReductions?.userIDs, authorization)
-      if (alreadySeen) {
+      if (!ignore && alreadySeen) {
         const subjectSnapshot = getSnapshot(subject)
         logDuplicateSubject(subjectSnapshot)
         subject.markAsSeen()
       }
     }
-    checkSubject()
-  }, [caesarReductions, subject])
+
+    let ignore = false
+    if (subject && loaded) {
+      checkSubject()
+    }
+    return () => {
+      ignore = true
+    }
+  }, [loaded, caesarReductions, subject])
 
   let lines = []
   const activeStepAnnotations = subject?.stepHistory?.latest.annotations

@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~6.2.0",
-    "@sentry/nextjs": "~7.70.0",
+    "@sentry/nextjs": "~7.72.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.3.0",
     "@visx/group": "~3.3.0",

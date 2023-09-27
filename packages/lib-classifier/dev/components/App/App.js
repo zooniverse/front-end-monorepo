@@ -196,12 +196,12 @@ class App extends Component {
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
             <label htmlFor="locale">Language</label>
-            <select id="locale" defaultValue={locale} onChange={this.selectLocale}>
+            <select id="locale" value={locale} onChange={this.selectLocale}>
               {availableLocales?.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
               <option value='test'>Test Language</option>
             </select>
             <label htmlFor="workflows">Workflow</label>
-            <select id="workflows" defaultValue={workflowID} onChange={this.selectWorkflow}>
+            <select id="workflows" value={workflowID} onChange={this.selectWorkflow}>
               <option value=''>None</option>
               {workflows.map(workflow => <option key={workflow.id} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
             </select>
