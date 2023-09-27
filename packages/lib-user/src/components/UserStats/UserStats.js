@@ -1,5 +1,14 @@
-function UserStats () {
-  return <div>Hello User! 👋</div>
+import { string } from 'prop-types'
+
+function UserStats ({
+  authClient,
+  login = ''
+}) {
+  return <div>Hello User {login}! 👋</div>
+}
+
+UserStats.propTypes = {
+  login: string
 }
 
 export default UserStats
