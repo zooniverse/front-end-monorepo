@@ -16,7 +16,7 @@ function UserStats ({
   return (
     <div>
       <h2>Hello User with login {login}! 👋</h2>
-      <h3>Your display_name is {user?.display_name}</h3>
+      <h3>Your display_name is {user?.display_name}, ID is {user?.id}</h3>
       <h4>Here are your user stats:</h4>
       <pre>{JSON.stringify(userStats, null, 2)}</pre>
     </div>

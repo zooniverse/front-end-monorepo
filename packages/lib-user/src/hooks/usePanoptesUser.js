@@ -1,5 +1,5 @@
-import { auth } from '@zooniverse/panoptes-js'
 import { useEffect, useState } from 'react'
+import { auth } from '@zooniverse/panoptes-js'
 
 import { getBearerToken } from '@utils'
 

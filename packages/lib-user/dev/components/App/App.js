@@ -64,7 +64,14 @@ function App ({
     } else if (subpaths[1] === 'contributors') {
       content = <p>Group contributors component goes here.</p>
     } else {
-      content = <GroupStats />
+      const groupID = subpaths[0] || ''
+
+      content = (
+        <GroupStats
+          authClient={oauth}
+          groupID={groupID}
+        />
+      )
     }
   }
 
@@ -74,10 +81,12 @@ function App ({
     if (subpaths[0] === '[login]') {
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
+      const login = subpaths[0] || ''
+
       content = (
         <UserStats
           authClient={oauth}
-          login={subpaths[0]}
+          login={login}
         />
       )
     }
