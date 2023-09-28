@@ -1,6 +1,6 @@
-import GrommetContainer from '@/components/GrommetContainer/GrommetContainer.js'
 import ZooHeaderContainer from '@/components/ZooHeaderContainer.js'
 import ZooFooterContainer from '@/components/ZooFooterContainer.js'
+import { Grommet } from 'grommet'
 
 export const metadata = {
   title: 'Zooniverse',
@@ -10,13 +10,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <GrommetContainer>
-        <body style={{ margin: 0 }}>
+      <body style={{ margin: 0 }}>
+        <Grommet>
           <ZooHeaderContainer />
           <main>{children}</main>
           <ZooFooterContainer />
-        </body>
-      </GrommetContainer>
+        </Grommet>
+      </body>
     </html>
   )
 }
