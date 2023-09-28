@@ -170,9 +170,8 @@ class FrameCarousel extends Component {
       const activeFrame = frame === index
 
       return (
-        <li>
+        <li key={`${url}-${index}`}>
           <StyledLabel
-            key={`${url}-${index}`}
             ref={activeFrame ? this.activeLabel : null}
           >
             <input
