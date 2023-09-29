@@ -1,6 +1,7 @@
 import oauth from 'panoptes-client/lib/oauth'
 import { useEffect, useState } from 'react'
 
+import { usePanoptesUser } from '../../../src/hooks/index.js'
 import { GroupStats, UserStats } from '../../../src/index.js'
 
 function App ({
@@ -9,6 +10,8 @@ function App ({
 }) {
   const [loading, setLoading] = useState(false)
   const [userAuth, setUserAuth] = useState(null)
+
+  const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
 
   useEffect(() => {
     async function initAuthorization () {
@@ -39,19 +42,24 @@ function App ({
           profile page (public) - users/[login]
           <ul>
             <li>
-              <a href="./?users=[login]/stats">user stats page (private) - users/[login]/stats</a>
+              <a href={`./?users=${user?.login ?? "[login]"}/stats`}>user stats page (private) - users/{user?.login ?? "[login]"}/stats</a>
               <ul>
-                <li>certificate - users/[login]/stats/certificate</li>
+                <li>certificate - users/{user?.login ?? "[login]"}/stats/certificate</li>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <a href="./?groups=[user_group_id]">group stats page - groups/[id]</a>
-        </li>
+          groups list - TBD
           <ul>
-            <li>contributors - groups/[id]/contributors</li>
+            <li>
+              <a href="./?groups=[user_group_id]">group stats page - groups/[id]</a>
+              <ul>
+                <li>contributors - groups/[id]/contributors</li>
+              </ul>
+            </li>
           </ul>
+        </li>
       </ul>
     </div>
   )
