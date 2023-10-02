@@ -1,8 +1,11 @@
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import zooTheme from '@zooniverse/grommet-theme'
 import { expect } from 'chai'
+import { Grommet } from 'grommet'
 import sinon from 'sinon'
-import { TaskInput, StyledTaskInput, StyledTaskLabel } from './TaskInput'
-import TaskInputLabel from './components/TaskInputLabel'
+
+import TaskInput from './TaskInput'
 
 const radioTypeAnnotation = {
   _key: 1,
@@ -11,54 +14,69 @@ const radioTypeAnnotation = {
 }
 
 describe('TaskInput', function () {
+  function withGrommet() {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          {children}
+        </Grommet>
+      )
+    }
+  }
+
   describe('render', function () {
-    let wrapper
-    before(function () {
-      wrapper = shallow(<TaskInput annotation={radioTypeAnnotation} index={0} type='radio' />)
+    it('should render a radio button', function () {
+      render(
+        <TaskInput annotation={radioTypeAnnotation} index={0} type='radio' />,
+        { wrapper: withGrommet()}
+      )
+      expect(document.querySelectorAll('input[type="radio"]')).to.have.lengthOf(1)
     })
 
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
+    it('should render a label', function () {
+      render(
+        <TaskInput annotation={radioTypeAnnotation} index={0} type='radio' />,
+        { wrapper: withGrommet()}
+      )
+      expect(document.querySelectorAll('label')).to.have.lengthOf(1)
     })
 
-    it('should render a StyledTaskInput', function () {
-      expect(wrapper.find(StyledTaskInput)).to.have.lengthOf(1)
-    })
-
-    it('should render a StyledTaskLabel', function () {
-      expect(wrapper.find(StyledTaskLabel)).to.have.lengthOf(1)
-    })
-
-    it('should render a TaskInputLabel', function () {
-      expect(wrapper.find(TaskInputLabel)).to.have.lengthOf(1)
-    })
-
-    it('should use props.className in its classlist', function () {
-      wrapper.setProps({ className: 'active' })
-      expect(wrapper.find(StyledTaskInput).props().className).to.include('active')
+    it('should pass props.className to the label', function () {
+      render(
+        <TaskInput className='active' annotation={radioTypeAnnotation} index={0} type='radio' />,
+        { wrapper: withGrommet()}
+      )
+      expect(document.querySelector('label').className).to.include('active')
     })
 
     it('should disable the form input when disabled', function () {
-      expect(wrapper.find('input').prop('disabled')).to.be.false()
-      wrapper.setProps({ disabled: true })
-      expect(wrapper.find('input').prop('disabled')).to.be.true()
+      render(
+        <TaskInput disabled annotation={radioTypeAnnotation} index={0} type='radio' />,
+        { wrapper: withGrommet()}
+      )
+      const radioButton = document.querySelector('input[type="radio"]')
+      expect(radioButton.disabled).to.be.true()
     })
   })
 
   describe('onChange method', function () {
-    let onChangeSpy
-    let wrapper
-    before(function () {
-      onChangeSpy = sinon.spy()
-      wrapper = shallow(<TaskInput annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />)
+    const onChangeSpy = sinon.spy()
+
+    beforeEach(function () {
+      render(
+        <TaskInput annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />,
+        { wrapper: withGrommet()}
+      )
     })
 
     afterEach(function () {
       onChangeSpy.resetHistory()
     })
 
-    it('should call onChange when the on change event is fired', function () {
-      wrapper.find('input').simulate('change')
+    it('should call onChange when the on change event is fired', async function () {
+      const user = userEvent.setup()
+      const radioButton = document.querySelector('input[type="radio"]')
+      await user.click(radioButton)
       expect(onChangeSpy).to.have.been.calledOnce()
     })
   })

@@ -8,7 +8,8 @@ import styled, { css } from 'styled-components'
 import TaskInput from '../../components/TaskInput'
 
 const maxWidth = pxToRem(60)
-const StyledBox = styled(Box)`
+const StyledFieldset = styled.fieldset`
+  border: none;
   img:only-child, svg:only-child {
     ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
     max-width: ${maxWidth};
@@ -25,14 +26,17 @@ const StyledText = styled(Text)`
   }
 `
 
-function MultipleChoiceTask (props) {
-  const {
-    annotation,
-    className,
-    disabled,
-    task,
-    theme
-  } = props
+const inlineComponents = {
+  p: StyledText
+}
+
+function MultipleChoiceTask ({
+  annotation,
+  autoFocus = false,
+  className = '',
+  disabled = false,
+  task
+}) {
   const { value } = annotation
 
   function onChange (index, event) {
@@ -47,14 +51,14 @@ function MultipleChoiceTask (props) {
   }
 
   return (
-    <StyledBox
-      autoFocus={(value && value.length === 0)}
+    <Box
+      as={StyledFieldset}
       className={className}
       disabled={disabled}
-      theme={theme}
+      tabIndex={0}
     >
       <StyledText as='legend' size='small'>
-        <Markdownz>
+        <Markdownz components={inlineComponents}>
           {task.question}
         </Markdownz>
       </StyledText>
@@ -75,18 +79,8 @@ function MultipleChoiceTask (props) {
           />
         )
       })}
-    </StyledBox>
+    </Box>
   )
-}
-
-MultipleChoiceTask.defaultProps = {
-  className: '',
-  disabled: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 MultipleChoiceTask.propTypes = {
@@ -94,6 +88,7 @@ MultipleChoiceTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.array
   }).isRequired,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
@@ -102,13 +97,8 @@ MultipleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.string
-  }).isRequired,
-  theme: PropTypes.shape({
-    global: PropTypes.shape({
-      colors: PropTypes.object
-   })
- })
+    required: PropTypes.bool
+  }).isRequired
 }
 
 export default observer(MultipleChoiceTask)

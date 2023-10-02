@@ -3,11 +3,12 @@ import pxToRem from '@zooniverse/react-components/helpers/pxToRem'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import TaskInput from '../../components/TaskInput'
 
 const maxWidth = pxToRem(60)
-const StyledBox = styled(Box)`
+const StyledFieldset = styled.fieldset`
+  border: none;
   img:only-child, svg:only-child {
     ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
     max-width: ${maxWidth};
@@ -24,27 +25,32 @@ const StyledText = styled(Text)`
   }
 `
 
-function SingleChoiceTask (props) {
-  const {
-    annotation,
-    className,
-    disabled,
-    task,
-    theme
-  } = props
+const inlineComponents = {
+  p: StyledText
+}
+
+function SingleChoiceTask ({
+  annotation,
+  autoFocus = false,
+  className = '',
+  disabled = false,
+  task
+}) {
+  const theme = useTheme()
   const { value } = annotation
   function onChange (index, event) {
     if (event.target.checked) annotation.update(index)
   }
 
   return (
-    <StyledBox
+    <Box
+      as={StyledFieldset}
       className={className}
       disabled={disabled}
-      theme={theme}
+      tabIndex={0}
     >
       <StyledText as='legend' size='small'>
-        <Markdownz>
+        <Markdownz components={inlineComponents}>
           {task.question}
         </Markdownz>
       </StyledText>
@@ -66,18 +72,8 @@ function SingleChoiceTask (props) {
           />
         )
       })}
-    </StyledBox>
+    </Box>
   )
-}
-
-SingleChoiceTask.defaultProps = {
-  className: '',
-  disabled: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 SingleChoiceTask.propTypes = {
@@ -85,6 +81,7 @@ SingleChoiceTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.number
   }).isRequired,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
@@ -93,9 +90,8 @@ SingleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ])
-  }).isRequired,
-  theme: PropTypes.object
+    required: PropTypes.bool
+  }).isRequired
 }
 
 export default observer(SingleChoiceTask)
