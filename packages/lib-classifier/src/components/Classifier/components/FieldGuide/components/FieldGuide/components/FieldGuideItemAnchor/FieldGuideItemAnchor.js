@@ -2,6 +2,7 @@ import { Anchor, Box, Paragraph } from 'grommet'
 import { observable } from 'mobx'
 import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
+import { useCallback } from 'react'
 import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 
@@ -38,10 +39,10 @@ function FieldGuideItemAnchor({
   theme = defaultTheme,
   title
 }) {
-  function selectItem(event, itemIndex) {
+  const selectItem = useCallback(function (event) {
     onClick(itemIndex)
     event.preventDefault()
-  }
+  }, [itemIndex, onClick])
 
   const label = <AnchorLabel icons={icons} item={item} title={title} />
   const anchorColor = theme.dark ? 'light-3' : 'dark-5'
@@ -51,7 +52,7 @@ function FieldGuideItemAnchor({
       color={anchorColor}
       href={`#field-guide-item-${itemIndex}`}
       label={label}
-      onClick={event => selectItem(event, itemIndex)}
+      onClick={selectItem}
     />
   )
 }

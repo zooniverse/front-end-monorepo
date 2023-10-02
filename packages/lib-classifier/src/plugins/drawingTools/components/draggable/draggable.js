@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { forwardRef, useContext, useRef, useState } from 'react';
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function createPoint(event) {
@@ -42,16 +42,16 @@ const DEFAULT_COORDS = {
 const DEFAULT_HANDLER = event => true
 
 function draggable(WrappedComponent) {
-  function Draggable({
+  function DraggableWithRef({
     children,
     coords: initialCoords = DEFAULT_COORDS,
     dragStart = DEFAULT_HANDLER,
     dragMove = DEFAULT_HANDLER,
     dragEnd = DEFAULT_HANDLER,
     ...rest
-  }) {
+  }, ref) {
     const { canvas } = useContext(SVGContext)
-    const wrappedComponent = useRef()
+    const wrappedComponent = ref || useRef()
     const [dragging, setDragging] = useState(false)
     const [coords, setCoords] = useState(initialCoords)
     const [pointerId, setPointerId] = useState(-1)
@@ -113,6 +113,7 @@ function draggable(WrappedComponent) {
     )
   }
 
+  const Draggable = forwardRef(DraggableWithRef)
   const name =
     WrappedComponent.displayName ||
     WrappedComponent.name ||

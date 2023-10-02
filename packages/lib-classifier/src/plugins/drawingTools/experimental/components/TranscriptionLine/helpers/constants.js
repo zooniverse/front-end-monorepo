@@ -1,5 +1,5 @@
 const HANDLE_RADIUS = 5
-const GRAB_STROKE_WIDTH = 6
+const GRAB_STROKE_WIDTH = 12
 
 export {
   HANDLE_RADIUS,
