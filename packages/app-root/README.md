@@ -4,3 +4,9 @@
 ```sh
 yarn dev
 ```
+or
+
+```sh
+yarn build
+yarn start
+```
