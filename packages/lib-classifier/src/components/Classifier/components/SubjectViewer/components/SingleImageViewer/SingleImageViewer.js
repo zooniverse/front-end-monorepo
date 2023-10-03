@@ -1,29 +1,33 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
+import styled from 'styled-components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 import locationValidator from '../../helpers/locationValidator'
 
-function SingleImageViewer(props) {
-  const {
-    children,
-    enableInteractionLayer = true,
-    height,
-    limitSubjectHeight = false,
-    onKeyDown = () => true,
-    rotate = 0,
-    scale = 1,
-    svgMaxHeight = null,
-	subject,
-    title = {},
-    viewBox,
-    width,
-    zoomControlFn = null,
-    zooming = false
-  } = props
+const PlaceholderSVG = styled.svg`
+  background: no-repeat center / contain url('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png');
+`
+
+function SingleImageViewer({
+  children,
+  enableInteractionLayer = true,
+  height,
+  limitSubjectHeight = false,
+  onKeyDown = () => true,
+  rotate = 0,
+  scale = 1,
+  svgMaxHeight = null,
+subject,
+  title = {},
+  viewBox,
+  width,
+  zoomControlFn = null,
+  zooming = false
+}) {
   const transformLayer = useRef()
   const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
@@ -42,7 +46,7 @@ function SingleImageViewer(props) {
         width='100%'
         align='flex-end'
       >
-        <svg
+        <PlaceholderSVG
           focusable
           onKeyDown={onKeyDown}
           style={{
@@ -71,7 +75,7 @@ function SingleImageViewer(props) {
               />
             )}
           </g>
-        </svg>
+        </PlaceholderSVG>
       </Box>
     </SVGContext.Provider>
   )
