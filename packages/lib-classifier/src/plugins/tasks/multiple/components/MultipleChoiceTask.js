@@ -1,5 +1,4 @@
 import { Markdownz } from '@zooniverse/react-components'
-import pxToRem from '@zooniverse/react-components/helpers/pxToRem'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
@@ -8,7 +7,6 @@ import styled, { css, useTheme } from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
 
-const maxWidth = pxToRem(60)
 const StyledFieldset = styled.fieldset`
   border: none;
 
@@ -19,7 +17,7 @@ const StyledFieldset = styled.fieldset`
 
   img:only-child, svg:only-child {
     ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
-    max-width: ${maxWidth};
+    max-width: 2.5rem;
   }
 `
 
