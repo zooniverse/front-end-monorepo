@@ -3,12 +3,19 @@ import pxToRem from '@zooniverse/react-components/helpers/pxToRem'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
+import { useEffect, useRef } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import TaskInput from '../../components/TaskInput'
 
 const maxWidth = pxToRem(60)
 const StyledFieldset = styled.fieldset`
   border: none;
+
+  &:focus-visible {
+    outline: none;
+    ${props => props.focusColor && css`box-shadow: 0 0 2px 2px ${props.focusColor};`}
+  }
+
   img:only-child, svg:only-child {
     ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
     max-width: ${maxWidth};
@@ -36,8 +43,18 @@ function SingleChoiceTask ({
   disabled = false,
   task
 }) {
+  const fieldset = useRef()
   const theme = useTheme()
+  const focusColor = theme?.global.colors[theme?.global.colors.focus]
   const { value } = annotation
+  const questionHasFocus = autoFocus && value === null
+  
+  useEffect(function autofocusFieldset() {
+    if (questionHasFocus && document.activeElement !== fieldset.current) {
+      fieldset.current?.focus()
+    }
+  }, [questionHasFocus])
+
   function onChange (index, event) {
     if (event.target.checked) annotation.update(index)
   }
@@ -45,9 +62,12 @@ function SingleChoiceTask ({
   return (
     <Box
       as={StyledFieldset}
+      ref={fieldset}
       className={className}
       disabled={disabled}
-      tabIndex={0}
+      focusColor={focusColor}
+      tabIndex={-1}
+      theme={theme}
     >
       <StyledText as='legend' size='small'>
         <Markdownz components={inlineComponents}>
