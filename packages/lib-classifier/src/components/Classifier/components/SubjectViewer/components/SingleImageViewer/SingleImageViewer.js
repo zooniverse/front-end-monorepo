@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
@@ -10,6 +10,9 @@ import locationValidator from '../../helpers/locationValidator'
 
 const PlaceholderSVG = styled.svg`
   background: no-repeat center / contain url('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png');
+  touch-action: pinch-zoom;
+  max-width: ${props => props.maxWidth || '100%'};
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
 `
 
 function SingleImageViewer({
@@ -48,12 +51,9 @@ subject,
       >
         <PlaceholderSVG
           focusable
+          maxHeight={svgMaxHeight}
+          maxWidth={limitSubjectHeight ? `${width}px` : '100%'}
           onKeyDown={onKeyDown}
-          style={{
-            touchAction: 'pinch-zoom',
-            maxHeight: svgMaxHeight,
-            maxWidth: limitSubjectHeight ? `${width}px` : '100%'
-          }}
           tabIndex={0}
           viewBox={viewBox}
           xmlns='http://www.w3.org/2000/svg'
