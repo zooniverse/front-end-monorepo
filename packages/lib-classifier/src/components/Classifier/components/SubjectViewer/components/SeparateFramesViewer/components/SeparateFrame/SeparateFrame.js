@@ -30,7 +30,7 @@ const SeparateFrame = ({
     onError
   })
 
-  const { naturalHeight, naturalWidth, src: frameSrc } = img
+  const { naturalHeight = 600, naturalWidth = 800, src: frameSrc } = img
 
   const maxZoom = 5
   const minZoom = 0.1
