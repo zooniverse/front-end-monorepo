@@ -12675,10 +12675,10 @@ markdown-to-jsx@^7.1.8, markdown-to-jsx@^7.2.0:
   resolved "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-7.2.0.tgz"
   integrity sha512-3l4/Bigjm4bEqjCR6Xr+d4DtM1X6vvtGsMGSjJYyep8RjjIvcWtrXBS8Wbfe1/P+atKNMccpsraESIaWVplzVg==
 
-markdownz@~8.1.1:
-  version "8.1.4"
-  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-8.1.4.tgz#06f6ce22bde66bf77d81763188bfca93661eb728"
-  integrity sha512-HhsJZjiQvnm5S1+fZHrP+In8XqSt02V/Sw8fY8guywL+NvgV430cqWUSl798c8T2NaabmfRx3gkk33TQ7JB5UA==
+markdownz@~8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-8.2.0.tgz#04aceee8a2b5751ecdb217b3a60fc70cb4363141"
+  integrity sha512-is6rGpE68VoVKWrNMrzSHsfNuw8TsBBReo7MIkeLAZpSQ7CQ2JZygEGZn3VpgWqfNV7Uqq8o3oWdkeKguWS7Cg==
   dependencies:
     "@twemoji/api" "~14.1.0"
     markdown-it "~13.0.1"
