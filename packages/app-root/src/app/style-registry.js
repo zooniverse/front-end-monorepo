@@ -4,6 +4,8 @@ import { useServerInsertedHTML } from 'next/navigation'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { useState } from 'react'
 
+// https://nextjs.org/docs/app/building-your-application/styling/css-in-js#styled-components
+
 export default function StyledComponentsRegistry({
   children
 }) {

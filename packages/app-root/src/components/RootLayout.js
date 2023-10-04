@@ -1,11 +1,13 @@
 'use client'
+/**
+ * Note that all child components are now client components.
+ * If we want children of RootLayout to be server components
+ * a ZooHeaderContainer and ZooFooterContainer could be created instead.
+ */
 
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import { base as baseTheme } from 'grommet'
 import { ZooHeader, ZooFooter } from '@zooniverse/react-components'
-
-const theme = { ...baseTheme, ...zooTheme }
 
 export default function RootLayout({ children }) {
   return (
@@ -14,10 +16,10 @@ export default function RootLayout({ children }) {
         dark: 'dark-1',
         light: 'light-1'
       }}
-      theme={theme}
+      theme={zooTheme}
     >
       <ZooHeader />
-      <main>{children}</main>
+      {children}
       <ZooFooter />
     </Grommet>
   )
