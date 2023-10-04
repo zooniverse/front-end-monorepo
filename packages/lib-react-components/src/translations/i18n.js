@@ -37,8 +37,9 @@ zrcI18n.use(initReactI18next).init({
   }
 })
 
-supportedLngs.forEach(lang => {
-  zrcI18n.addResourceBundle(lang, 'translation', require(`./${lang}.json`))
+supportedLngs.forEach( async lang => {
+  const dictionary = await import(`./${lang}.json`)
+  zrcI18n.addResourceBundle(lang, 'translation', dictionary)
 })
 
 export function useTranslation(ns) {
