@@ -1,5 +1,6 @@
 /* eslint-env browser, mocha */
 /* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
+import React from 'react'
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
 import sinonChai from 'sinon-chai'
@@ -9,6 +10,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 
 chai.use(dirtyChai)
 chai.use(sinonChai)
+global.React = React
 global.expect = chai.expect
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})

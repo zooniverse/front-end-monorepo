@@ -1,4 +1,4 @@
-import { parseToRgb, rgb } from 'polished'
+const { parseToRgb, rgb } = require('polished')
 
 function getGradientShade (hex) {
   const color = parseToRgb(hex)
