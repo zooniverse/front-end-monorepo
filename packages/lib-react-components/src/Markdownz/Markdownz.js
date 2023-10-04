@@ -1,5 +1,6 @@
 import { createElement, Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import {
   Anchor,
   Heading,
@@ -43,6 +44,20 @@ export function renderMedia(nodeProps) {
   return null
 }
 
+const StyledHorizontalRule = styled.hr`
+  width: 100%;
+`
+const StyledOrderedList = styled.ol`
+  font-size: 14px;
+  margin-top: 0;
+`
+const StyledUnorderedList = styled.ul`
+  font-size: 14px;
+  margin-top: 0;
+`
+const StyledVideo = styled.video`
+  max-width: 100%;
+`
 const componentMappings = {
   a: Anchor,
   h1: ({ id, children }) => <Heading id={id} level='1'>{children}</Heading>,
@@ -51,7 +66,7 @@ const componentMappings = {
   h4: ({ id, children }) => <Heading id={id} level='4'>{children}</Heading>,
   h5: ({ id, children }) => <Heading id={id} level='5'>{children}</Heading>,
   h6: ({ id, children }) => <Heading id={id} level='6'>{children}</Heading>,
-  hr: () => <hr style={{ width: '100%' }} />,
+  hr: StyledHorizontalRule,
   img: renderMedia,
   p: Paragraph,
   span: Text,
@@ -61,8 +76,9 @@ const componentMappings = {
   tbody: TableBody,
   td: TableCell,
   tr: TableRow,
-  ol: ({ children }) => <ol style={{ fontSize: '14px', marginTop: 0 }}>{children}</ol>,
-  ul: ({ children }) => <ul style={{ fontSize: '14px', marginTop: 0 }}>{children}</ul>
+  ol: StyledOrderedList,
+  ul: StyledUnorderedList,
+  video: StyledVideo
 }
 
 function Markdownz({
