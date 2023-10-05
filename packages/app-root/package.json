@@ -13,6 +13,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@next/bundle-analyzer": "~13.5.4",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.1",
     "@zooniverse/panoptes-js": "~0.4.1",
