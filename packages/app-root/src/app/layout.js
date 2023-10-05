@@ -9,11 +9,9 @@ export const metadata = {
 export default function NextLayout({ children }) {
   return (
     <html lang='en'>
-      <body style={{ margin: 0 }}>
-        <StyledComponentsRegistry>
-          <RootLayout>{children}</RootLayout>
-        </StyledComponentsRegistry>
-      </body>
+      <StyledComponentsRegistry>
+        <RootLayout>{children}</RootLayout>
+      </StyledComponentsRegistry>
     </html>
   )
 }
