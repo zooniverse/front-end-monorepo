@@ -7,7 +7,6 @@ import { draggable } from '@plugins/drawingTools/components'
 export const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
-
 const INVERT =
   `<svg style="position: fixed; right: 100%; top: 100%; visibility: hidden;">
     <defs>

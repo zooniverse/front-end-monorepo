@@ -33,6 +33,8 @@ function Head (props) {
       <link rel='apple-touch-icon' href='/touch-icon.png' />
       <link rel='mask-icon' href='/favicon-mask.svg' color='#49B882' />
       <link rel='icon' href='/favicon.ico' />
+      // preload the classifier's subject placeholder
+      <link rel='preload' as='image' href='https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png' fetchpriority='high' />
 
       <meta property='og:url' content={url} />
       <meta property='og:title' content={fullTitle} />

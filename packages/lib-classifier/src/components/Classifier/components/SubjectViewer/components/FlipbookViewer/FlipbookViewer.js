@@ -40,6 +40,10 @@ const FlipbookViewer = ({
     onReady,
     onError
   })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
   const viewerLocation = subject?.locations ? subject.locations[currentFrame] : ''
 
@@ -78,13 +82,13 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
-        key={`${img.naturalWidth}-${img.naturalHeight}`}
+        key={`${naturalWidth}-${naturalHeight}`}
         imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={img.naturalHeight}
-        naturalWidth={img.naturalWidth}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
@@ -92,19 +96,19 @@ const FlipbookViewer = ({
       >
         <SingleImageViewer
           enableInteractionLayer={false}
-          height={img.naturalHeight}
+          height={naturalHeight}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}
           rotate={rotation}
-          width={img.naturalWidth}
+          width={naturalWidth}
         >
           <g role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
               ref={subjectImage}
               invert={invert}
               move={move}
-              naturalHeight={img.naturalHeight}
-              naturalWidth={img.naturalWidth}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
               onDrag={onDrag}
               src={viewerLocation.url}
               subjectID={subject.id}
