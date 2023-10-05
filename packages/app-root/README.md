@@ -21,6 +21,10 @@ yarn build
 yarn start
 ```
 
+### Analyze bundle sizes
+
+This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true yarn build`.
+
 ## Technologies
 
   - @zooniverse/panoptes-js - Panoptes API javascript client
