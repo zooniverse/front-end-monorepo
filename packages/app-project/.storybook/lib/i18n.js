@@ -15,11 +15,11 @@ i18n.use(initReactI18next).init({
 })
 
 supportedLngs.forEach(lang => {
-  namespaces.forEach(n => {
+  namespaces.forEach(async function (n) {
     i18n.addResourceBundle(
       lang,
       n,
-      require(`/public/locales/${lang}/${n}.json`)
+      await import(`/public/locales/${lang}/${n}.json`)
     )
   })
 })

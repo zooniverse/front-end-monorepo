@@ -38,6 +38,10 @@ function SingleImageViewerContainer({
     onReady,
     onError
   })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
   useEffect(function onMount() {
     enableRotation()
@@ -63,12 +67,13 @@ function SingleImageViewerContainer({
 
     return (
       <SVGPanZoom
-        img={subjectImage.current}
+        key={`${naturalWidth}-${naturalHeight}`}
+        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={img.naturalHeight}
-        naturalWidth={img.naturalWidth}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
@@ -77,28 +82,27 @@ function SingleImageViewerContainer({
       >
         <SingleImageViewer
           enableInteractionLayer={enableDrawing}
-          height={img.naturalHeight}
+          height={naturalHeight}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={onKeyZoom}
           rotate={rotation}
           title={title}
-          width={img.naturalWidth}
+          width={naturalWidth}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
           subject={subject}
         >
-          <g ref={subjectImage}>
-            <SVGImage
-              invert={invert}
-              move={move}
-              naturalHeight={img.naturalHeight}
-              naturalWidth={img.naturalWidth}
-              onDrag={onDrag}
-              src={img.src}
-              subjectID={subjectID}
-            />
-          </g>
+          <SVGImage
+            ref={subjectImage}
+            invert={invert}
+            move={move}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            onDrag={onDrag}
+            src={img.src}
+            subjectID={subjectID}
+          />
         </SingleImageViewer>
       </SVGPanZoom>
     )

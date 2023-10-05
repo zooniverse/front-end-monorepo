@@ -91,7 +91,10 @@ function StyledButtonLabel ({ color, count = 0, label }) {
         justify='between'
         margin={{ left: 'small' }}
       >
-        <Text size='16px'>
+        <Text
+          size='16px'
+          textAlign='start'
+        >
           {label}
         </Text>
         <Text

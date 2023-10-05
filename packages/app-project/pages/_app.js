@@ -84,7 +84,7 @@ function MyApp({ Component, pageProps }) {
       <>
         <GlobalStyle />
         <Provider store={store}>
-          <MediaContextProvider>
+          <MediaContextProvider disableDynamicMediaQueries>
             <GrommetWrapper>
               <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
               <Box>

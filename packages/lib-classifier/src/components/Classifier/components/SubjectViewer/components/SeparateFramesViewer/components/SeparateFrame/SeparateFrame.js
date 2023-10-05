@@ -30,7 +30,7 @@ const SeparateFrame = ({
     onError
   })
 
-  const { naturalHeight, naturalWidth, src: frameSrc } = img
+  const { naturalHeight = 600, naturalWidth = 800, src: frameSrc } = img
 
   const maxZoom = 5
   const minZoom = 0.1
@@ -206,17 +206,16 @@ const SeparateFrame = ({
         viewBox={`${x} ${y} ${width} ${height}`}
         width={naturalWidth}
       >
-        <g ref={subjectImage}>
-          <SVGImage
-            invert={invert}
-            move={separateFrameMove}
-            naturalHeight={naturalHeight}
-            naturalWidth={naturalWidth}
-            onDrag={onDrag}
-            src={frameSrc}
-            subjectID={frameUrl} // for aria-label
-          />
-        </g>
+        <SVGImage
+          ref={subjectImage}
+          invert={invert}
+          move={separateFrameMove}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          onDrag={onDrag}
+          src={frameSrc}
+          subjectID={frameUrl} // for aria-label
+        />
       </SingleImageViewer>
       <Box
         background={{

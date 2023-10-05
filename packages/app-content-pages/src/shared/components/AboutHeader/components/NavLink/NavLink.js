@@ -10,7 +10,7 @@ function NavLink ({
   const { asPath } = useRouter()
   const isActive = asPath === href
   return (
-    <Link href={href} passHref>
+    <Link legacyBehavior href={href} passHref>
       <Anchor
         aria-current={isActive ? 'page' : undefined}
         size='medium'

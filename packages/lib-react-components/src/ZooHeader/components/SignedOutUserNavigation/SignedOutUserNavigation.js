@@ -20,14 +20,8 @@ export default function SignedOutUserNavigation({
   if (Object.keys(user).length === 0 && signIn) {
     return (
       <>
-        <Box
-          direction='row'
-          justify='center'
-          pad={{ horizontal: 'medium', vertical: 'small' }}
-        >
-          <NavButton label={t('ZooHeader.SignedOutUserNavigation.signIn')} onClick={signIn} />
-          <NavButton label={t('ZooHeader.SignedOutUserNavigation.register')} onClick={register} />
-        </Box>
+        <NavButton label={t('ZooHeader.SignedOutUserNavigation.signIn')} onClick={signIn} />
+        <NavButton label={t('ZooHeader.SignedOutUserNavigation.register')} onClick={register} />
         {isNarrow &&
           <NarrowMainNavMenu
             adminNavLinkLabel={adminNavLinkLabel}

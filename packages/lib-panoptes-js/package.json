@@ -17,7 +17,7 @@
     "test:ci": "NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "jose": "~4.14.4",
+    "jose": "~4.15.1",
     "superagent": "^8.0.6"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "mocha": "~10.2.0",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.3.0",
-    "sinon": "~15.2.0",
+    "sinon": "~16.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0"
   },

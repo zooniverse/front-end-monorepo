@@ -1,15 +1,49 @@
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import { MetaToolsButton, StyledPlainButton } from './MetaToolsButton'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { Button, Link } from './MetaToolsButton.stories'
+import {
+  MetaToolsButtonMock,
+  MetaToolsButtonLinkMock
+} from './MetaToolsButton.mock'
 
 describe('MetaToolsButton', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<MetaToolsButton />)
-    expect(wrapper).to.be.ok()
+  describe('Plain Button', function () {
+    beforeEach(function () {
+      const MetaToolsButtonStory = composeStory(Button, Meta)
+      render(<MetaToolsButtonStory />)
+    })
+
+    it('should render the text', function () {
+      expect(screen.getByText(MetaToolsButtonMock.text)).to.exist()
+    })
+
+    it('should render the aria label', function () {
+      expect(screen.getByLabelText(MetaToolsButtonMock.text)).to.exist()
+    })
+
+    it('should not have a link', function () {
+      expect(screen.getByTestId('test-meta-tools-button').getAttribute('href'))
+        .to.equal('')
+    })
   })
 
-  it('should render a StyledPlainButton', function () {
-    const wrapper = shallow(<MetaToolsButton />)
-    expect(wrapper.find(StyledPlainButton)).to.have.lengthOf(1)
+  describe('Link Button', function () {
+    beforeEach(function () {
+      const MetaToolsButtonLinkStory = composeStory(Link, Meta)
+      render(<MetaToolsButtonLinkStory />)
+    })
+
+    it('should render the text', function () {
+      expect(screen.getByText(MetaToolsButtonMock.text)).to.exist()
+    })
+
+    it('should render the aria label', function () {
+      expect(screen.getByLabelText(MetaToolsButtonMock.text)).to.exist()
+    })
+
+    it('should have a link', function () {
+      expect(screen.getByTestId('test-meta-tools-button').getAttribute('href'))
+        .to.equal(MetaToolsButtonLinkMock.href)
+    })
   })
 })

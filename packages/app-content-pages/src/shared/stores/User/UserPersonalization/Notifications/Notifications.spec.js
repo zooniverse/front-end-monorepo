@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { when } from 'mobx'
+import { applySnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import sinon from 'sinon'
@@ -154,6 +155,50 @@ describe('Stores > Notifications', function () {
       })
     })
 
+    describe('when the response includes conversations as an empty array', function () {
+      const mockResponse = {
+        conversations: [],
+        meta: {
+          next_page: undefined
+        }
+      }
+
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/conversations')
+          .query(true)
+          .reply(200, mockResponse)
+          .get('/notifications')
+          .query(true)
+          .reply(200)
+
+        rootStore = Store.create()
+        applySnapshot(rootStore, {
+          user: {
+            personalization: {
+              notifications: {
+                unreadConversationsIds: ['123', '456']
+              }
+            }
+          }
+        })
+        
+        rootStore.user.set(user)
+        const { notifications } = rootStore.user.personalization
+        
+        await when(() => notifications.conversationsLoadingState === asyncStates.success)
+      })
+
+      after(function () {
+        nock.cleanAll()
+      })
+
+      it('should set the unreadConversationsIds to an empty array', function () {
+        expect(rootStore.user.personalization.notifications.unreadConversationsIds.length).to.equal(0)
+      })
+    })
+
     describe('when the request errors', function () {
       before(async function () {
         sinon.stub(console, 'error')
@@ -253,6 +298,51 @@ describe('Stores > Notifications', function () {
       })
 
       it('should keep the unreadNotificationsCount as zero', function () {
+        expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.equal(0)
+      })
+    })
+
+    describe('when the response includes a meta notifications count of zero', function () {
+      const mockResponse = {
+        meta: {
+          notifications: {
+            count: 0
+          }
+        }
+      }
+
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/notifications')
+          .query(true)
+          .reply(200, mockResponse)
+          .get('/conversations')
+          .query(true)
+          .reply(200)
+
+        rootStore = Store.create()
+        applySnapshot(rootStore, {
+          user: {
+            personalization: {
+              notifications: {
+                unreadNotificationsCount: 5
+              }
+            }
+          }
+        })
+        
+        rootStore.user.set(user)
+        const { notifications } = rootStore.user.personalization
+        
+        await when(() => notifications.notificationsLoadingState === asyncStates.success)
+      })
+
+      after(function () {
+        nock.cleanAll()
+      })
+
+      it('should set the unreadNotificationsCount to zero', function () {
         expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.equal(0)
       })
     })

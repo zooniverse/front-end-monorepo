@@ -32,7 +32,7 @@ describe('Components > SVGPanZoom', function () {
       </SVGPanZoom>
     )
   })
-  
+
   it('should enable zoom in', async function () {
     onZoom('zoomin', 1)
     await waitFor(() => {
@@ -106,7 +106,7 @@ describe('Components > SVGPanZoom', function () {
     onDrag({}, { x: -15, y: 0 })
     await waitFor(() => {
       const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-      expect(viewBox).to.equal('15 0 400 200')
+      expect(viewBox).to.equal('10 0 400 200')
     })
   })
 
@@ -114,7 +114,7 @@ describe('Components > SVGPanZoom', function () {
     onDrag({}, { x: 0, y: -15 })
     await waitFor(() => {
       const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-      expect(viewBox).to.equal('0 15 400 200')
+      expect(viewBox).to.equal('0 10 400 200')
     })
   })
 

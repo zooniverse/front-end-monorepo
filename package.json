@@ -11,7 +11,7 @@
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
     "coveralls": "~3.1.0",
-    "lerna": "~7.2.0",
+    "lerna": "~7.3.0",
     "nyc": "~15.1.0",
     "snazzy": "~9.0.0"
   },
@@ -48,7 +48,16 @@
       ".jsx"
     ]
   },
-  "workspaces": [
-    "packages/**"
-  ]
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ],
+    "nohoist": [
+      "**/@storybook/*",
+      "**/storybook",
+      "**/storybook-i18n",
+      "**/storybook-react-i18next",
+      "**/next"
+    ]
+  }
 }

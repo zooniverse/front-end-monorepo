@@ -1,15 +1,13 @@
 import {
   axisRight,
-  axisTop
-} from 'd3-axis'
-import { brushX } from 'd3-brush'
-import { scaleLinear } from 'd3-scale'
-import { select } from 'd3-selection'
-import {
+  axisTop,
+  brushX,
+  scaleLinear,
+  select,
   zoom,
   zoomIdentity,
   zoomTransform
-} from 'd3-zoom'
+} from 'd3'
 import PropTypes from 'prop-types'
 import { createRef, Component } from 'react';
 
@@ -733,6 +731,9 @@ class LightCurveViewer extends Component {
         onKeyDown={this.props.onKeyDown}
         tabIndex={0}
         ref={this.svgContainer}
+        style={{
+          touchAction: 'pinch-zoom'
+        }}
       />
     )
   }

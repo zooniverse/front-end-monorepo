@@ -1,6 +1,6 @@
 import { normalizeColor } from 'grommet/utils'
 import { css } from 'styled-components'
-import { getGradientShade } from '@zooniverse/react-components'
+import getGradientShade from '@zooniverse/react-components/helpers/getGradientShade'
 
 const theme = {
   button: {

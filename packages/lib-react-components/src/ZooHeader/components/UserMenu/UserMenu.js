@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
+import { Box } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
 import { useTranslation } from '../../../translations/i18n'
 
 import NarrowMenu from '../NarrowMenu'
 import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
+import SpacedText from '../../../SpacedText'
 import { getHost } from '../../helpers'
 
 // The standard xsmall size in the theme isn't small enough
@@ -12,13 +14,14 @@ export const StyledFormDown = styled(FormDown)`
   width: 1em;
 `
 
+const textMargin = { right: 'small' }
+const menuButtonPadding = { horizontal: 'medium', vertical: 'small' }
+
 export default function UserMenu ({ signOut, user }) {
   const { t } = useTranslation()
 
   // Support staging urls...
   const host = getHost()
-
-  const userDisplayName = <NarrowMenuNavListItem color='#B2B2B2' text={user.display_name} lang='en' />
 
   const profileLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.profile')} />
 
@@ -40,10 +43,27 @@ export default function UserMenu ({ signOut, user }) {
 
   return (
     <NarrowMenu
-      icon={<StyledFormDown color='#B2B2B2' />}
+      aria-label={user.display_name}
       items={userMenuNavListItems}
-      label={userDisplayName}
-    />
+    >
+      <Box
+        align="center"
+        as='span'
+        direction="row"
+        pad={menuButtonPadding}
+      >
+        <SpacedText
+          color='#b2b2b2'
+          lang='en'
+          margin={textMargin}
+          size='xsmall'
+          weight='bold'
+        >
+          {user.display_name}
+        </SpacedText>
+        <StyledFormDown color='#b2b2b2' />
+      </Box>
+    </NarrowMenu>
   )
 }
 

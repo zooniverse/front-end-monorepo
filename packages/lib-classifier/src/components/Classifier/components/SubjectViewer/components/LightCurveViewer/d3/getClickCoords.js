@@ -4,7 +4,7 @@ The coordinates are relative to the origin of the specified SVG node (which
 uses D3 scales for its x and y axes).
  */
 
-import { mouse } from 'd3-brush'
+import { mouse } from 'd3'
 
 export default function getClickCoords (svgNode, xScale, yScale, transform) {
   const coords = mouse(svgNode)

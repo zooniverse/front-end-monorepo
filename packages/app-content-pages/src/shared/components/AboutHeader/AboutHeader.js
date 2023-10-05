@@ -1,4 +1,4 @@
-import { withThemeContext } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import { Box, Text } from 'grommet'
 import { useTranslation } from 'next-i18next'
 

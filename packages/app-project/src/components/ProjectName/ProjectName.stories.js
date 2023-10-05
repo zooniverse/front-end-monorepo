@@ -1,5 +1,5 @@
 import { Provider } from 'mobx-react'
-import ProjectNameComponent from './index'
+import { ProjectName as ProjectNameComponent } from './ProjectName'
 import { ProjectNameMock } from './ProjectName.mock'
 
 export default {
@@ -8,7 +8,5 @@ export default {
 }
 
 export const ProjectName = () => (
-  <Provider store={ProjectNameMock}>
-    <ProjectNameComponent />
-  </Provider>
+  <ProjectNameComponent {...ProjectNameMock} />
 )
