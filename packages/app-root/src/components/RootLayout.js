@@ -7,7 +7,8 @@
 
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import { ZooHeader, ZooFooter } from '@zooniverse/react-components'
+import ZooHeader from '@zooniverse/react-components/ZooHeader'
+import ZooFooter from '@zooniverse/react-components/ZooFooter'
 
 export default function RootLayout({ children }) {
   return (
