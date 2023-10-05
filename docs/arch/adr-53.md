@@ -18,7 +18,7 @@ Create ERAS client.
 
 Create shared stats components in lib-react-components.
 
-Refactor profile ribbon from Panoptes project_preferences request(s) to ERAS user stats request.
+Refactor profile ribbon from Panoptes `project_preferences` request(s) to ERAS user stats request.
 
 Refactor recent classifications cards for redesigned logged-in user homepage.
 

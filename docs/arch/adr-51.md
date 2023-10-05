@@ -34,4 +34,4 @@ Proposed
 
 ## Consequences
 
-Create client, components, and features noted.Create user group stats page in new library `lib-user` per [FEM packages structure discussion](https://github.com/zooniverse/front-end-monorepo/discussions/5089).
+Create client, components, and features noted. Create user group stats page in new library `lib-user` per [FEM packages structure discussion](https://github.com/zooniverse/front-end-monorepo/discussions/5089).
