@@ -50,3 +50,4 @@
 - [ADR 48: JSONData subject location type and viewer](adr-48.md)
 - [ADR 49: Flipbook Viewer](adr-49.md)
 - [ADR 50: Separate Frames Viewer](adr-50.md)
+- [ADR 54: app-root](adr-54.md)

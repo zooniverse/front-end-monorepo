@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "type": "module",
   "dependencies": {
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.1",
