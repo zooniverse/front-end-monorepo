@@ -10,7 +10,7 @@ We will create a user group stats page to provide statistical insights and data 
 
 The user group stats page will show statistical information based on user group member role and user group `stats_visibility` property.
 
-Statistical information will include a bar chart of classification counts or hours - changeable by period and filterable by project, top projects, and could include top individual contributors and all user group members’ statistics.
+Statistical information will include a bar chart of classification counts or hours (changeable by period and filterable by project), top projects, and could include top individual contributors and all user group members’ statistics.
 
 User groups with the appropriate `stats_visibility` property will support a CSV export of user group member statistics.
 
