@@ -18,6 +18,7 @@
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "eslint": "eslint ./src --fix | snazzy",
+    "prepare": "yarn build:cjs && yarn build:es6",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  \"./{src,test}/**/*.spec.js\"",
     "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  --reporter=min \"./{src,test}/**/*.spec.js\"",
