@@ -1,7 +1,7 @@
-const { execSync } = require('child_process')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
-const webpack = require('webpack')
+import { execSync } from 'child_process'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path from 'path'
+import webpack from 'webpack'
 
 function gitCommit() {
   try {
@@ -12,6 +12,8 @@ function gitCommit() {
     return 'Not a git repository.'
   }
 }
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   COMMIT_ID: gitCommit(),
@@ -26,7 +28,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
-module.exports = {
+export default {
   devServer: {
     allowedHosts: [
       'bs-local.com',
