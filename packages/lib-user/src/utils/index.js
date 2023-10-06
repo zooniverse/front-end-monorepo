@@ -1,1 +1,1 @@
-export { default as getBearerToken } from './getBearerToken'
+export { default as getBearerToken } from './getBearerToken.js'

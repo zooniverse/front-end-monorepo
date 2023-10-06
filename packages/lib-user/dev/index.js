@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 
-import App from './components/App'
+import App from './components/App/index.js'
 
 function getQueryParams() {
   if (window.location) {

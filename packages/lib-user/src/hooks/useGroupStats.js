@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { getBearerToken } from '@utils'
+import { getBearerToken } from '@utils/index.js'
 
 // TODO: refactor with SWR
 

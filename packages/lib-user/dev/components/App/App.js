@@ -1,8 +1,8 @@
-import oauth from 'panoptes-client/lib/oauth'
+import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
 
-import { usePanoptesUser } from '../../../src/hooks/index.js'
-import { GroupStats, UserStats } from '../../../src/index.js'
+import { usePanoptesUser } from '@hooks/index.js'
+import { GroupStats, UserStats } from '@components/index.js'
 
 function App ({
   groups = null,

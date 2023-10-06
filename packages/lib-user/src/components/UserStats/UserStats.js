@@ -3,7 +3,7 @@ import { string } from 'prop-types'
 import {
   usePanoptesUser,
   useUserStats
-} from '@hooks'
+} from '@hooks/index.js'
 
 function UserStats ({
   authClient,

@@ -3,7 +3,7 @@ import { string } from 'prop-types'
 import { 
   useGroupStats,
   usePanoptesUserGroup
-} from '@hooks'
+} from '@hooks/index.js'
 
 function GroupStats ({
   authClient,
