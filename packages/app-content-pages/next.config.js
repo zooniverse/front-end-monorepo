@@ -44,21 +44,22 @@ const nextConfig = {
   },
 
   experimental: {
-    forceSwcTransforms: true,
-    modularizeImports: {
-      lodash: {
-        transform: 'lodash/{{member}}',
-      },
-      '@zooniverse/react-components': {
-        transform: '@zooniverse/react-components/{{member}}'
-      }
-    },
+    forceSwcTransforms: true
   },
 
   /** localeDetection is a Next.js feature, while the rest of i18n config pertains to next-i18next */
   i18n: {
     localeDetection: false,
     ...i18n
+  },
+
+  modularizeImports: {
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
+    '@zooniverse/react-components': {
+      transform: '@zooniverse/react-components/{{member}}'
+    }
   },
 
   reactStrictMode: true,
