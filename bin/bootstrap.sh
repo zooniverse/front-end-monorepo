@@ -22,7 +22,7 @@ yarn workspace @zooniverse/react-components build
 printf '\n'
 
 printf 'Building `lib-user`...\n'
-yarn workspace @zooniverse/user build
+yarn workspace @zooniverse/user install --frozen-lockfile
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'

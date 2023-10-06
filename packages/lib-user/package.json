@@ -24,6 +24,7 @@
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored",
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
+    "prepare": "yarn build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {},
