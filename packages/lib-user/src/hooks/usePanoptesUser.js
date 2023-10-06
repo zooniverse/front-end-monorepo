@@ -39,11 +39,13 @@ export default function usePanoptesUser(authClient) {
       setLoading(false)
     }
 
-    checkUserSession()
-    authClient.listen('change', checkUserSession)
+    if (authClient) {
+      checkUserSession()
+      authClient.listen('change', checkUserSession)
+    }
 
     return function () {
-      authClient.stopListening('change', checkUserSession)
+      authClient?.stopListening('change', checkUserSession)
     }
   }, [authClient])
 
