@@ -3,8 +3,9 @@
   "description": "Zooniverse React Components",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "version": "1.6.1",
+  "version": "1.6.4",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -13,7 +14,8 @@
     "./*": {
       "import": "./dist/esm/*/index.js",
       "require": "./dist/cjs/*/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "sideEffects": false,
   "repository": {
@@ -26,7 +28,7 @@
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "lint": "zoo-standard --fix | snazzy",
-    "prepare": "yarn build",
+    "prepare": "yarn build:cjs && yarn build:es6",
     "start": "start-storybook -p 6007",
     "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
     "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
@@ -51,6 +53,7 @@
     "react-resize-detector": "~9.1.0",
     "react-rnd": "10.4.1",
     "remark": "~12.0.1",
+    "remark-breaks": "~2.0.2",
     "remark-emoji": "~2.0.2",
     "remark-external-links": "~3.1.1",
     "remark-footnotes": "2.0.0",
@@ -69,8 +72,8 @@
     "styled-components": "5.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "~7.22.5",
-    "@babel/core": "~7.22.0",
+    "@babel/cli": "~7.23.0",
+    "@babel/core": "~7.23.0",
     "@babel/preset-env": "~7.22.0",
     "@babel/preset-react": "~7.22.0",
     "@babel/register": "~7.22.5",
@@ -100,7 +103,7 @@
     "react-dom": "~18.2.0",
     "rehype-stringify": "~8.0.0",
     "remark-rehype": "~8.1.0",
-    "sinon": "~16.0.0",
+    "sinon": "~16.1.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.4.0",

@@ -2,7 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -45,7 +45,6 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
-  const [classifierSubjectID, setClassifierSubjectID] = useState(subjectID)
   const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
   router = router || nextRouter
@@ -53,6 +52,7 @@ export default function ClassifierWrapper({
   const ownerSlug = router?.query.owner
   const projectSlug = router?.query.project
 
+  /* Only increment stats on the classify page if the subject is not retired or not already seen by current user */
   const incrementStats = yourStats?.increment
   const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
@@ -71,33 +71,24 @@ export default function ClassifierWrapper({
     If the page URL contains a subject ID, update that ID when the classification subject changes.
     Subject page URLs can be either `/classify/workflow/{workflowID}/subject/{subjectID}`
     or `/classify/workflow/{workflowID}/subject-set/{subjectSetID}/subject/{subjectID}`.
+    Example: Subject Set Progress Banner arrow buttons
   */
-  const replaceRoute = router.replace
   let baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
   if (subjectSetID) {
     baseURL = `${baseURL}/subject-set/${subjectSetID}`
   }
-  let subjectPageURL = null
-  let subjectRouteChanged = false
-  if (subjectID) {
-    subjectPageURL = `${baseURL}/subject/${classifierSubjectID}`
-    subjectRouteChanged = router?.query.subjectID !== classifierSubjectID
-  }
-
-  useEffect(function updatePageURL() {
-    if (subjectPageURL && subjectRouteChanged) {
-      const href = addQueryParams(subjectPageURL)
-      const as = href
-      replaceRoute(href, as, { shallow: true })
-    }
-  }, [replaceRoute, subjectPageURL, subjectRouteChanged])
+  const subjectInURL = router?.query.subjectID !== undefined
 
   /*
     Track the current classification subject, when it changes inside the classifier.
   */
   const onSubjectChange = useCallback((subject) => {
-    setClassifierSubjectID(subject?.id)
-  }, [])
+    if (subjectInURL) {
+      const subjectPageURL = `${baseURL}/subject/${subject.id}`
+      const href = addQueryParams(subjectPageURL)
+      router.replace(href, href, { shallow: true })
+    }
+  }, [baseURL, router.replace, subjectInURL])
 
   const addFavourites = collections?.addFavourites
   const removeFavourites = collections?.removeFavourites
@@ -110,7 +101,7 @@ export default function ClassifierWrapper({
   if (somethingWentWrong) {
     const { error: projectError } = project
     const { error: userError } = user
-    
+
     const errorToMessage = projectError || userError || new Error('Something went wrong')
     return (
       <ErrorMessage error={errorToMessage} />
@@ -180,7 +171,7 @@ ClassifierWrapper.propTypes = {
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
-  /** 
+  /**
     Optional custom router. Overrides the default NextJS.
     Useful for mocking the router in stories and shallow tests.
   */
@@ -189,9 +180,9 @@ ClassifierWrapper.propTypes = {
   }),
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
-  /** optional subjectID (from the page URL.) */
+  /** optional subjectID (from the classifierProps.) */
   subjectID: string,
-  /** optional subject set ID (from the page URL.) */
+  /** optional subject set ID (from the classifierProps.) */
   subjectSetID: string,
   /** Current logged-in user */
   user: shape({
@@ -199,6 +190,6 @@ ClassifierWrapper.propTypes = {
   }),
   /** Logged-in user ID */
   userID: string,
-  /** required workflow ID (from the page URL.) */
+  /** required workflow ID (from the classifierProps.) */
   workflowID: string
 }

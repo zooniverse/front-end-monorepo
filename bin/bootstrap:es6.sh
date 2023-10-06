@@ -37,4 +37,8 @@ printf 'Building `fe-content-pages`...\n'
 yarn workspace @zooniverse/fe-content-pages build
 printf '\n'
 
+printf 'Building `app-root`...\n'
+yarn workspace @zooniverse/app-root build
+printf '\n'
+
 echo 'Done!'

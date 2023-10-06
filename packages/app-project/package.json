@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~6.2.0",
-    "@sentry/nextjs": "~7.70.0",
+    "@sentry/nextjs": "~7.73.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.3.0",
     "@visx/group": "~3.3.0",
@@ -83,7 +83,7 @@
     "mocha": "~10.2.0",
     "nock": "~13.3.0",
     "selfsigned": "~2.1.1",
-    "sinon": "~16.0.0",
+    "sinon": "~16.1.0",
     "sinon-chai": "~3.7.0",
     "storybook": "~7.4.0",
     "storybook-react-i18next": "~2.0.1"

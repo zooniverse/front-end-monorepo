@@ -13,12 +13,8 @@ set -ev
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 cd $ROOT_DIR
 
-printf 'Installing dependencies...\n'
-yarn install --frozen-lockfile
-printf '\n'
-
 printf 'Building `lib-react-components`...\n'
-yarn workspace @zooniverse/react-components build
+yarn workspace @zooniverse/react-components install --frozen-lockfile
 printf '\n'
 
 printf 'Building `lib-user`...\n'
@@ -26,7 +22,7 @@ yarn workspace @zooniverse/user install --frozen-lockfile
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
-yarn workspace @zooniverse/classifier build
+yarn workspace @zooniverse/classifier install --frozen-lockfile
 printf '\n'
 
 printf 'Building `fe-project`...\n'
@@ -35,6 +31,10 @@ printf '\n'
 
 printf 'Building `fe-content-pages`...\n'
 yarn workspace @zooniverse/fe-content-pages build
+printf '\n'
+
+printf 'Building `app-root`...\n'
+yarn workspace @zooniverse/app-root build
 printf '\n'
 
 echo 'Done!'

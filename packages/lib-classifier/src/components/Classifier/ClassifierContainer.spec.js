@@ -134,7 +134,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view active workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -142,7 +142,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -229,7 +229,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view active workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -237,7 +237,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -325,7 +325,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view active workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -333,7 +333,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -421,7 +421,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view inactive workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -429,7 +429,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -517,7 +517,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view inactive workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -525,7 +525,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -613,7 +613,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view inactive workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -621,7 +621,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -710,7 +710,7 @@ describe('components > ClassifierContainer', function () {
     it('should be able to view inactive workflows', async function () {
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
       expect(firstSubjectsRequest.isDone()).to.be.true()
@@ -718,7 +718,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
     })
   })
@@ -897,7 +897,7 @@ describe('components > ClassifierContainer', function () {
       )
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
-        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
 
       // locale changes when the language menu changes.
@@ -927,7 +927,7 @@ describe('components > ClassifierContainer', function () {
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.true()
+        expect(radioButton.disabled).to.be.false()
       })
       expect(translationRequests.isDone()).to.be.true()
     })

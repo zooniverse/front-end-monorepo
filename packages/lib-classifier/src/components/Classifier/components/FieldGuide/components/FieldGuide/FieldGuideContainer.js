@@ -30,6 +30,7 @@ function FieldGuideContainer ({
     title: t('FieldGuide.title')
   }
   const rndProps = {
+    cancel: 'button, a.item',
     default: {
       height,
       x: 0 - minWidth,

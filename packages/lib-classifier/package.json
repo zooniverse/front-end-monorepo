@@ -18,6 +18,7 @@
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "eslint": "eslint ./src --fix | snazzy",
+    "prepare": "yarn build:cjs && yarn build:es6",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  \"./{src,test}/**/*.spec.js\"",
     "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  --reporter=min \"./{src,test}/**/*.spec.js\"",
@@ -25,8 +26,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@babel/runtime": "~7.22.0",
-    "@sentry/browser": "~7.70.0",
+    "@babel/runtime": "~7.23.1",
+    "@sentry/browser": "~7.73.0",
     "@visx/axis": "~3.3.0",
     "@visx/brush": "~3.3.0",
     "@visx/event": "~3.3.0",
@@ -61,8 +62,8 @@
     "styled-components": "~5.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "~7.22.5",
-    "@babel/core": "~7.22.0",
+    "@babel/cli": "~7.23.0",
+    "@babel/core": "~7.23.0",
     "@babel/eslint-parser": "~7.22.5",
     "@babel/plugin-transform-runtime": "~7.22.0",
     "@babel/preset-env": "~7.22.0",
@@ -110,7 +111,7 @@
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
     "rosie": "~2.1.0",
-    "sinon": "~16.0.0",
+    "sinon": "~16.1.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.4.0",
