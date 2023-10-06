@@ -8531,6 +8531,11 @@ domhandler@^5.0.1, domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
+dompurify@~3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.0.6.tgz#925ebd576d54a9531b5d76f0a5bef32548351dae"
+  integrity sha512-ilkD8YEnnGh1zJ240uJsW7AzE+2qpbOUYjacomn3AvJ6J4JhKGSZ2nh4wUIXPZrEPppaCLx5jFe8T89Rk8tQ7w==
+
 domutils@^2.5.2, domutils@^2.8.0:
   version "2.8.0"
   resolved "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz"
@@ -12675,12 +12680,13 @@ markdown-to-jsx@^7.1.8, markdown-to-jsx@^7.2.0:
   resolved "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-7.2.0.tgz"
   integrity sha512-3l4/Bigjm4bEqjCR6Xr+d4DtM1X6vvtGsMGSjJYyep8RjjIvcWtrXBS8Wbfe1/P+atKNMccpsraESIaWVplzVg==
 
-markdownz@~8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-8.2.0.tgz#04aceee8a2b5751ecdb217b3a60fc70cb4363141"
-  integrity sha512-is6rGpE68VoVKWrNMrzSHsfNuw8TsBBReo7MIkeLAZpSQ7CQ2JZygEGZn3VpgWqfNV7Uqq8o3oWdkeKguWS7Cg==
+markdownz@~8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-8.3.2.tgz#a04980661de5a30d6120e9befae235a6b45e1633"
+  integrity sha512-Mr4OPubyqAXZooAkfUfpSxRJFYmOh/IhG+cTPWSx3B8aXtC2CHgos1fBN7te1C2PSppqjB7P0xSI7Gt5hkDvgA==
   dependencies:
     "@twemoji/api" "~14.1.0"
+    dompurify "~3.0.6"
     markdown-it "~13.0.1"
     markdown-it-anchor "~8.6.5"
     markdown-it-container "~3.0.0"
