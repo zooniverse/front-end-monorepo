@@ -30,7 +30,7 @@ Create export member statistics to CSV functionality for applicable user groups.
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
