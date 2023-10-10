@@ -85,6 +85,7 @@ function Markdownz({
   baseURI = '',
   children,
   components = {},
+  inline = false,
   projectSlug = '',
   settings = {}
 }) {
@@ -103,6 +104,7 @@ function Markdownz({
   const html = utils.getHtml({
     baseURI,
     content: children,
+    inline,
     project: {
       slug: projectSlug
     }
@@ -131,6 +133,7 @@ Markdownz.propTypes = {
   baseURI: PropTypes.string,
   children: PropTypes.string.isRequired,
   components: PropTypes.object,
+  inline: PropTypes.bool,
   projectSlug: PropTypes.string,
   settings: PropTypes.object
 }
