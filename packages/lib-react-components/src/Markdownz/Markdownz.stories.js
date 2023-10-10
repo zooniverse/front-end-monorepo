@@ -15,11 +15,15 @@ const TableRowWithBorder = styled(TableRow)`
 function MarkdownTableRow({ label, content, ...props }) {
   return (
     <tr>
-      <th scope="row" border="bottom">
+      <th scope="row">
         {label}
       </th>
-      <td border="bottom">
-        <code>{content}</code>
+      <td>
+        <Markdownz {...props}>
+        {`\`\`\`  ${content}  \`\`\``}
+        </Markdownz>
+      </td>
+      <td>
         <Markdownz {...props}>
           {content}
         </Markdownz>
@@ -31,17 +35,24 @@ function MarkdownTableRow({ label, content, ...props }) {
 function MarkdownExamplesTable(props) {
   return (
     <table style={{ width: '100%'}}>
+      <caption>
+        Examples of Zooniverse-flavoured markdown
+      </caption>
       <colgroup>
-         <col span="1" style={{ width: '20%' }}/>
-         <col span="1" style={{ width: '80%' }}/>
+        <col span="1" style={{ width: '20%' }}/>
+        <col span="1" style={{ width: '40%' }}/>
+        <col span="1" style={{ width: '40%' }}/>
       </colgroup>
       <thead>
         <tr>
-          <th scope="col" border="bottom">
+          <th scope="col">
             Content
           </th>
-          <th scope="col" border="bottom">
+          <th scope="col">
             Markdown
+          </th>
+          <th scope="col">
+            Rendered
           </th>
         </tr>
       </thead>
