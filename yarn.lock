@@ -5324,10 +5324,10 @@
   dependencies:
     "@use-gesture/core" "10.2.18"
 
-"@visx/axis@~3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@visx/axis/-/axis-3.3.0.tgz"
-  integrity sha512-O7fPQtpum4NEsb8u2/eTeOSt8CvAczoehVQbJtDLyDNio6yLvytfHtRKxOsl/FHjFnPYgBjkQtwiKiR5oSjP3g==
+"@visx/axis@~3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-3.4.0.tgz#7ebb26aed847fbd0d20c82d4ec77fc1f4d436c72"
+  integrity sha512-8lt+PCSqyygNtQnLnMKxesc6qk/W0p1bFkd4SD8deTupWGMNsLRYlasUiWN6PBc7l1TX04v/S01GZb9oTMcZYw==
   dependencies:
     "@types/react" "*"
     "@visx/group" "3.3.0"
