@@ -8,8 +8,9 @@
 import { createGlobalStyle } from 'styled-components'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import ZooHeader from '@zooniverse/react-components/ZooHeader'
-import ZooFooter from '@zooniverse/react-components/ZooFooter'
+
+import PageHeader from './PageHeader.js'
+import PageFooter from './PageFooter.js'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,9 +29,9 @@ export default function RootLayout({ children }) {
         }}
         theme={zooTheme}
       >
-        <ZooHeader />
+        <PageHeader />
         {children}
-        <ZooFooter />
+        <PageFooter />
       </Grommet>
     </body>
   )

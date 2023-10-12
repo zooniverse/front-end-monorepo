@@ -1983,7 +1983,7 @@
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.2.0.tgz"
   integrity sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==
 
-"@grpc/grpc-js@^1.9.4":
+"@grpc/grpc-js@^1.8.10", "@grpc/grpc-js@^1.9.4":
   version "1.9.7"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.9.7.tgz#7d0e29bc162287bee2523901c9bc9320d8402397"
   integrity sha512-yMaA/cIsRhGzW3ymCNpdlPcInXcovztlgu/rirThj2b87u3RzWUszliOqZ/pldy7yhmJPS8uwog+kZSTa4A0PQ==
@@ -2260,12 +2260,12 @@
     pump "^3.0.0"
     tar-fs "^2.1.1"
 
-"@newrelic/aws-sdk@^7.0.2":
+"@newrelic/aws-sdk@^7.0.0", "@newrelic/aws-sdk@^7.0.2":
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-7.0.2.tgz#e93f1796c89be8323a75f3d7ec45b1bdd5a29292"
   integrity sha512-nT19hzId0MbjR3v1ks5YetvNfrwIEgMfeai+T2pQkuWkjCsYm3z+OybLOYMCN66gueqOOqGTq60qhM4dFu5s5w==
 
-"@newrelic/koa@^8.0.1":
+"@newrelic/koa@^8.0.0", "@newrelic/koa@^8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-8.0.1.tgz#26c1c6a69b15ad4b64a148b6be537ec2ca734206"
   integrity sha512-GyeZGKPllpUu6gWXRwVP/FlvE9+tU2lOprRiTdoXNM8jdVGL02IfHnvAzrIANoZoUdf3+Vev8NNeCup2Eojcvg==
@@ -2306,6 +2306,11 @@
     unescape-js "^1.1.4"
     uuid "^9.0.0"
     ws "^7.5.9"
+
+"@newrelic/superagent@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/@newrelic/superagent/-/superagent-7.0.0.tgz"
+  integrity sha512-fNB4NC+pJYYrFZRLcXaTb4Z7XFEfHi7fVQ3O9Qh10m/9CBM2W+Qc/6yyK9M1liRfgUGo5NOILRdjA23SS7720A==
 
 "@newrelic/superagent@^7.0.1":
   version "7.0.1"
@@ -9254,7 +9259,7 @@ execa@^5.0.0, execa@^5.1.1:
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
-express@^4.17.1, express@^4.17.3:
+express@^4.17.1, express@^4.17.3, express@~4.18.2:
   version "4.18.2"
   resolved "https://registry.npmjs.org/express/-/express-4.18.2.tgz"
   integrity sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ==
@@ -12972,6 +12977,33 @@ newrelic@^11.0.0, newrelic@~11.4.0:
     "@newrelic/native-metrics" "^10.0.0"
     "@prisma/prisma-fmt-wasm" "^4.17.0-16.27eb2449f178cd9fe1a4b892d732cc4795f75085"
 
+newrelic@~11.2.0:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-11.2.0.tgz#eded32c7b7d97cae36e45396e8926a201e441793"
+  integrity sha512-gkt6c5nphsKTRBmKd0H12xELwnhdV9Xph5CL8IXT7nj0C1gL/xxfuTrwj6g+JqDvVz983iNNfdfXBEhIUJC4nQ==
+  dependencies:
+    "@grpc/grpc-js" "^1.8.10"
+    "@grpc/proto-loader" "^0.7.5"
+    "@newrelic/aws-sdk" "^7.0.0"
+    "@newrelic/koa" "^8.0.0"
+    "@newrelic/security-agent" "0.3.0"
+    "@newrelic/superagent" "^7.0.0"
+    "@tyriar/fibonacci-heap" "^2.0.7"
+    concat-stream "^2.0.0"
+    https-proxy-agent "^7.0.1"
+    import-in-the-middle "^1.4.2"
+    json-bigint "^1.0.0"
+    json-stringify-safe "^5.0.0"
+    module-details-from-path "^1.0.3"
+    readable-stream "^3.6.1"
+    require-in-the-middle "^7.2.0"
+    semver "^7.5.2"
+    winston-transport "^4.5.0"
+  optionalDependencies:
+    "@contrast/fn-inspect" "^3.3.0"
+    "@newrelic/native-metrics" "^10.0.0"
+    "@prisma/prisma-fmt-wasm" "^4.17.0-16.27eb2449f178cd9fe1a4b892d732cc4795f75085"
+
 next-absolute-url@~1.2.2:
   version "1.2.2"
   resolved "https://registry.npmjs.org/next-absolute-url/-/next-absolute-url-1.2.2.tgz"
@@ -13814,7 +13846,7 @@ pako@~1.0.5:
   resolved "https://registry.npmjs.org/pako/-/pako-1.0.11.tgz"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-panoptes-client@~5.5.1:
+panoptes-client@~5.5.1, panoptes-client@~5.5.6:
   version "5.5.6"
   resolved "https://registry.npmjs.org/panoptes-client/-/panoptes-client-5.5.6.tgz"
   integrity sha512-TvcKIS7ggrfuh8dA+9ORgHw53lWCoRjyIZWtSjOGOlIIBB2QF+3dPEgyDUltQ6Kpo49TV7PRAYNczJI3GGn07w==
@@ -15588,6 +15620,13 @@ selfsigned@^2.1.1, selfsigned@~2.4.1:
   integrity sha512-th5B4L2U+eGLq1TVh7zNRGBapioSORUeymIydxgFpwww9d2qyKvtuPU2jJuHvYAwwqi2Y596QBL3eEqcPEYL8Q==
   dependencies:
     "@types/node-forge" "^1.3.0"
+    node-forge "^1"
+
+selfsigned@~2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-2.1.2.tgz#9f9a4b0d472a5f29f892eb52358056c61a7387e3"
+  integrity sha512-xc6ZKMc9owNuU3uEPuW45RnSPylOlRK5Brj8oWf/2+BQV2gD1c+/eJaHFCcTG8w8kRkEfb5mzn/yIpie6gJ1tA==
+  dependencies:
     node-forge "^1"
 
 "semver@2 || 3 || 4 || 5", semver@^5.6.0:
