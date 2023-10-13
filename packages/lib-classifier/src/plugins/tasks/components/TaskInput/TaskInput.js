@@ -102,7 +102,7 @@ export const StyledTaskInput = styled.label`
 `
 
 const DEFAULT_HANDLER = () => true
-  
+
 export function TaskInput ({
   autoFocus = false,
   checked = false,

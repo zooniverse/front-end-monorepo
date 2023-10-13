@@ -1,42 +1,19 @@
+import { composeStory } from '@storybook/react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import zooTheme from '@zooniverse/grommet-theme'
 import { expect } from 'chai'
-import { Grommet } from 'grommet'
 
-import SingleChoiceTask from './SingleChoiceTask'
 import Task from '@plugins/tasks/single'
+import Meta, { Default, WithAnnotation } from './SingleChoiceTask.stories'
+import mockTask from './mockTask'
 
 describe('SingleChoiceTask', function () {
-  const task = Task.TaskModel.create({
-    answers: [{ label: 'yes' }, { label: 'no' }],
-    required: true,
-    strings: {
-      'answers.0.label': 'yes',
-      'answers.1.label': 'no',
-      question: 'Is there a cat?'
-    },
-    taskKey: 'init',
-    type: 'single'
-  })
-  const annotation = task.defaultAnnotation()
-
-  function withGrommet() {
-    return function Wrapper({ children }) {
-      return (
-        <Grommet theme={zooTheme}>
-          {children}
-        </Grommet>
-      )
-    }
-  }
+  const task = Task.TaskModel.create(mockTask)
 
   describe('when it renders', function () {
     beforeEach(function () {
-      render(
-        <SingleChoiceTask annotation={annotation} task={task} />,
-        { wrapper: withGrommet()}
-      )
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
     })
 
     it('should have a question', function () {
@@ -53,17 +30,11 @@ describe('SingleChoiceTask', function () {
     })
   })
 
-  describe('with an annotation', function () {
+  describe('with an existing annotation', function () {
 
     beforeEach(function () {
-      annotation.update(0)
-      render(
-        <SingleChoiceTask
-          annotation={annotation}
-          task={task}
-        />,
-        { wrapper: withGrommet()}
-      )
+      const WithAnnotationStory = composeStory(WithAnnotation, Meta)
+      render(<WithAnnotationStory />)
     })
 
     it('should check the selected answer', function () {
@@ -74,15 +45,11 @@ describe('SingleChoiceTask', function () {
   })
 
   describe('onChange event handler', function () {
+    let annotation
     beforeEach(function () {
-      annotation.update(null)
-      render(
-        <SingleChoiceTask
-          annotation={annotation}
-          task={task}
-        />,
-        { wrapper: withGrommet()}
-      )
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
+      annotation = task.defaultAnnotation()
     })
 
     it('should update the annotation', async function () {
