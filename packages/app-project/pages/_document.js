@@ -81,8 +81,8 @@ export default class MyDocument extends Document {
           )}
           { /* https://docs.sentry.io/platforms/javascript/install/loader/#default-bundle */ }
           <script
-            src="https://browser.sentry-cdn.com/7.73.0/bundle.tracing.min.js"
-            integrity="sha384-xv80x9nYsS+PD04qfRD4Yyk7KDnT8ItdBWta1sosZVM5Qevzg72x/7IdZvCLglaY"
+            src="https://browser.sentry-cdn.com/7.74.0/bundle.tracing.min.js"
+            integrity="sha384-W2JRP8xn/TuxrYMKju0sE0xobDLaSAQMHidDScxIziQYpGZxKq4+aUb6Z4RQmNEF"
             crossorigin="anonymous"
             defer
             id='sentryScript'
