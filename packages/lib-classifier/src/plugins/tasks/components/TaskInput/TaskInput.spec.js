@@ -7,12 +7,6 @@ import sinon from 'sinon'
 
 import TaskInput from './TaskInput'
 
-const radioTypeAnnotation = {
-  _key: 1,
-  task: 'T0',
-  value: null
-}
-
 describe('TaskInput', function () {
   function withGrommet() {
     return function Wrapper({ children }) {
@@ -27,7 +21,7 @@ describe('TaskInput', function () {
   describe('render', function () {
     it('should render a radio button', function () {
       render(
-        <TaskInput annotation={radioTypeAnnotation} index={0} type='radio' />,
+        <TaskInput index={0} type='radio' />,
         { wrapper: withGrommet()}
       )
       expect(document.querySelectorAll('input[type="radio"]')).to.have.lengthOf(1)
@@ -35,7 +29,7 @@ describe('TaskInput', function () {
 
     it('should render a label', function () {
       render(
-        <TaskInput annotation={radioTypeAnnotation} index={0} type='radio' />,
+        <TaskInput index={0} type='radio' />,
         { wrapper: withGrommet()}
       )
       expect(document.querySelectorAll('label')).to.have.lengthOf(1)
@@ -43,7 +37,7 @@ describe('TaskInput', function () {
 
     it('should pass props.className to the label', function () {
       render(
-        <TaskInput className='active' annotation={radioTypeAnnotation} index={0} type='radio' />,
+        <TaskInput className='active' index={0} type='radio' />,
         { wrapper: withGrommet()}
       )
       expect(document.querySelector('label').className).to.include('active')
@@ -51,7 +45,7 @@ describe('TaskInput', function () {
 
     it('should disable the form input when disabled', function () {
       render(
-        <TaskInput disabled annotation={radioTypeAnnotation} index={0} type='radio' />,
+        <TaskInput disabled index={0} type='radio' />,
         { wrapper: withGrommet()}
       )
       const radioButton = document.querySelector('input[type="radio"]')
@@ -64,7 +58,7 @@ describe('TaskInput', function () {
 
     beforeEach(function () {
       render(
-        <TaskInput annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />,
+        <TaskInput onChange={onChangeSpy} index={0} type='radio' />,
         { wrapper: withGrommet()}
       )
     })
