@@ -1,44 +1,19 @@
+import { composeStory } from '@storybook/react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import zooTheme from '@zooniverse/grommet-theme'
 import { expect } from 'chai'
-import { Grommet } from 'grommet'
 
-import { MultipleChoiceTask } from './MultipleChoiceTask'
 import Task from '@plugins/tasks/multiple'
+import Meta, { Default, WithAnnotation } from './MultipleChoiceTask.stories'
+import mockTask from './mockTask'
 
 describe('MultipleChoiceTask', function () {
-  const task = Task.TaskModel.create({
-    answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
-    required: false,
-    strings: {
-      'answers.0.label': 'napping',
-      'answers.1.label': 'standing',
-      'answers.2.label': 'playing',
-      question: 'What is/are the cat(s) doing?'
-    },
-    taskKey: 'T1',
-    type: 'multiple'
-  })
-
-  const annotation = task.defaultAnnotation()
-
-  function withGrommet() {
-    return function Wrapper({ children }) {
-      return (
-        <Grommet theme={zooTheme}>
-          {children}
-        </Grommet>
-      )
-    }
-  }
+  const task = Task.TaskModel.create(mockTask)
 
   describe('when it renders', function () {
     beforeEach(function () {
-      render(
-        <MultipleChoiceTask annotation={annotation} task={task} />,
-        {wrapper: withGrommet()}
-      )
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
     })
 
     it('should have a question', function () {
@@ -55,16 +30,10 @@ describe('MultipleChoiceTask', function () {
     })
   })
 
-  describe('with an annotation', function () {
+  describe('with an existing annotation', function () {
     beforeEach(function () {
-      annotation.update([0])
-      render(
-        <MultipleChoiceTask
-          annotation={annotation}
-          task={task}
-        />,
-        {wrapper: withGrommet()}
-      )
+      const WithAnnotationStory = composeStory(WithAnnotation, Meta)
+      render(<WithAnnotationStory />)
     })
 
     it('should check the selected answer', function () {
@@ -75,15 +44,12 @@ describe('MultipleChoiceTask', function () {
   })
 
   describe('onChange', function () {
+    let annotation
+
     beforeEach(function () {
-      annotation.update([])
-      render(
-        <MultipleChoiceTask
-          annotation={annotation}
-          task={task}
-        />,
-        {wrapper: withGrommet()}
-      )
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
+      annotation = task.defaultAnnotation()
     })
 
     it('should update the annotation', async function () {
