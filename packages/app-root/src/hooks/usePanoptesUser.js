@@ -29,17 +29,30 @@ async function fetchPanoptesUser() {
   return await auth.checkCurrent()
 }
 
+let user
+
 export default function usePanoptesUser() {
   const [error, setError] = useState(null)
-  const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true)
 
   useEffect(function () {
     async function checkUserSession() {
       setLoading(true)
       try {
-        const panoptesUser = await fetchPanoptesUser()
-        setUser(panoptesUser)
+        const {
+          admin,
+          avatar_src,
+          display_name,
+          id,
+          login,
+        } = await fetchPanoptesUser()
+        user = {
+          admin,
+          avatar_src,
+          display_name,
+          id,
+          login,
+        }
       } catch (error) {
         setError(error)
       }
