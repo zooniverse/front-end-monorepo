@@ -1,13 +1,16 @@
 'use client'
+import AdminCheckbox from '@zooniverse/react-components/AdminCheckbox'
 import ZooFooter from '@zooniverse/react-components/ZooFooter'
 
-import { usePanoptesUser } from '../hooks'
+import { useAdminMode, usePanoptesUser } from '../hooks'
 
 export default function PageFooter() {
-  // we'll need the user in order to detect admin mode.
-  const { data: user } = usePanoptesUser()
+  const { data: user, isLoading } = usePanoptesUser()
+  const { adminMode, toggleAdmin } = useAdminMode(user)
 
   return (
-    <ZooFooter />
+    <ZooFooter
+      adminContainer={(!isLoading && user?.admin) ? <AdminCheckbox onChange={toggleAdmin} checked={adminMode} /> : null}
+    />
   )
 }

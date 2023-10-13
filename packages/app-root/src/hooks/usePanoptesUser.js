@@ -29,7 +29,13 @@ async function fetchPanoptesUser() {
   return await auth.checkCurrent()
 }
 
-let user
+const isBrowser = typeof window !== 'undefined'
+const localStorage = isBrowser ? window.localStorage : null
+const storedUserJSON = localStorage?.getItem('panoptes-user')
+let user = storedUserJSON && JSON.parse(storedUserJSON)
+if (user === null) {
+  user = undefined
+}
 
 export default function usePanoptesUser() {
   const [error, setError] = useState(null)
@@ -39,19 +45,14 @@ export default function usePanoptesUser() {
     async function checkUserSession() {
       setLoading(true)
       try {
-        const {
-          admin,
-          avatar_src,
-          display_name,
-          id,
-          login,
-        } = await fetchPanoptesUser()
-        user = {
-          admin,
-          avatar_src,
-          display_name,
-          id,
-          login,
+        const panoptesUser = await fetchPanoptesUser()
+        if (panoptesUser) {
+          const { admin, avatar_src, display_name, id, login } = panoptesUser
+          user = { admin, avatar_src, display_name, id, login }
+          localStorage?.setItem('panoptes-user', JSON.stringify(user))
+        } else {
+          user = undefined
+          localStorage?.removeItem('panoptes-user')
         }
       } catch (error) {
         setError(error)
