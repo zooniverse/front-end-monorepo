@@ -1,18 +1,18 @@
 'use client'
 import ZooHeader from '@zooniverse/react-components/ZooHeader'
+import { useContext } from 'react'
 
 import {
-  useAdminMode,
-  usePanoptesUser,
   useUnreadMessages,
   useUnreadNotifications
 } from '../hooks'
 
+import { PanoptesAuthContext } from '../contexts'
+
 export default function PageHeader() {
-  const { data: user } = usePanoptesUser()
+  const { adminMode, user } = useContext(PanoptesAuthContext)
   const { data: unreadMessages }= useUnreadMessages(user)
   const { data: unreadNotifications }= useUnreadNotifications(user)
-  const { adminMode, toggleAdmin } = useAdminMode(user)
 
   return (
     <ZooHeader

@@ -1,16 +1,16 @@
 'use client'
 import AdminCheckbox from '@zooniverse/react-components/AdminCheckbox'
 import ZooFooter from '@zooniverse/react-components/ZooFooter'
+import { useContext } from 'react'
 
-import { useAdminMode, usePanoptesUser } from '../hooks'
+import { PanoptesAuthContext } from '../contexts'
 
 export default function PageFooter() {
-  const { data: user, isLoading } = usePanoptesUser()
-  const { adminMode, toggleAdmin } = useAdminMode(user)
+  const { adminMode, toggleAdmin, user } = useContext(PanoptesAuthContext)
 
   return (
     <ZooFooter
-      adminContainer={(!isLoading && user?.admin) ? <AdminCheckbox onChange={toggleAdmin} checked={adminMode} /> : null}
+      adminContainer={user?.admin ? <AdminCheckbox onChange={toggleAdmin} checked={adminMode} /> : null}
     />
   )
 }
