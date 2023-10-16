@@ -1,5 +1,7 @@
+import { Grommet, Box, base as baseTheme } from 'grommet'
 import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { usePanoptesUser } from '@hooks/index.js'
 import { GroupStats, UserStats } from '@components/index.js'
@@ -10,6 +12,8 @@ function App ({
 }) {
   const [loading, setLoading] = useState(false)
   const [userAuth, setUserAuth] = useState(null)
+  const [dark, setDarkTheme] = useState(false)
+
 
   const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
 
@@ -100,27 +104,48 @@ function App ({
     }
   }
 
+  const mergedThemes = Object.assign({}, baseTheme, zooTheme)
+
   return (
-    <main>
-      <header>
-        <h1><a href="./">lib-user</a></h1>
-        {userAuth ? (
-          <button onClick={logout}>
-            Logout
-          </button>
-        ) : (
-          <button onClick={login}>
-            Login
-          </button>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={mergedThemes}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <main>
+        <header>
+          <h1><a href="./">lib-user</a></h1>
+          {userAuth ? (
+            <button onClick={logout}>
+              Logout
+            </button>
+          ) : (
+            <button onClick={login}>
+              Login
+            </button>
+          )}
+          <label>
+            Dark Theme
+            <input
+              name='theme-toggle'
+              onChange={() => setDarkTheme(!dark)}
+              type="checkbox"
+              value={!dark}
+            >
+            </input>
+          </label>
+        </header>
+        {loading ? 
+          <p>Loading...</p> : (
+          <div>
+            {content}
+          </div>
         )}
-      </header>
-      {loading ? 
-        <p>Loading...</p> : (
-        <div>
-          {content}
-        </div>
-      )}
-    </main>
+      </main>
+    </Grommet>
   )
 }
 

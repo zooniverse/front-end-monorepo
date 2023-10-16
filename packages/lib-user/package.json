@@ -30,7 +30,10 @@
   },
   "dependencies": {},
   "peerDependencies": {
+    "@zooniverse/grommet-theme": "3.x.x",
     "@zooniverse/panoptes-js": "~0.4.0",
+    "@zooniverse/react-components": "~1.x.x",
+    "grommet": "2.x.x",
     "react": "~18.2.0",
     "react-dom": "~18.2.0"
   },
