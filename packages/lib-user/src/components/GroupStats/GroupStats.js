@@ -1,3 +1,5 @@
+'use client'
+
 import { string } from 'prop-types'
 
 import { 
