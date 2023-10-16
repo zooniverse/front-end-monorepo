@@ -1,7 +1,6 @@
 import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
 
-import { usePanoptesUser } from '@hooks/index.js'
 import { GroupStats, UserStats } from '@components/index.js'
 
 function App ({
@@ -10,8 +9,6 @@ function App ({
 }) {
   const [loading, setLoading] = useState(false)
   const [userAuth, setUserAuth] = useState(null)
-
-  const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
 
   useEffect(() => {
     async function initAuthorization () {
@@ -42,9 +39,9 @@ function App ({
           profile page (public) - users/[login]
           <ul>
             <li>
-              <a href={`./?users=${user?.login ?? "[login]"}/stats`}>user stats page (private) - users/{user?.login ?? "[login]"}/stats</a>
+              <a href="./?users=[login]/stats">user stats page (private) - users/[login]/stats</a>
               <ul>
-                <li>certificate - users/{user?.login ?? "[login]"}/stats/certificate</li>
+                <li>certificate - users/[login]/stats/certificate</li>
               </ul>
             </li>
           </ul>
