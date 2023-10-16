@@ -28,8 +28,8 @@ Starts a development server on port 8080 ~~and a Storybook on port 6006~~ by def
 
 Use `yarn dev` to run a small development environment app at `localhost:8080`.
 
-- a staging user stats page can be loaded by query param: `localhost:8080?users=[login]/stats`
-- a staging user group stats page can be loaded by query param: `localhost:8080?groups=[user group ID]`
+- a staging user stats page can be loaded by query param: `https://localhost:8080?users=[login]/stats`
+- a staging user group stats page can be loaded by query param: `https://localhost:8080?groups=[user group ID]`
 
 <!-- ## Tests
 
