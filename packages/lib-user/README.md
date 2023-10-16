@@ -1,6 +1,6 @@
 # Zooniverse User and User Group Library
 
-A standalone library for the Zooniverse user stats, user group stats, and home pages.
+A library for the Zooniverse user stats, user group stats, and home pages. The components in this library are intended to be imported into app-root as part of `zooniverse.org/users` and `zooniverse.org/groups`. For example, the UserStats component from this library will be imported into the app-root page at `zooniverse.org/users/[login]/stats`.
 
 <!-- ## Getting Started
 
@@ -28,8 +28,14 @@ Starts a development server on port 8080 ~~and a Storybook on port 6006~~ by def
 
 Use `yarn dev` to run a small development environment app at `localhost:8080`.
 
-- a staging user stats page can be loaded by query param: `localhost:8080?users=[login]/stats`
-- a staging user group stats page can be loaded by query param: `localhost:8080?groups=[user group ID]`
+- a staging user stats page can be loaded by query param: `https://localhost:8080?users=[login]/stats`
+- a staging user group stats page can be loaded by query param: `https://localhost:8080?groups=[user group ID]`
+
+Note: query params are used for local development work, but are not used in production. The production urls related to this library are:
+
+- `https://www.zooniverse.org/users/[login]/stats`
+- `https://www.zooniverse.org/users/[login]/stats/certificate`
+- `https://www.zooniverse.org/groups/[user group ID]`
 
 <!-- ## Tests
 
