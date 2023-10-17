@@ -22,11 +22,13 @@
     "build": "yarn build:cjs && yarn build:es6",
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored",
+    "build-storybook": "echo \"No storybook to build yet...\" && exit 1",
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "eslint": "eslint ./src --fix | snazzy",
     "prepare": "yarn build",
     "storybook": "storybook dev -p 6008",
-    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\""
+    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
+    "test:ci": "echo \"No CI tests yet...\" && exit 1"
   },
   "dependencies": {},
   "peerDependencies": {
