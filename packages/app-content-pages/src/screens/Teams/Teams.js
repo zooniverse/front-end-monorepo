@@ -14,6 +14,8 @@ const StyledLi = styled.li`
 `
 
 const StyledButton = styled(Button)`
+  text-decoration: none;
+  color: black;
   ${props => props.active && css`
     background: none;
     font-weight: bold;
@@ -51,14 +53,16 @@ function TeamComponent ({
       <Box as='ul'>
         {filters.map(filter => (
           <StyledLi key={filter.name}>
-            <Link legacyBehavior href={filter.slug ? `#${filter.slug}` : ''} passHref>
-              <StyledButton
-                active={filter.active}
-                label={filter.name}
-                onClick={filter.setActive}
-                plain
-              />
-            </Link>
+            <StyledButton
+              as={Link}
+              active={filter.active}
+              href={filter.slug ? `#${filter.slug}` : ''}
+              label={filter.name}
+              onClick={filter.setActive}
+              plain
+            >
+              {filter.name}
+            </StyledButton>
           </StyledLi>
         ))}
       </Box>
