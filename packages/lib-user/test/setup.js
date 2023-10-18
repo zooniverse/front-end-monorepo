@@ -8,7 +8,6 @@ chai.use(dirtyChai)
 chai.use(sinonChai)
 global.expect = chai.expect
 
-// require all net requests to be mocked.
 nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://example.org/' })
