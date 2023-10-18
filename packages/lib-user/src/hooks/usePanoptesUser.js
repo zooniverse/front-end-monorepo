@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { auth } from '@zooniverse/panoptes-js'
+import { useEffect, useState } from 'react'
 
 import { getBearerToken } from '@utils/index.js'
 
@@ -39,10 +39,8 @@ export default function usePanoptesUser(authClient) {
       setLoading(false)
     }
 
-    if (authClient) {
-      checkUserSession()
-      authClient.listen('change', checkUserSession)
-    }
+    checkUserSession()
+    authClient.listen('change', checkUserSession)
 
     return function () {
       authClient?.stopListening('change', checkUserSession)

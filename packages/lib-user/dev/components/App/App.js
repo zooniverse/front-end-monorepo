@@ -15,12 +15,13 @@ function App ({
       setLoading(true)
 
       try {
-        const userAuth = await oauth.init('357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d');
-        setUserAuth(userAuth);
-        setLoading(false);
+        const userAuth = await oauth.init('357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d')
+        setUserAuth(userAuth)
+        setLoading(false)
+        history.replaceState(null, document.title, location.pathname + location.search)
       } catch (error) {
-        console.error(error);
-        setLoading(false);
+        console.error(error)
+        setLoading(false)
       }
     }
 
