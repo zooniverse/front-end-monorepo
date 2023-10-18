@@ -1,5 +1,5 @@
 'use client'
-import ZooHeader from '@zooniverse/react-components/ZooHeader'
+import { ZooHeader } from '@zooniverse/react-components'
 import { useContext } from 'react'
 
 import {

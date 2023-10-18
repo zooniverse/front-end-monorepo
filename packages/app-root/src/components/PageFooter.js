@@ -1,6 +1,5 @@
 'use client'
-import AdminCheckbox from '@zooniverse/react-components/AdminCheckbox'
-import ZooFooter from '@zooniverse/react-components/ZooFooter'
+import { AdminCheckbox, ZooFooter } from '@zooniverse/react-components'
 import { useContext } from 'react'
 
 import { PanoptesAuthContext } from '../contexts'
