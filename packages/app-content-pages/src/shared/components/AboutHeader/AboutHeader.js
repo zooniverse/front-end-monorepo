@@ -20,61 +20,62 @@ function AboutHeader() {
       href: '/team',
       label: t('AboutHeader.links.team')
     },
-    // {
-    //   href: '/acknowledgements',
-    //   label: t('AboutHeader.links.acknowledgements')
-    // },
+    {
+      href: '/acknowledgements',
+      label: t('AboutHeader.links.acknowledgements')
+    },
     {
       href: '/resources',
       label: t('AboutHeader.links.resources')
     },
-    // {
-    //   href: '/contact',
-    //   label: t('AboutHeader.links.contact')
-    // },
+    {
+      href: '/contact',
+      label: t('AboutHeader.links.contact')
+    },
     {
       href: '/faq',
       label: t('AboutHeader.links.faq')
     },
-    // {
-    //   href: '/highlights',
-    //   label: t('AboutHeader.links.highlights')
-    // },
-    // {
-    //   href: '/mobile-app',
-    //   label: t('AboutHeader.links.mobile')
-    // },
-    // {
-    //   href: '/donate',
-    //   label: t('AboutHeader.links.donate')
-    // }
+    {
+      href: '/highlights',
+      label: t('AboutHeader.links.highlights')
+    },
+    {
+      href: '/mobile-app',
+      label: t('AboutHeader.links.mobile')
+    },
+    {
+      href: '/donate',
+      label: t('AboutHeader.links.donate')
+    }
   ]
 
   return (
     <Box
       align='center'
+      aria-label={`${t('AboutHeader.title')} Zooniverse`}
       direction='row'
       as='nav'
       background='brand'
-      pad={{ horizontal: '2rem' }}
+      pad={{ horizontal: '2rem' }} // Same as ZooHeader
     >
       <Box
-        aria-label={`${t('AboutHeader.title')} Zooniverse`}
         align='left'
         as='ul'
         direction='row'
-        gap='small'
         pad={{ left: 'none' }}
         width='100%'
         wrap
+        // We don't use gap here bc gap inserts <div> into this <ul>
       >
         {links.map(link => (
-          <Box as='li' key={link.label}>
+          <Box as='li' key={link.label} pad={{ right: 'small' }}>
             <NavLink color='white' label={link.label} href={link.href} />
           </Box>
         ))}
       </Box>
-      <ZooniverseLogotype id="About Zooniverse Header component" color='white' />
+      {/* Enable logo when ready for all About Zooniverse pages to be hosted from FEM */}
+      {/* <ZooniverseLogotype id="About Zooniverse Header component" color='white' /> */}
     </Box>
   )
 }
