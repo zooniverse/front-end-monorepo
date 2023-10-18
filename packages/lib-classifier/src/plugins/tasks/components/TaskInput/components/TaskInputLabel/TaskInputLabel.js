@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
 import { doesTheLabelHaveAnImage } from '../../helpers'
 
-export const StyledTaskInputLabelWrapper = styled(Box)`
+export const StyledTaskInputLabelWrapper = styled.span`
   &:first-child {
     margin-top: 0;
   }
@@ -24,13 +24,23 @@ export const StyledLabel = styled(Text)`
   }
 `
 
+const StyledSpan = styled.span`
+  display: block;
+  margin: 1em 0;
+`
+
+const inlineComponents = {
+  p: StyledSpan
+}
+
 export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
   const howShouldTheLabelBeAligned = ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon))
     ? 'start'
     : 'center'
 
   return (
-    <StyledTaskInputLabelWrapper
+    <Box
+      as={StyledTaskInputLabelWrapper}
       direction='row'
       fill='horizontal'
       justify={howShouldTheLabelBeAligned}
@@ -38,11 +48,11 @@ export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
       {labelIcon &&
         labelIcon}
       <StyledLabel>
-        <Markdownz>{label}</Markdownz>
+        <Markdownz components={inlineComponents}>{label}</Markdownz>
       </StyledLabel>
       {labelStatus &&
         labelStatus}
-    </StyledTaskInputLabelWrapper>
+    </Box>
   )
 }
 
