@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 import Meta, { Default } from './AboutHeader.stories.js'
 

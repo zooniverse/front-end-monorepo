@@ -1,102 +1,88 @@
-import { shallow } from 'enzyme'
+import { composeStory } from '@storybook/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
-import { MultipleChoiceTask } from './MultipleChoiceTask'
+
 import Task from '@plugins/tasks/multiple'
+import Meta, { Default, WithAnnotation } from './MultipleChoiceTask.stories'
+import mockTask from './mockTask'
 
 describe('MultipleChoiceTask', function () {
-  const task = Task.TaskModel.create({
-    answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
-    required: false,
-    strings: {
-      'answers.0.label': 'napping',
-      'answers.1.label': 'standing',
-      'answers.2.label': 'playing',
-      question: 'What is/are the cat(s) doing?'
-    },
-    taskKey: 'T1',
-    type: 'multiple'
-  })
-
-  const annotation = task.defaultAnnotation()
+  const task = Task.TaskModel.create(mockTask)
 
   describe('when it renders', function () {
-    let wrapper
-    before(function () {
-      wrapper = shallow(<MultipleChoiceTask annotation={annotation} task={task} />)
-    })
-
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
+    beforeEach(function () {
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
     })
 
     it('should have a question', function () {
-      expect(wrapper.contains(task.question)).to.be.true()
+      const question = screen.getByText(task.question)
+      expect(question).to.exist()
     })
 
     it('should render the correct number of answer choices', function () {
-      task.answers.forEach((answer) => {
-        expect(wrapper.find({ label: answer.label })).to.have.lengthOf(1)
+      task.answers.forEach((answer, index) => {
+        const label = task.strings.get(`answers.${index}.label`)
+        const checkbox = screen.getByRole('checkbox', { name: label })
+        expect(checkbox).to.exist()
       })
     })
   })
 
-  describe('with an annotation', function () {
-    let wrapper
-
-    before(function () {
-      annotation.update([0])
-      wrapper = shallow(
-        <MultipleChoiceTask
-          annotation={annotation}
-          task={task}
-        />
-      )
+  describe('with an existing annotation', function () {
+    beforeEach(function () {
+      const WithAnnotationStory = composeStory(WithAnnotation, Meta)
+      render(<WithAnnotationStory />)
     })
 
     it('should check the selected answer', function () {
-      const answer = task.answers[0]
-      const input = wrapper.find({ label: answer.label })
-      expect(input.prop('checked')).to.be.true()
+      const label = task.strings.get('answers.0.label')
+      const checkbox = screen.getByRole('checkbox', { name: label })
+      expect(checkbox.checked).to.be.true()
     })
   })
 
   describe('onChange', function () {
-    let wrapper
+    let annotation
+
     beforeEach(function () {
-      annotation.update([])
-      wrapper = shallow(
-        <MultipleChoiceTask
-          annotation={annotation}
-          task={task}
-        />
-      )
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
+      annotation = task.defaultAnnotation()
     })
 
-    it('should update the annotation', function () {
+    it('should update the annotation', async function () {
+      const user = userEvent.setup()
       const expectedValue = []
-      task.answers.forEach((answer, index) => {
-        const node = wrapper.find({ label: answer.label })
-        node.simulate('change', { target: { checked: true } })
+      const answerTests = task.answers.map(async (answer, index) => {
+        const label = task.strings.get(`answers.${index}.label`)
+        const checkbox = screen.getByRole('checkbox', { name: label })
         expectedValue.push(index)
-        expect(annotation.value).to.deep.equal(expectedValue)
+        expect(annotation.value).to.not.equal(expectedValue)
+        await user.click(checkbox)
+        waitFor(() => expect(annotation.value).to.equal(expectedValue))
       })
+      await Promise.all(answerTests)
     })
 
-    it('should add checked answers to the annotation value', function () {
-      const firstNode = wrapper.find({ label: task.answers[0].label })
-      firstNode.simulate('change', { target: { checked: true } })
-      expect(annotation.value).to.deep.equal([0])
-      const lastNode = wrapper.find({ label: task.answers[2].label })
-      lastNode.simulate('change', { target: { checked: true } })
-      expect(annotation.value).to.deep.equal([0, 2])
-    })
-
-    it('should remove unchecked answers from the annotation value', function () {
-      const firstNode = wrapper.find({ label: task.answers[0].label })
-      firstNode.simulate('change', { target: { checked: true } })
-      expect(annotation.value).to.deep.equal([0])
-      firstNode.simulate('change', { target: { checked: false } })
-      expect(annotation.value).to.deep.equal([])
+    it('should add and remove checked and unchecked answers from the annotation value', async function () {
+      const user = userEvent.setup()
+      let label = task.strings.get('answers.0.label')
+      let checkbox = screen.getByRole('checkbox', { name: label })
+      await user.click(checkbox)
+      waitFor(() => expect(annotation.value).to.deep.equal([0]))
+      label = task.strings.get('answers.2.label')
+      checkbox = screen.getByRole('checkbox', { name: label })
+      await user.click(checkbox)
+      waitFor(() => expect(annotation.value).to.deep.equal([0, 2]))
+      checkbox = screen.getByRole('checkbox', { name: label })
+      await user.click(checkbox)
+      waitFor(() => expect(annotation.value).to.deep.equal([0]))
+      label = task.strings.get('answers.0.label')
+      checkbox = screen.getByRole('checkbox', { name: label })
+      await user.click(checkbox)
+      waitFor(() => expect(annotation.value).to.deep.equal([]))
     })
   })
 })
