@@ -15,8 +15,8 @@ const theme = {
     fontWeight: 'normal',
     hover: {
       extend: css`
-        background: rgba(255,255,255,0.2);
         color: white;
+        border-bottom-color: white;
       `,
       textDecoration: 'none'
     }

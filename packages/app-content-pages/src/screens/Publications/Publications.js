@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import Category from './components/Category/Category.js'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
 
@@ -82,12 +83,14 @@ function Publications({ className = '', data = [], filters = [] }) {
         description={t('Publications.description')}
         title={t('Publications.title')}
       />
-      <TwoColumnLayout
-        heading={heading}
-        className={className}
-        main={main}
-        sidebar={sidebar}
-      />
+      <PageLayout>
+        <TwoColumnLayout
+          heading={heading}
+          className={className}
+          main={main}
+          sidebar={sidebar}
+        />
+      </PageLayout>
     </>
   )
 }

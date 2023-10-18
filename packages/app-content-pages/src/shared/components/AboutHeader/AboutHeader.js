@@ -1,11 +1,10 @@
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
-import { Box, Text } from 'grommet'
+import { Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
+import { ZooniverseLogotype } from '@zooniverse/react-components'
 
 import NavLink from './components/NavLink'
-import theme from './theme'
 
-function AboutHeader () {
+function AboutHeader() {
   const { t } = useTranslation('components')
 
   const links = [
@@ -21,59 +20,63 @@ function AboutHeader () {
       href: '/team',
       label: t('AboutHeader.links.team')
     },
-    {
-      href: '/acknowledgements',
-      label: t('AboutHeader.links.acknowledgements')
-    },
+    // {
+    //   href: '/acknowledgements',
+    //   label: t('AboutHeader.links.acknowledgements')
+    // },
     {
       href: '/resources',
       label: t('AboutHeader.links.resources')
     },
-    {
-      href: '/contact',
-      label: t('AboutHeader.links.contact')
-    },
+    // {
+    //   href: '/contact',
+    //   label: t('AboutHeader.links.contact')
+    // },
     {
       href: '/faq',
       label: t('AboutHeader.links.faq')
     },
-    {
-      href: '/highlights',
-      label: t('AboutHeader.links.highlights')
-    },
-    {
-      href: '/mobile-app',
-      label: t('AboutHeader.links.mobile')
-    },
-    {
-      href: '/donate',
-      label: t('AboutHeader.links.donate')
-    }
+    // {
+    //   href: '/highlights',
+    //   label: t('AboutHeader.links.highlights')
+    // },
+    // {
+    //   href: '/mobile-app',
+    //   label: t('AboutHeader.links.mobile')
+    // },
+    // {
+    //   href: '/donate',
+    //   label: t('AboutHeader.links.donate')
+    // }
   ]
 
   return (
-    <Box align='center' as='header' background='brand'>
-
-      <Box margin={{ bottom: 'large', top: 'xlarge' }} width='xlarge'>
-        <Text color='white' size='xxlarge'>
-          {t('AboutHeader.title')}
-        </Text>
-      </Box>
-
+    <Box
+      align='center'
+      direction='row'
+      as='nav'
+      background='brand'
+      pad={{ horizontal: '2rem' }}
+    >
       <Box
         aria-label={`${t('AboutHeader.title')} Zooniverse`}
-        as='nav'
+        align='left'
+        as='ul'
         direction='row'
-        margin={{ bottom: 'xsmall' }}
-        width='xlarge'
+        gap='small'
+        pad={{ left: 'none' }}
+        width='100%'
+        wrap
       >
         {links.map(link => (
-          <NavLink key={link.label} label={link.label} href={link.href} />
+          <Box as='li' key={link.label}>
+            <NavLink color='white' label={link.label} href={link.href} />
+          </Box>
         ))}
       </Box>
+      <ZooniverseLogotype id="About Zooniverse Header component" color='white' />
     </Box>
   )
 }
 
-export default withThemeContext(AboutHeader, theme)
-export { AboutHeader }
+export default AboutHeader
