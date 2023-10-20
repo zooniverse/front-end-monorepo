@@ -24,7 +24,7 @@ Create PDF generation feature to document user contributions.
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
