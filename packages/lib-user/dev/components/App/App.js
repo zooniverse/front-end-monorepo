@@ -13,7 +13,6 @@ function App ({
   const [userAuth, setUserAuth] = useState(null)
   const [dark, setDarkTheme] = useState(false)
 
-
   useEffect(() => {
     async function initAuthorization () {
       setLoading(true)
