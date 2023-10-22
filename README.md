@@ -83,7 +83,7 @@ Development environments for individual packages can be run from the package dir
 cd packages/app-project
 docker-compose up
 ````
-to run a develeopment server for the project app.
+to run a development server for the project app.
 
 ### With Node and yarn
 Alternatively, you can install Node 14 and yarn and build the monorepo packages.
