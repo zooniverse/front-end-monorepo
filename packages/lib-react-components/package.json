@@ -103,7 +103,7 @@
     "react-dom": "~18.2.0",
     "rehype-stringify": "~8.0.0",
     "remark-rehype": "~8.1.0",
-    "sinon": "~16.1.0",
+    "sinon": "~17.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.5.0",
