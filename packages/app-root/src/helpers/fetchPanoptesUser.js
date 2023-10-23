@@ -5,7 +5,7 @@ import { auth as authHelpers } from '@zooniverse/panoptes-js'
   Get a Panoptes user from a Panoptes JSON Web Token (JWT), if we have one, or from
   the Panoptes API otherwise.
 */
-export default async function fetchPanoptesUser(storedUser) {
+export default async function fetchPanoptesUser({ user: storedUser }) {
   try {
     const jwt = await auth.checkBearerToken()
     /*

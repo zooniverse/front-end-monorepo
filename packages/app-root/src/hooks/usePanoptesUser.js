@@ -1,9 +1,18 @@
 import auth from 'panoptes-client/lib/auth'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import useSWR from 'swr'
 
 import { fetchPanoptesUser } from '../helpers'
 
 const isBrowser = typeof window !== 'undefined'
+
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
 
 if (isBrowser) {
   auth.checkCurrent()
@@ -11,46 +20,47 @@ if (isBrowser) {
 
 const localStorage = isBrowser ? window.localStorage : null
 const storedUserJSON = localStorage?.getItem('panoptes-user')
-let user = storedUserJSON && JSON.parse(storedUserJSON)
+let storedUser = storedUserJSON && JSON.parse(storedUserJSON)
 /*
   Null users crash the ZooHeader component.
   Set them to undefined for now.
 */
-if (user === null) {
-  user = undefined
+if (storedUser === null) {
+  storedUser = undefined
 }
 
 export default function usePanoptesUser() {
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const key = {
+    user: storedUser,
+    endpoint: '/me'
+  }
 
-  useEffect(function () {
-    async function checkUserSession() {
-      setLoading(true)
-      try {
-        const panoptesUser = await fetchPanoptesUser(user)
-        if (panoptesUser) {
-          localStorage?.setItem('panoptes-user', JSON.stringify(panoptesUser))
-          user = panoptesUser
-        } else {
-          user = undefined
-          localStorage?.removeItem('panoptes-user')
-        }
-      } catch (error) {
-        setError(error)
-      }
-      setLoading(false)
-    }
+  /*
+   `useSWR` here will always return the same stale user object.
+    See https://github.com/zooniverse/panoptes-javascript-client/issues/207
+  */
+  const { data, error, isLoading } = useSWR(key, fetchPanoptesUser, SWROptions)
+  if (data) {
+    storedUser = data
+  }
 
-    if (isBrowser) {
-      checkUserSession()
-    }
-    auth.listen('change', checkUserSession)
+  useEffect(function subscribeToAuthChanges() {
+    auth.listen('change', auth.checkCurrent)
 
     return function () {
-      auth.stopListening('change', checkUserSession)
+      auth.stopListening('change', auth.checkCurrent)
     }
   }, [])
 
-  return { data: user, error, isLoading: loading }
+  useEffect(function persistUserInStorage() {
+    if (data) {
+      localStorage?.setItem('panoptes-user', JSON.stringify(data))
+    }
+
+    return () => {
+      localStorage?.removeItem('panoptes-user')
+    }
+  }, [data])
+
+  return { data: storedUser, error, isLoading }
 }
