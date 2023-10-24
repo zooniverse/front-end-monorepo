@@ -46,7 +46,7 @@
     "cuid": "~3.0.0",
     "formik": "~2.4.0",
     "i18next": "~23.6.0",
-    "markdownz": "~8.3.3",
+    "markdownz": "~8.4.1",
     "mime": "~3.0.0",
     "polished": "~4.2.2",
     "prop-types": "~15.8.1",
