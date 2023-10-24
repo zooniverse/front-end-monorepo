@@ -1,3 +1,7 @@
+if (process.env.NEWRELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 require('dotenv').config()
 
 const { execSync } = require('child_process')
