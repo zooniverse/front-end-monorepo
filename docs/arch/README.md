@@ -54,3 +54,4 @@
 - [ADR 52: User Stats Page](adr-52.md)
 - [ADR 53: Logged-In User Homepage](adr-53.md)
 - [ADR 54: app-root](adr-54.md)
+- [ADR 55: lib-user](adr-55.md)
