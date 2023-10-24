@@ -61,16 +61,16 @@ function WorkflowSelectButton ({
     )
   }
   return (
-    <Link href={href} passHref>
-      <ThemedButton
-        completeness={completeness}
-        icon={<Next size='15px' />}
-        reverse
-        label={label}
-        primary
-        {...rest}
-      />
-    </Link>
+    <ThemedButton
+      as={Link}
+      href={href}
+      completeness={completeness}
+      icon={<Next size='15px' />}
+      reverse
+      label={label}
+      primary
+      {...rest}
+    />
   )
 }
 

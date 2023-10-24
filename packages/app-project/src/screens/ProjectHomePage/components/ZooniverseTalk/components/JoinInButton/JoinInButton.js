@@ -13,9 +13,7 @@ function JoinInButton (props) {
   const { linkProps } = props
   const label = t('Home.ZooniverseTalk.button')
   return (
-    <Link {...linkProps} passHref>
-      <StyledButton label={label} />
-    </Link>
+    <StyledButton {...linkProps} forwardedAs={Link} label={label} />
   )
 }
 

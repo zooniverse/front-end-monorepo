@@ -54,14 +54,11 @@ function SubjectSetPicker ({
 
   return (
     <>
-      <Link
+      <PlainButton
+        forwardedAs={Link}
         href={addQueryParams(baseUrl)}
-        passHref
-      >
-        <PlainButton
-          text={t('SubjectSetPicker.back')}
-        />
-      </Link>
+        text={t('SubjectSetPicker.back')}
+      />
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
@@ -88,18 +85,17 @@ function SubjectSetPicker ({
             const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
             const panoptesCompleteness = subjectSet.completeness[workflow.id]
             return (
-                <Link
-                  key={subjectSet.id}
-                  href={addQueryParams(href)}
-                  passHref
-                >
-                  <Anchor className="test-subject-set-card" data-testid={`test-subject-set-card-${subjectSet.id}`}>
-                    <SubjectSetCard
-                      {...subjectSet}
-                      completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
-                    />
-                  </Anchor>
-                </Link>
+              <Anchor
+                as={Link}
+                key={subjectSet.id}
+                href={addQueryParams(href)}
+                className="test-subject-set-card" data-testid={`test-subject-set-card-${subjectSet.id}`}
+              >
+                <SubjectSetCard
+                  {...subjectSet}
+                  completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
+                />
+              </Anchor>
             )
           })}
         </Grid>
