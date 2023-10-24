@@ -1,4 +1,4 @@
-# ADR 49: Flipbook Viewer
+# ADR 49: Completed Flipbook Viewer
 
 May 2023
 
