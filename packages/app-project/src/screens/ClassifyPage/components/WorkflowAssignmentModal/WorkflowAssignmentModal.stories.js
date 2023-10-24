@@ -1,4 +1,4 @@
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 

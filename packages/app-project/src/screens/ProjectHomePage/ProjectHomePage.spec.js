@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import nock from 'nock'
 
 import initStore from '@stores'

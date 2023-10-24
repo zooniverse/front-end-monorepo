@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import AboutDropdownNav from '../AboutDropdownNav'

@@ -38,20 +38,22 @@ function ProjectTitle({
   const isCurrentPage = router?.pathname === linkProps.href
 
   const anchor = (
-    <StyledAnchor>
-      <StyledHeading color='white' margin='none' textAlign={textAlign}>
-        {title}
-      </StyledHeading>
-    </StyledAnchor>
+    <StyledHeading color='white' margin='none' textAlign={textAlign}>
+      {title}
+    </StyledHeading>
   )
 
   if (isCurrentPage) {
-    return anchor
+    return (
+      <StyledAnchor>
+        {anchor}
+      </StyledAnchor>
+    )
   } else {
     return (
-      <Link {...linkProps} passHref>
+      <StyledAnchor forwardedAs={Link} {...linkProps}>
         {anchor}
-      </Link>
+      </StyledAnchor>
     )
   }
 }
