@@ -1,7 +1,7 @@
 import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
 
-import { GroupStats, UserStats } from '@components/index.js'
+import { GroupStats, MyGroups, UserStats } from '@components/index.js'
 
 function App ({
   groups = null,
@@ -69,6 +69,8 @@ function App ({
       content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
     } else if (subpaths[1] === 'contributors') {
       content = <p>Group contributors component goes here.</p>
+    } else if (subpaths[0] === 'list') {
+      content = <MyGroups authClient={oauth} />
     } else {
       const groupID = subpaths[0] || ''
 
