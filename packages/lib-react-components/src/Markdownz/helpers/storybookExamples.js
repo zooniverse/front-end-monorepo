@@ -1,6 +1,14 @@
-import dedent from 'dedent'
-
 export const examples = [
+  {
+    label: 'table',
+    content: `
+|fruit|colour|
+|-----|------|
+|apple|green|
+|banana|yellow|
+|strawberry|red|
+`
+  },
   {
     label: 'emoji',
     content: ':smile: :-)'
@@ -87,23 +95,23 @@ export const examples = [
   },
   {
     label: 'unordered list',
-    content: dedent`
+    content: `
 - item one
 - item two
 - item three
-    `
+`
   },
   {
     label: 'ordered list',
-    content: dedent`
+    content: `
 1. item one
 1. item two
 1. item three
-    `
+`
   },
   {
     label: 'headings',
-    content: dedent`
+    content: `
 # header 1
 
 ## header 2
@@ -115,21 +123,21 @@ export const examples = [
 ##### header 5
 
 ###### header 6
-    `
+`
   },
   {
     label: 'table of contents',
-    content: dedent`
+    content: `
 [[toc]]
 
 ## News
 
 ## Links
-    `
+`
   },
   {
     label: 'footnotes',
-    content: dedent`
+    content: `
 Here is a footnote reference,[^1] and another.[^longnote]
 
 [^1]: Here is the footnote.
@@ -137,16 +145,6 @@ Here is a footnote reference,[^1] and another.[^longnote]
 [^longnote]: Here's one with multiple blocks.
 
     Another note.
-    `
-  },
-  {
-    label: 'table',
-    content: dedent`
-|fruit|colour|
-|-----|------|
-|apple|green|
-|banana|yellow|
-|strawberry|red|
-    `
+`
   }
 ]
