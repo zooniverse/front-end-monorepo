@@ -51,32 +51,34 @@ function AboutHeader() {
   ]
 
   return (
-    <Box
-      align='center'
-      aria-label={`${t('AboutHeader.title')} Zooniverse`}
-      direction='row'
-      as='nav'
-      background='brand'
-      pad={{ horizontal: '2rem' }} // Same as ZooHeader
-    >
+    <header>
       <Box
-        align='left'
-        as='ul'
+        align='center'
+        aria-label={`${t('AboutHeader.title')} Zooniverse`}
         direction='row'
-        pad={{ left: 'none' }}
-        width='100%'
-        wrap
-        // We don't use gap here bc gap inserts <div> into this <ul>
+        as='nav'
+        background='brand'
+        pad={{ horizontal: '2rem' }} // Same as ZooHeader
       >
-        {links.map(link => (
-          <Box as='li' key={link.label} pad={{ right: 'small' }}>
-            <NavLink color='white' label={link.label} href={link.href} />
-          </Box>
-        ))}
+        <Box
+          align='left'
+          as='ul'
+          direction='row'
+          pad={{ left: 'none' }}
+          width='100%'
+          wrap
+          // We don't use gap here bc gap inserts <div> into this <ul>
+        >
+          {links.map(link => (
+            <Box as='li' key={link.label} pad={{ right: 'small' }}>
+              <NavLink color='white' label={link.label} href={link.href} />
+            </Box>
+          ))}
+        </Box>
+        {/* Enable logo when ready for all About Zooniverse pages to be hosted from FEM */}
+        {/* <ZooniverseLogotype id="About Zooniverse Header component" color='white' /> */}
       </Box>
-      {/* Enable logo when ready for all About Zooniverse pages to be hosted from FEM */}
-      {/* <ZooniverseLogotype id="About Zooniverse Header component" color='white' /> */}
-    </Box>
+    </header>
   )
 }
 
