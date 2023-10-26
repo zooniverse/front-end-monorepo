@@ -28,6 +28,6 @@
     "node": ">=18.13"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "~13.5.4"
+    "@next/bundle-analyzer": "~14.0.0"
   }
 }
