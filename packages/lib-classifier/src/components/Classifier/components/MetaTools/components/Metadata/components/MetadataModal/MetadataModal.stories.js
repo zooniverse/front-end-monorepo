@@ -4,9 +4,9 @@ import { filters } from './filterByLabel'
 
 const args = {
   active: true,
-  filters: filters,
+  filters,
   metadata: {
-    id: '1',
+    id: 1,
     href: 'https://zooniverse.org',
     '#hidden': true,
     '!onlyTalk': false,

@@ -6,6 +6,7 @@ set -ev
 # Runs the following tasks in order:
 #   - Install dependencies
 #   - Build `@zooniverse/react-components`
+#   - Build `@zooniverse/lib-user`
 #   - Build `@zooniverse/lib-classifier`
 
 
@@ -14,6 +15,10 @@ cd $ROOT_DIR
 
 printf 'Building `lib-react-components`...\n'
 yarn workspace @zooniverse/react-components install --frozen-lockfile
+printf '\n'
+
+printf 'Building `lib-user`...\n'
+yarn workspace @zooniverse/user install --frozen-lockfile
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'

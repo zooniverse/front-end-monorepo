@@ -24,7 +24,7 @@ Refactor recent classifications cards for redesigned logged-in user homepage.
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
