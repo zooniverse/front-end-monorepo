@@ -15,11 +15,13 @@ export default function PageHeader() {
   const { data: unreadNotifications }= useUnreadNotifications(user)
 
   return (
-    <ZooHeader
-      isAdmin={adminMode}
-      unreadMessages={unreadMessages}
-      unreadNotifications={unreadNotifications}
-      user={user}
-    />
+    <header aria-label='Zooniverse site header'>
+      <ZooHeader
+        isAdmin={adminMode}
+        unreadMessages={unreadMessages}
+        unreadNotifications={unreadNotifications}
+        user={user}
+      />
+    </header>
   )
 }
