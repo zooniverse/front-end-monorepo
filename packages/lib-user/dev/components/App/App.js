@@ -33,31 +33,36 @@ function App ({
 
   let content = (
     <div>
-      <h2>Key Components - urls (zooniverse.org/...)</h2>
+      <h2>url - Key Components</h2>
       <ul>
-        <li>homepage</li>
-        <li>
-          profile page (public) - users/[login]
-          <ul>
-            <li>
-              <a href="./?users=[login]/stats">user stats page (private) - users/[login]/stats</a>
-              <ul>
-                <li>certificate - users/[login]/stats/certificate</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          groups list - TBD
-          <ul>
-            <li>
-              <a href="./?groups=[user_group_id]">group stats page - groups/[id]</a>
-              <ul>
-                <li>contributors - groups/[id]/contributors</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li>zooniverse.org - homepage</li>
+        <ul>
+          <li>
+            /users/[login] - user profile page
+            <ul>
+              <li>
+                <a href="./?users=[login]/stats">/stats - user stats page</a>
+                <ul>
+                  <li>/certificate - Volunteer Certificate</li>
+                </ul>
+              </li>
+              <li>
+                <a href="./?users=[login]/groups">/groups - my groups</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            /groups
+            <ul>
+              <li>
+                <a href="./?groups=[user_group_id]">/groups/[id] - group stats page</a>
+                <ul>
+                  <li>/contributors - Full Group Stats</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </ul>
     </div>
   )
@@ -69,8 +74,6 @@ function App ({
       content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
     } else if (subpaths[1] === 'contributors') {
       content = <p>Group contributors component goes here.</p>
-    } else if (subpaths[0] === 'list') {
-      content = <MyGroups authClient={oauth} />
     } else {
       const groupID = subpaths[0] || ''
 
@@ -97,6 +100,10 @@ function App ({
           login={login}
         />
       )
+    } else if (subpaths[1] === 'groups') {
+      content = <MyGroups authClient={oauth} />
+    } else {
+      content = <p>User profile page goes here.</p>
     }
   }
 
@@ -130,5 +137,4 @@ export default App
 // <li>favorites (public) - users/[login]/favorites</li>
 // <li>collections (public) - users/[login]/collections</li>
 // <li>comments (public) - users/[login]/comments</li>
-// <li>groups (private) - users/[login]/groups</li>
 // <li>projects (private) - users/[login]/projects</li>
