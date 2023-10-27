@@ -29,7 +29,7 @@
 ## Requirements
 
 - [Browser support](docs/arch/adr-3.md)
-- Node 16
+- Node 20
 - Git
 - Yarn
 
