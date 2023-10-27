@@ -12,9 +12,3 @@ export const ZeroMock = {
   value: 0,
   label: 'Zero'
 }
-
-export default {
-  DefaultMock,
-  HugeNumberMock,
-  ZeroMock
-}
