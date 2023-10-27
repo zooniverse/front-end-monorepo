@@ -2,7 +2,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-const Sentry = require('@sentry/node')
+const Sentry = require('@sentry/nextjs')
 const express = require('express')
 const next = require('next')
 
