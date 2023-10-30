@@ -30,7 +30,7 @@ export default function useUserStats({ authClient, userID }) {
     }
 
     let ignore = false
-    if (userID) {
+    if (authClient && userID) {
       fetchUserStats(authClient, userID)
     }
     return () => {

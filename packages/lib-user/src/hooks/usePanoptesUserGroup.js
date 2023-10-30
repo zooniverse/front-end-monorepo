@@ -37,7 +37,7 @@ export default function usePanoptesUserGroup(authClient, groupID) {
     }
 
     let ignore = false
-    if (groupID) {
+    if (authClient && groupID) {
       handleUserGroup()
     }
     return function () {

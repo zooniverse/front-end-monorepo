@@ -21,10 +21,10 @@ import { UserStats } from '@zooniverse/user';
 ### Node/yarn
 ```sh
 yarn dev
-# yarn storybook
+yarn storybook
 ```
 
-Starts a development server on port 8080 ~~and a Storybook on port 6006~~ by default.
+Starts a development server on port 8080 and a Storybook on port 6008 by default.
 
 Use `yarn dev` to run a small development environment app at `localhost:8080`.
 
@@ -37,9 +37,9 @@ Note: query params are used for local development work, but are not used in prod
 - `https://www.zooniverse.org/users/[login]/stats/certificate`
 - `https://www.zooniverse.org/groups/[user group ID]`
 
-<!-- ## Tests
+## Tests
 
-`yarn test` to run mocha tests. -->
+`yarn test` to run mocha tests.
 
 <!-- ## Contributing
 

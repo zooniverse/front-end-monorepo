@@ -21,12 +21,12 @@ export default async function getStaticPageProps({ locale, params }) {
   if (params.owner && params.project) {
     const projectSlug = `${params.owner}/${params.project}`
     const project = await fetchProjectData(projectSlug, { env })
+    if (!project.id) {
+      return notFoundError(`Project ${params.owner}/${params.project} was not found`)
+    }
     project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
 
     applySnapshot(store.project, project)
-    if (!store.project.id) {
-      return notFoundError(`Project ${params.owner}/${params.project} was not found`)
-    }
   }
 
   /*

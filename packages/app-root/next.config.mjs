@@ -4,6 +4,10 @@ const bundleAnalyzer = withBundleAnalyzer({
 	enabled: process.env.ANALYZE === 'true',
 })
 
-const nextConfig = {}
+const nextConfig = {
+  experimental: {
+    optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons'],
+  }
+}
 
 export default bundleAnalyzer(nextConfig)

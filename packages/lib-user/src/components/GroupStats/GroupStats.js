@@ -1,6 +1,6 @@
 'use client'
 
-import { string } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import { 
   useGroupStats,
@@ -26,7 +26,7 @@ function GroupStats ({
 
 GroupStats.propTypes = {
   // authClient: object.isRequired,
-  groupID: string.isRequired
+  groupID: PropTypes.string.isRequired
 }
 
 export default GroupStats

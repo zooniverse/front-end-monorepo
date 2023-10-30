@@ -1,13 +1,9 @@
 if (process.env.NEWRELIC_LICENSE_KEY) {
-  require('newrelic')
+  await import('newrelic')
 }
 
-const Sentry = require('@sentry/nextjs')
-const express = require('express')
-const next = require('next')
-
-const setLogging = require('./set-logging')
-const setCacheHeaders = require('./set-cache-headers')
+import express from 'express'
+import next from 'next'
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -25,31 +21,21 @@ const hostname = hostnames[APP_ENV]
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
-app.prepare().then(() => {
+app.prepare().then(async () => {
   const server = express()
 
-  server.use(Sentry.Handlers.requestHandler())
-  setLogging(server)
-
   server.get('*', (req, res) => {
-    setCacheHeaders(req, res)
     return handle(req, res)
-  })
-
-  server.use(Sentry.Handlers.errorHandler())
-  server.use(function onError(error, req, res, next) {
-    res.statusCode = 500
-    res.end(res.sentry + "\n")
   })
 
   let selfsigned
   try {
-    selfsigned = require('selfsigned')
+    selfsigned = await import('selfsigned')
   } catch (error) {
     console.error(error)
   }
   if (APP_ENV === 'development' && selfsigned) {
-    const https = require('https')
+    const https = await import('https')
 
     const attrs = [{ name: 'commonName', value: hostname }];
     const { cert, private: key } = selfsigned.generate(attrs, { days: 365 })
