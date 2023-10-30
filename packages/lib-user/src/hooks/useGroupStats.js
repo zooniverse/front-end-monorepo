@@ -30,7 +30,7 @@ export default function useGroupStats({ authClient, groupID }) {
     }
 
     let ignore = false
-    if (groupID) {
+    if (authClient && groupID) {
       fetchGroupStats(authClient, groupID)
     }
     return () => {
