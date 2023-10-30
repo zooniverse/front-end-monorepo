@@ -1,4 +1,4 @@
-import { Grommet, Box, base as baseTheme } from 'grommet'
+import { Grommet } from 'grommet'
 import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -101,15 +101,13 @@ function App ({
     }
   }
 
-  const mergedThemes = Object.assign({}, baseTheme, zooTheme)
-
   return (
     <Grommet
       background={{
         dark: 'dark-1',
         light: 'light-1'
       }}
-      theme={mergedThemes}
+      theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
       <main>
