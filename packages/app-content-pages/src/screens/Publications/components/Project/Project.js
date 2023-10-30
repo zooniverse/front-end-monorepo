@@ -10,10 +10,10 @@ function Project (props) {
       <Heading level='3' margin={{ bottom: 'small', top: 'none' }} size='small'>
         {title} ({publications.length})
       </Heading>
-      {publications.map(publication => (
+      {publications.map((publication, i) => (
         <Publication
           avatarSrc={avatarSrc}
-          key={publication.url}
+          key={`${publication.url}${i}`}
           {...publication}
         />
       ))}

@@ -1,4 +1,3 @@
-import { array } from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
@@ -8,55 +7,34 @@ const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
 function PublicationsContainer({ publicationsData = [] }) {
   const { t } = useTranslation('components')
-  publicationsData?.forEach(category => {
-    category.slug = category.title.toLowerCase().replaceAll(' ', '-')
-  })
-  const [activeFilter, setActiveFilter] = useState(null)
+
+  // put this in Publications.js
+  const [activeSection, setActiveSection] = useState(null)
 
   useEffect(function onMount() {
     const slug = isBrowser ? window.location.hash.slice(1) : ''
-    setActiveFilter(slug)
+    setActiveSection(slug)
   }, [])
 
-  const filters = createFilters(publicationsData, activeFilter, setActiveFilter, t)
-  const filteredPublicationsData = createFilteredPublicationsData(publicationsData, activeFilter)
+  const sections = createsections(publicationsData, activeSection, setActiveSection, t)
 
   return (
-    <Publications filters={filters} data={filteredPublicationsData} />
+    <Publications sections={sections} data={publicationsData} />
   )
-}
-
-PublicationsContainer.propTypes = {
-  publicationsData: array
 }
 
 export default PublicationsContainer
 
 
-/** Helper Functions */
+function createsections(publicationsData, activeSection, setActiveSection, t) {
 
-function createFilters(publicationsData, activeFilter, setActiveFilter, t) {
-  const showAllFilter = {
-    active: !activeFilter,
-    name: t('Publications.showAll'),
-    slug: '',
-    setActive: event => setActiveFilter('')
-  }
-
-  const categoryFilters = publicationsData.map(category => ({
-    active: activeFilter === category.slug,
+  const categorySections = publicationsData.map(category => ({
+    active: activeSection === category.slug,
     name: category.title,
     slug: category.title.toLowerCase().replaceAll(' ', '-'),
-    setActive: event => setActiveFilter(category.slug)
+    setActive: event => setActiveSection(category.slug)
   }))
 
-  return [showAllFilter, ...categoryFilters]
-}
-
-// Show the filtered category if a filter is active;
-// show everything if there's no active filter.
-function createFilteredPublicationsData(publicationsData, activeFilter) {
-  return activeFilter
-    ? publicationsData.filter(category => category.slug === activeFilter)
-    : publicationsData
+  return [
+    ...categorySections]
 }

@@ -6,9 +6,16 @@ export { default } from '../src/screens/Publications'
 export async function getStaticProps({ locale }) {
   try {
     const publicationsData = await createPublicationsResponse()
+
+    const sections = publicationsData.map(category => ({
+      name: category.title,
+      slug: category.title.toLowerCase().replaceAll(' ', '-')
+    }))
+
     return {
       props: {
         publicationsData,
+        sections,
         ...(await serverSideTranslations(locale, ['components']))
       },
       revalidate: 60 * 60 * 1 // 1 hour

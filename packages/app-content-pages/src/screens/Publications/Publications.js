@@ -1,34 +1,26 @@
-import { Anchor, Box, Button, Heading, Nav, Paragraph } from 'grommet'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { Anchor, Heading, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
-import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import Category from './components/Category/Category.js'
 import PageLayout from '../../shared/components/PageLayout/layout.js'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
+import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
 
-const StyledLi = styled.li`
-  list-style-type: none;
-  padding-top: 15px;
-`
+const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
-const StyledButton = styled(Button)`
-  text-decoration: none;
-  color: black;
-  ${props =>
-    props.active &&
-    css`
-      background: none;
-      font-weight: bold;
-    `}
-`
-const FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
-function Publications({ className = '', data = [], filters = [] }) {
+function Publications({ className = '', publicationsData = [], sections = [] }) {
   const { t } = useTranslation('components')
+  const [activeSection, setActiveSection] = useState('')
+
+  useEffect(function onMount() {
+    const slug = isBrowser ? window.location.hash.slice(1) : ''
+    setActiveSection(slug)
+  }, [])
 
   const heading = (
     <section>
@@ -46,7 +38,7 @@ function Publications({ className = '', data = [], filters = [] }) {
 
   const main = (
     <article>
-      {data.map(category => (
+      {publicationsData.map(category => (
         <Category
           key={category.title}
           title={category.title}
@@ -55,26 +47,6 @@ function Publications({ className = '', data = [], filters = [] }) {
         />
       ))}
     </article>
-  )
-
-  const sidebar = (
-    <Nav aria-label={t('Publications.sideBarLabel')}>
-      <Box as='ul'>
-        {filters.map(filter => (
-          <StyledLi key={filter.name}>
-            <StyledButton
-              as={Link}
-              active={filter.active}
-              href={filter.slug ? `#${filter.slug}` : ''}
-              onClick={filter.setActive}
-              plain
-            >
-              {filter.name}
-            </StyledButton>
-          </StyledLi>
-        ))}
-      </Box>
-    </Nav>
   )
 
   return (
@@ -88,7 +60,7 @@ function Publications({ className = '', data = [], filters = [] }) {
           heading={heading}
           className={className}
           main={main}
-          sidebar={sidebar}
+          sidebar={<Sidebar activeSection={activeSection} sections={sections} setActiveSection={setActiveSection} />}
         />
       </PageLayout>
     </>
@@ -97,7 +69,7 @@ function Publications({ className = '', data = [], filters = [] }) {
 
 Publications.propTypes = {
   className: string,
-  data: arrayOf(
+  publicationsData: arrayOf(
     shape({
       projects: array,
       slug: string,
