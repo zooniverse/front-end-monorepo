@@ -14,7 +14,7 @@ import {
   Text
 } from 'grommet'
 
-import { utils } from 'markdownz'
+import { useMarkdownz } from 'markdownz'
 import rehype from 'rehype'
 import rehype2react from 'rehype-react'
 import Media from '../Media'
@@ -101,7 +101,7 @@ function Markdownz({
     ...settings
   }
 
-  const html = utils.getHtml({
+  const html = useMarkdownz({
     baseURI,
     content: children,
     inline,
