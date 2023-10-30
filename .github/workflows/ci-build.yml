@@ -13,13 +13,13 @@ jobs:
       PANOPTES_ENV: production
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/hydrogen'
+         node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-project build
@@ -35,13 +35,13 @@ jobs:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/hydrogen'
+         node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-content-pages build
@@ -51,13 +51,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/hydrogen'
+         node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn deploy-storybook --dry-run
