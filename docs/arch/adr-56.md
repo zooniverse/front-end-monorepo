@@ -3,7 +3,8 @@
 ## Context
 [ADR 11](./adr-11.md) introduced Remark, to parse markdown in our custom `Markdownz` component. Replacing `markdown-it` with `remark` changed [some features of the Zooniverse markdown parser](./adr-11.md#consequences). Since that decision:
 - `remark-react` is now deprecated. It's now recommended to parse markdown to HTML, then use `rehype-react` to map that HTML to a React component tree.
-- `markdownz` now sanitises its output HTML with DOMPurify ([v8.3.3](https://github.com/zooniverse/markdownz/releases/tag/v8.3.3)), and exports a `useMarkdownz` hook ([v8.5.0](https://github.com/zooniverse/markdownz/releases/tag/v8.5.0)), removing the security concerns around `dangerouslySetInnerHTML` in ADR 11.
+- `markdownz` now sanitises its output HTML with DOMPurify ([v8.3.3](https://github.com/zooniverse/markdownz/releases/tag/v8.3.3)), and exports a `useMarkdownz` hook ([v8.5.0](https://github.com/zooniverse/markdownz/releases/tag/v8.5.0)), removing the security concerns around `dangerouslySetInnerHTML` in ADR 11. 
+- With ([v9.0.0](https://github.com/zooniverse/markdownz/releases/tag/v9.0.0)), the `Markdown` component, exported by `markdownz`, uses `rehype-react` to render HTML as a React component tree.
 - there has been confusion among project teams about how to write Zooniverse-flavoured markdown for their projects. Markdown that's written and previewed in the project builder needs changes in order to work in the new parser.
 
 ## Decision

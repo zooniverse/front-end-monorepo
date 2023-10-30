@@ -14,9 +14,7 @@ import {
   Text
 } from 'grommet'
 
-import { useMarkdownz } from 'markdownz'
-import rehype from 'rehype'
-import rehype2react from 'rehype-react'
+import { Markdown } from 'markdownz'
 import Media from '../Media'
 import withThemeContext from '../helpers/withThemeContext'
 import theme from './theme'
@@ -101,31 +99,16 @@ function Markdownz({
     ...settings
   }
 
-  const html = useMarkdownz({
-    baseURI,
-    content: children,
-    inline,
-    project: {
-      slug: projectSlug
-    }
-  })
-  let parsedHTML = null
-  try {
-    parsedHTML = rehype()
-      .data('settings', rehypeSettings)
-      .use(rehype2react, {
-        Fragment,
-        createElement,
-        components: rehypeReactComponents
-      })
-      .processSync(html).result
-  } catch (error) {
-    parsedHTML = error.message
-  }
   return (
-    <Fragment>
-      {parsedHTML}
-    </Fragment>
+    <Markdown
+      baseURI={baseURI}
+      components={rehypeReactComponents}
+      inline={inline}
+      project={{ slug: projectSlug }}
+      settings={settings}
+    >
+      {children}
+    </Markdown>
   );
 }
 
