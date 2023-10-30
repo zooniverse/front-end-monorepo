@@ -26,7 +26,7 @@ function RouterMock({ children }) {
   )
 }
 
-describe('Component > PublicationsContainer', function () {
+describe('Component > Publications Page', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
