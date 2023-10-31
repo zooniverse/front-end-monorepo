@@ -12636,10 +12636,10 @@ markdown-to-jsx@^7.1.8, markdown-to-jsx@^7.2.0:
   resolved "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-7.2.0.tgz"
   integrity sha512-3l4/Bigjm4bEqjCR6Xr+d4DtM1X6vvtGsMGSjJYyep8RjjIvcWtrXBS8Wbfe1/P+atKNMccpsraESIaWVplzVg==
 
-markdownz@~9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-9.1.0.tgz#3554ef781333a1b20c9c21bcf560eb6812710909"
-  integrity sha512-8uGDEkZyZYHW/9U+7WL7ARxXqkpGjY4H/Yu+y4PdCntq5Tnbho6zZ1sWHA/xGNxWpjQZjVWFkqtRQc/NQoZAhw==
+markdownz@~9.1.3:
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-9.1.3.tgz#387127bd7e919748b04d70af6511f8674e65aad4"
+  integrity sha512-SxXq+XfIV0svJjkZhLZNF4RGPM4vL74XvRGGIc3+M83QRQp6SYxdrwHz41m+6Wh9ERc8EifUdO0pco/pJVvvnQ==
   dependencies:
     "@twemoji/api" "~14.1.0"
     isomorphic-dompurify "~1.9.0"
