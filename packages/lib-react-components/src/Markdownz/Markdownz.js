@@ -14,7 +14,7 @@ import {
   Text
 } from 'grommet'
 
-import { Markdown } from 'markdownz'
+import { useMarkdownz } from 'markdownz'
 import Media from '../Media'
 import withThemeContext from '../helpers/withThemeContext'
 import theme from './theme'
@@ -99,16 +99,19 @@ function Markdownz({
     ...settings
   }
 
+  const markdownChildren = useMarkdownz({
+    baseURI,
+    components: rehypeReactComponents,
+    content: children,
+    inline,
+    project: { slug: projectSlug },
+    settings
+  })
+  
   return (
-    <Markdown
-      baseURI={baseURI}
-      components={rehypeReactComponents}
-      inline={inline}
-      project={{ slug: projectSlug }}
-      settings={settings}
-    >
-      {children}
-    </Markdown>
+    <>
+      {markdownChildren}
+    </>
   );
 }
 
