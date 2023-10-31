@@ -16,7 +16,7 @@ const StyledLi = styled.li`
 const StyledButton = styled(Button)`
   text-decoration: none;
   color: black;
-  padding: 5px 20px;
+  padding: 5px 20px; // Same as Project About page sidebar
   margin-bottom: 5px;
   ${props =>
     props.active &&
@@ -35,13 +35,15 @@ const DEFAULT_HANDLER = () => {}
 function Sidebar({
   activeSection = '',
   className = '',
+  ariaLabel = '',
   sections = [],
   setActiveSection = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
 
   return (
-    <Nav aria-label={t('Publications.sideBarLabel')} className={className}>
+    // <Nav aria-label={t('Publications.sideBarLabel')} className={className}>
+    <Nav aria-label={ariaLabel} className={className}>
       <StyledUl>
         {sections.map(section => (
           <StyledLi key={section.name}>
@@ -65,6 +67,7 @@ export default Sidebar
 Sidebar.propTypes = {
   activeSection: string,
   className: string,
+  ariaLabel: string,
   sections: arrayOf(
     shape({
       active: bool,

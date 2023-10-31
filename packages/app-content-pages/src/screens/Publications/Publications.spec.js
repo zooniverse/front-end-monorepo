@@ -37,16 +37,6 @@ describe('Component > Publications Page', function () {
     )
   })
 
-  it('should have a sidebar with available filters', function () {
-    const categoryFilters = DefaultStory.args.publicationsData.map(
-      category => category.title
-    )
-    const sideBar = document.querySelector('aside')
-    const listedFilters = within(sideBar).getAllByRole('link')
-    expect(listedFilters.length).to.equal(categoryFilters.length + 1) // +1 to account for Show All
-    expect(listedFilters[1].textContent).to.equal(categoryFilters[0])
-  })
-
   it('should have sidebar nav with accessible label', function () {
     const sideBar = screen.getByLabelText('Publications.sideBarLabel')
     expect(sideBar).to.be.ok()

@@ -33,8 +33,6 @@ function Publications({ publicationsData = [], sections = [] }) {
     setActiveSection(slug)
   }, [])
 
-  console.log(publicationsData)
-
   return (
     <>
       <Head
@@ -60,6 +58,7 @@ function Publications({ publicationsData = [], sections = [] }) {
             <Relative>
               <StickySidebar
                 activeSection={activeSection}
+                ariaLabel={t('Publications.sideBarLabel')}
                 sections={sections}
                 setActiveSection={setActiveSection}
               />
