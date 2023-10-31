@@ -35,6 +35,6 @@
     "@next/bundle-analyzer": "~13.5.5",
     "eslint-config-next": "~13.5.5",
     "eslint-plugin-jsx-a11y": "~6.7.0",
-    "selfsigned": "~2.1.1"
+    "selfsigned": "~2.4.1"
   }
 }
