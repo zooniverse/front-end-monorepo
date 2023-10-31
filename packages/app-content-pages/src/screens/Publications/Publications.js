@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Anchor, Box, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
@@ -16,7 +16,6 @@ const FORM_URL =
 
 const Relative = styled.aside`
   position: relative;
-  width: 30%;
 `
 
 const StickySidebar = styled(Sidebar)`
@@ -40,41 +39,39 @@ function Publications({ publicationsData = [], sections = [] }) {
         title={t('Publications.title')}
       />
       <PageLayout>
-        <Box align='center' pad='large'>
-          <Box direction='row' gap='medium'>
-            <Box width='30%' />
-            <section>
-              <Heading margin={{ top: 'none' }} size='small'>
-                {t('Publications.title')}
-              </Heading>
-              <Paragraph>
-                {t('Publications.formInstruction')}{' '}
-                <Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
-                {t('Publications.formInfo')}
-              </Paragraph>
-            </section>
-          </Box>
-          <Box direction='row' gap='medium'>
-            <Relative>
-              <StickySidebar
-                activeSection={activeSection}
-                ariaLabel={t('Publications.sideBarLabel')}
-                sections={sections}
-                setActiveSection={setActiveSection}
+        <Grid columns={['25%', 'flex']}>
+          <Box />
+          <section>
+            <Heading margin={{ top: 'none' }} size='small'>
+              {t('Publications.title')}
+            </Heading>
+            <Paragraph>
+              {t('Publications.formInstruction')}{' '}
+              <Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
+              {t('Publications.formInfo')}
+            </Paragraph>
+          </section>
+        </Grid>
+        <Grid columns={['25%', 'flex']}>
+          <Relative>
+            <StickySidebar
+              activeSection={activeSection}
+              ariaLabel={t('Publications.sideBarLabel')}
+              sections={sections}
+              setActiveSection={setActiveSection}
+            />
+          </Relative>
+          <article>
+            {publicationsData.map(category => (
+              <Category
+                key={category.title}
+                projects={category.projects}
+                slug={category.slug}
+                title={category.title}
               />
-            </Relative>
-            <article>
-              {publicationsData.map(category => (
-                <Category
-                  key={category.title}
-                  projects={category.projects}
-                  slug={category.slug}
-                  title={category.title}
-                />
-              ))}
-            </article>
-          </Box>
-        </Box>
+            ))}
+          </article>
+        </Grid>
       </PageLayout>
     </>
   )

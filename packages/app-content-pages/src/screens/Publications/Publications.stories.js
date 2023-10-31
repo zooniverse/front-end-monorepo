@@ -21,6 +21,6 @@ export const Default = {
 export const NoData = {
   args: {
     publicationsData: [],
-    sections: mockSections
+    sections: []
   }
 }
