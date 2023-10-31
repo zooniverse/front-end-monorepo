@@ -5,6 +5,8 @@ import {
   usePanoptesUser
 } from '@hooks/index.js'
 
+import CreateGroup from './CreateGroup.js'
+
 function MyGroups({ authClient }) {
   const { data: user, error, isLoading: userLoading } = usePanoptesUser(authClient)
   const { data: membershipsWithGroups } = usePanoptesMemberships({ authClient, userID: user?.id, includeGroups: true })
@@ -18,15 +20,24 @@ function MyGroups({ authClient }) {
 
           return (
             <div key={group.id}>
-              <p>Group ID - {group.id}</p>
-              <p>Group display_name - {group.display_name}</p>
-              <p>Group roles - {roles}</p>
-              <p><a href={`./?groups=${group.id}`}>stats</a></p>
+              <h4><a href={`./?groups=${group.id}`}>{group.display_name}</a></h4>
+              <span>{roles}</span>
+              <div>
+                <span>Classifications X</span>
+                {' | '}
+                <span>Hours Y</span>
+                {' | '}
+                <span>Members Z</span>
+                {' | '}
+                <span>Projects W</span>
+              </div>
               <hr />
             </div>
           )
         })}
       </div>
+      <hr />
+      <CreateGroup authClient={authClient} />
     </div>
   )
 }
