@@ -1,19 +1,30 @@
 import { useEffect, useState } from 'react'
-import { Anchor, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Heading, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
+import styled from 'styled-components'
 
 import Category from './components/Category/Category.js'
 import PageLayout from '../../shared/components/PageLayout/layout.js'
-import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
 import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
-const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
+const FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
-function Publications({ className = '', publicationsData = [], sections = [] }) {
+const Relative = styled.aside`
+  position: relative;
+  width: 30%;
+`
+
+const StickySidebar = styled(Sidebar)`
+  position: sticky;
+  top: 0;
+`
+
+function Publications({ publicationsData = [], sections = [] }) {
   const { t } = useTranslation('components')
   const [activeSection, setActiveSection] = useState('')
 
@@ -22,33 +33,6 @@ function Publications({ className = '', publicationsData = [], sections = [] }) 
     setActiveSection(slug)
   }, [])
 
-  const heading = (
-    <section>
-      <Heading margin={{ top: 'none' }} size='small'>
-        {t('Publications.title')}
-      </Heading>
-
-      <Paragraph>
-        {t('Publications.formInstruction')}{' '}
-        <Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
-        {t('Publications.formInfo')}
-      </Paragraph>
-    </section>
-  )
-
-  const main = (
-    <article>
-      {publicationsData.map(category => (
-        <Category
-          key={category.title}
-          title={category.title}
-          projects={category.projects}
-          slug={category.slug}
-        />
-      ))}
-    </article>
-  )
-
   return (
     <>
       <Head
@@ -56,12 +40,40 @@ function Publications({ className = '', publicationsData = [], sections = [] }) 
         title={t('Publications.title')}
       />
       <PageLayout>
-        <TwoColumnLayout
-          heading={heading}
-          className={className}
-          main={main}
-          sidebar={<Sidebar activeSection={activeSection} sections={sections} setActiveSection={setActiveSection} />}
-        />
+        <Box align='center' pad='large'>
+          <Box direction='row' gap='medium'>
+            <Box width='30%' />
+            <section>
+              <Heading margin={{ top: 'none' }} size='small'>
+                {t('Publications.title')}
+              </Heading>
+              <Paragraph>
+                {t('Publications.formInstruction')}{' '}
+                <Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
+                {t('Publications.formInfo')}
+              </Paragraph>
+            </section>
+          </Box>
+          <Box direction='row' gap='medium'>
+            <Relative>
+              <StickySidebar
+                activeSection={activeSection}
+                sections={sections}
+                setActiveSection={setActiveSection}
+              />
+            </Relative>
+            <article>
+              {publicationsData.map(category => (
+                <Category
+                  key={category.title}
+                  title={category.title}
+                  projects={category.projects}
+                  slug={category.slug}
+                />
+              ))}
+            </article>
+          </Box>
+        </Box>
       </PageLayout>
     </>
   )
@@ -77,7 +89,7 @@ Publications.propTypes = {
       weight: number
     })
   ),
-  filters: arrayOf(
+  sections: arrayOf(
     shape({
       active: bool,
       setActive: func,

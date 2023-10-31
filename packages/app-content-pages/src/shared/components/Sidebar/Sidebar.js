@@ -24,13 +24,14 @@ const DEFAULT_HANDLER = () => {}
 
 function Sidebar({
   activeSection = '',
+  className = '',
   sections = [],
   setActiveSection = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
 
   return (
-    <Nav aria-label={t('Publications.sideBarLabel')}>
+    <Nav aria-label={t('Publications.sideBarLabel')} className={className}>
       <Box as='ul'>
         {sections.map(section => (
           <StyledLi key={section.name}>
@@ -52,6 +53,8 @@ function Sidebar({
 export default Sidebar
 
 Sidebar.propTypes = {
+  activeSection: string,
+  className: string,
   sections: arrayOf(
     shape({
       active: bool,
@@ -59,5 +62,6 @@ Sidebar.propTypes = {
       setActive: func,
       slug: string
     })
-  )
+  ),
+  setActiveSection: func
 }
