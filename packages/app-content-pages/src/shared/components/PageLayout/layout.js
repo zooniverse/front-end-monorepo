@@ -43,16 +43,18 @@ function PageLayout({ children }) {
   return (
     <>
       <AboutHeader />
-      <Box background='light-1' align='center'>
-        <ContainerBox
-          background={{ dark: 'dark-3', light: 'neutral-6' }}
-          elevation='medium'
-          pad='large'
-          width={{ max: '1440px' }}
-        >
-          {children}
-        </ContainerBox>
-      </Box>
+      <main>
+        <Box background='light-1' align='center'>
+          <ContainerBox
+            background={{ dark: 'dark-3', light: 'neutral-6' }}
+            elevation='medium'
+            pad='large'
+            width='min(100%, 90rem)'
+          >
+            {children}
+          </ContainerBox>
+        </Box>
+      </main>
     </>
   )
 }

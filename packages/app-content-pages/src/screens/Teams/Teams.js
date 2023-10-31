@@ -65,7 +65,7 @@ function TeamComponent({ teamData = [], sections = [] }) {
 }
 
 TeamComponent.propTypes = {
-  data: arrayOf(
+  teamData: arrayOf(
     shape({
       name: string,
       people: array,

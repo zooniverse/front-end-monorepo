@@ -78,7 +78,6 @@ function Publications({ publicationsData = [], sections = [] }) {
 }
 
 Publications.propTypes = {
-  className: string,
   publicationsData: arrayOf(
     shape({
       projects: array,
