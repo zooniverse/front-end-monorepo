@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import Team from './components/Team'
 import Head from '../../shared/components/Head'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 
 const StyledLi = styled.li`
@@ -16,17 +17,15 @@ const StyledLi = styled.li`
 const StyledButton = styled(Button)`
   text-decoration: none;
   color: black;
-  ${props => props.active && css`
-    background: none;
-    font-weight: bold;
-  `}
+  ${props =>
+    props.active &&
+    css`
+      background: none;
+      font-weight: bold;
+    `}
 `
 
-function TeamComponent ({
-  className = '',
-  data = [],
-  filters = []
-}) {
+function TeamComponent({ className = '', data = [], filters = [] }) {
   const { t } = useTranslation('components')
 
   const heading = (
@@ -37,14 +36,15 @@ function TeamComponent ({
 
   const main = (
     <article>
-      {data && data.map(team => (
-        <Team
-          key={team.name}
-          name={team.name}
-          people={team.people}
-          slug={team.slug}
-        />
-      ))}
+      {data &&
+        data.map(team => (
+          <Team
+            key={team.name}
+            name={team.name}
+            people={team.people}
+            slug={team.slug}
+          />
+        ))}
     </article>
   )
 
@@ -71,33 +71,36 @@ function TeamComponent ({
 
   return (
     <>
-      <Head
-        description={t('Team.description')}
-        title={t('Team.title')}
-      />
-      <TwoColumnLayout
-        className={className}
-        heading={heading}
-        main={main}
-        sidebar={sidebar}
-      />
+      <Head description={t('Team.description')} title={t('Team.title')} />
+      <PageLayout>
+        <TwoColumnLayout
+          className={className}
+          heading={heading}
+          main={main}
+          sidebar={sidebar}
+        />
+      </PageLayout>
     </>
   )
 }
 
 TeamComponent.propTypes = {
   className: string,
-  data: arrayOf(shape({
-    name: string,
-    people: array,
-    slug: string,
-    weight: number
-  })),
-  filters: arrayOf(shape({
-    active: bool,
-    selectTeam: func,
-    name: string
-  }))
+  data: arrayOf(
+    shape({
+      name: string,
+      people: array,
+      slug: string,
+      weight: number
+    })
+  ),
+  filters: arrayOf(
+    shape({
+      active: bool,
+      selectTeam: func,
+      name: string
+    })
+  )
 }
 
 export default TeamComponent
