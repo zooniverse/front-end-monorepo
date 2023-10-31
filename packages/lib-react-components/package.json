@@ -52,8 +52,7 @@
     "prop-types": "~15.8.1",
     "react-i18next": "~13.3.0",
     "react-resize-detector": "~9.1.0",
-    "react-rnd": "10.4.1",
-    "unist-util-visit": "~1.4.0"
+    "react-rnd": "10.4.1"
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",

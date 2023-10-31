@@ -5793,52 +5793,6 @@
   dependencies:
     argparse "^2.0.1"
 
-"@zooniverse/grommet-theme@~3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@zooniverse/grommet-theme/-/grommet-theme-3.1.1.tgz#71161b16a807c33ac72c9913f004015580603113"
-  integrity sha512-wNREJHVRATqUA6uZmzJZz39RoT4QHI6QDZutYqqw7/cG1LV/mcWuYbMxRMqrUUM9I4j7ri9a4E18PBqBszJf0Q==
-  dependencies:
-    deep-freeze "~0.0.1"
-
-"@zooniverse/panoptes-js@~0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@zooniverse/panoptes-js/-/panoptes-js-0.4.1.tgz#fd6647f2e5fbf9b4d220fd1cf38df54e941245e5"
-  integrity sha512-pB2i/eNC8D+E+2AUzjs57rwS8FsijZdgDxKzVJDKT24gDE707B6T///V49SUp7RtsZ01iLQTNQRt6Mzz+C8OJA==
-  dependencies:
-    jose "~4.14.4"
-    superagent "^8.0.6"
-
-"@zooniverse/react-components@~1.6.1":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@zooniverse/react-components/-/react-components-1.6.4.tgz#e3efe5ad3859dd0b9e5ab78901414b28728a2772"
-  integrity sha512-0/mpRYkQrcP9D0UQYC19Rb6QbOkGnVMB/jkPVDHbGyNyeEvbB/C+0QBiDZ8Kw67iVEpK9CIA2RbViFyDtRLA/Q==
-  dependencies:
-    "@fortawesome/free-regular-svg-icons" "~6.4.0"
-    "@fortawesome/free-solid-svg-icons" "~6.4.0"
-    "@tippyjs/react" "~4.2.6"
-    "@visx/glyph" "~3.3.0"
-    "@visx/group" "~3.3.0"
-    "@visx/responsive" "~3.3.0"
-    "@visx/shape" "~3.3.0"
-    cuid "~3.0.0"
-    formik "~2.4.0"
-    i18next "~23.5.0"
-    mime "~3.0.0"
-    polished "~4.2.2"
-    prop-types "~15.8.1"
-    react-i18next "~13.2.0"
-    react-resize-detector "~9.1.0"
-    react-rnd "10.4.1"
-    remark "~12.0.1"
-    remark-breaks "~2.0.2"
-    remark-emoji "~2.0.2"
-    remark-external-links "~3.1.1"
-    remark-footnotes "2.0.0"
-    remark-react "~8.0.0"
-    remark-sub-super "~1.0.16"
-    remark-toc "~5.1.1"
-    unist-util-visit "~1.4.0"
-
 JSONStream@^1.3.5:
   version "1.3.5"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.5.tgz"
@@ -10951,13 +10905,6 @@ i18next-fs-backend@^2.1.5:
   resolved "https://registry.npmjs.org/i18next-fs-backend/-/i18next-fs-backend-2.1.5.tgz"
   integrity sha512-7fgSH8nVhXSBYPHR/W3tEXXhcnwHwNiND4Dfx9knzPzdsWTUTL/TdDVV+DY0dL0asHKLbdoJaXS4LdVW6R8MVQ==
 
-i18next@~23.5.0:
-  version "23.5.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.5.1.tgz#7f7c35ffaa907618d9489f106d5006b09fbca3d3"
-  integrity sha512-JelYzcaCoFDaa+Ysbfz2JsGAKkrHiMG6S61+HLBUEIPaF40WMwW9hCPymlQGrP+wWawKxKPuSuD71WZscCsWHg==
-  dependencies:
-    "@babel/runtime" "^7.22.5"
-
 i18next@~23.6.0:
   version "23.6.0"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.6.0.tgz#c6e996cfd3fef0bf60be3b7c581c35338dba5a71"
@@ -11792,11 +11739,6 @@ jest-worker@^29.5.0:
     jest-util "^29.5.0"
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
-
-jose@~4.14.4:
-  version "4.14.6"
-  resolved "https://registry.yarnpkg.com/jose/-/jose-4.14.6.tgz#94dca1d04a0ad8c6bff0998cdb51220d473cc3af"
-  integrity sha512-EqJPEUlZD0/CSUMubKtMaYUOtWe91tZXTWMJZoKSbLk+KtdhNdcvppH8lA9XwVu2V4Ailvsj0GBZJ2ZwDjfesQ==
 
 jose@~5.0.1:
   version "5.0.1"
@@ -14970,14 +14912,6 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-3.2.0.tgz"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-i18next@~13.2.0:
-  version "13.2.2"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.2.2.tgz#b1e78ed66a54f4bc819616f68b98221e1b1a1936"
-  integrity sha512-+nFUkbRByFwnrfDcYqvzBuaeZb+nACHx+fAWN/pZMddWOCJH5hoc21+Sa/N/Lqi6ne6/9wC/qRGOoQhJa6IkEQ==
-  dependencies:
-    "@babel/runtime" "^7.22.5"
-    html-parse-stringify "^3.0.1"
-
 react-i18next@~13.3.0:
   version "13.3.1"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.3.1.tgz#9b072bf4dd4cafb028e92315a8a1415f8034bdca"
@@ -17289,7 +17223,7 @@ unist-util-visit-parents@^3.0.0:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
 
-unist-util-visit@^1.4.1, unist-util-visit@~1.4.0:
+unist-util-visit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npmjs.org/unist-util-visit/-/unist-util-visit-1.4.1.tgz"
   integrity sha512-AvGNk7Bb//EmJZyhtRUnNMEpId/AZ5Ph/KUpTI09WHQuDZHKovQ1oEv3mfmKpWKtoMzyMC4GLBm1Zy5k12fjIw==
