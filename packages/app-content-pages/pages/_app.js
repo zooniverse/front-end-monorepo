@@ -50,8 +50,12 @@ function MyApp({ Component, initialState, pageProps }) {
         <GlobalStyle />
         <Provider store={store}>
           <Grommet theme={mergedThemes}>
-            <ZooHeaderWrapper />
-            <Component {...pageProps} />
+            <header>
+              <ZooHeaderWrapper />
+            </header>
+            <main>
+              <Component {...pageProps} />
+            </main>
             <ZooFooter />
             <AuthModal />
           </Grommet>

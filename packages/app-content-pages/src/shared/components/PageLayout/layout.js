@@ -47,7 +47,7 @@ function PageLayout({ children }) {
         <ContainerBox
           background={{ dark: 'dark-3', light: 'neutral-6' }}
           elevation='medium'
-          width={{ max: '1440px' }}
+          width='min(100%, 90rem)'
         >
           {children}
         </ContainerBox>
