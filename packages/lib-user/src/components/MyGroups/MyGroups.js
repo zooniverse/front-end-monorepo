@@ -11,12 +11,28 @@ function MyGroups({ authClient }) {
   const { data: user, error, isLoading: userLoading } = usePanoptesUser(authClient)
   const { data: membershipsWithGroups } = usePanoptesMemberships({ authClient, userID: user?.id, includeGroups: true })
 
+  let activeGroupsWithRoles = []
+
+  if (membershipsWithGroups?.memberships) {
+    activeGroupsWithRoles = membershipsWithGroups.linked.user_groups
+      .filter((group) => {
+        const membershipState = membershipsWithGroups.memberships
+          .find((membership) => membership.links.user_group === group.id).state
+        return membershipState === 'active'
+      })
+      .map((group) => {
+        const roles = membershipsWithGroups.memberships
+          .find((membership) => membership.links.user_group === group.id).roles
+        return { ...group, roles }
+      })
+  }
+
   return (
     <div>
       <div>
         <h3>MyGroups</h3>
-        {membershipsWithGroups?.linked?.user_groups?.map((group) => {
-          const roles = membershipsWithGroups?.memberships?.find((membership) => membership.links.user_group === group.id)?.roles
+        {activeGroupsWithRoles.map((group) => {
+          const roles = group.roles
 
           return (
             <div key={group.id}>
@@ -36,7 +52,6 @@ function MyGroups({ authClient }) {
           )
         })}
       </div>
-      <hr />
       <CreateGroup authClient={authClient} />
     </div>
   )

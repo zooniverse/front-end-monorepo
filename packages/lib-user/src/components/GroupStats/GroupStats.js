@@ -7,6 +7,7 @@ import {
   usePanoptesUserGroup
 } from '@hooks/index.js'
 
+import DeleteGroup from './DeleteGroup.js'
 import EditGroup from './EditGroup.js'
 
 function GroupStats ({
@@ -27,6 +28,14 @@ function GroupStats ({
       <EditGroup
         authClient={authClient}
         group={group}
+        headers={headers}
+      />
+      <br />
+      <hr />
+      <br />
+      <DeleteGroup
+        authClient={authClient}
+        groupID={groupID}
         headers={headers}
       />
     </div>
