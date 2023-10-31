@@ -33,6 +33,8 @@ function Publications({ publicationsData = [], sections = [] }) {
     setActiveSection(slug)
   }, [])
 
+  console.log(publicationsData)
+
   return (
     <>
       <Head
@@ -66,9 +68,9 @@ function Publications({ publicationsData = [], sections = [] }) {
               {publicationsData.map(category => (
                 <Category
                   key={category.title}
-                  title={category.title}
                   projects={category.projects}
                   slug={category.slug}
+                  title={category.title}
                 />
               ))}
             </article>

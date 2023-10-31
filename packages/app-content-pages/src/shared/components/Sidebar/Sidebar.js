@@ -4,20 +4,30 @@ import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 import { Box, Button, Nav } from 'grommet'
 
+const StyledUl = styled.ul`
+  padding-inline-start: 0;
+`
+
 const StyledLi = styled.li`
   list-style-type: none;
-  padding-top: 15px;
+  display: flex;
 `
 
 const StyledButton = styled(Button)`
   text-decoration: none;
   color: black;
+  padding: 5px 20px;
+  margin-bottom: 5px;
   ${props =>
     props.active &&
     css`
-      background: none;
+      background: #addde0; // accent-1
       font-weight: bold;
     `}
+
+  &:hover {
+    font-weight: bold;
+  }
 `
 
 const DEFAULT_HANDLER = () => {}
@@ -32,7 +42,7 @@ function Sidebar({
 
   return (
     <Nav aria-label={t('Publications.sideBarLabel')} className={className}>
-      <Box as='ul'>
+      <StyledUl>
         {sections.map(section => (
           <StyledLi key={section.name}>
             <StyledButton
@@ -45,7 +55,7 @@ function Sidebar({
             </StyledButton>
           </StyledLi>
         ))}
-      </Box>
+      </StyledUl>
     </Nav>
   )
 }
