@@ -24,7 +24,7 @@ function DeleteGroup({ authClient, groupID, headers }) {
       
       const deleteResponse = await deletePanoptesGroup(groupID, newHeaders)
       console.log('deleteResponse', deleteResponse)
-      window.location.reload()
+      window.location.href =  '?users=[login]/groups'
     } catch (error) {
       console.error(error)
     }

@@ -28,7 +28,6 @@ async function updatePanoptesGroup(data = DEFAULT_USER_GROUP, headers) {
 
 function EditGroup({ authClient, group, headers }) {
   const [displayName, setDisplayName] = useState('')
-  const [status, setStatus] = useState('initialized')
 
   useEffect(() => {
     setDisplayName(group?.display_name || '')
@@ -36,10 +35,10 @@ function EditGroup({ authClient, group, headers }) {
 
   async function handleSubmit(event) {
     event.preventDefault()
-    setStatus('submitting')
 
     const groupDisplayName = event.target.elements['group-name'].value
-    // remove spaces from display_name per panoptes
+    // per panoptes requirement that name has no spaces,
+    // remove spaces from display_name:
     const groupName = groupDisplayName.replace(/\s+/g, '')
     
     const data = {
@@ -57,19 +56,15 @@ function EditGroup({ authClient, group, headers }) {
       
       const updatedGroup = await updatePanoptesGroup(data, newHeaders)
       console.log('updatedGroup', updatedGroup)
-      setStatus('success')
+      window.location.reload()
     } catch (error) {
       console.error(error)
-      setStatus('error')
     }
   }
 
   return (
     <div>
       <h3>Update group</h3>
-      <div>
-        Status: {status}
-      </div>
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="group-name">Group display_name</label>
@@ -80,15 +75,6 @@ function EditGroup({ authClient, group, headers }) {
             type="text"
           />
           <br />
-          {/* <label htmlFor="group-stats-visibility">Group stats_visibility</label>
-          <select id="group-stats-visibility" defaultValue={group.stats_visibility}>
-            <option value="private_agg_only">private_agg_only</option>
-            <option value="private_show_agg_and_ind">private_show_agg_and_ind</option>
-            <option value="public_agg_only">public_agg_only</option>
-            <option value="public_agg_show_ind_if_member">public_agg_show_ind_if_member</option>
-            <option value="public_show_all">public_show_all</option>
-          </select>
-          <br /> */}
           <button type="submit">Update group</button>
         </form>
       </div>
