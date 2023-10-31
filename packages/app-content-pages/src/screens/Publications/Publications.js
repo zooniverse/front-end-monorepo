@@ -32,6 +32,8 @@ function Publications({ publicationsData = [], sections = [] }) {
     setActiveSection(slug)
   }, [])
 
+  const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
+
   return (
     <>
       <Head
@@ -57,7 +59,7 @@ function Publications({ publicationsData = [], sections = [] }) {
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Publications.sideBarLabel')}
-              sections={sections}
+              sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
           </Relative>

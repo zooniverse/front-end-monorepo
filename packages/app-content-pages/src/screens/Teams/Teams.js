@@ -29,6 +29,8 @@ function TeamComponent({ teamData = [], sections = [] }) {
     setActiveSection(slug)
   }, [])
 
+  const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
+
   return (
     <>
       <Head description={t('Team.description')} title={t('Team.title')} />
@@ -44,7 +46,7 @@ function TeamComponent({ teamData = [], sections = [] }) {
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Team.sideBarLabel')}
-              sections={sections}
+              sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
           </Relative>

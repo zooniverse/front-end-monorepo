@@ -42,7 +42,6 @@ function Sidebar({
   const { t } = useTranslation('components')
 
   return (
-    // <Nav aria-label={t('Publications.sideBarLabel')} className={className}>
     <Nav aria-label={ariaLabel} className={className}>
       <StyledUl>
         {sections.map(section => (
