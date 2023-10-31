@@ -53,9 +53,7 @@ function MyApp({ Component, initialState, pageProps }) {
             <header>
               <ZooHeaderWrapper />
             </header>
-            <main>
-              <Component {...pageProps} />
-            </main>
+            <Component {...pageProps} />
             <ZooFooter />
             <AuthModal />
           </Grommet>
