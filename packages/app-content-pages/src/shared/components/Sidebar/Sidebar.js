@@ -50,6 +50,7 @@ function Sidebar({
             <StyledButton
               as={Link}
               active={section.slug === activeSection}
+              aria-current = section.slug === activeSection ? 'true' : 'false'
               href={section.slug ? `#${section.slug}` : ''}
               onClick={() => setActiveSection(section.slug)}
             >
