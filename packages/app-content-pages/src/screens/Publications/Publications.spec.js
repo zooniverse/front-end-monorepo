@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import { within } from '@testing-library/dom'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 import { composeStory } from '@storybook/react'
@@ -26,7 +25,7 @@ function RouterMock({ children }) {
   )
 }
 
-describe('Component > PublicationsContainer', function () {
+describe('Component > Publications Page', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
@@ -35,16 +34,6 @@ describe('Component > PublicationsContainer', function () {
         <DefaultStory />
       </RouterMock>
     )
-  })
-
-  it('should have a sidebar with available filters', function () {
-    const categoryFilters = DefaultStory.args.publicationsData.map(
-      category => category.title
-    )
-    const sideBar = document.querySelector('aside')
-    const listedFilters = within(sideBar).getAllByRole('link')
-    expect(listedFilters.length).to.equal(categoryFilters.length + 1) // +1 to account for Show All
-    expect(listedFilters[1].textContent).to.equal(categoryFilters[0])
   })
 
   it('should have sidebar nav with accessible label', function () {

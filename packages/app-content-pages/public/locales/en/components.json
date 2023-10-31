@@ -34,8 +34,7 @@
     "formInfo": "We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.",
     "formLabel": "please use this form",
     "formInstruction": "To submit a new publication or update an existing one, ",
-    "showAll": "Show all",
-    "sideBarLabel": "Filter by category",
+    "sideBarLabel": "Jump to category",
     "title": "Publications"
   },
   "RegisterForm": {
@@ -57,7 +56,7 @@
     "privacyLink": "Read our privacy policy",
     "realName": "Real Name (Optional)",
     "realNameHelp": "We'll use this to give you credit in scientific papers, posters, etc.",
-    "realNamePatternHelp": "Enter a name, not an email address", 
+    "realNamePatternHelp": "Enter a name, not an email address",
     "realNamePlaceholder": "e.g. Maggie Smith",
     "register": "Register",
     "registering": "Registering...",
@@ -72,10 +71,12 @@
     "usernamePatternHelp": "Usernames can only contain letters, numbers, '.','-', and '_'",
     "usernamePlaceholder": "e.g. ZooniverseFan123"
   },
+  "Sidebar": {
+    "all": "All"
+  },
   "Team": {
     "description": "The people who make the Zooniverse.",
-    "showAll": "Show all",
-    "sideBarLabel": "Filter by team location",
+    "sideBarLabel": "Jump to team location",
     "title": "Our Team"
   }
 }
