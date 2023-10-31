@@ -73,7 +73,7 @@
     "panoptes-client": "~5.5.1",
     "process": "~0.11.10",
     "prop-types": "^15.8.1",
-    "sinon": "~16.1.0",
+    "sinon": "~17.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.5.2",
