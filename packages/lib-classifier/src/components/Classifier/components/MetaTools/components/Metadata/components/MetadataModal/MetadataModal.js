@@ -33,7 +33,7 @@ export function formatValue(value) {
     return <Anchor target='_blank' rel='nofollow noopener noreferrer' href={value}>{value}</Anchor>
   }
   if (stringValue) {
-    return <Markdownz options={{ forceInline: true }}>{stringValue}</Markdownz>
+    return <Markdownz inline>{stringValue}</Markdownz>
   }
 
   if (value === null) {
