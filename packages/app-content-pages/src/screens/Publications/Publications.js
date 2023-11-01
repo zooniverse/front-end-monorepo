@@ -8,6 +8,7 @@ import Category from './components/Category/Category.js'
 import PageLayout from '../../shared/components/PageLayout/layout.js'
 import Head from '../../shared/components/Head'
 import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
@@ -19,6 +20,11 @@ const Relative = styled.aside`
 `
 
 const StickySidebar = styled(Sidebar)`
+  position: sticky;
+  top: 0;
+`
+
+const StickyBox = styled(Box)`
   position: sticky;
   top: 0;
 `
@@ -41,8 +47,24 @@ function Publications({ publicationsData = [], sections = [] }) {
         title={t('Publications.title')}
       />
       <PageLayout>
-        <Grid columns={['25%', 'flex']}>
-          <Box />
+        <StickyBox
+          background={{ dark: 'dark-3', light: 'neutral-6' }}
+          margin={{ bottom: '20px' }}
+        >
+          <DropdownNav
+            activeSection={activeSection}
+            sidebarLabel={t('Publications.sidebarLabel')}
+            sections={sectionsPlusAll}
+            setActiveSection={setActiveSection}
+          />
+        </StickyBox>
+
+        <Grid
+          // columns={['25%', 'flex']}
+          columns={['100%']}
+        >
+          {/* <Box /> */}
+
           <section>
             <Heading margin={{ top: 'none' }} size='small'>
               {t('Publications.title')}
@@ -54,15 +76,18 @@ function Publications({ publicationsData = [], sections = [] }) {
             </Paragraph>
           </section>
         </Grid>
-        <Grid columns={['25%', 'flex']}>
-          <Relative>
+        <Grid
+          // columns={['25%', 'flex']}
+          columns={['100%']}
+        >
+          {/* <Relative>
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Publications.sideBarLabel')}
               sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
-          </Relative>
+          </Relative> */}
           <article>
             {publicationsData.map(category => (
               <Category

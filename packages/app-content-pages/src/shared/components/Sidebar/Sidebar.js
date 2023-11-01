@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
-import { Box, Button, Nav } from 'grommet'
+import { Button, Nav } from 'grommet'
 
 const StyledUl = styled.ul`
   padding-inline-start: 0;
