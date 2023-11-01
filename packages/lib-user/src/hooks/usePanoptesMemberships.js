@@ -11,7 +11,7 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchGroupRoles({ endpoint, userID, includeGroups, authorization }) {
+async function fetchMemberships({ endpoint, userID, includeGroups, authorization }) {
   // userID and auth are undefined while loading
   if (userID === undefined || authorization === undefined) {
     return undefined
@@ -26,9 +26,9 @@ async function fetchGroupRoles({ endpoint, userID, includeGroups, authorization 
   return null
 }
 
-export default function usePanoptesGroupRoles({ authClient, userID, includeGroups = false }) {
+export default function usePanoptesMemberships({ authClient, userID, includeGroups = false }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   const endpoint = '/memberships'
   const key = { endpoint, userID, includeGroups, authorization }
-  return useSWR(key, fetchGroupRoles, SWRoptions)
+  return useSWR(key, fetchMemberships, SWRoptions)
 }
