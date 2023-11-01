@@ -19,7 +19,9 @@ const Relative = styled.aside`
 `
 
 const StickySidebar = styled(Sidebar)`
-  position: sticky;
+  max-height: 100vh;
+  overflow: auto;
+  position: sticky;  
   top: 0;
 `
 
