@@ -9,29 +9,25 @@ async function fetchPanoptesUserGroup(authClient, groupID) {
   try {
     const authorization = await getBearerToken(authClient)
     const response = await panoptes.get(`/user_groups/${groupID}`, {}, { authorization })
-    const headers = response.headers
-    const [userGroup] = response.body.user_groups
-    return { headers, userGroup }
+    return response
   } catch (error) {
     console.log(error)
     return null
   }
 }
 
-export default function usePanoptesUserGroup(authClient, groupID) {
+export default function usePanoptesUserGroup({ authClient, groupID}) {
   const [error, setError] = useState(null)
-  const [userGroup, setUserGroup] = useState(null)
-  const [headers, setHeaders] = useState(null)
+  const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(function () {
     async function handleUserGroup() {
       setLoading(true)
       try {
-        const { headers, userGroup } = await fetchPanoptesUserGroup(authClient, groupID)
+        const data = await fetchPanoptesUserGroup(authClient, groupID)
         if (!ignore) {
-          setHeaders(headers)
-          setUserGroup(userGroup)
+          setData(data)
         }
       } catch (error) {
         setError(error)
@@ -48,5 +44,5 @@ export default function usePanoptesUserGroup(authClient, groupID) {
     }
   }, [authClient, groupID])
 
-  return { data: userGroup, error, headers, isLoading: loading }
+  return { data: data, error, isLoading: loading }
 }
