@@ -8,6 +8,7 @@ import {
 } from '@hooks/index.js'
 
 import {
+  deletePanoptesUserGroup,
   getBearerToken,
   updatePanoptesUserGroup
 } from '@utils/index.js'
@@ -31,14 +32,29 @@ function GroupStats ({
     isLoading: groupStatsLoading
   } = useGroupStats({ authClient, groupID })
 
+  async function getRequestHeaders() {
+    const authorization = await getBearerToken(authClient)
+    const requestHeaders = {
+      authorization,
+      etag: data.headers.etag
+    }
+    return requestHeaders
+  }
+
+  async function handleGroupDelete() {
+    try {
+      const requestHeaders = await getRequestHeaders()
+      const deleteResponse = await deletePanoptesUserGroup({ groupID, headers: requestHeaders })
+      console.log('deleteResponse', deleteResponse)
+      window.location.href =  '?users=[login]/groups'
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function handleGroupUpdate(updates) {
     try {
-      const authorization = await getBearerToken(authClient)
-      const requestHeaders = {
-        authorization,
-        etag: data.headers.etag
-      }
-      
+      const requestHeaders = await getRequestHeaders()
       const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
@@ -69,9 +85,7 @@ function GroupStats ({
       <hr />
       <br />
       <DeleteGroup
-        authClient={authClient}
-        groupID={groupID}
-        headers={data.headers}
+        handleGroupDelete={handleGroupDelete}
       />
     </div>
   )
