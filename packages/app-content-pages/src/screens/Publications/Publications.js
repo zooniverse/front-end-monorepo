@@ -5,28 +5,39 @@ import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import Category from './components/Category/Category.js'
-import PageLayout from '../../shared/components/PageLayout/layout.js'
-import Head from '../../shared/components/Head'
-import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
+import Content from '../../shared/components/Content/Content.js'
 import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
+import Head from '../../shared/components/Head'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
+import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
 const FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
-const Relative = styled.aside`
-  position: relative;
+const StyledGrid = styled(Grid)`
+  grid-template-columns: 1fr minmax(auto, 45rem) 1fr;
+  width: 100%;
 `
 
 const StickySidebar = styled(Sidebar)`
   position: sticky;
   top: 0;
+
+  @media (width < 75rem) {
+    display: none;
+  }
 `
 
 const StickyBox = styled(Box)`
   position: sticky;
   top: 0;
+  width: 100%;
+
+  @media (width > 75rem) {
+    display: none;
+  }
 `
 
 function Publications({ publicationsData = [], sections = [] }) {
@@ -58,13 +69,7 @@ function Publications({ publicationsData = [], sections = [] }) {
             setActiveSection={setActiveSection}
           />
         </StickyBox>
-
-        <Grid
-          // columns={['25%', 'flex']}
-          columns={['100%']}
-        >
-          {/* <Box /> */}
-
+        <Content>
           <section>
             <Heading margin={{ top: 'none' }} size='small'>
               {t('Publications.title')}
@@ -75,19 +80,16 @@ function Publications({ publicationsData = [], sections = [] }) {
               {t('Publications.formInfo')}
             </Paragraph>
           </section>
-        </Grid>
-        <Grid
-          // columns={['25%', 'flex']}
-          columns={['100%']}
-        >
-          {/* <Relative>
+        </Content>
+        <StyledGrid>
+          <Box align='center'>
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Publications.sideBarLabel')}
               sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
-          </Relative> */}
+          </Box>
           <article>
             {publicationsData.map(category => (
               <Category
@@ -98,7 +100,8 @@ function Publications({ publicationsData = [], sections = [] }) {
               />
             ))}
           </article>
-        </Grid>
+          <Box />
+        </StyledGrid>
       </PageLayout>
     </>
   )

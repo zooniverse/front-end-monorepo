@@ -17,7 +17,8 @@ const StyledButton = styled(Button)`
   text-decoration: none;
   color: black;
   padding: 5px 20px; // Same as Project About page sidebar
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
+  font-size: 0.875rem;
   ${props =>
     props.active &&
     css`
@@ -42,7 +43,7 @@ function Sidebar({
   const { t } = useTranslation('components')
 
   return (
-    <Nav aria-label={ariaLabel} className={className}>
+    <Nav aria-label={ariaLabel} className={className} margin={{ horizontal: 'auto' }}>
       <StyledUl>
         {sections.map(section => (
           <StyledLi key={section.name}>

@@ -8,34 +8,36 @@ import AboutHeader from '../AboutHeader'
 const ContainerBox = styled(Box)`
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -30px;
-    width: 30px;
-    height: clamp(100px, 10%, 500px);
-    background: linear-gradient(
-      to bottom left,
-      rgba(92, 92, 92, 0.3) 0%,
-      rgba(92, 92, 92, 0) 60%
-    );
-    clip-path: polygon(100% 0, 0 0, 100% 100%);
-  }
+  @media screen and (min-width: 90rem) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -30px;
+      width: 30px;
+      height: clamp(100px, 10%, 500px);
+      background: linear-gradient(
+        to bottom left,
+        rgba(92, 92, 92, 0.3) 0%,
+        rgba(92, 92, 92, 0) 60%
+      );
+      clip-path: polygon(100% 0, 0 0, 100% 100%);
+    }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -30px;
-    width: 30px;
-    height: clamp(100px, 10%, 500px);
-    background: linear-gradient(
-      to bottom right,
-      rgba(92, 92, 92, 0.3) 0%,
-      rgba(92, 92, 92, 0) 60%
-    );
-    clip-path: polygon(100% 0, 0 0, 0 100%);
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -30px;
+      width: 30px;
+      height: clamp(100px, 10%, 500px);
+      background: linear-gradient(
+        to bottom right,
+        rgba(92, 92, 92, 0.3) 0%,
+        rgba(92, 92, 92, 0) 60%
+      );
+      clip-path: polygon(100% 0, 0 0, 0 100%);
+    }
   }
 `
 
@@ -50,6 +52,7 @@ function PageLayout({ children }) {
             elevation='medium'
             pad='large'
             width='min(100%, 90rem)'
+            align='center'
           >
             {children}
           </ContainerBox>
