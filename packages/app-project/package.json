@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@artsy/fresnel": "~6.2.0",
+    "@artsy/fresnel": "~7.1.2",
     "@sentry/nextjs": "~7.77.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.4.0",
