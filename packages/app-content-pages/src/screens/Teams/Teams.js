@@ -50,7 +50,7 @@ function TeamComponent({ teamData = [], sections = [] }) {
 
   return (
     <>
-      <Head description={t('Team.description')} title={t('Team.title')} />
+      <Head description={t('Teams.description')} title={t('Teams.title')} />
       <PageLayout>
         <StickyBox
           background={{ dark: 'dark-3', light: 'neutral-6' }}
@@ -58,21 +58,21 @@ function TeamComponent({ teamData = [], sections = [] }) {
         >
           <DropdownNav
             activeSection={activeSection}
-            sidebarLabel={t('Publications.sidebarLabel')}
+            sidebarLabel={t('Teams.sidebarLabel')}
             sections={sectionsPlusAll}
             setActiveSection={setActiveSection}
           />
         </StickyBox>
         <Content>
           <Heading margin={{ top: 'none' }} size='small'>
-            {t('Team.title')}
+            {t('Teams.title')}
           </Heading>
         </Content>
         <StyledGrid>
           <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('Team.sideBarLabel')}
+              ariaLabel={t('Teams.sideBarLabel')}
               sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
