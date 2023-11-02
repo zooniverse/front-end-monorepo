@@ -4,9 +4,9 @@ import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-import Content from '../../shared/components/Content/Content.js'
 import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
 import Head from '../../shared/components/Head'
+import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
 import PageLayout from '../../shared/components/PageLayout/layout.js'
 import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
 import Team from './components/Team'
@@ -18,13 +18,32 @@ const StyledGrid = styled(Grid)`
   width: 100%;
 `
 
+const StyledHeading = styled(Heading)`
+  position: relative;
+  padding-bottom: 30px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, #ffffff 0%, #A6A7A9 50%, #ffffff 100%);
+    height: 2px;
+    width: 100%;
+
+    @media (width <= 72rem) {
+      display: none;
+    }
+  }
+`
+
 const StickySidebar = styled(Sidebar)`
   max-height: 100vh;
   overflow: auto;
-  position: sticky;  
+  position: sticky;
   top: 0;
 
-  @media (width < 75rem) {
+  @media (width < 72rem) {
     display: none;
   }
 `
@@ -34,7 +53,7 @@ const StickyBox = styled(Box)`
   top: 0;
   width: 100%;
 
-  @media (width > 75rem) {
+  @media (width > 72rem) {
     display: none;
   }
 `
@@ -65,11 +84,11 @@ function TeamComponent({ teamData = [], sections = [] }) {
             setActiveSection={setActiveSection}
           />
         </StickyBox>
-        <Content>
-          <Heading margin={{ top: 'none' }} size='small'>
+        <MaxWidthContent>
+          <StyledHeading color='brand' margin={{ top: 'none' }} size='small' textAlign='center'>
             {t('Teams.title')}
-          </Heading>
-        </Content>
+          </StyledHeading>
+        </MaxWidthContent>
         <StyledGrid>
           <Box as='aside' align='center'>
             <StickySidebar

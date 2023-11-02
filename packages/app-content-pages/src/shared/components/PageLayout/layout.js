@@ -8,7 +8,7 @@ import AboutHeader from '../AboutHeader'
 const ContainerBox = styled(Box)`
   position: relative;
 
-  @media screen and (min-width: 90rem) {
+  @media (width > 90rem) {
     &::before {
       content: '';
       position: absolute;
@@ -50,7 +50,7 @@ function PageLayout({ children }) {
           <ContainerBox
             background={{ dark: 'dark-3', light: 'neutral-6' }}
             elevation='medium'
-            pad='large'
+            pad={{ vertical: '30px'}}
             width='min(100%, 90rem)'
             align='center'
           >
