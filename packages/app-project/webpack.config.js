@@ -11,6 +11,9 @@ module.exports = {
       '@stores': path.resolve(__dirname, 'stores'),
       '@test': path.resolve(__dirname, 'test'),
       'sentry.edge.config.js': path.resolve(__dirname, 'sentry.edge.config.js')
+    },
+    fallback: {
+      fs: false
     }
   }
 }

@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.23.1",
-    "@sentry/browser": "~7.74.0",
+    "@sentry/browser": "~7.77.0",
     "@visx/axis": "~3.4.0",
     "@visx/brush": "~3.3.0",
     "@visx/event": "~3.3.0",
@@ -53,7 +53,7 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
-    "@zooniverse/panoptes-js": "~0.4.0",
+    "@zooniverse/panoptes-js": "~0.5.0",
     "@zooniverse/react-components": "~1.x.x",
     "grommet": "~2.x.x",
     "grommet-icons": "~4.x.x",
@@ -78,9 +78,9 @@
     "@testing-library/user-event": "~14.5.0",
     "@visx/mock-data": "~3.3.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
-    "@zooniverse/grommet-theme": "~3.1.0",
-    "@zooniverse/panoptes-js": "~0.4.0",
-    "@zooniverse/react-components": "~1.6.0",
+    "@zooniverse/grommet-theme": "~3.2.0",
+    "@zooniverse/panoptes-js": "~0.5.0",
+    "@zooniverse/react-components": "~1.8.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-loader": "~9.1.0",
     "babel-plugin-module-resolver": "~5.0.0",
@@ -92,7 +92,7 @@
     "enzyme": "~3.11.0",
     "eslint-plugin-jsx-a11y": "~6.7.0",
     "eslint-plugin-react": "~7.33.0",
-    "grommet": "~2.33.0",
+    "grommet": "~2.34.0",
     "grommet-icons": "~4.11.0",
     "html-webpack-plugin": "~5.5.0",
     "ignore-styles": "~5.0.1",
@@ -100,11 +100,12 @@
     "mobx": "~6.10.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~9.0.1",
-    "mobx-state-tree": "~5.2.0",
+    "mobx-state-tree": "~5.3.0",
     "mocha": "~10.2.0",
     "mst-middlewares": "~5.2.0",
     "nock": "~13.3.0",
     "panoptes-client": "~5.5.1",
+    "path-browserify": "~1.0.1",
     "polished": "~4.2.2",
     "process": "~0.11.10",
     "prop-types": "^15.8.1",
@@ -124,6 +125,6 @@
     "webpack-dev-server": "~4.15.0"
   },
   "engines": {
-    "node": ">=18.13"
+    "node": ">=20.5"
   }
 }

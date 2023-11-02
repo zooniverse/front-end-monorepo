@@ -1,5 +1,7 @@
+import { Grommet } from 'grommet'
 import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { GroupStats, MyGroups, UserStats } from '@components/index.js'
 
@@ -9,6 +11,7 @@ function App ({
 }) {
   const [loading, setLoading] = useState(false)
   const [userAuth, setUserAuth] = useState(null)
+  const [dark, setDarkTheme] = useState(false)
 
   useEffect(() => {
     async function initAuthorization () {
@@ -108,26 +111,45 @@ function App ({
   }
 
   return (
-    <main>
-      <header>
-        <h1><a href="./">lib-user</a></h1>
-        {userAuth ? (
-          <button onClick={logout}>
-            Logout
-          </button>
-        ) : (
-          <button onClick={login}>
-            Login
-          </button>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <main>
+        <header>
+          <h1><a href="./">lib-user</a></h1>
+          {userAuth ? (
+            <button onClick={logout}>
+              Logout
+            </button>
+          ) : (
+            <button onClick={login}>
+              Login
+            </button>
+          )}
+          <label>
+            Dark Theme
+            <input
+              name='theme-toggle'
+              onChange={() => setDarkTheme(!dark)}
+              type="checkbox"
+              value={!dark}
+            >
+            </input>
+          </label>
+        </header>
+        {loading ? 
+          <p>Loading...</p> : (
+          <div>
+            {content}
+          </div>
         )}
-      </header>
-      {loading ? 
-        <p>Loading...</p> : (
-        <div>
-          {content}
-        </div>
-      )}
-    </main>
+      </main>
+    </Grommet>
   )
 }
 

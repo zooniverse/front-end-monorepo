@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.0] 2023-10-30
+
+### Changed
+- `Markdownz`: replace `remark` with `markdownz` and `rehype`.
+
+## [1.7.0] 2023-10-26
+### Changed
+- build with Node 20.
+
 ## [1.6.4] 2023-10-05
 
 ### Fixed

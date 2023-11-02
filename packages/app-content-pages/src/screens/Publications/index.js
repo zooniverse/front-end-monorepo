@@ -1,1 +1,1 @@
-export { default } from './PublicationsContainer'
+export { default } from './Publications.js'

@@ -1,11 +1,10 @@
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
-import { Box, Text } from 'grommet'
+import { Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
+import { ZooniverseLogotype } from '@zooniverse/react-components'
 
 import NavLink from './components/NavLink'
-import theme from './theme'
 
-function AboutHeader () {
+function AboutHeader() {
   const { t } = useTranslation('components')
 
   const links = [
@@ -52,28 +51,35 @@ function AboutHeader () {
   ]
 
   return (
-    <Box align='center' as='header' background='brand'>
-
-      <Box margin={{ bottom: 'large', top: 'xlarge' }} width='xlarge'>
-        <Text color='white' size='xxlarge'>
-          {t('AboutHeader.title')}
-        </Text>
-      </Box>
-
+    <header>
       <Box
+        align='center'
         aria-label={`${t('AboutHeader.title')} Zooniverse`}
-        as='nav'
         direction='row'
-        margin={{ bottom: 'xsmall' }}
-        width='xlarge'
+        as='nav'
+        background='brand'
+        pad={{ horizontal: '2rem' }} // Same as ZooHeader
       >
-        {links.map(link => (
-          <NavLink key={link.label} label={link.label} href={link.href} />
-        ))}
+        <Box
+          align='left'
+          as='ul'
+          direction='row'
+          pad={{ left: 'none' }}
+          width='100%'
+          wrap
+          // We don't use gap here bc gap inserts <div> into this <ul>
+        >
+          {links.map(link => (
+            <Box as='li' key={link.label} pad={{ right: 'small' }}>
+              <NavLink color='white' label={link.label} href={link.href} />
+            </Box>
+          ))}
+        </Box>
+        {/* Enable logo when ready for all About Zooniverse pages to be hosted from FEM */}
+        {/* <ZooniverseLogotype id="About Zooniverse Header component" color='white' /> */}
       </Box>
-    </Box>
+    </header>
   )
 }
 
-export default withThemeContext(AboutHeader, theme)
-export { AboutHeader }
+export default AboutHeader

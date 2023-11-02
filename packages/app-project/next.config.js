@@ -9,9 +9,17 @@ const { i18n } = require('./next-i18next.config')
 
 const assetPrefixes = {}
 
-function commitID () {
+function commitID() {
   try {
     return execSync('git rev-parse HEAD').toString('utf8').trim()
+  } catch (error) {
+    return error.message
+  }
+}
+
+function branchName() {
+  try {
+    return execSync('git rev-parse --abbrev-ref HEAD').toString('utf8').trim()
   } catch (error) {
     return error.message
   }
@@ -24,7 +32,7 @@ const SENTRY_PROJECT_DSN = isDevelopment ? '' : 'https://2a50683835694829b4bc3cc
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 const assetPrefix = assetPrefixes[APP_ENV]
-const GITHUB_REF_NAME = process.env.GITHUB_REF_NAME
+const GITHUB_REF_NAME = process.env.GITHUB_REF_NAME || branchName()
 
 console.info({ GITHUB_REF_NAME, APP_ENV, PANOPTES_ENV, assetPrefix })
 
@@ -104,6 +112,10 @@ const nextConfig = {
       alias: {
         ...config.resolve.alias,
         ...webpackConfig.resolve.alias
+      },
+      fallback: {
+        ...config.resolve.fallback,
+        ...webpackConfig.resolve.fallback
       }
     }
     return config

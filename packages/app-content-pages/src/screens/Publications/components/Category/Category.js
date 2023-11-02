@@ -4,9 +4,9 @@ import { arrayOf, shape, string } from 'prop-types'
 import Project from '../Project/Project.js'
 
 function Category ({
-  title = '',
   projects = [],
-  slug = ''
+  slug = '',
+  title = ''
 }) {
   return (
     <Box as='section'>

@@ -1,3 +1,7 @@
+if (process.env.NEWRELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 require('dotenv').config()
 
 const { execSync } = require('child_process')
@@ -81,6 +85,10 @@ const nextConfig = {
       alias: {
         ...config.resolve.alias,
         ...webpackConfig.resolve.alias
+      },
+      fallback: {
+        ...config.resolve.fallback,
+        ...webpackConfig.resolve.fallback
       }
     }
     return config

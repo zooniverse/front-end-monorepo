@@ -1,27 +1,36 @@
-import { Anchor, Box } from 'grommet'
+import { Anchor, Text } from 'grommet'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { string } from 'prop-types'
+import styled, { css } from 'styled-components'
 
-function NavLink ({
-  href = '',
-  label = ''
-}) {
+const StyledAnchor = styled(Anchor)`
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+
+  &:hover {
+    border-bottom-color: white;
+  }
+
+  ${props =>
+    props.active &&
+    css`
+      border-bottom-color: white;
+    `}
+`
+
+function NavLink({ color, href = '', label = '' }) {
   const { asPath } = useRouter()
   const isActive = asPath === href
   return (
-    <Anchor
+    <StyledAnchor
       as={Link}
       aria-current={isActive ? 'page' : undefined}
       href={href}
-      size='medium'
-      weight='normal'
       active={isActive}
     >
-      <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
-        {label}
-      </Box>
-    </Anchor>
+      <Text color={color}>{label}</Text>
+    </StyledAnchor>
   )
 }
 

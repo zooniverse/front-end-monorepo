@@ -2,7 +2,7 @@
 
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
 
-import { string } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import { 
   useGroupStats,
@@ -95,7 +95,7 @@ function GroupStats ({
 
 GroupStats.propTypes = {
   // authClient: object.isRequired,
-  groupID: string.isRequired
+  groupID: PropTypes.string.isRequired
 }
 
 export default GroupStats
