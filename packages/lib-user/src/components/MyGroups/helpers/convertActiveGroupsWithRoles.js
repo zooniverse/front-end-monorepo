@@ -1,21 +1,18 @@
 function convertActiveGroupsWithRoles(membershipsWithGroups = []) {
-  let activeGroupsWithRoles = []
-  
-  if (membershipsWithGroups?.memberships) {
-    activeGroupsWithRoles = membershipsWithGroups.linked.user_groups
-      .filter((group) => {
-        const membershipState = membershipsWithGroups.memberships
-          .find((membership) => membership.links.user_group === group.id).state
-        return membershipState === 'active'
-      })
-      .map((group) => {
-        const roles = membershipsWithGroups.memberships
-          .find((membership) => membership.links.user_group === group.id).roles
-        return { ...group, roles }
-      })
+  if (!membershipsWithGroups?.memberships) {
+    return []
   }
 
-  return activeGroupsWithRoles
+  return membershipsWithGroups.linked.user_groups.reduce((activeGroupsWithRoles, group) => {
+    const membership = membershipsWithGroups.memberships
+      .find((membership) => membership.links.user_group === group.id)
+
+    if (membership?.state === 'active') {
+      activeGroupsWithRoles.push({ ...group, roles: membership.roles })
+    }
+
+    return activeGroupsWithRoles
+  }, [])
 }
 
 export default convertActiveGroupsWithRoles

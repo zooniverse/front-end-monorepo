@@ -1,3 +1,5 @@
+// This component is a work in progress. It will be refactored with tests, with a storybook, and in accordance with the related design. It is currently being used for initial local development.
+
 function DeleteGroup({ handleGroupDelete }) {
   function handleClick(event) {
     event.preventDefault()

@@ -1,4 +1,4 @@
-import { panoptes } from "@zooniverse/panoptes-js"
+import { panoptes } from '@zooniverse/panoptes-js'
 
 async function updatePanoptesUserGroup({ updates, headers }) {
   if (headers?.authorization) {
