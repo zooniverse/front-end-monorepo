@@ -4,20 +4,37 @@ import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-import Team from './components/Team'
+import Content from '../../shared/components/Content/Content.js'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
 import Head from '../../shared/components/Head'
 import PageLayout from '../../shared/components/PageLayout/layout.js'
 import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
+import Team from './components/Team'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
-const Relative = styled.aside`
-  position: relative;
+const StyledGrid = styled(Grid)`
+  grid-template-columns: 1fr minmax(auto, 45rem) 1fr;
+  width: 100%;
 `
 
 const StickySidebar = styled(Sidebar)`
   position: sticky;
   top: 0;
+
+  @media (width < 75rem) {
+    display: none;
+  }
+`
+
+const StickyBox = styled(Box)`
+  position: sticky;
+  top: 0;
+  width: 100%;
+
+  @media (width > 75rem) {
+    display: none;
+  }
 `
 
 function TeamComponent({ teamData = [], sections = [] }) {
@@ -35,21 +52,31 @@ function TeamComponent({ teamData = [], sections = [] }) {
     <>
       <Head description={t('Team.description')} title={t('Team.title')} />
       <PageLayout>
-        <Grid columns={['25%', 'flex']}>
-          <Box />
+        <StickyBox
+          background={{ dark: 'dark-3', light: 'neutral-6' }}
+          margin={{ bottom: '20px' }}
+        >
+          <DropdownNav
+            activeSection={activeSection}
+            sidebarLabel={t('Publications.sidebarLabel')}
+            sections={sectionsPlusAll}
+            setActiveSection={setActiveSection}
+          />
+        </StickyBox>
+        <Content>
           <Heading margin={{ top: 'none' }} size='small'>
             {t('Team.title')}
           </Heading>
-        </Grid>
-        <Grid columns={['25%', 'flex']}>
-          <Relative>
+        </Content>
+        <StyledGrid>
+          <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Team.sideBarLabel')}
               sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
-          </Relative>
+          </Box>
           <article>
             {teamData?.map(team => (
               <Team
@@ -60,7 +87,8 @@ function TeamComponent({ teamData = [], sections = [] }) {
               />
             ))}
           </article>
-        </Grid>
+          <Box />
+        </StyledGrid>
       </PageLayout>
     </>
   )

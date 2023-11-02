@@ -82,7 +82,7 @@ function Publications({ publicationsData = [], sections = [] }) {
           </section>
         </Content>
         <StyledGrid>
-          <Box align='center'>
+          <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Publications.sideBarLabel')}
