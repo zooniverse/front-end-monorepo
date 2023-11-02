@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import Meta, { Default } from './DropdownNav.stories'
 
-describe.only('Component > DropdownNav', function() {
+describe('Component > DropdownNav', function() {
   const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
