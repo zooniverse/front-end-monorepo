@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.8.1] 2023-11-02
 
 ### Fixed
-- `SpacedHeading` was not passsing `size` to its child `SpacedText`. This fix allows the font-size to be adjusted as a prop in `SpacedHeading`.
+- `SpacedHeading` was not passing `size` to its child `SpacedText`. This fix allows the font-size to be adjusted as a prop in `SpacedHeading`.
 
 ## [1.8.0] 2023-10-30
 
