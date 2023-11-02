@@ -27,8 +27,10 @@ function MyGroups({ authClient }) {
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
     authClient,
-    userID: user?.id,
-    includeGroups: true
+    query: {
+      include: 'user_group',
+      user_id: user?.id
+    }
   })
 
   async function handleGroupCreate(data) {

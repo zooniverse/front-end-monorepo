@@ -11,14 +11,15 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchMemberships({ endpoint, userID, includeGroups, authorization }) {
+async function fetchMemberships({ endpoint, query, authorization }) {
+  const userID = query?.user_id
+  
   // userID and auth are undefined while loading
   if (userID === undefined || authorization === undefined) {
     return undefined
   }
   // logged in
   if (userID && authorization) {
-    const query = includeGroups ? { include: 'user_group', user_id: userID } : { user_id: userID }
     const { body } = await panoptes.get(endpoint, query, { authorization })
     return body || {}
   }
@@ -26,9 +27,9 @@ async function fetchMemberships({ endpoint, userID, includeGroups, authorization
   return null
 }
 
-export default function usePanoptesMemberships({ authClient, userID, includeGroups = false }) {
-  const authorization = usePanoptesAuth({ authClient, userID })
+export default function usePanoptesMemberships({ authClient, query }) {
+  const authorization = usePanoptesAuth({ authClient })
   const endpoint = '/memberships'
-  const key = { endpoint, userID, includeGroups, authorization }
+  const key = { endpoint, query, authorization }
   return useSWR(key, fetchMemberships, SWRoptions)
 }
