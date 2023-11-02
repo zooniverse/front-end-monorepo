@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.1] 2023-11-02
+
+### Fixed
+- `SpacedHeading` was not passsing `size` to its child `SpacedText`. This fix allows the font-size to be adjusted as a prop in `SpacedHeading`.
+
 ## [1.8.0] 2023-10-30
 
 ### Changed
@@ -171,7 +176,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that is often used in a site's footer
 
 ## [1.0.0] 2020-06-29
-- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
+- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:
   - AdminCheckbox
   - CloseButton
   - FavouritesButton
