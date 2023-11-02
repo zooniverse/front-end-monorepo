@@ -42,7 +42,7 @@ function MyGroups({ authClient }) {
     }
   }
 
-  if (userError || membershipsError) return (<p>Error: {userError || membershipsError}</p>)
+  if (userError || membershipsError) return (<p>Error: {userError?.toString() || membershipsError?.toString()}</p>)
 
   if (userLoading || membershipsLoading) return (<p>Loading...</p>)
 

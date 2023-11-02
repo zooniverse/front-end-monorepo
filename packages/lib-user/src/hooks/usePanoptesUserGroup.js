@@ -1,48 +1,30 @@
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { panoptes } from '@zooniverse/panoptes-js'
 
-import { getBearerToken } from '@utils/index.js'
+import { usePanoptesAuth } from '@hooks/index.js'
 
-// TODO: refactor with SWR
+const SWRoptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
 
-async function fetchPanoptesUserGroup(authClient, groupID) {
-  try {
-    const authorization = await getBearerToken(authClient)
-    const response = await panoptes.get(`/user_groups/${groupID}`, {}, { authorization })
-    return response
-  } catch (error) {
-    console.log(error)
-    return null
+async function fetchPanoptesUserGroup({ endpoint, groupID, authorization }) {
+  if (groupID === undefined || authorization === undefined) {
+    return undefined
   }
+  if (groupID && authorization) {
+    const response = await panoptes.get(endpoint, {}, { authorization })
+    return response || {}
+  }
+  return null
 }
 
 export default function usePanoptesUserGroup({ authClient, groupID}) {
-  const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(function () {
-    async function handleUserGroup() {
-      setLoading(true)
-      try {
-        const data = await fetchPanoptesUserGroup(authClient, groupID)
-        if (!ignore) {
-          setData(data)
-        }
-      } catch (error) {
-        setError(error)
-      }
-      setLoading(false)
-    }
-
-    let ignore = false
-    if (groupID) {
-      handleUserGroup()
-    }
-    return function () {
-      ignore = true
-    }
-  }, [authClient, groupID])
-
-  return { data: data, error, isLoading: loading }
+  const authorization = usePanoptesAuth({ authClient })
+  const endpoint = `/user_groups/${groupID}`
+  const key = { endpoint, groupID, authorization }
+  return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }

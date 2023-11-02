@@ -63,7 +63,7 @@ function GroupStats ({
     }
   }
 
-  if (groupError || groupStatsError) return (<p>Error: {groupError || groupStatsError}</p>)
+  if (groupError || groupStatsError) return (<p>Error: {groupError?.toString() || groupStatsError?.toString()}</p>)
 
   if (groupLoading || groupStatsLoading) return (<p>Loading...</p>)
 
