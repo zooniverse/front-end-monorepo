@@ -15,10 +15,10 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@artsy/fresnel@~6.2.0":
-  version "6.2.1"
-  resolved "https://registry.npmjs.org/@artsy/fresnel/-/fresnel-6.2.1.tgz"
-  integrity sha512-UAyHZU64Vie3sLDdL3qD+7pODGzKNu9pSpxGKpDOCaiBvCDZnFXIfJEEfV9v9i+QiJJwzO+lqsFwvw6YiJeXFQ==
+"@artsy/fresnel@~7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-7.1.2.tgz#f413d05560a1f299097a2799212e968c526db355"
+  integrity sha512-ib/JB0clWddxArplv6CMa6OyHXBX/e2gjJyXbtlX15gobi1lKjG4afTgiv7lpQOVb10tmK7psIP041VsVBDPEg==
 
 "@aw-web-design/x-default-browser@1.4.126":
   version "1.4.126"
