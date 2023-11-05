@@ -12,9 +12,9 @@ const MOCK_COMMENTS = [
 ]
 
 const MOCK_SUBJECTS = [
-  { id: '1' },
-  { id: '2' },
-  { id: '3' }
+  { id: '1', locations: [] },
+  { id: '2', locations: [] },
+  { id: '3', locations: [] }
 ]
 
 describe('Helpers > fetchRecentSubjects', function () {
@@ -34,7 +34,7 @@ describe('Helpers > fetchRecentSubjects', function () {
     })
 
     it('should return an empty array', async function () {
-      const result = await fetchRecentSubjects('1')
+      const result = await fetchRecentSubjects({ projectId: '1' })
       expect(result).to.deep.equal([])
     })
   })
@@ -55,7 +55,7 @@ describe('Helpers > fetchRecentSubjects', function () {
     })
 
     it('should return an array of subjects', async function () {
-      const result = await fetchRecentSubjects('2')
+      const result = await fetchRecentSubjects({ projectId: '2' })
       expect(result).to.deep.equal(MOCK_SUBJECTS)
     })
   })

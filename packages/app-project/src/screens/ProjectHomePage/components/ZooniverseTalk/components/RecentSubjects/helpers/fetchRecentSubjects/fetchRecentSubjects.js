@@ -2,7 +2,7 @@ import fetchSubjectData from './fetchSubjectData'
 import fetchTalkData from './fetchTalkData'
 import getSubjectIdsFromTalkData from './getSubjectIdsFromTalkData'
 
-async function fetchRecentSubjects (projectId) {
+async function fetchRecentSubjects ({ projectId }) {
   const talkData = await fetchTalkData(projectId)
 
   if (talkData.length > 0) {
