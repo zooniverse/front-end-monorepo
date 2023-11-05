@@ -7,9 +7,7 @@ async function fetchRecentSubjects ({ projectId }) {
 
   if (talkData.length > 0) {
     const subjectIds = getSubjectIdsFromTalkData(talkData)
-    const subjects = await fetchSubjectData(subjectIds)
-      .then(response => response.body.subjects)
-    return subjects
+    return await fetchSubjectData(subjectIds)
   }
 
   return []

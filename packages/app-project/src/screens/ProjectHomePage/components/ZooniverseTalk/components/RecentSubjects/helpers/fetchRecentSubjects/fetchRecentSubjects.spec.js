@@ -7,8 +7,8 @@ const PANOPTES_URL = 'https://panoptes-staging.zooniverse.org/api'
 
 const MOCK_COMMENTS = [
   { focus_id: '1' },
-  { focus_id: '2' },
-  { focus_id: '3' }
+  { focus_id: '3' },
+  { focus_id: '2' }
 ]
 
 const MOCK_SUBJECTS = [
@@ -56,7 +56,11 @@ describe('Helpers > fetchRecentSubjects', function () {
 
     it('should return an array of subjects', async function () {
       const result = await fetchRecentSubjects({ projectId: '2' })
-      expect(result).to.deep.equal(MOCK_SUBJECTS)
+      expect(result).to.deep.equal([
+        { id: '1', locations: [] },
+        { id: '3', locations: [] },
+        { id: '2', locations: [] }
+      ])
     })
   })
 })
