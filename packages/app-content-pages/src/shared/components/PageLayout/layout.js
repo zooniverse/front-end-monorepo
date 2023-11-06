@@ -9,6 +9,8 @@ const ContainerBox = styled(Box)`
   position: relative;
 
   @media (width > 90rem) {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.30); // Grommet elevation = 'medium'
+
     &::before {
       content: '';
       position: absolute;
@@ -49,8 +51,6 @@ function PageLayout({ children }) {
         <Box background='light-1' align='center'>
           <ContainerBox
             background={{ dark: 'dark-3', light: 'neutral-6' }}
-            elevation='medium'
-            pad={{ vertical: '30px'}}
             width='min(100%, 90rem)'
             align='center'
           >

@@ -76,7 +76,7 @@
   },
   "Teams": {
     "description": "The people who make the Zooniverse.",
-    "sidebarLabel": "Team Location",
+    "sidebarLabel": "Institution",
     "title": "Our Team"
   }
 }

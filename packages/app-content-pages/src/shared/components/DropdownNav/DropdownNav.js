@@ -11,24 +11,51 @@ const StyledUl = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 `
 
 const StyledLi = styled.li`
   list-style-type: none;
   display: flex;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 `
 
 const StyledButton = styled(Button)`
-  width: 100%;
   text-decoration: none;
-  color: black;
-  padding: 5px 20px; // Same as Project About page sidebar
-  margin-bottom: 5px;
+  border-bottom: 2px solid transparent;
+
   ${props =>
     props.active &&
     css`
-      background: #addde0; // accent-1
-      font-weight: bold;
+      border-bottom-color: white;
+    `}
+`
+
+const StyledDropButton = styled(DropButton)`
+  border-radius: 2em;
+  box-shadow: 2px 2px 4px #e2e5e9, -2px -2px 4px #e2e5e9; // light-3
+  position: relative;
+
+  ${props =>
+    props.open &&
+    css`
+      // box-shadow: none;
+      // background: #addde0; // accent-1
+
+      // &::after {
+      //   content: '';
+      //   position: absolute;
+      //   bottom: 0;
+      //   left: 0;
+      //   background: ${props.theme.global.colors.brand};
+      //   height: 50%;
+      //   width: 100%;
+      //   z-index: -1;
+      // }
     `}
 `
 
@@ -57,14 +84,17 @@ function DropdownNav({
   }
 
   return (
-    <DropButton
+    <StyledDropButton
       alignSelf='center'
       className={className}
+      dropAlign={{ top: 'bottom' }}
       onClose={handleClose}
       onOpen={handleOpen}
       open={isOpen}
+      round='medium'
+      margin={{ top: '20px' }}
       dropContent={
-        <Nav aria-label={sidebarLabel} width='max-content'>
+        <Nav aria-label={sidebarLabel} width='100%' background='brand'>
           <StyledUl>
             {sections.map(section => (
               <StyledLi key={section.name}>
@@ -77,7 +107,9 @@ function DropdownNav({
                   href={section.slug ? `#${section.slug}` : ''}
                   onClick={section => handleSectionSelect(section.slug)}
                 >
-                  <SpacedText>{section.name}</SpacedText>
+                  <SpacedText size='0.875rem' color='white' weight='bold'>
+                    {section.name}
+                  </SpacedText>
                 </StyledButton>
               </StyledLi>
             ))}
@@ -98,7 +130,7 @@ function DropdownNav({
         </SpacedText>
         <FormDown color='brand' />
       </Box>
-    </DropButton>
+    </StyledDropButton>
   )
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, Grid, Heading } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
@@ -12,28 +12,35 @@ import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
 import Team from './components/Team'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
+const mobileBreakpoint = '72rem'
 
 const StyledGrid = styled(Grid)`
   grid-template-columns: 1fr minmax(auto, 45rem) 1fr;
   width: 100%;
+  padding: 0 30px;
+
+  @media (width <= ${mobileBreakpoint}) {
+    padding: 0 20px;
+  }
 `
 
 const StyledHeading = styled(Heading)`
   position: relative;
-  padding-bottom: 30px;
+  padding: 30px 0;
+  margin: 0 0 20px 0;
+
+  @media (width <= ${mobileBreakpoint}) {
+    display: none;
+  }
 
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    background: linear-gradient(90deg, #ffffff 0%, #A6A7A9 50%, #ffffff 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #a6a7a9 50%, #ffffff 100%);
     height: 2px;
     width: 100%;
-
-    @media (width <= 72rem) {
-      display: none;
-    }
   }
 `
 
@@ -43,7 +50,7 @@ const StickySidebar = styled(Sidebar)`
   position: sticky;
   top: 0;
 
-  @media (width < 72rem) {
+  @media (width <= ${mobileBreakpoint}) {
     display: none;
   }
 `
@@ -53,7 +60,22 @@ const StickyBox = styled(Box)`
   top: 0;
   width: 100%;
 
-  @media (width > 72rem) {
+  @media (width > ${mobileBreakpoint}) {
+    display: none;
+  }
+`
+
+const MobileHeading = styled(Heading)`
+  width: 100%;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  ${props =>
+    css`
+      background: ${props.theme.global.colors.brand};
+    `}
+
+  @media (width > ${mobileBreakpoint}) {
     display: none;
   }
 `
@@ -73,6 +95,14 @@ function TeamComponent({ teamData = [], sections = [] }) {
     <>
       <Head description={t('Teams.description')} title={t('Teams.title')} />
       <PageLayout>
+      <MobileHeading
+          level='1'
+          color='white'
+          margin='0'
+          size='1rem'
+        >
+          {t('Teams.title')}
+        </MobileHeading>
         <StickyBox
           background={{ dark: 'dark-3', light: 'neutral-6' }}
           margin={{ bottom: '20px' }}
@@ -85,7 +115,7 @@ function TeamComponent({ teamData = [], sections = [] }) {
           />
         </StickyBox>
         <MaxWidthContent>
-          <StyledHeading color='brand' margin={{ top: 'none' }} size='small' textAlign='center'>
+          <StyledHeading color='brand' size='small' textAlign='center'>
             {t('Teams.title')}
           </StyledHeading>
         </MaxWidthContent>
