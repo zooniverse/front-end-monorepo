@@ -71,10 +71,19 @@ ADD .yarnrc /usr/src/
 
 COPY --from=builder /usr/src/packages ./packages
 
-RUN --mount=type=cache,id=fem-runner-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
+RUN rm -rf /usr/src/packages/lib-react-components/node_modules
+RUN rm -rf /usr/src/packages/lib-classifier/node_modules
+RUN rm -rf /usr/src/packages/lib-user/node_modules
+RUN rm -rf /usr/src/packages/app-content-pages/node_modules
+RUN rm -rf /usr/src/packages/app-project/node_modules
+RUN rm -rf /usr/src/packages/app-root/node_modules
 
 RUN rm -rf /usr/src/packages/lib-react-components/src
 RUN rm -rf /usr/src/packages/lib-classifier/src
+RUN rm -rf /usr/src/packages/lib-user/src
 RUN rm -rf /usr/src/packages/app-content-pages/src
 RUN rm -rf /usr/src/packages/app-project/src
 RUN rm -rf /usr/src/packages/app-project/stores
+RUN rm -rf /usr/src/packages/app-root/src
+
+RUN --mount=type=cache,id=fem-runner-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
