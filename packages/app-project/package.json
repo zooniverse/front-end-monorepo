@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@artsy/fresnel": "~6.2.0",
+    "@artsy/fresnel": "~7.1.2",
     "@sentry/nextjs": "~7.77.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.4.0",
@@ -78,7 +78,7 @@
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "eslint-config-next": "~12.3.0",
-    "eslint-plugin-jsx-a11y": "~6.7.0",
+    "eslint-plugin-jsx-a11y": "~6.8.0",
     "jsdom": "~22.1.0",
     "mocha": "~10.2.0",
     "nock": "~13.3.0",
