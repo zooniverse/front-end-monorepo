@@ -37,7 +37,7 @@
     "newrelic": "^11.0.0",
     "next": "~13.5.5",
     "next-absolute-url": "~1.2.2",
-    "next-i18next": "~14.0.0",
+    "next-i18next": "~15.0.0",
     "panoptes-client": "~5.5.1",
     "path-match": "~1.2.4",
     "react": "~18.2.0",
