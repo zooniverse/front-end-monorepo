@@ -1,5 +1,5 @@
 function convertActiveGroupsWithRoles(membershipsWithGroups = []) {
-  if (!membershipsWithGroups?.memberships) {
+  if (!membershipsWithGroups?.memberships || !membershipsWithGroups?.linked?.user_groups) {
     return []
   }
 
