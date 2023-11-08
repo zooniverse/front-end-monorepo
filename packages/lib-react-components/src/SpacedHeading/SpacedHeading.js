@@ -16,7 +16,7 @@ function SpacedHeading({
 }) {
   return (
     <Heading className={className} level={level} size={size} {...props}>
-      <SpacedText color={color} weight={weight}>
+      <SpacedText color={color} weight={weight} size={size}>
         {children}
       </SpacedText>
     </Heading>

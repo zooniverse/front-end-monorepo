@@ -65,7 +65,7 @@
     "chai-dom": "~1.11.0",
     "css-loader": "~6.8.1",
     "dirty-chai": "~2.0.1",
-    "eslint-plugin-jsx-a11y": "~6.7.0",
+    "eslint-plugin-jsx-a11y": "~6.8.0",
     "eslint-plugin-react": "~7.33.0",
     "html-webpack-plugin": "~5.5.0",
     "ignore-styles": "~5.0.1",
