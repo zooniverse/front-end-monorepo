@@ -57,5 +57,8 @@
       "**/storybook-react-i18next",
       "**/next"
     ]
+  },
+  "resolutions": {
+    "markdown-it": "~13.0.2"
   }
 }
