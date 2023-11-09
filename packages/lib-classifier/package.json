@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.23.1",
-    "@sentry/browser": "~7.77.0",
+    "@sentry/browser": "~7.79.0",
     "@visx/axis": "~3.4.0",
     "@visx/brush": "~3.3.0",
     "@visx/event": "~3.3.0",
@@ -74,7 +74,7 @@
     "@storybook/react": "~7.5.0",
     "@storybook/react-webpack5": "~7.5.0",
     "@testing-library/dom": "~9.3.0",
-    "@testing-library/react": "~14.0.0",
+    "@testing-library/react": "~14.1.0",
     "@testing-library/user-event": "~14.5.0",
     "@visx/mock-data": "~3.3.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
