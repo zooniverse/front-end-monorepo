@@ -5,16 +5,16 @@ import { fetchStatuses, fetchSubjects } from './'
 describe('Components > Subject Picker > helpers > fetchStatuses', function () {
   let subjects
   const expectedData = [
-    { subject_id: 1, Page: '43', Date: '23 January 1916', status: 'SubjectPicker.unclassified' },
-    { subject_id: 2, Page: '44', Date: '24 January 1916', status: 'SubjectPicker.alreadySeen' },
-    { subject_id: 3, Page: '45', Date: '25 January 1916', status: 'SubjectPicker.retired' },
+    { subject_id: 1, page: '43', date_with_space: '23 January 1916', status: 'SubjectPicker.unclassified' },
+    { subject_id: 2, page: '44', date_with_space: '24 January 1916', status: 'SubjectPicker.alreadySeen' },
+    { subject_id: 3, page: '45', date_with_space: '25 January 1916', status: 'SubjectPicker.retired' },
   ]
 
   before(async function () {
     const columns = [
       'subject_id',
       'Page',
-      'Date'
+      'Date. With space'
     ]
     const rows = [
       [1, '43', '23 January 1916'],
