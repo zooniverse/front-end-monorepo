@@ -6,6 +6,7 @@ import {
   PlainSubjectMock,
   TranscriptionSubjectMock,
   VideoSubjectMock,
+  TextSubjectMock,
   SubjectPreviewState,
   StoreMock
 } from './SubjectPreview.mock'
@@ -62,3 +63,19 @@ export const Video = ({ isLoggedIn, subject, slug }) => (
 )
 
 Video.args = { ...SubjectPreviewState, subject: VideoSubjectMock }
+
+export const Text = ({ isLoggedIn, subject, slug }) => (
+  <Provider store={StoreMock}>
+    <Box height='medium' pad='medium' width='medium'>
+      <SubjectPreview
+        height='200px'
+        isLoggedIn={isLoggedIn}
+        subject={subject}
+        slug={slug}
+        width='270px'
+      />
+    </Box>
+  </Provider>
+)
+
+Text.args = { ...SubjectPreviewState, subject: TextSubjectMock }
