@@ -1,1 +1,1 @@
-export { default } from './TeamsContainer'
+export { default } from './Teams'

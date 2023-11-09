@@ -1,52 +1,39 @@
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-
-import withRequireUser from './withRequireUser'
+import { render, screen } from '@testing-library/react'
+import { withRequireUserText } from './withRequireUser.mock'
+import { composeStory } from '@storybook/react'
+import Meta, { LoggedIn, LoggedOut } from './withRequireUser.stories'
 
 describe('withRequireUser', function () {
-  function StubComponent () {
-    return <p>Hello</p>
-  }
-  const WithRequireUser = withRequireUser(StubComponent)
-  let wrapper
-
-  const loggedOutStore = {
-    user: {
-      isLoggedIn: false
-    }
-  }
-
-  const loggedInStore = {
-    user: {
-      isLoggedIn: true
-    }
-  }
-
-  describe('behavior when not logged in', function () {
-    before(function () {
-      wrapper = shallow(<WithRequireUser mockStore={loggedOutStore} />)
-    })
-
-    it('should render the wrapped component', function () {
-      expect(wrapper.find(StubComponent)).to.have.lengthOf(1)
-    })
-
-    it('should include a message to login', function () {
-      expect(wrapper.html()).to.include('RequireUser.text')
-    })
-  })
-
   describe('behavior when logged in', function () {
-    before(function () {
-      wrapper = shallow(<WithRequireUser mockStore={loggedInStore} />)
+    beforeEach(function () {
+			const LoggedInStory = composeStory(LoggedIn, Meta)
+			render(<LoggedInStory />)
     })
 
     it('should render the wrapped component', function () {
-      expect(wrapper.find(StubComponent)).to.have.lengthOf(1)
+      expect(screen.getByText(withRequireUserText)).to.exist()
     })
 
-    it('shouldn\'t render anything else', function () {
-      expect(wrapper.children()).to.have.lengthOf(1)
+    it('shouldn\'t include a message to log in', function () {
+			// doesn't have translation so we use the key
+      expect(screen.queryByText('RequireUser.text')).to.be.null()
     })
   })
+
+	describe('behavior when not logged in', function () {
+    beforeEach(function () {
+			const LoggedOutStory = composeStory(LoggedOut, Meta)
+			render(<LoggedOutStory />)
+    })
+
+    it('should render the wrapped component', function () {
+      expect(screen.getByText(withRequireUserText)).to.exist()
+    })
+
+    it('should include a message to log in', function () {
+			// doesn't have translation so we use the key
+      expect(screen.queryByText('RequireUser.text')).to.exist()
+    })
+  })
+
 })

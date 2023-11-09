@@ -2,7 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -16,28 +16,31 @@ function onError(error, errorInfo={}) {
   console.error('Classifier error', error)
 }
 
+const DEFAULT_HANDLER = () => true
+
 /**
   A wrapper for the Classifier component. Responsible for handling:
   - classifier errors.
   - updates to project recents on classification complete.
-  - updates to stored favourites,when the classification subject is favourited.
+  - updates to stored favourites, when the classification subject is favourited.
   - updates to stored collections, when the classification subject is added to a collection.
+  - Passing locale to classifier
 */
 export default function ClassifierWrapper({
   authClient = auth,
   appLoadingState = asyncStates.initialized,
   cachePanoptesData = false,
-  collections,
+  collections = null,
   mode,
-  onAddToCollection = () => true,
-  onSubjectReset = () => true,
-  project,
-  recents,
-  router,
+  onAddToCollection = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  project = null,
+  recents = null,
+  router = null,
   showTutorial = false,
   subjectID,
   subjectSetID,
-  user,
+  user = null,
   userID,
   workflowID,
   yourStats
@@ -49,42 +52,57 @@ export default function ClassifierWrapper({
   const ownerSlug = router?.query.owner
   const projectSlug = router?.query.project
 
+  /* Only increment stats on the classify page if the subject is not retired or not already seen by current user */
+  const incrementStats = yourStats?.increment
+  const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
-      yourStats.increment()
+      incrementStats()
     }
-    recents.add({
+    addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
-  }, [recents?.add, yourStats?.increment])
+  }, [addRecents, incrementStats])
 
+  /*
+    If the page URL contains a subject ID, update that ID when the classification subject changes.
+    Subject page URLs can be either `/classify/workflow/{workflowID}/subject/{subjectID}`
+    or `/classify/workflow/{workflowID}/subject-set/{subjectSetID}/subject/{subjectID}`.
+    Example: Subject Set Progress Banner arrow buttons
+  */
+  let baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
+  if (subjectSetID) {
+    baseURL = `${baseURL}/subject-set/${subjectSetID}`
+  }
+  const subjectInURL = router?.query.subjectID !== undefined
+  const replaceRoute = router?.replace
+
+  /*
+    Track the current classification subject, when it changes inside the classifier.
+  */
   const onSubjectChange = useCallback((subject) => {
-    const baseURL = `/${ownerSlug}/${projectSlug}/classify`
-    if (subjectID && subject.id !== subjectID) {
-      const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
-      const href = addQueryParams(newSubjectRoute)
-      const as = href
-      router.replace(href, as, { shallow: true })
+    if (subjectInURL) {
+      const subjectPageURL = `${baseURL}/subject/${subject.id}`
+      const href = addQueryParams(subjectPageURL)
+      replaceRoute(href, href, { shallow: true })
     }
-  }, [ownerSlug, projectSlug, router?.replace, subjectID, subjectSetID, workflowID])
+  }, [baseURL, replaceRoute, subjectInURL])
 
+  const addFavourites = collections?.addFavourites
+  const removeFavourites = collections?.removeFavourites
   const onToggleFavourite = useCallback((subjectId, isFavourite) => {
-    if (isFavourite) {
-      collections.addFavourites([subjectId])
-    } else {
-      collections.removeFavourites([subjectId])
-    }
-  }, [collections?.addFavourites, collections?.removeFavourites])
+    return isFavourite ? addFavourites([subjectId]) : removeFavourites([subjectId])
+  }, [addFavourites, removeFavourites])
 
   const somethingWentWrong = appLoadingState === asyncStates.error
 
   if (somethingWentWrong) {
     const { error: projectError } = project
     const { error: userError } = user
-    
+
     const errorToMessage = projectError || userError || new Error('Something went wrong')
     return (
       <ErrorMessage error={errorToMessage} />
@@ -154,7 +172,7 @@ ClassifierWrapper.propTypes = {
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
-  /** 
+  /**
     Optional custom router. Overrides the default NextJS.
     Useful for mocking the router in stories and shallow tests.
   */
@@ -163,9 +181,9 @@ ClassifierWrapper.propTypes = {
   }),
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
-  /** optional subjectID (from the page URL.) */
+  /** optional subjectID (from the classifierProps.) */
   subjectID: string,
-  /** optional subject set ID (from the page URL.) */
+  /** optional subject set ID (from the classifierProps.) */
   subjectSetID: string,
   /** Current logged-in user */
   user: shape({
@@ -173,6 +191,6 @@ ClassifierWrapper.propTypes = {
   }),
   /** Logged-in user ID */
   userID: string,
-  /** required workflow ID (from the page URL.) */
+  /** required workflow ID (from the classifierProps.) */
   workflowID: string
 }

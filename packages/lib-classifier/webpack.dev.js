@@ -53,7 +53,10 @@ module.exports = {
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     },
     fallback: {
-      url: false,
+      fs: false,
+      // for markdown-it plugins
+      path: require.resolve("path-browserify"),
+      process: false,
     }
   },
   module: {

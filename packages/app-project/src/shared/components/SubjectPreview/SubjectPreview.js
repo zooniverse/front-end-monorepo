@@ -41,6 +41,7 @@ function SubjectPreview ({
       pad='xsmall'
     >
       <StyledAnchor
+        data-testid={`subject-preview-link-${subject.id}`}
         href={href}
       >
         <Box
@@ -50,6 +51,7 @@ function SubjectPreview ({
           width={width}
         >
           <Media
+            data-testid={`subject-image-${subject.id}`}
             alt={`subject ${subject.id}`}
             height={700}
             placeholder={placeholder}

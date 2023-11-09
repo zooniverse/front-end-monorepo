@@ -1,17 +1,31 @@
 import PropTypes from 'prop-types'
-import { cloneElement, useEffect, useState } from 'react'
+import { cloneElement, useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
 
+const FullWidthDiv = styled.div`
+  width: 100%;
+`
+
+function imageScale(imgRef, naturalWidth) {
+  const { width: clientWidth, height: clientHeight } = imgRef?.current
+    ? imgRef.current.getBoundingClientRect()
+    : {}
+  const scale = clientWidth / naturalWidth
+  return !Number.isNaN(scale) ? scale : 1
+}
+
+const DEFAULT_HANDLER = () => true
 function SVGPanZoom({
+  imgRef = null,
   children,
-  img,
   limitSubjectHeight = false,
   maxZoom = 2,
   minZoom = 1,
   naturalHeight,
   naturalWidth,
-  setOnDrag = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  setOnDrag = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   src,
   zooming = true
 }) {
@@ -31,10 +45,14 @@ function SVGPanZoom({
   }
 
   function disableZoom() {
-    setOnDrag(() => true)
-    setOnPan(() => true)
-    setOnZoom(() => true)
+    setOnDrag(DEFAULT_HANDLER)
+    setOnPan(DEFAULT_HANDLER)
+    setOnZoom(DEFAULT_HANDLER)
   }
+
+  useEffect(function onZoomChange() {
+    scaleViewBox(zoom)
+  }, [zoom])
 
   useEffect(() => {
     if (zooming) {
@@ -43,39 +61,32 @@ function SVGPanZoom({
     }
   }, [zooming, src])
 
-  useEffect(
-    function onZoomChange() {
-      const newViewBox = scaledViewBox(zoom)
-      setViewBox(newViewBox)
-    }, [zoom])
-
   useEffect(() => {
+    setViewBox({
+      x: 0,
+      y: 0,
+      height: naturalHeight,
+      width: naturalWidth
+    })
     setZoom(1)
-    setViewBox(defaultViewBox)
-  }, [src])
+  }, [naturalWidth, naturalHeight])
 
-  function imageScale(img) {
-    const { width: clientWidth, height: clientHeight } = img
-      ? img.getBoundingClientRect()
-      : {}
-    const scale = clientWidth / naturalWidth
-    return !Number.isNaN(scale) ? scale : 1
-  }
-
-  function scaledViewBox(scale) {
+  function scaleViewBox(scale) {
     const viewBoxScale = 1 / scale
-    const xCentre = viewBox.x + viewBox.width / 2
-    const yCentre = viewBox.y + viewBox.height / 2
     const width = parseInt(naturalWidth * viewBoxScale, 10)
     const height = parseInt(naturalHeight * viewBoxScale, 10)
-    const x = xCentre - width / 2
-    const y = yCentre - height / 2
-    return { x, y, width, height }
+    setViewBox((prevViewBox) => {
+      const xCentre = prevViewBox.x + prevViewBox.width / 2
+      const yCentre = prevViewBox.y + prevViewBox.height / 2
+      const x = xCentre - width / 2
+      const y = yCentre - height / 2
+      return { x, y, width, height }
+    })
   }
 
   function onDrag(event, difference) {
     setViewBox((prevViewBox) => {
-      const newViewBox = Object.assign({}, prevViewBox)
+      const newViewBox = { ...prevViewBox }
       newViewBox.x -= difference.x / 1.5
       newViewBox.y -= difference.y / 1.5
       return newViewBox
@@ -84,7 +95,7 @@ function SVGPanZoom({
 
   function onPan(dx, dy) {
     setViewBox((prevViewBox) => {
-      const newViewBox = Object.assign({}, prevViewBox)
+      const newViewBox = { ...prevViewBox }
       newViewBox.x += dx * 10
       newViewBox.y += dy * 10
       return newViewBox
@@ -102,28 +113,29 @@ function SVGPanZoom({
         return
       }
       case 'zoomto': {
-        setZoom(1)
         setViewBox({
           x: 0,
           y: 0,
-          width: naturalWidth,
-          height: naturalHeight
+          height: naturalHeight,
+          width: naturalWidth
         })
+        setZoom(1)
+        return
       }
     }
   }
 
-  const { x, y, width, height } = scaledViewBox(zoom)
-  const scale = imageScale(img)
+  const { x, y, width, height } = viewBox
+  const scale = imageScale(imgRef, naturalWidth)
 
   return (
-    <div style={{ width: '100%' }}>
+    <FullWidthDiv>
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`,
         svgMaxHeight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
       })}
-    </div>
+    </FullWidthDiv>
   )
 }
 

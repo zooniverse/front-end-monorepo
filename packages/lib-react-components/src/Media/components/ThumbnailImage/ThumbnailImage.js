@@ -1,11 +1,17 @@
 import { Box, Image } from 'grommet'
+import styled from 'styled-components'
+
 import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
 import useProgressiveImage from '../../../hooks/useProgressiveImage.js'
 
+const InlineBox = styled.span`
+  display: inline-flex;
+`
+
 export function Placeholder({ children, flex, ...props}) {
   return (
-    <Box background='brand' flex={flex} justify='center' align='center' {...props}>
+    <Box as={InlineBox} background='brand' flex={flex} justify='center' align='center' {...props}>
       {children}
     </Box>
   )
@@ -30,6 +36,7 @@ export default function ThumbnailImage({
   const cssHeight = height > 0 ? `${height}px` : height
   const cssWidth = width > 0 ? `${width}px` : width
   const fallbackStyle = {
+    display: 'inline-block',
     maxHeight: cssHeight,
     maxWidth: cssWidth
   }
@@ -46,6 +53,7 @@ export default function ThumbnailImage({
         <Placeholder height={cssHeight} flex={flex} width={cssWidth} {...rest}>{placeholder}</Placeholder> :
         <Box
           animation={loading ? undefined : 'fadeIn'}
+          as={InlineBox}
           className='thumbnailImage'
           flex={flex}
           height={boxHeight}
@@ -60,9 +68,9 @@ export default function ThumbnailImage({
           />
         </Box>}
       <noscript>
-        <div style={fallbackStyle}>
+        <span style={fallbackStyle}>
           <img src={imageSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
-        </div>
+        </span>
       </noscript>
     </>
   )

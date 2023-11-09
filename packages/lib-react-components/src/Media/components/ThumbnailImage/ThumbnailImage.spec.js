@@ -62,7 +62,7 @@ describe('ThumbnailImage', function () {
     it('should be set if specified', async function () {
       render(<ThumbnailImage alt='a test image' height={200} width={270} src={src} />)
       const image = await screen.findByRole('img', { name: 'a test image' })
-      const imageWrapper = document.querySelector('div.thumbnailImage')
+      const imageWrapper = document.querySelector('span.thumbnailImage')
       const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
       expect(maxHeight).to.equal('200px')
       expect(maxWidth).to.equal('270px')
@@ -71,7 +71,7 @@ describe('ThumbnailImage', function () {
     it('should fill the image container by default', async function () {
       render(<ThumbnailImage alt='a test image' src={src} />)
       const image = await screen.findByRole('img', { name: 'a test image' })
-      const imageWrapper = document.querySelector('div.thumbnailImage')
+      const imageWrapper = document.querySelector('span.thumbnailImage')
       const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
       expect(maxHeight).to.be.empty()
       expect(maxWidth).to.equal('100%')

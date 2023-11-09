@@ -1,82 +1,77 @@
-import { shallow } from 'enzyme'
+import { composeStory } from '@storybook/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
-import SingleChoiceTask from './SingleChoiceTask'
+
 import Task from '@plugins/tasks/single'
+import Meta, { Default, WithAnnotation } from './SingleChoiceTask.stories'
+import mockTask from './mockTask'
 
 describe('SingleChoiceTask', function () {
-  const task = Task.TaskModel.create({
-    answers: [{ label: 'yes' }, { label: 'no' }],
-    required: true,
-    strings: {
-      'answers.0.label': 'yes',
-      'answers.1.label': 'no',
-      question: 'Is there a cat?'
-    },
-    taskKey: 'init',
-    type: 'single'
-  })
-  const annotation = task.defaultAnnotation()
+  const task = Task.TaskModel.create(mockTask)
 
   describe('when it renders', function () {
-    let wrapper
-    before(function () {
-      wrapper = shallow(<SingleChoiceTask annotation={annotation} task={task} />)
-    })
-
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
+    beforeEach(function () {
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
     })
 
     it('should have a question', function () {
-      expect(wrapper.contains(task.question)).to.be.true()
+      const question = screen.getByText(task.question)
+      expect(question).to.exist()
     })
 
     it('should render the correct number of answer choices', function () {
-      task.answers.forEach((answer) => {
-        expect(wrapper.find({ label: answer.label })).to.have.lengthOf(1)
+      task.answers.forEach((answer, index) => {
+        const label = task.strings.get(`answers.${index}.label`)
+        const radioButton = screen.getByRole('radio', { name: label })
+        expect(radioButton).to.exist()
       })
     })
   })
 
-  describe('with an annotation', function () {
-    let wrapper
+  describe('with an existing annotation', function () {
 
-    before(function () {
-      annotation.update(0)
-      wrapper = shallow(
-        <SingleChoiceTask
-          annotation={annotation}
-          task={task}
-        />
-      )
+    beforeEach(function () {
+      const WithAnnotationStory = composeStory(WithAnnotation, Meta)
+      render(<WithAnnotationStory />)
     })
 
     it('should check the selected answer', function () {
-      const answer = task.answers[0]
-      const input = wrapper.find({ label: answer.label })
-      expect(input.prop('checked')).to.be.true()
+      const label = task.strings.get('answers.0.label')
+      const radioButton = screen.getByRole('radio', { name: label })
+      expect(radioButton.checked).to.be.true()
     })
   })
 
   describe('onChange event handler', function () {
-    let wrapper
+    let annotation
     beforeEach(function () {
-      annotation.update(null)
-      wrapper = shallow(<SingleChoiceTask annotation={annotation} task={task} />)
+      const DefaultStory = composeStory(Default, Meta)
+      render(<DefaultStory />)
+      annotation = task.defaultAnnotation()
     })
 
-    it('should update the annotation', function () {
-      task.answers.forEach((answer, index) => {
-        const node = wrapper.find({ label: answer.label })
-        node.simulate('change', { target: { checked: true } })
-        expect(annotation.value).to.equal(index)
+    it('should update the annotation', async function () {
+      const user = userEvent.setup()
+      const answerTests = task.answers.map(async (answer, index) => {
+        const label = task.strings.get(`answers.${index}.label`)
+        const radioButton = screen.getByRole('radio', { name: label })
+        expect(annotation.value).to.not.equal(index)
+        await user.click(radioButton)
+        waitFor(() => expect(annotation.value).to.equal(index))
       })
+      await Promise.all(answerTests)
     })
 
-    it('should not update the annotation if the answer is not checked', function () {
-      const node = wrapper.find({ label: task.answers[1].label })
-      node.simulate('change', { target: { checked: false } })
-      expect(annotation.value).to.be.null()
+    it('should not update the annotation if the answer is already checked', async function () {
+      const user = userEvent.setup()
+      const label = task.strings.get('answers.1.label')
+      const radioButton = screen.getByRole('radio', { name: label })
+      await user.click(radioButton)
+      waitFor(() => expect(annotation.value).to.equal(1))
+      await user.click(radioButton)
+      waitFor(() => expect(annotation.value).to.equal(1))
     })
   })
 })

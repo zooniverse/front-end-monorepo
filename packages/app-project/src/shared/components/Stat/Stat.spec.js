@@ -1,28 +1,27 @@
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import { format } from 'd3'
+import Meta, { Default, HugeNumber, Zero } from './Stat.stories.js'
+import * as Mocks from './Stat.mock'
 
-import Stat from './Stat'
-import AnimatedNumber from './components/AnimatedNumber'
-
-let wrapper
-const value = 123456
-const label = 'Text label'
 
 describe('Component > Stat', function () {
-  before(function () {
-    wrapper = mount(<Stat value={value} label={label} />)
-  })
+  [Default, HugeNumber, Zero].forEach(function (Story) {
+    describe(`${Story.name} Stat`, function () {
+      let mock = Mocks[`${Story.name}Mock`]
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+      beforeEach(function () {
+        const ComposedStory = composeStory(Story, Meta)
+        render(<ComposedStory />)
+      })
 
-  it('should pass the `value` prop to an `AnimatedNumber`', function () {
-    const animatedNumber = wrapper.find(AnimatedNumber)
-    expect(animatedNumber.length).to.equal(1)
-    expect(animatedNumber.prop('value')).to.equal(value)
-  })
-
-  it('should render the `label` prop', function () {
-    expect(wrapper.text()).to.contain(label)
+      it('should render the Animated Number', function () {
+        expect(screen.getByText(format(',d')(mock.value))).to.exist()
+      })
+    
+      it('should render the Text Label', function () {
+        expect(screen.getByText(mock.label)).to.exist()
+      })
+    })
   })
 })

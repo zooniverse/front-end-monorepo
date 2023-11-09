@@ -1,4 +1,5 @@
 import { PropTypes } from 'prop-types'
+import { forwardRef } from 'react'
 import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
@@ -6,7 +7,6 @@ import { draggable } from '@plugins/drawingTools/components'
 export const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
-
 const INVERT =
   `<svg style="position: fixed; right: 100%; top: 100%; visibility: hidden;">
     <defs>
@@ -20,7 +20,7 @@ const INVERT =
     </defs>
   </svg>`
 
-export default function SVGImage({
+function SVGImageWithRef({
   invert = false,
   move = false,
   naturalHeight,
@@ -28,7 +28,7 @@ export default function SVGImage({
   onDrag = () => true,
   src,
   subjectID
-}) {
+}, ref) {
   if (!document.getElementById('svg-invert-filter')) {
     document.body.insertAdjacentHTML('afterbegin', INVERT)
   }
@@ -42,18 +42,19 @@ export default function SVGImage({
     width: naturalWidth,
   }
 
+  const ImageComponent = move ? DraggableImage : 'image'
+  if (move) {
+    props.dragMove = onDrag
+  }
   return (
-    move ?
-      <DraggableImage
-        dragMove={onDrag}
-        {...props}
-      /> :
-      <image
-        {...props}
-      />
+    <ImageComponent
+      ref={ref}
+      {...props}
+    />
   )
 }
 
+const SVGImage = forwardRef(SVGImageWithRef)
 SVGImage.propTypes = {
   invert: PropTypes.bool,
   move: PropTypes.bool,
@@ -63,3 +64,5 @@ SVGImage.propTypes = {
   src: PropTypes.string.isRequired,
   subjectID: PropTypes.string.isRequired
 }
+
+export default SVGImage

@@ -1,3 +1,7 @@
+if (process.env.NEWRELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 require('dotenv').config()
 
 const { execSync } = require('child_process')
@@ -44,13 +48,22 @@ const nextConfig = {
   },
 
   experimental: {
-    forceSwcTransforms: true,
+    forceSwcTransforms: true
   },
 
   /** localeDetection is a Next.js feature, while the rest of i18n config pertains to next-i18next */
   i18n: {
     localeDetection: false,
     ...i18n
+  },
+
+  modularizeImports: {
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
+    '@zooniverse/react-components': {
+      transform: '@zooniverse/react-components/{{member}}'
+    }
   },
 
   reactStrictMode: true,
@@ -72,6 +85,10 @@ const nextConfig = {
       alias: {
         ...config.resolve.alias,
         ...webpackConfig.resolve.alias
+      },
+      fallback: {
+        ...config.resolve.fallback,
+        ...webpackConfig.resolve.fallback
       }
     }
     return config

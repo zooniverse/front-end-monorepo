@@ -86,7 +86,6 @@ const FlipbookControls = ({
    */
   const [smallScreenStyle, setSmallScreenStyle] = useState(false)
   const controlsContainer = useRef(null)
-  const resizeObserver = useRef(null)
 
   useEffect(() => {
     const debouncedObserver = debounce((entries) => {
@@ -96,14 +95,18 @@ const FlipbookControls = ({
         setSmallScreenStyle(false)
       }
     }, 100)
-    resizeObserver.current = new window.ResizeObserver(debouncedObserver)
 
-    resizeObserver.current.observe(controlsContainer.current)
+    const containerElement = controlsContainer.current
+
+    const resizeObserver = new window.ResizeObserver(debouncedObserver)
+
+    resizeObserver.observe(containerElement)
 
     return () => {
-      resizeObserver.current.unobserve(controlsContainer.current)
+      // Clean up: clear all current observers when the container element changes
+      resizeObserver.disconnect()
     }
-  }, [])
+  }, [controlsContainer.current])
 
   const handleKeyDown = (event) => {
     const index = currentFrame

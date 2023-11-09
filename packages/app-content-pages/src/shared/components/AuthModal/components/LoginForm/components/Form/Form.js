@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { SpacedText, withCustomFormik } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
+import withCustomFormik from '@zooniverse/react-components/helpers/withCustomFormik'
 import { Anchor, Box, Button, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'

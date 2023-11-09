@@ -38,9 +38,7 @@ const Notifications = types
 
           const unreadConversationsIds = yield getUnreadConversationsIds(authorization)
 
-          if (unreadConversationsIds?.length) {
-            self.unreadConversationsIds = unreadConversationsIds
-          }
+          self.unreadConversationsIds = unreadConversationsIds
 
           self.setLoadingState(asyncStates.success)
         } catch (error) {
@@ -54,11 +52,9 @@ const Notifications = types
           const token = yield auth.checkBearerToken()
           const authorization = `Bearer ${token}`
 
-          const unreadNotificationsCount = yield getUnreadNotificationsCount(authorization)
-
-          if (unreadNotificationsCount) {
-            self.unreadNotificationsCount = unreadNotificationsCount
-          }
+          let unreadNotificationsCount = 0
+          unreadNotificationsCount = yield getUnreadNotificationsCount(authorization)
+          self.unreadNotificationsCount = unreadNotificationsCount
 
           self.setLoadingState(asyncStates.success)
         } catch (error) {

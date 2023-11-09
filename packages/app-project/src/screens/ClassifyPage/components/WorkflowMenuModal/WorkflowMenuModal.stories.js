@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 
-import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/helpers'
+import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/SubjectSetPicker.mock'
 import initStore from '@stores'
 import WorkflowMenuModal from './WorkflowMenuModal'
 

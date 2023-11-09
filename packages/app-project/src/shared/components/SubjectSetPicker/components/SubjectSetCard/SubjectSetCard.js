@@ -33,6 +33,8 @@ function SubjectSetCard ({
 
   return (
     <Box
+      className="subject-set-card"
+      data-testid={`subject-set-card-${id}`}
       background='neutral-6'
       border='all'
     >

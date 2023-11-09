@@ -23,6 +23,7 @@ export default function CollectionsButton({ disabled, onClick, subject }) {
         subjectID={subject.id}
       />
       <MetaToolsButton
+        data-testid="subject-collections-button"
         disabled={disabled}
         icon={<CollectionsIcon color='dark-5' size='15px' />}
         text={t('SubjectPreview.CollectionsButton.add')}

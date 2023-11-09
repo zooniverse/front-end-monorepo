@@ -52,7 +52,7 @@ function MessageFromResearcher ({
 
       {!!message && (
         <Box direction='row' gap='medium'>
-          <StyledAvatar src={avatar} />
+          <StyledAvatar src={avatar} alt={`${researcher} avatar`} />
           <Box>
             <Markdownz components={components}>{message}</Markdownz>
             <SpacedText color='light-5' size='small'>{researcher}</SpacedText>

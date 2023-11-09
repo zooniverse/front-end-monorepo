@@ -40,6 +40,10 @@ const FlipbookViewer = ({
     onReady,
     onError
   })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
   const viewerLocation = subject?.locations ? subject.locations[currentFrame] : ''
 
@@ -78,12 +82,13 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
-        img={subjectImage.current}
+        key={`${naturalWidth}-${naturalHeight}`}
+        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={img.naturalHeight}
-        naturalWidth={img.naturalWidth}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
@@ -91,18 +96,19 @@ const FlipbookViewer = ({
       >
         <SingleImageViewer
           enableInteractionLayer={false}
-          height={img.naturalHeight}
+          height={naturalHeight}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}
           rotate={rotation}
-          width={img.naturalWidth}
+          width={naturalWidth}
         >
-          <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
+          <g role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
+              ref={subjectImage}
               invert={invert}
               move={move}
-              naturalHeight={img.naturalHeight}
-              naturalWidth={img.naturalWidth}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
               onDrag={onDrag}
               src={viewerLocation.url}
               subjectID={subject.id}
@@ -132,11 +138,17 @@ FlipbookViewer.propTypes = {
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
+  limit_subject_height: PropTypes.bool,
+  /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
+  /** withKeyZoom() is for using keyboard pan and zoom controls while focused on the subject image */
+  onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */
   playIterations: PropTypes.number,
+  /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
+  rotation: PropTypes.number,
   /** Passed from the Subject Viewer Store */
   setOnPan: PropTypes.func,
   /** Passed from the Subject Viewer Store */

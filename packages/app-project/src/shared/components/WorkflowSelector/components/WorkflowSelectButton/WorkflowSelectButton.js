@@ -1,4 +1,5 @@
-import { SpacedText, withThemeContext } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import { Button } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'

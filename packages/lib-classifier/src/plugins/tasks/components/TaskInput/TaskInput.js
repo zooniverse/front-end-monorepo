@@ -1,7 +1,6 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types'
 
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { darken, lighten } from 'polished'
 import { Text } from 'grommet'
 
@@ -102,26 +101,25 @@ export const StyledTaskInput = styled.label`
   }
 `
 
-export function TaskInput (props) {
-  const {
-    autoFocus,
-    checked,
-    className,
-    disabled,
-    index,
-    label,
-    labelIcon,
-    labelStatus,
-    name,
-    onChange,
-    theme,
-    type
-  } = props
+const DEFAULT_HANDLER = () => true
+
+export function TaskInput ({
+  autoFocus = false,
+  checked = false,
+  className = '',
+  disabled = false,
+  index,
+  label = '',
+  labelIcon = null,
+  labelStatus = null,
+  name = '',
+  onChange = DEFAULT_HANDLER,
+  type
+}) {
 
   return (
     <StyledTaskInput
       className={className}
-      theme={theme}
     >
       <input
         autoFocus={autoFocus}
@@ -132,26 +130,11 @@ export function TaskInput (props) {
         type={type}
         value={index}
       />
-      <StyledTaskLabel margin={{ vertical: 'small', horizontal: 'none' }} theme={theme}>
+      <StyledTaskLabel margin={{ vertical: 'small', horizontal: 'none' }}>
         <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
       </StyledTaskLabel>
     </StyledTaskInput>
   )
-}
-
-TaskInput.defaultProps = {
-  autoFocus: false,
-  checked: false,
-  disabled: false,
-  className: '',
-  label: '',
-  labelIcon: null,
-  labelStatus: null,
-  name: '',
-  onChange: () => {},
-  theme: {
-    dark: false
-  }
 }
 
 TaskInput.propTypes = {
@@ -165,10 +148,7 @@ TaskInput.propTypes = {
   labelStatus: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   name: PropTypes.string,
   onChange: PropTypes.func,
-  theme: PropTypes.shape({
-    dark: PropTypes.bool
-  }),
   type: PropTypes.string.isRequired
 }
 
-export default memo(withTheme(TaskInput))
+export default TaskInput

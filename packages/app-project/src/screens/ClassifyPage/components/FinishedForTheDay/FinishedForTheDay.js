@@ -1,10 +1,13 @@
 import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import {
+  Media,
+  ZooniverseLogo
+} from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 import { useTranslation } from 'next-i18next'
 
-import ProjectImage from './components/ProjectImage'
 import ContentBox from '@shared/components/ContentBox'
 
 const StyledButton = styled(Button)`
@@ -19,23 +22,29 @@ const StyledBox = styled(Box)`
   max-width: 620px;
 `
 
-function FinishedForTheDay (props) {
-  const {
-    imageSrc,
-    linkProps,
-    projectName,
-    screenSize,
-    theme: { dark }
-  } = props
-
+function FinishedForTheDay({
+  imageSrc = '',
+  linkHref,
+  projectName,
+  screenSize,
+  theme: { dark = false }
+}) {
   const { t } = useTranslation('screens')
 
-  const columns = (imageSrc && screenSize !== 'small') ? ['1/4', 'auto'] : ['auto']
+  const columns = imageSrc && screenSize !== 'small' ? ['1/4', 'auto'] : ['auto']
+  const alt = t('Classify.FinishedForTheDay.ProjectImage.alt', { projectName })
 
   return (
     <Box elevation={dark ? 'xlarge' : 'none'}>
       <Grid columns={columns}>
-        {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
+        <Media
+          alt={alt}
+          src={imageSrc}
+          placeholder={
+            <ZooniverseLogo id={`${alt} placeholder`} size='38%' />
+          }
+          width={400}
+        />
         <ContentBox elevation='none'>
           <Heading
             level='2'
@@ -52,7 +61,7 @@ function FinishedForTheDay (props) {
           <StyledBox direction='row' wrap>
             <StyledButton
               color='brand'
-              href={linkProps.href}
+              href={linkHref}
               label={(
                 <Text size='medium'>
                   {t('Classify.FinishedForTheDay.buttons.stats')}
@@ -61,7 +70,6 @@ function FinishedForTheDay (props) {
               primary
             />
           </StyledBox>
-
         </ContentBox>
       </Grid>
     </Box>
@@ -70,22 +78,9 @@ function FinishedForTheDay (props) {
 
 FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
-  isLoggedIn: PropTypes.bool,
-  linkProps: PropTypes.object.isRequired,
-  projectName: PropTypes.string.isRequired
+  linkProps: PropTypes.string,
+  projectName: PropTypes.string
 }
 
-FinishedForTheDay.defaultProps = {
-  imageSrc: '',
-  theme: {
-    dark: false
-  }
-}
-
-const DecoratedFinishedForTheDay = withTheme(withResponsiveContext(FinishedForTheDay))
-
-export {
-  DecoratedFinishedForTheDay as default,
-  FinishedForTheDay,
-  StyledButton
-}
+export { FinishedForTheDay }
+export default withTheme(withResponsiveContext(FinishedForTheDay))

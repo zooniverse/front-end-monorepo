@@ -1,37 +1,27 @@
 import FavouritesButton from './'
-import readme from './README.md'
-
-const CAT = {
-  favorite: false,
-  id: '123',
-  locations: [
-    {
-      'image/jpeg':
-        'https://panoptes-uploads.zooniverse.org/335/0/2d63944e-f0bc-4fc5-8531-f603886513a1.jpeg'
-    }
-  ]
-}
+import { FavouritesButtonSubjectMock } from './FavouritesButton.mock'
+// import readme from './README.md'
 
 export default {
   title: 'Components/Favourites Button',
   component: FavouritesButton,
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
-  }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
-export const Default = () => (
-  <FavouritesButton disabled={false} subject={CAT} />
+export const NotFavourited = () => (
+  <FavouritesButton disabled={false} subject={FavouritesButtonSubjectMock} />
 )
 
-export const Checked = () => (
-  <FavouritesButton checked disabled={false} subject={CAT} />
+export const Favourited = () => (
+  <FavouritesButton checked disabled={false} subject={FavouritesButtonSubjectMock} />
 )
 
 export const Disabled = () => (
-  <FavouritesButton checked={false} disabled subject={CAT} />
+  <FavouritesButton checked={false} disabled subject={FavouritesButtonSubjectMock} />
 )

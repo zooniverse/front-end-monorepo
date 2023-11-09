@@ -1,99 +1,89 @@
-import { Box, Button, Heading, Nav } from 'grommet'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { Box, Grid, Heading } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import Team from './components/Team'
 import Head from '../../shared/components/Head'
-import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
+import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
 
-const StyledLi = styled.li`
-  list-style-type: none;
-  padding-top: 15px;
+const isBrowser = typeof window !== 'undefined' // to handle testing environment
+
+const Relative = styled.aside`
+  position: relative;
 `
 
-const StyledButton = styled(Button)`
-  ${props => props.active && css`
-    background: none;
-    font-weight: bold;
-  `}
+const StickySidebar = styled(Sidebar)`
+  max-height: 100vh;
+  overflow: auto;
+  position: sticky;  
+  top: 0;
 `
 
-function TeamComponent ({
-  className = '',
-  data = [],
-  filters = []
-}) {
+function TeamComponent({ teamData = [], sections = [] }) {
   const { t } = useTranslation('components')
+  const [activeSection, setActiveSection] = useState('')
 
-  const heading = (
-    <Heading margin={{ top: 'none' }} size='small'>
-      {t('Team.title')}
-    </Heading>
-  )
+  useEffect(function onMount() {
+    const slug = isBrowser ? window.location.hash.slice(1) : ''
+    setActiveSection(slug)
+  }, [])
 
-  const main = (
-    <article>
-      {data && data.map(team => (
-        <Team
-          key={team.name}
-          name={team.name}
-          people={team.people}
-          slug={team.slug}
-        />
-      ))}
-    </article>
-  )
-
-  const sidebar = (
-    <Nav aria-label={t('Team.sideBarLabel')}>
-      <Box as='ul'>
-        {filters.map(filter => (
-          <StyledLi key={filter.name}>
-            <Link href={filter.slug ? `#${filter.slug}` : ''} passHref>
-              <StyledButton
-                active={filter.active}
-                label={filter.name}
-                onClick={filter.setActive}
-                plain
-              />
-            </Link>
-          </StyledLi>
-        ))}
-      </Box>
-    </Nav>
-  )
+  const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
 
   return (
     <>
-      <Head
-        description={t('Team.description')}
-        title={t('Team.title')}
-      />
-      <TwoColumnLayout
-        className={className}
-        heading={heading}
-        main={main}
-        sidebar={sidebar}
-      />
+      <Head description={t('Team.description')} title={t('Team.title')} />
+      <PageLayout>
+        <Grid columns={['25%', 'flex']}>
+          <Box />
+          <Heading margin={{ top: 'none' }} size='small'>
+            {t('Team.title')}
+          </Heading>
+        </Grid>
+        <Grid columns={['25%', 'flex']}>
+          <Relative>
+            <StickySidebar
+              activeSection={activeSection}
+              ariaLabel={t('Team.sideBarLabel')}
+              sections={sectionsPlusAll}
+              setActiveSection={setActiveSection}
+            />
+          </Relative>
+          <article>
+            {teamData?.map(team => (
+              <Team
+                key={team.name}
+                name={team.name}
+                people={team.people}
+                slug={team.slug}
+              />
+            ))}
+          </article>
+        </Grid>
+      </PageLayout>
     </>
   )
 }
 
 TeamComponent.propTypes = {
-  className: string,
-  data: arrayOf(shape({
-    name: string,
-    people: array,
-    slug: string,
-    weight: number
-  })),
-  filters: arrayOf(shape({
-    active: bool,
-    selectTeam: func,
-    name: string
-  }))
+  teamData: arrayOf(
+    shape({
+      name: string,
+      people: array,
+      slug: string,
+      weight: number
+    })
+  ),
+  sections: arrayOf(
+    shape({
+      active: bool,
+      selectTeam: func,
+      name: string
+    })
+  )
 }
 
 export default TeamComponent

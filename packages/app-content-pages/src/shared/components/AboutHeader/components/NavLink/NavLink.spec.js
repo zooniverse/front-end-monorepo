@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 
 import NavLink from './NavLink'
@@ -34,7 +34,7 @@ describe('Component > NavLink', function () {
   })
 
   it('should correctly set the label and href', function () {
-    expect(document.querySelector('a').textContent).to.equal(LABEL)
+    expect(document.querySelector('a').firstChild.textContent).to.equal(LABEL)
     expect(document.querySelector('a').href).to.include(HREF)
   })
 })

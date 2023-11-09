@@ -8,8 +8,7 @@ function storeMapper (classifierStore) {
   const {
     disableImageToolbar,
     rotate,
-    rotationEnabled,
-    separateFramesView
+    rotationEnabled
   } = classifierStore.subjectViewer
 
   const disabled = disableImageToolbar
@@ -18,13 +17,14 @@ function storeMapper (classifierStore) {
   return {
     disabled,
     rotate,
-    separateFramesView,
     show
   }
 }
 
-function RotateButtonContainer({ separateFrameRotate = () => true }) {
-  const { disabled, rotate, separateFramesView, show } = useStores(storeMapper)
+function RotateButtonContainer({ separateFrameRotate }) {
+  const { disabled, rotate, show } = useStores(storeMapper)
+
+  const rotateCallback = separateFrameRotate || rotate
 
   if (!show) {
     return null
@@ -33,7 +33,7 @@ function RotateButtonContainer({ separateFrameRotate = () => true }) {
   return (
     <RotateButton
       disabled={disabled}
-      onClick={separateFramesView ? separateFrameRotate : rotate}
+      onClick={rotateCallback}
     />
   )
 }

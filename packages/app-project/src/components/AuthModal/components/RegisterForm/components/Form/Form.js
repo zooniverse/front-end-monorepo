@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
 import styled from 'styled-components'
 import FieldLabel from '../../../../shared/components/FieldLabel'
-import { withCustomFormik } from '@zooniverse/react-components'
+import withCustomFormik from '@zooniverse/react-components/helpers/withCustomFormik'
 import { useTranslation } from 'next-i18next'
 
 export const userNameFieldId = 'RegisterForm_username'

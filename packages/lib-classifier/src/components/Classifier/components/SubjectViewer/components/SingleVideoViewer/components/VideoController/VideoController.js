@@ -11,7 +11,7 @@ import {
 } from 'grommet'
 import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
 import { useTranslation } from '@translations/i18n'
-import { withThemeContext } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'

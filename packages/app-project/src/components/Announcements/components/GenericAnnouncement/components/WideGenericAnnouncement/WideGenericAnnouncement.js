@@ -32,7 +32,7 @@ function WideGenericAnnouncement(props) {
     <Box align='center' background={color} fill='horizontal' pad={{ horizontal: 'small', vertical: 'xsmall' }}>
       <Box align='center' direction='row' gap='small' justify='between' width='xxlarge'>
         {dismissable &&
-          <Balancer />}
+          <Balancer closeFn={closeFn} />}
         <Box align='center' direction='row' gap='small' fill='horizontal' justify='center'>
           <SpacedBox direction='column'>
             <Markdownz components={markdownzComponents}>

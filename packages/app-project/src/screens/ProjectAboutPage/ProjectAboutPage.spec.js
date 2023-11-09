@@ -3,8 +3,8 @@ import { within } from '@testing-library/dom'
 import {
   fireEvent,
   getAllByRole,
-  getAllByText,
-  render
+  render,
+	waitFor,
 } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -128,7 +128,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
       expect(getByText('No content yet.')).to.exist()
     })
 
-    it('should pass a navLinks array for pages with content', function () {
+    it('should pass a navLinks array for pages with content', async function () {
       const { getByRole } = render(
         <RouterContext.Provider value={routerMock}>
           <Provider store={mockStore}>
@@ -142,9 +142,12 @@ describe('Component > ProjectAboutPage & Connector', function () {
       const dropdown = getByRole('button', { name: 'About.SidebarHeading' })
       expect(dropdown).to.exist()
       fireEvent.click(dropdown)
-      const navContainer = getByRole('navigation', { name: 'About.PageNav.title' })
-      const links = getAllByRole(navContainer, 'link')
-      expect(links).to.have.lengthOf(3)
+
+			await waitFor(() => {
+				const navContainer = getByRole('navigation', { name: 'About.PageNav.title' })
+				const links = getAllByRole(navContainer, 'link')
+				expect(links).to.have.lengthOf(3)
+			});
     })
   })
 

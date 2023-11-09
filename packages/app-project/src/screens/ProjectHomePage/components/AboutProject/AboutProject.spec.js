@@ -1,29 +1,19 @@
-import { render } from 'enzyme'
-
-import AboutProject from './AboutProject'
-
-const PROJECT_DESCRIPTION = 'This is a test project'
-const PROJECT_NAME = 'A test project'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { AboutProject } from './AboutProject.stories.js'
+import { AboutProjectMock } from './AboutProject.mock'
 
 describe('Component > AboutProject', function () {
-  let wrapper
-
-  before(function () {
-    wrapper = render(<AboutProject description={PROJECT_DESCRIPTION} projectName={PROJECT_NAME} />)
+  beforeEach(function () {
+    const AboutProjectStory = composeStory(AboutProject, Meta)
+    render(<AboutProjectStory />)
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should show the project name by translation key', function () {
+    expect(screen.getByText('Home.AboutProject.title')).to.exist()
   })
 
-  it('should show the title', function () {
-    const titleWrapper = wrapper.find('h2')
-    expect(titleWrapper.text()).to.equal('Home.AboutProject.title')
-    /** The translation function will simply return keys in a testing env */
-  })
-
-  it('should show the description', function () {
-    const descriptionWrapper = wrapper.find('p')
-    expect(descriptionWrapper.text()).to.equal(PROJECT_DESCRIPTION)
+  it('should show the project description', function () {
+    expect(screen.getByText(AboutProjectMock.project.introduction)).to.exist()
   })
 })

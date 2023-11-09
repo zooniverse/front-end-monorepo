@@ -17,16 +17,17 @@ export const StyledPlainButton = styled(PlainButton)`
 function MetaToolsButton (props) {
   const { disabled, icon, onClick, text } = props
 
-  return (
-    <StyledPlainButton
-      disabled={disabled}
-      icon={icon}
-      labelSize='small'
-      text={text}
-      onClick={onClick}
-      {...props}
-    />
-  )
+	return (
+		<StyledPlainButton
+			data-testid="test-meta-tools-button"
+			disabled={disabled}
+			icon={icon}
+			labelSize='small'
+			text={text}
+			onClick={onClick}
+			{...props}
+		/>
+	)
 }
 
 MetaToolsButton.propTypes = {

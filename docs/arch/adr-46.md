@@ -1,4 +1,4 @@
-# ADR 46: Flipbook Viewer
+# ADR 46: Planned Flipbook Viewer
 
 13 Oct 2022
 
@@ -15,7 +15,7 @@ The Flipbook Viewer will have the same features as PFE, and its design is catere
 ## Features
 
 Features of the FEM Flipbook Viewer will include:
-1. Thumbnails of each subject's images below the currently selected image. Clicking these buttons will change the currently selected image. 
+1. Thumbnails of each subject's images below the currently selected image. Clicking these buttons will change the currently selected image.
 2. Next/Back buttons to navigate through available thumbnails.
 3. Play/Pause to flip/animate through the images.
 4. Switching between the "flipbook" display and "separate images" display.

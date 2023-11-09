@@ -11,12 +11,9 @@
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
     "coveralls": "~3.1.0",
-    "lerna": "~7.1.0",
+    "lerna": "~7.4.0",
     "nyc": "~15.1.0",
     "snazzy": "~9.0.0"
-  },
-  "resolutions": {
-    "**/trim": "~1.0"
   },
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
@@ -48,7 +45,20 @@
       ".jsx"
     ]
   },
-  "workspaces": [
-    "packages/**"
-  ]
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ],
+    "nohoist": [
+      "**/eslint-config-next",
+      "**/@storybook/*",
+      "**/storybook",
+      "**/storybook-i18n",
+      "**/storybook-react-i18next",
+      "**/next"
+    ]
+  },
+  "resolutions": {
+    "markdown-it": "~13.0.2"
+  }
 }

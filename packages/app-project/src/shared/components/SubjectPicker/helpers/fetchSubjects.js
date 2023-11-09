@@ -1,3 +1,5 @@
+import slugify from './slugify.js'
+
 const API_HOST = 'https://subject-set-search-api.zooniverse.org/subjects'
 const ASCENDING_SORT = '_sort'
 const DESCENDING_SORT = '_sort_desc'
@@ -16,7 +18,7 @@ export default async function fetchSubjects(
   const subjects = rows.map(row => {
     const subject = {}
     columns.forEach((column, index) => {
-      subject[column] = row[index]
+      subject[slugify(column)] = row[index]
     })
     subject.status = 'loading'
     return subject

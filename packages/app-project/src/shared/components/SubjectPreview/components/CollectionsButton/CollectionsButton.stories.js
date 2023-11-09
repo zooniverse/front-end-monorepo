@@ -2,7 +2,9 @@
 import { Provider } from 'mobx-react'
 
 import Store from '@stores/Store'
-import CollectionsButton from './'
+import CollectionsButtonComponent from './'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 const CAT = {
   favorite: false,
@@ -27,7 +29,7 @@ const store = Store.create(snapshot)
 
 export default {
   title: 'Project App / Shared / Collections Button',
-  component: CollectionsButton,
+  component: CollectionsButtonComponent,
   parameters: {
     // docs: {
     //   description: {
@@ -37,8 +39,10 @@ export default {
   }
 }
 
-export const Plain = () => (
+export const CollectionsButton = () => (
   <Provider store={store}>
-    <CollectionsButton disabled={false} subject={CAT} />
+    <Grommet theme={zooTheme}>
+      <CollectionsButtonComponent disabled={false} subject={CAT} />
+    </Grommet>
   </Provider>
 )

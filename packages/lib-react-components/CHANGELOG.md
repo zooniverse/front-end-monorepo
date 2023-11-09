@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.1] 2023-11-02
+
+### Fixed
+- `SpacedHeading` was not passing `size` to its child `SpacedText`. This fix allows the font-size to be adjusted as a prop in `SpacedHeading`.
+
+## [1.8.0] 2023-10-30
+
+### Changed
+- `Markdownz`: replace `remark` with `markdownz` and `rehype`.
+
+## [1.7.0] 2023-10-26
+### Changed
+- build with Node 20.
+
+## [1.6.4] 2023-10-05
+
+### Fixed
+- export `package.json` for build tools.
+
+## [1.6.3] 2023-09-30
+
+### Fixed
+- restore module field in `package.json`.
+
+## [1.6.2] 2023-09-19
+
+### Fixed
+- display `Media` images inline.
+- `Markdownz`: convert line breaks to `<br>`.
+
+## [1.6.1] 2023-09-18
+
+### Fixed
+- Fix ESM import errors when the library is loaded with `require`.
+
+## [1.6.0] 2023-09-12
+
+### Changed
+- modularise exports for more efficient tree-shaking.
+
+## [1.5.6] 2023-09-04
+
+### Changed
+- refactor `SignedInUserNavigation` to avoid hydration errors during SSR.
+
+## [1.5.5] 2023-08-15
+
+### Changed
+- add `sideEffects: false` to enable pruning of unused exports during tree-shaking.
+
 ## [1.5.4] 2023-06-01
 
 ### Fixed
@@ -126,7 +176,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that is often used in a site's footer
 
 ## [1.0.0] 2020-06-29
-- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
+- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:
   - AdminCheckbox
   - CloseButton
   - FavouritesButton

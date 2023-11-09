@@ -50,9 +50,16 @@ export function NextLabel () {
 }
 
 // creating StyledMedia allows input state dependent styles as defined in StyledFrame
-export const StyledMedia = styled(Media)``
+export const StyledMedia = styled(Media)`
+  height: 40px;
+  width: 40px;
 
-export const StyledFrame = styled.label`
+  img {
+    aspect-ratio: 1 / 1;
+  }
+`
+
+export const StyledLabel = styled.label`
   ${props => props.theme && css`
     input:checked + ${StyledMedia} {
       border: solid ${props.theme.global.colors['neutral-2']};
@@ -67,21 +74,11 @@ export const StyledFrame = styled.label`
     }
   `}
 
-  height: 40px;
-  margin: 5px 0;
-  width: 40px;
-            
-  &:first-child {
-    margin-top: 14px;
-  }
-
-  &:last-child {
-    margin-bottom: 14px;
-  }
-
   input {
     opacity: 0.01;
     position: absolute;
+    height: 0;
+    width: 0;
   }
 
   :hover {
@@ -94,11 +91,26 @@ export const StyledFrameList = styled.ul`
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  list-style-type: none;
   margin: 0;
   overflow: auto;
   padding: 0;
   position: relative;
   scroll-behavior: smooth;
+
+  li {
+    height: 40px;
+    margin: 5px 0;
+    width: 40px;
+
+    &:first-child {
+      margin-top: 14px;
+    }
+
+    &:last-child {
+      margin-bottom: 14px;
+    }
+  }
 `
 
 class FrameCarousel extends Component {
@@ -158,30 +170,31 @@ class FrameCarousel extends Component {
       const activeFrame = frame === index
 
       return (
-        <StyledFrame
-          key={`${url}-${index}`}
-          ref={activeFrame ? this.activeLabel : null}
-        >
-          <input
-            checked={activeFrame}
-            name='frame'
-            onChange={() => this.handleFrameChange(index)}
-            type='radio'
-          />
-          <StyledMedia
-            alt={t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')}
-            background='accent-1'
-            fit='cover'
-            height={40}
-            placeholder={
-              <More
-                color='neutral-6'
-                size='medium'
-              />}
-            src={url}
-            width={40}
-          />
-        </StyledFrame>
+        <li key={`${url}-${index}`}>
+          <StyledLabel
+            ref={activeFrame ? this.activeLabel : null}
+          >
+            <input
+              checked={activeFrame}
+              name='frame'
+              onChange={() => this.handleFrameChange(index)}
+              type='radio'
+            />
+            <StyledMedia
+              alt={t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')}
+              background='accent-1'
+              fit='cover'
+              height={40}
+              placeholder={
+                <More
+                  color='neutral-6'
+                  size='medium'
+                />}
+              src={url}
+              width={40}
+            />
+          </StyledLabel>
+        </li>
       )
     })
 

@@ -7,7 +7,6 @@ import ResetButton from './ResetButton'
 function storeMapper(classifierStore) {
   const {
     disableImageToolbar,
-    separateFramesView,
     resetView
   } = classifierStore.subjectViewer
 
@@ -15,18 +14,19 @@ function storeMapper(classifierStore) {
 
   return {
     disabled,
-    resetView,
-    separateFramesView
+    resetView
   }
 }
 
-function ResetButtonContainer({ separateFrameResetView = () => true }) {
-  const { disabled, separateFramesView, resetView } = useStores(storeMapper)
+function ResetButtonContainer({ separateFrameResetView }) {
+  const { disabled, resetView } = useStores(storeMapper)
+
+  const resetCallback = separateFrameResetView || resetView
 
   return (
     <ResetButton
       disabled={disabled}
-      onClick={separateFramesView ? separateFrameResetView : resetView}
+      onClick={resetCallback}
     />
   )
 }
