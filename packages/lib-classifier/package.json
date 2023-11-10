@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.23.1",
-    "@sentry/browser": "~7.79.0",
+    "@sentry/browser": "~7.80.0",
     "@visx/axis": "~3.4.0",
     "@visx/brush": "~3.3.0",
     "@visx/event": "~3.3.0",
@@ -43,7 +43,7 @@
     "graphql": "~16.8.0",
     "graphql-request": "~6.1.0",
     "hash.js": "~1.1.7",
-    "i18next": "~23.6.0",
+    "i18next": "~23.7.1",
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
     "react-i18next": "~13.3.0",
