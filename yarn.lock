@@ -7379,9 +7379,9 @@ contentful-sdk-core@^8.1.0:
     p-throttle "^4.1.1"
 
 contentful@~10.6.0:
-  version "10.6.6"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.6.6.tgz#9921d283986028522eaa68bb45b6c9124ff224fc"
-  integrity sha512-dOeoTF62OVBuAlmw7evMULgOtyH6O9sMm7rhLcM/EI7feh+ZEs9+LZujYYpaxVIXXvjbnrgCDXgM5iVlh4R7nw==
+  version "10.6.7"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.6.7.tgz#d80f6c0682dd6e836da28b3ad8c54d9e886597fa"
+  integrity sha512-Lk/3WkSWi3dcpxVVykovKiHT1YApYZVx9qZOYV2TamjlKu9npheViVjkY6Ao6DajU8VaawEXvZ/C3sA2ZMk8Ow==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
     axios "^1.4.0"
