@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Media, SpacedText } from '@zooniverse/react-components'
 
-const StyledAnchor = styled(Anchor)`
+export const StyledAnchor = styled(Anchor)`
   text-decoration: none;
 
   &:hover {
