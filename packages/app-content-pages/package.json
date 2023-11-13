@@ -16,7 +16,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "~7.77.0",
+    "@sentry/nextjs": "~7.80.0",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
@@ -27,7 +27,7 @@
     "express": "^4.17.1",
     "grommet": "~2.34.0",
     "grommet-icons": "~4.11.0",
-    "i18next": "~23.6.0",
+    "i18next": "~23.7.1",
     "lodash": "~4.17.11",
     "mobx": "~6.10.0",
     "mobx-devtools-mst": "~0.9.21",
@@ -55,7 +55,7 @@
     "@storybook/nextjs": "~7.5.0",
     "@storybook/react": "~7.5.0",
     "@testing-library/dom": "~9.3.0",
-    "@testing-library/react": "~14.0.0",
+    "@testing-library/react": "~14.1.0",
     "@testing-library/user-event": "~14.5.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "chai": "~4.3.4",

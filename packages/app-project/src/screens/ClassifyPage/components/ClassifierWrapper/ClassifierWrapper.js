@@ -78,6 +78,7 @@ export default function ClassifierWrapper({
     baseURL = `${baseURL}/subject-set/${subjectSetID}`
   }
   const subjectInURL = router?.query.subjectID !== undefined
+  const replaceRoute = router?.replace
 
   /*
     Track the current classification subject, when it changes inside the classifier.
@@ -86,9 +87,9 @@ export default function ClassifierWrapper({
     if (subjectInURL) {
       const subjectPageURL = `${baseURL}/subject/${subject.id}`
       const href = addQueryParams(subjectPageURL)
-      router.replace(href, href, { shallow: true })
+      replaceRoute(href, href, { shallow: true })
     }
-  }, [baseURL, router.replace, subjectInURL])
+  }, [baseURL, replaceRoute, subjectInURL])
 
   const addFavourites = collections?.addFavourites
   const removeFavourites = collections?.removeFavourites
