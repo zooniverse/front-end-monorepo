@@ -4,9 +4,9 @@ import { string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
-  align-items: center;
   display: inline-flex;
   padding: 0;
+  margin-left: 8px;
 
   svg path {
     transition: fill linear 0.1s;

@@ -9,8 +9,9 @@ function Category({ projects = [], slug = '', title = '' }) {
     <Box as='section'>
       <SpacedHeading
         id={slug}
-        color='dark-5'
+        color='black'
         level='2'
+        margin='20px'
         size='1.5rem'
         textAlign='center'
       >

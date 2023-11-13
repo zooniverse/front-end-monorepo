@@ -19,14 +19,14 @@ const Placeholder = ({ name }) => (
   </Box>
 )
 
-function Avatar ({ avatarSrc = '', className = '', name = '' }) {
+function Avatar ({ avatarSrc = '', className = '', name = '', screenSize = 'medium' }) {
   return (
     <Box
       flex={false}
-      height='80px'
+      height={screenSize === 'small' ? '50px' : '80px'}
       overflow='hidden'
-      round='xxsmall'
-      width='80px'
+      round='5px'
+      width={screenSize === 'small' ? '50px' : '80px'}
     >
       {!avatarSrc ? <Placeholder name={name} /> : (
         <StyledImage

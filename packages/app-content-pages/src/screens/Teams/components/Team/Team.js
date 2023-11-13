@@ -1,18 +1,19 @@
 import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import { SpacedHeading } from '@zooniverse/react-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import Person from '../Person'
 
-function Team({ name = '', people = [], slug = '' }) {
+function Team({ name = '', people = [], screenSize = 'medium', slug = '' }) {
   return (
     <Box as='section' key={name} margin={{ bottom: 'medium' }}>
       <SpacedHeading
         id={slug}
-        color='dark-5'
+        color='black'
         level='2'
-        margin={{ bottom: 'small', top: 'small' }}
-        size='1.5rem'
+        margin={{ bottom: '30px', top: '20px' }}
+        size={screenSize === 'small' ? '1.13rem' : '1.5rem'}
         textAlign='center'
       >
         {name}
@@ -34,4 +35,4 @@ Team.propTypes = {
   slug: string
 }
 
-export default Team
+export default withResponsiveContext(Team)

@@ -27,7 +27,7 @@ const Placeholder = ({ title }) => {
 function Project(props) {
   const { avatarSrc, id, title, publications } = props
   return (
-    <Box as='section' key={id} margin={{ bottom: 'medium' }}>
+    <Box as='section' key={id}>
       <Box
         direction='row'
         align='center'
@@ -46,8 +46,10 @@ function Project(props) {
           )}
         </StyledBox>
         <Heading
+          color='black'
           level='3'
           size='small'
+          style={{ lineHeight: '1.4rem' }}
         >
           {title} ({publications.length})
         </Heading>

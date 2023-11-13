@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-import { useTranslation } from 'next-i18next'
 import { Button, Nav } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
 
@@ -18,17 +17,18 @@ const StyledButton = styled(Button)`
   text-decoration: none;
   color: black;
   padding: 5px 20px; // Same as Project About page sidebar
-  font-size: 0.875rem;
   width: 100%;
+
   ${props =>
     props.active &&
     css`
-      background: #addde0; // accent-1
-      font-weight: bold;
+      background: ${props.theme.global.colors['accent-1']};
     `}
 
-  &:hover {
-    font-weight: bold;
+  &:hover, :focus {
+    > span {
+      font-weight: bold;
+    }
   }
 `
 
@@ -41,10 +41,12 @@ function Sidebar({
   sections = [],
   setActiveSection = DEFAULT_HANDLER
 }) {
-  const { t } = useTranslation('components')
-
   return (
-    <Nav aria-label={ariaLabel} className={className} margin={{ horizontal: 'auto' }}>
+    <Nav
+      aria-label={ariaLabel}
+      className={className}
+      margin={{ horizontal: 'auto' }}
+    >
       <StyledUl>
         {sections.map(section => (
           <StyledLi key={section.name}>
@@ -55,8 +57,11 @@ function Sidebar({
               href={section.slug ? `#${section.slug}` : ''}
               onClick={() => setActiveSection(section.slug)}
             >
-              {/* {section.name} */}
-              <SpacedText>{section.name}</SpacedText>
+              <SpacedText
+                weight={section.slug === activeSection ? 'bold' : 'normal'}
+              >
+                {section.name}
+              </SpacedText>
             </StyledButton>
           </StyledLi>
         ))}

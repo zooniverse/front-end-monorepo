@@ -67,7 +67,7 @@ const StickyBox = styled(Box)`
 
 const MobileHeading = styled(Heading)`
   width: 100%;
-  padding: 14px;
+  padding: 0 0 20px 0;
   display: flex;
   justify-content: center;
   ${props =>
@@ -99,7 +99,7 @@ function TeamComponent({ teamData = [], sections = [] }) {
           level='1'
           color='white'
           margin='0'
-          size='1rem'
+          size='1.5rem'
         >
           {t('Teams.title')}
         </MobileHeading>
