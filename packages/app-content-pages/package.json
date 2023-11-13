@@ -29,7 +29,7 @@
     "grommet-icons": "~4.11.0",
     "i18next": "~23.7.1",
     "lodash": "~4.17.11",
-    "mobx": "~6.10.0",
+    "mobx": "~6.11.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~9.1.0",
     "mobx-state-tree": "~5.3.0",

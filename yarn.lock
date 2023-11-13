@@ -12951,10 +12951,10 @@ mobx-utils@~6.0.4:
   resolved "https://registry.npmjs.org/mobx-utils/-/mobx-utils-6.0.8.tgz"
   integrity sha512-fPNt0vJnHwbQx9MojJFEnJLfM3EMGTtpy4/qOOW6xueh1mPofMajrbYAUvByMYAvCJnpy1A5L0t+ZVB5niKO4g==
 
-mobx@~6.10.0:
-  version "6.10.2"
-  resolved "https://registry.npmjs.org/mobx/-/mobx-6.10.2.tgz"
-  integrity sha512-B1UGC3ieK3boCjnMEcZSwxqRDMdzX65H/8zOHbuTY8ZhvrIjTUoLRR2TP2bPqIgYRfb3+dUigu8yMZufNjn0LQ==
+mobx@~6.11.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.11.0.tgz#8a748b18c140892d1d0f28b71315f1f639180006"
+  integrity sha512-qngYCmr0WJiFRSAtYe82DB7SbzvbhehkJjONs8ydynUwoazzUQHZdAlaJqUfks5j4HarhWsZrMRhV7HtSO9HOQ==
 
 mocha@~10.2.0:
   version "10.2.0"
