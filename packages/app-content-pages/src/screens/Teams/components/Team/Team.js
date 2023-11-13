@@ -7,12 +7,12 @@ import Person from '../Person'
 
 function Team({ name = '', people = [], screenSize = 'medium', slug = '' }) {
   return (
-    <Box as='section' key={name} margin={{ bottom: 'medium' }}>
+    <Box as='section' key={name}>
       <SpacedHeading
         id={slug}
         color='black'
         level='2'
-        margin={{ bottom: '30px', top: '20px' }}
+        margin={{ vertical: '30px' }}
         size={screenSize === 'small' ? '1.13rem' : '1.5rem'}
         textAlign='center'
       >

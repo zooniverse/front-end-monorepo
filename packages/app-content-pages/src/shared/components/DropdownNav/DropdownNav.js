@@ -6,19 +6,6 @@ import { Box, Button, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
 
-const StyledUl = styled.ul`
-  padding-inline-start: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-`
-
-const StyledLi = styled.li`
-  list-style-type: none;
-  display: flex;
-  width: 100%;
-`
-
 const StyledButton = styled(Button)`
   text-decoration: none;
   padding: 10px 15px;
@@ -69,6 +56,19 @@ const StyledDropButton = styled(DropButton)`
         z-index: -1;
       }
     `}
+`
+
+const StyledUl = styled.ul`
+  padding-inline-start: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+`
+
+const StyledLi = styled.li`
+  list-style-type: none;
+  display: flex;
+  width: 100%;
 `
 
 const DEFAULT_HANDLER = () => {}
@@ -126,7 +126,7 @@ function DropdownNav({
       onOpen={handleOpen}
       open={isOpen}
       round='medium'
-      margin={{ top: '20px' }} // Matches mobile page layout horizontal padding
+      margin={{ top: '30px' }}
       dropContent={dropContent}
     >
       <Box
