@@ -15510,9 +15510,9 @@ rollup@2.78.0:
     fsevents "~2.3.2"
 
 rosie@~2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/rosie/-/rosie-2.1.0.tgz"
-  integrity sha512-Dbzdc+prLXZuB/suRptDnBUY29SdGvND3bLg6cll8n7PNqzuyCxSlRfrkn8PqjS9n4QVsiM7RCvxCkKAkTQRjA==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/rosie/-/rosie-2.1.1.tgz#f8c9b8145d581d19fb1c933cf6ac1c554ad68798"
+  integrity sha512-2AXB7WrIZXtKMZ6Q/PlozqPF5nu/x7NEvRJZOblrJuprrPfm5gL8JVvJPj9aaib9F8IUALnLUFhzXrwEtnI5cQ==
 
 rrweb-cssom@^0.6.0:
   version "0.6.0"
