@@ -1,6 +1,12 @@
 import asyncStates from '@zooniverse/async-states'
 import { MockTask } from '@stories/components'
 import SimpleDropdownTask from './SimpleDropdownTask'
+import {
+  SimpleDropdownTaskMockShort,
+  SimpleDropdownTaskMockMedium,
+  SimpleDropdownTaskMockLong
+} from './SimpleDropdownTask.mock'
+
 
 export default {
   title: 'Tasks / Simple Dropdown',
@@ -20,27 +26,66 @@ export default {
   }
 }
 
-export function Default({ isThereTaskHelp, required, subjectReadyState }) {
+export function ShortOptions({ isThereTaskHelp, required, subjectReadyState }) {
   const simpleDropdownTask = {
     allowCreate: false,
-    options: [
-      'Red',
-      'Blue',
-      'Yellow',
-      'Green',
-      'White',
-      'Black',
-    ],
+    options: [ ...SimpleDropdownTaskMockShort.options ],
     required,
     strings: {
       help: 'Choose an option from the list of options.',
       instruction: 'Select your favourite colour.',
-      'selects.0.options.*.0.label': 'Red',
-      'selects.0.options.*.1.label': 'Blue',
-      'selects.0.options.*.2.label': 'Yellow',
-      'selects.0.options.*.3.label': 'Green',
-      'selects.0.options.*.4.label': 'White',
-      'selects.0.options.*.5.label': 'Black'
+      ...SimpleDropdownTaskMockShort.labels
+    },
+    taskKey: 'init',
+    type: 'dropdown-simple',
+  }
+  const tasks = {
+    init: simpleDropdownTask
+  }
+  return (
+    <MockTask
+      isThereTaskHelp={isThereTaskHelp}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+    />
+  )
+}
+
+
+export function MediumOptions({ isThereTaskHelp, required, subjectReadyState }) {
+  const simpleDropdownTask = {
+    allowCreate: false,
+    options: [ ...SimpleDropdownTaskMockMedium.options ],
+    required,
+    strings: {
+      help: 'Choose an option from the list of options.',
+      instruction: 'Select your favourite colour.',
+      ...SimpleDropdownTaskMockMedium.labels
+    },
+    taskKey: 'init',
+    type: 'dropdown-simple',
+  }
+  const tasks = {
+    init: simpleDropdownTask
+  }
+  return (
+    <MockTask
+      isThereTaskHelp={isThereTaskHelp}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+    />
+  )
+}
+
+export function LongOptions({ isThereTaskHelp, required, subjectReadyState }) {
+  const simpleDropdownTask = {
+    allowCreate: false,
+    options: [ ...SimpleDropdownTaskMockLong.options ],
+    required,
+    strings: {
+      help: 'Choose an option from the list of options.',
+      instruction: 'Select your favourite colour.',
+      ...SimpleDropdownTaskMockLong.labels
     },
     taskKey: 'init',
     type: 'dropdown-simple',
