@@ -5456,16 +5456,16 @@
   dependencies:
     "@use-gesture/core" "10.2.18"
 
-"@visx/axis@~3.4.0":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-3.4.1.tgz#185c8d7790b47b9e8840e2ab73e47372d9a6ad59"
-  integrity sha512-EnYMnPftKzGIVw8pbCJqSqfO1nYLqxjVYtwJYazIq6yIwbLdLjgyRBmkijhFYmTO3/TsN9bLFRuBqJOCTA9npA==
+"@visx/axis@~3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-3.5.0.tgz#beb72fcb0ae849624202df805e13524bb6b73e2b"
+  integrity sha512-vaY/CGk9+iQL1BFlHd5muIAuAjpPKLwtt6HwpITErW+cImjQJlNgYdgbwDCyuJMmJqXOlC9byWlmF+iI1dOPYg==
   dependencies:
     "@types/react" "*"
     "@visx/group" "3.3.0"
     "@visx/point" "3.3.0"
-    "@visx/scale" "3.3.0"
-    "@visx/shape" "3.3.0"
+    "@visx/scale" "3.5.0"
+    "@visx/shape" "3.5.0"
     "@visx/text" "3.3.0"
     classnames "^2.3.1"
     prop-types "^15.6.0"
@@ -5567,24 +5567,6 @@
   dependencies:
     "@visx/vendor" "3.5.0"
 
-"@visx/shape@3.3.0", "@visx/shape@~3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@visx/shape/-/shape-3.3.0.tgz"
-  integrity sha512-+ojOlcoMnbC16zhwK7HyK4dIB9sUJILQfVNBBNw8TBckCsly+S1WdBKZ+RZvQDppNr2YuiQLsZpr3W9zZJaHtg==
-  dependencies:
-    "@types/d3-path" "^1.0.8"
-    "@types/d3-shape" "^1.3.1"
-    "@types/lodash" "^4.14.172"
-    "@types/react" "*"
-    "@visx/curve" "3.3.0"
-    "@visx/group" "3.3.0"
-    "@visx/scale" "3.3.0"
-    classnames "^2.3.1"
-    d3-path "^1.0.5"
-    d3-shape "^1.2.0"
-    lodash "^4.17.21"
-    prop-types "^15.5.10"
-
 "@visx/shape@3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@visx/shape/-/shape-3.5.0.tgz#fa4bb7a9ed863360be541d75c434503246305e36"
@@ -5597,6 +5579,24 @@
     "@visx/curve" "3.3.0"
     "@visx/group" "3.3.0"
     "@visx/scale" "3.5.0"
+    classnames "^2.3.1"
+    d3-path "^1.0.5"
+    d3-shape "^1.2.0"
+    lodash "^4.17.21"
+    prop-types "^15.5.10"
+
+"@visx/shape@~3.3.0":
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/@visx/shape/-/shape-3.3.0.tgz"
+  integrity sha512-+ojOlcoMnbC16zhwK7HyK4dIB9sUJILQfVNBBNw8TBckCsly+S1WdBKZ+RZvQDppNr2YuiQLsZpr3W9zZJaHtg==
+  dependencies:
+    "@types/d3-path" "^1.0.8"
+    "@types/d3-shape" "^1.3.1"
+    "@types/lodash" "^4.14.172"
+    "@types/react" "*"
+    "@visx/curve" "3.3.0"
+    "@visx/group" "3.3.0"
+    "@visx/scale" "3.3.0"
     classnames "^2.3.1"
     d3-path "^1.0.5"
     d3-shape "^1.2.0"
