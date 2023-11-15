@@ -5553,14 +5553,14 @@
     lodash "^4.17.21"
     prop-types "^15.6.1"
 
-"@visx/scale@3.3.0", "@visx/scale@~3.3.0":
+"@visx/scale@3.3.0":
   version "3.3.0"
   resolved "https://registry.npmjs.org/@visx/scale/-/scale-3.3.0.tgz"
   integrity sha512-H569k7eQEUcFE/X1Zojcb4rUwxurIU4yso21uAuKvXnZcGpDOTr/3YXXHb1JJqOKfLcZtYZWXok6QVDj5ZGtCw==
   dependencies:
     "@visx/vendor" "3.3.0"
 
-"@visx/scale@3.5.0":
+"@visx/scale@3.5.0", "@visx/scale@~3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@visx/scale/-/scale-3.5.0.tgz#c3db3863bbdd24d44781104ef5ee4cdc8df6f11d"
   integrity sha512-xo3zrXV2IZxrMq9Y9RUVJUpd93h3NO/r/y3GVi5F9AsbOzOhsLIbsPkunhO9mpUSR8LZ9TiumLEBrY+3frRBSg==
