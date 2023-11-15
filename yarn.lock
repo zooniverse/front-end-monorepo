@@ -6415,10 +6415,19 @@ axe-core@=4.7.0, axe-core@^4.2.0:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.7.0.tgz"
   integrity sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==
 
-axios@1.6.0, axios@^1.0.0, axios@^1.4.0:
+axios@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
   integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@^1.0.0, axios@^1.6.0:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.2.tgz#de67d42c755b571d3e698df1b6504cde9b0ee9f2"
+  integrity sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -7491,12 +7500,12 @@ contentful-sdk-core@^8.1.0:
     p-throttle "^4.1.1"
 
 contentful@~10.6.0:
-  version "10.6.7"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.6.7.tgz#d80f6c0682dd6e836da28b3ad8c54d9e886597fa"
-  integrity sha512-Lk/3WkSWi3dcpxVVykovKiHT1YApYZVx9qZOYV2TamjlKu9npheViVjkY6Ao6DajU8VaawEXvZ/C3sA2ZMk8Ow==
+  version "10.6.10"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.6.10.tgz#921b51b0e3bb3a824ca9c64e93beeec229072a8f"
+  integrity sha512-9i3Op+6QatXzPGc3dEUHpl2VjKOQ7QX+leelUTbXFWXTI5Mh54+OfiRYdqDxZUPtySHWHU2z0rNQp6a4DzsTKQ==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
-    axios "^1.4.0"
+    axios "^1.6.0"
     contentful-resolve-response "^1.8.1"
     contentful-sdk-core "^8.1.0"
     json-stringify-safe "^5.0.1"
