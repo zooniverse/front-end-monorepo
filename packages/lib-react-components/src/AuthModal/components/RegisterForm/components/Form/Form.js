@@ -74,6 +74,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             required
           >
             <TextInput
+              autoComplete='username'
               disabled={isSubmitting}
               focusIndicator
               id={userNameFieldId}
@@ -95,6 +96,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             required
           >
             <TextInput
+              autoComplete='new-password'
               disabled={isSubmitting}
               focusIndicator
               id={passwordFieldId}
@@ -115,6 +117,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             required
           >
             <TextInput
+              autoComplete='password'
               disabled={isSubmitting}
               focusIndicator
               id={passwordConfirmFieldId}
@@ -137,6 +140,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             required
           >
             <TextInput
+              autoComplete='email'
               disabled={isSubmitting}
               focusIndicator
               id={emailFieldId}
@@ -157,6 +161,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             required
           >
             <TextInput
+              autoComplete='email'
               disabled={isSubmitting}
               focusIndicator
               id={emailConfirmFieldId}
@@ -176,6 +181,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             label={<FieldLabel>{t('AuthModal.RegisterForm.realName')}</FieldLabel>}
           >
             <TextInput
+              autoComplete='name'
               disabled={isSubmitting}
               focusIndicator
               id={realNameFieldId}

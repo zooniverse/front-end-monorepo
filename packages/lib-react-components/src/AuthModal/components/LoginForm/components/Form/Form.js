@@ -21,6 +21,7 @@ function Form({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, to
         label={<FieldLabel>{t('AuthModal.LoginForm.login')}</FieldLabel>}
       >
         <TextInput
+          autoComplete='username'
           autoFocus
           disabled={isSubmitting}
           focusIndicator
@@ -41,6 +42,7 @@ function Form({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, to
         label={<FieldLabel>{t('AuthModal.LoginForm.password')}</FieldLabel>}
       >
         <TextInput
+          autocomplete='password'
           disabled={isSubmitting}
           focusIndicator
           id={passwordFieldId}
