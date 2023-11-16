@@ -13084,10 +13084,10 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-mst-middlewares@~5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/mst-middlewares/-/mst-middlewares-5.2.0.tgz"
-  integrity sha512-Gyr2SDA34yGk5frRsO2qzkaNBYhDJzoXUDh/lj1dcHtz7Hz1Qz6R4MAKVFs1gz8XD8pnfu+8V3BW1PIHWBJTdw==
+mst-middlewares@~6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-6.0.0.tgz#0429070f85b54bba0c944ddabca0373c5fae8ec7"
+  integrity sha512-5KkpNsnZT6J+1v4jiVl5NZq9Mle9n3wgvzOXX/EfMCTuJQa/wsMwf5jmukx26qgy7OcT+aHENPkV42IEeoMmfw==
 
 multicast-dns@^7.2.5:
   version "7.2.5"
