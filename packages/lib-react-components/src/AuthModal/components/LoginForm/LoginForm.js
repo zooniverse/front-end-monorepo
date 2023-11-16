@@ -4,9 +4,17 @@ import { func, string } from 'prop-types'
 import Form from './components/Form'
 import { useTranslation } from '../../../translations/i18n'
 
-function LoginForm (props) {
+const DEFAULT_VALUES = {
+  login: '',
+  password: ''
+}
+const DEFAULT_HANDLER = () => true
+
+function LoginForm ({
+  generalError = '',
+  onSubmit = DEFAULT_HANDLER
+}) {
   const { t } = useTranslation()
-  const { generalError, onSubmit, validate } = props
   return (
     <Box width='medium'>
       <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
@@ -20,15 +28,11 @@ function LoginForm (props) {
         <Text color={{ light: 'status-critical', dark: 'status-error' }} role='alert'>{generalError}</Text>}
 
       <Form
-        initialValues={{ login: '', password: '' }}
+        initialValues={DEFAULT_VALUES}
         onSubmit={onSubmit}
       />
     </Box>
   )
-}
-
-LoginForm.defaultProps = {
-  generalError: ''
 }
 
 LoginForm.propTypes = {

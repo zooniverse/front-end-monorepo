@@ -10,7 +10,22 @@ import FieldLabel from '../../../../shared/components/FieldLabel'
 export const userNameFieldId = 'LoginForm_login'
 export const passwordFieldId = 'LoginForm_password'
 
-function Form({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) {
+const DEFAULT_VALUES = {
+  login: '',
+  password: ''
+}
+const DEFAULT_HANDLER = () => true
+const DEFAULT_OBJECT = {}
+
+function Form({
+  errors = DEFAULT_OBJECT,
+  handleBlur = DEFAULT_HANDLER,
+  handleChange = DEFAULT_HANDLER,
+  handleSubmit = DEFAULT_HANDLER,
+  isSubmitting = false,
+  touched = DEFAULT_OBJECT,
+  values = DEFAULT_VALUES
+}) {
   const { t } = useTranslation()
   return (
     <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
@@ -73,19 +88,6 @@ function Form({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, to
   )
 }
 
-Form.defaultProps = {
-  errors: {},
-  handleBlur: () => { },
-  handleChange: () => { },
-  handleSubmit: () => { },
-  isSubmitting: false,
-  touched: {},
-  values: {
-    login: '',
-    password: ''
-  }
-}
-
 Form.propTypes = {
   errors: PropTypes.object,
   handleBlur: PropTypes.func,
@@ -97,4 +99,3 @@ Form.propTypes = {
 }
 
 export default withCustomFormik(Form)
-export { Form }

@@ -30,7 +30,29 @@ const contentProps = {
   gap: 'xsmall'
 }
 
-function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, values }) {
+const DEFAULT_VALUES = {
+  betaListSignUp: false,
+  email: '',
+  emailConfirm: '',
+  emailListSignUp: false,
+  password: '',
+  passwordConfirm: '',
+  privacyAgreement: false,
+  realName: '',
+  username: '',
+  underageWithParent: false
+}
+const DEFAULT_HANDLER = () => true
+const DEFAULT_OBJECT = {}
+
+function Form ({
+  errors = DEFAULT_OBJECT,
+  handleBlur = DEFAULT_HANDLER,
+  handleChange = DEFAULT_HANDLER,
+  handleSubmit = DEFAULT_HANDLER,
+  isSubmitting = false,
+  values = DEFAULT_VALUES
+}) {
   const { t } = useTranslation()
   const userNameFieldHelp = (values.underageWithParent)
     ? t('AuthModal.RegisterForm.underageNotRealName')
@@ -262,26 +284,6 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
   )
 }
 
-Form.defaultProps = {
-  errors: {},
-  handleBlur: () => {},
-  handleChange: () => {},
-  handleSubmit: () => {},
-  isSubmitting: false,
-  values: {
-    betaListSignUp: false,
-    email: '',
-    emailConfirm: '',
-    emailListSignUp: false,
-    password: '',
-    passwordConfirm: '',
-    privacyAgreement: false,
-    realName: '',
-    username: '',
-    underageWithParent: false
-  }
-}
-
 Form.propTypes = {
   errors: PropTypes.object,
   handleBlur: PropTypes.func,
@@ -292,4 +294,3 @@ Form.propTypes = {
 }
 
 export default withCustomFormik(Form)
-export { Form }

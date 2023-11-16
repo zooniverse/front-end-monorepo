@@ -4,20 +4,25 @@ import { Box, Heading, Text } from 'grommet'
 import Form from './components/Form'
 import { useTranslation } from '../../../translations/i18n'
 
-function RegisterForm ({ generalError, validate, onSubmit }) {
-  const initialValues = {
-    betaListSignUp: false,
-    email: '',
-    emailConfirm: '',
-    emailListSignUp: false,
-    password: '',
-    passwordConfirm: '',
-    privacyAgreement: false,
-    realName: '',
-    username: '',
-    underageWithParent: false
-  }
+const DEFAULT_VALUES = {
+  betaListSignUp: false,
+  email: '',
+  emailConfirm: '',
+  emailListSignUp: false,
+  password: '',
+  passwordConfirm: '',
+  privacyAgreement: false,
+  realName: '',
+  username: '',
+  underageWithParent: false
+}
+const DEFAULT_HANDLER = () => true
 
+function RegisterForm ({
+  generalError = '',
+  validate = DEFAULT_HANDLER,
+  onSubmit = DEFAULT_HANDLER
+}) {
   const { t } = useTranslation()
 
   return (
@@ -32,7 +37,7 @@ function RegisterForm ({ generalError, validate, onSubmit }) {
       {generalError &&
         <Text color={{ light: 'status-critical', dark: 'status-error' }} role='alert'>{generalError}</Text>}
 
-      <Form initialValues={initialValues} onSubmit={onSubmit} validate={validate} />
+      <Form initialValues={DEFAULT_VALUES} onSubmit={onSubmit} validate={validate} />
     </Box>
   )
 }
