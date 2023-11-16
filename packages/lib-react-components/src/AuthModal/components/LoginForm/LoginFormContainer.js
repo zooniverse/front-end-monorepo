@@ -1,5 +1,5 @@
 import auth from 'panoptes-client/lib/auth'
-import { func, shape } from 'prop-types'
+import { func } from 'prop-types'
 import { useState } from 'react'
 
 import { useTranslation } from '../../../translations/i18n'
@@ -35,4 +35,8 @@ export default function LoginFormContainer({
   return (
     <LoginForm generalError={error} onSubmit={onSubmit} />
   )
+}
+
+LoginFormContainer.propTypes = {
+  closeModal: func
 }
