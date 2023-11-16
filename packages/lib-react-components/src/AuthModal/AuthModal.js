@@ -50,10 +50,10 @@ function AuthModal({
       role='dialog'
     >
       <StyledTabs activeIndex={activeIndex} onActive={onActive}>
-        <Tab title='Sign In'>
+        <Tab title={t("AuthModal.LoginForm.signIn")}>
           <LoginForm closeModal={closeModal} />
         </Tab>
-        <Tab title='Register'>
+        <Tab title={t("AuthModal.RegisterForm.register")}>
           <RegisterForm closeModal={closeModal} project={project} />
         </Tab>
       </StyledTabs>
