@@ -44,7 +44,7 @@
     "react-dom": "~18.2.0",
     "react-i18next": "~13.5.0",
     "snazzy": "^9.0.0",
-    "styled-components": "~5.3.3",
+    "styled-components": "~6.1.1",
     "superagent": "~8.1.0",
     "validator": "~13.11.0"
   },
