@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
-import styled from 'styled-components'
 
 import FieldLabel from '../../../../shared/components/FieldLabel'
 import withCustomFormik from '../../../../../helpers/withCustomFormik'
