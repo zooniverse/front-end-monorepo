@@ -1,6 +1,6 @@
 # AuthModal
 
-A modal dialog that provides a choice to either sign-in to your Zooniverse account, or create a new account. Password reset is handled by a link to the reset page. Sign-in is handled by the [Panoptes JS Client](https://zooniverse.github.io/panoptes-javascript-client/#panoptes-javascript-client-auth), using the [OAuth password flow](https://oauth.net/2/grant-types/password/).
+A modal dialog that provides a tabbed interface to either sign-in to your Zooniverse account, or create a new account. Password reset is handled by a link to the reset page. Sign-in is handled by the [Panoptes JS Client](https://zooniverse.github.io/panoptes-javascript-client/#panoptes-javascript-client-auth), using the [OAuth password flow](https://oauth.net/2/grant-types/password/). The selected tab state is controlled via component props.
 
 ```js
 import { AuthModal } from '@zooniverse/react-components';
