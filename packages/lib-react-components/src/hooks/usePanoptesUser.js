@@ -1,8 +1,8 @@
 import auth from 'panoptes-client/lib/auth'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
-import { fetchPanoptesUser } from '../helpers'
+import fetchPanoptesUser from '../helpers/fetchPanoptesUser'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -29,11 +29,13 @@ if (storedUser === null) {
   storedUser = undefined
 }
 
+const defaultKey = {
+  user: storedUser,
+  endpoint: '/me'
+}
+
 export default function usePanoptesUser() {
-  const key = {
-    user: storedUser,
-    endpoint: '/me'
-  }
+  const [key, setKey] = useState(defaultKey)
 
   /*
    `useSWR` here will always return the same stale user object.
@@ -44,11 +46,48 @@ export default function usePanoptesUser() {
     storedUser = data
   }
 
+  /*
+  Experimental support for login/out across tabs, via window
+  storage events. Uncomment this to subscribe to changes in the user
+  in other tabs.
+
+  useEffect(function subscribeToStorageChanges() {
+    function onStorageChange({ key, newValue }) {
+      if (key === 'panoptes-user' && newValue) {
+        const user = JSON.parse(newValue)
+        if (user?.login) {
+          console.log('logged in', user)
+        } else {
+          console.log('logged out', user)
+        }
+      }
+    }
+    window.addEventListener('storage', onStorageChange)
+    return () => {
+      window.removeEventListener('storage', onStorageChange)
+    }
+  }, [])
+  */
+
   useEffect(function subscribeToAuthChanges() {
-    auth.listen('change', auth.checkCurrent)
+    async function checkUserSession() {
+      const user = await fetchPanoptesUser({ user: storedUser })
+      if (user?.login) {
+        setKey({
+          user,
+          endpoint: '/me'
+        })
+      } else {
+        setKey({
+          user: undefined,
+          endpoint: '/me'
+        })
+      }
+    }
+    auth.listen('change', checkUserSession)
 
     return function () {
-      auth.stopListening('change', auth.checkCurrent)
+      auth.stopListening('change', checkUserSession)
     }
   }, [])
 

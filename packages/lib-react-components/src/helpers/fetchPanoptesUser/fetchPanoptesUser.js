@@ -22,7 +22,7 @@ export default async function fetchPanoptesUser({ user: storedUser }) {
       if (user) {
         const { admin, display_name, id, login } = user
         return {
-          avatar_src: storedUser.avatar_src,
+          avatar_src: storedUser?.avatar_src,
           ...user
         }
       }
@@ -33,6 +33,11 @@ export default async function fetchPanoptesUser({ user: storedUser }) {
   } catch (error) {
     console.log(error)
   }
-  const { admin, avatar_src, display_name, id, login } = await auth.checkCurrent()
-  return { admin, avatar_src, display_name, id, login }
+  const panoptesUser = await auth.checkCurrent()
+  if (panoptesUser) {
+    const { admin, avatar_src, display_name, id, login } = panoptesUser
+    return { admin, avatar_src, display_name, id, login }
+  }
+
+  return {}
 }

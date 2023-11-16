@@ -2,12 +2,18 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
+const isBrowser = typeof window !== 'undefined'
+
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
+}
+
+if (isBrowser) {
+  auth.checkCurrent()
 }
 
 async function fetchUnreadMessageCount({ endpoint = '/conversations' }) {
