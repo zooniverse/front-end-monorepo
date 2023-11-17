@@ -1,26 +1,22 @@
 import { useEffect, useState } from 'react'
-import { Box, Grid, Heading } from 'grommet'
+import { Box } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
-import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-import Team from './components/Team'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
 import Head from '../../shared/components/Head'
+import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
 import PageLayout from '../../shared/components/PageLayout/layout.js'
-import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
+import Team from './components/Team'
+import {
+  MobileHeading,
+  StickyBox,
+  StickySidebar,
+  StyledGrid,
+  StyledHeading
+} from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
-
-const Relative = styled.aside`
-  position: relative;
-`
-
-const StickySidebar = styled(Sidebar)`
-  max-height: 100vh;
-  overflow: auto;
-  position: sticky;  
-  top: 0;
-`
 
 function TeamComponent({ teamData = [], sections = [] }) {
   const { t } = useTranslation('components')
@@ -35,23 +31,33 @@ function TeamComponent({ teamData = [], sections = [] }) {
 
   return (
     <>
-      <Head description={t('Team.description')} title={t('Team.title')} />
+      <Head description={t('Teams.description')} title={t('Teams.title')} />
       <PageLayout>
-        <Grid columns={['25%', 'flex']}>
-          <Box />
-          <Heading margin={{ top: 'none' }} size='small'>
-            {t('Team.title')}
-          </Heading>
-        </Grid>
-        <Grid columns={['25%', 'flex']}>
-          <Relative>
+        <MobileHeading level='1' size='1.5rem'>
+          {t('Teams.title')}
+        </MobileHeading>
+        <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
+          <DropdownNav
+            activeSection={activeSection}
+            sidebarLabel={t('Teams.sidebarLabel')}
+            sections={sectionsPlusAll}
+            setActiveSection={setActiveSection}
+          />
+        </StickyBox>
+        <MaxWidthContent>
+          <StyledHeading color='brand' level='1' size='small'>
+            {t('Teams.title')}
+          </StyledHeading>
+        </MaxWidthContent>
+        <StyledGrid>
+          <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('Team.sideBarLabel')}
+              ariaLabel={t('Teams.sideBarLabel')}
               sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
-          </Relative>
+          </Box>
           <article>
             {teamData?.map(team => (
               <Team
@@ -62,7 +68,8 @@ function TeamComponent({ teamData = [], sections = [] }) {
               />
             ))}
           </article>
-        </Grid>
+          <Box />
+        </StyledGrid>
       </PageLayout>
     </>
   )

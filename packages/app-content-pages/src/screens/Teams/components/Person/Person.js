@@ -1,13 +1,17 @@
 import { Box, Heading, Text } from 'grommet'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import Avatar from './components/Avatar'
 import TwitterLink from './components/TwitterLink'
 
 const PersonName = styled(Heading)`
-  font-size: 18px;
   margin: 0;
+  line-height: 1.4rem;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
 `
 
 function Person({
@@ -16,6 +20,7 @@ function Person({
   bio = '',
   jobTitle = '',
   name = '',
+  screenSize = 'medium',
   twitterID = ''
 }) {
   return (
@@ -26,12 +31,17 @@ function Person({
       gap='small'
       margin={{ bottom: 'small' }}
     >
-      <Avatar avatarSrc={avatarSrc} name={name} />
-
+      <Avatar avatarSrc={avatarSrc} name={name} screenSize={screenSize} />
       <Box direction='column'>
         <Box direction='row' gap='xsmall' align='center'>
-          <PersonName level='3'>{`${name}, ${jobTitle}`}</PersonName>
-          {twitterID && <TwitterLink name={name} twitterId={twitterID} />}
+          <PersonName
+            color='black'
+            level='3'
+            size={screenSize === 'small' ? '1rem' : '1.13rem'}
+          >
+            {`${name}, ${jobTitle}`}
+            {twitterID && <TwitterLink name={name} twitterId={twitterID} />}
+          </PersonName>
         </Box>
         <Text size='medium'>{bio}</Text>
       </Box>
@@ -48,4 +58,4 @@ Person.propTypes = {
   twitterID: string
 }
 
-export default Person
+export default withResponsiveContext(Person)

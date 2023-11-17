@@ -1,28 +1,33 @@
 import { useEffect, useState } from 'react'
-import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import Category from './components/Category/Category.js'
-import PageLayout from '../../shared/components/PageLayout/layout.js'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
 import Head from '../../shared/components/Head'
-import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
+import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
+
+import {
+  mobileBreakpoint,
+  MobileHeading,
+  StickyBox,
+  StickySidebar,
+  StyledGrid,
+  StyledHeading
+} from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
 const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
 const FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
-const Relative = styled.aside`
-  position: relative;
-`
-
-const StickySidebar = styled(Sidebar)`
-  max-height: 100vh;
-  overflow: auto;
-  position: sticky;  
-  top: 0;
+const StyledSection = styled.section`
+  @media (width <= ${mobileBreakpoint}) {
+    padding: 0 20px;
+  }
 `
 
 function Publications({ publicationsData = [], sections = [] }) {
@@ -43,30 +48,40 @@ function Publications({ publicationsData = [], sections = [] }) {
         title={t('Publications.title')}
       />
       <PageLayout>
-        <Grid columns={['25%', 'flex']}>
-          <Box />
-          <section>
-            <Heading margin={{ top: 'none' }} size='small'>
+        <MobileHeading level='1' size='1.5rem'>
+          {t('Publications.title')}
+        </MobileHeading>
+        <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
+          <DropdownNav
+            activeSection={activeSection}
+            sidebarLabel={t('Publications.sidebarLabel')}
+            sections={sectionsPlusAll}
+            setActiveSection={setActiveSection}
+          />
+        </StickyBox>
+        <MaxWidthContent>
+          <StyledSection>
+            <StyledHeading level='1' color='brand' size='small'>
               {t('Publications.title')}
-            </Heading>
-            <Paragraph>
+            </StyledHeading>
+            <Paragraph textAlign='center' margin={{ top: '30px' }}>
               {t('Publications.formInstruction')}{' '}
               <Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
               {t('Publications.formInfo')}
             </Paragraph>
-          </section>
-        </Grid>
-        <Grid columns={['25%', 'flex']}>
-          <Relative>
+          </StyledSection>
+        </MaxWidthContent>
+        <StyledGrid>
+          <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Publications.sideBarLabel')}
               sections={sectionsPlusAll}
               setActiveSection={setActiveSection}
             />
-          </Relative>
+          </Box>
           <article>
-            {publicationsData.map(category => (
+            {publicationsData?.map(category => (
               <Category
                 key={category.title}
                 projects={category.projects}
@@ -75,7 +90,8 @@ function Publications({ publicationsData = [], sections = [] }) {
               />
             ))}
           </article>
-        </Grid>
+          <Box />
+        </StyledGrid>
       </PageLayout>
     </>
   )

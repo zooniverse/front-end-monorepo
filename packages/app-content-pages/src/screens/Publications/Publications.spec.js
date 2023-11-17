@@ -36,8 +36,8 @@ describe('Component > Publications Page', function () {
     )
   })
 
-  it('should have sidebar nav with accessible label', function () {
-    const sideBar = screen.getByLabelText('Publications.sideBarLabel')
+  it('should have sidebar nav label', function () {
+    const sideBar = screen.getByText('Publications.sidebarLabel')
     expect(sideBar).to.be.ok()
   })
 
