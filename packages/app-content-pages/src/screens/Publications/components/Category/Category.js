@@ -1,22 +1,21 @@
 import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import { SpacedHeading } from '@zooniverse/react-components'
+import { HeadingForNav } from '../../../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
 import Project from '../Project/Project.js'
 
 function Category({ projects = [], slug = '', title = '' }) {
   return (
     <Box as='section'>
-      <SpacedHeading
+      <HeadingForNav
         id={slug}
         color='black'
         level='2'
-        margin='20px'
         size='1.5rem'
         textAlign='center'
       >
         {title}
-      </SpacedHeading>
+      </HeadingForNav>
       {projects.map(project => (
         <Project {...project} key={project.title} />
       ))}

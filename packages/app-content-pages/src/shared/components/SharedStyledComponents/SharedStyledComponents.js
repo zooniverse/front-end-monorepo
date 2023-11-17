@@ -2,9 +2,21 @@
 
 import styled, { css } from 'styled-components'
 import { Box, Grid, Heading } from 'grommet'
+import { SpacedHeading } from '@zooniverse/react-components'
 import Sidebar from '../Sidebar/Sidebar.js'
 
 export const mobileBreakpoint = '72rem'
+
+export const HeadingForNav = styled(SpacedHeading)`
+  margin: 0;
+  padding: 30px 0;
+
+  @media (width <= ${mobileBreakpoint}) {
+    border-top: 70px solid transparent; // Handles navigation to an h2 without the sticky dropdown covering it
+    margin-top: -70px;
+    padding: 30px 0;
+  }
+`
 
 export const MobileHeading = styled(Heading)`
   color: white;
@@ -28,6 +40,7 @@ export const StickyBox = styled(Box)`
   position: sticky;
   top: 0;
   width: 100%;
+  z-index: 1;
 
   @media (width > ${mobileBreakpoint}) {
     display: none;

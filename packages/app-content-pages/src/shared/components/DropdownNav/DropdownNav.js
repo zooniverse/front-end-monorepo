@@ -33,17 +33,17 @@ const StyledDropButton = styled(DropButton)`
   position: relative;
   min-width: 18rem;
 
-  &:focus,
   &:hover {
     ${props => css`
       background: ${props.theme.global.colors['accent-1']};
     `}
+  }
 
   ${props =>
     props.open &&
     css`
       box-shadow: none;
-      background: #addde0; // accent-1
+      background: ${props.theme.global.colors['accent-1']};
 
       &::after {
         content: '';
@@ -105,7 +105,7 @@ function DropdownNav({
               active={section.slug === activeSection}
               aria-current={section.slug === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
-              onClick={section => handleSectionSelect(section.slug)}
+              onClick={() => handleSectionSelect(section.slug)}
             >
               <SpacedText size='0.875rem' color='white' weight='bold'>
                 {section.name}
