@@ -35,7 +35,6 @@ export const StyledLogoAnchor = styled(Anchor)`
 `
 
 const defaultHandler = () => true
-const signedOutUserNavPadding = { horizontal: 'medium', vertical: 'small' }
 
 export default function ZooHeader({
   breakpoint = 960,
@@ -153,5 +152,5 @@ ZooHeader.propTypes = {
   user: PropTypes.shape({
     display_name: PropTypes.string.isRequired,
     login: PropTypes.string.isRequired
-  }).isRequired
+  })
 }
