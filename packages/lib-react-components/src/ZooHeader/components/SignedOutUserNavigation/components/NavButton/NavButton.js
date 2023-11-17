@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Button } from 'grommet'
 import SpacedText from '../../../../../SpacedText'
 
@@ -16,13 +16,12 @@ const StyledNavButton = styled(Button)`
   }
 `
 
-function NavButton ({ label = '', onClick, theme }) {
+function NavButton ({ label = '', onClick }) {
   return (
     <StyledNavButton
       label={<SpacedText color="#B2B2B2" weight="bold" size="xsmall">{label}</SpacedText>}
       plain={true}
       onClick={onClick}
-      theme={theme}
     />
   )
 }
@@ -30,8 +29,6 @@ function NavButton ({ label = '', onClick, theme }) {
 NavButton.propTypes = {
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   onClick: PropTypes.func.isRequired,
-  theme: PropTypes.object
 }
 
-export default withTheme(NavButton)
-export { NavButton }
+export default NavButton
