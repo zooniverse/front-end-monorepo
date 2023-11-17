@@ -1,3 +1,4 @@
+'use client'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
@@ -10,23 +11,25 @@ import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import ZooniverseLogo from '../ZooniverseLogo'
+import NarrowMainNavMenu from './components/NarrowMainNavMenu'
 
 export const StyledHeader = styled(Box)`
-  color: #B2B2B2;
+  color: #b2b2b2;
   font-size: 1em;
 `
 
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
-  color: #B2B2B2;
-  margin-right: 2em;
+  color: #b2b2b2;
+  margin-right: 30px;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-bottom-color: ${zooTheme.global.colors.brand};
   }
 
   > svg {
-    vertical-align: text-bottom;
+    vertical-align: middle;
     width: 1em;
   }
 `
@@ -73,16 +76,14 @@ export default function ZooHeader({
     t('ZooHeader.mainHeaderNavListLabels.build')
   ]
 
-  const userNavigationPadding = Object.keys(user).length === 0 ? signedOutUserNavPadding : undefined
   return (
     <StyledHeader
       ref={ref}
       background='black'
       direction='row'
-      fill='horizontal'
       justify='between'
-      pad='none'
-      responsive={false}
+      pad={{ vertical: '20px', horizontal: 'medium' }}
+      responsive
       {...props}
     >
       <Box
@@ -90,8 +91,6 @@ export default function ZooHeader({
         align='center'
         aria-label={t('ZooHeader.ariaLabel')}
         direction='row'
-        pad={{ horizontal: 'medium' }}
-        responsive={false}
       >
         <StyledLogoAnchor href='http://www.zooniverse.org'>
           <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
@@ -108,22 +107,14 @@ export default function ZooHeader({
       <Box
         aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
         as='nav'
-        align='center'
         direction='row'
-        pad={userNavigationPadding}
       >
-        {Object.keys(user).length === 0 ?
+        {Object.keys(user).length === 0 ? (
           <SignedOutUserNavigation
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
-            isNarrow={isNarrow}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
             register={register}
             signIn={signIn}
-            user={user}
-          /> :
+          />
+        ) : (
           <SignedInUserNavigation
             adminNavLinkLabel={adminNavLinkLabel}
             adminNavLinkURL={adminNavLinkURL}
@@ -136,7 +127,16 @@ export default function ZooHeader({
             signOut={signOut}
             user={user}
           />
-        }
+        )}
+        {isNarrow && (
+          <NarrowMainNavMenu
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            isAdmin={user?.admin && isAdmin}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+          />
+        )}
       </Box>
     </StyledHeader>
   )

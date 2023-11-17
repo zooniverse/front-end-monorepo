@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { Box } from 'grommet'
 import { Blank } from 'grommet-icons'
 import { useTranslation } from '../../../translations/i18n'
 
@@ -9,7 +8,6 @@ import { faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons/faE
 import { faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons/faEnvelope'
 import styled from 'styled-components'
 
-import NarrowMainNavMenu from '../NarrowMainNavMenu'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
@@ -38,13 +36,8 @@ function FontAwesomeIcon({ color, icon, title }) {
 }
 
 export default function SignedInUserNavigation({
-  adminNavLinkLabel,
-  adminNavLinkURL,
   host = getHost(),
-  isAdmin = false,
   isNarrow = false,
-  mainHeaderNavListLabels,
-  mainHeaderNavListURLs,
   unreadMessages = 0,
   unreadNotifications = 0,
   signOut,
@@ -89,19 +82,9 @@ export default function SignedInUserNavigation({
           signOut={signOut}
           user={user}
         />
-        {isNarrow &&
-          <NarrowMainNavMenu
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={user?.admin && isAdmin}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-          />}
       </>
     )
   }
-
-  return null
 }
 
 SignedInUserNavigation.propTypes = {
