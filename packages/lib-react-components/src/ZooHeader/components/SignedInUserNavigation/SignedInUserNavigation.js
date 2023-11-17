@@ -36,7 +36,6 @@ function FontAwesomeIcon({ color, icon, title }) {
 }
 
 export default function SignedInUserNavigation({
-  host = getHost(),
   isNarrow = false,
   unreadMessages = 0,
   unreadNotifications = 0,
@@ -44,6 +43,7 @@ export default function SignedInUserNavigation({
   user
 }) {
   const { t } = useTranslation()
+  const host = getHost()
 
   const notificationLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.notifications', {
     count: unreadNotifications
@@ -88,13 +88,7 @@ export default function SignedInUserNavigation({
 }
 
 SignedInUserNavigation.propTypes = {
-  adminNavLinkLabel: PropTypes.string.isRequired,
-  adminNavLinkURL: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
-  host: PropTypes.string,
-  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
   signOut: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,

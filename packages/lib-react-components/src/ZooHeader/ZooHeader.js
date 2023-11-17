@@ -115,12 +115,7 @@ export default function ZooHeader({
           />
         ) : (
           <SignedInUserNavigation
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
             isNarrow={isNarrow}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
             unreadMessages={unreadMessages}
             unreadNotifications={unreadNotifications}
             signOut={signOut}
