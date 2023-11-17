@@ -12,6 +12,9 @@ The Simple Dropdown Task for the Classifier is exactly what it says on the tin.
 
 ## Dev Notes
 
+**Limit Options** - Nov 2023
+- Full removal of "Other" option in the code as this code is not supported in FEMLab. This can be re-added when an ADR is made that specifies desired behavior.
+
 **"Other" option** - Aug 2020
 
 - The simple dropdown has an "Other" option (aka "let users type in free answers") has been built, but has been _artificially disabled._
@@ -24,7 +27,7 @@ If we need to enable the "Other" option in the future, please look at `component
 
 Simple Dropdown task data structure, example:
 
-```
+```json
 "T0":{
   "help":"",
   "type":"dropdown-simple",
@@ -41,7 +44,7 @@ Simple Dropdown task data structure, example:
 
 Simple Dropdown annotation (classification) data structure, example:
 
-```
+```json
 {
   "task":"T0",
   "value": {
@@ -53,7 +56,7 @@ Simple Dropdown annotation (classification) data structure, example:
 
 NOTE 1: if a simple dropdown has no value selected (as is the case when initially rendered), the annotation value is null.
 
-```
+```json
 {
   "task":"T0",
   "value": null,  // No value selected
@@ -62,7 +65,7 @@ NOTE 1: if a simple dropdown has no value selected (as is the case when initiall
 
 NOTE 2: if the 'other' option is enabled, the value can be a string. Please note that this should NOT happen under normal circumstances. See Dev Notes above.
 
-```
+```json
 {
   "task":"T0",
   "value": {

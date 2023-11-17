@@ -1,11 +1,12 @@
 'use client'
 
 import zooTheme from '@zooniverse/grommet-theme'
+import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 import { Grommet } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
 
 import { PanoptesAuthContext } from '../contexts'
-import { useAdminMode, usePanoptesUser } from '../hooks'
+import { useAdminMode } from '../hooks'
 
 const GlobalStyle = createGlobalStyle`
   body {

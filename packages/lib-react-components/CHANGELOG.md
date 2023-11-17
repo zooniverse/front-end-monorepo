@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.9.0] 2023-11-08
+
+### Added
+- `AuthModal` component for Zooniverse username/password sign-in, and Zooniverse user registration.
+- New hooks for working with authenticated Panoptes users:
+  - `usePanoptesUser`: exchange a Panoptes session cookie for an authenticated user session.
+  - `useUnreadMessages`: check unread private messages.
+  - `useUnreadNotifications`: check unread Talk notifications.
+
 ## [1.8.1] 2023-11-02
 
 ### Fixed

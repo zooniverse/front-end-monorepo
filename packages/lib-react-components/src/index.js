@@ -1,4 +1,5 @@
 export { default as AdminCheckbox } from './AdminCheckbox/index.js'
+export { default as AuthModal } from './AuthModal/index.js'
 export { default as CloseButton } from './CloseButton/index.js'
 export { default as FavouritesButton } from './FavouritesButton/index.js'
 export { default as Markdownz } from './Markdownz/index.js'
