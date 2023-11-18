@@ -2,6 +2,18 @@
 
 ## useHasMounted
 
+When a component needs to be deferred until client-side rendering. See [https://www.joshwcomeau.com/react/the-perils-of-rehydration/](https://www.joshwcomeau.com/react/the-perils-of-rehydration) for more a detailed mental model.
+
+```js
+const hasMounted = useHadMounted()
+
+return (
+  <>
+  {hasMounted && <LazyLoadedComponent />}
+  </>
+)
+```
+
 ## useJSONData
 
 Fetch the raw JSON data and MobX State Tree data type for a Panoptes JSON subject.
