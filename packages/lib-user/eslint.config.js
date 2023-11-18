@@ -1,9 +1,9 @@
-import babelParser from '@babel/eslint-parser'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
-import reactRecommended from 'eslint-plugin-react/configs/recommended.js'
-import jsxRuntime from 'eslint-plugin-react/configs/jsx-runtime.js'
+const babelParser = require('@babel/eslint-parser')
+const jsxA11y = require('eslint-plugin-jsx-a11y')
+const reactRecommended = require('eslint-plugin-react/configs/recommended')
+const jsxRuntime = require('eslint-plugin-react/configs/jsx-runtime')
 
-export default [
+module.exports = [
   {
     settings: {
       react: {
