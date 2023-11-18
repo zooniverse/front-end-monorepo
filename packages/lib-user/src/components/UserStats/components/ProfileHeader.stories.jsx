@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 
-import ProfileHeader from './ProfileHeader.js'
+import ProfileHeader from './ProfileHeader.jsx'
 
 export default {
   title: 'Components/UserStats/ProfileHeader',
