@@ -1,4 +1,3 @@
-'use client'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
@@ -6,12 +5,12 @@ import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 import { getHost } from './helpers'
 import { useTranslation } from '../translations/i18n'
+import { useHasMounted } from '../hooks'
 
 import MainNavList from './components/MainNavList'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
-import ZooniverseLogo from '../ZooniverseLogo'
 import NarrowMainNavMenu from './components/NarrowMainNavMenu'
+import UserNavigation from './components/UserNavigation/UserNavigation.js'
+import ZooniverseLogo from '../ZooniverseLogo'
 
 export const StyledHeader = styled(Box)`
   color: #b2b2b2;
@@ -48,6 +47,7 @@ export default function ZooHeader({
   user = {},
   ...props
 }) {
+  const hasMounted = useHasMounted()
   const { t } = useTranslation()
   const { width, height, ref } = useResizeDetector({
     refreshMode: 'debounce',
@@ -108,17 +108,14 @@ export default function ZooHeader({
         as='nav'
         direction='row'
       >
-        {Object.keys(user).length === 0 ? (
-          <SignedOutUserNavigation
+        {hasMounted && (
+          <UserNavigation
+            isNarrow={isNarrow}
             register={register}
             signIn={signIn}
-          />
-        ) : (
-          <SignedInUserNavigation
-            isNarrow={isNarrow}
+            signOut={signOut}
             unreadMessages={unreadMessages}
             unreadNotifications={unreadNotifications}
-            signOut={signOut}
             user={user}
           />
         )}

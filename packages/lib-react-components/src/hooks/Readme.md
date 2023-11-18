@@ -1,5 +1,7 @@
 # Zooniverse React hooks
 
+## useHasMounted
+
 ## useJSONData
 
 Fetch the raw JSON data and MobX State Tree data type for a Panoptes JSON subject.
