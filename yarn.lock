@@ -2525,11 +2525,6 @@
   dependencies:
     eslint-scope "5.1.1"
 
-"@node-loader/babel@~2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-2.0.1.tgz#a04d7535b5ade12e3987de04fc5ffe204f26c64c"
-  integrity sha512-lulESaNn+jyn4lCbfcFWFcRYchsL0jY8q/mf5XRKOiX2uTpkXE3fGAlZ4+wyP/hIAMSlDPuHIUkRSTkJZ6SQyA==
-
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
