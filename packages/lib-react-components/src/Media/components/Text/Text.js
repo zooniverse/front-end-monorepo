@@ -65,7 +65,10 @@ export default function Text({
       width='100%'
       {...rest}
     >
-      <StyledPre theme={theme}>
+      <StyledPre
+        tabIndex='0'
+        theme={theme}
+      >
         {content}
       </StyledPre>
     </StyledBox>
