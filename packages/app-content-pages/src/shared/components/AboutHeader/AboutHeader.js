@@ -58,7 +58,7 @@ function AboutHeader() {
         direction='row'
         as='nav'
         background='brand'
-        pad={{ horizontal: '2rem' }} // Same as ZooHeader
+        pad={{ horizontal: 'medium' }}
       >
         <Box
           align='left'

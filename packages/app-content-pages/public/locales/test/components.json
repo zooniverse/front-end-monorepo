@@ -35,7 +35,7 @@
     "formLabel": "Translated",
     "formInstruction": "Translated",
     "showAll": "Translated",
-    "sideBarLabel": "Translated",
+    "sidebarLabel": "Translated",
     "title": "Translated"
   },
   "RegisterForm": {
@@ -75,7 +75,7 @@
   "Team": {
     "description": "Translated",
     "showAll": "Translated",
-    "sideBarLabel": "Translated",
+    "sidebarLabel": "Translated",
     "title": "Translated"
   }
 }

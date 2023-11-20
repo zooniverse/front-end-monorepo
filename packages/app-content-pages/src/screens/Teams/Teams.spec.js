@@ -22,7 +22,7 @@ function RouterMock({ children }) {
   )
 }
 
-describe('Component > TeamsContainer', function () {
+describe('Component > Teams Page', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {
@@ -33,8 +33,8 @@ describe('Component > TeamsContainer', function () {
     )
   })
 
-  it('should have a sidebar nav with accessible label', function () {
-    const sideBar = screen.getByLabelText('Team.sideBarLabel')
+  it('should have a nav with label', function () {
+    const sideBar = screen.getByText('Teams.sidebarLabel')
     expect(sideBar).to.be.ok()
   })
 
