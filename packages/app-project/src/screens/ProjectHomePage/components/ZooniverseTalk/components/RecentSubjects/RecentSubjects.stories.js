@@ -135,6 +135,39 @@ const DATA_SUBJECTS = [
   }
 ]
 
+const TEXT_SUBJECTS = [
+  {
+    favorite: false,
+    id: '123',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+      },
+    ]
+  },
+  {
+    favorite: false,
+    id: '456',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/5e4a7f1a-3427-4772-912d-80b0de90acc7.txt'
+      }
+    ],
+  },
+  {
+    favorite: false,
+    id: '789',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/47c72ca1-55e0-446d-afdf-9e0b29219b06.txt'
+      }
+    ]
+  }
+]
+
 export default {
   title: 'Project App / Screens / Project Home / Recent Subjects',
   component: RecentSubjects
@@ -198,6 +231,15 @@ export function Data() {
     <RecentSubjects
       href='/projects/hughdickinson/superwasp-black-hole-hunters/talk'
       subjects={DATA_SUBJECTS}
+    />
+  )
+}
+
+export function Text() {
+  return (
+    <RecentSubjects
+      href='/projects/zooniverse/notes-from-nature/talk'
+      subjects={TEXT_SUBJECTS}
     />
   )
 }
