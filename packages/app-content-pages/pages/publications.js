@@ -8,12 +8,12 @@ export async function getStaticProps({ locale }) {
     const publicationsData = await createPublicationsResponse()
 
     // For rendering linked h2's
-    publicationsData.forEach(category => (
+    publicationsData?.forEach(category => (
       category.slug = category.title.toLowerCase().replaceAll(' ', '-')
     ))
 
     // For building the sidebar
-    const sections = publicationsData.map(category => ({
+    const sections = publicationsData?.map(category => ({
       name: category.title,
       slug: category.title.toLowerCase().replaceAll(' ', '-')
     }))

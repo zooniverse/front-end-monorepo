@@ -22,9 +22,9 @@ describe('Component > RecentSubjectsContainer', function () {
   ]
 
   const MOCK_SUBJECTS = [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' }
+    { id: '1', locations: [] },
+    { id: '2', locations: [] },
+    { id: '3', locations: [] }
   ]
 
   before(function () {

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import { format } from 'd3'
 import Meta, { Default, HugeNumber, Zero } from './Stat.stories.js'
-import Mocks from './Stat.mock'
+import * as Mocks from './Stat.mock'
 
 
 describe('Component > Stat', function () {

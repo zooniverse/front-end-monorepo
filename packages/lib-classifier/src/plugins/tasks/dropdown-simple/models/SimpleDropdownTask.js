@@ -8,7 +8,7 @@ import SimpleDropdownAnnotation from './SimpleDropdownAnnotation'
 // What should be it called? I think we should use 'instruction'
 
 const MIN_OPTIONS = 4
-const MAX_OPTIONS = 20
+const MAX_OPTIONS = 200
 
 const MenuOptions = types.refinement('MenuOptions',
   types.array(types.string),
