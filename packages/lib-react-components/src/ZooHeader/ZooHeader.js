@@ -38,14 +38,14 @@ const signedOutUserNavPadding = { horizontal: 'medium', vertical: 'small' }
 
 export default function ZooHeader({
   breakpoint = 960,
-  darkMode = false,
-  showThemeToggle = false,
   isAdmin = false,
   isNarrow = false,
   onThemeChange = defaultHandler,
   register = defaultHandler,
+  showThemeToggle = false,
   signIn = defaultHandler,
   signOut = defaultHandler,
+  themeMode = false,
   unreadMessages = 0,
   unreadNotifications = 0,
   user = {},
@@ -113,7 +113,7 @@ export default function ZooHeader({
       </Box>
       <Box direction='row'>
         {showThemeToggle && (
-          <ThemeModeToggle darkMode={darkMode} onThemeChange={onThemeChange} />
+          <ThemeModeToggle themeMode={themeMode} onThemeChange={onThemeChange} />
         )}
         <Box
           aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
@@ -155,7 +155,6 @@ export default function ZooHeader({
 }
 
 ZooHeader.propTypes = {
-  darkMode: PropTypes.bool,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
   onThemeChange: PropTypes.bool,
@@ -163,6 +162,7 @@ ZooHeader.propTypes = {
   showThemeToggle: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+  themeMode: PropTypes.bool,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({

@@ -25,18 +25,25 @@ export default {
 }
 
 export function showThemeToggle({ signIn, signOut }) {
-  const [darkMode, setDarkMode] = useState(false)
+  const [themeMode, setThemeMode] = useState('light')
   function onThemeChange() {
-    setDarkMode(!darkMode)
+    let newTheme
+    if (themeMode === 'light') {
+      newTheme = 'dark'
+    } else {
+      newTheme = 'light'
+    }
+
+    setThemeMode(newTheme)
   }
 
   return (
     <ZooHeader
-      darkMode={darkMode}
       onThemeChange={onThemeChange}
       showThemeToggle
       signIn={signIn}
       signOut={signOut}
+      themeMode={themeMode}
       user={{}}
     />
   )

@@ -6,7 +6,7 @@ import { Grommet } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
 
 import { PanoptesAuthContext, ThemeModeContext } from '../contexts'
-import { useAdminMode, useDarkMode } from '../hooks'
+import { useAdminMode, useThemeMode } from '../hooks'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -25,8 +25,8 @@ export default function PageContextProviders({ children }) {
   const { adminMode, toggleAdmin } = useAdminMode(user)
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
 
-  const { darkMode, toggleTheme } = useDarkMode()
-  const themeContext = { darkMode, toggleTheme }
+  const { themeMode, toggleTheme } = useThemeMode()
+  const themeContext = { themeMode, toggleTheme }
 
   return (
     <PanoptesAuthContext.Provider value={authContext}>
@@ -38,7 +38,7 @@ export default function PageContextProviders({ children }) {
             light: 'light-1'
           }}
           theme={zooTheme}
-          themeMode={darkMode ? 'dark' : 'light'}
+          themeMode={themeMode}
         >
           {children}
         </Grommet>

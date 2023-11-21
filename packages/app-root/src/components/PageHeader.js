@@ -12,7 +12,7 @@ export default function PageHeader() {
   const { data: unreadNotifications }= useUnreadNotifications(user)
   const [activeIndex, setActiveIndex] = useState(-1)
 
-  const { darkMode, toggleTheme } = useContext(ThemeModeContext)
+  const { themeMode, toggleTheme } = useContext(ThemeModeContext)
 
   function openRegisterModal() {
     setActiveIndex(1)
@@ -38,13 +38,13 @@ export default function PageHeader() {
         onActive={setActiveIndex}
       />
       <ZooHeader
-        darkMode={darkMode}
         isAdmin={adminMode}
         onThemeChange={toggleTheme}
         register={openRegisterModal}
         showThemeToggle
         signIn={openSignInModal}
         signOut={onSignOut}
+        themeMode={themeMode}
         unreadMessages={unreadMessages}
         unreadNotifications={unreadNotifications}
         user={user}
