@@ -1,13 +1,9 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import MainNavList from './components/MainNavList'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import ZooniverseLogo from '../ZooniverseLogo'
 import ZooHeader from './ZooHeader'
 
-describe('ZooHeader', function () {
+describe.only('ZooHeader', function () {
   this.timeout(5000)
   let mainNavList, zooLogo
 
@@ -211,6 +207,17 @@ describe('ZooHeader', function () {
 
       it('should have an admin link', function () {
         expect(adminLink.href).to.equal('https://www.zooniverse.org/admin')
+      })
+    })
+
+    describe('showing a theme toggle', function () {
+      before(function () {
+        render(<ZooHeader showThemeToggle signIn={() => {}} signOut={() => {}} />)
+      })
+
+      it('shows theme toggle', function () {
+        const toggle = screen.getByLabelText('Switch to dark theme')
+        expect(toggle).to.exist()
       })
     })
   })
