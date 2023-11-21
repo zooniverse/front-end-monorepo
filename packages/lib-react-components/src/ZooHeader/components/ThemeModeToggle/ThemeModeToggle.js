@@ -17,14 +17,21 @@ const StyledButton = styled(Button)`
 export default function ThemeModeToggle({ themeMode, onThemeChange }) {
   const { t } = useTranslation()
 
-  const label = themeMode === 'dark'
-    ? t('ZooHeader.ThemeModeToggle.switchToLight')
-    : t('ZooHeader.ThemeModeToggle.switchToDark')
+  const label =
+    themeMode === 'dark'
+      ? t('ZooHeader.ThemeModeToggle.switchToLight')
+      : t('ZooHeader.ThemeModeToggle.switchToDark')
 
   return (
     <StyledButton
       aria-label={label}
-      icon={themeMode === 'dark' ? <Moon /> : <Sun />}
+      icon={
+        themeMode === 'dark' ? (
+          <Moon color='#b2b2b2' size='14px' />
+        ) : (
+          <Sun color='#b2b2b2' size='14px' />
+        )
+      }
       onClick={onThemeChange}
       plain
     />
