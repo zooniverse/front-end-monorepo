@@ -1,41 +1,36 @@
-import { Component, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 
+const DEFAULT_HANDLER = () => true
+
 function withCustomFormik (WrappedComponent) {
-  class FormikHOC extends Component {
-    constructor () {
-      super()
+  function FormikHOC({
+    forwardedRef = null,
+    initialValues,
+    onBlur = DEFAULT_HANDLER,
+    onChange = DEFAULT_HANDLER,
+    onSubmit = DEFAULT_HANDLER,
+    ...optionalProps
+  }) {
 
-      this.handleBlurWithCallback = this.handleBlurWithCallback.bind(this)
-      this.handleChangeWithCallback = this.handleChangeWithCallback.bind(this)
-    }
-
-    handleBlurWithCallback(event, formikProps) {
+    function handleBlurWithCallback(event, formikProps) {
       formikProps.handleBlur(event)
-      this.props.onBlur(event, formikProps)
+      onBlur(event, formikProps)
     }
 
-    handleChangeWithCallback (event, formikProps) {
+    function handleChangeWithCallback(event, formikProps) {
       formikProps.handleChange(event)
-      this.props.onChange(event, formikProps)
+      onChange(event, formikProps)
     }
 
-    renderForm (props, ref) {
-      // render the wrapped form but override handleChange with a custom callback
-      const {
-        handleBlur,
-        handleChange,
-        ...rest
-      } = props
-      const { handleBlurWithCallback, handleChangeWithCallback } = this
-
-      function handleCustomBlur (event) {
-        handleBlurWithCallback(event, props)
+    function renderForm({ handleBlur, handleChange, ...rest } , ref) {
+      function handleCustomBlur(event) {
+        handleBlurWithCallback(event, { handleBlur, handleChange, ...rest })
       }
 
-      function handleCustomChange (event) {
-        handleChangeWithCallback(event, props)
+      function handleCustomChange(event) {
+        handleChangeWithCallback(event, { handleBlur, handleChange, ...rest })
       }
 
       return (
@@ -48,24 +43,15 @@ function withCustomFormik (WrappedComponent) {
       )
     }
 
-    render () {
-      const { forwardedRef, initialValues, onSubmit, ...optionalProps } = this.props
-      return (
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          {...optionalProps}
-        >
-          {(innerProps) => this.renderForm(innerProps, forwardedRef)}
-        </Formik>
-      )
-    }
-  }
-
-  FormikHOC.defaultProps = {
-    forwardedRef: null,
-    onBlur: () => {},
-    onChange: () => {}
+    return (
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        {...optionalProps}
+      >
+        {(innerProps) => renderForm(innerProps, forwardedRef)}
+      </Formik>
+    )
   }
 
   FormikHOC.propTypes = {

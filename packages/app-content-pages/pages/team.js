@@ -13,7 +13,7 @@ export async function getStaticProps({ locale }) {
     })
 
     // For building the sidebar
-    const sections = teamData.map(team => ({
+    const sections = teamData?.map(team => ({
       name: team.name,
       slug: team.name.toLowerCase().replaceAll(' ', '-')
     }))
