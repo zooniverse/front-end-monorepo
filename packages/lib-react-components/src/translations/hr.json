@@ -37,6 +37,10 @@
       "register": "Registrirajte se",
       "signIn": "Prijavite se"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Prebaci na tamno temu",
+      "switchToLight": "Prebaci na svijetlo temu"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Zbirke",
