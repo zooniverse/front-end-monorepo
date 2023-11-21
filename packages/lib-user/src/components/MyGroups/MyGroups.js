@@ -52,12 +52,13 @@ function MyGroups({ authClient }) {
 
   const activeGroupsWithRoles = convertActiveGroupsWithRoles(membershipsWithGroups)
 
-  if (activeGroupsWithRoles.length === 0) return (<p>You are not an active member of any groups.</p>)
-
   return (
     <div>
       <div>
-        <h3>MyGroups</h3>        
+        <h3>MyGroups</h3>
+        {activeGroupsWithRoles.length === 0 ? (
+          <p>You are not an active member of any groups.</p>
+        ) : null}
         {activeGroupsWithRoles.map((group) => {
           const roles = group.roles
 
