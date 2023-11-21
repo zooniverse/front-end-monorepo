@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ZooHeader from './ZooHeader'
 
-describe.only('ZooHeader', function () {
+describe('ZooHeader', function () {
   this.timeout(5000)
   let mainNavList, zooLogo
 
