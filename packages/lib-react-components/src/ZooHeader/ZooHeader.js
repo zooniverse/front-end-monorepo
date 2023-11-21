@@ -10,18 +10,20 @@ import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import ZooniverseLogo from '../ZooniverseLogo'
+import ThemeModeToggle from './components/ThemeModeToggle/ThemeModeToggle'
 
 export const StyledHeader = styled(Box)`
-  color: #B2B2B2;
+  color: #b2b2b2;
   font-size: 1em;
 `
 
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
-  color: #B2B2B2;
+  color: #b2b2b2;
   margin-right: 2em;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-bottom-color: ${zooTheme.global.colors.brand};
   }
 
@@ -36,8 +38,11 @@ const signedOutUserNavPadding = { horizontal: 'medium', vertical: 'small' }
 
 export default function ZooHeader({
   breakpoint = 960,
+  darkMode = false,
+  showThemeToggle = false,
   isAdmin = false,
   isNarrow = false,
+  onThemeChange = defaultHandler,
   register = defaultHandler,
   signIn = defaultHandler,
   signOut = defaultHandler,
@@ -73,7 +78,8 @@ export default function ZooHeader({
     t('ZooHeader.mainHeaderNavListLabels.build')
   ]
 
-  const userNavigationPadding = Object.keys(user).length === 0 ? signedOutUserNavPadding : undefined
+  const userNavigationPadding =
+    Object.keys(user).length === 0 ? signedOutUserNavPadding : undefined
   return (
     <StyledHeader
       ref={ref}
@@ -105,47 +111,56 @@ export default function ZooHeader({
           mainHeaderNavListURLs={mainHeaderNavListURLs}
         />
       </Box>
-      <Box
-        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
-        as='nav'
-        align='center'
-        direction='row'
-        pad={userNavigationPadding}
-      >
-        {Object.keys(user).length === 0 ?
-          <SignedOutUserNavigation
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
-            isNarrow={isNarrow}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-            register={register}
-            signIn={signIn}
-            user={user}
-          /> :
-          <SignedInUserNavigation
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
-            isNarrow={isNarrow}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-            unreadMessages={unreadMessages}
-            unreadNotifications={unreadNotifications}
-            signOut={signOut}
-            user={user}
-          />
-        }
+      <Box direction='row'>
+        {showThemeToggle && (
+          <ThemeModeToggle darkMode={darkMode} onThemeChange={onThemeChange} />
+        )}
+        <Box
+          aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
+          as='nav'
+          align='center'
+          direction='row'
+          pad={userNavigationPadding}
+        >
+          {Object.keys(user).length === 0 ? (
+            <SignedOutUserNavigation
+              adminNavLinkLabel={adminNavLinkLabel}
+              adminNavLinkURL={adminNavLinkURL}
+              isAdmin={isAdmin}
+              isNarrow={isNarrow}
+              mainHeaderNavListLabels={mainHeaderNavListLabels}
+              mainHeaderNavListURLs={mainHeaderNavListURLs}
+              register={register}
+              signIn={signIn}
+              user={user}
+            />
+          ) : (
+            <SignedInUserNavigation
+              adminNavLinkLabel={adminNavLinkLabel}
+              adminNavLinkURL={adminNavLinkURL}
+              isAdmin={isAdmin}
+              isNarrow={isNarrow}
+              mainHeaderNavListLabels={mainHeaderNavListLabels}
+              mainHeaderNavListURLs={mainHeaderNavListURLs}
+              unreadMessages={unreadMessages}
+              unreadNotifications={unreadNotifications}
+              signOut={signOut}
+              user={user}
+            />
+          )}
+        </Box>
       </Box>
     </StyledHeader>
   )
 }
 
 ZooHeader.propTypes = {
+  darkMode: PropTypes.bool,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
+  onThemeChange: PropTypes.bool,
   register: PropTypes.func,
+  showThemeToggle: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number,

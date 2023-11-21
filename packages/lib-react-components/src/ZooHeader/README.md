@@ -4,6 +4,8 @@ The standard Zooniverse header to be used on Zooniverse sites. Built using:
 - [Grommet v2](https://v2.grommet.io/components)
 - [styled-components](https://www.styled-components.com/)
 
-The header does not have light and dark theme variants. It remains black for both. 
+The header does not have light and dark theme variants. It remains black for both.
 
 The `signIn` (function), `signOut` (function), and `user` (object) props are required. These props can be defined using the API from @zooniverse/auth. See the development mini-app in the lib-auth folder for an example of using its API.
+
+If you wish to display a theme toggle for `light` and `dark` Grommet `themeMode`, pass `showThemeToggle` as a prop to ZooHeader. Handling of the Grommet Provider should be in ZooHeader's parent app.

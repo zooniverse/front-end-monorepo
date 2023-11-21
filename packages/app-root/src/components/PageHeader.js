@@ -4,13 +4,15 @@ import { useUnreadMessages, useUnreadNotifications } from '@zooniverse/react-com
 import auth from 'panoptes-client/lib/auth'
 import { useContext, useState } from 'react'
 
-import { PanoptesAuthContext } from '../contexts'
+import { PanoptesAuthContext, ThemeModeContext } from '../contexts'
 
 export default function PageHeader() {
   const { adminMode, user } = useContext(PanoptesAuthContext)
   const { data: unreadMessages }= useUnreadMessages(user)
   const { data: unreadNotifications }= useUnreadNotifications(user)
   const [activeIndex, setActiveIndex] = useState(-1)
+
+  const { darkMode, toggleTheme } = useContext(ThemeModeContext)
 
   function openRegisterModal() {
     setActiveIndex(1)
@@ -36,8 +38,11 @@ export default function PageHeader() {
         onActive={setActiveIndex}
       />
       <ZooHeader
+        darkMode={darkMode}
         isAdmin={adminMode}
+        onThemeChange={toggleTheme}
         register={openRegisterModal}
+        showThemeToggle
         signIn={openSignInModal}
         signOut={onSignOut}
         unreadMessages={unreadMessages}

@@ -1,0 +1,37 @@
+import { Button } from 'grommet'
+import { useTranslation } from '../../../translations/i18n'
+import PropTypes from 'prop-types'
+import { Sun, Moon } from 'grommet-icons'
+import styled from 'styled-components'
+
+const StyledButton = styled(Button)`
+  padding-right: 15px;
+
+  &:hover {
+    > svg {
+      stroke: white;
+    }
+  }
+`
+
+export default function ThemeModeToggle({ darkMode, onThemeChange }) {
+  const { t } = useTranslation()
+
+  const label = darkMode
+    ? t('ZooHeader.ThemeModeToggle.switchToLight')
+    : t('ZooHeader.ThemeModeToggle.switchToDark')
+
+  return (
+    <StyledButton
+      aria-label={label}
+      icon={darkMode ? <Moon /> : <Sun />}
+      onClick={onThemeChange}
+      plain
+    />
+  )
+}
+
+ThemeModeToggle.propTypes = {
+  darkMode: PropTypes.string,
+  onThemeChange: PropTypes.func
+}

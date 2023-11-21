@@ -1,4 +1,5 @@
 import { Box } from 'grommet'
+import { useState } from 'react'
 
 import ZooHeader from './ZooHeader'
 import readme from './README.md'
@@ -21,6 +22,24 @@ export default {
       }
     }
   }
+}
+
+export function showThemeToggle({ signIn, signOut }) {
+  const [darkMode, setDarkMode] = useState(false)
+  function onThemeChange() {
+    setDarkMode(!darkMode)
+  }
+
+  return (
+    <ZooHeader
+      darkMode={darkMode}
+      onThemeChange={onThemeChange}
+      showThemeToggle
+      signIn={signIn}
+      signOut={signOut}
+      user={{}}
+    />
+  )
 }
 
 export function SignedOut({ signIn, signOut }) {

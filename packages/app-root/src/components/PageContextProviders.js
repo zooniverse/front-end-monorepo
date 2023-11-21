@@ -5,8 +5,8 @@ import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 import { Grommet } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
 
-import { PanoptesAuthContext } from '../contexts'
-import { useAdminMode } from '../hooks'
+import { PanoptesAuthContext, ThemeModeContext } from '../contexts'
+import { useAdminMode, useDarkMode } from '../hooks'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 /**
   Context for every page:
   - global page styles.
-  - Zooniverse Grommet theme.
+  - Zooniverse Grommet theme and mode.
   - Panoptes auth (user account and admin mode.)
 */
 export default function PageContextProviders({ children }) {
@@ -25,19 +25,24 @@ export default function PageContextProviders({ children }) {
   const { adminMode, toggleAdmin } = useAdminMode(user)
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
 
+  const { darkMode, toggleTheme } = useDarkMode()
+  const themeContext = { darkMode, toggleTheme }
+
   return (
     <PanoptesAuthContext.Provider value={authContext}>
-      <GlobalStyle />
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-      >
-        {children}
-      </Grommet>
+      <ThemeModeContext.Provider value={themeContext}>
+        <GlobalStyle />
+        <Grommet
+          background={{
+            dark: 'dark-1',
+            light: 'light-1'
+          }}
+          theme={zooTheme}
+          themeMode={darkMode ? 'dark' : 'light'}
+        >
+          {children}
+        </Grommet>
+      </ThemeModeContext.Provider>
     </PanoptesAuthContext.Provider>
   )
-
 }
