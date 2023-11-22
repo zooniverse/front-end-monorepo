@@ -5,7 +5,10 @@ import { Sun, Moon } from 'grommet-icons'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
-  padding-right: 15px;
+  > svg {
+    width: 0.875rem;
+    height: 0.875rem; // grommet-icons won't recognize rem units for size
+  }
 
   &:hover {
     > svg {
@@ -27,11 +30,12 @@ export default function ThemeModeToggle({ themeMode, onThemeChange }) {
       aria-label={label}
       icon={
         themeMode === 'dark' ? (
-          <Moon color='#b2b2b2' size='14px' />
+          <Moon color='#b2b2b2' />
         ) : (
-          <Sun color='#b2b2b2' size='14px' />
+          <Sun color='#b2b2b2' />
         )
       }
+      margin={{ right: 'small' }}
       onClick={onThemeChange}
       plain
     />

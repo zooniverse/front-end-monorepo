@@ -45,7 +45,7 @@ export default function ZooHeader({
   showThemeToggle = false,
   signIn = defaultHandler,
   signOut = defaultHandler,
-  themeMode = false,
+  themeMode = 'light',
   unreadMessages = 0,
   unreadNotifications = 0,
   user = {},
@@ -115,9 +115,12 @@ export default function ZooHeader({
         {hasMounted && (
           <UserNavigation
             isNarrow={isNarrow}
+            onThemeChange={onThemeChange}
             register={register}
+            showThemeToggle={showThemeToggle}
             signIn={signIn}
             signOut={signOut}
+            themeMode={themeMode}
             unreadMessages={unreadMessages}
             unreadNotifications={unreadNotifications}
             user={user}
@@ -140,16 +143,16 @@ export default function ZooHeader({
 ZooHeader.propTypes = {
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
-  onThemeChange: PropTypes.bool,
+  onThemeChange: PropTypes.func,
   register: PropTypes.func,
   showThemeToggle: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
-  themeMode: PropTypes.bool,
+  themeMode: PropTypes.string,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
-    display_name: PropTypes.string.isRequired,
-    login: PropTypes.string.isRequired
+    display_name: PropTypes.string,
+    login: PropTypes.string
   })
 }

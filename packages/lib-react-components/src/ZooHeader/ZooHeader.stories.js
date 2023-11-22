@@ -22,7 +22,35 @@ export default {
   }
 }
 
-export function showThemeToggle({ signIn, signOut }) {
+export function ThemeToggleSignedIn({ signIn, signOut }) {
+  const [themeMode, setThemeMode] = useState('light')
+  function onThemeChange() {
+    let newTheme
+    if (themeMode === 'light') {
+      newTheme = 'dark'
+    } else {
+      newTheme = 'light'
+    }
+
+    setThemeMode(newTheme)
+  }
+
+  return (
+    <ZooHeader
+      onThemeChange={onThemeChange}
+      showThemeToggle
+      signIn={signIn}
+      signOut={signOut}
+      themeMode={themeMode}
+      user={{
+        display_name: 'zootester1',
+        login: 'zootester1'
+      }}
+    />
+  )
+}
+
+export function ThemeToggleSignedOut({ signIn, signOut }) {
   const [themeMode, setThemeMode] = useState('light')
   function onThemeChange() {
     let newTheme
@@ -46,6 +74,7 @@ export function showThemeToggle({ signIn, signOut }) {
     />
   )
 }
+
 
 export function SignedOut({ signIn, signOut }) {
   return <ZooHeader signIn={signIn} signOut={signOut} user={{}} />
