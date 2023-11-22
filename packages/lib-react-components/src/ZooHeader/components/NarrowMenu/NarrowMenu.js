@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
+import styled from 'styled-components'
+
+const StyledMenu = styled(Menu)`
+  & > div {
+    padding: 0;
+  }
+`
 
 export default function NarrowMenu({
   children,
@@ -16,8 +23,9 @@ export default function NarrowMenu({
   }
 
   return (
-    <Menu
+    <StyledMenu
       aria-label={ariaLabel}
+      dropAlign={{ top: 'bottom', right: 'right' }}
       dropBackground={dropBackground}
       icon={icon}
       items={items}
@@ -26,14 +34,8 @@ export default function NarrowMenu({
       {...props}
     >
       {children}
-    </Menu>
+    </StyledMenu>
   )
-}
-
-NarrowMenu.defaultProps = {
-  dropBackground: 'brand',
-  label: '',
-  size: 'small'
 }
 
 NarrowMenu.propTypes = {

@@ -34,6 +34,12 @@ export default function Media(props) {
     )
   }
 
+  if (type === 'text') {
+    return (
+      <Viewers.Text {...componentProps} />
+    )
+  }
+
   return null
 }
 

@@ -14,10 +14,7 @@ export const StyledFormDown = styled(FormDown)`
   width: 1em;
 `
 
-const textMargin = { right: 'small' }
-const menuButtonPadding = { horizontal: 'medium', vertical: 'small' }
-
-export default function UserMenu ({ signOut, user }) {
+export default function UserMenu({ signOut, user }) {
   const { t } = useTranslation()
 
   // Support staging urls...
@@ -42,20 +39,12 @@ export default function UserMenu ({ signOut, user }) {
   ]
 
   return (
-    <NarrowMenu
-      aria-label={user.display_name}
-      items={userMenuNavListItems}
-    >
-      <Box
-        align="center"
-        as='span'
-        direction="row"
-        pad={menuButtonPadding}
-      >
+    <NarrowMenu aria-label={user.display_name} items={userMenuNavListItems}>
+      <Box align='center' as='span' direction='row'>
         <SpacedText
           color='#b2b2b2'
           lang='en'
-          margin={textMargin}
+          margin={{ right: 'xsmall' }}
           size='xsmall'
           weight='bold'
         >

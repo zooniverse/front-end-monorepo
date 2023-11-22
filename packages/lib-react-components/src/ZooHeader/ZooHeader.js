@@ -5,10 +5,11 @@ import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 import { getHost } from './helpers'
 import { useTranslation } from '../translations/i18n'
+import { useHasMounted } from '../hooks'
 
 import MainNavList from './components/MainNavList'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
+import NarrowMainNavMenu from './components/NarrowMainNavMenu'
+import UserNavigation from './components/UserNavigation/UserNavigation.js'
 import ZooniverseLogo from '../ZooniverseLogo'
 import ThemeModeToggle from './components/ThemeModeToggle/ThemeModeToggle'
 
@@ -20,7 +21,7 @@ export const StyledHeader = styled(Box)`
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
   color: #b2b2b2;
-  margin-right: 2em;
+  margin-right: 30px;
 
   &:hover,
   &:focus {
@@ -28,13 +29,12 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 
   > svg {
-    vertical-align: text-bottom;
+    vertical-align: middle;
     width: 1em;
   }
 `
 
 const defaultHandler = () => true
-const signedOutUserNavPadding = { horizontal: 'medium', vertical: 'small' }
 
 export default function ZooHeader({
   breakpoint = 960,
@@ -51,6 +51,7 @@ export default function ZooHeader({
   user = {},
   ...props
 }) {
+  const hasMounted = useHasMounted()
   const { t } = useTranslation()
   const { width, height, ref } = useResizeDetector({
     refreshMode: 'debounce',
@@ -78,17 +79,14 @@ export default function ZooHeader({
     t('ZooHeader.mainHeaderNavListLabels.build')
   ]
 
-  const userNavigationPadding =
-    Object.keys(user).length === 0 ? signedOutUserNavPadding : undefined
   return (
     <StyledHeader
       ref={ref}
       background='black'
       direction='row'
-      fill='horizontal'
       justify='between'
-      pad='none'
-      responsive={false}
+      pad={{ vertical: '20px', horizontal: 'medium' }}
+      responsive
       {...props}
     >
       <Box
@@ -96,8 +94,6 @@ export default function ZooHeader({
         align='center'
         aria-label={t('ZooHeader.ariaLabel')}
         direction='row'
-        pad={{ horizontal: 'medium' }}
-        responsive={false}
       >
         <StyledLogoAnchor href='http://www.zooniverse.org'>
           <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
@@ -111,44 +107,31 @@ export default function ZooHeader({
           mainHeaderNavListURLs={mainHeaderNavListURLs}
         />
       </Box>
-      <Box direction='row'>
-        {showThemeToggle && (
-          <ThemeModeToggle themeMode={themeMode} onThemeChange={onThemeChange} />
+      <Box
+        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
+        as='nav'
+        direction='row'
+      >
+        {hasMounted && (
+          <UserNavigation
+            isNarrow={isNarrow}
+            register={register}
+            signIn={signIn}
+            signOut={signOut}
+            unreadMessages={unreadMessages}
+            unreadNotifications={unreadNotifications}
+            user={user}
+          />
         )}
-        <Box
-          aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
-          as='nav'
-          align='center'
-          direction='row'
-          pad={userNavigationPadding}
-        >
-          {Object.keys(user).length === 0 ? (
-            <SignedOutUserNavigation
-              adminNavLinkLabel={adminNavLinkLabel}
-              adminNavLinkURL={adminNavLinkURL}
-              isAdmin={isAdmin}
-              isNarrow={isNarrow}
-              mainHeaderNavListLabels={mainHeaderNavListLabels}
-              mainHeaderNavListURLs={mainHeaderNavListURLs}
-              register={register}
-              signIn={signIn}
-              user={user}
-            />
-          ) : (
-            <SignedInUserNavigation
-              adminNavLinkLabel={adminNavLinkLabel}
-              adminNavLinkURL={adminNavLinkURL}
-              isAdmin={isAdmin}
-              isNarrow={isNarrow}
-              mainHeaderNavListLabels={mainHeaderNavListLabels}
-              mainHeaderNavListURLs={mainHeaderNavListURLs}
-              unreadMessages={unreadMessages}
-              unreadNotifications={unreadNotifications}
-              signOut={signOut}
-              user={user}
-            />
-          )}
-        </Box>
+        {isNarrow && (
+          <NarrowMainNavMenu
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            isAdmin={user?.admin && isAdmin}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+          />
+        )}
       </Box>
     </StyledHeader>
   )
@@ -168,5 +151,5 @@ ZooHeader.propTypes = {
   user: PropTypes.shape({
     display_name: PropTypes.string.isRequired,
     login: PropTypes.string.isRequired
-  }).isRequired
+  })
 }
