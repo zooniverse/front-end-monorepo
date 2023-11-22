@@ -26,3 +26,25 @@ export const Default = {
     title: 'Project Title'
   }
 }
+
+export const PlaceholderAvatar = {
+  args: {
+    avatarSrc: '',
+    projectId: '4973',
+    publications: [
+      {
+        authors: 'Blickhan+',
+        title: 'Individual vs. Collaborative Methods',
+        url: 'https://hal.archives-ouvertes.fr/hal-02280013v2',
+        year: '2019'
+      },
+      {
+        authors: 'Blickhan+',
+        title: 'The role of information community',
+        url: 'http://doi.org/10.3233/ISU-220169',
+        year: '2022'
+      }
+    ],
+    title: 'Project Title'
+  }
+}

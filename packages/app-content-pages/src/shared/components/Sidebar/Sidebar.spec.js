@@ -11,7 +11,6 @@ describe('Component > Sidebar', function () {
   })
 
   it('should render a list of links to page sections', function () {
-    screen.debug()
     expect(document.querySelector(`[href="#${Default.args.sections[0].slug}"]`)).to.be.ok()
   })
 

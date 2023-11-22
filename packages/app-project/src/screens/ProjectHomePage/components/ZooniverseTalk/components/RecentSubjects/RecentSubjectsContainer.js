@@ -1,13 +1,22 @@
 import asyncStates from '@zooniverse/async-states'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { bool } from 'prop-types'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
+import useSWR from 'swr'
 import { useTranslation } from 'next-i18next'
 
 import RecentSubjects from './RecentSubjects'
 import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
+
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
 
 function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
@@ -23,35 +32,20 @@ function useStores(mockStore) {
 function RecentSubjectsContainer({ carousel = false, mockStore }) {
   const { t } = useTranslation('screens')
   const { projectId, slug } = useStores(mockStore)
-  const [loading, setLoading] = useState(asyncStates.initialized)
-  const [subjects, setSubjects] = useState([])
-
-  useEffect(() => {
-    async function fetchProjectTalkSubjects() {
-      setLoading(asyncStates.loading)
-      try {
-        const fetchedSubjects = await fetchRecentSubjects(projectId)
-        if (fetchedSubjects) {
-          setLoading(asyncStates.success)
-          setSubjects(fetchedSubjects)
-        }
-      } catch (error) {
-        console.error(error)
-        setLoading(asyncStates.error)
-      }
-    }
-    fetchProjectTalkSubjects()
-  }, [projectId])
-
+  const cacheKey = {
+    name: 'project-talk-recent-subjects',
+    projectId
+  }
+  const { data: subjects, error, isLoading } = useSWR(cacheKey, fetchRecentSubjects, SWROptions)
   const href = `/projects/${slug}/talk`
   const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
 
   return (
     <>
-      {loading === asyncStates.error && (
+      {error && (
         <MessageBox>{t('Home.ZooniverseTalk.RecentSubjects.error')}</MessageBox>
       )}
-      {loading === asyncStates.success && subjects.length < 1 ? (
+      {!isLoading && subjects?.length < 1 ? (
         <MessageBox>
           {t('Home.ZooniverseTalk.RecentSubjects.noSubjects')}
         </MessageBox>

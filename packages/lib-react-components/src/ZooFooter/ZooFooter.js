@@ -3,6 +3,7 @@ import { arrayOf, node, string } from 'prop-types'
 import { useEffect } from 'react';
 import styled from 'styled-components'
 import i18n, { useTranslation } from '../translations/i18n'
+import { useHasMounted } from '../hooks'
 
 import {
   LinkList,
@@ -82,6 +83,7 @@ export default function ZooFooter ({
   projectNavListURLs = defaultProps.projectNavListURLs,
   talkNavListURLs = defaultProps.talkNavListURLs
 }) {
+  const hasMounted = useHasMounted()
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -239,7 +241,7 @@ export default function ZooFooter ({
           urls={policyNavListURLs}
         />
         <Box>
-          {adminContainer}
+          {hasMounted && adminContainer}
         </Box>
       </Box>
     </Box>

@@ -39,6 +39,17 @@ export const VideoSubjectMock = {
   ]
 }
 
+export const TextSubjectMock = {
+  favorite: false,
+  id: '123',
+  locations: [
+    {
+      'text/plain':
+        'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+    },
+  ]
+}
+
 const snapshot = {
   project: {
     strings: {
@@ -53,5 +64,3 @@ const snapshot = {
 }
 
 export const StoreMock = Store.create(snapshot)
-
-

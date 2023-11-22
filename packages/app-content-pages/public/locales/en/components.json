@@ -24,15 +24,15 @@
     "formInfo": "We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.",
     "formLabel": "please use this form",
     "formInstruction": "To submit a new publication or update an existing one, ",
-    "sideBarLabel": "Jump to category",
+    "sidebarLabel": "Discipline",
     "title": "Publications"
   },
   "Sidebar": {
     "all": "All"
   },
-  "Team": {
+  "Teams": {
     "description": "The people who make the Zooniverse.",
-    "sideBarLabel": "Jump to team location",
+    "sidebarLabel": "Institution",
     "title": "Our Team"
   }
 }
