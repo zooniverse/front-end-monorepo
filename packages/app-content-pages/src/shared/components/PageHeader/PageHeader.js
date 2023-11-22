@@ -17,14 +17,6 @@ function PageHeader() {
     auth.signOut()
   }
 
-  function getUrlObject() {
-    // const isBrowser = typeof window !== 'undefined'
-    // if (isBrowser) {
-      return new URL(window.location)
-    // }
-    return ''
-  }
-
   function removeUrlQuery(urlObject, paramToRemove) {
     urlObject.searchParams.delete(paramToRemove)
   }
@@ -44,7 +36,7 @@ function PageHeader() {
   }
 
   function closeAuthModal() {
-    const url = getUrlObject()
+    const url = new URL(window.location)()
     removeUrlQuery(url, 'login')
     removeUrlQuery(url, 'register')
     router.push(url, url, { shallow: true })
