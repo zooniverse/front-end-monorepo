@@ -4,6 +4,7 @@ import { Grommet, base } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 import merge from 'lodash/merge'
+import Error from 'next/error'
 
 import PageHeader from '../src/shared/components/PageHeader/PageHeader.js'
 import { PanoptesAuthContext } from '../src/shared/contexts'
