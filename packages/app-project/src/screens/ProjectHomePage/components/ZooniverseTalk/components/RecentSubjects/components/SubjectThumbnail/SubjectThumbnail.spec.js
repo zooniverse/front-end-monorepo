@@ -1,8 +1,7 @@
 import { shallow } from 'enzyme'
-import { Anchor } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 
-import SubjectThumbnail from './SubjectThumbnail'
+import SubjectThumbnail, { StyledAnchor } from './SubjectThumbnail'
 
 describe('Component > SubjectThumbnail', function () {
   let wrapper
@@ -26,7 +25,7 @@ describe('Component > SubjectThumbnail', function () {
   })
 
   it('should render a linked thumbnail', function () {
-    const link = wrapper.find(Anchor)
+    const link = wrapper.find(StyledAnchor)
     const href = '/projects/test/project/talk/subjects/1'
     const src = 'https://www.zooniverse.org/mock-subjects/file-1.jpg'
     const media = link.find(Media)
@@ -35,12 +34,12 @@ describe('Component > SubjectThumbnail', function () {
   })
 
   it('should have a max height', function () {
-    const container = wrapper.find(Anchor).children().first()
+    const container = wrapper.find(StyledAnchor).children().first()
     expect(container.prop('maxHeight')).to.equal(200)
   })
 
   it('should have a max width', function () {
-    const container = wrapper.find(Anchor).children().first()
+    const container = wrapper.find(StyledAnchor).children().first()
     expect(container.prop('maxWidth')).to.equal(270)
   })
 })

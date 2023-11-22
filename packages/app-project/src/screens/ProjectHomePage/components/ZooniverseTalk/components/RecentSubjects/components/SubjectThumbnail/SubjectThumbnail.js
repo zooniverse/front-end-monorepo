@@ -1,8 +1,16 @@
-import PropTypes from 'prop-types'
 import { Anchor, Box } from 'grommet'
-import { Media, SpacedText } from '@zooniverse/react-components'
-import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
+import PropTypes from 'prop-types'
+import styled, { css } from 'styled-components'
+import { Media, SpacedText } from '@zooniverse/react-components'
+
+export const StyledAnchor = styled(Anchor)`
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+`
 
 const StyledBox = styled(Box)`
   ${props => css`
@@ -12,6 +20,7 @@ const StyledBox = styled(Box)`
   overflow: hidden;
   position: relative;
 `
+
 const StyledSpacedText = styled(SpacedText)`
   bottom: 1em;
   left: 1em;
@@ -24,7 +33,7 @@ function SubjectThumbnail ({ height, href, width, subject }) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
   return (
-    <Anchor
+    <StyledAnchor
       href={`${href}/subjects/${subject.id}`}
     >
       <StyledBox
@@ -45,7 +54,7 @@ function SubjectThumbnail ({ height, href, width, subject }) {
           {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subject.id })}
         </StyledSpacedText>
       </StyledBox>
-    </Anchor>
+    </StyledAnchor>
   )
 }
 

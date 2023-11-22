@@ -1,7 +1,25 @@
-import RecentSubjects from './RecentSubjects'
 import { Provider } from 'mobx-react'
+
+import Store from '@stores/Store'
+
+import RecentSubjects from './RecentSubjects'
 import { CollectionsStoreMock } from './CollectionsStoreMock';
-import { RecentsMock, PortraitSubjectsMock, DataSubjectsMock, VideoSubjectsMock } from './RecentSubjects.mock';
+import { RecentsMock, PortraitSubjectsMock, DataSubjectsMock, TextSubjectsMock, VideoSubjectsMock } from './RecentSubjects.mock';
+
+const snapshot = {
+  project: {
+    strings: {
+      display_name: 'Snapshot Serengeti',
+    }
+  },
+  user: {
+    collections: {
+      collections: [],
+    }
+  }
+}
+
+const store = Store.create(snapshot)
 
 export default {
   title: 'Project App / Screens / Classify / Recent Subjects',
@@ -40,7 +58,6 @@ export function Placeholder({ isLoggedIn }) {
 export function NarrowScreens({ isLoggedIn }) {
   return (
     <Provider store={CollectionsStoreMock}>
-
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RecentsMock}
@@ -92,6 +109,19 @@ export function Data({ isLoggedIn }) {
         recents={DataSubjectsMock}
         projectName='SuperWASP Black Hole Hunters'
         slug='hughdickinson/superwasp-black-hole-hunters'
+      />
+    </Provider>
+  )
+}
+
+export function Text({ isLoggedIn }) {
+  return (
+    <Provider store={CollectionsStoreMock}>
+      <RecentSubjects
+        isLoggedIn={isLoggedIn}
+        recents={TextSubjectsMock}
+        projectName='Notes from Nature'
+        slug='zooniverse/notes-from-nature'
       />
     </Provider>
   )
