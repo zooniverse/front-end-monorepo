@@ -1,7 +1,7 @@
-import { Box, Image } from 'grommet'
+import { Box, Image, Text } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
-import { SpacedText } from '@zooniverse/react-components'
+// import { Text } from '@zooniverse/react-components'
 
 const StyledAvatar = styled(Image)`
   width: 50px;
@@ -20,20 +20,20 @@ function TitledStat ({
     <Box
       align='center'
     >
-      <SpacedText
+      <Text
         color={{ dark: 'neutral-6', light: 'neutral-7' }}
         size='xsmall'
         uppercase={false}
       >
         {title}
-      </SpacedText>
-      <SpacedText
+      </Text>
+      <Text
         color='brand'
         size='xlarge'
         weight='bold'
       >
         {value}
-      </SpacedText>
+      </Text>
     </Box>
   )
 }
@@ -69,19 +69,19 @@ function ProfileHeader ({
             alt={`${login} avatar`}
           />
           : null}
-        <SpacedText
+        <Text
           color='brand'
           size='large'
           weight='bold'
         >
           {displayName}
-        </SpacedText>
+        </Text>
         {login ?
-          <SpacedText
+          <Text
             uppercase={false}
           >
             @{login}
-          </SpacedText>
+          </Text>
           : null}
       </Box>
       <Box

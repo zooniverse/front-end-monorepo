@@ -1,5 +1,6 @@
 const config = {
   verbose: true,
+  testEnvironment: "jsdom",
   testMatch: [
     "<rootDir>/src/**/*.spec.js"
   ],

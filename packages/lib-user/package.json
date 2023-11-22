@@ -69,6 +69,7 @@
     "html-webpack-plugin": "~5.5.0",
     "ignore-styles": "~5.0.1",
     "jest": "~29.7.0",
+    "jest-environment-jsdom": "~29.7.0",
     "jsdom": "~22.1.0",
     "nock": "~13.3.0",
     "panoptes-client": "~5.5.1",
