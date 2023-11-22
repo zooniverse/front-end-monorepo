@@ -26,6 +26,7 @@ export default function PageContextProviders({ children }) {
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
 
   const { themeMode, toggleTheme } = useThemeMode()
+  console.log('PAGE CONTEXT', themeMode)
   const themeContext = { themeMode, toggleTheme }
 
   return (
