@@ -1,58 +1,69 @@
-import { shallow } from 'enzyme'
-import NavLink from '@shared/components/NavLink'
-
-import { ContentBox } from './ContentBox'
-
-const Foobar = () => (<div>Foobar</div>)
+import { render, screen } from '@testing-library/react'
+import { Grommet } from 'grommet'
+import { zooTheme } from '@zooniverse/grommet-theme'
+import { composeStory } from '@storybook/react'
+import Meta, { Plain, ContentWithTitle, ContentWithTitleAndALink } from './ContentBox.stories.js'
+import { ContentBoxMock } from './ContentBox.mock'
 
 describe('Component > ContentBox', function () {
-  let wrapper
-  before(function () {
-    wrapper = shallow(
-      <ContentBox theme={{ dark: false }}>
-        <Foobar />
-      </ContentBox>
-    )
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render its children', function () {
-    expect(wrapper.find(Foobar)).to.have.lengthOf(1)
-  })
-
-  describe('with link props', function () {
-    let wrapper
-
-    before(function () {
-      let linkProps = {
-        href: '/projects/test/project/stats'
-      }
-      wrapper = shallow(
-        <ContentBox
-          theme={{ dark: false }}
-          linkLabel='View more stats'
-          linkProps={linkProps}
-          >
-          <Foobar />
-        </ContentBox>
-      )
+  describe('content only', function () {
+    beforeEach(function () {
+      const PlainStory = composeStory(Plain, Meta)
+      render(<Grommet theme={zooTheme}><PlainStory /></Grommet>)
     })
 
-    it('should render a navigation link', function () {
-      expect(wrapper.find(NavLink)).to.have.lengthOf(1)
+    it('should render the content', async function () {
+      expect(screen.getByText(ContentBoxMock.contentText)).to.exist()
     })
 
-    it('should link to the specified href', function () {
-      const link = wrapper.find(NavLink).prop('link')
-      expect(link.href).to.equal('/projects/test/project/stats')
+    it('should not render the title', async function () {
+      expect(screen.queryByText(ContentBoxMock.title)).to.be.null()
     })
     
-    it('should use the specified link text', function () {
-      const link = wrapper.find(NavLink).prop('link')
-      expect(link.text).to.equal('View more stats')
+    it('should not render the link', function () {
+      expect(screen.queryByRole('link')).to.be.null()
+    })
+  })
+
+  describe('content with title', function () {
+    beforeEach(function () {
+      const ContentWithTitleStory = composeStory(ContentWithTitle, Meta)
+      render(<Grommet theme={zooTheme}><ContentWithTitleStory /></Grommet>)
+    })
+
+    it('should render the content', async function () {
+      expect(screen.getByText(ContentBoxMock.contentText)).to.exist()
+    })
+
+    it('should render the title', async function () {
+      expect(screen.getByText(ContentBoxMock.title)).to.exist()
+    })
+    
+    it('should not render the link', function () {
+      expect(screen.queryByRole('link')).to.be.null()
+    })
+  })
+
+  describe('content with title and link', function () {
+    beforeEach(function () {
+      const ContentWithTitleAndALinkStory = composeStory(ContentWithTitleAndALink, Meta)
+      render(<Grommet theme={zooTheme}><ContentWithTitleAndALinkStory /></Grommet>)
+    })
+
+    it('should render the content', async function () {
+      expect(screen.getByText(ContentBoxMock.contentText)).to.exist()
+    })
+
+    it('should render the title', async function () {
+      expect(screen.getByText(ContentBoxMock.title)).to.exist()
+    })
+    
+    it('should render the link', function () {
+      expect(screen.getByRole('link')).to.have.property('href')
+        .to.equal(ContentBoxMock.linkProps.href)
+
+      expect(screen.getByRole('link')).to.have.property('text')
+        .to.equal(ContentBoxMock.linkLabel)
     })
   })
 })
