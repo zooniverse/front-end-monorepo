@@ -5,8 +5,8 @@ import { Box } from 'grommet'
 export default function MainNavList({
   adminNavLinkLabel,
   adminNavLinkURL,
-  isAdmin,
-  isNarrow,
+  isAdmin = false,
+  isNarrow = false,
   mainHeaderNavListLabels,
   mainHeaderNavListURLs
 }) {
@@ -28,11 +28,6 @@ export default function MainNavList({
         />}
     </Box>
   )
-}
-
-MainNavList.defaultProps = {
-  isAdmin: false,
-  isNarrow: false
 }
 
 MainNavList.propTypes = {
