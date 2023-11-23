@@ -1,7 +1,10 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 import Classifier from '@zooniverse/classifier'
+import zooTheme from '@zooniverse/grommet-theme'
+import { mount } from 'enzyme'
+import { Grommet } from 'grommet'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+import sinon from 'sinon'
 
 import ClassifierWrapper from './ClassifierWrapper'
 import Loader from '@shared/components/Loader'
@@ -17,28 +20,39 @@ describe('Component > ClassifierWrapper', function () {
     prefetch: () => Promise.resolve()
   }
 
+  function TestWrapper({ children }) {
+    return(
+      <RouterContext.Provider value={router}>
+        <Grommet theme={zooTheme}>
+          {children}
+        </Grommet>
+      </RouterContext.Provider>
+    )
+  }
   it('should render without crashing', function () {
     const project = {}
     const user = {}
-    const wrapper = shallow(
+    const wrapper = mount(
       <ClassifierWrapper
         project={project}
         router={router}
         user={user}
-      />
+      />,
+      { wrappingComponent: TestWrapper }
     )
     expect(wrapper).to.be.ok()
   })
 
   describe('without a project, user, and user project preferences loaded', function () {
     it('should render a Loader component', function () {
-      const wrapper = shallow(
+      const wrapper = mount(
         <ClassifierWrapper
           appLoadingState={asyncStates.loading}
           project={{}}
           router={router}
           user={{}}
-        />
+        />,
+        { wrappingComponent: TestWrapper }
       )
 
       expect(wrapper.find(Loader)).to.have.lengthOf(1)
@@ -53,6 +67,9 @@ describe('Component > ClassifierWrapper', function () {
 
     before(function () {
       const project = {
+        links: {
+          active_workflows: []
+        },
         loadingState: asyncStates.success
       }
       recents = {
@@ -68,7 +85,7 @@ describe('Component > ClassifierWrapper', function () {
       const user = {
         loadingState: asyncStates.success
       }
-      wrapper = shallow(
+      wrapper = mount(
         <ClassifierWrapper
           appLoadingState={asyncStates.success}
           collections={collections}
@@ -77,7 +94,8 @@ describe('Component > ClassifierWrapper', function () {
           router={router}
           user={user}
           yourStats={yourStats}
-        />
+        />,
+        { wrappingComponent: TestWrapper }
       ).find(Classifier)
     })
 
