@@ -1,28 +1,31 @@
 import { mount, shallow } from 'enzyme'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+
 import ClassifyPageContainer from './ClassifyPageContainer'
 import ClassifyPage from './ClassifyPage'
+
 import { Provider } from 'mobx-react'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import * as Router from 'next/router'
 import sinon from 'sinon'
 import { expect } from 'chai'
 
 describe('Component > ClassifyPageContainer', function () {
+  const mockRouter = {
+    asPath: '/zooniverse/snapshot-serengeti/about/team',
+    basePath: '/projects',
+    locale: 'en',
+    push() {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
+
   let wrapper
   let componentWrapper
-  before(function () {
-    wrapper = shallow(<ClassifyPageContainer />)
-    componentWrapper = wrapper.find(ClassifyPage)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render the `ClassifyPage` component', function () {
-    expect(componentWrapper).to.have.lengthOf(1)
-  })
 
   describe('when there is not a workflow selected from the URL', function () {
     let routerStub
@@ -99,11 +102,13 @@ describe('Component > ClassifyPageContainer', function () {
 
     it('should be able to load the classify page without crashing', function () {
       const wrapper = mount(
+        <RouterContext.Provider value={mockRouter}>
         <Provider store={mockStore}>
           <ClassifyPageContainer
             workflows={workflows}
           />
-        </Provider>, {
+        </Provider>
+        </RouterContext.Provider>, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         }
@@ -227,14 +232,16 @@ describe('Component > ClassifyPageContainer', function () {
             }
           })
           const wrapper = mount(
-            <Provider store={mockStoreWithAssignment}>
-              <ClassifyPageContainer
-                assignedWorkflowID='5678'
-                workflowAssignmentEnabled
-                workflowID='1234'
-                workflows={workflows}
-              />
-            </Provider>, {
+            <RouterContext.Provider value={mockRouter}>
+              <Provider store={mockStoreWithAssignment}>
+                <ClassifyPageContainer
+                  assignedWorkflowID='5678'
+                  workflowAssignmentEnabled
+                  workflowID='1234'
+                  workflows={workflows}
+                />
+              </Provider>
+            </RouterContext.Provider>, {
               wrappingComponent: Grommet,
               wrappingComponentProps: { theme: zooTheme }
             }
@@ -269,14 +276,16 @@ describe('Component > ClassifyPageContainer', function () {
           })
 
           const wrapper = mount(
-            <Provider store={mockStoreWithAssignment}>
-              <ClassifyPageContainer
-                assignedWorkflowID='1234'
-                workflowAssignmentEnabled
-                workflowID='5678'
-                workflows={workflows}
-              />
-            </Provider>, {
+            <RouterContext.Provider value={mockRouter}>
+              <Provider store={mockStoreWithAssignment}>
+                <ClassifyPageContainer
+                  assignedWorkflowID='1234'
+                  workflowAssignmentEnabled
+                  workflowID='5678'
+                  workflows={workflows}
+                />
+              </Provider>
+            </RouterContext.Provider>, {
               wrappingComponent: Grommet,
               wrappingComponentProps: { theme: zooTheme }
             })
@@ -309,13 +318,15 @@ describe('Component > ClassifyPageContainer', function () {
             }
           }})
         const wrapper = mount(
-          <Provider store={mockStoreWithoutUser}>
-            <ClassifyPageContainer
-              workflowAssignmentEnabled
-              workflowID='1234'
-              workflows={workflows}
-            />
-          </Provider>, {
+          <RouterContext.Provider value={mockRouter}>
+            <Provider store={mockStoreWithoutUser}>
+              <ClassifyPageContainer
+                workflowAssignmentEnabled
+                workflowID='1234'
+                workflows={workflows}
+              />
+            </Provider>
+          </RouterContext.Provider>, {
             wrappingComponent: Grommet,
             wrappingComponentProps: { theme: zooTheme }
           })
@@ -345,13 +356,15 @@ describe('Component > ClassifyPageContainer', function () {
           }
         })
         const wrapper = mount(
-          <Provider store={mockStoreWithoutUser}>
-            <ClassifyPageContainer
-              workflowAssignmentEnabled
-              workflowID='5678'
-              workflows={workflows}
-            />
-          </Provider>, {
+          <RouterContext.Provider value={mockRouter}>
+            <Provider store={mockStoreWithoutUser}>
+              <ClassifyPageContainer
+                workflowAssignmentEnabled
+                workflowID='5678'
+                workflows={workflows}
+              />
+            </Provider>
+          </RouterContext.Provider>, {
             wrappingComponent: Grommet,
             wrappingComponentProps: { theme: zooTheme }
           })
@@ -431,12 +444,14 @@ describe('Component > ClassifyPageContainer', function () {
         configuration: {}
       }]
       const wrapper = mount(
-        <Provider store={mockStore}>
-          <ClassifyPageContainer
-            workflowID='5678'
-            workflows={workflows}
-          />
-        </Provider>, {
+        <RouterContext.Provider value={mockRouter}>
+          <Provider store={mockStore}>
+            <ClassifyPageContainer
+              workflowID='5678'
+              workflows={workflows}
+            />
+          </Provider>
+        </RouterContext.Provider>, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
@@ -461,12 +476,14 @@ describe('Component > ClassifyPageContainer', function () {
       }
 
       const wrapper = mount(
-        <Provider store={mockStore}>
-          <ClassifyPageContainer
-            workflowID='1234'
-            workflows={[...incompleteWorkflows, completeWorkflow]}
-          />
-        </Provider>, {
+        <RouterContext.Provider value={mockRouter}>
+          <Provider store={mockStore}>
+            <ClassifyPageContainer
+              workflowID='1234'
+              workflows={[...incompleteWorkflows, completeWorkflow]}
+            />
+          </Provider>
+        </RouterContext.Provider>, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
