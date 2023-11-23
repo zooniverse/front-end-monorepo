@@ -17,6 +17,14 @@ const mockRouter = {
   }
 }
 
+function NextRouterStory(Story) {
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      <Story />
+    </RouterContext.Provider>
+  )
+}
+
 const ORGANIZATION = {
   id: '1',
   listed: true,
@@ -28,7 +36,8 @@ const ORGANIZATION = {
 
 export default {
   title: 'Project App / Shared / Project Header',
-  component: ProjectHeader
+  component: ProjectHeader,
+  decorators: [NextRouterStory]
 }
 
 export function NotLoggedIn({ adminMode, className, project }) {
