@@ -24,7 +24,7 @@ describe('Component > ProjectHomePage', function () {
   }
 
   function withStore(snapshot) {
-    const store = initStore(false)
+    const store = initStore(true)
     applySnapshot(store, snapshot)
 
     return function Wrapper({ children }) {
