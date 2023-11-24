@@ -17,16 +17,15 @@ const GlobalStyle = createGlobalStyle`
 /**
   Context for every page:
   - global page styles.
-  - Zooniverse Grommet theme and mode.
+  - Zooniverse Grommet theme and themeMode grabbed in layout from cookie.
   - Panoptes auth (user account and admin mode.)
 */
-export default function PageContextProviders({ children }) {
+export default function PageContextProviders({ children, storedThemeMode }) {
   const { data: user, error, isLoading } = usePanoptesUser()
   const { adminMode, toggleAdmin } = useAdminMode(user)
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
 
-  const { themeMode, toggleTheme } = useThemeMode()
-  console.log('PAGE CONTEXT', themeMode)
+  const { themeMode, toggleTheme } = useThemeMode(storedThemeMode)
   const themeContext = { themeMode, toggleTheme }
 
   return (

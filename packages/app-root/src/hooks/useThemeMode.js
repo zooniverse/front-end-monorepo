@@ -1,10 +1,6 @@
 import { useState } from 'react'
 
-const isBrowser = typeof window !== 'undefined'
-const localStorage = isBrowser ? window.localStorage : null
-const storedThemeMode = localStorage?.getItem('theme')
-
-export default function useThemeMode() {
+export default function useThemeMode(storedThemeMode) {
   const [themeMode, setThemeMode] = useState(storedThemeMode)
 
   function toggleTheme() {
@@ -16,9 +12,8 @@ export default function useThemeMode() {
     }
 
     setThemeMode(newTheme)
-
     // The same key is used in PFE's theme mode toggle
-    localStorage?.setItem('theme', newTheme)
+    document.cookie = `theme=${newTheme}`
   }
 
   return { themeMode, toggleTheme }
