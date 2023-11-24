@@ -1,4 +1,5 @@
 import { Paragraph } from 'grommet'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 const StyledParagraph = styled(Paragraph)`
@@ -14,6 +15,7 @@ function MarkdownParagraph(nodeProps) {
 }
 
 const components = {
+  a: Link,
   p: MarkdownParagraph
 }
 
