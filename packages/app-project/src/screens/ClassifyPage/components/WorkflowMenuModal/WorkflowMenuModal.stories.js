@@ -44,7 +44,7 @@ const snapshot = {
   }
 }
 
-const store = initStore(false, snapshot)
+const store = initStore(true, snapshot)
 applySnapshot(store.user, snapshot.user)
 
 const WORKFLOWS = [

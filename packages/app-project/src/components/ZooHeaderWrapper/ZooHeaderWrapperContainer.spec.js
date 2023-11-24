@@ -44,7 +44,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
         login: 'test-user'
       }
     }
-    store = initStore(false)
+    store = initStore(true)
     applySnapshot(store, snapshot)
     render(
       <RouterContext.Provider value={routerMock}>
