@@ -1,7 +1,6 @@
-import { Box, Grid, Image } from 'grommet'
+import { Box, Grid } from 'grommet'
 import { arrayOf, node, string } from 'prop-types'
-import { useEffect } from 'react';
-import styled from 'styled-components'
+import { useEffect } from 'react'
 import i18n, { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
@@ -12,23 +11,6 @@ import {
   SocialAnchor
 } from './components'
 
-export const StyledEasterEgg = styled(Image)`
-  bottom: 100%;
-  display: inline-block;
-  height: 74px;
-  margin: 0;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  transition: opacity 0.5s ease;
-  transition-delay: 0.25s;
-  width: 62px;
-  z-index: 1;
-
-  &:hover {
-    opacity: 1;
-  }
-`
 const defaultProps = {
   aboutNavListURLs: [
     'https://www.zooniverse.org/about',
@@ -63,15 +45,11 @@ const defaultProps = {
     'https://status.zooniverse.org/',
     'https://www.zooniverse.org/security'
   ],
-  projectNavListURLs: [
-    'https://www.zooniverse.org/projects'
-  ],
-  talkNavListURLs: [
-    'https://www.zooniverse.org/talk'
-  ]
+  projectNavListURLs: ['https://www.zooniverse.org/projects'],
+  talkNavListURLs: ['https://www.zooniverse.org/talk']
 }
 
-export default function ZooFooter ({
+export default function ZooFooter({
   aboutNavListURLs = defaultProps.aboutNavListURLs,
   adminContainer,
   buildNavListURLs = defaultProps.buildNavListURLs,
@@ -129,18 +107,13 @@ export default function ZooFooter ({
     t('ZooFooter.policyLabels.security')
   ]
 
-  const projectNavListLabels = [
-    t('ZooFooter.projectLabels.projects')
-  ]
+  const projectNavListLabels = [t('ZooFooter.projectLabels.projects')]
 
-  const talkNavListLabels = [
-    t('ZooFooter.talkLabels.talk')
-  ]
+  const talkNavListLabels = [t('ZooFooter.talkLabels.talk')]
 
   return (
     <Box
       as='footer'
-      align='center'
       background={{
         dark: 'dark-1',
         light: 'white'
@@ -152,15 +125,9 @@ export default function ZooFooter ({
       }}
       className={className}
       direction='column'
-      pad={{
-        top: 'large'
-      }}
       responsive
     >
-      <Box
-        pad={{ horizontal: 'large', bottom: 'medium' }}
-        fill='horizontal'
-      >
+      <Box>
         <Box
           border={{
             color: 'light-6',
@@ -169,17 +136,11 @@ export default function ZooFooter ({
           }}
           direction='row-responsive'
           justify='between'
-          margin={{ bottom: 'medium' }}
-          pad={{ bottom: 'medium' }}
+          pad={{ vertical: 'medium' }}
+          margin={{ horizontal: 'medium' }}
         >
           <LogoAndTagline tagLine={t('ZooFooter.tagLine')} />
-          <Box
-            align='end'
-            direction='row'
-            gap='small'
-            justify='end'
-            responsive={false}
-          >
+          <Box align='end' direction='row' gap='small' responsive={false}>
             <SocialAnchor service='facebook' />
             <SocialAnchor service='twitter' />
             <SocialAnchor service='instagram' />
@@ -188,51 +149,33 @@ export default function ZooFooter ({
 
         <Grid
           as='section'
-          fill
           gap='small'
           columns={{
-            'count': 'fit',
-            'size': '120px'
+            count: 'fit',
+            size: '120px'
           }}
-          margin={{ bottom: 'large' }}
+          pad='medium'
         >
-          <LinkList
-            labels={projectNavListLabels}
-            urls={projectNavListURLs}
-          />
-          <LinkList
-            labels={aboutNavListLabels}
-            urls={aboutNavListURLs}
-          />
+          <LinkList labels={projectNavListLabels} urls={projectNavListURLs} />
+          <LinkList labels={aboutNavListLabels} urls={aboutNavListURLs} />
           <LinkList
             labels={getInvolvedNavListLabels}
             urls={getInvolvedNavListURLs}
           />
-          <LinkList
-            labels={talkNavListLabels}
-            urls={talkNavListURLs}
-          />
-          <LinkList
-            labels={buildNavListLabels}
-            urls={buildNavListURLs}
-          />
-          <LinkList
-            labels={newsNavListLabels}
-            urls={newsNavListURLs}
-          />
+          <LinkList labels={talkNavListLabels} urls={talkNavListURLs} />
+          <LinkList labels={buildNavListLabels} urls={buildNavListURLs} />
+          <LinkList labels={newsNavListLabels} urls={newsNavListURLs} />
         </Grid>
       </Box>
       <Box
-        align='center'
         background={{
           dark: 'dark-3',
           light: 'light-1'
         }}
         direction='row'
-        fill='horizontal'
         justify='between'
         pad={{
-          horizontal: 'large',
+          horizontal: 'medium',
           vertical: 'small'
         }}
       >
@@ -240,9 +183,7 @@ export default function ZooFooter ({
           labels={policyNavListLabels}
           urls={policyNavListURLs}
         />
-        <Box>
-          {hasMounted && adminContainer}
-        </Box>
+        <Box>{hasMounted && adminContainer}</Box>
       </Box>
     </Box>
   )
