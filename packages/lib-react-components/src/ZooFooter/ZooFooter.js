@@ -140,7 +140,13 @@ export default function ZooFooter({
           margin={{ horizontal: 'medium' }}
         >
           <LogoAndTagline tagLine={t('ZooFooter.tagLine')} />
-          <Box align='end' direction='row' gap='small' responsive={false}>
+          <Box
+            align='end'
+            direction='row'
+            gap='small'
+            justify='end'
+            responsive={false}
+          >
             <SocialAnchor service='facebook' />
             <SocialAnchor service='twitter' />
             <SocialAnchor service='instagram' />
@@ -154,7 +160,7 @@ export default function ZooFooter({
             count: 'fit',
             size: '120px'
           }}
-          pad='medium'
+          pad={{ horizontal: 'large', top: 'medium', bottom: 'large' }}
         >
           <LinkList labels={projectNavListLabels} urls={projectNavListURLs} />
           <LinkList labels={aboutNavListLabels} urls={aboutNavListURLs} />
