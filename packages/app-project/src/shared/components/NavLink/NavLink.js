@@ -10,22 +10,14 @@ function NavLink ({
   color,
   disabled = false,
   link,
-  router = {},
   StyledAnchor = Anchor,
   StyledSpacedText = SpacedText,
   weight,
   ...anchorProps
 }) {
   const { href, text } = link
-  const isCurrentPage = router?.asPath === addQueryParams(href)
 
   const label = <StyledSpacedText color={color} weight={weight}>{text}</StyledSpacedText>
-
-  if (isCurrentPage) {
-    return (
-      <StyledAnchor color={color} label={label} {...anchorProps} />
-    )
-  }
 
   if (disabled) {
     // On the surface this may look odd, since you can't disable links
@@ -55,11 +47,9 @@ NavLink.propTypes = {
     href: PropTypes.string,
     text: PropTypes.string
   }).isRequired,
-  router: PropTypes.object,
   StyledAnchor: PropTypes.elementType,
   StyledSpacedText: PropTypes.elementType,
   weight: PropTypes.string
 }
 
-export default withRouter(NavLink)
-export { NavLink }
+export default NavLink

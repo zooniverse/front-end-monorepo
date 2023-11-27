@@ -22,6 +22,7 @@ const AboutNavLink = ({ router, link }) => {
       pad={{ horizontal: '20px', vertical: '5px' }}
     >
       <NavLink
+        aria-current={ isCurrentPage ? 'page' : undefined }
         link={link}
         color={{ dark: 'neutral-6', light: 'dark-3' }}
         weight={isCurrentPage ? 'bold' : 'normal'}
