@@ -1,5 +1,4 @@
 const config = {
-  verbose: true,
   testEnvironment: "jsdom",
   testMatch: [
     "<rootDir>/src/**/*.spec.js"
@@ -7,9 +6,7 @@ const config = {
   transform: {
     "^.+\\.js$": "babel-jest"
   },
-  moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1"
-  }
+  verbose: true
 }
 
 module.exports = config
