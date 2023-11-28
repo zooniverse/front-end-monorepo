@@ -31,4 +31,11 @@ describe('Media', function () {
     const image = await screen.findByTestId('data-viewer')
     expect(image).to.be.ok()
   })
+
+  it('should render text if the source mimetype is text/plain', async function () {
+    const Story = composeStory(Stories.TextMedia, Meta)
+    render(<Story />)
+    const text = document.querySelector('pre')
+    expect(text).to.be.ok()
+  })
 })

@@ -5,7 +5,10 @@ import NarrowMenu from '../NarrowMenu'
 import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
 
 const StyledMenuIcon = styled(Menu)`
-  width: 1em;
+  height: 1rem;
+  width: 1rem;
+  padding: 0 0 0 20px;
+  display: flex;
 `
 
 export default function NarrowMainNavMenu({
@@ -33,7 +36,7 @@ export default function NarrowMainNavMenu({
     <NarrowMenu
       icon={false}
       items={menuListItems}
-      label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation' />}
+      label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation'/>}
     />
   )
 }
