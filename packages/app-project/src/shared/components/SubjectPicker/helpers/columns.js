@@ -6,10 +6,14 @@ import addQueryParams from '@helpers/addQueryParams'
 
 import slugify from './slugify.js'
 
+function NoPrefetchLink(props) {
+  return <Link prefetch={false} {...props} />
+}
+
 function subjectLink({ subject_id }, baseUrl) {
   const href = addQueryParams(`${baseUrl}/subject/${subject_id}`)
   return (
-    <Anchor as={Link} href={href}>
+    <Anchor as={NoPrefetchLink} href={href}>
       <SpacedText>{subject_id}</SpacedText>
     </Anchor>
   )

@@ -8,6 +8,10 @@ import { useTranslation } from 'next-i18next'
 import addQueryParams from '@helpers/addQueryParams'
 import SubjectSetCard from './components/SubjectSetCard'
 
+function NoPrefetchLink(props) {
+  return <Link prefetch={false} {...props} />
+}
+
 /*
   Grommet is opinionated about line-height and links it to font-size.
   Reset the heading baselines here so that spacing is measured from
@@ -86,7 +90,7 @@ function SubjectSetPicker ({
             const panoptesCompleteness = subjectSet.completeness[workflow.id]
             return (
               <Anchor
-                as={Link}
+                as={NoPrefetchLink}
                 key={subjectSet.id}
                 href={addQueryParams(href)}
                 className="test-subject-set-card" data-testid={`test-subject-set-card-${subjectSet.id}`}
