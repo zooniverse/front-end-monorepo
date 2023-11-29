@@ -19,7 +19,7 @@ if (isBrowser) {
 async function fetchUnreadMessageCount({ endpoint = '/conversations' }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
-  if (!authorization) return undefined
+  if (!token) return 0
 
   let unreadConversationsIds = []
 
@@ -51,7 +51,7 @@ async function fetchUnreadMessageCount({ endpoint = '/conversations' }) {
 
 export default function useUnreadMessages(user) {
   let key = null
-  if (user) {
+  if (user?.login) {
     key = {
       user,
       endpoint: '/conversations'
