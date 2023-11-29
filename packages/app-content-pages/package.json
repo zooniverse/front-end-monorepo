@@ -16,7 +16,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "~7.82.0",
+    "@sentry/nextjs": "~7.83.0",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
