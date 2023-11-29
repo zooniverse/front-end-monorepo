@@ -4760,7 +4760,7 @@
     "@storybook/react" "7.5.3"
     "@types/node" "^18.0.0"
 
-"@storybook/react@7.5.3", "@storybook/react@~7.5.0", "@storybook/react@~7.5.2":
+"@storybook/react@7.5.3":
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.5.3.tgz#fe01ff2057826bdf55b0852deea7e76859757c01"
   integrity sha512-dZILdM36xMFDjdmmy421G5X+sOIncB2qF3IPTooniG1i1Z6v/dVNo57ovdID9lDTNa+AWr2fLB9hANiISMqmjQ==
@@ -4787,7 +4787,7 @@
     type-fest "~2.19"
     util-deprecate "^1.0.2"
 
-"@storybook/react@7.6.0":
+"@storybook/react@7.6.0", "@storybook/react@~7.6.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.6.0.tgz#24f77bb0fb1bf3f71d475c8a5b714defa2336f3b"
   integrity sha512-9ohJYqNAjGa1Lqxs8wKQNAifLjuQCSOFRx1yFb9azpJ7VS/G4CJ9v4p0Et79rqhP9EcHgACZx/8jFQsQgDD9ug==
