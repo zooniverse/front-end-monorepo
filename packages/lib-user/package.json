@@ -50,7 +50,7 @@
     "@babel/register": "~7.22.5",
     "@node-loader/babel": "~2.0.1",
     "@storybook/addon-a11y": "~7.6.0",
-    "@storybook/addon-essentials": "~7.5.2",
+    "@storybook/addon-essentials": "~7.6.0",
     "@storybook/react": "~7.6.0",
     "@storybook/react-webpack5": "~7.5.2",
     "@testing-library/dom": "~9.3.0",
