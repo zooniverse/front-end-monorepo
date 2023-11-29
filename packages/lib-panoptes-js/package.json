@@ -24,10 +24,10 @@
     "@zooniverse/standard": "~2.0.0",
     "chai": "~4.3.4",
     "dirty-chai": "~2.0.1",
-    "jsdom": "~22.1.0",
+    "jsdom": "~23.0.0",
     "mocha": "~10.2.0",
     "mock-local-storage": "~1.1.19",
-    "nock": "~13.3.0",
+    "nock": "~13.4.0",
     "sinon": "~17.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0"
