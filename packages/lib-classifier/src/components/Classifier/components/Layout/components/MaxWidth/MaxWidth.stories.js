@@ -41,8 +41,8 @@ const taskStrings = {}
 Object.entries(mockTasks).forEach(([taskKey, task]) => {
   if (task.strings) {
     Object.entries(task.strings).forEach(([key, value]) => {
-      const taskKey = `tasks.${taskKey}.${key}`
-      taskStrings[taskKey] = value
+      const translationKey = `tasks.${taskKey}.${key}`
+      taskStrings[translationKey] = value
     })
   }
 })

@@ -43,8 +43,8 @@ tasksEntries.forEach(([taskKey, task]) => {
   if (task.strings) {
     const taskEntries = Object.entries(task.strings)
     taskEntries.forEach(([key, value]) => {
-      const taskKey = `tasks.${taskKey}.${key}`
-      taskStrings[taskKey] = value
+      const translationKey = `tasks.${taskKey}.${key}`
+      taskStrings[translationKey] = value
     })
   }
 })
