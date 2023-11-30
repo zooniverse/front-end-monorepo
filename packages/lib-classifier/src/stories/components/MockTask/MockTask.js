@@ -15,7 +15,8 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
   Object.entries(taskSnapshots).forEach(([taskKey, task]) => {
     if (task.strings) {
       Object.entries(task.strings).forEach(([key, value]) => {
-        strings[`tasks.${taskKey}.${key}`] = value
+        const translationKey = `tasks.${taskKey}.${key}`
+        strings[translationKey] = value
       })
     }
   })
@@ -53,7 +54,8 @@ function initStore(subject, tasks = {}) {
   Object.entries(tasks).forEach(([taskKey, task]) => {
     if (task.strings) {
       Object.entries(task.strings).forEach(([key, value]) => {
-        strings[`tasks.${taskKey}.${key}`] = value
+        const translationKey = `tasks.${taskKey}.${key}`
+        strings[translationKey] = value
       })
     }
   })
