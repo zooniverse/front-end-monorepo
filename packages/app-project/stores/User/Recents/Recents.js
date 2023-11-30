@@ -1,7 +1,9 @@
 import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getParentOfType, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
+
+import User from '@stores/User'
 
 export const Recent = types
   .model('Recent', {
@@ -11,7 +13,7 @@ export const Recent = types
   })
   .actions(self => {
     function toggleFavourite () {
-      const { collections } = getRoot(self)
+      const { collections } = getParentOfType(self, User)
       self.favorite = !self.favorite
       if (self.favorite) {
         collections.addFavourites([self.subjectId])
