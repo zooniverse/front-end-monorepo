@@ -1,12 +1,13 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 import { Grommet } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
 
 import { PanoptesAuthContext, ThemeModeContext } from '../contexts'
-import { useAdminMode, useThemeMode } from '../hooks'
+import { useAdminMode } from '../hooks'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,16 +18,47 @@ const GlobalStyle = createGlobalStyle`
 /**
   Context for every page:
   - global page styles.
-  - Zooniverse Grommet theme and mode.
+  - Zooniverse Grommet theme and themeMode.
   - Panoptes auth (user account and admin mode.)
 */
 export default function PageContextProviders({ children }) {
+  const [themeMode, setThemeMode] = useState('auto') // Grommet 'auto' looks for browser dark mode preference like below
+
   const { data: user, error, isLoading } = usePanoptesUser()
   const { adminMode, toggleAdmin } = useAdminMode(user)
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
 
-  const { themeMode, toggleTheme } = useThemeMode()
-  console.log('PAGE CONTEXT', themeMode)
+  useEffect(() => {
+    const isBrowser = typeof window !== 'undefined'
+    const localStorage = isBrowser ? window.localStorage : null
+
+    // If no theme item in localStorage, see if the user's browser settings prefer dark mode
+    // If theme key is in localStorage, use that for themeMode
+    if (isBrowser && !localStorage?.getItem('theme') ) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      if (prefersDark) {
+        setThemeMode('dark')
+        localStorage?.setItem('theme', 'dark')
+      }
+    } else {
+      setThemeMode(localStorage?.getItem('theme'))
+    }
+  }, [])
+
+  function toggleTheme() {
+    let newTheme
+    if (themeMode === 'light') {
+      newTheme = 'dark'
+    } else {
+      newTheme = 'light'
+    }
+
+    setThemeMode(newTheme)
+
+    // The same key is used in PFE's theme mode toggle
+    localStorage?.setItem('theme', newTheme)
+  }
+
   const themeContext = { themeMode, toggleTheme }
 
   return (
