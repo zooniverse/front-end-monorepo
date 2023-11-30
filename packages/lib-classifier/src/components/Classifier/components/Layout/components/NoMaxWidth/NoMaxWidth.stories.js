@@ -7,7 +7,7 @@ import NoMaxWidth from './NoMaxWidth'
 export default {
   title: 'Layouts / No Max Width',
   component: NoMaxWidth,
-  excludeStories: ['mockTask'],
+  excludeStories: ['mockTasks'],
   args: {
     separateFramesView: false
   }

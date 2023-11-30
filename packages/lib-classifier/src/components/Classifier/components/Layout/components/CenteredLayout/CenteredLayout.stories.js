@@ -7,7 +7,7 @@ import CenteredLayout from './CenteredLayout'
 export default {
   title: 'Layouts / Centered',
   component: CenteredLayout,
-  excludeStories: ['mockTask'],
+  excludeStories: ['mockTasks'],
   args: {
     separateFramesView: false
   }

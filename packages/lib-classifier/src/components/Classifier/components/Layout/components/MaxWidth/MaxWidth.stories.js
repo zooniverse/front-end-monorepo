@@ -7,7 +7,7 @@ import MaxWidth from './MaxWidth'
 export default {
   title: 'Layouts / Maximum Width',
   component: MaxWidth,
-  excludeStories: ['mockTask'],
+  excludeStories: ['mockTasks'],
   args: {
     separateFramesView: false
   }
