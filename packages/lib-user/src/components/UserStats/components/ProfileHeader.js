@@ -1,7 +1,9 @@
 import { Box, Image } from 'grommet'
-import { number, string } from 'prop-types'
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
+import styled from './myStyled.js'
 import { SpacedText } from '@zooniverse/react-components'
+
+const { number, string } = PropTypes
 
 const StyledAvatar = styled(Image)`
   width: 50px;

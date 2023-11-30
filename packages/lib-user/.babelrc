@@ -35,6 +35,26 @@
           }
         }]
       ]
+    },
+    "test": {
+      "plugins": [
+        ["module-resolver", {
+          "alias": {
+            "@zooniverse/react-components": "../../node_modules/@zooniverse/react-components/dist/cjs/index.js"
+          }
+        }]
+      ],
+      "presets": [
+        ["@babel/preset-react", {
+          "runtime": "automatic"
+        }],
+        ["@babel/preset-env", {
+          "modules": false,
+          "targets": {
+            "esmodules": true
+          }
+        }]
+      ]
     }
   }
 }

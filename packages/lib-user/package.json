@@ -26,7 +26,7 @@
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "eslint": "eslint ./src --fix | snazzy",
     "prepare": "yarn build",
-    "test": "BABEL_ENV=es6 mocha --loader=@node-loader/babel --config ./test/.mocharc.json \"./src/**/*.spec.js\"",
+    "test": "BABEL_ENV=test mocha --loader=@node-loader/babel --config ./test/.mocharc.json \"./src/**/*.spec.js\"",
     "test:ci": "echo \"No CI tests yet...\" && exit 0",
     "storybook": "storybook dev -p 6008",
     "build-storybook": "echo \"No storybook to build yet...\" && exit 0"
