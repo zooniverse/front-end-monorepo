@@ -23,7 +23,7 @@ const subjectSnapshot = SubjectFactory.build({
   ]
 })
 
-export const mockTask = {
+export const mockTasks = {
   init: {
     answers: [{ label: 'yes' }, { label: 'no' }],
     strings: {
@@ -38,10 +38,13 @@ export const mockTask = {
 }
 
 const taskStrings = {}
-Object.entries(mockTask).forEach(([taskKey, task]) => {
+const tasksEntries = Object.entries(mockTasks)
+tasksEntries.forEach(([taskKey, task]) => {
   if (task.strings) {
-    Object.entries(task.strings).forEach(([key, value]) => {
-      taskStrings[`tasks.${taskKey}.${key}`] = value
+    const taskEntries = Object.entries(task.strings)
+    taskEntries.forEach(([key, value]) => {
+      const taskKey = `tasks.${taskKey}.${key}`
+      taskStrings[taskKey] = value
     })
   }
 })
@@ -53,7 +56,7 @@ const workflowSnapshot = WorkflowFactory.build({
   },
   first_task: 'init',
   strings: taskStrings,
-  tasks: mockTask
+  tasks: mockTasks
 })
 
 export function Default({ separateFramesView }) {
