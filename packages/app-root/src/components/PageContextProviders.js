@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   - Panoptes auth (user account and admin mode.)
 */
 export default function PageContextProviders({ children }) {
-  const [themeMode, setThemeMode] = useState('auto') // Grommet 'auto' looks for browser dark mode preference like below
+  const [themeMode, setThemeMode] = useState('light')
 
   const { data: user, error, isLoading } = usePanoptesUser()
   const { adminMode, toggleAdmin } = useAdminMode(user)
@@ -34,13 +34,14 @@ export default function PageContextProviders({ children }) {
 
     // If no theme item in localStorage, see if the user's browser settings prefer dark mode
     // If theme key is in localStorage, use that for themeMode
+    // The same key is used in PFE's theme mode toggle
     if (isBrowser && !localStorage?.getItem('theme') ) {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
       if (prefersDark) {
         setThemeMode('dark')
         localStorage?.setItem('theme', 'dark')
       }
-    } else {
+    } else if (isBrowser) {
       setThemeMode(localStorage?.getItem('theme'))
     }
   }, [])
@@ -54,8 +55,6 @@ export default function PageContextProviders({ children }) {
     }
 
     setThemeMode(newTheme)
-
-    // The same key is used in PFE's theme mode toggle
     localStorage?.setItem('theme', newTheme)
   }
 
