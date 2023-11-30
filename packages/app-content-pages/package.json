@@ -20,7 +20,7 @@
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
-    "@zooniverse/react-components": "~1.10.0",
+    "@zooniverse/react-components": "~1.10.1",
     "contentful": "~10.6.0",
     "dotenv": "~16.3.0",
     "dotenv-webpack": "~8.0.0",
