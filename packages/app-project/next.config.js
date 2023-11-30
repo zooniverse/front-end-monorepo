@@ -2,6 +2,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
+const million = require('million/compiler')
 const { execSync } = require('child_process')
 const path = require('path')
 const { withSentryConfig } = require('@sentry/nextjs')
@@ -122,7 +123,12 @@ const nextConfig = {
   }
 }
 
-module.exports = withSentryConfig(nextConfig, {
-  org: 'zooniverse-27',
-  project: 'fem-app-project'
-})
+module.exports = million.next(
+  withSentryConfig(nextConfig, {
+    org: 'zooniverse-27',
+    project: 'fem-app-project'
+  }),
+  {
+    auto: true
+  }
+)
