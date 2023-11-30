@@ -19,7 +19,7 @@ if (isBrowser) {
 async function fetchUnreadNotificationsCount({ endpoint = '/notifications' }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
-  if (!authorization) return undefined
+  if (!token) return 0
 
   const query = {
     delivered: false,
@@ -32,7 +32,7 @@ async function fetchUnreadNotificationsCount({ endpoint = '/notifications' }) {
 
 export default function useUnreadNotifications(user) {
   let key = null
-  if (user) {
+  if (user?.login) {
     key = {
       user,
       endpoint: '/notifications'
