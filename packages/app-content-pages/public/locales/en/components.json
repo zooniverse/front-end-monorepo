@@ -19,6 +19,9 @@
     "defaultTitle": "About",
     "siteName": "Zooniverse - People-powered research"
   },
+  "PageHeader": {
+    "headerLabel": "Zooniverse site header"
+  },
   "Publications": {
     "description": "A list of academic publications that use Zooniverse-generated data.",
     "formInfo": "We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.",

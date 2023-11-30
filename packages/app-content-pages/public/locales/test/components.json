@@ -19,6 +19,9 @@
     "defaultTitle": "Translated",
     "siteName": "Translated"
   },
+  "PageHeader": {
+    "headerLabel": "Translated"
+  },
   "Publications": {
     "description": "Translated",
     "formInfo": "Translated",

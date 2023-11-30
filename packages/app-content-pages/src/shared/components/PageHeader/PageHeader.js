@@ -3,8 +3,10 @@ import auth from 'panoptes-client/lib/auth'
 import { useContext, useState } from 'react'
 import { useUnreadMessages, useUnreadNotifications } from '@zooniverse/react-components/hooks'
 import { PanoptesAuthContext } from '../../contexts'
+import { useTranslation } from 'next-i18next'
 
 function PageHeader() {
+  const { t } = useTranslation()
   const [activeIndex, setActiveIndex] = useState(-1)
   const { user } = useContext(PanoptesAuthContext)
   const { data: unreadMessages } = useUnreadMessages(user)
@@ -27,7 +29,7 @@ function PageHeader() {
   }
 
   return (
-    <header aria-label='Zooniverse site header'>
+    <header aria-label={t('PageHeader.headerLabel')}>
       <AuthModal
         activeIndex={activeIndex}
         closeModal={closeAuthModal}
