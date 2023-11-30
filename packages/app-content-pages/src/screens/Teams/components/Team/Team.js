@@ -12,6 +12,7 @@ function Team({ name = '', people = [], slug = '' }) {
         color='black'
         level='2'
         size='1.5rem'
+        tabIndex={-1}
         textAlign='center'
       >
         {name}
