@@ -36,7 +36,7 @@ function PageHeader() {
   }
 
   function closeAuthModal() {
-    const url = new URL(window.location)()
+    const url = new URL(window.location)
     removeUrlQuery(url, 'login')
     removeUrlQuery(url, 'register')
     router.push(url, url, { shallow: true })
