@@ -98,21 +98,24 @@ function DropdownNav({
   const dropContent = (
     <Nav aria-label={sidebarLabel} width='100%' background='brand'>
       <StyledUl>
-        {sections.map(section => (
-          <StyledLi key={section.name}>
-            <StyledButton
-              as={Link}
-              active={section.slug === activeSection}
-              aria-current={section.slug === activeSection ? 'true' : 'false'}
-              href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => handleSectionSelect(section.slug)}
-            >
-              <SpacedText size='0.875rem' color='white' weight='bold'>
-                {section.name}
-              </SpacedText>
-            </StyledButton>
-          </StyledLi>
-        ))}
+        {sections.map(section => {
+          const isActive = section.slug === activeSection
+          return (
+            <StyledLi key={section.name}>
+              <StyledButton
+                as={Link}
+                active={isActive.toString()}
+                aria-current={section.slug === activeSection ? 'true' : 'false'}
+                href={section.slug ? `#${section.slug}` : ''}
+                onClick={() => handleSectionSelect(section.slug)}
+              >
+                <SpacedText size='0.875rem' color='white' weight='bold'>
+                  {section.name}
+                </SpacedText>
+              </StyledButton>
+            </StyledLi>
+          )
+        })}
       </StyledUl>
     </Nav>
   )

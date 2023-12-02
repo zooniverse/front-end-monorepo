@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
   width: 100%;
 
   ${props =>
-    props.active &&
+    props.active === 'true' &&
     css`
       background: ${props.theme.global.colors['accent-1']};
     `}
@@ -48,23 +48,26 @@ function Sidebar({
       margin={{ horizontal: 'auto' }}
     >
       <StyledUl>
-        {sections.map(section => (
-          <StyledLi key={section.name}>
-            <StyledButton
-              as={Link}
-              active={section.slug === activeSection}
-              aria-current={section.slug === activeSection ? 'true' : 'false'}
-              href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => setActiveSection(section.slug)}
-            >
-              <SpacedText
-                weight={section.slug === activeSection ? 'bold' : 'normal'}
+        {sections.map(section => {
+          const isActive = section.slug === activeSection
+          return (
+            <StyledLi key={section.name}>
+              <StyledButton
+                as={Link}
+                active={isActive.toString()}
+                aria-current={section.slug === activeSection ? 'true' : 'false'}
+                href={section.slug ? `#${section.slug}` : ''}
+                onClick={() => setActiveSection(section.slug)}
               >
-                {section.name}
-              </SpacedText>
-            </StyledButton>
-          </StyledLi>
-        ))}
+                <SpacedText
+                  weight={section.slug === activeSection ? 'bold' : 'normal'}
+                >
+                  {section.name}
+                </SpacedText>
+              </StyledButton>
+            </StyledLi>
+          )
+        })}
       </StyledUl>
     </Nav>
   )

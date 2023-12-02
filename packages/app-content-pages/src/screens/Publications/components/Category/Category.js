@@ -10,7 +10,7 @@ function Category({ projects = [], slug = '', title = '' }) {
       <HeadingForNav
         id={slug}
         color='black'
-        level='2'
+        level={2}
         size='1.5rem'
         tabIndex={-1}
         textAlign='center'

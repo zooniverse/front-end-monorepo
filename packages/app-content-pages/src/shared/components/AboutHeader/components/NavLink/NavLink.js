@@ -27,7 +27,7 @@ function NavLink({ color, href = '', label = '' }) {
       as={Link}
       aria-current={isActive ? 'page' : undefined}
       href={href}
-      active={isActive}
+      active={isActive.toString()}
     >
       <Text color={color}>{label}</Text>
     </StyledAnchor>
