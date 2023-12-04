@@ -9,7 +9,7 @@ const ContainerBox = styled(Box)`
   position: relative;
 
   @media (width > 90rem) {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.30); // Grommet elevation = 'medium'
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); // Grommet elevation = 'medium'
 
     &::before {
       content: '';
@@ -48,7 +48,13 @@ function PageLayout({ children }) {
     <>
       <AboutHeader />
       <main>
-        <Box background='light-1' align='center'>
+        <Box
+          background={{
+            dark: 'dark-1',
+            light: 'light-1'
+          }}
+          align='center'
+        >
           <ContainerBox
             background={{ dark: 'dark-3', light: 'neutral-6' }}
             width='min(100%, 90rem)'
