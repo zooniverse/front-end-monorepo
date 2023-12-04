@@ -15,6 +15,8 @@ const StyledTaskInputLabelWrapper = styled.span`
 `
 
 const StyledText = styled(Text)`
+  display: block;
+  margin: 1em 0;
   padding-left: 15px;
   padding-right: 15px;
 
@@ -23,15 +25,6 @@ const StyledText = styled(Text)`
     vertical-align: middle;
   }
 `
-
-const StyledSpan = styled.span`
-  display: block;
-  margin: 1em 0;
-`
-
-const inlineComponents = {
-  p: StyledSpan
-}
 
 export default function TaskInputLabel({
   label = '',
@@ -52,7 +45,7 @@ export default function TaskInputLabel({
       {labelIcon &&
         labelIcon}
       <StyledText>
-        <Markdownz components={inlineComponents}>{label}</Markdownz>
+        <Markdownz inline >{label}</Markdownz>
       </StyledText>
       {labelStatus &&
         labelStatus}
