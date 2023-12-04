@@ -37,6 +37,10 @@
       "register": "Zaregistrovat se",
       "signIn": "Přihlásit se"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Přepnout do tmavého prostředí",
+      "switchToLight": "Přepnout do světlého prostředí"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Alba",

@@ -209,5 +209,16 @@ describe('ZooHeader', function () {
         expect(adminLink.href).to.equal('https://www.zooniverse.org/admin')
       })
     })
+
+    describe('showing a theme toggle', function () {
+      before(function () {
+        render(<ZooHeader showThemeToggle signIn={() => {}} signOut={() => {}} />)
+      })
+
+      it('shows theme toggle', function () {
+        const toggle = screen.getByLabelText('Switch to dark theme')
+        expect(toggle).to.exist()
+      })
+    })
   })
 })
