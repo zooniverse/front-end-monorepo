@@ -30,6 +30,10 @@
     "SignedOutUserNavigation": {
       "register": "Registrera dig",
       "signIn": "Logga in"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Byt till mörkt tema",
+      "switchToLight": "Byt till ljust tema"
     }
   }
 }

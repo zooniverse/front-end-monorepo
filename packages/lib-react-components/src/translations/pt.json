@@ -37,6 +37,10 @@
       "register": "Registar-se",
       "signIn": "Entrar"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Mudar para o tema escuro",
+      "switchToLight": "Mudar para o tema claro"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Colecções",
