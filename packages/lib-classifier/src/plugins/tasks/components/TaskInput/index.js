@@ -1,1 +1,1 @@
-export { default, StyledTaskInput } from './TaskInput'
+export { default } from './TaskInput'
