@@ -122,6 +122,10 @@
       "register": "Register",
       "signIn": "Sign In"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Switch to dark theme",
+      "switchToLight": "Switch to light theme"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "profile": "Profile",

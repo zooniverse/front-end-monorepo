@@ -37,6 +37,10 @@
       "register": "اندراج ",
       "signIn": "سائن ان"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "موضوع تبدیل کریں",
+      "switchToLight": "موضوع تبدیل کریں"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "مجموعہ",

@@ -37,6 +37,10 @@
       "register": "Registrierung",
       "signIn": "Anmeldung"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Klicken für dunklen Hintergrund",
+      "switchToLight": "Klicken für hellen Hintergrund"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Sammlungen",

@@ -11,6 +11,10 @@
     "mainHeaderNavListLabels": {
       "talk": "Dyskutowanie"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Przełącz do ciemnego trybu",
+      "switchToLight": "Przełącz do jasnego trybu"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Kolekcje"
