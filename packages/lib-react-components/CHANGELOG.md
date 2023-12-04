@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.10.1] 2023-11-29
+
+### Fixed
+- fix a bug where unread notifications and messages are fetched for empty user objects.
+
+## [1.10.0] 2023-11-22
+
+### Fixed
+Added missing `@zooniverse/panoptes-js` package (used by Panoptes data-fetching hooks.)
+
+### Added
+- `Media` can now display text subjects.
+
+## [1.9.1] 2023-11-16
+
+### Fixed
+Added missing `swr` package (used by Panoptes data-fetching hooks.)
+
+## [1.9.0] 2023-11-08
+
+### Added
+- `AuthModal` component for Zooniverse username/password sign-in, and Zooniverse user registration.
+- New hooks for working with authenticated Panoptes users:
+  - `usePanoptesUser`: exchange a Panoptes session cookie for an authenticated user session.
+  - `useUnreadMessages`: check unread private messages.
+  - `useUnreadNotifications`: check unread Talk notifications.
+
+## [1.8.1] 2023-11-02
+
+### Fixed
+- `SpacedHeading` was not passing `size` to its child `SpacedText`. This fix allows the font-size to be adjusted as a prop in `SpacedHeading`.
+
 ## [1.8.0] 2023-10-30
 
 ### Changed
@@ -171,7 +203,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that is often used in a site's footer
 
 ## [1.0.0] 2020-06-29
-- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
+- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:
   - AdminCheckbox
   - CloseButton
   - FavouritesButton

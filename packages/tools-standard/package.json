@@ -19,8 +19,8 @@
   },
   "scripts": {},
   "dependencies": {
-    "@babel/eslint-parser": "~7.22.5",
-    "eslint-plugin-jsx-a11y": "~6.7.0",
+    "@babel/eslint-parser": "~7.23.3",
+    "eslint-plugin-jsx-a11y": "~6.8.0",
     "eslint-plugin-react": "~7.33.0",
     "standard": "~17.1.0",
     "standard-engine": "^15.1.0"

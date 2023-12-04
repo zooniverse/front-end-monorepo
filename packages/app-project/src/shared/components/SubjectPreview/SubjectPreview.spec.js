@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import Meta, { Plain, Transcription, Video } from './SubjectPreview.stories.js'
+import Meta, { Plain, Transcription, Video, Text } from './SubjectPreview.stories.js'
 import { SubjectPreviewState } from './SubjectPreview.mock.js'
 
 describe('Component > SubjectPreview', function () {
-  [Plain, Transcription, Video].forEach(Component => {
+  [Plain, Transcription, Text, Video].forEach(Component => {
     describe(`${Component.name} logged in story`, function () {
       beforeEach(function () {
         const Story = composeStory(Component, Meta)

@@ -32,6 +32,7 @@ class ResizeObserver {
 }
 
 window.ResizeObserver = ResizeObserver
+window.scrollTo = () => true
 
 global.dom = jsdom
 global.window = window

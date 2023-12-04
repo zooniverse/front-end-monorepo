@@ -55,6 +55,8 @@
     "lineControls": "Line Controls",
     "close": "Close",
     "delete": "Delete",
+    "deleteCancel": "Cancel Delete",
+    "deleteConfirm": "Confirm Delete",
     "move": "Move",
     "redo": "Redo",
     "undo": "Undo"

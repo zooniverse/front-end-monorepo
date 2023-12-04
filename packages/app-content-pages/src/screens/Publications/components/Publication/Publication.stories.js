@@ -21,13 +21,3 @@ export const MissingUrl = {
     url: ''
   }
 }
-
-export const Placeholders = {
-  args: {
-    avatarSrc: '',
-    authors: '',
-    title: '',
-    url: '',
-    year: ''
-  }
-}

@@ -1,5 +1,7 @@
 import NavLink from '@shared/components/NavLink'
 
+import slugify from './slugify.js'
+
 function subjectLink({ subject_id }, baseUrl) {
   const href = `${baseUrl}/subject/${subject_id}`
   const link = {
@@ -20,7 +22,7 @@ export default function columns(customHeaders, baseUrl) {
       align: 'start',
       header,
       primary: (header === 'subject_id'),
-      property: header,
+      property: slugify(header),
       render,
       search: customHeaders.includes(header),
       size: (header === 'status') ? 'xsmall' : 'small',

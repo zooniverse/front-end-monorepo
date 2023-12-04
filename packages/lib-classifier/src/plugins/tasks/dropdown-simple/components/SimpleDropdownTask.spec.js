@@ -1,108 +1,33 @@
-import { shallow, mount } from 'enzyme'
-import { expect } from 'chai'
-import { Select } from 'grommet'
-import SimpleDropdownTask from './SimpleDropdownTask'
-import { default as Task } from '@plugins/tasks/dropdown-simple'
+import { render, screen } from '@testing-library/react'
+import { within } from '@testing-library/dom'
+import userEvent from '@testing-library/user-event'
+import { composeStory } from '@storybook/react'
+import Meta, { ShortOptions } from './SimpleDropdownTask.stories.js'
+import { SimpleDropdownTaskMockShort } from './SimpleDropdownTask.mock'
 
-describe('SimpleDropdownTask', function () {
-  const simpleDropdownTask = {
-    allowCreate: false,
-    options: [
-      'Red',
-      'Blue',
-      'Yellow',
-      'Green',
-      'White',
-      'Black',
-    ],
-    required: false,
-    strings: {
-      instruction: 'Choisissez votre couleur préférée',
-      'selects.0.options.*.0.label': 'Rouge',
-      'selects.0.options.*.1.label': 'Bleu',
-      'selects.0.options.*.2.label': 'Jaunde',
-      'selects.0.options.*.3.label': 'Vert',
-      'selects.0.options.*.4.label': 'Blanc',
-      'selects.0.options.*.5.label': 'Noire'
-    },
-    taskKey: 'T1',
-    type: 'dropdown-simple'
-  }
-  const task = Task.TaskModel.create(simpleDropdownTask)
-  const annotation = task.defaultAnnotation()
+describe('Tasks / Simple Dropdown', function () {
+  const user = userEvent.setup()
 
-  describe('when it renders', function () {
-    let wrapper
-    before(function () {
-      wrapper = shallow(<SimpleDropdownTask annotation={annotation} task={task} />)
+  describe('Short list of options', function () {
+    const ShortOptionsStory = composeStory(ShortOptions, Meta)
+
+    beforeEach(function () {
+      render(<ShortOptionsStory />)
     })
 
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
+    it('should render without any option selected', async function () {
+      const inputEl = screen.getByPlaceholderText('SimpleDropdownTask.selectPlaceholder')
+      expect(inputEl.value).to.equal('')
     })
 
-    it('should have a question/some instructions', function () {
-      expect(wrapper.contains(task.instruction)).to.be.true()
-    })
+    it('should render the full list of options', async function () {
+      const inputEl = screen.getByPlaceholderText('SimpleDropdownTask.selectPlaceholder')
+      await user.click(inputEl)
 
-    it('should render a single Grommet Select element', function () {
-      expect(wrapper.find('Select')).to.have.lengthOf(1)
-    })
-    
-    it('should have no initial value', function () {
-      const grommetSelect = wrapper.find('Select')
-      expect(grommetSelect.props()['value']).to.equal(undefined)
-    })
-    
-    it('should render the correct number of options', function () {
-      const grommetSelect = wrapper.find('Select')
-      const renderedOptions = grommetSelect.props()['options'] || []
-      expect(renderedOptions).to.have.length(6)
-    })
-  })
+      const options = screen.getAllByRole('option')
 
-  describe('with an annotation', function () {
-    let wrapper
-
-    before(function () {
-      annotation.update({
-        selection: 2,  // Corresponds to "Jaunde"
-        option: true,
-      })
-      wrapper = shallow(
-        <SimpleDropdownTask
-          annotation={annotation}
-          task={task}
-        />
-      )
-    })
-
-    it('should pass the selected annotation to the Select sub-element', function () {
-      const grommetSelect = wrapper.find('Select').first()
-      expect(grommetSelect.prop('value')['text']).to.equal('Jaunde')
-    })
-  })
-
-  describe('when disabled', function () {
-    let menu
-
-    before(function () {
-      annotation.update({
-        selection: 2,  // Corresponds to "Yellow"
-        option: true,
-      })
-      menu = shallow(
-        <SimpleDropdownTask
-          disabled
-          annotation={annotation}
-          task={task}
-        />
-      )
-      .find(Select)
-    })
-
-    it('should disable the select menu', function () {
-      expect(menu.prop('disabled')).to.be.true()
+      expect(options.length).to.equal(SimpleDropdownTaskMockShort.options.length)
+      expect(within(options[0]).getByText(SimpleDropdownTaskMockShort.options[0])).to.exist()
     })
   })
 })

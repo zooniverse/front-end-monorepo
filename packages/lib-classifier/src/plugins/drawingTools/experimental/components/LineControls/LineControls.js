@@ -1,24 +1,33 @@
 import React, { forwardRef, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { useTranslation } from '@translations/i18n'
-import { Pan, Radial, Redo, Trash, Undo } from 'grommet-icons'
+import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
+
+const StyledPath = styled('path')`
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 const LineControls = forwardRef(function LineControls({
   mark,
   scale = 1,
-  onDelete
+  onDelete,
+  theme
 },
   ref
 ) {
   let [activePosition, setActivePosition] = useState('tr')
+  let [showDeleteButtons, setShowDeleteButtons] = useState(false)
   const { t } = useTranslation('plugins')
 
-  const ARROW_STROKE_COLOR = 'white'
-  const FILL_COLOR = 'black'
-  const HOVER_COLOR = 'grey'
+  const FILL_COLOR = theme.dark ? '#333333' : '#ffffff'
+  const STROKE_COLOR = theme.dark ? '#ffffff' : '#000000'
+  const DELETE_CANCEL_COLOR = '#E45950'
+  const DELETE_CONFIRM_COLOR = '#1ED359'
   const STROKE_WIDTH = 0.5 / scale
   const OUTER_RADIUS = 40 / scale
   const INNER_RADIUS = 20 / scale
@@ -29,13 +38,6 @@ const LineControls = forwardRef(function LineControls({
     ? { x: x + (50 / scale), y: y + (50 / scale) }
     : { x: x + w - (50 / scale), y: y + (50 / scale) }
 
-  const StyledPath = styled('path')`
-    fill: ${FILL_COLOR}
-    &:hover {
-      cursor: pointer;
-      fill: ${HOVER_COLOR};
-    }
-  `
 
   function onEnterOrSpace(ev, func) {
     if (ev.keyCode === 13 || ev.keyCode === 32) {
@@ -46,12 +48,52 @@ const LineControls = forwardRef(function LineControls({
   }
 
   function deleteMark(event) {
+    setShowDeleteButtons(true)
+  }
+
+  function deleteMarkCancel() {
+    setShowDeleteButtons(false)
+  }
+
+  function deleteMarkConfirm(event) {
     event.preventDefault()
     event.stopPropagation()
     return onDelete(event)
   }
 
-  const buttons = [
+  const deleteButtons = [
+    {
+      label: t('LineControls.deleteCancel'),
+      action: deleteMarkCancel,
+      icon: {
+        type: Close,
+        size: (16 / scale),
+        x: p.x - (27 / scale),
+        y: p.y - (8 / scale),
+        color: DELETE_CANCEL_COLOR
+      },
+      path: `M ${p.x} ${p.y + OUTER_RADIUS}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${p.x} ${p.y - OUTER_RADIUS}
+        L ${p.x} ${p.y}
+        Z`
+    },
+    {
+      label: t('LineControls.deleteConfirm'),
+      action: deleteMarkConfirm,
+      icon: {
+        type: Checkmark,
+        size: (18 / scale),
+        x: p.x + (12 / scale),
+        y: p.y - (10 / scale),
+        color: DELETE_CONFIRM_COLOR
+      },
+      path: `M ${p.x} ${p.y + OUTER_RADIUS}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${p.x} ${p.y - OUTER_RADIUS}
+        Z`
+    }
+  ]
+
+  const defaultButtons = [
     {
       label: t('LineControls.undo'),
       action: mark.undo,
@@ -60,6 +102,7 @@ const LineControls = forwardRef(function LineControls({
         size: (10 / scale),
         x: p.x - (27 / scale),
         y: p.y - (27 / scale),
+        color: STROKE_COLOR
       },
       path: `M ${p.x - OUTER_RADIUS} ${p.y}
         A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${p.x} ${p.y - OUTER_RADIUS}
@@ -75,6 +118,7 @@ const LineControls = forwardRef(function LineControls({
         size: (10 / scale),
         x: p.x + (17 / scale),
         y: p.y - (27 / scale),
+        color: STROKE_COLOR
       },
       path: `M ${p.x + OUTER_RADIUS} ${p.y}
         A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${p.x} ${p.y - OUTER_RADIUS}
@@ -90,6 +134,7 @@ const LineControls = forwardRef(function LineControls({
         size: (10 / scale),
         x: p.x - (27 / scale),
         y: p.y + (17 / scale),
+        color: STROKE_COLOR
       },
       path: `M ${p.x - OUTER_RADIUS} ${p.y}
         A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${p.x} ${p.y + OUTER_RADIUS}
@@ -105,6 +150,7 @@ const LineControls = forwardRef(function LineControls({
         size: (10 / scale),
         x: p.x + (17 / scale),
         y: p.y + (17 / scale),
+        color: STROKE_COLOR
       },
       path: `M ${p.x + OUTER_RADIUS} ${p.y}
         A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${p.x} ${p.y + OUTER_RADIUS}
@@ -122,6 +168,7 @@ const LineControls = forwardRef(function LineControls({
         size: (20 / scale),
         x: p.x - (10 / scale),
         y: p.y - (10 / scale),
+        color: STROKE_COLOR
       },
       path: `M ${p.x - INNER_RADIUS} ${p.y}
         A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${p.x + INNER_RADIUS} ${p.y}
@@ -130,6 +177,8 @@ const LineControls = forwardRef(function LineControls({
     },
   ]
 
+  const buttons = (showDeleteButtons) ? deleteButtons : defaultButtons
+
   return (
     <g
       ref={ref}
@@ -137,9 +186,9 @@ const LineControls = forwardRef(function LineControls({
       aria-label={t('lineControls.lineControls')}
       focusable='false'
       transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
-	  fill={FILL_COLOR}
+      fill={FILL_COLOR}
     >
-      {buttons.map(({ label, path, action, icon }, index) => {
+      {buttons.map(({ fill, label, path, action, icon }, index) => {
         const IconComponent = icon.type
         return <g focusable='false' key={index}>
           <Tooltip label={label}>
@@ -150,7 +199,7 @@ const LineControls = forwardRef(function LineControls({
               tabIndex='0'
 
               d={path}
-              stroke={ARROW_STROKE_COLOR}
+              stroke={STROKE_COLOR}
               strokeWidth={STROKE_WIDTH}
               onPointerDown={action}
               onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
@@ -163,7 +212,7 @@ const LineControls = forwardRef(function LineControls({
             y={icon.y}
           >
             <IconComponent
-              color='white'
+              color={icon.color}
               size={`${icon.size}px`}
               focusable='false'
             />
@@ -183,4 +232,4 @@ LineControls.propTypes = {
   onDelete: PropTypes.func,
 }
 
-export default LineControls
+export default withTheme(LineControls)

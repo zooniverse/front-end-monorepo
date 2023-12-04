@@ -1,40 +1,45 @@
-import { Box, Heading } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
+import { HeadingForNav } from '../../../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
 import Project from '../Project/Project.js'
 
-function Category ({
-  projects = [],
-  slug = '',
-  title = ''
-}) {
+function Category({ projects = [], slug = '', title = '' }) {
   return (
     <Box as='section'>
-      <Heading id={slug} level='2' size='small'>
+      <HeadingForNav
+        id={slug}
+        color='black'
+        level='2'
+        size='1.5rem'
+        tabIndex={-1}
+        textAlign='center'
+      >
         {title}
-      </Heading>
+      </HeadingForNav>
       {projects.map(project => (
-        <Project
-          {...project}
-          key={project.title}
-        />
+        <Project {...project} key={project.title} />
       ))}
     </Box>
   )
 }
 
 Category.propTypes = {
-  projects: arrayOf(shape({
-    avatarSrc: string,
-    projectId: string,
-    title: string,
-    publications: arrayOf(shape({
-      authors: string,
+  projects: arrayOf(
+    shape({
+      avatarSrc: string,
+      projectId: string,
       title: string,
-      url: string,
-      year: string
-    }))
-  })),
+      publications: arrayOf(
+        shape({
+          authors: string,
+          title: string,
+          url: string,
+          year: string
+        })
+      )
+    })
+  ),
   slug: string,
   title: string
 }
