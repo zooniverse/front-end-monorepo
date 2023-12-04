@@ -36,8 +36,7 @@ export default function PageContextProviders({ children }) {
     // If theme key is in localStorage, use that for themeMode
     // The same key is used in PFE's theme mode toggle
     if (isBrowser && !localStorage?.getItem('theme') ) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      if (prefersDark) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         setThemeMode('dark')
         localStorage?.setItem('theme', 'dark')
       }
@@ -47,12 +46,7 @@ export default function PageContextProviders({ children }) {
   }, [])
 
   function toggleTheme() {
-    let newTheme
-    if (themeMode === 'light') {
-      newTheme = 'dark'
-    } else {
-      newTheme = 'light'
-    }
+    const newTheme = (themeMode === 'light') ? 'dark' : 'light'
 
     setThemeMode(newTheme)
     localStorage?.setItem('theme', newTheme)

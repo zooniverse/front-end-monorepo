@@ -25,13 +25,7 @@ export default {
 export function ThemeToggleSignedIn({ signIn, signOut }) {
   const [themeMode, setThemeMode] = useState('light')
   function onThemeChange() {
-    let newTheme
-    if (themeMode === 'light') {
-      newTheme = 'dark'
-    } else {
-      newTheme = 'light'
-    }
-
+    const newTheme = (themeMode === 'light') ? 'dark' : 'light'
     setThemeMode(newTheme)
   }
 
@@ -53,13 +47,7 @@ export function ThemeToggleSignedIn({ signIn, signOut }) {
 export function ThemeToggleSignedOut({ signIn, signOut }) {
   const [themeMode, setThemeMode] = useState('light')
   function onThemeChange() {
-    let newTheme
-    if (themeMode === 'light') {
-      newTheme = 'dark'
-    } else {
-      newTheme = 'light'
-    }
-
+    const newTheme = (themeMode === 'light') ? 'dark' : 'light'
     setThemeMode(newTheme)
   }
 
