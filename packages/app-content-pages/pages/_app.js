@@ -18,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function MyApp({ Component, pageProps }) {
-  // const mergedThemes = merge({}, base, zooTheme)
   const { data: user, error, isLoading } = usePanoptesUser()
   const authContext = { error, isLoading, user }
 
