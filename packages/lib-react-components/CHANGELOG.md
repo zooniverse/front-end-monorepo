@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.11.0] 2023 12-12-04
+
+### Added
+Added an optional theme toggle to ZooHeader.
+Added a `useHasMounted` hook for lazy loading.
+
+### Fixed
+Fixed spacing around components in ZooFooter and ZooHeader toward standardizing padding through FEM pages.
+
 ## [1.10.1] 2023-11-29
 
 ### Fixed
