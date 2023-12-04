@@ -15,7 +15,6 @@ const StyledLi = styled.li`
 
 const StyledButton = styled(Button)`
   text-decoration: none;
-  color: black;
   padding: 5px 20px; // Same as Project About page sidebar
   width: 100%;
 
@@ -60,6 +59,7 @@ function Sidebar({
                 onClick={() => setActiveSection(section.slug)}
               >
                 <SpacedText
+                  color={section.slug === activeSection ? 'black' : { light: 'black', dark: 'white' }}
                   weight={section.slug === activeSection ? 'bold' : 'normal'}
                 >
                   {section.name}

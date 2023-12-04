@@ -9,7 +9,7 @@ function Team({ name = '', people = [], slug = '' }) {
     <Box as='section' key={name}>
       <HeadingForNav
         id={slug}
-        color='black'
+        color={{ light: 'black', dark: 'white' }}
         level={2}
         size='1.5rem'
         tabIndex={-1}
