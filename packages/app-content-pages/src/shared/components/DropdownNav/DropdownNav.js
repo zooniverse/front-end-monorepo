@@ -20,11 +20,12 @@ const StyledButton = styled(Button)`
       `}
   }
 
-  ${props =>
-    props.active === 'true' &&
-    css`
-      background: ${props.theme.global.colors['neutral-1']};
-    `}
+  &[aria-current='true'] {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+      `}
+  }
 `
 
 const StyledDropButton = styled(DropButton)`
@@ -98,24 +99,20 @@ function DropdownNav({
   const dropContent = (
     <Nav aria-label={sidebarLabel} width='100%' background='brand'>
       <StyledUl>
-        {sections.map(section => {
-          const isActive = section.slug === activeSection
-          return (
-            <StyledLi key={section.name}>
-              <StyledButton
-                as={Link}
-                active={isActive.toString()}
-                aria-current={section.slug === activeSection ? 'true' : 'false'}
-                href={section.slug ? `#${section.slug}` : ''}
-                onClick={() => handleSectionSelect(section.slug)}
-              >
-                <SpacedText size='0.875rem' color='white' weight='bold'>
-                  {section.name}
-                </SpacedText>
-              </StyledButton>
-            </StyledLi>
-          )
-        })}
+        {sections.map(section => (
+          <StyledLi key={section.name}>
+            <StyledButton
+              as={Link}
+              aria-current={section.slug === activeSection ? 'true' : 'false'}
+              href={section.slug ? `#${section.slug}` : ''}
+              onClick={() => handleSectionSelect(section.slug)}
+            >
+              <SpacedText size='0.875rem' color='white' weight='bold'>
+                {section.name}
+              </SpacedText>
+            </StyledButton>
+          </StyledLi>
+        ))}
       </StyledUl>
     </Nav>
   )

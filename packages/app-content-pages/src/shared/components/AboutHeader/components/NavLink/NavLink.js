@@ -2,7 +2,7 @@ import { Anchor, Text } from 'grommet'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { string } from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
@@ -12,11 +12,9 @@ const StyledAnchor = styled(Anchor)`
     border-bottom-color: white;
   }
 
-  ${props =>
-    props.active === 'true' &&
-    css`
-      border-bottom-color: white;
-    `}
+  &[aria-current=page] {
+    border-bottom-color: white;
+  }
 `
 
 function NavLink({ color, href = '', label = '' }) {
@@ -27,7 +25,6 @@ function NavLink({ color, href = '', label = '' }) {
       as={Link}
       aria-current={isActive ? 'page' : undefined}
       href={href}
-      active={isActive.toString()}
     >
       <Text color={color}>{label}</Text>
     </StyledAnchor>

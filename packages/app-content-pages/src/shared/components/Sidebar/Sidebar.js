@@ -18,13 +18,15 @@ const StyledButton = styled(Button)`
   padding: 5px 20px; // Same as Project About page sidebar
   width: 100%;
 
-  ${props =>
-    props.active === 'true' &&
-    css`
-      background: ${props.theme.global.colors['accent-1']};
-    `}
+  &[aria-current='true'] {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['accent-1']};
+      `}
+  }
 
-  &:hover, :focus {
+  &:hover,
+  :focus {
     > span {
       font-weight: bold;
     }
@@ -47,27 +49,27 @@ function Sidebar({
       margin={{ horizontal: 'auto' }}
     >
       <StyledUl>
-        {sections.map(section => {
-          const isActive = section.slug === activeSection
-          return (
-            <StyledLi key={section.name}>
-              <StyledButton
-                as={Link}
-                active={isActive.toString()}
-                aria-current={section.slug === activeSection ? 'true' : 'false'}
-                href={section.slug ? `#${section.slug}` : ''}
-                onClick={() => setActiveSection(section.slug)}
+        {sections.map(section => (
+          <StyledLi key={section.name}>
+            <StyledButton
+              as={Link}
+              aria-current={section.slug === activeSection ? 'true' : 'false'}
+              href={section.slug ? `#${section.slug}` : ''}
+              onClick={() => setActiveSection(section.slug)}
+            >
+              <SpacedText
+                color={
+                  section.slug === activeSection
+                    ? 'black'
+                    : { light: 'black', dark: 'white' }
+                }
+                weight={section.slug === activeSection ? 'bold' : 'normal'}
               >
-                <SpacedText
-                  color={section.slug === activeSection ? 'black' : { light: 'black', dark: 'white' }}
-                  weight={section.slug === activeSection ? 'bold' : 'normal'}
-                >
-                  {section.name}
-                </SpacedText>
-              </StyledButton>
-            </StyledLi>
-          )
-        })}
+                {section.name}
+              </SpacedText>
+            </StyledButton>
+          </StyledLi>
+        ))}
       </StyledUl>
     </Nav>
   )
