@@ -4,6 +4,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
 
 require('dotenv').config()
 
+const million = require('million/compiler')
 const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
@@ -95,7 +96,12 @@ const nextConfig = {
   }
 }
 
-module.exports = withSentryConfig(nextConfig, {
-  org: 'zooniverse-27',
-  project: 'fem-app-content-pages'
-})
+module.exports = million.next(
+  withSentryConfig(nextConfig, {
+    org: 'zooniverse-27',
+    project: 'fem-app-content-pages'
+  }),
+  {
+    auto: true
+  }
+)

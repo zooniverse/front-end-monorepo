@@ -19,7 +19,7 @@ supportedLngs.forEach(lang => {
     i18n.addResourceBundle(
       lang,
       n,
-      await import(`/public/locales/${lang}/${n}.json`)
+      await import(`../../public/locales/${lang}/${n}.json`)
     )
   })
 })
