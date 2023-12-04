@@ -21,7 +21,7 @@ const StyledButton = styled(Button)`
   }
 
   ${props =>
-    props.active &&
+    props.active === 'true' &&
     css`
       background: ${props.theme.global.colors['neutral-1']};
     `}

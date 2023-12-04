@@ -13,7 +13,7 @@ const StyledAnchor = styled(Anchor)`
   }
 
   ${props =>
-    props.active &&
+    props.active === 'true' &&
     css`
       border-bottom-color: white;
     `}
