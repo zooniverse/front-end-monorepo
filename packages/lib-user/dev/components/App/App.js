@@ -17,20 +17,24 @@ function App ({
   const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
 
   useEffect(() => {
-    async function initAuthorization () {
+    async function initUserAuth () {
       setLoading(true)
-
+  
       try {
         const userAuth = await oauth.init('357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d')
         setUserAuth(userAuth)
-        setLoading(false)
       } catch (error) {
         console.error(error)
+      } finally {
         setLoading(false)
       }
-    }
+    };
+  
+    window.addEventListener('load', initUserAuth);
 
-    initAuthorization()
+    return () => {
+      window.removeEventListener('load', initUserAuth);
+    };
   }, [])
 
   const login = () => oauth?.signIn(window?.location?.origin)
