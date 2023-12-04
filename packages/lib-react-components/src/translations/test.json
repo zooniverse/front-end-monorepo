@@ -121,6 +121,10 @@
       "register": "Translated",
       "signIn": "Translated"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Translated",
+      "switchToLight": "Translated"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "profile": "Translated",
