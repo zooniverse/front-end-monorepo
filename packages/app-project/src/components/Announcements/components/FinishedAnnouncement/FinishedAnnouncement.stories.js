@@ -1,7 +1,24 @@
 import { Provider } from 'mobx-react'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import FinishedAnnouncementConnector from './FinishedAnnouncementConnector'
 // import readme from './README.md'
+
+const mockedRouter = {
+  asPath: '/projects/zooniverse/snapshot-serengeti/about/team',
+  query: {
+    owner: 'zooniverse',
+    project: 'snapshot-serengeti'
+  }
+}
+
+function NextRouterStory(Story) {
+  return (
+    <RouterContext.Provider value={mockedRouter}>
+      <Story />
+    </RouterContext.Provider>
+  )
+}
 
 const mockStore = {
   project: {
@@ -14,6 +31,7 @@ const mockStore = {
 export default {
   title: 'Project App / Screens / Project Home / Announcements / FinishedAnnouncement',
   component: FinishedAnnouncementConnector,
+  decorators: [NextRouterStory]
   // parameters: {
   //   docs: {
   //     description: {

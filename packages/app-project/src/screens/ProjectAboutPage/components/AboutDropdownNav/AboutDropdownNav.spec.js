@@ -1,8 +1,9 @@
+import { composeStories } from '@storybook/react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import * as stories from './AboutDropdownNav.stories'
 
 describe('Component > AboutDropdownNav', function () {
-  const { Default, MoreLinks } = stories
+  const { Default, MoreLinks } = composeStories(stories)
 
   it('should always render at least two links: Research and The Team', async function () {
     const { getByRole, getAllByRole, getByText } = render(<Default />)
