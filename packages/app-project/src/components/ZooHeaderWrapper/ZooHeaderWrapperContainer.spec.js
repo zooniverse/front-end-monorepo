@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import auth from 'panoptes-client/lib/auth'
 import sinon from 'sinon'
 
@@ -44,7 +44,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
         login: 'test-user'
       }
     }
-    store = initStore(false)
+    store = initStore(true)
     applySnapshot(store, snapshot)
     render(
       <RouterContext.Provider value={routerMock}>

@@ -59,5 +59,8 @@ export function middleware(req, event) {
     and /projects/production/[owner]/[project]
   */
   url.pathname = `/${panoptesEnv}${pathname}`
+  if (url.locale) {
+    url.href = `${url.origin}/projects/${url.locale}/${panoptesEnv}${pathname}`
+  }
   return NextResponse.rewrite(url)
 }

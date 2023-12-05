@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import Router from 'next/router'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import PropTypes from 'prop-types'
 
 import LocaleSwitcher from './LocaleSwitcher'
