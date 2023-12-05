@@ -33,9 +33,13 @@ function NavLink ({
   }
   
   return (
-    <Link href={addQueryParams(href)} color={color} passHref>
-      <StyledAnchor color={color} label={label} {...anchorProps} />
-    </Link>
+    <StyledAnchor
+      forwardedAs={Link}
+      href={addQueryParams(href)}
+      color={color}
+      label={label}
+      {...anchorProps}
+    />
   )
 }
 

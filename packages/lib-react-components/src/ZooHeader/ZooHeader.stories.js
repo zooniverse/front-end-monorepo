@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import ZooHeader from './ZooHeader'
 import readme from './README.md'
 
@@ -20,6 +21,48 @@ export default {
     }
   }
 }
+
+export function ThemeToggleSignedIn({ signIn, signOut }) {
+  const [themeMode, setThemeMode] = useState('light')
+  function onThemeChange() {
+    const newTheme = (themeMode === 'light') ? 'dark' : 'light'
+    setThemeMode(newTheme)
+  }
+
+  return (
+    <ZooHeader
+      onThemeChange={onThemeChange}
+      showThemeToggle
+      signIn={signIn}
+      signOut={signOut}
+      themeMode={themeMode}
+      user={{
+        display_name: 'zootester1',
+        login: 'zootester1'
+      }}
+    />
+  )
+}
+
+export function ThemeToggleSignedOut({ signIn, signOut }) {
+  const [themeMode, setThemeMode] = useState('light')
+  function onThemeChange() {
+    const newTheme = (themeMode === 'light') ? 'dark' : 'light'
+    setThemeMode(newTheme)
+  }
+
+  return (
+    <ZooHeader
+      onThemeChange={onThemeChange}
+      showThemeToggle
+      signIn={signIn}
+      signOut={signOut}
+      themeMode={themeMode}
+      user={{}}
+    />
+  )
+}
+
 
 export function SignedOut({ signIn, signOut }) {
   return <ZooHeader signIn={signIn} signOut={signOut} user={{}} />

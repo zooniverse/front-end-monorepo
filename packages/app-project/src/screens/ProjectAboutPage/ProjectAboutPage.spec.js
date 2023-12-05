@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'

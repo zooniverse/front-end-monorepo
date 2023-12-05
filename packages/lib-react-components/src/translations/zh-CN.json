@@ -21,6 +21,10 @@
     "SignedOutUserNavigation": {
       "register": "注册",
       "signIn": "登录"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "切换至 深色 主题",
+      "switchToLight": "切换至 浅色 主题"
     }
   }
 }

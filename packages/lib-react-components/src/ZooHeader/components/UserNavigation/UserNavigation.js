@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import NavButton from './components/NavButton/NavButton.js'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
+import ThemeModeToggle from '../ThemeModeToggle/ThemeModeToggle.js'
 import { getHost } from '../../helpers'
 
 const StyledBlank = styled(Blank)`
@@ -34,11 +35,14 @@ function FontAwesomeIcon({ color, icon, title }) {
 
 export default function UserNavigation({
   isNarrow = false,
+  onThemeChange,
   register,
+  showThemeToggle,
   signIn,
+  signOut,
+  themeMode,
   unreadMessages = 0,
   unreadNotifications = 0,
-  signOut,
   user
 }) {
   const { t } = useTranslation()
@@ -76,9 +80,16 @@ export default function UserNavigation({
     <>
       {Object.keys(user).length === 0 && (
         <>
+          {showThemeToggle && (
+            <ThemeModeToggle
+              themeMode={themeMode}
+              onThemeChange={onThemeChange}
+            />
+          )}
           <NavButton
             label={t('ZooHeader.SignedOutUserNavigation.signIn')}
             onClick={signIn}
+            margin={{ right: 'small' }}
           />
           <NavButton
             label={t('ZooHeader.SignedOutUserNavigation.register')}
@@ -102,6 +113,12 @@ export default function UserNavigation({
             unread={unreadMessages}
             url={`${host}/inbox`}
           />
+          {showThemeToggle && (
+            <ThemeModeToggle
+              themeMode={themeMode}
+              onThemeChange={onThemeChange}
+            />
+          )}
           <UserMenu signOut={signOut} user={user} />
         </>
       )}
@@ -111,9 +128,12 @@ export default function UserNavigation({
 
 UserNavigation.propTypes = {
   isNarrow: PropTypes.bool,
+  onThemeChange: PropTypes.func,
   register: PropTypes.func.isRequired,
+  showThemeToggle: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+  themeMode: PropTypes.string,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({

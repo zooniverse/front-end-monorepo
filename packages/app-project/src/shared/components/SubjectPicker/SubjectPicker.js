@@ -114,14 +114,11 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   }
   return (
     <>
-      <Link
+      <PlainButton
+        forwardedAs={Link}
         href={addQueryParams(baseUrl)}
-        passHref
-      >
-        <PlainButton
-          text={t('SubjectPicker.back')}
-        />
-      </Link>
+        text={t('SubjectPicker.back')}
+      />
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}

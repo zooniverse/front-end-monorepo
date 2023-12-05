@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/SubjectSetPicker.mock'
 import initStore from '@stores'
@@ -44,7 +44,7 @@ const snapshot = {
   }
 }
 
-const store = initStore(false, snapshot)
+const store = initStore(true, snapshot)
 applySnapshot(store.user, snapshot.user)
 
 const WORKFLOWS = [

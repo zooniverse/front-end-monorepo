@@ -13,6 +13,10 @@
   "ZooHeader": {
     "mainHeaderNavListLabels": {
       "talk": "محادثة"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "استبدل الخلفيّة غامق",
+      "switchToLight": "استبدل الخلفيّة فاتح"
     }
   }
 }

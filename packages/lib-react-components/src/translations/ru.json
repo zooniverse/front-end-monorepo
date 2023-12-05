@@ -37,6 +37,10 @@
       "register": "Зарегистрироваться",
       "signIn": "Войти"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Переключиться на Темный тему",
+      "switchToLight": "Переключиться на Светный тему"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Коллекции",

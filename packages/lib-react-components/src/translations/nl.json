@@ -17,6 +17,10 @@
     "SignedOutUserNavigation": {
       "register": "Registreren",
       "signIn": "Inloggen"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Wissel naar donker thema",
+      "switchToLight": "Wissel naar licht thema"
     }
   }
 }
