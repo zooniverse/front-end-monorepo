@@ -21,6 +21,10 @@
     "SignedOutUserNavigation": {
       "register": "रजिस्टर",
       "signIn": "साइन इन"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "थीम से बदलें गहरा",
+      "switchToLight": "थीम से बदलें हल्का"
     }
   }
 }

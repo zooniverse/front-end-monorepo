@@ -11,6 +11,7 @@ import MainNavList from './components/MainNavList'
 import NarrowMainNavMenu from './components/NarrowMainNavMenu'
 import UserNavigation from './components/UserNavigation/UserNavigation.js'
 import ZooniverseLogo from '../ZooniverseLogo'
+import ThemeModeToggle from './components/ThemeModeToggle/ThemeModeToggle'
 
 export const StyledHeader = styled(Box)`
   color: #b2b2b2;
@@ -39,9 +40,12 @@ export default function ZooHeader({
   breakpoint = 960,
   isAdmin = false,
   isNarrow = false,
+  onThemeChange = defaultHandler,
   register = defaultHandler,
+  showThemeToggle = false,
   signIn = defaultHandler,
   signOut = defaultHandler,
+  themeMode = 'light',
   unreadMessages = 0,
   unreadNotifications = 0,
   user = {},
@@ -111,9 +115,12 @@ export default function ZooHeader({
         {hasMounted && (
           <UserNavigation
             isNarrow={isNarrow}
+            onThemeChange={onThemeChange}
             register={register}
+            showThemeToggle={showThemeToggle}
             signIn={signIn}
             signOut={signOut}
+            themeMode={themeMode}
             unreadMessages={unreadMessages}
             unreadNotifications={unreadNotifications}
             user={user}
@@ -136,13 +143,16 @@ export default function ZooHeader({
 ZooHeader.propTypes = {
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
+  onThemeChange: PropTypes.func,
   register: PropTypes.func,
+  showThemeToggle: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+  themeMode: PropTypes.string,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
-    display_name: PropTypes.string.isRequired,
-    login: PropTypes.string.isRequired
+    display_name: PropTypes.string,
+    login: PropTypes.string
   })
 }

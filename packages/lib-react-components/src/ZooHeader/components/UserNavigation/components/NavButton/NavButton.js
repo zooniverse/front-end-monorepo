@@ -10,18 +10,15 @@ const StyledNavButton = styled(Button)`
   &:hover, &:focus {
     ${props => css`border-bottom-color: ${props.theme.global.colors.brand};`}
   }
-
-  &:first-of-type {
-    margin-right: 24px
-  }
 `
 
-function NavButton ({ label = '', onClick }) {
+function NavButton ({ label = '', onClick, ...props }) {
   return (
     <StyledNavButton
       label={<SpacedText color="#B2B2B2" weight="bold" size="xsmall">{label}</SpacedText>}
       plain={true}
       onClick={onClick}
+      {...props}
     />
   )
 }
