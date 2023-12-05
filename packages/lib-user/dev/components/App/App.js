@@ -3,7 +3,8 @@ import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { GroupStats, UserStats } from '@components/index.js'
+import { GroupStats, MyGroups, UserStats } from '@components/index.js'
+import { usePanoptesUser } from '@hooks/index.js'
 
 function App ({
   groups = null,
@@ -13,54 +14,66 @@ function App ({
   const [userAuth, setUserAuth] = useState(null)
   const [dark, setDarkTheme] = useState(false)
 
-  useEffect(() => {
-    async function initAuthorization () {
-      setLoading(true)
+  const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
 
+  useEffect(() => {
+    async function initUserAuth () {
+      setLoading(true)
+  
       try {
         const userAuth = await oauth.init('357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d')
         setUserAuth(userAuth)
-        setLoading(false)
-        history.replaceState(null, document.title, location.pathname + location.search)
       } catch (error) {
         console.error(error)
+      } finally {
         setLoading(false)
       }
-    }
+    };
+  
+    window.addEventListener('load', initUserAuth);
 
-    initAuthorization()
+    return () => {
+      window.removeEventListener('load', initUserAuth);
+    };
   }, [])
 
-  const login = () => oauth.signIn(window.location.origin)
-  const logout = () => oauth.signOut().then(setUserAuth)
+  const login = () => oauth?.signIn(window?.location?.origin)
+  const logout = () => oauth?.signOut().then(setUserAuth)
+
+  const userSubpath = user?.login ? user.login : '[login]'
 
   let content = (
     <div>
-      <h2>Key Components - urls (zooniverse.org/...)</h2>
+      <h2>url - Key Components</h2>
       <ul>
-        <li>homepage</li>
-        <li>
-          profile page (public) - users/[login]
-          <ul>
-            <li>
-              <a href="./?users=[login]/stats">user stats page (private) - users/[login]/stats</a>
-              <ul>
-                <li>certificate - users/[login]/stats/certificate</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          groups list - TBD
-          <ul>
-            <li>
-              <a href="./?groups=[user_group_id]">group stats page - groups/[id]</a>
-              <ul>
-                <li>contributors - groups/[id]/contributors</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li>zooniverse.org - homepage</li>
+        <ul>
+          <li>
+            /users/[login] - user profile page
+            <ul>
+              <li>
+                <a href={`./?users=${userSubpath}/stats`}>/stats - user stats page</a>
+                <ul>
+                  <li>/certificate - Volunteer Certificate</li>
+                </ul>
+              </li>
+              <li>
+                <a href={`./?users=${userSubpath}/groups`}>/groups - my groups</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            /groups
+            <ul>
+              <li>
+                <a href="./?groups=[user_group_id]">/groups/[id] - group stats page</a>
+                <ul>
+                  <li>/contributors - Full Group Stats</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </ul>
     </div>
   )
@@ -98,6 +111,10 @@ function App ({
           login={login}
         />
       )
+    } else if (subpaths[1] === 'groups') {
+      content = <MyGroups authClient={oauth} />
+    } else {
+      content = <p>User profile page goes here.</p>
     }
   }
 
@@ -150,5 +167,4 @@ export default App
 // <li>favorites (public) - users/[login]/favorites</li>
 // <li>collections (public) - users/[login]/collections</li>
 // <li>comments (public) - users/[login]/comments</li>
-// <li>groups (private) - users/[login]/groups</li>
 // <li>projects (private) - users/[login]/projects</li>
