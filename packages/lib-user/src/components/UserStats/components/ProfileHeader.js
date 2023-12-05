@@ -1,7 +1,7 @@
 import { Box, Image } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
-import { SpacedText } from '@zooniverse/react-components'
+import { SpacedText, withResponsiveContext, ZooniverseLogo } from '@zooniverse/react-components'
 
 const StyledAvatar = styled(Image)`
   width: 50px;
@@ -50,16 +50,17 @@ function ProfileHeader ({
   displayName = '',
   hours = 0,
   login = '',
-  projects = 0
+  projects = 0,
+  screenSize = 'large'
 }) {
   return (
     <Box
       align='center'
-      direction='row'
-      justify='between'
+      direction={screenSize === 'small' ? 'column' : 'row'}
+      gap='small'
+      justify={screenSize === 'small' ? 'center' : 'between'}
     >
       <Box
-        align='center'
         direction='row'
         gap='small'
       >
@@ -68,21 +69,28 @@ function ProfileHeader ({
             src={avatar}
             alt={`${login} avatar`}
           />
-          : null}
-        <SpacedText
-          color='brand'
-          size='large'
-          weight='bold'
+          : <ZooniverseLogo size='50px' />}
+        <Box
+          align={screenSize === 'small' ? 'start' : 'center'}
+          direction={screenSize === 'small' ? 'column' : 'row'}
+          justify='center'
+          gap={screenSize === 'small' ? 'none' : 'small'}
         >
-          {displayName}
-        </SpacedText>
-        {login ?
           <SpacedText
-            uppercase={false}
+            color='brand'
+            size='large'
+            weight='bold'
           >
-            @{login}
+            {displayName}
           </SpacedText>
-          : null}
+          {login ?
+            <SpacedText
+              uppercase={false}
+            >
+              @{login}
+            </SpacedText>
+            : null}
+        </Box>
       </Box>
       <Box
         align='center'
@@ -128,4 +136,4 @@ ProfileHeader.propTypes = {
   projects: number
 }
 
-export default ProfileHeader
+export default withResponsiveContext(ProfileHeader)
