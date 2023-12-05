@@ -6,8 +6,6 @@ import { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 
-import AuthModal from '@components/AuthModal'
-import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
@@ -90,7 +88,6 @@ function MyApp({ Component, pageProps }) {
               <Box>
                 <Component {...pageProps} />
               </Box>
-              <AuthModal />
             </GrommetWrapper>
           </MediaContextProvider>
         </Provider>

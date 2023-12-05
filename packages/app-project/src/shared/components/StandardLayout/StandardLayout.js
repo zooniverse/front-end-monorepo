@@ -10,9 +10,9 @@ import { useAdminMode } from '@hooks'
 import {
   AdminContainer,
   Announcements,
-  ProjectHeader,
-  ZooHeaderWrapper
+  ProjectHeader
 } from '@components'
+import PageHeader from '../../../components/PageHeader/PageHeader.js'
 
 export const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 const PageBox = styled(Box)`
@@ -46,7 +46,7 @@ function StandardLayout ({
   return (
     <PageBox className={className} data-testid='project-page' border={border}>
       <header>
-        <ZooHeaderWrapper isAdmin={adminMode} />
+        <PageHeader isAdmin={adminMode} />
         <ProjectHeader adminMode={adminMode} />
         <Announcements />
       </header>

@@ -12,8 +12,7 @@ import {
   AdminContainer,
   Announcements,
   ProjectHeader,
-  ThemeModeToggle,
-  ZooHeaderWrapper,
+  ThemeModeToggle
 } from '@components'
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -22,6 +21,7 @@ import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import { Media } from '@shared/components/Media'
+import PageHeader from '../../components/PageHeader/PageHeader.js'
 
 export const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 
@@ -69,7 +69,7 @@ function ProjectHomePage ({
     >
       <Media at='default'>
         <header>
-          <ZooHeaderWrapper isAdmin={adminMode} />
+          <PageHeader isAdmin={adminMode} />
           <ProjectHeader adminMode={adminMode} />
           <Announcements />
         </header>
@@ -87,7 +87,7 @@ function ProjectHomePage ({
       <Media greaterThan='default'>
         <FullHeightBox margin={{ bottom: 'large' }}>
           <header>
-            <ZooHeaderWrapper isAdmin={adminMode} />
+            <PageHeader isAdmin={adminMode} />
             <ProjectHeader adminMode={adminMode} />
             <Announcements />
           </header>
