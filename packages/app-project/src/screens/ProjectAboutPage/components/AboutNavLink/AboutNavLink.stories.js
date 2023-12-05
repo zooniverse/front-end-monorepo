@@ -1,4 +1,6 @@
 import { Grid } from 'grommet'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+
 import AboutNavLink from './AboutNavLink'
 
 const defaultLink = {
@@ -19,9 +21,18 @@ const currentLink = {
   text: 'team'
 }
 
+function NextRouterStory(Story) {
+  return (
+    <RouterContext.Provider value={mockedRouter}>
+      <Story />
+    </RouterContext.Provider>
+  )
+}
+
 export default {
   title: 'Project App / Screens / About Pages / AboutNavLink',
   component: AboutNavLink,
+  decorators: [NextRouterStory],
   args: {
     dark: false,
     router: mockedRouter

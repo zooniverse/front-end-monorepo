@@ -53,13 +53,11 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, t
       </FormField>
 
       <Box align='center' margin={{ bottom: 'small' }}>
-        <Link href='/reset-password' passHref>
-          <Anchor size='small'>
-            <SpacedText>
-              {t('AuthModal.LoginForm.forgot')}
-            </SpacedText>
-          </Anchor>
-        </Link>
+        <Anchor as={Link} href='/reset-password' size='small'>
+          <SpacedText>
+            {t('AuthModal.LoginForm.forgot')}
+          </SpacedText>
+        </Anchor>
       </Box>
 
       <Button
