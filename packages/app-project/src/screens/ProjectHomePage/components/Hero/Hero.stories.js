@@ -1,7 +1,7 @@
 import { MediaContextProvider } from '@shared/components/Media'
 import asyncStates from '@zooniverse/async-states'
 import { Provider } from 'mobx-react'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 
 import Store from '@stores/Store'

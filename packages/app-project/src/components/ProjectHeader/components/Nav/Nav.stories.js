@@ -1,9 +1,30 @@
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import Nav from './Nav.js'
 import initStore from '@stores'
+
+const mockRouter = {
+  asPath: '/zooniverse/snapshot-serengeti/about/team',
+  basePath: '/projects',
+  locale: 'en',
+  push() {},
+  prefetch: () => new Promise((resolve, reject) => {}),
+  query: {
+    owner: 'zooniverse',
+    project: 'snapshot-serengeti'
+  }
+}
+
+function NextRouterStory(Story) {
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      <Story />
+    </RouterContext.Provider>
+  )
+}
 
 function ThemedStory(Story) {
   return (
@@ -16,7 +37,7 @@ function ThemedStory(Story) {
 export default {
   title: 'Project App / Shared / Project Header / Nav',
   component: Nav,
-  decorators: [ThemedStory]
+  decorators: [NextRouterStory, ThemedStory]
 }
 
 export function Default(props) {

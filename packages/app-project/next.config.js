@@ -57,14 +57,7 @@ const nextConfig = {
 
   experimental: {
     forceSwcTransforms: true,
-    modularizeImports: {
-      lodash: {
-        transform: 'lodash/{{member}}',
-      },
-      '@zooniverse/react-components': {
-        transform: '@zooniverse/react-components/{{member}}'
-      }
-    },
+    optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons']
   },
 
   async headers() {

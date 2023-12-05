@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import WorkflowSelector from './WorkflowSelector'
 

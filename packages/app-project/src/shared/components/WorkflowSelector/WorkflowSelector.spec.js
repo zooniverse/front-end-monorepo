@@ -1,11 +1,24 @@
 import asyncStates from '@zooniverse/async-states'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import WorkflowSelector from './WorkflowSelector'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import { expect } from 'chai'
 
 describe('Component > WorkflowSelector', function () {
+  const mockRouter = {
+    asPath: '/zooniverse/snapshot-serengeti/about/team',
+    basePath: '/projects',
+    locale: 'en',
+    push() {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
+
   const THEME = {
     global: {
       colors: {
@@ -30,56 +43,71 @@ describe('Component > WorkflowSelector', function () {
   /** The translation function will simply return keys in a testing env */
 
   it('should render without crashing', function () {
-    const wrapper = shallow(
-      <WorkflowSelector
-        theme={THEME}
-        workflows={WORKFLOWS}
-        workflowDescription={WORKFLOW_DESCRIPTION}
-      />)
+    const wrapper = mount(
+      <RouterContext.Provider value={mockRouter}>
+        <WorkflowSelector
+          theme={THEME}
+          workflows={WORKFLOWS}
+          workflowDescription={WORKFLOW_DESCRIPTION}
+        />
+      </RouterContext.Provider>
+    )
     expect(wrapper).to.be.ok()
   })
 
   describe('workflow description', function () {
     it('should use the `workflowDescription` prop if available', function () {
-      const wrapper = shallow(
-        <WorkflowSelector
-          theme={THEME}
-          workflows={WORKFLOWS}
-          workflowDescription={WORKFLOW_DESCRIPTION}
-        />)
+      const wrapper = mount(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelector
+            theme={THEME}
+            workflows={WORKFLOWS}
+            workflowDescription={WORKFLOW_DESCRIPTION}
+          />
+        </RouterContext.Provider>
+      )
       expect(wrapper.contains(WORKFLOW_DESCRIPTION)).to.be.true()
     })
 
     it('should use the default message if the `workflowDescription` prop is unset', function () {
-      const wrapper = shallow(
-        <WorkflowSelector
-          theme={THEME}
-          workflows={WORKFLOWS}
-        />)
+      const wrapper = mount(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelector
+            theme={THEME}
+            workflows={WORKFLOWS}
+          />
+        </RouterContext.Provider>
+      )
       expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
     })
 
     it('should use the default message if the `workflowDescription` prop is an empty string', function () {
-      const wrapper = shallow(
-        <WorkflowSelector
-          theme={THEME}
-          workflows={WORKFLOWS}
-          workflowDescription=''
-        />)
+      const wrapper = mount(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelector
+            theme={THEME}
+            workflows={WORKFLOWS}
+            workflowDescription=''
+          />
+        </RouterContext.Provider>
+      )
       expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
     })
   })
 
   describe('when successfully loaded the user state and loaded the user project preferences', function () {
     it('should render workflow select buttons', function () {
-      const wrapper = shallow(
-        <WorkflowSelector
-          uppLoaded={true}
-          userReadyState={asyncStates.success}
-          theme={THEME}
-          workflows={WORKFLOWS}
-        />)
-        expect(wrapper.find(WorkflowSelectButtons)).to.have.lengthOf(1)
+      const wrapper = mount(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelector
+            uppLoaded={true}
+            userReadyState={asyncStates.success}
+            theme={THEME}
+            workflows={WORKFLOWS}
+          />
+        </RouterContext.Provider>
+      )
+      expect(wrapper.find(WorkflowSelectButtons)).to.have.lengthOf(1)
     })
   })
 })
