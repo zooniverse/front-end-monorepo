@@ -6,6 +6,7 @@ import { bool, object, oneOfType, string } from 'prop-types'
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 import { useProjectNavigation } from '../../hooks'
 
@@ -47,7 +48,7 @@ function DropdownNav({
   className,
   margin = defaultMargin,
   organizationSlug = '',
-  organizationTitle = '',
+  organizationTitle = ''
 }) {
   const { t } = useTranslation('components')
   const navLinks = useProjectNavigation(adminMode)
@@ -61,6 +62,32 @@ function DropdownNav({
     setIsOpen(true)
   }
 
+  function NavItem({ navLink }) {
+    const router = useRouter()
+    let isCurrentPage
+    if (router?.asPath) {
+      const routerPath = router.asPath.split('/')
+      const hrefPath = navLink.href.split('/')
+      /*
+        The path arrays will be ['', owner, project, section, ...rest].
+        The section is always the fourth item.
+      */
+      isCurrentPage = routerPath[3] === hrefPath[3]
+    }
+
+    return (
+      <Box as='li' key={navLink.href}>
+        <NavLink
+          aria-current={isCurrentPage ? 'page' : undefined}
+          color='white'
+          link={navLink}
+          StyledAnchor={StyledAnchor}
+          weight='bold'
+        />
+      </Box>
+    )
+  }
+
   const dropContent = (
     <Box
       aria-label={t('ProjectHeader.ProjectNav.ariaLabel')}
@@ -69,48 +96,24 @@ function DropdownNav({
       elevation='medium'
       margin={{ top: 'medium ' }}
     >
-      <Box
-        as='ul'
-        pad='0px'
-      >
-        <>
-          {navLinks.map(navLink => (
-            <Box
-              as='li'
-              key={navLink.href}
-            >
-              <NavLink
-                color='white'
-                link={navLink}
-                StyledAnchor={StyledAnchor}
-                weight='bold'
-              />
-            </Box>
-          ))}
-        </>
+      <Box as='ul' pad='0px'>
+        {navLinks.map(navLink => (
+          <NavItem key={navLink.href} navLink={navLink} />
+        ))}
         {organizationTitle ? (
-          <Box
-            as='li'
-            key={organizationSlug}
-          >
+          <Box as='li' key={organizationSlug}>
             <StyledAnchor
               href={`/organizations/${organizationSlug}`}
-              label={(
+              label={
                 <Box pad='none'>
-                  <SpacedText
-                    color='white'
-                    size='xsmall'
-                  >
+                  <SpacedText color='white' size='xsmall'>
                     {t('ProjectHeader.organization')}
                   </SpacedText>
-                  <SpacedText
-                    color='white'
-                    weight='bold'
-                  >
+                  <SpacedText color='white' weight='bold'>
                     {organizationTitle}
                   </SpacedText>
                 </Box>
-              )}
+              }
             />
           </Box>
         ) : null}
@@ -160,7 +163,4 @@ DropdownNav.propTypes = {
 }
 
 export default DropdownNav
-export {
-  DropdownNav,
-  StyledDropButton
-}
+// export { DropdownNav, StyledDropButton }

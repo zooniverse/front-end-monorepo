@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -31,7 +30,7 @@ function NavLink ({
     // We also do not wrap it with next.js's Link
     return <StyledAnchor as='span' color={color} disabled label={label} {...anchorProps} />
   }
-  
+
   return (
     <StyledAnchor
       forwardedAs={Link}

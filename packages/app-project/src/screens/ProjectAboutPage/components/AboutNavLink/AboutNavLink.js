@@ -1,6 +1,6 @@
-import { string, object, shape } from 'prop-types'
+import { string, shape } from 'prop-types'
 import styled from 'styled-components'
-import addQueryParams from '@helpers/addQueryParams'
+import { useRouter } from 'next/router'
 
 /** Components */
 import NavLink from '@shared/components/NavLink'
@@ -12,9 +12,19 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-const AboutNavLink = ({ router, link }) => {
+const AboutNavLink = ({ link }) => {
   const { href } = link
-  const isCurrentPage = router?.asPath === addQueryParams(href)
+  const router = useRouter()
+  let isCurrentPage
+  if (router?.asPath) {
+    const routerPath = router.asPath.split('/')
+    const hrefPath = href.split('/')
+    /*
+      The path arrays will be ['', owner, project, section, ...rest].
+      The section is always the fourth item.
+    */
+    isCurrentPage = routerPath[3] === hrefPath[3]
+  }
 
   return (
     <Box
@@ -36,8 +46,7 @@ AboutNavLink.propTypes = {
   link: shape({
     href: string,
     text: string
-  }),
-  router: object
+  })
 }
 
 export default AboutNavLink

@@ -29,7 +29,7 @@ const StyledAnchor = styled(Anchor)`
     &[href]:hover {
       border-bottom-color: ${props.color};
     }
-    &[aria-current=page] {
+    &[aria-current='page'] {
       cursor: default;
       border-bottom-color: ${props.color};
     }
@@ -62,15 +62,15 @@ function NavItem({ navLink }) {
   )
 }
 
-function Nav({
-  adminMode = false,
-}) {
+function Nav({ adminMode = false }) {
   const navLinks = useProjectNavigation(adminMode)
   const { t } = useTranslation('components')
   return (
     <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
       <Box as='ul' direction='row' style={{ paddingInlineStart: 0 }}>
-        {navLinks.map(navLink => <NavItem key={navLink.href} navLink={navLink} />)}
+        {navLinks.map(navLink => (
+          <NavItem key={navLink.href} navLink={navLink} />
+        ))}
       </Box>
     </Box>
   )
