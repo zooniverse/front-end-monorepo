@@ -69,7 +69,7 @@ function ProjectHomePage ({
     >
       <Media at='default'>
         <header>
-          <PageHeader isAdmin={adminMode} />
+          <PageHeader adminMode={adminMode} />
           <ProjectHeader adminMode={adminMode} />
           <Announcements />
         </header>

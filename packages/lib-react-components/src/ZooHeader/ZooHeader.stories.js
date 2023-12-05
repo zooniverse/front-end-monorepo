@@ -83,10 +83,10 @@ export function SignedIn({ signIn, signOut }) {
 }
 
 
-export function SignedInAsAdmin({ signIn, signOut }) {
+export function SignedInAdminMode({ signIn, signOut }) {
   return (
     <ZooHeader
-      isAdmin
+      adminMode
       signIn={signIn}
       signOut={signOut}
       user={{

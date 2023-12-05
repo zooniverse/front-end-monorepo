@@ -8,7 +8,7 @@ import {
 // import { PanoptesAuthContext } from '../../contexts'
 import { useTranslation } from 'next-i18next'
 
-function PageHeader( { isAdmin = false }) {
+function PageHeader() {
   const { t } = useTranslation()
 
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -40,7 +40,7 @@ function PageHeader( { isAdmin = false }) {
         onActive={setActiveIndex}
       />
       <ZooHeader
-        isAdmin={isAdmin}
+        // adminMode={adminMode}
         register={openRegisterModal}
         signIn={openSignInModal}
         signOut={onSignOut}
