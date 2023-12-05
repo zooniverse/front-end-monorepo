@@ -1,5 +1,7 @@
 'use client'
 
+// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
+
 import PropTypes from 'prop-types'
 
 import { 
@@ -7,19 +9,86 @@ import {
   usePanoptesUserGroup
 } from '@hooks/index.js'
 
+import {
+  deletePanoptesUserGroup,
+  getBearerToken,
+  updatePanoptesUserGroup
+} from '@utils/index.js'
+
+import DeleteGroup from './DeleteGroup.js'
+import EditGroup from './EditGroup.js'
+
 function GroupStats ({
   authClient,
   groupID
 }) {
-  const { data: group, error, isLoading: groupLoading } = usePanoptesUserGroup(authClient, groupID)
-  const { data: groupStats, error: groupStatsError, isLoading: groupStatsLoading } = useGroupStats({ authClient, groupID })
+  const {
+    data,
+    error: groupError,
+    isLoading: groupLoading
+  } = usePanoptesUserGroup({ authClient, groupID })
+  
+  const {
+    data: groupStats,
+    error: groupStatsError,
+    isLoading: groupStatsLoading
+  } = useGroupStats({ authClient, groupID })
+
+  async function getRequestHeaders() {
+    const authorization = await getBearerToken(authClient)
+    const requestHeaders = {
+      authorization,
+      etag: data.headers.etag
+    }
+    return requestHeaders
+  }
+
+  async function handleGroupDelete() {
+    try {
+      const requestHeaders = await getRequestHeaders()
+      const deleteResponse = await deletePanoptesUserGroup({ groupID, headers: requestHeaders })
+      console.log('deleteResponse', deleteResponse)
+      window.location.href =  '?users=[login]/groups'
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function handleGroupUpdate(updates) {
+    try {
+      const requestHeaders = await getRequestHeaders()
+      const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
+      console.log('updatedGroup', updatedGroup)
+      window.location.reload()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  if (groupError || groupStatsError) return (<p>Error: {groupError?.toString() || groupStatsError?.toString()}</p>)
+
+  if (groupLoading || groupStatsLoading) return (<p>Loading...</p>)
+
+  const group = data?.body?.user_groups?.[0]
 
   return (
     <div>
       <h2>Hi group with ID {groupID}! 🙌</h2>
       <h3>Your group display_name is {group?.display_name}.</h3>
+      <h4>Members: <pre>{group?.links.users.toString()}</pre></h4>
       <h4>Here are your group stats:</h4>
       <pre>{JSON.stringify(groupStats, null, 2)}</pre>
+      <hr />
+      <EditGroup
+        group={group}
+        handleGroupUpdate={handleGroupUpdate}
+      />
+      <br />
+      <hr />
+      <br />
+      <DeleteGroup
+        handleGroupDelete={handleGroupDelete}
+      />
     </div>
   )
 }

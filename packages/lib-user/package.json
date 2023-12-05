@@ -31,7 +31,9 @@
     "storybook": "storybook dev -p 6008",
     "build-storybook": "echo \"No storybook to build yet...\" && exit 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "swr": "~2.2.4"
+  },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
     "@zooniverse/panoptes-js": "~0.4.0",
