@@ -8,7 +8,8 @@ import LoginForm from './LoginForm'
 const DEFAULT_HANDLER = () => true
 
 export default function LoginFormContainer({
-  closeModal = DEFAULT_HANDLER
+  closeModal = DEFAULT_HANDLER,
+  onSignIn = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation()
   const [error, setError] = useState('')
@@ -17,6 +18,7 @@ export default function LoginFormContainer({
     if (error) setError('')
     try {
       const user = await auth.signIn(values)
+      onSignIn(user)
       setSubmitting(false)
       closeModal()
     } catch (error) {
@@ -38,5 +40,7 @@ export default function LoginFormContainer({
 }
 
 LoginFormContainer.propTypes = {
-  closeModal: func
+  closeModal: func,
+  /** Callback to handle user state in parent app (such as a mobx store) */
+  onSignIn: func
 }

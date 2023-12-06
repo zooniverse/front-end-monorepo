@@ -142,6 +142,9 @@
   "RequireUser": {
     "text": "You need to be signed in!"
   },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse site header"
+  },
   "SubjectPicker": {
     "back": "Choose a different subject set",
     "heading": "Choose a subject to get started",

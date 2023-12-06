@@ -1,4 +1,3 @@
-import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
@@ -85,9 +84,7 @@ function MyApp({ Component, pageProps }) {
           <MediaContextProvider disableDynamicMediaQueries>
             <GrommetWrapper>
               <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
-              <Box>
-                <Component {...pageProps} />
-              </Box>
+              <Component {...pageProps} />
             </GrommetWrapper>
           </MediaContextProvider>
         </Provider>

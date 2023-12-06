@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
 
@@ -54,6 +55,7 @@ function ProjectHomePage ({
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
+  const { t } = useTranslation()
 
   const adminBorder = { size: 'medium' }
   const betaBorder = { color: 'brand', size: 'medium' }
@@ -68,7 +70,7 @@ function ProjectHomePage ({
       border={border}
     >
       <Media at='default'>
-        <header>
+        <header aria-label={t('StandardLayout.headerLabel')}>
           <PageHeader adminMode={adminMode} />
           <ProjectHeader adminMode={adminMode} />
           <Announcements />
@@ -86,7 +88,7 @@ function ProjectHomePage ({
 
       <Media greaterThan='default'>
         <FullHeightBox margin={{ bottom: 'large' }}>
-          <header>
+          <header aria-label={t('StandardLayout.headerLabel')}>
             <PageHeader isAdmin={adminMode} />
             <ProjectHeader adminMode={adminMode} />
             <Announcements />

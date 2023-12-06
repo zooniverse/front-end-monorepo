@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
 import {
@@ -32,6 +33,7 @@ function useStores() {
 function StandardLayout ({
   children
 }) {
+  const { t } = useTranslation('components')
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -45,7 +47,7 @@ function StandardLayout ({
 
   return (
     <PageBox className={className} data-testid='project-page' border={border}>
-      <header>
+      <header aria-label={t('StandardLayout.headerLabel')}>
         <PageHeader adminMode={adminMode} />
         <ProjectHeader adminMode={adminMode} />
         <Announcements />

@@ -1,22 +1,35 @@
 import { AuthModal, ZooHeader } from '@zooniverse/react-components'
 import auth from 'panoptes-client/lib/auth'
+import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext, useState } from 'react'
-import {
-  useUnreadMessages,
-  useUnreadNotifications
-} from '@zooniverse/react-components/hooks'
-// import { PanoptesAuthContext } from '../../contexts'
-import { useTranslation } from 'next-i18next'
+import { bool } from 'prop-types'
 
-function PageHeader() {
-  const { t } = useTranslation()
+function useStore() {
+  const { store } = useContext(MobXProviderContext)
+  const { user: userStore } = store
+  return { userStore }
+}
 
+function PageHeader({ adminMode }) {
   const [activeIndex, setActiveIndex] = useState(-1)
-  // const { adminMode, user } = useContext(PanoptesAuthContext)
-  // const { data: unreadMessages } = useUnreadMessages(user)
-  // const { data: unreadNotifications } = useUnreadNotifications(user)
+
+  const { userStore } = useStore()
+  const { admin, display_name, login } = userStore
+
+  const userProp = userStore.isLoggedIn ? { admin, display_name, login } : {}
+  const unreadMessages = userStore?.personalization?.notifications?.unreadConversationsIds.length
+  const unreadNotifications = userStore?.personalization?.notifications?.unreadNotificationsCount
+
+  /*
+    Once AuthModal's form is submitted,
+    we still need to update the User store in this app
+  */
+  function onSignIn(userResource) {
+    userStore?.set(userResource)
+  }
 
   function onSignOut() {
+    userStore.clear()
     auth.signOut()
   }
 
@@ -33,23 +46,28 @@ function PageHeader() {
   }
 
   return (
-    <header aria-label={t('PageHeader.headerLabel')}>
+    <>
       <AuthModal
         activeIndex={activeIndex}
         closeModal={closeAuthModal}
         onActive={setActiveIndex}
+        onSignIn={onSignIn}
       />
       <ZooHeader
-        // adminMode={adminMode}
+        adminMode={adminMode}
         register={openRegisterModal}
         signIn={openSignInModal}
         signOut={onSignOut}
-        // unreadMessages={unreadMessages}
-        // unreadNotifications={unreadNotifications}
-        // user={user}
+        unreadMessages={unreadMessages}
+        unreadNotifications={unreadNotifications}
+        user={userProp}
       />
-    </header>
+    </>
   )
 }
 
-export default PageHeader
+export default observer(PageHeader)
+
+PageHeader.propTypes = {
+  adminMode: bool
+}
