@@ -1,4 +1,4 @@
-import { Box } from 'grommet'
+import { Box, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
@@ -14,6 +14,7 @@ import {
   StyledGrid,
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+import OurMission from './components/OurMission.js'
 
 const StyledSidebar = styled(Sidebar)`
   @media (width <= ${mobileBreakpoint}) {
@@ -27,15 +28,16 @@ const StyledDropdownNav = styled(DropdownNav)`
   }
 `
 
-function HeadingForAboutNav({ sectionName }) {
+function HeadingForAboutNav({ sectionName, slug }) {
   return (
     <HeadingForNav
-      id={sectionName}
+      id={slug}
       color={{ light: 'brand', dark: 'white' }}
       level={2}
       size='1.5rem'
       tabIndex={-1}
       textAlign='center'
+      style={{ padding: '20px 0' }}
     >
       {sectionName}
     </HeadingForNav>
@@ -45,50 +47,87 @@ function HeadingForAboutNav({ sectionName }) {
 function AboutPage() {
   const { t } = useTranslation('components')
 
-  const sections = [
-    { name: t('About.OurMission'), slug: '' },
-    { name: t('About.HowItWorks'), slug: 'how-it-works' },
-    { name: t('About.mobile'), slug: 'mobile' },
-    { name: t('About.highlights'), slug: 'hightlights' },
-    { name: t('About.contact'), slug: 'contact' }
+  const sidebarSections = [
+    { name: t('AboutPage.ourMission.heading'), slug: '' },
+    { name: t('AboutPage.howItWorks.heading'), slug: 'how-it-works' },
+    { name: t('AboutPage.mobile.sidebar'), slug: 'mobile' },
+    { name: t('AboutPage.highlights.sidebar'), slug: 'highlights' },
+    { name: t('AboutPage.contact.heading'), slug: 'contact' }
   ]
 
   return (
     <>
-      <Head description={t('About.description')} title={t('About.title')} />
+      <Head
+        description={t('AboutPage.description')}
+        title={t('AboutPage.title')}
+      />
       <PageLayout>
         <MobileHeading level='1' size='1.5rem'>
-          {t('About.title')}
+          {t('AboutPage.title')}
         </MobileHeading>
         <StyledDropdownNav
-          sidebarLabel={t('About.sidebarLabel')}
-          sections={sections}
+          sidebarLabel={t('AboutPage.sidebarLabel')}
+          sections={sidebarSections}
         />
         <MaxWidthContent>
-          <StyledHeading color='brand' level='1' size='small'>
-            {t('About.title')}
+          <StyledHeading color='brand' level='1' size='small' style={{ padding: '44px 0'}}>
+            {t('AboutPage.title')}
           </StyledHeading>
         </MaxWidthContent>
+
+        {/** Our Mission */}
         <StyledGrid>
           <Box as='aside' align='center'>
             <StyledSidebar
-              ariaLabel={t('About.sideBarLabel')}
-              sections={sections}
+              ariaLabel={t('AboutPage.sideBarLabel')}
+              sections={sidebarSections}
             />
           </Box>
           <article>
-            {/** Our Mission */}
-            <HeadingForAboutNav sectionName={sections[0].name} />
-            {/** How It Works */}
-            <HeadingForAboutNav sectionName={sections[1].name} />
-            {/** Mobile App */}
-            <HeadingForAboutNav sectionName={sections[2].name} />
-            {/** Highlights */}
-            <HeadingForAboutNav sectionName={sections[3].name} />
-            {/** Contact Us */}
-            <HeadingForAboutNav sectionName={sections[4].name} />
+            <Box>
+              <HeadingForAboutNav
+                sectionName={t('AboutPage.ourMission.heading')}
+                slug={sidebarSections[0].slug}
+              />
+              <Heading level={3} size='1.5rem' alignSelf='center' margin='0'>
+                "{t('AboutPage.ourMission.subheadings.one')}"
+              </Heading>
+              <OurMission />
+            </Box>
           </article>
         </StyledGrid>
+
+        {/** How It Works */}
+        <Box>
+          <HeadingForAboutNav
+            sectionName={t('AboutPage.howItWorks.heading')}
+            slug={sidebarSections[1].slug}
+          />
+        </Box>
+
+        {/** Mobile App */}
+        <MaxWidthContent>
+          <HeadingForAboutNav
+            sectionName={t('AboutPage.mobile.heading')}
+            slug={sidebarSections[2].slug}
+          />
+
+        </MaxWidthContent>
+        {/** Highlights */}
+        <MaxWidthContent>
+          <HeadingForAboutNav
+            sectionName={t('AboutPage.highlights.heading')}
+            slug={sidebarSections[3].slug}
+          />
+
+        </MaxWidthContent>
+        {/** Contact Us */}
+        <MaxWidthContent>
+          <HeadingForAboutNav
+            sectionName={t('AboutPage.contact.heading')}
+            slug={sidebarSections[4].slug}
+          />
+        </MaxWidthContent>
       </PageLayout>
     </>
   )
