@@ -10,9 +10,6 @@ function storeMapper(classifierStore) {
     classifications: {
       active: classification
     },
-    subjectViewer: {
-      frame
-    },
     workflowSteps: {
       activeInteractionTask,
       interactionTask: {
@@ -22,16 +19,16 @@ function storeMapper(classifierStore) {
   } = classifierStore
 
   const previousAnnotations = classification?.previousInteractionTaskAnnotations(activeInteractionTask.taskKey) || []
-  return { frame, previousAnnotations, shownMarks }
+  return { previousAnnotations, shownMarks }
 }
 
 function PreviousMarks ({
+  /** The current active frame in the subject viewer. */
+  frame = 0,
   /** SVG image scale (client size / natural size.)*/
   scale = 1
 }) {
   const {
-    /** The current active frame in the subject viewer. */
-    frame = 0,
     /** Annotations from previous marking tasks. Each annotation is an array of marks. */
     previousAnnotations,
     /** The show/hide previous marks setting. */
@@ -69,6 +66,7 @@ function PreviousMarks ({
 }
 
 PreviousMarks.propTypes = {
+  frame: PropTypes.number,
   scale: PropTypes.number
 }
 

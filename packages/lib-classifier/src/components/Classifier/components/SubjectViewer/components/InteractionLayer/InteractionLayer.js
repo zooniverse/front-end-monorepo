@@ -205,6 +205,7 @@ InteractionLayer.propTypes = {
     value: PropTypes.array
   }).isRequired,
   disabled: PropTypes.bool,
+  /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   marks: PropTypes.array,

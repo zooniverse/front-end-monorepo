@@ -10,7 +10,10 @@ import locationValidator from '../../helpers/locationValidator'
 function storeMapper(classifierStore) {
   const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
   const { activeStepTasks } = classifierStore.workflowSteps
-  const { frame, move } = classifierStore.subjectViewer
+  const { move } = classifierStore.subjectViewer
+  const {
+    multi_image_clone_markers: multiImageCloneMarkers
+  } = classifierStore.workflows?.active?.configuration
 
   const [activeInteractionTask] = activeStepTasks.filter(
     (task) => task.type === 'drawing' || task.type === 'transcription'
@@ -38,10 +41,10 @@ function storeMapper(classifierStore) {
     activeToolIndex,
     annotation,
     disabled,
-    frame,
     hidingIndex,
     marks,
     move,
+    multiImageCloneMarkers,
     setActiveMark,
     shownMarks,
     taskKey
@@ -59,6 +62,7 @@ export function InteractionLayerContainer({
   hidingIndex,
   marks = [],
   move = false,
+  multiImageCloneMarkers = false,
   scale = 1,
   setActiveMark = () => { },
   shownMarks = SHOWN_MARKS.ALL,
@@ -69,13 +73,12 @@ export function InteractionLayerContainer({
   played,
   duration
 }) {
-
   const newMarks =
     shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
-  const visibleMarksPerFrame = newMarks?.filter(
-    (mark) => mark.frame === frame
-  )
-
+  const visibleMarksPerFrame = (multiImageCloneMarkers)
+    ? newMarks
+    : newMarks?.filter((mark) => mark.frame === frame)
+    
   return (
     <>
       {activeTool && (
@@ -99,7 +102,10 @@ export function InteractionLayerContainer({
           width={width}
         />
       )}
-      <PreviousMarks scale={scale} />
+      <PreviousMarks
+        scale={scale}
+        frame={frame}
+      />
     </>
   )
 }
@@ -109,6 +115,7 @@ InteractionLayerContainer.propTypes = {
   activeTool: PropTypes.object,
   disabled: PropTypes.bool,
   duration: PropTypes.number,
+  /** Index of the Frame. Always inherits from SingleImageViewer, which inherits from the Viewer */
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
