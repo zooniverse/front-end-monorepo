@@ -9,7 +9,6 @@ import Error from 'next/error'
 import PageHeader from '../src/shared/components/PageHeader/PageHeader.js'
 import { PanoptesAuthContext } from '../src/shared/contexts'
 import { usePanoptesUser } from '@zooniverse/react-components/hooks'
-import { logReactError } from '../src/helpers/logger'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -38,7 +37,6 @@ function MyApp({ Component, pageProps }) {
       </PanoptesAuthContext.Provider>
     )
   } catch (error) {
-    logReactError(error)
     return <Error statusCode={500} title={error.message} />
   }
 }
