@@ -51,7 +51,7 @@ function ProfileHeader ({
   hours = 0,
   login = '',
   projects = 0,
-  screenSize = 'large'
+  screenSize = 'medium'
 }) {
   return (
     <Box
@@ -69,7 +69,7 @@ function ProfileHeader ({
             src={avatar}
             alt={`${login} avatar`}
           />
-          : <ZooniverseLogo size='50px' />}
+          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' />}
         <Box
           align={screenSize === 'small' ? 'start' : 'center'}
           direction={screenSize === 'small' ? 'column' : 'row'}
@@ -133,7 +133,8 @@ ProfileHeader.propTypes = {
   displayName: string,
   hours: number,
   login: string,
-  projects: number
+  projects: number,
+  screenSize: string
 }
 
 export default withResponsiveContext(ProfileHeader)
