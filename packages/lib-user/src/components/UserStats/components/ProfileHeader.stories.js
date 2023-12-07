@@ -1,24 +1,8 @@
-import { Box } from 'grommet'
-
 import ProfileHeader from './ProfileHeader.js'
-
-function WrappedStory (Story) {
-  return (
-    <Box
-      background={{ dark: 'dark-3', light: 'neutral-6' }}
-      basis='full'
-      fill
-      pad={{ horizontal: 'xlarge', vertical: 'small' }}
-    >
-      <Story />
-    </Box>
-  )
-}
 
 export default {
   title: 'Components/UserStats/ProfileHeader',
-  component: ProfileHeader,
-  decorators: [WrappedStory]
+  component: ProfileHeader
 }
 
 export const Default = () => (

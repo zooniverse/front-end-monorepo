@@ -12,7 +12,6 @@ const StyledDescription = styled(SpacedText)`
 const StyledProjectCard = styled(Box)`
   font-size: 12px;
   height: 280px;
-
   text-decoration: none;
   width: 220px;
 

@@ -1,24 +1,8 @@
-import { Box } from 'grommet'
-
 import ProjectCard from './ProjectCard.js'
-
-function WrappedStory (Story) {
-  return (
-    <Box
-      background={{ dark: 'dark-3', light: 'neutral-6' }}
-      basis='full'
-      fill
-      pad={{ horizontal: 'xlarge', vertical: 'small' }}
-    >
-      <Story />
-    </Box>
-  )
-}
 
 export default {
   title: 'Components/shared/ProjectCard',
-  component: ProjectCard,
-  decorators: [WrappedStory]
+  component: ProjectCard
 }
 
 export function Default () {
