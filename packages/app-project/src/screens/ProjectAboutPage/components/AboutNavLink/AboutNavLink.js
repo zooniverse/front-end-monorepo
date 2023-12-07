@@ -16,8 +16,11 @@ const AboutNavLink = ({ link }) => {
   const { href } = link
   const router = useRouter()
   let isCurrentPage
-  if (router?.isReady) {
-    isCurrentPage = router.asPath === addQueryParams(href)
+  if (router?.asPath) {
+    const trimmedPath = router.asPath
+      .replace('/production', '')
+      .replace('/staging', '')
+    isCurrentPage = trimmedPath === addQueryParams(href)
   }
 
   return (
