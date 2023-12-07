@@ -46,6 +46,9 @@ module.exports = {
       '@utils': path.resolve(__dirname, 'src/utils')
     },
     fallback: {
+      fs: false,
+      // for markdown-it plugins
+      path: require.resolve("path-browserify"),
       url: false,
     }
   },

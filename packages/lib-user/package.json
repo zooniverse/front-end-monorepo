@@ -17,7 +17,6 @@
     }
   },
   "sideEffects": false,
-  "type": "commonjs",
   "repository": "https://github.com/zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
