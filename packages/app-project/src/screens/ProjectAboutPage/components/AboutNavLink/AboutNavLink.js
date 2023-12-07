@@ -1,10 +1,10 @@
+import { Anchor, Box } from 'grommet'
+import { useRouter } from 'next/router'
 import { string, shape } from 'prop-types'
 import styled from 'styled-components'
-import { useRouter } from 'next/router'
 
-/** Components */
+import addQueryParams from '@helpers/addQueryParams'
 import NavLink from '@shared/components/NavLink'
-import { Anchor, Box } from 'grommet'
 
 const StyledAnchor = styled(Anchor)`
   &:hover {
@@ -16,14 +16,8 @@ const AboutNavLink = ({ link }) => {
   const { href } = link
   const router = useRouter()
   let isCurrentPage
-  if (router?.asPath) {
-    const routerPath = router.asPath.split('/')
-    const hrefPath = href.split('/')
-    /*
-      The path arrays will be ['', owner, project, section, ...rest].
-      The section is always the fourth item.
-    */
-    isCurrentPage = routerPath[3] === hrefPath[3]
+  if (router?.isReady) {
+    isCurrentPage = router.asPath === addQueryParams(href)
   }
 
   return (
