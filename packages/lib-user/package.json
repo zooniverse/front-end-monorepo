@@ -1,6 +1,6 @@
 {
   "name": "@zooniverse/user",
-  "description": "A library for Zooniverse user and user group pages",
+  "description": "Zooniverse library for user and user group pages",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.0",
@@ -29,7 +29,7 @@
     "test": "BABEL_ENV=es6 mocha --loader=@node-loader/babel --config ./test/.mocharc.json \"./src/**/*.spec.js\"",
     "test:ci": "echo \"No CI tests yet...\" && exit 0",
     "storybook": "storybook dev -p 6008",
-    "build-storybook": "echo \"No storybook to build yet...\" && exit 0"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "swr": "~2.2.4"
