@@ -44,12 +44,15 @@ function NavItem({ navLink }) {
   if (router?.asPath) {
     const routerPath = router.asPath.split('/')
     const hrefPath = navLink.href.split('/')
-    // server-side paths are prefixed with the API environment.
+    /*
+      Server-side routerPath will be ['', environment, owner, project, section, ...rest].
+      Client-side routerPath will be ['', owner, project, section, ...rest].
+    */
     const isSSR = ENVIRONMENTS.includes(routerPath[1])
     const section = isSSR ? routerPath[4] : routerPath[3]
     /*
-      The path arrays will be ['', owner, project, section, ...rest].
-      The section is always the fourth item in the hrefPath array.
+      The link hrefPath will be ['', owner, project, section, ...rest].
+      The section is always the fourth item in the array.
     */
     isCurrentPage = section === hrefPath[3]
   }
