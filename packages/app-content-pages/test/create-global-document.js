@@ -1,5 +1,4 @@
-// Creates a global document object using jsdom to allow the use of the
-// `mount` method in enzyme.
+// Creates a global document object using jsdom for RTL rendered components
 import { JSDOM } from 'jsdom'
 import nock from 'nock'
 
