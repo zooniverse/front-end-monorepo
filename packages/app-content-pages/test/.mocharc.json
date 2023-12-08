@@ -8,7 +8,6 @@
       "chai/register-expect.js"
     ],
     "file": [
-      "./test/create-enzyme-adapter.js",
       "./test/create-global-document.js",
       "./test/chai-config.js"
     ],

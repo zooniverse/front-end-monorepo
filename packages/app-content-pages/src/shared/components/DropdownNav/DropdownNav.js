@@ -20,11 +20,12 @@ const StyledButton = styled(Button)`
       `}
   }
 
-  ${props =>
-    props.active &&
-    css`
-      background: ${props.theme.global.colors['neutral-1']};
-    `}
+  &[aria-current='true'] {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+      `}
+  }
 `
 
 const StyledDropButton = styled(DropButton)`
@@ -102,7 +103,6 @@ function DropdownNav({
           <StyledLi key={section.name}>
             <StyledButton
               as={Link}
-              active={section.slug === activeSection}
               aria-current={section.slug === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
               onClick={() => handleSectionSelect(section.slug)}
@@ -137,7 +137,7 @@ function DropdownNav({
         pad={{ horizontal: '20px', vertical: '10px' }}
         round='small'
       >
-        <SpacedText weight='bold' color={{ light: 'brand', dark: '' }}>
+        <SpacedText weight='bold' color={{ light: 'brand', dark: 'white' }}>
           {sidebarLabel}
         </SpacedText>
         <FormDown color='brand' />
