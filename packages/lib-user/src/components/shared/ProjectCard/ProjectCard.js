@@ -96,7 +96,6 @@ function ProjectCard ({
         <StyledSpacedText
           color={{ dark: 'neutral-6', light: 'dark-5' }}
           size='inherit'
-          tabIndex='0'
           textAlign='center'
           uppercase={false}
         >
