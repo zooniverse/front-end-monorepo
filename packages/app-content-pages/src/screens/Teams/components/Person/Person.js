@@ -35,7 +35,7 @@ function Person({
       <Box direction='column'>
         <Box direction='row' gap='xsmall' align='center'>
           <PersonName
-            color='black'
+            color={{ light: 'black', dark: 'white' }}
             level='3'
             size={screenSize === 'small' ? '1rem' : '1.13rem'}
           >
