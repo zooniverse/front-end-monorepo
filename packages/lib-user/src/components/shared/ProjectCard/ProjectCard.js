@@ -3,12 +3,6 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
-const StyledDescription = styled(SpacedText)`
-  left: -9999px;
-  opacity: 0;
-  position: absolute;
-`
-
 const StyledProjectCard = styled(Box)`
   font-size: 12px;
   height: 280px;
@@ -26,12 +20,40 @@ const StyledProjectCard = styled(Box)`
     height: 200px;
     width: 157px;
   }
+`
 
-  &:hover ${StyledDescription},
-  &:focus ${StyledDescription} {
-    left: 0;
-    opacity: 1;
-    position: static;
+const StyledProjectImage = styled(Box)`
+  height: 220px;
+
+  @media (768px < width < 1280px) {
+    height: 189px;
+  }
+
+  @media (width <= 768px) {
+    height: 157px;
+  }
+`
+
+const StyledProjectContent = styled(Box)`
+  position: static;
+  bottom: 0;
+  height: 22%;
+  transition: height 0.5s ease;
+
+  ${StyledProjectCard}:hover &,
+  ${StyledProjectCard}:focus & {
+    height: 65%;
+  }
+`
+
+const StyledSpacedText = styled(SpacedText)`
+  height: 0;
+  margin: 5px 0 0 0;
+  overflow: auto;
+
+  ${StyledProjectCard}:hover &,
+  ${StyledProjectCard}:focus & {
+    height: auto;
   }
 `
 
@@ -48,20 +70,18 @@ function ProjectCard ({
       href={href}
       round='xxsmall'
     >
-      <Box
+      <StyledProjectImage
         background={{
           image: `url(${imageSrc})`,
           position: 'absolute',
           size: 'cover',
         }}
-        height='78%'
         round={{ corner: 'top', size: 'xxsmall' }}
       >
-      </Box>
-      <Box
+      </StyledProjectImage>
+      <StyledProjectContent
         flex='grow'
         justify='center'
-        height={{ min: '22%' }}
         pad='xsmall'
         round={{ corner: 'bottom', size: 'xxsmall' }}
       >
@@ -73,16 +93,15 @@ function ProjectCard ({
         >
           {displayName}
         </SpacedText>
-        <StyledDescription
+        <StyledSpacedText
           color={{ dark: 'neutral-6', light: 'dark-5' }}
-          margin={{ top: 'xxsmall' }}
           size='inherit'
           textAlign='center'
           uppercase={false}
         >
           {description}
-        </StyledDescription>
-      </Box>
+        </StyledSpacedText>
+      </StyledProjectContent>
     </StyledProjectCard>
   )
 }
