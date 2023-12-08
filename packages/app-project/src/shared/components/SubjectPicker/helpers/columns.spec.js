@@ -2,7 +2,7 @@ import columns from './columns'
 
 describe('Components > Subject Picker > helpers > columns', function () {
   const customHeadings = ['date', 'creator', 'title']
-  const baseUrl = '/projects/owner/project/classify/workflow/123/subject-set/456'
+  const baseUrl = '/owner/project/classify/workflow/123/subject-set/456'
 
   function testColumn(column) {
     const searchable = customHeadings.includes(column.header)
@@ -15,9 +15,9 @@ describe('Components > Subject Picker > helpers > columns', function () {
       if (primary) {
         it('should render a link to the subject', function () {
           const linkComponent = column.render({ subject_id: '123' }, baseUrl)
-          const { link } = linkComponent.props
-          expect(link.text).to.equal('123')
-          expect(link.href).to.equal(`${baseUrl}/subject/123`)
+          const { children, href } = linkComponent.props
+          expect(href).to.equal(`${baseUrl}/subject/123`)
+          expect(children.props.children).to.equal('123')
         })
       }
 

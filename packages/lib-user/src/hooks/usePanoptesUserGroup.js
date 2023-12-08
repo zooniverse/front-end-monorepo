@@ -1,49 +1,30 @@
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { panoptes } from '@zooniverse/panoptes-js'
 
-import { getBearerToken } from '@utils/index.js'
+import { usePanoptesAuth } from '@hooks/index.js'
 
-// TODO: refactor with SWR
-
-async function fetchPanoptesUserGroup(authClient, groupID) {
-  try {
-    const authorization = await getBearerToken(authClient)
-    const response = await panoptes.get(`/user_groups`, { id: groupID }, { authorization })
-    const [userGroup] = response.body.user_groups
-    return userGroup    
-  } catch (error) {
-    console.log(error)
-    return null
-  }
+const SWRoptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
 }
 
-export default function usePanoptesUserGroup(authClient, groupID) {
-  const [error, setError] = useState(null)
-  const [userGroup, setUserGroup] = useState(null)
-  const [loading, setLoading] = useState(true)
+async function fetchPanoptesUserGroup({ endpoint, groupID, authorization }) {
+  if (groupID === undefined || authorization === undefined) {
+    return undefined
+  }
+  if (groupID && authorization) {
+    const response = await panoptes.get(endpoint, {}, { authorization })
+    return response || {}
+  }
+  return null
+}
 
-  useEffect(function () {
-    async function handleUserGroup() {
-      setLoading(true)
-      try {
-        const panoptesUserGroup = await fetchPanoptesUserGroup(authClient, groupID)
-        if (!ignore) {
-          setUserGroup(panoptesUserGroup)
-        }
-      } catch (error) {
-        setError(error)
-      }
-      setLoading(false)
-    }
-
-    let ignore = false
-    if (authClient && groupID) {
-      handleUserGroup()
-    }
-    return function () {
-      ignore = true
-    }
-  }, [authClient, groupID])
-
-  return { data: userGroup, error, isLoading: loading }
+export default function usePanoptesUserGroup({ authClient, groupID}) {
+  const authorization = usePanoptesAuth({ authClient })
+  const endpoint = `/user_groups/${groupID}`
+  const key = { endpoint, groupID, authorization }
+  return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }

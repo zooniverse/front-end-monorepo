@@ -48,14 +48,6 @@
   "workspaces": {
     "packages": [
       "packages/**"
-    ],
-    "nohoist": [
-      "**/eslint-config-next",
-      "**/@storybook/*",
-      "**/storybook",
-      "**/storybook-i18n",
-      "**/storybook-react-i18next",
-      "**/next"
     ]
   },
   "resolutions": {

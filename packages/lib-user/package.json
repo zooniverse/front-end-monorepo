@@ -5,6 +5,7 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.0",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -16,7 +17,6 @@
     }
   },
   "sideEffects": false,
-  "type": "module",
   "repository": "https://github.com/zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
@@ -26,19 +26,22 @@
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "eslint": "eslint ./src --fix | snazzy",
     "prepare": "yarn build",
-    "test": "BABEL_ENV=es6 mocha --loader=@node-loader/babel --config ./test/.mocharc.json \"./src/**/*.spec.js\"",
+    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
     "test:ci": "echo \"No CI tests yet...\" && exit 0",
     "storybook": "storybook dev -p 6008",
     "build-storybook": "echo \"No storybook to build yet...\" && exit 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "swr": "~2.2.4"
+  },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
     "@zooniverse/panoptes-js": "~0.4.0",
     "@zooniverse/react-components": "~1.x.x",
     "grommet": "2.x.x",
     "react": "~18.2.0",
-    "react-dom": "~18.2.0"
+    "react-dom": "~18.2.0",
+    "styled-components": "~5.x.x"
   },
   "devDependencies": {
     "@babel/cli": "~7.23.0",
@@ -48,7 +51,6 @@
     "@babel/preset-env": "~7.23.2",
     "@babel/preset-react": "~7.23.3",
     "@babel/register": "~7.22.5",
-    "@node-loader/babel": "~2.0.1",
     "@storybook/addon-a11y": "~7.6.0",
     "@storybook/addon-essentials": "~7.6.0",
     "@storybook/react": "~7.6.0",
