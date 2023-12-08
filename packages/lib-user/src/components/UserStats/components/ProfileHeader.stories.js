@@ -1,12 +1,36 @@
+import { Box, ResponsiveContext } from 'grommet'
+import { useContext } from 'react'
+
 import ProfileHeader from './ProfileHeader.js'
 
 export default {
   title: 'Components/UserStats/ProfileHeader',
-  component: ProfileHeader
+  component: ProfileHeader,
+  decorators: [ComponentDecorator]
 }
 
-export const Default = () => (
-  
+function ComponentDecorator (Story) {
+  const size = useContext(ResponsiveContext)
+  const horizontalPadding = size === 'small' ? '20px' : '100px'
+
+  return (
+    <Box
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      fill
+      pad={{
+        horizontal: horizontalPadding,
+        vertical: '20px'
+      }}
+    >
+      <Story />
+    </Box>
+  )
+}
+
+export const Default = () => (  
   <ProfileHeader
     avatar='https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg'
     classifications={384}
