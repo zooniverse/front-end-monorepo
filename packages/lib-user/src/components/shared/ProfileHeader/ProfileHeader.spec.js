@@ -3,7 +3,7 @@ import { composeStory } from '@storybook/react'
 
 import Meta, { Default, Group, GroupWithHours, UserWithHours } from './ProfileHeader.stories.js'
 
-describe('components > UserStats > ProfileHeader', function () {
+describe('components > shared > ProfileHeader', function () {
   describe('with a user', function () {
     const DefaultStory = composeStory(Default, Meta)
     
