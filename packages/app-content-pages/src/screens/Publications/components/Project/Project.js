@@ -46,7 +46,7 @@ function Project(props) {
           )}
         </StyledBox>
         <Heading
-          color='black'
+          color={{ light: 'black', dark: 'white' }}
           level='3'
           size='small'
           style={{ lineHeight: '1.4rem' }}
