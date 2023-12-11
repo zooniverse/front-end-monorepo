@@ -7,7 +7,6 @@ async function fetchRecentSubjects({ projectId }) {
 
   if (talkData.length > 0) {
     const subjectIds = getSubjectIdsFromTalkData(talkData)
-    // const subjectIds = ['3815973', '1', '2']
     return await fetchSubjectData(subjectIds)
   }
 
