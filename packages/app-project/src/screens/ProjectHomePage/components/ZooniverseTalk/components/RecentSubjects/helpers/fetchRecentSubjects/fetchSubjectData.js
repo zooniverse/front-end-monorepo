@@ -12,8 +12,9 @@ async function fetchSubjectData(subjectIds) {
     // so we have to order them correctly here
     recentlyDiscussedSubjects = subjectIds.reduce((acc, id) => {
       // sometimes old subjects have been deleted, but their Talk thread still exists via their subject.id
-      if (subjects.find(subject => subject.id === id)) {
-        acc.push(subjects.find(subject => subject.id === id))
+      const subject = subjects.find(subject => subject.id === id);
+      if (subject) {
+        acc.push(subject);
       }
       return acc
     }, [])
