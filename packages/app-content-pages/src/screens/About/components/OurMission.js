@@ -14,7 +14,7 @@ export default function OurMission() {
   const { t } = useTranslation()
   return (
     <>
-      <Paragraph margin={{ top: '30px', bottom: '20px' }}>
+      <Paragraph margin={{ vertical: '20px' }}>
         <Trans
           i18nKey='AboutPage.ourMission.paragraphs.one'
           t={t}
@@ -45,7 +45,7 @@ export default function OurMission() {
           ]}
         />
       </Paragraph>
-      <Paragraph margin='0'>
+      <Paragraph margin={{ top: '0', bottom:'30px' }}>
       <Trans
           i18nKey='AboutPage.ourMission.paragraphs.four'
           t={t}

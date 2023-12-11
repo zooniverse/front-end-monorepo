@@ -37,7 +37,7 @@ function HeadingForAboutNav({ sectionName, slug }) {
       size='1.5rem'
       tabIndex={-1}
       textAlign='center'
-      style={{ padding: '20px 0' }}
+      style={{ padding: '30px 0 15px 0' }}
     >
       {sectionName}
     </HeadingForNav>
@@ -70,7 +70,7 @@ function AboutPage() {
           sections={sidebarSections}
         />
         <MaxWidthContent>
-          <StyledHeading color='brand' level='1' size='small' style={{ padding: '44px 0'}}>
+          <StyledHeading color='brand' level='1' size='small'>
             {t('AboutPage.title')}
           </StyledHeading>
         </MaxWidthContent>

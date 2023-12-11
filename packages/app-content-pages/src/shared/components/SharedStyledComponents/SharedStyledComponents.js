@@ -68,7 +68,7 @@ export const StyledGrid = styled(Grid)`
 
 export const StyledHeading = styled(Heading)`
   position: relative;
-  padding: 30px 0;
+  padding: 44px 0;
   margin: 0;
   text-align: center;
 
