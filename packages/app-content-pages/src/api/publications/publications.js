@@ -3,13 +3,18 @@ import { projects } from '@zooniverse/panoptes-js'
 import buildResponse from './buildResponse'
 import getUniqueProjectIds from './getUniqueProjectIds'
 import client from '../shared/contentfulClient'
+import mockResponse from './mocks/response.mock.json'
 
 export default async function createPublicationsResponse () {
-  const publications = await getPublicationsData()
-  const projectIds = getUniqueProjectIds(publications)
-  const projectAvatars = await getProjectAvatars(projectIds)
-  const projectAvatarsMap = createProjectAvatarsMap(projectAvatars)
-  return buildResponse(publications, projectAvatarsMap)
+  if (client) {
+    const publications = await getPublicationsData()
+    const projectIds = getUniqueProjectIds(publications)
+    const projectAvatars = await getProjectAvatars(projectIds)
+    const projectAvatarsMap = createProjectAvatarsMap(projectAvatars)
+    return buildResponse(publications, projectAvatarsMap)
+  } else {
+    return mockResponse
+  }
 }
 
 async function getPublicationsData (skip = 0, limit = 100, accumulator = []) {

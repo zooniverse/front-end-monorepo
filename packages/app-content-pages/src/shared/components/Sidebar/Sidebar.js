@@ -15,17 +15,18 @@ const StyledLi = styled.li`
 
 const StyledButton = styled(Button)`
   text-decoration: none;
-  color: black;
   padding: 5px 20px; // Same as Project About page sidebar
   width: 100%;
 
-  ${props =>
-    props.active &&
-    css`
-      background: ${props.theme.global.colors['accent-1']};
-    `}
+  &[aria-current='true'] {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['accent-1']};
+      `}
+  }
 
-  &:hover, :focus {
+  &:hover,
+  :focus {
     > span {
       font-weight: bold;
     }
@@ -52,12 +53,16 @@ function Sidebar({
           <StyledLi key={section.name}>
             <StyledButton
               as={Link}
-              active={section.slug === activeSection}
               aria-current={section.slug === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
               onClick={() => setActiveSection(section.slug)}
             >
               <SpacedText
+                color={
+                  section.slug === activeSection
+                    ? 'black'
+                    : { light: 'black', dark: 'white' }
+                }
                 weight={section.slug === activeSection ? 'bold' : 'normal'}
               >
                 {section.name}
