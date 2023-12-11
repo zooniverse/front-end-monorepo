@@ -18,7 +18,12 @@ export default function OurMission() {
         <Trans
           i18nKey='AboutPage.ourMission.paragraphs.one'
           t={t}
-          components={[<LinkInParagraph href='/publications' />]} // after switch to app-root, this will need to be /about/publications
+          components={[
+            <LinkInParagraph
+              key='AboutPage.ourMission.paragraphs.one'
+              href='/publications'
+            />
+          ]} // after switch to app-root, this will need to be /about/publications
         />
       </Paragraph>
       <Heading level={3} size='1rem' textAlign='start' margin='0'>
@@ -29,7 +34,10 @@ export default function OurMission() {
           i18nKey='AboutPage.ourMission.paragraphs.two'
           t={t}
           components={[
-            <LinkInParagraph href='https://www.zooniverse.org/projects' /> // hardcoded while /projects exists in a separate app
+            <LinkInParagraph
+              key='AboutPage.ourMission.paragraphs.two'
+              href='https://www.zooniverse.org/projects'
+            /> // hardcoded while /projects exists in a separate app
           ]}
         />
       </Paragraph>
@@ -41,16 +49,22 @@ export default function OurMission() {
           i18nKey='AboutPage.ourMission.paragraphs.three'
           t={t}
           components={[
-            <LinkInParagraph href='https://en.wikipedia.org/wiki/Wisdom_of_the_crowd' />
+            <LinkInParagraph
+              key='AboutPage.ourMission.paragraphs.three'
+              href='https://en.wikipedia.org/wiki/Wisdom_of_the_crowd'
+            />
           ]}
         />
       </Paragraph>
-      <Paragraph margin={{ top: '0', bottom:'30px' }}>
-      <Trans
+      <Paragraph margin={{ top: '0', bottom: '30px' }}>
+        <Trans
           i18nKey='AboutPage.ourMission.paragraphs.four'
           t={t}
           components={[
-            <LinkInParagraph href='https://www.zooniverse.org/talk' /> // hardcoded while /talk exists in a separate app
+            <LinkInParagraph
+              key='AboutPage.ourMission.paragraphs.four'
+              href='https://www.zooniverse.org/talk'
+            /> // hardcoded while /talk exists in a separate app
           ]}
         />
       </Paragraph>

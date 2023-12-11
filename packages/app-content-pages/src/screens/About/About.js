@@ -90,7 +90,7 @@ function AboutPage() {
                 slug={sidebarSections[0].slug}
               />
               <Heading level={3} size='1.5rem' alignSelf='center' margin='0'>
-                "{t('AboutPage.ourMission.subheadings.one')}"
+                &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
               </Heading>
               <OurMission />
             </Box>
