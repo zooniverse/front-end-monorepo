@@ -3725,11 +3725,11 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@storybook/addon-a11y@~7.6.0":
-  version "7.6.3"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.6.3.tgz#405a5f7aed9e1b67a0caa9709724d8626d99c287"
-  integrity sha512-z/vaDkZgbLLqrLz2C1qr3lav5xuZDbBggtNdvnM1TFKqiaQu8MPC0oEe6QSFf2phREf7cB2Qa5LsW7ak16RddQ==
+  version "7.6.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.6.4.tgz#bee12968995a5c0a196906aaaf100369876c5534"
+  integrity sha512-NwROJMes3D1WVPSmASVnHtDCIFQCF3DoPJEpzpnUYFxCR2IQzqPSlf9jptRkot6XjL5XwVX5mV2KxC2lKA1cfg==
   dependencies:
-    "@storybook/addon-highlight" "7.6.3"
+    "@storybook/addon-highlight" "7.6.4"
     axe-core "^4.2.0"
 
 "@storybook/addon-actions@7.6.3":
@@ -3818,13 +3818,6 @@
     "@storybook/node-logger" "7.6.4"
     "@storybook/preview-api" "7.6.4"
     ts-dedent "^2.0.0"
-
-"@storybook/addon-highlight@7.6.3":
-  version "7.6.3"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-highlight/-/addon-highlight-7.6.3.tgz#e6c9b8fe88acbf91c76c82e519eda7f2d129da61"
-  integrity sha512-Z9AJ05XCTzFZPAxQSkQf9/Hazf5/QQI0jYSsvKqt7Vk+03q5727oD9KcIY5IHPYqQqN9fHExQh1eyqY8AnS8mg==
-  dependencies:
-    "@storybook/global" "^5.0.0"
 
 "@storybook/addon-highlight@7.6.4":
   version "7.6.4"
@@ -6270,12 +6263,12 @@ aws4@^1.8.0:
   resolved "https://registry.npmjs.org/aws4/-/aws4-1.11.0.tgz"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axe-core@=4.7.0, axe-core@^4.2.0:
+axe-core@=4.7.0:
   version "4.7.0"
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.7.0.tgz"
   integrity sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==
 
-axe-core@^4.6.2:
+axe-core@^4.2.0, axe-core@^4.6.2:
   version "4.8.2"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.2.tgz#2f6f3cde40935825cf4465e3c1c9e77b240ff6ae"
   integrity sha512-/dlp0fxyM3R8YW7MFzaHWXrf4zzbr0vaYb23VBFCl83R7nWNPg/yaQw2Dc8jzCMmDVLhSdzH8MjrsuIUuvX+6g==
