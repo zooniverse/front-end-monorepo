@@ -134,7 +134,7 @@ function MultiFrameViewerContainer({
           src={img.src}
         >
           <SingleImageViewer
-            enableInteractionLayer={enableInteractionLayer}
+            enableInteractionLayer={asyncStates.success && enableInteractionLayer}
             height={naturalHeight}
             limitSubjectHeight={limitSubjectHeight}
             onKeyDown={onKeyZoom}

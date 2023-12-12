@@ -5,7 +5,7 @@ import InteractionLayer from '../InteractionLayer'
 
 let wrapper
 
-describe.only('Component > SingleImageViewer', function () {
+describe('Component > SingleImageViewer', function () {
   beforeEach(function () {
     wrapper = shallow(<SingleImageViewer height={200} width={100} viewBox='0 0 100 100' />)
   })
