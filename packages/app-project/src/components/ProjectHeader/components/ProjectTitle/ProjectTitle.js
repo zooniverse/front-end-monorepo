@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import { useStores } from '../../hooks'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -29,13 +30,12 @@ function ProjectTitle({
   title = ''
 }) {
   const router = useRouter()
-  const owner = router?.query?.owner
-  const project = router?.query?.project
+  const { slug } = useStores()
   const linkProps = {
-    href: addQueryParams(`/${owner}/${project}`)
+    href: addQueryParams(`/${slug}`)
   }
 
-  const isCurrentPage = router?.pathname === linkProps.href
+  const isCurrentPage = router?.isReady && router?.asPath === linkProps.href
 
   const anchor = (
     <StyledHeading color='white' margin='none' textAlign={textAlign}>
