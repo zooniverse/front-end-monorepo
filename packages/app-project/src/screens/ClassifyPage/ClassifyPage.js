@@ -75,6 +75,7 @@ function ClassifyPage({
     setShowTutorial(true)
   }
 
+  /** This subjectID is passed from the Classifier component's internal state */
   const onAddToCollection = useCallback((subjectID) => {
     setCollectionsSubjectID(subjectID)
     setCollectionsModalActive(true)
