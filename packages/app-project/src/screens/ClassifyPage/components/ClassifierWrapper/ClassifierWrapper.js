@@ -37,7 +37,6 @@ export default function ClassifierWrapper({
   project = null,
   recents = null,
   router = null,
-  setSelectedSubjectID = DEFAULT_HANDLER,
   showTutorial = false,
   subjectID,
   subjectSetID,
@@ -180,10 +179,6 @@ ClassifierWrapper.propTypes = {
   router: shape({
     locale: string
   }),
-  /** Sets subjectID state in ClassifiyPageContainer. Sometimes the current subject is
-   * selected via classifier UI and getDefaultPageProps is not called again.
-   * (For example Next and Prev buttons for prioritized subject selection) */
-    setSelectedSubjectID: func,
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
   /** Stored as a state variable in ClassifierPageContainer */
