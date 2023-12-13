@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { array, bool, string } from 'prop-types'
 
 import ClassifyPage from './ClassifyPage'
 
@@ -10,8 +11,12 @@ function ClassifyPageContainer ({
   workflows = [],
   ...props
 }) {
-  // selected subject state is derived from the page URL, but can be reset by the Classifier component.
+  /* Selected subjectID is initially derived from the page URL
+  via getDefaultPageProps, but subjectID can be reset by the Classifier
+  component via onSubjectReset(), or changed via prioritized subjects UI
+  (Next or Prev buttons) */
   const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
+  console.log('SELECTED SUBJECT', selectedSubjectID)
 
   let assignedWorkflow
   let allowedWorkflows = workflows.slice()
@@ -20,6 +25,7 @@ function ClassifyPageContainer ({
     assignedWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
     assignedWorkflowLevel = parseInt(assignedWorkflow?.configuration.level, 10)
   }
+  /* Double check that a volunteer navigating to url with workflowID is allowed to load that workflow */
   if (workflowAssignmentEnabled) {
     allowedWorkflows = workflows.filter(workflow => workflow.configuration.level <= assignedWorkflowLevel)
   }
@@ -28,7 +34,6 @@ function ClassifyPageContainer ({
   useEffect(function onSubjectChange () {
     setSelectedSubjectID(subjectID)
   }, [subjectID])
-
 
   const onSubjectReset = useCallback(() => {
     setSelectedSubjectID(undefined)
@@ -49,3 +54,16 @@ function ClassifyPageContainer ({
 }
 
 export default ClassifyPageContainer
+
+ClassifyPageContainer.propTypes = {
+  /** assignedWorkflowID is in the Project Preferences Store */
+  assignedWorkflowID: string,
+  /** This subjectID is from getDefaultPageProps in page index.js */
+  subjectID: string,
+  /** workflowAssignmentEnabled is in the Project Store */
+  workflowAssignmentEnabled: bool,
+  /** This workflowID is from getDefaultPageProps in page index.js */
+  workflowID: string,
+  /** workflows array is from getDefaultPageProps in page index.js */
+  workflows: array
+}
