@@ -25,10 +25,7 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle({
-  textAlign = 'start',
-  title = ''
-}) {
+function ProjectTitle({ textAlign = 'start', title = '' }) {
   const router = useRouter()
   const { slug } = useStores()
   const linkProps = {
@@ -37,22 +34,18 @@ function ProjectTitle({
 
   const isCurrentPage = router?.isReady && router?.asPath === linkProps.href
 
-  const anchor = (
-    <StyledHeading color='white' margin='none' textAlign={textAlign}>
-      {title}
-    </StyledHeading>
-  )
-
   if (isCurrentPage) {
     return (
-      <StyledAnchor>
-        {anchor}
-      </StyledAnchor>
+      <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+        {title}
+      </StyledHeading>
     )
   } else {
     return (
       <StyledAnchor forwardedAs={Link} {...linkProps}>
-        {anchor}
+        <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+          {title}
+        </StyledHeading>
       </StyledAnchor>
     )
   }

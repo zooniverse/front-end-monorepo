@@ -85,7 +85,6 @@ export default function ClassifierWrapper({
   const onSubjectChange = useCallback(
     subject => {
       if (subjectInURL) {
-        setSelectedSubjectID(subject.id)
         const subjectPageURL = `${baseURL}/subject/${subject.id}`
         const href = addQueryParams(subjectPageURL)
         history.replaceState(null, "", href)
