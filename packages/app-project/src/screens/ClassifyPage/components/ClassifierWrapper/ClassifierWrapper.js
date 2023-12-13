@@ -11,7 +11,7 @@ import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
 
-function onError(error, errorInfo={}) {
+function onError(error, errorInfo = {}) {
   logToSentry(error, errorInfo)
   console.error('Classifier error', error)
 }
@@ -83,11 +83,12 @@ export default function ClassifierWrapper({
   /*
     Track the current classification subject, when it changes inside the classifier.
   */
-  const onSubjectChange = useCallback((subject) => {
-    if (subjectInURL) {
-      const subjectPageURL = `${baseURL}/subject/${subject.id}`
-      const href = addQueryParams(subjectPageURL)
-      replaceRoute(href, href, { shallow: true })
+  const onSubjectChange = useCallback(
+    subject => {
+      if (subjectInURL) {
+        const subjectPageURL = `${baseURL}/subject/${subject.id}`
+        const href = addQueryParams(subjectPageURL)
+        replaceRoute(href, href, { scroll: false })
     }
   }, [baseURL, replaceRoute, subjectInURL])
 
@@ -136,9 +137,7 @@ export default function ClassifierWrapper({
     }
   } catch (error) {
     onError(error)
-    return (
-      <ErrorMessage error={error} />
-    )
+    return <ErrorMessage error={error} />
   }
 
   return (
