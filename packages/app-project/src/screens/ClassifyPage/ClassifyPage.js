@@ -25,6 +25,7 @@ function ClassifyPage({
   appLoadingState,
   onSubjectReset,
   screenSize,
+  setSelectedSubjectID,
   subjectID,
   subjectSetID,
   workflowFromUrl,
@@ -107,6 +108,7 @@ function ClassifyPage({
                 cachePanoptesData={cachePanoptesData}
                 onAddToCollection={onAddToCollection}
                 onSubjectReset={onSubjectReset}
+                setSelectedSubjectID={setSelectedSubjectID}
                 showTutorial={showTutorial}
                 {...classifierProps}
               />
@@ -141,6 +143,10 @@ ClassifyPage.propTypes = {
   onSubjectReset: func,
   /** withResponsiveContext */
   screenSize: string,
+  /** Sets subjectID state in ClassifiyPageContainer. Sometimes the current subject is
+   * selected via classifier UI and getDefaultPageProps is not called again.
+   * (For example Next and Prev buttons for prioritized subject selection) */
+  setSelectedSubjectID: func,
   /** This subjectID is a state variable in ClassifyPageContainer */
   subjectID: string,
   /** This subjectSetID is from getDefaultPageProps in page index.js */

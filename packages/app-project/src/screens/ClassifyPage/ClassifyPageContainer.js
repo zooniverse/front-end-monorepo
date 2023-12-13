@@ -43,6 +43,7 @@ function ClassifyPageContainer ({
     <>
       <ClassifyPage
         onSubjectReset={onSubjectReset}
+        setSelectedSubjectID={setSelectedSubjectID}
         subjectID={selectedSubjectID}
         workflowFromUrl={workflowFromUrl}
         workflowID={workflowFromUrl?.id}

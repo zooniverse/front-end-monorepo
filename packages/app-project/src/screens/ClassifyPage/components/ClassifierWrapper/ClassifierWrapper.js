@@ -37,6 +37,7 @@ export default function ClassifierWrapper({
   project = null,
   recents = null,
   router = null,
+  setSelectedSubjectID = DEFAULT_HANDLER,
   showTutorial = false,
   subjectID,
   subjectSetID,
@@ -78,7 +79,6 @@ export default function ClassifierWrapper({
     baseURL = `${baseURL}/subject-set/${subjectSetID}`
   }
   const subjectInURL = router?.query.subjectID !== undefined
-  const replaceRoute = router?.replace
 
   /*
     Track the current classification subject, when it changes inside the classifier.
@@ -86,10 +86,10 @@ export default function ClassifierWrapper({
   const onSubjectChange = useCallback(
     subject => {
       if (subjectInURL) {
+        setSelectedSubjectID(subject.id)
         const subjectPageURL = `${baseURL}/subject/${subject.id}`
         const href = addQueryParams(subjectPageURL)
         history.replaceState(null, "", href)
-        // replaceRoute(href, href, { shallow: true })
     }
   }, [baseURL, subjectInURL])
 
@@ -180,6 +180,10 @@ ClassifierWrapper.propTypes = {
   router: shape({
     locale: string
   }),
+  /** Sets subjectID state in ClassifiyPageContainer. Sometimes the current subject is
+   * selected via classifier UI and getDefaultPageProps is not called again.
+   * (For example Next and Prev buttons for prioritized subject selection) */
+    setSelectedSubjectID: func,
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
   /** Stored as a state variable in ClassifierPageContainer */
