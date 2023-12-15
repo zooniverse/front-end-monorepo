@@ -4,19 +4,19 @@ import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 const StyledProjectCard = styled(Box)`
-  font-size: 12px;
+  font-size: 11px;
   height: 280px;
   text-decoration: none;
   width: 220px;
 
   @media (768px < width < 1280px) {
-    font-size: 11.5px;
+    font-size: 10.5px;
     height: 240px;
     width: 189px;
   }
 
   @media (width <= 768px) {
-    font-size: 11px;
+    font-size: 10px;
     height: 200px;
     width: 157px;
   }
@@ -42,18 +42,29 @@ const StyledProjectContent = styled(Box)`
 
   ${StyledProjectCard}:hover &,
   ${StyledProjectCard}:focus & {
-    height: 65%;
+    height: 60%;
   }
 `
 
-const StyledSpacedText = styled(SpacedText)`
+const StyledProjectName = styled(SpacedText)`
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`
+
+const StyledProjectDescription = styled(SpacedText)`
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   height: 0;
-  margin: 5px 0 0 0;
-  overflow: auto;
+  margin-top: 0px;
+  overflow: hidden;
 
   ${StyledProjectCard}:hover &,
   ${StyledProjectCard}:focus & {
     height: auto;
+    margin-top: 10px;
   }
 `
 
@@ -82,25 +93,25 @@ function ProjectCard ({
       <StyledProjectContent
         flex='grow'
         justify='center'
-        pad='xsmall'
+        pad={{ horizontal: 'xsmall' }}
         round={{ corner: 'bottom', size: 'xxsmall' }}
       >
-        <SpacedText
+        <StyledProjectName
           color={{ dark: 'neutral-6', light: 'dark-5' }}
           size='inherit'
           textAlign='center'
           weight='bold'
         >
           {displayName}
-        </SpacedText>
-        <StyledSpacedText
+        </StyledProjectName>
+        <StyledProjectDescription
           color={{ dark: 'neutral-6', light: 'dark-5' }}
           size='inherit'
           textAlign='center'
           uppercase={false}
         >
           {description}
-        </StyledSpacedText>
+        </StyledProjectDescription>
       </StyledProjectContent>
     </StyledProjectCard>
   )
