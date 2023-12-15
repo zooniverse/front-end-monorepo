@@ -37,7 +37,8 @@ function AuthModal({
   className = '',
   closeModal,
   project,
-  onActive
+  onActive,
+  onSignIn
 }) {
   const { t } = useTranslation()
   return (
@@ -51,10 +52,10 @@ function AuthModal({
     >
       <StyledTabs activeIndex={activeIndex} onActive={onActive}>
         <Tab title={t("AuthModal.LoginForm.signIn")}>
-          <LoginForm closeModal={closeModal} />
+          <LoginForm closeModal={closeModal} onSignIn={onSignIn} />
         </Tab>
         <Tab title={t("AuthModal.RegisterForm.register")}>
-          <RegisterForm closeModal={closeModal} project={project} />
+          <RegisterForm closeModal={closeModal} project={project} onSignIn={onSignIn} />
         </Tab>
       </StyledTabs>
     </Modal>
@@ -73,7 +74,9 @@ AuthModal.propTypes = {
     id: string
   }),
   /** Callback to switch the active tab. */
-  onActive: func
+  onActive: func,
+  /** Callback to handle user state in parent app (such as a mobx store) */
+  onSignIn: func
 }
 
 export default withThemeContext(AuthModal, authModalTheme)

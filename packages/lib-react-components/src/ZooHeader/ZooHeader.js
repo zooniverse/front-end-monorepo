@@ -38,7 +38,7 @@ const defaultHandler = () => true
 
 export default function ZooHeader({
   breakpoint = 960,
-  isAdmin = false,
+  adminMode = false,
   isNarrow = false,
   onThemeChange = defaultHandler,
   register = defaultHandler,
@@ -101,7 +101,7 @@ export default function ZooHeader({
         <MainNavList
           adminNavLinkLabel={adminNavLinkLabel}
           adminNavLinkURL={adminNavLinkURL}
-          isAdmin={user?.admin && isAdmin}
+          adminMode={user?.admin && adminMode}
           isNarrow={isNarrow}
           mainHeaderNavListLabels={mainHeaderNavListLabels}
           mainHeaderNavListURLs={mainHeaderNavListURLs}
@@ -130,7 +130,7 @@ export default function ZooHeader({
           <NarrowMainNavMenu
             adminNavLinkLabel={adminNavLinkLabel}
             adminNavLinkURL={adminNavLinkURL}
-            isAdmin={user?.admin && isAdmin}
+            adminMode={user?.admin && adminMode}
             mainHeaderNavListLabels={mainHeaderNavListLabels}
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />
@@ -141,7 +141,7 @@ export default function ZooHeader({
 }
 
 ZooHeader.propTypes = {
-  isAdmin: PropTypes.bool,
+  adminMode: PropTypes.bool,
   isNarrow: PropTypes.bool,
   onThemeChange: PropTypes.func,
   register: PropTypes.func,
