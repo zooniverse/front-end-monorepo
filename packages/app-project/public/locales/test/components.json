@@ -14,52 +14,6 @@
       "seeResults": "Translated"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "error": "Translated",
-      "forgot": "Translated",
-      "heading": "Translated",
-      "instruction": "Translated",
-      "login": "Translated",
-      "password": "Translated",
-      "placeholder": "Translated",
-      "signIn": "Translated"
-    },
-    "RegisterForm": {
-      "betaListSignUp": "Translated",
-      "email": "Translated",
-      "emailConfirm": "Translated",
-      "emailConfirmError": "Translated",
-      "emailConflict": "Translated",
-      "emailListSignUp": "Translated",
-      "emailPlaceholder": "Translated",
-      "forgot": "Translated",
-      "heading": "Translated",
-      "instruction": "Translated",
-      "password": "Translated",
-      "passwordConfirm": "Translated",
-      "passwordConfirmError": "Translated",
-      "privacyAgreement": "Translated",
-      "privacyAgreementError": "Translated",
-      "privacyLink": "Translated",
-      "realName": "Translated",
-      "realNameHelp": "Translated",
-      "realNamePatternHelp": "Translated",
-      "realNamePlaceholder": "Translated",
-      "register": "Translated",
-      "registering": "Translated",
-      "underageConsent": "Translated",
-      "underageEmail": "Translated",
-      "underageEmailSignUp": "Translated",
-      "underageNotRealName": "Translated",
-      "underageWithParent": "Translated",
-      "username": "Translated",
-      "usernameConflict": "Translated",
-      "usernameHelp": "Translated",
-      "usernamePatternHelp": "Translated",
-      "usernamePlaceholder": "Translated"
-    }
-  },
   "CollectionsModal": {
     "CreateCollection": {
       "createButton": "Translated",
@@ -134,6 +88,9 @@
   },
   "RequireUser": {
     "text": "Translated"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse site header"
   },
   "SubjectPicker": {
     "alreadySeen": "Translated",
