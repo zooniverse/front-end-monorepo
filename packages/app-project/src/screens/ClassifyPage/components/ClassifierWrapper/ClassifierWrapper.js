@@ -81,16 +81,19 @@ export default function ClassifierWrapper({
   const replaceRoute = router?.replace
 
   /*
-    Track the current classification subject, when it changes inside the classifier.
+    When the prioritied subject selection feature was implemented, we used shallow routing
+    to change the [subjecID] subpath in the url in reaction to the subject changing in the
+    Classifier component. Shallow routing isn't supported in Next.js 13, so the url-changing
+    feature is turned off for now. See https://github.com/zooniverse/front-end-monorepo/issues/4977
   */
   const onSubjectChange = useCallback(
     subject => {
       if (subjectInURL) {
         const subjectPageURL = `${baseURL}/subject/${subject.id}`
         const href = addQueryParams(subjectPageURL)
-        replaceRoute(href)
+        // replaceRoute(href, href, { shallow: true })
     }
-  }, [baseURL, replaceRoute, subjectInURL])
+  }, [baseURL, subjectInURL])
 
   const addFavourites = collections?.addFavourites
   const removeFavourites = collections?.removeFavourites

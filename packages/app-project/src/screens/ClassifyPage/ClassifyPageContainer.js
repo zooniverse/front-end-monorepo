@@ -11,9 +11,9 @@ function ClassifyPageContainer ({
   workflows = [],
   ...props
 }) {
-  /* Selected subjectID is initially derived from the page URL
-  via getDefaultPageProps, but subjectID can be reset by the Classifier
-  component via onSubjectReset() */
+  /* SelectedSubjectID is initially derived from the page URL via getDefaultPageProps,
+  but can be reset by the Classifier component via onSubjectReset().
+  This state does not change via components of the prioritized subjects UI (Next/Prev buttons) */
   const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
 
   let assignedWorkflow
