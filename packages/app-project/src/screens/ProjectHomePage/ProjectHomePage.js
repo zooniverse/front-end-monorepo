@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
 
@@ -12,8 +13,7 @@ import {
   AdminContainer,
   Announcements,
   ProjectHeader,
-  ThemeModeToggle,
-  ZooHeaderWrapper,
+  ThemeModeToggle
 } from '@components'
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -22,6 +22,7 @@ import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import { Media } from '@shared/components/Media'
+import PageHeader from '../../components/PageHeader/PageHeader.js'
 
 export const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 
@@ -54,6 +55,7 @@ function ProjectHomePage ({
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
+  const { t } = useTranslation()
 
   const adminBorder = { size: 'medium' }
   const betaBorder = { color: 'brand', size: 'medium' }
@@ -68,8 +70,8 @@ function ProjectHomePage ({
       border={border}
     >
       <Media at='default'>
-        <header>
-          <ZooHeaderWrapper isAdmin={adminMode} />
+        <header aria-label={t('StandardLayout.headerLabel')}>
+          <PageHeader adminMode={adminMode} />
           <ProjectHeader adminMode={adminMode} />
           <Announcements />
         </header>
@@ -86,8 +88,8 @@ function ProjectHomePage ({
 
       <Media greaterThan='default'>
         <FullHeightBox margin={{ bottom: 'large' }}>
-          <header>
-            <ZooHeaderWrapper isAdmin={adminMode} />
+          <header aria-label={t('StandardLayout.headerLabel')}>
+            <PageHeader isAdmin={adminMode} />
             <ProjectHeader adminMode={adminMode} />
             <Announcements />
           </header>

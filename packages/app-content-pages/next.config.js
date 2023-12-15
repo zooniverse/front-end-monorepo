@@ -1,14 +1,8 @@
-if (process.env.NEWRELIC_LICENSE_KEY) {
-  require('newrelic')
-}
-
 require('dotenv').config()
 
-const million = require('million/compiler')
 const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
-const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
 
 const assetPrefixes = {}
@@ -21,10 +15,8 @@ function commitID () {
   }
 }
 
-const isDevelopment = process.env.NODE_ENV === 'development'
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
-const SENTRY_CONTENT_DSN = isDevelopment ? '' : 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 const assetPrefix = assetPrefixes[APP_ENV]
@@ -44,12 +36,12 @@ const nextConfig = {
   env: {
     COMMIT_ID,
     PANOPTES_ENV,
-    SENTRY_CONTENT_DSN,
     APP_ENV
   },
 
   experimental: {
-    forceSwcTransforms: true
+    forceSwcTransforms: true,
+    optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons']
   },
 
   /** localeDetection is a Next.js feature, while the rest of i18n config pertains to next-i18next */
@@ -58,20 +50,7 @@ const nextConfig = {
     ...i18n
   },
 
-  modularizeImports: {
-    lodash: {
-      transform: 'lodash/{{member}}',
-    },
-    '@zooniverse/react-components': {
-      transform: '@zooniverse/react-components/{{member}}'
-    }
-  },
-
   reactStrictMode: true,
-
-  sentry: {
-    hideSourceMaps: true
-  },
 
   webpack: (config, options) => {
     config.plugins.concat([
@@ -96,12 +75,4 @@ const nextConfig = {
   }
 }
 
-module.exports = million.next(
-  withSentryConfig(nextConfig, {
-    org: 'zooniverse-27',
-    project: 'fem-app-content-pages'
-  }),
-  {
-    auto: true
-  }
-)
+module.exports = nextConfig

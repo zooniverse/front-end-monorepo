@@ -1,4 +1,3 @@
-import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
@@ -6,8 +5,6 @@ import { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 
-import AuthModal from '@components/AuthModal'
-import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
@@ -87,10 +84,7 @@ function MyApp({ Component, pageProps }) {
           <MediaContextProvider disableDynamicMediaQueries>
             <GrommetWrapper>
               <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
-              <Box>
-                <Component {...pageProps} />
-              </Box>
-              <AuthModal />
+              <Component {...pageProps} />
             </GrommetWrapper>
           </MediaContextProvider>
         </Provider>
