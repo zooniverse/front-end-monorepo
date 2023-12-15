@@ -3,7 +3,6 @@
     "label": "Translated"
   },
   "AuthModal": {
-    "title": "Translated",
     "LoginForm": {
       "error": "Translated",
       "forgot": "Translated",
@@ -47,7 +46,8 @@
       "usernameHelp": "Translated",
       "usernamePatternHelp": "Translated",
       "usernamePlaceholder": "Translated"
-    }
+    },
+    "title": "Translated"
   },
   "CloseButton": {
     "close": "Translated"
@@ -59,62 +59,55 @@
   "ZooFooter": {
     "aboutLabels": {
       "about": "Translated",
-      "publications": "Translated",
-      "team": "Translated",
       "acknowledgements": "Translated",
       "contact": "Translated",
-      "faq": "Translated"
+      "faq": "Translated",
+      "publications": "Translated",
+      "team": "Translated"
     },
     "buildLabels": {
+      "bestPractices": "Translated",
       "buildAProject": "Translated",
-      "tutorial": "Translated",
       "glossary": "Translated",
       "policies": "Translated",
-      "bestPractices": "Translated"
+      "tutorial": "Translated"
     },
     "getInvolvedLabels": {
-      "getInvolved": "Translated",
-      "education": "Translated",
       "callForProjects": "Translated",
-      "collections": "Translated"
+      "collections": "Translated",
+      "education": "Translated",
+      "getInvolved": "Translated"
     },
     "newsLabels": {
-      "news": "Translated",
+      "blog": "Translated",
       "dailyZooniverse": "Translated",
-      "blog": "Translated"
+      "news": "Translated"
     },
     "policyLabels": {
-      "privacyPolicy": "Translated",
       "jobs": "Translated",
-      "systemStatus": "Translated",
-      "security": "Translated"
+      "privacyPolicy": "Translated",
+      "security": "Translated",
+      "systemStatus": "Translated"
     },
     "projectLabels": {
       "projects": "Translated"
     },
+    "tagLine": "Translated",
     "talkLabels": {
       "talk": "Translated"
     },
-    "tagLine": "Translated"
+    "zooniversePolicies": "Translated"
   },
   "ZooHeader": {
-    "ariaLabel": "Translated",
-    "mainHeaderNavListLabels": {
-      "projects": "Translated",
-      "about": "Translated",
-      "getInvolved": "Translated",
-      "talk": "Translated",
-      "build": "Translated"
-    },
     "SignedInUserNavigation": {
       "ariaLabel": "Translated",
       "navListLabels": {
-        "messages_zero": "Translated",
         "messages_one": "Translated {{count}}",
         "messages_other": "Translated {{count}}",
-        "notifications_zero": "Translated",
+        "messages_zero": "Translated",
         "notifications_one": "Translated {{count}}",
-        "notifications_other": "Translated {{count}}"
+        "notifications_other": "Translated {{count}}",
+        "notifications_zero": "Translated"
       }
     },
     "SignedOutUserNavigation": {
@@ -127,12 +120,602 @@
     },
     "UserMenu": {
       "userNavListLabels": {
-        "profile": "Translated",
-        "settings": "Translated",
         "collections": "Translated",
         "favorites": "Translated",
+        "profile": "Translated",
+        "settings": "Translated",
         "signOut": "Translated"
       }
+    },
+    "ariaLabel": "Translated",
+    "mainHeaderNavListLabels": {
+      "about": "Translated",
+      "build": "Translated",
+      "getInvolved": "Translated",
+      "projects": "Translated",
+      "talk": "Translated"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Translated"
+  },
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "Banner": {
+      "next": "Translated",
+      "previous": "Translated",
+      "whyAmISeeingThis": "Translated"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Translated",
+      "confirm": "Translated",
+      "inProgress": "Translated"
+    },
+    "RetiredBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Translated",
+      "bannerText": "{{setName}}: Translated {{number}}\/{{total}}",
+      "finished": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Translated"
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Translated",
+    "label": "Translated"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Translated"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Translated"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Translated {{title}}"
+    },
+    "title": "Translated"
+  },
+  "FreehandLine": {
+    "active": "Translated",
+    "closePoint": "Translated",
+    "inactive": "Translated",
+    "spliceDrag": "Translated",
+    "splicePoint": "Translated"
+  },
+  "HighlighterTask": {
+    "delete": "Translated",
+    "noLabels": "Translated",
+    "status": "{{count}} Translated"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Translated"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Translated",
+        "fullscreen": "Translated"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Translated"
+    },
+    "MoveButton": {
+      "ariaLabel": "Translated"
+    },
+    "ResetButton": {
+      "ariaLabel": "Translated"
+    },
+    "RotateButton": {
+      "ariaLabel": "Translated"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Translated"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Translated"
+    }
+  },
+  "InputStatus": {
+    "drawn": "{{count}} Translated",
+    "max": "{{count}} Translated {{max}} Translated",
+    "maxAndMin": "{{count}} Translated {{min}} Translated {{max}}",
+    "min": "{{count}} Translated {{min}} Translated"
+  },
+  "LineControls": {
+    "close": "Translated",
+    "delete": "Translated",
+    "deleteCancel": "Translated",
+    "deleteConfirm": "Translated",
+    "lineControls": "Translated",
+    "move": "Translated",
+    "redo": "Translated",
+    "undo": "Translated"
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Translated"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Translated",
+      "show": "Translated"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Translated",
+      "show": "Translated",
+      "showUser": "Translated"
+    },
+    "MetadataButton": {
+      "label": "Translated"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Translated",
+        "value": "Translated"
+      },
+      "title": "Translated"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Translated"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Translated",
+      "goToTalk": "Translated",
+      "mainPanel": "Translated",
+      "openButton": "Translated {{count}} Translated",
+      "panelContent": "Translated",
+      "panelHeading": "Translated"
+    },
+    "errors": {
+      "failPostComment": "Translated",
+      "failPostDiscussion": "Translated",
+      "noBoard": "Translated",
+      "noText": "Translated",
+      "noUser": "Translated"
+    },
+    "loginToPost": "Translated",
+    "status": {
+      "initialized": "Translated",
+      "loading": "Translated",
+      "success": "Translated"
+    },
+    "subjectHasNoComments": "Translated"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Translated",
+    "otherLabel": "Translated",
+    "selectPlaceholder": "Translated"
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Translated {{index}}",
+      "next": "Translated",
+      "previous": "Translated"
+    },
+    "alt": "Translated {{activeStep}}",
+    "error": "Translated",
+    "getStarted": "Translated",
+    "heading": "{{projectDisplayName}} Translated"
+  },
+  "StepNavigation": {
+    "go": "Translated {{index}}",
+    "next": "Translated",
+    "previous": "Translated"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Translated"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Translated"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Translated",
+        "confirm": "Translated",
+        "keepWorking": "Translated"
+      },
+      "SaveButton": {
+        "save": "Translated"
+      },
+      "SubTaskPopup": {
+        "notRender": "Translated",
+        "required": "Translated"
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "Translated",
+          "explanation": "Translated {{count}} Translated",
+          "noAggregation": "Translated",
+          "title": "Translated",
+          "transcriptionsUnavailable": "Translated"
+        },
+        "complete": "Translated",
+        "transcribed": "Translated"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Translated",
+        "previousFrameLabel": "Translated",
+        "thumbnailAltText": "Translated"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Translated {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Translated",
+        "switchToSeparateFrames": "Translated"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Translated"
+    },
+    "VariableStarViewer": {
+      "controls": "Translated",
+      "figCaption": "Translated",
+      "flip": "Translated",
+      "focus": "Translated",
+      "highlight": "Translated",
+      "imageTitle": "Translated",
+      "label": "Translated {{id}} Translated",
+      "periodMultiple": "Translated",
+      "phase": "Translated",
+      "phaseFocus": "Translated"
+    },
+    "VideoController": {
+      "closeVolume": "Translated",
+      "fullscreen": "Translated",
+      "openVolume": "Translated",
+      "pause": "Translated",
+      "play": "Translated",
+      "playbackSpeed": "Translated",
+      "scrubber": "Translated",
+      "volumeSlider": "Translated"
+    },
+    "ZoomControlButton": {
+      "disable": "Translated",
+      "enable": "Translated"
+    },
+    "loading": "Translated"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Translated",
+      "filter": "Translated",
+      "removeFilter": "Translated {{valueLabel}}",
+      "showing": "Translated  {{total}} Translated {{showing}}"
+    },
+    "Choice": {
+      "identify": "Translated",
+      "notThis": "Translated"
+    },
+    "ConfusedWith": {
+      "cancel": "Translated",
+      "confused": "Translated",
+      "itsThis": "Translated"
+    }
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Translated",
+      "options": {
+        "dismiss": "Translated",
+        "next": "Translated",
+        "select": "Translated"
+      },
+      "title": "Translated"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Translated",
+        "tooltip": "Translated"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Translated"
+      },
+      "DoneButton": {
+        "done": "Translated"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Translated",
+        "label": "Translated"
+      },
+      "NextButton": {
+        "next": "Translated"
+      },
+      "TaskHelp": {
+        "close": "Translated",
+        "label": "Translated"
+      },
+      "demoMode": "Translated",
+      "error": "Translated",
+      "loading": "Translated",
+      "renderFallback": "Translated"
+    },
+    "task": "Translated",
+    "tutorial": "Translated"
+  },
+  "TextFromSubjectTask": {
+    "reset": "Translated"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Translated"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Translated",
+    "editing": "Translated"
+  },
+  "404": {
+    "findNewProject": "Translated",
+    "heading": "Translated",
+    "message": "Translated",
+    "returnHome": "Translated"
+  },
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Translated",
+        "faq": "Translated",
+        "research": "Translated",
+        "results": "Translated",
+        "team": "Translated"
+      }
+    },
+    "PageNav": {
+      "title": "Translated"
+    },
+    "SidebarHeading": "Translated",
+    "TeamMember": {
+      "collaborator": "Translated",
+      "expert": "Translated",
+      "moderator": "Translated",
+      "museum": "Translated",
+      "owner": "Translated",
+      "researcher": "Translated",
+      "tester": "Translated",
+      "translator": "Translated"
+    }
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Translated",
+      "register": "Translated",
+      "signIn": "Translated"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Translated",
+      "seeResults": "Translated"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Translated"
+      }
+    },
+    "FinishedForTheDay": {
+      "ProjectImage": {
+        "alt": "Translated {{projectName}}"
+      },
+      "buttons": {
+        "anotherProject": "Translated",
+        "stats": "Translated"
+      },
+      "text": "Translated {{projectName}} Translated",
+      "title": "Translated"
+    },
+    "RecentSubjects": {
+      "text": "Translated",
+      "title": "Translated"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Translated",
+      "confirm": "Translated",
+      "content": "Translated",
+      "dismiss": "Translated",
+      "title": "Translated"
+    },
+    "YourStats": {
+      "DailyClassificationsChart": {
+        "title": "{{projectName}} Translated"
+      },
+      "text": "Translated",
+      "title": "Translated {{projectName}} Translated",
+      "todaysCount": "Translated",
+      "totalCount": "Translated"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Translated",
+      "label": "Translated",
+      "private": "Translated"
+    },
+    "SelectCollection": {
+      "addButton": "Translated",
+      "label": "Translated"
+    },
+    "title": "Translated"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Translated",
+        "facebook": "Translated",
+        "github": "Translated",
+        "instagram": "Translated",
+        "medium": "Translated",
+        "pinterest": "Translated",
+        "reddit": "Translated",
+        "tumblr": "Translated",
+        "twitter": "Translated",
+        "website": "Translated",
+        "weibo": "Translated",
+        "wordpress": "Translated",
+        "youtube": "Translated"
+      }
+    },
+    "title": "Translated {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Translated",
+    "defaultTitle": "Translated",
+    "siteName": "Translated"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Translated {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Translated"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Translated",
+      "noMessageButton": "Translated",
+      "title": "Translated"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Translated",
+        "noSubjects": "Translated",
+        "subjectLabel": "Translated {{id}}"
+      },
+      "button": "Translated",
+      "message": "Translated",
+      "title": "Translated"
+    }
+  },
+  "Loader": {
+    "loading": "Translated"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Translated"
+    },
+    "Avatar": {
+      "alt": "Translated {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Translated"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Translated"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Translated"
+    },
+    "about": "Translated",
+    "admin": "Translated",
+    "classify": "Translated",
+    "collect": "Translated",
+    "exploreProject": "Translated",
+    "organization": "Translated",
+    "recents": "Translated",
+    "talk": "Translated"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Translated",
+    "classifications": "Translated",
+    "completedSubjects": "Translated",
+    "percentComplete": "Translated",
+    "subjects": "Translated",
+    "subtitle": "Translated",
+    "text": "Translated {{projectName}} Translated",
+    "title": "{{projectName}} Translated",
+    "viewMoreStats": "Translated",
+    "volunteers": "Translated"
+  },
+  "RequireUser": {
+    "text": "Translated"
+  },
+  "StandardLayout": {
+    "headerLabel": "Translated"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Translated",
+    "back": "Translated",
+    "byline": "Translated",
+    "fetching": "Translated",
+    "heading": "Translated",
+    "retired": "Translated",
+    "unclassified": "Translated"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Translated"
+    },
+    "TalkLink": {
+      "label": "Translated"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Translated"
+    },
+    "back": "Translated",
+    "byline": "Translated",
+    "heading": "Translated"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Translated",
+    "switchToLight": "Translated"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% Translated",
+      "setSelection": "Translated",
+      "subjectSelection": "Translated"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "Translated",
+      "unlocked": "Translated"
+    },
+    "error": "Translated",
+    "getStarted": "Translated",
+    "message": "Translated",
+    "noWorkflows": "Translated"
   }
 }
