@@ -5,17 +5,6 @@
       "signIn": "Inloggen"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Inloggen"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "De wachtwoorden komen niet overeen, probeer het alstublieft opnieuw.",
-      "realName": "Real name (optional)",
-      "realNameHelp": "Public; we’ll use this to give acknowledgement in papers, on posters, etc.",
-      "register": "Registreren"
-    }
-  },
   "ConnectWithProject": {
     "title": "Links"
   },
