@@ -6,7 +6,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 export async function getStaticProps({ locale, params }) {
   const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
   const { panoptesEnv, subjectID, subjectSetID, workflowID } = params
-  const props = { ...defaultProps, subjectID, subjectSetID, workflowID }
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
   let pageTitle = workflow?.displayName || null
