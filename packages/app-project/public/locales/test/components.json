@@ -1,7 +1,9 @@
 {
   "404": {
+    "findNewProject": "Translated",
     "heading": "Translated",
-    "message": "Translated"
+    "message": "Translated",
+    "returnHome": "Translated"
   },
   "Announcements": {
     "AuthenticationInvitation": {
@@ -61,6 +63,9 @@
     "Avatar": {
       "alt": "Translated {{project}}"
     },
+    "LocaleSwitcher": {
+      "label": "Translated"
+    },
     "ProjectNav": {
       "ariaLabel": "Translated"
     },
@@ -68,9 +73,11 @@
       "underReview": "Translated"
     },
     "about": "Translated",
+    "admin": "Translated",
     "classify": "Translated",
     "collect": "Translated",
     "exploreProject": "Translated",
+    "organization": "Translated",
     "recents": "Translated",
     "talk": "Translated"
   },
@@ -90,7 +97,7 @@
     "text": "Translated"
   },
   "StandardLayout": {
-    "headerLabel": "Zooniverse site header"
+    "headerLabel": "Translated"
   },
   "SubjectPicker": {
     "alreadySeen": "Translated",

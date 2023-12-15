@@ -35,6 +35,7 @@
         "alt": "Translated {{projectName}}"
       },
       "buttons": {
+        "anotherProject": "Translated",
         "stats": "Translated"
       },
       "text": "Translated {{projectName}} Translated",
