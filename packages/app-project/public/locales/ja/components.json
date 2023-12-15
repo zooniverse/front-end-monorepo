@@ -5,17 +5,6 @@
       "signIn": "サインイン"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "サインイン"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "パスワードが一致しません。再入力してください。",
-      "realName": "本名（任意）",
-      "realNameHelp": "論文やポスターなどの謝辞に使われます。",
-      "register": "新規登録"
-    }
-  },
   "ConnectWithProject": {
     "title": "{{projectName}}とつながる"
   },
