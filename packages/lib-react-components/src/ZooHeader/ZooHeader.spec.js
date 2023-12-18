@@ -75,7 +75,7 @@ describe('ZooHeader', function () {
 
     before(function () {
       const user = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
-      render(<ZooHeader isAdmin signIn={() => {}} signOut={() => {}} user={user} />)
+      render(<ZooHeader adminMode signIn={() => {}} signOut={() => {}} user={user} />)
       const mainNavList = screen.getByRole('navigation', { name: 'Site' })
       adminLink = within(mainNavList).getByRole('link', { name: 'Admin' })
       userNavigation = screen.getByRole('navigation', { name: 'User account'})
@@ -178,7 +178,7 @@ describe('ZooHeader', function () {
       before(async function () {
         const user = userEvent.setup({ delay: 'none' })
         const userProp = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
-        render(<ZooHeader isAdmin isNarrow signIn={() => {}} signOut={() => {}} user={userProp} />)
+        render(<ZooHeader adminMode isNarrow signIn={() => {}} signOut={() => {}} user={userProp} />)
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
         await user.click(mainNavButton)
         const mainNavList = await screen.findByRole('menu', { name: 'Main Navigation' })

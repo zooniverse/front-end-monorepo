@@ -29,7 +29,8 @@ function validationErrors({ email, emailConfirm, password, passwordConfirm, priv
 
 export default function RegisterFormContainer({
   closeModal = DEFAULT_HANDLER,
-  project = null
+  project = null,
+  onSignIn
 }) {
   const { t } = useTranslation()
   const [error, setError] = useState('')
@@ -57,7 +58,8 @@ export default function RegisterFormContainer({
     }
 
     try {
-      await auth.register(valuesToSubmit)
+      const user = await auth.register(valuesToSubmit)
+      onSignIn(user)
       setSubmitting(false)
       closeModal()
     } catch (error) {
@@ -90,5 +92,7 @@ RegisterFormContainer.propTypes = {
   closeModal: func,
   project: shape({
     id: string
-  })
+  }),
+  /** Callback to handle user state in parent app (such as a mobx store) */
+  onSignIn: func
 }

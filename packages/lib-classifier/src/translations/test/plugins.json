@@ -20,6 +20,8 @@
   "LineControls": {
     "close": "Translated",
     "delete": "Translated",
+    "deleteCancel": "Translated",
+    "deleteConfirm": "Translated",
     "lineControls": "Translated",
     "move": "Translated",
     "redo": "Translated",

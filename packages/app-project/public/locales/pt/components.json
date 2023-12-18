@@ -5,17 +5,6 @@
       "signIn": "Entrar"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Entrar"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "As senhas não coincidem. Tente novamente.",
-      "realName": "Nome verdadeiro (opcional)",
-      "realNameHelp": "Público; será usado para o reconhecermos em documentos, cartazes, etc.",
-      "register": "Registar-se"
-    }
-  },
   "ConnectWithProject": {
     "title": "Ligações"
   },
