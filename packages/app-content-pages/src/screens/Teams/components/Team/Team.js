@@ -14,6 +14,7 @@ function Team({ name = '', people = [], slug = '' }) {
         size='1.5rem'
         tabIndex={-1}
         textAlign='center'
+        style={{ padding: '30px 0' }}
       >
         {name}
       </HeadingForNav>
