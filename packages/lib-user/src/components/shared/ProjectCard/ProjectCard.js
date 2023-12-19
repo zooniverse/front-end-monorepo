@@ -37,7 +37,7 @@ const StyledProjectImage = styled(Box)`
 const StyledProjectContent = styled(Box)`
   position: static;
   bottom: 0;
-  height: 22%;
+  height: 20%;
   transition: height 0.5s ease;
 
   ${StyledProjectCard}:hover &,
@@ -84,7 +84,7 @@ function ProjectCard ({
       <StyledProjectImage
         background={{
           image: `url(${imageSrc})`,
-          position: 'absolute',
+          position: 'top',
           size: 'cover',
         }}
         round={{ corner: 'top', size: 'xxsmall' }}
