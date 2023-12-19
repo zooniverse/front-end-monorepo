@@ -60,7 +60,7 @@ export const CorrespondingWithQuakers = {
 export const WildwatchKenya = {
   args: {
     description: 'We need your help to count, identify, and track the giraffes and other wildlife living in our field conservation sites in northern Kenya! We need your help to count, identify, and track the giraffes and other wildlife living in our field conservation sites in northern Kenya!',
-    displayName: 'Deciphering Secrets: Unlocking the Manuscripts of Medieval Spain With Extra Text',
+    displayName: 'Wildwatch Kenya is a short project name compared to the longest live project at 80',
     href: 'https://www.zooniverse.org/projects/sandiegozooglobal/wildwatch-kenya',
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/5dc89775-a658-4d3a-8295-4d48903e142d.jpeg'
   }
