@@ -31,15 +31,16 @@ describe('Component > SingleImageViewer', function () {
   })
 
   describe('with interaction layer', function () {
-    it('should default to render the InteractionLayer', function () {
-      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
+    it('should default to not render the InteractionLayer', function () {
+      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(0)
     })
 
     it('should be possible to disable the render of the InteractionLayer by prop', function () {
-      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
       wrapper.setProps({ enableInteractionLayer: false })
       expect(wrapper.find(InteractionLayer)).to.have.lengthOf(0)
       wrapper.setProps({ enableInteractionLayer: true })
+      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
+      wrapper.setProps({ enableInteractionLayer: false })
     })
   })
 })

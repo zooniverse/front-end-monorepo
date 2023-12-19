@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { within } from '@testing-library/dom'
 import { composeStory } from '@storybook/react'
 import Meta, { Default, Tablet } from './SubjectSetPicker.stories.js'
-import { SubjectSetPickerMock, SubjectSetPickerBaseURL } from './SubjectSetPicker.mock'
+import { mockWorkflow, SubjectSetPickerBaseURL } from './SubjectSetPicker.mock'
 
 describe('Component > SubjectSetPicker', function () {
   [Default, Tablet].forEach(function (Story) { 
@@ -23,10 +23,10 @@ describe('Component > SubjectSetPicker', function () {
     
       it('should render the correct number of subject cards', function () {
         const cards = document.getElementsByClassName('subject-set-card')
-        expect(cards.length).to.equal(SubjectSetPickerMock.subjectSets.length)
+        expect(cards.length).to.equal(mockWorkflow.subjectSets.length)
       })
     
-      SubjectSetPickerMock.subjectSets.forEach((subjectSet, index) => {
+      mockWorkflow.subjectSets.forEach((subjectSet, index) => {
         it(`should find the subject set name at index ${index}`, async function () {
           const card = screen.getByTestId(`subject-set-card-${subjectSet.id}`)
           await expect(within(card).getByText(subjectSet.display_name)).to.exist()
@@ -53,9 +53,9 @@ describe('Component > SubjectSetPicker', function () {
         await waitFor(function() {
           const cards = document.getElementsByClassName('test-subject-set-card');
           expect(cards.length).to.equal(3)
-          expect(cards[0].dataset.testid).to.equal(`test-subject-set-card-${SubjectSetPickerMock.subjectSets[1].id}`)
-          expect(cards[1].dataset.testid).to.equal(`test-subject-set-card-${SubjectSetPickerMock.subjectSets[2].id}`)
-          expect(cards[2].dataset.testid).to.equal(`test-subject-set-card-${SubjectSetPickerMock.subjectSets[0].id}`)
+          expect(cards[0].dataset.testid).to.equal(`test-subject-set-card-${mockWorkflow.subjectSets[1].id}`)
+          expect(cards[1].dataset.testid).to.equal(`test-subject-set-card-${mockWorkflow.subjectSets[2].id}`)
+          expect(cards[2].dataset.testid).to.equal(`test-subject-set-card-${mockWorkflow.subjectSets[0].id}`)
         })
       })
     })

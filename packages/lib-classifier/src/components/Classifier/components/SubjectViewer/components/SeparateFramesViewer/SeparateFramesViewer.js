@@ -25,6 +25,7 @@ const DEFAULT_HANDLER = () => true
 const minFrameWidth = 300
 
 function SeparateFramesViewer({
+  enableInteractionLayer = false,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -82,6 +83,7 @@ function SeparateFramesViewer({
       >
         {subject.locations?.map(location => (
           <SeparateFrame
+            enableInteractionLayer={enableInteractionLayer}
             frameUrl={location.url}
             key={location.url}
             limitSubjectHeight={limitSubjectHeight}
@@ -100,6 +102,8 @@ function SeparateFramesViewer({
 export default observer(SeparateFramesViewer)
 
 SeparateFramesViewer.propTypes = {
+  /** Passed from Subject Viewer Store */
+  enableInteractionLayer: PropTypes.bool,
   /** @zooniverse/async-states */
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
