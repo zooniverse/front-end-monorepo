@@ -1,18 +1,14 @@
+import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { ZooFooter } from '@zooniverse/react-components'
-import { Grommet, base } from 'grommet'
-import makeInspectable from 'mobx-devtools-mst'
-import { enableStaticRendering, Provider } from 'mobx-react'
+import { Grommet } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
-import merge from 'lodash/merge'
-import Error from 'next/error'
-import { useEffect, useMemo } from 'react'
 import { appWithTranslation } from 'next-i18next'
+import Error from 'next/error'
 
-import { logReactError } from '../src/helpers/logger'
-import AuthModal from '../src/shared/components/AuthModal'
-import ZooHeaderWrapper from '../src/shared/components/ZooHeaderWrapper'
-import initStore from '../src/shared/stores'
+import PageHeader from '../src/shared/components/PageHeader/PageHeader.js'
+import { PanoptesAuthContext, ThemeModeContext } from '../src/shared/contexts'
+import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -20,25 +16,37 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-enableStaticRendering(typeof window === 'undefined')
+function MyApp({ Component, pageProps }) {
+  const { data: user, error, isLoading } = usePanoptesUser()
+  const authContext = { error, isLoading, user }
 
-function useStore(initialState) {
-  const isServer = typeof window === 'undefined'
-  const store = useMemo(
-    () => initStore(isServer, initialState),
-    [isServer, initialState]
-  )
-  return store
-}
-
-function MyApp({ Component, initialState, pageProps }) {
-  const mergedThemes = merge({}, base, zooTheme)
-  const store = useStore(initialState)
-  makeInspectable(store)
+  const [themeMode, setThemeMode] = useState('light')
 
   useEffect(() => {
-    store.user.checkCurrent()
-  }, [store.user])
+    const isBrowser = typeof window !== 'undefined'
+    const localStorage = isBrowser ? window.localStorage : null
+
+    // If no theme item in localStorage, see if the user's browser settings prefer dark mode
+    // If theme key is in localStorage, use that for themeMode
+    // The same key is used in PFE's theme mode toggle
+    if (isBrowser && !localStorage?.getItem('theme')) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setThemeMode('dark')
+        localStorage?.setItem('theme', 'dark')
+      }
+    } else if (isBrowser) {
+      setThemeMode(localStorage?.getItem('theme'))
+    }
+  }, [])
+
+  function toggleTheme() {
+    const newTheme = themeMode === 'light' ? 'dark' : 'light'
+
+    setThemeMode(newTheme)
+    localStorage?.setItem('theme', newTheme)
+  }
+
+  const themeContext = { themeMode, toggleTheme }
 
   try {
     if (pageProps.statusCode) {
@@ -46,22 +54,25 @@ function MyApp({ Component, initialState, pageProps }) {
     }
 
     return (
-      <>
-        <GlobalStyle />
-        <Provider store={store}>
-          <Grommet theme={mergedThemes}>
-            <header>
-              <ZooHeaderWrapper />
-            </header>
+      <PanoptesAuthContext.Provider value={authContext}>
+        <ThemeModeContext.Provider value={themeContext}>
+          <GlobalStyle />
+          <Grommet
+            background={{
+              dark: 'dark-1',
+              light: 'light-1'
+            }}
+            theme={zooTheme}
+            themeMode={themeMode}
+          >
+            <PageHeader />
             <Component {...pageProps} />
             <ZooFooter />
-            <AuthModal />
           </Grommet>
-        </Provider>
-      </>
+        </ThemeModeContext.Provider>
+      </PanoptesAuthContext.Provider>
     )
   } catch (error) {
-    logReactError(error)
     return <Error statusCode={500} title={error.message} />
   }
 }

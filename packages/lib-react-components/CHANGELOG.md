@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] 2023-12-15
+
+### Added
+Added an `onSignIn` function to AuthModal. A handler than can be called in the parent app when a user registers or signs-in.
+
+### Changed
+Standardized the variable name for when a user is using admin mode to `adminMode`.
+
+## [1.11.0] 2023-12-04
+
+### Added
+Added an optional theme toggle to ZooHeader.
+Added a `useHasMounted` hook for lazy loading.
+
+### Fixed
+Fixed spacing around components in ZooFooter and ZooHeader toward standardizing padding through FEM pages.
+
 ## [1.10.1] 2023-11-29
 
 ### Fixed

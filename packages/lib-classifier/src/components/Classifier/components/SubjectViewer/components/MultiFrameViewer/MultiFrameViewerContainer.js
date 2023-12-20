@@ -57,7 +57,7 @@ const defaultTool = {
 
 function MultiFrameViewerContainer({
   activeTool = defaultTool,
-  enableInteractionLayer = true,
+  enableInteractionLayer = false,
   enableRotation = () => null,
   frame = 0,
   invert = false,
@@ -108,9 +108,6 @@ function MultiFrameViewerContainer({
     )
   }
 
-  const enableDrawing =
-    loadingState === asyncStates.success && enableInteractionLayer
-
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
     return (
@@ -137,7 +134,7 @@ function MultiFrameViewerContainer({
           src={img.src}
         >
           <SingleImageViewer
-            enableInteractionLayer={enableDrawing}
+            enableInteractionLayer={loadingState === asyncStates.success && enableInteractionLayer}
             height={naturalHeight}
             limitSubjectHeight={limitSubjectHeight}
             onKeyDown={onKeyZoom}

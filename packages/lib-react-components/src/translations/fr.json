@@ -37,6 +37,10 @@
       "register": "S'inscrire",
       "signIn": "Se connecter"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Passer au thème foncé",
+      "switchToLight": "Passer au thème clair"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Collections d'images",

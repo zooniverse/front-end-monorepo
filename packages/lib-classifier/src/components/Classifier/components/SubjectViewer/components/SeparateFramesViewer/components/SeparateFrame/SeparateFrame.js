@@ -18,6 +18,7 @@ import {
 const DEFAULT_HANDLER = () => true
 
 const SeparateFrame = ({
+  enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
   frameUrl = '',
   limitSubjectHeight = false,
@@ -197,6 +198,7 @@ const SeparateFrame = ({
   return (
     <Box direction='row'>
       <SingleImageViewer
+        enableInteractionLayer={enableInteractionLayer}
         height={naturalHeight}
         limitSubjectHeight={limitSubjectHeight}
         onKeyDown={onKeyDown}
@@ -254,6 +256,8 @@ const SeparateFrame = ({
 }
 
 SeparateFrame.propTypes = {
+  /** Passed from Subject Viewer Store */
+  enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** String of Object.values(subject.locations[this frame index][0]) */

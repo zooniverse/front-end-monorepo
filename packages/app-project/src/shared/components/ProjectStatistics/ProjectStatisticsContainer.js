@@ -22,7 +22,7 @@ class ProjectStatisticsContainer extends Component {
     const owner = router?.query?.owner
     const project = router?.query?.project
     return {
-      href: `/${owner}/${project}/stats`
+      href: `/projects/${owner}/${project}/stats`
     }
   }
 

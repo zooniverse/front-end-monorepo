@@ -202,6 +202,11 @@
         "thumbnailAltText": "Translated"
       }
     },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Translated {{index}}"
+      }
+    },
     "SeparateFramesViewer": {
       "ViewModeButton": {
         "switchToFlipbook": "Translated",

@@ -1,6 +1,6 @@
 {
   "name": "@zooniverse/classifier",
-  "description": "",
+  "description": "Zooniverse library for the project classifier",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.23.1",
-    "@sentry/browser": "~7.83.0",
+    "@sentry/browser": "~7.88.0",
     "@visx/axis": "~3.5.0",
     "@visx/brush": "~3.5.0",
     "@visx/event": "~3.3.0",
@@ -80,7 +80,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
-    "@zooniverse/react-components": "~1.10.0",
+    "@zooniverse/react-components": "~1.11.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-loader": "~9.1.0",
     "babel-plugin-module-resolver": "~5.0.0",

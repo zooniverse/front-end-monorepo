@@ -1,11 +1,11 @@
-import { ThemeContext } from 'grommet'
-import { ZooHeaderWrapper } from '@components'
 import { ZooFooter } from '@zooniverse/react-components'
-import { Box, Image, Heading, Text, Paragraph, Anchor } from 'grommet'
+import { Box, Image, Heading, Text, Paragraph, Anchor, ThemeContext } from 'grommet'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import theme404 from './../src/helpers/404theme.js'
 import styled from 'styled-components'
+
+import theme404 from './../src/helpers/404theme.js'
+import PageHeader from '../src/components/PageHeader/PageHeader.js'
 
 
 const ContainerBox = styled(Box)`
@@ -51,7 +51,7 @@ export default function Error404({
 
   return (
     <ThemeContext.Extend value={theme404}>
-      <ZooHeaderWrapper locale={locale} />
+      <PageHeader />
       <ContainerBox
         width="100%"
         height="80vh"

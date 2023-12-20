@@ -21,6 +21,10 @@
     "SignedOutUserNavigation": {
       "register": "新規登録",
       "signIn": "サインイン"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "ダーク へ切り替える",
+      "switchToLight": "ライト へ切り替える"
     }
   }
 }

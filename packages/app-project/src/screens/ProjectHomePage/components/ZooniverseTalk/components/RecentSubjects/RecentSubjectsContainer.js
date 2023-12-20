@@ -1,4 +1,3 @@
-import asyncStates from '@zooniverse/async-states'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { bool } from 'prop-types'
 import { useContext } from 'react'
