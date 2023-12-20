@@ -17,7 +17,7 @@ const PlaceholderSVG = styled.svg`
 
 function SingleImageViewer({
   children,
-  enableInteractionLayer = true,
+  enableInteractionLayer = false,
   height,
   limitSubjectHeight = false,
   onKeyDown = () => true,

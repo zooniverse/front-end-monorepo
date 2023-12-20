@@ -1,6 +1,6 @@
 {
   "name": "@zooniverse/classifier",
-  "description": "",
+  "description": "Zooniverse library for the project classifier",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.23.1",
-    "@sentry/browser": "~7.84.0",
+    "@sentry/browser": "~7.88.0",
     "@visx/axis": "~3.5.0",
     "@visx/brush": "~3.5.0",
     "@visx/event": "~3.3.0",

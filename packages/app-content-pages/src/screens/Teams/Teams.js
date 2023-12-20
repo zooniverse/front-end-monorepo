@@ -45,7 +45,7 @@ function TeamComponent({ teamData = [], sections = [] }) {
           />
         </StickyBox>
         <MaxWidthContent>
-          <StyledHeading color='brand' level='1' size='small'>
+          <StyledHeading color={{ light: 'brand', dark: 'accent-1' }} level='1' size='small'>
             {t('Teams.title')}
           </StyledHeading>
         </MaxWidthContent>

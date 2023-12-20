@@ -9,11 +9,12 @@ function Category({ projects = [], slug = '', title = '' }) {
     <Box as='section'>
       <HeadingForNav
         id={slug}
-        color='black'
-        level='2'
+        color={{ light: 'black', dark: 'white' }}
+        level={2}
         size='1.5rem'
         tabIndex={-1}
         textAlign='center'
+        style={{ padding: '30px 0' }}
       >
         {title}
       </HeadingForNav>

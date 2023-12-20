@@ -5,17 +5,6 @@
       "signIn": "Přihlásit se"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Přihlásit se"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "Heslo neodpovídá, zkuste jej prosím zadat znovu.",
-      "realName": "Skutečné jméno (nepovinné)",
-      "realNameHelp": "Veřejné; bude použito v odborných publikacích, apod.",
-      "register": "Zaregistrovat se"
-    }
-  },
   "ConnectWithProject": {
     "title": "Odkazy"
   },

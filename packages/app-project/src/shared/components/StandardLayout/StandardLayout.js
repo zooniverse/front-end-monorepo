@@ -5,14 +5,15 @@ import { useContext } from 'react'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
 import {
   AdminContainer,
   Announcements,
-  ProjectHeader,
-  ZooHeaderWrapper
+  ProjectHeader
 } from '@components'
+import PageHeader from '../../../components/PageHeader/PageHeader.js'
 
 export const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 const PageBox = styled(Box)`
@@ -32,6 +33,7 @@ function useStores() {
 function StandardLayout ({
   children
 }) {
+  const { t } = useTranslation('components')
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -45,8 +47,8 @@ function StandardLayout ({
 
   return (
     <PageBox className={className} data-testid='project-page' border={border}>
-      <header>
-        <ZooHeaderWrapper isAdmin={adminMode} />
+      <header aria-label={t('StandardLayout.headerLabel')}>
+        <PageHeader adminMode={adminMode} />
         <ProjectHeader adminMode={adminMode} />
         <Announcements />
       </header>

@@ -43,8 +43,7 @@ const preview = {
   globals: {
     locale: 'en',
     locales: {
-      en: 'English',
-      test: 'Test Language'
+      en: 'English'
     },
   },
   parameters: {

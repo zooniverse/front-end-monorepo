@@ -1,11 +1,11 @@
 import SubjectSetPicker from './'
-import { SubjectSetPickerMock, SubjectSetPickerBaseURL } from './SubjectSetPicker.mock'
+import { mockWorkflow, SubjectSetPickerBaseURL } from './SubjectSetPicker.mock'
 
 export default {
   title: 'Project App / Shared / Subject Set Picker',
   component: SubjectSetPicker,
   args: {
-    workflow: SubjectSetPickerMock
+    workflow: mockWorkflow
   }
 }
 

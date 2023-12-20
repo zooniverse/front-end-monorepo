@@ -18,7 +18,12 @@ function storeMapper(classifierStore) {
     }
   } = classifierStore
 
+  const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
+  const transcriptionTasks = classifierStore?.workflowSteps.findTasksByType('transcription')
+  const enableInteractionLayer = (drawingTasks.length > 0 || transcriptionTasks.length > 0)
+
   return {
+    enableInteractionLayer,
     onError,
     onSubjectReady,
     subject,
@@ -28,6 +33,7 @@ function storeMapper(classifierStore) {
 }
 
 function SubjectViewer({
+  enableInteractionLayer,
   onError,
   onSubjectReady,
   subject,
@@ -48,10 +54,11 @@ function SubjectViewer({
     }
     case asyncStates.success: {
       const Viewer = getViewer(subject?.viewer)
-
+      
       if (Viewer) {
         return (
           <Viewer
+            enableInteractionLayer={enableInteractionLayer}
             key={subject.id}
             subject={subject}
             loadingState={subjectReadyState}

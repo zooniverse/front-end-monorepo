@@ -38,7 +38,7 @@ export default function PageHeader() {
         onActive={setActiveIndex}
       />
       <ZooHeader
-        isAdmin={adminMode}
+        adminMode={adminMode}
         onThemeChange={toggleTheme}
         register={openRegisterModal}
         showThemeToggle
