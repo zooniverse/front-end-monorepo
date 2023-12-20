@@ -15,13 +15,7 @@ const StyledAnchor = styled(Anchor)`
 const AboutNavLink = ({ link }) => {
   const { href } = link
   const router = useRouter()
-  let isCurrentPage
-  if (router?.asPath) {
-    const trimmedPath = router.asPath
-      .replace('/production', '')
-      .replace('/staging', '')
-    isCurrentPage = trimmedPath === addQueryParams(href)
-  }
+  const isCurrentPage = router?.isReady && router?.asPath === addQueryParams(href)
 
   return (
     <Box

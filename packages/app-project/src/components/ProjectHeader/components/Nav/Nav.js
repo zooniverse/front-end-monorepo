@@ -36,26 +36,21 @@ const StyledAnchor = styled(Anchor)`
   `}
 `
 
-const ENVIRONMENTS = ['production', 'staging']
-
 function NavItem({ navLink }) {
   const router = useRouter()
+
   let isCurrentPage
-  if (router?.asPath) {
+  if (router?.isReady) {
     const routerPath = router.asPath.split('/')
     const hrefPath = navLink.href.split('/')
-    /*
-      Server-side routerPath will be ['', environment, owner, project, section, ...rest].
+     /*
       Client-side routerPath will be ['', owner, project, section, ...rest].
-    */
-    const isSSR = ENVIRONMENTS.includes(routerPath[1])
-    const section = isSSR ? routerPath[4] : routerPath[3]
-    /*
       The link hrefPath will be ['', owner, project, section, ...rest].
       The section is always the fourth item in the array.
     */
-    isCurrentPage = section === hrefPath[3]
+    isCurrentPage = routerPath[3] === hrefPath[3]
   }
+
   return (
     <Box as='li' key={navLink.href} flex='grow' pad={{ left: 'small' }}>
       <NavLink
