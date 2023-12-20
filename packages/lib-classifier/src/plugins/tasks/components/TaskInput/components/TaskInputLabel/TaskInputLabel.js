@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
 import { doesTheLabelHaveAnImage } from '../../helpers'
 
-export const StyledTaskInputLabelWrapper = styled.span`
+const StyledTaskInputLabelWrapper = styled.span`
   &:first-child {
     margin-top: 0;
   }
@@ -14,7 +14,9 @@ export const StyledTaskInputLabelWrapper = styled.span`
   }
 `
 
-export const StyledLabel = styled(Text)`
+const StyledText = styled(Text)`
+  display: block;
+  margin: 1em 0;
   padding-left: 15px;
   padding-right: 15px;
 
@@ -24,16 +26,11 @@ export const StyledLabel = styled(Text)`
   }
 `
 
-const StyledSpan = styled.span`
-  display: block;
-  margin: 1em 0;
-`
-
-const inlineComponents = {
-  p: StyledSpan
-}
-
-export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
+export default function TaskInputLabel({
+  label = '',
+  labelIcon = null,
+  labelStatus = null
+}) {
   const howShouldTheLabelBeAligned = ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon))
     ? 'start'
     : 'center'
@@ -47,19 +44,13 @@ export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
     >
       {labelIcon &&
         labelIcon}
-      <StyledLabel>
-        <Markdownz components={inlineComponents}>{label}</Markdownz>
-      </StyledLabel>
+      <StyledText>
+        <Markdownz inline >{label}</Markdownz>
+      </StyledText>
       {labelStatus &&
         labelStatus}
     </Box>
   )
-}
-
-TaskInputLabel.defaultProps = {
-  label: '',
-  labelIcon: null,
-  labelStatus: null
 }
 
 TaskInputLabel.propTypes = {
