@@ -36,7 +36,7 @@ function getHoverStyles (props, active = false) {
   }
 }
 
-export const StyledTaskLabel = styled(Text)`
+const StyledText = styled(Text)`
   align-items: baseline;
   ${props => props.theme.dark ?
     css`background: transparent;` :
@@ -50,7 +50,7 @@ export const StyledTaskLabel = styled(Text)`
   margin-bottom: .5em;
 `
 
-export const StyledTaskInput = styled.label`
+const StyledLabel = styled.label`
   position: relative;
 
   input {
@@ -58,19 +58,19 @@ export const StyledTaskInput = styled.label`
     position: absolute;
   }
 
-  input:enabled + ${StyledTaskLabel}:hover {
+  input:enabled + ${StyledText}:hover {
     ${props => getHoverStyles(props)}
   }
 
-  input:focus + ${StyledTaskLabel} {
+  input:focus + ${StyledText} {
     ${props => getHoverStyles(props)}
   }
 
-  input:enabled:active + ${StyledTaskLabel} {
+  input:enabled:active + ${StyledText} {
     ${props => getHoverStyles(props, true)}
   }
 
-  input:checked + ${StyledTaskLabel} {
+  input:checked + ${StyledText} {
     ${props => css`background: ${props.theme.global.colors.brand};`}
     ${props => props.theme.dark ?
       css`border: 2px solid ${props.theme.global.colors['light-1']};` :
@@ -79,8 +79,8 @@ export const StyledTaskInput = styled.label`
     ${props => props.theme.dark ? css`color: ${props.theme.global.colors.text.dark};` : css`color: white;`}
   }
 
-  input:focus:checked + ${StyledTaskLabel},
-  input:checked + ${StyledTaskLabel}:hover {
+  input:focus:checked + ${StyledText},
+  input:checked + ${StyledText}:hover {
     ${props => props.theme.dark ?
       css`border: 2px solid ${props.theme.global.colors['light-1']};` :
       css`border: 2px solid ${props.theme.global.colors['neutral-1']};`
@@ -91,7 +91,7 @@ export const StyledTaskInput = styled.label`
     }
   }
 
-  input:checked + ${StyledTaskLabel}:hover {
+  input:checked + ${StyledText}:hover {
     > div > span > p {
       ${props => props.theme.dark ?
         css`color: ${props.theme.global.colors.text.dark};` :
@@ -103,7 +103,7 @@ export const StyledTaskInput = styled.label`
 
 const DEFAULT_HANDLER = () => true
 
-export function TaskInput ({
+export function TaskInput({
   autoFocus = false,
   checked = false,
   className = '',
@@ -112,28 +112,30 @@ export function TaskInput ({
   label = '',
   labelIcon = null,
   labelStatus = null,
-  name = '',
+  name,
   onChange = DEFAULT_HANDLER,
   type
 }) {
-
+  const id = `${type}-${name}-${index}`
   return (
-    <StyledTaskInput
+    <StyledLabel
       className={className}
+      htmlFor={id}
     >
       <input
         autoFocus={autoFocus}
         checked={checked}
         disabled={disabled}
+        id={id}
         name={name}
         onChange={onChange}
         type={type}
         value={index}
       />
-      <StyledTaskLabel margin={{ vertical: 'small', horizontal: 'none' }}>
+      <StyledText margin={{ vertical: 'small', horizontal: 'none' }}>
         <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
-      </StyledTaskLabel>
-    </StyledTaskInput>
+      </StyledText>
+    </StyledLabel>
   )
 }
 
@@ -146,7 +148,7 @@ TaskInput.propTypes = {
   label: PropTypes.string,
   labelIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   labelStatus: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   type: PropTypes.string.isRequired
 }
