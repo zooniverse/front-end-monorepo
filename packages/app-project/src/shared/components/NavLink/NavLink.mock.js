@@ -8,8 +8,8 @@ export const NavLinkCurrentPageMock = {
 }
 
 export const NavLinkOtherPageMock = {
-  asPath: '/projects/foo/bar/bing',
-  pathname: '/projects/[project]/[owner]/bing',
+  asPath: '/foo/bar/bing',
+  pathname: '/[project]/[owner]/bing',
   query: {
     owner: 'foo',
     project: 'bar'
@@ -17,6 +17,6 @@ export const NavLinkOtherPageMock = {
 }
 
 export const NavLinkMock = {
-  href: '/projects/foo/bar/baz',
+  href: '/foo/bar/baz',
   text: 'Foobar'
 }
