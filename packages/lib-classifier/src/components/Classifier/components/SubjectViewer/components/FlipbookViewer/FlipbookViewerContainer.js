@@ -43,6 +43,7 @@ function storeMapper(store) {
 const DEFAULT_HANDLER = () => true
 
 function FlipbookViewerContainer({
+  enableInteractionLayer = false,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -85,6 +86,7 @@ function FlipbookViewerContainer({
     <>
       {separateFramesView ? (
         <SeparateFramesViewer
+          enableInteractionLayer={enableInteractionLayer}
           onError={onError}
           onReady={onReady}
           subject={subject}
@@ -92,6 +94,7 @@ function FlipbookViewerContainer({
       ) : (
         <FlipbookViewer
           defaultFrame={defaultFrame}
+          enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
           flipbookAutoplay={flipbookAutoplay}
           invert={invert}
@@ -112,6 +115,8 @@ function FlipbookViewerContainer({
 }
 
 FlipbookViewerContainer.propTypes = {
+  /** Passed from Subject Viewer Store */
+  enableInteractionLayer: PropTypes.bool,
   /** @zooniverse/async-states */
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
