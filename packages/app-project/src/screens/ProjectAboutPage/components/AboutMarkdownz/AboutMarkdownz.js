@@ -5,7 +5,7 @@ import { Box } from 'grommet'
 
 const AboutMarkdownz = ({ content }) => {
   return (
-    <Box>
+    <Box pad={{ top: '30px' }}>
       <Markdownz>{content}</Markdownz>
     </Box>
   )
