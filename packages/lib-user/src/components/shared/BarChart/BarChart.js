@@ -1,22 +1,34 @@
 import { DataChart, Text } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
+import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 function BarChart ({
   data = [],
   dateRange = 'Last7Days',
+  screenSize = 'small',
   type = 'count'
 }) {
   const dateRangeLabel = getDateRangeLabel(dateRange)
-  
+
   const chartOptions = {
     color: 'brand',
     property: type,
     type: 'bar'
   }
-  if (data.length < 10) {
+  if (screenSize !== 'small' && data.length < 9) {
     chartOptions.thickness = 'xlarge'
+  }
+  
+  if (screenSize === 'small') {
+    if (data.length < 12) {
+      chartOptions.thickness = 'small'
+    } else if (data.length > 11 && data.length < 19) {
+      chartOptions.thickness = 'xsmall'
+    } else {
+      chartOptions.thickness = 'hair'
+    }
   }
 
   return (
@@ -79,7 +91,8 @@ BarChart.propTypes = {
     session_time: number
   })),
   dateRange: string,
+  screenSize: string,
   type: string
 }
 
-export default BarChart
+export default withResponsiveContext(BarChart)
