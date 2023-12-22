@@ -126,7 +126,7 @@ function ProjectAboutPage({
 
   const pageTitle = t(`About.PageHeading.title.${pageType.toLowerCase()}`)
   const isTeamPage = pageType.toLowerCase().includes('team')
-  const reversedTeamArray = teamArray.reverse()
+  const reversedTeamArray = teamArray?.reverse()
 
   return (
     <StandardLayout inBeta={inBeta}>
@@ -152,16 +152,18 @@ function ProjectAboutPage({
           </Box>
           <AboutMarkdownz content={content} />
           <Box>
-            {isTeamPage && (
+            {isTeamPage && teamArray.length && (
               <DesktopTeamMembersContainer>
                 <TeamMembersList teamArray={reversedTeamArray} />
               </DesktopTeamMembersContainer>
             )}
           </Box>
         </StyledGrid>
-        <MobileTeamMembersContainer>
-          <TeamMembersList teamArray={reversedTeamArray} />
-        </MobileTeamMembersContainer>
+        {isTeamPage && teamArray.length && (
+          <MobileTeamMembersContainer>
+            <TeamMembersList teamArray={reversedTeamArray} />
+          </MobileTeamMembersContainer>
+        )}
       </ProjectAboutPageLayout>
     </StandardLayout>
   )

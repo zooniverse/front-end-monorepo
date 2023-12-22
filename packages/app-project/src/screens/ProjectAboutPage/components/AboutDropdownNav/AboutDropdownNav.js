@@ -2,12 +2,57 @@ import { useState } from 'react'
 import { arrayOf, string } from 'prop-types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import styled, { css, withTheme } from 'styled-components'
 
-/** Components */
 import { Box, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
 import AboutNavLink from '../AboutNavLink'
+
+const StyledDropButton = styled(DropButton)`
+  border-radius: 2em;
+  position: relative;
+  min-width: 18rem;
+
+  ${props =>
+    props.dark
+      ? css`
+          box-shadow: 1px 1px 4px black;
+        `
+      : css`
+          box-shadow: 2px 2px 4px ${props.theme.global.colors['light-3']},
+            -2px -2px 4px ${props.theme.global.colors['light-3']};
+        `}
+
+  &:hover {
+    ${props =>
+      props.dark
+        ? css`
+            background: #005d69; // dark teal needs to be added to theme object
+          `
+        : css`
+            background: ${props.theme.global.colors['accent-1']};
+          `}
+  }
+
+  ${props =>
+    props.open &&
+    css`
+      box-shadow: none;
+      background: ${props.theme.global.colors['accent-1']};
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: ${props.theme.global.colors.brand};
+        height: 50%;
+        width: 100%;
+        z-index: -1;
+      }
+    `}
+`
 
 const AboutDropContent = ({ aboutNavLinks }) => {
   const router = useRouter()
@@ -17,7 +62,11 @@ const AboutDropContent = ({ aboutNavLinks }) => {
   const { t } = useTranslation('screens')
 
   return (
-    <Nav aria-label={t('About.PageNav.title')} gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }}>
+    <Nav
+      aria-label={t('About.PageNav.title')}
+      gap='xsmall'
+      background={{ dark: 'dark-5', light: 'neutral-6' }}
+    >
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
@@ -58,36 +107,49 @@ const AboutDropContent = ({ aboutNavLinks }) => {
   )
 }
 
-const AboutDropdownNav = ({ aboutNavLinks }) => {
+const AboutDropdownNav = ({ aboutNavLinks, theme }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleOpen = () => setIsOpen(!isOpen)
+  const handleOpen = () => {
+    setIsOpen(true)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
 
   const { t } = useTranslation('screens')
 
   return (
-    <DropButton
-      aria-label={t('About.SidebarHeading')}
-      isOpen={isOpen}
+    <StyledDropButton
       alignSelf='center'
-      dropContent={
-        <AboutDropContent aboutNavLinks={aboutNavLinks} />
-      }
-      onClose={handleOpen}
+      aria-label={t('About.SidebarHeading')}
+      dark={theme?.dark}
+      open={isOpen}
+      dropAlign={{ top: 'bottom' }}
+      dropContent={<AboutDropContent aboutNavLinks={aboutNavLinks} />}
+      onClose={handleClose}
       onOpen={handleOpen}
+      margin={{ top: '30px' }}
     >
-      <Box align='center' direction='row' gap='xsmall' justify='center'>
-        <SpacedText weight='bold' color={{ light: 'black', dark: '' }}>
+      <Box
+        align='center'
+        direction='row'
+        gap='xsmall'
+        justify='center'
+        pad={{ horizontal: '20px', vertical: '10px' }}
+      >
+        <SpacedText weight='bold' color={{ light: 'brand', dark: 'white' }}>
           {t('About.SidebarHeading')}
         </SpacedText>
         <FormDown />
       </Box>
-    </DropButton>
+    </StyledDropButton>
   )
 }
 
 AboutDropdownNav.propTypes = {
-  aboutNavLinks: arrayOf(string),
+  aboutNavLinks: arrayOf(string)
 }
 
-export default AboutDropdownNav
+export default withTheme(AboutDropdownNav)

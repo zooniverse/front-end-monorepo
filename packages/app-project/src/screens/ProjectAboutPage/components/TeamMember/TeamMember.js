@@ -35,6 +35,8 @@ export const StyledDisplayName = styled(Box)`
 
 export const StyledUsername = styled(NavLink)`
   line-height: 1;
+  max-width: 10rem;
+
   & > * {
     word-wrap: break-word;
     font-size: 12px;
@@ -75,9 +77,9 @@ const TeamMember = ({ user }) => {
     <StyledTeamMember as='li'>
       <StyledAvatar>
         {!user.avatar_src ? (
-          <Image 
+          <Image
             alt='Placeholder Avatar'
-            fit='cover' 
+            fit='cover'
             src={placeholderAvatar}
           />
         ) : (
