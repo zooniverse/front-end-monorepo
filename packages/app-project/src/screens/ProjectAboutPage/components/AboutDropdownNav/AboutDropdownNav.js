@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { arrayOf, object, string } from 'prop-types'
+import { arrayOf, string } from 'prop-types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -9,8 +9,7 @@ import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
 import AboutNavLink from '../AboutNavLink'
 
-// this is a separate componenet specifically for testing with enzyme
-export const AboutDropContent = ({ aboutNavLinks }) => {
+const AboutDropContent = ({ aboutNavLinks }) => {
   const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/${owner}/${project}/about`
@@ -24,14 +23,12 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
           href: `${baseUrl}/research`,
           text: t('About.PageHeading.title.research')
         }}
-        router={router}
       />
       <AboutNavLink
         link={{
           href: `${baseUrl}/team`,
           text: t('About.PageHeading.title.team')
         }}
-        router={router}
       />
       {aboutNavLinks.includes('results') && (
         <AboutNavLink
@@ -39,7 +36,6 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
             href: `${baseUrl}/results`,
             text: t('About.PageHeading.title.results')
           }}
-          router={router}
         />
       )}
       {aboutNavLinks.includes('education') && (
@@ -48,7 +44,6 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
             href: `${baseUrl}/education`,
             text: t('About.PageHeading.title.education')
           }}
-          router={router}
         />
       )}
       {aboutNavLinks.includes('faq') && (
@@ -57,14 +52,13 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
             href: `${baseUrl}/faq`,
             text: t('About.PageHeading.title.faq')
           }}
-          router={router}
         />
       )}
     </Nav>
   )
 }
 
-const AboutDropdownNav = ({ aboutNavLinks, router }) => {
+const AboutDropdownNav = ({ aboutNavLinks }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => setIsOpen(!isOpen)
@@ -77,7 +71,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
       isOpen={isOpen}
       alignSelf='center'
       dropContent={
-        <AboutDropContent aboutNavLinks={aboutNavLinks} router={router} />
+        <AboutDropContent aboutNavLinks={aboutNavLinks} />
       }
       onClose={handleOpen}
       onOpen={handleOpen}
@@ -94,7 +88,6 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
 
 AboutDropdownNav.propTypes = {
   aboutNavLinks: arrayOf(string),
-  router: object
 }
 
 export default AboutDropdownNav

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import { useStores } from '../../hooks'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -24,35 +25,27 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle({
-  textAlign = 'start',
-  title = ''
-}) {
+function ProjectTitle({ textAlign = 'start', title = '' }) {
   const router = useRouter()
-  const owner = router?.query?.owner
-  const project = router?.query?.project
+  const { slug } = useStores()
   const linkProps = {
-    href: addQueryParams(`/${owner}/${project}`)
+    href: addQueryParams(`/${slug}`)
   }
 
-  const isCurrentPage = router?.pathname === linkProps.href
-
-  const anchor = (
-    <StyledHeading color='white' margin='none' textAlign={textAlign}>
-      {title}
-    </StyledHeading>
-  )
+  const isCurrentPage = router?.isReady && router?.asPath === linkProps.href
 
   if (isCurrentPage) {
     return (
-      <StyledAnchor>
-        {anchor}
-      </StyledAnchor>
+      <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+        {title}
+      </StyledHeading>
     )
   } else {
     return (
       <StyledAnchor forwardedAs={Link} {...linkProps}>
-        {anchor}
+        <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+          {title}
+        </StyledHeading>
       </StyledAnchor>
     )
   }

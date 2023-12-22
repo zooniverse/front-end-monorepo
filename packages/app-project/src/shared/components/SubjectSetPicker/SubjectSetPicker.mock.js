@@ -93,7 +93,7 @@ const subjectSets = [
   }
 ]
 
-export const SubjectSetPickerMock = {
+export const mockWorkflow = {
   completeness: 0.37,
   displayName: 'Question Workflow (grouped)',
   grouped: true,

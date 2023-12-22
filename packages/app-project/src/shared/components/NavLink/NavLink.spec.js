@@ -10,8 +10,8 @@ describe('Component > NavLink', function () {
       render(<OnCurrentPageStory />)
     })
 
-    it('should not have a link', function () {
-      expect(screen.queryByRole('link')).to.be.null()
+    it('should have the correct link', function () {
+      expect(screen.getByRole('link').getAttribute('href')).to.equal(NavLinkMock.href)
     })
 
     it('should have the correct text', function () {

@@ -2,7 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -11,7 +11,7 @@ import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
 
-function onError(error, errorInfo={}) {
+function onError(error, errorInfo = {}) {
   logToSentry(error, errorInfo)
   console.error('Classifier error', error)
 }
@@ -23,8 +23,8 @@ const DEFAULT_HANDLER = () => true
   - classifier errors.
   - updates to project recents on classification complete.
   - updates to stored favourites, when the classification subject is favourited.
-  - updates to stored collections, when the classification subject is added to a collection.
   - Passing locale to classifier
+  - Modifies the url when using prioritized subjects in the classifier (Next or Prev btns)
 */
 export default function ClassifierWrapper({
   authClient = auth,
@@ -81,15 +81,19 @@ export default function ClassifierWrapper({
   const replaceRoute = router?.replace
 
   /*
-    Track the current classification subject, when it changes inside the classifier.
+    When the prioritied subject selection feature was implemented, we used shallow routing
+    to change the [subjecID] subpath in the url in reaction to the subject changing in the
+    Classifier component. Shallow routing isn't supported in Next.js 13, so the url-changing
+    feature is turned off for now. See https://github.com/zooniverse/front-end-monorepo/issues/4977
   */
-  const onSubjectChange = useCallback((subject) => {
-    if (subjectInURL) {
-      const subjectPageURL = `${baseURL}/subject/${subject.id}`
-      const href = addQueryParams(subjectPageURL)
-      replaceRoute(href, href, { shallow: true })
+  const onSubjectChange = useCallback(
+    subject => {
+      if (subjectInURL) {
+        const subjectPageURL = `${baseURL}/subject/${subject.id}`
+        const href = addQueryParams(subjectPageURL)
+        // replaceRoute(href, href, { shallow: true })
     }
-  }, [baseURL, replaceRoute, subjectInURL])
+  }, [baseURL, subjectInURL])
 
   const addFavourites = collections?.addFavourites
   const removeFavourites = collections?.removeFavourites
@@ -136,9 +140,7 @@ export default function ClassifierWrapper({
     }
   } catch (error) {
     onError(error)
-    return (
-      <ErrorMessage error={error} />
-    )
+    return <ErrorMessage error={error} />
   }
 
   return (
@@ -168,7 +170,8 @@ ClassifierWrapper.propTypes = {
   onAddToCollection: func,
   /** Panoptes Auth client */
   authClient: shape({}),
-  /** Callback that runs when the classifier subject queue is reset, so that we can pick a new subject. */
+  /** Callback that runs when the classifier subject queue is reset, so that we can pick a new subject.
+   * Sets subjectID state in ClassifyPageContainer to undefined */
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
@@ -181,9 +184,9 @@ ClassifierWrapper.propTypes = {
   }),
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
-  /** optional subjectID (from the classifierProps.) */
+  /** Stored as a state variable in ClassifierPageContainer */
   subjectID: string,
-  /** optional subject set ID (from the classifierProps.) */
+  /** optional subject set ID (from the classifierProps via getDefaultPageProps in page index.js) */
   subjectSetID: string,
   /** Current logged-in user */
   user: shape({
@@ -191,6 +194,6 @@ ClassifierWrapper.propTypes = {
   }),
   /** Logged-in user ID */
   userID: string,
-  /** required workflow ID (from the classifierProps.) */
+  /** required workflow ID (from the classifierProps via getDefaultPageProps in page index.js) */
   workflowID: string
 }
