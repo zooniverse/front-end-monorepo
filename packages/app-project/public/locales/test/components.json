@@ -124,10 +124,6 @@
     "byline": "Translated",
     "heading": "Translated"
   },
-  "ThemeModeToggle": {
-    "switchToDark": "Translated",
-    "switchToLight": "Translated"
-  },
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% Translated",

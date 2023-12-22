@@ -39,9 +39,5 @@
   },
   "RequireUser": {
     "text": "Não tem uma sessão activa"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Mudar para o tema escuro",
-    "switchToLight": "Mudar para o tema claro"
   }
 }

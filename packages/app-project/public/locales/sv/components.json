@@ -44,9 +44,5 @@
   },
   "RequireUser": {
     "text": "Du är inte inloggad"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Byt till mörkt tema",
-    "switchToLight": "Byt till ljust tema"
   }
 }

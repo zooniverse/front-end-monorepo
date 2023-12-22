@@ -110,10 +110,6 @@
     "byline": "Elige un conjunto de objetos para empezar a transcribir.",
     "heading": "Elige por dónde empezar"
   },
-  "ThemeModeToggle": {
-    "switchToDark": "Cambiar a diseño oscuro",
-    "switchToLight": "Cambiar a diseño claro"
-  },
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % completado",
