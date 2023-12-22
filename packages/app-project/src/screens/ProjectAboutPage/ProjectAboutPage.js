@@ -15,7 +15,6 @@ import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
-import ThemeModeToggle from '@components/ThemeModeToggle'
 
 const PageHeading = styled(Heading)`
   font-weight: normal;
@@ -126,9 +125,7 @@ function ProjectAboutPage ({
             </Box>
           </Grid>
         </Box>
-        <Box justify='start' margin={screenSize === 'small' ? { vertical: 'medium' } : { top: 'medium' }}>
-          <ThemeModeToggle />
-        </Box>
+        <Box />
       </Grid>
     </StandardLayout>
   )

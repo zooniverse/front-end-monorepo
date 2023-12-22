@@ -10,9 +10,6 @@ const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
 const UI = types
   .model('UI', {
     dismissedProjectAnnouncementBanner: types.maybeNull(types.number),
-
-    // The mode is retrieved out of the cookie in _app.js during store initialization
-    mode: types.optional(types.enumeration('mode', ['light', 'dark']), 'light')
   })
 
   .views(self => ({
@@ -29,33 +26,14 @@ const UI = types
       ? parseInt(snapshot.dismissedProjectAnnouncementBanner, 10)
       : undefined
 
-    const mode = (snapshot && snapshot.mode) ? snapshot.mode : undefined
-
     return {
-      dismissedProjectAnnouncementBanner,
-      mode
+      dismissedProjectAnnouncementBanner
     }
   })
 
   .actions(self => ({
-    afterCreate () {
-      self.createModeObserver()
-    },
-
     afterAttach() {
       self.createDismissedProjectAnnouncementBannerObserver()
-    },
-
-    createModeObserver () {
-      const modeDisposer = autorun(() => {
-        onPatch(self, (patch) => {
-          const { path } = patch
-          if (path === '/mode') {
-            self.setModeCookie()
-          }
-        })
-      })
-      addDisposer(self, modeDisposer)
     },
 
     createDismissedProjectAnnouncementBannerObserver() {
@@ -86,7 +64,6 @@ const UI = types
 
     readCookies() {
       if (canSetCookie) {
-        self.mode = getCookie('mode') || 'light'
         self.dismissedProjectAnnouncementBanner = parseInt(getCookie('dismissedProjectAnnouncementBanner'), 10) || null
       }
     },
@@ -97,36 +74,7 @@ const UI = types
         domain: getCookieDomain(),
         path: `/projects/${slug}`,
       })
-    },
-
-    setModeCookie () {
-      if (canSetCookie) {
-        const parsedCookie = cookie.parse(document.cookie) || {}
-        if (self.mode !== parsedCookie.mode) {
-          document.cookie = cookie.serialize('mode', self.mode, {
-            domain: getCookieDomain(),
-            maxAge: 31536000,
-            path: '/',
-          })
-        }
-      }
-    },
-
-    setDarkMode () {
-      self.mode = 'dark'
-    },
-
-    setLightMode () {
-      self.mode = 'light'
-    },
-
-    toggleMode () {
-      if (self.mode === 'light') {
-        self.setDarkMode()
-      } else {
-        self.setLightMode()
-      }
-    },
+    }
   }))
 
 export default UI

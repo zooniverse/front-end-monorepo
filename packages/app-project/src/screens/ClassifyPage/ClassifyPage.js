@@ -5,8 +5,6 @@ import { useCallback, useState } from 'react'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
-import ThemeModeToggle from '@components/ThemeModeToggle'
-import ProjectName from '@components/ProjectName'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import FinishedForTheDay from './components/FinishedForTheDay'
@@ -102,8 +100,7 @@ function ClassifyPage({
                 workflows={workflows}
               />
             )}
-            <Grid columns={responsiveColumns} gap='small'>
-              <ProjectName />
+            <Box>
               <ClassifierWrapper
                 cachePanoptesData={cachePanoptesData}
                 onAddToCollection={onAddToCollection}
@@ -111,8 +108,7 @@ function ClassifyPage({
                 showTutorial={showTutorial}
                 {...classifierProps}
               />
-              <ThemeModeToggle />
-            </Grid>
+            </Box>
             {workflowFromUrl && (
               <WorkflowAssignmentModal currentWorkflowID={workflowID} />
             )}

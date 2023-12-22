@@ -11,7 +11,6 @@ import MainNavList from './components/MainNavList'
 import NarrowMainNavMenu from './components/NarrowMainNavMenu'
 import UserNavigation from './components/UserNavigation/UserNavigation.js'
 import ZooniverseLogo from '../ZooniverseLogo'
-import ThemeModeToggle from './components/ThemeModeToggle/ThemeModeToggle'
 
 export const StyledHeader = styled(Box)`
   color: #b2b2b2;
