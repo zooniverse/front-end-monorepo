@@ -122,7 +122,7 @@ function ProjectAboutPage({
     content: aboutPageData.content
   }
   const { strings, title: pageType } = aboutPageData
-  const { content } = strings ?? defaultContent
+  const { content } = strings ?? defaultContent.content
 
   const pageTitle = t(`About.PageHeading.title.${pageType.toLowerCase()}`)
   const isTeamPage = pageType.toLowerCase().includes('team')

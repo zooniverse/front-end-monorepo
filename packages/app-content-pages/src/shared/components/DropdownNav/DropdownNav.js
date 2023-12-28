@@ -125,7 +125,6 @@ function DropdownNav({
       onClose={handleClose}
       onOpen={handleOpen}
       open={isOpen}
-      round='medium'
       margin={{ top: '30px' }}
       dropContent={dropContent}
     >
@@ -135,12 +134,11 @@ function DropdownNav({
         gap='xsmall'
         justify='center'
         pad={{ horizontal: '20px', vertical: '10px' }}
-        round='small'
       >
         <SpacedText weight='bold' color={{ light: 'brand', dark: 'white' }}>
           {sidebarLabel}
         </SpacedText>
-        <FormDown color='brand' />
+        <FormDown color={{ light: 'brand', dark: 'white' }} />
       </Box>
     </StyledDropButton>
   )

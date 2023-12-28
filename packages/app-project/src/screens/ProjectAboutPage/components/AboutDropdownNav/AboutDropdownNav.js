@@ -2,112 +2,87 @@ import { useState } from 'react'
 import { arrayOf, string } from 'prop-types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
+import Link from 'next/link'
 
-import { Box, DropButton, Nav } from 'grommet'
+import addQueryParams from '@helpers/addQueryParams'
+import { Box, Button, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
-import AboutNavLink from '../AboutNavLink'
 
+// Same styling as content pages' dropdown
 const StyledDropButton = styled(DropButton)`
-  border-radius: 2em;
   position: relative;
-  min-width: 18rem;
+  border-radius: 2em;
+  min-width: 16rem;
 
-  ${props =>
-    props.dark
-      ? css`
-          box-shadow: 1px 1px 4px black;
-        `
-      : css`
-          box-shadow: 2px 2px 4px ${props.theme.global.colors['light-3']},
-            -2px -2px 4px ${props.theme.global.colors['light-3']};
-        `}
-
-  &:hover {
+  &:hover,
+  &:focus {
     ${props =>
-      props.dark
-        ? css`
-            background: #005d69; // dark teal needs to be added to theme object
-          `
-        : css`
-            background: ${props.theme.global.colors['accent-1']};
-          `}
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+      `}
+
+    & > div > span {
+      color: white;
+    }
+
+    & > div > [aria-label='FormDown'] {
+      stroke: white;
+    }
   }
 
   ${props =>
     props.open &&
     css`
-      box-shadow: none;
-      background: ${props.theme.global.colors['accent-1']};
+      background: ${props.theme.global.colors['neutral-1']};
 
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        background: ${props.theme.global.colors.brand};
-        height: 50%;
-        width: 100%;
-        z-index: -1;
+      & > div > span {
+        color: white;
+      }
+
+      & > div > [aria-label='FormDown'] {
+        stroke: white;
       }
     `}
 `
 
-const AboutDropContent = ({ aboutNavLinks }) => {
-  const router = useRouter()
-  const { owner, project } = router.query
-  const baseUrl = `/${owner}/${project}/about`
+const StyledUl = styled.ul`
+  padding-inline-start: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+`
 
-  const { t } = useTranslation('screens')
+const StyledLi = styled.li`
+  list-style-type: none;
+  display: flex;
+  width: 100%;
+`
 
-  return (
-    <Nav
-      aria-label={t('About.PageNav.title')}
-      gap='xsmall'
-      background={{ dark: 'dark-5', light: 'neutral-6' }}
-    >
-      <AboutNavLink
-        link={{
-          href: `${baseUrl}/research`,
-          text: t('About.PageHeading.title.research')
-        }}
-      />
-      <AboutNavLink
-        link={{
-          href: `${baseUrl}/team`,
-          text: t('About.PageHeading.title.team')
-        }}
-      />
-      {aboutNavLinks.includes('results') && (
-        <AboutNavLink
-          link={{
-            href: `${baseUrl}/results`,
-            text: t('About.PageHeading.title.results')
-          }}
-        />
-      )}
-      {aboutNavLinks.includes('education') && (
-        <AboutNavLink
-          link={{
-            href: `${baseUrl}/education`,
-            text: t('About.PageHeading.title.education')
-          }}
-        />
-      )}
-      {aboutNavLinks.includes('faq') && (
-        <AboutNavLink
-          link={{
-            href: `${baseUrl}/faq`,
-            text: t('About.PageHeading.title.faq')
-          }}
-        />
-      )}
-    </Nav>
-  )
-}
+const StyledButton = styled(Button)`
+  text-decoration: none;
+  padding: 10px 15px;
+  width: 100%;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
 
-const AboutDropdownNav = ({ aboutNavLinks, theme }) => {
+  &:hover,
+  :focus {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+      `}
+  }
+
+  &[aria-current='true'] {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+      `}
+  }
+`
+
+const AboutDropdownNav = ({ aboutNavLinks }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => {
@@ -120,17 +95,48 @@ const AboutDropdownNav = ({ aboutNavLinks, theme }) => {
 
   const { t } = useTranslation('screens')
 
+  const router = useRouter()
+
+  const { owner, project } = router.query
+  const baseUrl = `/${owner}/${project}/about`
+
+  const routerPath = router?.asPath.split('/')
+  const aboutPagePath = routerPath[4] // ['', owner, project, about, page]
+
+  const dropContent = (
+    <Nav aria-label={t('About.PageNav.title')} width='100%' background='brand'>
+      <StyledUl>
+        {aboutNavLinks.map(link => (
+          <StyledLi key={link}>
+            <StyledButton
+              as={Link}
+              aria-current={
+                addQueryParams(link) === aboutPagePath ? 'true' : 'false'
+              }
+              href={`${baseUrl}/${link}`}
+              onClick={handleClose}
+            >
+              <SpacedText size='0.875rem' color='white' weight='bold'>
+                {t(`About.PageHeading.title.${link}`)}
+              </SpacedText>
+            </StyledButton>
+          </StyledLi>
+        ))}
+      </StyledUl>
+    </Nav>
+  )
+
   return (
     <StyledDropButton
       alignSelf='center'
       aria-label={t('About.SidebarHeading')}
-      dark={theme?.dark}
-      open={isOpen}
       dropAlign={{ top: 'bottom' }}
-      dropContent={<AboutDropContent aboutNavLinks={aboutNavLinks} />}
+      dropProps={{ inline: true }}
       onClose={handleClose}
       onOpen={handleOpen}
+      open={isOpen}
       margin={{ top: '30px' }}
+      dropContent={dropContent}
     >
       <Box
         align='center'
@@ -142,7 +148,7 @@ const AboutDropdownNav = ({ aboutNavLinks, theme }) => {
         <SpacedText weight='bold' color={{ light: 'brand', dark: 'white' }}>
           {t('About.SidebarHeading')}
         </SpacedText>
-        <FormDown />
+        <FormDown color={{ light: 'brand', dark: 'white' }} />
       </Box>
     </StyledDropButton>
   )
@@ -152,4 +158,4 @@ AboutDropdownNav.propTypes = {
   aboutNavLinks: arrayOf(string)
 }
 
-export default withTheme(AboutDropdownNav)
+export default AboutDropdownNav
