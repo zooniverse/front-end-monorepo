@@ -74,7 +74,6 @@ const DesktopTeamMembersContainer = styled(Box)`
 
 const MobileTeamMembersContainer = styled(Box)`
   width: 100%;
-  padding: 20px;
 
   @media (width > ${mobileBreakpoint}) {
     display: none;
@@ -152,20 +151,20 @@ function ProjectAboutPage({
           </Box>
           <Box pad={{ vertical: 'medium' }}>
             <AboutMarkdownz content={content} />
+            {isTeamPage && !!teamArray.length && (
+              <MobileTeamMembersContainer>
+                <TeamMembersList teamArray={reversedTeamArray} />
+              </MobileTeamMembersContainer>
+            )}
           </Box>
           <Box>
-            {isTeamPage && teamArray.length && (
+            {isTeamPage && !!teamArray.length && (
               <DesktopTeamMembersContainer>
                 <TeamMembersList teamArray={reversedTeamArray} />
               </DesktopTeamMembersContainer>
             )}
           </Box>
         </StyledGrid>
-        {isTeamPage && teamArray.length && (
-          <MobileTeamMembersContainer>
-            <TeamMembersList teamArray={reversedTeamArray} />
-          </MobileTeamMembersContainer>
-        )}
       </ProjectAboutPageLayout>
     </StandardLayout>
   )

@@ -11,6 +11,7 @@ const StyledTeamMember = styled(Box)`
   list-style: none;
   display: flex;
   flex-direction: row;
+  max-width: 12rem;
 `
 
 export const StyledAvatar = styled(Box)`
@@ -23,7 +24,7 @@ export const StyledAvatar = styled(Box)`
 
 export const StyledDisplayName = styled(Box)`
   font-size: 14px;
-  line-height: 1;
+  line-height: 1.2;
   word-wrap: break-word;
   ${props =>
     css`
@@ -34,10 +35,9 @@ export const StyledDisplayName = styled(Box)`
 `
 
 export const StyledUsername = styled(NavLink)`
-  line-height: 1;
-  max-width: 10rem;
+line-height: 1;
 
-  & > * {
+& > * {
     word-wrap: break-word;
     font-size: 12px;
   }
@@ -65,7 +65,7 @@ export const StyledRole = styled(Box)`
 const TeamMember = ({ user }) => {
   const router = useRouter()
   const { owner, project } = router.query
-  const baseUrl = `/${owner}/${project}/users`
+  const baseUrl = `/projects/${owner}/${project}/users`
 
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
