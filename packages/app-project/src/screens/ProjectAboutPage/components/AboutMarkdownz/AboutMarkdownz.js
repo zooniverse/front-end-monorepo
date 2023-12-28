@@ -1,14 +1,9 @@
 import { Markdownz } from '@zooniverse/react-components'
 import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import theme from './theme'
-import { Box } from 'grommet'
 
 const AboutMarkdownz = ({ content }) => {
-  return (
-    <Box pad={{ vertical: 'medium' }}>
-      <Markdownz>{content}</Markdownz>
-    </Box>
-  )
+  return <Markdownz>{content}</Markdownz>
 }
 
 export default withThemeContext(AboutMarkdownz, theme)

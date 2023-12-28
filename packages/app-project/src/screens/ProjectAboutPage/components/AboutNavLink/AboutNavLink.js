@@ -17,6 +17,8 @@ const AboutNavLink = ({ link }) => {
   const router = useRouter()
   const isCurrentPage = router?.isReady && router?.asPath === addQueryParams(href)
 
+  console.log(router.asPath)
+
   return (
     <Box
       background={isCurrentPage ? 'accent-1' : { light: 'neutral-6', dark: '' }}

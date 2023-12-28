@@ -98,7 +98,7 @@ const TeamMembersList = ({ teamArray }) => {
   return (
     <Box width='100%' align='center'>
       {teamArray.length && (
-        <StyledList aria-labelledby='team-sidebar-heading'>
+        <StyledList aria-label='List of team members'>
           {teamArray.map(user => (
             <TeamMember key={user.id} user={user} />
           ))}
@@ -150,7 +150,9 @@ function ProjectAboutPage({
               <AboutSidebar aboutNavLinks={aboutNavLinks} />
             </SidebarContainer>
           </Box>
-          <AboutMarkdownz content={content} />
+          <Box pad={{ vertical: 'medium' }}>
+            <AboutMarkdownz content={content} />
+          </Box>
           <Box>
             {isTeamPage && teamArray.length && (
               <DesktopTeamMembersContainer>
