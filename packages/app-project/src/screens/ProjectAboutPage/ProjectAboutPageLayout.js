@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 
 // elevation elements
 const ContainerBox = styled(Box)`
@@ -14,11 +14,11 @@ const ContainerBox = styled(Box)`
       top: 0;
       left: -30px;
       width: 30px;
-      height: clamp(100px, 10%, 500px);
+      height: 300px;
       clip-path: polygon(100% 0, 0 0, 100% 100%);
 
       ${props =>
-        props.dark
+        props.theme.dark
           ? css`
               background: linear-gradient(
                 to bottom left,
@@ -41,11 +41,11 @@ const ContainerBox = styled(Box)`
       top: 0;
       right: -30px;
       width: 30px;
-      height: clamp(100px, 10%, 500px);
+      height: 300px;
       clip-path: polygon(100% 0, 0 0, 0 100%);
 
       ${props =>
-        props.dark
+        props.theme.dark
           ? css`
               background: linear-gradient(
                 to bottom right,
@@ -64,7 +64,7 @@ const ContainerBox = styled(Box)`
   }
 `
 
-function ProjectAboutPageLayout({ children, theme }) {
+function ProjectAboutPageLayout({ children }) {
   return (
     <Box
       background={{
@@ -76,7 +76,6 @@ function ProjectAboutPageLayout({ children, theme }) {
       <ContainerBox
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
-        dark={theme?.dark}
         width='min(100%, 90rem)'
       >
         {children}
@@ -85,4 +84,4 @@ function ProjectAboutPageLayout({ children, theme }) {
   )
 }
 
-export default withTheme(ProjectAboutPageLayout)
+export default ProjectAboutPageLayout

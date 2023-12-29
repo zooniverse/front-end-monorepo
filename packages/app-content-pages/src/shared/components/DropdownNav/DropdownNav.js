@@ -30,21 +30,35 @@ const StyledButton = styled(Button)`
 
 const StyledDropButton = styled(DropButton)`
   border-radius: 2em;
-  box-shadow: 2px 2px 4px #e2e5e9, -2px -2px 4px #e2e5e9; // light-3
   position: relative;
   min-width: 18rem;
 
-  &:hover {
+  &:hover, &:focus {
     ${props => css`
-      background: ${props.theme.global.colors['accent-1']};
+      background: ${props.theme.global.colors['neutral-1']};
     `}
+
+    & > div > span {
+      color: white;
+    }
+
+    & > div > [aria-label='FormDown'] {
+      stroke: white;
+    }
   }
 
   ${props =>
     props.open &&
     css`
-      box-shadow: none;
-      background: ${props.theme.global.colors['accent-1']};
+      background: ${props.theme.global.colors['neutral-1']};
+
+      & > div > span {
+        color: white;
+      }
+
+      & > div > [aria-label='FormDown'] {
+        stroke: white;
+      }
 
       &::after {
         content: '';

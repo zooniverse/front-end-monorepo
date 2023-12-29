@@ -1,6 +1,6 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import StandardLayout from '@shared/components/StandardLayout'
@@ -47,7 +47,7 @@ const StyledHeading = styled(Heading)`
     height: 2px;
     width: 80%;
     ${props =>
-      props.dark
+      props.theme.dark
         ? css`
             background: linear-gradient(
               90deg,
@@ -112,8 +112,7 @@ function ProjectAboutPage({
   aboutNavLinks,
   aboutPageData = {},
   inBeta = false,
-  teamArray = [],
-  theme
+  teamArray = []
 }) {
   const { t } = useTranslation('screens')
 
@@ -132,7 +131,6 @@ function ProjectAboutPage({
         <Box width='min(100%, 45rem)'>
           <StyledHeading
             color={{ light: 'brand', dark: 'accent-1' }}
-            dark={theme?.dark}
             level='2'
             size='32px'
           >
@@ -181,4 +179,4 @@ ProjectAboutPage.propTypes = {
 }
 
 export { ProjectAboutPage }
-export default withTheme(ProjectAboutPage)
+export default ProjectAboutPage
