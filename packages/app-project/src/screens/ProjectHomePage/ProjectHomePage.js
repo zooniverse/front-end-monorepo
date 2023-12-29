@@ -28,7 +28,7 @@ const PageBox = styled(Box)`
 `
 
 const FullHeightBox = styled(Box)`
-  min-height: 98vh;
+  min-height: 90vh;
 `
 
 const RemainingHeightBox = styled(Box)`

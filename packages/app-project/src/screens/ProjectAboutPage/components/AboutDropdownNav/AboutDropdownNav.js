@@ -75,10 +75,9 @@ const StyledButton = styled(Button)`
   }
 
   &[aria-current='true'] {
-    ${props =>
-      css`
-        background: ${props.theme.global.colors['neutral-1']};
-      `}
+    & > span {
+      border-bottom: 2px solid white;
+    }
   }
 `
 
@@ -113,7 +112,7 @@ const AboutDropdownNav = ({ aboutNavLinks }) => {
               aria-current={
                 addQueryParams(link) === aboutPagePath ? 'true' : 'false'
               }
-              href={`${baseUrl}/${link}`}
+              href={`${baseUrl}/${addQueryParams(link)}`}
               onClick={handleClose}
             >
               <SpacedText size='0.875rem' color='white' weight='bold'>

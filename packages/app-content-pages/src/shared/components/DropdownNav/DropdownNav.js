@@ -21,10 +21,9 @@ const StyledButton = styled(Button)`
   }
 
   &[aria-current='true'] {
-    ${props =>
-      css`
-        background: ${props.theme.global.colors['neutral-1']};
-      `}
+    & > span {
+      border-bottom: 2px solid white;
+    }
   }
 `
 

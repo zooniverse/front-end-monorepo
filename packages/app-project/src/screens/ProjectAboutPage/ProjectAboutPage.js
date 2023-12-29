@@ -23,6 +23,9 @@ const StyledGrid = styled(Grid)`
 `
 
 const SidebarContainer = styled(Box)`
+  position: sticky;
+  top: 20px;
+
   @media (width <= ${mobileBreakpoint}) {
     display: none;
   }
