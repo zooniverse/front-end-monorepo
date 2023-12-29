@@ -35,11 +35,12 @@ export const StyledDisplayName = styled(Box)`
 `
 
 export const StyledUsername = styled(NavLink)`
-line-height: 1;
+line-height: 0.8;
 
 & > * {
     word-wrap: break-word;
     font-size: 12px;
+    letter-spacing: 0.05rem;
   }
 `
 

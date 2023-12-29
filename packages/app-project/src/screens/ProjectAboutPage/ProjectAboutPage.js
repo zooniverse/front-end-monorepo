@@ -15,6 +15,7 @@ const mobileBreakpoint = '76rem'
 const StyledGrid = styled(Grid)`
   grid-template-columns: 1fr minmax(auto, 45rem) 1fr;
   width: 100%;
+  min-height: 50vh;
 
   @media (width <= ${mobileBreakpoint}) {
     padding: 0 20px;
@@ -116,16 +117,11 @@ function ProjectAboutPage({
 }) {
   const { t } = useTranslation('screens')
 
-  const defaultContent = {
-    title: aboutPageData.title,
-    content: aboutPageData.content
-  }
   const { strings, title: pageType } = aboutPageData
-  const { content } = strings ?? defaultContent.content
+  const { content } = strings ?? 'No content yet.'
 
   const pageTitle = t(`About.PageHeading.title.${pageType.toLowerCase()}`)
   const isTeamPage = pageType.toLowerCase().includes('team')
-  const reversedTeamArray = teamArray?.reverse()
 
   return (
     <StandardLayout inBeta={inBeta}>
@@ -152,15 +148,15 @@ function ProjectAboutPage({
           <Box pad={{ vertical: 'medium' }}>
             <AboutMarkdownz content={content} />
             {isTeamPage && !!teamArray.length && (
-              <MobileTeamMembersContainer>
-                <TeamMembersList teamArray={reversedTeamArray} />
+              <MobileTeamMembersContainer pad={{ top: 'medium' }}>
+                <TeamMembersList teamArray={teamArray} />
               </MobileTeamMembersContainer>
             )}
           </Box>
           <Box>
             {isTeamPage && !!teamArray.length && (
               <DesktopTeamMembersContainer>
-                <TeamMembersList teamArray={reversedTeamArray} />
+                <TeamMembersList teamArray={teamArray} />
               </DesktopTeamMembersContainer>
             )}
           </Box>
