@@ -5241,10 +5241,10 @@
     classnames "^2.3.1"
     prop-types "^15.6.0"
 
-"@visx/brush@~3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@visx/brush/-/brush-3.5.0.tgz#9a9cb08fd67033af4627c3310154ae3df9590738"
-  integrity sha512-AS7y1JMBt+uxK4OXIFeg0RIWoCTaIzwLVx1xTFtlxTNNqRNgTdI48aoRGtYM0egB1M86ny8BG8xnnHMvBa75Tg==
+"@visx/brush@~3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@visx/brush/-/brush-3.6.1.tgz#1b0ba3ec98ea6d44e7845532b803c56344f297ef"
+  integrity sha512-HGSxYTqeZI/hjD+dwCVfY5lnbVv0bHC8PuWSswL15+cbTGT8G2/qoe6RSmzn6bgVcqdURpZztqDVWWa48PvHIw==
   dependencies:
     "@visx/drag" "3.3.0"
     "@visx/event" "3.3.0"
