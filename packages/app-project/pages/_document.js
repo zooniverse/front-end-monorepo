@@ -46,7 +46,7 @@ process.on('unhandledRejection', logToSentry)
 process.on('uncaughtException', logToSentry)
 
 export default class MyDocument extends Document {
-  static async getInitialProps (ctx) {
+  static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
 
@@ -71,7 +71,7 @@ export default class MyDocument extends Document {
     }
   }
 
-  render () {
+  render() {
     return (
       <Html>
         <Head>
@@ -79,10 +79,10 @@ export default class MyDocument extends Document {
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
-          { /* https://docs.sentry.io/platforms/javascript/install/loader/#default-bundle */ }
+          {/* https://docs.sentry.io/platforms/javascript/install/loader/#default-bundle */}
           <script
-            src="https://browser.sentry-cdn.com/7.90.0/bundle.tracing.min.js"
-            integrity="sha384-xmgwgTobm6MfOgZ50jQxoLGnjEa6riVuRbl+xLsHcrrnmR5Avt3VuXSYauaQStk3"
+            src='https://browser.sentry-cdn.com/7.91.0/bundle.tracing.min.js'
+            integrity='sha384-mLp8eX2NZEYz/yYlB3hz0DAxA9qX7yneHI9PPB9DfnLCo4Z+yC1XQzP9D7b9oqS2'
             crossOrigin='anonymous'
             defer
             id='sentryScript'
