@@ -46,8 +46,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Natrag",
-        "tooltip": "Vraćanje natrag će obrisati Vaš rad za trenutni zadatak"
+        "back": "Natrag"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Završi i pričaj"

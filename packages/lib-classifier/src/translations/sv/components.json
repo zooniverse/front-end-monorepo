@@ -51,8 +51,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Tillbaka",
-        "tooltip": "Om du går tillbaka sparas inte ditt arbete med den aktuella uppgiften."
+        "back": "Tillbaka"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Klart & diskutera"
