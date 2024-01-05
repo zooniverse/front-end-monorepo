@@ -7,20 +7,16 @@ import { useTranslation } from '@translations/i18n'
 
 export const StyledBackButtonWrapper = styled.div`
   margin-right: 1ch;
-  position: relative;
   flex: 0 0 33%;
 `
 function BackButton({
   canUndo = false,
-  onClick = () => true,
-  theme = {
-    dark: false
-  }
+  onClick = () => true
 }) {
   const { t } = useTranslation('components')
   if (canUndo) {
     return (
-      <StyledBackButtonWrapper theme={theme}>
+      <StyledBackButtonWrapper>
         <Button
           focusIndicator={false}
           label={
