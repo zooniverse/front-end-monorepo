@@ -55,8 +55,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "واپس",
-        "tooltip": " واپس جانے سے آپ کا موجودہ کام ختم ہو جائےگا۔"
+        "back": "واپس"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "ختم ہو گیا اور بات کریں"
