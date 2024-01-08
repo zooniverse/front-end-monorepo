@@ -53,8 +53,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Retour",
-        "tooltip": "Retourner en arrière va effacer le travail fait sur cette tâche."
+        "back": "Retour"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Valider & Discussion"

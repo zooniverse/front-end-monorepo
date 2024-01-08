@@ -6,13 +6,6 @@ function storeMapper(store) {
   const {
     subjects: {
       active: subject
-    },
-    workflows: {
-      active: {
-        configuration: {
-          persist_annotations: persistAnnotations
-        }
-      }
     }
   } = store
 
@@ -20,18 +13,16 @@ function storeMapper(store) {
     const { back, canUndo } = subject?.stepHistory
 
     function onClick() {
-      back(persistAnnotations)
+      back()
     }
 
     return {
       canUndo,
-      onClick,
-      persistAnnotations
+      onClick
     }
   }
 
   return {}
-
 }
 
 export default withStores(BackButton, storeMapper)

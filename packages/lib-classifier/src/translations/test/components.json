@@ -256,8 +256,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Translated",
-        "tooltip": "Translated"
+        "back": "Translated"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Translated"
