@@ -2180,10 +2180,10 @@
     pump "^3.0.0"
     tar-fs "^2.1.1"
 
-"@newrelic/aws-sdk@^7.0.2":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-7.0.2.tgz#e93f1796c89be8323a75f3d7ec45b1bdd5a29292"
-  integrity sha512-nT19hzId0MbjR3v1ks5YetvNfrwIEgMfeai+T2pQkuWkjCsYm3z+OybLOYMCN66gueqOOqGTq60qhM4dFu5s5w==
+"@newrelic/aws-sdk@^7.0.3":
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-7.0.3.tgz#aada548b28c69c30bd0caf54dc27b759fc4fafed"
+  integrity sha512-oafBFD+DEAqXTg0w15eEu2rfoedWMS7abyW5CuOJxSb+7OWiFUx9jZPpdFblsYPVNWBehxFdws6/JEio3GklyA==
 
 "@newrelic/koa@^8.0.1":
   version "8.0.1"
@@ -2199,14 +2199,14 @@
     nan "^2.17.0"
     semver "^7.5.2"
 
-"@newrelic/security-agent@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-0.5.0.tgz#e06f6061d35bfdc7f6986134be65fdbf60f36a63"
-  integrity sha512-ycbNl362arCjKTumkXPnnbnSUARv2SEYBBpbXOfI3p1pa6PRi5kck95W7JNBzxhw/umqwHXgzHhbK8N2uKWYgA==
+"@newrelic/security-agent@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-0.6.0.tgz#314a03553d57b8c9322bdfbf37623604c031f108"
+  integrity sha512-a7YsdHX9UthzUd7cfqjI4WDG+yyr9MNUFwr+iyuY2u3zMH0Xe99USlSWWp7nH3hgxIQ1J0JJZ1dC/7wuTHYrHw==
   dependencies:
     "@aws-sdk/client-lambda" "^3.436.0"
-    axios "1.6.0"
-    check-disk-space "3.4.0"
+    axios "^1.6.3"
+    check-disk-space "^3.4.0"
     content-type "^1.0.5"
     fast-safe-stringify "^2.1.1"
     find-package-json "^1.2.0"
@@ -6249,21 +6249,21 @@ axe-core@^4.2.0, axe-core@^4.6.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.2.tgz#2f6f3cde40935825cf4465e3c1c9e77b240ff6ae"
   integrity sha512-/dlp0fxyM3R8YW7MFzaHWXrf4zzbr0vaYb23VBFCl83R7nWNPg/yaQw2Dc8jzCMmDVLhSdzH8MjrsuIUuvX+6g==
 
-axios@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
-  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
-  dependencies:
-    follow-redirects "^1.15.0"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
 axios@^1.5.1, axios@^1.6.0:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.2.tgz#de67d42c755b571d3e698df1b6504cde9b0ee9f2"
   integrity sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==
   dependencies:
     follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@^1.6.3:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.5.tgz#2c090da14aeeab3770ad30c3a1461bc970fb0cd8"
+  integrity sha512-Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==
+  dependencies:
+    follow-redirects "^1.15.4"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
@@ -6936,7 +6936,7 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-check-disk-space@3.4.0:
+check-disk-space@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/check-disk-space/-/check-disk-space-3.4.0.tgz#eb8e69eee7a378fd12e35281b8123a8b4c4a8ff7"
   integrity sha512-drVkSqfwA+TvuEhFipiR1OC9boEGZL5RrWvVsOthdcvQNXyCCuKkEiTOTXZ7qxSf/GLwq4GvzfrQD/Wz325hgw==
@@ -9811,6 +9811,11 @@ follow-redirects@^1.15.0:
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
+follow-redirects@^1.15.4:
+  version "1.15.4"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.4.tgz#cdc7d308bf6493126b17ea2191ea0ccf3e535adf"
+  integrity sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==
+
 for-each@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
@@ -11027,10 +11032,10 @@ import-fresh@^3.2.1:
     parent-module "^1.0.0"
     resolve-from "^4.0.0"
 
-import-in-the-middle@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.npmjs.org/import-in-the-middle/-/import-in-the-middle-1.4.2.tgz"
-  integrity sha512-9WOz1Yh/cvO/p69sxRmhyQwrIGGSp7EIdcb+fFNVi7CzQGQB8U1/1XrKVSbEd/GNOAeM0peJtmi7+qphe7NvAw==
+import-in-the-middle@^1.6.0:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/import-in-the-middle/-/import-in-the-middle-1.7.2.tgz#31c44088271b50ecb9cacbdfb1e5732c802e0658"
+  integrity sha512-coz7AjRnPyKW36J6JX5Bjz1mcX7MX1H2XsEGseVcnXMdzsAbbAu0HBZhiAem+3SAmuZdi+p8OwoB2qUpTRgjOQ==
   dependencies:
     acorn "^8.8.2"
     acorn-import-assertions "^1.9.0"
@@ -13321,21 +13326,21 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-newrelic@~11.6.0:
-  version "11.6.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-11.6.0.tgz#0a75ef5382428cb0e9a219edc4ed9b392b1b3341"
-  integrity sha512-peYHffhstQlPQnjTYnXZmz/VX4rvnk8rE9n/kM0KKDbStQbcQE+COkdliDS7jg82ERf90aawu8YGWQRVD/w/GQ==
+newrelic@~11.8.0:
+  version "11.8.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-11.8.0.tgz#b3ddf84c55602b632b4879fb3c19f96555bdc395"
+  integrity sha512-nJ/yQMwpqZgQLOWf+o5cBBrZvHJ5ajHuX8HuHVMXF7Bb2VuUpdyWuFLCBH/PFTr3nbsDB+D8vnNJJqzl7k24Aw==
   dependencies:
     "@grpc/grpc-js" "^1.9.4"
     "@grpc/proto-loader" "^0.7.5"
-    "@newrelic/aws-sdk" "^7.0.2"
+    "@newrelic/aws-sdk" "^7.0.3"
     "@newrelic/koa" "^8.0.1"
-    "@newrelic/security-agent" "0.5.0"
+    "@newrelic/security-agent" "^0.6.0"
     "@newrelic/superagent" "^7.0.1"
     "@tyriar/fibonacci-heap" "^2.0.7"
     concat-stream "^2.0.0"
     https-proxy-agent "^7.0.1"
-    import-in-the-middle "^1.4.2"
+    import-in-the-middle "^1.6.0"
     json-bigint "^1.0.0"
     json-stringify-safe "^5.0.0"
     module-details-from-path "^1.0.3"
