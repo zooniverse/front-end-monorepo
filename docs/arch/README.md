@@ -56,3 +56,4 @@
 - [ADR 54: app-root](adr-54.md)
 - [ADR 55: lib-user](adr-55.md)
 - [ADR 56: Use markdownz to parse markdown](adr-56.md)
+- [ADR 57: build @zooniverse/classifier and @zooniverse/react-components as ES modules](adr-57.md)
