@@ -27,11 +27,10 @@ export default function PageContextProviders({ children }) {
   const { data: user, error, isLoading } = usePanoptesUser()
   const { adminMode, toggleAdmin } = useAdminMode(user)
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
+  const isBrowser = typeof window !== 'undefined'
+  const localStorage = isBrowser ? window.localStorage : null
 
   useEffect(() => {
-    const isBrowser = typeof window !== 'undefined'
-    const localStorage = isBrowser ? window.localStorage : null
-
     // If no theme item in localStorage, see if the user's browser settings prefer dark mode
     // If theme key is in localStorage, use that for themeMode
     // The same key is used in PFE's theme mode toggle

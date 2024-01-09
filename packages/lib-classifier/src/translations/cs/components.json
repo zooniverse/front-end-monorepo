@@ -46,8 +46,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Zpět",
-        "tooltip": "Krokem zpět ztratíte započatou práci na tomto úkolu."
+        "back": "Zpět"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Dokončit & Komentovat"
