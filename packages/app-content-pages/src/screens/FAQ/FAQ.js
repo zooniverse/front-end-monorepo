@@ -18,7 +18,7 @@ const StyledList = styled.ul`
 `
 
 const Question = ({ children }) => (
-  <Text size='1.13rem' weight='bold'>
+  <Text size='1.13rem' weight='bold' color={{ light: 'black', dark: 'white' }}>
     {children}
   </Text>
 )
@@ -61,7 +61,7 @@ function FAQPage() {
                   />,
                   <LinkInParagraph
                     key='FAQ.help'
-                    href='https://www.zooniverse.org/about/contact' // can change to #contact once that /about section is built
+                    href='https://www.zooniverse.org/about/contact' // can change to #contact once that section is built in /about
                   />
                 ]}
               />
