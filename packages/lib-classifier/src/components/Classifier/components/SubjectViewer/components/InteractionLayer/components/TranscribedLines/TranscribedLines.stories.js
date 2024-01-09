@@ -80,7 +80,7 @@ function TranscribedLinesStory({ loadingState, stores, subject }) {
   return (
     <Provider classifierStore={stores}>
       <Box width='1000px'>
-        <MultiFrameViewer loadingState={loadingState} subject={subject} />
+        <MultiFrameViewer enableInteractionLayer loadingState={loadingState} subject={subject} />
       </Box>
     </Provider>
   )
