@@ -9,7 +9,7 @@ import ZoomControlButton from '../ZoomControlButton'
 import locationValidator from '../../helpers/locationValidator'
 
 const PlaceholderSVG = styled.svg`
-  background: no-repeat center / contain url('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png');
+  background: no-repeat center / cover url('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png');
   touch-action: pinch-zoom;
   max-width: ${props => props.maxWidth || '100%'};
   ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}

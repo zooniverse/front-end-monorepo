@@ -49,8 +49,7 @@
     "tutorial": "チュートリアル",
     "Tasks": {
       "BackButton": {
-        "back": "戻る",
-        "tooltip": "「戻る」を押すと現在のタスクで入力した情報が消去されます。"
+        "back": "戻る"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "完了とトーク"

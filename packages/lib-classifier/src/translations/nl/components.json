@@ -46,8 +46,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Terug",
-        "tooltip": "Let op! Niet opgeslagen gegevens gaan verloren."
+        "back": "Terug"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Afronden & Bespreken"

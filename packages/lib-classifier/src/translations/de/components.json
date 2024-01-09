@@ -50,8 +50,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Zurück",
-        "tooltip": "Das Zurückgehen wird Deine Arbeit in der derzeitigen Aufgabe löschen!"
+        "back": "Zurück"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Fertig & Diskutieren"

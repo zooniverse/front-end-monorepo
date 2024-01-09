@@ -46,8 +46,7 @@
     "tutorial": "إرشاد",
     "Tasks": {
       "BackButton": {
-        "back": "إلى الخلف",
-        "tooltip": "العودة إلى الخلف ستُلغي الجواب الذي أشرتم/نّ إليه"
+        "back": "إلى الخلف"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "احفظ وانتقل إلى المحادثة"
