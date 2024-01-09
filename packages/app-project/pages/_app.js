@@ -38,15 +38,14 @@ function useStore(initialState) {
 function MyApp({ Component, pageProps }) {
   /* Handle the theme mode */
   const [themeMode, setThemeMode] = useState('light')
+  const isBrowser = typeof window !== 'undefined'
+  const localStorage = isBrowser ? window.localStorage : null
 
   useEffect(() => {
-    const isBrowser = typeof window !== 'undefined'
-    const localStorage = isBrowser ? window.localStorage : null
-
     if (isBrowser && !localStorage?.getItem('theme')) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         setThemeMode('dark')
-        localStorage?.setItem('theme', 'dark')
+        localStorage?.setItem('theme', 'dark') // The same key is used in PFE's theme mode toggle
       }
     } else if (isBrowser) {
       setThemeMode(localStorage?.getItem('theme'))
