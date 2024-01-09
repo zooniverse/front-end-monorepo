@@ -30,9 +30,5 @@
   },
   "RequireUser": {
     "text": "Non sei autenticato"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Passa al tema scuro",
-    "switchToLight": "Passa al tema chiaro"
   }
 }

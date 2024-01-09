@@ -38,9 +38,5 @@
   },
   "RequireUser": {
     "text": "Вы не активировались "
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Переключиться на Темный тему",
-    "switchToLight": "Переключиться на Светный тему"
   }
 }

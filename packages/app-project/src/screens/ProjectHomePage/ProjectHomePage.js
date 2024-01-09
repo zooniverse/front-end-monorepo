@@ -12,8 +12,7 @@ import { useAdminMode } from '@hooks'
 import {
   AdminContainer,
   Announcements,
-  ProjectHeader,
-  ThemeModeToggle
+  ProjectHeader
 } from '@components'
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -77,7 +76,6 @@ function ProjectHomePage ({
         </header>
         <Hero workflows={workflows} />
         <Box margin='small' gap='small'>
-          <ThemeModeToggle />
           <ZooniverseTalk />
           <ProjectStatistics />
           <MessageFromResearcher />
@@ -107,10 +105,7 @@ function ProjectHomePage ({
           width={{ max: 'xxlarge' }}
         >
           <Box gap='medium'>
-            <Grid columns={['auto', '1em']} gap='small'>
-              <ZooniverseTalk />
-              <ThemeModeToggle />
-            </Grid>
+            <ZooniverseTalk />
             <ProjectStatistics />
             <Grid columns={['1fr', '1fr']} gap='medium'>
               <MessageFromResearcher />
