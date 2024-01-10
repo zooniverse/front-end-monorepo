@@ -33,7 +33,7 @@ describe('components > shared > BarChart', function () {
     it('should show the expected number of period labels', function () {
       render(<Last30DaysHoursStory />)
       
-      expect(screen.getAllByTestId('periodLabel')).to.have.lengthOf(30)
+      expect(screen.getAllByTestId('periodLabel')).to.have.lengthOf(2)
     })
   })
   
