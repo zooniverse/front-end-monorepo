@@ -46,7 +46,7 @@ const last30days = Array.from(
 )
 
 const thisMonth = Array.from(
-  { length: 18 },
+  { length: 19 },
   (_, i) => ({
     period: new Date(2023, 6, 1 + i).toISOString(),
     count: Math.floor(Math.random() * 3000),

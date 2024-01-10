@@ -13,6 +13,7 @@ function BarChart ({
 }) {
   const dateRangeLabel = getDateRangeLabel(dateRange)
 
+  // set chart options based on screen size and data length
   const chartOptions = {
     color: 'brand',
     property: type,
@@ -21,7 +22,6 @@ function BarChart ({
   if (screenSize !== 'small' && data.length < 9) {
     chartOptions.thickness = 'xlarge'
   }
-  
   if (screenSize === 'small') {
     if (data.length < 12) {
       chartOptions.thickness = 'small'
@@ -32,10 +32,16 @@ function BarChart ({
     }
   }
 
+  // set x axis granularity based on data length
+  let xAxisGranularity = 'fine'
+  if (data.length > 12) {
+    xAxisGranularity = 'medium'
+  }
+
   return (
     <DataChart
       axis={{
-        x: { granularity: 'fine', property: 'period' },
+        x: { granularity: xAxisGranularity, property: 'period' },
         y: { granularity: 'fine', property: type },
       }}
       chart={chartOptions}
