@@ -81,8 +81,25 @@ export const StyledHeading = styled(Heading)`
     position: absolute;
     bottom: 0;
     left: 0;
-    background: linear-gradient(90deg, #ffffff 0%, #a6a7a9 50%, #ffffff 100%);
     height: 2px;
     width: 100%;
+    ${props =>
+      props.theme.dark
+        ? css`
+            background: linear-gradient(
+              90deg,
+              #333333 0%,
+              #000000 50%,
+              #333333 100%
+            );
+          `
+        : css`
+            background: linear-gradient(
+              90deg,
+              #ffffff 0%,
+              #a6a7a9 50%,
+              #ffffff 100%
+            );
+          `}
   }
 `

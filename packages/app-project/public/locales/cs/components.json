@@ -38,9 +38,5 @@
   },
   "RequireUser": {
     "text": "Nejste přihlášeni"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Přepnout do tmavého prostředí",
-    "switchToLight": "Přepnout do světlého prostředí"
   }
 }

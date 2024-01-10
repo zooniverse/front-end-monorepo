@@ -5,11 +5,11 @@ import {
   getAllByRole,
   render,
 	waitFor,
+  screen
 } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
-import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'
 
@@ -66,7 +66,6 @@ describe('Component > ProjectAboutPage & Connector', function () {
   }
 
   let routerMock
-  let scrollMock
 
   before(function () {
     routerMock = {
@@ -75,13 +74,8 @@ describe('Component > ProjectAboutPage & Connector', function () {
       prefetch: () => new Promise((resolve, reject) => {}),
       query: { owner: 'foo', project: 'bar' }
     }
-    // Calling window.scrollTo is a side effect of clicking a Grommet Dropbutton
-    scrollMock = sinon.stub(window, 'scrollTo').callsFake(() => {})
   })
 
-  after(function () {
-    scrollMock.restore()
-  })
 
   describe('ProjectAboutPageConnector', function () {
     it('should render without crashing', function () {
@@ -98,7 +92,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
     })
 
     it('should pass correct data to ProjectAboutPage depending on pageType', function () {
-      const { getByRole, getByText } = render(
+      render(
         <RouterContext.Provider value={routerMock}>
           <Provider store={mockStore}>
             <Grommet theme={zooTheme} themeMode='light'>
@@ -107,14 +101,14 @@ describe('Component > ProjectAboutPage & Connector', function () {
           </Provider>
         </RouterContext.Provider>
       )
-      const content = getByText(mockStore.project.about_pages[0].strings.content)
+      const content = screen.getByText(mockStore.project.about_pages[0].strings.content)
       expect(content).to.exist()
-      const heading = getByRole('heading', { name: 'About.PageHeading.title.research' })
+      const heading = screen.getByRole('heading', { name: 'About.PageHeading.title.research' })
       expect(heading).to.exist()
     })
 
     it('should pass default content if a page doesnt exist yet', function () {
-      const { getByRole, getByText } = render(
+      render(
         <RouterContext.Provider value={routerMock}>
           <Provider store={mockStore}>
             <Grommet theme={zooTheme} themeMode='light'>
@@ -123,77 +117,35 @@ describe('Component > ProjectAboutPage & Connector', function () {
           </Provider>
         </RouterContext.Provider>
       )
-      const heading = getByRole('heading', { name: 'About.PageHeading.title.team' })
+      const heading = screen.getByRole('heading', { name: 'About.PageHeading.title.team' })
       expect(heading).to.exist()
-      expect(getByText('No content yet.')).to.exist()
+      expect(screen.getByText('No content yet.')).to.exist()
     })
 
     it('should pass a navLinks array for pages with content', async function () {
-      const { getByRole } = render(
+      render(
         <RouterContext.Provider value={routerMock}>
           <Provider store={mockStore}>
             <Grommet theme={zooTheme} themeMode='light'>
-              <ProjectAboutPageConnector pageType='team' />
+              <ProjectAboutPageConnector pageType='results' />
             </Grommet>
           </Provider>
         </RouterContext.Provider>
       )
-      // AboutDropdown exists because default screen size is small
-      const dropdown = getByRole('button', { name: 'About.SidebarHeading' })
+      // AboutDropdown exists because default screen size is smaller than mobile breakpoint
+      const dropdown = screen.getByRole('button', { name: 'About.SidebarHeading' })
       expect(dropdown).to.exist()
       fireEvent.click(dropdown)
 
 			await waitFor(() => {
-				const navContainer = getByRole('navigation', { name: 'About.PageNav.title' })
-				const links = getAllByRole(navContainer, 'link')
+				const navContainer = screen.getAllByRole('navigation', { name: "About.PageNav.title"})
+				const links = getAllByRole(navContainer[0], 'link')
 				expect(links).to.have.lengthOf(3)
-			});
+			})
     })
   })
 
   describe('ProjectAboutPage', function () {
-    const aboutPageData = {
-      title: 'Title',
-      strings: {
-        title: 'Title',
-        content: 'This is some content.'
-      }
-    }
-
-    it('should render the dropdown nav on mobile screen sizes', function () {
-      const { getByRole, queryByRole } = render(
-        <RouterContext.Provider value={routerMock}>
-          <Provider store={mockStore}>
-            <ProjectAboutPage
-              aboutNavLinks={[]}
-              aboutPageData={aboutPageData}
-              screenSize='small'
-              theme={{ ...zooTheme, dark: false }}
-            />
-          </Provider>
-        </RouterContext.Provider>
-      )
-      expect(getByRole('button', { name: 'About.SidebarHeading' })).to.exist()
-      expect(queryByRole('navigation', { name: 'About.PageNav.title' })).to.be.null()
-    })
-
-    it('should render the sidebar nav on desktop screen sizes', function () {
-      const { getByRole, queryByRole } = render(
-        <RouterContext.Provider value={routerMock}>
-          <Provider store={mockStore}>
-            <ProjectAboutPage
-              aboutNavLinks={[]}
-              aboutPageData={aboutPageData}
-              screenSize='medium'
-              theme={{ ...zooTheme, dark: false }}
-            />
-          </Provider>
-        </RouterContext.Provider>
-      )
-      expect(queryByRole('button', { name: 'About.SidebarHeading' })).to.be.null()
-      expect(getByRole('navigation', { name: 'About.PageNav.title' })).to.exist()
-    })
-
     describe('Team page specific components', function () {
       const aboutTeamPageData = {
         title: 'team',
@@ -219,25 +171,21 @@ describe('Component > ProjectAboutPage & Connector', function () {
       ]
 
       it('should render a list of Team Members', function () {
-        const { getByRole } = render(
+        render(
           <RouterContext.Provider value={routerMock}>
             <Provider store={mockStore}>
               <ProjectAboutPage
-                aboutNavLinks={[]}
+                aboutNavLinks={['research', 'team']}
                 aboutPageData={aboutTeamPageData}
-                projectDisplayName='Display name'
-                screenSize='medium'
                 teamArray={mockTeamArray}
                 theme={{ ...zooTheme, dark: false }}
               />
             </Provider>
           </RouterContext.Provider>
         )
-        const teamHeading = getByRole('heading', { name: 'Display name TEAM' })
-        expect(teamHeading).to.exist()
-        const teamList = getByRole('list', { name: 'Display name TEAM' })
-        expect(teamList).to.exist()
-        const teamMembers = within(teamList).getAllByText('Mock Name')
+        const teamList = screen.getAllByRole('list', { name: 'List of team members' })
+        expect(teamList[0]).to.exist()
+        const teamMembers = within(teamList[0]).getAllByText('Mock Name')
         expect(teamMembers).to.have.lengthOf(2)
       })
     })

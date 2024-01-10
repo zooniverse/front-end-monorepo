@@ -21,30 +21,43 @@ const StyledButton = styled(Button)`
   }
 
   &[aria-current='true'] {
-    ${props =>
-      css`
-        background: ${props.theme.global.colors['neutral-1']};
-      `}
+    & > span {
+      border-bottom: 2px solid white;
+    }
   }
 `
 
 const StyledDropButton = styled(DropButton)`
   border-radius: 2em;
-  box-shadow: 2px 2px 4px #e2e5e9, -2px -2px 4px #e2e5e9; // light-3
   position: relative;
   min-width: 18rem;
 
-  &:hover {
+  &:hover, &:focus {
     ${props => css`
-      background: ${props.theme.global.colors['accent-1']};
+      background: ${props.theme.global.colors['neutral-1']};
     `}
+
+    & > div > span {
+      color: white;
+    }
+
+    & > div > [aria-label='FormDown'] {
+      stroke: white;
+    }
   }
 
   ${props =>
     props.open &&
     css`
-      box-shadow: none;
-      background: ${props.theme.global.colors['accent-1']};
+      background: ${props.theme.global.colors['neutral-1']};
+
+      & > div > span {
+        color: white;
+      }
+
+      & > div > [aria-label='FormDown'] {
+        stroke: white;
+      }
 
       &::after {
         content: '';
@@ -125,7 +138,6 @@ function DropdownNav({
       onClose={handleClose}
       onOpen={handleOpen}
       open={isOpen}
-      round='medium'
       margin={{ top: '30px' }}
       dropContent={dropContent}
     >
@@ -135,12 +147,11 @@ function DropdownNav({
         gap='xsmall'
         justify='center'
         pad={{ horizontal: '20px', vertical: '10px' }}
-        round='small'
       >
         <SpacedText weight='bold' color={{ light: 'brand', dark: 'white' }}>
           {sidebarLabel}
         </SpacedText>
-        <FormDown color='brand' />
+        <FormDown color={{ light: 'brand', dark: 'white' }} />
       </Box>
     </StyledDropButton>
   )

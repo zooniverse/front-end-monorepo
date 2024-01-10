@@ -43,7 +43,6 @@ describe('Model > Workflow', function () {
 
     it('should have default configuration settings', function () {
       expect(workflow.configuration.invert_subject).to.be.false()
-      expect(workflow.configuration.persist_annotations).to.be.true()
       expect(workflow.configuration.playIterations).to.equal(3)
       expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
     })

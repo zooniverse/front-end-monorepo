@@ -9,7 +9,6 @@ const WorkflowConfiguration = types.snapshotProcessor(
     limit_subject_height: types.optional(types.boolean, false),
     multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
     multi_image_layout: types.optional(types.enumeration('multiImageLayout', ['col', 'grid2', 'grid3', 'row']), 'col'),
-    persist_annotations: types.optional(types.boolean, true),
     playIterations: types.optional(types.number, 3),
     subject_viewer: types.maybe(
       types.enumeration('subjectViewer', [

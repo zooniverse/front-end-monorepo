@@ -1,16 +1,18 @@
 import makeInspectable from 'mobx-devtools-mst'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
 import { usePanoptesUser, useSugarProject, useUserFavourites } from '@hooks'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
+import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,19 +28,51 @@ enableStaticRendering(typeof window === 'undefined')
 */
 function useStore(initialState) {
   const isServer = typeof window === 'undefined'
-  const store = useMemo(() => initStore(isServer, initialState), [isServer, initialState])
+  const store = useMemo(
+    () => initStore(isServer, initialState),
+    [isServer, initialState]
+  )
   return store
 }
 
 function MyApp({ Component, pageProps }) {
+  /* Handle the theme mode */
+  const [themeMode, setThemeMode] = useState('light')
+  const isBrowser = typeof window !== 'undefined'
+  const localStorage = isBrowser ? window.localStorage : null
+
+  useEffect(() => {
+    if (isBrowser && !localStorage?.getItem('theme')) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setThemeMode('dark')
+        localStorage?.setItem('theme', 'dark') // The same key is used in PFE's theme mode toggle
+      }
+    } else if (isBrowser) {
+      setThemeMode(localStorage?.getItem('theme'))
+    }
+  }, [])
+
+  function toggleTheme() {
+    const newTheme = themeMode === 'light' ? 'dark' : 'light'
+
+    setThemeMode(newTheme)
+    localStorage?.setItem('theme', newTheme)
+  }
+
+  const themeContext = { themeMode, toggleTheme }
+
+  /* Initialize the mobx store */
   const { initialState } = pageProps
   const store = useStore(initialState)
   makeInspectable(store)
 
-  useEffect(function onMount() {
-    console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-    store.ui.readCookies()
-  }, [store.ui])
+  useEffect(
+    function onMount() {
+      console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
+      store.ui.readCookies() // reads if announcement banner has been dismissed by user
+    },
+    [store.ui]
+  )
 
   const userKey = store.user?.id || 'no-user'
   const user = usePanoptesUser(userKey)
@@ -46,47 +80,57 @@ function MyApp({ Component, pageProps }) {
   const favourites = useUserFavourites({ user, project })
   useSugarProject(project)
 
-  useEffect( function onUserChange() {
-    if (user?.id) {
-      store.user.set(user)
-    }
-    // logged-out users are null
-    if (user === null) {
-      store.user.clear()
-    }
-    addSentryUser(user)
-  }, [user, store.user])
+  useEffect(
+    function onUserChange() {
+      if (user?.id) {
+        store.user.set(user)
+      }
+      // logged-out users are null
+      if (user === null) {
+        store.user.clear()
+      }
+      addSentryUser(user)
+    },
+    [user, store.user]
+  )
 
-  useEffect( function onFavouritesChange() {
-    if (favourites?.id) {
-      store.user.collections.setFavourites(favourites)
-    }
-    // favourites are null by default.
-    if (favourites === null) {
-      store.user.collections.setFavourites(null)
-    }
-  }, [favourites, store.user])
+  useEffect(
+    function onFavouritesChange() {
+      if (favourites?.id) {
+        store.user.collections.setFavourites(favourites)
+      }
+      // favourites are null by default.
+      if (favourites === null) {
+        store.user.collections.setFavourites(null)
+      }
+    },
+    [favourites, store.user]
+  )
 
   try {
     if (pageProps.statusCode) {
-      return (
-        <Error
-          statusCode={pageProps.statusCode}
-          title={pageProps.title}
-        />
-      )
+      return <Error statusCode={pageProps.statusCode} title={pageProps.title} />
     }
 
     return (
       <>
         <GlobalStyle />
         <Provider store={store}>
-          <MediaContextProvider disableDynamicMediaQueries>
-            <GrommetWrapper>
-              <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
-              <Component {...pageProps} />
-            </GrommetWrapper>
-          </MediaContextProvider>
+          <ThemeModeContext.Provider value={themeContext}>
+            <MediaContextProvider disableDynamicMediaQueries>
+              <Grommet
+                background={{
+                  dark: 'dark-1',
+                  light: 'light-1'
+                }}
+                theme={zooTheme}
+                themeMode={themeMode}
+              >
+                <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
+                <Component {...pageProps} />
+              </Grommet>
+            </MediaContextProvider>
+          </ThemeModeContext.Provider>
         </Provider>
       </>
     )

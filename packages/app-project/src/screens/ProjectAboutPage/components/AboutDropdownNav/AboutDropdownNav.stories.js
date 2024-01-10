@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
-import PropTypes from 'prop-types'
 import AboutDropdownNav from '../AboutDropdownNav'
 
 const mockRouter = {
@@ -23,6 +22,7 @@ function RouterMock(Story) {
   )
 }
 
+const alwaysNavLinks = ['research', 'team']
 const mockAboutNavLinks = ['research', 'team', 'education', 'faq']
 
 export default {
@@ -31,6 +31,6 @@ export default {
   decorators: [RouterMock]
 }
 
-export const Default = ({ dark }) => <AboutDropdownNav aboutNavLinks={[]} />
+export const Default = () => <AboutDropdownNav aboutNavLinks={alwaysNavLinks} />
 
-export const MoreLinks = ({ dark }) => <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} />
+export const MoreLinks = () => <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} />

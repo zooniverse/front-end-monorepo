@@ -50,8 +50,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Voltar",
-        "tooltip": "Voltar limpará o seu trabalho na tarefa actual."
+        "back": "Voltar"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Concluir e Debater"
