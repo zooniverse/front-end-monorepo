@@ -1,8 +1,5 @@
-// Note that this file is named in the Next.js App Router convention for future refactor
-
 import { Box } from 'grommet'
 import styled, { css } from 'styled-components'
-import AboutHeader from '../AboutHeader'
 
 // elevation elements
 const ContainerBox = styled(Box)`
@@ -67,29 +64,24 @@ const ContainerBox = styled(Box)`
   }
 `
 
-function PageLayout({ children }) {
+function ProjectAboutPageLayout({ children }) {
   return (
-    <>
-      <AboutHeader />
-      <main>
-        <Box
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          align='center'
-        >
-          <ContainerBox
-            align='center'
-            background={{ dark: 'dark-3', light: 'neutral-6' }}
-            width='min(100%, 90rem)'
-          >
-            {children}
-          </ContainerBox>
-        </Box>
-      </main>
-    </>
+    <Box
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      align='center'
+    >
+      <ContainerBox
+        align='center'
+        background={{ dark: 'dark-3', light: 'neutral-6' }}
+        width='min(100%, 90rem)'
+      >
+        {children}
+      </ContainerBox>
+    </Box>
   )
 }
 
-export default PageLayout
+export default ProjectAboutPageLayout

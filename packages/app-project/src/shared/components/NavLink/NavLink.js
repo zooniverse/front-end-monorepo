@@ -43,7 +43,7 @@ function NavLink ({
 }
 
 NavLink.propTypes = {
-  color: PropTypes.string,
+  // color: PropTypes.string, can also be Grommet object {{ light, dark }}
   disabled: PropTypes.bool,
   link: PropTypes.shape({
     as: PropTypes.string,

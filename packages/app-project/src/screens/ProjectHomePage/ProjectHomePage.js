@@ -9,11 +9,7 @@ import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
 
-import {
-  AdminContainer,
-  Announcements,
-  ProjectHeader
-} from '@components'
+import { AdminContainer, Announcements, ProjectHeader } from '@components'
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
 import AboutProject from './components/AboutProject'
@@ -32,7 +28,7 @@ const PageBox = styled(Box)`
 `
 
 const FullHeightBox = styled(Box)`
-  min-height: 98vh;
+  min-height: 90vh;
 `
 
 const RemainingHeightBox = styled(Box)`
@@ -47,9 +43,7 @@ function useStores() {
   }
 }
 
-function ProjectHomePage ({
-  workflows = []
-}) {
+function ProjectHomePage({ workflows = [] }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -75,7 +69,7 @@ function ProjectHomePage ({
           <Announcements />
         </header>
         <Hero workflows={workflows} />
-        <Box margin='small' gap='small'>
+        <Box gap='medium' pad='medium'>
           <ZooniverseTalk />
           <ProjectStatistics />
           <MessageFromResearcher />
@@ -85,26 +79,18 @@ function ProjectHomePage ({
       </Media>
 
       <Media greaterThan='default'>
-        <FullHeightBox margin={{ bottom: 'large' }}>
+        <FullHeightBox>
           <header aria-label={t('StandardLayout.headerLabel')}>
             <PageHeader isAdmin={adminMode} />
             <ProjectHeader adminMode={adminMode} />
             <Announcements />
           </header>
           <RemainingHeightBox>
-            <Hero
-              isWide={true}
-              workflows={workflows}
-            />
+            <Hero isWide={true} workflows={workflows} />
           </RemainingHeightBox>
         </FullHeightBox>
-        <Box
-          align='start'
-          direction='row'
-          margin='small'
-          width={{ max: 'xxlarge' }}
-        >
-          <Box gap='medium'>
+        <Box align='center'>
+          <Box gap='medium' pad='medium' width='min(100%, 90rem)'>
             <ZooniverseTalk />
             <ProjectStatistics />
             <Grid columns={['1fr', '1fr']} gap='medium'>
@@ -126,7 +112,8 @@ function ProjectHomePage ({
 ProjectHomePage.propTypes = {
   workflows: arrayOf(shape({
     id: string.isRequired
-  }))
+    })
+  )
 }
 
 export default observer(ProjectHomePage)
