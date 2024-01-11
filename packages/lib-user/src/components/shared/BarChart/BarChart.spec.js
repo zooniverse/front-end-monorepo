@@ -7,6 +7,12 @@ describe('components > shared > BarChart', function () {
   
   describe('with Last7Days', function () {
     const DefaultStory = composeStory(Default, Meta)
+
+    it('should have the expected aria-label', function () {
+      render(<DefaultStory />)
+      
+      expect(screen.getByLabelText('Bar chart of Classifications by Day for Last 7 Days')).to.be.ok()
+    })
     
     it('should show the expected number of count labels', function () {
       render(<DefaultStory />)

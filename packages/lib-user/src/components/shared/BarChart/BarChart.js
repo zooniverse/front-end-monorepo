@@ -12,6 +12,11 @@ function BarChart ({
   type = 'count'
 }) {
   const dateRangeLabel = getDateRangeLabel(dateRange)
+  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
+  const readableDateRange = dateRange
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/([0-9]+)/g, ' $1')
+    .trim()
 
   // set chart options based on screen size and data length
   const chartOptions = {
@@ -40,6 +45,7 @@ function BarChart ({
 
   return (
     <DataChart
+      a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} for ${readableDateRange}`}
       axis={{
         x: { granularity: xAxisGranularity, property: 'period' },
         y: { granularity: 'fine', property: type },
@@ -67,7 +73,7 @@ function BarChart ({
         },
         {
           property: type,
-          label: type === 'count' ? 'Classifications' : 'Time',
+          label: typeLabel,
           render: ((number) => {
             if (type === 'session_time') {
               const time = number / dateRangeLabel.time  
