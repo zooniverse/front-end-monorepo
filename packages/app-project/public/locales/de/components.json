@@ -36,9 +36,5 @@
   },
   "RequireUser": {
     "text": "Du bist nicht angemeldet."
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Klicken für dunklen Hintergrund",
-    "switchToLight": "Klicken für hellen Hintergrund"
   }
 }

@@ -3,6 +3,7 @@ import auth from 'panoptes-client/lib/auth'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext, useState } from 'react'
 import { bool } from 'prop-types'
+import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
@@ -19,6 +20,8 @@ function PageHeader({ adminMode }) {
   const userProp = userStore.isLoggedIn ? { admin, display_name, login } : {}
   const unreadMessages = userStore?.personalization?.notifications?.unreadConversationsIds.length
   const unreadNotifications = userStore?.personalization?.notifications?.unreadNotificationsCount
+
+  const { themeMode, toggleTheme } = useContext(ThemeModeContext)
 
   /*
     Once AuthModal's form is submitted,
@@ -55,9 +58,12 @@ function PageHeader({ adminMode }) {
       />
       <ZooHeader
         adminMode={adminMode}
+        onThemeChange={toggleTheme}
         register={openRegisterModal}
+        showThemeToggle
         signIn={openSignInModal}
         signOut={onSignOut}
+        themeMode={themeMode}
         unreadMessages={unreadMessages}
         unreadNotifications={unreadNotifications}
         user={userProp}
