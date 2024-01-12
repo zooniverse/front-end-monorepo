@@ -69,7 +69,7 @@
       "question": "What does the Zooniverse do with my account information?"
     },
     "item4": {
-      "answer": "You can post your suggestions for new features and report bugs via the <0>Zooniverse Talk</1> or through the <0>Github repository.</1>",
+      "answer": "You can post your suggestions for new features and report bugs via the <0>Zooniverse Talk</0> or through the <1>Github repository.</1>",
       "question": "I have a feature request or found a bug; who should I talk to/how do I report it?"
     },
     "item5": {

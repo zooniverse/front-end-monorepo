@@ -27,10 +27,6 @@ const Answer = ({ children }) => (
   <Paragraph margin={{ vertical: 'small' }}>{children}</Paragraph>
 )
 
-function LinkInParagraph({ children, href }) {
-  return <Anchor href={href}>{children}</Anchor>
-}
-
 function FAQPage() {
   const { t } = useTranslation('components')
 
@@ -51,16 +47,16 @@ function FAQPage() {
                 i18nKey='FAQ.help'
                 t={t}
                 components={[
-                  <LinkInParagraph
-                    key='FAQ.help'
+                  <Anchor
+                    key='freshdesk-solutions'
                     href='https://zooniverse.freshdesk.com/support/solutions'
                   />,
-                  <LinkInParagraph
-                    key='FAQ.help'
+                  <Anchor
+                    key='talk-page'
                     href='https://www.zooniverse.org/talk'
                   />,
-                  <LinkInParagraph
-                    key='FAQ.help'
+                  <Anchor
+                    key='contact-us'
                     href='https://www.zooniverse.org/about/contact' // can change to #contact once that section is built in /about
                   />
                 ]}
@@ -82,8 +78,8 @@ function FAQPage() {
                     i18nKey='FAQ.item2.answer'
                     t={t}
                     components={[
-                      <LinkInParagraph
-                        key='FAQ.item2.answer'
+                      <Anchor
+                        key='privacy-page'
                         href='https://www.zooniverse.org/privacy'
                       />
                     ]}
@@ -97,12 +93,12 @@ function FAQPage() {
                     i18nKey='FAQ.item3.answer'
                     t={t}
                     components={[
-                      <LinkInParagraph
-                        key='FAQ.item3.answer'
+                      <Anchor
+                        key='privacy-page'
                         href='https://www.zooniverse.org/privacy'
                       />,
-                      <LinkInParagraph
-                        key='FAQ.item3.answer'
+                      <Anchor
+                        key='security-page'
                         href='https://www.zooniverse.org/security'
                       />
                     ]}
@@ -116,12 +112,12 @@ function FAQPage() {
                     i18nKey='FAQ.item4.answer'
                     t={t}
                     components={[
-                      <LinkInParagraph
-                        key='FAQ.item4.answer'
+                      <Anchor
+                        key='talk-page'
                         href='https://www.zooniverse.org/talk'
                       />,
-                      <LinkInParagraph
-                        key='FAQ.item4.answer'
+                      <Anchor
+                        key='FEM-github-issues'
                         href='https://github.com/zooniverse/front-end-monorepo/issues'
                       />
                     ]}
@@ -135,8 +131,8 @@ function FAQPage() {
                     i18nKey='FAQ.item5.answer'
                     t={t}
                     components={[
-                      <LinkInParagraph
-                        key='FAQ.item5.answer'
+                      <Anchor
+                        key='zooniverse-home-page'
                         href='http://jobs.zooniverse.org'
                       />
                     ]}
@@ -152,9 +148,9 @@ function FAQPage() {
                     i18nKey='FAQ.item6.answer2'
                     t={t}
                     components={[
-                      <LinkInParagraph
-                        key='FAQ.item6.answer2'
-                        href='https://www.zooniverse.org/about/donate' // PFE donate page is going away though?
+                      <Anchor
+                        key='donate-link'
+                        href='https://www.zooniverse.org/about/donate' // To PFE for now, but will link to a get-involved section
                       />
                     ]}
                   />
@@ -167,8 +163,8 @@ function FAQPage() {
                     i18nKey='FAQ.item7.answer'
                     t={t}
                     components={[
-                      <LinkInParagraph
-                        key='FAQ.item7.answer'
+                      <Anchor
+                        key='resources-page'
                         href='https://www.zooniverse.org/about/resources'
                       />
                     ]}
