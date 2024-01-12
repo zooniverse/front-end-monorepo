@@ -34,7 +34,7 @@ const PageLeftColumn = styled(Box)`
     content: '';
     position: absolute;
     top: 0;
-    right: 0px;
+    right: -1px;
     width: 30px;
     height: 300px;
     clip-path: polygon(0 0, 100% 0, 100% 100%);
