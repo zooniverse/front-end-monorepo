@@ -32,9 +32,5 @@
   },
   "RequireUser": {
     "text": "Je bent niet ingelogd"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Wissel naar donker thema",
-    "switchToLight": "Wissel naar licht thema"
   }
 }

@@ -38,9 +38,5 @@
     "text": "すべてのクリックがカウントされます。 {{projectName}}のコミュニティに参加して、このプロジェクトを完了させ、研究者が重要な結果を生み出すのを手伝ってください。",
     "title": "{{projectName}} 統計",
     "volunteers": "ボランティア数"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "ダーク へ切り替える",
-    "switchToLight": "ライト へ切り替える"
   }
 }

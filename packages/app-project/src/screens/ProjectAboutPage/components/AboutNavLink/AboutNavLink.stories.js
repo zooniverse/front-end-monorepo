@@ -16,11 +16,6 @@ const mockedRouter = {
   }
 }
 
-const currentLink = {
-  href: '/projects/zooniverse/snapshot-serengeti/about/team',
-  text: 'team'
-}
-
 function NextRouterStory(Story) {
   return (
     <RouterContext.Provider value={mockedRouter}>
@@ -45,16 +40,6 @@ export const Default = () => (
   </Grid>
 )
 
-export const Current = () => (
-  <Grid columns={['small', 'flex']}>
-    <AboutNavLink router={mockedRouter} link={currentLink} />
-  </Grid>
-)
-
 Default.args = {
   link: defaultLink
-}
-
-Current.args = {
-  link: currentLink
 }

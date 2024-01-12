@@ -124,10 +124,6 @@
       "isComplete": "Finished"
     }
   },
-  "ThemeModeToggle": {
-    "switchToDark": "Switch to dark theme",
-    "switchToLight": "Switch to light theme"
-  },
   "WorkflowSelector": {
     "getStarted": "Get Started!",
     "error": "There was an error fetching the workflows :(",
