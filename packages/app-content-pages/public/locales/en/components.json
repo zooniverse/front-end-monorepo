@@ -64,6 +64,35 @@
     "sidebarLabel": "Discipline",
     "title": "Publications"
   },
+  "Resources": {
+    "brand": {
+      "heading": "Brand Resources",
+      "links": {
+        "one": "Download official Zooniverse logos",
+        "two": "Download printable handouts, presentation templates, and project images",
+        "three": "Zooniverse Design System - Our styles, brand colors, and typography rules",
+        "four": "Storybook - Our coded components used on the site"
+      }
+    },
+    "cite": {
+      "heading": "How to Cite the Zooniverse",
+      "paragraphs": {
+        "one": "Per the <0>Zooniverse Project Builder Policies</0>, all research publications using data derived from Zooniverse projects are asked to acknowledge the Zooniverse and the Project Builder platform using the following text:",
+        "two": "We strongly encourage project owners to report accepted and published research publications using Zooniverse-produced data to us by filling out <0>this form</0>. You can find a current list of publications resulting from Zooniverse projects and related research on our <1>Publications page</1>.",
+        "three": "If you have any questions about how to acknowledge the Zooniverse, such as referencing a particular individual or custom code, please <0>contact us</0>.",
+        "four": "When writing about specific Zooniverse projects in the press, please include a link or URL to the project, in print as well as digital editions.",
+        "five": "When writing about the Zooniverse in general, please include a link or URL to the Zooniverse home page somewhere in your article.",
+        "six": "If you are interested in interviewing a member of the Zooniverse team, please <0>contact us</0>."
+      },
+      "quote": "This publication uses data generated via the <0>Zooniverse.org</0> platform, development of which is funded by generous support, including a Global Impact Award from Google, and by a grant from the Alfred P. Sloan Foundation.",
+      "subheadings": {
+        "one": "For Researchers",
+        "two": "For Media"
+      }
+    },
+    "description": "",
+    "title": "Resources"
+  },
   "Sidebar": {
     "all": "All"
   },
