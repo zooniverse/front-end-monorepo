@@ -54,6 +54,8 @@ describe('Model > Workflow', function () {
     it('should have limit_subject_height default to false', function () {
       expect(workflow.configuration.limit_subject_height).to.be.false()
     })
+
+    // need a unit test for multi_image_clone_markers here
   })
 
   describe('with custom configuration', function () {

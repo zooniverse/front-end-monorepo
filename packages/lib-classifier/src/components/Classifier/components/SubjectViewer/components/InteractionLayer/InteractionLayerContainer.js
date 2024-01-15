@@ -10,7 +10,10 @@ import locationValidator from '../../helpers/locationValidator'
 function storeMapper(classifierStore) {
   const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
   const { activeStepTasks } = classifierStore.workflowSteps
-  const { frame, move } = classifierStore.subjectViewer
+  const { frame: viewerStoreFrame, move } = classifierStore.subjectViewer
+  const {
+    multi_image_clone_markers: multiImageCloneMarkers
+  } = classifierStore.workflows?.active?.configuration
 
   const [activeInteractionTask] = activeStepTasks.filter(
     (task) => task.type === 'drawing' || task.type === 'transcription'
@@ -38,13 +41,14 @@ function storeMapper(classifierStore) {
     activeToolIndex,
     annotation,
     disabled,
-    frame,
     hidingIndex,
     marks,
     move,
+    multiImageCloneMarkers,
     setActiveMark,
     shownMarks,
-    taskKey
+    taskKey,
+    viewerStoreFrame
   }
 }
 
@@ -54,11 +58,14 @@ export function InteractionLayerContainer({
   activeToolIndex,
   annotation,
   disabled = false,
+  duration,
   frame = 0,
   height,
   hidingIndex,
   marks = [],
   move = false,
+  multiImageCloneMarkers = false,
+  played,
   scale = 1,
   setActiveMark = () => { },
   shownMarks = SHOWN_MARKS.ALL,
@@ -66,15 +73,26 @@ export function InteractionLayerContainer({
   taskKey = '',
   viewBox,
   width,
-  played,
-  duration
+  viewerStoreFrame = 0
 }) {
+  /*
+   * If a transcription task using MultiFrameViewer, we want frame number from SubjectViewerStore
+   * Otherwise, frame is passed to InteractionLayer via Flipbook or SeparateFrame, so use that prop
+   */
+  let interactionFrame = viewerStoreFrame
+  if (annotation?.taskType !== 'transcription') {
+    interactionFrame = multiImageCloneMarkers ? 0 : frame
+  }
 
-  const newMarks =
-    shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
-  const visibleMarksPerFrame = newMarks?.filter(
-    (mark) => mark.frame === frame
-  )
+  /*
+   * SHOWN_MARkS is a UI toggle in the subject viewer
+   */
+  const newMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+
+  /*
+   * Only show marks per the currently viewed frame
+   */
+  const visibleMarksPerFrame = newMarks?.filter(mark => mark.frame === interactionFrame)
 
   return (
     <>
@@ -86,7 +104,7 @@ export function InteractionLayerContainer({
           annotation={annotation}
           disabled={disabled}
           duration={duration}
-          frame={frame}
+          frame={interactionFrame}
           height={height}
           key={taskKey}
           marks={visibleMarksPerFrame}
@@ -99,7 +117,7 @@ export function InteractionLayerContainer({
           width={width}
         />
       )}
-      <PreviousMarks scale={scale} />
+      <PreviousMarks frame={interactionFrame} scale={scale} />
     </>
   )
 }
@@ -109,11 +127,14 @@ InteractionLayerContainer.propTypes = {
   activeTool: PropTypes.object,
   disabled: PropTypes.bool,
   duration: PropTypes.number,
+  /** Passed from parent subject viewer. Different source of truth depedendent on Flipbook, MultiFrame, or SeparateFrame */
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
   marks: PropTypes.array,
   move: PropTypes.bool,
+  /** Config set in workflow editor for non-transcription multi-image drawing workflows */
+  multiImageCloneMarkers: PropTypes.bool,
   played: PropTypes.number,
   scale: PropTypes.number,
   setActiveMark: PropTypes.func,

@@ -5,7 +5,8 @@ import DrawingToolMarks from './DrawingToolMarks'
 
 function withFreehandLineReductions(Component) {
   function WithFreehandLineReductions(props, ref) {
-    const freehandLineProps = useFreehandLineReductions()
+    const { frame } = props
+    const freehandLineProps = useFreehandLineReductions(frame)
     return <Component ref={ref} {...props} {...freehandLineProps} />
   }
   return observer(forwardRef(WithFreehandLineReductions))

@@ -2,11 +2,8 @@ import { getType } from 'mobx-state-tree'
 import { useStores } from '@hooks'
 import { useCaesarReductions } from './'
 
-export default function useFreehandLineReductions() {
+export default function useFreehandLineReductions(frame = 0) {
   const {
-    subjectViewer: {
-      frame
-    },
     workflows: {
       active: workflow
     },

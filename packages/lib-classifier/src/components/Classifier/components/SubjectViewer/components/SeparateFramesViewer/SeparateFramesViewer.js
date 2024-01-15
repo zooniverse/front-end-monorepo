@@ -81,9 +81,10 @@ function SeparateFramesViewer({
         columns={forceColLayout ? 'auto' : [`repeat(${numFramesHorizontally}, 1fr)`]}
         rows='auto'
       >
-        {subject.locations?.map(location => (
+        {subject.locations?.map((location, index) => (
           <SeparateFrame
             enableInteractionLayer={enableInteractionLayer}
+            frame={index}
             frameUrl={location.url}
             key={location.url}
             limitSubjectHeight={limitSubjectHeight}

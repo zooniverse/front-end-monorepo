@@ -5,6 +5,8 @@ import { Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './DrawingToolMarks'
 
+// recommend converting this from enzyme to RTL and testing filtering for current frame
+
 describe('Components > DrawingToolMarks', function () {
   let mockContext
   let canvas

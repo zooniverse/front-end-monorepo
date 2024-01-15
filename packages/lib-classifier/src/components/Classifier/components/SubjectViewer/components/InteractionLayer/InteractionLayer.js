@@ -90,7 +90,6 @@ function InteractionLayer({
   }
 
   function createMark(event) {
-    // TODO: add case for played = undefined
     const timeStamp = getFixedNumber(played, 5)
     const mark = activeTool.createMark({
       id: cuid(),
@@ -181,6 +180,7 @@ function InteractionLayer({
       />
       <DrawingToolMarks
         activeMark={activeMark}
+        frame={frame}
         marks={marks}
         onDelete={inactivateMark}
         onDeselectMark={inactivateMark}
@@ -205,6 +205,10 @@ InteractionLayer.propTypes = {
     value: PropTypes.array
   }).isRequired,
   disabled: PropTypes.bool,
+  /**
+   * Passed from parent subject viewer such as Flipbook, MultiFrame, or SeparateFrame
+   * Coerced to 0 if "clone marks in all frames" is true.
+  */
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   marks: PropTypes.array,

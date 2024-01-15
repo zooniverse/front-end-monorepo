@@ -18,13 +18,14 @@ const PlaceholderSVG = styled.svg`
 function SingleImageViewer({
   children,
   enableInteractionLayer = false,
+  frame = 0,
   height,
   limitSubjectHeight = false,
   onKeyDown = () => true,
   rotate = 0,
   scale = 1,
   svgMaxHeight = null,
-subject,
+  subject,
   title = {},
   viewBox,
   width,
@@ -69,6 +70,7 @@ subject,
             {enableInteractionLayer && (
               <InteractionLayer
                 scale={scale}
+                frame={frame}
                 height={height}
                 width={width}
                 subject={subject}

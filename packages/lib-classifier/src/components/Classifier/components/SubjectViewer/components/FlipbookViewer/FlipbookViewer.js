@@ -97,6 +97,7 @@ const FlipbookViewer = ({
       >
         <SingleImageViewer
           enableInteractionLayer={enableInteractionLayer}
+          frame={currentFrame}
           height={naturalHeight}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}

@@ -10,9 +10,6 @@ function storeMapper(classifierStore) {
     classifications: {
       active: classification
     },
-    subjectViewer: {
-      frame
-    },
     workflowSteps: {
       activeInteractionTask,
       interactionTask: {
@@ -22,16 +19,15 @@ function storeMapper(classifierStore) {
   } = classifierStore
 
   const previousAnnotations = classification?.previousInteractionTaskAnnotations(activeInteractionTask.taskKey) || []
-  return { frame, previousAnnotations, shownMarks }
+  return { previousAnnotations, shownMarks }
 }
 
 function PreviousMarks ({
+  frame = 0,
   /** SVG image scale (client size / natural size.)*/
   scale = 1
 }) {
   const {
-    /** The current active frame in the subject viewer. */
-    frame = 0,
     /** Annotations from previous marking tasks. Each annotation is an array of marks. */
     previousAnnotations,
     /** The show/hide previous marks setting. */
@@ -41,8 +37,8 @@ function PreviousMarks ({
   const marksToShow = shownMarks === SHOWN_MARKS.ALL || shownMarks === SHOWN_MARKS.USER
 
   if (previousAnnotations?.length > 0 && marksToShow) {
-    // Wrapping the array in an react fragment because enzyme errors otherwise 
-    // React v16 allows this, though. 
+    // Wrapping the array in an react fragment because enzyme errors otherwise
+    // React v16 allows this, though.
     return (
       <>
         {previousAnnotations.map((annotation) => {
@@ -69,6 +65,8 @@ function PreviousMarks ({
 }
 
 PreviousMarks.propTypes = {
+  /** Passed from parent subject viewer. Different source of truth depedendent on Flipbook, MultiFrame, or SeparateFrame */
+  frame: PropTypes.number,
   scale: PropTypes.number
 }
 

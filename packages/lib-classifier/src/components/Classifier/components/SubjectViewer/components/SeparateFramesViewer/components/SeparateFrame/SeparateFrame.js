@@ -20,6 +20,7 @@ const DEFAULT_HANDLER = () => true
 const SeparateFrame = ({
   enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
+  frame = 0,
   frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
@@ -200,6 +201,7 @@ const SeparateFrame = ({
       <SingleImageViewer
         enableInteractionLayer={enableInteractionLayer}
         height={naturalHeight}
+        frame={frame}
         limitSubjectHeight={limitSubjectHeight}
         onKeyDown={onKeyDown}
         rotate={rotation}
@@ -260,6 +262,8 @@ SeparateFrame.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Index in multi-image subject's locations array */
+  frame: PropTypes.number,
   /** String of Object.values(subject.locations[this frame index][0]) */
   frameUrl: PropTypes.string,
   /** Function passed from Workflow Configuration */

@@ -10,6 +10,7 @@ function DrawingToolMarks({
     setSubTaskVisibility: () => { }
   },
   disabled = false,
+  frame = 0,
   marks = [],
   onDelete = () => true,
   onDeselectMark = () => true,
@@ -21,6 +22,8 @@ function DrawingToolMarks({
   played,
 }) {
   const { canvas } = useContext(SVGContext)
+
+  // Filter marks array here to display only marks with mark.frame === frame prop.
 
   return marks.map((mark, index) => {
     /*
@@ -124,6 +127,8 @@ DrawingToolMarks.propTypes = {
     id: PropTypes.string,
     setSubTaskVisibility: PropTypes.func
   }),
+  /** Passed from parent subject viewer such as Flipbook, MultiFrame, or SeparateFrame */
+  frame: PropTypes.number,
   marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
