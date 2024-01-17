@@ -24,7 +24,6 @@ describe('Component > ClassifyPageContainer', function () {
     }
   }
 
-	this.timeout(10000)
   let wrapper
   let componentWrapper
 
