@@ -1,6 +1,6 @@
 import { composeStory } from '@storybook/react'
-import { render } from '@testing-library/react'
-import Meta, { Default, ErrorBars, KeplerLightCurve } from './ScatterPlotViewer.stories.js'
+import { render, waitFor } from '@testing-library/react'
+import Meta, { Default, ErrorBars, KeplerLightCurve, SelectionFeedback } from './ScatterPlotViewer.stories.js'
 
 describe('Component > ScatterPlotViewer', function () {
   describe('default plot', function () {
@@ -81,6 +81,29 @@ describe('Component > ScatterPlotViewer', function () {
 
     it('should render chart axes', function () {
       expect(chart.querySelectorAll('g.chartAxes')).to.have.lengthOf(1)
+    })
+  })
+
+  describe('with data selection feedback', function () {
+    let chart
+
+    beforeEach(async function () {
+      const MockScatterPlotViewer = composeStory(SelectionFeedback, Meta)
+      render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
+      await waitFor(() => expect(document.querySelector('svg.scatterPlot')).to.exist())
+      chart = document.querySelector('svg.scatterPlot')
+    })
+
+    it('should show successful matches', function () {
+      expect(chart.querySelectorAll('rect.selection[fill=green]')).to.have.lengthOf(1)
+    })
+
+    it('should show failed matches', function () {
+      expect(chart.querySelectorAll('rect.selection[fill=red]')).to.have.lengthOf(1)
+    })
+
+    it('should show volunteer selections', function () {
+      expect(chart.querySelectorAll('rect.selection[fill=transparent]')).to.have.lengthOf(3)
     })
   })
 })
