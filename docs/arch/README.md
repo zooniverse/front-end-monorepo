@@ -58,3 +58,4 @@
 - [ADR 56: Use markdownz to parse markdown](adr-56.md)
 - [ADR 57: Build @zooniverse/classifier and @zooniverse/react-components as ES modules](adr-57.md)
 - [ADR 58: Internationalisation with the Panoptes translations API](adr-58.md)
+- [ADR 59: Incremental Static Regeneration of project pages](adr-59.md)
