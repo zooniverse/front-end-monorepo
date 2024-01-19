@@ -1,6 +1,7 @@
 'use client'
 
 import { Box } from 'grommet'
+import { node } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 const PageContainer = styled(Box)`
@@ -99,7 +100,7 @@ const PageRightColumn = styled(Box)`
   }
 `
 
-function UserLayout ({ children }) {
+function Layout ({ children }) {
   return (
     <PageContainer>
       <PageHeader
@@ -143,4 +144,8 @@ function UserLayout ({ children }) {
   )
 }
 
-export default UserLayout
+Layout.propTypes = {
+  children: node
+}
+
+export default Layout
