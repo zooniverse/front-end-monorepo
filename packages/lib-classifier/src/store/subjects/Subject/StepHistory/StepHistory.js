@@ -132,12 +132,9 @@ const StepHistory = types.model('StepHistory', {
       addDisposer(self, workInProgressDisposer)
     }
     /** Undo the current step and select the previous step. */
-    function back(persistAnnotations = true) {
+    function back() {
       if (self.undoManager.canUndo) {
         self.undoManager.undo()
-        if (!persistAnnotations) {
-          _clearRedo()
-        }
       }
     }
     /** Finish the current subject and clear the redo history*/

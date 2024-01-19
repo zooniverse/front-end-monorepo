@@ -11,6 +11,7 @@ const StyledTeamMember = styled(Box)`
   list-style: none;
   display: flex;
   flex-direction: row;
+  max-width: 12rem;
 `
 
 export const StyledAvatar = styled(Box)`
@@ -23,7 +24,7 @@ export const StyledAvatar = styled(Box)`
 
 export const StyledDisplayName = styled(Box)`
   font-size: 14px;
-  line-height: 1;
+  line-height: 1.2;
   word-wrap: break-word;
   ${props =>
     css`
@@ -34,10 +35,12 @@ export const StyledDisplayName = styled(Box)`
 `
 
 export const StyledUsername = styled(NavLink)`
-  line-height: 1;
-  & > * {
+line-height: 0.8;
+
+& > * {
     word-wrap: break-word;
     font-size: 12px;
+    letter-spacing: 0.05rem;
   }
 `
 
@@ -63,7 +66,7 @@ export const StyledRole = styled(Box)`
 const TeamMember = ({ user }) => {
   const router = useRouter()
   const { owner, project } = router.query
-  const baseUrl = `/${owner}/${project}/users`
+  const baseUrl = `/projects/${owner}/${project}/users`
 
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
@@ -75,9 +78,9 @@ const TeamMember = ({ user }) => {
     <StyledTeamMember as='li'>
       <StyledAvatar>
         {!user.avatar_src ? (
-          <Image 
+          <Image
             alt='Placeholder Avatar'
-            fit='cover' 
+            fit='cover'
             src={placeholderAvatar}
           />
         ) : (

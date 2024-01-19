@@ -5,8 +5,6 @@ import { useCallback, useState } from 'react'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
-import ThemeModeToggle from '@components/ThemeModeToggle'
-import ProjectName from '@components/ProjectName'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import FinishedForTheDay from './components/FinishedForTheDay'
@@ -35,9 +33,6 @@ function ClassifyPage({
     Enable session caching in the classifier for projects with ordered subject selection.
   */
   const cachePanoptesData = workflows.some(workflow => workflow.prioritized)
-
-  /* Note that these columns will be removed when theme toggle is refactored to ZooHeader */
-  const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['1em', 'auto', '1em']
 
   const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
@@ -92,7 +87,7 @@ function ClassifyPage({
         <Box
           align='center'
           gap='medium'
-          pad={{ horizontal: 'small', vertical: 'medium' }}
+          pad='medium'
         >
           <Box as='main' fill='horizontal'>
             {!canClassify && appLoadingState === asyncStates.success && (
@@ -102,28 +97,23 @@ function ClassifyPage({
                 workflows={workflows}
               />
             )}
-            <Grid columns={responsiveColumns} gap='small'>
-              <ProjectName />
-              <ClassifierWrapper
-                cachePanoptesData={cachePanoptesData}
-                onAddToCollection={onAddToCollection}
-                onSubjectReset={onSubjectReset}
-                showTutorial={showTutorial}
-                {...classifierProps}
-              />
-              <ThemeModeToggle />
-            </Grid>
+            <ClassifierWrapper
+              cachePanoptesData={cachePanoptesData}
+              onAddToCollection={onAddToCollection}
+              onSubjectReset={onSubjectReset}
+              showTutorial={showTutorial}
+              {...classifierProps}
+            />
             {workflowFromUrl && (
               <WorkflowAssignmentModal currentWorkflowID={workflowID} />
             )}
           </Box>
 
-          <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>
+          <Box as='aside' gap='medium' width='min(100%, 90rem)'>
             <FinishedForTheDay />
             <Grid
-              alignContent='stretch'
               columns={screenSize === 'small' ? ['auto'] : ['1fr', '2fr']}
-              gap='medium'
+              gap={screenSize === 'small' ? 'small' : 'medium'}
             >
               <YourStats />
               <RecentSubjects size={screenSize === 'small' ? 1 : 3} />

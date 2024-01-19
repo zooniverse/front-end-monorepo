@@ -110,10 +110,6 @@
     "byline": "Transkripsiyona başlamak için bir görüntü  seti seçin.",
     "heading": "Nereden başlayacağınızı seçin"
   },
-  "ThemeModeToggle": {
-    "switchToDark": "Koyu temaya geç",
-    "switchToLight": "Açık temaya geç"
-  },
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % tamamlandı",
