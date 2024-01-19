@@ -1,6 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Heading } from 'grommet'
-import { string } from 'prop-types'
+import { string, node } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledHeading = styled(Heading)`
@@ -29,7 +29,7 @@ function WidgetHeading ({
 
 WidgetHeading.propTypes = {
   level: string,
-  text: string
+  children: node
 }
 
 export default WidgetHeading
