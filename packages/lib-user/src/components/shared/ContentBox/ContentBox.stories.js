@@ -80,14 +80,15 @@ export const TopProjectsSplit = {
       width='625px'
     >
       <Grid
+        justify='center'
         columns='1/3'
         gap='small'
       >
-        <ProjectCard {...NfNCaliFlowers.args} />
-        <ProjectCard {...NestQuestGo.args} />
-        <ProjectCard {...PlanetHuntersTess.args} />
-        <ProjectCard {...CorrespondingWithQuakers.args} />
-        <ProjectCard {...WildwatchKenya.args} />
+        <ProjectCard {...NfNCaliFlowers.args} small />
+        <ProjectCard {...NestQuestGo.args} small />
+        <ProjectCard {...PlanetHuntersTess.args} small />
+        <ProjectCard {...CorrespondingWithQuakers.args} small />
+        <ProjectCard {...WildwatchKenya.args} small />
       </Grid>
     </ContentBox>
   )
