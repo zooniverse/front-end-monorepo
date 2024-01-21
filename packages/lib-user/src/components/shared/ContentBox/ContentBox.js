@@ -1,16 +1,27 @@
 import { Box } from 'grommet'
 import { node, object, string } from 'prop-types'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
 import ContentHeading from './components/ContentHeading'
 import ContentLink from './components/ContentLink'
 
 function ContentBox({
   children,
-  linkLabel,
-  linkProps,
-  title,
+  linkLabel = undefined,
+  linkProps = undefined,
+  screenSize = 'small',
+  title = undefined,
   ...rest
 }) {
+  const border = screenSize === 'small' ? false
+    : {
+      color: {
+        dark: 'light-1',
+        light: 'light-5'
+      },
+      side: 'all',
+      size: '0.5px'
+    }
   const showHeader = title || (linkLabel && linkProps)
   const link = {
     ...linkProps,
@@ -23,17 +34,11 @@ function ContentBox({
         dark: 'dark-3',
         light: 'white'
       }}
-      border={{
-        color: {
-          dark: 'light-1',
-          light: 'light-5'
-        },
-        side: 'all',
-        size: '0.5px'
-      }}
-      elevation='xsmall'
+      border={border}
+      elevation={screenSize === 'small' ? 'none' : 'xsmall'}
+      margin={screenSize === 'small' ? 'none' : '30px'}
       pad='30px'
-      round='8px'
+      round={screenSize === 'small' ? 'none' : '8px'}
       {...rest}
     >
       {showHeader && (
@@ -65,10 +70,12 @@ function ContentBox({
 }
 
 ContentBox.propTypes = {
-  children: node,
+  children: node.isRequired,
   linkLabel: string,
   linkProps: object,
+  screenSize: string,
   title: string
 }
 
-export default ContentBox
+export default withResponsiveContext(ContentBox)
+export { ContentBox }

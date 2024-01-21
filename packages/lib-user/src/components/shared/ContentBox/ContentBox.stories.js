@@ -1,5 +1,4 @@
 import { Box, Grid } from 'grommet'
-import styled from 'styled-components'
 
 import ContentBox from './ContentBox'
 
@@ -20,7 +19,6 @@ function ComponentDecorator (Story) {
         light: 'neutral-6'
       }}
       height='900px'
-      pad='30px'
     >
       <Story />
     </Box>
@@ -50,7 +48,7 @@ export const TopProjectsFull = {
   )
 }
 
-export const FewerTopProjectsFull = {
+export const TopProjectsFullWithFewerProjects = {
   render: () => (
     <ContentBox
       linkLabel='See more'
@@ -59,7 +57,7 @@ export const FewerTopProjectsFull = {
     >
       <Box
         direction='row'
-        gap='30px'
+        gap='small'
         pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
         overflow={{ horizontal: 'auto' }}
       >

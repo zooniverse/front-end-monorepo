@@ -1,10 +1,10 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Heading } from 'grommet'
-import { node, number, string } from 'prop-types'
+import { node } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledHeading = styled(Heading)`
-  font-size: 18px;
+  font-size: 16px;
   line-height: normal;
 `
 
@@ -32,8 +32,6 @@ function ContentHeading ({
 
 ContentHeading.propTypes = {
   children: node.isRequired,
-  level: number,
-  text: string
 }
 
 export default ContentHeading
