@@ -53,6 +53,7 @@ const DEFAULT_HANDLER = () => true
 
 function Selections({
   disabled = false,
+  feedbackBrushes=[],
   height,
   margin,
   transformMatrix = TRANSFORM_MATRIX,
@@ -203,6 +204,27 @@ function Selections({
     eventRoot?.current.focus()
   }
 
+  function FeedbackBrush({ feedbackBrush }) {
+    const width = feedbackBrush.maxX - feedbackBrush.minX
+    const x = feedbackBrush.minX + width / 2
+    let fill = 'transparent'
+    if (feedbackBrush.success === true) {
+      fill = 'green'
+    }
+    if (feedbackBrush.success === false) {
+      fill = 'red'
+    }
+    return (
+      <Selection
+        disabled
+        selection={{ x, width }}
+        fill={fill}
+        height={height}
+        xScale={xScale}
+      />
+    )
+  }
+
   return (
     <g
       ref={eventRoot}
@@ -249,6 +271,12 @@ function Selections({
           onDelete={() => deleteSelection(index)}
           opacity={0.8}
           stroke={colors['dark-3']}
+        />
+      ))}
+      {feedbackBrushes?.map(feedbackBrush => (
+        <FeedbackBrush
+          key={feedbackBrush.minX}
+          feedbackBrush={feedbackBrush}
         />
       ))}
     </g>
