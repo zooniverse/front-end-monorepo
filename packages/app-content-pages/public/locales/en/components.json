@@ -48,6 +48,49 @@
     "sidebarLabel": "Section",
     "title": "About the Zooniverse"
   },
+  "FAQ": {
+    "description": "",
+    "help": "Don't see the answer to your question? Visit the <0>Zooniverse Solutions webpage</0>, ask on <1>Zooniverse Talk</1>, or <2>contact us</2>.",
+    "title": "Frequently Asked Questions",
+    "item0": {
+      "answer": "Humans are better than computers at many tasks. For most Zooniverse projects, computers just aren’t good enough to do the required task, or they may miss interesting features that a human would spot - this is why we need your help. Some Zooniverse projects are also using human classifications to help train computers to do better at these research tasks in the future. When you participate in a Zooniverse project, you are contributing to real research.",
+      "question": "Why do researchers need your help? Why can't computers do these tasks?"
+    },
+    "item1": {
+      "answer": "For most of the subjects shown in Zooniverse projects, the researchers don't know the correct answer and that's why they need your help. Human beings are really good at pattern recognition tasks, so generally your first guess is likely the right one. Don’t worry too much about making an occasional mistake - more than one person will review each image, video or graph in a project. Most Zooniverse projects have a Help button, a Frequently Asked Questions (FAQ) page, and a Field Guide with more information to guide you when classifying.",
+      "question": "How do I know if I'm doing this right?"
+    },
+    "item2": {
+      "answer": "Your classifications are stored in the Zooniverse's secure online database. Later on a project's research team accesses and combines the multiple volunteer assessments stored for each subject, including your classifications, together. Once you have submitted your response for a given subject image, graph, or video, you can't go back and edit it. Further information can be found on the <0>Zooniverse User Agreement and Privacy Policy page.</0>",
+      "question": "What happens to my classification after I submit it?"
+    },
+    "item3": {
+      "answer": "The Zooniverse takes very seriously the task of protecting our volunteer's personal information and classification data. Details about these efforts can be found on the <0>Zooniverse User Agreement and Privacy Policy page</0> and the <1>Zooniverse Security page.</1>",
+      "question": "What does the Zooniverse do with my account information?"
+    },
+    "item4": {
+      "answer": "You can post your suggestions for new features and report bugs via the <0>Zooniverse Talk</0> or through the <1>Github repository.</1>",
+      "question": "I have a feature request or found a bug; who should I talk to/how do I report it?"
+    },
+    "item5": {
+      "answer": "The Zooniverse is a collaboration between institutions from the United Kingdom and the United States; all of our team are employed by one or the other of these partner institutions. Check out the <0>Zooniverse jobs page</0> to find out more about employment opportunities within the Zooniverse.",
+      "question": "Is the Zooniverse hiring?"
+    },
+    "item6": {
+      "answer0": "The Zooniverse is a platform for people-powered research, not an entity, company, or non-profit. We are a multi-institutional collaboration.",
+      "answer1": "The Adler Planetarium in Chicago, one of the host institutions for the Zooniverse team, is a 501(c)(3). Individuals or organizations that need to link explicitly to a 501(c)(3) for their volunteering efforts use the Adler Planetarium as the reference. Documentation of the Adler Planetarium's 501(c)(3) status is provided here, and the Adler Planetarium EIN number is 36-6210902. When inputting the organization name, please use “Adler Planetarium - Zooniverse” if possible. If not possible, please use “Adler Planetarium” (which matches the EIN number). In all cases, you'll volunteer through Zooniverse.org.",
+      "answer2": "For information on how to donate, please visit our <0>donation page.</0>",
+      "question": "Is the Zooniverse a non-profit organization?"
+    },
+    "item7": {
+      "answer": "You can find more details on how to cite the Zooniverse in research publications using data derived from use of the Zooniverse Project Builder on our <0>Resources page</0>.",
+      "question": "I'm a project owner/research team member, how do I acknowledge the Zooniverse and the Project Builder Platform in my paper, talk abstract, etc.?"
+    },
+    "item8": {
+      "answer": "We support major browsers up to the second to last version.",
+      "question": "What browser version does Zooniverse support?"
+    }
+  },
   "Head": {
     "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
     "defaultTitle": "About",
