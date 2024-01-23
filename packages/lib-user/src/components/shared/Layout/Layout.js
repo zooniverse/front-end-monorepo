@@ -31,11 +31,15 @@ const PageLeftColumn = styled(Box)`
   grid-column: 2 / 3;
   grid-row: 3 / 4;
 
+  @media (91rem <= width) {
+    border-left: 0.5px solid ${props => props.theme.dark ? props.theme.global.colors['dark-2'] : props.theme.global.colors['light-5']};
+  }
+
   &::after {
     content: '';
     position: absolute;
     top: 0;
-    right: -1px;
+    right: 0;
     width: 30px;
     height: 300px;
     clip-path: polygon(0 0, 100% 0, 100% 100%);
@@ -64,7 +68,7 @@ const PageBody = styled(Box)`
   grid-column: 3 / 4;
   grid-row: 2 / 4;
   border-radius: 8px 8px 0 0;
-  padding-bottom: 2rem;
+  padding-bottom: 50px;
 `
 
 const PageRightColumn = styled(Box)`
@@ -72,10 +76,15 @@ const PageRightColumn = styled(Box)`
   grid-column: 4 / 5;
   grid-row: 3 / 4;
 
+  @media (91rem <= width) {
+    border-right: 0.5px solid ${props => props.theme.dark ? props.theme.global.colors['dark-2'] : props.theme.global.colors['light-5']};
+  }
+
   &::before {
     content: '';
     position: absolute;
     top: 0;
+    left: 0;
     width: 30px;
     height: 300px;
     clip-path: polygon(100% 0, 0 0, 0 100%);
@@ -111,13 +120,6 @@ function Layout ({ children }) {
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        border={{
-          color: {
-            dark: 'dark-2',
-            light: 'light-5'
-          },
-          side: 'left'
-        }}
       />
       <PageBody
         background={{
@@ -131,13 +133,6 @@ function Layout ({ children }) {
         background={{
           dark: 'dark-3',
           light: 'neutral-6'
-        }}
-        border={{
-          color: {
-            dark: 'dark-2',
-            light: 'light-5'
-          },
-          side: 'right'
         }}
       />
     </PageContainer>   
