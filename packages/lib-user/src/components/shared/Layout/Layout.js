@@ -27,6 +27,7 @@ const PageHeader = styled(Box)`
 `
 
 const PageLeftColumn = styled(Box)`
+  box-shadow: -6px 0px 6px -6px rgba(0, 0, 0, 0.50);
   position: relative;
   grid-column: 2 / 3;
   grid-row: 3 / 4;
@@ -72,6 +73,7 @@ const PageBody = styled(Box)`
 `
 
 const PageRightColumn = styled(Box)`
+  box-shadow: 6px 0px 6px -6px rgba(0, 0, 0, 0.50);
   position: relative;
   grid-column: 4 / 5;
   grid-row: 3 / 4;
