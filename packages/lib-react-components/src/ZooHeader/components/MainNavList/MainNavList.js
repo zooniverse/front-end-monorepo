@@ -6,14 +6,12 @@ export default function MainNavList({
   adminMode = false,
   adminNavLinkLabel,
   adminNavLinkURL,
-  isNarrow = false,
+  className = '',
   mainHeaderNavListLabels,
   mainHeaderNavListURLs
 }) {
-  if (isNarrow) return null
-
   return (
-    <Box direction='row' gap='small'>
+    <Box className={className} direction='row' gap='small'>
       {mainHeaderNavListURLs.map((url, i) => (
         <NavListItem
           key={url}
@@ -34,7 +32,6 @@ MainNavList.propTypes = {
   adminMode: PropTypes.bool,
   adminNavLinkLabel: PropTypes.string.isRequired,
   adminNavLinkURL: PropTypes.string.isRequired,
-  isNarrow: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
 }

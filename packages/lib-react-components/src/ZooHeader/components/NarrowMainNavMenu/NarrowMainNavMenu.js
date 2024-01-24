@@ -15,6 +15,7 @@ export default function NarrowMainNavMenu({
   adminMode = false,
   adminNavLinkLabel,
   adminNavLinkURL,
+  className = '',
   mainHeaderNavListLabels,
   mainHeaderNavListURLs
 }) {
@@ -34,6 +35,7 @@ export default function NarrowMainNavMenu({
 
   return (
     <NarrowMenu
+      className={className}
       icon={false}
       items={menuListItems}
       label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation'/>}
@@ -45,6 +47,7 @@ NarrowMainNavMenu.propTypes = {
   adminMode: PropTypes.bool,
   adminNavLinkLabel: PropTypes.string.isRequired,
   adminNavLinkURL: PropTypes.string.isRequired,
+  className: PropTypes.string,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired
 }
