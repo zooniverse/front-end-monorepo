@@ -71,7 +71,7 @@
     "@babel/core": "~7.23.0",
     "@babel/preset-env": "~7.23.2",
     "@babel/preset-react": "~7.23.3",
-    "@babel/register": "~7.22.5",
+    "@babel/register": "~7.23.7",
     "@storybook/addon-a11y": "~7.6.0",
     "@storybook/addon-essentials": "~7.6.0",
     "@storybook/react": "~7.6.0",
