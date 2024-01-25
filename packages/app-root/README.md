@@ -1,6 +1,6 @@
 # app-root
 
-A [Next.js](https://nextjs.org/) app for handling all routes, including `/projects`, `/user`, `/about`, `/groups`.
+A [Next.js](https://nextjs.org/) app for handling all routes, including `/projects`, `/users`, `/about`, `/groups`.
 
 ## Getting started
 
