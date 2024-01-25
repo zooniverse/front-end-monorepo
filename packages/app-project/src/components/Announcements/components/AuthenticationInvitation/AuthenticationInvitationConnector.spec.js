@@ -11,6 +11,9 @@ describe('Component > AuthenticationInvitationConnector', function () {
       project: {
         isComplete: false
       },
+      ui: {
+        setAuthModalActiveIndex: () => {}
+      },
       user: {
         isLoggedIn: false,
         personalization: {
