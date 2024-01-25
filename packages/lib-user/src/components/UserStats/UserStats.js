@@ -2,34 +2,43 @@
 
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial UserStats local development.
 
-import { string } from 'prop-types'
+import { node } from 'prop-types'
 
-import {
-  usePanoptesUser,
-  useUserStats
-} from '@hooks/index.js'
+import Layout from '../shared/Layout/Layout'
 
 function UserStats ({
-  authClient,
-  login = ''
+  children
 }) {
-  const { data: user, error, isLoading: userLoading } = usePanoptesUser(authClient)
-  const userID = userLoading ? undefined : (user?.id || null)
-  const { data: userStats, error: userStatsError, isLoading: userStatsLoading } = useUserStats({ authClient, userID })
-
   return (
-    <div>
-      <h2>Hello User with login {login}! 👋</h2>
-      <h3>Your display_name is {user?.display_name}, ID is {user?.id}</h3>
-      <h4>Here are your user stats:</h4>
-      <pre>{JSON.stringify(userStats, null, 2)}</pre>
-    </div>
+    <Layout>
+      <div>
+        <div style={{
+          borderRadius: '8px',
+          border: '0.5px solid #A6A7A9',
+          boxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+          color: 'black',
+          height: '472px',
+          marginBottom: '30px'
+        }}>
+          <p>User profile header goes here.</p>
+          <p>Bar chart goes here.</p>
+        </div>
+        <div style={{
+          borderRadius: '8px',
+          border: '0.5px solid #A6A7A9',
+          boxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+          color: 'black',
+          height: '300px'
+        }}>
+          <p>Top projects goes here.</p>
+        </div>
+      </div>
+    </Layout>
   )
 }
 
 UserStats.propTypes = {
-  // authClient: object.isRequired,
-  login: string
+  children: node
 }
 
 export default UserStats

@@ -323,3 +323,83 @@ SelectedXRanges.store = mockStore({
   subject: superWaspSubject,
   workflow: dataSelectionWorkflow
 })
+
+export function SelectionFeedback() {
+  const [task] = SelectedXRanges.store.workflowSteps.findTasksByType('dataVisAnnotation')
+  SelectedXRanges.store.classifications.addAnnotation(task, [
+    {
+      tool: 0,
+      toolType: 'graph2dRangeX',
+      x: 98,
+      width: 6,
+      zoomLevelOnCreation: 0
+    },
+    {
+      tool: 0,
+      toolType: 'graph2dRangeX',
+      x: 110,
+      width: 6,
+      zoomLevelOnCreation: 0
+    },
+    {
+      tool: 1,
+      toolType: 'graph2dRangeX',
+      x: 116,
+      width: 4,
+      zoomLevelOnCreation: 0
+    }
+  ])
+  const feedbackBrushes = [
+    {
+      id: 1,
+      minX: 95,
+      maxX: 101 
+    },
+    {
+      id: 2,
+      minX: 107,
+      maxX: 113
+    },
+    {
+      id: 3,
+      minX: 114,
+      maxX: 118
+    },
+    {
+      id: 'simulated_rule',
+      minX: 90,
+      maxX: 102,
+      success: true
+    },
+    {
+      id: 'simulated_rule',
+      minX: 124,
+      maxX: 134,
+      success: false
+    }
+  ]
+
+  return (
+    <ViewerContext store={SelectedXRanges.store}>
+      <Box direction='row' height='medium' width='large'>
+        <JSONDataViewer
+          disabled
+          experimentalSelectionTool
+          feedbackBrushes={feedbackBrushes}
+          zoomConfiguration={{
+            direction: 'x',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }}
+        />
+        <ImageToolbar width='4rem' />
+      </Box>
+    </ViewerContext>
+  )
+}
+SelectedXRanges.store = mockStore({
+  subject: superWaspSubject,
+  workflow: dataSelectionWorkflow
+})

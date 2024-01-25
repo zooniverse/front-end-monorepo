@@ -1,25 +1,13 @@
-import { shallow } from 'enzyme'
-
-import WidgetHeading from './WidgetHeading'
-
-let wrapper
-const LEVEL = '2'
-const TEXT = 'Foobar'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { WidgetHeading } from './WidgetHeading.stories.js'
+import { WidgetHeadingMock } from './WidgetHeading.mock'
 
 describe('Component > WidgetHeading', function () {
-  before(function () {
-    wrapper = shallow(<WidgetHeading level={LEVEL}>{TEXT}</WidgetHeading>)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should include the text from the `text` prop', function () {
-    expect(wrapper.render().html()).to.include(TEXT)
-  })
-
-  it('should pass down the `level` prop to the `Heading` component', function () {
-    expect(wrapper.prop('level')).to.equal(LEVEL)
+  it('should render the element correctly', async function () {
+    const WidgetHeadingStory = composeStory(WidgetHeading, Meta)
+    render(<WidgetHeadingStory />)
+    expect(screen.getByRole('heading', {level: parseInt(WidgetHeadingMock.level, 10)})).to.exist()
+    expect(screen.getByText(WidgetHeadingMock.text)).to.exist()
   })
 })
