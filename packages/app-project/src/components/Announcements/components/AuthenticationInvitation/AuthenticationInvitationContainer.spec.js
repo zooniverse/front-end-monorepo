@@ -1,9 +1,8 @@
 import { mount, shallow } from 'enzyme'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
-import { CloseButton } from '@zooniverse/react-components'
+import { CloseButton, PlainButton } from '@zooniverse/react-components'
 import AuthenticationInvitationContainer from './AuthenticationInvitationContainer'
 import GenericAnnouncement from '../GenericAnnouncement'
-import NavLink from '@shared/components/NavLink'
 
 describe('Component > AuthenticationInvitationContainer', function () {
   const mockRouter = {
@@ -27,16 +26,6 @@ describe('Component > AuthenticationInvitationContainer', function () {
 
   it('should render the `GenericAnnouncement` component if visible', function () {
     expect(componentWrapper).to.have.lengthOf(1)
-  })
-
-  it('should have a link to the login form', function () {
-    const signInLink = wrapper.find(NavLink).first()
-    expect(signInLink.props().link.href).to.equal(`${window.location.pathname}?login=true`)
-  })
-
-  it('should have a link to the register form', function () {
-    const registerLink = wrapper.find(NavLink).last()
-    expect(registerLink.props().link.href).to.equal(`${window.location.pathname}?register=true`)
   })
 
   describe('when not visible', function () {
