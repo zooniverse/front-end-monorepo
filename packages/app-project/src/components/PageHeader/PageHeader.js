@@ -1,20 +1,19 @@
 import { AuthModal, ZooHeader } from '@zooniverse/react-components'
 import auth from 'panoptes-client/lib/auth'
 import { MobXProviderContext, observer } from 'mobx-react'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { bool } from 'prop-types'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
-  const { user: userStore } = store
-  return { userStore }
+  const { user: userStore, ui: uiStore } = store
+  return { uiStore, userStore }
 }
 
 function PageHeader({ adminMode }) {
-  const [activeIndex, setActiveIndex] = useState(-1)
-
-  const { userStore } = useStore()
+  const { uiStore, userStore } = useStore()
+  const { authModalActiveIndex, setAuthModalActiveIndex } = uiStore
   const { admin, display_name, login } = userStore
 
   const userProp = userStore.isLoggedIn ? { admin, display_name, login } : {}
@@ -37,23 +36,23 @@ function PageHeader({ adminMode }) {
   }
 
   function openRegisterModal() {
-    setActiveIndex(1)
+    setAuthModalActiveIndex(1)
   }
 
   function openSignInModal() {
-    setActiveIndex(0)
+    setAuthModalActiveIndex(0)
   }
 
   function closeAuthModal() {
-    setActiveIndex(-1)
+    setAuthModalActiveIndex(-1)
   }
 
   return (
     <>
       <AuthModal
-        activeIndex={activeIndex}
+        activeIndex={authModalActiveIndex}
         closeModal={closeAuthModal}
-        onActive={setActiveIndex}
+        onActive={setAuthModalActiveIndex}
         onSignIn={onSignIn}
       />
       <ZooHeader

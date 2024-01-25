@@ -9,6 +9,7 @@ const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
 
 const UI = types
   .model('UI', {
+    authModalActiveIndex: types.optional(types.number, -1),
     dismissedProjectAnnouncementBanner: types.maybeNull(types.number),
   })
 
@@ -66,6 +67,10 @@ const UI = types
       if (canSetCookie) {
         self.dismissedProjectAnnouncementBanner = parseInt(getCookie('dismissedProjectAnnouncementBanner'), 10) || null
       }
+    },
+
+    setAuthModalActiveIndex(index) {
+      self.authModalActiveIndex = index
     },
 
     setProjectAnnouncementBannerCookie() {
