@@ -46,8 +46,6 @@ const TRANSFORM_MATRIX = {
   translateY: 0
 }
 
-
-
 export default function ScatterPlot({
   axisColor = '',
   backgroundColor = '',
@@ -57,6 +55,7 @@ export default function ScatterPlot({
   dataPointSize = 25,
   disabled = false,
   experimentalSelectionTool = false,
+  feedbackBrushes = [],
   highlightedSeries,
   initialSelections = [],
   interactionMode = 'annotate',
@@ -191,6 +190,7 @@ export default function ScatterPlot({
         {children}
         {experimentalSelectionTool && <Selections
           disabled={disabled || interactionMode !== 'annotate'}
+          feedbackBrushes={feedbackBrushes}
           height={plotHeight}
           margin={margin}
           transformMatrix={transformMatrix}

@@ -58,6 +58,7 @@ function Graph2dRangeFeedback() {
 
   return (
     <JSONDataViewer
+      disabled
       subject={subject}
       feedback={feedback}
       feedbackBrushes={[...annotationBrushes, ...ruleBrushes]}
