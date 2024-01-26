@@ -4,7 +4,7 @@ import { node } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledHeading = styled(Heading)`
-  font-size: 16px;
+  font-size: 1rem;
   line-height: normal;
 `
 
@@ -14,7 +14,7 @@ function ContentHeading ({
   return (
     <StyledHeading
       level={2}
-      margin='none'
+      margin='0'
     >
       <SpacedText
         color={{

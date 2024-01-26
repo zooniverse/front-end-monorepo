@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
-  font-size: 16px;
+  font-size: 1rem;
   line-height: normal;
 `
 

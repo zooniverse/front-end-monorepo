@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 const StyledProjectCard = styled(Box)`
-  font-size: 10px;
+  font-size: 0.625rem;
   height: 200px;
   text-decoration: none;
   width: 157px;
@@ -15,7 +15,7 @@ const StyledProjectCard = styled(Box)`
 
   ${props => !props.small && css`
     @media (768px < width <= 1280px) {
-      font-size: 10.5px;
+      font-size: 0.656rem;
       height: 240px;
       width: 189px;
 
@@ -25,7 +25,7 @@ const StyledProjectCard = styled(Box)`
     }
 
     @media (width > 1280px) {
-      font-size: 11px;
+      font-size: 0.688rem;
       height: 280px;
       width: 220px;
 
