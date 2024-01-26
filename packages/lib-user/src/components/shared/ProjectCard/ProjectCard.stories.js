@@ -21,7 +21,7 @@ function ComponentDecorator (Story) {
   )
 }
 
-export const Default = {
+export const NfnCaliFlowers = {
   args: {
     description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
     displayName: `Notes from Nature - Capturing California's Flowers`,
@@ -63,5 +63,25 @@ export const WildwatchKenya = {
     displayName: 'Wildwatch Kenya is a short project name compared to the longest live project at 80',
     href: 'https://www.zooniverse.org/projects/sandiegozooglobal/wildwatch-kenya',
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/5dc89775-a658-4d3a-8295-4d48903e142d.jpeg'
+  }
+}
+
+export const NfnCaliFlowersSmall = {
+  args: {
+    description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
+    displayName: `Notes from Nature - Capturing California's Flowers`,
+    href: 'https://www.zooniverse.org/projects/md68135/notes-from-nature-capturing-californias-flowers',
+    imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/0c4cfec1-a15b-468e-9f57-e9133993532d.jpeg',
+    small: true
+  }
+}
+
+export const WildwatchKenyaSmall = {
+  args: {
+    description: 'We need your help to count, identify, and track the giraffes and other wildlife living in our field conservation sites in northern Kenya! We need your help to count, identify, and track the giraffes and other wildlife living in our field conservation sites in northern Kenya!',
+    displayName: 'Wildwatch Kenya is a short project name compared to the longest live project at 80',
+    href: 'https://www.zooniverse.org/projects/sandiegozooglobal/wildwatch-kenya',
+    imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/5dc89775-a658-4d3a-8295-4d48903e142d.jpeg',
+    small: true
   }
 }
