@@ -20,9 +20,14 @@ const isBrowser = typeof window !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : null
 // If no theme item in localStorage, see if the user's browser settings prefer dark mode
 // If theme key is in localStorage, use that for themeMode
-const prefersDarkTheme = isBrowser && window.matchMedia('(prefers-color-scheme: dark)').matches
-const preferredTheme = prefersDarkTheme ? 'dark' : 'light'
-const initialTheme = localStorage?.getItem('theme') || preferredTheme
+// Use the light theme for SSR
+let initialTheme = 'light'
+let prefersDarkTheme = false
+if (isBrowser) {
+  prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const preferredTheme = prefersDarkTheme ? 'dark' : 'light'
+  initialTheme = localStorage?.getItem('theme') || preferredTheme
+}
 
 function MyApp({ Component, pageProps }) {
   const { data: user, error, isLoading } = usePanoptesUser()
