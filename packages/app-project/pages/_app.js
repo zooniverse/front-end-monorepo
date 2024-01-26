@@ -22,7 +22,9 @@ const GlobalStyle = createGlobalStyle`
 const isBrowser = typeof window !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : null
 enableStaticRendering(isBrowser)
-const initialTheme = localStorage?.getItem('theme') || 'light'
+const prefersDarkTheme = isBrowser && window.matchMedia('(prefers-color-scheme: dark)').matches
+const preferredTheme = prefersDarkTheme ? 'dark' : 'light'
+const initialTheme = localStorage?.getItem('theme') || preferredTheme
   
 
 /**
@@ -44,7 +46,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (isBrowser && !localStorage?.getItem('theme')) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (prefersDarkTheme) {
         setThemeMode('dark')
         localStorage?.setItem('theme', 'dark') // The same key is used in PFE's theme mode toggle
       }
