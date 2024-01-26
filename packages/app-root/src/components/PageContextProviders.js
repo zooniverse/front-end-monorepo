@@ -14,6 +14,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
+const isBrowser = typeof window !== 'undefined'
+const localStorage = isBrowser ? window.localStorage : null
+const initialTheme = localStorage?.getItem('theme') || 'light'
 
 /**
   Context for every page:
@@ -22,13 +25,11 @@ const GlobalStyle = createGlobalStyle`
   - Panoptes auth (user account and admin mode.)
 */
 export default function PageContextProviders({ children }) {
-  const [themeMode, setThemeMode] = useState('light')
+  const [themeMode, setThemeMode] = useState(initialTheme)
 
   const { data: user, error, isLoading } = usePanoptesUser()
   const { adminMode, toggleAdmin } = useAdminMode(user)
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
-  const isBrowser = typeof window !== 'undefined'
-  const localStorage = isBrowser ? window.localStorage : null
 
   useEffect(() => {
     // If no theme item in localStorage, see if the user's browser settings prefer dark mode

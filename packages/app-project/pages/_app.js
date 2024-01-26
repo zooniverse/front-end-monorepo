@@ -19,8 +19,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
-
-enableStaticRendering(typeof window === 'undefined')
+const isBrowser = typeof window !== 'undefined'
+const localStorage = isBrowser ? window.localStorage : null
+enableStaticRendering(isBrowser)
+const initialTheme = localStorage?.getItem('theme') || 'light'
+  
 
 /**
   useStore hook adapted from
@@ -37,9 +40,7 @@ function useStore(initialState) {
 
 function MyApp({ Component, pageProps }) {
   /* Handle the theme mode */
-  const [themeMode, setThemeMode] = useState('light')
-  const isBrowser = typeof window !== 'undefined'
-  const localStorage = isBrowser ? window.localStorage : null
+  const [themeMode, setThemeMode] = useState(initialTheme)
 
   useEffect(() => {
     if (isBrowser && !localStorage?.getItem('theme')) {

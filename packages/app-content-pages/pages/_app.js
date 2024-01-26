@@ -16,13 +16,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const isBrowser = typeof window !== 'undefined'
+const localStorage = isBrowser ? window.localStorage : null
+const initialTheme = localStorage?.getItem('theme') || 'light'
+
 function MyApp({ Component, pageProps }) {
   const { data: user, error, isLoading } = usePanoptesUser()
   const authContext = { error, isLoading, user }
 
-  const [themeMode, setThemeMode] = useState('light')
-  const isBrowser = typeof window !== 'undefined'
-  const localStorage = isBrowser ? window.localStorage : null
+  const [themeMode, setThemeMode] = useState(initialTheme)
 
   useEffect(() => {
     // If no theme item in localStorage, see if the user's browser settings prefer dark mode
