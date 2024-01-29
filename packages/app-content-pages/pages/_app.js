@@ -20,6 +20,7 @@ const isBrowser = typeof window !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : null
 // If no theme item in localStorage, see if the user's browser settings prefer dark mode
 // If theme key is in localStorage, use that for themeMode
+// The same key is used in PFE's theme mode toggle
 // Use the light theme for SSR
 let initialTheme = 'light'
 let prefersDarkTheme = false
@@ -33,16 +34,16 @@ function MyApp({ Component, pageProps }) {
   const { data: user, error, isLoading } = usePanoptesUser()
   const authContext = { error, isLoading, user }
 
-  const [themeMode, setThemeMode] = useState(initialTheme)
+  const [themeMode, setThemeMode] = useState('light')
 
   useEffect(() => {
-    // If no theme item in localStorage, see if the user's browser settings prefer dark mode
-    // The same key is used in PFE's theme mode toggle
-    if (isBrowser && !localStorage?.getItem('theme')) {
+    // useEffect will only run in the browser.
+    if (!localStorage?.getItem('theme')) {
       if (prefersDarkTheme) {
         localStorage?.setItem('theme', 'dark')
       }
     }
+    setThemeMode(initialTheme)
   }, [])
 
   function toggleTheme() {
