@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import Meta, { Default } from './ProjectCard.stories.js'
+import Meta, { NfnCaliFlowers } from './ProjectCard.stories.js'
 
 describe('components > shared > ProjectCard', function () {
-  const DefaultStory = composeStory(Default, Meta)
+  const DefaultStory = composeStory(NfnCaliFlowers, Meta)
 
   it('should show the project name', function () {
     render(<DefaultStory />)
