@@ -9,6 +9,10 @@ import addQueryParams from '@helpers/addQueryParams'
 
 const StyledHeading = styled(Heading)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+
+  @media (width < 48rem) {
+    text-align: center;
+  }
 `
 
 const StyledAnchor = styled(Anchor)`
@@ -25,7 +29,7 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle({ textAlign = 'start', title = '' }) {
+function ProjectTitle({ title = '' }) {
   const router = useRouter()
   const { slug } = useStores()
   const linkProps = {
@@ -36,14 +40,14 @@ function ProjectTitle({ textAlign = 'start', title = '' }) {
 
   if (isCurrentPage) {
     return (
-      <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+      <StyledHeading level={1} color='white' margin='0'>
         {title}
       </StyledHeading>
     )
   } else {
     return (
       <StyledAnchor forwardedAs={Link} {...linkProps}>
-        <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+        <StyledHeading level={1} color='white' margin='0'>
           {title}
         </StyledHeading>
       </StyledAnchor>
@@ -52,8 +56,6 @@ function ProjectTitle({ textAlign = 'start', title = '' }) {
 }
 
 ProjectTitle.propTypes = {
-  /** [Grommet textAlign](https://v2.grommet.io/heading#textAlign) for the heading. */
-  textAlign: string,
   /** The project name */
   title: string
 }

@@ -22,7 +22,7 @@ const StyledAnchor = styled(Anchor)`
 
 // `tabindex="-1"` is for the button's open state.
 const StyledDropButton = styled(DropButton)`
-  padding: 10px 10px 10px 15px;
+  padding: 10px;
   border-radius: 2em;
   color: white;
 
@@ -37,16 +37,16 @@ const StyledDropButton = styled(DropButton)`
       color: ${props.theme.global.colors.brand};
     `}
   }
-`
 
-const defaultMargin = {
-  top: 0
-}
+  @media (width < 48rem) {
+    margin: 0;
+    padding: 20px 0 0;
+  }
+`
 
 function DropdownNav({
   adminMode = false,
   className,
-  margin = defaultMargin,
   organizationSlug = '',
   organizationTitle = ''
 }) {
@@ -129,7 +129,6 @@ function DropdownNav({
       dropContent={dropContent}
       dropAlign={{ top: 'bottom' }}
       isOpen={isOpen}
-      margin={margin}
       onClose={onClose}
       onOpen={onOpen}
     >
@@ -154,8 +153,6 @@ DropdownNav.propTypes = {
   adminMode: bool,
   /** CSS class */
   className: string,
-  /** Margin for the dropdown button (Grommet t-shirt size, CSS length or Grommet margin object.) */
-  margin: oneOfType([string, object]),
   /** Organization slug */
   organizationSlug: string,
   /** Organization title */
