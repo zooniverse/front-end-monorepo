@@ -1,6 +1,6 @@
-import { Box, Grid } from 'grommet'
+import { Box, Grid, ResponsiveContext } from 'grommet'
+import { useContext } from 'react'
 import { arrayOf, shape, string } from 'prop-types'
-import { withResponsiveContext } from '@zooniverse/react-components'
 
 import { useAdminMode } from '@hooks'
 import Hero from './components/Hero/index.js'
@@ -11,9 +11,10 @@ import ProjectStatistics from '@shared/components/ProjectStatistics'
 import StandardLayout, { HeaderComponents } from '@shared/components/StandardLayout/StandardLayout.js'
 import ZooniverseTalk from './components/ZooniverseTalk/index.js'
 
-function ProjectHomePage({ screenSize, workflows = [] }) {
+function ProjectHomePage({ workflows = [] }) {
   const { adminMode } = useAdminMode()
-  const mobileLayout = screenSize === 'small'
+  const size = useContext(ResponsiveContext)
+  const mobileLayout = size === 'small'
 
   return (
     <StandardLayout page='home'>
@@ -37,7 +38,6 @@ function ProjectHomePage({ screenSize, workflows = [] }) {
 }
 
 ProjectHomePage.propTypes = {
-  screenSize: string,
   workflows: arrayOf(
     shape({
       id: string.isRequired
@@ -45,4 +45,4 @@ ProjectHomePage.propTypes = {
   )
 }
 
-export default withResponsiveContext(ProjectHomePage)
+export default ProjectHomePage
