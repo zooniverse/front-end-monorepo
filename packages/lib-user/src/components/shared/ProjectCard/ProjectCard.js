@@ -1,37 +1,39 @@
 import { Box } from 'grommet'
-import { string } from 'prop-types'
-import styled from 'styled-components'
+import { bool, string } from 'prop-types'
+import styled, { css } from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 const StyledProjectCard = styled(Box)`
-  font-size: 11px;
-  height: 280px;
+  font-size: 0.625rem;
+  height: 200px;
   text-decoration: none;
-  width: 220px;
+  width: 157px;
 
-  @media (768px < width < 1280px) {
-    font-size: 10.5px;
-    height: 240px;
-    width: 189px;
-  }
-
-  @media (width <= 768px) {
-    font-size: 10px;
-    height: 200px;
-    width: 157px;
-  }
-`
-
-const StyledProjectImage = styled(Box)`
-  height: 220px;
-
-  @media (768px < width < 1280px) {
-    height: 189px;
-  }
-
-  @media (width <= 768px) {
+  > .project-image {
     height: 157px;
   }
+
+  ${props => !props.small && css`
+    @media (768px < width <= 1280px) {
+      font-size: 0.656rem;
+      height: 240px;
+      width: 189px;
+
+      > .project-image {
+        height: 189px;
+      }
+    }
+
+    @media (width > 1280px) {
+      font-size: 0.688rem;
+      height: 280px;
+      width: 220px;
+
+      > .project-image {
+        height: 220px;
+      }
+    }
+  `}
 `
 
 const StyledProjectContent = styled(Box)`
@@ -72,29 +74,33 @@ function ProjectCard ({
   description = '',
   displayName = '',
   href = '',
-  imageSrc = ''
+  imageSrc = '',
+  small = false
 }) {
   return (
     <StyledProjectCard
       elevation='small'
+      flex={false}
       forwardedAs='a'
       href={href}
-      round='xxsmall'
+      round='8px'
+      small={small}
     >
-      <StyledProjectImage
+      <Box
+        className='project-image'
         background={{
           image: `url(${imageSrc})`,
           position: 'top',
           size: 'cover',
         }}
-        round={{ corner: 'top', size: 'xxsmall' }}
+        round={{ corner: 'top', size: '8px' }}
       >
-      </StyledProjectImage>
+      </Box>
       <StyledProjectContent
         flex='grow'
         justify='center'
         pad={{ horizontal: 'xsmall' }}
-        round={{ corner: 'bottom', size: 'xxsmall' }}
+        round={{ corner: 'bottom', size: '8px' }}
       >
         <StyledProjectName
           color={{ dark: 'neutral-6', light: 'dark-5' }}
@@ -121,7 +127,8 @@ ProjectCard.propTypes = {
   description: string,
   displayName: string,
   href: string,
-  imageSrc: string
+  imageSrc: string,
+  small: bool
 }
 
 export default ProjectCard
