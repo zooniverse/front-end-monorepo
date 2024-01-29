@@ -19,6 +19,9 @@ const stores = {
   project: {
     isComplete: false
   },
+  ui: {
+    setAuthModalActiveIndex: () => {}
+  },
   user: {
     isLoggedIn: false,
     personalization: {

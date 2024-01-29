@@ -1,4 +1,4 @@
-import { node } from 'prop-types'
+import { node, string } from 'prop-types'
 import { Box } from 'grommet'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
@@ -30,10 +30,19 @@ function useStores() {
   }
 }
 
-function StandardLayout ({
-  children
-}) {
+export function HeaderComponents({ adminMode }) {
   const { t } = useTranslation('components')
+
+  return (
+    <header aria-label={t('StandardLayout.headerLabel')}>
+      <PageHeader adminMode={adminMode} />
+      <ProjectHeader adminMode={adminMode} />
+      <Announcements />
+    </header>
+  )
+}
+
+function StandardLayout({ children, page = '' }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -47,11 +56,7 @@ function StandardLayout ({
 
   return (
     <PageBox className={className} data-testid='project-page' border={border}>
-      <header aria-label={t('StandardLayout.headerLabel')}>
-        <PageHeader adminMode={adminMode} />
-        <ProjectHeader adminMode={adminMode} />
-        <Announcements />
-      </header>
+      {page !== 'home' && <HeaderComponents adminMode={adminMode} />}
       {children}
       <ZooFooter
         adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
@@ -62,7 +67,8 @@ function StandardLayout ({
 }
 
 StandardLayout.propTypes = {
-  children: node
+  children: node,
+  page: string
 }
 
 export default observer(StandardLayout)

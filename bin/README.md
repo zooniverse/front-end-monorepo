@@ -9,6 +9,7 @@ This script gets the monorepo into a working state by doing the following:
 1. Build `@zooniverse/async-states`
 1. Build `@zooniverse/grommet-theme`
 1. Build `@zooniverse/react-components`
+1. Build `@zooniverse/lib-user`
 1. Build `@zooniverse/lib-classifier`
 
 ## `panic-button.sh`
