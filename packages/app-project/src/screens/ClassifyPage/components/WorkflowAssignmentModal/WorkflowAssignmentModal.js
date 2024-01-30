@@ -33,7 +33,7 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
   const router = useRouter()
   const owner = router?.query?.owner
   const project = router?.query?.project
-  const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
+  const url = `/projects/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
 
   /** Check if user has dismissed the modal, but only in the browser */
   const isBrowser = typeof window !== 'undefined'
