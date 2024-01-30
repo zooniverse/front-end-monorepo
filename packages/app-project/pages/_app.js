@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 `
 const isBrowser = typeof window !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : null
-enableStaticRendering(isBrowser)
+enableStaticRendering(!isBrowser)
 // If no theme item in localStorage, see if the user's browser settings prefer dark mode
 // If theme key is in localStorage, use that for themeMode
 // The same key is used in PFE's theme mode toggle
