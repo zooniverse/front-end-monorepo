@@ -2,18 +2,18 @@ import { Box, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
-import PageLayout from '../../shared/components/PageLayout/layout.js'
-import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
-import Head from '../../shared/components/Head'
-import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
-import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
+import PageLayout from '@shared/components/PageLayout/layout.js'
+import DropdownNav from '@shared/components/DropdownNav/DropdownNav.js'
+import Head from '@shared/components/Head'
+import Sidebar from '@shared/components/Sidebar/Sidebar.js'
+import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
 import {
   HeadingForNav,
   mobileBreakpoint,
   MobileHeading,
   StyledGrid,
   StyledHeading
-} from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+} from '@shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import OurMission from './components/OurMission.js'
 import HowItWorks from './components/HowItWorks.js'
 
