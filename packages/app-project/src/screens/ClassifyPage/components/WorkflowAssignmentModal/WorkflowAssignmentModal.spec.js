@@ -17,7 +17,7 @@ describe('Component > WorkflowAssignmentModal', function () {
     })
 
     it('should render a confirmation link', function () {
-      const link = document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)
+      const link = document.querySelector(`a[href='/projects/zooniverse/snapshot-serengeti/classify/workflow/1234'`)
       expect(link).to.be.ok()
     })
 
