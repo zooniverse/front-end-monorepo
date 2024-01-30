@@ -1,6 +1,6 @@
 import { Anchor, Box, Button, Heading, Paragraph, Text } from 'grommet'
 import { Trans, useTranslation } from 'next-i18next'
-import { CircleQuestion } from 'grommet-icons'
+import { Edit, Group, Help } from 'grommet-icons'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
@@ -39,28 +39,46 @@ export default function Contact({ widgetLoaded = false }) {
         pad={{ vertical: 'medium' }}
       >
         <Box width='30%' align='center'>
-          <CircleQuestion
-            size='2rem'
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-          />
+          <Box
+            height='2.5rem'
+            width='2.5rem'
+            align='center'
+            justify='center'
+            background='neutral-1'
+            round='50%'
+          >
+            <Help size='1.5rem' color='white' />
+          </Box>
           <Text textAlign='center' margin={{ top: 'xsmall' }}>
             {t('AboutPage.contact.categories.one')}
           </Text>
         </Box>
         <Box width='30%' align='center' pad={{ horizontal: 'small' }}>
-          <CircleQuestion
-            size='2rem'
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-          />
+          <Box
+            height='2.5rem'
+            width='2.5rem'
+            align='center'
+            justify='center'
+            background='neutral-1'
+            round='50%'
+          >
+            <Group size='1.5rem' color='white' />
+          </Box>
           <Text textAlign='center' margin={{ top: 'xsmall' }}>
             {t('AboutPage.contact.categories.two')}
           </Text>
         </Box>
         <Box width='30%' align='center'>
-          <CircleQuestion
-            size='2rem'
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-          />
+          <Box
+            height='2.5rem'
+            width='2.5rem'
+            align='center'
+            justify='center'
+            background='neutral-1'
+            round='50%'
+          >
+            <Edit size='1.5rem' color='white' />
+          </Box>
           <Text textAlign='center' margin={{ top: 'xsmall' }}>
             {t('AboutPage.contact.categories.three')}
           </Text>
