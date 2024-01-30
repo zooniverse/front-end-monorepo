@@ -54,11 +54,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // useEffect will only run in the browser.
-    if (!localStorage?.getItem('theme')) {
-      if (prefersDarkTheme) {
-        localStorage?.setItem('theme', 'dark') // The same key is used in PFE's theme mode toggle
-      }
-    }
+    localStorage?.setItem('theme', initialTheme)
     setThemeMode(initialTheme)
   }, [])
 

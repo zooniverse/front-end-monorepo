@@ -43,11 +43,7 @@ export default function PageContextProviders({ children }) {
 
   useEffect(() => {
     // useEffect will only run in the browser.
-    if (!localStorage?.getItem('theme') ) {
-      if (prefersDarkTheme) {
-        localStorage?.setItem('theme', 'dark')
-      }
-    }
+    localStorage?.setItem('theme', initialTheme)
     setThemeMode(initialTheme)
   }, [])
 
