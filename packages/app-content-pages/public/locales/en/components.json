@@ -16,7 +16,17 @@
   },
   "AboutPage": {
     "contact": {
-      "heading": "Contact Us"
+      "heading": "Contact Us",
+      "subheading": "What can we help you with?",
+      "categories": {
+        "one": "General zooniverse questions",
+        "two": "Collaborating on a project",
+        "three": "Press inquiry"
+      },
+      "paragraphs": {
+        "one": "Please read through our <0>FAQ page</0> and the <1>Zooniverse Solutions webpage</1>.",
+        "two": "Do you have an issue related to a specific project? We recommend reaching out directly to the research team on their Talk page."
+      }
     },
     "description": "",
     "highlights": {
