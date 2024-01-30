@@ -62,6 +62,7 @@ function AboutPage() {
   return (
     <>
       <Script
+        id='freshdesk-widget-init'
         dangerouslySetInnerHTML={{
           __html: `
         window.fwSettings={
@@ -74,6 +75,7 @@ function AboutPage() {
       />
       {/** Init the Freshdesk Widget, but hide it until volunteer clicks Contact section button */}
       <Script
+        id='freshdesk-widget-src'
         src='https://widget.freshworks.com/widgets/44000004375.js'
         async
         defer
