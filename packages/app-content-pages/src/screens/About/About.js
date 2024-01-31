@@ -38,7 +38,7 @@ export function HeadingForAboutNav({ color, sectionName, slug }) {
       size='1.5rem'
       tabIndex={-1}
       textAlign='center'
-      style={{ padding: '30px 0 15px 0' }}
+      style={{ padding: '30px 0 10px 0' }}
     >
       {sectionName}
     </HeadingForNav>

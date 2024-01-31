@@ -7,6 +7,7 @@ import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.
 import { HeadingForAboutNav } from '../About.js'
 
 const GradientBox = styled(Box)`
+  position: relative;
   background: linear-gradient(
     212deg,
     rgba(0, 151, 157, 0.2) 8.04%,
@@ -18,6 +19,32 @@ const GradientBox = styled(Box)`
     rgba(0, 151, 157, 0.2) 86.6%,
     rgba(255, 255, 255, 0) 100.98%
   );
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #a6a7a9 50%,
+      transparent 100%
+    );
+  }
+
+`
+
+const ListsContainer = styled(Box)`
+  flex-direction: row;
+
+  @media (width < 37rem) {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 50px;
+  }
 `
 
 const Institute = styled(Box)`
@@ -57,6 +84,36 @@ const StyledButton = styled(Button)`
   }
 `
 
+const BoxWithConnector = styled(Box)`
+  position: relative;
+
+  &:not(:nth-child(2)) {
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: calc(50% + 21px);
+      left: 24px;
+      height: 50px;
+      width: 2px;
+      background: white;
+    }
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 70px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: calc(50% + 21px);
+      left: 24px;
+      height: 50px;
+      width: 2px;
+      background: white;
+    }
+  }
+`
+
 const ArrowSVG = () => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
@@ -82,15 +139,14 @@ const ArrowSVG = () => (
 )
 
 const ListItem = ({ children }) => (
-  <Box
-    as='li'
+  <BoxWithConnector
+    forwardedAs='li'
     direction='row'
     align='center'
     width='240px'
-    margin={{ bottom: '70px' }}
   >
     {children}
-  </Box>
+  </BoxWithConnector>
 )
 
 const Step = ({ children }) => (
@@ -114,16 +170,15 @@ export default function HowItWorks() {
           level={3}
           size='2rem'
           alignSelf='center'
-          margin='0'
           color='white'
           weight='normal'
+          margin={{ top: '0', bottom: 'medium' }}
         >
           {t('AboutPage.howItWorks.subheading')}
         </Heading>
       </Box>
       <GradientBox pad='large'>
-        <Box direction='row' width='100%' justify='between'>
-
+        <ListsContainer direction='row' width='100%' justify='between'>
           {/** For Participants */}
           <Box
             as='ul'
@@ -131,7 +186,6 @@ export default function HowItWorks() {
             margin='0'
             pad='0'
             height='100%'
-            style={{ border: 'solid red 1px' }}
           >
             <ArrowBox>
               <ArrowSVG />
@@ -151,10 +205,10 @@ export default function HowItWorks() {
               <StatusGood color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.participants.steps.three')}</Step>
             </ListItem>
-            <Box as='li' direction='row' align='center' width='240px'>
+            <ListItem>
               <StatusGood color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.participants.steps.four')}</Step>
-            </Box>
+            </ListItem>
           </Box>
 
           {/** For Researchers */}
@@ -164,7 +218,6 @@ export default function HowItWorks() {
             margin='0'
             pad='0'
             height='100%'
-            style={{ border: 'solid red 1px' }}
           >
             <ArrowBox>
               <ArrowSVG />
@@ -184,12 +237,12 @@ export default function HowItWorks() {
               <StatusGood color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.researchers.steps.three')}</Step>
             </ListItem>
-            <Box as='li' direction='row' align='center' width='240px'>
+            <ListItem>
               <StatusGood color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.researchers.steps.four')}</Step>
-            </Box>
+            </ListItem>
           </Box>
-        </Box>
+        </ListsContainer>
 
         {/** Buttons */}
         <Box
