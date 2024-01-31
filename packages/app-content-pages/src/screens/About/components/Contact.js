@@ -101,10 +101,13 @@ export default function Contact({ widgetLoaded = false }) {
         />
       </Paragraph>
       <Paragraph>{t('AboutPage.contact.paragraphs.two')}</Paragraph>
-      <Box align='center' pad={{ vertical: 'small' }}>
+      <Box align='center' pad={{ top: 'small', bottom: 'xlarge' }}>
         <StyledButton primary textAlign='center' onClick={handleClick}>
           {t('AboutPage.contact.heading')}
         </StyledButton>
+        <Paragraph margin={{ top: 'medium' }}>
+          {t('AboutPage.contact.paragraphs.three')}
+        </Paragraph>
       </Box>
     </Box>
   )
