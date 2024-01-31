@@ -1,4 +1,4 @@
-import { Anchor, Box, Heading, Text } from 'grommet'
+import { Anchor, Box, Button, Heading, Image, Text } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 import { StatusGood } from 'grommet-icons'
@@ -20,14 +20,41 @@ const GradientBox = styled(Box)`
   );
 `
 
+const Institute = styled(Box)`
+  border: solid white 1px;
+  width: 100%;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  background: rgba(239, 242, 245, 0.3);
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  align-items: center;
+`
+
 const ArrowBox = styled(Box)`
   position: relative;
   width: 240px; // same as ArrowSVG
-  height: 46px; // text portion of SVG
+  height: 46px; // upper portion of SVG
   align-items: center;
   justify-content: center;
   padding: 0 25px;
   margin-bottom: 50px;
+`
+
+const StyledButton = styled(Button)`
+  background: white;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  font-size: 0.8rem;
+  padding: 5px;
+  width: 240px; // same as ArrowSVG
+  min-width: 130px;
+  border-radius: 8px;
+  border: solid 1px ${props => props.theme.global.colors['neutral-2']};
+  text-align: center;
+
+  &:hover {
+    text-decoration: none;
+  }
 `
 
 const ArrowSVG = () => (
@@ -54,6 +81,24 @@ const ArrowSVG = () => (
   </svg>
 )
 
+const ListItem = ({ children }) => (
+  <Box
+    as='li'
+    direction='row'
+    align='center'
+    width='240px'
+    margin={{ bottom: '70px' }}
+  >
+    {children}
+  </Box>
+)
+
+const Step = ({ children }) => (
+  <Text margin={{ left: '10px' }} size='1rem' color='white'>
+    {children}
+  </Text>
+)
+
 export default function HowItWorks() {
   const { t } = useTranslation()
 
@@ -76,70 +121,127 @@ export default function HowItWorks() {
           {t('AboutPage.howItWorks.subheading')}
         </Heading>
       </Box>
-      <GradientBox direction='row' pad='medium'>
-        <Box as='ul' width='50%' align='center' margin='0' pad='0'>
-          <ArrowBox>
-            <ArrowSVG />
-            <Text color='white' weight='bold' size='1.125rem'>
-              {`${t('AboutPage.howItWorks.participants.description')}:`}
-            </Text>
-          </ArrowBox>
-          <Box as='li' direction='row' align='center' width='240px' margin={{ bottom: '70px' }}>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.participants.steps.one')}
-            </Text>
+      <GradientBox pad='large'>
+        <Box direction='row' width='100%' justify='between'>
+
+          {/** For Participants */}
+          <Box
+            as='ul'
+            width={{ max: '240px' }}
+            margin='0'
+            pad='0'
+            height='100%'
+            style={{ border: 'solid red 1px' }}
+          >
+            <ArrowBox>
+              <ArrowSVG />
+              <Text color='white' weight='bold' size='1.125rem'>
+                {`${t('AboutPage.howItWorks.participants.description')}:`}
+              </Text>
+            </ArrowBox>
+            <ListItem>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.participants.steps.one')}</Step>
+            </ListItem>
+            <ListItem>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.participants.steps.two')}</Step>
+            </ListItem>
+            <ListItem>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.participants.steps.three')}</Step>
+            </ListItem>
+            <Box as='li' direction='row' align='center' width='240px'>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.participants.steps.four')}</Step>
+            </Box>
           </Box>
-          <Box as='li' direction='row' align='center' width='240px' margin={{ bottom: '70px' }}>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.participants.steps.two')}
-            </Text>
-          </Box>
-          <Box as='li' direction='row' align='center' width='240px' margin={{ bottom: '70px' }}>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.participants.steps.three')}
-            </Text>
-          </Box>
-          <Box as='li' direction='row' align='center' width='240px'>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.participants.steps.four')}
-            </Text>
+
+          {/** For Researchers */}
+          <Box
+            as='ul'
+            width={{ max: '240px' }}
+            margin='0'
+            pad='0'
+            height='100%'
+            style={{ border: 'solid red 1px' }}
+          >
+            <ArrowBox>
+              <ArrowSVG />
+              <Text color='white' weight='bold' size='1.125rem'>
+                {`${t('AboutPage.howItWorks.researchers.description')}:`}
+              </Text>
+            </ArrowBox>
+            <ListItem>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.researchers.steps.one')}</Step>
+            </ListItem>
+            <ListItem>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.researchers.steps.two')}</Step>
+            </ListItem>
+            <ListItem>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.researchers.steps.three')}</Step>
+            </ListItem>
+            <Box as='li' direction='row' align='center' width='240px'>
+              <StatusGood color='white' size='50px' />
+              <Step>{t('AboutPage.howItWorks.researchers.steps.four')}</Step>
+            </Box>
           </Box>
         </Box>
-        <Box as='ul' width='50%' align='center' margin='0' pad='0'>
-          <ArrowBox>
-            <ArrowSVG />
-            <Text color='white' weight='bold' size='1.125rem'>
-              {`${t('AboutPage.howItWorks.researchers.description')}:`}
-            </Text>
-          </ArrowBox>
-          <Box as='li' direction='row' align='center' width='240px' margin={{ bottom: '70px' }}>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.researchers.steps.one')}
-            </Text>
-          </Box>
-          <Box as='li' direction='row' align='center' width='240px' margin={{ bottom: '70px' }}>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.researchers.steps.two')}
-            </Text>
-          </Box>
-          <Box as='li' direction='row' align='center' width='240px' margin={{ bottom: '70px' }}>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.researchers.steps.three')}
-            </Text>
-          </Box>
-          <Box as='li' direction='row' align='center' width='240px'>
-            <StatusGood color='white' size='50px' />
-            <Text margin={{ left: '10px' }} size='1rem'>
-              {t('AboutPage.howItWorks.researchers.steps.four')}
-            </Text>
-          </Box>
+
+        {/** Buttons */}
+        <Box
+          direction='row'
+          pad={{ vertical: 'medium' }}
+          gap='small'
+          justify='between'
+        >
+          <StyledButton
+            as={Anchor}
+            color='black'
+            plain
+            href='https://www.zooniverse.org/projects'
+            label={t('AboutPage.howItWorks.participants.link')}
+            weight='normal'
+          />
+          <StyledButton
+            as={Anchor}
+            color='black'
+            plain
+            href='https://www.zooniverse.org/lab'
+            label={t('AboutPage.howItWorks.researchers.link')}
+            weight='normal'
+          />
+        </Box>
+
+        {/** Institutes */}
+        <Box direction='row' gap='small'>
+          <Institute>
+            <Image
+              alt='The Adler Planetarium'
+              width='100px'
+              src='/about/assets/adler.png'
+              fit='contain'
+            />
+          </Institute>
+          <Institute>
+            <Image
+              alt='University of Minnesota'
+              width='100%'
+              src='/about/assets/minnesota.png'
+              fit='contain'
+            />
+          </Institute>
+          <Institute>
+            <Image
+              alt='University of Oxford'
+              width='75px'
+              src='/about/assets/oxford.jpg'
+              fit='contain'
+            />
+          </Institute>
         </Box>
       </GradientBox>
     </MaxWidthContent>
