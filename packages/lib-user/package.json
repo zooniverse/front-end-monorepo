@@ -80,7 +80,7 @@
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
     "style-loader": "~3.3.1",
-    "webpack": "~5.89.0",
+    "webpack": "~5.90.0",
     "webpack-cli": "~5.1.0",
     "webpack-dev-server": "~4.15.0"
   },
