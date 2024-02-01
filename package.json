@@ -49,8 +49,5 @@
     "packages": [
       "packages/**"
     ]
-  },
-  "resolutions": {
-    "markdown-it": "~13.0.2"
   }
 }
