@@ -15,6 +15,8 @@ import {
 
 import MainContent from './components/MainContent'
 import Layout from '../shared/Layout/Layout'
+import ContentBox from '../shared/ContentBox/ContentBox'
+import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
 
 function UserStats ({
   authClient
