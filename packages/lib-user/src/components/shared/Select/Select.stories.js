@@ -37,6 +37,7 @@ export const DateRanges = {
   args: {
     id: 'DateRanges',
     name: 'DateRanges',
-    options: options
+    options: options,
+    value: options[0]
   }
 }
