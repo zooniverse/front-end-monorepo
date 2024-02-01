@@ -1,7 +1,16 @@
 import { Anchor, Box, Button, Heading, Image, Text } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
-import { StatusGood } from 'grommet-icons'
+import {
+  Certificate,
+  Compass,
+  Compliance,
+  Deploy,
+  Download,
+  Info,
+  Troubleshoot,
+  Validate
+} from 'grommet-icons'
 
 import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
 import { HeadingForAboutNav } from '../About.js'
@@ -34,7 +43,6 @@ const GradientBox = styled(Box)`
       transparent 100%
     );
   }
-
 `
 
 const ListsContainer = styled(Box)`
@@ -91,9 +99,9 @@ const BoxWithConnector = styled(Box)`
     &:before {
       content: '';
       position: absolute;
-      bottom: calc(50% + 21px);
+      bottom: calc(50% + 40px);
       left: 24px;
-      height: 50px;
+      height: 30px;
       width: 2px;
       background: white;
     }
@@ -105,9 +113,9 @@ const BoxWithConnector = styled(Box)`
     &:after {
       content: '';
       position: absolute;
-      top: calc(50% + 21px);
+      top: calc(50% + 40px);
       left: 24px;
-      height: 50px;
+      height: 30px;
       width: 2px;
       background: white;
     }
@@ -194,19 +202,19 @@ export default function HowItWorks() {
               </Text>
             </ArrowBox>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Compass color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.participants.steps.one')}</Step>
             </ListItem>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Info color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.participants.steps.two')}</Step>
             </ListItem>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Compliance color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.participants.steps.three')}</Step>
             </ListItem>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Certificate color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.participants.steps.four')}</Step>
             </ListItem>
           </Box>
@@ -226,19 +234,19 @@ export default function HowItWorks() {
               </Text>
             </ArrowBox>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Troubleshoot color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.researchers.steps.one')}</Step>
             </ListItem>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Validate color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.researchers.steps.two')}</Step>
             </ListItem>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Deploy color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.researchers.steps.three')}</Step>
             </ListItem>
             <ListItem>
-              <StatusGood color='white' size='50px' />
+              <Download color='white' size='50px' />
               <Step>{t('AboutPage.howItWorks.researchers.steps.four')}</Step>
             </ListItem>
           </Box>
