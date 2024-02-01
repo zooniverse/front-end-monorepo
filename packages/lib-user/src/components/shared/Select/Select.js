@@ -30,7 +30,8 @@ function Select({
       <Box
         width={{ max: '215px' }}
       >
-        <GrommetSelect 
+        <GrommetSelect
+          a11yTitle={name}
           id={id}
           name={name}
           labelKey='label'
