@@ -14,7 +14,7 @@ function App ({
   const [userAuth, setUserAuth] = useState(null)
   const [dark, setDarkTheme] = useState(false)
 
-  const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
+  const { data: user, error, isLoading: userLoading } = usePanoptesUser()
 
   useEffect(() => {
     async function initUserAuth () {
@@ -107,7 +107,6 @@ function App ({
 
       content = (
         <UserStats
-          authClient={oauth}
           login={login}
         />
       )
