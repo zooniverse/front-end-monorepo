@@ -107,6 +107,7 @@ function App ({
 
       content = (
         <UserStats
+          authClient={oauth}
           login={login}
         />
       )

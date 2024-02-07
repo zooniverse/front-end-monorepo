@@ -22,7 +22,6 @@ function TitledStat ({
     >
       <SpacedText
         color={{ dark: 'neutral-6', light: 'neutral-7' }}
-        size='xsmall'
         uppercase={false}
       >
         {title}
@@ -32,7 +31,7 @@ function TitledStat ({
         size='xlarge'
         weight='bold'
       >
-        {value}
+        {value.toLocaleString()}
       </SpacedText>
     </Box>
   )
