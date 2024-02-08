@@ -17,8 +17,8 @@ import {
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import Contact from './components/Contact.js'
-import OurMission from './components/OurMission.js'
 import HowItWorks from './components/HowItWorks.js'
+import OurMission from './components/OurMission.js'
 
 const StyledSidebar = styled(Sidebar)`
   @media (width <= ${mobileBreakpoint}) {

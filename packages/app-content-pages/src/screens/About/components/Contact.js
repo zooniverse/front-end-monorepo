@@ -9,6 +9,7 @@ const StyledButton = styled(Button)`
   padding: 10px;
   background: ${props => props.theme.global.colors['neutral-1']};
   width: 400px;
+  border-radius: 5px;
 `
 
 export default function Contact({ widgetLoaded = false }) {
