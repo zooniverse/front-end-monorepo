@@ -1,8 +1,7 @@
+import { env } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
 import { usePanoptesAuth } from '@hooks'
-
-// TODO: refactor for stats hosts (staging, production, etc.)
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -10,6 +9,15 @@ const SWROptions = {
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
+}
+
+function statsHost(env) {
+  switch (env) {
+    case 'production':
+      return 'https://eras.zooniverse.org'
+    default:
+      return 'https://eras-staging.zooniverse.org'
+  }
 }
 
 const defaultEndpoint = '/classifications/users'
@@ -24,11 +32,12 @@ const defaultQuery = {
 }
 
 async function fetchUserStats({ endpoint, query, userID, authorization }) {
+  const stats = statsHost(env)
   const queryParams = new URLSearchParams(query).toString()
   const headers = { authorization }
   
   try {
-    const response = await fetch(`https://eras-staging.zooniverse.org${endpoint}/${userID}?${queryParams}`, { headers })
+    const response = await fetch(`${stats}${endpoint}/${userID}?${queryParams}`, { headers })
     const data = await response.json()
     return data
   } catch (error) {
