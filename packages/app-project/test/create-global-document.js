@@ -32,8 +32,19 @@ class ResizeObserver {
     }
 }
 
+const mockMediaMatcher = {
+  addListener() {
+    return true
+  },
+  removeListener() {
+    return true
+  },
+  matches: true
+}
+
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
+window.matchMedia = () => mockMediaMatcher
 
 global.dom = jsdom
 global.fetch = fetch
