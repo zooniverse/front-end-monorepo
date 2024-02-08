@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
@@ -43,9 +43,9 @@ describe('Component > Tabs', function () {
     expect(within(tabPanel).getByText('An apple is a red fruit.')).to.exist()
 
     await user.click(tabButton1)
-    expect(within(tabPanel).getByText('A banana is a long fruit.')).to.exist()
+    await waitFor(() => expect(within(tabPanel).getByText('A banana is a long fruit.')).to.exist())
 
     await user.click(tabButton2)
-    expect(within(tabPanel).getByText('A cherry is a stone fruit.')).to.exist()
+    await waitFor(() => expect(within(tabPanel).getByText('A cherry is a stone fruit.')).to.exist())
   })
 })
