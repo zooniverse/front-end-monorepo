@@ -4,11 +4,11 @@ import styled from 'styled-components'
 import Script from 'next/script'
 import { useState } from 'react'
 
-import PageLayout from '../../shared/components/PageLayout/layout.js'
-import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
-import Head from '../../shared/components/Head'
-import Sidebar from '../../shared/components/Sidebar/Sidebar.js'
-import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
+import PageLayout from '@shared/components/PageLayout/layout.js'
+import DropdownNav from '@shared/components/DropdownNav/DropdownNav.js'
+import Head from '@shared/components/Head'
+import Sidebar from '@shared/components/Sidebar/Sidebar.js'
+import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
 import {
   HeadingForNav,
   mobileBreakpoint,
@@ -18,6 +18,7 @@ import {
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import Contact from './components/Contact.js'
 import OurMission from './components/OurMission.js'
+import HowItWorks from './components/HowItWorks.js'
 
 const StyledSidebar = styled(Sidebar)`
   @media (width <= ${mobileBreakpoint}) {
@@ -31,11 +32,11 @@ const StyledDropdownNav = styled(DropdownNav)`
   }
 `
 
-function HeadingForAboutNav({ sectionName, slug }) {
+export function HeadingForAboutNav({ color, sectionName, slug }) {
   return (
     <HeadingForNav
       id={slug}
-      color={{ light: 'brand', dark: 'white' }}
+      color={color}
       level={2}
       size='1.5rem'
       tabIndex={-1}
@@ -118,6 +119,7 @@ function AboutPage() {
           <article>
             <Box>
               <HeadingForAboutNav
+                color={{ light: 'brand', dark: 'white' }}
                 sectionName={t('AboutPage.ourMission.heading')}
                 slug={sidebarSections[0].slug}
               />
@@ -127,16 +129,12 @@ function AboutPage() {
         </StyledGrid>
 
         {/** How It Works */}
-        <Box>
-          <HeadingForAboutNav
-            sectionName={t('AboutPage.howItWorks.heading')}
-            slug={sidebarSections[1].slug}
-          />
-        </Box>
+        <HowItWorks />
 
         {/** Mobile App */}
         <MaxWidthContent>
           <HeadingForAboutNav
+            color={{ light: 'brand', dark: 'white' }}
             sectionName={t('AboutPage.mobile.heading')}
             slug={sidebarSections[2].slug}
           />
@@ -145,6 +143,7 @@ function AboutPage() {
         {/** Highlights */}
         <MaxWidthContent>
           <HeadingForAboutNav
+            color={{ light: 'brand', dark: 'white' }}
             sectionName={t('AboutPage.highlights.heading')}
             slug={sidebarSections[3].slug}
           />
@@ -153,6 +152,7 @@ function AboutPage() {
         {/** Contact Us */}
         <MaxWidthContent>
           <HeadingForAboutNav
+            color={{ light: 'brand', dark: 'white' }}
             sectionName={t('AboutPage.contact.heading')}
             slug={sidebarSections[4].slug}
           />
