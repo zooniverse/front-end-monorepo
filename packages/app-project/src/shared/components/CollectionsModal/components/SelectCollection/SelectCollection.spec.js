@@ -48,7 +48,7 @@ describe('Component > SelectCollection', function () {
     await screen.findByRole('listbox')
 
     const searchBar = document.querySelector('input[type="search"]')
-    await user.type(searchBar, ' coll') // causes [TypeError: activeElement.attachEvent is not a function]
+    await user.type(searchBar, 'coll') // causes [TypeError: activeElement.attachEvent is not a function]
 
     expect(onSearch).to.have.callCount(4)
     expect(onSearch.withArgs(baseQuery)).to.have.been.calledThrice()
