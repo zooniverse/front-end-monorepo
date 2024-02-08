@@ -24,7 +24,28 @@
       "sidebar": "Highlights"
     },
     "howItWorks": {
-      "heading": "How It Works"
+      "heading": "How It Works",
+      "subheading": "People-powered research",
+      "participants": {
+        "link": "Explore projects",
+        "description": "As a participant",
+        "steps" :{
+          "one": "Find a project that interests you",
+          "two": "Learn the process of classifying that project",
+          "three": "Submit your classification and help with real research!",
+          "four": "Generate an official certificate verifying your efforts on the platform"
+        }
+      },
+      "researchers": {
+        "link": "Build a project",
+        "description": "As a researcher",
+        "steps": {
+          "one": "Build your project using the Zooniverse Project Builder",
+          "two": "Submit your project for approval",
+          "three": "Launch your project and engage with volunteers on Talk while the classifications come in",
+          "four": "Download your data and publish your results!"
+        }
+      }
     },
     "mobile": {
       "heading": "Check Out Our Mobile App",
