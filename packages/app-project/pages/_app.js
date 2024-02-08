@@ -1,7 +1,7 @@
 import makeInspectable from 'mobx-devtools-mst'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 import { Grommet } from 'grommet'
@@ -9,7 +9,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
-import { usePanoptesUser, useSugarProject, useUserFavourites } from '@hooks'
+import { usePanoptesUser, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
@@ -37,20 +37,7 @@ function useStore(initialState) {
 
 function MyApp({ Component, pageProps }) {
   /* Handle the theme mode */
-  const [themeMode, setThemeMode] = useState('light')
-  const isBrowser = typeof window !== 'undefined'
-  const localStorage = isBrowser ? window.localStorage : null
-
-  useEffect(() => {
-    if (isBrowser && !localStorage?.getItem('theme')) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setThemeMode('dark')
-        localStorage?.setItem('theme', 'dark') // The same key is used in PFE's theme mode toggle
-      }
-    } else if (isBrowser) {
-      setThemeMode(localStorage?.getItem('theme'))
-    }
-  }, [])
+  const [themeMode, setThemeMode] = usePreferredTheme()
 
   function toggleTheme() {
     const newTheme = themeMode === 'light' ? 'dark' : 'light'

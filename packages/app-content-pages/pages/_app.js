@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
@@ -8,6 +7,7 @@ import Error from 'next/error'
 
 import PageHeader from '../src/shared/components/PageHeader/PageHeader.js'
 import { PanoptesAuthContext, ThemeModeContext } from '../src/shared/contexts'
+import usePreferredTheme from '../src/shared/hooks/usePreferredTheme.js'
 import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 
 const GlobalStyle = createGlobalStyle`
@@ -19,24 +19,7 @@ const GlobalStyle = createGlobalStyle`
 function MyApp({ Component, pageProps }) {
   const { data: user, error, isLoading } = usePanoptesUser()
   const authContext = { error, isLoading, user }
-
-  const [themeMode, setThemeMode] = useState('light')
-  const isBrowser = typeof window !== 'undefined'
-  const localStorage = isBrowser ? window.localStorage : null
-
-  useEffect(() => {
-    // If no theme item in localStorage, see if the user's browser settings prefer dark mode
-    // If theme key is in localStorage, use that for themeMode
-    // The same key is used in PFE's theme mode toggle
-    if (isBrowser && !localStorage?.getItem('theme')) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setThemeMode('dark')
-        localStorage?.setItem('theme', 'dark')
-      }
-    } else if (isBrowser) {
-      setThemeMode(localStorage?.getItem('theme'))
-    }
-  }, [])
+  const [themeMode, setThemeMode] = usePreferredTheme()
 
   function toggleTheme() {
     const newTheme = themeMode === 'light' ? 'dark' : 'light'
