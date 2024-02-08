@@ -40,7 +40,7 @@ async function fetchUserStats({ endpoint, query, userID, authorization }) {
 export default function useUserStats({ authClient, endpoint = defaultEndpoint, query = defaultQuery, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   
-  const key = authorization ? { endpoint, query, userID, authorization } : null
+  const key = (authorization && userID) ? { endpoint, query, userID, authorization } : null
 
   return useSWR(key, fetchUserStats, SWROptions)
 }

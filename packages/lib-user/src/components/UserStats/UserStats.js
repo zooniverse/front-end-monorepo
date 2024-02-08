@@ -15,7 +15,7 @@ function UserStats ({
   authClient,
   login = ''
 }) {
-  const { data: user, error, isLoading } = usePanoptesUser()
+  const { data: user, error, isLoading } = usePanoptesUser(authClient)
 
   const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id })
 
