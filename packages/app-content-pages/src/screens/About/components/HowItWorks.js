@@ -1,6 +1,6 @@
 import { Anchor, Box, Button, Heading, Image, Text } from 'grommet'
 import { useTranslation } from 'next-i18next'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import {
   Certificate,
   Compass,
@@ -165,6 +165,8 @@ const Step = ({ children }) => (
 
 export default function HowItWorks() {
   const { t } = useTranslation()
+  const { global } = useTheme()
+  const customButtonBorder = global.colors.brand
 
   return (
     <MaxWidthContent background='neutral-1' round='16px'>
@@ -274,6 +276,7 @@ export default function HowItWorks() {
             href='https://www.zooniverse.org/lab'
             label={t('AboutPage.howItWorks.researchers.link')}
             weight='normal'
+            style={{ borderColor: customButtonBorder }} // intentionally different than other StyledButton
           />
         </Box>
 
