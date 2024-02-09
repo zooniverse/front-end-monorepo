@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import TaskHelp from './TaskHelp'
@@ -40,7 +40,7 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      expect(screen.getByText('Try this')).to.be.ok()
+      await waitFor(() => expect(screen.getByText('Try this')).to.be.ok())
     })
   
     it('should not show any <hr />', async function () {
@@ -58,7 +58,7 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
       
-      expect(screen.getByText('Try this')).to.be.ok()
+      await waitFor(() => expect(screen.getByText('Try this')).to.be.ok())
       const closeButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.close' })
       await user.click(closeButton)
       
@@ -79,7 +79,7 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      expect(screen.getByText('Try this')).to.be.ok()
+      await waitFor(() => expect(screen.getByText('Try this')).to.be.ok())
       expect(screen.getByText('Try this again')).to.be.ok()
     })
 
@@ -89,7 +89,7 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      expect(screen.getAllByRole('separator')).to.have.lengthOf(1)  
+      await waitFor(() => expect(screen.getAllByRole('separator')).to.have.lengthOf(1))
     })
   })
 })

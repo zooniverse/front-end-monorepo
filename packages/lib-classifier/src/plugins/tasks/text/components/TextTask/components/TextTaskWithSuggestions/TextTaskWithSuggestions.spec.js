@@ -42,7 +42,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
         keys: '[MouseLeft]',
         target: textInput
       })
-      options = document.querySelectorAll('[role=option]')
+      options = await screen.findAllByRole('option')
     })
 
 

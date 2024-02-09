@@ -75,7 +75,7 @@ describe('SurveyTask with user keystrokes', function () {
 
     it('should show characteristic filter sections', async function () {
       // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
-      const characteristicsSection = screen.getByTestId('characteristics')
+      const characteristicsSection = await screen.findByTestId('characteristics')
       const filterSections = within(characteristicsSection).getAllByRole('radiogroup')
       expect(filterSections.length).to.equal(3)
     })

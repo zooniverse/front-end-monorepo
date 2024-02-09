@@ -225,4 +225,31 @@ describe('Component > StandardLayout', function () {
       expect(adminToggle.checked).to.be.true()
     })
   })
+
+  describe('use in project homepage', function () {
+    before(function () {
+      const snapshot = {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: 'Foobar'
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        },
+        user: {}
+      }
+      render(<StandardLayout page='home' />, { wrapper: withStore(snapshot)})
+      projectPage = screen.getByTestId('project-page')
+      zooHeader = screen.queryByRole('banner') // banner role is the <header> element
+    })
+
+    it('should not render the header components', function () {
+      expect(zooHeader).to.be.null()
+    })
+  })
 })

@@ -1,19 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
-import { Button, Box, CheckBox, Text } from 'grommet'
+import { Button, Box, CheckBox } from 'grommet'
 import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import styled from 'styled-components'
-
-import NavLink from '@shared/components/NavLink'
-
-const StyledNavLink = styled(NavLink)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+import Link from 'next/link'
+import addQueryParams from '@helpers/addQueryParams'
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
@@ -98,13 +91,10 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
           label={t('Classify.WorkflowAssignmentModal.cancel')}
           onClick={() => closeFn()}
         />
-        <StyledNavLink
-          StyledAnchor={PrimaryButton}
-          StyledSpacedText={Text}
-          link={{
-            href: url,
-            text: t('Classify.WorkflowAssignmentModal.confirm'),
-          }}
+        <PrimaryButton
+          as={Link}
+          href={addQueryParams(url)}
+          label={t('Classify.WorkflowAssignmentModal.confirm')}
         />
       </Box>
     </Modal>

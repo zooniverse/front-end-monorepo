@@ -14,6 +14,15 @@ export default function OurMission() {
   const { t } = useTranslation()
   return (
     <>
+      <Heading
+        level={3}
+        size='1.5rem'
+        alignSelf='center'
+        margin='0'
+        weight='normal'
+      >
+        &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
+      </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
         <Trans
           i18nKey='AboutPage.ourMission.paragraphs.one'
