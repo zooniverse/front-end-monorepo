@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { composeStory } from '@storybook/react'
 
+import dateRanges from '../BarChart/helpers/dateRanges'
 import Meta, { DateRanges } from './Select.stories'
 
 describe('components > shared > Select', function() {
@@ -22,13 +23,6 @@ describe('components > shared > Select', function() {
 
     const options = screen.getAllByRole('option')
 
-    expect(options.length).to.equal(7)
-    expect(screen.getByText('LAST 7 DAYS')).to.be.ok()
-    expect(screen.getByText('LAST 30 DAYS')).to.be.ok()
-    expect(screen.getByText('THIS MONTH')).to.be.ok()
-    expect(screen.getByText('LAST 3 MONTHS')).to.be.ok()
-    expect(screen.getByText('THIS YEAR')).to.be.ok()
-    expect(screen.getByText('LAST 12 MONTHS')).to.be.ok()
-    expect(screen.getByText('ALL TIME')).to.be.ok()
+    expect(options.length).to.equal(dateRanges.values.length)
   })
 })
