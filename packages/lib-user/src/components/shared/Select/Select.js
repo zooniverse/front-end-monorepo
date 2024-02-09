@@ -1,8 +1,17 @@
 import { Box, Select as GrommetSelect, ThemeContext } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 
 import selectTheme from './theme'
+
+const StyledBox = styled(Box)`
+  ${props =>
+    props.open &&
+    css`
+      background: linear-gradient(to top, ${props.theme.global.colors.brand} 50%, transparent 50%);
+    `}
+` 
 
 const DEFAULT_HANDLER = () => {}
 const DEFAULT_VALUE = { label: '', value: '' }
@@ -14,6 +23,7 @@ function Select({
   options = [],
   value = DEFAULT_VALUE
 }) {
+  const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(value)
 
   useEffect(() => {
@@ -25,9 +35,18 @@ function Select({
     handleChange(option)
   }
 
+  function handleOpen() {
+    setOpen(!open)
+  }
+
+  function handleClose() {
+    setOpen(false)
+  }
+
   return (
     <ThemeContext.Extend value={selectTheme}>
-      <Box
+      <StyledBox
+        open={open}
         width={{ max: '215px' }}
       >
         <GrommetSelect
@@ -36,12 +55,15 @@ function Select({
           name={name}
           labelKey='label'
           onChange={({ option }) => handleSelect(option)}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          open={open}
           options={options}
           size='medium'
           style={{ textAlign: 'center' }}
           value={selected}
         />
-      </Box>
+      </StyledBox>
     </ThemeContext.Extend>
   )
 }
