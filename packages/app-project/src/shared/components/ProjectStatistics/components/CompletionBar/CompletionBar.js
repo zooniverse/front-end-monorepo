@@ -39,8 +39,6 @@ class CompletionBar extends Component {
   drawChart () {
     const bar = this.d3svg.selectAll('.bar')
 
-    // TODO: see if this looks better when using a scale transform instead of
-    // manipulating the width.
     bar.selectAll('rect')
       .transition()
       .duration(1000)
