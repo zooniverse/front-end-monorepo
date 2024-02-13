@@ -3178,6 +3178,14 @@
     "@storybook/client-logger" "7.6.12"
     "@storybook/preview-api" "7.6.12"
 
+"@storybook/core-client@7.6.15":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@storybook/core-client/-/core-client-7.6.15.tgz#f6ae09e82359d9b02afb978572d28fe0491042b1"
+  integrity sha512-jwWol+zo+ItKBzPm9i80bEL6seHMsV0wKSaViVMQ4TqHtEbNeFE8sFEc2NTr18VNBnQOdlQPnEWmdboXBUrGcA==
+  dependencies:
+    "@storybook/client-logger" "7.6.15"
+    "@storybook/preview-api" "7.6.15"
+
 "@storybook/core-common@7.6.12":
   version "7.6.12"
   resolved "https://registry.yarnpkg.com/@storybook/core-common/-/core-common-7.6.12.tgz#a42bdcdb5c68aafcf57492666ad99cfe8261e3f9"
@@ -3371,6 +3379,19 @@
     doctrine "^3.0.0"
     lodash "^4.17.21"
 
+"@storybook/docs-tools@7.6.15":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@storybook/docs-tools/-/docs-tools-7.6.15.tgz#ca2215571ecf66570cffb401be1cdcd373ba795e"
+  integrity sha512-npZEaI9Wpn9uJcRXFElqyiRw8bSxt95mLywPiEEGMT2kE5FfXM8d5Uj5O64kzoXdRI9IhRPEEZZidOtA/UInfQ==
+  dependencies:
+    "@storybook/core-common" "7.6.15"
+    "@storybook/preview-api" "7.6.15"
+    "@storybook/types" "7.6.15"
+    "@types/doctrine" "^0.0.3"
+    assert "^2.1.0"
+    doctrine "^3.0.0"
+    lodash "^4.17.21"
+
 "@storybook/global@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/global/-/global-5.0.0.tgz#b793d34b94f572c1d7d9e0f44fac4e0dbc9572ed"
@@ -3554,6 +3575,11 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.6.12.tgz#190dddfda677a46453e253a95dacf5a7175bb191"
   integrity sha512-P8eu/s/RQlc/7Yvr260lqNa6rttxIYiPUuHQBu9oCacwkpB3Xep2R/PUY2CifRHqlDhaOINO/Z79oGZl4EBQRQ==
 
+"@storybook/react-dom-shim@7.6.15":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.6.15.tgz#5696c0dfee2eaf2ecddc4537f13fde3c41986e2f"
+  integrity sha512-2+X0HIxIyvjfSKVyGGjSJJLEFJ2ox7Rr8FjlMiRo5QfoOJhohZuWH7p4Lw7JMwm5PotnjrwlfsZI3cCilYJeYA==
+
 "@storybook/react-webpack5@~7.6.11":
   version "7.6.12"
   resolved "https://registry.yarnpkg.com/@storybook/react-webpack5/-/react-webpack5-7.6.12.tgz#7fcf5577015847245d048bb43aa1fd5659a85f59"
@@ -3564,7 +3590,7 @@
     "@storybook/react" "7.6.12"
     "@types/node" "^18.0.0"
 
-"@storybook/react@7.6.12", "@storybook/react@~7.6.11":
+"@storybook/react@7.6.12":
   version "7.6.12"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.6.12.tgz#371c9c1b204a7f30087051e835b6d0256d6e18d8"
   integrity sha512-ITDRGi79Qg+z1kGYv+yyJESz/5AsJVdBTMO7tr1qV7gmHElkASt6UR8SBSqKgePOnYgy3k/1PLfbzOs6G4OgYQ==
@@ -3576,6 +3602,33 @@
     "@storybook/preview-api" "7.6.12"
     "@storybook/react-dom-shim" "7.6.12"
     "@storybook/types" "7.6.12"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^18.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@~7.6.11":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.6.15.tgz#f62b3378cae9add0697b8c6bb7b440ffdb73db2f"
+  integrity sha512-oJMSh4iTGu6OqCmj0LhkuPyMkxGMTCoohN4HcDpXd96jCSyWotVebRsg9xm5ddB7f54e6DY4XDoGH0WnVoR23g==
+  dependencies:
+    "@storybook/client-logger" "7.6.15"
+    "@storybook/core-client" "7.6.15"
+    "@storybook/docs-tools" "7.6.15"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "7.6.15"
+    "@storybook/react-dom-shim" "7.6.15"
+    "@storybook/types" "7.6.15"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^18.0.0"
@@ -4214,17 +4267,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
+"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
   version "20.11.15"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.15.tgz#b853a86cfedbc768360c552b4653302b4e7417bf"
   integrity sha512-gscmuADZfvNULx1eyirVbr3kVOVZtpQtzKMCZpeSZcN6MfbkRXAR4s9/gsQ4CzxLHw6EStDtKLNtSDL3vbq05A==
-  dependencies:
-    undici-types "~5.26.4"
-
-"@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.11.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.5.tgz#be10c622ca7fcaa3cf226cf80166abc31389d86e"
-  integrity sha512-g557vgQjUUfN76MZAN/dt1z3dzcUsimuysco0KeluHgrPdJXkP/XdAURgyO2W9fZWHRtRBiVKzKn8vyOAwlG+w==
   dependencies:
     undici-types "~5.26.4"
 
