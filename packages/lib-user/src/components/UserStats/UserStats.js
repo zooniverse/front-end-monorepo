@@ -9,46 +9,40 @@ import {
   useUserStats
 } from '@hooks'
 
-import dateRanges from '../../utils/dateRanges'
+import {
+  dateRanges,
+  getStatsQueryFromDateRange
+} from '@utils'
 
 import Layout from '../shared/Layout/Layout'
 import ContentBox from '../shared/ContentBox/ContentBox'
 import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
 import Select from '../shared/Select/Select'
 
-const DEFAULT_PROJECT = {
-  label: 'ALL PROJECTS',
-  value: 'AllProjects'
-}
-
-const DEFAULT_DATE_RANGE = {
-  label: 'LAST 7 DAYS',
-  value: 'Last7Days'
-}
-
 function UserStats ({
   authClient,
   login = ''
 }) {
   const [activeTab, setActiveTab] = useState(0)
-  const [selectedProject, setSelectedProject] = useState(DEFAULT_PROJECT)
-  const [selectedDateRange, setSelectedDateRange] = useState(DEFAULT_DATE_RANGE)
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
+  const statsQuery = getStatsQueryFromDateRange(selectedDateRange)
   let projectIDs = []
 
   const { data: user, error, isLoading } = usePanoptesUser(authClient)
-  const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id })
+  const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: statsQuery })
 
   function onActive (index) {
     setActiveTab(index)
   }
 
   function handleProjectSelect (project) {
-    setSelectedProject(project)
+    setSelectedProject(project.value)
   }
 
   function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange)
+    setSelectedDateRange(dateRange.value)
   }
 
   if (userStats?.project_contributions?.length > 0) {
@@ -61,17 +55,19 @@ function UserStats ({
       label: projectID.toString(),
       value: projectID.toString()
     }))
-    projectOptions.unshift(DEFAULT_PROJECT)
+    projectOptions.unshift({ label: 'ALL PROJECTS', value: 'AllProjects'})
   }
+  const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
   
   const dateRangeOptions = dateRanges.values.map((dateRange) => ({
     label: dateRange
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/([0-9]+)/g, ' $1')
-      .toUpperCase()
-      .trim(),
-    value: dateRange.value
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/([0-9]+)/g, ' $1')
+    .toUpperCase()
+    .trim(),
+    value: dateRange
   }))
+  const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
 
   return (
     <Layout>
@@ -120,14 +116,14 @@ function UserStats ({
               name='project-select'
               handleChange={handleProjectSelect}
               options={projectOptions}
-              value={selectedProject}
+              value={selectedProjectOption}
             />
             <Select
               id='date-range-select'
               name='date-range-select'
               handleChange={handleDateRangeSelect}
               options={dateRangeOptions}
-              value={selectedDateRange}
+              value={selectedDateRangeOption}
             />
           </Box>
         </Box>
