@@ -18,14 +18,9 @@ function storeMapper(classifierStore) {
     }
   } = classifierStore
 
-  const {
-    multi_image_clone_markers: multiImageCloneMarkers
-  } = classifierStore.workflows?.active?.configuration
-
   const previousAnnotations = classification?.previousInteractionTaskAnnotations(activeInteractionTask.taskKey) || []
 
   return {
-    multiImageCloneMarkers,
     previousAnnotations,
     shownMarks
   }
@@ -38,8 +33,6 @@ function PreviousMarks ({
   scale = 1
 }) {
   const {
-    /** Clone all previous marks across all frames */
-    multiImageCloneMarkers,
     /** Annotations from previous marking tasks. Each annotation is an array of marks. */
     previousAnnotations,
     /** The show/hide previous marks setting. */
@@ -49,15 +42,13 @@ function PreviousMarks ({
   const marksToShow = shownMarks === SHOWN_MARKS.ALL || shownMarks === SHOWN_MARKS.USER
 
   if (previousAnnotations?.length > 0 && marksToShow) {
-    // Wrapping the array in an react fragment because enzyme errors otherwise 
-    // React v16 allows this, though. 
+    // Wrapping the array in an react fragment because enzyme errors otherwise
+    // React v16 allows this, though.
     return (
       <>
         {previousAnnotations.map((annotation) => {
-          const annotationValuesPerFrame = (multiImageCloneMarkers)
-            ? annotation.value
-            : annotation.value.filter(value => value.frame === frame)
-          
+          const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
+
           return (
             <g
               className='markGroup'

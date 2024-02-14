@@ -78,7 +78,9 @@ export function InteractionLayerContainer({
   const visibleMarksPerFrame = (multiImageCloneMarkers)
     ? newMarks
     : newMarks?.filter((mark) => mark.frame === frame)
-    
+
+  const interactionFrame = multiImageCloneMarkers ? 0 : frame
+
   return (
     <>
       {activeTool && (
@@ -89,7 +91,7 @@ export function InteractionLayerContainer({
           annotation={annotation}
           disabled={disabled}
           duration={duration}
-          frame={frame}
+          frame={interactionFrame}
           height={height}
           key={taskKey}
           marks={visibleMarksPerFrame}
@@ -104,7 +106,7 @@ export function InteractionLayerContainer({
       )}
       <PreviousMarks
         scale={scale}
-        frame={frame}
+        frame={interactionFrame}
       />
     </>
   )
