@@ -26,9 +26,14 @@ function UserStats ({
   const [activeTab, setActiveTab] = useState(0)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+  let projectIDs = []
 
   const statsQuery = getStatsQueryFromDateRange(selectedDateRange)
-  let projectIDs = []
+  if (selectedProject !== 'AllProjects') {
+    delete statsQuery.project_contributions
+    statsQuery.project_id = parseInt(selectedProject)
+    projectIDs = [selectedProject]
+  }
 
   const { data: user, error, isLoading } = usePanoptesUser(authClient)
   const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: statsQuery })
@@ -45,10 +50,10 @@ function UserStats ({
     setSelectedDateRange(dateRange.value)
   }
 
+  // create project options
   if (userStats?.project_contributions?.length > 0) {
     projectIDs = userStats.project_contributions.map(project => project.project_id)
   }
-
   let projectOptions = []
   if (projectIDs?.length > 0) {
     projectOptions = projectIDs.map(projectID => ({
@@ -59,6 +64,7 @@ function UserStats ({
   }
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
   
+  // create date range options
   const dateRangeOptions = dateRanges.values.map((dateRange) => ({
     label: dateRange
     .replace(/([A-Z])/g, ' $1')
@@ -82,7 +88,7 @@ function UserStats ({
           displayName={user?.display_name}
           hours={activeTab === 1 ? (userStats?.time_spent / 3600) : undefined}
           login={login}
-          projects={userStats?.project_contributions?.length}
+          projects={projectIDs?.length}
         />
         <Box
           direction='row'
