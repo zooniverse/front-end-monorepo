@@ -7,6 +7,8 @@ import {
   useUserStats
 } from '@hooks'
 
+import dateRanges from '../../utils/dateRanges'
+
 import Layout from '../shared/Layout/Layout'
 import ContentBox from '../shared/ContentBox/ContentBox'
 import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
