@@ -10,9 +10,6 @@ const FreehandLineReductions = types
     subjectId: types.string,
     workflowId: types.string
   })
-  .volatile(self => ({
-    isUsed: types.array(types.boolean),
-  }))
   .views(self => {
     return {
       findCurrentTaskMarks({ stepKey }) {

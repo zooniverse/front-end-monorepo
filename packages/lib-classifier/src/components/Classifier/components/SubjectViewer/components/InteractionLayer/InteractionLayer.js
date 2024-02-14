@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { withStores } from '@helpers'
 import styled, { css } from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
@@ -24,6 +25,17 @@ function cancelEvent(event) {
   event.stopPropagation()
 }
 
+function storeMapper(classifierStore) {
+  const {
+    multi_image_clone_markers: multiImageCloneMarkers
+  } = classifierStore.workflows?.active?.configuration
+
+  return {
+    multiImageCloneMarkers
+  }
+}
+
+
 function InteractionLayer({
   activeMark,
   activeTool,
@@ -34,6 +46,7 @@ function InteractionLayer({
   height,
   marks = [],
   move,
+  multiImageCloneMarkers = false,
   setActiveMark = () => { },
   scale = 1,
   subject,
@@ -90,11 +103,11 @@ function InteractionLayer({
   }
 
   function createMark(event) {
-    // TODO: add case for played = undefined
     const timeStamp = getFixedNumber(played, 5)
     const mark = activeTool.createMark({
       id: cuid(),
-      frame,
+      // GH Issue 5493 decided multiImageCloneMarkers force new mark frames to 0
+      frame: (multiImageCloneMarkers) ? 0 : frame,
       toolIndex: activeToolIndex
     })
 
@@ -217,5 +230,5 @@ InteractionLayer.propTypes = {
   width: PropTypes.number.isRequired
 }
 
-export default InteractionLayer
+export default withStores(InteractionLayer, storeMapper)
 export { DrawingCanvas }
