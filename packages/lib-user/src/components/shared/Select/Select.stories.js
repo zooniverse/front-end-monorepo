@@ -2,9 +2,7 @@ import { Box } from 'grommet'
 
 import Select from './Select.js'
 
-import { 
-  dateRanges
-} from '@utils'
+import dateRanges from '../../../utils/dateRanges.js'
 
 export default {
   title: 'Components/shared/Select',

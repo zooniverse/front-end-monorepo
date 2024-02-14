@@ -9,14 +9,14 @@ import {
   useUserStats
 } from '@hooks'
 
+import dateRanges from '../../utils/dateRanges'
+
 import {
   getDateInterval
 } from '@utils'
 
-import MainContent from './components/MainContent'
 import Layout from '../shared/Layout/Layout'
-import ContentBox from '../shared/ContentBox/ContentBox'
-import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
+import MainContent from './components/MainContent'
 
 function UserStats ({
   authClient
