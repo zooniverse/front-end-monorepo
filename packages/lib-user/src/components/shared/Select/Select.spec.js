@@ -1,6 +1,6 @@
+import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { composeStory } from '@storybook/react'
 
 import dateRanges from '../BarChart/helpers/dateRanges'
 import Meta, { DateRanges } from './Select.stories'
