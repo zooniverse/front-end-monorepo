@@ -31,7 +31,7 @@ function TitledStat ({
         size='xlarge'
         weight='bold'
       >
-        {value.toLocaleString()}
+        {Math.round(value).toLocaleString()}
       </SpacedText>
     </Box>
   )
@@ -44,12 +44,12 @@ TitledStat.propTypes = {
 
 function ProfileHeader ({
   avatar = '',
-  classifications = 0,
-  contributors = 0,
+  classifications = undefined,
+  contributors = undefined,
   displayName = '',
-  hours = 0,
+  hours = undefined,
   login = '',
-  projects = 0,
+  projects = undefined,
   screenSize = 'medium'
 }) {
   return (
@@ -96,25 +96,25 @@ function ProfileHeader ({
         direction='row'
         gap='small'
       >
-        {classifications ?
+        {classifications !== undefined ?
           <TitledStat
             title='Classifications'
             value={classifications} 
           />
           : null}
-        {hours ?
+        {hours !== undefined ?
           <TitledStat
             title='Hours'
             value={hours}
           /> 
           : null}
-        {contributors ?
+        {contributors !== undefined ?
           <TitledStat
             title='Contributors'
             value={contributors}
           />
           : null}
-        {projects ?
+        {projects !== undefined ?
           <TitledStat
             title='Projects'
             value={projects}
