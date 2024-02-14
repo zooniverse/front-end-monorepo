@@ -9,8 +9,6 @@ import {
   useUserStats
 } from '@hooks'
 
-import dateRanges from '../../utils/dateRanges'
-
 import {
   getDateInterval
 } from '@utils'
