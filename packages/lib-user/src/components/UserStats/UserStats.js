@@ -62,7 +62,7 @@ function UserStats ({
   let projectOptions = []
   if (projects?.length > 0) {
     projectOptions = projects.map(project => ({
-      label: project.display_name,
+      label: project.display_name.toUpperCase(),
       value: project.id
     }))
     projectOptions.unshift({ label: 'ALL PROJECTS', value: 'AllProjects'})
