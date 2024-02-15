@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
+import { toJS } from 'mobx'
 
 import DrawingToolMarks from '../DrawingToolMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { useStores } from '@hooks'
+import { getSnapshot } from 'mobx-state-tree'
 
 function storeMapper(classifierStore) {
   const {
@@ -39,15 +41,18 @@ function PreviousMarks ({
     shownMarks = 'ALL'
   } = useStores(storeMapper)
 
+  /** Won't show any marks if SHOWN_MARKS.NONE */
   const marksToShow = shownMarks === SHOWN_MARKS.ALL || shownMarks === SHOWN_MARKS.USER
 
   if (previousAnnotations?.length > 0 && marksToShow) {
-    // Wrapping the array in an react fragment because enzyme errors otherwise
-    // React v16 allows this, though.
     return (
       <>
         {previousAnnotations.map((annotation) => {
-          const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
+          const annotationMarks = annotation.toSnapshot()[0].value
+          console.log(annotationMarks)
+
+          /* `annotation` is a DrawingAnnotation type while annotation.value is an array of Marks */
+          const annotationMarksPerFrame = annotation.value.filter(mark => mark.frame === frame)
 
           return (
             <g
@@ -57,7 +62,7 @@ function PreviousMarks ({
             >
               <DrawingToolMarks
                 disabled
-                marks={annotationValuesPerFrame}
+                marks={annotationMarksPerFrame}
                 scale={scale}
               />
             </g>

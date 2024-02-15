@@ -73,8 +73,12 @@ export function InteractionLayerContainer({
   played,
   duration
 }) {
-  const newMarks =
-    shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+  const newMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+
+  /*
+   * When marks are cloned across frames, show all `marks` on every frame,
+   * otherwise check for current `frame` and filter accordingly
+   */
   const visibleMarksPerFrame = (multiImageCloneMarkers)
     ? newMarks
     : newMarks?.filter((mark) => mark.frame === frame)
