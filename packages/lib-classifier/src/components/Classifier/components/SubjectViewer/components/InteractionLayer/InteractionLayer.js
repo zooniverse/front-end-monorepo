@@ -79,8 +79,6 @@ function InteractionLayer({
     mark.setSubTaskVisibility(false)
     // Add a time value for tools that care about time. For most tools, this value is ignored.
     mark.setVideoTime(timeStamp, duration)
-    const markIDs = annotation.value?.map((mark) => mark.id)
-    annotation.update([...markIDs, mark.id])
   }
 
   function onPointerDown(event) {

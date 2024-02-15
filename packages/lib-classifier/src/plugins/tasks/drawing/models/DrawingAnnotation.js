@@ -1,4 +1,5 @@
-import { getRoot, getSnapshot, resolveIdentifier, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, getSnapshot, resolveIdentifier, types } from 'mobx-state-tree'
 import DrawingTask from './DrawingTask'
 import Annotation from '../../models/Annotation'
 import * as markTypes from '@plugins/drawingTools/models/marks'
@@ -11,11 +12,17 @@ const Drawing = types.model('Drawing', {
   value: types.array(types.safeReference(GenericMark))
 })
   .views(self => ({
-    toSnapshot () {
+    /**
+    Resolve `annotation.task`, which is a task key, to its corresponding task object.
+    */
+    get actualTask() {
+      return resolveIdentifier(DrawingTask, getRoot(self), self.task)
+    },
+
+    toSnapshot() {
       const snapshot = getSnapshot(self)
       // resolve mark references (IDs) in the snapshot to mark snapshots
-      const actualTask = resolveIdentifier(DrawingTask, getRoot(self), self.task)
-      const value = actualTask.marks.map(mark => getSnapshot(mark))
+      const value = self.actualTask.marks.map(mark => getSnapshot(mark))
       const drawingSnapshot = Object.assign({}, snapshot, { value })
       // flatten subtask annotations into a single annotations array
       // then return the flattened array
@@ -36,6 +43,16 @@ const Drawing = types.model('Drawing', {
         drawingSnapshot.value[markIndex] = rest
       })
       return drawingAnnotations
+    }
+  }))
+  .actions(self => ({
+    afterAttach() {
+      function _onMarksChange() {
+        const newAnnotation = self.actualTask.marks.map(mark => mark.id)
+        self.update(newAnnotation)
+      }
+
+      addDisposer(self, autorun(_onMarksChange))
     }
   }))
 
