@@ -1,0 +1,47 @@
+import useSWR from 'swr'
+import { projects as panoptesProjects } from '@zooniverse/panoptes-js'
+
+const SWRoptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
+
+async function fetchProjects(id) {
+  let projectsAccumulator = []
+  
+  async function getProjects (page = 1) {
+    const query = {
+      cards: true,
+      id,
+      page,
+      page_size: 100
+    }
+    const response = await panoptesProjects.get({ query })
+    const { meta, projects } = response?.body || {}
+
+    if (projects && projects.length) {
+      projectsAccumulator = projectsAccumulator.concat(projects)
+    }
+
+    if (meta?.projects?.next_page) {
+      return getProjects(meta.projects.next_page)
+    }
+
+    return projectsAccumulator
+  }
+
+  await getProjects(1)
+  return projectsAccumulator
+}
+
+export default function usePanoptesProjects(projectIDs) {
+  let key = null
+  if (projectIDs) {
+    const id = projectIDs.join(',')
+    key = id
+  }
+  return useSWR(key, fetchProjects, SWRoptions)
+}
