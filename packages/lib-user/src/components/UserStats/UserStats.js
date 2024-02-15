@@ -15,8 +15,9 @@ import {
   getStatsQueryFromDateRange
 } from '@utils'
 
-import Layout from '../shared/Layout/Layout'
+import BarChart from '../shared/BarChart/BarChart'
 import ContentBox from '../shared/ContentBox/ContentBox'
+import Layout from '../shared/Layout/Layout'
 import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
 import Select from '../shared/Select/Select'
 
@@ -35,15 +36,19 @@ function UserStats ({
   const allProjectsStatsQuery = getStatsQueryFromDateRange(selectedDateRange)
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
+  
   const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: allProjectsStatsQuery })
+  
   // fetch individual project stats
   const projectStatsQuery = getStatsQueryFromDateRange(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
+  
   const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ authClient, userID: user?.id, query: projectStatsQuery })
   
   // fetch projects
   const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  
   const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
 
   function onActive (index) {
@@ -72,14 +77,15 @@ function UserStats ({
   // create date range options
   const dateRangeOptions = dateRanges.values.map((dateRange) => ({
     label: dateRange
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/([0-9]+)/g, ' $1')
-    .toUpperCase()
-    .trim(),
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/([0-9]+)/g, ' $1')
+      .toUpperCase()
+      .trim(),
     value: dateRange
   }))
   const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
 
+  // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   return (
@@ -97,33 +103,31 @@ function UserStats ({
           login={login}
           projects={selectedProject === 'AllProjects' ? projects?.length : 1}
         />
-        <Box
-          direction='row'
-          gap='32px'
-          justify='between'
+        <Tabs
+          activeIndex={activeTab}
+          flex
+          gap='16px'
+          onActive={onActive}
+          justify='start'
         >
+          <Tab title='CLASSIFICATIONS'>
+            <BarChart
+              data={stats?.data}
+              dateRange={selectedDateRange}
+              type='count'
+            />
+          </Tab>
+          <Tab title='HOURS' style={{ marginRight: 'auto' }}>
+            <BarChart
+              data={stats?.data}
+              dateRange={selectedDateRange}
+              type='session_time'
+            />
+          </Tab>
+          {/* TODO: add info button */}
           <Box
             direction='row'
-            gap='32px'
-          >
-            {/* TODO: refactor with lib-user Tabs component */}
-            <Tabs
-              activeIndex={activeTab}
-              justify='start'
-              onActive={onActive}
-            >
-              <Tab title='CLASSIFICATIONS'>
-                <Box>Classification bar chart goes here.</Box>
-              </Tab>
-              <Tab title='HOURS'>
-                <Box>Hours bar chart goes here.</Box>
-              </Tab>
-            </Tabs>
-            {/* TODO: add info button */}
-          </Box>
-          <Box
-            direction='row'
-            gap='32px'
+            gap='xsmall'
           >
             <Select
               id='project-select'
@@ -140,7 +144,7 @@ function UserStats ({
               value={selectedDateRangeOption}
             />
           </Box>
-        </Box>
+        </Tabs>
       </ContentBox>
     </Layout>
   )
