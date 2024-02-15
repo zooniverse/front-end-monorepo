@@ -196,7 +196,7 @@ const FreehandLineModel = types
       self.minimumPoints = isNaN(self.minimumPoints) ? 20 : self.minimumPoints
       self.undoActionPointThreshold = isNaN(self.undoActionPointThreshold) ? 20 : self.undoActionPointThreshold
       self.pathIsClosed = false
-    	self.points = [...points]
+      self.points = [...points]
 
       self.setClosePoint(self.points.at(0))
       self.setDragPoint(self.points.at(-1))
@@ -624,6 +624,9 @@ const FreehandLineModel = types
 
       if (self.isDragging) {
         self.appendPathEnd()
+        self.finished = true
+      } else if (self.pathIsClosed) {
+        // user closed the path on this initial drag
         self.finished = true
       } else {
         self.pathX = []
