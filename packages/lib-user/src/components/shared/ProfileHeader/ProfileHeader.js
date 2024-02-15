@@ -16,6 +16,11 @@ function TitledStat ({
   title = '',
   value = 0 
 }) {
+  let displayValue = value
+  if (typeof value !== 'number') {
+    displayValue = 0
+  }
+
   return (
     <Box
       align='center'

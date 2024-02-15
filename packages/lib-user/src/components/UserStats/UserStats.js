@@ -5,6 +5,7 @@ import { object, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
+  usePanoptesProjects,
   usePanoptesUser,
   useUserStats
 } from '@hooks'
@@ -26,17 +27,24 @@ function UserStats ({
   const [activeTab, setActiveTab] = useState(0)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-  let projectIDs = []
 
-  const statsQuery = getStatsQueryFromDateRange(selectedDateRange)
-  if (selectedProject !== 'AllProjects') {
-    delete statsQuery.project_contributions
-    statsQuery.project_id = parseInt(selectedProject)
-    projectIDs = [selectedProject]
-  }
-
+  // fetch user
   const { data: user, error, isLoading } = usePanoptesUser(authClient)
-  const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: statsQuery })
+  
+  // fetch all projects stats, used by projects select and top projects regardless of selected project
+  const allProjectsStatsQuery = getStatsQueryFromDateRange(selectedDateRange)
+  allProjectsStatsQuery.project_contributions = true
+  allProjectsStatsQuery.time_spent = true
+  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: allProjectsStatsQuery })
+  // fetch individual project stats
+  const projectStatsQuery = getStatsQueryFromDateRange(selectedDateRange)
+  projectStatsQuery.project_id = parseInt(selectedProject)
+  projectStatsQuery.time_spent = true
+  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ authClient, userID: user?.id, query: projectStatsQuery })
+  
+  // fetch projects
+  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
 
   function onActive (index) {
     setActiveTab(index)
@@ -51,14 +59,11 @@ function UserStats ({
   }
 
   // create project options
-  if (userStats?.project_contributions?.length > 0) {
-    projectIDs = userStats.project_contributions.map(project => project.project_id)
-  }
   let projectOptions = []
-  if (projectIDs?.length > 0) {
-    projectOptions = projectIDs.map(projectID => ({
-      label: projectID.toString(),
-      value: projectID.toString()
+  if (projects?.length > 0) {
+    projectOptions = projects.map(project => ({
+      label: project.display_name,
+      value: project.id
     }))
     projectOptions.unshift({ label: 'ALL PROJECTS', value: 'AllProjects'})
   }
@@ -75,6 +80,8 @@ function UserStats ({
   }))
   const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
 
+  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
+
   return (
     <Layout>
       <ContentBox
@@ -84,11 +91,11 @@ function UserStats ({
       >
         <ProfileHeader
           avatar={user?.avatar_src}
-          classifications={activeTab === 0 ? userStats?.total_count : undefined}
+          classifications={activeTab === 0 ? stats?.total_count : undefined}
           displayName={user?.display_name}
-          hours={activeTab === 1 ? (userStats?.time_spent / 3600) : undefined}
+          hours={activeTab === 1 ? (stats?.time_spent / 3600) : undefined}
           login={login}
-          projects={projectIDs?.length}
+          projects={selectedProject === 'AllProjects' ? projects?.length : 1}
         />
         <Box
           direction='row'
@@ -99,6 +106,7 @@ function UserStats ({
             direction='row'
             gap='32px'
           >
+            {/* TODO: refactor with lib-user Tabs component */}
             <Tabs
               activeIndex={activeTab}
               justify='start'
