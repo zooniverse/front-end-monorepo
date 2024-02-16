@@ -10,8 +10,16 @@ import {
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
+const DEFAULT_DATA = [
+  {
+    period: '',
+    count: 0,
+    session_time: 0
+  }
+]
+
 function BarChart ({
-  data = [],
+  data = DEFAULT_DATA,
   dateRange = dateRanges.Last7Days,
   getCompleteData = defaultGetCompleteData,
   getDateInterval = defaultGetDateInterval,
