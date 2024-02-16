@@ -2,7 +2,9 @@ import { DataChart, Text } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
-import dateRanges from '../../../utils/dateRanges'
+import { dateRanges } from '@utils'
+
+import getCompleteData from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 function BarChart ({
@@ -11,12 +13,14 @@ function BarChart ({
   screenSize = 'small',
   type = 'count'
 }) {
+  const completeData = getCompleteData(data, dateRange)
+  
   const dateRangeLabel = getDateRangeLabel(dateRange)
-  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
   const readableDateRange = dateRange
     .replace(/([A-Z])/g, ' $1')
     .replace(/([0-9]+)/g, ' $1')
     .trim()
+  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
 
   // set chart options based on screen size and data length
   const chartOptions = {
@@ -24,13 +28,13 @@ function BarChart ({
     property: type,
     type: 'bar'
   }
-  if (screenSize !== 'small' && data.length < 9) {
+  if (screenSize !== 'small' && completeData.length < 9) {
     chartOptions.thickness = 'xlarge'
   }
   if (screenSize === 'small') {
-    if (data.length < 12) {
+    if (completeData.length < 12) {
       chartOptions.thickness = 'small'
-    } else if (data.length > 11 && data.length < 19) {
+    } else if (completeData.length > 11 && completeData.length < 19) {
       chartOptions.thickness = 'xsmall'
     } else {
       chartOptions.thickness = 'hair'
@@ -39,7 +43,7 @@ function BarChart ({
 
   // set x axis granularity based on data length
   let xAxisGranularity = 'fine'
-  if (data.length > 12) {
+  if (completeData.length > 12) {
     xAxisGranularity = 'medium'
   }
 
@@ -51,7 +55,7 @@ function BarChart ({
         y: { granularity: 'fine', property: type },
       }}
       chart={chartOptions}
-      data={data}
+      data={completeData}
       detail
       guide={{
         y: {
