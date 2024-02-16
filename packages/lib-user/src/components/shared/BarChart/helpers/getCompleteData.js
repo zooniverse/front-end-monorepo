@@ -1,9 +1,7 @@
-import { getStatsQueryFromDateRange } from '@utils'
-
-export default function getCompleteData (data, dateRange) {
+export default function getCompleteData ({ data, query }) {
   const completeData = []
   if (data.length > 0) {
-    const { end_date, period, start_date } = getStatsQueryFromDateRange(dateRange)
+    const { end_date, period, start_date } = query
         
     const startDate = start_date ? new Date(start_date) : new Date(data[0]?.period)
     const endDate = end_date ? new Date(end_date) : new Date()

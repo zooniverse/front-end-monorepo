@@ -2,7 +2,10 @@ import { DataChart, Text } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
-import { dateRanges } from '@utils'
+import {
+  dateRanges,
+  getStatsQueryFromDateRange
+} from '@utils'
 
 import getCompleteData from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
@@ -21,9 +24,10 @@ function BarChart ({
   screenSize = 'small',
   type = 'count'
 }) {
-  const completeData = getCompleteData(data, dateRange)
-  
-  const dateRangeLabel = getDateRangeLabel(dateRange)
+  const query = getStatsQueryFromDateRange(dateRange)
+  const completeData = getCompleteData({ data, query })
+  const period = query.period
+  const dateRangeLabel = getDateRangeLabel({ dateRange, period })
   const readableDateRange = dateRange
     .replace(/([A-Z])/g, ' $1')
     .replace(/([0-9]+)/g, ' $1')

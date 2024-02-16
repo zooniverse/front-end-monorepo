@@ -1,4 +1,4 @@
-export default function getDateRangeLabel(dateRange) {
+export default function getDateRangeLabel({ dateRange = 'Last7Days', period = 'month' }) {
   switch (dateRange) {
     case 'Last7Days':
       return {
@@ -26,14 +26,14 @@ export default function getDateRangeLabel(dateRange) {
         countLabel: 'Week of',
         time: 3600,
         timeLabel: 'hrs',
-        tLDS: {timeZone: 'UTC',  month: 'numeric', day: 'numeric' }
+        tLDS: { timeZone: 'UTC',  month: 'numeric', day: 'numeric' }
       }
     case 'ThisYear':
       return {
-        countLabel: 'Month of',
+        countLabel: period === 'month' ? 'Month of' : 'Week of',
         time: 3600,
         timeLabel: 'hrs',
-        tLDS: { timeZone: 'UTC', month: 'short' }
+        tLDS: period === 'month' ? { timeZone: 'UTC', month: 'short' } : { timeZone: 'UTC',  month: 'numeric', day: 'numeric' }
       }
     case 'Last12Months':
       return {
