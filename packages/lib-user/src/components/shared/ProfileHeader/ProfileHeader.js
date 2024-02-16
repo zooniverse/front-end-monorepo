@@ -17,7 +17,7 @@ function TitledStat ({
   value = 0 
 }) {
   let displayValue = value
-  if (typeof value !== 'number') {
+  if (isNaN(value)) {
     displayValue = 0
   }
 
@@ -36,7 +36,7 @@ function TitledStat ({
         size='xlarge'
         weight='bold'
       >
-        {Math.round(value).toLocaleString()}
+        {Math.round(displayValue).toLocaleString()}
       </SpacedText>
     </Box>
   )
