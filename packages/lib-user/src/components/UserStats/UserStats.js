@@ -93,7 +93,7 @@ function UserStats ({
       <ContentBox
         direction='column'
         gap='32px'
-        height='512px'
+        height='32rem'
       >
         <ProfileHeader
           avatar={user?.avatar_src}
@@ -145,6 +145,15 @@ function UserStats ({
             />
           </Box>
         </Tabs>
+        <Box
+          direction='row'
+          gap='16px'
+          justify='end'
+          margin={{ top: 'small'}}
+        >
+          <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
+          <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
+        </Box>
       </ContentBox>
     </Layout>
   )

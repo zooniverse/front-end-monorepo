@@ -21,6 +21,10 @@ const selectTheme = {
         border: none;
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
         width: 215px;
+
+        &:focus:not(:focus-visible) {
+          box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+        }
       `,
       open: {
         background: '#ADDDE0', // accent-1
