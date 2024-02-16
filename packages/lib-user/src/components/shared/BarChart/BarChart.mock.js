@@ -57,13 +57,22 @@ const thisMonth = Array.from(
 const last3months = Array.from(
   { length: 12 },
   (_, i) => ({
-    period: new Date(2023, 4, 1 + (i * 7)).toISOString(),
+    period: new Date(2023, 4, 3 + (i * 7)).toISOString(),
     count: Math.floor(Math.random() * 21000),
     session_time: Math.floor(Math.random() * 37800),
   })
 )
 
-const thisYear = Array.from(
+const thisYearLessThan6Months = Array.from(
+  { length: 19 },
+  (_, i) => ({
+    period: new Date(2023, 0, 1 + (i * 7)).toISOString(),
+    count: Math.floor(Math.random() * 21000),
+    session_time: Math.floor(Math.random() * 37800),
+  })
+)
+
+const thisYearMoreThan6Months = Array.from(
   { length: 9 },
   (_, i) => ({
     period: new Date(2023, i, 1).toISOString(),
@@ -95,7 +104,8 @@ export {
   last30days,
   thisMonth,
   last3months,
-  thisYear,
+  thisYearLessThan6Months,
+  thisYearMoreThan6Months,
   last12months,
   allTime
 }

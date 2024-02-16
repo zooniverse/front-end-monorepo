@@ -1,27 +1,26 @@
-import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
 
-import Meta, { Default, Last30DaysHours, Last3Months, Last12MonthsHours } from './BarChart.stories.js'
+import Meta, { Last7Days, Last30DaysHours, Last3Months, Last12MonthsHours } from './BarChart.stories.js'
 
 describe('components > shared > BarChart', function () {
-  
   describe('with Last7Days', function () {
-    const DefaultStory = composeStory(Default, Meta)
+    const Last7DaysStory = composeStory(Last7Days, Meta)
 
     it('should have the expected aria-label', function () {
-      render(<DefaultStory />)
+      render(<Last7DaysStory />)
       
       expect(screen.getByLabelText('Bar chart of Classifications by Day for Last 7 Days')).to.be.ok()
     })
     
     it('should show the expected number of count labels', function () {
-      render(<DefaultStory />)
+      render(<Last7DaysStory />)
       
       expect(screen.getAllByTestId('countLabel')).to.have.lengthOf(5)
     })
     
     it('should show the expected number of period labels', function () {
-      render(<DefaultStory />)
+      render(<Last7DaysStory />)
       
       expect(screen.getAllByTestId('periodLabel')).to.have.lengthOf(7)
     })

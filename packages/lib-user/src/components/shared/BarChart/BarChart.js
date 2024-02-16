@@ -1,13 +1,13 @@
 import { DataChart, Text } from 'grommet'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import {
   dateRanges,
-  getStatsQueryFromDateRange
+  getDateInterval as defaultGetDateInterval
 } from '@utils'
 
-import getCompleteData from './helpers/getCompleteData'
+import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 const DEFAULT_DATA = [
@@ -21,6 +21,8 @@ const DEFAULT_DATA = [
 function BarChart ({
   data = DEFAULT_DATA,
   dateRange = dateRanges.Last7Days,
+  getCompleteData = defaultGetCompleteData,
+  getDateInterval = defaultGetDateInterval,
   screenSize = 'small',
   type = 'count'
 }) {
@@ -120,6 +122,8 @@ BarChart.propTypes = {
     session_time: number
   })),
   dateRange: string,
+  getCompleteData: func,
+  getDateInterval: func,
   screenSize: string,
   type: string
 }
