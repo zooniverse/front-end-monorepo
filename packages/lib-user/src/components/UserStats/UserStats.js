@@ -55,6 +55,14 @@ function UserStats ({
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
+  // determine top projects per date range
+  let topProjects = []
+  if (allProjectsStats?.project_contributions?.length > 0) {
+    topProjects = allProjectsStats.project_contributions
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5)
+  }
+
   return (
     <Layout>
       <MainContent
