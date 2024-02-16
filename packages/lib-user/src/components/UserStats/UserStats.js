@@ -19,6 +19,7 @@ import BarChart from '../shared/BarChart/BarChart'
 import ContentBox from '../shared/ContentBox/ContentBox'
 import Layout from '../shared/Layout/Layout'
 import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
+import ProjectCard from '../shared/ProjectCard/ProjectCard'
 import Select from '../shared/Select/Select'
 
 function UserStats ({
@@ -88,6 +89,14 @@ function UserStats ({
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
+  // determine top projects per date range
+  let topProjects = []
+  if (allProjectsStats?.project_contributions?.length > 0) {
+    topProjects = allProjectsStats.project_contributions
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5)
+  }
+
   return (
     <Layout>
       <ContentBox
@@ -153,6 +162,34 @@ function UserStats ({
         >
           <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
           <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
+        </Box>
+      </ContentBox>
+      <ContentBox
+        linkLabel='See more'
+        linkProps={{ href: 'https://www.zooniverse.org/projects' }}
+        title='Top Projects'
+      >
+        <Box
+          direction='row'
+          gap='small'
+          pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
+          overflow={{ horizontal: 'auto' }}
+        >
+          {topProjects.map(projectStats => {
+            const project = projects?.find(project => project.id === projectStats.project_id.toString())
+            
+            if (!project) return null
+
+            return (
+              <ProjectCard
+                key={projectStats.project_id}
+                description={project?.description}
+                displayName={project?.display_name}
+                href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                imageSrc={project?.avatar_src}                
+              />
+            )
+          })}
         </Box>
       </ContentBox>
     </Layout>
