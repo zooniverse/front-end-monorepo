@@ -1,6 +1,5 @@
 'use client'
 
-import { Box, Tab, Tabs } from 'grommet'
 import { object, string } from 'prop-types'
 import { useState } from 'react'
 
@@ -11,16 +10,12 @@ import {
 } from '@hooks'
 
 import {
-  dateRanges,
   getStatsQueryFromDateRange
 } from '@utils'
 
-import BarChart from '../shared/BarChart/BarChart'
-import ContentBox from '../shared/ContentBox/ContentBox'
+import MainContent from './components/MainContent'
+
 import Layout from '../shared/Layout/Layout'
-import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
-import ProjectCard from '../shared/ProjectCard/ProjectCard'
-import Select from '../shared/Select/Select'
 
 function UserStats ({
   authClient,
@@ -64,134 +59,22 @@ function UserStats ({
     setSelectedDateRange(dateRange.value)
   }
 
-  // create project options
-  let projectOptions = []
-  if (projects?.length > 0) {
-    projectOptions = projects.map(project => ({
-      label: project.display_name.toUpperCase(),
-      value: project.id
-    }))
-    projectOptions.unshift({ label: 'ALL PROJECTS', value: 'AllProjects'})
-  }
-  const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
-  
-  // create date range options
-  const dateRangeOptions = dateRanges.values.map((dateRange) => ({
-    label: dateRange
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/([0-9]+)/g, ' $1')
-      .toUpperCase()
-      .trim(),
-    value: dateRange
-  }))
-  const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
-
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
-  // determine top projects per date range
-  let topProjects = []
-  if (allProjectsStats?.project_contributions?.length > 0) {
-    topProjects = allProjectsStats.project_contributions
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5)
-  }
-
   return (
     <Layout>
-      <ContentBox
-        direction='column'
-        gap='32px'
-        height='32rem'
-      >
-        <ProfileHeader
-          avatar={user?.avatar_src}
-          classifications={activeTab === 0 ? stats?.total_count : undefined}
-          displayName={user?.display_name}
-          hours={activeTab === 1 ? (stats?.time_spent / 3600) : undefined}
-          login={login}
-          projects={selectedProject === 'AllProjects' ? projects?.length : 1}
-        />
-        <Tabs
-          activeIndex={activeTab}
-          flex
-          gap='16px'
-          onActive={onActive}
-          justify='start'
-        >
-          <Tab title='CLASSIFICATIONS'>
-            <BarChart
-              data={stats?.data}
-              dateRange={selectedDateRange}
-              type='count'
-            />
-          </Tab>
-          <Tab title='HOURS' style={{ marginRight: 'auto' }}>
-            <BarChart
-              data={stats?.data}
-              dateRange={selectedDateRange}
-              type='session_time'
-            />
-          </Tab>
-          {/* TODO: add info button */}
-          <Box
-            direction='row'
-            gap='xsmall'
-          >
-            <Select
-              id='project-select'
-              name='project-select'
-              handleChange={handleProjectSelect}
-              options={projectOptions}
-              value={selectedProjectOption}
-            />
-            <Select
-              id='date-range-select'
-              name='date-range-select'
-              handleChange={handleDateRangeSelect}
-              options={dateRangeOptions}
-              value={selectedDateRangeOption}
-            />
-          </Box>
-        </Tabs>
-        <Box
-          direction='row'
-          gap='16px'
-          justify='end'
-          margin={{ top: 'small'}}
-        >
-          <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
-          <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
-        </Box>
-      </ContentBox>
-      <ContentBox
-        linkLabel='See more'
-        linkProps={{ href: 'https://www.zooniverse.org/projects' }}
-        title='Top Projects'
-      >
-        <Box
-          direction='row'
-          gap='small'
-          pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
-          overflow={{ horizontal: 'auto' }}
-        >
-          {topProjects.map(projectStats => {
-            const project = projects?.find(project => project.id === projectStats.project_id.toString())
-            
-            if (!project) return null
-
-            return (
-              <ProjectCard
-                key={projectStats.project_id}
-                description={project?.description}
-                displayName={project?.display_name}
-                href={`https://www.zooniverse.org/projects/${project?.slug}`}
-                imageSrc={project?.avatar_src}                
-              />
-            )
-          })}
-        </Box>
-      </ContentBox>
+      <MainContent
+        activeTab={activeTab}
+        handleDateRangeSelect={handleDateRangeSelect}
+        handleProjectSelect={handleProjectSelect}
+        onActive={onActive}
+        projects={projects}
+        selectedDateRange={selectedDateRange}
+        selectedProject={selectedProject}
+        stats={stats}
+        user={user}
+      />
     </Layout>
   )
 }
