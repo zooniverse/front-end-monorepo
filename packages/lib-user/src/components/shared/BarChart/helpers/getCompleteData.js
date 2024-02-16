@@ -1,7 +1,7 @@
-export default function getCompleteData ({ data, query }) {
+export function getCompleteData ({ data, dateInterval }) {
   const completeData = []
   if (data.length > 0) {
-    const { end_date, period, start_date } = query
+    const { end_date, period, start_date } = dateInterval
         
     const startDate = start_date ? new Date(start_date) : new Date(data[0]?.period)
     const endDate = end_date ? new Date(end_date) : new Date()
@@ -52,3 +52,5 @@ export default function getCompleteData ({ data, query }) {
   }
   return completeData
 }
+
+export default getCompleteData

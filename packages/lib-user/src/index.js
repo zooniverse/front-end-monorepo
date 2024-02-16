@@ -17,5 +17,5 @@ export { default as createPanoptesUserGroup } from './utils/createPanoptesUserGr
 export { default as dateRanges } from './utils/dateRanges.js'
 export { default as deletePanoptesUserGroup } from './utils/deletePanoptesUserGroup.js'
 export { default as getBearerToken } from './utils/getBearerToken.js'
-export { default as getStatsQueryFromDateRange } from './utils/getStatsQueryFromDateRange.js'
+export { default as getDateInterval } from './utils/getDateInterval.js'
 export { default as updatePanoptesUserGroup } from './utils/updatePanoptesUserGroup.js'

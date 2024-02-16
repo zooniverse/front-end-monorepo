@@ -24,9 +24,9 @@ function BarChart ({
   screenSize = 'small',
   type = 'count'
 }) {
-  const query = getStatsQueryFromDateRange(dateRange)
-  const completeData = getCompleteData({ data, query })
-  const period = query.period
+  const dateInterval = getDateInterval(dateRange)
+  const completeData = getCompleteData({ data, dateInterval })
+  const period = dateInterval.period
   const dateRangeLabel = getDateRangeLabel({ dateRange, period })
   const readableDateRange = dateRange
     .replace(/([A-Z])/g, ' $1')

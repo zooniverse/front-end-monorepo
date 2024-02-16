@@ -10,7 +10,7 @@ import {
 } from '@hooks'
 
 import {
-  getStatsQueryFromDateRange
+  getDateInterval
 } from '@utils'
 
 import MainContent from './components/MainContent'
@@ -29,14 +29,14 @@ function UserStats ({
   const { data: user, error, isLoading } = usePanoptesUser(authClient)
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
-  const allProjectsStatsQuery = getStatsQueryFromDateRange(selectedDateRange)
+  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
   
   const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: allProjectsStatsQuery })
   
   // fetch individual project stats
-  const projectStatsQuery = getStatsQueryFromDateRange(selectedDateRange)
+  const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
   
