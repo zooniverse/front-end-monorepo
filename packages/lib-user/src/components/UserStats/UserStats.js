@@ -17,7 +17,12 @@ function UserStats ({
 }) {
   const { data: user, error, isLoading } = usePanoptesUser(authClient)
 
-  const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id })
+  const statsQuery = {
+    period: 'year',
+    project_contributions: true,
+    time_spent: true
+  }
+  const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, query: statsQuery, userID: user?.id })
 
   return (
     <Layout>
