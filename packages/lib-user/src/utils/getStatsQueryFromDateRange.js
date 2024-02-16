@@ -1,54 +1,83 @@
-export default function getStatsQueryFromDateRange(dateRange) {
-  function getNextMonth(month) {
-    return month === 11 ? 0 : month + 1
+function getNextMonth(month) {
+  return month === 11 ? 0 : month + 1
+}
+
+function getPeriodFromDateDifference(difference) {
+  if (difference <= 31) {
+    return 'day'
+  } else if (difference <= 183) {
+    return 'week'
+  } else {
+    return 'month'
   }
+}
+
+export default function getStatsQueryFromDateRange(dateRange) {
+  const endDate = new Date()
+  const end_date = endDate.toISOString().substring(0, 10)
   
-  switch (dateRange) {
-    case 'Last7Days':
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'day',
-        start_date: new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
-      }
-    case 'Last30Days':
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'day',
-        start_date: new Date(new Date().setDate(new Date().getDate() - 29)).toISOString().substring(0, 10)
-      }
-    case 'ThisMonth':
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'day',
-        start_date: new Date(new Date().setDate(0)).toISOString().substring(0, 10)
-      }
-    case 'Last3Months':
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'week',
-        start_date: new Date(new Date().setDate(new Date().getDate() - 90)).toISOString().substring(0, 10)
-      }
-    case 'ThisYear':
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'month',
-        start_date: new Date(new Date().setMonth(0)).toISOString().substring(0, 10)
-      }
-    case 'Last12Months':
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'month',
-        start_date: new Date((new Date().getFullYear() - 1), getNextMonth(new Date().getMonth()), 1).toISOString().substring(0, 10)
-      }
-    case 'AllTime':
-      return {
-        period: 'year'
-      }
-    default:
-      return {
-        end_date: new Date().toISOString().substring(0, 10),
-        period: 'day',
-        start_date: new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
-      }
+  let startDate = new Date(new Date().setDate(endDate.getDate() - 6))
+  let start_date = startDate.toISOString().substring(0, 10)
+  
+  let period = 'day'
+  
+  if (dateRange === 'Last7Days') {
+    return {
+      end_date,
+      period,
+      start_date
+    }
+  } else if (dateRange === 'Last30Days') {
+    startDate = new Date(new Date().setDate(endDate.getDate() - 29))
+    start_date = startDate.toISOString().substring(0, 10)
+    return {
+      end_date,
+      period,
+      start_date
+    }
+  } else if (dateRange === 'ThisMonth') {
+    startDate = new Date(endDate.getFullYear(), endDate.getMonth(), 1)
+    start_date = startDate.toISOString().substring(0, 10)
+    return {
+      end_date,
+      period,
+      start_date
+    }
+  } else if (dateRange === 'Last3Months') {
+    startDate = new Date(new Date().setDate(endDate.getDate() - 90))
+    start_date = startDate.toISOString().substring(0, 10)
+    return {
+      end_date,
+      period: 'week',
+      start_date
+    }
+  } else if (dateRange === 'ThisYear') {
+    startDate = new Date(endDate.getFullYear(), 0, 1)
+    start_date = startDate.toISOString().substring(0, 10)
+    const difference = (endDate - startDate) / (1000 * 60 * 60 * 24)
+    period = getPeriodFromDateDifference(difference)
+    return {
+      end_date,
+      period,
+      start_date
+    }
+  } else if (dateRange === 'Last12Months') {
+    startDate = new Date((endDate.getFullYear() - 1), getNextMonth(endDate.getMonth()), 1)
+    start_date = startDate.toISOString().substring(0, 10)
+    return {
+      end_date,
+      period: 'month',
+      start_date
+    }
+  } else if (dateRange === 'AllTime') {
+    return {
+      period: 'year'
+    }
+  } else {
+    return {
+      end_date,
+      period,
+      start_date
+    }
   }
 }
