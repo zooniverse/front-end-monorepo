@@ -21,15 +21,6 @@ function statsHost(env) {
 }
 
 const defaultEndpoint = '/classifications/users'
-const defaultQuery = {
-  // end_date: null,
-  period: 'year',
-  project_contributions: true,
-  // project_id: null,
-  // start_date: null,
-  time_spent: true,
-  // workflow_id: null,
-}
 
 async function fetchUserStats({ endpoint, query, userID, authorization }) {
   const stats = statsHost(env)
@@ -46,7 +37,7 @@ async function fetchUserStats({ endpoint, query, userID, authorization }) {
   }
 }
 
-export default function useUserStats({ authClient, endpoint = defaultEndpoint, query = defaultQuery, userID }) {
+export default function useUserStats({ authClient, endpoint = defaultEndpoint, query, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   
   const key = (authorization && userID) ? { endpoint, query, userID, authorization } : null

@@ -2,7 +2,10 @@ import { DataChart, Text } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
-import dateRanges from './helpers/dateRanges'
+import { 
+  dateRanges
+} from '@utils'
+
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 function BarChart ({
