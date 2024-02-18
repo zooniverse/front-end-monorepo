@@ -20,24 +20,24 @@ const Transcription = types.model('Transcription', {
     // Changing the task type to TranscriptionTask
     toSnapshot() {
       const snapshot = getSnapshot(self)
-      // resolve mark references (IDs) in the snapshot to mark snapshots
-      const value = self.actualTask.marks.map(mark => getSnapshot(mark))
-      const drawingSnapshot = Object.assign({}, snapshot, { value })
-      // flatten subtask annotations into a single annotations array
-      // then return the flattened array
+      // Replace mark references (IDs) with mark snapshots.
+      const markSnapshots = self.value.map(mark => getSnapshot(mark))
+      const drawingSnapshot = { ...snapshot, value: markSnapshots }
+      // Flatten subtask annotations into a single annotations array
+      // then return the flattened array.
       const drawingAnnotations = [drawingSnapshot]
-      drawingSnapshot.value.forEach((markSnapshot, markIndex) => {
-        const mark = Object.assign({}, markSnapshot)
-        // map subtask keys to mark.details
+      markSnapshots.forEach((markSnapshot, markIndex) => {
+        const mark = { ...markSnapshot }
+        // Map subtask keys to mark.details.
         mark.details = mark.annotations.map(annotation => ({ task: annotation.task }))
-        // push mark.annotations to the returned array
+        // Push mark.annotations to the returned array.
         mark.annotations.forEach(markAnnotation => {
-          const finalAnnotation = Object.assign({}, markAnnotation, { markIndex })
-          // strip annotation IDs
-          const { id, ...rest } = finalAnnotation
-          drawingAnnotations.push(rest)
+          // Strip annotation IDs and add markIndex.
+          const { id, ...rest } = markAnnotation
+          const finalAnnotation = { ...rest, markIndex }
+          drawingAnnotations.push(finalAnnotation)
         })
-        // remove annotations from individual marks
+        // Remove annotations from individual marks.
         const { annotations, ...rest } = mark
         drawingSnapshot.value[markIndex] = rest
       })
