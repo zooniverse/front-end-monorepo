@@ -19,6 +19,11 @@ const Drawing = types.model('Drawing', {
       return resolveIdentifier(DrawingTask, getRoot(self), self.task)
     },
 
+    /**
+    Generate a snapshot in the format expected by Panoptes, Caesar etc.
+    See ADR 25.
+    https://github.com/zooniverse/front-end-monorepo/blob/master/docs/arch/adr-25.md
+    */
     toSnapshot() {
       const snapshot = getSnapshot(self)
       // Replace mark references (IDs) with mark snapshots.
@@ -29,9 +34,9 @@ const Drawing = types.model('Drawing', {
       const drawingAnnotations = [drawingSnapshot]
       markSnapshots.forEach((markSnapshot, markIndex) => {
         const mark = { ...markSnapshot }
-        // Map subtask keys to mark.details.
+        // `mark.details` is an array of subtask keys.
         mark.details = mark.annotations.map(annotation => ({ task: annotation.task }))
-        // Push mark.annotations to the returned array.
+        // Push mark subtask annotations to the returned array.
         mark.annotations.forEach(markAnnotation => {
           // Strip annotation IDs and add markIndex.
           const { id, ...rest } = markAnnotation
@@ -48,8 +53,9 @@ const Drawing = types.model('Drawing', {
   .actions(self => ({
     afterAttach() {
       function _onMarksChange() {
-        const newAnnotation = self.actualTask.marks.map(mark => mark.id)
-        self.update(newAnnotation)
+        // A drawing annotation stores an array of mark IDs for the corresponding task.
+        const newValue = self.actualTask.marks.map(mark => mark.id)
+        self.update(newValue)
       }
 
       addDisposer(self, autorun(_onMarksChange))
