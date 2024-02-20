@@ -18,13 +18,14 @@ const PlaceholderSVG = styled.svg`
 function SingleImageViewer({
   children,
   enableInteractionLayer = false,
+  frame = 0,
   height,
   limitSubjectHeight = false,
   onKeyDown = () => true,
   rotate = 0,
   scale = 1,
   svgMaxHeight = null,
-subject,
+  subject,
   title = {},
   viewBox,
   width,
@@ -68,10 +69,11 @@ subject,
             {children}
             {enableInteractionLayer && (
               <InteractionLayer
-                scale={scale}
+                frame={frame}
                 height={height}
-                width={width}
+                scale={scale}
                 subject={subject}
+                width={width}
               />
             )}
           </g>
@@ -82,6 +84,8 @@ subject,
 }
 
 SingleImageViewer.propTypes = {
+  /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
+  frame: PropTypes.number,
   /** Passed from container */
   enableInteractionLayer: PropTypes.bool,
   /** Calculated by useSubjectImage() */

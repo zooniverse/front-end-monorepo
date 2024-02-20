@@ -1,6 +1,4 @@
 import { render, waitFor } from '@testing-library/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
@@ -8,7 +6,6 @@ import { WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
 import PreviousMarks from './PreviousMarks'
-import DrawingToolMarks from '../DrawingToolMarks'
 
 describe('Component > PreviousMarks', function () {
   const workflow = WorkflowFactory.build({
@@ -63,13 +60,11 @@ describe('Component > PreviousMarks', function () {
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
-        <Grommet theme={zooTheme}>
-          <Provider classifierStore={store}>
-            <svg>
-              {children}
-            </svg>
-          </Provider>
-        </Grommet>
+        <Provider classifierStore={store}>
+          <svg>
+            {children}
+          </svg>
+        </Provider>
       )
     }
   }
@@ -110,9 +105,9 @@ describe('Component > PreviousMarks', function () {
   })
 
   describe('when there are drawing task annotations', function () {
-    it('should render disabled drawing marks per task by frame', async function () {
+    it('should render disabled drawing marks per task for frame 0', async function () {
       render(
-        <PreviousMarks />,
+        <PreviousMarks frame={0} />,
         {
           wrapper: withStore(store)
         }
@@ -123,16 +118,22 @@ describe('Component > PreviousMarks', function () {
         expect(mark.getAttribute('aria-disabled')).to.equal('true')
         expect(mark.getAttribute('tabindex')).to.equal('-1')
       })
-      store.subjectViewer.setFrame(1)
-      await waitFor(() => {
-        const marks = document.querySelectorAll('g.drawingMark')
-        expect(marks).to.have.lengthOf(2)
-        marks.forEach(mark => {
-          expect(mark.getAttribute('aria-disabled')).to.equal('true')
-          expect(mark.getAttribute('tabindex')).to.equal('-1')
-        })
+    })
+
+    it('should render disabled drawing marks per task for frame 1', async function () {
+      render(
+        <PreviousMarks frame={1} />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+
+      const marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(2)
+      marks.forEach(mark => {
+        expect(mark.getAttribute('aria-disabled')).to.equal('true')
+        expect(mark.getAttribute('tabindex')).to.equal('-1')
       })
-      store.subjectViewer.setFrame(0)
     })
   })
 
