@@ -1,7 +1,6 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { bool, func, shape, string } from 'prop-types'
-import queryString from 'query-string'
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@translations/i18n'
 
@@ -30,9 +29,7 @@ export default function TaskArea({
   const taskArea = useRef(null)
 
   useEffect(function onSubjectChange() {
-    // TODO: remove this once testing is complete.
-    const URLParams = queryString.parse(window?.location?.search)
-    const finished = (subject && URLParams?.finished) || retired || alreadySeen
+    const finished = retired || alreadySeen
     setDisabled(finished && workflow.hasIndexedSubjects)
   }, [alreadySeen, subject, retired])
 

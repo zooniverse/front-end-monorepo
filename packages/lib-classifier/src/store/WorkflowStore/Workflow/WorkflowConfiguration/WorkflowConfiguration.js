@@ -7,6 +7,7 @@ const WorkflowConfiguration = types.snapshotProcessor(
     flipbook_autoplay: types.optional(types.boolean, false),
     invert_subject: types.optional(types.boolean, false),
     limit_subject_height: types.optional(types.boolean, false),
+    multi_image_clone_markers: types.optional(types.boolean, false),
     multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
     multi_image_layout: types.optional(types.enumeration('multiImageLayout', ['col', 'grid2', 'grid3', 'row']), 'col'),
     playIterations: types.optional(types.number, 3),

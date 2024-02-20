@@ -2,23 +2,64 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Investigação",
-        "team": "A Equipa",
-        "results": "Resultados",
         "education": "Educação",
-        "faq": "FAQ"
+        "faq": "FAQ",
+        "research": "Investigação",
+        "results": "Resultados",
+        "team": "A Equipa"
       }
+    },
+    "PageNav": {
+      "title": "Sobre o projeto"
     },
     "SidebarHeading": "Sobre",
     "TeamMember": {
-      "owner": "Proprietário",
       "collaborator": "Colaborador",
-      "translator": "Tradutor",
-      "researcher": "Investigador",
-      "moderator": "Moderador",
-      "tester": "Verificador",
       "expert": "Especialista",
-      "museum": "Museu"
+      "moderator": "Moderador",
+      "museum": "Museu",
+      "owner": "Proprietário",
+      "researcher": "Investigador",
+      "tester": "Verificador",
+      "translator": "Tradutor"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Ocorreu um erro no classificador :("
+      }
+    },
+    "FinishedForTheDay": {
+      "ProjectImage": {
+        "alt": "Imagem para {{projectName}}"
+      },
+      "buttons": {
+        "anotherProject": "Encontrar outro projeto",
+        "stats": "Ver as estatísticas"
+      },
+      "text": "As suas respostas serão guardadas para a equipa de investigação enquanto não estiver a trabalhar. Veja as estatísticas do projeto e volte à página inicial de {{projectName}}.",
+      "title": "Terminou por hoje?"
+    },
+    "RecentSubjects": {
+      "text": "Fale sobre qualquer objeto em Conversar ou adicione-o aos favoritos ou a uma coleção.",
+      "title": "As suas classificações recentes"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Não, obrigado",
+      "confirm": "Leve-me para o próximo nível!",
+      "content": "Parabéns! Desbloqueou o próximo fluxo de trabalho. Pode, se  preferir, optar por permanecer neste fluxo de trabalho.",
+      "dismiss": "Não me mostre mais mensagens.",
+      "title": "Novo fluxo de trabalho disponível"
+    },
+    "YourStats": {
+      "DailyClassificationsChart": {
+        "title": "Número de classificações diárias de {{projectName}}"
+      },
+      "text": "Continue o bom trabalho!",
+      "title": "Estatísticas {{projectName}}",
+      "todaysCount": "Classificações de hoje",
+      "totalCount": "Total de classificações"
     }
   },
   "Home": {
@@ -31,25 +72,19 @@
       }
     },
     "MessageFromResearcher": {
+      "noMessage": "Entre em contacto com a equipa de investigação em Conversar para saber mais sobre este projeto!",
+      "noMessageButton": "Aceder a Conversar",
       "title": "Mensagem do Investigador"
     },
     "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Ocorreu um erro ao carregar os objetos :(",
+        "noSubjects": "Parece que ainda ninguém comentou um objeto. Aceda a Conversar e deixe o primeiro comentário!",
+        "subjectLabel": "Objeto {{id}}"
+      },
       "button": "Aderir",
+      "message": "Converse no chat com a equipa de investigação e outros voluntários!",
       "title": "Debater"
-    }
-  },
-  "Classify": {
-    "RecentSubjects": {
-      "title": "As suas classificações recentes"
-    },
-    "WorkflowAssignmentModal": {
-      "cancel": "Não, obrigado",
-      "confirm": "Leve-me para o próximo nível!",
-      "content": "Parabéns! Desbloqueou o próximo fluxo de trabalho. Pode, se  preferir, optar por permanecer neste fluxo de trabalho.",
-      "dismiss": "Não me mostre mais mensagens."
-    },
-    "YourStats": {
-      "title": "Estatísticas {{projectName}}"
     }
   }
 }
