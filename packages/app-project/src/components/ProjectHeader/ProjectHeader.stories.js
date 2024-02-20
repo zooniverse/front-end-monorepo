@@ -115,7 +115,7 @@ LoggedIn.args = {
   }
 }
 
-export function InBeta({ adminMode, className, project }) {
+export function InBeta({ project }) {
   const snapshot = {
     project,
     user: {
@@ -157,7 +157,7 @@ InBeta.args = {
   }
 }
 
-export function LaunchApproved({ adminMode, className, project }) {
+export function LaunchApproved({ project }) {
   const snapshot = {
     project,
     user: {
@@ -279,7 +279,7 @@ DefaultWorkflow.args = {
   }
 }
 
-export function MultipleLanguages({ adminMode, className, project }) {
+export function MultipleLanguages({ project }) {
   const snapshot = {
     project,
     user: {
@@ -350,6 +350,52 @@ OrganizationLink.args = {
     configuration: {
       languages: ['en']
     },
+    slug: 'zooniverse/snapshot-serengeti',
+    strings: {
+      display_name: 'Snapshot Serengeti'
+    },
+    links: {
+      active_workflows: ['1']
+    }
+  }
+}
+
+export function Everything({ adminMode, className, organization, project }) {
+  const snapshot = {
+    organization,
+    project,
+    user: {
+      admin: true,
+      id: '1',
+      login: 'zooAdmin'
+    }
+  }
+  applySnapshot(Everything.store, snapshot)
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      <Provider store={Everything.store}>
+        <ProjectHeader adminMode={adminMode} className={className} />
+      </Provider>
+    </RouterContext.Provider>
+  )
+}
+Everything.store = initStore(true)
+Everything.args = {
+  adminMode: true,
+  className: '',
+  organization: ORGANIZATION,
+  project: {
+    avatar: {
+      src: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg'
+    },
+    background: {
+      src: 'https://panoptes-uploads.zooniverse.org/project_background/7a3c6210-f97d-4f40-9ab4-8da30772ee01.jpeg'
+    },
+    beta_approved: true,
+    configuration: {
+      languages: ['en', 'fr', 'es']
+    },
+    launch_approved: true,
     slug: 'zooniverse/snapshot-serengeti',
     strings: {
       display_name: 'Snapshot Serengeti'
