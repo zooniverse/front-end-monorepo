@@ -52,5 +52,3 @@ export function getCompleteData ({ data, dateInterval }) {
   }
   return completeData
 }
-
-export default getCompleteData
