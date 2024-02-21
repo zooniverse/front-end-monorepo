@@ -1,16 +1,64 @@
 {
+  "FreehandLine": {
+    "active": "Cliquez et déplacez depuis le point d'ouverture vers le point de fermeture ou double-cliquez n'importe où sur la ligne pour créer un point de raccordement",
+    "closePoint": "Cliquez n'importe où sur la ligne pour définir le point de fermeture",
+    "inactive": "Cliquez pour modifier cette ligne",
+    "spliceDrag": "Cliquez et déplacez du point d'ouverture vers le point de fermeture",
+    "splicePoint": "Double-cliquez n'importe où sur la ligne pour créer un point de raccordement"
+  },
+  "HighlighterTask": {
+    "delete": "Supprimer",
+    "noLabels": "Aucune étiquette pour la tâche en surbrillance",
+    "status": "{{count}} marqué(e)(s)"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} ligne(s)",
+    "max": "{{count}} ligne(s) sur {{max}} maximum",
+    "maxAndMin": "{{count}} ligne(s) sur {{min}} requise(s), {{max}} lignes dessinées maximum",
+    "min": "{{count}} ligne(s) requise(s) sur {{min}}"
+  },
+  "LineControls": {
+    "close": "Fermer",
+    "delete": "Supprimer",
+    "deleteCancel": "Annuler la suppression",
+    "deleteConfirm": "Confirmer la suppression",
+    "lineControls": "Contrôles de ligne",
+    "move": "Déplacer",
+    "redo": "Rétablir",
+    "undo": "Annuler"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Saisir quelque chose",
+    "otherLabel": "Autre…",
+    "selectPlaceholder": "Choisir une réponse"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Effacer les filtres",
+      "filter": "Filtrer",
+      "removeFilter": "Supprimer le filtre {{valueLabel}}",
       "showing": "Montrer {{showing}} de {{total}}"
     },
     "Choice": {
-      "identify": "Identifier"
+      "identify": "Identifier",
+      "notThis": "Pas ceci"
     },
     "ConfusedWith": {
       "cancel": "Annuler",
       "confused": "Souvent confondu avec",
       "itsThis": "Je pense que c'est ça"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Réinitialiser"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Modificateurs de texte"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transcription créée",
+    "editing": "Modification de la transcription"
   }
 }

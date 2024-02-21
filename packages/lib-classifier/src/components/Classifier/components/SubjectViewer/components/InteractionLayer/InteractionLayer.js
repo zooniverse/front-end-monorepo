@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
@@ -34,6 +34,7 @@ function InteractionLayer({
   height,
   marks = [],
   move,
+  multiImageCloneMarkers = false,
   setActiveMark = () => { },
   scale = 1,
   subject,
@@ -90,11 +91,11 @@ function InteractionLayer({
   }
 
   function createMark(event) {
-    // TODO: add case for played = undefined
     const timeStamp = getFixedNumber(played, 5)
     const mark = activeTool.createMark({
       id: cuid(),
-      frame,
+      // GH Issue 5493 decided multiImageCloneMarkers force new mark frames to 0
+      frame: (multiImageCloneMarkers) ? 0 : frame,
       toolIndex: activeToolIndex
     })
 
@@ -104,7 +105,7 @@ function InteractionLayer({
     mark.setSubTaskVisibility(false)
     // Add a time value for tools that care about time. For most tools, this value is ignored.
     mark.setVideoTime(timeStamp, duration)
-    const markIDs = marks.map((mark) => mark.id)
+    const markIDs = annotation.value?.map((mark) => mark.id)
     annotation.update([...markIDs, mark.id])
   }
 
@@ -205,9 +206,11 @@ InteractionLayer.propTypes = {
     value: PropTypes.array
   }).isRequired,
   disabled: PropTypes.bool,
+  /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   marks: PropTypes.array,
+  multiImageCloneMarkers: PropTypes.bool,
   scale: PropTypes.number,
   setActiveMark: PropTypes.func,
   subject: PropTypes.shape({

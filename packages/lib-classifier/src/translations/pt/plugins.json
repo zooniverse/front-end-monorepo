@@ -1,16 +1,64 @@
 {
+  "FreehandLine": {
+    "active": "Clique e arraste do ponto de abertura até ao ponto de fecho ou faça duplo clique em qualquer parte da linha para criar um ponto de união",
+    "closePoint": "Clique em qualquer parte da linha para definir o ponto de fecho",
+    "inactive": "Clique para editar esta linha",
+    "spliceDrag": "Clique e arraste do ponto de abertura até ao ponto de fecho",
+    "splicePoint": "Faça duplo clique em qualquer parte da linha para criar um ponto de união"
+  },
+  "HighlighterTask": {
+    "delete": "Eliminar",
+    "noLabels": "Sem etiquetas para a tarefa de destaque",
+    "status": "{{count}} marcadas"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} desenhada(s)",
+    "max": "{{count}} do máximo de {{max}} desenhadas",
+    "maxAndMin": "{{count}} de {{min}} necessárias, máximo de {{max}} desenhadas",
+    "min": "{{count}} de {{min}} necessárias desenhadas"
+  },
+  "LineControls": {
+    "close": "Fechar",
+    "delete": "Eliminar",
+    "deleteCancel": "Cancelar eliminação",
+    "deleteConfirm": "Confirmar eliminação",
+    "lineControls": "Controlos de linha",
+    "move": "Mover",
+    "redo": "Refazer",
+    "undo": "Anular"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Introduza algo",
+    "otherLabel": "Outro...",
+    "selectPlaceholder": "Escolher uma resposta"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Limpar filtros",
+      "filter": "Filtro",
+      "removeFilter": "Remover filtro {{valueLabel}}",
       "showing": "Mostrar {{showing}} de {{total}}"
     },
     "Choice": {
-      "identify": "Identificar"
+      "identify": "Identificar",
+      "notThis": "Isto não"
     },
     "ConfusedWith": {
       "cancel": "Cancelar",
       "confused": "Muitas vezes confundido com",
       "itsThis": "Creio que é isto"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Repor"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Modificadores de texto"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transcrição criada",
+    "editing": "Editar transcrição"
   }
 }
