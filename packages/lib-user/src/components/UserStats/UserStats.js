@@ -1,6 +1,6 @@
 'use client'
 
-import { object, string } from 'prop-types'
+import { object } from 'prop-types'
 
 import {
   usePanoptesUser,
@@ -12,8 +12,7 @@ import ContentBox from '../shared/ContentBox/ContentBox'
 import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
 
 function UserStats ({
-  authClient,
-  login = ''
+  authClient
 }) {
   const { data: user, error, isLoading } = usePanoptesUser(authClient)
 
@@ -35,7 +34,7 @@ function UserStats ({
           avatar={user?.avatar_src}
           classifications={userStats?.total_count}
           displayName={user?.display_name}
-          login={login}
+          login={user?.login}
           projects={userStats?.project_contributions?.length}
         />
       </ContentBox>
@@ -44,8 +43,7 @@ function UserStats ({
 }
 
 UserStats.propTypes = {
-  authClient: object,
-  login: string
+  authClient: object
 }
 
 export default UserStats
