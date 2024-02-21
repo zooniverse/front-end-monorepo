@@ -8,6 +8,7 @@ import {
 } from '@utils'
 
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
+import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 const DEFAULT_DATA = [
   {
