@@ -49,6 +49,7 @@ module.exports = {
       fs: false,
       // for markdown-it plugins
       path: require.resolve("path-browserify"),
+      process: false,
       url: false,
     }
   },

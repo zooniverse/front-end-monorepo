@@ -1,7 +1,10 @@
 import { Box } from 'grommet'
+
 import Select from './Select.js'
 
-import dateRanges from '../BarChart/helpers/dateRanges.js'
+import { 
+  dateRanges
+} from '@utils'
 
 export default {
   title: 'Components/shared/Select',

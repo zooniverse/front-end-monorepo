@@ -1,6 +1,9 @@
 import { Box } from 'grommet'
 
-import dateRanges from './helpers/dateRanges.js'
+import { 
+  dateRanges
+} from '@utils'
+
 import {
   last7days,
   last30days,

@@ -1,42 +1,46 @@
-import { useEffect, useState } from 'react'
+import { env } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
 
-import { getBearerToken } from '@utils/index.js'
+import { usePanoptesAuth } from '@hooks'
 
-// TODO: refactor with SWR
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
 
-export default function useUserStats({ authClient, userID }) {
-  const [error, setError] = useState(null)
-  const [userStats, setUserStats] = useState(null)
-  const [loading, setLoading] = useState(true)
+function statsHost(env) {
+  switch (env) {
+    case 'production':
+      return 'https://eras.zooniverse.org'
+    default:
+      return 'https://eras-staging.zooniverse.org'
+  }
+}
 
-  useEffect(function () {
-    async function fetchUserStats() {
-      setLoading(true)
-      setUserStats(null)
-      
-      try {
-        const authorization = await getBearerToken(authClient)
-        const headers = { authorization }
-        const response = await fetch(`https://eras-staging.zooniverse.org/classifications/users/${userID}?period=week`, { headers })  
-        const data = await response.json()
-        if (!ignore) {
-          setUserStats(data)
-        }
-      } catch (error) {
-        setError(error)
-      }
-      
-      setLoading(false)
-    }
+const defaultEndpoint = '/classifications/users'
 
-    let ignore = false
-    if (authClient && userID) {
-      fetchUserStats(authClient, userID)
-    }
-    return () => {
-      ignore = true
-    }
-  }, [authClient, userID])
+async function fetchUserStats({ endpoint, query, userID, authorization }) {
+  const stats = statsHost(env)
+  const queryParams = new URLSearchParams(query).toString()
+  const headers = { authorization }
+  
+  try {
+    const response = await fetch(`${stats}${endpoint}/${userID}?${queryParams}`, { headers })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
 
-  return { data: userStats, error, isLoading: loading }
+export default function useUserStats({ authClient, endpoint = defaultEndpoint, query, userID }) {
+  const authorization = usePanoptesAuth({ authClient, userID })
+  
+  const key = (authorization && userID) ? { endpoint, query, userID, authorization } : null
+
+  return useSWR(key, fetchUserStats, SWROptions)
 }

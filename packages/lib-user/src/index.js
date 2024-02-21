@@ -13,6 +13,7 @@ export { default as useUserStats } from './hooks/useUserStats.js'
 
 // utils
 export { default as createPanoptesUserGroup } from './utils/createPanoptesUserGroup.js'
+export { default as dateRanges } from './utils/dateRanges.js'
 export { default as deletePanoptesUserGroup } from './utils/deletePanoptesUserGroup.js'
 export { default as getBearerToken } from './utils/getBearerToken.js'
 export { default as updatePanoptesUserGroup} from './utils/updatePanoptesUserGroup.js'

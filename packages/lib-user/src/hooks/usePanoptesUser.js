@@ -1,27 +1,15 @@
-import { auth } from '@zooniverse/panoptes-js'
+import auth from 'panoptes-client/lib/auth'
 import { useEffect, useState } from 'react'
 
-import { getBearerToken } from '@utils/index.js'
-
-// TODO: refactor with SWR
-
-async function fetchPanoptesUser(authClient) {
-  try {
-    const authorization = await getBearerToken(authClient)
-    if (authorization) {
-      const { user, error } = await auth.decodeJWT(authorization)
-      if (user) {
-        return user
-      }
-      if (error) {
-        throw error
-      }
-    }
-    return await authClient.checkCurrent()
-  } catch (error) {
-    console.log(error)
-    return null
+async function fetchPanoptesUser() {
+  const panoptesUser = await auth.checkCurrent()
+  if (panoptesUser) {
+    // A lot of user properties are not needed in lib-user, so we only return the ones we need; edit as needed.
+    const { admin, avatar_src, display_name, id, login } = panoptesUser
+    return { admin, avatar_src, display_name, id, login }
   }
+
+  return null
 }
 
 export default function usePanoptesUser(authClient) {
@@ -33,7 +21,7 @@ export default function usePanoptesUser(authClient) {
     async function checkUserSession() {
       setLoading(true)
       try {
-        const panoptesUser = await fetchPanoptesUser(authClient)
+        const panoptesUser = await fetchPanoptesUser()
         setUser(panoptesUser)
       } catch (error) {
         setError(error)
@@ -45,7 +33,7 @@ export default function usePanoptesUser(authClient) {
     authClient.listen('change', checkUserSession)
 
     return function () {
-      authClient?.stopListening('change', checkUserSession)
+      authClient.stopListening('change', checkUserSession)
     }
   }, [authClient])
 

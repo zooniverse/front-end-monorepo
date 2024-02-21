@@ -56,7 +56,7 @@ describe('components > shared > ProfileHeader', function () {
 
     it('should show the group\'s classifications', function () {
       render(<GroupStory />)
-      const classifications = screen.getByText('1526')
+      const classifications = screen.getByText('1,526')
       expect(classifications).to.be.ok()
     })
 
