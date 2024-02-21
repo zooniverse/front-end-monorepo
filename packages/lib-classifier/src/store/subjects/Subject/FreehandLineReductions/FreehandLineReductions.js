@@ -10,13 +10,10 @@ const FreehandLineReductions = types
     subjectId: types.string,
     workflowId: types.string
   })
-  .volatile(self => ({
-    isUsed: types.boolean,
-  }))
   .views(self => {
     return {
-      findCurrentTaskMarks({ stepKey, tasks, frame }) {
-        if (stepKey === undefined || tasks === undefined || frame === undefined) {
+      findCurrentTaskMarks({ stepKey }) {
+        if (stepKey === undefined) {
           return
         }
 
@@ -24,34 +21,15 @@ const FreehandLineReductions = types
 
         self.reductions.forEach(reduction => {
           let { data } = reduction.data   // Caesar expects data attribute to be an object
-          data.forEach(datum => {
-            let task = tasks[datum.taskIndex]
-            let tool = task.tools[datum.toolIndex]
 
-            if (datum.frame === frame
-              && datum.stepKey === stepKey
-              && datum.taskKey === task.taskKey
-              && datum.taskType === task.type
-              && datum.toolType === tool.type
-            ) {
+          data.forEach(datum => {
+            if (datum.stepKey === stepKey) {
               caesarMarks.push(datum)
             }
           })
         })
 
         return caesarMarks
-      }
-    }
-  })
-
-  .actions(self => {
-    return {
-      afterCreate: () => {
-        self.isUsed = false
-      },
-
-      setIsUsed() {
-        self.isUsed = true;
       }
     }
   })

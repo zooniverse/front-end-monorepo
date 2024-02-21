@@ -1,37 +1,114 @@
 {
+  "AdminCheckbox": {
+    "label": "Modo de admin"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "O nome de utilizador ou a palavra-passe está incorreto",
+      "forgot": "Esqueceu-se da palavra-passe?",
+      "heading": "Bem-vindo de volta!",
+      "instruction": "Estamos contentes por ter regressado! Inicie sessão para continuar onde ficou.",
+      "login": "Nome de utilizador ou endereço de email",
+      "password": "Palavra-passe",
+      "placeholder": "p.ex. ZooniverseFan123",
+      "signIn": "Entrar"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Gostaria de ajudar a testar novos projetos e de receber um email quando estiverem disponíveis (opcional)",
+      "email": "Endereço de email (Obrigatório)",
+      "emailConfirm": "Confirmar endereço de email (Obrigatório)",
+      "emailConfirmError": "Os endereços de email não correspondem, tente novamente.",
+      "emailConflict": "Já existe uma conta com este endereço",
+      "emailListSignUp": "Podem enviar-me um email de vez em quando (opcional)",
+      "emailPlaceholder": "p.ex. zoofan31@gmail.com",
+      "forgot": "Esqueceu-se da palavra-passe?",
+      "heading": "Bem-vindo de volta!",
+      "instruction": "Crie uma conta para começar a fazer uma verdadeira investigação.",
+      "password": "Palavra-passe (Obrigatório)",
+      "passwordConfirm": "Confirmar palavra-passe (Obrigatório)",
+      "passwordConfirmError": "As senhas não coincidem. Tente novamente.",
+      "privacyAgreement": "Concorda com a nossa política de privacidade (obrigatório)",
+      "privacyAgreementError": "É obrigatório concordar com a política de privacidade.",
+      "privacyLink": "Ler a nossa política de privacidade",
+      "realName": "Nome verdadeiro (opcional)",
+      "realNameHelp": "Público; será usado para o reconhecermos em documentos, cartazes, etc.",
+      "realNamePatternHelp": "Introduzir um nome, não um endereço de email",
+      "realNamePlaceholder": "p.ex. Maggie Smith",
+      "register": "Registar-se",
+      "registering": "A registar...",
+      "underageConsent": "Confirmo que sou o pai\/mãe\/tutor e autorizo o registo do meu educando, indicando o meu endereço de e-mail como endereço de contacto principal. Tanto eu como o meu educando compreendemos e concordamos com a política de privacidade (obrigatório)",
+      "underageEmail": "Endereço de e-mail de pai\/mãe\/tutor (Obrigatório)",
+      "underageEmailSignUp": "Se concordar, enviaremos periodicamente mensagens de e-mail a promover novos projetos relacionados com a investigação ou outras informações relacionadas com a nossa investigação. Não utilizaremos as suas informações de contacto para fins comerciais. (opcional)",
+      "underageNotRealName": "Utilizará este nome para iniciar sessão. Será mostrado publicamente. Não utilize o seu nome verdadeiro.",
+      "underageWithParent": "Se tem menos de 16 anos, assinale esta caixa para confirmar que preencheu o formulário com o seu pai\/mãe ou tutor",
+      "username": "Nome de utilizador (Obrigatório)",
+      "usernameConflict": "Esse nome de utilizador está atribuído",
+      "usernameHelp": "Esta informação será apresentada publicamente em painéis de mensagens, etc.",
+      "usernamePatternHelp": "Os nomes de utilizador só podem conter letras, números, '.', '-' e '_'",
+      "usernamePlaceholder": "p.ex. ZooniverseFan123"
+    },
+    "title": "Iniciar sessão ou criar uma nova conta."
+  },
   "CloseButton": {
     "close": "Fechar"
+  },
+  "FavouritesButton": {
+    "add": "Adicionado aos favoritos",
+    "remove": "Adicionado aos favoritos"
   },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Sobre",
-      "publications": "Publicações",
-      "team": "A Nossa Equipa",
       "acknowledgements": "Reconhecimentos",
       "contact": "Contacte-nos",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "publications": "Publicações",
+      "team": "A Nossa Equipa"
     },
     "buildLabels": {
+      "bestPractices": "Melhores Práticas",
+      "buildAProject": "Construir um Projeto",
+      "glossary": "Glossário",
+      "policies": "Políticas",
       "tutorial": "Tutorial"
     },
     "getInvolvedLabels": {
-      "getInvolved": "Faça parte",
+      "callForProjects": "Solicitação de Projectos",
+      "collections": "Coleções",
       "education": "Educação",
-      "callForProjects": "Solicitação de Projectos"
+      "getInvolved": "Faça parte"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Zooniverse diário",
+      "news": "Notícias"
+    },
+    "policyLabels": {
+      "jobs": "Funções",
+      "privacyPolicy": "Política de Privacidade",
+      "security": "Segurança",
+      "systemStatus": "Estado do sistema"
     },
     "projectLabels": {
       "projects": "Projectos"
     },
+    "tagLine": "Investigação feita por pessoas",
     "talkLabels": {
       "talk": "Debater"
-    }
+    },
+    "zooniversePolicies": "Políticas da Zooniverse"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "Projectos",
-      "about": "Sobre",
-      "getInvolved": "Faça parte",
-      "talk": "Debater"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Conta de utilizador",
+      "navListLabels": {
+        "messages_one": "Mensagens ({{count}})",
+        "messages_other": "Mensagens ({{count}})",
+        "messages_zero": "Mensagens",
+        "notifications_one": "Notificações ({{count}})",
+        "notifications_other": "Notificações ({{count}})",
+        "notifications_zero": "Notificações"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "Registar-se",
@@ -44,8 +121,22 @@
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Colecções",
-        "favorites": "Favoritos"
+        "favorites": "Favoritos",
+        "profile": "Perfil",
+        "settings": "Definições",
+        "signOut": "Terminar sessão"
       }
+    },
+    "ariaLabel": "Local",
+    "mainHeaderNavListLabels": {
+      "about": "Sobre",
+      "build": "Construir",
+      "getInvolved": "Faça parte",
+      "projects": "Projectos",
+      "talk": "Debater"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Logótipo Zooniverse"
   }
 }

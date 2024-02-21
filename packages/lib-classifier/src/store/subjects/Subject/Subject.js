@@ -22,8 +22,12 @@ const Subject = types
     shouldDiscuss: types.maybe(types.frozen()),
     stepHistory: types.maybe(StepHistory),
     user_has_finished_workflow: types.optional(types.boolean, false),
-    caesarReductions: types.maybeNull(CaesarReductions)
+    caesarReductions: types.maybeNull(CaesarReductions),
   })
+
+  .volatile(self => ({
+    caesarReductionsLoadedForStep: types.array(types.boolean)
+  }))
 
   .postProcessSnapshot(snapshot => {
     const newSnapshot = Object.assign({}, snapshot)
@@ -153,13 +157,18 @@ const Subject = types
       rootStore.onToggleFavourite(self.id, self.favorite)
     }
 
+    function setCaesarReductionsLoadedForStep(stepIndex) {
+      self.caesarReductionsLoadedForStep[stepIndex] = true
+    }
+
     return {
       addToCollection,
       markAsSeen,
       openInTalk,
       setCaesarReductions,
       startClassification,
-      toggleFavorite
+      toggleFavorite,
+      setCaesarReductionsLoadedForStep
     }
   })
 
