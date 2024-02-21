@@ -1,6 +1,6 @@
 'use client'
 
-import { object, string } from 'prop-types'
+import { object } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -14,12 +14,10 @@ import {
 } from '@utils'
 
 import MainContent from './components/MainContent'
-
 import Layout from '../shared/Layout/Layout'
 
 function UserStats ({
-  authClient,
-  login = ''
+  authClient
 }) {
   const [activeTab, setActiveTab] = useState(0)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
@@ -80,8 +78,7 @@ function UserStats ({
 }
 
 UserStats.propTypes = {
-  authClient: object,
-  login: string
+  authClient: object
 }
 
 export default UserStats

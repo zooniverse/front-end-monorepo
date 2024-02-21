@@ -1,52 +1,258 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Já viu este objeto",
+      "tooltipText": [
+        "Já viu e classificou este objeto pelo que eventuais classificações adicionais não contribuirão para a análise do mesmo.",
+        "Se quiser ajudar, experimente escolher um fluxo de trabalho diferente ou contribuir para outro projeto."
+      ]
+    },
     "Banner": {
-      "next": "Próximo"
+      "next": "Próximo",
+      "previous": "Anterior",
+      "whyAmISeeingThis": "Porque estou a ver isto?"
     },
     "InProgressConfirmModal": {
       "cancel": "Cancelar",
       "confirm": "OK",
       "inProgress": "Voltar limpará o seu trabalho na tarefa actual."
+    },
+    "RetiredBanner": {
+      "bannerText": "Concluído: este objeto foi retirado",
+      "tooltipText": [
+        "Este objeto já possui classificações suficientes pelo que a sua não será utilizada na análise do mesmo.",
+        "Se quiser ajudar, experimente escolher um fluxo de trabalho diferente ou contribuir para outro projeto."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Já visto",
+      "bannerText": "{{setName}}: Objeto {{number}}\/{{total}}",
+      "finished": "Concluído",
+      "tooltipText": [
+        "Este projeto permite que os voluntários vejam objetos por ordem sequencial.",
+        "O número mostra-lhe a posição do objeto no grupo total."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Concluído: já viu tudo",
+      "tooltipText": [
+        "Já classificou tudo neste fluxo de trabalho pelo que classificações adicionais deste objeto não serão utilizadas na análise do mesmo.",
+        "Se quiser ajudar, experimente escolher um fluxo de trabalho diferente ou contribuir para outro projeto."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Este fluxo de trabalho está concluído",
+      "tooltipText": [
+        "Todos os objetos neste fluxo de trabalho foram concluídos pelo que classificações adicionais deste objeto não serão utilizadas na análise do mesmo.",
+        "Se quiser ajudar, experimente escolher um fluxo de trabalho diferente ou contribuir para outro projeto."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Alça para rodar nota\/marcação desenhada."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Continuar"
+    "keepClassifying": "Continuar",
+    "label": "Feedback"
   },
   "FieldGuide": {
-    "title": "Guia de Campo",
     "FieldGuideButton": {
       "buttonLabel": "Guia de Campo"
     },
     "FieldGuideItem": {
       "ariaTitle": "Voltar"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Selecionar {{title}}"
+    },
+    "title": "Guia de Campo"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Anotar"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Ver objeto no tamanho normal",
+        "fullscreen": "Ver objeto no modo de ecrã inteiro"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Inverter objeto"
+    },
+    "MoveButton": {
+      "ariaLabel": "Mover objeto"
+    },
+    "ResetButton": {
+      "ariaLabel": "Repor vista do objeto"
+    },
+    "RotateButton": {
+      "ariaLabel": "Rodar objeto"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Ampliar objeto"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Reduzir zoom do objeto"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Adicionar a coleções"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Ocultar marcações anteriores",
+      "show": "Mostrar marcações anteriores"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Ocultar todas as marcações",
+      "show": "Mostrar todas as marcações",
+      "showUser": "Mostrar as suas marcações"
+    },
+    "MetadataButton": {
+      "label": "Informações do objeto"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Etiqueta",
+        "value": "Valor"
+      },
+      "title": "Metadados do objeto"
     }
   },
   "ModalTutorial": {
     "title": "Tutorial"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Fechar o painel de comentários",
+      "goToTalk": "Ir para a conversa do objeto em Conversar",
+      "mainPanel": "Painel de comentários QuickTalk",
+      "openButton": "O objeto tem {{count}} comentário(s). Clique para expandir.",
+      "panelContent": "Comentários na conversa do objeto",
+      "panelHeading": "Conversa do objeto"
+    },
+    "errors": {
+      "failPostComment": "Não foi possível adicionar comentários a conversa existente.",
+      "failPostDiscussion": "Não foi possível adicionar comentários a nova conversa.",
+      "noBoard": "Ainda não foi configurado um quadro de comentários sobre o objeto para este projeto.",
+      "noText": "Não é possível publicar um comentário vazio.",
+      "noUser": "Utilizador sem sessão iniciada"
+    },
+    "loginToPost": "Inicie sessão para publicar um comentário",
     "status": {
-      "loading": "(A carregar)"
-    }
+      "initialized": "Deixar uma nota sobre este objeto",
+      "loading": "(A carregar)",
+      "success": "Comentário publicado!"
+    },
+    "subjectHasNoComments": "Este objeto ainda não tem comentários."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Ir para o passo {{index}}",
+      "next": "Ir para o passo seguinte",
+      "previous": "Ir para o passo anterior"
+    },
+    "alt": "Passo de tutorial {{activeStep}}",
+    "error": "O passo de tutorial não pôde ser carregado.",
     "getStarted": "Iniciar",
     "heading": "{{projectDisplayName}} Tutorial"
   },
+  "StepNavigation": {
+    "go": "Ir para o passo {{index}}",
+    "next": "Ir para o passo seguinte",
+    "previous": "Ir para o passo anterior"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Gráfico de barras"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ícone de visualizador de texto"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Fechar sem guardar",
+        "confirm": "Quer mesmo fechar? Esta marcação será eliminada.",
+        "keepWorking": "Continuar a trabalhar"
+      },
+      "SaveButton": {
+        "save": "Guardar e fechar"
+      },
+      "SubTaskPopup": {
+        "notRender": "A componente da tarefa não pôde ser composta.",
+        "required": "Esta tarefa é necessária."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "transcrição agregada",
+          "explanation": "Estas {{count}} transcrições foram submetidas por voluntários anteriores e não podem ser modificadas.",
+          "noAggregation": "Sem agregações disponíveis.",
+          "title": "Transcrições anteriores",
+          "transcriptionsUnavailable": "Transcrições indisponíveis."
+        },
+        "complete": "Transcrição concluída",
+        "transcribed": "Tem transcrições"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Próximo"
+        "nextFrameLabel": "Próximo",
+        "previousFrameLabel": "Anterior",
+        "thumbnailAltText": "Miniatura da imagem"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Eliminar seleção {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Mudar para vista de flipbook",
+        "switchToSeparateFrames": "Mudar para vista de frames separados"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Ocorreu um erro ao carregar o objeto."
+    },
+    "VariableStarViewer": {
+      "controls": "controlos",
+      "figCaption": "Diagrama HR",
+      "flip": "inverter",
+      "focus": "focar",
+      "highlight": "destacar",
+      "imageTitle": "Diagrama RH: Luminosidade vs Temperatura",
+      "label": "Filtro {{id}}",
+      "periodMultiple": "múltiplo do período",
+      "phase": "fase",
+      "phaseFocus": "foco de fase"
+    },
+    "VideoController": {
+      "closeVolume": "Fechar o controlo de deslize do volume",
+      "fullscreen": "Mostrar vídeo em ecrã inteiro",
+      "openVolume": "Abrir o controlo de deslize do volume",
+      "pause": "Colocar vídeo em pausa",
+      "play": "Reproduzir vídeo",
+      "playbackSpeed": "Seleção da velocidade de reprodução do vídeo",
+      "scrubber": "Limpeza de dados do leitor de vídeo",
+      "volumeSlider": "Controlo de deslize do volume"
+    },
+    "ZoomControlButton": {
+      "disable": "desativar zoom",
+      "enable": "ativar zoom"
+    },
+    "loading": "Carregar um objeto"
   },
   "TaskArea": {
-    "task": "Tarefa",
-    "tutorial": "Tutorial",
     "DisabledTaskPopup": {
+      "body": "Este objeto tem classificações suficientes pelo que quaisquer classificações adicionais submetidas não serão utilizadas para fins de análise. Pode continuar a ver este objeto para referência.",
       "options": {
-        "dismiss": "Ignorar"
-      }
+        "dismiss": "Ignorar",
+        "next": "Próximo objeto disponível",
+        "select": "Escolher um novo objeto"
+      },
+      "title": "Concluído"
     },
     "Tasks": {
       "BackButton": {
@@ -58,14 +264,23 @@
       "DoneButton": {
         "done": "Concluir"
       },
-      "loading": "(A carregar)",
+      "ExpertOptions": {
+        "demoToggle": "Modo de demonstração",
+        "label": "Opções de especialista"
+      },
       "NextButton": {
         "next": "Próximo"
       },
       "TaskHelp": {
         "close": "Fechar",
         "label": "Precisa de ajuda com esta tarefa?"
-      }
-    }
+      },
+      "demoMode": "No modo de demonstração, as classificações não serão guardadas. Utilize-o para demonstrações rápidas e imprecisas da interface de classificação.",
+      "error": "Algo correu mal",
+      "loading": "(A carregar)",
+      "renderFallback": "A componente da tarefa não pôde ser composta."
+    },
+    "task": "Tarefa",
+    "tutorial": "Tutorial"
   }
 }

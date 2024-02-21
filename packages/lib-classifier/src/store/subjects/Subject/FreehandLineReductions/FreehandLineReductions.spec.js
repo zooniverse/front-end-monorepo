@@ -4,17 +4,15 @@ import FreehandLineReductions from './FreehandLineReductions'
 
 let reductionsTaskStub = {
   stepKey: 'S0',
-  tasks: [
-    {
-      taskKey: 'T0',
-      type: 'drawing',
-      tools: [
-        {
-          type: 'freehandLine'
-        }
-      ]
-    }
-  ],
+  task: {
+    taskKey: 'T0',
+    type: 'drawing',
+    tools: [
+      {
+        type: 'freehandLine'
+      }
+    ]
+  },
   frame: 0,
 }
 

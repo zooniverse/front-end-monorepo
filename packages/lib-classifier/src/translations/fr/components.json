@@ -1,55 +1,258 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Vous avez déjà vu ce sujet",
+      "tooltipText": [
+        "Vous avez déjà vu et classé ce sujet, c'est pourquoi d'autres classifications ne contribueront pas à son analyse.",
+        "Si vous cherchez à apporter votre aide, essayez de choisir un autre module ou de contribuer à un autre projet."
+      ]
+    },
     "Banner": {
-      "next": "Suivant"
+      "next": "Suivant",
+      "previous": "Précédent",
+      "whyAmISeeingThis": "Pourquoi est-ce que je vois ceci?"
     },
     "InProgressConfirmModal": {
       "cancel": "Annuler",
       "confirm": "OK",
       "inProgress": "Retourner en arrière va effacer le travail fait sur cette tâche."
+    },
+    "RetiredBanner": {
+      "bannerText": "Terminé : ce sujet a été retiré",
+      "tooltipText": [
+        "Ce sujet possède déjà suffisamment de classifications, c'est pourquoi les vôtres ne seront pas utilisées dans son analyse.",
+        "Si vous cherchez à apporter votre aide, essayez de choisir un autre module ou de contribuer à un autre projet."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Déjà vu",
+      "bannerText": "{{setName}}: Sujet {{number}}\/{{total}}",
+      "finished": "Terminé",
+      "tooltipText": [
+        "Ce projet permet aux volontaires d'afficher des sujets dans l'ordre séquentiel.",
+        "Le nombre montre la position du sujet dans le groupe total."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Terminé: vous avez tout vu",
+      "tooltipText": [
+        "Vous avez déjà classé tous les éléments de ce module, c'est pourquoi d'autres classifications sur ce module ne seront pas utilisées dans son analyse.",
+        "Si vous cherchez à apporter votre aide, essayez de choisir un autre module ou de contribuer à un autre projet."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Ce module est terminé",
+      "tooltipText": [
+        "Tous les sujets de ce module sont terminés, c'est pourquoi d'autres classifications concernant ce sujet ne seront pas utilisées dans son analyse.",
+        "Si vous cherchez à apporter votre aide, essayez de choisir un autre module ou de contribuer à un autre projet."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Poignée pour faire pivoter la marque ou l'annotation dessinée."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Continuer"
+    "keepClassifying": "Continuer",
+    "label": "Retours"
   },
   "FieldGuide": {
-    "title": "Guide Pratique",
     "FieldGuideButton": {
       "buttonLabel": "Guide Pratique"
     },
     "FieldGuideItem": {
       "ariaTitle": "Retour"
-    }
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Sélectionner {{title}}"
+    },
+    "title": "Guide Pratique"
   },
   "ImageToolbar": {
-    "ResetButton": {}
+    "AnnotateButton": {
+      "ariaLabel": "Annoter"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Afficher le sujet en taille normale",
+        "fullscreen": "Afficher le sujet en mode plein écran"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Inverser le sujet"
+    },
+    "MoveButton": {
+      "ariaLabel": "Déplacer le sujet"
+    },
+    "ResetButton": {
+      "ariaLabel": "Réinitialiser l'affichage du sujet"
+    },
+    "RotateButton": {
+      "ariaLabel": "Faire pivoter le sujet"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zoomer sur le sujet"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Dézoomer du sujet"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Ajouter aux collections"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Masquer les marques précédentes",
+      "show": "Afficher les marques précédentes"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Masquer toutes les marques",
+      "show": "Afficher toutes les marques",
+      "showUser": "Afficher vos marques"
+    },
+    "MetadataButton": {
+      "label": "Informations sur le sujet"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Étiquette",
+        "value": "Valeur"
+      },
+      "title": "Métadonnées du sujet"
+    }
   },
   "ModalTutorial": {
     "title": "Tutoriel"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Fermer le panneau de commentaires",
+      "goToTalk": "Accéder à la discussion sur le sujet sur Talk",
+      "mainPanel": "Panneau de commentaires QuickTalk",
+      "openButton": "Il y a {{count}} commentaire(s) sur le sujet. Cliquez pour agrandir.",
+      "panelContent": "Commentaires sur la discussion sur le sujet",
+      "panelHeading": "Discussion sur le sujet"
+    },
+    "errors": {
+      "failPostComment": "Impossible d'ajouter des commentaires à une discussion existante.",
+      "failPostDiscussion": "Impossible d'ajouter des commentaires à une nouvelle discussion.",
+      "noBoard": "Il n'y a pas encore de tableau de commentaires sur le sujet configuré pour ce projet.",
+      "noText": "Impossible de publier un commentaire vide.",
+      "noUser": "L'utilisateur n'est pas connecté."
+    },
+    "loginToPost": "Veuillez vous connecter pour publier un commentaire.",
     "status": {
-      "loading": "(Chargement)"
-    }
+      "initialized": "Laissez une note concernant ce sujet",
+      "loading": "(Chargement)",
+      "success": "Commentaire publié!"
+    },
+    "subjectHasNoComments": "Il n'y a pas encore de commentaire concernant ce sujet."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Passer à l'étape {{index}}",
+      "next": "Passer à l'étape suivante",
+      "previous": "Revenir à l'étape précédente"
+    },
+    "alt": "Étape {{activeStep}} du tutoriel",
+    "error": "Impossible de charger les étapes du tutoriel.",
     "getStarted": "À vos marques, prêts, partez!",
     "heading": "{{projectDisplayName}} Tutoriel"
   },
+  "StepNavigation": {
+    "go": "Aller à l'étape {{index}}",
+    "next": "Aller à l'étape suivante",
+    "previous": "Aller à l'étape précédente"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Diagramme à barres"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Icône de l'afficheur de texte"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Fermer sans enregistrer",
+        "confirm": "Voulez-vous vraiment fermer? Cette marque sera supprimée.",
+        "keepWorking": "Continuer à travailler"
+      },
+      "SaveButton": {
+        "save": "Enregistrer et fermer"
+      },
+      "SubTaskPopup": {
+        "notRender": "Impossible de rendre un composant de la tâche.",
+        "required": "Cette tâche est obligatoire."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "transcription cumulée",
+          "explanation": "Ces {{count}} transcriptions ont été soumises par des contributeurs précédents et ne peuvent pas être modifiées.",
+          "noAggregation": "Aucune agrégation disponible.",
+          "title": "Transcriptions précédentes",
+          "transcriptionsUnavailable": "Transcriptions indisponibles."
+        },
+        "complete": "Transcription terminée",
+        "transcribed": "Possède des transcriptions"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Suivant"
+        "nextFrameLabel": "Suivant",
+        "previousFrameLabel": "Précédente",
+        "thumbnailAltText": "Vignette de l'image"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Supprimer la sélection {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Passer en vue Folioscope",
+        "switchToSeparateFrames": "Passer en vue Image par image"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Une erreur s'est produite lors du chargement du sujet."
+    },
+    "VariableStarViewer": {
+      "controls": "commandes",
+      "figCaption": "Diagramme HR",
+      "flip": "retourner",
+      "focus": "se concentrer",
+      "highlight": "mettre en avant",
+      "imageTitle": "Diagramme HR: luminosité par rapport à la température",
+      "label": "Filtrer {{id}}",
+      "periodMultiple": "plusieurs périodes",
+      "phase": "phase",
+      "phaseFocus": "concentration sur la phase"
+    },
+    "VideoController": {
+      "closeVolume": "Fermer le contrôle du volume",
+      "fullscreen": "Afficher la vidéo en plein écran",
+      "openVolume": "Ouvrir le contrôle du volume",
+      "pause": "Mettre la vidéo en pause",
+      "play": "Lire la vidéo",
+      "playbackSpeed": "Sélection de la vitesse de lecture de la vidéo",
+      "scrubber": "Barre de défilement du lecteur vidéo",
+      "volumeSlider": "Contrôle du volume"
+    },
+    "ZoomControlButton": {
+      "disable": "désactiver le zoom",
+      "enable": "activer le zoom"
+    },
+    "loading": "Chargement d'un sujet"
   },
   "TaskArea": {
-    "task": "Tache",
-    "tutorial": "Tutoriel",
     "DisabledTaskPopup": {
+      "body": "Il y a suffisamment de classement pour ce sujet, aussi toute classification supplémentaire soumise ne sera pas prise en compte dans l'analyse. Vous pouvez toujours afficher ce sujet pour référence.",
       "options": {
-        "dismiss": "Rejeter"
-      }
+        "dismiss": "Rejeter",
+        "next": "Nouveau sujet disponible",
+        "select": "Choisissez un nouveau sujet"
+      },
+      "title": "Terminé"
     },
     "Tasks": {
       "BackButton": {
@@ -61,14 +264,23 @@
       "DoneButton": {
         "done": "Valider"
       },
-      "loading": "(Chargement)",
+      "ExpertOptions": {
+        "demoToggle": "Mode de démonstration",
+        "label": "Options d'expert"
+      },
       "NextButton": {
         "next": "Suivant"
       },
       "TaskHelp": {
         "close": "Fermer",
         "label": "Avez-vous besoin d'aide?"
-      }
-    }
+      },
+      "demoMode": "Les classements ne seront pas enregistrés en mode de démonstration. Utilisez cette fonctionnalité pour des démonstrations rapides et précises de l'interface de classification.",
+      "error": "Une erreur s'est produite",
+      "loading": "(Chargement)",
+      "renderFallback": "Impossible de rendre un composant de la tâche."
+    },
+    "task": "Tache",
+    "tutorial": "Tutoriel"
   }
 }

@@ -1,6 +1,6 @@
-import { DataChart, Text } from 'grommet'
+import { DataChart, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
+import { useContext } from 'react'
 
 import {
   dateRanges,
@@ -8,7 +8,6 @@ import {
 } from '@utils'
 
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
-import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 const DEFAULT_DATA = [
   {
@@ -23,9 +22,9 @@ function BarChart ({
   dateRange = dateRanges.Last7Days,
   getCompleteData = defaultGetCompleteData,
   getDateInterval = defaultGetDateInterval,
-  screenSize = 'small',
   type = 'count'
 }) {
+  const size = useContext(ResponsiveContext)
   const dateInterval = getDateInterval(dateRange)
   const completeData = getCompleteData({ data, dateInterval })
   const period = dateInterval.period
@@ -42,10 +41,11 @@ function BarChart ({
     property: type,
     type: 'bar'
   }
-  if (screenSize !== 'small' && completeData.length < 9) {
+
+  if (size !== 'small' && completeData.length < 9) {
     chartOptions.thickness = 'xlarge'
   }
-  if (screenSize === 'small') {
+  if (size === 'small') {
     if (completeData.length < 12) {
       chartOptions.thickness = 'small'
     } else if (completeData.length > 11 && completeData.length < 19) {
@@ -124,8 +124,7 @@ BarChart.propTypes = {
   dateRange: string,
   getCompleteData: func,
   getDateInterval: func,
-  screenSize: string,
   type: string
 }
 
-export default withResponsiveContext(BarChart)
+export default BarChart

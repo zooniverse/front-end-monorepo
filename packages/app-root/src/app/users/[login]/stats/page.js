@@ -6,7 +6,6 @@ export default function UserPage({ params }) {
   return (
     <UserStats
       authClient={auth}
-      login={params.login}
     />
   )
 }

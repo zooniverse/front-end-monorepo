@@ -13,8 +13,8 @@ import FlipbookControls from './components'
 const DEFAULT_HANDLER = () => true
 
 const FlipbookViewer = ({
-  defaultFrame = 0,
-	enableInteractionLayer = false,
+  enableInteractionLayer = false,
+  frame = 0,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
   invert = false,
@@ -25,17 +25,17 @@ const FlipbookViewer = ({
   onReady = DEFAULT_HANDLER,
   playIterations,
   rotation,
+  setFrame = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
   subject
 }) => {
-  const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
   const [dragMove, setDragMove] = useState()
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameLocation = subject ? subject.locations[defaultFrame] : null
+  const defaultFrameLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: defaultFrameLocation.url,
     onReady,
@@ -46,7 +46,7 @@ const FlipbookViewer = ({
     naturalWidth = 800
   } = img
 
-  const viewerLocation = subject?.locations ? subject.locations[currentFrame] : ''
+  const viewerLocation = subject?.locations ? subject.locations[frame] : ''
 
   useEffect(() => {
     enableRotation()
@@ -97,6 +97,7 @@ const FlipbookViewer = ({
       >
         <SingleImageViewer
           enableInteractionLayer={enableInteractionLayer}
+          frame={frame}
           height={naturalHeight}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}
@@ -118,9 +119,9 @@ const FlipbookViewer = ({
         </SingleImageViewer>
       </SVGPanZoom>
       <FlipbookControls
-        currentFrame={currentFrame}
+        currentFrame={frame}
         locations={subject.locations}
-        onFrameChange={setCurrentFrame}
+        onFrameChange={setFrame}
         onPlayPause={onPlayPause}
         playing={playing}
         playIterations={playIterations}
@@ -130,12 +131,12 @@ const FlipbookViewer = ({
 }
 
 FlipbookViewer.propTypes = {
-  /** Fetched from metadata.default_frame or initialized to zero */
-  defaultFrame: PropTypes.number,
   /** Passed from Subject Viewer Store */
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Index of currently viewed Frame or initialized to zero */
+  frame: PropTypes.number,
   /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
   flipbookAutoplay: PropTypes.bool,
   /** Passed from Subject Viewer Store */
