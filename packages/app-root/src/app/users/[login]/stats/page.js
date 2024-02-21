@@ -2,7 +2,7 @@
 import { UserStats } from '@zooniverse/user'
 import auth from 'panoptes-client/lib/auth'
 
-export default function UserPage({ params }) {
+export default function UserPage() {
   return (
     <UserStats
       authClient={auth}
