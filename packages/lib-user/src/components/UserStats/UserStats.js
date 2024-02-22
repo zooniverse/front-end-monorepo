@@ -15,6 +15,7 @@ import {
 
 import Layout from '../shared/Layout/Layout'
 import MainContent from './components/MainContent'
+import TopProjects from './components/TopProjects'
 
 function UserStats ({
   authClient
@@ -55,6 +56,21 @@ function UserStats ({
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
+  // set top projects based on selected date range and all project stats
+  let topProjects = []
+  if (allProjectsStats?.project_contributions?.length > 0 && projects?.length > 0) {
+    const topProjectContributions = allProjectsStats.project_contributions
+      .sort((a, b) => b.count - a.count)
+
+    topProjects = topProjectContributions
+      .map(projectContribution => {
+        const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+        return projectData
+      })
+      .filter(project => project)
+      .slice(0, 5)
+  }
+
   return (
     <Layout>
       <MainContent
@@ -65,6 +81,9 @@ function UserStats ({
         selectedProject={selectedProject}
         stats={stats}
         user={user}
+      />
+      <TopProjects
+        topProjects={topProjects}
       />
     </Layout>
   )
