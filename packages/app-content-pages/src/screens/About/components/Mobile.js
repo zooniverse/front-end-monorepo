@@ -1,17 +1,17 @@
-import { Anchor, Box, Button, Heading, Image, Paragraph, Text } from 'grommet'
-import { Trans, useTranslation } from 'next-i18next'
-import styled, { useTheme } from 'styled-components'
+import { Anchor, Box, Button, Heading, Image, Text } from 'grommet'
+import { useTranslation } from 'next-i18next'
 
 export default function Mobile() {
   const { t } = useTranslation()
   return (
-    <Box>
+    <Box margin={{ bottom: 'medium' }}>
       <Heading
         level={3}
         size='1.5rem'
         alignSelf='center'
         weight='normal'
         margin='0'
+        textAlign='center'
       >
         {t('AboutPage.mobile.subheading')}
       </Heading>
