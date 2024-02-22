@@ -59,8 +59,12 @@
       }
     },
     "mobile": {
+      "altAppStore": "Download on the App Store",
+      "altPlayStore": "Get It On Google Play",
+      "description": "Bring the Zooniverse with you. Download the app for iOS and Android devices.",
       "heading": "Check Out Our Mobile App",
-      "sidebar": "Mobile App"
+      "sidebar": "Mobile App",
+      "subheading": "Discover, teach, and learn - anywhere"
     },
     "ourMission": {
       "heading": "Our Mission",

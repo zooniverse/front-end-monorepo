@@ -18,6 +18,7 @@ import {
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import Contact from './components/Contact.js'
 import HowItWorks from './components/HowItWorks.js'
+import Mobile from './components/Mobile.js'
 import OurMission from './components/OurMission.js'
 
 const StyledSidebar = styled(Sidebar)`
@@ -138,6 +139,7 @@ function AboutPage() {
             sectionName={t('AboutPage.mobile.heading')}
             slug={sidebarSections[2].slug}
           />
+          <Mobile />
         </MaxWidthContent>
 
         {/** Highlights */}
