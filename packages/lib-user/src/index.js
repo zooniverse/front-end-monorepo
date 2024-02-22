@@ -3,6 +3,15 @@ export { default as UserStats } from './components/UserStats/index.js'
 export { default as MyGroups } from './components/MyGroups/index.js'
 export { default as GroupStats } from './components/GroupStats/index.js'
 
+// components/shared
+export { default as BarChart } from './components/shared/BarChart/index.js'
+export { default as ContentBox } from './components/shared/ContentBox/index.js'
+export { default as Layout } from './components/shared/Layout/index.js'
+export { default as ProfileHeader } from './components/shared/ProfileHeader/index.js'
+export { default as ProjectCard } from './components/shared/ProjectCard/index.js'
+export { default as Select } from './components/shared/Select/index.js'
+export { default as Tabs } from './components/shared/Tabs/index.js'
+
 // hooks
 export { default as useGroupStats } from './hooks/useGroupStats.js'
 export { default as usePanoptesAuth } from './hooks/usePanoptesAuth.js'

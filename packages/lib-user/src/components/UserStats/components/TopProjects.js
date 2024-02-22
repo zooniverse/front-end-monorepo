@@ -1,8 +1,10 @@
 import { Box } from 'grommet'
 import { arrayOf, string, shape } from 'prop-types'
 
-import ContentBox from '../../shared/ContentBox/ContentBox'
-import ProjectCard from '../../shared/ProjectCard/ProjectCard'
+import {
+  ContentBox,
+  ProjectCard
+} from '@shared'
 
 function TopProjects ({ topProjects = [] }) {
   return (

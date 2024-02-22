@@ -6,11 +6,13 @@ import {
   dateRanges
 } from '@utils'
 
-import BarChart from '../../shared/BarChart/BarChart'
-import ContentBox from '../../shared/ContentBox/ContentBox'
-import ProfileHeader from '../../shared/ProfileHeader/ProfileHeader'
-import Select from '../../shared/Select/Select'
-import Tabs from '../../shared/Tabs/Tabs'
+import {
+  BarChart,
+  ContentBox,
+  ProfileHeader,
+  Select,
+  Tabs
+} from '@shared'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_USER = {

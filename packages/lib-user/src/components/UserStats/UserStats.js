@@ -13,7 +13,10 @@ import {
   getDateInterval
 } from '@utils'
 
-import Layout from '../shared/Layout/Layout'
+import {
+  Layout
+} from '@shared'
+
 import MainContent from './components/MainContent'
 import TopProjects from './components/TopProjects'
 
