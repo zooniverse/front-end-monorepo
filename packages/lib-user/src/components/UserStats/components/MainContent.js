@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from 'grommet'
+import { Box, Tab } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import {
@@ -9,6 +9,7 @@ import BarChart from '../../shared/BarChart/BarChart'
 import ContentBox from '../../shared/ContentBox/ContentBox'
 import ProfileHeader from '../../shared/ProfileHeader/ProfileHeader'
 import Select from '../../shared/Select/Select'
+import Tabs from '../../shared/Tabs/Tabs'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_USER = {
