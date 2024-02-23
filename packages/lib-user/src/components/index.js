@@ -1,3 +1,3 @@
-export { default as GroupStats } from './GroupStats/index.js'
-export { default as MyGroups } from './MyGroups/index.js'
-export { default as UserStats } from './UserStats/index.js'
+export { default as GroupStats } from './GroupStats'
+export { default as MyGroups } from './MyGroups'
+export { default as UserStats } from './UserStats'

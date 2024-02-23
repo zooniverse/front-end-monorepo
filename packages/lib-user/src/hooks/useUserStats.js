@@ -1,7 +1,7 @@
 import { env } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
-import { usePanoptesAuth } from '@hooks'
+import { usePanoptesAuth } from './usePanoptesAuth'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -37,7 +37,7 @@ async function fetchUserStats({ endpoint, query, userID, authorization }) {
   }
 }
 
-export default function useUserStats({ authClient, endpoint = defaultEndpoint, query, userID }) {
+export function useUserStats({ authClient, endpoint = defaultEndpoint, query, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   
   const key = (authorization && userID) ? { endpoint, query, userID, authorization } : null

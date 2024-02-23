@@ -4,16 +4,16 @@
 
 import PropTypes from 'prop-types'
 
-import { 
-  useGroupStats,
-  usePanoptesUserGroup
-} from '@hooks/index.js'
+import {
+  usePanoptesUserGroup,
+  useGroupStats
+} from '../../hooks'
 
 import {
   deletePanoptesUserGroup,
   getBearerToken,
   updatePanoptesUserGroup
-} from '@utils/index.js'
+} from '../../utils'
 
 import DeleteGroup from './DeleteGroup.js'
 import EditGroup from './EditGroup.js'

@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
-async function updatePanoptesUserGroup({ updates, headers }) {
+export async function updatePanoptesUserGroup({ updates, headers }) {
   if (headers?.authorization) {
     const response = await panoptes
       .put(`/user_groups/${updates.id}`,
@@ -17,5 +17,3 @@ async function updatePanoptesUserGroup({ updates, headers }) {
 
   return null
 }
-
-export default updatePanoptesUserGroup

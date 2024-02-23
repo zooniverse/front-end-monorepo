@@ -7,15 +7,15 @@ import {
   usePanoptesProjects,
   usePanoptesUser,
   useUserStats
-} from '@hooks'
+} from '../../hooks'
 
 import {
   getDateInterval
-} from '@utils'
+} from '../../utils'
 
 import {
   Layout
-} from '@shared'
+} from '../shared'
 
 import MainContent from './components/MainContent'
 import TopProjects from './components/TopProjects'

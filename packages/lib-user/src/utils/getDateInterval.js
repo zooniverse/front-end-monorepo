@@ -12,7 +12,7 @@ function getPeriodFromDateDifference(difference) {
   }
 }
 
-export default function getDateInterval(dateRange) {
+function getDateInterval(dateRange) {
   const endDate = new Date()
   const end_date = endDate.toISOString().substring(0, 10)
   
@@ -81,3 +81,5 @@ export default function getDateInterval(dateRange) {
     }
   }
 }
+
+export { getDateInterval }

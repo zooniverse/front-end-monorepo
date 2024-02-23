@@ -2,7 +2,10 @@ import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import dateRanges from '../../../utils/dateRanges'
+import { 
+  dateRanges
+} from '../../../utils'
+
 import Meta, { DateRanges } from './Select.stories'
 
 describe('components > shared > Select', function() {

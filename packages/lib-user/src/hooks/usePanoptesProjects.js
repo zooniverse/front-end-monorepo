@@ -1,5 +1,5 @@
-import useSWR from 'swr'
 import { projects as panoptesProjects } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
 
 const SWRoptions = {
   revalidateIfStale: true,
@@ -42,7 +42,7 @@ async function fetchProjects(id) {
   return projectsAccumulator
 }
 
-export default function usePanoptesProjects(projectIDs) {
+export function usePanoptesProjects(projectIDs) {
   let key = null
   if (projectIDs) {
     const id = projectIDs.join(',')

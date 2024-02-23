@@ -2,14 +2,6 @@
   "plugins": [
     ["@babel/plugin-transform-runtime", {
       "helpers": false
-    }],
-    ["module-resolver", {
-      "alias": {
-        "@components": "./src/components",
-        "@hooks": "./src/hooks",
-        "@shared": "./src/components/shared",
-        "@utils": "./src/utils"
-      }
     }]
   ],
   "presets": [
