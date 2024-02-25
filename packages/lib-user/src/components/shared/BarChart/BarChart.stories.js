@@ -13,7 +13,7 @@ import {
   thisYearMoreThan6Months,
   last12months,
   allTime
-} from './BarChart.mock.js'
+} from '../../../../test/mocks/stats.mock.js'
 
 import BarChart from './BarChart.js'
 
