@@ -1,6 +1,8 @@
 import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 
+import { USER, USER_GROUP } from '../../../../test/mocks/panoptes.mock.js'
+
 import ProfileHeader from './ProfileHeader.js'
 
 export default {
@@ -32,20 +34,20 @@ function ComponentDecorator (Story) {
 
 export const Default = {  
   args: {
-    avatar: 'https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg',
+    avatar: USER.avatar_src,
     classifications: 384,
-    displayName: 'Test User',
-    login: 'TestUser',
+    displayName: USER.display_name,
+    login: USER.login,
     projects: 22
   }
 }
 
 export const UserWithHours = {
   args: {
-    avatar: 'https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg',
-    displayName: 'Test User',
+    avatar: USER.avatar_src,
+    displayName: USER.display_name,
     hours: 5,
-    login: 'TestUser',
+    login: USER.login,
     projects: 22
   }
 }
@@ -54,7 +56,7 @@ export const Group = {
   args: {
     classifications: 1526,
     contributors: 386,
-    displayName: 'Test Group',
+    displayName: USER_GROUP.display_name,
     projects: 31
   }
 }
@@ -62,7 +64,7 @@ export const Group = {
 export const GroupWithHours = {
   args: {
     contributors: 386,
-    displayName: 'Test Group',
+    displayName: USER_GROUP.display_name,
     hours: 12,
     projects: 31
   }

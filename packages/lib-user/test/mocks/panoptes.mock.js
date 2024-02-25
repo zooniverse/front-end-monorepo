@@ -41,7 +41,7 @@ const USER = {
   avatar_src: 'https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg',
   display_name: 'Test User',
   id: '12345',
-  login: 'testuser'
+  login: 'TestUser'
 }
 
 const USER_GROUP = {
