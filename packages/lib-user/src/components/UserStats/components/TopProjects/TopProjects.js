@@ -4,7 +4,7 @@ import { arrayOf, string, shape } from 'prop-types'
 import {
   ContentBox,
   ProjectCard
-} from '../../shared'
+} from '../../../shared'
 
 function TopProjects ({ topProjects = [] }) {
   return (
