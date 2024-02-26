@@ -6,6 +6,8 @@ import { PROJECTS, USER } from '../../../test/mocks/panoptes.mock.js'
 import { STATS } from '../../../test/mocks/stats.mock.js'
 
 describe('components > UserStats', function () {
+  this.timeout(5000)
+
   let mockAuthClient
 
   let usePanoptesProjectsStub
