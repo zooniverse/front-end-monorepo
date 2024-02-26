@@ -15,6 +15,11 @@ import {
 } from '../../../shared'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_STATS = {
+  data: [],
+  time_spent: 0,
+  total_count: 0
+}
 const DEFAULT_USER = {
   avatar_src: '',
   display_name: '',
@@ -27,7 +32,7 @@ function MainContent ({
   projects = [],
   selectedDateRange = dateRanges.last7Days,
   selectedProject = 'AllProjects',
-  stats = [],
+  stats = DEFAULT_STATS,
   user = DEFAULT_USER
 }) {
   const [activeTab, setActiveTab] = useState(0)

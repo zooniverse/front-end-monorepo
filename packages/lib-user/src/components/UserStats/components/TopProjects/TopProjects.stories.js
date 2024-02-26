@@ -1,4 +1,4 @@
-import { Box, Grid } from 'grommet'
+import { Box } from 'grommet'
 
 import { PROJECTS } from '../../../../../test/mocks/panoptes.mock.js'
 

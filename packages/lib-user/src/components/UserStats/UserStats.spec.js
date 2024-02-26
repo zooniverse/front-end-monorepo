@@ -6,8 +6,6 @@ import { PROJECTS, USER } from '../../../test/mocks/panoptes.mock.js'
 import { STATS } from '../../../test/mocks/stats.mock.js'
 
 describe('components > UserStats', function () {
-  this.timeout(5000)
-
   let mockAuthClient
 
   let usePanoptesProjectsStub
@@ -52,21 +50,21 @@ describe('components > UserStats', function () {
   it('should show the user display name', function () {
     render(<UserStats authClient={mockAuthClient} />)
     
-    expect(screen.getByText('Test User')).to.be.ok()
+    expect(screen.getByText(USER.display_name)).to.be.ok()
   })
 
   // test useUserStats hook
   it('should show the user total classifications', function () {
     render(<UserStats authClient={mockAuthClient} />)
     
-    expect(screen.getByText('1,725')).to.be.ok()
+    expect(screen.getByText(STATS.total_count.toLocaleString())).to.be.ok()
   })
 
   // test usePanoptesProjects hook
   it('should show the user total projects', function () {
     render(<UserStats authClient={mockAuthClient} />)
     
-    expect(screen.getByText('5')).to.be.ok()
+    expect(screen.getByText(STATS.project_contributions.length.toString())).to.be.ok()
   })
 
   // TODO: sad paths (no auth, hook errors, hook loading, etc.)

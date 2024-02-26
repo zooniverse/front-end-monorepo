@@ -36,6 +36,15 @@ const last7days = [
   }
 ]
 
+const last7DaysFromNow = Array.from(
+  { length: 7 },
+  (_, i) => ({
+    period: new Date(new Date().setDate(new Date().getDate() - i)).toISOString(),
+    count: Math.floor(Math.random() * 1000),
+    session_time: Math.floor(Math.random() * 1800),
+  })
+)
+
 const last30days = Array.from(
   { length: 30 }, 
   (_, i) => ({
@@ -100,7 +109,7 @@ const allTime = Array.from(
 )
 
 const STATS = {
-  data: last7days,
+  data: last7DaysFromNow,
   project_contributions: [
     {
       count: 123,
@@ -129,6 +138,7 @@ const STATS = {
 
 export {
   last7days,
+  last7DaysFromNow,
   last30days,
   thisMonth,
   last3months,
