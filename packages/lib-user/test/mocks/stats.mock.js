@@ -99,6 +99,34 @@ const allTime = Array.from(
   })
 )
 
+const STATS = {
+  data: last7days,
+  project_contributions: [
+    {
+      count: 123,
+      project_id: 1
+    },
+    {
+      count: 234,
+      project_id: 2
+    },
+    {
+      count: 345,
+      project_id: 3
+    },
+    {
+      count: 456,
+      project_id: 4
+    },
+    {
+      count: 567,
+      project_id: 5
+    }
+  ],
+  total_count: 1725,
+  time_spent: 123456
+}
+
 export {
   last7days,
   last30days,
@@ -107,5 +135,6 @@ export {
   thisYearLessThan6Months,
   thisYearMoreThan6Months,
   last12months,
-  allTime
+  allTime,
+  STATS
 }
