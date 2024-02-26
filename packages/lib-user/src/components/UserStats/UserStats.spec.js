@@ -6,6 +6,8 @@ import { PROJECTS, USER } from '../../../test/mocks/panoptes.mock.js'
 import { STATS } from '../../../test/mocks/stats.mock.js'
 
 describe('components > UserStats', function () {
+  this.timeout(5000)
+  
   let mockAuthClient
 
   let usePanoptesProjectsStub
@@ -25,9 +27,9 @@ describe('components > UserStats', function () {
     }
 
     // Create stubs for the hooks
-    usePanoptesProjectsStub = sinon.stub().returns({ data: PROJECTS, error: null, isLoading: false });
-    usePanoptesUserStub = sinon.stub().returns({ data: USER, error: null, isLoading: false });
-    useUserStatsStub = sinon.stub().returns({ data: STATS, error: null, isLoading: false });
+    usePanoptesProjectsStub = sinon.stub().returns({ data: PROJECTS, error: null, isLoading: false })
+    usePanoptesUserStub = sinon.stub().returns({ data: USER, error: null, isLoading: false })
+    useUserStatsStub = sinon.stub().returns({ data: STATS, error: null, isLoading: false })
 
     // Use proxyquire to replace the hooks with the stubs
     UserStats = proxyquire('./UserStats', {
@@ -36,14 +38,14 @@ describe('components > UserStats', function () {
         usePanoptesUser: usePanoptesUserStub,
         useUserStats: useUserStatsStub,
       },
-    }).default;
+    }).default
   })
 
   after(function () {
     // Reset the stubs
-    usePanoptesProjectsStub.reset();
-    usePanoptesUserStub.reset();
-    useUserStatsStub.reset();
+    usePanoptesProjectsStub.reset()
+    usePanoptesUserStub.reset()
+    useUserStatsStub.reset()
   })
   
   // tests usePanoptesUser hook

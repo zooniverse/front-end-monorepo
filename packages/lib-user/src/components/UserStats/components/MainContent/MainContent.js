@@ -50,7 +50,7 @@ function MainContent ({
       label: project.display_name,
       value: project.id
     }))
-  ];
+  ]
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
 
   // create date range options
