@@ -25,7 +25,8 @@ const StyledSpacedText = styled(SpacedText)`
   bottom: 1em;
   left: 1em;
   position: absolute;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 1px rgba(0,0,0,1), 1px 0 4px rgba(0,0,0,0.8);
+  z-index: 2; // Must be in front of Grommet Video component's z-index of 1
 `
 
 function SubjectThumbnail ({ height, href, width, subject }) {
@@ -40,12 +41,11 @@ function SubjectThumbnail ({ height, href, width, subject }) {
         elevation='small'
         fill
         maxHeight={height}
-        justify='start'
-        pad='none'
         maxWidth={width}
       >
         <Media
           alt={`subject ${subject.id}`}
+          controls={false}
           height={700}
           src={subjectURL}
           width={700}
@@ -65,9 +65,6 @@ SubjectThumbnail.propTypes = {
     id: PropTypes.string
   }).isRequired,
   width: PropTypes.number.isRequired
-}
-
-SubjectThumbnail.defaultProps = {
 }
 
 export default SubjectThumbnail
