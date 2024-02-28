@@ -21,28 +21,29 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
+const Gradient = styled(Box)`
+  top: 0;
+  right: 0;
+  position: absolute;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) -30%, rgba(0,0,0,0.2) 30%, transparent 100%);
+  z-index: 2; // Must be in front of Grommet Video component's z-index of 1
+`
+
 const StyledSpacedText = styled(SpacedText)`
   bottom: 1em;
   left: 1em;
   position: absolute;
-  text-shadow: 1px 1px 1px rgba(0,0,0,1), 1px 0 4px rgba(0,0,0,0.8);
-  z-index: 2; // Must be in front of Grommet Video component's z-index of 1
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 3;
 `
 
-function SubjectThumbnail ({ height, href, width, subject }) {
+function SubjectThumbnail({ height, href, width, subject }) {
   const { t } = useTranslation('screens')
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
   return (
-    <StyledAnchor
-      href={`${href}/subjects/${subject.id}`}
-    >
-      <StyledBox
-        elevation='small'
-        fill
-        maxHeight={height}
-        maxWidth={width}
-      >
+    <StyledAnchor href={`${href}/subjects/${subject.id}`}>
+      <StyledBox elevation='small' fill maxHeight={height} maxWidth={width}>
         <Media
           alt={`subject ${subject.id}`}
           controls={false}
@@ -50,6 +51,7 @@ function SubjectThumbnail ({ height, href, width, subject }) {
           src={subjectURL}
           width={700}
         />
+        <Gradient fill />
         <StyledSpacedText color='white' weight='bold'>
           {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subject.id })}
         </StyledSpacedText>
