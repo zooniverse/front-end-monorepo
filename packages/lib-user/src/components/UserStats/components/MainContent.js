@@ -1,5 +1,6 @@
 import { Box, Tab } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
+import { useState } from 'react'
 
 import {
   dateRanges
@@ -19,16 +20,20 @@ const DEFAULT_USER = {
 }
 
 function MainContent ({
-  activeTab = 0,
   handleDateRangeSelect = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
-  onActive = DEFAULT_HANDLER,
   projects = [],
   selectedDateRange = dateRanges.last7Days,
   selectedProject = 'AllProjects',
   stats = [],
   user = DEFAULT_USER
 }) {
+  const [activeTab, setActiveTab] = useState(0)
+
+  function onActive (index) {
+    setActiveTab(index)
+  }
+  
   const hoursSpent = stats?.time_spent >= 0 ? stats.time_spent / 3600 : 0
 
   // create project options

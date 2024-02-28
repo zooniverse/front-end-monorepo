@@ -19,7 +19,6 @@ import Layout from '../shared/Layout/Layout'
 function UserStats ({
   authClient
 }) {
-  const [activeTab, setActiveTab] = useState(0)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
@@ -45,10 +44,6 @@ function UserStats ({
   
   const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
 
-  function onActive (index) {
-    setActiveTab(index)
-  }
-
   function handleProjectSelect (project) {
     setSelectedProject(project.value)
   }
@@ -63,10 +58,8 @@ function UserStats ({
   return (
     <Layout>
       <MainContent
-        activeTab={activeTab}
         handleDateRangeSelect={handleDateRangeSelect}
         handleProjectSelect={handleProjectSelect}
-        onActive={onActive}
         projects={projects}
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
