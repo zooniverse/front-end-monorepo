@@ -16,9 +16,9 @@
     "@jridgewell/trace-mapping" "^0.3.9"
 
 "@artsy/fresnel@~7.1.2":
-  version "7.1.3"
-  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-7.1.3.tgz#65a7c6a5bee5487813dbd0b38aa971e6d38c3a2f"
-  integrity sha512-IUXPNu11g1VCItpBGLgJQUQkk90hpg7Ye1iEEc9+z54dHnks/NahnjVJAj2nnbbl+lrX3Svd2JRTj+Y94FtPjg==
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-7.1.4.tgz#63221d41ea7285379510347d886dc3aa8b2d0cfd"
+  integrity sha512-qbUdxzlcI9Q9Ez+HfYDq7hlLoeFKC8EKcCckW+EltWu9SWL3px4QZIkr7NwYEz13q/nLvAlHMnbJ3TpSEEZ1zg==
 
 "@asamuzakjp/dom-selector@^2.0.1":
   version "2.0.2"
@@ -10061,10 +10061,10 @@ i18next-fs-backend@^2.3.1:
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.3.1.tgz#0c7d2459ff4a039e2b3228131809fbc0e74ff1a8"
   integrity sha512-tvfXskmG/9o+TJ5Fxu54sSO5OkY6d+uMn+K6JiUGLJrwxAVfer+8V3nU8jq3ts9Pe5lXJv4b1N7foIjJ8Iy2Gg==
 
-i18next@~23.8.1:
-  version "23.8.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.8.1.tgz#c9c6c0a2718177457192d3a867af5b35cd2f46fe"
-  integrity sha512-Yhe6oiJhigSh64ev7nVVywu7vHjuUG41MRmFKNwphbkadqTL1ozZFBQISflY7/ju+gL6I/SPfI1GgWQh1yYArA==
+i18next@~23.10.0:
+  version "23.10.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.10.0.tgz#fb328794ae692e6fdde0564259e421f4203c4a2c"
+  integrity sha512-/TgHOqsa7/9abUKJjdPeydoyDc0oTi/7u9F8lMSj6ufg4cbC1Oj3f/Jja7zj7WRIhEQKB7Q4eN6y68I9RDxxGQ==
   dependencies:
     "@babel/runtime" "^7.23.2"
 
