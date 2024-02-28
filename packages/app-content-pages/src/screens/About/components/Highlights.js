@@ -1,6 +1,12 @@
-import { Anchor, Box, Heading, Image, Paragraph, Text, Tip } from 'grommet'
+import { Anchor, Box, Button, Heading, Image, Paragraph, Text, Tip } from 'grommet'
 import { Trans, useTranslation } from 'next-i18next'
 import { CircleInformation } from 'grommet-icons'
+import styled from 'styled-components'
+
+const Relative = styled(Box)`
+  // This is necessary so the Contact Us section's header margin doesn't overlap the interactive icon in this section
+  position: relative;
+`
 
 export default function Highlights() {
   const { t } = useTranslation()
@@ -54,7 +60,7 @@ export default function Highlights() {
           fit='contain'
         />
       </Box>
-      <Box direction='row' gap='6px' margin={{ bottom: 'medium', top: '8px' }} alignContent='center'>
+      <Relative direction='row' gap='6px' margin={{ bottom: 'medium', top: '8px' }} alignContent='center'>
         <Text>
           <Trans
             i18nKey={'AboutPage.highlights.description'}
@@ -71,15 +77,15 @@ export default function Highlights() {
           content={<Text>{t('AboutPage.highlights.tip')}</Text>}
           plain
           dropProps={{
-            align: { left: 'right' },
+            align: { top: 'bottom' },
             background: 'dark-4',
             round: '5px',
             pad: '5px'
           }}
         >
-          <CircleInformation size='1rem' />
+          <Button plain icon={<CircleInformation size='1rem' />} />
         </Tip>
-      </Box>
+      </Relative>
     </>
   )
 }
