@@ -28,9 +28,7 @@ export default function Video({
       maxHeight={height}
       width='100%'
     >
-      <GrommetVideo a11yTitle={alt} controls={controlsOption} fit={fit} preload='metadata' src={src}>
-        <Anchor href={src} label={alt} />
-      </GrommetVideo>
+      <GrommetVideo a11yTitle={alt} controls={controlsOption} fit={fit} preload='metadata' src={src} />
     </StyledBox>
   )
 }

@@ -12,6 +12,9 @@ Added an `onSignIn` function to AuthModal. A handler than can be called in the p
 ### Changed
 Standardized the variable name for when a user is using admin mode to `adminMode`.
 
+### Fixed
+Media's Video component was nesting an unused Anchor component. Removed it.
+
 ## [1.11.0] 2023-12-04
 
 ### Added
