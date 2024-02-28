@@ -31,7 +31,6 @@ function SubjectPreview ({
 }) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
-  const collectionsModal = createRef()
   const href = `/projects/${slug}/talk/subjects/${subject.id}`
 
   return (
@@ -53,6 +52,7 @@ function SubjectPreview ({
           <Media
             data-testid={`subject-image-${subject.id}`}
             alt={`subject ${subject.id}`}
+            controls={false}
             height={700}
             placeholder={placeholder}
             src={subjectURL}

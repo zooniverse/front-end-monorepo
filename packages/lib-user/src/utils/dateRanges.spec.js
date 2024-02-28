@@ -1,6 +1,6 @@
 import dateRanges from './dateRanges'
 
-describe('components > shared > BarChart > dateRanges', () => {
+describe('utils > dateRanges', () => {
   const ranges = [
     'Last7Days',
     'Last30Days',

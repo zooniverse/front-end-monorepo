@@ -1,25 +1,32 @@
 import { DataChart, ResponsiveContext, Text } from 'grommet'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 
-import { 
-  dateRanges
+import {
+  dateRanges,
+  getDateInterval as defaultGetDateInterval
 } from '@utils'
 
+import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 function BarChart ({
   data = [],
   dateRange = dateRanges.Last7Days,
+  getCompleteData = defaultGetCompleteData,
+  getDateInterval = defaultGetDateInterval,
   type = 'count'
 }) {
   const size = useContext(ResponsiveContext)
-  const dateRangeLabel = getDateRangeLabel(dateRange)
-  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
+  const dateInterval = getDateInterval(dateRange)
+  const completeData = getCompleteData({ data, dateInterval })
+  const period = dateInterval?.period
+  const dateRangeLabel = getDateRangeLabel({ dateRange, period })
   const readableDateRange = dateRange
     .replace(/([A-Z])/g, ' $1')
     .replace(/([0-9]+)/g, ' $1')
     .trim()
+  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
 
   // set chart options based on screen size and data length
   const chartOptions = {
@@ -27,13 +34,14 @@ function BarChart ({
     property: type,
     type: 'bar'
   }
-  if (size !== 'small' && data.length < 9) {
+
+  if (size !== 'small' && completeData.length < 9) {
     chartOptions.thickness = 'xlarge'
   }
   if (size === 'small') {
-    if (data.length < 12) {
+    if (completeData.length < 12) {
       chartOptions.thickness = 'small'
-    } else if (data.length > 11 && data.length < 19) {
+    } else if (completeData.length > 11 && completeData.length < 19) {
       chartOptions.thickness = 'xsmall'
     } else {
       chartOptions.thickness = 'hair'
@@ -42,20 +50,21 @@ function BarChart ({
 
   // set x axis granularity based on data length
   let xAxisGranularity = 'fine'
-  if (data.length > 12) {
+  if (completeData.length > 12) {
     xAxisGranularity = 'medium'
   }
 
   return (
     <DataChart
       a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} for ${readableDateRange}`}
+      alignSelf='end'
       axis={{
         x: { granularity: xAxisGranularity, property: 'period' },
         y: { granularity: 'fine', property: type },
       }}
       chart={chartOptions}
-      data={data}
-      detail
+      data={completeData}
+      detail={!!completeData?.length}
       guide={{
         y: {
           granularity: 'fine'
@@ -107,6 +116,8 @@ BarChart.propTypes = {
     session_time: number
   })),
   dateRange: string,
+  getCompleteData: func,
+  getDateInterval: func,
   type: string
 }
 
