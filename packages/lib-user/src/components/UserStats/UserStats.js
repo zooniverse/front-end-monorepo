@@ -1,43 +1,71 @@
 'use client'
 
 import { object } from 'prop-types'
+import { useState } from 'react'
 
 import {
+  usePanoptesProjects,
   usePanoptesUser,
   useUserStats
 } from '@hooks'
 
+import {
+  getDateInterval
+} from '@utils'
+
+import MainContent from './components/MainContent'
 import Layout from '../shared/Layout/Layout'
-import ContentBox from '../shared/ContentBox/ContentBox'
-import ProfileHeader from '../shared/ProfileHeader/ProfileHeader'
 
 function UserStats ({
   authClient
 }) {
-  const { data: user, error, isLoading } = usePanoptesUser(authClient)
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
-  const statsQuery = {
-    period: 'year',
-    project_contributions: true,
-    time_spent: true
+  // fetch user
+  const { data: user, error, isLoading } = usePanoptesUser(authClient)
+  
+  // fetch all projects stats, used by projects select and top projects regardless of selected project
+  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
+  allProjectsStatsQuery.project_contributions = true
+  allProjectsStatsQuery.time_spent = true
+  
+  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: allProjectsStatsQuery })
+  
+  // fetch individual project stats
+  const projectStatsQuery = getDateInterval(selectedDateRange)
+  projectStatsQuery.project_id = parseInt(selectedProject)
+  projectStatsQuery.time_spent = true
+  
+  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ authClient, userID: user?.id, query: projectStatsQuery })
+  
+  // fetch projects
+  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  
+  const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
+
+  function handleProjectSelect (project) {
+    setSelectedProject(project.value)
   }
-  const { data: userStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, query: statsQuery, userID: user?.id })
+
+  function handleDateRangeSelect (dateRange) {
+    setSelectedDateRange(dateRange.value)
+  }
+
+  // set stats based on selected project or all projects
+  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   return (
     <Layout>
-      <ContentBox
-        direction='column'
-        gap='32px'
-        height='400px'
-      >
-        <ProfileHeader
-          avatar={user?.avatar_src}
-          classifications={userStats?.total_count}
-          displayName={user?.display_name}
-          login={user?.login}
-          projects={userStats?.project_contributions?.length}
-        />
-      </ContentBox>
+      <MainContent
+        handleDateRangeSelect={handleDateRangeSelect}
+        handleProjectSelect={handleProjectSelect}
+        projects={projects}
+        selectedDateRange={selectedDateRange}
+        selectedProject={selectedProject}
+        stats={stats}
+        user={user}
+      />
     </Layout>
   )
 }
