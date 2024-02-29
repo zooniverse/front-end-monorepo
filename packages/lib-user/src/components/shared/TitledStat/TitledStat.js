@@ -22,7 +22,7 @@ function TitledStat ({
         {title}
       </SpacedText>
       <SpacedText
-        color='brand'
+        color='neutral-1'
         size='xlarge'
         weight='bold'
       >
