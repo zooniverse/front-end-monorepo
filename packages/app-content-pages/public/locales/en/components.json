@@ -74,7 +74,15 @@
         "one": "The wisdom of the crowd",
         "two": "Anyone can be a researcher",
         "three": "We accelerate important research by working together",
-        "four": "The Zooniverse Works"
+        "four": "The Zooniverse Works",
+        "five": "Our projects lead to great discoveries"
+      },
+      "discoveries": {
+        "one": "Green Pea Galaxies",
+        "two": "New Exoplanets Located",
+        "three": "An Earlier Use of 'White Lie'",
+        "four": "Boyajian's Star",
+        "tip": "Click on any discovery for more info"
       }
     },
     "sidebarLabel": "Section",
