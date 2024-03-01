@@ -1,26 +1,35 @@
 import PropTypes from 'prop-types'
-import { format, interpolateRound, select } from 'd3'
+import { format, interpolate, select } from 'd3'
 import { useEffect, useRef } from 'react'
 
+const initialValue = 0
+
+let prefersReducedMotion
+const isBrowser = typeof window !== 'undefined'
+if (isBrowser) {
+  prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: true)').matches
+}
+
 function AnimatedNumber({ duration = 1000, value }) {
-  if (!value) return
-
   const numRef = useRef(null)
-
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: true)'
-  ).matches
 
   function animateValue() {
     select(numRef.current)
       .data([value])
       .transition()
       .duration(duration)
-      .textTween(() => interpolateRound(0, value))
+      .textTween(() => {
+        const interpolator = interpolate(initialValue, value)
+        return t => {
+          const iValue = interpolator(t)
+          const niceValue = formatValue(iValue)
+          return niceValue
+        }
+      })
   }
 
-  function formatValue(value) {
-    return format(',d')(value)
+  function formatValue(num) {
+    return format(',d')(num)
   }
 
   useEffect(() => {
@@ -45,7 +54,7 @@ function AnimatedNumber({ duration = 1000, value }) {
     }
   }, [numRef.current])
 
-  return <span ref={numRef}>{formatValue(value)}</span>
+  return <span ref={numRef}>{formatValue(initialValue)}</span>
 }
 
 AnimatedNumber.propTypes = {

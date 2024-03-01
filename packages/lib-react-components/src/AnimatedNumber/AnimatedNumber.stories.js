@@ -13,6 +13,12 @@ export const Default = {
   }
 }
 
+export const Zero = {
+  args: {
+    value: 0
+  }
+}
+
 export const ScrollDown = () => {
   return (
     <Box pad={{ vertical: '120vh' }}>

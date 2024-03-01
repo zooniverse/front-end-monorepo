@@ -1,7 +1,7 @@
 import { Text } from 'grommet'
 import { number, string } from 'prop-types'
 
-import AnimatedNumber from './components/AnimatedNumber'
+import AnimatedNumber from '@zooniverse/react-components/AnimatedNumber'
 
 function Stat ({ className, label, value }) {
   return (

@@ -60,22 +60,18 @@ function ProjectStatistics ({
           />
           <NumbersGrid>
             <Stat
-              className="test-stat-project-statistics-volunteers"
               value={volunteers}
               label={t('ProjectStatistics.volunteers')}
             />
             <Stat
-              className="test-stat-project-statistics-classifications"
               value={classifications}
               label={t('ProjectStatistics.classifications')}
             />
             <Stat
-              className="test-stat-project-statistics-subjects"
               value={subjects}
               label={t('ProjectStatistics.subjects')}
             />
             <Stat
-              className="test-stat-project-statistics-completed-subjects"
               value={completedSubjects}
               label={t('ProjectStatistics.completedSubjects')}
             />
