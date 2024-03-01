@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import { format, interpolate, select } from 'd3'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const initialValue = 0
 
 let prefersReducedMotion
 const isBrowser = typeof window !== 'undefined'
 if (isBrowser) {
-  prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: true)').matches
+  prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 function AnimatedNumber({ duration = 1000, value }) {
@@ -21,11 +21,23 @@ function AnimatedNumber({ duration = 1000, value }) {
       .textTween(() => {
         const interpolator = interpolate(initialValue, value)
         return t => {
-          const iValue = interpolator(t)
-          const niceValue = formatValue(iValue)
+          const interpolatedValue = interpolator(t)
+          const niceValue = formatValue(interpolatedValue)
           return niceValue
         }
       })
+  }
+
+  function lessAnimation() {
+    select(numRef.current)
+    .data([value])
+    .transition()
+    .duration(0)
+    .textTween(() => {
+      return () => {
+        return formatValue(value)
+      }
+    })
   }
 
   function formatValue(num) {
@@ -39,11 +51,12 @@ function AnimatedNumber({ duration = 1000, value }) {
       // If intersectionRatio is 0, the target is out of view and we do not need to do anything.
       if (entries[0].intersectionRatio <= 0) return
 
-      // Once target element is in viewport, animate it
+      // Once target element is in viewport, animate it only once
       if (!prefersReducedMotion) {
         animateValue()
+        intersectionObserver.unobserve(numElement)
       } else {
-        select(numRef.current).data([value])
+        lessAnimation()
       }
     })
 
