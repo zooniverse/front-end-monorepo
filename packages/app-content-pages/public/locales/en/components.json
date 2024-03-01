@@ -83,6 +83,10 @@
         "three": "An Earlier Use of 'White Lie'",
         "four": "Boyajian's Star",
         "tip": "Click on any discovery for more info"
+      },
+      "stats": {
+        "one": "Classifications so far",
+        "two": "Registered volunteers"
       }
     },
     "sidebarLabel": "Section",

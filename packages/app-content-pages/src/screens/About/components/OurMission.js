@@ -18,7 +18,7 @@ const VideoWrapper = styled(Box)`
   position: relative;
   padding-bottom: 56.25%; // Creates a responsive 9:16 div
   overflow: hidden;
-  margin-bottom: 60px;
+  margin: 60px 0;
 `
 
 const CircleImage = styled(Box)`
@@ -111,9 +111,9 @@ export default function OurMission() {
       <Heading
         color={{ light: 'neutral-1', dark: 'accent-1' }}
         level={3}
-        margin='0'
         size='1rem'
         textAlign='center'
+        alignSelf='center'
       >
         {t('AboutPage.ourMission.subheadings.four').toUpperCase()}
       </Heading>
