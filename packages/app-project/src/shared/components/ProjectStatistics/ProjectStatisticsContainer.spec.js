@@ -26,11 +26,11 @@ describe('Component > ProjectStatisticsContainer', function () {
     expect(screen.getByText('ProjectStatistics.classifications')).to.be.ok()
   })
 
-  it('should render the number of subjects', function () {
+  it('should render a subjects stat', function () {
     expect(screen.getByText('ProjectStatistics.subjects')).to.be.ok()
   })
 
-  it('should render the number of completed subjects', function () {
+  it('should render a completed subjects stat', function () {
     expect(screen.getByText('ProjectStatistics.completedSubjects')).to.be.ok()
   })
 
