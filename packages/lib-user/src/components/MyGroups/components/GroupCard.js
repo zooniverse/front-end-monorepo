@@ -50,16 +50,15 @@ function GroupCard ({
       >
         <SpacedHeading
           color='neutral-1'
-          level={3}
           size='16px'
         >
           {displayName}
         </SpacedHeading>
         <StyledRole
           round='xsmall'
-          background={role === 'admin' ? 'neutral-2' : 'accent-1'}
+          background={role === 'group_admin' ? 'neutral-2' : 'accent-1'}
         >
-          {role}
+          {role === 'group_admin' ? 'Admin' : 'Member'}
         </StyledRole>
       </Box>
       <Box

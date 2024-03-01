@@ -39,7 +39,7 @@ describe('components > MyGroups > GroupCard', function () {
   it('should show the member role', function () {
     render(<MemberStory />)
 
-    expect(screen.getByText('member')).to.be.ok()
+    expect(screen.getByText('Member')).to.be.ok()
   })
 
   describe('with the admin role', function () {
@@ -48,7 +48,7 @@ describe('components > MyGroups > GroupCard', function () {
     it('should show the admin role', function () {
       render(<AdminStory />)
 
-      expect(screen.getByText('admin')).to.be.ok()
+      expect(screen.getByText('Admin')).to.be.ok()
     })
   })
 })

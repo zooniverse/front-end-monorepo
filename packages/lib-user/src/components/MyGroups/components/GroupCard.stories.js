@@ -30,7 +30,7 @@ export const Admin = {
     contributors: 89,
     hours: 567,
     projects: 10,
-    role: 'admin'
+    role: 'group_admin'
   }
 }
 
