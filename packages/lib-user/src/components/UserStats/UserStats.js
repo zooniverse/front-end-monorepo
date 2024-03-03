@@ -29,7 +29,11 @@ function UserStats ({
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
   // fetch user
-  const { data: user, error, isLoading } = usePanoptesUser(authClient)
+  const {
+    data: user,
+    error,
+    isLoading
+  } = usePanoptesUser(authClient)
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
   const allProjectsStatsQuery = getDateInterval(selectedDateRange)
@@ -62,9 +66,13 @@ function UserStats ({
   })
   
   // fetch projects
-  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
   
-  const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
+  const {
+    data: projects,
+    error: projectsError,
+    isLoading: projectsLoading
+  } = usePanoptesProjects(projectIds)
 
   function handleProjectSelect (project) {
     setSelectedProject(project.value)

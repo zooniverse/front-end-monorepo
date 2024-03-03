@@ -12,14 +12,14 @@ const SWRoptions = {
 }
 
 async function fetchMemberships({ endpoint, query, authorization }) {
-  const userID = query?.user_id
+  const userId = query?.user_id
   
-  // userID and auth are undefined while loading
-  if (userID === undefined || authorization === undefined) {
+  // userId and auth are undefined while loading
+  if (userId === undefined || authorization === undefined) {
     return undefined
   }
   // logged in
-  if (userID && authorization) {
+  if (userId && authorization) {
     const { body } = await panoptes.get(endpoint, query, { authorization })
     return body || {}
   }
