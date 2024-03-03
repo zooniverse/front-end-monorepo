@@ -7,16 +7,11 @@ import {
   usePanoptesMemberships
 } from '@hooks'
 
-import {
-  createPanoptesUserGroup,
-  getBearerToken
-} from '@utils'
+import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
-import convertActiveGroupsWithRoles from './helpers/convertActiveGroupsWithRoles.js'
-
-import CreateGroup from './CreateGroup.js'
-
-function MyGroups({ authClient }) {
+function MyGroups({
+  authClient
+}) {
   const {
     data: user,
     error: userError,
@@ -35,54 +30,34 @@ function MyGroups({ authClient }) {
     }
   })
 
-  async function handleGroupCreate(data) {
-    try {
-      const authorization = await getBearerToken(authClient)
-      const newGroup = await createPanoptesUserGroup({ data, authorization })
-      console.log('newGroup', newGroup)
-      window.location.reload()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  if (userError || membershipsError) return (<p>Error: {userError?.toString() || membershipsError?.toString()}</p>)
-
-  if (userLoading || membershipsLoading) return (<p>Loading...</p>)
-
-  const activeGroupsWithRoles = convertActiveGroupsWithRoles(membershipsWithGroups)
+  const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
     <div>
-      <div>
-        <h3>MyGroups</h3>
-        {activeGroupsWithRoles.length === 0 ? (
-          <p>You are not an active member of any groups.</p>
-        ) : null}
-        {activeGroupsWithRoles.map((group) => {
-          const roles = group.roles
+      <h3>MyGroups</h3>
+      {activeGroupsWithRoles.length === 0 ? (
+        <p>You are not an active member of any groups.</p>
+      ) : null}
+      {activeGroupsWithRoles.map((group) => {
+        const roles = group.roles
 
-          return (
-            <div key={group.id}>
-              <h4><a href={`./?groups=${group.id}`}>{group.display_name}</a></h4>
-              <span>{roles}</span>
-              <div>
-                <span>Classifications X</span>
-                {' | '}
-                <span>Hours Y</span>
-                {' | '}
-                <span>Members Z</span>
-                {' | '}
-                <span>Projects W</span>
-              </div>
-              <hr />
+        return (
+          <div key={group.id}>
+            <h4><a href={`./?groups=${group.id}`}>{group.display_name}</a></h4>
+            <span>{roles}</span>
+            <div>
+              <span>Classifications X</span>
+              {' | '}
+              <span>Hours Y</span>
+              {' | '}
+              <span>Members Z</span>
+              {' | '}
+              <span>Projects W</span>
             </div>
-          )
-        })}
-      </div>
-      <CreateGroup
-        handleGroupCreate={handleGroupCreate}
-      />
+            <hr />
+          </div>
+        )
+      })}
     </div>
   )
 }
