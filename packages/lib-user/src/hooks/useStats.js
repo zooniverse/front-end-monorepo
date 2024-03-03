@@ -27,7 +27,7 @@ if (isBrowser) {
   auth.checkCurrent()
 }
 
-async function fetchUserStats({ endpoint, query, userID }) {
+async function fetchStats({ endpoint, query, sourceId }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   if (!token) return null
@@ -37,7 +37,7 @@ async function fetchUserStats({ endpoint, query, userID }) {
   const headers = { authorization }
   
   try {
-    const response = await fetch(`${stats}${endpoint}/${userID}?${queryParams}`, { headers })
+    const response = await fetch(`${stats}${endpoint}/${sourceId}?${queryParams}`, { headers })
     const data = await response.json()
     return data
   } catch (error) {
@@ -46,8 +46,7 @@ async function fetchUserStats({ endpoint, query, userID }) {
   }
 }
 
-export function useUserStats({ endpoint = defaultEndpoint, query, userID }) {
-  const key = userID ? { endpoint, query, userID } : null
-
-  return useSWR(key, fetchUserStats, SWROptions)
+export function useStats({ endpoint = defaultEndpoint, query = {}, sourceId }) {
+  const key = sourceId ? { endpoint, query, sourceId } : null
+  return useSWR(key, fetchStats, SWROptions)
 }

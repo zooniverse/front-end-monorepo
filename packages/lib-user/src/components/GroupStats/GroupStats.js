@@ -4,9 +4,9 @@
 
 import PropTypes from 'prop-types'
 
-import {
-  usePanoptesUserGroup,
-  useGroupStats
+import { 
+  useStats,
+  usePanoptesUserGroup
 } from '@hooks'
 
 import {
@@ -17,6 +17,8 @@ import {
 
 import DeleteGroup from './DeleteGroup.js'
 import EditGroup from './EditGroup.js'
+
+const STATS_ENDPOINT = '/classifications/user_groups'
 
 function GroupStats ({
   authClient,
@@ -32,7 +34,7 @@ function GroupStats ({
     data: groupStats,
     error: groupStatsError,
     isLoading: groupStatsLoading
-  } = useGroupStats({ authClient, groupId })
+  } = useStats({ authClient, endpoint: STATS_ENDPOINT, sourceId: groupId })
 
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
