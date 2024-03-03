@@ -1,5 +1,6 @@
 'use client'
 
+import { Grid } from 'grommet'
 import { object } from 'prop-types'
 
 import {
@@ -7,6 +8,9 @@ import {
   usePanoptesUser,
   useStats
 } from '@hooks/index.js'
+
+import { ContentBox } from '../shared/ContentBox'
+import { Layout } from '../shared/Layout'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
@@ -20,15 +24,17 @@ function GroupCard({
 }) {
   const { data, error, isLoading } = useStats({ endpoint: STATS_ENDPOINT, sourceId: id })
 
+  const { total_count, time_spent, active_users, project_contributions } = data || {}
+
   return (
     <div>
-      <h2>{displayName}</h2>
+      <h3>{displayName}</h3>
       <span>{role}</span>
       <div>
-        <span>Classifications {data?.total_count}</span>
-        <span>Hours {Math.round(data?.time_spent)}</span>
-        <span>Members {data?.active_users}</span>
-        <span>Projects {data?.project_contributions.length}</span>
+        <span>Classifications {total_count}</span>
+        <span>Hours {Math.round(time_spent)}</span>
+        <span>Members {active_users}</span>
+        <span>Projects {project_contributions?.length}</span>
       </div>
     </div>
   )
@@ -58,23 +64,37 @@ function MyGroups({
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
-    <div>
-      <h3>MyGroups</h3>
-      {activeGroupsWithRoles.length === 0 ? (
-        <p>You are not an active member of any groups.</p>
-      ) : null}
-      {activeGroupsWithRoles.map((group) => {
-        return (
-          <GroupCard
-            key={group.id}
-            authClient={authClient}
-            displayName={group.display_name}
-            id={group.id}
-            role={group.roles}
-          />
-        )
-      })}
-    </div>
+    <Layout>
+      <ContentBox
+        linkLabel='Learn more about Groups'
+        linkProps={{ href: '/groups' }}
+        title='My Groups'
+        pad={{ horizontal: '60px', vertical: '30px' }}
+      >
+        {activeGroupsWithRoles.length === 0 ? (
+          <p>You are not an active member of any groups.</p>
+        ) : null}
+        <Grid
+          columns={{
+            count: 2,
+            size: 'auto'
+          }}
+          gap='small'
+        >
+          {activeGroupsWithRoles.map((group) => {
+            return (
+              <GroupCard
+                key={group.id}
+                authClient={authClient}
+                displayName={group.display_name}
+                id={group.id}
+                role={group.roles}
+              />
+            )
+          })}
+        </Grid>
+      </ContentBox>
+    </Layout>
   )
 }
 
