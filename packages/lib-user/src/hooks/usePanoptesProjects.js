@@ -42,10 +42,10 @@ async function fetchProjects(id) {
   return projectsAccumulator
 }
 
-export function usePanoptesProjects(projectIDs) {
+export function usePanoptesProjects(projectIds) {
   let key = null
-  if (projectIDs) {
-    const id = projectIDs.join(',')
+  if (projectIds) {
+    const id = projectIds.join(',')
     key = id
   }
   return useSWR(key, fetchProjects, SWRoptions)

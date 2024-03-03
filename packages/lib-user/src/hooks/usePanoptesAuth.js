@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getBearerToken } from '../utils'
 
-export function usePanoptesAuth({ authClient, userID }) {
+export function usePanoptesAuth({ authClient, userId }) {
   const [authorization, setAuthorization] = useState()
   async function checkAuth() {
     const token = await getBearerToken(authClient)
@@ -11,7 +11,7 @@ export function usePanoptesAuth({ authClient, userID }) {
 
   useEffect(function onUserChange() {
     checkAuth()
-  }, [authClient, userID])
+  }, [authClient, userId])
 
   return authorization
 }
