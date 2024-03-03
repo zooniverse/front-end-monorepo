@@ -1,13 +1,38 @@
 'use client'
 
-// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
+import { object } from 'prop-types'
 
 import {
+  usePanoptesMemberships,
   usePanoptesUser,
-  usePanoptesMemberships
-} from '@hooks'
+  useStats
+} from '@hooks/index.js'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
+
+const STATS_ENDPOINT = '/classifications/user_groups'
+
+// the following GroupCard will be replaced with GroupCard component per PR 5943
+function GroupCard({
+  displayName = '',
+  id = '',
+  role = ''
+}) {
+  const { data, error, isLoading } = useStats({ endpoint: STATS_ENDPOINT, sourceId: id })
+
+  return (
+    <div>
+      <h2>{displayName}</h2>
+      <span>{role}</span>
+      <div>
+        <span>Classifications {data?.total_count}</span>
+        <span>Hours {Math.round(data?.time_spent)}</span>
+        <span>Members {data?.active_users}</span>
+        <span>Projects {data?.project_contributions.length}</span>
+      </div>
+    </div>
+  )
+}
 
 function MyGroups({
   authClient
@@ -39,27 +64,22 @@ function MyGroups({
         <p>You are not an active member of any groups.</p>
       ) : null}
       {activeGroupsWithRoles.map((group) => {
-        const roles = group.roles
-
         return (
-          <div key={group.id}>
-            <h4><a href={`./?groups=${group.id}`}>{group.display_name}</a></h4>
-            <span>{roles}</span>
-            <div>
-              <span>Classifications X</span>
-              {' | '}
-              <span>Hours Y</span>
-              {' | '}
-              <span>Members Z</span>
-              {' | '}
-              <span>Projects W</span>
-            </div>
-            <hr />
-          </div>
+          <GroupCard
+            key={group.id}
+            authClient={authClient}
+            displayName={group.display_name}
+            id={group.id}
+            role={group.roles}
+          />
         )
       })}
     </div>
   )
+}
+
+MyGroups.propTypes = {
+  authClient: object
 }
 
 export default MyGroups
