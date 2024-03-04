@@ -100,7 +100,7 @@ function AboutPage() {
         />
         <MaxWidthContent>
           <StyledHeading
-            color={{ light: 'brand', dark: 'accent-1' }}
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
             level='1'
             size='small'
           >
@@ -119,7 +119,7 @@ function AboutPage() {
           <article>
             <Box>
               <HeadingForAboutNav
-                color={{ light: 'brand', dark: 'white' }}
+                color={{ light: 'neutral-1', dark: 'white' }}
                 sectionName={t('AboutPage.ourMission.heading')}
                 slug={sidebarSections[0].slug}
               />
@@ -134,7 +134,7 @@ function AboutPage() {
         {/** Mobile App */}
         <MaxWidthContent>
           <HeadingForAboutNav
-            color={{ light: 'brand', dark: 'white' }}
+            color={{ light: 'neutral-1', dark: 'white' }}
             sectionName={t('AboutPage.mobile.heading')}
             slug={sidebarSections[2].slug}
           />
@@ -143,7 +143,7 @@ function AboutPage() {
         {/** Highlights */}
         <MaxWidthContent>
           <HeadingForAboutNav
-            color={{ light: 'brand', dark: 'white' }}
+            color={{ light: 'neutral-1', dark: 'white' }}
             sectionName={t('AboutPage.highlights.heading')}
             slug={sidebarSections[3].slug}
           />
@@ -152,7 +152,7 @@ function AboutPage() {
         {/** Contact Us */}
         <MaxWidthContent>
           <HeadingForAboutNav
-            color={{ light: 'brand', dark: 'white' }}
+            color={{ light: 'neutral-1', dark: 'white' }}
             sectionName={t('AboutPage.contact.heading')}
             slug={sidebarSections[4].slug}
           />

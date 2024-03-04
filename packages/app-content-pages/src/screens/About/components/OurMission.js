@@ -157,6 +157,7 @@ export default function OurMission() {
       </Box>
       <Box
         direction='row'
+        wrap
         justify='between'
         margin={{ top: 'medium', bottom: 'large' }}
       >

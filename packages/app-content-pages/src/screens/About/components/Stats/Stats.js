@@ -1,7 +1,10 @@
-import { Box, Text } from 'grommet'
+import { Box, ResponsiveContext, Text } from 'grommet'
+import { useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 import SpacedText from '@zooniverse/react-components/SpacedText'
+import AnimtedNumber from '@zooniverse/react-components/AnimatedNumber'
+
 import { useTotalClassificationCount, useTotalVolunteerCount } from './hooks'
 
 const ClassificationsLabel = styled(Box)`
@@ -49,6 +52,8 @@ const OUROBOROS_USER_COUNT = 124921 // volunteers
 
 export default function Stats() {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
+  const numberFont = size !== 'small' ? '5rem' : '2.5rem'
 
   const { data: classifications } = useTotalClassificationCount()
 
@@ -60,8 +65,8 @@ export default function Stats() {
   return (
     <Box gap='medium'>
       <Stat className='classifications' round='small' elevation='small'>
-        <Text color='neutral-2' size='5rem' textAlign='center'>
-          {totalClassifications?.toLocaleString()}
+        <Text color='neutral-2' size={numberFont} textAlign='center'>
+          {classifications && <AnimtedNumber value={totalClassifications} />}
         </Text>
         <ClassificationsLabel>
           <SpacedText color='white' weight='bold' textAlign='center'>
@@ -70,8 +75,8 @@ export default function Stats() {
         </ClassificationsLabel>
       </Stat>
       <Stat className='volunteers' round='small' elevation='small'>
-        <Text color='neutral-1' size='5rem' textAlign='center'>
-          {totalVolunteers.toLocaleString()}
+        <Text color='neutral-1' size={numberFont} textAlign='center'>
+          {volunteers && <AnimtedNumber value={totalVolunteers} />}
         </Text>
         <VolunteersLabel>
           <SpacedText color='white' weight='bold' textAlign='center'>
