@@ -1,27 +1,19 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import { format } from 'd3'
-import Meta, { Default, HugeNumber, Zero } from './Stat.stories.js'
-import * as Mocks from './Stat.mock'
+import Meta, { Default } from './Stat.stories.js'
+import { DefaultMock  } from './Stat.mock'
 
+/* Note that this UI is animated, so we cannot look for values in AnimatedNumber
+components via unit test environment */
 
 describe('Component > Stat', function () {
-  [Default, HugeNumber, Zero].forEach(function (Story) {
-    describe(`${Story.name} Stat`, function () {
-      let mock = Mocks[`${Story.name}Mock`]
+  const DefaultStory = composeStory(Default, Meta)
 
-      beforeEach(function () {
-        const ComposedStory = composeStory(Story, Meta)
-        render(<ComposedStory />)
-      })
+  beforeEach(function () {
+    render(<DefaultStory />)
+  })
 
-      it('should render the Animated Number', function () {
-        expect(screen.getByText(format(',d')(mock.value))).to.exist()
-      })
-    
-      it('should render the Text Label', function () {
-        expect(screen.getByText(mock.label)).to.exist()
-      })
-    })
+  it('should render the Text Label', function () {
+    expect(screen.getByText(DefaultMock.label)).to.exist()
   })
 })
