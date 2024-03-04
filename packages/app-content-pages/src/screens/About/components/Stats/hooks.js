@@ -30,7 +30,7 @@ export function useTotalClassificationCount() {
 
 const getVolunteerCount = async () => {
   try {
-    const query = { page_size: 1 }
+    const query = { page_size: 1 } // will return one account in { users }, but we really only care about { meta }
     const response = await panoptes.get('/users', query)
     return response.body.meta.users.count
   } catch (error) {
