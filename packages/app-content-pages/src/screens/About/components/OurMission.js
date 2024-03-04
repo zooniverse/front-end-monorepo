@@ -12,7 +12,7 @@ import { CircleInformation } from 'grommet-icons'
 import { Trans, useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
-import Stats from './Stats.js'
+import Stats from './Stats/Stats.js'
 
 const VideoWrapper = styled(Box)`
   position: relative;
