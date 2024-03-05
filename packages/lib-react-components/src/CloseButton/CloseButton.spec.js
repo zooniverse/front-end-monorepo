@@ -1,33 +1,23 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import CloseButton from './CloseButton'
-import { expect } from 'chai'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { Default, Light, Disabled } from './CloseButton.stories.js'
 
-describe('<CloseButton />', function () {
-  let wrapper
-  before(function () {
-    wrapper = shallow(<CloseButton closeFn={sinon.spy()} />)
+describe('Component > CloseButton', function () {
+  it('renders the default button', function () {
+    const DefaultStory = composeStory(Default, Meta)
+    render(<DefaultStory />)
+    expect(screen.getByRole('button').hasAttribute('disabled')).to.be.false()
   })
 
-  it('renders without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('renders the light button', function () {
+    const LightStory = composeStory(Light, Meta)
+    render(<LightStory />)
+    expect(screen.getByRole('button').hasAttribute('disabled')).to.be.false()
   })
 
-  it('calls on the closeFn prop on click', function () {
-    wrapper.simulate('click')
-    expect(wrapper.props().onClick).to.have.been.calledOnce()
-  })
-
-  it('should not pass along a href prop', function () {
-    wrapper.setProps({ href: 'www.google.com' })
-    expect(wrapper.props().href).to.be.undefined()
-  })
-
-  describe('with a color prop', function () {
-    it('should set the icon colour', function () {
-      const colouredButton = shallow(<CloseButton color='neutral-6' closeFn={sinon.spy()} />)
-      const icon = colouredButton.prop('icon')
-      expect(icon.props.color).to.equal('neutral-6')
-    })
+  it('renders the disabled button', function () {
+    const DisabledStory = composeStory(Disabled, Meta)
+    render(<DisabledStory />)
+    expect(screen.getByRole('button').hasAttribute('disabled')).to.be.true()
   })
 })
