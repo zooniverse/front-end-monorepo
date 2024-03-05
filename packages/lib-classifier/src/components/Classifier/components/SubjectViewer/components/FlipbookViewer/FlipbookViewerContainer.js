@@ -60,7 +60,6 @@ function FlipbookViewerContainer({
     playIterations,
     rotation,
     separateFramesView,
-    setFrame,
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
@@ -107,7 +106,6 @@ function FlipbookViewerContainer({
           onReady={onReady}
           playIterations={playIterations}
           rotation={rotation}
-          setFrame={setFrame}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           subject={subject}
