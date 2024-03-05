@@ -3,9 +3,9 @@ import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { GroupStats, MyGroups, UserStats } from '../../../src/components'
+import { GroupStats, MyGroups, UserStats } from '@components'
 
-import { usePanoptesUser } from '../../../src/hooks/usePanoptesUser'
+import { usePanoptesUser } from '@hooks'
 
 function App ({
   groups = null,

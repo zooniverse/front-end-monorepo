@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 
 import { 
   dateRanges
-} from '../../../utils'
+} from '@utils'
 
 import {
   last7days,

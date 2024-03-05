@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 import { 
   dateRanges
-} from '../../../utils'
+} from '@utils'
 
 import Meta, { DateRanges } from './Select.stories'
 

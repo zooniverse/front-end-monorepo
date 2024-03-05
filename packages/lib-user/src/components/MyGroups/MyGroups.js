@@ -5,12 +5,12 @@
 import {
   usePanoptesUser,
   usePanoptesMemberships
-} from '../../hooks'
+} from '@hooks'
 
 import {
   createPanoptesUserGroup,
   getBearerToken
-} from '../../utils'
+} from '@utils'
 
 import convertActiveGroupsWithRoles from './helpers/convertActiveGroupsWithRoles.js'
 

@@ -4,7 +4,7 @@ import Select from './Select.js'
 
 import { 
   dateRanges
-} from '../../../utils'
+} from '@utils'
 
 export default {
   title: 'Components/shared/Select',

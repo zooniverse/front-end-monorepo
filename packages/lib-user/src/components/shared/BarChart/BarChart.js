@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import {
   dateRanges,
   getDateInterval as defaultGetDateInterval
-} from '../../../utils'
+} from '@utils'
 
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'

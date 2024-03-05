@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import {
   dateRanges
-} from '../../../../utils'
+} from '@utils'
 
 import {
   BarChart,
@@ -12,7 +12,7 @@ import {
   ProfileHeader,
   Select,
   Tabs
-} from '../../../shared'
+} from '@components/shared'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_STATS = {
