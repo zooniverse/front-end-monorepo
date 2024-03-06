@@ -46,19 +46,18 @@ describe('Component > FlipbookViewer', function () {
       expect(newButtonStyle.border).to.equal('2px solid #f0b200')
     })
 
-    // NOTE: these tests are run sequentially and the frame state of the below test is inherited from the above test
     it('should handle using arrow keys on the tablist', async function () {
       const user = userEvent.setup({ delay: null })
 
       const { getAllByRole } = render(<DefaultStory />)
       const thumbnailButtons = getAllByRole('tab')
-      expect(thumbnailButtons[1].tabIndex).to.equal(0)
+      expect(thumbnailButtons[0].tabIndex).to.equal(0)
 
-      thumbnailButtons[1].focus()
+      thumbnailButtons[0].focus()
       await user.keyboard('{ArrowRight}')
 
-      expect(thumbnailButtons[1].tabIndex).to.equal(-1)
-      expect(thumbnailButtons[2].tabIndex).to.equal(0)
+      expect(thumbnailButtons[0].tabIndex).to.equal(-1)
+      expect(thumbnailButtons[1].tabIndex).to.equal(0)
     })
   })
 
