@@ -2,17 +2,22 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
 function ModalBody ({
+  background = {
+    dark: 'dark-5',
+    light: 'neutral-6'
+  },
   children,
-  className,
-  overflow,
-  pad
+  className = '',
+  overflow = 'auto',
+  pad = {
+    bottom: 'medium',
+    horizontal: 'medium',
+    top: 'small'
+  }
 }) {
   return (
     <Box
-      background={{
-        dark: 'dark-5',
-        light: 'neutral-6'
-      }}
+      background={background}
       className={className}
       overflow={overflow}
       pad={pad}
@@ -23,18 +28,9 @@ function ModalBody ({
 }
 
 ModalBody.propTypes = {
+  background: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-}
-
-ModalBody.defaultProps = {
-  className: '',
-  overflow: 'auto',
-  pad: {
-    bottom: 'medium',
-    horizontal: 'medium',
-    top: 'small'
-  }
 }
 
 export default ModalBody
