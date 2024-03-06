@@ -169,7 +169,7 @@ export default function HowItWorks() {
   const customButtonBorder = global.colors.brand
 
   return (
-    <MaxWidthContent background='neutral-1' round='16px'>
+    <MaxWidthContent background='neutral-1' round='16px' margin={{ bottom: '30px' }}>
       <Box align='center'>
         <HeadingForAboutNav
           color='accent-1'
