@@ -30,7 +30,7 @@ function CreateButton({
 }
 
 CreateButton.propTypes = {
-  onClick: func,
+  onClick: func.isRequired,
   text: string
 }
 
