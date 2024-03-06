@@ -37,6 +37,11 @@
         "one": "Since 2007, Zooniverse projects have led to many unexpected and scientifically significant discoveries and many <0>peer-reviewed publications</0>. All of this would have been impossible if it weren’t for our global community of Zooniverse participants engaged in these projects alongside the research teams.",
         "two": "These ‘Into the Zooniverse’ books commemorate and honor the efforts of everyone involved, providing just a glimpse into the ways Zooniverse community members have a real impact on the world around them. Each book highlights a subset of projects that were active that year."
       },
+      "pictures": {
+        "one": "Zooniverse highlights book cover 2019",
+        "two": "Zooniverse highlights book cover 2020",
+        "three": "Zooniverse highlights book cover 2021"
+      },
       "sidebar": "Highlights",
       "subheading": "Memorable projects over the years",
       "tip": "We do not make any profit through sales of the hard copies of the books."
@@ -66,6 +71,7 @@
       }
     },
     "mobile": {
+      "altImage": "Picture of mobile phone with Zooniverse app",
       "altAppStore": "Download on the App Store",
       "altPlayStore": "Get It On Google Play",
       "description": "Bring the Zooniverse with you. Download the app for iOS and Android devices.",

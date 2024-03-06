@@ -17,7 +17,7 @@ export default function Mobile() {
       </Heading>
       <Box align='center'>
         <Image
-          alt=''
+          alt={t('AboutPage.mobile.altImage')}
           src='/about/assets/phone.png'
           width='300px'
           margin={{ vertical: '30px' }}

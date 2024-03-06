@@ -1,4 +1,13 @@
-import { Anchor, Box, Button, Heading, Image, Paragraph, Text, Tip } from 'grommet'
+import {
+  Anchor,
+  Box,
+  Button,
+  Heading,
+  Image,
+  Paragraph,
+  Text,
+  Tip
+} from 'grommet'
 import { Trans, useTranslation } from 'next-i18next'
 import { CircleInformation } from 'grommet-icons'
 import styled from 'styled-components'
@@ -44,23 +53,35 @@ export default function Highlights() {
         margin={{ top: '30px' }}
         direction='row'
       >
-        <Image
-          alt=''
-          src='/about/assets/into-the-zooniverse1.jpg'
-          fit='contain'
-        />
-        <Image
-          alt=''
-          src='/about/assets/into-the-zooniverse2.png'
-          fit='contain'
-        />
-        <Image
-          alt=''
-          src='/about/assets/into-the-zooniverse3.jpg'
-          fit='contain'
-        />
+        <Box>
+          <Image
+            alt={t('AboutPage.highlights.pictures.one')}
+            src='/about/assets/into-the-zooniverse1.jpg'
+            fit='contain'
+          />
+        </Box>
+        <Box>
+          <Image
+            alt={t('AboutPage.highlights.pictures.two')}
+            src='/about/assets/into-the-zooniverse2.png'
+            fit='contain'
+          />
+        </Box>
+        <Box>
+          <Image
+            alt={t('AboutPage.highlights.pictures.three')}
+            src='/about/assets/into-the-zooniverse3.jpg'
+            fit='contain'
+            width='99%' // minor adjustment to align these images top/bottom
+          />
+        </Box>
       </Box>
-      <Relative direction='row' gap='6px' margin={{ bottom: 'medium', top: '8px' }} alignContent='center'>
+      <Relative
+        direction='row'
+        gap='6px'
+        margin={{ bottom: 'medium', top: '8px' }}
+        alignContent='center'
+      >
         <Text>
           <Trans
             i18nKey={'AboutPage.highlights.description'}
