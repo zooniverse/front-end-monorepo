@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { getBearerToken } from '@utils/index.js'
+import { getBearerToken } from '../utils'
 
 // TODO: refactor with SWR
 
-export default function useGroupStats({ authClient, groupID }) {
+export function useGroupStats({ authClient, groupID }) {
   const [error, setError] = useState(null)
   const [groupStats, setGroupStats] = useState(null)
   const [loading, setLoading] = useState(true)

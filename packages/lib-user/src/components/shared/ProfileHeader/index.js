@@ -1,1 +1,1 @@
-export { default as ProfileHeader } from './ProfileHeader.js'
+export { default } from './ProfileHeader.js'
