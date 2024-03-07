@@ -7,7 +7,7 @@ import {
   usePanoptesMemberships,
   usePanoptesUser,
   useStats
-} from '@hooks/index.js'
+} from '@hooks'
 
 import { ContentBox } from '../shared/ContentBox'
 import { Layout } from '../shared/Layout'
@@ -85,7 +85,6 @@ function MyGroups({
             return (
               <GroupCard
                 key={group.id}
-                authClient={authClient}
                 displayName={group.display_name}
                 id={group.id}
                 role={group.roles}

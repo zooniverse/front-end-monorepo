@@ -5,8 +5,8 @@
 import PropTypes from 'prop-types'
 
 import { 
-  useStats,
-  usePanoptesUserGroup
+  usePanoptesUserGroup,
+  useStats
 } from '@hooks'
 
 import {
