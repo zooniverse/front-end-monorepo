@@ -32,6 +32,18 @@ class ResizeObserver {
     }
 }
 
+class IntersectionObserver {
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+}
+
 const mockMediaMatcher = {
   addListener() {
     return true
@@ -42,6 +54,7 @@ const mockMediaMatcher = {
   matches: true
 }
 
+window.IntersectionObserver = IntersectionObserver
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
 window.matchMedia = () => mockMediaMatcher
