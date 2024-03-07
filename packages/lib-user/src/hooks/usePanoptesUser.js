@@ -12,7 +12,7 @@ async function fetchPanoptesUser() {
   return null
 }
 
-export default function usePanoptesUser(authClient) {
+export function usePanoptesUser(authClient) {
   const [error, setError] = useState(null)
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)

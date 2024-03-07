@@ -3,14 +3,14 @@
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
 
 import {
-  usePanoptesMemberships,
-  usePanoptesUser
-} from '@hooks/index.js'
+  usePanoptesUser,
+  usePanoptesMemberships
+} from '@hooks'
 
 import {
   createPanoptesUserGroup,
   getBearerToken
-} from '@utils/index.js'
+} from '@utils'
 
 import convertActiveGroupsWithRoles from './helpers/convertActiveGroupsWithRoles.js'
 

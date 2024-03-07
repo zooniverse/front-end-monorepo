@@ -22,19 +22,43 @@ function copyProps (src, target) {
 }
 
 class ResizeObserver {
-    disconnect() {
-      // do nothing
-    }
-    observe() {
-        // do nothing
-    }
-    unobserve() {
-        // do nothing
-    }
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
 }
 
+class IntersectionObserver {
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+}
+
+const mockMediaMatcher = {
+  addListener() {
+    return true
+  },
+  removeListener() {
+    return true
+  },
+  matches: true
+}
+
+window.IntersectionObserver = IntersectionObserver
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
+window.matchMedia = () => mockMediaMatcher
 
 global.window = window
 global.document = window.document
@@ -42,7 +66,7 @@ global.Image = window.Image
 global.navigator = {
   userAgent: 'node.js'
 }
-global.cancelAnimationFrame = () => true  // Required for '@tippyjs'
+global.cancelAnimationFrame = () => true // Required for '@tippyjs'
 copyProps(window, global)
 
 Enzyme.configure({ adapter: new Adapter() })
