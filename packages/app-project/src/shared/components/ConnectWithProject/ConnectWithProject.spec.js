@@ -1,31 +1,38 @@
-import { shallow } from 'enzyme'
-
-import ConnectWithProject from './ConnectWithProject'
-import ProjectLink from './components/ProjectLink'
-
-let wrapper
-const PROJECT_NAME = 'project'
-const URLS = [
-  {
-    label: 'foo',
-    url: 'bar'
-  }
-]
+import { render, screen, within } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { ConnectWithProject, ConnectWithProjectEmpty } from './ConnectWithProject.stories.js'
+import { ConnectWithProjectMock } from './ConnectWithProject.mock'
 
 describe('Component > ConnectWithProject', function () {
-  before(function () {
-    wrapper = shallow(<ConnectWithProject
-      projectName={PROJECT_NAME}
-      urls={URLS}
-    />)
+  describe('when the project has links', function() {
+    beforeEach(function () {
+      const ConnectWithProjectStory = composeStory(ConnectWithProject, Meta)
+      render(<ConnectWithProjectStory />)
+    })
+  
+    ConnectWithProjectMock.project.urls.forEach(function (urlObject) {
+      it(`should render the ${urlObject.name} icon`, async function () {
+				screen.debug()
+        await expect(screen.getByLabelText(urlObject.name)).to.be.ok()
+      })
+  
+      it(`should render the ${urlObject.name} link`, function () {
+        const el = document.getElementsByClassName(`connect-with-project-${urlObject.site}`)[0]
+        expect(within(el).getByRole('link')).to.have.property('href')
+      })
+  
+      it(`should render the ${urlObject.name} label`, function () {
+        const el = document.getElementsByClassName(`connect-with-project-${urlObject.site}`)[0]
+        expect(within(el).getByText(`ConnectWithProject.ProjectLink.types.${urlObject.name.toLowerCase()}`)).to.exist()
+      })
+    })
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render a `ProjectLink` for each url', function () {
-    const projectLinks = wrapper.find(ProjectLink)
-    expect(projectLinks).to.have.lengthOf(1)
+  describe('when the project has no links', function() {
+    it('should render as nothing', function () {
+      const ConnectWithProjectStory = composeStory(ConnectWithProjectEmpty, Meta)
+      render(<ConnectWithProjectStory />)
+      expect(screen.queryAllByRole('link').length).to.equal(0)
+    })
   })
 })
