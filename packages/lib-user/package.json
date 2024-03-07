@@ -82,7 +82,7 @@
     "style-loader": "~3.3.1",
     "webpack": "~5.90.0",
     "webpack-cli": "~5.1.0",
-    "webpack-dev-server": "~4.15.0"
+    "webpack-dev-server": "~5.0.2"
   },
   "engines": {
     "node": ">=20.5"
