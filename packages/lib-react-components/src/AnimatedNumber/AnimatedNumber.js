@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { format, interpolate, select } from 'd3'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 const initialValue = 0
 
