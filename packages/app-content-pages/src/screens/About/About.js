@@ -17,7 +17,9 @@ import {
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import Contact from './components/Contact.js'
+import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'
+import Mobile from './components/Mobile.js'
 import OurMission from './components/OurMission.js'
 
 const StyledSidebar = styled(Sidebar)`
@@ -132,21 +134,23 @@ function AboutPage() {
         <HowItWorks />
 
         {/** Mobile App */}
-        <MaxWidthContent>
+        <MaxWidthContent pad={{ horizontal: 'medium' }}>
           <HeadingForAboutNav
             color={{ light: 'neutral-1', dark: 'white' }}
             sectionName={t('AboutPage.mobile.heading')}
             slug={sidebarSections[2].slug}
           />
+          <Mobile />
         </MaxWidthContent>
 
         {/** Highlights */}
-        <MaxWidthContent>
+        <MaxWidthContent pad={{ horizontal: 'medium' }}>
           <HeadingForAboutNav
             color={{ light: 'neutral-1', dark: 'white' }}
             sectionName={t('AboutPage.highlights.heading')}
             slug={sidebarSections[3].slug}
           />
+          <Highlights />
         </MaxWidthContent>
 
         {/** Contact Us */}
