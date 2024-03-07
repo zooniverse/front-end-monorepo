@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
-async function deletePanoptesGroup({ groupID, headers }) {
+export async function deletePanoptesUserGroup({ groupID, headers }) {
   if (headers?.authorization) {
     const response = await panoptes.del(`/user_groups/${groupID}`, {}, headers)
     return response
@@ -8,5 +8,3 @@ async function deletePanoptesGroup({ groupID, headers }) {
 
   return null
 }
-
-export default deletePanoptesGroup
