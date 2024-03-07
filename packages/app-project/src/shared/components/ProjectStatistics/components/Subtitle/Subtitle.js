@@ -3,13 +3,12 @@ import withResponsiveContext from '@zooniverse/react-components/helpers/withResp
 import { object, oneOfType, string } from 'prop-types'
 import styled from 'styled-components'
 
-// TODO add this as an xsmall option for h3 into theme
 const StyledHeading = styled(Heading)`
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 0.875rem;
+  line-height: 1.4rem;
 `
 
-function Subtitle ({ margin, mode, screenSize, text, ...props }) {
+function Subtitle ({ margin = '0', screenSize = '', text }) {
   const textMargin = (screenSize === 'small')
     ? { bottom: 'xsmall', top: 'none' }
     : margin
@@ -24,14 +23,7 @@ function Subtitle ({ margin, mode, screenSize, text, ...props }) {
 Subtitle.propTypes = {
   margin: oneOfType([object, string]),
   screenSize: string,
-  size: string,
   text: string.isRequired
-}
-
-Subtitle.defaultProps = {
-  margin: '0',
-  screenSize: '',
-  size: 'small'
 }
 
 export default withResponsiveContext(Subtitle)

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 Added an `onSignIn` function to AuthModal. A handler than can be called in the parent app when a user registers or signs-in.
+Added `AnimatedNumber` component, an interpolation animation of integers from 0 to `value`.
 
 ### Changed
 Standardized the variable name for when a user is using admin mode to `adminMode`.
