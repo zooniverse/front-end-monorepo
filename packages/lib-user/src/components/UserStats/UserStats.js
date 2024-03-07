@@ -34,14 +34,14 @@ function UserStats ({
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
   
-  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: allProjectsStatsQuery })
+  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ userID: user?.id, query: allProjectsStatsQuery })
   
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
   
-  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ authClient, userID: user?.id, query: projectStatsQuery })
+  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ userID: user?.id, query: projectStatsQuery })
   
   // fetch projects
   const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
