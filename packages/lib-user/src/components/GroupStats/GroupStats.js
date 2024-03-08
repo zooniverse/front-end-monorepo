@@ -34,7 +34,7 @@ function GroupStats ({
     data: groupStats,
     error: groupStatsError,
     isLoading: groupStatsLoading
-  } = useStats({ authClient, endpoint: STATS_ENDPOINT, sourceId: groupId })
+  } = useStats({ endpoint: STATS_ENDPOINT, sourceId: groupId })
 
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)

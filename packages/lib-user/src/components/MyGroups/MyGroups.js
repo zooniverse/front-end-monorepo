@@ -9,8 +9,8 @@ import {
   useStats
 } from '@hooks'
 
-import { ContentBox } from '../shared/ContentBox'
-import { Layout } from '../shared/Layout'
+import { ContentBox } from '@components/shared'
+import { Layout } from '@components/shared'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
