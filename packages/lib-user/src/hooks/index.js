@@ -1,4 +1,3 @@
-export { useGroupStats } from './useGroupStats.js'
 export { usePanoptesAuth } from './usePanoptesAuth.js'
 export { usePanoptesMemberships } from './usePanoptesMemberships.js'
 export { usePanoptesProjects } from './usePanoptesProjects.js'
