@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import GroupModal from './GroupModal'
 
 export default {
@@ -14,7 +15,7 @@ export function CreateGroup() {
       key='1-create-group-story'
       onClick={() => setGroupModalActive(true)}
     >
-      Create Group
+      Create New Group
     </button>,
     <GroupModal
       key='2-create-group-story'
@@ -25,7 +26,7 @@ export function CreateGroup() {
     >
       <>
         {'Hello world!'}
-        <p>Lorem ipsum dolor sit amet, consectetur adipisic. Lorem ipsum dolor sit amet, consectetur adipisic. Lorem ipsum dolor sit amet, consectetur adipisic.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac risus id ante dapibus vestibulum. Donec id.</p>
       </>
     </GroupModal>
   ]
