@@ -7,7 +7,7 @@ export default function GroupPage({ params }) {
   return (
     <GroupStats
       authClient={auth}
-      groupID={params.id}
+      groupId={params.groupId}
     />
   )
 }

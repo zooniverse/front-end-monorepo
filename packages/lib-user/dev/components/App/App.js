@@ -77,7 +77,7 @@ function App ({
             /groups
             <ul>
               <li>
-                <a href="./?groups=[user_group_id]">/groups/[id] - group stats page</a>
+                <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
                 <ul>
                   <li>/contributors - Full Group Stats</li>
                 </ul>
@@ -97,12 +97,12 @@ function App ({
     } else if (subpaths[1] === 'contributors') {
       content = <p>Group contributors component goes here.</p>
     } else {
-      const groupID = subpaths[0] || ''
+      const groupId = subpaths[0] || ''
 
       content = (
         <GroupStats
           authClient={oauth}
-          groupID={groupID}
+          groupId={groupId}
         />
       )
     }
