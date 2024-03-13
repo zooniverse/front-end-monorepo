@@ -4,7 +4,7 @@ import { getBearerToken } from '../utils'
 
 // TODO: refactor with SWR
 
-export function useGroupStats({ authClient, groupID }) {
+export function useGroupStats({ authClient, groupId }) {
   const [error, setError] = useState(null)
   const [groupStats, setGroupStats] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -17,7 +17,7 @@ export function useGroupStats({ authClient, groupID }) {
       try {
         const authorization = await getBearerToken(authClient)
         const headers = { authorization }
-        const response = await fetch(`https://eras-staging.zooniverse.org/classifications/user_groups/${groupID}?individual_stats_breakdown=true`, { headers })  
+        const response = await fetch(`https://eras-staging.zooniverse.org/classifications/user_groups/${groupId}?individual_stats_breakdown=true`, { headers })  
         const data = await response.json()
         if (!ignore) {
           setGroupStats(data)
@@ -30,13 +30,13 @@ export function useGroupStats({ authClient, groupID }) {
     }
 
     let ignore = false
-    if (authClient && groupID) {
-      fetchGroupStats(authClient, groupID)
+    if (authClient && groupId) {
+      fetchGroupStats(authClient, groupId)
     }
     return () => {
       ignore = true
     }
-  }, [authClient, groupID])
+  }, [authClient, groupId])
 
   return { data: groupStats, error, isLoading: loading }
 }

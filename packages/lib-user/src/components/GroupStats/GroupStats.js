@@ -20,19 +20,19 @@ import EditGroup from './EditGroup.js'
 
 function GroupStats ({
   authClient,
-  groupID
+  groupId
 }) {
   const {
     data,
     error: groupError,
     isLoading: groupLoading
-  } = usePanoptesUserGroup({ authClient, groupID })
+  } = usePanoptesUserGroup({ authClient, groupId })
   
   const {
     data: groupStats,
     error: groupStatsError,
     isLoading: groupStatsLoading
-  } = useGroupStats({ authClient, groupID })
+  } = useGroupStats({ authClient, groupId })
 
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
@@ -46,7 +46,7 @@ function GroupStats ({
   async function handleGroupDelete() {
     try {
       const requestHeaders = await getRequestHeaders()
-      const deleteResponse = await deletePanoptesUserGroup({ groupID, headers: requestHeaders })
+      const deleteResponse = await deletePanoptesUserGroup({ groupId, headers: requestHeaders })
       console.log('deleteResponse', deleteResponse)
       window.location.href =  '?users=[login]/groups'
     } catch (error) {
@@ -73,7 +73,7 @@ function GroupStats ({
 
   return (
     <div>
-      <h2>Hi group with ID {groupID}! 🙌</h2>
+      <h2>Hi group with ID {groupId}! 🙌</h2>
       <h3>Your group display_name is {group?.display_name}.</h3>
       <h4>Members: <pre>{group?.links.users.toString()}</pre></h4>
       <h4>Here are your group stats:</h4>
@@ -94,8 +94,8 @@ function GroupStats ({
 }
 
 GroupStats.propTypes = {
-  // authClient: object.isRequired,
-  groupID: PropTypes.string.isRequired
+  // authClient: object,
+  groupId: PropTypes.string
 }
 
 export default GroupStats
