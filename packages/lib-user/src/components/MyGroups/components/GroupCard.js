@@ -5,8 +5,6 @@ import styled, { css } from 'styled-components'
 
 import TitledStat from '../../shared/TitledStat'
 
-// TODO: refactor group name as link to group page
-
 const StyledBox = styled(Box)`
   border-radius: 8px;
 

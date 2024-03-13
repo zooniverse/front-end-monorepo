@@ -1,6 +1,7 @@
 import { Box } from 'grommet'
 
 import GroupCard from './GroupCard.js'
+import { AdminGroupCard, MemberGroupCard } from './GroupCard.mock.js'
 
 export default {
   title: 'Components/MyGroups/GroupCard',
@@ -25,18 +26,12 @@ function ComponentDecorator (Story) {
 
 export const Admin = {
   args: {
-    displayName: 'Group Name',
-    classifications: 1234,
-    contributors: 89,
-    hours: 567,
-    projects: 10,
-    role: 'group_admin'
+    ...AdminGroupCard
   }
 }
 
 export const Member = {
   args: {
-    ...Admin.args,
-    role: 'member'
+    ...MemberGroupCard
   }
 }

@@ -2,6 +2,7 @@ import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
 import Meta, { Member, Admin } from './GroupCard.stories.js'
+import { MemberGroupCard } from './GroupCard.mock.js'
 
 describe('components > MyGroups > GroupCard', function () {
   const MemberStory = composeStory(Member, Meta)
@@ -9,31 +10,31 @@ describe('components > MyGroups > GroupCard', function () {
   it('should show the group name', function () {
     render(<MemberStory />)
 
-    expect(screen.getByText('Group Name')).to.be.ok()
+    expect(screen.getByText(MemberGroupCard.displayName)).to.be.ok()
   })
 
   it('should show the classifications count', function () {
     render(<MemberStory />)
 
-    expect(screen.getByText('1,234')).to.be.ok()
+    expect(screen.getByText(MemberGroupCard.classifications.toLocaleString())).to.be.ok()
   })
 
   it('should show the contributors count', function () {
     render(<MemberStory />)
 
-    expect(screen.getByText('89')).to.be.ok()
+    expect(screen.getByText(MemberGroupCard.contributors.toLocaleString())).to.be.ok()
   })
 
   it('should show the hours count', function () {
     render(<MemberStory />)
 
-    expect(screen.getByText('567')).to.be.ok()
+    expect(screen.getByText(MemberGroupCard.hours.toLocaleString())).to.be.ok()
   })
 
   it('should show the projects count', function () {
     render(<MemberStory />)
 
-    expect(screen.getByText('10')).to.be.ok()
+    expect(screen.getByText(MemberGroupCard.projects.toLocaleString())).to.be.ok()
   })
 
   it('should show the member role', function () {
