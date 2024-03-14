@@ -1680,15 +1680,15 @@
     pump "^3.0.0"
     tar-fs "^2.1.1"
 
-"@newrelic/aws-sdk@^7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-7.1.0.tgz#7e934a44150e87dd88ab3b15690df03a20dfd718"
-  integrity sha512-deP7UC0/rYLuGGeK5ZWB1a6fG6b8I21kaZl8+zpkG3nflsRw+DgDTC7y3iiIoX5DtLodjqWO6pAcroxnpHal8g==
+"@newrelic/aws-sdk@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-7.3.0.tgz#0a0dc1f7cd20bc89f5ed3effec25345eb6f0b1ba"
+  integrity sha512-6HBrd9SlHPeFI2MPH9s3KQUwJnuehHgn0boAtoGloiNL+dm6XbuTiNV1Deo1P2qspsCsf/luBvxM5b37MiGqVg==
 
-"@newrelic/koa@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-8.0.1.tgz#26c1c6a69b15ad4b64a148b6be537ec2ca734206"
-  integrity sha512-GyeZGKPllpUu6gWXRwVP/FlvE9+tU2lOprRiTdoXNM8jdVGL02IfHnvAzrIANoZoUdf3+Vev8NNeCup2Eojcvg==
+"@newrelic/koa@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-9.0.0.tgz#d0f402ecfcec5871e1d650a6e4b27acb7ccb1517"
+  integrity sha512-3PS14tkK0mNy9z01wZE7U5IYdI57bh/j//n1rCQNvl+5zTeiPsTmaSeKPQ21XI0RXDkSR5P909jIDt05M1+OsA==
 
 "@newrelic/native-metrics@^10.0.0":
   version "10.0.0"
@@ -1699,10 +1699,19 @@
     nan "^2.17.0"
     semver "^7.5.2"
 
-"@newrelic/security-agent@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-0.7.0.tgz#343195b85ee07e1339b2e6f6f687871d6956cf54"
-  integrity sha512-dw4oljIu7EHn4ROmTEDhW1ADlJNDoFknEL2RQ90MRIbXhO4MM9UotPDOW+cQNfZbYrpzDWJ7fP5yV5jIT/su2g==
+"@newrelic/ritm@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/ritm/-/ritm-7.2.0.tgz#2d5dd52341e79ea921b7d1a57f43f9ca3b11defe"
+  integrity sha512-I4iVhm+wlTEDJXQT8EydF/U5vlR9bBHrtBGyvd/D9WCucoMtrPrCNyILQh9bZ+46E8QRE7zh6QEGyQcnc3qNMg==
+  dependencies:
+    debug "^4.1.1"
+    module-details-from-path "^1.0.3"
+    resolve "^1.22.1"
+
+"@newrelic/security-agent@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-1.0.1.tgz#ff6f4d89e46da7f7aa2efd1c7e7480d2711fabce"
+  integrity sha512-Ao5MTULa6CzI8a2poRdQ31jJA0Exv99eyewfMHYbJGAY3H4rj6TZs08rGtrDK9ZyjNTalM/DHhyyTTDq+FJM+Q==
   dependencies:
     axios "^1.6.5"
     check-disk-space "^3.4.0"
@@ -12596,16 +12605,17 @@ neo-async@^2.5.0, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-newrelic@~11.10.2:
-  version "11.10.3"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-11.10.3.tgz#1881cb1fc6af0210226886891405fee103b9bbde"
-  integrity sha512-oJdOhw9ZzyhKcm+pFR9SGOAdHUnS0QcQbM7/o1lZxpTomN/QNDEJpM06V1SMjq+3g5bt9Ej+2yki/waDAsib2g==
+newrelic@~11.13.0:
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-11.13.0.tgz#0355cce0a1915c9723b3fdd00b81251a6f26326d"
+  integrity sha512-FUIAaoUWPTpv+TjDfn+mxOd1LPQ9Sduvc4kas1OUYIB4o1RtBhBpZVFz8b6BSJZtY/NZcW4fm7/4J6MT62zI1g==
   dependencies:
     "@grpc/grpc-js" "^1.9.4"
     "@grpc/proto-loader" "^0.7.5"
-    "@newrelic/aws-sdk" "^7.1.0"
-    "@newrelic/koa" "^8.0.1"
-    "@newrelic/security-agent" "0.7.0"
+    "@newrelic/aws-sdk" "^7.3.0"
+    "@newrelic/koa" "^9.0.0"
+    "@newrelic/ritm" "^7.2.0"
+    "@newrelic/security-agent" "^1.0.1"
     "@newrelic/superagent" "^7.0.1"
     "@tyriar/fibonacci-heap" "^2.0.7"
     concat-stream "^2.0.0"
@@ -12615,7 +12625,6 @@ newrelic@~11.10.2:
     json-stringify-safe "^5.0.0"
     module-details-from-path "^1.0.3"
     readable-stream "^3.6.1"
-    require-in-the-middle "^7.2.0"
     semver "^7.5.2"
     winston-transport "^4.5.0"
   optionalDependencies:
@@ -14899,15 +14908,6 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
-
-require-in-the-middle@^7.2.0:
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/require-in-the-middle/-/require-in-the-middle-7.2.0.tgz"
-  integrity sha512-3TLx5TGyAY6AOqLBoXmHkNql0HIf2RGbuMgCDT2WO/uGVAPJs6h7Kl+bN6TIZGd9bWhWPwnDnTHGtW8Iu77sdw==
-  dependencies:
-    debug "^4.1.1"
-    module-details-from-path "^1.0.3"
-    resolve "^1.22.1"
 
 require-main-filename@^2.0.0:
   version "2.0.0"
