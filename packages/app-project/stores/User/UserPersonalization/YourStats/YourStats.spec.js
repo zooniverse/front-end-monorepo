@@ -52,7 +52,7 @@ describe('Stores > YourStats', function () {
   describe('Actions > fetchDailyCounts', function () {
     let clock, statsNockScope
 
-    before(function () {
+    before(async function () {
       clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
       const user = {
         id: '123',
@@ -81,6 +81,8 @@ describe('Stores > YourStats', function () {
       .reply(200, {
         data: MOCK_DAILY_COUNTS
       })
+
+      await when(() => rootStore.user.personalization.stats.loadingState === asyncStates.success)
     })
 
     after(function () {
@@ -90,23 +92,10 @@ describe('Stores > YourStats', function () {
 
     describe('weekly classification stats', function () {
       it('should be created', function () {
-        console.log('MDY114 YOUR STATS')
-        console.log('MDY114 NOCK IS DONE?')
-        console.log(statsNockScope.isDone())
-        console.log('MDY114 SNAPSHOT')
-        console.log(getSnapshot(rootStore.user.personalization.stats))
-        when(
-          () => getSnapshot(rootStore.user.personalization.stats) === asyncStates.success,
-          () => {
-            expect(getSnapshot(rootStore.user.personalization.stats.thisWeek).length).to.equal(3)
-          }
-        );
-        // expect(getSnapshot(rootStore.user.personalization.stats.thisWeek).length).to.equal(7)
+        expect(getSnapshot(rootStore.user.personalization.stats.thisWeek).length).to.equal(7)
       })
 
       it('should start on Monday', function () {
-        console.log('MDY114 SNAPSHOT monday')
-        console.log(getSnapshot(rootStore.user.personalization.stats))
         expect(getSnapshot(rootStore.user.personalization.stats.thisWeek[0])).to.deep.equal({
           count: 12,
           dayNumber: 1,
@@ -115,8 +104,6 @@ describe('Stores > YourStats', function () {
       })
 
       it('should end on Sunday', function () {
-        console.log('MDY114 SNAPSHOT sunday')
-        console.log(getSnapshot(rootStore.user.personalization.stats))
         expect(getSnapshot(rootStore.user.personalization.stats.thisWeek[6])).to.deep.equal({
           count: 15,
           dayNumber: 0,

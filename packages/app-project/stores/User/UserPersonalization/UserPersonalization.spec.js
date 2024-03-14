@@ -7,7 +7,6 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import UserPersonalization from './UserPersonalization'
-import { statsClient } from './YourStats'
 
 describe('Stores > UserPersonalization', function () {
   let rootStore, nockScope
@@ -23,16 +22,6 @@ describe('Stores > UserPersonalization', function () {
 
   before(function () {
     sinon.stub(console, 'error')
-    const MOCK_DAILY_COUNTS = [
-      { count: 12, period: '2019-09-29' },
-      { count: 12, period: '2019-09-30' },
-      { count: 13, period: '2019-10-01' },
-      { count: 14, period: '2019-10-02' },
-      { count: 10, period: '2019-10-03' },
-      { count: 11, period: '2019-10-04' },
-      { count: 8, period: '2019-10-05' },
-      { count: 15, period: '2019-10-06' }
-    ]
     nockScope = nock('https://panoptes-staging.zooniverse.org/api')
       .persist()
       .get('/project_preferences')
@@ -56,14 +45,12 @@ describe('Stores > UserPersonalization', function () {
 
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
     sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
-    statsClient.request.restore()
     talkAPI.get.restore()
     nock.cleanAll()
   })
@@ -73,10 +60,12 @@ describe('Stores > UserPersonalization', function () {
   })
 
   describe('with a project and user', function () {
-    let clock
+    let clock, fetchDailyCountsSpy
 
     before(function () {
       clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
+      fetchDailyCountsSpy = sinon.spy()
+      rootStore.user.personalization.stats.fetchDailyCounts = fetchDailyCountsSpy
       rootStore.user.set(user)
     })
 
@@ -97,19 +86,7 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should trigger the child YourStats node to request user statistics', function () {
-      const query = `{
-        statsCount(
-          eventType: "classification",
-          interval: "1 Day",
-          window: "1 Week",
-          projectId: "2",
-          userId: "123"
-        ){
-          period,
-          count
-        }
-      }`
-      expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
+      expect(fetchDailyCountsSpy).to.have.been.calledOnce()
     })
 
     it('should trigger the child Notifications store to request unread notifications', function () {
