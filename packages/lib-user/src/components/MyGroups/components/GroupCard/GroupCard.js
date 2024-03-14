@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import TitledStat from '../../shared/TitledStat'
+import TitledStat from '../../../shared/TitledStat'
 
 const StyledBox = styled(Box)`
   border-radius: 8px;
@@ -29,7 +29,7 @@ const StyledRole = styled(Box)`
     `}
 `
 
-function GroupCard ({
+function GroupCard({
   displayName = '',
   classifications = 0,
   contributors = 0, // members

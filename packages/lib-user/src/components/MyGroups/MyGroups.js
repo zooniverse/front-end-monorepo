@@ -5,40 +5,14 @@ import { object } from 'prop-types'
 
 import {
   usePanoptesMemberships,
-  usePanoptesUser,
-  useStats
+  usePanoptesUser
 } from '@hooks'
 
 import { ContentBox } from '@components/shared'
 import { Layout } from '@components/shared'
 
+import GroupCard from './components/GroupCard'
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
-
-const STATS_ENDPOINT = '/classifications/user_groups'
-
-// the following GroupCard will be replaced with GroupCard component per PR 5943
-function GroupCard({
-  displayName = '',
-  id = '',
-  role = ''
-}) {
-  const { data, error, isLoading } = useStats({ endpoint: STATS_ENDPOINT, sourceId: id })
-
-  const { total_count, time_spent, active_users, project_contributions } = data || {}
-
-  return (
-    <div>
-      <h3>{displayName}</h3>
-      <span>{role}</span>
-      <div>
-        <span>Classifications {total_count}</span>
-        <span>Hours {Math.round(time_spent)}</span>
-        <span>Members {active_users}</span>
-        <span>Projects {project_contributions?.length}</span>
-      </div>
-    </div>
-  )
-}
 
 function MyGroups({
   authClient
@@ -87,7 +61,7 @@ function MyGroups({
                 key={group.id}
                 displayName={group.display_name}
                 id={group.id}
-                role={group.roles}
+                role={group.roles[0]}
               />
             )
           })}
