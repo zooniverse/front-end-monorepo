@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/register": "~7.23.7",
     "@storybook/addon-a11y": "~7.6.11",
-    "@storybook/addon-essentials": "~7.6.11",
+    "@storybook/addon-essentials": "~8.0.0",
     "@storybook/nextjs": "~7.6.11",
     "@storybook/react": "~7.6.11",
     "@testing-library/dom": "~9.3.0",
