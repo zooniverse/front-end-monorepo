@@ -13,8 +13,12 @@ import {
   getDateInterval
 } from '@utils'
 
+import {
+  Layout
+} from '@components/shared'
+
 import MainContent from './components/MainContent'
-import Layout from '../shared/Layout/Layout'
+import TopProjects from './components/TopProjects'
 
 function UserStats ({
   authClient
@@ -30,14 +34,14 @@ function UserStats ({
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
   
-  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ authClient, userID: user?.id, query: allProjectsStatsQuery })
+  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ userID: user?.id, query: allProjectsStatsQuery })
   
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
   
-  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ authClient, userID: user?.id, query: projectStatsQuery })
+  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ userID: user?.id, query: projectStatsQuery })
   
   // fetch projects
   const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
@@ -55,6 +59,21 @@ function UserStats ({
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
+  // set top projects based on selected date range and all project stats
+  let topProjects = []
+  if (allProjectsStats?.project_contributions?.length > 0 && projects?.length > 0) {
+    const topProjectContributions = allProjectsStats.project_contributions
+      .sort((a, b) => b.count - a.count)
+
+    topProjects = topProjectContributions
+      .map(projectContribution => {
+        const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+        return projectData
+      })
+      .filter(project => project)
+      .slice(0, 5)
+  }
+
   return (
     <Layout>
       <MainContent
@@ -65,6 +84,9 @@ function UserStats ({
         selectedProject={selectedProject}
         stats={stats}
         user={user}
+      />
+      <TopProjects
+        topProjects={topProjects}
       />
     </Layout>
   )

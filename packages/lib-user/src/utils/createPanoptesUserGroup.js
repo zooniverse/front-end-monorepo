@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
-async function createPanoptesGroup({ data, authorization }) {
+export async function createPanoptesUserGroup({ data, authorization }) {
   if (authorization) {
     const response = await panoptes.post('/user_groups', { user_groups: data }, { authorization })
     return response
@@ -8,5 +8,3 @@ async function createPanoptesGroup({ data, authorization }) {
 
   return null
 }
-
-export default createPanoptesGroup

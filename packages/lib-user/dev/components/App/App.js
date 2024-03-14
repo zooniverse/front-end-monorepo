@@ -1,10 +1,21 @@
+import zooTheme from '@zooniverse/grommet-theme'
+import { env } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import oauth from 'panoptes-client/lib/oauth.js'
 import { useEffect, useState } from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 
-import { GroupStats, MyGroups, UserStats } from '@components/index.js'
-import { usePanoptesUser } from '@hooks/index.js'
+import { GroupStats, MyGroups, UserStats } from '@components'
+
+import { usePanoptesUser } from '@hooks'
+
+function appId(env) {
+  switch (env) {
+    case 'production':
+      return 'ad735ef9c05fd4e68878b938565d04805ec701f83d9e78c03f9b65ab2a5fcdf9'
+    default:
+      return '357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d'
+  }
+}
 
 function App ({
   groups = null,
@@ -21,7 +32,7 @@ function App ({
       setLoading(true)
   
       try {
-        const userAuth = await oauth.init('357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d')
+        const userAuth = await oauth.init(appId(env))
         setUserAuth(userAuth)
       } catch (error) {
         console.error(error)
@@ -66,7 +77,7 @@ function App ({
             /groups
             <ul>
               <li>
-                <a href="./?groups=[user_group_id]">/groups/[id] - group stats page</a>
+                <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
                 <ul>
                   <li>/contributors - Full Group Stats</li>
                 </ul>
@@ -86,12 +97,12 @@ function App ({
     } else if (subpaths[1] === 'contributors') {
       content = <p>Group contributors component goes here.</p>
     } else {
-      const groupID = subpaths[0] || ''
+      const groupId = subpaths[0] || ''
 
       content = (
         <GroupStats
           authClient={oauth}
-          groupID={groupID}
+          groupId={groupId}
         />
       )
     }

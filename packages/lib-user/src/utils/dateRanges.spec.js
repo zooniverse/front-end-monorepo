@@ -1,4 +1,4 @@
-import dateRanges from './dateRanges'
+import { dateRanges } from './dateRanges'
 
 describe('utils > dateRanges', () => {
   const ranges = [
