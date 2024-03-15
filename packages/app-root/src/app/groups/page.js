@@ -1,7 +1,7 @@
-export default function UserGroupPage() {
+export default function GroupsPage() {
   return (
     <div>
-      <p>This is lib-user</p>
+      <p>This is <code>/groups</code>.</p>
     </div>
   )
 }

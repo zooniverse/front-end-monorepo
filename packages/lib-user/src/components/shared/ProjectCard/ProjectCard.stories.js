@@ -1,6 +1,9 @@
 import { Box } from 'grommet'
 import ProjectCard from './ProjectCard.js'
 
+// TODO: refactor with PROJECTS from panoptes.mock.js
+// import { PROJECTS } from '../../../../test/mocks/panoptes.mock.js'
+
 export default {
   title: 'Components/shared/ProjectCard',
   component: ProjectCard,

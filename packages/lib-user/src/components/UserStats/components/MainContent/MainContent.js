@@ -6,13 +6,20 @@ import {
   dateRanges
 } from '@utils'
 
-import BarChart from '../../shared/BarChart/BarChart'
-import ContentBox from '../../shared/ContentBox/ContentBox'
-import ProfileHeader from '../../shared/ProfileHeader/ProfileHeader'
-import Select from '../../shared/Select/Select'
-import Tabs from '../../shared/Tabs/Tabs'
+import {
+  BarChart,
+  ContentBox,
+  ProfileHeader,
+  Select,
+  Tabs
+} from '@components/shared'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_STATS = {
+  data: [],
+  time_spent: 0,
+  total_count: 0
+}
 const DEFAULT_USER = {
   avatar_src: '',
   display_name: '',
@@ -25,7 +32,7 @@ function MainContent ({
   projects = [],
   selectedDateRange = dateRanges.last7Days,
   selectedProject = 'AllProjects',
-  stats = [],
+  stats = DEFAULT_STATS,
   user = DEFAULT_USER
 }) {
   const [activeTab, setActiveTab] = useState(0)
@@ -43,7 +50,7 @@ function MainContent ({
       label: project.display_name,
       value: project.id
     }))
-  ];
+  ]
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
 
   // create date range options

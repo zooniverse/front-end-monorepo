@@ -1,7 +1,7 @@
-import useSWR from 'swr'
 import { panoptes } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
 
-import { usePanoptesAuth } from '@hooks/index.js'
+import { usePanoptesAuth } from './usePanoptesAuth'
 
 const SWRoptions = {
   revalidateIfStale: true,
@@ -27,7 +27,7 @@ async function fetchMemberships({ endpoint, query, authorization }) {
   return null
 }
 
-export default function usePanoptesMemberships({ authClient, query }) {
+export function usePanoptesMemberships({ authClient, query }) {
   const authorization = usePanoptesAuth({ authClient })
   const endpoint = '/memberships'
   const key = { endpoint, query, authorization }

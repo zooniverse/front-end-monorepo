@@ -1,4 +1,4 @@
-export default async function getBearerToken (authClient) {
+export async function getBearerToken (authClient) {
   let token = ''
   if (authClient) {
     try {

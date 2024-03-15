@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 
-import getDateInterval from './getDateInterval'
+import { getDateInterval } from './getDateInterval'
 
 describe('utils > getDateInterval', function () {
   let clock

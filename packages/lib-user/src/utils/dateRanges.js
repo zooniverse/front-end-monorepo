@@ -40,4 +40,4 @@ Object.defineProperty(dateRanges, 'values', {
   value: Object.values(dateRanges)
 })
 
-export default dateRanges
+export { dateRanges }
