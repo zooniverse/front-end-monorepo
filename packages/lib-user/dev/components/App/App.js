@@ -2,6 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { env } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import oauth from 'panoptes-client/lib/oauth.js'
+import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import { GroupStats, MyGroups, UserStats } from '@components'
@@ -17,7 +18,7 @@ function appId(env) {
   }
 }
 
-function App ({
+function App({
   groups = null,
   users = null
 }) {
@@ -28,7 +29,7 @@ function App ({
   const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
 
   useEffect(() => {
-    async function initUserAuth () {
+    async function initUserAuth() {
       setLoading(true)
   
       try {
@@ -170,6 +171,11 @@ function App ({
       </main>
     </Grommet>
   )
+}
+
+App.propTypes = {
+  groups: string,
+  users: string
 }
 
 export default App

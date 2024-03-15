@@ -5,6 +5,7 @@
 import { object, string } from 'prop-types'
 
 import { 
+  usePanoptesUser,
   usePanoptesUserGroup,
   useStats
 } from '@hooks'
@@ -25,10 +26,18 @@ function GroupStats({
   groupId
 }) {
   const {
+    data: user
+  } = usePanoptesUser(authClient)
+
+  const {
     data,
     error: groupError,
     isLoading: groupLoading
-  } = usePanoptesUserGroup({ groupId })
+  } = usePanoptesUserGroup({
+    authClient,
+    groupId,
+    userId: user?.id
+  })
   
   const {
     data: groupStats,

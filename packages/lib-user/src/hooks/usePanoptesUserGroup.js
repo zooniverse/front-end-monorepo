@@ -1,8 +1,7 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
-const isBrowser = typeof window !== 'undefined'
+import { usePanoptesAuth } from '@hooks'
 
 const SWRoptions = {
   revalidateIfStale: true,
@@ -12,15 +11,7 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-if (isBrowser) {
-  auth.checkCurrent()
-}
-
-async function fetchPanoptesUserGroup({ groupId }) {
-  const token = await auth.checkBearerToken()
-  const authorization = `Bearer ${token}`
-  if (!token) return null
-
+async function fetchPanoptesUserGroup({ groupId, authorization }) {
   const endpoint = `/user_groups/${groupId}`
   
   try {
@@ -32,7 +23,8 @@ async function fetchPanoptesUserGroup({ groupId }) {
   }
 }
 
-export function usePanoptesUserGroup({ groupId }) {
-  const key = groupId ? { groupId } : null
+export function usePanoptesUserGroup({ authClient, groupId, userId }) {
+  const authorization = usePanoptesAuth({ authClient, userId })
+  const key = groupId ? { groupId, authorization } : null
   return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }
