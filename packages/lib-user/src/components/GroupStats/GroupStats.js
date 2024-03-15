@@ -16,8 +16,8 @@ import {
   updatePanoptesUserGroup
 } from '@utils'
 
-import DeleteGroup from './DeleteGroup.js'
-import EditGroup from './EditGroup.js'
+import DeleteGroup from './DeleteGroup'
+import EditGroup from './EditGroup'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -43,7 +43,12 @@ function GroupStats({
     data: groupStats,
     error: groupStatsError,
     isLoading: groupStatsLoading
-  } = useStats({ endpoint: STATS_ENDPOINT, sourceId: groupId })
+  } = useStats({
+    authClient,
+    endpoint: STATS_ENDPOINT,
+    sourceId: groupId,
+    userId: user?.id
+  })
 
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
