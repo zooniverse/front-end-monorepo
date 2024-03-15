@@ -28,7 +28,6 @@ function MyGroups({
     error: membershipsError,
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
-    authClient,
     query: {
       include: 'user_group',
       user_id: user?.id

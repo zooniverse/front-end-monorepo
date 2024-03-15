@@ -2,7 +2,7 @@
 
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
 
-import PropTypes from 'prop-types'
+import { object, string } from 'prop-types'
 
 import { 
   usePanoptesUserGroup,
@@ -20,7 +20,7 @@ import EditGroup from './EditGroup.js'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
-function GroupStats ({
+function GroupStats({
   authClient,
   groupId
 }) {
@@ -28,7 +28,7 @@ function GroupStats ({
     data,
     error: groupError,
     isLoading: groupLoading
-  } = usePanoptesUserGroup({ authClient, groupId })
+  } = usePanoptesUserGroup({ groupId })
   
   const {
     data: groupStats,
@@ -96,8 +96,8 @@ function GroupStats ({
 }
 
 GroupStats.propTypes = {
-  // authClient: object,
-  groupId: PropTypes.string
+  authClient: object,
+  groupId: string
 }
 
 export default GroupStats

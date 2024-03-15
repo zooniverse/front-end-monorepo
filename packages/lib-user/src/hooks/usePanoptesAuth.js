@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { getBearerToken } from '../utils'
+import { getBearerToken } from '@utils'
 
 export function usePanoptesAuth({ authClient, userId }) {
   const [authorization, setAuthorization] = useState()
