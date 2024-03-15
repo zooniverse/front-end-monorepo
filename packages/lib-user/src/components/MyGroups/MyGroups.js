@@ -11,8 +11,8 @@ import {
 import { ContentBox } from '@components/shared'
 import { Layout } from '@components/shared'
 
-import GroupCard from './components/GroupCard'
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
+import GroupCard from './components/GroupCard'
 
 function MyGroups({
   authClient
@@ -28,10 +28,12 @@ function MyGroups({
     error: membershipsError,
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
+    authClient,
     query: {
       include: 'user_group',
       user_id: user?.id
-    }
+    },
+    userId: user?.id
   })
 
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
@@ -44,9 +46,6 @@ function MyGroups({
         title='My Groups'
         pad={{ horizontal: '60px', vertical: '30px' }}
       >
-        {activeGroupsWithRoles.length === 0 ? (
-          <p>You are not an active member of any groups.</p>
-        ) : null}
         <Grid
           columns={{
             count: 2,
@@ -58,9 +57,11 @@ function MyGroups({
             return (
               <GroupCard
                 key={group.id}
+                authClient={authClient}
                 displayName={group.display_name}
                 id={group.id}
                 role={group.roles[0]}
+                userId={user?.id}
               />
             )
           })}

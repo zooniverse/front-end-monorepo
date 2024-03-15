@@ -45,9 +45,11 @@ function UserStats ({
     error: statsError,
     isLoading: statsLoading
   } = useStats({
+    authClient,
     endpoint: STATS_ENDPOINT,
     sourceId: user?.id,
-    query: allProjectsStatsQuery
+    query: allProjectsStatsQuery,
+    userId: user?.id
   })
   
   // fetch individual project stats
@@ -60,9 +62,11 @@ function UserStats ({
     error: projectStatsError,
     isLoading: projectStatsLoading
   } = useStats({
+    authClient,
     endpoint: STATS_ENDPOINT,
     sourceId: user?.id,
-    query: projectStatsQuery
+    query: projectStatsQuery,
+    userId: user?.id
   })
   
   // fetch projects

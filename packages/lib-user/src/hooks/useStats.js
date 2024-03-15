@@ -50,7 +50,8 @@ export function useStats({
   userId
 }) {
   const authorization = usePanoptesAuth({ authClient, userId })
+  const publicOrAuthorized = userId ? !!authorization : true
 
-  const key = sourceId ? { endpoint, query, sourceId, authorization } : null
+  const key = (sourceId && publicOrAuthorized) ? { endpoint, query, sourceId, authorization } : null
   return useSWR(key, fetchStats, SWROptions)
 }
