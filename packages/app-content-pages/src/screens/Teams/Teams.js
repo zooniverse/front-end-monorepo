@@ -16,14 +16,12 @@ import {
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
-const isBrowser = typeof window !== 'undefined' // to handle testing environment
-
 function TeamComponent({ teamData = [], sections = [] }) {
   const { t } = useTranslation('components')
   const [activeSection, setActiveSection] = useState('')
 
   useEffect(function onMount() {
-    const slug = isBrowser ? window.location.hash.slice(1) : ''
+    const slug = window.location.hash.slice(1)
     setActiveSection(slug)
   }, [])
 

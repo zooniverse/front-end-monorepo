@@ -15,6 +15,7 @@ import {
 import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
 import { HeadingForAboutNav } from '../About.js'
 
+
 const GradientBox = styled(Box)`
   position: relative;
   background: linear-gradient(
@@ -163,7 +164,7 @@ const Step = ({ children }) => (
   </Text>
 )
 
-export default function HowItWorks() {
+export default function HowItWorks({ setActiveSection }) {
   const { t } = useTranslation()
   const { global } = useTheme()
   const customButtonBorder = global.colors.brand
@@ -173,7 +174,9 @@ export default function HowItWorks() {
       <Box align='center'>
         <HeadingForAboutNav
           color='accent-1'
+          sectionIndex={1}
           sectionName={t('AboutPage.howItWorks.heading')}
+          setActiveSection={setActiveSection}
           slug='how-it-works'
         />
         <Heading
@@ -192,7 +195,6 @@ export default function HowItWorks() {
           {/** For Participants */}
           <Box
             as='ul'
-            width={{ max: '240px' }}
             margin='0'
             pad='0'
             height='100%'
@@ -224,7 +226,6 @@ export default function HowItWorks() {
           {/** For Researchers */}
           <Box
             as='ul'
-            width={{ max: '240px' }}
             margin='0'
             pad='0'
             height='100%'

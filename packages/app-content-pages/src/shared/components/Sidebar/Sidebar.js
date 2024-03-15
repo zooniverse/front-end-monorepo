@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { arrayOf, bool, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Button, Nav } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
@@ -53,9 +53,9 @@ function Sidebar({
           <StyledLi key={section.name}>
             <StyledButton
               as={Link}
-              aria-current={section.slug === activeSection ? 'true' : 'false'}
+              aria-current={section.index === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => setActiveSection(section.slug)}
+              onClick={() => setActiveSection(section.index)}
             >
               <SpacedText
                 color={
@@ -63,7 +63,7 @@ function Sidebar({
                     ? 'black'
                     : { light: 'black', dark: 'white' }
                 }
-                weight={section.slug === activeSection ? 'bold' : 'normal'}
+                weight={section.index === activeSection ? 'bold' : 'normal'}
               >
                 {section.name}
               </SpacedText>
@@ -78,7 +78,7 @@ function Sidebar({
 export default Sidebar
 
 Sidebar.propTypes = {
-  activeSection: string,
+  activeSection: number,
   className: string,
   ariaLabel: string,
   sections: arrayOf(

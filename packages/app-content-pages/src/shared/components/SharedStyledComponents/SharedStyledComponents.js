@@ -1,4 +1,4 @@
-/* Components are shared in Teams and Publications for two-column layout and mobile layout */
+/* Components are shared in root About page, Teams, and Publications for two-column layout and mobile layout */
 
 import styled, { css } from 'styled-components'
 import { Box, Grid, Heading } from 'grommet'
@@ -88,17 +88,17 @@ export const StyledHeading = styled(Heading)`
         ? css`
             background: linear-gradient(
               90deg,
-              #333333 0%,
+              transparent 0%,
               #000000 50%,
-              #333333 100%
+              transparent 100%
             );
           `
         : css`
             background: linear-gradient(
               90deg,
-              #ffffff 0%,
+              transparent 0%,
               #a6a7a9 50%,
-              #ffffff 100%
+              transparent 100%
             );
           `}
   }

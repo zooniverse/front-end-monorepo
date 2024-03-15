@@ -104,9 +104,9 @@ function DropdownNav({
     setIsOpen(false)
   }
 
-  const handleSectionSelect = slug => {
+  const handleSectionSelect = index => {
     handleClose()
-    setActiveSection(slug)
+    setActiveSection(index)
   }
 
   const dropContent = (
@@ -116,9 +116,9 @@ function DropdownNav({
           <StyledLi key={section.name}>
             <StyledButton
               as={Link}
-              aria-current={section.slug === activeSection ? 'true' : 'false'}
+              aria-current={section.index === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => handleSectionSelect(section.slug)}
+              onClick={() => handleSectionSelect(section.index)}
             >
               <SpacedText size='0.875rem' color='white' weight='bold'>
                 {section.name}

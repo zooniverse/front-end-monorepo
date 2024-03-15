@@ -19,8 +19,6 @@ import {
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
-const isBrowser = typeof window !== 'undefined' // to handle testing environment
-
 const FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
@@ -35,7 +33,7 @@ function Publications({ publicationsData = [], sections = [] }) {
   const [activeSection, setActiveSection] = useState('')
 
   useEffect(function onMount() {
-    const slug = isBrowser ? window.location.hash.slice(1) : ''
+    const slug = window.location.hash.slice(1)
     setActiveSection(slug)
   }, [])
 
