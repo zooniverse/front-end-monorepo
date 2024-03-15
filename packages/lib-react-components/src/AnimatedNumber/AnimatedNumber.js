@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { format, interpolate, select } from 'd3'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const initialValue = 0
 
@@ -12,6 +12,7 @@ if (isBrowser) {
 
 function AnimatedNumber({ duration = 1000, value }) {
   const numRef = useRef(null)
+  const [animated, setAnimated] = useState(false)
 
   function animateValue() {
     select(numRef.current)
@@ -22,6 +23,7 @@ function AnimatedNumber({ duration = 1000, value }) {
         const interpolator = interpolate(initialValue, value)
         return t => {
           const interpolatedValue = interpolator(t)
+          if (interpolatedValue === value) setAnimated(true) // animation complete!
           const niceValue = formatValue(interpolatedValue)
           return niceValue
         }
@@ -45,18 +47,23 @@ function AnimatedNumber({ duration = 1000, value }) {
   }
 
   useEffect(() => {
+    // If we already animated the number once, don't observe intersection
+    // This could happen if the value prop updates, but page did not refresh
+    if (animated) return
+
     const numElement = numRef.current
 
     const intersectionObserver = new window.IntersectionObserver(entries => {
       // If intersectionRatio is 0, the target is out of view and we do not need to do anything.
       if (entries[0].intersectionRatio <= 0) return
 
-      // Once target element is in viewport, animate it only once
-      if (!prefersReducedMotion) {
+      // Once target element is in viewport, animate it then unobserve
+      if (!prefersReducedMotion && !animated) {
         animateValue()
         intersectionObserver.unobserve(numElement)
       } else {
         lessAnimation()
+        intersectionObserver.unobserve(numElement)
       }
     })
 
@@ -65,9 +72,9 @@ function AnimatedNumber({ duration = 1000, value }) {
     return () => {
       intersectionObserver.disconnect()
     }
-  }, [numRef.current])
+  }, [numRef.current, animated])
 
-  return <span ref={numRef}>{formatValue(initialValue)}</span>
+  return <span ref={numRef}>{!animated ? initialValue : formatValue(value)}</span>
 }
 
 AnimatedNumber.propTypes = {
