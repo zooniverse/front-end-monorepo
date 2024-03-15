@@ -19,7 +19,9 @@ export default function OurMission() {
         size='1.5rem'
         alignSelf='center'
         margin='0'
+        textAlign='center'
         weight='normal'
+        fill
       >
         &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
       </Heading>
