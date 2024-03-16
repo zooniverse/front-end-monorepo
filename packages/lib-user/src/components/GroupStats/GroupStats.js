@@ -5,7 +5,7 @@
 import { object, string } from 'prop-types'
 
 import { 
-  usePanoptesUser,
+  usePanoptesAuthUser,
   usePanoptesUserGroup,
   useStats
 } from '@hooks'
@@ -26,8 +26,8 @@ function GroupStats({
   groupId
 }) {
   const {
-    data: user
-  } = usePanoptesUser(authClient)
+    data: authUser
+  } = usePanoptesAuthUser(authClient)
 
   const {
     data,
@@ -35,8 +35,8 @@ function GroupStats({
     isLoading: groupLoading
   } = usePanoptesUserGroup({
     authClient,
-    groupId,
-    userId: user?.id
+    authUserId: authUser?.id,
+    groupId
   })
   
   const {
@@ -45,9 +45,9 @@ function GroupStats({
     isLoading: groupStatsLoading
   } = useStats({
     authClient,
+    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
-    sourceId: groupId,
-    userId: user?.id
+    sourceId: groupId
   })
 
   async function getRequestHeaders() {

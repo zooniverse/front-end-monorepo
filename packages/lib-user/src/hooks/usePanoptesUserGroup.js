@@ -23,8 +23,8 @@ async function fetchPanoptesUserGroup({ groupId, authorization }) {
   }
 }
 
-export function usePanoptesUserGroup({ authClient, groupId, userId }) {
-  const authorization = usePanoptesAuth({ authClient, userId })
+export function usePanoptesUserGroup({ authClient, authUserId, groupId }) {
+  const authorization = usePanoptesAuth({ authClient, authUserId })
   const key = groupId ? { groupId, authorization } : null
   return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }

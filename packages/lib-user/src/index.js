@@ -14,6 +14,7 @@ export { default as Tabs } from './components/shared/Tabs'
 
 // hooks
 export { usePanoptesAuth } from './hooks/usePanoptesAuth.js'
+export { usePanoptesAuthUser } from './hooks/usePanoptesAuthUser.js'
 export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'
 export { usePanoptesProjects } from './hooks/usePanoptesProjects.js'
 export { usePanoptesUser } from './hooks/usePanoptesUser.js'

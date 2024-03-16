@@ -1,9 +1,10 @@
 'use client'
 
-import { object } from 'prop-types'
+import { object, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
+  usePanoptesAuthUser,
   usePanoptesProjects,
   usePanoptesUser,
   useStats
@@ -23,17 +24,30 @@ import TopProjects from './components/TopProjects'
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStats ({
-  authClient
+  authClient,
+  login
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
+  // fetch authUser
+  const {
+    data: authUser,
+    error,
+    isLoading
+  } = usePanoptesAuthUser(authClient)
+
   // fetch user
   const {
     data: user,
-    error,
-    isLoading
-  } = usePanoptesUser(authClient)
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authClient,
+    authUser,
+    authUserId: authUser?.id,
+    login
+  })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
   const allProjectsStatsQuery = getDateInterval(selectedDateRange)
@@ -46,10 +60,10 @@ function UserStats ({
     isLoading: statsLoading
   } = useStats({
     authClient,
+    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: user?.id,
-    query: allProjectsStatsQuery,
-    userId: user?.id
+    query: allProjectsStatsQuery
   })
   
   // fetch individual project stats
@@ -63,10 +77,10 @@ function UserStats ({
     isLoading: projectStatsLoading
   } = useStats({
     authClient,
+    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: user?.id,
-    query: projectStatsQuery,
-    userId: user?.id
+    query: projectStatsQuery
   })
   
   // fetch projects
@@ -123,7 +137,8 @@ function UserStats ({
 }
 
 UserStats.propTypes = {
-  authClient: object
+  authClient: object,
+  login: string
 }
 
 export default UserStats

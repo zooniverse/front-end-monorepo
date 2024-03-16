@@ -7,10 +7,10 @@ const STATS_ENDPOINT = '/classifications/user_groups'
 
 function GroupCardContainer({
   authClient,
+  authUserId = '',
   displayName = '',
   id = '',
   role = '',
-  userId = ''
 }) {
   const {
     data,
@@ -18,19 +18,21 @@ function GroupCardContainer({
     isLoading
   } = useStats({
     authClient,
+    authUserId,
     endpoint: STATS_ENDPOINT,
     sourceId: id,
-    userId
   })
 
   const { total_count, time_spent, active_users, project_contributions } = data || {}
+
+  const hoursSpent = time_spent >= 0 ? time_spent / 3600 : 0
 
   return (
     <GroupCard
       displayName={displayName}
       classifications={total_count}
       contributors={active_users}
-      hours={time_spent}
+      hours={hoursSpent}
       projects={project_contributions?.length}
       role={role}
     />
@@ -39,10 +41,10 @@ function GroupCardContainer({
 
 GroupCardContainer.propTypes = {
   authClient: object,
+  authUserId: string,
   displayName: string,
   id: string,
   role: string,
-  userId: string
 }
 
 export default GroupCardContainer

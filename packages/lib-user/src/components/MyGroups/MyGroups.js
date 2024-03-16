@@ -1,9 +1,10 @@
 'use client'
 
 import { Grid } from 'grommet'
-import { object } from 'prop-types'
+import { object, string } from 'prop-types'
 
 import {
+  usePanoptesAuthUser,
   usePanoptesMemberships,
   usePanoptesUser
 } from '@hooks'
@@ -15,13 +16,23 @@ import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 import GroupCard from './components/GroupCard'
 
 function MyGroups({
-  authClient
+  authClient,
+  login
 }) {
+  const {
+    data: authUser
+  } = usePanoptesAuthUser(authClient)
+
   const {
     data: user,
     error: userError,
     isLoading: userLoading
-  } = usePanoptesUser(authClient)
+  } = usePanoptesUser({
+    authClient,
+    authUser,
+    authUserId: authUser?.id,
+    login
+  })
   
   const {
     data: membershipsWithGroups,
@@ -29,11 +40,11 @@ function MyGroups({
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
     authClient,
+    authUserId: authUser?.id,
     query: {
       include: 'user_group',
       user_id: user?.id
     },
-    userId: user?.id
   })
 
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
@@ -58,10 +69,10 @@ function MyGroups({
               <GroupCard
                 key={group.id}
                 authClient={authClient}
+                authUserId={authUser?.id}
                 displayName={group.display_name}
                 id={group.id}
                 role={group.roles[0]}
-                userId={user?.id}
               />
             )
           })}
@@ -72,7 +83,8 @@ function MyGroups({
 }
 
 MyGroups.propTypes = {
-  authClient: object
+  authClient: object,
+  login: string
 }
 
 export default MyGroups

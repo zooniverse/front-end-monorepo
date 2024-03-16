@@ -1,4 +1,5 @@
 export { usePanoptesAuth } from './usePanoptesAuth.js'
+export { usePanoptesAuthUser } from './usePanoptesAuthUser.js'
 export { usePanoptesMemberships } from './usePanoptesMemberships.js'
 export { usePanoptesProjects } from './usePanoptesProjects.js'
 export { usePanoptesUser } from './usePanoptesUser.js'

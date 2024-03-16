@@ -23,8 +23,8 @@ async function fetchMemberships({ query, authorization }) {
   }
 }
 
-export function usePanoptesMemberships({ authClient, query, userId }) {
-  const authorization = usePanoptesAuth({ authClient, userId })
+export function usePanoptesMemberships({ authClient, authUserId, query }) {
+  const authorization = usePanoptesAuth({ authClient, authUserId })
 
   const key = query.user_id ? { endpoint, query, authorization } : null
   return useSWR(key, fetchMemberships, SWRoptions)
