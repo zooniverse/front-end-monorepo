@@ -1,13 +1,7 @@
 'use client'
 
 import { Grid } from 'grommet'
-import { object, string } from 'prop-types'
-
-import {
-  usePanoptesAuthUser,
-  usePanoptesMemberships,
-  usePanoptesUser
-} from '@hooks'
+import { arrayOf, object, shape, string } from 'prop-types'
 
 import { ContentBox } from '@components/shared'
 import { Layout } from '@components/shared'
@@ -16,37 +10,10 @@ import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 import GroupCard from './components/GroupCard'
 
 function MyGroups({
-  authClient,
-  login
+  authClient = {},
+  authUserId = '',
+  membershipsWithGroups = []
 }) {
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
-
-  const {
-    data: user,
-    error: userError,
-    isLoading: userLoading
-  } = usePanoptesUser({
-    authClient,
-    authUser,
-    authUserId: authUser?.id,
-    login
-  })
-  
-  const {
-    data: membershipsWithGroups,
-    error: membershipsError,
-    isLoading: membershipsLoading
-  } = usePanoptesMemberships({
-    authClient,
-    authUserId: authUser?.id,
-    query: {
-      include: 'user_group',
-      user_id: user?.id
-    },
-  })
-
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
@@ -62,14 +29,14 @@ function MyGroups({
             count: 2,
             size: 'auto'
           }}
-          gap='small'
+          gap={{ row: '20px', column: '40px' }}
         >
           {activeGroupsWithRoles.map((group) => {
             return (
               <GroupCard
                 key={group.id}
                 authClient={authClient}
-                authUserId={authUser?.id}
+                authUserId={authUserId}
                 displayName={group.display_name}
                 id={group.id}
                 role={group.roles[0]}
@@ -84,7 +51,15 @@ function MyGroups({
 
 MyGroups.propTypes = {
   authClient: object,
-  login: string
+  authUserId: string,
+  membershipsWithGroups: shape({
+    body: shape({
+      user_groups: arrayOf(shape({
+        id: string,
+        roles: arrayOf(string)
+      }))
+    })
+  })
 }
 
 export default MyGroups
