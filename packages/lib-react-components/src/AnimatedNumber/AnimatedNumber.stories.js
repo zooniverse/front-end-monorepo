@@ -1,4 +1,6 @@
 import { Box } from 'grommet'
+import { useState } from 'react'
+
 import AnimatedNumber from './AnimatedNumber'
 
 export default {
@@ -11,6 +13,22 @@ export const Default = {
     duration: 1000,
     value: 123456
   }
+}
+
+export const UpdateTheValue = () => {
+  const [value, setValue] = useState(10)
+
+  function handleClick() {
+    const newValue = value + 1
+    setValue(newValue)
+  }
+
+  return (
+    <Box width='200px' gap='xsmall'>
+      <AnimatedNumber value={value} />
+      <button onClick={handleClick}>Update the value</button>
+    </Box>
+  )
 }
 
 export const Zero = {
