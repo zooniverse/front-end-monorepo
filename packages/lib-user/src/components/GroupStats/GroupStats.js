@@ -1,97 +1,37 @@
-'use client'
+import { func, number, shape, string } from 'prop-types'
 
-// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
+import DeleteGroup from './DeleteGroup'
+import EditGroup from './EditGroup'
 
-import PropTypes from 'prop-types'
+const DEFAULT_GROUP = {
+  display_name: '',
+  id: ''
+}
+const DEFAULT_HANDLER = () => true
+const DEFAULT_STATS = {
+  active_users: 0,
+  project_contributions: [
+    {
+      count: 0,
+      project_id: 0,
+      session_time: 0
+    }
+  ],
+  time_spent: 0,
+  total_count: 0
+}
 
-import {
-  usePanoptesAuthUser,
-  usePanoptesUserGroup,
-  useStats
-} from '@hooks'
-
-import {
-  deletePanoptesUserGroup,
-  getBearerToken,
-  updatePanoptesUserGroup
-} from '@utils'
-
-import DeleteGroup from './DeleteGroup.js'
-import EditGroup from './EditGroup.js'
-
-const STATS_ENDPOINT = '/classifications/user_groups'
-
-function GroupStats ({
-  authClient,
-  groupId
+function GroupStats({
+  group = DEFAULT_GROUP,
+  groupStats = DEFAULT_STATS,
+  handleGroupDelete = DEFAULT_HANDLER,
+  handleGroupUpdate = DEFAULT_HANDLER
 }) {
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
-
-  const {
-    data,
-    error: groupError,
-    isLoading: groupLoading
-  } = usePanoptesUserGroup({
-    authClient,
-    authUserId: authUser?.id,
-    groupId
-  })
-  
-  const {
-    data: groupStats,
-    error: groupStatsError,
-    isLoading: groupStatsLoading
-  } = useStats({
-    authClient,
-    authUserId: authUser?.id,
-    endpoint: STATS_ENDPOINT,
-    sourceId: groupId
-  })
-
-  async function getRequestHeaders() {
-    const authorization = await getBearerToken(authClient)
-    const requestHeaders = {
-      authorization,
-      etag: data.headers.etag
-    }
-    return requestHeaders
-  }
-
-  async function handleGroupDelete() {
-    try {
-      const requestHeaders = await getRequestHeaders()
-      const deleteResponse = await deletePanoptesUserGroup({ groupId, headers: requestHeaders })
-      console.log('deleteResponse', deleteResponse)
-      window.location.href =  '?users=[login]/groups'
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async function handleGroupUpdate(updates) {
-    try {
-      const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
-      console.log('updatedGroup', updatedGroup)
-      window.location.reload()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  if (groupError || groupStatsError) return (<p>Error: {groupError?.toString() || groupStatsError?.toString()}</p>)
-
-  if (groupLoading || groupStatsLoading) return (<p>Loading...</p>)
-
-  const group = data?.body?.user_groups?.[0]
-
   return (
     <div>
-      <h2>Hi group with ID {groupId}! 🙌</h2>
+      <h2>Hi group with ID {group?.id}! 🙌</h2>
       <h3>Your group display_name is {group?.display_name}.</h3>
-      <h4>Members: <pre>{group?.links.users.toString()}</pre></h4>
+      <h4>Members: <pre>{group?.links?.users?.toString()}</pre></h4>
       <h4>Here are your group stats:</h4>
       <pre>{JSON.stringify(groupStats, null, 2)}</pre>
       <hr />
@@ -110,8 +50,24 @@ function GroupStats ({
 }
 
 GroupStats.propTypes = {
-  // authClient: object,
-  groupId: PropTypes.string
+  group: shape({
+    display_name: string,
+    id: string
+  }),
+  groupStats: shape({
+    active_users: number,
+    project_contributions: [
+      {
+        count: number,
+        project_id: number,
+        session_time: number
+      }
+    ],
+    time_spent: number,
+    total_count: number
+  }),
+  handleGroupDelete: func,
+  handleGroupUpdate: func
 }
 
 export default GroupStats
