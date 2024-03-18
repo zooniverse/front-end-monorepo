@@ -1,6 +1,7 @@
 'use client'
 
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
+import { object, string } from 'prop-types'
 
 import {
   usePanoptesAuthUser,
@@ -17,7 +18,10 @@ import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles.js'
 
 import CreateGroup from './CreateGroup.js'
 
-function MyGroups({ authClient }) {
+function MyGroups({
+  authClient,
+  login
+}) {
   const {
     data: authUser
   } = usePanoptesAuthUser(authClient)
@@ -30,7 +34,7 @@ function MyGroups({ authClient }) {
     authClient,
     authUser,
     authUserId: authUser?.id,
-    login: authUser?.login // will be changed per app-root login param in subsequent PR
+    login
   })
   
   const {
@@ -96,6 +100,11 @@ function MyGroups({ authClient }) {
       />
     </div>
   )
+}
+
+MyGroups.propTypes = {
+  authClient: object,
+  login: string
 }
 
 export default MyGroups
