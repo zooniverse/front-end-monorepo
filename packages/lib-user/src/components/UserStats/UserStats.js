@@ -1,6 +1,17 @@
 'use client'
 
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { object } from 'prop-types'
+import { useState } from 'react'
+
+import {
+  usePanoptesProjects,
+  usePanoptesUser,
+  useUserStats
+} from '@hooks'
+
+import {
+  getDateInterval
+} from '@utils'
 
 import {
   Layout
@@ -9,36 +20,59 @@ import {
 import MainContent from './components/MainContent'
 import TopProjects from './components/TopProjects'
 
-const DEFAULT_HANDLER = () => true
-
-function UserStats({
-  allProjectsStats = {
-    project_contributions: []
-  },
-  handleDateRangeSelect = DEFAULT_HANDLER,
-  handleProjectSelect = DEFAULT_HANDLER,
-  projects = [],
-  projectStats = {
-    project_contributions: []
-  },
-  selectedDateRange = 'Last7Days',
-  selectedProject = 'AllProjects',
-  user
+function UserStats ({
+  authClient
 }) {
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+
+  // fetch user
+  const { data: user, error, isLoading } = usePanoptesUser(authClient)
+  
+  // fetch all projects stats, used by projects select and top projects regardless of selected project
+  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
+  allProjectsStatsQuery.project_contributions = true
+  allProjectsStatsQuery.time_spent = true
+  
+  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ userID: user?.id, query: allProjectsStatsQuery })
+  
+  // fetch individual project stats
+  const projectStatsQuery = getDateInterval(selectedDateRange)
+  projectStatsQuery.project_id = parseInt(selectedProject)
+  projectStatsQuery.time_spent = true
+  
+  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ userID: user?.id, query: projectStatsQuery })
+  
+  // fetch projects
+  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  
+  const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
+
+  function handleProjectSelect (project) {
+    setSelectedProject(project.value)
+  }
+
+  function handleDateRangeSelect (dateRange) {
+    setSelectedDateRange(dateRange.value)
+  }
+
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   // set top projects based on selected date range and all project stats
   let topProjects = []
-  const topProjectContributions = allProjectsStats.project_contributions
-    .sort((a, b) => b.count - a.count)
-  topProjects = topProjectContributions
-    .map(projectContribution => {
-      const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
-      return projectData
-    })
-    .filter(project => project)
-    .slice(0, 5)
+  if (allProjectsStats?.project_contributions?.length > 0 && projects?.length > 0) {
+    const topProjectContributions = allProjectsStats.project_contributions
+      .sort((a, b) => b.count - a.count)
+
+    topProjects = topProjectContributions
+      .map(projectContribution => {
+        const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+        return projectData
+      })
+      .filter(project => project)
+      .slice(0, 5)
+  }
 
   return (
     <Layout>
@@ -59,30 +93,7 @@ function UserStats({
 }
 
 UserStats.propTypes = {
-  allProjectsStats: shape({
-    project_contributions: arrayOf(shape({
-      count: number,
-      project_id: number
-    }))
-  }),
-  handleDateRangeSelect: func,
-  handleProjectSelect: func,
-  projects: arrayOf(shape({
-    id: string,
-    display_name: string
-  })),
-  projectStats: shape({
-    project_contributions: arrayOf(shape({
-      count: number,
-      project_id: number
-    }))
-  }),
-  selectedDateRange: string,
-  selectedProject: string,
-  user: shape({
-    id: string,
-    login: string
-  }).isRequired
+  authClient: object
 }
 
 export default UserStats

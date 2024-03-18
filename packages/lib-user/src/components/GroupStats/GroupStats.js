@@ -2,7 +2,12 @@
 
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
 
-import { arrayOf, number, object, shape, string } from 'prop-types'
+import PropTypes from 'prop-types'
+
+import {
+  usePanoptesUserGroup,
+  useGroupStats
+} from '@hooks'
 
 import {
   deletePanoptesUserGroup,
@@ -10,22 +15,25 @@ import {
   updatePanoptesUserGroup
 } from '@utils'
 
-import DeleteGroup from './DeleteGroup'
-import EditGroup from './EditGroup'
+import DeleteGroup from './DeleteGroup.js'
+import EditGroup from './EditGroup.js'
 
-function GroupStats({
-  authClient= {},
-  data = {
-    body: {
-      user_groups: []
-    },
-    headers: {
-      etag: ''
-    }
-  },
-  groupId = '',
-  groupStats
+function GroupStats ({
+  authClient,
+  groupId
 }) {
+  const {
+    data,
+    error: groupError,
+    isLoading: groupLoading
+  } = usePanoptesUserGroup({ authClient, groupId })
+  
+  const {
+    data: groupStats,
+    error: groupStatsError,
+    isLoading: groupStatsLoading
+  } = useGroupStats({ authClient, groupId })
+
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
     const requestHeaders = {
@@ -38,10 +46,7 @@ function GroupStats({
   async function handleGroupDelete() {
     try {
       const requestHeaders = await getRequestHeaders()
-      const deleteResponse = await deletePanoptesUserGroup({
-        groupId,
-        headers: requestHeaders
-      })
+      const deleteResponse = await deletePanoptesUserGroup({ groupId, headers: requestHeaders })
       console.log('deleteResponse', deleteResponse)
       window.location.href =  '?users=[login]/groups'
     } catch (error) {
@@ -52,16 +57,17 @@ function GroupStats({
   async function handleGroupUpdate(updates) {
     try {
       const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({
-        updates,
-        headers: requestHeaders
-      })
+      const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
     } catch (error) {
       console.error(error)
     }
   }
+
+  if (groupError || groupStatsError) return (<p>Error: {groupError?.toString() || groupStatsError?.toString()}</p>)
+
+  if (groupLoading || groupStatsLoading) return (<p>Loading...</p>)
 
   const group = data?.body?.user_groups?.[0]
 
@@ -88,34 +94,8 @@ function GroupStats({
 }
 
 GroupStats.propTypes = {
-  authClient: object,
-  data: shape({
-    body: shape({
-      user_groups: arrayOf(shape({
-        display_name: string,
-        id: string,
-        links: shape({
-          users: arrayOf(string)
-        })
-      }))
-    }),
-    headers: shape({
-      etag: string
-    })
-  }),
-  groupId: string,
-  groupStats: shape({
-    body: shape({
-      classifications: arrayOf(shape({
-        count: number,
-        workflow_id: number
-      })),
-      user_groups: arrayOf(shape({
-        count: number,
-        user_group_id: number
-      }))
-    })
-  })
+  // authClient: object,
+  groupId: PropTypes.string
 }
 
 export default GroupStats

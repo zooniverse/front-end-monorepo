@@ -111,11 +111,12 @@ function App({
 
   if (users) {
     const subpaths = users.split('/')
-    const login = subpaths[0] || ''
 
-    if (login === '[login]') {
+    if (subpaths[0] === '[login]') {
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
+      const login = subpaths[0] || ''
+
       content = (
         <UserStats
           authClient={oauth}
@@ -123,12 +124,7 @@ function App({
         />
       )
     } else if (subpaths[1] === 'groups') {
-      content = (
-        <MyGroups
-          authClient={oauth}
-          login={login}
-        />
-      )
+      content = <MyGroups authClient={oauth} />
     } else {
       content = <p>User profile page goes here.</p>
     }

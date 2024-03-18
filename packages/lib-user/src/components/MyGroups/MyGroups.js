@@ -1,65 +1,90 @@
 'use client'
 
-import { Grid } from 'grommet'
-import { arrayOf, object, shape, string } from 'prop-types'
+// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
 
-import { ContentBox } from '@components/shared'
-import { Layout } from '@components/shared'
+import {
+  usePanoptesUser,
+  usePanoptesMemberships
+} from '@hooks'
 
-import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
-import GroupCard from './components/GroupCard'
+import {
+  createPanoptesUserGroup,
+  getBearerToken
+} from '@utils'
 
-function MyGroups({
-  authClient = {},
-  authUserId = '',
-  membershipsWithGroups = []
-}) {
-  const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
+import convertActiveGroupsWithRoles from './helpers/convertActiveGroupsWithRoles.js'
+
+import CreateGroup from './CreateGroup.js'
+
+function MyGroups({ authClient }) {
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser(authClient)
+  
+  const {
+    data: membershipsWithGroups,
+    error: membershipsError,
+    isLoading: membershipsLoading
+  } = usePanoptesMemberships({
+    authClient,
+    query: {
+      include: 'user_group',
+      user_id: user?.id
+    }
+  })
+
+  async function handleGroupCreate(data) {
+    try {
+      const authorization = await getBearerToken(authClient)
+      const newGroup = await createPanoptesUserGroup({ data, authorization })
+      console.log('newGroup', newGroup)
+      window.location.reload()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  if (userError || membershipsError) return (<p>Error: {userError?.toString() || membershipsError?.toString()}</p>)
+
+  if (userLoading || membershipsLoading) return (<p>Loading...</p>)
+
+  const activeGroupsWithRoles = convertActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
-    <Layout>
-      <ContentBox
-        linkLabel='Learn more about Groups'
-        linkProps={{ href: '/groups' }}
-        title='My Groups'
-        pad={{ horizontal: '60px', vertical: '30px' }}
-      >
-        <Grid
-          columns={{
-            count: 2,
-            size: 'auto'
-          }}
-          gap={{ row: '20px', column: '40px' }}
-        >
-          {activeGroupsWithRoles.map((group) => {
-            return (
-              <GroupCard
-                key={group.id}
-                authClient={authClient}
-                authUserId={authUserId}
-                displayName={group.display_name}
-                id={group.id}
-                role={group.roles[0]}
-              />
-            )
-          })}
-        </Grid>
-      </ContentBox>
-    </Layout>
-  )
-}
+    <div>
+      <div>
+        <h3>MyGroups</h3>
+        {activeGroupsWithRoles.length === 0 ? (
+          <p>You are not an active member of any groups.</p>
+        ) : null}
+        {activeGroupsWithRoles.map((group) => {
+          const roles = group.roles
 
-MyGroups.propTypes = {
-  authClient: object,
-  authUserId: string,
-  membershipsWithGroups: shape({
-    body: shape({
-      user_groups: arrayOf(shape({
-        id: string,
-        roles: arrayOf(string)
-      }))
-    })
-  })
+          return (
+            <div key={group.id}>
+              <h4><a href={`./?groups=${group.id}`}>{group.display_name}</a></h4>
+              <span>{roles}</span>
+              <div>
+                <span>Classifications X</span>
+                {' | '}
+                <span>Hours Y</span>
+                {' | '}
+                <span>Members Z</span>
+                {' | '}
+                <span>Projects W</span>
+              </div>
+              <hr />
+            </div>
+          )
+        })}
+      </div>
+      <CreateGroup
+        handleGroupCreate={handleGroupCreate}
+      />
+    </div>
+  )
 }
 
 export default MyGroups

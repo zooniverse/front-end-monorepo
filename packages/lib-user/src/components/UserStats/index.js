@@ -1,1 +1,1 @@
-export { default } from './UserStatsContainer'
+export { default } from './UserStats'

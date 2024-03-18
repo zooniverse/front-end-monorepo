@@ -1,1 +1,1 @@
-export { default } from './GroupStatsContainer'
+export { default } from './GroupStats'
