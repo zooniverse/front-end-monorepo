@@ -50,7 +50,9 @@ function App({
   }, [])
 
   const login = () => oauth?.signIn(window?.location?.origin)
-  const logout = () => oauth?.signOut().then(setUserAuth)
+  const logout = () => oauth?.signOut()
+    .then(setUserAuth)
+    .catch(() => setUserAuth(null))
 
   const userSubpath = user?.login ? user.login : '[login]'
 
