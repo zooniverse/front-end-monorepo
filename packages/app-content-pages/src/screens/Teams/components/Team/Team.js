@@ -1,23 +1,25 @@
 import { Box } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
-import { HeadingForNav } from '../../../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+import HeadingForAboutNav from '@shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
 
 import Person from '../Person'
 
-function Team({ name = '', people = [], slug = '' }) {
+function Team({
+  name = '',
+  people = [],
+  sectionIndex = 0,
+  setActiveSection = () => {},
+  slug = ''
+}) {
   return (
     <Box as='section' key={name}>
-      <HeadingForNav
-        id={slug}
+      <HeadingForAboutNav
         color={{ light: 'black', dark: 'white' }}
-        level={2}
-        size='1.5rem'
-        tabIndex={-1}
-        textAlign='center'
-        style={{ padding: '30px 0' }}
-      >
-        {name}
-      </HeadingForNav>
+        sectionIndex={sectionIndex}
+        sectionName={name}
+        setActiveSection={setActiveSection}
+        slug={slug}
+      />
       {people.map(person => (
         <Person key={person.name} {...person} />
       ))}
@@ -32,6 +34,10 @@ Team.propTypes = {
       id: string
     })
   ),
+  /* sectionIndex matches index order of sections array supplied to Sidebar component */
+  sectionIndex: number,
+  /* Setting the active section is handled at the page level (Teams) */
+  setActiveSection: func,
   slug: string
 }
 

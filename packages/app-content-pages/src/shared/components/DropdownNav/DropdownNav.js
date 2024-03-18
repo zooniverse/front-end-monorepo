@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
-import { arrayOf, bool, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Box, Button, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
@@ -88,7 +88,7 @@ const StyledLi = styled.li`
 const DEFAULT_HANDLER = () => {}
 
 function DropdownNav({
-  activeSection = '',
+  activeSection = 0,
   className = '',
   sections = [],
   setActiveSection = DEFAULT_HANDLER,
@@ -112,13 +112,13 @@ function DropdownNav({
   const dropContent = (
     <Nav aria-label={sidebarLabel} width='100%' background='brand'>
       <StyledUl>
-        {sections.map(section => (
+        {sections.map((section, index) => (
           <StyledLi key={section.name}>
             <StyledButton
               as={Link}
-              aria-current={section.index === activeSection ? 'true' : 'false'}
+              aria-current={index === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => handleSectionSelect(section.index)}
+              onClick={() => handleSectionSelect(index)}
             >
               <SpacedText size='0.875rem' color='white' weight='bold'>
                 {section.name}
@@ -160,7 +160,7 @@ function DropdownNav({
 export default DropdownNav
 
 DropdownNav.propTypes = {
-  activeSection: string,
+  activeSection: number,
   className: string,
   sections: arrayOf(
     shape({

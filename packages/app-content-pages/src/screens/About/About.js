@@ -1,76 +1,25 @@
 import { Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import Script from 'next/script'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 import PageLayout from '@shared/components/PageLayout/layout.js'
 import DropdownNav from '@shared/components/DropdownNav/DropdownNav.js'
 import Head from '@shared/components/Head'
+import HeadingForAboutNav from '@shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
 import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
 import {
-  HeadingForNav,
   MobileHeading,
   StickyBox,
   StickySidebar,
   StyledGrid,
   StyledHeading
-} from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+} from '@shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import Contact from './components/Contact.js'
 import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'
 import Mobile from './components/Mobile.js'
 import OurMission from './components/OurMission.js'
-
-export function HeadingForAboutNav({
-  color,
-  sectionIndex,
-  sectionName,
-  setActiveSection,
-  slug
-}) {
-  const headingRef = useRef()
-
-  /**
-   * Observe the headings of each navigable section
-   * When a heading is fully visible in the upper-half of a viewport,
-   * highlight the sidebar and update the url hash.
-   */
-  useEffect(() => {
-    const options = {
-      root: null, // use the viewport as the root element
-      rootMargin: '0px 0px -50% 0px', // observe visibility in the top half of the viewport
-      threshold: 1 // callback when target is fully visible
-    }
-
-    const intersectionObserver = new window.IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setActiveSection(sectionIndex)
-      }
-    }, options)
-
-    intersectionObserver.observe(headingRef.current)
-
-    return () => {
-      intersectionObserver.disconnect()
-    }
-  }, [headingRef.current])
-
-  return (
-    <div ref={headingRef}>
-      <HeadingForNav
-        id={slug}
-        color={color}
-        level={2}
-        size='1.5rem'
-        tabIndex={-1}
-        textAlign='center'
-        style={{ padding: '30px 0 10px 0' }}
-      >
-        {sectionName}
-      </HeadingForNav>
-    </div>
-  )
-}
 
 function AboutPage() {
   const { t } = useTranslation('components')

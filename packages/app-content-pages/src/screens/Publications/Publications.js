@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Anchor, Box, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
@@ -30,12 +30,7 @@ const StyledSection = styled.section`
 
 function Publications({ publicationsData = [], sections = [] }) {
   const { t } = useTranslation('components')
-  const [activeSection, setActiveSection] = useState('')
-
-  useEffect(function onMount() {
-    const slug = window.location.hash.slice(1)
-    setActiveSection(slug)
-  }, [])
+  const [activeSection, setActiveSection] = useState(0)
 
   const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
 
@@ -79,10 +74,12 @@ function Publications({ publicationsData = [], sections = [] }) {
             />
           </Box>
           <article>
-            {publicationsData?.map(category => (
+            {publicationsData?.map((category, index) => (
               <Category
                 key={category.title}
                 projects={category.projects}
+                sectionIndex={index + 1} // Have to account for "All" as index=0 in the Sidebar
+                setActiveSection={setActiveSection}
                 slug={category.slug}
                 title={category.title}
               />
