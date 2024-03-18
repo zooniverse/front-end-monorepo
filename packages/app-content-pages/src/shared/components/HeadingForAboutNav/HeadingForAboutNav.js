@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import styled from 'styled-components'
+import { Box } from 'grommet'
 import { func, number, string } from 'prop-types'
 
 import { mobileBreakpoint } from '@shared/components/SharedStyledComponents/SharedStyledComponents.js'
@@ -14,12 +15,15 @@ const HeadingForNav = styled(SpacedHeading)`
   }
 `
 
+const defaultPad = { vertical: '30px' }
+
 export default function HeadingForAboutNav({
-  color,
-  sectionIndex,
-  sectionName,
-  setActiveSection,
-  slug
+  color = 'black',
+  pad = defaultPad,
+  sectionIndex = 0,
+  sectionName = '',
+  setActiveSection = () => {},
+  slug = ''
 }) {
   const headingRef = useRef()
 
@@ -38,10 +42,17 @@ export default function HeadingForAboutNav({
     const intersectionObserver = new window.IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
         setActiveSection(sectionIndex)
-        // Note that we are not updating the window.location hash here yet
-        // Manipulating the hash causes the page to jump to the corresponding
-        // heading id, and hashes in the url are mainly used to direct
-        // volunteers to #contact from external pages
+
+        /* Change the has in the url without doing a navigation event */
+        const location = window.location.toString().split('#')[0]
+        const oldHash = window.location.hash
+        const hash = '#' + slug
+
+        if (sectionIndex === 0) {
+          history.replaceState(null, null, location)
+        } else if (oldHash !== slug) {
+          history.replaceState(null, null, location + hash)
+        }
       }
     }, options)
 
@@ -53,7 +64,7 @@ export default function HeadingForAboutNav({
   }, [headingRef.current])
 
   return (
-    <div ref={headingRef}>
+    <Box ref={headingRef} pad={pad}>
       <HeadingForNav
         id={slug}
         color={color}
@@ -61,11 +72,10 @@ export default function HeadingForAboutNav({
         size='1.5rem'
         tabIndex={-1}
         textAlign='center'
-        style={{ padding: '30px 0 10px 0' }}
       >
         {sectionName}
       </HeadingForNav>
-    </div>
+    </Box>
   )
 }
 

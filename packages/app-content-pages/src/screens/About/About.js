@@ -99,6 +99,7 @@ function AboutPage() {
             {/** Our Mission */}
             <HeadingForAboutNav
               color={{ light: 'brand', dark: 'white' }}
+              pad={{ top: '30px', bottom: '10px' }}
               sectionIndex={0}
               sectionName={t('AboutPage.ourMission.heading')}
               setActiveSection={setActiveSection}
@@ -113,6 +114,7 @@ function AboutPage() {
             <MaxWidthContent pad={{ horizontal: 'medium' }}>
               <HeadingForAboutNav
                 color={{ light: 'brand', dark: 'white' }}
+                pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={2}
                 sectionName={t('AboutPage.mobile.heading')}
                 setActiveSection={setActiveSection}
@@ -125,6 +127,7 @@ function AboutPage() {
             <MaxWidthContent pad={{ horizontal: 'medium' }}>
               <HeadingForAboutNav
                 color={{ light: 'brand', dark: 'white' }}
+                pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={3}
                 sectionName={t('AboutPage.highlights.heading')}
                 setActiveSection={setActiveSection}
@@ -137,6 +140,7 @@ function AboutPage() {
             <MaxWidthContent>
               <HeadingForAboutNav
                 color={{ light: 'brand', dark: 'white' }}
+                pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={4}
                 sectionName={t('AboutPage.contact.heading')}
                 setActiveSection={setActiveSection}

@@ -174,6 +174,7 @@ export default function HowItWorks({ setActiveSection }) {
       <Box align='center'>
         <HeadingForAboutNav
           color='accent-1'
+          pad={{ top: '30px', bottom: '10px' }}
           sectionIndex={1}
           sectionName={t('AboutPage.howItWorks.heading')}
           setActiveSection={setActiveSection}
