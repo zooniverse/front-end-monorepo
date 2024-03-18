@@ -139,8 +139,8 @@ const ArrowSVG = () => (
     <path
       d='M237 2.55109H7.33333C3.33333 2.55109 2.11111 6.56608 2 8.57358V39.6898C2 45.3108 5.55556 46.716 7.33333 46.716H95.9036C97.4877 46.716 99.0361 47.1863 100.353 48.0673L117.853 59.7779C120.561 61.5901 124.098 61.5787 126.794 59.7489L143.966 48.0963C145.291 47.1969 146.856 46.716 148.458 46.716H236.667H237C241 46.716 242 42.0319 242 39.6898V10.0792C242 4.05671 238.667 2.55109 237 2.55109Z'
       fill='white'
-      fill-opacity='0.2'
-      stroke-width='1px'
+      fillOpacity='0.2'
+      strokeWidth='1px'
       stroke='white'
     />
   </svg>
@@ -163,7 +163,7 @@ const Step = ({ children }) => (
   </Text>
 )
 
-export default function HowItWorks({ setActiveSection }) {
+export default function HowItWorks({ setActiveSection = () => {} }) {
   const { t } = useTranslation()
   const { global } = useTheme()
   const customButtonBorder = global.colors.brand
