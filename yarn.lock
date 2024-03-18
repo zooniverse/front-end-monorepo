@@ -9618,9 +9618,9 @@ graphql@~16.8.0:
   integrity sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==
 
 grommet-icons@^4.10.0, grommet-icons@~4.12.0:
-  version "4.12.0"
-  resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.12.0.tgz#122c1f09c100f2ea6321c401107038caeda8a6b8"
-  integrity sha512-aPFVjdCBLbaUOpxzrNakxYz6DNYxS5lJeLP4tI6nZFfOzLhWH5LBf+tfkL/ZkLMNZC1Uqsw9awPvyvT03xLOsA==
+  version "4.12.1"
+  resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.12.1.tgz#780aa7cd59c5586f642f221bdb5c6becd04ad000"
+  integrity sha512-LhOP6BkDAGiSNcUOfsGGRo+AKD6zWOXeNeusY1WYvKplAR6mKCAQfH7Nig2Buc/v5zadKSko2NDtCQqwJaME0Q==
 
 grommet@~2.35.0:
   version "2.35.0"
