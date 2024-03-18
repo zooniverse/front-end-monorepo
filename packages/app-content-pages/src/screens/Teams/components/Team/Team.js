@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import HeadingForAboutNav from '@shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
+import HeadingForAboutNav from '../../../../shared/components/HeadingForAboutNav/HeadingForAboutNav'
 
 import Person from '../Person'
 

@@ -3,18 +3,18 @@ import { useTranslation } from 'next-i18next'
 import Script from 'next/script'
 import { useState } from 'react'
 
-import PageLayout from '@shared/components/PageLayout/layout.js'
-import DropdownNav from '@shared/components/DropdownNav/DropdownNav.js'
-import Head from '@shared/components/Head'
-import HeadingForAboutNav from '@shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
-import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
+import Head from '../../shared/components/Head'
+import HeadingForAboutNav from '../../shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
+import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
 import {
   MobileHeading,
   StickyBox,
   StickySidebar,
   StyledGrid,
   StyledHeading
-} from '@shared/components/SharedStyledComponents/SharedStyledComponents.js'
+} from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 import Contact from './components/Contact.js'
 import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'

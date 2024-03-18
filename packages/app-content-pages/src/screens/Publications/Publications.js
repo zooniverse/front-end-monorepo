@@ -5,10 +5,10 @@ import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import Category from './components/Category/Category.js'
-import DropdownNav from '@shared/components/DropdownNav/DropdownNav.js'
-import Head from '@shared/components/Head'
-import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
-import PageLayout from '@shared/components/PageLayout/layout.js'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
+import Head from '../../shared/components/Head'
+import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
 
 import {
   mobileBreakpoint,
@@ -17,7 +17,7 @@ import {
   StickySidebar,
   StyledGrid,
   StyledHeading
-} from '@shared/components/SharedStyledComponents/SharedStyledComponents.js'
+} from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
 const FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'

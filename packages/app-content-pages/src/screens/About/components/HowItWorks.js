@@ -12,9 +12,8 @@ import {
   Validate
 } from 'grommet-icons'
 
-import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
-import HeadingForAboutNav from '@shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
-
+import MaxWidthContent from '../../../shared/components/MaxWidthContent/MaxWidthContent.js'
+import HeadingForAboutNav from '../../../shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
 
 const GradientBox = styled(Box)`
   position: relative;
