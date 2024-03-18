@@ -3,11 +3,10 @@
 import { MyGroups } from '@zooniverse/user'
 import auth from 'panoptes-client/lib/auth'
 
-export default function MyGroupsPage({ params }) {
+export default function MyGroupsPage() {
   return (
     <MyGroups
       authClient={auth}
-      login={params.login}
     />
   )
 }
