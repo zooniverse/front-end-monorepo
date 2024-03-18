@@ -1,5 +1,4 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
 import { usePanoptesAuth } from '@hooks'
@@ -32,11 +31,6 @@ async function fetchPanoptesUser({ authClient, authUser, login, authorization })
     const authClientUser = await authClient.checkCurrent()
     if (authClientUser?.avatar_src) {
       return authClientUser
-    }
-
-    const panoptesAuthUser = await auth.checkCurrent()
-    if (panoptesAuthUser?.avatar_src) {
-      return panoptesAuthUser
     }
   }
   
