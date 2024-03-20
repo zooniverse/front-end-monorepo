@@ -27,6 +27,10 @@ function MyGroups({
   } = usePanoptesAuthUser(authClient)
 
   const {
+    data: authUser
+  } = usePanoptesAuthUser(authClient)
+
+  const {
     data: user,
     error: userError,
     isLoading: userLoading
