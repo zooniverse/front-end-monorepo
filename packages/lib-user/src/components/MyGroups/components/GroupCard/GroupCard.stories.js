@@ -1,10 +1,10 @@
 import { Box } from 'grommet'
 
-import GroupCard from './GroupCard.js'
-import { AdminGroupCard, MemberGroupCard } from './GroupCard.mock.js'
+import GroupCard from './GroupCard'
+import { AdminGroupCard, MemberGroupCard } from './GroupCard.mock'
 
 export default {
-  title: 'Components/MyGroups/GroupCard',
+  title: 'Components/MyGroups/components/GroupCard',
   component: GroupCard,
   decorators: [ComponentDecorator]
 }

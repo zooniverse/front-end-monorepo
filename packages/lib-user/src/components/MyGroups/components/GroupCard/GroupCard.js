@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import TitledStat from '../../shared/TitledStat'
+import { TitledStat } from '@components/shared'
 
 const StyledBox = styled(Box)`
   border-radius: 8px;
