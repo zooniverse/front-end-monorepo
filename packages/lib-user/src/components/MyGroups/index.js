@@ -1,1 +1,1 @@
-export { default } from './MyGroups.js'
+export { default } from './MyGroups'

@@ -1,10 +1,9 @@
 import { env } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
-const defaultEndpoint = '/classifications/users'
+import { usePanoptesAuth } from '@hooks'
 
-const isBrowser = typeof window !== 'undefined'
+const defaultEndpoint = '/classifications/users'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -23,21 +22,18 @@ function statsHost(env) {
   }
 }
 
-if (isBrowser) {
-  auth.checkCurrent()
-}
-
-async function fetchUserStats({ endpoint, query, userID }) {
-  const token = await auth.checkBearerToken()
-  const authorization = `Bearer ${token}`
-  if (!token) return null
-  
+async function fetchStats({
+  endpoint,
+  query,
+  sourceId,
+  authorization
+}) {
   const stats = statsHost(env)
   const queryParams = new URLSearchParams(query).toString()
   const headers = { authorization }
   
   try {
-    const response = await fetch(`${stats}${endpoint}/${userID}?${queryParams}`, { headers })
+    const response = await fetch(`${stats}${endpoint}/${sourceId}?${queryParams}`, { headers })
     const data = await response.json()
     return data
   } catch (error) {
@@ -46,8 +42,15 @@ async function fetchUserStats({ endpoint, query, userID }) {
   }
 }
 
-export function useUserStats({ endpoint = defaultEndpoint, query, userID }) {
-  const key = userID ? { endpoint, query, userID } : null
-
-  return useSWR(key, fetchUserStats, SWROptions)
+export function useStats({
+  authClient,
+  authUserId,
+  endpoint = defaultEndpoint,
+  query = {},
+  sourceId
+}) {
+  const authorization = usePanoptesAuth({ authClient, authUserId })
+  const publicOrAuthorized = authUserId ? !!authorization : true
+  const key = (sourceId && publicOrAuthorized) ? { endpoint, query, sourceId, authorization } : null
+  return useSWR(key, fetchStats, SWROptions)
 }

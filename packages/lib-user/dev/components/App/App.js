@@ -2,11 +2,12 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { env } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import oauth from 'panoptes-client/lib/oauth.js'
+import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import { GroupStats, MyGroups, UserStats } from '@components'
 
-import { usePanoptesUser } from '@hooks'
+import { usePanoptesAuthUser } from '@hooks'
 
 function appId(env) {
   switch (env) {
@@ -17,7 +18,7 @@ function appId(env) {
   }
 }
 
-function App ({
+function App({
   groups = null,
   users = null
 }) {
@@ -25,10 +26,10 @@ function App ({
   const [userAuth, setUserAuth] = useState(null)
   const [dark, setDarkTheme] = useState(false)
 
-  const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
+  const { data: user, error, isLoading: userLoading } = usePanoptesAuthUser(oauth)
 
   useEffect(() => {
-    async function initUserAuth () {
+    async function initUserAuth() {
       setLoading(true)
   
       try {
@@ -39,17 +40,15 @@ function App ({
       } finally {
         setLoading(false)
       }
-    };
-  
-    window.addEventListener('load', initUserAuth);
-
-    return () => {
-      window.removeEventListener('load', initUserAuth);
-    };
+    }
+    
+    initUserAuth()
   }, [])
 
   const login = () => oauth?.signIn(window?.location?.origin)
-  const logout = () => oauth?.signOut().then(setUserAuth)
+  const logout = () => oauth?.signOut()
+    .then(setUserAuth)
+    .catch(() => setUserAuth(null))
 
   const userSubpath = user?.login ? user.login : '[login]'
 
@@ -146,7 +145,7 @@ function App ({
               Logout
             </button>
           ) : (
-            <button onClick={login}>
+            <button onClick={login} disabled={loading}>
               Login
             </button>
           )}
@@ -170,6 +169,11 @@ function App ({
       </main>
     </Grommet>
   )
+}
+
+App.propTypes = {
+  groups: string,
+  users: string
 }
 
 export default App

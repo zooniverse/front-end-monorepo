@@ -1,41 +1,45 @@
-import auth from 'panoptes-client/lib/auth'
-import { useEffect, useState } from 'react'
+import { panoptes } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
 
-async function fetchPanoptesUser() {
-  const panoptesUser = await auth.checkCurrent()
-  if (panoptesUser) {
-    // A lot of user properties are not needed in lib-user, so we only return the ones we need; edit as needed.
-    const { admin, avatar_src, display_name, id, login } = panoptesUser
-    return { admin, avatar_src, display_name, id, login }
-  }
+import { usePanoptesAuth } from '@hooks'
 
-  return null
+const SWRoptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
 }
 
-export function usePanoptesUser(authClient) {
-  const [error, setError] = useState(null)
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+async function getUser({ login, authorization }) {
+  try {
+    const { body } = await panoptes.get('/users', { login }, { authorization })
+    const user = body.users[0]
+    return user
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
 
-  useEffect(function () {
-    async function checkUserSession() {
-      setLoading(true)
-      try {
-        const panoptesUser = await fetchPanoptesUser()
-        setUser(panoptesUser)
-      } catch (error) {
-        setError(error)
-      }
-      setLoading(false)
+async function fetchPanoptesUser({ authClient, authUser, login, authorization }) {
+  if (login && login === authUser?.login) {
+    if (authUser.avatar_src) {
+      return authUser
     }
 
-    checkUserSession()
-    authClient.listen('change', checkUserSession)
-
-    return function () {
-      authClient.stopListening('change', checkUserSession)
+    const authClientUser = await authClient.checkCurrent()
+    if (authClientUser?.avatar_src) {
+      return authClientUser
     }
-  }, [authClient])
+  }
+  
+  const panoptesUser = await getUser({ login, authorization })
+  return panoptesUser
+}
 
-  return { data: user, error, isLoading: loading }
+export function usePanoptesUser({ authClient, authUser, authUserId, login }) {
+  const authorization = usePanoptesAuth({ authClient, authUserId })
+  const key = (login && authUserId) ? { authClient, authUser, login, authorization } : null
+  return useSWR(key, fetchPanoptesUser, SWRoptions)
 }
