@@ -4,7 +4,7 @@ import GroupCard from './GroupCard'
 import { AdminGroupCard, MemberGroupCard } from './GroupCard.mock'
 
 export default {
-  title: 'Components/MyGroups/components/GroupCard',
+  title: 'Components/MyGroups/GroupCard',
   component: GroupCard,
   decorators: [ComponentDecorator]
 }

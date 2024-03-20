@@ -1,1 +1,1 @@
-export { default } from './GroupCard'
+export { default } from './GroupCardContainer'

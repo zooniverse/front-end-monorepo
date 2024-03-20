@@ -1,15 +1,25 @@
 import { SpacedHeading } from '@zooniverse/react-components'
-import { Box } from 'grommet'
+import { Anchor, Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 import { TitledStat } from '@components/shared'
 
-const StyledBox = styled(Box)`
+const StyledListItem = styled.li`
   border-radius: 8px;
-
-  &:hover, &:focus {
+  list-style: none;
+  padding: 20px;
+  
+  &:hover, &:focus-within {
     box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, 0.25);
+  }
+`
+
+const StyledAnchor = styled(Anchor)`
+  &:hover, &:focus {
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
   }
 `
 
@@ -29,66 +39,70 @@ const StyledRole = styled(Box)`
     `}
 `
 
-function GroupCard ({
-  displayName = '',
+function GroupCard({
   classifications = 0,
   contributors = 0, // members
+  displayName = '',
   hours = 0,
+  id = '',
   projects = 0,
   role = ''
 }) {
   return (
-    <StyledBox
-      pad='small'
-    >
-      <Box
-        align='center'
-        direction='row'
-        gap='small'
+    <StyledListItem>
+      <StyledAnchor
+        href={`https://local.zooniverse.org:8080/?groups=${id}`}
       >
-        <SpacedHeading
-          color='neutral-1'
-          size='16px'
+        <Box
+          align='center'
+          direction='row'
+          gap='small'
         >
-          {displayName}
-        </SpacedHeading>
-        <StyledRole
-          round='xsmall'
-          background={role === 'group_admin' ? 'neutral-2' : 'accent-1'}
+          <SpacedHeading
+            color='neutral-1'
+            size='16px'
+          >
+            {displayName}
+          </SpacedHeading>
+          <StyledRole
+            round='xsmall'
+            background={role === 'group_admin' ? 'neutral-2' : 'accent-1'}
+          >
+            {role === 'group_admin' ? 'Admin' : 'Member'}
+          </StyledRole>
+        </Box>
+        <Box
+          direction='row'
+          justify='between'
         >
-          {role === 'group_admin' ? 'Admin' : 'Member'}
-        </StyledRole>
-      </Box>
-      <Box
-        direction='row'
-        justify='between'
-      >
-        <TitledStat
-          title='Classifications'
-          value={classifications}
-        />
-        <TitledStat
-          title='Hours'
-          value={hours}
-        />
-        <TitledStat
-          title='Contributors'
-          value={contributors}
-        />
-        <TitledStat
-          title='Projects'
-          value={projects}
-        />
-      </Box>
-    </StyledBox>
+          <TitledStat
+            title='Classifications'
+            value={classifications}
+          />
+          <TitledStat
+            title='Hours'
+            value={hours}
+          />
+          <TitledStat
+            title='Contributors'
+            value={contributors}
+          />
+          <TitledStat
+            title='Projects'
+            value={projects}
+          />
+        </Box>
+      </StyledAnchor>
+    </StyledListItem>
   )
 }
 
 GroupCard.propTypes = {
-  displayName: string,
   classifications: number,
   contributors: number,
+  displayName: string,
   hours: number,
+  id: string,
   projects: number,
   role: string
 }
