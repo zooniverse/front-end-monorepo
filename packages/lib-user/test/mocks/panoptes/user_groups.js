@@ -50,7 +50,7 @@ export const USER_GROUPS = [
   {
       'id': '13587',
       'name': 'MainStElementary',
-      'display_name': 'MainStElementary',
+      'display_name': 'Main St. Elementary',
       'classifications_count': 0,
       'created_at': '2023-11-01T22:01:10.022Z',
       'updated_at': '2024-03-18T18:10:48.000Z',
