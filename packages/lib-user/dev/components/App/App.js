@@ -40,17 +40,15 @@ function App({
       } finally {
         setLoading(false)
       }
-    };
-  
-    window.addEventListener('load', initUserAuth);
-
-    return () => {
-      window.removeEventListener('load', initUserAuth);
-    };
+    }
+    
+    initUserAuth()
   }, [])
 
   const login = () => oauth?.signIn(window?.location?.origin)
-  const logout = () => oauth?.signOut().then(setUserAuth)
+  const logout = () => oauth?.signOut()
+    .then(setUserAuth)
+    .catch(() => setUserAuth(null))
 
   const userSubpath = user?.login ? user.login : '[login]'
 
@@ -151,7 +149,7 @@ function App({
               Logout
             </button>
           ) : (
-            <button onClick={login}>
+            <button onClick={login} disabled={loading}>
               Login
             </button>
           )}
