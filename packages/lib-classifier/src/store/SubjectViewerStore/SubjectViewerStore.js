@@ -19,7 +19,6 @@ const SubjectViewer = types
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0),
-    showAnnotate: types.optional(types.boolean, true),
     separateFramesView: types.optional(types.boolean, false)
   })
 
@@ -47,7 +46,11 @@ const SubjectViewer = types
       }
       return false
     },
-    
+ 
+    get hasAnnotateTask () {
+      return getRoot(self)?.workflowSteps.hasAnnotateTask
+    },
+
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'
@@ -67,20 +70,17 @@ const SubjectViewer = types
     }
 
     return {
-      afterRootInitialize () {
-        // afterRootInitialize() enables listening on store.workflowSteps because they are both now initialized
-        reaction(
-          () => getRoot(self)?.workflowSteps.hasAnnotateTask,
-          (val) => {
-            self.setAnnotateVisibility(val)
-          }
-        )
-        
-        // reactions handle any changes to state, not the initial state
-        self.setAnnotateVisibility(getRoot(self)?.workflowSteps.hasAnnotateTask)
-      },
-      
       afterAttach () {
+        function _syncAnnotateVisibility() {
+          // Make sure the right button is active in the ImageToolbar
+          self.setAnnotateVisibility(self.hasAnnotateTask)
+          if (self.hasAnnotateTask) {
+            self.enableAnnotate()
+          } else {
+            self.enableMove()
+          }
+        }
+        addDisposer(self, autorun(_syncAnnotateVisibility))
         createSubjectObserver()
       },
 

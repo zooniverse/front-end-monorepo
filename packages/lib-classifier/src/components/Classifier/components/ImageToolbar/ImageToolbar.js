@@ -14,12 +14,12 @@ import ZoomOutButton from './components/ZoomOutButton'
 import { useKeyZoom } from '@hooks'
 
 function storeMapper(classifierStore) {
-  return { showAnnotateButton: classifierStore.subjectViewer.showAnnotate }
+  return { hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask }
 }
 
 // Generalized ...props here are css rules from the page layout
 function ImageToolbar (props) {
-  const { showAnnotateButton } = useStores(storeMapper)
+  const { hasAnnotateTask } = useStores(storeMapper)
   const { onKeyZoom } = useKeyZoom()
   
   return (
@@ -44,7 +44,7 @@ function ImageToolbar (props) {
         fill
         pad='clamp(8px, 15%, 10px)'
       >
-        {showAnnotateButton && <AnnotateButton />}
+        {hasAnnotateTask && <AnnotateButton />}
         <MoveButton />
         <ZoomInButton />
         <ZoomOutButton />
