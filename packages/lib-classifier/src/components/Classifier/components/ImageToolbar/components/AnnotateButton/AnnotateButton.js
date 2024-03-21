@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
-import PointerIcon from './PointerIcon'
+import EditIcon from './EditIcon'
 import Button from '../Button'
 
 function AnnotateButton({
@@ -13,7 +13,7 @@ function AnnotateButton({
     <Button
       active={active}
       a11yTitle={t('ImageToolbar.AnnotateButton.ariaLabel')}
-      icon={<PointerIcon />}
+      icon={<EditIcon />}
       onClick={onClick}
     />
   )
