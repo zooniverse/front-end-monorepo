@@ -22,9 +22,6 @@ function MyGroups({
   authClient,
   login
 }) {
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
 
   const {
     data: authUser
