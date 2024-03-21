@@ -75,6 +75,17 @@ const WorkflowStepStore = types
       return activeInteractionTask || {}
     },
 
+    // Needs to check all steps, not just the active one
+    get hasAnnotateTask () {
+      for (const key in self.workflow?.tasks) {
+        const task = self.workflow.tasks[key]
+        if (task.type === 'drawing' || task.type === 'transcription' || task.type === 'dataVisAnnotation') {
+          return true
+        }
+      }
+      return false
+    },
+
     get locale() {
       return getRoot(self).locale
     },
