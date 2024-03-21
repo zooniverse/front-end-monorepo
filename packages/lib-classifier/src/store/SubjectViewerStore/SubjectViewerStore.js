@@ -47,7 +47,11 @@ const SubjectViewer = types
       }
       return false
     },
-    
+ 
+    get hasAnnotateTask () {
+      return getRoot(self)?.workflowSteps.hasAnnotateTask
+    },
+
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'
@@ -67,20 +71,12 @@ const SubjectViewer = types
     }
 
     return {
-      afterRootInitialize () {
-        // afterRootInitialize() enables listening on store.workflowSteps because they are both now initialized
-        reaction(
-          () => getRoot(self)?.workflowSteps.hasAnnotateTask,
-          (val) => {
-            self.setAnnotateVisibility(val)
-          }
-        )
-        
-        // reactions handle any changes to state, not the initial state
-        self.setAnnotateVisibility(getRoot(self)?.workflowSteps.hasAnnotateTask)
-      },
-      
       afterAttach () {
+        function _syncAnnotateVisibility() {
+          console.log('syncing annotate visibility', self.hasAnnotateTask)
+          self.setAnnotateVisibility(self.hasAnnotateTask)
+        }
+        addDisposer(self, autorun(_syncAnnotateVisibility))
         createSubjectObserver()
       },
 
