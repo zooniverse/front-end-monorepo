@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import mockStore from '@test/mockStore'
-
+import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import MoveButtonContainer from './MoveButtonContainer'
 
 describe('Component > MoveButton', function () {
@@ -36,7 +36,13 @@ describe('Component > MoveButton', function () {
 
   it('should change the subject viewer annotate and move state when clicked', async function () {
     const user = userEvent.setup({ delay: null })
-    const store = mockStore()
+    const store = mockStore({
+      workflow: WorkflowFactory.build({
+        tasks: {
+          T1: DrawingTaskFactory.build(),
+        }
+      })
+    })
 
     expect(store.subjectViewer.move).to.be.false()
     expect(store.subjectViewer.annotate).to.be.true()
