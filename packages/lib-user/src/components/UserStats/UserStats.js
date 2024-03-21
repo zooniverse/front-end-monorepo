@@ -98,7 +98,7 @@ UserStats.propTypes = {
   selectedProject: string,
   user: shape({
     id: string
-  })  
+  })
 }
 
 export default UserStats

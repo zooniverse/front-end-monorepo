@@ -1,4 +1,4 @@
-import { func, number, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
@@ -56,13 +56,11 @@ GroupStats.propTypes = {
   }),
   groupStats: shape({
     active_users: number,
-    project_contributions: [
-      {
-        count: number,
-        project_id: number,
-        session_time: number
-      }
-    ],
+    project_contributions: arrayOf(shape({
+      count: number,
+      project_id: number,
+      session_time: number
+    })),
     time_spent: number,
     total_count: number
   }),
