@@ -4594,10 +4594,10 @@
   dependencies:
     "@use-gesture/core" "10.2.18"
 
-"@visx/axis@~3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-3.5.0.tgz#beb72fcb0ae849624202df805e13524bb6b73e2b"
-  integrity sha512-vaY/CGk9+iQL1BFlHd5muIAuAjpPKLwtt6HwpITErW+cImjQJlNgYdgbwDCyuJMmJqXOlC9byWlmF+iI1dOPYg==
+"@visx/axis@~3.10.1":
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-3.10.1.tgz#c2003993517d8bf398fe8edd41be70b6931ccc6e"
+  integrity sha512-HBEDLcpZoJ16hFbkYu3S6mN5mbwlFmUWY5yN967X06RdIL4LmAG3gnZ7u4F9buA3LQo+trJXW78moN005odD4Q==
   dependencies:
     "@types/react" "*"
     "@visx/group" "3.3.0"
