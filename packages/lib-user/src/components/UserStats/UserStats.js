@@ -1,6 +1,6 @@
 'use client'
 
-import { object } from 'prop-types'
+import { object, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -24,7 +24,8 @@ import TopProjects from './components/TopProjects'
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStats ({
-  authClient
+  authClient,
+  login
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
@@ -45,7 +46,7 @@ function UserStats ({
     authClient,
     authUser,
     authUserId: authUser?.id,
-    login: authUser?.login // will be changed per app-root login param in subsequent PR
+    login
   })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
@@ -132,7 +133,8 @@ function UserStats ({
 }
 
 UserStats.propTypes = {
-  authClient: object
+  authClient: object,
+  login: string
 }
 
 export default UserStats
