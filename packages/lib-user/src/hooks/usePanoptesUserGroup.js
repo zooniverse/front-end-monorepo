@@ -1,7 +1,7 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
-import { usePanoptesAuth } from './usePanoptesAuth'
+import { usePanoptesAuth } from '@hooks'
 
 const SWRoptions = {
   revalidateIfStale: true,
@@ -11,20 +11,20 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchPanoptesUserGroup({ endpoint, groupId, authorization }) {
-  if (groupId === undefined || authorization === undefined) {
-    return undefined
-  }
-  if (groupId && authorization) {
+async function fetchPanoptesUserGroup({ groupId, authorization }) {
+  const endpoint = `/user_groups/${groupId}`
+  
+  try {
     const response = await panoptes.get(endpoint, {}, { authorization })
-    return response || {}
+    return response
+  } catch (error) {
+    console.log(error)
+    return null
   }
-  return null
 }
 
-export function usePanoptesUserGroup({ authClient, groupId}) {
-  const authorization = usePanoptesAuth({ authClient })
-  const endpoint = `/user_groups/${groupId}`
-  const key = { endpoint, groupId, authorization }
+export function usePanoptesUserGroup({ authClient, authUserId, groupId }) {
+  const authorization = usePanoptesAuth({ authClient, authUserId })
+  const key = groupId ? { groupId, authorization } : null
   return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }

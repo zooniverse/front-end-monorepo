@@ -1,10 +1,12 @@
 'use client'
 
 // This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
+import { object, string } from 'prop-types'
 
 import {
-  usePanoptesUser,
-  usePanoptesMemberships
+  usePanoptesAuthUser,
+  usePanoptesMemberships,
+  usePanoptesUser
 } from '@hooks'
 
 import {
@@ -12,16 +14,29 @@ import {
   getBearerToken
 } from '@utils'
 
-import convertActiveGroupsWithRoles from './helpers/convertActiveGroupsWithRoles.js'
+import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles.js'
 
 import CreateGroup from './CreateGroup.js'
 
-function MyGroups({ authClient }) {
+function MyGroups({
+  authClient,
+  login
+}) {
+
+  const {
+    data: authUser
+  } = usePanoptesAuthUser(authClient)
+
   const {
     data: user,
     error: userError,
     isLoading: userLoading
-  } = usePanoptesUser(authClient)
+  } = usePanoptesUser({
+    authClient,
+    authUser,
+    authUserId: authUser?.id,
+    login
+  })
   
   const {
     data: membershipsWithGroups,
@@ -29,6 +44,7 @@ function MyGroups({ authClient }) {
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
     authClient,
+    authUserId: authUser?.id,
     query: {
       include: 'user_group',
       user_id: user?.id
@@ -50,7 +66,7 @@ function MyGroups({ authClient }) {
 
   if (userLoading || membershipsLoading) return (<p>Loading...</p>)
 
-  const activeGroupsWithRoles = convertActiveGroupsWithRoles(membershipsWithGroups)
+  const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
     <div>
@@ -85,6 +101,11 @@ function MyGroups({ authClient }) {
       />
     </div>
   )
+}
+
+MyGroups.propTypes = {
+  authClient: object,
+  login: string
 }
 
 export default MyGroups
