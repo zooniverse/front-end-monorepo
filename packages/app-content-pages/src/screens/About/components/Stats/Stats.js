@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 import SpacedText from '@zooniverse/react-components/SpacedText'
-import AnimtedNumber from '@zooniverse/react-components/AnimatedNumber'
+import AnimatedNumber from '@zooniverse/react-components/AnimatedNumber'
 
 import { useTotalClassificationCount, useTotalVolunteerCount } from './hooks'
 
@@ -32,15 +32,17 @@ const Stat = styled(Box)`
 
   &.classifications {
     background: rgba(240, 178, 0, 0.1); // matches ClassfiicationsLabel
+    border: solid 1px ${props => props.theme.global.colors['neutral-2']};
   }
 
   &.volunteers {
     background: rgba(0, 93, 105, 0.1); // matches VolunteersLabel
+    border: solid 1px ${props => props.theme.global.colors['neutral-1']};
   }
 `
 
 /*
-  We have to manually add some legacy stats to the UI.
+  We have to manually add some legacy (static) stats to the UI.
   These numbers are not included in the fetch response for
   total volunteers or classifications.
   https://github.com/zooniverse/Panoptes-Front-End/pull/4511
@@ -53,20 +55,25 @@ const OUROBOROS_USER_COUNT = 124921 // volunteers
 export default function Stats() {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
-  const numberFont = size !== 'small' ? '5rem' : '2.5rem'
+  const numberFontSize = size !== 'small' ? '5rem' : '2.5rem'
 
   const { data: classifications } = useTotalClassificationCount()
 
   const { data: volunteers } = useTotalVolunteerCount()
 
-  const totalClassifications = classifications + GZ123_COUNT + OUROBOROS_COUNT + OTHERS_COUNT
+  const totalClassifications =
+    classifications + GZ123_COUNT + OUROBOROS_COUNT + OTHERS_COUNT
   const totalVolunteers = volunteers + OUROBOROS_USER_COUNT
 
   return (
     <Box gap='medium'>
       <Stat className='classifications' round='small' elevation='small'>
-        <Text color='neutral-2' size={numberFont} textAlign='center'>
-          {classifications && <AnimtedNumber value={totalClassifications} />}
+        <Text
+          color={{ light: 'neutral-2' }}
+          size={numberFontSize}
+          textAlign='center'
+        >
+          {classifications && <AnimatedNumber value={totalClassifications} />}
         </Text>
         <ClassificationsLabel>
           <SpacedText color='white' weight='bold' textAlign='center'>
@@ -75,8 +82,12 @@ export default function Stats() {
         </ClassificationsLabel>
       </Stat>
       <Stat className='volunteers' round='small' elevation='small'>
-        <Text color='neutral-1' size={numberFont} textAlign='center'>
-          {volunteers && <AnimtedNumber value={totalVolunteers} />}
+        <Text
+          color={{ light: 'neutral-1', dark: 'accent-1' }}
+          size={numberFontSize}
+          textAlign='center'
+        >
+          {volunteers && <AnimatedNumber value={totalVolunteers} />}
         </Text>
         <VolunteersLabel>
           <SpacedText color='white' weight='bold' textAlign='center'>

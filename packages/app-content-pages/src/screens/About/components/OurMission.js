@@ -15,8 +15,7 @@ import styled from 'styled-components'
 import Stats from './Stats/Stats.js'
 
 const VideoWrapper = styled(Box)`
-  position: relative;
-  padding-bottom: 56.25%; // Creates a responsive 9:16 div
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   margin: 60px 0;
 `
@@ -128,7 +127,7 @@ export default function OurMission() {
           title='YouTube video player'
           frameborder='0'
           allowfullscreen
-          style={{ position: 'absolute' }}
+          // style={{ position: 'absolute' }}
         />
       </VideoWrapper>
 
