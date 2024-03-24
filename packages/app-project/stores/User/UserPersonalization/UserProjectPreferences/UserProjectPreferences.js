@@ -8,7 +8,7 @@ import numberString from '@stores/types/numberString'
 export const Preferences = types
   .model('Preferences', {
     minicourses: types.maybe(types.frozen()),
-    selected_workflow: types.maybe(types.string),
+    selected_workflow: types.maybe(numberString),
     tutorials_completed_at: types.maybe(types.frozen())
   })
 
