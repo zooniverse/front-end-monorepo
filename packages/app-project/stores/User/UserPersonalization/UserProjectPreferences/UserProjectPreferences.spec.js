@@ -8,6 +8,7 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 import initStore from '@stores/initStore'
 import { statsClient } from '../YourStats'
 import UserProjectPreferences, { Settings } from './UserProjectPreferences'
+import { expect } from 'chai'
 
 describe('Stores > UserProjectPreferences', function () {
   const project = {
@@ -433,6 +434,13 @@ describe('Stores > UserProjectPreferences', function () {
         expect(settings.workflow_id).to.equal('123')
         settings = Settings.create({ workflow_id: 123 })
         expect(settings.workflow_id).to.equal('123')
+      })
+      specify('should be a Panoptes ID', function () {
+        expect(() => Settings.create({ workflow_id: '123456' })).not.to.throw()
+        expect(() => Settings.create({ workflow_id: 123456 })).not.to.throw()
+        expect(() => Settings.create({ workflow_id: '123.456' })).to.throw()
+        expect(() => Settings.create({ workflow_id: 123.456 })).to.throw()
+        expect(() => Settings.create({ workflow_id: 'not an ID' })).to.throw()
       })
       specify('should be optional', function () {
         const settings = Settings.create({})
