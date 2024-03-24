@@ -7,7 +7,7 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import { statsClient } from '../YourStats'
-import UserProjectPreferences from './UserProjectPreferences'
+import UserProjectPreferences, { Settings } from './UserProjectPreferences'
 
 describe('Stores > UserProjectPreferences', function () {
   const project = {
@@ -422,6 +422,21 @@ describe('Stores > UserProjectPreferences', function () {
         expect(projectPreferences.promptAssignment('123')).to.be.true()
         expect(rootStore.project.workflowIsActive('123')).to.be.true()
         expect(rootStore.project.workflowIsActive('555')).to.be.true()
+      })
+    })
+  })
+
+  describe('Settings', function () {
+    describe('workflow_id', function () {
+      specify('should always be a string', function () {
+        let settings = Settings.create({ workflow_id: '123' })
+        expect(settings.workflow_id).to.equal('123')
+        settings = Settings.create({ workflow_id: 123 })
+        expect(settings.workflow_id).to.equal('123')
+      })
+      specify('should be optional', function () {
+        const settings = Settings.create({})
+        expect(settings.workflow_id).to.be.undefined()
       })
     })
   })
