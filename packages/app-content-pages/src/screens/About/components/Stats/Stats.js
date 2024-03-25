@@ -67,7 +67,7 @@ export default function Stats() {
 
   return (
     <Box gap='medium'>
-      <Stat className='classifications' round='small' elevation='small'>
+      <Stat className='classifications' round='8px' elevation='small'>
         <Text
           color={{ light: 'neutral-2' }}
           size={numberFontSize}
@@ -81,7 +81,7 @@ export default function Stats() {
           </SpacedText>
         </ClassificationsLabel>
       </Stat>
-      <Stat className='volunteers' round='small' elevation='small'>
+      <Stat className='volunteers' round='8px' elevation='small'>
         <Text
           color={{ light: 'neutral-1', dark: 'accent-1' }}
           size={numberFontSize}

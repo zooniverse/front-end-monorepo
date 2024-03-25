@@ -1,58 +1,43 @@
-import { Box } from 'grommet'
+import { Box, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next'
-import styled from 'styled-components'
 import Script from 'next/script'
 import { useState } from 'react'
+import styled from 'styled-components'
 
-import PageLayout from '@shared/components/PageLayout/layout.js'
-import DropdownNav from '@shared/components/DropdownNav/DropdownNav.js'
-import Head from '@shared/components/Head'
-import Sidebar from '@shared/components/Sidebar/Sidebar.js'
-import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
+import PageLayout from '../../shared/components/PageLayout/layout.js'
+import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
+import Head from '../../shared/components/Head'
+import HeadingForAboutNav from '../../shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
+import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
 import {
-  HeadingForNav,
   mobileBreakpoint,
   MobileHeading,
-  StyledGrid,
-  StyledHeading
+  StickyBox,
+  StickySidebar,
+  StyledGrid
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+import AboutLogo from './components/AboutLogo.js'
 import Contact from './components/Contact.js'
 import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'
 import Mobile from './components/Mobile.js'
 import OurMission from './components/OurMission.js'
 
-const StyledSidebar = styled(Sidebar)`
+const StyledAboutHeading = styled(Heading)`
+  position: relative;
+  padding: 44px 0;
+  margin: 0;
+  text-align: center;
+
   @media (width <= ${mobileBreakpoint}) {
     display: none;
   }
 `
 
-const StyledDropdownNav = styled(DropdownNav)`
-  @media (width > ${mobileBreakpoint}) {
-    display: none;
-  }
-`
-
-export function HeadingForAboutNav({ color, sectionName, slug }) {
-  return (
-    <HeadingForNav
-      id={slug}
-      color={color}
-      level={2}
-      size='1.5rem'
-      tabIndex={-1}
-      textAlign='center'
-      style={{ padding: '30px 0 10px 0' }}
-    >
-      {sectionName}
-    </HeadingForNav>
-  )
-}
-
 function AboutPage() {
   const { t } = useTranslation('components')
   const [widgetLoaded, setWidgetLoaded] = useState(false)
+  const [activeSection, setActiveSection] = useState(0)
 
   const sidebarSections = [
     { name: t('AboutPage.ourMission.heading'), slug: '' },
@@ -96,72 +81,90 @@ function AboutPage() {
         <MobileHeading level='1' size='1.5rem'>
           {t('AboutPage.title')}
         </MobileHeading>
-        <StyledDropdownNav
-          sidebarLabel={t('AboutPage.sidebarLabel')}
-          sections={sidebarSections}
-        />
+        <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
+          <DropdownNav
+            activeSection={activeSection}
+            sidebarLabel={t('AboutPage.sidebarLabel')}
+            sections={sidebarSections}
+            setActiveSection={setActiveSection}
+          />
+        </StickyBox>
         <MaxWidthContent>
-          <StyledHeading
+          <StyledAboutHeading
             color={{ light: 'neutral-1', dark: 'accent-1' }}
             level='1'
             size='small'
           >
             {t('AboutPage.title')}
-          </StyledHeading>
+          </StyledAboutHeading>
+        <AboutLogo />
         </MaxWidthContent>
 
-        {/** Our Mission */}
         <StyledGrid>
           <Box as='aside' align='center'>
-            <StyledSidebar
+            <StickySidebar
+              activeSection={activeSection}
               ariaLabel={t('AboutPage.sideBarLabel')}
               sections={sidebarSections}
+              setActiveSection={setActiveSection}
             />
           </Box>
           <article>
-            <Box>
+            {/** Our Mission */}
+            <HeadingForAboutNav
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
+              pad={{ top: '30px', bottom: '10px' }}
+              sectionIndex={0}
+              sectionName={t('AboutPage.ourMission.heading')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[0].slug}
+            />
+            <OurMission />
+
+            {/** How It Works */}
+            <HowItWorks setActiveSection={setActiveSection} />
+
+            {/** Mobile App */}
+            <MaxWidthContent pad={{ horizontal: 'medium' }}>
               <HeadingForAboutNav
-                color={{ light: 'neutral-1', dark: 'white' }}
-                sectionName={t('AboutPage.ourMission.heading')}
+                color={{ light: 'neutral-1', dark: 'accent-1' }}
+                pad={{ top: '30px', bottom: '10px' }}
+                sectionIndex={2}
+                sectionName={t('AboutPage.mobile.heading')}
+                setActiveSection={setActiveSection}
                 slug={sidebarSections[0].slug}
               />
-              <OurMission />
-            </Box>
+              <Mobile />
+            </MaxWidthContent>
+
+            {/** Highlights */}
+            <MaxWidthContent pad={{ horizontal: 'medium' }}>
+              <HeadingForAboutNav
+                color={{ light: 'neutral-1', dark: 'accent-1' }}
+                pad={{ top: '30px', bottom: '10px' }}
+                sectionIndex={3}
+                sectionName={t('AboutPage.highlights.heading')}
+                setActiveSection={setActiveSection}
+                slug={sidebarSections[3].slug}
+              />
+              <Highlights />
+            </MaxWidthContent>
+
+            {/** Contact Us */}
+            <MaxWidthContent>
+              <HeadingForAboutNav
+                color={{ light: 'neutral-1', dark: 'accent-1' }}
+                pad={{ top: '30px', bottom: '10px' }}
+                sectionIndex={4}
+                sectionName={t('AboutPage.contact.heading')}
+                setActiveSection={setActiveSection}
+                slug={sidebarSections[4].slug}
+              />
+              <Contact widgetLoaded={widgetLoaded} />
+            </MaxWidthContent>
           </article>
+          <Box />
         </StyledGrid>
-
-        {/** How It Works */}
-        <HowItWorks />
-
-        {/** Mobile App */}
-        <MaxWidthContent pad={{ horizontal: 'medium' }}>
-          <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'white' }}
-            sectionName={t('AboutPage.mobile.heading')}
-            slug={sidebarSections[2].slug}
-          />
-          <Mobile />
-        </MaxWidthContent>
-
-        {/** Highlights */}
-        <MaxWidthContent pad={{ horizontal: 'medium' }}>
-          <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'white' }}
-            sectionName={t('AboutPage.highlights.heading')}
-            slug={sidebarSections[3].slug}
-          />
-          <Highlights />
-        </MaxWidthContent>
-
-        {/** Contact Us */}
-        <MaxWidthContent>
-          <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'white' }}
-            sectionName={t('AboutPage.contact.heading')}
-            slug={sidebarSections[4].slug}
-          />
-          <Contact widgetLoaded={widgetLoaded} />
-        </MaxWidthContent>
       </PageLayout>
     </>
   )

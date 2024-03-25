@@ -49,7 +49,6 @@ function Project(props) {
           color={{ light: 'black', dark: 'white' }}
           level='3'
           size='small'
-          style={{ lineHeight: '1.4rem' }}
         >
           {title} ({publications.length})
         </Heading>

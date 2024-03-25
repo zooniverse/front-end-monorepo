@@ -58,6 +58,7 @@ export default function Highlights() {
             alt={t('AboutPage.highlights.pictures.one')}
             src='/about/assets/into-the-zooniverse1.jpg'
             fit='contain'
+            width='100%'
           />
         </Box>
         <Box>
@@ -65,6 +66,8 @@ export default function Highlights() {
             alt={t('AboutPage.highlights.pictures.two')}
             src='/about/assets/into-the-zooniverse2.png'
             fit='contain'
+            width='100%'
+
           />
         </Box>
         <Box>
