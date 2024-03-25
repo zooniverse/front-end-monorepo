@@ -1,7 +1,8 @@
-import { Box } from 'grommet'
+import { Box, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import Script from 'next/script'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 import PageLayout from '../../shared/components/PageLayout/layout.js'
 import DropdownNav from '../../shared/components/DropdownNav/DropdownNav.js'
@@ -9,17 +10,29 @@ import Head from '../../shared/components/Head'
 import HeadingForAboutNav from '../../shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
 import MaxWidthContent from '../../shared/components/MaxWidthContent/MaxWidthContent.js'
 import {
+  mobileBreakpoint,
   MobileHeading,
   StickyBox,
   StickySidebar,
-  StyledGrid,
-  StyledHeading
+  StyledGrid
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+import AboutLogo from './components/AboutLogo.js'
 import Contact from './components/Contact.js'
 import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'
 import Mobile from './components/Mobile.js'
 import OurMission from './components/OurMission.js'
+
+const StyledAboutHeading = styled(Heading)`
+  position: relative;
+  padding: 44px 0;
+  margin: 0;
+  text-align: center;
+
+  @media (width <= ${mobileBreakpoint}) {
+    display: none;
+  }
+`
 
 function AboutPage() {
   const { t } = useTranslation('components')
@@ -77,13 +90,14 @@ function AboutPage() {
           />
         </StickyBox>
         <MaxWidthContent>
-          <StyledHeading
+          <StyledAboutHeading
             color={{ light: 'neutral-1', dark: 'accent-1' }}
             level='1'
             size='small'
           >
             {t('AboutPage.title')}
-          </StyledHeading>
+          </StyledAboutHeading>
+        <AboutLogo />
         </MaxWidthContent>
 
         <StyledGrid>
@@ -98,7 +112,7 @@ function AboutPage() {
           <article>
             {/** Our Mission */}
             <HeadingForAboutNav
-              color={{ light: 'brand', dark: 'white' }}
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
               pad={{ top: '30px', bottom: '10px' }}
               sectionIndex={0}
               sectionName={t('AboutPage.ourMission.heading')}
@@ -113,10 +127,10 @@ function AboutPage() {
             {/** Mobile App */}
             <MaxWidthContent pad={{ horizontal: 'medium' }}>
               <HeadingForAboutNav
-                color={{ light: 'neutral-1', dark: 'white' }}
+                color={{ light: 'neutral-1', dark: 'accent-1' }}
                 pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={2}
-                sectionName={t('AboutPage.ourMission.heading')}
+                sectionName={t('AboutPage.mobile.heading')}
                 setActiveSection={setActiveSection}
                 slug={sidebarSections[0].slug}
               />
@@ -126,7 +140,7 @@ function AboutPage() {
             {/** Highlights */}
             <MaxWidthContent pad={{ horizontal: 'medium' }}>
               <HeadingForAboutNav
-                color={{ light: 'brand', dark: 'white' }}
+                color={{ light: 'neutral-1', dark: 'accent-1' }}
                 pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={3}
                 sectionName={t('AboutPage.highlights.heading')}
@@ -139,7 +153,7 @@ function AboutPage() {
             {/** Contact Us */}
             <MaxWidthContent>
               <HeadingForAboutNav
-                color={{ light: 'brand', dark: 'white' }}
+                color={{ light: 'neutral-1', dark: 'accent-1' }}
                 pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={4}
                 sectionName={t('AboutPage.contact.heading')}

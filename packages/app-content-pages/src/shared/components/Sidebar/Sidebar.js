@@ -20,9 +20,13 @@ const StyledButton = styled(Button)`
 
   &[aria-current='true'] {
     ${props =>
-      css`
-        background: ${props.theme.global.colors['accent-1']};
-      `}
+      props.theme.dark
+        ? css`
+            background: ${props.theme.global.colors['neutral-1']};
+          `
+        : css`
+            background: ${props.theme.global.colors['accent-1']};
+          `}
   }
 `
 
@@ -51,11 +55,7 @@ function Sidebar({
               onClick={() => setActiveSection(index)}
             >
               <SpacedText
-                color={
-                  section.slug === activeSection
-                    ? 'black'
-                    : { light: 'black', dark: 'white' }
-                }
+                color={{ light: 'black', dark: 'white' }}
                 weight={index === activeSection ? 'bold' : 'normal'}
               >
                 {section.name}

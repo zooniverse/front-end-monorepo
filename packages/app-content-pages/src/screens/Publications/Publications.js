@@ -58,7 +58,7 @@ function Publications({ publicationsData = [], sections = [] }) {
         </StickyBox>
         <MaxWidthContent>
           <StyledSection>
-            <StyledHeading level='1' color={{ light: 'brand', dark: 'accent-1' }} size='small'>
+            <StyledHeading level='1' color={{ light: 'neutral-1', dark: 'accent-1' }} size='small'>
               {t('Publications.title')}
             </StyledHeading>
             <Paragraph textAlign='center' margin={{ top: '30px' }}>

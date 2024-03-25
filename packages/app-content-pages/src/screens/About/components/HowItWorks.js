@@ -81,8 +81,7 @@ const StyledButton = styled(Button)`
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
   font-size: 0.8rem;
   padding: 5px;
-  width: 240px; // same as ArrowSVG
-  min-width: 130px;
+  width: clamp(130px, 100%, 240px);
   border-radius: 8px;
   border: solid 1px ${props => props.theme.global.colors['neutral-2']};
   text-align: center;
@@ -180,12 +179,13 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
           slug='how-it-works'
         />
         <Heading
-          level={3}
-          size='2rem'
           alignSelf='center'
           color='white'
-          weight='normal'
+          level={3}
           margin={{ top: '0', bottom: 'medium' }}
+          size='2rem'
+          textAlign='center'
+          weight='normal'
         >
           {t('AboutPage.howItWorks.subheading')}
         </Heading>

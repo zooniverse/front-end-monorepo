@@ -16,7 +16,7 @@ export const MobileHeading = styled(Heading)`
 
   ${props =>
     css`
-      background: ${props.theme.global.colors.brand};
+      background: ${props.theme.global.colors['neutral-1']};
     `}
 
   @media (width > ${mobileBreakpoint}) {

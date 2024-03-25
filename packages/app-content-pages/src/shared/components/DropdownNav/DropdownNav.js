@@ -148,10 +148,10 @@ function DropdownNav({
         justify='center'
         pad={{ horizontal: '20px', vertical: '10px' }}
       >
-        <SpacedText weight='bold' color={{ light: 'brand', dark: 'white' }}>
+        <SpacedText weight='bold' color={{ light: 'neutral-1', dark: 'white' }}>
           {sidebarLabel}
         </SpacedText>
-        <FormDown color={{ light: 'brand', dark: 'white' }} />
+        <FormDown color={{ light: 'neutral-1', dark: 'white' }} />
       </Box>
     </StyledDropButton>
   )

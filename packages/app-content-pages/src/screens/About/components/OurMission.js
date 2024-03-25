@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import Stats from './Stats/Stats.js'
 
 const VideoWrapper = styled(Box)`
+  border-radius: 8px; // same as Stat component
   aspect-ratio: 16 / 9;
   overflow: hidden;
   margin: 60px 0;
@@ -99,7 +100,7 @@ export default function OurMission() {
           ]}
         />
       </Paragraph>
-      <Paragraph margin={{ top: '0', bottom: '30px' }}>
+      <Paragraph margin={{ top: '0', bottom: '50px' }}>
         <Trans
           i18nKey='AboutPage.ourMission.paragraphs.four'
           t={t}
@@ -111,6 +112,7 @@ export default function OurMission() {
 
       <Heading
         color={{ light: 'neutral-1', dark: 'accent-1' }}
+        fill
         level={3}
         size='1rem'
         textAlign='center'
@@ -129,7 +131,6 @@ export default function OurMission() {
           title='YouTube video player'
           frameborder='0'
           allowfullscreen
-          // style={{ position: 'absolute' }}
         />
       </VideoWrapper>
 
