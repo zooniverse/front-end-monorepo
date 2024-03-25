@@ -57,7 +57,7 @@ function FAQPage() {
                   />,
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about/contact' // can change to #contact once that section is built in /about
+                    href='https://www.zooniverse.org/about#contact'
                   />
                 ]}
               />
@@ -150,7 +150,7 @@ function FAQPage() {
                     components={[
                       <Anchor
                         key='donate-link'
-                        href='https://www.zooniverse.org/about/donate' // To PFE for now, but will link to a get-involved section
+                        href='https://www.zooniverse.org/about/donate' // Will link to a get-involved section once those pages are built
                       />
                     ]}
                   />

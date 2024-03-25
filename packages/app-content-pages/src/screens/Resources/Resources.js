@@ -140,7 +140,7 @@ function ResourcesPage() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about/contact' // can be changed to #contact after that section is built in /about
+                    href='https://www.zooniverse.org/about#contact'
                   />
                 ]}
               />
@@ -167,7 +167,7 @@ function ResourcesPage() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about/contact' // can be changed to #contact after that section is built in /about
+                    href='https://www.zooniverse.org/about#contact'
                   />
                 ]}
               />
