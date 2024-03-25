@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import { getBearerToken } from './getBearerToken.js'
+import { getBearerToken } from './getBearerToken'
 
 describe('utils > getBearerToken', function () {
   it('returns an empty string if the authClient is undefined', function () {

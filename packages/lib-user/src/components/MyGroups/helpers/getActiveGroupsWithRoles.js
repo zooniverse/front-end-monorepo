@@ -1,4 +1,4 @@
-function convertActiveGroupsWithRoles(membershipsWithGroups = []) {
+export function getActiveGroupsWithRoles(membershipsWithGroups = []) {
   if (!membershipsWithGroups?.memberships || !membershipsWithGroups?.linked?.user_groups) {
     return []
   }
@@ -14,5 +14,3 @@ function convertActiveGroupsWithRoles(membershipsWithGroups = []) {
     return activeGroupsWithRoles
   }, [])
 }
-
-export default convertActiveGroupsWithRoles

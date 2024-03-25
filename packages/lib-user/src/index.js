@@ -13,13 +13,13 @@ export { default as Select } from './components/shared/Select'
 export { default as Tabs } from './components/shared/Tabs'
 
 // hooks
-export { useGroupStats } from './hooks/useGroupStats.js'
 export { usePanoptesAuth } from './hooks/usePanoptesAuth.js'
+export { usePanoptesAuthUser } from './hooks/usePanoptesAuthUser.js'
 export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'
 export { usePanoptesProjects } from './hooks/usePanoptesProjects.js'
 export { usePanoptesUser } from './hooks/usePanoptesUser.js'
 export { usePanoptesUserGroup } from './hooks/usePanoptesUserGroup.js'
-export { useUserStats } from './hooks/useUserStats.js'
+export { useStats } from './hooks/useStats.js'
 
 // utils
 export { createPanoptesUserGroup } from './utils/createPanoptesUserGroup.js'
