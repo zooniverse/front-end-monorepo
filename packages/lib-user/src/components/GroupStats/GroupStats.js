@@ -5,8 +5,9 @@
 import PropTypes from 'prop-types'
 
 import {
+  usePanoptesAuthUser,
   usePanoptesUserGroup,
-  useGroupStats
+  useStats
 } from '@hooks'
 
 import {
@@ -18,21 +19,36 @@ import {
 import DeleteGroup from './DeleteGroup.js'
 import EditGroup from './EditGroup.js'
 
+const STATS_ENDPOINT = '/classifications/user_groups'
+
 function GroupStats ({
   authClient,
   groupId
 }) {
   const {
+    data: authUser
+  } = usePanoptesAuthUser(authClient)
+
+  const {
     data,
     error: groupError,
     isLoading: groupLoading
-  } = usePanoptesUserGroup({ authClient, groupId })
+  } = usePanoptesUserGroup({
+    authClient,
+    authUserId: authUser?.id,
+    groupId
+  })
   
   const {
     data: groupStats,
     error: groupStatsError,
     isLoading: groupStatsLoading
-  } = useGroupStats({ authClient, groupId })
+  } = useStats({
+    authClient,
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: groupId
+  })
 
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)

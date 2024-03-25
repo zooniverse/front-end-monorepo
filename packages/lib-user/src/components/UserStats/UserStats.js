@@ -1,12 +1,13 @@
 'use client'
 
-import { object } from 'prop-types'
+import { object, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
+  usePanoptesAuthUser,
   usePanoptesProjects,
   usePanoptesUser,
-  useUserStats
+  useStats
 } from '@hooks'
 
 import {
@@ -20,28 +21,67 @@ import {
 import MainContent from './components/MainContent'
 import TopProjects from './components/TopProjects'
 
+const STATS_ENDPOINT = '/classifications/users'
+
 function UserStats ({
-  authClient
+  authClient,
+  login
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
+  // fetch authenticated user
+  const {
+    data: authUser,
+    error,
+    isLoading  
+  } = usePanoptesAuthUser(authClient)
+
   // fetch user
-  const { data: user, error, isLoading } = usePanoptesUser(authClient)
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authClient,
+    authUser,
+    authUserId: authUser?.id,
+    login
+  })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
   const allProjectsStatsQuery = getDateInterval(selectedDateRange)
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
   
-  const { data: allProjectsStats, error: statsError, isLoading: statsLoading } = useUserStats({ userID: user?.id, query: allProjectsStatsQuery })
+  const {
+    data: allProjectsStats,
+    error: statsError,
+    isLoading: statsLoading
+  } = useStats({
+    authClient,
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: user?.id,
+    query: allProjectsStatsQuery
+  })
   
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
   
-  const { data: projectStats, error: projectStatsError, isLoading: projectStatsLoading } = useUserStats({ userID: user?.id, query: projectStatsQuery })
+  const {
+    data: projectStats,
+    error: projectStatsError,
+    isLoading: projectStatsLoading
+  } = useStats({
+    authClient,
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: user?.id,
+    query: projectStatsQuery
+  })
   
   // fetch projects
   const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
@@ -93,7 +133,8 @@ function UserStats ({
 }
 
 UserStats.propTypes = {
-  authClient: object
+  authClient: object,
+  login: string
 }
 
 export default UserStats

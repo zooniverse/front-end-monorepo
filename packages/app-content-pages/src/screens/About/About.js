@@ -78,7 +78,7 @@ function AboutPage() {
         </StickyBox>
         <MaxWidthContent>
           <StyledHeading
-            color={{ light: 'brand', dark: 'accent-1' }}
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
             level='1'
             size='small'
           >
@@ -113,12 +113,12 @@ function AboutPage() {
             {/** Mobile App */}
             <MaxWidthContent pad={{ horizontal: 'medium' }}>
               <HeadingForAboutNav
-                color={{ light: 'brand', dark: 'white' }}
+                color={{ light: 'neutral-1', dark: 'white' }}
                 pad={{ top: '30px', bottom: '10px' }}
                 sectionIndex={2}
-                sectionName={t('AboutPage.mobile.heading')}
+                sectionName={t('AboutPage.ourMission.heading')}
                 setActiveSection={setActiveSection}
-                slug={sidebarSections[2].slug}
+                slug={sidebarSections[0].slug}
               />
               <Mobile />
             </MaxWidthContent>

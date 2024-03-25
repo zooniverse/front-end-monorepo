@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unrealeased 2024-03-19
+
+### Fixed
+Added `d3` as peer dependency and grab available d3 methods from `@visx`.
+Fixed value in AnimatedNumber when a device prefers reduced motion.
+
 ## [1.12.0] 2024-03-04
 
 ### Added

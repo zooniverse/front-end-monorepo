@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] 2024-03-25
+- Bump `jose` to 5.2.
+- Bump `mocha` to 10.3.
+- Bump `nock` to 13.5.
+- Bump `jsdom` to v24.
+
 ## [0.5.1] 2023-11-22
 - Bump `jose` to 5.1.
 
