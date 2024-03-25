@@ -83,28 +83,12 @@ const RootStore = types
       self.subjects.reset()
     }
 
-    function _afterInitialize() {
-      // Because the root store is initialized all the sub-stores are as well
-      // We enable listening between this root store's stores by calling an afterRootInitialize() method on all these sub-stores
-      const allKeys = keys(self)
-      allKeys.forEach(key => {
-        // Filter the current model to only the observable properties of the root store since that's all our models
-        const isFunction = typeof self[key] === 'function'
-        const isVolatile = !isObservableProp(self, key)
-        if (isFunction || isVolatile) return
-
-        // If the sub-store has the afterRootInitialize() method, run it
-        self[key].afterRootInitialize?.()
-      })
-    }
-
     // Public actions
     function afterCreate () {
       addMiddleware(self, _addMiddleware)
       onAction(self, _onAction)
       onPatch(self, _onPatch)
       self.authClient?.listen('change', _onUserChange)
-      _afterInitialize()
     }
 
     function setLocale (newLocale) {

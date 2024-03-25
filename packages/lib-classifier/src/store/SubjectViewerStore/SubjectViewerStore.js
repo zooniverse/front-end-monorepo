@@ -19,7 +19,6 @@ const SubjectViewer = types
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0),
-    showAnnotate: types.optional(types.boolean, true),
     separateFramesView: types.optional(types.boolean, false)
   })
 
@@ -49,7 +48,16 @@ const SubjectViewer = types
     },
  
     get hasAnnotateTask () {
-      return getRoot(self)?.workflowSteps.hasAnnotateTask
+      const canAnnotate = getRoot(self)?.workflowSteps.hasAnnotateTask
+
+      // Make sure the right button is active in the ImageToolbar
+      if (canAnnotate) {
+        self.enableAnnotate()
+      } else {
+        self.enableMove()
+      }
+
+      return canAnnotate
     },
 
     get interactionMode () {
@@ -59,27 +67,7 @@ const SubjectViewer = types
   }))
 
   .actions(self => {
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-        if (validSubjectReference) {
-          const subject = getRoot(self).subjects.active
-          self.resetSubject(subject)
-        }
-      }, { name: 'SubjectViewerStore Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
-    }
-
     return {
-      afterAttach () {
-        function _syncAnnotateVisibility() {
-          console.log('syncing annotate visibility', self.hasAnnotateTask)
-          self.setAnnotateVisibility(self.hasAnnotateTask)
-        }
-        addDisposer(self, autorun(_syncAnnotateVisibility))
-        createSubjectObserver()
-      },
-
       enableAnnotate () {
         self.annotate = true
         self.move = false
@@ -164,16 +152,6 @@ const SubjectViewer = types
       rotate () {
         console.log('rotating subject')
         self.rotation -= 90
-      },
-
-      setAnnotateVisibility (canAnnotate) {
-        if (canAnnotate) {
-          self.enableAnnotate()
-        } else {
-          self.enableMove()
-        }
-
-        self.showAnnotate = canAnnotate
       },
 
       setFlipbookSpeed (speed) {
