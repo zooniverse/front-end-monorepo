@@ -9,18 +9,17 @@ describe('Component > ConnectWithProject', function () {
       const ConnectWithProjectStory = composeStory(ConnectWithProject, Meta)
       render(<ConnectWithProjectStory />)
     })
-  
+
     ConnectWithProjectMock.project.urls.forEach(function (urlObject) {
       it(`should render the ${urlObject.name} icon`, async function () {
-				screen.debug()
         await expect(screen.getByLabelText(urlObject.name)).to.be.ok()
       })
-  
+
       it(`should render the ${urlObject.name} link`, function () {
         const el = document.getElementsByClassName(`connect-with-project-${urlObject.site}`)[0]
         expect(within(el).getByRole('link')).to.have.property('href')
       })
-  
+
       it(`should render the ${urlObject.name} label`, function () {
         const el = document.getElementsByClassName(`connect-with-project-${urlObject.site}`)[0]
         expect(within(el).getByText(`ConnectWithProject.ProjectLink.types.${urlObject.name.toLowerCase()}`)).to.exist()

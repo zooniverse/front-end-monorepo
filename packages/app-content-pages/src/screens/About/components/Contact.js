@@ -8,7 +8,7 @@ const StyledButton = styled(Button)`
   color: white;
   padding: 10px;
   background: ${props => props.theme.global.colors['neutral-1']};
-  width: 400px;
+  width: clamp(250px, 100%, 400px);
   border-radius: 5px;
 `
 
@@ -24,10 +24,11 @@ export default function Contact({ widgetLoaded = false }) {
   return (
     <Box pad={{ horizontal: 'medium' }}>
       <Heading
-        level={3}
-        size='1.5rem'
         alignSelf='center'
+        level={3}
         margin='0'
+        size='1.5rem'
+        textAlign='center'
         weight='normal'
       >
         {t('AboutPage.contact.subheading')}

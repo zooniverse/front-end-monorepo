@@ -59,6 +59,7 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
+    "d3": "~6.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "mobx-state-tree": "~5.x.x",

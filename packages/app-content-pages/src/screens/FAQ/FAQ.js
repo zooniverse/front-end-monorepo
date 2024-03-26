@@ -39,7 +39,7 @@ function FAQPage() {
         </MobileHeading>
         <Box pad={{ horizontal: 'medium' }} align='center'>
           <MaxWidthContent>
-            <StyledHeading color={{ light: 'brand', dark: 'accent-1' }} level='1' size='small'>
+            <StyledHeading color={{ light: 'neutral-1', dark: 'accent-1' }} level='1' size='small'>
               {t('FAQ.title')}
             </StyledHeading>
             <Paragraph margin={{ vertical: 'medium' }}>
@@ -57,7 +57,7 @@ function FAQPage() {
                   />,
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about/contact' // can change to #contact once that section is built in /about
+                    href='https://www.zooniverse.org/about#contact'
                   />
                 ]}
               />
@@ -150,7 +150,7 @@ function FAQPage() {
                     components={[
                       <Anchor
                         key='donate-link'
-                        href='https://www.zooniverse.org/about/donate' // To PFE for now, but will link to a get-involved section
+                        href='https://www.zooniverse.org/about/donate' // Will link to a get-involved section once those pages are built
                       />
                     ]}
                   />

@@ -19,18 +19,26 @@ function copyProps (src, target) {
 }
 
 class ResizeObserver {
-    disconnect() {
-      // do nothing
-    }
-    observe() {
-        // do nothing
-    }
-    unobserve() {
-        // do nothing
-    }
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+}
+
+class IntersectionObserver {
+  disconnect() {}
+  observe() {}
+  unobserve() {}
 }
 
 window.ResizeObserver = ResizeObserver
+window.IntersectionObserver = IntersectionObserver
+
 window.scrollTo = () => true
 
 global.dom = jsdom

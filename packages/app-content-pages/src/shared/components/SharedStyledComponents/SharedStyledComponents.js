@@ -1,20 +1,10 @@
-/* Components are shared in Teams and Publications for two-column layout and mobile layout */
+/* Components are shared in root About page, Teams, and Publications for two-column layout and mobile layout */
 
 import styled, { css } from 'styled-components'
 import { Box, Grid, Heading } from 'grommet'
-import { SpacedHeading } from '@zooniverse/react-components'
 import Sidebar from '../Sidebar/Sidebar.js'
 
 export const mobileBreakpoint = '72rem'
-
-export const HeadingForNav = styled(SpacedHeading)`
-  margin: 0;
-
-  @media (width <= ${mobileBreakpoint}) {
-    border-top: 70px solid transparent; // Handles navigation to an h2 without the sticky dropdown covering it
-    margin-top: -70px;
-  }
-`
 
 export const MobileHeading = styled(Heading)`
   color: white;
@@ -26,7 +16,7 @@ export const MobileHeading = styled(Heading)`
 
   ${props =>
     css`
-      background: ${props.theme.global.colors.brand};
+      background: ${props.theme.global.colors['neutral-1']};
     `}
 
   @media (width > ${mobileBreakpoint}) {
@@ -88,17 +78,17 @@ export const StyledHeading = styled(Heading)`
         ? css`
             background: linear-gradient(
               90deg,
-              #333333 0%,
+              transparent 0%,
               #000000 50%,
-              #333333 100%
+              transparent 100%
             );
           `
         : css`
             background: linear-gradient(
               90deg,
-              #ffffff 0%,
+              transparent 0%,
               #a6a7a9 50%,
-              #ffffff 100%
+              transparent 100%
             );
           `}
   }
