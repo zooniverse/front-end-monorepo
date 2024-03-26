@@ -1,1 +1,1 @@
-export { default } from './MyGroups'
+export { default } from './MyGroupsContainer'
