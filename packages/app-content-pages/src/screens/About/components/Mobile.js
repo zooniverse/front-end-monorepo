@@ -33,7 +33,7 @@ export default function Mobile() {
           <Image
             alt={t('AboutPage.mobile.altAppStore')}
             src='/about/assets/app-store.png'
-            width='100px'
+            width='140px'
           />
         </Button>
         <Button
@@ -44,7 +44,7 @@ export default function Mobile() {
           <Image
             alt={t('AboutPage.mobile.altPlayStore')}
             src='/about/assets/google-play.png'
-            width='100px'
+            width='140px'
           />
         </Button>
       </Box>

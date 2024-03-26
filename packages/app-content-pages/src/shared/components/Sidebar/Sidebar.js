@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { arrayOf, bool, func, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Button, Nav } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
@@ -20,23 +20,20 @@ const StyledButton = styled(Button)`
 
   &[aria-current='true'] {
     ${props =>
-      css`
-        background: ${props.theme.global.colors['accent-1']};
-      `}
-  }
-
-  &:hover,
-  :focus {
-    > span {
-      font-weight: bold;
-    }
+      props.theme.dark
+        ? css`
+            background: ${props.theme.global.colors['neutral-1']};
+          `
+        : css`
+            background: ${props.theme.global.colors['accent-1']};
+          `}
   }
 `
 
 const DEFAULT_HANDLER = () => {}
 
 function Sidebar({
-  activeSection = '',
+  activeSection = 0,
   className = '',
   ariaLabel = '',
   sections = [],
@@ -49,21 +46,17 @@ function Sidebar({
       margin={{ horizontal: 'auto' }}
     >
       <StyledUl>
-        {sections.map(section => (
+        {sections.map((section, index) => (
           <StyledLi key={section.name}>
             <StyledButton
               as={Link}
-              aria-current={section.slug === activeSection ? 'true' : 'false'}
+              aria-current={index === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => setActiveSection(section.slug)}
+              onClick={() => setActiveSection(index)}
             >
               <SpacedText
-                color={
-                  section.slug === activeSection
-                    ? 'black'
-                    : { light: 'black', dark: 'white' }
-                }
-                weight={section.slug === activeSection ? 'bold' : 'normal'}
+                color={{ light: 'black', dark: 'white' }}
+                weight={index === activeSection ? 'bold' : 'normal'}
               >
                 {section.name}
               </SpacedText>
@@ -78,14 +71,12 @@ function Sidebar({
 export default Sidebar
 
 Sidebar.propTypes = {
-  activeSection: string,
+  activeSection: number,
   className: string,
   ariaLabel: string,
   sections: arrayOf(
     shape({
-      active: bool,
       name: string,
-      setActive: func,
       slug: string
     })
   ),

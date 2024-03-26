@@ -12,8 +12,8 @@ import {
   Validate
 } from 'grommet-icons'
 
-import MaxWidthContent from '@shared/components/MaxWidthContent/MaxWidthContent.js'
-import { HeadingForAboutNav } from '../About.js'
+import MaxWidthContent from '../../../shared/components/MaxWidthContent/MaxWidthContent.js'
+import HeadingForAboutNav from '../../../shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
 
 const GradientBox = styled(Box)`
   position: relative;
@@ -81,8 +81,7 @@ const StyledButton = styled(Button)`
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
   font-size: 0.8rem;
   padding: 5px;
-  width: 240px; // same as ArrowSVG
-  min-width: 130px;
+  width: clamp(130px, 100%, 240px);
   border-radius: 8px;
   border: solid 1px ${props => props.theme.global.colors['neutral-2']};
   text-align: center;
@@ -139,8 +138,8 @@ const ArrowSVG = () => (
     <path
       d='M237 2.55109H7.33333C3.33333 2.55109 2.11111 6.56608 2 8.57358V39.6898C2 45.3108 5.55556 46.716 7.33333 46.716H95.9036C97.4877 46.716 99.0361 47.1863 100.353 48.0673L117.853 59.7779C120.561 61.5901 124.098 61.5787 126.794 59.7489L143.966 48.0963C145.291 47.1969 146.856 46.716 148.458 46.716H236.667H237C241 46.716 242 42.0319 242 39.6898V10.0792C242 4.05671 238.667 2.55109 237 2.55109Z'
       fill='white'
-      fill-opacity='0.2'
-      stroke-width='1px'
+      fillOpacity='0.2'
+      strokeWidth='1px'
       stroke='white'
     />
   </svg>
@@ -163,7 +162,7 @@ const Step = ({ children }) => (
   </Text>
 )
 
-export default function HowItWorks() {
+export default function HowItWorks({ setActiveSection = () => {} }) {
   const { t } = useTranslation()
   const { global } = useTheme()
   const customButtonBorder = global.colors.brand
@@ -173,16 +172,20 @@ export default function HowItWorks() {
       <Box align='center'>
         <HeadingForAboutNav
           color='accent-1'
+          pad={{ top: '30px', bottom: '10px' }}
+          sectionIndex={1}
           sectionName={t('AboutPage.howItWorks.heading')}
+          setActiveSection={setActiveSection}
           slug='how-it-works'
         />
         <Heading
-          level={3}
-          size='2rem'
           alignSelf='center'
           color='white'
-          weight='normal'
+          level={3}
           margin={{ top: '0', bottom: 'medium' }}
+          size='2rem'
+          textAlign='center'
+          weight='normal'
         >
           {t('AboutPage.howItWorks.subheading')}
         </Heading>
@@ -192,7 +195,6 @@ export default function HowItWorks() {
           {/** For Participants */}
           <Box
             as='ul'
-            width={{ max: '240px' }}
             margin='0'
             pad='0'
             height='100%'
@@ -224,7 +226,6 @@ export default function HowItWorks() {
           {/** For Researchers */}
           <Box
             as='ul'
-            width={{ max: '240px' }}
             margin='0'
             pad='0'
             height='100%'
