@@ -19,7 +19,11 @@ function AnnotateButtonContainer({
   separateFrameAnnotate = false,
   separateFrameEnableAnnotate = () => true
 }) {
-  const { annotate, enableAnnotate, separateFramesView } = useStores(storeMapper)
+  const {
+    annotate,
+    enableAnnotate,
+    separateFramesView
+  } = useStores(storeMapper)
 
   return (
     <AnnotateButton

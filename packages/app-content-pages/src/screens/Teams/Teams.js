@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Box } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
@@ -16,18 +16,9 @@ import {
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
-const isBrowser = typeof window !== 'undefined' // to handle testing environment
-
 function TeamComponent({ teamData = [], sections = [] }) {
   const { t } = useTranslation('components')
-  const [activeSection, setActiveSection] = useState('')
-
-  useEffect(function onMount() {
-    const slug = isBrowser ? window.location.hash.slice(1) : ''
-    setActiveSection(slug)
-  }, [])
-
-  const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
+  const [activeSection, setActiveSection] = useState(0)
 
   return (
     <>
@@ -40,12 +31,12 @@ function TeamComponent({ teamData = [], sections = [] }) {
           <DropdownNav
             activeSection={activeSection}
             sidebarLabel={t('Teams.sidebarLabel')}
-            sections={sectionsPlusAll}
+            sections={sections}
             setActiveSection={setActiveSection}
           />
         </StickyBox>
         <MaxWidthContent>
-          <StyledHeading color={{ light: 'brand', dark: 'accent-1' }} level='1' size='small'>
+          <StyledHeading color={{ light: 'neutral-1', dark: 'accent-1' }} level='1' size='small'>
             {t('Teams.title')}
           </StyledHeading>
         </MaxWidthContent>
@@ -54,16 +45,18 @@ function TeamComponent({ teamData = [], sections = [] }) {
             <StickySidebar
               activeSection={activeSection}
               ariaLabel={t('Teams.sideBarLabel')}
-              sections={sectionsPlusAll}
+              sections={sections}
               setActiveSection={setActiveSection}
             />
           </Box>
           <article>
-            {teamData?.map(team => (
+            {teamData?.map((team, index) => (
               <Team
                 key={team.name}
                 name={team.name}
                 people={team.people}
+                sectionIndex={index}
+                setActiveSection={setActiveSection}
                 slug={team.slug}
               />
             ))}

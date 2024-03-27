@@ -14,7 +14,7 @@ export default {
 
 export const Default = {
   args: {
-    activeSection: mockSections[0].slug,
+    activeSection: 0,
     sidebarLabel: 'Discipline',
     sections: mockSections
   }
