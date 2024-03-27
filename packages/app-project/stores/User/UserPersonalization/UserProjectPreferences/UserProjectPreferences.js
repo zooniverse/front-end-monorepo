@@ -5,16 +5,26 @@ import asyncStates from '@zooniverse/async-states'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import numberString from '@stores/types/numberString'
 
-const Preferences = types
+export const Preferences = types
   .model('Preferences', {
     minicourses: types.maybe(types.frozen()),
-    selected_workflow: types.maybe(types.string),
+    selected_workflow: types.maybe(numberString),
     tutorials_completed_at: types.maybe(types.frozen())
   })
 
-const Settings = types
+export const Settings = types
   .model('Settings', {
-    workflow_id: types.maybe(types.string)
+    workflow_id: types.maybe(numberString)
+  })
+  .preProcessSnapshot(snapshot => {
+    if (!snapshot) {
+      return snapshot
+    }
+    const normalisedSnapshot = {
+      ...snapshot,
+      workflow_id: snapshot?.workflow_id?.toString()
+    }
+    return normalisedSnapshot
   })
 
 const UserProjectPreferences = types
