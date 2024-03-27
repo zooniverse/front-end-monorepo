@@ -1,7 +1,7 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import Meta, { Member, Admin } from './GroupCard.stories.js'
+import Meta, { Admin, Member } from './GroupCard.stories.js'
 import { MemberGroupCard } from './GroupCard.mock.js'
 
 describe('components > MyGroups > GroupCard', function () {

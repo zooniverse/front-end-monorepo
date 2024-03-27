@@ -1,4 +1,4 @@
-const PROJECTS = [
+export const PROJECTS = [
   {
     avatar_src: 'https://panoptes-uploads.zooniverse.org/project_avatar/0c4cfec1-a15b-468e-9f57-e9133993532d.jpeg',
     description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
@@ -35,23 +35,3 @@ const PROJECTS = [
     slug: 'sandiegozooglobal/wildwatch-kenya'
   }
 ]
-
-const USER = {
-  admin: false,
-  avatar_src: 'https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg',
-  display_name: 'Test User',
-  id: '12345',
-  login: 'TestUser'
-}
-
-const USER_GROUP = {
-  id: '1',
-  display_name: 'Test Group',
-  name: 'Test Group'
-}
-
-export {
-  PROJECTS,
-  USER,
-  USER_GROUP
-}

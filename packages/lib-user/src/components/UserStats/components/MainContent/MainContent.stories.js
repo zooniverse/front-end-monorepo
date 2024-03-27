@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 
-import { PROJECTS, USER } from '../../../../../test/mocks/panoptes.mock.js'
+import { PROJECTS, USER } from '../../../../../test/mocks/panoptes'
 import { STATS } from '../../../../../test/mocks/stats.mock.js'
 
 import MainContent from './MainContent'
