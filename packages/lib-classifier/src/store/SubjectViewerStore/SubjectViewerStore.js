@@ -19,7 +19,6 @@ const SubjectViewer = types
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0),
-    showAnnotate: types.optional(types.boolean, true),
     separateFramesView: types.optional(types.boolean, false)
   })
 
@@ -47,7 +46,20 @@ const SubjectViewer = types
       }
       return false
     },
-    
+ 
+    get hasAnnotateTask () {
+      const canAnnotate = getRoot(self)?.workflowSteps.hasAnnotateTask
+
+      // Make sure the right button is active in the ImageToolbar
+      if (canAnnotate) {
+        self.enableAnnotate()
+      } else {
+        self.enableMove()
+      }
+
+      return canAnnotate
+    },
+
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'
@@ -55,35 +67,7 @@ const SubjectViewer = types
   }))
 
   .actions(self => {
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-        if (validSubjectReference) {
-          const subject = getRoot(self).subjects.active
-          self.resetSubject(subject)
-        }
-      }, { name: 'SubjectViewerStore Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
-    }
-
     return {
-      afterRootInitialize () {
-        // afterRootInitialize() enables listening on store.workflowSteps because they are both now initialized
-        reaction(
-          () => getRoot(self)?.workflowSteps.hasAnnotateTask,
-          (val) => {
-            self.setAnnotateVisibility(val)
-          }
-        )
-        
-        // reactions handle any changes to state, not the initial state
-        self.setAnnotateVisibility(getRoot(self)?.workflowSteps.hasAnnotateTask)
-      },
-      
-      afterAttach () {
-        createSubjectObserver()
-      },
-
       enableAnnotate () {
         self.annotate = true
         self.move = false
@@ -168,16 +152,6 @@ const SubjectViewer = types
       rotate () {
         console.log('rotating subject')
         self.rotation -= 90
-      },
-
-      setAnnotateVisibility (canAnnotate) {
-        if (canAnnotate) {
-          self.enableAnnotate()
-        } else {
-          self.enableMove()
-        }
-
-        self.showAnnotate = canAnnotate
       },
 
       setFlipbookSpeed (speed) {
