@@ -6,7 +6,6 @@ import asyncStates from '@zooniverse/async-states'
 import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
-import { statsClient } from '../YourStats'
 import UserProjectPreferences from './UserProjectPreferences'
 
 describe('Stores > UserProjectPreferences', function () {
@@ -70,12 +69,10 @@ describe('Stores > UserProjectPreferences', function () {
   }
 
   before(function () {
-    sinon.stub(statsClient, 'request')
     sinon.stub(talkAPI, 'get').resolves([])
   })
 
   after(function () {
-    statsClient.request.restore()
     talkAPI.get.restore()
   })
 

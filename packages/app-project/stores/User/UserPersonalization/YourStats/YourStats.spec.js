@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { when } from 'mobx';
 import { getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import sinon from 'sinon'
@@ -6,7 +7,7 @@ import asyncStates from '@zooniverse/async-states'
 import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
-import YourStats, { statsClient } from './YourStats'
+import YourStats from './YourStats'
 
 describe('Stores > YourStats', function () {
   let rootStore, nockScope
@@ -19,16 +20,6 @@ describe('Stores > YourStats', function () {
   before(function () {
     sinon.stub(console, 'error')
 
-    const MOCK_DAILY_COUNTS = [
-      { count: 12, period: '2019-09-29' },
-      { count: 12, period: '2019-09-30' },
-      { count: 13, period: '2019-10-01' },
-      { count: 14, period: '2019-10-02' },
-      { count: 10, period: '2019-10-03' },
-      { count: 11, period: '2019-10-04' },
-      { count: 8, period: '2019-10-05' },
-      { count: 15, period: '2019-10-06' }
-    ]
     nockScope = nock('https://panoptes-staging.zooniverse.org/api')
       .persist()
       .get('/project_preferences')
@@ -45,13 +36,11 @@ describe('Stores > YourStats', function () {
       .query(true)
       .reply(200)
     rootStore = initStore(true, { project })
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
     sinon.stub(talkAPI, 'get')
   })
 
   after(function () {
     console.error.restore()
-    statsClient.request.restore()
     talkAPI.get.restore()
     nock.cleanAll()
   })
@@ -61,9 +50,9 @@ describe('Stores > YourStats', function () {
   })
 
   describe('Actions > fetchDailyCounts', function () {
-    let clock
+    let clock, statsNockScope
 
-    before(function () {
+    before(async function () {
       clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
       const user = {
         id: '123',
@@ -71,32 +60,39 @@ describe('Stores > YourStats', function () {
       }
 
       rootStore.user.set(user)
+
+      const MOCK_DAILY_COUNTS = [
+        { count: 12, period: '2019-09-29' },
+        { count: 12, period: '2019-09-30' },
+        { count: 13, period: '2019-10-01' },
+        { count: 14, period: '2019-10-02' },
+        { count: 10, period: '2019-10-03' },
+        { count: 11, period: '2019-10-04' },
+        { count: 8, period: '2019-10-05' },
+        { count: 15, period: '2019-10-06' }
+      ]
+
+      statsNockScope = nock('https://eras-staging.zooniverse.org')
+      .get(`/classifications/users/${user.id}`)
+      .query({
+        'period': 'day',
+        'project_id': project.id
+      })
+      .reply(200, {
+        data: MOCK_DAILY_COUNTS
+      })
+
+      await when(() => rootStore.user.personalization.stats.loadingState === asyncStates.success)
     })
 
     after(function () {
       clock.restore()
     })
 
-    it('should request user statistics', function () {
-      const query = `{
-        statsCount(
-          eventType: "classification",
-          interval: "1 Day",
-          window: "1 Week",
-          projectId: "2",
-          userId: "123"
-        ){
-          period,
-          count
-        }
-      }`
-
-      expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
-    })
 
     describe('weekly classification stats', function () {
       it('should be created', function () {
-        expect(rootStore.user.personalization.stats.thisWeek.length).to.equal(7)
+        expect(getSnapshot(rootStore.user.personalization.stats.thisWeek).length).to.equal(7)
       })
 
       it('should start on Monday', function () {

@@ -1,9 +1,16 @@
 import asyncStates from '@zooniverse/async-states'
-import { GraphQLClient } from 'graphql-request'
 import { flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
+import { env } from '@zooniverse/panoptes-js'
 
-export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
+function statsHost(env) {
+  switch (env) {
+    case 'production':
+      return 'https://eras.zooniverse.org'
+    default:
+      return 'https://eras-staging.zooniverse.org'
+  }
+}
 
 // https://stackoverflow.com/a/51918448/10951669
 function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
@@ -69,23 +76,15 @@ const YourStats = types
         try {
           const token = yield auth.checkBearerToken()
           const Authorization = `Bearer ${token}`
-          statsClient.setHeaders({
-            Authorization
-          })
-          const query = `{
-            statsCount(
-              eventType: "classification",
-              interval: "1 Day",
-              window: "1 Week",
-              projectId: "${project.id}",
-              userId: "${user.id}"
-            ){
-              period,
-              count
-            }
-          }`
-          const response = yield statsClient.request(query.replace(/\s+/g, ' '))
-          dailyCounts = response.statsCount
+          const stats  = statsHost(env)
+          const queryParams = new URLSearchParams({
+            period: 'day',
+            project_id: project.id
+          }).toString()
+
+          const statsResponse = yield fetch(`${stats}/classifications/users/${user.id}?${queryParams}`, { headers: { Authorization } })
+          const statsData = yield statsResponse.json()
+          dailyCounts = statsData.data
           self.setLoadingState(asyncStates.success)
         } catch (error) {
           self.handleError(error)
