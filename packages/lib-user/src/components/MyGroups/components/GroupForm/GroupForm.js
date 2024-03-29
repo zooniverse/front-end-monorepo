@@ -1,6 +1,11 @@
 import { Box, Button, Form, FormField, RadioButtonGroup, Select, TextInput } from 'grommet'
 import { func, shape, string } from 'prop-types'
 import { useState } from 'react'
+import styled from 'styled-components'
+
+const StyledButton = styled(Button)`
+  border-radius: 4px;
+`
 
 const DEFAULT_HANDLER = () => true
 
@@ -100,12 +105,16 @@ function GroupForm({
             valueKey={{ key: 'value', reduce: true }}
           />
         </FormField>
-        <Box>
-          <Button
+        <Box
+          direction='row'
+          justify='end'
+        >
+          <StyledButton
+            color='neutral-1'
+            label='Create new group'
+            primary
             type='submit'
-          >
-            Create new group
-          </Button>
+          />
         </Box>
       </Form>
     </Box>

@@ -1,3 +1,4 @@
+import { object, string} from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
@@ -40,6 +41,11 @@ function GroupFormContainer({
       handleSubmit={onSubmit}
     />
   )
+}
+
+GroupFormContainer.propTypes = {
+  authClient: object,
+  authUserId: string
 }
 
 export default GroupFormContainer

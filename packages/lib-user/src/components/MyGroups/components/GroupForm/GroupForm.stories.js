@@ -16,6 +16,7 @@ function ComponentDecorator(Story) {
         light: 'neutral-6'
       }}
       fill
+      overflow='auto'
       pad='30px'
     >
       <Story />
