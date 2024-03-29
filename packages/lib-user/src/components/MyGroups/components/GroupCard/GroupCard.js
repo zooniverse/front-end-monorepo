@@ -8,7 +8,6 @@ import { TitledStat } from '@components/shared'
 const StyledListItem = styled.li`
   border-radius: 8px;
   list-style: none;
-  padding: 20px;
   
   &:hover, &:focus-within {
     box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, 0.25);
@@ -54,43 +53,47 @@ function GroupCard({
         href={`https://local.zooniverse.org:8080/?groups=${id}`}
       >
         <Box
-          align='center'
-          direction='row'
-          gap='small'
+          pad='20px'
         >
-          <SpacedHeading
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-            size='16px'
+          <Box
+            align='center'
+            direction='row'
+            gap='small'
           >
-            {displayName}
-          </SpacedHeading>
-          <StyledRole
-            round='xsmall'
-            background={role === 'group_admin' ? 'neutral-2' : 'accent-1'}
+            <SpacedHeading
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
+              size='16px'
+            >
+              {displayName}
+            </SpacedHeading>
+            <StyledRole
+              round='xsmall'
+              background={role === 'group_admin' ? 'neutral-2' : 'accent-1'}
+            >
+              {role === 'group_admin' ? 'Admin' : 'Member'}
+            </StyledRole>
+          </Box>
+          <Box
+            direction='row'
+            justify='between'
           >
-            {role === 'group_admin' ? 'Admin' : 'Member'}
-          </StyledRole>
-        </Box>
-        <Box
-          direction='row'
-          justify='between'
-        >
-          <TitledStat
-            title='Classifications'
-            value={classifications}
-          />
-          <TitledStat
-            title='Hours'
-            value={hours}
-          />
-          <TitledStat
-            title='Contributors'
-            value={contributors}
-          />
-          <TitledStat
-            title='Projects'
-            value={projects}
-          />
+            <TitledStat
+              title='Classifications'
+              value={classifications}
+            />
+            <TitledStat
+              title='Hours'
+              value={hours}
+            />
+            <TitledStat
+              title='Contributors'
+              value={contributors}
+            />
+            <TitledStat
+              title='Projects'
+              value={projects}
+            />
+          </Box>
         </Box>
       </StyledAnchor>
     </StyledListItem>
