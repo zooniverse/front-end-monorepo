@@ -59,7 +59,7 @@ function GroupCard({
           gap='small'
         >
           <SpacedHeading
-            color='neutral-1'
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
             size='16px'
           >
             {displayName}
