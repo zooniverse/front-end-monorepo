@@ -1,5 +1,6 @@
-import { Grid } from 'grommet'
+import { Grid, ResponsiveContext } from 'grommet'
 import { func, node } from 'prop-types'
+import { useContext } from 'react'
 
 import { ContentBox, Layout } from '@components/shared'
 import CreateGroup from './CreateGroup'
@@ -10,6 +11,9 @@ function MyGroups({
   children,
   handleGroupCreate = DEFAULT_HANDLER
 }) {
+  const size = useContext(ResponsiveContext)
+  const columnCount = size === 'small' ? 1 : 2
+
   return (
     <Layout>
       <ContentBox
@@ -21,7 +25,7 @@ function MyGroups({
         <Grid
           as='ul'
           columns={{
-            count: 2,
+            count: columnCount,
             size: 'auto'
           }}
           gap={{ row: '20px', column: '40px' }}
