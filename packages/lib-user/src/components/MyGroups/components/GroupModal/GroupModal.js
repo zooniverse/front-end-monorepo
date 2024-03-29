@@ -1,5 +1,5 @@
 import { Modal } from '@zooniverse/react-components'
-import { bool, func, string } from 'prop-types'
+import { bool, func, node, string } from 'prop-types'
 
 function GroupModal({
   active = false,
@@ -29,6 +29,7 @@ function GroupModal({
 
 GroupModal.propTypes = {
   active: bool,
+  children: node,
   handleClose: func.isRequired,
   title: string,
   titleColor: string
