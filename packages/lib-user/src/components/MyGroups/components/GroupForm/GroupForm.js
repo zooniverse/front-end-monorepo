@@ -7,8 +7,6 @@ const StyledButton = styled(Button)`
   border-radius: 4px;
 `
 
-const DEFAULT_HANDLER = () => true
-
 const PRIVATE_STATS_VISIBILITY = [
   {
     label: 'No, never show individual stats',
@@ -34,6 +32,8 @@ const PUBLIC_STATS_VISIBILITY = [
     value: 'public_show_all',
   }
 ]
+
+const DEFAULT_HANDLER = () => true
 
 const DEFAULT_VALUE = {
   display_name: '',
