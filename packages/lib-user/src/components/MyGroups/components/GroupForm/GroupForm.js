@@ -65,6 +65,7 @@ function GroupForm({
       >
         <FormField
           label='Group Name'
+          help='By creating a new Group you will become the admin.'
           htmlFor='display_name'
           name='display_name'
           required
@@ -82,7 +83,7 @@ function GroupForm({
           />
         </FormField>
         <FormField
-          label='Visibility'
+          label='Public Visibility'
           htmlFor='visibility'
           name='visibility'
         >
@@ -92,7 +93,8 @@ function GroupForm({
           />
         </FormField>
         <FormField
-          label='Stats Visibility'
+          label='Show Individual Stats'
+          help='Admin can always see individual stats.'
           htmlFor='stats_visibility'
           name='stats_visibility'
         >
