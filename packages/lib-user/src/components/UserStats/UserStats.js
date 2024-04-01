@@ -1,18 +1,4 @@
-'use client'
-
-import { object } from 'prop-types'
-import { useState } from 'react'
-
-import {
-  usePanoptesAuthUser,
-  usePanoptesProjects,
-  usePanoptesUser,
-  useStats
-} from '@hooks'
-
-import {
-  getDateInterval
-} from '@utils'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import {
   Layout
@@ -21,97 +7,50 @@ import {
 import MainContent from './components/MainContent'
 import TopProjects from './components/TopProjects'
 
-const STATS_ENDPOINT = '/classifications/users'
+const DEFAULT_HANDLER = () => true
+const DEFAULT_STATS = {
+  data: [],
+  project_contributions: [
+    {
+      count: 0,
+      project_id: 0,
+      session_time: 0
+    }
+  ],
+  time_spent: 0,
+  total_count: 0
+}
+const DEFAULT_USER = {
+  id: '',
+  login: '',
+  display_name: ''
+}
 
-function UserStats ({
-  authClient
+function UserStats({
+  allProjectsStats = DEFAULT_STATS,
+  handleDateRangeSelect = DEFAULT_HANDLER,
+  handleProjectSelect = DEFAULT_HANDLER,
+  projectStats = DEFAULT_STATS,
+  projects = [],
+  selectedDateRange = 'Last7Days',
+  selectedProject = 'AllProjects',
+  user = DEFAULT_USER
 }) {
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-
-  // fetch authenticated user
-  const {
-    data: authUser,
-    error,
-    isLoading  
-  } = usePanoptesAuthUser(authClient)
-
-  // fetch user
-  const {
-    data: user,
-    error: userError,
-    isLoading: userLoading
-  } = usePanoptesUser({
-    authClient,
-    authUser,
-    authUserId: authUser?.id,
-    login: authUser?.login // will be changed per app-root login param in subsequent PR
-  })
-  
-  // fetch all projects stats, used by projects select and top projects regardless of selected project
-  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
-  allProjectsStatsQuery.project_contributions = true
-  allProjectsStatsQuery.time_spent = true
-  
-  const {
-    data: allProjectsStats,
-    error: statsError,
-    isLoading: statsLoading
-  } = useStats({
-    authClient,
-    authUserId: authUser?.id,
-    endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
-    query: allProjectsStatsQuery
-  })
-  
-  // fetch individual project stats
-  const projectStatsQuery = getDateInterval(selectedDateRange)
-  projectStatsQuery.project_id = parseInt(selectedProject)
-  projectStatsQuery.time_spent = true
-  
-  const {
-    data: projectStats,
-    error: projectStatsError,
-    isLoading: projectStatsLoading
-  } = useStats({
-    authClient,
-    authUserId: authUser?.id,
-    endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
-    query: projectStatsQuery
-  })
-  
-  // fetch projects
-  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
-  
-  const { data: projects, error: projectsError, isLoading: projectsLoading } = usePanoptesProjects(projectIDs)
-
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
-
-  function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange.value)
-  }
-
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   // set top projects based on selected date range and all project stats
   let topProjects = []
-  if (allProjectsStats?.project_contributions?.length > 0 && projects?.length > 0) {
-    const topProjectContributions = allProjectsStats.project_contributions
-      .sort((a, b) => b.count - a.count)
+  const topProjectContributions = allProjectsStats.project_contributions
+    .sort((a, b) => b.count - a.count)
 
-    topProjects = topProjectContributions
-      .map(projectContribution => {
-        const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
-        return projectData
-      })
-      .filter(project => project)
-      .slice(0, 5)
-  }
+  topProjects = topProjectContributions
+    .map(projectContribution => {
+      const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+      return projectData
+    })
+    .filter(project => project)
+    .slice(0, 5)
 
   return (
     <Layout>
@@ -131,8 +70,35 @@ function UserStats ({
   )
 }
 
+const statsShape = shape({
+  data: arrayOf(shape({
+    count: number,
+    period: string,
+    session_time: number
+  })),
+  project_contributions: arrayOf(shape({
+    count: number,
+    project_id: number,
+    session_time: number
+  })),
+  time_spent: number,
+  total_count: number
+})
+
 UserStats.propTypes = {
-  authClient: object
+  allProjectsStats: statsShape,
+  handleDateRangeSelect: func,
+  handleProjectSelect: func,
+  projectStats: statsShape,
+  projects: arrayOf(shape({
+    id: string,
+    display_name: string
+  })),
+  selectedDateRange: string,
+  selectedProject: string,
+  user: shape({
+    id: string
+  })
 }
 
 export default UserStats
