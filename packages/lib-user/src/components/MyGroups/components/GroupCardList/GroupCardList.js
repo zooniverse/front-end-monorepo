@@ -1,6 +1,6 @@
 import { arrayOf, object, shape, string } from 'prop-types'
 
-import GroupCard from '../GroupCard'
+import GroupCardContainer from '../GroupCard/GroupCardContainer'
 
 function GroupCardList({
   authClient,
@@ -10,7 +10,7 @@ function GroupCardList({
   return (
     <>
       {groups.map(group => (
-        <GroupCard
+        <GroupCardContainer
           key={group.id}
           authClient={authClient}
           authUserId={authUserId}
