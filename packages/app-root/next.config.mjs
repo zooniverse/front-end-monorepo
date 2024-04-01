@@ -1,12 +1,17 @@
-import withBundleAnalyzer from '@next/bundle-analyzer'
+// import withBundleAnalyzer from '@next/bundle-analyzer'
 
-const bundleAnalyzer = withBundleAnalyzer({
-	enabled: process.env.ANALYZE === 'true',
-})
+// const bundleAnalyzer = withBundleAnalyzer({
+// 	enabled: process.env.ANALYZE === 'true',
+// })
 
 const nextConfig = {
   experimental: {
-    optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons'],
+    optimizePackageImports: [
+      '@zooniverse/react-components',
+      '@zooniverse/user',
+      'grommet',
+      'grommet-icons'
+    ],
   },
   webpack: (config, options) => {
     config.resolve = {
@@ -20,4 +25,5 @@ const nextConfig = {
   }
 }
 
-export default bundleAnalyzer(nextConfig)
+// export default bundleAnalyzer(nextConfig)
+export default nextConfig
