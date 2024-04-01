@@ -59,6 +59,7 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
+    "d3": "~6.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "mobx-state-tree": "~5.x.x",
@@ -70,7 +71,7 @@
     "@babel/cli": "~7.23.0",
     "@babel/core": "~7.23.0",
     "@babel/preset-env": "~7.23.2",
-    "@babel/preset-react": "~7.23.3",
+    "@babel/preset-react": "~7.24.1",
     "@babel/register": "~7.23.7",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",

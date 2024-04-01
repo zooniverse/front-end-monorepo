@@ -1,14 +1,18 @@
-import { Grid } from 'grommet'
+import { Grid, ResponsiveContext } from 'grommet'
 import { node } from 'prop-types'
+import { useContext } from 'react'
 
 function MyGroups({
   children
 }) {
+  const size = useContext(ResponsiveContext)
+  const columnCount = size === 'small' ? 1 : 2
+
   return (
     <Grid
       as='ul'
       columns={{
-        count: 2,
+        count: columnCount,
         size: 'auto'
       }}
       gap={{ row: '20px', column: '40px' }}

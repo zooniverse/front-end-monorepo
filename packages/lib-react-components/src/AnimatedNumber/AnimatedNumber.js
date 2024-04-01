@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
-import { format, interpolate, select } from 'd3'
+import { format } from '@visx/vendor/d3-format'
+import { interpolate } from '@visx/vendor/d3-interpolate'
+import { select } from 'd3'
 import { useEffect, useRef, useState } from 'react'
 
 const initialValue = 0
@@ -37,6 +39,7 @@ function AnimatedNumber({ duration = 1000, value }) {
     .duration(0)
     .textTween(() => {
       return () => {
+        setAnimated(true) // animation complete!
         return formatValue(value)
       }
     })
