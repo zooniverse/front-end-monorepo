@@ -64,6 +64,7 @@ yarn bootstrap
 ```
 
 ### Docker
+
 You can run the code locally in Docker, which avoids needing to install Node or yarn.
 
 ```sh
@@ -79,13 +80,16 @@ docker-compose build
 `docker-compose run --rm shell` runs an interactive shell on the Docker image.
 
 Development environments for individual packages can be run from the package directories. For example:
+
 ```sh
 cd packages/app-project
 docker-compose up
-````
+```
+
 to run a development server for the project app.
 
 ### With Node and yarn
+
 Alternatively, you can install Node 14 and yarn and build the monorepo packages.
 
 ```sh
