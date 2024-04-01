@@ -129,7 +129,7 @@ function App({
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
-          authClient={oauth}
+          authClient={auth}
           login={login}
         />
       )
