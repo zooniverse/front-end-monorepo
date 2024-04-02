@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
+import { USER, USER_GROUPS } from '../../../../test/mocks/panoptes'
+
 import Meta, { Default, Group, GroupWithHours, UserWithHours } from './ProfileHeader.stories.js'
 
 describe('components > shared > ProfileHeader', function () {
@@ -9,19 +11,19 @@ describe('components > shared > ProfileHeader', function () {
     
     it('should show the user\'s avatar', function () {
       render(<DefaultStory />)
-      const avatar = screen.getByAltText('TestUser avatar')
+      const avatar = screen.getByAltText(`${USER.login} avatar`)
       expect(avatar).to.be.ok()
     })
 
     it('should show the user\'s display name', function () {
       render(<DefaultStory />)
-      const displayName = screen.getByText('Test User')
+      const displayName = screen.getByText(USER.display_name)
       expect(displayName).to.be.ok()
     })
 
     it('should show the user\'s login', function () {
       render(<DefaultStory />)
-      const login = screen.getByText('@TestUser')
+      const login = screen.getByText(`@${USER.login}`)
       expect(login).to.be.ok()
     })
 
@@ -50,7 +52,7 @@ describe('components > shared > ProfileHeader', function () {
     
     it('should show the group\'s display name', function () {
       render(<GroupStory />)
-      const displayName = screen.getByText('Test Group')
+      const displayName = screen.getByText(USER_GROUPS[0].display_name)
       expect(displayName).to.be.ok()
     })
 
