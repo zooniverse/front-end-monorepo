@@ -32,7 +32,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@zooniverse/panoptes-js": "~0.4.0",
+    "@zooniverse/panoptes-js": "~0.5.0",
     "panoptes-client": "~5.6.0",
     "swr": "~2.2.4"
   },
@@ -59,6 +59,8 @@
     "@testing-library/dom": "~9.3.0",
     "@testing-library/react": "~14.2.0",
     "@testing-library/user-event": "~14.5.0",
+    "@zooniverse/grommet-theme": "~3.2.0",
+    "@zooniverse/react-components": "~1.12.0",
     "babel-loader": "~9.1.0",
     "babel-plugin-module-resolver": "~5.0.0",
     "babel-plugin-transform-imports": "~2.0.0",
