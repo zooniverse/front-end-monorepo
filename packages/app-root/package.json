@@ -13,6 +13,7 @@
     "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "~13.5.5",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
@@ -30,7 +31,6 @@
     "swr": "~2.2.4"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "~13.5.5",
     "eslint-config-next": "~13.5.5",
     "eslint-plugin-jsx-a11y": "~6.8.0",
     "selfsigned": "~2.4.1"

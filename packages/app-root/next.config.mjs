@@ -1,8 +1,8 @@
-// import withBundleAnalyzer from '@next/bundle-analyzer'
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
-// const bundleAnalyzer = withBundleAnalyzer({
-// 	enabled: process.env.ANALYZE === 'true',
-// })
+const bundleAnalyzer = withBundleAnalyzer({
+	enabled: process.env.ANALYZE === 'true',
+})
 
 const nextConfig = {
   experimental: {
@@ -25,5 +25,4 @@ const nextConfig = {
   }
 }
 
-// export default bundleAnalyzer(nextConfig)
-export default nextConfig
+export default bundleAnalyzer(nextConfig)
