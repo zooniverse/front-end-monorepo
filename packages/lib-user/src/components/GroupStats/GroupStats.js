@@ -1,3 +1,4 @@
+import { Grid } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import {
@@ -51,6 +52,19 @@ function GroupStats({
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
   
+  // set top projects based on selected date range and all project stats
+  let topProjects = []
+  const topProjectContributions = allProjectsStats.project_contributions
+    .sort((a, b) => b.count - a.count)
+
+  topProjects = topProjectContributions
+    .map(projectContribution => {
+      const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+      return projectData
+    })
+    .filter(project => project)
+    .slice(0, 6)
+
   return (
     <Layout>
       <MainContent
@@ -62,6 +76,41 @@ function GroupStats({
         stats={stats}
         user={group}
       />
+      <Grid
+        columns='1/2'
+        gap='30px'
+      >
+        <ContentBox
+          title='Top Contributors'
+        >
+          Top contributors go here.
+        </ContentBox>
+        <ContentBox
+          linkLabel='See more'
+          linkProps={{ href: 'https://www.zooniverse.org/projects' }}
+          title='Top Projects'
+          width='625px'
+        >
+          <Grid
+            justify='center'
+            columns='1/3'
+            gap='small'
+          >
+            {topProjects.map(topProject => {
+              return (
+                <ProjectCard
+                  key={topProject?.id}
+                  description={topProject?.description}
+                  displayName={topProject?.display_name}
+                  href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
+                  imageSrc={topProject?.avatar_src}
+                  small
+                />
+              )
+            })}
+          </Grid>
+        </ContentBox>
+      </Grid>
       <EditGroup
         group={group}
         handleGroupUpdate={handleGroupUpdate}
