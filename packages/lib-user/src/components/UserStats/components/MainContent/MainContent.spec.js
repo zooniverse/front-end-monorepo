@@ -1,7 +1,7 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import { USER } from '../../../../../test/mocks/panoptes.mock.js'
+import { USER } from '../../../../../test/mocks/panoptes'
 import { STATS } from '../../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default } from './MainContent.stories.js'

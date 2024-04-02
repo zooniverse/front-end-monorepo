@@ -57,7 +57,7 @@ function AboutHeader() {
         aria-label={`${t('AboutHeader.title')} Zooniverse`}
         direction='row'
         as='nav'
-        background='brand'
+        background='neutral-1'
         pad={{ horizontal: 'medium' }}
       >
         <Box

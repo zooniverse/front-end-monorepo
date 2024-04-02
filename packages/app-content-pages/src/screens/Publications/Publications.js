@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Anchor, Box, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
@@ -19,12 +19,14 @@ import {
   StyledHeading
 } from '../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
 
-const isBrowser = typeof window !== 'undefined' // to handle testing environment
-
 const FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
 const StyledSection = styled.section`
+  // Brings this section forward in z-index order so that the next navigable
+  // heading's margin doesn't overlap and render the paragraph link useless
+  position: relative;
+
   @media (width <= ${mobileBreakpoint}) {
     padding: 0 20px;
   }
@@ -32,12 +34,7 @@ const StyledSection = styled.section`
 
 function Publications({ publicationsData = [], sections = [] }) {
   const { t } = useTranslation('components')
-  const [activeSection, setActiveSection] = useState('')
-
-  useEffect(function onMount() {
-    const slug = isBrowser ? window.location.hash.slice(1) : ''
-    setActiveSection(slug)
-  }, [])
+  const [activeSection, setActiveSection] = useState(0)
 
   const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
 
@@ -61,7 +58,7 @@ function Publications({ publicationsData = [], sections = [] }) {
         </StickyBox>
         <MaxWidthContent>
           <StyledSection>
-            <StyledHeading level='1' color={{ light: 'brand', dark: 'accent-1' }} size='small'>
+            <StyledHeading level='1' color={{ light: 'neutral-1', dark: 'accent-1' }} size='small'>
               {t('Publications.title')}
             </StyledHeading>
             <Paragraph textAlign='center' margin={{ top: '30px' }}>
@@ -81,10 +78,12 @@ function Publications({ publicationsData = [], sections = [] }) {
             />
           </Box>
           <article>
-            {publicationsData?.map(category => (
+            {publicationsData?.map((category, index) => (
               <Category
                 key={category.title}
                 projects={category.projects}
+                sectionIndex={index + 1} // Have to account for "All" as index=0 in the Sidebar
+                setActiveSection={setActiveSection}
                 slug={category.slug}
                 title={category.title}
               />

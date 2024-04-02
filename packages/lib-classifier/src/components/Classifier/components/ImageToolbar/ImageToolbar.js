@@ -1,5 +1,6 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -12,9 +13,15 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import { useKeyZoom } from '@hooks'
 
+function storeMapper(classifierStore) {
+  return { showAnnotateButton: classifierStore.subjectViewer.showAnnotate }
+}
+
 // Generalized ...props here are css rules from the page layout
 function ImageToolbar (props) {
+  const { showAnnotateButton } = useStores(storeMapper)
   const { onKeyZoom } = useKeyZoom()
+  
   return (
     <Box
       height='min-content'
@@ -37,7 +44,7 @@ function ImageToolbar (props) {
         fill
         pad='clamp(8px, 15%, 10px)'
       >
-        <AnnotateButton />
+        {showAnnotateButton && <AnnotateButton />}
         <MoveButton />
         <ZoomInButton />
         <ZoomOutButton />

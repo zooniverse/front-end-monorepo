@@ -1,1 +1,1 @@
-export { default } from './UserStats.js'
+export { default } from './UserStatsContainer'
