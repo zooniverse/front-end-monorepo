@@ -53,7 +53,7 @@ RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.
 RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-project build
 RUN echo $COMMIT_ID > /usr/src/packages/app-root/public/commit_id.txt
-RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/app-root build
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-root build
 
 FROM node:20-alpine as runner
 

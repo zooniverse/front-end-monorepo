@@ -73,7 +73,11 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs local production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
+`docker-compose up` runs local production builds as follows:
+
+- content pages app at http://localhost:3000
+- project app at http://localhost:3001
+- root app at http://localhost:3002
 
 `docker-compose down` stops the running container.
 
@@ -90,7 +94,7 @@ to run a development server for the project app.
 
 ### With Node and yarn
 
-Alternatively, you can install Node 14 and yarn and build the monorepo packages.
+Alternatively, you can install Node 20 and yarn and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
