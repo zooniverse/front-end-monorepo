@@ -1,7 +1,5 @@
 'use client'
 
-// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
-
 import { object, string } from 'prop-types'
 
 import {
@@ -18,6 +16,7 @@ import {
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
 import MyGroups from './MyGroups'
+import GroupCardList from './components/GroupCardList'
 
 function MyGroupsContainer({
   authClient,
@@ -65,10 +64,15 @@ function MyGroupsContainer({
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
-    <MyGroups 
-      groups={activeGroupsWithRoles}
+    <MyGroups
       handleGroupCreate={handleGroupCreate}
-    />
+    >
+      <GroupCardList
+        authClient={authClient}
+        authUserId={authUser?.id}
+        groups={activeGroupsWithRoles}
+      />
+    </MyGroups>
   )
 }
 

@@ -1,48 +1,48 @@
-import { arrayOf, func, shape, string } from 'prop-types'
+import { Grid, ResponsiveContext } from 'grommet'
+import { func, node } from 'prop-types'
+import { useContext } from 'react'
 
+import { ContentBox, Layout } from '@components/shared'
 import CreateGroup from './CreateGroup'
 
 const DEFAULT_HANDLER = () => true
 
 function MyGroups({
-  groups = [],
+  children,
   handleGroupCreate = DEFAULT_HANDLER
 }) {
+  const size = useContext(ResponsiveContext)
+  const columnCount = size === 'small' ? 1 : 2
+
   return (
-    <div>
-      <h3>MyGroups</h3>
-      <div>
-        {groups.map((group) => {
-          return (
-            <div key={group.id}>
-              <h4><a href={`./?groups=${group.id}`}>{group.display_name}</a></h4>
-              <span>{group.roles}</span>
-              <div>
-                <span>Classifications X</span>
-                {' | '}
-                <span>Hours Y</span>
-                {' | '}
-                <span>Members Z</span>
-                {' | '}
-                <span>Projects W</span>
-              </div>
-              <hr />
-            </div>
-          )
-        })}
-      </div>
-      <CreateGroup
-        handleGroupCreate={handleGroupCreate}
-      />
-    </div>
+    <Layout>
+      <ContentBox
+        linkLabel='Learn more about Groups'
+        linkProps={{ href: '/groups' }}
+        title='My Groups'
+        pad={{ horizontal: '60px', vertical: '30px' }}
+      >
+        <Grid
+          as='ul'
+          columns={{
+            count: columnCount,
+            size: 'auto'
+          }}
+          gap={{ row: '20px', column: '40px' }}
+          pad='none'
+        >
+          {children}
+        </Grid>
+        <CreateGroup
+          handleGroupCreate={handleGroupCreate}
+        />
+      </ContentBox>
+    </Layout>
   )
 }
 
 MyGroups.propTypes = {
-  groups: arrayOf(shape({
-    display_name: string,
-    id: string
-  })),
+  children: node,
   handleGroupCreate: func
 }
 
