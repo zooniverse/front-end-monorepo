@@ -27,7 +27,7 @@ services:
     environment:
       - PORT=3000
     ports:
-      - "3000:3000"
+      - "3001:3000"
   fe-project:
     image: front-end-monorepo_prod:latest
     build:
@@ -45,7 +45,7 @@ services:
     environment:
       - PORT=3000
     ports:
-      - "3001:3000"
+      - "3000:3000"
   fe-root:
     image: front-end-monorepo_prod:latest
     build:
