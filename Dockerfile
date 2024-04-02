@@ -82,3 +82,4 @@ RUN rm -rf /usr/src/packages/lib-user/src
 RUN rm -rf /usr/src/packages/app-content-pages/src
 RUN rm -rf /usr/src/packages/app-project/src
 RUN rm -rf /usr/src/packages/app-project/stores
+RUN rm -rf /usr/src/packages/app-root/src
