@@ -1,14 +1,14 @@
 version: '3.7'
 
 services:
-  app-root:
+  root:
     image: front-end-monorepo_dev:latest
     build:
       context: ../../
     entrypoint:
       - "yarn"
       - "workspace"
-      - "@zooniverse/app-root"
+      - "@zooniverse/fe-root"
     command: ["dev"]
     ports:
       - "3000:3000"

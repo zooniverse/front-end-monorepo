@@ -1,4 +1,4 @@
-# app-root
+# Zooniverse Front End - Root
 
 A [Next.js](https://nextjs.org/) app for handling all routes, including `/projects`, `/users`, `/about`, `/groups`.
 
@@ -18,7 +18,7 @@ Once you have the hosts file configured, you'll be able to use one of those subd
 
 - `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
 - `docker-compose down` to stop the dev containers.
-- `docker-compose run --rm app-root test` to run the tests.
+<!-- - `docker-compose run --rm root test` to run the tests. -->
 
 ### Node
 
@@ -34,7 +34,7 @@ The production server is started on port 3000 by default.
 
 ### Docker
 
-- `docker-compose run --rm app-root start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy.
+- `docker-compose run --rm root start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy.
 
 ### Node
 
