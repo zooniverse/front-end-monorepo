@@ -34,6 +34,7 @@ function ComponentDecorator(Story) {
       <Story />
     </Box>
   )
+
 }
 
 export const Default = {
