@@ -36,8 +36,6 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@fortawesome/free-regular-svg-icons": "~6.5.0",
-    "@fortawesome/free-solid-svg-icons": "~6.5.0",
     "@tippyjs/react": "~4.2.6",
     "@visx/glyph": "~3.3.0",
     "@visx/group": "~3.3.0",

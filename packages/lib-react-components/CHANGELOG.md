@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unrealeased 2024-03-19
 
+### Changed
+Use `grommet-icons` for Notifications and Messages links in ZooHeader's mobile design. Removed `@fortawesome` from the lib.
+
 ### Fixed
 Added `d3` as peer dependency and grab available d3 methods from `@visx`.
 Fixed value in AnimatedNumber when a device prefers reduced motion.
