@@ -34,7 +34,8 @@
   "dependencies": {
     "@zooniverse/panoptes-js": "~0.4.0",
     "panoptes-client": "~5.6.0",
-    "swr": "~2.2.4"
+    "swr": "~2.2.4",
+    "uuid": "~9.0.1"
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
@@ -72,7 +73,7 @@
     "ignore-styles": "~5.0.1",
     "jsdom": "~24.0.0",
     "mocha": "~10.2.0",
-    "nock": "~13.4.0",
+    "nock": "~13.5.4",
     "process": "~0.11.10",
     "prop-types": "^15.8.1",
     "sinon": "~17.0.0",

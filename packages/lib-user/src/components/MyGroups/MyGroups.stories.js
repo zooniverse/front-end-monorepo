@@ -1,9 +1,17 @@
-import MyGroups from './MyGroups'
+import { Box } from 'grommet'
 
+import MyGroups from './MyGroups'
 import GroupCard from './components/GroupCard/GroupCard'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
+
 import { MEMBERSHIPS, USER_GROUPS } from '../../../test/mocks/panoptes'
+
+export default {
+  title: 'Components/MyGroups',
+  component: MyGroups,
+  decorators: [ComponentDecorator]
+}
 
 const MEMBERSHIPS_WITH_GROUPS = {
   linked: {
@@ -13,9 +21,20 @@ const MEMBERSHIPS_WITH_GROUPS = {
 }
 const groups = getActiveGroupsWithRoles(MEMBERSHIPS_WITH_GROUPS)
 
-export default {
-  title: 'Components/MyGroups',
-  component: MyGroups
+function ComponentDecorator(Story) {
+  return (
+    <Box
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      fill
+      pad='30px'
+    >
+      <Story />
+    </Box>
+  )
+
 }
 
 export const Default = {

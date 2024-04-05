@@ -9,7 +9,7 @@ export default {
   decorators: [ComponentDecorator]
 }
 
-function ComponentDecorator (Story) {
+function ComponentDecorator(Story) {
   return (
     <Box
       background={{
