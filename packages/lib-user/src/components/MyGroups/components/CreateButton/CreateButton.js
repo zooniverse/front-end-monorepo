@@ -19,7 +19,10 @@ function CreateButton({
   return (
     <StyledButton
       a11yTitle={text}
-      color='dark-5'
+      color={{
+        dark: 'neutral-6',
+        light: 'dark-5'
+      }}
       gap='xsmall'
       icon={<AddIcon size='15px' />}
       labelSize='16px'

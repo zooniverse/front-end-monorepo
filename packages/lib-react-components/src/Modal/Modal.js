@@ -5,11 +5,13 @@ import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
+const DEFAULT_BACKGROUND = {
+  dark: 'dark-5',
+  light: 'neutral-6'
+}
+
 const Modal = forwardRef(function ({
-  bodyBackground = {
-    dark: 'dark-5',
-    light: 'neutral-6'
-  },
+  bodyBackground = DEFAULT_BACKGROUND,
   children,
   className = '',
   closeFn,
