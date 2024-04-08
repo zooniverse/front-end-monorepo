@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import ZooHeader from './ZooHeader'
-import readme from './README.md'
 
 export default {
   title: 'Components / ZooHeader',
@@ -11,13 +10,6 @@ export default {
     },
     signOut: {
       action: 'User signed out'
-    }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
     }
   }
 }

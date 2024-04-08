@@ -1,7 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 import { getHost } from './helpers'
 import { useTranslation } from '../translations/i18n'
@@ -12,12 +11,14 @@ import NarrowMainNavMenu from './components/NarrowMainNavMenu'
 import UserNavigation from './components/UserNavigation/UserNavigation.js'
 import ZooniverseLogo from '../ZooniverseLogo'
 
-export const StyledHeader = styled(Box)`
+const mobileBreakpoint = '60rem'
+
+const StyledHeader = styled(Box)`
   color: #b2b2b2;
   font-size: 1em;
 `
 
-export const StyledLogoAnchor = styled(Anchor)`
+const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
   color: #b2b2b2;
   margin-right: 30px;
@@ -33,12 +34,22 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
+const StyledMainNavList = styled(MainNavList)`
+  @media (width <= ${mobileBreakpoint}) {
+    display: none;
+  }
+`
+
+const StyledNarrowMainNav = styled(NarrowMainNavMenu)`
+  @media (width > ${mobileBreakpoint}) {
+    display: none;
+  }
+`
+
 const defaultHandler = () => true
 
 export default function ZooHeader({
-  breakpoint = 960,
   adminMode = false,
-  isNarrow = false,
   onThemeChange = defaultHandler,
   register = defaultHandler,
   showThemeToggle = false,
@@ -52,11 +63,6 @@ export default function ZooHeader({
 }) {
   const hasMounted = useHasMounted()
   const { t } = useTranslation()
-  const { width, height, ref } = useResizeDetector({
-    refreshMode: 'debounce',
-    refreshRate: 100
-  })
-  isNarrow = isNarrow || width <= breakpoint
 
   const host = getHost()
   const adminNavLinkLabel = 'Admin'
@@ -80,7 +86,6 @@ export default function ZooHeader({
 
   return (
     <StyledHeader
-      ref={ref}
       background='black'
       direction='row'
       justify='between'
@@ -97,11 +102,10 @@ export default function ZooHeader({
         <StyledLogoAnchor href='http://www.zooniverse.org'>
           <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
         </StyledLogoAnchor>
-        <MainNavList
+        <StyledMainNavList
           adminNavLinkLabel={adminNavLinkLabel}
           adminNavLinkURL={adminNavLinkURL}
           adminMode={user?.admin && adminMode}
-          isNarrow={isNarrow}
           mainHeaderNavListLabels={mainHeaderNavListLabels}
           mainHeaderNavListURLs={mainHeaderNavListURLs}
         />
@@ -113,7 +117,6 @@ export default function ZooHeader({
       >
         {hasMounted && (
           <UserNavigation
-            isNarrow={isNarrow}
             onThemeChange={onThemeChange}
             register={register}
             showThemeToggle={showThemeToggle}
@@ -125,15 +128,13 @@ export default function ZooHeader({
             user={user}
           />
         )}
-        {isNarrow && (
-          <NarrowMainNavMenu
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            adminMode={user?.admin && adminMode}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-          />
-        )}
+        <StyledNarrowMainNav
+          adminNavLinkLabel={adminNavLinkLabel}
+          adminNavLinkURL={adminNavLinkURL}
+          adminMode={user?.admin && adminMode}
+          mainHeaderNavListLabels={mainHeaderNavListLabels}
+          mainHeaderNavListURLs={mainHeaderNavListURLs}
+        />
       </Box>
     </StyledHeader>
   )
@@ -141,7 +142,6 @@ export default function ZooHeader({
 
 ZooHeader.propTypes = {
   adminMode: PropTypes.bool,
-  isNarrow: PropTypes.bool,
   onThemeChange: PropTypes.func,
   register: PropTypes.func,
   showThemeToggle: PropTypes.bool,

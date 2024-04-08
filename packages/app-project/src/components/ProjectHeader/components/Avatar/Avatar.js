@@ -1,4 +1,3 @@
-import { string } from 'prop-types'
 import { observer, MobXProviderContext} from 'mobx-react'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
@@ -10,6 +9,11 @@ const StyledAvatar = styled.img`
   object-fit: cover;
   overflow: hidden;
   ${props => css`width: ${props.width};`}
+  width: 80px;
+
+  @media (width < 48rem) {
+    width: 40px;
+  }
 `
 
 function useProjectAvatar() {
@@ -21,8 +25,7 @@ function useProjectAvatar() {
 }
 
 function Avatar({
-  width='80px',
-  ...rest
+  ...props
 }) {
   const { t } = useTranslation('components')
   const { src, projectTitle } = useProjectAvatar()
@@ -33,13 +36,8 @@ function Avatar({
 
   const alt = t('ProjectHeader.Avatar.alt', { project: projectTitle })
   return (
-    <StyledAvatar alt={alt} src={src} width={width} {...rest} />
+    <StyledAvatar alt={alt} src={src} {...props} />
   )
-}
-
-Avatar.propTypes = {
-  /** Avatar size in CSS units. */
-  width: string
 }
 
 export default observer(Avatar)

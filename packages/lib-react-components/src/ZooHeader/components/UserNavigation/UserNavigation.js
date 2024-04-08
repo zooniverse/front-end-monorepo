@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Blank } from 'grommet-icons'
+import { Box } from 'grommet'
 import { useTranslation } from '../../../translations/i18n'
 
 import { faBell as fasBell } from '@fortawesome/free-solid-svg-icons/faBell'
@@ -14,14 +15,32 @@ import UserMenu from '../UserMenu'
 import ThemeModeToggle from '../ThemeModeToggle/ThemeModeToggle.js'
 import { getHost } from '../../helpers'
 
+const mobileBreakpoint = '60rem'
+
 const StyledBlank = styled(Blank)`
   height: 1em;
   vertical-align: -0.125em;
 `
-function FontAwesomeIcon({ color, icon, title }) {
+
+const StyledNavListItem = styled(NavListItem)`
+  @media (width > ${mobileBreakpoint}) {
+    & .icon-label {
+      display: none;
+    }
+  }
+
+  @media (width <= ${mobileBreakpoint}) {
+    & .string-label {
+      display: none;
+    }
+  }
+`
+
+function FontAwesomeIcon({ className, color, icon, title }) {
   const [width, height, aliases, unicode, path] = icon.icon
   return (
     <StyledBlank
+      className={className}
       role='img'
       aria-label={title}
       aria-hidden='false'
@@ -58,22 +77,26 @@ export default function UserNavigation({
     { count: unreadMessages }
   )
 
-  const notificationLabel = isNarrow ? (
-    <FontAwesomeIcon
-      title={notificationLabelString}
-      icon={unreadNotifications ? fasBell : farBell}
-    />
-  ) : (
-    notificationLabelString
+  const notificationLabel = (
+    <>
+      <FontAwesomeIcon
+        className='icon-label'
+        title={notificationLabelString}
+        icon={unreadNotifications ? fasBell : farBell}
+      />
+      <span className='string-label'>{notificationLabelString}</span>
+    </>
   )
 
-  const messagesLabel = isNarrow ? (
-    <FontAwesomeIcon
-      title={messagesLabelString}
-      icon={unreadMessages ? fasEnvelope : farEnvelope}
-    />
-  ) : (
-    messagesLabelString
+  const messagesLabel = (
+    <>
+      <FontAwesomeIcon
+        className='icon-label'
+        title={messagesLabelString}
+        icon={unreadMessages ? fasEnvelope : farEnvelope}
+      />
+      <span className='string-label'>{messagesLabelString}</span>
+    </>
   )
 
   return (
@@ -99,14 +122,14 @@ export default function UserNavigation({
       )}
       {Object.keys(user).length > 0 && signOut && (
         <>
-          <NavListItem
+          <StyledNavListItem
             color={unreadNotifications ? 'accent-1' : '#B2B2B2'}
             label={notificationLabel}
             margin={{ right: 'small' }}
             unread={unreadNotifications}
             url={`${host}/notifications`}
           />
-          <NavListItem
+          <StyledNavListItem
             color={unreadMessages ? 'accent-1' : '#B2B2B2'}
             label={messagesLabel}
             margin={{ right: 'small' }}
