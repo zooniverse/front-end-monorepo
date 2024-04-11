@@ -1,44 +1,11 @@
 import { Box } from 'grommet'
 import { string } from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 const StyledProjectCard = styled(Box)`
   text-decoration: none;
   font-size: ${props => props.cardFontSize};
-`
-
-const OldStyledProjectCard = styled(Box)`
-  text-decoration: none;
-  font-size: 0.625rem;
-  height: 200px;
-  width: 157px;
-
-  > .project-image {
-    height: 157px;
-  }
-
-  ${props => !props.small && css`
-    @media (768px < width <= 1280px) {
-      font-size: 0.656rem;
-      height: 240px;
-      width: 189px;
-
-      > .project-image {
-        height: 189px;
-      }
-    }
-
-    @media (width > 1280px) {
-      font-size: 0.688rem;
-      height: 280px;
-      width: 220px;
-
-      > .project-image {
-        height: 220px;
-      }
-    }
-  `}
 `
 
 const StyledProjectContent = styled(Box)`

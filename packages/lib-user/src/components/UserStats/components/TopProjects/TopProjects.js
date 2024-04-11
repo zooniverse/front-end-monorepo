@@ -1,5 +1,6 @@
-import { Box } from 'grommet'
+import { Box, ResponsiveContext } from 'grommet'
 import { arrayOf, string, shape } from 'prop-types'
+import { useContext } from 'react'
 
 import {
   ContentBox,
@@ -7,6 +8,8 @@ import {
 } from '@components/shared'
 
 function TopProjects ({ topProjects = [] }) {
+  const size = useContext(ResponsiveContext)
+
   return (
     <ContentBox
       linkLabel='See more'
@@ -26,7 +29,8 @@ function TopProjects ({ topProjects = [] }) {
               description={topProject?.description}
               displayName={topProject?.display_name}
               href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
-              imageSrc={topProject?.avatar_src}                
+              imageSrc={topProject?.avatar_src}
+              size={size}
             />
           )
         })}
