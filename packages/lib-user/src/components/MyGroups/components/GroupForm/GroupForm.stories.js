@@ -1,23 +1,22 @@
 import { Box } from 'grommet'
 
-import { PROJECTS } from '../../../../../test/mocks/panoptes'
-
-import TopProjects from './TopProjects'
+import GroupForm from './GroupForm'
 
 export default {
-  title: 'Components/UserStats/TopProjects',
-  component: TopProjects,
+  title: 'Components/MyGroups/GroupForm',
+  component: GroupForm,
   decorators: [ComponentDecorator]
 }
 
-function ComponentDecorator (Story) {
+function ComponentDecorator(Story) {
   return (
     <Box
       background={{
         dark: 'dark-3',
         light: 'neutral-6'
       }}
-      height='900px'
+      fill
+      overflow='auto'
       pad='30px'
     >
       <Story />
@@ -27,6 +26,6 @@ function ComponentDecorator (Story) {
 
 export const Default = {
   args: {
-    topProjects: PROJECTS
+    handleSubmit: (event) => console.log('submitting...', event.value)
   }
 }

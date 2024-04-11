@@ -1,10 +1,10 @@
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import {
-  Layout
+  Layout,
+  MainContent,
 } from '@components/shared'
 
-import MainContent from './components/MainContent'
 import TopProjects from './components/TopProjects'
 
 const DEFAULT_HANDLER = () => true

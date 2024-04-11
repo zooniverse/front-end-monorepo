@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 
-import GroupCard from './GroupCard.js'
-import { AdminGroupCard, MemberGroupCard } from './GroupCard.mock.js'
+import GroupCard from './GroupCard'
+import { AdminGroupCard, MemberGroupCard } from './GroupCard.mock'
 
 export default {
   title: 'Components/MyGroups/GroupCard',
@@ -9,7 +9,7 @@ export default {
   decorators: [ComponentDecorator]
 }
 
-function ComponentDecorator (Story) {
+function ComponentDecorator(Story) {
   return (
     <Box
       background={{
