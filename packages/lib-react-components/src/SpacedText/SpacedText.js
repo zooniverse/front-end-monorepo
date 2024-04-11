@@ -1,11 +1,9 @@
 import { Text } from 'grommet'
 import styled, { css } from 'styled-components'
-import pxToRem from '../helpers/pxToRem'
 import { bool, node, objectOf, oneOfType, string  } from 'prop-types'
 
-const letterSpacing = pxToRem(1)
 const StyledText = styled(Text)`
-  letter-spacing: ${letterSpacing};
+  letter-spacing: 0.0625rem;
   ${props =>
     props.uppercase
       ? css`text-transform: uppercase;`
