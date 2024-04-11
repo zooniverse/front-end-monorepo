@@ -466,27 +466,27 @@ const theme = deepFreeze({
   paragraph: {
     small: {
       size: '14px',
-      height: '19px',
+      height: '1.4',
       maxWidth: '100%'
     },
     medium: {
       size: '16px',
-      height: '22px',
+      height: '1.4',
       maxWidth: '100%'
     },
     large: {
       size: '18px',
-      height: '23px',
+      height: '1.3',
       maxWidth: '100%'
     },
     xlarge: {
       size: '22px',
-      height: '27px',
+      height: '1.2',
       maxWidth: '100%'
     },
     xxlarge: {
       size: '26px',
-      height: '31px',
+      height: '1.2',
       maxWidth: '100%'
     },
     extend: props => `margin: ${props.margin || '1em 0 1em 0'}`
