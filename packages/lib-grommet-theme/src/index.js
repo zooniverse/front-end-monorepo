@@ -471,7 +471,7 @@ const theme = deepFreeze({
     },
     medium: {
       size: '16px',
-      height: '19px',
+      height: '22px',
       maxWidth: '100%'
     },
     large: {
