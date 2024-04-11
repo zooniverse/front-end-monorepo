@@ -466,12 +466,12 @@ const theme = deepFreeze({
   paragraph: {
     small: {
       size: '14px',
-      height: '1.4',
+      height: '1.5',
       maxWidth: '100%'
     },
     medium: {
       size: '16px',
-      height: '1.4',
+      height: '1.5',
       maxWidth: '100%'
     },
     large: {
