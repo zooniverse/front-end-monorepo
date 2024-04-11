@@ -9,18 +9,19 @@ describe('components > shared > ProjectCard', function () {
   it('should show the project name', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByText('Notes from Nature - Capturing California\'s Flowers')).to.be.ok()
+    // grabbing the first element because each Story renders all four ProjectCard sizes
+    expect(screen.getAllByText('Notes from Nature - Capturing California\'s Flowers')[0]).to.be.ok()
   })
 
   it('should show the project description', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByText('Using digital images to investigate ​phenological change in a biodiversity hotspot​')).to.be.ok()
+    expect(screen.getAllByText('Using digital images to investigate ​phenological change in a biodiversity hotspot​')[0]).to.be.ok()
   })
 
   it('should link to the project', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByRole('link', { href: 'https://www.zooniverse.org/projects/md68135/notes-from-nature-capturing-californias-flowers'})).to.be.ok()
+    expect(screen.getAllByRole('link', { href: 'https://www.zooniverse.org/projects/md68135/notes-from-nature-capturing-californias-flowers'})[0]).to.be.ok()
   })
 })
