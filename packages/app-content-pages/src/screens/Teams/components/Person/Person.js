@@ -8,7 +8,7 @@ import TwitterLink from './components/TwitterLink'
 
 const PersonName = styled(Heading)`
   margin: 0;
-  line-height: 1.4rem;
+  line-height: 1.4;
   margin-bottom: 5px;
   display: flex;
   align-items: center;

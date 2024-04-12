@@ -25,7 +25,6 @@ const theme = {
   paragraph: {
     extend: props => css`
       color: ${props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors.black};
-      line-height: 1.5;
       margin: 0 0 14px 0;
     `
   }

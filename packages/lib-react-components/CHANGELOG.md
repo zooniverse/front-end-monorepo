@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 Added a `bodyBackground` prop to Modal to allow for custom background colors.
 
+### Changed
+Removed `pxToRem` function.
+
 ### Fixed
 Added `d3` as peer dependency and grab available d3 methods from `@visx`.
 Fixed value in AnimatedNumber when a device prefers reduced motion.
