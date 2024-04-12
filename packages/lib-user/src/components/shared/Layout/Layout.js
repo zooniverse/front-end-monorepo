@@ -128,7 +128,7 @@ function Layout ({ children }) {
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        gap='32px'
+        gap='30px'
       >
         {children}
       </PageBody>

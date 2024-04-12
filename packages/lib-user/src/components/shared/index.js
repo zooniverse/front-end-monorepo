@@ -1,6 +1,7 @@
 export { default as BarChart } from './BarChart'
 export { default as ContentBox } from './ContentBox'
 export { default as Layout } from './Layout'
+export { default as MainContent } from './MainContent'
 export { default as ProfileHeader } from './ProfileHeader'
 export { default as ProjectCard } from './ProjectCard'
 export { default as Select } from './Select'
