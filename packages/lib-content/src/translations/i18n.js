@@ -4,8 +4,6 @@ import {
   useTranslation as useBaseTranslation
 } from 'react-i18next'
 
-const supportedLngs = ['en']
-
 const libI18n = i18n.createInstance()
 libI18n.use(initReactI18next).init({
   fallbackLng: 'en',
@@ -17,9 +15,7 @@ libI18n.use(initReactI18next).init({
   }
 })
 
-supportedLngs.forEach(lang => {
-  libI18n.addResourceBundle(lang, 'translation', require(`./${lang}.json`))
-})
+libI18n.addResourceBundle('en', 'translation', require('./en.json'))
 
 export function useTranslation(ns) {
   return useBaseTranslation(ns, { i18n: libI18n })

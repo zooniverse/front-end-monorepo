@@ -6,7 +6,7 @@ const config = {
     'storybook-react-i18next'
   ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/nextjs',
     options: {}
   },
   docs: {

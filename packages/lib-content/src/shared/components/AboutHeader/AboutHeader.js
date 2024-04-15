@@ -5,7 +5,7 @@ import { ZooniverseLogotype } from '@zooniverse/react-components'
 import NavLink from './components/NavLink'
 
 function AboutHeader() {
-  const { t } = useTranslation('components')
+  const { t } = useTranslation()
 
   const links = [
     {
