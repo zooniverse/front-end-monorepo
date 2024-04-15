@@ -1,8 +1,7 @@
 'use client'
 
-// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial MyGroups local development.
-
 import { object, string } from 'prop-types'
+import { useState } from 'react'
 
 import {
   usePanoptesAuthUser,
@@ -10,19 +9,22 @@ import {
   usePanoptesUser
 } from '@hooks'
 
-import {
-  createPanoptesUserGroup,
-  getBearerToken
-} from '@utils'
+import { ContentBox, Layout } from '@components/shared'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
 import MyGroups from './MyGroups'
+import CreateButton from './components/CreateButton'
+import GroupCardList from './components/GroupCardList'
+import GroupForm from './components/GroupForm'
+import GroupModal from './components/GroupModal'
 
 function MyGroupsContainer({
   authClient,
   login
 }) {
+  const [groupModalActive, setGroupModalActive] = useState(false)
+
   const {
     data: authUser
   } = usePanoptesAuthUser(authClient)
@@ -51,24 +53,41 @@ function MyGroupsContainer({
     }
   })
 
-  async function handleGroupCreate(data) {
-    try {
-      const authorization = await getBearerToken(authClient)
-      const newGroup = await createPanoptesUserGroup({ data, authorization })
-      console.log('newGroup', newGroup)
-      window.location.reload()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
 
   return (
-    <MyGroups 
-      groups={activeGroupsWithRoles}
-      handleGroupCreate={handleGroupCreate}
-    />
+    <>
+      <GroupModal
+        active={groupModalActive}
+        handleClose={() => setGroupModalActive(false)}
+        title='create new group'
+        titleColor='black'
+      >
+        <GroupForm 
+          authClient={authClient}
+          authUserId={authUser?.id}
+        />
+      </GroupModal>
+      <Layout>
+        <ContentBox
+          linkLabel='Learn more about Groups'
+          linkProps={{ href: '/groups' }}
+          title='My Groups'
+          pad={{ horizontal: '60px', vertical: '30px' }}
+        >
+          <MyGroups>
+            <GroupCardList
+              authClient={authClient}
+              authUserId={authUser?.id}
+              groups={activeGroupsWithRoles}
+            />
+          </MyGroups>
+          <CreateButton
+            onClick={() => setGroupModalActive(true)}
+          />
+        </ContentBox>
+      </Layout>
+    </>
   )
 }
 

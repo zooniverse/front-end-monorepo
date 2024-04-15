@@ -1,11 +1,11 @@
 'use client'
 
-// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
-
 import { object, string } from 'prop-types'
+import { useState } from 'react'
 
 import {
   usePanoptesAuthUser,
+  usePanoptesProjects,
   usePanoptesUserGroup,
   useStats
 } from '@hooks'
@@ -13,6 +13,7 @@ import {
 import {
   deletePanoptesUserGroup,
   getBearerToken,
+  getDateInterval,
   updatePanoptesUserGroup
 } from '@utils'
 
@@ -24,10 +25,15 @@ function GroupStatsContainer({
   authClient,
   groupId
 }) {
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+
+  // fetch authenticated user
   const {
     data: authUser
   } = usePanoptesAuthUser(authClient)
 
+  // fetch user_group
   const {
     data,
     error: groupError,
@@ -37,17 +43,57 @@ function GroupStatsContainer({
     authUserId: authUser?.id,
     groupId
   })
+  const group = data?.body?.user_groups?.[0]
+  
+  // fetch all projects stats, used by projects select and top projects regardless of selected project
+  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
+  allProjectsStatsQuery.top_contributors = 10
   
   const {
-    data: groupStats,
-    error: groupStatsError,
-    isLoading: groupStatsLoading
+    data: allProjectsStats,
+    error: statsError,
+    isLoading: statsLoading
   } = useStats({
     authClient,
     authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
-    sourceId: groupId
+    sourceId: group?.id,
+    query: allProjectsStatsQuery
   })
+  
+  // fetch individual project stats
+  const projectStatsQuery = getDateInterval(selectedDateRange)
+  projectStatsQuery.project_id = parseInt(selectedProject)
+  projectStatsQuery.top_contributors = 10
+  
+  const {
+    data: projectStats,
+    error: projectStatsError,
+    isLoading: projectStatsLoading
+  } = useStats({
+    authClient,
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: group?.id,
+    query: projectStatsQuery
+  })
+  
+  // fetch projects
+  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+
+  const {
+    data: projects,
+    error: projectsError,
+    isLoading: projectsLoading
+  } = usePanoptesProjects(projectIDs)
+
+  function handleProjectSelect (project) {
+    setSelectedProject(project.value)
+  }
+
+  function handleDateRangeSelect (dateRange) {
+    setSelectedDateRange(dateRange.value)
+  }
 
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
@@ -80,14 +126,18 @@ function GroupStatsContainer({
     }
   }
 
-  const group = data?.body?.user_groups?.[0]
-
   return (
     <GroupStats
+      allProjectsStats={allProjectsStats}
       group={group}
-      groupStats={groupStats}
+      handleDateRangeSelect={handleDateRangeSelect}
       handleGroupDelete={handleGroupDelete}
       handleGroupUpdate={handleGroupUpdate}
+      handleProjectSelect={handleProjectSelect}
+      projectStats={projectStats}
+      projects={projects}
+      selectedDateRange={selectedDateRange}
+      selectedProject={selectedProject}
     />
   )
 }
