@@ -1,1 +1,1 @@
-export { default } from './YourStats'
+export { default, statsClient } from './YourStats'
