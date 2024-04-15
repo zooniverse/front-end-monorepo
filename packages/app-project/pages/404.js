@@ -25,7 +25,7 @@ const Overlay = styled(Box)`
 `
 
 const PageContent = styled(Box)`
-  line-height: 2em;
+  line-height: 2;
   z-index: 3;
 `
 

@@ -1,4 +1,5 @@
 import { panoptes } from '@zooniverse/panoptes-js'
+import { mergeWith } from 'lodash'
 
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
@@ -25,8 +26,17 @@ export default async function fetchTranslations({
 
       const translation = response.body.translations.find(t => t.language === lowerCaseLang)
       const original = response.body.translations.find(t => t.language === fallback)
-      return translation || original
-    } catch (error) {
+
+      if (!translation || !Object.keys(translation.strings).length) {
+        return original
+      }
+
+      /* If a project team leaves part of a language untranslated, backfill it with the strings from the fallback language */
+      const customizer = (objValue, srcValue) => objValue === "" ? srcValue : objValue
+
+      const mergedStrings = mergeWith(translation.strings, original.strings, customizer)
+      return Object.assign(translation, {strings: mergedStrings})
+        } catch (error) {
       console.error(error)
       logToSentry(error, { query, host })
     }

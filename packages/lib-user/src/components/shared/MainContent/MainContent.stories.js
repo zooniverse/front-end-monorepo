@@ -1,12 +1,12 @@
 import { Box } from 'grommet'
 
-import { PROJECTS, USER } from '../../../../../test/mocks/panoptes.mock.js'
-import { STATS } from '../../../../../test/mocks/stats.mock.js'
+import { PROJECTS, USER } from '../../../../test/mocks/panoptes'
+import { STATS } from '../../../../test/mocks/stats.mock'
 
 import MainContent from './MainContent'
 
 export default {
-  title: 'Components/UserStats/MainContent',
+  title: 'Components/shared/MainContent',
   component: MainContent,
   decorators: [ComponentDecorator]
 }

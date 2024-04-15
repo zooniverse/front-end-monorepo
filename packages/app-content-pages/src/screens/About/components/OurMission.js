@@ -70,7 +70,7 @@ export default function OurMission() {
           components={[<Anchor key='publications-page' href='/publications' />]} // after switch to app-root, this will need to be /about/publications
         />
       </Paragraph>
-      <Heading level={3} size='1rem' textAlign='start' margin='0'>
+      <Heading level={3} size='1.125rem' textAlign='start' margin='0'>
         {t('AboutPage.ourMission.subheadings.two')}
       </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
@@ -85,7 +85,7 @@ export default function OurMission() {
           ]}
         />
       </Paragraph>
-      <Heading level={3} size='1rem' margin='0'>
+      <Heading level={3} size='1.125rem' margin='0'>
         {t('AboutPage.ourMission.subheadings.three')}
       </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
@@ -114,7 +114,7 @@ export default function OurMission() {
         color={{ light: 'neutral-1', dark: 'accent-1' }}
         fill
         level={3}
-        size='1rem'
+        size='1.125rem'
         textAlign='center'
         alignSelf='center'
       >
@@ -139,7 +139,7 @@ export default function OurMission() {
           color={{ light: 'neutral-1', dark: 'accent-1' }}
           level={3}
           margin='0'
-          size='1rem'
+          size='1.125rem'
           textAlign='center'
         >
           {t('AboutPage.ourMission.subheadings.five').toUpperCase()}
