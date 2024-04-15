@@ -1,0 +1,15 @@
+{
+  "diff": true,
+  "extension": [
+    "js"
+  ],
+  "require": [
+    "@babel/register",
+    "chai/register-expect.js"
+  ],
+  "reporter": "spec",
+  "ui": "bdd",
+  "file": [
+    "./test/setup.js"
+  ]
+}
