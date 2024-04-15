@@ -76,8 +76,8 @@ docker-compose build
 `docker-compose up` runs local production builds as follows:
 
 - content pages app at http://localhost:3001
-- project app at http://localhost:3000
-- root app at http://localhost:3002
+- project app at http://localhost:3002
+- root app at http://localhost:3003
 
 `docker-compose down` stops the running container.
 
