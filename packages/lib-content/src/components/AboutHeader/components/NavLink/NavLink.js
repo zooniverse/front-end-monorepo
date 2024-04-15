@@ -1,6 +1,5 @@
 import { Anchor, Text } from 'grommet'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 
@@ -17,9 +16,9 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function NavLink({ color, href = '', label = '' }) {
-  const { asPath } = useRouter()
-  const isActive = asPath === href
+function NavLink({ pathname = '', color, href = '', label = '' }) {
+  const isActive = pathname === href
+
   return (
     <StyledAnchor
       as={Link}
@@ -33,7 +32,8 @@ function NavLink({ color, href = '', label = '' }) {
 
 NavLink.propTypes = {
   label: string.isRequired,
-  href: string.isRequired
+  href: string.isRequired,
+  pathname: string,
 }
 
 export default NavLink

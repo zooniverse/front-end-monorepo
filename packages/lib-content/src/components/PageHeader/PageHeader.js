@@ -3,7 +3,7 @@ import auth from 'panoptes-client/lib/auth'
 import { useContext, useState } from 'react'
 import { useUnreadMessages, useUnreadNotifications } from '@zooniverse/react-components/hooks'
 import { PanoptesAuthContext } from '../../contexts'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../translations/i18n.js'
 import { ThemeModeContext } from '../../contexts'
 
 function PageHeader() {

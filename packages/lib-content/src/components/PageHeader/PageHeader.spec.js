@@ -19,7 +19,7 @@ describe('Component > PageHeader', function () {
     })
 
     it('should have a <header> with aria-label', function() {
-      expect(screen.getAllByLabelText('PageHeader.headerLabel')).exists()
+      expect(screen.getAllByLabelText('Zooniverse site header')).exists()
     })
 
     it('should display Sign-in and Register buttons', function () {

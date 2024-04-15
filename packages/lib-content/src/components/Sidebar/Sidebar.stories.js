@@ -1,5 +1,5 @@
-import DropdownNav from './DropdownNav.js'
-import mockPublicationsData from '../../../../test/mocks/Publications.mock.json'
+import Sidebar from './Sidebar.js'
+import mockPublicationsData from '../../../test/mocks/Publications.mock.json'
 
 const mockSections = mockPublicationsData.map(category => ({
   name: category.title,
@@ -8,14 +8,14 @@ const mockSections = mockPublicationsData.map(category => ({
 
 
 export default {
-  title: 'Shared / DropdownNav',
-  component: DropdownNav
+  title: 'Shared / Sidebar',
+  component: Sidebar
 }
 
 export const Default = {
   args: {
     activeSection: 0,
-    sidebarLabel: 'Discipline',
+    ariaLabel: 'Publications',
     sections: mockSections
   }
 }

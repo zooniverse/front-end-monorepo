@@ -1,52 +1,32 @@
 import { Box } from 'grommet'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../translations/i18n.js'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 
 import NavLink from './components/NavLink'
 
-function AboutHeader() {
+function AboutHeader({ pathname = '' }) {
   const { t } = useTranslation()
 
   const links = [
     {
-      href: '/',
+      href: '/about',
       label: t('AboutHeader.links.about')
     },
     {
-      href: '/publications',
+      href: '/about/publications',
       label: t('AboutHeader.links.publications')
     },
     {
-      href: '/team',
+      href: '/about/team',
       label: t('AboutHeader.links.team')
     },
     {
-      href: '/acknowledgements',
-      label: t('AboutHeader.links.acknowledgements')
-    },
-    {
-      href: '/resources',
+      href: '/about/resources',
       label: t('AboutHeader.links.resources')
     },
     {
-      href: '/contact',
-      label: t('AboutHeader.links.contact')
-    },
-    {
-      href: '/faq',
+      href: '/about/faq',
       label: t('AboutHeader.links.faq')
-    },
-    {
-      href: '/highlights',
-      label: t('AboutHeader.links.highlights')
-    },
-    {
-      href: '/mobile-app',
-      label: t('AboutHeader.links.mobile')
-    },
-    {
-      href: '/donate',
-      label: t('AboutHeader.links.donate')
     }
   ]
 
@@ -71,12 +51,11 @@ function AboutHeader() {
         >
           {links.map(link => (
             <Box as='li' key={link.label} pad={{ right: 'small' }}>
-              <NavLink color='white' label={link.label} href={link.href} />
+              <NavLink pathname={pathname} color='white' label={link.label} href={link.href} />
             </Box>
           ))}
         </Box>
-        {/* Enable logo when ready for all About Zooniverse pages to be hosted from FEM */}
-        {/* <ZooniverseLogotype id="About Zooniverse Header component" color='white' /> */}
+        <ZooniverseLogotype id="About Zooniverse Header component" color='white' />
       </Box>
     </header>
   )
