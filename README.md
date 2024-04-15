@@ -64,6 +64,7 @@ yarn bootstrap
 ```
 
 ### Docker
+
 You can run the code locally in Docker, which avoids needing to install Node or yarn.
 
 ```sh
@@ -72,21 +73,28 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs local production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
+`docker-compose up` runs local production builds as follows:
+
+- content pages app at http://localhost:3001
+- project app at http://localhost:3002
+- root app at http://localhost:3003
 
 `docker-compose down` stops the running container.
 
 `docker-compose run --rm shell` runs an interactive shell on the Docker image.
 
 Development environments for individual packages can be run from the package directories. For example:
+
 ```sh
 cd packages/app-project
 docker-compose up
-````
+```
+
 to run a development server for the project app.
 
 ### With Node and yarn
-Alternatively, you can install Node 14 and yarn and build the monorepo packages.
+
+Alternatively, you can install Node 20 and yarn and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
