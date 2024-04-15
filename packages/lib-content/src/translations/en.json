@@ -2,12 +2,9 @@
   "AboutHeader": {
     "links": {
       "about": "About",
-      "acknowledgements": "Acknowledgements",
       "contact": "Contact Us",
       "donate": "Donate",
       "faq": "FAQ",
-      "highlights": "Highlights Book",
-      "mobile": "Mobile App",
       "publications": "Publications",
       "resources": "Resources",
       "team": "Our Team"
@@ -151,14 +148,6 @@
       "answer": "We support major browsers up to the second to last version.",
       "question": "What browser version does Zooniverse support?"
     }
-  },
-  "Head": {
-    "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
-    "defaultTitle": "About",
-    "siteName": "Zooniverse - People-powered research"
-  },
-  "PageHeader": {
-    "headerLabel": "Zooniverse site header"
   },
   "Publications": {
     "description": "A list of academic publications that use Zooniverse-generated data.",
