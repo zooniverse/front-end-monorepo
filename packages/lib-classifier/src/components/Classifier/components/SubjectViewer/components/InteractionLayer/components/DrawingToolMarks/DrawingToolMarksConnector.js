@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react'
 import { forwardRef } from 'react'
-import { useFreehandLineReductions } from '@hooks'
+import { useMachineLearntReductions } from '@hooks'
 import DrawingToolMarks from './DrawingToolMarks'
 
-function withFreehandLineReductions(Component) {
-  function WithFreehandLineReductions(props, ref) {
-    const freehandLineProps = useFreehandLineReductions()
+function withMachineLearntReductions(Component) {
+  function WithMachineLearntReductions(props, ref) {
+    const freehandLineProps = useMachineLearntReductions()
     return <Component ref={ref} {...props} {...freehandLineProps} />
   }
-  return observer(forwardRef(WithFreehandLineReductions))
+  return observer(forwardRef(WithMachineLearntReductions))
 }
 
-export default withFreehandLineReductions(DrawingToolMarks)
+export default withMachineLearntReductions(DrawingToolMarks)
