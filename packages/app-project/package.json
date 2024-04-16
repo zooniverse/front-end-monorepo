@@ -41,7 +41,7 @@
     "i18next": "~23.11.1",
     "lodash": "~4.17.11",
     "luxon": "~3.4.0",
-    "million": "~2.6.4",
+    "million": "~3.0.6",
     "mobx": "~6.12.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~9.1.0",
