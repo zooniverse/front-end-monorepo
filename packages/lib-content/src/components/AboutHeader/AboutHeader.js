@@ -53,7 +53,7 @@ function AboutHeader() {
         align='center'
         aria-label={`${t('AboutHeader.title')} Zooniverse`}
         direction='row'
-        foras='nav'
+        as='nav'
         background='neutral-1'
         pad={{ horizontal: 'medium' }}
       >
