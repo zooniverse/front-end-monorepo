@@ -13,7 +13,7 @@ function statsHost(env) {
 }
 
 export const statsClient = {
-  fetchDailyStats: async function fetchDailyStats({ projectId, userId }) {
+  async fetchDailyStats({ projectId, userId }) {
     const token = await auth.checkBearerToken()
     const Authorization = `Bearer ${token}`
     const stats  = statsHost(env)
