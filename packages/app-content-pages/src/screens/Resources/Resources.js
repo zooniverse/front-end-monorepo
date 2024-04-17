@@ -103,7 +103,7 @@ function ResourcesPage() {
               <Text
                 margin={{ vertical: '0', left: 'medium' }}
                 weight='bold'
-                size='0.875rem'
+                size='1rem'
               >
                 <Trans
                   i18nKey='Resources.cite.quote'

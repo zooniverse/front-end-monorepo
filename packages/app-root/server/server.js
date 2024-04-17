@@ -1,7 +1,3 @@
-if (process.env.NEWRELIC_LICENSE_KEY) {
-  await import('newrelic')
-}
-
 import express from 'express'
 import next from 'next'
 

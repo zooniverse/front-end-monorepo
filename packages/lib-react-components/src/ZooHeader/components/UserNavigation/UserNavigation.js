@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types'
-import { Blank } from 'grommet-icons'
 import { useTranslation } from '../../../translations/i18n'
 
-import { faBell as fasBell } from '@fortawesome/free-solid-svg-icons/faBell'
-import { faBell as farBell } from '@fortawesome/free-regular-svg-icons/faBell'
-import { faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope'
-import { faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons/faEnvelope'
+import { Blank, Mail, MailOption, Notification } from 'grommet-icons'
 import styled from 'styled-components'
 
 import NavButton from './components/NavButton/NavButton.js'
@@ -15,20 +11,35 @@ import ThemeModeToggle from '../ThemeModeToggle/ThemeModeToggle.js'
 import { getHost } from '../../helpers'
 
 const StyledBlank = styled(Blank)`
-  height: 1em;
   vertical-align: -0.125em;
 `
-function FontAwesomeIcon({ color, icon, title }) {
-  const [width, height, aliases, unicode, path] = icon.icon
+
+const StyledNotificationIcon = styled(Notification)`
+  &:first-child {
+    & > path {
+      fill: ${props => props.theme.global.colors['accent-1']};
+      stroke: ${props => props.theme.global.colors['accent-1']};
+    }
+  }
+`
+
+const StyledMailIcon = styled(Mail)`
+  &:first-child {
+    & > path {
+      fill: ${props => props.theme.global.colors['accent-1']};
+    }
+  }
+`
+
+function Icon({ icon, size, title }) {
   return (
     <StyledBlank
       role='img'
       aria-label={title}
       aria-hidden='false'
-      color={color}
-      viewBox={`0 0 ${width} ${height}`}
+      size={size}
     >
-      <path strokeWidth='1' fill='currentColor' d={path} />
+      {icon}
     </StyledBlank>
   )
 }
@@ -59,18 +70,20 @@ export default function UserNavigation({
   )
 
   const notificationLabel = isNarrow ? (
-    <FontAwesomeIcon
+    <Icon
+      icon={unreadNotifications ? <StyledNotificationIcon /> : <Notification />}
+      size='0.8rem'
       title={notificationLabelString}
-      icon={unreadNotifications ? fasBell : farBell}
     />
   ) : (
     notificationLabelString
   )
 
   const messagesLabel = isNarrow ? (
-    <FontAwesomeIcon
+    <Icon
+      icon={unreadMessages ? <StyledMailIcon /> : <MailOption />}
+      size={unreadMessages ? '0.9rem' : '0.8rem'}
       title={messagesLabelString}
-      icon={unreadMessages ? fasEnvelope : farEnvelope}
     />
   ) : (
     messagesLabelString

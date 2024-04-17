@@ -6,7 +6,12 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 const nextConfig = {
   experimental: {
-    optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons'],
+    optimizePackageImports: [
+      '@zooniverse/react-components',
+      '@zooniverse/user',
+      'grommet',
+      'grommet-icons'
+    ],
   },
   webpack: (config, options) => {
     config.resolve = {

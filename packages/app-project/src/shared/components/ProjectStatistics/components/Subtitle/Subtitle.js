@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const StyledHeading = styled(Heading)`
   font-size: 0.875rem;
-  line-height: 1.4rem;
+  line-height: 1.4;
 `
 
 function Subtitle ({ margin = '0', screenSize = '', text }) {
