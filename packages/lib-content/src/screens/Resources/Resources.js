@@ -211,7 +211,7 @@ function Resources() {
                 <ResourceLogo>
                   <Image
                     alt=''
-                    src='/about/assets/brand-links-two.png'
+                    src='/assets/brand-links-two.png' // public folder in app-root
                     fit='cover'
                   />
                 </ResourceLogo>
@@ -232,7 +232,7 @@ function Resources() {
                 <ResourceLogo>
                   <Image
                     alt=''
-                    src='/about/assets/brand-links-three.png'
+                    src='/assets/brand-links-three.png' // public folder in app-root
                     fit='cover'
                   />
                 </ResourceLogo>
@@ -247,7 +247,7 @@ function Resources() {
                 <ResourceLogo>
                   <Image
                     alt=''
-                    src='/about/assets/brand-links-four.png'
+                    src='/assets/brand-links-four.png' // public folder in app-root
                     fit='cover'
                   />
                 </ResourceLogo>
