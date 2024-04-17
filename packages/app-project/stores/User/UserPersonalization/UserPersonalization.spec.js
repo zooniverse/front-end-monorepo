@@ -57,8 +57,8 @@ describe('Stores > UserPersonalization', function () {
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
     sinon.stub(statsClient, 'fetchDailyStats').callsFake(({ projectId, userId }) => (projectId === '2' && userId === '123') ?
-      Promise.resolve({ data: MOCK_DAILY_COUNTS })) :
-      Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`))
+      Promise.resolve({ data: MOCK_DAILY_COUNTS }) :
+      Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`)))
     sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
   })
 

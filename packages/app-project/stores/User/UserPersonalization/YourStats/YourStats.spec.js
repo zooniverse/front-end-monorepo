@@ -46,7 +46,9 @@ describe('Stores > YourStats', function () {
       .query(true)
       .reply(200)
     rootStore = initStore(true, { project })
-    sinon.stub(statsClient, 'fetchDailyStats').callsFake(() => Promise.resolve({ data: MOCK_DAILY_COUNTS }))
+    sinon.stub(statsClient, 'fetchDailyStats').callsFake(({ projectId, userId }) => (projectId === '2' && userId === '123') ?
+      Promise.resolve({ data: MOCK_DAILY_COUNTS }) :
+      Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`)))
     sinon.stub(talkAPI, 'get')
   })
 
@@ -84,7 +86,7 @@ describe('Stores > YourStats', function () {
 
     describe('weekly classification stats', function () {
       it('should be created', function () {
-        expect(rootStore.user.personalization.stats.thisWeek.length).to.equal(7)
+        expect(getSnapshot(rootStore.user.personalization.stats.thisWeek).length).to.equal(7)
       })
 
       it('should start on Monday', function () {
