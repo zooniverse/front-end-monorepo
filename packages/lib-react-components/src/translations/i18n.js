@@ -41,7 +41,9 @@ supportedLngs.forEach(lang => {
   zrcI18n.addResourceBundle(lang, 'translation', require(`./${lang}.json`))
 })
 
+/* In FEM there's an i18n instance for each library, and each instance has its own useTranslation hook.*/
 export function useTranslation(ns) {
   return useBaseTranslation(ns, { i18n: zrcI18n })
 }
+
 export default zrcI18n
