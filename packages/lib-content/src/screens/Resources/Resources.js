@@ -175,6 +175,7 @@ function Resources() {
               align='center'
               margin={{ top: '0', bottom: 'small' }}
               size='1.5rem'
+              textAlign='center'
             >
               {t('Resources.brand.heading')}
             </SpacedHeading>

@@ -1,2 +1,2 @@
-export { default as AboutHeader } from './components/AboutHeader/AboutHeader.js'
+export { default as FAQ } from './screens/FAQ/FAQ.js'
 export { default as Resources } from './screens/Resources/Resources.js'

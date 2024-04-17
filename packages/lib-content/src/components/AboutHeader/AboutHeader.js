@@ -1,10 +1,27 @@
 import { Box } from 'grommet'
 import { useTranslation } from '../../translations/i18n.js'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
+import styled from 'styled-components'
 
 import NavLink from './components/NavLink'
 
-function AboutHeader({ pathname = '' }) {
+const AboutHeaderBreakpoint = '36rem'
+
+const StyledLogo = styled(ZooniverseLogotype)`
+  @media (width < ${AboutHeaderBreakpoint}) {
+    display: none;
+  }
+`
+
+const StyledBox = styled(Box)`
+  justify-content: left;
+
+  @media (width < ${AboutHeaderBreakpoint}) {
+    justify-content: center;
+  }
+`
+
+function AboutHeader() {
   const { t } = useTranslation()
 
   const links = [
@@ -36,13 +53,12 @@ function AboutHeader({ pathname = '' }) {
         align='center'
         aria-label={`${t('AboutHeader.title')} Zooniverse`}
         direction='row'
-        as='nav'
+        foras='nav'
         background='neutral-1'
         pad={{ horizontal: 'medium' }}
       >
-        <Box
-          align='left'
-          as='ul'
+        <StyledBox
+          forwardedAs='ul'
           direction='row'
           pad={{ left: 'none' }}
           width='100%'
@@ -51,11 +67,11 @@ function AboutHeader({ pathname = '' }) {
         >
           {links.map(link => (
             <Box as='li' key={link.label} pad={{ right: 'small' }}>
-              <NavLink pathname={pathname} color='white' label={link.label} href={link.href} />
+              <NavLink color='white' label={link.label} href={link.href} />
             </Box>
           ))}
-        </Box>
-        <ZooniverseLogotype id="About Zooniverse Header component" color='white' />
+        </StyledBox>
+        <StyledLogo id='About Zooniverse Header component' color='white' />
       </Box>
     </header>
   )

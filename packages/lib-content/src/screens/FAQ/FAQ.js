@@ -1,3 +1,5 @@
+'use client'
+
 import { Anchor, Box, Paragraph, Text } from 'grommet'
 import { Trans, useTranslation } from '../../translations/i18n.js'
 import styled from 'styled-components'
