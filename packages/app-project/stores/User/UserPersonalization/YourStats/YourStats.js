@@ -12,6 +12,22 @@ function statsHost(env) {
   }
 }
 
+export const statsClient = {
+  async fetchDailyStats({ projectId, userId }) {
+    const token = await auth.checkBearerToken()
+    const Authorization = `Bearer ${token}`
+    const stats  = statsHost(env)
+    const queryParams = new URLSearchParams({
+      period: 'day',
+      project_id: projectId
+    }).toString()
+
+    const response = await fetch(`${stats}/classifications/users/${userId}?${queryParams}`, { headers: { Authorization } })
+    const jsonResponse = await response.json()
+    return jsonResponse
+  }
+}
+
 // https://stackoverflow.com/a/51918448/10951669
 function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
   const dayOfWeek = dateObject.getUTCDay()
@@ -74,16 +90,7 @@ const YourStats = types
         self.setLoadingState(asyncStates.loading)
         let dailyCounts
         try {
-          const token = yield auth.checkBearerToken()
-          const Authorization = `Bearer ${token}`
-          const stats  = statsHost(env)
-          const queryParams = new URLSearchParams({
-            period: 'day',
-            project_id: project.id
-          }).toString()
-
-          const statsResponse = yield fetch(`${stats}/classifications/users/${user.id}?${queryParams}`, { headers: { Authorization } })
-          const statsData = yield statsResponse.json()
+          const statsData = yield statsClient.fetchDailyStats({ projectId: project.id, userId: user.id })
           dailyCounts = statsData.data
           self.setLoadingState(asyncStates.success)
         } catch (error) {
