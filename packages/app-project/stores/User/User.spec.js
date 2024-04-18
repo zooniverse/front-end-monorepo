@@ -3,6 +3,9 @@ import * as client from '@zooniverse/panoptes-js'
 import { expect } from 'chai'
 import { when } from 'mobx'
 import nock from 'nock'
+import sinon from 'sinon'
+
+import { statsClient } from './UserPersonalization/YourStats'
 
 import Store from '@stores/Store'
 
@@ -16,6 +19,8 @@ describe('stores > User', function () {
   let userStore
 
   beforeEach(function () {
+    sinon.stub(statsClient, 'fetchDailyStats')
+
     nock('https://panoptes-staging.zooniverse.org/api')
     .persist()
     .get('/users/1/recents')
@@ -57,11 +62,6 @@ describe('stores > User', function () {
     .query(true)
     .reply(200, { notifications: [] })
 
-    nock('https://graphql-stats.zooniverse.org')
-    .persist()
-    .post('/graphql')
-    .reply(200, { data: { statsCount: [] }})
-
     rootStore = Store.create({ project: {
       id: '1',
       loadingState: asyncStates.success
@@ -70,6 +70,7 @@ describe('stores > User', function () {
   })
 
   afterEach(function () {
+    statsClient.fetchDailyStats.restore()
     nock.cleanAll()
   })
 
