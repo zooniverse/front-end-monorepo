@@ -2,7 +2,6 @@ import {
   Anchor,
   Box,
   Button,
-  Heading,
   Image,
   Paragraph,
   Text,
@@ -22,16 +21,6 @@ export default function Highlights() {
 
   return (
     <>
-      <Heading
-        level={3}
-        size='1.5rem'
-        alignSelf='center'
-        weight='normal'
-        margin='0'
-        textAlign='center'
-      >
-        {t('AboutPage.highlights.subheading')}
-      </Heading>
       <Paragraph>
         <Trans
           i18nKey={'AboutPage.highlights.paragraphs.one'}

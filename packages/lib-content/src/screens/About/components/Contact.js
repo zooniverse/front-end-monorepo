@@ -23,16 +23,6 @@ export default function Contact({ widgetLoaded = false }) {
 
   return (
     <Box pad={{ horizontal: 'medium' }}>
-      <Heading
-        alignSelf='center'
-        level={3}
-        margin='0'
-        size='1.5rem'
-        textAlign='center'
-        weight='normal'
-      >
-        {t('AboutPage.contact.subheading')}
-      </Heading>
       <Box
         direction='row'
         gap='xlarge'
@@ -103,7 +93,7 @@ export default function Contact({ widgetLoaded = false }) {
         />
       </Paragraph>
       <Paragraph>{t('AboutPage.contact.paragraphs.two')}</Paragraph>
-      <Box align='center' pad={{ top: 'small', bottom: 'xlarge' }}>
+      <Box align='center' pad={{ top: 'small', bottom: '180px' }}>
         <StyledButton primary textAlign='center' onClick={handleClick}>
           {t('AboutPage.contact.heading')}
         </StyledButton>

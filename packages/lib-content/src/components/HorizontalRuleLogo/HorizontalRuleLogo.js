@@ -136,12 +136,12 @@ const RightElement = styled(Box)`
 function HorizontalRuleLogo() {
   const { dark, global } = useTheme()
   return (
-    <HorizontalRuleLogoContainer align='center' direction='row'>
+    <HorizontalRuleLogoContainer align='center' direction='row' justify='center'>
       <LeftElement />
       <ZooniverseLogo
         id='root-about-zooniverse'
         color={dark ? global.colors['accent-1'] : global.colors['neutral-1']}
-        size='76px'
+        size='48px'
       />
       <RightElement />
     </HorizontalRuleLogoContainer>

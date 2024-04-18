@@ -1,20 +1,10 @@
-import { Anchor, Box, Button, Heading, Image, Text } from 'grommet'
+import { Anchor, Box, Button, Image, Text } from 'grommet'
 import { useTranslation } from '../../translations/i18n.js'
 
 export default function Mobile() {
   const { t } = useTranslation()
   return (
     <Box margin={{ bottom: 'medium' }}>
-      <Heading
-        level={3}
-        size='1.5rem'
-        alignSelf='center'
-        weight='normal'
-        margin='0'
-        textAlign='center'
-      >
-        {t('AboutPage.mobile.subheading')}
-      </Heading>
       <Box align='center'>
         <Image
           alt={t('AboutPage.mobile.altImage')}

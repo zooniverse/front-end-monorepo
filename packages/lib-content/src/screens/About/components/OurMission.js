@@ -2,15 +2,18 @@ import {
   Anchor,
   Box,
   Button,
+  Grid,
   Heading,
   Image,
   Paragraph,
+  ResponsiveContext,
   Text,
   Tip
 } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import { Trans, useTranslation } from '../../../translations/i18n.js'
 import styled from 'styled-components'
+import { useContext } from 'react'
 
 import Stats from '../../../components/Stats/Stats.js'
 
@@ -50,24 +53,17 @@ const Discovery = ({ href, src, labelString }) => (
 
 export default function OurMission() {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
+
   return (
     <>
-      <Heading
-        level={3}
-        size='1.5rem'
-        alignSelf='center'
-        margin='0'
-        textAlign='center'
-        weight='normal'
-        fill
-      >
-        &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
-      </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
         <Trans
           i18nKey='AboutPage.ourMission.paragraphs.one'
           t={t}
-          components={[<Anchor key='publications-page' href='/publications' />]} // after switch to app-root, this will need to be /about/publications
+          components={[
+            <Anchor key='publications-page' href='/about/publications' />
+          ]}
         />
       </Paragraph>
       <Heading level={3} size='1.125rem' textAlign='start' margin='0'>
@@ -157,11 +153,12 @@ export default function OurMission() {
           <Button plain icon={<CircleInformation size='1rem' />} />
         </Tip>
       </Box>
-      <Box
-        direction='row'
-        wrap
-        justify='between'
+      <Grid
+        columns={size === 'small' ? ['8rem', '8rem'] : ['8rem', '8rem', '8rem', '8rem']}
+        rows={size === 'small' ? ['1fr', '1fr'] : 'auto'}
+        justifyContent={size === 'small' ? 'around' : 'between'}
         margin={{ top: 'medium', bottom: 'large' }}
+        gap={size === 'small' ? 'large' : 'none'}
       >
         <Discovery
           href='https://academic.oup.com/mnras/article/399/3/1191/1073770'
@@ -183,7 +180,7 @@ export default function OurMission() {
           src='/assets/star.jpg'
           labelString={t('AboutPage.ourMission.discoveries.four')}
         />
-      </Box>
+      </Grid>
     </>
   )
 }

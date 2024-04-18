@@ -24,6 +24,7 @@ import Contact from './components/Contact.js'
 import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'
 import OurMission from './components/OurMission.js'
+import SubHeading from './components/SubHeading.js'
 
 const StyledAboutHeading = styled(Heading)`
   position: relative;
@@ -94,7 +95,7 @@ function AboutPage() {
           >
             {t('AboutPage.title')}
           </StyledAboutHeading>
-        <HorizontalRuleLogo />
+          <HorizontalRuleLogo />
         </MaxWidthContent>
 
         <StyledGrid>
@@ -110,12 +111,15 @@ function AboutPage() {
             {/** Our Mission */}
             <HeadingForAboutNav
               color={{ light: 'neutral-1', dark: 'accent-1' }}
-              pad={{ top: '30px', bottom: '10px' }}
+              pad={{ top: '40px', bottom: '10px' }}
               sectionIndex={0}
               sectionName={t('AboutPage.ourMission.heading')}
               setActiveSection={setActiveSection}
               slug={sidebarSections[0].slug}
             />
+            <SubHeading>
+              &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
+            </SubHeading>
             <OurMission />
 
             {/** How It Works */}
@@ -129,8 +133,9 @@ function AboutPage() {
                 sectionIndex={2}
                 sectionName={t('AboutPage.mobile.heading')}
                 setActiveSection={setActiveSection}
-                slug={sidebarSections[0].slug}
+                slug={sidebarSections[2].slug}
               />
+              <SubHeading>{t('AboutPage.mobile.subheading')}</SubHeading>
               <Mobile />
             </MaxWidthContent>
 
@@ -144,6 +149,7 @@ function AboutPage() {
                 setActiveSection={setActiveSection}
                 slug={sidebarSections[3].slug}
               />
+              <SubHeading>{t('AboutPage.highlights.subheading')}</SubHeading>
               <Highlights />
             </MaxWidthContent>
 
@@ -157,6 +163,7 @@ function AboutPage() {
                 setActiveSection={setActiveSection}
                 slug={sidebarSections[4].slug}
               />
+              <SubHeading>{t('AboutPage.contact.subheading')}</SubHeading>
               <Contact widgetLoaded={widgetLoaded} />
             </MaxWidthContent>
           </article>
