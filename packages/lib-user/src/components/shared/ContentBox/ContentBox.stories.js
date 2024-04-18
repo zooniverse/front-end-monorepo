@@ -82,11 +82,11 @@ export const TopProjectsSplit = {
         columns='1/3'
         gap='small'
       >
-        <ProjectCard {...NfnCaliFlowers.args} small />
-        <ProjectCard {...NestQuestGo.args} small />
-        <ProjectCard {...PlanetHuntersTess.args} small />
-        <ProjectCard {...CorrespondingWithQuakers.args} small />
-        <ProjectCard {...WildwatchKenya.args} small />
+        <ProjectCard {...NfnCaliFlowers.args} size='small' />
+        <ProjectCard {...NestQuestGo.args} size='small' />
+        <ProjectCard {...PlanetHuntersTess.args} size='small' />
+        <ProjectCard {...CorrespondingWithQuakers.args} size='small' />
+        <ProjectCard {...WildwatchKenya.args} size='small' />
       </Grid>
     </ContentBox>
   )

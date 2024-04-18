@@ -19,14 +19,14 @@ describe('Stores > Notifications', function () {
   }
 
   before(function () {
-    sinon.stub(statsClient, 'request')
+    sinon.stub(statsClient, 'fetchDailyStats')
     sinon.stub(sugarClient, 'subscribeTo')
     sinon.stub(sugarClient, 'on')
     sinon.stub(sugarClient, 'unsubscribeFrom')
   })
 
   after(function () {
-    statsClient.request.restore()
+    statsClient.fetchDailyStats.restore()
     sugarClient.subscribeTo.restore()
     sugarClient.on.restore()
     sugarClient.unsubscribeFrom.restore()
