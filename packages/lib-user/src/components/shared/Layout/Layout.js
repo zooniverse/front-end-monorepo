@@ -1,7 +1,8 @@
 'use client'
 
+import { ZooniverseLogotype } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { node } from 'prop-types'
+import { arrayOf, node } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 const PageContainer = styled(Box)`
@@ -21,8 +22,18 @@ const PageContainer = styled(Box)`
   }
 `
 
+const PageLeftHeader = styled(Box)`
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+`
+
 const PageHeader = styled(Box)`
-  grid-column: 1 / 6;
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+`
+
+const PageRightHeader = styled(Box)`
+  grid-column: 4 / 6;
   grid-row: 1 / 3;
 `
 
@@ -111,12 +122,41 @@ const PageRightColumn = styled(Box)`
   }
 `
 
-function Layout ({ children }) {
+function Layout ({
+  children,
+  primaryHeaderItem = '',
+  secondaryHeaderItems = []
+}) {
   return (
     <PageContainer>
+      <PageLeftHeader background='neutral-1' />
       <PageHeader
-        background="brand"
-      />
+        background='neutral-1'
+        direction='row'
+        justify='between'
+      >
+        <Box
+          align='center'
+          direction='row'
+          justify='start'
+          height='50%'
+        >
+          {primaryHeaderItem}
+        </Box>
+        <Box
+          align='center'
+          justify='end'
+          direction='row'
+          gap='small'
+          height='50%'
+        >
+          {(secondaryHeaderItems.length > 0)
+            ? secondaryHeaderItems.map((Component, index) => (
+              <Component key={`SecondaryHeaderIndex${index}`} />
+            )) : <ZooniverseLogotype id='HeaderZooniverseLogo' />}
+        </Box>
+      </PageHeader>
+      <PageRightHeader background='neutral-1' />
       <PageLeftColumn 
         background={{
           dark: 'dark-3',
@@ -143,7 +183,9 @@ function Layout ({ children }) {
 }
 
 Layout.propTypes = {
-  children: node
+  children: node,
+  primaryHeaderItem: node,
+  secondaryHeaderItems: arrayOf(node)
 }
 
 export default Layout
