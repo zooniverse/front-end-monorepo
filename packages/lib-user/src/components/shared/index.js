@@ -1,5 +1,6 @@
 export { default as BarChart } from './BarChart'
 export { default as ContentBox } from './ContentBox'
+export { default as HeaderLink } from './HeaderLink'
 export { default as Layout } from './Layout'
 export { default as MainContent } from './MainContent'
 export { default as ProfileHeader } from './ProfileHeader'

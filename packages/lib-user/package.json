@@ -41,6 +41,7 @@
     "@zooniverse/grommet-theme": "3.x.x",
     "@zooniverse/react-components": "~1.x.x",
     "grommet": "2.x.x",
+    "grommet-icons": "~4.x.x",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
     "styled-components": "~5.x.x"
