@@ -1,6 +1,7 @@
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import {
+  HeaderLink,
   Layout,
   MainContent,
 } from '@components/shared'
@@ -42,10 +43,10 @@ function UserStats({
   // set top projects based on selected date range and all project stats
   let topProjects = []
   const topProjectContributions = allProjectsStats.project_contributions
-    .sort((a, b) => b.count - a.count)
+    ?.sort((a, b) => b.count - a.count)
 
   topProjects = topProjectContributions
-    .map(projectContribution => {
+    ?.map(projectContribution => {
       const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
       return projectData
     })
@@ -53,7 +54,14 @@ function UserStats({
     .slice(0, 5)
 
   return (
-    <Layout>
+    <Layout
+      primaryHeaderItem={
+        <HeaderLink
+          href={`/users/${user?.login}`}
+          label='back to profile'
+        />
+      }
+    >
       <MainContent
         handleDateRangeSelect={handleDateRangeSelect}
         handleProjectSelect={handleProjectSelect}
