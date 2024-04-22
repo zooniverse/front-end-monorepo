@@ -46,7 +46,7 @@ function ProfileHeader ({
           gap={screenSize === 'small' ? 'none' : 'small'}
         >
           <SpacedText
-            color='brand'
+            color='neutral-1'
             size='large'
             weight='bold'
           >
