@@ -1,29 +1,18 @@
 import CloseButton from './CloseButton'
-// import readme from './README.md'
 
 export default {
   title: 'Components/CloseButton',
-  component: CloseButton,
-  args: {
-    closeFn: () => true
-  },
-  // parameters: {
-  //   docs: {
-  //     description: {
-  //       component: readme
-  //     }
-  //   }
-  // }
+  component: CloseButton
 }
 
-export const Default = ({ closeFn }) => (
-  <CloseButton closeFn={closeFn} />
+export const Default = () => (
+  <CloseButton />
 )
 
-export const Light = ({ closeFn }) => (
-  <CloseButton color='neutral-6' closeFn={closeFn} />
+export const CustomColor = () => (
+  <CloseButton color='neutral-6' />
 )
 
-export const Disabled = ({ closeFn }) => (
-  <CloseButton disabled closeFn={closeFn} />
+export const Disabled = () => (
+  <CloseButton disabled />
 )
