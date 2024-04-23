@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
-import { number, object, oneOf, oneOfType, string } from 'prop-types'
-import styled, { css, useTheme } from 'styled-components'
+import { bool, number, object, oneOf, oneOfType, shape, string } from 'prop-types'
+import styled, { css, withTheme } from 'styled-components'
 
 export const SVG = styled.svg`
   display: block;
@@ -22,10 +22,9 @@ function Triangle({
   justify = 'center',
   pad = defaultPad,
   pointDirection = 'up',
+  theme,
   width = 20
 }) {
-  const theme = useTheme()
-
   let fill
   const { colors } = theme.global
   if (color) {
@@ -60,7 +59,16 @@ Triangle.propTypes = {
   justify: oneOf(['start', 'center', 'end']),
   pad: oneOfType([object, string]),
   pointDirection: oneOf(['down', 'left', 'right', 'up']),
+  theme: shape({
+    global: shape({
+      colors: shape({
+        'dark-2': string,
+        'neutral-6': string
+      })
+    }),
+    dark: bool
+  }),
   width: number
 }
 
-export default Triangle
+export default withTheme(Triangle)
