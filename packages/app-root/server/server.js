@@ -28,7 +28,7 @@ app.prepare().then(async () => {
   try {
     selfsigned = await import('selfsigned')
   } catch (error) {
-    console.error(error)
+    console.info(error)
   }
   if (APP_ENV === 'development' && selfsigned) {
     const https = await import('https')

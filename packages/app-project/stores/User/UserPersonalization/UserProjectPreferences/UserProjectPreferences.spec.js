@@ -10,6 +10,7 @@ import { statsClient } from '../YourStats'
 import UserProjectPreferences, { Settings } from './UserProjectPreferences'
 import { expect } from 'chai'
 
+
 describe('Stores > UserProjectPreferences', function () {
   const project = {
     id: '2',
@@ -71,12 +72,12 @@ describe('Stores > UserProjectPreferences', function () {
   }
 
   before(function () {
-    sinon.stub(statsClient, 'request')
+    sinon.stub(statsClient, 'fetchDailyStats')
     sinon.stub(talkAPI, 'get').resolves([])
   })
 
   after(function () {
-    statsClient.request.restore()
+    statsClient.fetchDailyStats.restore()
     talkAPI.get.restore()
   })
 

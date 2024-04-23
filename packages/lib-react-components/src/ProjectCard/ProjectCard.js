@@ -1,39 +1,11 @@
 import { Box } from 'grommet'
-import { bool, string } from 'prop-types'
-import styled, { css } from 'styled-components'
-import { SpacedText } from '@zooniverse/react-components'
+import { string } from 'prop-types'
+import styled from 'styled-components'
+import SpacedText from '../SpacedText'
 
 const StyledProjectCard = styled(Box)`
-  font-size: 0.625rem;
-  height: 200px;
   text-decoration: none;
-  width: 157px;
-
-  > .project-image {
-    height: 157px;
-  }
-
-  ${props => !props.small && css`
-    @media (768px < width <= 1280px) {
-      font-size: 0.656rem;
-      height: 240px;
-      width: 189px;
-
-      > .project-image {
-        height: 189px;
-      }
-    }
-
-    @media (width > 1280px) {
-      font-size: 0.688rem;
-      height: 280px;
-      width: 220px;
-
-      > .project-image {
-        height: 220px;
-      }
-    }
-  `}
+  font-size: ${props => props.cardFontSize};
 `
 
 const StyledProjectContent = styled(Box)`
@@ -70,12 +42,42 @@ const StyledProjectDescription = styled(SpacedText)`
   }
 `
 
+function cardWidth (size) {
+  switch (size) {
+    case 'small':
+      return 157;
+    case 'medium':
+      return 189;
+    case 'large':
+      return 220;
+    case 'xlarge':
+      return 252;
+    default:
+      return 189;
+  }
+}
+
+function cardFontSize (size) {
+  switch (size) {
+    case 'small':
+      return '0.625rem';
+    case 'medium':
+      return '0.656rem';
+    case 'large':
+      return '0.688rem';
+    case 'xlarge':
+      return '0.688rem';
+    default:
+      return '0.656rem';
+  }
+}
+
 function ProjectCard ({
   description = '',
   displayName = '',
   href = '',
   imageSrc = '',
-  small = false
+  size = 'medium',
 }) {
   return (
     <StyledProjectCard
@@ -84,7 +86,9 @@ function ProjectCard ({
       forwardedAs='a'
       href={href}
       round='8px'
-      small={small}
+      cardFontSize={cardFontSize(size)}
+      height={`${cardWidth(size) * 14 / 11}px`}
+      width={`${cardWidth(size)}px`}
     >
       <Box
         className='project-image'
@@ -93,6 +97,7 @@ function ProjectCard ({
           position: 'top',
           size: 'cover',
         }}
+        height={`${cardWidth(size)}px`}
         round={{ corner: 'top', size: '8px' }}
       >
       </Box>
@@ -128,7 +133,7 @@ ProjectCard.propTypes = {
   displayName: string,
   href: string,
   imageSrc: string,
-  small: bool
+  size: string
 }
 
 export default ProjectCard

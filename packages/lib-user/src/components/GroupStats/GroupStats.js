@@ -1,11 +1,11 @@
 import { Grid } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
 import {
   ContentBox,
   Layout,
-  MainContent,
-  ProjectCard
+  MainContent
 } from '@components/shared'
 
 import DeleteGroup from './DeleteGroup'
@@ -51,7 +51,7 @@ function GroupStats({
 }) {
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
-  
+
   // set top projects based on selected date range and all project stats
   let topProjects = []
   const topProjectContributions = allProjectsStats.project_contributions
@@ -104,7 +104,7 @@ function GroupStats({
                   displayName={topProject?.display_name}
                   href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
                   imageSrc={topProject?.avatar_src}
-                  small
+                  size='small'
                 />
               )
             })}
