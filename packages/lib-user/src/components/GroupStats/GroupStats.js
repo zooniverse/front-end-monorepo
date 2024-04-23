@@ -1,11 +1,11 @@
 import { Grid } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
 import {
   ContentBox,
   Layout,
-  MainContent,
-  ProjectCard
+  MainContent
 } from '@components/shared'
 
 import DeleteGroup from './DeleteGroup'

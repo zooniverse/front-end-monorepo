@@ -8,7 +8,6 @@ export { default as BarChart } from './components/shared/BarChart'
 export { default as ContentBox } from './components/shared/ContentBox'
 export { default as Layout } from './components/shared/Layout'
 export { default as ProfileHeader } from './components/shared/ProfileHeader'
-export { default as ProjectCard } from './components/shared/ProjectCard'
 export { default as Select } from './components/shared/Select'
 export { default as Tabs } from './components/shared/Tabs'
 
