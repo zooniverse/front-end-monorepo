@@ -29,6 +29,7 @@ describe('Stores > YourStats', function () {
       { count: 8, period: '2019-10-05' },
       { count: 15, period: '2019-10-06' }
     ]
+
     nockScope = nock('https://panoptes-staging.zooniverse.org/api')
       .persist()
       .get('/project_preferences')
@@ -45,13 +46,15 @@ describe('Stores > YourStats', function () {
       .query(true)
       .reply(200)
     rootStore = initStore(true, { project })
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
+    sinon.stub(statsClient, 'fetchDailyStats').callsFake(({ projectId, userId }) => (projectId === '2' && userId === '123') ?
+      Promise.resolve({ data: MOCK_DAILY_COUNTS }) :
+      Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`)))
     sinon.stub(talkAPI, 'get')
   })
 
   after(function () {
     console.error.restore()
-    statsClient.request.restore()
+    statsClient.fetchDailyStats.restore()
     talkAPI.get.restore()
     nock.cleanAll()
   })
@@ -78,25 +81,12 @@ describe('Stores > YourStats', function () {
     })
 
     it('should request user statistics', function () {
-      const query = `{
-        statsCount(
-          eventType: "classification",
-          interval: "1 Day",
-          window: "1 Week",
-          projectId: "2",
-          userId: "123"
-        ){
-          period,
-          count
-        }
-      }`
-
-      expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
+      expect(statsClient.fetchDailyStats).to.have.been.calledOnceWith({ projectId: '2', userId: '123' })
     })
 
     describe('weekly classification stats', function () {
       it('should be created', function () {
-        expect(rootStore.user.personalization.stats.thisWeek.length).to.equal(7)
+        expect(getSnapshot(rootStore.user.personalization.stats.thisWeek).length).to.equal(7)
       })
 
       it('should start on Monday', function () {
