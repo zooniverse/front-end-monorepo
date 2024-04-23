@@ -1,17 +1,19 @@
-import PropTypes from 'prop-types'
+import { array, bool, node, object, oneOf, oneOfType, shape, string } from 'prop-types'
 import { Box } from 'grommet'
-import { withTheme } from 'styled-components'
+import { useTheme } from 'styled-components'
+
 import SpacedText from '../../../SpacedText'
 import Triangle from '../Triangle'
 
-function Label ({ animation, arrow, className, label, theme, ...rest }) {
-  const { family } = theme.global.font
-  const placement = rest['data-placement'] // the attr from the render function of the tippy tooltip
+function Label ({ animation = 'fadeIn', arrow = true, className = '', label, ...rest }) {
+  const { global } = useTheme()
+  const { family } = global.font
+
+  // the attr from the render function of the tippy tooltip
+  const placement = rest['data-placement'] || 'top'
 
   return (
-    <Box 
-      animation={animation}
-    >
+    <Box animation={animation}>
       {arrow && placement === 'bottom' &&
         <Triangle color='black' pointDirection='up' width={10} height={10} />}
       <Box
@@ -29,38 +31,17 @@ function Label ({ animation, arrow, className, label, theme, ...rest }) {
   )
 }
 
-Label.defaultProps = {
-  arrow: true,
-  animation: 'fadeIn',
-  className: '',
-  'data-placement': 'top',
-  theme: {
-    global: {
-      font: {
-        family: ''
-      }
-    }
-  }
-}
 
 Label.propTypes = {
-  arrow: PropTypes.bool,
-  animation: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-    PropTypes.object
+  arrow: bool,
+  animation: oneOfType([
+    string,
+    array,
+    object
   ]),
-  className: PropTypes.string,
-  label: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]).isRequired,
-  'data-placement': PropTypes.oneOf([ 'bottom', 'top' ]),
-  theme: PropTypes.shape({
-    global: PropTypes.shape({
-      font: PropTypes.shape({
-        family: PropTypes.string
-      })
-    })
-  })
+  className: string,
+  label: oneOfType([ string, node ]).isRequired,
+  'data-placement': oneOf([ 'bottom', 'top' ])
 }
 
-export default withTheme(Label)
-export { Label }
+export default Label
