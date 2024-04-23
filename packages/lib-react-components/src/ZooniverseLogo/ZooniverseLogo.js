@@ -1,7 +1,7 @@
 import { string } from 'prop-types'
 import { useTranslation } from '../translations/i18n'
 
-export default function ZooniverseLogo ({ id, size, ...rest }) {
+export default function ZooniverseLogo ({ id, size = '1em', ...rest }) {
   const { t } = useTranslation()
 
   return (
@@ -28,8 +28,4 @@ export default function ZooniverseLogo ({ id, size, ...rest }) {
 ZooniverseLogo.propTypes = {
   id: string.isRequired,
   size: string
-}
-
-ZooniverseLogo.defaultProps = {
-  size: '1em'
 }
