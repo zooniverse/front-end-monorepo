@@ -84,13 +84,13 @@ const Workflow = types
     get usesMachineLearnt() {
       const toolTypes = ['circle', 'ellipse', 'freehandLine', 'line', 'point', 'polygon', 'rectangle', 'rotateRectangle'];
 
-      const anyFreehandLineTool = self.tasks && Object.values(self.tasks)
+      const hasAnyMatchingToolType = self.tasks && Object.values(self.tasks)
         .filter(task => !!task.tools)
         .some(task => {
           return task.tools.some(tool => toolTypes.includes(tool.type))
         })
 
-      return anyFreehandLineTool
+      return hasAnyMatchingToolType
     }
   }))
 

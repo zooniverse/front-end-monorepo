@@ -5,8 +5,8 @@ import DrawingToolMarks from './DrawingToolMarks'
 
 function withMachineLearntReductions(Component) {
   function WithMachineLearntReductions(props, ref) {
-    const freehandLineProps = useMachineLearntReductions()
-    return <Component ref={ref} {...props} {...freehandLineProps} />
+    const taskProps = useMachineLearntReductions()
+    return <Component ref={ref} {...props} {...taskProps} />
   }
   return observer(forwardRef(WithMachineLearntReductions))
 }
