@@ -8,7 +8,7 @@ A library for components used in content pages such as About Zooniverse, Get Inv
 yarn storybook
 ```
 
-Starts a dev storybook at .
+Starts a dev storybook on port 6005.
 
 ## Tests
 
