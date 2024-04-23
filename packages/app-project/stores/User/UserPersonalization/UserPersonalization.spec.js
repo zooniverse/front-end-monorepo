@@ -56,14 +56,16 @@ describe('Stores > UserPersonalization', function () {
 
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
+    sinon.stub(statsClient, 'fetchDailyStats').callsFake(({ projectId, userId }) => (projectId === '2' && userId === '123') ?
+      Promise.resolve({ data: MOCK_DAILY_COUNTS }) :
+      Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`)))
     sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
-    statsClient.request.restore()
+    statsClient.fetchDailyStats.restore()
     talkAPI.get.restore()
     nock.cleanAll()
   })
@@ -97,19 +99,7 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should trigger the child YourStats node to request user statistics', function () {
-      const query = `{
-        statsCount(
-          eventType: "classification",
-          interval: "1 Day",
-          window: "1 Week",
-          projectId: "2",
-          userId: "123"
-        ){
-          period,
-          count
-        }
-      }`
-      expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
+      expect(statsClient.fetchDailyStats).to.have.been.calledOnceWith({ projectId: '2', userId: '123' })
     })
 
     it('should trigger the child Notifications store to request unread notifications', function () {
