@@ -151,9 +151,15 @@ function Layout ({
           height='50%'
         >
           {(secondaryHeaderItems.length > 0)
-            ? secondaryHeaderItems.map((Component, index) => (
-              <Component key={`SecondaryHeaderIndex${index}`} />
-            )) : <ZooniverseLogotype id='HeaderZooniverseLogo' />}
+            ? secondaryHeaderItems.map((HeaderItem) => (
+              HeaderItem
+            ))
+            : (
+              <ZooniverseLogotype
+                id='HeaderZooniverseLogo'
+                color='white'
+              />
+            )}
         </Box>
       </PageHeader>
       <PageRightHeader background='neutral-1' />
