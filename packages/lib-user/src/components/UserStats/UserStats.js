@@ -59,7 +59,7 @@ function UserStats({
         <HeaderLink
           href={`/users/${user?.login}`}
           label='back to profile'
-          pad={{ left: 'xxsmall', right: 'medium' }}
+          primaryItem={true}
         />
       }
     >

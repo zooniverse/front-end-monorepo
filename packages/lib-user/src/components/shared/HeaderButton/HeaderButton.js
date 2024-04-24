@@ -1,7 +1,9 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { Button } from 'grommet'
+import { bool, node, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
-const HeaderButton = styled(Button)`
+const StyledButton = styled(Button)`
   ${props => css`
     color: ${props.theme.global.colors.white};
     background: ${props.theme.global.colors['neutral-1']};`
@@ -24,5 +26,37 @@ const HeaderButton = styled(Button)`
     box-shadow: none;
   }
 `
+
+function HeaderButton({
+  icon,
+  label,
+  primaryItem = false,
+  ...rest
+}) {
+  const padding = primaryItem ? { left: 'xxsmall', right: 'medium' } : { horizontal: 'medium' }
+
+  return (
+    <StyledButton
+      gap={primaryItem ? 'small' : 'xsmall'}
+      icon={icon}
+      label={
+        <SpacedText
+          size='14px'
+          weight={700}
+        >
+          {label}
+        </SpacedText>
+      }
+      pad={padding}
+      {...rest}
+    />
+  )
+}
+
+HeaderButton.propTypes = {
+  icon: node,
+  label: string.isRequired,
+  primaryItem: bool
+}
 
 export default HeaderButton

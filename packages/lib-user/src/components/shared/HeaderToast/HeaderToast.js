@@ -1,4 +1,3 @@
-import { SpacedText } from '@zooniverse/react-components'
 import { Notification } from 'grommet'
 import { node, string } from 'prop-types'
 import { useState } from 'react'
@@ -6,7 +5,6 @@ import { useState } from 'react'
 import { HeaderButton } from '@components/shared'
 
 function HeaderToast({
-  icon = null,
   label,
   message,
   textToCopy,
@@ -34,8 +32,7 @@ function HeaderToast({
   return (
     <>
       <HeaderButton
-        icon={icon}
-        label={<SpacedText size='14px' weight={700}>{label}</SpacedText>}
+        label={label}
         onClick={onOpen}
         {...rest}
       />

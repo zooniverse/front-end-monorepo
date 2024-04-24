@@ -24,7 +24,7 @@ function ComponentDecorator(Story) {
       <Box direction='row' flex='shrink'>
         <Story />
       </Box>
-      <p>Past copied text here:</p>
+      <p>Paste copied text here:</p>
       <textarea />
     </Box>
   )
@@ -32,7 +32,6 @@ function ComponentDecorator(Story) {
 
 export const CopyJoinLink = {
   args: {
-    gap: 'xsmall',
     icon: <Link color='white' size='small' />,
     label: 'Copy Join Link',
     message: 'Join Link Copied!',
@@ -42,7 +41,6 @@ export const CopyJoinLink = {
 
 export const ShareGroup = {
   args: {
-    gap: 'xsmall',
     icon: <CopyIcon color='white' size='small' />,
     label: 'Share Group',
     message: 'Group Link Copied!',

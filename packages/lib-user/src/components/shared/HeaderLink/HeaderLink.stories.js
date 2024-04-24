@@ -25,9 +25,10 @@ function ComponentDecorator(Story) {
   )
 }
 
-export const Default = {
+export const HeaderLinkPrimaryItem = {
   args: {
     href: '/users/testUser',
-    label: 'back to profile'
+    label: 'back to profile',
+    primaryItem: true
   }
 }

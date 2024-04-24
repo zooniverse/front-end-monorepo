@@ -1,4 +1,3 @@
-import { SpacedText } from '@zooniverse/react-components'
 import { Grid } from 'grommet'
 import { Link } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
@@ -78,25 +77,22 @@ function GroupStats({
         <HeaderLink
           href={`/groups`}
           label='Back to Groups'
+          primaryItem={true}
         />
       }
       secondaryHeaderItems={[
         <HeaderToast
           key='copy-join-link-toast'
-          gap='xsmall'
           icon={<Link color='white' size='small' />}
           label='Copy Join Link'
           message='Join Link Copied!'
-          pad={{ horizontal: 'medium' }}
           textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
         />,
         <HeaderButton
           key='manage-group-button'
-          gap='xsmall'
           icon={<GearIcon color='white' size='small' />}
-          label={<SpacedText size='14px' weight={700}>Manage Group</SpacedText>}
+          label='Manage Group'
           onClick={() => alert('Coming soon!')}
-          pad={{ horizontal: 'medium' }}
         />
       ]}
     >

@@ -1,6 +1,5 @@
-import { SpacedText } from '@zooniverse/react-components'
 import { FormPrevious } from 'grommet-icons'
-import { string } from 'prop-types'
+import { bool, string } from 'prop-types'
 
 import { HeaderButton } from '@components/shared'
 
@@ -13,7 +12,7 @@ function HeaderLink({
     <HeaderButton
       href={href}
       icon={<FormPrevious color='white' />}
-      label={<SpacedText size='14px' weight={700}>{label}</SpacedText>}
+      label={label}
       {...rest}
     />
   )
