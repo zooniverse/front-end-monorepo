@@ -1,12 +1,15 @@
+'use client'
+import { usePathname } from 'next/navigation'
+import { AboutHeader } from '@zooniverse/content'
+
 export default function AboutPage() {
-  // aria-label needs translation
+  const pathname = usePathname()
+
   return (
     <>
-      <header aria-label='About the Zooniverse'>
-        <p>This is the section header.</p>
-      </header>
+      <AboutHeader pathname={pathname} />
       <div>
-        <p>This is lib-content-pages</p>
+        <p>This is lib-content</p>
       </div>
     </>
   )
