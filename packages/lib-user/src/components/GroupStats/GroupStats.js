@@ -1,12 +1,19 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { Grid } from 'grommet'
+import { Link } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import {
   ContentBox,
+  HeaderButton,
+  HeaderLink,
+  HeaderToast,
   Layout,
   MainContent,
   ProjectCard
 } from '@components/shared'
+
+import GearIcon from './components/GearIcon'
 
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
@@ -55,10 +62,10 @@ function GroupStats({
   // set top projects based on selected date range and all project stats
   let topProjects = []
   const topProjectContributions = allProjectsStats.project_contributions
-    .sort((a, b) => b.count - a.count)
+    ?.sort((a, b) => b.count - a.count)
 
   topProjects = topProjectContributions
-    .map(projectContribution => {
+    ?.map(projectContribution => {
       const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
       return projectData
     })
@@ -66,7 +73,33 @@ function GroupStats({
     .slice(0, 6)
 
   return (
-    <Layout>
+    <Layout
+      primaryHeaderItem={
+        <HeaderLink
+          href={`/groups`}
+          label='Back to Groups'
+        />
+      }
+      secondaryHeaderItems={[
+        <HeaderToast
+          key='copy-join-link-toast'
+          gap='xsmall'
+          icon={<Link color='white' size='small' />}
+          label='Copy Join Link'
+          message='Join Link Copied!'
+          pad={{ horizontal: 'medium' }}
+          textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
+        />,
+        <HeaderButton
+          key='manage-group-button'
+          gap='xsmall'
+          icon={<GearIcon color='white' size='small' />}
+          label={<SpacedText size='14px' weight={700}>Manage Group</SpacedText>}
+          onClick={() => alert('Coming soon!')}
+          pad={{ horizontal: 'medium' }}
+        />
+      ]}
+    >
       <MainContent
         handleDateRangeSelect={handleDateRangeSelect}
         handleProjectSelect={handleProjectSelect}
