@@ -1,5 +1,5 @@
 import { Box, Heading } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import { Media, ZooniverseLogo } from '@zooniverse/react-components'
 import styled from 'styled-components'
@@ -118,7 +118,6 @@ function Project({
 Project.propTypes = {
   avatarSrc: string,
   projectId: string,
-  title: string,
   publications: arrayOf(
     shape({
       authors: string,
@@ -126,7 +125,10 @@ Project.propTypes = {
       url: string,
       year: string
     })
-  )
+  ),
+  sectionIndex: number,
+  setActiveSection: func,
+  title: string,
 }
 
 export default Project
