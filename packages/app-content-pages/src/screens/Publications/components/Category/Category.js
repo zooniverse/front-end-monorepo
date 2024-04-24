@@ -21,7 +21,12 @@ function Category({
         slug={slug}
       />
       {projects.map(project => (
-        <Project {...project} key={project.title} />
+        <Project
+          {...project}
+          key={project.title}
+          sectionIndex={sectionIndex}
+          setActiveSection={setActiveSection}
+        />
       ))}
     </Box>
   )
