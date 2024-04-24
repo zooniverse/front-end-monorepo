@@ -1,5 +1,5 @@
-import { FormPrevious } from 'grommet-icons'
-import { bool, string } from 'prop-types'
+import { Previous } from 'grommet-icons'
+import { string } from 'prop-types'
 
 import { HeaderButton } from '@components/shared'
 
@@ -11,7 +11,7 @@ function HeaderLink({
   return (
     <HeaderButton
       href={href}
-      icon={<FormPrevious color='white' />}
+      icon={<Previous color='white' size='small' />}
       label={label}
       {...rest}
     />

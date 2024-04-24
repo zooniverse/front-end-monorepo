@@ -122,7 +122,7 @@ const PageRightColumn = styled(Box)`
   }
 `
 
-function Layout ({
+function Layout({
   children,
   primaryHeaderItem = '',
   secondaryHeaderItems = []

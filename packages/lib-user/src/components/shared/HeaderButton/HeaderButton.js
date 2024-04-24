@@ -33,7 +33,7 @@ function HeaderButton({
   primaryItem = false,
   ...rest
 }) {
-  const padding = primaryItem ? { left: 'xxsmall', right: 'medium' } : { horizontal: 'medium' }
+  const padding = primaryItem ? { left: 'xsmall', right: 'medium' } : { horizontal: 'medium' }
 
   return (
     <StyledButton
