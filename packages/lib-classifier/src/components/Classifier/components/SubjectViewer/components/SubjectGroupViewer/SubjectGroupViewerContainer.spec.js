@@ -1,7 +1,11 @@
 import { mount } from 'enzyme'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 
 import asyncStates from '@zooniverse/async-states'
+
+import SubjectType from '@store/SubjectStore/SubjectType'
+import mockStore from '@test/mockStore'
 import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
@@ -38,11 +42,16 @@ describe('Component > SubjectGroupViewerContainer', function () {
     }
   }
 
+  const store = mockStore()
   describe('without a subject', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = mount(<SubjectGroupViewerContainer onError={onError} />)
+      wrapper = mount(
+        <Provider classifierStore={store}>
+          <SubjectGroupViewerContainer onError={onError} />
+        </Provider>
+      )
     })
 
     it('should render without crashing', function () {
@@ -50,7 +59,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
     })
 
     it('should render null', function () {
-      expect(wrapper.html()).to.be.null()
+      expect(wrapper.html()).to.be.empty()
     })
   })
 
@@ -61,7 +70,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
     beforeEach(function (done) {
       onReady.callsFake(() => done())
       onError.callsFake(() => done())
-      const subject = {
+      const subjectSnapshot = {
         id: 'test',
         locations: [
           { 'image/jpeg': 'https://some.domain/image.jpg' },
@@ -75,18 +84,21 @@ describe('Component > SubjectGroupViewerContainer', function () {
           default_frame: "0"
         }
       }
+      const subject = SubjectType.create(subjectSnapshot)
       wrapper = mount(
-        <SubjectGroupViewerContainer
-          ImageObject={ValidImage}
-          subject={subject}
-          loadingState={asyncStates.success}
-          onError={onError}
-          onReady={onReady}
-          cellWidth={cellWidth}
-          cellHeight={cellHeight}
-          gridColumns={gridColumns}
-          gridRows={gridRows}
-        />
+        <Provider classifierStore={store}>
+          <SubjectGroupViewerContainer
+            ImageObject={ValidImage}
+            subject={subject}
+            loadingState={asyncStates.success}
+            onError={onError}
+            onReady={onReady}
+            cellWidth={cellWidth}
+            cellHeight={cellHeight}
+            gridColumns={gridColumns}
+            gridRows={gridRows}
+          />
+        </Provider>
       )
     })
 
@@ -119,19 +131,22 @@ describe('Component > SubjectGroupViewerContainer', function () {
     beforeEach(function (done) {
       onReady.callsFake(() => done())
       onError.callsFake(() => done())
-      const subject = {
+      const subjectSnapshot = {
         id: 'test',
         locations: [
-          { 'image/jpeg': '' }
+          { 'image/jpeg': 'http://domain/path/file.jpg' }
         ]
       }
+      const subject = SubjectType.create(subjectSnapshot)
       wrapper = mount(
-        <SubjectGroupViewerContainer
-          ImageObject={InvalidImage}
-          subject={subject}
-          onError={onError}
-          onReady={onReady}
-        />
+        <Provider classifierStore={store}>
+          <SubjectGroupViewerContainer
+            ImageObject={InvalidImage}
+            subject={subject}
+            onError={onError}
+            onReady={onReady}
+          />
+        </Provider>
       )
     })
 

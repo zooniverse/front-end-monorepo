@@ -1,106 +1,27 @@
-import { mount, shallow } from 'enzyme'
-import { Grommet } from 'grommet'
-import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
-import { MetaToolsButton } from '@zooniverse/react-components'
-import CollectionsButton from './CollectionsButton'
-import CollectionsIcon from './CollectionsIcon'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { CollectionsButton } from './CollectionsButton.stories.js'
 
 describe('Component > CollectionsButton', function () {
-  let wrapper
-  const subject = {
-    favorite: false,
-    id: '12345',
-    locations: [
-      { 'image/jpeg': 'https://somedomain/photo.jpg' }
-    ],
-    toggleFavourite: () => false
-  }
-
-  before(function () {
-    wrapper = shallow(<CollectionsButton subject={subject} />)
+  beforeEach(function () {
+    const CollectionsButtonStory = composeStory(CollectionsButton, Meta)
+    render(<CollectionsButtonStory />)
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should render the CollectionsButton', function () {
+    expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
   })
 
-  it('should display a Collect icon', function () {
-    const button = wrapper.find(MetaToolsButton)
-    const { icon } = button.props()
-    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='15px' />)
-  })
-
-  describe('on click', function () {
-    let onClick
-    let collectionsModal
-
-    before(function () {
-      onClick = sinon.stub()
-      wrapper = mount(
-        <CollectionsButton
-          onClick={onClick}
-          subject={subject}
-        />,
-        {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        }
-      )
-      collectionsModal = wrapper.find('CollectionsModalContainer').instance()
-      sinon.stub(collectionsModal, 'open')
-    })
-
-    afterEach(function () {
-      collectionsModal.open.resetHistory()
-      onClick.resetHistory()
-    })
-
-    it('should open a collections modal', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(collectionsModal.open.withArgs(subject.id)).to.have.been.calledOnce()
-    })
-
-    it('should call props.onClick', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClick).to.have.been.calledOnce()
-    })
-  })
-
-  describe('when disabled', function () {
-    let onClick
-    let collectionsModal
-
-    before(function () {
-      onClick = sinon.stub()
-      wrapper = mount(
-        <CollectionsButton
-          disabled
-          onClick={onClick}
-          subject={subject}
-        />,
-        {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        }
-      )
-      collectionsModal = wrapper.find('CollectionsModalContainer').instance()
-      sinon.spy(collectionsModal, 'open')
-    })
-
-    afterEach(function () {
-      collectionsModal.open.resetHistory()
-      onClick.resetHistory()
-    })
-
-    it('should not open a collections modal', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(collectionsModal.open).to.not.have.been.called()
-    })
-
-    it('should not be clickable', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClick).to.not.have.been.called()
+  // NOTE: We do not test the CollectionsModal functionality here.
+  // It is tested in the CollectionsModal component.
+  it('should open the CollectionsModal and dismiss correctly', function () {
+    fireEvent.click(screen.getByText('SubjectPreview.CollectionsButton.add'))
+    waitFor(function() {
+      expect(screen.getByText('CollectionsModal.title')).to.exist()
+      fireEvent.click(screen.getByLabelText('Close'))
+      waitFor(function() {
+        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+      })
     })
   })
 })

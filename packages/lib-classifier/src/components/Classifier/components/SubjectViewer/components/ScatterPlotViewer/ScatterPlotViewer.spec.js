@@ -1,63 +1,109 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import ScatterPlot from './components/ScatterPlot'
-import ZoomingScatterPlot from './components/ZoomingScatterPlot'
-import ZoomControlButton from '../ZoomControlButton'
-import { ScatterPlotViewer } from './ScatterPlotViewer'
-import { parentHeight, parentWidth, randomSingleSeriesData } from './helpers/mockData'
+import { composeStory } from '@storybook/react'
+import { render, waitFor } from '@testing-library/react'
+import Meta, { Default, ErrorBars, KeplerLightCurve, SelectionFeedback } from './ScatterPlotViewer.stories.js'
 
 describe('Component > ScatterPlotViewer', function () {
-  let wrapper
-  const zoomControlFnSpy = sinon.spy()
-  before(function () {
-    wrapper = shallow(
-      <ScatterPlotViewer
-        data={randomSingleSeriesData.data}
-        parentHeight={parentHeight}
-        parentWidth={parentWidth}
-      />
-    )
+  describe('default plot', function () {
+    let chart
+
+    beforeEach(function () {
+      const MockScatterPlotViewer = composeStory(Default, Meta)
+      render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
+      chart = document.querySelector('svg.scatterPlot')
+    })
+
+    it('should render without errors', function () {
+      expect(chart).to.exist()
+    })
+
+    it('should render the chart background', function () {
+      const backgrounds = chart.querySelectorAll('.chartBackground')
+      expect(backgrounds).to.have.lengthOf(2)
+    })
+
+    it('should render chart content', function () {
+      expect(chart.querySelectorAll('g.chartContent')).to.have.lengthOf(1)
+    })
+
+    it('should render chart axes', function () {
+      expect(chart.querySelectorAll('g.chartAxes')).to.have.lengthOf(1)
+    })
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  describe('with error bars', function () {
+    let chart
+
+    beforeEach(function () {
+      const MockScatterPlotViewer = composeStory(ErrorBars, Meta)
+      render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
+      chart = document.querySelector('svg.scatterPlot')
+    })
+
+    it('should render without errors', function () {
+      expect(chart).to.exist()
+    })
+
+    it('should render the chart background', function () {
+      const backgrounds = chart.querySelectorAll('.chartBackground')
+      expect(backgrounds).to.have.lengthOf(2)
+    })
+
+    it('should render chart content', function () {
+      expect(chart.querySelectorAll('g.chartContent')).to.have.lengthOf(1)
+    })
+
+    it('should render chart axes', function () {
+      expect(chart.querySelectorAll('g.chartAxes')).to.have.lengthOf(1)
+    })
   })
 
-  it('should default to rendering the standard ScatterPlot', function () {
-    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
+  describe('with custom chart options', function () {
+    let chart
+
+    beforeEach(function () {
+      const MockScatterPlotViewer = composeStory(KeplerLightCurve, Meta)
+      render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
+      chart = document.querySelector('svg.scatterPlot')
+    })
+
+    it('should render without errors', function () {
+      expect(chart).to.exist()
+    })
+
+    it('should render the chart background', function () {
+      const backgrounds = chart.querySelectorAll('.chartBackground')
+      expect(backgrounds).to.have.lengthOf(1)
+    })
+
+    it('should render chart content', function () {
+      expect(chart.querySelectorAll('g.chartContent')).to.have.lengthOf(1)
+    })
+
+    it('should render chart axes', function () {
+      expect(chart.querySelectorAll('g.chartAxes')).to.have.lengthOf(1)
+    })
   })
 
-  it('should render the ZoomingScatterPlot if zooming is enabled', function () {
-    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
-    expect(wrapper.find(ZoomingScatterPlot)).to.have.lengthOf(0)
-    wrapper.setProps({ zooming: true })
-    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(0)
-    expect(wrapper.find(ZoomingScatterPlot)).to.have.lengthOf(1)
-    wrapper.setProps({ zooming: false })
-  })
+  describe('with data selection feedback', function () {
+    let chart
 
-  it('should pass along the size of the parent container as props', function () {
-    expect(wrapper.find(ScatterPlot).props().parentHeight).to.equal(parentHeight)
-    expect(wrapper.find(ScatterPlot).props().parentWidth).to.equal(parentWidth)
-    wrapper.setProps({ zooming: true })
-    expect(wrapper.find(ZoomingScatterPlot).props().parentHeight).to.equal(parentHeight)
-    expect(wrapper.find(ZoomingScatterPlot).props().parentWidth).to.equal(parentWidth)
-    wrapper.setProps({ zooming: false })
-  })
+    beforeEach(async function () {
+      const MockScatterPlotViewer = composeStory(SelectionFeedback, Meta)
+      render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
+      await waitFor(() => expect(document.querySelector('svg.scatterPlot')).to.exist())
+      chart = document.querySelector('svg.scatterPlot')
+    })
 
-  it('should not render a ZoomControlButton by default', function () {
-    expect(wrapper.find(ZoomControlButton)).to.have.lengthOf(0)
-  })
+    it('should show successful matches', function () {
+      expect(chart.querySelectorAll('rect.selection[fill=green]')).to.have.lengthOf(1)
+    })
 
-  it('should render a ZoomControlButton when zoomControlFn is defined', function () {
-    wrapper.setProps({ zoomControlFn: zoomControlFnSpy })
-    expect(wrapper.find(ZoomControlButton)).to.have.lengthOf(1)
-  })
+    it('should show failed matches', function () {
+      expect(chart.querySelectorAll('rect.selection[fill=red]')).to.have.lengthOf(1)
+    })
 
-  it('should pass along the zoomControlFn and zooming props to the ZoomControlButton', function () {
-    const button = wrapper.find(ZoomControlButton)
-    expect(button.props().onClick).to.equal(zoomControlFnSpy)
-    expect(button.props().zooming).to.be.false()
+    it('should show volunteer selections', function () {
+      expect(chart.querySelectorAll('rect.selection[fill=transparent]')).to.have.lengthOf(3)
+    })
   })
-
 })

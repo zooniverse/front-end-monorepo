@@ -3,10 +3,10 @@ import NavListItem from '../NavListItem'
 import { Box } from 'grommet'
 
 export default function MainNavList({
+  adminMode = false,
   adminNavLinkLabel,
   adminNavLinkURL,
-  isAdmin,
-  isNarrow,
+  isNarrow = false,
   mainHeaderNavListLabels,
   mainHeaderNavListURLs
 }) {
@@ -21,7 +21,7 @@ export default function MainNavList({
           url={url}
         />
       ))}
-      {isAdmin &&
+      {adminMode &&
         <NavListItem
           label={adminNavLinkLabel}
           url={adminNavLinkURL}
@@ -30,15 +30,10 @@ export default function MainNavList({
   )
 }
 
-MainNavList.defaultProps = {
-  isAdmin: false,
-  isNarrow: false
-}
-
 MainNavList.propTypes = {
+  adminMode: PropTypes.bool,
   adminNavLinkLabel: PropTypes.string.isRequired,
   adminNavLinkURL: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -1,9 +1,31 @@
 {
+  "FreehandLine": {
+    "active": "Translated",
+    "closePoint": "Translated",
+    "inactive": "Translated",
+    "spliceDrag": "Translated",
+    "splicePoint": "Translated"
+  },
+  "HighlighterTask": {
+    "delete": "Translated",
+    "noLabels": "Translated",
+    "status": "{{count}} Translated"
+  },
   "InputStatus": {
     "drawn": "{{count}} Translated",
     "max": "{{count}} Translated {{max}} Translated",
     "maxAndMin": "{{count}} Translated {{min}} Translated {{max}}",
     "min": "{{count}} Translated {{min}} Translated"
+  },
+  "LineControls": {
+    "close": "Translated",
+    "delete": "Translated",
+    "deleteCancel": "Translated",
+    "deleteConfirm": "Translated",
+    "lineControls": "Translated",
+    "move": "Translated",
+    "redo": "Translated",
+    "undo": "Translated"
   },
   "SimpleDropdownTask": {
     "customInputPlaceholder": "Translated",

@@ -1,14 +1,16 @@
 import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import ConfusedWith from './components/ConfusedWith'
 import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
+import carouselTheme from './carouselTheme'
 
 const StyledBox = styled(Box)`
   &:focus {
@@ -158,4 +160,4 @@ Choice.propTypes = {
   }).isRequired
 }
 
-export default withTheme(Choice)
+export default withThemeContext(Choice, carouselTheme)

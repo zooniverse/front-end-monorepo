@@ -9,9 +9,9 @@ import { withParentSize } from '@visx/responsive'
 import { SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
-import { ScatterPlotViewer } from '../ScatterPlotViewer'
+import ScatterPlotViewer from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
-import { BarChartViewer } from '../BarChartViewer'
+import BarChartViewer from '../BarChartViewer'
 import Controls from './components/Controls'
 
 const VariableStarViewer = forwardRef((props, ref) => {
@@ -29,9 +29,7 @@ const VariableStarViewer = forwardRef((props, ref) => {
     phasedJSON,
     phaseLimit,
     rawJSON: {
-      data: {
-        scatterPlot
-      }
+      scatterPlot
     },
     setAllowPanZoom,
     setOnPan,
@@ -91,7 +89,7 @@ const VariableStarViewer = forwardRef((props, ref) => {
       rows={rows}
     >
       <Controls
-        data={scatterPlot.data}
+        data={scatterPlot?.data}
         gridArea='controls'
         highlightedSeries={highlightedSeries}
         periodMultiple={periodMultiple}
@@ -149,7 +147,7 @@ const VariableStarViewer = forwardRef((props, ref) => {
             style={{ position: 'relative' }}
           >
             <ScatterPlotViewer
-              data={scatterPlot.data}
+              data={scatterPlot?.data}
               highlightedSeries={highlightedSeries}
               invertAxes={{ x: false, y: invertYAxis }}
               margin={{
@@ -160,9 +158,9 @@ const VariableStarViewer = forwardRef((props, ref) => {
               }}
               setOnPan={setOnPan}
               setOnZoom={setOnZoom}
-              xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
+              xAxisLabel={scatterPlot?.chartOptions.xAxisLabel}
               xAxisNumTicks={4}
-              yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
+              yAxisLabel={scatterPlot?.chartOptions.yAxisLabel}
               yAxisNumTicks={6}
               zoomControlFn={(zoomEnabled.rawJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('rawJSON')}
               zooming={zoomEnabled.rawJSON}

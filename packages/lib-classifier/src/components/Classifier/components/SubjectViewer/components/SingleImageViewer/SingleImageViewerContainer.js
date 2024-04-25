@@ -2,9 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImage } from '@hooks'
 
-import withKeyZoom from '../../../withKeyZoom'
 import locationValidator from '../../helpers/locationValidator'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
@@ -12,7 +11,7 @@ import SingleImageViewer from './SingleImageViewer'
 
 const DEFAULT_HANDLER = () => true
 
-function SingleImageViewerContainer ({
+function SingleImageViewerContainer({
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
@@ -21,7 +20,6 @@ function SingleImageViewerContainer ({
   loadingState = asyncStates.initialized,
   move = false,
   onError = DEFAULT_HANDLER,
-  onKeyDown = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   rotation = 0,
   setOnPan = DEFAULT_HANDLER,
@@ -31,24 +29,29 @@ function SingleImageViewerContainer ({
   zoomControlFn,
   zooming = true
 }) {
+  const { onKeyZoom } = useKeyZoom()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
-  const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
+  const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: imageUrl,
+    src: imageLocation?.url,
     onReady,
     onError
   })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
-  useEffect(function onMount () {
+  useEffect(function onMount() {
     enableRotation()
   }, [])
 
-  function setOnDrag (callback) {
+  function setOnDrag(callback) {
     setDragMove(() => callback)
   }
 
-  function onDrag (event, difference) {
+  function onDrag(event, difference) {
     dragMove?.(event, difference)
   }
 
@@ -61,14 +64,16 @@ function SingleImageViewerContainer ({
 
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
+
     return (
       <SVGPanZoom
-        img={subjectImage.current}
+        key={`${naturalWidth}-${naturalHeight}`}
+        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={img.naturalHeight}
-        naturalWidth={img.naturalWidth}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
@@ -77,27 +82,27 @@ function SingleImageViewerContainer ({
       >
         <SingleImageViewer
           enableInteractionLayer={enableDrawing}
-          height={img.naturalHeight}
+          height={naturalHeight}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
-          onKeyDown={onKeyDown}
+          onKeyDown={onKeyZoom}
           rotate={rotation}
           title={title}
-          width={img.naturalWidth}
+          width={naturalWidth}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
+          subject={subject}
         >
-          <g ref={subjectImage}>
-            <SVGImage
-              invert={invert}
-              move={move}
-              naturalHeight={img.naturalHeight}
-              naturalWidth={img.naturalWidth}
-              onDrag={onDrag}
-              src={img.src}
-              subjectID={subjectID}
-            />
-          </g>
+          <SVGImage
+            ref={subjectImage}
+            invert={invert}
+            move={move}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            onDrag={onDrag}
+            src={img.src}
+            subjectID={subjectID}
+          />
         </SingleImageViewer>
       </SVGPanZoom>
     )
@@ -129,5 +134,4 @@ SingleImageViewerContainer.propTypes = {
   zooming: PropTypes.bool
 }
 
-export default withKeyZoom(SingleImageViewerContainer)
-export { SingleImageViewerContainer }
+export default SingleImageViewerContainer

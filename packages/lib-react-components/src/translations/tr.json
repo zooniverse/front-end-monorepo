@@ -66,6 +66,10 @@
       "register": "Kayıt ol",
       "signIn": "Giriş yap"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Koyu temaya geç",
+      "switchToLight": "Açık temaya geç"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Koleksiyonlar",

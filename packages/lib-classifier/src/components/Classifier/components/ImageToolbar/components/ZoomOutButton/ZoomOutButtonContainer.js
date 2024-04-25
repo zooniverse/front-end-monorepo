@@ -1,39 +1,49 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import { useStores } from '@hooks'
 import ZoomOutButton from './ZoomOutButton'
 
 function storeMapper(classifierStore) {
-  const { zoomOut } = classifierStore.subjectViewer
+  const {
+    disableImageToolbar,
+    zoomOut
+  } = classifierStore.subjectViewer
 
   return {
+    disabled: disableImageToolbar,
     zoomOut
   }
 }
 
-function ZoomOutButtonContainer() {
-  const { zoomOut } = useStores(storeMapper)
+function ZoomOutButtonContainer({ separateFrameZoomOut }) {
+  const { disabled, zoomOut } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
+  const zoomCallback = separateFrameZoomOut || zoomOut
+
+  function onClick() {
+    clearInterval(timer)
+    zoomCallback()
+  }
 
   function onPointerDown(event) {
     const { currentTarget, pointerId } = event
-    zoomOut()
     clearInterval(timer)
-    const newTimer = setInterval(zoomOut, 100)
+    const newTimer = setInterval(zoomCallback, 100)
     setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
   }
 
   function onPointerUp(event) {
     const { currentTarget, pointerId } = event
-    clearInterval(timer)
     currentTarget.releasePointerCapture(pointerId)
   }
 
   return (
     <ZoomOutButton
-      onClick={zoomOut}
+      disabled={disabled}
+      onClick={onClick}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />
@@ -41,3 +51,8 @@ function ZoomOutButtonContainer() {
 }
 
 export default observer(ZoomOutButtonContainer)
+
+ZoomOutButtonContainer.propTypes = {
+  /** Used when separate frames of a subject each have their own ImageToolbar */
+  separateFrameZoomOut: PropTypes.func
+}

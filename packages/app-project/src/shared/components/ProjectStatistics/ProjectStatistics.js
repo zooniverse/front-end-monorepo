@@ -21,17 +21,16 @@ const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
 `
 
-function ProjectStatistics (props) {
+function ProjectStatistics ({
+	className,
+	classifications,
+	completedSubjects,
+	linkProps,
+	projectName,
+	subjects,
+	volunteers
+}) {
   const { t } = useTranslation('components')
-  const {
-    className,
-    classifications,
-    completedSubjects,
-    linkProps,
-    projectName,
-    subjects,
-    volunteers
-  } = props
 
   return (
     <ContentBox
@@ -91,13 +90,6 @@ ProjectStatistics.propTypes = {
   projectName: string,
   subjects: number.isRequired,
   volunteers: number.isRequired
-}
-
-ProjectStatistics.defaultProps = {
-  classifications: 0,
-  completedSubjects: 0,
-  subjects: 0,
-  volunteers: 0
 }
 
 export default ProjectStatistics

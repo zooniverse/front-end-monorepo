@@ -6,6 +6,7 @@ import Button from '../Button'
 
 function MoveButton({
   active = false,
+  disabled = false,
   onClick = () => console.log('Move Button')
 }) {
   const { t } = useTranslation('components')
@@ -13,6 +14,7 @@ function MoveButton({
     <Button
       a11yTitle={t('ImageToolbar.MoveButton.ariaLabel')}
       active={active}
+      disabled={disabled}
       icon={<MoveIcon />}
       onClick={onClick}
     />
@@ -21,6 +23,7 @@ function MoveButton({
 
 MoveButton.propTypes = {
   active: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 

@@ -1,5 +1,6 @@
 const { execSync } = require('child_process')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const million = require('million/compiler')
 const path = require('path')
 const webpack = require('webpack')
 
@@ -33,7 +34,6 @@ module.exports = {
       'localhost',
       '.zooniverse.org'
     ],
-    host: process.env.HOST || 'localhost',
     server: 'https'
   },
   entry: [
@@ -52,6 +52,12 @@ module.exports = {
       '@test': path.resolve(__dirname, 'test'),
       '@translations': path.resolve(__dirname, 'src/translations'),
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
+    },
+    fallback: {
+      fs: false,
+      // for markdown-it plugins
+      path: require.resolve("path-browserify"),
+      process: false,
     }
   },
   module: {
@@ -85,6 +91,7 @@ module.exports = {
       process: 'process/browser',
     }),
     EnvironmentWebpackPlugin,
-    HtmlWebpackPluginConfig
+    HtmlWebpackPluginConfig,
+    million.webpack({ auto: true })
   ]
 }

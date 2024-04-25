@@ -5,13 +5,16 @@ import NarrowMenu from '../NarrowMenu'
 import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
 
 const StyledMenuIcon = styled(Menu)`
-  width: 1em;
+  height: 1rem;
+  width: 1rem;
+  padding: 0 0 0 20px;
+  display: flex;
 `
 
 export default function NarrowMainNavMenu({
+  adminMode = false,
   adminNavLinkLabel,
   adminNavLinkURL,
-  isAdmin = false,
   mainHeaderNavListLabels,
   mainHeaderNavListURLs
 }) {
@@ -22,7 +25,7 @@ export default function NarrowMainNavMenu({
     }
   })
 
-  if (isAdmin) {
+  if (adminMode) {
     menuListItems.push({
       label: <NarrowMenuNavListItem text={adminNavLinkLabel} />,
       href: adminNavLinkURL
@@ -33,15 +36,15 @@ export default function NarrowMainNavMenu({
     <NarrowMenu
       icon={false}
       items={menuListItems}
-      label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation' />}
+      label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation'/>}
     />
   )
 }
 
 NarrowMainNavMenu.propTypes = {
+  adminMode: PropTypes.bool,
   adminNavLinkLabel: PropTypes.string.isRequired,
   adminNavLinkURL: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired
 }

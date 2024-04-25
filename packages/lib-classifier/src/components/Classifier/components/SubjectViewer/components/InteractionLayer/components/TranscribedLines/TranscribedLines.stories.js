@@ -1,7 +1,6 @@
 import { GraphQLClient } from 'graphql-request'
 import { Provider } from 'mobx-react'
-import { Box, Grommet } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { Box } from 'grommet'
 import sinon from 'sinon'
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
@@ -10,19 +9,22 @@ import { reducedASMSubject } from '@store/subjects/Subject/TranscriptionReductio
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
 import TooltipIcon from './components/TooltipIcon'
 
-import TranscribedLines from './TranscribedLines'
+import TranscribedLines from '.'
 
 const subjectSnapshot = SubjectFactory.build({
   id: '13967054',
-  locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' }]
+  locations: [
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg'
+    }
+  ]
 })
 
 const workflowSnapshot = WorkflowFactory.build({
   id: '5339',
   display_name: 'A test workflow',
-  steps: [
-    ['S1', { stepKey: 'S1', taskKeys: ['T0'] }]
-  ],
+  steps: [['S1', { stepKey: 'S1', taskKeys: ['T0'] }]],
   strings: {
     display_name: 'a test workflow',
     'tasks.T0.instruction': 'Transcribe a line',
@@ -40,7 +42,7 @@ const workflowSnapshot = WorkflowFactory.build({
               required: 'true',
               taskKey: 'T0.0',
               type: 'text'
-            },
+            }
           ],
           type: 'transcriptionLine'
         }
@@ -52,36 +54,34 @@ const workflowSnapshot = WorkflowFactory.build({
 
 const client = {
   panoptes: {
-    get: () => Promise.resolve({ body: {
-      subjects: [],
-      workflows: []
-    }
-    })
+    get: () =>
+      Promise.resolve({
+        body: {
+          subjects: [],
+          workflows: []
+        }
+      })
   },
   caesar: new GraphQLClient('https://caesar.zooniverse.org/graphql'),
   tutorials: {
-    get: () => Promise.resolve({ body: { tutorials: [] }})
+    get: () => Promise.resolve({ body: { tutorials: [] } })
   }
 }
-sinon.stub(client.caesar, 'request').callsFake(() => Promise.resolve(reducedASMSubject))
-const rootStore = mockStore({ client, subject: subjectSnapshot, workflow: workflowSnapshot})
-
+sinon
+  .stub(client.caesar, 'request')
+  .callsFake(() => Promise.resolve(reducedASMSubject))
+const rootStore = mockStore({
+  client,
+  subject: subjectSnapshot,
+  workflow: workflowSnapshot
+})
 
 function TranscribedLinesStory({ loadingState, stores, subject }) {
   return (
     <Provider classifierStore={stores}>
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box width='1000px'>
-          <MultiFrameViewer loadingState={loadingState} subject={subject} />
-        </Box>
-      </Grommet>
+      <Box width='1000px'>
+        <MultiFrameViewer enableInteractionLayer loadingState={loadingState} subject={subject} />
+      </Box>
     </Provider>
   )
 }
@@ -114,18 +114,7 @@ Default.args = {
 }
 
 export function TooltipIconStory({ fill = 'drawing-pink' }) {
-  return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode='light'
-    >
-      <TooltipIcon fill={fill} />
-    </Grommet>
-  )
+  return <TooltipIcon fill={fill} />
 }
 
 TooltipIconStory.args = {
@@ -135,7 +124,7 @@ TooltipIconStory.args = {
 TooltipIconStory.argTypes = {
   fill: {
     control: {
-      type: 'select',
+      type: 'select'
     },
     options: ['drawing-pink', 'light-5']
   }

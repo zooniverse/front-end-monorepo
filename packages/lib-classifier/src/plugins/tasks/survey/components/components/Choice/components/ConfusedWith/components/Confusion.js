@@ -20,6 +20,7 @@ export default function Confusion({
         dark: 'dark-3',
         light: 'neutral-6'
       }}
+      flex={false}
       pad={{
         bottom: 'small',
         horizontal: 'small',
@@ -38,6 +39,7 @@ export default function Confusion({
               key={filename}
               alt={`${confusion.label}-image${index}`}
               src={images[filename]}
+              width={400}
             />
           ))}
         </Carousel>

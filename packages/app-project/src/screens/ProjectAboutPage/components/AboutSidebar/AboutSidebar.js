@@ -1,8 +1,9 @@
-import AboutNavLink from '../AboutNavLink'
 import { Nav } from 'grommet'
 import { useRouter } from 'next/router'
-import { arrayOf, object, string } from 'prop-types'
+import { arrayOf, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
+
+import AboutNavLink from '../AboutNavLink'
 
 const AboutSidebar = ({ aboutNavLinks }) => {
   const router = useRouter()
@@ -12,20 +13,18 @@ const AboutSidebar = ({ aboutNavLinks }) => {
   const { t } = useTranslation('screens')
 
   return (
-    <Nav aria-label={t('About.PageNav.title')} flex direction='column' gap='xsmall'>
+    <Nav aria-label={t('About.PageNav.title')} direction='column' gap='xsmall' width='12rem'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
           text: t('About.PageHeading.title.research')
         }}
-        router={router}
       />
       <AboutNavLink
         link={{
           href: `${baseUrl}/team`,
           text: t('About.PageHeading.title.team')
         }}
-        router={router}
       />
       {aboutNavLinks.includes('results') && (
         <AboutNavLink
@@ -33,7 +32,6 @@ const AboutSidebar = ({ aboutNavLinks }) => {
             href: `${baseUrl}/results`,
             text: t('About.PageHeading.title.results')
           }}
-          router={router}
         />
       )}
       {aboutNavLinks.includes('education') && (
@@ -42,7 +40,6 @@ const AboutSidebar = ({ aboutNavLinks }) => {
             href: `${baseUrl}/education`,
             text: t('About.PageHeading.title.education')
           }}
-          router={router}
         />
       )}
       {aboutNavLinks.includes('faq') && (
@@ -51,7 +48,6 @@ const AboutSidebar = ({ aboutNavLinks }) => {
             href: `${baseUrl}/faq`,
             text: t('About.PageHeading.title.faq')
           }}
-          router={router}
         />
       )}
     </Nav>
@@ -60,7 +56,6 @@ const AboutSidebar = ({ aboutNavLinks }) => {
 
 AboutSidebar.propTypes = {
   aboutNavLinks: arrayOf(string),
-  router: object
 }
 
 export default AboutSidebar

@@ -7,7 +7,9 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import { statsClient } from '../YourStats'
-import UserProjectPreferences from './UserProjectPreferences'
+import UserProjectPreferences, { Settings } from './UserProjectPreferences'
+import { expect } from 'chai'
+
 
 describe('Stores > UserProjectPreferences', function () {
   const project = {
@@ -23,12 +25,12 @@ describe('Stores > UserProjectPreferences', function () {
     personalization: {
       projectPreferences: {
         id: '5',
-        loadingState: asyncStates.success
+        loadingState: asyncStates.initialized
       }
     }
   }
   const initialState = {
-    activity_count: undefined,
+    activity_count: 0,
     activity_count_by_workflow: undefined,
     error: undefined,
     id: undefined,
@@ -70,12 +72,12 @@ describe('Stores > UserProjectPreferences', function () {
   }
 
   before(function () {
-    sinon.stub(statsClient, 'request')
+    sinon.stub(statsClient, 'fetchDailyStats')
     sinon.stub(talkAPI, 'get').resolves([])
   })
 
   after(function () {
-    statsClient.request.restore()
+    statsClient.fetchDailyStats.restore()
     talkAPI.get.restore()
   })
 
@@ -330,6 +332,7 @@ describe('Stores > UserProjectPreferences', function () {
       before(function () {
         const project = {
           id: '2',
+          slug: 'test/project',
           links: {
             active_workflows: ['555']
           }
@@ -421,6 +424,28 @@ describe('Stores > UserProjectPreferences', function () {
         expect(projectPreferences.promptAssignment('123')).to.be.true()
         expect(rootStore.project.workflowIsActive('123')).to.be.true()
         expect(rootStore.project.workflowIsActive('555')).to.be.true()
+      })
+    })
+  })
+
+  describe('Settings', function () {
+    describe('workflow_id', function () {
+      specify('should always be a string', function () {
+        let settings = Settings.create({ workflow_id: '123' })
+        expect(settings.workflow_id).to.equal('123')
+        settings = Settings.create({ workflow_id: 123 })
+        expect(settings.workflow_id).to.equal('123')
+      })
+      specify('should be a Panoptes ID', function () {
+        expect(() => Settings.create({ workflow_id: '123456' })).not.to.throw()
+        expect(() => Settings.create({ workflow_id: 123456 })).not.to.throw()
+        expect(() => Settings.create({ workflow_id: '123.456' })).to.throw()
+        expect(() => Settings.create({ workflow_id: 123.456 })).to.throw()
+        expect(() => Settings.create({ workflow_id: 'not an ID' })).to.throw()
+      })
+      specify('should be optional', function () {
+        const settings = Settings.create({})
+        expect(settings.workflow_id).to.be.undefined()
       })
     })
   })

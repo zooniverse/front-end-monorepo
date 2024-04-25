@@ -3,9 +3,8 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';
 
-import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
-import { useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImage } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
@@ -58,7 +57,7 @@ const defaultTool = {
 
 function MultiFrameViewerContainer({
   activeTool = defaultTool,
-  enableInteractionLayer = true,
+  enableInteractionLayer = false,
   enableRotation = () => null,
   frame = 0,
   invert = false,
@@ -66,7 +65,6 @@ function MultiFrameViewerContainer({
   loadingState = asyncStates.initialized,
   move,
   onError = () => true,
-  onKeyDown = () => true,
   onReady = () => true,
   rotation,
   setFrame = () => true,
@@ -74,14 +72,19 @@ function MultiFrameViewerContainer({
   setOnZoom = () => true,
   subject
 }) {
+  const { onKeyZoom } = useKeyZoom()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
-  const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
+  const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: imageUrl,
+    src: imageLocation?.url,
     onReady,
     onError
   })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
   useEffect(function onMount() {
     enableRotation()
@@ -105,9 +108,6 @@ function MultiFrameViewerContainer({
     )
   }
 
-  const enableDrawing =
-    loadingState === asyncStates.success && enableInteractionLayer
-
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
     return (
@@ -121,36 +121,37 @@ function MultiFrameViewerContainer({
           locations={subject.locations}
         />
         <SVGPanZoom
-          img={subjectImage.current}
+          key={`${naturalWidth}-${naturalHeight}`}
+          imgRef={subjectImage}
           limitSubjectHeight={limitSubjectHeight}
           maxZoom={5}
           minZoom={0.1}
-          naturalHeight={img.naturalHeight}
-          naturalWidth={img.naturalWidth}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
           setOnDrag={setOnDrag}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           src={img.src}
         >
           <SingleImageViewer
-            enableInteractionLayer={enableDrawing}
-            height={img.naturalHeight}
+            enableInteractionLayer={loadingState === asyncStates.success && enableInteractionLayer}
+            frame={frame}
+            height={naturalHeight}
             limitSubjectHeight={limitSubjectHeight}
-            onKeyDown={onKeyDown}
+            onKeyDown={onKeyZoom}
             rotate={rotation}
-            width={img.naturalWidth}
+            width={naturalWidth}
           >
-            <g ref={subjectImage}>
-              <SVGImage
-                invert={invert}
-                move={move}
-                naturalHeight={img.naturalHeight}
-                naturalWidth={img.naturalWidth}
-                onDrag={onDrag}
-                src={img.src}
-                subjectID={subjectID}
-              />
-            </g>
+            <SVGImage
+              ref={subjectImage}
+              invert={invert}
+              move={move}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
+              onDrag={onDrag}
+              src={img.src}
+              subjectID={subjectID}
+            />
           </SingleImageViewer>
         </SVGPanZoom>
       </Box>
@@ -179,5 +180,5 @@ MultiFrameViewerContainer.propTypes = {
   }).isRequired
 }
 
-export default withStores(withKeyZoom(MultiFrameViewerContainer), storeMapper)
+export default withStores(MultiFrameViewerContainer, storeMapper)
 export { MultiFrameViewerContainer }

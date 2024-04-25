@@ -7,13 +7,15 @@ const WorkflowConfiguration = types.snapshotProcessor(
     flipbook_autoplay: types.optional(types.boolean, false),
     invert_subject: types.optional(types.boolean, false),
     limit_subject_height: types.optional(types.boolean, false),
+    multi_image_clone_markers: types.optional(types.boolean, false),
     multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
-    persist_annotations: types.optional(types.boolean, true),
+    multi_image_layout: types.optional(types.enumeration('multiImageLayout', ['col', 'grid2', 'grid3', 'row']), 'col'),
     playIterations: types.optional(types.number, 3),
     subject_viewer: types.maybe(
       types.enumeration('subjectViewer', [
         'dataImage',
         'flipbook',
+        'jsonData',
         'lightcurve',
         'multiFrame',
         'scatterPlot',
@@ -44,6 +46,9 @@ const WorkflowConfiguration = types.snapshotProcessor(
           }
           case 'flipbook': {
             return subjectViewers.flipbook
+          }
+          case 'jsonData': {
+            return subjectViewers.jsonData
           }
           case 'lightcurve': {
             return subjectViewers.lightCurve

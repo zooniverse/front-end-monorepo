@@ -1,7 +1,7 @@
-import { createRef, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { array, bool, string } from 'prop-types'
 
 import ClassifyPage from './ClassifyPage'
-import CollectionsModal from '../../shared/components/CollectionsModal'
 
 function ClassifyPageContainer ({
   assignedWorkflowID = '',
@@ -11,9 +11,10 @@ function ClassifyPageContainer ({
   workflows = [],
   ...props
 }) {
-  // selected subject state is derived from the page URL, but can be reset by the Classifier component.
+  /* SelectedSubjectID is initially derived from the page URL via getDefaultPageProps,
+  but can be reset by the Classifier component via onSubjectReset().
+  This state does not change via components of the prioritized subjects UI (Next/Prev buttons) */
   const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
-  const collectionsModal = createRef()
 
   let assignedWorkflow
   let allowedWorkflows = workflows.slice()
@@ -22,6 +23,7 @@ function ClassifyPageContainer ({
     assignedWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
     assignedWorkflowLevel = parseInt(assignedWorkflow?.configuration.level, 10)
   }
+  /* Double check that a volunteer navigating to url with workflowID is allowed to load that workflow */
   if (workflowAssignmentEnabled) {
     allowedWorkflows = workflows.filter(workflow => workflow.configuration.level <= assignedWorkflowLevel)
   }
@@ -31,21 +33,13 @@ function ClassifyPageContainer ({
     setSelectedSubjectID(subjectID)
   }, [subjectID])
 
-  function addToCollection (subjectId) {
-    collectionsModal.current.open(subjectId)
-  }
-
-  function onSubjectReset () {
+  const onSubjectReset = useCallback(() => {
     setSelectedSubjectID(undefined)
-  }
+  }, [setSelectedSubjectID])
 
   return (
     <>
-      <CollectionsModal
-        ref={collectionsModal}
-      />
       <ClassifyPage
-        addToCollection={addToCollection}
         onSubjectReset={onSubjectReset}
         subjectID={selectedSubjectID}
         workflowFromUrl={workflowFromUrl}
@@ -58,3 +52,16 @@ function ClassifyPageContainer ({
 }
 
 export default ClassifyPageContainer
+
+ClassifyPageContainer.propTypes = {
+  /** assignedWorkflowID is in the Project Preferences Store */
+  assignedWorkflowID: string,
+  /** This subjectID is from getDefaultPageProps in page index.js */
+  subjectID: string,
+  /** workflowAssignmentEnabled is in the Project Store */
+  workflowAssignmentEnabled: bool,
+  /** This workflowID is from getDefaultPageProps in page index.js */
+  workflowID: string,
+  /** workflows array is from getDefaultPageProps in page index.js */
+  workflows: array
+}

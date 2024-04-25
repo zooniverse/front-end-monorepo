@@ -1,11 +1,11 @@
-import { Markdownz, pxToRem } from '@zooniverse/react-components'
-import { Box, Select, Text, TextInput } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
+import { Box, Select, Text } from 'grommet'
 import { Down } from 'grommet-icons'
 import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import { useState, useRef } from 'react';
-import styled, { css } from 'styled-components'
+import { useState } from 'react'
+import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 const StyledText = styled(Text)`
@@ -18,10 +18,6 @@ const StyledText = styled(Text)`
   }
 `
 
-// The 'other' option, aka 'allow user to create any answer' option, is
-// artificially disabled. Please refer to the README. (@shaunanoordin 20200820)
-const ENABLE_OTHER_OPTION = false
-
 function SimpleDropdownTask({
   annotation,
   className = '',
@@ -32,61 +28,41 @@ function SimpleDropdownTask({
   const { value } = annotation
   const stringsSnapshot = getSnapshot(task.strings)
   const optionsPrefix = 'selects.0.options.*.'
+  const [selectedOption, setSelectedOption] = useState('')
 
-  // Decide what kind of options to display.
-  // Use an array of objects instead of an array of text.
-  // This solves issues of duplicate text.
+  // Process snapshot to get array of text options
   const optionsToDisplay = Object.entries(stringsSnapshot)
-  .filter(([key, value]) => key.startsWith(optionsPrefix))
-  .map(([key, value]) => ({
-    text: value
-  }))
+    .filter(([key, value]) => key.startsWith(optionsPrefix))
+    .map(([key, value]) => value)
+  const [filteredOptions, setFilteredOptions] = useState(optionsToDisplay)
 
-  // If the Other option is enabled, we allow users to type in any text.
-  const otherOption = {
-    text: t('SimpleDropdownTask.otherLabel')
-  }
-  if (task.allowCreate && ENABLE_OTHER_OPTION) {
-    optionsToDisplay.push(otherOption)
+  // If there is an annotation, we set that value as the selectedOption
+  if (value?.option === true && selectedOption !== optionsToDisplay[value?.selection]) {
+    setSelectedOption(optionsToDisplay[value?.selection])
   }
 
-  // Determine which option is selected.
-  let selectedOption = undefined
-  if (value?.option === true) {
-    selectedOption = optionsToDisplay[value?.selection]
-  } else if (value?.option === false) { // Note: this distinguishes between value = undefined
-    selectedOption = otherOption
-  }
-
-  // The following is only relevant if the Other option is enabled.
-  const [customValue, setCustomValue] = useState((selectedOption === otherOption) ? value?.selection : '')
-  const showCustomInput = (selectedOption === otherOption)
-  const customInput = useRef()
-
-  // 'selection' indicates the index of the selected answer. (number)
-  // If the Other option is enabled, selection can be a string.
-  function setAnnotation (selection, isPresetOption = false) {
+  // Responsible for input value and updating the annotation value
+  // Grommet Select does now allow clearing the input value, so we know onChange handles a valid annotation value
+  function onChange(ev) {
+    let matchIndex = optionsToDisplay.indexOf(ev.value)
+    setSelectedOption(ev.value)
     annotation.update({
-      selection: selection,
-      option: isPresetOption,
+      selection: matchIndex,
+      option: true
     })
   }
 
-  function onSelectChange ({ option, selected: selectionIndex }) {
-    const isPresetOption = option !== otherOption
-    setCustomValue('')
-
-    if (isPresetOption) {
-      setAnnotation(selectionIndex, true)
-    } else {
-      setAnnotation('', false)
-    }
+  // Filter the full list of options when searching
+  function onSearch(text) {
+    const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+    const exp = new RegExp(escapedText, 'i');
+    setFilteredOptions(optionsToDisplay.filter((o) => exp.test(o)));
   }
-
-  function onTextInputChange () {
-    const ele = customInput && customInput.current || { value: '' }
-    setAnnotation(ele.value, false)
-    setCustomValue(ele.value)
+  
+  // onBlur() is called on focus (weird Grommet behavior)
+  // Therefore, we clear our search value whenever we "focus" the input
+  function onBlur() {
+    onSearch('')
   }
 
   return (
@@ -98,7 +74,6 @@ function SimpleDropdownTask({
           {task.instruction}
         </Markdownz>
       </StyledText>
-
       <Box
         gap='xsmall'
       >
@@ -106,22 +81,14 @@ function SimpleDropdownTask({
           disabled={disabled}
           icon={<Down size='small' />}
           labelKey='text'
-          onChange={onSelectChange}
-          options={optionsToDisplay}
+          onChange={onChange}
+          onSearch={onSearch}
+          onBlur={onBlur}
+          options={filteredOptions}
           placeholder={t('SimpleDropdownTask.selectPlaceholder')}
           size='small'
           value={selectedOption}
         />
-
-        {(showCustomInput) &&
-          <TextInput
-            onChange={onTextInputChange}
-            placeholder={t('SimpleDropdownTask.customInputPlaceholder')}
-            ref={customInput}
-            size='small'
-            value={customValue}
-          />
-        }
       </Box>
     </Box>
   )

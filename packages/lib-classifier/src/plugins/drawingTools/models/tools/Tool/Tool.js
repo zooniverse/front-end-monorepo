@@ -3,6 +3,7 @@ import { Mark } from '../../marks'
 import SingleChoiceTask from '@plugins/tasks/single'
 import MultipleChoiceTask from '@plugins/tasks/multiple'
 import TextTask from '@plugins/tasks/text'
+import SimpleDropdownTask from '@plugins/tasks/dropdown-simple'
 
 const Tool = types
   .model('Tool', {
@@ -16,7 +17,8 @@ const Tool = types
       types.union(
         SingleChoiceTask.TaskModel,
         MultipleChoiceTask.TaskModel,
-        TextTask.TaskModel
+        TextTask.TaskModel,
+        SimpleDropdownTask.TaskModel
       )
     ),
     type: types.literal('default')

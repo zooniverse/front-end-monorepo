@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] 2024-03-25
+- Bump `jose` to 5.2.
+- Bump `mocha` to 10.3.
+- Bump `nock` to 13.5.
+- Bump `jsdom` to v24.
+
+## [0.5.1] 2023-11-22
+- Bump `jose` to 5.1.
+
+## [0.5.0] 2023-10-26
+- build with Node 20.
+
+## [0.4.1] 2023-08-24
+- fix a check for the `/projects` path.
+
+## [0.4.0] 2023-07-04
+- add `auth.decodeJWT(token)` to get a Panoptes user from a token.
+- allow `auth` methods to accept Authorization headers (which are used in the Classifier) as well as tokens.
+
+## [0.3.0] 2023-05-25
+- add JWT verification as `auth.verify(token)`.
+
 ## [0.2.3] 2022-12-05
 - require `superagent` 8.0.6 or higher.
 

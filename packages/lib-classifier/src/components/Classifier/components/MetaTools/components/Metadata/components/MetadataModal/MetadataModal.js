@@ -1,5 +1,5 @@
 import { Markdownz, Modal, SpacedText } from '@zooniverse/react-components'
-import { Box, DataTable, Text } from 'grommet'
+import { Anchor, Box, DataTable, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import filterByLabel, { filters as defaultFilters } from './filterByLabel'
@@ -20,16 +20,25 @@ const StyledDataTable = styled(DataTable)`
 const DatumWrapper = styled(Text)`
   overflow-wrap: break-word;
   word-break: break-word;
+
+  & > p {
+    margin: 0;
+  }
 `
 
-export function formatValue (value) {
-  if (value) {
-    const stringValue = value.toString()
-    stringValue.trim()
-    return stringValue
+export function formatValue(value) {
+  const stringValue = value?.toString()
+  stringValue?.trim()
+  if (stringValue?.startsWith('http')) {
+    return <Anchor target='_blank' rel='nofollow noopener noreferrer' href={value}>{value}</Anchor>
+  }
+  if (stringValue) {
+    return <Markdownz inline>{stringValue}</Markdownz>
   }
 
-  if (value === null) return 'null'
+  if (value === null) {
+    return 'null'
+  }
 
   return ''
 }
@@ -60,7 +69,7 @@ export default function MetadataModal ({
     const value = formatValue(metadata[label])
     return {
       label: label.replace(RegExp(`^(${prefixes.join('|')})`), ''),
-      value: <Markdownz options={{ forceInline: true }}>{value}</Markdownz>
+      value
     }
   })
 
@@ -72,6 +81,7 @@ export default function MetadataModal ({
     >
       <Box height='medium' overflow='auto'>
         <StyledDataTable
+          pad='15px'
           columns={columns}
           data={data}
           sortable

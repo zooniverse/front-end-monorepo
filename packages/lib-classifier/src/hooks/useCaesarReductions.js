@@ -1,6 +1,5 @@
 import { captureException } from '@sentry/browser'
 import { useEffect, useState } from 'react'
-
 import { useStores } from '@hooks'
 
 async function fetchReductions(caesarClient, reducerKey, subjectID, workflowID) {
@@ -41,22 +40,28 @@ export default function useCaesarReductions(reducerKey) {
   } = useStores()
 
   useEffect(function onSubjectChange() {
-    async function updateReductions(caesarClient, reducerKey, subject, workflow) {
-      const reductions = await fetchReductions(caesarClient, reducerKey, subject.id, workflow.id)
-      subject.setCaesarReductions({
-        reducer: reducerKey,
-        subjectId: subject.id,
-        workflowId: workflow.id,
-        reductions
-      })
-      setLoaded(true)
+    async function updateReductions(caesarClient, reducerKey, subject, workflowID) {
+      const reductions = await fetchReductions(caesarClient, reducerKey, subject.id, workflowID)
+      if (!ignore) {
+        subject.setCaesarReductions({
+          reducer: reducerKey,
+          subjectId: subject.id,
+          workflowId: workflowID,
+          reductions
+        })
+        setLoaded(true)
+      }
     }
 
+    let ignore = false
     if (subject?.id && reducerKey) {
       setLoaded(false)
-      updateReductions(caesar, reducerKey, subject, workflow)
+      updateReductions(caesar, reducerKey, subject, workflow.id)
     }
-  }, [caesar, reducerKey, subject, workflow])
+    return () => {
+      ignore = true
+    }
+  }, [caesar, reducerKey, subject, workflow.id])
 
   return {
     loaded,

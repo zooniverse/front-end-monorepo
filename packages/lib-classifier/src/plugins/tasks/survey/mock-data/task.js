@@ -2,6 +2,7 @@ const task = {
   'taskKey': 'T0',
   'required': false,
   'type': 'survey',
+  'instruction': 'Select the animals you see in the image.',
   'characteristics': {
     'LK': {
       'label': 'Like',
@@ -348,7 +349,7 @@ const task = {
   'questionsOrder': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT']
 }
 
-const strings = {}
+const strings = { instruction: task.instruction }
 
 Object.entries(task.characteristics).forEach(([characteristicID, characteristic]) => {
   const prefix = `characteristics.${characteristicID}`

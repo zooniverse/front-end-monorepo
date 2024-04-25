@@ -2,7 +2,6 @@ import {
   Facebook as FacebookIcon,
   Github as GitHubIcon,
   Language as GlobeIcon,
-  GooglePlus as GooglePlusIcon,
   Instagram as InstagramIcon,
   Medium as MediumIcon,
   Pinterest as PinterestIcon,
@@ -16,7 +15,7 @@ import {
 import BitbucketIcon from './../../components/BitbucketIcon'
 import WeiboIcon from './../../components/WeiboIcon'
 
-function formatUrlObject (obj, t) {
+function formatUrlObject(obj, t) {
   // Default to external website
   const formattedObject = {
     IconComponent: GlobeIcon,
@@ -56,11 +55,6 @@ function formatUrlObject (obj, t) {
   if (obj.site && obj.site.includes('pinterest')) {
     formattedObject.IconComponent = PinterestIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.pinterest')
-  }
-
-  if (obj.site && obj.site.includes('plus.google')) {
-    formattedObject.IconComponent = GooglePlusIcon
-    formattedObject.type = t('ConnectWithProject.ProjectLink.types.googleplus')
   }
 
   if (obj.site && obj.site.includes('reddit')) {

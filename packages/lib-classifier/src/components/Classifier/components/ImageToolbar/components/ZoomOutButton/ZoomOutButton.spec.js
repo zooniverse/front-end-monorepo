@@ -1,30 +1,62 @@
-import { shallow } from 'enzyme'
+import { expect } from 'chai'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
-import ZoomOutButton from './ZoomOutButton'
-import i18n from '@test/i18n/i18n-for-tests'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import zooTheme from '@zooniverse/grommet-theme'
+
+import mockStore from '@test/mockStore'
+
+import ZoomOutButtonContainer from './ZoomOutButtonContainer'
 
 describe('Component > ZoomOutButton', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<ZoomOutButton />)
-    expect(wrapper).to.be.ok()
+  function withStore (store) {
+    return function Wrapper ({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
+
+  before(function () {
+    sinon.stub(console, 'error')
   })
 
-  it('should have an `a11yTitle` label', function () {
-    const useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
-    const wrapper = shallow(<ZoomOutButton />)
-    expect(wrapper.prop('a11yTitle')).exists()
-    expect(useTranslationStub).to.have.been.calledWith('ImageToolbar.ZoomOutButton.ariaLabel')
-    useTranslationStub.restore()
+  after(function () {
+    console.error.restore()
   })
 
-  it('should call the onClick prop function on click', function () {
-    const spy = sinon.spy()
-    const wrapper = shallow(
-      <ZoomOutButton
-        onClick={spy}
-      />
+  it('should have an accessible name', function () {
+    const store = mockStore()
+
+    render(
+      <ZoomOutButtonContainer />, {
+        wrapper: withStore(store)
+      }
     )
-    wrapper.simulate('click')
-    expect(spy).to.have.been.called()
+
+    expect(screen.getByRole('button', { name: 'ImageToolbar.ZoomOutButton.ariaLabel' })).to.be.ok()
+  })
+
+  it('should zoom in the subject viewer when clicked', async function () {
+    const user = userEvent.setup({ delay: null })
+    const zoomSpy = sinon.spy()
+    const store = mockStore()
+    store.subjectViewer.setOnZoom(zoomSpy)
+
+    render(
+      <ZoomOutButtonContainer />, {
+        wrapper: withStore(store)
+      }
+    )
+
+    await user.click(screen.getByRole('button', { name: 'ImageToolbar.ZoomOutButton.ariaLabel' }))
+
+    expect(zoomSpy).to.have.been.calledOnceWith("zoomout", -1)
   })
 })

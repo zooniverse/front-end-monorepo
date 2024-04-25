@@ -2,17 +2,25 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
+const million = require('million/compiler')
 const { execSync } = require('child_process')
 const path = require('path')
-const withSourceMaps = require('@zeit/next-source-maps')()
+const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
 
-const talkHosts = require('./config/talkHosts')
 const assetPrefixes = {}
 
-function commitID () {
+function commitID() {
   try {
     return execSync('git rev-parse HEAD').toString('utf8').trim()
+  } catch (error) {
+    return error.message
+  }
+}
+
+function branchName() {
+  try {
+    return execSync('git rev-parse --abbrev-ref HEAD').toString('utf8').trim()
   } catch (error) {
     return error.message
   }
@@ -25,9 +33,9 @@ const SENTRY_PROJECT_DSN = isDevelopment ? '' : 'https://2a50683835694829b4bc3cc
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 const assetPrefix = assetPrefixes[APP_ENV]
-const TALK_HOST = talkHosts[PANOPTES_ENV]
+const GITHUB_REF_NAME = process.env.GITHUB_REF_NAME || branchName()
 
-console.info({ APP_ENV, PANOPTES_ENV, TALK_HOST, assetPrefix })
+console.info({ GITHUB_REF_NAME, APP_ENV, PANOPTES_ENV, assetPrefix })
 
 const nextConfig = {
   assetPrefix,
@@ -37,21 +45,19 @@ const nextConfig = {
     styledComponents: true,
   },
 
+  compress: false,
+
   env: {
+    GITHUB_REF_NAME,
     COMMIT_ID,
     PANOPTES_ENV,
     SENTRY_PROJECT_DSN,
-    APP_ENV,
-    TALK_HOST
+    APP_ENV
   },
 
   experimental: {
     forceSwcTransforms: true,
-    modularizeImports: {
-      lodash: {
-        transform: 'lodash/{{member}}',
-      },
-    },
+    optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons']
   },
 
   async headers() {
@@ -90,16 +96,32 @@ const nextConfig = {
     ]
   },
 
-  webpack: (config, options) => {
-    if (!options.isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser'
-    }
+  sentry: {
+    hideSourceMaps: true
+  },
 
-    const newAliases = webpackConfig.resolve.alias
-    const alias = Object.assign({}, config.resolve.alias, newAliases)
-    config.resolve = Object.assign({}, config.resolve, { alias })
+  webpack: (config, options) => {
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        ...webpackConfig.resolve.alias
+      },
+      fallback: {
+        ...config.resolve.fallback,
+        ...webpackConfig.resolve.fallback
+      }
+    }
     return config
   }
 }
 
-module.exports = withSourceMaps(nextConfig)
+module.exports = million.next(
+  withSentryConfig(nextConfig, {
+    org: 'zooniverse-27',
+    project: 'fem-app-project'
+  }),
+  {
+    auto: true
+  }
+)

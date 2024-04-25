@@ -1,32 +1,49 @@
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+
 import ContentBox from './ContentBox'
+import { ContentBoxMock } from './ContentBox.mock'
 
-const CONTENT = (
-  <div>
-    A natoque elementum venenatis tempus nec vel placerat vehicula vestibulum
-    platea, posuere eget quam donec magna sodales euismod parturient fermentum.
-    Gravida suspendisse dictum consectetur nec convallis ridiculus nisi, integer
-    proin condimentum urna in vestibulum adipiscing, lectus eros tempus metus
-    primis fermentum. Maecenas torquent posuere sit lorem vehicula conubia
-    habitant, vel est placerat semper hendrerit neque porta, parturient mi massa
-    metus integer quam.
-  </div>
-)
-const LINK_LABEL = 'A link'
-const LINK_URL = '#'
-const TITLE = 'Here is a title'
-
-export default {
-  title: 'Project App / Shared / ContentBox'
+const mockRouter = {
+  asPath: '/zooniverse/snapshot-serengeti/about/team',
+  basePath: '/projects',
+  locale: 'en',
+  push() {},
+  prefetch: () => new Promise((resolve, reject) => {}),
+  query: {
+    owner: 'zooniverse',
+    project: 'snapshot-serengeti'
+  }
 }
 
-export const Plain = () => <ContentBox>{CONTENT}</ContentBox>
+function NextRouterStory(Story) {
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      <Story />
+    </RouterContext.Provider>
+  )
+}
+
+export default {
+  title: 'Project App / Shared / ContentBox',
+  decorators: [NextRouterStory]
+}
+
+export const Plain = () => (
+  <ContentBox>{ContentBoxMock.content}</ContentBox>
+)
 
 export const ContentWithTitle = () => (
-  <ContentBox title={TITLE}>{CONTENT}</ContentBox>
+  <ContentBox title={ContentBoxMock.title}>
+    {ContentBoxMock.content}
+  </ContentBox>
 )
 
 export const ContentWithTitleAndALink = () => (
-  <ContentBox linkLabel={LINK_LABEL} linkUrl={LINK_URL} title={TITLE}>
-    {CONTENT}
+  <ContentBox
+    linkLabel={ContentBoxMock.linkLabel}
+    linkProps={ContentBoxMock.linkProps}
+    title={ContentBoxMock.title}
+  >
+    {ContentBoxMock.content}
   </ContentBox>
 )

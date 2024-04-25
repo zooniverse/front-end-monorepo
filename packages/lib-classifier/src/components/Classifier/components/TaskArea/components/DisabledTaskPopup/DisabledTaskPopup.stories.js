@@ -1,6 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-
 import DisabledTaskPopup from './DisabledTaskPopup'
 
 export default {
@@ -23,7 +20,7 @@ export default {
     themeMode: {
       control: {
         type: 'select',
-        options: [ 'light', 'dark' ]
+        options: ['light', 'dark']
       }
     }
   },
@@ -34,22 +31,13 @@ export default {
   }
 }
 
-export function Default({ isOpen, nextAvailable, onClose, reset, themeMode }) {
+export function Default({ isOpen, nextAvailable, onClose, reset }) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <DisabledTaskPopup
-        isOpen={isOpen}
-        nextAvailable={nextAvailable}
-        onClose={onClose}
-        reset={reset}
-      />
-    </Grommet>
+    <DisabledTaskPopup
+      isOpen={isOpen}
+      nextAvailable={nextAvailable}
+      onClose={onClose}
+      reset={reset}
+    />
   )
 }

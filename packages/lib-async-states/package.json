@@ -16,13 +16,13 @@
     "test:ci": "mocha --reporter=min --config ./test/.mocharc.json \"./src/async-states.spec.js\""
   },
   "devDependencies": {
-    "@zooniverse/standard": "~1.0.0",
+    "@zooniverse/standard": "~2.0.0",
     "chai": "~4.3.4",
-    "mocha": "~10.2.0",
+    "mocha": "~10.3.0",
     "snazzy": "~9.0.0"
   },
   "engines": {
-    "node": ">=18.13"
+    "node": ">=20.5"
   },
   "publishConfig": {
     "access": "public"

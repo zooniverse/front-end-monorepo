@@ -3,10 +3,12 @@
     ["@babel/plugin-transform-runtime", {
       "helpers": false
     }],
-    "@babel/plugin-proposal-logical-assignment-operators",
     ["transform-imports", {
       "lodash": {
         "transform": "lodash/${member}"
+      },
+      "@zooniverse/react-components": {
+        "transform": "@zooniverse/react-components/${member}"
       }
     }],
     ["module-resolver", {

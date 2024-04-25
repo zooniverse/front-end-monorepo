@@ -2,6 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
+import { useCallback } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -10,28 +11,36 @@ import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
 
+function onError(error, errorInfo = {}) {
+  logToSentry(error, errorInfo)
+  console.error('Classifier error', error)
+}
+
+const DEFAULT_HANDLER = () => true
+
 /**
   A wrapper for the Classifier component. Responsible for handling:
   - classifier errors.
   - updates to project recents on classification complete.
-  - updates to stored favourites,when the classification subject is favourited.
-  - updates to stored collections, when the classification subject is added to a collection.
+  - updates to stored favourites, when the classification subject is favourited.
+  - Passing locale to classifier
+  - Modifies the url when using prioritized subjects in the classifier (Next or Prev btns)
 */
 export default function ClassifierWrapper({
   authClient = auth,
   appLoadingState = asyncStates.initialized,
   cachePanoptesData = false,
-  collections,
+  collections = null,
   mode,
-  onAddToCollection = () => true,
-  onSubjectReset = () => true,
-  project,
-  recents,
-  router,
+  onAddToCollection = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  project = null,
+  recents = null,
+  router = null,
   showTutorial = false,
   subjectID,
   subjectSetID,
-  user,
+  user = null,
   userID,
   workflowID,
   yourStats
@@ -40,49 +49,64 @@ export default function ClassifierWrapper({
   const nextRouter = useRouter()
   router = router || nextRouter
   const locale = router?.locale
+  const ownerSlug = router?.query.owner
+  const projectSlug = router?.query.project
 
-  function onCompleteClassification(classification, subject) {
+  /* Only increment stats on the classify page if the subject is not retired or not already seen by current user */
+  const incrementStats = yourStats?.increment
+  const addRecents = recents?.add
+  const onCompleteClassification = useCallback((classification, subject) => {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
-      yourStats.increment()
+      incrementStats()
     }
-    recents.add({
+    addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
-  }
+  }, [addRecents, incrementStats])
 
-  function onError(error, errorInfo={}) {
-    logToSentry(error, errorInfo)
-    console.error('Classifier error', error)
+  /*
+    If the page URL contains a subject ID, update that ID when the classification subject changes.
+    Subject page URLs can be either `/classify/workflow/{workflowID}/subject/{subjectID}`
+    or `/classify/workflow/{workflowID}/subject-set/{subjectSetID}/subject/{subjectID}`.
+    Example: Subject Set Progress Banner arrow buttons
+  */
+  let baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
+  if (subjectSetID) {
+    baseURL = `${baseURL}/subject-set/${subjectSetID}`
   }
+  const subjectInURL = router?.query.subjectID !== undefined
+  const replaceRoute = router?.replace
 
-  function onSubjectChange(subject) {
-    const { query } = router
-    const baseURL = `/${query.owner}/${query.project}/classify`
-    if (query.subjectID && subject.id !== query.subjectID) {
-      const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
-      const href = addQueryParams(newSubjectRoute)
-      const as = href
-      router.replace(href, as, { shallow: true })
+  /*
+    When the prioritied subject selection feature was implemented, we used shallow routing
+    to change the [subjecID] subpath in the url in reaction to the subject changing in the
+    Classifier component. Shallow routing isn't supported in Next.js 13, so the url-changing
+    feature is turned off for now. See https://github.com/zooniverse/front-end-monorepo/issues/4977
+  */
+  const onSubjectChange = useCallback(
+    subject => {
+      if (subjectInURL) {
+        const subjectPageURL = `${baseURL}/subject/${subject.id}`
+        const href = addQueryParams(subjectPageURL)
+        // replaceRoute(href, href, { shallow: true })
     }
-  }
+  }, [baseURL, subjectInURL])
 
-  function onToggleFavourite(subjectId, isFavourite) {
-    if (isFavourite) {
-      collections.addFavourites([subjectId])
-    } else {
-      collections.removeFavourites([subjectId])
-    }
-  }
+  const addFavourites = collections?.addFavourites
+  const removeFavourites = collections?.removeFavourites
+  const onToggleFavourite = useCallback((subjectId, isFavourite) => {
+    return isFavourite ? addFavourites([subjectId]) : removeFavourites([subjectId])
+  }, [addFavourites, removeFavourites])
 
   const somethingWentWrong = appLoadingState === asyncStates.error
 
   if (somethingWentWrong) {
     const { error: projectError } = project
     const { error: userError } = user
-    
+
     const errorToMessage = projectError || userError || new Error('Something went wrong')
     return (
       <ErrorMessage error={errorToMessage} />
@@ -116,9 +140,7 @@ export default function ClassifierWrapper({
     }
   } catch (error) {
     onError(error)
-    return (
-      <ErrorMessage error={error} />
-    )
+    return <ErrorMessage error={error} />
   }
 
   return (
@@ -148,11 +170,12 @@ ClassifierWrapper.propTypes = {
   onAddToCollection: func,
   /** Panoptes Auth client */
   authClient: shape({}),
-  /** Callback that runs when the classifier subject queue is reset, so that we can pick a new subject. */
+  /** Callback that runs when the classifier subject queue is reset, so that we can pick a new subject.
+   * Sets subjectID state in ClassifyPageContainer to undefined */
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
-  /** 
+  /**
     Optional custom router. Overrides the default NextJS.
     Useful for mocking the router in stories and shallow tests.
   */
@@ -161,9 +184,9 @@ ClassifierWrapper.propTypes = {
   }),
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
-  /** optional subjectID (from the page URL.) */
+  /** Stored as a state variable in ClassifierPageContainer */
   subjectID: string,
-  /** optional subject set ID (from the page URL.) */
+  /** optional subject set ID (from the classifierProps via getDefaultPageProps in page index.js) */
   subjectSetID: string,
   /** Current logged-in user */
   user: shape({
@@ -171,6 +194,6 @@ ClassifierWrapper.propTypes = {
   }),
   /** Logged-in user ID */
   userID: string,
-  /** required workflow ID (from the page URL.) */
+  /** required workflow ID (from the classifierProps via getDefaultPageProps in page index.js) */
   workflowID: string
 }

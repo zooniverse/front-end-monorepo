@@ -1,16 +1,23 @@
-import { Markdownz, pxToRem } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import { useEffect, useRef } from 'react'
+import styled, { css, useTheme } from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
 
-const maxWidth = pxToRem(60)
-const StyledBox = styled(Box)`
+const StyledFieldset = styled.fieldset`
+  border: none;
+
+  &:focus-visible {
+    outline: none;
+    ${props => props.focusColor && css`box-shadow: 0 0 2px 2px ${props.focusColor};`}
+  }
+
   img:only-child, svg:only-child {
     ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
-    max-width: ${maxWidth};
+    max-width: 2.5rem;
   }
 `
 
@@ -24,15 +31,28 @@ const StyledText = styled(Text)`
   }
 `
 
-function MultipleChoiceTask (props) {
-  const {
-    annotation,
-    className,
-    disabled,
-    task,
-    theme
-  } = props
+const inlineComponents = {
+  p: StyledText
+}
+
+function MultipleChoiceTask ({
+  annotation,
+  autoFocus = false,
+  className = '',
+  disabled = false,
+  task
+}) {
+  const fieldset = useRef()
+  const theme = useTheme()
+  const focusColor = theme?.global.colors[theme?.global.colors.focus]
   const { value } = annotation
+  const questionHasFocus = autoFocus && value.length === 0
+
+  useEffect(function autofocusFieldset() {
+    if (questionHasFocus && document.activeElement !== fieldset.current) {
+      fieldset.current?.focus()
+    }
+  }, [questionHasFocus])
 
   function onChange (index, event) {
     const newValue = value ? value.slice(0) : []
@@ -46,14 +66,17 @@ function MultipleChoiceTask (props) {
   }
 
   return (
-    <StyledBox
-      autoFocus={(value && value.length === 0)}
+    <Box
+      as={StyledFieldset}
+      ref={fieldset}
       className={className}
       disabled={disabled}
+      focusColor={focusColor}
+      tabIndex={-1}
       theme={theme}
     >
       <StyledText as='legend' size='small'>
-        <Markdownz>
+        <Markdownz components={inlineComponents}>
           {task.question}
         </Markdownz>
       </StyledText>
@@ -74,18 +97,8 @@ function MultipleChoiceTask (props) {
           />
         )
       })}
-    </StyledBox>
+    </Box>
   )
-}
-
-MultipleChoiceTask.defaultProps = {
-  className: '',
-  disabled: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 MultipleChoiceTask.propTypes = {
@@ -93,6 +106,7 @@ MultipleChoiceTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.array
   }).isRequired,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
@@ -101,13 +115,8 @@ MultipleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.string
-  }).isRequired,
-  theme: PropTypes.shape({
-    global: PropTypes.shape({
-      colors: PropTypes.object
-   })
- })
+    required: PropTypes.bool
+  }).isRequired
 }
 
 export default observer(MultipleChoiceTask)

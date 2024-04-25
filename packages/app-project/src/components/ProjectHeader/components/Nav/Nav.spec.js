@@ -1,6 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import nock from 'nock'

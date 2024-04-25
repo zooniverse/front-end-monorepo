@@ -1,15 +1,22 @@
-import { Markdownz, pxToRem } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import { useEffect, useRef } from 'react'
+import styled, { css, useTheme } from 'styled-components'
 import TaskInput from '../../components/TaskInput'
 
-const maxWidth = pxToRem(60)
-const StyledBox = styled(Box)`
+const StyledFieldset = styled.fieldset`
+  border: none;
+
+  &:focus-visible {
+    outline: none;
+    ${props => props.focusColor && css`box-shadow: 0 0 2px 2px ${props.focusColor};`}
+  }
+
   img:only-child, svg:only-child {
     ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
-    max-width: ${maxWidth};
+    max-width: 2.5rem;
   }
 `
 
@@ -23,27 +30,45 @@ const StyledText = styled(Text)`
   }
 `
 
-function SingleChoiceTask (props) {
-  const {
-    annotation,
-    className,
-    disabled,
-    task,
-    theme
-  } = props
+const inlineComponents = {
+  p: StyledText
+}
+
+function SingleChoiceTask ({
+  annotation,
+  autoFocus = false,
+  className = '',
+  disabled = false,
+  task
+}) {
+  const fieldset = useRef()
+  const theme = useTheme()
+  const focusColor = theme?.global.colors[theme?.global.colors.focus]
   const { value } = annotation
+  const questionHasFocus = autoFocus && value === null
+  
+  useEffect(function autofocusFieldset() {
+    if (questionHasFocus && document.activeElement !== fieldset.current) {
+      fieldset.current?.focus()
+    }
+  }, [questionHasFocus])
+
   function onChange (index, event) {
     if (event.target.checked) annotation.update(index)
   }
 
   return (
-    <StyledBox
+    <Box
+      as={StyledFieldset}
+      ref={fieldset}
       className={className}
       disabled={disabled}
+      focusColor={focusColor}
+      tabIndex={-1}
       theme={theme}
     >
       <StyledText as='legend' size='small'>
-        <Markdownz>
+        <Markdownz components={inlineComponents}>
           {task.question}
         </Markdownz>
       </StyledText>
@@ -65,18 +90,8 @@ function SingleChoiceTask (props) {
           />
         )
       })}
-    </StyledBox>
+    </Box>
   )
-}
-
-SingleChoiceTask.defaultProps = {
-  className: '',
-  disabled: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 SingleChoiceTask.propTypes = {
@@ -84,6 +99,7 @@ SingleChoiceTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.number
   }).isRequired,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
@@ -92,9 +108,8 @@ SingleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ])
-  }).isRequired,
-  theme: PropTypes.object
+    required: PropTypes.bool
+  }).isRequired
 }
 
 export default observer(SingleChoiceTask)

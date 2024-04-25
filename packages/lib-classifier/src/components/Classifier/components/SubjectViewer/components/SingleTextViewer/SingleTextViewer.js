@@ -1,10 +1,10 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 /**
 The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.
-The `content` is defined by a subject's text mime type location.
+The `content` is defined by a subject's text mime type location, and if the workflow has a highlighter task, the content will include labeled text nodes with highlighter task annotations.
 The `height` is defined in the ImageAndTextViewerContainer as the clientHeight per the Subject Viewer store dimensions. The Subject Viewer store dimensions are defined by the dimensions of the subject image location and image viewer.
 The `subjectId` is defined by the subject ID.
 ```
@@ -18,6 +18,7 @@ The `subjectId` is defined by the subject ID.
 
 const StyledPre = styled.pre`
   white-space: pre-wrap;
+  color: ${props => props.theme.dark ? 'inherit' : 'black'};
   font-family: 'Anonymous Pro', monospace;
   @font-face {
     font-family: 'Anonymous Pro';
@@ -33,20 +34,21 @@ const StyledPre = styled.pre`
 `
 
 function SingleTextViewer ({
-  content = '',
+  content = [''],
   height = '',
-  subjectId = ''
+  subjectId = '',
 }) {
+  const theme = useTheme()
   return (
     <Box
-      aria-label={`Subject ${subjectId} text`}
+      a11yTitle={`Subject ${subjectId} text`}
       as='section'
       flex='grow'
       height={{ min: height }}
       pad='xsmall'
       tabIndex='0'
     >
-      <StyledPre>
+      <StyledPre theme={theme}>
         {content}
       </StyledPre>
     </Box>
@@ -54,12 +56,12 @@ function SingleTextViewer ({
 }
 
 SingleTextViewer.propTypes = {
-  /** String defined by a subject's text mime type location */
-  content: PropTypes.string,
+  /** Array defined by a subject's text mime type location, including labeled text nodes with highlighter task annotations */
+  content: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.node])),
   /** Minimum height of the text viewer in CSS units eg. '400px', '0.25vh', '20rem' etc. */
   height: PropTypes.string,
   /** Subject ID */
-  subjectId: PropTypes.string
+  subjectId: PropTypes.string,
 }
 
 export default SingleTextViewer

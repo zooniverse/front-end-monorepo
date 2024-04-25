@@ -1,6 +1,5 @@
 /* eslint-env browser, mocha */
 /* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
-import React from 'react'
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
 import sinonChai from 'sinon-chai'
@@ -10,7 +9,6 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 
 chai.use(dirtyChai)
 chai.use(sinonChai)
-global.React = React
 global.expect = chai.expect
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})
@@ -24,19 +22,43 @@ function copyProps (src, target) {
 }
 
 class ResizeObserver {
-    disconnect() {
-      // do nothing
-    }
-    observe() {
-        // do nothing
-    }
-    unobserve() {
-        // do nothing
-    }
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
 }
 
+class IntersectionObserver {
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+}
+
+const mockMediaMatcher = {
+  addListener() {
+    return true
+  },
+  removeListener() {
+    return true
+  },
+  matches: true
+}
+
+window.IntersectionObserver = IntersectionObserver
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
+window.matchMedia = () => mockMediaMatcher
 
 global.window = window
 global.document = window.document
@@ -44,7 +66,7 @@ global.Image = window.Image
 global.navigator = {
   userAgent: 'node.js'
 }
-global.cancelAnimationFrame = () => true  // Required for '@tippyjs'
+global.cancelAnimationFrame = () => true // Required for '@tippyjs'
 copyProps(window, global)
 
 Enzyme.configure({ adapter: new Adapter() })

@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import SpacedText from './SpacedText'
 
-/** This will not work with @storybook/testing-react composeStory function */
+/** This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {
@@ -9,6 +9,7 @@ export default {
   component: SpacedText,
   args: {
     children: 'Zooniverse Spaced Text',
+    margin: 'none',
     size: 'medium',
     uppercase: true,
     weight: 'normal'
@@ -36,9 +37,9 @@ export default {
   // }
 }
 
-export const Default = ({ children, size, uppercase, weight }) => (
+export const Default = ({ children, margin, size, uppercase, weight }) => (
   <Box pad='medium'>
-    <SpacedText size={size} uppercase={uppercase} weight={weight}>
+    <SpacedText margin={margin} size={size} uppercase={uppercase} weight={weight}>
       {children}
     </SpacedText>
   </Box>

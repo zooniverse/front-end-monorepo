@@ -12,7 +12,7 @@ describe('Component > LocaleSwitcher', function () {
     render(<Default {...Default.args} />)
     const languageButton = screen.getByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
     await user.click(languageButton)
-    const languageMenu = screen.getByRole('menu')
+    const languageMenu = await screen.findByRole('menu')
     const languageMenuItem = label => within(languageMenu).getByRole('menuitem', { name: label })
     languageMenuItems = ['English', 'Français', 'Español'].map(languageMenuItem)
   })

@@ -35,6 +35,9 @@ export function middleware(req, event) {
     return NextResponse.next()
   }
 
+  /*
+    Redirect /projects/[owner]/[project]?language=[lang] to /projects/[lang]/[owner]/[project].
+  */
   if (url.searchParams.has('language')) {
     const locale = url.searchParams.get('language')
     url.searchParams.delete('language')
@@ -46,18 +49,33 @@ export function middleware(req, event) {
     return NextResponse.redirect(url)
   }
 
+  /*
+    Don't rewrite project URLs that begin with /projects/production
+  */
   if (pathname.startsWith('/production')) {
     return NextResponse.next()
   }
 
+  /*
+    Don't rewrite project URLs that begin with /projects/staging
+  */
   if (pathname.startsWith('/staging')) {
     return NextResponse.next()
   }
 
   /*
-    Project pages are served from /projects/staging/[owner]/[project]
-    and /projects/production/[owner]/[project]
+    Rewrite /projects/[owner]/[project] to /projects/production/[owner]/[project].
+    Rewrite /projects/[owner]/[project]?env=staging to /projects/staging/[owner]/[project].
   */
   url.pathname = `/${panoptesEnv}${pathname}`
+
+  /*
+    Inject the locale, if present, into url.href.
+    Is this a bug in Next.js 13? It used to be handled automatically.
+  */
+  if (url.locale) {
+    url.href = `${url.origin}/projects/${url.locale}${url.pathname}`
+  }
+
   return NextResponse.rewrite(url)
 }

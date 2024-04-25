@@ -1,21 +1,48 @@
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+import Router from 'next/router'
+import { composeStory } from '@storybook/react'
 
-import Publications from './Publications'
+import Meta, { Default } from './Publications.stories.js'
 
-const DATA = [{ id: 'foo' }]
-const FILTERS = [{ id: 'bar' }]
+function RouterMock({ children }) {
+  const mockRouter = {
+    locale: 'en',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'test-owner',
+      project: 'test-project'
+    }
+  }
 
-describe('Component > Publications', function () {
-  let wrapper
+  Router.router = mockRouter
 
-  before(function () {
-    wrapper = shallow(<Publications
-      data={DATA}
-      filters={FILTERS}
-    />)
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
+}
+
+describe('Component > Publications Page', function () {
+  const DefaultStory = composeStory(Default, Meta)
+
+  beforeEach(function () {
+    render(
+      <RouterMock>
+        <DefaultStory />
+      </RouterMock>
+    )
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should have sidebar nav label', function () {
+    const sideBar = screen.getByText('Publications.sidebarLabel')
+    expect(sideBar).to.be.ok()
+  })
+
+  it('should render all publications in data', function () {
+    const publications = screen.getAllByTestId('publication-test-element')
+    expect(publications.length).to.equal(20) // number of publications in mock.json
   })
 })

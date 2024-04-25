@@ -5,11 +5,15 @@ import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { withStores } from '@helpers'
+import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper(classifierStore) {
   const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
   const { activeStepTasks } = classifierStore.workflowSteps
-  const { frame, move } = classifierStore.subjectViewer
+  const { move } = classifierStore.subjectViewer
+  const {
+    multi_image_clone_markers: multiImageCloneMarkers
+  } = classifierStore.workflows?.active?.configuration
 
   const [activeInteractionTask] = activeStepTasks.filter(
     (task) => task.type === 'drawing' || task.type === 'transcription'
@@ -29,16 +33,18 @@ function storeMapper(classifierStore) {
   } = activeInteractionTask || {}
 
   const activeMark = tryReference(() => activeInteractionTask?.activeMark)
+  const disabled = activeTool?.disabled
 
   return {
     activeMark,
     activeTool,
     activeToolIndex,
     annotation,
-    frame,
+    disabled,
     hidingIndex,
     marks,
     move,
+    multiImageCloneMarkers,
     setActiveMark,
     shownMarks,
     taskKey
@@ -56,21 +62,23 @@ export function InteractionLayerContainer({
   hidingIndex,
   marks = [],
   move = false,
+  multiImageCloneMarkers = false,
   scale = 1,
-  setActiveMark = () => {},
+  setActiveMark = () => { },
   shownMarks = SHOWN_MARKS.ALL,
+  subject,
   taskKey = '',
+  viewBox,
   width,
   played,
   duration
 }) {
-
   const newMarks =
     shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
-  const visibleMarksPerFrame = newMarks?.filter(
-    (mark) => mark.frame === frame
-  )
-
+  const visibleMarksPerFrame = (multiImageCloneMarkers)
+    ? newMarks
+    : newMarks?.filter((mark) => mark.frame === frame)
+    
   return (
     <>
       {activeTool && (
@@ -80,19 +88,25 @@ export function InteractionLayerContainer({
           activeToolIndex={activeToolIndex}
           annotation={annotation}
           disabled={disabled}
+          duration={duration}
           frame={frame}
           height={height}
           key={taskKey}
           marks={visibleMarksPerFrame}
           move={move}
-          scale={scale}
+          multiImageCloneMarkers={multiImageCloneMarkers}
           played={played}
-          duration={duration}
           setActiveMark={setActiveMark}
+          scale={scale}
+          subject={subject}
+          viewBox={viewBox}
           width={width}
         />
       )}
-      <PreviousMarks scale={scale} />
+      <PreviousMarks
+        scale={scale}
+        frame={frame}
+      />
     </>
   )
 }
@@ -102,6 +116,7 @@ InteractionLayerContainer.propTypes = {
   activeTool: PropTypes.object,
   disabled: PropTypes.bool,
   duration: PropTypes.number,
+  /** Index of the Frame. Always inherits from SingleImageViewer, which inherits from the Viewer */
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
@@ -111,6 +126,9 @@ InteractionLayerContainer.propTypes = {
   scale: PropTypes.number,
   setActiveMark: PropTypes.func,
   shownMarks: PropTypes.string,
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   taskKey: PropTypes.string,
   width: PropTypes.number.isRequired
 }

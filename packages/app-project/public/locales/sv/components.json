@@ -5,17 +5,6 @@
       "signIn": "Logga in"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Logga in"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "Lösenorden stämmer inte överens. Försök igen.",
-      "realName": "Ditt riktiga namn (frivilligt)",
-      "realNameHelp": "Här kan du uppge ditt riktiga namn som vi använder om vi behöver tacka dig i forskningsartiklar, planscher, med mera.",
-      "register": "Registrera dig"
-    }
-  },
   "ConnectWithProject": {
     "title": "Ta kontakt med {{projectName}}"
   },
@@ -55,9 +44,5 @@
   },
   "RequireUser": {
     "text": "Du är inte inloggad"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Byt till mörkt tema",
-    "switchToLight": "Byt till ljust tema"
   }
 }

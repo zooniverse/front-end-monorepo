@@ -1,6 +1,9 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import ZoomInButton from './ZoomInButton'
+
+const args = {
+  disabled: false
+}
 
 export default {
   title: 'Image Toolbar / ZoomInButton',
@@ -10,25 +13,13 @@ export default {
       action: 'clicked'
     }
   },
-  dark: false
+  args
 }
 
-export function Default({ dark, onClick }) {
-  const theme = { ...zooTheme, dark }
+export function Default({ disabled, onClick }) {
   return (
-    <Box width='72px'>
-      <Grommet
-        background={{
-          dark: 'dark-3',
-          light: 'white'
-        }}
-        theme={theme}
-        themeMode={dark ? 'dark' : 'light'}
-      >
-        <Box pad='12px'>
-          <ZoomInButton onClick={onClick} />
-        </Box>
-      </Grommet>
+    <Box width='72px' pad='12px'>
+      <ZoomInButton disabled={disabled} onClick={onClick} />
     </Box>
   )
 }

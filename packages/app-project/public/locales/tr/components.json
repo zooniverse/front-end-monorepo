@@ -10,52 +10,6 @@
       "seeResults": "Sonuçları Gör"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "error": "Kullanıcı adı veya şifre yanlış",
-      "forgot": "Şifrenizi mi unuttunuz?",
-      "heading": "Tekrar hoşgeldiniz!",
-      "instruction": "Geri döndüğünüz için mutluyuz! Kaldığınız yerden devam etmek için oturum açın.",
-      "login": "Kullanıcı adı veya e-posta adresi",
-      "password": "Şifre",
-      "placeholder": "ör. ZooniverseFan123",
-      "signIn": "Giriş yap"
-    },
-    "RegisterForm": {
-      "betaListSignUp": "Yeni projelerin test edilmesine yardımcı olmak ve kullanılabilir olduklarında e-posta almak istiyorum (isteğe bağlı)",
-      "email": "E-posta Adresi (Gerekli)",
-      "emailConfirm": "E-posta Adresini Onayla (Gerekli)",
-      "emailConfirmError": "E-posta adresleri eşleşmiyor, lütfen tekrar deneyin.",
-      "emailConflict": "Bu adrese sahip bir hesap zaten mevcut",
-      "emailListSignUp": "Arada bir bana e-posta göndermenizde bir sakınca yoktur (isteğe bağlı)",
-      "emailPlaceholder": "ör. zoofan31@gmail.com",
-      "forgot": "Şifrenizi mi unuttunuz?",
-      "heading": "Tekrar hoş geldiniz!",
-      "instruction": "Gerçek bir araştırma yapmaya başlamak için lütfen hesap oluşturun.",
-      "password": "Şifre (Gerekli)",
-      "passwordConfirm": "Şifreyi Onayla (Gerekli)",
-      "passwordConfirmError": "Şifreler uyuşmuyor, lütfen tekrar deneyin.",
-      "privacyAgreement": "Gizlilik politikamızı kabul ediyorsunuz (gerekli)",
-      "privacyAgreementError": "Gizlilik politikasını kabul etmeniz gerekmektedir.",
-      "privacyLink": "Gizlilik politikamızı okuyun",
-      "realName": "Gerçek ad (isteğe bağlı)",
-      "realNameHelp": "Bunu size bilimsel makalelerde, posterlerde vb. yer vermek için kullanacağız.",
-      "realNamePatternHelp": "E-posta adresi değil, bir ad girin",
-      "realNamePlaceholder": "Ör. Maggie Smith",
-      "register": "Kayıt ol",
-      "registering": "Kaydediliyor...",
-      "underageConsent": "Ebeveyn\/veli olduğumu onaylıyorum ve ana iletişim adresi olarak e-posta adresimi vererek çocuğumun kaydolmasına izin veriyorum. Hem ben hem de çocuğum gizlilik politikasını anlıyor ve kabul ediyoruz (gerekli)",
-      "underageEmail": "Ebeveynin\/Velinin e-posta adresi (Gerekli)",
-      "underageEmailSignUp": "Kabul etmeniz halinde, araştırma ile ilgili yeni projeleri veya araştırmamızla ilgili diğer bilgileri tanıtan e-postaları periyodik olarak göndereceğiz. İletişim bilgilerinizi ticari amaçlarla kullanmayacağız. (isteğe bağlı)",
-      "underageNotRealName": "Giriş yapmak için bu adı kullanacaksınız. Herkese açık olarak gösterilecektir. Gerçek adınızı kullanmayın.",
-      "underageWithParent": "16 yaşından küçükseniz, formu ebeveyniniz veya vasinizle birlikte doldurduğunuzu onaylamak için bu kutuyu işaretleyin",
-      "username": "Kullanıcı Adı (Gerekli)",
-      "usernameConflict": "Bu kullanıcı adı alınmış.",
-      "usernameHelp": "Bu, mesaj panolarında vb. herkese açık olarak gösterilecektir.",
-      "usernamePatternHelp": "Kullanıcı adları yalnızca harf, rakam, '.', '-' ve '_' içerebilir",
-      "usernamePlaceholder": "ör. ZooniverseFan123"
-    }
-  },
   "CollectionsModal": {
     "CreateCollection": {
       "createButton": "Oluşturun ve ekleyin",
@@ -74,7 +28,6 @@
         "bitbucket": "Bitbucket",
         "facebook": "Facebook",
         "github": "GitHub",
-        "googleplus": "Google+",
         "instagram": "Instagram",
         "medium": "Medium",
         "pinterest": "Pinterest",
@@ -156,10 +109,6 @@
     "back": "Farklı bir iş akışı seçin",
     "byline": "Transkripsiyona başlamak için bir görüntü  seti seçin.",
     "heading": "Nereden başlayacağınızı seçin"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Koyu temaya geç",
-    "switchToLight": "Açık temaya geç"
   },
   "WorkflowSelector": {
     "WorkflowSelectButton": {

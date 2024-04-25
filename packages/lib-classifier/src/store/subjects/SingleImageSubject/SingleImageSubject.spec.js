@@ -1,4 +1,6 @@
+import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
+
 import SingleImageSubject from './SingleImageSubject'
 import RootStore from '@store/'
 import WorkflowStore from '@store/WorkflowStore'
@@ -21,7 +23,7 @@ describe('Model > SingleImageSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(subjectSnapshot.locations)
+    expect(getSnapshot(subject.locations)).to.deep.equal(subjectSnapshot.locations)
   })
   
   it('should have one location', function () {

@@ -5,15 +5,6 @@
       "signIn": "साइन इन"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "साइन इन"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "दिए गए पासवर्ड एक दूसरे से नहीं मिलते। कृपया दोबारा प्रयास करें। ",
-      "register": "रजिस्टर"
-    }
-  },
   "ConnectWithProject": {
     "title": "{{projectName}} से जुड़ें"
   },
@@ -48,9 +39,5 @@
     "text": "हर क्लिक महत्वूर्ण है! {{projectName}} कम्यूनिटी से इस परियोजना को पूरा करने के लिए जुड़ें और शोधकर्ताओं को महत्वपूर्ण शोध पूरा करने में सहायता करें ",
     "title": "{{projectName}} के आँकड़े",
     "volunteers": "स्वयंसेवक / वालंटियर "
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "थीम से बदलें गहरा",
-    "switchToLight": "थीम से बदलें हल्का"
   }
 }

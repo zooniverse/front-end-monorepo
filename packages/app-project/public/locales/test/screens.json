@@ -34,17 +34,6 @@
       "ProjectImage": {
         "alt": "Translated {{projectName}}"
       },
-      "RelatedProjectsButton": {
-        "label": "Translated"
-      },
-      "RelatedProjectsModal": {
-        "ProjectCard": {
-          "viewProject": "Translated"
-        },
-        "hereAreSomeOthers": "Translated",
-        "relatedProjects": "Translated",
-        "title": "Translated {{project}}"
-      },
       "buttons": {
         "anotherProject": "Translated",
         "stats": "Translated"

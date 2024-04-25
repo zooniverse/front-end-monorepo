@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import { Paragraph } from 'grommet'
 
 import { withStores } from '@helpers'
+import { useKeyZoom } from '@hooks'
 import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
-import withKeyZoom from '../../../withKeyZoom'
 
 function preventDefault (e) {
   e.preventDefault()
@@ -29,6 +29,8 @@ const DEFAULT_GRID_COLUMNS = 3
 const DEFAULT_GRID_ROWS = 3
 const DEFAULT_GRID_MAX_WIDTH = ''
 const DEFAULT_GRID_MAX_HEIGHT = ''
+
+const DEFAULT_HANDLER = () => true
 
 function storeMapper (classifierStore) {
   const {
@@ -104,13 +106,13 @@ export function SubjectGroupViewerContainer({
   interactionMode = 'annotate',
   isCurrentTaskValidForAnnotation,
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onKeyDown = () => true,
-  onReady = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   subject = undefined
 }) {
+  const { onKeyZoom } = useKeyZoom()
   const groupViewer = useRef()
   const scrollContainer = useRef()
   const [images, setImages] = useState([])
@@ -152,7 +154,7 @@ export function SubjectGroupViewerContainer({
     if (subject?.locations) {
       // TODO: Validate for allowed image media mime types
 
-      let imageUrls = subject.locations.map(obj => Object.values(obj)[0])
+      let imageUrls = subject.locations.map(l => l.url)
       const images = await Promise.all(imageUrls.map(fetchImage))
 
       setImages(images)
@@ -268,7 +270,7 @@ export function SubjectGroupViewerContainer({
         subjectIds={subject.subjectIds}
         
         dragMove={dragMove}
-        onKeyDown={onKeyDown}
+        onKeyDown={onKeyZoom}
         
         cellWidth={cellWidth}
         cellHeight={cellHeight}
@@ -307,4 +309,4 @@ SubjectGroupViewerContainer.propTypes = {
   setOnZoom: PropTypes.func,
 }
 
-export default withKeyZoom(withStores(SubjectGroupViewerContainer, storeMapper))
+export default withStores(SubjectGroupViewerContainer, storeMapper)

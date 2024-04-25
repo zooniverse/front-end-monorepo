@@ -1,55 +1,47 @@
-import { shallow } from 'enzyme'
-
-import { AboutHeader } from './AboutHeader'
-
-let wrapper
+import { render } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+import Router from 'next/router'
+import Meta, { Default } from './AboutHeader.stories.js'
 
 describe('Component > AboutHeader', function () {
+  function RouterMock({ children }) {
+    const mockRouter = {
+      locale: 'en',
+      push: () => {},
+      prefetch: () => new Promise((resolve, reject) => {}),
+      query: {}
+    }
+
+    Router.router = mockRouter
+
+    return (
+      <RouterContext.Provider value={mockRouter}>
+        {children}
+      </RouterContext.Provider>
+    )
+  }
+
+  const DefaultStory = composeStory(Default, Meta)
+
   before(function () {
-    wrapper = shallow(<AboutHeader />)
+    render(
+      <RouterMock>
+        <DefaultStory />
+      </RouterMock>
+    )
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should have an `About` link', function () {
-    expect(wrapper.find('[href="/"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Publications` link', function () {
-    expect(wrapper.find('[href="/publications"]')).to.have.lengthOf(1)
-  })
-
-  it('should have an `Our Team` link', function () {
-    expect(wrapper.find('[href="/team"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Acknowledgements` link', function () {
-    expect(wrapper.find('[href="/acknowledgements"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Resources` link', function () {
-    expect(wrapper.find('[href="/resources"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Contact Us` link', function () {
-    expect(wrapper.find('[href="/contact"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `FAQ` link', function () {
-    expect(wrapper.find('[href="/faq"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Highlights` link', function () {
-    expect(wrapper.find('[href="/highlights"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Mobile App` link', function () {
-    expect(wrapper.find('[href="/mobile-app"]')).to.have.lengthOf(1)
-  })
-
-  it('should have a `Donate` link', function () {
-    expect(wrapper.find('[href="/donate"]')).to.have.lengthOf(1)
+  it('should have the following links', function () {
+    expect(document.querySelector('[href="/"]')).to.be.ok()
+    expect(document.querySelector('[href="/publications"]')).to.be.ok()
+    expect(document.querySelector('[href="/team"]')).to.be.ok()
+    expect(document.querySelector('[href="/acknowledgements"]')).to.be.ok()
+    expect(document.querySelector('[href="/resources"]')).to.be.ok()
+    expect(document.querySelector('[href="/contact"]')).to.be.ok()
+    expect(document.querySelector('[href="/faq"]')).to.be.ok()
+    expect(document.querySelector('[href="/highlights"]')).to.be.ok()
+    expect(document.querySelector('[href="/mobile-app"]')).to.be.ok()
+    expect(document.querySelector('[href="/donate"]')).to.be.ok()
   })
 })

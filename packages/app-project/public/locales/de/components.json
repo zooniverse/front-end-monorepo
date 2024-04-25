@@ -5,17 +5,6 @@
       "signIn": "Anmeldung"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Anmeldung"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "Die Passwörter stimmen nicht überein. Bitte versuch es nochmal.",
-      "realName": "Richtiger Name (optional)",
-      "realNameHelp": "Öffentlich. Wir werden diesen Namen in wissenschaftlichen Veröffentlichungen und auf Postern etc. für Anerkennung der Mithilfe nutzen.",
-      "register": "Registrierung"
-    }
-  },
   "ConnectWithProject": {
     "title": "Links"
   },
@@ -47,9 +36,5 @@
   },
   "RequireUser": {
     "text": "Du bist nicht angemeldet."
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Klicken für dunklen Hintergrund",
-    "switchToLight": "Klicken für hellen Hintergrund"
   }
 }

@@ -37,6 +37,10 @@
       "register": "Registrazione",
       "signIn": "Login"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Passa al tema scuro",
+      "switchToLight": "Passa al tema chiaro"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Collezioni",

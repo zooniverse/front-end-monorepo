@@ -15,6 +15,7 @@ function TaskHelp (props) {
 
   const label = t('TaskArea.Tasks.TaskHelp.label')
   const { tasks } = props
+  const tasksWithHelp = tasks.filter(task => !!task.help)
 
   return <>
     <Box>
@@ -34,18 +35,18 @@ function TaskHelp (props) {
           height='medium'
           overflow='auto'
         >
-          {tasks.map((task) => {
-            if (tasks.length > 1) {
+          {tasksWithHelp.map((task, index) => {
+            if (tasksWithHelp.length > 1) {
               return (
                 <Fragment key={task.taskKey}>
                   <Markdownz>
                     {task.help}
                   </Markdownz>
-                  <hr />
+                  {tasksWithHelp.length - 1 === index ? null : <hr />}
                 </Fragment>
               );
             }
-
+            
             return <Markdownz key={task.taskKey}>{task.help}</Markdownz>
           })}
         </Box>

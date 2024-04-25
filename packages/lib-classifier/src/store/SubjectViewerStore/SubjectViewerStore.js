@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { autorun, reaction } from 'mobx'
+import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
   .model('SubjectViewer', {
@@ -18,7 +18,8 @@ const SubjectViewer = types
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
-    rotation: types.optional(types.number, 0)
+    rotation: types.optional(types.number, 0),
+    separateFramesView: types.optional(types.boolean, false)
   })
 
   .volatile(self => ({
@@ -37,6 +38,19 @@ const SubjectViewer = types
   }))
 
   .views(self => ({
+    get disableImageToolbar () {
+      const subject = tryReference(() => getRoot(self).subjects?.active)
+      const frameType = subject?.locations[self.frame].type
+      if (frameType === 'text' || frameType === 'video') {
+        return true
+      }
+      return false
+    },
+ 
+    get hasAnnotateTask () {
+      return getRoot(self)?.workflowSteps.hasAnnotateTask
+    },
+
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'
@@ -57,6 +71,16 @@ const SubjectViewer = types
 
     return {
       afterAttach () {
+        function _syncAnnotateVisibility() {
+          // Make sure the right button is active in the ImageToolbar
+          self.setAnnotateVisibility(self.hasAnnotateTask)
+          if (self.hasAnnotateTask) {
+            self.enableAnnotate()
+          } else {
+            self.enableMove()
+          }
+        }
+        addDisposer(self, autorun(_syncAnnotateVisibility))
         createSubjectObserver()
       },
 
@@ -83,7 +107,6 @@ const SubjectViewer = types
       },
 
       invertView () {
-        console.log('invert view')
         self.invert = !self.invert
       },
 
@@ -147,6 +170,16 @@ const SubjectViewer = types
         self.rotation -= 90
       },
 
+      setAnnotateVisibility (canAnnotate) {
+        if (canAnnotate) {
+          self.enableAnnotate()
+        } else {
+          self.enableMove()
+        }
+
+        self.showAnnotate = canAnnotate
+      },
+
       setFlipbookSpeed (speed) {
         self.flipbookSpeed = speed
       },
@@ -161,6 +194,10 @@ const SubjectViewer = types
 
       setOnPan (callback) {
         self.onPan = callback
+      },
+
+      setSeparateFramesView(mode) {
+        self.separateFramesView = mode
       },
 
       zoomIn () {

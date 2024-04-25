@@ -1,7 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import { useEffect, useState } from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 
@@ -118,15 +117,15 @@ const mockStore = {
     active: fieldGuide.id,
     attachedMedia: { [medium.id]: medium },
     resources: { [fieldGuide.id]: fieldGuide }
-  })
+  }),
+  subjectViewer: {
+    separateFramesView: false
+  }
 }
 
 export default {
   title: 'Help Resources/Field Guide',
-  component: FieldGuideConnector,
-  args: {
-    darkMode: false
-  }
+  component: FieldGuideConnector
 }
 
 function FieldGuideStoryContext (props) {
@@ -143,19 +142,9 @@ function FieldGuideStoryContext (props) {
 
   return (
     <Provider classifierStore={mockStore}>
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        full
-        theme={zooTheme}
-        themeMode={(props.darkMode) ? 'dark' : 'light'}
-      >
-        <Box width='60px'>
-          {ready && <FieldGuideConnector />}
-        </Box>
-      </Grommet>
+      <Box width='60px'>
+        {ready && <FieldGuideConnector />}
+      </Box>
     </Provider>
   )
 }

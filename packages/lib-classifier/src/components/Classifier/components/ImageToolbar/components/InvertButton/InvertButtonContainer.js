@@ -1,10 +1,13 @@
-import { withStores } from '@helpers'
+import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import InvertButton from './InvertButton'
 
 function storeMapper (classifierStore) {
   const {
     subjectViewer: {
+      disableImageToolbar,
       invert,
       invertView
     },
@@ -14,28 +17,43 @@ function storeMapper (classifierStore) {
   } = classifierStore
 
   const active = invert
-  const disabled = !workflow?.configuration?.invert_subject
+  const show = workflow?.configuration?.invert_subject
+  const disabled = disableImageToolbar
+
   return {
     active,
     disabled,
-    onClick: invertView
+    invertView,
+    show
   }
 }
 
-function InvertButtonContainer ({
-  active = false,
-  disabled = false,
-  onClick = () => console.log('invert view')
-}) {
-  if (disabled) {
+function InvertButtonContainer ({ separateFrameInvert }) {
+  const {
+    active,
+    disabled,
+    invertView,
+    show
+  } = useStores(storeMapper)
+
+  const invertCallback = separateFrameInvert || invertView
+
+  if (!show) {
     return null
   }
+
   return (
     <InvertButton
       active={active}
-      onClick={onClick}
+      disabled={disabled}
+      onClick={invertCallback}
     />
   )
 }
 
-export default withStores(InvertButtonContainer, storeMapper)
+export default observer(InvertButtonContainer)
+
+InvertButtonContainer.propTypes = {
+  /** Used when separate frames of a subject each have their own ImageToolbar */
+  separateFrameInvert: PropTypes.func
+}

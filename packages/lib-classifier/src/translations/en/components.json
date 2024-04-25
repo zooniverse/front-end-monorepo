@@ -192,10 +192,21 @@
       "textIconAltText": "Icon for text viewer"
     },
     "MultiFrameViewer": {
-      "FrameCarousel":{
+      "FrameCarousel": {
         "thumbnailAltText": "Thumbnail of Image",
         "previousFrameLabel": "Previous",
         "nextFrameLabel": "Next"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Delete selection {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToSeparateFrames": "Switch to separate frames view",
+        "switchToFlipbook": "Switch to flipbook view"
       }
     },
     "SingleVideoViewerContainer": {
@@ -246,8 +257,7 @@
       "loading": "Loading",
       "renderFallback": "Task component could not be rendered.",
       "BackButton": {
-        "back": "back",
-        "tooltip": "Going back will clear your work for the current task."
+        "back": "back"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "done & talk"

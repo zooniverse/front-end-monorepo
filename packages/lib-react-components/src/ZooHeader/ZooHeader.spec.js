@@ -1,10 +1,6 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import MainNavList from './components/MainNavList'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import ZooniverseLogo from '../ZooniverseLogo'
 import ZooHeader from './ZooHeader'
 
 describe('ZooHeader', function () {
@@ -79,7 +75,7 @@ describe('ZooHeader', function () {
 
     before(function () {
       const user = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
-      render(<ZooHeader isAdmin signIn={() => {}} signOut={() => {}} user={user} />)
+      render(<ZooHeader adminMode signIn={() => {}} signOut={() => {}} user={user} />)
       const mainNavList = screen.getByRole('navigation', { name: 'Site' })
       adminLink = within(mainNavList).getByRole('link', { name: 'Admin' })
       userNavigation = screen.getByRole('navigation', { name: 'User account'})
@@ -117,7 +113,7 @@ describe('ZooHeader', function () {
         zooLogo = screen.getByRole('img', { name: 'Zooniverse Logo' })
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
         await user.click(mainNavButton)
-        mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
+        mainNavList = await screen.findByRole('menu', { name: 'Main Navigation' })
       })
 
       it('shows the Zooniverse logo', function () {
@@ -182,10 +178,10 @@ describe('ZooHeader', function () {
       before(async function () {
         const user = userEvent.setup({ delay: 'none' })
         const userProp = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
-        render(<ZooHeader isAdmin isNarrow signIn={() => {}} signOut={() => {}} user={userProp} />)
+        render(<ZooHeader adminMode isNarrow signIn={() => {}} signOut={() => {}} user={userProp} />)
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
         await user.click(mainNavButton)
-        const mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
+        const mainNavList = await screen.findByRole('menu', { name: 'Main Navigation' })
         adminLink = within(mainNavList).getByRole('menuitem', { name: 'Admin' })
         userNavigation = screen.getByRole('navigation', { name: 'User account'})
         notifications = within(userNavigation).getByRole('link', { name: 'Notifications'})
@@ -211,6 +207,17 @@ describe('ZooHeader', function () {
 
       it('should have an admin link', function () {
         expect(adminLink.href).to.equal('https://www.zooniverse.org/admin')
+      })
+    })
+
+    describe('showing a theme toggle', function () {
+      before(function () {
+        render(<ZooHeader showThemeToggle signIn={() => {}} signOut={() => {}} />)
+      })
+
+      it('shows theme toggle', function () {
+        const toggle = screen.getByLabelText('Switch to dark theme')
+        expect(toggle).to.exist()
       })
     })
   })

@@ -1,42 +1,49 @@
 import { mount } from 'enzyme'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 import { Zoom } from '@visx/zoom'
+
+import mockStore from '@test/mockStore'
 import {
   lightCurveMockData
 } from '../../ScatterPlotViewer/helpers/mockData'
-import { VisXZoom } from './VisXZoom'
+import VisXZoom from './VisXZoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
-function StubComponent ({ children }) {
-  return (
-    <svg height='100px' width='100px'>
-      <rect fill='#fff' />
-      {children}
-    </svg>
-  )
-}
-
-const mockData = lightCurveMockData.kepler
-
-const width = 1000
-const height = 1000
-
-const zoomInEventMock = {
-  clientX: 50,
-  clientY: 50,
-  deltaY: -1,
-  preventDefault: sinon.spy()
-}
-
 describe('Component > VisXZoom', function () {
+  function StubComponent ({ children }) {
+    return (
+      <svg height='100px' width='100px'>
+        <rect fill='#fff' />
+        {children}
+      </svg>
+    )
+  }
+
+  const mockData = lightCurveMockData.kepler
+
+  const width = 1000
+  const height = 1000
+
+  const zoomInEventMock = {
+    clientX: 50,
+    clientY: 50,
+    deltaY: -1,
+    preventDefault: sinon.spy()
+  }
+
+  const store = mockStore()
+
   it('should render without crashing', function () {
     const wrapper = mount(
-      <VisXZoom
-        data={mockData}
-        height={height}
-        width={width}
-        zoomingComponent={StubComponent}
-      />
+      <Provider classifierStore={store}>
+        <VisXZoom
+          data={mockData}
+          height={height}
+          width={width}
+          zoomingComponent={StubComponent}
+        />
+      </Provider>
     )
     expect(wrapper).to.be.ok()
   })
@@ -45,13 +52,15 @@ describe('Component > VisXZoom', function () {
     it('should call props.setOnZoom callback', function () {
       const setOnZoomSpy = sinon.spy()
       mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          setOnZoom={setOnZoomSpy}
-          zoomingComponent={StubComponent}
-        />
+        <Provider classifierStore={store}>
+          <VisXZoom
+            data={mockData}
+            height={height}
+            width={width}
+            setOnZoom={setOnZoomSpy}
+            zoomingComponent={StubComponent}
+          />
+        </Provider>
       )
       expect(setOnZoomSpy).to.have.been.calledOnce()
     })
@@ -68,13 +77,15 @@ describe('Component > VisXZoom', function () {
       }
 
       const wrapper = mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-          zoomConfiguration={zoomConfiguration}
-        />
+        <Provider classifierStore={store}>
+          <VisXZoom
+            data={mockData}
+            height={height}
+            width={width}
+            zoomingComponent={StubComponent}
+            zoomConfiguration={zoomConfiguration}
+          />
+        </Provider>
       )
 
       expect(wrapper.find(Zoom).props().scaleXMin).to.equal(zoomConfiguration.minZoom)
@@ -85,12 +96,14 @@ describe('Component > VisXZoom', function () {
 
     it('should set the height and width using props', function () {
       const wrapper = mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-        />
+        <Provider classifierStore={store}>
+          <VisXZoom
+            data={mockData}
+            height={height}
+            width={width}
+            zoomingComponent={StubComponent}
+          />
+        </Provider>
       )
       expect(wrapper.find(Zoom).props().height).to.equal(height)
       expect(wrapper.find(Zoom).props().width).to.equal(width)
@@ -98,12 +111,17 @@ describe('Component > VisXZoom', function () {
 
     it('should set the left and top position using props', function () {
       const wrapper = mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-        />)
+          <VisXZoom
+            data={mockData}
+            height={height}
+            width={width}
+            zoomingComponent={StubComponent}
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: { classifierStore: store }
+          }
+        )
         expect(wrapper.find(Zoom).props().left).to.equal(0)
         expect(wrapper.find(Zoom).props().top).to.equal(0)
         wrapper.setProps({ left: 10, top: 10 })
@@ -114,13 +132,15 @@ describe('Component > VisXZoom', function () {
     it('should pass along the constrain function set in props', function () {
       const constrainSpy = sinon.spy()
       const wrapper = mount(
-        <VisXZoom
-          constrain={constrainSpy}
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-        />
+        <Provider classifierStore={store}>
+          <VisXZoom
+            constrain={constrainSpy}
+            data={mockData}
+            height={height}
+            width={width}
+            zoomingComponent={StubComponent}
+          />
+        </Provider>
       )
       expect(wrapper.find(Zoom).props().constrain).to.equal(constrainSpy)
     })
@@ -129,12 +149,14 @@ describe('Component > VisXZoom', function () {
   describe('zooming component', function () {
     it('should render the zooming component', function () {
       const wrapper = mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-        />
+        <Provider classifierStore={store}>
+          <VisXZoom
+            data={mockData}
+            height={height}
+            width={width}
+            zoomingComponent={StubComponent}
+          />
+        </Provider>
       )
 
       expect(wrapper.find(StubComponent)).to.have.lengthOf(1)
@@ -142,12 +164,14 @@ describe('Component > VisXZoom', function () {
 
     it('should pass the Zoom child function return value transformMatrix as a prop', function () {
       const wrapper = mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-        />
+        <Provider classifierStore={store}>
+          <VisXZoom
+            data={mockData}
+            height={height}
+            width={width}
+            zoomingComponent={StubComponent}
+          />
+        </Provider>
       )
 
       const { transformMatrix } = wrapper.find(StubComponent).props()
@@ -166,32 +190,32 @@ describe('Component > VisXZoom', function () {
     describe('ZoomEventLayer', function () {
       it('should render ZoomEventLayer as a child', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+            />
+          </Provider>
         )
 
         expect(wrapper.find(StubComponent).find(ZoomEventLayer)).to.have.lengthOf(1)
       })
 
-      it('should set the height, width, and left and top positions by props', function () {
+      it('should set the height and width by props', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            left={20}
-            height={height}
-            width={width}
-            top={40}
-            zoomingComponent={StubComponent}
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+            />
+          </Provider>
         )
 
         const zoomEventLayer = wrapper.find(StubComponent).find(ZoomEventLayer)
-        expect(zoomEventLayer.props().left).to.equal(20)
-        expect(zoomEventLayer.props().top).to.equal(40)
         expect(zoomEventLayer.props().height).to.equal(height)
         expect(zoomEventLayer.props().width).to.equal(width)
       })
@@ -217,12 +241,14 @@ describe('Component > VisXZoom', function () {
 
       it('should not scale the transform matrix on mouse wheel', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+            />
+          </Provider>
         )
 
         testEventPrevention({ wrapper, type: 'wheel' })
@@ -230,24 +256,28 @@ describe('Component > VisXZoom', function () {
 
       it('should not scale the transform matrix on double click', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+            />
+          </Provider>
         )
         testEventPrevention({ wrapper, type: 'dblclick', event: { preventDefault: sinon.spy() } })
       })
 
       it('should not scale the transform matrix on key down', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+            />
+          </Provider>
         )
         testEventPrevention({ wrapper, type: 'keydown' })
       })
@@ -290,13 +320,15 @@ describe('Component > VisXZoom', function () {
         }
 
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            setOnZoom={setZoomCallback}
-            zoomingComponent={StubComponent}
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              setOnZoom={setZoomCallback}
+              zoomingComponent={StubComponent}
+            />
+          </Provider>
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         const zoomTypes = ['zoomin', 'zoomout', 'zoomto']
@@ -336,13 +368,15 @@ describe('Component > VisXZoom', function () {
 
       it('should define overflow styles on the document body on pointer enter and on pointer leave', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
 
         expect(document.body.style.overflow).to.be.empty()
@@ -354,13 +388,15 @@ describe('Component > VisXZoom', function () {
 
       it('should scale in the transform matrix on mouse wheel', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
 
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
@@ -371,13 +407,15 @@ describe('Component > VisXZoom', function () {
 
       it('should scale out the transform matrix on mouse wheel', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -406,13 +444,15 @@ describe('Component > VisXZoom', function () {
 
       it('should scale in the transform matrix on double click', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -421,7 +461,7 @@ describe('Component > VisXZoom', function () {
       })
 
       /*
-        These tests should be testing the wrapped component, which uses withKeyZoom to handle
+        These tests should be testing the wrapped component, which uses useKeyZoom to handle
         keyboard events.
       */
       xit('should scale in the transform matrix on key down with =', function () {
@@ -434,14 +474,16 @@ describe('Component > VisXZoom', function () {
         }
 
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            onKeyDown={sinon.stub()}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              onKeyDown={sinon.stub()}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
 
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
@@ -460,14 +502,16 @@ describe('Component > VisXZoom', function () {
         }
 
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            onKeyDown={sinon.stub()}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              onKeyDown={sinon.stub()}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -492,14 +536,16 @@ describe('Component > VisXZoom', function () {
         }
 
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            onKeyDown={sinon.stub()}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              onKeyDown={sinon.stub()}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -529,14 +575,16 @@ describe('Component > VisXZoom', function () {
         }
 
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            onKeyDown={sinon.stub()}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              onKeyDown={sinon.stub()}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -588,6 +636,7 @@ describe('Component > VisXZoom', function () {
 
         it('should scale transform matrix when zooming in', function () {
           const wrapper = mount(
+            <Provider classifierStore={store}>
             <VisXZoom
               data={mockData}
               height={height}
@@ -596,6 +645,7 @@ describe('Component > VisXZoom', function () {
               zoomingComponent={StubComponent}
               zooming
             />
+            </Provider>
           )
 
           testZoomCallback({ wrapper, zoomType: 'zoomin' })
@@ -603,14 +653,16 @@ describe('Component > VisXZoom', function () {
 
         it('should scale transform matrix when zooming out', function () {
           const wrapper = mount(
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={StubComponent}
-              zooming
-            />
+            <Provider classifierStore={store}>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+                setOnZoom={setZoomCallback}
+                zoomingComponent={StubComponent}
+                zooming
+              />
+            </Provider>
           )
           // zoom in first
           zoomCallback('zoomin')
@@ -623,14 +675,16 @@ describe('Component > VisXZoom', function () {
 
         it('should scale transform matrix when resetting zoom', function () {
           const wrapper = mount(
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={StubComponent}
-              zooming
-            />
+            <Provider classifierStore={store}>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+                setOnZoom={setZoomCallback}
+                zoomingComponent={StubComponent}
+                zooming
+              />
+            </Provider>
           )
 
           // zooming in first
@@ -645,13 +699,15 @@ describe('Component > VisXZoom', function () {
     describe('when panning is disabled', function () {
       it('should not translate the SVG position', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
 
         const events = ['keydown', 'mousedown', 'mouseup', 'mousemove', 'mouseleave']
@@ -670,14 +726,16 @@ describe('Component > VisXZoom', function () {
     describe('when panning is enabled', function () {
       it('should translate the SVG position using mouse events', function () {
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            panning
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              panning
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          </Provider>
         )
         const eventLayer = wrapper.find(ZoomEventLayer)
 
@@ -720,15 +778,17 @@ describe('Component > VisXZoom', function () {
         let wrapper
         beforeEach(function () {
           wrapper = mount(
-            <VisXZoom
-              data={mockData}
-              panning
-              height={height}
-              onKeyDown={sinon.stub()}
-              width={width}
-              zoomingComponent={StubComponent}
-              zooming
-            />
+            <Provider classifierStore={store}>
+              <VisXZoom
+                data={mockData}
+                panning
+                height={height}
+                onKeyDown={sinon.stub()}
+                width={width}
+                zoomingComponent={StubComponent}
+                zooming
+              />
+            </Provider>
           )
         })
 
@@ -847,15 +907,17 @@ describe('Component > VisXZoom', function () {
           zoomOutValue: 0.8
         }
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            panning
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zoomConfiguration={zoomConfiguration}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              panning
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zoomConfiguration={zoomConfiguration}
+              zooming
+            />
+          </Provider>
         )
         const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -889,15 +951,17 @@ describe('Component > VisXZoom', function () {
           zoomOutValue: 0.8
         }
         const wrapper = mount(
-          <VisXZoom
-            data={mockData}
-            panning
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-            zoomConfiguration={zoomConfiguration}
-            zooming
-          />
+          <Provider classifierStore={store}>
+            <VisXZoom
+              data={mockData}
+              panning
+              height={height}
+              width={width}
+              zoomingComponent={StubComponent}
+              zoomConfiguration={zoomConfiguration}
+              zooming
+            />
+          </Provider>
         )
         const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)

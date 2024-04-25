@@ -5,21 +5,31 @@ import asyncStates from '@zooniverse/async-states'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import numberString from '@stores/types/numberString'
 
-const Preferences = types
+export const Preferences = types
   .model('Preferences', {
     minicourses: types.maybe(types.frozen()),
-    selected_workflow: types.maybe(types.string),
+    selected_workflow: types.maybe(numberString),
     tutorials_completed_at: types.maybe(types.frozen())
   })
 
-const Settings = types
+export const Settings = types
   .model('Settings', {
-    workflow_id: types.maybe(types.string)
+    workflow_id: types.maybe(numberString)
+  })
+  .preProcessSnapshot(snapshot => {
+    if (!snapshot) {
+      return snapshot
+    }
+    const normalisedSnapshot = {
+      ...snapshot,
+      workflow_id: snapshot?.workflow_id?.toString()
+    }
+    return normalisedSnapshot
   })
 
 const UserProjectPreferences = types
   .model('UserProjectPreferences', {
-    activity_count: types.maybe(types.number),
+    activity_count: types.optional(types.number, 0),
     activity_count_by_workflow: types.maybe(types.frozen()),
     error: types.maybeNull(types.frozen({})),
     id: types.maybe(numberString),
@@ -71,7 +81,7 @@ const UserProjectPreferences = types
     return {
       reset() {
         const resetSnapshot = {
-          activity_count: undefined,
+          activity_count: 0,
           activity_count_by_workflow: undefined,
           error: undefined,
           id: undefined,
@@ -97,7 +107,7 @@ const UserProjectPreferences = types
             self.setLoadingState(asyncStates.loading)
             const preferences = yield _fetch()
             if (preferences) {
-              self.setResource(preferences)
+              applySnapshot(self, preferences)
             }
             self.setLoadingState(asyncStates.success)
           }
@@ -112,13 +122,18 @@ const UserProjectPreferences = types
       refreshSettings: flow(function * refreshSettings() {
         try {
           const preferences = yield _fetch()
-          if (preferences) {
+          if (preferences?.settings) {
             self.settings = preferences.settings
           }
+          self.setLoadingState(asyncStates.success)
         } catch (error) {
           console.error(error)
         }
-      })
+      }),
+
+      incrementActivityCount() {
+        self.activity_count = self.activity_count + 1
+      }
     }
   })
 

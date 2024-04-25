@@ -5,15 +5,6 @@
       "signIn": "Prijavite se"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Prijavite se"
-    },
-    "RegisterForm": {
-      "passwordConfirmError": "Lozinke se ne podudaraju, pokušajte ponovo.",
-      "register": "Registrirajte se"
-    }
-  },
   "ConnectWithProject": {
     "title": "Poveznice"
   },
@@ -40,9 +31,5 @@
   },
   "ProjectStatistics": {
     "volunteers": "Volonteri"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Prebaci na tamno temu",
-    "switchToLight": "Prebaci na svijetlo temu"
   }
 }

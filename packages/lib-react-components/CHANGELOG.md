@@ -4,6 +4,133 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] 2024
+
+### Added
+Added a `bodyBackground` prop to Modal to allow for custom background colors.
+Added a `ProjectCard` component originally developed in lib-user, but now need for widespread FEM use.
+
+### Changed
+Removed `pxToRem` function.
+Use `grommet-icons` for Notifications and Messages links in ZooHeader's mobile design. Removed `@fortawesome` from the lib.
+
+### Fixed
+Added `d3` as peer dependency and grab available d3 methods from `@visx`.
+Fixed value in AnimatedNumber when a device prefers reduced motion.
+
+## [1.12.0] 2024-03-04
+
+### Added
+Added an `onSignIn` function to AuthModal. A handler than can be called in the parent app when a user registers or signs-in.
+Added `AnimatedNumber` component, an interpolation animation of integers from 0 to `value`.
+
+### Changed
+Standardized the variable name for when a user is using admin mode to `adminMode`.
+
+### Fixed
+Media's Video component was nesting an unused Anchor component. Removed it.
+
+## [1.11.0] 2023-12-04
+
+### Added
+Added an optional theme toggle to ZooHeader.
+Added a `useHasMounted` hook for lazy loading.
+
+### Fixed
+Fixed spacing around components in ZooFooter and ZooHeader toward standardizing padding through FEM pages.
+
+## [1.10.1] 2023-11-29
+
+### Fixed
+- fix a bug where unread notifications and messages are fetched for empty user objects.
+
+## [1.10.0] 2023-11-22
+
+### Fixed
+Added missing `@zooniverse/panoptes-js` package (used by Panoptes data-fetching hooks.)
+
+### Added
+- `Media` can now display text subjects.
+
+## [1.9.1] 2023-11-16
+
+### Fixed
+Added missing `swr` package (used by Panoptes data-fetching hooks.)
+
+## [1.9.0] 2023-11-08
+
+### Added
+- `AuthModal` component for Zooniverse username/password sign-in, and Zooniverse user registration.
+- New hooks for working with authenticated Panoptes users:
+  - `usePanoptesUser`: exchange a Panoptes session cookie for an authenticated user session.
+  - `useUnreadMessages`: check unread private messages.
+  - `useUnreadNotifications`: check unread Talk notifications.
+
+## [1.8.1] 2023-11-02
+
+### Fixed
+- `SpacedHeading` was not passing `size` to its child `SpacedText`. This fix allows the font-size to be adjusted as a prop in `SpacedHeading`.
+
+## [1.8.0] 2023-10-30
+
+### Changed
+- `Markdownz`: replace `remark` with `markdownz` and `rehype`.
+
+## [1.7.0] 2023-10-26
+### Changed
+- build with Node 20.
+
+## [1.6.4] 2023-10-05
+
+### Fixed
+- export `package.json` for build tools.
+
+## [1.6.3] 2023-09-30
+
+### Fixed
+- restore module field in `package.json`.
+
+## [1.6.2] 2023-09-19
+
+### Fixed
+- display `Media` images inline.
+- `Markdownz`: convert line breaks to `<br>`.
+
+## [1.6.1] 2023-09-18
+
+### Fixed
+- Fix ESM import errors when the library is loaded with `require`.
+
+## [1.6.0] 2023-09-12
+
+### Changed
+- modularise exports for more efficient tree-shaking.
+
+## [1.5.6] 2023-09-04
+
+### Changed
+- refactor `SignedInUserNavigation` to avoid hydration errors during SSR.
+
+## [1.5.5] 2023-08-15
+
+### Changed
+- add `sideEffects: false` to enable pruning of unused exports during tree-shaking.
+
+## [1.5.4] 2023-06-01
+
+### Fixed
+- Add missing `cuid` dependency for JSON data media.
+
+## [1.5.3] 2023-05-25
+
+### Fixed
+- `SpacedText`: Change margin prop type to allow object.
+
+## [1.5.2] 2023-05-04
+
+### Changed
+- `ThumbnailImage`: Change the default height and width from `999px` to an empty string.
+
 ## [1.5.1] 2023-03-29
 
 ### Changed
@@ -111,7 +238,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that is often used in a site's footer
 
 ## [1.0.0] 2020-06-29
-- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
+- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:
   - AdminCheckbox
   - CloseButton
   - FavouritesButton

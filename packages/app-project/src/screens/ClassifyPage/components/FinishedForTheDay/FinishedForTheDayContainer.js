@@ -1,68 +1,35 @@
-import { inject, observer } from 'mobx-react'
-import { withRouter } from 'next/router'
-import PropTypes from 'prop-types'
-import { Component } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
+import { useRouter } from 'next/router'
 
 import FinishedForTheDay from './FinishedForTheDay'
 import addQueryParams from '@helpers/addQueryParams'
+import { useContext } from 'react'
 
-function storeMapper (stores) {
-  const { project, user } = stores.store
+function useStore () {
+  const { store } = useContext(MobXProviderContext)
+  const { project } = store
+
   return {
-    imageSrc: project.background.src || '',
-    isLoggedIn: user.isLoggedIn,
+    imageSrc: project.background.src,
     projectName: project['display_name']
   }
 }
 
-class FinishedForTheDayContainer extends Component {
-  getLinkProps () {
-    const { router } = this.props
-    const owner = router?.query?.owner
-    const project = router?.query?.project
-    return {
-      href: addQueryParams(`/projects/${owner}/${project}/stats`)
-    }
-  }
+const FinishedForTheDayContainer = () => {
+  const { imageSrc = '', projectName = '' } = useStore()
+  const router = useRouter()
+  const owner = router?.query?.owner
+  const project = router?.query?.project
 
-  render () {
-    const { imageSrc, isLoggedIn, projectName } = this.props
-    const linkProps = this.getLinkProps()
-    return (
-      <FinishedForTheDay
-        imageSrc={imageSrc}
-        isLoggedIn={isLoggedIn}
-        linkProps={linkProps}
-        projectName={projectName}
-      />
-    )
-  }
+  const linkHref = addQueryParams(`/projects/${owner}/${project}/stats`)
+
+  return (
+    <FinishedForTheDay
+      imageSrc={imageSrc}
+      linkHref={linkHref}
+      projectName={projectName}
+    />
+  )
 }
 
-FinishedForTheDayContainer.propTypes = {
-  imageSrc: PropTypes.string,
-  isLoggedIn: PropTypes.bool,
-  projectName: PropTypes.string.isRequired,
-  router: PropTypes.shape({
-    query: PropTypes.shape({
-      owner: PropTypes.string.isRequired,
-      project: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired
-}
-
-// We wouldn't normally have a `defaultProp` for a required prop, but there's
-// something going on with the store execution order which leaves it undefined
-// without one.
-FinishedForTheDayContainer.defaultProps = {
-  imageSrc: '',
-  isLoggedIn: false,
-  projectName: ''
-}
-
-const DecoratedFinishedForTheDayContainer = inject(storeMapper)(withRouter(observer(FinishedForTheDayContainer)))
-
-export {
-  DecoratedFinishedForTheDayContainer as default,
-  FinishedForTheDayContainer
-}
+export default observer(FinishedForTheDayContainer)

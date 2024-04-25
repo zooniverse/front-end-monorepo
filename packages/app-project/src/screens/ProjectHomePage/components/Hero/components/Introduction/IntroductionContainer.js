@@ -1,50 +1,37 @@
-import { inject, observer } from 'mobx-react'
-import { withRouter } from 'next/router'
-import { shape, string } from 'prop-types'
-import { Component } from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 
 import Introduction from './Introduction'
 
-function storeMapper (stores) {
-  const { project } = stores.store
+function useStores () {
+  const { store } = useContext(MobXProviderContext)
+  const { project } = store
   return {
     description: project.description,
     title: project['display_name']
   }
 }
 
-class IntroductionContainer extends Component {
-  getLinkProps () {
-    const { router } = this.props
+function IntroductionContainer () {
+  const { description, title } = useStores()
+  const router = useRouter()
+
+  function getLinkProps () {
     const { owner, project } = router?.query || {}
     return {
       href: `/${owner}/${project}/about/research`
     }
   }
+  const linkProps = getLinkProps()
 
-  render () {
-    const { description, title } = this.props
-    const linkProps = this.getLinkProps()
-    return (
-      <Introduction description={description} linkProps={linkProps} title={title} />
-    )
-  }
+  return (
+    <Introduction
+      description={description}
+      linkProps={linkProps}
+      title={title}
+    />
+  )
 }
 
-IntroductionContainer.propTypes = {
-  description: string.isRequired,
-  router: shape({
-    query: shape({
-      owner: string.isRequired,
-      project: string.isRequired
-    }).isRequired
-  }).isRequired,
-  title: string.isRequired
-}
-
-const DecoratedIntroductionContainer = inject(storeMapper)(withRouter(observer(IntroductionContainer)))
-
-export {
-  DecoratedIntroductionContainer as default,
-  IntroductionContainer
-}
+export default observer(IntroductionContainer)

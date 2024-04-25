@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { forwardRef, useEffect, useRef } from 'react';
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import draggable from '../draggable'
 
 const STROKE_WIDTH = 2
@@ -10,18 +10,18 @@ const SELECTED_STROKE_WIDTH = 4
 const StyledGroup = styled('g')`
   &:focus {
     ${(props) =>
-      css`
+    css`
         outline: solid 4px ${props.focusColor};
       `}
   }
 
-  :hover {
+  &[aria-disabled="false"]:hover {
     ${(props) =>
-      props.dragging
-        ? css`
+    props.dragging
+      ? css`
             cursor: grabbing;
           `
-        : css`
+      : css`
             cursor: grab;
           `}
   }
@@ -50,6 +50,7 @@ const defaultTheme = {
 const Mark = forwardRef(function Mark(
   {
     children,
+    disabled = false,
     dragging = false,
     isActive = false,
     label,
@@ -59,10 +60,10 @@ const Mark = forwardRef(function Mark(
     onSelect = defaultHandler,
     pointerEvents = 'painted',
     scale = 1,
-    theme = defaultTheme
   },
   ref
 ) {
+  const theme = useTheme()
   const markRoot = ref ?? useRef()
   const { tool } = mark
   const mainStyle = {
@@ -70,7 +71,7 @@ const Mark = forwardRef(function Mark(
     fill: 'transparent',
     stroke: tool && tool.color ? tool.color : 'green'
   }
-  const focusColor = theme.global.colors[theme.global.colors.focus]
+  const focusColor = theme?.global.colors[theme?.global.colors.focus]
   const usesSubTasks = mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
@@ -149,7 +150,10 @@ const Mark = forwardRef(function Mark(
   return (
     <StyledGroup
       {...mainStyle}
+      data-testid="mark-mark"
+      aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
+      className='drawingMark'
       dragging={dragging}
       focusable
       focusColor={focusColor}
@@ -162,7 +166,7 @@ const Mark = forwardRef(function Mark(
       strokeWidth={
         isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale
       }
-      tabIndex='0'
+      tabIndex={disabled ? -1 : 0}
       transform={transform}
     >
       {children}
@@ -179,12 +183,10 @@ Mark.propTypes = {
   onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
   scale: PropTypes.number,
-  theme: PropTypes.object,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
 }
 
-const ObservedMark = observer(Mark)
-export default draggable(withTheme(ObservedMark))
+export default draggable(observer(Mark))
 export { Mark }

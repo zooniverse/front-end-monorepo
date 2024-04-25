@@ -4,28 +4,43 @@ import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import nock from 'nock'
 
 import initStore from '@stores'
 import StandardLayout, { adminBorderImage } from './StandardLayout.js'
 
 describe('Component > StandardLayout', function () {
+  const mockRouter = {
+    asPath: '/zooniverse/snapshot-serengeti/about/team',
+    basePath: '/projects',
+    locale: 'en',
+    push() {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
+
   let adminToggle
   let projectPage
   let zooHeader
   let zooFooter
 
   function withStore(snapshot) {
-    const store = initStore(false)
+    const store = initStore(true)
     applySnapshot(store, snapshot)
 
     return function Wrapper({ children }) {
       return (
-        <Grommet theme={zooTheme}>
-          <Provider store={store}>
-            {children}
-          </Provider>
-        </Grommet>
+        <RouterContext.Provider value={mockRouter}>
+          <Grommet theme={zooTheme}>
+            <Provider store={store}>
+              {children}
+            </Provider>
+          </Grommet>
+        </RouterContext.Provider>
       )
     }
   }
@@ -208,6 +223,33 @@ describe('Component > StandardLayout', function () {
     it('should show the admin toggle in the footer', function () {
       expect(adminToggle).to.be.ok()
       expect(adminToggle.checked).to.be.true()
+    })
+  })
+
+  describe('use in project homepage', function () {
+    before(function () {
+      const snapshot = {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: 'Foobar'
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        },
+        user: {}
+      }
+      render(<StandardLayout page='home' />, { wrapper: withStore(snapshot)})
+      projectPage = screen.getByTestId('project-page')
+      zooHeader = screen.queryByRole('banner') // banner role is the <header> element
+    })
+
+    it('should not render the header components', function () {
+      expect(zooHeader).to.be.null()
     })
   })
 })

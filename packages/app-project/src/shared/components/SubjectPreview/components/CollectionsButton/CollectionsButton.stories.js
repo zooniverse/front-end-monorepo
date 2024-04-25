@@ -1,6 +1,10 @@
-import readme from './README.md'
+// import readme from './README.md'
+import { Provider } from 'mobx-react'
 
-import CollectionsButton from './'
+import Store from '@stores/Store'
+import CollectionsButtonComponent from './'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 const CAT = {
   favorite: false,
@@ -13,16 +17,32 @@ const CAT = {
   ]
 }
 
-export default {
-  title: 'Project App / Shared / Collections Button',
-  component: CollectionsButton,
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
+const snapshot = {
+  project: {
+    strings: {
+      display_name: 'Snapshot Serengeti'
     }
   }
 }
 
-export const Plain = () => <CollectionsButton disabled={false} subject={CAT} />
+const store = Store.create(snapshot)
+
+export default {
+  title: 'Project App / Shared / Collections Button',
+  component: CollectionsButtonComponent,
+  parameters: {
+    // docs: {
+    //   description: {
+    //     component: readme
+    //   }
+    // }
+  }
+}
+
+export const CollectionsButton = () => (
+  <Provider store={store}>
+    <Grommet theme={zooTheme}>
+      <CollectionsButtonComponent disabled={false} subject={CAT} />
+    </Grommet>
+  </Provider>
+)

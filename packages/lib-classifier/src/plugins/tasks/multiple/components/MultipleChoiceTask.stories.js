@@ -1,12 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
+import { useEffect } from 'react'
+
 import { MockTask } from '@stories/components'
 import MultipleChoiceTask from './MultipleChoiceTask'
+import mockTask from './mockTask'
 
 export default {
   title: 'Tasks / Multiple Choice Question',
   component: MultipleChoiceTask,
   args: {
-    dark: false,
     isThereTaskHelp: true,
     required: false,
     subjectReadyState: asyncStates.success
@@ -21,28 +23,49 @@ export default {
   }
 }
 
-export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default({ isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T1: {
-      answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
+      ...mockTask,
       required,
       strings: {
+        ...mockTask.strings,
         help: isThereTaskHelp ? 'Pick as many answers as apply, then press Done.' : '',
-        question: 'What is it doing?',
-        'answers.0.label': 'sleeping',
-        'answers.1.label': 'playing',
-        'answers.2.label': 'looking indifferent'
-      },
-      taskKey: 'T1',
-      type: 'multiple'
+      }
     }
   }
+
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
     />
   )
 }
+
+export function WithAnnotation({ isThereTaskHelp, required, subjectReadyState }) {
+  const tasks = {
+    T1: {
+      ...mockTask,
+      required,
+      strings: {
+        ...mockTask.strings,
+        help: isThereTaskHelp ? 'Pick as many answers as apply, then press Done.' : '',
+      }
+    }
+  }
+
+  useEffect(() => {
+    MockTask.store.classifications.addAnnotation(tasks.T1, [0,2])
+  }, [])
+
+  return (
+    <MockTask
+      isThereTaskHelp={isThereTaskHelp}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+    />
+  )
+}
+

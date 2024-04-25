@@ -3,7 +3,7 @@ import { Box, Text } from 'grommet'
 import Media from './Media'
 import ZooniverseLogo from '../ZooniverseLogo'
 
-/** This will not work with @storybook/testing-react composeStory function */
+/** This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {
@@ -26,6 +26,8 @@ const IMAGE_URL =
   'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
 const VIDEO_URL =
   'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4'
+const TEXT_URL =
+  'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
 
 export function Image() {
   return (
@@ -50,7 +52,7 @@ export function Image() {
         <Media alt='A galaxy' src={IMAGE_URL} height={100} />
       </Box>
       <Box>
-        <Text>Not setting the dimensions props defaults them to 999px</Text>
+        <Text>Without dimensions, the component should fall back to the original image.</Text>
         <Media alt='A galaxy' src={IMAGE_URL} />
       </Box>
     </>
@@ -81,6 +83,19 @@ export function Data() {
         alt='SuperWASP Black Hole Hunters'
         src={DATA_URL}
         height={250}
+        width={270}
+      />
+    </Box>
+  )
+}
+
+export function TextMedia() {
+  return (
+    <Box>
+      <Text>Width set as 270</Text>
+      <Media
+        alt='A text file'
+        src={TEXT_URL}
         width={270}
       />
     </Box>

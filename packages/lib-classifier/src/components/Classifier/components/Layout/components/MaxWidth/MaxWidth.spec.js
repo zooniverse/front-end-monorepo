@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { composeStory } from '@storybook/testing-react'
-
-import Meta, { Default, mockTask } from './MaxWidth.stories.js'
+import { composeStory } from '@storybook/react'
+import Meta, { Default, mockTasks } from './MaxWidth.stories.js'
 
 describe('Component > Layouts > MaxWidth', function () {
 
@@ -9,6 +8,6 @@ describe('Component > Layouts > MaxWidth', function () {
     const DefaultStory = composeStory(Default, Meta)
     render(<DefaultStory />)
     expect(screen.getByLabelText('Subject 1')).exists() // img aria-label from SVGImage
-    expect(screen.getByText(mockTask.init.strings.question)).exists() // task question paragraph
+    expect(screen.getByText(mockTasks.init.strings.question)).exists() // task question paragraph
   })
 })

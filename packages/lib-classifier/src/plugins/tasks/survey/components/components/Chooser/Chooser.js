@@ -1,12 +1,36 @@
-import { Box } from 'grommet'
+import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
+import styled from 'styled-components'
+import { Markdownz } from '@zooniverse/react-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
 import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
+
+const StyledText = styled(Text)`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+`
+
+const components = {
+  a: Text,
+  h1: Text,
+  h2: Text,
+  h3: Text,
+  h4: Text,
+  h5: Text,
+  h6: Text,
+  p: Text,
+  span: Text
+}
 
 function Chooser ({
   disabled = false,
@@ -36,7 +60,17 @@ function Chooser ({
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
   
   return (
-    <Box>
+    <Box
+      as={task.instruction ? 'fieldset' : 'div'}
+      style={{ border: 'none' }}
+    >
+      {task.instruction 
+        ? <StyledText as='legend' size='small'>
+            <Markdownz components={components}>
+              {task.instruction}
+            </Markdownz>
+          </StyledText>
+        : null}
       {showFilters
         ? (<FilterStatus
             disabled={disabled}

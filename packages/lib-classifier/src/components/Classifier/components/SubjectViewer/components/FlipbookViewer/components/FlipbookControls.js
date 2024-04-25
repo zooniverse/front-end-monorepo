@@ -6,6 +6,7 @@ import {
   FormPrevious,
   FormDown
 } from 'grommet-icons'
+import debounce  from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react';
 import styled, { withTheme, css } from 'styled-components'
@@ -15,6 +16,7 @@ import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
+import ViewModeButton from '../../SeparateFramesViewer/components/ViewModeButton/ViewModeButton.js'
 
 const SpeedSelect = styled(Select)`
   display: block;
@@ -53,7 +55,12 @@ function storeMapper(store) {
     setFlipbookSpeed
   } = store.subjectViewer
 
+  const {
+    enable_switching_flipbook_and_separate: enableSwitchView
+  } = store.workflows?.active?.configuration
+
   return {
+    enableSwitchView,
     flipbookSpeed,
     setFlipbookSpeed
   }
@@ -67,7 +74,7 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
-  const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
+  const { enableSwitchView, flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
@@ -79,27 +86,27 @@ const FlipbookControls = ({
    */
   const [smallScreenStyle, setSmallScreenStyle] = useState(false)
   const controlsContainer = useRef(null)
-  const resizeObserver = useRef(null)
 
   useEffect(() => {
-    resizeObserver.current = new window.ResizeObserver((entries) => {
+    const debouncedObserver = debounce((entries) => {
       if (entries[0].contentRect.width < 500) {
         setSmallScreenStyle(true)
       } else {
         setSmallScreenStyle(false)
       }
-    })
+    }, 100)
 
-    if (controlsContainer.current) {
-      resizeObserver.current.observe(controlsContainer.current)
-    }
+    const containerElement = controlsContainer.current
+
+    const resizeObserver = new window.ResizeObserver(debouncedObserver)
+
+    resizeObserver.observe(containerElement)
 
     return () => {
-      if (controlsContainer.current) {
-        resizeObserver.current.unobserve(controlsContainer.current)
-      }
+      // Clean up: clear all current observers when the container element changes
+      resizeObserver.disconnect()
     }
-  }, [])
+  }, [controlsContainer.current])
 
   const handleKeyDown = (event) => {
     const index = currentFrame
@@ -246,10 +253,9 @@ const FlipbookControls = ({
             >
               {locations?.length &&
                 locations.map((location, index) => {
-                  const [url] = Object.values(location)
-                  const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${url.slice(
+                  const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${location.url.slice(
                     7,
-                    url.length
+                    location.url.length
                   )}`
                   // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
 
@@ -258,7 +264,7 @@ const FlipbookControls = ({
 
                   return (
                     <ThumbnailButton
-                      key={`${url}-${index}`}
+                      key={`${location.url}-${index}`}
                       id={`thumbnail-${index}`}
                       aria-controls='flipbook-tab-panel'
                       aria-label={`${t(
@@ -282,7 +288,9 @@ const FlipbookControls = ({
               onClick={handleNext}
             />
           </Box>
-          <Box />
+          <Box justify='center' align='center'>
+            {enableSwitchView && <ViewModeButton smallScreenStyle={smallScreenStyle} />}
+          </Box>
         </Grid>
       </Box>
     </ThemeContext.Extend>

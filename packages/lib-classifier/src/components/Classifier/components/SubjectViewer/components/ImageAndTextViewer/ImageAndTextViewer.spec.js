@@ -1,9 +1,8 @@
 import { expect } from 'chai'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import asyncStates from '@zooniverse/async-states'
-
 import Meta, { Default, TextLocationFirst } from './ImageAndTextViewer.stories'
 
 describe('ImageAndTextViewer', function () {

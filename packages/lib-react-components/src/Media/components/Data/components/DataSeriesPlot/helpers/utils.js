@@ -1,5 +1,5 @@
 import { scaleLinear } from '@visx/scale'
-import { extent } from 'd3-array'
+import { extent } from '@visx/vendor/d3-array'
 import { flatten, zipWith } from 'lodash'
 
 function isThisMultipleDataSeries (data) {

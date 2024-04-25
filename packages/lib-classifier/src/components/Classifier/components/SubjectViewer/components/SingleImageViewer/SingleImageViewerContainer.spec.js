@@ -1,12 +1,14 @@
 import { mount } from 'enzyme'
 import { Provider } from 'mobx-react'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
+import SubjectType from '@store/SubjectStore/SubjectType'
 import mockStore from '@test/mockStore'
 import { DraggableImage } from '../SVGComponents/SVGImage'
 import SingleImageViewer from './SingleImageViewer'
-import { SingleImageViewerContainer } from './SingleImageViewerContainer'
+import SingleImageViewerContainer from './SingleImageViewerContainer'
 
 describe('Component > SingleImageViewerContainer', function () {
   let wrapper
@@ -39,7 +41,13 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = mount(<SingleImageViewerContainer onError={onError} />)
+      wrapper = mount(
+        <SingleImageViewerContainer onError={onError} />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore: mockStore() }
+        }
+      )
     })
 
     it('should render without crashing', function () {
@@ -66,7 +74,7 @@ describe('Component > SingleImageViewerContainer', function () {
         imageWrapper = wrapper.find(SingleImageViewer)
         done()
       })
-      const subject = {
+      const subjectSnapshot = Factory.build('subject', {
         id: 'test',
         locations: [
           { 'image/jpeg': 'https://some.domain/image.jpg' }
@@ -74,8 +82,9 @@ describe('Component > SingleImageViewerContainer', function () {
         metadata: {
           default_frame: "0"
         }
-      }
-      const classifierStore = mockStore({ subject })
+      })
+      const subject = SubjectType.create(subjectSnapshot)
+      const classifierStore = mockStore({ subject: subjectSnapshot })
       wrapper = mount(
         <SingleImageViewerContainer
           enableInteractionLayer={false}
@@ -86,7 +95,7 @@ describe('Component > SingleImageViewerContainer', function () {
         />,
         {
           wrappingComponent: Provider,
-          wrappingComponentProps: classifierStore
+          wrappingComponentProps: { classifierStore }
         }
       )
     })
@@ -151,18 +160,23 @@ describe('Component > SingleImageViewerContainer', function () {
         imageWrapper = wrapper.find(SingleImageViewer)
         done()
       })
-      const subject = {
+      const subjectSnapshot = Factory.build('subject', {
         id: 'test',
         locations: [
-          { 'image/jpeg': 'this is not a URL' }
+          { 'image/jpeg': 'https://some.domain/image.jpg' }
         ]
-      }
+      })
+      const subject = SubjectType.create(subjectSnapshot)
       wrapper = mount(
         <SingleImageViewerContainer
           subject={subject}
           onError={onError}
           onReady={onReady}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore: mockStore({ subject }) }
+        }
       )
     })
 

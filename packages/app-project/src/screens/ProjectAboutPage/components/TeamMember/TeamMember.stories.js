@@ -1,5 +1,5 @@
 import { Box, Grid } from 'grommet'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import TeamMember from './TeamMember'
@@ -56,8 +56,7 @@ const ownerUser = {
 
 export default {
   title: 'Project App / Screens / About Pages / TeamMember',
-  component: TeamMember,
-  decorators: [RouterMock]
+  component: TeamMember
 }
 
 export const Default = () => (

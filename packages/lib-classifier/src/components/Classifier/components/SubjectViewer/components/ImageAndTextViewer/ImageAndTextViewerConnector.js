@@ -8,6 +8,7 @@ function storeMapper (store) {
     },
     subjectViewer: {
       dimensions,
+      enableRotation,
       frame,
       loadingState,
       setFrame
@@ -16,6 +17,7 @@ function storeMapper (store) {
 
   return {
     dimensions,
+    enableRotation,
     frame,
     loadingState,
     setFrame,

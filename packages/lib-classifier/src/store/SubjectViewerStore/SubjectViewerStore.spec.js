@@ -1,6 +1,8 @@
-import asyncStates from '@zooniverse/async-states'
-import { Factory } from 'rosie'
 import sinon from 'sinon'
+import asyncStates from '@zooniverse/async-states'
+
+import { SubjectFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 import SubjectViewerStore from './SubjectViewerStore'
 
 describe('Model > SubjectViewerStore', function () {
@@ -28,6 +30,53 @@ describe('Model > SubjectViewerStore', function () {
       expect(subjectViewerStore.frame).to.equal(0)
       subjectViewerStore.setFrame(1)
       expect(subjectViewerStore.frame).to.equal(1)
+    })
+  })
+
+  describe('Views > disableImageToolbar', function () {
+    describe('when the frame is a subject location of type image', function () {
+      let subjectViewerStore
+      
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+
+      before(function () {
+        const store = mockStore({ subject: subjectSnapshot })
+        subjectViewerStore = store.subjectViewer
+      })
+
+      it('should return false', function () {
+        expect(subjectViewerStore.disableImageToolbar).to.be.false()
+      })
+    })
+
+    describe('when the frame is a subject location of type text', function () {
+      let subjectViewerStore
+      
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'text/plain': 'https://foo.bar/subjectText.txt' }] })
+
+      before(function () {
+        const store = mockStore({ subject: subjectSnapshot })
+        subjectViewerStore = store.subjectViewer
+      })
+
+      it('should return true', function () {
+        expect(subjectViewerStore.disableImageToolbar).to.be.true()
+      })
+    })
+
+    describe('when the frame is a subject location of type video', function () {
+      let subjectViewerStore
+      
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'video/mp4': 'https://foo.bar/subjectVideo.mp4' }] })
+
+      before(function () {
+        const store = mockStore({ subject: subjectSnapshot })
+        subjectViewerStore = store.subjectViewer
+      })
+
+      it('should return true', function () {
+        expect(subjectViewerStore.disableImageToolbar).to.be.true()
+      })
     })
   })
 
@@ -105,7 +154,7 @@ describe('Model > SubjectViewerStore', function () {
 
     describe('when the subject has no default frame', function () {
       it('should have the store frame as 0', function () {
-        const subject = Factory.build('subject')
+        const subject = SubjectFactory.build()
         subjectViewerStore.resetSubject(subject)
         expect(subjectViewerStore.frame).to.equal(0)
       })
@@ -113,7 +162,7 @@ describe('Model > SubjectViewerStore', function () {
 
     describe('when the subject has a default frame of 2', function () {
       it('should save frame 2 in the store as index 1', function () {
-        const subjectWithDefaultFrame = Factory.build('subject', {
+        const subjectWithDefaultFrame = SubjectFactory.build({
           metadata: { default_frame: 2 }
         })
         subjectViewerStore.resetSubject(subjectWithDefaultFrame)

@@ -3,12 +3,15 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import { Button, CheckBox, Grommet, Box, base as baseTheme } from 'grommet'
 import _ from 'lodash'
 import oauth from 'panoptes-client/lib/oauth'
-import React from 'react'
+import { Component } from 'react'
 
 import Classifier from '../../../src/components/Classifier'
 import localeMenu from './localeMenu.js'
 
-class App extends React.Component {
+const onAddToCollection = (subjectId) => console.log(subjectId)
+const onCompleteClassification = (classification, subject) => console.log('onComplete', classification, subject)
+
+class App extends Component {
   constructor(props) {
     super(props)
     this.selectLocale = this.selectLocale.bind(this)
@@ -193,12 +196,12 @@ class App extends React.Component {
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
             <label htmlFor="locale">Language</label>
-            <select id="locale" defaultValue={locale} onChange={this.selectLocale}>
+            <select id="locale" value={locale} onChange={this.selectLocale}>
               {availableLocales?.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
               <option value='test'>Test Language</option>
             </select>
             <label htmlFor="workflows">Workflow</label>
-            <select id="workflows" defaultValue={workflowID} onChange={this.selectWorkflow}>
+            <select id="workflows" value={workflowID} onChange={this.selectWorkflow}>
               <option value=''>None</option>
               {workflows.map(workflow => <option key={workflow.id} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
             </select>
@@ -219,8 +222,8 @@ class App extends React.Component {
               authClient={oauth}
               cachePanoptesData={this.state.cachePanoptesData}
               locale={locale}
-              onAddToCollection={(subjectId) => console.log(subjectId)}
-              onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
+              onAddToCollection={onAddToCollection}
+              onCompleteClassification={onCompleteClassification}
               onError={this.onError}
               project={this.state.project}
               showTutorial

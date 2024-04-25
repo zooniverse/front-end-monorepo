@@ -1,19 +1,57 @@
 import { Box, Button, FormField, Grid, Select } from 'grommet'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 function SelectCollection ({
-  collections,
-  disabled,
-  onSelect,
+  collections = [],
+  disabled = false,
   onSearch,
+  onSelect,
   onSubmit,
-  selected
+  selected = {},
+  userID = ''
 }) {
+  const [searchText, setSearchText] = useState('')
   const { t } = useTranslation('components')
+
   const dropProps = {
     trapFocus: false
   }
+
+  /*
+  Panoptes collections search uses Postgres full-text search, which needs at least 4 characters.
+  For shorter strings, we request all your collections then filter the display names.
+  */
+
+  function onTextChange(text) {
+    const search = text.trim()
+    onSearch({
+      favorite: false,
+      current_user_roles: 'owner,collaborator,contributor',
+      search: search.length > 3 ? search : undefined
+    })
+    setSearchText(search.toLowerCase())
+  }
+
+  const ignorePanoptesFullTextSearch = searchText.length < 4
+
+  function collectionNameFilter(collection) {
+    const displayNameLowerCase = collection.display_name.toLowerCase()
+    return displayNameLowerCase.includes(searchText)
+  }
+
+  function collectionLabel(collection) {
+    if (collection.links.owner.id === userID) {
+      return collection.display_name
+    }
+    return `${collection.display_name} (${collection.links.owner.display_name})`
+  }
+
+  const options = ignorePanoptesFullTextSearch ? collections.filter(collectionNameFilter) : collections
+
+
   return (
     <Grid
       as='form'
@@ -32,15 +70,11 @@ function SelectCollection ({
           dropHeight='medium'
           dropProps={dropProps}
           id='collectionsSearch'
-          labelKey='display_name'
+          labelKey={collectionLabel}
           name='display_name'
           onChange={onSelect}
-          onSearch={searchText => onSearch({
-            favorite: false,
-            current_user_roles: 'owner,collaborator,contributor',
-            search: searchText
-          })}
-          options={collections}
+          onSearch={onTextChange}
+          options={options}
           valueKey='id'
           value={selected}
         />
@@ -65,9 +99,4 @@ SelectCollection.propTypes = {
   selected: PropTypes.shape({})
 }
 
-SelectCollection.defaultProps = {
-  disabled: false,
-  selected: {}
-}
-
-export default SelectCollection
+export default observer(SelectCollection)

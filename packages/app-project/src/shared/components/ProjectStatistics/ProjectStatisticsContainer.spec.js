@@ -1,62 +1,51 @@
-import { shallow } from 'enzyme'
+import { render, screen, waitFor } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, {
+  ProjectStatistics
+} from './ProjectStatisticsContainer.stories.js'
+import { format } from 'd3'
+import {
+  ProjectStatisticsContainerMock as projectMock,
+  ProjectStatisticsContainerRouterMock as routerMock
+} from './ProjectStatisticsContainer.mock'
 
-import ProjectStatistics from './ProjectStatistics'
-import { ProjectStatisticsContainer } from './ProjectStatisticsContainer'
-
-let wrapper
-let projectStatisticsWrapper
-
-const CLASSIFICATIONS = 1
-const COMPLETED_SUBJECTS = 2
-const ROUTER = {
-  asPath: '/foo/bar',
-  query: {
-    owner: 'foo',
-    project: 'bar'
-  }
-}
-const SUBJECTS = 3
-const VOLUNTEERS = 4
+/* Note that this UI is animated, so we cannot look for values in AnimatedNumber
+components via unit test environment */
 
 describe('Component > ProjectStatisticsContainer', function () {
-  before(function () {
-    wrapper = shallow(<ProjectStatisticsContainer
-      classifications={CLASSIFICATIONS}
-      completedSubjects={COMPLETED_SUBJECTS}
-      router={ROUTER}
-      subjects={SUBJECTS}
-      volunteers={VOLUNTEERS}
-    />)
-    projectStatisticsWrapper = wrapper.find(ProjectStatistics)
+  beforeEach(function () {
+    const ProjectStatisticsStory = composeStory(ProjectStatistics, Meta)
+    render(<ProjectStatisticsStory />)
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should render a volunteers stat', async function () {
+    expect(screen.getByText('ProjectStatistics.volunteers')).to.be.ok()
   })
 
-  it('should render the `ProjectStatistics` component', function () {
-    expect(projectStatisticsWrapper).to.have.lengthOf(1)
+  it('should render a classifications stat', function () {
+    expect(screen.getByText('ProjectStatistics.classifications')).to.be.ok()
   })
 
-  it('should pass through a `classifications` prop', function () {
-    expect(projectStatisticsWrapper.prop('classifications')).to.equal(CLASSIFICATIONS)
+  it('should render a subjects stat', function () {
+    expect(screen.getByText('ProjectStatistics.subjects')).to.be.ok()
   })
 
-  it('should pass through a `completedSubjects` prop', function () {
-    expect(projectStatisticsWrapper.prop('completedSubjects')).to.equal(COMPLETED_SUBJECTS)
+  it('should render a completed subjects stat', function () {
+    expect(screen.getByText('ProjectStatistics.completedSubjects')).to.be.ok()
   })
 
-  it('should pass through a `linkProps` prop', function () {
-    expect(projectStatisticsWrapper.prop('linkProps')).to.deep.equal({
-      href: `/foo/bar/stats`
+  it('should render the percent completed', async function () {
+    await waitFor(function () {
+      const text = document.querySelector('.test-completion-bar text').innerHTML
+      expect(text).to.equal(format('.0%')(projectMock.project.completeness))
     })
   })
 
-  it('should pass through a `subjects` prop', function () {
-    expect(projectStatisticsWrapper.prop('subjects')).to.equal(SUBJECTS)
-  })
-
-  it('should pass through a `volunteers` prop', function () {
-    expect(projectStatisticsWrapper.prop('volunteers')).to.equal(VOLUNTEERS)
+  it('should have link to more stats', function () {
+    const hrefFound = screen.getByRole('link', {
+      name: 'ProjectStatistics.viewMoreStats'
+    }).href
+    const hrefMatch = `https://localhost/projects/${routerMock.query.owner}/${routerMock.query.project}/stats`
+    expect(hrefFound).to.be.equal(hrefMatch)
   })
 })

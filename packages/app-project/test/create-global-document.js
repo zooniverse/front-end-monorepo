@@ -1,6 +1,7 @@
 // Creates a global document object using jsdom to allow the use of the
 // `mount` method in enzyme.
 import { JSDOM } from 'jsdom'
+// importing fetch from node-fetch and attaching it to the global object so that fetch can be tested with nock.
 import fetch from 'node-fetch'
 import nock from 'nock'
 
@@ -32,8 +33,32 @@ class ResizeObserver {
     }
 }
 
+class IntersectionObserver {
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+}
+
+const mockMediaMatcher = {
+  addListener() {
+    return true
+  },
+  removeListener() {
+    return true
+  },
+  matches: true
+}
+
+window.IntersectionObserver = IntersectionObserver
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
+window.matchMedia = () => mockMediaMatcher
 
 global.dom = jsdom
 global.fetch = fetch

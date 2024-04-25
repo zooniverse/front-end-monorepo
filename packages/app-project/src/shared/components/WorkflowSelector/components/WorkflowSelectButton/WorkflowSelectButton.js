@@ -1,4 +1,5 @@
-import { SpacedText, withThemeContext } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 import { Button } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
@@ -60,16 +61,16 @@ function WorkflowSelectButton ({
     )
   }
   return (
-    <Link href={href} passHref>
-      <ThemedButton
-        completeness={completeness}
-        icon={<Next size='15px' />}
-        reverse
-        label={label}
-        primary
-        {...rest}
-      />
-    </Link>
+    <ThemedButton
+      as={Link}
+      href={href}
+      completeness={completeness}
+      icon={<Next size='15px' />}
+      reverse
+      label={label}
+      primary
+      {...rest}
+    />
   )
 }
 

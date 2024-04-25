@@ -10,28 +10,15 @@ services:
       target: builder
     command:
       - "/bin/sh"
-  fe-project:
-    image: front-end-monorepo_prod:latest
-    build:
-      context: ./
-    entrypoint:
-      - "yarn"
-      - "workspace"
-      - "@zooniverse/fe-project"
-    command: ["start"]
-    environment:
-      - PORT=3000
-      - PROJECT_ASSET_PREFIX=http://localhost:3000/projects
-      - NODE_ENV=production
-      - PANOPTES_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - APP_ENV=development
-    ports:
-      - "3000:3000"
   fe-content:
     image: front-end-monorepo_prod:latest
     build:
       context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
     entrypoint:
       - "yarn"
       - "workspace"
@@ -39,13 +26,44 @@ services:
     command: ["start"]
     environment:
       - PORT=3000
-      - CONTENT_ASSET_PREFIX=http://localhost:3001/about
-      - NODE_ENV=production
-      - PANOPTES_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - APP_ENV=development
     ports:
       - "3001:3000"
+  fe-project:
+    image: front-end-monorepo_prod:latest
+    build:
+      context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
+    entrypoint:
+      - "yarn"
+      - "workspace"
+      - "@zooniverse/fe-project"
+    command: ["start"]
+    environment:
+      - PORT=3000
+    ports:
+      - "3002:3000"
+  fe-root:
+    image: front-end-monorepo_prod:latest
+    build:
+      context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
+    entrypoint:
+      - "yarn"
+      - "workspace"
+      - "@zooniverse/fe-root"
+    command: ["start"]
+    environment:
+      - PORT=3000
+    ports:
+      - "3003:3000"
 
 volumes:
   node_modules:

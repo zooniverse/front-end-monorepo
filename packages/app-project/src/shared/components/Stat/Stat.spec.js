@@ -1,28 +1,19 @@
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { Default } from './Stat.stories.js'
+import { DefaultMock  } from './Stat.mock'
 
-import Stat from './Stat'
-import AnimatedNumber from './components/AnimatedNumber'
-
-let wrapper
-const value = 123456
-const label = 'Text label'
+/* Note that this UI is animated, so we cannot look for values in AnimatedNumber
+components via unit test environment */
 
 describe('Component > Stat', function () {
-  before(function () {
-    wrapper = mount(<Stat value={value} label={label} />)
+  const DefaultStory = composeStory(Default, Meta)
+
+  beforeEach(function () {
+    render(<DefaultStory />)
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should pass the `value` prop to an `AnimatedNumber`', function () {
-    const animatedNumber = wrapper.find(AnimatedNumber)
-    expect(animatedNumber.length).to.equal(1)
-    expect(animatedNumber.prop('value')).to.equal(value)
-  })
-
-  it('should render the `label` prop', function () {
-    expect(wrapper.text()).to.contain(label)
+  it('should render the Text Label', function () {
+    expect(screen.getByText(DefaultMock.label)).to.exist()
   })
 })

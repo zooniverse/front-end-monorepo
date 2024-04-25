@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
 
@@ -7,11 +6,6 @@ import mockStore from '@test/mockStore'
 import { WorkflowFactory } from '@test/factories'
 
 import SingleVideoViewerContainer from './'
-
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
-}
 
 const subject = Factory.build('subject', {
   locations: [
@@ -52,55 +46,43 @@ const drawingStore = mockStore({
 
 export default {
   title: 'Subject Viewers / SingleVideoViewer',
-  component: SingleVideoViewerContainer,
-  args: {
-    dark: false
-  }
+  component: SingleVideoViewerContainer
 }
 
-export const Default = ({ dark, onError, onReady }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const Default = ({ onError, onReady }) => {
   return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={noDrawingStore}>
-        <Box width='large'>
-          <SingleVideoViewerContainer
-            loadingState='success'
-            onError={onError}
-            onReady={onReady}
-            subject={subject}
-          />
-        </Box>
-      </Provider>
-    </Grommet>
-  )
-}
-
-export const WithDrawingEnabled = ({ dark, onError, onReady }) => {
-  const themeMode = dark ? 'dark' : 'light'
-  return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={drawingStore}>
-        <Box width='large'>
-          <SingleVideoViewerContainer
-            loadingState='success'
-            onError={onError}
-            onReady={onReady}
-            subject={subject}
-          />
-        </Box>
-      </Provider>
-    </Grommet>
-  )
-}
-
-export const NoSubject = ({ dark, onError, onReady }) => {
-  const themeMode = dark ? 'dark' : 'light'
-  return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+    <Provider classifierStore={noDrawingStore}>
       <Box width='large'>
-        <SingleVideoViewerContainer onError={onError} onReady={onReady} />
+        <SingleVideoViewerContainer
+          loadingState='success'
+          onError={onError}
+          onReady={onReady}
+          subject={noDrawingStore.subjects.active}
+        />
       </Box>
-    </Grommet>
+    </Provider>
+  )
+}
+
+export const WithDrawingEnabled = ({ onError, onReady }) => {
+  return (
+    <Provider classifierStore={drawingStore}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          loadingState='success'
+          onError={onError}
+          onReady={onReady}
+          subject={drawingStore.subjects.active}
+        />
+      </Box>
+    </Provider>
+  )
+}
+
+export const NoSubject = ({ onError, onReady }) => {
+  return (
+    <Box width='large'>
+      <SingleVideoViewerContainer onError={onError} onReady={onReady} />
+    </Box>
   )
 }

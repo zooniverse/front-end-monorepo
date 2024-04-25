@@ -242,8 +242,7 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Geri git",
-        "tooltip": "Geri gitmek mevcut çalışmanızı silecektir."
+        "back": "Geri git"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Bitir & Sohbet Et"

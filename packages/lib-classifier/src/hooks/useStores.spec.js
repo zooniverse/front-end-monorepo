@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks/pure'
+import { renderHook } from '@testing-library/react'
 import { Provider } from 'mobx-react'
 
 import mockStore from '@test/mockStore'

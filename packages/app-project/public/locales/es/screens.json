@@ -34,19 +34,7 @@
       "ProjectImage": {
         "alt": "Imagen para {{projectName}}"
       },
-      "RelatedProjectsButton": {
-        "label": "Buscar otro proyecto"
-      },
-      "RelatedProjectsModal": {
-        "ProjectCard": {
-          "viewProject": "Ver proyecto"
-        },
-        "hereAreSomeOthers": "Aquí tienes algunos proyectos de Zooniverse que te pueden gustar",
-        "relatedProjects": "Proyectos relacionados",
-        "title": "¿Te encanta {{project}}?"
-      },
       "buttons": {
-        "anotherProject": "Buscar otro proyecto",
         "stats": "Ver las estadísticas"
       },
       "text": "Mientras estás trabajando, tus respuestas se guardan para el equipo de investigación. Mira las estadísticas del proyecto y vuelve a la página de inicio de {{projectName}}.",

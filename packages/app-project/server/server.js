@@ -2,7 +2,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-const Sentry = require('@sentry/node')
+const Sentry = require('@sentry/nextjs')
 const express = require('express')
 const next = require('next')
 
@@ -42,9 +42,14 @@ app.prepare().then(() => {
     res.end(res.sentry + "\n")
   })
 
-  if (APP_ENV === 'development') {
+  let selfsigned
+  try {
+    selfsigned = require('selfsigned')
+  } catch (error) {
+    console.error(error)
+  }
+  if (APP_ENV === 'development' && selfsigned) {
     const https = require('https')
-    const selfsigned = require('selfsigned')
 
     const attrs = [{ name: 'commonName', value: hostname }];
     const { cert, private: key } = selfsigned.generate(attrs, { days: 365 })

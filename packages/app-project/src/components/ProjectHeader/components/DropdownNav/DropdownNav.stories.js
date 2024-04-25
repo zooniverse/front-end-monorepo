@@ -1,9 +1,30 @@
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import DropdownNav from './DropdownNav.js'
 import initStore from '@stores'
+
+const mockRouter = {
+  asPath: '/zooniverse/snapshot-serengeti/about/team',
+  basePath: '/projects',
+  locale: 'en',
+  push() {},
+  prefetch: () => new Promise((resolve, reject) => {}),
+  query: {
+    owner: 'zooniverse',
+    project: 'snapshot-serengeti'
+  }
+}
+
+function NextRouterStory(Story) {
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      <Story />
+    </RouterContext.Provider>
+  )
+}
 
 function ThemedStory(Story) {
   return (
@@ -16,7 +37,7 @@ function ThemedStory(Story) {
 export default {
   title: 'Project App / Shared / Project Header / Dropdown Nav',
   component: DropdownNav,
-  decorators: [ThemedStory]
+  decorators: [NextRouterStory, ThemedStory]
 }
 
 export function Default(props) {
@@ -123,3 +144,39 @@ export function AdminMode(props) {
   )
 }
 AdminMode.store = initStore(true)
+
+export function WithOrganizationLink(props) {
+  const snapshot = {
+    project: {
+      avatar: {
+        src: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg'
+      },
+      background: {
+        src: 'https://panoptes-uploads.zooniverse.org/project_background/7a3c6210-f97d-4f40-9ab4-8da30772ee01.jpeg'
+      },
+      beta_approved: false,
+      configuration: {
+        languages: ['en']
+      },
+      launch_approved: false,
+      slug: 'zooniverse/snapshot-serengeti',
+      strings: {
+        display_name: 'Snapshot Serengeti'
+      },
+      links: {
+        active_workflows: ['1']
+      }
+    }
+  }
+  applySnapshot(WithOrganizationLink.store, snapshot)
+  return (
+    <Provider store={WithOrganizationLink.store}>
+      <DropdownNav
+        organizationSlug='zooniverse/snapshot-safari'
+        organizationTitle='Snapshot Safari'
+        {...props}
+      />
+    </Provider>
+  )
+}
+WithOrganizationLink.store = initStore(true)

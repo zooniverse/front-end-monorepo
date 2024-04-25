@@ -1,18 +1,19 @@
-import { node } from 'prop-types'
+import { node, string } from 'prop-types'
 import { Box } from 'grommet'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
 import {
   AdminContainer,
   Announcements,
-  ProjectHeader,
-  ZooHeaderWrapper
+  ProjectHeader
 } from '@components'
+import PageHeader from '../../../components/PageHeader/PageHeader.js'
 
 export const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 const PageBox = styled(Box)`
@@ -29,9 +30,19 @@ function useStores() {
   }
 }
 
-function StandardLayout ({
-  children,
-}) {
+export function HeaderComponents({ adminMode }) {
+  const { t } = useTranslation('components')
+
+  return (
+    <header aria-label={t('StandardLayout.headerLabel')}>
+      <PageHeader adminMode={adminMode} />
+      <ProjectHeader adminMode={adminMode} />
+      <Announcements />
+    </header>
+  )
+}
+
+function StandardLayout({ children, page = '' }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -45,11 +56,7 @@ function StandardLayout ({
 
   return (
     <PageBox className={className} data-testid='project-page' border={border}>
-      <header>
-        <ZooHeaderWrapper isAdmin={adminMode} />
-        <ProjectHeader adminMode={adminMode} />
-        <Announcements />
-      </header>
+      {page !== 'home' && <HeaderComponents adminMode={adminMode} />}
       {children}
       <ZooFooter
         adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
@@ -60,7 +67,8 @@ function StandardLayout ({
 }
 
 StandardLayout.propTypes = {
-  children: node
+  children: node,
+  page: string
 }
 
 export default observer(StandardLayout)

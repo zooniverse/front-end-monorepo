@@ -17,9 +17,12 @@ const StyledParagraph = styled(Paragraph)`
   font-weight: bold;
 `
 
-function Introduction (props) {
+function Introduction ({
+  description,
+  linkProps,
+  title
+}) {
   const { t } = useTranslation('screens')
-  const { description, linkProps, title } = props
   const linkText = t('Home.Hero.Introduction.link')
   const link = {
     ...linkProps,

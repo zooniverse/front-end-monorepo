@@ -1,4 +1,4 @@
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import nock from 'nock'
@@ -11,11 +11,12 @@ const {
   LaunchApproved,
   LoggedIn,
   MultipleLanguages,
-  NotLoggedIn
+  NotLoggedIn,
+  OrganizationLink
 } = composeStories(Stories)
 
 describe('Component > ProjectHeader', function () {
-  let languageButton, navMenu, projectAvatar, projectBackground, projectTitle
+  let languageButton, navMenu, projectAvatar, projectBackground, projectTitle, organizationLink
 
   before(function () {
     nock('https://talk-staging.zooniverse.org')
@@ -40,6 +41,7 @@ describe('Component > ProjectHeader', function () {
       projectTitle = screen.getByRole('heading', { level: 1, name: 'Snapshot Serengeti' })
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       languageButton = screen.queryByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
+      organizationLink = screen.queryByRole('link', { name: 'Snapshot Safari' })
     })
 
     it('should display the project title', function () {
@@ -60,6 +62,10 @@ describe('Component > ProjectHeader', function () {
 
     it('should not show the language menu button', function () {
       expect(languageButton).to.be.null()
+    })
+
+    it('should not show the organization link', function () {
+      expect(organizationLink).to.be.null()
     })
   })
 
@@ -163,6 +169,19 @@ describe('Component > ProjectHeader', function () {
 
     it('should show the language menu button', async function () {
       expect(languageButton).to.exist()
+    })
+  })
+
+  describe('with an organization', function () {
+    let organizationLink
+
+    before(function () {
+      render(<OrganizationLink />)
+      organizationLink = screen.getByRole('link', { name: 'Snapshot Safari' })
+    })
+
+    it('should show the organization link', async function () {
+      expect(organizationLink).to.exist()
     })
   })
 })

@@ -1,8 +1,7 @@
 import { expect } from 'chai'
-import { composeStory } from '@storybook/testing-react'
-import { render, screen, within } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
 import Meta, { Default } from './SurveyTask.stories'
 
 describe('SurveyTask with user clicks', function () {
@@ -22,7 +21,7 @@ describe('SurveyTask with user clicks', function () {
     })
 
     it('should show characteristic filter sections', async function () {
-      const characteristicsSection = screen.getByTestId('characteristics')
+      const characteristicsSection = await screen.findByTestId('characteristics')
       // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
       const filterSections = within(characteristicsSection).getAllByRole('radiogroup')
       
@@ -196,7 +195,7 @@ describe('SurveyTask with user clicks', function () {
       expect(choiceButtons.length).to.equal(6)
       const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice (Fire) is focused
-      expect(fireChoiceButton).to.equal(document.activeElement)
+      await waitFor(() => expect(fireChoiceButton).to.equal(document.activeElement))
     })
 
     it('should show choices with selected choice checked and focused when Identify button is clicked', async function () {
@@ -213,7 +212,7 @@ describe('SurveyTask with user clicks', function () {
       // confirm choice (Fire) is shown as checked
       expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
       // confirm choice (Fire) is shown as focused
-      expect(fireChoiceButton).to.equal(document.activeElement)
+      await waitFor(() => expect(fireChoiceButton).to.equal(document.activeElement))
     })
     
     it('should disable "Done & Talk" and "Done" buttons', async function () {

@@ -1,101 +1,51 @@
-import { expect } from 'chai'
-import { shallow } from 'enzyme'
-import { Anchor } from 'grommet'
-import Link from 'next/link'
-
-import { NavLink } from './NavLink'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { OnCurrentPage, NotOnCurrentPage, Disabled } from './NavLink.stories.js'
+import { NavLinkMock } from './NavLink.mock'
 
 describe('Component > NavLink', function () {
-  const ROUTER_ON_CURRENT_PAGE = {
-    asPath: '/projects/foo/bar/baz',
-    pathname: '/projects/[project]/[owner]/baz',
-    query: {
-      owner: 'foo',
-      project: 'bar'
-    }
-  }
-
-  const ROUTER_ON_OTHER_PAGE = {
-    asPath: '/projects/foo/bar/bing',
-    pathname: '/projects/[project]/[owner]/bing',
-    query: {
-      owner: 'foo',
-      project: 'bar'
-    }
-  }
-
-  const LINK = {
-    href: '/projects/foo/bar/baz',
-    text: 'Foobar'
-  }
-
-  describe('default behaviour', function () {
-    let wrapper
-
-    before(function () {
-      wrapper = shallow(<NavLink router={ROUTER_ON_OTHER_PAGE} link={LINK} />)
+  describe('when on current page', function () {
+    beforeEach(function () {
+      const OnCurrentPageStory = composeStory(OnCurrentPage, Meta)
+      render(<OnCurrentPageStory />)
     })
 
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
+    it('should have the correct link', function () {
+      expect(screen.getByRole('link').getAttribute('href')).to.equal(NavLinkMock.href)
     })
 
     it('should have the correct text', function () {
-      const link = wrapper.find(Anchor)
-      const { label } = link.props()
-      expect(label.props.children).to.equal(LINK.text)
+      expect(screen.getByText(NavLinkMock.text)).to.be.ok()
     })
   })
 
-  describe('when not on the current page', function () {
-    let wrapper
-
-    before(function () {
-      wrapper = shallow(<NavLink router={ROUTER_ON_OTHER_PAGE} link={LINK} />)
+  describe('when not on current page', function () {
+    beforeEach(function () {
+      const NotOnCurrentPageStory = composeStory(NotOnCurrentPage, Meta)
+      render(<NotOnCurrentPageStory />)
     })
 
-    it('should have a link', function () {
-      const link = wrapper.find(Link)
-      expect(link).to.have.lengthOf(1)
+    it('should have the correct link', function () {
+      expect(screen.getByRole('link').getAttribute('href')).to.equal(NavLinkMock.href)
     })
 
-    it(`should have an href`, function () {
-      const link = wrapper.find(Link)
-      expect(link.prop('href')).to.equal(LINK.href)
+    it('should have the correct text', function () {
+      expect(screen.getByText(NavLinkMock.text)).to.be.ok()
     })
   })
 
-  describe('when on the current page', function () {
-    let wrapper
-
-    before(function () {
-      wrapper = shallow(<NavLink router={ROUTER_ON_CURRENT_PAGE} link={LINK} />)
+  describe('when link is disabled', function () {
+    beforeEach(function () {
+      const DisabledStory = composeStory(Disabled, Meta)
+      render(<DisabledStory />)
     })
 
-    it('should not have a href', function () {
-      const link = wrapper.find(Anchor)
-      expect(link.prop('href')).to.be.undefined()
+    it('should have the correct link', function () {
+      expect(screen.queryByRole('link')).to.be.null()
     })
 
-    it('should not have a link', function () {
-      const link = wrapper.find(Link)
-      expect(link).to.be.empty()
-    })
-  })
-
-  describe('when the link is "disabled"', function () {
-    let wrapper
-    before(function () {
-      wrapper = shallow(<NavLink disabled router={ROUTER_ON_OTHER_PAGE} link={LINK} />)
-    })
-
-    it('should render as a span', function () {
-      expect(wrapper.find(Anchor).props().as).to.equal('span')
-    })
-
-    it('should not use client side links', function () {
-      const nextLink = wrapper.find(Link)
-      expect(nextLink).to.be.empty()
+    it('should have the correct text', function () {
+      expect(screen.getByText(NavLinkMock.text)).to.be.ok()
     })
   })
 })

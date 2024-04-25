@@ -14,6 +14,7 @@ const DEFAULT_HANDLER = () => true
 
 const FlipbookViewer = ({
   defaultFrame = 0,
+  enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
   invert = false,
@@ -34,14 +35,18 @@ const FlipbookViewer = ({
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const defaultFrameLocation = subject ? subject.locations[defaultFrame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: defaultFrameUrl,
+    src: defaultFrameLocation.url,
     onReady,
     onError
   })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
-  const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
+  const viewerLocation = subject?.locations ? subject.locations[currentFrame] : ''
 
   useEffect(() => {
     enableRotation()
@@ -78,33 +83,36 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
-        img={subjectImage.current}
+        key={`${naturalWidth}-${naturalHeight}`}
+        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={img.naturalHeight}
-        naturalWidth={img.naturalWidth}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
         src={img.src}
       >
         <SingleImageViewer
-          enableInteractionLayer={false}
-          height={img.naturalHeight}
+          enableInteractionLayer={enableInteractionLayer}
+          frame={currentFrame}
+          height={naturalHeight}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}
           rotate={rotation}
-          width={img.naturalWidth}
+          width={naturalWidth}
         >
-          <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
+          <g role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
+              ref={subjectImage}
               invert={invert}
               move={move}
-              naturalHeight={img.naturalHeight}
-              naturalWidth={img.naturalWidth}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
               onDrag={onDrag}
-              src={viewerSrc}
+              src={viewerLocation.url}
               subjectID={subject.id}
             />
           </g>
@@ -125,6 +133,8 @@ const FlipbookViewer = ({
 FlipbookViewer.propTypes = {
   /** Fetched from metadata.default_frame or initialized to zero */
   defaultFrame: PropTypes.number,
+  /** Passed from Subject Viewer Store */
+  enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
@@ -132,13 +142,17 @@ FlipbookViewer.propTypes = {
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
+  limit_subject_height: PropTypes.bool,
+  /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
+  /** withKeyZoom() is for using keyboard pan and zoom controls while focused on the subject image */
   onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */
   playIterations: PropTypes.number,
+  /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
+  rotation: PropTypes.number,
   /** Passed from the Subject Viewer Store */
   setOnPan: PropTypes.func,
   /** Passed from the Subject Viewer Store */

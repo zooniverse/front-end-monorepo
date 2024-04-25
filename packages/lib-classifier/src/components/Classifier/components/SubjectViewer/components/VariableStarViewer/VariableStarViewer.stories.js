@@ -1,14 +1,12 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Factory } from 'rosie'
-import VariableStarViewer from './VariableStarViewerContainer'
-import VariableStarViewerConnector from './VariableStarViewerConnector'
+import VariableStarViewer from '.'
+import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
-import SubjectViewerStore from '@store/SubjectViewerStore'
+
+import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
-import asyncStates from '@zooniverse/async-states'
 
 const subject = Factory.build('subject', {
   locations: [
@@ -22,39 +20,12 @@ const subject = Factory.build('subject', {
   ]
 })
 
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {},
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflows: {
-    active: {}
-  },
-  workflowSteps: {
-    activeStepTasks: []
-  }
-}
+const store = mockStore({ subject })
 
-function ViewerContext (props) {
-  const { children, theme, mode } = props
+function ViewerContext ({ children }) {
   return (
-    <Provider classifierStore={mockStore}>
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={theme}
-        themeMode={mode}
-      >
-        {children}
-      </Grommet>
+    <Provider classifierStore={store}>
+      {children}
     </Provider>
   )
 }
@@ -71,45 +42,21 @@ export default {
   }
 }
 
-export function LightTheme() {
+export function Default() {
   return (
-    <ViewerContext theme={zooTheme} mode='light'>
+    <ViewerContext>
       <Box height='640px' width={{ max: '900px' }}>
-        <VariableStarViewer
-          loadingState={asyncStates.success}
-          subject={subject}
-        />
+        <JSONDataViewer />
       </Box>
     </ViewerContext>
   )
-}
-
-export function DarkTheme() {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-  return (
-    <ViewerContext theme={darkZooTheme} mode='dark'>
-      <Box height='640px' width={{ max: '900px' }}>
-        <VariableStarViewer
-          loadingState={asyncStates.success}
-          subject={subject}
-        />
-      </Box>
-    </ViewerContext>
-  )
-}
-
-DarkTheme.parameters = {
-  backgrounds: backgrounds.darkDefault
 }
 
 export function NarrowView() {
   return (
-    <ViewerContext theme={zooTheme} mode='light'>
+    <ViewerContext>
       <Box height='640px' width={{ max: '900px' }}>
-        <VariableStarViewer
-          loadingState={asyncStates.success}
-          subject={subject}
-        />
+        <JSONDataViewer />
       </Box>
     </ViewerContext>
   )
@@ -123,11 +70,9 @@ NarrowView.parameters = {
 
 export function PanZoom() {
   return (
-    <ViewerContext theme={zooTheme} mode='light'>
+    <ViewerContext>
       <Box direction='row' height='640px' width={{ max: '900px' }}>
-        <VariableStarViewerConnector
-          loadingState={asyncStates.success}
-        />
+        <JSONDataViewer />
         <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>

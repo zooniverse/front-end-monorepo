@@ -1,5 +1,5 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-import { renderHook } from '@testing-library/react-hooks/pure'
+import { renderHook } from '@testing-library/react'
 
 import branchingWorkflow from '@test/mockStore/branchingWorkflow'
 import mockStore from '@test/mockStore'
@@ -12,6 +12,7 @@ describe('Hooks > useHydratedStore', function () {
     let store
 
     beforeEach(function () {
+      cleanStore()
       const { authClient, client } = mockStore()
       const { result } = renderHook(() => useHydratedStore({ authClient, client }, false, 'test-key'))
       store = result.current
@@ -33,6 +34,7 @@ describe('Hooks > useHydratedStore', function () {
     let newStore
 
     beforeEach(function () {
+      cleanStore()
       const { authClient, client } = mockStore()
       const { result: firstRun } = renderHook(() => useHydratedStore({ authClient, client }, false, 'test-key'))
       store = firstRun.current

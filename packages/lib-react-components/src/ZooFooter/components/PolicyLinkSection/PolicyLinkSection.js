@@ -19,13 +19,13 @@ function PolicyLinkSection ({
       aria-label={t('ZooFooter.zooniversePolicies')}
       as='nav'
       direction={direction}
-      gap='medium'
     >
     {links.length > 0 && links.map(link => (
       <Anchor
         href={link.url}
         key={link.url}
         size='small'
+        margin={screenSize !== 'small' ? { right: 'medium' } : { bottom: 'xsmall' }}
       >
         <SpacedText weight='bold'>
           {link.label}

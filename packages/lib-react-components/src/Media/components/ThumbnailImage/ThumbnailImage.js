@@ -1,32 +1,20 @@
-import styled, { css } from 'styled-components'
 import { Box, Image } from 'grommet'
+import styled from 'styled-components'
+
 import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
 import useProgressiveImage from '../../../hooks/useProgressiveImage.js'
 
-const DEFAULT_THUMBNAIL_DIMENSION = 999
-
-const StyledBox = styled(Box)`
-  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
-  ${props => props.maxWidth && css`max-width: ${props.maxWidth};`}
-`
-
-const StyledImage = styled(Image)`
-  height: 100%;
-  object-position: 50% 0%;
-  width: 100%;
+const InlineBox = styled.span`
+  display: inline-flex;
 `
 
 export function Placeholder({ children, flex, ...props}) {
   return (
-    <Box background='brand' flex={flex} justify='center' align='center' {...props}>
+    <Box as={InlineBox} background='brand' flex={flex} justify='center' align='center' {...props}>
       {children}
     </Box>
   )
-}
-
-function stringifySize (size) {
-  return (typeof size === 'number') ? `${size}px` : size
 }
 
 export default function ThumbnailImage({
@@ -34,46 +22,55 @@ export default function ThumbnailImage({
   delay = defaultProps.delay,
   fit = defaultProps.fit,
   flex = defaultProps.flex,
-  height = DEFAULT_THUMBNAIL_DIMENSION,
+  height,
   origin = defaultProps.origin,
   placeholder = defaultProps.placeholder,
   src,
-  width = DEFAULT_THUMBNAIL_DIMENSION,
+  width,
   ...rest
 }) {
   const thumbnailSrc = getThumbnailSrc({ height, origin, src, width })
   const { error, loading } = useProgressiveImage({ delay, src: thumbnailSrc })
 
   const imageSrc = error ? src : thumbnailSrc
-  const stringHeight = stringifySize(height)
-  const stringWidth = stringifySize(width)
+  const cssHeight = height > 0 ? `${height}px` : height
+  const cssWidth = width > 0 ? `${width}px` : width
   const fallbackStyle = {
-    maxHeight: stringHeight,
-    maxWidth: stringWidth
+    display: 'inline-block',
+    maxHeight: cssHeight,
+    maxWidth: cssWidth
+  }
+  const boxHeight = {
+    max: cssHeight
+  }
+  const boxWidth = {
+    max: cssWidth
   }
 
   return (
     <>
       {loading ?
-        <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
-        <StyledBox
+        <Placeholder height={cssHeight} flex={flex} width={cssWidth} {...rest}>{placeholder}</Placeholder> :
+        <Box
           animation={loading ? undefined : 'fadeIn'}
+          as={InlineBox}
           className='thumbnailImage'
           flex={flex}
-          maxWidth={stringWidth}
-          maxHeight={stringHeight}
+          height={boxHeight}
+          width={boxWidth}
           {...rest}
         >
-          <StyledImage
+          <Image
             alt={alt}
             fit={fit}
+            fill
             src={imageSrc}
           />
-        </StyledBox>}
+        </Box>}
       <noscript>
-        <div style={fallbackStyle}>
+        <span style={fallbackStyle}>
           <img src={imageSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
-        </div>
+        </span>
       </noscript>
     </>
   )

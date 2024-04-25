@@ -6,8 +6,7 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useMemo } from 'react';
 
-import { useStores } from '@hooks'
-import withKeyZoom from '../../../withKeyZoom'
+import { useKeyZoom, useStores } from '@hooks'
 
 import { useSubjectJSON } from '@hooks'
 import LightCurveViewer from './LightCurveViewer'
@@ -55,20 +54,15 @@ function storeMapper (classifierStore) {
   }
 }
 
-const DEFAULT_HANDLER = () => true
 const SUBJECT = {
   id: '',
   locations: []
 }
 
 export function LightCurveViewerContainer({
-  drawFeedbackBrushes = DEFAULT_HANDLER,
+  data = null,
   feedback = false,
-  onKeyDown = DEFAULT_HANDLER,
-  subject = SUBJECT,
-  loadingState = asyncStates.initialized,
-  onError = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER
+  feedbackBrushes = []
 }) {
   const {
     activeDataVisTask,
@@ -81,24 +75,24 @@ export function LightCurveViewerContainer({
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
-  const { data: jsonData, viewer } = useSubjectJSON({ onError, onReady, subject })
+  const { onKeyZoom } = useKeyZoom()
 
   const { dataExtent, dataPoints } = useMemo(() => {
     let dataExtent = { x: [], y: [] }
     let dataPoints = []
 
-    if (jsonData?.x && jsonData?.y) {
+    if (data?.x && data?.y) {
       dataExtent = {
-        x: extent(jsonData.x),
-        y: extent(jsonData.y)
+        x: extent(data.x),
+        y: extent(data.y)
       }
-      dataPoints = zip(jsonData.x, jsonData.y)
+      dataPoints = zip(data.x, data.y)
     }
 
     return { dataExtent, dataPoints }
-  }, [jsonData])
+  }, [data])
 
-  if (!subject.id) {
+  if (!data) {
     return null
   }
 
@@ -110,13 +104,12 @@ export function LightCurveViewerContainer({
         currentTask={activeDataVisTask}
         dataExtent={dataExtent}
         dataPoints={dataPoints}
-        drawFeedbackBrushes={drawFeedbackBrushes}
         enableAnnotate={enableAnnotate}
         enableMove={enableMove}
         feedback={feedback}
-        forwardRef={viewer}
+        feedbackBrushes={feedbackBrushes}
         interactionMode={interactionMode}
-        onKeyDown={onKeyDown}
+        onKeyDown={onKeyZoom}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
         toolIndex={activeToolIndex}
@@ -126,9 +119,7 @@ export function LightCurveViewerContainer({
 }
 
 LightCurveViewerContainer.propTypes = {
-  drawFeedbackBrushes: PropTypes.func,
   feedback: PropTypes.bool,
-  onKeyDown: PropTypes.func.isRequired,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
@@ -139,4 +130,4 @@ LightCurveViewerContainer.propTypes = {
   onReady: PropTypes.func,
 }
 
-export default withKeyZoom(observer(LightCurveViewerContainer))
+export default observer(LightCurveViewerContainer)

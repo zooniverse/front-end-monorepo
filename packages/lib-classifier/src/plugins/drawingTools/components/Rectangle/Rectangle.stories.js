@@ -28,7 +28,8 @@ const drawingTaskSnapshot = DrawingTaskFactory.build({
 
 const taskSubtaskStrings = {}
 Object.entries(subtaskStrings).forEach(([key, value]) => {
-  taskSubtaskStrings[`tools.0.${key}`] = value
+  const subtaskKey = `tools.0.${key}`
+  taskSubtaskStrings[subtaskKey] = value
 })
 
 drawingTaskSnapshot.strings = {
@@ -53,7 +54,8 @@ function setupStores() {
   try {
     const workflowSubtaskStrings = {}
     Object.entries(drawingTaskSnapshot.strings).forEach(([key, value]) => {
-      workflowSubtaskStrings[`tasks.T1.${key}`] = value
+      const taskKey = `tasks.T1.${key}`
+      workflowSubtaskStrings[taskKey] = value
     })
     const strings = {
       display_name: 'Rectangle workflow',

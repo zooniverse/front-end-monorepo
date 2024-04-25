@@ -5,28 +5,30 @@ import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 import { getHost } from './helpers'
 import { useTranslation } from '../translations/i18n'
+import { useHasMounted } from '../hooks'
 
 import MainNavList from './components/MainNavList'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
+import NarrowMainNavMenu from './components/NarrowMainNavMenu'
+import UserNavigation from './components/UserNavigation/UserNavigation.js'
 import ZooniverseLogo from '../ZooniverseLogo'
 
 export const StyledHeader = styled(Box)`
-  color: #B2B2B2;
+  color: #b2b2b2;
   font-size: 1em;
 `
 
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
-  color: #B2B2B2;
-  margin-right: 2em;
+  color: #b2b2b2;
+  margin-right: 30px;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-bottom-color: ${zooTheme.global.colors.brand};
   }
 
   > svg {
-    vertical-align: text-bottom;
+    vertical-align: middle;
     width: 1em;
   }
 `
@@ -35,16 +37,20 @@ const defaultHandler = () => true
 
 export default function ZooHeader({
   breakpoint = 960,
-  isAdmin = false,
+  adminMode = false,
   isNarrow = false,
+  onThemeChange = defaultHandler,
   register = defaultHandler,
+  showThemeToggle = false,
   signIn = defaultHandler,
   signOut = defaultHandler,
+  themeMode = 'light',
   unreadMessages = 0,
   unreadNotifications = 0,
   user = {},
   ...props
 }) {
+  const hasMounted = useHasMounted()
   const { t } = useTranslation()
   const { width, height, ref } = useResizeDetector({
     refreshMode: 'debounce',
@@ -77,10 +83,9 @@ export default function ZooHeader({
       ref={ref}
       background='black'
       direction='row'
-      fill='horizontal'
       justify='between'
-      pad='none'
-      responsive={false}
+      pad={{ vertical: '20px', horizontal: 'medium' }}
+      responsive
       {...props}
     >
       <Box
@@ -88,8 +93,6 @@ export default function ZooHeader({
         align='center'
         aria-label={t('ZooHeader.ariaLabel')}
         direction='row'
-        pad={{ horizontal: 'medium' }}
-        responsive={false}
       >
         <StyledLogoAnchor href='http://www.zooniverse.org'>
           <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
@@ -97,49 +100,58 @@ export default function ZooHeader({
         <MainNavList
           adminNavLinkLabel={adminNavLinkLabel}
           adminNavLinkURL={adminNavLinkURL}
-          isAdmin={user?.admin && isAdmin}
+          adminMode={user?.admin && adminMode}
           isNarrow={isNarrow}
           mainHeaderNavListLabels={mainHeaderNavListLabels}
           mainHeaderNavListURLs={mainHeaderNavListURLs}
         />
       </Box>
-      <SignedOutUserNavigation
-        adminNavLinkLabel={adminNavLinkLabel}
-        adminNavLinkURL={adminNavLinkURL}
-        isAdmin={isAdmin}
-        isNarrow={isNarrow}
-        mainHeaderNavListLabels={mainHeaderNavListLabels}
-        mainHeaderNavListURLs={mainHeaderNavListURLs}
-        register={register}
-        signIn={signIn}
-        user={user}
-      />
-      <SignedInUserNavigation
-        adminNavLinkLabel={adminNavLinkLabel}
-        adminNavLinkURL={adminNavLinkURL}
-        isAdmin={isAdmin}
-        isNarrow={isNarrow}
-        mainHeaderNavListLabels={mainHeaderNavListLabels}
-        mainHeaderNavListURLs={mainHeaderNavListURLs}
-        unreadMessages={unreadMessages}
-        unreadNotifications={unreadNotifications}
-        signOut={signOut}
-        user={user}
-      />
+      <Box
+        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
+        as='nav'
+        direction='row'
+      >
+        {hasMounted && (
+          <UserNavigation
+            isNarrow={isNarrow}
+            onThemeChange={onThemeChange}
+            register={register}
+            showThemeToggle={showThemeToggle}
+            signIn={signIn}
+            signOut={signOut}
+            themeMode={themeMode}
+            unreadMessages={unreadMessages}
+            unreadNotifications={unreadNotifications}
+            user={user}
+          />
+        )}
+        {isNarrow && (
+          <NarrowMainNavMenu
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            adminMode={user?.admin && adminMode}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+          />
+        )}
+      </Box>
     </StyledHeader>
   )
 }
 
 ZooHeader.propTypes = {
-  isAdmin: PropTypes.bool,
+  adminMode: PropTypes.bool,
   isNarrow: PropTypes.bool,
+  onThemeChange: PropTypes.func,
   register: PropTypes.func,
+  showThemeToggle: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+  themeMode: PropTypes.string,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
-    display_name: PropTypes.string.isRequired,
-    login: PropTypes.string.isRequired
-  }).isRequired
+    display_name: PropTypes.string,
+    login: PropTypes.string
+  })
 }

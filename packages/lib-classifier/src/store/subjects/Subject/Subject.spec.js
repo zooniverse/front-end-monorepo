@@ -1,5 +1,7 @@
+import { getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
+
 import Subject from './Subject'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -23,7 +25,7 @@ describe('Model > Subject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(stub.locations)
+    expect(getSnapshot(subject.locations)).to.deep.equal(stub.locations)
   })
 
   it('should not have transcription reductions', function () {
@@ -171,6 +173,15 @@ describe('Model > Subject', function () {
           })
           const subject = store.subjects.active
           expect(subject.viewer).to.equal(subjectViewers.lightCurve)
+        })
+      })
+
+      describe('JSON data', function () {
+        it('should return the JSON data viewer for subjects with a JSON location', function () {
+          const jsonSubject = SubjectFactory.build({ locations: [{ 'application/json': 'https://foo.bar/example.json' }] })
+          const store = mockStore({ project, workflow, subject: jsonSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.jsonData)
         })
       })
     })

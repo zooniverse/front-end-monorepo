@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -10,22 +9,14 @@ function NavLink ({
   color,
   disabled = false,
   link,
-  router = {},
   StyledAnchor = Anchor,
   StyledSpacedText = SpacedText,
   weight,
   ...anchorProps
 }) {
   const { href, text } = link
-  const isCurrentPage = router?.asPath === addQueryParams(href)
 
   const label = <StyledSpacedText color={color} weight={weight}>{text}</StyledSpacedText>
-
-  if (isCurrentPage) {
-    return (
-      <StyledAnchor color={color} label={label} {...anchorProps} />
-    )
-  }
 
   if (disabled) {
     // On the surface this may look odd, since you can't disable links
@@ -39,27 +30,29 @@ function NavLink ({
     // We also do not wrap it with next.js's Link
     return <StyledAnchor as='span' color={color} disabled label={label} {...anchorProps} />
   }
-  
+
   return (
-    <Link href={addQueryParams(href)} color={color} passHref>
-      <StyledAnchor color={color} label={label} {...anchorProps} />
-    </Link>
+    <StyledAnchor
+      forwardedAs={Link}
+      href={addQueryParams(href)}
+      color={color}
+      label={label}
+      {...anchorProps}
+    />
   )
 }
 
 NavLink.propTypes = {
-  color: PropTypes.string,
+  // color: PropTypes.string, can also be Grommet object {{ light, dark }}
   disabled: PropTypes.bool,
   link: PropTypes.shape({
     as: PropTypes.string,
     href: PropTypes.string,
     text: PropTypes.string
   }).isRequired,
-  router: PropTypes.object,
   StyledAnchor: PropTypes.elementType,
   StyledSpacedText: PropTypes.elementType,
   weight: PropTypes.string
 }
 
-export default withRouter(NavLink)
-export { NavLink }
+export default NavLink

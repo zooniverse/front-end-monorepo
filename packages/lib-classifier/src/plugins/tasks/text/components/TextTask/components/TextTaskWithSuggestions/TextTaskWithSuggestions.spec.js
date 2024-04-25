@@ -14,8 +14,6 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   const suggestions = ['one', 'two', 'three']
 
   before(function () {
-    sinon.stub(window, 'scrollTo')
-    
     task = Task.TaskModel.create({
       strings: {
         instruction: 'Type something here',
@@ -24,10 +22,6 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
       text_tags: ['insertion', 'deletion'],
       type: 'text'
     })
-  })
-
-  after(function () {
-    window.scrollTo.restore()
   })
 
   describe('with suggestions and without value', function () {
@@ -48,7 +42,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
         keys: '[MouseLeft]',
         target: textInput
       })
-      options = document.querySelectorAll('[role=option]')
+      options = await screen.findAllByRole('option')
     })
 
 

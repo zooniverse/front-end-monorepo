@@ -1,29 +1,33 @@
-import counterpart from 'counterpart'
-import { Anchor, Box } from 'grommet'
+import { Anchor, Text } from 'grommet'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { string } from 'prop-types'
+import styled from 'styled-components'
 
-import en from './locales/en'
+const StyledAnchor = styled(Anchor)`
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
 
-counterpart.registerTranslations('en', en)
+  &:hover {
+    border-bottom-color: white;
+  }
 
-function NavLink (props) {
-  const { href, label, router: { asPath } } = props
+  &[aria-current=page] {
+    border-bottom-color: white;
+  }
+`
+
+function NavLink({ color, href = '', label = '' }) {
+  const { asPath } = useRouter()
   const isActive = asPath === href
   return (
-    <Link href={href} passHref >
-      <Anchor
-        aria-current={ isActive ? 'page' : undefined }
-        size='medium'
-        weight='normal'
-        active={isActive}
-      >
-        <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
-          {label}
-        </Box>
-      </Anchor>
-    </Link>
+    <StyledAnchor
+      as={Link}
+      aria-current={isActive ? 'page' : undefined}
+      href={href}
+    >
+      <Text color={color}>{label}</Text>
+    </StyledAnchor>
   )
 }
 
@@ -32,4 +36,4 @@ NavLink.propTypes = {
   href: string.isRequired
 }
 
-export default withRouter(NavLink)
+export default NavLink

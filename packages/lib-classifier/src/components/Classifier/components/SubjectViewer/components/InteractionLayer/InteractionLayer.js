@@ -1,11 +1,12 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import getFixedNumber from '../../helpers/getFixedNumber'
+import locationValidator from '../../helpers/locationValidator'
 
 const DrawingCanvas = styled('rect')`
   ${(props) =>
@@ -33,8 +34,10 @@ function InteractionLayer({
   height,
   marks = [],
   move,
-  setActiveMark = () => {},
+  multiImageCloneMarkers = false,
+  setActiveMark = () => { },
   scale = 1,
+  subject,
   width,
   played,
   duration
@@ -46,7 +49,7 @@ function InteractionLayer({
     setCreating(false)
   }
 
-  if(activeMark?.finished && !activeMark.isValid) {
+  if (activeMark?.finished && !activeMark.isValid) {
     activeTool.deleteMark(activeMark)
     setActiveMark(undefined)
   }
@@ -88,11 +91,11 @@ function InteractionLayer({
   }
 
   function createMark(event) {
-    // TODO: add case for played = undefined
     const timeStamp = getFixedNumber(played, 5)
     const mark = activeTool.createMark({
       id: cuid(),
-      frame,
+      // GH Issue 5493 decided multiImageCloneMarkers force new mark frames to 0
+      frame: (multiImageCloneMarkers) ? 0 : frame,
       toolIndex: activeToolIndex
     })
 
@@ -102,7 +105,7 @@ function InteractionLayer({
     mark.setSubTaskVisibility(false)
     // Add a time value for tools that care about time. For most tools, this value is ignored.
     mark.setVideoTime(timeStamp, duration)
-    const markIDs = marks.map((mark) => mark.id)
+    const markIDs = annotation.value?.map((mark) => mark.id)
     annotation.update([...markIDs, mark.id])
   }
 
@@ -177,20 +180,18 @@ function InteractionLayer({
         activeMark={activeMark}
         onDelete={inactivateMark}
       />
-      {marks && (
-        <DrawingToolMarks
-          activeMark={activeMark}
-          marks={marks}
-          onDelete={inactivateMark}
-          onDeselectMark={inactivateMark}
-          onFinish={onFinish}
-          onSelectMark={onSelectMark}
-          onMove={(mark, difference) => mark.move(difference)}
-          pointerEvents={creating ? 'none' : 'painted'}
-          scale={scale}
-          played={played}
-        />
-      )}
+      <DrawingToolMarks
+        activeMark={activeMark}
+        marks={marks}
+        onDelete={inactivateMark}
+        onDeselectMark={inactivateMark}
+        onFinish={onFinish}
+        onSelectMark={onSelectMark}
+        onMove={(mark, difference) => mark.move(difference)}
+        pointerEvents={creating ? 'none' : 'painted'}
+        scale={scale}
+        played={played}
+      />
     </>
   )
 }
@@ -204,12 +205,17 @@ InteractionLayer.propTypes = {
     taskType: PropTypes.string,
     value: PropTypes.array
   }).isRequired,
-  frame: PropTypes.number,
-  marks: PropTypes.array,
-  setActiveMark: PropTypes.func,
-  height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
+  /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
+  frame: PropTypes.number,
+  height: PropTypes.number.isRequired,
+  marks: PropTypes.array,
+  multiImageCloneMarkers: PropTypes.bool,
   scale: PropTypes.number,
+  setActiveMark: PropTypes.func,
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   width: PropTypes.number.isRequired
 }
 

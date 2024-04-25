@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
 import ZoomEventLayer from '../ZoomEventLayer'
-import withKeyZoom from '../../../../withKeyZoom'
+import { useKeyZoom } from '@hooks'
 
 const defaultZoomConfig = {
   direction: 'both',
@@ -20,7 +21,6 @@ function VisXZoom({
   constrain,
   height,
   left = 0,
-  onKeyDown = DEFAULT_HANDLER,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -31,6 +31,7 @@ function VisXZoom({
   zooming = false,
   ...props
 }) {
+  const { onKeyZoom } = useKeyZoom()
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)
@@ -148,9 +149,8 @@ function VisXZoom({
             <ZoomEventLayer
               focusable
               height={height}
-              left={left}
               onDoubleClick={onDoubleClick}
-              onKeyDown={onKeyDown}
+              onKeyDown={onKeyZoom}
               onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerEnter={onPointerEnter}
               onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
@@ -159,7 +159,6 @@ function VisXZoom({
               onWheel={onWheel}
               panning={panning}
               tabIndex={0}
-              top={top}
               width={width}
             />
           </ZoomingComponent>
@@ -190,5 +189,4 @@ VisXZoom.propTypes = {
   zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 }
 
-export default withKeyZoom(VisXZoom)
-export { VisXZoom }
+export default observer(VisXZoom)

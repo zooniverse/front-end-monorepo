@@ -7,6 +7,9 @@ module.exports = {
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@screens': path.resolve(__dirname, 'src/screens'),
       '@shared': path.resolve(__dirname, 'src/shared')
+    },
+    fallback: {
+      fs: false
     }
   }
 }

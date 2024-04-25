@@ -1,40 +1,85 @@
-import { withThemeContext } from '@zooniverse/react-components'
-import { Box, Text } from 'grommet'
+import { Box } from 'grommet'
+import { useTranslation } from 'next-i18next'
+import { ZooniverseLogotype } from '@zooniverse/react-components'
 
 import NavLink from './components/NavLink'
-import theme from './theme'
 
-function AboutHeader () {
+function AboutHeader() {
+  const { t } = useTranslation('components')
+
+  const links = [
+    {
+      href: '/',
+      label: t('AboutHeader.links.about')
+    },
+    {
+      href: '/publications',
+      label: t('AboutHeader.links.publications')
+    },
+    {
+      href: '/team',
+      label: t('AboutHeader.links.team')
+    },
+    {
+      href: '/acknowledgements',
+      label: t('AboutHeader.links.acknowledgements')
+    },
+    {
+      href: '/resources',
+      label: t('AboutHeader.links.resources')
+    },
+    {
+      href: '/contact',
+      label: t('AboutHeader.links.contact')
+    },
+    {
+      href: '/faq',
+      label: t('AboutHeader.links.faq')
+    },
+    {
+      href: '/highlights',
+      label: t('AboutHeader.links.highlights')
+    },
+    {
+      href: '/mobile-app',
+      label: t('AboutHeader.links.mobile')
+    },
+    {
+      href: '/donate',
+      label: t('AboutHeader.links.donate')
+    }
+  ]
+
   return (
-    <Box align='center' as='header' background='brand'>
-
-      <Box margin={{ bottom: 'large', top: 'xlarge' }} width='xlarge'>
-        <Text color='white' size='xxlarge'>
-          About
-        </Text>
-      </Box>
-
+    <header>
       <Box
-        aria-label='About the Zooniverse'
-        as='nav'
+        align='center'
+        aria-label={`${t('AboutHeader.title')} Zooniverse`}
         direction='row'
-        margin={{ bottom: 'xsmall' }}
-        width='xlarge'
+        as='nav'
+        background='neutral-1'
+        pad={{ horizontal: 'medium' }}
       >
-        <NavLink label='About' href='/' />
-        <NavLink label='Publications' href='/publications' />
-        <NavLink label='Our Team' href='/team' />
-        <NavLink label='Acknowledgements' href='/acknowledgements' />
-        <NavLink label='Resources' href='/resources' />
-        <NavLink label='Contact Us' href='/contact' />
-        <NavLink label='FAQ' href='/faq' />
-        <NavLink label='Highlights Book' href='/highlights' />
-        <NavLink label='Mobile App' href='/mobile-app' />
-        <NavLink label='Donate' href='/donate' />
+        <Box
+          align='left'
+          as='ul'
+          direction='row'
+          pad={{ left: 'none' }}
+          width='100%'
+          wrap
+          // We don't use gap here bc gap inserts <div> into this <ul>
+        >
+          {links.map(link => (
+            <Box as='li' key={link.label} pad={{ right: 'small' }}>
+              <NavLink color='white' label={link.label} href={link.href} />
+            </Box>
+          ))}
+        </Box>
+        {/* Enable logo when ready for all About Zooniverse pages to be hosted from FEM */}
+        {/* <ZooniverseLogotype id="About Zooniverse Header component" color='white' /> */}
       </Box>
-    </Box>
+    </header>
   )
 }
 
-export default withThemeContext(AboutHeader, theme)
-export { AboutHeader }
+export default AboutHeader

@@ -7,16 +7,21 @@ import {
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components'
-import { withThemeContext } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import theme from './theme'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
 const StyledBox = styled(Box)`
-  flex-direction: row;
+  flex-direction: ${props => props.columnsCount === 3 ? 'column' : 'row'};
+
   img {
-    margin: 0 1ch 0 0;
+    margin: ${props => props.columnsCount === 3 ? '0' : '0 1ch 0 0'};
+  }
+
+  span {
+    text-align: ${props => props.columnsCount === 3 ? 'center' : 'left'};
   }
 
   @media (768px < width < 1280px) {
@@ -28,18 +33,6 @@ const StyledBox = styled(Box)`
 
     span {
       text-align: ${props => props.columnsCount === 1 ? 'left' : 'center'};
-    }
-  }
-
-  @media (width <= 768px) {
-    flex-direction: ${props => props.columnsCount === 3 ? 'column' : 'row'};
-
-    img {
-      margin: ${props => props.columnsCount === 3 ? '0' : '0 1ch 0 0'};
-    }
-
-    span {
-      text-align: ${props => props.columnsCount === 3 ? 'center' : 'left'};
     }
   }
 `

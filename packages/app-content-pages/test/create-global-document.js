@@ -1,5 +1,4 @@
-// Creates a global document object using jsdom to allow the use of the
-// `mount` method in enzyme.
+// Creates a global document object using jsdom for RTL rendered components
 import { JSDOM } from 'jsdom'
 import nock from 'nock'
 
@@ -20,18 +19,27 @@ function copyProps (src, target) {
 }
 
 class ResizeObserver {
-    disconnect() {
-      // do nothing
-    }
-    observe() {
-        // do nothing
-    }
-    unobserve() {
-        // do nothing
-    }
+  disconnect() {
+    // do nothing
+  }
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+}
+
+class IntersectionObserver {
+  disconnect() {}
+  observe() {}
+  unobserve() {}
 }
 
 window.ResizeObserver = ResizeObserver
+window.IntersectionObserver = IntersectionObserver
+
+window.scrollTo = () => true
 
 global.dom = jsdom
 global.window = window

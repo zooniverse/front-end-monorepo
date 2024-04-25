@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
+import { when } from 'mobx'
 import sinon from 'sinon'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Ellipse, Mark, Point } from '@plugins/drawingTools/components'
@@ -21,36 +22,38 @@ describe('Drawing tools > Mark', function () {
   let wrapper
   let svgPoint
 
-  before(function () {
-    sinon.stub(window, 'scrollTo')
-    point = pointTool.createMark({
-      id: 'point1'
+  describe('default behaviour', function () {
+    before(function () {
+      sinon.stub(window, 'scrollTo')
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      render(
+        <svg>
+          <Mark
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+      svgPoint = screen.getByLabelText('Point 1')
     })
-    point.finish()
-    render(
-      <svg>
-        <Mark
-          label='Point 1'
-          mark={point}
-          onDelete={onDelete}
-          onFinish={onFinish}
-          onSelect={onSelect}
-        >
-          <Point mark={point} />
-        </Mark>
-      </svg>
-    )
-    svgPoint = screen.getByLabelText('Point 1')
-  })
 
-  after(function () {
-    onFinish.resetHistory()
-    onSelect.resetHistory()
-    window.scrollTo.restore()
-  })
+    after(function () {
+      onFinish.resetHistory()
+      onSelect.resetHistory()
+      window.scrollTo.restore()
+    })
 
-  it('should render a child drawing tool', function () {
-    expect(svgPoint).to.exist()
+    it('should render a child drawing tool', function () {
+      expect(svgPoint).to.exist()
+    })
   })
 
   describe('on focus', function () {
@@ -138,19 +141,19 @@ describe('Drawing tools > Mark', function () {
           </svg>
         )
         point.setSubTaskVisibility(false)
-        await user.tab()
         await user.keyboard('{Enter}')
+        await when(() => point.subTaskVisibility)
       })
 
       after(function () {
         onFinish.resetHistory()
       })
 
-      it('should open the subtasks popup', function () {
+      it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.be.true()
       })
 
-      it('should call onFinish', function () {
+      it('should call onFinish', async function () {
         expect(onFinish).to.have.been.calledOnce()
       })
     })
@@ -177,19 +180,19 @@ describe('Drawing tools > Mark', function () {
           </svg>
         )
         point.setSubTaskVisibility(false)
-        await user.tab()
         await user.keyboard('{ }')
+        await when(() => point.subTaskVisibility)
       })
 
       after(function () {
         onFinish.resetHistory()
       })
 
-      it('should open the subtasks popup', function () {
+      it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.be.true()
       })
 
-      it('should call onFinish', function () {
+      it('should call onFinish', async function () {
         expect(onFinish).to.have.been.calledOnce()
       })
     })
@@ -354,7 +357,6 @@ describe('Drawing tools > Mark', function () {
       let newMark
 
       before(function () {
-        window.scrollTo.resetHistory()
         newMark = pointTool.createMark()
         newMark.setSubTaskVisibility(false)
         newMark.finish()
@@ -363,10 +365,9 @@ describe('Drawing tools > Mark', function () {
 
       after(function () {
         onFinish.resetHistory()
-        window.scrollTo.resetHistory()
       })
 
-      it('should open the subtask popup', function () {
+      it('should open the subtask popup', async function () {
         expect(newMark.subTaskVisibility).to.be.true()
       })
     })
@@ -393,7 +394,7 @@ describe('Drawing tools > Mark', function () {
     let newMark, svgPoint
 
     before(function () {
-      window.scrollTo.resetHistory()
+      sinon.stub(window, 'scrollTo')
       newMark = pointTool.createMark()
       newMark.setSubTaskVisibility(true)
       newMark.finish()
@@ -413,6 +414,39 @@ describe('Drawing tools > Mark', function () {
 
     it('should preserve the window scroll position', function () {
       expect(window.scrollTo).to.have.been.calledOnce()
+    })
+  })
+
+  describe('disabled marks', function () {
+    beforeEach(function () {
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      render(
+        <svg>
+          <Mark
+            disabled
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+    })
+
+    it('should not be focusable', function () {
+      const mark = document.querySelector('g.drawingMark')
+      expect(mark.getAttribute('tabindex')).to.equal('-1')
+    })
+
+    it('should be announced as disabled', function () {
+      const mark = document.querySelector('g.drawingMark')
+      expect(mark.getAttribute('aria-disabled')).to.equal('true')
     })
   })
 })

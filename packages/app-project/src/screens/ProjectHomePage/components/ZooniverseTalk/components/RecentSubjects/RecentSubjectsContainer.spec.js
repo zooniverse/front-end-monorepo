@@ -22,13 +22,12 @@ describe('Component > RecentSubjectsContainer', function () {
   ]
 
   const MOCK_SUBJECTS = [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' }
+    { id: '1', locations: [] },
+    { id: '2', locations: [] },
+    { id: '3', locations: [] }
   ]
 
   before(function () {
-    process.env.TALK_HOST = TALK_URL
     nock(TALK_URL)
       .get('/comments')
       .query(true)
@@ -38,10 +37,6 @@ describe('Component > RecentSubjectsContainer', function () {
       .query(true)
       .reply(200, { subjects: MOCK_SUBJECTS })
     wrapper = shallow(<RecentSubjectsContainer mockStore={mockStore} />)
-  })
-
-  after(function () {
-    delete process.env.TALK_HOST
   })
 
   it('should render without crashing', function () {

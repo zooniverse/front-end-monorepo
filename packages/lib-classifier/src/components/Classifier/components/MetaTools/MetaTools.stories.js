@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import {
   DrawingTaskFactory,
@@ -13,15 +12,7 @@ import MetaTools from './MetaTools'
 
 export default {
   title: 'Meta Tools / MetaToolsContainer',
-  component: MetaTools,
-  args: {
-    dark: false
-  }
-}
-
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
+  component: MetaTools
 }
 
 const mockSubject = SubjectFactory.build({
@@ -52,26 +43,20 @@ const store = mockStore({
 
 store.userProjectPreferences.setUPP(upp)
 
-export const Default = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const Default = () => {
   return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={store}>
-        <MetaTools />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={store}>
+      <MetaTools />
+    </Provider>
   )
 }
 
-export const SmallSubjectViewer = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const SmallSubjectViewer = () => {
   return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={store}>
-        <Box width='300px'>
-          <MetaTools />
-        </Box>
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={store}>
+      <Box width='300px'>
+        <MetaTools />
+      </Box>
+    </Provider>
   )
 }

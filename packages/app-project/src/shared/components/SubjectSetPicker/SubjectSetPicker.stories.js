@@ -1,44 +1,28 @@
-import { Box } from 'grommet'
-
 import SubjectSetPicker from './'
-import * as subcomponents from './components'
-import { mockWorkflow } from './helpers'
-
-function DecoratedStory(Story) {
-  return (
-    <Box pad='small'>
-      <Story />
-    </Box>
-  )
-}
+import { mockWorkflow, SubjectSetPickerBaseURL } from './SubjectSetPicker.mock'
 
 export default {
   title: 'Project App / Shared / Subject Set Picker',
   component: SubjectSetPicker,
-  decorators: [DecoratedStory],
-  subcomponents,
   args: {
     workflow: mockWorkflow
   }
 }
 
-export function Default({ workflow }) {
-  return (
-    <SubjectSetPicker
-      baseUrl='/projects/test-owner/test-project/classify'
-      workflow={workflow}
-    />
-  )
-}
+export const Default = ({ workflow }) => (
+  <SubjectSetPicker
+    baseUrl={SubjectSetPickerBaseURL}
+    workflow={workflow}
+  />
+)
 
-export function Tablet({ workflow }) {
-  return (
-    <SubjectSetPicker
-      baseUrl='/projects/test-owner/test-project/classify'
-      workflow={workflow}
-    />
-  )
-}
+export const Tablet = ({ workflow }) => (
+  <SubjectSetPicker
+    baseUrl={SubjectSetPickerBaseURL}
+    workflow={workflow}
+  />
+)
+
 Tablet.parameters = {
   viewport: {
     defaultViewport: 'ipad'

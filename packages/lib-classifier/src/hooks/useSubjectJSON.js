@@ -1,3 +1,4 @@
+import { getSnapshot, getType } from 'mobx-state-tree'
 import { useEffect, useRef, useState } from 'react'
 
 import JSONData from '@store/JSONData'
@@ -9,8 +10,8 @@ function getSubjectUrl(subject) {
   Panoptes CLI uploading wonky MIME types (@shaun 20181024)
   https://github.com/zooniverse/panoptes-python-client/issues/210
   */
-  const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
-  const url = Object.values(jsonLocation)[0]
+  const jsonLocation = subject.locations.find(l => l.type === 'application' || l.type === 'text') || {}
+  const { url } = jsonLocation
   if (url) {
     return url
   } else {
@@ -31,9 +32,11 @@ async function requestData(subject) {
   return responseData
 }
 
+const DEFAULT_HANDLER = () => true
+
 export default function useSubjectJSON({
-  onError,
-  onReady,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject
 }) {
   const viewer = useRef()
@@ -59,6 +62,7 @@ export default function useSubjectJSON({
       } catch (error) {
         setError(error)
         onError(error)
+        console.error(error)
       }
     }
 
@@ -68,5 +72,11 @@ export default function useSubjectJSON({
   }, [subject])
 
   const loading = !data && !error
-  return { loading, data, error, viewer }
+  return {
+    loading,
+    data : data ? getSnapshot(data) : null,
+    error,
+    type: data ? getType(data) : null,
+    viewer
+  }
 }

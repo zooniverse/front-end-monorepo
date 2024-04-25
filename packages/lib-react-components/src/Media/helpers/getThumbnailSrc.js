@@ -1,6 +1,4 @@
-const DEFAULT_THUMBNAIL_DIMENSION = 999
-
-export default function getThumbnailSrc({ height = DEFAULT_THUMBNAIL_DIMENSION, origin, src, width = DEFAULT_THUMBNAIL_DIMENSION }) {
+export default function getThumbnailSrc({ height = '', origin, src, width = 999 }) {
   if (!src) return undefined
 
   if (src.endsWith('.gif')) return src

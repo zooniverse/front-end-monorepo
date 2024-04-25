@@ -1,6 +1,6 @@
 import * as stories from './SpacedText.stories'
 import { render } from '@testing-library/react'
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 
 describe('Component > SpacedText', function () {
   const { Default } = composeStories(stories)

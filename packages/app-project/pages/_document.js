@@ -46,7 +46,7 @@ process.on('unhandledRejection', logToSentry)
 process.on('uncaughtException', logToSentry)
 
 export default class MyDocument extends Document {
-  static async getInitialProps (ctx) {
+  static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
 
@@ -71,7 +71,7 @@ export default class MyDocument extends Document {
     }
   }
 
-  render () {
+  render() {
     return (
       <Html>
         <Head>
@@ -79,10 +79,11 @@ export default class MyDocument extends Document {
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
+          {/* https://docs.sentry.io/platforms/javascript/install/loader/#default-bundle */}
           <script
-            src="https://browser.sentry-cdn.com/7.47.0/bundle.tracing.min.js"
-            integrity="sha384-qF/zNluOVdijBRLQ/TTHPBb/p7uxFxb+/j3eDdiKG0VF0sHCkAuwJ+Yxv6zCHR/O"
-            crossorigin="anonymous"
+            src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.min.js"
+            integrity="sha384-FyHLiOgn1wcBUetfKq3+RF+aukePV5acbpdkgdYJRWepBQ8AMoNNEucU/6+JYRuJ"
+            crossOrigin='anonymous'
             defer
             id='sentryScript'
           ></script>
@@ -91,6 +92,7 @@ export default class MyDocument extends Document {
           {isProduction && (
             <noscript>
               <iframe
+                title='Google Tag Manager'
                 height='0'
                 src={`https://www.googletagmanager.com/ns.html?id=${GA_TRACKING_ID}`}
                 style={{ display: 'none', visibility: 'hidden' }}

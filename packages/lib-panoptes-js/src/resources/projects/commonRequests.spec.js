@@ -51,7 +51,7 @@ describe('Projects resource common requests', function () {
     })
 
     it('should return the expected response if the slug is defined', async function () {
-      const slug = 'user/untitled-project-2'
+      const slug = 'user/untitled-projects-2'
       const response = await projects.getBySlug({ query: { slug } })
       expect(response.body).to.eql(expectedGetResponse)
     })

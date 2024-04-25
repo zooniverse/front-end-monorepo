@@ -1,7 +1,9 @@
+import { Anchor, Box } from 'grommet'
 import { array, bool, func, node, shape, string } from 'prop-types'
 import { createRef } from 'react'
-import { Anchor, Box } from 'grommet'
+import styled from 'styled-components'
 import { FavouritesButton, Media } from '@zooniverse/react-components'
+
 import { CollectionsButton, TalkLink } from './components'
 
 const defaultSubject = {
@@ -10,6 +12,15 @@ const defaultSubject = {
   toggleFavorite: () => false,
   locations: []
 }
+
+const StyledAnchor = styled(Anchor)`
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+`
+
 function SubjectPreview ({
   height = '250px',
   isLoggedIn = false,
@@ -20,14 +31,16 @@ function SubjectPreview ({
 }) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
-  const collectionsModal = createRef()
   const href = `/projects/${slug}/talk/subjects/${subject.id}`
 
   return (
     <Box
+      elevation='small'
       fill
+      pad='xsmall'
     >
-      <Anchor
+      <StyledAnchor
+        data-testid={`subject-preview-link-${subject.id}`}
         href={href}
       >
         <Box
@@ -37,15 +50,17 @@ function SubjectPreview ({
           width={width}
         >
           <Media
+            data-testid={`subject-image-${subject.id}`}
             alt={`subject ${subject.id}`}
+            controls={false}
             height={700}
             placeholder={placeholder}
             src={subjectURL}
             width={700}
           />
         </Box>
-      </Anchor>
-      <Box direction='column' gap='xsmall' pad={{ vertical: 'xsmall' }}>
+      </StyledAnchor>
+      <Box direction='column' gap='xsmall' pad={{ top: 'xsmall' }}>
         <TalkLink
           href={href}
         />

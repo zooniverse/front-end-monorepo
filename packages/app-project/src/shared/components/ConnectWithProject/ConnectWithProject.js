@@ -11,10 +11,12 @@ function ConnectWithProject (props) {
   return (
     <ContentBox
       title={t('ConnectWithProject.title', { projectName })}
+      fill
     >
       <Grid columns={['repeat(auto-fill, minmax(280px, 1fr))']} gap='medium'>
         {urls.map(urlObject =>
           <ProjectLink
+            className={`connect-with-project-${urlObject.site}`}
             key={urlObject.url}
             urlObject={urlObject}
           />

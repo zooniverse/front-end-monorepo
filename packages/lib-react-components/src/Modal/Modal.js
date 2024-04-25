@@ -5,7 +5,13 @@ import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
+const DEFAULT_BACKGROUND = {
+  dark: 'dark-5',
+  light: 'neutral-6'
+}
+
 const Modal = forwardRef(function ({
+  bodyBackground = DEFAULT_BACKGROUND,
   children,
   className = '',
   closeFn,
@@ -37,6 +43,7 @@ ref) {
         title={title}
       />
       <ModalBody
+        background={bodyBackground}
         className={className}
         overflow={overflow}
         pad={pad}
@@ -52,6 +59,10 @@ Modal.propTypes = {
     Determines whether the modal is visible or not.
   */
   active: PropTypes.bool,
+  /**
+    The background color for the modal body. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
+  */
+  bodyBackground: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   children: PropTypes.node.isRequired,
   /**
     Optional CSS class applied to the modal content.

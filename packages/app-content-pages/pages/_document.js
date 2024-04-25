@@ -1,11 +1,6 @@
 import Document from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
-import { logNodeError } from '../src/helpers/logger'
-
-process.on('unhandledRejection', logNodeError)
-process.on('uncaughtException', logNodeError)
-
 export default class MyDocument extends Document {
   static async getInitialProps (ctx) {
     const sheet = new ServerStyleSheet()

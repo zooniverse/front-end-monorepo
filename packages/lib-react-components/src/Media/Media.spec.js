@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 
 import Meta, * as Stories from './Media.stories.js'
 
@@ -30,5 +30,12 @@ describe('Media', function () {
     render(<Story />)
     const image = await screen.findByTestId('data-viewer')
     expect(image).to.be.ok()
+  })
+
+  it('should render text if the source mimetype is text/plain', async function () {
+    const Story = composeStory(Stories.TextMedia, Meta)
+    render(<Story />)
+    const text = document.querySelector('pre')
+    expect(text).to.be.ok()
   })
 })

@@ -87,11 +87,12 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   function sort(data) {
     const { property: sortField, direction: sortOrder } = data
     if (sortField === 'status') {
-      return true;
+      return true
     }
     setRows([])
     setSortField(sortField)
     setSortOrder(sortOrder)
+    return true
   }
 
   const background = {
@@ -113,14 +114,11 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   }
   return (
     <>
-      <Link
+      <PlainButton
+        forwardedAs={Link}
         href={addQueryParams(baseUrl)}
-        passHref
-      >
-        <PlainButton
-          text={t('SubjectPicker.back')}
-        />
-      </Link>
+        text={t('SubjectPicker.back')}
+      />
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}

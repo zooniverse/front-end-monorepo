@@ -2,6 +2,53 @@
   "AdminCheckbox": {
     "label": "Translated"
   },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Translated",
+      "forgot": "Translated",
+      "heading": "Translated",
+      "instruction": "Translated",
+      "login": "Translated",
+      "password": "Translated",
+      "placeholder": "Translated",
+      "signIn": "Translated"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Translated",
+      "email": "Translated",
+      "emailConfirm": "Translated",
+      "emailConfirmError": "Translated",
+      "emailConflict": "Translated",
+      "emailListSignUp": "Translated",
+      "emailPlaceholder": "Translated",
+      "forgot": "Translated",
+      "heading": "Translated",
+      "instruction": "Translated",
+      "password": "Translated",
+      "passwordConfirm": "Translated",
+      "passwordConfirmError": "Translated",
+      "privacyAgreement": "Translated",
+      "privacyAgreementError": "Translated",
+      "privacyLink": "Translated",
+      "realName": "Translated",
+      "realNameHelp": "Translated",
+      "realNamePatternHelp": "Translated",
+      "realNamePlaceholder": "Translated",
+      "register": "Translated",
+      "registering": "Translated",
+      "underageConsent": "Translated",
+      "underageEmail": "Translated",
+      "underageEmailSignUp": "Translated",
+      "underageNotRealName": "Translated",
+      "underageWithParent": "Translated",
+      "username": "Translated",
+      "usernameConflict": "Translated",
+      "usernameHelp": "Translated",
+      "usernamePatternHelp": "Translated",
+      "usernamePlaceholder": "Translated"
+    },
+    "title": "Translated"
+  },
   "CloseButton": {
     "close": "Translated"
   },
@@ -12,76 +59,84 @@
   "ZooFooter": {
     "aboutLabels": {
       "about": "Translated",
-      "publications": "Translated",
-      "team": "Translated",
       "acknowledgements": "Translated",
       "contact": "Translated",
-      "faq": "Translated"
+      "faq": "Translated",
+      "publications": "Translated",
+      "team": "Translated"
     },
     "buildLabels": {
+      "bestPractices": "Translated",
       "buildAProject": "Translated",
-      "tutorial": "Translated",
       "glossary": "Translated",
       "policies": "Translated",
-      "bestPractices": "Translated"
+      "tutorial": "Translated"
     },
     "getInvolvedLabels": {
-      "getInvolved": "Translated",
-      "education": "Translated",
       "callForProjects": "Translated",
-      "collections": "Translated"
+      "collections": "Translated",
+      "education": "Translated",
+      "getInvolved": "Translated"
     },
     "newsLabels": {
-      "news": "Translated",
+      "blog": "Translated",
       "dailyZooniverse": "Translated",
-      "blog": "Translated"
+      "news": "Translated"
     },
     "policyLabels": {
-      "privacyPolicy": "Translated",
       "jobs": "Translated",
-      "systemStatus": "Translated",
-      "security": "Translated"
+      "privacyPolicy": "Translated",
+      "security": "Translated",
+      "systemStatus": "Translated"
     },
     "projectLabels": {
       "projects": "Translated"
     },
+    "tagLine": "Translated",
     "talkLabels": {
       "talk": "Translated"
     },
-    "tagLine": "Translated"
+    "zooniversePolicies": "Translated"
   },
   "ZooHeader": {
-    "ariaLabel": "Translated",
-    "mainHeaderNavListLabels": {
-      "projects": "Translated",
-      "about": "Translated",
-      "getInvolved": "Translated",
-      "talk": "Translated",
-      "build": "Translated"
-    },
     "SignedInUserNavigation": {
       "ariaLabel": "Translated",
       "navListLabels": {
-        "messages_zero": "Translated",
         "messages_one": "Translated {{count}}",
         "messages_other": "Translated {{count}}",
-        "notifications_zero": "Translated",
+        "messages_zero": "Translated",
         "notifications_one": "Translated {{count}}",
-        "notifications_other": "Translated {{count}}"
+        "notifications_other": "Translated {{count}}",
+        "notifications_zero": "Translated"
       }
     },
     "SignedOutUserNavigation": {
       "register": "Translated",
       "signIn": "Translated"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Translated",
+      "switchToLight": "Translated"
+    },
     "UserMenu": {
       "userNavListLabels": {
-        "profile": "Translated",
-        "settings": "Translated",
         "collections": "Translated",
         "favorites": "Translated",
+        "profile": "Translated",
+        "settings": "Translated",
         "signOut": "Translated"
       }
+    },
+    "ariaLabel": "Translated",
+    "mainHeaderNavListLabels": {
+      "about": "Translated",
+      "build": "Translated",
+      "getInvolved": "Translated",
+      "projects": "Translated",
+      "talk": "Translated"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Translated"
   }
 }

@@ -1,12 +1,14 @@
 import { types } from 'mobx-state-tree'
 import Resource from '../Resource'
 
+const TranslationStrings = types.map(types.maybeNull(types.string))
+
 const Project = types
   .model('Project', {
     configuration: types.frozen({}),
-    display_name: types.string,
     experimental_tools: types.frozen([]),
     links: types.frozen({}),
+    strings: TranslationStrings,
     slug: types.string
   })
   .views(self => ({
@@ -17,7 +19,11 @@ const Project = types
         [singleActiveWorkflow] = self.links['active_workflows']
       }
       return singleActiveWorkflow
-    }
+    },
+
+    get display_name() {
+      return self.strings.get('display_name')
+    },
   }))
 
 export default types.compose('ProjectResource', Resource, Project)

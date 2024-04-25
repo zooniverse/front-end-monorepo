@@ -5,16 +5,6 @@
       "signIn": "Login"
     }
   },
-  "AuthModal": {
-    "LoginForm": {
-      "signIn": "Login"
-    },
-    "RegisterForm": {
-      "realName": "Nome reale (facoltativo)",
-      "realNameHelp": "Pubblico; questo nome verrà utilizzato per ringraziare o citare i volontari. Es: pubblicazioni, poster scientifici, ecc...",
-      "register": "Registrazione"
-    }
-  },
   "ConnectWithProject": {
     "title": "Link"
   },
@@ -40,9 +30,5 @@
   },
   "RequireUser": {
     "text": "Non sei autenticato"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Passa al tema scuro",
-    "switchToLight": "Passa al tema chiaro"
   }
 }

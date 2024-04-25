@@ -35,7 +35,6 @@ const FieldGuideStore = types
       self.attachedMedia.clear()
     }
 
-    // TODO: this might need to paginate for field guides that have 20+ items
     const fetchMedia = flow(function * fetchMedia (fieldGuide) {
       const { type } = self
       const client = getRoot(self).client.panoptes
@@ -43,7 +42,7 @@ const FieldGuideStore = types
         self.loadingState = asyncStates.loading
         try {
           const url = `/${type}/${fieldGuide.id}/attached_images`
-          const response = yield client.get(url)
+          const response = yield client.get(url, { page_size: 100 })
           const { media } = response.body
           if (media && media.length > 0) self.setMediaResources(media)
         } catch (error) {

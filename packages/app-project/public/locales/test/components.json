@@ -1,4 +1,10 @@
 {
+  "404": {
+    "findNewProject": "Translated",
+    "heading": "Translated",
+    "message": "Translated",
+    "returnHome": "Translated"
+  },
   "Announcements": {
     "AuthenticationInvitation": {
       "announcement": "Translated",
@@ -8,52 +14,6 @@
     "FinishedAnnouncement": {
       "announcement": "Translated",
       "seeResults": "Translated"
-    }
-  },
-  "AuthModal": {
-    "LoginForm": {
-      "error": "Translated",
-      "forgot": "Translated",
-      "heading": "Translated",
-      "instruction": "Translated",
-      "login": "Translated",
-      "password": "Translated",
-      "placeholder": "Translated",
-      "signIn": "Translated"
-    },
-    "RegisterForm": {
-      "betaListSignUp": "Translated",
-      "email": "Translated",
-      "emailConfirm": "Translated",
-      "emailConfirmError": "Translated",
-      "emailConflict": "Translated",
-      "emailListSignUp": "Translated",
-      "emailPlaceholder": "Translated",
-      "forgot": "Translated",
-      "heading": "Translated",
-      "instruction": "Translated",
-      "password": "Translated",
-      "passwordConfirm": "Translated",
-      "passwordConfirmError": "Translated",
-      "privacyAgreement": "Translated",
-      "privacyAgreementError": "Translated",
-      "privacyLink": "Translated",
-      "realName": "Translated",
-      "realNameHelp": "Translated",
-      "realNamePatternHelp": "Translated",
-      "realNamePlaceholder": "Translated",
-      "register": "Translated",
-      "registering": "Translated",
-      "underageConsent": "Translated",
-      "underageEmail": "Translated",
-      "underageEmailSignUp": "Translated",
-      "underageNotRealName": "Translated",
-      "underageWithParent": "Translated",
-      "username": "Translated",
-      "usernameConflict": "Translated",
-      "usernameHelp": "Translated",
-      "usernamePatternHelp": "Translated",
-      "usernamePlaceholder": "Translated"
     }
   },
   "CollectionsModal": {
@@ -74,7 +34,6 @@
         "bitbucket": "Translated",
         "facebook": "Translated",
         "github": "Translated",
-        "googleplus": "Translated",
         "instagram": "Translated",
         "medium": "Translated",
         "pinterest": "Translated",
@@ -104,6 +63,9 @@
     "Avatar": {
       "alt": "Translated {{project}}"
     },
+    "LocaleSwitcher": {
+      "label": "Translated"
+    },
     "ProjectNav": {
       "ariaLabel": "Translated"
     },
@@ -111,9 +73,11 @@
       "underReview": "Translated"
     },
     "about": "Translated",
+    "admin": "Translated",
     "classify": "Translated",
     "collect": "Translated",
     "exploreProject": "Translated",
+    "organization": "Translated",
     "recents": "Translated",
     "talk": "Translated"
   },
@@ -131,6 +95,9 @@
   },
   "RequireUser": {
     "text": "Translated"
+  },
+  "StandardLayout": {
+    "headerLabel": "Translated"
   },
   "SubjectPicker": {
     "alreadySeen": "Translated",
@@ -156,10 +123,6 @@
     "back": "Translated",
     "byline": "Translated",
     "heading": "Translated"
-  },
-  "ThemeModeToggle": {
-    "switchToDark": "Translated",
-    "switchToLight": "Translated"
   },
   "WorkflowSelector": {
     "WorkflowSelectButton": {

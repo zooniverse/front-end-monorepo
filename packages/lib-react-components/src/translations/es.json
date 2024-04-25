@@ -66,6 +66,10 @@
       "register": "Registrarse",
       "signIn": "Iniciar sesión"
     },
+    "ThemeModeToggle": {
+      "switchToDark": "Cambiar a diseño oscuro",
+      "switchToLight": "Cambiar a diseño claro"
+    },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Colecciones",

@@ -26,12 +26,22 @@ Returns the new store when hydration is complete. Snapshots are stored in sessio
 const classifierStore = useHydratedStore({ authClient, client }, cachePanoptesData = false, storageKey)
 ```
 
+## useKeyZoom
+
+Add keyboard zoom controls to a component
+
+```js
+const onKeyZoom = useKeyZoom()
+
+<ComponentWithZoom onKeyDown={onKeyZoom} />
+```
+
 ## usePanoptesAuth
 
 Asynchronously fetch an auth token, for a given user ID. A wrapper for `authClient.checkBearerToken()`.
 
 ```js
-  const authorization = usePanoptesAuth(user.id)
+  const authorization = usePanoptesAuth({ authClient, userID })
 ```
 
 ## usePanoptesTranslations
@@ -44,25 +54,31 @@ const translations = usePanoptesTranslations({ translated_id, translated_type, l
 
 ## usePanoptesUser
 
-Get the logged-in user, or null if no one is logged in.
+Get the logged-in user, or null if no one is logged in. `loading` will be true while new user state is being fetched from Panoptes.
 
 ```js
-  const user = usePanoptesUser()
+  const { authClient } = useStores()
+  const { data: user, error, isLoading } = usePanoptesUser(authClient)
 ```
 
 ## useProjectPreferences
 
 Get project preferences for a user and project, or null if there's no one logged in.
+
+Returns a `useSWR` hook. See the [`useSWR` API](https://swr.vercel.app/docs/api) for all returned properties.
+
 ```js
-  const upp = useProjectPreferences(project.id, user.id)
+  const { data: upp, isLoading } = useProjectPreferences({ authClient, projectID, userID })
 ```
 
 ## useProjectRoles
 
 Get the logged-in user's project roles, as an array of strings, or an empty array if no one is logged in.
 
+Returns a `useSWR` hook. See the [`useSWR` API](https://swr.vercel.app/docs/api) for all returned properties.
+
 ```js
-  const projectRoles = useProjectRoles(project.id, user.id)
+  const { data: projectRoles, isLoading } = useProjectRoles({ authClient, projectID, userID })
 ```
 
 ## useStores

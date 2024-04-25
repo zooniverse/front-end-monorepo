@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types'
 
-function Background (props) {
-  const {
-    borderColor,
-    fill,
-    height,
-    underlayParameters,
-    width,
-    ...rest
-  } = props
+function Background ({
+  borderColor = '',
+  className = 'chartBackground',
+  fill = '',
+  height = '100%',
+  underlayParameters = [],
+  width = '100%',
+  ...rest
+}) {
   return (
     <>
       <rect
+        className={className}
         fill={fill}
         height={height}
         stroke={borderColor || ''}
@@ -24,6 +25,7 @@ function Background (props) {
           const { fill, left, width } = parameters
           return (
             <rect
+              className={`${className}-underlay`}
               key={Math.random()}
               fill={fill}
               height={height}
@@ -36,14 +38,6 @@ function Background (props) {
     </>
 
   )
-}
-
-Background.defaultProps = {
-  borderColor: '',
-  fill: '',
-  height: '100%',
-  underlayParameters: [],
-  width: '100%'
 }
 
 Background.propTypes = {

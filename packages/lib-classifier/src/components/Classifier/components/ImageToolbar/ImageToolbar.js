@@ -1,4 +1,6 @@
 import { Box } from 'grommet'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -9,12 +11,23 @@ import ResetButton from './components/ResetButton'
 import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
-import withKeyZoom from '../withKeyZoom'
+import { useKeyZoom } from '@hooks'
+
+function storeMapper(classifierStore) {
+  return { hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask }
+}
 
 // Generalized ...props here are css rules from the page layout
 function ImageToolbar (props) {
+  const { hasAnnotateTask } = useStores(storeMapper)
+  const { onKeyZoom } = useKeyZoom()
+  
   return (
-    <Box height='min-content' {...props}>
+    <Box
+      height='min-content'
+      onKeyDown={onKeyZoom}
+      {...props}
+    >
       <Box
         background={{
           dark: 'dark-3',
@@ -31,12 +44,12 @@ function ImageToolbar (props) {
         fill
         pad='clamp(8px, 15%, 10px)'
       >
-        <AnnotateButton />
+        {hasAnnotateTask && <AnnotateButton />}
         <MoveButton />
         <ZoomInButton />
         <ZoomOutButton />
         <RotateButton />
-        <FullscreenButton disabled />
+        <FullscreenButton show={false} />
         <ResetButton />
         <InvertButton />
       </Box>
@@ -45,4 +58,4 @@ function ImageToolbar (props) {
   )
 }
 
-export default withKeyZoom(ImageToolbar)
+export default observer(ImageToolbar)

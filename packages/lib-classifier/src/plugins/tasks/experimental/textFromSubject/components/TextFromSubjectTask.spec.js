@@ -7,6 +7,8 @@ import userEvent from '@testing-library/user-event'
 
 import TextFromSubjectTaskContainer from './TextFromSubjectContainer'
 import { default as Task } from '@plugins/tasks/experimental/textFromSubject'
+import SubjectType from '@store/SubjectStore/SubjectType'
+import { SubjectFactory } from '@test/factories'
 
 describe('TextFromSubject Task', function () {
   const task = Task.TaskModel.create({
@@ -16,11 +18,12 @@ describe('TextFromSubject Task', function () {
     taskKey: 'T0',
     type: 'textFromSubject'
   })
-  const subject = {
+  const subjectSnapshot = SubjectFactory.build({
     locations: [{
       'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt'
     }]
-  }
+  })
+  const subject = SubjectType.create(subjectSnapshot)
 
   describe('with a subject text data request error', function () {
     let textArea

@@ -1,134 +1,168 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
-import styled, { withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-/** Components */
 import StandardLayout from '@shared/components/StandardLayout'
-import {
-  SpacedHeading,
-  SpacedText,
-  withResponsiveContext
-} from '@zooniverse/react-components'
+import ProjectAboutPageLayout from './ProjectAboutPageLayout.js'
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
-import ThemeModeToggle from '@components/ThemeModeToggle'
 
-const PageHeading = styled(Heading)`
-  font-weight: normal;
+const mobileBreakpoint = '76rem'
+
+const StyledGrid = styled(Grid)`
+  grid-template-columns: 1fr minmax(auto, 45rem) 1fr;
+  width: 100%;
+  min-height: 50vh;
+
+  @media (width <= ${mobileBreakpoint}) {
+    padding: 0 20px;
+  }
 `
 
-const SidebarHeading = styled(SpacedHeading)`
-  padding: 5px 20px;
+const SidebarContainer = styled(Box)`
+  position: sticky;
+  top: 20px;
+
+  @media (width <= ${mobileBreakpoint}) {
+    display: none;
+  }
 `
 
-function ProjectAboutPage ({
+const DropdownContainer = styled(Box)`
+  @media (width > ${mobileBreakpoint}) {
+    display: none;
+  }
+`
+const StyledHeading = styled(Heading)`
+  position: relative;
+  padding: 44px 0;
+  margin: 0;
+  text-align: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    height: 2px;
+    width: 80%;
+    ${props =>
+      props.theme.dark
+        ? css`
+            background: linear-gradient(
+              90deg,
+              #333333 0%,
+              #000000 50%,
+              #333333 100%
+            );
+          `
+        : css`
+            background: linear-gradient(
+              90deg,
+              #ffffff 0%,
+              #a6a7a9 50%,
+              #ffffff 100%
+            );
+          `}
+  }
+`
+
+const DesktopTeamMembersContainer = styled(Box)`
+  @media (width <= ${mobileBreakpoint}) {
+    display: none;
+  }
+`
+
+const MobileTeamMembersContainer = styled(Box)`
+  width: 100%;
+
+  @media (width > ${mobileBreakpoint}) {
+    display: none;
+  }
+`
+
+const StyledList = styled.ul`
+  margin: 0;
+  padding: 0;
+  width: fit-content;
+
+  @media (width <= ${mobileBreakpoint}) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    column-gap: 15px;
+  }
+`
+
+const TeamMembersList = ({ teamArray }) => {
+  return (
+    <Box width='100%' align='center'>
+      {teamArray.length && (
+        <StyledList aria-label='List of team members'>
+          {teamArray.map(user => (
+            <TeamMember key={user.id} user={user} />
+          ))}
+        </StyledList>
+      )}
+    </Box>
+  )
+}
+
+function ProjectAboutPage({
   aboutNavLinks,
   aboutPageData = {},
   inBeta = false,
-  projectDisplayName,
-  screenSize,
-  teamArray = [],
-  theme: { dark = false }
+  teamArray = []
 }) {
   const { t } = useTranslation('screens')
 
-  const defaultContent = {
-    title: aboutPageData.title,
-    content: aboutPageData.content
-  }
   const { strings, title: pageType } = aboutPageData
-  const { content } = strings ?? defaultContent
+  const { content } = strings ?? 'No content yet.'
 
   const pageTitle = t(`About.PageHeading.title.${pageType.toLowerCase()}`)
   const isTeamPage = pageType.toLowerCase().includes('team')
-  // note that for future additional locales, CSS property :lang is available to format strings
 
   return (
     <StandardLayout inBeta={inBeta}>
-      <Grid columns={screenSize === 'small' ? ['auto'] : ['xsmall', 'flex', 'xsmall']}>
-        <Box />
-        <Box
-          background={{ dark: 'dark-3', light: 'neutral-6' }}
-          border={{
-            light: {
-              color: 'light-3',
-              size: '1px',
-              style: 'solid',
-              side: 'vertical'
-            },
-            dark: 'none'
-          }}
-          height={{ min: '98vh' }}
-          width={{ min: 'fill-available', max: 'xxlarge' }}
-          pad='large'
-          alignSelf='center'
-          elevation={dark ? 'xlarge' : 'none'}
-          flex
-        >
-          <Grid
-            columns={screenSize === 'small' ? ['auto'] : ['small', 'flex']}
-            gap={screenSize === 'small' ? '' : '8%'}
+      <ProjectAboutPageLayout>
+        <DropdownContainer>
+          <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
+        </DropdownContainer>
+        <Box width='min(100%, 45rem)'>
+          <StyledHeading
+            color={{ light: 'brand', dark: 'accent-1' }}
+            level='2'
+            size='32px'
           >
-            {screenSize !== 'small' ? (
-              <Box as='aside'>
-                <SidebarHeading>{t('About.SidebarHeading')}</SidebarHeading>
-                <AboutSidebar aboutNavLinks={aboutNavLinks} />
-              </Box>
-            ) : (
-              <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
+            {pageTitle}
+          </StyledHeading>
+        </Box>
+        <StyledGrid>
+          <Box>
+            <SidebarContainer align='center'>
+              <AboutSidebar aboutNavLinks={aboutNavLinks} />
+            </SidebarContainer>
+          </Box>
+          <Box pad={{ vertical: 'medium' }}>
+            <AboutMarkdownz content={content} />
+            {isTeamPage && !!teamArray.length && (
+              <MobileTeamMembersContainer pad={{ top: 'medium' }}>
+                <TeamMembersList teamArray={teamArray} />
+              </MobileTeamMembersContainer>
             )}
-            <Box as='main'>
-              <PageHeading
-                level='2'
-                weight='normal'
-                size='40px'
-                margin={{ bottom: '30px' }}
-              >
-                {pageTitle}
-              </PageHeading>
-              {isTeamPage ? (
-                <Grid
-                  columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
-                  gap={screenSize === 'small' ? '' : '8%'}
-                >
-                  <AboutMarkdownz content={content} />
-                  <Box>
-                    <Heading
-                      id='team-sidebar-heading'
-                      level={3}
-                      margin={{ top: '0', bottom: '14px' }}
-                      pad='none'
-                      size='small'
-                    >
-                      <SpacedText
-                        weight='bold'
-                        color={{ light: 'black', dark: '' }}
-                      >
-                        {`${projectDisplayName} TEAM`}
-                      </SpacedText>
-                    </Heading>
-                    {teamArray.length && (
-                      <Box aria-labelledby='team-sidebar-heading' as='ul' margin='none' pad='none'>
-                        {teamArray.map(user => (
-                          <TeamMember key={user.id} user={user} />
-                        ))}
-                      </Box>
-                    )}
-                  </Box>
-                </Grid>
-              ) : (
-                <AboutMarkdownz content={content} />
-              )}
-            </Box>
-          </Grid>
-        </Box>
-        <Box justify='start' margin={screenSize === 'small' ? { vertical: 'medium' } : { top: 'medium' }}>
-          <ThemeModeToggle />
-        </Box>
-      </Grid>
+          </Box>
+          <Box>
+            {isTeamPage && !!teamArray.length && (
+              <DesktopTeamMembersContainer>
+                <TeamMembersList teamArray={teamArray} />
+              </DesktopTeamMembersContainer>
+            )}
+          </Box>
+        </StyledGrid>
+      </ProjectAboutPageLayout>
     </StandardLayout>
   )
 }
@@ -148,4 +182,4 @@ ProjectAboutPage.propTypes = {
 }
 
 export { ProjectAboutPage }
-export default withTheme(withResponsiveContext(ProjectAboutPage))
+export default ProjectAboutPage

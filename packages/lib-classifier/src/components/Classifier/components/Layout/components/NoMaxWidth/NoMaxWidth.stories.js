@@ -1,6 +1,4 @@
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
@@ -9,9 +7,9 @@ import NoMaxWidth from './NoMaxWidth'
 export default {
   title: 'Layouts / No Max Width',
   component: NoMaxWidth,
-  excludeStories: ['mockTask'],
+  excludeStories: ['mockTasks'],
   args: {
-    dark: false
+    separateFramesView: false
   }
 }
 
@@ -25,7 +23,7 @@ const subjectSnapshot = SubjectFactory.build({
   ]
 })
 
-export const mockTask = {
+export const mockTasks = {
   init: {
     answers: [{ label: 'yes' }, { label: 'no' }],
     strings: {
@@ -40,10 +38,11 @@ export const mockTask = {
 }
 
 const taskStrings = {}
-Object.entries(mockTask).forEach(([taskKey, task]) => {
+Object.entries(mockTasks).forEach(([taskKey, task]) => {
   if (task.strings) {
     Object.entries(task.strings).forEach(([key, value]) => {
-      taskStrings[`tasks.${taskKey}.${key}`] = value
+      const translationKey = `tasks.${taskKey}.${key}`
+      taskStrings[translationKey] = value
     })
   }
 })
@@ -54,25 +53,17 @@ const workflowSnapshot = WorkflowFactory.build({
   },
   first_task: 'init',
   strings: taskStrings,
-  tasks: mockTask
+  tasks: mockTasks
 })
 
-export function Default({ dark }) {
+export function Default({ separateFramesView }) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Provider classifierStore={Default.store}>
-        <NoMaxWidth />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={Default.store}>
+      <NoMaxWidth separateFramesView={separateFramesView} />
+    </Provider>
   )
 }
+
 Default.store = mockStore({
   subject: subjectSnapshot,
   workflow: workflowSnapshot

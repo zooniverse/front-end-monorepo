@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { expect } from 'chai'
 import * as stories from './SingleVideoViewerContainer.stories'
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 
 describe('Component > SingleVideoViewerContainer', function () {
   const { Default, WithDrawingEnabled, NoSubject } = composeStories(stories)

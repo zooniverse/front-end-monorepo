@@ -1,0 +1,42 @@
+{
+  "name": "@zooniverse/fe-root",
+  "description": "",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "APP_ENV=${APP_ENV:-development} NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
+    "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/server.js",
+    "lint": "next lint",
+    "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js"
+  },
+  "dependencies": {
+    "@next/bundle-analyzer": "~13.5.5",
+    "@zooniverse/async-states": "~0.0.1",
+    "@zooniverse/content": "~0.0.1",
+    "@zooniverse/grommet-theme": "~3.2.0",
+    "@zooniverse/panoptes-js": "~0.5.0",
+    "@zooniverse/react-components": "~1.12.0",
+    "@zooniverse/user": "~0.1.0",
+    "express": "~4.19.2",
+    "grommet": "~2.35.0",
+    "grommet-icons": "~4.12.0",
+    "newrelic": "~11.14.0",
+    "next": "~13.5.5",
+    "panoptes-client": "~5.6.0",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "styled-components": "~5.3.10",
+    "swr": "~2.2.4"
+  },
+  "devDependencies": {
+    "eslint-config-next": "~13.5.5",
+    "eslint-plugin-jsx-a11y": "~6.8.0",
+    "selfsigned": "~2.4.1"
+  },
+  "engines": {
+    "node": ">=20.5"
+  }
+}

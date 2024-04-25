@@ -11,7 +11,7 @@ import {
 } from 'grommet'
 import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
 import { useTranslation } from '@translations/i18n'
-import { withThemeContext } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
@@ -51,7 +51,7 @@ const VideoController = ({
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Grid
-        columns={['100px', 'flex', '120px']}
+        columns={['110px', 'flex', '120px']}
         data-testid='video subject viewer custom controls'
         pad='10px' // xsmall regardless of screen size
         style={{ background: '#000000' }}
@@ -72,7 +72,7 @@ const VideoController = ({
           />
 
           {/* Time */}
-          <Box direction='row' align='center' style={{ minWidth: '66px' }}>
+          <Box direction='row' align='center' style={{ minWidth: '4.3rem' }}>
             <Text size='small'>
               <time dateTime={`P${Math.round(sliderValue)}S`}>
                 {formatTimeStamp(sliderValue)}

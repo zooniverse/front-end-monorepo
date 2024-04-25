@@ -5,28 +5,38 @@ import { propTypes, defaultProps } from './helpers/mediaPropTypes'
 export default function Media(props) {
   const mimeType = mime.getType(props.src)
   const [ type ] = mimeType ? mimeType.split('/') : []
+  const componentProps = {
+    ...defaultProps,
+    ...props
+  }
 
   if (type === 'image') {
     return (
-      <Viewers.ThumbnailImage {...props} />
+      <Viewers.ThumbnailImage {...componentProps} />
     )
   }
 
   if (type === 'video') {
     return (
-      <Viewers.Video {...props} />
+      <Viewers.Video {...componentProps} />
     )
   }
 
   if (type === 'audio') {
     return (
-      <Viewers.Audio {...props} />
+      <Viewers.Audio {...componentProps} />
     )
   }
 
   if (type === 'application') {
     return (
-      <Viewers.Data {...props} />
+      <Viewers.Data {...componentProps} />
+    )
+  }
+
+  if (type === 'text') {
+    return (
+      <Viewers.Text {...componentProps} />
     )
   }
 
@@ -35,8 +45,4 @@ export default function Media(props) {
 
 Media.propTypes = {
   ...propTypes
-}
-
-Media.defaultProps = {
-  ...defaultProps
 }
