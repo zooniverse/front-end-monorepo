@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { string } from 'prop-types'
 import styled from 'styled-components'
-import { SpacedText } from '@zooniverse/react-components'
+import SpacedText from '../SpacedText'
 
 const StyledProjectCard = styled(Box)`
   text-decoration: none;

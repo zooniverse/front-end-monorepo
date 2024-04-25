@@ -1,6 +1,7 @@
 import { Grid } from 'grommet'
 import { Link } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
 import {
   ContentBox,
@@ -8,8 +9,7 @@ import {
   HeaderLink,
   HeaderToast,
   Layout,
-  MainContent,
-  ProjectCard
+  MainContent
 } from '@components/shared'
 
 import GearIcon from './components/GearIcon'
