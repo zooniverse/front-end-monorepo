@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
+import { useStores } from '@hooks'
 
 import useSubjectImage from '@hooks/useSubjectImage.js'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
@@ -16,6 +17,10 @@ import {
 } from '../../../../../ImageToolbar/components'
 
 const DEFAULT_HANDLER = () => true
+
+function storeMapper(classifierStore) {
+  return { hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask }
+}
 
 const SeparateFrame = ({
   enableInteractionLayer = false,
@@ -98,7 +103,6 @@ const SeparateFrame = ({
   }
 
   /** Image Toolbar functions */
-
   const separateFrameEnableAnnotate = () => {
     setSeparateFrameAnnotate(true)
     setSeparateFrameMove(false)
@@ -107,6 +111,12 @@ const SeparateFrame = ({
   const separateFrameEnableMove = () => {
     setSeparateFrameMove(true)
     setSeparateFrameAnnotate(false)
+  }
+
+  /** NOTE: This is to disable the annotate button if there are no annotate tasks */
+  const { hasAnnotateTask } = useStores(storeMapper)
+  if (!hasAnnotateTask && separateFrameAnnotate) {
+    separateFrameEnableMove();
   }
 
   const separateFrameZoomIn = () => {
@@ -239,10 +249,12 @@ const SeparateFrame = ({
         pad='8px'
         style={{ width: '3rem' }}
       >
-        <AnnotateButton
-          separateFrameAnnotate={separateFrameAnnotate}
-          separateFrameEnableAnnotate={separateFrameEnableAnnotate}
-        />
+        { hasAnnotateTask &&
+          <AnnotateButton
+            separateFrameAnnotate={separateFrameAnnotate}
+            separateFrameEnableAnnotate={separateFrameEnableAnnotate}
+          />
+        }
         <MoveButton
           separateFrameMove={separateFrameMove}
           separateFrameEnableMove={separateFrameEnableMove}
