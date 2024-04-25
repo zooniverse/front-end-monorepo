@@ -27,7 +27,7 @@ function ComponentDecorator(Story) {
 
 export const HeaderLinkPrimaryItem = {
   args: {
-    href: '/users/testUser',
+    href: 'https://zooniverse.org/users/testUser',
     label: 'back to profile',
     primaryItem: true
   }

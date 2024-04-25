@@ -35,7 +35,7 @@ export const CopyJoinLink = {
     icon: <Link color='white' size='small' />,
     label: 'Copy Join Link',
     message: 'Join Link Copied!',
-    textToCopy: 'zooniverse.org/groups/1234?join_token=56789'
+    textToCopy: 'groups/1234?join_token=56789'
   }
 }
 
