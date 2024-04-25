@@ -50,11 +50,26 @@ function GroupStats({
   handleGroupDelete = DEFAULT_HANDLER,
   handleGroupUpdate = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
+  login = '',
   projectStats = DEFAULT_STATS,
   projects = [],
   selectedDateRange = 'Last7Days',
   selectedProject = 'AllProjects'
 }) {
+  const primaryHeaderItem = login ? (
+    <HeaderLink
+      href={`/users/${login}`}
+      label='Back to Profile'
+      primaryItem={true}
+    />
+  ) : (
+    <HeaderLink
+      href='/projects'
+      label='Back to Projects'
+      primaryItem={true}
+    />
+  )
+
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
@@ -73,13 +88,7 @@ function GroupStats({
 
   return (
     <Layout
-      primaryHeaderItem={
-        <HeaderLink
-          href={`/groups`}
-          label='Back to Groups'
-          primaryItem={true}
-        />
-      }
+      primaryHeaderItem={primaryHeaderItem}
       secondaryHeaderItems={[
         <HeaderToast
           key='copy-join-link-toast'
@@ -183,6 +192,7 @@ GroupStats.propTypes = {
   handleGroupDelete: func,
   handleGroupUpdate: func,
   handleProjectSelect: func,
+  login: string,
   projectStats: statsShape,
   projects: arrayOf(shape({
     id: string,
