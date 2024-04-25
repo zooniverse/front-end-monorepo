@@ -1,55 +1,60 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { env } from '@zooniverse/panoptes-js'
+import { AuthModal } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
-import oauth from 'panoptes-client/lib/oauth.js'
+import auth from 'panoptes-client/lib/auth.js'
+import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import { GroupStats, MyGroups, UserStats } from '@components'
 
-import { usePanoptesUser } from '@hooks'
+const isBrowser = typeof window !== 'undefined'
 
-function appId(env) {
-  switch (env) {
-    case 'production':
-      return 'ad735ef9c05fd4e68878b938565d04805ec701f83d9e78c03f9b65ab2a5fcdf9'
-    default:
-      return '357ac7e0e17f6d9b05587477ca98fdb69d70181e674be8e20142e1df97a84d2d'
-  }
+if (isBrowser) {
+  auth.checkCurrent()
 }
 
-function App ({
+function App({
   groups = null,
   users = null
 }) {
-  const [loading, setLoading] = useState(false)
-  const [userAuth, setUserAuth] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(-1)
   const [dark, setDarkTheme] = useState(false)
-
-  const { data: user, error, isLoading: userLoading } = usePanoptesUser(oauth)
+  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    async function initUserAuth () {
+    async function checkUserSession() {
       setLoading(true)
   
       try {
-        const userAuth = await oauth.init(appId(env))
-        setUserAuth(userAuth)
+        const user = await auth.checkCurrent()
+        setUser(user)
       } catch (error) {
         console.error(error)
       } finally {
         setLoading(false)
       }
-    };
-  
-    window.addEventListener('load', initUserAuth);
+    }
+    
+    auth.listen('change', checkUserSession)
 
-    return () => {
-      window.removeEventListener('load', initUserAuth);
-    };
+    return function () {
+      auth.stopListening('change', checkUserSession)
+    }
   }, [])
 
-  const login = () => oauth?.signIn(window?.location?.origin)
-  const logout = () => oauth?.signOut().then(setUserAuth)
+  function closeAuthModal() {
+    setActiveIndex(-1)
+  }
+  
+  function openSignInModal() {
+    setActiveIndex(0)
+  }
+
+  const login = () => openSignInModal()
+  const logout = () => auth?.signOut()
+    .then(setUser)
+    .catch(() => setUser(null))
 
   const userSubpath = user?.login ? user.login : '[login]'
 
@@ -101,7 +106,7 @@ function App ({
 
       content = (
         <GroupStats
-          authClient={oauth}
+          authClient={auth}
           groupId={groupId}
         />
       )
@@ -110,20 +115,24 @@ function App ({
 
   if (users) {
     const subpaths = users.split('/')
+    const login = subpaths[0] || ''
 
-    if (subpaths[0] === '[login]') {
+    if (login === '[login]') {
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
-      const login = subpaths[0] || ''
-
       content = (
         <UserStats
-          authClient={oauth}
+          authClient={auth}
           login={login}
         />
       )
     } else if (subpaths[1] === 'groups') {
-      content = <MyGroups authClient={oauth} />
+      content = (
+        <MyGroups
+          authClient={auth}
+          login={login}
+        />
+      )
     } else {
       content = <p>User profile page goes here.</p>
     }
@@ -140,13 +149,18 @@ function App ({
     >
       <main>
         <header>
+          <AuthModal
+            activeIndex={activeIndex}
+            closeModal={closeAuthModal}
+            onActive={setActiveIndex}
+          />
           <h1><a href="./">lib-user</a></h1>
-          {userAuth ? (
+          {user?.login ? (
             <button onClick={logout}>
               Logout
             </button>
           ) : (
-            <button onClick={login}>
+            <button onClick={login} disabled={loading}>
               Login
             </button>
           )}
@@ -170,6 +184,11 @@ function App ({
       </main>
     </Grommet>
   )
+}
+
+App.propTypes = {
+  groups: string,
+  users: string
 }
 
 export default App

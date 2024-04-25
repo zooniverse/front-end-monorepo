@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { autorun } from 'mobx'
+import { autorun, reaction } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
@@ -46,7 +46,11 @@ const SubjectViewer = types
       }
       return false
     },
-    
+ 
+    get hasAnnotateTask () {
+      return getRoot(self)?.workflowSteps.hasAnnotateTask
+    },
+
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'
@@ -67,6 +71,16 @@ const SubjectViewer = types
 
     return {
       afterAttach () {
+        function _syncAnnotateVisibility() {
+          // Make sure the right button is active in the ImageToolbar
+          self.setAnnotateVisibility(self.hasAnnotateTask)
+          if (self.hasAnnotateTask) {
+            self.enableAnnotate()
+          } else {
+            self.enableMove()
+          }
+        }
+        addDisposer(self, autorun(_syncAnnotateVisibility))
         createSubjectObserver()
       },
 
@@ -93,7 +107,6 @@ const SubjectViewer = types
       },
 
       invertView () {
-        console.log('invert view')
         self.invert = !self.invert
       },
 
@@ -155,6 +168,16 @@ const SubjectViewer = types
       rotate () {
         console.log('rotating subject')
         self.rotation -= 90
+      },
+
+      setAnnotateVisibility (canAnnotate) {
+        if (canAnnotate) {
+          self.enableAnnotate()
+        } else {
+          self.enableMove()
+        }
+
+        self.showAnnotate = canAnnotate
       },
 
       setFlipbookSpeed (speed) {

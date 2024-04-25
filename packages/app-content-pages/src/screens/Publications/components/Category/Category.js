@@ -1,25 +1,32 @@
 import { Box } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
-import { HeadingForNav } from '../../../../shared/components/SharedStyledComponents/SharedStyledComponents.js'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+import HeadingForAboutNav from '../../../../shared/components/HeadingForAboutNav/HeadingForAboutNav.js'
 
 import Project from '../Project/Project.js'
 
-function Category({ projects = [], slug = '', title = '' }) {
+function Category({
+  projects = [],
+  setActiveSection = () => {},
+  sectionIndex = 0,
+  slug = '',
+  title = ''
+}) {
   return (
     <Box as='section'>
-      <HeadingForNav
-        id={slug}
+      <HeadingForAboutNav
         color={{ light: 'black', dark: 'white' }}
-        level={2}
-        size='1.5rem'
-        tabIndex={-1}
-        textAlign='center'
-        style={{ padding: '30px 0' }}
-      >
-        {title}
-      </HeadingForNav>
+        sectionName={title}
+        sectionIndex={sectionIndex}
+        setActiveSection={setActiveSection}
+        slug={slug}
+      />
       {projects.map(project => (
-        <Project {...project} key={project.title} />
+        <Project
+          {...project}
+          key={project.title}
+          sectionIndex={sectionIndex}
+          setActiveSection={setActiveSection}
+        />
       ))}
     </Box>
   )
@@ -41,6 +48,10 @@ Category.propTypes = {
       )
     })
   ),
+  /* sectionIndex matches index order of sections array supplied to Sidebar component */
+  sectionIndex: number,
+  /* Setting the active section is handled at the page level (Publications) */
+  setActiveSection: func,
   slug: string,
   title: string
 }

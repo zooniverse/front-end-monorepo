@@ -8,7 +8,7 @@ const StyledButton = styled(Button)`
   color: white;
   padding: 10px;
   background: ${props => props.theme.global.colors['neutral-1']};
-  width: 400px;
+  width: clamp(250px, 100%, 400px);
   border-radius: 5px;
 `
 
@@ -24,10 +24,11 @@ export default function Contact({ widgetLoaded = false }) {
   return (
     <Box pad={{ horizontal: 'medium' }}>
       <Heading
-        level={3}
-        size='1.5rem'
         alignSelf='center'
+        level={3}
         margin='0'
+        size='1.5rem'
+        textAlign='center'
         weight='normal'
       >
         {t('AboutPage.contact.subheading')}
@@ -50,7 +51,7 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Help size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }}>
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
             {t('AboutPage.contact.categories.one')}
           </Text>
         </Box>
@@ -65,7 +66,7 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Group size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }}>
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
             {t('AboutPage.contact.categories.two')}
           </Text>
         </Box>
@@ -80,7 +81,7 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Edit size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }}>
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
             {t('AboutPage.contact.categories.three')}
           </Text>
         </Box>

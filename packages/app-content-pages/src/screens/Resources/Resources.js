@@ -56,7 +56,7 @@ function ResourcesPage() {
         <Box pad={{ horizontal: 'medium' }} align='center'>
           <MaxWidthContent>
             <StyledHeading
-              color={{ light: 'brand', dark: 'accent-1' }}
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
               level='1'
               size='small'
             >
@@ -103,7 +103,7 @@ function ResourcesPage() {
               <Text
                 margin={{ vertical: '0', left: 'medium' }}
                 weight='bold'
-                size='0.875rem'
+                size='1rem'
               >
                 <Trans
                   i18nKey='Resources.cite.quote'
@@ -140,7 +140,7 @@ function ResourcesPage() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about/contact' // can be changed to #contact after that section is built in /about
+                    href='https://www.zooniverse.org/about#contact'
                   />
                 ]}
               />
@@ -167,7 +167,7 @@ function ResourcesPage() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about/contact' // can be changed to #contact after that section is built in /about
+                    href='https://www.zooniverse.org/about#contact'
                   />
                 ]}
               />
@@ -192,7 +192,7 @@ function ResourcesPage() {
                 <ResourceLogo>
                   <ZooniverseLogo
                     size='45px'
-                    color='#00979d' // 'brand' won't work here for some reason
+                    color='#005D69' // 'neutral-1' won't work here for some reason
                     id='link to logo brand resources'
                   />
                 </ResourceLogo>

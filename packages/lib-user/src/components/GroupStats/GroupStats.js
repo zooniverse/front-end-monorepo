@@ -1,101 +1,166 @@
-'use client'
-
-// This component is a work in progress. It is not intended to be imported as-is, but is currently being used for initial GroupStats local development.
-
-import PropTypes from 'prop-types'
+import { Grid } from 'grommet'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
 import {
-  usePanoptesUserGroup,
-  useGroupStats
-} from '@hooks'
+  ContentBox,
+  Layout,
+  MainContent
+} from '@components/shared'
 
-import {
-  deletePanoptesUserGroup,
-  getBearerToken,
-  updatePanoptesUserGroup
-} from '@utils'
+import DeleteGroup from './DeleteGroup'
+import EditGroup from './EditGroup'
 
-import DeleteGroup from './DeleteGroup.js'
-import EditGroup from './EditGroup.js'
+const DEFAULT_GROUP = {
+  display_name: '',
+  id: ''
+}
+const DEFAULT_HANDLER = () => true
+const DEFAULT_STATS = {
+  active_users: 0,
+  data: [],
+  project_contributions: [
+    {
+      count: 0,
+      project_id: 0,
+      session_time: 0
+    }
+  ],
+  time_spent: 0,
+  top_contributors: [
+    {
+      count: 0,
+      session_time: 0,
+      user_id: 0
+    }
+  ],
+  total_count: 0
+}
 
-function GroupStats ({
-  authClient,
-  groupId
+function GroupStats({
+  allProjectsStats = DEFAULT_STATS,
+  group = DEFAULT_GROUP,
+  handleDateRangeSelect = DEFAULT_HANDLER,
+  handleGroupDelete = DEFAULT_HANDLER,
+  handleGroupUpdate = DEFAULT_HANDLER,
+  handleProjectSelect = DEFAULT_HANDLER,
+  projectStats = DEFAULT_STATS,
+  projects = [],
+  selectedDateRange = 'Last7Days',
+  selectedProject = 'AllProjects'
 }) {
-  const {
-    data,
-    error: groupError,
-    isLoading: groupLoading
-  } = usePanoptesUserGroup({ authClient, groupId })
-  
-  const {
-    data: groupStats,
-    error: groupStatsError,
-    isLoading: groupStatsLoading
-  } = useGroupStats({ authClient, groupId })
+  // set stats based on selected project or all projects
+  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
-  async function getRequestHeaders() {
-    const authorization = await getBearerToken(authClient)
-    const requestHeaders = {
-      authorization,
-      etag: data.headers.etag
-    }
-    return requestHeaders
-  }
+  // set top projects based on selected date range and all project stats
+  let topProjects = []
+  const topProjectContributions = allProjectsStats.project_contributions
+    .sort((a, b) => b.count - a.count)
 
-  async function handleGroupDelete() {
-    try {
-      const requestHeaders = await getRequestHeaders()
-      const deleteResponse = await deletePanoptesUserGroup({ groupId, headers: requestHeaders })
-      console.log('deleteResponse', deleteResponse)
-      window.location.href =  '?users=[login]/groups'
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async function handleGroupUpdate(updates) {
-    try {
-      const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
-      console.log('updatedGroup', updatedGroup)
-      window.location.reload()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  if (groupError || groupStatsError) return (<p>Error: {groupError?.toString() || groupStatsError?.toString()}</p>)
-
-  if (groupLoading || groupStatsLoading) return (<p>Loading...</p>)
-
-  const group = data?.body?.user_groups?.[0]
+  topProjects = topProjectContributions
+    .map(projectContribution => {
+      const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+      return projectData
+    })
+    .filter(project => project)
+    .slice(0, 6)
 
   return (
-    <div>
-      <h2>Hi group with ID {groupId}! 🙌</h2>
-      <h3>Your group display_name is {group?.display_name}.</h3>
-      <h4>Members: <pre>{group?.links.users.toString()}</pre></h4>
-      <h4>Here are your group stats:</h4>
-      <pre>{JSON.stringify(groupStats, null, 2)}</pre>
-      <hr />
+    <Layout>
+      <MainContent
+        handleDateRangeSelect={handleDateRangeSelect}
+        handleProjectSelect={handleProjectSelect}
+        projects={projects}
+        selectedDateRange={selectedDateRange}
+        selectedProject={selectedProject}
+        stats={stats}
+        user={group}
+      />
+      <Grid
+        columns='1/2'
+        gap='30px'
+      >
+        <ContentBox
+          title='Top Contributors'
+        >
+          Top contributors go here.
+        </ContentBox>
+        <ContentBox
+          linkLabel='See more'
+          linkProps={{ href: 'https://www.zooniverse.org/projects' }}
+          title='Top Projects'
+          width='625px'
+        >
+          <Grid
+            justify='center'
+            columns='1/3'
+            gap='small'
+          >
+            {topProjects.map(topProject => {
+              return (
+                <ProjectCard
+                  key={topProject?.id}
+                  description={topProject?.description}
+                  displayName={topProject?.display_name}
+                  href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
+                  imageSrc={topProject?.avatar_src}
+                  size='small'
+                />
+              )
+            })}
+          </Grid>
+        </ContentBox>
+      </Grid>
       <EditGroup
         group={group}
         handleGroupUpdate={handleGroupUpdate}
       />
-      <br />
       <hr />
-      <br />
       <DeleteGroup
         handleGroupDelete={handleGroupDelete}
       />
-    </div>
+    </Layout>
   )
 }
 
+const statsShape = shape({
+  active_users: number,
+  data: arrayOf(shape({
+    count: number,
+    period: string,
+    session_time: number
+  })),
+  project_contributions: arrayOf(shape({
+    count: number,
+    project_id: number,
+    session_time: number
+  })),
+  time_spent: number,
+  top_contributors: arrayOf(shape({
+    count: number,
+    session_time: number,
+    user_id: number
+  })),
+  total_count: number
+})
+
 GroupStats.propTypes = {
-  // authClient: object,
-  groupId: PropTypes.string
+  allProjectsStats: statsShape,
+  group: shape({
+    display_name: string,
+    id: string
+  }),
+  handleDateRangeSelect: func,
+  handleGroupDelete: func,
+  handleGroupUpdate: func,
+  handleProjectSelect: func,
+  projectStats: statsShape,
+  projects: arrayOf(shape({
+    id: string,
+    display_name: string
+  })),
+  selectedDateRange: string,
+  selectedProject: string
 }
 
 export default GroupStats

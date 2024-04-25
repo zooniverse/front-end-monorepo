@@ -39,13 +39,13 @@ describe('Stores > Recents', function () {
         collections: []
       }
     }))
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve(null))
+    sinon.stub(statsClient, 'fetchDailyStats').callsFake(() => Promise.resolve(null))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
-    statsClient.request.restore()
+    statsClient.fetchDailyStats.restore()
   })
 
   it('should exist', function () {

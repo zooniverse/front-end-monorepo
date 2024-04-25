@@ -6,6 +6,7 @@ set -ev
 # Runs the following tasks in order:
 #   - Install dependencies
 #   - Build `@zooniverse/react-components`
+#   - Build `@zooniverse/content`
 #   - Build `@zooniverse/lib-user`
 #   - Build `@zooniverse/lib-classifier`
 
@@ -19,6 +20,10 @@ printf '\n'
 
 printf 'Building `lib-react-components`...\n'
 yarn workspace @zooniverse/react-components build:es6
+printf '\n'
+
+printf 'Building `lib-content`...\n'
+yarn workspace @zooniverse/content build:es6
 printf '\n'
 
 printf 'Building `lib-user`...\n'
@@ -37,8 +42,8 @@ printf 'Building `fe-content-pages`...\n'
 yarn workspace @zooniverse/fe-content-pages build
 printf '\n'
 
-printf 'Building `app-root`...\n'
-yarn workspace @zooniverse/app-root build
+printf 'Building `fe-root`...\n'
+yarn workspace @zooniverse/fe-root build
 printf '\n'
 
 echo 'Done!'

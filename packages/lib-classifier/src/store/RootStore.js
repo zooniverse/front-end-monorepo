@@ -1,4 +1,4 @@
-import { configure } from 'mobx'
+import { configure, keys, isObservableProp } from 'mobx'
 import {
   addMiddleware,
   getEnv,

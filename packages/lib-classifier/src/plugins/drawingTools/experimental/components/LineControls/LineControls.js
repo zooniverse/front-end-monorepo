@@ -61,6 +61,12 @@ const LineControls = forwardRef(function LineControls({
     return onDelete(event)
   }
 
+  function undo(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    return mark.undo()
+  }
+
   const deleteButtons = [
     {
       label: t('LineControls.deleteCancel'),
@@ -96,7 +102,7 @@ const LineControls = forwardRef(function LineControls({
   const defaultButtons = [
     {
       label: t('LineControls.undo'),
-      action: mark.undo,
+      action: undo,
       icon: {
         type: Undo,
         size: (10 / scale),

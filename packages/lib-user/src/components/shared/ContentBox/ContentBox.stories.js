@@ -1,9 +1,38 @@
 import { Box, Grid } from 'grommet'
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
+import { PROJECTS } from '../../../../test/mocks/panoptes/projects.js'
 import ContentBox from './ContentBox'
 
-import ProjectCard from '../ProjectCard/ProjectCard'
-import { NfnCaliFlowers, NestQuestGo, PlanetHuntersTess, CorrespondingWithQuakers, WildwatchKenya } from '../ProjectCard/ProjectCard.stories'
+const NfnCaliFlowers = {
+  displayName: PROJECTS[0].display_name,
+  imageSrc: PROJECTS[0].avatar_src,
+  ...PROJECTS[0]
+}
+
+const NestQuestGo = {
+  displayName: PROJECTS[1].display_name,
+  imageSrc: PROJECTS[1].avatar_src,
+  ...PROJECTS[1]
+}
+
+const PlanetHuntersTess = {
+  displayName: PROJECTS[2].display_name,
+  imageSrc: PROJECTS[2].avatar_src,
+  ...PROJECTS[2]
+}
+
+const CorrespondingWithQuakers = {
+  displayName: PROJECTS[3].display_name,
+  imageSrc: PROJECTS[3].avatar_src,
+  ...PROJECTS[3]
+}
+
+const WildwatchKenya = {
+  displayName: PROJECTS[4].display_name,
+  imageSrc: PROJECTS[4].avatar_src,
+  ...PROJECTS[4]
+}
 
 export default {
   title: 'Components/shared/ContentBox',
@@ -38,11 +67,11 @@ export const TopProjectsFull = {
         pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
         overflow={{ horizontal: 'auto' }}
       >
-        <ProjectCard {...NfnCaliFlowers.args} />
-        <ProjectCard {...NestQuestGo.args} />
-        <ProjectCard {...PlanetHuntersTess.args} />
-        <ProjectCard {...CorrespondingWithQuakers.args} />
-        <ProjectCard {...WildwatchKenya.args} />
+        <ProjectCard {...NfnCaliFlowers} />
+        <ProjectCard {...NestQuestGo} />
+        <ProjectCard {...PlanetHuntersTess} />
+        <ProjectCard {...CorrespondingWithQuakers} />
+        <ProjectCard {...WildwatchKenya} />
       </Box>
     </ContentBox>
   )
@@ -61,9 +90,9 @@ export const TopProjectsFullWithFewerProjects = {
         pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
         overflow={{ horizontal: 'auto' }}
       >
-        <ProjectCard {...NfnCaliFlowers.args} />
-        <ProjectCard {...NestQuestGo.args} />
-        <ProjectCard {...PlanetHuntersTess.args} />
+        <ProjectCard {...NfnCaliFlowers} />
+        <ProjectCard {...NestQuestGo} />
+        <ProjectCard {...PlanetHuntersTess} />
       </Box>
     </ContentBox>
   )
@@ -77,16 +106,12 @@ export const TopProjectsSplit = {
       title='Top Projects'
       width='625px'
     >
-      <Grid
-        justify='center'
-        columns='1/3'
-        gap='small'
-      >
-        <ProjectCard {...NfnCaliFlowers.args} small />
-        <ProjectCard {...NestQuestGo.args} small />
-        <ProjectCard {...PlanetHuntersTess.args} small />
-        <ProjectCard {...CorrespondingWithQuakers.args} small />
-        <ProjectCard {...WildwatchKenya.args} small />
+      <Grid justify='center' columns='1/3' gap='small'>
+        <ProjectCard {...NfnCaliFlowers} size='small' />
+        <ProjectCard {...NestQuestGo} size='small' />
+        <ProjectCard {...PlanetHuntersTess} size='small' />
+        <ProjectCard {...CorrespondingWithQuakers} size='small' />
+        <ProjectCard {...WildwatchKenya} size='small' />
       </Grid>
     </ContentBox>
   )

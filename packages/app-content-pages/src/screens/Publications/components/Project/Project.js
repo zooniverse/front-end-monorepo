@@ -1,5 +1,6 @@
 import { Box, Heading } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+import { useEffect, useRef } from 'react'
 import { Media, ZooniverseLogo } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
@@ -24,10 +25,57 @@ const Placeholder = ({ title }) => {
   )
 }
 
-function Project(props) {
-  const { avatarSrc, id, title, publications } = props
+const DEFAULT_HANDLER = () => true
+const DEFAULT_PUBLICATIONS = []
+
+function slugify(string) {
+  return string
+    // convert letters to lowercase
+    .toLowerCase()
+    // replace any spaces with Z
+    .replace(/\s/g, 'Z')
+    // remove all punctuation and whitespace
+    .replace(/\W/g, '')
+    // replace any Zs with a single dash
+    .replace(/Z+/g, '-')
+}
+
+const intersectionOptions = {
+  rootMargin: '0px 0px -70% 0px', // observe visibility in the top 30% of the viewport
+}
+
+function Project({
+  avatarSrc = null,
+  id = null,
+  title = '',
+  publications = DEFAULT_PUBLICATIONS,
+  sectionIndex = 0,
+  setActiveSection = DEFAULT_HANDLER
+}) {
+  const slug = slugify(title)
+  const sectionRef = useRef()
+
+  useEffect(() => {
+    const intersectionObserver = new window.IntersectionObserver(entries => {
+      if (entries[0].intersectionRatio > 0) {
+        setActiveSection(sectionIndex)
+      }
+    }, intersectionOptions)
+
+    intersectionObserver.observe(sectionRef.current)
+
+    return () => {
+      intersectionObserver.disconnect()
+    }
+  }, [sectionRef.current])
+
   return (
-    <Box as='section' key={id}>
+    <Box
+      as='section'
+      key={id}
+      ref={sectionRef}
+      aria-labelledby={slug}
+    >
       <Box
         direction='row'
         align='center'
@@ -39,6 +87,7 @@ function Project(props) {
           {!avatarSrc && <Placeholder title={title} />}
           {avatarSrc && (
             <Media
+              width={50}
               height={50}
               src={avatarSrc}
               placeholder={<Placeholder title={title} />}
@@ -46,10 +95,11 @@ function Project(props) {
           )}
         </StyledBox>
         <Heading
+          id={slug}
+          tabIndex={-1}
           color={{ light: 'black', dark: 'white' }}
           level='3'
           size='small'
-          style={{ lineHeight: '1.4rem' }}
         >
           {title} ({publications.length})
         </Heading>
@@ -68,7 +118,6 @@ function Project(props) {
 Project.propTypes = {
   avatarSrc: string,
   projectId: string,
-  title: string,
   publications: arrayOf(
     shape({
       authors: string,
@@ -76,7 +125,10 @@ Project.propTypes = {
       url: string,
       year: string
     })
-  )
+  ),
+  sectionIndex: number,
+  setActiveSection: func,
+  title: string,
 }
 
 export default Project

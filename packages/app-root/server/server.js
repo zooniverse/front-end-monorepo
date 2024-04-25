@@ -1,7 +1,3 @@
-if (process.env.NEWRELIC_LICENSE_KEY) {
-  await import('newrelic')
-}
-
 import express from 'express'
 import next from 'next'
 
@@ -32,7 +28,7 @@ app.prepare().then(async () => {
   try {
     selfsigned = await import('selfsigned')
   } catch (error) {
-    console.error(error)
+    console.info(error)
   }
   if (APP_ENV === 'development' && selfsigned) {
     const https = await import('https')

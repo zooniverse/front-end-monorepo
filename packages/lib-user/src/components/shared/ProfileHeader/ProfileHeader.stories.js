@@ -1,7 +1,7 @@
 import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 
-import { USER, USER_GROUP } from '../../../../test/mocks/panoptes.mock.js'
+import { USER, USER_GROUPS } from '../../../../test/mocks/panoptes'
 
 import ProfileHeader from './ProfileHeader.js'
 
@@ -56,7 +56,7 @@ export const Group = {
   args: {
     classifications: 1526,
     contributors: 386,
-    displayName: USER_GROUP.display_name,
+    displayName: USER_GROUPS[0].display_name,
     projects: 31
   }
 }
@@ -64,7 +64,7 @@ export const Group = {
 export const GroupWithHours = {
   args: {
     contributors: 386,
-    displayName: USER_GROUP.display_name,
+    displayName: USER_GROUPS[0].display_name,
     hours: 12,
     projects: 31
   }
