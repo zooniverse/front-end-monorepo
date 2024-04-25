@@ -4,9 +4,11 @@ import { useTranslation } from '@translations/i18n'
 import EditIcon from './EditIcon'
 import Button from '../Button'
 
+const DEFAULT_HANDLER = () => {}
+
 function AnnotateButton({
   active = false,
-  onClick = () => console.log('Annotate Button')
+  onClick = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   return (
