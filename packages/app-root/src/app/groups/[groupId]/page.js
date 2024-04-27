@@ -8,6 +8,7 @@ export default function GroupPage({ params }) {
     <GroupStats
       authClient={auth}
       groupId={params.groupId}
+      joinToken={params.join_token}
     />
   )
 }

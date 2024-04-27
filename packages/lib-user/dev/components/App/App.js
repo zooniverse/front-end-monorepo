@@ -15,6 +15,7 @@ if (isBrowser) {
 
 function App({
   groups = null,
+  joinToken = null,
   users = null
 }) {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -108,6 +109,7 @@ function App({
         <GroupStats
           authClient={auth}
           groupId={groupId}
+          joinToken={joinToken}
         />
       )
     }
@@ -188,6 +190,7 @@ function App({
 
 App.propTypes = {
   groups: string,
+  joinToken: string,
   users: string
 }
 

@@ -23,7 +23,8 @@ const STATS_ENDPOINT = '/classifications/user_groups'
 
 function GroupStatsContainer({
   authClient,
-  groupId
+  groupId,
+  joinToken
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
@@ -144,7 +145,8 @@ function GroupStatsContainer({
 
 GroupStatsContainer.propTypes = {
   authClient: object,
-  groupId: string
+  groupId: string,
+  joinToken: string
 }
 
 export default GroupStatsContainer
