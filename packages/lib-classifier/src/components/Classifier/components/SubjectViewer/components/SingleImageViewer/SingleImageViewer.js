@@ -14,7 +14,9 @@ const PlaceholderSVG = styled.svg`
   max-width: ${props => props.maxWidth || '100%'};
   ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
 `
-
+const SVGImageCanvas = styled.svg`
+  overflow: visible;
+`
 function SingleImageViewer({
   children,
   enableInteractionLayer = false,
@@ -56,7 +58,7 @@ function SingleImageViewer({
           maxWidth={limitSubjectHeight ? `${width}px` : '100%'}
           onKeyDown={onKeyDown}
           tabIndex={0}
-          viewBox={viewBox}
+          viewBox={`0 0 ${width} ${height}`}
           xmlns='http://www.w3.org/2000/svg'
         >
           {title?.id && title?.text && (
@@ -66,16 +68,20 @@ function SingleImageViewer({
             ref={transformLayer}
             transform={transform}
           >
-            {children}
-            {enableInteractionLayer && (
-              <InteractionLayer
-                frame={frame}
-                height={height}
-                scale={scale}
-                subject={subject}
-                width={width}
-              />
-            )}
+            <SVGImageCanvas
+              viewBox={viewBox}
+            >
+              {children}
+              {enableInteractionLayer && (
+                <InteractionLayer
+                  frame={frame}
+                  height={height}
+                  scale={scale}
+                  subject={subject}
+                  width={width}
+                />
+              )}
+            </SVGImageCanvas>
           </g>
         </PlaceholderSVG>
       </Box>

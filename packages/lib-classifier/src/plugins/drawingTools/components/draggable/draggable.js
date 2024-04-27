@@ -53,15 +53,16 @@ function draggable(WrappedComponent) {
     const { canvas } = useContext(SVGContext)
     const wrappedComponent = ref || useRef()
     const [dragging, setDragging] = useState(false)
-    const [coords, setCoords] = useState(initialCoords)
+    const coords = useRef(initialCoords)
     const [pointerId, setPointerId] = useState(-1)
 
     function onDragStart(event) {
+      console.log(canvas)
       event.stopPropagation()
       event.preventDefault()
       const { setPointerCapture } = wrappedComponent.current
       const { x, y, pointerId } = convertEvent(event, canvas)
-      setCoords({ x, y })
+      coords.current = { x, y }
       setDragging(true)
       setPointerId(pointerId)
       dragStart({ x, y, pointerId })
@@ -74,11 +75,11 @@ function draggable(WrappedComponent) {
         const { x, y } = convertEvent(event, canvas)
         const { currentTarget } = event
         const difference = {
-          x: x - coords.x,
-          y: y - coords.y
+          x: x - coords.current.x,
+          y: y - coords.current.y
         }
         dragMove({ currentTarget, x, y, pointerId }, difference)
-        setCoords({ x, y })
+        coords.current = { x, y }
       }
     }
 
@@ -91,7 +92,7 @@ function draggable(WrappedComponent) {
         releasePointerCapture &&
           wrappedComponent.current.releasePointerCapture(pointerId)
       }
-      setCoords({ x: null, y: null })
+      coords.current = { x: null, y: null }
       setDragging(false)
       setPointerId(-1)
     }
