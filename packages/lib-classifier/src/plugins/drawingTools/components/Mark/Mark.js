@@ -8,7 +8,7 @@ const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 4
 
 const StyledGroup = styled('g')`
-  &:focus {
+  &:focus-visible {
     ${(props) =>
     css`
         outline: solid 4px ${props.focusColor};

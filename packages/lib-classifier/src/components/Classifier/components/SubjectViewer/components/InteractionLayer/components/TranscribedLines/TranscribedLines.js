@@ -15,7 +15,7 @@ export const ConsensusLine = styled('g')`
   cursor: pointer;
   filter: drop-shadow(1px 1px 4px #5c5c5c);
 
-  &:focus {
+  &:focus-visible {
     ${props => css`outline: solid 4px ${props.focusColor};`}
   }
 
@@ -69,9 +69,7 @@ function TranscribedLines({
     /** Show/hide previously transcribed lines. */
     visible,
   } = useTranscriptionReductions()
-  const {
-    theme = defaultTheme
-  } = useTheme()
+  const theme = useTheme()
   const [ bounds, setBounds ] = useState({})
   const [ line, setLine ] = useState(defaultLine)
   const [ show, setShow ] = useState(false)
