@@ -8,7 +8,7 @@ const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 4
 
 const StyledGroup = styled('g')`
-  &:focus {
+  &:focus-visible {
     ${(props) =>
     css`
         outline: solid 4px ${props.focusColor};
@@ -164,7 +164,7 @@ const Mark = forwardRef(function Mark(
       ref={markRoot}
       role='button'
       strokeWidth={
-        isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale
+        isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH
       }
       tabIndex={disabled ? -1 : 0}
       transform={transform}
