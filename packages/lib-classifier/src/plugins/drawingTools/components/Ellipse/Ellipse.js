@@ -23,7 +23,7 @@ function Ellipse({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <ellipse rx={rx} ry={ry} />
+      <ellipse rx={rx} ry={ry} vectorEffect={'non-scaling-stroke'} />
 
       {active && (
         <g>
@@ -34,6 +34,7 @@ function Ellipse({ active, mark, onFinish, scale }) {
             y2='0'
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
+            vectorEffect={'non-scaling-stroke'}
           />
           <line
             x1='0'
@@ -42,6 +43,7 @@ function Ellipse({ active, mark, onFinish, scale }) {
             y2={-1 * ry}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
+            vectorEffect={'non-scaling-stroke'}
           />
           <DragHandle dragMove={onXHandleDrag} x={rx} y={0} scale={scale} />
           <DragHandle

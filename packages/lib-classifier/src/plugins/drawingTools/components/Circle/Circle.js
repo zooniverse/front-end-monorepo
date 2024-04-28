@@ -32,6 +32,7 @@ function Circle({ active, mark, onFinish, scale }) {
             y2={handleY}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
+            vectorEffect={'non-scaling-stroke'}
           />
           <DragHandle
             scale={scale}

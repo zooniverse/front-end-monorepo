@@ -11,7 +11,7 @@ const StyledGroup = styled.g`
   &:focus {
     outline: none;
   }
-
+  
   &:focus-visible {
     ${(props) =>
     css`
@@ -168,7 +168,7 @@ const Mark = forwardRef(function Mark(
       ref={markRoot}
       role='button'
       strokeWidth={
-        isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale
+        isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH
       }
       tabIndex={disabled ? -1 : 0}
       transform={transform}
