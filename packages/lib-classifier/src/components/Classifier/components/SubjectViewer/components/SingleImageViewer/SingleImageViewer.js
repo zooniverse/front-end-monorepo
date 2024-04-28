@@ -32,8 +32,8 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = false
 }) {
-  const transformLayer = useRef()
-  const canvas = transformLayer.current
+  const canvasLayer = useRef()
+  const canvas = canvasLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
 
   return (
@@ -62,20 +62,19 @@ function SingleImageViewer({
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
-          <g
-            ref={transformLayer}
-            transform={transform}
-          >
-            {children}
-            {enableInteractionLayer && (
-              <InteractionLayer
-                frame={frame}
-                height={height}
-                scale={scale}
-                subject={subject}
-                width={width}
-              />
-            )}
+          <g ref={canvasLayer}>
+            <g transform={transform}>
+              {children}
+              {enableInteractionLayer && (
+                <InteractionLayer
+                  frame={frame}
+                  height={height}
+                  scale={scale}
+                  subject={subject}
+                  width={width}
+                />
+              )}
+            </g>
           </g>
         </PlaceholderSVG>
       </Box>
