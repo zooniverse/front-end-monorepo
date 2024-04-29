@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react'
 
 function EditGroup({ group, handleGroupUpdate }) {
   const [displayName, setDisplayName] = useState('')
+  const [privateGroup, setPrivate] = useState(true)
   const [statsVisibility, setStatsVisibility] = useState('')
 
   useEffect(() => {
     setDisplayName(group?.display_name || '')
+    setPrivate(group?.stats_visibility.startsWith('private'))
     setStatsVisibility(group?.stats_visibility || '')
   }, [group])
 
@@ -15,15 +17,16 @@ function EditGroup({ group, handleGroupUpdate }) {
     event.preventDefault()
 
     const groupDisplayName = event.target.elements['group-name'].value
+    const groupPrivate = event.target.elements['group-private'].checked
     const groupStatsVisibility = event.target.elements['group-stats_visibility'].value
 
-    const updates = {
-      id: group?.id,
+    const data = {
       display_name: groupDisplayName,
+      private: groupPrivate,
       stats_visibility: groupStatsVisibility
     }
 
-    handleGroupUpdate(updates)
+    handleGroupUpdate(data)
   }
 
   return (
@@ -38,6 +41,15 @@ function EditGroup({ group, handleGroupUpdate }) {
             onChange={event => setDisplayName(event.target.value)}
             type='text'
             value={displayName}
+          />
+          <br />
+          <label htmlFor='group-private'>Group private</label>
+          <input
+            id='group-private'
+            name='group-private'
+            checked={privateGroup}
+            onChange={event => setPrivate(event.target.checked)}
+            type='checkbox'
           />
           <br />
           <label htmlFor='group-stats_visibility'>Group stats_visibility</label>

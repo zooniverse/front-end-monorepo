@@ -58,8 +58,8 @@ function GroupStatsContainer({
       setJoinStatus(asyncStates.posting)
       try {
         await createPanoptesMembership({
-          joinToken,
           groupId,
+          joinToken,
           userId: authUser.id
         })
 
@@ -97,10 +97,10 @@ function GroupStatsContainer({
     }
   }
 
-  async function handleGroupUpdate(updates) {
+  async function handleGroupUpdate(data) {
     try {
       const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({ data: updates, headers: requestHeaders })
+      const updatedGroup = await updatePanoptesUserGroup({ data, headers: requestHeaders, id: groupId })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
     } catch (error) {
