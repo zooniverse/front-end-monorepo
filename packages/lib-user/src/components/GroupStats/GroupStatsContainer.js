@@ -17,6 +17,7 @@ import {
   updatePanoptesUserGroup
 } from '@utils'
 
+import { getStatus } from './helpers/getStatus'
 import GroupStats from './GroupStats'
 
 function deleteJoinTokenParam() {
@@ -107,39 +108,7 @@ function GroupStatsContainer({
     }
   }
 
-  function getStatus() {
-    if (joinToken && !authUser) {
-      return (<div>Log in to join the group.</div>)
-    }
-  
-    if (joinStatus === asyncStates.posting) {
-      return (<div>Joining group...</div>)
-    }
-  
-    if (joinStatus === asyncStates.error) {
-      return (<div>Join failed.</div>)
-    }
-  
-    if (groupLoading) {
-      return (<div>Loading...</div>)
-    }
-  
-    if (groupError) {
-      return (<div>Error: {groupError.message}.</div>)
-    }
-  
-    if (!group && !authUser) {
-      return (<div>Group not found. You must be logged in to access a private group.</div>)
-    }
-  
-    if (!group && authUser) {
-      return (<div>Group not found.</div>)
-    }
-  
-    return null
-  }
-
-  const status = getStatus()
+  const status = getStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken})
 
   return (
     <>
@@ -152,7 +121,7 @@ function GroupStatsContainer({
           toast
         />
       )}
-      {status ? status : (
+      {status ? (<div>{status}</div>) : (
         <GroupStats
           authClient={authClient}
           authUser={authUser}
