@@ -71,7 +71,7 @@ function AboutHeader() {
             </Box>
           ))}
         </StyledBox>
-        <StyledLogo id='About Zooniverse Header component' color='white' />
+        <StyledLogo id='zooniverse-logo-about-page' color='white' />
       </Box>
     </header>
   )

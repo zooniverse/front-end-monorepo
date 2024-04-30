@@ -191,7 +191,7 @@ function Resources() {
                   <ZooniverseLogo
                     size='45px'
                     color='#005D69' // 'neutral-1' won't work here for some reason
-                    id='link to logo brand resources'
+                    id='zooniverse-logo-brand-resources'
                   />
                 </ResourceLogo>
                 <Anchor
