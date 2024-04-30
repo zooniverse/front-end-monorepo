@@ -1,6 +1,5 @@
 export { createPanoptesUserGroup } from './createPanoptesUserGroup.js'
 export { dateRanges } from './dateRanges.js'
 export { deletePanoptesUserGroup } from './deletePanoptesUserGroup.js'
-export { getBearerToken } from './getBearerToken.js'
 export { getDateInterval } from './getDateInterval.js'
 export { updatePanoptesUserGroup } from './updatePanoptesUserGroup.js'
