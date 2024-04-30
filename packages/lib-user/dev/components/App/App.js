@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { AuthModal } from '@zooniverse/react-components'
+import { AdminCheckbox, AuthModal, ZooHeader, ZooFooter } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
 import auth from 'panoptes-client/lib/auth.js'
 import { string } from 'prop-types'
@@ -18,6 +18,7 @@ function App({
   users = null
 }) {
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [adminMode, setAdminMode] = useState(false)
   const [dark, setDarkTheme] = useState(false)
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(null)
@@ -43,18 +44,21 @@ function App({
     }
   }, [])
 
-  function closeAuthModal() {
-    setActiveIndex(-1)
+  function openRegisterModal() {
+    setActiveIndex(1)
   }
-  
+
   function openSignInModal() {
     setActiveIndex(0)
   }
 
-  const login = () => openSignInModal()
-  const logout = () => auth?.signOut()
-    .then(setUser)
-    .catch(() => setUser(null))
+  function onSignOut() {
+    auth.signOut()
+  }
+
+  function closeAuthModal() {
+    setActiveIndex(-1)
+  }
 
   const userSubpath = user?.login ? user.login : '[login]'
 
@@ -106,7 +110,8 @@ function App({
 
       content = (
         <GroupStats
-          authClient={auth}
+          adminMode={adminMode}
+          authUser={user}
           groupId={groupId}
         />
       )
@@ -122,14 +127,16 @@ function App({
     } else if (subpaths[1] === 'stats') {
       content = (
         <UserStats
-          authClient={auth}
+          adminMode={adminMode}
+          authUser={user}
           login={login}
         />
       )
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
-          authClient={auth}
+          adminMode={adminMode}
+          authUser={user}
           login={login}
         />
       )
@@ -147,33 +154,23 @@ function App({
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <main>
-        <header>
+      <main className={adminMode ? 'admin-mode' : ''}>
+        <header aria-label='Zooniverse site header'>
           <AuthModal
             activeIndex={activeIndex}
             closeModal={closeAuthModal}
             onActive={setActiveIndex}
           />
-          <h1><a href="./">lib-user</a></h1>
-          {user?.login ? (
-            <button onClick={logout}>
-              Logout
-            </button>
-          ) : (
-            <button onClick={login} disabled={loading}>
-              Login
-            </button>
-          )}
-          <label>
-            Dark Theme
-            <input
-              name='theme-toggle'
-              onChange={() => setDarkTheme(!dark)}
-              type="checkbox"
-              value={!dark}
-            >
-            </input>
-          </label>
+          <ZooHeader
+            adminMode={adminMode}
+            onThemeChange={() => setDarkTheme(!dark)}
+            register={openRegisterModal}
+            showThemeToggle
+            signIn={openSignInModal}
+            signOut={onSignOut}
+            themeMode={dark ? 'dark' : 'light'}
+            user={user || {}}
+          />
         </header>
         {loading ? 
           <p>Loading...</p> : (
@@ -181,6 +178,17 @@ function App({
             {content}
           </div>
         )}
+        <footer>
+          <p>⚠️ WARNING ⚠️ : this is lib-user, links in components are intended to be used in app-root and may not work as expected in lib-user</p>
+          <ZooFooter
+            adminContainer={user?.admin ? (
+              <AdminCheckbox
+                onChange={() => setAdminMode(!adminMode)}
+                checked={adminMode}
+              />
+            ) : null}
+          />
+        </footer>
       </main>
     </Grommet>
   )
