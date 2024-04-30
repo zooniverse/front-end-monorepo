@@ -179,7 +179,8 @@ function App({
           </div>
         )}
         <footer>
-          <p>⚠️ WARNING ⚠️ : this is lib-user, links in components are intended to be used in app-root and may not work as expected in lib-user</p>
+          <p>⚠️ WARNING ⚠️ : this is lib-user, links in the components above are intended to be used in app-root and may not work as expected in lib-user</p>
+          <p><a href='/'>lib-user root</a></p>
           <ZooFooter
             adminContainer={user?.admin ? (
               <AdminCheckbox

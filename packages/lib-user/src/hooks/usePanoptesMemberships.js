@@ -1,7 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
+import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
-
-import { usePanoptesAuth } from '@hooks'
 
 const endpoint = '/memberships'
 
@@ -13,7 +12,11 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchMemberships({ query, authorization }) {
+async function fetchMemberships({ query }) {
+  const token = await auth.checkBearerToken()
+  const authorization = `Bearer ${token}`
+  if (!token) return null 
+
   try {
     const { body } = await panoptes.get(endpoint, query, { authorization })
     return body
@@ -23,9 +26,7 @@ async function fetchMemberships({ query, authorization }) {
   }
 }
 
-export function usePanoptesMemberships({ authClient, authUserId, query }) {
-  const authorization = usePanoptesAuth({ authClient, authUserId })
-
-  const key = query.user_id ? { endpoint, query, authorization } : null
+export function usePanoptesMemberships({ query }) {
+  const key = query.user_id ? { endpoint, query } : null
   return useSWR(key, fetchMemberships, SWRoptions)
 }

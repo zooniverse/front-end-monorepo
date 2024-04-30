@@ -1,4 +1,4 @@
-import { object, string } from 'prop-types'
+import { string } from 'prop-types'
 
 import { useStats } from '@hooks'
 import GroupCard from './GroupCard'
@@ -6,8 +6,6 @@ import GroupCard from './GroupCard'
 const STATS_ENDPOINT = '/classifications/user_groups'
 
 function GroupCardContainer({
-  authClient,
-  authUserId,
   displayName,
   id,
   role
@@ -15,8 +13,6 @@ function GroupCardContainer({
   const {
     data
   } = useStats({
-    authClient,
-    authUserId,
     endpoint: STATS_ENDPOINT,
     sourceId: id
   })
@@ -39,8 +35,6 @@ function GroupCardContainer({
 }
 
 GroupCardContainer.propTypes = {
-  authClient: object,
-  authUserId: string,
   displayName: string,
   id: string,
   role: string
