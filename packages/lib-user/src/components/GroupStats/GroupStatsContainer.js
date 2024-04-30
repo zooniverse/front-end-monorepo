@@ -1,10 +1,9 @@
 'use client'
 
-import { object, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
-  usePanoptesAuthUser,
   usePanoptesProjects,
   usePanoptesUserGroup,
   useStats
@@ -12,7 +11,6 @@ import {
 
 import {
   deletePanoptesUserGroup,
-  getBearerToken,
   getDateInterval,
   updatePanoptesUserGroup
 } from '@utils'
@@ -22,16 +20,12 @@ import GroupStats from './GroupStats'
 const STATS_ENDPOINT = '/classifications/user_groups'
 
 function GroupStatsContainer({
-  authClient,
+  adminMode,
+  authUser,
   groupId
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-
-  // fetch authenticated user
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
 
   // fetch user_group
   const {
@@ -39,7 +33,6 @@ function GroupStatsContainer({
     error: groupError,
     isLoading: groupLoading
   } = usePanoptesUserGroup({
-    authClient,
     authUserId: authUser?.id,
     groupId
   })
@@ -54,8 +47,6 @@ function GroupStatsContainer({
     error: statsError,
     isLoading: statsLoading
   } = useStats({
-    authClient,
-    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: group?.id,
     query: allProjectsStatsQuery
@@ -71,8 +62,6 @@ function GroupStatsContainer({
     error: projectStatsError,
     isLoading: projectStatsLoading
   } = useStats({
-    authClient,
-    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: group?.id,
     query: projectStatsQuery
@@ -95,19 +84,9 @@ function GroupStatsContainer({
     setSelectedDateRange(dateRange.value)
   }
 
-  async function getRequestHeaders() {
-    const authorization = await getBearerToken(authClient)
-    const requestHeaders = {
-      authorization,
-      etag: data.headers.etag
-    }
-    return requestHeaders
-  }
-
   async function handleGroupDelete() {
     try {
-      const requestHeaders = await getRequestHeaders()
-      const deleteResponse = await deletePanoptesUserGroup({ groupId, headers: requestHeaders })
+      const deleteResponse = await deletePanoptesUserGroup({ groupId, etag: data.headers.etag })
       console.log('deleteResponse', deleteResponse)
       window.location.href =  '?users=[login]/groups'
     } catch (error) {
@@ -117,8 +96,7 @@ function GroupStatsContainer({
 
   async function handleGroupUpdate(updates) {
     try {
-      const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
+      const updatedGroup = await updatePanoptesUserGroup({ updates, etag: data.headers.etag })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
     } catch (error) {
@@ -143,7 +121,10 @@ function GroupStatsContainer({
 }
 
 GroupStatsContainer.propTypes = {
-  authClient: object,
+  adminMode: bool,
+  authUser: shape({
+    id: string
+  }),
   groupId: string
 }
 

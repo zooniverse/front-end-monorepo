@@ -1,12 +1,17 @@
 'use client'
 
 import { GroupStats } from '@zooniverse/user'
-import auth from 'panoptes-client/lib/auth'
+import { useContext } from 'react'
+
+import { PanoptesAuthContext } from '../../../contexts'
 
 export default function GroupPage({ params }) {
+  const { adminMode, user } = useContext(PanoptesAuthContext)
+  
   return (
     <GroupStats
-      authClient={auth}
+      adminMode={adminMode}
+      authUser={user}
       groupId={params.groupId}
     />
   )
