@@ -75,7 +75,7 @@ function GroupStats({
     <Layout
       primaryHeaderItem={
         <HeaderLink
-          href='/projects'
+          href='https://www.zooniverse.org/projects'
           label='Back to Projects'
           primaryItem={true}
         />

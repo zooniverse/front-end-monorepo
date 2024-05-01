@@ -57,7 +57,7 @@ function UserStats({
     <Layout
       primaryHeaderItem={
         <HeaderLink
-          href={`/users/${user?.login}`}
+          href={`https://www.zooniverse.org/users/${user?.login}`}
           label='back to profile'
           primaryItem={true}
         />

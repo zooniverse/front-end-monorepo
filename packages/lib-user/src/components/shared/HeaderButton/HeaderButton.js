@@ -41,7 +41,7 @@ function HeaderButton({
       icon={icon}
       label={
         <SpacedText
-          size='14px'
+          size='.78rem'
           weight={700}
         >
           {label}
