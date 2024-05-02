@@ -57,7 +57,6 @@ function draggable(WrappedComponent) {
     const [pointerId, setPointerId] = useState(-1)
 
     function onDragStart(event) {
-      console.log(canvas)
       event.stopPropagation()
       event.preventDefault()
       const { setPointerCapture } = wrappedComponent.current
