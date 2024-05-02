@@ -1,7 +1,5 @@
 import { Box } from 'grommet'
-import { Link } from 'grommet-icons'
-
-import CopyIcon from '../../GroupStats/components/CopyIcon'
+import { Layer, Link } from 'grommet-icons'
 
 import HeaderToast from './HeaderToast'
 
@@ -41,7 +39,7 @@ export const CopyJoinLink = {
 
 export const ShareGroup = {
   args: {
-    icon: <CopyIcon color='white' size='small' />,
+    icon: <Layer color='white' size='small' />,
     label: 'Share Group',
     message: 'Group Link Copied!',
     textToCopy: 'zooniverse.org/groups/1234'

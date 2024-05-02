@@ -1,5 +1,5 @@
 import { Grid } from 'grommet'
-import { Link } from 'grommet-icons'
+import { Link, SettingsOption } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
@@ -11,8 +11,6 @@ import {
   Layout,
   MainContent
 } from '@components/shared'
-
-import GearIcon from './components/GearIcon'
 
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
@@ -90,7 +88,7 @@ function GroupStats({
         />,
         <HeaderButton
           key='manage-group-button'
-          icon={<GearIcon color='white' size='small' />}
+          icon={<SettingsOption color='white' size='small' />}
           label='Manage Group'
           onClick={() => alert('Coming soon!')}
         />
