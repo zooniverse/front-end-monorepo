@@ -1,7 +1,9 @@
 import { Box, Grid } from 'grommet'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
-import { PROJECTS } from '../../../../test/mocks/panoptes/projects.js'
+import { PROJECTS, USERS } from '../../../../test/mocks/panoptes'
+
+import MemberCard from '../../GroupStats/components/MemberCard'
 import ContentBox from './ContentBox'
 
 const NfnCaliFlowers = {
@@ -112,6 +114,34 @@ export const TopProjectsSplit = {
         <ProjectCard {...PlanetHuntersTess} size='small' />
         <ProjectCard {...CorrespondingWithQuakers} size='small' />
         <ProjectCard {...WildwatchKenya} size='small' />
+      </Grid>
+    </ContentBox>
+  )
+}
+
+export const TopContributors = {
+  render: () => (
+    <ContentBox
+      linkLabel='See all contributors and detailed stats'
+      linkProps={{ href: 'https://www.zooniverse.org/groups/12345/contributors' }}
+      title='Top Contributors'
+      width='625px'
+    >
+      <Grid
+        columns={[ 'auto', 'auto' ]}
+        gap='small'
+        rows={['auto', 'auto', 'auto', 'auto', 'auto']}
+        style={{ gridAutoFlow: 'column' }}
+      >
+        {USERS.map((user, index) => (
+          <MemberCard
+            key={`MemberCard-${index}`}
+            avatar={user.avatar_src}
+            classifications={Math.floor(Math.random() * 5000)}
+            displayName={user.display_name}
+            login={user.login}
+          />
+        ))}
       </Grid>
     </ContentBox>
   )
