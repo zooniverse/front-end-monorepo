@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { bool, shape, string } from 'prop-types'
 
-export function getStatus({
+export function getUserGroupStatus({
   authUser = null,
   group = null,
   groupError = null,
@@ -40,7 +40,7 @@ export function getStatus({
   return null
 }
 
-getStatus.propTypes = {
+getUserGroupStatus.propTypes = {
   authUser: shape({
     id: string,
     login: string

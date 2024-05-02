@@ -17,7 +17,7 @@ import {
   updatePanoptesUserGroup
 } from '@utils'
 
-import { getStatus } from './helpers/getStatus'
+import { getUserGroupStatus } from './helpers/getUserGroupStatus'
 import GroupStats from './GroupStats'
 
 function deleteJoinTokenParam() {
@@ -108,7 +108,7 @@ function GroupStatsContainer({
     }
   }
 
-  const status = getStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken})
+  const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken})
 
   return (
     <>
