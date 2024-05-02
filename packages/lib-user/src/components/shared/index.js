@@ -1,3 +1,4 @@
+export { default as Avatar } from './Avatar'
 export { default as BarChart } from './BarChart'
 export { default as ContentBox } from './ContentBox'
 export { default as Layout } from './Layout'
