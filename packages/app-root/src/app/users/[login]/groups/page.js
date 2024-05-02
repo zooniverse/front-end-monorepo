@@ -1,17 +1,13 @@
-'use client'
+import MyGroupsContainer from './MyGroupsContainer'
 
-import { MyGroups } from '@zooniverse/user'
-import { useContext } from 'react'
-
-import { PanoptesAuthContext } from '../../../../contexts'
+export const metadata = {
+  title: 'My Groups',
+  description: 'My Zooniverse groups page'
+}
 
 export default function MyGroupsPage({ params }) {
-  const { adminMode, user } = useContext(PanoptesAuthContext)
-
   return (
-    <MyGroups
-      adminMode={adminMode}  
-      authUser={user}
+    <MyGroupsContainer
       login={params.login}
     />
   )

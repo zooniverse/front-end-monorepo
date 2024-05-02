@@ -1,17 +1,13 @@
-'use client'
+import GroupStatsContainer from './GroupStatsContainer'
 
-import { GroupStats } from '@zooniverse/user'
-import { useContext } from 'react'
-
-import { PanoptesAuthContext } from '../../../contexts'
+export const metadata = {
+  title: 'Group Stats',
+  description: 'Zooniverse group stats page'
+}
 
 export default function GroupPage({ params }) {
-  const { adminMode, user } = useContext(PanoptesAuthContext)
-  
   return (
-    <GroupStats
-      adminMode={adminMode}
-      authUser={user}
+    <GroupStatsContainer
       groupId={params.groupId}
     />
   )
