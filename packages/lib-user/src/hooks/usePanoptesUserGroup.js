@@ -28,7 +28,8 @@ export function usePanoptesUserGroup({ authClient, authUserId, groupId, joinStat
   const authorization = usePanoptesAuth({ authClient, authUserId })
   const key = (groupId && (
     (joinStatus === null) ||
-    (joinStatus === asyncStates.success)
+    (joinStatus === asyncStates.success) ||
+    (joinStatus === asyncStates.initialized)
   )) ? { groupId, authorization } : null
   return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }
