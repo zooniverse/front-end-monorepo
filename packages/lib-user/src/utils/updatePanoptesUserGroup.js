@@ -5,14 +5,21 @@ export async function updatePanoptesUserGroup({
   headers,
   id
 }) {
+  let response = null
+  
   if (headers?.authorization) {
-    const response = await panoptes
-      .put(`/user_groups/${id}`,
-        { user_groups: data },
-        headers
-      )
-    return response
+    try {
+      response = await panoptes
+        .put(`/user_groups/${id}`,
+          { user_groups: data },
+          headers
+        )
+      return response
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
   }
 
-  return null
+  return response
 }

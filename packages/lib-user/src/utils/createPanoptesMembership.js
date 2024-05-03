@@ -10,15 +10,20 @@ export async function createPanoptesMembership({
   const authorization = `Bearer ${token}`
   if (!token) return null
 
-  const response = await panoptes.post('/memberships',
-    { memberships: {
-      join_token: joinToken,
-      links: {
-        user: userId,
-        user_group: groupId
-      }
-    }},
-    { authorization }
-  )
-  return response
+  try {
+    const response = await panoptes.post('/memberships',
+      { memberships: {
+        join_token: joinToken,
+        links: {
+          user: userId,
+          user_group: groupId
+        }
+      }},
+      { authorization }
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }
