@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 
 import {
   usePanoptesAuthUser,
+  usePanoptesMemberships,
   usePanoptesUserGroup,
 } from '@hooks'
 
@@ -53,6 +54,21 @@ function GroupStatsContainer({
   })
   const group = data?.body?.user_groups?.[0]
 
+  // fetch user_group membership
+  const {
+    data: membershipsData,
+    error: membershipsError,
+    isLoading: membershipsLoading
+  } = usePanoptesMemberships({
+    authClient,
+    authUserId: authUser?.id,
+    query: {
+      user_group_id: groupId,
+      user_id: authUser?.id
+    }
+  })
+  const role = membershipsData?.memberships?.[0]?.roles?.[0]
+  
   useEffect(function handleJoinGroup() {
     async function createGroupMembership() {
       setJoinStatus(asyncStates.posting)
@@ -72,10 +88,22 @@ function GroupStatsContainer({
       }
     }
 
-    if (joinToken && authUser && joinStatus === null) {
+    if (authUser && !membershipsLoading && !role && joinToken && joinStatus === null) {
       createGroupMembership()
     }
-  }, [authUser, groupId, joinStatus, joinToken, setJoinStatus])
+
+    if (role && joinToken) {
+      deleteJoinTokenParam()
+    }
+  }, [
+    authUser,
+    groupId,
+    joinStatus,
+    joinToken,
+    membershipsLoading,
+    setJoinStatus,
+    role
+  ])
   
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
@@ -107,8 +135,8 @@ function GroupStatsContainer({
       console.error(error)
     }
   }
-
-  const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken})
+   
+  const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken })
 
   return (
     <>
