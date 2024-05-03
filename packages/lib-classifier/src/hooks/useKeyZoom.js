@@ -24,7 +24,7 @@ function storeMapper(classifierStore) {
   }
 }
 
-export default function useKeyZoom() {
+export default function useKeyZoom(rotate=0) {
   const {
     panLeft,
     panRight,
@@ -33,49 +33,50 @@ export default function useKeyZoom() {
     zoomIn,
     zoomOut
   } = useStores(storeMapper)
+  const rotation = Math.abs(rotate) % 360
+  const keyMappings = {
+    '+': zoomIn,
+    '=': zoomIn,
+    '-': zoomOut,
+    '_': zoomOut
+  }
+  
+  if (rotation === 0) {
+    keyMappings['ArrowRight'] = panRight
+    keyMappings['ArrowLeft'] = panLeft
+    keyMappings['ArrowUp'] = panUp
+    keyMappings['ArrowDown'] = panDown
+  }
+  if (rotation === 90) {
+    keyMappings['ArrowRight'] = panDown
+    keyMappings['ArrowLeft'] = panUp
+    keyMappings['ArrowUp'] = panRight
+    keyMappings['ArrowDown'] = panLeft
+  }
+  if (rotation === 180) {
+    keyMappings['ArrowRight'] = panLeft
+    keyMappings['ArrowLeft'] = panRight
+    keyMappings['ArrowUp'] = panDown
+    keyMappings['ArrowDown'] = panUp
+  }
+  if (rotation === 270) {
+    keyMappings['ArrowRight'] = panUp
+    keyMappings['ArrowLeft'] = panDown
+    keyMappings['ArrowUp'] = panLeft
+    keyMappings['ArrowDown'] = panRight
+  }
 
   function onKeyZoom(event) {
-      const htmlTag = event.target?.tagName.toLowerCase()
-      if (ALLOWED_TAGS.includes(htmlTag)) {
-        switch (event.key) {
-          case '+':
-          case '=': {
-            zoomIn()
-            return true
-          }
-          case '-':
-          case '_': {
-            zoomOut()
-            return true
-          }
-          case 'ArrowRight': {
-            event.preventDefault()
-            panRight()
-            return false
-          }
-          case 'ArrowLeft': {
-            event.preventDefault()
-            panLeft()
-            return false
-          }
-          case 'ArrowUp': {
-            event.preventDefault()
-            panUp()
-            return false
-          }
-          case 'ArrowDown': {
-            event.preventDefault()
-            panDown()
-            return false
-          }
-          default: {
-            return true
-          }
-        }
-      }
-
-      return true
+    const htmlTag = event.target?.tagName.toLowerCase()
+    const handler = keyMappings[event.key]
+    if (ALLOWED_TAGS.includes(htmlTag) && handler) {
+      event.preventDefault()
+      handler()
+      return false
     }
+
+    return true
+  }
     
     return { onKeyZoom }
 }
