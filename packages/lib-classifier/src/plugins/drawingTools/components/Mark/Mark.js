@@ -7,7 +7,11 @@ import draggable from '../draggable'
 const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 4
 
-const StyledGroup = styled('g')`
+const StyledGroup = styled.g`
+  &:focus {
+    outline: none;
+  }
+
   &:focus-visible {
     ${(props) =>
     css`
