@@ -15,6 +15,10 @@ export const ConsensusLine = styled('g')`
   cursor: pointer;
   filter: drop-shadow(1px 1px 4px #5c5c5c);
 
+  &:focus {
+    outline: none;
+  }
+
   &:focus-visible {
     ${props => css`outline: solid 4px ${props.focusColor};`}
   }
