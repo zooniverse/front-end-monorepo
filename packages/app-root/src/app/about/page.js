@@ -1,13 +1,12 @@
+import { About } from '@zooniverse/content'
+
+export const metadata = {
+  title: 'About',
+  description: 'About The Zooniverse'
+}
+
 export default function AboutPage() {
-  // aria-label needs translation
   return (
-    <>
-      <header aria-label='About the Zooniverse'>
-        <p>This is the section header.</p>
-      </header>
-      <div>
-        <p>This is lib-content-pages</p>
-      </div>
-    </>
+    <About />
   )
 }

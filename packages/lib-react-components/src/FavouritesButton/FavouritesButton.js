@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react';
-import { withTheme } from 'styled-components'
+import { useTheme } from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'
 import { useTranslation } from '../translations/i18n'
 
-function FavouritesButton (props) {
-  const { checked, disabled, onClick } = props
+const DEFAULT_HANDLER = () => {}
+
+function FavouritesButton ({ checked = false, disabled = false, onClick = DEFAULT_HANDLER }) {
   const [isFavourite, setIsFavourite] = useState(checked)
+  const { global } = useTheme()
   const label = isFavourite ? 'FavouritesButton.remove' : 'FavouritesButton.add'
-  const fill = isFavourite ? props.theme.global.colors.statusColors.error : 'none'
+  const fill = isFavourite ? global.colors.statusColors.error : 'none'
 
   function toggleFavourite () {
     setIsFavourite(!isFavourite)
@@ -36,11 +38,4 @@ FavouritesButton.propTypes = {
   onClick: PropTypes.func
 }
 
-FavouritesButton.defaultProps = {
-  checked: false,
-  disabled: false,
-  onClick: () => false
-}
-
-export default withTheme(FavouritesButton)
-export { FavouritesButton }
+export default FavouritesButton
