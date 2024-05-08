@@ -1,7 +1,8 @@
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import { Grid } from 'grommet'
+import { Link, SettingsOption } from 'grommet-icons'
 import { func, object, shape, string } from 'prop-types'
 import { useState } from 'react'
-import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
 import {
   usePanoptesProjects,
@@ -14,6 +15,9 @@ import {
 
 import {
   ContentBox,
+  HeaderButton,
+  HeaderLink,
+  HeaderToast,
   Layout,
   MainContent
 } from '@components/shared'
@@ -36,8 +40,9 @@ function GroupStats({
   authClient,
   authUser = DEFAULT_USER,
   group = DEFAULT_GROUP,
-  handleGroupDelete = DEFAULT_HANDLER,
+  handleGroupDelete = DEFAULT_HANDLER
   handleGroupUpdate = DEFAULT_HANDLER
+  login = ''
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
@@ -98,11 +103,11 @@ function GroupStats({
   // set top projects based on selected date range and all project stats
   let topProjects = []
   const topProjectContributions = allProjectsStats?.project_contributions
-    .sort((a, b) => b.count - a.count)
+    ?.sort((a, b) => b.count - a.count)
 
   if (topProjectContributions?.length > 0) {
     topProjects = topProjectContributions
-      .map(projectContribution => {
+      ?.map(projectContribution => {
         const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
         return projectData
       })
@@ -110,8 +115,39 @@ function GroupStats({
       .slice(0, 6)
   }
 
+  const PrimaryHeaderItem = login ? (
+    <HeaderLink
+      href={`https://www.zooniverse.org/users/${login}`}
+      label='back to profile'
+      primaryItem={true}
+    />
+  ) : (
+    <HeaderLink
+      href='https://www.zooniverse.org/projects'
+      label='back to projects'
+      primaryItem={true}
+    />
+  )
+
   return (
-    <Layout>
+    <Layout
+      primaryHeaderItem={PrimaryHeaderItem}
+      secondaryHeaderItems={[
+        <HeaderToast
+          key='copy-join-link-toast'
+          icon={<Link color='white' size='small' />}
+          label='Copy Join Link'
+          message='Join Link Copied!'
+          textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
+        />,
+        <HeaderButton
+          key='manage-group-button'
+          icon={<SettingsOption color='white' size='small' />}
+          label='Manage Group'
+          onClick={() => alert('Coming soon!')}
+        />
+      ]}
+    >
       <MainContent
         handleDateRangeSelect={handleDateRangeSelect}
         handleProjectSelect={handleProjectSelect}
@@ -179,6 +215,7 @@ GroupStats.propTypes = {
   }),
   handleGroupDelete: func,
   handleGroupUpdate: func
+  login: string
 }
 
 export default GroupStats

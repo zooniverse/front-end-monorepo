@@ -1,25 +1,34 @@
 import { Box } from 'grommet'
-
 import Label from './Label'
 
+function ComponentDecorator(Story) {
+  return (
+    <Box align='center' height='medium' pad='medium'>
+      <Story />
+    </Box>
+  )
+}
+
 export default {
-  title: 'Components/Tooltip/Label',
+  title: 'Components / Tooltip / Label',
   component: Label,
+  decorators: [ComponentDecorator],
   args: {
     arrow: true,
     label: 'Hello'
   }
 }
 
-export function DefaultLabel({ arrow, label }) {
-  return <LabelStoryExample arrow={arrow} label={label} />
+export const Default = {}
+
+export const NoArrow = {
+  args: {
+    arrow: false
+  }
 }
 
-function LabelStoryExample(props) {
-  const { arrow, label } = props
-  return (
-    <Box align='center' height='medium' justify='center' pad='medium'>
-      <Label arrow={arrow} label={label} />
-    </Box>
-  )
+export const BottomPlacement = {
+  args: {
+    'data-placement': 'bottom'
+  }
 }

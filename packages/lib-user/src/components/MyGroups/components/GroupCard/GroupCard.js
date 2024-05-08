@@ -1,5 +1,6 @@
 import { SpacedHeading } from '@zooniverse/react-components'
-import { Anchor, Box } from 'grommet'
+import { Box } from 'grommet'
+import Link from 'next/link'
 import { number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
@@ -14,7 +15,9 @@ const StyledListItem = styled.li`
   }
 `
 
-const StyledAnchor = styled(Anchor)`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
   &:hover, &:focus {
     text-decoration: none;
     outline: none;
@@ -49,8 +52,8 @@ function GroupCard({
 }) {
   return (
     <StyledListItem>
-      <StyledAnchor
-        href={`https://local.zooniverse.org:8080/?groups=${id}`}
+      <StyledLink
+        href={`/groups/${id}`}
       >
         <Box
           pad='20px'
@@ -95,7 +98,7 @@ function GroupCard({
             />
           </Box>
         </Box>
-      </StyledAnchor>
+      </StyledLink>
     </StyledListItem>
   )
 }

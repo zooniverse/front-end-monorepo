@@ -15,13 +15,13 @@ describe('components > shared > Select', function() {
   it('should show the selected option', function() {
     render(<DefaultStory />)
 
-    expect(screen.getByRole('textbox', { value: 'LAST 7 DAYS' })).to.be.ok()
+    expect(screen.getByRole('textbox')).to.have.property('value').to.equal('LAST 7 DAYS')
   })
 
   it('should show the options', async function() {
     render(<DefaultStory />)
 
-    const inputEl = screen.getByRole('textbox', { value: 'LAST 7 DAYS' })
+    const inputEl = screen.getByRole('textbox')
     await user.click(inputEl)
 
     const options = screen.getAllByRole('option')

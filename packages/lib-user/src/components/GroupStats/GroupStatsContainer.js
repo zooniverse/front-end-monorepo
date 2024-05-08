@@ -156,6 +156,7 @@ function GroupStatsContainer({
           group={group}
           handleGroupDelete={handleGroupDelete}
           handleGroupUpdate={handleGroupUpdate}
+          login={authUser?.login}
         />
       )}
     </>

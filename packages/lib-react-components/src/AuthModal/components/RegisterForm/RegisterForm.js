@@ -48,9 +48,4 @@ RegisterForm.propTypes = {
   validate: PropTypes.func
 }
 
-RegisterForm.defaultProps = {
-  generalError: '',
-  validate: () => {}
-}
-
 export default RegisterForm
