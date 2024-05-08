@@ -1,68 +1,18 @@
-import { projects } from '@zooniverse/panoptes-js'
 import { Publications } from '@zooniverse/content'
 
+import {
+  buildResponse,
+  createProjectAvatarsMap,
+  getProjectAvatars,
+  getPublicationsData,
+  getUniqueProjectIds
+} from './processPublicationData.js'
 import client from '../../../utils/contentfulClient.js'
-import buildResponse from './buildResponse'
-import getUniqueProjectIds from './getUniqueProjectIds'
 import mockResponse from './response.mock.json'
 
 export const metadata = {
   title: 'Our Team',
   description: 'The people who make the Zooniverse'
-}
-
-async function getPublicationsData(skip = 0, limit = 100, accumulator = []) {
-  const data = await client.getEntries({
-    content_type: 'publication',
-    include: 2,
-    limit,
-    order: '-fields.year',
-    skip
-  })
-
-  const newAccumulator = accumulator.concat(data.items)
-  const newSkip = skip + limit
-  if (data.total > newSkip) {
-    return getPublicationsData(newSkip, limit, newAccumulator)
-  } else {
-    return newAccumulator
-  }
-}
-
-async function getProjectAvatars(
-  projectIds,
-  page = 1,
-  limit = 100,
-  accumulator = []
-) {
-  const data = await projects
-    .get({
-      query: {
-        cards: true,
-        id: projectIds.join(','),
-        page,
-        page_size: limit
-      }
-    })
-    .then(response => response.body)
-
-  const newAccumulator = accumulator.concat(data.projects)
-  const nextPage = data.meta.projects.next_page
-  if (nextPage) {
-    return getProjectAvatars(projectIds, nextPage, limit, newAccumulator)
-  } else {
-    return newAccumulator
-  }
-}
-
-function createProjectAvatarsMap(projectAvatars) {
-  return projectAvatars.reduce(
-    (accumulator, project) => ({
-      ...accumulator,
-      [project.id]: project
-    }),
-    {}
-  )
 }
 
 // This route is static, so the output of the request will be cached and revalidated as part of the route segment.
@@ -95,5 +45,7 @@ export default async function PublicationsPage() {
     slug: category.title.toLowerCase().replaceAll(' ', '-')
   }))
 
-  return <Publications publicationsData={publicationsData} sections={sections} />
+  return (
+    <Publications publicationsData={publicationsData} sections={sections} />
+  )
 }

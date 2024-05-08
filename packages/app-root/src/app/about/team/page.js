@@ -2,7 +2,7 @@ import { OurTeam } from '@zooniverse/content'
 
 import processTeamData from './processTeamData'
 import client from '../../../utils/contentfulClient.js'
-import mockResponse from './processTeamData.result.json'
+import mockResponse from './response.mock.json'
 
 export const metadata = {
   title: 'Our Team',

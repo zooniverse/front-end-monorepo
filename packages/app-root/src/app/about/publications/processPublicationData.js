@@ -1,7 +1,76 @@
-// This function inverts the Contentful link hierarchy
+import get from 'lodash/get'
+import { projects } from '@zooniverse/panoptes-js'
+import client from '../../../utils/contentfulClient.js'
 
+export function getUniqueProjectIds(publications) {
+  const allProjectIds = publications.reduce((acc, publication) => {
+    const newPids = publication.fields.projects.map(pluckId)
+    return acc.concat(newPids)
+  }, [])
+  const filteredProjectIds = allProjectIds.filter(v => v)
+  return [...new Set(filteredProjectIds)]
+}
 
-export default function buildResponse(publications, projectAvatarsMap) {
+function pluckId(project) {
+  return get(project, 'fields.projectId')
+}
+
+export async function getPublicationsData(skip = 0, limit = 100, accumulator = []) {
+  const data = await client.getEntries({
+    content_type: 'publication',
+    include: 2,
+    limit,
+    order: '-fields.year',
+    skip
+  })
+
+  const newAccumulator = accumulator.concat(data.items)
+  const newSkip = skip + limit
+  if (data.total > newSkip) {
+    return getPublicationsData(newSkip, limit, newAccumulator)
+  } else {
+    return newAccumulator
+  }
+}
+
+export async function getProjectAvatars(
+  projectIds,
+  page = 1,
+  limit = 100,
+  accumulator = []
+) {
+  const data = await projects
+    .get({
+      query: {
+        cards: true,
+        id: projectIds.join(','),
+        page,
+        page_size: limit
+      }
+    })
+    .then(response => response.body)
+
+  const newAccumulator = accumulator.concat(data.projects)
+  const nextPage = data.meta.projects.next_page
+  if (nextPage) {
+    return getProjectAvatars(projectIds, nextPage, limit, newAccumulator)
+  } else {
+    return newAccumulator
+  }
+}
+
+export function createProjectAvatarsMap(projectAvatars) {
+  return projectAvatars.reduce(
+    (accumulator, project) => ({
+      ...accumulator,
+      [project.id]: project
+    }),
+    {}
+  )
+}
+
+/** This function inverts the Contentful link hierarchy */
+export function buildResponse(publications, projectAvatarsMap) {
   const publicationsObject = publications.reduce((acc, publication) => {
     // Draft items are returned in the Contentful response, but have no
     // fields, so we skip them.
