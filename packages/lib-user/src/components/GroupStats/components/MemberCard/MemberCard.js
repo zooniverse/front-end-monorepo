@@ -10,25 +10,15 @@ function MemberCard({
   displayName = '',
   login = ''
 }) {
-  let displayValue = classifications
-  if (isNaN(classifications)) {
-    displayValue = 0
-  }
-
   return (
     <Box
       direction='row'
       gap='xsmall'
     >
-      {avatar ? (
-        <Avatar
-          alt={`${login} avatar`}
-          src={avatar}
-        />) : (
-        <Avatar
-          alt={`${login} avatar`}
-          src='https://www.zooniverse.org/assets/simple-avatar.png'
-        />)}
+      <Avatar
+        alt={`${login} avatar`}
+        src={avatar || 'https://www.zooniverse.org/assets/simple-avatar.png'}
+      />
       <Box
         justify='center'
       >
@@ -40,7 +30,7 @@ function MemberCard({
         <SpacedText
           uppercase={false}
         >
-          {`${Math.round(displayValue).toLocaleString()} Classifications`}
+          {`${Math.round(classifications).toLocaleString()} Classifications`}
         </SpacedText>
       </Box>
     </Box>

@@ -130,7 +130,7 @@ export const TopContributors = {
       <Grid
         columns={[ 'auto', 'auto' ]}
         gap='small'
-        rows={['auto', 'auto', 'auto', 'auto', 'auto']}
+        rows={['repeat(5, auto)']}
         style={{ gridAutoFlow: 'column' }}
       >
         {USERS.map((user, index) => (
