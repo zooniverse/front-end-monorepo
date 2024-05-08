@@ -48,6 +48,7 @@ function GroupStats({
   handleGroupDelete = DEFAULT_HANDLER,
   handleGroupUpdate = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
+  login = '',
   projectStats = DEFAULT_STATS,
   projects = [],
   selectedDateRange = 'Last7Days',
@@ -69,15 +70,23 @@ function GroupStats({
     .filter(project => project)
     .slice(0, 6)
 
+  const PrimaryHeaderItem = login ? (
+    <HeaderLink
+      href={`https://www.zooniverse.org/users/${login}`}
+      label='back to profile'
+      primaryItem={true}
+    />
+  ) : (
+    <HeaderLink
+      href='https://www.zooniverse.org/projects'
+      label='back to projects'
+      primaryItem={true}
+    />
+  )
+
   return (
     <Layout
-      primaryHeaderItem={
-        <HeaderLink
-          href='https://www.zooniverse.org/projects'
-          label='Back to Projects'
-          primaryItem={true}
-        />
-      }
+      primaryHeaderItem={PrimaryHeaderItem}
       secondaryHeaderItems={[
         <HeaderToast
           key='copy-join-link-toast'
@@ -181,6 +190,7 @@ GroupStats.propTypes = {
   handleGroupDelete: func,
   handleGroupUpdate: func,
   handleProjectSelect: func,
+  login: string,
   projectStats: statsShape,
   projects: arrayOf(shape({
     id: string,
