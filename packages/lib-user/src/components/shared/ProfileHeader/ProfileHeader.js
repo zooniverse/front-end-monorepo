@@ -1,16 +1,11 @@
-import { Box, Image } from 'grommet'
+import { Box } from 'grommet'
 import { number, string } from 'prop-types'
-import styled from 'styled-components'
 import { SpacedText, withResponsiveContext, ZooniverseLogo } from '@zooniverse/react-components'
 
-import TitledStat from '../TitledStat'
-
-const StyledAvatar = styled(Image)`
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 50%;
-`
+import {
+  Avatar,
+  TitledStat
+} from '@components/shared'
 
 function ProfileHeader ({
   avatar = '',
@@ -34,7 +29,7 @@ function ProfileHeader ({
         gap='small'
       >
         {avatar ?
-          <StyledAvatar
+          <Avatar
             src={avatar}
             alt={`${login} avatar`}
           />

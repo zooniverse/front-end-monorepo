@@ -87,9 +87,9 @@
     semver "^6.3.1"
 
 "@babel/eslint-parser@~7.24.1":
-  version "7.24.1"
-  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.24.1.tgz#e27eee93ed1d271637165ef3a86e2b9332395c32"
-  integrity sha512-d5guuzMlPeDfZIbpQ8+g1NaCNuAGBBGNECh0HVqz1sjOeVLh2CEaifuOysCH18URW6R7pqXINvf5PaR/dC6jLQ==
+  version "7.24.5"
+  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.24.5.tgz#3b0f7d383a540329a30a6a9937cfc89461d26217"
+  integrity sha512-gsUcqS/fPlgAw1kOtpss7uhY6E9SFFANQ6EFX5GTvzUwaV0+sGaZWk6xq22MOdeT9wfxyokW3ceCUvOiRtZciQ==
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals" "5.1.1-v1"
     eslint-visitor-keys "^2.1.0"
@@ -12406,9 +12406,9 @@ mobx-react@~9.1.0:
     mobx-react-lite "^4.0.7"
 
 mobx-state-tree@~5.4.0:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.4.1.tgz#97182a1e2587db5ff7a2b5f11ac6971e50498aed"
-  integrity sha512-eEBmfeYzbNSbNsdM+T1pchuOykZXT50B7eCXgf0E0O/jad/cigu4heBB9RwxzzyD/QGrXBPVctKYLypVXNHt3Q==
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.4.2.tgz#351bb49c9d08d2482688357cccc59ce51d773615"
+  integrity sha512-SGXAh2KCBQbWVcxeQbZEr5pchTgcfNZmGVRL2a2Me+pSMH98bZWXD6EOuuijbTGbc0hOoOsbab3JdwJyr+fW7Q==
 
 mobx-utils@~6.0.4:
   version "6.0.8"

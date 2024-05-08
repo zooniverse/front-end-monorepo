@@ -1,53 +1,41 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
-import Tooltip from './Tooltip'
-import { Button } from 'grommet'
+import { composeStories } from '@storybook/react'
+import * as stories from './Tooltip.stories.js'
 
 describe('Component > Tooltip', function () {
-  beforeEach(function () {
-    render(
-      <Tooltip label='Click this button to open the help menu'>
-        <Button label='Help Menu' onClick={() => true} />
-      </Tooltip>
-    )
-  })
+  const user = userEvent.setup({ delay: null })
+  const { Default } = composeStories(stories)
 
-  it('should render without crashing', function () {
-    expect(screen).to.be.ok()
+  beforeEach(function () {
+    render(<Default />)
   })
 
   it('should show the element without a tooltip by default', function () {
-    expect(screen.queryByText('Help Menu')).to.exist()
-    expect(screen.queryByText('Click this button to open the help menu')).to.not.exist()
+    expect(screen.queryByText(Default.args.btnLabel)).to.exist()
+    expect(screen.queryByText(Default.args.label)).to.not.exist()
   })
 
   it('should show the tooltip when the pointer hovers over the element', async function () {
-    const user = userEvent.setup({ delay: null })
-
-    await user.hover(screen.queryByText('Help Menu'))
-    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+    await user.hover(screen.queryByText(Default.args.btnLabel))
+    expect(screen.queryByText(Default.args.label)).to.exist()
   })
 
   it('should show the tooltip when the user tab-navigates to the element', async function () {
-    const user = userEvent.setup({ delay: null })
-
     await user.tab()
-    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+    expect(screen.queryByText(Default.args.label)).to.exist()
   })
 
   it('should show the tooltip when the the element has focus for whatever reason', function () {
-    screen.queryByText('Help Menu').focus()
-    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+    screen.queryByText(Default.args.btnLabel).focus()
+    expect(screen.queryByText(Default.args.label)).to.exist()
   })
 
   it('should hide the tooltip when the user clicks the element', async function () {
-    const user = userEvent.setup({ delay: null })
+    await user.hover(screen.queryByText(Default.args.btnLabel))
+    expect(screen.queryByText(Default.args.label)).to.exist()
 
-    await user.hover(screen.queryByText('Help Menu'))
-    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
-
-    await user.click(screen.queryByText('Help Menu'))
-    expect(screen.queryByText('Click this button to open the help menu')).to.not.exist()
+    await user.click(screen.queryByText(Default.args.btnLabel))
+    expect(screen.queryByText(Default.args.label)).to.not.exist()
   })
 })

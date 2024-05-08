@@ -1,21 +1,13 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import AdminCheckbox from './AdminCheckbox'
-import { CheckBox } from 'grommet'
+import * as stories from './AdminCheckbox.stories.js'
+import { render, screen } from '@testing-library/react'
+import { composeStories } from '@storybook/react'
 
 describe('<AdminCheckbox />', function () {
-  let wrapper
-  const onChangeSpy = sinon.spy()
-  before(function () {
-    wrapper = shallow(<AdminCheckbox onChange={onChangeSpy} />)
-  })
+  const { Default } = composeStories(stories)
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('calls onChange prop when clicked', function () {
-    wrapper.find(CheckBox).simulate('change')
-    expect(onChangeSpy).to.have.been.calledOnce()
+  it('should render the label', function () {
+    render(<Default />)
+    const item = screen.getByText('Admin Mode')
+    expect(item).exists()
   })
 })

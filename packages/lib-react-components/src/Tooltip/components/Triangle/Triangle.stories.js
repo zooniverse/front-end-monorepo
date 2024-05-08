@@ -1,33 +1,36 @@
 import { Box } from 'grommet'
-
 import Triangle from './Triangle'
+
+function ComponentDecorator(Story) {
+  return (
+    <Box pad='medium'>
+      <Story />
+    </Box>
+  )
+}
 
 export default {
   title: 'Components / Tooltip / Triangle',
   component: Triangle,
+  decorators: [ComponentDecorator]
+}
+
+export const Default = {}
+
+export const CustomColor = {
   args: {
-    height: '500px'
-  },
-  argTypes: {
-    pointDirection: {
-      control: {
-        type: 'select',
-        options: ['up', 'down', 'left', 'right']
-      }
-    }
+    color: 'cyan'
   }
 }
 
-export function DefaultTriangle({ height, pointDirection }) {
-  return (
-    <TriangleStoryExample height={height} pointDirection={pointDirection} />
-  )
+export const CustomWidth = {
+  args: {
+    width: 50
+  }
 }
 
-function TriangleStoryExample({ pointDirection }) {
-  return (
-    <Box align='center' height='medium' justify='center' pad='medium'>
-      <Triangle pointDirection={pointDirection} />
-    </Box>
-  )
+export const CustomDirection = {
+  args: {
+    pointDirection: 'down'
+  }
 }

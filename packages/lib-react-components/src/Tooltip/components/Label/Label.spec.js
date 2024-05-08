@@ -1,51 +1,42 @@
 import { render, screen } from '@testing-library/react'
-import { Label } from './Label'
+import { composeStories } from '@storybook/react'
+import * as stories from './Label.stories.js'
 
 describe('Tooltip > Component > Label', function () {
-  describe('with simple props', function () {
-    beforeEach(function () {
-      render(<Label label='helpful tip' />)
-    })
+  const { BottomPlacement, Default, NoArrow } = composeStories(stories)
 
-    it('renders without crashing', function () {
-      expect(screen).to.be.ok()
+  describe('default props', function () {
+    beforeEach(function () {
+      render(<Default />)
     })
 
     it('should render the label', function () {
-      expect(screen.queryByText('helpful tip')).to.exist()
+      expect(screen.queryByText(Default.args.label)).to.exist()
     })
-  })
 
-  describe('with specific props', function () {
     it('should render a triangle/arrow, by default', function () {
-      render(<Label label='helpful tip' />)
+      render(<Default />)
       const triangle = document.querySelector('svg polygon')
       expect(triangle).to.exist()
       expect(triangle.getAttribute('points')).to.equal('5,0 10,10 0,10')
-    })
-
-    it('should render a triangle/arrow if arrow=true', function () {
-      render(<Label label='helpful tip' arrow={true} />)
-      const triangle = document.querySelector('svg polygon')
-      expect(triangle).to.exist()
-      expect(triangle.getAttribute('points')).to.equal('5,0 10,10 0,10')
-    })
-
-    it('should not render a triangle/arrow if arrow=false', function () {
-      render(<Label label='helpful tip' arrow={false} />)
-      const triangle = document.querySelector('svg polygon')
-      expect(triangle).to.not.exist()
     })
 
     it('should render an downward triangle/arrow if Tippy-defined placement = top', function () {
-      render(<Label label='helpful tip' arrow={true} data-placement='top' />)
       const svg = document.querySelector('svg')
       const svgStyle = window.getComputedStyle(svg)
       expect(svgStyle.getPropertyValue('transform')).to.equal('rotate(180deg)')
     })
+  })
+
+  describe('with specific props', function () {
+    it('should not render a triangle/arrow if arrow=false', function () {
+      render(<NoArrow />)
+      const triangle = document.querySelector('svg polygon')
+      expect(triangle).to.not.exist()
+    })
 
     it('should render an upward triangle/arrow if Tippy-defined placement = bottom', function () {
-      render(<Label label='helpful tip' arrow={true} data-placement='bottom' />)
+      render(<BottomPlacement />)
       const svg = document.querySelector('svg')
       const svgStyle = window.getComputedStyle(svg)
       expect(svgStyle.getPropertyValue('transform')).to.equal('rotate(0deg)')
