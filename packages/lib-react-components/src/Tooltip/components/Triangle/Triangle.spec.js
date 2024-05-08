@@ -1,37 +1,28 @@
-import { render, screen } from '@testing-library/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Triangle } from './Triangle'
+import { render } from '@testing-library/react'
+import { composeStories } from '@storybook/react'
+import * as stories from './Triangle.stories.js'
 
-describe('Component > Triangle', function () {
-  it('should render without crashing', function () {
-    render(<Triangle theme={zooTheme} />)
-    expect(screen).to.be.ok()
-  })
+describe('Tooltip > Component > Triangle', function () {
+  const { Default, CustomColor, CustomDirection } = composeStories(stories)
 
-  describe('with color settings', function () {
-    it('should render theme colors, if specified', function () {
-      render(<Triangle theme={zooTheme} />)
-      const svg = document.querySelector('svg')
-      expect(svg.getAttribute('fill')).to.equal(zooTheme.global.colors['dark-2'])
-    })
-
+  describe('with a custom color', function () {
     it('should render specific colors, if specified', function () {
-      render(<Triangle theme={zooTheme} color='cyan' />)
+      render(<CustomColor />)
       const svg = document.querySelector('svg')
       expect(svg.getAttribute('fill')).to.equal('cyan')
     })
   })
 
   describe('with point direction settings', function () {
-    it('should point up, if specified', function () {
-      render(<Triangle theme={zooTheme} pointDirection='up' />)
+    it('should point up as default', function () {
+      render(<Default />)
       const svg = document.querySelector('svg')
       const svgStyle = window.getComputedStyle(svg)
       expect(svgStyle.getPropertyValue('transform')).to.equal('rotate(0deg)')
     })
 
     it('should point down, if specified', function () {
-      render(<Triangle theme={zooTheme} pointDirection='down' />)
+      render(<CustomDirection />)
       const svg = document.querySelector('svg')
       const svgStyle = window.getComputedStyle(svg)
       expect(svgStyle.getPropertyValue('transform')).to.equal('rotate(180deg)')

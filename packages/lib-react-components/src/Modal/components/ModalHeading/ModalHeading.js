@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import PropTypes from 'prop-types'
+import { func, object, oneOfType, string } from 'prop-types'
 import styled from 'styled-components'
 import SpacedHeading from '../../../SpacedHeading'
 import CloseButton from '../../../CloseButton'
@@ -43,16 +43,12 @@ function ModalHeading ({ background = 'brand', color = 'neutral-6', className = 
   )
 }
 
-ModalHeading.defaultProps = {
-  closeFn: undefined
-}
-
 ModalHeading.propTypes = {
-  background: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
-  className: PropTypes.string,
-  closeFn: PropTypes.func,
-  color: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.string
+  background: oneOfType([ object, string ]),
+  className: string,
+  closeFn: func,
+  color: oneOfType([object, string]),
+  title: string
 }
 
 export default ModalHeading

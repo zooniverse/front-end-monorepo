@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { bool, object, oneOf, oneOfType, shape, string } from 'prop-types'
+import { bool, number, object, oneOf, oneOfType, shape, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 
 export const SVG = styled.svg`
@@ -15,22 +15,22 @@ export const SVG = styled.svg`
   z-index: 1;
 `
 
-function Triangle (props) {
+const defaultPad = { horizontal: 'small' }
+
+function Triangle({
+  color = '',
+  justify = 'center',
+  pad = defaultPad,
+  pointDirection = 'up',
+  theme,
+  width = 20
+}) {
   let fill
-  const {
-    color,
-    height,
-    justify,
-    pad,
-    pointDirection,
-    theme,
-    width
-  } = props
   const { colors } = theme.global
   if (color) {
     fill = color
   } else {
-    fill = (theme.dark) ? colors['neutral-6'] : colors['dark-2']
+    fill = theme.dark ? colors['neutral-6'] : colors['dark-2']
   }
 
   const rotation = {
@@ -41,15 +41,9 @@ function Triangle (props) {
   }
 
   return (
-    <Box
-      aria-hidden='true'
-      direction='row'
-      justify={justify}
-      pad={pad}
-    >
+    <Box aria-hidden='true' direction='row' justify={justify} pad={pad}>
       <SVG
         fill={fill}
-        height={height}
         rotation={rotation[pointDirection]}
         viewBox='0 0 10 10'
         width={width}
@@ -60,24 +54,11 @@ function Triangle (props) {
   )
 }
 
-Triangle.defaultProps = {
-  pad: { horizontal: 'small' },
-  pointDirection: 'up',
-  justify: 'center',
-  height: 20,
-  theme: {
-    global: {
-      colors: {}
-    },
-    dark: false
-  },
-  width: 20
-}
-
 Triangle.propTypes = {
+  color: oneOfType([object, string]),
+  justify: oneOf(['start', 'center', 'end']),
   pad: oneOfType([object, string]),
   pointDirection: oneOf(['down', 'left', 'right', 'up']),
-  justify: oneOf(['start', 'center', 'end']),
   theme: shape({
     global: shape({
       colors: shape({
@@ -86,8 +67,8 @@ Triangle.propTypes = {
       })
     }),
     dark: bool
-  })
+  }),
+  width: number
 }
 
 export default withTheme(Triangle)
-export { Triangle }
