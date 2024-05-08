@@ -40,8 +40,8 @@ function GroupStats({
   authClient,
   authUser = DEFAULT_USER,
   group = DEFAULT_GROUP,
-  handleGroupDelete = DEFAULT_HANDLER
-  handleGroupUpdate = DEFAULT_HANDLER
+  handleGroupDelete = DEFAULT_HANDLER,
+  handleGroupUpdate = DEFAULT_HANDLER,
   login = ''
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
@@ -214,7 +214,7 @@ GroupStats.propTypes = {
     id: string
   }),
   handleGroupDelete: func,
-  handleGroupUpdate: func
+  handleGroupUpdate: func,
   login: string
 }
 
