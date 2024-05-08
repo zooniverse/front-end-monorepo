@@ -1,13 +1,13 @@
-import Team from './Team.js'
+import Institute from './Institution.js'
 
 export default {
-  title: 'Screens / Our Team / Team',
-  component: Team
+  title: 'Screens / Our Team / Institution',
+  component: Institute
 }
 
 export const Default = {
   args: {
-    name: 'Team Name',
+    name: 'Institution Name',
     people: [
       {
         avatarSrc: 'https://images.ctfassets.net/jt90kyhvp0qv/4VLR5cADevEVF8bvlW6kFN/e9c51f81f54a466e7c77f0d660919afe/59866818-204c8d80-9352-11e9-8fcc-5676aa100fdf.jpg?w=160&h=160',
@@ -24,6 +24,6 @@ export const Default = {
         twitterID: 'mockTwitter'
       }
     ],
-    slug: 'team-name'
+    slug: 'institution-name'
   }
 }

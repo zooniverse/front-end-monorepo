@@ -1,5 +1,5 @@
-import Teams from './Teams.js'
-import mockData from './Teams.mock.json'
+import OurTeam from './OurTeam.js'
+import mockData from './teamData.mock.json'
 
 const mockSections = mockData.map(team => ({
   name: team.name,
@@ -8,7 +8,7 @@ const mockSections = mockData.map(team => ({
 
 export default {
   title: 'Screens / Our Team',
-  component: Teams
+  component: OurTeam
 }
 
 export const Default = {

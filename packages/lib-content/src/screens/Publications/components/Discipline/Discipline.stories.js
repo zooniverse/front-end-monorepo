@@ -1,8 +1,8 @@
-import Category from './Category'
+import Discipline from './Discipline'
 
 export default {
-  title: 'Screens / Publications / Category',
-  component: Category
+  title: 'Screens / Publications / Discipline',
+  component: Discipline
 }
 
 export const Default = {

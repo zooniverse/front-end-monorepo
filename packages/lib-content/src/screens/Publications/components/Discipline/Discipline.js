@@ -4,7 +4,7 @@ import HeadingForAboutNav from '../../../../components/HeadingForAboutNav/Headin
 
 import Project from '../Project/Project.js'
 
-function Category({
+function Discipline({
   projects = [],
   setActiveSection = () => {},
   sectionIndex = 0,
@@ -32,7 +32,7 @@ function Category({
   )
 }
 
-Category.propTypes = {
+Discipline.propTypes = {
   projects: arrayOf(
     shape({
       avatarSrc: string,
@@ -50,10 +50,10 @@ Category.propTypes = {
   ),
   /* sectionIndex matches index order of sections array supplied to Sidebar component */
   sectionIndex: number,
-  /* Setting the active section is handled at the page level (Publications) */
+  /* Setting the active section is handled at the page level */
   setActiveSection: func,
   slug: string,
   title: string
 }
 
-export default Category
+export default Discipline

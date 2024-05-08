@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import Meta, { Default } from './Team.stories.js'
+import Meta, { Default } from './Institution.stories.js'
 
 describe('Component > Team', function () {
   const DefaultStory = composeStory(Default, Meta)

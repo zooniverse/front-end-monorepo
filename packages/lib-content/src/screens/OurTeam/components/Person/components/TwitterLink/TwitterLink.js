@@ -1,5 +1,5 @@
 import { Anchor } from 'grommet'
-import { Twitter } from 'grommet-icons'
+import { X } from 'grommet-icons'
 import { string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
@@ -26,7 +26,7 @@ function TwitterLink ({ className = '', name = '', twitterId = '' }) {
       a11yTitle={name}
       className={className}
       href={`https://twitter.com/${twitterId}`}
-      icon={<Twitter color='light-5' size='18px' />}
+      icon={<X color='light-5' size='1rem' />}
     />
   )
 }

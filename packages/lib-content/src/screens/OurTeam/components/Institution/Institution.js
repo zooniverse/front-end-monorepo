@@ -4,7 +4,7 @@ import HeadingForAboutNav from '../../../../components/HeadingForAboutNav/Headin
 
 import Person from '../Person'
 
-function Team({
+function Institution({
   name = '',
   people = [],
   sectionIndex = 0,
@@ -27,7 +27,7 @@ function Team({
   )
 }
 
-Team.propTypes = {
+Institution.propTypes = {
   name: string,
   people: arrayOf(
     shape({
@@ -36,9 +36,9 @@ Team.propTypes = {
   ),
   /* sectionIndex matches index order of sections array supplied to Sidebar component */
   sectionIndex: number,
-  /* Setting the active section is handled at the page level (Teams) */
+  /* Setting the active section is handled at the page level */
   setActiveSection: func,
   slug: string
 }
 
-export default Team
+export default Institution

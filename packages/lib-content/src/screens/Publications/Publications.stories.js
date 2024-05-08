@@ -1,5 +1,5 @@
 import Publications from './Publications.js'
-import mockPublicationsData from './Publications.mock.json'
+import mockPublicationsData from './publicationsData.mock.json'
 
 const mockSections = mockPublicationsData.map(category => ({
   name: category.title,

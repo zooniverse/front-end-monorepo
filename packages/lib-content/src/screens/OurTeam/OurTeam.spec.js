@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 import { composeStory } from '@storybook/react'
-import mockData from './Teams.mock.json'
-import Meta, { Default } from './Teams.stories.js'
+import mockData from './teamData.mock.json'
+import Meta, { Default } from './OurTeam.stories.js'
 
 function RouterMock({ children }) {
   const mockRouter = {
@@ -22,7 +22,7 @@ function RouterMock({ children }) {
   )
 }
 
-describe('Component > Teams Page', function () {
+describe('Component > Our Team', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   beforeEach(function () {

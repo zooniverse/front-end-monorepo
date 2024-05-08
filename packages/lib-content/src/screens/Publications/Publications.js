@@ -4,7 +4,7 @@ import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.js'
 import styled from 'styled-components'
 
-import Category from './components/Category/Category.js'
+import Discipline from './components/Discipline/Discipline.js'
 import DropdownNav from '../../components/DropdownNav/DropdownNav.js'
 import MaxWidthContent from '../../components/MaxWidthContent/MaxWidthContent.js'
 import PageLayout from '../../components/PageLayout/layout.js'
@@ -73,14 +73,14 @@ function Publications({ publicationsData = [], sections = [] }) {
             />
           </Box>
           <article>
-            {publicationsData?.map((category, index) => (
-              <Category
-                key={category.title}
-                projects={category.projects}
+            {publicationsData?.map((item, index) => (
+              <Discipline
+                key={item.title}
+                projects={item.projects}
                 sectionIndex={index + 1} // Have to account for "All" as index=0 in the Sidebar
                 setActiveSection={setActiveSection}
-                slug={category.slug}
-                title={category.title}
+                slug={item.slug}
+                title={item.title}
               />
             ))}
           </article>
