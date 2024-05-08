@@ -29,3 +29,26 @@ export const GROUP_ADMIN_USER = {
   id: '09876',
   login: 'TeacherUser'
 }
+
+export const USERS = [
+  USER,
+  ADMIN_USER,
+  GROUP_MEMBER_USER,
+  GROUP_ADMIN_USER,
+  {
+    ...USER,
+    id: '23456',
+  },
+  {
+    ...GROUP_MEMBER_USER,
+    id: '34567',
+  },
+  {
+    ...ADMIN_USER,
+    id: '45678',
+  },
+  {
+    ...USER,
+    id: '56789',
+  }
+]
