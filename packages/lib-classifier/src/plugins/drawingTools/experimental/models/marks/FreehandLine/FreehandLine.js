@@ -617,6 +617,15 @@ const FreehandLineModel = types
       }
     },
 
+    finalizePoints() {
+			self.pathX = []
+			self.pathY = []
+			self.points.forEach(point => {
+				self.pathX.push(point.x)
+				self.pathY.push(point.y)
+			})
+		},
+
     finish() {
       if (self.points.length < self.minimumPoints) {
         return self.tool.deleteMark(self)
@@ -628,13 +637,9 @@ const FreehandLineModel = types
       } else if (self.pathIsClosed) {
         // user closed the path on this initial drag
         self.finished = true
+				self.finalizePoints()
       } else {
-        self.pathX = []
-        self.pathY = []
-        self.points.forEach(point => {
-          self.pathX.push(point.x)
-          self.pathY.push(point.y)
-        })
+				self.finalizePoints()
       }
     },
   }))

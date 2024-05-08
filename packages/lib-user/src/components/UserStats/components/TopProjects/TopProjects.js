@@ -1,11 +1,9 @@
 import { Box, ResponsiveContext } from 'grommet'
 import { arrayOf, string, shape } from 'prop-types'
 import { useContext } from 'react'
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
-import {
-  ContentBox,
-  ProjectCard
-} from '@components/shared'
+import { ContentBox } from '@components/shared'
 
 function TopProjects ({ topProjects = [] }) {
   const size = useContext(ResponsiveContext)

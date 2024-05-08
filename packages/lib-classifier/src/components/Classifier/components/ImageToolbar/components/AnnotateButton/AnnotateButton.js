@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
-import PointerIcon from './PointerIcon'
+import EditIcon from './EditIcon'
 import Button from '../Button'
+
+const DEFAULT_HANDLER = () => {}
 
 function AnnotateButton({
   active = false,
-  onClick = () => console.log('Annotate Button')
+  onClick = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   return (
     <Button
       active={active}
       a11yTitle={t('ImageToolbar.AnnotateButton.ariaLabel')}
-      icon={<PointerIcon />}
+      icon={<EditIcon />}
       onClick={onClick}
     />
   )
