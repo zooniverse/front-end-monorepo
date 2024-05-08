@@ -1,15 +1,19 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor } from 'grommet'
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons'
-import { objectOf, oneOf, string } from 'prop-types'
+import { objectOf, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
   padding: 0;
 `
 
-function SocialAnchor (props) {
-  const { className, hrefs, service } = props
+const defaultHrefs = {
+  facebook: 'https://www.facebook.com/therealzooniverse',
+  instagram: 'https://www.instagram.com/the.zooniverse/',
+  twitter: 'https://twitter.com/the_zooniverse',
+}
+
+function SocialAnchor ({ className = '', hrefs = defaultHrefs, service }) {
   const icons = {
     facebook: <FacebookOption size='25px' />,
     instagram: <Instagram size='25px' />,
@@ -24,14 +28,6 @@ function SocialAnchor (props) {
         href={hrefs[service]}
       />
   )
-}
-
-SocialAnchor.defaultProps = {
-  hrefs: {
-    facebook: 'https://www.facebook.com/therealzooniverse',
-    instagram: 'https://www.instagram.com/the.zooniverse/',
-    twitter: 'https://twitter.com/the_zooniverse',
-  }
 }
 
 SocialAnchor.propTypes = {
