@@ -1,4 +1,5 @@
 import { projects } from '@zooniverse/panoptes-js'
+import { Publications } from '@zooniverse/content'
 
 import client from '../../../utils/contentfulClient.js'
 import buildResponse from './buildResponse'
@@ -10,7 +11,7 @@ export const metadata = {
   description: 'The people who make the Zooniverse'
 }
 
-async function getPublicationsData (skip = 0, limit = 100, accumulator = []) {
+async function getPublicationsData(skip = 0, limit = 100, accumulator = []) {
   const data = await client.getEntries({
     content_type: 'publication',
     include: 2,
@@ -28,7 +29,12 @@ async function getPublicationsData (skip = 0, limit = 100, accumulator = []) {
   }
 }
 
-async function getProjectAvatars (projectIds, page = 1, limit = 100, accumulator = []) {
+async function getProjectAvatars(
+  projectIds,
+  page = 1,
+  limit = 100,
+  accumulator = []
+) {
   const data = await projects
     .get({
       query: {
@@ -49,15 +55,18 @@ async function getProjectAvatars (projectIds, page = 1, limit = 100, accumulator
   }
 }
 
-function createProjectAvatarsMap (projectAvatars) {
-  return projectAvatars.reduce((accumulator, project) => ({
-    ...accumulator,
-    [project.id]: project
-  }), {})
+function createProjectAvatarsMap(projectAvatars) {
+  return projectAvatars.reduce(
+    (accumulator, project) => ({
+      ...accumulator,
+      [project.id]: project
+    }),
+    {}
+  )
 }
 
 // This route is static, so the output of the request will be cached and revalidated as part of the route segment.
-async function createPublicationsResponse () {
+async function createPublicationsResponse() {
   if (client) {
     const publications = await getPublicationsData()
     const projectIds = getUniqueProjectIds(publications)
@@ -74,6 +83,17 @@ export const revalidate = 3600 // revalidate the data at most every hour
 export default async function PublicationsPage() {
   const publicationsData = await createPublicationsResponse()
 
+  // For rendering linked h2's
+  publicationsData?.forEach(
+    category =>
+      (category.slug = category.title.toLowerCase().replaceAll(' ', '-'))
+  )
 
-  return <div>{publicationsData[0].title}</div>
+  // For building the sidebar
+  const sections = publicationsData?.map(category => ({
+    name: category.title,
+    slug: category.title.toLowerCase().replaceAll(' ', '-')
+  }))
+
+  return <Publications publicationsData={publicationsData} sections={sections} />
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { Box } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'

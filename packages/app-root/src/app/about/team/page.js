@@ -1,3 +1,5 @@
+import { OurTeam } from '@zooniverse/content'
+
 import processTeamData from './processTeamData'
 import client from '../../../utils/contentfulClient.js'
 import mockResponse from './processTeamData.result.json'
@@ -22,6 +24,16 @@ export const revalidate = 3600 // revalidate the data at most every hour
 export default async function TeamPage() {
   const teamData = await createTeamResponse()
 
+    // For rendering linked h2's
+    teamData?.forEach(team => {
+      team.slug = team.name.toLowerCase().replaceAll(' ', '-')
+    })
 
-  return <div>{teamData[0].name}</div>
+    // For building the sidebar
+    const sections = teamData?.map(team => ({
+      name: team.name,
+      slug: team.name.toLowerCase().replaceAll(' ', '-')
+    }))
+
+  return <OurTeam sections={sections} teamData={teamData} />
 }
