@@ -134,6 +134,7 @@ function GroupStatsContainer({
       handleGroupDelete={handleGroupDelete}
       handleGroupUpdate={handleGroupUpdate}
       handleProjectSelect={handleProjectSelect}
+      login={authUser?.login}
       projectStats={projectStats}
       projects={projects}
       selectedDateRange={selectedDateRange}
