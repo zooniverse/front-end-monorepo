@@ -1,32 +1,41 @@
 'use client'
 
+import asyncStates from '@zooniverse/async-states'
+import { Notification } from 'grommet'
 import { object, string } from 'prop-types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   usePanoptesAuthUser,
-  usePanoptesProjects,
+  usePanoptesMemberships,
   usePanoptesUserGroup,
-  useStats
 } from '@hooks'
 
 import {
+  createPanoptesMembership,
   deletePanoptesUserGroup,
   getBearerToken,
-  getDateInterval,
   updatePanoptesUserGroup
 } from '@utils'
 
+import { getUserGroupStatus } from './helpers/getUserGroupStatus'
 import GroupStats from './GroupStats'
 
-const STATS_ENDPOINT = '/classifications/user_groups'
+function deleteJoinTokenParam() {
+  let url = new URL(window.location.href)
+  let params = new URLSearchParams(url.search)
+  params.delete('join_token')
+  url.search = params.toString()
+  window.history.pushState({}, '', url.toString())
+}
 
 function GroupStatsContainer({
   authClient,
-  groupId
+  groupId,
+  joinToken
 }) {
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+  const [joinStatus, setJoinStatus] = useState(null)
+  const [showJoinNotification, setShowJoinNotification] = useState(false)
 
   // fetch authenticated user
   const {
@@ -41,60 +50,62 @@ function GroupStatsContainer({
   } = usePanoptesUserGroup({
     authClient,
     authUserId: authUser?.id,
-    groupId
+    groupId,
+    joinStatus
   })
   const group = data?.body?.user_groups?.[0]
-  
-  // fetch all projects stats, used by projects select and top projects regardless of selected project
-  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
-  allProjectsStatsQuery.top_contributors = 10
-  
+
+  // fetch user_group membership
   const {
-    data: allProjectsStats,
-    error: statsError,
-    isLoading: statsLoading
-  } = useStats({
+    data: membershipsData,
+    error: membershipsError,
+    isLoading: membershipsLoading
+  } = usePanoptesMemberships({
     authClient,
     authUserId: authUser?.id,
-    endpoint: STATS_ENDPOINT,
-    sourceId: group?.id,
-    query: allProjectsStatsQuery
+    joinStatus,
+    query: {
+      user_group_id: groupId,
+      user_id: authUser?.id
+    }
   })
+  const role = membershipsData?.memberships?.[0]?.roles?.[0]
   
-  // fetch individual project stats
-  const projectStatsQuery = getDateInterval(selectedDateRange)
-  projectStatsQuery.project_id = parseInt(selectedProject)
-  projectStatsQuery.top_contributors = 10
+  useEffect(function handleJoinGroup() {
+    async function createGroupMembership() {
+      try {
+        await createPanoptesMembership({
+          groupId,
+          joinToken,
+          userId: authUser.id
+        })
+
+        deleteJoinTokenParam()
+        
+        setJoinStatus(asyncStates.success)
+        setShowJoinNotification(true)
+      } catch (error) {
+        console.error(error)
+        setJoinStatus(asyncStates.error)
+      }
+    }
+
+    if (authUser && !role && joinToken && joinStatus === null) {
+      setJoinStatus(asyncStates.posting)
+      createGroupMembership()
+    }
+
+    if (role && joinToken) {
+      deleteJoinTokenParam()
+    }
+  }, [
+    authUser,
+    groupId,
+    joinStatus,
+    joinToken,
+    role
+  ])
   
-  const {
-    data: projectStats,
-    error: projectStatsError,
-    isLoading: projectStatsLoading
-  } = useStats({
-    authClient,
-    authUserId: authUser?.id,
-    endpoint: STATS_ENDPOINT,
-    sourceId: group?.id,
-    query: projectStatsQuery
-  })
-  
-  // fetch projects
-  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
-
-  const {
-    data: projects,
-    error: projectsError,
-    isLoading: projectsLoading
-  } = usePanoptesProjects(projectIDs)
-
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
-
-  function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange.value)
-  }
-
   async function getRequestHeaders() {
     const authorization = await getBearerToken(authClient)
     const requestHeaders = {
@@ -115,37 +126,48 @@ function GroupStatsContainer({
     }
   }
 
-  async function handleGroupUpdate(updates) {
+  async function handleGroupUpdate(data) {
     try {
       const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({ updates, headers: requestHeaders })
+      const updatedGroup = await updatePanoptesUserGroup({ data, headers: requestHeaders, id: groupId })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
     } catch (error) {
       console.error(error)
     }
   }
+   
+  const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken })
 
   return (
-    <GroupStats
-      allProjectsStats={allProjectsStats}
-      group={group}
-      handleDateRangeSelect={handleDateRangeSelect}
-      handleGroupDelete={handleGroupDelete}
-      handleGroupUpdate={handleGroupUpdate}
-      handleProjectSelect={handleProjectSelect}
-      login={authUser?.login}
-      projectStats={projectStats}
-      projects={projects}
-      selectedDateRange={selectedDateRange}
-      selectedProject={selectedProject}
-    />
+    <>
+      {showJoinNotification && (
+        <Notification
+          message='New Group Joined!'
+          onClose={() => setShowJoinNotification(false)}
+          status='normal'
+          time={4000}
+          toast
+        />
+      )}
+      {status ? (<div>{status}</div>) : (
+        <GroupStats
+          authClient={authClient}
+          authUser={authUser}
+          group={group}
+          handleGroupDelete={handleGroupDelete}
+          handleGroupUpdate={handleGroupUpdate}
+          login={authUser?.login}
+        />
+      )}
+    </>
   )
 }
 
 GroupStatsContainer.propTypes = {
   authClient: object,
-  groupId: string
+  groupId: string,
+  joinToken: string
 }
 
 export default GroupStatsContainer

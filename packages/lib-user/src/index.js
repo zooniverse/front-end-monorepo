@@ -24,6 +24,7 @@ export { usePanoptesUserGroup } from './hooks/usePanoptesUserGroup.js'
 export { useStats } from './hooks/useStats.js'
 
 // utils
+export { createPanoptesMembership } from './utils/createPanoptesMembership.js'
 export { createPanoptesUserGroup } from './utils/createPanoptesUserGroup.js'
 export { dateRanges } from './utils/dateRanges.js'
 export { deletePanoptesUserGroup } from './utils/deletePanoptesUserGroup.js'
