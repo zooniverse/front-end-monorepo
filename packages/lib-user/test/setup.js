@@ -37,7 +37,11 @@ window.scrollTo = () => true
 
 global.window = window
 global.document = window.document
+global.self = global.window
 global.navigator = {
-  userAgent: 'node.js'
+  userAgent: 'node.js',
+  clipboard: {
+    writeText: () => true
+  }
 }
 copyProps(window, global)

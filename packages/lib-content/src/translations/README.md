@@ -1,6 +1,6 @@
 # react-i18next for Translations
 
-The `/translations` folder contains json dictionary files for translatable strings in lib-content.
+The `/translations` folder contains json dictionary files for translatable strings in lib-content. There's an i18n instance for each library in FEM.
 
 
 ## Adding New Dictionary Keys

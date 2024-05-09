@@ -1,4 +1,4 @@
-import { func, string } from 'prop-types'
+import { bool, func, object, oneOfType, string } from 'prop-types'
 import styled from 'styled-components'
 import { Button } from 'grommet'
 import CloseIcon from './components/CloseIcon'
@@ -23,7 +23,9 @@ const StyledButton = styled(Button)`
   }
 `
 
-function CloseButton ({ as, closeFn, color, disabled, href, ...rest }) {
+const DEFAULT_HANDLER = () => {}
+
+function CloseButton ({ closeFn = DEFAULT_HANDLER, color = '', disabled = false, href = '', ...rest }) {
   // We've destructured href from the props to make sure it's NOT passed along
 
   const { t } = useTranslation()
@@ -41,11 +43,9 @@ function CloseButton ({ as, closeFn, color, disabled, href, ...rest }) {
 
 CloseButton.propTypes = {
   className: string,
-  closeFn: func.isRequired
-}
-
-CloseButton.defaultProps = {
-  className: ''
+  closeFn: func.isRequired,
+  color: oneOfType([string, object]),
+  disabled: bool
 }
 
 export default CloseButton

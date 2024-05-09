@@ -1,17 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import Meta, { Default, Light, Disabled } from './CloseButton.stories.js'
+import Meta, { Default, Disabled } from './CloseButton.stories.js'
 
 describe('Component > CloseButton', function () {
   it('renders the default button', function () {
     const DefaultStory = composeStory(Default, Meta)
     render(<DefaultStory />)
-    expect(screen.getByRole('button').hasAttribute('disabled')).to.be.false()
-  })
-
-  it('renders the light button', function () {
-    const LightStory = composeStory(Light, Meta)
-    render(<LightStory />)
     expect(screen.getByRole('button').hasAttribute('disabled')).to.be.false()
   })
 

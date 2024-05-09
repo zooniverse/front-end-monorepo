@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import PlainButton from '../PlainButton'
 
 export const StyledPlainButton = styled(PlainButton)`
@@ -14,9 +14,9 @@ export const StyledPlainButton = styled(PlainButton)`
   }
 `
 
-function MetaToolsButton (props) {
-  const { disabled, icon, onClick, text } = props
+const DEFAULT_HANDLER = () => {}
 
+function MetaToolsButton ({ disabled = false, icon = null, onClick = DEFAULT_HANDLER, text = '', ...rest }) {
 	return (
 		<StyledPlainButton
 			data-testid="test-meta-tools-button"
@@ -25,7 +25,7 @@ function MetaToolsButton (props) {
 			labelSize='small'
 			text={text}
 			onClick={onClick}
-			{...props}
+			{...rest}
 		/>
 	)
 }
@@ -41,20 +41,5 @@ MetaToolsButton.propTypes = {
   })
 }
 
-MetaToolsButton.defaultProps = {
-  disabled: false,
-  icon: null,
-  onClick: () => false,
-  text: '',
-  theme: {
-    dark: false,
-    paragraph: {
-      small: {
-        height: ''
-      }
-    }
-  }
-}
 
-export default withTheme(MetaToolsButton)
-export { MetaToolsButton }
+export default MetaToolsButton

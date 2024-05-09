@@ -2,6 +2,7 @@ import { Anchor, Text } from 'grommet'
 import Link from 'next/link'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import { useEffect, useState } from 'react'
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
@@ -16,8 +17,14 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function NavLink({ pathname = '', color, href = '', label = '' }) {
-  const isActive = pathname === href
+function NavLink({ color, href = '', label = '' }) {
+  const [isActive, setIsActive] = useState(false)
+
+  useEffect(() => {
+    if (window.location.pathname === href) {
+      setIsActive(true)
+    }
+  }, [])
 
   return (
     <StyledAnchor
@@ -32,8 +39,7 @@ function NavLink({ pathname = '', color, href = '', label = '' }) {
 
 NavLink.propTypes = {
   label: string.isRequired,
-  href: string.isRequired,
-  pathname: string,
+  href: string.isRequired
 }
 
 export default NavLink

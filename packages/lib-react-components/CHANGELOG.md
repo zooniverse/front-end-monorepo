@@ -7,16 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] 2024
 
 ### Added
-Added a `bodyBackground` prop to Modal to allow for custom background colors.
-Added a `ProjectCard` component originally developed in lib-user, but now need for widespread FEM use.
+- Added a `bodyBackground` prop to Modal to allow for custom background colors.
+- Added a `ProjectCard` component originally developed in lib-user, but now need for widespread FEM use.
 
 ### Changed
-Removed `pxToRem` function.
-Use `grommet-icons` for Notifications and Messages links in ZooHeader's mobile design. Removed `@fortawesome` from the lib.
+- Removed `pxToRem` function.
+- Use `grommet-icons` for Notifications and Messages links in ZooHeader's mobile design. Removed `@fortawesome` from the lib.
 
 ### Fixed
-Added `d3` as peer dependency and grab available d3 methods from `@visx`.
-Fixed value in AnimatedNumber when a device prefers reduced motion.
+- Added `d3` as peer dependency and grab available d3 methods from `@visx`.
+- Fixed value in AnimatedNumber when a device prefers reduced motion.
+- SpacedText `weight` prop type to allow for `number` values.
 
 ## [1.12.0] 2024-03-04
 

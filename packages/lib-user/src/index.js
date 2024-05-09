@@ -4,12 +4,15 @@ export { default as MyGroups } from './components/MyGroups'
 export { default as GroupStats } from './components/GroupStats'
 
 // components/shared
+export { default as Avatar } from './components/shared/Avatar'
 export { default as BarChart } from './components/shared/BarChart'
 export { default as ContentBox } from './components/shared/ContentBox'
 export { default as Layout } from './components/shared/Layout'
+export { default as MainContent } from './components/shared/MainContent'
 export { default as ProfileHeader } from './components/shared/ProfileHeader'
 export { default as Select } from './components/shared/Select'
 export { default as Tabs } from './components/shared/Tabs'
+export { default as TitledStat } from './components/shared/TitledStat'
 
 // hooks
 export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'

@@ -1,17 +1,9 @@
 import FavouritesButton from './'
 import { FavouritesButtonSubjectMock } from './FavouritesButton.mock'
-// import readme from './README.md'
 
 export default {
   title: 'Components/Favourites Button',
-  component: FavouritesButton,
-  // parameters: {
-  //   docs: {
-  //     description: {
-  //       component: readme
-  //     }
-  //   }
-  // }
+  component: FavouritesButton
 }
 
 export const NotFavourited = () => (
