@@ -54,7 +54,6 @@ function GroupStatsContainer({
     error: membershipsError,
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
-    authClient,
     authUserId: authUser?.id,
     joinStatus,
     query: {
@@ -109,9 +108,9 @@ function GroupStatsContainer({
     }
   }
 
-  async function handleGroupUpdate(data) {
+  async function handleGroupUpdate(updates) {
     try {
-      const updatedGroup = await updatePanoptesUserGroup({ data, etag: data.headers.etag, id: groupId })
+      const updatedGroup = await updatePanoptesUserGroup({ data: updates, etag: data.headers.etag, id: groupId })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
     } catch (error) {
@@ -134,7 +133,6 @@ function GroupStatsContainer({
       )}
       {status ? (<div>{status}</div>) : (
         <GroupStats
-          authClient={authClient}
           authUser={authUser}
           group={group}
           handleGroupDelete={handleGroupDelete}
