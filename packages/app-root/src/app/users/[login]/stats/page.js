@@ -1,12 +1,13 @@
-'use client'
+import UserStatsContainer from './UserStatsContainer'
 
-import { UserStats } from '@zooniverse/user'
-import auth from 'panoptes-client/lib/auth'
+export const metadata = {
+  title: 'User Stats',
+  description: 'My Zooniverse user stats page'
+}
 
 export default function UserStatsPage({ params }) {
   return (
-    <UserStats
-      authClient={auth}
+    <UserStatsContainer
       login={params.login}
     />
   )

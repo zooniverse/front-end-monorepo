@@ -1,10 +1,9 @@
 'use client'
 
-import { object, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
-  usePanoptesAuthUser,
   usePanoptesMemberships,
   usePanoptesUser
 } from '@hooks'
@@ -20,23 +19,19 @@ import GroupForm from './components/GroupForm'
 import GroupModal from './components/GroupModal'
 
 function MyGroupsContainer({
-  authClient,
+  adminMode,
+  authUser,
   login
 }) {
   const [groupModalActive, setGroupModalActive] = useState(false)
-
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
 
   const {
     data: user,
     error: userError,
     isLoading: userLoading
   } = usePanoptesUser({
-    authClient,
+    adminMode,
     authUser,
-    authUserId: authUser?.id,
     login
   })
   
@@ -45,7 +40,6 @@ function MyGroupsContainer({
     error: membershipsError,
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
-    authClient,
     authUserId: authUser?.id,
     query: {
       include: 'user_group',
@@ -63,10 +57,7 @@ function MyGroupsContainer({
         title='create new group'
         titleColor='black'
       >
-        <GroupForm 
-          authClient={authClient}
-          authUserId={authUser?.id}
-        />
+        <GroupForm />
       </GroupModal>
       <Layout>
         <ContentBox
@@ -77,8 +68,6 @@ function MyGroupsContainer({
         >
           <MyGroups>
             <GroupCardList
-              authClient={authClient}
-              authUserId={authUser?.id}
               groups={activeGroupsWithRoles}
             />
           </MyGroups>
@@ -92,7 +81,10 @@ function MyGroupsContainer({
 }
 
 MyGroupsContainer.propTypes = {
-  authClient: object,
+  adminMode: bool,
+  authUser: shape({
+    id: string
+  }),
   login: string
 }
 

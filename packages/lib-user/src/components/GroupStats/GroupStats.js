@@ -37,7 +37,6 @@ const DEFAULT_USER = {
 }
 
 function GroupStats({
-  authClient,
   authUser = DEFAULT_USER,
   group = DEFAULT_GROUP,
   handleGroupDelete = DEFAULT_HANDLER,
@@ -56,7 +55,6 @@ function GroupStats({
     error: statsError,
     isLoading: statsLoading
   } = useStats({
-    authClient,
     authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: group?.id,
@@ -73,7 +71,6 @@ function GroupStats({
     error: projectStatsError,
     isLoading: projectStatsLoading
   } = useStats({
-    authClient,
     authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: group?.id,
@@ -205,7 +202,6 @@ function GroupStats({
 }
 
 GroupStats.propTypes = {
-  authClient: object.isRequired,
   authUser: shape({
     id: string
   }),

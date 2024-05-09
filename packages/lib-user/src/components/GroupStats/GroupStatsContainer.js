@@ -2,11 +2,10 @@
 
 import asyncStates from '@zooniverse/async-states'
 import { Notification } from 'grommet'
-import { object, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import {
-  usePanoptesAuthUser,
   usePanoptesMemberships,
   usePanoptesUserGroup,
 } from '@hooks'
@@ -14,7 +13,6 @@ import {
 import {
   createPanoptesMembership,
   deletePanoptesUserGroup,
-  getBearerToken,
   updatePanoptesUserGroup
 } from '@utils'
 
@@ -30,17 +28,13 @@ function deleteJoinTokenParam() {
 }
 
 function GroupStatsContainer({
-  authClient,
+  adminMode,
+  authUser,
   groupId,
   joinToken
 }) {
   const [joinStatus, setJoinStatus] = useState(null)
   const [showJoinNotification, setShowJoinNotification] = useState(false)
-
-  // fetch authenticated user
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
 
   // fetch user_group
   const {
@@ -48,7 +42,6 @@ function GroupStatsContainer({
     error: groupError,
     isLoading: groupLoading
   } = usePanoptesUserGroup({
-    authClient,
     authUserId: authUser?.id,
     groupId,
     joinStatus
@@ -61,7 +54,6 @@ function GroupStatsContainer({
     error: membershipsError,
     isLoading: membershipsLoading
   } = usePanoptesMemberships({
-    authClient,
     authUserId: authUser?.id,
     joinStatus,
     query: {
@@ -105,20 +97,10 @@ function GroupStatsContainer({
     joinToken,
     role
   ])
-  
-  async function getRequestHeaders() {
-    const authorization = await getBearerToken(authClient)
-    const requestHeaders = {
-      authorization,
-      etag: data.headers.etag
-    }
-    return requestHeaders
-  }
 
   async function handleGroupDelete() {
     try {
-      const requestHeaders = await getRequestHeaders()
-      const deleteResponse = await deletePanoptesUserGroup({ groupId, headers: requestHeaders })
+      const deleteResponse = await deletePanoptesUserGroup({ groupId, etag: data.headers.etag })
       console.log('deleteResponse', deleteResponse)
       window.location.href =  '?users=[login]/groups'
     } catch (error) {
@@ -126,10 +108,9 @@ function GroupStatsContainer({
     }
   }
 
-  async function handleGroupUpdate(data) {
+  async function handleGroupUpdate(updates) {
     try {
-      const requestHeaders = await getRequestHeaders()
-      const updatedGroup = await updatePanoptesUserGroup({ data, headers: requestHeaders, id: groupId })
+      const updatedGroup = await updatePanoptesUserGroup({ data: updates, etag: data.headers.etag, id: groupId })
       console.log('updatedGroup', updatedGroup)
       window.location.reload()
     } catch (error) {
@@ -152,7 +133,6 @@ function GroupStatsContainer({
       )}
       {status ? (<div>{status}</div>) : (
         <GroupStats
-          authClient={authClient}
           authUser={authUser}
           group={group}
           handleGroupDelete={handleGroupDelete}
@@ -165,7 +145,10 @@ function GroupStatsContainer({
 }
 
 GroupStatsContainer.propTypes = {
-  authClient: object,
+  adminMode: bool,
+  authUser: shape({
+    id: string
+  }),
   groupId: string,
   joinToken: string
 }

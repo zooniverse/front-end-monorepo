@@ -1,12 +1,13 @@
-'use client'
+import MyGroupsContainer from './MyGroupsContainer'
 
-import { MyGroups } from '@zooniverse/user'
-import auth from 'panoptes-client/lib/auth'
+export const metadata = {
+  title: 'My Groups',
+  description: 'My Zooniverse groups page'
+}
 
 export default function MyGroupsPage({ params }) {
   return (
-    <MyGroups
-      authClient={auth}
+    <MyGroupsContainer
       login={params.login}
     />
   )

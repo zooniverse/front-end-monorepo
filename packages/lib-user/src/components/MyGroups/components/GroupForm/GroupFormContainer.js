@@ -1,9 +1,4 @@
-import { object, string} from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
-
-import {
-  usePanoptesAuth
-} from '@hooks'
 
 import {
   createPanoptesUserGroup
@@ -11,12 +6,7 @@ import {
 
 import GroupForm from './GroupForm'
 
-function GroupFormContainer({
-  authClient = {},
-  authUserId = ''
-}) {
-  const authorization = usePanoptesAuth({ authClient, authUserId })
-  
+function GroupFormContainer() {
   async function onSubmit(event) {
     const { display_name, stats_visibility } = event.value
     const name = uuidv4()
@@ -27,9 +17,8 @@ function GroupFormContainer({
       stats_visibility
     }
 
-
     try {
-      const newGroup = await createPanoptesUserGroup({ data, authorization })
+      const newGroup = await createPanoptesUserGroup({ data })
       // TODO: route to new group stats page
       window.location.reload()
     } catch (error) {
@@ -42,11 +31,6 @@ function GroupFormContainer({
       handleSubmit={onSubmit}
     />
   )
-}
-
-GroupFormContainer.propTypes = {
-  authClient: object,
-  authUserId: string
 }
 
 export default GroupFormContainer
