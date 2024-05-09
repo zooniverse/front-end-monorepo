@@ -13,6 +13,7 @@ function GroupFormContainer() {
     const data = {
       name,
       display_name,
+      private: stats_visibility.startsWith('private'),
       stats_visibility
     }
 

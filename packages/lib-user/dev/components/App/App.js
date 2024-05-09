@@ -15,6 +15,7 @@ if (isBrowser) {
 
 function App({
   groups = null,
+  joinToken = null,
   users = null
 }) {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -113,6 +114,7 @@ function App({
           adminMode={adminMode}
           authUser={user}
           groupId={groupId}
+          joinToken={joinToken}
         />
       )
     }
@@ -197,6 +199,7 @@ function App({
 
 App.propTypes = {
   groups: string,
+  joinToken: string,
   users: string
 }
 

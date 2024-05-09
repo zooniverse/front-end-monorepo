@@ -1,8 +1,7 @@
+import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
-
-import { usePanoptesAuth } from '@hooks'
 
 const SWRoptions = {
   revalidateIfStale: true,
@@ -27,7 +26,8 @@ async function fetchPanoptesUserGroup({ groupId }) {
   }
 }
 
-export function usePanoptesUserGroup({ authUserId, groupId }) {
-  const key = groupId ? { authUserId, groupId } : null
+export function usePanoptesUserGroup({ authUserId, groupId, joinStatus }) {
+  const isJoinStatusValid = joinStatus === null || joinStatus === asyncStates.success
+  const key = groupId && isJoinStatusValid ? { groupId, joinStatus } : null;
   return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }

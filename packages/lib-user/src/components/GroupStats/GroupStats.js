@@ -1,7 +1,17 @@
+import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import { Grid } from 'grommet'
 import { Link, SettingsOption } from 'grommet-icons'
-import { arrayOf, func, number, shape, string } from 'prop-types'
-import ProjectCard from '@zooniverse/react-components/ProjectCard'
+import { func, object, shape, string } from 'prop-types'
+import { useState } from 'react'
+
+import {
+  usePanoptesProjects,
+  useStats
+} from '@hooks'
+
+import {
+  getDateInterval,
+} from '@utils'
 
 import {
   ContentBox,
@@ -15,60 +25,95 @@ import {
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
 
+const STATS_ENDPOINT = '/classifications/user_groups'
+
 const DEFAULT_GROUP = {
   display_name: '',
   id: ''
 }
 const DEFAULT_HANDLER = () => true
-const DEFAULT_STATS = {
-  active_users: 0,
-  data: [],
-  project_contributions: [
-    {
-      count: 0,
-      project_id: 0,
-      session_time: 0
-    }
-  ],
-  time_spent: 0,
-  top_contributors: [
-    {
-      count: 0,
-      session_time: 0,
-      user_id: 0
-    }
-  ],
-  total_count: 0
+const DEFAULT_USER = {
+  id: ''
 }
 
 function GroupStats({
-  allProjectsStats = DEFAULT_STATS,
+  authClient,
+  authUser = DEFAULT_USER,
   group = DEFAULT_GROUP,
-  handleDateRangeSelect = DEFAULT_HANDLER,
   handleGroupDelete = DEFAULT_HANDLER,
   handleGroupUpdate = DEFAULT_HANDLER,
-  handleProjectSelect = DEFAULT_HANDLER,
-  login = '',
-  projectStats = DEFAULT_STATS,
-  projects = [],
-  selectedDateRange = 'Last7Days',
-  selectedProject = 'AllProjects'
+  login = ''
 }) {
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+
+  // fetch all projects stats, used by projects select and top projects regardless of selected project
+  const allProjectsStatsQuery = getDateInterval(selectedDateRange)
+  allProjectsStatsQuery.top_contributors = 10
+  
+  const {
+    data: allProjectsStats,
+    error: statsError,
+    isLoading: statsLoading
+  } = useStats({
+    authClient,
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: group?.id,
+    query: allProjectsStatsQuery
+  })
+  
+  // fetch individual project stats
+  const projectStatsQuery = getDateInterval(selectedDateRange)
+  projectStatsQuery.project_id = parseInt(selectedProject)
+  projectStatsQuery.top_contributors = 10
+  
+  const {
+    data: projectStats,
+    error: projectStatsError,
+    isLoading: projectStatsLoading
+  } = useStats({
+    authClient,
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: group?.id,
+    query: projectStatsQuery
+  })
+  
+  // fetch projects
+  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+
+  const {
+    data: projects,
+    error: projectsError,
+    isLoading: projectsLoading
+  } = usePanoptesProjects(projectIDs)
+
+  function handleProjectSelect (project) {
+    setSelectedProject(project.value)
+  }
+
+  function handleDateRangeSelect (dateRange) {
+    setSelectedDateRange(dateRange.value)
+  }
+
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   // set top projects based on selected date range and all project stats
   let topProjects = []
-  const topProjectContributions = allProjectsStats.project_contributions
+  const topProjectContributions = allProjectsStats?.project_contributions
     ?.sort((a, b) => b.count - a.count)
 
-  topProjects = topProjectContributions
-    ?.map(projectContribution => {
-      const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
-      return projectData
-    })
-    .filter(project => project)
-    .slice(0, 6)
+  if (topProjectContributions?.length > 0) {
+    topProjects = topProjectContributions
+      ?.map(projectContribution => {
+        const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
+        return projectData
+      })
+      .filter(project => project)
+      .slice(0, 6)
+  }
 
   const PrimaryHeaderItem = login ? (
     <HeaderLink
@@ -159,45 +204,18 @@ function GroupStats({
   )
 }
 
-const statsShape = shape({
-  active_users: number,
-  data: arrayOf(shape({
-    count: number,
-    period: string,
-    session_time: number
-  })),
-  project_contributions: arrayOf(shape({
-    count: number,
-    project_id: number,
-    session_time: number
-  })),
-  time_spent: number,
-  top_contributors: arrayOf(shape({
-    count: number,
-    session_time: number,
-    user_id: number
-  })),
-  total_count: number
-})
-
 GroupStats.propTypes = {
-  allProjectsStats: statsShape,
+  authClient: object.isRequired,
+  authUser: shape({
+    id: string
+  }),
   group: shape({
     display_name: string,
     id: string
   }),
-  handleDateRangeSelect: func,
   handleGroupDelete: func,
   handleGroupUpdate: func,
-  handleProjectSelect: func,
-  login: string,
-  projectStats: statsShape,
-  projects: arrayOf(shape({
-    id: string,
-    display_name: string
-  })),
-  selectedDateRange: string,
-  selectedProject: string
+  login: string
 }
 
 export default GroupStats

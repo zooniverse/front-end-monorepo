@@ -5,11 +5,19 @@ export async function createPanoptesUserGroup({ data }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   if (!token) return null
+  
+  let response = null
 
-  if (authorization) {
-    const response = await panoptes.post('/user_groups', { user_groups: data }, { authorization })
+  try {
+    response = await panoptes.post('/user_groups',
+      { user_groups: data },
+      { authorization }
+    )
     return response
+  } catch (error) {
+    console.error(error)
+    throw error
   }
 
-  return null
+  return response
 }
