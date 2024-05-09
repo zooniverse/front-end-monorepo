@@ -35,6 +35,7 @@ function GroupStatsContainer({
   joinToken
 }) {
   const [joinStatus, setJoinStatus] = useState(null)
+  const [showJoinNotification, setShowJoinNotification] = useState(false)
 
   // fetch authenticated user
   const {
@@ -62,6 +63,7 @@ function GroupStatsContainer({
   } = usePanoptesMemberships({
     authClient,
     authUserId: authUser?.id,
+    joinStatus,
     query: {
       user_group_id: groupId,
       user_id: authUser?.id
@@ -71,7 +73,6 @@ function GroupStatsContainer({
   
   useEffect(function handleJoinGroup() {
     async function createGroupMembership() {
-      setJoinStatus(asyncStates.posting)
       try {
         await createPanoptesMembership({
           groupId,
@@ -82,13 +83,15 @@ function GroupStatsContainer({
         deleteJoinTokenParam()
         
         setJoinStatus(asyncStates.success)
+        setShowJoinNotification(true)
       } catch (error) {
         console.error(error)
         setJoinStatus(asyncStates.error)
       }
     }
 
-    if (authUser && !membershipsLoading && !role && joinToken && joinStatus === null) {
+    if (authUser && !role && joinToken && joinStatus === null) {
+      setJoinStatus(asyncStates.posting)
       createGroupMembership()
     }
 
@@ -100,8 +103,6 @@ function GroupStatsContainer({
     groupId,
     joinStatus,
     joinToken,
-    membershipsLoading,
-    setJoinStatus,
     role
   ])
   
@@ -140,10 +141,10 @@ function GroupStatsContainer({
 
   return (
     <>
-      {(joinStatus === asyncStates.success) && (
+      {showJoinNotification && (
         <Notification
           message='New Group Joined!'
-          onClose={() => setJoinStatus(asyncStates.initialized)}
+          onClose={() => setShowJoinNotification(false)}
           status='normal'
           time={4000}
           toast

@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
@@ -23,9 +24,10 @@ async function fetchMemberships({ query, authorization }) {
   }
 }
 
-export function usePanoptesMemberships({ authClient, authUserId, query }) {
+export function usePanoptesMemberships({ authClient, authUserId, joinStatus = null, query }) {
   const authorization = usePanoptesAuth({ authClient, authUserId })
+  const joinStatusSuccess = joinStatus === asyncStates.success
 
-  const key = query.user_id ? { endpoint, query, authorization } : null
+  const key = authorization && query.user_id ? { endpoint, query, joinStatusSuccess, authorization } : null
   return useSWR(key, fetchMemberships, SWRoptions)
 }
