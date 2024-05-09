@@ -174,6 +174,10 @@ function App({
             user={user || {}}
           />
         </header>
+        <div>
+          <p>⚠️ WARNING ⚠️ : this is a dev app for lib-user, links in the header, footer, and components may not work as expected</p>
+          <p><a href='/'>lib-user root</a></p>
+        </div>
         {loading ? 
           <p>Loading...</p> : (
           <div>
@@ -181,8 +185,6 @@ function App({
           </div>
         )}
         <footer>
-          <p>⚠️ WARNING ⚠️ : this is lib-user, links in the components above are intended to be used in app-root and may not work as expected in lib-user</p>
-          <p><a href='/'>lib-user root</a></p>
           <ZooFooter
             adminContainer={user?.admin ? (
               <AdminCheckbox
