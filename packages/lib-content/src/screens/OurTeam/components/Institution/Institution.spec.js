@@ -3,10 +3,10 @@ import { composeStory } from '@storybook/react'
 
 import Meta, { Default } from './Institution.stories.js'
 
-describe('Component > Team', function () {
+describe('Component > Institution', function () {
   const DefaultStory = composeStory(Default, Meta)
 
-  it('should render the team name', function () {
+  it('should render the name', function () {
     render(<DefaultStory />)
     expect(screen.getByText(Default.args.name)).exists()
   })

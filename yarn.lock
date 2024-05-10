@@ -6428,6 +6428,18 @@ contentful-sdk-core@^8.1.0:
     p-throttle "^4.1.1"
     qs "^6.11.2"
 
+contentful@~10.10.0:
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.10.0.tgz#1862c16a693ddd4938286a5909ccfa34f54f8f46"
+  integrity sha512-VO+24VfY5GbS87lEi0KcgcWJHvhHvStKeQ6Mlo22D8r8HsGv7Cpo0oWex0NUfsK4UpIcGId+DbSgBCzWN3lJlg==
+  dependencies:
+    "@contentful/rich-text-types" "^16.0.2"
+    axios "^1.6.7"
+    contentful-resolve-response "^1.8.1"
+    contentful-sdk-core "^8.1.0"
+    json-stringify-safe "^5.0.1"
+    type-fest "^4.0.0"
+
 contentful@~10.8.1:
   version "10.8.7"
   resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.8.7.tgz#ff627069e74995367306f89359c946d3e3dda530"
@@ -11704,14 +11716,9 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
 
-lodash@^4.17.11, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@~4.17.11:
+lodash@^4.17.11, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@~4.17.11, lodash@~4.17.21:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
-
-lodash@~4.17.21:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log-driver@^1.2.7:
