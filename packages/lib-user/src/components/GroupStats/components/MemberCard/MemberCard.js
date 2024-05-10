@@ -5,7 +5,7 @@ import { number, string } from 'prop-types'
 import { Avatar } from '@components/shared'
 
 function MemberCard({
-  avatar = 'https://www.zooniverse.org/assets/simple-avatar.png',
+  avatar = '',
   classifications = 0,
   displayName = '',
   login = ''
