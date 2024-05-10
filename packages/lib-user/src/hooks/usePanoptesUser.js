@@ -10,22 +10,22 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function getUser({ login }) {
+async function getUser({ query }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   if (!token) return null
   
   try {
-    const { body } = await panoptes.get('/users', { login }, { authorization })
-    const user = body.users[0]
-    return user
+    const { body } = await panoptes.get('/users', query, { authorization })
+    const users = body.users
+    return users
   } catch (error) {
     console.error(error)
     return null
   }
 }
 
-async function fetchPanoptesUser({ authUser, login }) {
+async function fetchPanoptesUser({ authUser, id, login }) {
   if (login && login === authUser?.login) {
     if (authUser.avatar_src) {
       return authUser
@@ -36,17 +36,37 @@ async function fetchPanoptesUser({ authUser, login }) {
       return authClientUser
     }
   }
-  
-  const panoptesUser = await getUser({ login })
-  return panoptesUser
+
+  if (login) {
+    const query = { login }
+    const users = await getUser({ query })
+    return users?.[0]
+  }
+
+  if (id) {
+    const query = { id }
+    const users = await getUser({ query })
+    return users
+  }
+
+  return null
 }
 
-export function usePanoptesUser({ adminMode, authUser, login }) {
-  const key = (
-      (login === authUser?.login) // user viewing their own stats page
-      || (login && adminMode) // admin viewing a user's stats page
-    ) 
-    ? { authUser, login }
-    : null
+export function usePanoptesUser({ adminMode, authUser, login, userIds }) {
+  let key = null
+  
+  if (login) {
+    if (login === authUser?.login) {
+      key = { authUser, login }
+    } else if (adminMode) {
+      key = { authUser, login }
+    }
+  }
+  
+  if (userIds) {
+    const id = userIds.join(',')
+    key = { authUser, id }
+  }
+  
   return useSWR(key, fetchPanoptesUser, SWRoptions)
 }
