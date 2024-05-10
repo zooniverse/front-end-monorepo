@@ -2,7 +2,9 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
-const SWRoptions = {
+const isBrowser = typeof window !== 'undefined'
+
+const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
@@ -10,10 +12,13 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
+if (isBrowser) {
+  auth.checkCurrent()
+}
+
 async function getUser({ query }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
-  if (!token) return null
   
   try {
     const { body } = await panoptes.get('/users', query, { authorization })
@@ -68,5 +73,5 @@ export function usePanoptesUser({ adminMode, authUser, login, userIds }) {
     key = { authUser, id }
   }
   
-  return useSWR(key, fetchPanoptesUser, SWRoptions)
+  return useSWR(key, fetchPanoptesUser, SWROptions)
 }
