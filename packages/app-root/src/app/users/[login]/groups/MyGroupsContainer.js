@@ -8,11 +8,28 @@ import { PanoptesAuthContext } from '../../../../contexts'
 function MyGroupsContainer({
   login
 }) {
-  const { adminMode, user } = useContext(PanoptesAuthContext)
+  const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+
+  if (typeof window === 'undefined' || isLoading) {
+    return (
+      <p>Loading...</p>
+    )
+  }
+
+  if (!user) {
+    return (
+      <p>Please log in.</p>
+    )
+  }
+
+  if (user && login !== user?.login && !adminMode) {
+    return (
+      <p>Not authorized.</p>
+    )
+  }
 
   return (
     <MyGroups
-      adminMode={adminMode}  
       authUser={user}
       login={login}
     />
