@@ -11,9 +11,13 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchPanoptesUserGroup({ groupId }) {
-  const token = await auth.checkBearerToken()
-  const authorization = `Bearer ${token}`
+async function fetchPanoptesUserGroup({ authUserId, groupId }) {
+  let authorization
+  if (authUserId) {
+    await auth.checkCurrent()
+    const token = await auth.checkBearerToken()
+    authorization = `Bearer ${token}`
+  }
 
   const endpoint = `/user_groups/${groupId}`
   
