@@ -41,7 +41,9 @@ const Survey = types.model('Survey', {
   questions: types.frozen({}),
   questionsMap: types.frozen({}),
   questionsOrder: types.array(types.string),
-  thumbnails: types.maybe(types.string),
+  thumbnails: types.maybe(
+    types.enumeration('thumbnails', ['show', 'hide', 'default'])
+  ),
   type: types.literal('survey')
 })
   .preProcessSnapshot(snapshot => {
@@ -55,6 +57,13 @@ const Survey = types.model('Survey', {
         newSnapshot.alwaysShowThumbnails = true
       }
       newSnapshot.alwaysShowThumbnails = !!newSnapshot.alwaysShowThumbnails
+      /*
+      See the lab editor for the thumbnails/alwaysShowThumbnails logic:
+      https://github.com/zooniverse/Panoptes-Front-End/blob/9ca8f70f0d6e836ca931168915c9aed02edf8b1d/app/classifier/tasks/survey/editor.cjsx#L330
+      */
+      if (!newSnapshot.hasOwnProperty('thumbnails')) {
+        newSnapshot.thumbnails = newSnapshot.alwaysShowThumbnails ? 'show' : 'default'
+      }
       return newSnapshot
     }
     return snapshot
