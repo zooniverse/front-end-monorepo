@@ -44,6 +44,21 @@ const Survey = types.model('Survey', {
   thumbnails: types.maybe(types.string),
   type: types.literal('survey')
 })
+  .preProcessSnapshot(snapshot => {
+    if (snapshot.hasOwnProperty('alwaysShowThumbnails')) {
+      const newSnapshot = { ...snapshot }
+      // 'true' and 'false' are both true.
+      if (snapshot.alwaysShowThumbnails === 'false') {
+        newSnapshot.alwaysShowThumbnails = false
+      }
+      if (snapshot.alwaysShowThumbnails === 'true') {
+        newSnapshot.alwaysShowThumbnails = true
+      }
+      newSnapshot.alwaysShowThumbnails = !!newSnapshot.alwaysShowThumbnails
+      return newSnapshot
+    }
+    return snapshot
+  })
   .views(self => ({
     defaultAnnotation (id = cuid()) {
       return SurveyAnnotation.create({
