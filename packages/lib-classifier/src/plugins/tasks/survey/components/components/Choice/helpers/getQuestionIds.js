@@ -2,7 +2,7 @@ export default function getQuestionIds (
   choiceId = '',
   task = {}
 ) {
-  if (task.choices && task.choices[choiceId]?.noQuestions) {
+  if (task.choices && task.choices.get(choiceId)?.noQuestions) {
     return []
   }
   if (!(task.questionsMap?.has(choiceId))) {

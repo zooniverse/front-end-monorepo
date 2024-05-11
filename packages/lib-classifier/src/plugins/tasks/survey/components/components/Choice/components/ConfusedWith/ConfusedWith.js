@@ -63,7 +63,7 @@ function ConfusedWith({
               }}
               dropContent={
                 <Confusion
-                  confusion={choices[confusionId]}
+                  confusion={choices.get(confusionId)}
                   confusionId={confusionId}
                   confusionText={strings.get(`choices.${choiceId}.confusions.${confusionId}`)}
                   handleChoice={handleChoice}

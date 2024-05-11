@@ -26,13 +26,23 @@ const Question = types.model('Question', {
   answers: types.map(Answer)
 })
 
+const Choice = types.model('Choice', {
+  label: types.string,
+  description: types.maybe(types.string),
+  noQuestions: types.optional(types.boolean, false),
+  images: types.array(types.string),
+  characteristics: types.map(types.array(types.string)),
+  confusionsOrder: types.array(types.string),
+  confusions: types.map(types.string)
+})
+
 const Survey = types.model('Survey', {
   // alwaysShowThumbnails is deprecated in favor of the `thumbnails` property
   alwaysShowThumbnails: types.maybe(types.boolean),
   annotation: types.safeReference(SurveyAnnotation),
   characteristics: types.optional(types.map(Characteristic), {}),
   characteristicsOrder: types.array(types.string),
-  choices: types.frozen({}),
+  choices: types.map(Choice),
   choicesOrder: types.array(types.string),
   exclusions: types.array(types.string),
   images: types.map(types.string),
