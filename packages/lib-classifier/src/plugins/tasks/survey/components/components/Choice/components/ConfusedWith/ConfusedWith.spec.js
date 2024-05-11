@@ -8,7 +8,7 @@ import { ConfusedWith } from './ConfusedWith'
 
 describe('Component > ConfusedWith', function () {
   const mockTask = SurveyTask.TaskModel.create(task)
-  const KUDU = mockTask.choices.KD
+  const KUDU = mockTask.choices.get('KD')
 
   it('should show the section title', function () {
     render(
