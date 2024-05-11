@@ -56,7 +56,7 @@ function Chooser ({
     setFilterDropOpen(true)
   }
 
-  const showFilters = Object.keys(task.characteristics).length > 0
+  const showFilters = task.characteristics.size > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
   
   return (
