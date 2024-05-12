@@ -37,8 +37,11 @@ const Survey = types.model('Survey', {
   exclusions: types.array(types.string),
   images: types.map(types.string),
   inclusions: types.array(types.string),
+  // map question IDs to question objects.
   questions: types.map(Question),
+  // map choice IDs to question IDs.
   questionsMap: types.map(types.array(types.string)),
+  // order of question IDs to be asked.
   questionsOrder: types.array(types.string),
   thumbnails: types.maybe(
     types.enumeration('thumbnails', ['show', 'hide', 'default'])
