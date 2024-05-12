@@ -106,7 +106,7 @@ export default function FilterStatus ({
         const characteristic = characteristics?.[characteristicId] || {}
         const selectedValueId = filters?.[characteristicId] || ''
         const value = characteristic.values?.[selectedValueId] || {}
-        const valueImageSrc = images?.[value.image] || ''
+        const valueImageSrc = images?.get(value.image) || ''
         const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
         function clearSelection() {
           handleFilter(characteristicId)

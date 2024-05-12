@@ -49,7 +49,7 @@ export default function CharacteristicSection({
 
   const characteristicOption = useCallback(valueId => {
     const value = characteristic?.values?.get(valueId) || {}
-    const valueImageSrc = images?.[value.image] || ''
+    const valueImageSrc = images?.get(value.image) || ''
     const label = strings.get(`characteristics.${characteristicId}.values.${valueId}.label`)
 
     return ({
