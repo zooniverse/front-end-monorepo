@@ -13,7 +13,7 @@ export default function allowIdentification (
   // if there are questions, it's fine as long as they've filled required ones in
   const answerProvided = []
   getQuestionIds(choiceId, task).map((questionId) => {
-    const question = task.questions[questionId]
+    const question = task.questions.get(questionId)
     if (question.required) {
       const answer = answers[questionId]
       if (answer && answer.length > 0) {

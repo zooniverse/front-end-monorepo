@@ -27,6 +27,18 @@ const Characteristics = types.refinement(
   }
 )
 
+const Answer = types.model('Answer', {
+  label: types.string
+})
+
+const Question = types.model('Question', {
+  label: types.string,
+  multiple: types.optional(types.boolean, false),
+  required: types.optional(types.boolean, false),
+  answersOrder: types.array(types.string),
+  answers: types.map(Answer)
+})
+
 const Survey = types.model('Survey', {
   // alwaysShowThumbnails is deprecated in favor of the `thumbnails` property
   alwaysShowThumbnails: types.maybe(types.boolean),
@@ -36,10 +48,10 @@ const Survey = types.model('Survey', {
   choices: types.frozen({}),
   choicesOrder: types.array(types.string),
   exclusions: types.array(types.string),
-  images: types.frozen({}),
+  images: types.map(types.string),
   inclusions: types.array(types.string),
-  questions: types.frozen({}),
-  questionsMap: types.frozen({}),
+  questions: types.map(Question),
+  questionsMap: types.map(types.array(types.string)),
   questionsOrder: types.array(types.string),
   thumbnails: types.maybe(
     types.enumeration('thumbnails', ['show', 'hide', 'default'])
