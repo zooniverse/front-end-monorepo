@@ -11,9 +11,6 @@
   "Head": {
     "siteName": "Zooniverse"
   },
-  "Loader": {
-    "loading": "(Laden)"
-  },
   "ProjectHeader": {
     "about": "Over",
     "classify": "Classificeren",

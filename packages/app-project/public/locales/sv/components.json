@@ -11,9 +11,6 @@
   "Head": {
     "defaultTitle": "Projekt"
   },
-  "Loader": {
-    "loading": "(Laddar)"
-  },
   "ProjectHeader": {
     "about": "Om",
     "classify": "Klassificera",

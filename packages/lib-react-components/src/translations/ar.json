@@ -2,6 +2,9 @@
   "CloseButton": {
     "close": "أغلِق"
   },
+  "Loader": {
+    "loading": "(قيد التحميل)"
+  },
   "ZooFooter": {
     "buildLabels": {
       "tutorial": "إرشاد"
