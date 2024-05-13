@@ -370,6 +370,7 @@ const surveyTask = {
     'ARETHEREANYYOUNGPRESENT',
     'CLICKWOWIFTHISISANAWESOMEPHOTO'
   ],
+  alwaysShowThumbnails: '',
   required: '',
   taskKey: 'T0',
   type: 'survey'
