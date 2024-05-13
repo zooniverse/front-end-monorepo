@@ -4,6 +4,7 @@ import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
 import { useCallback } from 'react'
 import asyncStates from '@zooniverse/async-states'
+import { Box } from 'grommet'
 
 import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'

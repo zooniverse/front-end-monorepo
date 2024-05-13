@@ -5,6 +5,7 @@ import { mount } from 'enzyme'
 import { Grommet } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import sinon from 'sinon'
+import { Loader } from '@zooniverse/react-components'
 
 import ClassifierWrapper from './ClassifierWrapper'
 
@@ -54,7 +55,7 @@ describe('Component > ClassifierWrapper', function () {
         { wrappingComponent: TestWrapper }
       )
 
-      expect(wrapper.find('Loading')).to.have.lengthOf(1)
+      expect(wrapper.find(Loader)).to.have.lengthOf(1)
     })
   })
 
