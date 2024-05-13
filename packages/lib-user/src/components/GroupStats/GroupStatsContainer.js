@@ -61,7 +61,10 @@ function GroupStatsContainer({
       user_id: authUser?.id
     }
   })
-  const role = membershipsData?.memberships?.[0]?.roles?.[0]
+  let role = null
+  if (membershipsData) {
+    role = membershipsData?.memberships?.[0]?.roles?.[0]
+  }
   
   useEffect(function handleJoinGroup() {
     async function createGroupMembership() {
@@ -82,7 +85,7 @@ function GroupStatsContainer({
       }
     }
 
-    if (authUser && !role && joinToken && joinStatus === null) {
+    if (authUser && role === undefined && joinToken && joinStatus === null) {
       setJoinStatus(asyncStates.posting)
       createGroupMembership()
     }

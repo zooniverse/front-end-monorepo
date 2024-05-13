@@ -6,7 +6,8 @@ import { useContext } from 'react'
 import { PanoptesAuthContext } from '../../../contexts'
 
 function GroupStatsContainer({
-  groupId
+  groupId,
+  joinToken
 }) {
   const { adminMode, user } = useContext(PanoptesAuthContext)
   
@@ -15,6 +16,7 @@ function GroupStatsContainer({
       adminMode={adminMode}
       authUser={user}
       groupId={groupId}
+      joinToken={joinToken}
     />
   )
 }
