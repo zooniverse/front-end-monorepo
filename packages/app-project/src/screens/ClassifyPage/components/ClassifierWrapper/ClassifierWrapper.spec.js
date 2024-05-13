@@ -7,7 +7,6 @@ import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtim
 import sinon from 'sinon'
 
 import ClassifierWrapper from './ClassifierWrapper'
-import Loader from '@shared/components/Loader'
 
 describe('Component > ClassifierWrapper', function () {
   const router = {
@@ -55,7 +54,7 @@ describe('Component > ClassifierWrapper', function () {
         { wrappingComponent: TestWrapper }
       )
 
-      expect(wrapper.find(Loader)).to.have.lengthOf(1)
+      expect(wrapper.find('Loading')).to.have.lengthOf(1)
     })
   })
 

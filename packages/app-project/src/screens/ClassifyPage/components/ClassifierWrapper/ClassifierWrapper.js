@@ -9,7 +9,7 @@ import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
-import Loader from '@shared/components/Loader'
+import { Loader } from '@zooniverse/react-components'
 
 function onError(error, errorInfo = {}) {
   logToSentry(error, errorInfo)
@@ -144,22 +144,9 @@ export default function ClassifierWrapper({
   }
 
   return (
-    <Loader
-      background={{
-        dark: 'dark-3',
-        light: 'neutral-6'
-      }}
-      border={{
-        color: {
-          dark: 'dark-3',
-          light: 'light-3'
-        },
-        side: 'all',
-        size: 'thin'
-      }}
-      height='100%'
-      width='100%'
-    />
+    <Box height='100%' width='100%'>
+      <Loader />
+    </Box>
   )
 }
 

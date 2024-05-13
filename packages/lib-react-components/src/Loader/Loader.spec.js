@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { composeStory } from '@storybook/react-webpack5'
+import { composeStory } from '@storybook/react'
 
 import Meta, { Default } from './Loader.stories.js'
 
@@ -8,7 +8,7 @@ describe('Component > Loader', function () {
 
   it('should be accessible', function () {
     render(<DefaultStory />)
-    const component = screen.getByLabelText('Loading classifier')
+    const component = screen.getByLabelText('Loading')
     expect(component).to.exist()
     expect(component.getAttribute('role')).to.equal('status')
   })

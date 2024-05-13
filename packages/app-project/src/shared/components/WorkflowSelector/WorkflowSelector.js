@@ -1,10 +1,9 @@
 import asyncStates from '@zooniverse/async-states'
-import { Markdownz, SpacedText } from '@zooniverse/react-components'
+import { Loader, Markdownz, SpacedText } from '@zooniverse/react-components'
 import { Box, Paragraph, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
-import Loader from '../Loader'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 
 const markdownzComponents = {
@@ -68,7 +67,9 @@ function WorkflowSelector ({
       )}
 
       {([asyncStates.initialized, asyncStates.loading].includes(userReadyState)) && (
-        <Loader margin={{ top: 'small' }} width='100%' />
+        <Box  pad={{ top: 'small' }} width='100%'>
+          <Loader />
+        </Box>
       )}
     </Box>
   )
