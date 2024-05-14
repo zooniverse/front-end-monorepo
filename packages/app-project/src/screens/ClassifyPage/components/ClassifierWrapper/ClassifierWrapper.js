@@ -145,7 +145,7 @@ export default function ClassifierWrapper({
   }
 
   return (
-    <Box height='100%' width='100%'>
+    <Box height='100%' width='100%' align='center'>
       <Loader />
     </Box>
   )

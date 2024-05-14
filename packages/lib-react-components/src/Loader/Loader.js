@@ -22,7 +22,6 @@ const StyledBar = styled(Box)`
   height: 20%;
   width: 10%;
   border-radius: 4px;
-  margin: 0 1px;
   background: ${props => props.theme.global.colors.brand};
 
   &.delayed-one {

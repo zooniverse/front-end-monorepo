@@ -67,8 +67,8 @@ function WorkflowSelector ({
       )}
 
       {([asyncStates.initialized, asyncStates.loading].includes(userReadyState)) && (
-        <Box  pad={{ top: 'small' }} width='100%'>
-          <Loader />
+        <Box  pad={{ top: 'small' }} width='100%' align='center'>
+          <Loader width='38px' height='40px' />
         </Box>
       )}
     </Box>
