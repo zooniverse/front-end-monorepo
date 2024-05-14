@@ -14,6 +14,8 @@ In addition, you must have the local sub-domain [setup](https://stackoverflow.co
 
 Once you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/users` or `https://localhost.zooniverse.org:3000/users`.
 
+To view data from Contentful, you'll need to create a `.env` file containing the space ID and access token. To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api/keys (login credentials are in Passbolt).
+
 ### Docker
 
 - `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
