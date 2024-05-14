@@ -1,10 +1,9 @@
 'use client'
 
-import { object, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
-  usePanoptesAuthUser,
   usePanoptesProjects,
   usePanoptesUser,
   useStats
@@ -19,16 +18,12 @@ import UserStats from './UserStats'
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
-  authClient,
-  login
+  adminMode,
+  authUser,
+  login,
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-
-  // fetch authenticated user
-  const {
-    data: authUser
-  } = usePanoptesAuthUser(authClient)
 
   // fetch user
   const {
@@ -36,9 +31,8 @@ function UserStatsContainer({
     error: userError,
     isLoading: userLoading
   } = usePanoptesUser({
-    authClient,
+    adminMode,
     authUser,
-    authUserId: authUser?.id,
     login
   })
   
@@ -52,8 +46,6 @@ function UserStatsContainer({
     error: statsError,
     isLoading: statsLoading
   } = useStats({
-    authClient,
-    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: user?.id,
     query: allProjectsStatsQuery
@@ -69,8 +61,6 @@ function UserStatsContainer({
     error: projectStatsError,
     isLoading: projectStatsLoading
   } = useStats({
-    authClient,
-    authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
     sourceId: user?.id,
     query: projectStatsQuery
@@ -108,7 +98,10 @@ function UserStatsContainer({
 }
 
 UserStatsContainer.propTypes = {
-  authClient: object,
+  adminMode: bool,
+  authUser: shape({
+    id: string
+  }),
   login: string
 }
 

@@ -1,13 +1,15 @@
-'use client'
+import GroupStatsContainer from './GroupStatsContainer'
 
-import { GroupStats } from '@zooniverse/user'
-import auth from 'panoptes-client/lib/auth'
+export const metadata = {
+  title: 'Group Stats',
+  description: 'Zooniverse group stats page'
+}
 
-export default function GroupPage({ params }) {
+export default function GroupPage({ params, searchParams }) {
   return (
-    <GroupStats
-      authClient={auth}
+    <GroupStatsContainer
       groupId={params.groupId}
+      joinToken={searchParams.join_token}
     />
   )
 }

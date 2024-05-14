@@ -16,11 +16,12 @@ function getQueryParams() {
   return {}
 }
 
-const { groups, users } = getQueryParams()
+const { groups, join_token, users } = getQueryParams()
 const root = createRoot(document.getElementById('root'))
 root.render(
   <App
     groups={groups}
+    joinToken={join_token}
     users={users}
   />
 )

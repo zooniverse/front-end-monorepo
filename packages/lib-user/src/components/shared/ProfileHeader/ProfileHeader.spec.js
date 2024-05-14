@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
 
 import { USER, USER_GROUPS } from '../../../../test/mocks/panoptes'
 
