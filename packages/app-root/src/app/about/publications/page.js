@@ -16,13 +16,19 @@ export const metadata = {
 }
 
 // This route is static, so the output of the request will be cached and revalidated as part of the route segment.
+// Note that project avatars will display only when PANOPTES_ENV=production
 async function createPublicationsResponse() {
   if (client) {
-    const publications = await getPublicationsData()
-    const projectIds = getUniqueProjectIds(publications)
-    const projectAvatars = await getProjectAvatars(projectIds)
-    const projectAvatarsMap = createProjectAvatarsMap(projectAvatars)
-    return buildResponse(publications, projectAvatarsMap)
+    try {
+      const publications = await getPublicationsData()
+      const projectIds = getUniqueProjectIds(publications)
+      const projectAvatars = await getProjectAvatars(projectIds)
+      const projectAvatarsMap = createProjectAvatarsMap(projectAvatars)
+      return buildResponse(publications, projectAvatarsMap)
+    } catch (error) {
+      console.error(error)
+      return mockResponse
+    }
   } else {
     return mockResponse
   }
@@ -35,14 +41,14 @@ export default async function PublicationsPage() {
 
   // For rendering linked h2's
   publicationsData?.forEach(
-    category =>
-      (category.slug = category.title.toLowerCase().replaceAll(' ', '-'))
+    discipline =>
+      (discipline.slug = discipline.title?.toLowerCase().replaceAll(' ', '-'))
   )
 
   // For building the sidebar
-  const sections = publicationsData?.map(category => ({
-    name: category.title,
-    slug: category.title.toLowerCase().replaceAll(' ', '-')
+  const sections = publicationsData?.map(discipline => ({
+    name: discipline.title,
+    slug: discipline.title?.toLowerCase().replaceAll(' ', '-')
   }))
 
   return (

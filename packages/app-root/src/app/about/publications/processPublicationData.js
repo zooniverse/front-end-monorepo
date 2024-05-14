@@ -15,7 +15,11 @@ function pluckId(project) {
   return get(project, 'fields.projectId')
 }
 
-export async function getPublicationsData(skip = 0, limit = 100, accumulator = []) {
+export async function getPublicationsData(
+  skip = 0,
+  limit = 100,
+  accumulator = []
+) {
   const data = await client.getEntries({
     content_type: 'publication',
     include: 2,
@@ -39,8 +43,7 @@ export async function getProjectAvatars(
   limit = 100,
   accumulator = []
 ) {
-  const data = await projects
-    .get({
+  const data = await projects.get({
       query: {
         cards: true,
         id: projectIds.join(','),
@@ -80,7 +83,7 @@ export function buildResponse(publications, projectAvatarsMap) {
 
     const publicationData = {
       title: publication.fields.title,
-      url: publication.fields.url,
+      url: publication.fields.url
     }
 
     if (publication.fields.authors) {
@@ -101,7 +104,7 @@ export function buildResponse(publications, projectAvatarsMap) {
       const projectCard = projectAvatarsMap[project.fields.projectId]
 
       const projectData = {
-        title: project.fields.title,
+        title: project.fields.title
       }
 
       if (project.fields.projectId) {
@@ -121,7 +124,7 @@ export function buildResponse(publications, projectAvatarsMap) {
 
         const categoryData = {
           title: category.fields.title,
-          weight: category.fields.weight,
+          weight: category.fields.weight
         }
 
         if (!acc[categoryData.title]) {
@@ -138,21 +141,21 @@ export function buildResponse(publications, projectAvatarsMap) {
           }
         }
 
-        acc[categoryData.title].projects[projectData.title].publications.push(publicationData)
+        acc[categoryData.title].projects[projectData.title].publications.push(
+          publicationData
+        )
       })
     })
-
 
     return acc
   }, {})
 
   // We used objects to build the list in order to avoid lots of array searches;
   // here we convert any objects back to arrays for ease of display.
-  const publicationsArray = Object.values(publicationsObject)
-    .map(category => ({
-      ...category,
-      projects: Object.values(category.projects)
-    }))
+  const publicationsArray = Object.values(publicationsObject).map(category => ({
+    ...category,
+    projects: Object.values(category.projects)
+  }))
 
   // We sort the categories by ascending weight
   publicationsArray.sort((a, b) => a.weight - b.weight)
