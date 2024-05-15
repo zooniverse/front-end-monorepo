@@ -61,9 +61,10 @@ function GroupStatsContainer({
   })
   let membership = null
   let role = null
-  if (membershipsData) {
-    membership = membershipsData?.memberships?.[0]?.state === 'active' ? membershipsData?.memberships?.[0] : null
-    role = membership?.roles?.[0]
+  if (adminMode) {
+    role = 'group_admin'
+  } else if (membershipsData) {
+    role = membershipsData?.memberships?.[0]?.roles?.[0]
   }
   
   useEffect(function handleJoinGroup() {
