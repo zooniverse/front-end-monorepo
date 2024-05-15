@@ -1,6 +1,6 @@
 'use client'
 
-import { bool, shape, string } from 'prop-types'
+import { shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -19,7 +19,6 @@ import GroupForm from './components/GroupForm'
 import GroupModal from './components/GroupModal'
 
 function MyGroupsContainer({
-  adminMode,
   authUser,
   login
 }) {
@@ -30,7 +29,6 @@ function MyGroupsContainer({
     error: userError,
     isLoading: userLoading
   } = usePanoptesUser({
-    adminMode,
     authUser,
     login
   })
@@ -81,7 +79,6 @@ function MyGroupsContainer({
 }
 
 MyGroupsContainer.propTypes = {
-  adminMode: bool,
   authUser: shape({
     id: string
   }),

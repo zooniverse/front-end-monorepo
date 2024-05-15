@@ -57,15 +57,11 @@ async function fetchPanoptesUser({ authUser, id, login }) {
   return null
 }
 
-export function usePanoptesUser({ adminMode, authUser, login, userIds }) {
+export function usePanoptesUser({ authUser, login, userIds }) {
   let key = null
   
   if (login) {
-    if (login === authUser?.login) {
-      key = { authUser, login }
-    } else if (adminMode) {
-      key = { authUser, login }
-    }
+    key = { authUser, login }
   }
   
   if (userIds) {
