@@ -1,7 +1,7 @@
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import { Grid } from 'grommet'
-import { Link, SettingsOption } from 'grommet-icons'
-import { func, object, shape, string } from 'prop-types'
+import { Layer, Link, SettingsOption, SubtractCircle } from 'grommet-icons'
+import { func, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -41,7 +41,8 @@ function GroupStats({
   group = DEFAULT_GROUP,
   handleGroupDelete = DEFAULT_HANDLER,
   handleGroupUpdate = DEFAULT_HANDLER,
-  login = ''
+  login = '',
+  role = null
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
@@ -112,38 +113,72 @@ function GroupStats({
       .slice(0, 6)
   }
 
-  const PrimaryHeaderItem = login ? (
-    <HeaderLink
-      href={`https://www.zooniverse.org/users/${login}`}
-      label='back to profile'
-      primaryItem={true}
-    />
-  ) : (
-    <HeaderLink
-      href='https://www.zooniverse.org/projects'
-      label='back to projects'
-      primaryItem={true}
-    />
-  )
+  // Set header items based on user role and group visibility
+  const publicGroup = group.stats_visibility.slice(0, 6) === 'public'
+  const PrimaryHeaderItem = (!role && publicGroup) ? (
+      <HeaderToast
+        icon={<Layer color='white' size='small' />}
+        label='Share Group'
+        message='Group Link Copied!'
+        primaryItem={true}
+        textToCopy={`zooniverse.org/groups/${group.id}`}
+      />
+    ) : (
+      <HeaderLink
+        href={`https://www.zooniverse.org/users/${login}`}
+        label='back to profile'
+        primaryItem={true}
+      />
+    )
+  let secondaryHeaderItems = []
+  if (role === 'group_member') {
+    secondaryHeaderItems.push(
+      <HeaderButton
+        key='leave-group-button'
+        icon={<SubtractCircle color='white' size='small' />}
+        label='Leave Group'
+        onClick={() => alert('Coming soon!')}
+      />
+    )
+    if (publicGroup) secondaryHeaderItems.push(
+      <HeaderToast
+        key='share-group-toast'
+        icon={<Layer color='white' size='small' />}
+        label='Share Group'
+        message='Group Link Copied!'
+        textToCopy={`zooniverse.org/groups/${group.id}`}
+      />
+    )
+  }
+  if (role === 'group_admin') {
+    secondaryHeaderItems = secondaryHeaderItems.concat([
+      <HeaderToast
+        key='copy-join-link-toast'
+        icon={<Link color='white' size='small' />}
+        label='Copy Join Link'
+        message='Join Link Copied!'
+        textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
+      />,
+      <HeaderToast
+        key='share-group-toast'
+        icon={<Layer color='white' size='small' />}
+        label='Share Group'
+        message='Group Link Copied!'
+        textToCopy={`zooniverse.org/groups/${group.id}`}
+      />,
+      <HeaderButton
+        key='manage-group-button'
+        icon={<SettingsOption color='white' size='small' />}
+        label='Manage Group'
+        onClick={() => alert('Coming soon!')}
+      />
+    ])
+  }
 
   return (
     <Layout
       primaryHeaderItem={PrimaryHeaderItem}
-      secondaryHeaderItems={[
-        <HeaderToast
-          key='copy-join-link-toast'
-          icon={<Link color='white' size='small' />}
-          label='Copy Join Link'
-          message='Join Link Copied!'
-          textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
-        />,
-        <HeaderButton
-          key='manage-group-button'
-          icon={<SettingsOption color='white' size='small' />}
-          label='Manage Group'
-          onClick={() => alert('Coming soon!')}
-        />
-      ]}
+      secondaryHeaderItems={secondaryHeaderItems}
     >
       <MainContent
         handleDateRangeSelect={handleDateRangeSelect}
@@ -211,7 +246,8 @@ GroupStats.propTypes = {
   }),
   handleGroupDelete: func,
   handleGroupUpdate: func,
-  login: string
+  login: string,
+  role: string
 }
 
 export default GroupStats

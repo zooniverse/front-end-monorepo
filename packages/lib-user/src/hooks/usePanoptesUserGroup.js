@@ -26,8 +26,8 @@ async function fetchPanoptesUserGroup({ groupId }) {
   }
 }
 
-export function usePanoptesUserGroup({ authUserId, groupId, joinStatus }) {
+export function usePanoptesUserGroup({ adminMode, authUserId, groupId, joinStatus }) {
   const isJoinStatusValid = joinStatus === null || joinStatus === asyncStates.success
-  const key = groupId && isJoinStatusValid ? { authUserId, groupId, joinStatus } : null;
+  const key = groupId && isJoinStatusValid ? { adminMode, authUserId, groupId, joinStatus } : null;
   return useSWR(key, fetchPanoptesUserGroup, SWRoptions)
 }

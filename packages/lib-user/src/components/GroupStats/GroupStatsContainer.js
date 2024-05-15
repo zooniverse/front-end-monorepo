@@ -42,6 +42,7 @@ function GroupStatsContainer({
     error: groupError,
     isLoading: groupLoading
   } = usePanoptesUserGroup({
+    adminMode,
     authUserId: authUser?.id,
     groupId,
     joinStatus
@@ -62,7 +63,9 @@ function GroupStatsContainer({
     }
   })
   let role = null
-  if (membershipsData) {
+  if (adminMode) {
+    role = 'group_admin'
+  } else if (membershipsData) {
     role = membershipsData?.memberships?.[0]?.roles?.[0]
   }
   
@@ -141,6 +144,7 @@ function GroupStatsContainer({
           handleGroupDelete={handleGroupDelete}
           handleGroupUpdate={handleGroupUpdate}
           login={authUser?.login}
+          role={role}
         />
       )}
     </>
