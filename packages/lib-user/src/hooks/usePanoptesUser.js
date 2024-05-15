@@ -41,12 +41,8 @@ async function fetchPanoptesUser({ authUser, login }) {
   return panoptesUser
 }
 
-export function usePanoptesUser({ adminMode, authUser, login }) {
-  const key = (
-      (login === authUser?.login) // user viewing their own stats page
-      || (login && adminMode) // admin viewing a user's stats page
-    ) 
-    ? { authUser, login }
-    : null
+export function usePanoptesUser({ authUser, login }) {
+  const key = authUser && login ? { authUser, login } : null
+
   return useSWR(key, fetchPanoptesUser, SWRoptions)
 }

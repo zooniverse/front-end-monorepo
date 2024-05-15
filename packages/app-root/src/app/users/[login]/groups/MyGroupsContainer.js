@@ -4,18 +4,25 @@ import { MyGroups } from '@zooniverse/user'
 import { useContext } from 'react'
 
 import { PanoptesAuthContext } from '../../../../contexts'
+import AuthenticatedUsersPageContainer from '../components/AuthenticatedUsersPageContainer'
 
 function MyGroupsContainer({
   login
 }) {
-  const { adminMode, user } = useContext(PanoptesAuthContext)
+  const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
 
   return (
-    <MyGroups
-      adminMode={adminMode}  
-      authUser={user}
+    <AuthenticatedUsersPageContainer
+      adminMode={adminMode}
+      isLoading={isLoading}
       login={login}
-    />
+      user={user}
+    >
+      <MyGroups
+        authUser={user}
+        login={login}
+      />
+    </AuthenticatedUsersPageContainer>
   )
 }
 
