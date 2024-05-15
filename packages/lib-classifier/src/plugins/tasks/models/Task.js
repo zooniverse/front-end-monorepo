@@ -7,10 +7,22 @@ const Task = types.model('Task', {
   annotation: types.safeReference(Annotation),
   details: types.maybe(types.array(types.frozen())),
   taskKey: types.identifier,
-  required: types.maybe(types.union(types.string, types.boolean)), // text task required default = false
+  required: types.optional(types.boolean, false), // text task required default = false
   strings: types.map(types.string),
   type: types.literal('default')
 })
+  .preProcessSnapshot(snapshot => {
+    if (typeof snapshot.required !== 'boolean') {
+      const newSnapshot = { ...snapshot }
+      // 'false' is a true value.
+      if (snapshot.required === 'false') {
+        newSnapshot.required = false
+      }
+      newSnapshot.required = Boolean(newSnapshot.required)
+      return newSnapshot
+    }
+    return snapshot
+  })
   .views(self => ({
 
     defaultAnnotation(id = cuid()) {

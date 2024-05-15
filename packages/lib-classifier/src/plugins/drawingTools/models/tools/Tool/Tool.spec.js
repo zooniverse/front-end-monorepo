@@ -22,7 +22,7 @@ describe('Model > DrawingTools > Tool', function () {
       {
         type: 'multiple',
         answers: ['apples', 'oranges', 'pears'],
-        required: '',
+        required: false,
         strings: {
           question: 'which fruit?'
         }
@@ -30,14 +30,14 @@ describe('Model > DrawingTools > Tool', function () {
       {
         type: 'single',
         answers: ['one', 'two', 'three'],
-        required: '',
+        required: false,
         strings: {
           question: 'how many?'
         }
       },
       {
         type: 'text',
-        required: '',
+        required: false,
         strings: {
           instruction: 'Transcribe something'
         }
@@ -94,7 +94,7 @@ describe('Model > DrawingTools > Tool', function () {
             taskKey: 'multiple',
             type: 'multiple',
             answers: ['apples', 'oranges', 'pears'],
-            required: '',
+            required: false,
             strings: {
               question: 'which fruit?'
             }
@@ -103,7 +103,7 @@ describe('Model > DrawingTools > Tool', function () {
             taskKey: 'single',
             type: 'single',
             answers: ['one', 'two', 'three'],
-            required: '',
+            required: false,
             strings: {
               question: 'how many?'
             }
@@ -111,7 +111,7 @@ describe('Model > DrawingTools > Tool', function () {
           {
             taskKey: 'text',
             type: 'text',
-            required: '',
+            required: false,
             strings: {
               instruction: 'Transcribe something'
             },
