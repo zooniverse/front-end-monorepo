@@ -18,7 +18,11 @@ if (isBrowser) {
 }
 
 async function fetchPanoptesUserGroup({ groupId }) {
-  const token = await auth.checkBearerToken()
+  let token = await auth.checkBearerToken()
+  if (!token) {
+    await auth.checkCurrent()
+    token = await auth.checkBearerToken()
+  }
   const authorization = `Bearer ${token}`
 
   const endpoint = `/user_groups/${groupId}`
