@@ -1,7 +1,7 @@
 import { projects as panoptesProjects } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
-const SWRoptions = {
+const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
@@ -48,5 +48,5 @@ export function usePanoptesProjects(projectIds) {
     const id = projectIds.join(',')
     key = id
   }
-  return useSWR(key, fetchProjects, SWRoptions)
+  return useSWR(key, fetchProjects, SWROptions)
 }
