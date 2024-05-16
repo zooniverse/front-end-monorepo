@@ -20,7 +20,7 @@ import {
 } from '@components/shared'
 
 import getHeaderItems from './helpers/getHeaderItems'
-import MemberCard from './components/MemberCard'
+import TopContributors from './components/TopContributors'
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
 
@@ -78,13 +78,6 @@ function GroupStats({
   } = usePanoptesUser({
     authUser,
     userIds: topContributorsIds
-  })
-  const topContributorsWithStats = topContributors?.map(user => {
-    const userStats = stats?.top_contributors?.find(topUser => topUser.user_id.toString() === user.id)
-    return {
-      classifications: userStats?.count,
-      ...user
-    }
   })
   
   // fetch projects
@@ -145,53 +138,10 @@ function GroupStats({
         columns='1/2'
         gap='30px'
       >
-        <ContentBox
-          title='Top Contributors'
-        >
-        <Grid
-          columns={[ 'auto', 'auto' ]}
-          gap='small'
-          rows={['repeat(5, auto)']}
-          style={{ gridAutoFlow: 'column' }}
-        >
-          {topContributorsWithStats?.length ? (
-            topContributorsWithStats.map((user) => (
-              <MemberCard
-                key={`MemberCard-${user?.id}`}
-                avatar={user?.avatar_src}
-                classifications={user?.classifications}
-                displayName={user?.display_name}
-                login={user?.login}
-              />
-            ))
-          ) : null}
-        </Grid>
-        </ContentBox>
-        <ContentBox
-          linkLabel='See more'
-          linkProps={{ href: 'https://www.zooniverse.org/projects' }}
-          title='Top Projects'
-          width='625px'
-        >
-          <Grid
-            justify='center'
-            columns='1/3'
-            gap='small'
-          >
-            {topProjects.map(topProject => {
-              return (
-                <ProjectCard
-                  key={topProject?.id}
-                  description={topProject?.description}
-                  displayName={topProject?.display_name}
-                  href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
-                  imageSrc={topProject?.avatar_src}
-                  size='small'
-                />
-              )
-            })}
-          </Grid>
-        </ContentBox>
+        <TopContributors
+          stats={stats}
+          topContributors={topContributors}
+        />
       </Grid>
       <EditGroup
         group={group}
