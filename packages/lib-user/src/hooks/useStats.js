@@ -4,12 +4,18 @@ import useSWR from 'swr'
 
 const defaultEndpoint = '/classifications/users'
 
+const isBrowser = typeof window !== 'undefined'
+
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
+}
+
+if (isBrowser) {
+  auth.checkCurrent()
 }
 
 function statsHost(env) {

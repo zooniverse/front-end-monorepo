@@ -1,11 +1,12 @@
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import { Grid } from 'grommet'
 import { Link, SettingsOption } from 'grommet-icons'
-import { func, object, shape, string } from 'prop-types'
+import { func, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
   usePanoptesProjects,
+  usePanoptesUser,
   useStats
 } from '@hooks'
 
@@ -22,6 +23,7 @@ import {
   MainContent
 } from '@components/shared'
 
+import MemberCard from './components/MemberCard'
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
 
@@ -76,6 +78,27 @@ function GroupStats({
     sourceId: group?.id,
     query: projectStatsQuery
   })
+
+  // set stats based on selected project or all projects
+  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
+
+  // fetch topContributors
+  const topContributorsIds = stats?.top_contributors?.map(user => user.user_id)
+  const {
+    data: topContributors,
+    error: topContributorsError,
+    isLoading: topContributorsLoading
+  } = usePanoptesUser({
+    authUser,
+    userIds: topContributorsIds
+  })
+  const topContributorsWithStats = topContributors?.map(user => {
+    const userStats = stats?.top_contributors?.find(topUser => topUser.user_id.toString() === user.id)
+    return {
+      classifications: userStats?.count,
+      ...user
+    }
+  })
   
   // fetch projects
   const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
@@ -93,9 +116,6 @@ function GroupStats({
   function handleDateRangeSelect (dateRange) {
     setSelectedDateRange(dateRange.value)
   }
-
-  // set stats based on selected project or all projects
-  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   // set top projects based on selected date range and all project stats
   let topProjects = []
@@ -161,7 +181,24 @@ function GroupStats({
         <ContentBox
           title='Top Contributors'
         >
-          Top contributors go here.
+        <Grid
+          columns={[ 'auto', 'auto' ]}
+          gap='small'
+          rows={['repeat(5, auto)']}
+          style={{ gridAutoFlow: 'column' }}
+        >
+          {topContributorsWithStats?.length ? (
+            topContributorsWithStats.map((user) => (
+              <MemberCard
+                key={`MemberCard-${user?.id}`}
+                avatar={user?.avatar_src}
+                classifications={user?.classifications}
+                displayName={user?.display_name}
+                login={user?.login}
+              />
+            ))
+          ) : null}
+        </Grid>
         </ContentBox>
         <ContentBox
           linkLabel='See more'

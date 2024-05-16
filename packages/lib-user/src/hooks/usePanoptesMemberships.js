@@ -5,12 +5,18 @@ import useSWR from 'swr'
 
 const endpoint = '/memberships'
 
-const SWRoptions = {
+const isBrowser = typeof window !== 'undefined'
+
+const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
+}
+
+if (isBrowser) {
+  auth.checkCurrent()
 }
 
 async function fetchMemberships({ query }) {
@@ -31,5 +37,5 @@ export function usePanoptesMemberships({ authUserId, joinStatus = null, query })
   const joinStatusSuccess = joinStatus === asyncStates.success
 
   const key = query.user_id && authUserId ? { endpoint, query, joinStatusSuccess } : null
-  return useSWR(key, fetchMemberships, SWRoptions)
+  return useSWR(key, fetchMemberships, SWROptions)
 }
