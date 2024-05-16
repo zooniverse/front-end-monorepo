@@ -14,8 +14,8 @@ function parseFeedPost(post) {
     title: post.title, // string
     excerpt: post.excerpt, // string but text is wrapped in <p></p>
     created_at: new Date(post.date), // string such as '2024-02-02T15:00:00+00:00'
-    link: post.URL, // string
-    image: post.featured_image // ?? these are always '', might need to grab attached image instead
+    url: post.URL, // string
+    imageSrc: post.featured_image // ?? these are always '', might need to grab attached image instead
   }
 }
 
@@ -40,7 +40,7 @@ async function getBlogPosts() {
   try {
     const feeds = await Promise.all(BLOG_FEEDS.map(fetchBlogFeed))
     feeds.forEach(feed => {
-      posts = posts.concat(feed.slice(0, 3))
+      posts = posts.concat(feed.slice(0, 4))
     })
     return posts.map(parseFeedPost).sort((a, b) => b.created_at - a.created_at)
   } catch (error) {
