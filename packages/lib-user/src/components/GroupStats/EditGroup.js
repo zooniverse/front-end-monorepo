@@ -26,7 +26,7 @@ function EditGroup({ group, handleGroupUpdate }) {
       stats_visibility: groupStatsVisibility
     }
 
-    handleGroupUpdate(data)
+    handleGroupUpdate({ groupId: group?.id, data })
   }
 
   return (

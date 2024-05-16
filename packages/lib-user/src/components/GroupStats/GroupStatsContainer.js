@@ -38,7 +38,7 @@ function GroupStatsContainer({
 
   // fetch user_group
   const {
-    data,
+    data: group,
     error: groupError,
     isLoading: groupLoading
   } = usePanoptesUserGroup({
@@ -47,7 +47,6 @@ function GroupStatsContainer({
     groupId,
     joinStatus
   })
-  const group = data?.body?.user_groups?.[0]
 
   // fetch user_group membership
   const {
@@ -104,21 +103,26 @@ function GroupStatsContainer({
     role
   ])
 
-  async function handleGroupDelete() {
+  async function handleGroupDelete({ groupId }) {
     try {
-      const deleteResponse = await deletePanoptesUserGroup({ groupId, etag: data.headers.etag })
+      const deleteResponse = await deletePanoptesUserGroup({ groupId })
       console.log('deleteResponse', deleteResponse)
-      window.location.href =  '?users=[login]/groups'
+      // window.location.href = `https://www.zooniverse.org/users/${authUser?.login}`
     } catch (error) {
       console.error(error)
     }
   }
 
-  async function handleGroupUpdate(updates) {
+  async function handleGroupUpdate({ groupId, data }) {
     try {
-      const updatedGroup = await updatePanoptesUserGroup({ data: updates, etag: data.headers.etag, id: groupId })
+      const updatedGroup = await updatePanoptesUserGroup({ groupId, data })
       console.log('updatedGroup', updatedGroup)
-      window.location.reload()
+      // window.location.reload()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
     } catch (error) {
       console.error(error)
     }

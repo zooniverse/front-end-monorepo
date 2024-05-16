@@ -18,8 +18,10 @@ async function fetchPanoptesUserGroup({ groupId }) {
   const endpoint = `/user_groups/${groupId}`
   
   try {
-    const response = await panoptes.get(endpoint, {}, { authorization })
-    return response
+    const { body } = await panoptes.get(endpoint, {}, { authorization })
+    const { user_groups } = body
+    const user_group = user_groups?.[0]
+    return user_group
   } catch (error) {
     console.log(error)
     return null
