@@ -62,7 +62,7 @@ function GroupStatsContainer({
   let membership = null
   let role = null
   if (membershipsData) {
-    membership = membershipsData?.memberships?.[0].state === 'active' ? membershipsData?.memberships?.[0] : null
+    membership = membershipsData?.memberships?.[0]?.state === 'active' ? membershipsData?.memberships?.[0] : null
     role = membership?.roles?.[0]
   }
   
