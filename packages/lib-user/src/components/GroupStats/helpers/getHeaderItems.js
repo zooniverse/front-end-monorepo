@@ -42,7 +42,7 @@ function getHeaderItems({
         label='Share Group'
         message='Group Link Copied!'
         primaryItem={true}
-        textToCopy={`zooniverse.org/groups/${group.id}`}
+        textToCopy={`https://www.zooniverse.org/groups/${group.id}`}
       />
     )
   } else {
@@ -74,7 +74,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`zooniverse.org/groups/${group.id}`}
+        textToCopy={`https://www.zooniverse.org/groups/${group.id}`}
       />
     )
   }
@@ -93,7 +93,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`zooniverse.org/groups/${group.id}`}
+        textToCopy={`https://www.zooniverse.org/groups/${group.id}`}
       />,
       <HeaderButton
         key='manage-group-button'

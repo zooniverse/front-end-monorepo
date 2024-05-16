@@ -9,7 +9,13 @@ function GroupStatsContainer({
   groupId,
   joinToken
 }) {
-  const { adminMode, user } = useContext(PanoptesAuthContext)
+  const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+
+  if (typeof window === 'undefined' || isLoading) {
+    return (
+      <p>Loading...</p>
+    )
+  }
   
   return (
     <GroupStats
