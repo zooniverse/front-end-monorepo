@@ -148,7 +148,7 @@ function App({
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <main>
+      <div>
         <AuthModal
           activeIndex={activeIndex}
           closeModal={closeAuthModal}
@@ -181,7 +181,7 @@ function App({
             {content}
           </div>
         )}
-      </main>
+      </div>
     </Grommet>
   )
 }
