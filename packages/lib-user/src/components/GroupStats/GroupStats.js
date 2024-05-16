@@ -1,4 +1,3 @@
-import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import { Grid } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
@@ -14,9 +13,9 @@ import {
 } from '@utils'
 
 import {
-  ContentBox,
   Layout,
-  MainContent
+  MainContent,
+  TopProjects
 } from '@components/shared'
 
 import getHeaderItems from './helpers/getHeaderItems'
@@ -105,21 +104,6 @@ function GroupStats({
     membership
   })
 
-  // set top projects based on selected date range and all project stats
-  let topProjects = []
-  const topProjectContributions = allProjectsStats?.project_contributions
-    ?.sort((a, b) => b.count - a.count)
-
-  if (topProjectContributions?.length > 0) {
-    topProjects = topProjectContributions
-      ?.map(projectContribution => {
-        const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
-        return projectData
-      })
-      .filter(project => project)
-      .slice(0, 6)
-  }
-
   return (
     <Layout
       primaryHeaderItem={PrimaryHeaderItem}
@@ -141,6 +125,11 @@ function GroupStats({
         <TopContributors
           stats={stats}
           topContributors={topContributors}
+        />
+        <TopProjects
+          allProjectsStats={allProjectsStats}
+          grid={true}
+          projects={projects}
         />
       </Grid>
       <EditGroup

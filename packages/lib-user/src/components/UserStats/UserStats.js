@@ -4,9 +4,8 @@ import {
   HeaderLink,
   Layout,
   MainContent,
+  TopProjects
 } from '@components/shared'
-
-import TopProjects from './components/TopProjects'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_STATS = {
@@ -40,19 +39,6 @@ function UserStats({
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
-  // set top projects based on selected date range and all project stats
-  let topProjects = []
-  const topProjectContributions = allProjectsStats.project_contributions
-    ?.sort((a, b) => b.count - a.count)
-
-  topProjects = topProjectContributions
-    ?.map(projectContribution => {
-      const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
-      return projectData
-    })
-    .filter(project => project)
-    .slice(0, 5)
-
   return (
     <Layout
       primaryHeaderItem={
@@ -73,7 +59,8 @@ function UserStats({
         user={user}
       />
       <TopProjects
-        topProjects={topProjects}
+        allProjectsStats={allProjectsStats}
+        projects={projects}
       />
     </Layout>
   )

@@ -13,6 +13,7 @@ export { default as ProfileHeader } from './components/shared/ProfileHeader'
 export { default as Select } from './components/shared/Select'
 export { default as Tabs } from './components/shared/Tabs'
 export { default as TitledStat } from './components/shared/TitledStat'
+export { default as TopProjects } from './components/shared/TopProjects'
 
 // hooks
 export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'
