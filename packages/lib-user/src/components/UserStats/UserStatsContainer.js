@@ -1,6 +1,6 @@
 'use client'
 
-import { bool, shape, string } from 'prop-types'
+import { shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -18,7 +18,6 @@ import UserStats from './UserStats'
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
-  adminMode,
   authUser,
   login,
 }) {
@@ -31,7 +30,6 @@ function UserStatsContainer({
     error: userError,
     isLoading: userLoading
   } = usePanoptesUser({
-    adminMode,
     authUser,
     login
   })
@@ -98,7 +96,6 @@ function UserStatsContainer({
 }
 
 UserStatsContainer.propTypes = {
-  adminMode: bool,
   authUser: shape({
     id: string
   }),
