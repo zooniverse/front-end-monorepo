@@ -1,7 +1,6 @@
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import { Grid } from 'grommet'
-import { Layer, Link, SettingsOption, SubtractCircle } from 'grommet-icons'
-import { func, shape, string } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -10,39 +9,26 @@ import {
 } from '@hooks'
 
 import {
-  getDateInterval,
+  getDateInterval
 } from '@utils'
 
 import {
   ContentBox,
-  HeaderButton,
-  HeaderLink,
-  HeaderToast,
   Layout,
   MainContent
 } from '@components/shared'
 
+import getHeaderItems from './helpers/getHeaderItems'
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
-const DEFAULT_GROUP = {
-  display_name: '',
-  id: ''
-}
-const DEFAULT_HANDLER = () => true
-const DEFAULT_USER = {
-  id: ''
-}
-
 function GroupStats({
-  authUser = DEFAULT_USER,
-  group = DEFAULT_GROUP,
-  handleGroupDelete = DEFAULT_HANDLER,
-  handleGroupUpdate = DEFAULT_HANDLER,
-  login = '',
-  role = null
+  adminMode,
+  authUser,
+  group,
+  membership
 }) {
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
@@ -95,6 +81,14 @@ function GroupStats({
     setSelectedDateRange(dateRange.value)
   }
 
+  // get header items based on user, group, and membership
+  const { PrimaryHeaderItem, secondaryHeaderItems } = getHeaderItems({
+    adminMode,
+    authUser,
+    group,
+    membership
+  })
+  
   // set stats based on selected project or all projects
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
@@ -113,67 +107,6 @@ function GroupStats({
       .slice(0, 6)
   }
 
-  // Set header items based on user role and group visibility
-  const publicGroup = group.stats_visibility.slice(0, 6) === 'public'
-  const PrimaryHeaderItem = (!role && publicGroup) ? (
-      <HeaderToast
-        icon={<Layer color='white' size='small' />}
-        label='Share Group'
-        message='Group Link Copied!'
-        primaryItem={true}
-        textToCopy={`zooniverse.org/groups/${group.id}`}
-      />
-    ) : (
-      <HeaderLink
-        href={`https://www.zooniverse.org/users/${login}`}
-        label='back to profile'
-        primaryItem={true}
-      />
-    )
-  let secondaryHeaderItems = []
-  if (role === 'group_member') {
-    secondaryHeaderItems.push(
-      <HeaderButton
-        key='leave-group-button'
-        icon={<SubtractCircle color='white' size='small' />}
-        label='Leave Group'
-        onClick={() => alert('Coming soon!')}
-      />
-    )
-    if (publicGroup) secondaryHeaderItems.push(
-      <HeaderToast
-        key='share-group-toast'
-        icon={<Layer color='white' size='small' />}
-        label='Share Group'
-        message='Group Link Copied!'
-        textToCopy={`zooniverse.org/groups/${group.id}`}
-      />
-    )
-  }
-  if (role === 'group_admin') {
-    secondaryHeaderItems = secondaryHeaderItems.concat([
-      <HeaderToast
-        key='copy-join-link-toast'
-        icon={<Link color='white' size='small' />}
-        label='Copy Join Link'
-        message='Join Link Copied!'
-        textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
-      />,
-      <HeaderToast
-        key='share-group-toast'
-        icon={<Layer color='white' size='small' />}
-        label='Share Group'
-        message='Group Link Copied!'
-        textToCopy={`zooniverse.org/groups/${group.id}`}
-      />,
-      <HeaderButton
-        key='manage-group-button'
-        icon={<SettingsOption color='white' size='small' />}
-        label='Manage Group'
-        onClick={() => alert('Coming soon!')}
-      />
-    ])
-  }
 
   return (
     <Layout
@@ -226,17 +159,17 @@ function GroupStats({
       </Grid>
       <EditGroup
         group={group}
-        handleGroupUpdate={handleGroupUpdate}
       />
       <hr />
-      <DeleteGroup
-        handleGroupDelete={handleGroupDelete}
+      <DeleteGroup 
+        groupId={group?.id}
       />
     </Layout>
   )
 }
 
 GroupStats.propTypes = {
+  adminMode: bool,
   authUser: shape({
     id: string
   }),
@@ -244,10 +177,10 @@ GroupStats.propTypes = {
     display_name: string,
     id: string
   }),
-  handleGroupDelete: func,
-  handleGroupUpdate: func,
-  login: string,
-  role: string
+  membership: shape({
+    id: string,
+    roles: arrayOf(string)
+  })
 }
 
 export default GroupStats

@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-function EditGroup({ group, handleGroupUpdate }) {
+import {
+  updatePanoptesUserGroup
+} from '@utils'
+
+function EditGroup({ group }) {
   const [displayName, setDisplayName] = useState('')
   const [privateGroup, setPrivate] = useState(true)
   const [statsVisibility, setStatsVisibility] = useState('')
@@ -12,6 +16,16 @@ function EditGroup({ group, handleGroupUpdate }) {
     setPrivate(group?.stats_visibility.startsWith('private'))
     setStatsVisibility(group?.stats_visibility || '')
   }, [group])
+
+  async function handleGroupUpdate({ groupId, data }) {
+    try {
+      const updatedGroup = await updatePanoptesUserGroup({ groupId, data })
+      console.log('updatedGroup', updatedGroup)
+      // window.location.reload()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   function handleSubmit(event) {
     event.preventDefault()

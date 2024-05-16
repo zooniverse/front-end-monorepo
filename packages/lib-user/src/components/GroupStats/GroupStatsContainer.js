@@ -11,9 +11,7 @@ import {
 } from '@hooks'
 
 import {
-  createPanoptesMembership,
-  deletePanoptesUserGroup,
-  updatePanoptesUserGroup
+  createPanoptesMembership
 } from '@utils'
 
 import { getUserGroupStatus } from './helpers/getUserGroupStatus'
@@ -61,11 +59,11 @@ function GroupStatsContainer({
       user_id: authUser?.id
     }
   })
+  let membership = null
   let role = null
-  if (adminMode) {
-    role = 'group_admin'
-  } else if (membershipsData) {
-    role = membershipsData?.memberships?.[0]?.roles?.[0]
+  if (membershipsData) {
+    membership = membershipsData?.memberships?.[0].state === 'active' ? membershipsData?.memberships?.[0] : null
+    role = membership?.roles?.[0]
   }
   
   useEffect(function handleJoinGroup() {
@@ -103,31 +101,6 @@ function GroupStatsContainer({
     role
   ])
 
-  async function handleGroupDelete({ groupId }) {
-    try {
-      const deleteResponse = await deletePanoptesUserGroup({ groupId })
-      console.log('deleteResponse', deleteResponse)
-      // window.location.href = `https://www.zooniverse.org/users/${authUser?.login}`
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async function handleGroupUpdate({ groupId, data }) {
-    try {
-      const updatedGroup = await updatePanoptesUserGroup({ groupId, data })
-      console.log('updatedGroup', updatedGroup)
-      // window.location.reload()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
-   
   const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken })
 
   return (
@@ -143,12 +116,10 @@ function GroupStatsContainer({
       )}
       {status ? (<div>{status}</div>) : (
         <GroupStats
+          adminMode={adminMode}
           authUser={authUser}
           group={group}
-          handleGroupDelete={handleGroupDelete}
-          handleGroupUpdate={handleGroupUpdate}
-          login={authUser?.login}
-          role={role}
+          membership={membership}
         />
       )}
     </>
