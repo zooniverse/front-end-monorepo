@@ -13,13 +13,14 @@ const Task = types.model('Task', {
 })
   .preProcessSnapshot(snapshot => {
     if (typeof snapshot.required !== 'boolean') {
-      const newSnapshot = { ...snapshot }
-      // 'false' is a true value.
-      if (snapshot.required === 'false') {
-        newSnapshot.required = false
+      // 'false' is a true value, so handle that here
+      const required = (snapshot.required === 'false')
+        ? false
+        : Boolean(snapshot.required)
+      return {
+        ...snapshot,
+        required
       }
-      newSnapshot.required = Boolean(newSnapshot.required)
-      return newSnapshot
     }
     return snapshot
   })
