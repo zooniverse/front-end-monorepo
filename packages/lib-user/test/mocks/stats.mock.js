@@ -132,6 +132,40 @@ const STATS = {
       project_id: 5
     }
   ],
+  top_contributors: [
+    {
+      count: 123,
+      user_id: 12345
+    },
+    {
+      count: 234,
+      user_id: 54321
+    },
+    {
+      count: 345,
+      user_id: 67890
+    },
+    {
+      count: 456,
+      user_id: 23456
+    },
+    {
+      count: 567,
+      user_id: 34567
+    },
+    {
+      count: 678,
+      user_id: 45678
+    },
+    {
+      count: 789,
+      user_id: 56789
+    },
+    {
+      count: 890,
+      user_id: 99876
+    }
+  ],
   total_count: 1725,
   time_spent: 123456
 }

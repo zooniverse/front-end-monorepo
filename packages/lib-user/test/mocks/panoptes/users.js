@@ -26,7 +26,7 @@ export const GROUP_ADMIN_USER = {
   admin: false,
   avatar_src: '',
   display_name: 'Teacher User',
-  id: '09876',
+  id: '99876',
   login: 'TeacherUser'
 }
 
