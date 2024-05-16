@@ -111,9 +111,6 @@ function GroupStats({
     group,
     membership
   })
-  
-  // set stats based on selected project or all projects
-  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   // set top projects based on selected date range and all project stats
   let topProjects = []
