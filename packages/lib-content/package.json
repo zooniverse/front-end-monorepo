@@ -47,9 +47,9 @@
     "styled-components": "5.x.x"
   },
   "devDependencies": {
-    "@babel/register": "~7.23.7",
     "@babel/preset-env": "~7.23.2",
     "@babel/preset-react": "~7.24.1",
+    "@babel/register": "~7.23.7",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/nextjs": "~7.6.11",
