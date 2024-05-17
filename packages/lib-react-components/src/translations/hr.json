@@ -2,6 +2,9 @@
   "CloseButton": {
     "close": "Zatvori"
   },
+  "Loader": {
+    "loading": "(Učitava se)"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "O Zooniversu",

@@ -2,6 +2,9 @@
   "CloseButton": {
     "close": "סגור"
   },
+  "Loader": {
+    "loading": "(בטעינה)"
+  },
   "ZooFooter": {
     "buildLabels": {
       "tutorial": "הדרכה"

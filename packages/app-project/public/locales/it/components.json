@@ -11,9 +11,6 @@
   "Head": {
     "defaultTitle": "Progetti"
   },
-  "Loader": {
-    "loading": "(Caricamento in corso)"
-  },
   "ProjectHeader": {
     "about": "A proposito",
     "classify": "Classifica",

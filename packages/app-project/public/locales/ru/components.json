@@ -13,9 +13,6 @@
     "defaultTitle": "Проекты",
     "siteName": "Zooniverse"
   },
-  "Loader": {
-    "loading": "Идет загрузка"
-  },
   "ProjectHeader": {
     "about": "Узнать о",
     "classify": "Классифицировать",
