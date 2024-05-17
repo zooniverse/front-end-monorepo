@@ -32,7 +32,7 @@ function getHeaderItems({
     secondaryHeaderItems: []
   }
 
-  const publicGroup = group.stats_visibility.slice(0, 6) === 'public'
+  const publicGroup = group.stats_visibility.startsWith('public')
   const role = membership?.roles?.[0]
 
   if (!role && publicGroup) {
