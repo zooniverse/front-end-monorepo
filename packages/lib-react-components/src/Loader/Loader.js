@@ -60,8 +60,8 @@ function Loader({
 }
 
 Loader.propTypes = {
-  a11yTitle: string,
   height: string,
+  loadingMessage: string,
   width: string
 }
 
