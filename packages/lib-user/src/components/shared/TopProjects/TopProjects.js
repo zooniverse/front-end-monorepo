@@ -8,9 +8,11 @@ import { ContentBox } from '@components/shared'
 function CardsGrid({ children }) {
   return (
     <Grid
-      justify='center'
-      columns='1/3'
+      as='ul'
+      columns={['repeat(3, auto)']}
       gap='small'
+      rows={[ 'auto', 'auto' ]}
+      style={{ listStyle: 'none' }}
     >
       {children}
     </Grid>
@@ -24,10 +26,12 @@ CardsGrid.propTypes = {
 function CardsRow({ children }) {
   return (
     <Box
+      as='ul'
       direction='row'
       gap='small'
       pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
       overflow={{ horizontal: 'auto' }}
+      style={{ listStyle: 'none' }}
     >
       {children}
     </Box>
@@ -72,14 +76,15 @@ function TopProjects({
       <Container>
         {topProjects.map(topProject => {
           return (
-            <ProjectCard
-              key={topProject?.id}
-              description={topProject?.description}
-              displayName={topProject?.display_name}
-              href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
-              imageSrc={topProject?.avatar_src}
-              size={cardSize}
-            />
+            <li key={topProject?.id}>
+              <ProjectCard
+                description={topProject?.description}
+                displayName={topProject?.display_name}
+                href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
+                imageSrc={topProject?.avatar_src}
+                size={cardSize}
+              />
+            </li>
           )
         })}
       </Container>

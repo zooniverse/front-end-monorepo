@@ -25,20 +25,26 @@ function TopContributors({
       title='Top Contributors'
     >
       <Grid
+        as='ul'
         columns={[ 'auto', 'auto' ]}
         gap='small'
+        pad='none'
         rows={['repeat(5, auto)']}
-        style={{ gridAutoFlow: 'column' }}
+        style={{
+          gridAutoFlow: 'column',
+          listStyle: 'none'
+        }}
       >
         {topContributorsWithStats?.length ? (
           topContributorsWithStats.map((user) => (
-            <MemberCard
-              key={`MemberCard-${user?.id}`}
-              avatar={user?.avatar_src}
-              classifications={user?.classifications}
-              displayName={user?.display_name}
-              login={user?.login}
-            />
+            <li key={`MemberCard-${user?.id}`}>
+              <MemberCard
+                avatar={user?.avatar_src}
+                classifications={user?.classifications}
+                displayName={user?.display_name}
+                login={user?.login}
+              />
+            </li>
           ))
         ) : null}
       </Grid>
