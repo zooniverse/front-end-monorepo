@@ -1,6 +1,7 @@
 import { Box, Grid } from 'grommet'
 import { arrayOf, node, string } from 'prop-types'
 import { useEffect } from 'react'
+import styled from 'styled-components'
 import i18n, { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
@@ -10,6 +11,12 @@ import {
   LogoAndTagline,
   SocialAnchor
 } from './components'
+
+const StyledFooter = styled(Box)`
+  @media print {
+    display: none;
+  }
+`
 
 const defaultProps = {
   aboutNavListURLs: [
@@ -112,8 +119,8 @@ export default function ZooFooter({
   const talkNavListLabels = [t('ZooFooter.talkLabels.talk')]
 
   return (
-    <Box
-      as='footer'
+    <StyledFooter
+      forwardedAs='footer'
       background={{
         dark: 'dark-1',
         light: 'white'
@@ -191,7 +198,7 @@ export default function ZooFooter({
         />
         <Box>{hasMounted && adminContainer}</Box>
       </Box>
-    </Box>
+    </StyledFooter>
   )
 }
 

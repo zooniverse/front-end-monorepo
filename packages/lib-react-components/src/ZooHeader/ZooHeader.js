@@ -15,6 +15,10 @@ import ZooniverseLogo from '../ZooniverseLogo'
 export const StyledHeader = styled(Box)`
   color: #b2b2b2;
   font-size: 1em;
+
+  @media print {
+    display: none;
+  }
 `
 
 export const StyledLogoAnchor = styled(Anchor)`

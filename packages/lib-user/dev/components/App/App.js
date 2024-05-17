@@ -5,7 +5,12 @@ import auth from 'panoptes-client/lib/auth.js'
 import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { GroupStats, MyGroups, UserStats } from '@components'
+import {
+  GroupStats,
+  MyGroups,
+  UserStats,
+  Certificate
+} from '@components'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -70,7 +75,9 @@ function App({
               <li>
                 <a href={`./?users=${userSubpath}/stats`}>/stats - user stats page</a>
                 <ul>
-                  <li>/certificate - Volunteer Certificate</li>
+                  <li>
+                    <a href={`./?users=${userSubpath}/stats/certificate`}>/certificate - Volunteer Certificate</a>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -121,12 +128,16 @@ function App({
     if (login === '[login]') {
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
-      content = (
-        <UserStats
-          authUser={user}
-          login={login}
-        />
-      )
+      if (subpaths[2] === 'certificate') {
+        content = <Certificate />
+      } else {
+        content = (
+          <UserStats
+            authUser={user}
+            login={login}
+          />
+        )
+      }
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
