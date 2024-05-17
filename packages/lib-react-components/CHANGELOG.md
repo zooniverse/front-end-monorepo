@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] 2024
+## [1.13.0] 2024-05-17
 
 ### Added
 - Added a `bodyBackground` prop to Modal to allow for custom background colors.
