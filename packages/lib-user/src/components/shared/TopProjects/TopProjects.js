@@ -9,8 +9,9 @@ function CardsGrid({ children }) {
   return (
     <Grid
       as='ul'
-      columns={['repeat(3, auto)']}
-      gap='small'
+      columns={['1fr', '1fr', '1fr']}
+      gap='xsmall'
+      pad='none'
       rows={[ 'auto', 'auto' ]}
       style={{ listStyle: 'none' }}
     >
