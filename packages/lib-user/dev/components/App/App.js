@@ -159,7 +159,10 @@ function App({
             <a href='/'>lib-user - dev app</a>
           </p>
           {user ? (
-            <button onClick={onSignOut}>Sign Out</button>
+            <>
+              <span>{user?.login}</span>
+              <button onClick={onSignOut}>Sign Out</button>
+            </>
           ) : (
             <>
               <button onClick={openSignInModal}>Sign In</button>
