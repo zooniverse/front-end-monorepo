@@ -66,8 +66,8 @@ function MainContent ({
   return (
     <ContentBox
       direction='column'
-      gap='32px'
-      height='32rem'
+      gap='medium'
+      height={{ min: '32rem'}}
     >
       <ProfileHeader
         avatar={source?.avatar_src}
@@ -80,7 +80,7 @@ function MainContent ({
       <Tabs
         activeIndex={activeTab}
         flex
-        gap='16px'
+        gap='small'
         onActive={onActive}
         justify='start'
       >
