@@ -20,10 +20,9 @@ const DEFAULT_STATS = {
   time_spent: 0,
   total_count: 0
 }
-const DEFAULT_USER = {
-  avatar_src: '',
+const DEFAULT_SOURCE = {
+  id: '',
   display_name: '',
-  login: ''
 }
 
 function MainContent ({
@@ -33,7 +32,7 @@ function MainContent ({
   selectedDateRange = dateRanges.last7Days,
   selectedProject = 'AllProjects',
   stats = DEFAULT_STATS,
-  user = DEFAULT_USER
+  source = DEFAULT_SOURCE
 }) {
   const [activeTab, setActiveTab] = useState(0)
 
@@ -71,11 +70,11 @@ function MainContent ({
       height='32rem'
     >
       <ProfileHeader
-        avatar={user?.avatar_src}
+        avatar={source?.avatar_src}
         classifications={activeTab === 0 ? stats?.total_count : undefined}
-        displayName={user?.display_name}
+        displayName={source?.display_name}
         hours={activeTab === 1 ? hoursSpent : undefined}
-        login={user?.login}
+        login={source?.login}
         projects={selectedProject === 'AllProjects' ? projects?.length : 1}
       />
       <Tabs
@@ -120,15 +119,17 @@ function MainContent ({
           />
         </Box>
       </Tabs>
-      <Box
-        direction='row'
-        gap='16px'
-        justify='end'
-        margin={{ top: 'small'}}
-      >
-        <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
-        <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
-      </Box>
+      {source?.login ? (
+        <Box
+          direction='row'
+          gap='16px'
+          justify='end'
+          margin={{ top: 'small'}}
+        >
+          <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
+          <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
+        </Box>
+      ) : null}
     </ContentBox>
   )
 }
@@ -153,10 +154,8 @@ MainContent.propTypes = {
     time_spent: number,
     total_count: number
   }),
-  user: shape({
-    avatar_src: string,
-    display_name: string,
-    login: string
+  source: shape({
+    display_name: string
   })
 }
 

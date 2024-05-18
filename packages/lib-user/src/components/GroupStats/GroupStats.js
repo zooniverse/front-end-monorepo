@@ -116,7 +116,7 @@ function GroupStats({
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
         stats={stats}
-        user={group}
+        source={group}
       />
       <Grid
         columns='1/2'

@@ -56,7 +56,7 @@ function UserStats({
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
         stats={stats}
-        user={user}
+        source={user}
       />
       <TopProjects
         allProjectsStats={allProjectsStats}
