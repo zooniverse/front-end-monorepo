@@ -16,16 +16,18 @@ function DeleteGroup({ groupId }) {
   }
   
   return (
-    <button
-      onClick={(event) => {
-        event.preventDefault()
-        if (window.confirm('Are you sure you want to delete this group?')) {
-          handleGroupDelete({ groupId })
-        }
-      }}
-    >
-      Delete group
-    </button>
+    <div>
+      <button
+        onClick={(event) => {
+          event.preventDefault()
+          if (window.confirm('Are you sure you want to delete this group?')) {
+            handleGroupDelete({ groupId })
+          }
+        }}
+      >
+        Delete group
+      </button>
+    </div>
   )
 }
 

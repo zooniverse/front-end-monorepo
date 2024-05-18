@@ -34,9 +34,17 @@ function GroupStats({
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
+  const showTopContributors = adminMode 
+    || membership?.roles.includes('group_admin')
+    || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
+    || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
+    || group?.stats_visibility === 'public_show_all'
+
   // fetch all projects stats, used by projects select and top projects regardless of selected project
   const allProjectsStatsQuery = getDateInterval(selectedDateRange)
-  allProjectsStatsQuery.top_contributors = 10
+  if (showTopContributors) {
+    allProjectsStatsQuery.top_contributors = 10
+  }
   
   const {
     data: allProjectsStats,
@@ -52,7 +60,9 @@ function GroupStats({
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
-  projectStatsQuery.top_contributors = 10
+  if (showTopContributors) {
+    projectStatsQuery.top_contributors = 10
+  }
   
   const {
     data: projectStats,
@@ -69,7 +79,7 @@ function GroupStats({
   const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
 
   // fetch topContributors
-  const topContributorsIds = stats?.top_contributors?.map(user => user.user_id)
+  const topContributorsIds = showTopContributors ? stats?.top_contributors?.map(user => user.user_id) : null
   const {
     data: topContributors,
     error: topContributorsError,
@@ -118,27 +128,39 @@ function GroupStats({
         stats={stats}
         source={group}
       />
-      <Grid
-        columns='1/2'
-        gap='30px'
-      >
-        <TopContributors
-          stats={stats}
-          topContributors={topContributors}
-        />
+      {showTopContributors ? (
+        <Grid
+          columns='1/2'
+          gap='30px'
+        >
+          <TopContributors
+            stats={stats}
+            topContributors={topContributors}
+          />
+          <TopProjects
+            allProjectsStats={allProjectsStats}
+            grid={true}
+            projects={projects}
+          />
+        </Grid>
+      ) : (
         <TopProjects
           allProjectsStats={allProjectsStats}
-          grid={true}
+          grid={false}
           projects={projects}
         />
-      </Grid>
-      <EditGroup
-        group={group}
-      />
-      <hr />
-      <DeleteGroup 
-        groupId={group?.id}
-      />
+      )}
+      {(adminMode || membership?.roles.includes('group_admin')) ? (
+        <>
+          <EditGroup
+            group={group}
+          />
+          <hr />
+          <DeleteGroup 
+            groupId={group?.id}
+          />
+        </>
+      ) : null}
     </Layout>
   )
 }
