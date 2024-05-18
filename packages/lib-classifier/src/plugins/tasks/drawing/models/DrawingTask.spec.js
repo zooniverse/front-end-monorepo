@@ -2,6 +2,7 @@ import { applySnapshot, getSnapshot, types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/drawing'
 import SHOWN_MARKS from '@helpers/shownMarks'
 import sinon from 'sinon'
+import { expect } from 'chai'
 
 describe('Model > DrawingTask', function () {
   const details = [
@@ -410,6 +411,7 @@ describe('Model > DrawingTask', function () {
       pointTool = task.tools[0]
       lineTool = task.tools[1]
       task.setActiveTool(0)
+      task.togglePreviousMarks()
       task.reset()
       marks = task.marks
     })
@@ -425,6 +427,11 @@ describe('Model > DrawingTask', function () {
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
+    })
+
+    it('should reset the hide marks toggle', function () {
+      expect(task.shownMarks).to.equal(SHOWN_MARKS.ALL)
+      expect(task.hidingIndex).to.eql(0)
     })
   })
 

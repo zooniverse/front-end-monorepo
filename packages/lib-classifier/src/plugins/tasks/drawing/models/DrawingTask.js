@@ -98,6 +98,8 @@ export const Drawing = types.model('Drawing', {
         self.tools.forEach(tool => tool.reset())
         self.activeToolIndex = 0
         self.subTaskVisibility = false
+        self.hidingIndex = 0
+        self.shownMarks = SHOWN_MARKS.ALL
       },
 
       setToolTaskStrings(stringsSnapshot) {
