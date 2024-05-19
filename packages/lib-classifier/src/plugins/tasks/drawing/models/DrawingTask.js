@@ -22,7 +22,7 @@ export const Drawing = types.model('Drawing', {
   type: types.literal('drawing')
 })
   .preProcessSnapshot(snapshot => {
-    const newSnapshot = Object.assign({}, snapshot)
+    const newSnapshot = { ...snapshot }
     /*
     Create keys of the form 'T0.0' for each of this task's tools
     */
