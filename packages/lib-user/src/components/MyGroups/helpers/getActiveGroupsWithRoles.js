@@ -3,16 +3,14 @@ export function getActiveGroupsWithRoles(membershipsWithGroups = []) {
     return []
   }
 
-  const activeGroupsWithRolesMap = membershipsWithGroups.linked.user_groups.reduce((activeGroupsWithRoles, group) => {
+  return membershipsWithGroups.linked.user_groups.reduce((activeGroupsWithRoles, group) => {
     const membership = membershipsWithGroups.memberships
       .find((membership) => membership.links.user_group === group.id)
 
     if (membership?.state === 'active') {
-      activeGroupsWithRoles.set(group.id, { ...group, roles: membership.roles })
+      activeGroupsWithRoles.push({ ...group, roles: membership.roles })
     }
 
     return activeGroupsWithRoles
-  }, new Map())
-
-  return Array.from(activeGroupsWithRolesMap.values())
+  }, [])
 }
