@@ -18,7 +18,7 @@ function TopContributors({
       classifications: userStats?.count,
       ...user
     }
-  })
+  }).sort((a, b) => b.classifications - a.classifications)
 
   return (
     <ContentBox
