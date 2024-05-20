@@ -124,7 +124,6 @@ function MainContent ({
           direction='row'
           gap='16px'
           justify='end'
-          margin={{ top: 'small'}}
         >
           <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
           <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
