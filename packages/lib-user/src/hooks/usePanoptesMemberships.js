@@ -36,6 +36,6 @@ async function fetchMemberships({ query }) {
 export function usePanoptesMemberships({ authUserId, joinStatus = null, query }) {
   const joinStatusSuccess = joinStatus === asyncStates.success
 
-  const key = query.user_id && authUserId ? { endpoint, query, joinStatusSuccess } : null
+  const key = (query.user_id || query.user_group_id) && authUserId ? { endpoint, query, joinStatusSuccess } : null
   return useSWR(key, fetchMemberships, SWROptions)
 }

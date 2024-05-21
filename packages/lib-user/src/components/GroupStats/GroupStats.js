@@ -18,10 +18,9 @@ import {
 } from '@components/shared'
 
 import GroupUpdateFormContainer from './components/GroupUpdateFormContainer'
+import MembersList from './components/MembersList'
 import TopContributors from './components/TopContributors'
 import getHeaderItems from './helpers/getHeaderItems'
-import DeleteGroup from './DeleteGroup'
-import EditGroup from './EditGroup'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -131,9 +130,10 @@ function GroupStats({
         <GroupUpdateFormContainer
           group={group}
         >
-          <div>
-            <h2>Group Members</h2>
-          </div>
+          <MembersList
+            authUser={authUser}
+            group={group}
+          />
         </GroupUpdateFormContainer>
       </GroupModal>
       <Layout
@@ -171,17 +171,6 @@ function GroupStats({
             projects={projects}
           />
         )}
-        {(adminMode || membership?.roles.includes('group_admin')) ? (
-          <>
-            <EditGroup
-              group={group}
-            />
-            <hr />
-            <DeleteGroup 
-              groupId={group?.id}
-            />
-          </>
-        ) : null}
       </Layout>
     </>
   )
