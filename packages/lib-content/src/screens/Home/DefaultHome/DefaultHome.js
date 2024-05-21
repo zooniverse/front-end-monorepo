@@ -1,17 +1,12 @@
-import { Anchor, Box, Image, Paragraph, Text } from 'grommet'
-import styled, { css } from 'styled-components'
-import { Trans, useTranslation } from '../../../translations/i18n.js'
+import { Box } from 'grommet'
 
 import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
 import MaxWidthContent from '../../../components/MaxWidthContent/MaxWidthContent.js'
-import Stats from '../../../components/Stats/Stats.js'
 import Mobile from '../../../components/Mobile/Mobile.js'
-import { mobileBreakpoint } from '../../../components/SharedStyledComponents/SharedStyledComponents.js'
-import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
+import Introduction from './components/Introduction.js'
+import Hero from './components/Hero.js'
 
 export default function DefaultHome() {
-  const { t } = useTranslation()
-
   return (
     <Box
       background={{
@@ -20,14 +15,14 @@ export default function DefaultHome() {
       }}
       align='center'
     >
+      <Hero />
       <ContainerBox
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
       >
         <MaxWidthContent>
-          <Stats />
-
+          <Introduction />
           <Mobile />
         </MaxWidthContent>
       </ContainerBox>
