@@ -28,6 +28,7 @@ function getHeaderItems({
   adminMode,
   authUser,
   group,
+  handleGroupModalActive,
   membership
 }) {
   const headerItems = {
@@ -98,7 +99,7 @@ function getHeaderItems({
         key='manage-group-button'
         icon={<SettingsOption color='white' size='small' />}
         label='Manage Group'
-        onClick={() => alert('Coming soon!')}
+        onClick={() => handleGroupModalActive()}
       />
     ])
   }

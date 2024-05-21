@@ -1,6 +1,6 @@
 import { Box, Button, Form, FormField, RadioButtonGroup, Select, TextInput } from 'grommet'
-import { func, shape, string } from 'prop-types'
-import { useState } from 'react'
+import { func, node, shape, string } from 'prop-types'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
@@ -42,11 +42,17 @@ const DEFAULT_VALUE = {
 }
 
 function GroupForm({
-  handleSubmit = DEFAULT_HANDLER,
-  defaultValue = DEFAULT_VALUE
+  children,
+  defaultValue = DEFAULT_VALUE,
+  handleDelete = DEFAULT_HANDLER,
+  handleSubmit = DEFAULT_HANDLER
 }) {
   const [value, setValue] = useState(defaultValue)
   const statsVisibilityOptions = value.visibility === 'Private' ? PRIVATE_STATS_VISIBILITY : PUBLIC_STATS_VISIBILITY
+
+  useEffect(() => {
+    setValue(defaultValue)
+  }, [defaultValue])
 
   return (
     <Box
@@ -65,7 +71,7 @@ function GroupForm({
       >
         <FormField
           label='Group Name'
-          help='By creating a new Group you will become the admin.'
+          help={defaultValue?.id ? null : 'By creating a new Group you will become the admin.'}
           htmlFor='display_name'
           name='display_name'
           required
@@ -107,13 +113,26 @@ function GroupForm({
             valueKey={{ key: 'value', reduce: true }}
           />
         </FormField>
+          {children}
         <Box
           direction='row'
-          justify='end'
+          justify={defaultValue?.id ? 'between' : 'end'}
         >
+          {defaultValue?.id ? (
+            <button
+              onClick={(event) => {
+                event.preventDefault()
+                if (window.confirm('Are you sure you want to delete this group?')) {
+                  handleDelete({ groupId: defaultValue.id })
+                }
+              }}
+            >
+              Deactivate group
+            </button>
+          ) : null}
           <StyledButton
             color='neutral-1'
-            label='Create new group'
+            label={defaultValue?.id ? 'Save changes' : 'Create new group'}
             primary
             type='submit'
           />
@@ -124,6 +143,8 @@ function GroupForm({
 }
 
 GroupForm.propTypes = {
+  children: node,
+  handleDelete: func,
   handleSubmit: func,
   defaultValue: shape({
     display_name: string,

@@ -8,18 +8,18 @@ import {
   useStats
 } from '@hooks'
 
-import {
-  getDateInterval
-} from '@utils'
+import { getDateInterval } from '@utils'
 
 import {
+  GroupModal,
   Layout,
   MainContent,
   TopProjects
 } from '@components/shared'
 
-import getHeaderItems from './helpers/getHeaderItems'
+import GroupUpdateFormContainer from './components/GroupUpdateFormContainer'
 import TopContributors from './components/TopContributors'
+import getHeaderItems from './helpers/getHeaderItems'
 import DeleteGroup from './DeleteGroup'
 import EditGroup from './EditGroup'
 
@@ -31,6 +31,7 @@ function GroupStats({
   group,
   membership
 }) {
+  const [groupModalActive, setGroupModalActive] = useState(false)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
@@ -98,6 +99,10 @@ function GroupStats({
     isLoading: projectsLoading
   } = usePanoptesProjects(projectIDs)
 
+  function handleGroupModalActive () {
+    setGroupModalActive(!groupModalActive)
+  }
+
   function handleProjectSelect (project) {
     setSelectedProject(project.value)
   }
@@ -111,57 +116,74 @@ function GroupStats({
     adminMode,
     authUser,
     group,
+    handleGroupModalActive,
     membership
   })
 
   return (
-    <Layout
-      primaryHeaderItem={PrimaryHeaderItem}
-      secondaryHeaderItems={secondaryHeaderItems}
-    >
-      <MainContent
-        handleDateRangeSelect={handleDateRangeSelect}
-        handleProjectSelect={handleProjectSelect}
-        projects={projects}
-        selectedDateRange={selectedDateRange}
-        selectedProject={selectedProject}
-        stats={stats}
-        source={group}
-      />
-      {showTopContributors ? (
-        <Grid
-          columns='1/2'
-          gap='30px'
+    <>
+      <GroupModal
+        active={groupModalActive}
+        handleClose={() => setGroupModalActive(false)}
+        title='manage group'
+        titleColor='black'
+      >
+        <GroupUpdateFormContainer
+          group={group}
         >
-          <TopContributors
-            stats={stats}
-            topContributors={topContributors}
-          />
+          <div>
+            <h2>Group Members</h2>
+          </div>
+        </GroupUpdateFormContainer>
+      </GroupModal>
+      <Layout
+        primaryHeaderItem={PrimaryHeaderItem}
+        secondaryHeaderItems={secondaryHeaderItems}
+      >
+        <MainContent
+          handleDateRangeSelect={handleDateRangeSelect}
+          handleProjectSelect={handleProjectSelect}
+          projects={projects}
+          selectedDateRange={selectedDateRange}
+          selectedProject={selectedProject}
+          stats={stats}
+          source={group}
+        />
+        {showTopContributors ? (
+          <Grid
+            columns='1/2'
+            gap='30px'
+          >
+            <TopContributors
+              stats={stats}
+              topContributors={topContributors}
+            />
+            <TopProjects
+              allProjectsStats={allProjectsStats}
+              grid={true}
+              projects={projects}
+            />
+          </Grid>
+        ) : (
           <TopProjects
             allProjectsStats={allProjectsStats}
-            grid={true}
+            grid={false}
             projects={projects}
           />
-        </Grid>
-      ) : (
-        <TopProjects
-          allProjectsStats={allProjectsStats}
-          grid={false}
-          projects={projects}
-        />
-      )}
-      {(adminMode || membership?.roles.includes('group_admin')) ? (
-        <>
-          <EditGroup
-            group={group}
-          />
-          <hr />
-          <DeleteGroup 
-            groupId={group?.id}
-          />
-        </>
-      ) : null}
-    </Layout>
+        )}
+        {(adminMode || membership?.roles.includes('group_admin')) ? (
+          <>
+            <EditGroup
+              group={group}
+            />
+            <hr />
+            <DeleteGroup 
+              groupId={group?.id}
+            />
+          </>
+        ) : null}
+      </Layout>
+    </>
   )
 }
 
