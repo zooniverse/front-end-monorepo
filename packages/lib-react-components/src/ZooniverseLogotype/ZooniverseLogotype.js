@@ -9,7 +9,7 @@ export default function ZooniverseLogotype({
 }) {
   const viewBoxHeight = 280.5
   const viewBoxWidth = 2433.8
-  const height = typeof width === number ? (viewBoxHeight / viewBoxWidth) * width : '100%'
+  const height = typeof width === 'number' ? (viewBoxHeight / viewBoxWidth) * width : '100%'
 
   return (
     <svg
