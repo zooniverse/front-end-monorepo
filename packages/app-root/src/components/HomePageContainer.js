@@ -3,7 +3,8 @@
 import { useContext } from 'react'
 import { Box } from 'grommet'
 import { PanoptesAuthContext } from '../contexts'
-import { CommunityContainer } from '@zooniverse/content'
+import { CommunityContainer, DefaultHome } from '@zooniverse/content'
+import { Loader } from '@zooniverse/react-components'
 
 export default function HomePageContainer({ blogPosts = [] }) {
   const { isLoading, user } = useContext(PanoptesAuthContext)
@@ -12,11 +13,11 @@ export default function HomePageContainer({ blogPosts = [] }) {
     <main>
       {isLoading ? (
         <Box height='100vh' align='center' justify='center'>
-          Loader goes here
+          <Loader />
         </Box>
       ) : (
-        <Box height='100vh' align='center' justify='center'>
-          <p>{user?.login ? 'Signed-in' : 'Signed-out'}</p>
+        <Box height={{ min: '100vh' }}>
+          {user?.login ? <p>Signed-in</p> : <DefaultHome />}
         </Box>
       )}
       <CommunityContainer blogPosts={blogPosts} />

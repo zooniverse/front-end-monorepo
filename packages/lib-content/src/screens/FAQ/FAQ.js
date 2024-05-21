@@ -4,7 +4,7 @@ import { Anchor, Box, Paragraph, Text } from 'grommet'
 import { Trans, useTranslation } from '../../translations/i18n.js'
 import styled from 'styled-components'
 
-import PageLayout from '../../components/PageLayout/layout.js'
+import AboutLayout from '../../components/PageLayout/AboutLayout.js'
 import MaxWidthContent from '../../components/MaxWidthContent/MaxWidthContent.js'
 import {
   MobileHeading,
@@ -33,7 +33,7 @@ function FAQPage() {
 
   return (
     <>
-      <PageLayout>
+      <AboutLayout>
         <MobileHeading level='1' size='1.5rem'>
           {t('FAQ.title')}
         </MobileHeading>
@@ -180,7 +180,7 @@ function FAQPage() {
             </StyledList>
           </MaxWidthContent>
         </Box>
-      </PageLayout>
+      </AboutLayout>
     </>
   )
 }
