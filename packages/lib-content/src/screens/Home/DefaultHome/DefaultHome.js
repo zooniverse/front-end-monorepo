@@ -2,7 +2,6 @@ import { Box } from 'grommet'
 
 import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
 import MaxWidthContent from '../../../components/MaxWidthContent/MaxWidthContent.js'
-import Mobile from '../../../components/Mobile/Mobile.js'
 import Introduction from './components/Introduction.js'
 import Hero from './components/Hero.js'
 
@@ -20,10 +19,10 @@ export default function DefaultHome() {
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
+        pad={{ horizontal: 'medium' }}
       >
         <MaxWidthContent>
           <Introduction />
-          <Mobile />
         </MaxWidthContent>
       </ContainerBox>
     </Box>

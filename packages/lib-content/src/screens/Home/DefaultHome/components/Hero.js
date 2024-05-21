@@ -49,10 +49,12 @@ const StyledHeading = styled(Heading)`
   align-items: center;
   text-align: center;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  width: min(100%, 45rem); // Same as MaxWidthContent
 `
 
 const StyledLogo = styled(ZooniverseLogotype)`
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  min-width: 100%;
 `
 
 const StyledLink = styled(Anchor)`
@@ -80,7 +82,7 @@ export default function Hero() {
         <video
           autoPlay
           loop
-          disablepictureinpicture
+          disablePictureInPicture
           muted
           preload='metadata'
         >
@@ -103,7 +105,7 @@ export default function Hero() {
           <StyledLogo
             color='white'
             id='home-hero-heading-logo'
-            width='min(100%, 45rem)' // same as MaxWidthContent
+            width='100%' // same as MaxWidthContent
           />
         </StyledHeading>
         <StyledLink

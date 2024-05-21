@@ -1,4 +1,4 @@
-import { number, string } from 'prop-types'
+import { number, oneOfType, string } from 'prop-types'
 
 import SVGContent from './SVGContent'
 
@@ -9,7 +9,8 @@ export default function ZooniverseLogotype({
 }) {
   const viewBoxHeight = 280.5
   const viewBoxWidth = 2433.8
-  const height = (viewBoxHeight / viewBoxWidth) * width
+  const height = typeof width === number ? (viewBoxHeight / viewBoxWidth) * width : '100%'
+
   return (
     <svg
       aria-labelledby={id}
@@ -31,5 +32,5 @@ export default function ZooniverseLogotype({
 
 ZooniverseLogotype.propTypes = {
   id: string.isRequired,
-  width: number
+  width: oneOfType([number, string])
 }
