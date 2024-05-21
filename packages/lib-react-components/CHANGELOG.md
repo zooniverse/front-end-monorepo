@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Added a `bodyBackground` prop to Modal to allow for custom background colors.
 - Added a `ProjectCard` component originally developed in lib-user, but now need for widespread FEM use.
+- Added a `Loader` component originally developed in app-project, but now used in app-root too.
 
 ### Changed
 - Removed `pxToRem` function.

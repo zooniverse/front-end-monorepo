@@ -9,6 +9,9 @@
     "add": "Agregar a favoritos",
     "remove": "Agregado a favoritos"
   },
+  "Loader": {
+    "loading": "(Cargando)"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Información",
