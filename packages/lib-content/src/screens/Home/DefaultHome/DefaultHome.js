@@ -1,3 +1,5 @@
+'use client'
+
 import { Box } from 'grommet'
 
 import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
