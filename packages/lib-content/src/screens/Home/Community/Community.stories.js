@@ -1,5 +1,6 @@
 import { Box } from 'grommet'
-import mockData from './blogPosts.mock.json'
+import mockDailyZooPosts from './dailyZooPosts.mock.json'
+import mockZooBlogPosts from './zooBlogPosts.mock.json'
 import CommunityContainer from './CommunityContainer.js'
 
 export default {
@@ -10,7 +11,10 @@ export default {
 export const Default = () => {
   return (
     <Box background={{ light: 'white' }}>
-      <CommunityContainer blogPosts={mockData} />
+      <CommunityContainer
+        dailyZooPosts={mockDailyZooPosts}
+        zooBlogPosts={mockZooBlogPosts}
+      />
     </Box>
   )
 }

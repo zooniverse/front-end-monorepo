@@ -1,13 +1,13 @@
 import HomePageContainer from '@/components/HomePageContainer'
 
-const BLOG_FEEDS = [
-  // daily.zooniverse.org
-  'https://public-api.wordpress.com/rest/v1.1/sites/57182749/posts',
-  // blog.zooniverse.org
-  'https://public-api.wordpress.com/rest/v1.1/sites/36711287/posts'
-]
+// daily.zooniverse.org most recent 4 posts
+const DAILY_ZOO_FEED =
+  'https://public-api.wordpress.com/rest/v1.1/sites/57182749/posts?number=4'
+// blog.zooniverse.org most recent 4 posts
+const ZOO_BLOG_FEED =
+  'https://public-api.wordpress.com/rest/v1.1/sites/36711287/posts?number=4'
 
-/** Grab the data we want from each post (modeled after PFE) */
+/** Grab the data we want from each post */
 function parseFeedPost(post) {
   return {
     id: post.ID, // number
@@ -19,7 +19,6 @@ function parseFeedPost(post) {
   }
 }
 
-/** url is one of BLOG_FEEDS */
 async function fetchBlogFeed(url) {
   try {
     const response = await fetch(url)
@@ -34,15 +33,13 @@ async function fetchBlogFeed(url) {
   }
 }
 
-/** Grab the three most recent posts from both BLOG_FEEDS */
-async function getBlogPosts() {
+async function getBlogPosts(url) {
   let posts = []
   try {
-    const feeds = await Promise.all(BLOG_FEEDS.map(fetchBlogFeed))
-    feeds.forEach(feed => {
-      posts = posts.concat(feed.slice(0, 4))
-    })
-    return posts.map(parseFeedPost).sort((a, b) => b.created_at - a.created_at)
+    const feed = await fetchBlogFeed(url)
+    posts = feed.map(post => parseFeedPost(post))
+
+    return posts
   } catch (error) {
     console.error(error)
   }
@@ -50,9 +47,13 @@ async function getBlogPosts() {
 }
 
 export default async function HomePage() {
-  const blogPosts = await getBlogPosts() // can be fetched serverside bc doesn't matter if a user exists
+  const dailyZooPosts = await getBlogPosts(DAILY_ZOO_FEED)
+  const zooBlogPosts = await getBlogPosts(ZOO_BLOG_FEED)
 
   return (
-    <HomePageContainer blogPosts={blogPosts}/>
+    <HomePageContainer
+      dailyZooPosts={dailyZooPosts}
+      zooBlogPosts={zooBlogPosts}
+    />
   )
 }
