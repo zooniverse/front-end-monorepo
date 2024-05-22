@@ -11,14 +11,17 @@ import {
   HeaderToast
 } from '@components/shared'
 
-async function handleMembershipDelete({ membershipId }) {
-  try {
-    const deleteResponse = await deletePanoptesMembership({ membershipId })
-    console.log('deleteResponse', deleteResponse)
-    // window.location.reload()
-  } catch (error) {
-    console.error(error)
-  }
+async function handleLeaveGroup({
+  login,
+  membershipId
+}) {
+  const userConfirmed = window.confirm('Are you sure you want to leave this group?')
+  if (!userConfirmed) return
+
+  const deleteMembershipResponse = await deletePanoptesMembership({ membershipId })
+  if (!deleteMembershipResponse.ok) return
+
+  window.location.href = `https://www.zooniverse.org/users/${login}`
 }
 
 function getHeaderItems({
@@ -61,11 +64,7 @@ function getHeaderItems({
         key='leave-group-button'
         icon={<SubtractCircle color='white' size='small' />}
         label='Leave Group'
-        onClick={() => {
-          if (window.confirm('Are you sure you want to leave this group?')) {
-            handleMembershipDelete({ membershipId: membership.id })
-          }
-        }}
+        onClick={() => handleLeaveGroup({ login: authUser.login, membershipId: membership.id })}
       />
     )
     if (publicGroup) headerItems.secondaryHeaderItems.push(
