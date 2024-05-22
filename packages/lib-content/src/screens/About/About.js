@@ -24,7 +24,7 @@ import Contact from './components/Contact.js'
 import Highlights from './components/Highlights.js'
 import HowItWorks from './components/HowItWorks.js'
 import OurMission from './components/OurMission.js'
-import SubHeading from './components/SubHeading.js'
+import SubHeading from '../../components/HeadingForAboutNav/SubHeading.js'
 
 const StyledAboutHeading = styled(Heading)`
   position: relative;
