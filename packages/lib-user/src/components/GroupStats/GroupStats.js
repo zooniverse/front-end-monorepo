@@ -123,12 +123,13 @@ function GroupStats({
     <>
       <GroupModal
         active={groupModalActive}
-        handleClose={() => setGroupModalActive(false)}
+        handleClose={handleGroupModalActive}
         title='manage group'
         titleColor='black'
       >
         <GroupUpdateFormContainer
           group={group}
+          login={authUser?.login}
         >
           <MembersList
             authUser={authUser}

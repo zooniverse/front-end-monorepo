@@ -7,12 +7,17 @@ import {
 
 import { GroupForm } from '@components/shared'
 
-function GroupUpdateFormContainer({ children, group }) {
-  async function handleGroupDelete({ groupId }) {
+function GroupUpdateFormContainer({
+  children,
+  group,
+  login
+}) {
+  async function handleGroupDelete() {
     try {
-      const deleteResponse = await deletePanoptesUserGroup({ groupId })
-      console.log('deleteResponse', deleteResponse)
-      // window.location.href = `https://www.zooniverse.org/users/${authUser?.login}`
+      const deleteResponse = await deletePanoptesUserGroup({ groupId: group?.id })
+      if (!deleteResponse.ok) return console.error(deleteResponse)
+      
+      window.location.href = `https://www.zooniverse.org/users/${login}`
     } catch (error) {
       console.error(error)
     }
@@ -27,9 +32,9 @@ function GroupUpdateFormContainer({ children, group }) {
     }
 
     try {
-      const updatedGroup = await updatePanoptesUserGroup({ groupId: group.id, data })
-      console.log('updatedGroup', updatedGroup)
-      // window.location.reload()
+      const updatedGroupResponse = await updatePanoptesUserGroup({ groupId: group.id, data })
+      if (!updatedGroupResponse.ok) return console.error(updatedGroup)
+      window.location.reload()
     } catch (error) {
       console.error(error)
     }
@@ -57,7 +62,8 @@ GroupUpdateFormContainer.propTypes = {
     display_name: string,
     id: string,
     stats_visibility: string
-  })
+  }),
+  login: string
 }
 
 export default GroupUpdateFormContainer

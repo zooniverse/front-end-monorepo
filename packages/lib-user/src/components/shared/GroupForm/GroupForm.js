@@ -123,7 +123,7 @@ function GroupForm({
               onClick={(event) => {
                 event.preventDefault()
                 if (window.confirm('Are you sure you want to delete this group?')) {
-                  handleDelete({ groupId: defaultValue.id })
+                  handleDelete()
                 }
               }}
             >
