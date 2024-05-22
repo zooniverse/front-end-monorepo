@@ -6,7 +6,10 @@ import { PanoptesAuthContext } from '../contexts'
 import { CommunityContainer, DefaultHome } from '@zooniverse/content'
 import { Loader } from '@zooniverse/react-components'
 
-export default function HomePageContainer({ blogPosts = [] }) {
+export default function HomePageContainer({
+  dailyZooPosts = [],
+  zooBlogPosts = []
+}) {
   const { isLoading, user } = useContext(PanoptesAuthContext)
 
   return (
@@ -20,7 +23,10 @@ export default function HomePageContainer({ blogPosts = [] }) {
           {user?.login ? <p>Signed-in</p> : <DefaultHome />}
         </Box>
       )}
-      <CommunityContainer blogPosts={blogPosts} />
+      <CommunityContainer
+        dailyZooPosts={dailyZooPosts}
+        zooBlogPosts={zooBlogPosts}
+      />
     </main>
   )
 }

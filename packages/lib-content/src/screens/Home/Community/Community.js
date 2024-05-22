@@ -1,12 +1,11 @@
 import { Anchor, Box, Heading } from 'grommet'
 import { useTranslation } from '../../../translations/i18n.js'
 import { SpacedHeading } from '@zooniverse/react-components'
-import styled from 'styled-components'
 
 import Article from '../../../components/Article/Article.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
 
-export default function Community({ blogPosts = [] }) {
+export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
   const { t } = useTranslation()
 
   return (
@@ -45,9 +44,9 @@ export default function Community({ blogPosts = [] }) {
         </Anchor>
       </Box>
       <Box gap='small' margin={{ bottom: 'medium' }}>
-        {blogPosts.slice(0, 4).map(item => (
-          <Article key={item.id} {...item} />
-        ))}
+        {dailyZooPosts.length
+          ? dailyZooPosts.map(item => <Article key={item.id} {...item} />)
+          : null}
       </Box>
 
       {/* The Zooniverse Blog */}
@@ -68,9 +67,9 @@ export default function Community({ blogPosts = [] }) {
         </Anchor>
       </Box>
       <Box gap='small'>
-        {blogPosts.slice(4).map(item => (
-          <Article key={item.id} {...item} />
-        ))}
+        {zooBlogPosts.length
+          ? zooBlogPosts.map(item => <Article key={item.id} {...item} />)
+          : null}
       </Box>
     </Box>
   )
