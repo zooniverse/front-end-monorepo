@@ -16,10 +16,11 @@ function GroupCreateFormContainer() {
     }
 
     try {
-      const newGroup = await createPanoptesUserGroup({ data })
-      // TODO: route to new group stats page
-      // window.location.reload()
-      console.log('newGroup', newGroup)
+      const newGroupResponse = await createPanoptesUserGroup({ data })
+      if (!newGroupResponse.ok) return console.error(newGroupResponse)
+      const newGroup = newGroupResponse.body.user_groups[0]
+      if (!newGroup.id) return window.location.reload()
+      window.location.href = `/groups/${newGroup.id}`
     } catch (error) {
       console.error(error)
     }
