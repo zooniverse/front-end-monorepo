@@ -1,6 +1,7 @@
 import { types } from 'mobx-state-tree'
 import TranscriptionTask from '@plugins/tasks/experimental/transcription'
 import SHOWN_MARKS from '@helpers/shownMarks'
+import { expect } from 'chai'
 
 const details = [
   {
@@ -177,6 +178,7 @@ describe('Model > TranscriptionTask', function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
       const annotation = task.defaultAnnotation()
       transcriptionLineTool = task.tools[0]
+      task.togglePreviousMarks(SHOWN_MARKS.USER)
       task.reset()
       marks = task.marks
     })
@@ -192,6 +194,10 @@ describe('Model > TranscriptionTask', function () {
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
+    })
+    it('should not change the SHOWN_MARKS.USER state', function () {
+      expect(task.shownMarks).to.equal(SHOWN_MARKS.USER)
+      expect(task.hidingIndex).to.equal(0)
     })
   })
 })
