@@ -61,15 +61,13 @@ export default function CenteredLayout({ separateFramesView = false }) {
             </Box>
           )}
         </Box>
-        <Box
+        <StickyTaskArea
           width={size === 'small' ? '100%' : '25rem'}
           fill={size === 'small' ? 'horizontal' : 'vertical'}
         >
-          <StickyTaskArea>
-            <TaskArea />
-            {separateFramesView && <FieldGuide />}
-          </StickyTaskArea>
-        </Box>
+          <TaskArea />
+          {separateFramesView && <FieldGuide />}
+        </StickyTaskArea>
       </Box>
       <FeedbackModal />
       <QuickTalk />
