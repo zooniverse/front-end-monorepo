@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, Grid, ResponsiveContext } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
@@ -21,6 +21,18 @@ const ContainerGrid = styled(Grid)`
   }
 `
 
+export const ViewerGrid = styled(Grid)`
+  ${props => props.size !== 'small' && css`
+    position: sticky;
+    top: 10px;
+  `}
+  height: fit-content;
+  grid-area: viewer;
+  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
+  grid-template-rows: auto;
+  grid-template-areas: "subject toolbar";
+`
+
 const StyledTaskAreaContainer = styled.div`
   grid-area: task;
 `
@@ -39,19 +51,19 @@ const StyledImageToolbar = styled(ImageToolbar)`
   top: 10px;
 `
 
-export function ViewerGrid({ children }) {
-  return (
-    <Grid
-      as='section'
-      areas={[['subject', 'toolbar']]}
-      columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
-      gridArea='viewer'
-      height='fit-content'
-      rows={['auto']}
-    >
-      {children}
-    </Grid>
-  )
+const verticalLayout = {
+  areas: [['viewer'], ['task']],
+  columns: ['100%'],
+  gap: 'small',
+  margin: 'none',
+  rows: ['auto', 'auto']
+}
+
+const horizontalLayout = {
+  areas: [['viewer', 'task']],
+  columns: ['auto', '25rem'],
+  gap: 'medium',
+  rows: ['auto']
 }
 
 export default function NoMaxWidth({
@@ -59,19 +71,6 @@ export default function NoMaxWidth({
   separateFramesView = false
 }) {
   const size = useContext(ResponsiveContext)
-  const verticalLayout = {
-    areas: [['viewer'], ['task']],
-    columns: ['100%'],
-    gap: 'small',
-    margin: 'none',
-    rows: ['auto', 'auto']
-  }
-  const horizontalLayout = {
-    areas: [['viewer', 'task']],
-    columns: ['auto', '25rem'],
-    gap: 'medium',
-    rows: ['auto']
-  }
   const containerGridProps =
     size === 'small' ? verticalLayout : horizontalLayout
 
@@ -84,7 +83,7 @@ export default function NoMaxWidth({
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid>
+        <ViewerGrid forwardedAs='section' size={size}>
           <Box gridArea='subject'>
             <Banners />
             <SubjectViewer />

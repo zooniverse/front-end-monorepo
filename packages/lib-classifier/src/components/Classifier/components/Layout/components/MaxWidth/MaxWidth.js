@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, Grid, ResponsiveContext } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
@@ -21,6 +21,18 @@ export const ContainerGrid = styled(Grid)`
   }
 `
 
+export const ViewerGrid = styled(Grid)`
+  ${props => props.size !== 'small' && css`
+    position: sticky;
+    top: 10px;
+  `}
+  height: fit-content;
+  grid-area: viewer;
+  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
+  grid-template-rows: auto;
+  grid-template-areas: "subject toolbar";
+`
+
 const StyledTaskAreaContainer = styled.div`
   grid-area: task;
 `
@@ -38,21 +50,6 @@ const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
-
-export function ViewerGrid({ children }) {
-  return (
-    <Grid
-      as='section'
-      areas={[['subject', 'toolbar']]}
-      columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
-      gridArea='viewer'
-      height='fit-content'
-      rows={['auto']}
-    >
-      {children}
-    </Grid>
-  )
-}
 
 export const verticalLayout = {
   areas: [['viewer'], ['task']],
@@ -87,7 +84,7 @@ export default function MaxWidth({
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid>
+        <ViewerGrid forwardedAs='section'>
           <Box gridArea='subject'>
             <Banners />
             <SubjectViewer />
