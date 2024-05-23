@@ -1,9 +1,8 @@
-import { Anchor, Box, Paragraph } from 'grommet'
+import { Anchor, Box, Text } from 'grommet'
 import { observable } from 'mobx'
-import PropTypes from 'prop-types'
+import { object, string} from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { useCallback } from 'react'
-import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 
 const defaultIcons = observable.map()
@@ -23,12 +22,10 @@ export function AnchorLabel({
         icon={icon}
         width={100}
       />
-      <Paragraph>{title}</Paragraph>
+      <Text margin={{ vertical: '15px' }}>{title}</Text>
     </Box>
   )
 }
-
-const defaultTheme = { dark: false }
 
 function FieldGuideItemAnchor({
   className = '',
@@ -36,7 +33,6 @@ function FieldGuideItemAnchor({
   item,
   itemIndex,
   onClick,
-  theme = defaultTheme,
   title
 }) {
   const selectItem = useCallback(function (event) {
@@ -45,11 +41,10 @@ function FieldGuideItemAnchor({
   }, [itemIndex, onClick])
 
   const label = <AnchorLabel icons={icons} item={item} title={title} />
-  const anchorColor = theme.dark ? 'light-3' : 'dark-5'
   return (
     <Anchor
       className={className}
-      color={anchorColor}
+      color={{ light: 'dark-5', dark: 'light-3' }}
       href={`#field-guide-item-${itemIndex}`}
       label={label}
       onClick={selectItem}
@@ -58,14 +53,10 @@ function FieldGuideItemAnchor({
 }
 
 FieldGuideItemAnchor.propTypes = {
-  className: PropTypes.string,
+  className: string,
   icons: MobXPropTypes.observableMap,
-  item: PropTypes.object.isRequired,
-  label: PropTypes.string,
-  theme: PropTypes.shape({
-    dark: PropTypes.bool
-  })
+  item: object.isRequired,
+  label: string,
 }
 
-export default withTheme(FieldGuideItemAnchor)
-export { FieldGuideItemAnchor }
+export default FieldGuideItemAnchor
