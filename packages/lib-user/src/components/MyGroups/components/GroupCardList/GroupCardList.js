@@ -6,6 +6,7 @@ function GroupCardList({
   groups = []
 }) {
   const groupsSortedByCreatedAt = groups.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  console.log('groupsSortedByCreatedAt', groupsSortedByCreatedAt);
 
   return (
     <>

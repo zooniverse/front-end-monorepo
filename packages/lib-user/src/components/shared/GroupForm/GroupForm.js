@@ -77,8 +77,8 @@ function GroupForm({
           required
           validate={[
             (name) => {
-              if (name && name.length < 4) return 'must be > 3 characters';
-              return undefined;
+              if (name && name.length < 4) return 'must be > 3 characters'
+              return undefined
             }
           ]}
           validateOn='blur'

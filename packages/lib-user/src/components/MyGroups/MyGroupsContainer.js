@@ -45,8 +45,7 @@ function MyGroupsContainer({
     authUserId: authUser?.id,
     query: {
       include: 'user_group',
-      user_id: user?.id,
-      page_size: 50
+      user_id: user?.id
     }
   })
 
