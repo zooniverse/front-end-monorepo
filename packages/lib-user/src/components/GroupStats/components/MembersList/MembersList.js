@@ -1,72 +1,67 @@
-import { shape, string } from 'prop-types'
+import { SpacedText } from '@zooniverse/react-components'
+import { Box } from 'grommet'
+import { arrayOf, func, shape, string } from 'prop-types'
 
-import { usePanoptesMemberships } from '@hooks'
+import MemberListItem from './components/MemberListItem'
 
-import {
-  deletePanoptesMembership,
-  updatePanoptesMembership
-} from '@utils'
+const DEFAULT_HANDLER = () => true
 
 function MembersList({
-  authUser,
-  group
+  authUserId = '',
+  handleDeleteMembership = DEFAULT_HANDLER,
+  handleUpdateMembership = DEFAULT_HANDLER,
+  memberships = [],
+  users = []
 }) {
-  const {
-    data: membershipsData
-  } = usePanoptesMemberships({
-    authUserId: authUser?.id,
-    query: {
-      include: 'user',
-      user_group_id: group?.id
-    }
-  })
-  const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
-
   return (
-    <div>
-      <ul>
+    <>
+      <SpacedText
+        uppercase={false}
+        weight='bold'
+      >
+        Group Members
+      </SpacedText>
+      <Box
+        as='ul'
+        border={[{ color: 'light-1', size: '1px', style: 'solid' }]}
+        elevation='xsmall'
+        height='small'
+        overflow={{ vertical: 'scroll' }}
+        round='xsmall'
+      >
         {memberships?.map(membership => {
-          const user = membershipsData?.linked?.users?.find(user => user.id === membership.links.user)
+          const user = users?.find(user => user.id === membership.links.user)
           const role = membership.roles[0]
-          const otherRole = role === 'group_admin' ? 'group_member' : 'group_admin'
+          const disabled = authUserId === user?.id
           
           return (
-            <li key={membership.id}>
-              <span>{role}</span>
-              <span>{' '}</span>
-              <span>{user.display_name} @{user.login}</span>
-              <button
-                disabled={user.id === authUser.id}
-                onClick={() => updatePanoptesMembership({
-                  membershipId: membership.id,
-                  data: {
-                    roles: [otherRole]
-                  }
-                })}
-              >
-                Make {otherRole}
-              </button>
-              <button
-                disabled={user.id === authUser.id}
-                onClick={() => deletePanoptesMembership({ membershipId: membership.id })}
-              >
-                Remove
-              </button>
-            </li>
+            <MemberListItem
+              key={membership.id}
+              disabled={disabled}
+              handleDelete={handleDeleteMembership}
+              handleUpdate={handleUpdateMembership}
+              membershipId={membership.id}
+              role={role}
+              user={user}
+            />
           )
         })}
-      </ul>
-    </div>
+      </Box>
+    </>
   )
 }
 
 MembersList.propTypes = {
-  authUser: shape({
+  authUserId: string,
+  handleDeleteMembership: func,
+  handleUpdateMembership: func,
+  memberships: arrayOf(shape({
+    id: string,
+    roles: arrayOf(string)
+  })),
+  users: arrayOf(shape({
     id: string
-  }),
-  group: shape({
-    id: string
-  })
+  }))
 }
 
 export default MembersList

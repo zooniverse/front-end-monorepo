@@ -1,1 +1,1 @@
-export { default } from './MembersList'
+export { default } from './MembersListContainer'
