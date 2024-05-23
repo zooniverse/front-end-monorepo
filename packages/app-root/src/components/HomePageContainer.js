@@ -3,8 +3,12 @@
 import { useContext } from 'react'
 import { Box } from 'grommet'
 import { PanoptesAuthContext } from '../contexts'
+import { CommunityContainer } from '@zooniverse/content'
 
-export default function HomePageContainer({ blogPosts = [] }) {
+export default function HomePageContainer({
+  dailyZooPosts = [],
+  zooBlogPosts = []
+}) {
   const { isLoading, user } = useContext(PanoptesAuthContext)
 
   return (
@@ -18,7 +22,10 @@ export default function HomePageContainer({ blogPosts = [] }) {
           <p>{user?.login ? 'Signed-in' : 'Signed-out'}</p>
         </Box>
       )}
-      <Box pad='medium' align='center'>Number of blog posts: {blogPosts.length}</Box>
+      <CommunityContainer
+        dailyZooPosts={dailyZooPosts}
+        zooBlogPosts={zooBlogPosts}
+      />
     </main>
   )
 }

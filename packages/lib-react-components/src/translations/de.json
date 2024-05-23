@@ -2,6 +2,9 @@
   "CloseButton": {
     "close": "Schließen"
   },
+  "Loader": {
+    "loading": "(Laden)"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Über",

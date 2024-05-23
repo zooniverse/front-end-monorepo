@@ -47,9 +47,6 @@
     "defaultTitle": "Proyectos",
     "siteName": "Zooniverse: investigación desarrollada por la gente"
   },
-  "Loader": {
-    "loading": "(Cargando)"
-  },
   "ProjectHeader": {
     "ApprovedIcon": {
       "title": "Aprobado por Zooniverse"

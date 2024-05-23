@@ -5,9 +5,9 @@ import { mount } from 'enzyme'
 import { Grommet } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import sinon from 'sinon'
+import { Loader } from '@zooniverse/react-components'
 
 import ClassifierWrapper from './ClassifierWrapper'
-import Loader from '@shared/components/Loader'
 
 describe('Component > ClassifierWrapper', function () {
   const router = {

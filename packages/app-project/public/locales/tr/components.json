@@ -47,9 +47,6 @@
     "defaultTitle": "Projeler",
     "siteName": "Zooniverse - İnsan destekli araştırma"
   },
-  "Loader": {
-    "loading": "Yükleniyor"
-  },
   "ProjectHeader": {
     "ApprovedIcon": {
       "title": "Zooniverse Onaylı"
