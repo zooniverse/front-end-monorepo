@@ -100,7 +100,7 @@ export const TopProjectsFullWithFewerProjects = {
   )
 }
 
-export const TopProjectsSplit = {
+export const TopProjectsGrid = {
   render: () => (
     <ContentBox
       linkLabel='See more'

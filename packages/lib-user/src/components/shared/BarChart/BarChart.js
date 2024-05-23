@@ -57,7 +57,6 @@ function BarChart ({
   return (
     <DataChart
       a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} for ${readableDateRange}`}
-      alignSelf='end'
       axis={{
         x: { granularity: xAxisGranularity, property: 'period' },
         y: { granularity: 'fine', property: type },

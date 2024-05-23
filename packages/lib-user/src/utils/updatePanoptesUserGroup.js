@@ -2,30 +2,29 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 
 export async function updatePanoptesUserGroup({
-  data,
-  etag,
-  id
+  groupId,
+  data
 }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   if (!token) return null
   
-  let response = null
+  const groupResponse = await panoptes.get(`/user_groups/${groupId}`, {}, { authorization })
+
+  const headers = {
+    authorization,
+    etag: groupResponse?.headers?.etag
+  }
   
   try {
-    response = await panoptes
-      .put(`/user_groups/${id}`,
+    const response = await panoptes
+      .put(`/user_groups/${groupId}`,
         { user_groups: data },
-        {
-          etag,
-          authorization
-        }
+        headers
       )
     return response
   } catch (error) {
     console.error(error)
     throw error
   }
-
-  return response
 }
