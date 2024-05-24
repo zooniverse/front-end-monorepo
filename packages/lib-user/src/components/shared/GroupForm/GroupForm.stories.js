@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import GroupForm from './GroupForm'
 
 export default {
-  title: 'Components/MyGroups/GroupForm',
+  title: 'Components/shared/GroupForm',
   component: GroupForm,
   decorators: [ComponentDecorator]
 }

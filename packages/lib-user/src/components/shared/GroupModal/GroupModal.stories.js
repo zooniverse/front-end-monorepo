@@ -3,7 +3,7 @@ import { useState } from 'react'
 import GroupModal from './GroupModal'
 
 export default {
-  title: 'components/MyGroups/GroupModal',
+  title: 'components/shared/GroupModal',
   component: GroupModal
 }
 
