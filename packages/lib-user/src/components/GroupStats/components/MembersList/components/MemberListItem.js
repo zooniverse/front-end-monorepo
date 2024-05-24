@@ -54,7 +54,7 @@ function MemberListItem({
         justify='start'
         justifyContent='start'
       >
-        {role === 'group_admin' ? <UserAdmin /> : <span>{' '}</span>}
+        {role === 'group_admin' ? <UserAdmin size='small' /> : <span>{' '}</span>}
         <SpacedText
           color={{ dark: 'neutral-6', light: 'neutral-7' }}
           uppercase={false}

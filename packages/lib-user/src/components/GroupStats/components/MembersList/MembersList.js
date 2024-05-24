@@ -16,18 +16,18 @@ function MembersList({
   return (
     <>
       <SpacedText
+        color={{ dark: 'neutral-6', light: 'neutral-7' }}
+        size='16px'
         uppercase={false}
-        weight='bold'
       >
         Group Members
       </SpacedText>
       <Box
         as='ul'
-        border={[{ color: 'light-1', size: '1px', style: 'solid' }]}
-        elevation='xsmall'
+        border={[{ color: 'light-5', size: '1px', style: 'solid' }]}
         height='small'
         overflow={{ vertical: 'scroll' }}
-        round='xsmall'
+        round='4px'
       >
         {memberships?.map(membership => {
           const user = users?.find(user => user.id === membership.links.user)
