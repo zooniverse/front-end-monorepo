@@ -29,3 +29,19 @@ export const Default = {
     handleSubmit: (event) => console.log('submitting...', event.value)
   }
 }
+
+export const Manage = {
+  args: {
+    defaultValue: {
+      display_name: 'Test Group Name',
+      id: '1',
+      visibility: 'Public',
+      stats_visibility: 'public_show_all'
+    },
+    handleDelete: () => console.log('deleting...'),
+    handleSubmit: (event) => {
+      event.preventDefault()
+      console.log('submitting...', event.value)
+    }
+  }
+}

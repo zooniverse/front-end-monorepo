@@ -1,7 +1,11 @@
-import { Box, Button, Form, FormField, RadioButtonGroup, Select, TextInput } from 'grommet'
+import { Box, Button, Form, FormField, RadioButtonGroup, Select, TextInput, ThemeContext } from 'grommet'
 import { func, node, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+
+import FieldLabel from './components/FieldLabel'
+import RadioInputLabel from './components/RadioInputLabel'
+import formTheme from './theme'
 
 const StyledButton = styled(Button)`
   border-radius: 4px;
@@ -55,90 +59,106 @@ function GroupForm({
   }, [defaultValue])
 
   return (
-    <Box
-      width={{ min: '600px' }}
-    >
-      <Form
-        onChange={(nextValue, { touched }) => {
-          if (nextValue.visibility !== value.visibility) {
-            const statsVisibility = nextValue.visibility === 'Private' ? 'private_agg_only' : 'public_agg_only'
-            nextValue.stats_visibility = statsVisibility
-          }
-          setValue(nextValue)
-        }}
-        onSubmit={handleSubmit}
-        value={value}
-      >
-        <FormField
-          label='Group Name'
-          help={defaultValue?.id ? null : 'By creating a new Group you will become the admin.'}
-          htmlFor='display_name'
-          name='display_name'
-          required
-          validate={[
-            (name) => {
-              if (name && name.length < 4) return 'must be > 3 characters'
-              return undefined
+    <ThemeContext.Extend value={formTheme}>
+      <Box>
+        <Form
+          onChange={(nextValue, { touched }) => {
+            if (nextValue.visibility !== value.visibility) {
+              const statsVisibility = nextValue.visibility === 'Private' ? 'private_agg_only' : 'public_agg_only'
+              nextValue.stats_visibility = statsVisibility
             }
-          ]}
-          validateOn='blur'
+            setValue(nextValue)
+          }}
+          onSubmit={handleSubmit}
+          value={value}
         >
-          <TextInput
-            id='display_name'
+          <FormField
+            label={<FieldLabel>Group Name</FieldLabel>}
+            help={defaultValue?.id ? null : 'By creating a new Group you will become the admin.'}
+            htmlFor='display_name'
             name='display_name'
-          />
-        </FormField>
-        <FormField
-          label='Public Visibility'
-          htmlFor='visibility'
-          name='visibility'
-        >
-          <RadioButtonGroup
+            required
+            validate={[
+              (name) => {
+                if (name && name.length < 4) return 'must be > 3 characters'
+                return undefined
+              }
+            ]}
+            validateOn='blur'
+          >
+            <TextInput
+              id='display_name'
+              name='display_name'
+            />
+          </FormField>
+          <FormField
+            label={<FieldLabel>Public Visibility</FieldLabel>}
+            htmlFor='visibility'
             name='visibility'
-            options={[ 'Private', 'Public' ]}
-          />
-        </FormField>
-        <FormField
-          label='Show Individual Stats'
-          help='Admin can always see individual stats.'
-          htmlFor='stats_visibility'
-          name='stats_visibility'
-        >
-          <Select
-            id='stats_visibility'
-            aria-label='Stats Visibility'
-            labelKey='label'
-            name='stats_visibility'
-            options={statsVisibilityOptions}
-            valueKey={{ key: 'value', reduce: true }}
-          />
-        </FormField>
-          {children}
-        <Box
-          direction='row'
-          justify={defaultValue?.id ? 'between' : 'end'}
-        >
-          {defaultValue?.id ? (
-            <button
-              onClick={(event) => {
-                event.preventDefault()
-                if (window.confirm('Are you sure you want to delete this group?')) {
-                  handleDelete()
+          >
+            <RadioButtonGroup
+              name='visibility'
+              options={[
+                {
+                  label: <>
+                    <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='16px'>Private</RadioInputLabel>
+                    <RadioInputLabel>{' - only members can view this group'}</RadioInputLabel>
+                  </>,
+                  value: 'Private'
+                },
+                {
+                  label: <>
+                    <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='16px'>Public</RadioInputLabel>
+                    <RadioInputLabel>{' - you can share this group with anyone'}</RadioInputLabel>
+                  </>,
+                  value: 'Public'
                 }
-              }}
-            >
-              Deactivate group
-            </button>
-          ) : null}
-          <StyledButton
-            color='neutral-1'
-            label={defaultValue?.id ? 'Save changes' : 'Create new group'}
-            primary
-            type='submit'
-          />
-        </Box>
-      </Form>
-    </Box>
+              ]}
+            />
+          </FormField>
+          <FormField
+            label={<FieldLabel>Show Individual Stats</FieldLabel>}
+            help='Admin can always see individual stats.'
+            htmlFor='stats_visibility'
+            info={defaultValue.id ? null : 'You can add all other members via a Join Link after creating the new group below.'}
+            name='stats_visibility'
+          >
+            <Select
+              id='stats_visibility'
+              aria-label='Stats Visibility'
+              labelKey='label'
+              name='stats_visibility'
+              options={statsVisibilityOptions}
+              valueKey={{ key: 'value', reduce: true }}
+            />
+          </FormField>
+            {children}
+          <Box
+            direction='row'
+            justify={defaultValue?.id ? 'between' : 'end'}
+          >
+            {defaultValue?.id ? (
+              <button
+                onClick={(event) => {
+                  event.preventDefault()
+                  if (window.confirm('Are you sure you want to delete this group?')) {
+                    handleDelete()
+                  }
+                }}
+              >
+                Deactivate Group
+              </button>
+            ) : null}
+            <StyledButton
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
+              label={defaultValue?.id ? 'Save changes' : 'Create new group'}
+              primary
+              type='submit'
+            />
+          </Box>
+        </Form>
+      </Box>
+    </ThemeContext.Extend>
   )
 }
 
