@@ -10,7 +10,7 @@ import {
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
-function BarChart ({
+function BarChart({
   data = [],
   dateRange = dateRanges.Last7Days,
   getCompleteData = defaultGetCompleteData,
