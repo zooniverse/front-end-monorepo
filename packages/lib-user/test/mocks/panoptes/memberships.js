@@ -36,18 +36,6 @@ export const MEMBERSHIPS = [
       }
   },
   {
-      'id': '24686',
-      'state': 'active',
-      'roles': [
-          'group_admin'
-      ],
-      'href': '/memberships/24686',
-      'links': {
-          'user': '45678',
-          'user_group': '13585'
-      }
-  },
-  {
       'id': '24688',
       'state': 'active',
       'roles': [
@@ -79,7 +67,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24692',
       'links': {
-          'user': '99876',
+          'user': '99877',
           'user_group': '13587'
       }
   },
@@ -87,7 +75,7 @@ export const MEMBERSHIPS = [
       'id': '24694',
       'state': 'active',
       'roles': [
-          'group_admin'
+          'group_member'
       ],
       'href': '/memberships/24694',
       'links': {

@@ -2,6 +2,13 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, Menu } from 'grommet'
 import { More, UserAdmin } from 'grommet-icons'
 import { bool, func, shape, string } from 'prop-types'
+import styled from 'styled-components'
+
+const StyledMenu = styled(Menu)`
+  div {
+    padding: 0;
+  }
+`
 
 const DEFAULT_HANDLER = () => true
 
@@ -68,9 +75,11 @@ function MemberListItem({
           @{user.login}
         </SpacedText>
       </Grid>
-      <Menu
+      <StyledMenu
+        a11yTitle={`Menu to update or remove ${user.display_name}'s group membership`}
         icon={<More />}
         items={items}
+        margin='xsmall'
       />
     </Box>
   )

@@ -25,7 +25,7 @@ export const GROUP_MEMBER_USER = {
 export const GROUP_ADMIN_USER = {
   admin: false,
   avatar_src: '',
-  display_name: 'Teacher User',
+  display_name: 'Teacher User 1',
   id: '99876',
   login: 'TeacherUser'
 }
@@ -48,10 +48,10 @@ export const USERS = [
     login: 'StudentUser2'
   },
   {
-    ...ADMIN_USER,
-    id: '45678',
-    display_name: 'Admin User 2',
-    login: 'AdminUser2'
+    ...GROUP_ADMIN_USER,
+    id: '99877',
+    display_name: 'Teacher User 2',
+    login: 'TeacherUser2'
   },
   {
     ...USER,

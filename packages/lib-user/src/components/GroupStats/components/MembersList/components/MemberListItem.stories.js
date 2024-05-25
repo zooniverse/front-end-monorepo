@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 
-import { USER, MEMBERSHIPS } from '../../../../../../test/mocks/panoptes'
+import { GROUP_ADMIN_USER, GROUP_MEMBER_USER, MEMBERSHIPS } from '../../../../../../test/mocks/panoptes'
 
 import MemberListItem from './MemberListItem'
 
@@ -26,16 +26,16 @@ function ComponentDecorator(Story) {
 
 export const Default = {
   args: {
-    membershipId: MEMBERSHIPS[1].id,
-    role: MEMBERSHIPS[1].roles[0],
-    user: USER
+    membershipId: MEMBERSHIPS[3].id,
+    role: MEMBERSHIPS[3].roles[0],
+    user: GROUP_MEMBER_USER
   }
 }
 
 export const GroupAdmin = {
   args: {
-    membershipId: MEMBERSHIPS[0].id,
-    role: MEMBERSHIPS[0].roles[0],
-    user: USER
+    membershipId: MEMBERSHIPS[2].id,
+    role: MEMBERSHIPS[2].roles[0],
+    user: GROUP_ADMIN_USER
   }
 }
