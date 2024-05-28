@@ -1,8 +1,8 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import { observable, toJS } from 'mobx'
-import { Anchor, Grommet, Paragraph } from 'grommet'
-import { FieldGuideItemAnchor, AnchorLabel } from './FieldGuideItemAnchor'
+import { Anchor, Grommet, Text } from 'grommet'
+import FieldGuideItemAnchor, { AnchorLabel } from './FieldGuideItemAnchor'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '@test/factories'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -83,7 +83,7 @@ describe('Component > FieldGuideItemAnchor', function () {
           item={item}
           title='Cat'
         />)
-      expect(wrapper.find(Paragraph).contains(item.title)).to.be.true()
+      expect(wrapper.find(Text).contains(item.title)).to.be.true()
     })
 
     it('should render an FieldGuideItemIcon component', function () {
