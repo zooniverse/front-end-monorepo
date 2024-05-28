@@ -168,6 +168,9 @@
         "two" : "Featured Projects",
         "three": "Real researchers, real results"
       },
+      "FeaturedProjects": {
+        "heading": "Featured Projects"
+      },
       "Introduction": {
         "description": "The Zooniverse enables everyone to take part in real cutting edge research in many fields across the sciences, humanities, and more. The Zooniverse creates opportunities for you to unlock answers and contribute to real discoveries.",
         "signIn": "Sign in",

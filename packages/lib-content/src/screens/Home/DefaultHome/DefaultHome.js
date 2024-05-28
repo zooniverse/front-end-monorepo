@@ -6,6 +6,7 @@ import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
 import MaxWidthContent from '../../../components/MaxWidthContent/MaxWidthContent.js'
 import Introduction from './components/Introduction.js'
 import Hero from './components/Hero.js'
+import FeaturedProjects from './components/FeaturedProjects.js'
 
 export default function DefaultHome() {
   return (
@@ -26,6 +27,7 @@ export default function DefaultHome() {
         <MaxWidthContent>
           <Introduction />
         </MaxWidthContent>
+        <FeaturedProjects />
       </ContainerBox>
     </Box>
   )
