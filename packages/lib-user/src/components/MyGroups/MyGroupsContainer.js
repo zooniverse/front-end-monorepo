@@ -8,7 +8,11 @@ import {
   usePanoptesUser
 } from '@hooks'
 
-import { ContentBox, Layout } from '@components/shared'
+import {
+  ContentBox,
+  HeaderLink,
+  Layout
+} from '@components/shared'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
@@ -57,7 +61,15 @@ function MyGroupsContainer({
       >
         <GroupForm />
       </GroupModal>
-      <Layout>
+      <Layout
+        primaryHeaderItem={
+          <HeaderLink
+            href={`https://www.zooniverse.org/users/${login}`}
+            label='back to profile'
+            primaryItem={true}
+          />
+        }
+      >
         <ContentBox
           linkLabel='Learn more about Groups'
           linkProps={{ href: '/groups' }}

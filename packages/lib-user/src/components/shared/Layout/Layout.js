@@ -133,6 +133,7 @@ function Layout({
       <PageHeader
         background='neutral-1'
         direction='row'
+        forwardedAs='header'
         justify='between'
       >
         <Box
@@ -174,6 +175,7 @@ function Layout({
           dark: 'dark-3',
           light: 'neutral-6'
         }}
+        forwardedAs='main'
         gap='30px'
       >
         {children}

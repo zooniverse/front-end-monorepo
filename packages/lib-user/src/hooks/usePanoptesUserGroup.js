@@ -28,16 +28,18 @@ async function fetchPanoptesUserGroup({ groupId }) {
   const endpoint = `/user_groups/${groupId}`
   
   try {
-    const response = await panoptes.get(endpoint, {}, { authorization })
-    return response
+    const { body } = await panoptes.get(endpoint, {}, { authorization })
+    const { user_groups } = body
+    const user_group = user_groups?.[0]
+    return user_group
   } catch (error) {
     console.log(error)
     return null
   }
 }
 
-export function usePanoptesUserGroup({ authUserId, groupId, joinStatus }) {
+export function usePanoptesUserGroup({ adminMode, authUserId, groupId, joinStatus }) {
   const isJoinStatusValid = joinStatus === null || joinStatus === asyncStates.success
-  const key = groupId && isJoinStatusValid ? { authUserId, groupId, joinStatus } : null;
+  const key = groupId && isJoinStatusValid ? { adminMode, authUserId, groupId, joinStatus } : null;
   return useSWR(key, fetchPanoptesUserGroup, SWROptions)
 }

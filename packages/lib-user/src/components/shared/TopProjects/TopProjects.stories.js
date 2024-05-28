@@ -1,11 +1,12 @@
 import { Box } from 'grommet'
 
-import { PROJECTS } from '../../../../../test/mocks/panoptes'
+import { PROJECTS } from '../../../../test/mocks/panoptes'
+import { STATS } from '../../../../test/mocks/stats.mock'
 
 import TopProjects from './TopProjects'
 
 export default {
-  title: 'Components/UserStats/TopProjects',
+  title: 'Components/shared/TopProjects',
   component: TopProjects,
   decorators: [ComponentDecorator]
 }
@@ -27,6 +28,15 @@ function ComponentDecorator (Story) {
 
 export const Default = {
   args: {
-    topProjects: PROJECTS
+    allProjectsStats: STATS,
+    projects: PROJECTS
+  }
+}
+
+export const Grid = {
+  args: {
+    allProjectsStats: STATS,
+    grid: true,
+    projects: PROJECTS
   }
 }

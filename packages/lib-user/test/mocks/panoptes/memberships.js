@@ -31,7 +31,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24684',
       'links': {
-          'user': '09876',
+          'user': '99876',
           'user_group': '13583'
       }
   },
@@ -43,7 +43,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24686',
       'links': {
-          'user': '09876',
+          'user': '99876',
           'user_group': '13585'
       }
   },
@@ -79,7 +79,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24692',
       'links': {
-          'user': '09876',
+          'user': '99876',
           'user_group': '13587'
       }
   },
@@ -91,7 +91,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24694',
       'links': {
-          'user': '09876',
+          'user': '99876',
           'user_group': '13589'
       }
   }

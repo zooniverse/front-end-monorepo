@@ -5,9 +5,11 @@ import GroupCardContainer from '../GroupCard/GroupCardContainer'
 function GroupCardList({
   groups = []
 }) {
+  const groupsSortedByCreatedAt = groups.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+
   return (
     <>
-      {groups.map(group => (
+      {groupsSortedByCreatedAt.map(group => (
         <GroupCardContainer
           key={group.id}
           displayName={group.display_name}

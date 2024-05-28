@@ -11,9 +11,7 @@ import {
 } from '@hooks'
 
 import {
-  createPanoptesMembership,
-  deletePanoptesUserGroup,
-  updatePanoptesUserGroup
+  createPanoptesMembership
 } from '@utils'
 
 import { getUserGroupStatus } from './helpers/getUserGroupStatus'
@@ -38,15 +36,15 @@ function GroupStatsContainer({
 
   // fetch user_group
   const {
-    data,
+    data: group,
     error: groupError,
     isLoading: groupLoading
   } = usePanoptesUserGroup({
+    adminMode,
     authUserId: authUser?.id,
     groupId,
     joinStatus
   })
-  const group = data?.body?.user_groups?.[0]
 
   // fetch user_group membership
   const {
@@ -61,9 +59,11 @@ function GroupStatsContainer({
       user_id: authUser?.id
     }
   })
+  let membership = null
   let role = null
   if (membershipsData) {
-    role = membershipsData?.memberships?.[0]?.roles?.[0]
+    membership = membershipsData?.memberships?.[0]?.state === 'active' ? membershipsData?.memberships?.[0] : null
+    role = membership?.roles?.[0]
   }
   
   useEffect(function handleJoinGroup() {
@@ -101,26 +101,6 @@ function GroupStatsContainer({
     role
   ])
 
-  async function handleGroupDelete() {
-    try {
-      const deleteResponse = await deletePanoptesUserGroup({ groupId, etag: data.headers.etag })
-      console.log('deleteResponse', deleteResponse)
-      window.location.href =  '?users=[login]/groups'
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async function handleGroupUpdate(updates) {
-    try {
-      const updatedGroup = await updatePanoptesUserGroup({ data: updates, etag: data.headers.etag, id: groupId })
-      console.log('updatedGroup', updatedGroup)
-      window.location.reload()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-   
   const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken })
 
   return (
@@ -136,11 +116,10 @@ function GroupStatsContainer({
       )}
       {status ? (<div>{status}</div>) : (
         <GroupStats
+          adminMode={adminMode}
           authUser={authUser}
           group={group}
-          handleGroupDelete={handleGroupDelete}
-          handleGroupUpdate={handleGroupUpdate}
-          login={authUser?.login}
+          membership={membership}
         />
       )}
     </>
