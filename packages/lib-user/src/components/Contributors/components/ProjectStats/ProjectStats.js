@@ -10,19 +10,27 @@ function ProjectStats({
   return (
     <Box
       align='center'
+      border={{ color: 'light-5', side: 'vertical', size: '0.5px' }}
+      pad='xxsmall'
+      tabIndex={0}
+      width={{ max: '200px', min: '200px' }}
     >
       <SpacedText
-        weight='bold'
         margin={{ bottom: 'xsmall' }}
+        textAlign='center'
+        truncate={true}
+        weight='bold'
       >
         {projectDisplayName}
       </SpacedText>
       <SpacedText
+        textAlign='center'
         uppercase={false}
       >
         {`${classifications.toLocaleString()} Classifications`}
       </SpacedText>
       <SpacedText
+        textAlign='center'
         uppercase={false}
       >
         {`${Math.round(hours).toLocaleString()} Hours`}

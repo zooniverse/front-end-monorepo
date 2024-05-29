@@ -1,4 +1,5 @@
 // components
+export { default as Contributors } from './components/Contributors'
 export { default as UserStats } from './components/UserStats'
 export { default as MyGroups } from './components/MyGroups'
 export { default as GroupStats } from './components/GroupStats'

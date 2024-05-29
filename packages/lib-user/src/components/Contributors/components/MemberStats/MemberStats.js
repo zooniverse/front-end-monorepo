@@ -2,10 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 
-import {
-  Avatar,
-  TitledStat
-} from '@components/shared'
+import { Avatar } from '@components/shared'
 
 function MemberStats({
   avatar = '',
@@ -19,8 +16,12 @@ function MemberStats({
       align='center'
       direction='row'
       gap='medium'
+      justify='between'
+      pad={{ horizontal: 'small' }}
+      width={{ max: '400px', min: '400px' }}
     >
       <Box
+        align='center'
         direction='row'
         gap='xsmall'
       >
@@ -33,12 +34,13 @@ function MemberStats({
         >
           <SpacedText
             color={{ dark: 'accent-1', light: 'neutral-1' }}
-            size='large'
+            size='1rem'
             weight='bold'
           >
             {displayName}
           </SpacedText>
           <SpacedText
+            size='small'
             uppercase={false}
           >
             @{login}
@@ -46,14 +48,40 @@ function MemberStats({
         </Box>
       </Box>
       <Box>
-        <TitledStat
-          title='Classifications'
-          value={classifications}
-        />
-        <TitledStat
-          title='Hours'
-          value={hours}
-        />
+        <Box
+          align='center'
+        >
+          <SpacedText
+            color={{ dark: 'neutral-6', light: 'neutral-7' }}
+            uppercase={false}
+          >
+            Classifications
+          </SpacedText>
+          <SpacedText
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            size='large'
+            weight='bold'
+          >
+            {classifications.toLocaleString()}
+          </SpacedText>
+        </Box>
+        <Box
+          align='center'
+        >
+          <SpacedText
+            color={{ dark: 'neutral-6', light: 'neutral-7' }}
+            uppercase={false}
+          >
+            Hours
+          </SpacedText>
+          <SpacedText
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            size='large'
+            weight='bold'
+          >
+            {Math.round(hours).toLocaleString()}
+          </SpacedText>
+        </Box>
       </Box>
     </Box>
   )

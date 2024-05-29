@@ -170,6 +170,86 @@ const STATS = {
   time_spent: 123456
 }
 
+const group_member_stats_breakdown = [
+  {
+    user_id: 12345,
+    count: 13425,
+    session_time: 234,
+    project_contributions: [
+      {
+        project_id: 1,
+        count: 121,
+        session_time: 23
+      },
+      {
+        project_id: 2,
+        count: 93,
+        session_time: 34
+      },
+      {
+        project_id: 3,
+        count: 73,
+        session_time: 45
+      },
+      {
+        project_id: 4,
+        count: 45,
+        session_time: 56
+      },
+      {
+        project_id: 5,
+        count: 36,
+        session_time: 67
+      }
+    ]
+  },
+  {
+    user_id: 67890,
+    count: 9574,
+    session_time: 345,
+    project_contributions: [
+      {
+        project_id: 2,
+        count: 56,
+        session_time: 34
+      },
+      {
+        project_id: 4,
+        count: 45,
+        session_time: 56
+      },
+      {
+        project_id: 5,
+        count: 23,
+        session_time: 67
+      }
+    ]
+  },
+  {
+    user_id: 99876,
+    count: 648,
+    session_time: 456,
+    project_contributions: [
+      {
+        project_id: 3,
+        count: 56,
+        session_time: 45
+      },
+      {
+        project_id: 4,
+        count: 45,
+        session_time: 56
+      },
+      {
+        project_id: 5,
+        count: 3,
+        session_time: 67
+      }
+    ]
+  
+  }
+]
+
 export {
   last7days,
   last7DaysFromNow,
@@ -180,5 +260,6 @@ export {
   thisYearMoreThan6Months,
   last12months,
   allTime,
+  group_member_stats_breakdown,
   STATS
 }

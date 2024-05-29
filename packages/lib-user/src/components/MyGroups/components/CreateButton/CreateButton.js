@@ -23,8 +23,8 @@ function CreateButton({
         light: 'dark-5'
       }}
       gap='xsmall'
-      icon={<Add size='15px' />}
-      labelSize='16px'
+      icon={<Add size='1rem' />}
+      labelSize='1rem'
       onClick={onClick}
       text={text}
     />
