@@ -22,15 +22,17 @@ const ContainerGrid = styled(Grid)`
 `
 
 export const ViewerGrid = styled(Grid)`
-  ${props => props.size !== 'small' && css`
-    position: sticky;
-    top: 10px;
-  `}
+  ${props =>
+    props.size !== 'small' &&
+    css`
+      position: sticky;
+      top: 10px;
+    `}
   height: fit-content;
   grid-area: viewer;
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
   grid-template-rows: auto;
-  grid-template-areas: "subject toolbar";
+  grid-template-areas: 'subject toolbar';
 `
 
 const StyledTaskAreaContainer = styled.div`
@@ -38,8 +40,12 @@ const StyledTaskAreaContainer = styled.div`
 `
 
 const StyledTaskArea = styled(Box)`
-  position: sticky;
-  top: 10px;
+  ${props =>
+    props.size !== 'small' &&
+    css`
+      position: sticky;
+      top: 10px;
+    `}
 `
 
 const StyledImageToolbarContainer = styled.div`
@@ -95,7 +101,7 @@ export default function NoMaxWidth({
         </ViewerGrid>
       )}
       <StyledTaskAreaContainer>
-        <StyledTaskArea>
+        <StyledTaskArea size={size}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
         </StyledTaskArea>
