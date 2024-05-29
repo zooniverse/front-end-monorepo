@@ -32,6 +32,7 @@ function Contributors({
             <Box
               direction='row'
               overflow={{ horizontal: 'auto' }}
+              style={{ boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)' }}
             >
               {contributor.project_contributions.map(statsProject => {
                 const projectDisplayName = projects.find(project => project.id === statsProject.project_id.toString()).display_name

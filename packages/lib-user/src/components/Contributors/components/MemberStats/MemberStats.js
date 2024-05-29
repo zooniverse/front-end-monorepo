@@ -19,6 +19,7 @@ function MemberStats({
       justify='between'
       pad={{ horizontal: 'small' }}
       width={{ max: '400px', min: '400px' }}
+      style={{ boxShadow: '8px 0px 6px -6px rgba(0, 0, 0, 0.25)' }}
     >
       <Box
         align='center'
