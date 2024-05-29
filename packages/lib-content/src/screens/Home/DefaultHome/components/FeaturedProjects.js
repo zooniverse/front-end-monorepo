@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import useSWR from 'swr'
 import { useTranslation } from '../../../../translations/i18n.js'
 import { projects } from '@zooniverse/panoptes-js'
-import { ProjectCard } from '@zooniverse/react-components'
+import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 
 import HorizontalRuleLogo from '../../../../components/HorizontalRuleLogo/HorizontalRuleLogo.js'
 
@@ -51,22 +51,23 @@ export default function FeaturedProjects() {
 
   return (
     <Box>
-      <Heading
-        level={3}
+      <SpacedHeading
+        level={2}
+        size='1.5rem'
         color={{ light: 'neutral-1', dark: 'accent-1' }}
         textAlign='center'
         fill
-        margin={{ bottom: 'medium' }}
+        margin={{ bottom: 'medium', top: '0' }}
       >
         {t('Home.DefaultHome.FeaturedProjects.heading')}
-      </Heading>
+      </SpacedHeading>
       <HorizontalRuleLogo />
       {/* This is a similar scrollable container like lib-user TopProjects */}
       <Box
         as='ul'
         direction='row'
         justify='between'
-        margin={{ top: 'medium' }}
+        margin={{ top: 'medium', bottom: '0' }}
         gap='small'
         pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
         overflow={{ horizontal: 'auto' }}
