@@ -29,7 +29,7 @@ export default function DefaultHome() {
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
-        pad={{ horizontal: 'medium' }}
+        pad={{ horizontal: 'large' }}
       >
         <MaxWidthContent>
           <Introduction />

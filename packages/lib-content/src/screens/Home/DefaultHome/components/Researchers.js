@@ -28,7 +28,7 @@ const Relative = styled(Box)`
 
 const OverlayFade = styled(Box)`
   position: absolute;
-  right: 0;
+  right: -1px;
   top: 0;
   width: 30px;
   height: 100%;
