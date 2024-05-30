@@ -37,7 +37,7 @@ function ContributorsList({
             >
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())
-                const projectDisplayName = project?.display_name
+                const projectDisplayName = project?.display_name || 'Private Project'
 
                 return (
                   <ProjectStats
