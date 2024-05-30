@@ -102,14 +102,16 @@ function GroupForm({
                 {
                   label: <>
                     <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='1rem'>Private</RadioInputLabel>
-                    <RadioInputLabel>{' - only members can view this group'}</RadioInputLabel>
+                    <span style={{ whiteSpace: 'pre' }}>{' - '}</span>
+                    <RadioInputLabel>only members can view this group</RadioInputLabel>
                   </>,
                   value: 'Private'
                 },
                 {
                   label: <>
                     <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='1rem'>Public</RadioInputLabel>
-                    <RadioInputLabel>{' - you can share this group with anyone'}</RadioInputLabel>
+                    <span style={{ whiteSpace: 'pre' }}>{' - '}</span>
+                    <RadioInputLabel>you can share this group with anyone</RadioInputLabel>
                   </>,
                   value: 'Public'
                 }

@@ -5,7 +5,6 @@ function RadioInputLabel({ children, ...props }) {
   return (
     <SpacedText
       uppercase={false}
-      style={{ whiteSpace: 'pre' }}
       {...props}
     >
       {children}
