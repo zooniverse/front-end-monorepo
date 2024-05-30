@@ -12,8 +12,9 @@ const formTheme = {
       margin: { horizontal: 'none' }
     },
     label: {
-      margin: { horizontal: 'none' }
+      margin: { horizontal: 'none', vertical: 'xxsmall' }
     },
+    margin: { bottom: 'xsmall' },
     round: '4px'
   }
 }
