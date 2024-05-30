@@ -5,7 +5,7 @@ function FieldLabel({ children }) {
   return (
     <SpacedText
       color={{ dark: 'neutral-6', light: 'neutral-7' }}
-      size='16px'
+      size='1rem'
       uppercase={false}
     >
       {children}
