@@ -1,13 +1,20 @@
-'use client'
+import { shape, string } from 'prop-types'
 
-import RecentSubjects from './components/RecentSubjects/RecentSubjects.js'
+import { Layout } from '@components/shared'
+import RecentSubjectsContainer from './components/RecentSubjects/RecentSubjectsContainer.js'
 
 function UserHome({ authUser }) {
   return (
-    <>
-      <RecentSubjects authUser={authUser} />
-    </>
+    <Layout>
+      <RecentSubjectsContainer authUser={authUser} />
+    </Layout>
   )
 }
 
 export default UserHome
+
+UserHome.propTypes = {
+  authUser: shape({
+    id: string
+  })
+}

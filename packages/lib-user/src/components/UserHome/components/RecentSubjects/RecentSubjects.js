@@ -1,28 +1,12 @@
-import { Anchor, Box, Text } from 'grommet'
-import useSWR from 'swr'
+import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
+import { arrayOf, bool, shape, string } from 'prop-types'
+import { useContext } from 'react'
 import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
-import fetchRecentSubjects from './fetchRecentSubjects.js'
 import SubjectCard from '../SubjectCard/SubjectCard.js'
 
-const SWROptions = {
-  revalidateIfStale: true,
-  revalidateOnMount: true,
-  revalidateOnFocus: true,
-  revalidateOnReconnect: true,
-  refreshInterval: 0
-}
-
-function RecentSubjects({ authUser }) {
-  const cacheKey = {
-    name: 'user-recent-classifications',
-    userId: authUser.id
-  }
-  const {
-    data: subjects,
-    error,
-    isLoading
-  } = useSWR(cacheKey, fetchRecentSubjects, SWROptions)
+function RecentSubjects({ isLoading = false, subjects = [] }) {
+  const size = useContext(ResponsiveContext)
 
   return (
     <Box
@@ -66,7 +50,7 @@ function RecentSubjects({ authUser }) {
         {!isLoading && subjects?.length
           ? subjects
               .slice(0, 10)
-              .map(subject => <SubjectCard subject={subject} />)
+              .map(subject => <SubjectCard size={size} subject={subject} />)
           : null}
       </Box>
     </Box>
@@ -74,3 +58,11 @@ function RecentSubjects({ authUser }) {
 }
 
 export default RecentSubjects
+
+RecentSubjects.propTypes = {
+  isLoading: bool,
+  subjects: arrayOf(shape({
+    id: string,
+    slug: string
+  }))
+}

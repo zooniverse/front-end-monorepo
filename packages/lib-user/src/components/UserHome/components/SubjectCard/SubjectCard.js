@@ -10,8 +10,7 @@
 /* The shape and styling of this component is similar to ProjectCard in lib-react-components */
 
 import styled from 'styled-components'
-import { Anchor, Box, ResponsiveContext } from 'grommet'
-import { useContext } from 'react'
+import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { shape, string } from 'prop-types'
 
@@ -64,9 +63,7 @@ function cardWidth(size) {
   }
 }
 
-export default function SubjectCard({ subject }) {
-  const size = useContext(ResponsiveContext)
-
+export default function SubjectCard({ size = 'medium', subject }) {
   const subjectMedia = subject.locations.map(
     location => Object.values(location)[0]
   )
@@ -99,6 +96,7 @@ export default function SubjectCard({ subject }) {
 }
 
 SubjectCard.propTypes = {
+  size: string,
   subject: shape({
     id: string,
     slug: string
