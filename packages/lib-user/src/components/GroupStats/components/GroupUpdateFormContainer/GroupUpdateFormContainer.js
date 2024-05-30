@@ -15,9 +15,12 @@ function GroupUpdateFormContainer({
   async function handleGroupDelete() {
     try {
       const deleteResponse = await deletePanoptesUserGroup({ groupId: group?.id })
-      if (!deleteResponse.ok) return console.error(deleteResponse)
-      
-      window.location.href = `/users/${login}/groups`
+      if (!deleteResponse.ok) {
+        await alert(`Something went wrong. Please try again.\nError: ${deleteResponse?.statusText}`)
+        return console.error(deleteResponse)
+      } else {
+        window.location.href = `/users/${login}/groups`
+      }
     } catch (error) {
       console.error(error)
     }
