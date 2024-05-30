@@ -69,6 +69,7 @@ function Contributors({
     isLoading: projectsLoading
   } = usePanoptesProjects(projectIds)
 
+  // combine member stats with user data
   let contributors = []
   if (stats && users && projects) {
     contributors = stats?.group_member_stats_breakdown?.map(member => {

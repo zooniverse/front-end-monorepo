@@ -30,7 +30,7 @@ function TopContributors({
       title='Top Contributors'
     >
       <Grid
-        as='ul'
+        as='ol'
         columns={[ 'auto', 'auto' ]}
         gap='small'
         pad='none'

@@ -9,8 +9,11 @@ function ProjectStats({
 }) {
   return (
     <Box
+      a11yTitle={`${projectDisplayName} member stats`}
       align='center'
+      as='li'
       border={{ color: 'light-5', side: 'vertical', size: '0.5px' }}
+      data-testid='project-stats'
       pad='xxsmall'
       tabIndex={0}
       width={{ max: '200px', min: '200px' }}

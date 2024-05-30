@@ -84,15 +84,10 @@ function App({
             </ul>
           </li>
           <li>
-            /groups
+            <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
             <ul>
               <li>
-                <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
-                <ul>
-                  <li>
-                    <a href="./?groups=[user_group_id]/contributors">/contributors - all group members stats</a>
-                  </li>
-                </ul>
+                <a href="./?groups=[user_group_id]/contributors">/contributors - full group stats page</a>
               </li>
             </ul>
           </li>

@@ -25,16 +25,13 @@ function ComponentDecorator(Story) {
   )
 }
 
-const contributors = USERS.map(user => {
-  const member = group_member_stats_breakdown.find(stats => stats.user_id.toString() === user.id)
-
-  if (!member) return null
-
+const contributors = group_member_stats_breakdown.map((member) => {
+  const user = USERS.find(user => user.id === member.user_id.toString())
   return {
     ...member,
     ...user
   }
-}).filter(Boolean)
+})
 
 export const Default = {
   args: {

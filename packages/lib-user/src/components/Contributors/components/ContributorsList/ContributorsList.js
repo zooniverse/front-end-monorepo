@@ -9,18 +9,24 @@ function ContributorsList({
   projects = []
 }) {
   return (
-    <Box>
+    <Box
+      as='ol'
+    >
       {contributors.map((contributor, index) => {
         return (
           <Box
             key={contributor.id}
+            a11yTitle={`${contributor.display_name} member stats`}
+            as='li'
             background={index % 2 === 0 ? 
               { dark: 'dark-3', light: 'neutral-6' }
               : 
               { dark: 'dark-1', light: 'light-1' }
             }
             border={{ color: 'light-5', size: '0.5px' }}
+            data-testid='contributor-stats'
             direction='row'
+            tabIndex={0}
           >
             <MemberStats
               avatar={contributor.avatar_src}
@@ -30,10 +36,15 @@ function ContributorsList({
               login={contributor.login}
             />
             <Box
+              as='ol'
               direction='row'
               fill='horizontal'
               overflow={{ horizontal: 'auto' }}
-              style={{ boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)' }}
+              style={{
+                boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)',
+                listStyle: 'none',
+                paddingInlineStart: 0
+              }}
             >
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())
