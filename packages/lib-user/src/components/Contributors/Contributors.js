@@ -1,77 +1,123 @@
-import { Box } from 'grommet'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 
-import MemberStats from './components/MemberStats'
-import ProjectStats from './components/ProjectStats'
+import {
+  usePanoptesProjects,
+  usePanoptesUser,
+  useStats
+} from '@hooks'
+
+import {
+  ContentBox,
+  HeaderLink,
+  Layout
+} from '@components/shared'
+
+import ContributorsList from './components/ContributorsList'
+import { Header } from 'grommet'
+
+const STATS_ENDPOINT = '/classifications/user_groups'
 
 function Contributors({
-  contributors,
-  projects
+  adminMode,
+  authUser,
+  group,
+  membership
 }) {
-  return (
-    <Box>
-      {contributors.map((contributor, index) => {
-        return (
-          <Box
-            key={contributor.id}
-            background={index % 2 === 0 ? 
-              { dark: 'dark-3', light: 'neutral-6' }
-              : 
-              { dark: 'dark-1', light: 'light-1' }
-            }
-            border={{ color: 'light-5', size: '0.5px' }}
-            direction='row'
-          >
-            <MemberStats
-              avatar={contributor.avatar}
-              classifications={contributor.classifications}
-              displayName={contributor.displayName}
-              hours={contributor.session_time}
-              login={contributor.login}
-            />
-            <Box
-              direction='row'
-              overflow={{ horizontal: 'auto' }}
-              style={{ boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)' }}
-            >
-              {contributor.project_contributions.map(statsProject => {
-                const projectDisplayName = projects.find(project => project.id === statsProject.project_id.toString()).display_name
+  const showContributors = adminMode 
+    || membership?.roles.includes('group_admin')
+    || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
+    || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
+    || group?.stats_visibility === 'public_show_all'
+  if (!showContributors) return (<div>Not authorized</div>)
 
-                return (
-                  <ProjectStats
-                    key={statsProject.project_id}
-                    classifications={statsProject.count}
-                    hours={statsProject.session_time}
-                    projectDisplayName={projectDisplayName}
-                  />
-                )
-              })}
-            </Box>
-          </Box>
-        )
-      })}
-    </Box>
+  // fetch stats
+  const statsQuery = {
+    individual_stats_breakdown: true,
+  }
+  
+  const {
+    data: stats,
+    error: statsError,
+    isLoading: statsLoading
+  } = useStats({
+    authUserId: authUser?.id,
+    endpoint: STATS_ENDPOINT,
+    sourceId: group?.id,
+    query: statsQuery
+  })
+
+  // fetch users
+  const userIds = stats?.group_member_stats_breakdown?.map(member => member.user_id)
+  
+  const {
+    data: users,
+    error: usersError,
+    isLoading: usersLoading
+  } = usePanoptesUser({
+    authUser,
+    userIds
+  })
+  
+  // fetch projects
+  const arrayOfProjectContributionArrays = stats?.group_member_stats_breakdown?.map(member => member.project_contributions)
+  const flattenedProjectContributionArray = arrayOfProjectContributionArrays?.flat()
+  const projectIds = [...new Set(flattenedProjectContributionArray?.map(item => item.project_id))]
+
+  const {
+    data: projects,
+    error: projectsError,
+    isLoading: projectsLoading
+  } = usePanoptesProjects(projectIds)
+
+  let contributors = []
+  if (stats && users && projects) {
+    contributors = stats?.group_member_stats_breakdown?.map(member => {
+      const user = users?.find(user => user.id === member.user_id.toString())
+      return {
+        ...member,
+        ...user
+      }
+    })
+  }
+
+  return (
+    <Layout
+      primaryHeaderItem={
+        <HeaderLink
+          href={`/groups/${group.id}`}
+          label='back'
+          primaryItem={true}
+        />
+      }
+    >
+      <ContentBox
+        title='Full Group Stats'
+      >
+        {contributors.length > 0 ? (
+            <ContributorsList
+              contributors={contributors}
+              projects={projects}
+            />
+          ) : <div>Loading...</div>
+        }
+      </ContentBox>
+    </Layout>
   )
 }
 
 Contributors.propTypes = {
-  contributors: arrayOf(shape({
-    avatar: string,
-    classifications: number,
-    displayName: string,
-    login: string,
-    count: number,
-    session_time: number,
-    project_contributions: arrayOf(shape({
-      project_id: number,
-      count: number,
-      session_time: number
-    }))
-  })),
-  projects: arrayOf(shape({
+  adminMode: bool,
+  authUser: shape({
+    id: string
+  }),
+  group: shape({
     display_name: string,
-    id: number
-  }))
+    id: string
+  }),
+  membership: shape({
+    id: string,
+    roles: arrayOf(string)
+  })
 }
 
 export default Contributors

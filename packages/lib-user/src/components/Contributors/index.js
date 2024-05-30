@@ -1,1 +1,1 @@
-export { default } from './Contributors'
+export { default } from './ContributorsContainer'
