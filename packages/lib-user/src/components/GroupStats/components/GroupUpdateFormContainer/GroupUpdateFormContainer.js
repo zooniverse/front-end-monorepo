@@ -17,7 +17,7 @@ function GroupUpdateFormContainer({
       const deleteResponse = await deletePanoptesUserGroup({ groupId: group?.id })
       if (!deleteResponse.ok) return console.error(deleteResponse)
       
-      window.location.href = `https://www.zooniverse.org/users/${login}`
+      window.location.href = `/users/${login}/groups`
     } catch (error) {
       console.error(error)
     }
