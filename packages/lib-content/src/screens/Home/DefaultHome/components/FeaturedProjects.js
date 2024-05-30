@@ -1,7 +1,7 @@
 /* Note that this component will also be used in the redesigned Projects landing page
 so it could be moved to lib-react-components at that time */
 
-import { Box, Heading, ResponsiveContext } from 'grommet'
+import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 import useSWR from 'swr'
 import { useTranslation } from '../../../../translations/i18n.js'
@@ -45,12 +45,11 @@ export default function FeaturedProjects() {
   const { data: featuredProjects, isLoading } = useFeaturedProjects()
   const { t } = useTranslation()
 
-  // A breakpoint x-large needs to be implemented at the theme level
-  // Then on x-large can be passed to ProjectCard below
   const size = useContext(ResponsiveContext)
+  const cardSize = size === 'small' ? 'medium' : 'xlarge'
 
   return (
-    <Box>
+    <Box fill>
       <SpacedHeading
         level={2}
         size='1.5rem'
@@ -81,7 +80,7 @@ export default function FeaturedProjects() {
                 displayName={project.display_name}
                 href={project.slug}
                 imageSrc={project.avatar_src}
-                size={size}
+                size={cardSize}
               />
             ))
           : null}

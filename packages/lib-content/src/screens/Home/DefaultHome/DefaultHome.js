@@ -3,6 +3,7 @@
 import { Box } from 'grommet'
 import { SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from '../../../translations/i18n.js'
+import styled from 'styled-components'
 
 import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
 import MaxWidthContent from '../../../components/MaxWidthContent/MaxWidthContent.js'
@@ -12,6 +13,20 @@ import FeaturedProjects from './components/FeaturedProjects.js'
 import Mobile from '../../../components/Mobile/Mobile.js'
 import Researchers from './components/Researchers.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
+
+const StyledContainerBox = styled(ContainerBox)`
+  padding: 0 80px;
+
+  // max-width of the elevated Box
+  @media (48rem < width <= 90rem) {
+    padding: 0 60px;
+  }
+
+  // Grommet theme 'small'
+  @media (width <= 48rem) {
+    padding: 0 30px;
+  }
+`
 
 export default function DefaultHome() {
   const { t } = useTranslation()
@@ -25,11 +40,10 @@ export default function DefaultHome() {
       align='center'
     >
       <Hero />
-      <ContainerBox
+      <StyledContainerBox
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
-        pad={{ horizontal: 'large' }}
       >
         <MaxWidthContent>
           <Introduction />
@@ -47,7 +61,7 @@ export default function DefaultHome() {
         </SpacedHeading>
         <SubHeading>{t('Home.DefaultHome.subheadings.four')}</SubHeading>
         <Mobile />
-      </ContainerBox>
+      </StyledContainerBox>
     </Box>
   )
 }

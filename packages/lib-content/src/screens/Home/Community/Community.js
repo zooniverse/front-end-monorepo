@@ -1,7 +1,8 @@
-import { Anchor, Box, Heading } from 'grommet'
+import { Anchor, Box, Heading, ResponsiveContext } from 'grommet'
 import { useTranslation } from '../../../translations/i18n.js'
 import { SpacedHeading } from '@zooniverse/react-components'
 import styled from 'styled-components'
+import { useContext } from 'react'
 
 import Article from '../../../components/Article/Article.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
@@ -14,10 +15,24 @@ const ElevatedBox = styled(Box)`
   position: relative;
   z-index: 99;
   margin-top: -3px;
+
+  // Same horizatonal padding style as DefaultHome
+  padding: 30px 80px 80px;
+
+  // max-width of the elevated Box
+  @media (48rem < width <= 90rem) {
+    padding: 30px 60px 60px;
+  }
+
+  // Grommet theme 'small'
+  @media (width <= 48rem) {
+    padding: 30px 30px 30px;
+  }
 `
 
 export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
 
   return (
     <Box
@@ -31,21 +46,25 @@ export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
-        pad='large'
       >
         <Box
           round='small'
-          pad='large'
-          border={{
-            color: { light: 'light-5', dark: 'black' },
-            size: 'xsmall'
-          }}
+          pad={size === 'small' ? '0' : 'large'}
+          border={
+            size === 'small'
+              ? false
+              : {
+                  color: { light: 'light-5', dark: 'black' },
+                  size: 'xsmall'
+                }
+          }
         >
           <SpacedHeading
             color={{ light: 'neutral-1', dark: 'accent-1' }}
             level={2}
             size='1.5rem'
             alignSelf='center'
+            textAlign='center'
           >
             {t('Home.Community.heading')}
           </SpacedHeading>
