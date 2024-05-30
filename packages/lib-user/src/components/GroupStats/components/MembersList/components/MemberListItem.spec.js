@@ -25,6 +25,7 @@ describe('components > GroupStats > MemberListItem', function () {
     it('should show a menu button', function () {
       render(<DefaultStory />)
       const menuButton = screen.getByRole('button', { name: `Menu to update or remove ${GROUP_MEMBER_USER.display_name}'s group membership` })
+      expect(menuButton).to.be.ok()
     })
 
     describe('when the menu button is clicked', function () {
@@ -76,6 +77,7 @@ describe('components > GroupStats > MemberListItem', function () {
     it('should show a menu button', function () {
       render(<GroupAdminStory />)
       const menuButton = screen.getByRole('button', { name: `Menu to update or remove ${GROUP_ADMIN_USER.display_name}'s group membership` })
+      expect(menuButton).to.be.ok()
     })
 
     describe('when the menu button is clicked', function () {
