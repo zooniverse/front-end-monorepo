@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+import { GROUP_ADMIN_USER, MEMBERSHIPS, USER_GROUPS, USERS } from '../../../../test/mocks/panoptes'
+
+import GroupCreateFormContainer from '../../MyGroups/components/GroupCreateFormContainer'
+import GroupUpdateFormContainer from '../../GroupStats/components/GroupUpdateFormContainer'
+import MembersList from '../../GroupStats/components/MembersList/MembersList'
+
 import GroupModal from './GroupModal'
 
 export default {
@@ -24,10 +30,40 @@ export function CreateGroup() {
       title='create new group'
       titleColor='black'
     >
-      <>
-        {'Hello world!'}
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac risus id ante dapibus vestibulum. Donec id.</p>
-      </>
+      <GroupCreateFormContainer />
+    </GroupModal>
+  ]
+}
+
+export function EditGroup() {
+  const [groupModalActive, setGroupModalActive] = useState(true)
+
+  const moreMemberships = MEMBERSHIPS.concat(MEMBERSHIPS).concat(MEMBERSHIPS)
+
+  return [
+    <button
+      key='1-edit-group-story'
+      onClick={() => setGroupModalActive(true)}
+    >
+      Edit Group
+    </button>,
+    <GroupModal
+      key='2-edit-group-story'
+      active={groupModalActive}
+      handleClose={() => setGroupModalActive(false)}
+      title='edit group'
+      titleColor='black'
+    >
+      <GroupUpdateFormContainer
+        group={USER_GROUPS[0]}
+        login='test-user'
+      >
+        <MembersList
+          authUserId={GROUP_ADMIN_USER.id}
+          memberships={moreMemberships}
+          users={USERS}
+        />
+      </GroupUpdateFormContainer>
     </GroupModal>
   ]
 }

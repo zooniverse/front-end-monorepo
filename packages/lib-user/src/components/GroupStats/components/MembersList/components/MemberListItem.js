@@ -50,6 +50,7 @@ function MemberListItem({
       as='li'
       direction='row'
       fill='horizontal'
+      height={{ min: '32px' }}
       justify='between'
       margin='none'
       pad='none'
