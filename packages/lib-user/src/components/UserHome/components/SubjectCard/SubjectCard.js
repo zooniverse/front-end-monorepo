@@ -7,10 +7,11 @@
     - Share button with link to Talk url
 */
 
-/* There's a similar component in app-project ProjectHomePage > RecentSubjects */
+/* The shape and styling of this component is similar to ProjectCard in lib-react-components */
 
-import styled, { css } from 'styled-components'
-import { Anchor, Box } from 'grommet'
+import styled from 'styled-components'
+import { Anchor, Box, ResponsiveContext } from 'grommet'
+import { useContext } from 'react'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { shape, string } from 'prop-types'
 
@@ -23,10 +24,6 @@ const StyledAnchor = styled(Anchor)`
 `
 
 const StyledBox = styled(Box)`
-  ${props => css`
-    max-height: ${props.maxHeight}px;
-    max-width: ${props.maxWidth}px;
-  `}
   overflow: hidden;
   position: relative;
 `
@@ -52,8 +49,27 @@ const StyledSpacedText = styled(SpacedText)`
   z-index: 3;
 `
 
+function cardWidth(size) {
+  switch (size) {
+    case 'small':
+      return 157
+    case 'medium':
+      return 189
+    case 'large':
+      return 220
+    case 'xlarge':
+      return 252
+    default:
+      return 189
+  }
+}
+
 export default function SubjectCard({ subject }) {
-  const subjectMedia = subject.locations.map(location => Object.values(location)[0])
+  const size = useContext(ResponsiveContext)
+
+  const subjectMedia = subject.locations.map(
+    location => Object.values(location)[0]
+  )
   const mediaSrc = subjectMedia[0]
 
   // to PFE
@@ -61,16 +77,17 @@ export default function SubjectCard({ subject }) {
 
   return (
     <StyledAnchor href={href}>
-      <StyledBox elevation='small' fill
-      // maxHeight={height}
-      // maxWidth={width}
+      <StyledBox
+        elevation='small'
+        height={`${(cardWidth(size) * 14) / 11}px`}
+        width={`${cardWidth(size)}px`}
+        round='8px'
       >
         <Media
           alt={`subject ${subject.id}`}
           controls={false}
-          // height={700}
           src={mediaSrc}
-          // width={700}
+          width={cardWidth(size)}
         />
         <Gradient fill />
         <StyledSpacedText color='white' weight='bold'>
