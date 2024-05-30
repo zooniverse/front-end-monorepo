@@ -8,6 +8,7 @@ import {
 import MemberCard from '../MemberCard'
 
 function TopContributors({
+  groupId,
   stats,
   topContributors
 }) {
@@ -22,6 +23,10 @@ function TopContributors({
 
   return (
     <ContentBox
+      linkLabel='See all contributors and detailed stats'
+      linkProps={{
+        href: `/groups/${groupId}/contributors`
+      }}
       title='Top Contributors'
     >
       <Grid
@@ -53,6 +58,7 @@ function TopContributors({
 }
 
 TopContributors.propTypes = {
+  groupId: string,
   stats: shape({
     top_contributors: arrayOf(shape({
       count: number,

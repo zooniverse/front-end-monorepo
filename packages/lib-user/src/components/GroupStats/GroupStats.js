@@ -134,6 +134,7 @@ function GroupStats({
           gap='30px'
         >
           <TopContributors
+            groupId={group?.id}
             stats={stats}
             topContributors={topContributors}
           />
