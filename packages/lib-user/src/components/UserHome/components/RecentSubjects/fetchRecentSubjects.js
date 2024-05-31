@@ -29,7 +29,6 @@ async function fetchSubjectLinks(subject) {
     subject.slug = slug
   } catch {
     console.error(error)
-    return subject
   }
 }
 
