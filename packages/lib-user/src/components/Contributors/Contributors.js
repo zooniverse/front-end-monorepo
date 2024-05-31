@@ -1,4 +1,5 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
+import { useState } from 'react'
 
 import {
   usePanoptesProjects,
@@ -13,7 +14,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
-import { Header } from 'grommet'
+import { generateExport } from './helpers/generateExport'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -23,6 +24,9 @@ function Contributors({
   group,
   membership
 }) {
+  const [dataExportUrl, setDataExportUrl] = useState('')
+  const [filename, setFilename] = useState('')
+
   const showContributors = adminMode 
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
@@ -92,6 +96,21 @@ function Contributors({
       }
     >
       <ContentBox
+        linkLabel='Export all stats'
+        linkProps={{
+          href: dataExportUrl,
+          download: filename,
+          onClick: () => {
+            generateExport({
+              group,
+              handleFileName: setFilename,
+              handleDataExportUrl: setDataExportUrl,
+              projects,
+              stats,
+              users
+            })
+          }
+        }}
         title='Full Group Stats'
       >
         {contributors.length > 0 ? (
