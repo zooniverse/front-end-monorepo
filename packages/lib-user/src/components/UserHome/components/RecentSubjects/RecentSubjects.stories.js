@@ -3,10 +3,17 @@ import mockSubjects from './subjects.mock.json'
 
 export default {
   title: 'Components / UserHome / RecentSubjects',
-  component: RecentSubjects,
+  component: RecentSubjects
+}
+
+export const Default = {
   args: {
     subjects: mockSubjects
   }
 }
 
-export const Default = {}
+export const NoSubjects = {
+  args: {
+    subjects: []
+  }
+}
