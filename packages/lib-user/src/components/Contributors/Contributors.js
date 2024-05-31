@@ -32,7 +32,6 @@ function Contributors({
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
     || group?.stats_visibility === 'public_show_all'
-  if (!showContributors) return (<div>Not authorized</div>)
 
   // fetch stats
   const statsQuery = {
@@ -84,6 +83,8 @@ function Contributors({
       }
     })
   }
+
+  if (!showContributors) return (<div>Not authorized</div>)
 
   return (
     <Layout
