@@ -125,7 +125,6 @@ function MainContent ({
           gap='16px'
           justify='end'
         >
-          <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
           <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
         </Box>
       ) : null}
