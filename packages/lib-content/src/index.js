@@ -1,5 +1,6 @@
 export { default as About } from './screens/About/About.js'
 export { default as CommunityContainer } from './screens/Home/Community/CommunityContainer.js'
+export { default as DefaultHome } from './screens/Home/DefaultHome/DefaultHome.js'
 export { default as FAQ } from './screens/FAQ/FAQ.js'
 export { default as OurTeam } from './screens/OurTeam/OurTeam.js'
 export { default as Publications } from './screens/Publications/Publications.js'
