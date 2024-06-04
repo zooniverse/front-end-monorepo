@@ -36,6 +36,7 @@ Note: query params are used for local development work, but are not used in prod
 - `https://www.zooniverse.org/users/[login]/stats`
 - `https://www.zooniverse.org/users/[login]/stats/certificate`
 - `https://www.zooniverse.org/groups/[user group ID]`
+- `https://local.zooniverse.org:8080/?groups=[groupId]`
 
 ## Tests
 
