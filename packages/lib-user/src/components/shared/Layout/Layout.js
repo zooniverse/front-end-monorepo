@@ -25,16 +25,19 @@ const PageContainer = styled(Box)`
 const PageLeftHeader = styled(Box)`
   grid-column: 1 / 3;
   grid-row: 1 / 3;
+  border: solid 5px black;
 `
 
 const PageHeader = styled(Box)`
   grid-column: 3 / 4;
   grid-row: 1 / 3;
+  border: solid 5px green;
 `
 
 const PageRightHeader = styled(Box)`
   grid-column: 4 / 6;
   grid-row: 1 / 3;
+  border: solid 5px black;
 `
 
 const PageLeftColumn = styled(Box)`
@@ -42,9 +45,11 @@ const PageLeftColumn = styled(Box)`
   position: relative;
   grid-column: 2 / 3;
   grid-row: 3 / 4;
+  border: solid 5px red;
 
   @media (91rem <= width) {
     border-left: 0.5px solid ${props => props.theme.dark ? props.theme.global.colors['dark-2'] : props.theme.global.colors['light-5']};
+    border: solid 5px red;
   }
 
   &::after {
@@ -55,7 +60,7 @@ const PageLeftColumn = styled(Box)`
     width: 30px;
     height: 300px;
     clip-path: polygon(0 0, 100% 0, 100% 100%);
-    
+
     ${props =>
         props.theme.dark
           ? css`
@@ -81,6 +86,7 @@ const PageBody = styled(Box)`
   grid-row: 2 / 4;
   border-radius: 8px 8px 0 0;
   padding-bottom: 50px;
+  border: solid 5px yellow;
 `
 
 const PageRightColumn = styled(Box)`
@@ -88,9 +94,11 @@ const PageRightColumn = styled(Box)`
   position: relative;
   grid-column: 4 / 5;
   grid-row: 3 / 4;
+  border: solid 5px red;
 
   @media (91rem <= width) {
     border-right: 0.5px solid ${props => props.theme.dark ? props.theme.global.colors['dark-2'] : props.theme.global.colors['light-5']};
+    border: solid 5px red;
   }
 
   &::before {
@@ -101,7 +109,7 @@ const PageRightColumn = styled(Box)`
     width: 30px;
     height: 300px;
     clip-path: polygon(100% 0, 0 0, 0 100%);
-    
+
     ${props =>
         props.theme.dark
           ? css`
@@ -164,7 +172,7 @@ function Layout({
         </Box>
       </PageHeader>
       <PageRightHeader background='neutral-1' />
-      <PageLeftColumn 
+      <PageLeftColumn
         background={{
           dark: 'dark-3',
           light: 'neutral-6'
@@ -178,7 +186,7 @@ function Layout({
         forwardedAs='main'
         gap='30px'
       >
-        {children}
+        {/* {children} */}
       </PageBody>
       <PageRightColumn
         background={{
@@ -186,7 +194,7 @@ function Layout({
           light: 'neutral-6'
         }}
       />
-    </PageContainer>   
+    </PageContainer>
   )
 }
 
