@@ -18,31 +18,31 @@ function PageHeader({ primaryHeaderItem = '', secondaryHeaderItems = [] }) {
       as='header'
       background='neutral-1'
       fill
-      height={{ min: '140px' }}
+      height={{ min: '140px', max: '140px' }}
       align='center'
       pad={{ horizontal: 'medium' }} // Matches ZooHeader and body horizontal padding
     >
       <HeaderItems
         direction='row'
         fill
-        height={{ min: '70px' }}
+        height={{ min: '70px', max: '70px' }}
         align='center'
         justify='between'
       >
         <Box align='center' direction='row'>
           {primaryHeaderItem}
         </Box>
-        {size !== 'small' ? (
-          <Box align='center' justify='end' direction='row' gap='small'>
-            {secondaryHeaderItems.length > 0 ? (
+        <Box align='center' justify='end' direction='row' gap='small'>
+          {secondaryHeaderItems.length > 0 ? (
+            size !== 'small' ? (
               secondaryHeaderItems.map(HeaderItem => HeaderItem)
             ) : (
-              <ZooniverseLogotype id='HeaderZooniverseLogo' color='white' />
-            )}
-          </Box>
-        ) : (
-          <HeaderDropdown secondaryHeaderItems={secondaryHeaderItems} />
-        )}
+              <HeaderDropdown secondaryHeaderItems={secondaryHeaderItems} />
+            )
+          ) : (
+            <ZooniverseLogotype id='HeaderZooniverseLogo' color='white' />
+          )}
+        </Box>
       </HeaderItems>
     </Box>
   )
