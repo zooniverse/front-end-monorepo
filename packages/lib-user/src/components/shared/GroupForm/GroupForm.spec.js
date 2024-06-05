@@ -2,23 +2,23 @@ import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Meta, { Default, Manage } from './GroupForm.stories'
+import Meta, { Create, Manage } from './GroupForm.stories'
 
 describe('components > MyGroups > GroupForm', function() {
   describe('without a provided group (create mode)', function() {
 
     const user = userEvent.setup()
-    const DefaultStory = composeStory(Default, Meta)
+    const CreateStory = composeStory(Create, Meta)
   
     it('should collect group display name', function() {
-      render(<DefaultStory />)
+      render(<CreateStory />)
   
       const displayName = screen.getByRole('textbox', { name: 'Group Name' })
       expect(displayName).to.be.ok()
     })
   
     it('should have radio buttons for public or private visibility', function() {
-      render(<DefaultStory />)
+      render(<CreateStory />)
   
       const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
       const publicRadio = screen.getByRole('radio', { name: 'Public - you can share this group with anyone' })
@@ -27,14 +27,14 @@ describe('components > MyGroups > GroupForm', function() {
     })
   
     it('should default to private visibility', function() {
-      render(<DefaultStory />)
+      render(<CreateStory />)
   
       const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
       expect(privateRadio.checked).to.be.true()
     })
   
     it('should have a select for stats visibility', function() {
-      render(<DefaultStory />)
+      render(<CreateStory />)
   
       // the Grommet Select component renders as a button with a textbox. The statsVisibility input uses the Grommet Select, therefore we need to find the textbox role. The textbox name includes the value of the select, which by default is 'private_agg_only'.
       const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, private_agg_only' })
@@ -43,7 +43,7 @@ describe('components > MyGroups > GroupForm', function() {
   
     describe('with private visibility', function() {
       it('should show private stats visibility options', async function() {
-        render(<DefaultStory />)
+        render(<CreateStory />)
   
         // by default, the visibility is private
         const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
@@ -61,7 +61,7 @@ describe('components > MyGroups > GroupForm', function() {
   
     describe('with public visibility', function() {
       it('should show public stats visibility options', async function() {
-        render(<DefaultStory />)
+        render(<CreateStory />)
   
         const publicRadio = screen.getByRole('radio', { name: 'Public - you can share this group with anyone' })
         await user.click(publicRadio)
@@ -79,7 +79,7 @@ describe('components > MyGroups > GroupForm', function() {
   
     describe('without a display name', function() {
       it('should show display name is required', async function() {
-        render(<DefaultStory />)
+        render(<CreateStory />)
   
         const submit = screen.getByRole('button', { name: 'Create new group' })
         await user.click(submit)
@@ -91,7 +91,7 @@ describe('components > MyGroups > GroupForm', function() {
   
     describe('with an invalid display name', function() {
       it('should show display name is invalid', async function() {
-        render(<DefaultStory />)
+        render(<CreateStory />)
   
         const displayName = screen.getByRole('textbox', { name: 'Group Name' })
         await user.type(displayName, 'abc')
