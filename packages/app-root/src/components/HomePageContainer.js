@@ -5,6 +5,7 @@ import { Box } from 'grommet'
 import { PanoptesAuthContext } from '../contexts'
 import { CommunityContainer, DefaultHome } from '@zooniverse/content'
 import { Loader } from '@zooniverse/react-components'
+import { UserHome } from '@zooniverse/user'
 
 export default function HomePageContainer({
   dailyZooPosts = [],
@@ -20,7 +21,7 @@ export default function HomePageContainer({
         </Box>
       ) : (
         <Box height={{ min: '100vh' }}>
-          {user?.login ? <p>Signed-in</p> : <DefaultHome />}
+          {user?.login ? <UserHome authUser={user} /> : <DefaultHome />}
         </Box>
       )}
       <CommunityContainer
