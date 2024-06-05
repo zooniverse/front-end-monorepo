@@ -26,7 +26,7 @@ function MembersList({
         as='ul'
         border={[{ color: 'light-5', size: '1px', style: 'solid' }]}
         height='small'
-        overflow={{ vertical: 'scroll' }}
+        overflow={{ vertical: 'auto' }}
         round='4px'
       >
         {memberships?.map(membership => {

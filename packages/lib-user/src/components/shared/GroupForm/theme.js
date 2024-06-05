@@ -1,8 +1,8 @@
 const formTheme = {
   formField: {
-    border: {
-      color: 'light-5',
-      side: 'all'
+    border: 'none',
+    content: {
+      pad: 'xxsmall'
     },
     help: {
       color: { dark: 'neutral-6', light: 'dark-5' },
@@ -12,11 +12,16 @@ const formTheme = {
       margin: { horizontal: 'none' }
     },
     label: {
-      margin: { horizontal: 'none', vertical: 'xxsmall' }
+      margin: { horizontal: 'none' }
     },
     margin: { bottom: 'xsmall' },
     round: '4px'
-  }
+  },
+  radioButtonGroup: {
+    container: {
+      gap: 'xxsmall',
+    },
+  },
 }
 
 export default formTheme

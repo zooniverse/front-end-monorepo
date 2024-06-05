@@ -35,23 +35,23 @@ export function CreateGroup() {
   ]
 }
 
-export function EditGroup() {
+export function ManageGroup() {
   const [groupModalActive, setGroupModalActive] = useState(true)
 
   const moreMemberships = MEMBERSHIPS.concat(MEMBERSHIPS).concat(MEMBERSHIPS)
 
   return [
     <button
-      key='1-edit-group-story'
+      key='1-manage-group-story'
       onClick={() => setGroupModalActive(true)}
     >
       Edit Group
     </button>,
     <GroupModal
-      key='2-edit-group-story'
+      key='2-manage-group-story'
       active={groupModalActive}
       handleClose={() => setGroupModalActive(false)}
-      title='edit group'
+      title='manage group'
       titleColor='black'
     >
       <GroupUpdateFormContainer

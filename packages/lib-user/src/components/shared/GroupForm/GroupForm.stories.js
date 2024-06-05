@@ -24,7 +24,7 @@ function ComponentDecorator(Story) {
   )
 }
 
-export const Default = {
+export const Create = {
   args: {
     handleSubmit: (event) => console.log('submitting...', event.value)
   }
