@@ -128,7 +128,10 @@ function GroupStats({
         titleColor='black'
       >
         <GroupUpdateFormContainer
+          adminMode={adminMode}
+          authUserId={authUser?.id}
           group={group}
+          handleGroupModalActive={handleGroupModalActive}
           login={authUser?.login}
         >
           <MembersList

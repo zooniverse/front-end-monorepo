@@ -26,7 +26,7 @@ function deleteJoinTokenParam() {
 }
 
 function GroupStatsContainer({
-  adminMode,
+  adminMode = false,
   authUser,
   groupId,
   joinToken
