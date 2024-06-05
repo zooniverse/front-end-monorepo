@@ -1,5 +1,5 @@
 import { shape, string } from 'prop-types'
-import { useEffect, useState } from 'react'
+import useSWRMutation from 'swr/mutation'
 
 import { usePanoptesMemberships } from '@hooks'
 
@@ -14,44 +14,69 @@ function MembersListContainer({
   authUser,
   group
 }) {
-  const [memberships, setMemberships] = useState([])
-
+  const query = {
+    include: 'user',
+    user_group_id: group?.id
+  }
+  
   const {
     data: membershipsData,
     error,
     isLoading
   } = usePanoptesMemberships({
     authUserId: authUser?.id,
-    query: {
-      include: 'user',
-      user_group_id: group?.id
-    }
+    query
   })
 
-  useEffect(() => {
-    if (membershipsData) {
-      setMemberships(membershipsData.memberships.filter(membership => membership.state === 'active'));
-    }
-  }, [membershipsData]);
+  const { trigger: deleteMembership } = useSWRMutation({ query, joinStatusSuccess: false }, deletePanoptesMembership)
+  const { trigger: updateMembership } = useSWRMutation({ query, joinStatusSuccess: false }, updatePanoptesMembership)
+
+  const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
 
   async function handleDeleteMembership({ membershipId }) {
-    const deleteMembershipResponse = await deletePanoptesMembership({ membershipId })
-    if (deleteMembershipResponse.ok) {
-      const updatedMemberships = memberships.filter(membership => membership.id !== membershipId)
-      setMemberships(updatedMemberships)
+    try {
+      deleteMembership({ membershipId }, {
+        optimisticData: (prevMembershipsData) => ({
+          ...prevMembershipsData,
+          memberships: prevMembershipsData?.memberships?.filter(membership => membership.id !== membershipId)
+        }),
+        revalidate: false,
+        rollbackOnError: true
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 
   async function handleUpdateMembership({ membershipId, data }) {
-    const updateMembershipResponse = await updatePanoptesMembership({ membershipId, data })
-    if (updateMembershipResponse.ok) {
-      const updatedMemberships = memberships.map(membership => {
-        if (membership.id === membershipId) {
-          membership.roles = data.roles
-        }
-        return membership
+    try {
+      updateMembership({ membershipId, data }, {
+        optimisticData: (prevMembershipsData) => ({
+          ...prevMembershipsData,
+          memberships: prevMembershipsData?.memberships?.map(membership => {
+            if (membership.id === membershipId) {
+              return {
+                ...membership,
+                ...data
+              }
+            }
+            return membership
+          })
+        }),
+        populateCache: (updatedMembership, prevMembershipsData) => ({
+          ...prevMembershipsData,
+          memberships: prevMembershipsData?.memberships?.map(membership => {
+            if (membership.id === updatedMembership.id) {
+              return updatedMembership
+            }
+            return membership
+          })
+        }),
+        revalidate: false,
+        rollbackOnError: true
       })
-      setMemberships(updatedMemberships)
+    } catch (error) {
+      console.error(error)
     }
   }
 
