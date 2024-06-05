@@ -50,7 +50,7 @@ function RecentSubjects({ isLoading = false, subjects = [] }) {
         {!isLoading && subjects?.length
           ? subjects
               .slice(0, 10)
-              .map(subject => <SubjectCard size={size} subject={subject} />)
+              .map(subject => <SubjectCard key={subject.id} size={size} subject={subject} />)
           : null}
       </Box>
     </Box>
