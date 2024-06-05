@@ -13,7 +13,6 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
-import { Header } from 'grommet'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
