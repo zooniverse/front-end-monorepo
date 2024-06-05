@@ -1,6 +1,12 @@
-import { Box, Image } from 'grommet'
-import styled from 'styled-components'
-import { shape, string } from 'prop-types'
+import { Anchor, Box, Image, ResponsiveContext, Text } from 'grommet'
+import { Bookmark, Chat, Favorite, FormNext, MailOption } from 'grommet-icons'
+import { useContext } from 'react'
+import styled, { css } from 'styled-components'
+import { number, shape, string } from 'prop-types'
+import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
+
+import DashboardLink from './components/DashboardLink.js'
+import StatsTabs from './components/StatsTabs.js'
 
 const Relative = styled(Box)`
   position: relative;
@@ -16,23 +22,162 @@ const StyledAvatar = styled(Image)`
   top: 206px;
 `
 
-export default function Dashboard({ authUser, profileBannerSrc = '' }) {
+const NameContainer = styled(Box)`
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    ${props =>
+      props.theme.dark
+        ? css`
+            background: linear-gradient(
+              90deg,
+              transparent 0%,
+              #000000 50%,
+              transparent 100%
+            );
+          `
+        : css`
+            background: linear-gradient(
+              90deg,
+              transparent 0%,
+              #a6a7a9 50%,
+              transparent 100%
+            );
+          `}
+  }
+`
+
+const StyledStatsLink = styled(Anchor)`
+  border-radius: 24px; // Same as HeaderButton
+  padding: 10px;
+  width: 240px;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+
+  ${props =>
+    props.theme.dark
+      ? css`
+          box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.7);
+        `
+      : css`
+          box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+        `}
+
+  &:hover {
+    text-decoration: none;
+  }
+`
+
+const StyledBadge = styled(Text)`
+  position: absolute;
+  right: 10px;
+  top: -12px;
+  padding: 3px 5px;
+  background: ${props => props.theme.global.colors['neutral-1']};
+  border-radius: 15px;
+`
+
+export default function Dashboard({
+  authUser,
+  profileBannerSrc = '',
+  statsPreview
+}) {
+  const size = useContext(ResponsiveContext)
+
   return (
-    <Relative
-      fill
-      align='center'
-      height={{ min: '270px', max: '270px' }}
-      background={{ image: `url(${profileBannerSrc})`, color: 'neutral-1' }}
-    >
-      <StyledAvatar
-        alt='User avatar'
-        src={
-          authUser.avatar_src
-            ? authUser.avatar_src
-            : 'https://www.zooniverse.org/assets/simple-avatar.png'
-        }
-      />
-    </Relative>
+    <Box align='center' pad={{ bottom: '40px' }}>
+      <Relative
+        fill
+        align='center'
+        height={{ min: '270px', max: '270px' }}
+        background={{ image: `url(${profileBannerSrc})`, color: 'neutral-1' }}
+      >
+        <StyledAvatar
+          alt='User avatar'
+          src={
+            authUser.avatar_src
+              ? authUser.avatar_src
+              : 'https://www.zooniverse.org/assets/simple-avatar.png'
+          }
+        />
+      </Relative>
+
+      {/* Name */}
+      <NameContainer
+        margin={{ top: '94px', bottom: '20px' }}
+        align='center'
+        width='min(100%, 45rem)'
+        pad={{ bottom: '20px' }}
+      >
+        <SpacedHeading
+          level={1}
+          size='1.5rem'
+          color={{ light: 'neutral-1', dark: 'accent-1' }}
+          textAlign='center'
+          margin={{ bottom: '10px', top: '0' }}
+        >
+          {authUser.display_name}
+        </SpacedHeading>
+        {size === 'small' ? (
+          <Text>
+            {statsPreview.allTime.classifications.toLocaleString()}{' '}
+            classifications
+          </Text>
+        ) : (
+          <Text>{`@${authUser.login}`}</Text>
+        )}
+      </NameContainer>
+
+      {/* Links */}
+      <Box direction='row' gap='medium' margin={{ bottom: '30px' }}>
+        <DashboardLink
+          icon={<Favorite size='1rem' />}
+          text='Favorites'
+          href={`https://www.zooniverse.org/favorites/${authUser.login}`}
+        />
+        <DashboardLink
+          icon={<Bookmark size='1rem' />}
+          text='Collections'
+          href={`https://www.zooniverse.org/collections/${authUser.login}`}
+        />
+        <DashboardLink
+          icon={<Chat size='1rem' />}
+          text='Comments'
+          href={`https://www.zooniverse.org/users/${authUser.login}`}
+        />
+        <DashboardLink
+          icon={<MailOption size='1rem' />}
+          text='Messages'
+          href={`https://www.zooniverse.org/inbox`}
+        />
+      </Box>
+
+      <Box align='center' gap='30px'>
+        {/* Stats Preview */}
+        <StatsTabs statsPreview={statsPreview} />
+        <Relative>
+          <StyledStatsLink
+            alignSelf={size === 'small' ? 'center' : 'end'}
+            href={`/users/${authUser.login}/stats`}
+            label={<SpacedText>More Stats</SpacedText>}
+            icon={<FormNext />}
+            reverse
+            color={{ light: 'dark-5', dark: 'white' }}
+            gap='large'
+          />
+          <StyledBadge color='white' size='0.75rem' weight='bold'>
+            NEW
+          </StyledBadge>
+        </Relative>
+      </Box>
+    </Box>
   )
 }
 
@@ -40,5 +185,15 @@ Dashboard.propTypes = {
   authUser: shape({
     id: string
   }),
-  profileBannerSrc: string
+  profileBannerSrc: string,
+  statsPreview: shape({
+    thisWeek: shape({
+      classifications: number,
+      projects: number
+    }),
+    allTime: shape({
+      classifications: number,
+      projects: number
+    })
+  })
 }
