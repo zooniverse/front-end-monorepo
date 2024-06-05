@@ -27,12 +27,26 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-// get a statsPreview object that is user's total classifications per this week and all time
-// also need the number of projects user classified on this week and all time
+const temporaryStatsPreview = {
+  thisWeek: {
+    classifications: 542,
+    projects: 3
+  },
+  allTime: {
+    classifications: 30673,
+    projects: 123
+  }
+}
 
 export default function DashboardContainer({ authUser }) {
   const key = { authUser }
   const { data: profileBannerSrc } = useSWR(key, fetchProfileBanner, SWROptions)
 
-  return <Dashboard authUser={authUser} profileBannerSrc={profileBannerSrc} />
+  return (
+    <Dashboard
+      authUser={authUser}
+      profileBannerSrc={profileBannerSrc}
+      statsPreview={temporaryStatsPreview}
+    />
+  )
 }

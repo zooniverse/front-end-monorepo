@@ -13,7 +13,7 @@ import { number, shape } from 'prop-types'
 import { useContext } from 'react'
 import { SpacedText } from '@zooniverse/react-components'
 
-import statsTabsTheme from './StatsTabsTheme.js'
+import statsTabsTheme from './statsTabsTheme.js'
 
 function Stat({ stats }) {
   return (
