@@ -1,6 +1,6 @@
 import { getUserGroupStatus } from './getUserGroupStatus'
 
-describe('components > GroupStats > getStatus', function () {
+describe('components > shared > GroupContainer > getUserGroupStatus', function () {
   it('should return a message to log in if there is a join token and no auth user', function () {
     const result = getUserGroupStatus({ joinToken: 'token' })
     expect(result).to.equal('Log in to join the group.')

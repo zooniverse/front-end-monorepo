@@ -36,7 +36,6 @@ function ContentBox({
       }}
       border={border}
       elevation={screenSize === 'small' ? 'none' : 'xsmall'}
-      margin={screenSize === 'small' ? '30px' : 'none'}
       pad='30px'
       round={screenSize === 'small' ? 'none' : '8px'}
       {...rest}
@@ -59,7 +58,7 @@ function ContentBox({
           {link.text && (
             <ContentLink
               link={link}
-            />   
+            />
           )}
 
         </Box>
