@@ -3,8 +3,6 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
-const endpoint = '/memberships'
-
 const isBrowser = typeof window !== 'undefined'
 
 const SWROptions = {
@@ -25,7 +23,7 @@ async function fetchMemberships({ query }) {
   if (!token) return null 
 
   try {
-    const { body } = await panoptes.get(endpoint, query, { authorization })
+    const { body } = await panoptes.get('/memberships', query, { authorization })
     return body
   } catch (error) {
     console.log(error)
@@ -36,6 +34,6 @@ async function fetchMemberships({ query }) {
 export function usePanoptesMemberships({ authUserId, joinStatus = null, query }) {
   const joinStatusSuccess = joinStatus === asyncStates.success
 
-  const key = (query.user_id || query.user_group_id) && authUserId ? { endpoint, query, joinStatusSuccess } : null
+  const key = (query.user_id || query.user_group_id) && authUserId ? { query, joinStatusSuccess } : null
   return useSWR(key, fetchMemberships, SWROptions)
 }

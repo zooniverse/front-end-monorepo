@@ -1,9 +1,11 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 
-export async function updatePanoptesMembership({
-  membershipId,
-  data
+export async function updatePanoptesMembership(key, {
+  arg: {
+    membershipId,
+    data
+  }
 }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
@@ -22,7 +24,9 @@ export async function updatePanoptesMembership({
         { memberships: data },
         headers
       )
-    return response
+    
+    const updatedMembership = response?.body?.memberships[0]
+    return updatedMembership
   } catch (error) {
     console.error(error)
     throw error

@@ -1,4 +1,5 @@
-import { node, string, shape } from 'prop-types'
+import { bool, func, node, shape, string } from 'prop-types'
+import useSWRMutation from 'swr/mutation'
 
 import {
   deletePanoptesUserGroup,
@@ -7,11 +8,18 @@ import {
 
 import { GroupForm } from '@components/shared'
 
+const DEFAULT_HANDLER = () => true
+
 function GroupUpdateFormContainer({
+  adminMode,
+  authUserId,
   children,
   group,
+  handleGroupModalActive = DEFAULT_HANDLER,
   login
 }) {
+  const { trigger: updateGroup } = useSWRMutation({ adminMode, authUserId, groupId: group.id, joinStatus: null }, updatePanoptesUserGroup)
+
   async function handleGroupDelete() {
     try {
       const deleteResponse = await deletePanoptesUserGroup({ groupId: group?.id })
@@ -33,11 +41,15 @@ function GroupUpdateFormContainer({
       private: stats_visibility.startsWith('private'),
       stats_visibility
     }
-
+    
     try {
-      const updatedGroupResponse = await updatePanoptesUserGroup({ groupId: group.id, data })
-      if (!updatedGroupResponse.ok) return console.error(updatedGroup)
-      window.location.reload()
+      updateGroup({ groupId: group.id, data }, {
+        optimisticData: { ...group, ...data },
+        populateCache: true,
+        revalidate: false,
+        rollbackOnError: true
+      })
+      handleGroupModalActive()
     } catch (error) {
       console.error(error)
     }
@@ -60,12 +72,15 @@ function GroupUpdateFormContainer({
 }
 
 GroupUpdateFormContainer.propTypes = {
+  adminMode: bool,
+  authUserId: string,
   children: node,
   group: shape({
     display_name: string,
     id: string,
     stats_visibility: string
   }),
+  handleGroupModalActive: func,
   login: string
 }
 

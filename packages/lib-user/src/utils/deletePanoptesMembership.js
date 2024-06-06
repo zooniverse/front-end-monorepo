@@ -1,8 +1,10 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 
-export async function deletePanoptesMembership({
-  membershipId
+export async function deletePanoptesMembership(key, {
+  arg: {
+    membershipId
+  }
 }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
