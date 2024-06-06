@@ -23,6 +23,7 @@ export default function Dashboard({ authUser, profileBannerSrc = '' }) {
       align='center'
       height={{ min: '270px', max: '270px' }}
       background={{ image: `url(${profileBannerSrc})`, color: 'neutral-1' }}
+      round={{ size: '16px', corner: 'top' }}
     >
       <StyledAvatar
         alt='User avatar'
