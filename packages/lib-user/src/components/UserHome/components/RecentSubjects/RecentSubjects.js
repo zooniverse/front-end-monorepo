@@ -5,7 +5,7 @@ import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import SubjectCard from '../SubjectCard/SubjectCard.js'
 
-function RecentSubjects({ isLoading = false, subjects = [] }) {
+function RecentSubjects({ isLoading = false, recents = [], recentsError }) {
   const size = useContext(ResponsiveContext)
 
   return (
@@ -35,7 +35,7 @@ function RecentSubjects({ isLoading = false, subjects = [] }) {
             <Loader />
           </Box>
         )}
-        {!isLoading && !subjects?.length && (
+        {!isLoading && !recents?.length && (
           <Box fill justify='center' align='center' pad='medium'>
             <SpacedText>No Recent Classifications found</SpacedText>
             <Text>
@@ -47,10 +47,21 @@ function RecentSubjects({ isLoading = false, subjects = [] }) {
             </Text>
           </Box>
         )}
-        {!isLoading && subjects?.length
-          ? subjects
-              .slice(0, 10)
-              .map(subject => <SubjectCard key={subject.id} size={size} subject={subject} />)
+        {!isLoading && recents?.length
+          ? recents.slice(0, 10).map(classification => {
+              const subjectMedia = classification.locations.map(
+                location => Object.values(location)[0]
+              )
+              return (
+                <SubjectCard
+                  key={classification.id}
+                  size={size}
+                  subjectID={classification.links.subject}
+                  mediaSrc={subjectMedia[0]}
+                  projectSlug={classification.slug}
+                />
+              )
+            })
           : null}
       </Box>
     </Box>
@@ -61,8 +72,10 @@ export default RecentSubjects
 
 RecentSubjects.propTypes = {
   isLoading: bool,
-  subjects: arrayOf(shape({
-    id: string,
-    slug: string
-  }))
+  recents: arrayOf(
+    shape({
+      id: string,
+      slug: string
+    })
+  )
 }

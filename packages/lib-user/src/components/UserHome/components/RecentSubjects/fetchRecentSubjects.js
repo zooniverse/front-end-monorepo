@@ -20,24 +20,38 @@ async function fetchUserRecents() {
   }
 }
 
-async function fetchSubjectLinks(subject) {
+/* Anatomy of a classification object */
+// [
+//   {
+//     id: "258337208",
+//     links: {
+//       project: "19072",
+//       workflow: "22152",
+//       subject: "80286011"
+//     },
+//     ...
+//   },
+// ...
+// ]
+
+async function fetchSubjectLinks(classification) {
   try {
     const response = await panoptes.get('/projects', {
-      id: subject.links?.project
+      id: classification.links?.project
     })
     const slug = response.body?.projects[0].slug
-    subject.slug = slug
+    classification.slug = slug
   } catch {
     console.error(error)
   }
 }
 
 export default async function fetchRecentSubjects() {
-  const subjects = await fetchUserRecents()
+  const recents = await fetchUserRecents()
 
-  if (subjects?.length) {
-    await Promise.allSettled(subjects.map(fetchSubjectLinks))
+  if (recents?.length) {
+    await Promise.allSettled(recents.map(fetchSubjectLinks))
   }
 
-  return subjects
+  return recents
 }

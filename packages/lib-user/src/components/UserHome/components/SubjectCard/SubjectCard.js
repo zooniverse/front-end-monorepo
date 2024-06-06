@@ -12,7 +12,7 @@
 import styled from 'styled-components'
 import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
-import { shape, string } from 'prop-types'
+import { number, string } from 'prop-types'
 
 const StyledAnchor = styled(Anchor)`
   text-decoration: none;
@@ -63,14 +63,15 @@ function cardWidth(size) {
   }
 }
 
-export default function SubjectCard({ size = 'medium', subject }) {
-  const subjectMedia = subject.locations.map(
-    location => Object.values(location)[0]
-  )
-  const mediaSrc = subjectMedia[0]
-
+export default function SubjectCard({
+  size = 'medium',
+  mediaSrc = '',
+  projectSlug = '',
+  subjectID
+}) {
   // to PFE
-  const href = `https://www.zooniverse.org/projects/${subject.slug}/talk/subjects/${subject.id}`
+  // Grab query params for staging vs production
+  const href = `https://www.zooniverse.org/projects/${projectSlug}/talk/subjects/${subjectID}`
 
   return (
     <StyledAnchor href={href}>
@@ -81,14 +82,14 @@ export default function SubjectCard({ size = 'medium', subject }) {
         round='8px'
       >
         <Media
-          alt={`subject ${subject.id}`}
+          alt={`subject ${subjectID}`}
           controls={false}
           src={mediaSrc}
           width={cardWidth(size)}
         />
         <Gradient fill />
         <StyledSpacedText color='white' weight='bold'>
-          {'Subject ' + subject.id}
+          {'Subject ' + subjectID}
         </StyledSpacedText>
       </StyledBox>
     </StyledAnchor>
@@ -97,8 +98,7 @@ export default function SubjectCard({ size = 'medium', subject }) {
 
 SubjectCard.propTypes = {
   size: string,
-  subject: shape({
-    id: string,
-    slug: string
-  }).isRequired
+  projectSlug: string,
+  mediaSrc: string,
+  subjectID: number.isRequired
 }

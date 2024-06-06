@@ -18,13 +18,13 @@ function RecentSubjectsContainer({ authUser }) {
     userId: authUser.id
   }
   const {
-    data: subjects,
-    error,
+    data: recents,
+    error: recentsError,
     isLoading
   } = useSWR(cacheKey, fetchRecentSubjects, SWROptions)
 
   return (
-    <RecentSubjects isLoading={isLoading} subjects={subjects} />
+    <RecentSubjects isLoading={isLoading} recents={recents} recentsError={recentsError} />
   )
 }
 

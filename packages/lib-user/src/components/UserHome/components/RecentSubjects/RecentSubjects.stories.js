@@ -1,5 +1,5 @@
 import RecentSubjects from './RecentSubjects'
-import mockSubjects from './subjects.mock.json'
+import mockRecents from './recents.mock.json'
 
 export default {
   title: 'Components / UserHome / RecentSubjects',
@@ -8,12 +8,12 @@ export default {
 
 export const Default = {
   args: {
-    subjects: mockSubjects
+    recents: mockRecents
   }
 }
 
 export const NoSubjects = {
   args: {
-    subjects: []
+    recents: []
   }
 }
