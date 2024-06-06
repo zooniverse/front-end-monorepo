@@ -7,7 +7,7 @@ import { useTranslation } from '../../translations/i18n.js'
 
 import DropdownNav from '../../components/DropdownNav/DropdownNav.js'
 import MaxWidthContent from '../../components/MaxWidthContent/MaxWidthContent.js'
-import PageLayout from '../../components/PageLayout/layout.js'
+import AboutLayout from '../../components/PageLayout/AboutLayout.js'
 import Institution from './components/Institution/index.js'
 import {
   MobileHeading,
@@ -23,7 +23,7 @@ function OurTeam({ teamData = [], sections = [] }) {
 
   return (
     <>
-      <PageLayout>
+      <AboutLayout>
         <MobileHeading level='1' size='1.5rem'>
           {t('OurTeam.title')}
         </MobileHeading>
@@ -63,7 +63,7 @@ function OurTeam({ teamData = [], sections = [] }) {
           </article>
           <Box />
         </StyledGrid>
-      </PageLayout>
+      </AboutLayout>
     </>
   )
 }

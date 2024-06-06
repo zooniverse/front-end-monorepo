@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import ZooniverseLogo from '@zooniverse/react-components/ZooniverseLogo'
 
-import PageLayout from '../../components/PageLayout/layout.js'
+import AboutLayout from '../../components/PageLayout/AboutLayout.js'
 import MaxWidthContent from '../../components/MaxWidthContent/MaxWidthContent.js'
 import {
   MobileHeading,
@@ -46,7 +46,7 @@ function Resources() {
 
   return (
     <>
-      <PageLayout>
+      <AboutLayout>
         <MobileHeading level='1' size='1.5rem'>
           {t('Resources.title')}
         </MobileHeading>
@@ -261,7 +261,7 @@ function Resources() {
             </StyledList>
           </MaxWidthContent>
         </Box>
-      </PageLayout>
+      </AboutLayout>
     </>
   )
 }

@@ -5,7 +5,12 @@ import auth from 'panoptes-client/lib/auth.js'
 import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { GroupStats, MyGroups, UserStats } from '@components'
+import {
+  Contributors,
+  GroupStats,
+  MyGroups,
+  UserStats
+} from '@components'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -79,13 +84,10 @@ function App({
             </ul>
           </li>
           <li>
-            /groups
+            <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
             <ul>
               <li>
-                <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
-                <ul>
-                  <li>/contributors - Full Group Stats</li>
-                </ul>
+                <a href="./?groups=[user_group_id]/contributors">/contributors - full group stats page</a>
               </li>
             </ul>
           </li>
@@ -96,14 +98,19 @@ function App({
 
   if (groups) {
     const subpaths = groups.split('/')
+    const groupId = subpaths[0] || ''
   
     if (subpaths[0] === '[user_group_id]') {
       content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
     } else if (subpaths[1] === 'contributors') {
-      content = <p>Group contributors component goes here.</p>
+      content = (
+        <Contributors
+          authUser={user}
+          groupId={groupId}
+          joinToken={joinToken}
+        />
+      )
     } else {
-      const groupId = subpaths[0] || ''
-
       content = (
         <GroupStats
           authUser={user}
