@@ -4,9 +4,9 @@ import { bool, shape, string } from 'prop-types'
 
 import { GroupContainer } from '@components/shared'
 
-import GroupStats from './GroupStats'
+import Contributors from './Contributors'
 
-function GroupStatsContainer({
+function ContributorsContainer({
   adminMode,
   authUser,
   groupId,
@@ -19,12 +19,12 @@ function GroupStatsContainer({
       groupId={groupId}
       joinToken={joinToken}
     >
-      <GroupStats />
+      <Contributors />
     </GroupContainer>
   )
 }
 
-GroupStatsContainer.propTypes = {
+ContributorsContainer.propTypes = {
   adminMode: bool,
   authUser: shape({
     id: string
@@ -33,4 +33,4 @@ GroupStatsContainer.propTypes = {
   joinToken: string
 }
 
-export default GroupStatsContainer
+export default ContributorsContainer
