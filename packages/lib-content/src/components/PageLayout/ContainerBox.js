@@ -6,7 +6,8 @@ const ContainerBox = styled(Box)`
   position: relative;
 
   @media (width > 90rem) {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); // Grommet elevation = 'medium'
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3); // Grommet elevation = 'medium'
+    clip-path: inset(0px -30px 0 -30px); // don't put elevation top and bottom
 
     &::before {
       content: '';
