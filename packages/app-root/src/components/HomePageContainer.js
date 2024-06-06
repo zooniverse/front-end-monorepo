@@ -6,7 +6,6 @@ import { PanoptesAuthContext } from '../contexts'
 import { CommunityContainer, DefaultHome } from '@zooniverse/content'
 import { UserHome } from '@zooniverse/user'
 import { Loader } from '@zooniverse/react-components'
-import { UserHome } from '@zooniverse/user'
 
 export default function HomePageContainer({
   dailyZooPosts = [],
