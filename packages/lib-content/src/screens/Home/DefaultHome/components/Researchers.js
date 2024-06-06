@@ -64,7 +64,7 @@ const VideoWrapper = styled(Box)`
 const YOUTUBE_SOURCES = [
   'https://www.youtube-nocookie.com/embed/CaTNIoJy4Dg?si=-rG8luvWD_FtFBc5', // PH TESS
   'https://www.youtube-nocookie.com/embed/8lZiZoBcMjE?si=wPKWlRjQcKeTIOB5', // Wildcam Gorongosa
-  'https://www.youtube.com/embed/B6diEbpEblQ?si=tt3jtcINdleiBT8g' // Backyard Worlds
+  'https://www.youtube-nocookie.com/embed/B6diEbpEblQ?si=tt3jtcINdleiBT8g' // Backyard Worlds
 ]
 
 export default function Researchers() {
@@ -94,14 +94,14 @@ export default function Researchers() {
           overflow={{ horizontal: 'auto' }}
         >
           {YOUTUBE_SOURCES.map(src => (
-            <VideoWrapper>
+            <VideoWrapper key={src}>
               <iframe
                 width='100%'
                 height='100%'
                 src={src}
                 title='TESS YouTube video player'
-                frameborder='0'
-                allowfullscreen
+                frameBorder='0'
+                allowFullScreen
               />
             </VideoWrapper>
           ))}

@@ -170,7 +170,8 @@
         "four": "Check out our mobile app"
       },
       "FeaturedProjects": {
-        "heading": "Featured Projects"
+        "heading": "Featured Projects",
+        "none": "No featured projects"
       },
       "Introduction": {
         "description": "The Zooniverse enables everyone to take part in real cutting edge research in many fields across the sciences, humanities, and more. The Zooniverse creates opportunities for you to unlock answers and contribute to real discoveries.",
