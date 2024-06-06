@@ -1,6 +1,7 @@
-import { Box, Image } from 'grommet'
+import { Box, Image, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
+import { useContext } from 'react'
 
 const Relative = styled(Box)`
   position: relative;
@@ -11,19 +12,32 @@ const StyledAvatar = styled(Image)`
   height: 128px;
   object-fit: cover;
   border-radius: 50%;
-  border: solid white 5px;
+  border: solid white 6px;
   position: absolute;
-  top: 206px;
+  top: 203px;
+
+  // For Grommet breakpoint small
+  @media (width < 769px) {
+    width: 80px;
+    height: 80px;
+    top: 137px;
+  }
 `
 
 export default function Dashboard({ authUser, profileBannerSrc = '' }) {
+  const size = useContext(ResponsiveContext)
+
   return (
     <Relative
       fill
       align='center'
-      height={{ min: '270px', max: '270px' }}
+      height={
+        size !== 'small'
+          ? { min: '270px', max: '270px' }
+          : { min: '180px', max: '180px' }
+      }
       background={{ image: `url(${profileBannerSrc})`, color: 'neutral-1' }}
-      round={{ size: '16px', corner: 'top' }}
+      round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
     >
       <StyledAvatar
         alt='User avatar'
