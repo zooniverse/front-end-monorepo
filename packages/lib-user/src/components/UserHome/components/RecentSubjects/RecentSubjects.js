@@ -5,7 +5,11 @@ import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import SubjectCard from '../SubjectCard/SubjectCard.js'
 
-function RecentSubjects({ isLoading = false, recents = [], recentsError }) {
+function RecentSubjects({
+  isLoading = false,
+  recents = [],
+  recentsError = undefined
+}) {
   const size = useContext(ResponsiveContext)
 
   return (
@@ -35,7 +39,14 @@ function RecentSubjects({ isLoading = false, recents = [], recentsError }) {
             <Loader />
           </Box>
         )}
-        {!isLoading && !recents?.length && (
+        {!isLoading && recentsError && (
+          <Box fill justify='center' align='center' pad='medium'>
+            <SpacedText>
+              There was an error fetching recent classifications
+            </SpacedText>
+          </Box>
+        )}
+        {!isLoading && !recents?.length && !recentsError && (
           <Box fill justify='center' align='center' pad='medium'>
             <SpacedText>No Recent Classifications found</SpacedText>
             <Text>

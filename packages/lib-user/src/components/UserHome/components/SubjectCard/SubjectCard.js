@@ -70,7 +70,6 @@ export default function SubjectCard({
   subjectID
 }) {
   // to PFE
-  // Grab query params for staging vs production
   const href = `https://www.zooniverse.org/projects/${projectSlug}/talk/subjects/${subjectID}`
 
   return (

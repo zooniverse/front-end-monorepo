@@ -17,3 +17,10 @@ export const NoSubjects = {
     recents: []
   }
 }
+
+export const Error = {
+  args: {
+    recents: [],
+    recentsError: { message: `Couldn't fetch recent classifications` }
+  }
+}

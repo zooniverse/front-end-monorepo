@@ -11,14 +11,14 @@ describe('UserHome > compoents > SubjectCard', function () {
 
     // grabbing the first element because each Story renders all four ProjectCard sizes
     expect(
-      screen.getAllByText(`Subject ${Default.args.subject.id}`)[0]
+      screen.getAllByText(`Subject ${Default.args.subjectID}`)[0]
     ).to.be.ok()
   })
 
   it('should link to the subject Talk page', function () {
     render(<DefaultStory />)
 
-    const href = `https://www.zooniverse.org/projects/${Default.args.subject.slug}/talk/subjects/${Default.args.subject.id}`
+    const href = `https://www.zooniverse.org/projects/${Default.args.projectSlug}/talk/subjects/${Default.args.subjectID}`
     expect(screen.getAllByRole('link', { href: href})[0]).to.be.ok()
   })
 })
