@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 import ZooniverseLogotype from './ZooniverseLogotype'
 
 describe('ZooniverseLogotype', function () {
-  let wrapper
   const ID = 'foobar'
   const WIDTH = 100
   const CALCULATED_WIDTH = '100'

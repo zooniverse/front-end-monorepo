@@ -159,6 +159,35 @@
       "feedOne": "The Daily Zooniverse",
       "feedTwo": "The Zooniverse Blog",
       "seeAll": "See all posts"
+    },
+    "DefaultHome": {
+      "mainHeading": "You are now entering the",
+      "projects": "Explore projects",
+      "headings": {
+        "one": "What is the Zooniverse?",
+        "two" : "Featured Projects",
+        "three": "Real researchers, real results",
+        "four": "Check out our mobile app"
+      },
+      "FeaturedProjects": {
+        "heading": "Featured Projects",
+        "none": "No featured projects"
+      },
+      "Introduction": {
+        "description": "The Zooniverse enables everyone to take part in real cutting edge research in many fields across the sciences, humanities, and more. The Zooniverse creates opportunities for you to unlock answers and contribute to real discoveries.",
+        "signIn": "Sign in",
+        "register": "Register"
+      },
+      "Researchers": {
+        "build": "Build a project",
+        "description": "From classifying animals in the Serengeti to discovering new exoplanets using the Kepler space telescope, researchers of all backgrounds have used the project builder to create engaging, accessible citizen science projects. Our researchers have used the data from their projects to publish over 100 peer-reviewed publications that encourage many fascinating discoveries. Researchers take part in project creation, data analysis, and even communicate directly with volunteers through Zooniverse Talk."
+      },
+      "subheadings": {
+        "one": "People-powered research",
+        "two": "The Zooniverse works",
+        "three": "These are actual researchers who've created projects on the Zooniverse",
+        "four": "Discover, teach, and learn - anywhere"
+      }
     }
   },
   "Publications": {
