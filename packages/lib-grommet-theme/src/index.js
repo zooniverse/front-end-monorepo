@@ -1,6 +1,7 @@
 const deepFreeze = require('deep-freeze')
+// Base Grommet Theme: https://github.com/grommet/grommet/blob/master/src/js/themes/base.js
 
-// Zooniverse brand: https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8
+// Zooniverse brand: https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System
 const brand = '#00979d'
 
 // dark colors
@@ -81,7 +82,6 @@ const lightColors = [
   moreMiddleGrey // light-6
 ]
 
-// https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5c68fab7fb26bb001855f29a
 const drawingTools = {
   red: '#FF3C25', // drawing-red
   orange: '#FF9300', // drawing-orange
@@ -149,6 +149,7 @@ Object.keys(statusColors).forEach((color) => {
 
 const theme = deepFreeze({
   global: {
+    // The default Grommet breakpoints are in use; see ResponsiveContext component
     breakpoints: {
       small: {
         edgeSize: {
@@ -161,8 +162,13 @@ const theme = deepFreeze({
           'medium-neg': `-20px`,
           'large-neg': `-25px`,
           'xlarge-neg': `-30px`
-        }
-      }
+        },
+        // value: 768, (viewports <= 768px)
+      },
+      // medium: {
+      //   value: 1536, (768px < viewports <= 1536px)
+      // },
+      // large: {} (viewports > 1536px)
     },
     colors,
     control: {

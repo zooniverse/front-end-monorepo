@@ -72,18 +72,22 @@ export default function FeaturedProjects() {
         overflow={{ horizontal: 'auto' }}
         style={{ listStyle: 'none' }}
       >
-        {featuredProjects?.length
-          ? featuredProjects.map(project => (
-              <ProjectCard
-                key={project.slug}
-                description={project.description}
-                displayName={project.display_name}
-                href={project.slug}
-                imageSrc={project.avatar_src}
-                size={cardSize}
-              />
-            ))
-          : null}
+        {featuredProjects?.length ? (
+          featuredProjects.map(project => (
+            <ProjectCard
+              key={project.slug}
+              description={project.description}
+              displayName={project.display_name}
+              href={`https://www.zooniverse.org/projects/${project.slug}`}
+              imageSrc={project.avatar_src}
+              size={cardSize}
+            />
+          ))
+        ) : (
+          <Box as='li' align='center' fill>
+            {t('Home.DefaultHome.FeaturedProjects.none')}
+          </Box>
+        )}
       </Box>
     </Box>
   )
