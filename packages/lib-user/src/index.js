@@ -1,14 +1,20 @@
 // components
-export { default as UserStats } from './components/UserStats'
-export { default as MyGroups } from './components/MyGroups'
+export { default as Contributors } from './components/Contributors'
 export { default as GroupStats } from './components/GroupStats'
+export { default as MyGroups } from './components/MyGroups'
+export { default as UserHome } from './components/UserHome'
+export { default as UserStats } from './components/UserStats'
 
 // components/shared
 export { default as Avatar } from './components/shared/Avatar'
 export { default as BarChart } from './components/shared/BarChart'
 export { default as ContentBox } from './components/shared/ContentBox'
+export { default as GroupContainer } from './components/shared/GroupContainer'
 export { default as GroupForm } from './components/shared/GroupForm'
 export { default as GroupModal } from './components/shared/GroupModal'
+export { default as HeaderButton } from './components/shared/HeaderButton'
+export { default as HeaderLink } from './components/shared/HeaderLink'
+export { default as HeaderToast } from './components/shared/HeaderToast'
 export { default as Layout } from './components/shared/Layout'
 export { default as MainContent } from './components/shared/MainContent'
 export { default as ProfileHeader } from './components/shared/ProfileHeader'

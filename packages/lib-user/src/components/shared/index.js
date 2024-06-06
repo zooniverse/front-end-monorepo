@@ -1,6 +1,7 @@
 export { default as Avatar } from './Avatar'
 export { default as BarChart } from './BarChart'
 export { default as ContentBox } from './ContentBox'
+export { default as GroupContainer } from './GroupContainer'
 export { default as GroupForm } from './GroupForm'
 export { default as GroupModal } from './GroupModal'
 export { default as HeaderButton } from './HeaderButton'
