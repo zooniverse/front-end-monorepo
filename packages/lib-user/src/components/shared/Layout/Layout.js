@@ -15,7 +15,7 @@ const InnerPageContainer = styled(Box)`
     padding: 0 30px;
   }
 
-  @media width <= 769px {
+  @media (width <= 769px) {
     padding: 0;
   }
 `

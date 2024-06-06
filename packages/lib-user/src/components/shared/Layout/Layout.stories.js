@@ -12,11 +12,7 @@ export default {
   component: Layout
 }
 
-const pageContent = (
-  <ContentBox>
-    <MainContent />
-  </ContentBox>
-)
+const pageContent = <MainContent />
 
 export const Default = {
   args: {

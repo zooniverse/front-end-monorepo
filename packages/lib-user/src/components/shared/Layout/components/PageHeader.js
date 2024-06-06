@@ -35,7 +35,7 @@ function PageHeader({ primaryHeaderItem = '', secondaryHeaderItems = [] }) {
         <Box align='center' justify='end' direction='row' gap='small'>
           {secondaryHeaderItems.length > 0 ? (
             size !== 'small' ? (
-              secondaryHeaderItems.map(HeaderItem => HeaderItem)
+              secondaryHeaderItems
             ) : (
               <HeaderDropdown secondaryHeaderItems={secondaryHeaderItems} />
             )
