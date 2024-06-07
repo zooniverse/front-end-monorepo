@@ -1,6 +1,6 @@
-import { ZooniverseLogo } from '@zooniverse/react-components'
+import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { shape, string } from 'prop-types'
+import { number, string } from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -10,6 +10,8 @@ import {
 } from '@components/shared'
 
 const PrintableBox = styled(Box)`
+  font-size: 16px;
+
   @media print {
     > *:not(#certificate) {
       visibility: hidden;
@@ -27,21 +29,46 @@ const PrintableBox = styled(Box)`
       height: 100%;
     }
   }
+
+  @page {
+    size: landscape;
+  }
+
+  .userName {
+    letter-spacing: 6px;
+  }
+
+  .userHours {
+    letter-spacing: 8px;
+  }
 `
 
-function Certificate({ user }) {
+function Certificate({
+  creditedName = '',
+  displayName = '',
+  hours = 0,
+  login = '',
+  projectsCount = 0,
+  selectedDateRange = 'AllTime',
+  selectedProject = 'AllProjects'
+}) {
   return (
     <PrintableBox>
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`https://www.zooniverse.org/users/${user?.login}`}
-            label='back to profile'
+            href={`https://www.zooniverse.org/users/${login}/stats`}
+            label='back'
             primaryItem={true}
           />
         }
       >
         <ContentBox
+          linkLabel='Generate Certificate'
+          linkProps={{
+            as: 'button',
+            onClick: () => window.print()
+          }}
           title='Your Volunteer Certificate'
         >
           <Box id='certificate'>
@@ -64,49 +91,137 @@ function Certificate({ user }) {
                   side: 'all'
                 }}
                 justify='center'
-                pad='large'
+                pad={{
+                  horizontal: 'medium',
+                  vertical: 'small'
+                }}
               >
                 <ZooniverseLogo
                   id='ZooniverseCertificateLogo'
                   color='#00979d'
-                  size='4em'
+                  size='4rem'
                 />
-                
-                <h1>Certificate for {user?.display_name}</h1>
-                
-                <h3>Coming soon!</h3>
-                
-                <p style={{ fontSize: '4rem' }}>42</p>
-                
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
-                
-                <img src='/assets/LTSignature.png' alt='Laura Trouille Signature' />
-                
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</p>
+                <SpacedText
+                  margin={{ top: 'medium' }}
+                  size='2rem'
+                  uppercase={false}
+                  weight={500}
+                >
+                  This is to certify that
+                </SpacedText>
+                <SpacedText
+                  className='userName'
+                  size='3.75rem'
+                  weight='bold'
+                >
+                  {creditedName || displayName}
+                </SpacedText>
+                <SpacedText
+                  margin={{ top: 'medium' }}
+                  size='1.5rem'
+                  uppercase={false}
+                  weight={500}
+                >
+                  has contributed
+                </SpacedText>
+                <SpacedText
+                  className='userHours'
+                  size='5rem'
+                  weight='bold'
+                >
+                  {hours}
+                </SpacedText>
+                <SpacedText
+                  size='2rem'
+                  uppercase={false}
+                  weight='bold'
+                >
+                  hours
+                </SpacedText>
+                <SpacedText
+                  margin={{ top: 'medium' }}
+                  size='1.5rem'
+                  uppercase={false}
+                  weight={500}
+                >
+                  to
+                  <SpacedText
+                    margin={{ horizontal: 'small' }}
+                    size='2rem'
+                    uppercase={false}
+                    weight='bold'
+                  >
+                    {projectsCount ? (
+                      `${projectsCount} projects`
+                    ) : (
+                      selectedProject
+                    )}
+                  </SpacedText>
+                  during
+                  <SpacedText
+                    margin={{ horizontal: 'small' }}
+                    size='2rem'
+                    weight='bold'
+                  >
+                    {selectedDateRange}
+                  </SpacedText>
+                </SpacedText>
+                <SpacedText
+                  size='1.5rem'
+                  textAlign='center'
+                  uppercase={false}
+                  weight={500}
+                >
+                  hosted by the online citizen science platform <strong>Zooniverse</strong>
+                </SpacedText>
+                <Box
+                  align='center'
+                  margin={{
+                    bottom: 'small',
+                    top: 'medium'
+                  }}
+                >
+                  <img
+                    src='/assets/LTSignature.png'
+                    alt='Signature of Dr. Laura Trouille'
+                  />
+                  <SpacedText
+                    size='1.5rem'
+                    uppercase={false}
+                    weight={500}
+                  >
+                    Dr. Laura Trouille
+                  </SpacedText>
+                  <SpacedText
+                    uppercase={false}
+                    weight={500}
+                  >
+                    Zooniverse PI
+                  </SpacedText>
+                  <SpacedText
+                    uppercase={false}
+                    weight={500}
+                  >
+                    contact@zooniverse.org
+                  </SpacedText>
+                </Box>
               </Box>
             </Box>
           </Box>
         </ContentBox>
-        <Box
-          direction='row'
-          justify='end'
-        >
-          <button
-            onClick={() => window.print()}
-          >
-            Generate Certificate
-          </button>
-        </Box>
       </Layout>
     </PrintableBox>
   )
 }
 
 Certificate.propTypes = {
-  user: shape({
-    display_name: string,
-    login: string
-  })
+  creditedName: string,
+  displayName: string,
+  hours: number,
+  login: string,
+  selectedDateRange: string,
+  selectedProject: string,
+  projectsCount: number
 }
 
 export default Certificate

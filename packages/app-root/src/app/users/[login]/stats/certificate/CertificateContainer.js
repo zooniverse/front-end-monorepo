@@ -19,7 +19,7 @@ function CertificateContainer({
       user={user}
     >
       <Certificate
-        user={user}
+        authUser={user}
       />
     </AuthenticatedUsersPageContainer>
   )

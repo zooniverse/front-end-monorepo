@@ -1,1 +1,1 @@
-export { default } from './Certificate'
+export { default } from './CertificateContainer'

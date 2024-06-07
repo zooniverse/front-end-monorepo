@@ -33,6 +33,7 @@ function ContentLink ({
           {link.text}
         </SpacedText>
       }
+      onClick={link.onClick}
     />
   )
 }

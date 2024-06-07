@@ -129,7 +129,11 @@ function App({
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
       if (subpaths[2] === 'certificate') {
-        content = <Certificate />
+        content = (
+          <Certificate
+            authUser={user}
+          />
+        )
       } else {
         content = (
           <UserStats
