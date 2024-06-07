@@ -29,6 +29,10 @@ const PageBody = styled(Box)`
   border-radius: 8px 8px 0 0;
   padding-bottom: 50px;
 
+  @media print {
+    margin-top: 0;
+  }
+
   @media (width > 90rem) {
     &::before {
       content: '';

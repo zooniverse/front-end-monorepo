@@ -172,7 +172,7 @@ function App({
           closeModal={closeAuthModal}
           onActive={setActiveIndex}
         />
-        <header>
+        <header className='dev-app-header'>
           <p>
             <a href='/'>lib-user - dev app</a>
           </p>
