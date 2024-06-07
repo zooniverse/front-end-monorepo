@@ -113,8 +113,8 @@ export default function Introduction() {
           height='100%'
           src='https://www.youtube-nocookie.com/embed/F-B8gXJyMHc?si=YGd16vJFYOB-rfrI'
           title='YouTube video player'
-          frameborder='0'
-          allowfullscreen
+          frameBorder='0'
+          allowFullScreen
         />
       </VideoWrapper>
     </>

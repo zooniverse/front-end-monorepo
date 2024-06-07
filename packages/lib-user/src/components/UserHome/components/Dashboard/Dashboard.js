@@ -2,7 +2,7 @@ import { Anchor, Box, Image, ResponsiveContext, Text } from 'grommet'
 import { Bookmark, Chat, Favorite, FormNext, MailOption } from 'grommet-icons'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { number, shape, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import DashboardLink from './components/DashboardLink.js'
@@ -17,9 +17,16 @@ const StyledAvatar = styled(Image)`
   height: 128px;
   object-fit: cover;
   border-radius: 50%;
-  border: solid white 5px;
+  border: solid white 6px;
   position: absolute;
-  top: 206px;
+  top: 203px;
+
+  // For Grommet breakpoint small
+  @media (width < 769px) {
+    width: 80px;
+    height: 80px;
+    top: 137px;
+  }
 `
 
 const NameContainer = styled(Box)`
@@ -96,15 +103,24 @@ export default function Dashboard({
       <Relative
         fill
         align='center'
-        height={{ min: '270px', max: '270px' }}
-        background={{ image: `url(${profileBannerSrc})`, color: 'neutral-1' }}
+        height={
+          size !== 'small'
+            ? { min: '270px', max: '270px' }
+            : { min: '180px', max: '180px' }
+        }
+        background={
+          isLoading || !user?.profile_header
+            ? 'brand'
+            : { image: `url(${user.profile_header})` }
+        }
+        round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
       >
         <StyledAvatar
           alt='User avatar'
           src={
-            authUser.avatar_src
-              ? authUser.avatar_src
-              : 'https://www.zooniverse.org/assets/simple-avatar.png'
+            !user?.avatar_src || isLoading
+              ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+              : user.avatar_src
           }
         />
       </Relative>
@@ -182,10 +198,6 @@ export default function Dashboard({
 }
 
 Dashboard.propTypes = {
-  authUser: shape({
-    id: string
-  }),
-  profileBannerSrc: string,
   statsPreview: shape({
     thisWeek: shape({
       classifications: number,
@@ -195,5 +207,11 @@ Dashboard.propTypes = {
       classifications: number,
       projects: number
     })
+  }),
+  isLoading: bool,
+  user: shape({
+    avatar_src: string,
+    id: string.isRequired,
+    profile_header: string
   })
 }
