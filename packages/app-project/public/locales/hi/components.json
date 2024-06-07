@@ -11,9 +11,6 @@
   "Head": {
     "defaultTitle": "परियोजनाओं"
   },
-  "Loader": {
-    "loading": "लोडिंग / लोड हो रहा है"
-  },
   "ProjectHeader": {
     "about": "प्रोजेक्ट के बारे में",
     "classify": "वर्गीकरण करें",

@@ -56,6 +56,9 @@
     "add": "Ajouter aux favoris",
     "remove": "Ajouté aux favoris"
   },
+  "Loader": {
+    "loading": "(Chargement)"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "À propos",

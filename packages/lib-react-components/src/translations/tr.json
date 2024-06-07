@@ -9,6 +9,9 @@
     "add": "Favorilere ekle",
     "remove": "Favorilere eklendi"
   },
+  "Loader": {
+    "loading": "Yükleniyor"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Hakkımızda",

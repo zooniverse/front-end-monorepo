@@ -2,6 +2,9 @@
   "CloseButton": {
     "close": "बन्द करें"
   },
+  "Loader": {
+    "loading": "लोडिंग / लोड हो रहा है"
+  },
   "ZooFooter": {
     "buildLabels": {
       "tutorial": "ट्यूटोरियल"

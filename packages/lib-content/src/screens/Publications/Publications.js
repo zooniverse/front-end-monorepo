@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import Discipline from './components/Discipline/Discipline.js'
 import DropdownNav from '../../components/DropdownNav/DropdownNav.js'
 import MaxWidthContent from '../../components/MaxWidthContent/MaxWidthContent.js'
-import PageLayout from '../../components/PageLayout/layout.js'
+import AboutLayout from '../../components/PageLayout/AboutLayout.js'
 
 import {
   mobileBreakpoint,
@@ -41,7 +41,7 @@ function Publications({ publicationsData = [], sections = [] }) {
 
   return (
     <>
-      <PageLayout>
+      <AboutLayout>
         <MobileHeading level='1' size='1.5rem'>
           {t('Publications.title')}
         </MobileHeading>
@@ -88,7 +88,7 @@ function Publications({ publicationsData = [], sections = [] }) {
           </article>
           <Box />
         </StyledGrid>
-      </PageLayout>
+      </AboutLayout>
     </>
   )
 }

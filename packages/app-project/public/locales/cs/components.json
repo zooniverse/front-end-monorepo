@@ -13,9 +13,6 @@
     "defaultTitle": "Projekty",
     "siteName": "Zooniverse"
   },
-  "Loader": {
-    "loading": "(načítá se)"
-  },
   "ProjectHeader": {
     "about": "O projektu",
     "classify": "Klasifikovat",

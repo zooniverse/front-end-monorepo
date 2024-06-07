@@ -2,6 +2,9 @@
   "CloseButton": {
     "close": "Sluiten"
   },
+  "Loader": {
+    "loading": "(Laden)"
+  },
   "ZooFooter": {
     "buildLabels": {
       "tutorial": "Uitleg"

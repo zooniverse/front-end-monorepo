@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, ResponsiveContext } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
@@ -15,10 +15,23 @@ export const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
 
+const StickySubjectViewer = styled(Box)`
+  ${props =>
+    props.size !== 'small' &&
+    css`
+      position: sticky;
+      top: 10px;
+    `}
+`
+
 const StickyTaskArea = styled(Box)`
   flex: initial; // Don't stretch vertically
-  position: sticky;
-  top: 10px;
+  ${props =>
+    props.size !== 'small' &&
+    css`
+      position: sticky;
+      top: 10px;
+    `}
 `
 
 const StickyImageToolbar = styled(ImageToolbar)`
@@ -50,26 +63,25 @@ export default function CenteredLayout({ separateFramesView = false }) {
           direction='row'
           margin={size === 'small' ? 'auto' : 'none'}
         >
-          <Box>
+          <StickySubjectViewer size={size}>
             <Banners />
             <SubjectViewer />
             <MetaTools />
-          </Box>
+          </StickySubjectViewer>
           {!separateFramesView && (
             <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
               <StickyImageToolbar />
             </Box>
           )}
         </Box>
-        <Box
+        <StickyTaskArea
           width={size === 'small' ? '100%' : '25rem'}
           fill={size === 'small' ? 'horizontal' : 'vertical'}
+          size={size}
         >
-          <StickyTaskArea>
-            <TaskArea />
-            {separateFramesView && <FieldGuide />}
-          </StickyTaskArea>
-        </Box>
+          <TaskArea />
+          {separateFramesView && <FieldGuide />}
+        </StickyTaskArea>
       </Box>
       <FeedbackModal />
       <QuickTalk />

@@ -132,9 +132,123 @@ const STATS = {
       project_id: 5
     }
   ],
+  top_contributors: [
+    {
+      count: 123,
+      user_id: 12345
+    },
+    {
+      count: 234,
+      user_id: 54321
+    },
+    {
+      count: 345,
+      user_id: 67890
+    },
+    {
+      count: 456,
+      user_id: 23456
+    },
+    {
+      count: 567,
+      user_id: 34567
+    },
+    {
+      count: 678,
+      user_id: 45678
+    },
+    {
+      count: 789,
+      user_id: 56789
+    },
+    {
+      count: 890,
+      user_id: 99876
+    }
+  ],
   total_count: 1725,
   time_spent: 123456
 }
+
+const group_member_stats_breakdown = [
+  {
+    user_id: 12345,
+    count: 13425,
+    session_time: 234456,
+    project_contributions: [
+      {
+        project_id: 1,
+        count: 121,
+        session_time: 21234
+      },
+      {
+        project_id: 2,
+        count: 93,
+        session_time: 34879
+      },
+      {
+        project_id: 3,
+        count: 73,
+        session_time: 45567
+      },
+      {
+        project_id: 4,
+        count: 45,
+        session_time: 56567
+      },
+      {
+        project_id: 5,
+        count: 36,
+        session_time: 67342
+      }
+    ]
+  },
+  {
+    user_id: 67890,
+    count: 9574,
+    session_time: 345126,
+    project_contributions: [
+      {
+        project_id: 2,
+        count: 56,
+        session_time: 34747
+      },
+      {
+        project_id: 4,
+        count: 45,
+        session_time: 56223
+      },
+      {
+        project_id: 5,
+        count: 23,
+        session_time: 67234
+      }
+    ]
+  },
+  {
+    user_id: 99876,
+    count: 648,
+    session_time: 456347,
+    project_contributions: [
+      {
+        project_id: 3,
+        count: 56,
+        session_time: 45234
+      },
+      {
+        project_id: 4,
+        count: 45,
+        session_time: 56234
+      },
+      {
+        project_id: 5,
+        count: 3,
+        session_time: 67678
+      }
+    ]
+  
+  }
+]
 
 export {
   last7days,
@@ -146,5 +260,6 @@ export {
   thisYearMoreThan6Months,
   last12months,
   allTime,
+  group_member_stats_breakdown,
   STATS
 }

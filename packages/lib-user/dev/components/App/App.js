@@ -6,10 +6,11 @@ import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import {
+  Certificate,
+  Contributors,
   GroupStats,
   MyGroups,
   UserStats,
-  Certificate
 } from '@components'
 
 const isBrowser = typeof window !== 'undefined'
@@ -86,13 +87,10 @@ function App({
             </ul>
           </li>
           <li>
-            /groups
+            <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
             <ul>
               <li>
-                <a href="./?groups=[user_group_id]">/groups/[groupId] - group stats page</a>
-                <ul>
-                  <li>/contributors - Full Group Stats</li>
-                </ul>
+                <a href="./?groups=[user_group_id]/contributors">/contributors - full group stats page</a>
               </li>
             </ul>
           </li>
@@ -103,14 +101,19 @@ function App({
 
   if (groups) {
     const subpaths = groups.split('/')
+    const groupId = subpaths[0] || ''
   
     if (subpaths[0] === '[user_group_id]') {
       content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
     } else if (subpaths[1] === 'contributors') {
-      content = <p>Group contributors component goes here.</p>
+      content = (
+        <Contributors
+          authUser={user}
+          groupId={groupId}
+          joinToken={joinToken}
+        />
+      )
     } else {
-      const groupId = subpaths[0] || ''
-
       content = (
         <GroupStats
           authUser={user}
@@ -163,7 +166,7 @@ function App({
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <main>
+      <div>
         <AuthModal
           activeIndex={activeIndex}
           closeModal={closeAuthModal}
@@ -174,7 +177,10 @@ function App({
             <a href='/'>lib-user - dev app</a>
           </p>
           {user ? (
-            <button onClick={onSignOut}>Sign Out</button>
+            <>
+              <span>{user?.login}</span>
+              <button onClick={onSignOut}>Sign Out</button>
+            </>
           ) : (
             <>
               <button onClick={openSignInModal}>Sign In</button>
@@ -196,7 +202,7 @@ function App({
             {content}
           </div>
         )}
-      </main>
+      </div>
     </Grommet>
   )
 }

@@ -11,8 +11,8 @@ const ClassificationsLabel = styled(Box)`
   background: linear-gradient(
     to right,
     rgba(240, 178, 0, 0.4) 0%,
-    rgba(240, 178, 0, 1) 25%,
-    rgba(240, 178, 0, 1) 75%,
+    rgba(209, 143, 54, 1) 25%,
+    rgba(209, 143, 54, 1) 75%,
     rgba(240, 178, 0, 0.4) 100%
   );
 `
@@ -31,13 +31,11 @@ const Stat = styled(Box)`
   overflow: hidden;
 
   &.classifications {
-    background: rgba(240, 178, 0, 0.1); // matches ClassfiicationsLabel
-    border: solid 1px ${props => props.theme.global.colors['neutral-2']};
+    background: rgba(240, 178, 0, 0.05);
   }
 
   &.volunteers {
     background: rgba(0, 93, 105, 0.1); // matches VolunteersLabel
-    border: solid 1px ${props => props.theme.global.colors['neutral-1']};
   }
 `
 
@@ -67,21 +65,21 @@ export default function Stats() {
 
   return (
     <Box gap='medium'>
-      <Stat className='classifications' round='8px' elevation='small'>
+      <Stat className='classifications' round='8px'>
         <Text
-          color={{ light: 'neutral-2' }}
+          color='neutral-2'
           size={numberFontSize}
           textAlign='center'
         >
           {classifications && <AnimatedNumber value={totalClassifications} />}
         </Text>
         <ClassificationsLabel>
-          <SpacedText color='white' weight='bold' textAlign='center'>
+          <SpacedText color='white' weight='bold' size='1.4rem' textAlign='center'>
             {t('AboutPage.ourMission.stats.one')}
           </SpacedText>
         </ClassificationsLabel>
       </Stat>
-      <Stat className='volunteers' round='8px' elevation='small'>
+      <Stat className='volunteers' round='8px'>
         <Text
           color={{ light: 'neutral-1', dark: 'accent-1' }}
           size={numberFontSize}
@@ -90,7 +88,7 @@ export default function Stats() {
           {volunteers && <AnimatedNumber value={totalVolunteers} />}
         </Text>
         <VolunteersLabel>
-          <SpacedText color='white' weight='bold' textAlign='center'>
+          <SpacedText color='white' weight='bold' size='1.4rem' textAlign='center'>
             {t('AboutPage.ourMission.stats.two')}
           </SpacedText>
         </VolunteersLabel>

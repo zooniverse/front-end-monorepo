@@ -248,6 +248,16 @@ spec:
           env:
             - name: COMMIT_ID
               value: __IMAGE_TAG__
+            - name: CONTENTFUL_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: contentful-conf
+                  key: CONTENTFUL_ACCESS_TOKEN
+            - name: CONTENTFUL_SPACE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: contentful-conf
+                  key: CONTENTFUL_SPACE_ID
             - name: NODE_ENV
               value: production
             - name: PANOPTES_ENV
@@ -269,4 +279,3 @@ spec:
   minReplicas: 1
   maxReplicas: 2
   targetCPUUtilizationPercentage: 80
-  

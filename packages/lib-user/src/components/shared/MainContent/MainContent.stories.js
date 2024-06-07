@@ -36,6 +36,6 @@ export const Default = {
     selectedDateRange: 'Last7Days',
     selectedProject: 'AllProjects',
     stats: STATS,
-    user: USER
+    source: USER
   }
 }
