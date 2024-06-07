@@ -16,34 +16,34 @@ describe('components > Contributors > ContributorsList', function () {
   })
 
   describe('within a single contributor item', function () {
-    it('should show the user\'s avatar', function () {
+    let contributorItem
+
+    beforeEach(() => {
       render(<DefaultStory />)
-      const avatar = screen.getByAltText(`${USERS[0].login} avatar`)
+      contributorItem = screen.getAllByTestId('contributor-stats')[0]
+    })
+  
+    it('should show the user\'s avatar', function () {
+      const avatar = within(contributorItem).getByAltText(`${USERS[0].login} avatar`)
       expect(avatar).to.be.ok()
     })
   
     it('should show the user\'s display name', function () {
-      render(<DefaultStory />)
-      const displayName = screen.getByText(USERS[0].display_name)
+      const displayName = within(contributorItem).getByText(USERS[0].display_name)
       expect(displayName).to.be.ok()
     })
   
     it('should show the user\'s classifications', function () {
-      render(<DefaultStory />)
-      const classifications = screen.getByText(group_member_stats_breakdown[0].count.toLocaleString())
+      const classifications = within(contributorItem).getByText(group_member_stats_breakdown[0].count.toLocaleString())
       expect(classifications).to.be.ok()
     })
   
     it('should show the user\'s session time', function () {
-      render(<DefaultStory />)
-      const sessionTime = screen.getByText(group_member_stats_breakdown[0].session_time.toLocaleString())
+      const sessionTime = within(contributorItem).getByText(Math.round((group_member_stats_breakdown[0].session_time / 3600)).toLocaleString())
       expect(sessionTime).to.be.ok()
     })
   
     it('should show the user\'s project stats', function () {
-      render(<DefaultStory />)
-      const contributorItem = screen.getAllByTestId('contributor-stats')[0]
-
       const projectStats = within(contributorItem).getAllByTestId('project-stats')
       expect(projectStats).to.have.length(group_member_stats_breakdown[0].project_contributions.length)
     })

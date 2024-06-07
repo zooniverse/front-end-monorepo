@@ -1,6 +1,11 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
+import styled from 'styled-components'
+
+const StyledBox = styled(Box)`
+  box-shadow: 8px 0px 6px -6px rgba(0, 0, 0, 0.25);
+`
 
 import { Avatar } from '@components/shared'
 
@@ -12,14 +17,13 @@ function MemberStats({
   login = ''
 }) {
   return (
-    <Box
+    <StyledBox
       align='center'
       direction='row'
       gap='medium'
       justify='between'
       pad={{ horizontal: 'small' }}
       width={{ max: '400px', min: '400px' }}
-      style={{ boxShadow: '8px 0px 6px -6px rgba(0, 0, 0, 0.25)' }}
     >
       <Box
         align='center'
@@ -84,7 +88,7 @@ function MemberStats({
           </SpacedText>
         </Box>
       </Box>
-    </Box>
+    </StyledBox>
   )
 }
 

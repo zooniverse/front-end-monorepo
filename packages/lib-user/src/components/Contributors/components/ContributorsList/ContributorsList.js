@@ -13,6 +13,8 @@ function ContributorsList({
       as='ol'
     >
       {contributors.map((contributor, index) => {
+        const totalHoursSpent = contributor.session_time >= 0 ? contributor.session_time / 3600 : 0
+
         return (
           <Box
             key={contributor.id}
@@ -32,7 +34,7 @@ function ContributorsList({
               avatar={contributor.avatar_src}
               classifications={contributor.count}
               displayName={contributor.display_name}
-              hours={contributor.session_time}
+              hours={totalHoursSpent}
               login={contributor.login}
             />
             <Box
@@ -49,12 +51,13 @@ function ContributorsList({
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())
                 const projectDisplayName = project?.display_name || 'Private Project'
+                const projectHoursSpent = statsProject.session_time >= 0 ? statsProject.session_time / 3600 : 0
 
                 return (
                   <ProjectStats
                     key={statsProject.project_id}
                     classifications={statsProject.count}
-                    hours={statsProject.session_time}
+                    hours={projectHoursSpent}
                     projectDisplayName={projectDisplayName}
                   />
                 )

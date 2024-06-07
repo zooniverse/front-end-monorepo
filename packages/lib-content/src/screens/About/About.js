@@ -6,7 +6,7 @@ import Script from 'next/script'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import PageLayout from '../../components/PageLayout/layout.js'
+import AboutLayout from '../../components/PageLayout/AboutLayout.js'
 import DropdownNav from '../../components/DropdownNav/DropdownNav.js'
 import HeadingForAboutNav from '../../components/HeadingForAboutNav/HeadingForAboutNav.js'
 import MaxWidthContent from '../../components/MaxWidthContent/MaxWidthContent.js'
@@ -75,7 +75,7 @@ function AboutPage() {
           setWidgetLoaded(true)
         }}
       />
-      <PageLayout>
+      <AboutLayout>
         <MobileHeading level='1' size='1.5rem'>
           {t('AboutPage.title')}
         </MobileHeading>
@@ -169,7 +169,7 @@ function AboutPage() {
           </article>
           <Box />
         </StyledGrid>
-      </PageLayout>
+      </AboutLayout>
     </>
   )
 }

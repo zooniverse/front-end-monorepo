@@ -2,6 +2,7 @@
 export { default as Contributors } from './components/Contributors'
 export { default as GroupStats } from './components/GroupStats'
 export { default as MyGroups } from './components/MyGroups'
+export { default as UserHome } from './components/UserHome'
 export { default as UserStats } from './components/UserStats'
 
 // components/shared

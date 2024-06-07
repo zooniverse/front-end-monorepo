@@ -66,7 +66,7 @@ function cardFontSize (size) {
     case 'large':
       return '0.688rem';
     case 'xlarge':
-      return '0.688rem';
+      return '0.8rem';
     default:
       return '0.656rem';
   }
