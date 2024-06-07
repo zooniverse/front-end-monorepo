@@ -1,6 +1,6 @@
 import { Box, Image, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
-import { shape, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 
 const Relative = styled(Box)`
@@ -24,7 +24,7 @@ const StyledAvatar = styled(Image)`
   }
 `
 
-export default function Dashboard({ authUser, profileBannerSrc = '' }) {
+export default function Dashboard({ isLoading = false, user }) {
   const size = useContext(ResponsiveContext)
 
   return (
@@ -36,15 +36,19 @@ export default function Dashboard({ authUser, profileBannerSrc = '' }) {
           ? { min: '270px', max: '270px' }
           : { min: '180px', max: '180px' }
       }
-      background={{ image: `url(${profileBannerSrc})`, color: 'neutral-1' }}
+      background={
+        isLoading || !user?.profile_header
+          ? 'brand'
+          : { image: `url(${user.profile_header})` }
+      }
       round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
     >
       <StyledAvatar
         alt='User avatar'
         src={
-          authUser.avatar_src
-            ? authUser.avatar_src
-            : 'https://www.zooniverse.org/assets/simple-avatar.png'
+          !user?.avatar_src || isLoading
+            ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+            : user.avatar_src
         }
       />
     </Relative>
@@ -52,8 +56,10 @@ export default function Dashboard({ authUser, profileBannerSrc = '' }) {
 }
 
 Dashboard.propTypes = {
-  authUser: shape({
-    id: string
-  }),
-  profileBannerSrc: string
+  isLoading: bool,
+  user: shape({
+    avatar_src: string,
+    id: string.isRequired,
+    profile_header: string
+  })
 }
