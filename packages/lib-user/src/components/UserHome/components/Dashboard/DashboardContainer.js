@@ -1,5 +1,4 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
 import Dashboard from './Dashboard'
@@ -13,13 +12,9 @@ const SWROptions = {
 }
 
 /* This is a similar pattern to usePanoptesUser hook, but includes the profile_header */
-const fetchProfileBanner = async ({ authUser }) => {
-  const token = await auth.checkBearerToken()
-  const authorization = `Bearer ${token}`
-  const query = { include: 'profile_header', user_id: authUser.id }
-
+const fetchProfileBanner = async ({ authUser}) => {
   try {
-    const { body } = await panoptes.get('/users', query, { authorization })
+    const { body } = await panoptes.get(`/users/${authUser.id}/?include=profile_header`)
     const user = body.users?.[0]
 
     if (body.linked?.profile_headers?.length) {
@@ -33,7 +28,7 @@ const fetchProfileBanner = async ({ authUser }) => {
 }
 
 export default function DashboardContainer({ authUser }) {
-  const key = { authUser }
+  const key = { endpoint: '/users/[id]', authUser }
   const { data: user, isLoading } = useSWR(key, fetchProfileBanner, SWROptions)
 
   return <Dashboard user={user} isLoading={isLoading} />
