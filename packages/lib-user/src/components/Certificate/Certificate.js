@@ -35,6 +35,11 @@ const PrintableBox = styled(Box)`
     }
   }
 
+  @page {
+    margin: 0;
+    size: 'landscape';
+  }
+
   .userName {
     letter-spacing: 6px;
   }
@@ -78,6 +83,7 @@ function Certificate({
         >
           <Box
             id='certificate'
+            flex='grow'
             pad='medium'
           >
             <Box
@@ -87,6 +93,7 @@ function Certificate({
                 style: 'solid',
                 side: 'all'
               }}
+              flex='grow'
               pad='xsmall'
             >
               <Box
@@ -97,6 +104,7 @@ function Certificate({
                   style: 'solid',
                   side: 'all'
                 }}
+                flex='grow'
                 justify='center'
                 pad={{
                   horizontal: 'medium',
@@ -106,7 +114,7 @@ function Certificate({
                 <ZooniverseLogo
                   id='ZooniverseCertificateLogo'
                   color='#00979d'
-                  size='4rem'
+                  size='5em'
                 />
                 <SpacedText
                   margin={{ top: 'medium' }}
@@ -183,6 +191,7 @@ function Certificate({
                 </SpacedText>
                 <Box
                   align='center'
+                  flex='grow'
                   margin={{
                     bottom: 'small',
                     top: 'medium'
