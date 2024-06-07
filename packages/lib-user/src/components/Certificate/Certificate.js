@@ -12,6 +12,10 @@ import {
 const PrintableBox = styled(Box)`
   font-size: 16px;
 
+  #certificate {
+    box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
   @media print {
     > *:not(#certificate) {
       visibility: hidden;
@@ -22,16 +26,13 @@ const PrintableBox = styled(Box)`
     }
 
     #certificate {
+      box-shadow: none;
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
     }
-  }
-
-  @page {
-    size: landscape;
   }
 
   .userName {
@@ -42,6 +43,10 @@ const PrintableBox = styled(Box)`
     letter-spacing: 8px;
   }
 `
+
+function handleClickPrint() {
+  window.print()
+}
 
 function Certificate({
   creditedName = '',
@@ -67,26 +72,28 @@ function Certificate({
           linkLabel='Generate Certificate'
           linkProps={{
             as: 'button',
-            onClick: () => window.print()
+            onClick: handleClickPrint
           }}
           title='Your Volunteer Certificate'
         >
-          <Box id='certificate'>
+          <Box
+            id='certificate'
+            pad='medium'
+          >
             <Box
               border={{
-                color: 'brand',
-                size: 'medium',
+                color: 'neutral-1',
+                size: '8px',
                 style: 'solid',
                 side: 'all'
               }}
-              margin='medium'
               pad='xsmall'
             >
               <Box
                 align='center'
                 border={{
-                  color: 'brand',
-                  size: 'small',
+                  color: 'neutral-1',
+                  size: '4px',
                   style: 'solid',
                   side: 'all'
                 }}
