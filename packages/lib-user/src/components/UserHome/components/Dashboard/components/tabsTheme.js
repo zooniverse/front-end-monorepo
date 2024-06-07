@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-const statsTabsTheme = {
+const tabsTheme = {
   tab: {
     active: {
       color: {
@@ -49,4 +49,4 @@ const statsTabsTheme = {
   }
 }
 
-export default statsTabsTheme
+export default tabsTheme

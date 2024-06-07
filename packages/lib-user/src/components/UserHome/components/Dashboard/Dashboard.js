@@ -2,7 +2,7 @@ import { Anchor, Box, Image, ResponsiveContext, Text } from 'grommet'
 import { Bookmark, Chat, Favorite, FormNext, MailOption } from 'grommet-icons'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { bool, shape, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import DashboardLink from './components/DashboardLink.js'
@@ -92,8 +92,8 @@ const StyledBadge = styled(Text)`
 `
 
 export default function Dashboard({
-  authUser,
-  profileBannerSrc = '',
+  user,
+  isLoading,
   statsPreview
 }) {
   const size = useContext(ResponsiveContext)
@@ -139,7 +139,7 @@ export default function Dashboard({
           textAlign='center'
           margin={{ bottom: '10px', top: '0' }}
         >
-          {authUser.display_name}
+          {user?.display_name}
         </SpacedHeading>
         {size === 'small' ? (
           <Text>
@@ -147,7 +147,7 @@ export default function Dashboard({
             classifications
           </Text>
         ) : (
-          <Text>{`@${authUser.login}`}</Text>
+          <Text>{`@${user?.login}`}</Text>
         )}
       </NameContainer>
 
@@ -156,17 +156,17 @@ export default function Dashboard({
         <DashboardLink
           icon={<Favorite size='1rem' />}
           text='Favorites'
-          href={`https://www.zooniverse.org/favorites/${authUser.login}`}
+          href={`https://www.zooniverse.org/favorites/${user?.login}`}
         />
         <DashboardLink
           icon={<Bookmark size='1rem' />}
           text='Collections'
-          href={`https://www.zooniverse.org/collections/${authUser.login}`}
+          href={`https://www.zooniverse.org/collections/${user?.login}`}
         />
         <DashboardLink
           icon={<Chat size='1rem' />}
           text='Comments'
-          href={`https://www.zooniverse.org/users/${authUser.login}`}
+          href={`https://www.zooniverse.org/users/${user?.login}`}
         />
         <DashboardLink
           icon={<MailOption size='1rem' />}
@@ -181,7 +181,7 @@ export default function Dashboard({
         <Relative>
           <StyledStatsLink
             alignSelf={size === 'small' ? 'center' : 'end'}
-            href={`/users/${authUser.login}/stats`}
+            href={`/users/${user?.login}/stats`}
             label={<SpacedText>More Stats</SpacedText>}
             icon={<FormNext />}
             reverse

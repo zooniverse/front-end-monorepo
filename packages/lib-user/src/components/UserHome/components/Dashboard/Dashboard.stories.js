@@ -1,3 +1,5 @@
+import { Box } from 'grommet'
+
 import Dashboard from './Dashboard.js'
 
 export default {

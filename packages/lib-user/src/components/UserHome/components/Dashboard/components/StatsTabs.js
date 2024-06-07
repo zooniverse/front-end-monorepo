@@ -13,7 +13,7 @@ import { number, shape } from 'prop-types'
 import { useContext } from 'react'
 import { SpacedText } from '@zooniverse/react-components'
 
-import statsTabsTheme from './statsTabsTheme.js'
+import tabsTheme from './tabsTheme.js'
 
 function Stat({ stats }) {
   return (
@@ -68,7 +68,7 @@ export default function StatsTabs({ statsPreview }) {
   const size = useContext(ResponsiveContext)
 
   return (
-    <ThemeContext.Extend value={statsTabsTheme}>
+    <ThemeContext.Extend value={tabsTheme}>
       {size !== 'small' ? (
         <Box width={{ min: '480px' }}>
           <GrommetTabs gap='small' flex='grow'>
