@@ -9,6 +9,7 @@ import {
   Contributors,
   GroupStats,
   MyGroups,
+  UserHome,
   UserStats
 } from '@components'
 
@@ -31,7 +32,7 @@ function App({
   useEffect(() => {
     async function checkUserSession() {
       setLoading(true)
-  
+
       try {
         const user = await auth.checkCurrent()
         setUser(user)
@@ -41,7 +42,7 @@ function App({
         setLoading(false)
       }
     }
-    
+
     auth.listen('change', checkUserSession)
 
     return function () {
@@ -93,13 +94,14 @@ function App({
           </li>
         </ul>
       </ul>
+      {user?.id ? <UserHome authUser={user} /> : null}
     </div>
   )
 
   if (groups) {
     const subpaths = groups.split('/')
     const groupId = subpaths[0] || ''
-  
+
     if (subpaths[0] === '[user_group_id]') {
       content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
     } else if (subpaths[1] === 'contributors') {
@@ -185,7 +187,7 @@ function App({
             />
           </div>
         </header>
-        {loading ? 
+        {loading ?
           <p>Loading...</p> : (
           <div>
             {content}
