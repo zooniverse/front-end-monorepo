@@ -23,13 +23,11 @@ function ComponentDecorator(Story) {
 
 const USER = {
   admin: false,
-  avatar_src:
-    'https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg',
+  avatar_src: 'https://panoptes-uploads-staging.zooniverse.org/user_avatar/e638f5a3-7ffb-4d23-bb08-f296377a2e74.jpeg',
   display_name: 'Test User 1',
   id: '12345',
   login: 'TestUser',
-  profile_header:
-    'https://panoptes-uploads.zooniverse.org/user_profile_header/9da9fd16-46c1-4d84-a272-83ac19fb32c3.jpeg'
+  profile_header: 'https://panoptes-uploads.zooniverse.org/user_profile_header/9da9fd16-46c1-4d84-a272-83ac19fb32c3.jpeg'
 }
 
 const USER_NO_IMAGES = {

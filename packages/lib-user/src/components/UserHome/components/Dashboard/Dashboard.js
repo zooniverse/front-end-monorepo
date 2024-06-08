@@ -115,14 +115,14 @@ export default function Dashboard({
         }
         round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
       >
-        <StyledAvatar
-          alt='User avatar'
-          src={
-            !user?.avatar_src || isLoading
-              ? 'https://www.zooniverse.org/assets/simple-avatar.png'
-              : user.avatar_src
-          }
-        />
+      <StyledAvatar
+        alt='User avatar'
+        src={
+          !user?.avatar_src || isLoading
+            ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+            : user.avatar_src
+        }
+      />
       </Relative>
 
       {/* Name */}
@@ -194,8 +194,7 @@ export default function Dashboard({
         </Relative>
       </Box>
     </Box>
-  )
-}
+)}
 
 Dashboard.propTypes = {
   statsPreview: shape({

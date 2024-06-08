@@ -12,7 +12,7 @@
 import styled from 'styled-components'
 import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
-import { number, string } from 'prop-types'
+import { string } from 'prop-types'
 
 const StyledAnchor = styled(Anchor)`
   text-decoration: none;
@@ -99,5 +99,5 @@ SubjectCard.propTypes = {
   size: string,
   projectSlug: string,
   mediaSrc: string,
-  subjectID: number.isRequired
+  subjectID: string.isRequired
 }
