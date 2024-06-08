@@ -2,11 +2,11 @@ import { Anchor, Box, Image, ResponsiveContext, Text } from 'grommet'
 import { Bookmark, Chat, Favorite, FormNext, MailOption } from 'grommet-icons'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { bool, number, shape, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import DashboardLink from './components/DashboardLink.js'
-import StatsTabs from './components/StatsTabs.js'
+import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer.js'
 
 const Relative = styled(Box)`
   position: relative;
@@ -91,11 +91,7 @@ const StyledBadge = styled(Text)`
   border-radius: 15px;
 `
 
-export default function Dashboard({
-  user,
-  isLoading,
-  statsPreview
-}) {
+export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
 
   return (
@@ -109,20 +105,20 @@ export default function Dashboard({
             : { min: '180px', max: '180px' }
         }
         background={
-          isLoading || !user?.profile_header
+          !user?.profile_header || userLoading
             ? 'brand'
             : { image: `url(${user.profile_header})` }
         }
         round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
       >
-      <StyledAvatar
-        alt='User avatar'
-        src={
-          !user?.avatar_src || isLoading
-            ? 'https://www.zooniverse.org/assets/simple-avatar.png'
-            : user.avatar_src
-        }
-      />
+        <StyledAvatar
+          alt='User avatar'
+          src={
+            !user?.avatar_src || userLoading
+              ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+              : user?.avatar_src
+          }
+        />
       </Relative>
 
       {/* Name */}
@@ -139,16 +135,9 @@ export default function Dashboard({
           textAlign='center'
           margin={{ bottom: '10px', top: '0' }}
         >
-          {user?.display_name}
+          {userLoading ? ' ' : user?.display_name}
         </SpacedHeading>
-        {size === 'small' ? (
-          <Text>
-            {statsPreview.allTime.classifications.toLocaleString()}{' '}
-            classifications
-          </Text>
-        ) : (
-          <Text>{`@${user?.login}`}</Text>
-        )}
+        <Text>{userLoading ? ' ' : `@${user?.login}`}</Text>
       </NameContainer>
 
       {/* Links */}
@@ -177,7 +166,7 @@ export default function Dashboard({
 
       <Box align='center' gap='30px'>
         {/* Stats Preview */}
-        <StatsTabs statsPreview={statsPreview} />
+        <StatsTabsContainer user={user} />
         <Relative>
           <StyledStatsLink
             alignSelf={size === 'small' ? 'center' : 'end'}
@@ -194,20 +183,11 @@ export default function Dashboard({
         </Relative>
       </Box>
     </Box>
-)}
+  )
+}
 
 Dashboard.propTypes = {
-  statsPreview: shape({
-    thisWeek: shape({
-      classifications: number,
-      projects: number
-    }),
-    allTime: shape({
-      classifications: number,
-      projects: number
-    })
-  }),
-  isLoading: bool,
+  userLoading: bool,
   user: shape({
     avatar_src: string,
     id: string.isRequired,

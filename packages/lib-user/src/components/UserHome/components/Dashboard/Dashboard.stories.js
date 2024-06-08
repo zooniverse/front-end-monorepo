@@ -41,32 +41,12 @@ const USER_NO_IMAGES = {
 
 export const Default = {
   args: {
-    statsPreview: {
-      thisWeek: {
-        classifications: 542,
-        projects: 3
-      },
-      allTime: {
-        classifications: 30673,
-        projects: 123
-      }
-    },
     user: USER
   }
 }
 
 export const NoImagesOrStats = {
   args: {
-    statsPreview: {
-      classifications: {
-        thisWeek: 0,
-        allTime: 0
-      },
-      projects: {
-        thisWeek: 0,
-        allTime: 0
-      }
-    },
     user: USER_NO_IMAGES
   }
 }

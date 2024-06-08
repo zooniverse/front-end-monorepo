@@ -45,7 +45,7 @@ function Stat({ stats }) {
           </Tip>
         </Box>
         <Text color={{ light: 'neutral-1', dark: 'accent-1' }} size='xxlarge'>
-          {stats.classifications.toLocaleString()}
+          {stats.classifications?.toLocaleString()}
         </Text>
       </Box>
       <Box align='center' gap='xxsmall' width='50%'>
@@ -57,7 +57,7 @@ function Stat({ stats }) {
           Projects
         </Text>
         <Text color={{ light: 'neutral-1', dark: 'accent-1' }} size='xxlarge'>
-          {stats.projects.toLocaleString()}
+          {stats.projects?.toLocaleString()}
         </Text>
       </Box>
     </Box>
@@ -73,10 +73,10 @@ export default function StatsTabs({ statsPreview }) {
         <Box width={{ min: '480px' }}>
           <GrommetTabs gap='small' flex='grow'>
             <Tab title='THIS WEEK'>
-              <Stat stats={statsPreview.thisWeek} />
+              {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
             </Tab>
             <Tab title='ALL TIME'>
-              <Stat stats={statsPreview.allTime} />
+              {statsPreview?.allTime && <Stat stats={statsPreview.allTime} />}
             </Tab>
           </GrommetTabs>
         </Box>
@@ -90,7 +90,7 @@ export default function StatsTabs({ statsPreview }) {
           >
             This week at a glance
           </SpacedText>
-          <Stat stats={statsPreview.thisWeek} />
+          {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
         </Box>
       )}
     </ThemeContext.Extend>
