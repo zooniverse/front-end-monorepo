@@ -95,7 +95,12 @@ export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
 
   return (
-    <Box align='center' pad={{ bottom: '40px' }}>
+    <Box
+      align='center'
+      pad={{ bottom: '20px' }}
+      round={size !== 'small' ? '8px' : false}
+      elevation={size === 'small' ? 'none' : 'xsmall'}
+    >
       <Relative
         fill
         align='center'
@@ -109,7 +114,7 @@ export default function Dashboard({ user, userLoading }) {
             ? 'brand'
             : { image: `url(${user.profile_header})` }
         }
-        round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
+        round={size !== 'small' ? {size: '16px', corner: 'top'} : false}
       >
         <StyledAvatar
           alt='User avatar'
@@ -164,10 +169,10 @@ export default function Dashboard({ user, userLoading }) {
         />
       </Box>
 
-      <Box align='center' gap='30px'>
+      <Box align='center' gap='20px'>
         {/* Stats Preview */}
         <StatsTabsContainer user={user} />
-        <Relative>
+        <Relative fill>
           <StyledStatsLink
             alignSelf={size === 'small' ? 'center' : 'end'}
             href={`/users/${user?.login}/stats`}
