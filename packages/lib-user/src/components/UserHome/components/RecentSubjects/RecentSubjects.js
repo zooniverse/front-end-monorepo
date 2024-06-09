@@ -3,6 +3,7 @@ import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
+import { ContentBox } from '@components/shared'
 import SubjectCard from '../SubjectCard/SubjectCard.js'
 
 function RecentSubjects({
