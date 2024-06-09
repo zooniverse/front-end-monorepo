@@ -55,7 +55,7 @@ export default function RecentProjects({
               badge={project?.user_classifications}
               description={project?.description}
               displayName={project?.display_name}
-              href={``}
+              href={`https://www.zooniverse.org/projects/${project?.slug}`}
               imageSrc={project?.avatar_src}
               size={size}
             />

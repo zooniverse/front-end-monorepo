@@ -1,7 +1,7 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
-import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
+import { Loader, SpacedText } from '@zooniverse/react-components'
 
 import { ContentBox } from '@components/shared'
 import SubjectCard from '../SubjectCard/SubjectCard.js'
@@ -9,23 +9,12 @@ import SubjectCard from '../SubjectCard/SubjectCard.js'
 function RecentSubjects({
   isLoading = false,
   recents = [],
-  recentsError = undefined
+  error = undefined
 }) {
   const size = useContext(ResponsiveContext)
 
   return (
-    <Box
-      pad='medium'
-      height={{ min: '200px' }}
-      round='small'
-      border={{
-        color: { light: 'light-5', dark: 'black' },
-        size: 'xsmall'
-      }}
-    >
-      <SpacedHeading size='1.125rem' level={2} margin={{ top: '0' }}>
-        Recent Classifications
-      </SpacedHeading>
+    <ContentBox title='Recent Classifications' screenSize={size}>
       <Box
         as='ul'
         direction='row'
@@ -40,14 +29,14 @@ function RecentSubjects({
             <Loader />
           </Box>
         )}
-        {!isLoading && recentsError && (
+        {!isLoading && error && (
           <Box fill justify='center' align='center' pad='medium'>
             <SpacedText>
               There was an error fetching recent classifications
             </SpacedText>
           </Box>
         )}
-        {!isLoading && !recents?.length && !recentsError && (
+        {!isLoading && !recents?.length && !error && (
           <Box fill justify='center' align='center' pad='medium'>
             <SpacedText>No Recent Classifications found</SpacedText>
             <Text>
@@ -60,23 +49,23 @@ function RecentSubjects({
           </Box>
         )}
         {!isLoading && recents?.length
-          ? recents.slice(0, 10).map(classification => {
-              const subjectMedia = classification.locations.map(
+          ? recents.map(recent => {
+              const subjectMedia = recent?.locations?.map(
                 location => Object.values(location)[0]
               )
               return (
                 <SubjectCard
-                  key={classification.id}
+                  key={recent?.id}
                   size={size}
-                  subjectID={classification.links.subject}
-                  mediaSrc={subjectMedia[0]}
-                  projectSlug={classification.slug}
+                  subjectID={recent?.links.subject}
+                  mediaSrc={subjectMedia?.[0]}
+                  projectSlug={recent?.project_slug}
                 />
               )
             })
           : null}
       </Box>
-    </Box>
+    </ContentBox>
   )
 }
 

@@ -17,7 +17,7 @@ export default function RecentProjectsContainer({ authUser }) {
 
   const { data: projects } = usePanoptesProjects(recentProjectIds)
 
-  let projectsWithClassificationCount = []
+  let projectsWithClassificationCount
 
   // Attach 'count' to each project object
   if (projects?.length) {
