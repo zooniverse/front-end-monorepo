@@ -1,4 +1,4 @@
-import { Box } from 'grommet'
+import { Box, Text } from 'grommet'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 import SpacedText from '../SpacedText'
@@ -42,42 +42,55 @@ const StyledProjectDescription = styled(SpacedText)`
   }
 `
 
-function cardWidth (size) {
+const StyledBadge = styled(Text)`
+  display: flex;
+  margin: 5px 5px 5px auto;
+  border-radius: 50%;
+  padding: 3px;
+  background: white;
+  aspect-ratio: 1 / 1;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`
+
+function cardWidth(size) {
   switch (size) {
     case 'small':
-      return 157;
+      return 157
     case 'medium':
-      return 189;
+      return 189
     case 'large':
-      return 220;
+      return 220
     case 'xlarge':
-      return 252;
+      return 252
     default:
-      return 189;
+      return 189
   }
 }
 
-function cardFontSize (size) {
+function cardFontSize(size) {
   switch (size) {
     case 'small':
-      return '0.625rem';
+      return '0.625rem'
     case 'medium':
-      return '0.656rem';
+      return '0.656rem'
     case 'large':
-      return '0.688rem';
+      return '0.688rem'
     case 'xlarge':
-      return '0.8rem';
+      return '0.8rem'
     default:
-      return '0.656rem';
+      return '0.656rem'
   }
 }
 
-function ProjectCard ({
+function ProjectCard({
+  badge = undefined,
   description = '',
   displayName = '',
   href = '',
   imageSrc = '',
-  size = 'medium',
+  size = 'medium'
 }) {
   return (
     <StyledProjectCard
@@ -87,7 +100,7 @@ function ProjectCard ({
       href={href}
       round='8px'
       cardFontSize={cardFontSize(size)}
-      height={`${cardWidth(size) * 14 / 11}px`}
+      height={`${(cardWidth(size) * 14) / 11}px`}
       width={`${cardWidth(size)}px`}
     >
       <Box
@@ -95,11 +108,14 @@ function ProjectCard ({
         background={{
           image: `url(${imageSrc})`,
           position: 'top',
-          size: 'cover',
+          size: 'cover'
         }}
         height={`${cardWidth(size)}px`}
         round={{ corner: 'top', size: '8px' }}
       >
+        {badge && <StyledBadge color='black' size='0.75rem' weight='bold'>
+          {badge}
+        </StyledBadge>}
       </Box>
       <StyledProjectContent
         flex='grow'

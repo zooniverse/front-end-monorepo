@@ -51,11 +51,12 @@ export default function RecentProjects({
           projects?.length &&
           projects.map(project => (
             <ProjectCard
-              key={project.id}
-              description={project.description}
-              displayName={project.display_name}
+              key={project?.id}
+              badge={project?.user_classifications}
+              description={project?.description}
+              displayName={project?.display_name}
               href={``}
-              imageSrc={project.avatar_src}
+              imageSrc={project?.avatar_src}
               size={size}
             />
           ))}

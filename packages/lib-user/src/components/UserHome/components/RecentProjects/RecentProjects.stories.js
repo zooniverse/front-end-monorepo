@@ -1,6 +1,11 @@
 import RecentProjects from './RecentProjects.js'
 import { PROJECTS } from '../../../../../test/mocks/panoptes/projects.js'
 
+const projectsWithCount = PROJECTS.map(project => {
+  project.user_classifications = Math.floor(Math.random() * 100)
+  return project
+})
+
 export default {
   title: 'Components / UserHome / RecentProjects',
   component: RecentProjects
@@ -8,7 +13,7 @@ export default {
 
 export const Default = {
   args: {
-    projects: [...PROJECTS, ...PROJECTS]
+    projects: projectsWithCount
   }
 }
 
