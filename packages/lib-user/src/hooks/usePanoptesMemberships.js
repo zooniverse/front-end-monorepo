@@ -32,6 +32,10 @@ async function fetchMemberships({ query }) {
 }
 
 export function usePanoptesMemberships({ authUserId, joinStatus = null, query }) {
+  // joinStatusSuccess is a boolean trigger for re-requesting membership after a user successfully joins a group
+  // a user with a join_token will request a membership on initial page load that will return null
+  // once the user with a join_token's membership is created, the joinStatus will be set to asyncStates.success, 
+  // then joinStatusSuccess will be true, and the membership will be re-requested 
   const joinStatusSuccess = joinStatus === asyncStates.success
 
   const key = (query.user_id || query.user_group_id) && authUserId ? { query, joinStatusSuccess } : null
