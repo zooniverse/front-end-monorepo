@@ -4,6 +4,12 @@ import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
+/*
+  Tune this value to determine when a search term
+  is long enough to use Panoptes full-text search.
+*/
+const MIN_SEARCH_LENGTH = 3;
+
 function SelectCollection ({
   collections = [],
   disabled = false,
@@ -30,16 +36,14 @@ function SelectCollection ({
     await onSearch({
       favorite: false,
       current_user_roles: 'owner,collaborator,contributor',
-      search: search.length > 3 ? search : undefined
+      search: search.length > MIN_SEARCH_LENGTH ? search : undefined
     })
-    setSearchText(search.toLowerCase())
+    setSearchText(search)
   }
-
-  const ignorePanoptesFullTextSearch = searchText.length < 4
 
   function collectionNameFilter(collection) {
     const displayNameLowerCase = collection.display_name.toLowerCase()
-    return displayNameLowerCase.includes(searchText)
+    return displayNameLowerCase.includes(searchText.toLowerCase())
   }
 
   function collectionLabel(collection) {
@@ -49,7 +53,9 @@ function SelectCollection ({
     return `${collection.display_name} (${collection.links.owner.display_name})`
   }
 
-  const options = ignorePanoptesFullTextSearch ? collections.filter(collectionNameFilter) : collections
+  const options = searchText.length > MIN_SEARCH_LENGTH
+    ? collections
+    : collections.filter(collectionNameFilter)
 
 
   return (
