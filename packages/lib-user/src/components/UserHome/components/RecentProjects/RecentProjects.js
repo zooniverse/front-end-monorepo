@@ -48,7 +48,7 @@ export default function RecentProjects({
           </Box>
         )}
         {!isLoading &&
-          projectPreferences?.length &&
+          projectPreferences?.length ?
           projectPreferences.map(preference => (
             <ProjectCard
               key={preference?.project?.id}
@@ -59,7 +59,7 @@ export default function RecentProjects({
               imageSrc={preference?.project?.avatar_src}
               size={size}
             />
-          ))}
+          )) : null}
       </Box>
     </ContentBox>
   )
