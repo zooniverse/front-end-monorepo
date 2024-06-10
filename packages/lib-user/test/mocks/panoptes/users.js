@@ -48,10 +48,10 @@ export const USERS = [
     login: 'StudentUser2'
   },
   {
-    ...ADMIN_USER,
-    id: '45678',
-    display_name: 'Admin User 2',
-    login: 'AdminUser2'
+    ...GROUP_ADMIN_USER,
+    id: '99877',
+    display_name: 'Teacher User 2',
+    login: 'TeacherUser2'
   },
   {
     ...USER,

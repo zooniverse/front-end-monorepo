@@ -1,4 +1,4 @@
-export function getCompleteData ({ data, dateInterval }) {
+export function getCompleteData({ data, dateInterval }) {
   const completeData = []
   if (data.length > 0) {
     const { end_date, period, start_date } = dateInterval

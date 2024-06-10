@@ -7,7 +7,7 @@ import { GroupContainer } from '@components/shared'
 import GroupStats from './GroupStats'
 
 function GroupStatsContainer({
-  adminMode,
+  adminMode = false,
   authUser,
   groupId,
   joinToken
