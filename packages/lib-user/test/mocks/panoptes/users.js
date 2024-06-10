@@ -25,7 +25,7 @@ export const GROUP_MEMBER_USER = {
 export const GROUP_ADMIN_USER = {
   admin: false,
   avatar_src: 'https://panoptes-uploads.zooniverse.org/user_avatar/57ce57cc-63cf-46e1-bc9f-a7e52c3f4c05.jpeg',
-  display_name: 'Teacher User',
+  display_name: 'Teacher User 1',
   id: '99876',
   login: 'TeacherUser'
 }

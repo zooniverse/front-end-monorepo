@@ -38,7 +38,7 @@ describe('Contributors > getExportData', function () {
         'Student User 1', 'StudentUser', 9574, 345126, 0, 0, 56, 34747, 45, 56223, 23, 67234, 0, 0
       ], 
       [ 
-        'Teacher User', 'TeacherUser', 648, 456347, 0, 0, 0, 0, 45, 56234, 3, 67678, 56, 45234
+        'Teacher User 1', 'TeacherUser', 648, 456347, 0, 0, 0, 0, 45, 56234, 3, 67678, 56, 45234
       ]
     ])
   })
