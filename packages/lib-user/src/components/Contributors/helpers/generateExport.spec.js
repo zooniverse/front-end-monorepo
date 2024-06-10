@@ -33,6 +33,6 @@ describe('Contributors > generateExport', function () {
       users
     })
 
-    expect(setFilename).to.be.calledWithMatch(/Test Group 🍩.data_export.\d+.csv/)
+    expect(setFilename).to.be.calledWithMatch(/TestGroup.data_export.\d+.csv/)
   })
 })

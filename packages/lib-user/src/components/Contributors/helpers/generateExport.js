@@ -20,7 +20,10 @@ export function generateExport({
     str += row.map((col) => JSON.stringify(col)).join(',').concat('\n')
   })
 
-  let newFilename = `${group.display_name}.data_export.${Date.now()}.csv`
+  // The following regexp sanitizes the group name by removing all non-alphanumeric characters (i.e. emojis, spaces, punctuation, etc.)
+  let sanitizedGroupName = group.display_name.replace(/[^a-zA-Z0-9]/g, '')
+
+  let newFilename = `${sanitizedGroupName}.data_export.${Date.now()}.csv`
   handleFileName(newFilename)
 
   let file = new File([str], newFilename, { type: 'text/csv' })
