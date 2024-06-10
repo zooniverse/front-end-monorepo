@@ -53,6 +53,9 @@ function SelectCollection ({
     return `${collection.display_name} (${collection.links.owner.display_name})`
   }
 
+  /*
+    If the search text is long enough, use fuzzy full-text search. Otherwise, filter collections by display name.
+  */
   const options = searchText.length > MIN_SEARCH_LENGTH
     ? collections
     : collections.filter(collectionNameFilter)
