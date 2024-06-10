@@ -113,9 +113,9 @@ function ProjectCard({
         height={`${cardWidth(size)}px`}
         round={{ corner: 'top', size: '8px' }}
       >
-        {badge && <StyledBadge color='black' size='0.75rem' weight='bold'>
+        {badge ? <StyledBadge color='black' size='0.75rem' weight='bold'>
           {badge}
-        </StyledBadge>}
+        </StyledBadge> : null}
       </Box>
       <StyledProjectContent
         flex='grow'

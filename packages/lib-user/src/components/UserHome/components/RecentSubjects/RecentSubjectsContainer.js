@@ -13,7 +13,7 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-async function fetchUserRecents({userId}) {
+async function fetchUserRecents({ userId }) {
   try {
     const query = {
       page: 1,

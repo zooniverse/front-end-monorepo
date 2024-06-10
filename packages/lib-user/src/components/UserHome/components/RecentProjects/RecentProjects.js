@@ -7,7 +7,7 @@ import { ContentBox } from '@components/shared'
 
 export default function RecentProjects({
   isLoading = false,
-  projects = [],
+  projectPreferences = [],
   error = undefined
 }) {
   const size = useContext(ResponsiveContext)
@@ -35,7 +35,7 @@ export default function RecentProjects({
             </SpacedText>
           </Box>
         )}
-        {!isLoading && !projects.length && !error && (
+        {!isLoading && !projectPreferences.length && !error && (
           <Box fill justify='center' align='center' pad='medium'>
             <SpacedText>No Recent Projects found</SpacedText>
             <Text>
@@ -48,15 +48,15 @@ export default function RecentProjects({
           </Box>
         )}
         {!isLoading &&
-          projects?.length &&
-          projects.map(project => (
+          projectPreferences?.length &&
+          projectPreferences.map(preference => (
             <ProjectCard
-              key={project?.id}
-              badge={project?.user_classifications}
-              description={project?.description}
-              displayName={project?.display_name}
-              href={`https://www.zooniverse.org/projects/${project?.slug}`}
-              imageSrc={project?.avatar_src}
+              key={preference?.project?.id}
+              badge={preference?.activity_count}
+              description={preference?.project?.description}
+              displayName={preference?.project?.display_name}
+              href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
+              imageSrc={preference?.project?.avatar_src}
               size={size}
             />
           ))}
@@ -67,7 +67,7 @@ export default function RecentProjects({
 
 RecentProjects.propTypes = {
   isLoading: bool,
-  projects: arrayOf(
+  projectPreferences: arrayOf(
     shape({
       id: string
     })
