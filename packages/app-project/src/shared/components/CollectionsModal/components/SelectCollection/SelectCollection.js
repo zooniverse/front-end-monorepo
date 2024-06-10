@@ -25,9 +25,9 @@ function SelectCollection ({
   For shorter strings, we request all your collections then filter the display names.
   */
 
-  function onTextChange(text) {
+  async function onTextChange(text) {
     const search = text.trim()
-    onSearch({
+    await onSearch({
       favorite: false,
       current_user_roles: 'owner,collaborator,contributor',
       search: search.length > 3 ? search : undefined
