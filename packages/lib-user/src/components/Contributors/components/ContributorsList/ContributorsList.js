@@ -8,6 +8,8 @@ function ContributorsList({
   contributors = [],
   projects = []
 }) {
+  let privateProjectIndex = 1
+
   return (
     <Box
       as='ol'
@@ -50,7 +52,7 @@ function ContributorsList({
             >
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())
-                const projectDisplayName = project?.display_name || 'Private Project'
+                const projectDisplayName = project?.display_name || `Private Project ${privateProjectIndex++}`
                 const projectHoursSpent = statsProject.session_time >= 0 ? statsProject.session_time / 3600 : 0
 
                 return (
