@@ -14,7 +14,7 @@ const DEFAULT_LINK = {
   text: ''
 }
 
-function ContentLink ({
+function ContentLink({
   link = DEFAULT_LINK
 }) {
   return (
