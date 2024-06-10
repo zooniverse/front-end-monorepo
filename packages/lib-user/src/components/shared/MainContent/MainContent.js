@@ -39,7 +39,7 @@ function MainContent({
   function onActive (index) {
     setActiveTab(index)
   }
-  
+
   const hoursSpent = stats?.time_spent >= 0 ? stats.time_spent / 3600 : 0
 
   // create project options
@@ -85,18 +85,22 @@ function MainContent({
         justify='start'
       >
         <Tab title='CLASSIFICATIONS'>
-          <BarChart
-            data={stats?.data}
-            dateRange={selectedDateRange}
-            type='count'
-          />
+          <Box width='100%' height='15rem'>
+            <BarChart
+              data={stats?.data}
+              dateRange={selectedDateRange}
+              type='count'
+              />
+          </Box>
         </Tab>
         <Tab title='HOURS' style={{ marginRight: 'auto' }}>
-          <BarChart
-            data={stats?.data}
-            dateRange={selectedDateRange}
-            type='session_time'
-          />
+          <Box width='100%' height='15rem'>
+            <BarChart
+              data={stats?.data}
+              dateRange={selectedDateRange}
+              type='session_time'
+            />
+          </Box>
         </Tab>
         {/* TODO: add info button */}
         <Box

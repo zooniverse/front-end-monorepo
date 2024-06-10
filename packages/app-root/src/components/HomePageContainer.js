@@ -21,7 +21,7 @@ export default function HomePageContainer({
         </Box>
       ) : (
         <Box height={{ min: '100vh' }}>
-          {user?.login ? <UserHome authUser={user}/> : <DefaultHome />}
+          {user?.login ? <UserHome authUser={user} /> : <DefaultHome />}
         </Box>
       )}
       <CommunityContainer
