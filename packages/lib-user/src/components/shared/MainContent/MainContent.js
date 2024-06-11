@@ -25,7 +25,7 @@ const DEFAULT_SOURCE = {
   display_name: '',
 }
 
-function MainContent ({
+function MainContent({
   handleDateRangeSelect = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
   projects = [],

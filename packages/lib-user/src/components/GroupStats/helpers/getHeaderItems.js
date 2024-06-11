@@ -28,6 +28,7 @@ function getHeaderItems({
   adminMode,
   authUser,
   group,
+  handleGroupModalActive,
   membership
 }) {
   const headerItems = {
@@ -51,7 +52,7 @@ function getHeaderItems({
   } else {
     headerItems.PrimaryHeaderItem = (
       <HeaderLink
-        href={`https://www.zooniverse.org/users/${authUser.login}`}
+        href={`https://www.zooniverse.org/users/${authUser?.login}`}
         label='back to profile'
         primaryItem={true}
       />
@@ -64,7 +65,7 @@ function getHeaderItems({
         key='leave-group-button'
         icon={<SubtractCircle color='white' size='small' />}
         label='Leave Group'
-        onClick={() => handleLeaveGroup({ login: authUser.login, membershipId: membership.id })}
+        onClick={() => handleLeaveGroup({ login: authUser?.login, membershipId: membership.id })}
       />
     )
     if (publicGroup) headerItems.secondaryHeaderItems.push(
@@ -98,7 +99,7 @@ function getHeaderItems({
         key='manage-group-button'
         icon={<SettingsOption color='white' size='small' />}
         label='Manage Group'
-        onClick={() => alert('Coming soon!')}
+        onClick={() => handleGroupModalActive()}
       />
     ])
   }

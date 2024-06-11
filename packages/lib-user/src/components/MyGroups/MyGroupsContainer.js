@@ -10,6 +10,7 @@ import {
 
 import {
   ContentBox,
+  GroupModal,
   HeaderLink,
   Layout
 } from '@components/shared'
@@ -19,8 +20,7 @@ import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 import MyGroups from './MyGroups'
 import CreateButton from './components/CreateButton'
 import GroupCardList from './components/GroupCardList'
-import GroupForm from './components/GroupForm'
-import GroupModal from './components/GroupModal'
+import GroupCreateFormContainer from './components/GroupCreateFormContainer'
 
 function MyGroupsContainer({
   authUser,
@@ -59,7 +59,7 @@ function MyGroupsContainer({
         title='create new group'
         titleColor='black'
       >
-        <GroupForm />
+        <GroupCreateFormContainer />
       </GroupModal>
       <Layout
         primaryHeaderItem={

@@ -7,7 +7,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24680',
       'links': {
-          'user': '12345',
+          'user': '54321',
           'user_group': '13579'
       }
   },
@@ -36,18 +36,6 @@ export const MEMBERSHIPS = [
       }
   },
   {
-      'id': '24686',
-      'state': 'active',
-      'roles': [
-          'group_admin'
-      ],
-      'href': '/memberships/24686',
-      'links': {
-          'user': '99876',
-          'user_group': '13585'
-      }
-  },
-  {
       'id': '24688',
       'state': 'active',
       'roles': [
@@ -67,7 +55,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24690',
       'links': {
-          'user': '67890',
+          'user': '23456',
           'user_group': '13587'
       }
   },
@@ -79,7 +67,7 @@ export const MEMBERSHIPS = [
       ],
       'href': '/memberships/24692',
       'links': {
-          'user': '99876',
+          'user': '99877',
           'user_group': '13587'
       }
   },
@@ -87,11 +75,11 @@ export const MEMBERSHIPS = [
       'id': '24694',
       'state': 'active',
       'roles': [
-          'group_admin'
+          'group_member'
       ],
       'href': '/memberships/24694',
       'links': {
-          'user': '99876',
+          'user': '56789',
           'user_group': '13589'
       }
   }

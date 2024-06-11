@@ -7,7 +7,7 @@ import {
   TitledStat
 } from '@components/shared'
 
-function ProfileHeader ({
+function ProfileHeader({
   avatar = '',
   classifications = undefined,
   contributors = undefined,
