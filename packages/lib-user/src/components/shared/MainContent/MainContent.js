@@ -3,6 +3,7 @@ import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
+  convertStatsSecondsToHours,
   dateRanges
 } from '@utils'
 
@@ -40,7 +41,7 @@ function MainContent({
     setActiveTab(index)
   }
 
-  const hoursSpent = stats?.time_spent >= 0 ? stats.time_spent / 3600 : 0
+  const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
   // create project options
   let projectOptions = [

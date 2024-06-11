@@ -32,13 +32,13 @@ describe('Contributors > getExportData', function () {
         ...projectNames.flatMap(projectName => [`${projectName} Classifications`, `${projectName} Hours`])
       ],
       [
-        'Test User 1', 'TestUser', 13425, 234456, 121, 21234, 93, 34879, 45, 56567, 36, 67342, 0, 0
+        'Test User 1', 'TestUser', 13425, 65, 121, 6, 93, 10, 45, 16, 36, 19, 0, 0
       ],
       [ 
-        'Student User 1', 'StudentUser', 9574, 345126, 0, 0, 56, 34747, 45, 56223, 23, 67234, 0, 0
+        'Student User 1', 'StudentUser', 9574, 96, 0, 0, 56, 10, 45, 16, 23, 19, 0, 0
       ], 
       [ 
-        'Teacher User 1', 'TeacherUser', 648, 456347, 0, 0, 0, 0, 45, 56234, 3, 67678, 56, 45234
+        'Teacher User 1', 'TeacherUser', 648, 127, 0, 0, 0, 0, 45, 16, 3, 19, 56, 13
       ]
     ])
   })

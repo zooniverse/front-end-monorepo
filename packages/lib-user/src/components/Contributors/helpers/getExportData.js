@@ -1,5 +1,7 @@
 import { arrayOf, number, shape, string } from 'prop-types'
 
+import { convertStatsSecondsToHours } from '@utils'
+
 export function getExportData ({
   stats,
   projects,
@@ -28,11 +30,13 @@ export function getExportData ({
     const user = users.find(user => user.id === member.user_id.toString())
     if (!user) continue
 
+    const memberHours = convertStatsSecondsToHours(member.session_time)
+
     const row = [
       user.display_name,
       user.login,
       member.count,
-      member.session_time
+      memberHours
     ]
 
     // iterate over each project and add the member stats for that project or 0 if the member has no stats for that project
@@ -43,7 +47,7 @@ export function getExportData ({
           return project?.display_name === projectName
         })
       row.push(projectStats?.count || 0)
-      row.push(projectStats?.session_time || 0)
+      row.push(convertStatsSecondsToHours(projectStats?.session_time))
     }
     data.push(row)
   }

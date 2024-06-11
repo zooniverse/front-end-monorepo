@@ -1,6 +1,8 @@
 import { Box } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
 
+import { convertStatsSecondsToHours } from '@utils'
+
 import MemberStats from '../MemberStats'
 import ProjectStats from '../ProjectStats'
 
@@ -15,7 +17,7 @@ function ContributorsList({
       as='ol'
     >
       {contributors.map((contributor, index) => {
-        const totalHoursSpent = contributor.session_time >= 0 ? contributor.session_time / 3600 : 0
+        const totalHoursSpent = convertStatsSecondsToHours(contributor.session_time)
 
         return (
           <Box
@@ -53,7 +55,7 @@ function ContributorsList({
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())
                 const projectDisplayName = project?.display_name || `Private Project ${privateProjectIndex++}`
-                const projectHoursSpent = statsProject.session_time >= 0 ? statsProject.session_time / 3600 : 0
+                const projectHoursSpent = convertStatsSecondsToHours(statsProject.session_time)
 
                 return (
                   <ProjectStats
