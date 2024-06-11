@@ -1,6 +1,6 @@
 'use client'
 
-import { shape, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -21,11 +21,9 @@ import MyGroups from './MyGroups'
 import CreateButton from './components/CreateButton'
 import GroupCardList from './components/GroupCardList'
 import GroupCreateFormContainer from './components/GroupCreateFormContainer'
+import PreviewLayout from './components/PreviewLayout'
 
-function MyGroupsContainer({
-  authUser,
-  login
-}) {
+function MyGroupsContainer({ authUser, login, previewLayout = false }) {
   const [groupModalActive, setGroupModalActive] = useState(false)
 
   const {
@@ -36,7 +34,7 @@ function MyGroupsContainer({
     authUser,
     login
   })
-  
+
   const {
     data: membershipsWithGroups,
     error: membershipsError,
@@ -61,6 +59,7 @@ function MyGroupsContainer({
       >
         <GroupCreateFormContainer />
       </GroupModal>
+      {!previewLayout ? (
       <Layout
         primaryHeaderItem={
           <HeaderLink
@@ -71,21 +70,23 @@ function MyGroupsContainer({
         }
       >
         <ContentBox
-          linkLabel='Learn more about Groups'
-          linkProps={{ href: '/groups' }}
-          title='My Groups'
-          pad={{ horizontal: '60px', vertical: '30px' }}
-        >
-          <MyGroups>
-            <GroupCardList
-              groups={activeGroupsWithRoles}
-            />
-          </MyGroups>
-          <CreateButton
-            onClick={() => setGroupModalActive(true)}
-          />
-        </ContentBox>
-      </Layout>
+            title='My Groups'
+            pad={{ horizontal: '60px', vertical: '30px' }}
+          >
+            <MyGroups>
+              <GroupCardList groups={activeGroupsWithRoles} />
+            </MyGroups>
+            <CreateButton onClick={() => setGroupModalActive(true)} />
+          </ContentBox>
+        </Layout>
+      ) : (
+        <PreviewLayout
+          authUser={authUser}
+          groups={activeGroupsWithRoles}
+          loading={userLoading || membershipsLoading}
+          setGroupModalActive={setGroupModalActive}
+        />
+      )}
     </>
   )
 }
@@ -94,7 +95,8 @@ MyGroupsContainer.propTypes = {
   authUser: shape({
     id: string
   }),
-  login: string
+  login: string,
+  previewLayout: bool
 }
 
 export default MyGroupsContainer
