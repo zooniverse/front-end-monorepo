@@ -174,7 +174,8 @@
         "none": "No featured projects"
       },
       "Introduction": {
-        "description": "The Zooniverse enables everyone to take part in real cutting edge research in many fields across the sciences, humanities, and more. The Zooniverse creates opportunities for you to unlock answers and contribute to real discoveries.",
+        "description1": "The Zooniverse is the world's largest and most popular platform for people-powered research. This  research is made possible by volunteers - hundreds of thousands of people around the world who come together to assist professional researchers. Our goal is to enable research that would not be possible, or practical, otherwise. Zooniverse research results in new discoveries, datasets useful to the wider research community, and many publications.",
+        "description2": "Volunteers and professionals make real discoveries together. Many of the most interesting discoveries from Zooniverse projects have come from discussion between volunteers and researchers. Take part in real cutting edge research and make your own discoveries, today!",
         "signIn": "Sign in",
         "register": "Register"
       },

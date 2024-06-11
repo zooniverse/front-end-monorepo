@@ -1,4 +1,5 @@
 import { shape, string } from 'prop-types'
+import { Box } from 'grommet'
 
 import { Layout } from '@components/shared'
 import DashboardContainer from './components/Dashboard/DashboardContainer.js'
@@ -9,6 +10,7 @@ function UserHome({ authUser }) {
     <Layout>
       <DashboardContainer authUser={authUser}/>
       <RecentSubjectsContainer authUser={authUser} />
+      <Box height={{ min: '60px'}}/>
     </Layout>
   )
 }
