@@ -1,7 +1,6 @@
 'use client'
 
 import { shape, string } from 'prop-types'
-import { useState } from 'react'
 
 import {
   usePanoptesProjects,
@@ -15,15 +14,17 @@ import {
 
 import UserStats from './UserStats'
 
+const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
   authUser,
   login,
+  selectedDateRange = 'Last7Days',
+  selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER
 }) {
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-
   // fetch user
   const {
     data: user,
@@ -99,7 +100,11 @@ UserStatsContainer.propTypes = {
   authUser: shape({
     id: string
   }),
-  login: string
+  login: string,
+  selectedDateRange: string,
+  selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func
 }
 
 export default UserStatsContainer

@@ -62,9 +62,9 @@ function Certificate({
   displayName = '',
   hours = 0,
   login = '',
+  projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange = 'AllTime',
-  selectedProject = 'AllProjects'
+  selectedDateRange = 'AllTime'
 }) {
   const { start_date, end_date } = getDateInterval(selectedDateRange)
 
@@ -184,7 +184,7 @@ function Certificate({
                       {projectsCount ? (
                         `${projectsCount} projects`
                       ) : (
-                        selectedProject
+                        projectDisplayName
                       )}
                     </SpacedText>
                   </SpacedText>
@@ -259,9 +259,9 @@ Certificate.propTypes = {
   displayName: string,
   hours: number,
   login: string,
-  selectedDateRange: string,
-  selectedProject: string,
-  projectsCount: number
+  projectDisplayName: string,
+  projectsCount: number,
+  selectedDateRange: string
 }
 
 export default Certificate
