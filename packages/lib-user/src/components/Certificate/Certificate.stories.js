@@ -27,3 +27,27 @@ export const ProjectSpecific = {
     selectedProject: 'Galaxy Zoo'
   }
 }
+
+export const Last7Days = {
+  args: {
+    creditedName: 'Example T. User',
+    displayName: 'Example User',
+    hours: 45,
+    login: 'testUser',
+    projectsCount: 67,
+    selectedDateRange: 'Last7Days',
+    selectedProject: 'AllProjects'
+  }
+}
+
+export const Last30Days = {
+  args: {
+    creditedName: 'Example T. User',
+    displayName: 'Example User',
+    hours: 45,
+    login: 'testUser',
+    projectsCount: 67,
+    selectedDateRange: 'Last30Days',
+    selectedProject: 'AllProjects'
+  }
+}

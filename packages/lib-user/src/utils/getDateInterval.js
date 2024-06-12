@@ -71,7 +71,9 @@ export function getDateInterval(dateRange) {
     }
   } else if (dateRange === 'AllTime') {
     return {
-      period: 'year'
+      end_date,
+      period: 'year',
+      start_date: '2015-07-01'
     }
   } else {
     return {

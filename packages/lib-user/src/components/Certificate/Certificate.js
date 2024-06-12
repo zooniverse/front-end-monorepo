@@ -3,11 +3,15 @@ import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
 
+import { getDateInterval } from '@utils'
+
 import {
   ContentBox,
   HeaderLink,
   Layout
 } from '@components/shared'
+
+import { formatDateRange } from './helpers/formatDateRange'
 
 const PrintableBox = styled(Box)`
   font-size: 16px;
@@ -62,6 +66,10 @@ function Certificate({
   selectedDateRange = 'AllTime',
   selectedProject = 'AllProjects'
 }) {
+  const { start_date, end_date } = getDateInterval(selectedDateRange)
+
+  const formattedDateRange = formatDateRange(start_date, end_date)
+
   return (
     <PrintableBox>
       <Layout
@@ -153,34 +161,50 @@ function Certificate({
                 >
                   hours
                 </SpacedText>
-                <SpacedText
+                <Box
+                  align='center'
+                  direction='row'
+                  justify='center'
                   margin={{ top: 'medium' }}
-                  size='1.5rem'
-                  uppercase={false}
-                  weight={500}
+                  wrap
                 >
-                  to
                   <SpacedText
-                    margin={{ horizontal: 'small' }}
-                    size='2rem'
+                    size='1.5rem'
+                    textAlign='center'
                     uppercase={false}
-                    weight='bold'
+                    weight={500}
                   >
-                    {projectsCount ? (
-                      `${projectsCount} projects`
-                    ) : (
-                      selectedProject
-                    )}
+                    to
+                    <SpacedText
+                      margin={{ horizontal: 'small' }}
+                      size='2rem'
+                      uppercase={false}
+                      weight='bold'
+                    >
+                      {projectsCount ? (
+                        `${projectsCount} projects`
+                      ) : (
+                        selectedProject
+                      )}
+                    </SpacedText>
                   </SpacedText>
-                  during
                   <SpacedText
-                    margin={{ horizontal: 'small' }}
-                    size='2rem'
-                    weight='bold'
+                    size='1.5rem'
+                    textAlign='center'
+                    uppercase={false}
+                    weight={500}
                   >
-                    {selectedDateRange}
+                    during
+                    <SpacedText
+                      margin={{ horizontal: 'small' }}
+                      size='2rem'
+                      uppercase={false}
+                      weight='bold'
+                    >
+                      {formattedDateRange}
+                    </SpacedText>
                   </SpacedText>
-                </SpacedText>
+                </Box>
                 <SpacedText
                   size='1.5rem'
                   textAlign='center'
