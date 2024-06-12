@@ -23,6 +23,7 @@ function ContentLink({
         dark: 'light-4',
         light: 'dark-5'
       }}
+      download={link.download || false}
       forwardedAs={link.as || 'a'}
       href={link.href}
       label={
@@ -33,6 +34,7 @@ function ContentLink({
           {link.text}
         </SpacedText>
       }
+      onClick={link.onClick}
     />
   )
 }
