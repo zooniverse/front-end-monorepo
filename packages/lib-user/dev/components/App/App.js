@@ -28,6 +28,8 @@ function App({
   const [activeIndex, setActiveIndex] = useState(-1)
   const [dark, setDarkTheme] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -137,6 +139,9 @@ function App({
         content = (
           <Certificate
             authUser={user}
+            login={login}
+            selectedDateRange={selectedDateRange}
+            selectedProject={selectedProject}
           />
         )
       } else {
@@ -144,6 +149,10 @@ function App({
           <UserStats
             authUser={user}
             login={login}
+            selectedDateRange={selectedDateRange}
+            selectedProject={selectedProject}
+            setSelectedDateRange={setSelectedDateRange}
+            setSelectedProject={setSelectedProject}
           />
         )
       }

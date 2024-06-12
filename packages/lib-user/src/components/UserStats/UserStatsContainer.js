@@ -1,6 +1,6 @@
 'use client'
 
-import { shape, string } from 'prop-types'
+import { func, shape, string } from 'prop-types'
 
 import {
   usePanoptesProjects,
