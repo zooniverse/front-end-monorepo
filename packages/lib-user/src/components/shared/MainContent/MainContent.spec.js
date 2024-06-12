@@ -6,7 +6,7 @@ import { STATS } from '../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default } from './MainContent.stories.js'
 
-describe('components > UserStats > MainContent', function () {
+describe('components > shared > MainContent', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   it('should show the user display name', function () {
