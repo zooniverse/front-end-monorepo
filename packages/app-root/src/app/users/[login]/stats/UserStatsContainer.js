@@ -3,13 +3,19 @@
 import { UserStats } from '@zooniverse/user'
 import { useContext } from 'react'
 
-import { PanoptesAuthContext } from '../../../../contexts'
+import { PanoptesAuthContext, UserStatsContext } from '../../../../contexts'
 import AuthenticatedUsersPageContainer from '../../../../components/AuthenticatedUsersPageContainer'
 
 function UserStatsContainer({
   login
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+  const {
+    selectedDateRange,
+    selectedProject,
+    setSelectedDateRange,
+    setSelectedProject
+  } = useContext(UserStatsContext)
 
   return (
     <AuthenticatedUsersPageContainer
@@ -21,6 +27,10 @@ function UserStatsContainer({
       <UserStats
         authUser={user}
         login={login}
+        selectedDateRange={selectedDateRange}
+        selectedProject={selectedProject}
+        setSelectedDateRange={setSelectedDateRange}
+        setSelectedProject={setSelectedProject}
       />
     </AuthenticatedUsersPageContainer>
   )

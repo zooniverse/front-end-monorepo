@@ -3,13 +3,17 @@
 import { Certificate } from '@zooniverse/user'
 import { useContext } from 'react'
 
-import { PanoptesAuthContext } from '../../../../../contexts'
+import { PanoptesAuthContext, UserStatsContext } from '../../../../../contexts'
 import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer'
 
 function CertificateContainer({
   login
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+  const {
+    selectedDateRange,
+    selectedProject
+  } = useContext(UserStatsContext)
 
   return (
     <AuthenticatedUsersPageContainer
@@ -20,6 +24,9 @@ function CertificateContainer({
     >
       <Certificate
         authUser={user}
+        login={login}
+        selectedDateRange={selectedDateRange}
+        selectedProject={selectedProject}
       />
     </AuthenticatedUsersPageContainer>
   )
