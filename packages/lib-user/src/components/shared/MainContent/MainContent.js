@@ -1,4 +1,5 @@
 import { Box, Tab } from 'grommet'
+import Link from 'next/link'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
 
@@ -130,7 +131,9 @@ function MainContent({
           gap='16px'
           justify='end'
         >
-          <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
+          <Link href={`/users/${source.login}/stats/certificate`}>
+            Generate Volunteer Certificate
+          </Link>
         </Box>
       ) : null}
     </ContentBox>
