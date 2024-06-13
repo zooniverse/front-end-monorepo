@@ -8,12 +8,19 @@ if (isBrowser) {
   initialDateRange = localStorage?.getItem('selectedDateRange') || initialDateRange
 }
 
-export default function useStatsDateRange() {
+export default function useStatsDateRange({ isLoading, user }) {
   const [selectedDateRange, setSelectedDateRange] = useState(initialDateRange)
 
   useEffect(function onDateRangeChange() {
     localStorage?.setItem('selectedDateRange', selectedDateRange)
   }, [selectedDateRange])
+
+  useEffect(function onUserChange() {
+    // when a user successfully logs out isLoading is false and user is undefined
+    if (!isLoading && !user?.login) {
+      setSelectedDateRange('Last7Days')
+    }
+  }, [isLoading, user?.login])
 
   return { selectedDateRange, setSelectedDateRange }
 }

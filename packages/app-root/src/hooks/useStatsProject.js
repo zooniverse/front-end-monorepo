@@ -8,12 +8,19 @@ if (isBrowser) {
   initialProject = localStorage?.getItem('selectedProject') || initialProject
 }
 
-export default function useStatsProject() {
+export default function useStatsProject({ isLoading, user }) {
   const [selectedProject, setSelectedProject] = useState(initialProject)
 
   useEffect(function onProjectChange() {
     localStorage?.setItem('selectedProject', selectedProject)
   }, [selectedProject])
+
+  useEffect(function onUserChange() {
+    // when a user successfully logs out isLoading is false and user is undefined
+    if (!isLoading && !user?.login) {
+      setSelectedProject('AllProjects')
+    }
+  }, [isLoading, user?.login])
 
   return { selectedProject, setSelectedProject }
 }

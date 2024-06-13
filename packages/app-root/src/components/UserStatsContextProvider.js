@@ -1,11 +1,14 @@
 'use client'
 
-import { UserStatsContext } from '../contexts'
+import { useContext } from 'react'
+
+import { PanoptesAuthContext, UserStatsContext } from '../contexts'
 import { useStatsDateRange, useStatsProject } from '../hooks'
 
 function UserStatsContextProvider({ children }) {
-  const { selectedDateRange, setSelectedDateRange } = useStatsDateRange()
-  const { selectedProject, setSelectedProject } = useStatsProject()
+  const { isLoading, user } = useContext(PanoptesAuthContext)
+  const { selectedDateRange, setSelectedDateRange } = useStatsDateRange({ isLoading, user })
+  const { selectedProject, setSelectedProject } = useStatsProject({ isLoading, user })
 
   const statsContext = {
     selectedDateRange,
