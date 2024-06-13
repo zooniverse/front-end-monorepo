@@ -15,6 +15,8 @@ import {
   Tabs
 } from '@components/shared'
 
+import HoursTip from './components/HoursTip'
+
 const DEFAULT_HANDLER = () => true
 const DEFAULT_STATS = {
   data: [],
@@ -94,7 +96,7 @@ function MainContent({
               />
           </Box>
         </Tab>
-        <Tab title='HOURS' style={{ marginRight: 'auto' }}>
+        <Tab title='HOURS' >
           <Box width='100%' height='15rem'>
             <BarChart
               data={stats?.data}
@@ -103,7 +105,7 @@ function MainContent({
             />
           </Box>
         </Tab>
-        {/* TODO: add info button */}
+        <HoursTip />
         <Box
           direction='row'
           gap='xsmall'
