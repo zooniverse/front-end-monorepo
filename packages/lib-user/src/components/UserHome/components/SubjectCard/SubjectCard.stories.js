@@ -9,7 +9,7 @@ export default {
 // .jpeg or .png
 export const Default = {
   args: {
-    subjectID: 123,
+    subjectID: '123',
     mediaSrc: 'https://panoptes-uploads-staging.zooniverse.org/subject_location/34d154ca-1d8a-4c8a-ae29-96f58e0700f4.jpeg',
     projectSlug: 'brooke/i-fancy-cats'
   },
@@ -26,7 +26,7 @@ export const Default = {
 // .mp4
 export const Video = {
   args: {
-    subjectID: 456,
+    subjectID: '456',
     mediaSrc: 'https://panoptes-uploads.zooniverse.org/subject_location/7da396d3-04f6-44b9-aef5-db4cac5dc172.mp4',
     projectSlug: 'sophiemu/solar-jet-hunter'
   },
@@ -43,7 +43,7 @@ export const Video = {
 // .txt
 export const Text = {
   args: {
-    subjectID: 789,
+    subjectID: '789',
     mediaSrc: 'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt',
     projectSlug: 'markb-panoptes/digileap-testing-staging'
   },
@@ -60,7 +60,7 @@ export const Text = {
 // .json
 export const Data = {
   args: {
-    subjectID: 8364,
+    subjectID: '8364',
     mediaSrc: 'https://panoptes-uploads.zooniverse.org/subject_location/bdc78b71-ce68-4e10-9ae7-0e643e215143.json',
     projectSlug: 'cobalt-lensing/black-hole-hunters'
   },

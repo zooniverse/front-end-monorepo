@@ -74,12 +74,12 @@ function UserStatsContainer({
     isLoading: projectsLoading
   } = usePanoptesProjects(projectIDs)
 
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
-
   function handleDateRangeSelect (dateRange) {
     setSelectedDateRange(dateRange.value)
+  }
+
+  function handleProjectSelect (project) {
+    setSelectedProject(project.value)
   }
 
   return (
