@@ -1,8 +1,24 @@
+import { Box } from 'grommet'
+
 import Dashboard from './Dashboard.js'
 
 export default {
   title: 'Components / UserHome / Dashboard',
-  component: Dashboard
+  component: Dashboard,
+  decorators: [ComponentDecorator]
+}
+
+function ComponentDecorator(Story) {
+  return (
+    <Box
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+    >
+      <Story />
+    </Box>
+  )
 }
 
 const USER = {
@@ -29,7 +45,7 @@ export const Default = {
   }
 }
 
-export const NoAvatarOrBanner = {
+export const NoImagesOrStats = {
   args: {
     user: USER_NO_IMAGES
   }
