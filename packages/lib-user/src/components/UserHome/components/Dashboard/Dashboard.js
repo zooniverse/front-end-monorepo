@@ -80,6 +80,10 @@ const StyledStatsLink = styled(Anchor)`
   &:hover {
     text-decoration: none;
   }
+
+  &:focus {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
+  }
 `
 
 const StyledBadge = styled(Text)`
