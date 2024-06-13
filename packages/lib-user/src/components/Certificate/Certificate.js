@@ -75,7 +75,7 @@ function Certificate({
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`https://www.zooniverse.org/users/${login}/stats`}
+            href={`/users/${login}/stats`}
             label='back'
             primaryItem={true}
           />
