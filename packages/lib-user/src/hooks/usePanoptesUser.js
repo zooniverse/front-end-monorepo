@@ -49,7 +49,7 @@ async function fetchPanoptesUser({ authUser, id, login }) {
   }
 
   if (id) {
-    const query = { id }
+    const query = { id, page_size: 30 }
     const users = await getUser({ query })
     return users
   }

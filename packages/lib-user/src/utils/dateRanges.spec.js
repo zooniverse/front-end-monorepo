@@ -1,6 +1,6 @@
 import { dateRanges } from './dateRanges'
 
-describe('utils > dateRanges', () => {
+describe('utils > dateRanges', function () {
   const ranges = [
     'Last7Days',
     'Last30Days',

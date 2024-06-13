@@ -187,11 +187,6 @@ const group_member_stats_breakdown = [
         session_time: 34879
       },
       {
-        project_id: 3,
-        count: 73,
-        session_time: 45567
-      },
-      {
         project_id: 4,
         count: 45,
         session_time: 56567
@@ -246,7 +241,6 @@ const group_member_stats_breakdown = [
         session_time: 67678
       }
     ]
-  
   }
 ]
 
