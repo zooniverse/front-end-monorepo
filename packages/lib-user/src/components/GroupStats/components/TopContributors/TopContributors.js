@@ -6,6 +6,7 @@ import {
 } from '@components/shared'
 
 import MemberCard from '../MemberCard'
+import TopContributorsTip from './components/TopContributorsTip'
 
 function TopContributors({
   groupId,
@@ -28,6 +29,7 @@ function TopContributors({
         href: `/groups/${groupId}/contributors`
       }}
       title='Top Contributors'
+      toolTip={<TopContributorsTip />}
     >
       <Grid
         as='ol'
