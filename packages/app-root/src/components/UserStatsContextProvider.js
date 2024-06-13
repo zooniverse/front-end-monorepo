@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-
 import { UserStatsContext } from '../contexts'
+import { useStatsDateRange, useStatsProject } from '../hooks'
 
 function UserStatsContextProvider({ children }) {
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
+  const { selectedDateRange, setSelectedDateRange } = useStatsDateRange()
+  const { selectedProject, setSelectedProject } = useStatsProject()
 
   const statsContext = {
     selectedDateRange,
