@@ -13,6 +13,7 @@ import {
 } from './components'
 
 const StyledFooter = styled(Box)`
+  // hide the footer when printing, added for the user stats certificate, but applies generally
   @media print {
     display: none;
   }
