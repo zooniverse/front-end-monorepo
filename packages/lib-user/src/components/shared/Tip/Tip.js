@@ -1,16 +1,20 @@
 import {
   Button,
   Text,
-  Tip
+  Tip as GrommetTip
 } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
+import { shape, string } from 'prop-types'
 
-function TopContributorsTip() {
+function Tip({
+  buttonProps,
+  contentText = ''
+}) {
   return (
-    <Tip
+    <GrommetTip
       content={
         <Text>
-          Includes active and inactive members.
+          {contentText}
         </Text>
       }
       dropProps={{
@@ -23,11 +27,17 @@ function TopContributorsTip() {
     >
       <Button
         icon={<CircleInformation size='0.75rem' />}
-        margin={{ left: 'xsmall' }}
         plain
+        {...buttonProps}
       />
-    </Tip>
+    </GrommetTip>
   )
 }
 
-export default TopContributorsTip
+Tip.propTypes = {
+  buttonProps: shape({}),
+  contentText: string,
+  grommetTipProps: shape({}),
+}
+
+export default Tip

@@ -12,10 +12,9 @@ import {
   ContentBox,
   ProfileHeader,
   Select,
-  Tabs
+  Tabs,
+  Tip
 } from '@components/shared'
-
-import HoursTip from './components/HoursTip'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_STATS = {
@@ -105,7 +104,15 @@ function MainContent({
             />
           </Box>
         </Tab>
-        <HoursTip />
+        <Tip
+          buttonProps={{
+            margin: {
+              bottom: 'small',
+              right: 'auto'
+            }
+          }}
+          contentText='Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.'
+        />
         <Box
           direction='row'
           gap='xsmall'
