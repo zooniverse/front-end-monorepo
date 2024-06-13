@@ -10,13 +10,13 @@ function HeaderToast({
   textToCopy,
   ...rest
 }) {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
 
   async function writeClipboardText(text) {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text)
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message)
     }
   }
 

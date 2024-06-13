@@ -1,6 +1,8 @@
 import { composeStory } from '@storybook/react'
 import { render, screen, within } from '@testing-library/react'
 
+import { convertStatsSecondsToHours } from '@utils'
+
 import { USERS } from '../../../../../test/mocks/panoptes'
 import { group_member_stats_breakdown } from '../../../../../test/mocks/stats.mock'
 
@@ -39,7 +41,7 @@ describe('components > Contributors > ContributorsList', function () {
     })
   
     it('should show the user\'s session time', function () {
-      const sessionTime = within(contributorItem).getByText(Math.round((group_member_stats_breakdown[0].session_time / 3600)).toLocaleString())
+      const sessionTime = within(contributorItem).getByText(Math.round(convertStatsSecondsToHours(group_member_stats_breakdown[0].session_time)).toLocaleString())
       expect(sessionTime).to.be.ok()
     })
   
