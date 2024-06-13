@@ -25,7 +25,7 @@ describe('components > GroupStats > getHeaderItems', function () {
     describe('with group member', function () {
       it('should return a link to the user profile', function () {
         const result = getHeaderItems({ authUser, group: privateAggOnly, membership: groupMember })
-        expect(result.PrimaryHeaderItem.props.label).to.equal('back to profile')
+        expect(result.PrimaryHeaderItem.props.label).to.equal('all my groups')
       })
 
       it('should return a leave group button', function () {
@@ -37,7 +37,7 @@ describe('components > GroupStats > getHeaderItems', function () {
     describe('with group admin', function () {
       it('should return a link to the user profile', function () {
         const result = getHeaderItems({ authUser, group: privateAggOnly, membership: groupAdmin })
-        expect(result.PrimaryHeaderItem.props.label).to.equal('back to profile')
+        expect(result.PrimaryHeaderItem.props.label).to.equal('all my groups')
       })
 
       it('should return a copy join link toast', function () {
@@ -71,7 +71,7 @@ describe('components > GroupStats > getHeaderItems', function () {
     describe('with group member', function () {
       it('should return a link to the user profile', function () {
         const result = getHeaderItems({ authUser, group: publicShowAll, membership: groupMember })
-        expect(result.PrimaryHeaderItem.props.label).to.equal('back to profile')
+        expect(result.PrimaryHeaderItem.props.label).to.equal('all my groups')
       })
   
       it('should return a leave group button', function () {
@@ -88,7 +88,7 @@ describe('components > GroupStats > getHeaderItems', function () {
     describe('with group admin', function () {
       it('should return a link to the user profile', function () {
         const result = getHeaderItems({ authUser, group: publicShowAll, membership: groupAdmin })
-        expect(result.PrimaryHeaderItem.props.label).to.equal('back to profile')
+        expect(result.PrimaryHeaderItem.props.label).to.equal('all my groups')
       })
   
       it('should return a copy join link toast', function () {

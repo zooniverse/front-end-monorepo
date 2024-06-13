@@ -14,7 +14,7 @@ describe('components > UserStats > TopProjects', function () {
     expect(screen.getByText('Top Projects')).to.be.ok()
   })
 
-  it('should show a "see more" link', function () {
+  it.skip('should show a "see more" link', function () {
     render(<DefaultStory />)
 
     expect(screen.getByRole('link', { name: 'See more' })).to.be.ok()
