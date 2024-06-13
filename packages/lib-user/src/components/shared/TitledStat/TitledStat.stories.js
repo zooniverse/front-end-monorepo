@@ -29,10 +29,3 @@ export const Default = {
     value: 1234
   }
 }
-
-export const NaN = {
-  args: {
-    title: 'Hours',
-    value: NaN
-  }
-}
