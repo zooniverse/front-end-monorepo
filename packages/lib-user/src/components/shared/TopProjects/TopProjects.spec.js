@@ -5,7 +5,7 @@ import { PROJECTS } from '../../../../test/mocks/panoptes'
 
 import Meta, { Default } from './TopProjects.stories.js'
 
-describe('components > UserStats > TopProjects', function () {
+describe('components > shared > TopProjects', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   it('should show "Top Projects" content section title', function () {

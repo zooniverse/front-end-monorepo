@@ -2,11 +2,9 @@ import { css } from 'styled-components'
 
 const tabTheme = {
   tab: {
-    active: {
-      color: {
-        dark: 'brand',
-        light: 'brand'
-      },
+    color: {
+      dark: 'light-3',
+      light: 'dark-5'
     },
     border: {
       active: {

@@ -4,8 +4,11 @@ import { shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
+  font-family: 'Karla', Arial, sans-serif; 
   font-size: 1rem;
   line-height: normal;
+  background: none;
+  border: none;
 `
 
 const DEFAULT_LINK = {
