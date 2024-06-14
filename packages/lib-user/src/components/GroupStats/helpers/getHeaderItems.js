@@ -11,6 +11,8 @@ import {
   HeaderToast
 } from '@components/shared'
 
+const BASE_URL = 'https://fe-root.preview.zooniverse.org'
+
 async function handleLeaveGroup({
   login,
   membershipId
@@ -46,7 +48,7 @@ function getHeaderItems({
         label='Share Group'
         message='Group Link Copied!'
         primaryItem={true}
-        textToCopy={`https://fe-root.preview.zooniverse.org/groups/${group.id}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}`}
       />
     )
   } else {
@@ -74,7 +76,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`https://fe-root.preview.zooniverse.org/groups/${group.id}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}`}
       />
     )
   }
@@ -86,14 +88,14 @@ function getHeaderItems({
         icon={<Link color='white' size='small' />}
         label='Copy Join Link'
         message='Join Link Copied!'
-        textToCopy={`https://fe-root.preview.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}?join_token=${group.join_token}`}
       />,
       <HeaderToast
         key='share-group-toast'
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`https://fe-root.preview.zooniverse.org/groups/${group.id}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}`}
       />,
       <HeaderButton
         key='manage-group-button'
