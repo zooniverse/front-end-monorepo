@@ -15,7 +15,7 @@ const SWROptions = {
 }
 
 async function fetchUserProjectPreferences() {
-  const user = auth.checkCurrent()
+  const user = await auth.checkCurrent()
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   try {
