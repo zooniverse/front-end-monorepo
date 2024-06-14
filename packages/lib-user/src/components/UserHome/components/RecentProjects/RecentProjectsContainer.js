@@ -24,7 +24,7 @@ async function fetchUserProjectPreferences() {
       sort: '-updated_at',
       user_id: user.id
     }
-    const response = await panoptes.get('/project_preferences', query, { authorization})
+    const response = await panoptes.get('/project_preferences', query, { authorization })
     if (response.ok) {
       const projectPreferencesUserHasClassified =
         response.body.project_preferences
@@ -35,7 +35,7 @@ async function fetchUserProjectPreferences() {
     return []
   } catch (error) {
     console.error(error)
-    return []
+    throw error
   }
 }
 
@@ -78,15 +78,15 @@ export default function RecentProjectsContainer({ authUser }) {
 
   return (
     <RecentProjects
+      isLoading={preferencesLoading || projectsLoading}
       projectPreferences={projectPreferencesWithProjectObj}
       error={preferencesError || projectsError}
-      isLoading={preferencesLoading || projectsLoading}
     />
   )
 }
 
 RecentProjectsContainer.propTypes = {
-  user: shape({
-    id: string.isRequired
+  authUser: shape({
+    id: string
   })
 }

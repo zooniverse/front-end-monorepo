@@ -16,17 +16,16 @@ const SWROptions = {
 async function fetchUserRecents({ userId }) {
   try {
     const query = {
-      page: 1,
+      page_size: 10,
       sort: '-created_at'
     }
     const response = await panoptes.get(`/users/${userId}/recents`, query)
     return response.body?.recents
   } catch (error) {
     console.error(error)
-    return []
+    throw error
   }
 }
-
 
 function RecentSubjectsContainer({ authUser }) {
   const cacheKey = {
@@ -37,9 +36,7 @@ function RecentSubjectsContainer({ authUser }) {
 
   // We only display 10 in the UI, so only fetch project data for the first 10 recents
   const recents = data?.slice(0, 10)
-  const recentProjectIds = recents
-    ?.slice(0, 10)
-    .map(recent => parseInt(recent.links?.project)) // ?
+  const recentProjectIds = [...new Set(recents?.map(recent => recent.links?.project))]
 
   const { data: projects, isLoading: projectsLoading, error: projectsError } = usePanoptesProjects(recentProjectIds)
 
@@ -54,7 +51,7 @@ function RecentSubjectsContainer({ authUser }) {
   }
 
   const error = recentsError || projectsError
-  const isLoading = recentsLoading || projectsLoading ? true : false
+  const isLoading = recentsLoading || projectsLoading
 
   return (
     <RecentSubjects
