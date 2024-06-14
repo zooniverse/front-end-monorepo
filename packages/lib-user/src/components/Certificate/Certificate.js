@@ -225,6 +225,16 @@ function Certificate({
                     src='/assets/LTSignature.png'
                     alt='Signature of Dr. Laura Trouille'
                   />
+                  <svg width='272' height='2' viewBox='0 0 272 2'>
+                    <path d='M1 1H271' stroke='url(#paint0_linear_1845_6607)'/>
+                    <defs>
+                      <linearGradient id='paint0_linear_1845_6607' gradientUnits='userSpaceOnUse'>
+                        <stop stopColor='white'/>
+                        <stop offset='0.496986' stopColor='dark-5'/>
+                        <stop offset='1' stopColor='white' stopOpacity='0'/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
                   <SpacedText
                     size='1.5rem'
                     uppercase={false}
