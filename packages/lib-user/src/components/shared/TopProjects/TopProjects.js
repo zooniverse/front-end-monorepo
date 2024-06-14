@@ -30,7 +30,7 @@ function CardsRow({ children }) {
       as='ul'
       direction='row'
       gap='small'
-      pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
+      pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
       overflow={{ horizontal: 'auto' }}
       style={{ listStyle: 'none' }}
     >

@@ -21,6 +21,6 @@ export const NoSubjects = {
 export const Error = {
   args: {
     recents: [],
-    recentsError: { message: `Couldn't fetch recent classifications` }
+    error: { message: `Couldn't fetch recent classifications` }
   }
 }
