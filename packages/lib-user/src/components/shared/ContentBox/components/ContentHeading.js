@@ -8,7 +8,7 @@ const StyledHeading = styled(Heading)`
   line-height: normal;
 `
 
-function ContentHeading ({
+function ContentHeading({
   children
 }) {
   return (

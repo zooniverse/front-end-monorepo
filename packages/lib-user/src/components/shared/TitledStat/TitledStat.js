@@ -2,15 +2,10 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 
-function TitledStat ({
+function TitledStat({
   title = '',
   value = 0 
 }) {
-  let displayValue = value
-  if (isNaN(value)) {
-    displayValue = 0
-  }
-
   return (
     <Box
       align='center'
@@ -26,7 +21,7 @@ function TitledStat ({
         size='xlarge'
         weight='bold'
       >
-        {Math.round(displayValue).toLocaleString()}
+        {Math.round(value).toLocaleString()}
       </SpacedText>
     </Box>
   )

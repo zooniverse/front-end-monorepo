@@ -5,7 +5,7 @@ import { PROJECTS } from '../../../../test/mocks/panoptes'
 
 import Meta, { Default } from './TopProjects.stories.js'
 
-describe('components > UserStats > TopProjects', function () {
+describe('components > shared > TopProjects', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   it('should show "Top Projects" content section title', function () {
@@ -14,7 +14,9 @@ describe('components > UserStats > TopProjects', function () {
     expect(screen.getByText('Top Projects')).to.be.ok()
   })
 
-  it('should show a "see more" link', function () {
+  // temporarily skipping until the new All Projects page is created
+  // once the All Projects page is created the "see more" to that page will be added and this test can be enabled
+  it.skip('should show a "see more" link', function () {
     render(<DefaultStory />)
 
     expect(screen.getByRole('link', { name: 'See more' })).to.be.ok()

@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import PageHeader from './components/PageHeader'
 
 const InnerPageContainer = styled(Box)`
-  box-shadow: 3px 0px 3px rgba(0, 0, 0, 0.25), -3px 0px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3); // Same as About pages & Home pages
 
   // Grommet theme's size is definied in pixels
   // Size "small" is viewport widths less than 769px
@@ -28,6 +28,10 @@ const PageBody = styled(Box)`
   margin-top: -70px; // half height of PageHeader
   border-radius: 8px 8px 0 0;
   padding-bottom: 50px;
+
+  @media print {
+    margin-top: 0;
+  }
 
   @media (width > 90rem) {
     &::before {

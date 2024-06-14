@@ -1,8 +1,10 @@
-import { Box, Tab } from 'grommet'
+import { Box, Button, Tab } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 import {
+  convertStatsSecondsToHours,
   dateRanges
 } from '@utils'
 
@@ -25,7 +27,13 @@ const DEFAULT_SOURCE = {
   display_name: '',
 }
 
-function MainContent ({
+const StyledButton = styled(Button)`
+  background-color: ${props => props.theme.global.colors['neutral-1']};
+  border-radius: 4px;
+  color: ${props => props.theme.global.colors['neutral-6']};
+`
+
+function MainContent({
   handleDateRangeSelect = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
   projects = [],
@@ -40,7 +48,7 @@ function MainContent ({
     setActiveTab(index)
   }
 
-  const hoursSpent = stats?.time_spent >= 0 ? stats.time_spent / 3600 : 0
+  const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
   // create project options
   let projectOptions = [
@@ -129,8 +137,12 @@ function MainContent ({
           gap='16px'
           justify='end'
         >
-          <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
-          <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
+          <StyledButton
+            forwardedAs='a'
+            color='neutral-1'
+            href={`/users/${source.login}/stats/certificate`}
+            label='Generate Volunteer Certificate'
+          />
         </Box>
       ) : null}
     </ContentBox>

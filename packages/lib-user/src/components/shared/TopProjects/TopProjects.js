@@ -70,8 +70,6 @@ function TopProjects({
 
   return (
     <ContentBox
-      linkLabel='See more'
-      linkProps={{ href: 'https://www.zooniverse.org/projects' }}
       title='Top Projects'
     >
       <Container>

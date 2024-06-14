@@ -1,6 +1,8 @@
 import { string } from 'prop-types'
 
 import { useStats } from '@hooks'
+import { convertStatsSecondsToHours } from '@utils'
+
 import GroupCard from './GroupCard'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
@@ -19,7 +21,7 @@ function GroupCardContainer({
 
   const { total_count, time_spent, active_users, project_contributions } = data || {}
 
-  const hoursSpent = time_spent >= 0 ? time_spent / 3600 : 0
+  const hoursSpent = convertStatsSecondsToHours(time_spent)
 
   return (
     <GroupCard

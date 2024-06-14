@@ -6,6 +6,7 @@ import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import {
+  Certificate,
   Contributors,
   GroupStats,
   MyGroups,
@@ -27,6 +28,8 @@ function App({
   const [activeIndex, setActiveIndex] = useState(-1)
   const [dark, setDarkTheme] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -76,7 +79,9 @@ function App({
               <li>
                 <a href={`./?users=${userSubpath}/stats`}>/stats - user stats page</a>
                 <ul>
-                  <li>/certificate - Volunteer Certificate</li>
+                  <li>
+                    <a href={`./?users=${userSubpath}/stats/certificate`}>/certificate - Volunteer Certificate</a>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -130,12 +135,27 @@ function App({
     if (login === '[login]') {
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
-      content = (
-        <UserStats
-          authUser={user}
-          login={login}
-        />
-      )
+      if (subpaths[2] === 'certificate') {
+        content = (
+          <Certificate
+            authUser={user}
+            login={login}
+            selectedDateRange={selectedDateRange}
+            selectedProject={selectedProject}
+          />
+        )
+      } else {
+        content = (
+          <UserStats
+            authUser={user}
+            login={login}
+            selectedDateRange={selectedDateRange}
+            selectedProject={selectedProject}
+            setSelectedDateRange={setSelectedDateRange}
+            setSelectedProject={setSelectedProject}
+          />
+        )
+      }
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
@@ -163,7 +183,7 @@ function App({
           closeModal={closeAuthModal}
           onActive={setActiveIndex}
         />
-        <header>
+        <header className='dev-app-header'>
           <p>
             <a href='/'>lib-user - dev app</a>
           </p>

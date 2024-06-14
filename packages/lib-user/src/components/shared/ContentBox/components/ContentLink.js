@@ -4,8 +4,11 @@ import { shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
+  font-family: 'Karla', Arial, sans-serif; 
   font-size: 1rem;
   line-height: normal;
+  background: none;
+  border: none;
 `
 
 const DEFAULT_LINK = {
@@ -14,7 +17,7 @@ const DEFAULT_LINK = {
   text: ''
 }
 
-function ContentLink ({
+function ContentLink({
   link = DEFAULT_LINK
 }) {
   return (
@@ -23,6 +26,7 @@ function ContentLink ({
         dark: 'light-4',
         light: 'dark-5'
       }}
+      download={link.download || false}
       forwardedAs={link.as || 'a'}
       href={link.href}
       label={
@@ -33,6 +37,7 @@ function ContentLink ({
           {link.text}
         </SpacedText>
       }
+      onClick={link.onClick}
     />
   )
 }
