@@ -1,5 +1,5 @@
 import { Box, Text } from 'grommet'
-import { string } from 'prop-types'
+import { number, string } from 'prop-types'
 import styled from 'styled-components'
 import SpacedText from '../SpacedText'
 
@@ -145,6 +145,7 @@ function ProjectCard({
 }
 
 ProjectCard.propTypes = {
+  badge: number,
   description: string,
   displayName: string,
   href: string,

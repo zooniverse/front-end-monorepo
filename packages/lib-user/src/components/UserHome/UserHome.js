@@ -17,7 +17,7 @@ function UserHome({ authUser }) {
         <RecentProjectsContainer authUser={authUser} />
         <ContentBox />
       </Grid>
-        <RecentSubjectsContainer authUser={authUser} />
+      <RecentSubjectsContainer authUser={authUser} />
     </Layout>
   )
 }
