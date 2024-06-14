@@ -15,56 +15,58 @@ function RecentSubjects({
 
   return (
     <ContentBox title='Recent Classifications' screenSize={size}>
-      <Box
-        as='ul'
-        direction='row'
-        gap='small'
-        pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
-        overflow={{ horizontal: 'auto' }}
-        style={{ listStyle: 'none' }}
-        margin='0'
-      >
-        {isLoading && (
-          <Box fill justify='center' align='center'>
-            <Loader />
-          </Box>
-        )}
-        {!isLoading && error && (
-          <Box fill justify='center' align='center' pad='medium'>
-            <SpacedText>
-              There was an error fetching recent classifications
-            </SpacedText>
-          </Box>
-        )}
-        {!isLoading && !recents?.length && !error && (
-          <Box fill justify='center' align='center' pad='medium'>
-            <SpacedText>No Recent Classifications found</SpacedText>
-            <Text>
-              Start by{' '}
-              <Anchor href='https://www.zooniverse.org/projects'>
-                classifying any project
-              </Anchor>{' '}
-              to show your recent classifications here.
-            </Text>
-          </Box>
-        )}
-        {!isLoading && recents?.length
-          ? recents.map(recent => {
+      {isLoading && (
+        <Box fill justify='center' align='center'>
+          <Loader />
+        </Box>
+      )}
+      {!isLoading && error && (
+        <Box fill justify='center' align='center' pad='medium'>
+          <SpacedText>
+            There was an error fetching recent classifications
+          </SpacedText>
+        </Box>
+      )}
+      {!isLoading && !recents?.length && !error && (
+        <Box fill justify='center' align='center' pad='medium'>
+          <SpacedText>No Recent Classifications found</SpacedText>
+          <Text>
+            Start by{' '}
+            <Anchor href='https://www.zooniverse.org/projects'>
+              classifying any project
+            </Anchor>{' '}
+            to show your recent classifications here.
+          </Text>
+        </Box>
+      )}
+      {!isLoading && recents?.length
+        ? (
+          <Box
+            as='ul'
+            direction='row'
+            gap='small'
+            pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+            overflow={{ horizontal: 'auto' }}
+            style={{ listStyle: 'none' }}
+            margin='0'
+          >
+            {recents.map(recent => {
               const subjectMedia = recent?.locations?.map(
                 location => Object.values(location)[0]
               )
               return (
-                <SubjectCard
-                  key={recent?.id}
-                  size={size}
-                  subjectID={recent?.links.subject}
-                  mediaSrc={subjectMedia?.[0]}
-                  projectSlug={recent?.project_slug}
-                />
+                <li key={recent?.id}>
+                  <SubjectCard
+                    size={size}
+                    subjectID={recent?.links.subject}
+                    mediaSrc={subjectMedia?.[0]}
+                    projectSlug={recent?.project_slug}
+                  />
+                </li>
               )
-            })
-          : null}
-      </Box>
+            })}
+          </Box>
+        ) : null}
     </ContentBox>
   )
 }

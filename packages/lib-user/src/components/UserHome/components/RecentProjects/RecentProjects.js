@@ -14,53 +14,55 @@ export default function RecentProjects({
 
   return (
     <ContentBox title='Continue Classifying' screenSize={size}>
-      <Box
-        as='ul'
-        direction='row'
-        gap='small'
-        pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
-        overflow={{ horizontal: 'auto' }}
-        style={{ listStyle: 'none' }}
-        margin='0'
-      >
-        {isLoading && (
-          <Box fill justify='center' align='center'>
-            <Loader />
+      {isLoading && (
+        <Box fill justify='center' align='center'>
+          <Loader />
+        </Box>
+      )}
+      {!isLoading && error && (
+        <Box fill justify='center' align='center' pad='medium'>
+          <SpacedText>
+            There was an error fetching your recent projects
+          </SpacedText>
+        </Box>
+      )}
+      {!isLoading && !projectPreferences.length && !error && (
+        <Box fill justify='center' align='center' pad='medium'>
+          <SpacedText>No Recent Projects found</SpacedText>
+          <Text>
+            Start by{' '}
+            <Anchor href='https://www.zooniverse.org/projects'>
+              classifying any project
+            </Anchor>
+            .
+          </Text>
+        </Box>
+      )}
+      {!isLoading &&
+        projectPreferences?.length ? (
+          <Box
+            as='ul'
+            direction='row'
+            gap='small'
+            pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+            overflow={{ horizontal: 'auto' }}
+            style={{ listStyle: 'none' }}
+            margin='0'
+          >
+            {projectPreferences.map(preference => (
+              <li key={preference?.project?.id}>
+                <ProjectCard
+                  badge={preference?.activity_count}
+                  description={preference?.project?.description}
+                  displayName={preference?.project?.display_name}
+                  href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
+                  imageSrc={preference?.project?.avatar_src}
+                  size={size}
+                />
+              </li>
+            ))}
           </Box>
-        )}
-        {!isLoading && error && (
-          <Box fill justify='center' align='center' pad='medium'>
-            <SpacedText>
-              There was an error fetching your recent projects
-            </SpacedText>
-          </Box>
-        )}
-        {!isLoading && !projectPreferences.length && !error && (
-          <Box fill justify='center' align='center' pad='medium'>
-            <SpacedText>No Recent Projects found</SpacedText>
-            <Text>
-              Start by{' '}
-              <Anchor href='https://www.zooniverse.org/projects'>
-                classifying any project
-              </Anchor>
-              .
-            </Text>
-          </Box>
-        )}
-        {!isLoading &&
-          projectPreferences?.length ?
-          projectPreferences.map(preference => (
-            <ProjectCard
-              key={preference?.project?.id}
-              badge={preference?.activity_count}
-              description={preference?.project?.description}
-              displayName={preference?.project?.display_name}
-              href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
-              imageSrc={preference?.project?.avatar_src}
-              size={size}
-            />
-          )) : null}
-      </Box>
+        ) : null}
     </ContentBox>
   )
 }
