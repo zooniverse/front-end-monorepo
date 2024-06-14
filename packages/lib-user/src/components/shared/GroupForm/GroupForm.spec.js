@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 import Meta, { Create, Manage } from './GroupForm.stories'
 
-describe('components > MyGroups > GroupForm', function() {
+describe('components > shared > GroupForm', function() {
   describe('without a provided group (create mode)', function() {
 
     const user = userEvent.setup()

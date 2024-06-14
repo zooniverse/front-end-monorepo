@@ -15,15 +15,9 @@ import Researchers from './components/Researchers.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
 
 const StyledContainerBox = styled(ContainerBox)`
-  padding: 0 80px;
+  padding: 0;
 
-  // max-width of the elevated Box
-  @media (48rem < width <= 90rem) {
-    padding: 0 60px;
-  }
-
-  // Grommet theme 'small'
-  @media (width <= 48rem) {
+  @media (width <= 90rem) {
     padding: 0 30px;
   }
 `
@@ -45,22 +39,27 @@ export default function DefaultHome() {
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
       >
-        <MaxWidthContent>
-          <Introduction />
-        </MaxWidthContent>
-        <FeaturedProjects />
-        <Researchers />
-        <SpacedHeading
-          level={2}
-          size='1.5rem'
-          color={{ light: 'neutral-1', dark: 'accent-1' }}
-          textAlign='center'
-          fill
+        <Box
+          align='center'
+          width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
         >
-          {t('Home.DefaultHome.headings.four')}
-        </SpacedHeading>
-        <SubHeading>{t('Home.DefaultHome.subheadings.four')}</SubHeading>
-        <Mobile />
+          <MaxWidthContent>
+            <Introduction />
+          </MaxWidthContent>
+          <FeaturedProjects />
+          <Researchers />
+          <SpacedHeading
+            level={2}
+            size='1.5rem'
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            textAlign='center'
+            fill
+          >
+            {t('Home.DefaultHome.headings.four')}
+          </SpacedHeading>
+          <SubHeading>{t('Home.DefaultHome.subheadings.four')}</SubHeading>
+          <Mobile />
+        </Box>
       </StyledContainerBox>
     </Box>
   )
