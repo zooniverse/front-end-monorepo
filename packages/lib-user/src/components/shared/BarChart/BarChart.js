@@ -27,10 +27,17 @@ function BarChart({
     .replace(/([0-9]+)/g, ' $1')
     .trim()
   const typeLabel = type === 'count' ? 'Classifications' : 'Time'
+  
+  const types = data.map((d) => d[type])
+  const max = Math.max(...types)
+  const gradient = [
+    { value: 0, color: 'neutral-1' },
+    { value: max, color: 'brand' }
+  ]
 
   // set chart options based on screen size and data length
   const chartOptions = {
-    color: 'brand',
+    color: gradient,
     property: type,
     type: 'bar'
   }
