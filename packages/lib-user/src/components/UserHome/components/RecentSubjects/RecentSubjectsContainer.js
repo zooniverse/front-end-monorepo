@@ -32,10 +32,8 @@ function RecentSubjectsContainer({ authUser }) {
     name: 'user-recent-classifications',
     userId: authUser.id
   }
-  const { data, isLoading: recentsLoading, error: recentsError } = useSWR(cacheKey, fetchUserRecents, SWROptions)
+  const { data: recents, isLoading: recentsLoading, error: recentsError } = useSWR(cacheKey, fetchUserRecents, SWROptions)
 
-  // We only display 10 in the UI, so only fetch project data for the first 10 recents
-  const recents = data?.slice(0, 10)
   const recentProjectIds = [...new Set(recents?.map(recent => recent.links?.project))]
 
   const { data: projects, isLoading: projectsLoading, error: projectsError } = usePanoptesProjects(recentProjectIds)
