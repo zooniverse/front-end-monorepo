@@ -6,6 +6,12 @@ import styled from 'styled-components'
 
 import HeaderDropdown from './HeaderDropdown'
 
+const StyledBox = styled(Box)`
+  @media print {
+    display: none;
+  }
+`
+
 const HeaderItems = styled(Box)`
   max-width: calc(90rem - 160px);
 `
@@ -14,8 +20,8 @@ function PageHeader({ primaryHeaderItem = '', secondaryHeaderItems = [] }) {
   const size = useContext(ResponsiveContext)
 
   return (
-    <Box
-      as='header'
+    <StyledBox
+      forwardedAs='header'
       background='neutral-1'
       fill
       height={{ min: '140px', max: '140px' }}
@@ -44,7 +50,7 @@ function PageHeader({ primaryHeaderItem = '', secondaryHeaderItems = [] }) {
           )}
         </Box>
       </HeaderItems>
-    </Box>
+    </StyledBox>
   )
 }
 

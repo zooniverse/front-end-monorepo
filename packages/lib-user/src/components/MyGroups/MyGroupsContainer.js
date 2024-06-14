@@ -64,15 +64,13 @@ function MyGroupsContainer({
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`https://www.zooniverse.org/users/${login}`}
-            label='back to profile'
+            href='/'
+            label='back'
             primaryItem={true}
           />
         }
       >
         <ContentBox
-          linkLabel='Learn more about Groups'
-          linkProps={{ href: '/groups' }}
           title='My Groups'
           pad={{ horizontal: '60px', vertical: '30px' }}
         >

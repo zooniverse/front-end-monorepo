@@ -15,6 +15,11 @@ import ZooniverseLogo from '../ZooniverseLogo'
 export const StyledHeader = styled(Box)`
   color: #b2b2b2;
   font-size: 1em;
+
+  // hide the header when printing, added for the user stats certificate, but applies generally
+  @media print {
+    display: none;
+  }
 `
 
 export const StyledLogoAnchor = styled(Anchor)`

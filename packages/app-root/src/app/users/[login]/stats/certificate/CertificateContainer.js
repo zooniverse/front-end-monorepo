@@ -1,20 +1,18 @@
 'use client'
 
-import { UserStats } from '@zooniverse/user'
+import { Certificate } from '@zooniverse/user'
 import { useContext } from 'react'
 
-import { PanoptesAuthContext, UserStatsContext } from '../../../../contexts'
-import AuthenticatedUsersPageContainer from '../../../../components/AuthenticatedUsersPageContainer'
+import { PanoptesAuthContext, UserStatsContext } from '../../../../../contexts'
+import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer'
 
-function UserStatsContainer({
+function CertificateContainer({
   login
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
   const {
     selectedDateRange,
-    selectedProject,
-    setSelectedDateRange,
-    setSelectedProject
+    selectedProject
   } = useContext(UserStatsContext)
 
   return (
@@ -24,16 +22,14 @@ function UserStatsContainer({
       login={login}
       user={user}
     >
-      <UserStats
+      <Certificate
         authUser={user}
         login={login}
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
-        setSelectedDateRange={setSelectedDateRange}
-        setSelectedProject={setSelectedProject}
       />
     </AuthenticatedUsersPageContainer>
   )
 }
 
-export default UserStatsContainer
+export default CertificateContainer
