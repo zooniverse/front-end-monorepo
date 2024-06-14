@@ -10,23 +10,15 @@ import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
 const ElevatedBox = styled(Box)`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3); // Grommet elevation = 'medium'
   clip-path: inset(1px -30px 0px -30px); // don't put elevation top and bottom
+  padding: 60px 0;
 
-  // hides seam between DefaultHome and this component
+  // hides seam between DefaultHome or UserHome and this component
   position: relative;
   z-index: 99;
   margin-top: -3px;
 
-  // Same horizatonal padding style as DefaultHome
-  padding: 30px 80px 80px;
-
-  // max-width of the elevated Box
-  @media (48rem < width <= 90rem) {
-    padding: 30px 60px 60px;
-  }
-
-  // Grommet theme 'small'
-  @media (width <= 48rem) {
-    padding: 30px 30px 30px;
+  @media (width <= 90rem) {
+    padding: 30px;
   }
 `
 
@@ -58,6 +50,7 @@ export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
                   size: 'xsmall'
                 }
           }
+          width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
         >
           <SpacedHeading
             color={{ light: 'neutral-1', dark: 'accent-1' }}
