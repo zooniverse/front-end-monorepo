@@ -18,8 +18,15 @@ function BarChart({
   type = 'count'
 }) {
   const size = useContext(ResponsiveContext)
+  
+  // getDateInterval returns an object with a period and time property,
+  // i.e. 'Last7Days' returns { end_date: '2021-09-30', period: 'day', start_date: '2021-09-24' }
   const dateInterval = getDateInterval(dateRange)
+
+  // getCompleteData returns an array of objects with a period, count, and session_time property,
+  // including any periods without stats with a count and session_time of 0
   const completeData = getCompleteData({ data, dateInterval })
+  
   const period = dateInterval?.period
   const dateRangeLabel = getDateRangeLabel({ dateRange, period })
   const readableDateRange = dateRange
@@ -28,6 +35,7 @@ function BarChart({
     .trim()
   const typeLabel = type === 'count' ? 'Classifications' : 'Time'
   
+  // set gradient range based on data type (count or session_time) and max value of data type
   const types = data.map((d) => d[type])
   const max = Math.max(...types)
   const gradient = [
