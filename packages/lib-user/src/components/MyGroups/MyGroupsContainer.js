@@ -48,6 +48,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
   })
 
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
+  const groupsSortedByCreatedAt = activeGroupsWithRoles.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
   return (
     <>
@@ -74,7 +75,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
             pad={{ horizontal: '60px', vertical: '30px' }}
           >
             <MyGroups>
-              <GroupCardList groups={activeGroupsWithRoles} />
+              <GroupCardList groups={groupsSortedByCreatedAt} />
             </MyGroups>
             <CreateButton onClick={() => setGroupModalActive(true)} />
           </ContentBox>
@@ -82,7 +83,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
       ) : (
         <PreviewLayout
           authUser={authUser}
-          groups={activeGroupsWithRoles}
+          groups={groupsSortedByCreatedAt}
           loading={userLoading || membershipsLoading}
           setGroupModalActive={setGroupModalActive}
         />

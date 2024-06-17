@@ -26,12 +26,17 @@ export default function PreviewLayout({
         </Box>
       )}
       {!loading && groups?.length ? (
-        <Box margin={{ bottom: 'medium' }}>
+        <Box
+          as='ul'
+          gap='xsmall'
+          margin={{ bottom: 'medium' }}
+          pad='none'
+        >
           {groups.slice(0, 2).map(group => (
             <GroupCardContainer
               key={group.id}
               id={group.id}
-              displayName={group.displayName}
+              displayName={group.display_name}
               role={group.role}
             />
           ))}
