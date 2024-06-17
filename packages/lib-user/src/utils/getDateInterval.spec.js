@@ -61,7 +61,9 @@ describe('utils > getDateInterval', function () {
   it('should return the expected date interval for the AllTime date range', function () {
     const dateInterval = getDateInterval('AllTime')
     expect(dateInterval).to.deep.equal({
+      end_date: '2023-04-15',
       period: 'year',
+      start_date: '2015-07-01'
     })
   })
 })

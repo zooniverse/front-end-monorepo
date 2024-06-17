@@ -33,7 +33,7 @@ export const CopyJoinLink = {
     icon: <Link color='white' size='small' />,
     label: 'Copy Join Link',
     message: 'Join Link Copied!',
-    textToCopy: 'groups/1234?join_token=56789'
+    textToCopy: 'https://www.zooniverse.org/groups/1234?join_token=56789'
   }
 }
 
@@ -42,6 +42,6 @@ export const ShareGroup = {
     icon: <Layer color='white' size='small' />,
     label: 'Share Group',
     message: 'Group Link Copied!',
-    textToCopy: 'zooniverse.org/groups/1234'
+    textToCopy: 'https://www.zooniverse.org/groups/1234'
   }
 }

@@ -60,16 +60,16 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
         <GroupCreateFormContainer />
       </GroupModal>
       {!previewLayout ? (
-      <Layout
-        primaryHeaderItem={
-          <HeaderLink
-            href={`https://www.zooniverse.org/users/${login}`}
-            label='back to profile'
-            primaryItem={true}
-          />
-        }
-      >
-        <ContentBox
+        <Layout
+          primaryHeaderItem={
+            <HeaderLink
+              href='/'
+              label='back'
+              primaryItem={true}
+            />
+          }
+        >
+          <ContentBox
             title='My Groups'
             pad={{ horizontal: '60px', vertical: '30px' }}
           >
