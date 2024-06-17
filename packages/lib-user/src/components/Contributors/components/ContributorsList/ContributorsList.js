@@ -46,10 +46,10 @@ function ContributorsList({
               direction='row'
               fill='horizontal'
               overflow={{ horizontal: 'auto' }}
+              pad='none'
               style={{
                 boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)',
-                listStyle: 'none',
-                paddingInlineStart: 0
+                listStyle: 'none'
               }}
             >
               {contributor.project_contributions.map(statsProject => {

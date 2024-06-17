@@ -1,20 +1,19 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
-import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 
 import { ContentBox } from '@components/shared'
-import SubjectCard from '../SubjectCard/SubjectCard.js'
 
-function RecentSubjects({
+export default function RecentProjects({
   isLoading = false,
-  recents = [],
+  projectPreferences = [],
   error = undefined
 }) {
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title='Recent Classifications' screenSize={size}>
+    <ContentBox title='Continue Classifying' screenSize={size}>
       {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
@@ -23,24 +22,24 @@ function RecentSubjects({
       {!isLoading && error && (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>
-            There was an error fetching recent classifications
+            There was an error fetching your recent projects
           </SpacedText>
         </Box>
       )}
-      {!isLoading && !recents?.length && !error && (
+      {!isLoading && !projectPreferences.length && !error && (
         <Box fill justify='center' align='center' pad='medium'>
-          <SpacedText>No Recent Classifications found</SpacedText>
+          <SpacedText>No Recent Projects found</SpacedText>
           <Text>
             Start by{' '}
             <Anchor href='https://www.zooniverse.org/projects'>
               classifying any project
-            </Anchor>{' '}
-            to show your recent classifications here.
+            </Anchor>
+            .
           </Text>
         </Box>
       )}
-      {!isLoading && recents?.length
-        ? (
+      {!isLoading &&
+        projectPreferences?.length ? (
           <Box
             as='ul'
             direction='row'
@@ -50,35 +49,29 @@ function RecentSubjects({
             style={{ listStyle: 'none' }}
             margin='0'
           >
-            {recents.map(recent => {
-              const subjectMedia = recent?.locations?.map(
-                location => Object.values(location)[0]
-              )
-              return (
-                <li key={recent?.id}>
-                  <SubjectCard
-                    size={size}
-                    subjectID={recent?.links.subject}
-                    mediaSrc={subjectMedia?.[0]}
-                    projectSlug={recent?.project_slug}
-                  />
-                </li>
-              )
-            })}
+            {projectPreferences.map(preference => (
+              <li key={preference?.project?.id}>
+                <ProjectCard
+                  badge={preference?.activity_count}
+                  description={preference?.project?.description}
+                  displayName={preference?.project?.display_name}
+                  href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
+                  imageSrc={preference?.project?.avatar_src}
+                  size={size}
+                />
+              </li>
+            ))}
           </Box>
         ) : null}
     </ContentBox>
   )
 }
 
-export default RecentSubjects
-
-RecentSubjects.propTypes = {
+RecentProjects.propTypes = {
   isLoading: bool,
-  recents: arrayOf(
+  projectPreferences: arrayOf(
     shape({
-      id: string,
-      slug: string
+      id: string
     })
   )
 }

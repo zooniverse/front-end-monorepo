@@ -14,17 +14,10 @@ import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { string } from 'prop-types'
 
-const StyledAnchor = styled(Anchor)`
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
-  }
-`
-
 const StyledBox = styled(Box)`
   overflow: hidden;
   position: relative;
+  text-decoration: none;
 `
 
 const Gradient = styled(Box)`
@@ -73,25 +66,25 @@ export default function SubjectCard({
   const href = `https://www.zooniverse.org/projects/${projectSlug}/talk/subjects/${subjectID}`
 
   return (
-    <StyledAnchor href={href}>
-      <StyledBox
-        elevation='small'
-        height={`${(cardWidth(size) * 14) / 11}px`}
-        width={`${cardWidth(size)}px`}
-        round='8px'
-      >
-        <Media
-          alt={`subject ${subjectID}`}
-          controls={false}
-          src={mediaSrc}
-          width={cardWidth(size)}
-        />
-        <Gradient fill />
-        <StyledSpacedText color='white' weight='bold'>
-          {'Subject ' + subjectID}
-        </StyledSpacedText>
-      </StyledBox>
-    </StyledAnchor>
+    <StyledBox
+      forwardedAs='a'
+      elevation='small'
+      height={`${(cardWidth(size) * 14) / 11}px`}
+      href={href}
+      width={`${cardWidth(size)}px`}
+      round='8px'
+    >
+      <Media
+        alt={`subject ${subjectID}`}
+        controls={false}
+        src={mediaSrc}
+        width={cardWidth(size)}
+      />
+      <Gradient fill />
+      <StyledSpacedText color='white' weight='bold'>
+        {'Subject ' + subjectID}
+      </StyledSpacedText>
+    </StyledBox>
   )
 }
 
