@@ -83,8 +83,8 @@ function SVGPanZoom({
   function onDrag(event, difference) {
     setViewBox((prevViewBox) => {
       const newViewBox = { ...prevViewBox }
-      newViewBox.x -= difference.x
-      newViewBox.y -= difference.y
+      newViewBox.x -= difference.x * .9
+      newViewBox.y -= difference.y * .9
       return newViewBox
     })
   }
