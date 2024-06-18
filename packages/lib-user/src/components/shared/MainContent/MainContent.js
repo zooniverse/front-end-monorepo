@@ -105,10 +105,10 @@ function MainContent({
       <Box
         direction={size === 'small' ? 'column' : 'row'}
         gap={size === 'small' ? 'small' : 'none'}
-        justify='between'
       >
         <Box
           role='tablist'
+          basis='1/2'
           direction='row'
           fill={size === 'small' ? 'horizontal' : false}
           gap='medium'
@@ -135,6 +135,7 @@ function MainContent({
           />
         </Box>
         <Box
+          basis='1/2'
           direction='row'
           fill={size === 'small' ? 'horizontal' : false}
           gap='small'
