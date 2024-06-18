@@ -15,17 +15,6 @@ import {
   Select
 } from '@components/shared'
 
-const DEFAULT_HANDLER = () => true
-const DEFAULT_STATS = {
-  data: [],
-  time_spent: 0,
-  total_count: 0
-}
-const DEFAULT_SOURCE = {
-  id: '',
-  display_name: '',
-}
-
 const StyledButton = styled(Button)`
   background-color: ${props => props.theme.global.colors['neutral-1']};
   border-radius: 4px;
@@ -37,6 +26,7 @@ const StyledTab = styled(Button)`
   border-bottom: 4px solid transparent;
   color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
   font-size: 1em;
+  text-align: center;
   
   ${props => props.active && css`
     border-bottom: 4px solid ${props.theme.global.colors.brand};
@@ -51,6 +41,17 @@ const StyledTab = styled(Button)`
   `}
 `
 
+const DEFAULT_HANDLER = () => true
+const DEFAULT_STATS = {
+  data: [],
+  time_spent: 0,
+  total_count: 0
+}
+const DEFAULT_SOURCE = {
+  id: '',
+  display_name: '',
+}
+
 function MainContent({
   handleDateRangeSelect = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
@@ -63,7 +64,6 @@ function MainContent({
   const [activeTab, setActiveTab] = useState(0)
 
   const size = useContext(ResponsiveContext)
-  console.log('size:', size)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
@@ -103,12 +103,14 @@ function MainContent({
         projects={selectedProject === 'AllProjects' ? projects?.length : 1}
       />
       <Box
-        direction='row'
+        direction={size === 'small' ? 'column' : 'row'}
+        gap={size === 'small' ? 'small' : 'none'}
         justify='between'
       >
         <Box
           role='tablist'
           direction='row'
+          fill={size === 'small' ? 'horizontal' : false}
           gap='medium'
         >
           <StyledTab
@@ -119,6 +121,7 @@ function MainContent({
             label='CLASSIFICATIONS'
             onClick={() => setActiveTab(0)}
             plain
+            fill={size === 'small' ? 'horizontal' : false}
           />
           <StyledTab
             role='tab'
@@ -128,11 +131,14 @@ function MainContent({
             label='HOURS'
             onClick={() => setActiveTab(1)}
             plain
+            fill={size === 'small' ? 'horizontal' : false}
           />
         </Box>
         <Box
           direction='row'
+          fill={size === 'small' ? 'horizontal' : false}
           gap='small'
+          justify={size === 'small' ? 'evenly' : 'end'}
         >
           <Select
             id='project-select'

@@ -2,7 +2,7 @@ import { shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Grid, ResponsiveContext } from 'grommet'
 
-import { ContentBox, Layout } from '@components/shared'
+import { Layout } from '@components/shared'
 import DashboardContainer from './components/Dashboard/DashboardContainer.js'
 import RecentProjectsContainer from './components/RecentProjects/RecentProjectsContainer.js'
 import RecentSubjectsContainer from './components/RecentSubjects/RecentSubjectsContainer.js'
