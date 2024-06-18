@@ -1,6 +1,6 @@
-import { Grid } from 'grommet'
+import { Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import {
   usePanoptesProjects,
@@ -33,6 +33,8 @@ function GroupStats({
   const [groupModalActive, setGroupModalActive] = useState(false)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+
+  const size = useContext(ResponsiveContext)
 
   const showTopContributors = adminMode 
     || membership?.roles.includes('group_admin')
@@ -155,19 +157,36 @@ function GroupStats({
         />
         {showTopContributors ? (
           <Grid
-            columns='1/2'
+            columns={size === 'large' ? ['1fr 1fr'] : ['1fr']}
             gap='30px'
           >
-            <TopContributors
-              groupId={group?.id}
-              stats={stats}
-              topContributors={topContributors}
-            />
-            <TopProjects
-              allProjectsStats={allProjectsStats}
-              grid={true}
-              projects={projects}
-            />
+            {size === 'large' ? (
+              <>
+                <TopContributors
+                  groupId={group?.id}
+                  stats={stats}
+                  topContributors={topContributors}
+                />
+                <TopProjects
+                  allProjectsStats={allProjectsStats}
+                  grid={true}
+                  projects={projects}
+                />
+              </>
+            ) : (
+              <>
+                <TopProjects
+                  allProjectsStats={allProjectsStats}
+                  grid={false}
+                  projects={projects}
+                />
+                <TopContributors
+                  groupId={group?.id}
+                  stats={stats}
+                  topContributors={topContributors}
+                />
+              </>
+            )}
           </Grid>
         ) : (
           <TopProjects
