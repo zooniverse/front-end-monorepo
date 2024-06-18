@@ -1,7 +1,7 @@
-import { Box, Button, Tab } from 'grommet'
+import { Box, Button, ResponsiveContext } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { useState } from 'react'
-import styled from 'styled-components'
+import { useContext, useState } from 'react'
+import styled, { css } from 'styled-components'
 
 import {
   convertStatsSecondsToHours,
@@ -12,8 +12,7 @@ import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select,
-  Tabs
+  Select
 } from '@components/shared'
 
 const DEFAULT_HANDLER = () => true
@@ -33,6 +32,25 @@ const StyledButton = styled(Button)`
   color: ${props => props.theme.global.colors['neutral-6']};
 `
 
+const StyledTab = styled(Button)`
+  background-color: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
+  border-bottom: 4px solid transparent;
+  color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
+  font-size: 1em;
+  
+  ${props => props.active && css`
+    border-bottom: 4px solid ${props.theme.global.colors.brand};
+    font-weight: 700;
+  `}
+
+  ${props => !props.active && css`
+    &:focus, &:hover {
+      border-bottom: 4px solid ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
+      color: ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
+    }
+  `}
+`
+
 function MainContent({
   handleDateRangeSelect = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
@@ -44,9 +62,8 @@ function MainContent({
 }) {
   const [activeTab, setActiveTab] = useState(0)
 
-  function onActive (index) {
-    setActiveTab(index)
-  }
+  const size = useContext(ResponsiveContext)
+  console.log('size:', size)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
@@ -85,35 +102,37 @@ function MainContent({
         login={source?.login}
         projects={selectedProject === 'AllProjects' ? projects?.length : 1}
       />
-      <Tabs
-        activeIndex={activeTab}
-        flex
-        gap='small'
-        onActive={onActive}
-        justify='start'
+      <Box
+        direction='row'
+        justify='between'
       >
-        <Tab title='CLASSIFICATIONS'>
-          <Box width='100%' height='15rem'>
-            <BarChart
-              data={stats?.data}
-              dateRange={selectedDateRange}
-              type='count'
-              />
-          </Box>
-        </Tab>
-        <Tab title='HOURS' style={{ marginRight: 'auto' }}>
-          <Box width='100%' height='15rem'>
-            <BarChart
-              data={stats?.data}
-              dateRange={selectedDateRange}
-              type='session_time'
-            />
-          </Box>
-        </Tab>
-        {/* TODO: add info button */}
+        <Box
+          role='tablist'
+          direction='row'
+          gap='medium'
+        >
+          <StyledTab
+            role='tab'
+            aria-expanded={activeTab === 0}
+            aria-selected={activeTab === 0}
+            active={activeTab === 0}
+            label='CLASSIFICATIONS'
+            onClick={() => setActiveTab(0)}
+            plain
+          />
+          <StyledTab
+            role='tab'
+            aria-expanded={activeTab === 1}
+            aria-selected={activeTab === 1}
+            active={activeTab === 1}
+            label='HOURS'
+            onClick={() => setActiveTab(1)}
+            plain
+          />
+        </Box>
         <Box
           direction='row'
-          gap='xsmall'
+          gap='small'
         >
           <Select
             id='project-select'
@@ -130,12 +149,24 @@ function MainContent({
             value={selectedDateRangeOption}
           />
         </Box>
-      </Tabs>
+      </Box>
+      <Box
+        role='tabpanel'
+        aria-label={activeTab === 0 ? 'CLASSIFICATIONS Tab Contents' : 'HOURS Tab Contents'}
+        height='15rem'
+        width='100%'
+      >
+        <BarChart
+          data={stats?.data}
+          dateRange={selectedDateRange}
+          type={activeTab === 0 ? 'count' : 'session_time'}
+        />
+      </Box>
       {source?.login ? (
         <Box
           direction='row'
-          gap='16px'
           justify='end'
+          margin={{ top: 'small' }}
         >
           <StyledButton
             forwardedAs='a'
