@@ -1,6 +1,6 @@
 import { Box, Button, ResponsiveContext } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import {
@@ -62,6 +62,9 @@ function MainContent({
   source = DEFAULT_SOURCE
 }) {
   const [activeTab, setActiveTab] = useState(0)
+  const handleActiveTab = useCallback((tabIndex) => {
+    setActiveTab(tabIndex)
+  }, [])
 
   const size = useContext(ResponsiveContext)
 
@@ -119,7 +122,7 @@ function MainContent({
             aria-selected={activeTab === 0}
             active={activeTab === 0}
             label='CLASSIFICATIONS'
-            onClick={() => setActiveTab(0)}
+            onClick={() => handleActiveTab(0)}
             plain
             fill={size === 'small' ? 'horizontal' : false}
           />
@@ -129,7 +132,7 @@ function MainContent({
             aria-selected={activeTab === 1}
             active={activeTab === 1}
             label='HOURS'
-            onClick={() => setActiveTab(1)}
+            onClick={() => handleActiveTab(1)}
             plain
             fill={size === 'small' ? 'horizontal' : false}
           />
