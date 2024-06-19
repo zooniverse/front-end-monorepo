@@ -7,12 +7,12 @@ describe('components > shared > GroupContainer > getUserGroupStatus', function (
   })
 
   it('should return a message when joining a group', function () {
-    const result = getUserGroupStatus({ joinStatus: 'posting' })
+    const result = getUserGroupStatus({ createGroupMembershipLoading: true })
     expect(result).to.equal('Joining group...')
   })
 
   it('should return a message when joining a group fails', function () {
-    const result = getUserGroupStatus({ joinStatus: 'error' })
+    const result = getUserGroupStatus({ createGroupMembershipError: { message: 'error message' } })
     expect(result).to.equal('Join failed.')
   })
 
