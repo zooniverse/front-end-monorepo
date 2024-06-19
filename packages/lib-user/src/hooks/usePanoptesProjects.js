@@ -22,7 +22,7 @@ async function fetchProjects(query) {
     await auth.checkCurrent()
     token = await auth.checkBearerToken()
   }
-  const authorization = `Bearer ${token}`
+  const authorization = token ? `Bearer ${token}` : undefined
 
   let projectsAccumulator = []
   
