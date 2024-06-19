@@ -22,7 +22,7 @@ async function fetchPanoptesUserGroup({ groupId }) {
     await auth.checkCurrent()
     token = await auth.checkBearerToken()
   }
-  const authorization = `Bearer ${token}`
+  const authorization = token ? `Bearer ${token}` : undefined
 
   const endpoint = `/user_groups/${groupId}`
   
