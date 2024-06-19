@@ -58,6 +58,7 @@ function GroupContainer({
   const newGroupMembership = newGroupMembershipData?.memberships?.[0]
   const membership = newGroupMembership || membershipsData?.memberships?.[0]
   const activeMembership = membership?.state === 'active' ? membership : null
+  const activeMembershipRole = activeMembership?.roles?.[0]
   const membershipError = membershipsDataError || createGroupMembershipError
   const membershipLoading = membershipsDataLoading || createGroupMembershipLoading
 
@@ -89,14 +90,14 @@ function GroupContainer({
     if (
       authUser?.id && 
       joinToken &&
-      !activeMembership &&
+      !activeMembershipRole &&
       !membershipError &&
       !membershipLoading
     ) {
       createMembership()
     }
   }, [
-    activeMembership,
+    activeMembershipRole,
     authUser,
     groupId,
     joinToken,
@@ -112,10 +113,10 @@ function GroupContainer({
   }, [newGroupMembership])
 
   useEffect(function handleExistingMemberWithJoinToken() {
-    if (joinToken && activeMembership?.role) {
+    if (joinToken && activeMembershipRole) {
       deleteJoinTokenParam()
     }
-  }, [joinToken, activeMembership])
+  }, [joinToken, activeMembershipRole])
 
   const status = getUserGroupStatus({ 
     authUserId: authUser?.id,
