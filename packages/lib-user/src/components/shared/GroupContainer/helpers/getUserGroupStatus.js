@@ -1,23 +1,23 @@
-import asyncStates from '@zooniverse/async-states'
 import { bool, shape, string } from 'prop-types'
 
 export function getUserGroupStatus({
   authUser = null,
+  createGroupMembershipError = null,
+  createGroupMembershipLoading = false,
   group = null,
   groupError = null,
   groupLoading = false,
-  joinStatus = null,
   joinToken = null
 }) {
   if (joinToken && !authUser) {
     return ('Log in to join the group.')
   }
 
-  if (joinStatus === asyncStates.posting) {
+  if (createGroupMembershipLoading) {
     return ('Joining group...')
   }
 
-  if (joinStatus === asyncStates.error) {
+  if (createGroupMembershipError) {
     return ('Join failed.')
   }
 
@@ -45,6 +45,10 @@ getUserGroupStatus.propTypes = {
     id: string,
     login: string
   }),
+  createGroupMembershipError: shape({
+    message: string
+  }),
+  createGroupMembershipLoading: bool,
   group: shape({
     id: string
   }),
@@ -52,6 +56,5 @@ getUserGroupStatus.propTypes = {
     message: string
   }),
   groupLoading: bool,
-  joinStatus: string,
   joinToken: string
 }
