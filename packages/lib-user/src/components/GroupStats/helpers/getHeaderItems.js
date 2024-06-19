@@ -1,9 +1,5 @@
 import { Layer, Link, SettingsOption, SubtractCircle } from 'grommet-icons'
-import { arrayOf, bool, shape, string } from 'prop-types'
-
-import {
-  deletePanoptesMembership
-} from '@utils'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 
 import {
   HeaderButton,
@@ -13,24 +9,14 @@ import {
 
 const BASE_URL = 'https://fe-root.preview.zooniverse.org'
 
-async function handleLeaveGroup({
-  login,
-  membershipId
-}) {
-  const userConfirmed = window.confirm('Are you sure you want to leave this group?')
-  if (!userConfirmed) return
-
-  const deleteMembershipResponse = await deletePanoptesMembership({ membershipId })
-  if (!deleteMembershipResponse.ok) return
-
-  window.location.href = '/'
-}
+const DEFAULT_HANDLER = () => true
 
 function getHeaderItems({
   adminMode,
   authUser,
   group,
-  handleGroupModalActive,
+  handleGroupMembershipLeave = DEFAULT_HANDLER,
+  handleGroupModalActive = DEFAULT_HANDLER,
   membership
 }) {
   const headerItems = {
@@ -67,7 +53,9 @@ function getHeaderItems({
         key='leave-group-button'
         icon={<SubtractCircle color='white' size='small' />}
         label='Leave Group'
-        onClick={() => handleLeaveGroup({ login: authUser?.login, membershipId: membership.id })}
+        onClick={() => handleGroupMembershipLeave({
+          membershipId: membership.id,
+        })}
       />
     )
     if (publicGroup) headerItems.secondaryHeaderItems.push(
@@ -119,6 +107,8 @@ getHeaderItems.propTypes = {
     join_token: string,
     stats_visibility: string
   }),
+  handleGroupMembershipLeave: func,
+  handleGroupModalActive: func,
   membership: shape({
     id: string,
     roles: arrayOf(string)
