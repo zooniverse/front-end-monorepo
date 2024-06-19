@@ -118,7 +118,7 @@ function GroupContainer({
   }, [joinToken, activeMembership])
 
   const status = getUserGroupStatus({ 
-    authUser,
+    authUserId: authUser?.id,
     createGroupMembershipError,
     createGroupMembershipLoading,
     group,

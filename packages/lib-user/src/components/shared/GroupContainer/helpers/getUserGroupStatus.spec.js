@@ -32,12 +32,12 @@ describe('components > shared > GroupContainer > getUserGroupStatus', function (
   })
 
   it('should return a message when there is no group and there is an auth user', function () {
-    const result = getUserGroupStatus({ authUser: { id: '1', login: 'login' } })
+    const result = getUserGroupStatus({ authUserId: '1' })
     expect(result).to.equal('Group not found.')
   })
 
   it('should return null when there is a group and an auth user', function () {
-    const result = getUserGroupStatus({ authUser: { id: '1', login: 'login' }, group: { id: '1' } })
+    const result = getUserGroupStatus({ authUserId: '1', group: { id: '1' } })
     expect(result).to.be.null()
   })
 })
