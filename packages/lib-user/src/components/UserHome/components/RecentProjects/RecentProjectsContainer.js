@@ -20,7 +20,6 @@ async function fetchUserProjectPreferences() {
   const authorization = `Bearer ${token}`
   try {
     const query = {
-      page: 1, // returns 20 items
       sort: '-updated_at',
       user_id: user.id
     }
@@ -29,7 +28,6 @@ async function fetchUserProjectPreferences() {
       const projectPreferencesUserHasClassified =
         response.body.project_preferences
           .filter(preference => preference.activity_count > 0)
-          .slice(0, 10)
       return projectPreferencesUserHasClassified
     }
     return []
@@ -39,7 +37,7 @@ async function fetchUserProjectPreferences() {
   }
 }
 
-export default function RecentProjectsContainer({ authUser }) {
+function RecentProjectsContainer({ authUser }) {
   // Get user's project preference.activity_count for 10 most recently classified projects
   const cacheKey = {
     name: 'user-project-preferences',
@@ -59,21 +57,27 @@ export default function RecentProjectsContainer({ authUser }) {
     data: projects,
     isLoading: projectsLoading,
     error: projectsError
-  } = usePanoptesProjects(recentProjectIds)
-
+  } = usePanoptesProjects({
+    cards: true,
+    id: recentProjectIds?.join(',')
+  })
+  
+  // Attach project object to each project preference
   let projectPreferencesWithProjectObj
-
   if (projects?.length) {
-    projectPreferencesWithProjectObj = projectPreferences?.map(preference => {
-      const matchedProjectObj = projects.find(
-        project => project.id === preference.links.project
-      )
+    projectPreferencesWithProjectObj = projectPreferences
+      .map(preference => {
+        const matchedProjectObj = projects.find(
+          project => project.id === preference.links?.project
+        )
 
-      if (matchedProjectObj) {
-        preference.project = matchedProjectObj
-      }
-      return preference
-    })
+        if (matchedProjectObj) {
+          preference.project = matchedProjectObj
+        }
+        return preference
+      })
+      .filter(preference => preference?.project?.slug)
+      .slice(0, 10)
   }
 
   return (
@@ -90,3 +94,5 @@ RecentProjectsContainer.propTypes = {
     id: string
   })
 }
+
+export default RecentProjectsContainer

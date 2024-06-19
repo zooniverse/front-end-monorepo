@@ -70,7 +70,11 @@ function Contributors({
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects(projectIds)
+  } = usePanoptesProjects({
+    cards: true,
+    id: projectIds?.join(','),
+    page_size: 100
+  })
 
   // combine member stats with user data
   let contributors = []

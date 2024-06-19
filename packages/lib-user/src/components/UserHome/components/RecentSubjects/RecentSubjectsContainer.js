@@ -16,7 +16,6 @@ const SWROptions = {
 async function fetchUserRecents({ userId }) {
   try {
     const query = {
-      page_size: 10,
       sort: '-created_at'
     }
     const response = await panoptes.get(`/users/${userId}/recents`, query)
@@ -36,16 +35,31 @@ function RecentSubjectsContainer({ authUser }) {
 
   const recentProjectIds = [...new Set(recents?.map(recent => recent.links?.project))]
 
-  const { data: projects, isLoading: projectsLoading, error: projectsError } = usePanoptesProjects(recentProjectIds)
+  const {
+    data: projects,
+    isLoading: projectsLoading,
+    error: projectsError
+  } = usePanoptesProjects({
+    cards: true,
+    id: recentProjectIds?.join(',')
+  })
 
   // Attach project slug to each recent
   let recentsWithProjectSlugs
   if (projects?.length) {
-    recentsWithProjectSlugs = recents.map(recent => {
-      const { slug } = projects.find(project => recent.links.project === project.id)
-      recent.project_slug = slug
-      return recent
-    })
+    recentsWithProjectSlugs = recents
+      .map(recent => {
+        const matchedProjectObj = projects.find(
+          project => project.id === recent.links?.project
+        )
+
+        if (matchedProjectObj) {
+          recent.projectSlug = matchedProjectObj.slug
+        }
+        return recent
+      })
+      .filter(recent => recent?.projectSlug)
+      .slice(0, 10)
   }
 
   const error = recentsError || projectsError
@@ -60,10 +74,10 @@ function RecentSubjectsContainer({ authUser }) {
   )
 }
 
-export default RecentSubjectsContainer
-
 RecentSubjectsContainer.propTypes = {
   authUser: shape({
     id: string
   })
 }
+
+export default RecentSubjectsContainer

@@ -1,5 +1,8 @@
 import { projects as panoptesProjects } from '@zooniverse/panoptes-js'
+import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
+
+const isBrowser = typeof window !== 'undefined'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -9,17 +12,28 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-async function fetchProjects(id) {
+if (isBrowser) {
+  auth.checkCurrent()
+}
+
+async function fetchProjects(query) {
+  let token = await auth.checkBearerToken()
+  if (!token) {
+    await auth.checkCurrent()
+    token = await auth.checkBearerToken()
+  }
+  const authorization = token ? `Bearer ${token}` : undefined
+
   let projectsAccumulator = []
   
   async function getProjects (page = 1) {
-    const query = {
-      cards: true,
-      id,
-      page,
-      page_size: 100
-    }
-    const response = await panoptesProjects.get({ query })
+    const response = await panoptesProjects.get({
+      query: {
+        page,
+        ...query
+      },
+      authorization
+    })
     const { meta, projects } = response?.body || {}
 
     if (meta?.projects?.page_count > 5) {
@@ -42,11 +56,10 @@ async function fetchProjects(id) {
   return projectsAccumulator
 }
 
-export function usePanoptesProjects(projectIds) {
+export function usePanoptesProjects(query) {
   let key = null
-  if (projectIds) {
-    const id = projectIds.join(',')
-    key = id
+  if (query?.id) {
+    key = query
   }
   return useSWR(key, fetchProjects, SWROptions)
 }
