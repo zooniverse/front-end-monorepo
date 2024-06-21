@@ -1,7 +1,7 @@
 import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { getDateInterval } from '@utils'
 
@@ -50,6 +50,38 @@ const PrintableBox = styled(Box)`
 
   .userHours {
     letter-spacing: 8px;
+  }
+`
+
+const StyledImageBox = styled(Box)`
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 270px;
+    ${props =>
+      props.theme.dark
+        ? css`
+            background: linear-gradient(
+              90deg,
+              transparent 0%,
+              #000000 50%,
+              transparent 100%
+            );
+          `
+        : css`
+            background: linear-gradient(
+              90deg,
+              transparent 0%,
+              #a6a7a9 50%,
+              transparent 100%
+            );
+          `}
   }
 `
 
@@ -221,20 +253,15 @@ function Certificate({
                     top: 'medium'
                   }}
                 >
-                  <img
-                    src='/assets/LTSignature.png'
-                    alt='Signature of Dr. Laura Trouille'
-                  />
-                  <svg width='272' height='2' viewBox='0 0 272 2'>
-                    <path d='M1 1H271' stroke='url(#paint0_linear_1845_6607)'/>
-                    <defs>
-                      <linearGradient id='paint0_linear_1845_6607' gradientUnits='userSpaceOnUse'>
-                        <stop stopColor='white'/>
-                        <stop offset='0.496986' stopColor='dark-5'/>
-                        <stop offset='1' stopColor='white' stopOpacity='0'/>
-                      </linearGradient>
-                    </defs>
-                  </svg>
+                  <StyledImageBox
+                    margin={{ bottom: 'xxsmall' }}
+                    pad={{ bottom: 'xxsmall' }}
+                  >
+                    <img
+                      src='/assets/LTSignature.png'
+                      alt='Signature of Dr. Laura Trouille'
+                    />
+                  </StyledImageBox>
                   <SpacedText
                     size='1.5rem'
                     uppercase={false}
