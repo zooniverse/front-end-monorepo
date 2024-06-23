@@ -28,6 +28,7 @@ function ComponentDecorator (Story) {
 
 export const Default = {
   args: {
+    groupId: '1234',
     stats: STATS,
     topContributors: USERS
   }

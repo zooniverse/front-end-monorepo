@@ -60,7 +60,7 @@ function RecentSubjects({
                     size={size}
                     subjectID={recent?.links.subject}
                     mediaSrc={subjectMedia?.[0]}
-                    projectSlug={recent?.project_slug}
+                    projectSlug={recent?.projectSlug}
                   />
                 </li>
               )

@@ -14,7 +14,9 @@ function MembersList({
   users = []
 }) {
   return (
-    <>
+    <Box
+      margin={{ top: 'small' }}
+    >
       <SpacedText
         color={{ dark: 'neutral-6', light: 'neutral-7' }}
         size='1rem'
@@ -22,10 +24,18 @@ function MembersList({
       >
         Group Members
       </SpacedText>
+      <SpacedText
+        margin={{ top: 'xxsmall' }}
+        size='0.8rem'
+        uppercase={false}
+      >
+        Removing a member inactivates their membership in the group. They will no longer have access to the group, but contributions while a member will persist.
+      </SpacedText>
       <Box
         as='ul'
         border={[{ color: 'light-5', size: '1px', style: 'solid' }]}
         height='small'
+        margin={{ top: 'xsmall' }}
         overflow={{ vertical: 'auto' }}
         round='4px'
       >
@@ -47,7 +57,7 @@ function MembersList({
           )
         })}
       </Box>
-    </>
+    </Box>
   )
 }
 
