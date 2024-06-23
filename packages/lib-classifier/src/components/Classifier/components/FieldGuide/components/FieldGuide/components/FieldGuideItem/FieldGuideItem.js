@@ -63,7 +63,7 @@ function FieldGuideItem ({
   const { t } = useTranslation('components')
 
   return (
-    <Box id={id} className={className}>
+    <Box id={id} className={`item-content ${className}`}>
       <StickyTitle
         align='center'
         border={{ color: 'light-5', side: 'bottom' }}
