@@ -1,17 +1,16 @@
 import {
   Box,
-  Button,
   ResponsiveContext,
   Tab,
   Tabs as GrommetTabs,
   Text,
-  ThemeContext,
-  Tip
+  ThemeContext
 } from 'grommet'
-import { CircleInformation } from 'grommet-icons'
 import { number, shape } from 'prop-types'
 import { useContext } from 'react'
 import { SpacedText } from '@zooniverse/react-components'
+
+import { Tip } from '@components/shared'
 
 import tabsTheme from './tabsTheme.js'
 
@@ -28,21 +27,8 @@ function Stat({ stats }) {
             Classifications
           </Text>
           <Tip
-            content={
-              <Text>
-                Click on MORE STATS to generate a volunteer certificate
-              </Text>
-            }
-            plain
-            dropProps={{
-              align: { top: 'bottom' },
-              background: 'dark-4',
-              round: '5px',
-              pad: '5px'
-            }}
-          >
-            <Button plain icon={<CircleInformation size='0.75rem' />} />
-          </Tip>
+            contentText='Click on MORE STATS to generate a volunteer certificate'
+          />
         </Box>
         <Text color={{ light: 'neutral-1', dark: 'accent-1' }} size='xxlarge'>
           {stats.classifications?.toLocaleString()}

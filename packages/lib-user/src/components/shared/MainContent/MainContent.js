@@ -12,7 +12,9 @@ import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select
+  Select,
+  Tabs,
+  Tip
 } from '@components/shared'
 
 const StyledButton = styled(Button)`

@@ -20,6 +20,7 @@ export { default as Layout } from './components/shared/Layout'
 export { default as MainContent } from './components/shared/MainContent'
 export { default as ProfileHeader } from './components/shared/ProfileHeader'
 export { default as Select } from './components/shared/Select'
+export { default as Tip } from './components/shared/Tip'
 export { default as TitledStat } from './components/shared/TitledStat'
 export { default as TopProjects } from './components/shared/TopProjects'
 

@@ -44,12 +44,15 @@ function CertificateContainer({
   })
 
   // fetch projects, if selectedProject is not 'AllProjects'
-  const projectIds = selectedProject !== 'AllProjects' ? [selectedProject] : null
+  const projectId = selectedProject !== 'AllProjects' ? selectedProject : null
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects(projectIds)
+  } = usePanoptesProjects({
+    cards: true,
+    id: projectId
+  })
   
   const hours = convertStatsSecondsToHours(stats?.time_spent)
   const projectsCount = stats?.project_contributions?.length || 0
