@@ -8,6 +8,7 @@ export default {
 
 export const NfnCaliFlowers = {
   args: {
+    badge: 3,
     description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
     displayName: `Notes from Nature - Capturing California's Flowers`,
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/0c4cfec1-a15b-468e-9f57-e9133993532d.jpeg',

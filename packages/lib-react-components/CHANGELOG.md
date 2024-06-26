@@ -1,8 +1,15 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [Unreleased]
+
+### Changed
+
+- ZooFooter and ZooHeader styling to include `display: none;` when printing (`@media print`)
 
 ## [1.13.0] 2024-05-17
 

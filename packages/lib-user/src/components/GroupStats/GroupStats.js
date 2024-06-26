@@ -8,20 +8,19 @@ import {
   useStats
 } from '@hooks'
 
-import {
-  getDateInterval
-} from '@utils'
+import { getDateInterval } from '@utils'
 
 import {
+  GroupModal,
   Layout,
   MainContent,
   TopProjects
 } from '@components/shared'
 
-import getHeaderItems from './helpers/getHeaderItems'
+import GroupUpdateFormContainer from './components/GroupUpdateFormContainer'
+import MembersList from './components/MembersList'
 import TopContributors from './components/TopContributors'
-import DeleteGroup from './DeleteGroup'
-import EditGroup from './EditGroup'
+import getHeaderItems from './helpers/getHeaderItems'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -31,6 +30,7 @@ function GroupStats({
   group,
   membership
 }) {
+  const [groupModalActive, setGroupModalActive] = useState(false)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
@@ -90,13 +90,21 @@ function GroupStats({
   })
   
   // fetch projects
-  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
 
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects(projectIDs)
+  } = usePanoptesProjects({
+    cards: true,
+    id: projectIds?.join(','),
+    page_size: 100
+  })
+
+  function handleGroupModalActive () {
+    setGroupModalActive(!groupModalActive)
+  }
 
   function handleProjectSelect (project) {
     setSelectedProject(project.value)
@@ -111,58 +119,69 @@ function GroupStats({
     adminMode,
     authUser,
     group,
+    handleGroupModalActive,
     membership
   })
 
   return (
-    <Layout
-      primaryHeaderItem={PrimaryHeaderItem}
-      secondaryHeaderItems={secondaryHeaderItems}
-    >
-      <MainContent
-        handleDateRangeSelect={handleDateRangeSelect}
-        handleProjectSelect={handleProjectSelect}
-        projects={projects}
-        selectedDateRange={selectedDateRange}
-        selectedProject={selectedProject}
-        stats={stats}
-        source={group}
-      />
-      {showTopContributors ? (
-        <Grid
-          columns='1/2'
-          gap='30px'
+    <>
+      <GroupModal
+        active={groupModalActive}
+        handleClose={handleGroupModalActive}
+        title='manage group'
+        titleColor='black'
+      >
+        <GroupUpdateFormContainer
+          adminMode={adminMode}
+          authUserId={authUser?.id}
+          group={group}
+          handleGroupModalActive={handleGroupModalActive}
+          login={authUser?.login}
         >
-          <TopContributors
-            groupId={group?.id}
-            stats={stats}
-            topContributors={topContributors}
-          />
-          <TopProjects
-            allProjectsStats={allProjectsStats}
-            grid={true}
-            projects={projects}
-          />
-        </Grid>
-      ) : (
-        <TopProjects
-          allProjectsStats={allProjectsStats}
-          grid={false}
-          projects={projects}
-        />
-      )}
-      {(adminMode || membership?.roles.includes('group_admin')) ? (
-        <>
-          <EditGroup
+          <MembersList
+            authUser={authUser}
             group={group}
           />
-          <hr />
-          <DeleteGroup 
-            groupId={group?.id}
+        </GroupUpdateFormContainer>
+      </GroupModal>
+      <Layout
+        primaryHeaderItem={PrimaryHeaderItem}
+        secondaryHeaderItems={secondaryHeaderItems}
+      >
+        <MainContent
+          handleDateRangeSelect={handleDateRangeSelect}
+          handleProjectSelect={handleProjectSelect}
+          projects={projects}
+          selectedDateRange={selectedDateRange}
+          selectedProject={selectedProject}
+          stats={stats}
+          source={group}
+        />
+        {showTopContributors ? (
+          <Grid
+            columns='1/2'
+            gap='30px'
+          >
+            <TopContributors
+              groupId={group?.id}
+              stats={stats}
+              topContributors={topContributors}
+            />
+            <TopProjects
+              allProjectsStats={allProjectsStats}
+              grid={true}
+              projects={projects}
+            />
+          </Grid>
+        ) : (
+          <TopProjects
+            allProjectsStats={allProjectsStats}
+            grid={false}
+            projects={projects}
           />
-        </>
-      ) : null}
-    </Layout>
+        )}
+      </Layout>
+    </>
   )
 }
 

@@ -6,9 +6,11 @@ import { string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import {
+  Certificate,
   Contributors,
   GroupStats,
   MyGroups,
+  UserHome,
   UserStats
 } from '@components'
 
@@ -26,12 +28,14 @@ function App({
   const [activeIndex, setActiveIndex] = useState(-1)
   const [dark, setDarkTheme] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+  const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
     async function checkUserSession() {
       setLoading(true)
-  
+
       try {
         const user = await auth.checkCurrent()
         setUser(user)
@@ -41,7 +45,7 @@ function App({
         setLoading(false)
       }
     }
-    
+
     auth.listen('change', checkUserSession)
 
     return function () {
@@ -75,7 +79,9 @@ function App({
               <li>
                 <a href={`./?users=${userSubpath}/stats`}>/stats - user stats page</a>
                 <ul>
-                  <li>/certificate - Volunteer Certificate</li>
+                  <li>
+                    <a href={`./?users=${userSubpath}/stats/certificate`}>/certificate - Volunteer Certificate</a>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -93,13 +99,14 @@ function App({
           </li>
         </ul>
       </ul>
+      {user?.id ? <UserHome authUser={user} /> : null}
     </div>
   )
 
   if (groups) {
     const subpaths = groups.split('/')
     const groupId = subpaths[0] || ''
-  
+
     if (subpaths[0] === '[user_group_id]') {
       content = <p>In the url query param <code>?groups=</code>, please replace <code>[user_group_id]</code> with a user group id.</p>
     } else if (subpaths[1] === 'contributors') {
@@ -128,12 +135,27 @@ function App({
     if (login === '[login]') {
       content = <p>In the url query param <code>?users=</code>, please replace <code>[login]</code> with a user login.</p>
     } else if (subpaths[1] === 'stats') {
-      content = (
-        <UserStats
-          authUser={user}
-          login={login}
-        />
-      )
+      if (subpaths[2] === 'certificate') {
+        content = (
+          <Certificate
+            authUser={user}
+            login={login}
+            selectedDateRange={selectedDateRange}
+            selectedProject={selectedProject}
+          />
+        )
+      } else {
+        content = (
+          <UserStats
+            authUser={user}
+            login={login}
+            selectedDateRange={selectedDateRange}
+            selectedProject={selectedProject}
+            setSelectedDateRange={setSelectedDateRange}
+            setSelectedProject={setSelectedProject}
+          />
+        )
+      }
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
@@ -161,7 +183,7 @@ function App({
           closeModal={closeAuthModal}
           onActive={setActiveIndex}
         />
-        <header>
+        <header className='dev-app-header'>
           <p>
             <a href='/'>lib-user - dev app</a>
           </p>
@@ -185,7 +207,7 @@ function App({
             />
           </div>
         </header>
-        {loading ? 
+        {loading ?
           <p>Loading...</p> : (
           <div>
             {content}

@@ -1,7 +1,6 @@
 'use client'
 
-import { shape, string } from 'prop-types'
-import { useState } from 'react'
+import { func, shape, string } from 'prop-types'
 
 import {
   usePanoptesProjects,
@@ -15,15 +14,17 @@ import {
 
 import UserStats from './UserStats'
 
+const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
   authUser,
   login,
+  selectedDateRange = 'Last7Days',
+  selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER
 }) {
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-
   // fetch user
   const {
     data: user,
@@ -65,20 +66,24 @@ function UserStatsContainer({
   })
   
   // fetch projects
-  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
   
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects(projectIDs)
-
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
+  } = usePanoptesProjects({
+    cards: true,
+    id: projectIds?.join(','),
+    page_size: 100
+  })
 
   function handleDateRangeSelect (dateRange) {
     setSelectedDateRange(dateRange.value)
+  }
+
+  function handleProjectSelect (project) {
+    setSelectedProject(project.value)
   }
 
   return (
@@ -99,7 +104,11 @@ UserStatsContainer.propTypes = {
   authUser: shape({
     id: string
   }),
-  login: string
+  login: string,
+  selectedDateRange: string,
+  selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func
 }
 
 export default UserStatsContainer

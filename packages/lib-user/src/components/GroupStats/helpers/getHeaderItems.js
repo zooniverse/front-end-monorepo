@@ -11,6 +11,8 @@ import {
   HeaderToast
 } from '@components/shared'
 
+const BASE_URL = 'https://fe-root.preview.zooniverse.org'
+
 async function handleLeaveGroup({
   login,
   membershipId
@@ -21,13 +23,14 @@ async function handleLeaveGroup({
   const deleteMembershipResponse = await deletePanoptesMembership({ membershipId })
   if (!deleteMembershipResponse.ok) return
 
-  window.location.href = `https://www.zooniverse.org/users/${login}`
+  window.location.href = '/'
 }
 
 function getHeaderItems({
   adminMode,
   authUser,
   group,
+  handleGroupModalActive,
   membership
 }) {
   const headerItems = {
@@ -45,14 +48,14 @@ function getHeaderItems({
         label='Share Group'
         message='Group Link Copied!'
         primaryItem={true}
-        textToCopy={`https://www.zooniverse.org/groups/${group.id}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}`}
       />
     )
   } else {
     headerItems.PrimaryHeaderItem = (
       <HeaderLink
-        href={`https://www.zooniverse.org/users/${authUser.login}`}
-        label='back to profile'
+        href={`/users/${authUser?.login}/groups`}
+        label='all my groups'
         primaryItem={true}
       />
     )
@@ -64,7 +67,7 @@ function getHeaderItems({
         key='leave-group-button'
         icon={<SubtractCircle color='white' size='small' />}
         label='Leave Group'
-        onClick={() => handleLeaveGroup({ login: authUser.login, membershipId: membership.id })}
+        onClick={() => handleLeaveGroup({ login: authUser?.login, membershipId: membership.id })}
       />
     )
     if (publicGroup) headerItems.secondaryHeaderItems.push(
@@ -73,7 +76,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`https://www.zooniverse.org/groups/${group.id}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}`}
       />
     )
   }
@@ -85,20 +88,20 @@ function getHeaderItems({
         icon={<Link color='white' size='small' />}
         label='Copy Join Link'
         message='Join Link Copied!'
-        textToCopy={`https://www.zooniverse.org/groups/${group.id}?join_token=${group.join_token}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}?join_token=${group.join_token}`}
       />,
       <HeaderToast
         key='share-group-toast'
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`https://www.zooniverse.org/groups/${group.id}`}
+        textToCopy={`${BASE_URL}/groups/${group.id}`}
       />,
       <HeaderButton
         key='manage-group-button'
         icon={<SettingsOption color='white' size='small' />}
         label='Manage Group'
-        onClick={() => alert('Coming soon!')}
+        onClick={() => handleGroupModalActive()}
       />
     ])
   }

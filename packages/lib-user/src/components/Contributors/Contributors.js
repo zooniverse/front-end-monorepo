@@ -1,4 +1,5 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
+import { useState } from 'react'
 
 import {
   usePanoptesProjects,
@@ -13,6 +14,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
+import { generateExport } from './helpers/generateExport'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -22,12 +24,14 @@ function Contributors({
   group,
   membership
 }) {
+  const [dataExportUrl, setDataExportUrl] = useState('')
+  const [filename, setFilename] = useState('')
+
   const showContributors = adminMode 
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
     || group?.stats_visibility === 'public_show_all'
-  if (!showContributors) return (<div>Not authorized</div>)
 
   // fetch stats
   const statsQuery = {
@@ -66,7 +70,11 @@ function Contributors({
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects(projectIds)
+  } = usePanoptesProjects({
+    cards: true,
+    id: projectIds?.join(','),
+    page_size: 100
+  })
 
   // combine member stats with user data
   let contributors = []
@@ -80,6 +88,8 @@ function Contributors({
     })
   }
 
+  if (!showContributors) return (<div>Not authorized</div>)
+
   return (
     <Layout
       primaryHeaderItem={
@@ -91,6 +101,21 @@ function Contributors({
       }
     >
       <ContentBox
+        linkLabel='Export all stats'
+        linkProps={{
+          href: dataExportUrl,
+          download: filename,
+          onClick: () => {
+            generateExport({
+              group,
+              handleFileName: setFilename,
+              handleDataExportUrl: setDataExportUrl,
+              projects,
+              stats,
+              users
+            })
+          }
+        }}
         title='Full Group Stats'
       >
         {contributors.length > 0 ? (

@@ -1,6 +1,8 @@
 import { Box, Grid } from 'grommet'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
+import { Tip } from '@components/shared'
+
 import { PROJECTS, USERS } from '../../../../test/mocks/panoptes'
 
 import MemberCard from '../../GroupStats/components/MemberCard'
@@ -82,8 +84,6 @@ export const TopProjectsFull = {
 export const TopProjectsFullWithFewerProjects = {
   render: () => (
     <ContentBox
-      linkLabel='See more'
-      linkProps={{ href: 'https://www.zooniverse.org/projects' }}
       title='Top Projects'
     >
       <Box
@@ -103,8 +103,6 @@ export const TopProjectsFullWithFewerProjects = {
 export const TopProjectsGrid = {
   render: () => (
     <ContentBox
-      linkLabel='See more'
-      linkProps={{ href: 'https://www.zooniverse.org/projects' }}
       title='Top Projects'
       width='625px'
     >
@@ -123,8 +121,16 @@ export const TopContributors = {
   render: () => (
     <ContentBox
       linkLabel='See all contributors and detailed stats'
-      linkProps={{ href: 'https://www.zooniverse.org/groups/12345/contributors' }}
+      linkProps={{ href: '/groups/12345/contributors' }}
       title='Top Contributors'
+      toolTip={
+        <Tip
+          contentText='Includes active and inactive members.'
+          buttonProps={{
+            margin: { left: 'xsmall' }
+          }}
+        />
+      }
       width='625px'
     >
       <Grid

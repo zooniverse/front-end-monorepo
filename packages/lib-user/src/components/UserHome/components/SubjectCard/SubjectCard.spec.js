@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 
 import Meta, { Default } from './SubjectCard.stories.js'
 
-describe('UserHome > compoents > SubjectCard', function () {
+describe('UserHome > components > SubjectCard', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   it('should show the subject id', function () {

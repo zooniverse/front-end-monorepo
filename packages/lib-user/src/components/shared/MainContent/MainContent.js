@@ -1,8 +1,10 @@
-import { Box, Tab } from 'grommet'
+import { Box, Button, Tab } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 import {
+  convertStatsSecondsToHours,
   dateRanges
 } from '@utils'
 
@@ -11,7 +13,8 @@ import {
   ContentBox,
   ProfileHeader,
   Select,
-  Tabs
+  Tabs,
+  Tip
 } from '@components/shared'
 
 const DEFAULT_HANDLER = () => true
@@ -25,7 +28,13 @@ const DEFAULT_SOURCE = {
   display_name: '',
 }
 
-function MainContent ({
+const StyledButton = styled(Button)`
+  background-color: ${props => props.theme.global.colors['neutral-1']};
+  border-radius: 4px;
+  color: ${props => props.theme.global.colors['neutral-6']};
+`
+
+function MainContent({
   handleDateRangeSelect = DEFAULT_HANDLER,
   handleProjectSelect = DEFAULT_HANDLER,
   projects = [],
@@ -40,7 +49,7 @@ function MainContent ({
     setActiveTab(index)
   }
 
-  const hoursSpent = stats?.time_spent >= 0 ? stats.time_spent / 3600 : 0
+  const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
   // create project options
   let projectOptions = [
@@ -93,7 +102,7 @@ function MainContent ({
               />
           </Box>
         </Tab>
-        <Tab title='HOURS' style={{ marginRight: 'auto' }}>
+        <Tab title='HOURS' >
           <Box width='100%' height='15rem'>
             <BarChart
               data={stats?.data}
@@ -102,7 +111,15 @@ function MainContent ({
             />
           </Box>
         </Tab>
-        {/* TODO: add info button */}
+        <Tip
+          buttonProps={{
+            margin: {
+              bottom: 'small',
+              right: 'auto'
+            }
+          }}
+          contentText='Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.'
+        />
         <Box
           direction='row'
           gap='xsmall'
@@ -129,8 +146,12 @@ function MainContent ({
           gap='16px'
           justify='end'
         >
-          <button type='button' onClick={() => alert('Coming soon!')}>Export Stats</button>
-          <button type='button' onClick={() => alert('Coming soon!')}>Generate Volunteer Certificate</button>
+          <StyledButton
+            forwardedAs='a'
+            color='neutral-1'
+            href={`/users/${source.login}/stats/certificate`}
+            label='Generate Volunteer Certificate'
+          />
         </Box>
       ) : null}
     </ContentBox>

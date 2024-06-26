@@ -74,16 +74,22 @@ export default function Introduction() {
         level={2}
         size='1.5rem'
         alignSelf='center'
-        margin={{ top: '30px', bottom: '15px' }}
+        margin={{ top: '30px', bottom: '10px' }}
       >
         {t('Home.DefaultHome.headings.one')}
       </SpacedHeading>
       <SubHeading>{t('Home.DefaultHome.subheadings.one')}</SubHeading>
       <Paragraph
         color={{ light: 'black', dark: 'white' }}
-        margin={{ vertical: 'medium' }}
+        margin={{ top: 'medium' }}
       >
-        {t('Home.DefaultHome.Introduction.description')}
+        {t('Home.DefaultHome.Introduction.description1')}
+      </Paragraph>
+      <Paragraph
+        color={{ light: 'black', dark: 'white' }}
+        margin={{ bottom: 'medium' }}
+      >
+        {t('Home.DefaultHome.Introduction.description2')}
       </Paragraph>
       <Box direction='row' justify='between' margin={{ bottom: '60px' }}>
         <StyledSignIn
