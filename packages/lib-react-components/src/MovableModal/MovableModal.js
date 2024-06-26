@@ -33,7 +33,7 @@ ref) {
     minWidth,
     ...restRndProps
   } = rndProps
-  // Change handleComponent prop to resizeHandleComponent when react-rnd gets upgraded
+
   return (
     <Rnd
       cancel={cancel}
@@ -49,7 +49,7 @@ ref) {
       }}
       minHeight={minHeight}
       minWidth={minWidth}
-      handleComponent={{ bottomRight: <ResizeIcon /> }}
+      resizeHandleComponent={{ bottomRight: <ResizeIcon /> }}
       resizeHandleStyles={{
         bottomLeft: {
           bottom: 0,
