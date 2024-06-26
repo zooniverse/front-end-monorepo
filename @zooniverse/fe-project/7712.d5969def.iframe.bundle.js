@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_zooniverse_fe_project=self.webpackChunk_zooniverse_fe_project||[]).push([[7712],{"./public/locales/he/components.json":module=>{module.exports=JSON.parse('{"ProjectHeader":{"about":"אודות","classify":"קיטלוג","talk":"שיחה","collect":"אוספים","recents":"לאחרונה"},"ProjectStatistics":{"volunteers":"משתתפים"}}')}}]);
