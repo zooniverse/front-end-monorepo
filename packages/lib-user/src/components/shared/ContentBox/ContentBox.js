@@ -11,6 +11,7 @@ function ContentBox({
   linkProps = undefined,
   screenSize = 'small',
   title = undefined,
+  toolTip = undefined,
   ...rest
 }) {
   const border = screenSize === 'small' ? false
@@ -40,7 +41,7 @@ function ContentBox({
       round={screenSize === 'small' ? 'none' : '8px'}
       {...rest}
     >
-      {showHeader && (
+      {showHeader ? (
         <Box
           align='center'
           direction='row'
@@ -49,20 +50,21 @@ function ContentBox({
           wrap
         >
 
-          {title && (
+          {title ? (
             <ContentHeading>
               {title}
+              {toolTip ? toolTip : null}
             </ContentHeading>
-          )}
+          ) : null}
 
-          {link.text && (
+          {link.text ? (
             <ContentLink
               link={link}
             />
-          )}
+          ) : null}
 
         </Box>
-      )}
+      ) : null}
       {children}
     </Box>
   )
@@ -73,7 +75,8 @@ ContentBox.propTypes = {
   linkLabel: string,
   linkProps: object,
   screenSize: string,
-  title: string
+  title: string,
+  toolTip: node
 }
 
 export default withResponsiveContext(ContentBox)

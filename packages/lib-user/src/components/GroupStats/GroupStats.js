@@ -90,13 +90,17 @@ function GroupStats({
   })
   
   // fetch projects
-  const projectIDs = allProjectsStats?.project_contributions?.map(project => project.project_id)
+  const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
 
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects(projectIDs)
+  } = usePanoptesProjects({
+    cards: true,
+    id: projectIds?.join(','),
+    page_size: 100
+  })
 
   function handleGroupModalActive () {
     setGroupModalActive(!groupModalActive)

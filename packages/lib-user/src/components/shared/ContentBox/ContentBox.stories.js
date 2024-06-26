@@ -1,6 +1,8 @@
 import { Box, Grid } from 'grommet'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 
+import { Tip } from '@components/shared'
+
 import { PROJECTS, USERS } from '../../../../test/mocks/panoptes'
 
 import MemberCard from '../../GroupStats/components/MemberCard'
@@ -121,6 +123,14 @@ export const TopContributors = {
       linkLabel='See all contributors and detailed stats'
       linkProps={{ href: '/groups/12345/contributors' }}
       title='Top Contributors'
+      toolTip={
+        <Tip
+          contentText='Includes active and inactive members.'
+          buttonProps={{
+            margin: { left: 'xsmall' }
+          }}
+        />
+      }
       width='625px'
     >
       <Grid

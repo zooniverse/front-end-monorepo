@@ -2,7 +2,8 @@ import { Grid } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
 
 import {
-  ContentBox
+  ContentBox,
+  Tip
 } from '@components/shared'
 
 import MemberCard from '../MemberCard'
@@ -28,6 +29,14 @@ function TopContributors({
         href: `/groups/${groupId}/contributors`
       }}
       title='Top Contributors'
+      toolTip={
+        <Tip
+          contentText='Includes active and inactive members.'
+          buttonProps={{
+            margin: { left: 'xsmall' }
+          }}
+        />
+      }
     >
       <Grid
         as='ol'
