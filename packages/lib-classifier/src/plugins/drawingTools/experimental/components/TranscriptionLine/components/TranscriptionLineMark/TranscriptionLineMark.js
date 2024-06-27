@@ -39,7 +39,7 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
       ref={ref}
       stroke={color}
     >
-      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} vectorEffect={'non-scaling-stroke'} />
+      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} strokeWidth={2} vectorEffect={'non-scaling-stroke'} />
       <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH} strokeOpacity='0' vectorEffect={'non-scaling-stroke'} />
 
       {active ?
