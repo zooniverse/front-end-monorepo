@@ -74,7 +74,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   // The model uses this internally
   mark.setScale(scale)
 
-  // Stroke width varies as a function of the zoom level. Ranges 1-5.75
   const STROKE_WIDTH = 2
 
   function onDoubleClick(event) {
