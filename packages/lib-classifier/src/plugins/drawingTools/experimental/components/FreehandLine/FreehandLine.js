@@ -75,7 +75,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   mark.setScale(scale)
 
   // Stroke width varies as a function of the zoom level. Ranges 1-5.75
-  const STROKE_WIDTH = 1
+  const STROKE_WIDTH = 2
 
   function onDoubleClick(event) {
     if (active) {
@@ -118,13 +118,11 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         return <Fragment key={i}>
           <path // Main Path that's visible
             d={pointsToPath(pts)}
-            style={{
-              strokeWidth: STROKE_WIDTH,
-              strokeLinejoin: 'round',
-              strokeLinecap: 'round',
-              fill: 'none',
-              strokeOpacity: 1
-            }}
+            fill='none'
+            strokeWidth={STROKE_WIDTH}
+            strokeOpacity={1}
+            strokeLinecap='round'
+            strokeLinejoin='round'
             vectorEffect={'non-scaling-stroke'}
           />
           <title>{getHoverText()}</title>
@@ -132,11 +130,9 @@ function FreehandLine({ active, mark, onFinish, scale }) {
             d={pointsToPath(pts)}
             onDoubleClick={onDoubleClick}
             onPointerDown={onPointerDown}
-            style={{
-              strokeOpacity: '0',
-              strokeWidth: GRAB_STROKE_WIDTH / scale
-            }}
             fill='none'
+            strokeWidth={GRAB_STROKE_WIDTH}
+            strokeOpacity={0}
             vectorEffect={'non-scaling-stroke'}
           />
         </Fragment>
