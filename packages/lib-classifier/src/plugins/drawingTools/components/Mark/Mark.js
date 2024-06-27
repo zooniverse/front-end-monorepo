@@ -63,7 +63,6 @@ const Mark = forwardRef(function Mark(
     onFinish = defaultHandler,
     onSelect = defaultHandler,
     pointerEvents = 'painted',
-    scale = 1,
   },
   ref
 ) {
