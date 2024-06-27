@@ -1,3 +1,4 @@
+import { arrayOf, string } from 'prop-types'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
@@ -37,4 +38,21 @@ export default function CommunityContainer({
       zooBlogPosts={formattedZooBlogPosts}
     />
   )
+}
+
+CommunityContainer.propTypes = {
+  dailyZooPosts: arrayOf({
+    created_at: string,
+    excerpt: string,
+    imageSrc: string,
+    title: string,
+    url: string
+  }),
+  zooBlogPosts: arrayOf({
+    created_at: string,
+    excerpt: string,
+    imageSrc: string,
+    title: string,
+    url: string
+  })
 }
