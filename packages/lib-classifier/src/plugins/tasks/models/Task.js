@@ -6,7 +6,7 @@ const Task = types.model('Task', {
   // override annotation in individual task models with specific annotation types
   annotation: types.safeReference(Annotation),
   taskKey: types.identifier,
-  required: types.optional(types.boolean, false), // text task required default = false
+  required: types.optional(types.boolean, false),
   strings: types.map(types.string),
   type: types.literal('default')
 })
