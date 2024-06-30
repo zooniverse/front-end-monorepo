@@ -7,7 +7,7 @@ const Task = types.model('Task', {
   annotation: types.safeReference(Annotation),
   details: types.maybe(types.array(types.frozen())),
   taskKey: types.identifier,
-  required: types.optional(types.boolean, false), // text task required default = false
+  required: types.optional(types.boolean, false),
   strings: types.map(types.string),
   type: types.literal('default')
 })
