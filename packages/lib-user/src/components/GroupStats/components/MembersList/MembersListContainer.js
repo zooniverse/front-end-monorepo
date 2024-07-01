@@ -28,12 +28,12 @@ function MembersListContainer({
     query
   })
 
-  const { trigger: deleteMembership } = useSWRMutation({ query, joinStatusSuccess: false }, deletePanoptesMembership)
-  const { trigger: updateMembership } = useSWRMutation({ query, joinStatusSuccess: false }, updatePanoptesMembership)
+  const { trigger: deleteMembership } = useSWRMutation({ query }, deletePanoptesMembership)
+  const { trigger: updateMembership } = useSWRMutation({ query }, updatePanoptesMembership)
 
   const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
 
-  async function handleDeleteMembership({ membershipId }) {
+  function handleDeleteMembership({ membershipId }) {
     try {
       deleteMembership({ membershipId }, {
         optimisticData: (prevMembershipsData) => ({
@@ -48,7 +48,7 @@ function MembersListContainer({
     }
   }
 
-  async function handleUpdateMembership({ membershipId, data }) {
+  function handleUpdateMembership({ membershipId, data }) {
     try {
       updateMembership({ membershipId, data }, {
         optimisticData: (prevMembershipsData) => ({
