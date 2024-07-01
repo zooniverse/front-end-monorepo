@@ -13,7 +13,7 @@ export async function createPanoptesMembership(key, {
   if (!token) return null
 
   try {
-    const { body } = await panoptes.post('/memberships',
+    const response = await panoptes.post('/memberships',
       { memberships: {
         join_token: joinToken,
         links: {
@@ -23,6 +23,15 @@ export async function createPanoptesMembership(key, {
       }},
       { authorization }
     )
+    if (!response) {
+      throw new Error('No response from Panoptes')
+    }
+    if (!response.ok) {
+      const error = new Error(response.statusText)
+      error.status = response.status
+      throw error
+    }
+    const { body } = response
     return body
   } catch (error) {
     console.error(error)
