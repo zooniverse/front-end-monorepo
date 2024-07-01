@@ -30,7 +30,7 @@ function App({
   const [loading, setLoading] = useState(false)
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
   const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     async function checkUserSession() {
@@ -187,7 +187,7 @@ function App({
           <p>
             <a href='/'>lib-user - dev app</a>
           </p>
-          {user ? (
+          {user?.id ? (
             <>
               <span>{user?.login}</span>
               <button onClick={onSignOut}>Sign Out</button>
