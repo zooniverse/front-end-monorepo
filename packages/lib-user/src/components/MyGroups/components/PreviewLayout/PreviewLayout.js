@@ -28,6 +28,7 @@ export default function PreviewLayout({
       {!loading && groups?.length ? (
         <Box
           as='ul'
+          align='center'
           gap='xsmall'
           margin={{ bottom: 'medium' }}
           pad='none'

@@ -20,7 +20,7 @@ const selectTheme = {
         font-weight: 700;
         border: none;
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
-        width: 215px;
+        width: clamp(180px, 50%, 215px);
 
         &:focus:not(:focus-visible) {
           box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);

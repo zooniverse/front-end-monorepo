@@ -19,7 +19,6 @@ function ComponentDecorator (Story) {
         light: 'neutral-6'
       }}
       height='900px'
-      pad='30px'
     >
       <Story />
     </Box>
