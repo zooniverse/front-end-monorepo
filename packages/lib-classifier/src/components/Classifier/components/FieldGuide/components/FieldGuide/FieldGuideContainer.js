@@ -30,7 +30,7 @@ function FieldGuideContainer ({
     title: t('FieldGuide.title')
   }
   const rndProps = {
-    cancel: 'button, a.item',
+    cancel: 'button, a.item, div.item-content',
     default: {
       height,
       x: 0 - minWidth,
@@ -40,7 +40,9 @@ function FieldGuideContainer ({
     minWidth,
     onResize
   }
-  const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
+  const modalPropsToUse = (size === 'small')
+    ? modalProps
+    : { ...modalProps, rndProps }
   return (
     <FieldGuide
       modalComponent={modalComponent}
