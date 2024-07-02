@@ -114,7 +114,7 @@ function Certificate({
         }
       >
         <ContentBox
-          linkLabel='Generate Certificate'
+          linkLabel='Save Certificate'
           linkProps={{
             as: 'button',
             onClick: handleClickPrint
