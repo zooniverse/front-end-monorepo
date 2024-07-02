@@ -167,6 +167,7 @@ function Certificate({
                 <SpacedText
                   className='userName'
                   size='3.75rem'
+                  textAlign='center'
                   weight='bold'
                 >
                   {creditedName || displayName}
