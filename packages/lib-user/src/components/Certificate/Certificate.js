@@ -27,6 +27,7 @@ const PrintableBox = styled(Box)`
 
     #certificate, #certificate * {
       visibility: visible;
+      color: #5c5c5c;
     }
 
     #certificate {
@@ -36,6 +37,11 @@ const PrintableBox = styled(Box)`
       top: 0;
       width: 100%;
       height: 100%;
+    }
+
+    #certificate svg,
+    #certificate svg g {
+      fill: #00979d;
     }
   }
 
