@@ -6,7 +6,7 @@ export default new Factory()
     { label: 'blue' },
     { label: 'green' }
   ])
-  .attr('required', '')
+  .attr('required', false)
   .attr('strings', {
     question: 'Check all of the colors that apply'
   })
