@@ -1,7 +1,7 @@
 import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { getDateInterval } from '@utils'
 
@@ -56,38 +56,6 @@ const PrintableBox = styled(Box)`
 
   .userHours {
     letter-spacing: 8px;
-  }
-`
-
-const StyledImageBox = styled(Box)`
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 2px;
-    width: 270px;
-    ${props =>
-      props.theme.dark
-        ? css`
-            background: linear-gradient(
-              90deg,
-              transparent 0%,
-              #000000 50%,
-              transparent 100%
-            );
-          `
-        : css`
-            background: linear-gradient(
-              90deg,
-              transparent 0%,
-              #a6a7a9 50%,
-              transparent 100%
-            );
-          `}
   }
 `
 
@@ -260,15 +228,20 @@ function Certificate({
                     top: 'medium'
                   }}
                 >
-                  <StyledImageBox
-                    margin={{ bottom: 'xxsmall' }}
-                    pad={{ bottom: 'xxsmall' }}
-                  >
-                    <img
-                      src='/assets/LTSignature.png'
-                      alt='Signature of Dr. Laura Trouille'
-                    />
-                  </StyledImageBox>
+                  <img
+                    src='/assets/LTSignature.png'
+                    alt='Signature of Dr. Laura Trouille'
+                  />
+                  <svg width='272' height='2' viewBox='0 0 272 2'>
+                    <defs>
+                      <linearGradient id='signature_line' gradientUnits='userSpaceOnUse'>
+                        <stop stopColor='white' />
+                        <stop offset='0.5' stopColor='dark-5' />
+                        <stop offset='1' stopColor='white' />
+                      </linearGradient>
+                    </defs>
+                    <path d='M1 1H271' stroke='url(#signature_line)'/>
+                  </svg>
                   <SpacedText
                     size='1.5rem'
                     uppercase={false}
