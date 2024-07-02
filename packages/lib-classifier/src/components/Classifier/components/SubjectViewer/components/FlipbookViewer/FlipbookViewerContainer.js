@@ -64,7 +64,7 @@ function FlipbookViewerContainer({
     setOnZoom
   } = useStores(storeMapper)
 
-  const { onKeyZoom } = useKeyZoom()
+  const { onKeyZoom } = useKeyZoom(rotation)
 
   useEffect(
     function preloadImages() {

@@ -35,7 +35,7 @@ function SVGPanZoom({
     height: naturalHeight,
     width: naturalWidth
   }
-  const [zoom, setZoom] = useState(1)
+  const zoom = useRef(1)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {
@@ -49,10 +49,6 @@ function SVGPanZoom({
     setOnPan(DEFAULT_HANDLER)
     setOnZoom(DEFAULT_HANDLER)
   }
-
-  useEffect(function onZoomChange() {
-    scaleViewBox(zoom)
-  }, [zoom])
 
   useEffect(() => {
     if (zooming) {
@@ -68,7 +64,7 @@ function SVGPanZoom({
       height: naturalHeight,
       width: naturalWidth
     })
-    setZoom(1)
+    zoom.current = 1
   }, [naturalWidth, naturalHeight])
 
   function scaleViewBox(scale) {
@@ -87,8 +83,8 @@ function SVGPanZoom({
   function onDrag(event, difference) {
     setViewBox((prevViewBox) => {
       const newViewBox = { ...prevViewBox }
-      newViewBox.x -= difference.x / 1.5
-      newViewBox.y -= difference.y / 1.5
+      newViewBox.x -= difference.x * .9
+      newViewBox.y -= difference.y * .9
       return newViewBox
     })
   }
@@ -105,11 +101,15 @@ function SVGPanZoom({
   function onZoom(type) {
     switch (type) {
       case 'zoomin': {
-        setZoom((prevZoom) => Math.min(prevZoom + 0.1, maxZoom))
+        const prevZoom = zoom.current
+        zoom.current = Math.min(prevZoom + 0.1, maxZoom)
+        scaleViewBox(zoom.current)
         return
       }
       case 'zoomout': {
-        setZoom((prevZoom) => Math.max(prevZoom - 0.1, minZoom))
+        const prevZoom = zoom.current
+        zoom.current = Math.max(prevZoom - 0.1, minZoom)
+        scaleViewBox(zoom.current)
         return
       }
       case 'zoomto': {
@@ -119,7 +119,7 @@ function SVGPanZoom({
           height: naturalHeight,
           width: naturalWidth
         })
-        setZoom(1)
+        zoom.current = 1
         return
       }
     }
