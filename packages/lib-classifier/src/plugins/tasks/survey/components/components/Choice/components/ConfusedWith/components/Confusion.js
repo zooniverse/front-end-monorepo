@@ -38,7 +38,7 @@ export default function Confusion({
             <Media
               key={filename}
               alt={`${confusion.label}-image${index}`}
-              src={images[filename]}
+              src={images.get(filename)}
               width={400}
             />
           ))}

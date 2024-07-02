@@ -1,15 +1,18 @@
 import { expect } from 'chai'
 import { render, screen } from '@testing-library/react'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import { task } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
 import InputGroup from './InputGroup'
+
+const mockTask = SurveyTask.TaskModel.create(task)
 
 describe('Component > InputGroup', function () {
   describe('with checkbox type', function () {
     const questionId = 'WHTBHVRSDS'
-    const question = mockTask.questions[questionId]
+    const question = mockTask.questions.get(questionId)
     const options = question.answersOrder.map(answerId => ({
-      label: question.answers[answerId].label,
+      label: question.answers.get(answerId).label,
       value: answerId
     }))
 
@@ -67,9 +70,9 @@ describe('Component > InputGroup', function () {
 
   describe('with radio type', function () {
     const questionId = 'RTHRNNGPRSNT'
-    const question = mockTask.questions[questionId]
+    const question = mockTask.questions.get(questionId)
     const options = question.answersOrder.map(answerId => ({
-      label: question.answers[answerId].label,
+      label: question.answers.get(answerId).label,
       value: answerId
     }))
 
