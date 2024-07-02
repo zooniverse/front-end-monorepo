@@ -7,7 +7,7 @@ import { task } from '@plugins/tasks/survey/mock-data'
 import CharacteristicSection from './CharacteristicSection'
 
 const mockTask = SurveyTask.TaskModel.create(task)
-const characteristicPattern = mockTask.characteristics.PTTRN
+const characteristicPattern = mockTask.characteristics.get('PTTRN')
 
 describe('Component > CharacteristicSection', function () {
   it('should show characteristic Filter inputs in order per the task  characteristic\'s valuesOrder', function () {
