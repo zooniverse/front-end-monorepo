@@ -84,7 +84,7 @@ function WelcomeModal() {
             pad='large'
             align='center'
           >
-            <StyledCloseButton onClick={handleClose} />
+            <StyledCloseButton closeFn={handleClose} />
             <ZooniverseLogo
               color='#00979d' // 'brand won't work here for some reason
               id='homepage-welcome-modal'
@@ -167,7 +167,7 @@ function WelcomeModal() {
                 explore and interact with fellow participants.
               </Paragraph>
             </Box>
-            <Box direction='row' pad={{ vertical: 'large' }} gap='small'>
+            <Box direction='row' pad={{ top: 'large' }} gap='small'>
               <StyledAnchor href='https://www.zooniverse.org'>
                 Read about the changes
               </StyledAnchor>
