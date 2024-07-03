@@ -11,9 +11,10 @@ function CertificateContainer({
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
   const {
-    selectedDateRange,
-    selectedProject
+    selectedDateRange
   } = useContext(UserStatsContext)
+
+  const selectedProject = 'AllProjects'
 
   return (
     <AuthenticatedUsersPageContainer
