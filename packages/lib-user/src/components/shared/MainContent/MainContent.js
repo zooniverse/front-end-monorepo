@@ -183,7 +183,7 @@ function MainContent({
           <StyledButton
             forwardedAs='a'
             color='neutral-1'
-            href={`/users/${source.login}/stats/certificate`}
+            href={`/users/${source.login}/stats/certificate${window.location.search}`}
             label='Generate Volunteer Certificate'
           />
         </Box>

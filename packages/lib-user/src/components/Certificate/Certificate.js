@@ -75,7 +75,7 @@ function Certificate({
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`/users/${login}/stats`}
+            href={`/users/${login}/stats${window.location.search}`}
             label='back'
             primaryItem={true}
           />
