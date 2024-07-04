@@ -26,6 +26,9 @@ function getHeaderItems({
 
   const publicGroup = group.stats_visibility.startsWith('public')
   const role = membership?.roles?.[0]
+  const shareGroupUrl = new URL(`${BASE_URL}/groups/${group.id}`)
+  shareGroupUrl.search = window.location.search
+  const shareGroupUrlString = shareGroupUrl.toString()
 
   if (!role && publicGroup) {
     headerItems.PrimaryHeaderItem = (
@@ -34,7 +37,7 @@ function getHeaderItems({
         label='Share Group'
         message='Group Link Copied!'
         primaryItem={true}
-        textToCopy={`${BASE_URL}/groups/${group.id}`}
+        textToCopy={shareGroupUrlString}
       />
     )
   } else {
@@ -64,7 +67,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`${BASE_URL}/groups/${group.id}`}
+        textToCopy={shareGroupUrlString}
       />
     )
   }
@@ -83,7 +86,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`${BASE_URL}/groups/${group.id}`}
+        textToCopy={shareGroupUrlString}
       />,
       <HeaderButton
         key='manage-group-button'
