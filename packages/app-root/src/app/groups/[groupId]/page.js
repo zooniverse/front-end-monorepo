@@ -10,6 +10,7 @@ export default function GroupPage({ params, searchParams }) {
     <GroupStatsContainer
       groupId={params.groupId}
       joinToken={searchParams.join_token}
+      projectId={searchParams.project_id}
     />
   )
 }
