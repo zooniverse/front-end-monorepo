@@ -1,6 +1,6 @@
 'use client'
 
-import { bool, shape, string } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 
 import { GroupContainer } from '@components/shared'
 
@@ -10,7 +10,9 @@ function GroupStatsContainer({
   adminMode = false,
   authUser,
   groupId,
-  joinToken
+  joinToken,
+  selectedProject,
+  setSelectedProject
 }) {
   return (
     <GroupContainer
@@ -19,7 +21,10 @@ function GroupStatsContainer({
       groupId={groupId}
       joinToken={joinToken}
     >
-      <GroupStats />
+      <GroupStats
+        selectedProject={selectedProject}
+        setSelectedProject={setSelectedProject}
+      />
     </GroupContainer>
   )
 }
@@ -30,7 +35,9 @@ GroupStatsContainer.propTypes = {
     id: string
   }),
   groupId: string,
-  joinToken: string
+  joinToken: string,
+  selectedProject: string,
+  setSelectedProject: func
 }
 
 export default GroupStatsContainer

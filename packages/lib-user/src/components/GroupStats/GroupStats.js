@@ -1,5 +1,5 @@
 import { Grid, ResponsiveContext } from 'grommet'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useContext, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
@@ -27,15 +27,17 @@ import TopContributors from './components/TopContributors'
 import getHeaderItems from './helpers/getHeaderItems'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
+const DEFAULT_HANDLER = () => true
 
 function GroupStats({
   adminMode,
   authUser,
   group,
-  membership
+  membership,
+  selectedProject = 'AllProjects',
+  setSelectedProject = DEFAULT_HANDLER
 }) {
   const [groupModalActive, setGroupModalActive] = useState(false)
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
   const size = useContext(ResponsiveContext)
@@ -245,7 +247,9 @@ GroupStats.propTypes = {
   membership: shape({
     id: string,
     roles: arrayOf(string)
-  })
+  }),
+  selectedProject: string,
+  setSelectedProject: func
 }
 
 export default GroupStats
