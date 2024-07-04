@@ -5,18 +5,16 @@ import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
 
 import AuthenticatedUsersPageContainer from '../../../../components/AuthenticatedUsersPageContainer'
-import { PanoptesAuthContext, UserStatsContext } from '../../../../contexts'
+import { PanoptesAuthContext } from '../../../../contexts'
 
 function UserStatsContainer({
   login,
   projectId
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
-  const {
-    selectedDateRange,
-    setSelectedDateRange
-  } = useContext(UserStatsContext)
+  
   const router = useRouter()
+  const selectedDateRange = 'Last7Days'
   const selectedProject = projectId || 'AllProjects'
 
   function updateQueryParam({ key, value }) {
@@ -29,6 +27,10 @@ function UserStatsContainer({
     }
   
     router.push(`${window.location.pathname}?${queryParams.toString()}`)
+  }
+
+  function setSelectedDateRange(selectedDateRange) {
+    console.log('setSelectedDateRange', selectedDateRange)
   }
 
   function setSelectedProject(selectedProjectId) {
