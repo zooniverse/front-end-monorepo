@@ -1,4 +1,3 @@
-import { arrayOf, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import { CommunityContainer } from '@zooniverse/content'
@@ -32,22 +31,3 @@ function UserHome({ authUser, dailyZooPosts = [], zooBlogPosts = [] }) {
 
 export default UserHome
 
-UserHome.propTypes = {
-  authUser: shape({
-    id: string
-  }),
-  dailyZooPosts: arrayOf({
-    created_at: string,
-    excerpt: string,
-    imageSrc: string,
-    title: string,
-    url: string
-  }),
-  zooBlogPosts: arrayOf({
-    created_at: string,
-    excerpt: string,
-    imageSrc: string,
-    title: string,
-    url: string
-  })
-}

@@ -4,7 +4,6 @@ import { Box } from 'grommet'
 import { SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from '../../../translations/i18n.js'
 import styled from 'styled-components'
-import { arrayOf, string } from 'prop-types'
 
 import CommunityContainer from '../Community/CommunityContainer.js'
 import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
@@ -71,21 +70,4 @@ export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
       </StyledContainerBox>
     </Box>
   )
-}
-
-DefaultHome.propTypes = {
-  dailyZooPosts: arrayOf({
-    created_at: string,
-    excerpt: string,
-    imageSrc: string,
-    title: string,
-    url: string
-  }),
-  zooBlogPosts: arrayOf({
-    created_at: string,
-    excerpt: string,
-    imageSrc: string,
-    title: string,
-    url: string
-  })
 }

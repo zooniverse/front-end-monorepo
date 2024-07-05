@@ -2,7 +2,6 @@ import { Anchor, Box, Heading, ResponsiveContext } from 'grommet'
 import { useTranslation } from '../../../translations/i18n.js'
 import { SpacedHeading } from '@zooniverse/react-components'
 import { useContext } from 'react'
-import { arrayOf, string } from 'prop-types'
 
 import Article from '../../../components/Article/Article.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
@@ -85,21 +84,4 @@ export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
       </Box>
     </Box>
   )
-}
-
-Community.propTypes = {
-  dailyZooPosts: arrayOf({
-    date: string,
-    excerpt: string,
-    imageSrc: string,
-    title: string,
-    url: string
-  }),
-  zooBlogPosts: arrayOf({
-    date: string,
-    excerpt: string,
-    imageSrc: string,
-    title: string,
-    url: string
-  })
 }
