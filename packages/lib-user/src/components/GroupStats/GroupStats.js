@@ -1,6 +1,7 @@
-import { Grid } from 'grommet'
+import { Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import useSWRMutation from 'swr/mutation'
 
 import {
   usePanoptesProjects,
@@ -8,7 +9,10 @@ import {
   useStats
 } from '@hooks'
 
-import { getDateInterval } from '@utils'
+import {
+  deletePanoptesMembership,
+  getDateInterval
+} from '@utils'
 
 import {
   GroupModal,
@@ -33,6 +37,19 @@ function GroupStats({
   const [groupModalActive, setGroupModalActive] = useState(false)
   const [selectedProject, setSelectedProject] = useState('AllProjects')
   const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
+
+  const size = useContext(ResponsiveContext)
+  
+  // define user_group membership key
+  const membershipKey = {
+    authUserId: authUser?.id,
+    query: {
+      user_group_id: group?.id,
+      user_id: authUser?.id
+    }
+  }
+  // define user_group membership delete mutation
+  const { trigger: deleteMembership } = useSWRMutation(membershipKey, deletePanoptesMembership)
 
   const showTopContributors = adminMode 
     || membership?.roles.includes('group_admin')
@@ -114,11 +131,25 @@ function GroupStats({
     setSelectedDateRange(dateRange.value)
   }
 
+  async function handleGroupMembershipLeave ({
+    membershipId
+  }) {
+    const userConfirmed = window.confirm('Are you sure you want to leave this group?')
+    if (!userConfirmed) return
+
+    await deleteMembership({ membershipId }, {
+      revalidate: true
+    })
+  
+    window.location.href = '/'
+  }
+
   // get header items based on user, group, and membership
   const { PrimaryHeaderItem, secondaryHeaderItems } = getHeaderItems({
     adminMode,
     authUser,
     group,
+    handleGroupMembershipLeave,
     handleGroupModalActive,
     membership
   })
@@ -159,19 +190,36 @@ function GroupStats({
         />
         {showTopContributors ? (
           <Grid
-            columns='1/2'
+            columns={size === 'large' ? ['1fr 1fr'] : ['1fr']}
             gap='30px'
           >
-            <TopContributors
-              groupId={group?.id}
-              stats={stats}
-              topContributors={topContributors}
-            />
-            <TopProjects
-              allProjectsStats={allProjectsStats}
-              grid={true}
-              projects={projects}
-            />
+            {size === 'large' ? (
+              <>
+                <TopContributors
+                  groupId={group?.id}
+                  stats={stats}
+                  topContributors={topContributors}
+                />
+                <TopProjects
+                  allProjectsStats={allProjectsStats}
+                  grid={true}
+                  projects={projects}
+                />
+              </>
+            ) : (
+              <>
+                <TopProjects
+                  allProjectsStats={allProjectsStats}
+                  grid={false}
+                  projects={projects}
+                />
+                <TopContributors
+                  groupId={group?.id}
+                  stats={stats}
+                  topContributors={topContributors}
+                />
+              </>
+            )}
           </Grid>
         ) : (
           <TopProjects

@@ -1,5 +1,6 @@
-import { Grid } from 'grommet'
+import { Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
+import { useContext } from 'react'
 
 import {
   ContentBox,
@@ -13,6 +14,9 @@ function TopContributors({
   stats,
   topContributors
 }) {
+  const size = useContext(ResponsiveContext)
+  const gridAutoFlow = size === 'small' ? 'row' : 'column'
+
   const topContributorsWithStats = topContributors?.map(user => {
     const userStats = stats?.top_contributors?.find(topUser => topUser.user_id.toString() === user.id)
     
@@ -40,12 +44,12 @@ function TopContributors({
     >
       <Grid
         as='ol'
-        columns={[ 'auto', 'auto' ]}
+        columns={size === 'small' ? ['1fr'] : [ '1fr', '1fr' ]}
         gap='small'
         pad='none'
         rows={['repeat(5, auto)']}
         style={{
-          gridAutoFlow: 'column',
+          gridAutoFlow,
           listStyle: 'none'
         }}
       >

@@ -14,7 +14,7 @@ function UserHome({ authUser, dailyZooPosts = [], zooBlogPosts = [] }) {
   return (
     <Layout>
       <DashboardContainer authUser={authUser} />
-      <Grid gap='medium' columns={size !== 'small' ? ['1fr 1fr'] : ['1fr']}>
+      <Grid gap='medium' columns={size === 'large' ? ['1fr 1fr'] : ['1fr']}>
         <RecentProjectsContainer authUser={authUser} />
         <MyGroupsContainer previewLayout authUser={authUser} login={authUser.login} />
       </Grid>
