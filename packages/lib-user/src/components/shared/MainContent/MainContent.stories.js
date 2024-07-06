@@ -32,7 +32,10 @@ export const Default = {
     handleProjectSelect: () => {},
     onActive: () => {},
     projects: PROJECTS,
-    selectedDateRange: 'Last7Days',
+    selectedDateRange: {
+      endDate: '2021-07-07',
+      startDate: '2021-07-01'
+    },
     selectedProject: 'AllProjects',
     stats: STATS,
     source: USER
