@@ -8,8 +8,10 @@ export const metadata = {
 export default function UserStatsPage({ params, searchParams }) {
   return (
     <UserStatsContainer
+      endDate={searchParams.end_date}
       login={params.login}
       projectId={searchParams.project_id}
+      startDate={searchParams.start_date}
     />
   )
 }

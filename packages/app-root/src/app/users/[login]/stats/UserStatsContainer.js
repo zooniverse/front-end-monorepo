@@ -8,33 +8,68 @@ import AuthenticatedUsersPageContainer from '../../../../components/Authenticate
 import { PanoptesAuthContext } from '../../../../contexts'
 
 function UserStatsContainer({
+  endDate,
   login,
-  projectId
+  projectId,
+  startDate
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
   
   const router = useRouter()
-  const selectedDateRange = 'Last7Days'
+
+  // set end date per query params or default to today
+  let selectedEndDate = endDate
+  if (!selectedEndDate) {
+    selectedEndDate = new Date().toISOString().substring(0, 10)
+  }
+  // set start date per query params or default to 7 days ago
+  let selectedStartDate = startDate
+  if (!selectedStartDate) {
+    selectedStartDate = new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
+  }
+  
+  // set selected project per query params or default to 'AllProjects'
   const selectedProject = projectId || 'AllProjects'
 
-  function updateQueryParam({ key, value }) {
+  function updateQueryParams(newQueryParams) {
     const queryParams = new URLSearchParams(window.location.search)
-  
-    if (key === 'project_id' && value === 'AllProjects') {
-      queryParams.delete(key);
-    } else {
-      queryParams.set(key, value);
+
+    for (const [key, value] of newQueryParams) {  
+      if (!value) {
+        queryParams.delete(key);
+      } else {
+        queryParams.set(key, value);
+      }
     }
   
     router.push(`${window.location.pathname}?${queryParams.toString()}`)
   }
 
-  function setSelectedDateRange(selectedDateRange) {
-    console.log('setSelectedDateRange', selectedDateRange)
+  function setSelectedDateRange({ endDate, startDate }) {
+    // TODO: validate dates
+    
+    const todayUTC = new Date().toISOString().substring(0, 10)
+    if (endDate === todayUTC) {
+      updateQueryParams([
+        ['end_date', null],
+        ['start_date', startDate]
+      ])
+    } else {
+      updateQueryParams([
+        ['end_date', endDate],
+        ['start_date', startDate]
+      ])
+    } 
   }
 
   function setSelectedProject(selectedProjectId) {
-    updateQueryParam({ key: 'project_id', value: selectedProjectId })
+    // TODO: validate selected project ID
+
+    if (selectedProjectId === 'AllProjects') {
+      updateQueryParams([['project_id', null]])
+    } else {
+      updateQueryParams([['project_id', selectedProjectId]])
+    }
   }
 
   return (
@@ -47,7 +82,7 @@ function UserStatsContainer({
       <UserStats
         authUser={user}
         login={login}
-        selectedDateRange={selectedDateRange}
+        selectedDateRange={{ endDate: selectedEndDate, startDate: selectedStartDate }}
         selectedProject={selectedProject}
         setSelectedDateRange={setSelectedDateRange}
         setSelectedProject={setSelectedProject}
