@@ -82,7 +82,10 @@ function UserStatsContainer({
       <UserStats
         authUser={user}
         login={login}
-        selectedDateRange={{ endDate: selectedEndDate, startDate: selectedStartDate }}
+        selectedDateRange={{
+          endDate: selectedEndDate,
+          startDate: selectedStartDate
+        }}
         selectedProject={selectedProject}
         setSelectedDateRange={setSelectedDateRange}
         setSelectedProject={setSelectedProject}

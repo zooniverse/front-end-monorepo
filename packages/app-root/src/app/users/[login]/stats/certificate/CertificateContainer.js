@@ -7,12 +7,25 @@ import AuthenticatedUsersPageContainer from '../../../../../components/Authentic
 import { PanoptesAuthContext } from '../../../../../contexts'
 
 function CertificateContainer({
+  endDate,
   login,
-  projectId
+  projectId,
+  startDate
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
 
-  const selectedDateRange = 'AllTime'
+  // set end date per query params or default to today
+  let selectedEndDate = endDate
+  if (!selectedEndDate) {
+    selectedEndDate = new Date().toISOString().substring(0, 10)
+  }
+  // set start date per query params, user created_at, or default to all time
+  let selectedStartDate = startDate
+  if (!selectedStartDate) {
+    selectedStartDate = user?.created_at?.substring(0, 10) || '2015-07-01'
+  }
+  
+  // set selected project per query params or default to 'AllProjects'
   const selectedProject = projectId || 'AllProjects'
 
   return (
@@ -25,7 +38,10 @@ function CertificateContainer({
       <Certificate
         authUser={user}
         login={login}
-        selectedDateRange={selectedDateRange}
+        selectedDateRange={{
+          endDate: selectedEndDate,
+          startDate: selectedStartDate
+        }}
         selectedProject={selectedProject}
       />
     </AuthenticatedUsersPageContainer>

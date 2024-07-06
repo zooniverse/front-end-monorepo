@@ -14,12 +14,16 @@ import {
 
 import Certificate from './Certificate'
 
+const DEFAULT_DATE_RANGE = {
+  endDate: '',
+  startDate: ''
+}
 const STATS_ENDPOINT = '/classifications/users'
 
 function CertificateContainer({
   authUser,
   login,
-  selectedDateRange = 'AllTime',
+  selectedDateRange = DEFAULT_DATE_RANGE,
   selectedProject = 'AllProjects'
 }) {
   // TODO: fetch user data if authUser is not login user (admin view)
@@ -77,7 +81,10 @@ CertificateContainer.propTypes = {
     login: string
   }),
   login: string,
-  selectedDateRange: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
 }
 

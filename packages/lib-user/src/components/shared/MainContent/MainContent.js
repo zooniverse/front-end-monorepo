@@ -81,7 +81,7 @@ function MainContent({
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
 
   // create date range options
-  const dateRangeOptions = getDateRangeSelectOptions(source?.created_at)
+  const dateRangeOptions = getDateRangeSelectOptions(source?.created_at?.substring(0, 10))
   const todayUTC = new Date().toISOString().substring(0, 10)
   let selectedDateRangeOption = dateRangeOptions.find(option =>
     (selectedDateRange.endDate === todayUTC) &&
