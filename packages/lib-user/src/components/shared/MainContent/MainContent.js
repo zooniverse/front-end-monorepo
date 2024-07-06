@@ -5,16 +5,14 @@ import styled, { css } from 'styled-components'
 
 import {
   convertStatsSecondsToHours,
-  dateRanges
+  getDateRangeSelectOptions
 } from '@utils'
 
 import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select,
-  Tabs,
-  Tip
+  Select
 } from '@components/shared'
 
 const StyledButton = styled(Button)`
@@ -55,11 +53,11 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
-  handleDateRangeSelect = DEFAULT_HANDLER,
-  handleProjectSelect = DEFAULT_HANDLER,
   projects = [],
-  selectedDateRange = dateRanges.last7Days,
+  selectedDateRange,
   selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
   source = DEFAULT_SOURCE
 }) {
@@ -83,16 +81,24 @@ function MainContent({
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
 
   // create date range options
-  const dateRangeOptions = dateRanges.values.map((dateRange) => ({
-    label: dateRange
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/([0-9]+)/g, ' $1')
-      .toUpperCase()
-      .trim(),
-    value: dateRange
-  }))
-  const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
+  const dateRangeOptions = getDateRangeSelectOptions(source?.created_at)
+  const todayUTC = new Date().toISOString().substring(0, 10)
+  let selectedDateRangeOption = dateRangeOptions.find(option =>
+    (selectedDateRange.endDate === todayUTC) &&
+    (option.value === selectedDateRange.startDate)
+  )
 
+  function handleDateRangeSelect(option) {
+    setSelectedDateRange({
+      endDate: todayUTC,
+      startDate: option.value
+    })
+  }
+
+  function handleProjectSelect(option) {
+    setSelectedProject(option.value)
+  }
+  
   return (
     <ContentBox
       direction='column'
@@ -168,11 +174,11 @@ function MainContent({
         height='15rem'
         width='100%'
       >
-        <BarChart
+        {/* <BarChart
           data={stats?.data}
           dateRange={selectedDateRange}
           type={activeTab === 0 ? 'count' : 'session_time'}
-        />
+        /> */}
       </Box>
       {source?.login ? (
         <Box
@@ -194,15 +200,18 @@ function MainContent({
 
 MainContent.propTypes = {
   activeTab: number,
-  handleDateRangeSelect: func,
-  handleProjectSelect: func,
   onActive: func,
   projects: arrayOf(shape({
     display_name: string,
     id: string
   })),
-  selectedDateRange: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func,
   stats: shape({
     data: arrayOf(shape({
       count: number,
@@ -213,6 +222,7 @@ MainContent.propTypes = {
     total_count: number
   }),
   source: shape({
+    created_at: string,
     display_name: string
   })
 }

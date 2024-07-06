@@ -3,7 +3,6 @@ import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 
 import {
-  dateRanges,
   getDateInterval as defaultGetDateInterval
 } from '@utils'
 
@@ -12,7 +11,7 @@ import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 function BarChart({
   data = [],
-  dateRange = dateRanges.Last7Days,
+  dateRange,
   getCompleteData = defaultGetCompleteData,
   getDateInterval = defaultGetDateInterval,
   type = 'count'
@@ -129,7 +128,10 @@ BarChart.propTypes = {
     count: number,
     session_time: number
   })),
-  dateRange: string,
+  dateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   getCompleteData: func,
   getDateInterval: func,
   type: string

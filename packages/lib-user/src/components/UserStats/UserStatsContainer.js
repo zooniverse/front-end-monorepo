@@ -14,13 +14,17 @@ import {
 
 import UserStats from './UserStats'
 
+const DEFAULT_DATE_RANGE = {
+  endDate: '',
+  startDate: ''
+}
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
   authUser,
   login,
-  selectedDateRange = 'Last7Days',
+  selectedDateRange = DEFAULT_DATE_RANGE,
   selectedProject = 'AllProjects',
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
@@ -78,23 +82,15 @@ function UserStatsContainer({
     page_size: 100
   })
 
-  function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange.value)
-  }
-
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
-
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
-      handleDateRangeSelect={handleDateRangeSelect}
-      handleProjectSelect={handleProjectSelect}
       projectStats={projectStats}
       projects={projects}
       selectedDateRange={selectedDateRange}
       selectedProject={selectedProject}
+      setSelectedDateRange={setSelectedDateRange}
+      setSelectedProject={setSelectedProject}
       user={user}
     />
   )
@@ -105,7 +101,10 @@ UserStatsContainer.propTypes = {
     id: string
   }),
   login: string,
-  selectedDateRange: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func
