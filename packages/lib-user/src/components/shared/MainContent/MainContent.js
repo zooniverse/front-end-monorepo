@@ -174,11 +174,11 @@ function MainContent({
         height='15rem'
         width='100%'
       >
-        {/* <BarChart
+        <BarChart
           data={stats?.data}
           dateRange={selectedDateRange}
           type={activeTab === 0 ? 'count' : 'session_time'}
-        /> */}
+        />
       </Box>
       {source?.login ? (
         <Box

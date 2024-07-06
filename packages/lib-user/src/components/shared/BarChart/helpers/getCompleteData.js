@@ -11,6 +11,10 @@ export function getCompleteData({ data, dateInterval }) {
       const day = startDate.getUTCDay()
       const diff = startDate.getUTCDate() - day + (day === 0 ? -6 : 1)
       currentDate = new Date(startDate.setUTCDate(diff))
+    } else if (period === 'year') {
+      // set the end date to the last day of the year
+      endDate.setUTCMonth(11)
+      endDate.setUTCDate(31)
     }
     
     while (currentDate <= endDate) {
