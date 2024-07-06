@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import Select from './Select.js'
 
 import { 
-  dateRanges
+  getDateRangeSelectOptions
 } from '@utils'
 
 export default {
@@ -27,14 +27,7 @@ function ComponentDecorator (Story) {
   )
 }
 
-const options = dateRanges.values.map((dateRange) => ({
-  label: dateRange
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/([0-9]+)/g, ' $1')
-    .toUpperCase()
-    .trim(),
-  value: dateRange.value
-}))
+const options = getDateRangeSelectOptions()
 
 export const DateRanges = {
   args: {

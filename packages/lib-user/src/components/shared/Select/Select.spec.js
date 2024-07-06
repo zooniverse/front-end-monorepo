@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { 
-  dateRanges
+  getDateRangeSelectOptions
 } from '@utils'
 
 import Meta, { DateRanges } from './Select.stories'
@@ -11,6 +11,7 @@ import Meta, { DateRanges } from './Select.stories'
 describe('components > shared > Select', function() {
   const user = userEvent.setup()
   const DefaultStory = composeStory(DateRanges, Meta)
+  const selectOptions = getDateRangeSelectOptions()
 
   it('should show the selected option', function() {
     render(<DefaultStory />)
@@ -26,6 +27,6 @@ describe('components > shared > Select', function() {
 
     const options = screen.getAllByRole('option')
 
-    expect(options.length).to.equal(dateRanges.values.length)
+    expect(options.length).to.equal(selectOptions.length)
   })
 })
