@@ -34,11 +34,12 @@ function GroupStats({
   authUser,
   group,
   membership,
+  selectedDateRange,
   selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
   const [groupModalActive, setGroupModalActive] = useState(false)
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
   const size = useContext(ResponsiveContext)
   
@@ -125,14 +126,6 @@ function GroupStats({
     setGroupModalActive(!groupModalActive)
   }
 
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
-
-  function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange.value)
-  }
-
   async function handleGroupMembershipLeave ({
     membershipId
   }) {
@@ -182,11 +175,11 @@ function GroupStats({
         secondaryHeaderItems={secondaryHeaderItems}
       >
         <MainContent
-          handleDateRangeSelect={handleDateRangeSelect}
-          handleProjectSelect={handleProjectSelect}
           projects={projects}
           selectedDateRange={selectedDateRange}
           selectedProject={selectedProject}
+          setSelectedDateRange={setSelectedDateRange}
+          setSelectedProject={setSelectedProject}
           stats={stats}
           source={group}
         />
@@ -248,7 +241,12 @@ GroupStats.propTypes = {
     id: string,
     roles: arrayOf(string)
   }),
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
+  setSelectedDateRange: func,
   setSelectedProject: func
 }
 

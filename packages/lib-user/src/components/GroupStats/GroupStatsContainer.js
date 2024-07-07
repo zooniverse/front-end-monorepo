@@ -11,7 +11,9 @@ function GroupStatsContainer({
   authUser,
   groupId,
   joinToken,
+  selectedDateRange,
   selectedProject,
+  setSelectedDateRange,
   setSelectedProject
 }) {
   return (
@@ -22,7 +24,9 @@ function GroupStatsContainer({
       joinToken={joinToken}
     >
       <GroupStats
+        selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
+        setSelectedDateRange={setSelectedDateRange}
         setSelectedProject={setSelectedProject}
       />
     </GroupContainer>
@@ -36,7 +40,12 @@ GroupStatsContainer.propTypes = {
   }),
   groupId: string,
   joinToken: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
+  setSelectedDateRange: func,
   setSelectedProject: func
 }
 
