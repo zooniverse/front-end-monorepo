@@ -42,6 +42,10 @@ const StyledTab = styled(Button)`
 `
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_DATE_RANGE = {
+  endDate: '',
+  startDate: ''
+}
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -54,7 +58,7 @@ const DEFAULT_SOURCE = {
 
 function MainContent({
   projects = [],
-  selectedDateRange,
+  selectedDateRange = DEFAULT_DATE_RANGE,
   selectedProject = 'AllProjects',
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,

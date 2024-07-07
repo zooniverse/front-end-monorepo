@@ -1,25 +1,16 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
-import sinon from 'sinon'
 
 import { USER } from '../../../../test/mocks/panoptes'
 import { STATS } from '../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default } from './MainContent.stories.js'
 
+const todayUTC = new Date().toISOString().substring(0, 10)
+const sevenDaysAgoUTC = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10)
+
 describe('components > shared > MainContent', function () {
   const DefaultStory = composeStory(Default, Meta)
-
-  let clock
-  
-  beforeEach(function () {
-    // set time to match story
-    clock = sinon.useFakeTimers(new Date(2021, 6, 7))
-  })
-
-  afterEach(function () {
-    clock.restore()
-  })
 
   it('should show the user display name', function () {
     render(<DefaultStory />)
@@ -59,6 +50,6 @@ describe('components > shared > MainContent', function () {
   it('should show a bar chart of classifications stats', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByLabelText('Bar chart of Classifications by Day from 2021-07-01 to 2021-07-07')).to.be.ok()
+    expect(screen.getByLabelText(`Bar chart of Classifications by Day from ${sevenDaysAgoUTC} to ${todayUTC}`)).to.be.ok()
   })
 })
