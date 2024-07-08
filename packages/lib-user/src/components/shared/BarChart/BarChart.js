@@ -35,13 +35,17 @@ function BarChart({
     .trim()
   const typeLabel = type === 'count' ? 'Classifications' : 'Time'
   
-  // set gradient range based on data type (count or session_time) and max value of data type
-  const types = data.map((d) => d[type])
-  const max = Math.max(...types)
-  const gradient = [
-    { value: 0, color: 'neutral-1' },
-    { value: max, color: 'brand' }
-  ]
+  // with no data set gradient as 'brand'
+  let gradient = 'brand'
+  // with data set gradient range based on data type (count or session_time) and max value of data type
+  if (data.length > 0) {
+    const types = data.map((d) => d[type])
+    const max = Math.max(...types)
+    gradient = [
+      { value: 0, color: 'neutral-1' },
+      { value: max, color: 'brand' }
+    ]
+  }
 
   // set chart options based on screen size and data length
   const chartOptions = {
