@@ -11,11 +11,13 @@ export function formatSelectOptionDateLabel({ endDate, startDate }) {
   const endDateMonth = months[endDateLabel.getUTCMonth()]
   const endDateDay = endDateLabel.getUTCDate()
 
-  if (startDateYear === endDateYear) {
+  const currentYear = new Date().getUTCFullYear().toString().substring(2)
+
+  if (startDateYear === endDateYear && endDateYear === currentYear) {
     if (startDateMonth === endDateMonth) {
-      return `${startDateMonth} ${startDateDay}-${endDateDay}`
+      return `${startDateMonth} ${startDateDay} - ${endDateDay}`
     }
-    return `${startDateMonth} ${startDateDay}-${endDateMonth} ${endDateDay}`
+    return `${startDateMonth} ${startDateDay} - ${endDateMonth} ${endDateDay}`
   }
-  return `${startDateMonth} ${startDateDay}, ${startDateYear}-${endDateMonth} ${endDateDay}, ${endDateYear}`
+  return `${startDateMonth} ${startDateDay}, ${startDateYear} - ${endDateMonth} ${endDateDay}, ${endDateYear}`
 }
