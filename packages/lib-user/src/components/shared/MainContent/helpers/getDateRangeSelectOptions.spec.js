@@ -2,7 +2,7 @@ import sinon from 'sinon'
 
 import { getDateRangeSelectOptions } from './getDateRangeSelectOptions'
 
-describe('utils > getDateRangeSelectOptions', function () {
+describe('components > MainContent > getDateRangeSelectOptions', function () {
   let clock
 
   beforeEach(function () {
@@ -14,8 +14,14 @@ describe('utils > getDateRangeSelectOptions', function () {
   })
 
   it('should return the expected date range select options', function () {
-    const dateRangeSelectOptions = getDateRangeSelectOptions('2015-07-01')
-    expect(dateRangeSelectOptions).to.deep.equal([
+    const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+      created_at: '2015-07-01',
+      selectedDateRange: {
+        endDate: '2023-04-15',
+        startDate: '2023-04-09'
+      }
+    })
+    expect(dateRangeOptions).to.deep.equal([
       {
         label: 'LAST 7 DAYS',
         value: '2023-04-09'
@@ -43,7 +49,25 @@ describe('utils > getDateRangeSelectOptions', function () {
       {
         label: 'ALL TIME',
         value: '2015-07-01'
+      },
+      {
+        label: 'CUSTOM',
+        value: 'custom'
       }
     ])
+  })
+
+  it('should return the expected selected date range option', function () {
+    const { dateRangeSelectOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+      created_at: '2015-07-01',
+      selectedDateRange: {
+        endDate: '2023-04-15',
+        startDate: '2023-04-09'
+      }
+    })
+    expect(selectedDateRangeOption).to.deep.equal({
+      label: 'LAST 7 DAYS',
+      value: '2023-04-09'
+    })
   })
 })

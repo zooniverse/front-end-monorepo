@@ -4,8 +4,7 @@ import { useCallback, useContext, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import {
-  convertStatsSecondsToHours,
-  getDateRangeSelectOptions
+  convertStatsSecondsToHours
 } from '@utils'
 
 import {
@@ -16,6 +15,7 @@ import {
 } from '@components/shared'
 
 import { StyledButton, StyledTab } from './components'
+import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_DATE_RANGE = {
@@ -50,23 +50,11 @@ function MainContent({
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
-  // create project options
-  let projectOptions = [
-    { label: 'ALL PROJECTS', value: 'AllProjects' },
-    ...(projects || []).map(project => ({
-      label: project.display_name,
-      value: project.id
-    }))
-  ]
-  const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
-
-  // create date range options
-  const dateRangeOptions = getDateRangeSelectOptions(source?.created_at?.substring(0, 10))
+  const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({ created_at: source?.created_at?.substring(0, 10), selectedDateRange })
+  
+  const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
+  
   const todayUTC = new Date().toISOString().substring(0, 10)
-  let selectedDateRangeOption = dateRangeOptions.find(option =>
-    (selectedDateRange.endDate === todayUTC) &&
-    (option.value === selectedDateRange.startDate)
-  )
 
   function handleDateRangeSelect(option) {
     setSelectedDateRange({
