@@ -15,31 +15,7 @@ import {
   Select
 } from '@components/shared'
 
-const StyledButton = styled(Button)`
-  background-color: ${props => props.theme.global.colors['neutral-1']};
-  border-radius: 4px;
-  color: ${props => props.theme.global.colors['neutral-6']};
-`
-
-const StyledTab = styled(Button)`
-  background-color: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
-  border-bottom: 4px solid transparent;
-  color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
-  font-size: 1em;
-  text-align: center;
-  
-  ${props => props.active && css`
-    border-bottom: 4px solid ${props.theme.global.colors.brand};
-    font-weight: 700;
-  `}
-
-  ${props => !props.active && css`
-    &:focus, &:hover {
-      border-bottom: 4px solid ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
-      color: ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
-    }
-  `}
-`
+import { StyledButton, StyledTab } from './components'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_DATE_RANGE = {
