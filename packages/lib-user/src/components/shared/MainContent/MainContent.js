@@ -15,6 +15,8 @@ import {
   Select
 } from '@components/shared'
 
+import { getDateRangeSelectOptions } from './helpers/getDateRangeSelectOptions'
+
 const StyledButton = styled(Button)`
   background-color: ${props => props.theme.global.colors['neutral-1']};
   border-radius: 4px;
