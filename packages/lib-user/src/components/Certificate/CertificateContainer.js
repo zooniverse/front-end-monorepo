@@ -15,8 +15,8 @@ import {
 import Certificate from './Certificate'
 
 const DEFAULT_DATE_RANGE = {
-  endDate: '',
-  startDate: ''
+  endDate: null,
+  startDate: null
 }
 const STATS_ENDPOINT = '/classifications/users'
 

@@ -4,8 +4,7 @@ import { useCallback, useContext, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import {
-  convertStatsSecondsToHours,
-  getDateRangeSelectOptions
+  convertStatsSecondsToHours
 } from '@utils'
 
 import {
@@ -45,8 +44,8 @@ const StyledTab = styled(Button)`
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_DATE_RANGE = {
-  endDate: '',
-  startDate: ''
+  endDate: null,
+  startDate: null
 }
 const DEFAULT_STATS = {
   data: [],
