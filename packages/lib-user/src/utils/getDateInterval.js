@@ -2,7 +2,7 @@ export function getDateInterval({ endDate, startDate }) {
   const today = new Date()
   const todayUTC = today.toISOString().substring(0, 10)
   const end_date = endDate ? endDate : todayUTC
-  const start_date = startDate ? startDate : new Date().setUTCDate(today.getUTCDate() - 6).toISOString().substring(0, 10)
+  const start_date = startDate ? startDate : new Date(new Date().setUTCDate(today.getUTCDate() - 6)).toISOString().substring(0, 10)
 
   const differenceInDays = (new Date(end_date) - new Date(start_date)) / (1000 * 60 * 60 * 24)
 
