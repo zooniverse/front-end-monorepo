@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 import { 
   getDateRangeSelectOptions
-} from '@utils'
+} from '../MainContent/helpers/getDateRangeSelectOptions'
 
 import Meta, { DateRanges } from './Select.stories'
 

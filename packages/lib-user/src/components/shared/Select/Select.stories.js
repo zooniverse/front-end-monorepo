@@ -4,7 +4,7 @@ import Select from './Select.js'
 
 import { 
   getDateRangeSelectOptions
-} from '@utils'
+} from '../MainContent/helpers/getDateRangeSelectOptions'
 
 export default {
   title: 'Components/shared/Select',
