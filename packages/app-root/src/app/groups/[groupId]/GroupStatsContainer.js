@@ -25,7 +25,9 @@ function GroupStatsContainer({
   // set start date per query params or default to 7 days ago
   let selectedStartDate = startDate
   if (!selectedStartDate) {
-    selectedStartDate = new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
+    const startDate = new Date()
+    startDate.setUTCDate(startDate.getUTCDate() - 6)
+    selectedStartDate = startDate.toISOString().substring(0, 10)
   }
   
   // set selected project per query params or default to 'AllProjects'
