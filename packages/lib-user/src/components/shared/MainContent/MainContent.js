@@ -19,8 +19,8 @@ import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_DATE_RANGE = {
-  endDate: '',
-  startDate: ''
+  endDate: null,
+  startDate: null
 }
 const DEFAULT_STATS = {
   data: [],

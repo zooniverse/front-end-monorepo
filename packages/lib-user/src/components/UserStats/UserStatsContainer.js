@@ -15,8 +15,8 @@ import {
 import UserStats from './UserStats'
 
 const DEFAULT_DATE_RANGE = {
-  endDate: '',
-  startDate: ''
+  endDate: null,
+  startDate: null
 }
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'

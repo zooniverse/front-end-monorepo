@@ -26,6 +26,7 @@ export const ProjectSpecific = {
     displayName: 'Example User',
     hours: 45,
     login: 'testUser',
+    projectDisplayName: 'Test Project',
     selectedDateRange: {
       endDate: '2023-12-31',
       startDate: '2015-07-01'

@@ -2,7 +2,7 @@
 
 import { UserStats } from '@zooniverse/user'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import AuthenticatedUsersPageContainer from '../../../../components/AuthenticatedUsersPageContainer'
 import { PanoptesAuthContext } from '../../../../contexts'
@@ -25,8 +25,16 @@ function UserStatsContainer({
   // set start date per query params or default to 7 days ago
   let selectedStartDate = startDate
   if (!selectedStartDate) {
-    selectedStartDate = new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
+    const startDate = new Date()
+    startDate.setUTCDate(startDate.getUTCDate() - 6)
+    selectedStartDate = startDate.toISOString().substring(0, 10)
   }
+
+  useEffect(function updateStartDateParam() {
+    if (selectedEndDate && !startDate) {
+      updateQueryParams([['start_date', selectedStartDate]])
+    }
+  }, [selectedStartDate, startDate])
   
   // set selected project per query params or default to 'AllProjects'
   const selectedProject = projectId || 'AllProjects'
