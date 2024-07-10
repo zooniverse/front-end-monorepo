@@ -25,13 +25,13 @@ function GroupStatsContainer({
   // set start date per query params or default to 7 days ago
   let selectedStartDate = startDate
   if (!selectedStartDate) {
-    const startDate = new Date()
-    startDate.setUTCDate(startDate.getUTCDate() - 6)
-    selectedStartDate = startDate.toISOString().substring(0, 10)
+    const defaultStartDate = new Date()
+    defaultStartDate.setUTCDate(defaultStartDate.getUTCDate() - 6)
+    selectedStartDate = defaultStartDate.toISOString().substring(0, 10)
   }
 
   useEffect(function updateStartDateParam() {
-    if (selectedEndDate && !startDate) {
+    if (selectedStartDate && !startDate) {
       updateQueryParams([['start_date', selectedStartDate]])
     }
   }, [selectedStartDate, startDate])
