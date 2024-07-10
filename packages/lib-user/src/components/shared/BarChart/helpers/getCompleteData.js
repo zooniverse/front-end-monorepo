@@ -10,7 +10,7 @@ export function getCompleteData({ data, dateInterval }) {
       // determine the Monday on or before the start date
       const day = startDate.getUTCDay()
       const diff = startDate.getUTCDate() - day + (day === 0 ? -6 : 1)
-      currentDate = new Date(startDate.setUTCDate(diff))
+      currentDate.setUTCDate(diff)
     } else if (period === 'year') {
       // set the end date to the last day of the year
       endDate.setUTCMonth(11)
