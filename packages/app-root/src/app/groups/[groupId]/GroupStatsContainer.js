@@ -2,7 +2,7 @@
 
 import { GroupStats } from '@zooniverse/user'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { PanoptesAuthContext } from '../../../contexts'
 
@@ -29,6 +29,12 @@ function GroupStatsContainer({
     startDate.setUTCDate(startDate.getUTCDate() - 6)
     selectedStartDate = startDate.toISOString().substring(0, 10)
   }
+
+  useEffect(function updateStartDateParam() {
+    if (selectedEndDate && !startDate) {
+      updateQueryParams([['start_date', selectedStartDate]])
+    }
+  }, [selectedStartDate, startDate])
   
   // set selected project per query params or default to 'AllProjects'
   const selectedProject = projectId || 'AllProjects'
