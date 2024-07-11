@@ -11,6 +11,9 @@ export default {
   decorators: [ComponentDecorator]
 }
 
+const todayUTC = new Date().toISOString().substring(0, 10)
+const sevenDaysAgoUTC = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10)
+
 function ComponentDecorator (Story) {
   return (
     <Box
@@ -28,11 +31,12 @@ function ComponentDecorator (Story) {
 export const Default = {
   args: {
     activeTab: 0,
-    handleDateRangeSelect: () => {},
-    handleProjectSelect: () => {},
     onActive: () => {},
     projects: PROJECTS,
-    selectedDateRange: 'Last7Days',
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
     selectedProject: 'AllProjects',
     stats: STATS,
     source: USER

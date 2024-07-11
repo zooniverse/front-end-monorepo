@@ -1,5 +1,5 @@
 import { Grid, ResponsiveContext } from 'grommet'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useContext, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
@@ -27,16 +27,19 @@ import TopContributors from './components/TopContributors'
 import getHeaderItems from './helpers/getHeaderItems'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
+const DEFAULT_HANDLER = () => true
 
 function GroupStats({
   adminMode,
   authUser,
   group,
-  membership
+  membership,
+  selectedDateRange,
+  selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER
 }) {
   const [groupModalActive, setGroupModalActive] = useState(false)
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
 
   const size = useContext(ResponsiveContext)
   
@@ -123,14 +126,6 @@ function GroupStats({
     setGroupModalActive(!groupModalActive)
   }
 
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
-
-  function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange.value)
-  }
-
   async function handleGroupMembershipLeave ({
     membershipId
   }) {
@@ -180,11 +175,11 @@ function GroupStats({
         secondaryHeaderItems={secondaryHeaderItems}
       >
         <MainContent
-          handleDateRangeSelect={handleDateRangeSelect}
-          handleProjectSelect={handleProjectSelect}
           projects={projects}
           selectedDateRange={selectedDateRange}
           selectedProject={selectedProject}
+          setSelectedDateRange={setSelectedDateRange}
+          setSelectedProject={setSelectedProject}
           stats={stats}
           source={group}
         />
@@ -245,7 +240,14 @@ GroupStats.propTypes = {
   membership: shape({
     id: string,
     roles: arrayOf(string)
-  })
+  }),
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
+  selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func
 }
 
 export default GroupStats

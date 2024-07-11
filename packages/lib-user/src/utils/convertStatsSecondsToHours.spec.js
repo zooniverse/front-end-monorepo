@@ -1,6 +1,6 @@
 import { convertStatsSecondsToHours } from './convertStatsSecondsToHours'
 
-describe('convertStatsSecondsToHours', function() {
+describe('utils > convertStatsSecondsToHours', function() {
   it('should return 0 for 0 seconds', function() {
     expect(convertStatsSecondsToHours(0)).to.equal(0)
   })
