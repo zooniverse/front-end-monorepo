@@ -33,7 +33,6 @@ const StyledDismiss = styled(Button)`
   font-size: 1rem;
   padding: 8px;
   text-align: center;
-  color: black;
 
   &:hover {
     text-decoration: none;
@@ -118,60 +117,38 @@ function WelcomeModal() {
               style={{ listStyle: 'none' }}
             >
               <Paragraph as='li' color={textColor} margin={{ bottom: '0' }}>
-                <strong>Fresh look and feel</strong> - Your homepage has been
-                curated to you, with a more modern and user-friendly interface!
+                <strong>Statistics</strong> - More accurate and detailed
+                personal stats. Check them out to get a feel for your
+                participation across Zooniverse.
               </Paragraph>
               <Paragraph as='li' color={textColor}>
-                <strong>Statistics</strong> - More accurate and detailed than
-                ever. Jump into your personal stats to get an overview of your
-                progress on the site. Then, download the data to explore
-                further.
+                <strong>Volunteer Certificates</strong> - We’ve had many
+                requests for certificates over the years. If you want, now you
+                can show off what you’ve done, use the certificates to fulfill
+                service hour requirements, and more.
               </Paragraph>
               <Paragraph
                 as='li'
                 color={textColor}
                 margin={{ top: '0', bottom: '15px' }}
               >
-                <strong>Volunteer certificate</strong> - That’s right, now you
-                can generate a certificate for your contributions to real
-                science! The timeframe and projects represented can be as
-                specific or general as you’d like.
-              </Paragraph>
-              <Paragraph
-                as='li'
-                color={textColor}
-                margin={{ top: '0', bottom: '30px' }}
-              >
-                <strong>Streamlined navigation</strong> - You may notice some
-                redundancies have been eliminated. Click on the Zooniverse logo
-                on any page to be directed to your homepage.
-              </Paragraph>
-              <SpacedText
-                size='1rem'
-                color={{ light: 'neutral-1' }}
-                weight='bold'
-              >
-                COMING SOON
-              </SpacedText>
-              <Paragraph as='li' color={textColor}>
-                <strong>Favorite projects</strong> - Add projects which you
-                return to frequently; all grouped on your homepage!
+                <strong>Group Engagement</strong> - A new way to create and
+                share group goals and tell the story of your collective impact.
               </Paragraph>
               <Paragraph as='li' color={textColor} margin='0'>
-                <strong>Group stats</strong> - A place to organize your friends
-                or fellow participants’ statistics. Work towards shared goals
-                and see each others’ progress.
-              </Paragraph>
-              <Paragraph as='li' color={textColor}>
-                <strong>A redesigned public profile</strong> - A place to
-                explore and interact with fellow participants.
+                <strong>Navigation</strong> - Enjoy an easier flow, including
+                simply clicking the Zooniverse logo on any page to return here
+                to your homepage.
               </Paragraph>
             </Box>
             <Box direction='row' pad={{ top: 'large' }} gap='small'>
               <StyledAnchor href='https://www.zooniverse.org'>
                 Read about the changes
               </StyledAnchor>
-              <StyledDismiss onClick={handleClose}>
+              <StyledDismiss
+                onClick={handleClose}
+                color={{ light: 'black', dark: 'white' }}
+              >
                 Great, take me there!
               </StyledDismiss>
             </Box>
