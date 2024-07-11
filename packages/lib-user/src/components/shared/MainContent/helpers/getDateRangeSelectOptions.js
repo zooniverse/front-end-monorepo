@@ -55,7 +55,7 @@ export function getDateRangeSelectOptions({ created_at = '2015-07-01', selectedD
   
   if (!selectedDateRangeOption) {
     const customDateRangeOption = {
-      label: `CUSTOM: ${formatSelectOptionDateLabel(selectedDateRange)}`,
+      label: `${formatSelectOptionDateLabel(selectedDateRange)}`,
       value: 'custom'
     }
     dateRangeOptions.push(customDateRangeOption)
