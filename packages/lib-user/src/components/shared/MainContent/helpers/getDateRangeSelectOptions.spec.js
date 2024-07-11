@@ -110,7 +110,7 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
           value: '2015-11-01'
         },
         {
-          label: 'CUSTOM: FEB 1 - MAR 31',
+          label: 'FEB 1 - MAR 31',
           value: 'custom'
         }
       ])
@@ -125,7 +125,7 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
         }
       })
       expect(selectedDateRangeOption).to.deep.equal({
-        label: 'CUSTOM: FEB 1 - MAR 31',
+        label: 'FEB 1 - MAR 31',
         value: 'custom'
       })
     })
