@@ -14,7 +14,11 @@ import {
   Select
 } from '@components/shared'
 
-import { StyledButton, StyledTab } from './components'
+import {
+  StyledCalendarButton,
+  StyledCertificateButton,
+  StyledTab
+} from './components'
 import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
 
 const DEFAULT_HANDLER = () => true
@@ -62,6 +66,7 @@ function MainContent({
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
   
   const todayUTC = new Date().toISOString().substring(0, 10)
+  const leastRecentDate = selectedDateRange.startDate < source?.created_at?.substring(0, 10) ? selectedDateRange.startDate : source?.created_at?.substring(0, 10)
 
   function handleDateRangeSelect(option) {
     if (option.value === 'custom') {
@@ -76,6 +81,11 @@ function MainContent({
   }
 
   function handleCalendarClose() {
+    setCustomDateRange([selectedDateRange.startDate, selectedDateRange.endDate])
+    setShowCalendar(false)
+  }
+
+  function handleCalendarSave() {
     setSelectedDateRange({
       endDate: customDateRange[1]?.substring(0, 10),
       startDate: customDateRange[0]?.substring(0, 10)
@@ -83,7 +93,7 @@ function MainContent({
     setShowCalendar(false)
   }
 
-  function handleCalendarSelect(date) {
+  function handleCalendarChange(date) {
     if (!date || date?.length === 0) {
       return
     }
@@ -104,13 +114,23 @@ function MainContent({
       >
         <Calendar
           bounds={[
-            (source?.created_at?.substring(0, 10) || '2015-07-01'),
+            leastRecentDate,
             todayUTC
           ]}
           date={[customDateRange]}
-          onSelect={handleCalendarSelect}
+          onSelect={handleCalendarChange}
           range='array'
         />
+        <Box
+          direction='row'
+          justify='end'
+          margin={{ top: 'small' }}
+        >
+          <StyledCalendarButton
+            label='DONE'
+            onClick={handleCalendarSave}
+          />
+        </Box>
       </MovableModal>
       <ContentBox
         direction='column'
@@ -198,7 +218,7 @@ function MainContent({
             justify='end'
             margin={{ top: 'small' }}
           >
-            <StyledButton
+            <StyledCertificateButton
               forwardedAs='a'
               color='neutral-1'
               href={`/users/${source.login}/stats/certificate${window.location.search}`}
