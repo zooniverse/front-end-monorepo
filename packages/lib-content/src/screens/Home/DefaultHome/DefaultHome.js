@@ -5,6 +5,7 @@ import { SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from '../../../translations/i18n.js'
 import styled from 'styled-components'
 
+import CommunityContainer from '../Community/CommunityContainer.js'
 import ContainerBox from '../../../components/PageLayout/ContainerBox.js'
 import MaxWidthContent from '../../../components/MaxWidthContent/MaxWidthContent.js'
 import Introduction from './components/Introduction.js'
@@ -22,11 +23,12 @@ const StyledContainerBox = styled(ContainerBox)`
   }
 `
 
-export default function DefaultHome() {
+export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
   const { t } = useTranslation()
 
   return (
     <Box
+      as='main'
       background={{
         dark: 'dark-1',
         light: 'light-1'
@@ -42,6 +44,7 @@ export default function DefaultHome() {
         <Box
           align='center'
           width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
+          pad={{ bottom: '50px' }}
         >
           <MaxWidthContent>
             <Introduction />
@@ -59,6 +62,10 @@ export default function DefaultHome() {
           </SpacedHeading>
           <SubHeading>{t('Home.DefaultHome.subheadings.four')}</SubHeading>
           <Mobile />
+          <CommunityContainer
+            dailyZooPosts={dailyZooPosts}
+            zooBlogPosts={zooBlogPosts}
+          />
         </Box>
       </StyledContainerBox>
     </Box>

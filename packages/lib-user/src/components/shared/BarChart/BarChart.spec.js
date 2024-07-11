@@ -10,7 +10,7 @@ describe('components > shared > BarChart', function () {
     it('should have the expected aria-label', function () {
       render(<Last7DaysStory />)
       
-      expect(screen.getByLabelText('Bar chart of Classifications by Day for Last 7 Days')).to.be.ok()
+      expect(screen.getByLabelText('Bar chart of Classifications by Day from 2023-05-27 to 2023-06-02')).to.be.ok()
     })
     
     it('should show the expected number of count labels', function () {

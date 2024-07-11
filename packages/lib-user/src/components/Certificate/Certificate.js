@@ -1,9 +1,7 @@
 import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { number, string } from 'prop-types'
+import { number, shape, string } from 'prop-types'
 import styled from 'styled-components'
-
-import { getDateInterval } from '@utils'
 
 import {
   ContentBox,
@@ -64,18 +62,17 @@ function Certificate({
   login = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange = 'AllTime'
+  selectedDateRange
 }) {
-  const { start_date, end_date } = getDateInterval(selectedDateRange)
-
-  const formattedDateRange = formatDateRange(start_date, end_date)
+  const { endDate, startDate } = selectedDateRange
+  const formattedDateRange = formatDateRange({ startDate, endDate })
 
   return (
     <PrintableBox>
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`/users/${login}/stats`}
+            href={`/users/${login}/stats${window.location.search}`}
             label='back'
             primaryItem={true}
           />
@@ -271,7 +268,10 @@ Certificate.propTypes = {
   login: string,
   projectDisplayName: string,
   projectsCount: number,
-  selectedDateRange: string
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  })
 }
 
 export default Certificate

@@ -3,7 +3,6 @@ import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 
 import {
-  dateRanges,
   getDateInterval as defaultGetDateInterval
 } from '@utils'
 
@@ -12,36 +11,34 @@ import getDateRangeLabel from './helpers/getDateRangeLabel'
 
 function BarChart({
   data = [],
-  dateRange = dateRanges.Last7Days,
+  dateRange,
   getCompleteData = defaultGetCompleteData,
   getDateInterval = defaultGetDateInterval,
   type = 'count'
 }) {
   const size = useContext(ResponsiveContext)
   
-  // getDateInterval returns an object with a period and time property,
-  // i.e. 'Last7Days' returns { end_date: '2021-09-30', period: 'day', start_date: '2021-09-24' }
+  // getDateInterval returns an object with a period property based on the date range, start_date, and end_date
   const dateInterval = getDateInterval(dateRange)
 
   // getCompleteData returns an array of objects with a period, count, and session_time property,
   // including any periods without stats with a count and session_time of 0
   const completeData = getCompleteData({ data, dateInterval })
   
-  const period = dateInterval?.period
-  const dateRangeLabel = getDateRangeLabel({ dateRange, period })
-  const readableDateRange = dateRange
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/([0-9]+)/g, ' $1')
-    .trim()
+  const dateRangeLabel = getDateRangeLabel(dateInterval)
   const typeLabel = type === 'count' ? 'Classifications' : 'Time'
   
-  // set gradient range based on data type (count or session_time) and max value of data type
-  const types = data.map((d) => d[type])
-  const max = Math.max(...types)
-  const gradient = [
-    { value: 0, color: 'neutral-1' },
-    { value: max, color: 'brand' }
-  ]
+  // with no data set gradient as 'brand'
+  let gradient = 'brand'
+  // with data set gradient range based on data type (count or session_time) and max value of data type
+  if (data.length > 0) {
+    const types = data.map((d) => d[type])
+    const max = Math.max(...types)
+    gradient = [
+      { value: 0, color: 'neutral-1' },
+      { value: max, color: 'brand' }
+    ]
+  }
 
   // set chart options based on screen size and data length
   const chartOptions = {
@@ -71,7 +68,7 @@ function BarChart({
 
   return (
     <DataChart
-      a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} for ${readableDateRange}`}
+      a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} from ${dateRange.startDate} to ${dateRange.endDate}`}
       axis={{
         x: { granularity: xAxisGranularity, property: 'period' },
         y: { granularity: 'fine', property: type },
@@ -129,7 +126,10 @@ BarChart.propTypes = {
     count: number,
     session_time: number
   })),
-  dateRange: string,
+  dateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   getCompleteData: func,
   getDateInterval: func,
   type: string
