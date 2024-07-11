@@ -1,6 +1,7 @@
-import { Anchor, Box, Heading } from 'grommet'
+import { Anchor, Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { SpacedText, ZooniverseLogotype } from '@zooniverse/react-components'
+import { useContext } from 'react'
 
 import { useTranslation } from '../../../../translations/i18n.js'
 import { mobileBreakpoint } from '../../../../components/SharedStyledComponents/SharedStyledComponents.js'
@@ -9,12 +10,12 @@ const Relative = styled(Box)`
   position: relative;
   overflow: hidden;
   background: ${props => props.theme.global.colors['neutral-1']};
-  height: 60vh;
+  height: 70vh;
 `
 
 const VideoContainer = styled(Box)`
   width: 100%;
-  height: 60vh;
+  height: 70vh;
 
   @media (width <= ${mobileBreakpoint}) {
     display: none;
@@ -27,7 +28,7 @@ const VideoContainer = styled(Box)`
 
 const MobileHeroImage = styled(Box)`
   width: 100%;
-  height: 60vh;
+  height: 70vh;
 
   @media (width > ${mobileBreakpoint}) {
     display: none;
@@ -49,6 +50,11 @@ const StyledHeading = styled(Heading)`
   align-items: center;
   text-align: center;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  width: min(100%, 45rem); // Same as MaxWidthContent
+`
+
+const StyledParagraph = styled(Paragraph)`
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   width: min(100%, 45rem); // Same as MaxWidthContent
 `
 
@@ -75,17 +81,12 @@ const StyledLink = styled(Anchor)`
 
 export default function Hero() {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
 
   return (
     <Relative width='100%'>
       <VideoContainer>
-        <video
-          autoPlay
-          loop
-          disablePictureInPicture
-          muted
-          preload='metadata'
-        >
+        <video autoPlay loop disablePictureInPicture muted preload='metadata'>
           <source type='video/webm' src='/assets/home-video.webm' />
           <source type='video/mp4' src='/assets/home-video.mp4' />
         </video>
@@ -94,20 +95,24 @@ export default function Hero() {
         background={`url(${'/assets/home-video-placeholder.jpg'})`}
       />
       <HeroCopy justify='center' align='center' pad='medium'>
-        <StyledHeading level={1} margin={{ bottom: '30px', top: '0' }}>
+        <StyledHeading level={1} margin='0'>
           <SpacedText
-            color='neutral-2'
-            size='2.4rem'
+            color='accent-2'
+            weight='bold'
+            size={size === 'small' ? '1.125rem' : '2.4rem'}
             margin={{ bottom: 'small' }}
           >
             {t('Home.DefaultHome.mainHeading')}
           </SpacedText>
-          <StyledLogo
-            color='white'
-            id='home-hero-heading-logo'
-            width='100%' // same as MaxWidthContent
-          />
+          <StyledLogo color='white' id='home-hero-heading-logo' width='100%' />
         </StyledHeading>
+        <StyledParagraph
+          color='accent-2'
+          size={size === 'small' ? '1rem' : '1.5rem'}
+          textAlign='center'
+        >
+          {t('Home.DefaultHome.heroText')}
+        </StyledParagraph>
         <StyledLink
           href='https://www.zooniverse.org/projects'
           label={t('Home.DefaultHome.projects')}
