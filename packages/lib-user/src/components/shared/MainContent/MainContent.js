@@ -4,18 +4,17 @@ import { useCallback, useContext, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import {
-  convertStatsSecondsToHours,
-  dateRanges
+  convertStatsSecondsToHours
 } from '@utils'
 
 import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select,
-  Tabs,
-  Tip
+  Select
 } from '@components/shared'
+
+import { getDateRangeSelectOptions } from './helpers/getDateRangeSelectOptions'
 
 const StyledButton = styled(Button)`
   background-color: ${props => props.theme.global.colors['neutral-1']};
@@ -44,6 +43,10 @@ const StyledTab = styled(Button)`
 `
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_DATE_RANGE = {
+  endDate: null,
+  startDate: null
+}
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -55,11 +58,11 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
-  handleDateRangeSelect = DEFAULT_HANDLER,
-  handleProjectSelect = DEFAULT_HANDLER,
   projects = [],
-  selectedDateRange = dateRanges.last7Days,
+  selectedDateRange = DEFAULT_DATE_RANGE,
   selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
   source = DEFAULT_SOURCE
 }) {
@@ -83,16 +86,24 @@ function MainContent({
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
 
   // create date range options
-  const dateRangeOptions = dateRanges.values.map((dateRange) => ({
-    label: dateRange
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/([0-9]+)/g, ' $1')
-      .toUpperCase()
-      .trim(),
-    value: dateRange
-  }))
-  const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
+  const dateRangeOptions = getDateRangeSelectOptions(source?.created_at?.substring(0, 10))
+  const todayUTC = new Date().toISOString().substring(0, 10)
+  let selectedDateRangeOption = dateRangeOptions.find(option =>
+    (selectedDateRange.endDate === todayUTC) &&
+    (option.value === selectedDateRange.startDate)
+  )
 
+  function handleDateRangeSelect(option) {
+    setSelectedDateRange({
+      endDate: todayUTC,
+      startDate: option.value
+    })
+  }
+
+  function handleProjectSelect(option) {
+    setSelectedProject(option.value)
+  }
+  
   return (
     <ContentBox
       direction='column'
@@ -183,7 +194,7 @@ function MainContent({
           <StyledButton
             forwardedAs='a'
             color='neutral-1'
-            href={`/users/${source.login}/stats/certificate`}
+            href={`/users/${source.login}/stats/certificate${window.location.search}`}
             label='Generate Volunteer Certificate'
           />
         </Box>
@@ -194,15 +205,18 @@ function MainContent({
 
 MainContent.propTypes = {
   activeTab: number,
-  handleDateRangeSelect: func,
-  handleProjectSelect: func,
   onActive: func,
   projects: arrayOf(shape({
     display_name: string,
     id: string
   })),
-  selectedDateRange: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func,
   stats: shape({
     data: arrayOf(shape({
       count: number,
@@ -213,6 +227,7 @@ MainContent.propTypes = {
     total_count: number
   }),
   source: shape({
+    created_at: string,
     display_name: string
   })
 }

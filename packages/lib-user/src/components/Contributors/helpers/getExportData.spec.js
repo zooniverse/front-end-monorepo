@@ -3,7 +3,7 @@ import { group_member_stats_breakdown } from '../../../../test/mocks/stats.mock'
 
 import { getExportData } from './getExportData'
 
-describe('Contributors > getExportData', function () {
+describe('components > Contributors > getExportData', function () {
   let projects
   let stats
   let users
