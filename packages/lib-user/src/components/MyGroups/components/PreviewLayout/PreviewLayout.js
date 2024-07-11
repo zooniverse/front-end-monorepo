@@ -38,7 +38,7 @@ export default function PreviewLayout({
               key={group.id}
               id={group.id}
               displayName={group.display_name}
-              role={group.role}
+              role={group.roles[0]}
             />
           ))}
         </Box>
