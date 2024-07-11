@@ -5,10 +5,13 @@ export const metadata = {
   description: 'My Zooniverse user stats page'
 }
 
-export default function UserStatsPage({ params }) {
+export default function UserStatsPage({ params, searchParams }) {
   return (
     <UserStatsContainer
+      endDate={searchParams.end_date}
       login={params.login}
+      projectId={searchParams.project_id}
+      startDate={searchParams.start_date}
     />
   )
 }
