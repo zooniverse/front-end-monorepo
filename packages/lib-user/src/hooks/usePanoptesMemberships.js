@@ -19,15 +19,39 @@ if (isBrowser) {
 async function fetchMemberships({ query }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
-  if (!token) return null 
+  if (!token) return null
 
-  try {
-    const { body } = await panoptes.get('/memberships', query, { authorization })
-    return body
-  } catch (error) {
-    console.log(error)
-    return null
+  async function getMemberships(
+    page = 1, 
+    accumulatedData = {
+      memberships: [],
+      linked: { user_groups: [], users: [] }
+    }
+  ) {
+    try {
+      const response = await panoptes.get('/memberships', { page, ...query }, { authorization })
+      const { body } = response
+
+      const newData = {
+        memberships: [...accumulatedData.memberships, ...body.memberships],
+        linked: {
+          user_groups: [...accumulatedData.linked.user_groups, ...(body.linked?.user_groups || [])],
+          users: [...accumulatedData.linked.users, ...(body.linked?.users || [])],
+        },
+      }
+
+      if (body.meta?.memberships?.next_page) {
+        return getMemberships(page + 1, newData)
+      }
+
+      return newData
+    } catch (error) {
+      console.error(error)
+      return null
+    }
   }
+
+  return getMemberships()
 }
 
 export function usePanoptesMemberships({ authUserId, query }) {
