@@ -15,11 +15,11 @@ import Mobile from '../../../components/Mobile/Mobile.js'
 import Researchers from './components/Researchers.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
 
-const StyledContainerBox = styled(ContainerBox)`
-  padding: 0;
+const StyledBox = styled(Box)`
+  padding: 0 0 0 50px;
 
   @media (width <= 90rem) {
-    padding: 0 30px;
+    padding: 0 30px 50px;
   }
 `
 
@@ -35,13 +35,13 @@ export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
       }}
       align='center'
     >
-      <Hero />
-      <StyledContainerBox
+      <ContainerBox
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
       >
-        <Box
+        <Hero />
+        <StyledBox
           align='center'
           width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
           pad={{ bottom: '50px' }}
@@ -66,8 +66,8 @@ export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
             dailyZooPosts={dailyZooPosts}
             zooBlogPosts={zooBlogPosts}
           />
-        </Box>
-      </StyledContainerBox>
+        </StyledBox>
+      </ContainerBox>
     </Box>
   )
 }

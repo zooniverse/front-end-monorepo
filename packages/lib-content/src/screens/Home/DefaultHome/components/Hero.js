@@ -10,12 +10,10 @@ const Relative = styled(Box)`
   position: relative;
   overflow: hidden;
   background: ${props => props.theme.global.colors['neutral-1']};
-  height: 70vh;
 `
 
 const VideoContainer = styled(Box)`
   width: 100%;
-  height: 70vh;
 
   @media (width <= ${mobileBreakpoint}) {
     display: none;
@@ -28,7 +26,7 @@ const VideoContainer = styled(Box)`
 
 const MobileHeroImage = styled(Box)`
   width: 100%;
-  height: 70vh;
+  height: 60vh;
 
   @media (width > ${mobileBreakpoint}) {
     display: none;
