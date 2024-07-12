@@ -29,6 +29,7 @@ export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'
 export { usePanoptesProjects } from './hooks/usePanoptesProjects.js'
 export { usePanoptesUser } from './hooks/usePanoptesUser.js'
 export { usePanoptesUserGroup } from './hooks/usePanoptesUserGroup.js'
+export { usePanoptesUsers } from './hooks/usePanoptesUsers.js'
 export { useStats } from './hooks/useStats.js'
 
 // utils
