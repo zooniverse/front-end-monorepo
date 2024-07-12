@@ -15,7 +15,7 @@ const StyledGroup = styled.g`
   &:focus-visible {
     ${(props) =>
     css`
-        outline: solid 4px ${props.focusColor};
+        outline: solid medium ${props.focusColor};
       `}
   }
 

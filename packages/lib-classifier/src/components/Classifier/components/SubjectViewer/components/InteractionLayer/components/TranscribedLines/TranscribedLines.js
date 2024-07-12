@@ -20,7 +20,7 @@ export const ConsensusLine = styled.g`
   }
 
   &:focus-visible {
-    ${props => css`outline: solid 4px ${props.focusColor};`}
+    ${props => css`outline: solid medium ${props.focusColor};`}
   }
 
   &[aria-disabled="true"] {
