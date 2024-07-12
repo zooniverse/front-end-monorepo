@@ -1,9 +1,10 @@
+import { Pagination } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
   usePanoptesProjects,
-  usePanoptesUser,
+  usePanoptesUsers,
   useStats
 } from '@hooks'
 
@@ -17,6 +18,7 @@ import ContributorsList from './components/ContributorsList'
 import { generateExport } from './helpers/generateExport'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
+const CONTRIBUTORS_PER_PAGE = 40
 
 function Contributors({
   adminMode,
@@ -26,6 +28,7 @@ function Contributors({
 }) {
   const [dataExportUrl, setDataExportUrl] = useState('')
   const [filename, setFilename] = useState('')
+  const [page, setPage] = useState(1)
 
   const showContributors = adminMode 
     || membership?.roles.includes('group_admin')
@@ -50,16 +53,18 @@ function Contributors({
   })
 
   // fetch users
-  const userIds = stats?.group_member_stats_breakdown?.map(member => member.user_id)
-  
+  const memberIdsPerStats = stats?.group_member_stats_breakdown?.map(member => member.user_id.toString())
+  const currentPageUserIds = memberIdsPerStats?.slice(((page - 1) * CONTRIBUTORS_PER_PAGE), (page * CONTRIBUTORS_PER_PAGE))
+  const usersQuery = {
+    id: currentPageUserIds?.join(','),
+    page_size: CONTRIBUTORS_PER_PAGE
+  }
+
   const {
     data: users,
     error: usersError,
     isLoading: usersLoading
-  } = usePanoptesUser({
-    authUser,
-    userIds
-  })
+  } = usePanoptesUsers(usersQuery)
   
   // fetch projects
   const arrayOfProjectContributionArrays = stats?.group_member_stats_breakdown?.map(member => member.project_contributions)
@@ -79,13 +84,17 @@ function Contributors({
   // combine member stats with user data
   let contributors = []
   if (stats && users && projects) {
-    contributors = stats?.group_member_stats_breakdown?.map(member => {
-      const user = users?.find(user => user.id === member.user_id.toString())
+    contributors = users?.map(user => {
+      const member = stats?.group_member_stats_breakdown?.find(member => member.user_id.toString() === user.id)
       return {
         ...member,
         ...user
       }
     })
+  }
+
+  function handlePageChange({ page }) {
+    setPage(page)
   }
 
   if (!showContributors) return (<div>Not authorized</div>)
@@ -125,6 +134,15 @@ function Contributors({
             />
           ) : <div>Loading...</div>
         }
+        {memberIdsPerStats?.length > CONTRIBUTORS_PER_PAGE ? (
+          <Pagination
+            alignSelf='center'
+            numberItems={memberIdsPerStats?.length}
+            page={page}
+            onChange={handlePageChange}
+            step={CONTRIBUTORS_PER_PAGE}
+          />
+        ) : null}
       </ContentBox>
     </Layout>
   )
