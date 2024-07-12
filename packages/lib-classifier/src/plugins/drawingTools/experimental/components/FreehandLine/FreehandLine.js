@@ -9,6 +9,10 @@ const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
 
 const StyledGroup = styled.g`
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
   &:hover {
     cursor: pointer;
   }
@@ -74,8 +78,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   // The model uses this internally
   mark.setScale(scale)
 
-  const STROKE_WIDTH = 2
-
   function onDoubleClick(event) {
     if (active) {
       mark.splicePathDragPoint(createPoint(event))
@@ -118,10 +120,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           <path // Main Path that's visible
             d={pointsToPath(pts)}
             fill='none'
-            strokeWidth={STROKE_WIDTH}
             strokeOpacity={1}
-            strokeLinecap='round'
-            strokeLinejoin='round'
             vectorEffect={'non-scaling-stroke'}
           />
           <title>{getHoverText()}</title>
@@ -140,7 +139,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       <path // Clipped Path
         d={pointsToPath(mark.splicePathRender)}
         strokeDasharray='2 2'
-        strokeWidth={STROKE_WIDTH}
         opacity=".4"
         vectorEffect={'non-scaling-stroke'}
       />
