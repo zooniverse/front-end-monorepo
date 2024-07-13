@@ -1,6 +1,8 @@
-import { Pagination } from 'grommet'
+import { Layer, Pagination } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
+
+import { fetchPanoptesUsers } from '../../utils'
 
 import {
   usePanoptesProjects,
@@ -26,8 +28,7 @@ function Contributors({
   group,
   membership
 }) {
-  const [dataExportUrl, setDataExportUrl] = useState('')
-  const [filename, setFilename] = useState('')
+  const [exportLoading, setExportLoading] = useState(false)
   const [page, setPage] = useState(1)
 
   const showContributors = adminMode 
@@ -93,6 +94,34 @@ function Contributors({
     })
   }
 
+  async function handleGenerateExport() {
+    setExportLoading(true)
+
+    const allUsersQuery = {
+      id: memberIdsPerStats?.join(','),
+      page_size: 100
+    }
+
+    const allUsers = await fetchPanoptesUsers(allUsersQuery)
+
+    const { filename, dataExportUrl } = await generateExport({
+      group,
+      projects,
+      stats,
+      users: allUsers
+    })
+    
+    // Create an anchor element and trigger download
+    const link = document.createElement('a')
+    link.href = dataExportUrl
+    link.setAttribute('download', filename)
+    document.body.appendChild(link) // Append to the document
+    link.click() // Programmatically click the link to trigger the download
+    document.body.removeChild(link) // Clean up
+
+    setExportLoading(false)
+  }
+
   function handlePageChange({ page }) {
     setPage(page)
   }
@@ -100,51 +129,49 @@ function Contributors({
   if (!showContributors) return (<div>Not authorized</div>)
 
   return (
-    <Layout
-      primaryHeaderItem={
-        <HeaderLink
-          href={`/groups/${group.id}`}
-          label='back'
-          primaryItem={true}
-        />
+    <>
+      {exportLoading ? (
+          <Layer>
+            <div>Generating export...</div>
+          </Layer>
+        ) : null
       }
-    >
-      <ContentBox
-        linkLabel='Export all stats'
-        linkProps={{
-          href: dataExportUrl,
-          download: filename,
-          onClick: () => {
-            generateExport({
-              group,
-              handleFileName: setFilename,
-              handleDataExportUrl: setDataExportUrl,
-              projects,
-              stats,
-              users
-            })
-          }
-        }}
-        title='Full Group Stats'
-      >
-        {contributors.length > 0 ? (
-            <ContributorsList
-              contributors={contributors}
-              projects={projects}
-            />
-          ) : <div>Loading...</div>
-        }
-        {memberIdsPerStats?.length > CONTRIBUTORS_PER_PAGE ? (
-          <Pagination
-            alignSelf='center'
-            numberItems={memberIdsPerStats?.length}
-            page={page}
-            onChange={handlePageChange}
-            step={CONTRIBUTORS_PER_PAGE}
+      <Layout
+        primaryHeaderItem={
+          <HeaderLink
+            href={`/groups/${group.id}`}
+            label='back'
+            primaryItem={true}
           />
-        ) : null}
-      </ContentBox>
-    </Layout>
+        }
+      >
+        <ContentBox
+          linkLabel='Export all stats'
+          linkProps={{
+            as: 'button',
+            onClick: handleGenerateExport
+          }}
+          title='Full Group Stats'
+        >
+          {contributors.length > 0 ? (
+              <ContributorsList
+                contributors={contributors}
+                projects={projects}
+              />
+            ) : <div>Loading...</div>
+          }
+          {memberIdsPerStats?.length > CONTRIBUTORS_PER_PAGE ? (
+            <Pagination
+              alignSelf='center'
+              numberItems={memberIdsPerStats?.length}
+              page={page}
+              onChange={handlePageChange}
+              step={CONTRIBUTORS_PER_PAGE}
+            />
+          ) : null}
+        </ContentBox>
+      </Layout>
+    </>
   )
 }
 
