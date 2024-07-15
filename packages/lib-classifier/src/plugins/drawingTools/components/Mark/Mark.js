@@ -8,6 +8,12 @@ const STROKE_WIDTH = 3
 const SELECTED_STROKE_WIDTH = 6
 
 const StyledGroup = styled.g`
+  stroke-width: ${STROKE_WIDTH}px;
+
+  &.active {
+    stroke-width: ${SELECTED_STROKE_WIDTH}px;
+  }
+
   &:focus {
     outline: none;
   }
@@ -156,7 +162,7 @@ const Mark = forwardRef(function Mark(
       data-testid="mark-mark"
       aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
-      className='drawingMark'
+      className={`drawingMark ${isActive ? 'active' : ''}`}
       dragging={dragging}
       focusable
       focusColor={focusColor}
@@ -166,9 +172,6 @@ const Mark = forwardRef(function Mark(
       pointerEvents={pointerEvents}
       ref={markRoot}
       role='button'
-      strokeWidth={
-        isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH
-      }
       tabIndex={disabled ? -1 : 0}
       transform={transform}
     >
