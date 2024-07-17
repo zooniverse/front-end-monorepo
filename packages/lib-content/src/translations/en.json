@@ -1,4 +1,12 @@
 {
+  "404": {
+    "Default404": {
+      "heading": "Nothing here.",
+      "message": "The page you're looking for no longer exists.",
+      "returnHome": "Return to the homepage",
+      "findNewProject": "Find a new project to explore"
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "About",
