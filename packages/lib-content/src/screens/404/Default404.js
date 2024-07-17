@@ -29,6 +29,10 @@ const PageContent = styled(Box)`
   z-index: 1;
 `
 
+const ListItem = styled.li`
+  color: white;
+`
+
 const StyledAnchor = styled(Anchor)`
   text-decoration: underline;
 `
@@ -72,20 +76,22 @@ function Default404() {
             <em>{t('404.Default404.message')}</em>
           </Paragraph>
           <Box as='ul' fill align='center' margin='0' pad='0' gap='10px'>
-            <StyledAnchor
-              forwardedAs='li'
-              color='white'
-              href='/'
-              label={t('404.Default404.returnHome')}
-              size='1rem'
-            />
-            <StyledAnchor
-              forwardedAs='li'
-              color='white'
-              href='https://www.zooniverse.org/projects'
-              label={t('404.Default404.findNewProject')}
-              size='1rem'
-            />
+          <ListItem>
+              <StyledAnchor
+                color='white'
+                href='https://www.zooniverse.org'
+                label={t('404.Default404.returnHome')}
+                size='1rem'
+              />
+            </ListItem>
+            <ListItem>
+              <StyledAnchor
+                color='white'
+                href='https://www.zooniverse.org/projects'
+                label={t('404.Default404.findNewProject')}
+                size='1rem'
+              />
+            </ListItem>
           </Box>
         </PageContent>
       </ContainerBox>
