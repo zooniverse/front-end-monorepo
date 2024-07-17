@@ -5,7 +5,7 @@ import { group_member_stats_breakdown } from '../../../../test/mocks/stats.mock'
 
 import { generateExport } from './generateExport'
 
-describe('Contributors > generateExport', function () {
+describe('components > Contributors > generateExport', function () {
   let setFilename
   let projects
   let stats
