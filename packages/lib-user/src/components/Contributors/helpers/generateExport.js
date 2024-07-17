@@ -1,13 +1,10 @@
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import dayjs from 'dayjs'
+import { arrayOf, number, shape, string } from 'prop-types'
 
 import { getExportData } from './getExportData'
 
-const DEFAULT_HANDLER = () => true
-
 export function generateExport({
   group,
-  handleFileName = DEFAULT_HANDLER,
-  handleDataExportUrl = DEFAULT_HANDLER,
   projects,
   stats,
   users
@@ -21,22 +18,23 @@ export function generateExport({
   })
 
   // The following regexp sanitizes the group name by removing all non-alphanumeric characters (i.e. emojis, spaces, punctuation, etc.)
-  let sanitizedGroupName = group.display_name.replace(/[^a-zA-Z0-9]/g, '')
+  const sanitizedGroupName = group.display_name.replace(/[^a-zA-Z0-9]/g, '')
+  const date = dayjs().format('YYYY-MM-DDTHHmmss')
+  const filename = `${sanitizedGroupName}_data_export_${date}.csv`
 
-  let newFilename = `${sanitizedGroupName}.data_export.${Date.now()}.csv`
-  handleFileName(newFilename)
-
-  let file = new File([str], newFilename, { type: 'text/csv' })
-  let newDataExportUrl = URL.createObjectURL(file)
-  handleDataExportUrl(newDataExportUrl)
+  let file = new File([str], filename, { type: 'text/csv' })
+  let dataExportUrl = URL.createObjectURL(file)
+  
+  return {
+    filename,
+    dataExportUrl
+  }
 }
 
 generateExport.propTypes = {
   group: shape({
     display_name: string
   }),
-  handleFileName: func,
-  handleDataExportUrl: func,
   projects: arrayOf(shape({
     display_name: string,
     id: string
