@@ -1,4 +1,5 @@
-import { Layer, Pagination } from 'grommet'
+import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Box, Layer } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
@@ -13,7 +14,8 @@ import {
 import {
   ContentBox,
   HeaderLink,
-  Layout
+  Layout,
+  Pagination
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
@@ -94,6 +96,8 @@ function Contributors({
     })
   }
 
+  const loadingExportMessage = 'Generating stats export...'
+
   async function handleGenerateExport() {
     setExportLoading(true)
 
@@ -132,7 +136,20 @@ function Contributors({
     <>
       {exportLoading ? (
           <Layer>
-            <div>Generating export...</div>
+            <Box
+              align='center'
+              gap='small'
+              height='medium'
+              justify='center'
+              width='medium'
+            >
+              <SpacedText>
+                {loadingExportMessage}
+              </SpacedText>
+              <Loader
+                loadingMessage={loadingExportMessage}
+              />
+            </Box>
           </Layer>
         ) : null
       }
