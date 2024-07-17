@@ -25,6 +25,7 @@ const PrintableBox = styled(Box)`
 
     #certificate, #certificate * {
       visibility: visible;
+      color: #5c5c5c;
     }
 
     #certificate {
@@ -34,6 +35,11 @@ const PrintableBox = styled(Box)`
       top: 0;
       width: 100%;
       height: 100%;
+    }
+
+    #certificate svg,
+    #certificate svg g {
+      fill: #00979d;
     }
   }
 
@@ -79,7 +85,7 @@ function Certificate({
         }
       >
         <ContentBox
-          linkLabel='Generate Certificate'
+          linkLabel='Save Certificate'
           linkProps={{
             as: 'button',
             onClick: handleClickPrint
@@ -132,6 +138,7 @@ function Certificate({
                 <SpacedText
                   className='userName'
                   size='3.75rem'
+                  textAlign='center'
                   weight='bold'
                 >
                   {creditedName || displayName}
@@ -223,14 +230,14 @@ function Certificate({
                     alt='Signature of Dr. Laura Trouille'
                   />
                   <svg width='272' height='2' viewBox='0 0 272 2'>
-                    <path d='M1 1H271' stroke='url(#paint0_linear_1845_6607)'/>
                     <defs>
-                      <linearGradient id='paint0_linear_1845_6607' gradientUnits='userSpaceOnUse'>
-                        <stop stopColor='white'/>
-                        <stop offset='0.496986' stopColor='dark-5'/>
-                        <stop offset='1' stopColor='white' stopOpacity='0'/>
+                      <linearGradient id='signature_line' gradientUnits='userSpaceOnUse'>
+                        <stop stopColor='white' />
+                        <stop offset='0.5' stopColor='dark-5' />
+                        <stop offset='1' stopColor='white' />
                       </linearGradient>
                     </defs>
+                    <path d='M1 1H271' stroke='url(#signature_line)'/>
                   </svg>
                   <SpacedText
                     size='1.5rem'

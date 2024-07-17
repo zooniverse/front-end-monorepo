@@ -1,5 +1,12 @@
 import { Anchor, Box, Image, ResponsiveContext, Text } from 'grommet'
-import { Bookmark, Chat, Favorite, FormNext, MailOption } from 'grommet-icons'
+import {
+  Bookmark,
+  Chat,
+  Favorite,
+  FormNext,
+  MailOption,
+  Share
+} from 'grommet-icons'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import { bool, shape, string } from 'prop-types'
@@ -7,6 +14,27 @@ import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import DashboardLink from './components/DashboardLink.js'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer.js'
+
+// Enable this component below to show the link to "About your new homepage" blog post
+const LinkToBlogPost = styled(Anchor)`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: ${props => props.theme.global.colors['dark-5']} 1px solid;
+  border-radius: 24px;
+  padding: 10px 15px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+
+  // For Grommet breakpoint small
+  @media (width < 769px) {
+    border-radius: 16px;
+    font-size: 0.6rem;
+    padding: 8px 10px;
+  }
+`
 
 const Relative = styled(Box)`
   position: relative;
@@ -82,7 +110,8 @@ const StyledStatsLink = styled(Anchor)`
   }
 
   &:focus {
-    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
+    box-shadow: 0 0 2px 2px
+      ${props => props.theme.global.colors[props.theme.global.colors.focus]};
   }
 `
 
@@ -97,6 +126,7 @@ const StyledBadge = styled(Text)`
 
 export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
+  const blogLinkLabel = size === 'small' ? 'About your homepage' : 'Learn more about your new homepage'
 
   return (
     <Box
@@ -118,8 +148,19 @@ export default function Dashboard({ user, userLoading }) {
             ? 'brand'
             : { image: `url(${user.profile_header})` }
         }
-        round={size !== 'small' ? {size: '16px', corner: 'top'} : false}
+        round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
       >
+        {/** Update this link with blog post url */}
+        {/* <LinkToBlogPost
+          href='https://www.zooniverse.org'
+          target='_blank'
+          label={
+            <SpacedText size='0.8rem' color='dark-5' weight='bold'>
+              {blogLinkLabel} <Share size='0.7rem' />
+            </SpacedText>
+          }
+        /> */}
+
         <StyledAvatar
           alt='User avatar'
           src={
