@@ -61,7 +61,9 @@ export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
             {t('Home.DefaultHome.headings.four')}
           </SpacedHeading>
           <SubHeading>{t('Home.DefaultHome.subheadings.four')}</SubHeading>
-          <Mobile />
+          <Box margin={{ bottom: 'medium' }}>
+            <Mobile />
+          </Box>
           <CommunityContainer
             dailyZooPosts={dailyZooPosts}
             zooBlogPosts={zooBlogPosts}

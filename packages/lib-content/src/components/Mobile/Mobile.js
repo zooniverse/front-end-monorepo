@@ -12,9 +12,9 @@ export default function Mobile() {
           width='300px'
           margin={{ vertical: '30px' }}
         />
-        <Text>{t('AboutPage.mobile.description')}</Text>
+        <Text textAlign='center'>{t('AboutPage.mobile.description')}</Text>
       </Box>
-      <Box justify='center' gap='xxsmall' direction='row' margin={{ top: '10px' }}>
+      <Box justify='center' gap='xxsmall' direction='row' margin={{ top: '15px' }}>
         <Button
           as={Anchor}
           href='https://apps.apple.com/us/app/zooniverse/id1194130243'

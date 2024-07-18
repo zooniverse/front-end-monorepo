@@ -34,6 +34,8 @@ const MobileHeroImage = styled(Box)`
 `
 
 const HeroCopy = styled(Box)`
+  background: rgba(0, 93, 105, 0.6);
+  backdrop-filter: blur(3px);
   position: absolute;
   top: 0;
   left: 0;
