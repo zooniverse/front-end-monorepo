@@ -1,4 +1,4 @@
-import { Anchor, Box, Heading, Image, Paragraph, Text } from 'grommet'
+import { Anchor, Box, Heading, Paragraph } from 'grommet'
 import { string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.js'
 import styled from 'styled-components'
@@ -54,12 +54,18 @@ export default function Article({
           weight='bold'
           fill
         >
-          {title}
+          <Anchor href={url}>{title}</Anchor>
         </Heading>
         <StyledParagraph color={{ light: 'black', dark: 'white' }}>
           {excerpt}
         </StyledParagraph>
-        <Anchor href={url} size='1rem'>
+        <Anchor
+          href={url}
+          size='1rem'
+          alignSelf='end'
+          color={{ light: 'dark-5', dark: 'white' }}
+          weight='normal'
+        >
           {t('Article.url')}
         </Anchor>
       </Box>

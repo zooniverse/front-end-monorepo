@@ -5,7 +5,7 @@ import useSWRMutation from 'swr/mutation'
 
 import {
   usePanoptesProjects,
-  usePanoptesUser,
+  usePanoptesUsers,
   useStats
 } from '@hooks'
 
@@ -100,27 +100,27 @@ function GroupStats({
 
   // fetch topContributors
   const topContributorsIds = showTopContributors ? stats?.top_contributors?.map(user => user.user_id) : null
+  const usersQuery = {
+    id: topContributorsIds?.join(',')
+  }
   const {
     data: topContributors,
     error: topContributorsError,
     isLoading: topContributorsLoading
-  } = usePanoptesUser({
-    authUser,
-    userIds: topContributorsIds
-  })
+  } = usePanoptesUsers(usersQuery)
   
   // fetch projects
   const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
-
+  const projectsQuery = {
+    cards: true,
+    id: projectIds?.join(','),
+    page_size: 100
+  }
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
-  } = usePanoptesProjects({
-    cards: true,
-    id: projectIds?.join(','),
-    page_size: 100
-  })
+  } = usePanoptesProjects(projectsQuery)
 
   function handleGroupModalActive () {
     setGroupModalActive(!groupModalActive)

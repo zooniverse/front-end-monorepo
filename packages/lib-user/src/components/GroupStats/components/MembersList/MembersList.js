@@ -1,21 +1,30 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+
+import { Pagination } from '@components/shared'
 
 import MemberListItem from './components/MemberListItem'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_PAGINATION_PROPS = {
+  numberItems: 1,
+  onChange: DEFAULT_HANDLER,
+  page: 1,
+  step: 1
+}
 
 function MembersList({
   authUserId = '',
   handleDeleteMembership = DEFAULT_HANDLER,
   handleUpdateMembership = DEFAULT_HANDLER,
   memberships = [],
+  paginationProps = DEFAULT_PAGINATION_PROPS,
   users = []
 }) {
   return (
     <Box
-      margin={{ top: 'small' }}
+      margin={{ vertical: 'small' }}
     >
       <SpacedText
         color={{ dark: 'neutral-6', light: 'neutral-7' }}
@@ -57,6 +66,12 @@ function MembersList({
           )
         })}
       </Box>
+      {paginationProps.numberItems > paginationProps.step ? (
+        <Pagination
+          alignSelf='center'
+          {...paginationProps}
+        />
+      ) : null}
     </Box>
   )
 }
@@ -69,6 +84,12 @@ MembersList.propTypes = {
     id: string,
     roles: arrayOf(string)
   })),
+  paginationProps: shape({
+    numberItems: number,
+    onChange: func,
+    page: number,
+    step: number
+  }),
   users: arrayOf(shape({
     id: string
   }))

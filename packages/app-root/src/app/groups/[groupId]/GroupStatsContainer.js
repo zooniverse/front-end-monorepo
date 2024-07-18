@@ -3,6 +3,8 @@
 import { GroupStats } from '@zooniverse/user'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
+import { Loader } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 
 import { PanoptesAuthContext } from '../../../contexts'
 
@@ -16,7 +18,7 @@ function GroupStatsContainer({
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
 
   const router = useRouter()
-  
+
   // set end date per query params or default to today
   let selectedEndDate = endDate
   if (!selectedEndDate) {
@@ -35,27 +37,27 @@ function GroupStatsContainer({
       updateQueryParams([['start_date', selectedStartDate]])
     }
   }, [selectedStartDate, startDate])
-  
+
   // set selected project per query params or default to 'AllProjects'
   const selectedProject = projectId || 'AllProjects'
 
   function updateQueryParams(newQueryParams) {
     const queryParams = new URLSearchParams(window.location.search)
 
-    for (const [key, value] of newQueryParams) {  
+    for (const [key, value] of newQueryParams) {
       if (!value) {
         queryParams.delete(key);
       } else {
         queryParams.set(key, value);
       }
     }
-  
+
     router.push(`${window.location.pathname}?${queryParams.toString()}`)
   }
 
   function setSelectedDateRange({ endDate, startDate }) {
     // TODO: validate dates
-    
+
     const todayUTC = new Date().toISOString().substring(0, 10)
     if (endDate === todayUTC) {
       updateQueryParams([
@@ -67,7 +69,7 @@ function GroupStatsContainer({
         ['end_date', endDate],
         ['start_date', startDate]
       ])
-    } 
+    }
   }
 
   function setSelectedProject(selectedProjectId) {
@@ -80,12 +82,14 @@ function GroupStatsContainer({
     }
   }
 
-  if (typeof window === 'undefined' || isLoading) {
+  if (isLoading) {
     return (
-      <p>Loading...</p>
+      <Box as='main' height='100vh' align='center' justify='center'>
+        <Loader />
+      </Box>
     )
   }
-  
+
   return (
     <GroupStats
       adminMode={adminMode}
