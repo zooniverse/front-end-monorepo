@@ -1,4 +1,12 @@
 {
+  "404": {
+    "Default404": {
+      "heading": "Nothing here.",
+      "message": "The page you're looking for no longer exists.",
+      "returnHome": "Return to the homepage",
+      "findNewProject": "Find a new project to explore"
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "About",
@@ -161,7 +169,8 @@
       "seeAll": "See all posts"
     },
     "DefaultHome": {
-      "mainHeading": "You are now entering the",
+      "heroText": "Join millions of people who help to advance real research, real science, and real knowledge.",
+      "mainHeading": "People-powered research",
       "projects": "Explore projects",
       "headings": {
         "one": "What is the Zooniverse?",
@@ -174,19 +183,19 @@
         "none": "No featured projects"
       },
       "Introduction": {
-        "description1": "The Zooniverse is the world's largest and most popular platform for people-powered research. This  research is made possible by volunteers - hundreds of thousands of people around the world who come together to assist professional researchers. Our goal is to enable research that would not be possible, or practical, otherwise. Zooniverse research results in new discoveries, datasets useful to the wider research community, and many publications.",
-        "description2": "Volunteers and professionals make real discoveries together. Many of the most interesting discoveries from Zooniverse projects have come from discussion between volunteers and researchers. Take part in real cutting edge research and make your own discoveries, today!",
+        "description1": "The Zooniverse is the world's largest platform for people-powered research. We connect professional researchers with millions of volunteers worldwide. Facilitating real results from impractical, or otherwise impossible research. This has led to new discoveries, policy impacts, and research publications.",
+        "description2": "Our platform is driven by volunteers, like you. All ages and backgrounds are welcome to participate, no PhD required — just a sense of wonder and a few clicks. Many of the most interesting findings from Zooniverse projects have emerged from discussions between volunteers and researchers. Join us today to take part in cutting-edge research and make your own discoveries!",
         "signIn": "Sign in",
         "register": "Register"
       },
       "Researchers": {
         "build": "Build a project",
-        "description": "From classifying animals in the Serengeti to discovering new exoplanets using the Kepler space telescope, researchers of all backgrounds have used the project builder to create engaging, accessible citizen science projects. Our researchers have used the data from their projects to publish over 100 peer-reviewed publications that encourage many fascinating discoveries. Researchers take part in project creation, data analysis, and even communicate directly with volunteers through Zooniverse Talk."
+        "description": "From classifying animals to discovering exoplanets to transcribing historical documents, and more, researchers across the disciplines have used the Project Builder to create engaging, accessible projects. Anyone can build a Zooniverse project. Simply upload your data, choose the tasks you want the volunteers to do, and join us in nurturing an inclusive and welcoming online community engaged in real research."
       },
       "subheadings": {
-        "one": "People-powered research",
+        "one": "The wisdom of the crowd",
         "two": "The Zooniverse works",
-        "three": "These are actual researchers who've created projects on the Zooniverse",
+        "three": "Meet the researchers who've created projects on the Zooniverse",
         "four": "Discover, teach, and learn - anywhere"
       }
     }

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Anchor,
   Box,
@@ -7,13 +9,9 @@ import {
   ResponsiveContext,
   ThemeContext
 } from 'grommet'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-import { ZooFooter } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import { useContext } from 'react'
-
-import PageHeader from '../src/components/PageHeader/PageHeader.js'
+import { useTranslation } from '../../translations/i18n.js'
 
 const ContainerBox = styled(Box)`
   position: relative;
@@ -39,8 +37,6 @@ const StyledAnchor = styled(Anchor)`
   text-decoration: underline;
 `
 
-const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
-
 const logoSize = size => {
   switch (size) {
     case 'small':
@@ -54,29 +50,15 @@ const logoSize = size => {
   }
 }
 
-export async function getStaticProps({ locale }) {
-  const translations = await serverSideTranslations(locale, [
-    'components',
-    'screens'
-  ])
+const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
 
-  return {
-    props: {
-      locale,
-      ...translations
-    },
-    revalidate: 3600 // regenerate at most once per hour
-  }
-}
-
-export default function Error404({ locale = 'en' }) {
-  const { t } = useTranslation('components')
+function Default404() {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
-  const backgroundURL = `/projects/assets/background${randomImage}.jpg`
+  const backgroundURL = `/assets/404/background${randomImage}.jpg`
 
   return (
     <ThemeContext.Extend value={customTheme}>
-      <PageHeader />
       <ContainerBox width='100%' height='80vh' justify='center'>
         <Overlay background={`url("${backgroundURL}")`} fill />
         <PageContent justify='center' align='center'>
@@ -84,21 +66,21 @@ export default function Error404({ locale = 'en' }) {
             id='404-logo'
             width={logoSize(size)}
             alt='404 logo'
-            src='/projects/assets/logoWhite404.png'
+            src='/assets/404/logoWhite404.png'
             margin={{ bottom: 'xxsmall' }}
           />
           <Heading level='1' textAlign='center' fill color='white' size={size}>
-            {t('404.heading')}
+            {t('404.Default404.heading')}
           </Heading>
           <Paragraph textAlign='center' color='white'>
-            <em>{t('404.message')}</em>
+            <em>{t('404.Default404.message')}</em>
           </Paragraph>
           <Box as='ul' fill align='center' margin='0' pad='0' gap='10px'>
-            <ListItem>
+          <ListItem>
               <StyledAnchor
                 color='white'
                 href='https://www.zooniverse.org'
-                label={t('404.returnHome')}
+                label={t('404.Default404.returnHome')}
                 size='1rem'
               />
             </ListItem>
@@ -106,14 +88,13 @@ export default function Error404({ locale = 'en' }) {
               <StyledAnchor
                 color='white'
                 href='https://www.zooniverse.org/projects'
-                label={t('404.findNewProject')}
+                label={t('404.Default404.findNewProject')}
                 size='1rem'
               />
             </ListItem>
           </Box>
         </PageContent>
       </ContainerBox>
-      <ZooFooter locale={locale} />
     </ThemeContext.Extend>
   )
 }
@@ -135,3 +116,5 @@ const customTheme = {
     }
   }
 }
+
+export default Default404

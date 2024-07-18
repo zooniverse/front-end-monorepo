@@ -38,7 +38,36 @@ export function CreateGroup() {
 export function ManageGroup() {
   const [groupModalActive, setGroupModalActive] = useState(true)
 
-  const moreMemberships = MEMBERSHIPS.concat(MEMBERSHIPS).concat(MEMBERSHIPS)
+  return [
+    <button
+      key='1-manage-group-story'
+      onClick={() => setGroupModalActive(true)}
+    >
+      Edit Group
+    </button>,
+    <GroupModal
+      key='2-manage-group-story'
+      active={groupModalActive}
+      handleClose={() => setGroupModalActive(false)}
+      title='manage group'
+      titleColor='black'
+    >
+      <GroupUpdateFormContainer
+        group={USER_GROUPS[0]}
+        login='test-user'
+      >
+        <MembersList
+          authUserId={GROUP_ADMIN_USER.id}
+          memberships={MEMBERSHIPS}
+          users={USERS}
+        />
+      </GroupUpdateFormContainer>
+    </GroupModal>
+  ]
+}
+
+export function ManageGroupWithMembersPagination() {
+  const [groupModalActive, setGroupModalActive] = useState(true)
 
   return [
     <button
@@ -60,7 +89,13 @@ export function ManageGroup() {
       >
         <MembersList
           authUserId={GROUP_ADMIN_USER.id}
-          memberships={moreMemberships}
+          memberships={MEMBERSHIPS}
+          paginationProps={{
+            numberItems: 100,
+            onChange: () => true,
+            page: 1,
+            step: 20
+          }}
           users={USERS}
         />
       </GroupUpdateFormContainer>

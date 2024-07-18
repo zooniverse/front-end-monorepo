@@ -1,4 +1,5 @@
 import { shape, string } from 'prop-types'
+import { useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 import { usePanoptesMemberships } from '@hooks'
@@ -14,8 +15,11 @@ function MembersListContainer({
   authUser,
   group
 }) {
+  const [page, setPage] = useState(1)
+
   const query = {
     include: 'user',
+    page,
     user_group_id: group?.id
   }
   
@@ -32,6 +36,13 @@ function MembersListContainer({
   const { trigger: updateMembership } = useSWRMutation({ query }, updatePanoptesMembership)
 
   const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
+
+  const paginationProps = {
+    numberItems: membershipsData?.meta?.count,
+    onChange: setPage,
+    page,
+    step: membershipsData?.meta?.page_size
+  }
 
   function handleDeleteMembership({ membershipId }) {
     try {
@@ -86,6 +97,7 @@ function MembersListContainer({
       handleDeleteMembership={handleDeleteMembership}
       handleUpdateMembership={handleUpdateMembership}
       memberships={memberships}
+      paginationProps={paginationProps}
       users={membershipsData?.linked?.users}
     />
   )

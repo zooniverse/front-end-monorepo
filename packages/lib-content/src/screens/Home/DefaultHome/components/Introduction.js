@@ -75,6 +75,7 @@ export default function Introduction() {
         size='1.5rem'
         alignSelf='center'
         margin={{ top: '30px', bottom: '10px' }}
+        textAlign='center'
       >
         {t('Home.DefaultHome.headings.one')}
       </SpacedHeading>

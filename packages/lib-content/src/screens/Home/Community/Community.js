@@ -50,7 +50,12 @@ export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
         <Heading level={3} size='1rem'>
           {t('Home.Community.feedOne')}
         </Heading>
-        <Anchor href='https://daily.zooniverse.org' size='1rem'>
+        <Anchor
+          href='https://daily.zooniverse.org'
+          size='1rem'
+          weight='normal'
+          color={{ light: 'dark-5', dark: 'white' }}
+        >
           {t('Home.Community.seeAll')}
         </Anchor>
       </Box>
@@ -62,18 +67,25 @@ export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
 
       {/* The Zooniverse Blog */}
       <Box
+        border={{
+          side: 'bottom',
+          color: { light: 'light-4', dark: 'black' },
+          size: 'xsmall'
+        }}
         direction='row'
         justify='between'
         align='center'
-        border={{
-          position: 'bottom',
-          color: { light: 'light-1', dark: 'dark-1' }
-        }}
+        margin={{ vertical: 'small' }}
       >
         <Heading level={3} size='1rem'>
           {t('Home.Community.feedTwo')}
         </Heading>
-        <Anchor href='https://blog.zooniverse.org' size='1rem'>
+        <Anchor
+          href='https://blog.zooniverse.org'
+          size='1rem'
+          weight='normal'
+          color={{ light: 'dark-5', dark: 'white' }}
+        >
           {t('Home.Community.seeAll')}
         </Anchor>
       </Box>
