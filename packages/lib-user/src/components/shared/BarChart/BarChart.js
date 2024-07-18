@@ -99,10 +99,11 @@ function BarChart({
           label: typeLabel,
           render: ((number) => {
             if (type === 'session_time') {
-              const time = number / dateRangeLabel.time  
+              const time = number / dateRangeLabel.time
+              const timeLabelText = dateRangeLabel.timeLabel === 'hrs' ? `${time.toFixed(1).toLocaleString()} ${dateRangeLabel.timeLabel}` : `${time.toFixed(0).toLocaleString()} ${dateRangeLabel.timeLabel}`
               return (
                 <Text data-testid='timeLabel'>
-                  {`${time.toFixed(0)} ${dateRangeLabel.timeLabel}`}
+                  {timeLabelText}
                 </Text>
               )
             } else {
