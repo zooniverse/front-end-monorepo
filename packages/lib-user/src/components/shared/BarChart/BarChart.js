@@ -109,7 +109,7 @@ function BarChart({
             } else {
               return (
                 <Text data-testid='countLabel'>
-                  {new Number(number).toLocaleString()}
+                  {number.toLocaleString()}
                 </Text>
               )
             }
