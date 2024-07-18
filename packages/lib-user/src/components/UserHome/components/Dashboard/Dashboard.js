@@ -8,7 +8,7 @@ import {
   Share
 } from 'grommet-icons'
 import { useContext } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
@@ -40,14 +40,13 @@ const Relative = styled(Box)`
   position: relative;
 `
 
-const StyledAvatar = styled(Image)`
+const StyledAvatar = styled(Box)`
   width: 128px;
   height: 128px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: solid white 6px;
+  overflow: hidden;
   position: absolute;
   top: 203px;
+  border-radius: 50%;
 
   // For Grommet breakpoint small
   @media (width < 769px) {
@@ -126,7 +125,12 @@ const StyledBadge = styled(Text)`
 
 export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
-  const blogLinkLabel = size === 'small' ? 'About your homepage' : 'Learn more about your new homepage'
+  const { dark } = useTheme()
+
+  const blogLinkLabel =
+    size === 'small'
+      ? 'About your homepage'
+      : 'Learn more about your new homepage'
 
   return (
     <Box
@@ -162,13 +166,23 @@ export default function Dashboard({ user, userLoading }) {
         /> */}
 
         <StyledAvatar
-          alt='User avatar'
-          src={
-            !user?.avatar_src || userLoading
-              ? 'https://www.zooniverse.org/assets/simple-avatar.png'
-              : user?.avatar_src
-          }
-        />
+          background='brand'
+          border={{
+            size: '6px',
+            color: dark ? 'dark-3' : 'neutral-6', // Not sure why have to manually grab useTheme but ¯\_(ツ)_/¯
+            style: 'solid'
+          }}
+        >
+          <Image
+            alt='User avatar'
+            fit='contain'
+            src={
+              !user?.avatar_src || userLoading
+                ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+                : user?.avatar_src
+            }
+          />
+        </StyledAvatar>
       </Relative>
 
       {/* Name */}
