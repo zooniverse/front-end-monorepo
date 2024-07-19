@@ -187,7 +187,11 @@ export default function Dashboard({ user, userLoading }) {
 
       {/* Name */}
       <NameContainer
-        margin={{ top: '94px', bottom: '20px' }}
+        margin={
+          size !== 'small'
+            ? { top: '94px', bottom: '20px' }
+            : { top: '60px', bottom: '20px' }
+        }
         align='center'
         width='min(100%, 45rem)'
         pad={{ bottom: '20px' }}
@@ -205,24 +209,24 @@ export default function Dashboard({ user, userLoading }) {
       </NameContainer>
 
       {/* Links */}
-      <Box direction='row' gap='medium' margin={{ bottom: '30px' }}>
+      <Box direction='row' gap='30px' margin={{ bottom: '30px' }}>
         <DashboardLink
-          icon={<Favorite size='1rem' />}
+          icon={<Favorite />}
           text='Favorites'
           href={`https://www.zooniverse.org/favorites/${user?.login}`}
         />
         <DashboardLink
-          icon={<Bookmark size='1rem' />}
+          icon={<Bookmark />}
           text='Collections'
           href={`https://www.zooniverse.org/collections/${user?.login}`}
         />
         <DashboardLink
-          icon={<Chat size='1rem' />}
+          icon={<Chat />}
           text='Comments'
           href={`https://www.zooniverse.org/users/${user?.login}`}
         />
         <DashboardLink
-          icon={<MailOption size='1rem' />}
+          icon={<MailOption />}
           text='Messages'
           href={`https://www.zooniverse.org/inbox`}
         />
