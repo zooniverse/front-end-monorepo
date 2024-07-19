@@ -123,6 +123,16 @@ const StyledBadge = styled(Text)`
   border-radius: 15px;
 `
 
+// Same as ContentBox
+const border = {
+  color: {
+    dark: 'light-1',
+    light: 'light-5'
+  },
+  side: 'all',
+  size: '0.5px'
+}
+
 export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
   const { dark } = useTheme()
@@ -136,7 +146,8 @@ export default function Dashboard({ user, userLoading }) {
     <Box
       align='center'
       pad={{ bottom: '20px' }}
-      round={size !== 'small' ? '8px' : false}
+      round={size === 'small' ? false : '16px 16px 8px 8px'}
+      border={size === 'small' ? false : border}
       elevation={size === 'small' ? 'none' : 'xsmall'}
     >
       <Relative
@@ -152,7 +163,7 @@ export default function Dashboard({ user, userLoading }) {
             ? 'brand'
             : { image: `url(${user.profile_header})` }
         }
-        round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
+        round={size === 'small' ? false : '16px 16px 0 0'}
       >
         {/** Update this link with blog post url */}
         {/* <LinkToBlogPost
