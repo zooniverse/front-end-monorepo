@@ -73,7 +73,7 @@ export default function Confusion({
 
 Confusion.propTypes = {
   confusion: PropTypes.shape({
-    confusions: PropTypes.objectOf(PropTypes.string),
+    confusions: MobXPropTypes.observableMap,
     confusionsOrder: PropTypes.arrayOf(PropTypes.string),
     images: PropTypes.arrayOf(PropTypes.string),
     label: PropTypes.string
