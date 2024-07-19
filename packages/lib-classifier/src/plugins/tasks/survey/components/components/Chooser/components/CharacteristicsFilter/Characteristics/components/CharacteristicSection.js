@@ -1,4 +1,5 @@
 import { Box, RadioButtonGroup } from 'grommet'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useCallback } from 'react';
 import { SpacedHeading } from '@zooniverse/react-components'
@@ -108,7 +109,7 @@ CharacteristicSection.propTypes = {
     valuesOrder: PropTypes.arrayOf(PropTypes.string)
   }),
   characteristicId: PropTypes.string,
-  images: PropTypes.objectOf(PropTypes.string),
+  images: MobXPropTypes.observableMap,
   onFilter: PropTypes.func,
   selectedValueId: PropTypes.string
 }
