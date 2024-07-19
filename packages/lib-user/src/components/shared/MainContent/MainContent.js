@@ -1,23 +1,52 @@
-import { Box, Button, Tab } from 'grommet'
+import { Box, Button, ResponsiveContext } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { useState } from 'react'
-import styled from 'styled-components'
+import { useCallback, useContext, useState } from 'react'
+import styled, { css } from 'styled-components'
 
 import {
-  convertStatsSecondsToHours,
-  dateRanges
+  convertStatsSecondsToHours
 } from '@utils'
 
 import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select,
-  Tabs,
-  Tip
+  Select
 } from '@components/shared'
 
+import { getDateRangeSelectOptions } from './helpers/getDateRangeSelectOptions'
+
+const StyledButton = styled(Button)`
+  background-color: ${props => props.theme.global.colors['neutral-1']};
+  border-radius: 4px;
+  color: ${props => props.theme.global.colors['neutral-6']};
+`
+
+const StyledTab = styled(Button)`
+  background-color: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
+  border-bottom: 4px solid transparent;
+  color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
+  font-size: 1em;
+  text-align: center;
+  
+  ${props => props.active && css`
+    border-bottom: 4px solid ${props.theme.global.colors.brand};
+    font-weight: 700;
+  `}
+
+  ${props => !props.active && css`
+    &:focus, &:hover {
+      border-bottom: 4px solid ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
+      color: ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
+    }
+  `}
+`
+
 const DEFAULT_HANDLER = () => true
+const DEFAULT_DATE_RANGE = {
+  endDate: null,
+  startDate: null
+}
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -28,26 +57,21 @@ const DEFAULT_SOURCE = {
   display_name: '',
 }
 
-const StyledButton = styled(Button)`
-  background-color: ${props => props.theme.global.colors['neutral-1']};
-  border-radius: 4px;
-  color: ${props => props.theme.global.colors['neutral-6']};
-`
-
 function MainContent({
-  handleDateRangeSelect = DEFAULT_HANDLER,
-  handleProjectSelect = DEFAULT_HANDLER,
   projects = [],
-  selectedDateRange = dateRanges.last7Days,
+  selectedDateRange = DEFAULT_DATE_RANGE,
   selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
   source = DEFAULT_SOURCE
 }) {
   const [activeTab, setActiveTab] = useState(0)
+  const handleActiveTab = useCallback((tabIndex) => {
+    setActiveTab(tabIndex)
+  }, [])
 
-  function onActive (index) {
-    setActiveTab(index)
-  }
+  const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
@@ -62,16 +86,24 @@ function MainContent({
   const selectedProjectOption = projectOptions.find(option => option.value === selectedProject)
 
   // create date range options
-  const dateRangeOptions = dateRanges.values.map((dateRange) => ({
-    label: dateRange
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/([0-9]+)/g, ' $1')
-      .toUpperCase()
-      .trim(),
-    value: dateRange
-  }))
-  const selectedDateRangeOption = dateRangeOptions.find(option => option.value === selectedDateRange)
+  const dateRangeOptions = getDateRangeSelectOptions(source?.created_at?.substring(0, 10))
+  const todayUTC = new Date().toISOString().substring(0, 10)
+  let selectedDateRangeOption = dateRangeOptions.find(option =>
+    (selectedDateRange.endDate === todayUTC) &&
+    (option.value === selectedDateRange.startDate)
+  )
 
+  function handleDateRangeSelect(option) {
+    setSelectedDateRange({
+      endDate: todayUTC,
+      startDate: option.value
+    })
+  }
+
+  function handleProjectSelect(option) {
+    setSelectedProject(option.value)
+  }
+  
   return (
     <ContentBox
       direction='column'
@@ -86,43 +118,44 @@ function MainContent({
         login={source?.login}
         projects={selectedProject === 'AllProjects' ? projects?.length : 1}
       />
-      <Tabs
-        activeIndex={activeTab}
-        flex
-        gap='small'
-        onActive={onActive}
-        justify='start'
+      <Box
+        direction={size === 'small' ? 'column' : 'row'}
+        gap={size === 'small' ? 'small' : 'none'}
       >
-        <Tab title='CLASSIFICATIONS'>
-          <Box width='100%' height='15rem'>
-            <BarChart
-              data={stats?.data}
-              dateRange={selectedDateRange}
-              type='count'
-              />
-          </Box>
-        </Tab>
-        <Tab title='HOURS' >
-          <Box width='100%' height='15rem'>
-            <BarChart
-              data={stats?.data}
-              dateRange={selectedDateRange}
-              type='session_time'
-            />
-          </Box>
-        </Tab>
-        <Tip
-          buttonProps={{
-            margin: {
-              bottom: 'small',
-              right: 'auto'
-            }
-          }}
-          contentText='Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.'
-        />
         <Box
+          role='tablist'
+          basis='1/2'
           direction='row'
-          gap='xsmall'
+          fill={size === 'small' ? 'horizontal' : false}
+          gap='medium'
+        >
+          <StyledTab
+            role='tab'
+            aria-expanded={activeTab === 0}
+            aria-selected={activeTab === 0}
+            active={activeTab === 0}
+            label='CLASSIFICATIONS'
+            onClick={() => handleActiveTab(0)}
+            plain
+            fill={size === 'small' ? 'horizontal' : false}
+          />
+          <StyledTab
+            role='tab'
+            aria-expanded={activeTab === 1}
+            aria-selected={activeTab === 1}
+            active={activeTab === 1}
+            label='HOURS'
+            onClick={() => handleActiveTab(1)}
+            plain
+            fill={size === 'small' ? 'horizontal' : false}
+          />
+        </Box>
+        <Box
+          basis='1/2'
+          direction='row'
+          fill={size === 'small' ? 'horizontal' : false}
+          gap='small'
+          justify={size === 'small' ? 'evenly' : 'end'}
         >
           <Select
             id='project-select'
@@ -139,17 +172,29 @@ function MainContent({
             value={selectedDateRangeOption}
           />
         </Box>
-      </Tabs>
+      </Box>
+      <Box
+        role='tabpanel'
+        aria-label={activeTab === 0 ? 'CLASSIFICATIONS Tab Contents' : 'HOURS Tab Contents'}
+        height='15rem'
+        width='100%'
+      >
+        <BarChart
+          data={stats?.data}
+          dateRange={selectedDateRange}
+          type={activeTab === 0 ? 'count' : 'session_time'}
+        />
+      </Box>
       {source?.login ? (
         <Box
           direction='row'
-          gap='16px'
           justify='end'
+          margin={{ top: 'small' }}
         >
           <StyledButton
             forwardedAs='a'
             color='neutral-1'
-            href={`/users/${source.login}/stats/certificate`}
+            href={`/users/${source.login}/stats/certificate${window.location.search}`}
             label='Generate Volunteer Certificate'
           />
         </Box>
@@ -160,15 +205,18 @@ function MainContent({
 
 MainContent.propTypes = {
   activeTab: number,
-  handleDateRangeSelect: func,
-  handleProjectSelect: func,
   onActive: func,
   projects: arrayOf(shape({
     display_name: string,
     id: string
   })),
-  selectedDateRange: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func,
   stats: shape({
     data: arrayOf(shape({
       count: number,
@@ -179,6 +227,7 @@ MainContent.propTypes = {
     total_count: number
   }),
   source: shape({
+    created_at: string,
     display_name: string
   })
 }

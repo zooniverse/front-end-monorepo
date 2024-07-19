@@ -1,4 +1,5 @@
 import { shape, string } from 'prop-types'
+import { useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 import { usePanoptesMemberships } from '@hooks'
@@ -14,8 +15,11 @@ function MembersListContainer({
   authUser,
   group
 }) {
+  const [page, setPage] = useState(1)
+
   const query = {
     include: 'user',
+    page,
     user_group_id: group?.id
   }
   
@@ -28,12 +32,19 @@ function MembersListContainer({
     query
   })
 
-  const { trigger: deleteMembership } = useSWRMutation({ query, joinStatusSuccess: false }, deletePanoptesMembership)
-  const { trigger: updateMembership } = useSWRMutation({ query, joinStatusSuccess: false }, updatePanoptesMembership)
+  const { trigger: deleteMembership } = useSWRMutation({ query }, deletePanoptesMembership)
+  const { trigger: updateMembership } = useSWRMutation({ query }, updatePanoptesMembership)
 
   const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
 
-  async function handleDeleteMembership({ membershipId }) {
+  const paginationProps = {
+    numberItems: membershipsData?.meta?.count,
+    onChange: setPage,
+    page,
+    step: membershipsData?.meta?.page_size
+  }
+
+  function handleDeleteMembership({ membershipId }) {
     try {
       deleteMembership({ membershipId }, {
         optimisticData: (prevMembershipsData) => ({
@@ -48,7 +59,7 @@ function MembersListContainer({
     }
   }
 
-  async function handleUpdateMembership({ membershipId, data }) {
+  function handleUpdateMembership({ membershipId, data }) {
     try {
       updateMembership({ membershipId, data }, {
         optimisticData: (prevMembershipsData) => ({
@@ -86,6 +97,7 @@ function MembersListContainer({
       handleDeleteMembership={handleDeleteMembership}
       handleUpdateMembership={handleUpdateMembership}
       memberships={memberships}
+      paginationProps={paginationProps}
       users={membershipsData?.linked?.users}
     />
   )

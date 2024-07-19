@@ -18,14 +18,25 @@ const formatStatsPreview = (thisWeekData, allTimeData) => {
 }
 
 export default function StatsTabsContainer({ user }) {
-  const thisWeekQuery = getDateInterval('Last7Days')
+  const today = new Date()
+  const todayUTC = today.toISOString().substring(0, 10)
+  
+  const thisWeekStart = new Date()
+  thisWeekStart.setUTCDate(today.getUTCDate() - 6)
+  const thisWeekQuery = getDateInterval({
+    endDate: todayUTC,
+    startDate: thisWeekStart.toISOString().substring(0, 10)
+  })
   thisWeekQuery.project_contributions = true
   const { data: thisWeekData } = useStats({
     sourceId: user?.id,
     query: thisWeekQuery
   })
 
-  const allTimeQuery = getDateInterval('AllTime')
+  const allTimeQuery = getDateInterval({
+    endDate: todayUTC,
+    startDate: user?.created_at?.substring(0, 10) || '2015-07-01'
+  })
   allTimeQuery.project_contributions = true
   const { data: allTimeData } = useStats({
     sourceId: user?.id,

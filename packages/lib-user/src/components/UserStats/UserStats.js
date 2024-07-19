@@ -28,12 +28,12 @@ const DEFAULT_USER = {
 
 function UserStats({
   allProjectsStats = DEFAULT_STATS,
-  handleDateRangeSelect = DEFAULT_HANDLER,
-  handleProjectSelect = DEFAULT_HANDLER,
   projectStats = DEFAULT_STATS,
   projects = [],
-  selectedDateRange = 'Last7Days',
+  selectedDateRange,
   selectedProject = 'AllProjects',
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER,
   user = DEFAULT_USER
 }) {
   // set stats based on selected project or all projects
@@ -50,11 +50,11 @@ function UserStats({
       }
     >
       <MainContent
-        handleDateRangeSelect={handleDateRangeSelect}
-        handleProjectSelect={handleProjectSelect}
         projects={projects}
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
+        setSelectedDateRange={setSelectedDateRange}
+        setSelectedProject={setSelectedProject}
         stats={stats}
         source={user}
       />
@@ -83,15 +83,18 @@ const statsShape = shape({
 
 UserStats.propTypes = {
   allProjectsStats: statsShape,
-  handleDateRangeSelect: func,
-  handleProjectSelect: func,
   projectStats: statsShape,
   projects: arrayOf(shape({
     id: string,
     display_name: string
   })),
-  selectedDateRange: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func,
   user: shape({
     id: string
   })

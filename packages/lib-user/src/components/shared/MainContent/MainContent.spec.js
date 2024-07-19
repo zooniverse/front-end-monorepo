@@ -6,6 +6,9 @@ import { STATS } from '../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default } from './MainContent.stories.js'
 
+const todayUTC = new Date().toISOString().substring(0, 10)
+const sevenDaysAgoUTC = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10)
+
 describe('components > shared > MainContent', function () {
   const DefaultStory = composeStory(Default, Meta)
 
@@ -47,6 +50,6 @@ describe('components > shared > MainContent', function () {
   it('should show a bar chart of classifications stats', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByLabelText('Bar chart of Classifications by Day for Last 7 Days')).to.be.ok()
+    expect(screen.getByLabelText(`Bar chart of Classifications by Day from ${sevenDaysAgoUTC} to ${todayUTC}`)).to.be.ok()
   })
 })

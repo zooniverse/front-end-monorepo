@@ -12,7 +12,7 @@ export default function PreviewLayout({
   authUser,
   groups,
   loading = false,
-  setGroupModalActive = DEFAULT_HANDLER
+  handleGroupModal = DEFAULT_HANDLER
 }) {
   return (
     <ContentBox
@@ -28,6 +28,7 @@ export default function PreviewLayout({
       {!loading && groups?.length ? (
         <Box
           as='ul'
+          align='center'
           gap='xsmall'
           margin={{ bottom: 'medium' }}
           pad='none'
@@ -37,7 +38,7 @@ export default function PreviewLayout({
               key={group.id}
               id={group.id}
               displayName={group.display_name}
-              role={group.role}
+              role={group.roles[0]}
             />
           ))}
         </Box>
@@ -51,7 +52,7 @@ export default function PreviewLayout({
           </Paragraph>
         </Box>
       )}
-      <CreateButton onClick={() => setGroupModalActive(true)} />
+      <CreateButton onClick={handleGroupModal} />
     </ContentBox>
   )
 }
@@ -68,5 +69,5 @@ PreviewLayout.propTypes = {
     })
   ),
   loading: bool,
-  setGroupModalActive: func
+  handleGroupModal: func
 }

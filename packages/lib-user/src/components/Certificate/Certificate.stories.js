@@ -12,7 +12,10 @@ export const Default = {
     hours: 45,
     login: 'testUser',
     projectsCount: 67,
-    selectedDateRange: 'AllTime',
+    selectedDateRange: {
+      endDate: '2023-12-31',
+      startDate: '2015-07-01'
+    },
     selectedProject: 'AllProjects'
   }
 }
@@ -23,31 +26,41 @@ export const ProjectSpecific = {
     displayName: 'Example User',
     hours: 45,
     login: 'testUser',
-    selectedDateRange: 'AllTime',
+    projectDisplayName: 'Test Project',
+    selectedDateRange: {
+      endDate: '2023-12-31',
+      startDate: '2015-07-01'
+    },
     selectedProject: 'Galaxy Zoo'
   }
 }
 
-export const Last7Days = {
+export const ThisMonth = {
   args: {
     creditedName: 'Example T. User',
     displayName: 'Example User',
     hours: 45,
     login: 'testUser',
     projectsCount: 67,
-    selectedDateRange: 'Last7Days',
+    selectedDateRange: {
+      endDate: '2021-07-31',
+      startDate: '2021-07-01'
+    },
     selectedProject: 'AllProjects'
   }
 }
 
-export const Last30Days = {
+export const ThisYear = {
   args: {
     creditedName: 'Example T. User',
     displayName: 'Example User',
     hours: 45,
     login: 'testUser',
     projectsCount: 67,
-    selectedDateRange: 'Last30Days',
+    selectedDateRange: {
+      endDate: '2021-12-31',
+      startDate: '2021-01-01'
+    },
     selectedProject: 'AllProjects'
   }
 }

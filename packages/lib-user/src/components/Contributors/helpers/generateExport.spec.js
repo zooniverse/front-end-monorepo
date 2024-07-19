@@ -5,34 +5,31 @@ import { group_member_stats_breakdown } from '../../../../test/mocks/stats.mock'
 
 import { generateExport } from './generateExport'
 
-describe('Contributors > generateExport', function () {
-  let setFilename
-  let projects
-  let stats
-  let users
+describe('components > Contributors > generateExport', function () {
+  let clock
+  let projects = PROJECTS
+  let stats = {
+    group_member_stats_breakdown
+  }
+  let users = [USER, GROUP_MEMBER_USER, GROUP_ADMIN_USER]
 
-  before(function () {
-    setFilename = sinon.stub()
-    projects = PROJECTS
-    stats = {
-      group_member_stats_breakdown
-    }
-    users = [USER, GROUP_MEMBER_USER, GROUP_ADMIN_USER]
+  beforeEach(function () {
+    clock = sinon.useFakeTimers(new Date(2023, 3, 15))
   })
 
-  after(function () {
-    setFilename.resetHistory()
+  afterEach(function () {
+    clock.restore()
   })
 
-  it('should call setFilename with the correct filename', function () {
-    generateExport({
+  it('should return the expected export data', async function () {
+    const { filename, dataExportUrl } = await generateExport({
       group: USER_GROUPS[0],
-      handleFileName: setFilename,
       projects,
       stats,
       users
     })
 
-    expect(setFilename).to.be.calledWithMatch(/TestGroup.data_export.\d+.csv/)
+    expect(filename).to.equal('TestGroup_data_export_2023-04-15T000000.csv')
+    expect(dataExportUrl).to.be.a('string')
   })
 })
