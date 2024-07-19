@@ -1,4 +1,5 @@
 import { Box, Button, Carousel, Paragraph } from 'grommet'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { Media, PrimaryButton, SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
@@ -72,7 +73,7 @@ export default function Confusion({
 
 Confusion.propTypes = {
   confusion: PropTypes.shape({
-    confusions: PropTypes.objectOf(PropTypes.string),
+    confusions: MobXPropTypes.observableMap,
     confusionsOrder: PropTypes.arrayOf(PropTypes.string),
     images: PropTypes.arrayOf(PropTypes.string),
     label: PropTypes.string
