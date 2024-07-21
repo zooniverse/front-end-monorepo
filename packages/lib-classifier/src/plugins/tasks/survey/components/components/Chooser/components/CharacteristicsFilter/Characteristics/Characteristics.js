@@ -22,7 +22,7 @@ function Characteristics({
       flex='grow'
     >
       {characteristicsOrder.map((characteristicId) => {
-        const characteristic = characteristics[characteristicId] || {}
+        const characteristic = characteristics.get(characteristicId) || {}
         const selectedValueId = filters[characteristicId] || ''
 
         return (
