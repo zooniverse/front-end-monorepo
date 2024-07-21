@@ -22,7 +22,7 @@ export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
 
   return (
     <Box
-      round='small'
+      round='8px'
       pad={size === 'small' ? '0' : 'large'}
       border={size === 'small' ? false : border}
       width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
