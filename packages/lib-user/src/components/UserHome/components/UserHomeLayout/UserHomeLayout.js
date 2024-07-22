@@ -25,8 +25,6 @@ const PageBody = styled(Box)`
   position: relative;
   min-height: 90vh;
   max-width: min(100%, calc(90rem - 160px));
-
-  margin-top: -70px; // half height of PageHeader
   border-radius: 8px 8px 0 0;
   padding-bottom: 50px;
 
@@ -119,7 +117,11 @@ function UserHomeLayout({
           width='min(100%, 90rem)'
           elevation='medium'
         >
-          <PageBody fill forwardedAs='main'>
+          <PageBody
+            fill
+            forwardedAs='main'
+            margin={size !== 'small' ? { top: '-70px' } : '0'}
+          >
             {children}
           </PageBody>
         </InnerPageContainer>
