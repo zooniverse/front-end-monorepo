@@ -121,6 +121,11 @@ const StyledBadge = styled(Text)`
   padding: 3px 5px;
   background: ${props => props.theme.global.colors['neutral-1']};
   border-radius: 15px;
+
+  // For Grommet breakpoint small
+  @media (width < 769px) {
+    right: 60px;
+  }
 `
 
 // Same as ContentBox
