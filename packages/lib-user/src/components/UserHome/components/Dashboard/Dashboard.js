@@ -143,13 +143,7 @@ export default function Dashboard({ user, userLoading }) {
       : 'Learn more about your new homepage'
 
   return (
-    <Box
-      align='center'
-      // pad={{ bottom: '20px' }}
-      round={size === 'small' ? false : '16px 16px 8px 8px'}
-      // border={size === 'small' ? false : border}
-      // elevation={size === 'small' ? 'none' : 'xsmall'}
-    >
+    <Box align='center' round={size === 'small' ? false : '16px 16px 8px 8px'}>
       <Relative
         fill
         align='center'
