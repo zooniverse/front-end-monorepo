@@ -6,7 +6,7 @@ import { Blank } from 'grommet-icons'
 
 function Icon({ icon, text = '' }) {
   return (
-    <Blank role='img' aria-label={text} aria-hidden='false' size='1rem'>
+    <Blank role='img' aria-label={text} aria-hidden='false' size='1.5rem'>
       {icon}
     </Blank>
   )

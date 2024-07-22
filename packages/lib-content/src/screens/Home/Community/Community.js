@@ -6,23 +6,27 @@ import { useContext } from 'react'
 import Article from '../../../components/Article/Article.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
 
+// Same as lib-user's ContentBox
+const border = {
+  color: {
+    dark: 'light-1',
+    light: 'light-5'
+  },
+  side: 'all',
+  size: '0.5px'
+}
+
 export default function Community({ dailyZooPosts = [], zooBlogPosts = [] }) {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
   return (
     <Box
-      round='small'
+      round='8px'
       pad={size === 'small' ? '0' : 'large'}
-      border={
-        size === 'small'
-          ? false
-          : {
-              color: { light: 'light-5', dark: 'black' },
-              size: 'xsmall'
-            }
-      }
+      border={size === 'small' ? false : border}
       width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
+      elevation={size === 'small' ? 'none' : 'xsmall'}
     >
       <SpacedHeading
         color={{ light: 'neutral-1', dark: 'accent-1' }}
