@@ -2,21 +2,25 @@ import sinon from 'sinon'
 
 import { getDateRangeSelectOptions } from './getDateRangeSelectOptions'
 
-describe.only('utils > getDateRangeSelectOptions', function () {
+describe('utils > getDateRangeSelectOptions', function () {
   let clock
 
-  describe('when the current date is after UTC', function () {
+  describe('when the user\'s date is the day after UTC', function () {
 
     beforeEach(function () {
-      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00+02:00'))
+      // Set the user's clock April 16, 1AM, in a timezone 2 hours ahead of UTC,
+      // so that the UTC date is April 15, 11PM
+      clock = sinon.useFakeTimers(new Date('2023-04-16T01:00:00+02:00'))
     })
 
     afterEach(function () {
       clock.restore()
     })
 
-    it('should return the expected date range select options', function () {
+    it('should return the expected date range select options in UTC', function () {
       const dateRangeSelectOptions = getDateRangeSelectOptions('2015-07-01')
+
+      // the following expected values are based on the UTC date April 15, 11PM, **NOT** the user's date of April 16, 1AM
       expect(dateRangeSelectOptions).to.deep.equal([
         {
           label: 'LAST 7 DAYS',
@@ -50,18 +54,22 @@ describe.only('utils > getDateRangeSelectOptions', function () {
     })
   })
 
-  describe('when the current date is before UTC', function () {
+  describe('when the user\'s date is the day before UTC', function () {
       
     beforeEach(function () {
-      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00-02:00'))
+      // Set the user's clock April 14, 11PM, in a timezone 2 hours behind UTC,
+      // so that the UTC date is April 15, 1AM
+      clock = sinon.useFakeTimers(new Date('2023-04-14T23:00:00-02:00'))
     })
 
     afterEach(function () {
       clock.restore()
     })
 
-    it('should return the expected date range select options', function () {
+    it('should return the expected date range select options in UTC', function () {
       const dateRangeSelectOptions = getDateRangeSelectOptions('2015-07-01')
+
+      // the following expected values are based on the UTC date April 15, 1AM, **NOT** the user's date of April 14, 11PM
       expect(dateRangeSelectOptions).to.deep.equal([
         {
           label: 'LAST 7 DAYS',
