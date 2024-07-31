@@ -35,7 +35,7 @@ export default function StatsTabsContainer({ user }) {
 
   const allTimeQuery = getDateInterval({
     endDate: todayUTC,
-    startDate: user?.created_at?.substring(0, 10) || '2015-07-01'
+    startDate: user?.created_at?.substring(0, 10) || '2015-03-17'
   })
   allTimeQuery.project_contributions = true
   const { data: allTimeData } = useStats({

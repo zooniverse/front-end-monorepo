@@ -66,7 +66,6 @@ function MainContent({
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
   
   const todayUTC = new Date().toISOString().substring(0, 10)
-  const leastRecentDate = selectedDateRange.startDate < source?.created_at?.substring(0, 10) ? selectedDateRange.startDate : source?.created_at?.substring(0, 10)
 
   function handleDateRangeSelect(option) {
     if (option.value === 'custom') {
@@ -114,7 +113,7 @@ function MainContent({
       >
         <Calendar
           bounds={[
-            leastRecentDate,
+            '2015-03-17',
             todayUTC
           ]}
           date={[customDateRange]}

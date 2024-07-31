@@ -4,7 +4,7 @@ function getNextMonth(month) {
   return month === 11 ? 0 : month + 1
 }
 
-function getPresetSelectOptions({ created_at = '2015-07-01', today }) {
+function getPresetSelectOptions({ allTimeStartDate, today }) {
   return [
     {
       label: 'LAST 7 DAYS',
@@ -32,7 +32,7 @@ function getPresetSelectOptions({ created_at = '2015-07-01', today }) {
     },
     {
       label: 'ALL TIME',
-      value: created_at
+      value: allTimeStartDate
     }
   ]
 }
@@ -42,11 +42,12 @@ const DEFAULT_DATE_RANGE = {
   startDate: new Date(new Date().setUTCDate(new Date().getUTCDate() - 6)).toISOString().substring(0, 10)
 }
 
-export function getDateRangeSelectOptions({ created_at = '2015-07-01', selectedDateRange = DEFAULT_DATE_RANGE }) {
+export function getDateRangeSelectOptions({ created_at = '2015-03-17', selectedDateRange = DEFAULT_DATE_RANGE }) {
   const today = new Date()
   const todayUTC = today.toISOString().substring(0, 10)
+  const allTimeStartDate = created_at > '2015-03-17' ? created_at : '2015-03-17'
   
-  const dateRangeOptions = getPresetSelectOptions({ created_at, today })
+  const dateRangeOptions = getPresetSelectOptions({ allTimeStartDate, today })
   
   let selectedDateRangeOption = dateRangeOptions.find(option =>
     (selectedDateRange.endDate === todayUTC) &&
