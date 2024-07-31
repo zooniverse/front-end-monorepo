@@ -17,11 +17,17 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       clock.restore()
     })
 
-    it('should return the expected date range select options in UTC', function () {
-      const dateRangeSelectOptions = getDateRangeSelectOptions('2015-07-01')
+    it('should return the expected date range options in UTC', function () {
+      const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+        created_at: '2015-07-01',
+        selectedDateRange: {
+          endDate: '2023-04-15',
+          startDate: '2023-04-09'
+        }
+      })
 
       // the following expected values are based on the UTC date April 15, 11PM, **NOT** the user's date of April 16, 1AM
-      expect(dateRangeSelectOptions).to.deep.equal([
+      expect(dateRangeOptions).to.deep.equal([
         {
           label: 'LAST 7 DAYS',
           value: '2023-04-09'
@@ -49,8 +55,26 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
         {
           label: 'ALL TIME',
           value: '2015-07-01'
+        },
+        { 
+          label: 'CUSTOM',
+          value: 'custom'
         }
       ])
+    })
+
+    it('should return the expected selected date range option', function () {
+      const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+        created_at: '2015-11-01',
+        selectedDateRange: {
+          endDate: '2023-04-15',
+          startDate: '2023-04-09'
+        }
+      })
+      expect(selectedDateRangeOption).to.deep.equal({
+        label: 'LAST 7 DAYS',
+        value: '2023-04-09'
+      })
     })
   })
 
@@ -66,11 +90,17 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       clock.restore()
     })
 
-    it('should return the expected date range select options in UTC', function () {
-      const dateRangeSelectOptions = getDateRangeSelectOptions('2015-07-01')
+    it('should return the expected date range options in UTC', function () {
+      const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+        created_at: '2015-07-01',
+        selectedDateRange: {
+          endDate: '2023-04-15',
+          startDate: '2023-04-09'
+        }
+      })
 
       // the following expected values are based on the UTC date April 15, 1AM, **NOT** the user's date of April 14, 11PM
-      expect(dateRangeSelectOptions).to.deep.equal([
+      expect(dateRangeOptions).to.deep.equal([
         {
           label: 'LAST 7 DAYS',
           value: '2023-04-09'
@@ -98,26 +128,39 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
         {
           label: 'ALL TIME',
           value: '2015-07-01'
+        },
+        { 
+          label: 'CUSTOM',
+          value: 'custom'
         }
       ])
     })
-  })
 
-  it('should return the expected selected date range option', function () {
-    const { dateRangeSelectOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
-      created_at: '2015-11-01',
-      selectedDateRange: {
-        endDate: '2023-04-15',
-        startDate: '2023-04-09'
-      }
-    })
-    expect(selectedDateRangeOption).to.deep.equal({
-      label: 'LAST 7 DAYS',
-      value: '2023-04-09'
+    it('should return the expected selected date range option', function () {
+      const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+        created_at: '2015-11-01',
+        selectedDateRange: {
+          endDate: '2023-04-15',
+          startDate: '2023-04-09'
+        }
+      })
+      expect(selectedDateRangeOption).to.deep.equal({
+        label: 'LAST 7 DAYS',
+        value: '2023-04-09'
+      })
     })
   })
 
   describe('with a custom date range', function () {
+
+    beforeEach(function () {
+      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00'))
+    })
+
+    afterEach(function () {
+      clock.restore()
+    })
+
     it('should return the expected date range options', function () {
       const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
         created_at: '2015-11-01',

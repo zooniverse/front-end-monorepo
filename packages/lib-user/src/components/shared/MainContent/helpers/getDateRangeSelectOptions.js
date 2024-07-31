@@ -16,7 +16,7 @@ function getPresetSelectOptions({ created_at = '2015-07-01', today }) {
     },
     {
       label: 'THIS MONTH',
-      value: new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1)).toISOString().substring(0, 10)
+      value: new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1)).toISOString().substring(0, 10)
     },
     {
       label: 'LAST 3 MONTHS',
@@ -24,11 +24,11 @@ function getPresetSelectOptions({ created_at = '2015-07-01', today }) {
     },
     {
       label: 'THIS YEAR',
-      value: new Date(Date.UTC(endDate.getUTCFullYear(), 0, 1)).toISOString().substring(0, 10)
+      value: new Date(Date.UTC(today.getUTCFullYear(), 0, 1)).toISOString().substring(0, 10)
     },
     {
       label: 'LAST 12 MONTHS',
-      value: new Date(Date.UTC((endDate.getUTCFullYear() - 1), getNextMonth(endDate.getUTCMonth()), 1)).toISOString().substring(0, 10)
+      value: new Date(Date.UTC((today.getUTCFullYear() - 1), getNextMonth(today.getUTCMonth()), 1)).toISOString().substring(0, 10)
     },
     {
       label: 'ALL TIME',
