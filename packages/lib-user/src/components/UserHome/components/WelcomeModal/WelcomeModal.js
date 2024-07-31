@@ -1,10 +1,10 @@
-import { Anchor, Box, Button, Layer, Paragraph } from 'grommet'
+import { Anchor, Box, Button, Layer, Paragraph, ResponsiveContext } from 'grommet'
 import {
   CloseButton,
   SpacedText,
   ZooniverseLogo
 } from '@zooniverse/react-components'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const textColor = { light: 'black', dark: 'white' }
@@ -46,6 +46,7 @@ const StyledCloseButton = styled(CloseButton)`
 `
 
 function WelcomeModal() {
+  const size = useContext(ResponsiveContext)
   const [dismissed, setDismissed] = useState(true)
 
   useEffect(() => {
@@ -72,6 +73,7 @@ function WelcomeModal() {
           closeFn={handleClose}
           onEsc={handleClose}
           background='transparent'
+          margin={size !== 'small' ? 'medium' : '0' }
         >
           <Box
             background={{
@@ -85,7 +87,7 @@ function WelcomeModal() {
           >
             <StyledCloseButton closeFn={handleClose} />
             <ZooniverseLogo
-              color='#00979d' // 'brand won't work here for some reason
+              color='#00979d' // 'brand' won't work here for some reason
               id='homepage-welcome-modal'
               size='100px'
             />
@@ -103,8 +105,8 @@ function WelcomeModal() {
               margin={{ vertical: '30px' }}
               textAlign='center'
             >
-              We are excited to introduce several changes to the Zooniverse
-              homepage. They are designed to enhance your overall experience.{' '}
+              It&apos;s been a while since we updated the homepage, so we&apos;ve
+              freshened things up. This has also let us improve:
             </Paragraph>
             <Box
               as='ul'

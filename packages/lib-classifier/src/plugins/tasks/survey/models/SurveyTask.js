@@ -3,35 +3,22 @@ import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SurveyAnnotation from './SurveyAnnotation'
 
-function validateCharacteristic (characteristic) {
-  return (
-    typeof characteristic.label === 'string' &&
-    characteristic.valuesOrder.every(item => typeof item === 'string') &&
-    Object.keys(characteristic.values).every(valuesKey => typeof valuesKey === 'string') &&
-    Object.values(characteristic.values).every(value => (
-      typeof value.label === 'string' &&
-      typeof value.image === 'string'
-    ))
-  )
-}
+const CharacteristicValue = types.model('CharacteristicValue', {
+  label: types.string,
+  image: types.string
+})
 
-const Characteristics = types.refinement(
-  'Characteristics',
-  types.frozen(),
-  function validate (characteristic) {
-    if (characteristic) {
-      const validKeys = Object.keys(characteristic).every(key => typeof key === 'string')
-      const validValues = Object.values(characteristic).every(value => validateCharacteristic(value))
-      return validKeys && validValues
-    }
-  }
-)
+const Characteristic = types.model('Characteristic', {
+  label: types.string,
+  values: types.map(CharacteristicValue),
+  valuesOrder: types.array(types.string)
+})
 
 const Survey = types.model('Survey', {
   // alwaysShowThumbnails is deprecated in favor of the `thumbnails` property
   alwaysShowThumbnails: types.maybe(types.boolean),
   annotation: types.safeReference(SurveyAnnotation),
-  characteristics: types.optional(types.frozen(Characteristics), {}),
+  characteristics: types.optional(types.map(Characteristic), {}),
   characteristicsOrder: types.array(types.string),
   choices: types.frozen({}),
   choicesOrder: types.array(types.string),
