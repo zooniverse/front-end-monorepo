@@ -41,7 +41,7 @@ describe('components > Contributors > ContributorsList', function () {
     })
   
     it('should show the user\'s session time', function () {
-      const sessionTime = within(contributorItem).getByText(Math.round(convertStatsSecondsToHours(group_member_stats_breakdown[0].session_time)).toLocaleString())
+      const sessionTime = within(contributorItem).getByText(convertStatsSecondsToHours(group_member_stats_breakdown[0].session_time).toLocaleString())
       expect(sessionTime).to.be.ok()
     })
   
