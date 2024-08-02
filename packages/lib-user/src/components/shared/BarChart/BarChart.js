@@ -105,10 +105,10 @@ function BarChart({
         {
           property: 'period',
           label: dateRangeLabel.countLabel,
-          render: ((period, datam, dataIndex) => {
+          render: ((period, datum, datumIndex) => {
             const date = new Date(period)
 
-            if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datam?.index % 2 !== 0) {
+            if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
               return (
                 <Text
                   className='hidden-period-label'
@@ -118,7 +118,7 @@ function BarChart({
                   {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
                 </Text>
               )
-            } else if (xAxisFrequency === X_AXIS_FREQUENCY.everyFourth && datam?.index % 4 !== 0) {
+            } else if (xAxisFrequency === X_AXIS_FREQUENCY.everyFourth && datum?.index % 4 !== 0) {
               return (
                 <Text
                   className='hidden-period-label'
