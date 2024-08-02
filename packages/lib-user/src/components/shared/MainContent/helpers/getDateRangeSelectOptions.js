@@ -16,7 +16,7 @@ export function getDateRangeSelectOptions(created_at = '2015-07-01') {
     },
     {
       label: 'THIS MONTH',
-      value: new Date(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1).toISOString().substring(0, 10)
+      value: new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1)).toISOString().substring(0, 10)
     },
     {
       label: 'LAST 3 MONTHS',
@@ -24,11 +24,11 @@ export function getDateRangeSelectOptions(created_at = '2015-07-01') {
     },
     {
       label: 'THIS YEAR',
-      value: new Date(endDate.getUTCFullYear(), 0, 1).toISOString().substring(0, 10)
+      value: new Date(Date.UTC(endDate.getUTCFullYear(), 0, 1)).toISOString().substring(0, 10)
     },
     {
       label: 'LAST 12 MONTHS',
-      value: new Date((endDate.getUTCFullYear() - 1), getNextMonth(endDate.getUTCMonth()), 1).toISOString().substring(0, 10)
+      value: new Date(Date.UTC((endDate.getUTCFullYear() - 1), getNextMonth(endDate.getUTCMonth()), 1)).toISOString().substring(0, 10)
     },
     {
       label: 'ALL TIME',

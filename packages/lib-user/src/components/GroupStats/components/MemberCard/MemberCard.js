@@ -30,7 +30,7 @@ function MemberCard({
         <SpacedText
           uppercase={false}
         >
-          {`${Math.round(classifications).toLocaleString()} Classifications`}
+          {`${classifications.toLocaleString()} Classifications`}
         </SpacedText>
       </Box>
     </Box>

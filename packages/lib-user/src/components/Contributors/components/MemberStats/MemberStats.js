@@ -84,7 +84,7 @@ function MemberStats({
             size='large'
             weight='bold'
           >
-            {Math.round(hours).toLocaleString()}
+            {hours.toLocaleString()}
           </SpacedText>
         </Box>
       </Box>

@@ -46,7 +46,7 @@ export const UserWithHours = {
   args: {
     avatar: USER.avatar_src,
     displayName: USER.display_name,
-    hours: 5,
+    hours: 5.1,
     login: USER.login,
     projects: 22
   }
@@ -65,7 +65,7 @@ export const GroupWithHours = {
   args: {
     contributors: 386,
     displayName: USER_GROUPS[0].display_name,
-    hours: 12,
+    hours: 12.8,
     projects: 31
   }
 }
