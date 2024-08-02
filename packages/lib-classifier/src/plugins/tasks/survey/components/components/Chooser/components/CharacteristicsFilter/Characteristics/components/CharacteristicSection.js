@@ -48,7 +48,7 @@ export default function CharacteristicSection({
   }, [characteristicId, label, onFilter])
 
   const characteristicOption = useCallback(valueId => {
-    const value = characteristic?.values?.[valueId] || {}
+    const value = characteristic?.values?.get(valueId) || {}
     const valueImageSrc = images?.[value.image] || ''
     const label = strings.get(`characteristics.${characteristicId}.values.${valueId}.label`)
 

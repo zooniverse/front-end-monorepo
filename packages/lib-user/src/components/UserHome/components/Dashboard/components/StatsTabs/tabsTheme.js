@@ -27,7 +27,7 @@ const tabsTheme = {
       return css`
         button[role='tab'] {
           > div {
-            width: 240px;
+            width: ${props.size !== 'small' ? '240px' : '175px'};
             align-items: center;
           }
           > div > span {

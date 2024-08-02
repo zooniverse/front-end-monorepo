@@ -4,9 +4,9 @@ import { ResponsiveContext } from 'grommet'
 import { PlainButton } from '@zooniverse/react-components'
 import { Blank } from 'grommet-icons'
 
-function Icon({ icon, text = '' }) {
+function Icon({ icon, text = '', size = 'medium' }) {
   return (
-    <Blank role='img' aria-label={text} aria-hidden='false' size='1rem'>
+    <Blank role='img' aria-label={text} aria-hidden='false' size={size === 'small' ? '1.5rem' : '1rem'}>
       {icon}
     </Blank>
   )
@@ -19,7 +19,7 @@ export default function DashboardLink({ href = '', icon, text = '' }) {
       {size !== 'small' ? (
         <PlainButton href={href} text={text} icon={icon} />
       ) : (
-        <Icon text={text} icon={icon} />
+        <Icon text={text} icon={icon} size={size} />
       )}
     </>
   )
