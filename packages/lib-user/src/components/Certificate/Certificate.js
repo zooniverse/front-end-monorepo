@@ -250,7 +250,7 @@ function Certificate({
                     uppercase={false}
                     weight={500}
                   >
-                    Zooniverse PI
+                    Zooniverse Principal Investigator
                   </SpacedText>
                   <SpacedText
                     uppercase={false}
