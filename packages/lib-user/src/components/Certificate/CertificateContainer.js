@@ -4,6 +4,7 @@ import { shape, string } from 'prop-types'
 
 import {
   usePanoptesProjects,
+  usePanoptesUser,
   useStats
 } from '@hooks'
 
@@ -26,7 +27,16 @@ function CertificateContainer({
   selectedDateRange = DEFAULT_DATE_RANGE,
   selectedProject = 'AllProjects'
 }) {
-  // TODO: fetch user data if authUser is not login user (admin view)
+  // fetch user
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authUser,
+    login,
+    requiredUserProperty: 'credited_name'
+  })
 
   // fetch stats
   const statsQuery = getDateInterval(selectedDateRange)
@@ -43,7 +53,7 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: authUser?.id,
+    sourceId: user?.id,
     query: statsQuery
   })
 
@@ -64,10 +74,10 @@ function CertificateContainer({
 
   return (
     <Certificate
-      creditedName={authUser?.credited_name}
-      displayName={authUser?.display_name}
+      creditedName={user?.credited_name}
+      displayName={user?.display_name}
       hours={hours}
-      login={authUser?.login}
+      login={user?.login}
       projectsCount={projectsCount}
       selectedDateRange={selectedDateRange}
       projectDisplayName={projectDisplayName}
