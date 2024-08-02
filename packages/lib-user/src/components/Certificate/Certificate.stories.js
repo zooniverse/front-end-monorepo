@@ -7,10 +7,9 @@ export default {
 
 export const Default = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'ExampleUser',
     hours: 45,
     login: 'testUser',
+    name: 'Example T. User',
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2023-12-31',
@@ -22,10 +21,9 @@ export const Default = {
 
 export const ProjectSpecific = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'Example User',
     hours: 45,
     login: 'testUser',
+    name: 'Example T. User',
     projectDisplayName: 'Test Project',
     selectedDateRange: {
       endDate: '2023-12-31',
@@ -37,10 +35,9 @@ export const ProjectSpecific = {
 
 export const ThisMonth = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'Example User',
     hours: 45,
     login: 'testUser',
+    name: 'Example T. User',
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2021-07-31',
@@ -52,10 +49,9 @@ export const ThisMonth = {
 
 export const ThisYear = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'Example User',
     hours: 45,
     login: 'testUser',
+    name: 'Example T. User',
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2021-12-31',

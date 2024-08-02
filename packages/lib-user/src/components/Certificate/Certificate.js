@@ -62,10 +62,9 @@ function handleClickPrint() {
 }
 
 function Certificate({
-  creditedName = '',
-  displayName = '',
   hours = 0,
   login = '',
+  name = '',
   projectDisplayName = '',
   projectsCount = 0,
   selectedDateRange
@@ -141,7 +140,7 @@ function Certificate({
                   textAlign='center'
                   weight='bold'
                 >
-                  {creditedName || displayName}
+                  {name}
                 </SpacedText>
                 <SpacedText
                   margin={{ top: 'medium' }}
@@ -269,10 +268,9 @@ function Certificate({
 }
 
 Certificate.propTypes = {
-  creditedName: string,
-  displayName: string,
   hours: number,
   login: string,
+  name: string,
   projectDisplayName: string,
   projectsCount: number,
   selectedDateRange: shape({

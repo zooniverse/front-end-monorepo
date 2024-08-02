@@ -69,15 +69,15 @@ function CertificateContainer({
   })
   
   const hours = convertStatsSecondsToHours(stats?.time_spent)
+  const name = user?.credited_name || user?.display_name || login
   const projectsCount = stats?.project_contributions?.length || 0
   const projectDisplayName = projects?.[0]?.display_name
 
   return (
     <Certificate
-      creditedName={user?.credited_name}
-      displayName={user?.display_name}
       hours={hours}
       login={user?.login}
+      name={name}
       projectsCount={projectsCount}
       selectedDateRange={selectedDateRange}
       projectDisplayName={projectDisplayName}
