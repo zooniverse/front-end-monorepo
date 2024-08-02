@@ -24,7 +24,7 @@ export const ProjectSpecific = {
   args: {
     creditedName: 'Example T. User',
     displayName: 'Example User',
-    hours: 45,
+    hours: 12.8,
     login: 'testUser',
     projectDisplayName: 'Test Project',
     selectedDateRange: {
@@ -39,7 +39,7 @@ export const ThisMonth = {
   args: {
     creditedName: 'Example T. User',
     displayName: 'Example User',
-    hours: 45,
+    hours: 20.1,
     login: 'testUser',
     projectsCount: 67,
     selectedDateRange: {
