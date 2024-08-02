@@ -21,7 +21,7 @@ export const Default = {
 
 export const ProjectSpecific = {
   args: {
-    hours: 45,
+    hours: 12.8,
     login: 'testUser',
     name: 'Example T. User',
     projectDisplayName: 'Test Project',
@@ -35,7 +35,7 @@ export const ProjectSpecific = {
 
 export const ThisMonth = {
   args: {
-    hours: 45,
+    hours: 20.1,
     login: 'testUser',
     name: 'Example T. User',
     projectsCount: 67,
