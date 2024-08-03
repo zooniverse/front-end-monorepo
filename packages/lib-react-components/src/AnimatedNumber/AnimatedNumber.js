@@ -14,6 +14,63 @@ export { prefersReducedMotion }
 function formatValue(num) {
   return format(',d')(num)
 }
+
+/**
+ * Use d3 to animate `element` from `initialValue` to `value` over `duration` in milliseconds.
+ * @param {HTMLElement} element 
+ * @param {number} initialValue 
+ * @param {number} value
+ * @param {number} duration 
+ * @returns a Promise that resolves once the animation is complete.
+ */
+function animateValue(element, initialValue, value, duration) {
+  if (value === initialValue) {
+    return
+  }
+  return new Promise((resolve) => {
+    select(element)
+      .data([value])
+      .transition()
+      .duration(duration)
+      .textTween(() => {
+        const interpolator = interpolate(initialValue, value)
+        return t => {
+          const interpolatedValue = interpolator(t)
+          if (interpolatedValue === value) {
+            resolve() // animation complete!
+          }
+          const niceValue = formatValue(interpolatedValue)
+          return niceValue
+        }
+      })
+  })
+}
+
+/**
+ * Use d3 to tween `element` from `initialValue` to `value`.
+ * @param {HTMLElement} element 
+ * @param {number} initialValue
+ * @param {number} value 
+ * @returns a Promise that resolves once the animation is complete.
+ */
+function lessAnimation(element, initialValue, value) {
+  if (value === initialValue) {
+    return
+  }
+  return new Promise((resolve) => {
+    select(element)
+      .data([value])
+      .transition()
+      .duration(0)
+      .textTween(() => {
+        return () => {
+          resolve() // animation complete!
+          return formatValue(value)
+        }
+      })
+  })
+}
+
 function AnimatedNumber({ duration = 1000, value }) {
   const numRef = useRef(null)
   const initialValueRef = useRef(0)
@@ -23,61 +80,23 @@ function AnimatedNumber({ duration = 1000, value }) {
   useEffect(() => {
     // If we already animated the number once, don't observe intersection
     // This could happen if the value prop updates, but page did not refresh
-    if (animated) return
+    if (animated || value === initialValue) return
 
     const numElement = numRef.current
 
-    function animateValue() {
-      if (value === initialValue) {
-        return
-      }
-      select(numElement)
-        .data([value])
-        .transition()
-        .duration(duration)
-        .textTween(() => {
-          const interpolator = interpolate(initialValue, value)
-          return t => {
-            const interpolatedValue = interpolator(t)
-            if (interpolatedValue === value) {
-              setAnimated(true) // animation complete!
-              initialValueRef.current = value
-            }
-            const niceValue = formatValue(interpolatedValue)
-            return niceValue
-          }
-        })
-    }
-  
-    function lessAnimation() {
-      if (value === initialValue) {
-        return
-      }
-      select(numElement)
-      .data([value])
-      .transition()
-      .duration(0)
-      .textTween(() => {
-        return () => {
-          setAnimated(true) // animation complete!
-          initialValueRef.current = value
-          return formatValue(value)
-        }
-      })
-    }
-
-    const intersectionObserver = new window.IntersectionObserver(entries => {
+    const intersectionObserver = new window.IntersectionObserver(async entries => {
       // If intersectionRatio is 0, the target is out of view and we do not need to do anything.
       if (entries[0].intersectionRatio <= 0) return
 
       // Once target element is in viewport, animate it then unobserve
       if (!prefersReducedMotion() && !animated) {
-        animateValue()
-        intersectionObserver.unobserve(numElement)
+        await animateValue(numElement, initialValue, value, duration)
       } else {
-        lessAnimation()
-        intersectionObserver.unobserve(numElement)
+        await lessAnimation(numElement, initialValue, value)
       }
+      setAnimated(true)
+      initialValueRef.current = value
+      intersectionObserver.unobserve(numElement)
     })
 
     intersectionObserver.observe(numElement)
