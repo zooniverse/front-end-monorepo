@@ -4,8 +4,6 @@ import { interpolate } from '@visx/vendor/d3-interpolate'
 import { select } from 'd3'
 import { useEffect, useRef, useState } from 'react'
 
-const initialValue = 0
-
 let prefersReducedMotion
 const isBrowser = typeof window !== 'undefined'
 if (isBrowser) {
@@ -13,42 +11,14 @@ if (isBrowser) {
 }
 export { prefersReducedMotion }
 
+function formatValue(num) {
+  return format(',d')(num)
+}
 function AnimatedNumber({ duration = 1000, value }) {
   const numRef = useRef(null)
+  const initialValueRef = useRef(0)
+  const initialValue = initialValueRef.current
   const [animated, setAnimated] = useState(false)
-
-  function animateValue() {
-    select(numRef.current)
-      .data([value])
-      .transition()
-      .duration(duration)
-      .textTween(() => {
-        const interpolator = interpolate(initialValue, value)
-        return t => {
-          const interpolatedValue = interpolator(t)
-          if (interpolatedValue === value) setAnimated(true) // animation complete!
-          const niceValue = formatValue(interpolatedValue)
-          return niceValue
-        }
-      })
-  }
-
-  function lessAnimation() {
-    select(numRef.current)
-    .data([value])
-    .transition()
-    .duration(0)
-    .textTween(() => {
-      return () => {
-        setAnimated(true) // animation complete!
-        return formatValue(value)
-      }
-    })
-  }
-
-  function formatValue(num) {
-    return format(',d')(num)
-  }
 
   useEffect(() => {
     // If we already animated the number once, don't observe intersection
@@ -56,6 +26,45 @@ function AnimatedNumber({ duration = 1000, value }) {
     if (animated) return
 
     const numElement = numRef.current
+
+    function animateValue() {
+      if (value === initialValue) {
+        return
+      }
+      select(numElement)
+        .data([value])
+        .transition()
+        .duration(duration)
+        .textTween(() => {
+          const interpolator = interpolate(initialValue, value)
+          return t => {
+            const interpolatedValue = interpolator(t)
+            if (interpolatedValue === value) {
+              setAnimated(true) // animation complete!
+              initialValueRef.current = value
+            }
+            const niceValue = formatValue(interpolatedValue)
+            return niceValue
+          }
+        })
+    }
+  
+    function lessAnimation() {
+      if (value === initialValue) {
+        return
+      }
+      select(numElement)
+      .data([value])
+      .transition()
+      .duration(0)
+      .textTween(() => {
+        return () => {
+          setAnimated(true) // animation complete!
+          initialValueRef.current = value
+          return formatValue(value)
+        }
+      })
+    }
 
     const intersectionObserver = new window.IntersectionObserver(entries => {
       // If intersectionRatio is 0, the target is out of view and we do not need to do anything.
@@ -76,7 +85,7 @@ function AnimatedNumber({ duration = 1000, value }) {
     return () => {
       intersectionObserver.disconnect()
     }
-  }, [numRef.current, animated])
+  }, [numRef.current, animated, value, duration])
 
   return <span ref={numRef}>{!animated ? initialValue : formatValue(value)}</span>
 }
