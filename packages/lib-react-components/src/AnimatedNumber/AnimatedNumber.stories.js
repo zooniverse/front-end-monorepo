@@ -50,7 +50,7 @@ export const DeferredAnimation = () => {
   setTimeout(() => setValue(700000000), 2000)
   return (
     <Box pad={{ vertical: '120vh' }}>
-      <AnimatedNumber duration={4000} value={value} />
+      <AnimatedNumber value={value} />
     </Box>
   )
 }

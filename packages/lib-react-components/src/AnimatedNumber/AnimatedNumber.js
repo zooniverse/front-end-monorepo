@@ -9,8 +9,9 @@ const initialValue = 0
 let prefersReducedMotion
 const isBrowser = typeof window !== 'undefined'
 if (isBrowser) {
-  prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
+export { prefersReducedMotion }
 
 function AnimatedNumber({ duration = 1000, value }) {
   const numRef = useRef(null)
@@ -61,7 +62,7 @@ function AnimatedNumber({ duration = 1000, value }) {
       if (entries[0].intersectionRatio <= 0) return
 
       // Once target element is in viewport, animate it then unobserve
-      if (!prefersReducedMotion && !animated) {
+      if (!prefersReducedMotion() && !animated) {
         animateValue()
         intersectionObserver.unobserve(numElement)
       } else {
