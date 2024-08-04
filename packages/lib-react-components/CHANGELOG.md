@@ -11,7 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - ZooFooter and ZooHeader styling to include `display: none;` when printing (`@media print`)
 - PlainButton has text-decoration underline on hover even for links.
-- refactor `AnimatedNumber` to fix missing `useEffect` dependencies.
+
+### Fixed
+
+- refactor `AnimatedNumber` to fix a bug where deferred values are displayed as 0.
 
 ## [1.13.0] 2024-05-17
 
