@@ -89,11 +89,9 @@ function AnimatedNumber({ duration = 1000, value }) {
       if (entries[0].intersectionRatio <= 0) return
 
       // Once target element is in viewport, animate it then unobserve
-      if (!prefersReducedMotion() && !animated) {
-        await animateValue(numElement, initialValue, value, duration)
-      } else {
-        await lessAnimation(numElement, initialValue, value)
-      }
+      const animationFunction =
+        !prefersReducedMotion() && !animated ? animateValue : lessAnimation
+      await animationFunction(numElement, initialValue, value, duration)
       setAnimated(true)
       initialValueRef.current = value
       intersectionObserver.unobserve(numElement)
