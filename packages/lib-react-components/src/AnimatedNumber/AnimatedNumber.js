@@ -27,74 +27,47 @@ function animateValue(element, initialValue, value, duration) {
   if (value === initialValue) {
     return
   }
-  return new Promise((resolve) => {
-    select(element)
-      .data([value])
-      .transition()
-      .duration(duration)
-      .textTween(() => {
-        const interpolator = interpolate(initialValue, value)
-        return t => {
-          const interpolatedValue = interpolator(t)
-          if (interpolatedValue === value) {
-            resolve() // animation complete!
-          }
-          const niceValue = formatValue(interpolatedValue)
-          return niceValue
-        }
-      })
-  })
+  const interpolator = interpolate(initialValue, value)
+  return select(element)
+    .data([value])
+    .transition()
+    .duration(duration)
+    .textTween(() => t => formatValue(interpolator(t)))
+    .end()
 }
 
-/**
- * Use d3 to tween `element` from `initialValue` to `value`.
- * @param {HTMLElement} element 
- * @param {number} initialValue
- * @param {number} value 
- * @returns a Promise that resolves once the animation is complete.
- */
-function lessAnimation(element, initialValue, value) {
-  if (value === initialValue) {
-    return
-  }
-  return new Promise((resolve) => {
-    select(element)
-      .data([value])
-      .transition()
-      .duration(0)
-      .textTween(() => {
-        return () => {
-          resolve() // animation complete!
-          return formatValue(value)
-        }
-      })
-  })
-}
+const initialValue = 0
 
-function AnimatedNumber({ duration = 1000, value }) {
+function AnimatedNumber({ duration = 1000, value = 0 }) {
   const numRef = useRef(null)
-  const initialValueRef = useRef(0)
-  const initialValue = initialValueRef.current
   const [animated, setAnimated] = useState(false)
+  // render the value directly after the animation is complete.
+  const displayedValue = animated ? value : initialValue
 
   useEffect(() => {
-    // If we already animated the number once, don't observe intersection
-    // This could happen if the value prop updates, but page did not refresh
-    if (animated || value === initialValue) return
-
+    /*
+     * We're animating the DOM node content outside of the React render cycle
+     * so use node.textContent to check if we've already rendered the value.
+     */
     const numElement = numRef.current
+    if (animated) return // only run the intersection observer once.
+    if (formatValue(value) === numElement.textContent) return // nothing to animate yet.
 
     const intersectionObserver = new window.IntersectionObserver(async entries => {
       // If intersectionRatio is 0, the target is out of view and we do not need to do anything.
       if (entries[0].intersectionRatio <= 0) return
 
-      // Once target element is in viewport, animate it then unobserve
-      const animationFunction =
-        !prefersReducedMotion() && !animated ? animateValue : lessAnimation
-      await animationFunction(numElement, initialValue, value, duration)
-      setAnimated(true)
-      initialValueRef.current = value
+      /*
+       * Once target element is in viewport, animate it then unobserve.
+       * Only run the full animation if prefers reduced motion is false
+       * and d3 hasn't already started an animation.
+       */
+      const animationInProgress = numElement.textContent !== formatValue(initialValue)
+      const animationDuration =
+        !prefersReducedMotion() && !animationInProgress ? duration : 0
       intersectionObserver.unobserve(numElement)
+      await animateValue(numElement, initialValue, value, animationDuration)
+      setAnimated(true)
     })
 
     intersectionObserver.observe(numElement)
@@ -102,9 +75,9 @@ function AnimatedNumber({ duration = 1000, value }) {
     return () => {
       intersectionObserver.disconnect()
     }
-  }, [numRef.current, animated, value, duration])
+  }, [initialValue, value, duration])
 
-  return <span ref={numRef}>{!animated ? initialValue : formatValue(value)}</span>
+  return <span ref={numRef}>{formatValue(displayedValue)}</span>
 }
 
 AnimatedNumber.propTypes = {
