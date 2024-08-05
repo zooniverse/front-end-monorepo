@@ -1,3 +1,8 @@
+import {
+  getStatsDateString,
+  STATS_START_DATE
+} from '@utils'
+
 import { formatSelectOptionDateLabel } from './formatSelectOptionDateLabel'
 
 function getNextMonth(month) {
@@ -8,27 +13,27 @@ function getPresetSelectOptions({ allTimeStartDate, today }) {
   return [
     {
       label: 'LAST 7 DAYS',
-      value: new Date(new Date().setUTCDate(today.getUTCDate() - 6)).toISOString().substring(0, 10)
+      value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 6)))
     },
     {
       label: 'LAST 30 DAYS',
-      value: new Date(new Date().setUTCDate(today.getUTCDate() - 29)).toISOString().substring(0, 10)
+      value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 29)))
     },
     {
       label: 'THIS MONTH',
-      value: new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1)).toISOString().substring(0, 10)
+      value: getStatsDateString(new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1)))
     },
     {
       label: 'LAST 3 MONTHS',
-      value: new Date(new Date().setUTCDate(today.getUTCDate() - 90)).toISOString().substring(0, 10)
+      value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 90)))
     },
     {
       label: 'THIS YEAR',
-      value: new Date(Date.UTC(today.getUTCFullYear(), 0, 1)).toISOString().substring(0, 10)
+      value: getStatsDateString(new Date(Date.UTC(today.getUTCFullYear(), 0, 1)))
     },
     {
       label: 'LAST 12 MONTHS',
-      value: new Date(Date.UTC((today.getUTCFullYear() - 1), getNextMonth(today.getUTCMonth()), 1)).toISOString().substring(0, 10)
+      value: getStatsDateString(new Date(Date.UTC((today.getUTCFullYear() - 1), getNextMonth(today.getUTCMonth()), 1)))
     },
     {
       label: 'ALL TIME',
@@ -38,14 +43,14 @@ function getPresetSelectOptions({ allTimeStartDate, today }) {
 }
 
 const DEFAULT_DATE_RANGE = {
-  endDate: new Date().toISOString().substring(0, 10),
-  startDate: new Date(new Date().setUTCDate(new Date().getUTCDate() - 6)).toISOString().substring(0, 10)
+  endDate: getStatsDateString(new Date()),
+  startDate: getStatsDateString(new Date(new Date().setUTCDate(new Date().getUTCDate() - 6)))
 }
 
-export function getDateRangeSelectOptions({ created_at = '2015-03-17', selectedDateRange = DEFAULT_DATE_RANGE }) {
+export function getDateRangeSelectOptions({ created_at = STATS_START_DATE, selectedDateRange = DEFAULT_DATE_RANGE }) {
   const today = new Date()
-  const todayUTC = today.toISOString().substring(0, 10)
-  const allTimeStartDate = created_at > '2015-03-17' ? created_at : '2015-03-17'
+  const todayUTC = getStatsDateString(today)
+  const allTimeStartDate = created_at > STATS_START_DATE ? created_at : STATS_START_DATE
   
   const dateRangeOptions = getPresetSelectOptions({ allTimeStartDate, today })
   

@@ -4,7 +4,9 @@ import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
 
 import {
-  convertStatsSecondsToHours
+  convertStatsSecondsToHours,
+  getStatsDateString,
+  STATS_START_DATE
 } from '@utils'
 
 import {
@@ -61,11 +63,14 @@ function MainContent({
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
-  const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({ created_at: source?.created_at?.substring(0, 10), selectedDateRange })
+  const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+    created_at: getStatsDateString(source?.created_at),
+    selectedDateRange
+  })
   
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
   
-  const todayUTC = new Date().toISOString().substring(0, 10)
+  const todayUTC = getStatsDateString(new Date())
 
   function handleDateRangeSelect(option) {
     if (option.value === 'custom') {
@@ -86,8 +91,8 @@ function MainContent({
 
   function handleCalendarSave() {
     setSelectedDateRange({
-      endDate: customDateRange[1]?.substring(0, 10),
-      startDate: customDateRange[0]?.substring(0, 10)
+      endDate: getStatsDateString(customDateRange[1]),
+      startDate: getStatsDateString(customDateRange[0])
     })
     setShowCalendar(false)
   }
@@ -113,7 +118,7 @@ function MainContent({
       >
         <Calendar
           bounds={[
-            '2015-03-17',
+            STATS_START_DATE,
             todayUTC
           ]}
           date={[customDateRange]}
