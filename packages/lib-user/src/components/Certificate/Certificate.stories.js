@@ -13,7 +13,7 @@ export const Default = {
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2023-12-31',
-      startDate: '2015-07-01'
+      startDate: '2015-03-17'
     },
     selectedProject: 'AllProjects'
   }
@@ -27,7 +27,7 @@ export const ProjectSpecific = {
     projectDisplayName: 'Test Project',
     selectedDateRange: {
       endDate: '2023-12-31',
-      startDate: '2015-07-01'
+      startDate: '2015-03-17'
     },
     selectedProject: 'Galaxy Zoo'
   }

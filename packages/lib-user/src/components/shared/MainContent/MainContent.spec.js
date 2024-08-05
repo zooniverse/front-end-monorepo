@@ -1,13 +1,15 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
+import { getStatsDateString } from '@utils'
+
 import { USER } from '../../../../test/mocks/panoptes'
 import { STATS } from '../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default } from './MainContent.stories.js'
 
-const todayUTC = new Date().toISOString().substring(0, 10)
-const sevenDaysAgoUTC = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10)
+const todayUTC = getStatsDateString(new Date())
+const sevenDaysAgoUTC = getStatsDateString(new Date(Date.now() - 6 * 24 * 60 * 60 * 1000))
 
 describe('components > shared > MainContent', function () {
   const DefaultStory = composeStory(Default, Meta)
