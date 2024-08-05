@@ -56,8 +56,6 @@ function GroupStatsContainer({
   }
 
   function setSelectedDateRange({ endDate, startDate }) {
-    // TODO: validate dates
-
     const todayUTC = new Date().toISOString().substring(0, 10)
     if (endDate === todayUTC) {
       updateQueryParams([
@@ -73,8 +71,6 @@ function GroupStatsContainer({
   }
 
   function setSelectedProject(selectedProjectId) {
-    // TODO: validate selected project ID
-
     if (selectedProjectId === 'AllProjects') {
       updateQueryParams([['project_id', null]])
     } else {
