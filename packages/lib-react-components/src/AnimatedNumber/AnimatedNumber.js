@@ -50,6 +50,8 @@ function AnimatedNumber({ duration = 1000, value = 0 }) {
      * so use node.textContent to check if we've already rendered the value.
      */
     const numElement = numRef.current
+    const animationInProgress = numElement.textContent !== formatValue(initialValue)
+    if (animationInProgress) return // there's an animation already running.
     if (animated) return // only run the intersection observer once.
     if (formatValue(value) === numElement.textContent) return // nothing to animate yet.
 

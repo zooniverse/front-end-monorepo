@@ -147,7 +147,7 @@ describe('AnimatedNumber', function () {
     })
   
     describe('updating after the animation', function () {
-      it('should update the number immediately', async function () {
+      it('should update the number when the animation completes', async function () {
         const user = userEvent.setup()
         const Story = composeStory(Stories.UpdateTheValue, Meta)
         render(<Story />)
@@ -158,7 +158,9 @@ describe('AnimatedNumber', function () {
           expect(number.textContent).to.equal('10')
         })
         await user.click(document.querySelector('button'))
-        expect(number.textContent).to.equal('11')
+        await waitFor(() => {
+          expect(number.textContent).to.equal('11')
+        })
       })
     })
 
