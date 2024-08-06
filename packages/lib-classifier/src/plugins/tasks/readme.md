@@ -1,5 +1,51 @@
-# Classifier tasks
-## Importing tasks
+# Classifier Tasks
+
+Tasks are the individual steps in a workflow that are used to collect data for an individual subject. The currently supported tasks are listed below:
+
+- [Highlighter](/packages/lib-classifier/src/plugins/tasks/experimental/highlighter/README.md)
+- [Simple Dropdown](/packages/lib-classifier/src/plugins/tasks/dropdown-simple/README.md)
+- [Subject Group Comparison](/packages/lib-classifier/src/plugins/tasks/subjectGroupComparison/README.md)
+- [Text from Subject](/packages/lib-classifier/src/plugins/tasks/experimental/textFromSubject/README.md)
+- [Transcription](/packages/lib-classifier/src/plugins/tasks/experimental/transcription/README.md)
+- [Drawing](/packages/lib-classifier/src/plugins/drawingTools/README.md)
+
+** Note: Drawing tasks can be subdivided into Drawing Tools with corresponding `model`, `component`, and `annotation` models. There are some special cases called out with their own documentation.
+- [Circle](/packages/lib-classifier/src/plugins/drawingTools/components/Circle/README.md)
+- [Polygon](/packages/lib-classifier/src/plugins/drawingTools/components/Polygon/README.md)
+- [FreehandLine](/packages/lib-classifier/src/plugins/drawingTools/experimental/components/FreehandLine/README.md)
+
+## Task Structure
+
+Every task has the same general structure:
+
+```mermaid
+flowchart TB
+	Task
+	Task---TaskComponent
+	Task---TaskModel
+	Task---AnnotationModel
+```
+
+## Adding a New Task
+- create a new directory under `tasks` for your task.
+- export a view component and task and annotation models.
+```js
+import { default as TaskComponent } from './components/MyNewTask'
+import { default as TaskModel } from './models/MyNewTask'
+import { default as AnnotationModel } from './models/MyNewAnnotation'
+
+export default {
+	TaskComponent,
+	TaskModel,
+	AnnotationModel
+}
+```
+- export your task from `tasks/index.js`, using the task type as the named export.
+```js
+	export { default as myNewTask } from './myNewTask'
+```
+
+## Importing Tasks
 
 ```js
 import * as tasks from '@plugins/tasks'
@@ -16,25 +62,6 @@ The default tasks export is a simple map of unique task types (`single`, `multip
   - `taskRegistry.get(type (string))`: return the `Task` for `type`, or an empty object.
   - `taskRegistry.values(property ('TaskComponent|TaskModel|AnnotationModel'))`: return all registered Tasks. Specify an optional property to return an array of only those properties eg. `const annotationModels = taskRegistry.values('AnnotationModel')`.
   
-## Adding a new task
-  - create a new directory under `tasks` for your task.
-  - export a view component and task and annotation models.
-  ```js
-  import { default as TaskComponent } from './components/MyNewTask'
-  import { default as TaskModel } from './models/MyNewTask'
-  import { default as AnnotationModel } from './models/MyNewAnnotation'
-  
-  export default {
-    TaskComponent,
-    TaskModel,
-    AnnotationModel
-  }
-  ```
-  - export your task from `tasks/index.js`, using the task type as the named export.
-  ```js
-    export { default as myNewTask } from './myNewTask'
-  ```
-
 ## React Components
 
 A React component for a task takes a Task model and renders it as HTML. The basic shape is:
@@ -48,7 +75,7 @@ const SingleChoiceTask = tasks.single.TaskComponent
  - _task_ is the task model to render.
  - _disabled_ should be set if the task is disabled eg. while waiting for a subject to load.
 
-## Task models
+## Task Models
 
 ```js
 import * as tasks from '@plugins/tasks'
@@ -75,7 +102,7 @@ Tasks may implement the following actions to hook into the workflow classificati
 - _complete(annotation)_ Runs when exiting a step task by pressing Next or Done.
 - _validate_ Runs when exiting a step task by pressing Next or Done. Intended for annotation validation, but could be used for any kind of validation if it must run on step Next or Done. Drawing task deletes invalid tool marks when this is called.
 
-## Annotation models
+## Annotation Models
 
 ```js
 import * as tasks from '@plugins/tasks'
