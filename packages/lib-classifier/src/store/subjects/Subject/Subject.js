@@ -4,10 +4,10 @@ import Resource from '@store/Resource'
 import { createLocationCounts, subjectsSeenThisSession, subjectViewers } from '@helpers'
 import StepHistory from './StepHistory'
 import SubjectLocation from './SubjectLocation'
-import FreehandLineReductions from './FreehandLineReductions'
+import MachineLearntReductions from './MachineLearntReductions'
 import TranscriptionReductions from './TranscriptionReductions'
 
-const CaesarReductions = types.union(FreehandLineReductions, TranscriptionReductions)
+const CaesarReductions = types.union(MachineLearntReductions, TranscriptionReductions)
 
 const Subject = types
   .model('Subject', {
