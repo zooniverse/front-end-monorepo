@@ -1,6 +1,41 @@
 # Zooniverse Classifier
 
-A standalone library for the Zooniverse project classifier, including state management and UI component views.
+A standalone library for the Zooniverse Project Classifier. The `Classifier` is comprised of three major pieces - the [SubjectViewer](/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/README.md), the [Tasks](/packages/lib-classifier/src/plugins/tasks/README.md), and the [Store](/packages/lib-classifier/src/store/README.md).
+
+```mermaid
+flowchart TD
+    Classifier-->SubjectViewer
+    Classifier-->TaskArea
+    Classifier-->RootStore
+```
+
+- `SubjectViewer` is responsible for subject interaction and display
+- `Tasks` are responsible for describing the type of data that the research team collects for a given `subject`.
+- `Store` is responsible for managing the application state throughout the classification process.
+
+## Classifier Render Process
+
+The render process starts with a [Layout](/packages/lib-classifier/src/components/Classifier/components/Layout/README.md) that determines which components get loaded. The components that are loaded within the `Layout` but aren't related directly to the `SubjectViewer`, `Tasks`, or `Store` are as follows:
+
+- [Banners](/packages/lib-classifier/src/components/Classifier/components/Banners/README.md)
+- Feedback
+- [ImageToolbar](/packages/lib-classifier/src/components/Classifier/components/ImageToolbar/README.md)
+- MetaTools
+- [QuickTalk](/packages/lib-classifier/src/components/Classifier/components/QuickTalk/README.md)
+
+```mermaid
+flowchart TB
+	Layout-->SubjectViewer
+	Layout-->TaskArea
+	Layout-->ImageToolbar
+	Layout-->Banners
+	Layout-->Feedback
+	Layout-->MetaTools
+	Layout-->QuickTalk
+```
+
+## Classifier Hooks
+[Hooks](/packages/lib-classifier/src/hooks/README.md) are a collection of utility functions for the `Classifier`.
 
 ## Contributing
 
