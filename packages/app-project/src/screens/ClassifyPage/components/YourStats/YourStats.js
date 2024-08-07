@@ -15,7 +15,12 @@ function YourStats(props) {
       <Paragraph margin={{ top: 'none' }}>
         {t('Classify.YourStats.text')}
       </Paragraph>
-      <Box border={{ color: 'light-5', side: 'bottom' }} pad={{ bottom: 'small' }}>
+      <Box
+        role='status'
+        aria-live='polite'
+        border={{ color: 'light-5', side: 'bottom' }}
+        pad={{ bottom: 'small' }}
+      >
         <Grid columns={['1fr', '1fr']} gap='small'>
           <Stat
             className="test-classify-your-stats-today-count"
@@ -33,7 +38,7 @@ function YourStats(props) {
         <DailyClassificationsChart />
       </Box>
     </ContentBox>
-  )
+  );
 }
 
 YourStats.propTypes = {
