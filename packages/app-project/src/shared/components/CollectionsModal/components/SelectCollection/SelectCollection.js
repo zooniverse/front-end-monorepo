@@ -2,7 +2,7 @@ import { Box, Button, FormField, Grid, Select } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
-import { useRef } from 'react'
+import { useState } from 'react'
 
 /*
   Tune this value to determine when a search term
@@ -19,7 +19,7 @@ function SelectCollection ({
   selected = {},
   userID = ''
 }) {
-  const searchText = useRef('')
+  const [searchText, setSearchText] = useState('')
   const { t } = useTranslation('components')
 
   const dropProps = {
@@ -31,19 +31,19 @@ function SelectCollection ({
   For shorter strings, we request all your collections then filter the display names.
   */
 
-  function onTextChange(text) {
+  async function onTextChange(text) {
     const search = text.trim()
-    onSearch({
+    await onSearch({
       favorite: false,
       current_user_roles: 'owner,collaborator,contributor',
       search: search.length > MIN_SEARCH_LENGTH ? search : undefined
     })
-    searchText.current = search
+    setSearchText(search)
   }
 
   function collectionNameFilter(collection) {
     const displayNameLowerCase = collection.display_name.toLowerCase()
-    return displayNameLowerCase.includes(searchText.current.toLowerCase())
+    return displayNameLowerCase.includes(searchText.toLowerCase())
   }
 
   function collectionLabel(collection) {
@@ -56,7 +56,7 @@ function SelectCollection ({
   /*
     If the search text is long enough, use fuzzy full-text search. Otherwise, filter collections by display name.
   */
-  const options = searchText.current.length > MIN_SEARCH_LENGTH
+  const options = searchText.length > MIN_SEARCH_LENGTH
     ? collections
     : collections.filter(collectionNameFilter)
 
