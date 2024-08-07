@@ -15,28 +15,34 @@ function formatValue(num) {
   return format(',d')(num)
 }
 
+const initialValue = 0
+
 /**
  * Use d3 to animate `element` from `initialValue` to `value` over `duration` in milliseconds.
- * @param {HTMLElement} element 
- * @param {number} initialValue 
+ * @param {HTMLElement} element
  * @param {number} value
  * @param {number} duration 
  * @returns a Promise that resolves once the animation is complete.
  */
-function animateValue(element, initialValue, value, duration) {
+async function animateValue(element, value, duration) {
   if (value === initialValue) {
-    return
+    return // nothing to animate.
   }
+  /*
+  * Only run the full animation if prefers reduced motion is false
+  * and d3 hasn't already started an animation.
+  */
+  const animationInProgress = element.textContent !== formatValue(initialValue)
+  const animationDuration =
+    !prefersReducedMotion() && !animationInProgress ? duration : 0
   const interpolator = interpolate(initialValue, value)
   return select(element)
     .data([value])
     .transition()
-    .duration(duration)
+    .duration(animationDuration)
     .textTween(() => t => formatValue(interpolator(t)))
     .end()
 }
-
-const initialValue = 0
 
 function AnimatedNumber({ duration = 1000, value = 0 }) {
   const numRef = useRef(null)
@@ -55,23 +61,17 @@ function AnimatedNumber({ duration = 1000, value = 0 }) {
     if (animated) return // only run the intersection observer once.
     if (formatValue(value) === numElement.textContent) return // nothing to animate yet.
 
-    const intersectionObserver = new window.IntersectionObserver(async entries => {
+    const intersectionCallback = async ([entry]) => {
       // If intersectionRatio is 0, the target is out of view and we do not need to do anything.
-      if (entries[0].intersectionRatio <= 0) return
+      if (entry.intersectionRatio <= 0) return
 
-      /*
-       * Once target element is in viewport, animate it then unobserve.
-       * Only run the full animation if prefers reduced motion is false
-       * and d3 hasn't already started an animation.
-       */
-      const animationInProgress = numElement.textContent !== formatValue(initialValue)
-      const animationDuration =
-        !prefersReducedMotion() && !animationInProgress ? duration : 0
+      // Once target element is in viewport, start animating it and unobserve.
       intersectionObserver.unobserve(numElement)
-      await animateValue(numElement, initialValue, value, animationDuration)
+      await animateValue(numElement, value, duration)
       setAnimated(true)
-    })
+    }
 
+    const intersectionObserver = new window.IntersectionObserver(intersectionCallback)
     intersectionObserver.observe(numElement)
 
     return () => {
