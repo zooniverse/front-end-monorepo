@@ -14,7 +14,7 @@ export const Default = {
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2023-12-31',
-      startDate: '2015-07-01'
+      startDate: '2015-03-17'
     },
     selectedProject: 'AllProjects'
   }
@@ -24,12 +24,12 @@ export const ProjectSpecific = {
   args: {
     creditedName: 'Example T. User',
     displayName: 'Example User',
-    hours: 45,
+    hours: 12.8,
     login: 'testUser',
     projectDisplayName: 'Test Project',
     selectedDateRange: {
       endDate: '2023-12-31',
-      startDate: '2015-07-01'
+      startDate: '2015-03-17'
     },
     selectedProject: 'Galaxy Zoo'
   }
@@ -39,7 +39,7 @@ export const ThisMonth = {
   args: {
     creditedName: 'Example T. User',
     displayName: 'Example User',
-    hours: 45,
+    hours: 20.1,
     login: 'testUser',
     projectsCount: 67,
     selectedDateRange: {

@@ -8,7 +8,7 @@ import {
   Share
 } from 'grommet-icons'
 import { useContext } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
@@ -40,19 +40,18 @@ const Relative = styled(Box)`
   position: relative;
 `
 
-const StyledAvatar = styled(Image)`
-  width: 128px;
-  height: 128px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: solid white 6px;
+const StyledAvatar = styled(Box)`
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
   position: absolute;
   top: 203px;
+  border-radius: 50%;
 
   // For Grommet breakpoint small
   @media (width < 769px) {
-    width: 80px;
-    height: 80px;
+    width: 92px;
+    height: 92px;
     top: 137px;
   }
 `
@@ -122,19 +121,34 @@ const StyledBadge = styled(Text)`
   padding: 3px 5px;
   background: ${props => props.theme.global.colors['neutral-1']};
   border-radius: 15px;
+
+  // For Grommet breakpoint small
+  @media (width < 769px) {
+    right: 60px;
+  }
 `
+
+// Same as ContentBox
+const border = {
+  color: {
+    dark: 'light-1',
+    light: 'light-5'
+  },
+  side: 'all',
+  size: '0.5px'
+}
 
 export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
-  const blogLinkLabel = size === 'small' ? 'About your homepage' : 'Learn more about your new homepage'
+  const { dark } = useTheme()
+
+  const blogLinkLabel =
+    size === 'small'
+      ? 'About your homepage'
+      : 'Learn more about your new homepage'
 
   return (
-    <Box
-      align='center'
-      pad={{ bottom: '20px' }}
-      round={size !== 'small' ? '8px' : false}
-      elevation={size === 'small' ? 'none' : 'xsmall'}
-    >
+    <Box align='center' round={size === 'small' ? false : '16px 16px 8px 8px'}>
       <Relative
         fill
         align='center'
@@ -148,7 +162,7 @@ export default function Dashboard({ user, userLoading }) {
             ? 'brand'
             : { image: `url(${user.profile_header})` }
         }
-        round={size !== 'small' ? { size: '16px', corner: 'top' } : false}
+        round={size === 'small' ? false : '16px 16px 0 0'}
       >
         {/** Update this link with blog post url */}
         {/* <LinkToBlogPost
@@ -162,75 +176,97 @@ export default function Dashboard({ user, userLoading }) {
         /> */}
 
         <StyledAvatar
-          alt='User avatar'
-          src={
-            !user?.avatar_src || userLoading
-              ? 'https://www.zooniverse.org/assets/simple-avatar.png'
-              : user?.avatar_src
-          }
-        />
+          background='brand'
+          border={{
+            size: '6px',
+            color: dark ? 'dark-3' : 'neutral-6', // Not sure why we have to manually grab dark from useTheme but ¯\_(ツ)_/¯
+            style: 'solid'
+          }}
+        >
+          <Image
+            alt='User avatar'
+            fit='contain'
+            src={
+              !user?.avatar_src || userLoading
+                ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+                : user?.avatar_src
+            }
+          />
+        </StyledAvatar>
       </Relative>
-
-      {/* Name */}
-      <NameContainer
-        margin={{ top: '94px', bottom: '20px' }}
+      <Box
+        fill
+        round={size === 'small' ? false : '0 0 8px 8px'}
+        border={size === 'small' ? false : border}
+        elevation={size === 'small' ? 'none' : 'xsmall'}
         align='center'
-        width='min(100%, 45rem)'
         pad={{ bottom: '20px' }}
       >
-        <SpacedHeading
-          level={1}
-          size='1.5rem'
-          color={{ light: 'neutral-1', dark: 'accent-1' }}
-          textAlign='center'
-          margin={{ bottom: '10px', top: '0' }}
+        {/* Name */}
+        <NameContainer
+          margin={
+            size !== 'small'
+              ? { top: '94px', bottom: '20px' }
+              : { top: '60px', bottom: '20px' }
+          }
+          align='center'
+          width='min(100%, 45rem)'
+          pad={{ bottom: '20px' }}
         >
-          {userLoading ? ' ' : user?.display_name}
-        </SpacedHeading>
-        <Text>{userLoading ? ' ' : `@${user?.login}`}</Text>
-      </NameContainer>
+          <SpacedHeading
+            level={1}
+            size='1.5rem'
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            textAlign='center'
+            margin={{ bottom: '10px', top: '0' }}
+          >
+            {userLoading ? ' ' : user?.display_name}
+          </SpacedHeading>
+          <Text>{userLoading ? ' ' : `@${user?.login}`}</Text>
+        </NameContainer>
 
-      {/* Links */}
-      <Box direction='row' gap='medium' margin={{ bottom: '30px' }}>
-        <DashboardLink
-          icon={<Favorite size='1rem' />}
-          text='Favorites'
-          href={`https://www.zooniverse.org/favorites/${user?.login}`}
-        />
-        <DashboardLink
-          icon={<Bookmark size='1rem' />}
-          text='Collections'
-          href={`https://www.zooniverse.org/collections/${user?.login}`}
-        />
-        <DashboardLink
-          icon={<Chat size='1rem' />}
-          text='Comments'
-          href={`https://www.zooniverse.org/users/${user?.login}`}
-        />
-        <DashboardLink
-          icon={<MailOption size='1rem' />}
-          text='Messages'
-          href={`https://www.zooniverse.org/inbox`}
-        />
-      </Box>
-
-      <Box align='center' gap='20px'>
-        {/* Stats Preview */}
-        <StatsTabsContainer user={user} />
-        <Relative fill>
-          <StyledStatsLink
-            alignSelf={size === 'small' ? 'center' : 'end'}
-            href={`/users/${user?.login}/stats`}
-            label={<SpacedText>More Stats</SpacedText>}
-            icon={<FormNext />}
-            reverse
-            color={{ light: 'dark-5', dark: 'white' }}
-            gap='large'
+        {/* Links */}
+        <Box direction='row' gap='30px' margin={{ bottom: '30px' }}>
+          <DashboardLink
+            icon={<Favorite />}
+            text='Favorites'
+            href={`https://www.zooniverse.org/favorites/${user?.login}`}
           />
-          <StyledBadge color='white' size='0.75rem' weight='bold'>
-            NEW
-          </StyledBadge>
-        </Relative>
+          <DashboardLink
+            icon={<Bookmark />}
+            text='Collections'
+            href={`https://www.zooniverse.org/collections/${user?.login}`}
+          />
+          <DashboardLink
+            icon={<Chat />}
+            text='Comments'
+            href={`https://www.zooniverse.org/users/${user?.login}`}
+          />
+          <DashboardLink
+            icon={<MailOption />}
+            text='Messages'
+            href={`https://www.zooniverse.org/inbox`}
+          />
+        </Box>
+
+        <Box align='center' gap='20px'>
+          {/* Stats Preview */}
+          <StatsTabsContainer user={user} />
+          <Relative fill>
+            <StyledStatsLink
+              alignSelf={size === 'small' ? 'center' : 'end'}
+              href={`/users/${user?.login}/stats`}
+              label={<SpacedText>More Stats</SpacedText>}
+              icon={<FormNext />}
+              reverse
+              color={{ light: 'dark-5', dark: 'white' }}
+              gap='large'
+            />
+            <StyledBadge color='white' size='0.75rem' weight='bold'>
+              NEW
+            </StyledBadge>
+          </Relative>
+        </Box>
       </Box>
     </Box>
   )

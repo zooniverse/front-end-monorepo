@@ -42,7 +42,10 @@ export const Last7Days = {
       startDate: last7days[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last7days
+      return last7days.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last7days[last7days.length - 1]?.period.substring(0, 10),
@@ -60,7 +63,10 @@ export const Last7DaysHours = {
       startDate: last7days[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last7days
+      return last7days.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last7days[last7days.length - 1]?.period.substring(0, 10),
@@ -79,7 +85,10 @@ export const Last30Days = {
       startDate: last30days[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last30days
+      return last30days.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last30days[last30days.length - 1]?.period.substring(0, 10),
@@ -97,7 +106,10 @@ export const Last30DaysHours = {
       startDate: last30days[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last30days
+      return last30days.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last30days[last30days.length - 1]?.period.substring(0, 10),
@@ -116,7 +128,10 @@ export const ThisMonth = {
       startDate: thisMonth[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return thisMonth
+      return thisMonth.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: thisMonth[thisMonth.length - 1]?.period.substring(0, 10),
@@ -134,7 +149,10 @@ export const ThisMonthHours = {
       startDate: thisMonth[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return thisMonth
+      return thisMonth.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: thisMonth[thisMonth.length - 1]?.period.substring(0, 10),
@@ -153,7 +171,10 @@ export const Last3Months = {
       startDate: last3months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last3months
+      return last3months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last3months[last3months.length - 1]?.period.substring(0, 10),
@@ -171,7 +192,10 @@ export const Last3MonthsHours = {
       startDate: last3months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last3months
+      return last3months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last3months[last3months.length - 1]?.period.substring(0, 10),
@@ -190,7 +214,10 @@ export const ThisYearLessThan6Months = {
       startDate: thisYearLessThan6Months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return thisYearLessThan6Months
+      return thisYearLessThan6Months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: thisYearLessThan6Months[thisYearLessThan6Months.length - 1]?.period.substring(0, 10),
@@ -208,7 +235,10 @@ export const ThisYearLessThan6MonthsHours = {
       startDate: thisYearLessThan6Months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return thisYearLessThan6Months
+      return thisYearLessThan6Months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: thisYearLessThan6Months[thisYearLessThan6Months.length - 1]?.period.substring(0, 10),
@@ -227,7 +257,10 @@ export const ThisYearMoreThan6Months = {
       startDate: thisYearMoreThan6Months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return thisYearMoreThan6Months
+      return thisYearMoreThan6Months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: thisYearMoreThan6Months[thisYearMoreThan6Months.length - 1]?.period.substring(0, 10),
@@ -245,7 +278,10 @@ export const ThisYearMoreThan6MonthsHours = {
       startDate: thisYearMoreThan6Months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return thisYearMoreThan6Months
+      return thisYearMoreThan6Months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: thisYearMoreThan6Months[thisYearMoreThan6Months.length - 1]?.period.substring(0, 10),
@@ -264,7 +300,10 @@ export const Last12Months = {
       startDate: last12months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last12months
+      return last12months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last12months[last12months.length - 1]?.period.substring(0, 10),
@@ -282,7 +321,10 @@ export const Last12MonthsHours = {
       startDate: last12months[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return last12months
+      return last12months.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: last12months[last12months.length - 1]?.period.substring(0, 10),
@@ -301,7 +343,10 @@ export const AllTime = {
       startDate: allTime[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return allTime
+      return allTime.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: allTime[allTime.length - 1]?.period.substring(0, 10),
@@ -319,7 +364,10 @@ export const AllTimeHours = {
       startDate: allTime[0]?.period.substring(0, 10)
     },
     getCompleteData: () => {
-      return allTime
+      return allTime.map((data, index) => ({
+        index,
+        ...data,
+      }))
     },
     getDateInterval: () => ({
       end_date: allTime[allTime.length - 1]?.period.substring(0, 10),
