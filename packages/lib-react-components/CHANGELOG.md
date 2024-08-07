@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - ZooFooter and ZooHeader styling to include `display: none;` when printing (`@media print`)
+- PlainButton has text-decoration underline on hover even for links.
 
 ## [1.13.0] 2024-05-17
 
