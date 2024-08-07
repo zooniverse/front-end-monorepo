@@ -6,12 +6,13 @@ import SpacedText from '../SpacedText'
 
 export const StyledPlainButton = styled(Button)`
   &:focus,
-  &:enabled:hover {
+  &:hover {
     text-decoration: underline;
   }
 
   &:disabled {
     cursor: not-allowed;
+    text-decoration: none;
   }
 `
 

@@ -1,10 +1,12 @@
+import { getStatsDateString } from '@utils'
+
 export function getDateInterval({ endDate, startDate }) {
   const today = new Date()
-  const todayUTC = today.toISOString().substring(0, 10)
+  const todayUTC = getStatsDateString(today)
   const end_date = endDate ? endDate : todayUTC
   const defaultStartDate = new Date()
   defaultStartDate.setUTCDate(today.getUTCDate() - 6)
-  const start_date = startDate ? startDate : defaultStartDate.toISOString().substring(0, 10)
+  const start_date = startDate ? startDate : getStatsDateString(defaultStartDate)
 
   const differenceInDays = (new Date(end_date) - new Date(start_date)) / (1000 * 60 * 60 * 24)
 

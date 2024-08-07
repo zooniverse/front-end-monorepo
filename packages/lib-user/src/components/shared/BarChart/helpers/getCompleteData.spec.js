@@ -13,9 +13,9 @@ describe('components > shared > BarChart > getCompleteData', function () {
     }
     const completeData = getCompleteData({ data, dateInterval })
     expect(completeData).to.deep.equal([
-      { period: '2021-01-01T00:00:00.000Z', count: 3, session_time: 180 },
-      { period: '2021-01-02T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2021-01-03T00:00:00.000Z', count: 1, session_time: 60 }
+      { period: '2021-01-01T00:00:00.000Z', count: 3, session_time: 180, index: 0 },
+      { period: '2021-01-02T00:00:00.000Z', count: 0, session_time: 0, index: 1 },
+      { period: '2021-01-03T00:00:00.000Z', count: 1, session_time: 60, index: 2 }
     ])
   })
 
@@ -31,9 +31,9 @@ describe('components > shared > BarChart > getCompleteData', function () {
     }
     const completeData = getCompleteData({ data, dateInterval })
     expect(completeData).to.deep.equal([
-      { period: '2024-01-01T00:00:00.000Z', count: 3, session_time: 180 },
-      { period: '2024-01-08T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2024-01-15T00:00:00.000Z', count: 1, session_time: 60 }
+      { period: '2024-01-01T00:00:00.000Z', count: 3, session_time: 180, index: 0 },
+      { period: '2024-01-08T00:00:00.000Z', count: 0, session_time: 0, index: 1 },
+      { period: '2024-01-15T00:00:00.000Z', count: 1, session_time: 60, index: 2 }
     ])
   })
 
@@ -49,10 +49,10 @@ describe('components > shared > BarChart > getCompleteData', function () {
     }
     const completeData = getCompleteData({ data, dateInterval })
     expect(completeData).to.deep.equal([
-      { period: '2022-09-01T00:00:00.000Z', count: 3, session_time: 180 },
-      { period: '2022-10-01T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2022-11-01T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2022-12-01T00:00:00.000Z', count: 1, session_time: 60 }
+      { period: '2022-09-01T00:00:00.000Z', count: 3, session_time: 180, index: 0 },
+      { period: '2022-10-01T00:00:00.000Z', count: 0, session_time: 0, index: 1 },
+      { period: '2022-11-01T00:00:00.000Z', count: 0, session_time: 0, index: 2 },
+      { period: '2022-12-01T00:00:00.000Z', count: 1, session_time: 60, index: 3 }
     ])
   })
 
@@ -68,11 +68,11 @@ describe('components > shared > BarChart > getCompleteData', function () {
     }
     const completeData = getCompleteData({ data, dateInterval })
     expect(completeData).to.deep.equal([
-      { period: '2020-01-01T00:00:00.000Z', count: 3, session_time: 180 },
-      { period: '2021-01-01T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2022-01-01T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2023-01-01T00:00:00.000Z', count: 0, session_time: 0 },
-      { period: '2024-01-01T00:00:00.000Z', count: 1, session_time: 60 }
+      { period: '2020-01-01T00:00:00.000Z', count: 3, session_time: 180, index: 0 },
+      { period: '2021-01-01T00:00:00.000Z', count: 0, session_time: 0, index: 1 },
+      { period: '2022-01-01T00:00:00.000Z', count: 0, session_time: 0, index: 2 },
+      { period: '2023-01-01T00:00:00.000Z', count: 0, session_time: 0, index: 3 },
+      { period: '2024-01-01T00:00:00.000Z', count: 1, session_time: 60, index: 4 }
     ])
   })
 })
