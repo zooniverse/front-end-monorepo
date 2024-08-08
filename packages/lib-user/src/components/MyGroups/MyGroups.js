@@ -1,25 +1,27 @@
-import { Grid, ResponsiveContext } from 'grommet'
+import { Grid } from 'grommet'
 import { node } from 'prop-types'
-import { useContext } from 'react'
+import styled from 'styled-components'
+
+const StyledGrid = styled(Grid)`
+  gap: 20px 40px;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+
+  @media (width < 80rem) {
+    grid-template-columns: 1fr;
+  }
+`
 
 function MyGroups({
   children
 }) {
-  const size = useContext(ResponsiveContext)
-  const columnCount = size === 'small' ? 1 : 2
-
   return (
-    <Grid
-      as='ul'
-      columns={{
-        count: columnCount,
-        size: 'auto'
-      }}
-      gap={{ row: '20px', column: '40px' }}
+    <StyledGrid
+      forwardedAs='ul'
       pad='none'
     >
       {children}
-    </Grid>
+    </StyledGrid>
   )
 }
 
