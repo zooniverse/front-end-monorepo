@@ -50,7 +50,7 @@ function MainContent({
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
-  
+
   const handleActiveTab = useCallback((tabIndex) => {
     setActiveTab(tabIndex)
   }, [])
@@ -58,7 +58,7 @@ function MainContent({
   useEffect(function updateCustomDateRange() {
     setCustomDateRange([selectedDateRange.startDate, selectedDateRange.endDate])
   }, [selectedDateRange])
-  
+
   const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
@@ -67,9 +67,20 @@ function MainContent({
     created_at: getStatsDateString(source?.created_at),
     selectedDateRange
   })
-  
+
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
-  
+  const alphabetizedProjectOptions = projectOptions.sort((a, b) => {
+    const nameA = a.label.toUpperCase()
+    const nameB = b.label.toUpperCase()
+    if (nameA < nameB) {
+      return -1
+    }
+    if (nameA > nameB) {
+      return 1
+    }
+    return 0
+  })
+
   const todayUTC = getStatsDateString(new Date())
 
   function handleDateRangeSelect(option) {
@@ -107,7 +118,7 @@ function MainContent({
   function handleProjectSelect(option) {
     setSelectedProject(option.value)
   }
-  
+
   return (
     <>
       <MovableModal
@@ -192,7 +203,7 @@ function MainContent({
               id='project-select'
               name='project-select'
               handleChange={handleProjectSelect}
-              options={projectOptions}
+              options={alphabetizedProjectOptions}
               value={selectedProjectOption}
             />
             <Select
@@ -219,7 +230,7 @@ function MainContent({
         {source?.login ? (
           <Box
             direction='row'
-            justify='end'
+            justify={size === 'small' ? 'center': 'end'}
             margin={{ top: 'small' }}
           >
             <StyledCertificateButton
