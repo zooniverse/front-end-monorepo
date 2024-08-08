@@ -30,7 +30,7 @@ function PlainButton({
   labelSize = 'medium',
   text = '',
   color = defaultColor,
-  ...rest
+  ...rest // rest can include an icon
 }) {
   return (
     <StyledPlainButton
