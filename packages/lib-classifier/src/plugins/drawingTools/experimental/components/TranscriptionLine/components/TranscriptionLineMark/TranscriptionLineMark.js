@@ -38,10 +38,9 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
       fill={color}
       ref={ref}
       stroke={color}
-      strokeWidth={2}
     >
-      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
-      <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
+      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} strokeWidth={2} vectorEffect={'non-scaling-stroke'} />
+      <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH} strokeOpacity='0' vectorEffect={'non-scaling-stroke'} />
 
       {active ?
         <DragHandle
@@ -58,6 +57,7 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
           fill='transparent'
           r={handleRadius}
           stroke='currentColor'
+          vectorEffect={'non-scaling-stroke'}
         />
       }
       {active ?
@@ -74,6 +74,7 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
           fill='currentColor'
           r={handleRadius}
           stroke='currentColor'
+          vectorEffect={'non-scaling-stroke'}
         />
       }
 
@@ -86,6 +87,7 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
             fill="transparent"
             onPointerDown={handlePointerDown}
             onPointerUp={handleFinishClick}
+            vectorEffect={'non-scaling-stroke'}
           />
           <circle
             r={handleRadius}
@@ -93,6 +95,7 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
             cy={y2}
             onPointerDown={handlePointerDown}
             onPointerUp={handleFinishClick}
+            vectorEffect={'non-scaling-stroke'}
           />
         </g>
       }
