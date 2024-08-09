@@ -13,7 +13,8 @@ import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select
+  Select,
+  Tip
 } from '@components/shared'
 
 import {
@@ -165,31 +166,40 @@ function MainContent({
           gap={size === 'small' ? 'small' : 'none'}
         >
           <Box
-            role='tablist'
+            align='baseline'
             basis='1/2'
             direction='row'
-            fill={size === 'small' ? 'horizontal' : false}
-            gap='medium'
+            gap='xsmall'
           >
-            <StyledTab
-              role='tab'
-              aria-expanded={activeTab === 0}
-              aria-selected={activeTab === 0}
-              active={activeTab === 0}
-              label='CLASSIFICATIONS'
-              onClick={() => handleActiveTab(0)}
-              plain
+            <Box
+              role='tablist'
+              direction='row'
               fill={size === 'small' ? 'horizontal' : false}
-            />
-            <StyledTab
-              role='tab'
-              aria-expanded={activeTab === 1}
-              aria-selected={activeTab === 1}
-              active={activeTab === 1}
-              label='HOURS'
-              onClick={() => handleActiveTab(1)}
-              plain
-              fill={size === 'small' ? 'horizontal' : false}
+              gap='medium'
+            >
+              <StyledTab
+                role='tab'
+                aria-expanded={activeTab === 0}
+                aria-selected={activeTab === 0}
+                active={activeTab === 0}
+                label='CLASSIFICATIONS'
+                onClick={() => handleActiveTab(0)}
+                plain
+                fill={size === 'small' ? 'horizontal' : false}
+              />
+              <StyledTab
+                role='tab'
+                aria-expanded={activeTab === 1}
+                aria-selected={activeTab === 1}
+                active={activeTab === 1}
+                label='HOURS'
+                onClick={() => handleActiveTab(1)}
+                plain
+                fill={size === 'small' ? 'horizontal' : false}
+              />
+            </Box>
+            <Tip
+              contentText='Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.'
             />
           </Box>
           <Box
