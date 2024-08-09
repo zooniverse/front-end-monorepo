@@ -6,12 +6,13 @@ import SpacedText from '../SpacedText'
 
 export const StyledPlainButton = styled(Button)`
   &:focus,
-  &:enabled:hover {
+  &:hover {
     text-decoration: underline;
   }
 
   &:disabled {
     cursor: not-allowed;
+    text-decoration: none;
   }
 `
 
@@ -29,7 +30,7 @@ function PlainButton({
   labelSize = 'medium',
   text = '',
   color = defaultColor,
-  ...rest
+  ...rest // rest can include an icon
 }) {
   return (
     <StyledPlainButton
@@ -38,10 +39,10 @@ function PlainButton({
       disabled={disabled}
       href={disabled ? '' : href}
       gap='xxsmall'
-      label={
+      label={text ?
         <SpacedText color={color} size={labelSize}>
           {text}
-        </SpacedText>
+        </SpacedText> : null
       }
       onClick={onClick}
       plain
