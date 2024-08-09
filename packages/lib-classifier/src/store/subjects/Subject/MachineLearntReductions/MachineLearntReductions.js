@@ -1,8 +1,8 @@
 import asyncStates from '@zooniverse/async-states'
 import { types } from 'mobx-state-tree'
 
-const FreehandLineReductions = types
-  .model('FreehandLineReductions', {
+const MachineLearntReductions = types
+  .model('MachineLearntReductions', {
     reducer: types.literal('machineLearnt'),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
@@ -34,4 +34,4 @@ const FreehandLineReductions = types
     }
   })
 
-export default FreehandLineReductions
+export default MachineLearntReductions

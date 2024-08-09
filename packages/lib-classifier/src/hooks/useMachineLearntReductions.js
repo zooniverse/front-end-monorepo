@@ -2,7 +2,7 @@ import { getType } from 'mobx-state-tree'
 import { useStores } from '@hooks'
 import { useCaesarReductions } from './'
 
-export default function useFreehandLineReductions() {
+export default function useMachineLearntReductions() {
   const {
     workflows: {
       active: workflow
@@ -20,7 +20,7 @@ export default function useFreehandLineReductions() {
   const stepIndex = parseInt(step.stepKey.replace('S',''), 10)
 
   if (loaded
-    && getType(caesarReductions).name === 'FreehandLineReductions'
+    && getType(caesarReductions).name === 'MachineLearntReductions'
     && activeSubject.caesarReductionsLoadedForStep[stepIndex] !== true) {
     
     // step.tasks is only the CURRENT TASK
@@ -33,16 +33,12 @@ export default function useFreehandLineReductions() {
     
     if (caesarMarks) {
       caesarMarks.forEach(caesarMark => {
-        const { frame, markId: id, toolIndex, pathX, pathY } = caesarMark
-        const task = step?.tasks[0]	// we only get access to one task at a time in a step
+        const { stepKey, taskIndex, taskKey, taskType, toolType, ...newMark } = caesarMark
+        newMark.id = newMark.markId;
+        delete newMark.markId;
 
-        task.activeTool.createMark({
-          id,
-          frame,
-          pathX,
-          pathY,
-          toolIndex
-        })
+        const task = step?.tasks[0]	// we only get access to one task at a time in a step
+        task?.activeTool.createMark(newMark)
       })
     }
 
