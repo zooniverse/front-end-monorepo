@@ -216,7 +216,8 @@ function Certificate({
                   {showPrePanoptesInfo ? (
                     <Tip
                       buttonProps={{
-                        className: 'prePanoptesInfo'
+                        className: 'prePanoptesInfo',
+                        iconSize: '1rem'
                       }}
                       contentText='This certificate only reflects efforts recorded after March 17, 2015. You should have received a certificate for previous efforts by email. If you did not receive this, or believe this is an error, please contact us.'
                     />
