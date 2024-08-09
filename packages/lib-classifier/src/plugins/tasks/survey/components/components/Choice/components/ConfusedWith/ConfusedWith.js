@@ -1,4 +1,5 @@
 import { Box, DropButton } from 'grommet'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
 import styled, { withTheme } from 'styled-components'
@@ -99,7 +100,7 @@ ConfusedWith.propTypes = {
   confusionsOrder: PropTypes.arrayOf(PropTypes.string),
   handleChoice: PropTypes.func,
   hasFocus: PropTypes.bool,
-  images: PropTypes.objectOf(PropTypes.string)
+  images: MobXPropTypes.observableMap,
 }
 
 export default withTheme(ConfusedWith)

@@ -1,4 +1,5 @@
 import { Box, Button, Carousel, Paragraph } from 'grommet'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { Media, PrimaryButton, SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
@@ -38,7 +39,7 @@ export default function Confusion({
             <Media
               key={filename}
               alt={`${confusion.label}-image${index}`}
-              src={images[filename]}
+              src={images.get(filename)}
               width={400}
             />
           ))}
@@ -80,6 +81,6 @@ Confusion.propTypes = {
   confusionId: PropTypes.string,
   confusionText: PropTypes.string,
   handleChoice: PropTypes.func,
-  images: PropTypes.objectOf(PropTypes.string),
+  images: MobXPropTypes.observableMap,
   onClose: PropTypes.func
 }

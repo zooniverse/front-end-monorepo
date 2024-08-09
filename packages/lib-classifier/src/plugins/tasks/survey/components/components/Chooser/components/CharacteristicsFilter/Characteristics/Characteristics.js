@@ -1,5 +1,5 @@
 import { Box, Button } from 'grommet'
-import { observer } from 'mobx-react'
+import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
@@ -65,7 +65,7 @@ Characteristics.propTypes = {
   ),
   characteristicsOrder: PropTypes.arrayOf(PropTypes.string),
   filters: PropTypes.objectOf(PropTypes.string),
-  images: PropTypes.objectOf(PropTypes.string),
+  images: MobXPropTypes.observableMap,
   onFilter: PropTypes.func
 }
 
