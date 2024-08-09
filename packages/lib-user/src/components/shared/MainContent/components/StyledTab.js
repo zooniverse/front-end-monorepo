@@ -7,10 +7,11 @@ const StyledTab = styled(Button)`
   color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
   font-size: 1em;
   text-align: center;
-  
+
   ${props => props.active && css`
-    border-bottom: 4px solid ${props.theme.global.colors.brand};
+    border-bottom: 4px solid ${props.theme.global.colors['neutral-1']};
     font-weight: 700;
+    color: ${props => props.theme.dark ? props.theme.global.colors.white : props.theme.global.colors.black};
   `}
 
   ${props => !props.active && css`

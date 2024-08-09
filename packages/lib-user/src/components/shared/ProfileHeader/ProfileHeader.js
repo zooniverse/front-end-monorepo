@@ -35,7 +35,7 @@ function ProfileHeader({
             src={avatar}
             alt={`${login} avatar`}
           />
-          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' />}
+          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' color='#00979d' />}
         <Box
           align={size === 'small' ? 'start' : 'center'}
           direction={size === 'small' ? 'column' : 'row'}
@@ -66,14 +66,14 @@ function ProfileHeader({
         {classifications !== undefined ?
           <TitledStat
             title='Classifications'
-            value={classifications} 
+            value={classifications}
           />
           : null}
         {hours !== undefined ?
           <TitledStat
             title='Hours'
             value={hours}
-          /> 
+          />
           : null}
         {contributors !== undefined ?
           <TitledStat

@@ -13,10 +13,8 @@ function GroupModal({
       aria-label={title}
       aria-modal='true'
       active={active}
-      bodyBackground='transparent'
       closeFn={handleClose}
       headingBackground='transparent'
-      plain={true}
       role='dialog'
       round='8px'
       title={title}
