@@ -9,8 +9,8 @@ describe('Component > Confusion', function () {
   let label, images, confusionText, cancel, itsThis
   
   const mockTask = SurveyTask.TaskModel.create(task)
-  const KUDU = mockTask.choices.KD
-  const HUMAN = mockTask.choices.HMN
+  const KUDU = mockTask.choices.get('KD')
+  const HUMAN = mockTask.choices.get('HMN')
 
   describe('with choice with images', function () {
     before(function () {
