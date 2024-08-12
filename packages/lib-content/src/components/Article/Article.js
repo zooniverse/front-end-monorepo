@@ -59,7 +59,7 @@ export default function Article({
           <Anchor href={url}>{title}</Anchor>
         </Heading>
         <StyledParagraph color={{ light: 'black', dark: 'white' }}>
-          {size !== 'small' ? excerpt : excerpt.slice(0, 120) + '...'}
+          {size !== 'small' ? excerpt : excerpt.slice(0, 160) + '...'}
         </StyledParagraph>
         <Anchor
           href={url}
