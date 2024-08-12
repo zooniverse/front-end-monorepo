@@ -1,8 +1,9 @@
-import { Anchor, Box, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
 import { string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.js'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
+import { useContext } from 'react'
 
 const StyledParagraph = styled(Paragraph)`
   line-height: 1.2;
@@ -16,6 +17,7 @@ export default function Article({
   url = ''
 }) {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
 
   return (
     <Box
@@ -28,7 +30,7 @@ export default function Article({
       border={{ color: { light: 'light-5', dark: 'black' }, size: 'xsmall' }}
       data-testid='community-article'
     >
-      {imageSrc.length ? (
+      {imageSrc.length && size !== 'small' ? (
         <Box
           alignSelf='center'
           background={`url('${imageSrc}')`}
@@ -57,7 +59,7 @@ export default function Article({
           <Anchor href={url}>{title}</Anchor>
         </Heading>
         <StyledParagraph color={{ light: 'black', dark: 'white' }}>
-          {excerpt}
+          {size !== 'small' ? excerpt : excerpt.slice(0, 120) + '...'}
         </StyledParagraph>
         <Anchor
           href={url}
