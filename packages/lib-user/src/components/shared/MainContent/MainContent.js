@@ -39,9 +39,10 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
+  paramsValidationMessage = '',
   projects = [],
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
@@ -62,9 +63,12 @@ function MainContent({
   const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
+  
+  const noStats = !stats?.data?.length
 
   const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
     created_at: getStatsDateString(source?.created_at),
+    paramsValidationMessage,
     selectedDateRange
   })
   
@@ -147,7 +151,7 @@ function MainContent({
           displayName={source?.display_name}
           hours={activeTab === 1 ? hoursSpent : undefined}
           login={source?.login}
-          projects={selectedProject === 'AllProjects' ? projects?.length : 1}
+          projects={selectedProject ? 1 : projects?.length}
         />
         <Box
           direction={size === 'small' ? 'column' : 'row'}
@@ -210,11 +214,29 @@ function MainContent({
           height='15rem'
           width='100%'
         >
-          <BarChart
-            data={stats?.data}
-            dateRange={selectedDateRange}
-            type={activeTab === 0 ? 'count' : 'session_time'}
-          />
+          {paramsValidationMessage ? (
+            <Box
+              align='center'
+              justify='center'
+              height='100%'
+            >
+              <span>{paramsValidationMessage}</span>
+            </Box>
+          ) : noStats ? (
+            <Box
+              align='center'
+              justify='center'
+              height='100%'
+            >
+              <span>No data available</span>
+            </Box>
+          ) : (
+            <BarChart
+              data={stats?.data}
+              dateRange={selectedDateRange}
+              type={activeTab === 0 ? 'count' : 'session_time'}
+            />
+          )}
         </Box>
         {source?.login ? (
           <Box
@@ -236,8 +258,7 @@ function MainContent({
 }
 
 MainContent.propTypes = {
-  activeTab: number,
-  onActive: func,
+  paramsValidationMessage: string,
   projects: arrayOf(shape({
     display_name: string,
     id: string
