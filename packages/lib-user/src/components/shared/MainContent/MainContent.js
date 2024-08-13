@@ -13,7 +13,8 @@ import {
   BarChart,
   ContentBox,
   ProfileHeader,
-  Select
+  Select,
+  Tip
 } from '@components/shared'
 
 import {
@@ -51,7 +52,7 @@ function MainContent({
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
-  
+
   const handleActiveTab = useCallback((tabIndex) => {
     setActiveTab(tabIndex)
   }, [])
@@ -59,7 +60,7 @@ function MainContent({
   useEffect(function updateCustomDateRange() {
     setCustomDateRange([selectedDateRange.startDate, selectedDateRange.endDate])
   }, [selectedDateRange])
-  
+
   const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
@@ -71,9 +72,20 @@ function MainContent({
     paramsValidationMessage,
     selectedDateRange
   })
-  
+
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
-  
+  const alphabetizedProjectOptions = projectOptions.sort((a, b) => {
+    const nameA = a.label.toUpperCase()
+    const nameB = b.label.toUpperCase()
+    if (nameA < nameB) {
+      return -1
+    }
+    if (nameA > nameB) {
+      return 1
+    }
+    return 0
+  })
+
   const todayUTC = getStatsDateString(new Date())
 
   function handleDateRangeSelect(option) {
@@ -111,7 +123,7 @@ function MainContent({
   function handleProjectSelect(option) {
     setSelectedProject(option.value)
   }
-  
+
   return (
     <>
       <MovableModal
@@ -158,31 +170,40 @@ function MainContent({
           gap={size === 'small' ? 'small' : 'none'}
         >
           <Box
-            role='tablist'
+            align='baseline'
             basis='1/2'
             direction='row'
-            fill={size === 'small' ? 'horizontal' : false}
-            gap='medium'
+            gap='xsmall'
           >
-            <StyledTab
-              role='tab'
-              aria-expanded={activeTab === 0}
-              aria-selected={activeTab === 0}
-              active={activeTab === 0}
-              label='CLASSIFICATIONS'
-              onClick={() => handleActiveTab(0)}
-              plain
+            <Box
+              role='tablist'
+              direction='row'
               fill={size === 'small' ? 'horizontal' : false}
-            />
-            <StyledTab
-              role='tab'
-              aria-expanded={activeTab === 1}
-              aria-selected={activeTab === 1}
-              active={activeTab === 1}
-              label='HOURS'
-              onClick={() => handleActiveTab(1)}
-              plain
-              fill={size === 'small' ? 'horizontal' : false}
+              gap='medium'
+            >
+              <StyledTab
+                role='tab'
+                aria-expanded={activeTab === 0}
+                aria-selected={activeTab === 0}
+                active={activeTab === 0}
+                label='CLASSIFICATIONS'
+                onClick={() => handleActiveTab(0)}
+                plain
+                fill={size === 'small' ? 'horizontal' : false}
+              />
+              <StyledTab
+                role='tab'
+                aria-expanded={activeTab === 1}
+                aria-selected={activeTab === 1}
+                active={activeTab === 1}
+                label='HOURS'
+                onClick={() => handleActiveTab(1)}
+                plain
+                fill={size === 'small' ? 'horizontal' : false}
+              />
+            </Box>
+            <Tip
+              contentText='Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.'
             />
           </Box>
           <Box
@@ -196,7 +217,7 @@ function MainContent({
               id='project-select'
               name='project-select'
               handleChange={handleProjectSelect}
-              options={projectOptions}
+              options={alphabetizedProjectOptions}
               value={selectedProjectOption}
             />
             <Select
@@ -243,7 +264,7 @@ function MainContent({
         {source?.login ? (
           <Box
             direction='row'
-            justify='end'
+            justify={size === 'small' ? 'center': 'end'}
             margin={{ top: 'small' }}
           >
             <StyledCertificateButton

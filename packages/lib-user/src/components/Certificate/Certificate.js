@@ -1,12 +1,13 @@
 import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { number, shape, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import {
   ContentBox,
   HeaderLink,
-  Layout
+  Layout,
+  Tip
 } from '@components/shared'
 
 import { formatDateRange } from './helpers/formatDateRange'
@@ -41,6 +42,10 @@ const PrintableBox = styled(Box)`
     #certificate svg g {
       fill: #00979d;
     }
+
+    .prePanoptesInfo {
+      display: none;
+    }
   }
 
   @page {
@@ -62,14 +67,14 @@ function handleClickPrint() {
 }
 
 function Certificate({
-  creditedName = '',
-  displayName = '',
   hours = 0,
   login = '',
+  name = '',
   paramsValidationMessage = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange
+  selectedDateRange,
+  showPrePanoptesInfo = false
 }) {
   const { endDate, startDate } = selectedDateRange
   const formattedDateRange = formatDateRange({ startDate, endDate })
@@ -152,7 +157,7 @@ function Certificate({
                     textAlign='center'
                     weight='bold'
                   >
-                    {creditedName || displayName}
+                    {name}
                   </SpacedText>
                   <SpacedText
                     margin={{ top: 'medium' }}
@@ -219,6 +224,15 @@ function Certificate({
                         {formattedDateRange}
                       </SpacedText>
                     </SpacedText>
+                    {showPrePanoptesInfo ? (
+                      <Tip
+                        buttonProps={{
+                          className: 'prePanoptesInfo',
+                          iconSize: '1rem'
+                        }}
+                        contentText='This certificate only reflects efforts recorded after March 17, 2015. You should have received a certificate for previous efforts by email. If you did not receive this, or believe this is an error, please contact us.'
+                      />
+                    ): null}
                   </Box>
                   <SpacedText
                     size='1.5rem'
@@ -261,7 +275,7 @@ function Certificate({
                       uppercase={false}
                       weight={500}
                     >
-                      Zooniverse PI
+                      Zooniverse Principal Investigator
                     </SpacedText>
                     <SpacedText
                       uppercase={false}
@@ -273,7 +287,7 @@ function Certificate({
                 </Box>
               </Box>
             </Box>
-          )}
+           })
         </ContentBox>
       </Layout>
     </PrintableBox>
@@ -281,17 +295,17 @@ function Certificate({
 }
 
 Certificate.propTypes = {
-  creditedName: string,
-  displayName: string,
   hours: number,
   login: string,
+  name: string,
   paramsValidationMessage: string,
   projectDisplayName: string,
   projectsCount: number,
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  })
+  }),
+  showPrePanoptesInfo: bool
 }
 
 export default Certificate
