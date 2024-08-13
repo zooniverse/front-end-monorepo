@@ -28,11 +28,11 @@ export const Default = {
     id: 'select',
     name: 'select',
     options: [
-      { label: 'ALL PROJECTS', value: 'AllProjects' },
+      { label: 'ALL PROJECTS', value: undefined },
       { label: 'Project 1', value: '111' },
       { label: 'Project 2', value: '222' },
       { label: 'Project 3', value: '333' }
     ],
-    value: { label: 'ALL PROJECTS', value: 'AllProjects' }
+    value: { label: 'ALL PROJECTS', value: undefined }
   }
 }

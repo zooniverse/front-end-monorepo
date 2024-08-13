@@ -39,7 +39,7 @@ export const Default = {
       endDate: todayUTC,
       startDate: sevenDaysAgoUTC
     },
-    selectedProject: 'AllProjects',
+    selectedProject: undefined,
     stats: STATS,
     source: USER
   }
