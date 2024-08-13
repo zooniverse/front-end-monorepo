@@ -28,16 +28,17 @@ const DEFAULT_USER = {
 
 function UserStats({
   allProjectsStats = DEFAULT_STATS,
+  paramsValidationMessage = '',
   projectStats = DEFAULT_STATS,
   projects = [],
   selectedDateRange,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   user = DEFAULT_USER
 }) {
-  // set stats based on selected project or all projects
-  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
+  // set stats based on selected project
+  const stats = selectedProject ? projectStats : allProjectsStats
 
   return (
     <Layout
@@ -50,6 +51,7 @@ function UserStats({
       }
     >
       <MainContent
+        paramsValidationMessage={paramsValidationMessage}
         projects={projects}
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
@@ -83,6 +85,7 @@ const statsShape = shape({
 
 UserStats.propTypes = {
   allProjectsStats: statsShape,
+  paramsValidationMessage: string,
   projectStats: statsShape,
   projects: arrayOf(shape({
     id: string,
