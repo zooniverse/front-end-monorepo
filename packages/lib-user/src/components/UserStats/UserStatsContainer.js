@@ -19,7 +19,6 @@ const DEFAULT_DATE_RANGE = {
   startDate: undefined
 }
 const DEFAULT_HANDLER = () => true
-const DEFAULT_PROJECT = undefined
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
@@ -27,7 +26,7 @@ function UserStatsContainer({
   login,
   paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = DEFAULT_PROJECT,
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
