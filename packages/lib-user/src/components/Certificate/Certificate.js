@@ -287,7 +287,7 @@ function Certificate({
                 </Box>
               </Box>
             </Box>
-           })
+          )}
         </ContentBox>
       </Layout>
     </PrintableBox>
