@@ -219,6 +219,7 @@ function MainContent({
               align='center'
               justify='center'
               height='100%'
+              pad='small'
             >
               <span>{paramsValidationMessage}</span>
             </Box>
@@ -227,6 +228,7 @@ function MainContent({
               align='center'
               justify='center'
               height='100%'
+              pad='small'
             >
               <span>No data available</span>
             </Box>

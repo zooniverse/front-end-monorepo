@@ -23,18 +23,19 @@ const STATS_ENDPOINT = '/classifications/users'
 function CertificateContainer({
   authUser,
   login,
+  paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects'
+  selectedProject = undefined
 }) {
   // TODO: fetch user data if authUser is not login user (admin view)
 
   // fetch stats
   const statsQuery = getDateInterval(selectedDateRange)
   statsQuery.time_spent = true
-  if (selectedProject !== 'AllProjects') {
-    statsQuery.project_id = parseInt(selectedProject)
-  } else {
+  if (selectedProject === undefined) {
     statsQuery.project_contributions = true
+  } else {
+    statsQuery.project_id = parseInt(selectedProject)
   }
   
   const {
@@ -43,19 +44,17 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: authUser?.id,
+    sourceId: paramsValidationMessage ? null : authUser?.id,
     query: statsQuery
   })
 
-  // fetch projects, if selectedProject is not 'AllProjects'
-  const projectId = selectedProject !== 'AllProjects' ? selectedProject : null
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
   } = usePanoptesProjects({
     cards: true,
-    id: projectId
+    id: selectedProject
   })
   
   const hours = convertStatsSecondsToHours(stats?.time_spent)
@@ -68,6 +67,7 @@ function CertificateContainer({
       displayName={authUser?.display_name}
       hours={hours}
       login={authUser?.login}
+      paramsValidationMessage={paramsValidationMessage}
       projectsCount={projectsCount}
       selectedDateRange={selectedDateRange}
       projectDisplayName={projectDisplayName}
@@ -81,6 +81,7 @@ CertificateContainer.propTypes = {
     login: string
   }),
   login: string,
+  paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string
