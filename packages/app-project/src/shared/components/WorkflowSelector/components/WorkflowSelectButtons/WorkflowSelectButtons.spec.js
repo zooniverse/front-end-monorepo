@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import WorkflowSelectButtons from './WorkflowSelectButtons'
 
-describe.skip('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
+describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
   const mockRouter = {
     asPath: '/zooniverse/snapshot-serengeti',
     basePath: '/projects',
@@ -52,7 +52,7 @@ describe.skip('Component > WorkflowSelector > WorkflowSelectorButtons', function
     })
   })
 
-  describe('when workflow assignment is enabled', function () {
+  describe.skip('when workflow assignment is enabled', function () {
     describe('when there is an assigned workflow', function () {
       it('should only render links for unlocked workflows', function () {
         const { getAllByRole } = render(

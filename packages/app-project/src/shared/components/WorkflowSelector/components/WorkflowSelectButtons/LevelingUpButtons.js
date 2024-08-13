@@ -1,36 +1,9 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
 import { Box } from 'grommet'
 
 import WorkflowSelectButton from '../WorkflowSelectButton'
-import { fetchSingleWorkflow } from '../../../../../helpers/fetchWorkflowsHelper/fetchWorkflowsHelper'
-
-/* Custom hook:
-      Sometimes an active workflow retires while a user is assigned to it,
-      so we fetch the assigned workflow's config just in case.
-      https://github.com/zooniverse/front-end-monorepo/issues/6198
-  */
-function useAssignedLevel(assignedWorkflowID) {
-  const [assignedWorkflowLevel, setAssignedWorkflowLevel] = useState('')
-
-  async function checkAssignedLevel() {
-    const fetchedWorkflow = await fetchSingleWorkflow(
-      assignedWorkflowID,
-      'production'
-    )
-    setAssignedWorkflowLevel(fetchedWorkflow?.configuration?.level)
-  }
-
-  useEffect(
-    function () {
-      checkAssignedLevel()
-    },
-    [assignedWorkflowID]
-  )
-
-  return assignedWorkflowLevel
-}
+import useAssignedLevel from '@hooks/useAssignedLevel.js'
 
 function LevelingUpButtons({ assignedWorkflowID = '', workflows = [] }) {
   const { t } = useTranslation('components')
