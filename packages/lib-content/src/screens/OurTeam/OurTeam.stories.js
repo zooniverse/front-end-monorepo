@@ -7,7 +7,7 @@ const mockSections = mockData.map(team => ({
 }))
 
 export default {
-  title: 'Screens / Our Team',
+  title: 'About / Our Team',
   component: OurTeam
 }
 

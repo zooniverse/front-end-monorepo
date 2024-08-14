@@ -4,31 +4,27 @@ import { useTranslation } from '../../translations/i18n.js'
 import ContainerBox from './ContainerBox.js'
 import AboutHeader from '../AboutHeader'
 
-function AboutLayout({ children }) {
+function GetInvolvedLayout({ children }) {
   const { t } = useTranslation()
 
-  const navTitle = t('AboutHeader.title.about')
+  const navTitle = t('AboutHeader.title.getInvolved')
 
   const links = [
     {
-      href: '/about',
-      label: t('AboutHeader.links.about')
+      href: '/get-involved/volunteer',
+      label: t('AboutHeader.links.volunteer')
     },
     {
-      href: '/about/publications',
-      label: t('AboutHeader.links.publications')
+      href: '/get-involved/education',
+      label: t('AboutHeader.links.educate')
     },
     {
-      href: '/about/team',
-      label: t('AboutHeader.links.team')
+      href: '/get-involved/collaborate',
+      label: t('AboutHeader.links.collaborate')
     },
     {
-      href: '/about/resources',
-      label: t('AboutHeader.links.resources')
-    },
-    {
-      href: '/about/faq',
-      label: t('AboutHeader.links.faq')
+      href: '/get-involved/donate',
+      label: t('AboutHeader.links.donate')
     }
   ]
 
@@ -56,4 +52,4 @@ function AboutLayout({ children }) {
   )
 }
 
-export default AboutLayout
+export default GetInvolvedLayout

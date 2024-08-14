@@ -1,7 +1,7 @@
 import Institute from './Institution.js'
 
 export default {
-  title: 'Screens / Our Team / Institution',
+  title: 'About / Our Team / Institution',
   component: Institute
 }
 
