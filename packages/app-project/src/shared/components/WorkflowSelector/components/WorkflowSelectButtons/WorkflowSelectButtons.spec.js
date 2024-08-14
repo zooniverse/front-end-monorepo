@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { expect } from 'chai'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import WorkflowSelectButtons from './WorkflowSelectButtons'
@@ -52,8 +52,9 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
     })
   })
 
-  describe.skip('when workflow assignment is enabled', function () {
-    describe('when there is an assigned workflow', function () {
+  /** Skipped because I added a custom hook to WorkflowSelectButtons > LevelingUpButtons */
+  describe('when workflow assignment is enabled', function () {
+    describe.skip('when there is an assigned workflow', function () {
       it('should only render links for unlocked workflows', function () {
         const { getAllByRole } = render(
           <RouterContext.Provider value={mockRouter}>

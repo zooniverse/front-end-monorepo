@@ -20,8 +20,7 @@ async function fetchWorkflowData(workflows, env) {
   }
 }
 
-/* Also used as a fallback fetch when leveling-up handles retired workflows */
-export async function fetchSingleWorkflow(workflowID, env) {
+async function fetchSingleWorkflow(workflowID, env) {
   const { headers, host } = getServerSideAPIHost(env)
   try {
     const query = {

@@ -5,17 +5,26 @@
 */
 
 import { useEffect, useState } from 'react'
-import { fetchSingleWorkflow } from '../helpers/fetchWorkflowsHelper/fetchWorkflowsHelper'
+import { panoptes } from '@zooniverse/panoptes-js'
 
 function useAssignedLevel(assignedWorkflowID) {
   const [assignedWorkflowLevel, setAssignedWorkflowLevel] = useState(1)
 
   async function checkAssignedLevel() {
-    const fetchedWorkflow = await fetchSingleWorkflow(
-      assignedWorkflowID,
-      'production'
-    )
-    setAssignedWorkflowLevel(fetchedWorkflow?.configuration?.level)
+    const query = {
+      fields: 'configuration',
+      id: assignedWorkflowID
+    }
+    try {
+      const response = await panoptes.get('/workflows', query)
+      console.log('response:', response)
+      if (response.ok) {
+        const fetchedWorkflow = response.body.workflows?.[0]
+        setAssignedWorkflowLevel(fetchedWorkflow?.configuration?.level)
+      }
+    } catch (error) {
+      throw error
+    }
   }
 
   useEffect(
