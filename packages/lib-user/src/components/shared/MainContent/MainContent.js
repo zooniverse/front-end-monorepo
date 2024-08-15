@@ -1,5 +1,5 @@
-import { MovableModal } from '@zooniverse/react-components'
-import { Box, Calendar, ResponsiveContext } from 'grommet'
+import { MovableModal, SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
 
@@ -238,20 +238,27 @@ function MainContent({
           {paramsValidationMessage ? (
             <Box
               align='center'
+              fill
               justify='center'
-              height='100%'
-              pad='small'
+              pad='medium'
             >
-              <span>{paramsValidationMessage}</span>
+              <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
             </Box>
           ) : noStats ? (
             <Box
               align='center'
+              fill
               justify='center'
-              height='100%'
-              pad='small'
+              pad='medium'
             >
-              <span>No data available</span>
+              <SpacedText uppercase={false}>No data found.</SpacedText>
+              <Text>
+                Start by{' '}
+                <Anchor href='https://www.zooniverse.org/projects'>
+                  classifying a project
+                </Anchor>
+                {' ' }now.
+              </Text>
             </Box>
           ) : (
             <BarChart

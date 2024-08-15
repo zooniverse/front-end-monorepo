@@ -75,3 +75,12 @@ export const PrePanoptesInfo = {
     showPrePanoptesInfo: true
   }
 }
+
+export const ParamsValidationMessage = {
+  args: {
+    login: 'testUser',
+    name: 'Example T. User',
+    paramsValidationMessage: 'Invalid start_date, must be in the format YYYY-MM-DD',
+    selectedProject: undefined
+  }
+}

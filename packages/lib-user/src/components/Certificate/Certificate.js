@@ -62,6 +62,11 @@ const PrintableBox = styled(Box)`
   }
 `
 
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
+
 function handleClickPrint() {
   window.print()
 }
@@ -73,7 +78,7 @@ function Certificate({
   paramsValidationMessage = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange,
+  selectedDateRange = DEFAULT_DATE_RANGE,
   showPrePanoptesInfo = false
 }) {
   const { endDate, startDate } = selectedDateRange
@@ -101,11 +106,11 @@ function Certificate({
           {paramsValidationMessage ? (
             <Box
               align='center'
+              fill
               justify='center'
-              height='100%'
-              pad='small'
+              pad='medium'
             >
-              <span>{paramsValidationMessage}</span>
+              <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
             </Box>
           ) : (
             <Box
