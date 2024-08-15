@@ -19,7 +19,7 @@ function useAssignedLevel(assignedWorkflowID) {
       const response = await panoptes.get('/workflows', query)
       if (response.ok) {
         const fetchedWorkflow = response.body.workflows?.[0]
-        setAssignedWorkflowLevel(fetchedWorkflow?.configuration?.level)
+        setAssignedWorkflowLevel(parseInt(fetchedWorkflow?.configuration?.level), 10)
       }
     } catch (error) {
       throw error
