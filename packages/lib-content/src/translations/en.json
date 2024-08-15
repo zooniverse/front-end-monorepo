@@ -123,6 +123,16 @@
   "Article": {
     "url": "Read more"
   },
+  "Donate": {
+    "button": "Donate today",
+    "paragraphs": {
+      "one": "Zooniverse is a collaboration between Chicago’s Adler Planetarium, the University of Oxford, the University of Minnesota - Twin Cities (UMN), hundreds of researchers, and millions of participants from around the world. The Zooniverse teams at Adler, Oxford, and UMN include our senior leadership team, web developers, designer, communications lead, data scientists, and researchers. This unique mix of expertise in research, public engagement, and modern web development allows us to support the amazing community of volunteers and dedicated research teams using the Zooniverse platform. Much of the Zooniverse’s funding comes through grants, as well as institutional support from Adler, Oxford, and UMN.",
+      "two": "If you would like to support the Zooniverse, please consider making a tax-deductible donation to the Adler Planetarium. Your unrestricted gift to the Adler helps researchers unlock their data through online citizen science, astronomers bring telescopes into neighborhoods all over Chicagoland, teenagers launch original experiments into space, and people of all ages connect under the stars.",
+      "three": "Follow the link below to make a donation on the Adler Planetarium’s website."
+    },
+    "subheading": "Support the Zooniverse",
+    "title": "Donate"
+  },
   "FAQ": {
     "description": "",
     "help": "Don't see the answer to your question? Visit the <0>Zooniverse Solutions webpage</0>, ask on <1>Zooniverse Talk</1>, or <2>contact us</2>.",
