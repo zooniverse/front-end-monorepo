@@ -26,7 +26,7 @@ function App({
   endDate = todayUTC,
   groups = null,
   joinToken = null,
-  projectId = 'AllProjects',
+  projectId = undefined,
   startDate = sevenDaysAgoUTC,
   updateQueryParams = () => true,
   users = null
