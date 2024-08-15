@@ -123,6 +123,58 @@
   "Article": {
     "url": "Read more"
   },
+  "Educate": {
+    "articles": {
+      "heading": "How are Educators using the Zooniverse?",
+      "one": {
+        "datePublished": "October 28, 2022",
+        "excerpt": "There is a critical need for research-based active learning instructional materials for the teaching and learning of STEM in online courses. Every year, hundreds of thousands of undergraduate non-science majors enroll in general education astronomy courses to fulfill their institution’s liberal arts requirements. When designing instructional materials for this population of learners, a central...",
+        "title": "A New Curriculum Development Model for Improving Undergraduate Students’ Data Literacy and Self-Efficacy..."
+      },
+      "two": {
+        "datePublished": "August 14, 2019",
+        "excerpt": "“Everyone try to grab the same galaxy,” a boy exclaimed while motioning to his classmates. Around the table, six students began dragging an image of a galaxy from the center of a large touch screen onto their own workstation. It’s very likely these students are the first people to set eyes upon this galaxy and decide how it should be classified...",
+        "title": "U!Scientist and the Galaxy Zoo touch table at Adler Planetarium"
+      },
+      "three": {
+        "datePublished": "February 7, 2018",
+        "excerpt": "As a social studies teacher, I hope for my students to develop an appreciation of the discipline of history itself. Rather than emphasizing memorization of dates and names – the kind of things that fall out of our memory as soon as we put them down on the test – my goals include exposing students to the intricacies of professional work done by historians. Recently, my 8th grade Ancient World...",
+        "title": "8th graders in Missouri transcribe anti-slavery documents and learn about the abolitionist movement"
+      },
+      "four": {
+        "datePublished": "April 29, 2015",
+        "excerpt": "Today’s blog post comes from Fran Wilson, a second grade teacher at Madeira Elementary School. Fran strives to promote an interest in science in her classroom and help students discover that not all scientists work in labs wearing white lab coats and safety goggles. She seeks meaningful opportunities for her students to participate in citizen scientist work to be responsible...",
+        "title": "Floating Forests: Teaching Young Children About Kelp"
+      }
+    },
+    "buttons": {
+      "one": "Online Resources",
+      "two": "Zooniverse in schools Ages 9 - 12",
+      "three": "Zooniverse for Undergraduates"
+    },
+    "forEducators": {
+      "classrooms": "Explore Zooniverse Classrooms",
+      "heading": "Resources for Educators",
+      "subheadings": {
+        "one": "Group stats",
+        "two": "Project-specific educational opportunities",
+        "three": "Volunteer certificate"
+      },
+      "paragraphs": {
+        "one": "Set classification milestones, track effort, and celebrate collective impact. Read our <0>announcement</0> for more details.",
+        "two": "Each project team can share additional educator resources including lesson plans, video tutorials, research links, and more. Be sure to check a project’s <0>Education</0> tab.",
+        "three": "Support for students fulfilling student service hours for scholarships, graduation requirements, and more. See this <0>blog post</0> for details."
+      }
+    },
+    "introduction": "Are you an educator interested in using Zooniverse in the classroom? Great! Millions of people around the world participate in about 100 active projects, each with a supportive and welcoming discussion forum in which researchers engage with the public around the research and broader interests. The Zooniverse is a wonderful place for students.",
+    "subheading": "Education in the Zooniverse",
+    "takePart": {
+      "heading": "Take Part in the Conversation",
+      "paragraph": "Keep up with the latest Zooniverse educational efforts on the <0>Zooniverse Blog</0>. You can also join the conversation in our <1>discussion forum around Education and the Zooniverse</1>."
+    },
+    "title": "Educate"
+
+  },
   "FAQ": {
     "description": "",
     "help": "Don't see the answer to your question? Visit the <0>Zooniverse Solutions webpage</0>, ask on <1>Zooniverse Talk</1>, or <2>contact us</2>.",
