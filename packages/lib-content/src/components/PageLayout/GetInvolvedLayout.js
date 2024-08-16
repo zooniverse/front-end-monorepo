@@ -1,8 +1,19 @@
-import { Box } from 'grommet'
+import { Box, ThemeContext } from 'grommet'
 import { useTranslation } from '../../translations/i18n.js'
+import { css } from 'styled-components'
 
 import ContainerBox from './ContainerBox.js'
 import AboutHeader from '../AboutHeader'
+
+const customTheme = {
+  paragraph: {
+    extend: props => {
+      return css`
+        color: ${props.theme.dark ? '#ffffff' : '#000000'};
+      `
+    }
+  }
+}
 
 function GetInvolvedLayout({ children }) {
   const { t } = useTranslation()
@@ -15,7 +26,7 @@ function GetInvolvedLayout({ children }) {
       label: t('AboutHeader.links.volunteer')
     },
     {
-      href: '/get-involved/education',
+      href: '/get-involved/educate',
       label: t('AboutHeader.links.educate')
     },
     {
@@ -32,21 +43,23 @@ function GetInvolvedLayout({ children }) {
     <>
       <AboutHeader links={links} navTitle={navTitle} />
       <main>
-        <Box
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          align='center'
-        >
-          <ContainerBox
+        <ThemeContext.Extend value={customTheme}>
+          <Box
+            background={{
+              dark: 'dark-1',
+              light: 'light-1'
+            }}
             align='center'
-            background={{ dark: 'dark-3', light: 'neutral-6' }}
-            width='min(100%, 90rem)'
           >
-            {children}
-          </ContainerBox>
-        </Box>
+            <ContainerBox
+              align='center'
+              background={{ dark: 'dark-3', light: 'neutral-6' }}
+              width='min(100%, 90rem)'
+            >
+              {children}
+            </ContainerBox>
+          </Box>
+        </ThemeContext.Extend>
       </main>
     </>
   )
