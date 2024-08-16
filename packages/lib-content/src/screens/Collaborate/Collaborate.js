@@ -10,7 +10,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '../../components/SharedStyledComponents/SharedStyledComponents.js'
-import Supporters from './Supporters.js'
+import { Supporters, SelectedCollaborators} from './Logos.js'
 
 function Collaborate() {
   const { t } = useTranslation()
@@ -38,7 +38,7 @@ function Collaborate() {
           >
             {t('Collaborate.subheadings.one')}
           </SpacedHeading>
-          <Paragraph>{t('Collaborate.paragraphs.one')}</Paragraph>
+          <Paragraph margin={{ top: '0' }}>{t('Collaborate.paragraphs.one')}</Paragraph>
           <Paragraph margin='0'>{t('Collaborate.paragraphs.two')}</Paragraph>
           <Paragraph>
             <Trans
@@ -53,7 +53,7 @@ function Collaborate() {
             />
           </Paragraph>
           <Paragraph margin='0'>{t('Collaborate.paragraphs.four')}</Paragraph>
-          <Paragraph>
+          <Paragraph margin={{ bottom: 'medium' }}>
             <Trans
               i18nKey='Collaborate.paragraphs.five'
               t={t}
@@ -64,9 +64,9 @@ function Collaborate() {
           {/** Our Supporters */}
           <SpacedHeading
             level={3}
-            align='center'
             size='1.5rem'
             textAlign='center'
+            fill
           >
             {t('Collaborate.subheadings.two')}
           </SpacedHeading>
@@ -75,24 +75,25 @@ function Collaborate() {
           {/** Selected Collaborators */}
           <SpacedHeading
             level={3}
-            align='center'
             size='1.5rem'
             textAlign='center'
+            fill
           >
             {t('Collaborate.subheadings.three')}
           </SpacedHeading>
+          <SelectedCollaborators />
 
           <SpacedHeading
             level={3}
-            align='center'
             size='1.5rem'
             textAlign='center'
+            fill
           >
             {t('Collaborate.subheadings.four')}
           </SpacedHeading>
           <Paragraph>{t('Collaborate.paragraphs.six')}</Paragraph>
           <Paragraph margin='0'>{t('Collaborate.paragraphs.seven')}</Paragraph>
-          <Paragraph>
+          <Paragraph margin={{ bottom: 'medium' }}>
             <Trans
               i18nKey='Collaborate.paragraphs.eight'
               t={t}
@@ -108,9 +109,9 @@ function Collaborate() {
 
           <SpacedHeading
             level={3}
-            align='center'
             size='1.5rem'
             textAlign='center'
+            fill
           >
             {t('Collaborate.subheadings.five')}
           </SpacedHeading>
