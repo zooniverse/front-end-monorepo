@@ -235,7 +235,7 @@ describe('Component > ClassifyPageContainer', function () {
             <RouterContext.Provider value={mockRouter}>
               <Provider store={mockStoreWithAssignment}>
                 <ClassifyPageContainer
-                  assignedWorkflowID='5678'
+                  assignedWorkflowLevel={2}
                   workflowAssignmentEnabled
                   workflowID='1234'
                   workflows={workflows}
@@ -279,7 +279,7 @@ describe('Component > ClassifyPageContainer', function () {
             <RouterContext.Provider value={mockRouter}>
               <Provider store={mockStoreWithAssignment}>
                 <ClassifyPageContainer
-                  assignedWorkflowID='1234'
+                  assignedWorkflowLevel={1}
                   workflowAssignmentEnabled
                   workflowID='5678'
                   workflows={workflows}
