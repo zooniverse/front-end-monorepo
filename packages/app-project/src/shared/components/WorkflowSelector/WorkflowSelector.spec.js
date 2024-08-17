@@ -1,12 +1,16 @@
 import asyncStates from '@zooniverse/async-states'
 import { mount } from 'enzyme'
+import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
+import initStore from '@stores'
 import WorkflowSelector from './WorkflowSelector'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import { expect } from 'chai'
 
 describe('Component > WorkflowSelector', function () {
+  let store
+
   const mockRouter = {
     asPath: '/zooniverse/snapshot-serengeti/about/team',
     basePath: '/projects',
@@ -42,22 +46,13 @@ describe('Component > WorkflowSelector', function () {
   const DEFAULT_WORKFLOW_DESCRIPTION = 'WorkflowSelector.message'
   /** The translation function will simply return keys in a testing env */
 
-  it('should render without crashing', function () {
-    const wrapper = mount(
-      <RouterContext.Provider value={mockRouter}>
-        <WorkflowSelector
-          theme={THEME}
-          workflows={WORKFLOWS}
-          workflowDescription={WORKFLOW_DESCRIPTION}
-        />
-      </RouterContext.Provider>
-    )
-    expect(wrapper).to.be.ok()
+  this.beforeEach(function () {
+    store = initStore(true)
   })
 
-  describe('workflow description', function () {
-    it('should use the `workflowDescription` prop if available', function () {
-      const wrapper = mount(
+  it('should render without crashing', function () {
+    const wrapper = mount(
+      <Provider store={store}>
         <RouterContext.Provider value={mockRouter}>
           <WorkflowSelector
             theme={THEME}
@@ -65,31 +60,52 @@ describe('Component > WorkflowSelector', function () {
             workflowDescription={WORKFLOW_DESCRIPTION}
           />
         </RouterContext.Provider>
+      </Provider>
+    )
+    expect(wrapper).to.be.ok()
+  })
+
+  describe('workflow description', function () {
+    it('should use the `workflowDescription` prop if available', function () {
+      const wrapper = mount(
+        <Provider store={store}>
+          <RouterContext.Provider value={mockRouter}>
+            <WorkflowSelector
+              theme={THEME}
+              workflows={WORKFLOWS}
+              workflowDescription={WORKFLOW_DESCRIPTION}
+            />
+          </RouterContext.Provider>
+        </Provider>
       )
       expect(wrapper.contains(WORKFLOW_DESCRIPTION)).to.be.true()
     })
 
     it('should use the default message if the `workflowDescription` prop is unset', function () {
       const wrapper = mount(
-        <RouterContext.Provider value={mockRouter}>
-          <WorkflowSelector
-            theme={THEME}
-            workflows={WORKFLOWS}
-          />
-        </RouterContext.Provider>
+        <Provider store={store}>
+          <RouterContext.Provider value={mockRouter}>
+            <WorkflowSelector
+              theme={THEME}
+              workflows={WORKFLOWS}
+            />
+          </RouterContext.Provider>
+        </Provider>
       )
       expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
     })
 
     it('should use the default message if the `workflowDescription` prop is an empty string', function () {
       const wrapper = mount(
-        <RouterContext.Provider value={mockRouter}>
-          <WorkflowSelector
-            theme={THEME}
-            workflows={WORKFLOWS}
-            workflowDescription=''
-          />
-        </RouterContext.Provider>
+        <Provider store={store}>
+          <RouterContext.Provider value={mockRouter}>
+            <WorkflowSelector
+              theme={THEME}
+              workflows={WORKFLOWS}
+              workflowDescription=''
+            />
+          </RouterContext.Provider>
+        </Provider>
       )
       expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
     })
@@ -98,14 +114,16 @@ describe('Component > WorkflowSelector', function () {
   describe('when successfully loaded the user state and loaded the user project preferences', function () {
     it('should render workflow select buttons', function () {
       const wrapper = mount(
-        <RouterContext.Provider value={mockRouter}>
-          <WorkflowSelector
-            uppLoaded={true}
-            userReadyState={asyncStates.success}
-            theme={THEME}
-            workflows={WORKFLOWS}
-          />
-        </RouterContext.Provider>
+        <Provider store={store}>
+          <RouterContext.Provider value={mockRouter}>
+            <WorkflowSelector
+              uppLoaded={true}
+              userReadyState={asyncStates.success}
+              theme={THEME}
+              workflows={WORKFLOWS}
+            />
+          </RouterContext.Provider>
+        </Provider>
       )
       expect(wrapper.find(WorkflowSelectButtons)).to.have.lengthOf(1)
     })

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { Button, Box, CheckBox } from 'grommet'
 import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import addQueryParams from '@helpers/addQueryParams'
@@ -12,6 +11,8 @@ function useStore() {
   const { store } = useContext(MobXProviderContext)
 
   return {
+    /** the current project */
+    project: store.project,
     /** assignedWorkflowID is fetched every 5 classifications per user session */
     assignedWorkflowID: store.user.personalization.projectPreferences.settings?.workflow_id,
     /** This function determines if the user has an assigned workflow and verifies that workflow is active in panoptes */
@@ -20,13 +21,10 @@ function useStore() {
 }
 
 function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
-  const { assignedWorkflowID, promptAssignment } = useStore()
+  const { project, assignedWorkflowID, promptAssignment } = useStore()
 
   const { t } = useTranslation('screens')
-  const router = useRouter()
-  const owner = router?.query?.owner
-  const project = router?.query?.project
-  const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
+  const url = `/${project.slug}/classify/workflow/${assignedWorkflowID}`
 
   /** Check if user has dismissed the modal, but only in the browser */
   const isBrowser = typeof window !== 'undefined'
@@ -66,6 +64,10 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
     setActive(false)
   }
 
+  function onClick() {
+    project.setSelectedWorkflow(assignedWorkflowID)
+  }
+
   return (
     <Modal
       active={active}
@@ -95,6 +97,7 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
           as={Link}
           href={addQueryParams(url)}
           label={t('Classify.WorkflowAssignmentModal.confirm')}
+          onClick={onClick}
         />
       </Box>
     </Modal>

@@ -1,5 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
+import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { bool } from 'prop-types'
 import styled, { css } from 'styled-components'
@@ -90,4 +91,4 @@ Nav.propTypes = {
   adminMode: bool
 }
 
-export default Nav
+export default observer(Nav)

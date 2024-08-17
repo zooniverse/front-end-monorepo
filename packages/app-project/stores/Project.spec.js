@@ -147,8 +147,8 @@ describe('Stores > Project', function () {
         project = rootStore.project
       })
 
-      it('should be undefined', function () {
-        expect(project.defaultWorkflow).to.be.undefined()
+      it('should be empty', function () {
+        expect(project.defaultWorkflow).to.be.empty()
       })
     })
 
@@ -167,8 +167,8 @@ describe('Stores > Project', function () {
         project = rootStore.project
       })
 
-      it('should be undefined', function () {
-        expect(project.defaultWorkflow).to.be.undefined()
+      it('should be empty', function () {
+        expect(project.defaultWorkflow).to.be.empty()
       })
     })
   })
