@@ -6,7 +6,9 @@ function useStore(store) {
   const {
     appLoadingState,
     project: {
-      experimental_tools
+      experimental_tools,
+      defaultWorkflow,
+      setSelectedWorkflow
     },
     user: { personalization: { projectPreferences } }
   } = store
@@ -14,6 +16,8 @@ function useStore(store) {
   return {
     appLoadingState,
     projectPreferences,
+    defaultWorkflow,
+    setSelectedWorkflow,
     workflowAssignmentEnabled: experimental_tools.includes('workflow assignment')
   }
 }
@@ -23,16 +27,23 @@ function ClassifyPageConnector(props) {
   const {
     appLoadingState,
     projectPreferences,
+    defaultWorkflow,
+    setSelectedWorkflow,
     workflowAssignmentEnabled = false
   } = useStore(store)
 
+  if (props.workflowID && props.workflowID !== defaultWorkflow) {
+    setSelectedWorkflow(props.workflowID)
+  }
+
   return (
     <ClassifyPageContainer
+      {...props}
       appLoadingState={appLoadingState}
       assignedWorkflowID={projectPreferences?.settings?.workflow_id}
       projectPreferences={projectPreferences}
       workflowAssignmentEnabled={workflowAssignmentEnabled}
-      {...props}
+      workflowID={props.workflowID || defaultWorkflow}
     />
   )
 }
