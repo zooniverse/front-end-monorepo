@@ -27,7 +27,7 @@ function ClassifyPageConnector(props) {
     workflowAssignmentEnabled = false
   } = useStore(store)
   const assignedWorkflowID = projectPreferences?.settings?.workflow_id
-  const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID)
+  const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID, props.workflows)
 
   return (
     <ClassifyPageContainer
