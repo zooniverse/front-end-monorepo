@@ -18,8 +18,13 @@ const SWRoptions = {
 
 async function fetchAssignedWorkflow({
   fields = 'configuration',
-  assignedWorkflowID
+  assignedWorkflowID,
+  workflows = []
 }) {
+  const existingWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
+  if (existingWorkflow) {
+    return parseInt(existingWorkflow.configuration?.level, 10)
+  }
   const query = {
     fields,
     id: assignedWorkflowID
@@ -32,8 +37,8 @@ async function fetchAssignedWorkflow({
   return 1
 }
 
-function useAssignedLevel(assignedWorkflowID) {
-  const key = assignedWorkflowID ? { assignedWorkflowID } : null
+function useAssignedLevel(assignedWorkflowID, workflows = []) {
+  const key = assignedWorkflowID ? { assignedWorkflowID, workflows } : null
   const { data: assignedWorkflowLevel } = useSWR(key, fetchAssignedWorkflow, SWRoptions)
 
   return assignedWorkflowLevel || 1
