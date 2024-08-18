@@ -8,7 +8,7 @@ import useAssignedLevel from '@hooks/useAssignedLevel.js'
 function LevelingUpButtons({ assignedWorkflowID = '', workflows = [] }) {
   const { t } = useTranslation('components')
 
-  const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID)
+  const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID, workflows)
   const filteredWorkflowsByLevel = { allowed: [], disallowed: [] }
 
   if (assignedWorkflowLevel) {
