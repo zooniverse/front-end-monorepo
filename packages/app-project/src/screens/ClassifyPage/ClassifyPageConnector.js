@@ -1,4 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
+import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import useAssignedLevel from '@hooks/useAssignedLevel'
 import ClassifyPageContainer from './ClassifyPageContainer'
@@ -23,7 +24,12 @@ function useStore(store) {
   }
 }
 
-function ClassifyPageConnector(props) {
+function ClassifyPageConnector({
+  // workflow ID from the page URL
+  workflowID,
+  ...props
+}) {
+  const router = useRouter()
   const { store } = useContext(MobXProviderContext)
   const {
     appLoadingState,
@@ -35,8 +41,15 @@ function ClassifyPageConnector(props) {
   const assignedWorkflowID = projectPreferences?.settings?.workflow_id
   const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID, props.workflows)
 
-  if (props.workflowID && props.workflowID !== defaultWorkflow) {
-    setSelectedWorkflow(props.workflowID)
+  // store the workflow from the URL, if it isn't already stored
+  if (workflowID && workflowID !== defaultWorkflow) {
+    setSelectedWorkflow(workflowID)
+  }
+
+  // client-side redirect if there's no workflow in the URL
+  if (!workflowID && defaultWorkflow) {
+    const newPath = router.asPath.replace('/classify', `/classify/workflow/${defaultWorkflow}`)
+    router.replace(newPath, newPath, { shallow: true })
   }
 
   return (
@@ -46,7 +59,7 @@ function ClassifyPageConnector(props) {
       assignedWorkflowLevel={assignedWorkflowLevel}
       projectPreferences={projectPreferences}
       workflowAssignmentEnabled={workflowAssignmentEnabled}
-      workflowID={props.workflowID || defaultWorkflow}
+      workflowID={workflowID || defaultWorkflow}
     />
   )
 }
