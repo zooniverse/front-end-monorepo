@@ -30,7 +30,7 @@ function Tip({
       plain
     >
       <Button
-        icon={<CircleInformation size={buttonProps.iconSize} />}
+        icon={<CircleInformation size={buttonProps.iconSize || DEFAULT_BUTTON_PROPS.iconSize} />}
         plain
         {...buttonProps}
       />
