@@ -1,3 +1,6 @@
+// Note that when internationalization is introduced to app-root,
+// this file may need refactoring to handle locale in pathname
+
 import { NextResponse } from 'next/server'
 
 export function middleware(req) {
@@ -30,6 +33,11 @@ export function middleware(req) {
 
   if (req.nextUrl.pathname.startsWith('/get-involved/education')) {
     return NextResponse.redirect(new URL('/get-involved/educate', req.url))
+  }
+
+  // There is no root Get Involved page
+  if (req.nextUrl.pathname === '/get-involved') {
+    return NextResponse.redirect(new URL('/get-involved/volunteer', req.url))
   }
 
   return NextResponse.next()
