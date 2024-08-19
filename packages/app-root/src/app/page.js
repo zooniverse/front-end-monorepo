@@ -46,8 +46,6 @@ async function getBlogPosts(url) {
   return posts
 }
 
-export const revalidate = 3600 // revalidate the data at most every hour
-
 export default async function HomePage() {
   const dailyZooPosts = await getBlogPosts(DAILY_ZOO_FEED)
   const zooBlogPosts = await getBlogPosts(ZOO_BLOG_FEED)
