@@ -88,6 +88,7 @@ function GroupForm({
           validate={[
             (name) => {
               if (name && name.length < 4) return 'must be > 3 characters'
+              if (name && name.length > 60) return 'must be < 60 characters'
               return undefined
             }
           ]}
