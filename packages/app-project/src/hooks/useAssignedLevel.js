@@ -17,33 +17,30 @@ const SWRoptions = {
 async function fetchAssignedWorkflow({
   fields = 'configuration',
   assignedWorkflowID,
-  workflows = []
 }) {
-  const existingWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
-  if (existingWorkflow) {
-    return parseInt(existingWorkflow.configuration?.level, 10)
-  }
   const query = {
     fields,
     id: assignedWorkflowID
   }
   const response = await panoptes.get('/workflows', query)
-  if (response.ok) {
-    const fetchedWorkflow = response.body.workflows?.[0]
+  if (response.ok && response.body.workflows?.length) {
+    const fetchedWorkflow = response.body.workflows[0]
     return parseInt(fetchedWorkflow?.configuration?.level, 10)
   }
   return 1
 }
 
 function useAssignedLevel(assignedWorkflowID, workflows = []) {
-  const key = assignedWorkflowID ? { assignedWorkflowID, workflows } : null
-  const { data: assignedWorkflowLevel } = useSWR(key, fetchAssignedWorkflow, SWRoptions)
   const existingWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
-  let defaultWorkflowLevel = existingWorkflow?.configuration?.level ?
-    parseInt(existingWorkflow.configuration?.level, 10) :
-    1
+  const defaultWorkflowLevel = existingWorkflow?.configuration?.level
+    ? parseInt(existingWorkflow.configuration.level, 10)
+    : 1
+  const key = !existingWorkflow && assignedWorkflowID
+    ? { assignedWorkflowID }
+    : null // skip data fetching when we already have the workflow level
+  const { data: fetchedWorkflowLevel } = useSWR(key, fetchAssignedWorkflow, SWRoptions)
 
-  return assignedWorkflowLevel || defaultWorkflowLevel
+  return fetchedWorkflowLevel || defaultWorkflowLevel
 }
 
 export default useAssignedLevel

@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { expect } from 'chai'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import WorkflowSelectButtons from './WorkflowSelectButtons'
@@ -54,13 +54,13 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
 
   describe('when workflow assignment is enabled', function () {
     describe('when there is an assigned workflow', function () {
-      it('should only render links for unlocked workflows', async function () {
+      it('should only render links for unlocked workflows', function () {
         const { getAllByRole } = render(
           <RouterContext.Provider value={mockRouter}>
             <WorkflowSelectButtons assignedWorkflowID='2' workflowAssignmentEnabled workflows={workflows} />
           </RouterContext.Provider>
         )
-        await waitFor(() => expect(getAllByRole('link')).to.have.lengthOf(2))
+        expect(getAllByRole('link')).to.have.lengthOf(2)
       })
 
       it('should render other workflows as just text', function () {
