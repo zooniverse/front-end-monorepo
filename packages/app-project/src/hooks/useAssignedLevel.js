@@ -40,8 +40,12 @@ async function fetchAssignedWorkflow({
 function useAssignedLevel(assignedWorkflowID, workflows = []) {
   const key = assignedWorkflowID ? { assignedWorkflowID, workflows } : null
   const { data: assignedWorkflowLevel } = useSWR(key, fetchAssignedWorkflow, SWRoptions)
+  const existingWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
+  let defaultWorkflowLevel = existingWorkflow?.configuration?.level ?
+    parseInt(existingWorkflow.configuration?.level, 10) :
+    1
 
-  return assignedWorkflowLevel || 1
+  return assignedWorkflowLevel || defaultWorkflowLevel
 }
 
 export default useAssignedLevel
