@@ -3,8 +3,6 @@
   so we fetch the assigned workflow's config just in case.
   https://github.com/zooniverse/front-end-monorepo/issues/6198
 */
-
-import { useEffect, useState } from 'react'
 import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
