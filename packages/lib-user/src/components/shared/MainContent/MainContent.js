@@ -267,7 +267,7 @@ function MainContent({
                 <Anchor href='https://www.zooniverse.org/projects'>
                   classifying a project
                 </Anchor>
-                {' ' }now.
+                {' ' }now, or change the date range.
               </Text>
             </Box>
           ) : (
