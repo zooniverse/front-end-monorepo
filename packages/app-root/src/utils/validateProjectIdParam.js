@@ -11,7 +11,7 @@ export function validateProjectIdParam(projectId) {
     }
   }
   // as of August, 2024, production project IDs are ~24000 (5 digits)
-  // therefore, project IDs should be less than 5 digits
+  // therefore, project IDs should be less than 6 digits
   if (projectId.length > 6) {
     return {
       projectId: null, 
