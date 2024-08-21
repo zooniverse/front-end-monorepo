@@ -7,7 +7,7 @@ export function middleware(req) {
   /*
     Redirect legacy PFE /about and /get-involved paths to new FEM paths
   */
-  if (req.nextUrl.pathname.startsWith('/about/acknowledgments')) {
+  if (req.nextUrl.pathname.startsWith('/about/acknowledgments') || req.nextUrl.pathname.startsWith('/about/acknowledgements')) {
     return NextResponse.redirect(new URL('/about/resources', req.url))
   }
 
