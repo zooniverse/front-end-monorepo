@@ -1,6 +1,6 @@
-import { MovableModal, SpacedText } from '@zooniverse/react-components'
+import { Loader, MovableModal, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
 
 import {
@@ -40,6 +40,7 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
+  loading = false,
   paramsValidationMessage = '',
   projects = [],
   selectedDateRange = DEFAULT_DATE_RANGE,
@@ -244,6 +245,15 @@ function MainContent({
             >
               <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
             </Box>
+          ) : loading ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Loader />
+            </Box>
           ) : noStats ? (
             <Box
               align='center'
@@ -288,6 +298,7 @@ function MainContent({
 }
 
 MainContent.propTypes = {
+  loading: bool,
   paramsValidationMessage: string,
   projects: arrayOf(shape({
     display_name: string,
