@@ -4,7 +4,7 @@ import mockZooBlogPosts from './zooBlogPosts.mock.json'
 import CommunityContainer from './CommunityContainer.js'
 
 export default {
-  title: 'Screens / Home / Community',
+  title: 'Home / Community',
   component: CommunityContainer
 }
 
