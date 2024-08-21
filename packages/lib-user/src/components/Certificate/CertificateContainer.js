@@ -24,8 +24,9 @@ const STATS_ENDPOINT = '/classifications/users'
 function CertificateContainer({
   authUser,
   login,
+  paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects'
+  selectedProject = undefined
 }) {
   // fetch user
   const {
@@ -41,10 +42,10 @@ function CertificateContainer({
   // fetch stats
   const statsQuery = getDateInterval(selectedDateRange)
   statsQuery.time_spent = true
-  if (selectedProject !== 'AllProjects') {
-    statsQuery.project_id = parseInt(selectedProject)
-  } else {
+  if (selectedProject === undefined) {
     statsQuery.project_contributions = true
+  } else {
+    statsQuery.project_id = parseInt(selectedProject)
   }
   
   const {
@@ -53,19 +54,17 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: paramsValidationMessage ? null : user?.id,
     query: statsQuery
   })
 
-  // fetch projects, if selectedProject is not 'AllProjects'
-  const projectId = selectedProject !== 'AllProjects' ? selectedProject : null
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
   } = usePanoptesProjects({
     cards: true,
-    id: projectId
+    id: selectedProject
   })
   
   const hours = convertStatsSecondsToHours(stats?.time_spent)
@@ -79,6 +78,7 @@ function CertificateContainer({
       hours={hours}
       login={user?.login}
       name={name}
+      paramsValidationMessage={paramsValidationMessage}
       projectDisplayName={projectDisplayName}
       projectsCount={projectsCount}
       selectedDateRange={selectedDateRange}
@@ -93,6 +93,7 @@ CertificateContainer.propTypes = {
     login: string
   }),
   login: string,
+  paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string

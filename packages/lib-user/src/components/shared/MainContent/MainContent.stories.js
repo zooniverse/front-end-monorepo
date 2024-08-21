@@ -39,8 +39,49 @@ export const Default = {
       endDate: todayUTC,
       startDate: sevenDaysAgoUTC
     },
-    selectedProject: 'AllProjects',
+    selectedProject: undefined,
     stats: STATS,
+    source: USER
+  }
+}
+
+export const NoStats = {
+  args: {
+    activeTab: 0,
+    onActive: () => {},
+    projects: [],
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
+    stats: {
+      data: [],
+      project_contributions: [],
+      time_spent: 0,
+      total_count: 0
+    },
+    source: USER
+  }
+}
+
+export const ParamsValidationMessage = {
+  args: {
+    activeTab: 0,
+    onActive: () => {},
+    paramsValidationMessage: 'Invalid project_id, must be a number',
+    projects: [],
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
+    stats: {
+      data: [],
+      project_contributions: [],
+      time_spent: 0,
+      total_count: 0
+    },
     source: USER
   }
 }

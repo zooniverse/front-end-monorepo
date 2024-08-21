@@ -1,6 +1,6 @@
-import { MovableModal } from '@zooniverse/react-components'
-import { Box, Calendar, ResponsiveContext } from 'grommet'
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { Loader, MovableModal, SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
 
 import {
@@ -40,9 +40,11 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
+  loading = false,
+  paramsValidationMessage = '',
   projects = [],
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
@@ -63,9 +65,12 @@ function MainContent({
   const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
+  
+  const noStats = !stats?.data?.length
 
   const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
     created_at: getStatsDateString(source?.created_at),
+    paramsValidationMessage,
     selectedDateRange
   })
 
@@ -159,7 +164,7 @@ function MainContent({
           displayName={source?.display_name}
           hours={activeTab === 1 ? hoursSpent : undefined}
           login={source?.login}
-          projects={selectedProject === 'AllProjects' ? projects?.length : 1}
+          projects={selectedProject ? 1 : projects?.length}
         />
         <Box
           direction={size === 'small' ? 'column' : 'row'}
@@ -231,11 +236,47 @@ function MainContent({
           height='15rem'
           width='100%'
         >
-          <BarChart
-            data={stats?.data}
-            dateRange={selectedDateRange}
-            type={activeTab === 0 ? 'count' : 'session_time'}
-          />
+          {paramsValidationMessage ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Loader />
+            </Box>
+          ) : noStats ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>No data found.</SpacedText>
+              <Text>
+                Start by{' '}
+                <Anchor href='https://www.zooniverse.org/projects'>
+                  classifying a project
+                </Anchor>
+                {' ' }now, or change the date range.
+              </Text>
+            </Box>
+          ) : (
+            <BarChart
+              data={stats?.data}
+              dateRange={selectedDateRange}
+              type={activeTab === 0 ? 'count' : 'session_time'}
+            />
+          )}
         </Box>
         {source?.login ? (
           <Box
@@ -257,8 +298,8 @@ function MainContent({
 }
 
 MainContent.propTypes = {
-  activeTab: number,
-  onActive: func,
+  loading: bool,
+  paramsValidationMessage: string,
   projects: arrayOf(shape({
     display_name: string,
     id: string

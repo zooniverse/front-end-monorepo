@@ -9,6 +9,7 @@ import { PanoptesAuthContext } from '../../../../../contexts'
 function CertificateContainer({
   endDate,
   login,
+  paramsValidationMessage,
   projectId,
   startDate
 }) {
@@ -16,17 +17,14 @@ function CertificateContainer({
 
   // set end date per query params or default to today
   let selectedEndDate = endDate
-  if (!selectedEndDate) {
+  if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
   // set start date per query params, user created_at if user created_at more recent than 2015-03-17, or default to 2015-03-17 (the date ERAS stats begin)
   let selectedStartDate = startDate
-  if (!selectedStartDate) {
+  if (selectedStartDate === undefined) {
     selectedStartDate = user?.created_at?.substring(0, 10) > '2015-03-17' ? user.created_at.substring(0, 10) : '2015-03-17'
   }
-  
-  // set selected project per query params or default to 'AllProjects'
-  const selectedProject = projectId || 'AllProjects'
 
   return (
     <AuthenticatedUsersPageContainer
@@ -38,11 +36,12 @@ function CertificateContainer({
       <Certificate
         authUser={user}
         login={login}
+        paramsValidationMessage={paramsValidationMessage}
         selectedDateRange={{
           endDate: selectedEndDate,
           startDate: selectedStartDate
         }}
-        selectedProject={selectedProject}
+        selectedProject={projectId}
       />
     </AuthenticatedUsersPageContainer>
   )
