@@ -10,14 +10,20 @@
   "AboutHeader": {
     "links": {
       "about": "About",
+      "collaborate": "Collaborate",
       "contact": "Contact Us",
       "donate": "Donate",
+      "educate": "Educate",
       "faq": "FAQ",
       "publications": "Publications",
       "resources": "Resources",
-      "team": "Our Team"
+      "team": "Our Team",
+      "volunteer": "Volunteer"
     },
-    "title": "About"
+    "title": {
+      "about": "About",
+      "getInvolved": "Get Involved"
+    }
   },
   "AboutPage": {
     "contact": {
