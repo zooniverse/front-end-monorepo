@@ -82,8 +82,8 @@ export default function Contact({ widgetLoaded = false }) {
           t={t}
           components={[
             <Anchor
-              key='publications-page'
-              href='/publications' // after switch to app-root, this will need to be /about/publications
+              key='faq-page'
+              href='/about/faq'
             />,
             <Anchor
               key='freshdesk-page'
