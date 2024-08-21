@@ -84,9 +84,12 @@ function UserStatsContainer({
     page_size: 100
   })
 
+  const loading = userLoading || statsLoading || projectStatsLoading || projectsLoading
+
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
+      loading={loading}
       paramsValidationMessage={paramsValidationMessage}
       projectStats={projectStats}
       projects={projects}

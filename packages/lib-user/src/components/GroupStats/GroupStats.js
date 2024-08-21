@@ -150,6 +150,8 @@ function GroupStats({
     membership
   })
 
+  const loading = statsLoading || projectStatsLoading || projectsLoading
+
   return (
     <>
       <GroupModal
@@ -176,6 +178,7 @@ function GroupStats({
         secondaryHeaderItems={secondaryHeaderItems}
       >
         <MainContent
+          loading={loading}
           paramsValidationMessage={paramsValidationMessage}
           projects={projects}
           selectedDateRange={selectedDateRange}

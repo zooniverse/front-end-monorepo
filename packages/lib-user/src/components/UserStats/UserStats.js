@@ -1,4 +1,4 @@
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 
 import {
   HeaderLink,
@@ -28,6 +28,7 @@ const DEFAULT_USER = {
 
 function UserStats({
   allProjectsStats = DEFAULT_STATS,
+  loading = false,
   paramsValidationMessage = '',
   projectStats = DEFAULT_STATS,
   projects = [],
@@ -51,6 +52,7 @@ function UserStats({
       }
     >
       <MainContent
+        loading={loading}
         paramsValidationMessage={paramsValidationMessage}
         projects={projects}
         selectedDateRange={selectedDateRange}
@@ -85,6 +87,7 @@ const statsShape = shape({
 
 UserStats.propTypes = {
   allProjectsStats: statsShape,
+  loading: bool,
   paramsValidationMessage: string,
   projectStats: statsShape,
   projects: arrayOf(shape({
