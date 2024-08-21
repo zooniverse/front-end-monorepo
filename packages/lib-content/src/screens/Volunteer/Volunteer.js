@@ -55,20 +55,20 @@ function Volunteer() {
 
   return (
     <GetInvolvedLayout>
-      <MobileHeading level='1' size='1.5rem'>
+      <MobileHeading level={1} size='1.5rem'>
         {t('Volunteer.title')}
       </MobileHeading>
       <Box pad={{ horizontal: 'medium', bottom: 'large' }} align='center'>
         <MaxWidthContent color={{ light: 'black', dark: 'white' }}>
           <StyledHeading
             color={{ light: 'neutral-1', dark: 'accent-1' }}
-            level='1'
+            level={1}
             size='small'
           >
             {t('Volunteer.title')}
           </StyledHeading>
           <SpacedHeading
-            level='2'
+            level={2}
             align='center'
             size='1.5rem'
             margin={{ top: 'medium' }}
@@ -82,7 +82,7 @@ function Volunteer() {
 
           {/** CLASSIFY */}
           <Heading
-            level='3'
+            level={3}
             size='1.13rem'
             weight='bold'
             color={headingColor}
@@ -101,7 +101,7 @@ function Volunteer() {
 
           {/** Register */}
           <Heading
-            level='3'
+            level={3}
             size='1.13rem'
             weight='bold'
             color={headingColor}
@@ -111,7 +111,7 @@ function Volunteer() {
           </Heading>
           <Box gap='medium'>
             <StyledBox direction='row' gap='small'>
-              <BarChart size='50px' color='neutral-1' />
+              <BarChart size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
                   color={{ light: 'neutral-1', dark: 'white' }}
@@ -126,7 +126,7 @@ function Volunteer() {
               </Box>
             </StyledBox>
             <StyledBox direction='row' gap='small'>
-              <Certificate size='50px' color='neutral-1' />
+              <Certificate size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
                   color={{ light: 'neutral-1', dark: 'white' }}
@@ -141,7 +141,7 @@ function Volunteer() {
               </Box>
             </StyledBox>
             <StyledBox direction='row' gap='small'>
-              <Chat size='50px' color='neutral-1' />
+              <Chat size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
                   color={{ light: 'neutral-1', dark: 'white' }}
@@ -192,7 +192,7 @@ function Volunteer() {
           />
 
           {/** Beta Testing */}
-          <Heading level='3' size='1.13rem' weight='bold' color={headingColor}>
+          <Heading level={3} size='1.13rem' weight='bold' color={headingColor}>
             {t('Volunteer.beta.heading')}
           </Heading>
           <Paragraph>{t('Volunteer.beta.paragraphs.one')}</Paragraph>
@@ -228,7 +228,7 @@ function Volunteer() {
           />
 
           {/** Moderate */}
-          <Heading level='3' size='1.13rem' weight='bold' color={headingColor}>
+          <Heading level={3} size='1.13rem' weight='bold' color={headingColor}>
             {t('Volunteer.moderate.heading')}
           </Heading>
           <Paragraph>

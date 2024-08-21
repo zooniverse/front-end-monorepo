@@ -62,7 +62,7 @@ function Educate() {
 
   return (
     <GetInvolvedLayout>
-      <MobileHeading level='1' size='1.5rem'>
+      <MobileHeading level={1} size='1.5rem'>
         {t('Educate.title')}
       </MobileHeading>
       <Box pad={{ horizontal: 'medium', bottom: 'large' }} align='center'>
@@ -116,7 +116,7 @@ function Educate() {
             margin={{ bottom: '15px' }}
           >
             <Heading
-              level='3'
+              level={3}
               size='1.13rem'
               weight='bold'
               color={headingColor}
@@ -136,7 +136,7 @@ function Educate() {
           </Box>
           <Box gap='medium'>
             <StyledBox direction='row' gap='small'>
-              <BarChart size='50px' color='neutral-1' />
+              <BarChart size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
                   color={{ light: 'neutral-1', dark: 'white' }}
@@ -160,7 +160,7 @@ function Educate() {
               </Box>
             </StyledBox>
             <StyledBox direction='row' gap='small'>
-              <Workshop size='50px' color='neutral-1' />
+              <Workshop size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
                   color={{ light: 'neutral-1', dark: 'white' }}
@@ -184,7 +184,7 @@ function Educate() {
               </Box>
             </StyledBox>
             <StyledBox direction='row' gap='small'>
-              <Certificate size='50px' color='neutral-1' />
+              <Certificate size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
                   color={{ light: 'neutral-1', dark: 'white' }}
@@ -211,7 +211,7 @@ function Educate() {
 
           {/** Articles */}
           <Heading
-            level='3'
+            level={3}
             size='1.13rem'
             weight='bold'
             color={headingColor}
@@ -263,7 +263,7 @@ function Educate() {
           </Box>
 
           <Heading
-            level='3'
+            level={3}
             size='1.13rem'
             weight='bold'
             color={headingColor}
