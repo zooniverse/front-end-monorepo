@@ -26,7 +26,7 @@ function GetInvolvedLayout({ children }) {
       label: t('AboutHeader.links.volunteer')
     },
     {
-      href: '/get-involved/education',
+      href: '/get-involved/educate',
       label: t('AboutHeader.links.educate')
     },
     {
