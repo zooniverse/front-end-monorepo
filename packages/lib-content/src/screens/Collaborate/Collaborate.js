@@ -17,7 +17,7 @@ function Collaborate() {
 
   return (
     <GetInvolvedLayout>
-      <MobileHeading level='1' size='1.5rem'>
+      <MobileHeading level={1} size='1.5rem'>
         {t('Collaborate.title')}
       </MobileHeading>
       <Box pad={{ horizontal: 'medium', bottom: 'large' }} align='center'>

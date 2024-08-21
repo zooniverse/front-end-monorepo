@@ -37,7 +37,7 @@ function Donate() {
 
   return (
     <GetInvolvedLayout>
-      <MobileHeading level='1' size='1.5rem'>
+      <MobileHeading level={1} size='1.5rem'>
         {t('Donate.title')}
       </MobileHeading>
       <Box pad={{ horizontal: 'medium', bottom: 'xlarge' }} align='center'>
