@@ -79,7 +79,7 @@ const WorkflowStepStore = types
     get hasAnnotateTask () {
       for (const key in self.workflow?.tasks) {
         const task = self.workflow.tasks[key]
-        if (task.type === 'drawing' || task.type === 'transcription' || task.type === 'dataVisAnnotation') {
+        if (task.type === 'drawing' || task.type === 'transcription' || task.type === 'dataVisAnnotation' || task.type === 'subjectGroupComparison') {
           return true
         }
       }
