@@ -20,10 +20,10 @@ function CertificateContainer({
   if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
-  // set start date per query params, user created_at if user created_at more recent than 2015-03-17, or default to 2015-03-17 (the date ERAS stats begin)
+  // set start date per query params or user created_at
   let selectedStartDate = startDate
   if (selectedStartDate === undefined) {
-    selectedStartDate = user?.created_at?.substring(0, 10) > '2015-03-17' ? user.created_at.substring(0, 10) : '2015-03-17'
+    selectedStartDate = user?.created_at?.substring(0, 10)
   }
 
   return (
