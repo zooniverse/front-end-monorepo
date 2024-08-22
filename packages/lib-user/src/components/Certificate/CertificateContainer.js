@@ -71,7 +71,6 @@ function CertificateContainer({
   const name = user?.credited_name || user?.display_name || login
   const projectsCount = stats?.project_contributions?.length || 0
   const projectDisplayName = projects?.[0]?.display_name
-  const showPrePanoptesInfo = selectedDateRange.startDate <= '2015-03-17'
 
   return (
     <Certificate
@@ -82,7 +81,6 @@ function CertificateContainer({
       projectDisplayName={projectDisplayName}
       projectsCount={projectsCount}
       selectedDateRange={selectedDateRange}
-      showPrePanoptesInfo={showPrePanoptesInfo}
     />
   )
 }
