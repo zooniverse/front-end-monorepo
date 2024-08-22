@@ -40,6 +40,11 @@ function CertificateContainer({
   })
 
   // fetch stats
+  // only fetch stats (define sourceId with user.id) if valid params and start date defined
+  let userId = null
+  if (!paramsValidationMessage && selectedDateRange.startDate) {
+    userId = user?.id
+  }
   const statsQuery = getDateInterval(selectedDateRange)
   statsQuery.time_spent = true
   if (selectedProject === undefined) {
@@ -54,7 +59,7 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: paramsValidationMessage ? null : user?.id,
+    sourceId: userId,
     query: statsQuery
   })
 
