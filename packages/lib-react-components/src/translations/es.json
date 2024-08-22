@@ -15,7 +15,6 @@
   "ZooFooter": {
     "aboutLabels": {
       "about": "Información",
-      "acknowledgements": "Agradecimientos",
       "contact": "Contacto",
       "faq": "Preguntas frecuentes",
       "publications": "Publicaciones",
@@ -29,15 +28,8 @@
       "tutorial": "Tutorial"
     },
     "getInvolvedLabels": {
-      "callForProjects": "Solicitud de proyectos",
-      "collections": "Colecciones",
-      "education": "Educación",
+      "educate": "Educación",
       "getInvolved": "Involucrarse"
-    },
-    "newsLabels": {
-      "blog": "Blog",
-      "dailyZooniverse": "Zooniverse diario",
-      "news": "Noticias"
     },
     "policyLabels": {
       "jobs": "Trabajos",

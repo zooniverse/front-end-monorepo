@@ -62,11 +62,11 @@
   "ZooFooter": {
     "aboutLabels": {
       "about": "About",
+      "contact": "Contact Us",
+      "faq": "FAQ",
       "publications": "Publications",
-      "team": "Team",
-      "acknowledgements": "Acknowledgements",
-      "contact": "Contact",
-      "faq": "FAQ"
+      "resources": "Resources",
+      "team": "Our Team"
     },
     "buildLabels": {
       "buildAProject": "Build a Project",
@@ -76,15 +76,11 @@
       "bestPractices": "Best Practices"
     },
     "getInvolvedLabels": {
+      "collaborate": "Collaborate",
+      "donate": "Donate",
+      "educate": "Educate",
       "getInvolved": "Get Involved",
-      "education": "Education",
-      "callForProjects": "Call for Projects",
-      "collections": "Collections"
-    },
-    "newsLabels": {
-      "news": "News",
-      "dailyZooniverse": "Daily Zooniverse",
-      "blog": "Blog"
+      "volunteer": "Volunteer"
     },
     "policyLabels": {
       "privacyPolicy": "Privacy Policy",
@@ -96,7 +92,11 @@
       "projects": "Projects"
     },
     "talkLabels": {
-      "talk": "Talk"
+      "announcements": "Announcements",
+      "data": "Data Processing",
+      "projectBuilding": "Project Building",
+      "talk": "Talk",
+      "troubleshooting": "Troubleshooting"
     },
     "tagLine": "People-Powered Research",
     "zooniversePolicies": "Zooniverse Policies"

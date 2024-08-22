@@ -15,7 +15,6 @@
   "ZooFooter": {
     "aboutLabels": {
       "about": "Hakkımızda",
-      "acknowledgements": "Teşekkürler",
       "contact": "Bize Ulaşın",
       "faq": "SSS",
       "publications": "Yayınlar",
@@ -29,15 +28,8 @@
       "tutorial": "Tutorial"
     },
     "getInvolvedLabels": {
-      "callForProjects": "Proje Çağrıları",
-      "collections": "Koleksiyonlar",
-      "education": "Eğitim",
+      "educate": "Eğitim",
       "getInvolved": "Siz de Katkıda Bulunun"
-    },
-    "newsLabels": {
-      "blog": "Blog",
-      "dailyZooniverse": "Günlük Zooniverse",
-      "news": "Haberler"
     },
     "policyLabels": {
       "jobs": "Katkı Alanları",

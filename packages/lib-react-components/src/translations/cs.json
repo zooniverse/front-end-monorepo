@@ -10,7 +10,6 @@
       "about": "O Zooniverse",
       "publications": "Publikace",
       "team": "Náš tým",
-      "acknowledgements": "Acknowledgements",
       "contact": "Kontaktujte nás",
       "faq": "FAQ - Často kladené dotazy"
     },
@@ -19,8 +18,7 @@
     },
     "getInvolvedLabels": {
       "getInvolved": "Zapojte se",
-      "education": "Výuka",
-      "callForProjects": "Žádosti o návrhy projektů"
+      "educate": "Výuka"
     },
     "projectLabels": {
       "projects": "Projekty"

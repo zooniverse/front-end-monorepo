@@ -10,7 +10,6 @@
       "about": "About",
       "publications": "Pubblicazioni",
       "team": "Il team",
-      "acknowledgements": "Ringraziamenti",
       "contact": "Contattaci",
       "faq": "FAQ"
     },
@@ -19,8 +18,7 @@
     },
     "getInvolvedLabels": {
       "getInvolved": "Partecipare",
-      "education": "Scuola",
-      "callForProjects": "Call for Projects"
+      "educate": "Scuola"
     },
     "projectLabels": {
       "projects": "Progetti"

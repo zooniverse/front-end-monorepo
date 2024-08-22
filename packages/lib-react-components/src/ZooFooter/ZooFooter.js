@@ -22,10 +22,10 @@ const StyledFooter = styled(Box)`
 const defaultProps = {
   aboutNavListURLs: [
     'https://www.zooniverse.org/about',
-    'https://www.zooniverse.org/about/publications',
+    'https://www.zooniverse.org/about#contact',
     'https://www.zooniverse.org/about/team',
-    'https://www.zooniverse.org/about/acknowledgements',
-    'https://www.zooniverse.org/about/contact',
+    'https://www.zooniverse.org/about/publications',
+    'https://www.zooniverse.org/about/resources',
     'https://www.zooniverse.org/about/faq'
   ],
   adminContainer: null,
@@ -38,14 +38,10 @@ const defaultProps = {
   ],
   getInvolvedNavListURLs: [
     'https://www.zooniverse.org/get-involved',
-    'https://www.zooniverse.org/get-involved/education',
-    'https://www.zooniverse.org/get-involved/call-for-projects',
-    'https://www.zooniverse.org/collections'
-  ],
-  newsNavListURLs: [
-    '#',
-    'https://daily.zooniverse.org/',
-    'https://blog.zooniverse.org/projects'
+    'https://www.zooniverse.org/get-involved/volunteer',
+    'https://www.zooniverse.org/get-involved/educate',
+    'https://www.zooniverse.org/get-involved/collaborate',
+    'https://www.zooniverse.org/get-involved/donate'
   ],
   policyNavListURLs: [
     'https://www.zooniverse.org/privacy',
@@ -54,7 +50,13 @@ const defaultProps = {
     'https://www.zooniverse.org/security'
   ],
   projectNavListURLs: ['https://www.zooniverse.org/projects'],
-  talkNavListURLs: ['https://www.zooniverse.org/talk']
+  talkNavListURLs: [
+    'https://www.zooniverse.org/talk',
+    'https://www.zooniverse.org/talk/17',
+    'https://www.zooniverse.org/talk/2354',
+    'https://www.zooniverse.org/talk/18',
+    'https://www.zooniverse.org/talk/1322'
+  ]
 }
 
 export default function ZooFooter({
@@ -64,7 +66,6 @@ export default function ZooFooter({
   className = '',
   getInvolvedNavListURLs = defaultProps.getInvolvedNavListURLs,
   locale,
-  newsNavListURLs = defaultProps.newsNavListURLs,
   policyNavListURLs = defaultProps.policyNavListURLs,
   projectNavListURLs = defaultProps.projectNavListURLs,
   talkNavListURLs = defaultProps.talkNavListURLs
@@ -80,10 +81,10 @@ export default function ZooFooter({
 
   const aboutNavListLabels = [
     t('ZooFooter.aboutLabels.about'),
-    t('ZooFooter.aboutLabels.publications'),
-    t('ZooFooter.aboutLabels.team'),
-    t('ZooFooter.aboutLabels.acknowledgements'),
     t('ZooFooter.aboutLabels.contact'),
+    t('ZooFooter.aboutLabels.team'),
+    t('ZooFooter.aboutLabels.publications'),
+    t('ZooFooter.aboutLabels.resources'),
     t('ZooFooter.aboutLabels.faq')
   ]
 
@@ -97,15 +98,10 @@ export default function ZooFooter({
 
   const getInvolvedNavListLabels = [
     t('ZooFooter.getInvolvedLabels.getInvolved'),
-    t('ZooFooter.getInvolvedLabels.education'),
-    t('ZooFooter.getInvolvedLabels.callForProjects'),
-    t('ZooFooter.getInvolvedLabels.collections')
-  ]
-
-  const newsNavListLabels = [
-    t('ZooFooter.newsLabels.news'),
-    t('ZooFooter.newsLabels.dailyZooniverse'),
-    t('ZooFooter.newsLabels.blog')
+    t('ZooFooter.getInvolvedLabels.volunteer'),
+    t('ZooFooter.getInvolvedLabels.educate'),
+    t('ZooFooter.getInvolvedLabels.collaborate'),
+    t('ZooFooter.getInvolvedLabels.donate')
   ]
 
   const policyNavListLabels = [
@@ -117,7 +113,13 @@ export default function ZooFooter({
 
   const projectNavListLabels = [t('ZooFooter.projectLabels.projects')]
 
-  const talkNavListLabels = [t('ZooFooter.talkLabels.talk')]
+  const talkNavListLabels = [
+    t('ZooFooter.talkLabels.talk'),
+    t('ZooFooter.talkLabels.troubleshooting'),
+    t('ZooFooter.talkLabels.announcements'),
+    t('ZooFooter.talkLabels.projectBuilding'),
+    t('ZooFooter.talkLabels.data'),
+  ]
 
   return (
     <StyledFooter
@@ -178,7 +180,6 @@ export default function ZooFooter({
           />
           <LinkList labels={talkNavListLabels} urls={talkNavListURLs} />
           <LinkList labels={buildNavListLabels} urls={buildNavListURLs} />
-          <LinkList labels={newsNavListLabels} urls={newsNavListURLs} />
         </Grid>
       </Box>
       <Box
@@ -209,7 +210,6 @@ ZooFooter.propTypes = {
   buildNavListURLs: arrayOf(string),
   getInvolvedNavListURLs: arrayOf(string),
   locale: string,
-  newsNavListURLs: arrayOf(string),
   policyNavListURLs: arrayOf(string),
   projectNavListURLs: arrayOf(string),
   talkNavListURLs: arrayOf(string)
