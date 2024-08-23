@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import FeaturedProjects from './FeaturedProjects'
 
 export default {
-  title: 'Screens / Home  / FeaturedProjects',
+  title: 'Home  / FeaturedProjects',
   component: FeaturedProjects
 }
 

@@ -1,7 +1,7 @@
 import Publication from './Publication.js'
 
 export default {
-  title: 'Screens / Publications / Publication',
+  title: 'About / Publications / Publication',
   component: Publication
 }
 

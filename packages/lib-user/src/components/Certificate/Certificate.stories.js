@@ -15,7 +15,7 @@ export const Default = {
       endDate: '2023-12-31',
       startDate: '2015-03-17'
     },
-    selectedProject: 'AllProjects'
+    selectedProject: undefined
   }
 }
 
@@ -43,7 +43,7 @@ export const ThisMonth = {
       endDate: '2021-07-31',
       startDate: '2021-07-01'
     },
-    selectedProject: 'AllProjects'
+    selectedProject: undefined
   }
 }
 
@@ -57,7 +57,7 @@ export const ThisYear = {
       endDate: '2021-12-31',
       startDate: '2021-01-01'
     },
-    selectedProject: 'AllProjects'
+    selectedProject: undefined
   }
 }
 
@@ -73,5 +73,14 @@ export const PrePanoptesInfo = {
     },
     selectedProject: 'AllProjects',
     showPrePanoptesInfo: true
+  }
+}
+
+export const ParamsValidationMessage = {
+  args: {
+    login: 'testUser',
+    name: 'Example T. User',
+    paramsValidationMessage: 'Invalid start_date, must be in the format YYYY-MM-DD',
+    selectedProject: undefined
   }
 }

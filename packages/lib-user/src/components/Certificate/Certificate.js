@@ -62,6 +62,11 @@ const PrintableBox = styled(Box)`
   }
 `
 
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
+
 function handleClickPrint() {
   window.print()
 }
@@ -70,9 +75,10 @@ function Certificate({
   hours = 0,
   login = '',
   name = '',
+  paramsValidationMessage = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange,
+  selectedDateRange = DEFAULT_DATE_RANGE,
   showPrePanoptesInfo = false
 }) {
   const { endDate, startDate } = selectedDateRange
@@ -97,185 +103,196 @@ function Certificate({
           }}
           title='Your Volunteer Certificate'
         >
-          <Box
-            id='certificate'
-            flex='grow'
-            pad='medium'
-          >
+          {paramsValidationMessage ? (
             <Box
-              border={{
-                color: 'neutral-1',
-                size: '8px',
-                style: 'solid',
-                side: 'all'
-              }}
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
+            </Box>
+          ) : (
+            <Box
+              id='certificate'
               flex='grow'
-              pad='xsmall'
+              pad='medium'
             >
               <Box
-                align='center'
                 border={{
                   color: 'neutral-1',
-                  size: '4px',
+                  size: '8px',
                   style: 'solid',
                   side: 'all'
                 }}
                 flex='grow'
-                justify='center'
-                pad={{
-                  horizontal: 'medium',
-                  vertical: 'small'
-                }}
+                pad='xsmall'
               >
-                <ZooniverseLogo
-                  id='ZooniverseCertificateLogo'
-                  color='#00979d'
-                  size='5em'
-                />
-                <SpacedText
-                  margin={{ top: 'medium' }}
-                  size='2rem'
-                  uppercase={false}
-                  weight={500}
-                >
-                  This is to certify that
-                </SpacedText>
-                <SpacedText
-                  className='userName'
-                  size='3.75rem'
-                  textAlign='center'
-                  weight='bold'
-                >
-                  {name}
-                </SpacedText>
-                <SpacedText
-                  margin={{ top: 'medium' }}
-                  size='1.5rem'
-                  uppercase={false}
-                  weight={500}
-                >
-                  has contributed
-                </SpacedText>
-                <SpacedText
-                  className='userHours'
-                  size='5rem'
-                  weight='bold'
-                >
-                  {hours}
-                </SpacedText>
-                <SpacedText
-                  size='2rem'
-                  uppercase={false}
-                  weight='bold'
-                >
-                  hours
-                </SpacedText>
                 <Box
                   align='center'
-                  direction='row'
-                  justify='center'
-                  margin={{ top: 'medium' }}
-                  wrap
-                >
-                  <SpacedText
-                    size='1.5rem'
-                    textAlign='center'
-                    uppercase={false}
-                    weight={500}
-                  >
-                    to
-                    <SpacedText
-                      margin={{ horizontal: 'small' }}
-                      size='2rem'
-                      uppercase={false}
-                      weight='bold'
-                    >
-                      {projectsCount ? (
-                        `${projectsCount} projects`
-                      ) : (
-                        projectDisplayName
-                      )}
-                    </SpacedText>
-                  </SpacedText>
-                  <SpacedText
-                    size='1.5rem'
-                    textAlign='center'
-                    uppercase={false}
-                    weight={500}
-                  >
-                    during
-                    <SpacedText
-                      margin={{ horizontal: 'small' }}
-                      size='2rem'
-                      uppercase={false}
-                      weight='bold'
-                    >
-                      {formattedDateRange}
-                    </SpacedText>
-                  </SpacedText>
-                  {showPrePanoptesInfo ? (
-                    <Tip
-                      buttonProps={{
-                        className: 'prePanoptesInfo',
-                        iconSize: '1rem'
-                      }}
-                      contentText='This certificate only reflects efforts recorded after March 17, 2015. You should have received a certificate for previous efforts by email. If you did not receive this, or believe this is an error, please contact us.'
-                    />
-                  ): null}
-                </Box>
-                <SpacedText
-                  size='1.5rem'
-                  textAlign='center'
-                  uppercase={false}
-                  weight={500}
-                >
-                  hosted by the online citizen science platform <strong>Zooniverse</strong>
-                </SpacedText>
-                <Box
-                  align='center'
+                  border={{
+                    color: 'neutral-1',
+                    size: '4px',
+                    style: 'solid',
+                    side: 'all'
+                  }}
                   flex='grow'
-                  margin={{
-                    bottom: 'small',
-                    top: 'medium'
+                  justify='center'
+                  pad={{
+                    horizontal: 'medium',
+                    vertical: 'small'
                   }}
                 >
-                  <img
-                    src='/assets/LTSignature.png'
-                    alt='Signature of Dr. Laura Trouille'
+                  <ZooniverseLogo
+                    id='ZooniverseCertificateLogo'
+                    color='#00979d'
+                    size='5em'
                   />
-                  <svg width='272' height='2' viewBox='0 0 272 2'>
-                    <defs>
-                      <linearGradient id='signature_line' gradientUnits='userSpaceOnUse'>
-                        <stop stopColor='white' />
-                        <stop offset='0.5' stopColor='dark-5' />
-                        <stop offset='1' stopColor='white' />
-                      </linearGradient>
-                    </defs>
-                    <path d='M1 1H271' stroke='url(#signature_line)'/>
-                  </svg>
                   <SpacedText
+                    margin={{ top: 'medium' }}
+                    size='2rem'
+                    uppercase={false}
+                    weight={500}
+                  >
+                    This is to certify that
+                  </SpacedText>
+                  <SpacedText
+                    className='userName'
+                    size='3.75rem'
+                    textAlign='center'
+                    weight='bold'
+                  >
+                    {name}
+                  </SpacedText>
+                  <SpacedText
+                    margin={{ top: 'medium' }}
                     size='1.5rem'
                     uppercase={false}
                     weight={500}
                   >
-                    Dr. Laura Trouille
+                    has contributed
                   </SpacedText>
                   <SpacedText
+                    className='userHours'
+                    size='5rem'
+                    weight='bold'
+                  >
+                    {hours}
+                  </SpacedText>
+                  <SpacedText
+                    size='2rem'
+                    uppercase={false}
+                    weight='bold'
+                  >
+                    hours
+                  </SpacedText>
+                  <Box
+                    align='center'
+                    direction='row'
+                    justify='center'
+                    margin={{ top: 'medium' }}
+                    wrap
+                  >
+                    <SpacedText
+                      size='1.5rem'
+                      textAlign='center'
+                      uppercase={false}
+                      weight={500}
+                    >
+                      to
+                      <SpacedText
+                        margin={{ horizontal: 'small' }}
+                        size='2rem'
+                        uppercase={false}
+                        weight='bold'
+                      >
+                        {projectsCount ? (
+                          `${projectsCount} projects`
+                        ) : (
+                          projectDisplayName
+                        )}
+                      </SpacedText>
+                    </SpacedText>
+                    <SpacedText
+                      size='1.5rem'
+                      textAlign='center'
+                      uppercase={false}
+                      weight={500}
+                    >
+                      during
+                      <SpacedText
+                        margin={{ horizontal: 'small' }}
+                        size='2rem'
+                        uppercase={false}
+                        weight='bold'
+                      >
+                        {formattedDateRange}
+                      </SpacedText>
+                    </SpacedText>
+                    {showPrePanoptesInfo ? (
+                      <Tip
+                        buttonProps={{
+                          className: 'prePanoptesInfo',
+                          iconSize: '1rem'
+                        }}
+                        contentText='This certificate only reflects efforts recorded after March 17, 2015. You should have received a certificate for previous efforts by email. If you did not receive this, or believe this is an error, please contact us.'
+                      />
+                    ): null}
+                  </Box>
+                  <SpacedText
+                    size='1.5rem'
+                    textAlign='center'
                     uppercase={false}
                     weight={500}
                   >
-                    Zooniverse Principal Investigator
+                    hosted by the online citizen science platform <strong>Zooniverse</strong>
                   </SpacedText>
-                  <SpacedText
-                    uppercase={false}
-                    weight={500}
+                  <Box
+                    align='center'
+                    flex='grow'
+                    margin={{
+                      bottom: 'small',
+                      top: 'medium'
+                    }}
                   >
-                    contact@zooniverse.org
-                  </SpacedText>
+                    <img
+                      src='/assets/LTSignature.png'
+                      alt='Signature of Dr. Laura Trouille'
+                    />
+                    <svg width='272' height='2' viewBox='0 0 272 2'>
+                      <defs>
+                        <linearGradient id='signature_line' gradientUnits='userSpaceOnUse'>
+                          <stop stopColor='white' />
+                          <stop offset='0.5' stopColor='dark-5' />
+                          <stop offset='1' stopColor='white' />
+                        </linearGradient>
+                      </defs>
+                      <path d='M1 1H271' stroke='url(#signature_line)'/>
+                    </svg>
+                    <SpacedText
+                      size='1.5rem'
+                      uppercase={false}
+                      weight={500}
+                    >
+                      Dr. Laura Trouille
+                    </SpacedText>
+                    <SpacedText
+                      uppercase={false}
+                      weight={500}
+                    >
+                      Zooniverse Principal Investigator
+                    </SpacedText>
+                    <SpacedText
+                      uppercase={false}
+                      weight={500}
+                    >
+                      contact@zooniverse.org
+                    </SpacedText>
+                  </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
+          )}
         </ContentBox>
       </Layout>
     </PrintableBox>
@@ -286,6 +303,7 @@ Certificate.propTypes = {
   hours: number,
   login: string,
   name: string,
+  paramsValidationMessage: string,
   projectDisplayName: string,
   projectsCount: number,
   selectedDateRange: shape({

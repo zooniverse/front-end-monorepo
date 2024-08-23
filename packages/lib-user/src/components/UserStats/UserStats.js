@@ -1,4 +1,4 @@
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 
 import {
   HeaderLink,
@@ -28,16 +28,18 @@ const DEFAULT_USER = {
 
 function UserStats({
   allProjectsStats = DEFAULT_STATS,
+  loading = false,
+  paramsValidationMessage = '',
   projectStats = DEFAULT_STATS,
   projects = [],
   selectedDateRange,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   user = DEFAULT_USER
 }) {
-  // set stats based on selected project or all projects
-  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
+  // set stats based on selected project
+  const stats = selectedProject ? projectStats : allProjectsStats
 
   return (
     <Layout
@@ -50,6 +52,8 @@ function UserStats({
       }
     >
       <MainContent
+        loading={loading}
+        paramsValidationMessage={paramsValidationMessage}
         projects={projects}
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
@@ -83,6 +87,8 @@ const statsShape = shape({
 
 UserStats.propTypes = {
   allProjectsStats: statsShape,
+  loading: bool,
+  paramsValidationMessage: string,
   projectStats: statsShape,
   projects: arrayOf(shape({
     id: string,

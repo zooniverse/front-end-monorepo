@@ -47,7 +47,11 @@ const DEFAULT_DATE_RANGE = {
   startDate: getStatsDateString(new Date(new Date().setUTCDate(new Date().getUTCDate() - 6)))
 }
 
-export function getDateRangeSelectOptions({ created_at = STATS_START_DATE, selectedDateRange = DEFAULT_DATE_RANGE }) {
+export function getDateRangeSelectOptions({
+  created_at = STATS_START_DATE,
+  paramsValidationMessage = '',
+  selectedDateRange = DEFAULT_DATE_RANGE
+}) {
   const today = new Date()
   const todayUTC = getStatsDateString(today)
   const allTimeStartDate = created_at > STATS_START_DATE ? created_at : STATS_START_DATE
@@ -59,7 +63,7 @@ export function getDateRangeSelectOptions({ created_at = STATS_START_DATE, selec
     (option.value === selectedDateRange.startDate)
   )
   
-  if (!selectedDateRangeOption) {
+  if (!selectedDateRangeOption && !paramsValidationMessage) {
     const customDateRangeOption = {
       label: `${formatSelectOptionDateLabel(selectedDateRange)}`,
       value: 'custom'

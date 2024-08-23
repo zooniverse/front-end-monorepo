@@ -34,8 +34,9 @@ function GroupStats({
   authUser,
   group,
   membership,
+  paramsValidationMessage = '',
   selectedDateRange,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
@@ -73,7 +74,7 @@ function GroupStats({
   } = useStats({
     authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
-    sourceId: group?.id,
+    sourceId: paramsValidationMessage ? null : group?.id,
     query: allProjectsStatsQuery
   })
   
@@ -91,12 +92,12 @@ function GroupStats({
   } = useStats({
     authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
-    sourceId: group?.id,
+    sourceId: selectedProject ? group?.id : null,
     query: projectStatsQuery
   })
 
   // set stats based on selected project or all projects
-  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
+  const stats = selectedProject ? projectStats : allProjectsStats
 
   // fetch topContributors
   const topContributorsIds = showTopContributors ? stats?.top_contributors?.map(user => user.user_id) : null
@@ -149,6 +150,8 @@ function GroupStats({
     membership
   })
 
+  const loading = statsLoading || projectStatsLoading || projectsLoading
+
   return (
     <>
       <GroupModal
@@ -175,6 +178,8 @@ function GroupStats({
         secondaryHeaderItems={secondaryHeaderItems}
       >
         <MainContent
+          loading={loading}
+          paramsValidationMessage={paramsValidationMessage}
           projects={projects}
           selectedDateRange={selectedDateRange}
           selectedProject={selectedProject}
@@ -241,6 +246,7 @@ GroupStats.propTypes = {
     id: string,
     roles: arrayOf(string)
   }),
+  paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string

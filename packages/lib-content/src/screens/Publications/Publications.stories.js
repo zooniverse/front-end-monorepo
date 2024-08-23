@@ -7,7 +7,7 @@ const mockSections = mockPublicationsData.map(category => ({
 }))
 
 export default {
-  title: 'Screens / Publications',
+  title: 'About / Publications',
   component: Publications
 }
 

@@ -51,7 +51,7 @@ export default function Article({
         <Heading
           color={{ light: 'neutral-1', dark: 'accent-1' }}
           level={4}
-          size='1.5rem'
+          size={size !== 'small' ? '1.5rem' : '1.2rem'}
           margin='0'
           weight='bold'
           fill

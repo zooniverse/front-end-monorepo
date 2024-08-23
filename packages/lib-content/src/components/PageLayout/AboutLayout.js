@@ -1,11 +1,40 @@
 import { Box } from 'grommet'
+import { useTranslation } from '../../translations/i18n.js'
+
 import ContainerBox from './ContainerBox.js'
 import AboutHeader from '../AboutHeader'
 
 function AboutLayout({ children }) {
+  const { t } = useTranslation()
+
+  const navTitle = t('AboutHeader.title.about')
+
+  const links = [
+    {
+      href: '/about',
+      label: t('AboutHeader.links.about')
+    },
+    {
+      href: '/about/publications',
+      label: t('AboutHeader.links.publications')
+    },
+    {
+      href: '/about/team',
+      label: t('AboutHeader.links.team')
+    },
+    {
+      href: '/about/resources',
+      label: t('AboutHeader.links.resources')
+    },
+    {
+      href: '/about/faq',
+      label: t('AboutHeader.links.faq')
+    }
+  ]
+
   return (
     <>
-      <AboutHeader />
+      <AboutHeader links={links} navTitle={navTitle} />
       <main>
         <Box
           background={{

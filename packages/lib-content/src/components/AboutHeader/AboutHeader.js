@@ -1,5 +1,4 @@
 import { Box } from 'grommet'
-import { useTranslation } from '../../translations/i18n.js'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
@@ -21,37 +20,12 @@ const StyledBox = styled(Box)`
   }
 `
 
-function AboutHeader() {
-  const { t } = useTranslation()
-
-  const links = [
-    {
-      href: '/about',
-      label: t('AboutHeader.links.about')
-    },
-    {
-      href: '/about/publications',
-      label: t('AboutHeader.links.publications')
-    },
-    {
-      href: '/about/team',
-      label: t('AboutHeader.links.team')
-    },
-    {
-      href: '/about/resources',
-      label: t('AboutHeader.links.resources')
-    },
-    {
-      href: '/about/faq',
-      label: t('AboutHeader.links.faq')
-    }
-  ]
-
+function AboutHeader({ links = [], navTitle = '' }) {
   return (
     <header>
       <Box
         align='center'
-        aria-label={`${t('AboutHeader.title')} Zooniverse`}
+        aria-label={navTitle}
         direction='row'
         as='nav'
         background='neutral-1'
