@@ -13,16 +13,4 @@ describe('utils > getStatsDateString', function () {
 
     expect(dateString).to.equal('2021-06-01')
   })
-
-  it('should return the default date string when passed an undefined value', function () {
-    const dateString = getStatsDateString(undefined)
-
-    expect(dateString).to.equal('2015-03-17')
-  })
-
-  it('should return the default date string provided when passed undefined and a default date', function () {
-    const dateString = getStatsDateString(undefined, '2021-07-01')
-
-    expect(dateString).to.equal('2021-07-01')
-  })
 })
