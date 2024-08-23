@@ -21,7 +21,6 @@ import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
 import MyGroups from './MyGroups'
 import CreateButton from './components/CreateButton'
-import GroupCardList from './components/GroupCardList'
 import GroupCreateFormContainer from './components/GroupCreateFormContainer'
 import PreviewLayout from './components/PreviewLayout'
 
@@ -86,9 +85,10 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
             title='My Groups'
             pad={{ horizontal: '60px', vertical: '30px' }}
           >
-            <MyGroups>
-              <GroupCardList groups={groupsSortedByCreatedAt} />
-            </MyGroups>
+            <MyGroups
+              groups={groupsSortedByCreatedAt}
+              loading={userLoading || membershipsLoading}
+            />
             <Grid
               columns={{
                 count: 3,

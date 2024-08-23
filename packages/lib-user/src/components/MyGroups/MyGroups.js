@@ -1,6 +1,9 @@
-import { Grid } from 'grommet'
-import { node } from 'prop-types'
+import { Loader } from '@zooniverse/react-components'
+import { Box, Grid, Paragraph } from 'grommet'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
+
+import GroupCardList from './components/GroupCardList'
 
 const StyledGrid = styled(Grid)`
   gap: 20px 40px;
@@ -13,20 +16,58 @@ const StyledGrid = styled(Grid)`
 `
 
 function MyGroups({
-  children
+  groups = [],
+  loading = false
 }) {
+  if (loading) {
+    return (
+      <Box
+        align='center'
+        fill
+        justify='center'
+        pad='medium'
+      >
+        <Loader />
+      </Box>
+    )
+  }
+
+  if (!groups?.length) {
+    return (
+      <Box
+        align='center'
+        fill
+        justify='center'
+        pad='medium'
+      >
+        <Paragraph margin={{ top: '0', bottom: '20px' }}>
+          You are not a member of any Groups.
+        </Paragraph>
+        <Paragraph margin={{ top: '0', bottom: '20px' }}>
+          Create one below
+        </Paragraph>
+      </Box>
+    )
+  }
+
   return (
     <StyledGrid
       forwardedAs='ul'
       pad='none'
     >
-      {children}
+      <GroupCardList groups={groups} />
     </StyledGrid>
   )
 }
 
 MyGroups.propTypes = {
-  children: node
+  groups: arrayOf(
+    shape({
+      id: string,
+      display_name: string
+    })
+  ),
+  loading: bool
 }
 
 export default MyGroups
