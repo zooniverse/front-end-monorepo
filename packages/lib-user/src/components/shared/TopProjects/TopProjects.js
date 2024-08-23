@@ -1,7 +1,7 @@
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, node, number, string, shape } from 'prop-types'
 import { useContext } from 'react'
-import ProjectCard from '@zooniverse/react-components/ProjectCard'
+import { Loader, ProjectCard } from '@zooniverse/react-components'
 
 import { ContentBox } from '@components/shared'
 
@@ -46,6 +46,7 @@ CardsRow.propTypes = {
 function TopProjects({
   allProjectsStats = {},
   grid = false,
+  loading = false,
   projects = []
 }) {
   const size = useContext(ResponsiveContext)
@@ -72,21 +73,32 @@ function TopProjects({
     <ContentBox
       title='Top Projects'
     >
-      <Container>
-        {topProjects.map(topProject => {
-          return (
-            <li key={topProject?.id}>
-              <ProjectCard
-                description={topProject?.description}
-                displayName={topProject?.display_name}
-                href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
-                imageSrc={topProject?.avatar_src}
-                size={cardSize}
-              />
-            </li>
-          )
-        })}
-      </Container>
+      {loading ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <Loader />
+        </Box>
+      ) : (
+        <Container>
+          {topProjects.map(topProject => {
+            return (
+              <li key={topProject?.id}>
+                <ProjectCard
+                  description={topProject?.description}
+                  displayName={topProject?.display_name}
+                  href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
+                  imageSrc={topProject?.avatar_src}
+                  size={cardSize}
+                />
+              </li>
+            )
+          })}
+        </Container>
+      )}
     </ContentBox>
   )
 }
@@ -99,6 +111,7 @@ TopProjects.propTypes = {
     }))
   }),
   grid: bool,
+  loading: bool,
   projects: arrayOf(shape({
     avatar_src: string,
     description: string,

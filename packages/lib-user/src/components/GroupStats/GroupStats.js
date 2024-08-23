@@ -225,6 +225,7 @@ function GroupStats({
           <TopProjects
             allProjectsStats={allProjectsStats}
             grid={false}
+            loading={loading}
             projects={projects}
           />
         )}

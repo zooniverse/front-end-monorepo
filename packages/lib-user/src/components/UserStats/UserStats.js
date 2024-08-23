@@ -64,6 +64,7 @@ function UserStats({
       />
       <TopProjects
         allProjectsStats={allProjectsStats}
+        loading={loading}
         projects={projects}
       />
     </Layout>
