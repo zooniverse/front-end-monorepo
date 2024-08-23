@@ -125,7 +125,7 @@ function Resources() {
                   />,
                   <Anchor
                     key='publications-page'
-                    href='https://www.zooniverse.org/about/publications'
+                    href='/about/publications'
                   />
                 ]}
               />
@@ -137,7 +137,7 @@ function Resources() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about#contact'
+                    href='/about#contact'
                   />
                 ]}
               />
@@ -164,7 +164,7 @@ function Resources() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about#contact'
+                    href='/about#contact'
                   />
                 ]}
               />

@@ -19,7 +19,7 @@ export function Supporters() {
   return (
     <Box
       gap={size !== 'small' ? '40px' : '15px'}
-      margin={{ top: 'small', bottom: 'large' }}
+      margin={{ top: 'small', bottom: 'xlarge' }}
     >
       <Grid columns={['1fr 1fr 1fr']} rows='auto' gap={gap}>
         <LogoImage

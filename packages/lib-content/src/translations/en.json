@@ -37,7 +37,7 @@
       "paragraphs": {
         "one": "Please read through our <0>FAQ page</0> and the <1>Zooniverse Solutions webpage</1>.",
         "two": "Do you have an issue related to a specific project? We recommend reaching out directly to the research team on their Talk page.",
-        "three": "Can't access the Contact Us button? Email us directly at contact@zooniverse.org."
+        "three": "Can't access the Contact Us button? Email us directly at <0>contact@zooniverse.org</0>."
       }
     },
     "description": "",
