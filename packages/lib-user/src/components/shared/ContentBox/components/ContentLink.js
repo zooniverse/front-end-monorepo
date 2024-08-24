@@ -26,6 +26,7 @@ function ContentLink({
         dark: 'light-4',
         light: 'dark-5'
       }}
+      disabled={link.disabled || false}
       download={link.download || false}
       forwardedAs={link.as || 'a'}
       href={link.href}
