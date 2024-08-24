@@ -7,10 +7,10 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
 const SWRoptions = {
-  revalidateIfStale: true,
-  revalidateOnMount: true,
-  revalidateOnFocus: true,
-  revalidateOnReconnect: true,
+  revalidateIfStale: false,
+  revalidateOnMount: false,
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
   refreshInterval: 0
 }
 
