@@ -218,10 +218,10 @@ function Certificate({
                         uppercase={false}
                         weight='bold'
                       >
-                        {projectsCount ? (
-                          `${projectsCount} projects`
-                        ) : (
+                        {projectDisplayName ? (
                           projectDisplayName
+                        ) : (
+                          `${projectsCount} projects`
                         )}
                       </SpacedText>
                     </SpacedText>

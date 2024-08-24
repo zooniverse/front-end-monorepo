@@ -67,7 +67,7 @@ function CertificateContainer({
     id: selectedProject
   })
   
-  const hours = convertStatsSecondsToHours(stats?.time_spent)
+  const hours = convertStatsSecondsToHours(stats?.time_spent) || 0
   const loading = userLoading || statsLoading || projectsLoading
   const name = user?.credited_name || user?.display_name || login
   const projectsCount = stats?.project_contributions?.length || 0
