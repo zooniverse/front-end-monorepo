@@ -68,6 +68,7 @@ function CertificateContainer({
   })
   
   const hours = convertStatsSecondsToHours(stats?.time_spent)
+  const loading = userLoading || statsLoading || projectsLoading
   const name = user?.credited_name || user?.display_name || login
   const projectsCount = stats?.project_contributions?.length || 0
   const projectDisplayName = projects?.[0]?.display_name
@@ -76,6 +77,7 @@ function CertificateContainer({
   return (
     <Certificate
       hours={hours}
+      loading={loading}
       login={user?.login}
       name={name}
       paramsValidationMessage={paramsValidationMessage}
