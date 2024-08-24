@@ -197,12 +197,14 @@ function GroupStats({
               <>
                 <TopContributors
                   groupId={group?.id}
+                  loading={loading || topContributorsLoading}
                   stats={stats}
                   topContributors={topContributors}
                 />
                 <TopProjects
                   allProjectsStats={allProjectsStats}
                   grid={true}
+                  loading={loading}
                   projects={projects}
                 />
               </>
@@ -211,10 +213,12 @@ function GroupStats({
                 <TopProjects
                   allProjectsStats={allProjectsStats}
                   grid={false}
+                  loading={loading}
                   projects={projects}
                 />
                 <TopContributors
                   groupId={group?.id}
+                  loading={loading || topContributorsLoading}
                   stats={stats}
                   topContributors={topContributors}
                 />
