@@ -1,10 +1,10 @@
 import { Anchor, Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { SpacedText, ZooniverseLogotype } from '@zooniverse/react-components'
+import { useHasMounted } from '@zooniverse/react-components/hooks'
 import { useContext } from 'react'
 
 import { useTranslation } from '../../../../translations/i18n.js'
-import { mobileBreakpoint } from '../../../../components/SharedStyledComponents/SharedStyledComponents.js'
 
 const Relative = styled(Box)`
   position: relative;
@@ -12,25 +12,9 @@ const Relative = styled(Box)`
   background: ${props => props.theme.global.colors['neutral-1']};
 `
 
-const VideoContainer = styled(Box)`
-  width: 100%;
-
-  @media (width <= ${mobileBreakpoint}) {
-    display: none;
-  }
-
-  @media (prefers-reduced-motion) {
-    display: none;
-  }
-`
-
 const MobileHeroImage = styled(Box)`
   width: 100%;
   height: 60vh;
-
-  @media (width > ${mobileBreakpoint}) {
-    display: none;
-  }
 `
 
 const HeroCopy = styled(Box)`
@@ -82,18 +66,36 @@ const StyledLink = styled(Anchor)`
 export default function Hero() {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
+  const hasMounted = useHasMounted()
+
+  let prefersReducedMotion
+  if (hasMounted) {
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    prefersReducedMotion = reducedMotionQuery?.matches
+  }
 
   return (
     <Relative width='100%'>
-      <VideoContainer>
-        <video autoPlay loop disablePictureInPicture muted preload='metadata'>
-          <source type='video/webm' src='/assets/home-video.webm' />
-          <source type='video/mp4' src='/assets/home-video.mp4' />
-        </video>
-      </VideoContainer>
-      <MobileHeroImage
-        background={`url(${'/assets/home-video-placeholder.jpg'})`}
-      />
+      {size !== 'small' && !prefersReducedMotion ? (
+        <Box fill>
+          {hasMounted && (
+            <video
+              autoPlay
+              loop
+              disablePictureInPicture
+              muted
+              preload='metadata'
+            >
+              <source type='video/webm' src='/assets/home-video.webm' />
+              <source type='video/mp4' src='/assets/home-video.mp4' />
+            </video>
+          )}
+        </Box>
+      ) : (
+        <MobileHeroImage
+          background={`url(${'/assets/home-video-placeholder.jpg'})`}
+        />
+      )}
       <HeroCopy justify='center' align='center' pad='medium'>
         <StyledHeading level={1} margin='0'>
           <SpacedText
