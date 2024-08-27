@@ -150,6 +150,7 @@ function GroupStats({
     membership
   })
 
+  const error = statsError || projectStatsError || projectsError
   const loading = statsLoading || projectStatsLoading || projectsLoading
 
   return (
@@ -178,6 +179,7 @@ function GroupStats({
         secondaryHeaderItems={secondaryHeaderItems}
       >
         <MainContent
+          error={error}
           loading={loading}
           paramsValidationMessage={paramsValidationMessage}
           projects={projects}
@@ -196,6 +198,7 @@ function GroupStats({
             {size === 'large' ? (
               <>
                 <TopContributors
+                  error={topContributorsError}
                   groupId={group?.id}
                   loading={loading || topContributorsLoading}
                   stats={stats}
@@ -217,6 +220,7 @@ function GroupStats({
                   projects={projects}
                 />
                 <TopContributors
+                  error={topContributorsError}
                   groupId={group?.id}
                   loading={loading || topContributorsLoading}
                   stats={stats}

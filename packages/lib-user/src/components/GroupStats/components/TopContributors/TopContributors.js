@@ -1,4 +1,4 @@
-import { Loader } from '@zooniverse/react-components'
+import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
@@ -11,6 +11,7 @@ import {
 import MemberCard from '../MemberCard'
 
 function TopContributors({
+  error,
   groupId,
   loading,
   stats,
@@ -52,6 +53,20 @@ function TopContributors({
           pad='medium'
         >
           <Loader />
+        </Box>
+      ) : error ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <SpacedText uppercase={false}>
+            There was an error fetching the top contributors.
+          </SpacedText>
+          <SpacedText uppercase={false}>
+            {error?.message}
+          </SpacedText>
         </Box>
       ) : (
         <Grid

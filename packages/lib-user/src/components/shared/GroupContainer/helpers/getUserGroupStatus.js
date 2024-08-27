@@ -1,3 +1,4 @@
+import { Loader } from '@zooniverse/react-components'
 import { bool, shape, string } from 'prop-types'
 
 export function getUserGroupStatus({
@@ -22,7 +23,7 @@ export function getUserGroupStatus({
   }
 
   if (groupLoading) {
-    return ('Loading...')
+    return (<Loader />)
   }
 
   if (groupError) {
