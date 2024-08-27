@@ -72,6 +72,7 @@ function handleClickPrint() {
 }
 
 function Certificate({
+  error = undefined,
   hours = 0,
   loading = false,
   login = '',
@@ -123,6 +124,20 @@ function Certificate({
               pad='medium'
             >
               <Loader />
+            </Box>
+          ) : error ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
             </Box>
           ) : (
             <Box

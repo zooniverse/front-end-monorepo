@@ -67,6 +67,7 @@ function CertificateContainer({
     id: selectedProject
   })
   
+  const error = userError || statsError || projectsError
   const hours = convertStatsSecondsToHours(stats?.time_spent) || 0
   const loading = userLoading || statsLoading || projectsLoading
   const name = user?.credited_name || user?.display_name || login
@@ -76,6 +77,7 @@ function CertificateContainer({
 
   return (
     <Certificate
+      error={error}
       hours={hours}
       loading={loading}
       login={user?.login}
