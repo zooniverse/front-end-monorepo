@@ -1,4 +1,4 @@
-import { Loader } from '@zooniverse/react-components'
+import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, Paragraph } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
@@ -16,47 +16,58 @@ const StyledGrid = styled(Grid)`
 `
 
 function MyGroups({
+  error = undefined,
   groups = [],
   loading = false
 }) {
-  if (loading) {
-    return (
-      <Box
-        align='center'
-        fill
-        justify='center'
-        pad='medium'
-      >
-        <Loader />
-      </Box>
-    )
-  }
-
-  if (!groups?.length) {
-    return (
-      <Box
-        align='center'
-        fill
-        justify='center'
-        pad='medium'
-      >
-        <Paragraph margin={{ top: '0', bottom: '20px' }}>
-          You are not a member of any Groups.
-        </Paragraph>
-        <Paragraph margin={{ top: '0', bottom: '20px' }}>
-          Create one below
-        </Paragraph>
-      </Box>
-    )
-  }
-
   return (
-    <StyledGrid
-      forwardedAs='ul'
-      pad='none'
-    >
-      <GroupCardList groups={groups} />
-    </StyledGrid>
+    <>
+      {loading ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <Loader />
+        </Box>
+      ) : error ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <SpacedText uppercase={false}>
+            There was an error.
+          </SpacedText>
+          <SpacedText uppercase={false}>
+            {error?.message}
+          </SpacedText>
+        </Box>
+      ) : !groups?.length ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <Paragraph margin={{ top: '0', bottom: '20px' }}>
+            You are not a member of any Groups.
+          </Paragraph>
+          <Paragraph margin={{ top: '0', bottom: '20px' }}>
+            Create one below
+          </Paragraph>
+        </Box>
+      ) : (
+        <StyledGrid
+          forwardedAs='ul'
+          pad='none'
+        >
+          <GroupCardList groups={groups} />
+        </StyledGrid>
+      )}
+    </>
   )
 }
 

@@ -86,6 +86,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
             pad={{ horizontal: '60px', vertical: '30px' }}
           >
             <MyGroups
+              error={userError || membershipsError}
               groups={groupsSortedByCreatedAt}
               loading={userLoading || membershipsLoading}
             />
