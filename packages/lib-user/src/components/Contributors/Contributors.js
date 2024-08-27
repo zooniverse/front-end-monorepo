@@ -130,8 +130,9 @@ function Contributors({
     setPage(page)
   }
 
+  const error = statsError || usersError || projectsError
   const loading = statsLoading || usersLoading || projectsLoading
-  const disableStatsExport = !showContributors || loading || !contributors?.length
+  const disableStatsExport = !showContributors || !!error || loading || !contributors?.length
 
   return (
     <>
@@ -181,6 +182,15 @@ function Contributors({
           ) : loading ? (
             <Box align='center' justify='center' fill pad='medium'>
               <Loader />
+            </Box>
+          ) : error ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
             </Box>
           ) : contributors?.length > 0 ? (
             <ContributorsList
