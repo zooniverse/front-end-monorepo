@@ -61,21 +61,6 @@ export const ThisYear = {
   }
 }
 
-export const PrePanoptesInfo = {
-  args: {
-    hours: 45,
-    login: 'testUser',
-    name: 'Example T. User',
-    projectsCount: 67,
-    selectedDateRange: {
-      endDate: '2023-12-31',
-      startDate: '2015-03-17'
-    },
-    selectedProject: 'AllProjects',
-    showPrePanoptesInfo: true
-  }
-}
-
 export const ParamsValidationMessage = {
   args: {
     login: 'testUser',

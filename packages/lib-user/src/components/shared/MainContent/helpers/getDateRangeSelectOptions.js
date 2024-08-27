@@ -1,6 +1,5 @@
 import {
-  getStatsDateString,
-  STATS_START_DATE
+  getStatsDateString
 } from '@utils'
 
 import { formatSelectOptionDateLabel } from './formatSelectOptionDateLabel'
@@ -9,7 +8,7 @@ function getNextMonth(month) {
   return month === 11 ? 0 : month + 1
 }
 
-function getPresetSelectOptions({ allTimeStartDate, today }) {
+function getPresetSelectOptions({ sourceCreatedAtDate, today }) {
   return [
     {
       label: 'LAST 7 DAYS',
@@ -37,7 +36,7 @@ function getPresetSelectOptions({ allTimeStartDate, today }) {
     },
     {
       label: 'ALL TIME',
-      value: allTimeStartDate
+      value: sourceCreatedAtDate
     }
   ]
 }
@@ -48,15 +47,14 @@ const DEFAULT_DATE_RANGE = {
 }
 
 export function getDateRangeSelectOptions({
-  created_at = STATS_START_DATE,
+  sourceCreatedAtDate = '',
   paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE
 }) {
   const today = new Date()
   const todayUTC = getStatsDateString(today)
-  const allTimeStartDate = created_at > STATS_START_DATE ? created_at : STATS_START_DATE
   
-  const dateRangeOptions = getPresetSelectOptions({ allTimeStartDate, today })
+  const dateRangeOptions = getPresetSelectOptions({ sourceCreatedAtDate, today })
   
   let selectedDateRangeOption = dateRangeOptions.find(option =>
     (selectedDateRange.endDate === todayUTC) &&
