@@ -40,6 +40,7 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
+  error = undefined,
   loading = false,
   paramsValidationMessage = '',
   projects = [],
@@ -253,6 +254,20 @@ function MainContent({
               pad='medium'
             >
               <Loader />
+            </Box>
+          ) : error ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
             </Box>
           ) : noStats ? (
             <Box
