@@ -26,7 +26,7 @@ async function getUser({ query }) {
     return users
   } catch (error) {
     console.error(error)
-    return null
+    throw error
   }
 }
 

@@ -32,8 +32,8 @@ async function fetchPanoptesUserGroup({ groupId }) {
     const user_group = user_groups?.[0]
     return user_group
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw error
   }
 }
 
