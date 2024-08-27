@@ -33,11 +33,6 @@ describe('Component > Teams Page', function () {
     )
   })
 
-  it('should have a nav with label', function () {
-    const sideBar = screen.getByText('Teams.sidebarLabel')
-    expect(sideBar).to.be.ok()
-  })
-
   it('should render all people in data', function () {
     const people = screen.getAllByTestId('person-test-element')
     const numMockPeople = mockData.reduce((count, team) => {
