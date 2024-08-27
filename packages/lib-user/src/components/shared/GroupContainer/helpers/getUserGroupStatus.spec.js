@@ -1,3 +1,5 @@
+import { render, screen } from '@testing-library/react'
+
 import { getUserGroupStatus } from './getUserGroupStatus'
 
 describe('components > shared > GroupContainer > getUserGroupStatus', function () {
@@ -17,8 +19,10 @@ describe('components > shared > GroupContainer > getUserGroupStatus', function (
   })
 
   it('should return a message when loading the group', function () {
-    const result = getUserGroupStatus({ groupLoading: true })
-    expect(result).to.equal('Loading...')
+    render(<div>{getUserGroupStatus({ groupLoading: true })}</div>)
+    const result = screen.getByLabelText('Loading')
+
+    expect(result).to.be.ok()
   })
 
   it('should return a message when there is a group error', function () {
