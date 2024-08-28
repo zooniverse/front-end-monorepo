@@ -1,6 +1,6 @@
 import { Loader, SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { number, shape, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import {
