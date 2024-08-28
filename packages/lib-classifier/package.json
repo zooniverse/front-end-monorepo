@@ -40,7 +40,7 @@
     "@zooniverse/async-states": "~0.0.1",
     "cuid": "~3.0.0",
     "d3": "~6.7.0",
-    "graphql": "~16.8.0",
+    "graphql": "~16.9.0",
     "graphql-request": "~6.1.0",
     "hash.js": "~1.1.7",
     "i18next": "~23.11.1",
