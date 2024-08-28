@@ -8,6 +8,20 @@ import { Box } from 'grommet'
 
 import { PanoptesAuthContext } from '../../../contexts'
 
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {
+    if (!value) {
+      queryParams.delete(key);
+    } else {
+      queryParams.set(key, value);
+    }
+  }
+
+  return queryParams
+}
+
 function GroupStatsContainer({
   endDate,
   groupId,
@@ -35,45 +49,30 @@ function GroupStatsContainer({
 
   useEffect(function updateStartDateParam() {
     if (selectedStartDate && (startDate === undefined)) {
-      updateQueryParams([['start_date', selectedStartDate]])
+      const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
+      router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
     }
-  }, [selectedStartDate, startDate])
-
-  function updateQueryParams(newQueryParams) {
-    const queryParams = new URLSearchParams(window.location.search)
-
-    for (const [key, value] of newQueryParams) {
-      if (!value) {
-        queryParams.delete(key);
-      } else {
-        queryParams.set(key, value);
-      }
-    }
-
-    router.push(`${window.location.pathname}?${queryParams.toString()}`)
-  }
+  }, [selectedStartDate, startDate, router])
 
   function setSelectedDateRange({ endDate, startDate }) {
     const todayUTC = new Date().toISOString().substring(0, 10)
-    if (endDate === todayUTC) {
-      updateQueryParams([
+    const newQueryParams = endDate === todayUTC
+      ? updateQueryParams([
         ['end_date', null],
         ['start_date', startDate]
       ])
-    } else {
-      updateQueryParams([
+      : updateQueryParams([
         ['end_date', endDate],
         ['start_date', startDate]
       ])
-    }
+    router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
   }
 
   function setSelectedProject(selectedProjectId) {
-    if (!selectedProjectId) {
-      updateQueryParams([['project_id', null]])
-    } else {
-      updateQueryParams([['project_id', selectedProjectId]])
-    }
+    const newQueryParams = !selectedProjectId
+      ? updateQueryParams([['project_id', null]])
+      : updateQueryParams([['project_id', selectedProjectId]])
+    router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
   }
 
   if (isLoading) {
