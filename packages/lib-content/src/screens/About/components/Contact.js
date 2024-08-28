@@ -82,8 +82,8 @@ export default function Contact({ widgetLoaded = false }) {
           t={t}
           components={[
             <Anchor
-              key='publications-page'
-              href='/publications' // after switch to app-root, this will need to be /about/publications
+              key='faq-page'
+              href='/about/faq'
             />,
             <Anchor
               key='freshdesk-page'
@@ -98,7 +98,13 @@ export default function Contact({ widgetLoaded = false }) {
           {t('AboutPage.contact.heading')}
         </StyledButton>
         <Paragraph margin={{ top: 'medium' }}>
-          {t('AboutPage.contact.paragraphs.three')}
+          <Trans
+            i18nKey='AboutPage.contact.paragraphs.three'
+            t={t}
+            components={[
+              <Anchor key='direct-email-contact' href='mailto:contact@zooniverse.org' />
+            ]}
+          />
         </Paragraph>
       </Box>
     </Box>

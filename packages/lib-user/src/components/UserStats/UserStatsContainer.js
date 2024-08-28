@@ -38,7 +38,7 @@ function UserStatsContainer({
   } = usePanoptesUser({
     authUser,
     login,
-    requiredUserProperty: 'avatar_src'
+    requiredUserProperty: 'created_at'
   })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project

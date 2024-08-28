@@ -5,8 +5,7 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 import {
   convertStatsSecondsToHours,
-  getStatsDateString,
-  STATS_START_DATE
+  getStatsDateString
 } from '@utils'
 
 import {
@@ -68,8 +67,10 @@ function MainContent({
   
   const noStats = !stats?.data?.length
 
+  const sourceCreatedAtDate = getStatsDateString(source?.created_at)
+
   const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
-    created_at: getStatsDateString(source?.created_at),
+    sourceCreatedAtDate,
     paramsValidationMessage,
     selectedDateRange
   })
@@ -135,7 +136,7 @@ function MainContent({
       >
         <Calendar
           bounds={[
-            STATS_START_DATE,
+            sourceCreatedAtDate,
             todayUTC
           ]}
           date={[customDateRange]}

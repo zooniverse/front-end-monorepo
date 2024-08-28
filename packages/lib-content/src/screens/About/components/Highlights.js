@@ -28,7 +28,7 @@ export default function Highlights() {
           components={[
             <Anchor
               key='publications-page'
-              href='/publications' // after switch to app-root, this will need to be /about/publications
+              href='/about/publications'
             />
           ]}
         />

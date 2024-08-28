@@ -7,8 +7,6 @@ import {
   HeaderToast
 } from '@components/shared'
 
-const BASE_URL = 'https://fe-root.preview.zooniverse.org'
-
 const DEFAULT_HANDLER = () => true
 
 function getHeaderItems({
@@ -26,7 +24,7 @@ function getHeaderItems({
 
   const publicGroup = group.stats_visibility.startsWith('public')
   const role = membership?.roles?.[0]
-  const shareGroupUrl = new URL(`${BASE_URL}/groups/${group.id}`)
+  const shareGroupUrl = new URL(`${window.location.origin}/groups/${group.id}`)
   shareGroupUrl.search = window.location.search
   const shareGroupUrlString = shareGroupUrl.toString()
 
@@ -79,7 +77,7 @@ function getHeaderItems({
         icon={<Link color='white' size='small' />}
         label='Copy Join Link'
         message='Join Link Copied!'
-        textToCopy={`${BASE_URL}/groups/${group.id}?join_token=${group.join_token}`}
+        textToCopy={`${window.location.origin}/groups/${group.id}?join_token=${group.join_token}`}
       />,
       <HeaderToast
         key='share-group-toast'

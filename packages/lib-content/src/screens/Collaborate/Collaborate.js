@@ -98,11 +98,7 @@ function Collaborate() {
               i18nKey='Collaborate.paragraphs.eight'
               t={t}
               components={[
-                <Text
-                  weight='bold'
-                  size='1rem'
-                  color={{ light: 'neutral-1', dark: 'accent-1' }}
-                />
+                <Anchor key='direct-email-cliff' href='mailto:cliff@zooniverse.org' />
               ]}
             />
           </Paragraph>
