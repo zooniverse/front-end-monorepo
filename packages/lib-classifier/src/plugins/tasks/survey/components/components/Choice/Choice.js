@@ -79,7 +79,7 @@ function Choice({
             <Media
               key={filename}
               alt={`${choice.label}-image${index}`}
-              src={images[filename]}
+              src={images.get(filename)}
             />
           ))}
         </Carousel>
