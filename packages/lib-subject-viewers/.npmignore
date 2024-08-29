@@ -1,0 +1,13 @@
+.cache
+.storybook
+legacy
+src
+stories
+test
+
+.babelrc
+.editorconfig
+.travis.yml
+webpack.dist.js
+
+**/screenshot.png

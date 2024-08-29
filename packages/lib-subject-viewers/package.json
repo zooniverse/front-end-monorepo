@@ -1,0 +1,65 @@
+{
+  "name": "@zooniverse/subject-viewers",
+  "description": "Zooniverse library for Subject Viewers",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "0.1.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./*": {
+      "import": "./dist/esm/*/index.js",
+      "require": "./dist/cjs/*/index.js"
+    }
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zooniverse/front-end-monorepo.git",
+    "directory": "packages/lib-subject-viewers"
+  },
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:es6",
+    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "lint": "zoo-standard --fix | snazzy",
+    "prepare": "yarn build",
+    "storybook": "storybook dev -p 6008",
+    "build-storybook": "storybook build",
+    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
+    "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\""
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "three": "^0.162.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "~7.6.11",
+    "@storybook/addon-essentials": "~7.6.11",
+    "@storybook/react": "~7.6.11",
+    "@storybook/react-webpack5": "~7.6.11",
+    "chai": "~4.5.0",
+    "chai-dom": "~1.12.0",
+    "dirty-chai": "~2.0.1",
+		"eslint": "^8",
+    "eslint-config-next": "14.1.4",
+    "html-webpack-plugin": "~5.6.0",
+    "mocha": "~10.2.0",
+    "sinon": "~17.0.0",
+    "sinon-chai": "~3.7.0",
+    "storybook": "~7.6.11",
+    "storybook-react-i18next": "~2.0.1",
+    "webpack": "~5.90.0",
+    "webpack-cli": "~5.1.0",
+    "webpack-dev-server": "~5.0.3"
+  },
+  "engines": {
+    "node": ">=20.5"
+  }
+}
