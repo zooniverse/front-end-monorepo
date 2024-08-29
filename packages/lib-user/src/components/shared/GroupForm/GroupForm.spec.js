@@ -89,7 +89,7 @@ describe('components > shared > GroupForm', function() {
       })
     })
   
-    describe('with an invalid display name', function() {
+    describe('with an invalid display name, below minimum characters', function() {
       it('should show display name is invalid', async function() {
         render(<CreateStory />)
   
@@ -99,6 +99,20 @@ describe('components > shared > GroupForm', function() {
         await user.click(submit)
   
         const error = screen.getByText('must be > 3 characters')
+        expect(error).to.be.ok()
+      })
+    })
+
+    describe('with an invalid display name, above maximum characters', function() {
+      it('should show display name is invalid', async function() {
+        render(<CreateStory />)
+  
+        const displayName = screen.getByRole('textbox', { name: 'Group Name' })
+        await user.type(displayName, 'a'.repeat(61))
+        const submit = screen.getByRole('button', { name: 'Create new group' })
+        await user.click(submit)
+  
+        const error = screen.getByText('must be < 60 characters')
         expect(error).to.be.ok()
       })
     })

@@ -57,7 +57,7 @@ function FAQPage() {
                   />,
                   <Anchor
                     key='contact-us'
-                    href='https://www.zooniverse.org/about#contact'
+                    href='/about#contact'
                   />
                 ]}
               />
@@ -150,7 +150,7 @@ function FAQPage() {
                     components={[
                       <Anchor
                         key='donate-link'
-                        href='https://www.zooniverse.org/about/donate' // Will link to a get-involved section once those pages are built
+                        href='/get-involved/donate'
                       />
                     ]}
                   />
@@ -165,7 +165,7 @@ function FAQPage() {
                     components={[
                       <Anchor
                         key='resources-page'
-                        href='https://www.zooniverse.org/about/resources'
+                        href='/about/resources'
                       />
                     ]}
                   />

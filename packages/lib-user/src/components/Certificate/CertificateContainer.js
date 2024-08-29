@@ -4,6 +4,7 @@ import { shape, string } from 'prop-types'
 
 import {
   usePanoptesProjects,
+  usePanoptesUser,
   useStats
 } from '@hooks'
 
@@ -23,18 +24,33 @@ const STATS_ENDPOINT = '/classifications/users'
 function CertificateContainer({
   authUser,
   login,
+  paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects'
+  selectedProject = undefined
 }) {
-  // TODO: fetch user data if authUser is not login user (admin view)
+  // fetch user
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authUser,
+    login,
+    requiredUserProperty: 'credited_name'
+  })
 
   // fetch stats
+  // only fetch stats (define sourceId with user.id) if valid params and start date defined
+  let userId = null
+  if (!paramsValidationMessage && selectedDateRange.startDate) {
+    userId = user?.id
+  }
   const statsQuery = getDateInterval(selectedDateRange)
   statsQuery.time_spent = true
-  if (selectedProject !== 'AllProjects') {
-    statsQuery.project_id = parseInt(selectedProject)
-  } else {
+  if (selectedProject === undefined) {
     statsQuery.project_contributions = true
+  } else {
+    statsQuery.project_id = parseInt(selectedProject)
   }
   
   const {
@@ -43,34 +59,33 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: authUser?.id,
+    sourceId: userId,
     query: statsQuery
   })
 
-  // fetch projects, if selectedProject is not 'AllProjects'
-  const projectId = selectedProject !== 'AllProjects' ? selectedProject : null
   const {
     data: projects,
     error: projectsError,
     isLoading: projectsLoading
   } = usePanoptesProjects({
     cards: true,
-    id: projectId
+    id: selectedProject
   })
   
   const hours = convertStatsSecondsToHours(stats?.time_spent)
+  const name = user?.credited_name || user?.display_name || login
   const projectsCount = stats?.project_contributions?.length || 0
   const projectDisplayName = projects?.[0]?.display_name
 
   return (
     <Certificate
-      creditedName={authUser?.credited_name}
-      displayName={authUser?.display_name}
       hours={hours}
-      login={authUser?.login}
+      login={user?.login}
+      name={name}
+      paramsValidationMessage={paramsValidationMessage}
+      projectDisplayName={projectDisplayName}
       projectsCount={projectsCount}
       selectedDateRange={selectedDateRange}
-      projectDisplayName={projectDisplayName}
     />
   )
 }
@@ -81,6 +96,7 @@ CertificateContainer.propTypes = {
     login: string
   }),
   login: string,
+  paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string

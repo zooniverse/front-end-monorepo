@@ -14,6 +14,7 @@ const StyledBox = styled(Box)`
 
 const HeaderItems = styled(Box)`
   max-width: calc(90rem - 160px);
+  white-space: nowrap;
 `
 
 function PageHeader({ primaryHeaderItem = '', secondaryHeaderItems = [] }) {
@@ -38,7 +39,7 @@ function PageHeader({ primaryHeaderItem = '', secondaryHeaderItems = [] }) {
         <Box align='center' direction='row'>
           {primaryHeaderItem}
         </Box>
-        <Box align='center' justify='end' direction='row' gap='small'>
+        <Box align='center' justify='end' direction='row' gap='xxsmall'>
           {secondaryHeaderItems.length > 0 ? (
             size !== 'small' ? (
               secondaryHeaderItems

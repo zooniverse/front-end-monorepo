@@ -13,11 +13,11 @@ const StyledButton = styled(Button)`
 
 const PRIVATE_STATS_VISIBILITY = [
   {
-    label: 'No, never show individual stats',
+    label: `No, don't show individual stats to members`,
     value: 'private_agg_only',
   },
   {
-    label: 'Yes, always show individual stats',
+    label: 'Yes, show individual stats to members',
     value: 'private_show_agg_and_ind',
   }
 ]
@@ -76,7 +76,7 @@ function GroupForm({
           border: {
             color: 'light-5',
             side: 'all'
-          }          
+          }
         }
       }}>
         <FormField
@@ -88,6 +88,7 @@ function GroupForm({
           validate={[
             (name) => {
               if (name && name.length < 4) return 'must be > 3 characters'
+              if (name && name.length > 60) return 'must be < 60 characters'
               return undefined
             }
           ]}
@@ -134,7 +135,7 @@ function GroupForm({
           border: {
             color: 'light-5',
             side: 'all'
-          }          
+          }
         }
       }}>
         <FormField

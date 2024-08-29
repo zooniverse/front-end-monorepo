@@ -1,7 +1,7 @@
 import Discipline from './Discipline'
 
 export default {
-  title: 'Screens / Publications / Discipline',
+  title: 'About / Publications / Discipline',
   component: Discipline
 }
 

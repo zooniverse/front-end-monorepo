@@ -10,6 +10,7 @@ import { PanoptesAuthContext } from '../../../../contexts'
 function UserStatsContainer({
   endDate,
   login,
+  paramsValidationMessage,
   projectId,
   startDate
 }) {
@@ -19,25 +20,22 @@ function UserStatsContainer({
 
   // set end date per query params or default to today
   let selectedEndDate = endDate
-  if (!selectedEndDate) {
+  if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
   // set start date per query params or default to 7 days ago
   let selectedStartDate = startDate
-  if (!selectedStartDate) {
+  if (selectedStartDate === undefined) {
     const defaultStartDate = new Date()
     defaultStartDate.setUTCDate(defaultStartDate.getUTCDate() - 6)
     selectedStartDate = defaultStartDate.toISOString().substring(0, 10)
   }
 
   useEffect(function updateStartDateParam() {
-    if (selectedStartDate && !startDate) {
+    if (selectedStartDate && (startDate === undefined)) {
       updateQueryParams([['start_date', selectedStartDate]])
     }
   }, [selectedStartDate, startDate])
-  
-  // set selected project per query params or default to 'AllProjects'
-  const selectedProject = projectId || 'AllProjects'
 
   function updateQueryParams(newQueryParams) {
     const queryParams = new URLSearchParams(window.location.search)
@@ -54,8 +52,6 @@ function UserStatsContainer({
   }
 
   function setSelectedDateRange({ endDate, startDate }) {
-    // TODO: validate dates
-    
     const todayUTC = new Date().toISOString().substring(0, 10)
     if (endDate === todayUTC) {
       updateQueryParams([
@@ -71,9 +67,7 @@ function UserStatsContainer({
   }
 
   function setSelectedProject(selectedProjectId) {
-    // TODO: validate selected project ID
-
-    if (selectedProjectId === 'AllProjects') {
+    if (!selectedProjectId) {
       updateQueryParams([['project_id', null]])
     } else {
       updateQueryParams([['project_id', selectedProjectId]])
@@ -90,11 +84,12 @@ function UserStatsContainer({
       <UserStats
         authUser={user}
         login={login}
+        paramsValidationMessage={paramsValidationMessage}
         selectedDateRange={{
           endDate: selectedEndDate,
           startDate: selectedStartDate
         }}
-        selectedProject={selectedProject}
+        selectedProject={projectId}
         setSelectedDateRange={setSelectedDateRange}
         setSelectedProject={setSelectedProject}
       />

@@ -2,21 +2,16 @@ import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { 
-  getDateRangeSelectOptions
-} from '../MainContent/helpers/getDateRangeSelectOptions'
-
-import Meta, { DateRanges } from './Select.stories'
+import Meta, { Default } from './Select.stories'
 
 describe('components > shared > Select', function() {
   const user = userEvent.setup()
-  const DefaultStory = composeStory(DateRanges, Meta)
-  const selectOptions = getDateRangeSelectOptions()
+  const DefaultStory = composeStory(Default, Meta)
 
   it('should show the selected option', function() {
     render(<DefaultStory />)
 
-    expect(screen.getByRole('textbox')).to.have.property('value').to.equal('LAST 7 DAYS')
+    expect(screen.getByRole('textbox')).to.have.property('value').to.equal('ALL PROJECTS')
   })
 
   it('should show the options', async function() {
@@ -27,6 +22,6 @@ describe('components > shared > Select', function() {
 
     const options = screen.getAllByRole('option')
 
-    expect(options.length).to.equal(selectOptions.length)
+    expect(options.length).to.equal(4)
   })
 })

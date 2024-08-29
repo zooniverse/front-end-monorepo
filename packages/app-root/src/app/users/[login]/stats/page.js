@@ -1,3 +1,5 @@
+import { validateDateRangeParams } from '../../../../utils/validateDateRangeParams'
+import { validateProjectIdParam } from '../../../../utils/validateProjectIdParam'
 import UserStatsContainer from './UserStatsContainer'
 
 export const metadata = {
@@ -6,12 +8,24 @@ export const metadata = {
 }
 
 export default function UserStatsPage({ params, searchParams }) {
+  const { dateRangeMessage, validEndDate, validStartDate } = validateDateRangeParams({
+    endDate: searchParams.end_date,
+    startDate: searchParams.start_date
+  })
+  
+  const { projectId: validProjectId, message: projectIdMessage } = validateProjectIdParam(searchParams.project_id)
+
+  const paramsValidationMessage = [dateRangeMessage, projectIdMessage]
+    .filter(message => message)
+    .join(', ')
+
   return (
     <UserStatsContainer
-      endDate={searchParams.end_date}
+      endDate={validEndDate}
       login={params.login}
-      projectId={searchParams.project_id}
-      startDate={searchParams.start_date}
+      paramsValidationMessage={paramsValidationMessage}
+      projectId={validProjectId}
+      startDate={validStartDate}
     />
   )
 }

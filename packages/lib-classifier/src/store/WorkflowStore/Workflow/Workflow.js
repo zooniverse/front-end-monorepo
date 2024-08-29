@@ -46,7 +46,7 @@ const Workflow = types
     get caesarReducer() {
       if (self.usesTranscriptionTask) {
         return 'alice'
-      } else if (self.usesFreehandLineTool) {
+      } else if (self.configuration.enable_caesar_data_fetching && self.usesMachineLearnt) {
         return 'machineLearnt'
       }
 
@@ -81,14 +81,16 @@ const Workflow = types
       return anyTranscriptionTasks
     },
 
-    get usesFreehandLineTool() {
-      const anyFreehandLineTool = self.tasks && Object.values(self.tasks)
+    get usesMachineLearnt() {
+      const toolTypes = ['circle', 'ellipse', 'freehandLine', 'line', 'point', 'polygon', 'rectangle', 'rotateRectangle'];
+
+      const hasAnyMatchingToolType = self.tasks && Object.values(self.tasks)
         .filter(task => !!task.tools)
         .some(task => {
-          return task.tools.some(tool => tool.type === 'freehandLine')
+          return task.tools.some(tool => toolTypes.includes(tool.type))
         })
 
-      return anyFreehandLineTool
+      return hasAnyMatchingToolType
     }
   }))
 

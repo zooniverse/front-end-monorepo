@@ -1,7 +1,10 @@
 import { shape, string } from 'prop-types'
 
 import { useStats } from '@hooks'
-import { getDateInterval } from '@utils'
+import {
+  getDateInterval,
+  getStatsDateString
+} from '@utils'
 import StatsTabs from './StatsTabs'
 
 const formatStatsPreview = (thisWeekData, allTimeData) => {
@@ -19,13 +22,13 @@ const formatStatsPreview = (thisWeekData, allTimeData) => {
 
 export default function StatsTabsContainer({ user }) {
   const today = new Date()
-  const todayUTC = today.toISOString().substring(0, 10)
+  const todayUTC = getStatsDateString(today)
   
   const thisWeekStart = new Date()
   thisWeekStart.setUTCDate(today.getUTCDate() - 6)
   const thisWeekQuery = getDateInterval({
     endDate: todayUTC,
-    startDate: thisWeekStart.toISOString().substring(0, 10)
+    startDate: getStatsDateString(thisWeekStart)
   })
   thisWeekQuery.project_contributions = true
   const { data: thisWeekData } = useStats({
@@ -35,7 +38,7 @@ export default function StatsTabsContainer({ user }) {
 
   const allTimeQuery = getDateInterval({
     endDate: todayUTC,
-    startDate: user?.created_at?.substring(0, 10) || '2015-07-01'
+    startDate: getStatsDateString(user?.created_at)
   })
   allTimeQuery.project_contributions = true
   const { data: allTimeData } = useStats({

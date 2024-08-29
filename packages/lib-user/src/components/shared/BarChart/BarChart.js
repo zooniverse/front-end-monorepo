@@ -1,6 +1,7 @@
 import { DataChart, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
 
 import {
   getDateInterval as defaultGetDateInterval
@@ -8,6 +9,22 @@ import {
 
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
+
+const TYPE_LABEL = {
+  count: 'Classifications',
+  session_time: 'Time'
+}
+
+const X_AXIS_FREQUENCY = {
+  everyOther: 'everyOther',
+  everyFourth: 'everyFourth'
+}
+
+const StyledDataChart = styled(DataChart)`
+  .hidden-period-label {
+    display: none;
+  }
+`
 
 function BarChart({
   data = [],
@@ -26,7 +43,7 @@ function BarChart({
   const completeData = getCompleteData({ data, dateInterval })
   
   const dateRangeLabel = getDateRangeLabel(dateInterval)
-  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
+  const typeLabel = TYPE_LABEL[type]
   
   // with no data set gradient as 'brand'
   let gradient = 'brand'
@@ -47,10 +64,19 @@ function BarChart({
     type: 'bar'
   }
 
+  let xAxisFrequency
+  if (completeData.length > 12 && completeData.length < 25) {
+    xAxisFrequency = X_AXIS_FREQUENCY.everyOther
+  } else if (completeData.length > 24) {
+    xAxisFrequency = X_AXIS_FREQUENCY.everyFourth
+  }
+
   if (size !== 'small' && completeData.length < 9) {
     chartOptions.thickness = 'xlarge'
   }
   if (size === 'small') {
+    xAxisFrequency = xAxisFrequency || X_AXIS_FREQUENCY.everyOther
+
     if (completeData.length < 12) {
       chartOptions.thickness = 'small'
     } else if (completeData.length > 11 && completeData.length < 19) {
@@ -60,17 +86,11 @@ function BarChart({
     }
   }
 
-  // set x axis granularity based on data length
-  let xAxisGranularity = 'fine'
-  if (completeData.length > 12) {
-    xAxisGranularity = 'medium'
-  }
-
   return (
-    <DataChart
+    <StyledDataChart
       a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} from ${dateRange.startDate} to ${dateRange.endDate}`}
       axis={{
-        x: { granularity: xAxisGranularity, property: 'period' },
+        x: { granularity: 'fine', property: 'period' },
         y: { granularity: 'fine', property: type },
       }}
       chart={chartOptions}
@@ -85,30 +105,57 @@ function BarChart({
         {
           property: 'period',
           label: dateRangeLabel.countLabel,
-          render: (period) => {
+          render: ((period, datum, datumIndex) => {
             const date = new Date(period)
-            return (
-              <Text data-testid='periodLabel' textAlign='center'>
-                {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
-              </Text>
-            )
-          },
+
+            if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
+              return (
+                <Text
+                  className='hidden-period-label'
+                  data-testid='periodLabel'
+                  textAlign='center'
+                >
+                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                </Text>
+              )
+            } else if (xAxisFrequency === X_AXIS_FREQUENCY.everyFourth && datum?.index % 4 !== 0) {
+              return (
+                <Text
+                  className='hidden-period-label'
+                  data-testid='periodLabel'
+                  textAlign='center'
+                >
+                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                </Text>
+              )
+            } else {
+              return (
+                <Text
+                  data-testid='periodLabel'
+                  textAlign='center'
+                >
+                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                </Text>
+              )
+            }
+          }),
         },
         {
           property: type,
           label: typeLabel,
           render: ((number) => {
             if (type === 'session_time') {
-              const time = number / dateRangeLabel.time  
+              const time = number / dateRangeLabel.time
+              const timeLabelText = dateRangeLabel.timeLabel === 'hrs' ? `${time.toFixed(1).toLocaleString()} ${dateRangeLabel.timeLabel}` : `${time.toFixed(0).toLocaleString()} ${dateRangeLabel.timeLabel}`
               return (
                 <Text data-testid='timeLabel'>
-                  {`${time.toFixed(0)} ${dateRangeLabel.timeLabel}`}
+                  {timeLabelText}
                 </Text>
               )
             } else {
               return (
                 <Text data-testid='countLabel'>
-                  {new Number(number).toLocaleString()}
+                  {number.toLocaleString()}
                 </Text>
               )
             }

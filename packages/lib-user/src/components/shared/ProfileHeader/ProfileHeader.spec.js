@@ -42,7 +42,7 @@ describe('components > shared > ProfileHeader', function () {
     it('should show the user\'s hours', function () {
       const UserWithHoursStory = composeStory(UserWithHours, Meta)
       render(<UserWithHoursStory />)
-      const hours = screen.getByText('5')
+      const hours = screen.getByText('5.1')
       expect(hours).to.be.ok()
     })
   })
@@ -77,7 +77,7 @@ describe('components > shared > ProfileHeader', function () {
     it('should show the group\'s hours', function () {
       const GroupWithHoursStory = composeStory(GroupWithHours, Meta)
       render(<GroupWithHoursStory />)
-      const hours = screen.getByText('12')
+      const hours = screen.getByText('12.8')
       expect(hours).to.be.ok()
     })
   })

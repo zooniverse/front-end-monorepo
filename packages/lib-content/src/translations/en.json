@@ -10,14 +10,20 @@
   "AboutHeader": {
     "links": {
       "about": "About",
+      "collaborate": "Collaborate",
       "contact": "Contact Us",
       "donate": "Donate",
+      "educate": "Educate",
       "faq": "FAQ",
       "publications": "Publications",
       "resources": "Resources",
-      "team": "Our Team"
+      "team": "Our Team",
+      "volunteer": "Volunteer"
     },
-    "title": "About"
+    "title": {
+      "about": "About",
+      "getInvolved": "Get Involved"
+    }
   },
   "AboutPage": {
     "contact": {
@@ -31,7 +37,7 @@
       "paragraphs": {
         "one": "Please read through our <0>FAQ page</0> and the <1>Zooniverse Solutions webpage</1>.",
         "two": "Do you have an issue related to a specific project? We recommend reaching out directly to the research team on their Talk page.",
-        "three": "Can't access the Contact Us button? Email us directly at contact@zooniverse.org."
+        "three": "Can't access the Contact Us button? Email us directly at <0>contact@zooniverse.org</0>."
       }
     },
     "description": "",
@@ -117,6 +123,88 @@
   "Article": {
     "url": "Read more"
   },
+  "Collaborate": {
+    "paragraphs": {
+      "one": "Would your research benefit from the involvement of thousands of volunteers? The Zooniverse is the world’s largest and most successful online platform for crowd-sourced research; we have millions of registered volunteers working in collaboration with professional researchers on research projects across a range of disciplines, from astronomy to the humanities.",
+      "two": "Research teams can build Zooniverse projects in two ways.",
+      "three": "Teams can use our free-to-use Project Builder tool to create their very own Zooniverse project. In order to launch publicly and be featured on our projects page, teams must go through our review process to ensure the project is appropriate for the platform and ready to be launched. This is the quickest and most straightforward option for creating a Zooniverse project. For more information on this process, including estimated timelines for review, please see our <0>Project Review Best Practices & Flowchart</0>. ",
+      "four": "In cases where the tools available in the Project Builder aren’t quite right for the research goals of a particular team, researchers may want to consider partnering with the Zooniverse to create new, custom tools. We work with these teams to apply for funding to support the research, design, and development process. Those who have applied for grant funding before will know that this process can take a long time. Once we’ve applied for a grant, it can take 6 months or more to hear back about whether or not our efforts were successful. Funded projects typically require at least 6 months to design, build, and test, depending on the complexity of the features being created. We then need additional time to generalize (and often revise) them for inclusion in the Project Builder toolkit. ",
+      "five": "If you are interested in partnering with us to create custom project tools or infrastructure, please <0>contact us</0>.",
+      "six": "Are you a researcher working on a project relevant to one of NASA’s Science Mission Directorate divisions (Astrophysics, Biological and Physical Sciences, Heliophysics, and the Planetary Science) who would benefit from contributions from Zooniverse volunteers? As part of an on-going partnership with NASA, the Zooniverse seeks to build on its current support of NASA research teams and encourage the development of new projects on our platform.",
+      "seven": "Whether you are already building workflows using the Project Builder or you are just starting to consider how crowdsourced contributions could advance your research, the Zooniverse team has dedicated effort to support teams during development and implementation of NASA-focused projects. We are happy to discuss and support proposals to NASA citizen science funding calls (including the Citizen Science Seed Funding Program, the Citizen Science for Earth Systems Program, and other NASA ROSES funding opportunities) for projects interested in using the Zooniverse platform.",
+      "eight": "If you have questions or require any further guidance, please contact Cliff Johnson, Zooniverse Science Lead and NASA Liaison: <0>cliff@zooniverse.org</0>.",
+      "nine": "Over half a dozen organizations to-date leverage Adler Zooniverse as an opportunity to fulfill their corporate social responsibility. Participation can fulfill service hour requirements for employees, graduation, scholarships, etc. A unique volunteer opportunity, participants take time to reflect on how their efforts (and the community’s collective efforts) are contributing to our understanding of our world and the broader universe. <0>Contact us</0> to learn more about this initiative."
+    },
+    "subheadings": {
+      "one": "Collaborate with us",
+      "two": "Our supporters",
+      "three": "Selected collaborators",
+      "four": "Call for projects",
+      "five": "Corporate social responsibility opportunities"
+    },
+    "title": "Collaborate"
+  },
+  "Donate": {
+    "button": "Donate today",
+    "paragraphs": {
+      "one": "Zooniverse is a collaboration between Chicago’s Adler Planetarium, the University of Oxford, the University of Minnesota - Twin Cities (UMN), hundreds of researchers, and millions of participants from around the world. The Zooniverse teams at Adler, Oxford, and UMN include our senior leadership team, web developers, designer, communications lead, data scientists, and researchers. This unique mix of expertise in research, public engagement, and modern web development allows us to support the amazing community of volunteers and dedicated research teams using the Zooniverse platform. Much of the Zooniverse’s funding comes through grants, as well as institutional support from Adler, Oxford, and UMN.",
+      "two": "If you would like to support the Zooniverse, please consider making a tax-deductible donation to the Adler Planetarium. Your unrestricted gift to the Adler helps researchers unlock their data through online citizen science, astronomers bring telescopes into neighborhoods all over Chicagoland, teenagers launch original experiments into space, and people of all ages connect under the stars.",
+      "three": "Follow the link below to make a donation on the Adler Planetarium’s website."
+    },
+    "subheading": "Support the Zooniverse",
+    "title": "Donate"
+  },
+  "Educate": {
+    "articles": {
+      "heading": "How are Educators using the Zooniverse?",
+      "one": {
+        "datePublished": "October 28, 2022",
+        "excerpt": "There is a critical need for research-based active learning instructional materials for the teaching and learning of STEM in online courses. Every year, hundreds of thousands of undergraduate non-science majors enroll in general education astronomy courses to fulfill their institution’s liberal arts requirements. When designing instructional materials for this population of learners, a central...",
+        "title": "A New Curriculum Development Model for Improving Undergraduate Students’ Data Literacy and Self-Efficacy..."
+      },
+      "two": {
+        "datePublished": "August 14, 2019",
+        "excerpt": "“Everyone try to grab the same galaxy,” a boy exclaimed while motioning to his classmates. Around the table, six students began dragging an image of a galaxy from the center of a large touch screen onto their own workstation. It’s very likely these students are the first people to set eyes upon this galaxy and decide how it should be classified...",
+        "title": "U!Scientist and the Galaxy Zoo touch table at Adler Planetarium"
+      },
+      "three": {
+        "datePublished": "February 7, 2018",
+        "excerpt": "As a social studies teacher, I hope for my students to develop an appreciation of the discipline of history itself. Rather than emphasizing memorization of dates and names – the kind of things that fall out of our memory as soon as we put them down on the test – my goals include exposing students to the intricacies of professional work done by historians. Recently, my 8th grade Ancient World...",
+        "title": "8th graders in Missouri transcribe anti-slavery documents and learn about the abolitionist movement"
+      },
+      "four": {
+        "datePublished": "April 29, 2015",
+        "excerpt": "Today’s blog post comes from Fran Wilson, a second grade teacher at Madeira Elementary School. Fran strives to promote an interest in science in her classroom and help students discover that not all scientists work in labs wearing white lab coats and safety goggles. She seeks meaningful opportunities for her students to participate in citizen scientist work to be responsible...",
+        "title": "Floating Forests: Teaching Young Children About Kelp"
+      }
+    },
+    "buttons": {
+      "one": "Online Resources",
+      "two": "Zooniverse in schools Ages 9 - 12",
+      "three": "Zooniverse for Undergraduates"
+    },
+    "forEducators": {
+      "classrooms": "Explore Zooniverse Classrooms",
+      "heading": "Resources for Educators",
+      "subheadings": {
+        "one": "Group stats",
+        "two": "Project-specific educational opportunities",
+        "three": "Volunteer certificate"
+      },
+      "paragraphs": {
+        "one": "Set classification milestones, track effort, and celebrate collective impact. Read our <0>announcement</0> for more details.",
+        "two": "Each project team can share additional educator resources including lesson plans, video tutorials, research links, and more. Be sure to check a project’s <0>Education</0> tab.",
+        "three": "Support for students fulfilling student service hours for scholarships, graduation requirements, and more. See this <0>blog post</0> for details."
+      }
+    },
+    "introduction": "Are you an educator interested in using Zooniverse in the classroom? Great! Millions of people around the world participate in about 100 active projects, each with a supportive and welcoming discussion forum in which researchers engage with the public around the research and broader interests. The Zooniverse is a wonderful place for students.",
+    "subheading": "Education in the Zooniverse",
+    "takePart": {
+      "heading": "Take Part in the Conversation",
+      "paragraph": "Keep up with the latest Zooniverse educational efforts on the <0>Zooniverse Blog</0>. You can also join the conversation in our <1>discussion forum around Education and the Zooniverse</1>."
+    },
+    "title": "Educate"
+  },
   "FAQ": {
     "description": "",
     "help": "Don't see the answer to your question? Visit the <0>Zooniverse Solutions webpage</0>, ask on <1>Zooniverse Talk</1>, or <2>contact us</2>.",
@@ -169,7 +257,7 @@
       "seeAll": "See all posts"
     },
     "DefaultHome": {
-      "heroText": "Join millions of people who help to advance real research, real science, and real knowledge.",
+      "heroText": "Join millions of people who help to advance real research, science, and knowledge.",
       "mainHeading": "People-powered research",
       "projects": "Explore projects",
       "headings": {
@@ -244,5 +332,53 @@
     "description": "The people who make the Zooniverse.",
     "sidebarLabel": "Institution",
     "title": "Our Team"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Sign Up for Testing",
+      "heading": "Beta Testing",
+      "paragraphs": {
+        "one": "If you’re already a volunteer and want to provide additional feedback, consider becoming a beta tester. Beta testers are Zooniverse volunteers who help us test projects before they publicly launch and give feedback to research teams to help make those projects better. Beta testers submit test classifications on projects, and give teams their feedback via a short questionnaire.",
+        "two": "This process helps us identify any issues in projects, and even assess whether the project is appropriate for the Zooniverse. Your opinion is extremely important to us! You can read our guidelines on what makes a suitable project on the <0>Lab Policies page</0>.",
+        "three": "Signing up to be a beta tester is easy, and anyone can do it. Just visit your <0>settings</0> and check the box that says, “Get beta project email updates and become a beta tester.” We’ll send you emails when projects are ready to be tested. You can change your email settings and unsubscribe from beta emails any time you want by visiting the same email page and unchecking the box."
+      }
+    },
+    "classify": {
+      "heading": "Classify Projects",
+      "paragraphs": {
+        "one": "Volunteering on a project is the easiest and most common way of participating. We always need volunteers to help classify project data. There is no minimum time requirement; you can do as much or as little as you'd like.",
+        "two": "To get started, visit the <0>Zooniverse</0> homepage and register for an account."
+      }
+    },
+    "howTo": {
+      "heading": "How to volunteer",
+      "paragraphs": {
+        "one": "Interested in becoming a volunteer? It’s easy: just start classifying! Everyone who contributes to a Zooniverse project is a volunteer. We have a wonderful, global community of volunteers who ‘power’ our people-powered research. Already a volunteer and want to do more? Consider becoming a beta tester, or helping project teams by becoming a Talk moderator. For more information on these roles, read on."
+      }
+    },
+    "moderate": {
+      "heading": "Moderate a Project",
+      "paragraphs": {
+        "one": "Volunteer moderators assist research teams with the project’s Talk discussion tool. They help moderate discussions, act as a point of contact for the project, and have additional permissions on Talk. Moderators are selected by the project owner. If you're interested in becoming a moderator on a project you're taking part in, go to the project's About page or Talk board and get in touch with the researcher. For more information, see our <0>‘What are Moderators for?’</0> documentation.",
+        "two": "If you'd like any more information on any of these different roles, <0>contact us</0>."
+      }
+    },
+    "register": {
+      "button": "Register Today",
+      "heading": "The Benefits of Registration with the Zooniverse",
+      "paragraphs": {
+        "one": "Track your classifications, hours, and more. Discover your favorite projects and observe trends. Then, export your data for even more options.",
+        "two": "Generate an official certificate verifying your efforts on the Zooniverse platform. Simply specify a time period or project.",
+        "three": "Registered users are able to post on project-specific and Zooniverse-wide Talk boards giving you the ability to ask questions to real experts.",
+        "four": "For those under 16 years old, a parent/guardian needs to sign off on their registration. <0>https://www.zooniverse.org/accounts/register</0> is the direct link to register.",
+        "five": "Translated versions of the registration page are available in <0>Spanish</0> and <1>French</1>. Please note that not all elements on a page may be translated."
+      },
+      "subheadings": {
+        "one": "Personal stats",
+        "two": "Volunteer certificate",
+        "three": "Talk with fellow volunteers and experts"
+      }
+    },
+    "title": "Volunteer"
   }
 }

@@ -44,3 +44,13 @@ export const ScrollDown = () => {
     </Box>
   )
 }
+
+export const DeferredAnimation = () => {
+  const [value, setValue] = useState(0)
+  setTimeout(() => setValue(700000000), 2000)
+  return (
+    <Box pad={{ vertical: '120vh' }}>
+      <AnimatedNumber value={value} />
+    </Box>
+  )
+}

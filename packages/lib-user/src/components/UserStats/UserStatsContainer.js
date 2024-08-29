@@ -15,8 +15,8 @@ import {
 import UserStats from './UserStats'
 
 const DEFAULT_DATE_RANGE = {
-  endDate: null,
-  startDate: null
+  endDate: undefined,
+  startDate: undefined
 }
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
@@ -24,8 +24,9 @@ const STATS_ENDPOINT = '/classifications/users'
 function UserStatsContainer({
   authUser,
   login,
+  paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
@@ -36,7 +37,8 @@ function UserStatsContainer({
     isLoading: userLoading
   } = usePanoptesUser({
     authUser,
-    login
+    login,
+    requiredUserProperty: 'created_at'
   })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
@@ -50,7 +52,7 @@ function UserStatsContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: paramsValidationMessage ? null : user?.id,
     query: allProjectsStatsQuery
   })
   
@@ -65,7 +67,7 @@ function UserStatsContainer({
     isLoading: projectStatsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: selectedProject ? user?.id : null,
     query: projectStatsQuery
   })
   
@@ -82,9 +84,13 @@ function UserStatsContainer({
     page_size: 100
   })
 
+  const loading = userLoading || statsLoading || projectStatsLoading || projectsLoading
+
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
+      loading={loading}
+      paramsValidationMessage={paramsValidationMessage}
       projectStats={projectStats}
       projects={projects}
       selectedDateRange={selectedDateRange}
@@ -101,6 +107,7 @@ UserStatsContainer.propTypes = {
     id: string
   }),
   login: string,
+  paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string

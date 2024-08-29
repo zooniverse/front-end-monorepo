@@ -15,7 +15,7 @@ function parseFeedPost(post) {
     excerpt: post.excerpt, // string but text is wrapped in <p></p>
     created_at: new Date(post.date), // string such as '2024-02-02T15:00:00+00:00'
     url: post.URL, // string
-    imageSrc: post.featured_image // ?? these are always '', might need to grab attached image instead
+    imageSrc: post.featured_image // src string
   }
 }
 

@@ -6,7 +6,12 @@ import { Blank } from 'grommet-icons'
 
 function Icon({ icon, text = '', size = 'medium' }) {
   return (
-    <Blank role='img' aria-label={text} aria-hidden='false' size={size === 'small' ? '1.5rem' : '1rem'}>
+    <Blank
+      role='img'
+      aria-label={text}
+      aria-hidden='false'
+      size={size === 'small' ? '1.5rem' : '1rem'}
+    >
       {icon}
     </Blank>
   )
@@ -15,13 +20,11 @@ function Icon({ icon, text = '', size = 'medium' }) {
 export default function DashboardLink({ href = '', icon, text = '' }) {
   const size = useContext(ResponsiveContext)
   return (
-    <>
-      {size !== 'small' ? (
-        <PlainButton href={href} text={text} icon={icon} />
-      ) : (
-        <Icon text={text} icon={icon} size={size} />
-      )}
-    </>
+    <PlainButton
+      href={href}
+      icon={<Icon text={text} icon={icon} size={size} />}
+      text={size !== 'small' ? text : null}
+    />
   )
 }
 
