@@ -5,8 +5,8 @@ export default function getQuestionIds (
   if (task.choices && task.choices[choiceId]?.noQuestions) {
     return []
   }
-  if (!(task.questionsMap && Object.keys(task.questionsMap).indexOf(choiceId) >= 0)) {
+  if (!(task.questionsMap?.has(choiceId))) {
     return task.questionsOrder
   }
-  return task.questionsMap[choiceId]
+  return task.questionsMap.get(choiceId)
 }
