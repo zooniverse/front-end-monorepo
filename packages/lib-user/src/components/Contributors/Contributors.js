@@ -130,7 +130,9 @@ function Contributors({
     setPage(page)
   }
 
-  if (!showContributors) return (<div>Not authorized</div>)
+  const error = statsError || usersError || projectsError
+  const loading = statsLoading || usersLoading || projectsLoading
+  const disableStatsExport = !showContributors || !!error || loading || !contributors?.length
 
   return (
     <>
@@ -166,17 +168,42 @@ function Contributors({
           linkLabel='Export all stats'
           linkProps={{
             as: 'button',
+            disabled: disableStatsExport,
             onClick: handleGenerateExport
           }}
           title='Full Group Stats'
         >
-          {contributors.length > 0 ? (
-              <ContributorsList
-                contributors={contributors}
-                projects={projects}
-              />
-            ) : <div>Loading...</div>
-          }
+          {!showContributors ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                You do not have permission to view this group&apos;s contributors.
+              </SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <Loader />
+            </Box>
+          ) : error ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
+            </Box>
+          ) : contributors?.length > 0 ? (
+            <ContributorsList
+              contributors={contributors}
+              projects={projects}
+            />
+          ) : (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                There are no contributors to this group.
+              </SpacedText>
+            </Box>
+          )}
           {memberIdsPerStats?.length > CONTRIBUTORS_PER_PAGE ? (
             <Pagination
               alignSelf='center'
