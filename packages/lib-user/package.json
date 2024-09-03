@@ -53,7 +53,7 @@
     "@babel/cli": "~7.23.0",
     "@babel/core": "~7.23.2",
     "@babel/eslint-parser": "~7.24.1",
-    "@babel/plugin-transform-runtime": "~7.24.0",
+    "@babel/plugin-transform-runtime": "~7.25.4",
     "@babel/preset-env": "~7.23.2",
     "@babel/preset-react": "~7.24.1",
     "@babel/register": "~7.23.7",
