@@ -1,6 +1,6 @@
-import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
+import { Loader, SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { number, shape, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -67,7 +67,9 @@ function handleClickPrint() {
 }
 
 function Certificate({
+  error = undefined,
   hours = 0,
+  loading = false,
   login = '',
   name = '',
   paramsValidationMessage = '',
@@ -104,7 +106,32 @@ function Certificate({
               justify='center'
               pad='medium'
             >
-              <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
+              <SpacedText uppercase={false}>
+                {paramsValidationMessage}
+              </SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Loader />
+            </Box>
+          ) : error ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
             </Box>
           ) : (
             <Box
@@ -200,10 +227,10 @@ function Certificate({
                         uppercase={false}
                         weight='bold'
                       >
-                        {projectsCount ? (
-                          `${projectsCount} projects`
-                        ) : (
+                        {projectDisplayName ? (
                           projectDisplayName
+                        ) : (
+                          `${projectsCount} projects`
                         )}
                       </SpacedText>
                     </SpacedText>
@@ -286,6 +313,7 @@ function Certificate({
 
 Certificate.propTypes = {
   hours: number,
+  loading: bool,
   login: string,
   name: string,
   paramsValidationMessage: string,

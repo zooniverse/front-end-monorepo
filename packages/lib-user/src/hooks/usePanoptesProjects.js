@@ -27,29 +27,35 @@ async function fetchProjects(query) {
   let projectsAccumulator = []
   
   async function getProjects (page = 1) {
-    const response = await panoptesProjects.get({
-      query: {
-        page,
-        ...query
-      },
-      authorization
-    })
-    const { meta, projects } = response?.body || {}
+    try {
+      const response = await panoptesProjects.get({
+        query: {
+          page,
+          ...query
+        },
+        authorization
+      })
 
-    if (meta?.projects?.page_count > 5) {
-      console.warn('There are more than 500 projects related to this request. This is likely an error.')
-      return []
+      const { meta, projects } = response?.body || {}
+  
+      if (meta?.projects?.page_count > 5) {
+        console.warn('There are more than 500 projects related to this request. This is likely an error.')
+        return []
+      }
+      
+      if (projects && projects.length) {
+        projectsAccumulator = projectsAccumulator.concat(projects)
+      }
+  
+      if (meta?.projects?.next_page) {
+        return getProjects(meta.projects.next_page)
+      }
+  
+      return projectsAccumulator
+    } catch (error) {
+      console.error(error)
+      throw error
     }
-    
-    if (projects && projects.length) {
-      projectsAccumulator = projectsAccumulator.concat(projects)
-    }
-
-    if (meta?.projects?.next_page) {
-      return getProjects(meta.projects.next_page)
-    }
-
-    return projectsAccumulator
   }
 
   await getProjects(1)

@@ -57,7 +57,7 @@ function CertificateContainer({
   useEffect(function updateStartDateParam() {
     if (selectedStartDate && (startDate === undefined)) {
       const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
-      router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
+      router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
     }
   }, [selectedStartDate, startDate, router])
 
