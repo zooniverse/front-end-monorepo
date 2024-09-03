@@ -84,7 +84,7 @@
     "selfsigned": "~2.4.1",
     "sinon": "~17.0.0",
     "sinon-chai": "~3.7.0",
-    "storybook": "~7.6.11",
+    "storybook": "~8.2.9",
     "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
