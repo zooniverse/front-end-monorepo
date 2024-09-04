@@ -162,22 +162,22 @@ export default function OurMission() {
       >
         <Discovery
           href='https://academic.oup.com/mnras/article/399/3/1191/1073770'
-          src='/assets/green-pea.jpg'
+          src='https://static.zooniverse.org/fem-assets/green-pea.jpg'
           labelString={t('AboutPage.ourMission.discoveries.one')}
         />
         <Discovery
           href='https://en.wikipedia.org/wiki/Planet_Hunters'
-          src='/assets/exoplanet.jpg'
+          src='https://static.zooniverse.org/fem-assets/exoplanet.jpg'
           labelString={t('AboutPage.ourMission.discoveries.two')}
         />
         <Discovery
           href='https://blog.shakespearesworld.org/2017/04/05/shakespeares-world-and-updating-the-oed-a-splendid-antedating-of-white-lie/'
-          src='/assets/transcription.jpg'
+          src='https://static.zooniverse.org/fem-assets/transcription.jpg'
           labelString={t('AboutPage.ourMission.discoveries.three')}
         />
         <Discovery
           href='https://en.wikipedia.org/wiki/Tabby%27s_Star'
-          src='/assets/star.jpg'
+          src='https://static.zooniverse.org/fem-assets/star.jpg'
           labelString={t('AboutPage.ourMission.discoveries.four')}
         />
       </Grid>

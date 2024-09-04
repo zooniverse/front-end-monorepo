@@ -59,7 +59,7 @@ function Donate() {
             {t('Donate.subheading')}
           </SpacedHeading>
           <StyledBox round='16px'>
-            <Image src='/assets/donate-page.jpeg' />
+            <Image src='https://static.zooniverse.org/fem-assets/donate-page.jpeg' />
           </StyledBox>
           <Paragraph margin={{ top: 'medium' }}>{t('Donate.paragraphs.one')}</Paragraph>
           <Paragraph margin='0'>{t('Donate.paragraphs.two')}</Paragraph>
