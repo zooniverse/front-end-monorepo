@@ -8,7 +8,6 @@ const APP_ENV = process.env.APP_ENV || 'development'
 
 const hostnames = {
   development: 'local.zooniverse.org',
-  branch: 'fe-project-branch.preview.zooniverse.org',
   staging: 'frontend.preview.zooniverse.org',
   production : 'www.zooniverse.org'
 }

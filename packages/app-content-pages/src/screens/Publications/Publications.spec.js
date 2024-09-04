@@ -36,11 +36,6 @@ describe('Component > Publications Page', function () {
     )
   })
 
-  it('should have sidebar nav label', function () {
-    const sideBar = screen.getByText('Publications.sidebarLabel')
-    expect(sideBar).to.be.ok()
-  })
-
   it('should render all publications in data', function () {
     const publications = screen.getAllByTestId('publication-test-element')
     expect(publications.length).to.equal(20) // number of publications in mock.json

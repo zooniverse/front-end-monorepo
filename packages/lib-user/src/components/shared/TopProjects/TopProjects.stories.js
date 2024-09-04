@@ -40,3 +40,9 @@ export const Grid = {
     projects: PROJECTS
   }
 }
+
+export const Loading = {
+  args: {
+    loading: true
+  }
+}

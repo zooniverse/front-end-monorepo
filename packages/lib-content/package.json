@@ -33,10 +33,10 @@
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/react-components": "~1.13.0",
     "dayjs": "~1.11.11",
-    "i18next": "~23.11.1",
+    "i18next": "~23.14.0",
     "panoptes-client": "~5.6.0",
     "prop-types": "~15.8.1",
-    "react-i18next": "~14.1.0"
+    "react-i18next": "~15.0.1"
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
@@ -58,12 +58,12 @@
     "@testing-library/dom": "~9.3.0",
     "@testing-library/react": "~14.2.0",
     "@testing-library/user-event": "~14.5.0",
-    "chai": "~4.3.4",
+    "chai": "~4.5.0",
     "chai-dom": "~1.12.0",
     "dirty-chai": "~2.0.1",
     "eslint-plugin-jsx-a11y": "~6.8.0",
     "jsdom": "~24.0.0",
-    "mocha": "~10.3.0",
+    "mocha": "~10.7.3",
     "sinon": "~17.0.0",
     "sinon-chai": "~3.7.0",
     "storybook": "~7.6.11",

@@ -38,7 +38,7 @@ function UserStatsContainer({
   } = usePanoptesUser({
     authUser,
     login,
-    requiredUserProperty: 'avatar_src'
+    requiredUserProperty: 'created_at'
   })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
@@ -84,11 +84,13 @@ function UserStatsContainer({
     page_size: 100
   })
 
+  const error = userError || statsError || projectStatsError || projectsError
   const loading = userLoading || statsLoading || projectStatsLoading || projectsLoading
 
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
+      error={error}
       loading={loading}
       paramsValidationMessage={paramsValidationMessage}
       projectStats={projectStats}

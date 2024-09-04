@@ -7,6 +7,20 @@ import { useContext, useEffect } from 'react'
 import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer'
 import { PanoptesAuthContext } from '../../../../../contexts'
 
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {  
+    if (!value) {
+      queryParams.delete(key);
+    } else {
+      queryParams.set(key, value);
+    }
+  }
+
+  return queryParams
+}
+
 function CertificateContainer({
   endDate,
   login,
@@ -42,23 +56,10 @@ function CertificateContainer({
 
   useEffect(function updateStartDateParam() {
     if (selectedStartDate && (startDate === undefined)) {
-      updateQueryParams([['start_date', selectedStartDate]])
+      const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
+      router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
     }
-  }, [selectedStartDate, startDate])
-
-  function updateQueryParams(newQueryParams) {
-    const queryParams = new URLSearchParams(window.location.search)
-
-    for (const [key, value] of newQueryParams) {  
-      if (!value) {
-        queryParams.delete(key);
-      } else {
-        queryParams.set(key, value);
-      }
-    }
-  
-    router.push(`${window.location.pathname}?${queryParams.toString()}`)
-  }
+  }, [selectedStartDate, startDate, router])
 
   return (
     <AuthenticatedUsersPageContainer
