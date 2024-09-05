@@ -1,4 +1,4 @@
-import { Box, Grid, Image, Paragraph } from 'grommet'
+import { Box, Grid, Paragraph } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
@@ -7,7 +7,7 @@ import SubjectPreview from '@shared/components/SubjectPreview'
 
 const isServer = typeof window === 'undefined'
 
-function Placeholder({ height, src }) {
+function Placeholder({ height }) {
   if (isServer) {
     return null
   }
@@ -17,15 +17,19 @@ function Placeholder({ height, src }) {
       align='center'
       justify='center'
       height={height}
-      overflow='hidden'
-      width={'100%'}
-    >
-      <Image alt='' height={358} role='presentation' src={src} width={500} />
-    </Box>
+      width='100%'
+      round='8px'
+      margin='xsmall'
+      background={{
+        image: `url(https://static.zooniverse.org/fem-assets/subject-placeholder.jpg)`,
+        size: 'cover',
+        position: 'center'
+      }}
+    />
   )
 }
 
-function RecentSubjects ({
+function RecentSubjects({
   isLoggedIn = false,
   recents = [],
   projectName,
@@ -33,11 +37,9 @@ function RecentSubjects ({
   slug
 }) {
   const { t } = useTranslation('screens')
-  const height = (size === 1) ? '40vw' : '200px'
-  const placeholderUrl = 'https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
+  const height = size === 1 ? '40vw' : '200px'
   const displayedRecents = recents.slice(0, size)
   const placeholders = [...Array(size - displayedRecents.length)]
-  const placeholder = <Image alt='' height={358} layout='responsive' role='presentation' src={placeholderUrl} width={500} />
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title', { projectName })}>
@@ -61,7 +63,7 @@ function RecentSubjects ({
               height={height}
               key={recent.subjectId}
               isLoggedIn={isLoggedIn}
-              placeholder={placeholder}
+              placeholder={<Placeholder height={height} />}
               subject={subject}
               slug={slug}
               width={'100%'}
@@ -69,11 +71,7 @@ function RecentSubjects ({
           )
         })}
         {placeholders.map((placeholder, i) => (
-          <Placeholder
-            key={i}
-            height={height}
-            src={placeholderUrl}
-            />
+          <Placeholder key={i} height={height} />
         ))}
       </Grid>
     </ContentBox>
