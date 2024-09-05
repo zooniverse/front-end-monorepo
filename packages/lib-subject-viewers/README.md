@@ -12,16 +12,8 @@ npm i @zooniverse/subject-viewers
 
 and use it
 
-ES5
-
 ```
-var { ZooFooter } = require('@zooniverse/react-components');
-```
-
-ES6
-
-```
-import { ZooFooter } from '@zooniverse/react-components';
+import { ProtoViewer } from '@zooniverse/subject-viewers';
 ```
 
 ## Run
@@ -42,12 +34,9 @@ All of our components are written using React, built on top of Grommet, a compon
 
 - [Grommet](https://v2.grommet.io/components) - React UI component library
 - [React.js](https://reactjs.org/) - Component, virtual DOM based javascript library
-- [styled-components](https://www.styled-components.com/) - CSS in JS for styling and theming
-- [react-i18next](https://react.i18next.com/) - Internationalization framework for React.
 
 Testing is done by
 
 - [Mocha](https://mochajs.org/) - test runner
 - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
 - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
-- [Enzyme](https://airbnb.io/enzyme/) - testing utility for React

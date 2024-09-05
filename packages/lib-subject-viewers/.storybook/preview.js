@@ -1,5 +1,4 @@
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
-import i18n from '../src/translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { StrictMode } from 'react'
@@ -40,15 +39,7 @@ const decorators = [
 ]
 
 const preview = {
-  globals: {
-    locale: 'en',
-    locales: {
-      en: 'English',
-      test: 'Test Language'
-    },
-  },
   parameters: {
-    i18n,
     layout: 'fullscreen',
     viewport: {
       viewports: INITIAL_VIEWPORTS

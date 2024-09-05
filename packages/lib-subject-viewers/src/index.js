@@ -1,1 +1,1 @@
-export { default as ProtoViewer } from './ProtoViewer/ProtoViewer.js'
+export { default as ProtoViewer } from './components/ProtoViewer/ProtoViewer.js'

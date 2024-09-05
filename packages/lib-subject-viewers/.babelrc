@@ -1,15 +1,5 @@
 {
-  "plugins": [
-    "babel-plugin-styled-components",
-    [
-      "transform-imports",
-      {
-        "lodash": {
-          "transform": "lodash/${member}"
-        }
-      }
-    ]
-  ],
+  "plugins": [],
   "presets": [
     [
       "@babel/preset-react",
