@@ -1,6 +1,6 @@
 'use client'
 
-import { Loader } from '@zooniverse/react-components'
+import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 
 function AuthenticatedUsersPageContainer({
@@ -18,12 +18,24 @@ function AuthenticatedUsersPageContainer({
     )
   }
 
-  if (!user) {
-    return <p>Please log in.</p>
+  if ((!user || Object.keys(user).length === 0)) {
+    return (
+      <Box as='main' height='100vh' align='center' justify='center'>
+        <SpacedText uppercase={false}>
+          Please log in.
+        </SpacedText>
+      </Box>
+    )
   }
 
   if (user && login !== user?.login && !adminMode) {
-    return <p>Not authorized.</p>
+    return (
+      <Box as='main' height='100vh' align='center' justify='center'>
+        <SpacedText uppercase={false}>
+          Not authorized.
+        </SpacedText>
+      </Box>
+    )
   }
 
   return <>{children}</>

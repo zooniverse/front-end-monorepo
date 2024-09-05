@@ -6,6 +6,11 @@ import { Children, cloneElement, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 import {
+  ContentBox,
+  Layout
+} from '@components/shared'
+
+import {
   usePanoptesMemberships,
   usePanoptesUserGroup,
 } from '@hooks'
@@ -139,7 +144,18 @@ function GroupContainer({
           toast
         />
       )}
-      {status ? (<div>{status}</div>) : (
+      {status ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            {status}
+          </ContentBox>
+        </Layout>
+      ) : (
         Children.map(children, child => 
           cloneElement(
             child,
