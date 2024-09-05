@@ -73,8 +73,9 @@ function ConfusedWith({
                 />
               }
               dropProps={{
+                elevation: 'xlarge',
                 overflow: 'visible',
-                responsive: false,
+                responsive: false
               }}
               label={strings.get(`choices.${confusionId}.label`)}
               open={open === confusionId}
