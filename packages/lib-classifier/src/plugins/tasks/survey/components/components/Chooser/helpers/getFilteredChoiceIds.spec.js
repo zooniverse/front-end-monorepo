@@ -1,6 +1,8 @@
 import getFilteredChoiceIds from './getFilteredChoiceIds'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import { task } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+const mockTask = SurveyTask.TaskModel.create(task)
 
 describe('Function > getFilteredChoiceIds', function () {
   it('should be a function', function () {
