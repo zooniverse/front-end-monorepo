@@ -59,7 +59,7 @@ function ConfusedWith({
               autoFocus={hasFocus && index === 0}
               backgroundColor={backgroundColor}
               dropAlign={{
-                bottom: 'top'
+                top: 'bottom'
               }}
               dropContent={
                 <Confusion
@@ -73,7 +73,8 @@ function ConfusedWith({
                 />
               }
               dropProps={{
-                overflow: 'visible'
+                overflow: 'visible',
+                responsive: false,
               }}
               label={strings.get(`choices.${confusionId}.label`)}
               open={open === confusionId}
