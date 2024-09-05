@@ -7,7 +7,7 @@
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "jobTitle": "Project Assistant",
         "name": "Mock Person One",
-        "avatarSrc": "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png?w=160&h=160"
+        "avatarSrc": "https://static.zooniverse.org/fem-assets/simple-avatar.jpg"
       }
     ]
   },
@@ -19,7 +19,7 @@
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "jobTitle": "Web Developer",
         "name": "Mock Person Three",
-        "avatarSrc": "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png?w=160&h=160",
+        "avatarSrc": "https://static.zooniverse.org/fem-assets/simple-avatar.jpg",
         "twitterID": "twitterid"
       }
     ]
@@ -32,7 +32,7 @@
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "jobTitle": "Community Manager",
         "name": "Mock Person Two",
-        "avatarSrc": "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png?w=160&h=160"
+        "avatarSrc": "https://static.zooniverse.org/fem-assets/simple-avatar.jpg"
       }
     ]
   }

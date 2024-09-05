@@ -1,6 +1,4 @@
-import { Box, Grid, Paragraph } from 'grommet'
-import getConfig from 'next/config'
-import Image from 'next/image'
+import { Box, Grid, Image, Paragraph } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
@@ -36,9 +34,7 @@ function RecentSubjects ({
 }) {
   const { t } = useTranslation('screens')
   const height = (size === 1) ? '40vw' : '200px'
-  const { publicRuntimeConfig = {} } = getConfig() || {}
-  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderUrl = `${assetPrefix}/assets/subject-placeholder.png`
+  const placeholderUrl = 'https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
   const displayedRecents = recents.slice(0, size)
   const placeholders = [...Array(size - displayedRecents.length)]
   const placeholder = <Image alt='' height={358} layout='responsive' role='presentation' src={placeholderUrl} width={500} />

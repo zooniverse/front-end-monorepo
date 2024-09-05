@@ -16,7 +16,7 @@ function buildQueuedSubjectResource () {
     href: `/subjects/${randomId}`,
     id: `${randomId}`,
     locations: [{
-      'image/jpeg': 'https://placekitten.com/408/287'
+      'image/jpeg': 'https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
     }],
     metadata: {},
     retired: false,

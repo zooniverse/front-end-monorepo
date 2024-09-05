@@ -2,7 +2,6 @@ import { Box, Image } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
-import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -61,16 +60,12 @@ export const StyledRole = styled(Box)`
     `}
 `
 
-// TO DO: how to tell if user is part of zooniverse team??
-
 const TeamMember = ({ user }) => {
   const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/users`
 
-  const { publicRuntimeConfig = {} } = getConfig() || {}
-  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderAvatar = `${assetPrefix}/assets/simple-avatar.png`
+  const placeholderAvatar = 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'
 
   const { t } = useTranslation('screens')
 

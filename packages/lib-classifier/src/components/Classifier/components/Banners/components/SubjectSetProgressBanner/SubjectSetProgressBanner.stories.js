@@ -52,7 +52,7 @@ export function Default({ already_seen, retired }) {
   return (
     <Box width='large'>
       <SubjectSetProgressBanner subject={subject} workflow={workflow} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
@@ -68,7 +68,7 @@ export function WithVisiblePriorityMetadata({ already_seen, retired }) {
   return (
     <Box width='large'>
       <SubjectSetProgressBanner subject={subject} workflow={workflow} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
@@ -82,7 +82,7 @@ export function WithVisiblePriorityMetadataAndRetired({
   return (
     <Box width='large'>
       <SubjectSetProgressBanner subject={subject} workflow={workflow} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
@@ -101,7 +101,7 @@ export function WithVisiblePriorityMetadataAndAlreadySeen({
   return (
     <Box width='large'>
       <SubjectSetProgressBanner subject={subject} workflow={workflow} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
@@ -116,7 +116,7 @@ export function WithRetiredSubject({ already_seen, retired }) {
   return (
     <Box width='large'>
       <SubjectSetProgressBanner subject={subject} workflow={workflow} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
@@ -131,7 +131,7 @@ export function WithAlreadySeenSubject({ already_seen, retired }) {
   return (
     <Box width='large'>
       <SubjectSetProgressBanner subject={subject} workflow={workflow} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
@@ -151,7 +151,7 @@ export function WithArrows({ already_seen, retired }) {
         subject={subject}
         workflow={workflow}
       />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }
