@@ -45,12 +45,10 @@ const Stat = styled(Box)`
   We have to manually add some legacy (static) stats to the UI.
   These numbers are not included in the fetch response for
   total volunteers or classifications.
-  https://github.com/zooniverse/Panoptes-Front-End/pull/4511
+  https://github.com/zooniverse/Panoptes-Front-End/pull/7167
 */
-const GZ123_COUNT = 98989226 // classifications
-const OUROBOROS_COUNT = 142800311 // classifications
-const OTHERS_COUNT = 8680290 // classifications
-const OUROBOROS_USER_COUNT = 124921 // volunteers
+const PREPANOPTES_COUNT = 25284786 // classifications
+const OUROBOROS_USER_COUNT = 114576 // volunteers
 
 export default function Stats() {
   const { t } = useTranslation()
@@ -62,7 +60,7 @@ export default function Stats() {
   const { data: volunteers } = useTotalVolunteerCount()
 
   const totalClassifications =
-    classifications + GZ123_COUNT + OUROBOROS_COUNT + OTHERS_COUNT
+    classifications + PREPANOPTES_COUNT
   const totalVolunteers = volunteers + OUROBOROS_USER_COUNT
 
   return (
