@@ -57,8 +57,7 @@ export default function Stats() {
 
   const { data: volunteers } = useTotalVolunteerCount()
 
-  const totalClassifications =
-    classifications + PREPANOPTES_COUNT
+  const totalClassifications = classifications + PREPANOPTES_COUNT
   const totalVolunteers = volunteers + OUROBOROS_USER_COUNT
 
   return (
