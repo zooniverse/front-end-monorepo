@@ -8,6 +8,7 @@ set -ev
 #   - Build `@zooniverse/react-components`
 #   - Build `@zooniverse/content`
 #   - Build `@zooniverse/lib-user`
+#   - Build `@zooniverse/lib-subject-viewers`
 #   - Build `@zooniverse/lib-classifier`
 
 
@@ -28,6 +29,10 @@ printf '\n'
 
 printf 'Building `lib-user`...\n'
 yarn workspace @zooniverse/user build:es6
+printf '\n'
+
+printf 'Building `lib-subject-viewers`...\n'
+yarn workspace @zooniverse/subject-viewers build:es6
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
