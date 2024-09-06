@@ -1,9 +1,20 @@
 import PropTypes from 'prop-types'
-import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
+import {
+  Anchor,
+  Box,
+  Button,
+  CheckBox,
+  FormField,
+  Grid,
+  ResponsiveContext,
+  Text,
+  TextInput
+} from 'grommet'
 
 import FieldLabel from '../../../../shared/components/FieldLabel'
 import withCustomFormik from '../../../../../helpers/withCustomFormik'
 import { useTranslation } from '../../../../../translations/i18n'
+import { useContext } from 'react'
 
 export const userNameFieldId = 'RegisterForm_username'
 export const passwordFieldId = 'RegisterForm_password'
@@ -44,7 +55,7 @@ const DEFAULT_VALUES = {
 const DEFAULT_HANDLER = () => true
 const DEFAULT_OBJECT = {}
 
-function Form ({
+function Form({
   errors = DEFAULT_OBJECT,
   handleBlur = DEFAULT_HANDLER,
   handleChange = DEFAULT_HANDLER,
@@ -53,6 +64,8 @@ function Form ({
   values = DEFAULT_VALUES
 }) {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
+
   const userNameFieldHelp = (values.underageWithParent)
     ? t('AuthModal.RegisterForm.underageNotRealName')
     : t('AuthModal.RegisterForm.usernameHelp')
@@ -69,9 +82,7 @@ function Form ({
   return (
     <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
       <Box>
-        <FormField
-          htmlFor={underageWithParentFieldId}
-        >
+        <FormField htmlFor={underageWithParentFieldId}>
           <CheckBox
             autoFocus
             checked={values.underageWithParent}
@@ -85,7 +96,7 @@ function Form ({
           />
         </FormField>
       </Box>
-      <Grid columns={['1fr', '1fr']} gap='medium'>
+      <Grid columns={size === 'small' ? ['1fr'] : ['1fr', '1fr']} gap='medium'>
         <Box>
           <FormField
             error={errors.username}
@@ -134,7 +145,11 @@ function Form ({
           <FormField
             error={errors.passwordConfirm}
             htmlFor={passwordConfirmFieldId}
-            label={<FieldLabel>{t('AuthModal.RegisterForm.passwordConfirm')}</FieldLabel>}
+            label={
+              <FieldLabel>
+                {t('AuthModal.RegisterForm.passwordConfirm')}
+              </FieldLabel>
+            }
             required
           >
             <TextInput
@@ -178,7 +193,11 @@ function Form ({
           <FormField
             error={errors.emailConfirm}
             htmlFor={emailConfirmFieldId}
-            label={<FieldLabel>{t('AuthModal.RegisterForm.emailConfirm')}</FieldLabel>}
+            label={
+              <FieldLabel>
+                {t('AuthModal.RegisterForm.emailConfirm')}
+              </FieldLabel>
+            }
             required
           >
             <TextInput
@@ -242,9 +261,7 @@ function Form ({
           </Text>
         </FormField>
 
-        <FormField
-          htmlFor={emailListSignUpFieldId}
-        >
+        <FormField htmlFor={emailListSignUpFieldId}>
           <CheckBox
             checked={values.emailListSignUp}
             disabled={isSubmitting}
@@ -257,9 +274,7 @@ function Form ({
           />
         </FormField>
 
-        <FormField
-          htmlFor={betaListSignUpFieldId}
-        >
+        <FormField htmlFor={betaListSignUpFieldId}>
           <CheckBox
             checked={values.betaListSignUp}
             disabled={isSubmitting}
@@ -275,7 +290,11 @@ function Form ({
 
       <Button
         disabled={isSubmitting}
-        label={(isSubmitting) ? t('AuthModal.RegisterForm.registering') : t('AuthModal.RegisterForm.register')}
+        label={
+          isSubmitting
+            ? t('AuthModal.RegisterForm.registering')
+            : t('AuthModal.RegisterForm.register')
+        }
         primary
         type='submit'
       />
