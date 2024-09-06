@@ -8,6 +8,7 @@ set -ev
 #   - Build `@zooniverse/react-components`
 #   - Build `@zooniverse/content`
 #   - Build `@zooniverse/lib-user`
+#   - Build `@zooniverse/lib-subject-viewers`
 #   - Build `@zooniverse/lib-classifier`
 
 
@@ -24,6 +25,10 @@ printf '\n'
 
 printf 'Building `lib-user`...\n'
 yarn workspace @zooniverse/user install --frozen-lockfile
+printf '\n'
+
+printf 'Building `lib-subject-viewers`...\n'
+yarn workspace @zooniverse/subject-viewers install --frozen-lockfile
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
