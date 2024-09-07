@@ -7,6 +7,7 @@ import SingleImageViewer from '../../components/SingleImageViewer'
 import SingleTextViewer from '../../components/SingleTextViewer'
 import SingleVideoViewer from '../../components/SingleVideoViewer'
 import SubjectGroupViewer from '../../components/SubjectGroupViewer'
+import { VolumetricViewerData } from '@zooniverse/subject-viewers'
 
 const viewers = {
   dataImage: DataImageViewer,
@@ -20,7 +21,8 @@ const viewers = {
   singleText: SingleTextViewer,
   singleVideo: SingleVideoViewer,
   subjectGroup: SubjectGroupViewer,
-  variableStar: JSONDataViewer
+  variableStar: JSONDataViewer,
+  volumetric: VolumetricViewerData
 }
 
 function getViewer (viewer) {

@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import Meta, { Default } from './ProtoViewer.stories.js'
+import Meta, { Default } from './VolumetricViewer.stories.js'
 
-describe('Component > ProtoViewer', function () {
+describe('Component > VolumetricViewer', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   before(function () {

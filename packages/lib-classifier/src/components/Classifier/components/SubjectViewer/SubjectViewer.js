@@ -7,6 +7,11 @@ import getViewer from './helpers/getViewer'
 
 function storeMapper(classifierStore) {
   const {
+    projects: {
+      active: {
+        experimental_tools
+      }
+    },
     subjects: {
       active: subject,
       loadingState: subjectQueueState
@@ -21,11 +26,16 @@ function storeMapper(classifierStore) {
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
   const transcriptionTasks = classifierStore?.workflowSteps.findTasksByType('transcription')
   const enableInteractionLayer = (drawingTasks.length > 0 || transcriptionTasks.length > 0)
+  const projectViewer = (experimental_tools.includes('volumetricViewer'))
+    ? 'volumetric'
+    : null
 
   return {
+    classifierStore,
     enableInteractionLayer,
     onError,
     onSubjectReady,
+    projectViewer,
     subject,
     subjectQueueState,
     subjectReadyState
@@ -33,9 +43,11 @@ function storeMapper(classifierStore) {
 }
 
 function SubjectViewer({
+  classifierStore,
   enableInteractionLayer,
   onError,
   onSubjectReady,
+  projectViewer,
   subject,
   subjectQueueState = asyncStates.initialized,
   subjectReadyState
@@ -53,20 +65,31 @@ function SubjectViewer({
       return null
     }
     case asyncStates.success: {
-      const Viewer = getViewer(subject?.viewer)
+      const Viewer = getViewer(projectViewer ?? subject?.viewer)
       
       if (Viewer) {
-        return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            subject={subject}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
-        )
+        if (!projectViewer) {
+          return (
+            <Viewer
+              enableInteractionLayer={enableInteractionLayer}
+              key={subject.id}
+              subject={subject}
+              loadingState={subjectReadyState}
+              onError={onError}
+              onReady={onSubjectReady}
+              viewerConfiguration={subject?.viewerConfiguration}
+            />
+          )
+        } else {
+          const subjectUrl = Object.values(subject.locations[0])[2];
+          const view = Viewer({ subjectUrl });
+          classifierStore.subjects.addViewerModels({ models: view.data.models });
+          const Component = view.component;
+          
+          return (
+            <Component {...view.data} />
+          )
+        }
       }
 
       return null

@@ -155,6 +155,29 @@ const ClassificationStore = types
           return Promise.resolve(true)
         }
 
+        // TRAVDO: Handle VolumetricViewer differently
+        const cs = getRoot(self);
+        const cp = cs.projects.toJSON();
+        const isVolumetric = cp.resources[cp.active].experimental_tools.includes('volumetricViewer');
+        if (isVolumetric) {
+          const annotations = cs.subjects.viewerModels.annotations.export();
+          classificationToSubmit.annotations = annotations.map(annotation => {
+            return {
+              task: 'T0',
+              taskType: 'drawing',
+              value: [
+                {
+                  frame: 0,
+                  toolIndex: 0,
+                  toolType: 'volumetricPoint',
+                  ...annotation
+                }
+              ]
+            }
+          })
+        }
+        // TRAVEND
+
         return self.submitClassification(classificationToSubmit)
       } else {
         if (process.browser) {
