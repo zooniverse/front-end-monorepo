@@ -55,7 +55,7 @@ const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
 function Default404() {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
-  const backgroundURL = `/assets/404/background${randomImage}.jpg`
+  const backgroundURL = `https://static.zooniverse.org/fem-assets/404/background${randomImage}.jpg`
 
   return (
     <ThemeContext.Extend value={customTheme}>
@@ -66,7 +66,7 @@ function Default404() {
             id='404-logo'
             width={logoSize(size)}
             alt='404 logo'
-            src='/assets/404/logoWhite404.png'
+            src='https://static.zooniverse.org/fem-assets/404/logoWhite404.png'
             margin={{ bottom: 'xxsmall' }}
           />
           <Heading level='1' textAlign='center' fill color='white' size={size}>

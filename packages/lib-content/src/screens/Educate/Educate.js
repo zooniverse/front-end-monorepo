@@ -94,17 +94,17 @@ function Educate() {
             <StyledAnchor
               href='https://blog.zooniverse.org/2020/03/18/zooniverse-remote-online-learning-resources'
               label={t('Educate.buttons.one')}
-              imgSrc='/assets/educate-btn1.jpg'
+              imgSrc='https://static.zooniverse.org/fem-assets/educate-btn1.jpg'
             />
             <StyledAnchor
               href='https://classroom.zooniverse.org/#/zooniverse-in-schools'
               label={t('Educate.buttons.two')}
-              imgSrc='/assets/educate-btn2.jpg'
+              imgSrc='https://static.zooniverse.org/fem-assets/educate-btn2.jpg'
             />
             <StyledAnchor
               href='https://blog.zooniverse.org/2022/07/13/zooniverse-based-activities-for-undergraduates-are-here'
               label={t('Educate.buttons.three')}
-              imgSrc='/assets/educate-btn3.jpg'
+              imgSrc='https://static.zooniverse.org/fem-assets/educate-btn3.jpg'
             />
           </Box>
 

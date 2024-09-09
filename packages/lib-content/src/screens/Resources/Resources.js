@@ -211,7 +211,7 @@ function Resources() {
                 <ResourceLogo>
                   <Image
                     alt=''
-                    src='/assets/brand-links-two.png' // public folder in app-root
+                    src='https://static.zooniverse.org/fem-assets/brand-links-two.png'
                     fit='cover'
                   />
                 </ResourceLogo>
@@ -232,7 +232,7 @@ function Resources() {
                 <ResourceLogo>
                   <Image
                     alt=''
-                    src='/assets/brand-links-three.png' // public folder in app-root
+                    src='https://static.zooniverse.org/fem-assets/brand-links-three.png'
                     fit='cover'
                   />
                 </ResourceLogo>
@@ -247,7 +247,7 @@ function Resources() {
                 <ResourceLogo>
                   <Image
                     alt=''
-                    src='/assets/brand-links-four.png' // public folder in app-root
+                    src='https://static.zooniverse.org/fem-assets/brand-links-four.png'
                     fit='cover'
                   />
                 </ResourceLogo>

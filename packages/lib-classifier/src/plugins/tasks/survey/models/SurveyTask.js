@@ -40,7 +40,7 @@ const Survey = types.model('Survey', {
   // alwaysShowThumbnails is deprecated in favor of the `thumbnails` property
   alwaysShowThumbnails: types.maybe(types.boolean),
   annotation: types.safeReference(SurveyAnnotation),
-  characteristics: types.optional(types.map(Characteristic), {}),
+  characteristics: types.map(Characteristic),
   characteristicsOrder: types.array(types.string),
   choices: types.map(Choice),
   choicesOrder: types.array(types.string),

@@ -100,12 +100,7 @@ export default function CharacteristicSection({
 CharacteristicSection.propTypes = {
   characteristic: PropTypes.shape({
     label: PropTypes.string,
-    values: PropTypes.objectOf(
-      PropTypes.shape({
-        image: PropTypes.string,
-        label: PropTypes.string
-      })
-    ),
+    values: MobXPropTypes.observableMap,
     valuesOrder: PropTypes.arrayOf(PropTypes.string)
   }),
   characteristicId: PropTypes.string,

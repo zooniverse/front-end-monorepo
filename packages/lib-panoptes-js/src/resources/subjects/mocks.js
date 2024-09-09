@@ -8,7 +8,7 @@ const subject = {
   id: '1',
   links: { project: '1' },
   locations: [{
-    'image/png': 'https://placekitten.com/408/287'
+    'image/png': 'https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
   }],
   metadata: {},
   updated_at: '2015-03-17T13:45:40.297Z',
