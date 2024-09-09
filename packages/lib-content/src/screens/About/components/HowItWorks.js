@@ -287,7 +287,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             <Image
               alt='The Adler Planetarium'
               width='100px'
-              src='/assets/adler.png'
+              src='https://static.zooniverse.org/fem-assets/adler.png'
               fit='contain'
             />
           </Institute>
@@ -295,7 +295,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             <Image
               alt='University of Minnesota'
               width='100%'
-              src='/assets/minnesota.png'
+              src='https://static.zooniverse.org/fem-assets/minnesota.png'
               fit='contain'
             />
           </Institute>
@@ -303,7 +303,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             <Image
               alt='University of Oxford'
               width='75px'
-              src='/assets/oxford.jpg'
+              src='https://static.zooniverse.org/fem-assets/oxford.jpg'
               fit='contain'
             />
           </Institute>

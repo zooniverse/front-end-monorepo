@@ -90,13 +90,13 @@ export default function Hero() {
       {size !== 'small' && !prefersReducedMotion ? (
         <Box fill>
           <video loop disablePictureInPicture muted preload='metadata' ref={videoRef}>
-            <source type='video/webm' src='/assets/home-video.webm' />
-            <source type='video/mp4' src='/assets/home-video.mp4' />
+            <source type='video/webm' src='https://static.zooniverse.org/fem-assets/home-video.webm' />
+            <source type='video/mp4' src='https://static.zooniverse.org/fem-assets/home-video.mp4' />
           </video>
         </Box>
       ) : (
         <HeroImage
-          background={`url(${'/assets/home-video-placeholder.jpg'})`}
+          background={`url(${'https://static.zooniverse.org/fem-assets/home-video-placeholder.jpg'})`}
         />
       )}
       <HeroCopy justify='center' align='center' pad='medium'>

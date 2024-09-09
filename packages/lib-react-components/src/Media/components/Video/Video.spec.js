@@ -3,7 +3,7 @@ import { Video as GrommetVideo } from 'grommet'
 
 import Video from './Video'
 
-const video = 'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4'
+const video = 'https://static.zooniverse.org/fem-assets/home-video.mp4'
 
 describe('Video', function () {
   it('should render without crashing', function () {

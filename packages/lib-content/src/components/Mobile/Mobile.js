@@ -8,7 +8,7 @@ export default function Mobile() {
       <Box align='center'>
         <Image
           alt={t('AboutPage.mobile.altImage')}
-          src='/assets/phone.png'
+          src='https://static.zooniverse.org/fem-assets/phone.png'
           width='300px'
           margin={{ vertical: '30px' }}
         />
@@ -22,7 +22,7 @@ export default function Mobile() {
         >
           <Image
             alt={t('AboutPage.mobile.altAppStore')}
-            src='/assets/app-store.png'
+            src='https://static.zooniverse.org/fem-assets/app-store.png'
             width='140px'
           />
         </Button>
@@ -33,7 +33,7 @@ export default function Mobile() {
         >
           <Image
             alt={t('AboutPage.mobile.altPlayStore')}
-            src='/assets/google-play.png'
+            src='https://static.zooniverse.org/fem-assets/google-play.png'
             width='140px'
           />
         </Button>
