@@ -38,6 +38,7 @@
     "@visx/shape": "~3.5.0",
     "@visx/zoom": "~3.3.0",
     "@zooniverse/async-states": "~0.0.1",
+    "@zooniverse/subject-viewers": "0.1.0",
     "cuid": "~3.0.0",
     "d3": "~6.7.0",
     "graphql": "~16.9.0",
