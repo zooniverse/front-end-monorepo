@@ -1,7 +1,5 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
-import { Box, Paragraph, Text } from 'grommet'
-import getConfig from 'next/config'
-import Image from 'next/image'
+import { Box, Image, Paragraph, Text } from 'grommet'
 import { array, number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
@@ -22,9 +20,7 @@ function SubjectSetCard ({
 }) {
   const { t } = useTranslation('components')
   const [subject] = subjects
-  const { publicRuntimeConfig = {} } = getConfig() || {}
-  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderUrl = `${assetPrefix}/assets/subject-placeholder.png`
+  const placeholderUrl = 'https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
   const subjectURLs = subject ? subject.locations.map(location => Object.values(location)[0]) : []
   const alt = subject ? `Subject ${subject.id}` : 'Loading'
   const percentComplete = parseInt(100 * completeness)

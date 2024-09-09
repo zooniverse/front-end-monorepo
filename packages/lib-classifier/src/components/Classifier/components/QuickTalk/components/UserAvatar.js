@@ -2,9 +2,7 @@ import PropTypes from 'prop-types'
 import { Box, Image } from 'grommet'
 import { useTranslation } from '@translations/i18n'
 
-// TEMPORARY
-// TODO: find a permanent home for this PNG
-const DEFAULT_AVATAR = 'https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png'
+const DEFAULT_AVATAR = 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'
 
 function UserAvatar ({
   src,

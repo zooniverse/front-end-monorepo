@@ -188,7 +188,7 @@ export default function Dashboard({ user, userLoading }) {
             fit='contain'
             src={
               !user?.avatar_src || userLoading
-                ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+                ? 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'
                 : user?.avatar_src
             }
           />
