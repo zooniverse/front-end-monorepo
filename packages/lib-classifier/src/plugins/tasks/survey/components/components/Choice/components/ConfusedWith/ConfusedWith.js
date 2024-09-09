@@ -73,7 +73,7 @@ function ConfusedWith({
                 />
               }
               dropProps={{
-                elevation: 'xlarge',
+                elevation: 'none',
                 overflow: 'visible',
                 responsive: false
               }}
