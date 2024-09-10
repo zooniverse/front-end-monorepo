@@ -51,7 +51,7 @@ export const examples = [
   },
   {
     label: 'video (using image syntax)',
-    content: '![alt](https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4)'
+    content: '![alt](https://static.zooniverse.org/fem-assets/home-video.mp4)'
   },
   {
     label: 'audio (using image syntax)',

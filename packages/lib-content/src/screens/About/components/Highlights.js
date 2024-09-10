@@ -45,7 +45,7 @@ export default function Highlights() {
         <Box>
           <Image
             alt={t('AboutPage.highlights.pictures.one')}
-            src='/assets/into-the-zooniverse1.jpg'
+            src='https://static.zooniverse.org/fem-assets/into-the-zooniverse1.jpg'
             fit='contain'
             width='100%'
           />
@@ -53,7 +53,7 @@ export default function Highlights() {
         <Box>
           <Image
             alt={t('AboutPage.highlights.pictures.two')}
-            src='/assets/into-the-zooniverse2.png'
+            src='https://static.zooniverse.org/fem-assets/into-the-zooniverse2.png'
             fit='contain'
             width='100%'
 
@@ -62,7 +62,7 @@ export default function Highlights() {
         <Box>
           <Image
             alt={t('AboutPage.highlights.pictures.three')}
-            src='/assets/into-the-zooniverse3.jpg'
+            src='https://static.zooniverse.org/fem-assets/into-the-zooniverse3.jpg'
             fit='contain'
             width='99%' // minor adjustment to align these images top/bottom
           />
