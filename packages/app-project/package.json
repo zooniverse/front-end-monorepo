@@ -30,7 +30,6 @@
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
     "@zooniverse/react-components": "~1.13.0",
-    "@zooniverse/subject-viewers": "0.1.0",
     "cookie": "~0.6.0",
     "d3": "~6.7.0",
     "engine.io-client": "~6.5.0",
@@ -61,6 +60,9 @@
     "swr": "~2.2.0",
     "validator": "~13.11.0"
   },
+	"peerDependencies": {
+    "@zooniverse/subject-viewers": "0.1.0"
+	},
   "devDependencies": {
     "@babel/register": "~7.23.7",
     "@storybook/addon-a11y": "~7.6.11",
