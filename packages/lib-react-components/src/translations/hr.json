@@ -10,7 +10,6 @@
       "about": "O Zooniversu",
       "publications": "Publikacije",
       "team": "Naš tim",
-      "acknowledgements": "Citiranje",
       "contact": "Kontaktirajte nas",
       "faq": "Često postavljana pitanja"
     },
@@ -19,8 +18,7 @@
     },
     "getInvolvedLabels": {
       "getInvolved": "Uključi se",
-      "education": "Edukacija",
-      "callForProjects": "Poziv za projekte"
+      "educate": "Edukacija"
     },
     "projectLabels": {
       "projects": "Projekti"

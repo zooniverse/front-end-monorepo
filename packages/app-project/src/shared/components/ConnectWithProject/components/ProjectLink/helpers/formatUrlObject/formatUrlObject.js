@@ -7,7 +7,7 @@ import {
   Pinterest as PinterestIcon,
   Reddit as RedditIcon,
   Tumblr as TumblrIcon,
-  Twitter as TwitterIcon,
+  X as TwitterIcon,
   Wordpress as WordPressIcon,
   Youtube as YouTubeIcon
 } from 'grommet-icons'
