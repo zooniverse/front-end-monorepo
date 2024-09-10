@@ -218,7 +218,7 @@
       "question": "How do I know if I'm doing this right?"
     },
     "item2": {
-      "answer": "Your classifications are stored in the Zooniverse's secure online database. Project research teams download their project’s classification data and combine the multiple submissions together to create a ‘final’ response for each subject.",
+      "answer": "Your classifications are stored in the Zooniverse's secure online database. Project research teams download their project’s classification data and combine the multiple submissions together to create a ‘final’ response for each subject. Once you have submitted your classification for a given subject, you can't go back and edit it. For information about data ownership, please see our <0>Zooniverse User Agreement and Privacy Policy</0> page.",
       "question": "What happens to my classification after I submit it?"
     },
     "item3": {
@@ -230,7 +230,7 @@
       "question": "What does the Zooniverse do with my account information?"
     },
     "item5": {
-      "answer": "You can post your suggestions for new features and report bugs via the <0>Zooniverse Talk</0> or through the <1>Github repository.</1>",
+      "answer": "You can post your suggestions for new features and report bugs via <0>Zooniverse Talk</0>, through an Issue on the relevant <1>Github repository</1>, or <2>contact us</2>.",
       "question": "I have a feature request or found a bug; who should I talk to/how do I report it?"
     },
     "item6": {

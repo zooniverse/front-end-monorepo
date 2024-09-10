@@ -74,7 +74,18 @@ function FAQPage() {
               </Box>
               <Box as='li'>
                 <Question>{t('FAQ.item2.question')}</Question>
-                <Answer>{t('FAQ.item2.answer')}</Answer>
+                <Answer>
+                  <Trans
+                    i18nKey='FAQ.item2.answer'
+                    t={t}
+                    components={[
+                      <Anchor
+                        key='privacy-policy'
+                        href='https://www.zooniverse.org/privacy'
+                      />
+                    ]}
+                  />
+                </Answer>
               </Box>
               {/** Okay to enable with launch of new homepage */}
               {/* <Box as='li'>
@@ -120,7 +131,8 @@ function FAQPage() {
                       <Anchor
                         key='FEM-github-issues'
                         href='https://github.com/zooniverse'
-                      />
+                      />,
+                      <Anchor key='contact-us' href='/about#contact' />
                     ]}
                   />
                 </Answer>
