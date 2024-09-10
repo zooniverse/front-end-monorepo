@@ -62,10 +62,10 @@
   "ZooFooter": {
     "aboutLabels": {
       "about": "Translated",
-      "acknowledgements": "Translated",
       "contact": "Translated",
       "faq": "Translated",
       "publications": "Translated",
+      "resources": "Translated",
       "team": "Translated"
     },
     "buildLabels": {
@@ -76,15 +76,11 @@
       "tutorial": "Translated"
     },
     "getInvolvedLabels": {
-      "callForProjects": "Translated",
-      "collections": "Translated",
-      "education": "Translated",
-      "getInvolved": "Translated"
-    },
-    "newsLabels": {
-      "blog": "Translated",
-      "dailyZooniverse": "Translated",
-      "news": "Translated"
+      "collaborate": "Translated",
+      "donate": "Translated",
+      "educate": "Translated",
+      "getInvolved": "Translated",
+      "volunteer": "Translated"
     },
     "policyLabels": {
       "jobs": "Translated",
@@ -97,7 +93,11 @@
     },
     "tagLine": "Translated",
     "talkLabels": {
-      "talk": "Translated"
+      "announcements": "Translated",
+      "data": "Translated",
+      "projectBuilding": "Translated",
+      "talk": "Translated",
+      "troubleshooting": "Translated"
     },
     "zooniversePolicies": "Translated"
   },
