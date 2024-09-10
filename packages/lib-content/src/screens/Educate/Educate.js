@@ -152,7 +152,8 @@ function Educate() {
                     components={[
                       <Anchor
                         key='group-stats-announcement'
-                        href='' // Need url after blog post
+                        href='' // Need url after blog post,
+                        // Add the sentence "Read our annoucement for more details, and tag <0>annoucement</0>"
                       />
                     ]}
                   />
@@ -197,6 +198,8 @@ function Educate() {
                   <Trans
                     i18nKey='Educate.forEducators.paragraphs.three'
                     t={t}
+                    // Updated blog post text coming in October
+                    // "See this <0>blog post</0> for details."
                     components={[
                       <Anchor
                         key='group-stats-announcement'
@@ -236,7 +239,7 @@ function Educate() {
                 '...'
               }
               title={t('Educate.articles.two.title')}
-              url='https://astroedjournal.org/index.php/ijae/article/view/43'
+              url='https://blog.zooniverse.org/2019/08/14/uscientist-and-the-galaxy-zoo-touch-table-at-adler-planetarium'
             />
             <Article
               date={t('Educate.articles.three.datePublished')}
@@ -247,7 +250,7 @@ function Educate() {
                 ) + '...'
               }
               title={t('Educate.articles.three.title')}
-              url='https://astroedjournal.org/index.php/ijae/article/view/43'
+              url='https://www.bpl.org/blogs/post/8th-graders-in-missouri-transcribe-anti-slavery-documents-and-learn-about-the-abolitionist-movement'
             />
             <Article
               date={t('Educate.articles.four.datePublished')}
@@ -258,7 +261,7 @@ function Educate() {
                 ) + '...'
               }
               title={t('Educate.articles.four.title')}
-              url='https://astroedjournal.org/index.php/ijae/article/view/43'
+              url='https://blog.zooniverse.org/2015/04/29/floating-forests-teaching-young-children-about-kelp'
             />
           </Box>
 

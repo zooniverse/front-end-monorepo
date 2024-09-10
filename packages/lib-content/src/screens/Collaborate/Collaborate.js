@@ -10,7 +10,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '../../components/SharedStyledComponents/SharedStyledComponents.js'
-import { Supporters, SelectedCollaborators} from './Logos.js'
+import { Supporters, SelectedCollaborators } from './Logos.js'
 
 function Collaborate() {
   const { t } = useTranslation()
@@ -38,13 +38,16 @@ function Collaborate() {
           >
             {t('Collaborate.subheadings.one')}
           </SpacedHeading>
-          <Paragraph margin={{ top: '0' }}>{t('Collaborate.paragraphs.one')}</Paragraph>
+          <Paragraph margin={{ top: '0' }}>
+            {t('Collaborate.paragraphs.one')}
+          </Paragraph>
           <Paragraph margin='0'>{t('Collaborate.paragraphs.two')}</Paragraph>
           <Paragraph>
             <Trans
               i18nKey='Collaborate.paragraphs.three'
               t={t}
               components={[
+                <Anchor key='lab' href='https://www.zooniverse.org/lab' />,
                 <Anchor
                   key='best-practices'
                   href='https://docs.google.com/document/d/1SJmOdGmpzYGyKpSnFt_tEe_BZIc2Bzmc3kKlWw-gX68'
@@ -52,7 +55,15 @@ function Collaborate() {
               ]}
             />
           </Paragraph>
-          <Paragraph margin='0'>{t('Collaborate.paragraphs.four')}</Paragraph>
+          <Paragraph margin='0'>
+            <Trans
+              i18nKey='Collaborate.paragraphs.four'
+              t={t}
+              components={[
+                <Anchor key='lab' href='https://www.zooniverse.org/lab' />
+              ]}
+            />
+          </Paragraph>
           <Paragraph margin={{ bottom: 'medium' }}>
             <Trans
               i18nKey='Collaborate.paragraphs.five'
@@ -62,33 +73,18 @@ function Collaborate() {
           </Paragraph>
 
           {/** Our Supporters */}
-          <SpacedHeading
-            level={3}
-            size='1.5rem'
-            textAlign='center'
-            fill
-          >
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
             {t('Collaborate.subheadings.two')}
           </SpacedHeading>
           <Supporters />
 
           {/** Selected Collaborators */}
-          <SpacedHeading
-            level={3}
-            size='1.5rem'
-            textAlign='center'
-            fill
-          >
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
             {t('Collaborate.subheadings.three')}
           </SpacedHeading>
           <SelectedCollaborators />
 
-          <SpacedHeading
-            level={3}
-            size='1.5rem'
-            textAlign='center'
-            fill
-          >
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
             {t('Collaborate.subheadings.four')}
           </SpacedHeading>
           <Paragraph>{t('Collaborate.paragraphs.six')}</Paragraph>
@@ -98,17 +94,15 @@ function Collaborate() {
               i18nKey='Collaborate.paragraphs.eight'
               t={t}
               components={[
-                <Anchor key='direct-email-cliff' href='mailto:cliff@zooniverse.org' />
+                <Anchor
+                  key='direct-email-cliff'
+                  href='mailto:cliff@zooniverse.org'
+                />
               ]}
             />
           </Paragraph>
 
-          <SpacedHeading
-            level={3}
-            size='1.5rem'
-            textAlign='center'
-            fill
-          >
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
             {t('Collaborate.subheadings.five')}
           </SpacedHeading>
           <Paragraph>
