@@ -84,11 +84,13 @@ function UserStatsContainer({
     page_size: 100
   })
 
+  const error = userError || statsError || projectStatsError || projectsError
   const loading = userLoading || statsLoading || projectStatsLoading || projectsLoading
 
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
+      error={error}
       loading={loading}
       paramsValidationMessage={paramsValidationMessage}
       projectStats={projectStats}

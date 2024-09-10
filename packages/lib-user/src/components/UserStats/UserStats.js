@@ -28,6 +28,7 @@ const DEFAULT_USER = {
 
 function UserStats({
   allProjectsStats = DEFAULT_STATS,
+  error = undefined,
   loading = false,
   paramsValidationMessage = '',
   projectStats = DEFAULT_STATS,
@@ -52,6 +53,7 @@ function UserStats({
       }
     >
       <MainContent
+        error={error}
         loading={loading}
         paramsValidationMessage={paramsValidationMessage}
         projects={projects}
@@ -64,6 +66,7 @@ function UserStats({
       />
       <TopProjects
         allProjectsStats={allProjectsStats}
+        loading={loading}
         projects={projects}
       />
     </Layout>

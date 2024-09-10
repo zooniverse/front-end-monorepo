@@ -1,0 +1,5 @@
+build
+dist
+
+# Ignore static asset generation
+storybook-static/*

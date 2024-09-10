@@ -25,8 +25,8 @@ async function fetchMemberships({ query }) {
     const { body } = await panoptes.get('/memberships', query, { authorization })
     return body
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw error
   }
 }
 

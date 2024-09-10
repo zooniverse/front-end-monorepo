@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - refactor `AnimatedNumber` to fix a bug where deferred values are displayed as 0.
+- Style RegisterForm as one column for `small` screensize.
 
 ## [1.13.0] 2024-05-17
 

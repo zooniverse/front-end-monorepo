@@ -72,7 +72,7 @@ export async function getStaticProps({ locale }) {
 export default function Error404({ locale = 'en' }) {
   const { t } = useTranslation('components')
   const size = useContext(ResponsiveContext)
-  const backgroundURL = `/projects/assets/background${randomImage}.jpg`
+  const backgroundURL = `https://static.zooniverse.org/fem-assets/404/background${randomImage}.jpg`
 
   return (
     <ThemeContext.Extend value={customTheme}>
@@ -84,7 +84,7 @@ export default function Error404({ locale = 'en' }) {
             id='404-logo'
             width={logoSize(size)}
             alt='404 logo'
-            src='/projects/assets/logoWhite404.png'
+            src='https://static.zooniverse.org/fem-assets/404/logoWhite404.png'
             margin={{ bottom: 'xxsmall' }}
           />
           <Heading level='1' textAlign='center' fill color='white' size={size}>
