@@ -54,7 +54,7 @@ function SingleImageViewer({
       >
         <PlaceholderSVG
           focusable
-          maxHeight={svgMaxHeight}
+          height={svgMaxHeight}
           maxWidth={limitSubjectHeight ? `${width}px` : '100%'}
           onKeyDown={onKeyDown}
           tabIndex={0}
