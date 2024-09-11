@@ -11,7 +11,7 @@ import client from '../../../utils/contentfulClient.js'
 import mockResponse from './response.mock.json'
 
 export const metadata = {
-  title: 'Our Team',
+  title: 'Publications',
   description: 'The people who make the Zooniverse'
 }
 
