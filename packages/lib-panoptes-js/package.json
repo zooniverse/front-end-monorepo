@@ -28,7 +28,7 @@
     "mocha": "~10.7.3",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.5.1",
-    "sinon": "~17.0.0",
+    "sinon": "~18.0.1",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0"
   },

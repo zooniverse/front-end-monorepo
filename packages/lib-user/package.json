@@ -82,7 +82,7 @@
     "nock": "~13.5.4",
     "process": "~0.11.10",
     "prop-types": "^15.8.1",
-    "sinon": "~17.0.0",
+    "sinon": "~18.0.1",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
