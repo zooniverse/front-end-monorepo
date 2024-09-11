@@ -151,17 +151,17 @@ spec:
               cpu: "1000m"
           startupProbe:
             httpGet:
-              path: /about/Index
+              path: /about
               port: 3000
             failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /about/Index
+              path: /about
               port: 3000
             timeoutSeconds: 10
           readinessProbe:
             httpGet:
-              path: /about/Index
+              path: /about
               port: 3000
             initialDelaySeconds: 20
             timeoutSeconds: 10
