@@ -4,15 +4,30 @@
 import { NextResponse } from 'next/server'
 
 export function middleware(req) {
+  /*
+    Bypass /assets.
+  */
+  if (pathname.startsWith('/assets')) {
+    return NextResponse.next()
+  }
+  /*
+        Bypass internal NextJS requests.
+      */
+  if (pathname.startsWith('/_next')) {
+    return NextResponse.next()
+  }
   /* This is a temporary mocked env */
   if (req.nextUrl.pathname.startsWith('/mock/wrong')) {
     return NextResponse.redirect(new URL('/mock', req.url))
   }
-  
+
   /*
     Redirect legacy PFE /about and /get-involved paths to new FEM paths
   */
-  if (req.nextUrl.pathname.startsWith('/about/acknowledgments') || req.nextUrl.pathname.startsWith('/about/acknowledgements')) {
+  if (
+    req.nextUrl.pathname.startsWith('/about/acknowledgments') ||
+    req.nextUrl.pathname.startsWith('/about/acknowledgements')
+  ) {
     return NextResponse.redirect(new URL('/about/resources', req.url))
   }
 
