@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import Meta, { Default, Dismissable } from './GenericAnnouncement.stories.js'
 
-describe('Component > ProjectAnnouncement', function () {
+describe('Component > GenericAnnouncement', function () {
 	it('should render the GenericProjectAnnouncement component without a close button', function () {
 		const DefaultStory = composeStory(Default, Meta)
 		render(<DefaultStory />)
