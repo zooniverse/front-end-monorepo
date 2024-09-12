@@ -3,15 +3,15 @@ import { AboutHeader } from '@zooniverse/content'
 export default function MockPage() {
   const links = [
     {
-      href: '/mock',
+      href: '/',
       label: 'Mock'
     },
     {
-      href: '/mock/resources',
+      href: '/resources',
       label: 'Resources'
     },
     {
-      href: '/mock/faq',
+      href: '/faq',
       label: 'FAQ'
     }
   ]
@@ -19,7 +19,7 @@ export default function MockPage() {
   return (
     <>
       <AboutHeader links={links} navTitle='Mock' />
-      <p>This is /mock</p>
+      <p>This is /mock/resources</p>
     </>
   )
 }
