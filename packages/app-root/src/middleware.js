@@ -4,6 +4,11 @@
 import { NextResponse } from 'next/server'
 
 export function middleware(req) {
+  /* This is a temporary mocked env */
+  if (req.nextUrl.pathname.startsWith('/mock/wrong')) {
+    return NextResponse.redirect(new URL('/mock', req.url))
+  }
+  
   /*
     Redirect legacy PFE /about and /get-involved paths to new FEM paths
   */
@@ -45,5 +50,5 @@ export function middleware(req) {
 
 /* Only care about /about and /get-involved routes */
 export const config = {
-  matcher: ['/about/:path*', '/get-involved/:paths*']
+  matcher: ['/mock/:path*', '/about/:path*', '/get-involved/:paths*']
 }

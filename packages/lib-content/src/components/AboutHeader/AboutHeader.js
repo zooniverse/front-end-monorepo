@@ -1,3 +1,5 @@
+'use client'
+
 import { Box } from 'grommet'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 import styled from 'styled-components'
