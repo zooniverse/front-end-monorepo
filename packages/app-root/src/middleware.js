@@ -7,13 +7,13 @@ export function middleware(req) {
   /*
     Bypass /assets.
   */
-  if (pathname.startsWith('/assets')) {
+  if (req.nextUrl.pathname.startsWith('/assets')) {
     return NextResponse.next()
   }
   /*
         Bypass internal NextJS requests.
       */
-  if (pathname.startsWith('/_next')) {
+  if (req.nextUrl.pathname.startsWith('/_next')) {
     return NextResponse.next()
   }
   /* This is a temporary mocked env */
