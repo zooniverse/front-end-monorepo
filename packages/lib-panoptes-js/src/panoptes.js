@@ -40,6 +40,7 @@ function parseHeaders(headers = {}) {
   return httpHeaders
 }
 
+// Note: if it makes the code more readable, we can merge getQueryParams into getQueryString.
 function getQueryParams (query) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
@@ -50,6 +51,18 @@ function getQueryParams (query) {
   } else {
     return defaultParams
   }
+}
+
+/*
+Converts a query object (e.g. { foo: 'bar', img: 'http://foo.bar/baz.jpg' })
+into a query string (e.g. "foo=bar&img=http%3A%2F%2Ffoo.bar%")
+ */
+function getQueryString (query) {
+  const queryParams = getQueryParams(query)
+  let queryString = Object.entries(queryParams)
+    .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
+    .join('&')
+  return queryString.length > 0 ? `?${queryString}` : ''
 }
 
 // TODO: Consider how to integrate a GraphQL option
