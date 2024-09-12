@@ -57,12 +57,19 @@ function getQueryParams (query) {
 Converts a query object (e.g. { foo: 'bar', img: 'http://foo.bar/baz.jpg' })
 into a query string (e.g. "foo=bar&img=http%3A%2F%2Ffoo.bar%")
  */
-function getQueryString (query) {
+function getQueryString (query, endpoint = '') {
   const queryParams = getQueryParams(query)
   let queryString = Object.entries(queryParams)
+    .filter(([key, val]) => val !== undefined)
     .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
     .join('&')
-  return queryString.length > 0 ? `?${queryString}` : ''
+  
+  if (queryString.length > 0) {
+    return endpoint.includes('?')
+      ? `&${queryString}`  // If endpoint already has a query '?', prepend the query string with a '&'.
+      : `?${queryString}`  //  Otherwise, prepend with a '?'.
+  }
+  return ''
 }
 
 // TODO: Consider how to integrate a GraphQL option
@@ -71,16 +78,24 @@ function get (endpoint, query = {}, headers = {}, host) {
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
   const apiHost = determineHost(query, host)
-  const request = superagent.get(`${apiHost}${endpoint}`)
-    .set('Content-Type', 'application/json')
-    .set('Accept', 'application/vnd.api+json; version=1')
+  const queryString = getQueryString(query, endpoint)
+  const fetchHeaders = Object.assign({
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.api+json; version=1',
+  }, parseHeaders(headers))
+  const fetchUrl = `${apiHost}${endpoint}${queryString}`
 
-  if (headers){
-    request.set(parseHeaders(headers))
-  }
-  const queryParams = getQueryParams(query)
-
-  return request.query(queryParams).then(response => response)
+  return fetch(fetchUrl, {
+    headers: fetchHeaders,
+  })
+  // HACK: convert fetch response into superagent response structure
+  .then(response => response.json())
+  .then(data => ({   
+    // TODO: we're still missing a lot of the superagent responses!
+    // e.g. response.status, actual response.ok, response.headers
+    body: data,
+    ok: true,
+  }))
 }
 
 function post (endpoint, data, headers = {}, query = {}, host) {
