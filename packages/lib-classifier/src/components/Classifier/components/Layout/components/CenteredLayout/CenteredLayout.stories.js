@@ -90,10 +90,16 @@ const surveyWorkflowSnapshot = WorkflowFactory.build({
   tasks: { T0: task }
 })
 
-export function WithSurveyTask({ separateFramesView, usesSurveyTask = true }) {
+export function WithSurveyTask({
+  separateFramesView,
+  usesSurveyTask = true
+}) {
   return (
     <Provider classifierStore={WithSurveyTask.store}>
-      <CenteredLayout separateFramesView={separateFramesView} usesSurveyTask={usesSurveyTask} />
+      <CenteredLayout
+        separateFramesView={separateFramesView}
+        usesSurveyTask={usesSurveyTask}
+      />
     </Provider>
   )
 }
