@@ -5,23 +5,6 @@ import { NextResponse } from 'next/server'
 
 export function middleware(req) {
   /*
-    Bypass /assets.
-  */
-  if (req.nextUrl.pathname.startsWith('/assets')) {
-    return NextResponse.next()
-  }
-  /*
-        Bypass internal NextJS requests.
-      */
-  if (req.nextUrl.pathname.startsWith('/_next')) {
-    return NextResponse.next()
-  }
-  /* This is a temporary mocked env */
-  if (req.nextUrl.pathname.startsWith('/mock/wrong')) {
-    return NextResponse.redirect(new URL('/mock', req.url))
-  }
-
-  /*
     Redirect legacy PFE /about and /get-involved paths to new FEM paths
   */
   if (
@@ -65,5 +48,5 @@ export function middleware(req) {
 
 /* Only care about /about and /get-involved routes */
 export const config = {
-  matcher: ['/mock/:path*', '/about/:path*', '/get-involved/:paths*']
+  matcher: ['/about/:path*', '/get-involved/:paths*']
 }
