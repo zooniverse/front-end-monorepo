@@ -19,7 +19,7 @@ function GenericAnnouncement({
       fill='horizontal'
       background={color}
       align='center'
-      pad={{ horizontal: 'small', vertical: 'xsmall' }}
+      pad={{ horizontal: 'medium', vertical: 'xsmall' }}
       gap='small'
       justify='between'
     >
@@ -33,7 +33,7 @@ function GenericAnnouncement({
         <Markdownz components={markdownzComponents}>{announcement}</Markdownz>
         {children}
       </Box>
-      {dismissable && <CloseButton closeFn={closeFn} />}
+      {dismissable && <CloseButton color='black' closeFn={closeFn} />}
     </Box>
   )
 }
