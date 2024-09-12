@@ -15,11 +15,6 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@artsy/fresnel@~7.1.2":
-  version "7.1.4"
-  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-7.1.4.tgz#63221d41ea7285379510347d886dc3aa8b2d0cfd"
-  integrity sha512-qbUdxzlcI9Q9Ez+HfYDq7hlLoeFKC8EKcCckW+EltWu9SWL3px4QZIkr7NwYEz13q/nLvAlHMnbJ3TpSEEZ1zg==
-
 "@asamuzakjp/dom-selector@^2.0.1":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@asamuzakjp/dom-selector/-/dom-selector-2.0.2.tgz#160f601d9a465bbdf641410afdc527f37325506e"
