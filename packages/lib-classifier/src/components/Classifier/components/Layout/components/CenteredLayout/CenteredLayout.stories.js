@@ -1,6 +1,7 @@
 import { Provider } from 'mobx-react'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
+import { task } from '@plugins/tasks/survey/mock-data'
 
 import CenteredLayout from './CenteredLayout'
 
@@ -70,4 +71,34 @@ export function Default({ separateFramesView }) {
 Default.store = mockStore({
   subject: subjectSnapshot,
   workflow: workflowSnapshot
+})
+
+const surveyTaskStrings = {}
+const taskEntries = Object.entries(task.strings)
+taskEntries.forEach(([key, value]) => {
+  const translationKey = `tasks.T0.${key}`
+  surveyTaskStrings[translationKey] = value
+})
+
+const surveyWorkflowSnapshot = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true,
+    limit_subject_height: true
+  },
+  first_task: 'T0',
+  strings: surveyTaskStrings,
+  tasks: { T0: task }
+})
+
+export function WithSurveyTask({ separateFramesView, usesSurveyTask = true }) {
+  return (
+    <Provider classifierStore={WithSurveyTask.store}>
+      <CenteredLayout separateFramesView={separateFramesView} usesSurveyTask={usesSurveyTask} />
+    </Provider>
+  )
+}
+
+WithSurveyTask.store = mockStore({
+  subject: subjectSnapshot,
+  workflow: surveyWorkflowSnapshot
 })
