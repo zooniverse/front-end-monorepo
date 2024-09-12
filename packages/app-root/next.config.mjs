@@ -5,7 +5,6 @@ const bundleAnalyzer = withBundleAnalyzer({
 })
 
 const nextConfig = {
-  basePath: '/mock',
   experimental: {
     optimizePackageImports: [
       '@zooniverse/react-components',

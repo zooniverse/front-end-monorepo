@@ -65,5 +65,5 @@ export function middleware(req) {
 
 /* Only care about /about and /get-involved routes */
 export const config = {
-  matcher: ['/mock/:path*', '/about/:path*', '/get-involved/:paths*']
+  matcher: ['/about/:path*', '/get-involved/:paths*']
 }
