@@ -19,15 +19,19 @@ function GenericAnnouncement({
       fill='horizontal'
       background={color}
       align='center'
-      pad='small'
+      pad={{ horizontal: 'small', vertical: 'xsmall' }}
       gap='small'
       justify='between'
     >
-      <Box justify='center' width='100%'>
-        <Box align='center' direction='row' gap='small'>
-          <Markdownz components={markdownzComponents}>{announcement}</Markdownz>
-          {children}
-        </Box>
+      <Box
+        align='center'
+        direction='row'
+        gap='small'
+        justify='center'
+        width='100%'
+      >
+        <Markdownz components={markdownzComponents}>{announcement}</Markdownz>
+        {children}
       </Box>
       {dismissable && <CloseButton closeFn={closeFn} />}
     </Box>
