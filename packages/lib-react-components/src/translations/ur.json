@@ -10,7 +10,6 @@
       "about": "کے متعلق",
       "publications": "اشاعات",
       "team": "ہماری ٹیم",
-      "acknowledgements": "اعتراف",
       "contact": "ہم سے رابطہ کریں",
       "faq": "اکثر پوچھے جانے والے سوالات"
     },
@@ -19,8 +18,7 @@
     },
     "getInvolvedLabels": {
       "getInvolved": "شامل ہوں",
-      "education": "تعلیم",
-      "callForProjects": "پروجیکٹس کے لئے درخواست کریں"
+      "educate": "تعلیم"
     },
     "projectLabels": {
       "projects": "پروجیکٹ"

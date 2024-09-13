@@ -25,7 +25,6 @@ console.info({ APP_ENV, PANOPTES_ENV, assetPrefix })
 
 const nextConfig = {
   assetPrefix,
-  basePath: '/about',
 
   compiler: {
     styledComponents: true,

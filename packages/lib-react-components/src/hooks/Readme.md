@@ -5,7 +5,7 @@
 When a component needs to be deferred until client-side rendering. See [https://www.joshwcomeau.com/react/the-perils-of-rehydration/](https://www.joshwcomeau.com/react/the-perils-of-rehydration) for a detailed mental model.
 
 ```js
-const hasMounted = useHadMounted()
+const hasMounted = useHasMounted()
 
 return (
   <>

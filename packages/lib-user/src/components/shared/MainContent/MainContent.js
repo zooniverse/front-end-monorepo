@@ -5,8 +5,7 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 import {
   convertStatsSecondsToHours,
-  getStatsDateString,
-  STATS_START_DATE
+  getStatsDateString
 } from '@utils'
 
 import {
@@ -40,6 +39,7 @@ const DEFAULT_SOURCE = {
 }
 
 function MainContent({
+  error = undefined,
   loading = false,
   paramsValidationMessage = '',
   projects = [],
@@ -68,8 +68,10 @@ function MainContent({
   
   const noStats = !stats?.data?.length
 
+  const sourceCreatedAtDate = getStatsDateString(source?.created_at)
+
   const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
-    created_at: getStatsDateString(source?.created_at),
+    sourceCreatedAtDate,
     paramsValidationMessage,
     selectedDateRange
   })
@@ -135,7 +137,7 @@ function MainContent({
       >
         <Calendar
           bounds={[
-            STATS_START_DATE,
+            sourceCreatedAtDate,
             todayUTC
           ]}
           date={[customDateRange]}
@@ -253,6 +255,20 @@ function MainContent({
               pad='medium'
             >
               <Loader />
+            </Box>
+          ) : error ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
             </Box>
           ) : noStats ? (
             <Box

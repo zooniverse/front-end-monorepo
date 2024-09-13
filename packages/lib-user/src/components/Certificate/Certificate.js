@@ -1,4 +1,4 @@
-import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
+import { Loader, SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
@@ -6,8 +6,7 @@ import styled from 'styled-components'
 import {
   ContentBox,
   HeaderLink,
-  Layout,
-  Tip
+  Layout
 } from '@components/shared'
 
 import { formatDateRange } from './helpers/formatDateRange'
@@ -42,10 +41,6 @@ const PrintableBox = styled(Box)`
     #certificate svg g {
       fill: #00979d;
     }
-
-    .prePanoptesInfo {
-      display: none;
-    }
   }
 
   @page {
@@ -72,14 +67,15 @@ function handleClickPrint() {
 }
 
 function Certificate({
+  error = undefined,
   hours = 0,
+  loading = false,
   login = '',
   name = '',
   paramsValidationMessage = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange = DEFAULT_DATE_RANGE,
-  showPrePanoptesInfo = false
+  selectedDateRange = DEFAULT_DATE_RANGE
 }) {
   const { endDate, startDate } = selectedDateRange
   const formattedDateRange = formatDateRange({ startDate, endDate })
@@ -110,7 +106,32 @@ function Certificate({
               justify='center'
               pad='medium'
             >
-              <SpacedText uppercase={false}>{paramsValidationMessage}</SpacedText>
+              <SpacedText uppercase={false}>
+                {paramsValidationMessage}
+              </SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Loader />
+            </Box>
+          ) : error ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
             </Box>
           ) : (
             <Box
@@ -206,10 +227,10 @@ function Certificate({
                         uppercase={false}
                         weight='bold'
                       >
-                        {projectsCount ? (
-                          `${projectsCount} projects`
-                        ) : (
+                        {projectDisplayName ? (
                           projectDisplayName
+                        ) : (
+                          `${projectsCount} projects`
                         )}
                       </SpacedText>
                     </SpacedText>
@@ -229,15 +250,6 @@ function Certificate({
                         {formattedDateRange}
                       </SpacedText>
                     </SpacedText>
-                    {showPrePanoptesInfo ? (
-                      <Tip
-                        buttonProps={{
-                          className: 'prePanoptesInfo',
-                          iconSize: '1rem'
-                        }}
-                        contentText='This certificate only reflects efforts recorded after March 17, 2015. You should have received a certificate for previous efforts by email. If you did not receive this, or believe this is an error, please contact us.'
-                      />
-                    ): null}
                   </Box>
                   <SpacedText
                     size='1.5rem'
@@ -256,7 +268,7 @@ function Certificate({
                     }}
                   >
                     <img
-                      src='/assets/LTSignature.png'
+                      src='https://static.zooniverse.org/fem-assets/LTSignature.png'
                       alt='Signature of Dr. Laura Trouille'
                     />
                     <svg width='272' height='2' viewBox='0 0 272 2'>
@@ -301,6 +313,7 @@ function Certificate({
 
 Certificate.propTypes = {
   hours: number,
+  loading: bool,
   login: string,
   name: string,
   paramsValidationMessage: string,
@@ -309,8 +322,7 @@ Certificate.propTypes = {
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
-  showPrePanoptesInfo: bool
+  })
 }
 
 export default Certificate

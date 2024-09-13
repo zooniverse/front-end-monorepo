@@ -10,7 +10,6 @@
       "about": "Узнать о ",
       "publications": "Публикации",
       "team": "Наша команда",
-      "acknowledgements": "Благодарности",
       "contact": "Контакты",
       "faq": "Часто задаваемые вопросы"
     },
@@ -19,8 +18,7 @@
     },
     "getInvolvedLabels": {
       "getInvolved": "Принять участие",
-      "education": "Образование",
-      "callForProjects": "Приглашение к участию в конкурсе проектов "
+      "educate": "Образование"
     },
     "projectLabels": {
       "projects": "Проекты"

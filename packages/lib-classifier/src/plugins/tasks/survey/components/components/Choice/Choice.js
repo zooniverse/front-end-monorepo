@@ -43,7 +43,7 @@ function Choice({
 
   const { t } = useTranslation('plugins')
 
-  const choice = choices?.[choiceId] || {}
+  const choice = choices?.get(choiceId) || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
@@ -79,7 +79,7 @@ function Choice({
             <Media
               key={filename}
               alt={`${choice.label}-image${index}`}
-              src={images[filename]}
+              src={images.get(filename)}
             />
           ))}
         </Carousel>

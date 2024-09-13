@@ -43,6 +43,7 @@ jobs:
 
       - run: yarn install --production=false --frozen-lockfile --ignore-scripts
       - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-content-pages build
 
@@ -65,6 +66,7 @@ jobs:
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/user build:es6
+      - run: yarn workspace @zooniverse/subject-viewers build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-root build
 
@@ -83,5 +85,6 @@ jobs:
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/user build:es6
+      - run: yarn workspace @zooniverse/subject-viewers build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn deploy-storybook --dry-run

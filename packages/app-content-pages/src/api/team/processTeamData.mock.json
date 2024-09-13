@@ -64,7 +64,7 @@
           "fields": {
             "title": "headshot",
             "file": {
-              "url": "https://placekitten.com/300/300",
+              "url": "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png",
               "details": {
                 "size": 21159,
                 "image": {
@@ -174,7 +174,7 @@
           "fields": {
             "title": "headshot",
             "file": {
-              "url": "https://placekitten.com/300/300",
+              "url": "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png",
               "details": {
                 "size": 36144,
                 "image": {
@@ -284,7 +284,7 @@
           "fields": {
             "title": "headshot",
             "file": {
-              "url": "https://placekitten.com/300/300",
+              "url": "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png",
               "details": {
                 "size": 11888,
                 "image": {

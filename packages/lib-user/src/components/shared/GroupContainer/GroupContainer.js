@@ -6,14 +6,21 @@ import { Children, cloneElement, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 import {
+  ContentBox,
+  Layout
+} from '@components/shared'
+
+import {
   usePanoptesMemberships,
   usePanoptesUserGroup,
 } from '@hooks'
 
 import {
-  createPanoptesMembership
+  createPanoptesMembership,
+  deletePanoptesMembership
 } from '@utils'
 
+import DeactivatedGroup from './components/DeactivatedGroup'
 import { getUserGroupStatus } from './helpers/getUserGroupStatus'
 
 function deleteJoinTokenParam() {
@@ -54,6 +61,8 @@ function GroupContainer({
     isMutating: createGroupMembershipLoading,
     trigger: createGroupMembership
   } = useSWRMutation(membershipKey, createPanoptesMembership)
+  // define user_group membership delete mutation
+  const { trigger: deleteMembership, isMutating: deleteMembershipLoading } = useSWRMutation(membershipKey, deletePanoptesMembership)
   // extract user_group active membership
   const newGroupMembership = newGroupMembershipData?.memberships?.[0]
   const membership = newGroupMembership || membershipsData?.memberships?.[0]
@@ -128,6 +137,8 @@ function GroupContainer({
     joinToken
   })
 
+  const activeMembershipDeactivatedGroup = activeMembershipRole && groupError?.status === 404
+  
   return (
     <>
       {showJoinNotification && (
@@ -139,7 +150,33 @@ function GroupContainer({
           toast
         />
       )}
-      {status ? (<div>{status}</div>) : (
+      {activeMembershipDeactivatedGroup ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            <DeactivatedGroup
+              deleteMembership={deleteMembership}
+              deleteMembershipLoading={deleteMembershipLoading}
+              membershipId={activeMembership.id}
+            />
+          </ContentBox>
+        </Layout>
+      ) : status ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            {status}
+          </ContentBox>
+        </Layout>
+      ) : (
         Children.map(children, child => 
           cloneElement(
             child,

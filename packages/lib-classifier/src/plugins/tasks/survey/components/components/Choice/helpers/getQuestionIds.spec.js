@@ -1,5 +1,8 @@
 import getQuestionIds from './getQuestionIds'
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import { task } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+
+const mockTask = SurveyTask.TaskModel.create(task)
 
 // choice without questions: fire, id = 'FR'
 
@@ -24,6 +27,6 @@ describe('Function > getQuestionIds', function () {
 
   it('should return the task questionsMap for the choice if the choice is included in the task questionsMap', function () {
     expect(getQuestionIds('KD', mockTask)).to.have.lengthOf(4)
-    expect(getQuestionIds('KD', mockTask)).to.equal(mockTask.questionsMap.KD)
+    expect(getQuestionIds('KD', mockTask)).to.equal(mockTask.questionsMap.get('KD'))
   })
 })

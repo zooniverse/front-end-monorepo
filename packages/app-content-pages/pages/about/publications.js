@@ -1,8 +1,9 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import createPublicationsResponse from '../src/api/publications/publications.js'
-export { default } from '../src/screens/Publications'
+import createPublicationsResponse from '../../src/api/publications/publications.js'
+import { Publications } from '@zooniverse/content'
 
-export async function getStaticProps({ locale }) {
+export default Publications
+
+export async function getStaticProps() {
   try {
     const publicationsData = await createPublicationsResponse()
 
@@ -21,7 +22,6 @@ export async function getStaticProps({ locale }) {
       props: {
         publicationsData,
         sections,
-        ...(await serverSideTranslations(locale, ['components']))
       },
       revalidate: 60 * 60 * 1 // 1 hour
     }

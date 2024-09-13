@@ -144,8 +144,7 @@ function WelcomeModal() {
               </Paragraph>
             </Box>
             <Box direction='row' pad={{ top: 'large' }} gap='small'>
-              {/* Needs update with link to blog post when published */}
-              <StyledAnchor href=''>
+              <StyledAnchor href='https://blog.zooniverse.org/2024/09/10/coming-soon-freshening-up-the-zooniverse-homepage'>
                 Read about the changes
               </StyledAnchor>
               <StyledDismiss

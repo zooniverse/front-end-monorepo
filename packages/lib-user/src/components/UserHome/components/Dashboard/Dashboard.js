@@ -15,7 +15,6 @@ import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 import DashboardLink from './components/DashboardLink.js'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer.js'
 
-// Enable this component below to show the link to "About your new homepage" blog post
 const LinkToBlogPost = styled(Anchor)`
   position: absolute;
   top: 15px;
@@ -164,16 +163,15 @@ export default function Dashboard({ user, userLoading }) {
         }
         round={size === 'small' ? false : '16px 16px 0 0'}
       >
-        {/** Update this link with blog post url */}
-        {/* <LinkToBlogPost
-          href='https://www.zooniverse.org'
+        <LinkToBlogPost
+          href='https://blog.zooniverse.org/2024/09/10/coming-soon-freshening-up-the-zooniverse-homepage'
           target='_blank'
           label={
             <SpacedText size='0.8rem' color='dark-5' weight='bold'>
               {blogLinkLabel} <Share size='0.7rem' />
             </SpacedText>
           }
-        /> */}
+        />
 
         <StyledAvatar
           background='brand'
@@ -188,7 +186,7 @@ export default function Dashboard({ user, userLoading }) {
             fit='contain'
             src={
               !user?.avatar_src || userLoading
-                ? 'https://www.zooniverse.org/assets/simple-avatar.png'
+                ? 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'
                 : user?.avatar_src
             }
           />

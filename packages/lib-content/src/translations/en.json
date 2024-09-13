@@ -127,8 +127,8 @@
     "paragraphs": {
       "one": "Would your research benefit from the involvement of thousands of volunteers? The Zooniverse is the world’s largest and most successful online platform for crowd-sourced research; we have millions of registered volunteers working in collaboration with professional researchers on research projects across a range of disciplines, from astronomy to the humanities.",
       "two": "Research teams can build Zooniverse projects in two ways.",
-      "three": "Teams can use our free-to-use Project Builder tool to create their very own Zooniverse project. In order to launch publicly and be featured on our projects page, teams must go through our review process to ensure the project is appropriate for the platform and ready to be launched. This is the quickest and most straightforward option for creating a Zooniverse project. For more information on this process, including estimated timelines for review, please see our <0>Project Review Best Practices & Flowchart</0>. ",
-      "four": "In cases where the tools available in the Project Builder aren’t quite right for the research goals of a particular team, researchers may want to consider partnering with the Zooniverse to create new, custom tools. We work with these teams to apply for funding to support the research, design, and development process. Those who have applied for grant funding before will know that this process can take a long time. Once we’ve applied for a grant, it can take 6 months or more to hear back about whether or not our efforts were successful. Funded projects typically require at least 6 months to design, build, and test, depending on the complexity of the features being created. We then need additional time to generalize (and often revise) them for inclusion in the Project Builder toolkit. ",
+      "three": "Teams can use our free-to-use <0>Project Builder</0> tool to create their very own Zooniverse project. In order to launch publicly and be featured on our projects page, teams must go through our review process to ensure the project is appropriate for the platform and ready to be launched. This is the quickest and most straightforward option for creating a Zooniverse project. For more information on this process, including estimated timelines for review, please see our <1>Project Review Best Practices & Flowchart</1>. ",
+      "four": "In cases where the tools available in the <0>Project Builder</0> aren’t quite right for the research goals of a particular team, researchers may want to consider partnering with the Zooniverse to create new, custom tools. We work with these teams to apply for funding to support the research, design, and development process. Those who have applied for grant funding before will know that this process can take a long time. Once we’ve applied for a grant, it can take 6 months or more to hear back about whether or not our efforts were successful. Funded projects typically require at least 6 months to design, build, and test, depending on the complexity of the features being created. We then need additional time to generalize (and often revise) them for inclusion in the Project Builder toolkit. ",
       "five": "If you are interested in partnering with us to create custom project tools or infrastructure, please <0>contact us</0>.",
       "six": "Are you a researcher working on a project relevant to one of NASA’s Science Mission Directorate divisions (Astrophysics, Biological and Physical Sciences, Heliophysics, and the Planetary Science) who would benefit from contributions from Zooniverse volunteers? As part of an on-going partnership with NASA, the Zooniverse seeks to build on its current support of NASA research teams and encourage the development of new projects on our platform.",
       "seven": "Whether you are already building workflows using the Project Builder or you are just starting to consider how crowdsourced contributions could advance your research, the Zooniverse team has dedicated effort to support teams during development and implementation of NASA-focused projects. We are happy to discuss and support proposals to NASA citizen science funding calls (including the Citizen Science Seed Funding Program, the Citizen Science for Earth Systems Program, and other NASA ROSES funding opportunities) for projects interested in using the Zooniverse platform.",
@@ -192,9 +192,9 @@
         "three": "Volunteer certificate"
       },
       "paragraphs": {
-        "one": "Set classification milestones, track effort, and celebrate collective impact. Read our <0>announcement</0> for more details.",
+        "one": "Set classification milestones, track effort, and celebrate collective impact.",
         "two": "Each project team can share additional educator resources including lesson plans, video tutorials, research links, and more. Be sure to check a project’s <0>Education</0> tab.",
-        "three": "Support for students fulfilling student service hours for scholarships, graduation requirements, and more. See this <0>blog post</0> for details."
+        "three": "Support for students fulfilling student service hours for scholarships, graduation requirements, and more."
       }
     },
     "introduction": "Are you an educator interested in using Zooniverse in the classroom? Great! Millions of people around the world participate in about 100 active projects, each with a supportive and welcoming discussion forum in which researchers engage with the public around the research and broader interests. The Zooniverse is a wonderful place for students.",
@@ -218,32 +218,36 @@
       "question": "How do I know if I'm doing this right?"
     },
     "item2": {
-      "answer": "Your classifications are stored in the Zooniverse's secure online database. Later on a project's research team accesses and combines the multiple volunteer assessments stored for each subject, including your classifications, together. Once you have submitted your response for a given subject image, graph, or video, you can't go back and edit it. Further information can be found on the <0>Zooniverse User Agreement and Privacy Policy page.</0>",
+      "answer": "Your classifications are stored in the Zooniverse's secure online database. Project research teams download their project’s classification data and combine the multiple submissions together to create a ‘final’ response for each subject. Once you have submitted your classification for a given subject, you can't go back and edit it. For information about data ownership, please see our <0>Zooniverse User Agreement and Privacy Policy</0> page.",
       "question": "What happens to my classification after I submit it?"
     },
     "item3": {
+      "answer": "Yes. Go to zooniverse.org, log in, click ‘More Stats’, and then click the ‘Generate Volunteer Certificate’ button to the bottom-right of the stats bar chart. Then save or print your certificate! Read more <0>here</0>.",
+      "question": "Can I download a volunteer Certificate? Can I use Zooniverse to fulfill Service Learning requirements?"
+    },
+    "item4": {
       "answer": "The Zooniverse takes very seriously the task of protecting our volunteer's personal information and classification data. Details about these efforts can be found on the <0>Zooniverse User Agreement and Privacy Policy page</0> and the <1>Zooniverse Security page.</1>",
       "question": "What does the Zooniverse do with my account information?"
     },
-    "item4": {
-      "answer": "You can post your suggestions for new features and report bugs via the <0>Zooniverse Talk</0> or through the <1>Github repository.</1>",
+    "item5": {
+      "answer": "You can post your suggestions for new features and report bugs via <0>Zooniverse Talk</0>, through an Issue on the relevant <1>Github repository</1>, or <2>contact us</2>.",
       "question": "I have a feature request or found a bug; who should I talk to/how do I report it?"
     },
-    "item5": {
+    "item6": {
       "answer": "The Zooniverse is a collaboration between institutions from the United Kingdom and the United States; all of our team are employed by one or the other of these partner institutions. Check out the <0>Zooniverse jobs page</0> to find out more about employment opportunities within the Zooniverse.",
       "question": "Is the Zooniverse hiring?"
     },
-    "item6": {
+    "item7": {
       "answer0": "The Zooniverse is a platform for people-powered research, not an entity, company, or non-profit. We are a multi-institutional collaboration.",
-      "answer1": "The Adler Planetarium in Chicago, one of the host institutions for the Zooniverse team, is a 501(c)(3). Individuals or organizations that need to link explicitly to a 501(c)(3) for their volunteering efforts use the Adler Planetarium as the reference. Documentation of the Adler Planetarium's 501(c)(3) status is provided here, and the Adler Planetarium EIN number is 36-6210902. When inputting the organization name, please use “Adler Planetarium - Zooniverse” if possible. If not possible, please use “Adler Planetarium” (which matches the EIN number). In all cases, you'll volunteer through Zooniverse.org.",
+      "answer1": "The Adler Planetarium in Chicago, one of the host institutions for the Zooniverse team, is a 501(c)(3). Individuals or organizations that need to link explicitly to a 501(c)(3) for their volunteering efforts use the Adler Planetarium as the reference. Documentation of the Adler Planetarium's 501(c)(3) status is provided <0>here</0>, and the Adler Planetarium EIN number is 36-6210902. When inputting the organization name, please use “Adler Planetarium - Zooniverse” if possible. If not possible, please use “Adler Planetarium” (which matches the EIN number). In all cases, you'll volunteer through Zooniverse.org.",
       "answer2": "For information on how to donate, please visit our <0>donation page.</0>",
       "question": "Is the Zooniverse a non-profit organization?"
     },
-    "item7": {
+    "item8": {
       "answer": "You can find more details on how to cite the Zooniverse in research publications using data derived from use of the Zooniverse Project Builder on our <0>Resources page</0>.",
       "question": "I'm a project owner/research team member, how do I acknowledge the Zooniverse and the Project Builder Platform in my paper, talk abstract, etc.?"
     },
-    "item8": {
+    "item9": {
       "answer": "We support major browsers up to the second to last version.",
       "question": "What browser version does Zooniverse support?"
     }
