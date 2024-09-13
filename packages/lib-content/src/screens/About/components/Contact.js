@@ -99,7 +99,7 @@ export default function Contact({ widgetLoaded = false }) {
       </Paragraph>
       <Paragraph>{t('AboutPage.contact.paragraphs.two')}</Paragraph>
       <Box align='center' pad={{ top: 'small', bottom: '180px' }}>
-        <StyledButton primary textAlign='center' onClick={handleClick}>
+        <StyledButton primary textAlign='center' onClick={handleClick} aria-haspopup='dialog'>
           {t('AboutPage.contact.heading')}
         </StyledButton>
         <Paragraph margin={{ top: 'medium' }}>
