@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { Box, Grid, ResponsiveContext } from 'grommet'
+import { Box, Grid } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -13,21 +12,54 @@ import FieldGuide from '@components/Classifier/components/FieldGuide'
 
 const ContainerGrid = styled(Grid)`
   position: relative;
+  grid-gap: 1.875rem;
+  grid-template-areas: 'viewer task';
+  grid-template-columns: auto ${props => (props.usesSurveyTask ? '33.75rem' : '25rem')};
+  margin: auto;
 
-  // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem, then the Grommet Grid columns take over
-  @media screen and (min-width: 769px) and (max-width: 70rem) {
-    grid-gap: 1.75rem;
-    grid-template-columns: 9fr 5fr;
+  ${props => props.usesSurveyTask ? css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      grid-gap: 1.25rem;
+      grid-template-areas:
+        'viewer'
+        'task';
+      grid-template-columns: 100%;
+      grid-template-rows: auto auto;
+      margin: 0;
+    }
+  ` : css`
+    // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      grid-gap: 1.25rem;
+      grid-template-areas: 'viewer task';
+      grid-template-columns: 9fr 5fr;
+    }
+  `}
+
+  @media screen and (max-width: 768px) {
+    grid-gap: 1.25rem;
+    grid-template-areas:
+      'viewer'
+      'task';
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto;
+    margin: 0;
   }
 `
 
 export const ViewerGrid = styled(Grid)`
-  ${props =>
-    props.size !== 'small' &&
-    css`
+  ${props => props.usesSurveyTask ? css`
+    @media screen and (min-width: 70rem) {
       position: sticky;
       top: 10px;
-    `}
+    }
+  ` : css`
+    @media screen and (min-width: 769px) {
+      position: sticky;
+      top: 10px;
+    }
+  `}
+
   height: fit-content;
   grid-area: viewer;
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
@@ -40,12 +72,17 @@ const StyledTaskAreaContainer = styled.div`
 `
 
 const StyledTaskArea = styled(Box)`
-  ${props =>
-    props.size !== 'small' &&
-    css`
+  ${props => props.usesSurveyTask ? css`
+    @media screen and (min-width: 70rem) {
       position: sticky;
       top: 10px;
-    `}
+    }
+  ` : css`
+    @media screen and (min-width: 769px) {
+      position: sticky;
+      top: 10px;
+    }
+  `}
 `
 
 const StyledImageToolbarContainer = styled.div`
@@ -57,31 +94,16 @@ const StyledImageToolbar = styled(ImageToolbar)`
   top: 10px;
 `
 
-const verticalLayout = {
-  areas: [['viewer'], ['task']],
-  columns: ['100%'],
-  gap: 'small',
-  margin: 'none',
-  rows: ['auto', 'auto']
-}
-
-const horizontalLayout = {
-  areas: [['viewer', 'task']],
-  columns: ['auto', '25rem'],
-  gap: 'medium',
-  rows: ['auto']
-}
-
 export default function NoMaxWidth({
   className = '',
-  separateFramesView = false
+  separateFramesView = false,
+  usesSurveyTask = false
 }) {
-  const size = useContext(ResponsiveContext)
-  const containerGridProps =
-    size === 'small' ? verticalLayout : horizontalLayout
-
   return (
-    <ContainerGrid className={className} {...containerGridProps}>
+    <ContainerGrid
+      className={className}
+      usesSurveyTask={usesSurveyTask}
+    >
       {separateFramesView ? (
         <Box>
           <Banners />
@@ -89,7 +111,10 @@ export default function NoMaxWidth({
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid forwardedAs='section' size={size}>
+        <ViewerGrid
+          forwardedAs='section'
+          usesSurveyTask={usesSurveyTask}
+        >
           <Box gridArea='subject'>
             <Banners />
             <SubjectViewer />
@@ -101,7 +126,7 @@ export default function NoMaxWidth({
         </ViewerGrid>
       )}
       <StyledTaskAreaContainer>
-        <StyledTaskArea size={size}>
+        <StyledTaskArea usesSurveyTask={usesSurveyTask}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
         </StyledTaskArea>

@@ -18,11 +18,21 @@ function storeMapper(classifierStore) {
 }
 
 function Layout() {
-  // `getLayout()` will always return the default layout as a fallback
-  const { layout, separateFramesView, usesSurveyTask } = useStores(storeMapper)
+  const {
+    layout,
+    separateFramesView,
+    usesSurveyTask
+  } = useStores(storeMapper)
 
+  // `getLayout()` will always return the default layout as a fallback
   const CurrentLayout = getLayout(layout)
-  return <CurrentLayout separateFramesView={separateFramesView} usesSurveyTask={usesSurveyTask} />
+  
+  return (
+    <CurrentLayout
+      separateFramesView={separateFramesView}
+      usesSurveyTask={usesSurveyTask}
+    />
+  )
 }
 
 export default observer(Layout)
