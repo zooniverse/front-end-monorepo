@@ -18,6 +18,11 @@ export default function Contact({ widgetLoaded = false }) {
   const handleClick = e => {
     if (widgetLoaded) {
       window.FreshworksWidget('open')
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe#widget-frame')
+        const input = iframe?.contentDocument?.querySelector('input#name')
+        input?.focus()
+      }, 1000)
     }
   }
 
