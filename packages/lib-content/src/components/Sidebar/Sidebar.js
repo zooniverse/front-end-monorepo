@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Button, Nav } from 'grommet'
@@ -49,7 +48,6 @@ function Sidebar({
         {sections.map((section, index) => (
           <StyledLi key={section.name}>
             <StyledButton
-              as={Link}
               aria-current={index === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
               onClick={() => setActiveSection(index)}
