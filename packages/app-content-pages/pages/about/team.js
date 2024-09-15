@@ -1,8 +1,9 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import createTeamResponse from '../src/api/team/team.js'
-export { default } from '../src/screens/Teams'
+import createTeamResponse from '../../src/api/team/team.js'
+import { OurTeam } from '@zooniverse/content'
 
-export async function getStaticProps({ locale }) {
+export default OurTeam
+
+export async function getStaticProps() {
   try {
     const teamData = await createTeamResponse()
 
@@ -21,7 +22,6 @@ export async function getStaticProps({ locale }) {
       props: {
         sections,
         teamData,
-        ...(await serverSideTranslations(locale, ['components']))
       },
       revalidate: 60 * 60 * 1 // 1 hour
     }

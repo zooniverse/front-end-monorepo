@@ -21,7 +21,7 @@ function parseFeedPost(post) {
 
 async function fetchBlogFeed(url) {
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, { next: { revalidate: 3600 } }) // revalidate at most every hour
     if (response.ok) {
       const feed = await response.json()
       return feed.posts
