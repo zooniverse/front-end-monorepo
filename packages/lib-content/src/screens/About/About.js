@@ -70,6 +70,8 @@ function AboutPage() {
         src='https://widget.freshworks.com/widgets/44000004375.js'
         async
         defer
+        crossOrigin='anonymous'
+        integrity='sha384-GpJCLE7VNj6jp2jskwQ5wnbyfRLB4jsiVzyCg1pJuMBnAqjylfzWNhQu3yKQeidZ'
         onLoad={() => {
           window.FreshworksWidget('hide', 'launcher')
           setWidgetLoaded(true)
