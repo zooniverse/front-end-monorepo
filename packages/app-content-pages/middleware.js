@@ -1,16 +1,10 @@
-// Note that when internationalization is introduced to app-root,
-// this file may need refactoring to handle locale in pathname
-
 import { NextResponse } from 'next/server'
 
 export function middleware(req) {
   /*
     Redirect legacy PFE /about and /get-involved paths to new FEM paths
   */
-  if (
-    req.nextUrl.pathname.startsWith('/about/acknowledgments') ||
-    req.nextUrl.pathname.startsWith('/about/acknowledgements')
-  ) {
+  if (req.nextUrl.pathname.startsWith('/about/acknowledgments') || req.nextUrl.pathname.startsWith('/about/acknowledgements')) {
     return NextResponse.redirect(new URL('/about/resources', req.url))
   }
 
