@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Link from 'next/link'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Box, Button, DropButton, Nav } from 'grommet'
@@ -115,7 +114,6 @@ function DropdownNav({
         {sections.map((section, index) => (
           <StyledLi key={section.name}>
             <StyledButton
-              as={Link}
               aria-current={index === activeSection ? 'true' : 'false'}
               href={section.slug ? `#${section.slug}` : ''}
               onClick={() => handleSectionSelect(index)}
