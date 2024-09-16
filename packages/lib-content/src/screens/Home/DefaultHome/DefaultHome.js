@@ -16,7 +16,7 @@ import Researchers from './components/Researchers.js'
 import SubHeading from '../../../components/HeadingForAboutNav/SubHeading.js'
 
 const StyledBox = styled(Box)`
-  padding: 0 0 0 50px;
+  padding: 0 0 50px 0;
 
   @media (width <= 90rem) {
     padding: 0 30px 50px;
@@ -44,7 +44,6 @@ export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
         <StyledBox
           align='center'
           width='min(100%, calc(90rem - 160px))' // Like 80px horizontal padding, matches lib-user Layout
-          pad={{ bottom: '50px' }}
         >
           <MaxWidthContent>
             <Introduction />

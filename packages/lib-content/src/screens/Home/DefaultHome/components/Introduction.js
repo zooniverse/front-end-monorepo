@@ -6,6 +6,7 @@ import { useTranslation } from '../../../../translations/i18n.js'
 
 import Stats from '../../../../components/Stats/Stats.js'
 import SubHeading from '../../../../components/HeadingForAboutNav/SubHeading.js'
+import { YouTubeEmbed } from '@next/third-parties/google'
 
 const StyledSignIn = styled(Button)`
   width: 47%;
@@ -115,13 +116,11 @@ export default function Introduction() {
       </SpacedHeading>
       <Stats />
       <VideoWrapper>
-        <iframe
-          width='100%'
+        <YouTubeEmbed
           height='100%'
-          src='https://www.youtube-nocookie.com/embed/F-B8gXJyMHc?si=YGd16vJFYOB-rfrI'
-          title='YouTube video player'
-          frameBorder='0'
-          allowFullScreen
+          width='100%'
+          videoid='F-B8gXJyMHc'
+          title={t('Home.DefaultHome.Introduction.video')}
         />
       </VideoWrapper>
     </>
