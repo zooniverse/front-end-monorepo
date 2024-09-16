@@ -25,7 +25,7 @@ export default function Contact({ widgetLoaded = false }) {
         input?.focus()
         iframe?.contentDocument?.addEventListener('keydown', (event) => {
           if (event.key === 'Escape') {
-            contactButton.focus()
+            contactButton.focus() // keeps focus in this component rather than jumping to the top of the page
             window.FreshworksWidget('close')
           }
         })
