@@ -1,4 +1,4 @@
-import { Anchor, Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
+import { Anchor, Box, Heading, Image, Paragraph, ResponsiveContext } from 'grommet'
 import { string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.js'
 import styled from 'styled-components'
@@ -9,6 +9,10 @@ const StyledParagraph = styled(Paragraph)`
   line-height: 1.2;
 `
 
+const thumbnailSize = {
+  max: '120px',
+  min: '120px'
+}
 export default function Article({
   date = '',
   excerpt = '',
@@ -33,11 +37,17 @@ export default function Article({
       {imageSrc.length && size !== 'small' ? (
         <Box
           alignSelf='center'
-          background={`url('${imageSrc}')`}
           flex='grow'
-          height={{ max: '120px', min: '120px' }}
-          width={{ max: '120px', min: '120px' }}
-        />
+          height={thumbnailSize}
+          width={thumbnailSize}
+        >
+          <Image
+            fit='cover'
+            src={imageSrc}
+            alt={title}
+            loading='lazy'
+          />
+        </Box>
       ) : null}
       <Box>
         <SpacedText

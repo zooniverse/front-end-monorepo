@@ -115,7 +115,8 @@
       "stats": {
         "one": "Classifications so far",
         "two": "Registered volunteers"
-      }
+      },
+      "video": "A Brief Introduction to the Zooniverse"
     },
     "sidebarLabel": "Section",
     "title": "About the Zooniverse"
@@ -278,7 +279,8 @@
         "description1": "The Zooniverse is the world's largest platform for people-powered research. We connect professional researchers with millions of volunteers worldwide. Facilitating real results from impractical, or otherwise impossible research. This has led to new discoveries, policy impacts, and research publications.",
         "description2": "Our platform is driven by volunteers, like you. All ages and backgrounds are welcome to participate, no PhD required — just a sense of wonder and a few clicks. Many of the most interesting findings from Zooniverse projects have emerged from discussions between volunteers and researchers. Join us today to take part in cutting-edge research and make your own discoveries!",
         "signIn": "Sign in",
-        "register": "Register"
+        "register": "Register",
+        "video": "A Brief Introduction to the Zooniverse"
       },
       "Researchers": {
         "build": "Build a project",
