@@ -17,11 +17,18 @@ export default function Contact({ widgetLoaded = false }) {
 
   const handleClick = e => {
     if (widgetLoaded) {
+      const contactButton = document.activeElement
       window.FreshworksWidget('open')
       setTimeout(() => {
         const iframe = document.querySelector('iframe#widget-frame')
         const input = iframe?.contentDocument?.querySelector('input#name')
         input?.focus()
+        iframe?.contentDocument?.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            contactButton.focus()
+            window.FreshworksWidget('close')
+          }
+        })
       }, 1000)
     }
   }
