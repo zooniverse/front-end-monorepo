@@ -120,7 +120,7 @@ export default function Introduction() {
           height='100%'
           width='100%'
           videoid='F-B8gXJyMHc'
-          title='A Brief Introduction to the Zooniverse'
+          title={t('Home.DefaultHome.Introduction.video')}
         />
       </VideoWrapper>
     </>

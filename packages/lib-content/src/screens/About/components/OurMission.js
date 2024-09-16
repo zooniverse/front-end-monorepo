@@ -125,7 +125,7 @@ export default function OurMission() {
           height='100%'
           width='100%'
           videoid='F-B8gXJyMHc'
-          title='A Brief Introduction to the Zooniverse'
+          title={t('AboutPage.OurMission.video')}
         />
       </VideoWrapper>
 
