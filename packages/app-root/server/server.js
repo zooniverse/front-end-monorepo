@@ -1,8 +1,10 @@
 import express from 'express'
 import next from 'next'
+import morgan from 'morgan'
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
+const production = process.env.NODE_ENV === 'production'
 
 const APP_ENV = process.env.APP_ENV || 'development'
 
@@ -16,8 +18,23 @@ const hostname = hostnames[APP_ENV]
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
+function setLogging (expressInstance) {
+  if (production) {
+    expressInstance.use(morgan('combined', {
+      skip: (req, res) => res.statusCode < 400,
+      stream: process.stderr
+    }))
+
+    expressInstance.use(morgan('combined', {
+      skip: (req, res) => res.statusCode >= 400,
+      stream: process.stdout
+    }))
+  }
+}
+
 app.prepare().then(async () => {
   const server = express()
+  setLogging(server)
 
   server.get('*', (req, res) => {
     return handle(req, res)

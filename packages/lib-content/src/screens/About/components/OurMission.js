@@ -16,6 +16,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 
 import Stats from '../../../components/Stats/Stats.js'
+import { YouTubeEmbed } from '@next/third-parties/google'
 
 const VideoWrapper = styled(Box)`
   border-radius: 8px; // same as Stat component
@@ -37,7 +38,7 @@ const Discovery = ({ href, src, labelString }) => (
   <Anchor href={href}>
     <Box width='8rem'>
       <CircleImage>
-        <Image alt='' src={src} width='100%' height='100%' />
+        <Image alt='' loading='lazy' src={src} width='100%' height='100%' />
       </CircleImage>
       <Text
         color={{ light: 'dark-5', dark: 'white' }}
@@ -120,13 +121,11 @@ export default function OurMission() {
       <Stats />
 
       <VideoWrapper>
-        <iframe
-          width='100%'
+        <YouTubeEmbed
           height='100%'
-          src='https://www.youtube-nocookie.com/embed/F-B8gXJyMHc?si=YGd16vJFYOB-rfrI'
-          title='YouTube video player'
-          frameborder='0'
-          allowfullscreen
+          width='100%'
+          videoid='F-B8gXJyMHc'
+          title={t('AboutPage.OurMission.video')}
         />
       </VideoWrapper>
 

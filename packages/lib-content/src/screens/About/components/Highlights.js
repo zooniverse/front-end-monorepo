@@ -46,6 +46,7 @@ export default function Highlights() {
           <Image
             alt={t('AboutPage.highlights.pictures.one')}
             src='https://static.zooniverse.org/fem-assets/into-the-zooniverse1.jpg'
+            loading='lazy'
             fit='contain'
             width='100%'
           />
@@ -54,6 +55,7 @@ export default function Highlights() {
           <Image
             alt={t('AboutPage.highlights.pictures.two')}
             src='https://static.zooniverse.org/fem-assets/into-the-zooniverse2.png'
+            loading='lazy'
             fit='contain'
             width='100%'
 
@@ -63,6 +65,7 @@ export default function Highlights() {
           <Image
             alt={t('AboutPage.highlights.pictures.three')}
             src='https://static.zooniverse.org/fem-assets/into-the-zooniverse3.jpg'
+            loading='lazy'
             fit='contain'
             width='99%' // minor adjustment to align these images top/bottom
           />
