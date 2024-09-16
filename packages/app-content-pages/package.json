@@ -23,7 +23,7 @@
     "@zooniverse/react-components": "~1.13.0",
     "contentful": "~10.8.1",
     "dotenv": "~16.4.5",
-    "dotenv-webpack": "~8.0.0",
+    "dotenv-webpack": "~8.1.0",
     "express": "^4.17.1",
     "grommet": "~2.35.0",
     "grommet-icons": "~4.12.0",
