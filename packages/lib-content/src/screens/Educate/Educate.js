@@ -151,9 +151,8 @@ function Educate() {
                     t={t}
                     components={[
                       <Anchor
-                        key='group-stats-announcement'
-                        href='' // Need url after blog post,
-                        // Add the sentence "Read our annoucement for more details, and tag <0>annoucement</0>"
+                        key='group-stats-blog'
+                        href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
                       />
                     ]}
                   />
@@ -202,7 +201,7 @@ function Educate() {
                     // "See this <0>blog post</0> for details."
                     components={[
                       <Anchor
-                        key='group-stats-announcement'
+                        key='stats-in-classrooms-blog'
                         href='' // Need url after blog post
                       />
                     ]}
