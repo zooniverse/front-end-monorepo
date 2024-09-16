@@ -1,33 +1,28 @@
 import GenericAnnouncement from './GenericAnnouncement'
-import { AnnouncementText } from './GenericAnnouncement.mock'
-// import readme from './README.md'
+
+const announcement = 'Neque magnis massa cum elementum dignissim nibh congue facilisis suscipit dictumst, porta hac porttitor praesent purus velit nullam nascetur eu ultricies libero, ipsum viverra molestie orci mollis faucibus habitant a placerat.'
 
 export default {
   title: 'Project App / Screens / Project Home / Announcements / GenericAnnouncement',
   component: GenericAnnouncement,
-  // parameters: {
-  //   docs: {
-  //     description: {
-  //       component: readme
-  //     }
-  //   }
-  // }
+  args: {
+    announcement: announcement,
+    color: 'neutral-2'
+  }
 }
 
-export const Default = () => (
-  <GenericAnnouncement
-    announcement={AnnouncementText}
-    color='neutral-2'
-    dismissable={false}
-    closeFn={() => {}}
-  />
-)
+export const Default = {}
 
-export const Dismissable = () => (
-  <GenericAnnouncement
-    announcement={AnnouncementText}
-    color='neutral-2'
-    dismissable={true}
-		closeFn={() => {}} 
-  />
-)
+export const WithALink = {
+  args: {
+    ...Default.args,
+    announcement: 'Please visit our external [link](https://www.example.com).'
+  }
+}
+
+export const Dismissable = {
+  args: {
+    ...Default.args,
+    dismissable: true
+  }
+}
