@@ -84,6 +84,8 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
           <ContentBox
             title='My Groups'
             pad={{ horizontal: '60px', vertical: '30px' }}
+            linkLabel='Learn more about Groups'
+            linkProps={{ href: 'https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages' }}
           >
             <MyGroups
               error={userError || membershipsError}
