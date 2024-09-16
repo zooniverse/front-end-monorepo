@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 const StyledParagraph = styled(Paragraph)`
   font-weight: bold;
-  max-width: 60em;
+  line-height: 1.25;
 `
 function MarkdownParagraph(nodeProps) {
   return (
-    <StyledParagraph color='black' margin='none'>
+    <StyledParagraph color='black' margin='0'>
       {nodeProps.children}
     </StyledParagraph>
   )

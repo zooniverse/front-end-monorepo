@@ -1,7 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
-import { mediaStyle } from '@shared/components/Media'
 import { logToSentry } from '@helpers/logger'
 
 const GA_TRACKING_ID = 'GTM-WDW6V4'
@@ -75,7 +74,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <style type='text/css'>${mediaStyle}</style>
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}

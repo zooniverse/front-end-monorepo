@@ -125,7 +125,7 @@ export default function OurMission() {
           height='100%'
           width='100%'
           videoid='F-B8gXJyMHc'
-          title={t('AboutPage.OurMission.video')}
+          title={t('AboutPage.ourMission.video')}
         />
       </VideoWrapper>
 

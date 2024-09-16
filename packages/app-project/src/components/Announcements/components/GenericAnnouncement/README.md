@@ -2,8 +2,6 @@
 
 A standard banner component used to show project-related announcements to volunteers, and typically rendered under the `ProjectHeader`.
 
-Designs on Invision: https://projects.invisionapp.com/d/main#/console/12924056/344288110/preview
-
 ## Props
 
 - `announcement` (string, required) - a string of plain text or Markdown to show as the announcement text
