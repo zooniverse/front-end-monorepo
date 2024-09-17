@@ -24,12 +24,17 @@ function GenericAnnouncement({
       justify='between'
     >
       <Box
+        direction='row'
+        fill='horizontal'
+        background={color}
         align='center'
-        gap='small'
         justify='center'
-        width='100%'
+        gap='small'
       >
-        <Markdownz components={markdownzComponents}>{announcement}</Markdownz>
+        <Box align='center' gap='small' justify='center'>
+          <Markdownz components={markdownzComponents}>{announcement}</Markdownz>
+        </Box>
+        {/* These are buttons passed from AuthenticationInvitation and FinishedAnnouncement */}
         {children}
       </Box>
       {dismissable && <CloseButton color='black' closeFn={closeFn} />}
