@@ -1,6 +1,7 @@
 'use client'
 
-import { Box, Grid } from 'grommet'
+import { SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box } from 'grommet'
 import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
@@ -90,14 +91,23 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
               groups={groupsSortedByCreatedAt}
               loading={userLoading || membershipsLoading}
             />
-            <Grid
-              columns={{
-                count: 3,
-                size: '1/3',
-              }}
-              fill='horizontal'
+            <Box
+              direction='row-responsive'
+              justify='between'
+              align='center'
             >
-              <CreateButton onClick={handleGroupModal} />
+              <Anchor
+                href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
+                color={{
+                  dark: 'light-4',
+                  light: 'dark-5'
+                }}
+                label={
+                  <SpacedText size='1rem' uppercase={false}>
+                    Learn more about groups
+                  </SpacedText>
+                }
+              />
               <Box
                 align='center'
               >
@@ -108,7 +118,10 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
                   step={membershipsWithGroups?.meta?.memberships?.page_size}
                 />
               </Box>
-            </Grid>
+              <Box align='end'>
+                <CreateButton onClick={handleGroupModal} />
+              </Box>
+            </Box>
           </ContentBox>
         </Layout>
       ) : (
