@@ -7,7 +7,7 @@ const StyledParagraph = styled(Paragraph)`
 `
 function MarkdownParagraph(nodeProps) {
   return (
-    <StyledParagraph color='black' margin='0'>
+    <StyledParagraph color='black' margin={{ top: '0', bottom: 'xsmall' }} textAlign='center'>
       {nodeProps.children}
     </StyledParagraph>
   )

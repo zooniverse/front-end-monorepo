@@ -25,7 +25,6 @@ function GenericAnnouncement({
     >
       <Box
         align='center'
-        direction='row'
         gap='small'
         justify='center'
         width='100%'
