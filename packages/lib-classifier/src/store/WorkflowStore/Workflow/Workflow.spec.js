@@ -204,7 +204,7 @@ describe('Model > Workflow', function () {
     })
 
     it('should use survey task', function () {
-      expect(workflow.usesSurveyTask).to.be.true()
+      expect(workflow.hasSurveyTask).to.be.true()
     })
   })
 

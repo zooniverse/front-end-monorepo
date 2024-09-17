@@ -53,11 +53,11 @@ export const horizontalLayout = {
 
 export default function CenteredLayout({
   separateFramesView = false,
-  usesSurveyTask = false
+  hasSurveyTask = false
 }) {
   const size = useContext(ResponsiveContext)
   const containerProps = size === 'small' ? verticalLayout : horizontalLayout
-  const taskAreaWidth = usesSurveyTask ? '33.75rem' : '25rem'
+  const taskAreaWidth = hasSurveyTask ? '33.75rem' : '25rem'
 
   return (
     <Relative>

@@ -14,10 +14,10 @@ const ContainerGrid = styled(Grid)`
   position: relative;
   grid-gap: 1.875rem;
   grid-template-areas: 'viewer task';
-  grid-template-columns: auto ${props => (props.usesSurveyTask ? '33.75rem' : '25rem')};
+  grid-template-columns: auto ${props => (props.hasSurveyTask ? '33.75rem' : '25rem')};
   margin: auto;
 
-  ${props => props.usesSurveyTask ? css`
+  ${props => props.hasSurveyTask ? css`
     @media screen and (min-width: 769px) and (max-width: 70rem) {
       grid-gap: 1.25rem;
       grid-template-areas:
@@ -48,7 +48,7 @@ const ContainerGrid = styled(Grid)`
 `
 
 export const ViewerGrid = styled(Grid)`
-  ${props => props.usesSurveyTask ? css`
+  ${props => props.hasSurveyTask ? css`
     @media screen and (min-width: 70rem) {
       position: sticky;
       top: 10px;
@@ -72,7 +72,7 @@ const StyledTaskAreaContainer = styled.div`
 `
 
 const StyledTaskArea = styled(Box)`
-  ${props => props.usesSurveyTask ? css`
+  ${props => props.hasSurveyTask ? css`
     @media screen and (min-width: 70rem) {
       position: sticky;
       top: 10px;
@@ -97,12 +97,12 @@ const StyledImageToolbar = styled(ImageToolbar)`
 export default function NoMaxWidth({
   className = '',
   separateFramesView = false,
-  usesSurveyTask = false
+  hasSurveyTask = false
 }) {
   return (
     <ContainerGrid
       className={className}
-      usesSurveyTask={usesSurveyTask}
+      hasSurveyTask={hasSurveyTask}
     >
       {separateFramesView ? (
         <Box>
@@ -113,7 +113,7 @@ export default function NoMaxWidth({
       ) : (
         <ViewerGrid
           forwardedAs='section'
-          usesSurveyTask={usesSurveyTask}
+          hasSurveyTask={hasSurveyTask}
         >
           <Box gridArea='subject'>
             <Banners />
@@ -126,7 +126,7 @@ export default function NoMaxWidth({
         </ViewerGrid>
       )}
       <StyledTaskAreaContainer>
-        <StyledTaskArea usesSurveyTask={usesSurveyTask}>
+        <StyledTaskArea hasSurveyTask={hasSurveyTask}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
         </StyledTaskArea>

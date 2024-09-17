@@ -8,12 +8,12 @@ function storeMapper(classifierStore) {
   const limitSubjectHeight = workflow?.configuration?.limit_subject_height
   const layout = limitSubjectHeight ? 'centered' : workflow?.layout
   const separateFramesView = classifierStore.subjectViewer.separateFramesView
-  const usesSurveyTask = workflow?.usesSurveyTask
+  const hasSurveyTask = workflow?.hasSurveyTask
 
   return {
     layout,
     separateFramesView,
-    usesSurveyTask
+    hasSurveyTask
   }
 }
 
@@ -21,7 +21,7 @@ function Layout() {
   const {
     layout,
     separateFramesView,
-    usesSurveyTask
+    hasSurveyTask
   } = useStores(storeMapper)
 
   // `getLayout()` will always return the default layout as a fallback
@@ -30,7 +30,7 @@ function Layout() {
   return (
     <CurrentLayout
       separateFramesView={separateFramesView}
-      usesSurveyTask={usesSurveyTask}
+      hasSurveyTask={hasSurveyTask}
     />
   )
 }

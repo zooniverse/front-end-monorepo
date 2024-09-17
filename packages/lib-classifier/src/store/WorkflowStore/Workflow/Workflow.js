@@ -73,7 +73,7 @@ const Workflow = types
       return activeSet?.id
     },
 
-    get usesSurveyTask() {
+    get hasSurveyTask() {
       const anySurveyTasks = self.tasks && Object.values(self.tasks).some(task => {
         return task.type === 'survey'
       })

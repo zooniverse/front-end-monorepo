@@ -89,13 +89,13 @@ const surveyWorkflowSnapshot = WorkflowFactory.build({
 
 export function WithSurveyTask({
   separateFramesView,
-  usesSurveyTask = true
+  hasSurveyTask = true
 }) {
   return (
     <Provider classifierStore={WithSurveyTask.store}>
       <MaxWidth
         separateFramesView={separateFramesView}
-        usesSurveyTask={usesSurveyTask}
+        hasSurveyTask={hasSurveyTask}
       />
     </Provider>
   )
