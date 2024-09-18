@@ -16,6 +16,12 @@ const StyledGridList = styled(Grid)`
   padding-inline-start: 0;
 `
 
+const StyledRowList = styled(Box)`
+  list-style: none;
+  margin-block-end: 0;
+  margin-block-start: 0;
+`
+
 function CardsGrid({ children }) {
   return (
     <StyledGridList
@@ -38,10 +44,10 @@ CardsGrid.propTypes = {
 
 function CardsRow({ children }) {
   return (
-    <Box
+    <StyledRowList
       a11yTitle='Top Projects'
-      as='ul'
       direction='row'
+      forwardedAs='ul'
       gap='small'
       overflow={{ horizontal: 'auto' }}
       pad={{
@@ -49,14 +55,9 @@ function CardsRow({ children }) {
         horizontal: 'xxsmall',
         top: 'xxsmall'
       }}
-      style={{
-        listStyle: 'none',
-        marginBlockEnd: 0,
-        marginBlockStart: 0,
-      }}
     >
       {children}
-    </Box>
+    </StyledRowList>
   )
 }
 
