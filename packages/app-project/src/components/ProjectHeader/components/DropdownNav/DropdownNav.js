@@ -95,9 +95,8 @@ function DropdownNav({
       as='nav'
       background='brand'
       elevation='medium'
-      margin={{ top: 'medium' }}
     >
-      <Box as='ul' pad='0px'>
+      <Box as='ul' pad='0'>
       {navLinks?.slice(0, 2).map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
         ))}
