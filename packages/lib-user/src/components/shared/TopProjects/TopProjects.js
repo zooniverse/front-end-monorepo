@@ -1,22 +1,34 @@
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, node, number, string, shape } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
 import { Loader, ProjectCard } from '@zooniverse/react-components'
 
 import { ContentBox } from '@components/shared'
 
+const StyledGridList = styled(Grid)`
+  list-style: none;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  max-height: 420px;
+  overflow-x: none;
+  overflow-y: auto;
+  padding-inline-start: 0;
+`
+
 function CardsGrid({ children }) {
   return (
-    <Grid
-      as='ul'
+    <StyledGridList
+      a11yTitle='Top Projects'
       columns={['1fr', '1fr', '1fr']}
+      forwardedAs='ul'
       gap='xsmall'
-      pad='none'
+      justify='center'
+      pad='xxsmall'
       rows={[ 'auto', 'auto' ]}
-      style={{ listStyle: 'none' }}
     >
       {children}
-    </Grid>
+    </StyledGridList>
   )
 }
 
@@ -27,12 +39,21 @@ CardsGrid.propTypes = {
 function CardsRow({ children }) {
   return (
     <Box
+      a11yTitle='Top Projects'
       as='ul'
       direction='row'
       gap='small'
-      pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
       overflow={{ horizontal: 'auto' }}
-      style={{ listStyle: 'none' }}
+      pad={{
+        bottom: 'xsmall',
+        horizontal: 'xxsmall',
+        top: 'xxsmall'
+      }}
+      style={{
+        listStyle: 'none',
+        marginBlockEnd: 0,
+        marginBlockStart: 0,
+      }}
     >
       {children}
     </Box>
@@ -64,7 +85,7 @@ function TopProjects({
         return projectData
       })
       .filter(project => project)
-      .slice(0, 6)
+      .slice(0, 20)
   }
 
   const Container = grid ? CardsGrid : CardsRow
