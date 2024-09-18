@@ -36,6 +36,10 @@ const StyledAnchor = styled(Anchor)`
   `}
 `
 
+const StyledList = styled(Box)`
+  padding-inline-start: 0;
+`
+
 function NavItem({ navLink }) {
   const router = useRouter()
 
@@ -43,7 +47,7 @@ function NavItem({ navLink }) {
   if (router?.isReady) {
     const routerPath = router.asPath.split('/')
     const hrefPath = navLink.href.split('/')
-     /*
+    /*
       Client-side routerPath will be ['', owner, project, section, ...rest].
       The link hrefPath will be ['', owner, project, section, ...rest].
       The section is always the fourth item in the array.
@@ -54,7 +58,7 @@ function NavItem({ navLink }) {
   return (
     <Box as='li' key={navLink.href} flex='grow' pad={{ left: 'small' }}>
       <NavLink
-        aria-current={ isCurrentPage ? 'page' : undefined }
+        aria-current={isCurrentPage ? 'page' : undefined}
         color='white'
         link={navLink}
         StyledAnchor={StyledAnchor}
@@ -65,16 +69,20 @@ function NavItem({ navLink }) {
   )
 }
 
+/* /about and /classify are internal routes in this Next.js app. The rest are not. */
 function Nav({ adminMode = false }) {
   const navLinks = useProjectNavigation(adminMode)
   const { t } = useTranslation('components')
   return (
     <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
-      <Box as='ul' direction='row' style={{ paddingInlineStart: 0 }}>
-        {navLinks.map(navLink => (
+      <StyledList forwardedAs='ul' direction='row'>
+        {navLinks?.slice(0, 2).map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
         ))}
-      </Box>
+        {navLinks?.slice(2).map(navLink => (
+          <NavItem key={navLink.href} navLink={{ ...navLink, externalLink: true }} />
+        ))}
+      </StyledList>
     </Box>
   )
 }

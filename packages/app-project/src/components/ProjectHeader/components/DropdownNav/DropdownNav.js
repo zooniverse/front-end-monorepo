@@ -88,17 +88,21 @@ function DropdownNav({
     )
   }
 
+  /* /about and /classify are internal routes in this Next.js app. The rest are not. */
   const dropContent = (
     <Box
       aria-label={t('ProjectHeader.ProjectNav.ariaLabel')}
       as='nav'
       background='brand'
       elevation='medium'
-      margin={{ top: 'medium ' }}
+      margin={{ top: 'medium' }}
     >
       <Box as='ul' pad='0px'>
-        {navLinks.map(navLink => (
+      {navLinks?.slice(0, 2).map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
+        ))}
+        {navLinks?.slice(2).map(navLink => (
+          <NavItem key={navLink.href} navLink={{ ...navLink, externalLink: true }} />
         ))}
         {organizationTitle ? (
           <Box as='li' key={organizationSlug}>

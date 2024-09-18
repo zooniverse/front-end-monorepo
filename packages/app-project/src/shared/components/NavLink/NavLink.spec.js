@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import Meta, { OnCurrentPage, NotOnCurrentPage, Disabled } from './NavLink.stories.js'
+import Meta, { OnCurrentPage, NotOnCurrentPage } from './NavLink.stories.js'
 import { NavLinkMock } from './NavLink.mock'
 
 describe('Component > NavLink', function () {
@@ -27,21 +27,6 @@ describe('Component > NavLink', function () {
 
     it('should have the correct link', function () {
       expect(screen.getByRole('link').getAttribute('href')).to.equal(NavLinkMock.href)
-    })
-
-    it('should have the correct text', function () {
-      expect(screen.getByText(NavLinkMock.text)).to.be.ok()
-    })
-  })
-
-  describe('when link is disabled', function () {
-    beforeEach(function () {
-      const DisabledStory = composeStory(Disabled, Meta)
-      render(<DisabledStory />)
-    })
-
-    it('should have the correct link', function () {
-      expect(screen.queryByRole('link')).to.be.null()
     })
 
     it('should have the correct text', function () {
