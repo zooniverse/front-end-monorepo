@@ -52,6 +52,8 @@ const StyledBadge = styled(Text)`
   text-align: center;
   align-items: center;
   justify-content: center;
+  min-width: 1rem;
+  height: auto;
 `
 
 function cardWidth(size) {
