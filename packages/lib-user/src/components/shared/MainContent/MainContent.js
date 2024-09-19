@@ -48,7 +48,8 @@ function MainContent({
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
-  source = DEFAULT_SOURCE
+  source = DEFAULT_SOURCE,
+  totalProjects = 0
 }) {
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -77,17 +78,6 @@ function MainContent({
   })
 
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
-  const alphabetizedProjectOptions = projectOptions.sort((a, b) => {
-    const nameA = a.label.toUpperCase()
-    const nameB = b.label.toUpperCase()
-    if (nameA < nameB) {
-      return -1
-    }
-    if (nameA > nameB) {
-      return 1
-    }
-    return 0
-  })
 
   const todayUTC = getStatsDateString(new Date())
 
@@ -166,7 +156,7 @@ function MainContent({
           displayName={source?.display_name}
           hours={activeTab === 1 ? hoursSpent : undefined}
           login={source?.login}
-          projects={selectedProject ? 1 : projects?.length}
+          projects={selectedProject ? 1 : totalProjects}
         />
         <Box
           direction={size === 'small' ? 'column' : 'row'}
@@ -220,7 +210,7 @@ function MainContent({
               id='project-select'
               name='project-select'
               handleChange={handleProjectSelect}
-              options={alphabetizedProjectOptions}
+              options={projectOptions}
               value={selectedProjectOption}
             />
             <Select
@@ -339,7 +329,8 @@ MainContent.propTypes = {
   source: shape({
     created_at: string,
     display_name: string
-  })
+  }),
+  totalProjects: number
 }
 
 export default MainContent

@@ -41,6 +41,7 @@ function UserStats({
 }) {
   // set stats based on selected project
   const stats = selectedProject ? projectStats : allProjectsStats
+  const totalProjects = allProjectsStats?.project_contributions?.length
 
   return (
     <Layout
@@ -63,6 +64,7 @@ function UserStats({
         setSelectedProject={setSelectedProject}
         stats={stats}
         source={user}
+        totalProjects={totalProjects}
       />
       <TopProjects
         allProjectsStats={allProjectsStats}
