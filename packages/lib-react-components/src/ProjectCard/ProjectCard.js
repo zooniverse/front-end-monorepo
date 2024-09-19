@@ -52,6 +52,8 @@ const StyledBadge = styled(Text)`
   text-align: center;
   align-items: center;
   justify-content: center;
+  min-width: 1rem;
+  height: auto;
 `
 
 function cardWidth(size) {
@@ -113,7 +115,7 @@ function ProjectCard({
         height={`${cardWidth(size)}px`}
         round={{ corner: 'top', size: '8px' }}
       >
-        {badge ? <StyledBadge color='black' size='0.75rem' weight='bold'>
+        {badge !== undefined ? <StyledBadge color='black' size='0.75rem' weight='bold'>
           {badge}
         </StyledBadge> : null}
       </Box>

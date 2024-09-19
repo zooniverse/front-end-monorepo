@@ -10,24 +10,6 @@ services:
       target: builder
     command:
       - "/bin/sh"
-  fe-content:
-    image: front-end-monorepo_prod:latest
-    build:
-      context: ./
-      args:
-        - NODE_ENV=production
-        - PANOPTES_ENV=production
-        - NEXT_TELEMETRY_DISABLED=1
-        - APP_ENV=development
-    entrypoint:
-      - "yarn"
-      - "workspace"
-      - "@zooniverse/fe-content-pages"
-    command: ["start"]
-    environment:
-      - PORT=3000
-    ports:
-      - "3001:3000"
   fe-project:
     image: front-end-monorepo_prod:latest
     build:
