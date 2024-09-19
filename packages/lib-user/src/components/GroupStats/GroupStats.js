@@ -98,7 +98,6 @@ function GroupStats({
 
   // set stats based on selected project or all projects
   const stats = selectedProject ? projectStats : allProjectsStats
-  const totalProjects = allProjectsStats?.project_contributions?.length
 
   // fetch topContributors
   const topContributorsIds = showTopContributors ? stats?.top_contributors?.map(user => user.user_id) : null
@@ -123,6 +122,11 @@ function GroupStats({
     error: projectsError,
     isLoading: projectsLoading
   } = usePanoptesProjects(projectsQuery)
+
+  // the calculation of totalProjects is different between group stats and user stats
+  // user stats total projects includes projects per ERAS project_contributions to match the total projects per user homepage
+  // group stats total projects includes projects returned from panoptes (per ERAS project_contributions, but excluding deleted projects or other projects not returned from panoptes)
+  const totalProjects = projects?.length || 0
 
   function handleGroupModalActive () {
     setGroupModalActive(!groupModalActive)
