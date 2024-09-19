@@ -45,7 +45,7 @@ const PrintableBox = styled(Box)`
 
   @page {
     margin: 0;
-    size: 'landscape';
+    size: landscape;
   }
 
   .userName {

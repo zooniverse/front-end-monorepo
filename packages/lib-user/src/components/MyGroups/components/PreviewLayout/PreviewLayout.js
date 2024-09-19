@@ -1,5 +1,5 @@
-import { Loader } from '@zooniverse/react-components'
-import { Box, Paragraph } from 'grommet'
+import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box, Paragraph } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 
 import { ContentBox } from '@components/shared'
@@ -52,7 +52,21 @@ export default function PreviewLayout({
           </Paragraph>
         </Box>
       )}
-      <CreateButton onClick={handleGroupModal} />
+      <Box direction='row' justify='between'>
+        <Anchor
+          href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
+          color={{
+            dark: 'light-4',
+            light: 'dark-5'
+          }}
+          label={
+            <SpacedText size='1rem' uppercase={false}>
+              Learn more about groups
+            </SpacedText>
+          }
+        />
+        <CreateButton onClick={handleGroupModal} />
+      </Box>
     </ContentBox>
   )
 }

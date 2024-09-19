@@ -112,24 +112,84 @@ const STATS = {
   data: last7DaysFromNow,
   project_contributions: [
     {
-      count: 123,
+      count: 2123,
       project_id: 1
     },
     {
-      count: 234,
+      count: 3234,
       project_id: 2
     },
     {
-      count: 345,
+      count: 2345,
       project_id: 3
     },
     {
-      count: 456,
+      count: 3456,
       project_id: 4
     },
     {
-      count: 567,
+      count: 2567,
       project_id: 5
+    },
+    {
+      count: 3678,
+      project_id: 6
+    },
+    {
+      count: 2789,
+      project_id: 7
+    },
+    {
+      count: 3890,
+      project_id: 8
+    },
+    {
+      count: 2901,
+      project_id: 9
+    },
+    {
+      count: 1000,
+      project_id: 10
+    },
+    {
+      count: 1100,
+      project_id: 11
+    },
+    {
+      count: 1200,
+      project_id: 12
+    },
+    {
+      count: 1300,
+      project_id: 13
+    },
+    {
+      count: 1400,
+      project_id: 14
+    },
+    {
+      count: 1500,
+      project_id: 15
+    },
+    {
+      count: 1600,
+      project_id: 16
+    },
+    {
+      count: 1700,
+      project_id: 17
+    },
+    {
+      count: 1800,
+      project_id: 18
+    },
+    {
+      count: 1900,
+      project_id: 19
+    },
+    {
+      count: 2000,
+      project_id: 20
     }
   ],
   top_contributors: [

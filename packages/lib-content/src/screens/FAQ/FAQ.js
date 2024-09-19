@@ -87,17 +87,16 @@ function FAQPage() {
                   />
                 </Answer>
               </Box>
-              {/** Okay to enable with launch of new homepage */}
-              {/* <Box as='li'>
+              <Box as='li'>
                 <Question>{t('FAQ.item3.question')}</Question>
                 <Answer>
                   <Trans
                     i18nKey='FAQ.item3.answer'
                     t={t}
-                    components={[<Anchor key='stats-blog-post' href='' />]}
+                    components={[<Anchor key='stats-blog-post' href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages' />]}
                   />
                 </Answer>
-              </Box> */}
+              </Box>
               <Box as='li'>
                 <Question>{t('FAQ.item4.question')}</Question>
                 <Answer>
