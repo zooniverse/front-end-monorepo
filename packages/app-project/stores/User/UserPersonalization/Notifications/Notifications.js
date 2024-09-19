@@ -1,4 +1,6 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
+// panoptes-client / sugarClient requires engine.io-client 
+// see https://github.com/zooniverse/Panoptes-Front-End/pull/4712#issuecomment-400752308 for additional discussion
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
