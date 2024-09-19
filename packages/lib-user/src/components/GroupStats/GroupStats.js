@@ -98,6 +98,7 @@ function GroupStats({
 
   // set stats based on selected project or all projects
   const stats = selectedProject ? projectStats : allProjectsStats
+  const totalProjects = allProjectsStats?.project_contributions?.length
 
   // fetch topContributors
   const topContributorsIds = showTopContributors ? stats?.top_contributors?.map(user => user.user_id) : null
@@ -189,6 +190,7 @@ function GroupStats({
           setSelectedProject={setSelectedProject}
           stats={stats}
           source={group}
+          totalProjects={totalProjects}
         />
         {showTopContributors ? (
           <Grid

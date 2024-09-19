@@ -48,7 +48,8 @@ function MainContent({
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   stats = DEFAULT_STATS,
-  source = DEFAULT_SOURCE
+  source = DEFAULT_SOURCE,
+  totalProjects = 0
 }) {
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -166,7 +167,7 @@ function MainContent({
           displayName={source?.display_name}
           hours={activeTab === 1 ? hoursSpent : undefined}
           login={source?.login}
-          projects={selectedProject ? 1 : projects?.length}
+          projects={selectedProject ? 1 : totalProjects}
         />
         <Box
           direction={size === 'small' ? 'column' : 'row'}
@@ -339,7 +340,8 @@ MainContent.propTypes = {
   source: shape({
     created_at: string,
     display_name: string
-  })
+  }),
+  totalProjects: number
 }
 
 export default MainContent
