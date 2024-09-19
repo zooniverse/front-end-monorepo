@@ -78,17 +78,6 @@ function MainContent({
   })
 
   const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
-  const alphabetizedProjectOptions = projectOptions.sort((a, b) => {
-    const nameA = a.label.toUpperCase()
-    const nameB = b.label.toUpperCase()
-    if (nameA < nameB) {
-      return -1
-    }
-    if (nameA > nameB) {
-      return 1
-    }
-    return 0
-  })
 
   const todayUTC = getStatsDateString(new Date())
 
@@ -221,7 +210,7 @@ function MainContent({
               id='project-select'
               name='project-select'
               handleChange={handleProjectSelect}
-              options={alphabetizedProjectOptions}
+              options={projectOptions}
               value={selectedProjectOption}
             />
             <Select
