@@ -13,18 +13,20 @@ export default function RecentProjects({
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title='Recent Projects' screenSize={size}>
-      {isLoading ? (
+    <ContentBox title='Continue Classifying' screenSize={size}>
+      {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
         </Box>
-      ) : error ? (
+      )}
+      {!isLoading && error && (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>
             There was an error fetching your recent projects
           </SpacedText>
         </Box>
-      ) : !projectPreferences?.length ? (
+      )}
+      {!isLoading && !projectPreferences.length && !error && (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>No Recent Projects found</SpacedText>
           <Text>
@@ -35,30 +37,32 @@ export default function RecentProjects({
             .
           </Text>
         </Box>
-      ) : projectPreferences?.length ? (
-        <Box
-          as='ul'
-          direction='row'
-          gap='small'
-          pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
-          overflow={{ horizontal: 'auto' }}
-          style={{ listStyle: 'none' }}
-          margin='0'
-        >
-          {projectPreferences.map(preference => (
-            <li key={preference?.project?.id}>
-              <ProjectCard
-                badge={preference?.activity_count}
-                description={preference?.project?.description}
-                displayName={preference?.project?.display_name}
-                href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
-                imageSrc={preference?.project?.avatar_src}
-                size={size}
-              />
-            </li>
-          ))}
-        </Box>
-      ) : null}
+      )}
+      {!isLoading &&
+        projectPreferences?.length ? (
+          <Box
+            as='ul'
+            direction='row'
+            gap='small'
+            pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+            overflow={{ horizontal: 'auto' }}
+            style={{ listStyle: 'none' }}
+            margin='0'
+          >
+            {projectPreferences.map(preference => (
+              <li key={preference?.project?.id}>
+                <ProjectCard
+                  badge={preference?.activity_count}
+                  description={preference?.project?.description}
+                  displayName={preference?.project?.display_name}
+                  href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
+                  imageSrc={preference?.project?.avatar_src}
+                  size={size}
+                />
+              </li>
+            ))}
+          </Box>
+        ) : null}
     </ContentBox>
   )
 }
