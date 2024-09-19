@@ -83,9 +83,12 @@ function TopProjects({
     topProjects = topProjectContributions
       ?.map(projectContribution => {
         const projectData = projects?.find(project => project.id === projectContribution.project_id.toString())
-        return projectData
+        return {
+          count: projectContribution.count,
+          ...projectData
+        }
       })
-      .filter(project => project)
+      .filter(project => project?.id)
       .slice(0, 20)
   }
 
@@ -110,6 +113,7 @@ function TopProjects({
             return (
               <li key={topProject?.id}>
                 <ProjectCard
+                  badge={topProject?.count}
                   description={topProject?.description}
                   displayName={topProject?.display_name}
                   href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
