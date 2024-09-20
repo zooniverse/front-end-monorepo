@@ -39,10 +39,6 @@ printf 'Building `fe-project`...\n'
 yarn workspace @zooniverse/fe-project build
 printf '\n'
 
-printf 'Building `fe-content-pages`...\n'
-yarn workspace @zooniverse/fe-content-pages build
-printf '\n'
-
 printf 'Building `fe-root`...\n'
 yarn workspace @zooniverse/fe-root build
 printf '\n'

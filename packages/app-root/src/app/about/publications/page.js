@@ -11,8 +11,8 @@ import client from '../../../utils/contentfulClient.js'
 import mockResponse from './response.mock.json'
 
 export const metadata = {
-  title: 'Our Team',
-  description: 'The people who make the Zooniverse'
+  title: 'Publications',
+  description: 'A list of academic publications that use Zooniverse-generated data.'
 }
 
 // This route is static, so the output of the request will be cached and revalidated as part of the route segment.

@@ -45,7 +45,7 @@ const PrintableBox = styled(Box)`
 
   @page {
     margin: 0;
-    size: 'landscape';
+    size: landscape;
   }
 
   .userName {
@@ -268,7 +268,7 @@ function Certificate({
                     }}
                   >
                     <img
-                      src='/assets/LTSignature.png'
+                      src='https://static.zooniverse.org/fem-assets/LTSignature.png'
                       alt='Signature of Dr. Laura Trouille'
                     />
                     <svg width='272' height='2' viewBox='0 0 272 2'>

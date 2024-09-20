@@ -59,13 +59,6 @@ export const ConnectWithProjectMock = {
         url: 'https://tumblr.com/test-project',
       },
       {
-        name: 'Twitter',
-        label: '',
-        path: 'test-project',
-        site: 'twitter.com',
-        url: 'https://twitter.com/test-project',
-      },
-      {
         name: 'Weibo',
         label: '',
         path: 'test-project',

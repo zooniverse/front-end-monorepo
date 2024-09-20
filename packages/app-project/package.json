@@ -17,7 +17,6 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@artsy/fresnel": "~7.1.2",
     "@sentry/nextjs": "~7.109.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.10.1",
@@ -32,7 +31,7 @@
     "@zooniverse/react-components": "~1.13.0",
     "cookie": "~0.6.0",
     "d3": "~6.7.0",
-    "engine.io-client": "~6.5.0",
+    "engine.io-client": "~6.6.0",
     "express": "^4.17.1",
     "graphql": "~16.9.0",
     "graphql-request": "~6.1.0",

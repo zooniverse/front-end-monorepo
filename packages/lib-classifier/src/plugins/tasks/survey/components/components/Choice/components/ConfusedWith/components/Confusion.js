@@ -21,6 +21,7 @@ export default function Confusion({
         dark: 'dark-3',
         light: 'neutral-6'
       }}
+      elevation='xlarge'
       flex={false}
       pad={{
         bottom: 'small',

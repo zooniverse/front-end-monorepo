@@ -10,7 +10,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
 import { usePanoptesUser, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
-import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
 
@@ -104,19 +103,17 @@ function MyApp({ Component, pageProps }) {
         <GlobalStyle />
         <Provider store={store}>
           <ThemeModeContext.Provider value={themeContext}>
-            <MediaContextProvider disableDynamicMediaQueries>
-              <Grommet
-                background={{
-                  dark: 'dark-1',
-                  light: 'light-1'
-                }}
-                theme={zooTheme}
-                themeMode={themeMode}
-              >
-                <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
-                <Component {...pageProps} />
-              </Grommet>
-            </MediaContextProvider>
+            <Grommet
+              background={{
+                dark: 'dark-1',
+                light: 'light-1'
+              }}
+              theme={zooTheme}
+              themeMode={themeMode}
+            >
+              <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
+              <Component {...pageProps} />
+            </Grommet>
           </ThemeModeContext.Provider>
         </Provider>
       </>

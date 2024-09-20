@@ -31,7 +31,7 @@ const StyledGroup = styled.g`
   }
 `
 
-function focusMark(markNode) {
+export function focusMark(markNode) {
   const hasFocus = markNode === document.activeElement
   if (!hasFocus) {
     const x = scrollX

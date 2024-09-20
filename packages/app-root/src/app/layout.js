@@ -12,7 +12,7 @@ export const metadata = {
     images: 'https://static.zooniverse.org/assets/zooniverse-icon-web-black.png'
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.svg',
     apple: '/touch-icon.png'
   },
   twitter: {

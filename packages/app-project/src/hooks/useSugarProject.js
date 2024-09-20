@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+// panoptes-client / sugarClient requires engine.io-client 
+// see https://github.com/zooniverse/Panoptes-Front-End/pull/4712#issuecomment-400752308 for additional discussion
 import { sugarClient } from 'panoptes-client/lib/sugar'
 
 const isBrowser = typeof window !== 'undefined'

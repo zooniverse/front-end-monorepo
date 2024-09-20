@@ -133,7 +133,7 @@ describe('Components > SVGPanZoom', function () {
         setOnDrag={callback => { onDrag = callback }}
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
-        src={'http://placekitten.com/200/400'}
+        src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
       >
         <svg />
       </SVGPanZoom>
@@ -159,7 +159,7 @@ describe('Components > SVGPanZoom', function () {
         setOnDrag={callback => { onDrag = callback }}
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
-        src={'http://placekitten.com/200/400'}
+        src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
       >
         <svg />
       </SVGPanZoom>

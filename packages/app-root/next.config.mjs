@@ -5,6 +5,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 })
 
 const nextConfig = {
+  compress: false,
   experimental: {
     optimizePackageImports: [
       '@zooniverse/react-components',

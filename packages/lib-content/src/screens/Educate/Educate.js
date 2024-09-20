@@ -94,17 +94,17 @@ function Educate() {
             <StyledAnchor
               href='https://blog.zooniverse.org/2020/03/18/zooniverse-remote-online-learning-resources'
               label={t('Educate.buttons.one')}
-              imgSrc='/assets/educate-btn1.jpg'
+              imgSrc='https://static.zooniverse.org/fem-assets/educate-btn1.jpg'
             />
             <StyledAnchor
               href='https://classroom.zooniverse.org/#/zooniverse-in-schools'
               label={t('Educate.buttons.two')}
-              imgSrc='/assets/educate-btn2.jpg'
+              imgSrc='https://static.zooniverse.org/fem-assets/educate-btn2.jpg'
             />
             <StyledAnchor
               href='https://blog.zooniverse.org/2022/07/13/zooniverse-based-activities-for-undergraduates-are-here'
               label={t('Educate.buttons.three')}
-              imgSrc='/assets/educate-btn3.jpg'
+              imgSrc='https://static.zooniverse.org/fem-assets/educate-btn3.jpg'
             />
           </Box>
 
@@ -151,8 +151,8 @@ function Educate() {
                     t={t}
                     components={[
                       <Anchor
-                        key='group-stats-announcement'
-                        href='' // Need url after blog post
+                        key='group-stats-blog'
+                        href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
                       />
                     ]}
                   />
@@ -197,9 +197,11 @@ function Educate() {
                   <Trans
                     i18nKey='Educate.forEducators.paragraphs.three'
                     t={t}
+                    // Updated blog post text coming in October
+                    // "See this <0>blog post</0> for details."
                     components={[
                       <Anchor
-                        key='group-stats-announcement'
+                        key='stats-in-classrooms-blog'
                         href='' // Need url after blog post
                       />
                     ]}
@@ -236,7 +238,7 @@ function Educate() {
                 '...'
               }
               title={t('Educate.articles.two.title')}
-              url='https://astroedjournal.org/index.php/ijae/article/view/43'
+              url='https://blog.zooniverse.org/2019/08/14/uscientist-and-the-galaxy-zoo-touch-table-at-adler-planetarium'
             />
             <Article
               date={t('Educate.articles.three.datePublished')}
@@ -247,7 +249,7 @@ function Educate() {
                 ) + '...'
               }
               title={t('Educate.articles.three.title')}
-              url='https://astroedjournal.org/index.php/ijae/article/view/43'
+              url='https://www.bpl.org/blogs/post/8th-graders-in-missouri-transcribe-anti-slavery-documents-and-learn-about-the-abolitionist-movement'
             />
             <Article
               date={t('Educate.articles.four.datePublished')}
@@ -258,7 +260,7 @@ function Educate() {
                 ) + '...'
               }
               title={t('Educate.articles.four.title')}
-              url='https://astroedjournal.org/index.php/ijae/article/view/43'
+              url='https://blog.zooniverse.org/2015/04/29/floating-forests-teaching-young-children-about-kelp'
             />
           </Box>
 
