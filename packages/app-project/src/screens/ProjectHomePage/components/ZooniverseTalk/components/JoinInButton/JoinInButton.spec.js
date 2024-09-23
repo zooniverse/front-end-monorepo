@@ -1,23 +1,20 @@
-import { render } from 'enzyme'
+import { render } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-import JoinInButton from './JoinInButton'
+import Meta, { Default } from './JoinInButton.stories.js'
 
-let wrapper
-const LINK_PROPS = {
-  href: '/projects/foo/bar/talk'
-}
+describe('Component > Zooniverse Talk > Join In', function () {
+  const DefaultStory = composeStory(Default, Meta)
 
-describe('Component > JoinInButton', function () {
-  before(function () {
-    wrapper = render(<JoinInButton linkProps={LINK_PROPS} />)
+  beforeEach(function () {
+    render(<DefaultStory />)
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render a link to the talk boards', function () {
-    expect(wrapper.is('a')).to.be.true()
-    expect(wrapper.attr('href')).to.equal(LINK_PROPS.href)
+  it('should render a link to the Talk board', function () {
+    expect(
+      document.querySelector(
+        `[href="https://www.zooniverse.org/projects/zooniverse/snapshot-serengeti/talk"]`
+      )
+    ).to.be.ok()
   })
 })
