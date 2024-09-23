@@ -96,7 +96,7 @@ function ProjectHeader({
         {useDropdownNav ? (
           <DropdownNav
             adminMode={adminMode}
-            margin={ isNarrow ? { top: 'xsmall' } : { top : 0 }}
+            margin={ isNarrow ? { top: 'xsmall' } : { top : '0' }}
             organizationSlug={organizationSlug}
             organizationTitle={organizationTitle}
           />

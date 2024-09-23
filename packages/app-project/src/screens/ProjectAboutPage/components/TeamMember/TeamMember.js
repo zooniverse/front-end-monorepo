@@ -28,15 +28,15 @@ export const StyledDisplayName = styled(Box)`
   ${props =>
     css`
       color: ${props.theme.dark
-          ? props.theme.global.colors['neutral-6']
-          : props.theme.global.colors.black};
+        ? props.theme.global.colors['neutral-6']
+        : props.theme.global.colors.black};
     `}
 `
 
 export const StyledUsername = styled(NavLink)`
-line-height: 0.8;
+  line-height: 0.8;
 
-& > * {
+  & > * {
     word-wrap: break-word;
     font-size: 12px;
     letter-spacing: 0.05rem;
@@ -86,7 +86,11 @@ const TeamMember = ({ user }) => {
         <StyledDisplayName color={{ light: 'neutral-7', dark: '' }}>{user.display_name}</StyledDisplayName>
         <StyledUsername
           lang='en'
-          link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
+          link={{
+            externalLink: true, // /projects/[owner]/[project]/users/[login] is a PFE page
+            href: `${baseUrl}/${user.login}`,
+            text: `@${user.login}`
+          }}
         />
         {user?.roles?.map(role => (
           <StyledRole
