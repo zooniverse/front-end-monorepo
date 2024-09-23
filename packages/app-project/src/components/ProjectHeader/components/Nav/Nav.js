@@ -76,11 +76,8 @@ function Nav({ adminMode = false }) {
   return (
     <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
       <StyledList forwardedAs='ul' direction='row'>
-        {navLinks?.slice(0, 2).map(navLink => (
+        {navLinks?.map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
-        ))}
-        {navLinks?.slice(2).map(navLink => (
-          <NavItem key={navLink.href} navLink={{ ...navLink, externalLink: true }} />
         ))}
       </StyledList>
     </Box>

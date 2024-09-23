@@ -97,11 +97,8 @@ function DropdownNav({
       elevation='medium'
     >
       <Box as='ul' pad='0'>
-      {navLinks?.slice(0, 2).map(navLink => (
+      {navLinks?.map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
-        ))}
-        {navLinks?.slice(2).map(navLink => (
-          <NavItem key={navLink.href} navLink={{ ...navLink, externalLink: true }} />
         ))}
         {organizationTitle ? (
           <Box as='li' key={organizationSlug}>
