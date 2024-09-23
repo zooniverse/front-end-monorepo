@@ -123,6 +123,11 @@ function GroupStats({
     isLoading: projectsLoading
   } = usePanoptesProjects(projectsQuery)
 
+  // the calculation of totalProjects is different between group stats and user stats
+  // user stats total projects includes projects per ERAS project_contributions to match the total projects per user homepage
+  // group stats total projects includes projects returned from panoptes (per ERAS project_contributions, but excluding deleted projects or other projects not returned from panoptes)
+  const totalProjects = projects?.length || 0
+
   function handleGroupModalActive () {
     setGroupModalActive(!groupModalActive)
   }
@@ -189,6 +194,7 @@ function GroupStats({
           setSelectedProject={setSelectedProject}
           stats={stats}
           source={group}
+          totalProjects={totalProjects}
         />
         {showTopContributors ? (
           <Grid
