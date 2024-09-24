@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - ZooFooter and ZooHeader styling to include `display: none;` when printing (`@media print`)
 - PlainButton has text-decoration underline on hover even for links.
 - ZooFooter links and labels updated to reflect newly launched FEM pages.
+- Updated styling in ProjectCard's badge component.
 
 ### Fixed
 

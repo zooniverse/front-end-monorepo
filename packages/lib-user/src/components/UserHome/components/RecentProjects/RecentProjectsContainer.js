@@ -25,7 +25,10 @@ async function fetchUserProjectPreferences() {
     }
     const response = await panoptes.get('/project_preferences', query, { authorization })
     if (response.ok) {
-      return response.body.project_preferences
+      const projectPreferencesUserHasClassified =
+        response.body.project_preferences
+          .filter(preference => preference.activity_count > 0)
+      return projectPreferencesUserHasClassified
     }
     return []
   } catch (error) {
@@ -35,7 +38,7 @@ async function fetchUserProjectPreferences() {
 }
 
 function RecentProjectsContainer({ authUser }) {
-  // Get user's project preference.activity_count for 20 most recently interacted projects
+  // Get user's project preference.activity_count for 10 most recently classified projects
   const cacheKey = {
     name: 'user-project-preferences',
     userId: authUser.id
@@ -74,6 +77,7 @@ function RecentProjectsContainer({ authUser }) {
         return preference
       })
       .filter(preference => preference?.project?.slug)
+      .slice(0, 10)
   }
 
   return (
