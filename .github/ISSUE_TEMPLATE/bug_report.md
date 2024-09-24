@@ -8,13 +8,15 @@ assignees: ''
 ---
 
 ## Package
-_Choose from the list:_
-- [ ] app-content-pages
-- [ ] app-project
-- [ ] lib-classifier
-- [ ] lib-panoptes-js
-- [ ] lib-react-components
-- [ ] unknown
+_Examples_
+- app-project
+- app-root
+- lib-classifier
+- lib-content
+- lib-panoptes-js
+- lib-react-components
+- lib-user
+- unknown
 
 ## Describe the bug
 A clear and concise description of what the bug is.
