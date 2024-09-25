@@ -15,7 +15,6 @@ const ContainerGrid = styled(Grid)`
   grid-gap: 1.875rem;
   grid-template-areas: 'viewer task';
   grid-template-columns: auto ${props => (props.hasSurveyTask ? '33.75rem' : '25rem')};
-  margin: auto;
 
   ${props => props.hasSurveyTask ? css`
     @media screen and (min-width: 769px) and (max-width: 70rem) {
