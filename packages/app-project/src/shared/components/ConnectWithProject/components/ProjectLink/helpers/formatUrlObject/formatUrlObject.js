@@ -12,8 +12,10 @@ import {
   Youtube as YouTubeIcon
 } from 'grommet-icons'
 
-import BitbucketIcon from './../../components/BitbucketIcon'
-import WeiboIcon from './../../components/WeiboIcon'
+import BitbucketIcon from './../../components/BitbucketIcon.js'
+import BlueSkyIcon from '../../components/BlueSkyIcon.js'
+import MastodonIcon from '../../components/MastodonIcon.js'
+import WeiboIcon from './../../components/WeiboIcon.js'
 
 function formatUrlObject(obj, t) {
   // Default to external website
@@ -27,6 +29,11 @@ function formatUrlObject(obj, t) {
   if (obj.site && obj.site.includes('bitbucket')) {
     formattedObject.IconComponent = BitbucketIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.bitbucket')
+  }
+
+  if (obj.site && obj.site.includes('bluesky')) {
+    formattedObject.IconComponent = BlueSkyIcon
+    formattedObject.type = t('ConnectWithProject.ProjectLink.types.bluesky')
   }
 
   if (obj.site && obj.site.includes('facebook')) {
@@ -45,6 +52,11 @@ function formatUrlObject(obj, t) {
       ? obj.path
       : `@${obj.path}`
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.instagram')
+  }
+
+  if (obj.site && obj.site.includes('mastodon')) {
+    formattedObject.IconComponent = MastodonIcon
+    formattedObject.type = t('ConnectWithProject.ProjectLink.types.mastodon')
   }
 
   if (obj.site && obj.site.includes('medium')) {
@@ -91,6 +103,8 @@ function formatUrlObject(obj, t) {
     formattedObject.IconComponent = YouTubeIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.youtube')
   }
+
+
 
   return formattedObject
 }

@@ -10,6 +10,13 @@ export const ConnectWithProjectMock = {
         url: 'https://bitbucket.com/test-project',
       },
       {
+        name: 'BlueSky',
+        label: '',
+        path: 'test-project',
+        site: 'bluesky.com',
+        url: 'https://bluesky.com/test-project',
+      },
+      {
         name: 'Facebook',
         label: '',
         path: 'test-project',
@@ -29,6 +36,13 @@ export const ConnectWithProjectMock = {
         path: 'test-project',
         site: 'instagram.com',
         url: 'https://instagram.com/test-project',
+      },
+      {
+        name: 'Mastodon',
+        label: '',
+        path: 'test-project',
+        site: 'mastodon.com',
+        url: 'https://mastodon.com/test-project',
       },
       {
         name: 'Medium',
