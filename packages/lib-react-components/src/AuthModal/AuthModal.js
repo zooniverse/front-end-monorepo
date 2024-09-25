@@ -49,6 +49,7 @@ function AuthModal({
       className={className}
       closeFn={closeModal}
       role='dialog'
+      pad='0'
     >
       <StyledTabs activeIndex={activeIndex} onActive={onActive}>
         <Tab title={t("AuthModal.LoginForm.signIn")}>

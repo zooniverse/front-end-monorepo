@@ -19,8 +19,7 @@ const theme = {
         light: 'dark-5'
       }
     },
-    margin: 'none',
-    pad: 'small'
+    margin: '0'
   },
   tabs: {
     extend: props => {
@@ -37,6 +36,9 @@ const theme = {
           color: ${tabHeaderColor};
           flex: 1 1 ${flexBasis};
           > div {
+            height: 40px;
+            padding: 0;
+            justify-content: center;
             border-bottom: 1px solid ${borderColor};
             border-right: 1px solid ${borderColor};
           }
@@ -90,7 +92,7 @@ const theme = {
           border-bottom: 1px solid ${borderColor};
           border-left: 1px solid ${borderColor};
           border-right: 1px solid ${borderColor};
-          padding: 30px;
+          padding: 20px 20px 30px 20px;
         `
       }
     }
