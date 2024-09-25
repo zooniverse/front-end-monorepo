@@ -13,8 +13,8 @@ export const ConnectWithProjectMock = {
         name: 'BlueSky',
         label: '',
         path: 'test-project',
-        site: 'bluesky.com',
-        url: 'https://bluesky.com/test-project',
+        site: 'bsky.app',
+        url: 'https://bsky.app/profile/zooniverse.bsky.social',
       },
       {
         name: 'Facebook',
@@ -41,8 +41,8 @@ export const ConnectWithProjectMock = {
         name: 'Mastodon',
         label: '',
         path: 'test-project',
-        site: 'mastodon.com',
-        url: 'https://mastodon.com/test-project',
+        site: 'mastodon.social',
+        url: 'https://mastodon.social/@test-project',
       },
       {
         name: 'Medium',

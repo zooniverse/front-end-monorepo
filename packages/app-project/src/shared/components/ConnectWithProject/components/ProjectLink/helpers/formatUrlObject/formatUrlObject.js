@@ -31,7 +31,7 @@ function formatUrlObject(obj, t) {
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.bitbucket')
   }
 
-  if (obj.site && obj.site.includes('bluesky')) {
+  if (obj.site && obj.site.includes('bsky.app')) {
     formattedObject.IconComponent = BlueSkyIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.bluesky')
   }
@@ -54,7 +54,7 @@ function formatUrlObject(obj, t) {
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.instagram')
   }
 
-  if (obj.site && obj.site.includes('mastodon')) {
+  if (obj.site && obj.site.includes('mastodon.social')) {
     formattedObject.IconComponent = MastodonIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.mastodon')
   }
