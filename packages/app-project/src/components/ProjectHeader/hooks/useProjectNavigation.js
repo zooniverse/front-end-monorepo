@@ -17,25 +17,29 @@ export default function useProjectNavigation(adminMode) {
     },
     {
       href: `/${slug}/talk`,
-      text: t('ProjectHeader.talk')
+      text: t('ProjectHeader.talk'),
+      externalLink: true // code is in PFE
     },
     {
       href: `/${slug}/collections`,
-      text: t('ProjectHeader.collect')
+      text: t('ProjectHeader.collect'),
+      externalLink: true // code is in PFE
     }
   ]
 
   if (isLoggedIn) {
     links.push({
       href: `/${slug}/recents`,
-      text: t('ProjectHeader.recents')
+      text: t('ProjectHeader.recents'),
+      externalLink: true // code is in PFE
     })
   }
 
   if (isLoggedIn && isAdmin && adminMode) {
     links.push({
       href: `https://www.zooniverse.org/admin/project_status/${slug}`,
-      text: t('ProjectHeader.admin')
+      text: t('ProjectHeader.admin'),
+      externalLink: true // code is in PFE
     })
   }
 

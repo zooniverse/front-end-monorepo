@@ -1,9 +1,8 @@
-import NavLink from './NavLink'
-import { NavLinkCurrentPageMock, NavLinkOtherPageMock, NavLinkMock } from './NavLink.mock'
+import JoinInButton from './JoinInButton.js'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 const mockRouter = {
-  asPath: '/zooniverse/snapshot-serengeti/about/team',
+  asPath: '/zooniverse/snapshot-serengeti/classify',
   basePath: '/projects',
   locale: 'en',
   push() {},
@@ -23,15 +22,9 @@ function NextRouterStory(Story) {
 }
 
 export default {
-  title: 'Project App / Shared / NavLink',
-  component: NavLink,
+  title: 'Project App / Screens / Project Home / Join In Button',
+  component: JoinInButton,
   decorators: [NextRouterStory]
 }
 
-export const OnCurrentPage = () => (
-  <NavLink router={NavLinkCurrentPageMock} link={NavLinkMock} />
-)
-
-export const NotOnCurrentPage = () => (
-  <NavLink router={NavLinkOtherPageMock} link={NavLinkMock} />
-)
+export const Default = {}
