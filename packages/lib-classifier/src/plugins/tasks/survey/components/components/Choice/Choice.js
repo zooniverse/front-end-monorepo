@@ -70,6 +70,7 @@ function Choice({
     >
       {choice.images?.length > 0 && (
         <Carousel
+          alignSelf='center'
           controls='arrows'
           data-testid='choice-images'
           height={{ max: 'medium' }}
