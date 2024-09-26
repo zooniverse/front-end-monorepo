@@ -47,7 +47,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
       expect(navLinks.length).to.be.above(0)
       expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
       expect(navLinks[navLinks.length - 1].href).to.equal(
-        'https://localhost/zooniverse/snapshot-serengeti/collections'
+        'https://localhost/projects/zooniverse/snapshot-serengeti/collections'
       )
     })
   })
@@ -75,7 +75,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
       const navLinks = within(navMenu).getAllByRole('link')
       expect(navLinks.length).to.be.above(0)
       expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
-      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/recents')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/projects/zooniverse/snapshot-serengeti/recents')
     })
   })
 
