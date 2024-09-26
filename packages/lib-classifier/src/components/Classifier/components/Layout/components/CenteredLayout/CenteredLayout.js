@@ -51,9 +51,13 @@ export const horizontalLayout = {
   justify: 'center'
 }
 
-export default function CenteredLayout({ separateFramesView = false }) {
+export default function CenteredLayout({
+  separateFramesView = false,
+  hasSurveyTask = false
+}) {
   const size = useContext(ResponsiveContext)
   const containerProps = size === 'small' ? verticalLayout : horizontalLayout
+  const taskAreaWidth = hasSurveyTask ? '33.75rem' : '25rem'
 
   return (
     <Relative>
@@ -75,7 +79,7 @@ export default function CenteredLayout({ separateFramesView = false }) {
           )}
         </Box>
         <StickyTaskArea
-          width={size === 'small' ? '100%' : '25rem'}
+          width={size === 'small' ? '100%' : taskAreaWidth}
           fill={size === 'small' ? 'horizontal' : 'vertical'}
           size={size}
         >
