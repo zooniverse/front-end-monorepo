@@ -1,4 +1,4 @@
-export default function Home () {
+export default function ProtoViewer () {
   return (
     <div>
       <h2>ProtoViewer</h2>
