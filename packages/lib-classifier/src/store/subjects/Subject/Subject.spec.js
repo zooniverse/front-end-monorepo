@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import Subject from './Subject'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-=import subjectViewers from '@helpers/subjectViewers'
+import subjectViewers from '@helpers/subjectViewers'
 import { subjectsSeenThisSession } from '@helpers'
 
 describe('Model > Subject', function () {
