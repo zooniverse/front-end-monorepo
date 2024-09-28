@@ -32,6 +32,7 @@ async function fetchStats({
   query,
   sourceId
 }) {
+  await auth.checkCurrent()
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   const headers = { authorization }

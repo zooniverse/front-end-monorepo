@@ -17,6 +17,7 @@ if (isBrowser) {
 }
 
 async function fetchMemberships({ query }) {
+  await auth.checkCurrent()
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   if (!token) return null 
