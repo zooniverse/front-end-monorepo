@@ -1,5 +1,6 @@
 const { config, env } = require('./config')
 const auth = require('./auth')
+const experimentalAuth = require('./experimental-auth')
 const panoptes = require('./panoptes')
 const talkAPI = require('./talkAPI')
 
@@ -15,6 +16,7 @@ module.exports = {
   collections,
   config,
   env,
+  experimentalAuth,
   media,
   panoptes,
   projects,
