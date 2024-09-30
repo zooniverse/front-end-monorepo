@@ -63,11 +63,11 @@ function App({
     }
 
     auth.listen('change', checkUserSession)
-    experimentalAuth.listen('change', checkUserSession)
+    experimentalAuth.addEventListener('change', checkUserSession)
 
     return function () {
       auth.stopListening('change', checkUserSession)
-      experimentalAuth.stopListening('change', checkUserSession)
+      experimentalAuth.removeEventListener('change', checkUserSession)
     }
   }, [])
 
