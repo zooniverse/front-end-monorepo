@@ -2,12 +2,16 @@
 
 Tasks are the individual steps in a workflow that are used to collect data for an individual subject. The currently supported tasks are listed below:
 
+- Data Vis
+- [Drawing](/packages/lib-classifier/src/plugins/drawingTools/README.md)
 - [Highlighter](/packages/lib-classifier/src/plugins/tasks/experimental/highlighter/README.md)
-- [Simple Dropdown](/packages/lib-classifier/src/plugins/tasks/dropdown-simple/README.md)
+- Multiple Answer Question
+- Single Answer Question
 - [Subject Group Comparison](/packages/lib-classifier/src/plugins/tasks/subjectGroupComparison/README.md)
+- [Simple Dropdown](/packages/lib-classifier/src/plugins/tasks/dropdown-simple/README.md)
+- Survey
 - [Text from Subject](/packages/lib-classifier/src/plugins/tasks/experimental/textFromSubject/README.md)
 - [Transcription](/packages/lib-classifier/src/plugins/tasks/experimental/transcription/README.md)
-- [Drawing](/packages/lib-classifier/src/plugins/drawingTools/README.md)
 
 ** Note: Drawing tasks can be subdivided into Drawing Tools with corresponding `model`, `component`, and `annotation` models. There are some special cases called out with their own documentation.
 - [Circle](/packages/lib-classifier/src/plugins/drawingTools/components/Circle/README.md)

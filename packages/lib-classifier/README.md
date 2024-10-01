@@ -5,13 +5,13 @@ A standalone library for the Zooniverse Project Classifier. The `Classifier` is 
 ```mermaid
 flowchart TD
     Classifier-->SubjectViewer
-    Classifier-->TaskArea
-    Classifier-->RootStore
+    Classifier-->Tasks
+    Classifier-->Store
 ```
 
 - `SubjectViewer` is responsible for subject interaction and display
-- `Tasks` are responsible for describing the type of data that the research team collects for a given `subject`.
-- `Store` is responsible for managing the application state throughout the classification process.
+- `Tasks` are responsible for describing the type of data that the research team collects for a given `subject`. These get rendered in the `TaskArea` component.
+- `Store` is responsible for managing the application state throughout the classification process. The store is initiated and setup within the `RootStore` file.
 
 ## Classifier Render Process
 
@@ -26,7 +26,7 @@ The render process starts with a [Layout](/packages/lib-classifier/src/component
 ```mermaid
 flowchart TB
 	Layout-->SubjectViewer
-	Layout-->TaskArea
+	Layout-->Tasks
 	Layout-->ImageToolbar
 	Layout-->Banners
 	Layout-->Feedback
