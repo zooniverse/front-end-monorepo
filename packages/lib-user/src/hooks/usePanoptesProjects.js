@@ -2,6 +2,8 @@ import { projects as panoptesProjects } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
+import usePanoptesAuthToken from './usePanoptesAuthToken'
+
 const isBrowser = typeof window !== 'undefined'
 
 const SWROptions = {
@@ -16,9 +18,7 @@ if (isBrowser) {
   auth.checkCurrent()
 }
 
-async function fetchProjects(query) {
-  await auth.checkCurrent()
-  const token = await auth.checkBearerToken()
+async function fetchProjects({ query, token }) {
   const authorization = token ? `Bearer ${token}` : undefined
 
   let projectsAccumulator = []
@@ -60,9 +60,10 @@ async function fetchProjects(query) {
 }
 
 export function usePanoptesProjects(query) {
+  const token = usePanoptesAuthToken()
   let key = null
-  if (query?.id) {
-    key = query
+  if (token && query?.id) {
+    key = { query, token }
   }
   return useSWR(key, fetchProjects, SWROptions)
 }
