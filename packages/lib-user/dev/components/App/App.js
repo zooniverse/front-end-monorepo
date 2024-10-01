@@ -2,7 +2,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { AuthModal } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
 import auth from 'panoptes-client/lib/auth.js'
-import { experimentalAuth } from '@zooniverse/panoptes-js'
 import { func, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
@@ -22,8 +21,6 @@ const todayUTC = getStatsDateString(today)
 
 if (isBrowser) {
   auth.checkCurrent()
-  console.log('xxx ', experimentalAuth)
-  experimentalAuth.checkCurrent()
 }
 
 const DEFAULT_DATE_RANGE = getDefaultDateRange()
@@ -44,12 +41,10 @@ function App({
 
   useEffect(() => {
     async function checkUserSession() {
-      console.log('+++ App.checkUserSession()')
       setLoading(true)
 
       try {
         const user = await auth.checkCurrent()
-        experimentalAuth.checkCurrent()
         setUser(user)
       } catch (error) {
         console.error(error)
@@ -58,16 +53,10 @@ function App({
       }
     }
 
-    async function experimentalEventHandler (args) {
-      console.log ('+++ 🟢 ', args)
-    }
-
     auth.listen('change', checkUserSession)
-    experimentalAuth.addEventListener('change', experimentalEventHandler)
-
+    
     return function () {
       auth.stopListening('change', checkUserSession)
-      experimentalAuth.removeEventListener('change', experimentalEventHandler)
     }
   }, [])
 
