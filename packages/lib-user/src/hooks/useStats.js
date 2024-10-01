@@ -1,6 +1,7 @@
 import { env } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
+import usePanoptesAuthToken from './usePanoptesAuthToken'
 
 const defaultEndpoint = '/classifications/users'
 
@@ -30,10 +31,9 @@ function statsHost(env) {
 async function fetchStats({
   endpoint,
   query,
-  sourceId
+  sourceId,
+  token
 }) {
-  await auth.checkCurrent()
-  const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   const headers = { authorization }
 
@@ -55,6 +55,7 @@ export function useStats({
   query = {},
   sourceId
 }) {
-  const key = sourceId ? { endpoint, query, sourceId } : null
+  const token = usePanoptesAuthToken()
+  const key = token && sourceId ? { endpoint, query, sourceId, token } : null
   return useSWR(key, fetchStats, SWROptions)
 }
