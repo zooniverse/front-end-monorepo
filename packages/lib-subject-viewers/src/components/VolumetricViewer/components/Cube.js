@@ -20,15 +20,16 @@ import {
 } from 'three'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Histogram } from './Histogram.js'
-// import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { pointColor } from './../helpers/pointColor.js'
 import { SortedSetUnion } from './../helpers/SortedSet.js'
 
 // Shim for node.js testing
 let glContext = null
 if (!process.browser) {
-  const glc = require('gl') // (1,1); //headless-gl
-  glContext = glc(1, 1)
+	// HAD TO COMMENT OUT TO GET test:ci working in PR on GH
+  // const glc = require('gl') // (1,1); //headless-gl
+  // glContext = glc(1, 1)
 
   window.requestAnimationFrame = () => {
     // needs to be stubbed out for animate() to work
@@ -146,13 +147,13 @@ export const Cube = ({ annotations, tool, viewer }) => {
     threeRef.current.renderer.setPixelRatio(window.devicePixelRatio)
     threeRef.current.renderer.setSize(width, width)
 
-    // threeRef.current.orbit = new OrbitControls(
-    //   threeRef.current.camera,
-    //   threeRef.current.renderer.domElement,
-    // );
-    // threeRef.current.orbit.enableDamping = false;
-    // threeRef.current.orbit.enableZoom = true;
-    // threeRef.current.orbit.enablePan = false;
+    threeRef.current.orbit = new OrbitControls(
+      threeRef.current.camera,
+      threeRef.current.renderer.domElement,
+    );
+    threeRef.current.orbit.enableDamping = false;
+    threeRef.current.orbit.enableZoom = true;
+    threeRef.current.orbit.enablePan = false;
 
     // View Axes
     const half = viewer.base / 2
