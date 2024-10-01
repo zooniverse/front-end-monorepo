@@ -55,16 +55,16 @@ function App({
       }
     }
 
-    async function experimentalEventHandler() {
-      console.log ('+++ experimentalEventHandler')
+    async function experimentalEventHandler (args) {
+      console.log ('+++ 🟢 ', args)
     }
 
     auth.listen('change', checkUserSession)
-    experimentalAuth.addEventListener('change', checkUserSession)
+    experimentalAuth.addEventListener('change', experimentalEventHandler)
 
     return function () {
       auth.stopListening('change', checkUserSession)
-      experimentalAuth.removeEventListener('change', checkUserSession)
+      experimentalAuth.removeEventListener('change', experimentalEventHandler)
     }
   }, [])
 

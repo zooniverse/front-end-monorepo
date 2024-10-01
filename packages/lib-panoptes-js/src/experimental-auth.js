@@ -11,7 +11,9 @@ async function checkCurrent (_store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: checkCurrent()')
 
-  return Promise.resolve(undefined)  // TODO: not sure if this is what should be returned by oh well
+  broadcastEvent('change', 'wah wah')  // TEST
+
+  // return Promise.resolve(undefined)  // TODO: not sure if this is what should be returned by oh well
 }
 
 /*
