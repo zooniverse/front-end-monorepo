@@ -1,5 +1,6 @@
 import RootLayout from '@/components/RootLayout'
 import StyledComponentsRegistry from './style-registry'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 export const metadata = {
   title: {
@@ -21,9 +22,12 @@ export const metadata = {
   }
 }
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default function NextLayout({ children }) {
   return (
     <html lang='en'>
+      {isProduction && <GoogleTagManager gtmId='GTM-WDW6V4' />}
       <StyledComponentsRegistry>
         <RootLayout>{children}</RootLayout>
       </StyledComponentsRegistry>
