@@ -4,18 +4,12 @@ import useSWR from 'swr'
 
 import usePanoptesAuthToken from './usePanoptesAuthToken'
 
-const isBrowser = typeof window !== 'undefined'
-
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
-}
-
-if (isBrowser) {
-  auth.checkCurrent()
 }
 
 async function getUser({ query, token }) {

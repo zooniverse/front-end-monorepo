@@ -1,11 +1,8 @@
 import { env } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 import usePanoptesAuthToken from './usePanoptesAuthToken'
 
 const defaultEndpoint = '/classifications/users'
-
-const isBrowser = typeof window !== 'undefined'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -13,10 +10,6 @@ const SWROptions = {
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
-}
-
-if (isBrowser) {
-  auth.checkCurrent()
 }
 
 function statsHost(env) {
