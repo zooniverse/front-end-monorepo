@@ -11,6 +11,7 @@
     "directory": "packages/lib-panoptes-js"
   },
   "scripts": {
+    "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "postversion": "npm publish",
     "test": "NODE_ENV=test mocha --recursive --config ./test/.mocharc.json  \"./src/**/*.spec.js\"",
