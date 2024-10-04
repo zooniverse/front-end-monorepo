@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Style RegisterForm as one column for `small` screensize.
 - Project card badges are now circular in Safari.
 - Inconsistent text sizes for Markdown tables and lists.
+- `ThumbnailImage` renders tiny images inside markdown tables.
 
 ## [1.13.0] 2024-05-17
 

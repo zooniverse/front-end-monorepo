@@ -63,7 +63,6 @@ export default function ThumbnailImage({
           <Image
             alt={alt}
             fit={fit}
-            fill
             src={imageSrc}
           />
         </Box>}
