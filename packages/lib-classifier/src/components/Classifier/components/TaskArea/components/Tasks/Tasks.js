@@ -6,6 +6,8 @@ import { useTranslation } from '@translations/i18n'
 import Task from './components/Task'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
+import { useStores } from '@hooks'
+import { withFeatureFlag } from '@helpers'
 
 /**
 The classifier tasks area. It displays tasks for the active step, along with task help (if any) and navigation buttons to go to the next/previous step, or submit the classification.
@@ -21,6 +23,10 @@ export default function Tasks({
   subjectReadyState,
   step
 }) {
+  const classifierStore = useStores()
+	const cp = classifierStore.projects.toJSON();
+	const isVolumetric = cp.resources[cp.active].experimental_tools.includes('volumetricViewer');
+
   const { t } = useTranslation('components')
 
   switch (loadingState) {
@@ -36,7 +42,8 @@ export default function Tasks({
     }
     case asyncStates.success: {
       const ready = subjectReadyState === asyncStates.success
-      if (classification && step) {
+
+			if (classification && step) {
         // setting the wrapping box of the task component to a basis of 246px feels hacky,
         // but gets the area to be the same 453px height (or very close) as the subject area
         // and keeps the task nav buttons at the the bottom area
@@ -67,7 +74,20 @@ export default function Tasks({
               </Paragraph>}
           </Box>
         )
-      }
+      } else if (classification && isVolumetric) {
+				// TRAVDO: VolumetricViewer | copy from above to make work
+				return (
+          <Box
+            key={classification.id}
+            as='form'
+            gap='small'
+            justify='between'
+            fill
+          >
+            <TaskNavButtons />
+          </Box>
+        )
+			}
 
       return null
     }
