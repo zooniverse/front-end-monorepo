@@ -54,7 +54,7 @@ async function fetchProjects(query) {
       return projectsAccumulator
     } catch (error) {
       console.error(error)
-      throw error
+      return projectsAccumulator
     }
   }
 

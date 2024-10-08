@@ -73,6 +73,14 @@ const Workflow = types
       return activeSet?.id
     },
 
+    get hasSurveyTask() {
+      const anySurveyTasks = self.tasks && Object.values(self.tasks).some(task => {
+        return task.type === 'survey'
+      })
+
+      return anySurveyTasks
+    },
+
     get usesTranscriptionTask() {
       const anyTranscriptionTasks = self.tasks && Object.values(self.tasks).some(task => {
         return task.type === 'transcription'
