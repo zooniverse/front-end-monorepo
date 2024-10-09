@@ -46,13 +46,17 @@ const StyledHorizontalRule = styled.hr`
   width: 100%;
 `
 const StyledOrderedList = styled.ol`
-  font-size: 14px;
+  font-size: 1rem;
   margin-top: 0;
 `
 const StyledUnorderedList = styled.ul`
-  font-size: 14px;
+  font-size: 1rem;
   margin-top: 0;
 `
+const StyledTable = styled(Table)`
+  font-size: 1rem;
+`
+
 const StyledVideo = styled.video`
   max-width: 100%;
 `
@@ -68,7 +72,7 @@ const componentMappings = {
   img: renderMedia,
   p: Paragraph,
   span: Text,
-  table: Table,
+  table: StyledTable,
   tfoot: TableFooter,
   thead: TableHeader,
   tbody: TableBody,
