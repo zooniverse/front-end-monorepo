@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { getRoot, types } from 'mobx-state-tree'
 
 import numberString from './types/numberString'
+import { getCookie } from '@helpers'
 
 const TranslationStrings = types.map(types.maybeNull(types.string))
 
@@ -26,6 +27,7 @@ const Project = types
     primary_language: types.optional(types.string, 'en'),
     owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
+    selectedWorkflow: types.optional(types.string, ''),
     slug: types.optional(types.string, ''),
     strings: TranslationStrings,
     subjects_count: types.optional(types.number, 0),
@@ -43,7 +45,7 @@ const Project = types
       if (activeWorkflows.length === 1) {
         [singleActiveWorkflow] = self.links['active_workflows']
       }
-      return singleActiveWorkflow
+      return singleActiveWorkflow || self.selectedWorkflow
     },
 
     get description () {
@@ -88,6 +90,24 @@ const Project = types
 
     workflowIsActive(workflowId) {
       return self.links['active_workflows'].includes(workflowId)
+    }
+  }))
+  .preProcessSnapshot(snapshot => {
+    let workflowFromCookie = ''
+    if (typeof document !== 'undefined') {
+      workflowFromCookie = getCookie('workflow_id')
+    }
+    return {
+      ...snapshot,
+      selectedWorkflow: workflowFromCookie
+    }
+  })
+  .actions(self => ({
+    setSelectedWorkflow(workflowId) {
+      if (typeof document !== 'undefined') {
+        self.selectedWorkflow = workflowId
+        document.cookie = `workflow_id=${workflowId}; path=/projects/${self.slug}; domain=zooniverse.org; SameSite=Strict`
+      }
     }
   }))
 
