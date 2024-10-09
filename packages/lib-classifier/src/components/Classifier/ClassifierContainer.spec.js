@@ -419,6 +419,7 @@ describe('components > ClassifierContainer', function () {
     })
 
     it('should be able to view inactive workflows', async function () {
+      await screen.findByTestId('subject-viewer')
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
         expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
@@ -515,6 +516,7 @@ describe('components > ClassifierContainer', function () {
     })
 
     it('should be able to view inactive workflows', async function () {
+      await screen.findByTestId('subject-viewer')
       await waitFor(() => {
         const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
         expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
