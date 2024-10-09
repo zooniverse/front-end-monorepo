@@ -7,7 +7,6 @@ const express = require('express')
 const next = require('next')
 
 const setLogging = require('./set-logging')
-const setCacheHeaders = require('./set-cache-headers')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -32,7 +31,6 @@ app.prepare().then(() => {
   setLogging(server)
 
   server.get('*', (req, res) => {
-    setCacheHeaders(req, res)
     return handle(req, res)
   })
 
