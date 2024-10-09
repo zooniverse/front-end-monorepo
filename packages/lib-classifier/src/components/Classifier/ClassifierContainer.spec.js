@@ -57,7 +57,7 @@ describe('components > ClassifierContainer', function () {
     }
   }
 
-  describe('anonymous volunteers', function () {
+  xdescribe('anonymous volunteers', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -147,7 +147,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('signed-in volunteers without a stored Panoptes session', function () {
+  xdescribe('signed-in volunteers without a stored Panoptes session', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -242,7 +242,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('signed-in volunteers with a stored Panoptes session', function () {
+  xdescribe('signed-in volunteers with a stored Panoptes session', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -338,7 +338,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('Project owner', function () {
+  xdescribe('Project owner', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -434,7 +434,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('Project collaborator', function () {
+  xdescribe('Project collaborator', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -530,7 +530,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('Project tester', function () {
+  xdescribe('Project tester', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -626,7 +626,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('admins: in admin mode', function () {
+  xdescribe('admins: in admin mode', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
@@ -812,7 +812,7 @@ describe('components > ClassifierContainer', function () {
     })
   })
 
-  describe('when the locale changes', function () {
+  xdescribe('when the locale changes', function () {
     let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, translationRequests, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow

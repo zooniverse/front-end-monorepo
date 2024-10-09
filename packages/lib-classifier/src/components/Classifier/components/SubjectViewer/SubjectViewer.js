@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
@@ -42,43 +42,50 @@ function SubjectViewer({
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
-  const [Viewer, setViewer] = useState(null)
+	const [hasViewer, setHasViewer] = useState(null)
+	const [viewer, setViewer] = useState({})
 
-  async function loadViewer() {
-    setViewer(await getViewer(subject?.viewer))
-  }
+	useEffect(() => {
+		delete viewer.Component
+		setHasViewer(null)
 
-  switch (subjectQueueState) {
-    case asyncStates.initialized: {
-      return null
-    }
-    case asyncStates.loading: {
-      return (<div>{t('SubjectViewer.loading')}</div>)
-    }
-    case asyncStates.error: {
-      console.error('There was an error loading the subjects')
-      return null
-    }
-    case asyncStates.success: {
-      if (Viewer === null) {
-        loadViewer();
-      } else if (Viewer) {
-        return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            subject={subject}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
-        )
-      }
+		async function loadViewer() {
+			setTimeout(async () => {
+				viewer.Component = await getViewer(subject?.viewer);
+				setViewer(viewer)
+				setHasViewer(true)
+			}, 10);
+		}
+		loadViewer()
+	}, [subject])
 
-      return null
-    }
-  }
+	if (subjectQueueState === asyncStates.initialized) {
+		return null
+	} else if (subjectQueueState === asyncStates.loading) {
+    return (<div>{t('SubjectViewer.loading')}</div>)
+	} else if (subjectQueueState === asyncStates.error) {
+		return null
+	} else if (subjectQueueState === asyncStates.success && hasViewer !== null) {
+		if (viewer.Component) {
+			const Viewer = viewer.Component
+			return (
+				<Viewer
+					enableInteractionLayer={enableInteractionLayer}
+					key={subject.id}
+					subject={subject}
+					loadingState={subjectReadyState}
+					onError={onError}
+					onReady={onSubjectReady}
+					viewerConfiguration={subject?.viewerConfiguration}
+				/>
+			)
+	
+		} else {
+			return null
+		}
+	} else {
+		return null
+	}
 }
 
 SubjectViewer.propTypes = {

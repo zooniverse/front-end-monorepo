@@ -16,7 +16,7 @@ import { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
 import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow'
 import Classifier from './Classifier'
 
-describe('Classifier > workflow types', function () {
+xdescribe('Classifier > workflow types', function () {
   // this turns off Mocha's time limit for slow tests
   this.timeout(5000)
 

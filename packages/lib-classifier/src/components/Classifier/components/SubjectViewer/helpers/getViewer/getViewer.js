@@ -1,7 +1,9 @@
 async function getViewer (viewer) {
   let view = null;
 
-  if (viewer === 'dataImage') {
+  if (viewer === '__TEST__') {
+    view = await import('./MockViewer');
+  } else if (viewer === 'dataImage') {
     view = await import('./../../components/DataImageViewer');
   } else if (viewer === 'flipbook') {
     view = await import('./../../components/FlipbookViewer');

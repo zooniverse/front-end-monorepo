@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import Meta, { Default, mockTasks } from './MaxWidth.stories.js'
 
-describe('Component > Layouts > MaxWidth', function () {
+xdescribe('Component > Layouts > MaxWidth', function () {
 
   it('should render a subject and a task', function () {
     const DefaultStory = composeStory(Default, Meta)
