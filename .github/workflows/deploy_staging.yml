@@ -57,10 +57,20 @@ jobs:
       run: |
         sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-staging.tmpl | kubectl apply -f -
 
+  purge_staging_cache:
+    name: Purge cache path
+    needs: [build_and_push_image, deploy_staging]
+    uses: zooniverse/ci-cd/.github/workflows/purge_cache.yaml@main
+    with:
+      fdname: 'frontend-preview-zooniverse-org'
+      path: '/*'
+    secrets:
+      creds: ${{ secrets.AZURE_STATIC_SITES }}
+
   slack_notification:
     name: Slack notification
     uses: zooniverse/ci-cd/.github/workflows/slack_notification.yaml@main
-    needs: [build_and_push_image, deploy_staging]
+    needs: [build_and_push_image, deploy_staging, purge_staging_cache]
     if: always()
     with:
       commit_id: ${{ github.sha }}
