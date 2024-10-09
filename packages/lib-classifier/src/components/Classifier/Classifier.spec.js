@@ -65,7 +65,7 @@ describe('Components > Classifier', function () {
   describe('while the subject is loading', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
-    before(function () {
+    before(async function () {
       sinon.replace(window, 'Image', MockSlowImage)
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
@@ -80,6 +80,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
       taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
@@ -143,6 +144,8 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
+
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
       taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
@@ -254,6 +257,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
       const newSnapshot = {
         ...workflowSnapshot,
@@ -354,6 +358,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
       tutorialHeading = await screen.findByRole('heading', { name: 'ModalTutorial.title' })
     })
 
@@ -392,6 +397,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
       await when(() => store.tutorials.active.hasNotBeenSeen)
       tutorialHeading = screen.queryByRole('heading', { name: 'ModalTutorial.title' })
     })
@@ -413,7 +419,7 @@ describe('Components > Classifier', function () {
 
       const roles = []
       const subjectOneSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example1.png' }] })
-      const subjectTwoSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example2.png' }] })
+      const subjectTwoSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
       workflowSnapshot.strings = workflowStrings
       workflowSnapshot.grouped = true
@@ -469,6 +475,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
       rerender(
         <Classifier
@@ -480,6 +487,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+      await screen.findByTestId('subject-viewer')
       workflow = store.workflows.active
       await when(() => store.subjectViewer.loadingState === asyncStates.loading)
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
@@ -506,7 +514,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should show a subject image from the selected set', function () {
-      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example2.png')
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
     })
 
     describe('task answers', function () {
