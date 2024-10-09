@@ -34,8 +34,8 @@ const DragHandle = forwardRef(function DragHandle(
 
   return (
     <g ref={ref} transform={transform} data-testid={testid} {...props} >
-      <StyledCircle r={radius} {...styleProps} />
-      <StyledCircle r={2 * radius} fill='transparent' stroke='transparent' />
+      <StyledCircle r={radius} {...styleProps} vectorEffect={'non-scaling-stroke'} />
+      <StyledCircle r={2 * radius} fill='transparent' stroke='transparent' vectorEffect={'non-scaling-stroke'} />
     </g>
   )
 })
