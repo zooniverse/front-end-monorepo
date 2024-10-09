@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
@@ -41,6 +42,12 @@ function SubjectViewer({
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
+  const [Viewer, setViewer] = useState(null)
+
+  async function loadViewer() {
+    setViewer(await getViewer(subject?.viewer))
+  }
+
   switch (subjectQueueState) {
     case asyncStates.initialized: {
       return null
@@ -53,9 +60,9 @@ function SubjectViewer({
       return null
     }
     case asyncStates.success: {
-      const Viewer = getViewer(subject?.viewer)
-      
-      if (Viewer) {
+      if (Viewer === null) {
+        loadViewer();
+      } else if (Viewer) {
         return (
           <Viewer
             enableInteractionLayer={enableInteractionLayer}
