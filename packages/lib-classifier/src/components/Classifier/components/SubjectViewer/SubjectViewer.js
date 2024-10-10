@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
@@ -41,37 +42,50 @@ function SubjectViewer({
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
-  switch (subjectQueueState) {
-    case asyncStates.initialized: {
-      return null
-    }
-    case asyncStates.loading: {
-      return (<div>{t('SubjectViewer.loading')}</div>)
-    }
-    case asyncStates.error: {
-      console.error('There was an error loading the subjects')
-      return null
-    }
-    case asyncStates.success: {
-      const Viewer = getViewer(subject?.viewer)
-      
-      if (Viewer) {
-        return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            subject={subject}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
-        )
-      }
+	const [hasViewer, setHasViewer] = useState(null)
+	const [viewer, setViewer] = useState({})
 
-      return null
-    }
-  }
+	useEffect(() => {
+		delete viewer.Component
+		setHasViewer(null)
+
+		async function loadViewer() {
+			setTimeout(async () => {
+				viewer.Component = await getViewer(subject?.viewer);
+				setViewer(viewer)
+				setHasViewer(true)
+			}, 10);
+		}
+		loadViewer()
+	}, [subject])
+
+	if (subjectQueueState === asyncStates.initialized) {
+		return null
+	} else if (subjectQueueState === asyncStates.loading) {
+    return (<div>{t('SubjectViewer.loading')}</div>)
+	} else if (subjectQueueState === asyncStates.error) {
+		return null
+	} else if (subjectQueueState === asyncStates.success && hasViewer !== null) {
+		if (viewer.Component) {
+			const Viewer = viewer.Component
+			return (
+				<Viewer
+					enableInteractionLayer={enableInteractionLayer}
+					key={subject.id}
+					subject={subject}
+					loadingState={subjectReadyState}
+					onError={onError}
+					onReady={onSubjectReady}
+					viewerConfiguration={subject?.viewerConfiguration}
+				/>
+			)
+	
+		} else {
+			return null
+		}
+	} else {
+		return null
+	}
 }
 
 SubjectViewer.propTypes = {
