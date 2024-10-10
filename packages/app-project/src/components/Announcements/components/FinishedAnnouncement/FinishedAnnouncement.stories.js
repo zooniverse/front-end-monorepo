@@ -22,7 +22,7 @@ function NextRouterStory(Story) {
 
 const mockStore = {
   project: {
-    baseUrl: '/projects/zookeeper/galaxy-zoo',
+    baseUrl: '/zookeeper/galaxy-zoo',
     hasResultsPage: true,
     isComplete: true
   }
@@ -49,7 +49,7 @@ export const Default = () => (
 
 const mockStoreNoResults = {
   project: {
-    baseUrl: '/projects/zookeeper/galaxy-zoo',
+    baseUrl: '/zookeeper/galaxy-zoo',
     hasResultsPage: false,
     isComplete: true
   }
