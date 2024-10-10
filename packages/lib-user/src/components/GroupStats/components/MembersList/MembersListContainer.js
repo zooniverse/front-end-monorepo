@@ -38,10 +38,10 @@ function MembersListContainer({
   const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
 
   const paginationProps = {
-    numberItems: membershipsData?.meta?.count,
+    numberItems: membershipsData?.meta?.memberships?.count,
     onChange: setPage,
     page,
-    step: membershipsData?.meta?.page_size
+    step: membershipsData?.meta?.memberships?.page_size
   }
 
   function handleDeleteMembership({ membershipId }) {
