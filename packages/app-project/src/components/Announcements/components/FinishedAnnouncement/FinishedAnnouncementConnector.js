@@ -23,7 +23,7 @@ function FinishedAnnouncementConnector() {
 
   const announcement = t('Announcements.FinishedAnnouncement.announcement')
   const link = {
-    href: `${baseUrl}/about/results`,
+    href: `/projects${baseUrl}/about/results`,
     text: t('Announcements.FinishedAnnouncement.seeResults')
   }
 
