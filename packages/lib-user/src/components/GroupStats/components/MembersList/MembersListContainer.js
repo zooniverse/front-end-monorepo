@@ -17,6 +17,10 @@ function MembersListContainer({
 }) {
   const [page, setPage] = useState(1)
 
+  function handlePageChange({ page }) {
+    setPage(page)
+  }
+
   const query = {
     include: 'user',
     page,
@@ -39,7 +43,7 @@ function MembersListContainer({
 
   const paginationProps = {
     numberItems: membershipsData?.meta?.memberships?.count,
-    onChange: setPage,
+    onChange: handlePageChange,
     page,
     step: membershipsData?.meta?.memberships?.page_size
   }
