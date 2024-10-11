@@ -4,17 +4,68 @@ Based on PJC: https://github.com/zooniverse/panoptes-javascript-client/blob/8157
  */
 
 const globalStore = {
-  eventListeners: {}
+  eventListeners: {},
+  _currentUserPromise: null,
+  //_bearerToken: '',
+  //_bearerTokenExpiration: NaN,
+  //_refreshToken: '',
+  //_tokenRefreshPromise: null,
 }
 
 async function checkCurrent (_store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: checkCurrent()')
 
-  broadcastEvent('change', 'wah wah')  // TEST
+  if (!store._currentUserPromise) {
+    console.log('Checking current user')
+    store._currentUserPromise = _getUser(store)
+    await store._currentUserPromise
+    broadcastEvent('change', store._currentUserPromise, store)
+  }
 
-  // return Promise.resolve(undefined)  // TODO: not sure if this is what should be returned by oh well
+  return store._currentUserPromise
+  /*
+  Orignal PJC code
+
+  if (!this._currentUserPromise) {
+    console.log('Checking current user');
+    this._currentUserPromise = this._getUser();
+    await this._currentUserPromise;
+    this.emit('change', this._currentUserPromise);
+  }
+
+  return this._currentUserPromise;
+   */
 }
+
+async function _getUser (_store) {
+  const store = _store || globalStore
+  console.log('+++ experimental auth client: getUser()')
+
+  try {
+    const token = await _getBearerToken(store)
+    return _getSession(store)
+  } catch (error) {
+    // Nobody's signed in. This isn't an error.
+    console.info('No current user')
+    return null
+  }
+}
+
+async function _getBearerToken (_store) {
+  const store = _store || globalStore
+  console.log('+++ experimental auth client: getUser()')
+
+  // TODO
+}
+
+async function _getSession (_store) {
+  const store = _store || globalStore
+  console.log('+++ experimental auth client: _getSession()')
+
+  // TODO
+}
+
 
 /*
 Adds event listener.
@@ -62,9 +113,42 @@ function broadcastEvent (eventType, args, _store) {
   })
 }
 
-function signIn (login, password) {
+async function signIn (login, password, _store) {
   // TODO
+  const store = _store || globalStore
   console.log('+++ experimental auth client: signIn() ', login, password)
+
+  const user = await checkCurrent(_store)
+
+  console.log('+++ user: ', user)
+
+  /*
+  Original PJC code:
+
+  const user = await this.checkCurrent();
+  if (user) {
+    await this.signOut();
+    return this.signIn(credentials);
+  } else {
+    console.log('Signing in', credentials.login);
+    const token = await getCSRFToken(config.host)
+    const data = {
+      authenticity_token: token,
+      user: {
+        login: credentials.login,
+        password: credentials.password,
+        remember_me: true,
+      },
+    };
+
+    const signInRequest = this._makeSignInRequest(data);
+    this._currentUserPromise = signInRequest.catch(() => null);
+    await this._currentUserPromise;
+    this.emit('change', this._currentUserPromise);
+
+    return signInRequest;
+  }
+  */
 }
 
 export {
