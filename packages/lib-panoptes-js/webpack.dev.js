@@ -40,6 +40,9 @@ module.exports = {
   ],
   mode: 'development',
   resolve: {
+    alias: {
+      '@src': path.resolve(__dirname, 'src'),
+    },
     fallback: {
       fs: false,
       // for markdown-it plugins

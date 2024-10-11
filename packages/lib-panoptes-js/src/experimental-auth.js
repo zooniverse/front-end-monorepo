@@ -62,7 +62,12 @@ function broadcastEvent (eventType, args, _store) {
   })
 }
 
+function signIn () {
+  console.log('1234')
+}
+
 export {
+  signIn,
   checkCurrent,
   addEventListener,
   removeEventListener,

@@ -1,3 +1,5 @@
+import { signIn } from '@src/experimental-auth.js'
+
 class App {
   constructor () {
     this.html = {
@@ -9,6 +11,8 @@ class App {
 
   loginForm_onSubmit (e) {
     console.log('+++ loginForm_onSubmit', e)
+
+    experimentalAuth.signIn()
     
     e.preventDefault()
     return false
