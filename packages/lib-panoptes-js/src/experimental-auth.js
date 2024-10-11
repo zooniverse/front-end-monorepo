@@ -62,8 +62,9 @@ function broadcastEvent (eventType, args, _store) {
   })
 }
 
-function signIn () {
-  console.log('1234')
+function signIn (login, password) {
+  // TODO
+  console.log('+++ experimental auth client: signIn() ', login, password)
 }
 
 export {

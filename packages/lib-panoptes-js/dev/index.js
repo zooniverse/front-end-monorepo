@@ -10,10 +10,9 @@ class App {
   }
 
   loginForm_onSubmit (e) {
-    console.log('+++ loginForm_onSubmit', e)
+    const formData = new FormData(e.target)
+    signIn(formData.get('login'), formData.get('password'))
 
-    experimentalAuth.signIn()
-    
     e.preventDefault()
     return false
   }
