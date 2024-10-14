@@ -78,7 +78,7 @@ export default function SubjectCard({
         alt={`subject ${subjectID}`}
         controls={false}
         src={mediaSrc}
-        width={cardWidth(size)}
+        width={cardWidth(size) * 2}
       />
       <Gradient fill />
       <StyledSpacedText color='white' weight='bold'>
