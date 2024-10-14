@@ -3,7 +3,13 @@ import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store'
-import { SubjectFactory, SubjectSetFactory, ProjectFactory, WorkflowFactory } from '@test/factories'
+import {
+  SubjectFactory,
+  SubjectSetFactory,
+  SubjectViewerFactory,
+  ProjectFactory,
+  WorkflowFactory
+} from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 import branchingWorkflow from './branchingWorkflow'
@@ -33,6 +39,7 @@ export default function mockStore({
   project,
   subject,
   subjectSet,
+  subjectViewer,
   workflow = branchingWorkflow
 } = {}) {
 
@@ -41,6 +48,8 @@ export default function mockStore({
   })
 
   const subjectSetSnapshot = subjectSet || SubjectSetFactory.build()
+
+  const subjectViewerSnapshot = subjectViewer || SubjectViewerFactory.build()
 
   const workflowSnapshot = workflow || WorkflowFactory.build()
 
@@ -81,6 +90,13 @@ export default function mockStore({
       loadingState: asyncStates.success,
       resources: {
         [subjectSetSnapshot.id]: subjectSetSnapshot
+      }
+    },
+    subjectViewer: {
+      active: subjectSnapshot.id,
+      loadingState: asyncStates.success,
+      resources: {
+        [subjectViewerSnapshot.id]: subjectViewerSnapshot
       }
     },
     workflows: {

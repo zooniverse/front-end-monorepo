@@ -24,8 +24,10 @@ import { pointColor } from './../helpers/pointColor.js'
 import { SortedSetUnion } from './../helpers/SortedSet.js'
 
 // Shim for test:ci in GH needs this to work
+// Inlined the OrbitControls.js file because 'app-project' import gets clobbered by webpack
 let OrbitControls = null;
-import("three/addons/controls/OrbitControls.js").then((module) => {
+import('./../helpers/OrbitControls.js').then((module) => {
+	console.log('module', module);
 	OrbitControls = module.OrbitControls;
 })
 

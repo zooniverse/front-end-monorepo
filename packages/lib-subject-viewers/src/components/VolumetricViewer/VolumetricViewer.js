@@ -49,12 +49,11 @@ export default function VolumetricViewerComponent ({
   )
 }
 
-export const VolumetricViewerData = ({ subjectData = '', subjectUrl = '' }) => {
+export const VolumetricViewerData = (config) => {
   return {
-    data: {
-      config: {},
-      subjectData,
-      subjectUrl,
+    config: {
+      subjectData: config?.subjectData ?? '',
+      subjectUrl: config?.subjectUrl ?? '',
       models: {
         annotations: ModelAnnotations(),
         tool: ModelTool(),

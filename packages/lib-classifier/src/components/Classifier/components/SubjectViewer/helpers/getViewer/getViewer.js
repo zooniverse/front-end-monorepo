@@ -28,7 +28,8 @@ async function getViewer (viewer) {
   } else if (viewer === 'variableStar') {	
     view = await import('./../../components/JSONDataViewer');
   } else if (viewer === 'volumetric') {
-    view = await import('@zooniverse/subject-viewers');
+    const module = await import('@zooniverse/subject-viewers');
+    view = module.VolumetricViewerData;
   };
 
   if (view && view.default) view = view.default;

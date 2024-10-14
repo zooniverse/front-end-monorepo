@@ -22,12 +22,17 @@ function storeMapper(classifierStore) {
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
   const transcriptionTasks = classifierStore?.workflowSteps.findTasksByType('transcription')
   const enableInteractionLayer = (drawingTasks.length > 0 || transcriptionTasks.length > 0)
+  const projectViewer = (classifierStore?.projects?.active?.experimental_tools?.includes('volumetricViewer'))
+    ? 'volumetric'
+    : null
 
   return {
     enableInteractionLayer,
     onError,
     onSubjectReady,
+    projectViewer,
     subject,
+    subjectViewer: classifierStore?.subjectViewer,
     subjectQueueState,
     subjectReadyState
   }
@@ -37,42 +42,59 @@ function SubjectViewer({
   enableInteractionLayer,
   onError,
   onSubjectReady,
+  projectViewer,
   subject,
+  subjectViewer,
   subjectQueueState = asyncStates.initialized,
   subjectReadyState
 }) {
-  const [ViewComponent, setViewComponent] = useState(null);
+  const [Viewer, setViewer] = useState(null);
 
   useEffect(() => {
-    setViewComponent(null)
+    setViewer(null)
 
     async function loadViewer() {
-      setViewComponent(await getViewer(subject?.viewer))
+      const viewer = await getViewer(projectViewer ?? subject?.viewer)
+
+      if (projectViewer === 'volumetric') {
+        const subjectUrl = subject?.locations[0].url ?? '';
+        const { config, component } = viewer({ subjectUrl });
+        setViewer({ Component: component })
+        subjectViewer.setConfig(config)
+      } else {
+        setViewer({ Component: viewer })
+      }
     }
     loadViewer()
   }, [subject])
 
   const { t } = useTranslation('components')
 
-	if (subjectQueueState === asyncStates.loading) {
-		return (<div>{t('SubjectViewer.loading')}</div>)
-	} else if (subjectQueueState === asyncStates.error) {
-		console.error('There was an error loading the subjects')
-	} else if (subjectQueueState === asyncStates.success && subject && ViewComponent) {
-    return (<div data-testid="subject-viewer">
-      <ViewComponent
-        enableInteractionLayer={enableInteractionLayer}
-        key={subject.id}
-        subject={subject}
-        loadingState={subjectReadyState}
-        onError={onError}
-        onReady={onSubjectReady}
-        viewerConfiguration={subject?.viewerConfiguration}
-      />
-    </div>)
-	}
+  if (subjectQueueState === asyncStates.loading) {
+    return (<div>{t('SubjectViewer.loading')}</div>)
+  } else if (subjectQueueState === asyncStates.error) {
+    console.error('There was an error loading the subjects')
+  } else if (subjectQueueState === asyncStates.success && subject && Viewer?.Component) {
+    if (projectViewer === 'volumetric') {
+      return (<div data-testid="subject-viewer">
+        <Viewer.Component {...subjectViewer.config} />
+      </div>)
+    } else {
+      return (<div data-testid="subject-viewer">
+        <Viewer.Component
+          enableInteractionLayer={enableInteractionLayer}
+          key={subject.id}
+          loadingState={subjectReadyState}
+          onError={onError}
+          onReady={onSubjectReady}
+          subject={subject}
+          viewerConfiguration={subject?.viewerConfiguration}
+        />
+      </div>)
+    }
+  }
 
-	return null
+  return null
 }
 
 SubjectViewer.propTypes = {
