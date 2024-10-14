@@ -75,11 +75,16 @@ const SubjectStore = types
 
   .volatile(self => {
     return {
+      viewerModels: {},
       onReset: () => null
     }
   })
 
   .actions(self => {
+    function addViewerModels({ models }) {
+      self.viewerModels = models;
+    }
+
     function _addMiddleware(call, next, abort) {
       if (call.name === 'advance') {
         _onSubjectAdvance(call, next, abort)
@@ -390,6 +395,7 @@ const SubjectStore = types
     }
 
     return {
+      addViewerModels,
       advance,
       afterAttach,
       append,

@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import Meta, { Default } from './ProtoViewer.stories.js'
 
-describe('Component > AboutHeader', function () {
+describe('Component > ProtoViewer', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   before(function () {

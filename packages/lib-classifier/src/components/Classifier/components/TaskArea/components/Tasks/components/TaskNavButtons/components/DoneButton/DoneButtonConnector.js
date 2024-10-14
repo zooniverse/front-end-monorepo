@@ -21,7 +21,7 @@ function storeMapper(store) {
 
     function onClick(event) {
       event.preventDefault()
-      step.completeAndValidate(annotations)
+      step?.completeAndValidate(annotations)	// TRAVDO: step? = the "?" was added
       finish()
       return completeClassification()
     }
