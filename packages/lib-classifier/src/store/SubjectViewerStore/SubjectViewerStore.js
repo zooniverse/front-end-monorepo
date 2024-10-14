@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { autorun, reaction } from 'mobx'
+import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
@@ -23,6 +23,7 @@ const SubjectViewer = types
   })
 
   .volatile(self => ({
+    config: null,
     /*
     Callback function for subject viewers with custom zoom handlers.
     - 'type': 'zoomin', 'zoomout', 'zoomto'
@@ -178,6 +179,10 @@ const SubjectViewer = types
         }
 
         self.showAnnotate = canAnnotate
+      },
+
+      setConfig(config) {
+        self.config = config
       },
 
       setFlipbookSpeed (speed) {

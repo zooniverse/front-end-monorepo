@@ -59,6 +59,9 @@
     "swr": "~2.2.0",
     "validator": "~13.11.0"
   },
+  "peerDependencies": {
+    "@zooniverse/subject-viewers": "0.1.0"
+  },
   "devDependencies": {
     "@babel/register": "~7.23.7",
     "@storybook/addon-a11y": "~7.6.11",
