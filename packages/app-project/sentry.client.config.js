@@ -7,7 +7,7 @@ const environment = process.env.APP_ENV
 Sentry.init({
   dsn,
   environment,
-  integrations: [new Sentry.BrowserTracing()],
+  integrations: [Sentry.browserTracingIntegration()],
   release,
   tracesSampleRate: 1.0,
   ignoreErrors: [
