@@ -31,7 +31,23 @@ function NewSingleImageViewer({
     enableRotation()
   }, [])
 
-  const transform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
+  const rotationTransform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
+
+  const SVGImageComponent = ({ transform: panZoomTransform }) => (
+    <svg>
+      <g transform={panZoomTransform}>
+        <SVGImage
+          ref={imgRef}
+          invert={invert}
+          move={move}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          src={src}
+          subjectID={subjectId}
+        />
+      </g>
+    </svg>
+  )
 
   return (
     <ParentSize>
@@ -50,13 +66,14 @@ function NewSingleImageViewer({
               zooming={zooming}
             />}
           <svg viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}>
-            <g transform={transform}>
-              <SVGImage
-                ref={imgRef}
-                naturalHeight={naturalHeight}
-                naturalWidth={naturalWidth}
-                src={src}
-                subjectID={subjectId}
+            <g transform={rotationTransform}>
+              <VisXZoom
+                height={naturalHeight}
+                setOnPan={setOnPan}
+                setOnZoom={setOnZoom}
+                width={naturalWidth}
+                zoomingComponent={SVGImageComponent}
+                zooming={zooming}
               />
             </g>
           </svg>
@@ -67,11 +84,3 @@ function NewSingleImageViewer({
 }
 
 export default NewSingleImageViewer
-
-{/* <VisXZoom
-  height={naturalHeight}
-  setOnPan={setOnPan}
-  setOnZoom={setOnZoom}
-  width={naturalWidth}
-  zoomingComponent={???}
-/> */}
