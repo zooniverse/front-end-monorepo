@@ -106,7 +106,7 @@ describe('Components > SVGPanZoom', function () {
     onDrag({}, { x: -15, y: 0 })
     await waitFor(() => {
       const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-      expect(viewBox).to.equal('10 0 400 200')
+      expect(viewBox).to.equal('13.5 0 400 200')
     })
   })
 
@@ -114,7 +114,7 @@ describe('Components > SVGPanZoom', function () {
     onDrag({}, { x: 0, y: -15 })
     await waitFor(() => {
       const viewBox = document.querySelector('svg[viewBox]')?.getAttribute('viewBox')
-      expect(viewBox).to.equal('0 10 400 200')
+      expect(viewBox).to.equal('0 13.5 400 200')
     })
   })
 
@@ -133,7 +133,7 @@ describe('Components > SVGPanZoom', function () {
         setOnDrag={callback => { onDrag = callback }}
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
-        src={'http://placekitten.com/200/400'}
+        src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
       >
         <svg />
       </SVGPanZoom>
@@ -159,7 +159,7 @@ describe('Components > SVGPanZoom', function () {
         setOnDrag={callback => { onDrag = callback }}
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
-        src={'http://placekitten.com/200/400'}
+        src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
       >
         <svg />
       </SVGPanZoom>

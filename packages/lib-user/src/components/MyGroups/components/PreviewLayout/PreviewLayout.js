@@ -1,5 +1,5 @@
-import { Loader } from '@zooniverse/react-components'
-import { Box, Paragraph } from 'grommet'
+import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box, Paragraph } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 
 import { ContentBox } from '@components/shared'
@@ -12,7 +12,7 @@ export default function PreviewLayout({
   authUser,
   groups,
   loading = false,
-  setGroupModalActive = DEFAULT_HANDLER
+  handleGroupModal = DEFAULT_HANDLER
 }) {
   return (
     <ContentBox
@@ -28,6 +28,7 @@ export default function PreviewLayout({
       {!loading && groups?.length ? (
         <Box
           as='ul'
+          align='center'
           gap='xsmall'
           margin={{ bottom: 'medium' }}
           pad='none'
@@ -37,7 +38,7 @@ export default function PreviewLayout({
               key={group.id}
               id={group.id}
               displayName={group.display_name}
-              role={group.role}
+              role={group.roles[0]}
             />
           ))}
         </Box>
@@ -51,7 +52,21 @@ export default function PreviewLayout({
           </Paragraph>
         </Box>
       )}
-      <CreateButton onClick={() => setGroupModalActive(true)} />
+      <Box direction='row' justify='between'>
+        <Anchor
+          href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
+          color={{
+            dark: 'light-4',
+            light: 'dark-5'
+          }}
+          label={
+            <SpacedText size='1rem' uppercase={false}>
+              Learn more about groups
+            </SpacedText>
+          }
+        />
+        <CreateButton onClick={handleGroupModal} />
+      </Box>
     </ContentBox>
   )
 }
@@ -68,5 +83,5 @@ PreviewLayout.propTypes = {
     })
   ),
   loading: bool,
-  setGroupModalActive: func
+  handleGroupModal: func
 }

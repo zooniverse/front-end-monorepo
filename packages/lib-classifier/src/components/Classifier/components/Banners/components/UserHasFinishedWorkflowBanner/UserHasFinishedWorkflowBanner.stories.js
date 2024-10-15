@@ -26,7 +26,7 @@ export function Default({ subject }) {
   return (
     <Box width='large'>
       <UserHasFinishedWorkflowBanner subject={subject} />
-      <img src='https://placekitten.com/800/400' alt='placeholder' />
+      <img src='https://static.zooniverse.org/fem-assets/subject-placeholder.jpg' alt='placeholder' />
     </Box>
   )
 }

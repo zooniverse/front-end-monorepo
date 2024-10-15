@@ -1,39 +1,40 @@
-import asyncStates from '@zooniverse/async-states'
+import { Loader } from '@zooniverse/react-components'
 import { bool, shape, string } from 'prop-types'
 
 export function getUserGroupStatus({
-  authUser = null,
+  authUserId = undefined,
+  createGroupMembershipError = null,
+  createGroupMembershipLoading = false,
   group = null,
   groupError = null,
   groupLoading = false,
-  joinStatus = null,
   joinToken = null
 }) {
-  if (joinToken && !authUser) {
+  if (joinToken && !authUserId) {
     return ('Log in to join the group.')
   }
 
-  if (joinStatus === asyncStates.posting) {
+  if (createGroupMembershipLoading) {
     return ('Joining group...')
   }
 
-  if (joinStatus === asyncStates.error) {
+  if (createGroupMembershipError) {
     return ('Join failed.')
   }
 
   if (groupLoading) {
-    return ('Loading...')
+    return (<Loader />)
   }
 
   if (groupError) {
     return (`Error: ${groupError.message}.`)
   }
 
-  if (!group && !authUser) {
+  if (!group && !authUserId) {
     return ('Group not found. You must be logged in to access a private group.')
   }
 
-  if (!group && authUser) {
+  if (!group && authUserId) {
     return ('Group not found.')
   }
 
@@ -41,10 +42,11 @@ export function getUserGroupStatus({
 }
 
 getUserGroupStatus.propTypes = {
-  authUser: shape({
-    id: string,
-    login: string
+  authUserId: string,
+  createGroupMembershipError: shape({
+    message: string
   }),
+  createGroupMembershipLoading: bool,
   group: shape({
     id: string
   }),
@@ -52,6 +54,5 @@ getUserGroupStatus.propTypes = {
     message: string
   }),
   groupLoading: bool,
-  joinStatus: string,
   joinToken: string
 }

@@ -18,7 +18,11 @@ function GroupUpdateFormContainer({
   handleGroupModalActive = DEFAULT_HANDLER,
   login
 }) {
-  const { trigger: updateGroup } = useSWRMutation({ adminMode, authUserId, groupId: group.id, joinStatus: null }, updatePanoptesUserGroup)
+  const { trigger: updateGroup } = useSWRMutation({
+    adminMode,
+    authUserId,
+    groupId: group?.id
+  }, updatePanoptesUserGroup)
 
   async function handleGroupDelete() {
     try {

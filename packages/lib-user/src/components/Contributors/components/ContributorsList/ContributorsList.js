@@ -11,10 +11,12 @@ function ContributorsList({
   projects = []
 }) {
   let privateProjectIndex = 1
+  contributors.sort((a, b) => b.count - a.count)
 
   return (
     <Box
       as='ol'
+      pad='none'
     >
       {contributors.map((contributor, index) => {
         const totalHoursSpent = convertStatsSecondsToHours(contributor.session_time)

@@ -1,5 +1,7 @@
 'use client'
 
+import { SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box } from 'grommet'
 import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
@@ -12,19 +14,20 @@ import {
   ContentBox,
   GroupModal,
   HeaderLink,
-  Layout
+  Layout,
+  Pagination
 } from '@components/shared'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
 import MyGroups from './MyGroups'
 import CreateButton from './components/CreateButton'
-import GroupCardList from './components/GroupCardList'
 import GroupCreateFormContainer from './components/GroupCreateFormContainer'
 import PreviewLayout from './components/PreviewLayout'
 
 function MyGroupsContainer({ authUser, login, previewLayout = false }) {
   const [groupModalActive, setGroupModalActive] = useState(false)
+  const [page, setPage] = useState(1)
 
   const {
     data: user,
@@ -43,6 +46,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
     authUserId: authUser?.id,
     query: {
       include: 'user_group',
+      page,
       user_id: user?.id
     }
   })
@@ -50,11 +54,19 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
   const activeGroupsWithRoles = getActiveGroupsWithRoles(membershipsWithGroups)
   const groupsSortedByCreatedAt = activeGroupsWithRoles.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
+  function handleGroupModal() {
+    setGroupModalActive(!groupModalActive)
+  }
+
+  function handlePageChange({ page }) {
+    setPage(page)
+  }
+
   return (
     <>
       <GroupModal
         active={groupModalActive}
-        handleClose={() => setGroupModalActive(false)}
+        handleClose={handleGroupModal}
         title='create new group'
         titleColor='black'
       >
@@ -74,10 +86,42 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
             title='My Groups'
             pad={{ horizontal: '60px', vertical: '30px' }}
           >
-            <MyGroups>
-              <GroupCardList groups={groupsSortedByCreatedAt} />
-            </MyGroups>
-            <CreateButton onClick={() => setGroupModalActive(true)} />
+            <MyGroups
+              error={userError || membershipsError}
+              groups={groupsSortedByCreatedAt}
+              loading={userLoading || membershipsLoading}
+            />
+            <Box
+              direction='row-responsive'
+              justify='between'
+              align='center'
+            >
+              <Anchor
+                href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
+                color={{
+                  dark: 'light-4',
+                  light: 'dark-5'
+                }}
+                label={
+                  <SpacedText size='1rem' uppercase={false}>
+                    Learn more about groups
+                  </SpacedText>
+                }
+              />
+              <Box
+                align='center'
+              >
+                <Pagination
+                  numberItems={membershipsWithGroups?.meta?.memberships?.count}
+                  onChange={handlePageChange}
+                  page={page}
+                  step={membershipsWithGroups?.meta?.memberships?.page_size}
+                />
+              </Box>
+              <Box align='end'>
+                <CreateButton onClick={handleGroupModal} />
+              </Box>
+            </Box>
           </ContentBox>
         </Layout>
       ) : (
@@ -85,7 +129,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
           authUser={authUser}
           groups={groupsSortedByCreatedAt}
           loading={userLoading || membershipsLoading}
-          setGroupModalActive={setGroupModalActive}
+          handleGroupModal={handleGroupModal}
         />
       )}
     </>

@@ -1,22 +1,28 @@
+import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Box, Layer } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
+import { fetchPanoptesUsers } from '../../utils'
+
 import {
   usePanoptesProjects,
-  usePanoptesUser,
+  usePanoptesUsers,
   useStats
 } from '@hooks'
 
 import {
   ContentBox,
   HeaderLink,
-  Layout
+  Layout,
+  Pagination
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
 import { generateExport } from './helpers/generateExport'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
+const CONTRIBUTORS_PER_PAGE = 40
 
 function Contributors({
   adminMode,
@@ -24,8 +30,8 @@ function Contributors({
   group,
   membership
 }) {
-  const [dataExportUrl, setDataExportUrl] = useState('')
-  const [filename, setFilename] = useState('')
+  const [exportLoading, setExportLoading] = useState(false)
+  const [page, setPage] = useState(1)
 
   const showContributors = adminMode 
     || membership?.roles.includes('group_admin')
@@ -50,16 +56,18 @@ function Contributors({
   })
 
   // fetch users
-  const userIds = stats?.group_member_stats_breakdown?.map(member => member.user_id)
-  
+  const memberIdsPerStats = stats?.group_member_stats_breakdown?.map(member => member.user_id.toString())
+  const currentPageUserIds = memberIdsPerStats?.slice(((page - 1) * CONTRIBUTORS_PER_PAGE), (page * CONTRIBUTORS_PER_PAGE))
+  const usersQuery = {
+    id: currentPageUserIds?.join(','),
+    page_size: CONTRIBUTORS_PER_PAGE
+  }
+
   const {
     data: users,
     error: usersError,
     isLoading: usersLoading
-  } = usePanoptesUser({
-    authUser,
-    userIds
-  })
+  } = usePanoptesUsers(usersQuery)
   
   // fetch projects
   const arrayOfProjectContributionArrays = stats?.group_member_stats_breakdown?.map(member => member.project_contributions)
@@ -79,8 +87,8 @@ function Contributors({
   // combine member stats with user data
   let contributors = []
   if (stats && users && projects) {
-    contributors = stats?.group_member_stats_breakdown?.map(member => {
-      const user = users?.find(user => user.id === member.user_id.toString())
+    contributors = users?.map(user => {
+      const member = stats?.group_member_stats_breakdown?.find(member => member.user_id.toString() === user.id)
       return {
         ...member,
         ...user
@@ -88,45 +96,126 @@ function Contributors({
     })
   }
 
-  if (!showContributors) return (<div>Not authorized</div>)
+  const loadingExportMessage = 'Generating stats export...'
+
+  async function handleGenerateExport() {
+    setExportLoading(true)
+
+    const allUsersQuery = {
+      id: memberIdsPerStats?.join(','),
+      page_size: 100
+    }
+
+    const allUsers = await fetchPanoptesUsers(allUsersQuery)
+
+    const { filename, dataExportUrl } = await generateExport({
+      group,
+      projects,
+      stats,
+      users: allUsers
+    })
+    
+    // Create an anchor element and trigger download
+    const link = document.createElement('a')
+    link.href = dataExportUrl
+    link.setAttribute('download', filename)
+    document.body.appendChild(link) // Append to the document
+    link.click() // Programmatically click the link to trigger the download
+    document.body.removeChild(link) // Clean up
+
+    setExportLoading(false)
+  }
+
+  function handlePageChange({ page }) {
+    setPage(page)
+  }
+
+  const error = statsError || usersError || projectsError
+  const loading = statsLoading || usersLoading || projectsLoading
+  const disableStatsExport = !showContributors || !!error || loading || !contributors?.length
 
   return (
-    <Layout
-      primaryHeaderItem={
-        <HeaderLink
-          href={`/groups/${group.id}`}
-          label='back'
-          primaryItem={true}
-        />
+    <>
+      {exportLoading ? (
+          <Layer>
+            <Box
+              align='center'
+              gap='small'
+              height='medium'
+              justify='center'
+              width='medium'
+            >
+              <SpacedText>
+                {loadingExportMessage}
+              </SpacedText>
+              <Loader
+                loadingMessage={loadingExportMessage}
+              />
+            </Box>
+          </Layer>
+        ) : null
       }
-    >
-      <ContentBox
-        linkLabel='Export all stats'
-        linkProps={{
-          href: dataExportUrl,
-          download: filename,
-          onClick: () => {
-            generateExport({
-              group,
-              handleFileName: setFilename,
-              handleDataExportUrl: setDataExportUrl,
-              projects,
-              stats,
-              users
-            })
-          }
-        }}
-        title='Full Group Stats'
+      <Layout
+        primaryHeaderItem={
+          <HeaderLink
+            href={`/groups/${group.id}`}
+            label='back'
+            primaryItem={true}
+          />
+        }
       >
-        {contributors.length > 0 ? (
+        <ContentBox
+          linkLabel='Export all stats'
+          linkProps={{
+            as: 'button',
+            disabled: disableStatsExport,
+            onClick: handleGenerateExport
+          }}
+          title='Full Group Stats'
+        >
+          {!showContributors ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                You do not have permission to view this group&apos;s contributors.
+              </SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <Loader />
+            </Box>
+          ) : error ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
+            </Box>
+          ) : contributors?.length > 0 ? (
             <ContributorsList
               contributors={contributors}
               projects={projects}
             />
-          ) : <div>Loading...</div>
-        }
-      </ContentBox>
-    </Layout>
+          ) : (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                There are no contributors to this group.
+              </SpacedText>
+            </Box>
+          )}
+          {memberIdsPerStats?.length > CONTRIBUTORS_PER_PAGE ? (
+            <Pagination
+              alignSelf='center'
+              numberItems={memberIdsPerStats?.length}
+              page={page}
+              onChange={handlePageChange}
+              step={CONTRIBUTORS_PER_PAGE}
+            />
+          ) : null}
+        </ContentBox>
+      </Layout>
+    </>
   )
 }
 

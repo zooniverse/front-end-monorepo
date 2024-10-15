@@ -9,6 +9,7 @@ import { TitledStat } from '@components/shared'
 const StyledListItem = styled.li`
   border-radius: 8px;
   list-style: none;
+  width: clamp(385px, 100%, 564px);
   
   &:hover, &:focus-within {
     box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, 0.25);

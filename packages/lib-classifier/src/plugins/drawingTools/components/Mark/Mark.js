@@ -7,8 +7,12 @@ import draggable from '../draggable'
 const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 4
 
-const StyledGroup = styled('g')`
+const StyledGroup = styled.g`
   &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
     ${(props) =>
     css`
         outline: solid 4px ${props.focusColor};
@@ -27,7 +31,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-function focusMark(markNode) {
+export function focusMark(markNode) {
   const hasFocus = markNode === document.activeElement
   if (!hasFocus) {
     const x = scrollX

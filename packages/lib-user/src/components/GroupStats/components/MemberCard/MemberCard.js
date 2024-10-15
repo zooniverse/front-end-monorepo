@@ -17,7 +17,7 @@ function MemberCard({
     >
       <Avatar
         alt={`${login} avatar`}
-        src={avatar || 'https://www.zooniverse.org/assets/simple-avatar.png'}
+        src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
       />
       <Box
         justify='center'
@@ -30,7 +30,7 @@ function MemberCard({
         <SpacedText
           uppercase={false}
         >
-          {`${Math.round(classifications).toLocaleString()} Classifications`}
+          {`${classifications.toLocaleString()} Classifications`}
         </SpacedText>
       </Box>
     </Box>

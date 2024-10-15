@@ -99,23 +99,13 @@ spec:
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80
 ---
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-   name: zooniverse-org-content-pages-production-pdb
-spec:
-  minAvailable: 50%
-  selector:
-    matchLabels:
-      app: zooniverse-org-content-pages-production
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: zooniverse-org-content-pages-production
+  name: zooniverse-org-root-production
 spec:
   selector:
-    app: zooniverse-org-content-pages-production
+    app: zooniverse-org-root-production
   ports:
     - protocol: TCP
       port: 80
@@ -125,43 +115,43 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zooniverse-org-content-pages-production
+  name: zooniverse-org-root-production
   labels:
-    app: zooniverse-org-content-pages-production
+    app: zooniverse-org-root-production
 spec:
   selector:
     matchLabels:
-      app: zooniverse-org-content-pages-production
+      app: zooniverse-org-root-production
   template:
     metadata:
       labels:
-        app: zooniverse-org-content-pages-production
+        app: zooniverse-org-root-production
     spec:
       containers:
-        - name: fe-content-pages-production
+        - name: fe-root-production
           image: ghcr.io/zooniverse/front-end-monorepo-production:__IMAGE_TAG__
-          command: ["yarn", "workspace", "@zooniverse/fe-content-pages"]
+          command: ["yarn", "workspace", "@zooniverse/fe-root"]
           args: ["start"]
           resources:
             requests:
-              memory: "200Mi"
+              memory: "500Mi"
               cpu: "250m"
             limits:
-              memory: "500Mi"
+              memory: "1000Mi"
               cpu: "1000m"
           startupProbe:
             httpGet:
-              path: /about/Index
+              path: /about
               port: 3000
             failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /about/Index
+              path: /about
               port: 3000
             timeoutSeconds: 10
           readinessProbe:
             httpGet:
-              path: /about/Index
+              path: /about
               port: 3000
             initialDelaySeconds: 20
             timeoutSeconds: 10
@@ -180,11 +170,6 @@ spec:
                 secretKeyRef:
                   name: contentful-conf
                   key: CONTENTFUL_SPACE_ID
-            - name: NEWRELIC_LICENSE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: newrelic-license-key
-                  key: key
             - name: NODE_ENV
               value: production
             - name: PANOPTES_ENV
@@ -197,12 +182,12 @@ spec:
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: zooniverse-org-content-pages-production
+  name: zooniverse-org-root-production
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: zooniverse-org-content-pages-production
-  minReplicas: 1
+    name: zooniverse-org-root-production
+  minReplicas: 2
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80

@@ -1,24 +1,27 @@
 import { Button } from 'grommet'
-import Link from 'next/link'
-import { object } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+
+import addQueryParams from '@helpers/addQueryParams'
 
 const StyledButton = styled(Button)`
   text-align: center;
 `
 
-function JoinInButton (props) {
+function JoinInButton () {
   const { t } = useTranslation('screens')
-  const { linkProps } = props
+  const router = useRouter()
+  const { owner, project } = router?.query
   const label = t('Home.ZooniverseTalk.button')
-  return (
-    <StyledButton {...linkProps} forwardedAs={Link} label={label} />
-  )
-}
 
-JoinInButton.propTypes = {
-  linkProps: object
+  // Talk is a PFE page
+  const href = addQueryParams(`https://www.zooniverse.org/projects/${owner}/${project}/talk`)
+
+
+  return (
+    <StyledButton href={href} label={label} />
+  )
 }
 
 export default JoinInButton

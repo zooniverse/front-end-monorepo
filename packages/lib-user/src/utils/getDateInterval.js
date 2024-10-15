@@ -1,85 +1,42 @@
-function getNextMonth(month) {
-  return month === 11 ? 0 : month + 1
-}
+import { getStatsDateString } from '@utils'
 
-function getPeriodFromDateDifference(difference) {
-  if (difference <= 31) {
-    return 'day'
-  } else if (difference <= 183) {
-    return 'week'
-  } else {
-    return 'month'
+export function getDateInterval({ endDate, startDate }) {
+  const today = new Date()
+  const todayUTC = getStatsDateString(today)
+  const end_date = endDate ? endDate : todayUTC
+  const defaultStartDate = new Date()
+  defaultStartDate.setUTCDate(today.getUTCDate() - 6)
+  const start_date = startDate ? startDate : getStatsDateString(defaultStartDate)
+
+  const differenceInDays = (new Date(end_date) - new Date(start_date)) / (1000 * 60 * 60 * 24)
+
+  if (differenceInDays <= 31) {
+    return {
+      end_date,
+      period: 'day',
+      start_date
+    }
   }
-}
 
-export function getDateInterval(dateRange) {
-  const endDate = new Date()
-  const end_date = endDate.toISOString().substring(0, 10)
-  
-  let startDate = new Date(new Date().setDate(endDate.getDate() - 6))
-  let start_date = startDate.toISOString().substring(0, 10)
-  
-  let period = 'day'
-  
-  if (dateRange === 'Last7Days') {
-    return {
-      end_date,
-      period,
-      start_date
-    }
-  } else if (dateRange === 'Last30Days') {
-    startDate = new Date(new Date().setDate(endDate.getDate() - 29))
-    start_date = startDate.toISOString().substring(0, 10)
-    return {
-      end_date,
-      period,
-      start_date
-    }
-  } else if (dateRange === 'ThisMonth') {
-    startDate = new Date(endDate.getFullYear(), endDate.getMonth(), 1)
-    start_date = startDate.toISOString().substring(0, 10)
-    return {
-      end_date,
-      period,
-      start_date
-    }
-  } else if (dateRange === 'Last3Months') {
-    startDate = new Date(new Date().setDate(endDate.getDate() - 90))
-    start_date = startDate.toISOString().substring(0, 10)
+  if (differenceInDays <= 183) {
     return {
       end_date,
       period: 'week',
       start_date
     }
-  } else if (dateRange === 'ThisYear') {
-    startDate = new Date(endDate.getFullYear(), 0, 1)
-    start_date = startDate.toISOString().substring(0, 10)
-    const difference = (endDate - startDate) / (1000 * 60 * 60 * 24)
-    period = getPeriodFromDateDifference(difference)
-    return {
-      end_date,
-      period,
-      start_date
-    }
-  } else if (dateRange === 'Last12Months') {
-    startDate = new Date((endDate.getFullYear() - 1), getNextMonth(endDate.getMonth()), 1)
-    start_date = startDate.toISOString().substring(0, 10)
+  }
+
+  if (differenceInDays <= 1460) {
     return {
       end_date,
       period: 'month',
       start_date
     }
-  } else if (dateRange === 'AllTime') {
-    return {
-      end_date,
-      period: 'year',
-      start_date: '2015-07-01'
-    }
-  } else {
-    return {
-      end_date,
-      period,
-      start_date
-    }
   }
+
+  return {
+    end_date,
+    period: 'year',
+    start_date
+  }  
 }

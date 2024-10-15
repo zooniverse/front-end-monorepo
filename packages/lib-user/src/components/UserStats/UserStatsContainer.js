@@ -14,14 +14,19 @@ import {
 
 import UserStats from './UserStats'
 
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
   authUser,
   login,
-  selectedDateRange = 'Last7Days',
-  selectedProject = 'AllProjects',
+  paramsValidationMessage = '',
+  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
@@ -32,7 +37,8 @@ function UserStatsContainer({
     isLoading: userLoading
   } = usePanoptesUser({
     authUser,
-    login
+    login,
+    requiredUserProperty: 'created_at'
   })
   
   // fetch all projects stats, used by projects select and top projects regardless of selected project
@@ -46,7 +52,7 @@ function UserStatsContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: paramsValidationMessage ? null : user?.id,
     query: allProjectsStatsQuery
   })
   
@@ -61,7 +67,7 @@ function UserStatsContainer({
     isLoading: projectStatsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: selectedProject ? user?.id : null,
     query: projectStatsQuery
   })
   
@@ -78,23 +84,21 @@ function UserStatsContainer({
     page_size: 100
   })
 
-  function handleDateRangeSelect (dateRange) {
-    setSelectedDateRange(dateRange.value)
-  }
-
-  function handleProjectSelect (project) {
-    setSelectedProject(project.value)
-  }
+  const error = userError || statsError || projectStatsError || projectsError
+  const loading = userLoading || statsLoading || projectStatsLoading || projectsLoading
 
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
-      handleDateRangeSelect={handleDateRangeSelect}
-      handleProjectSelect={handleProjectSelect}
+      error={error}
+      loading={loading}
+      paramsValidationMessage={paramsValidationMessage}
       projectStats={projectStats}
       projects={projects}
       selectedDateRange={selectedDateRange}
       selectedProject={selectedProject}
+      setSelectedDateRange={setSelectedDateRange}
+      setSelectedProject={setSelectedProject}
       user={user}
     />
   )
@@ -105,7 +109,11 @@ UserStatsContainer.propTypes = {
     id: string
   }),
   login: string,
-  selectedDateRange: string,
+  paramsValidationMessage: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func

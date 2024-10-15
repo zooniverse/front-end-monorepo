@@ -36,6 +36,14 @@ export function middleware(req, event) {
   }
 
   /*
+    Serve /projects/robots.txt as /robots.txt.
+  */
+  if (pathname === '/robots.txt') {
+    url.pathname = '/projects/robots.txt'
+    return NextResponse.rewrite(url)
+  }
+
+  /*
     Redirect /projects/[owner]/[project]?language=[lang] to /projects/[lang]/[owner]/[project].
   */
   if (url.searchParams.has('language')) {

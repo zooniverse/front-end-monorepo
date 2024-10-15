@@ -1,32 +1,82 @@
 'use client'
 
-import { Certificate } from '@zooniverse/user'
-import { useContext } from 'react'
+import { Certificate, usePanoptesUser } from '@zooniverse/user'
+import { useRouter } from 'next/navigation'
+import { useContext, useEffect } from 'react'
 
-import { PanoptesAuthContext, UserStatsContext } from '../../../../../contexts'
 import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer'
+import { PanoptesAuthContext } from '../../../../../contexts'
+
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {  
+    if (!value) {
+      queryParams.delete(key);
+    } else {
+      queryParams.set(key, value);
+    }
+  }
+
+  return queryParams
+}
 
 function CertificateContainer({
-  login
+  endDate,
+  login,
+  paramsValidationMessage,
+  projectId,
+  startDate
 }) {
-  const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+  const { adminMode, isLoading, user: authUser } = useContext(PanoptesAuthContext)
+
+  // fetch user with created_at property
   const {
-    selectedDateRange,
-    selectedProject
-  } = useContext(UserStatsContext)
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authUser,
+    login,
+    requiredUserProperty: 'created_at'
+  })
+  
+  const router = useRouter()
+  
+  // set end date per query params or default to today
+  let selectedEndDate = endDate
+  if (selectedEndDate === undefined) {
+    selectedEndDate = new Date().toISOString().substring(0, 10)
+  }
+  // set start date per query params or user.created_at
+  let selectedStartDate = startDate
+  if (selectedStartDate === undefined) {
+    selectedStartDate = user?.created_at?.substring(0, 10)
+  }
+
+  useEffect(function updateStartDateParam() {
+    if (selectedStartDate && (startDate === undefined)) {
+      const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
+      router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
+    }
+  }, [selectedStartDate, startDate, router])
 
   return (
     <AuthenticatedUsersPageContainer
       adminMode={adminMode}
-      isLoading={isLoading}
+      isLoading={isLoading || userLoading}
       login={login}
-      user={user}
+      user={authUser}
     >
       <Certificate
-        authUser={user}
+        authUser={authUser}
         login={login}
-        selectedDateRange={selectedDateRange}
-        selectedProject={selectedProject}
+        paramsValidationMessage={paramsValidationMessage}
+        selectedDateRange={{
+          endDate: selectedEndDate,
+          startDate: selectedStartDate
+        }}
+        selectedProject={projectId}
       />
     </AuthenticatedUsersPageContainer>
   )

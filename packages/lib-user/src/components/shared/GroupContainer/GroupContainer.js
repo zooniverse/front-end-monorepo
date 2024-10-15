@@ -1,9 +1,14 @@
 'use client'
 
-import asyncStates from '@zooniverse/async-states'
 import { Notification } from 'grommet'
 import { bool, node, shape, string } from 'prop-types'
 import { Children, cloneElement, useEffect, useState } from 'react'
+import useSWRMutation from 'swr/mutation'
+
+import {
+  ContentBox,
+  Layout
+} from '@components/shared'
 
 import {
   usePanoptesMemberships,
@@ -11,9 +16,11 @@ import {
 } from '@hooks'
 
 import {
-  createPanoptesMembership
+  createPanoptesMembership,
+  deletePanoptesMembership
 } from '@utils'
 
+import DeactivatedGroup from './components/DeactivatedGroup'
 import { getUserGroupStatus } from './helpers/getUserGroupStatus'
 
 function deleteJoinTokenParam() {
@@ -31,8 +38,38 @@ function GroupContainer({
   groupId,
   joinToken
 }) {
-  const [joinStatus, setJoinStatus] = useState(null)
   const [showJoinNotification, setShowJoinNotification] = useState(false)
+
+  // define user_group membership key
+  const membershipKey = {
+    authUserId: authUser?.id,
+    query: {
+      user_group_id: groupId,
+      user_id: authUser?.id
+    }
+  }
+  // fetch user_group membership
+  const {
+    data: membershipsData,
+    error: membershipsDataError,
+    isLoading: membershipsDataLoading
+  } = usePanoptesMemberships(membershipKey)
+  // define user_group membership create mutation
+  const {
+    data: newGroupMembershipData,
+    error: createGroupMembershipError,
+    isMutating: createGroupMembershipLoading,
+    trigger: createGroupMembership
+  } = useSWRMutation(membershipKey, createPanoptesMembership)
+  // define user_group membership delete mutation
+  const { trigger: deleteMembership, isMutating: deleteMembershipLoading } = useSWRMutation(membershipKey, deletePanoptesMembership)
+  // extract user_group active membership
+  const newGroupMembership = newGroupMembershipData?.memberships?.[0]
+  const membership = newGroupMembership || membershipsData?.memberships?.[0]
+  const activeMembership = membership?.state === 'active' ? membership : null
+  const activeMembershipRole = activeMembership?.roles?.[0]
+  const membershipError = membershipsDataError || createGroupMembershipError
+  const membershipLoading = membershipsDataLoading || createGroupMembershipLoading
 
   // fetch user_group
   const {
@@ -43,66 +80,65 @@ function GroupContainer({
     adminMode,
     authUserId: authUser?.id,
     groupId,
-    joinStatus
+    membershipId: activeMembership?.id
   })
-
-  // fetch user_group membership
-  const {
-    data: membershipsData,
-    error: membershipsError,
-    isLoading: membershipsLoading
-  } = usePanoptesMemberships({
-    authUserId: authUser?.id,
-    joinStatus,
-    query: {
-      user_group_id: groupId,
-      user_id: authUser?.id
-    }
-  })
-  let membership = null
-  let role = null
-  if (membershipsData) {
-    membership = membershipsData?.memberships?.[0]?.state === 'active' ? membershipsData?.memberships?.[0] : null
-    role = membership?.roles?.[0]
-  }
   
   useEffect(function handleJoinGroup() {
-    async function createGroupMembership() {
+    async function createMembership() {
       try {
-        await createPanoptesMembership({
-          groupId,
-          joinToken,
-          userId: authUser.id
+        await createGroupMembership({ groupId, joinToken, userId: authUser.id }, {
+          populateCache: true,
+          revalidate: false,
+          throwOnError: false
         })
-
-        deleteJoinTokenParam()
-        
-        setJoinStatus(asyncStates.success)
-        setShowJoinNotification(true)
       } catch (error) {
         console.error(error)
-        setJoinStatus(asyncStates.error)
       }
     }
 
-    if (authUser && role === undefined && joinToken && joinStatus === null) {
-      setJoinStatus(asyncStates.posting)
-      createGroupMembership()
-    }
-
-    if (role && joinToken) {
-      deleteJoinTokenParam()
+    if (
+      authUser?.id && 
+      joinToken &&
+      !activeMembershipRole &&
+      !membershipError &&
+      !membershipLoading
+    ) {
+      createMembership()
     }
   }, [
+    activeMembershipRole,
     authUser,
     groupId,
-    joinStatus,
     joinToken,
-    role
+    membershipError,
+    membershipLoading
   ])
 
-  const status = getUserGroupStatus({ authUser, group, groupError, groupLoading, joinStatus, joinToken })
+  useEffect(function handleJoinSuccessNotification() {
+    if (newGroupMembership?.id) {
+      setShowJoinNotification(true)
+      deleteJoinTokenParam()
+    }
+  }, [newGroupMembership])
 
+  useEffect(function handleExistingMemberWithJoinToken() {
+    if (joinToken && activeMembershipRole) {
+      deleteJoinTokenParam()
+    }
+  }, [joinToken, activeMembershipRole])
+
+  const status = getUserGroupStatus({ 
+    authUserId: authUser?.id,
+    createGroupMembershipError,
+    createGroupMembershipLoading,
+    group,
+    groupError,
+    groupLoading,
+    joinToken
+  })
+
+  const activeMembershipDeactivatedGroup = activeMembershipRole && groupError?.status === 404
+  
   return (
     <>
       {showJoinNotification && (
@@ -114,7 +150,33 @@ function GroupContainer({
           toast
         />
       )}
-      {status ? (<div>{status}</div>) : (
+      {activeMembershipDeactivatedGroup ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            <DeactivatedGroup
+              deleteMembership={deleteMembership}
+              deleteMembershipLoading={deleteMembershipLoading}
+              membershipId={activeMembership.id}
+            />
+          </ContentBox>
+        </Layout>
+      ) : status ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            {status}
+          </ContentBox>
+        </Layout>
+      ) : (
         Children.map(children, child => 
           cloneElement(
             child,
@@ -122,7 +184,7 @@ function GroupContainer({
               adminMode,
               authUser,
               group,
-              membership
+              membership: activeMembership,
             }
           )
         )

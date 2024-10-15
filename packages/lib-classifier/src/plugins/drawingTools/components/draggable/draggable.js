@@ -15,7 +15,6 @@ function createPoint(event) {
 }
 
 function getEventOffset(event, canvas) {
-  const { clientX, clientY } = event
   const svgPoint = createPoint(event)
   const svgEventOffset = svgPoint.matrixTransform
     ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
@@ -26,7 +25,6 @@ function getEventOffset(event, canvas) {
 function convertEvent(event, canvas) {
   const svgEventOffset = getEventOffset(event, canvas)
   const svgCoordinateEvent = {
-    pointerId: event.pointerId,
     type: event.type,
     x: svgEventOffset.x,
     y: svgEventOffset.y
@@ -53,47 +51,42 @@ function draggable(WrappedComponent) {
     const { canvas } = useContext(SVGContext)
     const wrappedComponent = ref || useRef()
     const [dragging, setDragging] = useState(false)
-    const [coords, setCoords] = useState(initialCoords)
-    const [pointerId, setPointerId] = useState(-1)
+    const coords = useRef(initialCoords)
+    const pointerId = useRef(-1)
 
     function onDragStart(event) {
       event.stopPropagation()
       event.preventDefault()
-      const { setPointerCapture } = wrappedComponent.current
-      const { x, y, pointerId } = convertEvent(event, canvas)
-      setCoords({ x, y })
+      const { x, y } = convertEvent(event, canvas)
+      coords.current = { x, y }
       setDragging(true)
-      setPointerId(pointerId)
-      dragStart({ x, y, pointerId })
-      setPointerCapture &&
-        wrappedComponent.current.setPointerCapture(pointerId)
+      pointerId.current = event.pointerId
+      dragStart({ x, y, pointerId: event.pointerId })
+      wrappedComponent.current?.setPointerCapture(event.pointerId)
     }
 
     function onDragMove(event) {
-      if (dragging && event.pointerId === pointerId) {
+      if (dragging && event.pointerId === pointerId.current) {
         const { x, y } = convertEvent(event, canvas)
         const { currentTarget } = event
         const difference = {
-          x: x - coords.x,
-          y: y - coords.y
+          x: x - coords.current.x,
+          y: y - coords.current.y
         }
-        dragMove({ currentTarget, x, y, pointerId }, difference)
-        setCoords({ x, y })
+        dragMove({ currentTarget, x, y, pointerId: event.pointerId }, difference)
+        coords.current = { x, y }
       }
     }
 
     function onDragEnd(event) {
-      const { releasePointerCapture } = wrappedComponent.current
-      const point = convertEvent(event, canvas)
+      const { x, y } = convertEvent(event, canvas)
       const { currentTarget } = event
-      if (point.pointerId === pointerId) {
-        dragEnd({ currentTarget, x: point.x, y: point.y, pointerId })
-        releasePointerCapture &&
-          wrappedComponent.current.releasePointerCapture(pointerId)
+      if (event.pointerId === pointerId.current) {
+        dragEnd({ currentTarget, x, y, pointerId: event.pointerId })
       }
-      setCoords({ x: null, y: null })
+      coords.current = { x: null, y: null }
       setDragging(false)
-      setPointerId(-1)
+      pointerId.current = -1
     }
 
     return (

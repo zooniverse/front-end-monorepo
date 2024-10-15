@@ -1,16 +1,27 @@
 'use client'
 
-import { bool, shape, string } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 
 import { GroupContainer } from '@components/shared'
 
 import GroupStats from './GroupStats'
 
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
+const DEFAULT_HANDLER = () => true
+
 function GroupStatsContainer({
   adminMode = false,
   authUser,
   groupId,
-  joinToken
+  joinToken,
+  paramsValidationMessage = '',
+  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedProject = undefined,
+  setSelectedDateRange = DEFAULT_HANDLER,
+  setSelectedProject = DEFAULT_HANDLER
 }) {
   return (
     <GroupContainer
@@ -19,7 +30,13 @@ function GroupStatsContainer({
       groupId={groupId}
       joinToken={joinToken}
     >
-      <GroupStats />
+      <GroupStats
+        paramsValidationMessage={paramsValidationMessage}
+        selectedDateRange={selectedDateRange}
+        selectedProject={selectedProject}
+        setSelectedDateRange={setSelectedDateRange}
+        setSelectedProject={setSelectedProject}
+      />
     </GroupContainer>
   )
 }
@@ -30,7 +47,15 @@ GroupStatsContainer.propTypes = {
     id: string
   }),
   groupId: string,
-  joinToken: string
+  joinToken: string,
+  paramsValidationMessage: string,
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  }),
+  selectedProject: string,
+  setSelectedDateRange: func,
+  setSelectedProject: func
 }
 
 export default GroupStatsContainer

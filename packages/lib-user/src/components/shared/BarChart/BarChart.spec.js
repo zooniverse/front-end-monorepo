@@ -10,7 +10,7 @@ describe('components > shared > BarChart', function () {
     it('should have the expected aria-label', function () {
       render(<Last7DaysStory />)
       
-      expect(screen.getByLabelText('Bar chart of Classifications by Day for Last 7 Days')).to.be.ok()
+      expect(screen.getByLabelText('Bar chart of Classifications by Day from 2023-05-27 to 2023-06-02')).to.be.ok()
     })
     
     it('should show the expected number of count labels', function () {
@@ -38,7 +38,14 @@ describe('components > shared > BarChart', function () {
     it('should show the expected number of period labels', function () {
       render(<Last30DaysHoursStory />)
       
-      expect(screen.getAllByTestId('periodLabel')).to.have.lengthOf(2)
+      const periodLabels = screen.getAllByTestId('periodLabel')
+      const visiblePeriodLabels = periodLabels.filter(periodLabel => {
+        const className = periodLabel.className
+        return !className.includes('hidden-period-label')
+      })
+
+      // every fourth day within 30 days would be 8 days
+      expect(visiblePeriodLabels).to.have.lengthOf(8)
     })
   })
   

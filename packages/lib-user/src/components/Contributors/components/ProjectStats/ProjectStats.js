@@ -36,7 +36,7 @@ function ProjectStats({
         textAlign='center'
         uppercase={false}
       >
-        {`${Math.round(hours).toLocaleString()} Hours`}
+        {`${hours.toLocaleString()} Hours`}
       </SpacedText>
     </Box>
   )

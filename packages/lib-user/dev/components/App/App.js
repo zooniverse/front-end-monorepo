@@ -2,7 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { AuthModal } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
 import auth from 'panoptes-client/lib/auth.js'
-import { string } from 'prop-types'
+import { func, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import {
@@ -15,22 +15,26 @@ import {
 } from '@components'
 
 const isBrowser = typeof window !== 'undefined'
+const todayUTC = new Date().toISOString().substring(0, 10)
+const sevenDaysAgoUTC = new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
 
 if (isBrowser) {
   auth.checkCurrent()
 }
 
 function App({
+  endDate = todayUTC,
   groups = null,
   joinToken = null,
+  projectId = undefined,
+  startDate = sevenDaysAgoUTC,
+  updateQueryParams = () => true,
   users = null
 }) {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [dark, setDarkTheme] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [selectedDateRange, setSelectedDateRange] = useState('Last7Days')
-  const [selectedProject, setSelectedProject] = useState('AllProjects')
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     async function checkUserSession() {
@@ -53,6 +57,8 @@ function App({
     }
   }, [])
 
+  const selectedDateRange = { endDate, startDate }
+
   function openSignInModal() {
     setActiveIndex(0)
   }
@@ -63,6 +69,28 @@ function App({
 
   function closeAuthModal() {
     setActiveIndex(-1)
+  }
+
+  function setSelectedDateRange({ endDate, startDate }) {
+    if (endDate === todayUTC) {
+      updateQueryParams([
+        ['end_date', null],
+        ['start_date', startDate]
+      ])
+    } else {
+      updateQueryParams([
+        ['end_date', endDate],
+        ['start_date', startDate]
+      ])
+    }
+  }
+
+  function setSelectedProject(selectedProjectId) {
+    if (selectedProjectId === 'AllProjects') {
+      updateQueryParams([['project_id', null]])
+    } else {
+      updateQueryParams([['project_id', selectedProjectId]])
+    }
   }
 
   const userSubpath = user?.login ? user.login : '[login]'
@@ -123,6 +151,10 @@ function App({
           authUser={user}
           groupId={groupId}
           joinToken={joinToken}
+          selectedDateRange={selectedDateRange}
+          selectedProject={projectId}
+          setSelectedDateRange={setSelectedDateRange}
+          setSelectedProject={setSelectedProject}
         />
       )
     }
@@ -141,7 +173,7 @@ function App({
             authUser={user}
             login={login}
             selectedDateRange={selectedDateRange}
-            selectedProject={selectedProject}
+            selectedProject={projectId}
           />
         )
       } else {
@@ -150,7 +182,7 @@ function App({
             authUser={user}
             login={login}
             selectedDateRange={selectedDateRange}
-            selectedProject={selectedProject}
+            selectedProject={projectId}
             setSelectedDateRange={setSelectedDateRange}
             setSelectedProject={setSelectedProject}
           />
@@ -187,7 +219,7 @@ function App({
           <p>
             <a href='/'>lib-user - dev app</a>
           </p>
-          {user ? (
+          {user?.id ? (
             <>
               <span>{user?.login}</span>
               <button onClick={onSignOut}>Sign Out</button>
@@ -219,8 +251,12 @@ function App({
 }
 
 App.propTypes = {
+  endDate: string,
   groups: string,
   joinToken: string,
+  projectId: string,
+  startDate: string,
+  updateQueryParams: func,
   users: string
 }
 

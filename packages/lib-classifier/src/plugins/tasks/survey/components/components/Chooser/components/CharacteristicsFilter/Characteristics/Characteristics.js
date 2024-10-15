@@ -1,5 +1,5 @@
 import { Box, Button } from 'grommet'
-import { observer } from 'mobx-react'
+import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
@@ -22,7 +22,7 @@ function Characteristics({
       flex='grow'
     >
       {characteristicsOrder.map((characteristicId) => {
-        const characteristic = characteristics[characteristicId] || {}
+        const characteristic = characteristics.get(characteristicId) || {}
         const selectedValueId = filters[characteristicId] || ''
 
         return (
@@ -51,21 +51,10 @@ function Characteristics({
 }
 
 Characteristics.propTypes = {
-  characteristics: PropTypes.objectOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      values: PropTypes.objectOf(
-        PropTypes.shape({
-          image: PropTypes.string,
-          label: PropTypes.string
-        })
-      ),
-      valuesOrder: PropTypes.arrayOf(PropTypes.string)
-    })
-  ),
+  characteristics: MobXPropTypes.observableMap,
   characteristicsOrder: PropTypes.arrayOf(PropTypes.string),
   filters: PropTypes.objectOf(PropTypes.string),
-  images: PropTypes.objectOf(PropTypes.string),
+  images: MobXPropTypes.observableMap,
   onFilter: PropTypes.func
 }
 

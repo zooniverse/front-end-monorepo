@@ -32,7 +32,7 @@ ref) {
       }}
       elevation='xlarge'
       fill
-      pad='none'
+      pad='0'
       {...props}
     >
       <ModalHeading

@@ -1,9 +1,7 @@
-import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
+import { Loader, SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { number, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
-
-import { getDateInterval } from '@utils'
 
 import {
   ContentBox,
@@ -27,6 +25,7 @@ const PrintableBox = styled(Box)`
 
     #certificate, #certificate * {
       visibility: visible;
+      color: #5c5c5c;
     }
 
     #certificate {
@@ -37,11 +36,16 @@ const PrintableBox = styled(Box)`
       width: 100%;
       height: 100%;
     }
+
+    #certificate svg,
+    #certificate svg g {
+      fill: #00979d;
+    }
   }
 
   @page {
     margin: 0;
-    size: 'landscape';
+    size: landscape;
   }
 
   .userName {
@@ -53,211 +57,254 @@ const PrintableBox = styled(Box)`
   }
 `
 
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
+
 function handleClickPrint() {
   window.print()
 }
 
 function Certificate({
-  creditedName = '',
-  displayName = '',
+  error = undefined,
   hours = 0,
+  loading = false,
   login = '',
+  name = '',
+  paramsValidationMessage = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange = 'AllTime'
+  selectedDateRange = DEFAULT_DATE_RANGE
 }) {
-  const { start_date, end_date } = getDateInterval(selectedDateRange)
-
-  const formattedDateRange = formatDateRange(start_date, end_date)
+  const { endDate, startDate } = selectedDateRange
+  const formattedDateRange = formatDateRange({ startDate, endDate })
 
   return (
     <PrintableBox>
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`/users/${login}/stats`}
+            href={`/users/${login}/stats${window.location.search}`}
             label='back'
             primaryItem={true}
           />
         }
       >
         <ContentBox
-          linkLabel='Generate Certificate'
+          linkLabel='Save Certificate'
           linkProps={{
             as: 'button',
             onClick: handleClickPrint
           }}
           title='Your Volunteer Certificate'
         >
-          <Box
-            id='certificate'
-            flex='grow'
-            pad='medium'
-          >
+          {paramsValidationMessage ? (
             <Box
-              border={{
-                color: 'neutral-1',
-                size: '8px',
-                style: 'solid',
-                side: 'all'
-              }}
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                {paramsValidationMessage}
+              </SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Loader />
+            </Box>
+          ) : error ? (
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <SpacedText uppercase={false}>
+                There was an error.
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
+            </Box>
+          ) : (
+            <Box
+              id='certificate'
               flex='grow'
-              pad='xsmall'
+              pad='medium'
             >
               <Box
-                align='center'
                 border={{
                   color: 'neutral-1',
-                  size: '4px',
+                  size: '8px',
                   style: 'solid',
                   side: 'all'
                 }}
                 flex='grow'
-                justify='center'
-                pad={{
-                  horizontal: 'medium',
-                  vertical: 'small'
-                }}
+                pad='xsmall'
               >
-                <ZooniverseLogo
-                  id='ZooniverseCertificateLogo'
-                  color='#00979d'
-                  size='5em'
-                />
-                <SpacedText
-                  margin={{ top: 'medium' }}
-                  size='2rem'
-                  uppercase={false}
-                  weight={500}
-                >
-                  This is to certify that
-                </SpacedText>
-                <SpacedText
-                  className='userName'
-                  size='3.75rem'
-                  weight='bold'
-                >
-                  {creditedName || displayName}
-                </SpacedText>
-                <SpacedText
-                  margin={{ top: 'medium' }}
-                  size='1.5rem'
-                  uppercase={false}
-                  weight={500}
-                >
-                  has contributed
-                </SpacedText>
-                <SpacedText
-                  className='userHours'
-                  size='5rem'
-                  weight='bold'
-                >
-                  {hours}
-                </SpacedText>
-                <SpacedText
-                  size='2rem'
-                  uppercase={false}
-                  weight='bold'
-                >
-                  hours
-                </SpacedText>
                 <Box
                   align='center'
-                  direction='row'
-                  justify='center'
-                  margin={{ top: 'medium' }}
-                  wrap
-                >
-                  <SpacedText
-                    size='1.5rem'
-                    textAlign='center'
-                    uppercase={false}
-                    weight={500}
-                  >
-                    to
-                    <SpacedText
-                      margin={{ horizontal: 'small' }}
-                      size='2rem'
-                      uppercase={false}
-                      weight='bold'
-                    >
-                      {projectsCount ? (
-                        `${projectsCount} projects`
-                      ) : (
-                        projectDisplayName
-                      )}
-                    </SpacedText>
-                  </SpacedText>
-                  <SpacedText
-                    size='1.5rem'
-                    textAlign='center'
-                    uppercase={false}
-                    weight={500}
-                  >
-                    during
-                    <SpacedText
-                      margin={{ horizontal: 'small' }}
-                      size='2rem'
-                      uppercase={false}
-                      weight='bold'
-                    >
-                      {formattedDateRange}
-                    </SpacedText>
-                  </SpacedText>
-                </Box>
-                <SpacedText
-                  size='1.5rem'
-                  textAlign='center'
-                  uppercase={false}
-                  weight={500}
-                >
-                  hosted by the online citizen science platform <strong>Zooniverse</strong>
-                </SpacedText>
-                <Box
-                  align='center'
+                  border={{
+                    color: 'neutral-1',
+                    size: '4px',
+                    style: 'solid',
+                    side: 'all'
+                  }}
                   flex='grow'
-                  margin={{
-                    bottom: 'small',
-                    top: 'medium'
+                  justify='center'
+                  pad={{
+                    horizontal: 'medium',
+                    vertical: 'small'
                   }}
                 >
-                  <img
-                    src='/assets/LTSignature.png'
-                    alt='Signature of Dr. Laura Trouille'
+                  <ZooniverseLogo
+                    id='ZooniverseCertificateLogo'
+                    color='#00979d'
+                    size='5em'
                   />
-                  <svg width='272' height='2' viewBox='0 0 272 2'>
-                    <path d='M1 1H271' stroke='url(#paint0_linear_1845_6607)'/>
-                    <defs>
-                      <linearGradient id='paint0_linear_1845_6607' gradientUnits='userSpaceOnUse'>
-                        <stop stopColor='white'/>
-                        <stop offset='0.496986' stopColor='dark-5'/>
-                        <stop offset='1' stopColor='white' stopOpacity='0'/>
-                      </linearGradient>
-                    </defs>
-                  </svg>
                   <SpacedText
+                    margin={{ top: 'medium' }}
+                    size='2rem'
+                    uppercase={false}
+                    weight={500}
+                  >
+                    This is to certify that
+                  </SpacedText>
+                  <SpacedText
+                    className='userName'
+                    size='3.75rem'
+                    textAlign='center'
+                    weight='bold'
+                  >
+                    {name}
+                  </SpacedText>
+                  <SpacedText
+                    margin={{ top: 'medium' }}
                     size='1.5rem'
                     uppercase={false}
                     weight={500}
                   >
-                    Dr. Laura Trouille
+                    has contributed
                   </SpacedText>
                   <SpacedText
+                    className='userHours'
+                    size='5rem'
+                    weight='bold'
+                  >
+                    {hours}
+                  </SpacedText>
+                  <SpacedText
+                    size='2rem'
+                    uppercase={false}
+                    weight='bold'
+                  >
+                    hours
+                  </SpacedText>
+                  <Box
+                    align='center'
+                    direction='row'
+                    justify='center'
+                    margin={{ top: 'medium' }}
+                    wrap
+                  >
+                    <SpacedText
+                      size='1.5rem'
+                      textAlign='center'
+                      uppercase={false}
+                      weight={500}
+                    >
+                      to
+                      <SpacedText
+                        margin={{ horizontal: 'small' }}
+                        size='2rem'
+                        uppercase={false}
+                        weight='bold'
+                      >
+                        {projectDisplayName ? (
+                          projectDisplayName
+                        ) : (
+                          `${projectsCount} projects`
+                        )}
+                      </SpacedText>
+                    </SpacedText>
+                    <SpacedText
+                      size='1.5rem'
+                      textAlign='center'
+                      uppercase={false}
+                      weight={500}
+                    >
+                      during
+                      <SpacedText
+                        margin={{ horizontal: 'small' }}
+                        size='2rem'
+                        uppercase={false}
+                        weight='bold'
+                      >
+                        {formattedDateRange}
+                      </SpacedText>
+                    </SpacedText>
+                  </Box>
+                  <SpacedText
+                    size='1.5rem'
+                    textAlign='center'
                     uppercase={false}
                     weight={500}
                   >
-                    Zooniverse PI
+                    hosted by the online citizen science platform <strong>Zooniverse</strong>
                   </SpacedText>
-                  <SpacedText
-                    uppercase={false}
-                    weight={500}
+                  <Box
+                    align='center'
+                    flex='grow'
+                    margin={{
+                      bottom: 'small',
+                      top: 'medium'
+                    }}
                   >
-                    contact@zooniverse.org
-                  </SpacedText>
+                    <img
+                      src='https://static.zooniverse.org/fem-assets/LTSignature.png'
+                      alt='Signature of Dr. Laura Trouille'
+                    />
+                    <svg width='272' height='2' viewBox='0 0 272 2'>
+                      <defs>
+                        <linearGradient id='signature_line' gradientUnits='userSpaceOnUse'>
+                          <stop stopColor='white' />
+                          <stop offset='0.5' stopColor='dark-5' />
+                          <stop offset='1' stopColor='white' />
+                        </linearGradient>
+                      </defs>
+                      <path d='M1 1H271' stroke='url(#signature_line)'/>
+                    </svg>
+                    <SpacedText
+                      size='1.5rem'
+                      uppercase={false}
+                      weight={500}
+                    >
+                      Dr. Laura Trouille
+                    </SpacedText>
+                    <SpacedText
+                      uppercase={false}
+                      weight={500}
+                    >
+                      Zooniverse Principal Investigator
+                    </SpacedText>
+                    <SpacedText
+                      uppercase={false}
+                      weight={500}
+                    >
+                      contact@zooniverse.org
+                    </SpacedText>
+                  </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
+          )}
         </ContentBox>
       </Layout>
     </PrintableBox>
@@ -265,13 +312,17 @@ function Certificate({
 }
 
 Certificate.propTypes = {
-  creditedName: string,
-  displayName: string,
   hours: number,
+  loading: bool,
   login: string,
+  name: string,
+  paramsValidationMessage: string,
   projectDisplayName: string,
   projectsCount: number,
-  selectedDateRange: string
+  selectedDateRange: shape({
+    endDate: string,
+    startDate: string
+  })
 }
 
 export default Certificate

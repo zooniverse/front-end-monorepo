@@ -3,43 +3,55 @@ import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SurveyAnnotation from './SurveyAnnotation'
 
-function validateCharacteristic (characteristic) {
-  return (
-    typeof characteristic.label === 'string' &&
-    characteristic.valuesOrder.every(item => typeof item === 'string') &&
-    Object.keys(characteristic.values).every(valuesKey => typeof valuesKey === 'string') &&
-    Object.values(characteristic.values).every(value => (
-      typeof value.label === 'string' &&
-      typeof value.image === 'string'
-    ))
-  )
-}
+const CharacteristicValue = types.model('CharacteristicValue', {
+  label: types.string,
+  image: types.string
+})
 
-const Characteristics = types.refinement(
-  'Characteristics',
-  types.frozen(),
-  function validate (characteristic) {
-    if (characteristic) {
-      const validKeys = Object.keys(characteristic).every(key => typeof key === 'string')
-      const validValues = Object.values(characteristic).every(value => validateCharacteristic(value))
-      return validKeys && validValues
-    }
-  }
-)
+const Characteristic = types.model('Characteristic', {
+  label: types.string,
+  values: types.map(CharacteristicValue),
+  valuesOrder: types.array(types.string)
+})
+
+const Answer = types.model('Answer', {
+  label: types.string
+})
+
+const Question = types.model('Question', {
+  label: types.string,
+  multiple: types.optional(types.boolean, false),
+  required: types.optional(types.boolean, false),
+  answersOrder: types.array(types.string),
+  answers: types.map(Answer)
+})
+
+const Choice = types.model('Choice', {
+  label: types.string,
+  description: types.maybe(types.string),
+  noQuestions: types.optional(types.boolean, false),
+  images: types.array(types.string),
+  characteristics: types.map(types.array(types.string)),
+  confusionsOrder: types.array(types.string),
+  confusions: types.map(types.string)
+})
 
 const Survey = types.model('Survey', {
   // alwaysShowThumbnails is deprecated in favor of the `thumbnails` property
   alwaysShowThumbnails: types.maybe(types.boolean),
   annotation: types.safeReference(SurveyAnnotation),
-  characteristics: types.optional(types.frozen(Characteristics), {}),
+  characteristics: types.map(Characteristic),
   characteristicsOrder: types.array(types.string),
-  choices: types.frozen({}),
+  choices: types.map(Choice),
   choicesOrder: types.array(types.string),
   exclusions: types.array(types.string),
-  images: types.frozen({}),
+  images: types.map(types.string),
   inclusions: types.array(types.string),
-  questions: types.frozen({}),
-  questionsMap: types.frozen({}),
+  // map question IDs to question objects.
+  questions: types.map(Question),
+  // map choice IDs to question IDs.
+  questionsMap: types.map(types.array(types.string)),
+  // order of question IDs to be asked.
   questionsOrder: types.array(types.string),
   thumbnails: types.maybe(
     types.enumeration('thumbnails', ['show', 'hide', 'default'])

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { array, bool, string } from 'prop-types'
 
 import ClassifyPage from './ClassifyPage'
+import useAssignedLevel from '@hooks/useAssignedLevel.js'
 
 function ClassifyPageContainer ({
   assignedWorkflowID = '',
@@ -15,14 +16,9 @@ function ClassifyPageContainer ({
   but can be reset by the Classifier component via onSubjectReset().
   This state does not change via components of the prioritized subjects UI (Next/Prev buttons) */
   const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
+  const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID)
 
-  let assignedWorkflow
   let allowedWorkflows = workflows.slice()
-  let assignedWorkflowLevel = 1
-  if (assignedWorkflowID) {
-    assignedWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
-    assignedWorkflowLevel = parseInt(assignedWorkflow?.configuration.level, 10)
-  }
   /* Double check that a volunteer navigating to url with workflowID is allowed to load that workflow */
   if (workflowAssignmentEnabled) {
     allowedWorkflows = workflows.filter(workflow => workflow.configuration.level <= assignedWorkflowLevel)

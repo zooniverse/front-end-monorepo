@@ -1,6 +1,7 @@
-import { Box } from 'grommet'
+import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
+import { Box, ResponsiveContext } from 'grommet'
 import { number, string } from 'prop-types'
-import { SpacedText, withResponsiveContext, ZooniverseLogo } from '@zooniverse/react-components'
+import { useContext } from 'react'
 
 import {
   Avatar,
@@ -14,15 +15,16 @@ function ProfileHeader({
   displayName = '',
   hours = undefined,
   login = '',
-  projects = undefined,
-  screenSize = 'medium'
+  projects = undefined
 }) {
+  const size = useContext(ResponsiveContext)
+
   return (
     <Box
       align='center'
-      direction={screenSize === 'small' ? 'column' : 'row'}
+      direction={size === 'small' ? 'column' : 'row'}
       gap='small'
-      justify={screenSize === 'small' ? 'center' : 'between'}
+      justify={size === 'small' ? 'center' : 'between'}
     >
       <Box
         direction='row'
@@ -33,12 +35,12 @@ function ProfileHeader({
             src={avatar}
             alt={`${login} avatar`}
           />
-          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' />}
+          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' color='#00979d' />}
         <Box
-          align={screenSize === 'small' ? 'start' : 'center'}
-          direction={screenSize === 'small' ? 'column' : 'row'}
+          align={size === 'small' ? 'start' : 'center'}
+          direction={size === 'small' ? 'column' : 'row'}
           justify='center'
-          gap={screenSize === 'small' ? 'none' : 'small'}
+          gap={size === 'small' ? 'none' : 'small'}
         >
           <SpacedText
             color={{ dark: 'accent-1', light: 'neutral-1' }}
@@ -64,14 +66,14 @@ function ProfileHeader({
         {classifications !== undefined ?
           <TitledStat
             title='Classifications'
-            value={classifications} 
+            value={classifications}
           />
           : null}
         {hours !== undefined ?
           <TitledStat
             title='Hours'
             value={hours}
-          /> 
+          />
           : null}
         {contributors !== undefined ?
           <TitledStat
@@ -97,8 +99,7 @@ ProfileHeader.propTypes = {
   displayName: string,
   hours: number,
   login: string,
-  projects: number,
-  screenSize: string
+  projects: number
 }
 
-export default withResponsiveContext(ProfileHeader)
+export default ProfileHeader

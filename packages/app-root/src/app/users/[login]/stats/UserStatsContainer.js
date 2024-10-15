@@ -1,21 +1,79 @@
 'use client'
 
 import { UserStats } from '@zooniverse/user'
-import { useContext } from 'react'
+import { useRouter } from 'next/navigation'
+import { useContext, useEffect } from 'react'
 
-import { PanoptesAuthContext, UserStatsContext } from '../../../../contexts'
 import AuthenticatedUsersPageContainer from '../../../../components/AuthenticatedUsersPageContainer'
+import { PanoptesAuthContext } from '../../../../contexts'
+
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {  
+    if (!value) {
+      queryParams.delete(key);
+    } else {
+      queryParams.set(key, value);
+    }
+  }
+
+  return queryParams
+}
 
 function UserStatsContainer({
-  login
+  endDate,
+  login,
+  paramsValidationMessage,
+  projectId,
+  startDate
 }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
-  const {
-    selectedDateRange,
-    selectedProject,
-    setSelectedDateRange,
-    setSelectedProject
-  } = useContext(UserStatsContext)
+  
+  const router = useRouter()
+
+  // set end date per query params or default to today
+  let selectedEndDate = endDate
+  if (selectedEndDate === undefined) {
+    selectedEndDate = new Date().toISOString().substring(0, 10)
+  }
+  // set start date per query params or default to 7 days ago
+  let selectedStartDate = startDate
+  if (selectedStartDate === undefined) {
+    const defaultStartDate = new Date()
+    defaultStartDate.setUTCDate(defaultStartDate.getUTCDate() - 6)
+    selectedStartDate = defaultStartDate.toISOString().substring(0, 10)
+  }
+
+  useEffect(function updateStartDateParam() {
+    if (selectedStartDate && (startDate === undefined)) {
+      const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
+      router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
+    }
+  }, [selectedStartDate, startDate, router])
+
+  
+
+  function setSelectedDateRange({ endDate, startDate }) {
+    const todayUTC = new Date().toISOString().substring(0, 10)
+    const newQueryParams = endDate === todayUTC
+      ? updateQueryParams([
+        ['end_date', null],
+        ['start_date', startDate]
+      ])
+      : updateQueryParams([
+        ['end_date', endDate],
+        ['start_date', startDate]
+      ])
+    router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
+  }
+
+  function setSelectedProject(selectedProjectId) {
+    const newQueryParams = !selectedProjectId
+      ? updateQueryParams([['project_id', null]])
+      : updateQueryParams([['project_id', selectedProjectId]])
+    router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
+  }
 
   return (
     <AuthenticatedUsersPageContainer
@@ -27,8 +85,12 @@ function UserStatsContainer({
       <UserStats
         authUser={user}
         login={login}
-        selectedDateRange={selectedDateRange}
-        selectedProject={selectedProject}
+        paramsValidationMessage={paramsValidationMessage}
+        selectedDateRange={{
+          endDate: selectedEndDate,
+          startDate: selectedStartDate
+        }}
+        selectedProject={projectId}
         setSelectedDateRange={setSelectedDateRange}
         setSelectedProject={setSelectedProject}
       />

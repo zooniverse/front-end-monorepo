@@ -1,9 +1,11 @@
 import getDateRangeLabel from './getDateRangeLabel.js'
 
 describe('components > shared > BarChart > getDateRangeLabel', function () {
-  it('should return the expected dateRangeLabel for Last7Days', function () {
-    const dateRange = 'Last7Days'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
+  it('should return the expected dateRangeLabel for LAST 7 DAYS', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-09-07',
+      start_date: '2021-09-01'
+    })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Day',
       time: 60,
@@ -12,9 +14,11 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
     })      
   })
 
-  it('should return the expected dateRangeLabel for Last30Days', function () {
-    const dateRange = 'Last30Days'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
+  it('should return the expected dateRangeLabel for LAST 30 DAYS', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-09-15',
+      start_date: '2021-08-16'
+    })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Day',
       time: 60,
@@ -23,9 +27,11 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
     })
   })
 
-  it('should return the expected dateRangeLabel for ThisMonth', function () {
-    const dateRange = 'ThisMonth'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
+  it('should return the expected dateRangeLabel for THIS MONTH', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-09-30',
+      start_date: '2021-09-01'
+    })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Day',
       time: 60,
@@ -34,9 +40,11 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
     })
   })
 
-  it('should return the expected dateRangeLabel for Last3Months', function () {
-    const dateRange = 'Last3Months'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
+  it('should return the expected dateRangeLabel for LAST 3 MONTHS', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-09-30',
+      start_date: '2021-07-01'
+    })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Week of',
       time: 3600,
@@ -45,9 +53,24 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
     })
   })
 
-  it('should return the expected dateRangeLabel for ThisYear, period of month', function () {
-    const dateRange = 'ThisYear'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
+  it('should return the expected dateRangeLabel for THIS YEAR, period of week', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-3-31',
+      start_date: '2021-01-01'
+    })
+    expect(dateRangeLabel).to.deep.equal({
+      countLabel: 'Week of',
+      time: 3600,
+      timeLabel: 'hrs',
+      tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
+    })
+  })
+
+  it('should return the expected dateRangeLabel for THIS YEAR, period of month', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-12-31',
+      start_date: '2021-03-01'
+    })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Month of',
       time: 3600,
@@ -56,21 +79,11 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
     })
   })
 
-  it('should return the expected dateRangeLabel for ThisYear, period of week', function () {
-    const dateRange = 'ThisYear'
-    const period = 'week'
-    const dateRangeLabel = getDateRangeLabel({ dateRange, period })
-    expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Week of',
-      time: 3600,
-      timeLabel: 'hrs',
-      tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
+  it('should return the expected dateRangeLabel for LAST 12 MONTHS', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2021-09-30',
+      start_date: '2020-10-01'
     })
-  })
-
-  it('should return the expected dateRangeLabel for Last12Months', function () {
-    const dateRange = 'Last12Months'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Month of',
       time: 3600,
@@ -79,9 +92,11 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
     })
   })
 
-  it('should return the expected dateRangeLabel for AllTime', function () {
-    const dateRange = 'AllTime'
-    const dateRangeLabel = getDateRangeLabel({ dateRange })
+  it('should return the expected dateRangeLabel for ALL TIME', function () {
+    const dateRangeLabel = getDateRangeLabel({
+      end_date: '2023-09-30',
+      start_date: '2018-01-01'
+    })
     expect(dateRangeLabel).to.deep.equal({
       countLabel: 'Year',
       time: 3600,

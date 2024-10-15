@@ -28,7 +28,7 @@ export default function Highlights() {
           components={[
             <Anchor
               key='publications-page'
-              href='/publications' // after switch to app-root, this will need to be /about/publications
+              href='/about/publications'
             />
           ]}
         />
@@ -45,7 +45,8 @@ export default function Highlights() {
         <Box>
           <Image
             alt={t('AboutPage.highlights.pictures.one')}
-            src='/assets/into-the-zooniverse1.jpg'
+            src='https://static.zooniverse.org/fem-assets/into-the-zooniverse1.jpg'
+            loading='lazy'
             fit='contain'
             width='100%'
           />
@@ -53,7 +54,8 @@ export default function Highlights() {
         <Box>
           <Image
             alt={t('AboutPage.highlights.pictures.two')}
-            src='/assets/into-the-zooniverse2.png'
+            src='https://static.zooniverse.org/fem-assets/into-the-zooniverse2.png'
+            loading='lazy'
             fit='contain'
             width='100%'
 
@@ -62,7 +64,8 @@ export default function Highlights() {
         <Box>
           <Image
             alt={t('AboutPage.highlights.pictures.three')}
-            src='/assets/into-the-zooniverse3.jpg'
+            src='https://static.zooniverse.org/fem-assets/into-the-zooniverse3.jpg'
+            loading='lazy'
             fit='contain'
             width='99%' // minor adjustment to align these images top/bottom
           />

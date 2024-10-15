@@ -16,12 +16,30 @@ function getQueryParams() {
   return {}
 }
 
-const { groups, join_token, users } = getQueryParams()
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {
+    if (!value) {
+      queryParams.delete(key)
+    } else {
+      queryParams.set(key, value)
+    }
+  }
+
+  window.location.search = queryParams.toString()
+}
+
+const { end_date, groups, join_token, project_id, start_date, users } = getQueryParams()
 const root = createRoot(document.getElementById('root'))
 root.render(
   <App
+    endDate={end_date}
     groups={groups}
     joinToken={join_token}
+    projectId={project_id}
+    startDate={start_date}
+    updateQueryParams={updateQueryParams}
     users={users}
   />
 )

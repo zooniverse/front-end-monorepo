@@ -1,10 +1,12 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 
-export async function createPanoptesMembership({
-  groupId,
-  joinToken,
-  userId
+export async function createPanoptesMembership(key, {
+  arg: {
+    groupId,
+    joinToken,
+    userId
+  }
 }) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
@@ -21,7 +23,16 @@ export async function createPanoptesMembership({
       }},
       { authorization }
     )
-    return response
+    if (!response) {
+      throw new Error('No response from Panoptes')
+    }
+    if (!response.ok) {
+      const error = new Error(response.statusText)
+      error.status = response.status
+      throw error
+    }
+    const { body } = response
+    return body
   } catch (error) {
     console.error(error)
     throw error

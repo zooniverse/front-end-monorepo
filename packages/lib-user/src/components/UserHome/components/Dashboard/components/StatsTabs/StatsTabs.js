@@ -8,7 +8,6 @@ import {
 } from 'grommet'
 import { number, shape } from 'prop-types'
 import { useContext } from 'react'
-import { SpacedText } from '@zooniverse/react-components'
 
 import { Tip } from '@components/shared'
 
@@ -26,9 +25,7 @@ function Stat({ stats }) {
           >
             Classifications
           </Text>
-          <Tip
-            contentText='Click on MORE STATS to generate a volunteer certificate'
-          />
+          <Tip contentText='Click on MORE STATS to generate a volunteer certificate' />
         </Box>
         <Text color={{ light: 'neutral-1', dark: 'accent-1' }} size='xxlarge'>
           {stats.classifications?.toLocaleString()}
@@ -55,30 +52,16 @@ export default function StatsTabs({ statsPreview }) {
 
   return (
     <ThemeContext.Extend value={tabsTheme}>
-      {size !== 'small' ? (
-        <Box width={{ min: '480px' }}>
-          <GrommetTabs gap='small' flex='grow'>
-            <Tab title='THIS WEEK'>
-              {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
-            </Tab>
-            <Tab title='ALL TIME'>
-              {statsPreview?.allTime && <Stat stats={statsPreview.allTime} />}
-            </Tab>
-          </GrommetTabs>
-        </Box>
-      ) : (
-        <Box gap='medium' width={{ min: '240px' }}>
-          <SpacedText
-            size='0.875rem'
-            color={{ dark: 'white', light: 'black' }}
-            textAlign='center'
-            weight='bold'
-          >
-            This week at a glance
-          </SpacedText>
-          {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
-        </Box>
-      )}
+      <Box width={size !== 'small' ? { min: '480px' } : { min: '350px'}}>
+        <GrommetTabs gap='small' size={size}>
+          <Tab title='THIS WEEK'>
+            {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
+          </Tab>
+          <Tab title='ALL TIME'>
+            {statsPreview?.allTime && <Stat stats={statsPreview.allTime} />}
+          </Tab>
+        </GrommetTabs>
+      </Box>
     </ThemeContext.Extend>
   )
 }

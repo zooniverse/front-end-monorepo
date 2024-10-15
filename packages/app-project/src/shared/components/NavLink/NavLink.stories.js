@@ -35,7 +35,3 @@ export const OnCurrentPage = () => (
 export const NotOnCurrentPage = () => (
   <NavLink router={NavLinkOtherPageMock} link={NavLinkMock} />
 )
-
-export const Disabled = () => (
-  <NavLink disabled router={NavLinkOtherPageMock} link={NavLinkMock} />
-)

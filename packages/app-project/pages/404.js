@@ -1,115 +1,137 @@
-import { ZooFooter } from '@zooniverse/react-components'
-import { Box, Image, Heading, Text, Paragraph, Anchor, ThemeContext } from 'grommet'
+import {
+  Anchor,
+  Box,
+  Heading,
+  Image,
+  Paragraph,
+  ResponsiveContext,
+  ThemeContext
+} from 'grommet'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { ZooFooter } from '@zooniverse/react-components'
 import styled from 'styled-components'
+import { useContext } from 'react'
 
-import theme404 from './../src/helpers/404theme.js'
 import PageHeader from '../src/components/PageHeader/PageHeader.js'
-
 
 const ContainerBox = styled(Box)`
   position: relative;
-  color: white;
   background-color: #000;
-  z-index: 1;
 `
 
 const Overlay = styled(Box)`
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
   opacity: 0.5;
-  z-index: 2;
 `
 
 const PageContent = styled(Box)`
-  line-height: 2;
-  z-index: 3;
+  z-index: 1;
 `
 
-export async function getStaticProps({ locale }) {
-  const translations = await serverSideTranslations(locale, ['components', 'screens'])
-  const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
-  return {
-    props: {
-      locale,
-      randomImage,
-      ...translations
-    },
-    revalidate: 5
+const ListItem = styled.li`
+  color: white;
+`
+
+const StyledAnchor = styled(Anchor)`
+  text-decoration: underline;
+`
+
+const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
+
+const logoSize = size => {
+  switch (size) {
+    case 'small':
+      return '82px'
+    case 'medium':
+      return '102px'
+    case 'large':
+      return '132px'
+    default:
+      return '102px'
   }
 }
 
-export default function Error404({
-  locale = 'en',
-  randomImage = 1
-}) {
-  const backgroundURL = `/projects/assets/background${randomImage}.jpg`
+export async function getStaticProps({ locale }) {
+  const translations = await serverSideTranslations(locale, [
+    'components',
+    'screens'
+  ])
+
+  return {
+    props: {
+      locale,
+      ...translations
+    },
+    revalidate: 3600 // regenerate at most once per hour
+  }
+}
+
+export default function Error404({ locale = 'en' }) {
   const { t } = useTranslation('components')
+  const size = useContext(ResponsiveContext)
+  const backgroundURL = `https://static.zooniverse.org/fem-assets/404/background${randomImage}.jpg`
 
   return (
-    <ThemeContext.Extend value={theme404}>
+    <ThemeContext.Extend value={customTheme}>
       <PageHeader />
-      <ContainerBox
-        width="100%"
-        height="80vh"
-        alignContent="center"
-        justify="center"
-      >
-        <Overlay
-          background={`url("${backgroundURL}")`}
-          width="100%"
-          height="80vh"
-          justify="center"
-        />
-        <PageContent
-          alignContent="center"
-          justify="center"
-          textAlign="center"
-        >
-          <Paragraph textAlign="center" style={{ margin: 0 }}>
-            <Image
-              id="404-logo"
-              fit="contain"
-              height="44"
-              width="132"
-              alt="404"
-              src={`/projects/assets/logoWhite404.png`}
-            />
+      <ContainerBox width='100%' height='80vh' justify='center'>
+        <Overlay background={`url("${backgroundURL}")`} fill />
+        <PageContent justify='center' align='center'>
+          <Image
+            id='404-logo'
+            width={logoSize(size)}
+            alt='404 logo'
+            src='https://static.zooniverse.org/fem-assets/404/logoWhite404.png'
+            margin={{ bottom: 'xxsmall' }}
+          />
+          <Heading level='1' textAlign='center' fill color='white' size={size}>
+            {t('404.heading')}
+          </Heading>
+          <Paragraph textAlign='center' color='white'>
+            <em>{t('404.message')}</em>
           </Paragraph>
-          <Heading
-            level="1"
-            textAlign="center"
-            margin={{ top: '20px', bottom: '20px' }}
-            style={{ maxWidth: '100%' }}
-          >{t('404.heading')}</Heading>
-          <Paragraph textAlign="center">
-            <Text style={{ fontStyle: 'italic', display: 'block', marginBottom: '30px' }}>{t('404.message')}</Text>
-            <Text style={{ display: 'block', marginTop: '30px', marginBottom: '15px' }}>• <Anchor
-                id="404-to-project-home"
-                color="white"
-                weight="bold"
-                href={`/`}
+          <Box as='ul' fill align='center' margin='0' pad='0' gap='10px'>
+            <ListItem>
+              <StyledAnchor
+                color='white'
+                href='https://www.zooniverse.org'
                 label={t('404.returnHome')}
-                style={{ textDecoration: 'underline' }}
+                size='1rem'
               />
-            </Text>
-            <Text style={{ display: 'block', marginTop: '15px' }}>•&nbsp;
-              <Anchor
-                id="404-to-project-home"
-                color="white"
-                weight="bold"
-                href={`/projects`}
+            </ListItem>
+            <ListItem>
+              <StyledAnchor
+                color='white'
+                href='https://www.zooniverse.org/projects'
                 label={t('404.findNewProject')}
-                style={{ textDecoration: 'underline' }}
+                size='1rem'
               />
-            </Text>
-          </Paragraph>
+            </ListItem>
+          </Box>
         </PageContent>
       </ContainerBox>
       <ZooFooter locale={locale} />
     </ThemeContext.Extend>
   )
+}
+
+const customTheme = {
+  heading: {
+    level: {
+      1: {
+        small: {
+          size: '2rem'
+        },
+        medium: {
+          size: '3rem'
+        },
+        large: {
+          size: '5rem'
+        }
+      }
+    }
+  }
 }

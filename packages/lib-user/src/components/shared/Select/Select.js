@@ -1,4 +1,4 @@
-import { Box, Select as GrommetSelect, ThemeContext } from 'grommet'
+import { Select as GrommetSelect, ThemeContext } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
@@ -27,19 +27,17 @@ function Select({
 
   return (
     <ThemeContext.Extend value={selectTheme}>
-      <Box>
-        <GrommetSelect
-          a11yTitle={name}
-          id={id}
-          name={name}
-          labelKey='label'
-          onChange={({ option }) => handleSelect(option)}
-          options={options}
-          size='medium'
-          style={{ textAlign: 'center' }}
-          value={selected}
-        />
-      </Box>
+      <GrommetSelect
+        a11yTitle={name}
+        id={id}
+        name={name}
+        labelKey='label'
+        onChange={({ option }) => handleSelect(option)}
+        options={options}
+        size='medium'
+        style={{ textAlign: 'center' }}
+        value={selected}
+      />
     </ThemeContext.Extend>
   )
 }

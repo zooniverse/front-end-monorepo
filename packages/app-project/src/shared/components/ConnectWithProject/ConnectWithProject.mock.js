@@ -10,6 +10,13 @@ export const ConnectWithProjectMock = {
         url: 'https://bitbucket.com/test-project',
       },
       {
+        name: 'BlueSky',
+        label: '',
+        path: 'test-project',
+        site: 'bsky.app',
+        url: 'https://bsky.app/profile/zooniverse.bsky.social',
+      },
+      {
         name: 'Facebook',
         label: '',
         path: 'test-project',
@@ -29,6 +36,13 @@ export const ConnectWithProjectMock = {
         path: 'test-project',
         site: 'instagram.com',
         url: 'https://instagram.com/test-project',
+      },
+      {
+        name: 'Mastodon',
+        label: '',
+        path: 'test-project',
+        site: 'mastodon.social',
+        url: 'https://mastodon.social/@test-project',
       },
       {
         name: 'Medium',
@@ -57,13 +71,6 @@ export const ConnectWithProjectMock = {
         path: 'test-project',
         site: 'tumblr.com',
         url: 'https://tumblr.com/test-project',
-      },
-      {
-        name: 'Twitter',
-        label: '',
-        path: 'test-project',
-        site: 'twitter.com',
-        url: 'https://twitter.com/test-project',
       },
       {
         name: 'Weibo',

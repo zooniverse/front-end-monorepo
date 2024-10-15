@@ -32,7 +32,7 @@ function MemberStats({
       >
         <Avatar
           alt={`${login} avatar`}
-          src={avatar || 'https://www.zooniverse.org/assets/simple-avatar.png'}
+          src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
         />
         <Box
           flex='grow'
@@ -84,7 +84,7 @@ function MemberStats({
             size='large'
             weight='bold'
           >
-            {Math.round(hours).toLocaleString()}
+            {hours.toLocaleString()}
           </SpacedText>
         </Box>
       </Box>

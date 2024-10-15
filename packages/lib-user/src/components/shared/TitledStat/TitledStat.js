@@ -21,7 +21,7 @@ function TitledStat({
         size='xlarge'
         weight='bold'
       >
-        {Math.round(value).toLocaleString()}
+        {value.toLocaleString()}
       </SpacedText>
     </Box>
   )

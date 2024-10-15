@@ -1,5 +1,7 @@
 import { Box } from 'grommet'
 
+import { getStatsDateString } from '@utils'
+
 import { PROJECTS, USER } from '../../../../test/mocks/panoptes'
 import { STATS } from '../../../../test/mocks/stats.mock'
 
@@ -11,6 +13,9 @@ export default {
   decorators: [ComponentDecorator]
 }
 
+const todayUTC = getStatsDateString(new Date())
+const sevenDaysAgoUTC = getStatsDateString(new Date(Date.now() - 6 * 24 * 60 * 60 * 1000))
+
 function ComponentDecorator (Story) {
   return (
     <Box
@@ -19,7 +24,6 @@ function ComponentDecorator (Story) {
         light: 'neutral-6'
       }}
       height='900px'
-      pad='30px'
     >
       <Story />
     </Box>
@@ -29,13 +33,55 @@ function ComponentDecorator (Story) {
 export const Default = {
   args: {
     activeTab: 0,
-    handleDateRangeSelect: () => {},
-    handleProjectSelect: () => {},
     onActive: () => {},
     projects: PROJECTS,
-    selectedDateRange: 'Last7Days',
-    selectedProject: 'AllProjects',
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
     stats: STATS,
+    source: USER
+  }
+}
+
+export const NoStats = {
+  args: {
+    activeTab: 0,
+    onActive: () => {},
+    projects: [],
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
+    stats: {
+      data: [],
+      project_contributions: [],
+      time_spent: 0,
+      total_count: 0
+    },
+    source: USER
+  }
+}
+
+export const ParamsValidationMessage = {
+  args: {
+    activeTab: 0,
+    onActive: () => {},
+    paramsValidationMessage: 'Invalid project_id, must be a number',
+    projects: [],
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
+    stats: {
+      data: [],
+      project_contributions: [],
+      time_spent: 0,
+      total_count: 0
+    },
     source: USER
   }
 }

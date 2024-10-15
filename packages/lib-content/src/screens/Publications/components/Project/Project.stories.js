@@ -1,7 +1,7 @@
 import Project from './Project.js'
 
 export default {
-  title: 'Screens / Publications / Project',
+  title: 'About / Publications / Project',
   component: Project
 }
 

@@ -24,28 +24,6 @@ jobs:
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-project build
 
-  build_content_app:
-    name: Build NextJS content pages app
-    runs-on: ubuntu-latest
-    env:
-      APP_ENV: production
-      NODE_ENV: production
-      PANOPTES_ENV: production
-      CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
-        with:
-         node-version: 'lts/iron'
-         cache: 'yarn'
-
-      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
-      - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
-      - run: yarn workspace @zooniverse/fe-content-pages build
-
   build_root_app:
     name: Build NextJS root app
     runs-on: ubuntu-latest
@@ -65,6 +43,7 @@ jobs:
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/user build:es6
+      - run: yarn workspace @zooniverse/subject-viewers build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-root build
 
@@ -83,5 +62,6 @@ jobs:
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/user build:es6
+      - run: yarn workspace @zooniverse/subject-viewers build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn deploy-storybook --dry-run

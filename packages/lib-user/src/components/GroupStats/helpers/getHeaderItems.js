@@ -1,9 +1,5 @@
 import { Layer, Link, SettingsOption, SubtractCircle } from 'grommet-icons'
-import { arrayOf, bool, shape, string } from 'prop-types'
-
-import {
-  deletePanoptesMembership
-} from '@utils'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 
 import {
   HeaderButton,
@@ -11,26 +7,14 @@ import {
   HeaderToast
 } from '@components/shared'
 
-const BASE_URL = 'https://fe-root.preview.zooniverse.org'
-
-async function handleLeaveGroup({
-  login,
-  membershipId
-}) {
-  const userConfirmed = window.confirm('Are you sure you want to leave this group?')
-  if (!userConfirmed) return
-
-  const deleteMembershipResponse = await deletePanoptesMembership({ membershipId })
-  if (!deleteMembershipResponse.ok) return
-
-  window.location.href = '/'
-}
+const DEFAULT_HANDLER = () => true
 
 function getHeaderItems({
   adminMode,
   authUser,
   group,
-  handleGroupModalActive,
+  handleGroupMembershipLeave = DEFAULT_HANDLER,
+  handleGroupModalActive = DEFAULT_HANDLER,
   membership
 }) {
   const headerItems = {
@@ -40,6 +24,9 @@ function getHeaderItems({
 
   const publicGroup = group.stats_visibility.startsWith('public')
   const role = membership?.roles?.[0]
+  const shareGroupUrl = new URL(`${window.location.origin}/groups/${group.id}`)
+  shareGroupUrl.search = window.location.search
+  const shareGroupUrlString = shareGroupUrl.toString()
 
   if (!role && publicGroup) {
     headerItems.PrimaryHeaderItem = (
@@ -48,7 +35,7 @@ function getHeaderItems({
         label='Share Group'
         message='Group Link Copied!'
         primaryItem={true}
-        textToCopy={`${BASE_URL}/groups/${group.id}`}
+        textToCopy={shareGroupUrlString}
       />
     )
   } else {
@@ -67,7 +54,9 @@ function getHeaderItems({
         key='leave-group-button'
         icon={<SubtractCircle color='white' size='small' />}
         label='Leave Group'
-        onClick={() => handleLeaveGroup({ login: authUser?.login, membershipId: membership.id })}
+        onClick={() => handleGroupMembershipLeave({
+          membershipId: membership.id,
+        })}
       />
     )
     if (publicGroup) headerItems.secondaryHeaderItems.push(
@@ -76,7 +65,7 @@ function getHeaderItems({
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`${BASE_URL}/groups/${group.id}`}
+        textToCopy={shareGroupUrlString}
       />
     )
   }
@@ -88,14 +77,14 @@ function getHeaderItems({
         icon={<Link color='white' size='small' />}
         label='Copy Join Link'
         message='Join Link Copied!'
-        textToCopy={`${BASE_URL}/groups/${group.id}?join_token=${group.join_token}`}
+        textToCopy={`${window.location.origin}/groups/${group.id}?join_token=${group.join_token}`}
       />,
       <HeaderToast
         key='share-group-toast'
         icon={<Layer color='white' size='small' />}
         label='Share Group'
         message='Group Link Copied!'
-        textToCopy={`${BASE_URL}/groups/${group.id}`}
+        textToCopy={shareGroupUrlString}
       />,
       <HeaderButton
         key='manage-group-button'
@@ -119,6 +108,8 @@ getHeaderItems.propTypes = {
     join_token: string,
     stats_visibility: string
   }),
+  handleGroupMembershipLeave: func,
+  handleGroupModalActive: func,
   membership: shape({
     id: string,
     roles: arrayOf(string)

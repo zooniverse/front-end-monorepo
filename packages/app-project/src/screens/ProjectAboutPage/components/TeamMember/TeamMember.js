@@ -2,7 +2,6 @@ import { Box, Image } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
-import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -29,15 +28,15 @@ export const StyledDisplayName = styled(Box)`
   ${props =>
     css`
       color: ${props.theme.dark
-          ? props.theme.global.colors['neutral-6']
-          : props.theme.global.colors.black};
+        ? props.theme.global.colors['neutral-6']
+        : props.theme.global.colors.black};
     `}
 `
 
 export const StyledUsername = styled(NavLink)`
-line-height: 0.8;
+  line-height: 0.8;
 
-& > * {
+  & > * {
     word-wrap: break-word;
     font-size: 12px;
     letter-spacing: 0.05rem;
@@ -61,16 +60,12 @@ export const StyledRole = styled(Box)`
     `}
 `
 
-// TO DO: how to tell if user is part of zooniverse team??
-
 const TeamMember = ({ user }) => {
   const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/users`
 
-  const { publicRuntimeConfig = {} } = getConfig() || {}
-  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderAvatar = `${assetPrefix}/assets/simple-avatar.png`
+  const placeholderAvatar = 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'
 
   const { t } = useTranslation('screens')
 
@@ -91,7 +86,11 @@ const TeamMember = ({ user }) => {
         <StyledDisplayName color={{ light: 'neutral-7', dark: '' }}>{user.display_name}</StyledDisplayName>
         <StyledUsername
           lang='en'
-          link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
+          link={{
+            externalLink: true, // /projects/[owner]/[project]/users/[login] is a PFE page
+            href: `${baseUrl}/${user.login}`,
+            text: `@${user.login}`
+          }}
         />
         {user?.roles?.map(role => (
           <StyledRole

@@ -46,11 +46,10 @@ USER node
 
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production=false --frozen-lockfile --ignore-scripts
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/react-components build:es6
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/subject-viewers build:es6
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/content build:es6
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/classifier build:es6
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/user build:es6
-RUN echo $COMMIT_ID > /usr/src/packages/app-content-pages/public/commit_id.txt
-RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-content-pages build
 RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-project build
 RUN echo $COMMIT_ID > /usr/src/packages/app-root/public/commit_id.txt
@@ -80,8 +79,8 @@ RUN --mount=type=cache,id=fem-runner-yarn,uid=1000,gid=1000,target=/home/node/.y
 RUN rm -rf /usr/src/packages/lib-react-components/src
 RUN rm -rf /usr/src/packages/lib-content/src
 RUN rm -rf /usr/src/packages/lib-classifier/src
+RUN rm -rf /usr/src/packages/lib-subject-viewers/src
 RUN rm -rf /usr/src/packages/lib-user/src
-RUN rm -rf /usr/src/packages/app-content-pages/src
 RUN rm -rf /usr/src/packages/app-project/src
 RUN rm -rf /usr/src/packages/app-project/stores
 RUN rm -rf /usr/src/packages/app-root/src

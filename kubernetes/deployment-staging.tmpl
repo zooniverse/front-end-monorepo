@@ -92,104 +92,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: zooniverse-org-content-pages-staging
-spec:
-  selector:
-    app: zooniverse-org-content-pages-staging
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
-  type: NodePort
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: zooniverse-org-content-pages-staging
-  labels:
-    app: zooniverse-org-content-pages-staging
-spec:
-  selector:
-    matchLabels:
-      app: zooniverse-org-content-pages-staging
-  template:
-    metadata:
-      labels:
-        app: zooniverse-org-content-pages-staging
-    spec:
-      containers:
-        - name: fe-content-pages-staging
-          image: ghcr.io/zooniverse/front-end-monorepo-staging:__IMAGE_TAG__
-          command: ["yarn", "workspace", "@zooniverse/fe-content-pages"]
-          args: ["start"]
-          resources:
-            requests:
-              memory: "250Mi"
-              cpu: "100m"
-            limits:
-              memory: "500Mi"
-              cpu: "1000m"
-          startupProbe:
-            httpGet:
-              path: /about/Index
-              port: 3000
-            failureThreshold: 6
-          livenessProbe:
-            httpGet:
-              path: /about/Index
-              port: 3000
-            timeoutSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /about/Index
-              port: 3000
-            initialDelaySeconds: 20
-            timeoutSeconds: 10
-          ports:
-            - containerPort: 3000
-          env:
-            - name: COMMIT_ID
-              value: __IMAGE_TAG__
-            - name: CONTENTFUL_ACCESS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: contentful-conf
-                  key: CONTENTFUL_ACCESS_TOKEN
-            - name: CONTENTFUL_SPACE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: contentful-conf
-                  key: CONTENTFUL_SPACE_ID
-            - name: NEWRELIC_LICENSE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: newrelic-license-key
-                  key: key
-            - name: NODE_ENV
-              value: production
-            - name: PANOPTES_ENV
-              value: production
-            - name: APP_ENV
-              value: staging
-            - name: ENABLE_CACHE_HEADERS
-              value: "true"
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: zooniverse-org-content-pages-staging
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: zooniverse-org-content-pages-staging
-  minReplicas: 1
-  maxReplicas: 2
-  targetCPUUtilizationPercentage: 80
----
-apiVersion: v1
-kind: Service
-metadata:
   name: zooniverse-org-root-staging
 spec:
   selector:
@@ -229,17 +131,17 @@ spec:
               cpu: "1000m"
           startupProbe:
             httpGet:
-              path: /users
+              path: /about
               port: 3000
             failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /users
+              path: /about
               port: 3000
             timeoutSeconds: 10
           readinessProbe:
             httpGet:
-              path: /users
+              path: /about
               port: 3000
             initialDelaySeconds: 20
             timeoutSeconds: 10

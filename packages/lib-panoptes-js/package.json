@@ -22,10 +22,10 @@
   },
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
-    "chai": "~4.3.4",
+    "chai": "~4.5.0",
     "dirty-chai": "~2.0.1",
     "jsdom": "~24.0.0",
-    "mocha": "~10.3.0",
+    "mocha": "~10.7.3",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.5.1",
     "sinon": "~17.0.0",

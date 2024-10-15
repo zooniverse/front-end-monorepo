@@ -95,9 +95,9 @@ const SeparateFrame = ({
 
   const onDrag = (event, difference) => {
     setViewBox(prevViewBox => {
-      const newViewBox = Object.assign({}, prevViewBox)
-      newViewBox.x -= difference.x / 1.5
-      newViewBox.y -= difference.y / 1.5
+      const newViewBox = { ...prevViewBox }
+      newViewBox.x -= difference.x
+      newViewBox.y -= difference.y
       return newViewBox
     })
   }

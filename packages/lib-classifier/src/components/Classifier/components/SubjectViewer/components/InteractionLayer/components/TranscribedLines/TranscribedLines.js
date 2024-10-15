@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react'
 import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
 
 import { useTranscriptionReductions } from '@hooks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
+import { focusMark } from '@plugins/drawingTools/components/Mark/Mark'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
@@ -16,6 +17,10 @@ export const ConsensusLine = styled('g')`
   filter: drop-shadow(1px 1px 4px #5c5c5c);
 
   &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
     ${props => css`outline: solid 4px ${props.focusColor};`}
   }
 
@@ -69,12 +74,11 @@ function TranscribedLines({
     /** Show/hide previously transcribed lines. */
     visible,
   } = useTranscriptionReductions()
-  const {
-    theme = defaultTheme
-  } = useTheme()
+  const theme = useTheme()
   const [ bounds, setBounds ] = useState({})
   const [ line, setLine ] = useState(defaultLine)
   const [ show, setShow ] = useState(false)
+  const activeLine = useRef()
 
   const { t } = useTranslation('components')
 
@@ -125,12 +129,14 @@ function TranscribedLines({
     setBounds(bounds)
     setLine(line)
     setShow(true)
+    activeLine.current = document.activeElement
   }
 
   function close() {
     setBounds({})
     setLine(defaultLine)
     setShow(false)
+    focusMark(activeLine.current)
   }
 
   return (

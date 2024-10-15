@@ -26,18 +26,22 @@ async function getUser({ query }) {
     return users
   } catch (error) {
     console.error(error)
-    return null
+    throw error
   }
 }
 
-async function fetchPanoptesUser({ authUser, id, login }) {
+async function fetchPanoptesUser({ authUser, login, requiredUserProperty }) {
   if (login && login === authUser?.login) {
-    if (authUser.avatar_src) {
+    if (!requiredUserProperty) {
+      return authUser
+    }
+
+    if (authUser[requiredUserProperty]) {
       return authUser
     }
 
     const authClientUser = await auth.checkCurrent()
-    if (authClientUser?.avatar_src) {
+    if (authClientUser[requiredUserProperty]) {
       return authClientUser
     }
   }
@@ -48,25 +52,14 @@ async function fetchPanoptesUser({ authUser, id, login }) {
     return users?.[0]
   }
 
-  if (id) {
-    const query = { id, page_size: 30 }
-    const users = await getUser({ query })
-    return users
-  }
-
   return null
 }
 
-export function usePanoptesUser({ authUser, login, userIds }) {
+export function usePanoptesUser({ authUser, login, requiredUserProperty }) {
   let key = null
   
   if (login) {
-    key = { authUser, login }
-  }
-  
-  if (userIds) {
-    const id = userIds.join(',')
-    key = { authUser, id }
+    key = { authUser, login, requiredUserProperty }
   }
   
   return useSWR(key, fetchPanoptesUser, SWROptions)

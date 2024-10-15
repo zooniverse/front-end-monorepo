@@ -6,8 +6,12 @@ import {
 import { CircleInformation } from 'grommet-icons'
 import { shape, string } from 'prop-types'
 
+const DEFAULT_BUTTON_PROPS = {
+  iconSize: '0.75rem'
+}
+
 function Tip({
-  buttonProps,
+  buttonProps = DEFAULT_BUTTON_PROPS,
   contentText = ''
 }) {
   return (
@@ -26,7 +30,7 @@ function Tip({
       plain
     >
       <Button
-        icon={<CircleInformation size='0.75rem' />}
+        icon={<CircleInformation size={buttonProps.iconSize || DEFAULT_BUTTON_PROPS.iconSize} />}
         plain
         {...buttonProps}
       />
