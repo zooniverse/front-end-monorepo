@@ -9,7 +9,7 @@ jobs:
   release:
    runs-on: ubuntu-latest
 
-   steps: 
+   steps:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
     - uses: actions/checkout@v4
 
@@ -21,4 +21,4 @@ jobs:
       with:
         environment: staging
         finalize: false
-        projects: ${{ secrets.SENTRY_PROJECT_APP }} ${{ secrets.SENTRY_CONTENT_APP }}
+        projects: ${{ secrets.SENTRY_PROJECT_APP }}
