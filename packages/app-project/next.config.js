@@ -120,7 +120,8 @@ module.exports = million.next(
     sourcemaps: {
       disable: true,
     },
-    telemetry: false
+    telemetry: false,
+    authToken: process.env.SENTRY_AUTH_TOKEN
   }),
   {
     auto: true
