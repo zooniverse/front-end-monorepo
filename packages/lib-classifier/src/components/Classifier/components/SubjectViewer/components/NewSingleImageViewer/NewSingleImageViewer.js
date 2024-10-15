@@ -18,6 +18,7 @@ function NewSingleImageViewer({
   move = false,
   naturalHeight,
   naturalWidth,
+  panning = true,
   rotation = 0,
   setOnZoom = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
@@ -33,7 +34,10 @@ function NewSingleImageViewer({
 
   const rotationTransform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
 
-  const SVGImageComponent = ({ transform: panZoomTransform }) => (
+  const SVGImageComponent = ({
+    children,
+    transform: panZoomTransform
+  }) => (
     <svg>
       <g transform={panZoomTransform}>
         <SVGImage
@@ -45,6 +49,7 @@ function NewSingleImageViewer({
           src={src}
           subjectID={subjectId}
         />
+        {children}
       </g>
     </svg>
   )
@@ -69,6 +74,7 @@ function NewSingleImageViewer({
             <g transform={rotationTransform}>
               <VisXZoom
                 height={naturalHeight}
+                panning={panning}
                 setOnPan={setOnPan}
                 setOnZoom={setOnZoom}
                 width={naturalWidth}
