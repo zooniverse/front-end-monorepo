@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "8.34.0",
+    "@sentry/nextjs": "~8.34.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.10.1",
     "@visx/group": "~3.3.0",
