@@ -32,10 +32,12 @@
     "title": "Connect with {{projectName}}",
     "ProjectLink": {
       "types": {
+        "bluesky": "BlueSky",
         "bitbucket": "Bitbucket",
         "facebook": "Facebook",
         "github": "GitHub",
         "instagram": "Instagram",
+        "mastodon": "Mastodon",
         "medium": "Medium",
         "pinterest": "Pinterest",
         "reddit": "Reddit",
