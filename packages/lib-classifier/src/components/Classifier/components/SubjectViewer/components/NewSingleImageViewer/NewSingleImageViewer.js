@@ -1,30 +1,37 @@
-import { Box } from 'grommet'
 import { ParentSize } from '@visx/responsive'
+import { Box } from 'grommet'
+import { useEffect } from 'react'
+
+import ZoomControlButton from '../ZoomControlButton'
 
 import SVGImage from '../SVGComponents/SVGImage'
 import VisXZoom from '../SVGComponents/VisXZoom'
 
-import ZoomControlButton from '../ZoomControlButton'
+const DEFAULT_HANDLER = () => true
 
 function NewSingleImageViewer({
-  enableInteractionLayer,
-  enableRotation,
+  enableInteractionLayer = true,
+  enableRotation = DEFAULT_HANDLER,
   imgRef,
-  invert,
-  limitSubjectHeight,
-  move,
+  invert = false,
+  limitSubjectHeight = false,
+  move = false,
   naturalHeight,
   naturalWidth,
-  rotation,
-  setOnZoom,
-  setOnPan,
+  rotation = 0,
+  setOnZoom = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
   src,
   subjectId,
-  title,
+  title = {},
   zoomControlFn,
-  zooming
+  zooming = true
 }) {
-  // TODO: so much
+  useEffect(function onMount() {
+    enableRotation()
+  }, [])
+
+  const transform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
 
   return (
     <ParentSize>
@@ -37,11 +44,22 @@ function NewSingleImageViewer({
           width={parent.width}
         >
           {zoomControlFn &&
-            <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />}
-            <img
-              alt={title.text}
-              src={src}
-            />
+            <ZoomControlButton
+              onClick={zoomControlFn}
+              position='absolute'
+              zooming={zooming}
+            />}
+          <svg viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}>
+            <g transform={transform}>
+              <SVGImage
+                ref={imgRef}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                src={src}
+                subjectID={subjectId}
+              />
+            </g>
+          </svg>
         </Box>
       )}
     </ParentSize>
