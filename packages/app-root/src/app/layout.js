@@ -19,6 +19,9 @@ export const metadata = {
   twitter: {
     card: 'summary',
     creator: '@the_zooniverse'
+  },
+  other: {
+    'zooniverse:deployed_commit': process.env.COMMIT_ID
   }
 }
 
