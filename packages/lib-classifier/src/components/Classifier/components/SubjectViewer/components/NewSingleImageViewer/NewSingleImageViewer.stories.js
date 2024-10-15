@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react'
 import ImageToolbar from '../../../ImageToolbar'
 
 import mockStore from '@test/mockStore'
-import { SubjectFactory } from '@test/factories'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
 import NewSingleImageViewerConnector from './'
 
@@ -12,7 +12,13 @@ const subject = SubjectFactory.build({
   locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg' }]
 })
 
-const store = mockStore({ subject })
+const workflow = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true
+  }
+})
+
+const store = mockStore({ subject, workflow })
 
 const ViewerContext = ({ store, children }) => {
   return <Provider classifierStore={store}>{children}</Provider>

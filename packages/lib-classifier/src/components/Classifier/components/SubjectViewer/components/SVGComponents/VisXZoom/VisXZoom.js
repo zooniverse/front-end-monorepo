@@ -122,7 +122,6 @@ function VisXZoom({
     }
   }
 
-
   const ZoomingComponent = zoomingComponent
   return (
     <Zoom
@@ -170,7 +169,6 @@ function VisXZoom({
 
 VisXZoom.propTypes = {
   constrain: PropTypes.func,
-  data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
   panning: PropTypes.bool,
