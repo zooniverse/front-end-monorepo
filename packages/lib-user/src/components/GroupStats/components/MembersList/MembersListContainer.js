@@ -33,7 +33,10 @@ function MembersListContainer({
     isLoading
   } = usePanoptesMemberships({
     authUserId: authUser?.id,
-    query
+    query,
+    swrOptions: {
+      keepPreviousData: true
+    }
   })
 
   const { trigger: deleteMembership } = useSWRMutation({ query }, deletePanoptesMembership)
