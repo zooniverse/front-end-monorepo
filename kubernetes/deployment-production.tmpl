@@ -83,8 +83,6 @@ spec:
               value: production
             - name: APP_ENV
               value: production
-            - name: ENABLE_CACHE_HEADERS
-              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -176,8 +174,6 @@ spec:
               value: production
             - name: APP_ENV
               value: production
-            - name: ENABLE_CACHE_HEADERS
-              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
