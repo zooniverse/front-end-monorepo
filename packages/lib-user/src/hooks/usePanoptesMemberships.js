@@ -30,7 +30,8 @@ async function fetchMemberships({ query }) {
   }
 }
 
-export function usePanoptesMemberships({ authUserId, query }) {
+export function usePanoptesMemberships({ authUserId, query, swrOptions = {} }) {
   const key = (query.user_id || query.user_group_id) && authUserId ? { query } : null
-  return useSWR(key, fetchMemberships, SWROptions)
+  const options = { ...SWROptions, ...swrOptions }
+  return useSWR(key, fetchMemberships, options)
 }
