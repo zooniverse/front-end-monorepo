@@ -154,7 +154,7 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
   describe('with a custom date range', function () {
 
     beforeEach(function () {
-      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00'))
+      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00Z'))
     })
 
     afterEach(function () {
@@ -223,7 +223,7 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
   describe('with a source created_at date', function () {
 
     beforeEach(function () {
-      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00'))
+      clock = sinon.useFakeTimers(new Date('2023-04-15T00:00:00Z'))
     })
 
     afterEach(function () {
