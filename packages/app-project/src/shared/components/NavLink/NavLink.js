@@ -2,18 +2,20 @@ import { bool, elementType, object, oneOfType, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
+import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
+const DefaultAnchor = styled(Anchor)``
 function NavLink({
   color,
   link,
-  StyledAnchor = Anchor,
+  StyledAnchor = DefaultAnchor,
   StyledSpacedText = SpacedText,
   weight,
   ...anchorProps
 }) {
-  const { externalLink, href, text } = link
+  const { externalLink = false, href, text } = link
 
   const label = (
     <StyledSpacedText color={color} weight={weight}>
