@@ -36,8 +36,9 @@ function Rectangle({ active, mark, onFinish, scale }) {
         y={y_top}
         width={width}
         height={height}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {active && (
         <DragHandle

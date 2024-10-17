@@ -4,18 +4,24 @@ import { forwardRef, useEffect, useRef } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import draggable from '../draggable'
 
-const STROKE_WIDTH = 2
-const SELECTED_STROKE_WIDTH = 4
+const STROKE_WIDTH = 3
+const SELECTED_STROKE_WIDTH = 6
 
 const StyledGroup = styled.g`
+  stroke-width: ${STROKE_WIDTH}px;
+
+  &.active {
+    stroke-width: ${SELECTED_STROKE_WIDTH}px;
+  }
+
   &:focus {
     outline: none;
   }
-
+  
   &:focus-visible {
     ${(props) =>
     css`
-        outline: solid 4px ${props.focusColor};
+        outline: solid medium ${props.focusColor};
       `}
   }
 
@@ -63,7 +69,6 @@ const Mark = forwardRef(function Mark(
     onFinish = defaultHandler,
     onSelect = defaultHandler,
     pointerEvents = 'painted',
-    scale = 1,
   },
   ref
 ) {
@@ -157,7 +162,7 @@ const Mark = forwardRef(function Mark(
       data-testid="mark-mark"
       aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
-      className='drawingMark'
+      className={`drawingMark ${isActive ? 'active' : ''}`}
       dragging={dragging}
       focusable
       focusColor={focusColor}
@@ -167,9 +172,6 @@ const Mark = forwardRef(function Mark(
       pointerEvents={pointerEvents}
       ref={markRoot}
       role='button'
-      strokeWidth={
-        isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale
-      }
       tabIndex={disabled ? -1 : 0}
       transform={transform}
     >
