@@ -22,7 +22,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Build and push
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         push: true
         tags: |
@@ -57,10 +57,20 @@ jobs:
       run: |
         sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-production.tmpl | kubectl apply -f -
 
+  purge_cache:
+    name: Purge cached file
+    needs: [build_and_push_image, deploy_production]
+    uses: zooniverse/ci-cd/.github/workflows/purge_cache.yaml@main
+    with:
+      fdname: 'www-zooniverse-org'
+      path: '/*'
+    secrets:
+      creds: ${{ secrets.AZURE_STATIC_SITES }}
+
   slack_notification:
     name: Slack notification
     uses: zooniverse/ci-cd/.github/workflows/slack_notification.yaml@main
-    needs: [build_and_push_image, deploy_production]
+    needs: [build_and_push_image, deploy_production, purge_cache]
     if: always()
     with:
       commit_id: ${{ github.sha }}
