@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
@@ -40,38 +41,38 @@ function SubjectViewer({
   subjectQueueState = asyncStates.initialized,
   subjectReadyState
 }) {
-  const { t } = useTranslation('components')
-  switch (subjectQueueState) {
-    case asyncStates.initialized: {
-      return null
-    }
-    case asyncStates.loading: {
-      return (<div>{t('SubjectViewer.loading')}</div>)
-    }
-    case asyncStates.error: {
-      console.error('There was an error loading the subjects')
-      return null
-    }
-    case asyncStates.success: {
-      const Viewer = getViewer(subject?.viewer)
-      
-      if (Viewer) {
-        return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            subject={subject}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
-        )
-      }
+  const [ViewComponent, setViewComponent] = useState(null);
 
-      return null
+  useEffect(() => {
+    setViewComponent(null)
+
+    async function loadViewer() {
+      setViewComponent(await getViewer(subject?.viewer))
     }
-  }
+    loadViewer()
+  }, [subject])
+
+  const { t } = useTranslation('components')
+
+	if (subjectQueueState === asyncStates.loading) {
+		return (<div>{t('SubjectViewer.loading')}</div>)
+	} else if (subjectQueueState === asyncStates.error) {
+		console.error('There was an error loading the subjects')
+	} else if (subjectQueueState === asyncStates.success && subject && ViewComponent) {
+    return (<div data-testid="subject-viewer">
+      <ViewComponent
+        enableInteractionLayer={enableInteractionLayer}
+        key={subject.id}
+        subject={subject}
+        loadingState={subjectReadyState}
+        onError={onError}
+        onReady={onSubjectReady}
+        viewerConfiguration={subject?.viewerConfiguration}
+      />
+    </div>)
+	}
+
+	return null
 }
 
 SubjectViewer.propTypes = {
