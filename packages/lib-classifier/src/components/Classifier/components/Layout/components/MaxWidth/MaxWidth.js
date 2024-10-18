@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { Box, Grid } from 'grommet'
+import { Suspense } from 'react'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -14,27 +15,31 @@ export const ContainerGrid = styled(Grid)`
   position: relative;
   grid-gap: 1.875rem;
   grid-template-areas: 'viewer task';
-  grid-template-columns: minmax(auto, 100rem) ${props => (props.hasSurveyTask ? '33.75rem' : '25rem')};
+  grid-template-columns: minmax(auto, 100rem) ${props =>
+      props.hasSurveyTask ? '33.75rem' : '25rem'};
   margin: auto;
 
-  ${props => props.hasSurveyTask ? css`
-    @media screen and (min-width: 769px) and (max-width: 70rem) {
-      grid-gap: 1.25rem;
-      grid-template-areas:
-        'viewer'
-        'task';
-      grid-template-columns: 100%;
-      grid-template-rows: auto auto;
-      margin: 0;
-    }
-  ` : css`
-    // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem
-    @media screen and (min-width: 769px) and (max-width: 70rem) {
-      grid-gap: 1.25rem;
-      grid-template-areas: 'viewer task';
-      grid-template-columns: 9fr 5fr;
-    }
-  `}
+  ${props =>
+    props.hasSurveyTask
+      ? css`
+          @media screen and (min-width: 769px) and (max-width: 70rem) {
+            grid-gap: 1.25rem;
+            grid-template-areas:
+              'viewer'
+              'task';
+            grid-template-columns: 100%;
+            grid-template-rows: auto auto;
+            margin: 0;
+          }
+        `
+      : css`
+          // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem
+          @media screen and (min-width: 769px) and (max-width: 70rem) {
+            grid-gap: 1.25rem;
+            grid-template-areas: 'viewer task';
+            grid-template-columns: 9fr 5fr;
+          }
+        `}
 
   @media screen and (max-width: 768px) {
     grid-gap: 1.25rem;
@@ -48,17 +53,20 @@ export const ContainerGrid = styled(Grid)`
 `
 
 export const ViewerGrid = styled(Grid)`
-  ${props => props.hasSurveyTask ? css`
-    @media screen and (min-width: 70rem) {
-      position: sticky;
-      top: 10px;
-    }
-  ` : css`
-    @media screen and (min-width: 769px) {
-      position: sticky;
-      top: 10px;
-    }
-  `}
+  ${props =>
+    props.hasSurveyTask
+      ? css`
+          @media screen and (min-width: 70rem) {
+            position: sticky;
+            top: 10px;
+          }
+        `
+      : css`
+          @media screen and (min-width: 769px) {
+            position: sticky;
+            top: 10px;
+          }
+        `}
 
   height: fit-content;
   grid-area: viewer;
@@ -72,17 +80,20 @@ const StyledTaskAreaContainer = styled.div`
 `
 
 const StyledTaskArea = styled(Box)`
-  ${props => props.hasSurveyTask ? css`
-    @media screen and (min-width: 70rem) {
-      position: sticky;
-      top: 10px;
-    }
-  ` : css`
-    @media screen and (min-width: 769px) {
-      position: sticky;
-      top: 10px;
-    }
-  `}
+  ${props =>
+    props.hasSurveyTask
+      ? css`
+          @media screen and (min-width: 70rem) {
+            position: sticky;
+            top: 10px;
+          }
+        `
+      : css`
+          @media screen and (min-width: 769px) {
+            position: sticky;
+            top: 10px;
+          }
+        `}
 `
 
 const StyledImageToolbarContainer = styled.div`
@@ -100,24 +111,22 @@ export default function MaxWidth({
   hasSurveyTask = false
 }) {
   return (
-    <ContainerGrid
-      className={className}
-      hasSurveyTask={hasSurveyTask}
-    >
+    <ContainerGrid className={className} hasSurveyTask={hasSurveyTask}>
       {separateFramesView ? (
         <Box>
           <Banners />
-          <SubjectViewer />
+          <Suspense fallback={<div>Loading</div>}>
+            <SubjectViewer />
+          </Suspense>
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid
-          forwardedAs='section'
-          hasSurveyTask={hasSurveyTask}
-        >
+        <ViewerGrid forwardedAs='section' hasSurveyTask={hasSurveyTask}>
           <Box gridArea='subject'>
             <Banners />
-            <SubjectViewer />
+            <Suspense fallback={<div>Loading</div>}>
+              <SubjectViewer />
+            </Suspense>
             <MetaTools />
           </Box>
           <StyledImageToolbarContainer>

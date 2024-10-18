@@ -25,9 +25,9 @@ import { SortedSetUnion } from './../helpers/SortedSet.js'
 
 // Shim for test:ci in GH needs this to work
 let OrbitControls = null;
-import("three/addons/controls/OrbitControls.js").then((module) => {
-	OrbitControls = module.OrbitControls;
-})
+// import("three/addons/controls/OrbitControls.js").then((module) => {
+// 	OrbitControls = module.OrbitControls;
+// })
 
 // Shim for node.js testing
 let glContext = null
