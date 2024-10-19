@@ -20,11 +20,12 @@ const StyledBox = styled(Box)`
 `
 
 const StyledRegister = styled(Anchor)`
+  display: flex;
+  justify-content: center;
   width: 300px;
   border-radius: 5px;
   font-size: 1rem;
   padding: 8px 5px;
-  text-align: center;
   color: black;
   background-color: ${props => props.theme.global.colors['neutral-2']};
   font-weight: normal;
@@ -35,12 +36,13 @@ const StyledRegister = styled(Anchor)`
 `
 
 const StyledBeta = styled(Anchor)`
+  display: flex;
+  justify-content: center;
   width: 300px;
   border-radius: 5px;
   border: solid 1px ${props => props.theme.global.colors['neutral-1']};
   font-size: 1rem;
   padding: 8px 5px;
-  text-align: center;
   color: black;
   background-color: white;
   font-weight: normal;
