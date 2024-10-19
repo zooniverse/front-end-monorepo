@@ -1,5 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
+import useAssignedLevel from '@hooks/useAssignedLevel'
 import ClassifyPageContainer from './ClassifyPageContainer'
 
 function useStore(store) {
@@ -25,14 +26,16 @@ function ClassifyPageConnector(props) {
     projectPreferences,
     workflowAssignmentEnabled = false
   } = useStore(store)
+  const assignedWorkflowID = projectPreferences?.settings?.workflow_id
+  const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID, props.workflows)
 
   return (
     <ClassifyPageContainer
+      {...props}
       appLoadingState={appLoadingState}
-      assignedWorkflowID={projectPreferences?.settings?.workflow_id}
+      assignedWorkflowLevel={assignedWorkflowLevel}
       projectPreferences={projectPreferences}
       workflowAssignmentEnabled={workflowAssignmentEnabled}
-      {...props}
     />
   )
 }
