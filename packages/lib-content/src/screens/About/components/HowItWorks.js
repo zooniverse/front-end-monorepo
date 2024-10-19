@@ -77,6 +77,8 @@ const ArrowBox = styled(Box)`
 `
 
 const StyledButton = styled(Button)`
+  display: flex;
+  justify-content: center;
   background: white;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
   font-size: 0.8rem;
@@ -84,7 +86,6 @@ const StyledButton = styled(Button)`
   width: clamp(130px, 100%, 240px);
   border-radius: 8px;
   border: solid 1px ${props => props.theme.global.colors['neutral-2']};
-  text-align: center;
 
   &:hover {
     text-decoration: none;

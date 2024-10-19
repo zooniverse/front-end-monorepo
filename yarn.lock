@@ -1609,10 +1609,22 @@
   dependencies:
     "@emotion/memoize" "^0.8.0"
 
+"@emotion/is-prop-valid@^1.2.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-1.3.1.tgz#8d5cf1132f836d7adbe42cf0b49df7816fc88240"
+  integrity sha512-/ACwoqx7XQi9knQs/G0qKvv5teDMhD7bXYns9N/wM8ah8iNb8jZ2uNO0YOgiq2o2poIvVtJS2YALasQuMSQ7Kw==
+  dependencies:
+    "@emotion/memoize" "^0.9.0"
+
 "@emotion/memoize@^0.8.0":
   version "0.8.0"
   resolved "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.8.0.tgz"
   integrity sha512-G/YwXTkv7Den9mXDO7AhLWkE3q+I92B+VqAE+dYG4NGPaHZGvt3G8Q0p9vmE+sq7rTGphUbAvmQ9YpbfMQGGlA==
+
+"@emotion/memoize@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.9.0.tgz#745969d649977776b43fc7648c556aaa462b4102"
+  integrity sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==
 
 "@emotion/stylis@^0.8.4":
   version "0.8.5"
@@ -10676,19 +10688,20 @@ graphql@~16.9.0:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.9.0.tgz#1c310e63f16a49ce1fbb230bd0a000e99f6f115f"
   integrity sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==
 
-grommet-icons@^4.10.0, grommet-icons@~4.12.0:
+grommet-icons@^4.12.1, grommet-icons@~4.12.0:
   version "4.12.1"
   resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.12.1.tgz#780aa7cd59c5586f642f221bdb5c6becd04ad000"
   integrity sha512-LhOP6BkDAGiSNcUOfsGGRo+AKD6zWOXeNeusY1WYvKplAR6mKCAQfH7Nig2Buc/v5zadKSko2NDtCQqwJaME0Q==
 
-grommet@~2.35.0:
-  version "2.35.0"
-  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.35.0.tgz#c735a5cf6fc6d4a814d952b431fdad9ab9902432"
-  integrity sha512-5NoYnLGhRXTGa48v+BRohu6oRUr86ZXg+z4QDSpIhXPaqUuCjZ72oSa6/3JBnwqKODuwos9LSovKxt3U/qgSAw==
+grommet@~2.41.0:
+  version "2.41.0"
+  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.41.0.tgz#00d7dff502ee155719034fca5d49ef8a9b5ae290"
+  integrity sha512-PNLfkQ8/Wcqc7GSMOllVmUpiNP7NfwtaX97gKpPasl663PNhvnkzmx6ofpbN3GY/JWOpN5CbgiGN/PodafnrFQ==
   dependencies:
-    grommet-icons "^4.10.0"
+    "@emotion/is-prop-valid" "^1.2.1"
+    grommet-icons "^4.12.1"
     hoist-non-react-statics "^3.2.0"
-    markdown-to-jsx "^7.2.0"
+    markdown-to-jsx "7.4.4"
     prop-types "^15.8.1"
 
 gunzip-maybe@^1.4.2:
@@ -13045,15 +13058,15 @@ markdown-it@~14.0.0:
     punycode.js "^2.3.1"
     uc.micro "^2.0.0"
 
+markdown-to-jsx@7.4.4:
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.4.4.tgz#90eccba7b74e8bd8a2831efeb281cb3ac88fadec"
+  integrity sha512-R9SGyfV2zsQx25YIYImACpiQ8dQe617CNyoE1wLst4wFHtiBGG3SEtJDlI1bt9SeotIcbITbVy9+ieQFWfEoQw==
+
 markdown-to-jsx@^7.1.8:
   version "7.4.7"
   resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.4.7.tgz#740ee7ec933865ef5cc683a0992797685a75e2ee"
   integrity sha512-0+ls1IQZdU6cwM1yu0ZjjiVWYtkbExSyUIFU2ZeDIFuZM1W42Mh4OlJ4nb4apX4H8smxDHRdFaoIVJGwfv5hkg==
-
-markdown-to-jsx@^7.2.0:
-  version "7.4.1"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.4.1.tgz#1ed6a60f8f9cd944bec39d9923fbbc8d3d60dcb9"
-  integrity sha512-GbrbkTnHp9u6+HqbPRFJbObi369AgJNXi/sGqq5HRsoZW063xR1XDCaConqq+whfEIAlzB1YPnOgsPc7B7bc/A==
 
 markdownz@~9.1.3:
   version "9.1.7"
