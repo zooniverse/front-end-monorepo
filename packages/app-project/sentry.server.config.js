@@ -7,7 +7,6 @@ const environment = process.env.APP_ENV
 Sentry.init({
   dsn,
   environment,
-  integrations: [...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations()],
   release,
   tracesSampleRate: 1.0
 })

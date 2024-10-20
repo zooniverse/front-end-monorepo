@@ -24,8 +24,9 @@ async function fetchMemberships({ query, token }) {
   }
 }
 
-export function usePanoptesMemberships({ authUserId, query }) {
+export function usePanoptesMemberships({ authUserId, query, swrOptions = SWROptions }) {
   const token = usePanoptesAuthToken()
   const key = token && (query.user_id || query.user_group_id) && authUserId ? { query, token } : null
-  return useSWR(key, fetchMemberships, SWROptions)
+  const options = { ...SWROptions, ...swrOptions }
+  return useSWR(key, fetchMemberships, options)
 }

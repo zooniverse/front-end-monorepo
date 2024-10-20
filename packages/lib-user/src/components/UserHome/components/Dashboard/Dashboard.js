@@ -14,6 +14,7 @@ import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 
 import DashboardLink from './components/DashboardLink.js'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer.js'
+import Link from 'next/link'
 
 const LinkToBlogPost = styled(Anchor)`
   position: absolute;
@@ -253,6 +254,7 @@ export default function Dashboard({ user, userLoading }) {
           <Relative fill>
             <StyledStatsLink
               alignSelf={size === 'small' ? 'center' : 'end'}
+              forwardedAs={Link}
               href={`/users/${user?.login}/stats`}
               label={<SpacedText>More Stats</SpacedText>}
               icon={<FormNext />}

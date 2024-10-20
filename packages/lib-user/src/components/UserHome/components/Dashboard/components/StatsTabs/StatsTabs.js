@@ -8,10 +8,15 @@ import {
 } from 'grommet'
 import { number, shape } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
 
 import { Tip } from '@components/shared'
 
 import tabsTheme from './tabsTheme.js'
+
+const StyledTab = styled(Tab)`
+  text-transform: uppercase;
+`
 
 function Stat({ stats }) {
   return (
@@ -54,12 +59,12 @@ export default function StatsTabs({ statsPreview }) {
     <ThemeContext.Extend value={tabsTheme}>
       <Box width={size !== 'small' ? { min: '480px' } : { min: '350px'}}>
         <GrommetTabs gap='small' size={size}>
-          <Tab title='THIS WEEK'>
+          <StyledTab title='This Week'>
             {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
-          </Tab>
-          <Tab title='ALL TIME'>
+          </StyledTab>
+          <StyledTab title='All Time'>
             {statsPreview?.allTime && <Stat stats={statsPreview.allTime} />}
-          </Tab>
+          </StyledTab>
         </GrommetTabs>
       </Box>
     </ThemeContext.Extend>

@@ -12,7 +12,7 @@ jobs:
      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
 
-   steps: 
+   steps:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
     - uses: actions/checkout@v4
 
@@ -24,4 +24,4 @@ jobs:
       with:
         environment: production
         finalize: true
-        projects: ${{ secrets.SENTRY_PROJECT_APP }} ${{ secrets.SENTRY_CONTENT_APP }}
+        projects: ${{ secrets.SENTRY_PROJECT_APP }}
