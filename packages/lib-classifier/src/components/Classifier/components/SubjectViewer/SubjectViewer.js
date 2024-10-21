@@ -41,7 +41,7 @@ function SubjectViewer({
   subjectQueueState = asyncStates.initialized,
   subjectReadyState
 }) {
-  const [ViewComponent, setViewComponent] = useState(null);
+  const [ViewComponent, setViewComponent] = useState();
 
   useEffect(() => {
     setViewComponent(null)
