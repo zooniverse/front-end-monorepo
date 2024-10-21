@@ -22,12 +22,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Histogram } from './Histogram.js'
 import { pointColor } from './../helpers/pointColor.js'
 import { SortedSetUnion } from './../helpers/SortedSet.js'
-
-// Shim for test:ci in GH needs this to work
-let OrbitControls = null;
-import("three/addons/controls/OrbitControls.js").then((module) => {
-	OrbitControls = module.OrbitControls;
-})
+import { OrbitControls } from './../helpers/OrbitControls.js'
 
 // Shim for node.js testing
 let glContext = null
