@@ -7,10 +7,11 @@ import { ContentBox } from '@components/shared'
 
 export default function RecentProjects({
   isLoading = false,
-  recentProjectsStats = [],
+  recentProjects = [],
   error = undefined
 }) {
   const size = useContext(ResponsiveContext)
+
   return (
     <ContentBox title='Continue Classifying' screenSize={size}>
       {isLoading ? (
@@ -23,7 +24,7 @@ export default function RecentProjects({
             There was an error fetching your recent projects
           </SpacedText>
         </Box>
-      ) : !recentProjectsStats.length ? (
+      ) : !recentProjects.length ? (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>No Recent Projects found</SpacedText>
           <Text>
@@ -44,14 +45,14 @@ export default function RecentProjects({
           style={{ listStyle: 'none' }}
           margin='0'
         >
-          {recentProjectsStats.map(stat => (
-            <li key={stat.project_id}>
+          {recentProjects.map(project => (
+            <li key={project.id}>
               <ProjectCard
-                badge={stat.count}
-                description={stat.projectInfo?.description}
-                displayName={stat.projectInfo?.display_name}
-                href={`https://www.zooniverse.org/projects/${stat.projectInfo?.slug}`}
-                imageSrc={stat.projectInfo?.avatar_src}
+                badge={project.count}
+                description={project?.description}
+                displayName={project?.display_name}
+                href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                imageSrc={project?.avatar_src}
                 size={size}
               />
             </li>
@@ -64,17 +65,14 @@ export default function RecentProjects({
 
 RecentProjects.propTypes = {
   isLoading: bool,
-  recentProjectsStats: arrayOf(
+  recentProjects: arrayOf(
     shape({
+      avatar_src: string,
       count: number,
-      project_id: number,
-      projectInfo: shape({
-        avatar_src: string,
-        description: string,
-        display_name: string,
-        id: string,
-        slug: string
-      })
+      description: string,
+      display_name: string,
+      id: string,
+      slug: string
     })
   )
 }

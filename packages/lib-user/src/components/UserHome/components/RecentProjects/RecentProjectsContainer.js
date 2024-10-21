@@ -16,8 +16,8 @@ function RecentProjectsContainer({ authUser }) {
   } = useStats({ sourceId: authUser?.id, query: recentProjectsQuery })
 
   // limit to 20 projects fetched from panoptes
-  const contributionStats = stats?.project_contributions.slice(0, 20)
-  const projectIds = contributionStats?.map(project => project.project_id)
+  const contributions = stats?.project_contributions.slice(0, 20)
+  const projectIds = contributions?.map(project => project.project_id)
 
   // Get more info about each project
   const {
@@ -29,21 +29,28 @@ function RecentProjectsContainer({ authUser }) {
     id: projectIds?.join(',')
   })
 
-  // Attach project info to each contribution stat
-  if (projects?.length && contributionStats?.length) {
-    contributionStats.forEach(stat => {
-      const projectObj = projects.find(
-        project => parseInt(project.id) === stat.project_id
-      )
-      stat.projectInfo = projectObj
-    })
+  // Attach project info to each contribution stat (see similar behavior in TopProjects)
+  let recentProjects = []
+
+  if (projects?.length && contributions?.length) {
+    recentProjects = contributions
+      .map(projectContribution => {
+        const projectData = projects?.find(
+          project => project.id === projectContribution.project_id.toString()
+        )
+        return {
+          count: projectContribution.count,
+          ...projectData
+        }
+      })
+      .filter(project => project?.id) // exclude private or deleted projects
   }
 
   return (
     <RecentProjects
       error={statsError || projectsError}
       isLoading={statsLoading || projectsLoading}
-      recentProjectsStats={contributionStats}
+      recentProjects={recentProjects}
     />
   )
 }
