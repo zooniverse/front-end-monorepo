@@ -15,28 +15,27 @@ function RecentProjectsContainer({ authUser }) {
     error: statsError
   } = useStats({ sourceId: authUser?.id, query: recentProjectsQuery })
 
-  // Get more info about each project
-  const projectIds = stats?.project_contributions?.map(
-    project => project.project_id
-  )
+  // limit to 20 projects fetched from panoptes
+  const contributionStats = stats?.project_contributions.slice(0, 20)
+  const projectIds = contributionStats?.map(project => project.project_id)
 
+  // Get more info about each project
   const {
     data: projects,
     isLoading: projectsLoading,
     error: projectsError
   } = usePanoptesProjects({
     cards: true,
-    id: projectIds?.join(','),
-    page_size: 20
+    id: projectIds?.join(',')
   })
 
-  // Attach contributions to each project
-  if (projects?.length && stats.project_contributions.length) {
-    projects.forEach(project => {
-      const projectStat = stats.project_contributions.find(
-        stat => stat.project_id === parseInt(project.id)
+  // Attach project info to each contribution stat
+  if (projects?.length && contributionStats?.length) {
+    contributionStats.forEach(stat => {
+      const projectObj = projects.find(
+        project => parseInt(project.id) === stat.project_id
       )
-      project.userContributions = projectStat.count
+      stat.projectInfo = projectObj
     })
   }
 
@@ -44,7 +43,7 @@ function RecentProjectsContainer({ authUser }) {
     <RecentProjects
       error={statsError || projectsError}
       isLoading={statsLoading || projectsLoading}
-      recentProjectsStats={projects}
+      recentProjectsStats={contributionStats}
     />
   )
 }

@@ -1,5 +1,5 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 
@@ -44,14 +44,14 @@ export default function RecentProjects({
           style={{ listStyle: 'none' }}
           margin='0'
         >
-          {recentProjectsStats.map(project => (
-            <li key={project?.id}>
+          {recentProjectsStats.map(stat => (
+            <li key={stat.project_id}>
               <ProjectCard
-                badge={project?.userContributions}
-                description={project?.description}
-                displayName={project?.display_name}
-                href={`https://www.zooniverse.org/projects/${project?.slug}`}
-                imageSrc={project?.avatar_src}
+                badge={stat.count}
+                description={stat.projectInfo?.description}
+                displayName={stat.projectInfo?.display_name}
+                href={`https://www.zooniverse.org/projects/${stat.projectInfo?.slug}`}
+                imageSrc={stat.projectInfo?.avatar_src}
                 size={size}
               />
             </li>
@@ -66,7 +66,15 @@ RecentProjects.propTypes = {
   isLoading: bool,
   recentProjectsStats: arrayOf(
     shape({
-      id: string
+      count: number,
+      project_id: number,
+      projectInfo: shape({
+        avatar_src: string,
+        description: string,
+        display_name: string,
+        id: string,
+        slug: string
+      })
     })
   )
 }
