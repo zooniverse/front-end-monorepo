@@ -7,26 +7,23 @@ import { ContentBox } from '@components/shared'
 
 export default function RecentProjects({
   isLoading = false,
-  projectPreferences = [],
+  recentProjectsStats = [],
   error = undefined
 }) {
   const size = useContext(ResponsiveContext)
-
   return (
     <ContentBox title='Continue Classifying' screenSize={size}>
-      {isLoading && (
+      {isLoading ? (
         <Box fill justify='center' align='center'>
           <Loader />
         </Box>
-      )}
-      {!isLoading && error && (
+      ) : error ? (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>
             There was an error fetching your recent projects
           </SpacedText>
         </Box>
-      )}
-      {!isLoading && !projectPreferences.length && !error && (
+      ) : !recentProjectsStats.length ? (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>No Recent Projects found</SpacedText>
           <Text>
@@ -37,39 +34,37 @@ export default function RecentProjects({
             .
           </Text>
         </Box>
+      ) : (
+        <Box
+          as='ul'
+          direction='row'
+          gap='small'
+          pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+          overflow={{ horizontal: 'auto' }}
+          style={{ listStyle: 'none' }}
+          margin='0'
+        >
+          {recentProjectsStats.map(project => (
+            <li key={project?.id}>
+              <ProjectCard
+                badge={project?.userContributions}
+                description={project?.description}
+                displayName={project?.display_name}
+                href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                imageSrc={project?.avatar_src}
+                size={size}
+              />
+            </li>
+          ))}
+        </Box>
       )}
-      {!isLoading &&
-        projectPreferences?.length ? (
-          <Box
-            as='ul'
-            direction='row'
-            gap='small'
-            pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
-            overflow={{ horizontal: 'auto' }}
-            style={{ listStyle: 'none' }}
-            margin='0'
-          >
-            {projectPreferences.map(preference => (
-              <li key={preference?.project?.id}>
-                <ProjectCard
-                  badge={preference?.activity_count}
-                  description={preference?.project?.description}
-                  displayName={preference?.project?.display_name}
-                  href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
-                  imageSrc={preference?.project?.avatar_src}
-                  size={size}
-                />
-              </li>
-            ))}
-          </Box>
-        ) : null}
     </ContentBox>
   )
 }
 
 RecentProjects.propTypes = {
   isLoading: bool,
-  projectPreferences: arrayOf(
+  recentProjectsStats: arrayOf(
     shape({
       id: string
     })
