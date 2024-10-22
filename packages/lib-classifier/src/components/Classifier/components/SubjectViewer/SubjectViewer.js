@@ -2,11 +2,12 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 import { lazy } from 'react'
+// import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer'
 
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
 
-const { VolumetricViewer } = lazy(() => import('@zooniverse/subject-viewers'))
+const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
 
 function storeMapper(classifierStore) {
   const {

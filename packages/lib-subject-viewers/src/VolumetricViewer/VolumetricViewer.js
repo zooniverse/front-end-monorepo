@@ -6,7 +6,7 @@ import { ModelViewer } from './models/ModelViewer.js'
 import { ModelAnnotations } from './models/ModelAnnotations.js'
 import { ModelTool } from './models/ModelTool.js'
 
-export default function VolumetricViewerComponent ({
+export default function VolumetricViewer ({
   config = {},
   subjectData = '',
   subjectUrl = '',
@@ -61,11 +61,11 @@ export const VolumetricViewerData = ({ subjectData = '', subjectUrl = '' }) => {
         viewer: ModelViewer()
       }
     },
-    component: VolumetricViewerComponent
+    component: VolumetricViewer
   }
 }
 
-VolumetricViewerComponent.propTypes = {
+VolumetricViewer.propTypes = {
   config: object,
   subjectData: string,
   subjectUrl: string,
