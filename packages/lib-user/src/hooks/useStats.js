@@ -1,10 +1,8 @@
 import { env } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
+import usePanoptesAuthToken from './usePanoptesAuthToken'
 
 const defaultEndpoint = '/classifications/users'
-
-const isBrowser = typeof window !== 'undefined'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -12,10 +10,6 @@ const SWROptions = {
   revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
-}
-
-if (isBrowser) {
-  auth.checkCurrent()
 }
 
 function statsHost(env) {
@@ -30,9 +24,9 @@ function statsHost(env) {
 async function fetchStats({
   endpoint,
   query,
-  sourceId
+  sourceId,
+  token
 }) {
-  const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   const headers = { authorization }
 
@@ -54,6 +48,7 @@ export function useStats({
   query = {},
   sourceId
 }) {
-  const key = sourceId ? { endpoint, query, sourceId } : null
+  const token = usePanoptesAuthToken()
+  const key = token && sourceId ? { endpoint, query, sourceId, token } : null
   return useSWR(key, fetchStats, SWROptions)
 }
