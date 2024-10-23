@@ -37,19 +37,19 @@ describe('stores > User', function () {
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 23 }
+        { id: '1' }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 25 }
+        { id: '1' }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=2&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 27 }
+        { id: '1' }
       ]
     })
 
@@ -105,7 +105,7 @@ describe('stores > User', function () {
   })
 
   describe('with an existing user session', function () {
-    
+
     it('should refresh project preferences for the same user', async function () {
       userStore.set(user)
       const { personalization } = userStore

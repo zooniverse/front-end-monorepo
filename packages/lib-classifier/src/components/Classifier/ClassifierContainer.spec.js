@@ -172,7 +172,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
@@ -262,7 +262,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
@@ -358,7 +358,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
@@ -454,7 +454,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
@@ -550,7 +550,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
@@ -646,7 +646,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
@@ -753,7 +753,7 @@ describe('components > ClassifierContainer', function () {
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
-          activity_count: 24
+          id: '123'
         }] })
         .get('/project_roles')
         .query(true)
