@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components'
 import { Box, Grid } from 'grommet'
-import { Suspense } from 'react'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -115,18 +114,14 @@ export default function MaxWidth({
       {separateFramesView ? (
         <Box>
           <Banners />
-          <Suspense fallback={<div>Loading</div>}>
-            <SubjectViewer />
-          </Suspense>
+          <SubjectViewer />
           <MetaTools />
         </Box>
       ) : (
         <ViewerGrid forwardedAs='section' hasSurveyTask={hasSurveyTask}>
           <Box gridArea='subject'>
             <Banners />
-            <Suspense fallback={<div>Loading</div>}>
-              <SubjectViewer />
-            </Suspense>
+            <SubjectViewer />
             <MetaTools />
           </Box>
           <StyledImageToolbarContainer>
