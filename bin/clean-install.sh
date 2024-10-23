@@ -17,5 +17,5 @@ for DIR in $(find $ROOT_DIR/packages -mindepth 1 -maxdepth 1 -type d) ; do
   printf " done!\n"
 done
 
-yarn install --frozen-lockfile
+yarn install --frozen-lockfile --ignore-scripts
 echo "Finished!"
