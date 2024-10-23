@@ -4,15 +4,7 @@
   https://github.com/zooniverse/front-end-monorepo/issues/6198
 */
 import { panoptes } from '@zooniverse/panoptes-js'
-import useSWR from 'swr'
-
-const SWRoptions = {
-  revalidateIfStale: false,
-  revalidateOnMount: false,
-  revalidateOnFocus: false,
-  revalidateOnReconnect: false,
-  refreshInterval: 0
-}
+import useSWRImmutable from 'swr/immutable'
 
 async function fetchAssignedWorkflow({
   fields = 'configuration',
@@ -38,7 +30,7 @@ function useAssignedLevel(assignedWorkflowID, workflows = []) {
   const key = !existingWorkflow && assignedWorkflowID
     ? { assignedWorkflowID }
     : null // skip data fetching when we already have the workflow level
-  const { data: fetchedWorkflowLevel } = useSWR(key, fetchAssignedWorkflow, SWRoptions)
+  const { data: fetchedWorkflowLevel } = useSWRImmutable(key, fetchAssignedWorkflow)
 
   return fetchedWorkflowLevel || defaultWorkflowLevel
 }
