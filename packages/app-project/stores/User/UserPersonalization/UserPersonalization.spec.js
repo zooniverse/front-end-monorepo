@@ -39,7 +39,7 @@ describe('Stores > UserPersonalization', function () {
       .query(true)
       .reply(200, {
         project_preferences: [
-          { activity_count: 23, id: '5' }
+          { id: '5' }
         ]
       })
       .get('/collections') // This is to get the collections store to not make real requests
@@ -57,7 +57,7 @@ describe('Stores > UserPersonalization', function () {
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
     sinon.stub(statsClient, 'fetchDailyStats').callsFake(({ projectId, userId }) => (projectId === '2' && userId === '123') ?
-      Promise.resolve({ data: MOCK_DAILY_COUNTS }) :
+      Promise.resolve({ data: MOCK_DAILY_COUNTS, total_count: 80 }) :
       Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`)))
     sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
   })
@@ -128,8 +128,9 @@ describe('Stores > UserPersonalization', function () {
           id: '123',
           login: 'test.user',
           personalization: {
-            projectPreferences: {
-              activity_count: 23
+            stats: {
+              thisWeek: [],
+              total: 23
             }
           }
         }
@@ -138,7 +139,7 @@ describe('Stores > UserPersonalization', function () {
       })
 
       it('should add 1 to your total count', function () {
-        expect(rootStore.user.personalization.totalClassificationCount).to.equal(24)
+        expect(rootStore.user.personalization.stats.total).to.equal(24)
       })
 
       it('should add 1 to your session count', function () {
@@ -176,7 +177,6 @@ describe('Stores > UserPersonalization', function () {
         login: 'test.user',
         personalization: {
           projectPreferences: {
-            activity_count: 23,
             id: '5'
           }
         }
@@ -201,7 +201,7 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should start counting from 0', function () {
-      expect(rootStore.user.personalization.totalClassificationCount).to.equal(0)
+      expect(rootStore.user.personalization.stats.total).to.equal(0)
     })
 
     it('should not trigger the child Notifications store to request unread notifications or conversations', function () {
@@ -225,8 +225,8 @@ describe('Stores > UserPersonalization', function () {
         rootStore.user.personalization.increment()
       })
 
-      it('should add 1 to your total count', function () {
-        expect(rootStore.user.personalization.totalClassificationCount).to.equal(1)
+      it('should add 1 to your session count', function () {
+        expect(rootStore.user.personalization.sessionCount).to.equal(1)
       })
     })
 
@@ -241,8 +241,8 @@ describe('Stores > UserPersonalization', function () {
         rootStore.user.personalization.increment()
       })
 
-      it('should add 5 to your total count', function () {
-        expect(rootStore.user.personalization.totalClassificationCount).to.equal(5)
+      it('should add 5 to your session count', function () {
+        expect(rootStore.user.personalization.sessionCount).to.equal(5)
       })
 
       it('should not trigger the child UPP store to request user preferences from Panoptes', function () {
@@ -268,7 +268,7 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should count session classifications from 0', function () {
-      expect(rootStore.user.personalization.totalClassificationCount).to.equal(1)
+      expect(rootStore.user.personalization.sessionCount).to.equal(1)
     })
   })
 
@@ -288,12 +288,12 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should count session classifications from 0', function () {
-      expect(rootStore.user.personalization.totalClassificationCount).to.equal(1)
+      expect(rootStore.user.personalization.sessionCount).to.equal(1)
     })
   })
 
   describe('counts view', function () {
-    it('should return the expected counts with no data', function () {
+    it('should return the expected counts with no user data', function () {
       const personalizationStore = UserPersonalization.create()
       expect(personalizationStore.counts).to.deep.equal({
         today: 0,
@@ -302,13 +302,13 @@ describe('Stores > UserPersonalization', function () {
     })
 
     describe('total count', function () {
-      it('should get the total count from the store `totalClassificationCount` value', function () {
+      it('should get the total classification count from the store', function () {
         const personalizationStore = UserPersonalization.create()
         personalizationStore.increment()
         personalizationStore.increment()
         personalizationStore.increment()
         personalizationStore.increment()
-        expect(personalizationStore.counts.total).to.equal(4)
+        expect(personalizationStore.stats.total).to.equal(4)
       })
     })
 
@@ -333,7 +333,7 @@ describe('Stores > UserPersonalization', function () {
           { count: 8, dayNumber: 6, period: '2019-10-05T00:00:00Z' },
           { count: 15, dayNumber: 0, period: '2019-10-06T00:00:00Z' }
         ]
-        const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS } })
+        const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS, total: 80 } })
         expect(personalizationStore.counts.today).to.equal(MOCK_DAILY_COUNTS[1].count)
       })
 
@@ -343,7 +343,7 @@ describe('Stores > UserPersonalization', function () {
           { count: 13, dayNumber: 1, period: '2019-01-02T00:00:00Z' },
           { count: 14, dayNumber: 0, period: '2019-01-01T00:00:00Z' }
         ]
-        const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS } })
+        const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS, total: 80 } })
         expect(personalizationStore.counts.today).to.equal(0)
       })
     })
@@ -366,10 +366,6 @@ describe('Stores > UserPersonalization', function () {
           unreadNotificationsCount: 5
         },
         projectPreferences: {
-          activity_count: 8,
-          activity_count_by_workflow: {
-            1234: 8,
-          },
           id: '5',
           links: { project: '5678', user: '1' },
           loadingState: asyncStates.success,
@@ -382,9 +378,9 @@ describe('Stores > UserPersonalization', function () {
         },
         stats: {
           loadingState: asyncStates.success,
-          thisWeek: MOCK_DAILY_COUNTS
-        },
-        totalClassificationCount: 8
+          thisWeek: MOCK_DAILY_COUNTS,
+          total: 80
+        }
       })
       personalizationStore.increment() // increment to have a session count
       const signedInUserPersonalization = personalizationStore.toJSON()

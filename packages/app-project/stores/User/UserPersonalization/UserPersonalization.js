@@ -16,10 +16,11 @@ const UserPersonalization = types
   .views(self => ({
     get counts() {
       const today = self.todaysCount
+      const total = self.stats.total
 
       return {
         today,
-        total: self.totalClassificationCount
+        total
       }
     },
 
@@ -43,10 +44,6 @@ const UserPersonalization = types
         return self.stats.thisWeek.find(stat => stat.dayNumber === todaysDate.getDay())
       }
       return null
-    },
-
-    get totalClassificationCount() {
-      return self.projectPreferences?.activity_count || 0
     }
   }))
   .actions(self => {
@@ -65,7 +62,7 @@ const UserPersonalization = types
       increment() {
         self.sessionCount = self.sessionCount + 1
         self.todaysStats?.increment()
-        self.projectPreferences?.incrementActivityCount()
+        self.stats.incrementTotal()
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshSettings()

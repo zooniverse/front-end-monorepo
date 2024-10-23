@@ -32,13 +32,6 @@ describe('Stores > YourStats', function () {
 
     nockScope = nock('https://panoptes-staging.zooniverse.org/api')
       .persist()
-      .get('/project_preferences')
-      .query(true)
-      .reply(200, {
-        project_preferences: [
-          { activity_count: 23 }
-        ]
-      })
       .get('/collections')
       .query(true)
       .reply(200)
@@ -47,7 +40,7 @@ describe('Stores > YourStats', function () {
       .reply(200)
     rootStore = initStore(true, { project })
     sinon.stub(statsClient, 'fetchDailyStats').callsFake(({ projectId, userId }) => (projectId === '2' && userId === '123') ?
-      Promise.resolve({ data: MOCK_DAILY_COUNTS }) :
+      Promise.resolve({ data: MOCK_DAILY_COUNTS, total_count: 80 }) :
       Promise.reject(new Error(`Unable to fetch stats for project ${projectId} and user ${userId}`)))
     sinon.stub(talkAPI, 'get')
   })
@@ -82,6 +75,12 @@ describe('Stores > YourStats', function () {
 
     it('should request user statistics', function () {
       expect(statsClient.fetchDailyStats).to.have.been.calledOnceWith({ projectId: '2', userId: '123' })
+    })
+
+    describe('total classification count', function () {
+      it('should be created', function () {
+        expect(getSnapshot(rootStore.user.personalization.stats).total).to.equal(80)
+      })
     })
 
     describe('weekly classification stats', function () {
@@ -120,7 +119,8 @@ describe('Stores > YourStats', function () {
       ]
       const yourStatsStore = YourStats.create({
         loadingState: asyncStates.success,
-        thisWeek: MOCK_DAILY_COUNTS
+        thisWeek: MOCK_DAILY_COUNTS,
+        total: 80
       })
       const signedInStats = yourStatsStore.toJSON()
       yourStatsStore.reset()
