@@ -5,6 +5,7 @@ const isBrowser = typeof window !== "undefined"
 
 let defaultToken
 /*
+  See comments in https://github.com/zooniverse/front-end-monorepo/pull/6345
   Top-level await in modules has been supported in Node
   and in all browsers since 2021. However, ES modules are still
   not supported in the monorepo. An immediately-invoked async
