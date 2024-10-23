@@ -1,13 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 // import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer'
 
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
 
 const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
+const ProtoViewer = lazy(() => import('@zooniverse/subject-viewers/ProtoViewer'))
 
 function storeMapper(classifierStore) {
   const {
@@ -38,6 +39,7 @@ function SubjectViewer({
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
+
   switch (subjectQueueState) {
     case asyncStates.initialized: {
       return null
@@ -52,22 +54,24 @@ function SubjectViewer({
     case asyncStates.success: {
       let Viewer
       if (subject?.viewer === 'volumetric') {
-        Viewer = VolumetricViewer
+        Viewer = ProtoViewer
       } else {
         Viewer = getViewer(subject?.viewer)
       }
 
       if (Viewer) {
         return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            subject={subject}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
+          <Suspense fallback={<p>Suspense boundary</p>}>
+            <Viewer
+              enableInteractionLayer={enableInteractionLayer}
+              key={subject.id}
+              subject={subject}
+              loadingState={subjectReadyState}
+              onError={onError}
+              onReady={onSubjectReady}
+              viewerConfiguration={subject?.viewerConfiguration}
+            />
+          </Suspense>
         )
       }
 
