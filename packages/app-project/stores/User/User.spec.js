@@ -9,7 +9,7 @@ import { statsClient } from './UserPersonalization/YourStats'
 
 import Store from '@stores/Store'
 
-describe('stores > User', function () {
+describe.only('stores > User', function () {
   const user = {
     display_name: 'Jean-Luc Picard',
     id: '1',

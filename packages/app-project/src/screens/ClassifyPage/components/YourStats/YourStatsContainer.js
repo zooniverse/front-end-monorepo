@@ -14,7 +14,6 @@ function useStores() {
     }
   } = store
 
-  console.log('COUNTS', counts)
   return {
     counts,
     projectName: project['display_name']

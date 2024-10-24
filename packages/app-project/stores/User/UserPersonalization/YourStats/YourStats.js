@@ -4,7 +4,6 @@ import auth from 'panoptes-client/lib/auth'
 import { env } from '@zooniverse/panoptes-js'
 
 function statsHost(env) {
-  console.log('ENV', env)
   switch (env) {
     case 'production':
       return 'https://eras.zooniverse.org'
