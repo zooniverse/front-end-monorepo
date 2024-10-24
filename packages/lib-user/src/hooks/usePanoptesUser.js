@@ -2,7 +2,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
-const isBrowser = typeof window !== 'undefined'
+import usePanoptesAuthToken from './usePanoptesAuthToken'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -12,12 +12,7 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-if (isBrowser) {
-  auth.checkCurrent()
-}
-
-async function getUser({ query }) {
-  const token = await auth.checkBearerToken()
+async function getUser({ query, token }) {
   const authorization = `Bearer ${token}`
   
   try {
@@ -30,7 +25,7 @@ async function getUser({ query }) {
   }
 }
 
-async function fetchPanoptesUser({ authUser, login, requiredUserProperty }) {
+async function fetchPanoptesUser({ authUser, login, requiredUserProperty, token }) {
   if (login && login === authUser?.login) {
     if (!requiredUserProperty) {
       return authUser
@@ -48,7 +43,7 @@ async function fetchPanoptesUser({ authUser, login, requiredUserProperty }) {
 
   if (login) {
     const query = { login }
-    const users = await getUser({ query })
+    const users = await getUser({ query, token })
     return users?.[0]
   }
 
@@ -56,10 +51,11 @@ async function fetchPanoptesUser({ authUser, login, requiredUserProperty }) {
 }
 
 export function usePanoptesUser({ authUser, login, requiredUserProperty }) {
+  const token = usePanoptesAuthToken()
   let key = null
   
-  if (login) {
-    key = { authUser, login, requiredUserProperty }
+  if (token && login) {
+    key = { authUser, login, requiredUserProperty, token }
   }
   
   return useSWR(key, fetchPanoptesUser, SWROptions)
