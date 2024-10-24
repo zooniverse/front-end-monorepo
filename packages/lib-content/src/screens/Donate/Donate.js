@@ -17,12 +17,13 @@ const StyledBox = styled(Box)`
 `
 
 const StyledDonate = styled(Anchor)`
+  display: flex;
+  justify-content: center;
   width: 300px;
   border-radius: 5px;
   border: solid 1px ${props => props.theme.global.colors['neutral-1']};
   font-size: 1rem;
   padding: 8px 5px;
-  text-align: center;
   font-weight: normal;
   color: white;
   background-color: ${props => props.theme.global.colors['neutral-1']};

@@ -24,6 +24,7 @@ export const StyledHeader = styled(Box)`
 
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent; // to help align-items center in nav
   color: #b2b2b2;
   margin-right: 30px;
 
@@ -115,6 +116,7 @@ export default function ZooHeader({
         aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
         as='nav'
         direction='row'
+        align='center'
       >
         {hasMounted && (
           <UserNavigation

@@ -6,13 +6,10 @@ import SpacedText from '../../../SpacedText'
 
 export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent; // to help align-items center in nav
   ${props => css`color: ${props.color};`}
   text-decoration: none !important;
   white-space: nowrap;
-
-  &:visited {
-    ${props => css`color: ${props.color};`}
-  }
 
   &:hover, &:focus {
     ${props => css`border-bottom-color: ${props.theme.global.colors.brand};`}
