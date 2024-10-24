@@ -14,12 +14,15 @@ function storeMapper(store) {
       rotation,
       setOnZoom,
       setOnPan
+    },
+    workflows: {
+      active: {
+        configuration: {
+          limit_subject_height: limitSubjectHeight
+        }
+      }
     }
   } = store
-
-  const {
-    limit_subject_height: limitSubjectHeight
-  } = store.workflows?.active?.configuration
 
   return {
     enableRotation,
