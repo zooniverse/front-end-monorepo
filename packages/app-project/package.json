@@ -79,6 +79,8 @@
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~24.0.0",
     "mocha": "~10.8.2",
+    "msw": "~2.5.1",
+    "msw-storybook-addon": "~2.0.3",
     "nock": "~13.5.1",
     "selfsigned": "~2.4.1",
     "sinon": "~17.0.0",
@@ -88,5 +90,10 @@
   },
   "engines": {
     "node": ">=20.5"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
