@@ -4,6 +4,7 @@ import auth from 'panoptes-client/lib/auth'
 import { env } from '@zooniverse/panoptes-js'
 
 function statsHost(env) {
+  console.log('ENV', env)
   switch (env) {
     case 'production':
       return 'https://eras.zooniverse.org'
@@ -58,6 +59,7 @@ const YourStats = types
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     thisWeek: types.array(Count),
+    total: types.optional(types.number, 0)
   })
 
   .actions(self => {
@@ -89,21 +91,29 @@ const YourStats = types
         const { project, user } = getRoot(self)
         self.setLoadingState(asyncStates.loading)
         let dailyCounts
+        let totalCount
         try {
           const statsData = yield statsClient.fetchDailyStats({ projectId: project.id, userId: user.id })
           dailyCounts = statsData.data
+          totalCount = statsData.total_count
           self.setLoadingState(asyncStates.success)
         } catch (error) {
           self.handleError(error)
           dailyCounts = []
+          total = 0
         }
         self.thisWeek = calculateWeeklyStats(dailyCounts)
+        self.total = totalCount
       }),
 
       handleError(error) {
         console.error(error)
         self.error = error
         self.setLoadingState(asyncStates.error)
+      },
+
+      incrementTotal() {
+        self.total = self.total + 1
       },
 
       setLoadingState(state) {
@@ -113,6 +123,7 @@ const YourStats = types
       reset() {
         const emptyStats = calculateWeeklyStats([])
         self.thisWeek = emptyStats
+        self.total = 0
         this.setLoadingState(asyncStates.initialized)
       }
     }

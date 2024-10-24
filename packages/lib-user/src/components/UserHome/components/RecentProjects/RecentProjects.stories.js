@@ -1,10 +1,12 @@
 import RecentProjects from './RecentProjects.js'
 import { PROJECTS } from '../../../../../test/mocks/panoptes/projects.js'
 
-const mockProjectPreferencesWithProjectObj = PROJECTS.map(project => ({
-  activity_count: Math.floor(Math.random() * 100),
-  project
-}))
+const mockRecentProjects = PROJECTS.map(project => {
+  return {
+    count: Math.floor(Math.random() * 100),
+    ...project
+  }
+})
 
 export default {
   title: 'Components / UserHome / RecentProjects',
@@ -13,19 +15,19 @@ export default {
 
 export const Default = {
   args: {
-    projectPreferences: mockProjectPreferencesWithProjectObj
+    recentProjects: mockRecentProjects
   }
 }
 
 export const NoProjects = {
   args: {
-    projectPreferences: []
+    recentProjects: []
   }
 }
 
 export const Error = {
   args: {
-    projectPreferences: [],
+    recentProjects: [],
     error: { message: `Couldn't fetch recent projects` }
   }
 }

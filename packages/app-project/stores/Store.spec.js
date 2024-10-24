@@ -64,10 +64,6 @@ describe('Stores > Store', function () {
           login: 'zootester',
           personalization: {
             projectPreferences: {
-              activity_count: 8,
-              activity_count_by_workflow: {
-                1234: 8,
-              },
               id: '5',
               links: { project: '5678', user: '1' },
               loadingState: asyncStates.success,
@@ -88,9 +84,9 @@ describe('Stores > Store', function () {
                 { count: 10, dayNumber: 5, period: '2019-10-03' },
                 { count: 11, dayNumber: 6, period: '2019-10-04' },
                 { count: 8, dayNumber: 0, period: '2019-10-05' }
-              ]
-            },
-            totalClassificationCount: 8
+              ],
+              total: 80
+            }
           }
         }
       }, placeholderEnv)
