@@ -9,7 +9,7 @@ import { statsClient } from './UserPersonalization/YourStats'
 
 import Store from '@stores/Store'
 
-describe.only('stores > User', function () {
+describe('stores > User', function () {
   const user = {
     display_name: 'Jean-Luc Picard',
     id: '1',
@@ -37,19 +37,31 @@ describe.only('stores > User', function () {
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { id: '1' }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { id: '1' }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=2&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { id: '1' }
+        {
+          links: {
+            user: '2'
+          }
+        }
       ]
     })
 
