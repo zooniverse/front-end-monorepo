@@ -52,9 +52,8 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
     })
   })
 
-  /** Skipped because I added a custom hook to WorkflowSelectButtons > LevelingUpButtons */
   describe('when workflow assignment is enabled', function () {
-    describe.skip('when there is an assigned workflow', function () {
+    describe('when there is an assigned workflow', function () {
       it('should only render links for unlocked workflows', function () {
         const { getAllByRole } = render(
           <RouterContext.Provider value={mockRouter}>
