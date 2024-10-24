@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+import { http, HttpResponse } from 'msw'
 
 import WorkflowSelector from './WorkflowSelector'
 
@@ -55,7 +56,7 @@ const WORKFLOWS = [
   {
     completeness: 0.99,
     configuration: {
-      level: 3
+      level: 4
     },
     default: false,
     displayName: 'Shock The Monkey',
@@ -147,6 +148,80 @@ WithLevels.args = {
   workflowAssignmentEnabled: true,
   workflowDescription: '',
   workflows: WORKFLOWS
+}
+
+export function MissingLevels({
+  assignedWorkflowID,
+  uppLoaded,
+  userReadyState,
+  workflowAssignmentEnabled,
+  workflowDescription,
+  workflows
+}) {
+  return (
+    <WorkflowSelector
+      assignedWorkflowID={assignedWorkflowID}
+      uppLoaded={uppLoaded}
+      workflowAssignmentEnabled={workflowAssignmentEnabled}
+      workflowDescription={workflowDescription}
+      userReadyState={userReadyState}
+      workflows={workflows}
+    />
+  )
+}
+
+MissingLevels.args = {
+  assignedWorkflowID: '9012',
+  uppLoaded: true,
+  userReadyState: asyncStates.success,
+  workflowAssignmentEnabled: true,
+  workflowDescription: '',
+  workflows: WORKFLOWS
+}
+
+MissingLevels.parameters = {
+  msw: {
+    handlers: [
+      http.get('https://panoptes-staging.zooniverse.org/api/workflows', ({ request }) => {
+        const { searchParams } = new URL(request.url)
+        if (
+          searchParams.get('fields') === 'configuration' &&
+          searchParams.get('id') === '9012'
+        ) {
+          return HttpResponse.json({
+            workflows: [
+              {
+                id: '9012',
+                configuration: {
+                  level: 3
+                }
+              }
+            ]
+          })
+        }
+        return new HttpResponse(null, { status: 404 })
+      }),
+      http.get('https://www.zooniverse.org/api/workflows', ({ request }) => {
+        const { searchParams } = new URL(request.url)
+        if (
+          searchParams.get('fields') === 'configuration' &&
+          searchParams.get('id') === '9012'
+        ) {
+          return HttpResponse.json({
+            workflows: [
+              {
+                id: '9012',
+                configuration: {
+                  level: 3
+                }
+              }
+            ]
+          })
+        }
+        return new HttpResponse(null, { status: 404 })
+      }),
+    ],
+  },
 }
 
 export function Loading({
