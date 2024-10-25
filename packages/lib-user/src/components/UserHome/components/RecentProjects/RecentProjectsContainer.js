@@ -1,56 +1,90 @@
 import { shape, string } from 'prop-types'
-import { usePanoptesProjects, useStats } from '@hooks'
+import { panoptes } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
+import auth from 'panoptes-client/lib/auth'
+
+import { usePanoptesProjects } from '@hooks'
 import RecentProjects from './RecentProjects.js'
 
-function RecentProjectsContainer({ authUser }) {
-  const recentProjectsQuery = {
-    project_contributions: true,
-    order_project_contributions_by: 'recents',
-    period: 'day'
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
+
+async function fetchUserProjectPreferences() {
+  const user = await auth.checkCurrent()
+  const token = await auth.checkBearerToken()
+  const authorization = `Bearer ${token}`
+  try {
+    const query = {
+      sort: '-updated_at',
+      user_id: user.id
+    }
+    const response = await panoptes.get('/project_preferences', query, { authorization })
+    if (response.ok) {
+      const projectPreferencesUserHasClassified =
+        response.body.project_preferences
+          .filter(preference => preference.activity_count > 0)
+      return projectPreferencesUserHasClassified
+    }
+    return []
+  } catch (error) {
+    console.error(error)
+    throw error
   }
+}
 
+function RecentProjectsContainer({ authUser }) {
+  // Get user's project preference.activity_count for 10 most recently classified projects
+  const cacheKey = {
+    name: 'user-project-preferences',
+    userId: authUser.id
+  }
   const {
-    data: stats,
-    isLoading: statsLoading,
-    error: statsError
-  } = useStats({ sourceId: authUser?.id, query: recentProjectsQuery })
+    data: projectPreferences,
+    isLoading: preferencesLoading,
+    error: preferencesError
+  } = useSWR(cacheKey, fetchUserProjectPreferences, SWROptions)
 
-  // limit to 20 projects fetched from panoptes
-  const contributions = stats?.project_contributions.slice(0, 20)
-  const projectIds = contributions?.map(project => project.project_id)
-
-  // Get more info about each project
+  // Get more info about each project and attach it to correct projectPreference object
+  const recentProjectIds = projectPreferences?.map(
+    preference => preference.links.project
+  )
   const {
     data: projects,
     isLoading: projectsLoading,
     error: projectsError
   } = usePanoptesProjects({
     cards: true,
-    id: projectIds?.join(',')
+    id: recentProjectIds?.join(',')
   })
 
-  // Attach project info to each contribution stat (see similar behavior in TopProjects)
-  let recentProjects = []
-
-  if (projects?.length && contributions?.length) {
-    recentProjects = contributions
-      .map(projectContribution => {
-        const projectData = projects?.find(
-          project => project.id === projectContribution.project_id.toString()
+  // Attach project object to each project preference
+  let projectPreferencesWithProjectObj
+  if (projects?.length) {
+    projectPreferencesWithProjectObj = projectPreferences
+      .map(preference => {
+        const matchedProjectObj = projects.find(
+          project => project.id === preference.links?.project
         )
-        return {
-          count: projectContribution.count,
-          ...projectData
+
+        if (matchedProjectObj) {
+          preference.project = matchedProjectObj
         }
+        return preference
       })
-      .filter(project => project?.id) // exclude private or deleted projects
+      .filter(preference => preference?.project?.slug)
+      .slice(0, 10)
   }
 
   return (
     <RecentProjects
-      error={statsError || projectsError}
-      isLoading={statsLoading || projectsLoading}
-      recentProjects={recentProjects}
+      isLoading={preferencesLoading || projectsLoading}
+      projectPreferences={projectPreferencesWithProjectObj}
+      error={preferencesError || projectsError}
     />
   )
 }
