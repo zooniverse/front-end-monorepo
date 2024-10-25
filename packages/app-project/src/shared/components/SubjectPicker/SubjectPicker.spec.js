@@ -1,6 +1,9 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
+import { applyRequestHandlers } from 'msw-storybook-addon'
+import nock from 'nock'
+
 import Meta, { Default } from './SubjectPicker.stories.js'
 
 describe('Components > Subject Picker', function () {
@@ -8,6 +11,7 @@ describe('Components > Subject Picker', function () {
 
   before(async function () {
     const DefaultStory = composeStory(Default, Meta)
+    await applyRequestHandlers(DefaultStory.parameters.msw)
     render(<DefaultStory />)
     displayName = await screen.findByText('Anti-Slavery Letters: 1800-1839')
     link = screen.getByRole('link', { name: 'SubjectPicker.back' })
