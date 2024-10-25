@@ -1,33 +1,18 @@
 import nock from 'nock'
-import sinon from 'sinon'
-import { fetchStatuses, fetchSubjects } from './'
+import { fetchStatuses } from './'
 
-describe.skip('Components > Subject Picker > helpers > fetchStatuses', function () {
+describe('Components > Subject Picker > helpers > fetchStatuses', function () {
   let subjects
   const expectedData = [
-    { subject_id: 1, page: '43', date_with_space: '23 January 1916', status: 'SubjectPicker.unclassified' },
-    { subject_id: 2, page: '44', date_with_space: '24 January 1916', status: 'SubjectPicker.alreadySeen' },
-    { subject_id: 3, page: '45', date_with_space: '25 January 1916', status: 'SubjectPicker.retired' },
+    { subject_id: 1, page: '43', date: '23 January 1916', status: 'SubjectPicker.unclassified' },
+    { subject_id: 2, page: '44', date: '24 January 1916', status: 'SubjectPicker.alreadySeen' },
+    { subject_id: 3, page: '45', date: '25 January 1916', status: 'SubjectPicker.retired' },
   ]
 
   before(async function () {
-    const columns = [
-      'subject_id',
-      'Page',
-      'Date. With space'
-    ]
-    const rows = [
-      [1, '43', '23 January 1916'],
-      [2, '44', '24 January 1916'],
-      [3, '45', '25 January 1916']
-    ]
     const workflow = {
       id: '1'
     }
-    const subjectsAPI = nock('https://subject-set-search-api.zooniverse.org/subjects')
-    .get('/1.json')
-    .query(true)
-    .reply(200, { columns, rows })
     const panoptes = nock('https://panoptes-staging.zooniverse.org/api')
     .get('/subjects/selection')
     .query(true)
@@ -38,7 +23,27 @@ describe.skip('Components > Subject Picker > helpers > fetchStatuses', function 
         { id: 3, already_seen: true, retired: true }
       ]
     })
-    const panoptesSubjects = await fetchSubjects('1')
+    const panoptesSubjects = [
+      {
+        subject_id: 1,
+        page: '43',
+        date: '23 January 1916',
+        status: 'loading'
+      },
+      {
+        subject_id: 2,
+        page: '44',
+        date: '24 January 1916',
+        status: 'loading'
+      },
+      {
+        subject_id: 3,
+        page: '45',
+        date: '25 January 1916',
+        status: 'loading'
+      }
+    ]
+    
     subjects = await fetchStatuses(panoptesSubjects, workflow)
   })
 
