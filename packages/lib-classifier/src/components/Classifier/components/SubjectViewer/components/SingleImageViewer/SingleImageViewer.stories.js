@@ -49,20 +49,3 @@ export function PanAndZoom() {
     </ViewerContext>
   )
 }
-
-const workflowWithLimitSubjectHeight = WorkflowFactory.build({
-  configuration: {
-    limit_subject_height: true
-  }
-})
-const storeWithLimitSubjectHeight = mockStore({ subject, workflow: workflowWithLimitSubjectHeight })
-
-export function LimitSubjectHeight() {
-  return (
-    <ViewerContext store={storeWithLimitSubjectHeight}>
-      <Box width='large'>
-        <SingleImageViewerConnector />
-      </Box>
-    </ViewerContext>
-  )
-}
