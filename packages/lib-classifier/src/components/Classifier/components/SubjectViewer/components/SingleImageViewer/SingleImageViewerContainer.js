@@ -1,5 +1,5 @@
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useSubjectImage } from '@hooks'
 
@@ -29,6 +29,8 @@ function SingleImageViewerContainer({
   zoomControlFn,
   zooming = true
 }) {
+  const [dragMove, setDragMove] = useState()
+  
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
@@ -44,6 +46,14 @@ function SingleImageViewerContainer({
   useEffect(function onMount() {
     enableRotation()
   }, [])
+
+  function setOnDrag(callback) {
+    setDragMove(() => callback)
+  }
+
+  function onDrag(event, difference) {
+    dragMove?.(event, difference)
+  }
 
   if (loading) {
     return (
@@ -71,7 +81,9 @@ function SingleImageViewerContainer({
         move={move}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
+        onDrag={onDrag}
         rotation={rotation}
+        setOnDrag={setOnDrag}
         setOnZoom={setOnZoom}
         setOnPan={setOnPan}
         src={img.src}

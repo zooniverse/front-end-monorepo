@@ -140,9 +140,11 @@ function VisXZoom({
         zoom = _zoom
         return (
           <ZoomingComponent
+            height={height}
             initialTransformMatrix={_zoom.initialTransformMatrix}
             transformMatrix={_zoom.transformMatrix}
             transform={_zoom.toString()}
+            width={width}
             {...props}
           >
             <ZoomEventLayer
