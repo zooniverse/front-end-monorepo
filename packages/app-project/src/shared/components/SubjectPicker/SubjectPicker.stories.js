@@ -10,6 +10,10 @@ function DecoratedStory(Story) {
   )
 }
 
+const PANOPTES_HOST = process.env.NODE_ENV === 'production'
+  ? 'https://www.zooniverse.org'
+  : 'https://panoptes-staging.zooniverse.org'
+
 export default {
   title: 'Project App / Shared / Subject Picker',
   component: SubjectPicker,
@@ -34,16 +38,7 @@ export default {
             rows
           })
         }),
-        http.get('https://panoptes-staging.zooniverse.org/api/subjects/selection', ({ request }) => {
-          return HttpResponse.json({
-            subjects: [
-              { id: 1, already_seen: false, retired: false },
-              { id: 2, already_seen: true, retired: false },
-              { id: 3, already_seen: true, retired: true }
-            ]
-          })
-        }),
-        http.get('https://www.zooniverse.org/api/subjects/selection', ({ request }) => {
+        http.get(`${PANOPTES_HOST}/api/subjects/selection`, ({ request }) => {
           return HttpResponse.json({
             subjects: [
               { id: 1, already_seen: false, retired: false },

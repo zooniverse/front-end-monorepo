@@ -78,6 +78,10 @@ function StoryContext(Story) {
   )
 }
 
+const PANOPTES_HOST = process.env.NODE_ENV === 'production'
+  ? 'https://www.zooniverse.org'
+  : 'https://panoptes-staging.zooniverse.org'
+
 export default {
   title: 'Project App / Shared / Workflow Selector',
   component: WorkflowSelector,
@@ -89,6 +93,31 @@ export default {
         options: asyncStates
       }
     }
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(`${PANOPTES_HOST}/api/workflows`, ({ request }) => {
+          const { searchParams } = new URL(request.url)
+          if (
+            searchParams.get('fields') === 'configuration' &&
+            searchParams.get('id') === '9012'
+          ) {
+            return HttpResponse.json({
+              workflows: [
+                {
+                  id: '9012',
+                  configuration: {
+                    level: 3
+                  }
+                }
+              ]
+            })
+          }
+          return new HttpResponse(null, { status: 404 })
+        }),
+      ],
+    },
   }
 }
 
@@ -177,51 +206,6 @@ MissingLevels.args = {
   workflowAssignmentEnabled: true,
   workflowDescription: '',
   workflows: WORKFLOWS
-}
-
-MissingLevels.parameters = {
-  msw: {
-    handlers: [
-      http.get('https://panoptes-staging.zooniverse.org/api/workflows', ({ request }) => {
-        const { searchParams } = new URL(request.url)
-        if (
-          searchParams.get('fields') === 'configuration' &&
-          searchParams.get('id') === '9012'
-        ) {
-          return HttpResponse.json({
-            workflows: [
-              {
-                id: '9012',
-                configuration: {
-                  level: 3
-                }
-              }
-            ]
-          })
-        }
-        return new HttpResponse(null, { status: 404 })
-      }),
-      http.get('https://www.zooniverse.org/api/workflows', ({ request }) => {
-        const { searchParams } = new URL(request.url)
-        if (
-          searchParams.get('fields') === 'configuration' &&
-          searchParams.get('id') === '9012'
-        ) {
-          return HttpResponse.json({
-            workflows: [
-              {
-                id: '9012',
-                configuration: {
-                  level: 3
-                }
-              }
-            ]
-          })
-        }
-        return new HttpResponse(null, { status: 404 })
-      }),
-    ],
-  },
 }
 
 export function Loading({
