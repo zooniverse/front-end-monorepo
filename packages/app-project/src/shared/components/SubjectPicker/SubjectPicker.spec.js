@@ -14,7 +14,7 @@ describe('Components > Subject Picker', function () {
     const dataTable = screen.getByRole('table')
     const [ tableHeader, tableContent ] = within(dataTable).getAllByRole('rowgroup')
     columnHeadings = within(tableHeader).getByRole('row', {
-      name: 'subject_id date FormSearch title FormSearch creators FormSearch status'
+      name: 'subject_id date FormSearch page FormSearch status'
     })
     const subjects = [
       '23 January 1916',

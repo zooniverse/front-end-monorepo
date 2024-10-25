@@ -64,7 +64,7 @@ Default.args = {
     id: '15582',
     display_name: 'Anti-Slavery Letters: 1800-1839',
     metadata: {
-      indexFields: 'date,title,creators'
+      indexFields: 'date,page'
     }
   },
   workflow: {
@@ -86,7 +86,7 @@ Tablet.args = {
     id: '15582',
     display_name: 'Anti-Slavery Letters: 1800-1839',
     metadata: {
-      indexFields: 'date,title,creators'
+      indexFields: 'date,page'
     }
   },
   workflow: {
