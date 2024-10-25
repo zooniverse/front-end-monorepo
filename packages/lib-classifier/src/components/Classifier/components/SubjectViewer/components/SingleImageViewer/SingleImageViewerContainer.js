@@ -1,20 +1,35 @@
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useEffect } from 'react'
+
 import { useSubjectImage } from '@hooks'
 
+import PlaceholderSVG from './components/PlaceholderSVG'
 import SingleImageViewer from './SingleImageViewer'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_TITLE = {
+  id: 'unknown',
+  text: 'unknown'
+}
 
 function SingleImageViewerContainer({
   enableInteractionLayer = true,
+  enableRotation = DEFAULT_HANDLER,
   frame = 0,
+  invert,
+  limitSubjectHeight = false,
+  move,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
+  rotation = 0,
+  setOnZoom,
+  setOnPan,
   subject,
-  title = {},
+  title = DEFAULT_TITLE,
   zoomControlFn,
-  zooming = true,
-  ...props
+  zooming = true
 }) {
+  // TODO: replace this with a better function to parse the image location from a subject.
   const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: imageLocation?.url,
@@ -26,11 +41,21 @@ function SingleImageViewerContainer({
     naturalWidth = 800
   } = img
 
+  useEffect(function onMount() {
+    enableRotation()
+  }, [])
+
   if (loading) {
-    return <div>Something went wrong.</div>
-  }
+    return (
+      <PlaceholderSVG
+        maxWidth={limitSubjectHeight ? `${naturalWidth}px` : '100%'}
+        viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+      />
+    )
+  } 
+
   if (error) {
-    return <p>{ error.message }</p>
+    return <div>Something went wrong.</div>
   }
 
   if (!error && !loading && img?.src && subjectImage) {
@@ -38,22 +63,53 @@ function SingleImageViewerContainer({
 
     return (
       <SingleImageViewer
+        enableInteractionLayer={enableInteractionLayer}
         frame={frame}
         imgRef={subjectImage}
+        invert={invert}
+        limitSubjectHeight={limitSubjectHeight}
+        move={move}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
+        rotation={rotation}
+        setOnZoom={setOnZoom}
+        setOnPan={setOnPan}
         src={img.src}
         subject={subject}
         subjectId={subjectId}
         title={title}
         zoomControlFn={zoomControlFn}
         zooming={zooming}
-        {...props}
       />
     )
   }
 
   return null
+}
+
+SingleImageViewerContainer.propTypes = {
+  enableInteractionLayer: bool,
+  enableRotation: func,
+  frame: number,
+  invert: bool,
+  limitSubjectHeight: bool,
+  move: bool,
+  onError: func,
+  onReady: func,
+  rotation: number,
+  setOnZoom: func,
+  setOnPan: func,
+  subject: shape({
+    locations: arrayOf(shape({
+      url: string
+    }))
+  }),
+  title: shape({
+    id: string,
+    text: string
+  }),
+  zoomControlFn: func,
+  zooming: bool
 }
 
 export default SingleImageViewerContainer
