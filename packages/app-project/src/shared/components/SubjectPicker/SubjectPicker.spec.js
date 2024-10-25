@@ -10,6 +10,16 @@ describe('Components > Subject Picker', function () {
   let columnHeadings, displayName, link, tableRows
 
   before(async function () {
+    nock('https://panoptes-staging.zooniverse.org')
+      .get('/api/subjects/selection')
+      .query(true)
+      .reply(200, {
+        subjects: [
+          { id: 1, already_seen: false, retired: false },
+          { id: 2, already_seen: true, retired: false },
+          { id: 3, already_seen: true, retired: true }
+        ]
+      })
     const DefaultStory = composeStory(Default, Meta)
     await applyRequestHandlers(DefaultStory.parameters.msw)
     render(<DefaultStory />)
@@ -21,15 +31,11 @@ describe('Components > Subject Picker', function () {
       name: 'subject_id date FormSearch page FormSearch status'
     })
     const subjects = [
-      '23 January 1916',
-      '24 January 1916',
-      '25 January 1916'
+      '1 23 January 1916 43 SubjectPicker.unclassified',
+      '2 24 January 1916 44 SubjectPicker.alreadySeen',
+      '3 25 January 1916 45 SubjectPicker.retired'
     ]
-    tableRows = []
-    subjects.forEach(async subject => {
-      const row = await within(tableContent).findByText(subject)
-      tableRows.push(row)
-    })
+    tableRows = subjects.map(async subject => await within(tableContent).findByRole('row', { name: subject }))
     await Promise.all(tableRows)
   })
 
@@ -41,7 +47,7 @@ describe('Components > Subject Picker', function () {
     expect(columnHeadings).to.exist()
   })
 
-  it.skip('should have a row for each subject', function () {
+  it('should have a row for each subject', function () {
     expect(tableRows.length).to.equal(3)
   })
 
