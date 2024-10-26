@@ -1,6 +1,7 @@
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Paragraph } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
+import Link from 'next/link'
 
 import { ContentBox } from '@components/shared'
 import GroupCardContainer from '../GroupCard/GroupCardContainer.js'
@@ -17,7 +18,7 @@ export default function PreviewLayout({
   return (
     <ContentBox
       linkLabel='See all'
-      linkProps={{ href: `/users/${authUser?.login}/groups` }}
+      linkProps={{ as: Link, href: `/users/${authUser?.login}/groups` }}
       title='My Groups'
     >
       {loading && (

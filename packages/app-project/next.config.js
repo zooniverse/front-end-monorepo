@@ -57,6 +57,7 @@ const nextConfig = {
 
   experimental: {
     forceSwcTransforms: true,
+    instrumentationHook: true,
     optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons']
   },
 
@@ -96,10 +97,6 @@ const nextConfig = {
     ]
   },
 
-  sentry: {
-    hideSourceMaps: true
-  },
-
   webpack: (config, options) => {
     config.resolve = {
       ...config.resolve,
@@ -119,7 +116,12 @@ const nextConfig = {
 module.exports = million.next(
   withSentryConfig(nextConfig, {
     org: 'zooniverse-27',
-    project: 'fem-app-project'
+    project: 'fem-app-project',
+    sourcemaps: {
+      disable: true,
+    },
+    telemetry: false,
+    authToken: process.env.SENTRY_AUTH_TOKEN
   }),
   {
     auto: true

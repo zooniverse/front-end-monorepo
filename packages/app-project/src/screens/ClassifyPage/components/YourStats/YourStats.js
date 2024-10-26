@@ -6,8 +6,15 @@ import DailyClassificationsChart from './components/DailyClassificationsChart'
 import ContentBox from '@shared/components/ContentBox'
 import Stat from '@shared/components/Stat'
 
-function YourStats(props) {
-  const { counts, projectName } = props
+const defaultCounts = {
+  today: 0,
+  total: 0
+}
+
+function YourStats({
+  counts = defaultCounts,
+  projectName = ''
+}) {
   const { t } = useTranslation('screens')
 
   return (
@@ -38,7 +45,7 @@ function YourStats(props) {
         <DailyClassificationsChart />
       </Box>
     </ContentBox>
-  );
+  )
 }
 
 YourStats.propTypes = {
@@ -47,13 +54,6 @@ YourStats.propTypes = {
     total: number
   }),
   projectName: string
-}
-
-YourStats.defaultProps = {
-  counts: {
-    today: 0,
-    total: 0
-  }
 }
 
 export default YourStats

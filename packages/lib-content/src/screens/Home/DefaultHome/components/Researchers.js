@@ -8,11 +8,12 @@ import SubHeading from '../../../../components/HeadingForAboutNav/SubHeading.js'
 import MaxWidthContent from '../../../../components/MaxWidthContent/MaxWidthContent.js'
 
 const StyledLink = styled(Anchor)`
+  display: flex;
+  justify-content: center;
   width: 300px;
   border-radius: 5px;
   font-size: 0.8rem;
   padding: 8px 5px;
-  text-align: center;
   color: black;
   background-color: ${props => props.theme.global.colors['neutral-2']};
   font-weight: normal;

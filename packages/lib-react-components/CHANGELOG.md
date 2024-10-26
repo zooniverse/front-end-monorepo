@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Project card badges are now circular in Safari.
 - Inconsistent text sizes for Markdown tables and lists.
 - `ThumbnailImage` renders tiny images inside markdown tables.
+- `useUnreadNotifications` and `useUnreadMessages` now wait for Panoptes auth to complete before fetching data.
 
 ## [1.13.0] 2024-05-17
 

@@ -4,9 +4,9 @@ import { useContext } from 'react'
 import YourStats from './YourStats'
 import withRequireUser from '@shared/components/withRequireUser'
 
-function useStores(mockStore) {
+function useStores() {
   const stores = useContext(MobXProviderContext)
-  const store = mockStore || stores.store
+  const store = stores.store
   const {
     project,
     user: {
@@ -19,8 +19,8 @@ function useStores(mockStore) {
   }
 }
 
-function YourStatsContainer({ mockStore }) {
-  const { counts, projectName } = useStores(mockStore)
+function YourStatsContainer() {
+  const { counts, projectName } = useStores()
   return <YourStats counts={counts} projectName={projectName} />
 }
 

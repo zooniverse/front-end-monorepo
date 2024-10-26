@@ -22,6 +22,7 @@ import {
   StyledTab
 } from './components'
 import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
+import Link from 'next/link'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_DATE_RANGE = {
@@ -291,7 +292,7 @@ function MainContent({
             margin={{ top: 'small' }}
           >
             <StyledCertificateButton
-              forwardedAs='a'
+              forwardedAs={Link}
               color='neutral-1'
               href={`/users/${source.login}/stats/certificate${window.location.search}`}
               label='Generate Volunteer Certificate'
