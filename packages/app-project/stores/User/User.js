@@ -38,16 +38,17 @@ const User = types
 
   .actions(self => ({
     clear() {
+      self.personalization.reset()
       const loggedOutUser = {
         id: null,
         display_name: null,
         login: null,
         loadingState: asyncStates.success,
-        personalization: {
-          projectPreferences: {
-            loadingState: asyncStates.success
-          }
-        }
+        // personalization: {
+        //   projectPreferences: {
+        //     loadingState: asyncStates.success
+        //   }
+        // }
       }
       applySnapshot(self, loggedOutUser)
     },

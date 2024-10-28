@@ -16,7 +16,7 @@ export const statsClient = {
   async fetchDailyStats({ projectId, userId }) {
     const token = await auth.checkBearerToken()
     const Authorization = `Bearer ${token}`
-    const stats  = statsHost(env)
+    const stats = statsHost(env)
     const queryParams = new URLSearchParams({
       period: 'day',
       project_id: projectId
@@ -29,7 +29,7 @@ export const statsClient = {
 }
 
 // https://stackoverflow.com/a/51918448/10951669
-function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
+function firstDayOfWeek(dateObject, firstDayOfWeekIndex) {
   const dayOfWeek = dateObject.getUTCDay()
   const firstDayOfWeek = new Date(dateObject)
   const diff = dayOfWeek >= firstDayOfWeekIndex
@@ -61,8 +61,39 @@ const YourStats = types
     total: types.optional(types.number, 0)
   })
 
+  .views(self => ({
+    get counts() {
+      const today = self.todaysCount
+      const total = self.total
+
+      return {
+        today,
+        total
+      }
+    },
+    get todaysCount() {
+      let todaysCount = 0
+      try {
+        todaysCount = self.todaysStats.count
+      } catch (error) {
+        todaysCount = self.sessionCount
+      }
+      return todaysCount
+    },
+
+    get todaysStats() {
+      const todaysDate = new Date()
+      if (self.thisWeek.length === 7) {
+        return self.thisWeek.find(
+          stat => stat.dayNumber === todaysDate.getDay()
+        )
+      }
+      return null
+    }
+  }))
+
   .actions(self => {
-    function calculateWeeklyStats (dailyCounts) {
+    function calculateWeeklyStats(dailyCounts) {
       /*
       Calculate daily stats for this week, starting last Monday.
       */
@@ -86,7 +117,7 @@ const YourStats = types
     }
 
     return {
-      fetchDailyCounts: flow(function * fetchDailyCounts () {
+      fetchDailyCounts: flow(function* fetchDailyCounts() {
         const { project, user } = getRoot(self)
         self.setLoadingState(asyncStates.loading)
         let dailyCounts
@@ -111,8 +142,9 @@ const YourStats = types
         self.setLoadingState(asyncStates.error)
       },
 
-      incrementTotal() {
+      incrementStats() {
         self.total = self.total + 1
+        self.todaysStats?.increment()
       },
 
       setLoadingState(state) {

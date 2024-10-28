@@ -14,36 +14,8 @@ const UserPersonalization = types
     stats: types.optional(YourStats, {})
   })
   .views(self => ({
-    get counts() {
-      const today = self.todaysCount
-      const total = self.stats.total
-
-      return {
-        today,
-        total
-      }
-    },
-
     get sessionCountIsDivisibleByFive() {
       return self.sessionCount % 5 === 0
-    },
-
-    get todaysCount() {
-      let todaysCount = 0
-      try {
-        todaysCount = self.todaysStats.count
-      } catch (error) {
-        todaysCount = self.sessionCount
-      }
-      return todaysCount
-    },
-
-    get todaysStats() {
-      const todaysDate = new Date()
-      if (self.stats.thisWeek.length === 7) {
-        return self.stats.thisWeek.find(stat => stat.dayNumber === todaysDate.getDay())
-      }
-      return null
     }
   }))
   .actions(self => {
@@ -60,9 +32,11 @@ const UserPersonalization = types
       },
 
       increment() {
+        self.stats.incrementStats()
+
+        // Session count is separated from stats counts because it's used
+        // specifically for authentication invitation messaging
         self.sessionCount = self.sessionCount + 1
-        self.todaysStats?.increment()
-        self.stats.incrementTotal()
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshSettings()

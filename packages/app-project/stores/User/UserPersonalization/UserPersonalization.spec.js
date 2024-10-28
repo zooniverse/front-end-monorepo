@@ -220,7 +220,7 @@ describe('Stores > UserPersonalization', function () {
       })
     })
 
-    describe('incrementing your classification count', function () {
+    describe('incrementing your session count', function () {
       before(function () {
         rootStore.user.personalization.increment()
       })
@@ -289,63 +289,6 @@ describe('Stores > UserPersonalization', function () {
 
     it('should count session classifications from 0', function () {
       expect(rootStore.user.personalization.sessionCount).to.equal(1)
-    })
-  })
-
-  describe('counts view', function () {
-    it('should return the expected counts with no user data', function () {
-      const personalizationStore = UserPersonalization.create()
-      expect(personalizationStore.counts).to.deep.equal({
-        today: 0,
-        total: 0
-      })
-    })
-
-    describe('total count', function () {
-      it('should get the total classification count from the store', function () {
-        const personalizationStore = UserPersonalization.create()
-        personalizationStore.increment()
-        personalizationStore.increment()
-        personalizationStore.increment()
-        personalizationStore.increment()
-        expect(personalizationStore.stats.total).to.equal(4)
-      })
-    })
-
-    describe('today\'s count', function () {
-      let clock
-
-      before(function () {
-        clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
-      })
-
-      after(function () {
-        clock.restore()
-      })
-
-      it('should get today\'s count from the store\'s counts for this week', function () {
-        const MOCK_DAILY_COUNTS = [
-          { count: 12, dayNumber: 1, period: '2019-09-30T00:00:00Z' },
-          { count: 13, dayNumber: 2, period: '2019-10-01T00:00:00Z' },
-          { count: 14, dayNumber: 3, period: '2019-10-02T00:00:00Z' },
-          { count: 10, dayNumber: 4, period: '2019-10-03T00:00:00Z' },
-          { count: 11, dayNumber: 5, period: '2019-10-04T00:00:00Z' },
-          { count: 8, dayNumber: 6, period: '2019-10-05T00:00:00Z' },
-          { count: 15, dayNumber: 0, period: '2019-10-06T00:00:00Z' }
-        ]
-        const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS, total: 80 } })
-        expect(personalizationStore.counts.today).to.equal(MOCK_DAILY_COUNTS[1].count)
-      })
-
-      it('should be `0` if there are no classifications today', function () {
-        const MOCK_DAILY_COUNTS = [
-          { count: 12, dayNumber: 2, period: '2019-01-03T00:00:00Z' },
-          { count: 13, dayNumber: 1, period: '2019-01-02T00:00:00Z' },
-          { count: 14, dayNumber: 0, period: '2019-01-01T00:00:00Z' }
-        ]
-        const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS, total: 80 } })
-        expect(personalizationStore.counts.today).to.equal(0)
-      })
     })
   })
 
