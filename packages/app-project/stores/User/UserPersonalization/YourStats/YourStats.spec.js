@@ -20,14 +20,14 @@ describe('Stores > YourStats', function () {
     sinon.stub(console, 'error')
 
     const MOCK_DAILY_COUNTS = [
-      { count: 12, period: '2019-09-29' },
-      { count: 12, period: '2019-09-30' },
-      { count: 13, period: '2019-10-01' },
-      { count: 14, period: '2019-10-02' },
-      { count: 10, period: '2019-10-03' },
-      { count: 11, period: '2019-10-04' },
-      { count: 8, period: '2019-10-05' },
-      { count: 15, period: '2019-10-06' }
+      { count: 12, period: '2019-09-29T00:00:00.000Z' },
+      { count: 12, period: '2019-09-30T00:00:00.000Z' },
+      { count: 13, period: '2019-10-01T00:00:00.000Z' },
+      { count: 14, period: '2019-10-02T00:00:00.000Z' },
+      { count: 10, period: '2019-10-03T00:00:00.000Z' },
+      { count: 11, period: '2019-10-04T00:00:00.000Z' },
+      { count: 8, period: '2019-10-05T00:00:00.000Z' },
+      { count: 15, period: '2019-10-06T00:00:00.000Z' }
     ]
 
     nockScope = nock('https://panoptes-staging.zooniverse.org/api')
@@ -67,7 +67,9 @@ describe('Stores > YourStats', function () {
     let clock
 
     before(function () {
-      clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
+      // Set the local clock to 1am on Tuesday 1 October 2019, UTC.
+      // Stats should be shown for Monday 30 September 2019, local time.
+      clock = sinon.useFakeTimers(new Date('2019-09-30T20:00:00-05:00'))
       const user = {
         id: '123',
         login: 'test.user'
