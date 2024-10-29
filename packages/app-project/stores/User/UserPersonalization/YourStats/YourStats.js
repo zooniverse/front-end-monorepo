@@ -28,8 +28,14 @@ export const statsClient = {
   }
 }
 
-// https://stackoverflow.com/a/51918448/10951669
-function firstDayOfWeek (dateUTCObject, firstDayOfWeekIndex) {
+/**
+ * Find the first day matching a given weekday number, prior to a given UTC date.
+ * https://stackoverflow.com/a/51918448/10951669
+ * @param {Date} dateUTCObject search prior to this UTC datetime.
+ * @param {number} firstDayOfWeekIndex day of the week to find (Sunday is 0.)
+ * @returns a UTC date object for the first day of the week
+ */
+function firstDayOfWeek(dateUTCObject, firstDayOfWeekIndex) {
   const dayOfWeek = dateUTCObject.getUTCDay()
   const firstDayOfWeek = new Date(dateUTCObject)
   const diff = dayOfWeek >= firstDayOfWeekIndex
