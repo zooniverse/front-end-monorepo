@@ -68,18 +68,20 @@ describe('Stores > YourStats', function () {
 
     before(function () {
       // Set the local clock to 1am on Tuesday 1 October 2019, UTC.
-      // Stats should be shown for Monday 30 September 2019, local time.
-      clock = sinon.useFakeTimers(new Date('2019-09-30T20:00:00-05:00'))
+      // Local time for this test will be 7pm, Monday 30 September 2019, CST.
+      clock = sinon.useFakeTimers(new Date('2019-10-01T01:00:00Z'))
       const user = {
         id: '123',
         login: 'test.user'
       }
 
+      process.env.TZ = 'America/Chicago'
       rootStore.user.set(user)
     })
 
     after(function () {
       clock.restore()
+      delete process.env.TZ
     })
 
     it('should request user statistics', function () {

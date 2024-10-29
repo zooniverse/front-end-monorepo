@@ -31,18 +31,18 @@ export const statsClient = {
 /**
  * Find the first day matching a given weekday number, prior to a given UTC date.
  * https://stackoverflow.com/a/51918448/10951669
- * @param {Date} dateUTCObject search prior to this UTC datetime.
+ * @param {Date} dateObject search prior to this datetime.
  * @param {number} firstDayOfWeekIndex day of the week to find (Sunday is 0.)
  * @returns a UTC date object for the first day of the week
  */
-function firstDayOfWeek(dateUTCObject, firstDayOfWeekIndex) {
-  const dayOfWeek = dateUTCObject.getUTCDay()
-  const firstDayOfWeek = new Date(dateUTCObject)
+function firstDayOfWeek(dateObject, firstDayOfWeekIndex) {
+  const dayOfWeek = dateObject.getUTCDay()
+  const firstDayOfWeek = new Date(dateObject)
   const diff = dayOfWeek >= firstDayOfWeekIndex
     ? dayOfWeek - firstDayOfWeekIndex
     : 6 - dayOfWeek
 
-  firstDayOfWeek.setUTCDate(dateUTCObject.getUTCDate() - diff)
+  firstDayOfWeek.setUTCDate(dateObject.getUTCDate() - diff)
 
   return firstDayOfWeek
 }
@@ -71,11 +71,9 @@ const YourStats = types
       /*
       Calculate daily stats for this week, starting last Monday.
       */
-      const today = new Date().toUTCString()
-      // convert the local clock to UTC before finding the first day of the week.
-      const todayUTC = new Date(today)
+      const today = new Date()
       const weeklyStats = []
-      const monday = firstDayOfWeek(todayUTC, 1) // Monday is day number 1 in JavaScript
+      const monday = firstDayOfWeek(today, 1) // Monday is day number 1 in JavaScript
       for (let day = 0; day < 7; day++) {
         const weekDay = new Date(monday.toISOString())
         const newDate = monday.getUTCDate() + day
