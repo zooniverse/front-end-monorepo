@@ -10,7 +10,9 @@ function useStores() {
   const {
     project,
     user: {
-      personalization: { counts }
+      personalization: {
+        stats: { counts }
+      }
     }
   } = store
 

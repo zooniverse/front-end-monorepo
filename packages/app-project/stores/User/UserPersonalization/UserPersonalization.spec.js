@@ -123,23 +123,9 @@ describe('Stores > UserPersonalization', function () {
     })
 
     describe('incrementing your classification count', function () {
-      before(function () {
-        const user = {
-          id: '123',
-          login: 'test.user',
-          personalization: {
-            stats: {
-              thisWeek: [],
-              total: 23
-            }
-          }
-        }
-        rootStore = initStore(true, { project, user })
-        rootStore.user.personalization.increment()
-      })
-
       it('should add 1 to your total count', function () {
-        expect(rootStore.user.personalization.stats.total).to.equal(24)
+        rootStore.user.personalization.increment()
+        expect(rootStore.user.personalization.stats.total).to.equal(81) // +1 to sinon stub for statsClient above
       })
 
       it('should add 1 to your session count', function () {

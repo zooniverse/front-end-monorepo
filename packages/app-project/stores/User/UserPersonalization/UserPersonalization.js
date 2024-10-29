@@ -53,6 +53,17 @@ const UserPersonalization = types
         }
       },
 
+      refreshCounts() {
+        console.log('refreshing user counts/stats')
+        self.stats.reset()
+        self.sessionCount = 0
+
+        const user = getRoot(self).user
+        if (user?.isLoggedIn) {
+          self.stats.fetchDailyCounts()
+        }
+      },
+
       reset() {
         self.notifications.reset()
         self.projectPreferences.reset()

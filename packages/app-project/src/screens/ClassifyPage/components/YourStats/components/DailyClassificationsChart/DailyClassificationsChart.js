@@ -16,7 +16,7 @@ const StyledBarGroup = styled(Group)`
       font-size: ${props.theme.text.small.size}
     `}
   }
-  
+
   &:hover rect,
   &:focus rect {
     ${props => css`fill: ${props.theme.global.colors.brand};`}

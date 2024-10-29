@@ -1,5 +1,10 @@
 import asyncStates from '@zooniverse/async-states'
-import { addDisposer, addMiddleware, getEnv, onAction, types } from 'mobx-state-tree'
+import {
+  addDisposer,
+  addMiddleware,
+  getEnv,
+  types
+} from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import logToSentry from '../src/helpers/logger/logToSentry.js'
 
@@ -26,7 +31,7 @@ const Store = types
       if (loadingStates.includes(asyncStates.error)) {
         return asyncStates.error
       }
-      
+
       if (loadingStates.includes(asyncStates.loading)) {
         return asyncStates.loading
       }
@@ -40,20 +45,17 @@ const Store = types
   }))
 
   .actions(self => {
-    function createSignOutObserver() {
-      const signOutDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'clear') {
-            self.user.personalization.reset()
-          }
-        })
-      }, { name: 'User clear action Observer autorun' })
-      addDisposer(self, signOutDisposer)
+    /* Stats and session count should be refreshed project id changes */
+    function _onProjectChange() {
+      const projectID = self.project?.id
+      if (projectID) {
+        self.user.personalization.refreshCounts()
+      }
     }
 
     return {
-      afterCreate () {
-        createSignOutObserver()
+      afterCreate() {
+        addDisposer(self.project, autorun(_onProjectChange))
         addMiddleware(self, (call, next, abort) => {
           try {
             next(call)

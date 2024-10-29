@@ -3,11 +3,12 @@ import { composeStory } from '@storybook/react'
 import sinon from 'sinon'
 
 import Meta, { YourStats } from './YourStats.stories.js'
-import { YourStatsStoreMock } from './YourStats.mock'
+import { DailyClassificationsChartContainerMockStats, YourStatsStoreMock } from './YourStats.mock'
 
 describe('Component > YourStats', function () {
+  const YourStatsStory = composeStory(YourStats, Meta)
+
   beforeEach(function () {
-    const YourStatsStory = composeStory(YourStats, Meta)
     render(<YourStatsStory />)
   })
 
@@ -33,12 +34,13 @@ describe('Component > YourStats', function () {
 })
 
 describe('Component > YourStats > Daily bars', function () {
-  YourStatsStoreMock.user.personalization.stats.thisWeek.forEach(function (count, i) {
-    it(`should have an accessible description for ${count.longLabel}`, function () {
+  YourStatsStoreMock.user.personalization.stats.thisWeek.forEach(function (storeCount, i) {
+    it(`should have an accessible description`, function () {
       const clock = sinon.useFakeTimers(new Date('2019-10-01T19:00:00+06:00'))
       const YourStatsStory = composeStory(YourStats, Meta)
       render(<YourStatsStory />)
-      const bar = screen.getByRole('img', { name: count.alt })
+      const { alt } = DailyClassificationsChartContainerMockStats.find((stat) => stat.count === storeCount.count)
+      const bar = screen.getByRole('img', { name: alt })
       expect(bar).to.exist()
       clock.restore()
     })

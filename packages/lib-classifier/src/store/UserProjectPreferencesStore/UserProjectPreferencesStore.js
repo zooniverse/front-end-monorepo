@@ -1,6 +1,5 @@
 import merge from 'lodash/merge'
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, getSnapshot, isValidReference, tryReference, types, flow } from 'mobx-state-tree'
+import { getRoot, getSnapshot, tryReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 
 import ResourceStore from '@store/ResourceStore'

@@ -71,12 +71,13 @@ const YourStats = types
         total
       }
     },
+
     get todaysCount() {
       let todaysCount = 0
       try {
         todaysCount = self.todaysStats.count
       } catch (error) {
-        todaysCount = self.sessionCount
+        todaysCount = 0
       }
       return todaysCount
     },

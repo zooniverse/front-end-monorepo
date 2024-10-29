@@ -9,8 +9,8 @@ function storeMapper(store) {
     project,
     user: {
       personalization: {
-        counts,
         stats: {
+          counts,
           thisWeek
         }
       }
