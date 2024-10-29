@@ -29,14 +29,14 @@ export const statsClient = {
 }
 
 // https://stackoverflow.com/a/51918448/10951669
-function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
-  const dayOfWeek = dateObject.getUTCDay()
-  const firstDayOfWeek = new Date(dateObject)
+function firstDayOfWeek (dateUTCObject, firstDayOfWeekIndex) {
+  const dayOfWeek = dateUTCObject.getUTCDay()
+  const firstDayOfWeek = new Date(dateUTCObject)
   const diff = dayOfWeek >= firstDayOfWeekIndex
     ? dayOfWeek - firstDayOfWeekIndex
     : 6 - dayOfWeek
 
-  firstDayOfWeek.setUTCDate(dateObject.getUTCDate() - diff)
+  firstDayOfWeek.setUTCDate(dateUTCObject.getUTCDate() - diff)
 
   return firstDayOfWeek
 }
@@ -65,9 +65,11 @@ const YourStats = types
       /*
       Calculate daily stats for this week, starting last Monday.
       */
-      const today = new Date()
+      const today = new Date().toUTCString()
+      // convert the local clock to UTC before finding the first day of the week.
+      const todayUTC = new Date(today)
       const weeklyStats = []
-      const monday = firstDayOfWeek(today, 1) // Monday is day number 1 in JavaScript
+      const monday = firstDayOfWeek(todayUTC, 1) // Monday is day number 1 in JavaScript
       for (let day = 0; day < 7; day++) {
         const weekDay = new Date(monday.toISOString())
         const newDate = monday.getUTCDate() + day
