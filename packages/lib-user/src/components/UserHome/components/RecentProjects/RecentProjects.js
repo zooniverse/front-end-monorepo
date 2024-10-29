@@ -1,5 +1,5 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
-import { arrayOf, bool, number, shape, string } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 
@@ -7,24 +7,26 @@ import { ContentBox } from '@components/shared'
 
 export default function RecentProjects({
   isLoading = false,
-  recentProjects = [],
+  projectPreferences = [],
   error = undefined
 }) {
   const size = useContext(ResponsiveContext)
 
   return (
     <ContentBox title='Continue Classifying' screenSize={size}>
-      {isLoading ? (
+      {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
         </Box>
-      ) : error ? (
+      )}
+      {!isLoading && error && (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>
             There was an error fetching your recent projects
           </SpacedText>
         </Box>
-      ) : !recentProjects.length ? (
+      )}
+      {!isLoading && !projectPreferences.length && !error && (
         <Box fill justify='center' align='center' pad='medium'>
           <SpacedText>No Recent Projects found</SpacedText>
           <Text>
@@ -35,44 +37,40 @@ export default function RecentProjects({
             .
           </Text>
         </Box>
-      ) : (
-        <Box
-          as='ul'
-          direction='row'
-          gap='small'
-          pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
-          overflow={{ horizontal: 'auto' }}
-          style={{ listStyle: 'none' }}
-          margin='0'
-        >
-          {recentProjects.map(project => (
-            <li key={project.id}>
-              <ProjectCard
-                badge={project.count}
-                description={project?.description}
-                displayName={project?.display_name}
-                href={`https://www.zooniverse.org/projects/${project?.slug}`}
-                imageSrc={project?.avatar_src}
-                size={size}
-              />
-            </li>
-          ))}
-        </Box>
       )}
+      {!isLoading &&
+        projectPreferences?.length ? (
+          <Box
+            as='ul'
+            direction='row'
+            gap='small'
+            pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+            overflow={{ horizontal: 'auto' }}
+            style={{ listStyle: 'none' }}
+            margin='0'
+          >
+            {projectPreferences.map(preference => (
+              <li key={preference?.project?.id}>
+                <ProjectCard
+                  description={preference?.project?.description}
+                  displayName={preference?.project?.display_name}
+                  href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
+                  imageSrc={preference?.project?.avatar_src}
+                  size={size}
+                />
+              </li>
+            ))}
+          </Box>
+        ) : null}
     </ContentBox>
   )
 }
 
 RecentProjects.propTypes = {
   isLoading: bool,
-  recentProjects: arrayOf(
+  projectPreferences: arrayOf(
     shape({
-      avatar_src: string,
-      count: number,
-      description: string,
-      display_name: string,
-      id: string,
-      slug: string
+      id: string
     })
   )
 }
