@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useStores } from '@hooks'
+import { useEffect, useState } from 'react'
 
-import useSubjectImage from '@hooks/useSubjectImage.js'
-import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../../../SVGComponents/SVGImage'
+import { useStores, useSubjectImage } from '@hooks'
+
+import SingleImageCanvas from '../../../SingleImageViewer/SingleImageCanvas'
 import {
   AnnotateButton,
   InvertButton,
@@ -202,28 +201,22 @@ const SeparateFrame = ({
 
   return (
     <Box direction='row'>
-      <SingleImageViewer
+      <SingleImageCanvas
         enableInteractionLayer={enableInteractionLayer}
         frame={frame}
-        height={naturalHeight}
-        limitSubjectHeight={limitSubjectHeight}
+        imgRef={subjectImage}
+        invert={invert}
+        move={separateFrameMove}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
+        onDrag={onDrag}
         onKeyDown={onKeyDown}
-        rotate={rotation}
-        svgMaxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
+        rotation={rotation}
+        src={frameSrc}
+        subject={img}
+        subjectId={img?.id}
         viewBox={`${x} ${y} ${width} ${height}`}
-        width={naturalWidth}
-      >
-        <SVGImage
-          ref={subjectImage}
-          invert={invert}
-          move={separateFrameMove}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          onDrag={onDrag}
-          src={frameSrc}
-          subjectID={frameUrl} // for aria-label
-        />
-      </SingleImageViewer>
+      />
       <Box
         background={{
           dark: 'dark-3',
@@ -242,7 +235,7 @@ const SeparateFrame = ({
         pad='8px'
         style={{ width: '3rem' }}
       >
-        { hasAnnotateTask &&
+        {hasAnnotateTask &&
           <AnnotateButton
             separateFrameAnnotate={separateFrameAnnotate}
             separateFrameEnableAnnotate={separateFrameEnableAnnotate}

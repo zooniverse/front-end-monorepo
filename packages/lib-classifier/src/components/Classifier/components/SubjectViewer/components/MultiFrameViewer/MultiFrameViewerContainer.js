@@ -4,12 +4,10 @@ import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';
 
 import { withStores } from '@helpers'
-import { useKeyZoom, useSubjectImage } from '@hooks'
+import { useSubjectImage } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
-import SVGImage from '../SVGComponents/SVGImage'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import FrameCarousel from './FrameCarousel'
 
 function storeMapper(store) {
@@ -72,8 +70,6 @@ function MultiFrameViewerContainer({
   setOnZoom = () => true,
   subject
 }) {
-  const { onKeyZoom } = useKeyZoom(rotation)
-  const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
@@ -95,14 +91,6 @@ function MultiFrameViewerContainer({
     activeTool?.validate()
   }, [frame])
 
-  function setOnDrag(callback) {
-    setDragMove(() => callback)
-  }
-
-  function onDrag(event, difference) {
-    dragMove?.(event, difference)
-  }
-
   if (loadingState === asyncStates.error) {
     return (
       <div>Something went wrong.</div>
@@ -121,39 +109,23 @@ function MultiFrameViewerContainer({
           onFrameChange={setFrame}
           locations={subject.locations}
         />
-        <SVGPanZoom
-          key={`${naturalWidth}-${naturalHeight}`}
+        <SingleImageViewer
+          enableInteractionLayer={loadingState === asyncStates.success && enableInteractionLayer}
+          frame={frame}
+          imgRef={subjectImage}
+          invert={invert}
           limitSubjectHeight={limitSubjectHeight}
-          maxZoom={5}
-          minZoom={0.1}
+          move={move}
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
-          setOnDrag={setOnDrag}
+          rotation={rotation}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           src={img.src}
-        >
-          <SingleImageViewer
-            enableInteractionLayer={loadingState === asyncStates.success && enableInteractionLayer}
-            frame={frame}
-            height={naturalHeight}
-            limitSubjectHeight={limitSubjectHeight}
-            onKeyDown={onKeyZoom}
-            rotate={rotation}
-            width={naturalWidth}
-          >
-            <SVGImage
-              ref={subjectImage}
-              invert={invert}
-              move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
-              onDrag={onDrag}
-              src={img.src}
-              subjectID={subjectID}
-            />
-          </SingleImageViewer>
-        </SVGPanZoom>
+          subject={subject}
+          subjectId={subjectID}
+          title={{ id: subjectID, text: subjectID }}
+        />
       </Box>
     )
   }

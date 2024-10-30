@@ -6,8 +6,6 @@ import locationValidator from '../../helpers/locationValidator'
 import { useSubjectImage } from '@hooks'
 
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../SVGComponents/SVGImage'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import FlipbookControls from './components'
 
 const DEFAULT_HANDLER = () => true
@@ -31,8 +29,7 @@ const FlipbookViewer = ({
 }) => {
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
-  const [dragMove, setDragMove] = useState()
-  /** This initializes an image element from the subject's currentFrame src url.
+  /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    */
   const currentFrameLocation = subject ? subject.locations[currentFrame] : null
@@ -73,51 +70,25 @@ const FlipbookViewer = ({
     }
   }
 
-  const setOnDrag = (callback) => {
-    setDragMove(() => callback)
-  }
-
-  const onDrag = (event, difference) => {
-    dragMove?.(event, difference)
-  }
-
   return (
     <Box>
-      <SVGPanZoom
-        key={`${naturalWidth}-${naturalHeight}`}
-        limitSubjectHeight={limitSubjectHeight}
-        maxZoom={5}
-        minZoom={0.1}
+      <SingleImageViewer
+        enableInteractionLayer={enableInteractionLayer}
+        frame={currentFrame}
+        imgRef={subjectImage}
+        invert={invert}
+        move={move}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
-        setOnDrag={setOnDrag}
+        onKeyDown={handleSpaceBar}
+        rotation={rotation}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
-        src={img.src}
-      >
-        <SingleImageViewer
-          enableInteractionLayer={enableInteractionLayer}
-          frame={currentFrame}
-          height={naturalHeight}
-          limitSubjectHeight={limitSubjectHeight}
-          onKeyDown={handleSpaceBar}
-          rotate={rotation}
-          width={naturalWidth}
-        >
-          <g role='tabpanel' id='flipbook-tab-panel'>
-            <SVGImage
-              ref={subjectImage}
-              invert={invert}
-              move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
-              onDrag={onDrag}
-              src={viewerLocation.url}
-              subjectID={subject.id}
-            />
-          </g>
-        </SingleImageViewer>
-      </SVGPanZoom>
+        src={viewerLocation?.url}
+        subject={subject}
+        subjectId={subject?.id}
+        title={{ id: subject?.id, text: subject?.id }}
+      />
       <FlipbookControls
         currentFrame={currentFrame}
         locations={subject.locations}
