@@ -1,14 +1,12 @@
 import { Box } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useRef } from 'react'
+import { useState } from 'react'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-
-import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 
-import SVGImage from '../SVGComponents/SVGImage'
 import VisXZoom from '../SVGComponents/VisXZoom'
+
+import SingleImageCanvas from './SingleImageCanvas'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_TITLE = {
@@ -23,71 +21,6 @@ const DEFAULT_ZOOM_CONFIG = {
   zoomOutValue: 0.8
 }
 
-function SVGImageCanvas({
-  initialTransformMatrix: initialPanZoomTransformMatrix,
-  transformMatrix: panZoomTransformMatrix,
-  transform: panZoomTransform,
-  children,
-  enableInteractionLayer,
-  frame,
-  height,
-  imgRef,
-  invert,
-  move,
-  onDrag,
-  src,
-  subject,
-  subjectId,
-  rotation,
-  viewBox,
-  width,
-}) {
-  const canvasLayer = useRef()
-  const canvas = canvasLayer.current
-
-  return (
-    <SVGContext.Provider
-      value={{
-        canvas,
-        rotate: rotation,
-        viewBox,
-        width,
-        height
-      }}
-    >
-      <svg
-        ref={canvasLayer}
-        viewBox={viewBox}
-        style={{ overflow: 'visible' }}
-      >
-        <g transform={panZoomTransform}>
-          <SVGImage
-            ref={imgRef}
-            invert={invert}
-            move={move}
-            naturalHeight={height}
-            naturalWidth={width}
-            onDrag={onDrag}
-            src={src}
-            subjectID={subjectId}
-          />
-          {children}
-          {enableInteractionLayer && (
-            <InteractionLayer
-              frame={frame}
-              height={height}
-              onDrag={onDrag}
-              subject={subject}
-              width={width}
-              viewBox={viewBox}
-            />
-          )}
-        </g>
-      </svg>
-    </SVGContext.Provider>
-  )
-}
-
 function SingleImageViewer({
   enableInteractionLayer = true,
   frame = 0,
@@ -96,10 +29,9 @@ function SingleImageViewer({
   move = false,
   naturalHeight,
   naturalWidth,
-  onDrag = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
   panning = true,
   rotation = 0,
-  setOnDrag = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   src,
@@ -109,8 +41,33 @@ function SingleImageViewer({
   zoomControlFn,
   zooming = true
 }) {
-  const rotationTransform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
+  const [dragMove, setDragMove] = useState()
   const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
+
+  function setOnDrag(callback) {
+    setDragMove(() => callback)
+  }
+
+  function onDrag(event, difference) {
+    dragMove?.(event, difference)
+  }
+
+  const SingleImageCanvasProps = {
+    enableInteractionLayer,
+    frame,
+    imgRef,
+    invert,
+    move,
+    naturalHeight,
+    naturalWidth,
+    onDrag,
+    onKeyDown,
+    rotation,
+    src,
+    subject,
+    subjectId,
+    viewBox
+  }
 
   return (
     <>
@@ -129,32 +86,17 @@ function SingleImageViewer({
         {title?.id && title?.text && (
           <title id={title.id}>{title.text}</title>
         )}
-        <svg viewBox={viewBox}>
-          <g transform={rotationTransform}>
-            <VisXZoom
-              enableInteractionLayer={enableInteractionLayer}
-              frame={frame}
-              height={naturalHeight}
-              imgRef={imgRef}
-              invert={invert}
-              move={move}
-              onDrag={onDrag}
-              panning={panning}
-              rotation={rotation}
-              setOnDrag={setOnDrag}
-              setOnPan={setOnPan}
-              setOnZoom={setOnZoom}
-              src={src}
-              subject={subject}
-              subjectId={subjectId}
-              width={naturalWidth}
-              zoomConfiguration={DEFAULT_ZOOM_CONFIG}
-              zoomingComponent={SVGImageCanvas}
-              zooming={zooming}
-              viewBox={viewBox}
-            />
-          </g>
-        </svg>
+          <VisXZoom
+            height={naturalHeight}
+            panning={panning}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
+            width={naturalWidth}
+            zoomConfiguration={DEFAULT_ZOOM_CONFIG}
+            zoomingComponent={SingleImageCanvas}
+            zooming={zooming}
+            {...SingleImageCanvasProps}
+          />
       </Box>
     </>
   )
@@ -177,6 +119,7 @@ SingleImageViewer.propTypes = {
   naturalHeight: number,
   naturalWidth: number,
   onDrag: func,
+  onKeyDown: func,
   panning: bool,
   rotation: number,
   scale: number,
