@@ -13,7 +13,7 @@
     "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "~14.2.7",
+    "@next/bundle-analyzer": "~15.0.2",
     "@next/third-parties": "~14.2.7",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/content": "~0.0.1",
