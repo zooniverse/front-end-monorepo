@@ -80,7 +80,7 @@ const YourStats = types
         weekDay.setUTCDate(newDate)
         const period = weekDay.toISOString().substring(0, 10)
         const { count } = dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
-        const dayNumber = weekDay.getDay()
+        const dayNumber = weekDay.getUTCDay()
         weeklyStats.push({
           count,
           dayNumber,

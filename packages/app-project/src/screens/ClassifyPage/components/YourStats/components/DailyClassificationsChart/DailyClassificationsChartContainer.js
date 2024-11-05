@@ -17,7 +17,7 @@ function DailyClassificationsChartContainer({
     const [year, monthIndex, date] = period.split('-')
     const utcDay = Date.UTC(year, monthIndex - 1, date)
     const day = new Date(utcDay)
-    const isToday = day.getUTCDay() === TODAY.getDay()
+    const isToday = day.getUTCDay() === TODAY.getUTCDay()
     const count = isToday ? counts.today : statsCount
     const longLabel = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'long' })
     const alt = `${longLabel}: ${count}`
