@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 
 import { useStores } from '@hooks'
+import { ZoomProvider } from '@plugins/drawingTools/shared/ZoomContext'
 import getLayout from './helpers/getLayout'
 
 function storeMapper(classifierStore) {
@@ -19,7 +20,13 @@ function Layout() {
   // `getLayout()` will always return the default layout as a fallback
   const { layout, separateFramesView } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
-  return <CurrentLayout separateFramesView={separateFramesView} />
+  return (
+    <ZoomProvider>
+      <CurrentLayout
+        separateFramesView={separateFramesView}
+      />
+    </ZoomProvider>
+  ) 
 }
 
 export default observer(Layout)

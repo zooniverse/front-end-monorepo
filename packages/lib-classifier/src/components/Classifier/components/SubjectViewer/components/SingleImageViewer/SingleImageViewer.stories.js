@@ -1,6 +1,8 @@
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 
+import { ZoomProvider } from '@plugins/drawingTools/shared/ZoomContext'
+
 import ImageToolbar from '../../../ImageToolbar'
 
 import mockStore from '@test/mockStore'
@@ -21,7 +23,13 @@ const workflow = WorkflowFactory.build({
 const store = mockStore({ subject, workflow })
 
 const ViewerContext = ({ store, children }) => {
-  return <Provider classifierStore={store}>{children}</Provider>
+  return (
+    <Provider classifierStore={store}>
+      <ZoomProvider>
+        {children}
+      </ZoomProvider>
+    </Provider>
+  )
 }
 
 export default {

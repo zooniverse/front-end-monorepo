@@ -2,6 +2,8 @@ import { Box } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
 
+import { useZoom } from '@plugins/drawingTools/shared/ZoomContext'
+
 import ZoomControlButton from '../ZoomControlButton'
 
 import VisXZoom from '../SVGComponents/VisXZoom'
@@ -32,7 +34,6 @@ function SingleImageViewer({
   onKeyDown = DEFAULT_HANDLER,
   panning = true,
   rotation = 0,
-  setOnZoom = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   src,
   subject,
@@ -42,6 +43,8 @@ function SingleImageViewer({
   zooming = true
 }) {
   const [dragMove, setDragMove] = useState()
+  const { setOnZoom } = useZoom()
+
   const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
 
   function setOnDrag(callback) {
@@ -124,7 +127,6 @@ SingleImageViewer.propTypes = {
   rotation: number,
   scale: number,
   setOnDrag: func,
-  setOnZoom: func,
   setOnPan: func,
   src: string,
   subject: shape({

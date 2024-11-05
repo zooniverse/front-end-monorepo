@@ -1,4 +1,5 @@
 import { useStores } from '@hooks'
+import { useZoom } from '@plugins/drawingTools/shared/ZoomContext'
 
 const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
 
@@ -8,9 +9,7 @@ function storeMapper(classifierStore) {
       panLeft,
       panRight,
       panUp,
-      panDown,
-      zoomIn,
-      zoomOut
+      panDown
     }
   } = classifierStore
     
@@ -18,9 +17,7 @@ function storeMapper(classifierStore) {
     panLeft,
     panRight,
     panUp,
-    panDown,
-    zoomIn,
-    zoomOut
+    panDown
   }
 }
 
@@ -29,10 +26,9 @@ export default function useKeyZoom(rotate=0) {
     panLeft,
     panRight,
     panUp,
-    panDown,
-    zoomIn,
-    zoomOut
+    panDown
   } = useStores(storeMapper)
+  const { zoomIn, zoomOut } = useZoom()
   const rotation = Math.abs(rotate) % 360
   const keyMappings = {
     '+': zoomIn,

@@ -3,23 +3,25 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { useStores } from '@hooks'
+import { useZoom } from '@plugins/drawingTools/shared/ZoomContext'
+
 import ZoomInButton from './ZoomInButton'
 
 function storeMapper(classifierStore) {
   const {
-    disableImageToolbar,
-    zoomIn
+    disableImageToolbar
   } = classifierStore.subjectViewer
 
   return {
-    disabled: disableImageToolbar,
-    zoomIn
+    disabled: disableImageToolbar
   }
 }
 
 function ZoomInButtonContainer({ separateFrameZoomIn }) {
-  const { disabled, zoomIn } = useStores(storeMapper)
+  const { disabled } = useStores(storeMapper)
+  const { zoomIn } = useZoom()
   const [timer, setTimer] = useState('')
+
   const zoomCallback = separateFrameZoomIn || zoomIn
 
   function onClick() {

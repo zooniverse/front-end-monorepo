@@ -23,11 +23,12 @@ function SingleImageCanvas({
   subject,
   subjectId,
   transform, // per VisXZoom
-  viewBox
 }) {
   const canvasLayer = useRef()
   const canvas = canvasLayer.current
 
+  const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
+  
   const rotationTransform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
 
   let combinedTransform = rotationTransform
