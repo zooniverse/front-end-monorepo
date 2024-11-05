@@ -16,6 +16,7 @@ function storeMapper(store) {
     frame,
     invert,
     move,
+    resetView,
     rotation,
     setFrame,
     setOnPan,
@@ -42,6 +43,7 @@ function storeMapper(store) {
     invert,
     limitSubjectHeight,
     move,
+    resetView,
     rotation,
     setFrame,
     setOnPan,
@@ -64,6 +66,7 @@ function MultiFrameViewerContainer({
   move,
   onError = () => true,
   onReady = () => true,
+  resetView,
   rotation,
   setFrame = () => true,
   setOnPan = () => true,
@@ -88,6 +91,7 @@ function MultiFrameViewerContainer({
 
   useEffect(function onFrameChange() {
     activeTool?.validate()
+    resetView()
   }, [frame])
 
   if (loadingState === asyncStates.error) {
