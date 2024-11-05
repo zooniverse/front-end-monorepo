@@ -1,7 +1,9 @@
-import { Provider } from 'mobx-react'
-import mockStore from '@test/mockStore'
-import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
+import { Provider } from 'mobx-react'
+
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 
 import SeparateFramesViewer from './SeparateFramesViewer'
 
@@ -45,14 +47,24 @@ const storeWithOneColumn = mockStore({
 storeWithOneColumn.subjectViewer.setSeparateFramesView(true)
 storeWithOneColumn.subjectViewer.enableRotation(true)
 
+const ViewerContext = ({ children, store }) => {
+  return (
+    <Provider classifierStore={store}>
+      <PanZoomProvider>
+        {children}
+      </PanZoomProvider>
+    </Provider>
+  )
+}
+
 export const OneColumn = () => {
   return (
-    <Provider classifierStore={storeWithOneColumn}>
+    <ViewerContext store={storeWithOneColumn}>
       <SeparateFramesViewer
         loadingState={asyncStates.success}
         subject={storeWithOneColumn.subjects.active}
       />
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -72,12 +84,12 @@ storeWithOneRow.subjectViewer.enableRotation(true)
 
 export const OneRow = () => {
   return (
-    <Provider classifierStore={storeWithOneRow}>
+    <ViewerContext store={storeWithOneRow}>
       <SeparateFramesViewer
         loadingState={asyncStates.success}
         subject={storeWithOneRow.subjects.active}
       />
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -97,12 +109,12 @@ storeWithTwoColGrid.subjectViewer.enableRotation(true)
 
 export const TwoColumnGrid = () => {
   return (
-    <Provider classifierStore={storeWithTwoColGrid}>
+    <ViewerContext store={storeWithTwoColGrid}>
       <SeparateFramesViewer
         loadingState={asyncStates.success}
         subject={storeWithTwoColGrid.subjects.active}
       />
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -122,11 +134,11 @@ storeWithThreeColGrid.subjectViewer.enableRotation(true)
 
 export const ThreeColumnGrid = () => {
   return (
-    <Provider classifierStore={storeWithThreeColGrid}>
+    <ViewerContext store={storeWithThreeColGrid}>
       <SeparateFramesViewer
         loadingState={asyncStates.success}
         subject={storeWithThreeColGrid.subjects.active}
       />
-    </Provider>
+    </ViewerContext>
   )
 }

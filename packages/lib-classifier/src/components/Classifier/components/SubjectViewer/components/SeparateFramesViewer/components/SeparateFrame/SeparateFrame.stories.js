@@ -1,4 +1,6 @@
 import { Provider } from 'mobx-react'
+
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
 import mockStore from '@test/mockStore'
 import { WorkflowFactory } from '@test/factories'
 
@@ -29,10 +31,12 @@ store.subjectViewer.enableRotation(true)
 export const Default = ({ frameUrl, limitSubjectHeight }) => {
   return (
     <Provider classifierStore={store}>
-      <SeparateFrame
-        frameUrl={frameUrl}
-        limitSubjectHeight={limitSubjectHeight}
-      />
+      <PanZoomProvider>
+        <SeparateFrame
+          frameUrl={frameUrl}
+          limitSubjectHeight={limitSubjectHeight}
+        />
+      </PanZoomProvider>
     </Provider>
   )
 }

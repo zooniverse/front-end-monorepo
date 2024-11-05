@@ -1,11 +1,13 @@
 import { Box } from 'grommet'
 import { Factory } from 'rosie'
-import VariableStarViewer from '.'
-import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
 
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
 import mockStore from '@test/mockStore'
+
 import ImageToolbar from '../../../ImageToolbar'
+import JSONDataViewer from '../JSONDataViewer'
+import VariableStarViewer from '.'
 import readme from './README.md'
 
 const subject = Factory.build('subject', {
@@ -25,7 +27,9 @@ const store = mockStore({ subject })
 function ViewerContext ({ children }) {
   return (
     <Provider classifierStore={store}>
-      {children}
+      <PanZoomProvider>
+        {children}
+      </PanZoomProvider>
     </Provider>
   )
 }

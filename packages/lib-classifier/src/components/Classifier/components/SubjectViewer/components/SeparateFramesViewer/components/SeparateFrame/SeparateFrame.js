@@ -18,7 +18,9 @@ import {
 const DEFAULT_HANDLER = () => true
 
 function storeMapper(classifierStore) {
-  return { hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask }
+  return {
+    hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask
+  }
 }
 
 const SeparateFrame = ({
@@ -30,7 +32,7 @@ const SeparateFrame = ({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER
 }) => {
-  const { img, error, loading, subjectImage } = useSubjectImage({
+  const { img, error, loading, subjectImage } = useSubjectImage({  
     src: frameUrl,
     onReady,
     onError
@@ -99,7 +101,7 @@ const SeparateFrame = ({
         rotation={rotation}
         src={frameSrc}
         subject={img}
-        subjectId={img?.id}
+        subjectId={frameUrl}
       />
       <Box
         background={{

@@ -18,9 +18,7 @@ function storeMapper(store) {
     move,
     resetView,
     rotation,
-    setFrame,
-    setOnPan,
-    setOnZoom
+    setFrame
   } = store.subjectViewer
 
   const { activeStepTasks } = store.workflowSteps
@@ -45,9 +43,7 @@ function storeMapper(store) {
     move,
     resetView,
     rotation,
-    setFrame,
-    setOnPan,
-    setOnZoom
+    setFrame
   }
 }
 
@@ -69,8 +65,6 @@ function MultiFrameViewerContainer({
   resetView,
   rotation,
   setFrame = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
   subject
 }) {
   // TODO: replace this with a better function to parse the image location from a subject.
@@ -122,8 +116,6 @@ function MultiFrameViewerContainer({
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
           rotation={rotation}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
           src={img.src}
           subject={subject}
           subjectId={subjectID}
@@ -148,8 +140,6 @@ MultiFrameViewerContainer.propTypes = {
   onError: PropTypes.func,
   onReady: PropTypes.func,
   setFrame: PropTypes.func,
-  setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }).isRequired

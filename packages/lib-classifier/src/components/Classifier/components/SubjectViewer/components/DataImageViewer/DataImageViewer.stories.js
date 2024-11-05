@@ -3,6 +3,7 @@ import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
 import DataImageViewer from './index.js'
 import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
@@ -33,7 +34,9 @@ function ViewerContext ({
 }) {
   return (
     <Provider classifierStore={store}>
-      {children}
+      <PanZoomProvider>
+        {children}
+      </PanZoomProvider>
     </Provider>
   )
 }

@@ -2,6 +2,8 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Factory } from 'rosie'
 
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
+
 import mockStore from '@test/mockStore'
 
 import ImageToolbar from '../../../ImageToolbar'
@@ -30,7 +32,13 @@ function ViewerContext({
   store = defaultStore,
   children
 }) {
-  return <Provider classifierStore={store}>{children}</Provider>
+  return (
+    <Provider classifierStore={store}>
+      <PanZoomProvider>
+        {children}
+      </PanZoomProvider>
+    </Provider>
+  )
 }
 
 export default {

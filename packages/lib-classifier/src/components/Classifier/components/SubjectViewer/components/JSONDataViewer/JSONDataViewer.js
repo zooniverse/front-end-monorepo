@@ -2,6 +2,7 @@ import { Box } from 'grommet'
 import { observer } from 'mobx-react'
 
 import { useStores, useSubjectJSON } from '@hooks'
+import { usePanZoom } from '@plugins/drawingTools/shared/PanZoomContext'
 import BarChartViewer from '@viewers/components/BarChartViewer'
 import LightCurveViewer from '@viewers/components/LightCurveViewer'
 import ScatterPlotViewer from '@viewers/components/ScatterPlotViewer'
@@ -20,16 +21,12 @@ function storeMapper(classifierStore) {
       active: subject
     },
     subjectViewer: {
-      interactionMode,
-      setOnZoom,
-      setOnPan
+      interactionMode
     }
   } = classifierStore
 
   return {
     interactionMode,
-    setOnZoom,
-    setOnPan,
     subject
   }
 }
@@ -41,8 +38,9 @@ function JSONDataViewer({
   onReady = DEFAULT_HANDLER,
   ...props
 }) {
-  const { interactionMode, subject, setOnPan, setOnZoom } = useStores(storeMapper)
+  const { interactionMode, subject } = useStores(storeMapper)
   const { data: jsonData, loading, error, type, viewer } = useSubjectJSON({ onError, onReady, subject})
+  const { setOnPan, setOnZoom } = usePanZoom()
 
   if (loading) {
     return null

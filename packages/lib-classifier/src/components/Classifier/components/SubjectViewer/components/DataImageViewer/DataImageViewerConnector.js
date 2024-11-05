@@ -10,9 +10,7 @@ function storeMapper(classifierStore) {
       enableRotation,
       move,
       resetView,
-      rotation,
-      setOnZoom,
-      setOnPan
+      rotation
     }
   } = classifierStore
 
@@ -21,8 +19,6 @@ function storeMapper(classifierStore) {
     move,
     resetView,
     rotation,
-    setOnZoom,
-    setOnPan,
     subject
   }
 }

@@ -22,7 +22,6 @@ function SingleImageViewerContainer({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   rotation = 0,
-  setOnPan = DEFAULT_HANDLER,
   subject,
   title = DEFAULT_TITLE,
   zoomControlFn,
@@ -71,7 +70,6 @@ function SingleImageViewerContainer({
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
         rotation={rotation}
-        setOnPan={setOnPan}
         src={img.src}
         subject={subject}
         subjectId={subjectId}
@@ -95,7 +93,6 @@ SingleImageViewerContainer.propTypes = {
   onError: func,
   onReady: func,
   rotation: number,
-  setOnPan: func,
   subject: shape({
     locations: arrayOf(shape({
       url: string

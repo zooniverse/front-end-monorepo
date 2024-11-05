@@ -6,9 +6,12 @@ import {
   Grid
 } from 'grommet'
 import { withParentSize } from '@visx/responsive'
+
+import { usePanZoom } from '@plugins/drawingTools/shared/PanZoomContext'
+import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
+
 import ScatterPlotViewer from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
-import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -48,11 +51,10 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   resetView = DEFAULT_HANDLER,
   rotation = 0,
   setAllowPanZoom = DEFAULT_HANDLER,
-  setOnPan = DEFAULT_HANDLER,
-  setOnZoom = DEFAULT_HANDLER,
   theme = DEFAULT_THEME,
   zoomConfiguration
 }, ref) {
+  const { setOnPan, setOnZoom } = usePanZoom()
   const {
     dark,
     global: {
@@ -133,8 +135,6 @@ const DataImageViewer = forwardRef(function DataImageViewer({
                 imageLocation
               ]
             }}
-            setOnPan={setOnPan}
-            setOnZoom={setOnZoom}
             zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
             zooming={zoomEnabled.image}
           />}
@@ -158,8 +158,6 @@ DataImageViewer.propTypes = {
   resetView: PropTypes.func,
   rotation: PropTypes.number,
   setAllowPanZoom: PropTypes.func,
-  setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func,
   theme: PropTypes.object
 }
 

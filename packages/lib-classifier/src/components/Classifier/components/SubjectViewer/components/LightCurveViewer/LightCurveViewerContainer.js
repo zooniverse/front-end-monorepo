@@ -8,7 +8,6 @@ import { useMemo } from 'react';
 
 import { useKeyZoom, useStores } from '@hooks'
 
-import { useSubjectJSON } from '@hooks'
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 
@@ -17,9 +16,7 @@ function storeMapper (classifierStore) {
     subjectViewer: {
       enableAnnotate,
       enableMove,
-      interactionMode,
-      setOnPan,
-      setOnZoom
+      interactionMode
     },
     classifications: {
       addAnnotation
@@ -48,9 +45,7 @@ function storeMapper (classifierStore) {
     annotation,  // dataVisAnnotation
     enableAnnotate,
     enableMove,
-    interactionMode,
-    setOnPan,
-    setOnZoom
+    interactionMode
   }
 }
 
@@ -59,10 +54,14 @@ const SUBJECT = {
   locations: []
 }
 
+const DEFAULT_HANDLER = () => true
+
 export function LightCurveViewerContainer({
   data = null,
   feedback = false,
-  feedbackBrushes = []
+  feedbackBrushes = [],
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER
 }) {
   const {
     activeDataVisTask,
@@ -71,9 +70,7 @@ export function LightCurveViewerContainer({
     annotation,  // dataVisAnnotation
     enableAnnotate,
     enableMove,
-    interactionMode,
-    setOnPan,
-    setOnZoom
+    interactionMode
   } = useStores(storeMapper)
   const { onKeyZoom } = useKeyZoom()
 

@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
 
-import { useZoom } from '@plugins/drawingTools/shared/ZoomContext'
+import { usePanZoom } from '@plugins/drawingTools/shared/PanZoomContext'
 
 import ZoomControlButton from '../ZoomControlButton'
 
@@ -34,7 +34,6 @@ function SingleImageViewer({
   onKeyDown = DEFAULT_HANDLER,
   panning = true,
   rotation = 0,
-  setOnPan = DEFAULT_HANDLER,
   src,
   subject,
   subjectId,
@@ -43,7 +42,7 @@ function SingleImageViewer({
   zooming = true
 }) {
   const [dragMove, setDragMove] = useState()
-  const { setOnZoom } = useZoom()
+  const { setOnPan, setOnZoom } = usePanZoom()
 
   const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
 

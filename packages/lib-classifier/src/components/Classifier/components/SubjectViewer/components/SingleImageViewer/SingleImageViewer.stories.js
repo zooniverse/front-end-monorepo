@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 
-import { ZoomProvider } from '@plugins/drawingTools/shared/ZoomContext'
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
 
 import ImageToolbar from '../../../ImageToolbar'
 
@@ -25,9 +25,9 @@ const store = mockStore({ subject, workflow })
 const ViewerContext = ({ store, children }) => {
   return (
     <Provider classifierStore={store}>
-      <ZoomProvider>
+      <PanZoomProvider>
         {children}
-      </ZoomProvider>
+      </PanZoomProvider>
     </Provider>
   )
 }

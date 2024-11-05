@@ -4,6 +4,7 @@ import { Provider } from 'mobx-react'
 import { Factory } from 'rosie'
 
 import { useKeyZoom } from '@hooks'
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import SubjectGroupViewer from './SubjectGroupViewerContainer'
@@ -48,7 +49,9 @@ const store = mockStore({ subject, workflow })
 function ViewerContext({ children }) {
   return (
     <Provider classifierStore={store}>
-      {children}
+      <PanZoomProvider>
+        {children}
+      </PanZoomProvider>
     </Provider>
   )
 }

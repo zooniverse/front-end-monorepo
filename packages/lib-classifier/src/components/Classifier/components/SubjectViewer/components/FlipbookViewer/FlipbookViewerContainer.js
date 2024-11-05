@@ -15,9 +15,7 @@ function storeMapper(store) {
     invert,
     move,
     rotation,
-    separateFramesView,
-    setOnPan,
-    setOnZoom
+    separateFramesView
   } = store.subjectViewer
 
   const {
@@ -35,9 +33,7 @@ function storeMapper(store) {
     move,
     playIterations,
     rotation,
-    separateFramesView,
-    setOnPan,
-    setOnZoom
+    separateFramesView
   }
 }
 
@@ -59,9 +55,7 @@ function FlipbookViewerContainer({
     move,
     playIterations,
     rotation,
-    separateFramesView,
-    setOnPan,
-    setOnZoom
+    separateFramesView
   } = useStores(storeMapper)
 
   const { onKeyZoom } = useKeyZoom(rotation)
@@ -106,8 +100,6 @@ function FlipbookViewerContainer({
           onReady={onReady}
           playIterations={playIterations}
           rotation={rotation}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
           subject={subject}
         />
       )}

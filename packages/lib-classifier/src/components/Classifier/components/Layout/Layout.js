@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 
 import { useStores } from '@hooks'
-import { ZoomProvider } from '@plugins/drawingTools/shared/ZoomContext'
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
 import getLayout from './helpers/getLayout'
 
 function storeMapper(classifierStore) {
@@ -21,11 +21,11 @@ function Layout() {
   const { layout, separateFramesView } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
   return (
-    <ZoomProvider>
+    <PanZoomProvider>
       <CurrentLayout
         separateFramesView={separateFramesView}
       />
-    </ZoomProvider>
+    </PanZoomProvider>
   ) 
 }
 

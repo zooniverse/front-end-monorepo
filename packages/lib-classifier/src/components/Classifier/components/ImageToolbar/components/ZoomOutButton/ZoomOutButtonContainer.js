@@ -3,7 +3,7 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { useStores } from '@hooks'
-import { useZoom } from '@plugins/drawingTools/shared/ZoomContext'
+import { usePanZoom } from '@plugins/drawingTools/shared/PanZoomContext'
 
 import ZoomOutButton from './ZoomOutButton'
 
@@ -19,7 +19,7 @@ function storeMapper(classifierStore) {
 
 function ZoomOutButtonContainer({ separateFrameZoomOut }) {
   const { disabled } = useStores(storeMapper)
-  const { zoomOut } = useZoom()
+  const { zoomOut } = usePanZoom()
   const [timer, setTimer] = useState('')
   const zoomCallback = separateFrameZoomOut || zoomOut
 

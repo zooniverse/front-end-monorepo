@@ -2,6 +2,8 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
+
 import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
@@ -60,9 +62,11 @@ const storeWithSubjectTextLocationFirst = mockStore({
 export function Default({ loadingState }) {
   return (
     <Provider classifierStore={store}>
-      <Box width='large'>
-        <ImageAndTextViewerConnector loadingState={loadingState} />
-      </Box>
+      <PanZoomProvider>
+        <Box width='large'>
+          <ImageAndTextViewerConnector loadingState={loadingState} />
+        </Box>
+      </PanZoomProvider>
     </Provider>
   )
 }
@@ -70,9 +74,11 @@ export function Default({ loadingState }) {
 export function TextLocationFirst({ loadingState }) {
   return (
     <Provider classifierStore={storeWithSubjectTextLocationFirst}>
-      <Box width='large'>
-        <ImageAndTextViewerConnector loadingState={loadingState} />
-      </Box>
+      <PanZoomProvider>
+        <Box width='large'>
+          <ImageAndTextViewerConnector loadingState={loadingState} />
+        </Box>
+      </PanZoomProvider>
     </Provider>
   )
 }

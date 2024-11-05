@@ -1,8 +1,11 @@
+import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
+
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
+
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
-import asyncStates from '@zooniverse/async-states'
 
 import FlipbookViewerContainer from './FlipbookViewerContainer'
 
@@ -32,33 +35,43 @@ const mockSubject = SubjectFactory.build({
   ]
 })
 
+const ViewerContext = ({ store, children }) => {
+  return (
+    <Provider classifierStore={store}>
+      <PanZoomProvider>
+        {children}
+      </PanZoomProvider>
+    </Provider>
+  )
+}
+
 const store = mockStore({
   subject: mockSubject
 })
 
 export const Default = () => {
   return (
-    <Provider classifierStore={store}>
+    <ViewerContext store={store}>
       <Box width='large'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={store.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
 export const StyledSmallerWidth = () => {
   return (
-    <Provider classifierStore={store}>
+    <ViewerContext store={store}>
       <Box width='499px'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={store.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -92,14 +105,14 @@ const storeWithDefaultFrame = mockStore({
 
 export const WithDefaultFrame = () => {
   return (
-    <Provider classifierStore={storeWithDefaultFrame}>
+    <ViewerContext store={storeWithDefaultFrame}>
       <Box width='large'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={storeWithDefaultFrame.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -116,14 +129,14 @@ const storeWithFiveIterationWorkflow = mockStore({
 
 export const FivePlayIterations = () => {
   return (
-    <Provider classifierStore={storeWithFiveIterationWorkflow}>
+    <ViewerContext store={storeWithFiveIterationWorkflow}>
       <Box width='large'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={storeWithFiveIterationWorkflow.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -140,14 +153,14 @@ const storeWithInfiniteIterationWorkflow = mockStore({
 
 export const InfiniteIterations = () => {
   return (
-    <Provider classifierStore={storeWithInfiniteIterationWorkflow}>
+    <ViewerContext store={storeWithInfiniteIterationWorkflow}>
       <Box width='large'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={storeWithInfiniteIterationWorkflow.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -165,14 +178,14 @@ const storeWithAutoplayWorkflow = mockStore({
 
 export const Autoplay = () => {
   return (
-    <Provider classifierStore={storeWithAutoplayWorkflow}>
+    <ViewerContext store={storeWithAutoplayWorkflow}>
       <Box width='large'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={storeWithAutoplayWorkflow.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
@@ -188,23 +201,23 @@ const storeWithSwitchToSeparateFrames = mockStore({
 
 export const WithViewModeButton = () => {
   return (
-    <Provider classifierStore={storeWithSwitchToSeparateFrames}>
+    <ViewerContext store={storeWithSwitchToSeparateFrames}>
       <Box width='large'>
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={storeWithSwitchToSeparateFrames.subjects.active}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
 
 export const NoSubject = () => {
   return (
-    <Provider classifierStore={store}>
+    <ViewerContext store={store}>
       <Box width='large'>
         <FlipbookViewerContainer loadingState={asyncStates.success} />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }

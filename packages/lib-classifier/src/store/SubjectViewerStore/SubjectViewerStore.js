@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { autorun, reaction } from 'mobx'
+import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
@@ -21,22 +21,7 @@ const SubjectViewer = types
     rotation: types.optional(types.number, 0),
     separateFramesView: types.optional(types.boolean, false)
   })
-
-  .volatile(self => ({
-    /*
-    Callback function for subject viewers with custom zoom handlers.
-    - 'type': 'zoomin', 'zoomout', 'zoomto'
-    - 'zoomValue' defines amount zoomed in/out, or current zoom value of 'zoomto'.
-     */
-    onZoom: function (type, zoomValue) {},
-    /*
-    Callback function for subject viewers with custom pan handlers.
-    - 'xDirection': -1: left, 0: ignored, 1: right
-    - 'yDirection': -1: up, 0: ignored, 1: down
-     */
-    onPan: function (xDirection, yDirection) {}
-  }))
-
+  
   .views(self => ({
     get disableImageToolbar () {
       const subject = tryReference(() => getRoot(self).subjects?.active)
@@ -128,22 +113,6 @@ const SubjectViewer = types
         self.loadingState = asyncStates.success
       },
 
-      panLeft () {
-        self.onPan && self.onPan(-1, 0)
-      },
-
-      panRight () {
-        self.onPan && self.onPan(1, 0)
-      },
-
-      panUp () {
-        self.onPan && self.onPan(0, -1)
-      },
-
-      panDown () {
-        self.onPan && self.onPan(0, 1)
-      },
-
       resetSubject (subject) {
         let frame = 0
         // teams set default frame in the project builder
@@ -161,7 +130,6 @@ const SubjectViewer = types
       resetView () {
         console.log('resetting view')
         self.invert = false
-        self.onZoom && self.onZoom('zoomto', 1.0)
         self.rotation = 0
       },
 
@@ -188,26 +156,8 @@ const SubjectViewer = types
         self.frame = index
       },
 
-      setOnZoom (callback) {
-        self.onZoom = callback
-      },
-
-      setOnPan (callback) {
-        self.onPan = callback
-      },
-
       setSeparateFramesView(mode) {
         self.separateFramesView = mode
-      },
-
-      zoomIn () {
-        console.log('zooming in')
-        self.onZoom && self.onZoom('zoomin', 1)
-      },
-
-      zoomOut () {
-        console.log('zooming out')
-        self.onZoom && self.onZoom('zoomout', -1)
       }
     }
   })

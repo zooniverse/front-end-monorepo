@@ -23,8 +23,6 @@ const FlipbookViewer = ({
   onReady = DEFAULT_HANDLER,
   playIterations,
   rotation,
-  setOnPan = DEFAULT_HANDLER,
-  setOnZoom = DEFAULT_HANDLER,
   subject
 }) => {
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
@@ -81,8 +79,6 @@ const FlipbookViewer = ({
         naturalWidth={naturalWidth}
         onKeyDown={handleSpaceBar}
         rotation={rotation}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
         src={viewerLocation?.url}
         subject={subject}
         subjectId={subject?.id}
@@ -123,10 +119,6 @@ FlipbookViewer.propTypes = {
   playIterations: PropTypes.number,
   /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
   rotation: PropTypes.number,
-  /** Passed from the Subject Viewer Store */
-  setOnPan: PropTypes.func,
-  /** Passed from the Subject Viewer Store */
-  setOnZoom: PropTypes.func,
   /** Required. Passed from SubjectViewer component */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)

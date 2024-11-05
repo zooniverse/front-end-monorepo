@@ -2,6 +2,8 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
+
 import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
@@ -88,12 +90,14 @@ const storeWithLess = mockStore({
 export function WithMore() {
   return (
     <Provider classifierStore={storeWithMore}>
-      <Box height='500px' width='large'>
-        <MultiFrameViewerContainer
-          loadingState={asyncStates.success}
-          subject={storeWithMore.subjects.active}
-        />
-      </Box>
+      <PanZoomProvider>
+        <Box height='500px' width='large'>
+          <MultiFrameViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithMore.subjects.active}
+          />
+        </Box>
+      </PanZoomProvider>
     </Provider>
   )
 }
@@ -101,12 +105,14 @@ export function WithMore() {
 export function WithLess() {
   return (
     <Provider classifierStore={storeWithLess}>
-      <Box height='500px' width='large'>
-        <MultiFrameViewerContainer
-          loadingState={asyncStates.success}
-          subject={storeWithLess.subjects.active}
-        />
-      </Box>
+      <PanZoomProvider>
+        <Box height='500px' width='large'>
+          <MultiFrameViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithLess.subjects.active}
+          />
+        </Box>
+      </PanZoomProvider>
     </Provider>
   )
 }

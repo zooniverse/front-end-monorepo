@@ -11,8 +11,7 @@ function storeMapper(store) {
       frame,
       invert,
       move,
-      rotation,
-      setOnPan
+      rotation
     },
     workflows: {
       active: {
@@ -30,7 +29,6 @@ function storeMapper(store) {
     limitSubjectHeight,
     move,
     rotation,
-    setOnPan,
     subject
   }
 }

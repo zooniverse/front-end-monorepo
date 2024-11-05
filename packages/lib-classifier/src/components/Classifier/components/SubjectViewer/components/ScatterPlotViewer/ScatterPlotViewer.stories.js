@@ -1,12 +1,15 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box } from 'grommet'
-import { darken } from 'polished'
-import ScatterPlotViewer from './'
-import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
+import { darken } from 'polished'
+
+import { PanZoomProvider } from '@plugins/drawingTools/shared/PanZoomContext'
+
+import ImageToolbar from '../../../ImageToolbar'
+import JSONDataViewer from '../JSONDataViewer'
+import ScatterPlotViewer from './'
 
 import mockStore from '@test/mockStore'
-import ImageToolbar from '../../../ImageToolbar'
 import {
   keplerMockDataWithOptions,
   randomSingleSeriesData
@@ -76,7 +79,13 @@ function ViewerContext({
   store = storeWithTransientSubject,
   children
 }) {
-  return <Provider classifierStore={store}>{children}</Provider>
+  return (
+    <Provider classifierStore={store}>
+      <PanZoomProvider>  
+        {children}
+      </PanZoomProvider>
+    </Provider>
+  )
 }
 
 export default {

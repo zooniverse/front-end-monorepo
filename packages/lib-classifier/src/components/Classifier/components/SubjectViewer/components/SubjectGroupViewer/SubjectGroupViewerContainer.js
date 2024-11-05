@@ -7,6 +7,7 @@ import { Paragraph } from 'grommet'
 
 import { withStores } from '@helpers'
 import { useKeyZoom } from '@hooks'
+import { usePanZoom } from '@plugins/drawingTools/shared/PanZoomContext'
 import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
 
@@ -34,9 +35,7 @@ const DEFAULT_HANDLER = () => true
 
 function storeMapper (classifierStore) {
   const {
-    interactionMode,
-    setOnPan,
-    setOnZoom,
+    interactionMode
   } = classifierStore.subjectViewer
   
   const {
@@ -83,8 +82,6 @@ function storeMapper (classifierStore) {
     gridMaxHeight,
     
     interactionMode,
-    setOnZoom,
-    setOnPan,
     
     addAnnotation,
     annotation,
@@ -108,11 +105,10 @@ export function SubjectGroupViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  setOnPan = DEFAULT_HANDLER,
-  setOnZoom = DEFAULT_HANDLER,
   subject = undefined
 }) {
   const { onKeyZoom } = useKeyZoom()
+  const { setOnPan, setOnZoom } = usePanZoom()
   const groupViewer = useRef()
   const scrollContainer = useRef()
   const [images, setImages] = useState([])
