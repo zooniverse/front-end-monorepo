@@ -214,7 +214,7 @@ const SeparateFrame = ({
         rotation={rotation}
         src={frameSrc}
         subject={img}
-        subjectId={img?.id}
+        subjectId={frameUrl}
         viewBox={`${x} ${y} ${width} ${height}`}
       />
       <Box
