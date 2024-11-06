@@ -36,7 +36,7 @@ const StyledDataChart = styled(DataChart)`
         content: 'Date range (UTC)';
         position: absolute;
         top: calc(100% + 5px);
-        left: -0;
+        left: 0;
         font-size: 0.75rem;
         width: max-content;
       }
