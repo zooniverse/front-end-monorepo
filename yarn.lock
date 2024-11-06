@@ -44,7 +44,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/cli@npm:~7.25.9":
+"@babel/cli@npm:^7.25.9, @babel/cli@npm:~7.25.9":
   version: 7.25.9
   resolution: "@babel/cli@npm:7.25.9"
   dependencies:
@@ -7971,6 +7971,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zooniverse/content@workspace:packages/lib-content"
   dependencies:
+    "@babel/cli": "npm:^7.25.9"
     "@babel/preset-env": "npm:~7.26.0"
     "@babel/preset-react": "npm:~7.25.9"
     "@babel/register": "npm:~7.25.9"
@@ -8244,6 +8245,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zooniverse/subject-viewers@workspace:packages/lib-subject-viewers"
   dependencies:
+    "@babel/cli": "npm:^7.25.9"
     "@storybook/addon-a11y": "npm:~7.6.11"
     "@storybook/addon-essentials": "npm:~7.6.11"
     "@storybook/react": "npm:~7.6.11"
