@@ -19,7 +19,7 @@ jobs:
          node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --immutable --ignore-scripts
+      - run: yarn install --immutable
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-project build
@@ -39,7 +39,7 @@ jobs:
          node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --immutable --ignore-scripts
+      - run: yarn install --immutable
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/user build:es6
@@ -58,7 +58,7 @@ jobs:
          node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --immutable --ignore-scripts
+      - run: yarn install --immutable
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/content build:es6
       - run: yarn workspace @zooniverse/user build:es6
