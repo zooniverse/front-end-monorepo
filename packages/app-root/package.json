@@ -36,7 +36,7 @@
     "swr": "~2.2.4"
   },
   "devDependencies": {
-    "eslint-config-next": "~13.5.5",
+    "eslint-config-next": "~15.0.2",
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "selfsigned": "~2.4.1"
   },
