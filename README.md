@@ -109,14 +109,14 @@ See each package's folder for more specific documentation.
 | package name | folder | description |
 |---|---|---|
 | **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
-| **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
-| **@zooniverse/fe-project** | `packages/app-project` | Next.js application with a Pages Router (anything at `/projects/owner/display_name`) |
+| **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state |
+| **@zooniverse/fe-project** | `packages/app-project` | Next.js application with a Pages Router (anything at `/projects/[owner]/[display_name]`) |
 | **@zooniverse/fe-root** | `packages/app-root` | Next.js application with an App Router. Used for the homepage, About, Get Involved, and stats pages. |
-| **@zooniverse/content** | `packages/lib-content | Library of React components used in Zooniverse static content pages |
+| **@zooniverse/content** | `packages/lib-content` | Library of React components used in Zooniverse static content pages |
 | **@zooniverse/grommet-theme** | `packages/lib-grommet-theme` | The style definitions for a Zooniverse theme to use with Grommet |
 | **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API javascript client. Functional HTTP request helpers built on top of superagent |
 | **@zooniverse/react-components** | `packages/lib-react-components` | A set of Zooniverse-specific React components, built using Grommet |
-| **@zooniverse/subject-viewers** | `packages/lib-subject-viewers | Library of components for the subject viewers |
+| **@zooniverse/subject-viewers** | `packages/lib-subject-viewers` | Library of components for the subject viewers |
 | **@zooniverse/user** | `packages/lib-user` | Library of React components for user stats and user group pages |
 
 ## Conventions
