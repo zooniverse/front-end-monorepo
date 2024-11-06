@@ -227,28 +227,32 @@
       "question": "Can I download a volunteer Certificate? Can I use Zooniverse to fulfill Service Learning requirements?"
     },
     "item4": {
+      "answer": "Classification metadata is stored in our database with UTC timestamps, and the stats service aggregates classification counts into buckets by UTC date ranges. All stats data is displayed consistently in UTC date ranges.",
+      "question": "Why are stats displayed in UTC timezone?"
+    },
+    "item5": {
       "answer": "The Zooniverse takes very seriously the task of protecting our volunteer's personal information and classification data. Details about these efforts can be found on the <0>Zooniverse User Agreement and Privacy Policy page</0> and the <1>Zooniverse Security page.</1>",
       "question": "What does the Zooniverse do with my account information?"
     },
-    "item5": {
+    "item6": {
       "answer": "You can post your suggestions for new features and report bugs via <0>Zooniverse Talk</0>, through an Issue on the relevant <1>Github repository</1>, or <2>contact us</2>.",
       "question": "I have a feature request or found a bug; who should I talk to/how do I report it?"
     },
-    "item6": {
+    "item7": {
       "answer": "The Zooniverse is a collaboration between institutions from the United Kingdom and the United States; all of our team are employed by one or the other of these partner institutions. Check out the <0>Zooniverse jobs page</0> to find out more about employment opportunities within the Zooniverse.",
       "question": "Is the Zooniverse hiring?"
     },
-    "item7": {
+    "item8": {
       "answer0": "The Zooniverse is a platform for people-powered research, not an entity, company, or non-profit. We are a multi-institutional collaboration.",
       "answer1": "The Adler Planetarium in Chicago, one of the host institutions for the Zooniverse team, is a 501(c)(3). Individuals or organizations that need to link explicitly to a 501(c)(3) for their volunteering efforts use the Adler Planetarium as the reference. Documentation of the Adler Planetarium's 501(c)(3) status is provided <0>here</0>, and the Adler Planetarium EIN number is 36-6210902. When inputting the organization name, please use “Adler Planetarium - Zooniverse” if possible. If not possible, please use “Adler Planetarium” (which matches the EIN number). In all cases, you'll volunteer through Zooniverse.org.",
       "answer2": "For information on how to donate, please visit our <0>donation page.</0>",
       "question": "Is the Zooniverse a non-profit organization?"
     },
-    "item8": {
+    "item9": {
       "answer": "You can find more details on how to cite the Zooniverse in research publications using data derived from use of the Zooniverse Project Builder on our <0>Resources page</0>.",
       "question": "I'm a project owner/research team member, how do I acknowledge the Zooniverse and the Project Builder Platform in my paper, talk abstract, etc.?"
     },
-    "item9": {
+    "item10": {
       "answer": "We support major browsers up to the second to last version.",
       "question": "What browser version does Zooniverse support?"
     }

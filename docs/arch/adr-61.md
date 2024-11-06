@@ -14,7 +14,7 @@ Classification metadata is stored in the database with UTC timestamps, and the s
 
 Example: A volunteer submits classifications at 9pm Chicago, but it's 3am UTC.
 
-Classification metadata is stored in the database with UTC timestamps. If a volunteer's local timezone is Oct 31, but the UTC date is Nov 1 then their classifications are put into the time bucket for Nov 1. In a bar chart UI componenent that displays "Last 7 Days", the volunteer sees Oct 26 - Nov 1. As this volunteer submits classifications, their classification count will increase in the bar for Nov 1 (not their local time of 9pm Oct 31).
+Classification metadata is stored in our database with UTC timestamps. If a volunteer's local timezone is Oct 31, but the UTC date is Nov 1 then their classifications are put into the time bucket for Nov 1. In a bar chart UI componenent that displays "Last 7 Days", the volunteer sees Oct 26 - Nov 1. As this volunteer submits classifications, their classification count will increase in the bar for Nov 1 (not their local time of 9pm Oct 31).
 
 ### When a volunteer's local timezone is ahead of UTC
 
@@ -42,6 +42,6 @@ Following this ADR, the decisions below will be implemented. When a user navigat
 
 2. A question + answer will be added to the About Zooniverse > FAQ page explaining why stats data are displayed in a UTC date range.
 
-3. The YourStats component in app-project will be redesigned and refactored to match the "Last 7 Days" and "All Time" stats components on a user's personal stats page.
+3. The YourStats component in app-project will be redesigned and refactored to match the "Last 7 Days" and "All Time" stats components on a user's personal stats page. The label "Last 7 Days" is more adaptable to volunteers located across the globe, yet granular enough to display incrementing classification counts "live".
 
 4. The eventual redesign and development of the Project Stats page will follow the above practice of a clear x-axis label and data fetching in UTC date ranges.
