@@ -227,8 +227,8 @@
       "question": "Can I download a volunteer Certificate? Can I use Zooniverse to fulfill Service Learning requirements?"
     },
     "item4": {
-      "answer": "Classification metadata is stored in our database with UTC timestamps, and the stats service aggregates classification counts into buckets by UTC date ranges. All stats data is displayed consistently in UTC date ranges.",
-      "question": "Why are stats displayed in UTC timezone?"
+      "answer": "Classification metadata is stored in our database with UTC timestamps, and the stats service aggregates classification counts into buckets by UTC date ranges. All stats are displayed consistently in UTC date ranges.",
+      "question": "Why are stats displayed in the UTC timezone?"
     },
     "item5": {
       "answer": "The Zooniverse takes very seriously the task of protecting our volunteer's personal information and classification data. Details about these efforts can be found on the <0>Zooniverse User Agreement and Privacy Policy page</0> and the <1>Zooniverse Security page.</1>",
