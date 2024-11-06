@@ -34,7 +34,7 @@ ADD yarn.lock /usr/src/
 
 COPY .yarn /usr/src/.yarn
 
-ADD .yarnrc /usr/src/
+ADD .yarnrc.yml /usr/src/
 
 ADD lerna.json /usr/src/
 
@@ -70,7 +70,7 @@ ADD yarn.lock /usr/src/
 
 COPY .yarn /usr/src/.yarn
 
-ADD .yarnrc /usr/src/
+ADD .yarnrc.yml /usr/src/
 
 COPY --from=builder /usr/src/packages ./packages
 
