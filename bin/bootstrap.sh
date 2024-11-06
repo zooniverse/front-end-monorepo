@@ -15,24 +15,28 @@ set -ev
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 cd $ROOT_DIR
 
+printf 'Installing dependencies...\n'
+yarn install --immutable
+printf '\n'
+
 printf 'Building `lib-react-components`...\n'
-yarn workspace @zooniverse/react-components install --immutable
+yarn workspace @zooniverse/react-components build
 printf '\n'
 
 printf 'Building `lib-content`...\n'
-yarn workspace @zooniverse/content install --immutable
+yarn workspace @zooniverse/content build
 printf '\n'
 
 printf 'Building `lib-user`...\n'
-yarn workspace @zooniverse/user install --immutable
+yarn workspace @zooniverse/user build
 printf '\n'
 
 printf 'Building `lib-subject-viewers`...\n'
-yarn workspace @zooniverse/subject-viewers install --immutable
+yarn workspace @zooniverse/subject-viewers build
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
-yarn workspace @zooniverse/classifier install --immutable
+yarn workspace @zooniverse/classifier build
 printf '\n'
 
 printf 'Building `fe-project`...\n'
