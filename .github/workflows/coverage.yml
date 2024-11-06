@@ -21,7 +21,7 @@ jobs:
           node-version: 'lts/iron'
           cache: 'yarn'
 
-      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
+      - run: yarn install --production=false --immutable --ignore-scripts
       - run: yarn workspace @zooniverse/react-components build:cjs
       - run: yarn workspace @zooniverse/user build:cjs
       - run: yarn workspace @zooniverse/subject-viewers build:cjs

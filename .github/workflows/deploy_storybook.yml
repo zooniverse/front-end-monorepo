@@ -18,7 +18,7 @@ jobs:
          node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn install --production=false --immutable
       - run: yarn workspace @zooniverse/react-components build:es6
       - name: Deploy to GH Pages
         run: yarn deploy-storybook -- --ci

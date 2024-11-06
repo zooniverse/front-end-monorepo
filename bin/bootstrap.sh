@@ -16,23 +16,23 @@ ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 cd $ROOT_DIR
 
 printf 'Building `lib-react-components`...\n'
-yarn workspace @zooniverse/react-components install --frozen-lockfile
+yarn workspace @zooniverse/react-components install --immutable
 printf '\n'
 
 printf 'Building `lib-content`...\n'
-yarn workspace @zooniverse/content install --frozen-lockfile
+yarn workspace @zooniverse/content install --immutable
 printf '\n'
 
 printf 'Building `lib-user`...\n'
-yarn workspace @zooniverse/user install --frozen-lockfile
+yarn workspace @zooniverse/user install --immutable
 printf '\n'
 
 printf 'Building `lib-subject-viewers`...\n'
-yarn workspace @zooniverse/subject-viewers install --frozen-lockfile
+yarn workspace @zooniverse/subject-viewers install --immutable
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
-yarn workspace @zooniverse/classifier install --frozen-lockfile
+yarn workspace @zooniverse/classifier install --immutable
 printf '\n'
 
 printf 'Building `fe-project`...\n'
