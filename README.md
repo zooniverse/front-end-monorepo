@@ -1,14 +1,9 @@
 # Zooniverse Front-End Monorepo
 
-[![Build Status](https://travis-ci.com/zooniverse/front-end-monorepo.svg?branch=master)](https://travis-ci.com/zooniverse/front-end-monorepo)
 [![Coverage Status](https://coveralls.io/repos/github/zooniverse/front-end-monorepo/badge.svg?branch=master)](https://coveralls.io/github/zooniverse/front-end-monorepo?branch=master)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
-
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/master/LICENSE.md)
 ![Contributors](https://img.shields.io/github/contributors/zooniverse/front-end-monorepo.svg)
-
-️Take a look at [our roadmap](https://trello.com/b/yg0r4dG5/front-end-rebuild-roadmap)! 🛣️
 
 ---
 
@@ -39,7 +34,7 @@ Node, git, and yarn can be installed through [homebrew](https://brew.sh/) on Mac
 
 This monorepo is managed with [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
 
-Yarn Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
+Yarn Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place. See documentation for [Corepack](https://yarnpkg.com/corepack), too.
 
 ## Getting started
 
@@ -105,7 +100,7 @@ The `bootstrap` script will install the dependencies and build any local package
 
 ## Helpful Guides
 
-- [Yarn docs](https://yarnpkg.com/en/docs)
+- [Yarn docs](https://yarnpkg.com/)
 
 ## Packages
 
@@ -115,10 +110,14 @@ See each package's folder for more specific documentation.
 |---|---|---|
 | **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
 | **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
-| **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a project (anything at `/projects/owner/display_name`) |
+| **@zooniverse/fe-project** | `packages/app-project` | Next.js application with a Pages Router (anything at `/projects/owner/display_name`) |
+| **@zooniverse/fe-root** | `packages/app-root` | Next.js application with an App Router. Used for the homepage, About, Get Involved, and stats pages. |
+| **@zooniverse/content** | `packages/lib-content | Library of React components used in Zooniverse static content pages |
 | **@zooniverse/grommet-theme** | `packages/lib-grommet-theme` | The style definitions for a Zooniverse theme to use with Grommet |
 | **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API javascript client. Functional HTTP request helpers built on top of superagent |
 | **@zooniverse/react-components** | `packages/lib-react-components` | A set of Zooniverse-specific React components, built using Grommet |
+| **@zooniverse/subject-viewers** | `packages/lib-subject-viewers | Library of components for the subject viewers |
+| **@zooniverse/user** | `packages/lib-user` | Library of React components for user stats and user group pages |
 
 ## Conventions
 
