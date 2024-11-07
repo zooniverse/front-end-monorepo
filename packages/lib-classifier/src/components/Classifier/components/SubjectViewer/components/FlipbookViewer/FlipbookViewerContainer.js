@@ -3,27 +3,41 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 
-import { useKeyZoom, useStores } from '@hooks'
+import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
 import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 
 function storeMapper(store) {
   const {
+    enableRotation,
     frame: defaultFrame,
-    separateFramesView
+    invert,
+    move,
+    rotation,
+    separateFramesView,
+    setOnPan,
+    setOnZoom
   } = store.subjectViewer
 
   const {
     flipbook_autoplay: flipbookAutoplay,
+    limit_subject_height: limitSubjectHeight,
     playIterations
   } = store.workflows?.active?.configuration
 
   return {
     defaultFrame,
+    enableRotation,
     flipbookAutoplay,
+    invert,
+    limitSubjectHeight,
+    move,
     playIterations,
-    separateFramesView
+    rotation,
+    separateFramesView,
+    setOnPan,
+    setOnZoom
   }
 }
 
@@ -38,9 +52,16 @@ function FlipbookViewerContainer({
 }) {
   const {
     defaultFrame,
+    enableRotation,
     flipbookAutoplay,
+    invert,
+    limitSubjectHeight,
+    move,
     playIterations,
-    separateFramesView
+    rotation,
+    separateFramesView,
+    setOnPan,
+    setOnZoom
   } = useStores(storeMapper)
 
   useEffect(function preloadImages() {
@@ -62,6 +83,7 @@ function FlipbookViewerContainer({
       {separateFramesView ? (
         <SeparateFramesViewer
           enableInteractionLayer={enableInteractionLayer}
+          enableRotation={enableRotation}
           onError={onError}
           onReady={onReady}
           subject={subject}
@@ -70,10 +92,17 @@ function FlipbookViewerContainer({
         <FlipbookViewer
           defaultFrame={defaultFrame}
           enableInteractionLayer={enableInteractionLayer}
+          enableRotation={enableRotation}
           flipbookAutoplay={flipbookAutoplay}
+          invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
+          move={move}
           onError={onError}
           onReady={onReady}
           playIterations={playIterations}
+          rotation={rotation}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
           subject={subject}
         />
       )}

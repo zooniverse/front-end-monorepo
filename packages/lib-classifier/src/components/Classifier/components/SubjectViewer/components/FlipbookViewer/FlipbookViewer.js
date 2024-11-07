@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import locationValidator from '../../helpers/locationValidator'
 
-import SingleImageViewer from '../SingleImageViewer'
+import SingleImageViewerContainer from '../SingleImageViewer/SingleImageViewerContainer'
 import FlipbookControls from './components'
 
 const DEFAULT_HANDLER = () => true
@@ -12,10 +12,17 @@ const DEFAULT_HANDLER = () => true
 const FlipbookViewer = ({
   defaultFrame = 0,
   enableInteractionLayer = false,
+  enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
+  invert = false,
+  limitSubjectHeight = false,
+  move = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   playIterations,
+  rotation = 0,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   subject
 }) => {
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
@@ -32,6 +39,7 @@ const FlipbookViewer = ({
     setPlaying(!playing)
   }
 
+  // TODO: refactor for handleSpaceBar
   const handleSpaceBar = (event) => {
     if (event.key === ' ') {
       event.preventDefault()
@@ -43,12 +51,18 @@ const FlipbookViewer = ({
 
   return (
     <Box>
-      <SingleImageViewer
+      <SingleImageViewerContainer
         enableInteractionLayer={enableInteractionLayer}
+        enableRotation={enableRotation}
         frame={currentFrame}
+        invert={invert}
+        limitSubjectHeight={limitSubjectHeight}
+        move={move}
         onError={onError}
-        onKeyDown={handleSpaceBar}
         onReady={onReady}
+        rotation={rotation}
+        setOnPan={setOnPan}
+        setOnZoom={setOnZoom}
         subject={subject}
       />
       <FlipbookControls
@@ -65,7 +79,7 @@ const FlipbookViewer = ({
 
 FlipbookViewer.propTypes = {
   /** Fetched from metadata.default_frame or initialized to zero */
-  frame: PropTypes.number,
+  defaultFrame: PropTypes.number,
   /** Passed from Subject Viewer Store */
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
@@ -75,7 +89,7 @@ FlipbookViewer.propTypes = {
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
-  limit_subject_height: PropTypes.bool,
+  limitSubjectHeight: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
   /** Passed from Subject Viewer Store */

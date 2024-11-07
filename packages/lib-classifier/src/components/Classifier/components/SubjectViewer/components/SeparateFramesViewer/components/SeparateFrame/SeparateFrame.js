@@ -25,7 +25,6 @@ const SeparateFrame = ({
   enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
-  frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -94,7 +93,6 @@ const SeparateFrame = ({
         rotation={rotation}
         setOnZoom={setOnZoom}
         subject={subject}
-        subjectId={`${subject?.id}-${frame}`}
       />
       <Box
         background={{
