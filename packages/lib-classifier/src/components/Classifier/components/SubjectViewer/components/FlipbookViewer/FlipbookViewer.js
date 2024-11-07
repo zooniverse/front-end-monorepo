@@ -10,14 +10,12 @@ import FlipbookControls from './components'
 const DEFAULT_HANDLER = () => true
 
 const FlipbookViewer = ({
-  activeTool,
   defaultFrame = 0,
   enableInteractionLayer = false,
   flipbookAutoplay = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   playIterations,
-  resetView = DEFAULT_HANDLER,
   subject
 }) => {
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
@@ -32,12 +30,6 @@ const FlipbookViewer = ({
 
   const onPlayPause = () => {
     setPlaying(!playing)
-  }
-
-  const handleFrameChange = (newFrame) => {
-    activeTool?.validate()
-    resetView()
-    setCurrentFrame(newFrame)
   }
 
   const handleSpaceBar = (event) => {
@@ -62,7 +54,7 @@ const FlipbookViewer = ({
       <FlipbookControls
         currentFrame={currentFrame}
         locations={subject.locations}
-        onFrameChange={handleFrameChange}
+        onFrameChange={setCurrentFrame}
         onPlayPause={onPlayPause}
         playing={playing}
         playIterations={playIterations}
