@@ -6,6 +6,7 @@ import locationValidator from '../../helpers/locationValidator'
 import { useSubjectImage } from '@hooks'
 
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
+import PlaceholderSVG from '../SingleImageViewer/components/PlaceholderSVG'
 import FlipbookControls from './components'
 
 const DEFAULT_HANDLER = () => true
@@ -68,6 +69,24 @@ const FlipbookViewer = ({
     } else {
       onKeyDown(event)
     }
+  }
+
+  /** Loading */
+  
+  if (loading) {
+    return (
+      <PlaceholderSVG
+        maxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
+        maxWidth={limitSubjectHeight ? `${naturalWidth}px` : '100%'}
+        viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+      />
+    )
+  }
+
+  /** Error */
+
+  if (error) {
+    return <div>Something went wrong.</div>
   }
 
   return (

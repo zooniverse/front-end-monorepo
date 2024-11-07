@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useState } from 'react'
 
 import ZoomControlButton from '../ZoomControlButton'
 
@@ -41,17 +40,6 @@ function SingleImageViewer({
   zoomControlFn,
   zooming = true
 }) {
-  const [dragMove, setDragMove] = useState()
-  const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
-
-  function setOnDrag(callback) {
-    setDragMove(() => callback)
-  }
-
-  function onDrag(event, difference) {
-    dragMove?.(event, difference)
-  }
-
   const SingleImageCanvasProps = {
     enableInteractionLayer,
     frame,
@@ -60,13 +48,11 @@ function SingleImageViewer({
     move,
     naturalHeight,
     naturalWidth,
-    onDrag,
     onKeyDown,
     rotation,
     src,
     subject,
-    subjectId,
-    viewBox
+    subjectId
   }
 
   return (
@@ -118,12 +104,9 @@ SingleImageViewer.propTypes = {
   move: bool,
   naturalHeight: number,
   naturalWidth: number,
-  onDrag: func,
   onKeyDown: func,
   panning: bool,
   rotation: number,
-  scale: number,
-  setOnDrag: func,
   setOnZoom: func,
   setOnPan: func,
   src: string,

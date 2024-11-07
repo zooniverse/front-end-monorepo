@@ -65,7 +65,6 @@ export function InteractionLayerContainer({
   setActiveMark = () => { },
   shownMarks = SHOWN_MARKS.ALL,
   taskKey = '',
-  viewBox,
   width,
   played,
   duration

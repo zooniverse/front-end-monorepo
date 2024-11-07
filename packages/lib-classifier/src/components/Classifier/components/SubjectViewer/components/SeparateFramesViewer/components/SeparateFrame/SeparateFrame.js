@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useStores, useSubjectImage } from '@hooks'
 
 import SingleImageCanvas from '../../../SingleImageViewer/SingleImageCanvas'
+import PlaceholderSVG from '../../../SingleImageViewer/components/PlaceholderSVG'
 import {
   AnnotateButton,
   InvertButton,
@@ -28,7 +29,9 @@ const SeparateFrame = ({
   frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER
+  onReady = DEFAULT_HANDLER,
+  subject,
+  subjectId
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
     frame,
@@ -42,11 +45,13 @@ const SeparateFrame = ({
   const maxZoom = 5
   const minZoom = 0.1
 
-  const defaultViewBox = {
-    x: 0,
-    y: 0,
-    height: naturalHeight,
-    width: naturalWidth
+  const initialTransformMatrix = {
+    scaleX: 1,
+    scaleY: 1,
+    translateX: 0,
+    translateY: 0,
+    skewX: 0,
+    skewY: 0
   }
 
   /** State Variables */
@@ -55,43 +60,30 @@ const SeparateFrame = ({
   const [rotation, setRotation] = useState(0)
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
-  const [viewBox, setViewBox] = useState(defaultViewBox)
-  const [zoom, setZoom] = useState(1)
+  const [transformMatrix, setTransformMatrix] = useState(initialTransformMatrix)
 
   /** Effects */
 
   useEffect(() => {
     if (frameSrc) {
       enableRotation()
-      setViewBox(defaultViewBox)
-      setZoom(1)
+      setTransformMatrix(initialTransformMatrix)
     }
   }, [frameSrc])
 
-  useEffect(() => {
-    const newViewBox = scaledViewBox(zoom)
-    setViewBox(newViewBox)
-  }, [zoom])
-
   /** Move/Zoom functions */
 
-  const scaledViewBox = scale => {
-    const viewBoxScale = 1 / scale
-    const xCentre = viewBox.x + viewBox.width / 2
-    const yCentre = viewBox.y + viewBox.height / 2
-    const width = parseInt(naturalWidth * viewBoxScale, 10)
-    const height = parseInt(naturalHeight * viewBoxScale, 10)
-    const x = xCentre - width / 2
-    const y = yCentre - height / 2
-    return { x, y, width, height }
-  }
-
   const onDrag = (event, difference) => {
-    setViewBox(prevViewBox => {
-      const newViewBox = { ...prevViewBox }
-      newViewBox.x -= difference.x
-      newViewBox.y -= difference.y
-      return newViewBox
+    setTransformMatrix(prevMatrix => {
+      // Adjust the drag distance by the current scale
+      const adjustedX = difference.x / prevMatrix.scaleX
+      const adjustedY = difference.y / prevMatrix.scaleY
+      
+      return {
+        ...prevMatrix,
+        translateX: prevMatrix.translateX + adjustedX,
+        translateY: prevMatrix.translateY + adjustedY
+      }
     })
   }
 
@@ -113,11 +105,25 @@ const SeparateFrame = ({
   }
 
   const separateFrameZoomIn = () => {
-    setZoom(prevZoom => Math.min(prevZoom + 0.1, maxZoom))
+    setTransformMatrix(prevMatrix => {
+      const newScale = Math.min(prevMatrix.scaleX + 0.1, maxZoom)
+      return {
+        ...prevMatrix,
+        scaleX: newScale,
+        scaleY: newScale
+      }
+    })
   }
 
   const separateFrameZoomOut = () => {
-    setZoom(prevZoom => Math.max(prevZoom - 0.1, minZoom))
+    setTransformMatrix(prevMatrix => {
+      const newScale = Math.max(prevMatrix.scaleX - 0.1, minZoom)
+      return {
+        ...prevMatrix,
+        scaleX: newScale,
+        scaleY: newScale
+      }
+    })
   }
 
   const separateFrameRotate = () => {
@@ -132,24 +138,17 @@ const SeparateFrame = ({
   const separateFrameResetView = () => {
     setRotation(0)
     setInvert(false)
-    setZoom(1)
-    setViewBox({
-      x: 0,
-      y: 0,
-      width: naturalWidth,
-      height: naturalHeight
-    })
+    setTransformMatrix(initialTransformMatrix)
   }
 
   /** Panning with Keyboard */
 
   const onPan = (dx, dy) => {
-    setViewBox(prevViewBox => {
-      const newViewBox = { ...prevViewBox }
-      newViewBox.x += dx * 10
-      newViewBox.y += dy * 10
-      return newViewBox
-    })
+    setTransformMatrix(prevMatrix => ({
+      ...prevMatrix,
+      translateX: prevMatrix.translateX + dx * 10,
+      translateY: prevMatrix.translateY + dy * 10
+    }))
   }
 
   const onKeyDown = e => {
@@ -195,9 +194,25 @@ const SeparateFrame = ({
     }
   }
 
-  /** Frame Component */
+  /** Loading */
+  
+  if (loading) {
+    return (
+      <PlaceholderSVG
+        maxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
+        maxWidth={limitSubjectHeight ? `${naturalWidth}px` : '100%'}
+        viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+      />
+    )
+  }
 
-  const { x, y, width, height } = scaledViewBox(zoom)
+  /** Error */
+
+  if (error) {
+    return <div>Something went wrong.</div>
+  }
+
+  /** Frame Component */
 
   return (
     <Box direction='row'>
@@ -213,9 +228,9 @@ const SeparateFrame = ({
         onKeyDown={onKeyDown}
         rotation={rotation}
         src={frameSrc}
-        subject={img}
-        subjectId={frameUrl}
-        viewBox={`${x} ${y} ${width} ${height}`}
+        subject={subject}
+        subjectId={`${subjectId}-${frame}`}
+        transformMatrix={transformMatrix}
       />
       <Box
         background={{

@@ -7,6 +7,27 @@ import InteractionLayer from '../InteractionLayer'
 
 import SVGImage from '../SVGComponents/SVGImage'
 
+function calculateAdjustedViewBox({ naturalWidth, naturalHeight, transformMatrix }) {
+  const { scaleX, translateX, translateY } = transformMatrix
+  const scale = scaleX
+  
+  // Calculate new dimensions
+  const newWidth = naturalWidth / scale
+  const newHeight = naturalHeight / scale
+  
+  // Calculate new origin to keep center point
+  const x = (-translateX / scale) 
+  const y = (-translateY / scale)
+  
+  return `${x} ${y} ${newWidth} ${newHeight}`
+} 
+
+function calculateScale({ canvas, naturalWidth }) {
+  const { width: clientWidth } = canvas?.getBoundingClientRect() || {}
+  const calculatedScale = clientWidth / naturalWidth
+  return !Number.isNaN(calculatedScale) ? calculatedScale : 1
+}
+
 function SingleImageCanvas({
   children,
   enableInteractionLayer,
@@ -22,64 +43,66 @@ function SingleImageCanvas({
   src,
   subject,
   subjectId,
+  initialTransformMatrix, // per VisXZoom
   transform, // per VisXZoom
-  viewBox
+  transformMatrix // per VisXZoom
 }) {
   const canvasLayer = useRef()
   const canvas = canvasLayer.current
+  
+  const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
+  
+  const adjustedViewBox = calculateAdjustedViewBox({ naturalWidth, naturalHeight, transformMatrix })
 
-  const rotationTransform = `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})`
+  const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
 
-  let combinedTransform = rotationTransform
-  if (transform) {
-    combinedTransform += ` ${transform}`
-  }
-
-  const { width: clientWidth, height: clientHeight } = canvas?.getBoundingClientRect() || {}
-  const calculatedScale = clientWidth / naturalWidth
-  const scale = !Number.isNaN(calculatedScale) ? calculatedScale : 1
+  const scale = calculateScale({ canvas, naturalWidth })
 
   return (
-    <SVGContext.Provider
-      value={{
-        canvas,
-        rotate: rotation,
-        viewBox,
-        width: naturalWidth,
-        height: naturalHeight,
-      }}
+    <svg
+      viewBox={viewBox}
     >
-      <svg
-        onKeyDown={onKeyDown}
-        ref={canvasLayer}
-        viewBox={viewBox}
+      <SVGContext.Provider
+        value={{
+          canvas,
+          rotate: rotation,
+          viewBox: adjustedViewBox,
+          width: naturalWidth,
+          height: naturalHeight,
+        }}
       >
-        <g transform={combinedTransform}>
-          <SVGImage
-            ref={imgRef}
-            invert={invert}
-            move={move}
-            naturalHeight={naturalHeight}
-            naturalWidth={naturalWidth}
-            onDrag={onDrag}
-            src={src}
-            subjectID={subjectId}
-          />
-          {children}
-          {enableInteractionLayer && (
-            <InteractionLayer
-              frame={frame}
-              height={naturalHeight}
+        <g transform={rotationTransform}>
+          <svg
+            onKeyDown={onKeyDown}
+            ref={canvasLayer}
+            viewBox={adjustedViewBox}
+          >
+            <SVGImage
+              ref={imgRef}
+              invert={invert}
+              move={move}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
               onDrag={onDrag}
-              scale={scale}
-              subject={subject}
-              width={naturalWidth}
-              viewBox={viewBox}
+              src={src}
+              subjectID={subjectId}
             />
-          )}
+            {children}
+            {enableInteractionLayer && (
+              <InteractionLayer
+                frame={frame}
+                height={naturalHeight}
+                move={move}
+                onDrag={onDrag}
+                scale={scale}
+                subject={subject}
+                width={naturalWidth}
+              />
+            )}
+          </svg>
         </g>
-      </svg>
-    </SVGContext.Provider>
+      </SVGContext.Provider>
+    </svg>
   )
 }
 
@@ -107,8 +130,11 @@ SingleImageCanvas.propTypes = {
     }))
   }),
   subjectId: string,
-  transform: string,
-  viewBox: string,
+  transformMatrix: shape({
+    scaleX: number,
+    translateX: number,
+    translateY: number
+  })
 }
 
 export default SingleImageCanvas
