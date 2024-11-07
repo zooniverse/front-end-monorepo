@@ -28,23 +28,22 @@ function calculateScale({ canvas, naturalWidth }) {
   return !Number.isNaN(calculatedScale) ? calculatedScale : 1
 }
 
+const DEFAULT_HANDLER = () => true
+
 function SingleImageCanvas({
   children,
-  enableInteractionLayer,
-  frame,
+  enableInteractionLayer = false,
+  frame = 0,
   imgRef,
-  invert,
-  move,
+  invert = false,
+  move = false,
   naturalHeight,
   naturalWidth,
-  onDrag,
-  onKeyDown,
-  rotation,
+  onDrag = DEFAULT_HANDLER,
+  rotation = 0,
   src,
   subject,
   subjectId,
-  initialTransformMatrix, // per VisXZoom
-  transform, // per VisXZoom
   transformMatrix // per VisXZoom
 }) {
   const canvasLayer = useRef()
@@ -73,7 +72,6 @@ function SingleImageCanvas({
       >
         <g transform={rotationTransform}>
           <svg
-            onKeyDown={onKeyDown}
             ref={canvasLayer}
             viewBox={adjustedViewBox}
           >
