@@ -135,6 +135,7 @@ describe('Model > ClassificationStore', function () {
         clock.tick(1 * 60 * 60 * 1000) // wait for one hour before starting the classification.
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         clock.tick(30 * 1000) // wait for 30 seconds before finishing the classification.
+        classifications.addAnnotation(taskSnapshot, 1)
         classifications.completeClassification()
       })
 
@@ -150,6 +151,13 @@ describe('Model > ClassificationStore', function () {
       it('should record the finished at time', function () {
         const finishedAt = submittedClassification.metadata.finished_at
         expect(finishedAt).to.equal('2024-11-06T14:00:30.000Z')
+      })
+
+      it('should only record time spent classifying', function () {
+        const startedAt = submittedClassification.metadata.started_at
+        const finishedAt = submittedClassification.metadata.finished_at
+        const timeSpent = (new Date(finishedAt) - new Date(startedAt)) / 1000
+        expect(timeSpent).to.equal(30)
       })
     })
 
