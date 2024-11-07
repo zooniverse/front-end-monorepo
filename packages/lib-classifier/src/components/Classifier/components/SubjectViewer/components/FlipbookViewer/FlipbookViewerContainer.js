@@ -11,18 +11,8 @@ import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 function storeMapper(store) {
   const {
     frame: defaultFrame,
-    resetView,
     separateFramesView
   } = store.subjectViewer
-
-  const { activeStepTasks } = store.workflowSteps
-
-  const [activeInteractionTask] = activeStepTasks.filter(
-    (task) => task.type === 'drawing' || task.type === 'transcription'
-  )
-  const {
-    activeTool
-  } = activeInteractionTask || {}
 
   const {
     flipbook_autoplay: flipbookAutoplay,
@@ -30,11 +20,9 @@ function storeMapper(store) {
   } = store.workflows?.active?.configuration
 
   return {
-    activeTool,
     defaultFrame,
     flipbookAutoplay,
     playIterations,
-    resetView,
     separateFramesView
   }
 }
@@ -49,11 +37,9 @@ function FlipbookViewerContainer({
   subject
 }) {
   const {
-    activeTool,
     defaultFrame,
     flipbookAutoplay,
     playIterations,
-    resetView,
     separateFramesView
   } = useStores(storeMapper)
 
@@ -82,14 +68,12 @@ function FlipbookViewerContainer({
         />
       ) : (
         <FlipbookViewer
-          activeTool={activeTool}
           defaultFrame={defaultFrame}
           enableInteractionLayer={enableInteractionLayer}
           flipbookAutoplay={flipbookAutoplay}
           onError={onError}
           onReady={onReady}
           playIterations={playIterations}
-          resetView={resetView}
           subject={subject}
         />
       )}
