@@ -37,7 +37,7 @@ function SingleImageViewer({
   subject,
   subjectId,
   title = DEFAULT_TITLE,
-  zoomControlFn,
+  zoomControlFn = null,
   zooming = true
 }) {
   const SingleImageCanvasProps = {
