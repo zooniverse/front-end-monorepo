@@ -93,6 +93,8 @@ function SeparateFramesViewer({
             limitSubjectHeight={limitSubjectHeight}
             onError={onError}
             onReady={onReady}
+            subject={subject}
+            subjectId={subject.id}
           />
         ))}
       </Grid>
