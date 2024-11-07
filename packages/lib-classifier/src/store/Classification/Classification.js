@@ -1,9 +1,10 @@
 import cuid from 'cuid'
-import { types, getSnapshot, getType } from 'mobx-state-tree'
+import { types, getSnapshot, getType, addDisposer } from 'mobx-state-tree'
 import * as tasks from '@plugins/tasks'
 import AnnotationsStore from '@store/AnnotationsStore'
 import Resource from '@store/Resource'
 import ClassificationMetadata  from './ClassificationMetadata'
+import { autorun } from 'mobx'
 
 const annotationModels = Object.values(tasks).map(task => task.AnnotationModel)
 
@@ -19,6 +20,17 @@ const Classification = types
     metadata: types.maybe(ClassificationMetadata)
   })
   .views(self => ({
+    /**
+     * Returns false until we start updating task annotations.
+     */
+    get inProgress() {
+      let inProgress = false
+      self.annotations.forEach(annotation => {
+        inProgress ||= annotation._inProgress
+      })
+      return inProgress
+    },
+
     toSnapshot () {
       let snapshot = getSnapshot(self)
       let annotations = []
@@ -57,6 +69,24 @@ const Classification = types
     // convert annotations to an array
     newSnapshot.annotations = Object.values(snapshot.annotations)
     return newSnapshot
+  })
+  .actions(self => {
+    function _onAnnotationsChange () {
+      // set started at when inProgress changes from false to true
+      if (self.inProgress) {
+        self.setStartedAt()
+      }
+    }
+
+    return ({
+      afterAttach () {
+        addDisposer(self, autorun(_onAnnotationsChange))
+      },
+
+      setStartedAt () {
+        self.metadata.startedAt = new Date().toISOString()
+      }
+    })
   })
 
 export default types.compose('ClassificationResource', Resource, AnnotationsStore, Classification)

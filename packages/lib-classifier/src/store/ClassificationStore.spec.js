@@ -132,10 +132,12 @@ describe('Model > ClassificationStore', function () {
         })
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        const classification = classifications.active
+        const annotation = classification.createAnnotation(taskSnapshot)
         clock.tick(1 * 60 * 60 * 1000) // wait for one hour before starting the classification.
-        classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
+        annotation.update(0)
         clock.tick(30 * 1000) // wait for 30 seconds before finishing the classification.
-        classifications.addAnnotation(taskSnapshot, 1)
+        annotation.update(1)
         classifications.completeClassification()
       })
 

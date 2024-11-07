@@ -88,10 +88,6 @@ const ClassificationStore = types
 
       if (validClassificationReference) {
         const classification = self.active
-        if (classification?.annotations.size === 0) {
-          // update startedAt if we're starting a new classification
-          classification.metadata.startedAt = (new Date()).toISOString()
-        }
         if (classification) {
           return classification.addAnnotation(task, annotationValue)
         }
