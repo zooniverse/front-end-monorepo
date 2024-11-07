@@ -26,6 +26,7 @@ const minFrameWidth = 300
 
 function SeparateFramesViewer({
   enableInteractionLayer = false,
+  enableRotation = DEFAULT_HANDLER,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -88,6 +89,7 @@ function SeparateFramesViewer({
           <SeparateFrame
             key={location.url}
             enableInteractionLayer={enableInteractionLayer}
+            enableRotation={enableRotation}
             frame={index}
             frameUrl={location.url}
             limitSubjectHeight={limitSubjectHeight}
@@ -109,6 +111,8 @@ export default observer(SeparateFramesViewer)
 SeparateFramesViewer.propTypes = {
   /** Passed from Subject Viewer Store */
   enableInteractionLayer: PropTypes.bool,
+  /** Passed from Subject Viewer Store */
+  enableRotation: PropTypes.func,
   /** @zooniverse/async-states */
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
