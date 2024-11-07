@@ -128,7 +128,6 @@ describe('Model > ClassificationStore', function () {
 
         classifications = rootStore.classifications
         classifications.setOnComplete(snapshot => {
-          console.log(snapshot)
           submittedClassification = snapshot
         })
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
