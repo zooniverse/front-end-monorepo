@@ -16,7 +16,9 @@ import {
 const DEFAULT_HANDLER = () => true
 
 function storeMapper(classifierStore) {
-  return { hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask }
+  return {
+    hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask
+  }
 }
 
 const SeparateFrame = ({
@@ -27,8 +29,7 @@ const SeparateFrame = ({
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  subject,
-  subjectId
+  subject
 }) => {
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
@@ -93,7 +94,7 @@ const SeparateFrame = ({
         rotation={rotation}
         setOnZoom={setOnZoom}
         subject={subject}
-        subjectId={`${subjectId}-${frame}`}
+        subjectId={`${subject?.id}-${frame}`}
       />
       <Box
         background={{
@@ -144,8 +145,7 @@ SeparateFrame.propTypes = {
     locations: PropTypes.arrayOf(PropTypes.shape({
       url: PropTypes.string
     }))
-  }),
-  subjectId: PropTypes.string
+  })
 }
 
 export default SeparateFrame

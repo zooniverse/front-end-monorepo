@@ -10,34 +10,32 @@ import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 
 function storeMapper(store) {
   const {
-    enableRotation,
     frame: defaultFrame,
-    invert,
-    move,
-    rotation,
-    separateFramesView,
-    setOnPan,
-    setOnZoom
+    resetView,
+    separateFramesView
   } = store.subjectViewer
+
+  const { activeStepTasks } = store.workflowSteps
+
+  const [activeInteractionTask] = activeStepTasks.filter(
+    (task) => task.type === 'drawing' || task.type === 'transcription'
+  )
+  const {
+    activeTool
+  } = activeInteractionTask || {}
 
   const {
     flipbook_autoplay: flipbookAutoplay,
-    limit_subject_height: limitSubjectHeight,
     playIterations
   } = store.workflows?.active?.configuration
 
   return {
+    activeTool,
     defaultFrame,
-    enableRotation,
     flipbookAutoplay,
-    invert,
-    limitSubjectHeight,
-    move,
     playIterations,
-    rotation,
-    separateFramesView,
-    setOnPan,
-    setOnZoom
+    resetView,
+    separateFramesView
   }
 }
 
@@ -51,33 +49,23 @@ function FlipbookViewerContainer({
   subject
 }) {
   const {
+    activeTool,
     defaultFrame,
-    enableRotation,
     flipbookAutoplay,
-    invert,
-    limitSubjectHeight,
-    move,
     playIterations,
-    rotation,
-    separateFramesView,
-    setOnPan,
-    setOnZoom
+    resetView,
+    separateFramesView
   } = useStores(storeMapper)
 
-  const { onKeyZoom } = useKeyZoom(rotation)
-
-  useEffect(
-    function preloadImages() {
-      subject?.locations?.forEach(({ url }) => {
-        if (url) {
-          const { Image } = window
-          const img = new Image()
-          img.src = url
-        }
-      })
-    },
-    [subject?.locations]
-  )
+  useEffect(function preloadImages() {
+    subject?.locations?.forEach(({ url }) => {
+      if (url) {
+        const { Image } = window
+        const img = new Image()
+        img.src = url
+      }
+    })
+    }, [subject?.locations])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
@@ -94,20 +82,14 @@ function FlipbookViewerContainer({
         />
       ) : (
         <FlipbookViewer
+          activeTool={activeTool}
           defaultFrame={defaultFrame}
           enableInteractionLayer={enableInteractionLayer}
-          enableRotation={enableRotation}
           flipbookAutoplay={flipbookAutoplay}
-          invert={invert}
-          limitSubjectHeight={limitSubjectHeight}
-          move={move}
           onError={onError}
-          onKeyDown={onKeyZoom}
           onReady={onReady}
           playIterations={playIterations}
-          rotation={rotation}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
+          resetView={resetView}
           subject={subject}
         />
       )}

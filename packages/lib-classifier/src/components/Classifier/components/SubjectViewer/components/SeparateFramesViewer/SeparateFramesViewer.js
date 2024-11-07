@@ -86,15 +86,14 @@ function SeparateFramesViewer({
       >
         {subject.locations?.map((location, index) => (
           <SeparateFrame
+            key={location.url}
             enableInteractionLayer={enableInteractionLayer}
             frame={index}
             frameUrl={location.url}
-            key={location.url}
             limitSubjectHeight={limitSubjectHeight}
             onError={onError}
             onReady={onReady}
             subject={subject}
-            subjectId={subject.id}
           />
         ))}
       </Grid>

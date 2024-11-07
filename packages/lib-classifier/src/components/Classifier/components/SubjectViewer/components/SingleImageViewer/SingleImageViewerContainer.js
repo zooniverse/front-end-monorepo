@@ -26,7 +26,7 @@ function SingleImageViewerContainer({
   setOnPan = DEFAULT_HANDLER,
   subject,
   title = DEFAULT_TITLE,
-  zoomControlFn,
+  zoomControlFn = null,
   zooming = true
 }) {
   // TODO: replace this with a better function to parse the image location from a subject.
