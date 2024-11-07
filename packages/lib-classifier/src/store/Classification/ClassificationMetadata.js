@@ -36,9 +36,10 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   .actions(self => ({
     afterAttach() {
       function _onLocaleChange() {
-        self.update({
-          userLanguage: getRoot(self)?.locale
-        })
+        const userLanguage = getRoot(self)?.locale
+        if (userLanguage) {
+          self.update({ userLanguage })
+        }
       }
       addDisposer(self, autorun(_onLocaleChange))
     },

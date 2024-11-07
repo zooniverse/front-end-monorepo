@@ -65,6 +65,7 @@ describe('Model > ClassificationStore', function () {
   describe('when a subject advances', function () {
     let classifications
     let rootStore
+
     beforeEach(function () {
       rootStore = setupStores({
         dataVisAnnotating: {},
@@ -106,6 +107,53 @@ describe('Model > ClassificationStore', function () {
   })
 
   describe('on complete classification', function () {
+    describe('submitted classifications', function () {
+      let classifications
+      let rootStore
+      let clock
+      let submittedClassification
+
+      before(function () {
+        clock = sinon.useFakeTimers(new Date('2024-11-06T13:00:00Z'))
+        rootStore = setupStores({
+          dataVisAnnotating: {},
+          drawing: {},
+          feedback: {},
+          fieldGuide: {},
+          subjectViewer: {},
+          tutorials: {},
+          workflowSteps: {},
+          userProjectPreferences: {}
+        })
+
+        classifications = rootStore.classifications
+        classifications.setOnComplete(snapshot => {
+          console.log(snapshot)
+          submittedClassification = snapshot
+        })
+        const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
+        taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        clock.tick(1 * 60 * 60 * 1000) // wait for one hour before starting the classification.
+        classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
+        clock.tick(30 * 1000) // wait for 30 seconds before finishing the classification.
+        classifications.completeClassification()
+      })
+
+      after(function () {
+        clock.restore()
+      })
+
+      it('should record the started at time', function () {
+        const startedAt = submittedClassification.metadata.started_at
+        expect(startedAt).to.equal('2024-11-06T14:00:00.000Z')
+      })
+
+      it('should record the finished at time', function () {
+        const finishedAt = submittedClassification.metadata.finished_at
+        expect(finishedAt).to.equal('2024-11-06T14:00:30.000Z')
+      })
+    })
+
     describe('with invalid feedback', function () {
       let classifications
       let rootStore
