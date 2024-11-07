@@ -49,8 +49,8 @@
     "styled-components": "5.x.x"
   },
   "devDependencies": {
-    "@babel/preset-env": "~7.25.4",
-    "@babel/preset-react": "~7.24.1",
+    "@babel/preset-env": "~7.26.0",
+    "@babel/preset-react": "~7.25.9",
     "@babel/register": "~7.25.9",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
@@ -64,7 +64,7 @@
     "dirty-chai": "~2.0.1",
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~24.0.0",
-    "mocha": "~10.7.3",
+    "mocha": "~10.8.2",
     "sinon": "~17.0.0",
     "sinon-chai": "~3.7.0",
     "storybook": "~7.6.11",
