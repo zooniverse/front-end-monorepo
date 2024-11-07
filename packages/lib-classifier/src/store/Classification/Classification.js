@@ -26,7 +26,7 @@ const Classification = types
     get inProgress() {
       let inProgress = false
       self.annotations.forEach(annotation => {
-        inProgress ||= annotation._inProgress
+        inProgress ||= annotation._inProgress || annotation._choiceInProgress
       })
       return inProgress
     },
