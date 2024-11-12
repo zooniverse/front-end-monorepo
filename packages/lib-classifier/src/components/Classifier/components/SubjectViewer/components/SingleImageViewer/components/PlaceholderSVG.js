@@ -15,6 +15,7 @@ function PlaceholderSVG({
 }) {
   return (
     <StyledPlaceholderSVG
+      data-testid='placeholder-svg'
       focusable
       maxHeight={maxHeight}
       maxWidth={maxWidth}
