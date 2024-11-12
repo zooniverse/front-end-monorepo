@@ -1,26 +1,24 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
+import { lazy, Suspense } from 'react'
+// import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer'
 
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
 
+const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
+const ProtoViewer = lazy(() => import('@zooniverse/subject-viewers/ProtoViewer'))
+
 function storeMapper(classifierStore) {
   const {
-    subjects: {
-      active: subject,
-      loadingState: subjectQueueState
-    },
-    subjectViewer: {
-      onSubjectReady,
-      onError,
-      loadingState: subjectReadyState
-    }
+    subjects: { active: subject, loadingState: subjectQueueState },
+    subjectViewer: { onSubjectReady, onError, loadingState: subjectReadyState }
   } = classifierStore
 
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
   const transcriptionTasks = classifierStore?.workflowSteps.findTasksByType('transcription')
-  const enableInteractionLayer = (drawingTasks.length > 0 || transcriptionTasks.length > 0)
+  const enableInteractionLayer = drawingTasks.length > 0 || transcriptionTasks.length > 0
 
   return {
     enableInteractionLayer,
@@ -41,31 +39,39 @@ function SubjectViewer({
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
+
   switch (subjectQueueState) {
     case asyncStates.initialized: {
       return null
     }
     case asyncStates.loading: {
-      return (<div>{t('SubjectViewer.loading')}</div>)
+      return <div>{t('SubjectViewer.loading')}</div>
     }
     case asyncStates.error: {
       console.error('There was an error loading the subjects')
       return null
     }
     case asyncStates.success: {
-      const Viewer = getViewer(subject?.viewer)
-      
+      let Viewer
+      if (subject?.viewer === 'volumetric') {
+        Viewer = ProtoViewer
+      } else {
+        Viewer = getViewer(subject?.viewer)
+      }
+
       if (Viewer) {
         return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            subject={subject}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
+          <Suspense fallback={<p>Suspense boundary</p>}>
+            <Viewer
+              enableInteractionLayer={enableInteractionLayer}
+              key={subject.id}
+              subject={subject}
+              loadingState={subjectReadyState}
+              onError={onError}
+              onReady={onSubjectReady}
+              viewerConfiguration={subject?.viewerConfiguration}
+            />
+          </Suspense>
         )
       }
 
