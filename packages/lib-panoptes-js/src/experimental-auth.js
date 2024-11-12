@@ -54,7 +54,7 @@ async function _getUser (_store) {
 
 async function _getBearerToken (_store) {
   const store = _store || globalStore
-  console.log('+++ experimental auth client: getUser()')
+  console.log('+++ experimental auth client: getBearerToken()')
 
   // TODO
 }
