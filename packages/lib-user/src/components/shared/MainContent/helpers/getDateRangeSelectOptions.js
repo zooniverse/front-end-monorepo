@@ -1,5 +1,6 @@
 import {
-  getStatsDateString
+  getStatsDateString,
+  getDefaultDateRange
 } from '@utils'
 
 import { formatSelectOptionDateLabel } from './formatSelectOptionDateLabel'
@@ -41,10 +42,7 @@ function getPresetSelectOptions({ sourceCreatedAtDate, today }) {
   ]
 }
 
-const DEFAULT_DATE_RANGE = {
-  endDate: getStatsDateString(new Date()),
-  startDate: getStatsDateString(new Date(new Date().setUTCDate(new Date().getUTCDate() - 6)))
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 
 export function getDateRangeSelectOptions({
   sourceCreatedAtDate = '',
@@ -53,14 +51,14 @@ export function getDateRangeSelectOptions({
 }) {
   const today = new Date()
   const todayUTC = getStatsDateString(today)
-  
+
   const dateRangeOptions = getPresetSelectOptions({ sourceCreatedAtDate, today })
-  
+
   let selectedDateRangeOption = dateRangeOptions.find(option =>
     (selectedDateRange.endDate === todayUTC) &&
     (option.value === selectedDateRange.startDate)
   )
-  
+
   if (!selectedDateRangeOption && !paramsValidationMessage) {
     const customDateRangeOption = {
       label: `${formatSelectOptionDateLabel(selectedDateRange)}`,
@@ -74,6 +72,6 @@ export function getDateRangeSelectOptions({
       value: 'custom'
     })
   }
-  
+
   return { dateRangeOptions, selectedDateRangeOption }
 }

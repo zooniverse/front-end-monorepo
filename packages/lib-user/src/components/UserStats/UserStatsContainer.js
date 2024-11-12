@@ -9,15 +9,13 @@ import {
 } from '@hooks'
 
 import {
-  getDateInterval
+  getDateInterval,
+  getDefaultDateRange
 } from '@utils'
 
 import UserStats from './UserStats'
 
-const DEFAULT_DATE_RANGE = {
-  endDate: undefined,
-  startDate: undefined
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
@@ -40,12 +38,12 @@ function UserStatsContainer({
     login,
     requiredUserProperty: 'created_at'
   })
-  
+
   // fetch all projects stats, used by projects select and top projects regardless of selected project
   const allProjectsStatsQuery = getDateInterval(selectedDateRange)
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
-  
+
   const {
     data: allProjectsStats,
     error: statsError,
@@ -55,12 +53,12 @@ function UserStatsContainer({
     sourceId: paramsValidationMessage ? null : user?.id,
     query: allProjectsStatsQuery
   })
-  
+
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
-  
+
   const {
     data: projectStats,
     error: projectStatsError,
@@ -70,10 +68,10 @@ function UserStatsContainer({
     sourceId: selectedProject ? user?.id : null,
     query: projectStatsQuery
   })
-  
+
   // fetch projects
   const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
-  
+
   const {
     data: projects,
     error: projectsError,

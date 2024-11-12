@@ -2,9 +2,11 @@ import { Loader, MovableModal, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
+import Link from 'next/link'
 
 import {
   convertStatsSecondsToHours,
+  getDefaultDateRange,
   getStatsDateString
 } from '@utils'
 
@@ -22,13 +24,10 @@ import {
   StyledTab
 } from './components'
 import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
-import Link from 'next/link'
+
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_DATE_RANGE = {
-  endDate: null,
-  startDate: null
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -67,7 +66,7 @@ function MainContent({
   const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
-  
+
   const noStats = !stats?.data?.length
 
   const sourceCreatedAtDate = getStatsDateString(source?.created_at)
