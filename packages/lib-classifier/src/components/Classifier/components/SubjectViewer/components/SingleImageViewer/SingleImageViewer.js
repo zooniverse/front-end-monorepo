@@ -32,11 +32,10 @@ function SingleImageViewer({
   naturalWidth,
   panning = true,
   rotation = 0,
-  setOnZoom = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   src,
   subject,
-  subjectId,
   title = DEFAULT_TITLE,
   zoomControlFn = null,
   zooming = true
@@ -55,8 +54,7 @@ function SingleImageViewer({
     naturalWidth,
     rotation,
     src,
-    subject,
-    subjectId
+    subject
   }
 
   return (
@@ -110,15 +108,14 @@ SingleImageViewer.propTypes = {
   naturalWidth: number,
   panning: bool,
   rotation: number,
-  setOnZoom: func,
   setOnPan: func,
+  setOnZoom: func,
   src: string,
   subject: shape({
     locations: arrayOf(shape({
       url: string
     }))
   }),
-  subjectId: string,
   title: shape({
     id: string,
     text: string

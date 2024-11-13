@@ -72,7 +72,7 @@ function FlipbookViewerContainer({
         img.src = url
       }
     })
-    }, [subject?.locations])
+  }, [subject?.locations])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>

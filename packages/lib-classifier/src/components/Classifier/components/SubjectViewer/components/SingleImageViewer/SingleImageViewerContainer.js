@@ -102,8 +102,6 @@ function SingleImageViewerContainer({
   }
 
   if (loadingState === asyncStates.success) {
-    const subjectId = subject?.id || 'unknown'
-
     return (
       <SingleImageViewer
         enableInteractionLayer={enableInteractionLayer}
@@ -116,11 +114,10 @@ function SingleImageViewerContainer({
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
         rotation={rotation}
-        setOnZoom={setOnZoom}
         setOnPan={setOnPan}
+        setOnZoom={setOnZoom}
         src={img.src}
         subject={subject}
-        subjectId={subjectId}
         title={title}
         zoomControlFn={zoomControlFn}
         zooming={zooming}
