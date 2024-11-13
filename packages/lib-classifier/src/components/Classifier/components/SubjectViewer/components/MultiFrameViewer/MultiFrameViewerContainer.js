@@ -74,6 +74,7 @@ function MultiFrameViewerContainer({
         />
         <SingleImageViewer
           enableInteractionLayer={enableInteractionLayer}
+          loadingState={loadingState}
           onError={onError}
           onReady={onReady}
         />
