@@ -1,10 +1,47 @@
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useEffect } from 'react'
+import asyncStates from '@zooniverse/async-states'
+import { observer } from 'mobx-react'
+import { bool, func, shape, string } from 'prop-types'
 
-import { useSubjectImage } from '@hooks'
+import { useStores, useSubjectImage } from '@hooks'
 
 import PlaceholderSVG from './components/PlaceholderSVG'
 import SingleImageViewer from './SingleImageViewer'
+
+function storeMapper(classifierStore) {
+  const {
+    subjects: {
+      active: subject
+    },
+    subjectViewer: {
+      enableRotation,
+      frame,
+      invert,
+      move,
+      rotation,
+      setOnZoom,
+      setOnPan
+    },
+    workflows: {
+      active: {
+        configuration: {
+          limit_subject_height: limitSubjectHeight
+        }
+      }
+    }
+  } = classifierStore
+
+  return {
+    enableRotation,
+    frame,
+    invert,
+    limitSubjectHeight,
+    move,
+    rotation,
+    setOnZoom,
+    setOnPan,
+    subject
+  }
+}
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_TITLE = {
@@ -14,25 +51,34 @@ const DEFAULT_TITLE = {
 
 function SingleImageViewerContainer({
   enableInteractionLayer = true,
-  enableRotation = DEFAULT_HANDLER,
-  frame = 0,
-  invert = false,
-  limitSubjectHeight = false,
-  move = false,
+  imageLocation = null,
+  loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  rotation = 0,
-  setOnZoom = DEFAULT_HANDLER,
-  setOnPan = DEFAULT_HANDLER,
-  subject,
   title = DEFAULT_TITLE,
   zoomControlFn = null,
   zooming = true
 }) {
+  const {
+    enableRotation,
+    frame,
+    invert,
+    limitSubjectHeight,
+    move,
+    rotation,
+    setOnZoom,
+    setOnPan,
+    subject
+  } = useStores(storeMapper)
+
   // TODO: replace this with a better function to parse the image location from a subject.
-  const imageLocation = subject ? subject.locations[frame] : null
+
+  // if imageLocation is provided, use it, otherwise use the subject's location per subjectViewer store frame
+
+  const imageLocationUrl = imageLocation?.url ? imageLocation.url : subject?.locations[frame]?.url
+
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: imageLocation?.url,
+    src: imageLocationUrl,
     onError,
     onReady
   })
@@ -41,11 +87,7 @@ function SingleImageViewerContainer({
     naturalWidth = 800
   } = img
 
-  useEffect(function onMount() {
-    enableRotation()
-  }, [])
-
-  if (loading) {
+  if (loadingState === asyncStates.loading) {
     return (
       <PlaceholderSVG
         maxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
@@ -53,18 +95,19 @@ function SingleImageViewerContainer({
         viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
       />
     )
-  } 
+  }
 
-  if (error) {
+  if (loadingState === asyncStates.error) {
     return <div>Something went wrong.</div>
   }
 
-  if (!error && !loading && img?.src && subjectImage) {
+  if (loadingState === asyncStates.success) {
     const subjectId = subject?.id || 'unknown'
 
     return (
       <SingleImageViewer
         enableInteractionLayer={enableInteractionLayer}
+        enableRotation={enableRotation}
         frame={frame}
         imgRef={subjectImage}
         invert={invert}
@@ -90,21 +133,12 @@ function SingleImageViewerContainer({
 
 SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: bool,
-  enableRotation: func,
-  frame: number,
-  invert: bool,
-  limitSubjectHeight: bool,
-  move: bool,
+  imageLocation: shape({
+    url: string
+  }),
+  loadingState: string,
   onError: func,
   onReady: func,
-  rotation: number,
-  setOnZoom: func,
-  setOnPan: func,
-  subject: shape({
-    locations: arrayOf(shape({
-      url: string
-    }))
-  }),
   title: shape({
     id: string,
     text: string
@@ -113,4 +147,4 @@ SingleImageViewerContainer.propTypes = {
   zooming: bool
 }
 
-export default SingleImageViewerContainer
+export default observer(SingleImageViewerContainer)

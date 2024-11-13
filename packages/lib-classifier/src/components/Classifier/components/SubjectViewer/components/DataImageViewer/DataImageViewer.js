@@ -125,14 +125,10 @@ const DataImageViewer = forwardRef(function DataImageViewer({
           <SingleImageViewerContainer
             enableInteractionLayer={false}
             enableRotation={enableRotation}
+            imageLocation={imageLocation}
             loadingState={loadingState}
             move={move}
             rotation={rotation}
-            subject={{
-              locations: [
-                imageLocation
-              ]
-            }}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
             zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
