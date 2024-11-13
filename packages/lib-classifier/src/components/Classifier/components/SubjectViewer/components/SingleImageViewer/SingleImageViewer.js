@@ -1,5 +1,6 @@
 import { Box } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useEffect } from 'react'
 
 import ZoomControlButton from '../ZoomControlButton'
 
@@ -22,6 +23,7 @@ const DEFAULT_ZOOM_CONFIG = {
 
 function SingleImageViewer({
   enableInteractionLayer = true,
+  enableRotation = DEFAULT_HANDLER,
   frame = 0,
   imgRef,
   invert = false,
@@ -39,7 +41,11 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = true
 }) {
-  const SingleImageCanvasProps = {
+  useEffect(function onMount() {
+    enableRotation()
+  }, [])
+
+  const singleImageCanvasProps = {
     enableInteractionLayer,
     frame,
     imgRef,
@@ -79,7 +85,7 @@ function SingleImageViewer({
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
             zoomingComponent={SingleImageCanvas}
             zooming={zooming}
-            {...SingleImageCanvasProps}
+            {...singleImageCanvasProps}
           />
       </Box>
     </>
