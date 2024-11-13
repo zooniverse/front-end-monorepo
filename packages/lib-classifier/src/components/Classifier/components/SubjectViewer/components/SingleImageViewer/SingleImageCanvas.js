@@ -43,7 +43,6 @@ function SingleImageCanvas({
   rotation = 0,
   src,
   subject,
-  subjectId,
   transformMatrix // per VisXZoom
 }) {
   const canvasLayer = useRef()
@@ -83,7 +82,7 @@ function SingleImageCanvas({
               naturalWidth={naturalWidth}
               onDrag={onDrag}
               src={src}
-              subjectID={subjectId}
+              subjectID={subject?.id}
             />
             {children}
             {enableInteractionLayer && (
@@ -127,7 +126,6 @@ SingleImageCanvas.propTypes = {
       url: string
     }))
   }),
-  subjectId: string,
   transformMatrix: shape({
     scaleX: number,
     translateX: number,
