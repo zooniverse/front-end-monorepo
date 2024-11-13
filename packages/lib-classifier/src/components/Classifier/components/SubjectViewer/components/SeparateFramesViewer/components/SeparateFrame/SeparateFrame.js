@@ -1,8 +1,8 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useStores } from '@hooks'
-import SingleImageViewerContainer from '../../../SingleImageViewer/SingleImageViewerContainer'
+import { useStores, useSubjectImage } from '@hooks'
+import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
 import {
   AnnotateButton,
   InvertButton,
@@ -25,6 +25,7 @@ const SeparateFrame = ({
   enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
+  frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -35,7 +36,22 @@ const SeparateFrame = ({
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
 
+  const { img, error, loading, subjectImage } = useSubjectImage({
+    src: frameUrl,
+    onError,
+    onReady
+  })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
+
+  let onPan
   let onZoom
+
+  function setOnPan(fn) {
+    onPan = fn
+  }
 
   function setOnZoom(fn) {
     onZoom = fn
@@ -81,17 +97,20 @@ const SeparateFrame = ({
 
   return (
     <Box direction='row'>
-      <SingleImageViewerContainer
+      <SingleImageViewer
         enableInteractionLayer={enableInteractionLayer}
         enableRotation={enableRotation}
         frame={frame}
+        imgRef={subjectImage}
         invert={invert}
         limitSubjectHeight={limitSubjectHeight}
         move={separateFrameMove}
-        onError={onError}
-        onReady={onReady}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
         rotation={rotation}
+        setOnPan={setOnPan}
         setOnZoom={setOnZoom}
+        src={img.src}
         subject={subject}
       />
       <Box
