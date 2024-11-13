@@ -49,6 +49,7 @@ function ImageAndTextViewerContainer ({
           : (
             <SingleImageViewer
               enableInteractionLayer={false}
+              loadingState={loadingState}
               onError={onError}
               onReady={onReady}
             />)}
