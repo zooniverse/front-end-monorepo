@@ -44,10 +44,6 @@ function storeMapper(classifierStore) {
 }
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_TITLE = {
-  id: 'unknown',
-  text: 'unknown'
-}
 
 function SingleImageViewerContainer({
   enableInteractionLayer = true,
@@ -55,7 +51,7 @@ function SingleImageViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  title = DEFAULT_TITLE,
+  title = undefined,
   zoomControlFn = null,
   zooming = true
 }) {
