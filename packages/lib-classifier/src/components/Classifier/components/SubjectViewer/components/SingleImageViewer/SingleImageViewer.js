@@ -9,10 +9,6 @@ import VisXZoom from '../SVGComponents/VisXZoom'
 import SingleImageCanvas from './SingleImageCanvas'
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_TITLE = {
-  id: 'unknown',
-  text: 'unknown'
-}
 const DEFAULT_ZOOM_CONFIG = {
   direction: 'both',
   maxZoom: 10,
@@ -36,7 +32,7 @@ function SingleImageViewer({
   setOnZoom = DEFAULT_HANDLER,
   src,
   subject,
-  title = DEFAULT_TITLE,
+  title = undefined,
   zoomControlFn = null,
   zooming = true
 }) {
