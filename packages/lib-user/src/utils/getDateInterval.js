@@ -1,42 +1,29 @@
-import { getStatsDateString } from '@utils'
-
-export function getDateInterval({ endDate, startDate }) {
-  const today = new Date()
-  const todayUTC = getStatsDateString(today)
-  const end_date = endDate ? endDate : todayUTC
-  const defaultStartDate = new Date()
-  defaultStartDate.setUTCDate(today.getUTCDate() - 6)
-  const start_date = startDate ? startDate : getStatsDateString(defaultStartDate)
-
-  const differenceInDays = (new Date(end_date) - new Date(start_date)) / (1000 * 60 * 60 * 24)
-
+/*
+  ERAS accepts queries in time interval "buckets" of day, week, month, or year.
+*/
+function getInterval(differenceInDays) {
   if (differenceInDays <= 31) {
-    return {
-      end_date,
-      period: 'day',
-      start_date
-    }
+    return 'day'
   }
 
   if (differenceInDays <= 183) {
-    return {
-      end_date,
-      period: 'week',
-      start_date
-    }
+    return 'week'
   }
 
   if (differenceInDays <= 1460) {
-    return {
-      end_date,
-      period: 'month',
-      start_date
-    }
+    return 'month'
   }
 
+  return 'year'
+}
+
+export function getDateInterval({ endDate, startDate }) {
+  // Get new Date timestamps based on UTC strings, and then convert from ms to days.
+  const differenceInDays = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+
   return {
-    end_date,
-    period: 'year',
-    start_date
-  }  
+    end_date: endDate,
+    period: getInterval(differenceInDays),
+    start_date: startDate
+  }
 }

@@ -151,7 +151,6 @@ describe('Helpers > getDefaultPageProps', function () {
             links: {
               subject_sets: ['1', '2', '3']
             },
-            subjectSets: []
           }
         ])
       })
@@ -229,7 +228,6 @@ describe('Helpers > getDefaultPageProps', function () {
             links: {
               subject_sets: ['1', '2', '3']
             },
-            subjectSets: []
           }
         ])
       })
@@ -317,7 +315,6 @@ describe('Helpers > getDefaultPageProps', function () {
                 links: {
                   subject_sets: ['1', '2', '3']
                 },
-                subjectSets: []
               }
             ])
           })
@@ -407,7 +404,6 @@ describe('Helpers > getDefaultPageProps', function () {
                 links: {
                   subject_sets: ['1', '2', '3']
                 },
-                subjectSets: []
               }
             ])
           })

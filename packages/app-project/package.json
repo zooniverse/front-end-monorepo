@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "~8.35.0",
+    "@sentry/nextjs": "~8.38.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.10.1",
     "@visx/group": "~3.3.0",
@@ -37,7 +37,7 @@
     "graphql-request": "~6.1.0",
     "grommet": "~2.41.0",
     "grommet-icons": "~4.12.0",
-    "i18next": "~23.14.0",
+    "i18next": "~23.16.5",
     "lodash": "~4.17.11",
     "million": "~3.1.11",
     "mobx": "~6.12.0",
@@ -46,7 +46,7 @@
     "mobx-state-tree": "~5.4.0",
     "morgan": "^1.10.0",
     "newrelic": "~12.3.1",
-    "next": "~14.2.6",
+    "next": "~14.2.7",
     "next-i18next": "~15.3.1",
     "panoptes-client": "~5.6.0",
     "path-match": "~1.2.4",
@@ -57,7 +57,7 @@
     "react-resize-detector": "~9.1.0",
     "styled-components": "~5.3.3",
     "swr": "~2.2.0",
-    "validator": "~13.11.0"
+    "validator": "~13.12.0"
   },
   "devDependencies": {
     "@babel/register": "~7.25.9",
@@ -75,10 +75,12 @@
     "chai-dom": "~1.12.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
-    "eslint-config-next": "~13.5.6",
+    "eslint-config-next": "~14.2.7",
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~24.0.0",
     "mocha": "~10.8.2",
+    "msw": "~2.5.1",
+    "msw-storybook-addon": "~2.0.3",
     "nock": "~13.5.1",
     "selfsigned": "~2.4.1",
     "sinon": "~17.0.0",
@@ -88,5 +90,10 @@
   },
   "engines": {
     "node": ">=20.5"
+  },
+  "msw": {
+    "workerDirectory": [
+      "storybook-public"
+    ]
   }
 }
