@@ -27,7 +27,7 @@ docker compose up -d
 # stop the local services when you're finished
 docker compose down
 # run the tests
-docker compose run --rm project test
+docker compose run --rm root test
 ```
 
 ### Node

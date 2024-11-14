@@ -1,5 +1,16 @@
 services:
-  shell:
+  prod-shell:
+    image: front-end-monorepo_prod:latest
+    build:
+      context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
+    command:
+      - "/bin/sh"
+  dev-shell:
     image: front-end-monorepo_dev:latest
     volumes:
       - node_modules:/usr/src/node_modules
@@ -46,6 +57,5 @@ services:
       - PORT=3000
     ports:
       - "3003:3000"
-
 volumes:
   node_modules:
