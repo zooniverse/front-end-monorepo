@@ -26,6 +26,7 @@ function SingleImageViewer({
   move = false,
   naturalHeight,
   naturalWidth,
+  onKeyDown = DEFAULT_HANDLER,
   panning = true,
   rotation = 0,
   setOnPan = DEFAULT_HANDLER,
@@ -48,6 +49,7 @@ function SingleImageViewer({
     move,
     naturalHeight,
     naturalWidth,
+    onKeyDown,
     rotation,
     src,
     subject
@@ -102,6 +104,7 @@ SingleImageViewer.propTypes = {
   move: bool,
   naturalHeight: number,
   naturalWidth: number,
+  onKeyDown: func,
   panning: bool,
   rotation: number,
   setOnPan: func,

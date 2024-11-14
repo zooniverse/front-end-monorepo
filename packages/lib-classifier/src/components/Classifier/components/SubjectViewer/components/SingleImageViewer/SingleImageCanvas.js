@@ -40,6 +40,7 @@ function SingleImageCanvas({
   naturalHeight,
   naturalWidth,
   onDrag = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
   rotation = 0,
   src,
   subject,
@@ -58,6 +59,7 @@ function SingleImageCanvas({
 
   return (
     <svg
+      onKeyDown={onKeyDown}
       viewBox={viewBox}
     >
       <SVGContext.Provider
