@@ -19,9 +19,18 @@ Once you have the hosts file configured, you'll be able to use one of those subd
 
 ### Docker
 
-- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001 using `yarn dev` and `yarn storybook` respectively. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
-- `docker-compose down` to stop the dev containers.
-- `docker-compose run --rm project test` to run the tests.
+```sh
+# run a development build using the top-level Dockerfile
+docker compose build
+# run a dev server on port 3000 (with HTTPS, but no authentication) and a storybook on port 9001.
+# eg. https://localhost:3000/projects/nora-dot-eisner/planet-hunters-tess
+# http://localhost:9001
+docker compose up -d
+# stop the local services when you're finished
+docker compose down
+# run the tests
+docker compose run --rm project test
+```
 
 ### Node
 ```sh

@@ -1,10 +1,15 @@
-version: '3.7'
-
 services:
   project:
     image: front-end-monorepo_dev:latest
+    environment:
+      PANOPTES_ENV: staging
+      APP_ENV: development
     build:
       context: ../../
+      target: builder
+      args:
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
     entrypoint:
       - "yarn"
       - "workspace"
