@@ -34,7 +34,13 @@ export function Default() {
   return (
     <ViewerContext store={store}>
       <Box width='large'>
-        <SingleImageViewerContainer loadingState={asyncStates.success} />
+        <SingleImageViewerContainer
+          loadingState={asyncStates.success}
+          title={{
+            id: '1234',
+            text: 'Subject 1234'
+          }}
+        />
       </Box>
     </ViewerContext>
   )

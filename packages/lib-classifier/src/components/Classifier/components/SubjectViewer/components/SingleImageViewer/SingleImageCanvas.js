@@ -71,7 +71,10 @@ function SingleImageCanvas({
           height: naturalHeight,
         }}
       >
-        <g transform={rotationTransform}>
+        <g
+          data-testid='single-image-canvas-rotation-group'
+          transform={rotationTransform}
+        >
           <svg
             ref={canvasLayer}
             viewBox={adjustedViewBox}
