@@ -18,9 +18,17 @@ To view data from Contentful, you'll need to create a `.env` file containing the
 
 ### Docker
 
-- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
-- `docker-compose down` to stop the dev containers.
-<!-- - `docker-compose run --rm root test` to run the tests. -->
+```sh
+# run a development build using the top-level Dockerfile
+docker compose build
+# run a dev server on port 3000 (with HTTPS, but no authentication).
+# eg. https://localhost:3000/about
+docker compose up -d
+# stop the local services when you're finished
+docker compose down
+# run the tests
+docker compose run --rm project test
+```
 
 ### Node
 

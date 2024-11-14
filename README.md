@@ -70,8 +70,9 @@ You can run the code locally in Docker, which avoids needing to install Node or 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
 cd front-end-monorepo
+# build first
 docker compose build
-# run all services in the background
+# run all services in the background (no authentication available)
 # app-project at http://localhost:3002/projects/[owner]/[project-name]
 # app-root at http://localhost:3003
 docker compose up -d
