@@ -7,8 +7,8 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
 const SWRoptions = {
-  revalidateIfStale: false,
-  revalidateOnMount: false,
+  revalidateIfStale: true,
+  revalidateOnMount: true, // project teams can change their workflow.configuration.level at any time
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
   refreshInterval: 0

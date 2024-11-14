@@ -6,6 +6,8 @@ import { http, HttpResponse } from 'msw'
 
 import WorkflowSelector from './WorkflowSelector'
 
+const asyncStatesOptions = Object.values(asyncStates)
+
 const store = {
   project: {
     background: {
@@ -14,10 +16,10 @@ const store = {
     description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
     display_name: 'Nest Quest Go: Western Bluebirds',
     slug: 'brbcornell/nest-quest-go-western-bluebirds',
-    workflow_description: `Choose your own adventure! There are many ways to engage with this project:  
-      1) "Nest Site": Smartphone-friendly, helps us understand where Western Bluebirds build their nests.  
-      2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.  
-      3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.  
+    workflow_description: `Choose your own adventure! There are many ways to engage with this project:
+      1) "Nest Site": Smartphone-friendly, helps us understand where Western Bluebirds build their nests.
+      2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.
+      3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.
       4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
   }
 }
@@ -40,7 +42,7 @@ const WORKFLOWS = [
       level: 1
     },
     default: false,
-    displayName: 'The Family and the Fishing Net',
+    displayName: 'The Family and the Fishing Net (Level 1)',
     id: '12345'
   },
   {
@@ -49,7 +51,7 @@ const WORKFLOWS = [
       level: 2
     },
     default: false,
-    displayName: 'Games Without Frontiers',
+    displayName: 'Games Without Frontiers (Level 2)',
     grouped: true,
     id: '7890'
   },
@@ -59,7 +61,7 @@ const WORKFLOWS = [
       level: 4
     },
     default: false,
-    displayName: 'Shock The Monkey',
+    displayName: 'Shock The Monkey (Level 4)',
     grouped: true,
     prioritized: true,
     id: '5678'
@@ -78,6 +80,10 @@ function StoryContext(Story) {
   )
 }
 
+/*
+  In app-project, this host is determined by panoptes.js get() request
+  Host options are copied here so MSW mocks the correct endpoint.
+*/
 const PANOPTES_HOST = process.env.NODE_ENV === 'production'
   ? 'https://www.zooniverse.org'
   : 'https://panoptes-staging.zooniverse.org'
@@ -88,10 +94,7 @@ export default {
   decorators: [StoryContext],
   argTypes: {
     userReadyState: {
-      control: {
-        type: 'select',
-        options: asyncStates
-      }
+      options: asyncStatesOptions
     }
   },
   parameters: {
@@ -114,7 +117,7 @@ export default {
               ]
             })
           }
-          return new HttpResponse(null, { status: 404 })
+          return new HttpResponse(null, { status: 404, statusText: 'MSW did not find the workflow' })
         }),
       ],
     },
@@ -150,7 +153,7 @@ Default.args = {
   workflows: WORKFLOWS
 }
 
-export function WithLevels({
+export function WithWorkflowAssignment({
   assignedWorkflowID,
   uppLoaded,
   userReadyState,
@@ -170,7 +173,7 @@ export function WithLevels({
   )
 }
 
-WithLevels.args = {
+WithWorkflowAssignment.args = {
   assignedWorkflowID: '7890',
   uppLoaded: true,
   userReadyState: asyncStates.success,
@@ -179,7 +182,7 @@ WithLevels.args = {
   workflows: WORKFLOWS
 }
 
-export function MissingLevels({
+export function AssignedInactiveWorkflow({
   assignedWorkflowID,
   uppLoaded,
   userReadyState,
@@ -199,7 +202,7 @@ export function MissingLevels({
   )
 }
 
-MissingLevels.args = {
+AssignedInactiveWorkflow.args = {
   assignedWorkflowID: '9012',
   uppLoaded: true,
   userReadyState: asyncStates.success,
