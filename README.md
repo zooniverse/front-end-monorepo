@@ -54,6 +54,12 @@ git checkout production-release
 
 Run the bootstrap script to build all the libraries and apps. You can use `bootstrap:es6` here for a faster build if you don't want to run the tests.
 
+You may need to run `yarn install` _once_ for the yarn scripts to work. Otherwise, you may encounter the error message, _"Usage Error: Couldn't find the node_modules state file - running an install might help (findPackageLocation)". This can happen when you switch back and forth between yarn versions tracked in `.yarn`.
+
+```sh
+yarn install
+```
+
 ```sh
 yarn bootstrap
 ```
@@ -68,10 +74,9 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs local production builds as follows:
+`cd` into either of the Next.js app directories.
 
-- project app at http://localhost:3002
-- root app at http://localhost:3003
+`docker-compose up` runs local production builds at http://localhost:3000.
 
 `docker-compose down` stops the running container.
 
@@ -97,6 +102,9 @@ yarn bootstrap
 ```
 
 The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
+
+You may need to run `yarn install` _once_ for yarn scripts to work. Otherwise, you may encounter the error message, _"Usage Error: Couldn't find the node_modules state file - running an install might help (findPackageLocation)". This can happen when you switch back and forth between yarn versions tracked in `.yarn`.
+
 
 ## Helpful Guides
 
