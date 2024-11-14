@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   shell:
     image: front-end-monorepo_dev:latest
@@ -8,6 +6,8 @@ services:
     build:
       context: ./
       target: builder
+      args:
+        - APP_ENV=development
     command:
       - "/bin/sh"
   fe-project:
