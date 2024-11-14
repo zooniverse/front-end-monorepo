@@ -151,13 +151,21 @@ const SeparateFrame = ({
 }
 
 SeparateFrame.propTypes = {
+  /** Passed from Subject Viewer Store */
   enableInteractionLayer: PropTypes.bool,
+  /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Index of the Frame */
   frame: PropTypes.number,
+  /** String of Object.values(subject.locations[this frame index][0]) */
   frameUrl: PropTypes.string,
+  /** Function passed from Workflow Configuration via Subject Viewer Store */
   limitSubjectHeight: PropTypes.bool,
+  /** Passed from Subject Viewer Store and called whe a frame's src is not loaded */
   onError: PropTypes.func,
+  /** Passed from Subject Viewer Store and called when a frame's src is loaded */
   onReady: PropTypes.func,
+  /** Subject Object */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(PropTypes.shape({
       url: PropTypes.string
