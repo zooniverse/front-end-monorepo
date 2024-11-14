@@ -84,10 +84,10 @@ describe('Component > FlipbookViewer', function () {
     it('should play or pause via keyboard when image is focused', async function () {
       const user = userEvent.setup({ delay: null })
 
-      const { container, getByLabelText } = render(<DefaultStory />)
-      const imageSVG = container.querySelector('svg')
+      const { container, getByLabelText, getByTestId } = render(<DefaultStory />)
+      const imageSVGZoomLayer = getByTestId('zoom-layer')
 
-      imageSVG.focus()
+      imageSVGZoomLayer.focus()
       await user.keyboard(' ')
 
       const pauseButton = getByLabelText('SubjectViewer.VideoController.pause')
