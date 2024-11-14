@@ -110,61 +110,63 @@ function SubTaskPopup({
           className='subtaskpopup-element-that-ignores-drag-actions'
           gap='small'
         >
-          {tasks.map((task, index) => {
-            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-            // or creates a new one if one doesn't exist.
-            // The name is a bit confusing.
-            let annotation = activeMark.annotation(task)
-            if (!annotation) {
-              annotation = activeMark.addAnnotation(task)
-            }
+          <form onSubmit={close}>
+            {tasks.map((task, index) => {
+              // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+              // or creates a new one if one doesn't exist.
+              // The name is a bit confusing.
+              let annotation = activeMark.annotation(task)
+              if (!annotation) {
+                annotation = activeMark.addAnnotation(task)
+              }
 
-            let taskType = task.type
-            if (taskType === 'dropdown-simple') {
-              taskType = 'dropdownSimple'
-            }
+              let taskType = task.type
+              if (taskType === 'dropdown-simple') {
+                taskType = 'dropdownSimple'
+              }
 
-            const { TaskComponent } = taskRegister[taskType]
+              const { TaskComponent } = taskRegister[taskType]
 
-            if (annotation && TaskComponent) {
-              const requiredEmphasis = task.required && !task.isComplete(annotation) && confirmationState === 'closed'
+              if (annotation && TaskComponent) {
+                const requiredEmphasis = task.required && !task.isComplete(annotation) && confirmationState === 'closed'
+                return (
+                  // horizontal pad for the space for the box-shadow focus style
+                  // is there a better way?
+                  <Box
+                    className="subtaskpopup-task"
+                    border={requiredEmphasis ? { size: 'small', color: 'tomato' } : false}
+                    key={annotation.id}
+                    overflow='auto'
+                    pad={{ horizontal: '2px' }}
+                  >
+                    <TaskComponent
+                      annotation={annotation}
+                      autoFocus={(index === 0)}
+                      disabled={disabled}
+                      suggestions={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
+                      task={task}
+                    />
+                    {requiredEmphasis && (
+                      <Paragraph>
+                        <strong>{t('SubjectViewer.InteractionLayer.SubTaskPopup.required')}</strong>
+                      </Paragraph>
+                    )}
+                  </Box>
+                )
+              }
+
               return (
-                // horizontal pad for the space for the box-shadow focus style
-                // is there a better way?
-                <Box
-                  className="subtaskpopup-task"
-                  border={requiredEmphasis ? { size: 'small', color: 'tomato' } : false}
-                  key={annotation.id}
-                  overflow='auto'
-                  pad={{ horizontal: '2px' }}
-                >
-                  <TaskComponent
-                    annotation={annotation}
-                    autoFocus={(index === 0)}
-                    disabled={disabled}
-                    suggestions={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
-                    task={task}
-                  />
-                  {requiredEmphasis && (
-                    <Paragraph>
-                      <strong>{t('SubjectViewer.InteractionLayer.SubTaskPopup.required')}</strong>
-                    </Paragraph>
-                  )}
+                <Box pad='none' key={`${index}-${task?.type}`}>
+                  <Paragraph>{t('SubjectViewer.InteractionLayer.SubTaskPopup.notRender')}</Paragraph>
                 </Box>
               )
-            }
+            })}
 
-            return (
-              <Box pad='none' key={`${index}-${task?.type}`}>
-                <Paragraph>{t('SubjectViewer.InteractionLayer.SubTaskPopup.notRender')}</Paragraph>
-              </Box>
-            )
-          })}
-
-          <SaveButton
-            disabled={disabled}
-            onClick={close}
-          />
+            <SaveButton
+              disabled={disabled}
+              onClick={close}
+            />
+          </form>
         </Box>
       </MovableModal>
       {confirmationState === 'confirming' && (

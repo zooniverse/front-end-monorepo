@@ -163,6 +163,51 @@ describe('Model > Workflow', function () {
     })
   })
 
+  describe('with survey task', function () {
+    let workflow
+
+    before(function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        display_name: 'A test workflow',
+        tasks: {
+          T0: {
+            type: 'survey',
+            choices: {
+              C0: { label: 'Choice 0' },
+              C1: { label: 'Choice 1' }
+            },
+            questions: {
+              Q0: {
+                label: 'What is your name?',
+                required: true
+              },
+              Q1: {
+                label: 'What is your quest?',
+                required: true
+              }
+            },
+            questionsMap: {
+              C0: ['Q0', 'Q1'],
+              C1: ['Q1']
+            },
+          },
+          T1: {
+            answers: [{ label: "Enter an answer" }, { label: "Enter an answer" }],
+            type: 'single',
+            question: 'is it done?'
+          }
+        },
+        version: '0.0'
+      })
+      workflow = Workflow.create(workflowSnapshot)
+    })
+
+    it('should use survey task', function () {
+      expect(workflow.hasSurveyTask).to.be.true()
+    })
+  })
+
   describe('Actions > selectSubjectSet', function () {
     let rootStore
     let workflow

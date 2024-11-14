@@ -2,6 +2,7 @@ import { Previous } from 'grommet-icons'
 import { string } from 'prop-types'
 
 import { HeaderButton } from '@components/shared'
+import Link from 'next/link'
 
 function HeaderLink({
   href,
@@ -10,6 +11,7 @@ function HeaderLink({
 }) {
   return (
     <HeaderButton
+      forwardedAs={Link}
       href={href}
       icon={<Previous color='white' size='small' />}
       label={label}

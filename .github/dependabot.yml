@@ -9,6 +9,20 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 15
+    groups:
+      sentry:
+        patterns:
+          - "@sentry*"
+      storybook:
+        patterns:
+          - "@storybook*"
+          - "storybook"
+        exclude-patterns:
+          - "storybook-react-i18next"
+      visx:
+        patterns:
+          - "@visx*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

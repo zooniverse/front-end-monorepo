@@ -40,10 +40,11 @@ Note: lab components are currently part of [Panoptes-Front-End](https://github.c
 
 ## Strategies
 
-A strategy is the method for reconciling a user's annotations and the known data defined on the subject. The following strategies are available:
+A [strategy](strategies/README.md) is the method for reconciling a user's annotations and the known data defined on the subject. The following strategies are available:
 
 ### Drawing Task
 
+- [Column](strategies/drawing/column/README.md)
 - [Radial](strategies/drawing/radial/README.md)
 
 ### Question Task

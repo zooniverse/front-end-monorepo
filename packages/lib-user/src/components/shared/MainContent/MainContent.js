@@ -2,9 +2,11 @@ import { Loader, MovableModal, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
+import Link from 'next/link'
 
 import {
   convertStatsSecondsToHours,
+  getDefaultDateRange,
   getStatsDateString
 } from '@utils'
 
@@ -23,11 +25,9 @@ import {
 } from './components'
 import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
 
+
 const DEFAULT_HANDLER = () => true
-const DEFAULT_DATE_RANGE = {
-  endDate: null,
-  startDate: null
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -66,7 +66,7 @@ function MainContent({
   const size = useContext(ResponsiveContext)
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
-  
+
   const noStats = !stats?.data?.length
 
   const sourceCreatedAtDate = getStatsDateString(source?.created_at)
@@ -291,7 +291,7 @@ function MainContent({
             margin={{ top: 'small' }}
           >
             <StyledCertificateButton
-              forwardedAs='a'
+              forwardedAs={Link}
               color='neutral-1'
               href={`/users/${source.login}/stats/certificate${window.location.search}`}
               label='Generate Volunteer Certificate'

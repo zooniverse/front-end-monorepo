@@ -17,6 +17,7 @@ if (isBrowser) {
 }
 
 async function fetchUnreadMessageCount({ endpoint = '/conversations' }) {
+  await auth.checkCurrent()
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   if (!token) return 0

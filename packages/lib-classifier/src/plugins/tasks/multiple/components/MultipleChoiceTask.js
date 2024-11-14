@@ -9,6 +9,7 @@ import TaskInput from '../../components/TaskInput'
 
 const StyledFieldset = styled.fieldset`
   border: none;
+  padding: 0;
 
   &:focus-visible {
     outline: none;

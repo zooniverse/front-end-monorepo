@@ -5,10 +5,11 @@ import FinishedAnnouncementConnector from './FinishedAnnouncementConnector'
 // import readme from './README.md'
 
 const mockedRouter = {
-  asPath: '/projects/zooniverse/snapshot-serengeti/about/team',
+  asPath: '/zookeeper/galaxy-zoo/about/team',
+  basePath: '/projects',
   query: {
-    owner: 'zooniverse',
-    project: 'snapshot-serengeti'
+    owner: 'zookeeper',
+    project: 'galaxy-zoo'
   }
 }
 

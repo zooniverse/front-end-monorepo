@@ -13,21 +13,24 @@ import {
   UserHome,
   UserStats
 } from '@components'
+import { getDefaultDateRange, getStatsDateString } from '../../../src/utils'
 
 const isBrowser = typeof window !== 'undefined'
-const todayUTC = new Date().toISOString().substring(0, 10)
-const sevenDaysAgoUTC = new Date(new Date().setDate(new Date().getDate() - 6)).toISOString().substring(0, 10)
+const today = new Date()
+const todayUTC = getStatsDateString(today)
 
 if (isBrowser) {
   auth.checkCurrent()
 }
 
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
+
 function App({
-  endDate = todayUTC,
+  endDate = DEFAULT_DATE_RANGE.endDate,
   groups = null,
   joinToken = null,
   projectId = undefined,
-  startDate = sevenDaysAgoUTC,
+  startDate = DEFAULT_DATE_RANGE.startDate,
   updateQueryParams = () => true,
   users = null
 }) {

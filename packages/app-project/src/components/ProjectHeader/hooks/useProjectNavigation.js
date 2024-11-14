@@ -16,12 +16,12 @@ export default function useProjectNavigation(adminMode) {
       text: t('ProjectHeader.classify')
     },
     {
-      href: `/${slug}/talk`,
+      href: `/projects/${slug}/talk`,
       text: t('ProjectHeader.talk'),
       externalLink: true // code is in PFE
     },
     {
-      href: `/${slug}/collections`,
+      href: `/projects/${slug}/collections`,
       text: t('ProjectHeader.collect'),
       externalLink: true // code is in PFE
     }
@@ -29,7 +29,7 @@ export default function useProjectNavigation(adminMode) {
 
   if (isLoggedIn) {
     links.push({
-      href: `/${slug}/recents`,
+      href: `/projects/${slug}/recents`,
       text: t('ProjectHeader.recents'),
       externalLink: true // code is in PFE
     })

@@ -7,6 +7,52 @@ The classifier store is built upon [mobx-state-tree](https://mobx-state-tree.js.
 - snapshotting for caching, time travelling, logging, etc
 - observability and reactivity
 
+## Store Architecture
+The `RootStore` is the base model for the classifier, and is a hierarchically flat key-value mapping of `{ [typeStore]: [typeStore]() }` to make referencing between related stores easier. The `RootStore` is composed of the following stores:
+
+- ClassificationStore
+- FeedbackStore
+- FieldGuideStore
+- ProjectStore
+- SubjectStore
+- SubjectSetStore
+- SubjectViewerStore
+- TutorialStore
+- UserProjectPreferences
+- WorkflowStore
+- WorkflowStepStore
+
+Although the `RootStore` state is managed in a flat hierarchy, the data model of a `Project` in relation to a user's `Classification` is hierarchical with its dependency graph as follows:
+
+```mermaid
+flowchart LR
+	Project
+	Project-->Feedback
+	Project-->FieldGuide
+	Project-->SubjectSet
+	Project-->Workflow
+	Project-->Tutorial
+
+	SubjectSet-->Subject
+	SubjectSet-->Workflow
+	Tutorial-->Workflow
+
+	Subject-->Annotation
+	Workflow-->WorkflowStep
+	WorkflowStep-->Annotation
+	Annotation-->Classification
+```
+
+## Stores with Documentation
+- [Feedback](/packages/lib-classifier/src/store/feedback/README.md)
+- [SubjectGroup](/packages/lib-classifier/src/store/subjects/SubjectGroup/README.md)
+- [SubjectViewerStore](/packages/lib-classifier/src/store/SubjectViewerStore/README.md)
+
+## Utilities
+- [Utilities](/packages/lib-classifier/src/store/utils/README.md)
+- [Translations](/packages/lib-classifier/src/translations/README.md)
+- [Workers](/packages/lib-classifier/src/workers/README.md)
+
 ## Panoptes resources
 
 We mostly work with Panoptes resources, so we have a standardized model to work with them. The `Resource` model defines the baseline model for Panoptes resources defining the resource id as the unique identifier to use in the tree. The `ResourceStore` model defines set of actions that can be used to asynchronously HTTP request and store the result of the request. Every Panoptes resource we request for should be a composition with the `ResourceStore`.

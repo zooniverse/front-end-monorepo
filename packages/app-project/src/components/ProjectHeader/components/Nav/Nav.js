@@ -20,6 +20,7 @@ const StyledSpacedText = styled(SpacedText)`
 */
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent; // to help align-items center in nav
   white-space: nowrap;
 
   &:hover {

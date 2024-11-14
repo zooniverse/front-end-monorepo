@@ -73,8 +73,6 @@ spec:
               value: production
             - name: APP_ENV
               value: staging
-            - name: ENABLE_CACHE_HEADERS
-              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -131,17 +129,17 @@ spec:
               cpu: "1000m"
           startupProbe:
             httpGet:
-              path: /users
+              path: /about
               port: 3000
             failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /users
+              path: /about
               port: 3000
             timeoutSeconds: 10
           readinessProbe:
             httpGet:
-              path: /users
+              path: /about
               port: 3000
             initialDelaySeconds: 20
             timeoutSeconds: 10
@@ -166,8 +164,6 @@ spec:
               value: production
             - name: APP_ENV
               value: staging
-            - name: ENABLE_CACHE_HEADERS
-              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler

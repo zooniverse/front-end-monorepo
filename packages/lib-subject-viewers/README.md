@@ -13,7 +13,7 @@ npm i @zooniverse/subject-viewers
 and use it
 
 ```
-import { ProtoViewer } from '@zooniverse/subject-viewers';
+import { VolumetricViewer } from '@zooniverse/subject-viewers';
 ```
 
 ## Run
@@ -28,7 +28,7 @@ import { ProtoViewer } from '@zooniverse/subject-viewers';
 
 Components should be added to the `src/components` folder and an export to `src/index.js`. Each component should be tested, documented readme, and have a storybook example added.
 
-### Technologies and tools we use
+## Technologies and tools we use
 
 All of our components are written using React, built on top of Grommet, a component UI library, and styled by our custom Grommet style theme (@zooniverse/grommet-theme) and styled-components.
 
@@ -40,3 +40,7 @@ Testing is done by
 - [Mocha](https://mochajs.org/) - test runner
 - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
 - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
+
+## Troubleshooting
+
+The VolumetricViewer component uses `canvas`. If your Mac has a M1 or M2 chip, you'll likely need to do some manual `brew install` commands in order to bootstrap FEM: https://github.com/Automattic/node-canvas/issues/1511.

@@ -3,13 +3,11 @@
 import { bool, func, shape, string } from 'prop-types'
 
 import { GroupContainer } from '@components/shared'
+import { getDefaultDateRange } from '../../utils'
 
 import GroupStats from './GroupStats'
 
-const DEFAULT_DATE_RANGE = {
-  endDate: undefined,
-  startDate: undefined
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_HANDLER = () => true
 
 function GroupStatsContainer({

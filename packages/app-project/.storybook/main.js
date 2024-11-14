@@ -36,6 +36,7 @@ const config = {
   docs: {
     autodocs: 'tag'
   },
+  staticDirs: ['../public', '../storybook-public'],
   webpackFinal
 }
 export default config

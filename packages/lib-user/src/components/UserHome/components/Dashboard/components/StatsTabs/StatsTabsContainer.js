@@ -3,6 +3,7 @@ import { shape, string } from 'prop-types'
 import { useStats } from '@hooks'
 import {
   getDateInterval,
+  getDefaultDateRange,
   getStatsDateString
 } from '@utils'
 import StatsTabs from './StatsTabs'
@@ -20,16 +21,10 @@ const formatStatsPreview = (thisWeekData, allTimeData) => {
   }
 }
 
+const DEFAULT_DATE_RANGE = getDefaultDateRange() // last 7 days
+
 export default function StatsTabsContainer({ user }) {
-  const today = new Date()
-  const todayUTC = getStatsDateString(today)
-  
-  const thisWeekStart = new Date()
-  thisWeekStart.setUTCDate(today.getUTCDate() - 6)
-  const thisWeekQuery = getDateInterval({
-    endDate: todayUTC,
-    startDate: getStatsDateString(thisWeekStart)
-  })
+  const thisWeekQuery = getDateInterval(DEFAULT_DATE_RANGE)
   thisWeekQuery.project_contributions = true
   const { data: thisWeekData } = useStats({
     sourceId: user?.id,
@@ -37,8 +32,8 @@ export default function StatsTabsContainer({ user }) {
   })
 
   const allTimeQuery = getDateInterval({
-    endDate: todayUTC,
-    startDate: getStatsDateString(user?.created_at)
+    endDate: getStatsDateString(new Date()), // Today's UTC date string like 24-09-23.
+    startDate: getStatsDateString(user?.created_at) // Limit stats range to when the user acccount was created in panoptes.
   })
   allTimeQuery.project_contributions = true
   const { data: allTimeData } = useStats({

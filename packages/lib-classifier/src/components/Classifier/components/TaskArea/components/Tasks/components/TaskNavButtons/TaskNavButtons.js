@@ -14,7 +14,10 @@ export default function TaskNavButtons({
   const [saving, setSaving] = useState(false)
 
   return (
-    <Box direction='row'>
+    <Box
+      direction='row'
+      justify='center'
+    >
       <BackButton />
       <NextButton
         autoFocus={false}

@@ -52,7 +52,6 @@ export default function RecentProjects({
             {projectPreferences.map(preference => (
               <li key={preference?.project?.id}>
                 <ProjectCard
-                  badge={preference?.activity_count}
                   description={preference?.project?.description}
                   displayName={preference?.project?.display_name}
                   href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}

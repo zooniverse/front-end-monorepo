@@ -10,15 +10,13 @@ import {
 
 import {
   convertStatsSecondsToHours,
-  getDateInterval
+  getDateInterval,
+  getDefaultDateRange
 } from '@utils'
 
 import Certificate from './Certificate'
 
-const DEFAULT_DATE_RANGE = {
-  endDate: null,
-  startDate: null
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const STATS_ENDPOINT = '/classifications/users'
 
 function CertificateContainer({
@@ -52,7 +50,7 @@ function CertificateContainer({
   } else {
     statsQuery.project_id = parseInt(selectedProject)
   }
-  
+
   const {
     data: stats,
     error: statsError,
@@ -71,7 +69,7 @@ function CertificateContainer({
     cards: true,
     id: selectedProject
   })
-  
+
   const error = userError || statsError || projectsError
   const hours = convertStatsSecondsToHours(stats?.time_spent) || 0
   const loading = userLoading || statsLoading || projectsLoading

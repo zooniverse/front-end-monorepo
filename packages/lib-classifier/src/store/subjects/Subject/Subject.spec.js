@@ -1,11 +1,9 @@
 import { getSnapshot } from 'mobx-state-tree'
-import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import Subject from './Subject'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import stubPanoptesJs from '@test/stubPanoptesJs'
 import subjectViewers from '@helpers/subjectViewers'
 import { subjectsSeenThisSession } from '@helpers'
 
@@ -76,12 +74,6 @@ describe('Model > Subject', function () {
   })
 
   describe('Views > viewer', function () {
-    it('should return null as default', function () {
-      const store = mockStore({ project, workflow, subject: stub })
-      const subject = store.subjects.active
-      expect(subject.viewer).to.be.null()
-    })
-
     describe('when the subject location is valid', function () {
       describe('single image', function () {
         it('should return the single image viewer for subjects with a single image location', function () {
@@ -126,27 +118,6 @@ describe('Model > Subject', function () {
           const store = mockStore({ project, workflow, subject: multipleImagesSubject })
           const subject = store.subjects.active
           expect(subject.viewer).to.equal(subjectViewers.flipbook)
-        })
-
-        it('should return a null viewer for subjects with more than ten location', function () {
-          const multipleImagesSubject = SubjectFactory.build({
-            locations: [
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' },
-              { 'image/png': 'https://foo.bar/example.png' }
-            ]
-          })
-          const store = mockStore({ project, workflow, subject: multipleImagesSubject })
-          const subject = store.subjects.active
-          expect(subject.viewer).to.be.null()
         })
 
         it('should return the multi-frame viewer if the workflow configuration for subject_viewer is defined as multiFrame', function () {

@@ -3,11 +3,12 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 
-async function fetchWorkflowData(workflows, env) {
+/* Helper function to fetch data for multiple workflows */
+async function fetchWorkflowData(workflows, env, complete = false) {
   const { headers, host } = getServerSideAPIHost(env)
   try {
     const query = {
-      complete: false,
+      complete,
       env,
       fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: workflows.join(',')
@@ -20,6 +21,7 @@ async function fetchWorkflowData(workflows, env) {
   }
 }
 
+/* Helper function to fetch workflow data regardless of completion status */
 async function fetchSingleWorkflow(workflowID, env) {
   const { headers, host } = getServerSideAPIHost(env)
   try {
@@ -58,7 +60,8 @@ async function fetchDisplayNames(language, workflows, env) {
   return displayNames
 }
 
-async function buildWorkflow(workflow, displayName, env) {
+/* Attach the displayName to a workflow object once it is fetched */
+async function buildWorkflow(workflow, displayName) {
   const workflowData = {
     completeness: workflow.completeness || 0,
     configuration: workflow.configuration,
@@ -67,12 +70,12 @@ async function buildWorkflow(workflow, displayName, env) {
     id: workflow.id,
     links: workflow.links,
     prioritized: workflow.prioritized,
-    subjectSets: []
   }
 
   return workflowData
 }
 
+/* order is specified by the project owner in the lab */
 function orderWorkflows(workflows, order) {
   const workflowsByID = {};
   workflows.forEach((workflow) => { workflowsByID[workflow.id] = workflow; });
@@ -92,36 +95,53 @@ function orderWorkflows(workflows, order) {
 async function fetchWorkflowsHelper(
     /* the current locale */
     language = 'en',
-    /* an array of workflow IDs to fetch */
+    /* an array of workflow IDs to fetch, usually from getStaticPageProps() */
     workflowIDs,
-    /* a specific workflow ID to fetch */
+    /* a specific workflow ID to fetch, usually from getStaticPageProps() */
     workflowID,
-    /* display order of workflow IDs, specified by the project owner. */
+    /* display order of workflow IDs, specified by the project owner in the lab. */
     workflowOrder = [],
     /* API environment, production | staging. */
     env
   ) {
-  const workflows = await fetchWorkflowData(workflowIDs, env)
+  let returnedWorkflows = []
+
+  // Fetching multiple workflows for the project pages
+  // When a project has active, incomplete workflows, return those so volunteers classifies them
+  const incompleteWorkflows = await fetchWorkflowData(workflowIDs, env, false)
+  if (incompleteWorkflows?.length) {
+    returnedWorkflows = incompleteWorkflows
+  }
+    
+  // If `complete: false` returns zero workflows, fetch all active workflows regardless of completeness
+  // so volunteers can still view the Classify page for a finished project or project out of data
+  if (!incompleteWorkflows?.length) {
+    const completedWorkflows = await fetchWorkflowData(workflowIDs, env, true)
+    returnedWorkflows = completedWorkflows
+  }
+
+  // When a single workflowID is provided, this usually means the project has 1 active workflow
+  // or the url includes is a specific workflow id
   if (workflowID) {
-    const activeWorkflow = workflows.find(workflow => workflow.id === workflowID)
+    const activeWorkflow = returnedWorkflows.find(workflow => workflow.id === workflowID)
     if (!activeWorkflow) {
-      /*
-        Always fetch specified workflows, even if they're complete.
-      */
       const workflow = await fetchSingleWorkflow(workflowID, env)
-      workflows.push(workflow)
+      returnedWorkflows.push(workflow)
     }
   }
-  const workflowIds = workflows.map(workflow => workflow.id)
-  const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
-  const awaitWorkflows = workflows.map(workflow => {
+  // Get the display names of each workflow for the WorkflowSelector UI depending on language
+  const workflowIds = returnedWorkflows.map(workflow => workflow.id)
+  const displayNames = await fetchDisplayNames(language, workflowIds, env)
+  const awaitWorkflows = returnedWorkflows.map(workflow => {
     const displayName = displayNames[workflow.id] || workflow.display_name
-    return buildWorkflow(workflow, displayName, env)
+    return buildWorkflow(workflow, displayName)
   })
   const workflowStatuses = await Promise.allSettled(awaitWorkflows)
-  const workflowsWithSubjectSets = workflowStatuses.map(result => result.value || result.reason)
-  const orderedWorkflows = orderWorkflows(workflowsWithSubjectSets, workflowOrder)
+  const workflowsWithDisplayNames = workflowStatuses.map(promiseResult => promiseResult.value || promiseResult.reason)
+
+  // Order the workflows according to order set my project owner in the lab
+  const orderedWorkflows = orderWorkflows(workflowsWithDisplayNames, workflowOrder)
   return orderedWorkflows
 }
 
