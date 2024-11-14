@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "~14.2.7",
-    "@next/third-parties": "~14.2.7",
+    "@next/third-parties": "~15.0.3",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/content": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
