@@ -10,6 +10,7 @@ import {
 } from '@components/shared'
 
 import { formatDateRange } from './helpers/formatDateRange'
+import { getDefaultDateRange } from '@utils'
 
 const PrintableBox = styled(Box)`
   font-size: 16px;
@@ -57,10 +58,7 @@ const PrintableBox = styled(Box)`
   }
 `
 
-const DEFAULT_DATE_RANGE = {
-  endDate: undefined,
-  startDate: undefined
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 
 function handleClickPrint() {
   window.print()

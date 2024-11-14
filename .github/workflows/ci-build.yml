@@ -21,6 +21,7 @@ jobs:
 
       - run: yarn install --immutable
       - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/subject-viewers build:es6
       - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-project build
 
