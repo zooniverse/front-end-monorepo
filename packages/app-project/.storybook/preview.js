@@ -1,3 +1,4 @@
+import { initialize, mswLoader } from 'msw-storybook-addon'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import i18n from './lib/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -8,6 +9,14 @@ const background = {
   dark: 'dark-1',
   light: 'light-1'
 }
+
+// Initialize MSW
+initialize({
+  serviceWorker: {
+    url: './mockServiceWorker.js',
+  },
+  onUnhandledRequest: 'bypass',
+})
 
 const globalTypes = {
   theme: {
@@ -56,6 +65,7 @@ const preview = {
   },
   decorators,
   globalTypes,
+  loaders: [mswLoader]
 }
 
 export default preview
