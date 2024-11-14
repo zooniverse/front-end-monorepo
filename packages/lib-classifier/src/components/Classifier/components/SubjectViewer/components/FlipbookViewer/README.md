@@ -37,11 +37,10 @@ FlipbookControls handles the following features:
 - `onReady`: (function) Function is passed from SubjectViewer and  dimensions are added to classification metadata.
 - `playIterations`: (string) Can be '', meaning infinite, or a number represented as a string. Set in the project builder and determines how many times to loop the flipbook.
 - `rotation`: (number) Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image.
-- `setOnPan`: (function) Passed from subject viewer store and used in SVGPanZoom.
-- `setOnZoom`: (function) Passed from subject viewer store and used in SVGPanZoom.
+- `setOnPan`: (function) Passed from subject viewer store and used in VisXZoom.
+- `setOnZoom`: (function) Passed from subject viewer store and used in VisXZoom.
 - `subject`: (object) Passed from mobx store via SubjectViewer.
 
 ### State Variables
 - `currentFrame`: (number) Frame index that determines `viewerSrc`.
 - `playing`: (boolean) Whether or not the looping feature is playing.
-- `dragMove`: Used in SVGPanZoom.
