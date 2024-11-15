@@ -1,9 +1,10 @@
 import useSWR from 'swr'
-import { usePanoptesAuth } from '@hooks'
 import { env, panoptes } from '@zooniverse/panoptes-js'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 
+import { usePanoptesAuth } from '@hooks'
+import { getTodayDateString, getSevenDaysAgoDateString, getQueryPeriod } from './helpers/dateRangeHelpers.js'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -44,35 +45,22 @@ async function fetchUserCreatedAt(userID) {
 
 /* Same technique as getDefaultDateRange() in lib-user */
 function formatSevenDaysStatsQuery() {
-  const today = new Date()
-  const todayDateString = today.toISOString().substring(0, 10)
-
-  const defaultStartDate = new Date()
-  const sevenDaysAgo = defaultStartDate.getUTCDate() - 6
-  defaultStartDate.setUTCDate(sevenDaysAgo)
-  const endDateString = defaultStartDate.toISOString().substring(0, 10)
+  const todayDateString = getTodayDateString()
+  const sevenDaysAgoString = getSevenDaysAgoDateString()
 
   const query = {
-    end_date: todayDateString, // "Today" in UTC Timezone
+    end_date: todayDateString,
     period: 'day',
-    start_date: endDateString // 7 Days ago
+    start_date: sevenDaysAgoString
   }
 
-  const statsQuery = new URLSearchParams(query).toString()
-  return statsQuery
+  return new URLSearchParams(query).toString()
 }
 
 /* Similar to getDateInterval() and StatsTabs in lib-user */
 function formatAllTimeStatsQuery(userCreatedAt) {
-  const today = new Date()
-  const todayDateString = today.toISOString().substring(0, 10)
-
-  let queryPeriod
-  const differenceInDays = (new Date(todayDateString) - new Date(userCreatedAt)) / (1000 * 60 * 60 * 24)
-  if (differenceInDays <= 31) queryPeriod = 'day'
-  else if (differenceInDays <= 183) queryPeriod = 'week'
-  else if (differenceInDays <= 1460) queryPeriod = 'month'
-  else queryPeriod = 'year'
+  const todayDateString = getTodayDateString()
+  const queryPeriod = getQueryPeriod(todayDateString, userCreatedAt)
 
   const query = {
     end_date: todayDateString,
@@ -80,8 +68,7 @@ function formatAllTimeStatsQuery(userCreatedAt) {
     start_date: userCreatedAt
   }
 
-  const statsQuery = new URLSearchParams(query).toString()
-  return statsQuery
+  return new URLSearchParams(query).toString()
 }
 
 async function fetchStats({ endpoint, projectID, userID, authorization }) {

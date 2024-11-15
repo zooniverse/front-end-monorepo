@@ -9,7 +9,8 @@ function storeMapper(store) {
 
   return {
     projectID: project.id,
-    userID: user.id
+    userID: user.id,
+    userLogin: user.login
   }
 }
 
@@ -18,16 +19,23 @@ function storeMapper(store) {
  * and store observing are purposely separated from the presentational component
  * styling and logic. Fetching user data requires authorization, making it
  * complicated to use a mock library like MSW for useYourProjectStats() hook.
-*/
+ */
 
 function YourProjectStatsContainer() {
   const { store } = useContext(MobXProviderContext)
-  const { projectID, userID } = storeMapper(store)
+  const { projectID, userID, userLogin } = storeMapper(store)
 
   const { data, loading, error } = useYourProjectStats({ projectID, userID })
 
   return (
-    <YourProjectStats data={data} loading={loading} error={error} userID={userID} />
+    <YourProjectStats
+      data={data}
+      loading={loading}
+      error={error}
+      projectID={projectID}
+      userLogin={userLogin}
+      userID={userID}
+    />
   )
 }
 
