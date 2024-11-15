@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { ClassifyPage, ClassifierWrapper } from './ClassifyPage'
 import FinishedForTheDay from './components/FinishedForTheDay'
 import WorkflowMenuModal from './components/WorkflowMenuModal'
-import YourStats from './components/YourStats'
+import YourProjectStatsContainer from './components/YourProjectStats/YourProjectStatsContainer.js'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
@@ -29,8 +29,8 @@ describe('Component > ClassifyPage', function () {
       expect(wrapper.find(ProjectStatistics)).to.have.lengthOf(1)
     })
 
-    it('should render the `YourStats` component', function () {
-      expect(wrapper.find(YourStats)).to.have.lengthOf(1)
+    it('should render the `YourProjectStatsContainer` component', function () {
+      expect(wrapper.find(YourProjectStatsContainer)).to.have.lengthOf(1)
     })
 
     it('should render the `ConnectWithProject` component', function () {
