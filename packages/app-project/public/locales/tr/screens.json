@@ -30,16 +30,6 @@
         "title": "Sınıflandırıcıda bir hata oluştu :("
       }
     },
-    "FinishedForTheDay": {
-      "ProjectImage": {
-        "alt": "{{projectName}} için resim"
-      },
-      "buttons": {
-        "stats": "İstatistikleri görün"
-      },
-      "text": "Siz çalışırken yanıtlarınız araştırma ekibi için kaydedilir. Proje istatistiklerini görün ve {{projectName}} ana sayfasına dönün.",
-      "title": "Bugünlük işiniz bitti mi?"
-    },
     "RecentSubjects": {
       "text": "Sohbet'te bir konuyu tartışın veya Favorilerinize ya da bir koleksiyona ekleyin.",
       "title": "En son çalışmalarınız"

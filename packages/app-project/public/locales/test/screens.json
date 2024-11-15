@@ -30,17 +30,6 @@
         "title": "Translated"
       }
     },
-    "FinishedForTheDay": {
-      "ProjectImage": {
-        "alt": "Translated {{projectName}}"
-      },
-      "buttons": {
-        "anotherProject": "Translated",
-        "stats": "Translated"
-      },
-      "text": "Translated {{projectName}} Translated",
-      "title": "Translated"
-    },
     "RecentSubjects": {
       "text": "Translated",
       "title": "Translated"

@@ -7,7 +7,6 @@ import withResponsiveContext from '@zooniverse/react-components/helpers/withResp
 import CollectionsModal from '@shared/components/CollectionsModal'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
-import FinishedForTheDay from './components/FinishedForTheDay'
 import RecentSubjects from './components/RecentSubjects'
 import YourProjectStatsContainer from './components/YourProjectStats/YourProjectStatsContainer.js'
 import StandardLayout from '@shared/components/StandardLayout'
@@ -110,7 +109,6 @@ function ClassifyPage({
           </Box>
 
           <Box as='aside' gap='medium' width='min(100%, 90rem)'>
-            <FinishedForTheDay />
             <Grid
               columns={screenSize === 'small' ? ['auto'] : ['1fr', '2fr']}
               gap={screenSize === 'small' ? 'small' : 'medium'}

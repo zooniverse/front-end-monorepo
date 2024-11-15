@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
 
 import { ClassifyPage, ClassifierWrapper } from './ClassifyPage'
-import FinishedForTheDay from './components/FinishedForTheDay'
 import WorkflowMenuModal from './components/WorkflowMenuModal'
 import YourProjectStatsContainer from './components/YourProjectStats/YourProjectStatsContainer.js'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
@@ -19,10 +18,6 @@ describe('Component > ClassifyPage', function () {
 
     it('should render without crashing', function () {
       expect(wrapper).to.be.ok()
-    })
-
-    it('should render the `FinishedForTheDay` component', function () {
-      expect(wrapper.find(FinishedForTheDay)).to.have.lengthOf(1)
     })
 
     it('should render the `ProjectStatistics` component', function () {

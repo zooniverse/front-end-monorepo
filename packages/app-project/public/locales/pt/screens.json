@@ -30,17 +30,6 @@
         "title": "Ocorreu um erro no classificador :("
       }
     },
-    "FinishedForTheDay": {
-      "ProjectImage": {
-        "alt": "Imagem para {{projectName}}"
-      },
-      "buttons": {
-        "anotherProject": "Encontrar outro projeto",
-        "stats": "Ver as estatísticas"
-      },
-      "text": "As suas respostas serão guardadas para a equipa de investigação enquanto não estiver a trabalhar. Veja as estatísticas do projeto e volte à página inicial de {{projectName}}.",
-      "title": "Terminou por hoje?"
-    },
     "RecentSubjects": {
       "text": "Fale sobre qualquer objeto em Conversar ou adicione-o aos favoritos ou a uma coleção.",
       "title": "As suas classificações recentes"
