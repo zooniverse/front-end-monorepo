@@ -1,31 +1,31 @@
 import { Box } from 'grommet'
-import { useContext } from 'react'
-import { MobXProviderContext, observer } from 'mobx-react'
+import Loader from '@zooniverse/react-components/Loader'
+import { array, bool, number, shape, string } from 'prop-types'
 
 import Stat from '@shared/components/Stat'
-import useYourProjectStats from './useYourProjectStats.js'
+import RequireUser from '@shared/components/RequireUser/RequireUser.js'
 
-function storeMapper(store) {
-  const { project, user } = store
-
-  return {
-    projectID: project.id,
-    userID: user.id
+const defaultStatsData = {
+  allTimeStats: {
+    period: [],
+    total_count: 0
+  },
+  sevenDaysStats: {
+    period: [],
+    total_count: 0
   }
 }
 
-function YourProjectStats() {
-  const { store } = useContext(MobXProviderContext)
-  const { projectID, userID } = storeMapper(store)
-
-  const { data, loading, error } = useYourProjectStats({ projectID, userID })
-  // console.log(data)
-
+function YourProjectStats({ data = defaultStatsData, loading, error, userID}) {
   return (
     <>
       {userID ? (
         <>
-          {error ? (
+          {loading ?
+          <Box height='100%' width='100%' align='center'>
+            <Loader />
+          </Box>
+          : error ? (
             <span>There was an error loading your stats</span>
           ) : (
             <Box direction='row'>
@@ -35,13 +35,26 @@ function YourProjectStats() {
           )}
         </>
       ) : (
-        <Box direction='row'>
-          <Stat label='Last 7 Days' value={0} />
-          <Stat label='All TIme' value={0} />
-        </Box>
+        <RequireUser />
       )}
     </>
   )
 }
 
-export default observer(YourProjectStats)
+export default YourProjectStats
+
+YourProjectStats.propTypes = {
+  data: shape({
+    allTimeStats: shape({
+      period: array,
+      total_count: number
+    }),
+    sevenDaysStats: shape({
+      period: array,
+      total_count: number
+    })
+  }),
+  loading: bool,
+  error: bool,
+  userID: string
+}
