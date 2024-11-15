@@ -10,6 +10,7 @@ import ProjectStatistics from '@shared/components/ProjectStatistics'
 import FinishedForTheDay from './components/FinishedForTheDay'
 import RecentSubjects from './components/RecentSubjects'
 import YourStats from './components/YourStats'
+import YourProjectStats from './components/YourProjectStats/YourProjectStats.js'
 import StandardLayout from '@shared/components/StandardLayout'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
 import WorkflowMenuModal from './components/WorkflowMenuModal'
@@ -115,7 +116,7 @@ function ClassifyPage({
               columns={screenSize === 'small' ? ['auto'] : ['1fr', '2fr']}
               gap={screenSize === 'small' ? 'small' : 'medium'}
             >
-              <YourStats />
+              <YourProjectStats />
               <RecentSubjects size={screenSize === 'small' ? 1 : 3} />
             </Grid>
             <ProjectStatistics />

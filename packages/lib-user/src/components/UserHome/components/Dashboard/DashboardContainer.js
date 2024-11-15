@@ -33,6 +33,7 @@ const fetchProfileBanner = async ({ authUser }) => {
 export default function DashboardContainer({ authUser }) {
   const key = { endpoint: '/users/[id]', authUser }
   const { data: user, isLoading: userLoading } = useSWR(key, fetchProfileBanner, SWROptions)
+  console.log('lib-user', user)
 
   return (
     <Dashboard
