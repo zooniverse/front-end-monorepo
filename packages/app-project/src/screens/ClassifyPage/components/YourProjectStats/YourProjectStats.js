@@ -77,7 +77,7 @@ function YourProjectStats({
                   valueLoading={loading}
                 />
               </Box>
-              <ClassificationsChartContainer stats={data.sevenDaysStats} />
+              <ClassificationsChartContainer stats={data?.sevenDaysStats} />
             </Box>
           ) : null}
         </>

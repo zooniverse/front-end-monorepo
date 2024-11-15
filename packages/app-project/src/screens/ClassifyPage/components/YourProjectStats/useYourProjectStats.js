@@ -34,13 +34,12 @@ async function fetchUserCreatedAt(userID) {
   }
   try {
     const response = await panoptes.get(`/users`, userQuery, { ...headers }, host)
-    if (response.ok) {
-      return response.body.users[0].created_at.substring(0, 10)
-    }
+    return response.body.users[0].created_at.substring(0, 10)
   } catch (error) {
     console.error('Error loading user with id:', userID)
     logToSentry(error)
   }
+  return ''
 }
 
 /* Same technique as getDefaultDateRange() in lib-user */
@@ -95,6 +94,7 @@ async function fetchStats({ endpoint, projectID, userID, authorization }) {
     console.error('Error fetching stats', error)
     logToSentry(error)
   }
+  return null
 }
 
 export default function useYourProjectStats({ projectID, userID }) {
