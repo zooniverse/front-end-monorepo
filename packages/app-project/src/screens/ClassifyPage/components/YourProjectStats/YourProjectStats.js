@@ -1,7 +1,6 @@
 import { Box } from 'grommet'
 import Loader from '@zooniverse/react-components/Loader'
 import { arrayOf, bool, object, number, shape, string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
 
 import ContentBox from '@shared/components/ContentBox'
 import Stat from '@shared/components/Stat'
@@ -10,17 +9,21 @@ import ClassificationsChartContainer from './components/ClassificationsChartCont
 
 const defaultStatsData = {
   allTimeStats: {
-    data: [{
-      count: 0,
-      period: []
-    }],
+    data: [
+      {
+        count: 0,
+        period: ''
+      }
+    ],
     total_count: 0
   },
   sevenDaysStats: {
-    data: [{
-      count: 0,
-      period: []
-    }],
+    data: [
+      {
+        count: 0,
+        period: ''
+      }
+    ],
     total_count: 0
   }
 }
@@ -33,8 +36,6 @@ function YourProjectStats({
   userID = '',
   userLogin = ''
 }) {
-  const { t } = useTranslation('screens')
-
   const linkProps = {
     externalLink: true,
     href: `https://www.zooniverse.org/users/${userLogin}/stats?project_id=${projectID}`
@@ -57,21 +58,27 @@ function YourProjectStats({
               <span>There was an error loading your stats.</span>
             </Box>
           ) : data ? (
-            <>
-            <Box direction='row' gap='medium' fill align='center'>
-              <Stat
-                label='Last 7 Days'
-                value={data?.sevenDaysStats?.total_count}
-                valueLoading={loading}
-              />
-              <Stat
-                label='All TIme'
-                value={data?.allTimeStats?.total_count}
-                valueLoading={loading}
-              />
+            <Box gap='small'>
+              <Box
+                direction='row'
+                gap='large'
+                fill
+                align='center'
+                justify='center'
+              >
+                <Stat
+                  label='Last 7 Days'
+                  value={data?.sevenDaysStats?.total_count}
+                  valueLoading={loading}
+                />
+                <Stat
+                  label='All TIme'
+                  value={data?.allTimeStats?.total_count}
+                  valueLoading={loading}
+                />
+              </Box>
+              <ClassificationsChartContainer stats={data.sevenDaysStats} />
             </Box>
-            <ClassificationsChartContainer stats={data.sevenDaysStats} />
-            </>
           ) : null}
         </>
       ) : (
@@ -86,17 +93,21 @@ export default YourProjectStats
 YourProjectStats.propTypes = {
   data: shape({
     allTimeStats: shape({
-      data: arrayOf(shape({
-        count: number,
-        period: string
-      })),
+      data: arrayOf(
+        shape({
+          count: number,
+          period: string
+        })
+      ),
       total_count: number
     }),
     sevenDaysStats: shape({
-      data: arrayOf(shape({
-        count: number,
-        period: string
-      })),
+      data: arrayOf(
+        shape({
+          count: number,
+          period: string
+        })
+      ),
       total_count: number
     })
   }),

@@ -4,11 +4,11 @@ export function getTodayDateString() {
   return today.toISOString().substring(0, 10)
 }
 
-export function getSevenDaysAgoDateString() {
-  const sevenDaysAgoDate = new Date()
-  const sevenDaysAgo = sevenDaysAgoDate.getUTCDate() - 6
-  sevenDaysAgoDate.setUTCDate(sevenDaysAgo)
-  return sevenDaysAgoDate.toISOString().substring(0, 10)
+export function getNumDaysAgoDateString(numOfDays) {
+  const daysAgoDate = new Date()
+  const daysAgo = daysAgoDate.getUTCDate() - numOfDays
+  daysAgoDate.setUTCDate(daysAgo)
+  return daysAgoDate.toISOString().substring(0, 10)
 }
 
 export function getQueryPeriod(endDate, startDate) {

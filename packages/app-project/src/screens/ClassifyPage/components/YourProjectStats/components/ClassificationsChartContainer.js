@@ -2,12 +2,12 @@ import ClassificationsChart from './ClassificationsChart.js'
 import { arrayOf, number, shape, string } from 'prop-types'
 import { useRouter } from 'next/router.js'
 
-import { getTodayDateString, getSevenDaysAgoDateString } from '../helpers/dateRangeHelpers.js'
+import { getTodayDateString, getNumDaysAgoDateString } from '../helpers/dateRangeHelpers.js'
 
 const defaultStatsData = {
   data: [{
     count: 0,
-    period: []
+    period: ''
   }],
   total_count: 0
 }
@@ -19,11 +19,10 @@ export default function ClassificationsChartContainer({ stats = defaultStatsData
   // The data.period array returned from ERAS includes only days you've classified on
   // but we want to display all seven days in the ClassificationsChart
   const completeData = []
-  let index = 0
 
   // Use the same date strings that were used in the sevenDaysAgo ERAS query
   const todayDateString = getTodayDateString()
-  const sevenDaysAgoString = getSevenDaysAgoDateString()
+  const sevenDaysAgoString = getNumDaysAgoDateString(6)
 
   // Loop to current date starting seven days ago and see if there's matching data returned from ERAS
   let currentDate = new Date(sevenDaysAgoString)
@@ -37,28 +36,23 @@ export default function ClassificationsChartContainer({ stats = defaultStatsData
     })
 
     if (matchingData) {
-      completeData.push({
-        index,
-        ...matchingData
-      })
+      completeData.push(matchingData)
     } else {
       completeData.push({
-        index,
-        period: currentDate.toISOString(),
-        count: 0
+        count: 0,
+        period: currentDate.toISOString().substring(0, 10)
       })
     }
 
     currentDate.setUTCDate(currentDate.getUTCDate() + 1)
-    index += 1
   }
 
   // Attach 'day of the week' labels to each stat
   const statsWithLabels = completeData.map(({ count, period }) => {
     const date = new Date(period)
-    const longLabel = date.toLocaleDateString(router?.locale, { weekday: 'long' })
+    const longLabel = date.toLocaleDateString(router?.locale, { timeZone: 'UTC', weekday: 'long' })
     const alt = `${longLabel}: ${count}`
-    const label = date.toLocaleDateString(router?.locale, { weekday: 'short' })
+    const label = date.toLocaleDateString(router?.locale, { timeZone: 'UTC', weekday: 'short' })
     return { alt, count, label, longLabel, period }
   })
 

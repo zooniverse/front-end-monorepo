@@ -7,14 +7,6 @@ import { Text } from '@visx/text'
 import { scaleBand, scaleLinear } from '@visx/scale'
 
 const StyledBarGroup = styled(Group)`
-  text {
-    display: none;
-    ${props => css`
-      fill: ${props.theme.global.colors['light-1']};
-      font-size: ${props.theme.text.small.size};
-    `}
-  }
-
   &:hover rect,
   &:focus rect {
     ${props =>
@@ -25,8 +17,17 @@ const StyledBarGroup = styled(Group)`
 
   &:hover text,
   &:focus text {
-    display: inline-block;
+    display: block;
   }
+`
+
+const StyledBarLabel = styled(Text)`
+  display: none; // hide until bar is hovered or focused
+
+  ${props => css`
+    fill: ${props.theme.global.colors['neutral-1']};
+    font-size: 1rem;
+  `}
 `
 
 function ClassificationsChart({ stats = [] }) {
@@ -50,19 +51,17 @@ function ClassificationsChart({ stats = [] }) {
   })
 
   const axisColour = theme.dark
-    ? theme.global.colors.text.dark
-    : theme.global.colors.text.light
+    ? theme.global.colors.white
+    : theme.global.colors.black
 
-  function tickLabelProps() {
-    return {
-      'aria-hidden': 'true',
-      dx: '-0.25em',
-      dy: '0.2em',
-      fill: axisColour,
-      fontFamily: theme.global.font.family,
-      fontSize: '1rem',
-      textAnchor: 'middle'
-    }
+  const tickLabelProps = {
+    'aria-hidden': 'true',
+    dx: '-0.25em',
+    dy: '0.2em',
+    fill: axisColour,
+    fontFamily: theme.global.font.family,
+    fontSize: '1rem',
+    textAnchor: 'middle'
   }
 
   function shortDayLabels(dayName) {
@@ -73,10 +72,8 @@ function ClassificationsChart({ stats = [] }) {
   return (
     <div>
       <svg
-        height={HEIGHT + PADDING}
-        viewBox={`${-PADDING} ${-PADDING} ${WIDTH + PADDING} ${
-          HEIGHT + PADDING
-        }`}
+        height={HEIGHT}
+        viewBox={`${-PADDING} ${-PADDING} ${WIDTH} ${HEIGHT}`}
         width='100%'
       >
         <AxisLeft
@@ -103,14 +100,9 @@ function ClassificationsChart({ stats = [] }) {
                   x={barX}
                   y={barY}
                 />
-                <Text
-                  aria-hidden='true'
-                  textAnchor='middle'
-                  x={barX + 20}
-                  y={barY + 20}
-                >
+                <StyledBarLabel aria-hidden='true' x={barX + 20} y={barY - 20}>
                   {stat.count}
-                </Text>
+                </StyledBarLabel>
               </StyledBarGroup>
             )
           })}
@@ -118,6 +110,11 @@ function ClassificationsChart({ stats = [] }) {
         <AxisBottom
           stroke={axisColour}
           hideTicks
+          label='Date Range (UTC)'
+          labelOffset={30}
+          labelProps={{
+            fontSize: '1rem',
+          }}
           scale={xScale}
           tickFormat={shortDayLabels}
           tickLabelProps={tickLabelProps}

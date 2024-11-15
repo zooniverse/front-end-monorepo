@@ -4,7 +4,7 @@ import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 
 import { usePanoptesAuth } from '@hooks'
-import { getTodayDateString, getSevenDaysAgoDateString, getQueryPeriod } from './helpers/dateRangeHelpers.js'
+import { getTodayDateString, getNumDaysAgoDateString, getQueryPeriod } from './helpers/dateRangeHelpers.js'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -46,7 +46,7 @@ async function fetchUserCreatedAt(userID) {
 /* Same technique as getDefaultDateRange() in lib-user */
 function formatSevenDaysStatsQuery() {
   const todayDateString = getTodayDateString()
-  const sevenDaysAgoString = getSevenDaysAgoDateString()
+  const sevenDaysAgoString = getNumDaysAgoDateString(6)
 
   const query = {
     end_date: todayDateString,
