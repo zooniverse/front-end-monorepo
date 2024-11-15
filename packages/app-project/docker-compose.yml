@@ -21,6 +21,7 @@ services:
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
+      - node_modules:/usr/src/node_modules
   storybook:
     image: front-end-monorepo_dev:latest
     entrypoint:
@@ -34,3 +35,6 @@ services:
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
+      - node_modules:/usr/src/node_modules
+volumes:
+  node_modules:
