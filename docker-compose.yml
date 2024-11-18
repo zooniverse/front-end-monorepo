@@ -1,6 +1,8 @@
 services:
   prod-shell:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
@@ -13,7 +15,7 @@ services:
   dev-shell:
     image: front-end-monorepo_dev:latest
     volumes:
-      - node_modules:/usr/src/node_modules
+      - node_modules-dev:/usr/src/node_modules
     build:
       context: ./
       target: builder
@@ -58,4 +60,5 @@ services:
     ports:
       - "3003:3000"
 volumes:
-  node_modules:
+  node_modules-dev:
+  node_modules-prod:
