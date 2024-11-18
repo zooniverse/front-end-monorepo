@@ -10,3 +10,5 @@ export { default as text } from './text'
 export { default as highlighter } from './experimental/highlighter'
 export { default as textFromSubject } from './experimental/textFromSubject'
 export { default as transcription } from './experimental/transcription'
+
+// Delilah: Import VV Tool Component here as barrel import from lib-subject-viewers?

@@ -3,6 +3,7 @@ import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SingleChoiceAnnotation from './SingleChoiceAnnotation'
 
+// Delilah: Where should this live for VV?
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
 

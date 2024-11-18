@@ -34,6 +34,8 @@ function Task ({
   task,
   ...props
 }) {
+	// Delilah: This is where the TaskComponent+TaskModel+AnnotationModel gets imported
+	// If I piggyback on the barrel export this is where it shows up
   const TaskPlugin = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
   const TaskComponent = TaskPlugin?.TaskComponent
   let annotation
