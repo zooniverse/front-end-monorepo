@@ -14,7 +14,7 @@ Classification metadata is stored in the database with UTC timestamps, and the s
 
 Example: A volunteer submits classifications at 9pm Chicago, but it's 3am UTC.
 
-Classification metadata is stored in our database with UTC timestamps. If a volunteer's local timezone is Oct 31, but the UTC date is Nov 1 then their classifications are put into the time bucket for Nov 1. In a bar chart UI componenent that displays "Last 7 Days", the volunteer sees Oct 26 - Nov 1. As this volunteer submits classifications, their classification count will increase in the bar for Nov 1 (not their local time of 9pm Oct 31).
+Classification metadata is stored in our database with UTC timestamps. If a volunteer's local timezone is Oct 31, but the UTC date is Nov 1 then their classifications are put into the time bucket for Nov 1. In a bar chart UI component that displays "Last 7 Days", the volunteer sees Oct 26 - Nov 1. As this volunteer submits classifications, their classification count will increase in the bar for Nov 1 (not their local time of 9pm Oct 31).
 
 ### When a volunteer's local timezone is ahead of UTC
 
