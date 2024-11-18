@@ -93,15 +93,24 @@ function FAQPage() {
                   <Trans
                     i18nKey='FAQ.item3.answer'
                     t={t}
-                    components={[<Anchor key='stats-blog-post' href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages' />]}
+                    components={[
+                      <Anchor
+                        key='stats-blog-post'
+                        href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
+                      />
+                    ]}
                   />
                 </Answer>
               </Box>
               <Box as='li'>
                 <Question>{t('FAQ.item4.question')}</Question>
+                <Answer>{t('FAQ.item4.answer')}</Answer>
+              </Box>
+              <Box as='li'>
+                <Question>{t('FAQ.item5.question')}</Question>
                 <Answer>
                   <Trans
-                    i18nKey='FAQ.item4.answer'
+                    i18nKey='FAQ.item5.answer'
                     t={t}
                     components={[
                       <Anchor
@@ -117,10 +126,10 @@ function FAQPage() {
                 </Answer>
               </Box>
               <Box as='li'>
-                <Question>{t('FAQ.item5.question')}</Question>
+                <Question>{t('FAQ.item6.question')}</Question>
                 <Answer>
                   <Trans
-                    i18nKey='FAQ.item5.answer'
+                    i18nKey='FAQ.item6.answer'
                     t={t}
                     components={[
                       <Anchor
@@ -137,10 +146,10 @@ function FAQPage() {
                 </Answer>
               </Box>
               <Box as='li'>
-                <Question>{t('FAQ.item6.question')}</Question>
+                <Question>{t('FAQ.item7.question')}</Question>
                 <Answer>
                   <Trans
-                    i18nKey='FAQ.item6.answer'
+                    i18nKey='FAQ.item7.answer'
                     t={t}
                     components={[
                       <Anchor
@@ -152,11 +161,11 @@ function FAQPage() {
                 </Answer>
               </Box>
               <Box as='li'>
-                <Question>{t('FAQ.item7.question')}</Question>
-                <Answer>{t('FAQ.item7.answer0')}</Answer>
+                <Question>{t('FAQ.item8.question')}</Question>
+                <Answer>{t('FAQ.item8.answer0')}</Answer>
                 <Paragraph margin='0'>
                   <Trans
-                    i18nKey='FAQ.item7.answer1'
+                    i18nKey='FAQ.item8.answer1'
                     t={t}
                     components={[
                       <Anchor
@@ -168,7 +177,7 @@ function FAQPage() {
                 </Paragraph>
                 <Answer>
                   <Trans
-                    i18nKey='FAQ.item7.answer2'
+                    i18nKey='FAQ.item8.answer2'
                     t={t}
                     components={[
                       <Anchor key='donate-link' href='/get-involved/donate' />
@@ -177,10 +186,10 @@ function FAQPage() {
                 </Answer>
               </Box>
               <Box as='li'>
-                <Question>{t('FAQ.item8.question')}</Question>
+                <Question>{t('FAQ.item9.question')}</Question>
                 <Answer>
                   <Trans
-                    i18nKey='FAQ.item8.answer'
+                    i18nKey='FAQ.item9.answer'
                     t={t}
                     components={[
                       <Anchor key='resources-page' href='/about/resources' />
@@ -189,9 +198,9 @@ function FAQPage() {
                 </Answer>
               </Box>
               <Box as='li'>
-                <Question>{t('FAQ.item9.question')}</Question>
+                <Question>{t('FAQ.item10.question')}</Question>
                 <Paragraph margin={{ top: 'small', bottom: 'medium' }}>
-                  {t('FAQ.item9.answer')}
+                  {t('FAQ.item10.answer')}
                 </Paragraph>
               </Box>
             </StyledList>
