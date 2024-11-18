@@ -20,7 +20,7 @@ Classification metadata is stored in our database with UTC timestamps. If a volu
 
 Example: A volunteer submits classifications at 8am Korea, but it's 11pm UTC.
 
-If a volunteer's local timezone is Nov 2, but the UTC date is Nov 1, then their classifications are still put into the time bucket for Nov 1. In a bar chart UI componenent that displays "Last 7 Days", the volunteer sees Oct 26 - Nov 1. As this volunteer submits classifications, their classification count will increase in the bar for Nov 1 (not their local time of 8am Nov 2). This volunteer won't see a bar for Nov 2 on the chart.
+If a volunteer's local timezone is Nov 2, but the UTC date is Nov 1, then their classifications are still put into the time bucket for Nov 1. In a bar chart UI component that displays "Last 7 Days", the volunteer sees Oct 26 - Nov 1. As this volunteer submits classifications, their classification count will increase in the bar for Nov 1 (not their local time of 8am Nov 2). This volunteer won't see a bar for Nov 2 on the chart.
 
 ### UI Labels that are too relative
 
