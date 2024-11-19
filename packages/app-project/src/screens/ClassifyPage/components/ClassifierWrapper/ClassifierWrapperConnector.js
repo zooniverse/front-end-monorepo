@@ -22,8 +22,7 @@ function useStore(mockStore) {
     mode,
     project,
     recents: user.recents,
-    user,
-    yourStats: user.personalization
+    user
   }
 }
 
@@ -51,7 +50,6 @@ function ClassifierWrapperConnector({ mockStore, ...props }) {
     project,
     recents,
     user,
-    yourStats
   } = useStore(mockStore)
 
   return (
@@ -66,7 +64,6 @@ function ClassifierWrapperConnector({ mockStore, ...props }) {
       recents={recents}
       user={user}
       userID={user.id}
-      yourStats={yourStats}
       {...props}
     />
   )

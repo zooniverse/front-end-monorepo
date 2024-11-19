@@ -5,12 +5,14 @@ import { bool, func, string, shape } from 'prop-types'
 import { useCallback } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
+import { Loader } from '@zooniverse/react-components'
 
 import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
-import { Loader } from '@zooniverse/react-components'
+import useYourProjectStats from '../YourProjectStats/useYourProjectStats.js'
+import incrementStats from '../YourProjectStats/helpers/incrementStats.js'
 
 function onError(error, errorInfo = {}) {
   logToSentry(error, errorInfo)
@@ -43,8 +45,7 @@ export default function ClassifierWrapper({
   subjectSetID,
   user = null,
   userID,
-  workflowID,
-  yourStats
+  workflowID
 }) {
   const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
@@ -53,20 +54,22 @@ export default function ClassifierWrapper({
   const ownerSlug = router?.query.owner
   const projectSlug = router?.query.project
 
-  /* Only increment stats on the classify page if the subject is not retired or not already seen by current user */
-  const incrementStats = yourStats?.increment
+  /*
+    Increment user stats on every classification submitted.
+    Add the recently classified subject to the user's Recents.
+  */
+  const projectID = project?.id
+  const { mutate } = useYourProjectStats({ projectID, userID })
+
   const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
-    const finishedSubject = subject.already_seen || subject.retired
-    if (!finishedSubject) {
-      incrementStats()
-    }
+    incrementStats(mutate, projectID, userID)
     addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
-  }, [addRecents, incrementStats])
+  }, [addRecents, projectID, userID])
 
   /*
     If the page URL contains a subject ID, update that ID when the classification subject changes.
