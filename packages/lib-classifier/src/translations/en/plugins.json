@@ -24,6 +24,8 @@
     },
     "Choice": {
       "identify": "Identify",
+      "lessInfo": "Less info",
+      "moreInfo": "More info",
       "notThis": "Not this"
     },
     "ConfusedWith": {

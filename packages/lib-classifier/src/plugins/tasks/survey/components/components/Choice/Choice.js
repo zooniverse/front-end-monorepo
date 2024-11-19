@@ -1,6 +1,7 @@
-import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
+import { Box, Button, Carousel, Collapsible, Heading, Paragraph, Text } from 'grommet'
+import { FormDown, FormUp } from 'grommet-icons'
 import PropTypes from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
@@ -27,6 +28,7 @@ function Choice({
   onIdentify = () => {},
   task
 }) {
+  const [showDescription, setShowDescription] = useState(false)
   const {
     choices,
     images,
@@ -46,6 +48,24 @@ function Choice({
   const choice = choices?.get(choiceId) || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
+  const DescriptionLabel = (
+    <Box
+      direction='row'
+      gap='xsmall'
+    >
+      {showDescription ? (
+        <>
+          <Text>{t('SurveyTask.Choice.lessInfo')}</Text>
+          <FormUp />
+        </>
+      ) : (
+        <>
+          <Text>{t('SurveyTask.Choice.moreInfo')}</Text>
+          <FormDown />
+        </>
+      )}
+    </Box>
+  )
 
   function handleKeyDown (event) {
     if (event.key === 'Escape') {
@@ -90,31 +110,47 @@ function Choice({
           vertical: '30px'
         }}
       >
-        <Heading
-          id='choice-label'
-          color={{
-            dark: 'accent-1',
-            light: 'neutral-7'
-          }}
-          size='1.5rem'
-          weight='bold'
+        <Box
+          direction='row'
+          fill='horizontal'
+          justify='between'
         >
-          {strings.get(`choices.${choiceId}.label`)}
-        </Heading>
-        <Paragraph>
-          {strings.get(`choices.${choiceId}.description`)}
-        </Paragraph>
-        {choice.confusionsOrder?.length > 0 && (
-          <ConfusedWith
-            choices={choices}
-            choiceId={choiceId}
-            confusions={choice.confusions}
-            confusionsOrder={choice.confusionsOrder}
-            handleChoice={handleChoice}
-            images={images}
-            strings={strings}
+          <Heading
+            id='choice-label'
+            color={{
+              dark: 'accent-1',
+              light: 'neutral-7'
+            }}
+            margin='none'
+            size='1.5rem'
+            weight='bold'
+          >
+            {strings.get(`choices.${choiceId}.label`)}
+          </Heading>
+          <Button
+            label={DescriptionLabel}
+            onClick={() => setShowDescription(!showDescription)}          
+            plain
           />
-        )}
+        </Box>
+        <Collapsible
+          open={showDescription}
+        >
+          <Paragraph>
+            {strings.get(`choices.${choiceId}.description`)}
+          </Paragraph>
+          {choice.confusionsOrder?.length > 0 && (
+            <ConfusedWith
+              choices={choices}
+              choiceId={choiceId}
+              confusions={choice.confusions}
+              confusionsOrder={choice.confusionsOrder}
+              handleChoice={handleChoice}
+              images={images}
+              strings={strings}
+            />
+          )}
+        </Collapsible>
         {questionIds.length > 0 && (
           <Questions
             answers={answers}
