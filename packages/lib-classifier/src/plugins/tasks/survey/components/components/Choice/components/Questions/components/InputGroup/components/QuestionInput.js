@@ -37,9 +37,9 @@ function QuestionInput (props) {
     type
   } = props
 
-  let backgroundColor = 'neutral-6'
+  let backgroundColor = 'light-1'
   if (theme.dark) {
-    backgroundColor = 'dark-3'
+    backgroundColor = 'dark-4'
   }
   if (isChecked) {
     backgroundColor = 'accent-1'
@@ -60,7 +60,7 @@ function QuestionInput (props) {
         }}
         pad={{ horizontal: 'xsmall' }}
         round={type === 'radio' ? 'full' : false}
-        width={{ min: '40px' }}
+        width={type === 'radio' ? { min: '40px' } : { min: '110px' }}
       >
         <input
           autoFocus={hasFocus}
@@ -73,6 +73,8 @@ function QuestionInput (props) {
           onKeyDown={type === 'radio' ? (event) => (handleRadioKeyDown(event)) : null}
         />
         <Text
+          color={theme.dark ? 'neutral-6' : 'neutral-7'}
+          size='1rem'
           weight={isChecked ? 'bold' : 'normal'}
         >
           {option.label}

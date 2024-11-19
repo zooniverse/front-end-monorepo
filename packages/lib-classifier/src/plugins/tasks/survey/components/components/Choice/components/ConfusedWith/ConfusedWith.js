@@ -11,6 +11,10 @@ import Confusion from './components/Confusion'
 export const StyledDropButton = styled(DropButton)`
   background-color: ${props => props.theme.global.colors[props.backgroundColor]};
   border: none;
+  color: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['neutral-7']};
+  font-size: 1rem;
+  height: 40px;
+  min-width: 110px;
   margin-right: 5px;
   padding: 5px;
 `
@@ -44,9 +48,9 @@ function ConfusedWith({
         wrap
       >
         {confusionsOrder.map((confusionId, index) => {
-          let backgroundColor = 'neutral-6'
+          let backgroundColor = 'light-1'
           if (theme.dark) {
-            backgroundColor = 'dark-3'
+            backgroundColor = 'dark-4'
           }
           if (open === confusionId) {
             backgroundColor = 'accent-1'

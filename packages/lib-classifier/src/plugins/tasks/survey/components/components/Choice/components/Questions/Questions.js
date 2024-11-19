@@ -41,6 +41,7 @@ export default function Questions({
           >
             <SpacedHeading
               id={`${questionId}-label`}
+              size='1rem'
             >
               {strings.get(`questions.${questionId}.label`)}
             </SpacedHeading>
