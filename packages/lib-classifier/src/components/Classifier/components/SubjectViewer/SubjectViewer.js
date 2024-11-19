@@ -12,7 +12,7 @@ function storeMapper(classifierStore) {
   const {
     subjects: { active: subject, loadingState: subjectQueueState },
     subjectViewer: { onSubjectReady, onError, loadingState: subjectReadyState },
-    projects: { isVolumetricViewer }
+    projects: { active: project }
   } = classifierStore
 
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
@@ -21,7 +21,7 @@ function storeMapper(classifierStore) {
 
   return {
     enableInteractionLayer,
-    isVolumetricViewer,
+    isVolumetricViewer: project?.isVolumetricViewer ?? false,
     onError,
     onSubjectReady,
     subject,
