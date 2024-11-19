@@ -38,7 +38,7 @@ function Choice({
   onIdentify = () => {},
   task
 }) {
-  const [showDescription, setShowDescription] = useState(false)
+  const [showInfo, setShowInfo] = useState(false)
   const {
     choices,
     images,
@@ -58,12 +58,12 @@ function Choice({
   const choice = choices?.get(choiceId) || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
-  const DescriptionLabel = (
+  const InfoLabel = (
     <Box
       direction='row'
       gap='xsmall'
     >
-      {showDescription ? (
+      {showInfo ? (
         <>
           <Text>{t('SurveyTask.Choice.lessInfo')}</Text>
           <FormUp />
@@ -139,13 +139,14 @@ function Choice({
             {strings.get(`choices.${choiceId}.label`)}
           </Heading>
           <Button
-            label={DescriptionLabel}
-            onClick={() => setShowDescription(!showDescription)}          
+            a11yTitle={showInfo ? t('SurveyTask.Choice.lessInfo') : t('SurveyTask.Choice.moreInfo')}
+            label={InfoLabel}
+            onClick={() => setShowInfo(!showInfo)}          
             plain
           />
         </Box>
         <Collapsible
-          open={showDescription}
+          open={showInfo}
         >
           <Box margin={{ bottom: '30px' }}>
             <Paragraph margin='none'>
