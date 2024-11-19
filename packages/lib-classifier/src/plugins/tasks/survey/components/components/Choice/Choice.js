@@ -19,6 +19,16 @@ const StyledBox = styled(Box)`
   }
 `
 
+const StyledButton = styled(Button)`
+  border: 1px solid ${props => props.theme.global.colors.brand};
+  border-radius: 4px;
+`
+
+const StyledPrimaryButton = styled(PrimaryButton)`
+  border-radius: 4px;
+`
+
+
 function Choice({
   answers = {},
   choiceId = '',
@@ -176,12 +186,12 @@ function Choice({
           margin={{ top: '30px' }}
           pad={{ top: 'small' }}
         >
-          <Button
+          <StyledButton
             fill='horizontal'
             label={t('SurveyTask.Choice.cancel')}
             onClick={() => handleDelete(choiceId)}
           />
-          <PrimaryButton
+          <StyledPrimaryButton
             data-testid='choice-identify-button'
             disabled={!allowIdentify}
             fill='horizontal'

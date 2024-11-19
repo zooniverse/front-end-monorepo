@@ -59,7 +59,7 @@ function QuestionInput (props) {
           right: 'xsmall'
         }}
         pad={{ horizontal: 'xsmall' }}
-        round={type === 'radio' ? 'full' : false}
+        round={type === 'radio' ? 'full' : '4px'}
         width={type === 'radio' ? { min: '40px' } : { min: '110px' }}
       >
         <input
