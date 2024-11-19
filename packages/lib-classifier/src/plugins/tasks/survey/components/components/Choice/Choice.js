@@ -114,6 +114,7 @@ function Choice({
           direction='row'
           fill='horizontal'
           justify='between'
+          margin={{ bottom: '30px' }}
         >
           <Heading
             id='choice-label'
@@ -136,20 +137,22 @@ function Choice({
         <Collapsible
           open={showDescription}
         >
-          <Paragraph>
-            {strings.get(`choices.${choiceId}.description`)}
-          </Paragraph>
-          {choice.confusionsOrder?.length > 0 && (
-            <ConfusedWith
-              choices={choices}
-              choiceId={choiceId}
-              confusions={choice.confusions}
-              confusionsOrder={choice.confusionsOrder}
-              handleChoice={handleChoice}
-              images={images}
-              strings={strings}
-            />
-          )}
+          <Box margin={{ bottom: '30px' }}>
+            <Paragraph margin='none'>
+              {strings.get(`choices.${choiceId}.description`)}
+            </Paragraph>
+            {choice.confusionsOrder?.length > 0 && (
+              <ConfusedWith
+                choices={choices}
+                choiceId={choiceId}
+                confusions={choice.confusions}
+                confusionsOrder={choice.confusionsOrder}
+                handleChoice={handleChoice}
+                images={images}
+                strings={strings}
+              />
+            )}
+          </Box>
         </Collapsible>
         {questionIds.length > 0 && (
           <Questions
@@ -170,11 +173,12 @@ function Choice({
           fill='horizontal'
           gap='xsmall'
           justify='center'
+          margin={{ top: '30px' }}
           pad={{ top: 'small' }}
         >
           <Button
             fill='horizontal'
-            label={t('SurveyTask.Choice.notThis')}
+            label={t('SurveyTask.Choice.cancel')}
             onClick={() => handleDelete(choiceId)}
           />
           <PrimaryButton

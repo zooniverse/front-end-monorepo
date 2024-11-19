@@ -41,8 +41,13 @@ function ConfusedWith({
   }
 
   return (
-    <Box>
-      <SpacedHeading>{t('SurveyTask.ConfusedWith.confused')}</SpacedHeading>
+    <Box margin={{ top: '30px' }}>
+      <SpacedHeading
+        margin={{ bottom: '20px', top: 'none' }}
+        size='1rem'
+      >
+        {t('SurveyTask.ConfusedWith.confused')}
+      </SpacedHeading>
       <Box
         direction='row'
         wrap

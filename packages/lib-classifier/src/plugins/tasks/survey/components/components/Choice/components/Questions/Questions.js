@@ -26,6 +26,7 @@ export default function Questions({
   return (
     <Box
       flex='grow'
+      gap='30px'
     >
       {questionIds.map((questionId, index) => {
         const question = questions.get(questionId) || { answers: {}, answersOrder: [] }
@@ -41,6 +42,10 @@ export default function Questions({
           >
             <SpacedHeading
               id={`${questionId}-label`}
+              margin={{
+                top: 'none',
+                bottom: '20px'
+              }}
               size='1rem'
             >
               {strings.get(`questions.${questionId}.label`)}
