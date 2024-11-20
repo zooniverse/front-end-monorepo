@@ -46,7 +46,7 @@
     "hash.js": "~1.1.7",
     "i18next": "~23.16.5",
     "lodash": "~4.17.11",
-    "mobx-utils": "~6.0.4",
+    "mobx-utils": "~6.1.0",
     "react-i18next": "~14.1.0",
     "react-player": "~2.13.0",
     "swr": "~2.2.0",
