@@ -42,13 +42,7 @@
       "title": "Nuevo flujo de trabajo disponible"
     },
     "YourStats": {
-      "DailyClassificationsChart": {
-        "title": "Recuentos diarios de la clasificación de {{projectName}}"
-      },
-      "text": "¡Sigue con ese gran trabajo!",
-      "title": "Estadística de {{projectName}}",
-      "todaysCount": "Las clasificaciones de hoy",
-      "totalCount": "Total de clasificaciones"
+      "title": "Estadística"
     }
   },
   "Home": {

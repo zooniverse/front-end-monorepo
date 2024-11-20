@@ -110,7 +110,7 @@ function ClassifyPage({
 
           <Box as='aside' gap='medium' width='min(100%, 90rem)'>
             <Grid
-              columns={screenSize === 'small' ? ['auto'] : ['1fr', '2fr']}
+              columns={screenSize === 'small' ? ['auto'] : ['2fr', '5fr']}
               gap={screenSize === 'small' ? 'small' : 'medium'}
             >
               <YourProjectStatsContainer />

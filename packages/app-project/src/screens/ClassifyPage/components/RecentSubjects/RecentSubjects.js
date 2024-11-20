@@ -43,9 +43,9 @@ function RecentSubjects({
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title', { projectName })}>
-      <Paragraph margin={{ top: 'none' }}>
+      {/* <Paragraph margin={{ top: 'none' }}>
         {t('Classify.RecentSubjects.text')}
-      </Paragraph>
+      </Paragraph> */}
       <Grid
         alignContent='stretch'
         columns={[`repeat(${size}, 1fr)`]}

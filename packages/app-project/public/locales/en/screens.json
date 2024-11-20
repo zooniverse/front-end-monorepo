@@ -67,13 +67,10 @@
       "title": "New Workflow Available"
     },
     "YourStats": {
-      "todaysCount": "Classifications today",
-      "totalCount": "Classifications total",
-      "text": "Keep up the great work!",
-      "title": "Your {{projectName}} statistics",
-      "DailyClassificationsChart": {
-        "title": "{{projectName}} daily classification counts"
-      }
+      "allTime": "All Time",
+      "lastSeven": "Last 7 Days",
+      "link": "See more",
+      "title": "Your Stats"
     }
   }
 }

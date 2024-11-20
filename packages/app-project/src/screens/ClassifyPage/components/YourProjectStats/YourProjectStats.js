@@ -1,11 +1,28 @@
-import { Box } from 'grommet'
+import { Box, ResponsiveContext, Text } from 'grommet'
 import Loader from '@zooniverse/react-components/Loader'
+import SpacedText from '@zooniverse/react-components/SpacedText'
 import { arrayOf, bool, object, number, shape, string } from 'prop-types'
+import { useContext } from 'react'
 
 import ContentBox from '@shared/components/ContentBox'
-import Stat from '@shared/components/Stat'
 import RequireUser from '@shared/components/RequireUser/RequireUser.js'
-import ClassificationsChartContainer from './components/ClassificationsChartContainer.js'
+import { useTranslation } from 'next-i18next'
+
+function Stat({ label = '', value = 0 }) {
+  return (
+    <Box>
+      <SpacedText textAlign='center'>{label}</SpacedText>
+      <Text
+        color={{ light: 'neutral-1', dark: 'accent-1' }}
+        size='xxlarge'
+        textAlign='center'
+      >
+        {/* Insert commmas where appropriate */}
+        {value.toLocaleString()}
+      </Text>
+    </Box>
+  )
+}
 
 const defaultStatsData = {
   allTimeStats: {
@@ -36,6 +53,8 @@ function YourProjectStats({
   userID = '',
   userLogin = ''
 }) {
+  const { t } = useTranslation('screens')
+  const size = useContext(ResponsiveContext)
   const linkProps = {
     externalLink: true,
     href: `https://www.zooniverse.org/users/${userLogin}/stats?project_id=${projectID}`
@@ -43,8 +62,8 @@ function YourProjectStats({
 
   return (
     <ContentBox
-      title='Your Classification Stats'
-      linkLabel='More stats'
+      title={t('Classify.YourStats.title')}
+      linkLabel={t('Classify.YourStats.link')}
       linkProps={linkProps}
     >
       {userID ? (
@@ -55,29 +74,24 @@ function YourProjectStats({
             </Box>
           ) : error ? (
             <Box height='100%' width='100%' align='center'>
-              <span>There was an error loading your stats.</span>
+              <span>{error.message}</span>
             </Box>
           ) : data ? (
-            <Box gap='small'>
-              <Box
-                direction='row'
-                gap='large'
-                fill
-                align='center'
-                justify='center'
-              >
-                <Stat
-                  label='Last 7 Days'
-                  value={data?.sevenDaysStats?.total_count}
-                  valueLoading={loading}
-                />
-                <Stat
-                  label='All TIme'
-                  value={data?.allTimeStats?.total_count}
-                  valueLoading={loading}
-                />
-              </Box>
-              <ClassificationsChartContainer stats={data?.sevenDaysStats} />
+            <Box
+              direction={size === 'small' ? 'row' : 'column'}
+              gap='medium'
+              fill
+              align='center'
+              justify='center'
+            >
+              <Stat
+                label={t('Classify.YourStats.lastSeven')}
+                value={data?.sevenDaysStats?.total_count}
+              />
+              <Stat
+                label={t('Classify.YourStats.allTime')}
+                value={data?.allTimeStats?.total_count}
+              />
             </Box>
           ) : null}
         </>

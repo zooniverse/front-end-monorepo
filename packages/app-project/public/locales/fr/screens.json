@@ -42,13 +42,7 @@
       "title": "Nouveau module disponible"
     },
     "YourStats": {
-      "DailyClassificationsChart": {
-        "title": "Nombre de classifications quotidiennes de {{projectName}}"
-      },
-      "text": "Continuez votre excellent travail !",
-      "title": "Statistiques de {{projectName}}",
-      "todaysCount": "Classifications d'aujourd'hui",
-      "totalCount": "Total des classifications"
+      "title": "Statistiques"
     }
   },
   "Home": {

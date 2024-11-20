@@ -91,7 +91,7 @@ async function fetchStats({ endpoint, projectID, userID, authorization }) {
       allTimeStats
     }
   } catch (error) {
-    console.error('Error fetching stats', error)
+    console.error(error)
     logToSentry(error)
   }
   return null
