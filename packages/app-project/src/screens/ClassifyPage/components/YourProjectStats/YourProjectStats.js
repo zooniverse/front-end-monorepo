@@ -63,8 +63,8 @@ function YourProjectStats({
   return (
     <ContentBox
       title={t('Classify.YourStats.title')}
-      linkLabel={t('Classify.YourStats.link')}
-      linkProps={linkProps}
+      linkLabel={loading || !userID || error ? null : t('Classify.YourStats.link')}
+      linkProps={loading || !userID || error ? null : linkProps}
     >
       {userID ? (
         <>
