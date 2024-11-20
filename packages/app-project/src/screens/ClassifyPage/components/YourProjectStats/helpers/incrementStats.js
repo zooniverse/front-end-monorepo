@@ -1,3 +1,4 @@
+/** mutate() is an SWR function passed from useYourProjectStats() via ClassifierWrapper */
 export default function incrementStats(mutate, projectID, userID) {
   if (!projectID || !userID) return
   mutate(

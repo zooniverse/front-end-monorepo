@@ -5,6 +5,7 @@ export default function usePanoptesAuth(userID) {
   const [authorization, setAuthorization] = useState()
 
   async function checkAuth() {
+    auth.checkCurrent()
     const token = await auth.checkBearerToken()
     const bearerToken = token ? `Bearer ${token}` : ''
     setAuthorization(bearerToken)

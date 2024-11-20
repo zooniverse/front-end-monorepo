@@ -100,7 +100,7 @@ async function fetchStats({ endpoint, projectID, userID, authorization }) {
 export default function useYourProjectStats({ projectID, userID }) {
   const authorization = usePanoptesAuth(userID)
 
-  // only fetch stats when a userID is available. Don't fetch if no user logged in.
+  // only fetch stats when a userID is available. Don't fetch if no user signed in.
   const key = authorization && userID ? { endpoint, projectID, userID, authorization } : null
   return useSWR(key, fetchStats, SWROptions)
 }
