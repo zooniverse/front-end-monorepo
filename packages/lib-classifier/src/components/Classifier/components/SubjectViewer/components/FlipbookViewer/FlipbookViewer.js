@@ -37,10 +37,9 @@ const FlipbookViewer = ({
     }
   }, [])
 
-  const imageLocationUrl = subject?.locations[currentFrame]?.url
-
+  const defaultLocationUrl = subject?.locations[defaultFrame]?.url
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: imageLocationUrl,
+    src: defaultLocationUrl,
     onError,
     onReady
   })
@@ -60,6 +59,8 @@ const FlipbookViewer = ({
     }
   }
 
+  const imageLocationUrl = subject?.locations[currentFrame]?.url
+
   return (
     <Box>
       <SingleImageViewer
@@ -76,7 +77,7 @@ const FlipbookViewer = ({
         rotation={rotation}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
-        src={img.src}
+        src={imageLocationUrl}
         subject={subject}
       />
       <FlipbookControls
