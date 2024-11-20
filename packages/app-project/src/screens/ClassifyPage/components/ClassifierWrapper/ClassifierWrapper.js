@@ -69,7 +69,7 @@ export default function ClassifierWrapper({
       subjectId: subject.id,
       locations: subject.locations
     })
-  }, [addRecents, projectID, userID])
+  }, [addRecents, mutate, projectID, userID])
 
   /*
     If the page URL contains a subject ID, update that ID when the classification subject changes.
