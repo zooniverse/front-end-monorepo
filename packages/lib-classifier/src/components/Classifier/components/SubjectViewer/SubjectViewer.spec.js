@@ -23,19 +23,18 @@ describe('Component > SubjectViewer', function () {
     expect(container.firstChild).to.be.null()
   })
 
-  it('should render the VolumetricViewer if the subject store successfully loads', function () {
+  it('should render the VolumetricViewer if isVolumetricViewer = true', async function () {
     render(<SubjectViewer
       subjectQueueState={asyncStates.success}
+      subjectReadyState={asyncStates.success}
       isVolumetricViewer={true}
       subject={{
         id: 'mock-id',
-        locations: [
-          { 'image/jpeg': `https://www.zooniverse.org/mock-subjects/file-mock-id.jpg` }
-        ]
+        subjectJSON: 'mock-subject-json'
       }}
     />)
     expect(screen.getByText('Suspense boundary')).to.exist()
-    expect(screen.findByTestId('subject-viewer-volumetric')).to.exist()
+    expect(await screen.findByTestId('subject-viewer-volumetric')).to.exist()
   })
 
   describe('when there is an null viewer because of invalid subject media', function () {
