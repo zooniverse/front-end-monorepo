@@ -29,7 +29,7 @@ const UserPersonalization = types
         addDisposer(self, autorun(_onUserChange))
       },
 
-      increment() {
+      incrementSessionCount() {
         self.sessionCount = self.sessionCount + 1
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {

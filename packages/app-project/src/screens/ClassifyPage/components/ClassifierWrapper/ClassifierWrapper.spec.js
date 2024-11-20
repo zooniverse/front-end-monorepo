@@ -62,6 +62,7 @@ describe('Component > ClassifierWrapper', function () {
   describe('with a project, user, user project preferences loaded', function () {
     let recents
     let collections
+    let personalization
     let wrapper
 
     before(function () {
@@ -79,6 +80,10 @@ describe('Component > ClassifierWrapper', function () {
         removeFavourites: sinon.stub()
       }
 
+      personalization = {
+        incrementSessionCount: sinon.stub()
+      }
+
       const user = {
         loadingState: asyncStates.success
       }
@@ -86,6 +91,7 @@ describe('Component > ClassifierWrapper', function () {
         <ClassifierWrapper
           appLoadingState={asyncStates.success}
           collections={collections}
+          personalization={personalization}
           project={project}
           recents={recents}
           router={router}
@@ -116,6 +122,11 @@ describe('Component > ClassifierWrapper', function () {
 
         after(function () {
           recents.add.resetHistory()
+          personalization.incrementSessionCount.resetHistory()
+        })
+
+        it('should increment sessoin count', function () {
+          expect(personalization.incrementSessionCount).to.have.been.calledOnce()
         })
 
         it('should add to recents', function () {

@@ -20,6 +20,7 @@ function useStore(mockStore) {
     appLoadingState,
     collections : user.collections,
     mode,
+    personalization: user.personalization,
     project,
     recents: user.recents,
     user
@@ -47,6 +48,7 @@ function ClassifierWrapperConnector({ mockStore, ...props }) {
     appLoadingState,
     collections,
     mode,
+    personalization,
     project,
     recents,
     user,
@@ -57,6 +59,7 @@ function ClassifierWrapperConnector({ mockStore, ...props }) {
       appLoadingState={appLoadingState}
       collections={collections}
       mode={mode}
+      personalization={personalization}
 // We use a POJO here, as the `project` resource is also stored in a
 // `mobx-state-tree` store in the classifier and an MST node can't be in two
 // stores at the same time.

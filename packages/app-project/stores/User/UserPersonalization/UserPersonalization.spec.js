@@ -110,7 +110,7 @@ describe('Stores > UserPersonalization', function () {
           login: 'test.user'
         }
         rootStore = initStore(true, { project, user })
-        rootStore.user.personalization.increment()
+        rootStore.user.personalization.incrementSessionCount()
       })
 
       it('should add 1 to your session count', function () {
@@ -120,10 +120,10 @@ describe('Stores > UserPersonalization', function () {
       describe('every five classifications', function () {
         before(function () {
           rootStore.client.panoptes.get.resetHistory()
-          rootStore.user.personalization.increment()
-          rootStore.user.personalization.increment()
-          rootStore.user.personalization.increment()
-          rootStore.user.personalization.increment()
+          rootStore.user.personalization.incrementSessionCount()
+          rootStore.user.personalization.incrementSessionCount()
+          rootStore.user.personalization.incrementSessionCount()
+          rootStore.user.personalization.incrementSessionCount()
         })
 
         it('should request for the user project preferences', function () {
@@ -195,11 +195,11 @@ describe('Stores > UserPersonalization', function () {
       before(function () {
         rootStore.client.panoptes.get.resetHistory()
         rootStore.user.personalization.reset()
-        rootStore.user.personalization.increment()
-        rootStore.user.personalization.increment()
-        rootStore.user.personalization.increment()
-        rootStore.user.personalization.increment()
-        rootStore.user.personalization.increment()
+        rootStore.user.personalization.incrementSessionCount()
+        rootStore.user.personalization.incrementSessionCount()
+        rootStore.user.personalization.incrementSessionCount()
+        rootStore.user.personalization.incrementSessionCount()
+        rootStore.user.personalization.incrementSessionCount()
       })
 
       it('should not trigger the child UPP store to request user preferences from Panoptes', function () {
@@ -217,7 +217,7 @@ describe('Stores > UserPersonalization', function () {
       }
       sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
       rootStore.user.set(user)
-      rootStore.user.personalization.increment()
+      rootStore.user.personalization.incrementSessionCount()
     })
 
     after(function () {
@@ -241,7 +241,7 @@ describe('Stores > UserPersonalization', function () {
         .query(true)
         .replyWithError('Panoptes is not available')
       rootStore.user.set(user)
-      rootStore.user.personalization.increment()
+      rootStore.user.personalization.incrementSessionCount()
     })
 
     it('should count session classifications from 0', function () {
@@ -269,7 +269,7 @@ describe('Stores > UserPersonalization', function () {
           settings: { workflow_id: '4444' }
         }
       })
-      personalizationStore.increment() // increment to have a session count
+      personalizationStore.incrementSessionCount() // increment to have a session count
       const signedInUserPersonalization = personalizationStore.toJSON()
       expect(personalizationStore.sessionCount).to.equal(1)
       personalizationStore.reset()

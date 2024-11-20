@@ -79,7 +79,7 @@ describe('Stores > Store', function () {
       }, placeholderEnv)
       // We call increment so we have a session count
       // session count is volatile state that can't be set by snapshot
-      store.user.personalization.increment()
+      store.user.personalization.incrementSessionCount()
       const signedInUserAndPersonalization = store.user.toJSON()
       expect(store.user.personalization.sessionCount).to.equal(1)
       store.user.clear()

@@ -37,6 +37,7 @@ export default function ClassifierWrapper({
   mode,
   onAddToCollection = DEFAULT_HANDLER,
   onSubjectReset = DEFAULT_HANDLER,
+  personalization = null,
   project = null,
   recents = null,
   router = null,
@@ -55,14 +56,16 @@ export default function ClassifierWrapper({
   const projectSlug = router?.query.project
 
   /*
-    Increment user stats on every classification submitted.
-    Add the recently classified subject to the user's Recents.
+    Increment sessionCount regardless if a user is signed-in (for auth invitation UI).
+    Increment signed-in user stats on every classification submitted.
+    Add the recently classified subject to the signed-in user's Recents.
   */
   const projectID = project?.id
   const { mutate } = useYourProjectStats({ projectID, userID })
 
   const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
+    personalization.incrementSessionCount()
     incrementStats(mutate, projectID, userID)
     addRecents({
       favorite: subject.favorite,
