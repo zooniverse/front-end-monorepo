@@ -1,8 +1,8 @@
-import { Box, Grid } from 'grommet'
+import { Box, Grid, ResponsiveContext } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, object, shape, string } from 'prop-types'
-import { useCallback, useState } from 'react'
-import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
+import { useCallback, useContext, useState } from 'react'
+import styled from 'styled-components'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
@@ -18,16 +18,28 @@ export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
+  // This is a stopgap until we can use container queries via styled-components v6
+  // or the RecentSubjects components gets a total redesign into a horizontal scrolling region
+const StatsAndRecentsGrid = styled(Grid)`
+  width: 100%;
+  grid-template-columns: minmax(auto, 280px) auto;
+
+  @media (width < 1000px) {
+    grid-template-columns: auto;
+  }
+`
+
 function ClassifyPage({
   appLoadingState,
   onSubjectReset,
-  screenSize,
   subjectID,
   subjectSetID,
   workflowFromUrl,
   workflowID,
   workflows = [],
 }) {
+  const size = useContext(ResponsiveContext)
+
   /*
     Enable session caching in the classifier for projects with ordered subject selection.
   */
@@ -88,7 +100,7 @@ function ClassifyPage({
           gap='medium'
           pad='medium'
         >
-          <Box as='main' fill='horizontal'>
+          <Box as='main' height={{ min: '400px'}} width='100%'>
             {!canClassify && appLoadingState === asyncStates.success && (
               <WorkflowMenuModal
                 subjectSetFromUrl={subjectSetFromUrl}
@@ -109,13 +121,10 @@ function ClassifyPage({
           </Box>
 
           <Box as='aside' gap='medium' width='min(100%, 90rem)'>
-            <Grid
-              columns={screenSize === 'small' ? ['auto'] : ['2fr', '5fr']}
-              gap={screenSize === 'small' ? 'small' : 'medium'}
-            >
+            <StatsAndRecentsGrid gap={size === 'small' ? 'small' : 'medium'}>
               <YourProjectStatsContainer />
-              <RecentSubjects size={screenSize === 'small' ? 1 : 3} />
-            </Grid>
+              <RecentSubjects size={size === 'small' ? 1 : 3} />
+            </StatsAndRecentsGrid>
             <ProjectStatistics />
             <ConnectWithProject />
           </Box>
@@ -128,8 +137,6 @@ function ClassifyPage({
 ClassifyPage.propTypes = {
   /** Sets subjectID state in ClassifyPageContainer to undefined */
   onSubjectReset: func,
-  /** withResponsiveContext */
-  screenSize: string,
   /** This subjectID is a state variable in ClassifyPageContainer */
   subjectID: string,
   /** This subjectSetID is from getDefaultPageProps in page index.js */
@@ -146,5 +153,5 @@ ClassifyPage.propTypes = {
   }))
 }
 
-export default withResponsiveContext(ClassifyPage)
+export default ClassifyPage
 export { ClassifyPage }

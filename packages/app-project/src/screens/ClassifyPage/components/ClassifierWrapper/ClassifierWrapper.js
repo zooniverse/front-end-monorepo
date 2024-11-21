@@ -108,18 +108,24 @@ export default function ClassifierWrapper({
     return isFavourite ? addFavourites([subjectId]) : removeFavourites([subjectId])
   }, [addFavourites, removeFavourites])
 
-  const somethingWentWrong = appLoadingState === asyncStates.error
+  /* Loading UI if user and project are loading in the store */
+  if (appLoadingState === asyncStates.loading)
+    return (
+      <Box fill align='center'>
+        <Loader />
+      </Box>
+    )
 
-  if (somethingWentWrong) {
+  /* Error UI if any errors loading the user or project in the store */
+  if (appLoadingState === asyncStates.error) {
     const { error: projectError } = project
     const { error: userError } = user
 
     const errorToMessage = projectError || userError || new Error('Something went wrong')
-    return (
-      <ErrorMessage error={errorToMessage} />
-    )
+    return <ErrorMessage error={errorToMessage} />
   }
 
+  /* Display the Classifier */
   try {
     if (appLoadingState === asyncStates.success) {
       const key = userID || 'no-user'
@@ -149,12 +155,6 @@ export default function ClassifierWrapper({
     onError(error)
     return <ErrorMessage error={error} />
   }
-
-  return (
-    <Box height='100%' width='100%' align='center'>
-      <Loader />
-    </Box>
-  )
 }
 
 ClassifierWrapper.propTypes = {

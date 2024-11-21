@@ -1,12 +1,24 @@
-import { Box, ResponsiveContext, Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import Loader from '@zooniverse/react-components/Loader'
 import SpacedText from '@zooniverse/react-components/SpacedText'
 import { arrayOf, bool, object, number, shape, string } from 'prop-types'
-import { useContext } from 'react'
+import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
 import RequireUser from '@shared/components/RequireUser/RequireUser.js'
 import { useTranslation } from 'next-i18next'
+
+// See the same breakpoint in ClassifyPage.js
+const StyledBox = styled(Box)`
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+
+  @media (width < 1000px) {
+    flex-direction: row;
+    justify-content: center;
+  }
+`
 
 function Stat({ label = '', value = 0 }) {
   return (
@@ -54,7 +66,6 @@ function YourProjectStats({
   userLogin = ''
 }) {
   const { t } = useTranslation('screens')
-  const size = useContext(ResponsiveContext)
   const linkProps = {
     externalLink: true,
     href: `https://www.zooniverse.org/users/${userLogin}/stats?project_id=${projectID}`
@@ -77,12 +88,9 @@ function YourProjectStats({
               <span>{error.message}</span>
             </Box>
           ) : data ? (
-            <Box
-              direction={size === 'small' ? 'row' : 'column'}
-              gap='medium'
+            <StyledBox
               fill
               align='center'
-              justify='center'
             >
               <Stat
                 label={t('Classify.YourStats.lastSeven')}
@@ -92,7 +100,7 @@ function YourProjectStats({
                 label={t('Classify.YourStats.allTime')}
                 value={data?.allTimeStats?.total_count}
               />
-            </Box>
+            </StyledBox>
           ) : null}
         </>
       ) : (
