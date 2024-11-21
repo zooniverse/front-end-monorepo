@@ -17,11 +17,6 @@ export default function VolumetricViewer ({
 }) {
   const { data, loading, error } = useVolumetricSubject({ onError, onReady, subject })
 
-  // Specs should skip rendering the VolumetricViewer component
-  // WebGL/Canvas throws exceptions when running specs due to non-browser environment
-  if (data === 'mock-subject-json')
-    return <div data-testid="subject-viewer-volumetric"></div>
-
   const [modelState] = useState({
     annotations: ModelAnnotations(),
     tool: ModelTool(),
@@ -35,7 +30,11 @@ export default function VolumetricViewer ({
     || error
     || data === null;
 
-  return (isLoading)
+  // Specs should skip rendering the VolumetricViewer component
+  // WebGL/Canvas throws exceptions when running specs due to non-browser environment
+  return (data === 'mock-subject-json')
+    ? <div data-testid="subject-viewer-volumetric"></div>
+    : (isLoading)
     ? <p>Loading...</p>
     : (isError)
       ? <p>Error</p>
