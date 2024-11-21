@@ -118,9 +118,62 @@ async function signIn (login, password, _store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: signIn() ', login, password)
 
-  const user = await checkCurrent(_store)
 
-  console.log('+++ user: ', user)
+  // Here's how to SIGN IN to Panoptes!
+
+  // Some general setup stuff.
+  const PANOPTES_HEADERS = {  // the Panoptes API requires specific HTTP headers
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
+  // const login = 'janezooniverse'
+  // const password = 'bleepbloop'
+
+  // Step 1: get a CSRF token.
+  // - The CSRF token (or rather, the anti-cross-site request forgery token) is a
+  //   unique, one-off, time-sensitive token. Kinda like the time-based OTPs
+  //   provided by apps like the Google Authenticator. 
+  // - This "authenticity token", as it will be later be called, prevents third
+  //   parties from simply replaying the HTTPs-encoded sign-in request.
+  // - In our case, the CSRF token is provided Panoptes itself.
+  const request1 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_in/?now=${Date.now()}`, {
+    method: 'GET',
+    headers: PANOPTES_HEADERS,
+  })
+  const response1 = await fetch(request1)
+  const csrfToken = response1?.headers.get('x-csrf-token')  // The CSRF Token is in the response header
+  console.log('+++ Step 1: csrfToken received: ', csrfToken)
+  // Note: we don't actually care about the response body, which happens to be blank.
+
+  // Step 2: submit the login details.
+  // - IMPORTANT: at this point, Panoptes should be attaching (HTTP-only)
+  //   cookies (_Panoptes_session and remember_user_token) to its responses.
+  // - These HTTP cookies identify requests as coming from us (or rather, from
+  //   our particular session.
+  // - This is how request2 (submit username & password) and request3 (request
+  //   bearer token for a logged in user) are magically linked and recognised
+  //   as coming from the same person/session, even though request3 isn't
+  //   providing any login data explicitly via the JavaScript code.
+  // - HTTP-only cookies can't be viewed or edited by JavaScript, as it happens.
+  // - HTTP-only cookies are automagically handled by the web browser and the
+  //   server.
+  // - Our only control as front-end devs is to specify the fetch() of Request()'s
+  //   `credentials` option to either "omit" (bad idea for us), "same-origin"
+  //   (the default), or "include" (when you need things to work cross-origin)
+  // - ❗️ That `credentials: "include"` option is probably important if we need
+  //   Panoptes.JS to work on non-*.zooniverse.org domains!
+
+  // TODO
+
+  // Note: old PJC doesn't actually care about the response body, which is the
+  // logged-in user's User resource. This is because PJC has a separate call for
+  // fetching the user resource, which is, uh, kinda extra work, but keeps the
+  // calls standardised I guess?
+
+  // Step 3: get the bearer token.
+
+  // TODO
+
 
   /*
   Original PJC code:
