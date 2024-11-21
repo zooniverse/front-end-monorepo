@@ -25,6 +25,8 @@ services:
       - "/bin/sh"
   fe-project:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
@@ -43,6 +45,8 @@ services:
       - "3002:3000"
   fe-root:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
