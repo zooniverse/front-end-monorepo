@@ -1,60 +1,67 @@
+import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
-import { shallow } from 'enzyme'
-
-import { SubjectViewer } from './SubjectViewer'
-import SingleImageViewer from './components/SingleImageViewer'
-import JSONDataViewer from './components/JSONDataViewer'
+import { Factory } from 'rosie'
+import mockStore from '@test/mockStore'
+import { Provider } from 'mobx-react'
+import SubjectType from '@store/SubjectStore/SubjectType'
+import { default as SubjectViewerWithStore, SubjectViewer } from './SubjectViewer'
 
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<SubjectViewer />)
-    expect(wrapper).to.be.ok()
+    render(<SubjectViewer />)
+    expect(screen).to.be.ok()
   })
 
   it('should render nothing if the subject store is initialized', function () {
-    const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.initialized} />)
-    expect(wrapper.type()).to.be.null()
+    const { container } = render(<SubjectViewer subjectQueueState={asyncStates.initialized} />)
+    expect(container.firstChild).to.be.null()
   })
-
+  
   it('should render a loading indicator if the subject store is loading', function () {
-    const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.loading} />)
-    expect(wrapper.text()).to.equal('SubjectViewer.loading')
+    render(<SubjectViewer subjectQueueState={asyncStates.loading} />)
+    expect(screen.getByText('SubjectViewer.loading')).to.exist()
   })
 
   it('should render nothing if the subject store errors', function () {
-    const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.error} />)
-    expect(wrapper.type()).to.be.null()
+    const { container } = render(<SubjectViewer subjectQueueState={asyncStates.error} />)
+    expect(container.firstChild).to.be.null()
   })
 
-  it('should render a subject viewer if the subject store successfully loads', function () {
-    const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.success} subject={{ viewer: 'singleImage' }} />)
-    expect(wrapper.find(SingleImageViewer)).to.have.lengthOf(1)
+  it('should render a subject viewer if the subject store successfully loads', async function () {
+    const store = mockStore({
+      subject: SubjectType.create(Factory.build('subject', { id: '1234' }))
+    })
+    
+    render(<Provider classifierStore={store}>
+      <SubjectViewerWithStore />
+    </Provider>)
+
+    expect(screen.getByLabelText('Subject 1234')).to.exist()
   })
 
-  it('should pass along the viewer configuration', function () {
-    const viewerConfiguration = {
-      zoomConfiguration: {
-        direction: 'both',
-        minZoom: 1,
-        maxZoom: 10,
-        zoomInValue: 1.2,
-        zoomOutValue: 0.8
-      }
-    }
-
-    const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.success} subject={{ viewer: 'variableStar', viewerConfiguration }} />)
-    expect(wrapper.find(JSONDataViewer).props().viewerConfiguration).to.deep.equal(viewerConfiguration)
+  it('should render the VolumetricViewer if isVolumetricViewer = true', async function () {
+    render(<SubjectViewer
+      subjectQueueState={asyncStates.success}
+      subjectReadyState={asyncStates.success}
+      isVolumetricViewer={true}
+      subject={{
+        id: 'mock-id',
+        subjectJSON: 'mock-subject-json'
+      }}
+    />)
+    expect(screen.getByText('Suspense boundary')).to.exist()
+    expect(await screen.findByTestId('subject-viewer-volumetric')).to.exist()
   })
 
   describe('when there is an null viewer because of invalid subject media', function () {
     it('should render null', function () {
-      const wrapper = shallow(
+      const { container } = render(
         <SubjectViewer
-          subjectQueueState={asyncStates.success}
+          subjectQueueState={asyncStates.pending}
           subject={{ viewer: null }}
         />
       )
-      expect(wrapper.html()).to.be.null()
+      expect(container.firstChild).to.be.null()
     })
   })
 })

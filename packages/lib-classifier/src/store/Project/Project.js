@@ -24,6 +24,10 @@ const Project = types
     get display_name() {
       return self.strings.get('display_name')
     },
+
+    get isVolumetricViewer() {
+      return self.experimental_tools.includes('volumetricViewer')
+    },
   }))
 
 export default types.compose('ProjectResource', Resource, Project)
