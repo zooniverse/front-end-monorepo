@@ -60,6 +60,7 @@ function Choice({
   const allowIdentify = allowIdentification(answers, choiceId, task)
   const InfoLabel = (
     <Box
+      align='center'
       direction='row'
       gap='xsmall'
     >
