@@ -13429,9 +13429,9 @@ mkdirp@^1.0.3:
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
 mobx-devtools-mst@~0.9.21:
-  version "0.9.30"
-  resolved "https://registry.npmjs.org/mobx-devtools-mst/-/mobx-devtools-mst-0.9.30.tgz"
-  integrity sha512-6fIYeFG4xT4syIeKddmK55zQbc3ZZZr/272/cCbfaAAM5YiuFdteGZGUgdsz8wxf/mGxWZbFOM3WmASAnpwrbw==
+  version "0.9.34"
+  resolved "https://registry.yarnpkg.com/mobx-devtools-mst/-/mobx-devtools-mst-0.9.34.tgz#bb79067f17eb90fdbc846f83117bd9c10d3ec608"
+  integrity sha512-yDVf4iebbvumy+VioL4Zt+2nf41csQa/6BdRVyPdKnG9D2jxwOpApQe0d2aAI8FeUKnLkaYsaNvMrhZgMZVdBg==
 
 mobx-react-lite@^4.0.7:
   version "4.0.7"
