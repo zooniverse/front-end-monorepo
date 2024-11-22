@@ -99,7 +99,6 @@
     "jsdom": "~24.0.0",
     "million": "~3.1.11",
     "mobx": "~6.12.0",
-    "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~9.1.0",
     "mobx-state-tree": "~5.4.0",
     "mocha": "~10.8.2",
