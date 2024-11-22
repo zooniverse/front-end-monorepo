@@ -24,7 +24,7 @@
     "@zooniverse/standard": "~2.0.0",
     "chai": "~4.5.0",
     "dirty-chai": "~2.0.1",
-    "jsdom": "~24.0.0",
+    "jsdom": "~25.0.1",
     "mocha": "~10.8.2",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.5.1",
