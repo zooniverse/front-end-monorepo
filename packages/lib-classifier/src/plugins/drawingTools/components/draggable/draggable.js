@@ -22,7 +22,7 @@ function getEventOffset(event, canvas) {
   return svgEventOffset
 }
 
-function convertEvent(event, canvas) {
+export function convertEvent(event, canvas) {
   const svgEventOffset = getEventOffset(event, canvas)
   const svgCoordinateEvent = {
     type: event.type,

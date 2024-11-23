@@ -4,6 +4,7 @@ import { useContext, useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import { convertEvent } from '@plugins/drawingTools/components/draggable/draggable'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
@@ -24,38 +25,6 @@ const DrawingCanvas = styled('rect')`
 function cancelEvent(event) {
   event.preventDefault()
   event.stopPropagation()
-}
-
-function createPoint(event) {
-  const { clientX, clientY } = event
-  // SVG 2 uses DOMPoint
-  if (window.DOMPointReadOnly) {
-    return new DOMPointReadOnly(clientX, clientY)
-  }
-  // jsdom doesn't support SVG
-  return {
-    x: clientX,
-    y: clientY
-  }
-}
-
-function getEventOffset(event, canvas) {
-  const svgPoint = createPoint(event)
-  const svgEventOffset = svgPoint.matrixTransform
-    ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
-    : svgPoint
-  return svgEventOffset
-}
-
-function convertEvent(event, canvas) {
-  const svgEventOffset = getEventOffset(event, canvas)
-  const svgCoordinateEvent = {
-    type: event.type,
-    x: svgEventOffset.x,
-    y: svgEventOffset.y
-  }
-
-  return svgCoordinateEvent
 }
 
 function InteractionLayer({
