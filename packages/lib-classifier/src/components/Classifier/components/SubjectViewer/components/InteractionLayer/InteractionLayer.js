@@ -1,7 +1,9 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
+
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
@@ -24,6 +26,38 @@ function cancelEvent(event) {
   event.stopPropagation()
 }
 
+function createPoint(event) {
+  const { clientX, clientY } = event
+  // SVG 2 uses DOMPoint
+  if (window.DOMPointReadOnly) {
+    return new DOMPointReadOnly(clientX, clientY)
+  }
+  // jsdom doesn't support SVG
+  return {
+    x: clientX,
+    y: clientY
+  }
+}
+
+function getEventOffset(event, canvas) {
+  const svgPoint = createPoint(event)
+  const svgEventOffset = svgPoint.matrixTransform
+    ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
+    : svgPoint
+  return svgEventOffset
+}
+
+function convertEvent(event, canvas) {
+  const svgEventOffset = getEventOffset(event, canvas)
+  const svgCoordinateEvent = {
+    type: event.type,
+    x: svgEventOffset.x,
+    y: svgEventOffset.y
+  }
+
+  return svgCoordinateEvent
+}
+
 function InteractionLayer({
   activeMark,
   activeTool,
@@ -43,7 +77,9 @@ function InteractionLayer({
   duration
 }) {
   const [creating, setCreating] = useState(false)
-  const canvas = useRef()
+  const svgContext = useContext(SVGContext)
+  const canvasRef = useRef()
+  svgContext.canvas = canvasRef.current
 
   if (creating && !activeMark) {
     setCreating(false)
@@ -52,42 +88,6 @@ function InteractionLayer({
   if (activeMark?.finished && !activeMark.isValid) {
     activeTool.deleteMark(activeMark)
     setActiveMark(undefined)
-  }
-
-  function convertEvent(event) {
-    const type = event.type
-
-    const svgEventOffset = getEventOffset(event)
-
-    const svgCoordinateEvent = {
-      pointerId: event.pointerId,
-      type,
-      x: svgEventOffset.x,
-      y: svgEventOffset.y
-    }
-
-    return svgCoordinateEvent
-  }
-
-  function createPoint(event) {
-    const { clientX, clientY } = event
-    // SVG 2 uses DOMPoint
-    if (window.DOMPointReadOnly) {
-      return new DOMPointReadOnly(clientX, clientY)
-    }
-    // jsdom doesn't support SVG
-    return {
-      x: clientX,
-      y: clientY
-    }
-  }
-
-  function getEventOffset(event) {
-    const svgPoint = createPoint(event)
-    const svgEventOffset = svgPoint.matrixTransform
-      ? svgPoint.matrixTransform(canvas.current?.getScreenCTM().inverse())
-      : svgPoint
-    return svgEventOffset
   }
 
   function createMark(event) {
@@ -99,7 +99,7 @@ function InteractionLayer({
       toolIndex: activeToolIndex
     })
 
-    mark.initialPosition(convertEvent(event))
+    mark.initialPosition(convertEvent(event, canvasRef.current))
     setActiveMark(mark)
     setCreating(true)
     mark.setSubTaskVisibility(false)
@@ -124,7 +124,7 @@ function InteractionLayer({
     }
 
     if (creating) {
-      activeTool?.handlePointerDown?.(convertEvent(event), activeMark)
+      activeTool?.handlePointerDown?.(convertEvent(event, canvasRef.current), activeMark)
       if (activeMark.finished) onFinish(event)
       return true
     }
@@ -136,7 +136,7 @@ function InteractionLayer({
   function onPointerMove(event) {
     cancelEvent(event)
     if (creating) {
-      activeTool?.handlePointerMove?.(convertEvent(event), activeMark)
+      activeTool?.handlePointerMove?.(convertEvent(event, canvasRef.current), activeMark)
     }
   }
 
@@ -149,7 +149,7 @@ function InteractionLayer({
   function onPointerUp(event) {
     cancelEvent(event)
     if (creating) {
-      activeTool?.handlePointerUp?.(convertEvent(event), activeMark)
+      activeTool?.handlePointerUp?.(convertEvent(event, canvasRef.current), activeMark)
       if (activeMark.finished) onFinish(event)
     }
   }
@@ -165,7 +165,7 @@ function InteractionLayer({
   return (
     <>
       <DrawingCanvas
-        ref={canvas}
+        ref={canvasRef}
         disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
