@@ -30,7 +30,15 @@ const filteredChoiceIdsMoreThanTwenty = Array.from(
   taskWithMoreThanTwentyChoices.choicesOrder
 )
 
-const Template = ({ disabled, filteredChoiceIds, onChoose, task }) => {
+const selectedChoiceIds = ['RDVRK', 'KD']
+
+const Template = ({
+  disabled,
+  filteredChoiceIds,
+  onChoose,
+  selectedChoiceIds,
+  task
+}) => {
   return (
     <Box align='end' fill='horizontal'>
       <Box
@@ -39,12 +47,13 @@ const Template = ({ disabled, filteredChoiceIds, onChoose, task }) => {
           light: 'neutral-6'
         }}
         pad='1em'
-        width='380px'
+        width='498px'
       >
         <Choices
           disabled={disabled}
           filteredChoiceIds={filteredChoiceIds}
           onChoose={onChoose}
+          selectedChoiceIds={selectedChoiceIds}
           task={task}
         />
       </Box>
@@ -55,17 +64,20 @@ const Template = ({ disabled, filteredChoiceIds, onChoose, task }) => {
 export const LessThirtyMoreTwenty = Template.bind({})
 LessThirtyMoreTwenty.args = {
   filteredChoiceIds: filteredChoiceIdsMoreThanTwenty,
+  selectedChoiceIds: ['RDVRK1', 'KD1'],
   task: mockTaskWithMoreThanTwentyChoices
 }
 
 export const LessTwentyMoreFive = Template.bind({})
 LessTwentyMoreFive.args = {
   filteredChoiceIds,
+  selectedChoiceIds,
   task: mockTask
 }
 
 export const LessThanSix = Template.bind({})
 LessThanSix.args = {
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 4),
+  selectedChoiceIds,
   task: mockTask
 }
