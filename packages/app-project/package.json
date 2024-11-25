@@ -76,7 +76,7 @@
     "enzyme": "~3.11.0",
     "eslint-config-next": "~14.2.7",
     "eslint-plugin-jsx-a11y": "~6.10.1",
-    "jsdom": "~24.0.0",
+    "jsdom": "~25.0.1",
     "mocha": "~10.8.2",
     "msw": "~2.5.1",
     "msw-storybook-addon": "~2.0.3",
