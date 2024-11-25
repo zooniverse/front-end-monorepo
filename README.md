@@ -92,14 +92,16 @@ docker compose build fe-project
 docker compose up -d fe-project
 ```
 
-Development environments for individual packages can be run from the package directories. For example:
+Development environments for individual packages can be run from the package directories. See the READMEs in individual packages for detailed instructions. For example:
 
 ```sh
 cd packages/app-project
-docker-compose up
+docker compose build
+docker compose up -d
+docker compose down
 ```
 
-to run a development server for the project app. See the READMEs for individual packages for detailed instructions.
+Tip: If you're an occasional Docker Desktop user, remember to `docker image prune`.
 
 ### With Node and yarn
 
