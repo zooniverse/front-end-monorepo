@@ -74,8 +74,8 @@ cd front-end-monorepo
 # build first
 docker compose build
 # run all services in the background (no authentication available)
-# app-project at http://localhost:3002/projects/[owner]/[project-name]
-# app-root at http://localhost:3003
+# app-project at https://localhost:3002/projects/[owner]/[project-name]
+# app-root at https://localhost:3003
 docker compose up -d
 # shut down the running containers when you're finished
 docker compose down

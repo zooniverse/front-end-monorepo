@@ -68,7 +68,7 @@ COPY --from=builder /usr/src/package.json /usr/src/package.json
 
 COPY --from=builder /usr/src/.yarn /usr/src/.yarn
 
-COPY --from=builder /usr/src/.yarnrc /usr/src/.yarnrc
+COPY --from=builder /usr/src/.yarnrc.yml /usr/src/.yarnrc.yml
 
 COPY --from=builder /usr/src/packages ./packages
 
