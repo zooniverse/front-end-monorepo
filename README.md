@@ -79,8 +79,10 @@ docker compose build
 docker compose up -d
 # shut down the running containers when you're finished
 docker compose down
-# run this if you need a shell inside the running container
-docker compose run --rm shell
+# run this if you need a shell inside the dev container
+docker compose run --rm dev-shell
+# run this for a shell inside the production container
+docker compose run --rm prod-shell
 ```
 
 You can supply a service name (from `docker-compose.yml`) to `docker compose` if you only want to run a single service eg.
@@ -91,14 +93,16 @@ docker compose build fe-project
 docker compose up -d fe-project
 ```
 
-Development environments for individual packages can be run from the package directories. For example:
+Development environments for individual packages can be run from the package directories. See the READMEs in individual packages for detailed instructions. For example:
 
 ```sh
 cd packages/app-project
-docker-compose up
+docker compose build
+docker compose up -d
+docker compose down
 ```
 
-to run a development server for the project app. See the READMEs for individual packages for detailed instructions.
+Tip: If you're an occasional Docker Desktop user, remember to `docker image prune`.
 
 ### With Node and yarn
 

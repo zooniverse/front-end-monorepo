@@ -30,8 +30,6 @@ WORKDIR /usr/src/
 
 ADD package.json /usr/src/
 
-ADD yarn.lock /usr/src/
-
 COPY .yarn /usr/src/.yarn
 
 ADD .yarnrc.yml /usr/src/
@@ -39,6 +37,8 @@ ADD .yarnrc.yml /usr/src/
 ADD lerna.json /usr/src/
 
 COPY ./packages /usr/src/packages
+
+ADD yarn.lock /usr/src/
 
 RUN chown -R node:node .
 
@@ -64,15 +64,15 @@ RUN mkdir -p /usr/src
 
 WORKDIR /usr/src/
 
-ADD package.json /usr/src/
+COPY --from=builder /usr/src/package.json /usr/src/package.json
 
-ADD yarn.lock /usr/src/
+COPY --from=builder /usr/src/.yarn /usr/src/.yarn
 
-COPY .yarn /usr/src/.yarn
-
-ADD .yarnrc.yml /usr/src/
+COPY --from=builder /usr/src/.yarnrc /usr/src/.yarnrc
 
 COPY --from=builder /usr/src/packages ./packages
+
+COPY --from=builder /usr/src/yarn.lock /usr/src/yarn.lock
 
 RUN --mount=type=cache,id=fem-runner-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --immutable
 

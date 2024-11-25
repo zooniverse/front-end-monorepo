@@ -24,6 +24,24 @@ const StyledDataChart = styled(DataChart)`
   .hidden-period-label {
     display: none;
   }
+
+  // The only way to get to the x-axis bounding div
+  &.styled-grommet-barchart > :first-child {
+
+    // Align the x-axis visual label to the first date label
+    div:first-of-type > span {
+      position: relative;
+
+      &::after {
+        content: 'Date range (UTC)';
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        font-size: 0.75rem;
+        width: max-content;
+      }
+    }
+  }
 `
 
 function BarChart({
@@ -34,17 +52,17 @@ function BarChart({
   type = 'count'
 }) {
   const size = useContext(ResponsiveContext)
-  
+
   // getDateInterval returns an object with a period property based on the date range, start_date, and end_date
   const dateInterval = getDateInterval(dateRange)
 
   // getCompleteData returns an array of objects with a period, count, and session_time property,
   // including any periods without stats with a count and session_time of 0
   const completeData = getCompleteData({ data, dateInterval })
-  
+
   const dateRangeLabel = getDateRangeLabel(dateInterval)
   const typeLabel = TYPE_LABEL[type]
-  
+
   // with no data set gradient as 'brand'
   let gradient = 'brand'
   // with data set gradient range based on data type (count or session_time) and max value of data type
@@ -89,6 +107,7 @@ function BarChart({
   return (
     <StyledDataChart
       a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} from ${dateRange.startDate} to ${dateRange.endDate}`}
+      className='styled-grommet-barchart'
       axis={{
         x: { granularity: 'fine', property: 'period' },
         y: { granularity: 'fine', property: type },

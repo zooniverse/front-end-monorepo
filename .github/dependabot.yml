@@ -11,6 +11,10 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 15
     groups:
+      nextjs:
+        patterns:
+          - "@next*"
+          - "next"
       sentry:
         patterns:
           - "@sentry*"

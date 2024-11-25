@@ -1,8 +1,21 @@
 services:
-  shell:
+  prod-shell:
+    image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
+    build:
+      context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
+    command:
+      - "/bin/sh"
+  dev-shell:
     image: front-end-monorepo_dev:latest
     volumes:
-      - node_modules:/usr/src/node_modules
+      - node_modules-dev:/usr/src/node_modules
     build:
       context: ./
       target: builder
@@ -12,6 +25,8 @@ services:
       - "/bin/sh"
   fe-project:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
@@ -30,6 +45,8 @@ services:
       - "3002:3000"
   fe-root:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
@@ -46,6 +63,6 @@ services:
       - PORT=3000
     ports:
       - "3003:3000"
-
 volumes:
-  node_modules:
+  node_modules-dev:
+  node_modules-prod:

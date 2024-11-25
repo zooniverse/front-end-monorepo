@@ -1,4 +1,4 @@
-import { object } from 'prop-types'
+import { object, string } from 'prop-types'
 import { AlgorithmAStar } from './../helpers/AlgorithmAStar.js'
 import { Cube } from './Cube.js'
 import { Plane } from './Plane.js'
@@ -60,6 +60,6 @@ export const ComponentViewer = ({
 }
 
 ComponentViewer.propTypes = {
-  data: object,
+  data: string,
   models: object
 }

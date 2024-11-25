@@ -40,6 +40,7 @@
     "three": "^0.162.0"
   },
   "peerDependencies": {
+    "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "3.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",

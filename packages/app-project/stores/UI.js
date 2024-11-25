@@ -1,6 +1,6 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, onPatch, types } from 'mobx-state-tree'
-import cookie from 'cookie'
+import * as cookie from 'cookie'
 import stringHash from '@sindresorhus/string-hash'
 
 import getCookie from '@helpers/getCookie'

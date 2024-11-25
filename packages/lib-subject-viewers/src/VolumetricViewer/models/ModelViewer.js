@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer'
 import { SortedSet } from './../helpers/SortedSet.js'
 
 export const ModelViewer = () => {
@@ -16,8 +17,8 @@ export const ModelViewer = () => {
     threshold: { min: 0, max: 255 },
     // initialize
     initialize: ({ data }) => {
-      pointModel.data = data
-      pointModel.base = Math.cbrt(data.length)
+      pointModel.data = Buffer.from(data, 'base64')
+      pointModel.base = Math.cbrt(pointModel.data.length)
       pointModel.baseFrameMod = [
         Math.pow(pointModel.base, 2),
         pointModel.base,
