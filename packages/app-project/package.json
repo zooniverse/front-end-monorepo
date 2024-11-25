@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "~8.38.0",
+    "@sentry/nextjs": "~8.39.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.12.0",
     "@visx/group": "~3.12.0",
@@ -41,7 +41,6 @@
     "lodash": "~4.17.11",
     "million": "~3.1.11",
     "mobx": "~6.12.0",
-    "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~9.1.0",
     "mobx-state-tree": "~5.4.0",
     "morgan": "^1.10.0",

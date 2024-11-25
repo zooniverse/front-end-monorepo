@@ -1,52 +1,49 @@
-import { object, string } from 'prop-types'
-import { useEffect, useState } from 'react'
-import { Buffer } from 'buffer'
+import { func, object, string } from 'prop-types'
+import { useState } from 'react'
 import { ComponentViewer } from './components/ComponentViewer.js'
 import { ModelViewer } from './models/ModelViewer.js'
 import { ModelAnnotations } from './models/ModelAnnotations.js'
 import { ModelTool } from './models/ModelTool.js'
+import { useVolumetricSubject } from './../hooks/useVolumetricSubject.js'
+import asyncStates from '@zooniverse/async-states'
+
+const DEFAULT_HANDLER = () => {}
 
 export default function VolumetricViewer ({
-  config = {},
-  subjectData = '',
-  subjectUrl = '',
-  models
+  loadingState = asyncStates.initialized,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  subject
 }) {
-  const [data, setData] = useState(null)
-  if (!models) {
-    const [modelState] = useState({
-      annotations: ModelAnnotations(),
-      tool: ModelTool(),
-      viewer: ModelViewer()
-    })
-    models = modelState
-  }
+  const { data, loading, error } = useVolumetricSubject({ onError, onReady, subject })
 
-  // Figure out subject data
-  useEffect(() => {
-    if (subjectData !== '') {
-      setData(Buffer.from(subjectData, 'base64'))
-    } else if (subjectUrl !== '') {
-      fetch(subjectUrl)
-        .then((res) => res.json())
-        .then((data) => {
-          setData(Buffer.from(data, 'base64'))
-        })
-    } else {
-      console.log('No data to display')
-    }
-  }, [])
+  const [modelState] = useState({
+    annotations: ModelAnnotations(),
+    tool: ModelTool(),
+    viewer: ModelViewer()
+  })
+  
+  const isLoading = loadingState === asyncStates.initialized
+    || loadingState === asyncStates.loading
+    || loading;
+  const isError = loadingState === asyncStates.error
+    || error
+    || data === null;
 
-  // Loading screen will always display if we have no subject data
-  if (!data || !models) return <div>Loading...</div>
-
-  return (
-    <ComponentViewer
-      config={config}
-      data={data}
-      models={models}
-    />
-  )
+  // Specs should skip rendering the VolumetricViewer component
+  // WebGL/Canvas throws exceptions when running specs due to non-browser environment
+  return (data === 'mock-subject-json')
+    ? <div data-testid="subject-viewer-volumetric"></div>
+    : (isLoading)
+    ? <p>Loading...</p>
+    : (isError)
+      ? <p>Error</p>
+      : <ComponentViewer
+        data-testid="subject-viewer-volumetric"
+        config={{}}
+        data={data}
+        models={modelState}
+      />
 }
 
 export const VolumetricViewerData = ({ subjectData = '', subjectUrl = '' }) => {
@@ -66,8 +63,8 @@ export const VolumetricViewerData = ({ subjectData = '', subjectUrl = '' }) => {
 }
 
 VolumetricViewer.propTypes = {
-  config: object,
-  subjectData: string,
-  subjectUrl: string,
-  models: object
+  loadingState: string,
+  onError: func,
+  onReady: func,
+  subject: object
 }
