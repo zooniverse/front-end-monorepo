@@ -1,6 +1,6 @@
 {
   "name": "@zooniverse/user",
-  "description": "Zooniverse library for user and user group pages",
+  "description": "Zooniverse library for user stats and user group pages",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.1.0",

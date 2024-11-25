@@ -32,7 +32,7 @@ ADD package.json /usr/src/
 
 COPY .yarn /usr/src/.yarn
 
-ADD .yarnrc /usr/src/
+ADD .yarnrc.yml /usr/src/
 
 ADD lerna.json /usr/src/
 
@@ -44,7 +44,7 @@ RUN chown -R node:node .
 
 USER node
 
-RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production=false --frozen-lockfile --ignore-scripts
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --immutable
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/react-components build:es6
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/subject-viewers build:es6
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/content build:es6
@@ -68,13 +68,13 @@ COPY --from=builder /usr/src/package.json /usr/src/package.json
 
 COPY --from=builder /usr/src/.yarn /usr/src/.yarn
 
-COPY --from=builder /usr/src/.yarnrc /usr/src/.yarnrc
+COPY --from=builder /usr/src/.yarnrc.yml /usr/src/.yarnrc.yml
 
 COPY --from=builder /usr/src/packages ./packages
 
 COPY --from=builder /usr/src/yarn.lock /usr/src/yarn.lock
 
-RUN --mount=type=cache,id=fem-runner-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
+RUN --mount=type=cache,id=fem-runner-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --immutable
 
 RUN rm -rf /usr/src/packages/lib-react-components/src
 RUN rm -rf /usr/src/packages/lib-content/src

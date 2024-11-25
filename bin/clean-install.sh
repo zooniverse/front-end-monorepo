@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Trashes all `node_modules` folders and runs `yarn install --frozen-lockfile` to give you
+# Trashes all `node_modules` folders and runs `yarn install --immutable` to give you
 # a clean version of the project, similar to `npm ci`
 
 printf 'Removing installed `node_modules`.\n'
@@ -17,5 +17,5 @@ for DIR in $(find $ROOT_DIR/packages -mindepth 1 -maxdepth 1 -type d) ; do
   printf " done!\n"
 done
 
-yarn install --frozen-lockfile
+yarn install --immutable
 echo "Finished!"

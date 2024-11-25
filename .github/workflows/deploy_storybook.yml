@@ -18,7 +18,7 @@ jobs:
          node-version: 'lts/iron'
          cache: 'yarn'
 
-      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn install --immutable
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/subject-viewers build:es6
       - name: Deploy to GH Pages
