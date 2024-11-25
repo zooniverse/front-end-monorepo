@@ -1,3 +1,4 @@
+import { CloseButton } from '@zooniverse/react-components'
 import {
   Box,
   Button,
@@ -13,30 +14,6 @@ import theme from './theme'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-const StyledBox = styled(Box)`
-  flex-direction: ${props => props.columnsCount === 3 ? 'column' : 'row'};
-
-  img {
-    margin: ${props => props.columnsCount === 3 ? '0' : '0 1ch 0 0'};
-  }
-
-  span {
-    text-align: ${props => props.columnsCount === 3 ? 'center' : 'left'};
-  }
-
-  @media (768px < width < 1280px) {
-    flex-direction: ${props => props.columnsCount === 1 ? 'row' : 'column'};
-
-    img {
-      margin: ${props => props.columnsCount === 1 ? '0 1ch 0 0' : '0'};
-    }
-
-    span {
-      text-align: ${props => props.columnsCount === 1 ? 'left' : 'center'};
-    }
-  }
-`
-
 function ChoiceButton({
   ariaChecked = undefined,
   choiceId = '',
@@ -45,6 +22,7 @@ function ChoiceButton({
   disabled = false,
   hasFocus = false,
   onChoose = () => true,
+  onDelete = () => true,
   onKeyDown = () => true,
   role='button',
   selected = false,
@@ -56,6 +34,9 @@ function ChoiceButton({
   const handleClick = useCallback(() => {
     onChoose(choiceId)
   }, [choiceId, onChoose])
+  const handleDelete = useCallback(() => {
+    onDelete(choiceId)
+  }, [choiceId, onDelete])
   const handleKeyDown = useCallback((event) => {
     onKeyDown(choiceId, event)
   }, [choiceId, onKeyDown])
@@ -81,37 +62,45 @@ function ChoiceButton({
   const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x${thumbnailHeight}/${src.slice(8)}`
   
   return (
-    <Button
-      ref={choiceButton}
-      aria-checked={ariaChecked}
-      disabled={disabled}
-      fill
-      label={
-        <StyledBox
-          align='center'
-          columnsCount={columnsCount}
-          fill
-          forwardedAs='span'
-        >
-          {thumbnailSize !== 'none' && src &&
-            <Image
-              alt=''
-              height='fill'
-              src={thumbnailSrc}
-              width={thumbnailWidth}
-            />}
-          <Text>
-            {choiceLabel}
-          </Text>
-        </StyledBox>
-      }
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      role={role}
-      selected={selected}
-      size='small'
-      tabIndex={tabIndex}
-    />
+    <Box
+      align='center'
+      direction='row'
+    >
+      <Button
+        ref={choiceButton}
+        aria-checked={ariaChecked}
+        disabled={disabled}
+        label={
+          <Box
+            align='center'
+            direction='row'
+            forwardedAs='span'
+          >
+            {thumbnailSize !== 'none' && src &&
+              <Image
+                alt=''
+                height='fill'
+                src={thumbnailSrc}
+                width={thumbnailWidth}
+              />}
+            <Text>
+              {choiceLabel}
+            </Text>
+          </Box>
+        }
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        role={role}
+        selected={selected}
+        tabIndex={tabIndex}
+      />
+      {selected && (
+        <CloseButton
+          closeFn={handleDelete}
+          disabled={disabled}
+        />
+      )}
+    </Box>
   )
 }
 
@@ -123,6 +112,7 @@ ChoiceButton.propTypes = {
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   onChoose: PropTypes.func,
+  onDelete: PropTypes.func,
   onKeyDown: PropTypes.func,
   role: PropTypes.string,
   selected: PropTypes.bool,

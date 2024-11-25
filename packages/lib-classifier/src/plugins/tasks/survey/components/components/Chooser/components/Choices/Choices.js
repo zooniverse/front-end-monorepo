@@ -8,10 +8,6 @@ import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
 
 const StyledGrid = styled.ul`
-  ${props => props.theme.dark
-    ? css`background-color: ${props.theme.global.colors['dark-1']};`
-    : css`background-color: ${props.theme.global.colors['light-1']};`
-  }
   display: grid;
   grid-auto-flow: column;
   grid-gap: 2px;
@@ -124,6 +120,7 @@ export function Choices ({
               disabled={disabled}
               hasFocus={hasFocus}
               onChoose={onChoose}
+              onDelete={handleDelete}
               onKeyDown={handleKeyDown}
               role='menuitemcheckbox'
               selected={selected}
