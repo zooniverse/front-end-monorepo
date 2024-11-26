@@ -1,4 +1,3 @@
-import { CloseButton } from '@zooniverse/react-components'
 import {
   Box,
   Button,
@@ -11,6 +10,8 @@ import styled, { css } from 'styled-components'
 import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import theme from './theme'
+
+import DeleteButton from './DeleteButton'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
@@ -132,8 +133,9 @@ function ChoiceButton({
         tabIndex={tabIndex}
       />
       {selected ? (
-        <CloseButton
-          closeFn={handleDelete}
+        <DeleteButton
+          choiceLabel={choiceLabel}
+          deleteFn={handleDelete}
           disabled={disabled}
         />
       ) : null}

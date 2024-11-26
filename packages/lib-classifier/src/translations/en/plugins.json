@@ -30,6 +30,9 @@
       "cancel": "Cancel",
       "confused": "Sometimes confused with",
       "itsThis": "I think it's this"
+    },
+    "DeleteButton": {
+      "delete": "Delete choice {{choiceLabel}}"
     }
   },
   "TextTask": {
