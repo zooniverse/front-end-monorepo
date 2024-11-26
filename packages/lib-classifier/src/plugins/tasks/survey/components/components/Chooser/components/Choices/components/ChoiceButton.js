@@ -6,13 +6,24 @@ import {
   Text
 } from 'grommet'
 import PropTypes from 'prop-types'
-import { useCallback, useEffect, useRef } from 'react';
-import styled from 'styled-components'
+import { useCallback, useEffect, useRef } from 'react'
+import styled, { css } from 'styled-components'
 import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import theme from './theme'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
+
+const StyledBox = styled(Box)`
+  ${props => props.selected ? css`
+      box-shadow: 0 0 8px 2px ${props.theme.global.colors['accent-1']};
+    ` : ''
+  }
+`
+
+const StyledImage = styled(Image)`
+  border-radius: 4px;
+`
 
 function ChoiceButton({
   ariaChecked = undefined,
@@ -48,30 +59,49 @@ function ChoiceButton({
     }
   })
 
-  const conditionalBackground = shadedBackground ? {
-    dark: 'dark-4',
-    light: 'light-1'
-  } : {
-    dark: 'dark-5',
-    light: 'neutral-6'
-  }
+  const background = selected
+    ? 'neutral-1'
+    : shadedBackground
+      ? {
+          dark: 'dark-4',
+          light: 'light-1'
+        }
+      : {
+          dark: 'dark-5',
+          light: 'neutral-6'
+        }
+  const border = selected
+    ? { color: 'neutral-6', size: '1px' }
+    : undefined
+  const textColor = selected 
+    ? 'neutral-6' 
+    : {
+        dark: 'neutral-6',
+        light: 'neutral-7'
+      }
+  
   const thumbnailWidth = Math.round(THUMBNAIL_ASPECT_RATIO * 50)
   const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x50/${src.slice(8)}`
   
   return (
-    <Box
+    <StyledBox
       align='center'
-      background={selected ? 'neutral-1' : conditionalBackground}
+      background={background}
+      border={border}
       direction='row'
-      height='100%'
       justify='between'
-      width='100%'
+      height='100%'
+      pad={{
+        right: '10px',
+        vertical: '5px'
+      }}
+      selected={selected}
     >
       <Button
         ref={choiceButton}
         aria-checked={ariaChecked}
         disabled={disabled}
-        flex='grow'
+        fill='horizontal'
         label={
           <Box
             align='center'
@@ -79,13 +109,17 @@ function ChoiceButton({
             forwardedAs='span'
           >
             {thumbnailSize !== 'none' && src &&
-              <Image
+              <StyledImage
                 alt=''
                 height='50'
                 src={thumbnailSrc}
                 width={thumbnailSize === 'small' ? '50' : '60'}
               />}
-            <Text>
+            <Text
+              color={textColor}
+              margin={{ left: '10px', vertical: '5px' }}
+              size='1rem'
+            >
               {choiceLabel}
             </Text>
           </Box>
@@ -97,13 +131,13 @@ function ChoiceButton({
         selected={selected}
         tabIndex={tabIndex}
       />
-      {selected && (
+      {selected ? (
         <CloseButton
           closeFn={handleDelete}
           disabled={disabled}
         />
-      )}
-    </Box>
+      ) : null}
+    </StyledBox>
   )
 }
 
