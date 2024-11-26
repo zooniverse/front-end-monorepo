@@ -55,6 +55,8 @@ function ChoiceButton({
     dark: 'dark-5',
     light: 'neutral-6'
   }
+  const thumbnailWidth = Math.round(THUMBNAIL_ASPECT_RATIO * 50)
+  const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x50/${src.slice(8)}`
   
   return (
     <Box
@@ -79,9 +81,9 @@ function ChoiceButton({
             {thumbnailSize !== 'none' && src &&
               <Image
                 alt=''
-                height='fill'
+                height='50'
                 src={thumbnailSrc}
-                width={thumbnailWidth}
+                width={thumbnailSize === 'small' ? '50' : '60'}
               />}
             <Text>
               {choiceLabel}
