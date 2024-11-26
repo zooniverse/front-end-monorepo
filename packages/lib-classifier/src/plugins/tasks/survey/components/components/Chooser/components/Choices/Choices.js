@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
-import styled, { css, withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 import {
   howManyColumns,
@@ -121,7 +121,6 @@ export function Choices ({
               ariaChecked={selected ? 'true' : 'false'}
               choiceId={choiceId}
               choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
-              columnsCount={columnsCount}
               disabled={disabled}
               hasFocus={hasFocus}
               onChoose={onChoose}

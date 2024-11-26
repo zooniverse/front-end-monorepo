@@ -7,9 +7,6 @@ import {
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
-
-import theme from './theme'
 
 import DeleteButton from './DeleteButton'
 
@@ -30,7 +27,6 @@ function ChoiceButton({
   ariaChecked = undefined,
   choiceId = '',
   choiceLabel = '',
-  columnsCount = 1,
   disabled = false,
   hasFocus = false,
   onChoose = () => true,
@@ -162,5 +158,3 @@ ChoiceButton.propTypes = {
 }
 
 export default ChoiceButton
-// export default withThemeContext(ChoiceButton, theme)
-export { ChoiceButton }
