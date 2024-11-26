@@ -150,6 +150,9 @@ export default function MockTask({
     return null
   }
 
+  /** mimic task area per Layout and TaskArea components */
+  const taskAreaWidth = MockTask.store?.workflows?.active?.hasSurveyTask ? '540px' : '400px';
+  
   return (
     <Provider classifierStore={MockTask.store}>
       <Box
@@ -157,8 +160,12 @@ export default function MockTask({
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        pad='1em'
-        width='380px'
+        pad={{
+          bottom: '30px',
+          horizontal: '20px',
+          top: '20px'
+        }}
+        width={taskAreaWidth}
       >
         <Tasks {...taskProps} />
       </Box>
