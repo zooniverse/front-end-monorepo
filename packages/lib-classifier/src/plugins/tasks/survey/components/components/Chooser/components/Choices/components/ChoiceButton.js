@@ -26,6 +26,7 @@ function ChoiceButton({
   onKeyDown = () => true,
   role='button',
   selected = false,
+  shadedBackground = false,
   src = '',
   tabIndex = -1,
   thumbnailSize = 'none'
@@ -47,29 +48,28 @@ function ChoiceButton({
     }
   })
 
-  let thumbnailHeight = 0
-  if (thumbnailSize === 'small') {
-    thumbnailHeight = 21
+  const conditionalBackground = shadedBackground ? {
+    dark: 'dark-4',
+    light: 'light-1'
+  } : {
+    dark: 'dark-5',
+    light: 'neutral-6'
   }
-  if (thumbnailSize === 'medium') {
-    thumbnailHeight = 42
-  }
-  if (thumbnailSize === 'large') {
-    thumbnailHeight = 84
-  }
-
-  const thumbnailWidth = Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)
-  const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x${thumbnailHeight}/${src.slice(8)}`
   
   return (
     <Box
       align='center'
+      background={selected ? 'neutral-1' : conditionalBackground}
       direction='row'
+      height='100%'
+      justify='between'
+      width='100%'
     >
       <Button
         ref={choiceButton}
         aria-checked={ariaChecked}
         disabled={disabled}
+        flex='grow'
         label={
           <Box
             align='center'
@@ -90,6 +90,7 @@ function ChoiceButton({
         }
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        plain
         role={role}
         selected={selected}
         tabIndex={tabIndex}
@@ -116,10 +117,12 @@ ChoiceButton.propTypes = {
   onKeyDown: PropTypes.func,
   role: PropTypes.string,
   selected: PropTypes.bool,
+  shadedBackground: PropTypes.bool,
   src: PropTypes.string,
   tabIndex: PropTypes.number,
   thumbnailSize: PropTypes.string
 }
 
-export default withThemeContext(ChoiceButton, theme)
+export default ChoiceButton
+// export default withThemeContext(ChoiceButton, theme)
 export { ChoiceButton }

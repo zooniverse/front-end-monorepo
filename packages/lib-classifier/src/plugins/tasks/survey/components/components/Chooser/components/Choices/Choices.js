@@ -3,19 +3,23 @@ import PropTypes from 'prop-types'
 import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 
-import howManyColumns from './helpers/howManyColumns'
-import whatSizeThumbnail from './helpers/whatSizeThumbnail'
+import {
+  howManyColumns,
+  shouldShadeBackground,
+  whatSizeThumbnail
+} from './helpers'
+
 import ChoiceButton from './components/ChoiceButton'
 
 const StyledGrid = styled.ul`
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 2px;
-  grid-template-rows: repeat(${props => props.rowsCount}, auto);
+  grid-template-columns: repeat(${props => props.columnsCount}, 1fr);
+  grid-template-rows: repeat(${props => props.rowsCount}, 60px);
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100%;   
 `
 
 const defaultTheme = {
@@ -106,6 +110,7 @@ export function Choices ({
         } else if (focusIndex === index) {
           tabIndex = 0
         }
+        const shadedBackground = shouldShadeBackground({ index, rowsCount })
 
         return (
           <li
@@ -124,6 +129,7 @@ export function Choices ({
               onKeyDown={handleKeyDown}
               role='menuitemcheckbox'
               selected={selected}
+              shadedBackground={shadedBackground}
               src={src}
               tabIndex={tabIndex}
               thumbnailSize={thumbnailSize}
