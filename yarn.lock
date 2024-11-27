@@ -13520,9 +13520,9 @@ mst-middlewares@~6.1.0:
   integrity sha512-3vJ+xwoEiB/i69w7kqo9Im6HYXZTlillhFawpeJcZzDG44fMeNEqOy5sbpdAHtcqmPWJQ2by+L9ibbDDRj6jow==
 
 msw-storybook-addon@~2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/msw-storybook-addon/-/msw-storybook-addon-2.0.3.tgz#6a9ccf19f89ec9dde1d17e4a3be71d93b42e857a"
-  integrity sha512-CzHmGO32JeOPnyUnRWnB0PFTXCY1HKfHiEB/6fYoUYiFm2NYosLjzs9aBd3XJUryYEN0avJqMNh7nCRDxE5JjQ==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/msw-storybook-addon/-/msw-storybook-addon-2.0.4.tgz#ff1f583c95aef5f8c2014299f235e13cdd34dc1b"
+  integrity sha512-rstO8+r01sRMg6PPP7OxM8LG5/6r4+wmp2uapHeHvm9TQQRHvpPXOU/Y9/Somysz8Oi4Ea1aummXH3JlnP2LIA==
   dependencies:
     is-node-process "^1.0.1"
 
