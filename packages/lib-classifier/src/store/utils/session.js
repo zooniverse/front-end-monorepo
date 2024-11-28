@@ -3,23 +3,30 @@ import hash from 'hash.js'
 const storage = window.sessionStorage
 
 const sessionUtils = {
-  fiveMinutesFromNow () {
+  fiveMinutesFromNow() {
     const d = new Date()
     d.setMinutes(d.getMinutes() + 5)
     return d
   },
 
-  generateSessionID () {
+  generateSessionID() {
     const sha2 = hash.sha256()
     const id = sha2.update(`${Math.random() * 10000}${Date.now()}${Math.random() * 1000}`).digest('hex')
     return id
   },
 
-  getSessionID () {
+  newSession() {
+    return {
+      id: this.generateSessionID(),
+      ttl: this.fiveMinutesFromNow()
+    }
+  },
+
+  getSessionID() {
     const storedSession = storage.getItem('session_id')
     const stored = storedSession
       ? JSON.parse(storedSession)
-      : { id: this.generateSessionID(), ttl: new Date() }
+      : this.newSession()
     stored.ttl = new Date(stored.ttl)
 
     if (stored.ttl < Date.now()) {
