@@ -49,7 +49,9 @@ describe('Store utils > sessionUtils', function () {
     })
 
     it('it should retrieve id from session or local storage if it exists', function () {
-      const stored = { id: 'foobar', ttl: (Date.now() + 50000) }
+      const ttl = new Date()
+      ttl.setMinutes(ttl.getMinutes() + 5)
+      const stored = { id: 'foobar', ttl }
       sessionStorage.setItem('session_id', JSON.stringify(stored))
       sessionUtils.getSessionID()
       expect(generateSessionIDSpy).to.have.not.been.called()
@@ -72,7 +74,9 @@ describe('Store utils > sessionUtils', function () {
 
     describe('when the stored token has expired', function () {
       before(function () {
-        const stored = { id: 'foobar', ttl: (Date.now() - 1) }
+        const ttl = new Date()
+        ttl.setMinutes(ttl.getMinutes() - 10)
+        const stored = { id: 'foobar', ttl }
         sessionStorage.setItem('session_id', JSON.stringify(stored))
       })
 

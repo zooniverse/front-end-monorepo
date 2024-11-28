@@ -25,6 +25,7 @@ const sessionUtils = {
   getSessionID () {
     const stored = (storage.getItem('session_id')) ? JSON.parse(storage.getItem('session_id')) : this.generateSessionID()
     let { id, ttl } = stored
+    console.log(stored)
 
     if (ttl < Date.now()) {
       id = this.generateSessionID()
