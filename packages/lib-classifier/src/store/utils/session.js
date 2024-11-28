@@ -15,6 +15,16 @@ const sessionUtils = {
     return id
   },
 
+  storedSession() {
+    const storedSession = storage.getItem('session_id')
+    if (storedSession) {
+      const session = JSON.parse(storedSession)
+      session.ttl = new Date(session.ttl)
+      return session
+    }
+    return null
+  },
+
   newSession() {
     return {
       id: this.generateSessionID(),
@@ -23,11 +33,7 @@ const sessionUtils = {
   },
 
   getSessionID() {
-    const storedSession = storage.getItem('session_id')
-    const stored = storedSession
-      ? JSON.parse(storedSession)
-      : this.newSession()
-    stored.ttl = new Date(stored.ttl)
+    const stored = this.storedSession() || this.newSession()
 
     if (stored.ttl < Date.now()) {
       stored.id = this.generateSessionID()
