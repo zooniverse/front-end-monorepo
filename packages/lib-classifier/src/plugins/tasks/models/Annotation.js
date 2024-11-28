@@ -1,6 +1,8 @@
 import cuid from 'cuid'
 import { getRoot, getSnapshot, types } from 'mobx-state-tree'
 
+import { sessionUtils } from '@store/utils'
+
 const Annotation = types.model('Annotation', {
   id: types.identifier,
   task: types.string,
@@ -34,8 +36,8 @@ const Annotation = types.model('Annotation', {
     update (value) {
       self.value = value
       self._inProgress = true
-      const { authClient } = getRoot(self)
-      authClient?.checkBearerToken()
+      // refresh the classification session ID
+      sessionUtils.getSessionID()
     }
   }))
 
