@@ -117,26 +117,9 @@ describe('Store utils > sessionUtils', function () {
       dateSpy.restore()
     })
 
-    it('should call fiveMinutesFromNow', function () {
-      const fiveMinutesFromNowSpy = sinon.spy(sessionUtils, 'fiveMinutesFromNow')
-      sessionUtils.generateSessionID()
-      expect(fiveMinutesFromNowSpy).to.have.been.called()
-      fiveMinutesFromNowSpy.restore()
-    })
-
-    it('should return an object with the generated id and the result of calling fiveMinutesFromNow', function () {
+    it('should return the generated id', function () {
       const result = sessionUtils.generateSessionID()
-      expect(result).to.be.an('object')
-      expect(result).to.have.property('id')
-      expect(result.id).to.be.a('string')
-      expect(result).to.have.property('ttl')
-      expect(result.ttl).to.be.an.instanceof(Date)
-    })
-
-    it('should store the stringified generated id and Date object in session storage', function () {
-      const result = JSON.stringify(sessionUtils.generateSessionID())
-      const stored = sessionStorage.getItem('session_id')
-      expect(result).to.equal(stored)
+      expect(result).to.be.a('string')
     })
   })
 })
