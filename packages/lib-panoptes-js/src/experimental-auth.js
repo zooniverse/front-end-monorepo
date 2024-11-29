@@ -118,7 +118,6 @@ async function signIn (login, password, _store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: signIn() ', login, password)
 
-
   // Here's how to SIGN IN to Panoptes!
 
   // Some general setup stuff.
@@ -137,6 +136,7 @@ async function signIn (login, password, _store) {
   //   parties from simply replaying the HTTPs-encoded sign-in request.
   // - In our case, the CSRF token is provided Panoptes itself.
   const request1 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_in/?now=${Date.now()}`, {
+    credentials: 'include',
     method: 'GET',
     headers: PANOPTES_HEADERS,
   })
@@ -157,13 +157,38 @@ async function signIn (login, password, _store) {
   // - HTTP-only cookies can't be viewed or edited by JavaScript, as it happens.
   // - HTTP-only cookies are automagically handled by the web browser and the
   //   server.
+  // - (If you're curious about the mechanics, check the first response headers'
+  //   "Set-Cookie" values, and the following second request header's "Cookie"
+  //   values.)
   // - Our only control as front-end devs is to specify the fetch() of Request()'s
   //   `credentials` option to either "omit" (bad idea for us), "same-origin"
   //   (the default), or "include" (when you need things to work cross-origin)
   // - ❗️ That `credentials: "include"` option is probably important if we need
   //   Panoptes.JS to work on non-*.zooniverse.org domains!
 
-  // TODO
+  const request2 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_in`, {
+    body: JSON.stringify({
+      authenticity_token: csrfToken,
+      user: {
+        login,
+        password,
+        remember_me: true,
+      },
+    }),
+    credentials: 'include',
+    method: 'POST',
+    headers: PANOPTES_HEADERS,
+  })
+  const response2 = await fetch(request2)
+  console.log('+++ Step 2: login status: ', response2)
+
+  // Possible responses from /users/sign_in:
+  // 1. valid login & password => 200 with User resource 
+  // 2. blank login / password => 401 with { error: "You need to sign in or sign up before continuing." }
+  // 3. invalid login / password => 401 with { error: "Invalid email or password." }
+  // 4. invalid authenticity token => 
+  // 5. already logged in => 200 with User resource of the logged-in user(!) This means if Panoptes things you're already logged in (see notes on http-only cookies), then any subsequent login attempts are ignored!
+  // X. Unexpected error, e.g. network down
 
   // Note: old PJC doesn't actually care about the response body, which is the
   // logged-in user's User resource. This is because PJC has a separate call for
@@ -172,8 +197,19 @@ async function signIn (login, password, _store) {
 
   // Step 3: get the bearer token.
 
-  // TODO
+  const request3 = new Request(`https://panoptes-staging.zooniverse.org/oauth/token`, {
+    body: JSON.stringify({
+      client_id: '535759b966935c297be11913acee7a9ca17c025f9f15520e7504728e71110a27',
+      grant_type: 'password',
+    }),
+    credentials: 'include',
+    method: 'POST',
+    headers: PANOPTES_HEADERS,
+  })
+  const response3 = await fetch(request3)
+  console.log('+++ Step 3: ', response3)
 
+  // TODO
 
   /*
   Original PJC code:
