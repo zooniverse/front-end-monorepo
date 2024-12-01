@@ -25,27 +25,14 @@ describe('Store utils > sessionUtils', function () {
   })
 
   describe('getSessionID', function () {
-    let generateSessionIDSpy
-    let fiveMinutesFromNowSpy
-    beforeEach(function () {
-      generateSessionIDSpy = sinon.spy(sessionUtils, 'generateSessionID')
-      fiveMinutesFromNowSpy = sinon.spy(sessionUtils, 'fiveMinutesFromNow')
-    })
-
     afterEach(function () {
-      generateSessionIDSpy.restore()
-      fiveMinutesFromNowSpy.restore()
       sessionStorage.removeItem('session_id')
     })
 
     it('should return the generated id', function () {
       const id = sessionUtils.getSessionID()
       expect(id).to.a('string')
-    })
-
-    it('it should call generateSessionID if there is not a stored id in session or local storage', function () {
-      sessionUtils.getSessionID()
-      expect(generateSessionIDSpy).to.have.been.called()
+      expect(id).to.have.lengthOf(64)
     })
 
     it('it should retrieve id from session or local storage if it exists', function () {
@@ -53,23 +40,20 @@ describe('Store utils > sessionUtils', function () {
       ttl.setMinutes(ttl.getMinutes() + 5)
       const stored = { id: 'foobar', ttl }
       sessionStorage.setItem('session_id', JSON.stringify(stored))
-      sessionUtils.getSessionID()
-      expect(generateSessionIDSpy).to.have.not.been.called()
-    })
-
-    it('should call fiveMinutesFromNow if the ttl property is greater than Date.now()', function () {
-      sessionUtils.getSessionID()
-      expect(fiveMinutesFromNowSpy).to.have.been.called()
+      const id = sessionUtils.getSessionID()
+      expect(id).to.equal('foobar')
     })
 
     it('should update sessionStorage', function () {
+      const fiveMinutesFromNow = new Date()
       sessionUtils.getSessionID()
       const stored = JSON.parse(sessionStorage.getItem('session_id'))
 
       // Dates are a second off from each other in ISO format,
       // but equal when starting as Date objects and converted to Date strings
       // Unsure of the minor discrepency
-      expect(new Date(stored.ttl).toString()).to.equal(fiveMinutesFromNowSpy.returnValues[0].toString())
+      fiveMinutesFromNow.setMinutes(fiveMinutesFromNow.getMinutes() + 5)
+      expect(new Date(stored.ttl).toString()).to.equal(fiveMinutesFromNow.toString())
     })
 
     describe('when the stored token has expired', function () {
@@ -85,8 +69,9 @@ describe('Store utils > sessionUtils', function () {
       })
 
       it('should generate a new session ID', function () {
-        sessionUtils.getSessionID()
-        expect(generateSessionIDSpy).to.have.been.calledOnce()
+        const id = sessionUtils.getSessionID()
+        expect(id).to.not.equal('foobar')
+        expect(id).to.have.lengthOf(64)
       })
     })
   })
@@ -120,6 +105,7 @@ describe('Store utils > sessionUtils', function () {
     it('should return the generated id', function () {
       const result = sessionUtils.generateSessionID()
       expect(result).to.be.a('string')
+      expect(result).to.have.lengthOf(64)
     })
   })
 })
