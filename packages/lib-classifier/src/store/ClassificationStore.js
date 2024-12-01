@@ -7,8 +7,8 @@ import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
 import {
   ClassificationQueue,
-  sessionUtils
 } from './utils'
+import { getSessionID } from './utils/session'
 import { subjectsSeenThisSession } from '@helpers'
 
 const ClassificationStore = types
@@ -109,7 +109,7 @@ const ClassificationStore = types
 
         const metadata = {
           finishedAt: (new Date()).toISOString(),
-          session: sessionUtils.getSessionID(),
+          session: getSessionID(),
           subjectDimensions,
           viewport: {
             width: window.innerWidth,

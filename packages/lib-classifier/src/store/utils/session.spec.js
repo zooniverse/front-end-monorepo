@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import hash from 'hash.js'
-import sessionUtils from './session'
+import * as sessionUtils from './session'
 
 describe('Store utils > sessionUtils', function () {
   describe('fiveMinutesFromNow', function () {

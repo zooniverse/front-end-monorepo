@@ -1,7 +1,7 @@
 import cuid from 'cuid'
-import { getRoot, getSnapshot, types } from 'mobx-state-tree'
+import { getSnapshot, types } from 'mobx-state-tree'
 
-import { sessionUtils } from '@store/utils'
+import { getSessionID } from '@store/utils/session'
 
 const Annotation = types.model('Annotation', {
   id: types.identifier,
@@ -37,7 +37,7 @@ const Annotation = types.model('Annotation', {
       self.value = value
       self._inProgress = true
       // refresh the classification session ID
-      sessionUtils.getSessionID()
+      getSessionID()
     }
   }))
 
