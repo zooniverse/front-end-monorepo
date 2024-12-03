@@ -62,8 +62,7 @@
     "grommet-icons": "4.x.x",
     "mobx-state-tree": "~5.x.x",
     "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0",
-    "styled-components": "5.x.x"
+    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@babel/cli": "~7.25.9",
@@ -81,6 +80,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/standard": "~2.0.0",
+    "babel-plugin-styled-components": "~2.1.4",
     "babel-plugin-transform-imports": "~2.0.0",
     "chai": "~4.5.0",
     "chai-dom": "~1.12.0",
@@ -99,8 +99,7 @@
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
-    "storybook-react-i18next": "~2.0.1",
-    "styled-components": "~5.3.3"
+    "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
     "node": ">=20.5"

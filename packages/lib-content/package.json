@@ -46,7 +46,7 @@
     "next": "~13.5.5",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "styled-components": "5.x.x"
+    "styled-components": "6.x.x"
   },
   "devDependencies": {
     "@babel/preset-env": "~7.26.0",

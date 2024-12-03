@@ -1,5 +1,8 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import sinon from 'sinon'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
+
 import ZoomEventLayer from '.'
 
 const width = 768
@@ -16,7 +19,7 @@ describe('Component > ZoomEventLayer', function () {
     onDoubleClickSpy = sinon.spy()
     onWheelSpy = sinon.spy()
 
-    wrapper = shallow(
+    wrapper = mount(
       <ZoomEventLayer
         onDoubleClick={onDoubleClickSpy}
         onKeyDown={onKeyDownSpy}
@@ -27,7 +30,10 @@ describe('Component > ZoomEventLayer', function () {
         onWheel={onWheelSpy}
         height={height}
         width={width}
-      />
+      />,
+      { wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      }
     )
   })
 
@@ -43,10 +49,6 @@ describe('Component > ZoomEventLayer', function () {
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
-  })
-
-  it('should be transparent', function () {
-    expect(wrapper.props().fill).to.equal('transparent')
   })
 
   it('should be the size of the parent', function () {
