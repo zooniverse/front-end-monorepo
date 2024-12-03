@@ -62,7 +62,8 @@
     "grommet-icons": "4.x.x",
     "mobx-state-tree": "~5.x.x",
     "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0"
+    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0",
+    "styled-components": "6.x.x"
   },
   "devDependencies": {
     "@babel/cli": "~7.25.9",
