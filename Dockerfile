@@ -64,6 +64,10 @@ RUN mkdir -p /usr/src
 
 WORKDIR /usr/src/
 
+RUN chown -R node:node .
+
+USER node
+
 COPY --from=builder /usr/src/package.json /usr/src/package.json
 
 COPY --from=builder /usr/src/.yarn /usr/src/.yarn
