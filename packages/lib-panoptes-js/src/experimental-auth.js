@@ -5,67 +5,12 @@ Based on PJC: https://github.com/zooniverse/panoptes-javascript-client/blob/8157
 
 const globalStore = {
   eventListeners: {},
-  _currentUserPromise: null,
+  //_currentUserPromise: null,
   //_bearerToken: '',
   //_bearerTokenExpiration: NaN,
   //_refreshToken: '',
   //_tokenRefreshPromise: null,
 }
-
-async function checkCurrent (_store) {
-  const store = _store || globalStore
-  console.log('+++ experimental auth client: checkCurrent()')
-
-  if (!store._currentUserPromise) {
-    console.log('Checking current user')
-    store._currentUserPromise = _getUser(store)
-    await store._currentUserPromise
-    broadcastEvent('change', store._currentUserPromise, store)
-  }
-
-  return store._currentUserPromise
-  /*
-  Orignal PJC code
-
-  if (!this._currentUserPromise) {
-    console.log('Checking current user');
-    this._currentUserPromise = this._getUser();
-    await this._currentUserPromise;
-    this.emit('change', this._currentUserPromise);
-  }
-
-  return this._currentUserPromise;
-   */
-}
-
-async function _getUser (_store) {
-  const store = _store || globalStore
-  console.log('+++ experimental auth client: getUser()')
-
-  try {
-    const token = await _getBearerToken(store)
-    return _getSession(store)
-  } catch (error) {
-    // Nobody's signed in. This isn't an error.
-    console.info('No current user')
-    return null
-  }
-}
-
-async function _getBearerToken (_store) {
-  const store = _store || globalStore
-  console.log('+++ experimental auth client: getBearerToken()')
-
-  // TODO
-}
-
-async function _getSession (_store) {
-  const store = _store || globalStore
-  console.log('+++ experimental auth client: _getSession()')
-
-  // TODO
-}
-
 
 /*
 Adds event listener.
@@ -106,7 +51,7 @@ function removeEventListener (eventType, listener, _store) {
   return true
 }
 
-function broadcastEvent (eventType, args, _store) {
+function _broadcastEvent (eventType, args, _store) {
   const store = _store || globalStore
   store.eventListeners?.[eventType]?.forEach(listener => {
     listener(args)
@@ -287,7 +232,6 @@ async function signIn (login, password, _store) {
 
 export {
   signIn,
-  checkCurrent,
   addEventListener,
   removeEventListener,
 }
