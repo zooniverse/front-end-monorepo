@@ -203,7 +203,7 @@ async function signIn (login, password, _store) {
     // 2. blank login / password => 401 with { error: "You need to sign in or sign up before continuing." }
     // 3. invalid login / password => 401 with { error: "Invalid email or password." }
     // 4. invalid authenticity token => see https://github.com/zooniverse/operations/issues/561
-    // 5. already logged in => 200 with User resource of the logged-in user(!) This means if Panoptes things you're already logged in (see notes on http-only cookies), then any subsequent login attempts are ignored.
+    // 5. already logged in => 200 with User resource of the previously logged-in user(!) This means if Panoptes thinks you're already logged in (see notes on http-only cookies), then any subsequent login attempts are ignored.
     // X. Unexpected error, e.g. network down.
 
     // Note: old PJC doesn't actually care about the response body, which is the
