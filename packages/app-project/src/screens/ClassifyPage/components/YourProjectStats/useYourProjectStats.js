@@ -3,7 +3,7 @@ import { env, panoptes } from '@zooniverse/panoptes-js'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 
-import { usePanoptesAuth } from '@hooks'
+import { usePanoptesAuthToken } from '@hooks'
 import { getTodayDateString, getNumDaysAgoDateString, getQueryPeriod } from './helpers/dateRangeHelpers.js'
 
 const SWROptions = {
@@ -70,7 +70,8 @@ function formatAllTimeStatsQuery(userCreatedAt) {
   return new URLSearchParams(query).toString()
 }
 
-async function fetchStats({ endpoint, projectID, userID, authorization }) {
+async function fetchStats({ endpoint, projectID, userID, token }) {
+  const authorization = `Bearer ${token}`
   const headers = { authorization }
   const host = statsHost(env)
 
@@ -98,9 +99,9 @@ async function fetchStats({ endpoint, projectID, userID, authorization }) {
 }
 
 export default function useYourProjectStats({ projectID, userID }) {
-  const authorization = usePanoptesAuth(userID)
+  const token = usePanoptesAuthToken()
 
   // only fetch stats when a userID is available. Don't fetch if no user signed in.
-  const key = authorization && userID ? { endpoint, projectID, userID, authorization } : null
+  const key = token && userID ? { endpoint, projectID, userID, token } : null
   return useSWR(key, fetchStats, SWROptions)
 }

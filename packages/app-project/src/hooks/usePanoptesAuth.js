@@ -1,3 +1,5 @@
+/* This hook will be fully replaced with usePanoptesAuthToken. See PR 6472 for more info */
+
 import auth from 'panoptes-client/lib/auth'
 import { useEffect, useState } from 'react'
 
