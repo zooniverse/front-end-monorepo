@@ -114,7 +114,6 @@ function broadcastEvent (eventType, args, _store) {
 }
 
 async function signIn (login, password, _store) {
-  // TODO
   const store = _store || globalStore
   console.log('+++ experimental auth client: signIn() ', login, password)
 
@@ -184,15 +183,15 @@ async function signIn (login, password, _store) {
     const response2 = await fetch(request2)
     console.log('+++ Step 2: login status: ', response2)
 
-    // Sanity checkpoint for Step 2
+    // Extract data and check for errors.
     // NOTE: this is way more thorough than necessary.
     if (!response2.ok) {
-      const jsonData = await response2.json()
-      const error = jsonData?.error || 'No idea what went wrong; no specific error message detected.'
+      const jsonData2 = await response2.json()
+      const error = jsonData2?.error || 'No idea what went wrong; no specific error message detected.'
       throw new Error(`Error from API. ${error}`)
     }
-    const jsonData = await response2.json()
-    const userData = jsonData?.users?.[0]
+    const jsonData2 = await response2.json()
+    const userData = jsonData2?.users?.[0]
     if (!userData) {
       throw new Error('Impossible API response. No user returned.')
     } else if (userData.login && userData.login !== login) {
@@ -226,11 +225,36 @@ async function signIn (login, password, _store) {
     const response3 = await fetch(request3)
     console.log('+++ Step 3: ', response3)
 
+    // Extract data and check for errors.
+    if (!response3.ok) {
+      const jsonData3 = await response3.json()
+      const error = jsonData3?.error || 'No idea what went wrong; no specific error message detected.'
+      throw new Error(`Error from API. ${error}`)
+    }
+    const jsonData3 = await response3.json()
+    const bearerToken = jsonData3?.access_token  // The bearer token is short-lived
+    const refreshToken = jsonData3?.refresh_token  // The refresh token is used to get new bearer tokens.
+    const bearerTokenExpiry = Date.now() + (jsonData3?.expires_in * 1000)  // Use Date.now() instead of response.created_at, because it keeps future "has expired?" comparisons consistent to the client's clock instead of the server's clock.
+    if (!bearerToken || !refreshToken) {
+      throw new Error('Impossible API response. access_token and/or refresh_token unavailable.')
+    } else if (jsonData3?.token_type !== 'Bearer') {
+      throw new Error('Impossible API response. Token wasn\'t of type "Bearer".')
+    } else if (isNaN(bearerTokenExpiry)) {
+      throw new Error('Impossible API response. Token expiry can\'t be calculated.')
+    } else if (bearerTokenExpiry <= Date.now()) {
+      throw new Error('Impossible API response. Token has already expired for some reason.')
+    }
+
+    console.log('+++ signIn() Results: ',
+      '\n\n  userData:', userData,
+      '\n\n  bearerToken', bearerToken,
+      '\n\n  bearerTokenExpiry', new Date(bearerTokenExpiry),
+      '\n\n  refreshToken', refreshToken,
+    )
+
   } catch (err) {
     console.error('+++ ERROR: signIn() ', err)
   }
-
-  // TODO
 
   /*
   Original PJC code:
