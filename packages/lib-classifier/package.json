@@ -47,7 +47,7 @@
     "i18next": "~24.0.2",
     "lodash": "~4.17.11",
     "react-i18next": "~14.1.0",
-    "react-player": "~2.13.0",
+    "react-player": "~2.16.0",
     "swr": "~2.2.0",
     "valid-url": "~1.0.9"
   },
