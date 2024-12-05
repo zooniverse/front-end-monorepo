@@ -196,6 +196,7 @@ async function signIn (login, password, _store) {
       '\n\n  bearerTokenExpiry', new Date(bearerTokenExpiry),
       '\n\n  refreshToken', refreshToken,
     )
+    _broadcastEvent('change', userData)
 
   } catch (err) {
     console.error('+++ ERROR: signIn() ', err)

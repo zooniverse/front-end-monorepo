@@ -1,4 +1,4 @@
-import { signIn } from '@src/experimental-auth.js'
+import { signIn, addEventListener } from '@src/experimental-auth.js'
 
 class App {
   constructor () {
@@ -7,6 +7,7 @@ class App {
     }
 
     this.html.loginForm.addEventListener('submit', this.loginForm_onSubmit.bind(this))
+    addEventListener('change', this.onAuthChange)
   }
 
   loginForm_onSubmit (e) {
@@ -15,6 +16,10 @@ class App {
 
     e.preventDefault()
     return false
+  }
+
+  onAuthChange (e) {
+    console.log('+++ onAuthChange: ', e)
   }
 }
 
