@@ -34,10 +34,12 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = false
 }) {
+  const canvasLayer = useRef()
+  const canvas = canvasLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
 
   return (
-    <SVGContext.Provider value={{ viewBox, rotate, width, height }}>
+    <SVGContext.Provider value={{ canvas, viewBox, rotate, width, height }}>
       {zoomControlFn && (
         <ZoomControlButton
           onClick={zoomControlFn}
@@ -66,6 +68,7 @@ function SingleImageViewer({
             transform={transform}
           >
             <SVGImageCanvas
+              ref={canvasLayer}
               viewBox={viewBox}
             >
               {children}
