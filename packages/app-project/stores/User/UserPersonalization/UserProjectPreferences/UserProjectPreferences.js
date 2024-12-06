@@ -29,8 +29,6 @@ export const Settings = types
 
 const UserProjectPreferences = types
   .model('UserProjectPreferences', {
-    activity_count: types.optional(types.number, 0),
-    activity_count_by_workflow: types.maybe(types.frozen()),
     error: types.maybeNull(types.frozen({})),
     id: types.maybe(numberString),
     links: types.maybe(
@@ -81,8 +79,6 @@ const UserProjectPreferences = types
     return {
       reset() {
         const resetSnapshot = {
-          activity_count: 0,
-          activity_count_by_workflow: undefined,
           error: undefined,
           id: undefined,
           links: undefined,
@@ -129,11 +125,7 @@ const UserProjectPreferences = types
         } catch (error) {
           console.error(error)
         }
-      }),
-
-      incrementActivityCount() {
-        self.activity_count = self.activity_count + 1
-      }
+      })
     }
   })
 
