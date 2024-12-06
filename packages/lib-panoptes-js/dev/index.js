@@ -19,7 +19,7 @@ class App {
   }
 
   onAuthChange (e) {
-    console.log('+++ onAuthChange: ', e)
+    console.log('+++ Yahoo! We detected a change of user: ', e)
   }
 }
 
