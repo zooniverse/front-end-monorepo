@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "jose": "~5.9.6",
-    "superagent": "^8.0.6"
+    "superagent": "^10.1.1"
   },
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
