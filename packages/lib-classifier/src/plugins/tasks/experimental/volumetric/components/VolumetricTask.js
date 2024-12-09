@@ -1,11 +1,13 @@
+import asyncStates from '@zooniverse/async-states'
 import { Box, Text } from "grommet"
 import { Blank } from "grommet-icons"
-import { observer } from "mobx-react"
+import InputStatus from "../../../components/InputStatus"
+import { Markdownz } from "@zooniverse/react-components"
+import { MobXProviderContext, observer } from "mobx-react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import { Markdownz } from "@zooniverse/react-components"
-import InputStatus from "../../../components/InputStatus"
 import TaskInput from "../../../components/TaskInput"
+import { useContext } from 'react'
 
 // Note: ANNOTATION_COUNT will be refactored in next PR to use MobX Annotations
 const ANNOTATION_COUNT = 3
@@ -41,15 +43,23 @@ const StyledToolIcon = styled.div`
 `
 
 function VolumetricTask({ task }) {
+  const stores = useContext(MobXProviderContext)
+  const subjectReadyState = stores.classifierStore?.subjectViewer?.loadingState ?? asyncStates.loading
+
   return (
     <Box>
       <StyledInstructionText as="legend" size="small">
         <Markdownz>{task.instruction}</Markdownz>
       </StyledInstructionText>
 
+      {/*
+       NOTE: Because there is only one active tool in a Volumetric project,
+       we do checked=true & index=0 to hardcode this tool as active
+      */}
+
       <TaskInput
         checked={true}
-        disabled={false}
+        disabled={subjectReadyState !== asyncStates.success}
         index={0}
         label={"3D Viewer"}
         labelIcon={

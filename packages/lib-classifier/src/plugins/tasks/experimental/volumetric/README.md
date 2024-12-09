@@ -8,4 +8,4 @@ The volumetric task does not support a required property.
 
 The volumetric task does not support tags (i.e. insertion, deletion).
 
-The volumetric task is disabled until the subject's JSON content is loaded.
+The volumetric task is disabled until the subject is loaded.
