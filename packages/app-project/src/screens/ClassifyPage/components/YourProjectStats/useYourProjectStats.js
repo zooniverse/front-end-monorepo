@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 import { env, panoptes } from '@zooniverse/panoptes-js'
-import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 
 import { usePanoptesAuthToken } from '@hooks'
@@ -26,14 +25,13 @@ function statsHost(env) {
 const endpoint = '/classifications/users'
 
 /* user.created_at is needed for allTimeQuery, and not always available on the logged in user object */
-async function fetchUserCreatedAt(userID) {
-  const { headers, host } = getServerSideAPIHost(env)
+async function fetchUserCreatedAt({ token, userID }) {
+  const authorization = `Bearer ${token}`
   const userQuery = {
-    env,
     id: userID
   }
   try {
-    const response = await panoptes.get(`/users`, userQuery, { ...headers }, host)
+    const response = await panoptes.get(`/users`, userQuery, { authorization })
     return response.body.users[0].created_at.substring(0, 10)
   } catch (error) {
     console.error('Error loading user with id:', userID)
@@ -76,7 +74,7 @@ async function fetchStats({ endpoint, projectID, userID, token }) {
   const host = statsHost(env)
 
   try {
-    const userCreatedAt = await fetchUserCreatedAt(userID)
+    const userCreatedAt = await fetchUserCreatedAt({ token, userID })
 
     const sevenDaysQuery = formatSevenDaysStatsQuery()
     const allTimeQuery = formatAllTimeStatsQuery(userCreatedAt)
