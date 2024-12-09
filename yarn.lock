@@ -5618,7 +5618,7 @@
     lodash "^4.17.21"
     prop-types "^15.5.10"
 
-"@visx/text@3.12.0", "@visx/text@~3.12.0":
+"@visx/text@3.12.0":
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/@visx/text/-/text-3.12.0.tgz#2d023a6ac561557c5a7e7538bea4015d987e5238"
   integrity sha512-0rbDYQlbuKPhBqXkkGYKFec1gQo05YxV45DORzr6hCyaizdJk1G+n9VkuKSHKBy1vVQhBA0W3u/WXd7tiODQPA==
