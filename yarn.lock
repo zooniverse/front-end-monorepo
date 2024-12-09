@@ -9482,7 +9482,7 @@ eslint-plugin-promise@^6.1.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-5.0.0-canary-7118f5dd7-20230705.tgz#4d55c50e186f1a2b0636433d2b0b2f592ddbccfd"
   integrity sha512-AZYbMo/NW9chdL7vk6HQzQhT+PvTAEVqWk9ziruUoW2kAOcN5qNyelv70e0F1VNQAbvutOC9oc+xfWycI9FxDw==
 
-eslint-plugin-react@^7.32.2, eslint-plugin-react@^7.33.2, eslint-plugin-react@~7.37.2:
+eslint-plugin-react@^7.33.2, eslint-plugin-react@^7.36.1, eslint-plugin-react@~7.37.2:
   version "7.37.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.37.2.tgz#cd0935987876ba2900df2f58339f6d92305acc7a"
   integrity sha512-EsTAnj9fLVr/GZleBLFbj/sSuXeWmp1eXIN60ceYnZveqEaUCyW4X+Vh4WTdUhCkW4xutXYqTXCUSyqD4rB75w==
@@ -16882,7 +16882,7 @@ stacktrace-parser@^0.1.10:
   dependencies:
     type-fest "^0.7.1"
 
-standard-engine@^15.0.0, standard-engine@^15.1.0:
+standard-engine@^15.1.0:
   version "15.1.0"
   resolved "https://registry.npmjs.org/standard-engine/-/standard-engine-15.1.0.tgz"
   integrity sha512-VHysfoyxFu/ukT+9v49d4BRXIokFRZuH3z1VRxzFArZdjSCFpro6rEIU3ji7e4AoAtuSfKBkiOmsrDqKW5ZSRw==
@@ -16900,9 +16900,9 @@ standard-json@^1.1.0:
     concat-stream "^2.0.0"
 
 standard@~17.1.0:
-  version "17.1.0"
-  resolved "https://registry.npmjs.org/standard/-/standard-17.1.0.tgz"
-  integrity sha512-jaDqlNSzLtWYW4lvQmU0EnxWMUGQiwHasZl5ZEIwx3S/ijZDjZOzs1y1QqKwKs5vqnFpGtizo4NOYX2s0Voq/g==
+  version "17.1.2"
+  resolved "https://registry.yarnpkg.com/standard/-/standard-17.1.2.tgz#fc7e365e401569fee2a840d2a3862d218ef78092"
+  integrity sha512-WLm12WoXveKkvnPnPnaFUUHuOB2cUdAsJ4AiGHL2G0UNMrcRAWY2WriQaV8IQ3oRmYr0AWUbLNr94ekYFAHOrA==
   dependencies:
     eslint "^8.41.0"
     eslint-config-standard "17.1.0"
@@ -16910,8 +16910,8 @@ standard@~17.1.0:
     eslint-plugin-import "^2.27.5"
     eslint-plugin-n "^15.7.0"
     eslint-plugin-promise "^6.1.1"
-    eslint-plugin-react "^7.32.2"
-    standard-engine "^15.0.0"
+    eslint-plugin-react "^7.36.1"
+    standard-engine "^15.1.0"
     version-guard "^1.1.1"
 
 statuses@2.0.1, statuses@^2.0.1:
