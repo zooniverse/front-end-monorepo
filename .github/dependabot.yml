@@ -29,7 +29,7 @@ updates:
           - "@visx*"
       react-testing-library:
         patterns:
-          = "@testing-library*"
+          - "@testing-library*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
