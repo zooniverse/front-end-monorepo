@@ -5,6 +5,11 @@ Based on PJC: https://github.com/zooniverse/panoptes-javascript-client/blob/8157
 
 const globalStore = {
   eventListeners: {},
+  userData: null,
+  bearerToken: '',
+  bearerTokenExpiry: NaN,
+  refreshToken: '',
+
   //_currentUserPromise: null,
   //_bearerToken: '',
   //_bearerTokenExpiration: NaN,
@@ -88,7 +93,6 @@ async function signIn (login, password, _store) {
     })
     const response1 = await fetch(request1)
     const csrfToken = response1?.headers.get('x-csrf-token')  // The CSRF Token is in the response header
-    console.log('+++ Step 1: csrfToken received: ', csrfToken, response1)
     // Note: we don't actually care about the response body, which happens to be blank.
 
     // Step 2: submit the login details.
@@ -126,8 +130,7 @@ async function signIn (login, password, _store) {
       headers: PANOPTES_HEADERS,
     })
     const response2 = await fetch(request2)
-    console.log('+++ Step 2: login status: ', response2)
-
+    
     // Extract data and check for errors.
     // NOTE: this is way more thorough than necessary.
     if (!response2.ok) {
@@ -168,8 +171,7 @@ async function signIn (login, password, _store) {
       headers: PANOPTES_HEADERS,
     })
     const response3 = await fetch(request3)
-    console.log('+++ Step 3: ', response3)
-
+    
     // Extract data and check for errors.
     if (!response3.ok) {
       const jsonData3 = await response3.json()
@@ -196,10 +198,17 @@ async function signIn (login, password, _store) {
       '\n\n  bearerTokenExpiry', new Date(bearerTokenExpiry),
       '\n\n  refreshToken', refreshToken,
     )
+    store.userData = userData
+    store.bearerToken = bearerToken,
+    store.bearerTokenExpiry = bearerTokenExpiry
+    store.refreshToken = refreshToken
     _broadcastEvent('change', userData)
 
+    return userData
+
   } catch (err) {
-    console.error('+++ ERROR: signIn() ', err)
+    console.error('Auth: ', err)
+    throw(err)
   }
 
   /*
