@@ -25,7 +25,7 @@ Input:
 - listener: (function) function that will be called when event is broadcasted.
 - _store: (optional) data store. See default globalStore.
 Output:
-- true if a listener is added for an event, false otherwise.
+- true if an event listener is successfully added, false otherwise.
 Side Effects:
 - on success, _store's eventListeners will be updated.
 Notes:
@@ -66,9 +66,10 @@ Input:
 - listener: (function) function that would have been called when event is
   broadcasted.
 - _store: (optional) data store. See default globalStore.
-Output: n/a
+Output:
+- true if an event listener is successfully removed, false otherwise.
 Side Effects:
-- _store's eventListeners will be updated.
+- on success, _store's eventListeners will be updated.
 Possible Errors: n/a
 Notes:
 - Attempts to remove non-existent listener are ignored.
@@ -80,11 +81,12 @@ function removeEventListener (eventType, listener, _store) {
   // Check if the listener has already been registered for the event type.
   if (!store.eventListeners[eventType] || !store.eventListeners[eventType]?.find(l => l === listener)) {
     console.log(`Panoptes.js addEventListener: listener for event type '${eventType}' hasn't been registered.`)
-    return
+    return false
   }
 
   // Remove the listener for that event type.
   store.eventListeners[eventType] = store.eventListeners[eventType].filter(l => l !== listener)
+  return true
 }
 
 /*
