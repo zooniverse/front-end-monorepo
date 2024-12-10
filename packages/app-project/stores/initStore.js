@@ -61,7 +61,7 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
 
   if (snapshot) {
     /*
-      Don't overwrite the stored user, collections, recents or stats in the browser.
+      Don't overwrite the stored user, collections, or recents in the browser.
       Only apply store state that was generated on the server.
       TODO: won't this overwrite local changes to the UI store?
     */

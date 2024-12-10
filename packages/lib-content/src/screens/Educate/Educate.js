@@ -197,12 +197,10 @@ function Educate() {
                   <Trans
                     i18nKey='Educate.forEducators.paragraphs.three'
                     t={t}
-                    // Updated blog post text coming in October
-                    // "See this <0>blog post</0> for details."
                     components={[
                       <Anchor
                         key='stats-in-classrooms-blog'
-                        href='' // Need url after blog post
+                        href='https://blog.zooniverse.org/2024/10/01/fulfilling-service-hour-requirements-through-zooniverse-2'
                       />
                     ]}
                   />

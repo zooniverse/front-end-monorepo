@@ -1,12 +1,24 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import { when } from 'mobx'
 import sinon from 'sinon'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Ellipse, Mark, Point } from '@plugins/drawingTools/components'
 
 describe('Drawing tools > Mark', function () {
+  function withGrommetWrapper() {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          {children}
+        </Grommet>
+      )
+    }
+  }
+
   const pointTool = PointTool.create({
     type: 'point',
     tasks: [{
@@ -19,7 +31,6 @@ describe('Drawing tools > Mark', function () {
   const onDelete = sinon.stub()
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
-  let wrapper
   let svgPoint
 
   describe('default behaviour', function () {
@@ -40,7 +51,7 @@ describe('Drawing tools > Mark', function () {
           >
             <Point mark={point} />
           </Mark>
-        </svg>
+        </svg>, { wrapper: withGrommetWrapper()}
       )
       svgPoint = screen.getByLabelText('Point 1')
     })
@@ -74,7 +85,7 @@ describe('Drawing tools > Mark', function () {
           >
             <Point mark={point} />
           </Mark>
-        </svg>
+        </svg>, { wrapper: withGrommetWrapper() }
       )
       await user.tab()
     })
@@ -104,7 +115,7 @@ describe('Drawing tools > Mark', function () {
             >
               <Point mark={point} />
             </Mark>
-          </svg>
+          </svg>, { wrapper: withGrommetWrapper() }
         )
         await user.tab()
         await user.keyboard('{Backspace}')
@@ -138,7 +149,7 @@ describe('Drawing tools > Mark', function () {
             >
               <Point mark={point} />
             </Mark>
-          </svg>
+          </svg>, { wrapper: withGrommetWrapper() }
         )
         point.setSubTaskVisibility(false)
         await user.keyboard('{Enter}')
@@ -177,7 +188,7 @@ describe('Drawing tools > Mark', function () {
             >
               <Point mark={point} />
             </Mark>
-          </svg>
+          </svg>, { wrapper: withGrommetWrapper() }
         )
         point.setSubTaskVisibility(false)
         await user.keyboard('{ }')
@@ -216,7 +227,7 @@ describe('Drawing tools > Mark', function () {
             >
               <Point mark={point} />
             </Mark>
-          </svg>
+          </svg>, { wrapper: withGrommetWrapper() }
         )
         point.setSubTaskVisibility(false)
         await user.tab()
@@ -252,7 +263,7 @@ describe('Drawing tools > Mark', function () {
           >
             <Point mark={point} />
           </Mark>
-        </svg>
+        </svg>, { wrapper: withGrommetWrapper() }
       )
       svgPoint = screen.getByLabelText('Point 1')
     })
@@ -289,7 +300,7 @@ describe('Drawing tools > Mark', function () {
           >
             <Point mark={point} />
           </Mark>
-        </svg>
+        </svg>, { wrapper: withGrommetWrapper() }
       )
       svgPoint = screen.getByLabelText('Point 1')
     })
@@ -324,7 +335,7 @@ describe('Drawing tools > Mark', function () {
           >
             <Ellipse mark={ellipse} />
           </Mark>
-        </svg>
+        </svg>, { wrapper: withGrommetWrapper() }
       )
       svgEllipse = screen.getByLabelText('Ellipse 1')
     })
@@ -338,18 +349,20 @@ describe('Drawing tools > Mark', function () {
   describe('when the active mark is finished', function () {
     function markWrapper(mark) {
       return (
-        <svg>
-          <Mark
-            isActive
-            label='Point 1'
-            mark={mark}
-            onDelete={onDelete}
-            onFinish={onFinish}
-            onSelect={onSelect}
-          >
-            <Point mark={mark} />
-          </Mark>
-        </svg>
+        <Grommet theme={zooTheme}>
+          <svg>
+            <Mark
+              isActive
+              label='Point 1'
+              mark={mark}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={mark} />
+            </Mark>
+          </svg>
+        </Grommet>
       )
     }
 
@@ -376,18 +389,20 @@ describe('Drawing tools > Mark', function () {
   describe('when subtasks are closed', function () {
     function markWrapper(mark) {
       return (
-        <svg>
-          <Mark
-            isActive
-            label='Point 1'
-            mark={mark}
-            onDelete={onDelete}
-            onFinish={onFinish}
-            onSelect={onSelect}
-          >
-            <Point mark={mark} />
-          </Mark>
-        </svg>
+        <Grommet theme={zooTheme}>
+          <svg>
+            <Mark
+              isActive
+              label='Point 1'
+              mark={mark}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={mark} />
+            </Mark>
+          </svg>
+        </Grommet>
       )
     }
 
@@ -435,7 +450,7 @@ describe('Drawing tools > Mark', function () {
           >
             <Point mark={point} />
           </Mark>
-        </svg>
+        </svg>, { wrapper: withGrommetWrapper() }
       )
     })
 

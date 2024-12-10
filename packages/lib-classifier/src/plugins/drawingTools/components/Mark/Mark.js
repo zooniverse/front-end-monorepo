@@ -45,12 +45,6 @@ function defaultHandler() {
   return true
 }
 
-const defaultTheme = {
-  global: {
-    colors: {}
-  }
-}
-
 const Mark = forwardRef(function Mark(
   {
     children,

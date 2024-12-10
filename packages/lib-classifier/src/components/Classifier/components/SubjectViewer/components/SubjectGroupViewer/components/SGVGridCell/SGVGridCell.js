@@ -6,7 +6,7 @@ import { draggable } from '@plugins/drawingTools/components'
 
 const FOCUS_OFFSET = 2
 
-const DraggableImage = styled(draggable('image'))`
+export const DraggableImage = styled(draggable('image'))`
     cursor: grab;
   }
 `
@@ -29,26 +29,26 @@ function SGVGridCell (props) {
     image,
     index,
     subjectId,
-    
+
     dragMove,
-    
+
     cellWidth,
     cellHeight,
     cellStyle,
     gridRows,
     gridColumns,
-    
+
     panX,
     panY,
     zoom,
-    
+
     annotation,
     annotationMode,
     cellAnnotated,
   } = props
-  
+
   const [checked, setChecked] = useState(cellAnnotated)
-  
+
   const row = Math.floor(index / gridColumns)
   const col = index % gridColumns
 
@@ -79,7 +79,7 @@ function SGVGridCell (props) {
   const imageY = (cellHeight - imageHeight) / 2
 
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
-  
+
   function toggleCellAnnotation () {
     if (!annotationMode || !annotation?.value) return
 
@@ -88,7 +88,7 @@ function SGVGridCell (props) {
 
     const annotationValue = annotation?.value?.slice() || []
     const isThisCellSelected = annotationValue.find(item => item.index === index)
-        
+
     if (isThisCellSelected && !toggledValue) {  // Remove cell index from annotation values
       const indexInValue = annotationValue.indexOf(isThisCellSelected)
       annotationValue.splice(indexInValue, 1)
@@ -98,10 +98,10 @@ function SGVGridCell (props) {
         subject: subjectId,
       })
     }
-    
+
     if (annotation?.update) annotation.update(annotationValue)
   }
-  
+
   // Use an offset to ensure the zoom/scale transform occurs at the centre of
   // the image, instead of the top-left (0,0) origin point.
   // This hack is necessary since Safari doesn't support transform-origin to
@@ -109,7 +109,7 @@ function SGVGridCell (props) {
   // transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
   const addOriginOffset = `translate(${imageWidth/2}, ${imageHeight/2})`
   const removeOriginOffset = `translate(${-imageWidth/2}, ${-imageHeight/2})`
-  
+
   const imageTransform = `${addOriginOffset} scale(${zoom}) ${removeOriginOffset} translate(${panX}, ${panY})`
 
   return (
@@ -178,9 +178,9 @@ SGVGridCell.propTypes = {
   image: PropTypes.object,
   index: PropTypes.number,
   subjectId: PropTypes.string,
-            
+
   dragMove: PropTypes.func,
-  
+
   cellWidth: PropTypes.number,
   cellHeight: PropTypes.number,
   cellStyle: PropTypes.object,
@@ -203,9 +203,9 @@ SGVGridCell.defaultProps = {
   image: undefined,
   index: 0,
   subjectId: '',
-            
+
   dragMove: () => {},
-  
+
   cellWidth: 200,
   cellHeight: 200,
   cellStyle: {},
