@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "~8.42.0",
+    "@sentry/nextjs": "~8.43.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
