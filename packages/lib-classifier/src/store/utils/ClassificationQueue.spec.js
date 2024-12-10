@@ -109,14 +109,14 @@ describe('ClassificationQueue', function () {
   })
 
   describe('keeps classifications in localStorage if backend fails', function () {
-    let clock
-
     before(function () {
-      clock = sinon.useFakeTimers({ global })
+      sinon.stub(global, 'setTimeout').callsFake(() => 100)
+      sinon.stub(global, 'clearTimeout')
     })
 
     after(function () {
-      clock.restore()
+      global.setTimeout.restore()
+      global.clearTimeout.restore()
     })
 
     beforeEach(function () {
@@ -166,14 +166,14 @@ describe('ClassificationQueue', function () {
   })
 
   describe('with invalid classifications', function () {
-    let clock
-
     before(function () {
-      clock = sinon.useFakeTimers({ global })
+      sinon.stub(global, 'setTimeout').callsFake(() => 100)
+      sinon.stub(global, 'clearTimeout')
     })
 
     after(function () {
-      clock.restore()
+      global.setTimeout.restore()
+      global.clearTimeout.restore()
     })
 
     beforeEach(function () {
