@@ -1,6 +1,6 @@
 import hash from 'hash.js'
 
-const storage = window.sessionStorage
+const storage = window?.sessionStorage
 
 const sessionUtils = {
   generateSessionID () {
@@ -8,7 +8,7 @@ const sessionUtils = {
     const id = sha2.update(`${Math.random() * 10000}${Date.now()}${Math.random() * 1000}`).digest('hex')
     const stored = { id }
     try {
-      storage.setItem('session_id', JSON.stringify(stored))
+      storage?.setItem('session_id', JSON.stringify(stored))
     } catch (e) {
       console.error(e)
     }
@@ -16,7 +16,7 @@ const sessionUtils = {
   },
 
   getSessionID () {
-    const stored = (storage.getItem('session_id')) ? JSON.parse(storage.getItem('session_id')) : this.generateSessionID()
+    const stored = (storage?.getItem('session_id')) ? JSON.parse(storage?.getItem('session_id')) : this.generateSessionID()
     const { id } = stored
     return id
   }
