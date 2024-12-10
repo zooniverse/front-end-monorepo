@@ -269,34 +269,6 @@ async function signIn (login, password, _store) {
     console.error('Panoptes.js auth.signIn(): ', err)
     throw(err)
   }
-
-  /*
-  Original PJC code:
-
-  const user = await this.checkCurrent();
-  if (user) {
-    await this.signOut();
-    return this.signIn(credentials);
-  } else {
-    console.log('Signing in', credentials.login);
-    const token = await getCSRFToken(config.host)
-    const data = {
-      authenticity_token: token,
-      user: {
-        login: credentials.login,
-        password: credentials.password,
-        remember_me: true,
-      },
-    };
-
-    const signInRequest = this._makeSignInRequest(data);
-    this._currentUserPromise = signInRequest.catch(() => null);
-    await this._currentUserPromise;
-    this.emit('change', this._currentUserPromise);
-
-    return signInRequest;
-  }
-  */
 }
 
 export {
