@@ -63,6 +63,30 @@ function _broadcastEvent (eventType, args, _store) {
   })
 }
 
+/*
+Sign In to Zooniverse.
+This action attempts to sign the user into the Panoptes system, using the
+user's login and password. If successful, the function returns a Panoptes
+User object, and the store is updated with the signed-in user's details
+(including their access tokens).
+
+Input:
+- login: (string) user's login, e.g. "zootester1"
+- password: (string) user's password
+- _store: (optional) data store. See default globalStore.
+Output:
+- (object) Panoptes User resource.
+Side Effects:
+- on success, _store's userData, bearerToken, bearerTokenExpiry, and
+  refreshToken are updated.
+Events:
+- "change": when the user successfully signs in, the Panoptes User object is
+  broadcasted with the event.
+Possible Errors:
+- standard (expected) API errors: no login/password; or incorrect login/password.
+- Uncategorised network errors.
+- Extremely unlikely API errors: invalid CSRF tokens, etc. Don't worry about these.
+ */
 async function signIn (login, password, _store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: signIn() ', login, password)
