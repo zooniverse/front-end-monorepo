@@ -1,45 +1,30 @@
-import { number, shape, string } from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import { string } from 'prop-types'
+import styled from 'styled-components'
 
 const Img = styled.img`
-    height: 230px;
-    min-height: inherit;
-    object-fit: cover;
-    width: 100%;
+  height: 230px;
+  min-height: inherit;
+  object-fit: cover;
+  width: 100%;
 
-  ${props => css`
-    @media (min-width: ${props.breakpoint}px) {
-      flex: 1 1 auto;
-      object-position: 0 50%;
-    }
-  `}
+  // Grommet small breakpoint
+  @media (width > 769px) {
+    flex: 1 1 auto;
+    object-position: 0 50%;
+  }
 `
 
-function Background ({
-  backgroundSrc,
-  theme
-}) {
-  const breakpoint = theme.global.breakpoints.small.value
+function Background ({ backgroundSrc }) {
   return (
     <Img
       alt=''
-      breakpoint={breakpoint}
       src={backgroundSrc}
     />
   )
 }
 
 Background.propTypes = {
-  backgroundSrc: string.isRequired,
-  theme: shape({
-    global: shape({
-      breakpoints: shape({
-        small: shape({
-          value: number.isRequired
-        }).isRequired
-      }).isRequired
-    }).isRequired
-  }).isRequired
+  backgroundSrc: string.isRequired
 }
 
-export default withTheme(Background)
+export default Background
