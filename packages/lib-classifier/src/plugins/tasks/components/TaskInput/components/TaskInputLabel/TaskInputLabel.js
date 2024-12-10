@@ -16,8 +16,6 @@ const StyledTaskInputLabelWrapper = styled.span`
 
 const StyledText = styled(Text)`
   align-content: center;
-  display: block;
-  margin: 1em 0;
   padding-left: 15px;
   padding-right: 15px;
 

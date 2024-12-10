@@ -1,13 +1,11 @@
-import asyncStates from '@zooniverse/async-states'
 import { Box, Text } from "grommet"
 import { Blank } from "grommet-icons"
 import InputStatus from "../../../components/InputStatus"
 import { Markdownz } from "@zooniverse/react-components"
-import { MobXProviderContext, observer } from "mobx-react"
+import { observer } from "mobx-react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import TaskInput from "../../../components/TaskInput"
-import { useContext } from 'react'
 
 // Note: ANNOTATION_COUNT will be refactored in next PR to use MobX Annotations
 const ANNOTATION_COUNT = 3
@@ -42,10 +40,7 @@ const StyledToolIcon = styled.div`
   }
 `
 
-function VolumetricTask({ task }) {
-  const stores = useContext(MobXProviderContext)
-  const subjectReadyState = stores.classifierStore?.subjectViewer?.loadingState ?? asyncStates.loading
-
+function VolumetricTask({ disabled = false, task }) {
   return (
     <Box>
       <StyledInstructionText as="legend" size="small">
@@ -59,7 +54,7 @@ function VolumetricTask({ task }) {
 
       <TaskInput
         checked={true}
-        disabled={subjectReadyState !== asyncStates.success}
+        disabled={disabled}
         index={0}
         label={"3D Viewer"}
         labelIcon={
