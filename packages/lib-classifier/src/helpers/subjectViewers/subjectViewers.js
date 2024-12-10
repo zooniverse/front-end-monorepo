@@ -55,9 +55,13 @@ Object.defineProperty(subjectViewers, 'subjectGroup', {
   enumerable: true
 })
 
-
 Object.defineProperty(subjectViewers, 'variableStar', {
   value: 'variableStar',
+  enumerable: true
+})
+
+Object.defineProperty(subjectViewers, 'volumetric', {
+  value: 'volumetric',
   enumerable: true
 })
 

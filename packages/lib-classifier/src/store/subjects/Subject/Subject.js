@@ -57,6 +57,10 @@ const Subject = types
 
         viewer = configuration.viewerType
 
+        // Volumetric Viewer is set at the Project level
+        if (!viewer && self.project?.isVolumetricViewer)
+          viewer = subjectViewers.volumetric
+      
         if (!viewer && counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage
