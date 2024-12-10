@@ -26,7 +26,7 @@ const Project = types
     },
 
     get isVolumetricViewer() {
-      return self.experimental_tools.includes('volumetricViewer')
+      return self.experimental_tools.includes('volumetricProject')
     },
   }))
 
