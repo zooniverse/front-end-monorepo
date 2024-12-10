@@ -9,22 +9,39 @@ const globalStore = {
   bearerToken: '',
   bearerTokenExpiry: NaN,
   refreshToken: '',
+}
 
-  //_currentUserPromise: null,
-  //_bearerToken: '',
-  //_bearerTokenExpiration: NaN,
-  //_refreshToken: '',
-  //_tokenRefreshPromise: null,
+const PANOPTES_HEADERS = {  // the Panoptes API requires specific HTTP headers
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
 }
 
 /*
-Adds event listener.
+Add an event listener.
+
+Input:
+- eventType: (string) event type, e.g. "change".
+  ❗️ TODO: list event types.
+- listener: (function) function that will be called when event is broadcasted.
+- _store: (optional) data store. See default globalStore.
+Output:
+- true if a listener is added for an event, false otherwise.
+Side Effects:
+- on success, _store's eventListeners will be updated.
+Notes:
+- Invalid input is ignored. If no listener or no eventType is specified,
+  nothing happens.
+- Duplicates are ignored. If the same listener is added to the same event,
+  nothing happens.
  */
 function addEventListener (eventType, listener, _store) {
   console.log('+++ experimental auth client: addEventListener()')
 
   const store = _store || globalStore
-  if (!eventType || !listener) throw new Error('PanoptesJS auth.addEventListener(): requires event type (string) and listener (callback function).')
+  if (!eventType || !listener) {
+    console.log('Panoptes.js auth.addEventListener(): requires event type (string) and listener (callback function).')
+    return false
+  }
 
   // Select array of listeners for specific event type. Create one if it doesn't already exist.
   if (!store.eventListeners[eventType]) store.eventListeners[eventType] = []
@@ -33,13 +50,28 @@ function addEventListener (eventType, listener, _store) {
   // Add the callback function to the list of listeners, if it's not already on the list.
   if (!listenersForEventType.find(l => l === listener)) {
     listenersForEventType.push(listener)
+    return true
   } else {
-    console.log(`PanoptesJS auth.addEventListener(): listener already exists for event type '${eventType}'.`)
+    console.log(`Panoptes.js auth.addEventListener(): listener already exists for event type '${eventType}'.`)
+    return false
   }
 }
 
 /*
-Remove event listeners.
+Remove an event listener.
+
+Input:
+- eventType: (string) event type, e.g. "change".
+  ❗️ TODO: list event types.
+- listener: (function) function that would have been called when event is
+  broadcasted.
+- _store: (optional) data store. See default globalStore.
+Output: n/a
+Side Effects:
+- _store's eventListeners will be updated.
+Possible Errors: n/a
+Notes:
+- Attempts to remove non-existent listener are ignored.
  */
 function removeEventListener (eventType, listener, _store) {
   const store = _store || globalStore
@@ -47,15 +79,24 @@ function removeEventListener (eventType, listener, _store) {
 
   // Check if the listener has already been registered for the event type.
   if (!store.eventListeners[eventType] || !store.eventListeners[eventType]?.find(l => l === listener)) {
-    console.log(`PanoptesJS addEventListener: listener for event type '${eventType}' hasn't been registered.`)
+    console.log(`Panoptes.js addEventListener: listener for event type '${eventType}' hasn't been registered.`)
     return
   }
 
   // Remove the listener for that event type.
   store.eventListeners[eventType] = store.eventListeners[eventType].filter(l => l !== listener)
-  return true
 }
 
+/*
+Broadcast an event to subscribed listeners.
+
+Input:
+- eventType: (string) event type, e.g. "change".
+  ❗️ TODO: list event types.
+- args: (anything) arguments to be broadcast with event.
+- _store: (optional) data store. See default globalStore.
+Output: n/a
+ */
 function _broadcastEvent (eventType, args, _store) {
   const store = _store || globalStore
   store.eventListeners?.[eventType]?.forEach(listener => {
@@ -91,15 +132,7 @@ async function signIn (login, password, _store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: signIn() ', login, password)
 
-  // Here's how to SIGN IN to Panoptes!
-
-  // Some general setup stuff.
-  const PANOPTES_HEADERS = {  // the Panoptes API requires specific HTTP headers
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  }
-  // const login = 'janezooniverse'
-  // const password = 'bleepbloop'
+  // Here's how to sign in to Panoptes!
 
   try {
 
@@ -231,7 +264,7 @@ async function signIn (login, password, _store) {
     return userData
 
   } catch (err) {
-    console.error('Auth: ', err)
+    console.error('Panoptes.js auth.signIn(): ', err)
     throw(err)
   }
 
