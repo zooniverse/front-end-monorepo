@@ -6,7 +6,6 @@
 */
 
 import { render, screen } from '@testing-library/react'
-import { expect } from 'chai'
 import TaskInputLabel from './TaskInputLabel'
 
 const label = 'test label'
