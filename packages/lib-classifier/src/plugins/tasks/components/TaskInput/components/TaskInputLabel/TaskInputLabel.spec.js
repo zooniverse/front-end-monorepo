@@ -8,7 +8,6 @@
 import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import TaskInputLabel from './TaskInputLabel'
-import { Markdownz } from '@zooniverse/react-components'
 
 const label = 'test label'
 
