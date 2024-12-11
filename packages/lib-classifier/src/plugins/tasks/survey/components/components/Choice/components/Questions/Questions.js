@@ -42,6 +42,7 @@ export default function Questions({
           >
             <SpacedHeading
               id={`${questionId}-label`}
+              color={{ dark: 'neutral-6', light: 'dark-5' }}
               margin={{
                 top: 'none',
                 bottom: '20px'
