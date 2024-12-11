@@ -28,14 +28,15 @@ const StyledPrimaryButton = styled(PrimaryButton)`
   border-radius: 4px;
 `
 
+const DEFAULT_HANDLER = () => true
 
 function Choice({
   answers = {},
   choiceId = '',
-  handleAnswers = () => {},
-  handleChoice = () => {},
-  handleDelete = () => {},
-  onIdentify = () => {},
+  handleAnswers = DEFAULT_HANDLER,
+  handleCancel = DEFAULT_HANDLER,
+  handleChoice = DEFAULT_HANDLER,
+  onIdentify = DEFAULT_HANDLER,
   task
 }) {
   const [showInfo, setShowInfo] = useState(false)
@@ -191,7 +192,7 @@ function Choice({
           <StyledButton
             fill='horizontal'
             label={t('SurveyTask.Choice.cancel')}
-            onClick={() => handleDelete(choiceId)}
+            onClick={() => handleCancel(choiceId)}
           />
           <StyledPrimaryButton
             data-testid='choice-identify-button'
@@ -215,8 +216,8 @@ Choice.propTypes = {
   ),
   choiceId: PropTypes.string,
   handleAnswers: PropTypes.func,
+  handleCancel: PropTypes.func,
   handleChoice: PropTypes.func,
-  handleDelete: PropTypes.func,
   onIdentify: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,

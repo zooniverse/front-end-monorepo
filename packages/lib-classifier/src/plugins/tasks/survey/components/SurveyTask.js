@@ -28,6 +28,13 @@ export function SurveyTask ({
     setAnswers(answers)
   }
 
+  function handleCancel (selectedChoice) {
+    setAnswers({})
+    setPreviousChoice(selectedChoice)
+    setSelectedChoice('')
+    annotation.setChoiceInProgress(false)
+  }
+
   function handleChoice (selectedChoice) {
     if (selectedChoice === '') {
       annotation.setChoiceInProgress(false)
@@ -94,8 +101,8 @@ export function SurveyTask ({
             answers={answers}
             choiceId={selectedChoice}
             handleAnswers={handleAnswers}
+            handleCancel={handleCancel}
             handleChoice={handleChoice}
-            handleDelete={handleDelete}
             onIdentify={handleIdentify}
             task={task}
           />
