@@ -116,7 +116,8 @@ function ChoiceButton({
             <Text
               color={textColor}
               margin={{ left: '10px', vertical: '5px' }}
-              size='1rem'
+              size={thumbnailSize === 'small' ? '.875rem' : '1rem'}
+              weight={selected ? 'bold' : 'normal'}
             >
               {choiceLabel}
             </Text>
