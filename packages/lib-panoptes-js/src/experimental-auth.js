@@ -271,7 +271,32 @@ async function signIn (login, password, _store) {
   }
 }
 
+/*
+Checks if there's a current, signed-in user.
+ */
+async function checkCurrentUser (_store) {
+
+}
+
+// Alias for checkCurrentUser
+async function checkCurrent(_store) { return checkCurrentUser(_store) }
+
+/*
+Fetches current user from Panoptes's /me endpoint.
+ */
+async function fetchCurrentUser (_store) {
+
+}
+
+/*
+Checks if there's an existing Bearer Token.
+ */
+async function checkBearerToken (_store) {}
+
 export {
+  checkBearerToken,
+  checkCurrent,
+  checkCurrentUser,
   signIn,
   addEventListener,
   removeEventListener,

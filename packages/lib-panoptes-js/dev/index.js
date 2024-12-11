@@ -1,14 +1,36 @@
-import { signIn, addEventListener } from '@src/experimental-auth.js'
+import {
+  checkBearerToken,
+  checkCurrentUser,
+  signIn,
+  addEventListener,
+} from '@src/experimental-auth.js'
 
 class App {
   constructor () {
     this.html = {
+      checkCurrentUserButton: document.getElementById('check-current-user-button'),
       loginForm: document.getElementById('login-form'),
       message: document.getElementById('message'),
     }
 
+    this.html.checkCurrentUserButton.addEventListener('click', this.checkCurrentUserButton_onClick.bind(this))
     this.html.loginForm.addEventListener('submit', this.loginForm_onSubmit.bind(this))
     addEventListener('change', this.onAuthChange)
+  }
+
+  async checkCurrentUserButton_onClick (e) {
+    try {
+      const user = await checkCurrentUser()
+      if (user) {
+        this.html.message.innerHTML += `> Current user: ${user.login}\n`
+      } else {
+        this.html.message.innerHTML += `> Current user: [nobody] \n`
+      }
+    } catch (err) {
+      console.error(err)
+      this.html.message.innerHTML += `> [ERROR] ${err.toString()}\n`
+    }
+    return false
   }
 
   async loginForm_onSubmit (e) {
@@ -25,7 +47,7 @@ class App {
       }
     } catch (err) {
       console.error(err)
-      this.html.message.innerHTML += `> ${err.toString()}\n`
+      this.html.message.innerHTML += `> [ERROR] ${err.toString()}\n`
     }
     return false
   }
