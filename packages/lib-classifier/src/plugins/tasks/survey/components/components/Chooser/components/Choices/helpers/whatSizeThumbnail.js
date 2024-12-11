@@ -9,7 +9,7 @@ export default function whatSizeThumbnail({ length }) {
     case 1:
       return 'large'
     case 2:
-      return 'medium'
+      return 'large'
     case 3:
       return 'small'
     default:
