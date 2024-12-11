@@ -21,6 +21,7 @@ const StyledBox = styled(Box)`
 
 const StyledImage = styled(Image)`
   border-radius: 4px;
+  object-fit: cover;
 `
 
 function ChoiceButton({
@@ -76,9 +77,9 @@ function ChoiceButton({
         dark: 'neutral-6',
         light: 'neutral-7'
       }
-  
-  const thumbnailWidth = Math.round(THUMBNAIL_ASPECT_RATIO * 50)
-  const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x50/${src.slice(8)}`
+  const thumbnailHeight = 150
+  const thumbnailWidth = Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)
+  const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x${thumbnailHeight}/${src.slice(8)}`
   
   return (
     <StyledBox
