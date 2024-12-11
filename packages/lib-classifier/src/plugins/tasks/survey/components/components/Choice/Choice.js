@@ -93,7 +93,6 @@ function Choice({
         dark: 'dark-3',
         light: 'neutral-6'
       }}
-      elevation='large'
       flex='grow'
       forwardedAs='section'
       onKeyDown={handleKeyDown}
@@ -118,8 +117,7 @@ function Choice({
       )}
       <Box
         pad={{
-          horizontal: '20px',
-          vertical: '30px'
+          vertical: '20px'
         }}
       >
         <Box
@@ -178,16 +176,15 @@ function Choice({
         )}
         <Box
           border={{
-            color: 'light-3',
-            side: 'top',
+            color: 'light-5',
+            side: 'bottom',
             size: 'small'
           }}
           direction='row'
           fill='horizontal'
           gap='xsmall'
           justify='center'
-          margin={{ top: '30px' }}
-          pad={{ top: 'small' }}
+          pad={{ vertical: '30px' }}
         >
           <StyledButton
             fill='horizontal'
