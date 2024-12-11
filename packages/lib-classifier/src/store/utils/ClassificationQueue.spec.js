@@ -112,7 +112,7 @@ describe('ClassificationQueue', function () {
     let clock
 
     before(function () {
-      clock = sinon.useFakeTimers({ global })
+      clock = sinon.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout']})
     })
 
     after(function () {
@@ -169,7 +169,7 @@ describe('ClassificationQueue', function () {
     let clock
 
     before(function () {
-      clock = sinon.useFakeTimers({ global })
+      clock = sinon.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout']})
     })
 
     after(function () {
