@@ -117,12 +117,14 @@ function Choice({
       )}
       <Box
         pad={{
-          vertical: '20px'
+          bottom: '10px',
+          top: '20px'
         }}
       >
         <Box
           direction='row'
           fill='horizontal'
+          height='20px'
           justify='between'
           margin={{ bottom: '30px' }}
         >
