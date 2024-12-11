@@ -11,12 +11,17 @@ import Confusion from './components/Confusion'
 export const StyledDropButton = styled(DropButton)`
   background-color: ${props => props.theme.global.colors[props.backgroundColor]};
   border: none;
+  border-radius: 4px;
   color: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['neutral-7']};
   font-size: 1rem;
   height: 40px;
   min-width: 110px;
   margin-right: 5px;
   padding: 5px;
+
+  &:hover:not(:focus-within) {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
+  }
 `
 
 function ConfusedWith({
