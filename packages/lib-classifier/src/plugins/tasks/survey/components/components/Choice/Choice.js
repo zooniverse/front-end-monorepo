@@ -22,10 +22,14 @@ const StyledBox = styled(Box)`
 const StyledButton = styled(Button)`
   border: 1px solid ${props => props.theme.global.colors.brand};
   border-radius: 4px;
+  flex: 1 0;
+  margin-right: 1ch;
+  max-width: 350px;
 `
 
 const StyledPrimaryButton = styled(PrimaryButton)`
   border-radius: 4px;
+  flex: 1 0;
 `
 
 const DEFAULT_HANDLER = () => true
@@ -184,7 +188,6 @@ function Choice({
           }}
           direction='row'
           fill='horizontal'
-          gap='xsmall'
           justify='center'
           pad={{ vertical: '30px' }}
         >
