@@ -73,7 +73,7 @@ function QuestionInput (props) {
           onKeyDown={type === 'radio' ? (event) => (handleRadioKeyDown(event)) : null}
         />
         <Text
-          color={theme.dark ? 'neutral-6' : 'neutral-7'}
+          color={(theme.dark && !isChecked) ? 'neutral-6' : 'neutral-7'}
           size='1rem'
           weight={isChecked ? 'bold' : 'normal'}
         >
