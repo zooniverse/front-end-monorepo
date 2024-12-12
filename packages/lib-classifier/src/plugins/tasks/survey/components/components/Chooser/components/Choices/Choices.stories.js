@@ -44,8 +44,8 @@ const Template = ({
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        pad='1em'
-        width='500px'
+        margin='20px'
+        width='498px'
       >
         <Choices
           disabled={disabled}

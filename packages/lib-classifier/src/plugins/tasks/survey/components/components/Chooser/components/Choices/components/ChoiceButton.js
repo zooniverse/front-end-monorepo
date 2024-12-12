@@ -118,6 +118,7 @@ function ChoiceButton({
               margin={{ left: '10px', vertical: '5px' }}
               size={thumbnailSize === 'small' ? '.875rem' : '1rem'}
               weight={selected ? 'bold' : 'normal'}
+              wordBreak='break-word'
             >
               {choiceLabel}
             </Text>

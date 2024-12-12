@@ -1,6 +1,7 @@
+import { ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled, { withTheme } from 'styled-components'
 
 import {
@@ -14,12 +15,24 @@ import ChoiceButton from './components/ChoiceButton'
 const StyledGrid = styled.ul`
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: repeat(${props => props.columnsCount}, 1fr);
+  grid-template-columns: repeat(${props => props.columnsCount}, ${props => {
+    if (props.columnsCount === 3) return '166px';
+    if (props.columnsCount === 2) return '250px';
+    return '1fr';
+  }});
   grid-template-rows: repeat(${props => props.rowsCount}, 60px);
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 100%;   
+  width: 100%;
+
+  @media (max-width: 600px) {
+    display: block;
+    li {
+      display: block;
+      width: 100%;
+    }
+  }
 `
 
 const defaultTheme = {
@@ -42,7 +55,13 @@ export function Choices ({
 }) {
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
-  const columnsCount = howManyColumns(filteredChoiceIds)
+  const size = useContext(ResponsiveContext)
+
+  let columnsCount = howManyColumns(filteredChoiceIds)
+  if (size === 'small' && columnsCount === 3) {
+    columnsCount = 2
+  }
+
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   
   let thumbnailSize
@@ -98,6 +117,7 @@ export function Choices ({
     <StyledGrid
       role='menu'
       rowsCount={rowsCount}
+      columnsCount={columnsCount}
     >
       {filteredChoiceIds.map((choiceId, index) => {
         const choice = task.choices?.get(choiceId) || {}
