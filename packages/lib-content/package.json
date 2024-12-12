@@ -46,7 +46,7 @@
     "next": "~13.5.5",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "styled-components": "5.x.x"
+    "styled-components": "6.x.x"
   },
   "devDependencies": {
     "@babel/preset-env": "~7.26.0",
@@ -65,7 +65,7 @@
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~25.0.1",
     "mocha": "~10.8.2",
-    "sinon": "~17.0.0",
+    "sinon": "~19.0.2",
     "sinon-chai": "~3.7.0",
     "storybook": "~7.6.11",
     "storybook-react-i18next": "~2.0.1"
