@@ -279,7 +279,8 @@ async function checkCurrentUser (_store) {
   const store = _store || globalStore
 
   // Step 1: do we already have a user in the store?
-  if (store.userData) {
+  // DEBUG if (store.userData) {
+    if (false) {
     
     // If yes, just return the user.
     return store.userData
@@ -337,7 +338,7 @@ async function checkCurrentUser (_store) {
       const bearerTokenExpiry = Date.now() + (jsonData1?.expires_in * 1000)  // Use Date.now() instead of response.created_at, because it keeps future "has expired?" comparisons consistent to the client's clock instead of the server's clock.
       
       if (!bearerToken || !refreshToken) {
-        // throw new Error('Impossible API response. access_token and/or refresh_token unavailable.')
+        throw new Error('Impossible API response. access_token and/or refresh_token unavailable.')
       } else if (jsonData1?.token_type !== 'Bearer') {
         throw new Error('Impossible API response. Token wasn\'t of type "Bearer".')
       } else if (isNaN(bearerTokenExpiry)) {
@@ -346,12 +347,18 @@ async function checkCurrentUser (_store) {
         throw new Error('Impossible API response. Token has already expired for some reason.')
       }
 
-      return
-
-      const request2 = new Request(`https://panoptes-staging.zooniverse.org/api/me`, {
-        credentials: 'include',
+      // TODO: figure out why /me specifically requires such an odd header + credentials 
+      
+      const request2 = new Request(`https://panoptes-staging.zooniverse.org/api/me?http_cache=true`, {
+        // credentials: 'include',  // ❗️ Don't use 'include'.
+        credentials: 'same-origin',
         method: 'GET',
-        headers: PANOPTES_HEADERS,
+        headers: {
+          // ...PANOPTES_HEADERS,  // ❗️ Don't use standard headers.
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.api+json; version=1',
+          Authorization: `Bearer ${bearerToken}`
+        },
       })
 
       const response2 = await fetch(request2)
