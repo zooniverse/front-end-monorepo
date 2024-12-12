@@ -1,24 +1,59 @@
 import { Box, Button } from 'grommet'
 import { FormClose } from 'grommet-icons'
-import { bool, func, string } from 'prop-types'
+import { bool, func, number, string } from 'prop-types'
 import styled from 'styled-components'
+
 import { useTranslation } from '@translations/i18n'
 
 const StyledButton = styled(Button)`
-  height: 40px;
-  margin-left: 10px;
-  padding: 0;
-  width: 20px;
-
   &:disabled {
     cursor: not-allowed;
+  }
+
+  &:focus, &:hover {
+    svg {
+      border: 1px solid ${props => props.theme.global.colors['neutral-6']};
+      border-radius: 50%;
+    }
+  }
+`
+
+const IconWrapper = styled(Box)`
+  background: ${props => props.theme.global.colors.brand};
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+`
+
+const ChildrenWrapper = styled(Box)`
+  position: relative;
+
+  & > img {
+    filter: blur(0.5px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 93, 105, 0.6); // using neutral-1 #005D69 at 60%
+    pointer-events: none;
+    z-index: 1;
   }
 `
 
 function DeleteButton ({
+  children,
   choiceLabel = '',
   deleteFn,
-  disabled = false
+  disabled = false,
+  tabIndex = -1
 }) {
   const { t } = useTranslation()
 
@@ -26,26 +61,24 @@ function DeleteButton ({
     <StyledButton
       a11yTitle={t('SurveyTask.DeleteButton.delete', { choiceLabel })}
       disabled={disabled}
-      icon={
-        <Box
-          background='brand'
-          round={true}
-        >
-          <FormClose
-            color='neutral-6'
-            size='20px'
-          />
-        </Box>
-      }
       onClick={deleteFn}
-    />
+      tabIndex={tabIndex}
+    >
+      <ChildrenWrapper>
+        {children}
+        <IconWrapper>
+          <FormClose color='neutral-6'/>
+        </IconWrapper>
+      </ChildrenWrapper>
+    </StyledButton>
   )
 }
 
 DeleteButton.propTypes = {
   choiceLabel: string,
   deleteFn: func.isRequired,
-  disabled: bool
+  disabled: bool,
+  tabIndex: number
 }
 
 export default DeleteButton

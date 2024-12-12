@@ -19,13 +19,17 @@ const StyledBox = styled(Box)`
   }
 `
 
+const StyledButton = styled(Button)`
+  flex-grow: 1;
+  height: 100%;
+`
+
 const StyledImage = styled(Image)`
   border-radius: 4px;
   object-fit: cover;
 `
 
 function ChoiceButton({
-  ariaChecked = undefined,
   choiceId = '',
   choiceLabel = '',
   disabled = false,
@@ -33,7 +37,6 @@ function ChoiceButton({
   onChoose = () => true,
   onDelete = () => true,
   onKeyDown = () => true,
-  role='button',
   selected = false,
   shadedBackground = false,
   src = '',
@@ -84,29 +87,48 @@ function ChoiceButton({
   return (
     <StyledBox
       align='center'
+      aria-label={choiceLabel}
+      role='menuitem'
       background={background}
       border={border}
       direction='row'
-      justify='between'
-      height='100%'
+      fill
       pad={{
         right: '10px',
         vertical: '5px'
       }}
       selected={selected}
     >
-      <Button
+      {selected ? (
+        <DeleteButton
+          choiceLabel={choiceLabel}
+          deleteFn={handleDelete}
+          disabled={disabled}
+          tabIndex={tabIndex}
+        >
+          {thumbnailSize !== 'none' && src &&
+            <StyledImage
+              alt=''
+              height='50'
+              src={thumbnailSrc}
+              width={thumbnailSize === 'small' ? '50' : '60'}
+            />}
+        </DeleteButton>
+      ) : null}
+      <StyledButton
         ref={choiceButton}
-        aria-checked={ariaChecked}
+        // TODO: add the following to translations
+        // TODO: use selected to update aria-label to indicate identified and answers, if applicable
+        a11yTitle={`Open submenu for ${choiceLabel}`}
+        // TODO: refactor with data-fieldset, refactor Choice as fieldset, and refactor both with related links/ids/aria-controls
         disabled={disabled}
-        fill='horizontal'
         label={
           <Box
             align='center'
             direction='row'
             forwardedAs='span'
           >
-            {thumbnailSize !== 'none' && src &&
+            {!selected && thumbnailSize !== 'none' && src &&
               <StyledImage
                 alt=''
                 height='50'
@@ -124,20 +146,12 @@ function ChoiceButton({
             </Text>
           </Box>
         }
+        margin={{ left: '2px'}}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         plain
-        role={role}
-        selected={selected}
         tabIndex={tabIndex}
       />
-      {selected ? (
-        <DeleteButton
-          choiceLabel={choiceLabel}
-          deleteFn={handleDelete}
-          disabled={disabled}
-        />
-      ) : null}
     </StyledBox>
   )
 }

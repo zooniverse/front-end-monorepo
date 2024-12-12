@@ -53,6 +53,7 @@ export function Choices ({
   task,
   theme = defaultTheme
 }) {
+  // TODO: refactor focus to menuitem, with consideration for "selected" state with open submenu button and delete button
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
   const size = useContext(ResponsiveContext)
@@ -138,7 +139,6 @@ export function Choices ({
             role='presentation'
           >
             <ChoiceButton
-              ariaChecked={selected ? 'true' : 'false'}
               choiceId={choiceId}
               choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
               disabled={disabled}
@@ -146,7 +146,6 @@ export function Choices ({
               onChoose={onChoose}
               onDelete={handleDelete}
               onKeyDown={handleKeyDown}
-              role='menuitemcheckbox'
               selected={selected}
               shadedBackground={shadedBackground}
               src={src}
