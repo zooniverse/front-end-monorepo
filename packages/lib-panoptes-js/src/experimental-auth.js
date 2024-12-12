@@ -252,17 +252,15 @@ async function signIn (login, password, _store) {
       throw new Error('Impossible API response. Token has already expired for some reason.')
     }
 
-    console.log('+++ signIn() Results: ',
-      '\n\n  userData:', userData,
-      '\n\n  bearerToken', bearerToken,
-      '\n\n  bearerTokenExpiry', new Date(bearerTokenExpiry),
-      '\n\n  refreshToken', refreshToken,
-    )
+    // Step 4: update the store.
+
     store.userData = userData
     store.bearerToken = bearerToken,
     store.bearerTokenExpiry = bearerTokenExpiry
     store.refreshToken = refreshToken
     _broadcastEvent('change', userData, store)
+
+    // Step 5: return user data.
 
     return userData
 
@@ -289,8 +287,6 @@ async function checkCurrentUser (_store) {
 
     // If no, let's ask Panoptes who's the current user.
     console.log('Checking current user')
-
-    let user = null
 
     try {
 
@@ -364,41 +360,44 @@ async function checkCurrentUser (_store) {
       const response2 = await fetch(request2)
     
       // Extract data and check for errors.
-      console.log('+++ response2: ', response2)
-      console.log('+++ response2.json: ', await response2?.json())
-
-      /*
-      if (!response.ok) {
-        const jsonData2 = await response2.json()
-        const error = jsonData2?.error || 'No idea what went wrong; no specific error message detected.'
-        throw new Error(`Error from API. ${error}`)
+      // Note: the /me endpoint returns errors in a different format than, say, /sign_in or /oauth/token 
+      if (!response2.ok) {
+        if (response2.status === 404) {
+          // If there's no signed-in user, a 404 is expected.
+          return null
+        } else {
+          // Any error response than a 404 isn't expected.
+          throw new Error(`Error from API. ${response2.status}`)
+        }
       }
+
       const jsonData2 = await response2.json()
       const userData = jsonData2?.users?.[0]
       if (!userData) {
         throw new Error('Impossible API response. No user returned.')
-      } else if (userData.login && userData.login !== login) {
-        throw new Error('Impossible API response. User returned is different from login attempt. Did you forget to sign out first?')
       }
-      */
+
+      // Step 4: update the store.
+
+      store.userData = userData
+      store.bearerToken = bearerToken,
+      store.bearerTokenExpiry = bearerTokenExpiry
+      store.refreshToken = refreshToken
+      _broadcastEvent('change', userData, store)
+
+      // Step 5: return user data. 
+
+      return userData
       
     } catch (err) {
-      console.error('+++ checkCurrentUser error: ', err)
+      console.error('Panoptes.js auth.checkCurrentUser(): ', err)
+      throw(err)
     }
-
-    return user
   }
 }
 
 // Alias for checkCurrentUser
 async function checkCurrent(_store) { return checkCurrentUser(_store) }
-
-/*
-Fetches current user from Panoptes's /me endpoint.
- */
-async function fetchCurrentUser (_store) {
-
-}
 
 /*
 Checks if there's an existing Bearer Token.
