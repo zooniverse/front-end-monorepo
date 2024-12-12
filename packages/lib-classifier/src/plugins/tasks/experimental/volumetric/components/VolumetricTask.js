@@ -3,7 +3,7 @@ import { Blank } from "grommet-icons"
 import InputStatus from "../../../components/InputStatus"
 import { Markdownz } from "@zooniverse/react-components"
 import { observer } from "mobx-react"
-import PropTypes from "prop-types"
+import { bool, shape, string } from "prop-types"
 import styled from "styled-components"
 import TaskInput from "../../../components/TaskInput"
 
@@ -25,17 +25,10 @@ const StyledToolIcon = styled.div`
   background-color: #2d2d2d;
   display: flex;
   align-items: center;
-  padding-left: 15px;
-
-  &::after {
-    content: " ";
-    margin-right: 1ch;
-    white-space: pre;
-  }
+  padding: 15px;
 
   > svg {
     height: 1.5em;
-    vertical-align: bottom;
     width: 1.5em;
   }
 `
@@ -87,8 +80,9 @@ function VolumetricTask({ disabled = false, task }) {
 }
 
 VolumetricTask.propTypes = {
-  task: PropTypes.shape({
-    instruction: PropTypes.string,
+  disabled: bool,
+  task: shape({
+    instruction: string,
   }),
 }
 
