@@ -107,7 +107,7 @@ function _broadcastEvent (eventType, args, _store) {
 }
 
 /*
-Sign In to Zooniverse.
+Sign in to Zooniverse.
 This action attempts to sign the user into the Panoptes system, using the
 user's login and password. If successful, the function returns a Panoptes
 User object, and the store is updated with the signed-in user's details
@@ -118,7 +118,8 @@ Input:
 - password: (string) user's password
 - _store: (optional) data store. See default globalStore.
 Output:
-- (object) Panoptes User resource.
+- (object) Panoptes User resource, on success.
+- Throws an error on failure.
 Side Effects:
 - on success, _store's userData, bearerToken, bearerTokenExpiry, and
   refreshToken are updated.
@@ -271,14 +272,36 @@ async function signIn (login, password, _store) {
 }
 
 /*
-Checks if there's a current, signed-in user.
+Check for current signed-in Zooniverse user.
+This function attempts to check if there's currently a signed-in user. First,
+it checks the store to see if there's any user data. If there isn't, then it
+checks the Panoptes API. If successful, the function returns a Panoptes User
+object, and the store is updated with the signed-in user's details (including
+their access tokens).
+
+Input:
+- _store: (optional) data store. See default globalStore.
+Output:
+- (object) Panoptes User resource, if there's a signed-in user.
+- null, if there's NO signed-in user.
+- Throws an error if Panoptes API can't be checked properly
+Side Effects:
+- on success, _store's userData, bearerToken, bearerTokenExpiry, and
+  refreshToken are updated.
+Events:
+- "change": when the user successfully signs in, the Panoptes User object is
+  broadcasted with the event.
+Possible Errors:
+- Uncategorised network errors.
+- Extremely unlikely API errors: invalid CSRF tokens, etc. Don't worry about these.
+- Note: a 401 from the /me endpoint is NOT considered an error, but an expected
+  response when there's no signed-in user.
  */
 async function checkCurrentUser (_store) {
   const store = _store || globalStore
 
   // Step 1: do we already have a user in the store?
-  // DEBUG if (store.userData) {
-    if (false) {
+  if (store.userData) {
     
     // If yes, just return the user.
     return store.userData
@@ -402,7 +425,7 @@ async function checkCurrent(_store) { return checkCurrentUser(_store) }
 /*
 Checks if there's an existing Bearer Token.
  */
-async function checkBearerToken (_store) {}
+async function checkBearerToken (_store) { /* To be implemented after frontend dev auth presentation. */ }
 
 export {
   checkBearerToken,
