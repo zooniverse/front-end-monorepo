@@ -107,7 +107,7 @@ function _broadcastEvent (eventType, args, _store) {
 }
 
 /*
-Sign In to Zooniverse.
+Sign in to Zooniverse.
 This action attempts to sign the user into the Panoptes system, using the
 user's login and password. If successful, the function returns a Panoptes
 User object, and the store is updated with the signed-in user's details
@@ -118,7 +118,8 @@ Input:
 - password: (string) user's password
 - _store: (optional) data store. See default globalStore.
 Output:
-- (object) Panoptes User resource.
+- (object) Panoptes User resource, on success.
+- Throws an error on failure.
 Side Effects:
 - on success, _store's userData, bearerToken, bearerTokenExpiry, and
   refreshToken are updated.
@@ -145,6 +146,7 @@ async function signIn (login, password, _store) {
     // - This "authenticity token", as it will be later be called, prevents third
     //   parties from simply replaying the HTTPs-encoded sign-in request.
     // - In our case, the CSRF token is provided Panoptes itself.
+
     const request1 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_in/?now=${Date.now()}`, {
       credentials: 'include',
       method: 'GET',
@@ -160,7 +162,7 @@ async function signIn (login, password, _store) {
     // - These HTTP cookies identify requests as coming from us (or rather, from
     //   our particular session.
     // - This is how request2 (submit username & password) and request3 (request
-    //   bearer token for a logged in user) are magically linked and recognised
+    //   bearer token for a logged-in user) are magically linked and recognised
     //   as coming from the same person/session, even though request3 isn't
     //   providing any login data explicitly via the JavaScript code.
     // - HTTP-only cookies can't be viewed or edited by JavaScript, as it happens.
@@ -251,17 +253,15 @@ async function signIn (login, password, _store) {
       throw new Error('Impossible API response. Token has already expired for some reason.')
     }
 
-    console.log('+++ signIn() Results: ',
-      '\n\n  userData:', userData,
-      '\n\n  bearerToken', bearerToken,
-      '\n\n  bearerTokenExpiry', new Date(bearerTokenExpiry),
-      '\n\n  refreshToken', refreshToken,
-    )
+    // Step 4: update the store.
+
     store.userData = userData
     store.bearerToken = bearerToken,
     store.bearerTokenExpiry = bearerTokenExpiry
     store.refreshToken = refreshToken
-    _broadcastEvent('change', userData)
+    _broadcastEvent('change', userData, store)
+
+    // Step 5: return user data.
 
     return userData
 
@@ -271,7 +271,166 @@ async function signIn (login, password, _store) {
   }
 }
 
+/*
+Check for current signed-in Zooniverse user.
+This function attempts to check if there's currently a signed-in user. First,
+it checks the store to see if there's any user data. If there isn't, then it
+checks the Panoptes API. If successful, the function returns a Panoptes User
+object, and the store is updated with the signed-in user's details (including
+their access tokens).
+
+Input:
+- _store: (optional) data store. See default globalStore.
+Output:
+- (object) Panoptes User resource, if there's a signed-in user.
+- null, if there's NO signed-in user.
+- Throws an error if Panoptes API can't be checked properly
+Side Effects:
+- on success, _store's userData, bearerToken, bearerTokenExpiry, and
+  refreshToken are updated.
+Events:
+- "change": when the user successfully signs in, the Panoptes User object is
+  broadcasted with the event.
+Possible Errors:
+- Uncategorised network errors.
+- Extremely unlikely API errors: invalid CSRF tokens, etc. Don't worry about these.
+- Note: a 401 from the /me endpoint is NOT considered an error, but an expected
+  response when there's no signed-in user.
+ */
+async function checkCurrentUser (_store) {
+  const store = _store || globalStore
+
+  // Step 1: do we already have a user in the store?
+  if (store.userData) {
+    
+    // If yes, just return the user.
+    return store.userData
+
+  } else {
+
+    // If no, let's ask Panoptes who's the current user.
+    console.log('Checking current user')
+
+    try {
+
+      // Step 2: get the bearer token.
+      // If user has previously signed in on this web browser, (e.g. they signed
+      // in on window 1, and then we attempt to get the bearer token on
+      // window 2,) then the Panoptes API will *automagically* know that the
+      // request is coming from the same signed-in user.
+      // This appears to be the result of certain HTTP-only cookies -
+      // _Panoptes_session and remember_user_token - being passed along with the
+      // request header.
+
+      // TODO: figure out how the browser stores these http-only cookies.
+      // On Chrome 131, when opening a new window, the Applications > Cookies
+      // shows an empty list. But an initial request to /oauth/token will
+      // somehow magically contain the correct cookies in its header. 🤷‍♀️
+      // (After the first response is received, the Cookies list in Chrome is
+      // updated to list the expected cookies.) 
+
+      const request1 = new Request(`https://panoptes-staging.zooniverse.org/oauth/token`, {
+        body: JSON.stringify({
+          client_id: '535759b966935c297be11913acee7a9ca17c025f9f15520e7504728e71110a27',
+          grant_type: 'password',
+        }),
+        credentials: 'include',
+        method: 'POST',
+        headers: PANOPTES_HEADERS,
+      })
+      const response1 = await fetch(request1)
+
+      // if response is a 401, then there's no logged-in user.
+      if (response1.status === 401) {
+        return null
+      }
+
+      // Extract data and check for errors.
+      if (!response1.ok) {
+        const jsonData1 = await response1.json()
+        const error = jsonData1?.error || 'No idea what went wrong; no specific error message detected.'
+        throw new Error(`Error from API. ${error}`)
+      }
+      const jsonData1 = await response1.json()
+      const bearerToken = jsonData1?.access_token  // The bearer token is short-lived
+      const refreshToken = jsonData1?.refresh_token  // The refresh token is used to get new bearer tokens.
+      const bearerTokenExpiry = Date.now() + (jsonData1?.expires_in * 1000)  // Use Date.now() instead of response.created_at, because it keeps future "has expired?" comparisons consistent to the client's clock instead of the server's clock.
+      
+      if (!bearerToken || !refreshToken) {
+        throw new Error('Impossible API response. access_token and/or refresh_token unavailable.')
+      } else if (jsonData1?.token_type !== 'Bearer') {
+        throw new Error('Impossible API response. Token wasn\'t of type "Bearer".')
+      } else if (isNaN(bearerTokenExpiry)) {
+        throw new Error('Impossible API response. Token expiry can\'t be calculated.')
+      } else if (bearerTokenExpiry <= Date.now()) {
+        throw new Error('Impossible API response. Token has already expired for some reason.')
+      }
+
+      // TODO: figure out why /me specifically requires such an odd header + credentials 
+      
+      const request2 = new Request(`https://panoptes-staging.zooniverse.org/api/me?http_cache=true`, {
+        // credentials: 'include',  // ❗️ Don't use 'include'.
+        credentials: 'same-origin',
+        method: 'GET',
+        headers: {
+          // ...PANOPTES_HEADERS,  // ❗️ Don't use standard headers.
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.api+json; version=1',
+          Authorization: `Bearer ${bearerToken}`
+        },
+      })
+
+      const response2 = await fetch(request2)
+    
+      // Extract data and check for errors.
+      // Note: the /me endpoint returns errors in a different format than, say, /sign_in or /oauth/token 
+      if (!response2.ok) {
+        if (response2.status === 404) {
+          // If there's no signed-in user, a 404 is expected.
+          return null
+        } else {
+          // Any error response than a 404 isn't expected.
+          throw new Error(`Error from API. ${response2.status}`)
+        }
+      }
+
+      const jsonData2 = await response2.json()
+      const userData = jsonData2?.users?.[0]
+      if (!userData) {
+        throw new Error('Impossible API response. No user returned.')
+      }
+
+      // Step 4: update the store.
+
+      store.userData = userData
+      store.bearerToken = bearerToken,
+      store.bearerTokenExpiry = bearerTokenExpiry
+      store.refreshToken = refreshToken
+      _broadcastEvent('change', userData, store)
+
+      // Step 5: return user data. 
+
+      return userData
+      
+    } catch (err) {
+      console.error('Panoptes.js auth.checkCurrentUser(): ', err)
+      throw(err)
+    }
+  }
+}
+
+// Alias for checkCurrentUser
+async function checkCurrent(_store) { return checkCurrentUser(_store) }
+
+/*
+Checks if there's an existing Bearer Token.
+ */
+async function checkBearerToken (_store) { /* To be implemented after frontend dev auth presentation. */ }
+
 export {
+  checkBearerToken,
+  checkCurrent,
+  checkCurrentUser,
   signIn,
   addEventListener,
   removeEventListener,
