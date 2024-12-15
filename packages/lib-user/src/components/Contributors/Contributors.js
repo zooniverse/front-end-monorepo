@@ -161,7 +161,7 @@ function Contributors({
         primaryHeaderItem={
           <HeaderLink
             href={`/groups/${group.id}`}
-            label={t('Contributors.back')}
+            label={t('common.back')}
             primaryItem={true}
           />
         }

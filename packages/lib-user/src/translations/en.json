@@ -1,11 +1,11 @@
 {
   "common": {
+    "avatarAlt": "{{login}} avatar",
     "back": "Back",
     "classifications": "Classifications",
     "hours": "Hours"
   },
   "Contributors": {
-    "back": "Back",
     "error": "There was an error",
     "exportLink": "Export all stats",
     "generating": "Generating stats export...",
@@ -15,9 +15,6 @@
     "ContributorsList": {
       "a11y": "{{name}} member stats",
       "privateProject": "Private Project {{index}}"
-    },
-    "MemberStats": {
-      "avatarAlt": "{{login}} avatar"
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"
