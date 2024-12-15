@@ -1,5 +1,6 @@
 {
   "common": {
+    "avatarAlt": "{{login}} avatar",
     "back": "Back",
     "classifications": "Classifications",
     "hours": "Hours"
@@ -21,6 +22,36 @@
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"
+    }
+  },
+  "GroupStats": {
+    "leaveQuestion": "Are you sure you want to leave this group?",
+    "manage": "Manage Group",
+    "headerItems": {
+      "all": "All My Groups",
+      "copy": "Copy Join Link",
+      "copied": "Group Link Copied!",
+      "leave": "Leave Group",
+      "share": "Share Group"
+    },
+    "GroupUpdateFormContainer": {
+      "error": "Something went wrong. Please try again."
+    },
+    "MembersList": {
+      "title": "Group Members",
+      "warning": "Removing a member inactivates their membership in the group. They will no longer have access to the group, but contributions while a member will persist."
+    },
+    "MemberListItem": {
+      "a11y": "Menu to update or remove {{name}}'s group membership",
+      "giveAdmin": "Give admin access",
+      "remove": "Remove member",
+      "removeAdmin": "Remove admin access"
+    },
+    "TopContributors": {
+      "error": "There was an error fetching the top contributors.",
+      "linkLabel": "See all contributors and detailed stats",
+      "tip": "Includes active and inactive members.",
+      "title": "Top Contributors"
     }
   }
 }
