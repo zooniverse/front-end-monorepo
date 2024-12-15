@@ -33,7 +33,7 @@ function MemberStats({
         gap='xsmall'
       >
         <Avatar
-          alt={t('Contributors.MemberStats.avatarAlt', { login })}
+          alt={t('common.avatarAlt', { login })}
           src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
         />
         <Box
