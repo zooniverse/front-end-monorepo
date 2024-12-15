@@ -65,5 +65,29 @@
     "PreviewLayout": {
       "seeAll": "See all"
     }
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "All Time",
+      "collections": "Collections",
+      "comments": "Comments",
+      "favorites": "Favorites",
+      "messages": "Messages",
+      "moreStats": "More Stats",
+      "thisWeek": "This Week"
+    },
+    "RecentProjects": {
+      "error": "There was an error fetching your recent projects",
+      "noProjects": "No Recent Projects found",
+      "start": "Start by <0>classifying any project</0>.",
+      "title": "Continue Classifying"
+    },
+    "RecentSubjects": {
+      "error": "There was an error fetching recent classifications",
+      "noSubjects": "No recent classifications found"
+    },
+    "SubjectCard": {
+      "subject": "Subject"
+    }
   }
 }
