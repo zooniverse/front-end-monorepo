@@ -96,6 +96,9 @@
       "title": "Top Contributors"
     }
   },
+  "HeaderDropdown": {
+    "label": "Group Options"
+  },
   "MyGroups": {
     "createNew": "Create new group",
     "error": "There was an error fetching your groups",
@@ -109,6 +112,9 @@
     "PreviewLayout": {
       "seeAll": "See all"
     }
+  },
+  "TopProjects": {
+    "title": "Top Projects"
   },
   "UserHome": {
     "Dashboard": {
