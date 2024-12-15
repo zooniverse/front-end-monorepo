@@ -33,6 +33,8 @@
     }
   },
   "GroupContainer": {
+    "deactivated": "This is a deactivated group. Please leave the group or contact the group administrator if you believe this is an error.",
+    "leaveGroup": "Leave Group",
     "loginToJoin": "Log in to join the group.",
     "joined": "New Group Joined!",
     "joinFail": "Join failed.",
