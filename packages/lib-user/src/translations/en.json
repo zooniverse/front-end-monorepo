@@ -1,0 +1,25 @@
+{
+  "common": {
+    "classifications": "Classifications",
+    "hours": "Hours"
+  },
+  "Contributors": {
+    "back": "Back",
+    "error": "There was an error",
+    "exportLink": "Export all stats",
+    "generating": "Generating stats export...",
+    "none": "There are no contributors to this group.",
+    "noPermission": "You do not have permission to view this group's contributors.",
+    "title": "Full Group Stats",
+    "ContributorsList": {
+      "a11y": "{{name}} member stats",
+      "privateProject": "Private Project {{index}}"
+    },
+    "MemberStats": {
+      "avatarAlt": "{{login}} avatar"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} member stats"
+    }
+  }
+}
