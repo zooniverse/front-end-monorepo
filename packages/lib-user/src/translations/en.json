@@ -7,6 +7,16 @@
     "hours": "Hours",
     "projects": "Projects"
   },
+  "BarChart": {
+    "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
+    "day": "Day",
+    "hourAbbrev": "hrs",
+    "minAbbrev": "min",
+    "monthOf": "Month of",
+    "time": "Time",
+    "weekOf": "Week of",
+    "year": "Year"
+  },
   "Contributors": {
     "error": "There was an error",
     "exportLink": "Export all stats",
@@ -21,6 +31,14 @@
     "ProjectStats": {
       "a11y": "{{project}} member stats"
     }
+  },
+  "GroupContainer": {
+    "loginToJoin": "Log in to join the group.",
+    "joined": "New Group Joined!",
+    "joinFail": "Join failed.",
+    "joining": "Joining group...",
+    "notFound": "Group not found",
+    "noAuth": "You must be logged in to access a private group."
   },
   "GroupStats": {
     "leaveQuestion": "Are you sure you want to leave this group?",
