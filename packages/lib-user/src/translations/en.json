@@ -3,7 +3,9 @@
     "avatarAlt": "{{login}} avatar",
     "back": "Back",
     "classifications": "Classifications",
-    "hours": "Hours"
+    "contributors": "Contributors",
+    "hours": "Hours",
+    "projects": "Projects"
   },
   "Contributors": {
     "error": "There was an error",
@@ -48,6 +50,20 @@
       "linkLabel": "See all contributors and detailed stats",
       "tip": "Includes active and inactive members.",
       "title": "Top Contributors"
+    }
+  },
+  "MyGroups": {
+    "createNew": "Create new group",
+    "error": "There was an error fetching your groups",
+    "learnMore": "Learn more about groups",
+    "noGroups": "You are not a member of any Groups.<0/>Create one below",
+    "title": "My Groups",
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "PreviewLayout": {
+      "seeAll": "See all"
     }
   }
 }
