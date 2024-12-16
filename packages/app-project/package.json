@@ -73,7 +73,7 @@
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~25.0.1",
     "mocha": "~10.8.2",
-    "msw": "~2.5.1",
+    "msw": "~2.6.9",
     "msw-storybook-addon": "~2.0.3",
     "nock": "~13.5.1",
     "selfsigned": "~2.4.1",
