@@ -4,8 +4,7 @@ import {
   Chat,
   Favorite,
   FormNext,
-  MailOption,
-  Share
+  MailOption
 } from 'grommet-icons'
 import { useContext } from 'react'
 import styled, { css, useTheme } from 'styled-components'
@@ -15,26 +14,6 @@ import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 import DashboardLink from './components/DashboardLink.js'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer.js'
 import Link from 'next/link'
-
-const LinkToBlogPost = styled(Anchor)`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: white;
-  border: ${props => props.theme.global.colors['dark-5']} 1px solid;
-  border-radius: 24px;
-  padding: 10px 15px;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-
-  // For Grommet breakpoint small
-  @media (width < 769px) {
-    border-radius: 16px;
-    font-size: 0.6rem;
-    padding: 8px 10px;
-  }
-`
 
 const Relative = styled(Box)`
   position: relative;
@@ -114,20 +93,6 @@ const StyledStatsLink = styled(Anchor)`
   }
 `
 
-const StyledBadge = styled(Text)`
-  position: absolute;
-  right: 10px;
-  top: -12px;
-  padding: 3px 5px;
-  background: ${props => props.theme.global.colors['neutral-1']};
-  border-radius: 15px;
-
-  // For Grommet breakpoint small
-  @media (width < 769px) {
-    right: 60px;
-  }
-`
-
 // Same as ContentBox
 const border = {
   color: {
@@ -141,11 +106,6 @@ const border = {
 export default function Dashboard({ user, userLoading }) {
   const size = useContext(ResponsiveContext)
   const { dark } = useTheme()
-
-  const blogLinkLabel =
-    size === 'small'
-      ? 'About your homepage'
-      : 'Learn more about your new homepage'
 
   return (
     <Box align='center' round={size === 'small' ? false : '16px 16px 8px 8px'}>
@@ -164,16 +124,6 @@ export default function Dashboard({ user, userLoading }) {
         }
         round={size === 'small' ? false : '16px 16px 0 0'}
       >
-        <LinkToBlogPost
-          href='https://blog.zooniverse.org/2024/09/10/coming-soon-freshening-up-the-zooniverse-homepage'
-          target='_blank'
-          label={
-            <SpacedText size='0.8rem' color='dark-5' weight='bold'>
-              {blogLinkLabel} <Share size='0.7rem' />
-            </SpacedText>
-          }
-        />
-
         <StyledAvatar
           background='brand'
           border={{
@@ -262,9 +212,6 @@ export default function Dashboard({ user, userLoading }) {
               color={{ light: 'dark-5', dark: 'white' }}
               gap='large'
             />
-            <StyledBadge color='white' size='0.75rem' weight='bold'>
-              NEW
-            </StyledBadge>
           </Relative>
         </Box>
       </Box>
