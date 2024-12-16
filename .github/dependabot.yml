@@ -10,11 +10,14 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 15
+    labels:
+      - "dependencies"
     groups:
       nextjs:
         patterns:
           - "@next*"
           - "next"
+          - "eslint-config-next"
       sentry:
         patterns:
           - "@sentry*"
@@ -30,6 +33,10 @@ updates:
       react-testing-library:
         patterns:
           - "@testing-library*"
+      babel:
+        patterns:
+        - "@babel*"
+        - "babel-*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
