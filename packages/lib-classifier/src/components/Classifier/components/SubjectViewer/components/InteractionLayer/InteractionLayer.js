@@ -111,7 +111,6 @@ function InteractionLayer({
 
   function onFinish(event) {
     event?.preventDefault?.()
-    event?.stopPropagation?.()
     setCreating(false)
   }
 
