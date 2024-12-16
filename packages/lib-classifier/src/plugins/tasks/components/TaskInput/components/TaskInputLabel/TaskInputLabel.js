@@ -27,6 +27,7 @@ export default function TaskInputLabel({
 
   return (
     <Box
+      as='span'
       direction='row'
       fill='horizontal'
       justify={howShouldTheLabelBeAligned}
