@@ -3,8 +3,8 @@ import { lazy, Suspense } from 'react'
 import { MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
 
-const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
 const DEFAULT_HANDLER = () => {}
+const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
 
 function VolumetricViewerWrapper({
   loadingState = asyncStates.initialized,
@@ -21,14 +21,17 @@ function VolumetricViewerWrapper({
       addAnnotation(activeStepTasks[0], annotations)
   }
 
-  return <Suspense fallback={<p>Suspense boundary</p>}>
-    <VolumetricViewer
-      loadingState={loadingState}
-      onAnnotation={onAnnotationUpdate}
-      onError={onError}
-      onReady={onReady}
-      subject={subject}
-    />
+  const config = {
+    annotations: [],
+    loadingState,
+    onAnnotation: onAnnotationUpdate,
+    onError,
+    onReady,
+    subject,
+  }
+
+  return <Suspense fallback={<p>Loading Volumetric Viewer...</p>}>
+    <VolumetricViewer {...config} />
   </Suspense>
 }
 

@@ -1,6 +1,4 @@
-import { object } from 'prop-types'
 import {
-  AxesHelper,
   BufferGeometry,
   BoxGeometry,
   Color,
@@ -18,16 +16,11 @@ import {
   Vector3,
   WebGLRenderer
 } from 'three'
-import { useEffect, useLayoutEffect, useRef } from 'react'
-import { Histogram } from './Histogram.js'
+import { object } from 'prop-types'
+import { OrbitControls } from './../helpers/OrbitControls.js'
 import { pointColor } from './../helpers/pointColor.js'
 import { SortedSetUnion } from './../helpers/SortedSet.js'
-
-// Shim for test:ci in GH needs this to work
-const OrbitControls = null
-// import("three/addons/controls/OrbitControls.js").then((module) => {
-//   OrbitControls = module.OrbitControls;
-// })
+import { useEffect, useLayoutEffect, useRef } from 'react'
 
 // Shim for node.js testing
 const glContext = null
@@ -37,22 +30,26 @@ if (!process.browser) {
   }
 }
 
+const AXIS_COLORS = [
+  0x06FE76, // y
+  0x235DFF, // z
+  0xE45950 // x
+]
+
 export const Cube = ({ annotations, tool, viewer }) => {
   const FPS_INTERVAL = 1000 / 60
   const NUM_MESH_POINTS = Math.pow(viewer.base, 2) * 3 - viewer.base * 3 + 1
 
   // We need to create internal refs so that resizing + animation loop works properly
   const canvasRef = useRef(null)
-  const canvasAxesRef = useRef(null)
   const meshPlaneSet = useRef(null)
   const threeRef = useRef({})
-  const threeAxesRef = useRef({})
 
   // State Change management through useEffect()
   useEffect(() => {
     setupCube()
 
-    // render mesh + add to scene so that raycasting works
+    // Render mesh + add to scene so that raycasting works
     renderPlanePoints()
     threeRef.current.scene.add(threeRef.current.meshPlane)
 
@@ -60,7 +57,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
     animate()
 
     // Resize canvas
-    onWindowResize()
+    resizeCube()
 
     // Setup State Listeners
     annotations.on('add:annotation', addAnnotation)
@@ -81,11 +78,11 @@ export const Cube = ({ annotations, tool, viewer }) => {
   }, [])
 
   useLayoutEffect(() => {
-    window.addEventListener('resize', onWindowResize)
+    window.addEventListener('resize', resizeCube)
     window.addEventListener('mousemove', onMouseMove)
 
     return () => {
-      window.removeEventListener('resize', onWindowResize)
+      window.removeEventListener('resize', resizeCube)
       window.removeEventListener('mousemove', onMouseMove)
     }
   }, [])
@@ -102,9 +99,6 @@ export const Cube = ({ annotations, tool, viewer }) => {
 
   // Functions that do the actual work
   function setupCube () {
-    const { width } =
-      canvasRef.current.parentElement.getBoundingClientRect()
-
     // Setup Ref object once DOM is rendered
     threeRef.current = {
       canvas: null,
@@ -130,8 +124,8 @@ export const Cube = ({ annotations, tool, viewer }) => {
     }
 
     // Setup camera, light, scene, and orbit controls
-    threeRef.current.camera.position.set(viewer.base, viewer.base, viewer.base)
-    threeRef.current.camera.lookAt(0, 0, 0)
+    const position = viewer.base * 0.66
+    threeRef.current.camera.position.set(position, position, position)
 
     threeRef.current.light.position.set(0, 1, 0)
 
@@ -146,28 +140,22 @@ export const Cube = ({ annotations, tool, viewer }) => {
       preserveDrawingBuffer: true
     })
     threeRef.current.renderer.setPixelRatio(window.devicePixelRatio)
-    threeRef.current.renderer.setSize(width, width)
+    resizeCube()
 
-    if (OrbitControls) {
-      threeRef.current.orbit = new OrbitControls(
-        threeRef.current.camera,
-        threeRef.current.renderer.domElement
-      )
-      threeRef.current.orbit.enableDamping = false
-      threeRef.current.orbit.enableZoom = true
-      threeRef.current.orbit.enablePan = false
-    } else {
-      console.log('OrbitControls are not available')
-    }
+    threeRef.current.orbit = new OrbitControls(
+      threeRef.current.camera,
+      threeRef.current.renderer.domElement
+    )
+
+    // This changes where the camera is physically located in the scene
+    threeRef.current.orbit.target.set(0, 0, 0)
+    threeRef.current.orbit.enableDamping = false
+    threeRef.current.orbit.enableZoom = false
+    threeRef.current.orbit.enablePan = false
+    threeRef.current.orbit.update()
 
     // View Axes
     const half = viewer.base / 2
-
-    const colors = [
-      0xffff00, // yellow
-      0x00ffff, // cyan
-      0xff00ff // magenta
-    ]
 
     const points = [
       [
@@ -196,37 +184,10 @@ export const Cube = ({ annotations, tool, viewer }) => {
       })
 
       const geometry = new BufferGeometry().setFromPoints(_points)
-      const material = new LineBasicMaterial({ color: colors[index] })
+      const material = new LineBasicMaterial({ color: AXIS_COLORS[index] })
       const line = new Line(geometry, material)
       threeRef.current.scene.add(line)
     })
-
-    // Axes setup
-    threeAxesRef.current = {
-      axis: new AxesHelper(100),
-      canvas: null,
-      light: new HemisphereLight(0xffffff, 0x888888, 3),
-      matrix: new Matrix4(),
-      mouse: new Vector2(1, 1),
-      orbit: null,
-      renderer: null,
-      scene: new Scene()
-    }
-
-    // Setup Axes viewer details
-    const xColor = new Color(0xff00ff)
-    const yColor = new Color(0xffff00)
-    const zColor = new Color(0x00ffff)
-
-    threeAxesRef.current.axis.setColors(xColor, yColor, zColor)
-    threeAxesRef.current.scene.background = new Color(0x000000)
-    threeAxesRef.current.renderer = new WebGLRenderer({
-      context: glContext,
-      canvas: canvasAxesRef.current
-    })
-    threeAxesRef.current.renderer.setPixelRatio(window.devicePixelRatio)
-    threeAxesRef.current.renderer.setSize(75, 75)
-    threeAxesRef.current.scene.add(threeAxesRef.current.axis)
   }
 
   function animate () {
@@ -276,11 +237,6 @@ export const Cube = ({ annotations, tool, viewer }) => {
       threeRef.current.scene,
       threeRef.current.camera
     )
-
-    threeAxesRef.current.renderer.render(
-      threeAxesRef.current.scene,
-      threeRef.current.camera
-    )
   }
 
   function renderPlanePoints () {
@@ -300,7 +256,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
         point
       })
     })
-    // console.log("Performance: renderPlanePoints()", performance.now() - t0);
+    // console.log("Performance: renderPlanePoints()", performance.now() - t0)
 
     threeRef.current.meshPlane.instanceMatrix.needsUpdate = true
     threeRef.current.meshPlane.instanceColor.needsUpdate = true
@@ -389,6 +345,9 @@ export const Cube = ({ annotations, tool, viewer }) => {
   }
 
   function onMouseMove (e) {
+    // useEffect can setup the listeners before the cube is initialized
+    if (!canvasRef.current || !threeRef.current) return
+
     // Update the base ref() so that the animation loop handles the mouse move
     const { height, left, top, width } =
       canvasRef.current.parentElement.getBoundingClientRect()
@@ -410,7 +369,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
     }
   }
 
-  function onWindowResize () {
+  function resizeCube () {
     // constrain based on parent element width and height
     const { width } =
       canvasRef.current.parentElement.getBoundingClientRect()
@@ -418,36 +377,15 @@ export const Cube = ({ annotations, tool, viewer }) => {
     threeRef.current.camera.aspect = 1
     threeRef.current.camera.updateProjectionMatrix()
     threeRef.current.renderer.setSize(width, width)
-
-    canvasAxesRef.current.width = canvasAxesRef.current.clientWidth
-    canvasAxesRef.current.height = canvasAxesRef.current.clientHeight
   }
 
   return (
-    <div style={{ position: 'relative' }}>
-      <canvas
-        data-testid='cube'
-        onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        ref={canvasRef}
-      />
-      <canvas
-        data-testid='cube-axis'
-        ref={canvasAxesRef}
-        style={{
-          position: 'absolute',
-          left: '10px',
-          top: '10px',
-          width: '75px',
-          height: '75px'
-        }}
-      />
-      <Histogram
-        annotations={annotations}
-        tool={tool}
-        viewer={viewer}
-      />
-    </div>
+    <canvas
+      data-testid='cube'
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      ref={canvasRef}
+    />
   )
 }
 

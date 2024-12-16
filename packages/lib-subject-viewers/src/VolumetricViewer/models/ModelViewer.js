@@ -80,6 +80,9 @@ export const ModelViewer = () => {
       return pointModel
     },
     // getters & setters
+    getDimensionLabel: ({ dimension = 0 }) => {
+      return pointModel.dimensions[dimension]
+    },
     getPlaneFrame: ({ dimension = 0, frame }) => {
       frame = frame ?? pointModel.planeFrameActive[dimension]
       // get the base frame, then mod each point to get the absolute plane view
@@ -88,6 +91,9 @@ export const ModelViewer = () => {
 
       const offset = pointModel.baseFrameMod[dimension] * frame
       return baseFrame.map((r) => r.map((p) => p + offset))
+    },
+    getPlaneFrameIndex: ({ dimension = 0 }) => {
+      return pointModel.planeFrameActive[dimension]
     },
     getPlaneSet: ({ dimension = 0, frame = 0 }) => {
       return pointModel.planesAbsoluteSets[dimension][frame]
