@@ -166,9 +166,9 @@ describe('SurveyTask with user keystrokes', function () {
       await user.keyboard('[Enter]')
     })
     
-    it('should show the choice description', async function () {
-      const choiceDescription = screen.getByText('Not as awesome as a pangolin, but surprisingly big.')
-      expect(choiceDescription).to.be.ok()
+    it('should show the "more info" button', async function () {
+      const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.ok()
     })
 
     it('should show choice images', async function () {

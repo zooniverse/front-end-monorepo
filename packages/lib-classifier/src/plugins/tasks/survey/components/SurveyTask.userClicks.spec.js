@@ -173,9 +173,9 @@ describe('SurveyTask with user clicks', function () {
       await user.click(choiceButton)
     })
 
-    it('should show the choice description', async function () {
-      const choiceDescription = screen.getByText('It\'s a fire. Pretty sure you know what this looks like.')
-      expect(choiceDescription).to.be.ok()
+    it('should show the "More info" button', async function () {
+      const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.ok()
     })
 
     it('should show choice images', async function () {
@@ -184,12 +184,12 @@ describe('SurveyTask with user clicks', function () {
     })
 
     it('should show choices with closed choice focused when Not This button is clicked', async function () {
-      const notThisButton = screen.getByText('SurveyTask.Choice.notThis')
+      const cancelButton = screen.getByText('SurveyTask.Choice.cancel')
       // close choice (Fire) component
-      await user.click(notThisButton)
-      // confirm choice (Fire) description, and therefore choice, is not shown
-      const choiceDescription = screen.queryByText('It\'s a fire. Pretty sure you know what this looks like.')
-      expect(choiceDescription).to.be.null()
+      await user.click(cancelButton)
+      // confirm choice "More info" button is not shown, therefore choice is closed
+      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.null()
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
@@ -202,9 +202,9 @@ describe('SurveyTask with user clicks', function () {
       const identifyButton = screen.getByTestId('choice-identify-button')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
-      // confirm choice (Fire) description, and therefore choice, is not shown
-      const choiceDescription = screen.queryByText('It\'s a fire. Pretty sure you know what this looks like.')
-      expect(choiceDescription).to.be.null()
+      // confirm choice "More info" button is not shown, therefore choice is closed
+      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.null()
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)

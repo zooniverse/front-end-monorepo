@@ -24,11 +24,13 @@
     },
     "Choice": {
       "identify": "Identify",
-      "notThis": "Not this"
+      "lessInfo": "Less info",
+      "moreInfo": "More info",
+      "cancel": "Cancel"
     },
     "ConfusedWith": {
       "cancel": "Cancel",
-      "confused": "Sometimes confused with",
+      "confused": "Often confused with",
       "itsThis": "I think it's this"
     },
     "DeleteButton": {

@@ -1,6 +1,7 @@
-import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
+import { Box, Button, Carousel, Collapsible, Heading, Paragraph, Text } from 'grommet'
+import { FormDown, FormUp } from 'grommet-icons'
 import PropTypes from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
@@ -18,15 +19,31 @@ const StyledBox = styled(Box)`
   }
 `
 
+const StyledButton = styled(Button)`
+  border: 1px solid ${props => props.theme.global.colors.brand};
+  border-radius: 4px;
+  flex: 1 0;
+  margin-right: 1ch;
+  max-width: 350px;
+`
+
+const StyledPrimaryButton = styled(PrimaryButton)`
+  border-radius: 4px;
+  flex: 1 0;
+`
+
+const DEFAULT_HANDLER = () => true
+
 function Choice({
   answers = {},
   choiceId = '',
-  handleAnswers = () => {},
-  handleChoice = () => {},
-  handleDelete = () => {},
-  onIdentify = () => {},
+  handleAnswers = DEFAULT_HANDLER,
+  handleCancel = DEFAULT_HANDLER,
+  handleChoice = DEFAULT_HANDLER,
+  onIdentify = DEFAULT_HANDLER,
   task
 }) {
+  const [showInfo, setShowInfo] = useState(false)
   const {
     choices,
     images,
@@ -46,6 +63,25 @@ function Choice({
   const choice = choices?.get(choiceId) || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
+  const InfoLabel = (
+    <Box
+      align='center'
+      direction='row'
+      gap='xsmall'
+    >
+      {showInfo ? (
+        <>
+          <Text>{t('SurveyTask.Choice.lessInfo')}</Text>
+          <FormUp aria-hidden="true" />
+        </>
+      ) : (
+        <>
+          <Text>{t('SurveyTask.Choice.moreInfo')}</Text>
+          <FormDown aria-hidden="true" />
+        </>
+      )}
+    </Box>
+  )
 
   function handleKeyDown (event) {
     if (event.key === 'Escape') {
@@ -58,14 +94,12 @@ function Choice({
       ref={choiceRef}
       aria-labelledby='choice-label'
       background={{
-        dark: 'dark-1',
-        light: 'light-1'
+        dark: 'dark-3',
+        light: 'neutral-6'
       }}
-      elevation='large'
       flex='grow'
       forwardedAs='section'
       onKeyDown={handleKeyDown}
-      pad='small'
       tabIndex={0}
     >
       {choice.images?.length > 0 && (
@@ -73,8 +107,11 @@ function Choice({
           alignSelf='center'
           controls='arrows'
           data-testid='choice-images'
-          height={{ max: 'medium' }}
-          width={{ max: 'medium' }}
+          height={{
+            max: 'medium',
+            min: '160px'
+          }}
+          width='100%'
         >
           {choice.images.map((filename, index) => (
             <Media
@@ -85,57 +122,90 @@ function Choice({
           ))}
         </Carousel>
       )}
-      <Heading
-        id='choice-label'
-      >
-        {strings.get(`choices.${choiceId}.label`)}
-      </Heading>
-      <Paragraph>{strings.get(`choices.${choiceId}.description`)}</Paragraph>
-      {choice.confusionsOrder?.length > 0 && (
-        <ConfusedWith
-          choices={choices}
-          choiceId={choiceId}
-          confusions={choice.confusions}
-          confusionsOrder={choice.confusionsOrder}
-          handleChoice={handleChoice}
-          images={images}
-          strings={strings}
-        />
-      )}
-      {questionIds.length > 0 && (
-        <Questions
-          answers={answers}
-          questionIds={questionIds}
-          questions={questions}
-          setAnswers={handleAnswers}
-          strings={strings}
-        />
-      )}
       <Box
-        border={{
-          color: 'light-5',
-          side: 'top',
-          size: 'small'
+        pad={{
+          bottom: '10px',
+          top: '20px'
         }}
-        direction='row'
-        fill='horizontal'
-        gap='xsmall'
-        justify='center'
-        margin={{ top: 'small' }}
-        pad={{ top: 'small' }}
       >
-        <Button
+        <Box
+          direction='row'
           fill='horizontal'
-          label={t('SurveyTask.Choice.notThis')}
-          onClick={() => handleDelete(choiceId)}
-        />
-        <PrimaryButton
-          data-testid='choice-identify-button'
-          disabled={!allowIdentify}
+          height='auto'
+          justify='between'
+          margin={{ bottom: '20px' }}
+        >
+          <Heading
+            id='choice-label'
+            color={{
+              dark: 'accent-1',
+              light: 'neutral-7'
+            }}
+            margin='none'
+            size='1.5rem'
+            weight='bold'
+          >
+            {strings.get(`choices.${choiceId}.label`)}
+          </Heading>
+          <Button
+            label={InfoLabel}
+            onClick={() => setShowInfo(!showInfo)}          
+            plain
+          />
+        </Box>
+        <Collapsible
+          open={showInfo}
+        >
+          <Box margin={{ bottom: '20px' }}>
+            <Paragraph margin='none'>
+              {strings.get(`choices.${choiceId}.description`)}
+            </Paragraph>
+            {choice.confusionsOrder?.length > 0 && (
+              <ConfusedWith
+                choices={choices}
+                choiceId={choiceId}
+                confusions={choice.confusions}
+                confusionsOrder={choice.confusionsOrder}
+                handleChoice={handleChoice}
+                images={images}
+                strings={strings}
+              />
+            )}
+          </Box>
+        </Collapsible>
+        {questionIds.length > 0 && (
+          <Questions
+            answers={answers}
+            questionIds={questionIds}
+            questions={questions}
+            setAnswers={handleAnswers}
+            strings={strings}
+          />
+        )}
+        <Box
+          border={{
+            color: 'light-5',
+            side: 'bottom',
+            size: 'small'
+          }}
+          direction='row'
           fill='horizontal'
-          label={t('SurveyTask.Choice.identify')}
-          onClick={() => onIdentify()}
-        />
+          justify='center'
+          pad={{ vertical: '20px' }}
+        >
+          <StyledButton
+            fill='horizontal'
+            label={t('SurveyTask.Choice.cancel')}
+            onClick={() => handleCancel(choiceId)}
+          />
+          <StyledPrimaryButton
+            data-testid='choice-identify-button'
+            disabled={!allowIdentify}
+            fill='horizontal'
+            label={t('SurveyTask.Choice.identify')}
+            onClick={() => onIdentify()}
+          />
+        </Box>
       </Box>
     </StyledBox>
   )
@@ -150,8 +220,8 @@ Choice.propTypes = {
   ),
   choiceId: PropTypes.string,
   handleAnswers: PropTypes.func,
+  handleCancel: PropTypes.func,
   handleChoice: PropTypes.func,
-  handleDelete: PropTypes.func,
   onIdentify: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,

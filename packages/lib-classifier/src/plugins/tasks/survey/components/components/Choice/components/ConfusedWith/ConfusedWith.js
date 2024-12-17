@@ -11,8 +11,17 @@ import Confusion from './components/Confusion'
 export const StyledDropButton = styled(DropButton)`
   background-color: ${props => props.theme.global.colors[props.backgroundColor]};
   border: none;
+  border-radius: 4px;
+  color: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['neutral-7']};
+  font-size: 1rem;
+  height: 40px;
+  min-width: 110px;
   margin-right: 5px;
   padding: 5px;
+
+  &:hover:not(:focus-within) {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
+  }
 `
 
 function ConfusedWith({
@@ -37,16 +46,22 @@ function ConfusedWith({
   }
 
   return (
-    <Box>
-      <SpacedHeading>{t('SurveyTask.ConfusedWith.confused')}</SpacedHeading>
+    <Box margin={{ top: '20px' }}>
+      <SpacedHeading
+        color={{ dark: 'neutral-6', light: 'dark-5' }}
+        margin={{ bottom: '20px', top: 'none' }}
+        size='1rem'
+      >
+        {t('SurveyTask.ConfusedWith.confused')}
+      </SpacedHeading>
       <Box
         direction='row'
         wrap
       >
         {confusionsOrder.map((confusionId, index) => {
-          let backgroundColor = 'neutral-6'
+          let backgroundColor = 'light-1'
           if (theme.dark) {
-            backgroundColor = 'dark-3'
+            backgroundColor = 'dark-4'
           }
           if (open === confusionId) {
             backgroundColor = 'accent-1'
@@ -78,6 +93,10 @@ function ConfusedWith({
                 responsive: false
               }}
               label={strings.get(`choices.${confusionId}.label`)}
+              margin={{
+                bottom: '10px',
+                right: '10px'
+              }}
               open={open === confusionId}
               onClose={() => onClose()}
               onOpen={() => onOpen(confusionId)}
