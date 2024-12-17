@@ -1,25 +1,8 @@
 import { Provider } from 'mobx-react'
 
-import Store from '@stores/Store'
-
 import RecentSubjects from './RecentSubjects'
 import { CollectionsStoreMock } from './CollectionsStoreMock';
 import { RecentsMock, PortraitSubjectsMock, DataSubjectsMock, TextSubjectsMock, VideoSubjectsMock } from './RecentSubjects.mock';
-
-const snapshot = {
-  project: {
-    strings: {
-      display_name: 'Snapshot Serengeti',
-    }
-  },
-  user: {
-    collections: {
-      collections: [],
-    }
-  }
-}
-
-const store = Store.create(snapshot)
 
 export default {
   title: 'Project App / Screens / Classify / Recent Subjects',
@@ -35,7 +18,6 @@ export function Plain({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RecentsMock}
-        projectName='Snapshot Serengeti'
         slug='zooniverse/snapshot-serengeti'
       />
     </Provider>
@@ -48,7 +30,6 @@ export function Placeholder({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RecentsMock.slice(1)}
-        projectName='Snapshot Serengeti'
         slug='zooniverse/snapshot-serengeti'
       />
     </Provider>
@@ -61,7 +42,6 @@ export function NarrowScreens({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RecentsMock}
-        projectName='Snapshot Serengeti'
         size={1}
         slug='zooniverse/snapshot-serengeti'
       />
@@ -81,7 +61,6 @@ export function Transcription({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={PortraitSubjectsMock}
-        projectName='Notes from Nature'
         slug='zooniverse/notes-from-nature'
       />
     </Provider>
@@ -94,7 +73,6 @@ export function Video({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={VideoSubjectsMock}
-        projectName='NestCams'
         slug='spotteron/nestcams'
       />
     </Provider>
@@ -107,7 +85,6 @@ export function Data({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={DataSubjectsMock}
-        projectName='SuperWASP Black Hole Hunters'
         slug='hughdickinson/superwasp-black-hole-hunters'
       />
     </Provider>
@@ -120,7 +97,6 @@ export function Text({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={TextSubjectsMock}
-        projectName='Notes from Nature'
         slug='zooniverse/notes-from-nature'
       />
     </Provider>
@@ -133,7 +109,6 @@ export function OneSubject({ isLoggedIn }) {
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RecentsMock.slice(0, 1)}
-        projectName='NestCams'
         slug='spotteron/nestcams'
       />
     </Provider>
