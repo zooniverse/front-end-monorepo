@@ -128,7 +128,7 @@ function Choice({
         <Box
           direction='row'
           fill='horizontal'
-          height='20px'
+          height='auto'
           justify='between'
           margin={{ bottom: '20px' }}
         >

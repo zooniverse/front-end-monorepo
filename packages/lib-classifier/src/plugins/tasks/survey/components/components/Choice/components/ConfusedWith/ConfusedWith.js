@@ -93,6 +93,10 @@ function ConfusedWith({
                 responsive: false
               }}
               label={strings.get(`choices.${confusionId}.label`)}
+              margin={{
+                bottom: '10px',
+                right: '10px'
+              }}
               open={open === confusionId}
               onClose={() => onClose()}
               onOpen={() => onOpen(confusionId)}
