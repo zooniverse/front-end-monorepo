@@ -29,8 +29,8 @@ export const Default = ({ choiceId }) => {
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        pad='1em'
-        width='540px'
+        margin='20px'
+        width='498px'
       >
         <Choice choiceId={choiceId} task={mockTask} />
       </Box>
