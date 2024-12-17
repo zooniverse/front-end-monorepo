@@ -87,13 +87,11 @@ function ChoiceButton({
   return (
     <StyledBox
       ref={choiceMenuItem}  
-      align='center'
       // TODO: add the following to translations
-      // TODO: use selected to update aria-label to indicate identified and answers, if applicable
-      a11yTitle={`Open submenu for ${choiceLabel}`}
-      // TODO: refactor with data-fieldset, refactor Choice as fieldset, and refactor both with related links/ids/aria-controls
-      aria-label={choiceLabel}
+      a11yTitle={`${choiceLabel}` + (selected ? '; identified' : '')}
+      aria-haspopup='true'
       role='menuitem'
+      align='center'
       background={background}
       border={border}
       direction='row'
