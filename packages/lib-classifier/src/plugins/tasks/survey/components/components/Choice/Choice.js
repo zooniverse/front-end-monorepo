@@ -72,12 +72,12 @@ function Choice({
       {showInfo ? (
         <>
           <Text>{t('SurveyTask.Choice.lessInfo')}</Text>
-          <FormUp />
+          <FormUp aria-hidden="true" />
         </>
       ) : (
         <>
           <Text>{t('SurveyTask.Choice.moreInfo')}</Text>
-          <FormDown />
+          <FormDown aria-hidden="true" />
         </>
       )}
     </Box>
