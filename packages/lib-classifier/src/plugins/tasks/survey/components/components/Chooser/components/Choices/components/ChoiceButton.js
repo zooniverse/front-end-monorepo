@@ -29,14 +29,16 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `
 
+const DEFAULT_HANDLER = () => true
+
 function ChoiceButton({
   choiceId = '',
   choiceLabel = '',
   disabled = false,
   hasFocus = false,
-  onChoose = () => true,
-  onDelete = () => true,
-  onKeyDown = () => true,
+  onChoose = DEFAULT_HANDLER,
+  onDelete = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
   selected = false,
   shadedBackground = false,
   src = '',
@@ -96,7 +98,7 @@ function ChoiceButton({
       border={border}
       direction='row'
       fill
-      onKeyDown={handleKeyDown}
+      onKeyDown={disabled ? DEFAULT_HANDLER : handleKeyDown}
       pad={{
         right: '10px',
         vertical: '5px'
@@ -122,7 +124,7 @@ function ChoiceButton({
       ) : null}
       <StyledButton
         // TODO: add the following to translations
-        a11yTitle={`Open fieldset for ${choiceLabel}`}
+        a11yTitle={`Open submenu for ${choiceLabel}`}
         disabled={disabled}
         label={
           <Box

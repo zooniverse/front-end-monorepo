@@ -8,7 +8,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import ChoiceButton from './ChoiceButton'
 
 describe('Component > ChoiceButton', function () {
-  it('should show a button with expected label', function () {
+  it('should show a menuitem with expected label', function () {
     render(
       <Grommet
         theme={zooTheme}
@@ -20,7 +20,23 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
+    const choiceMenuItem = screen.getByRole('menuitem', { name: 'Aardvark' })
+    expect(choiceMenuItem).to.be.ok()
+  })
+
+  it('should have a button to open the submenu for the choice', function () {
+    render(
+      <Grommet
+        theme={zooTheme}
+      >
+        <ChoiceButton
+          choiceId='RDVRK'
+          choiceLabel='Aardvark'
+          tabIndex={0}
+        />
+      </Grommet>
+    )
+    const choiceButton = screen.getByRole('button', { name: 'Open submenu for Aardvark' })
     expect(choiceButton).to.be.ok()
   })
 
@@ -41,12 +57,12 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
+      const choiceButton = screen.getByRole('button', { name: 'Open submenu for Aardvark' })
       await user.click(choiceButton)
       expect(onChooseSpy).to.not.have.been.called()
     })
 
-    it('should not call onKeyDown on keyDown of the button', async function () {
+    it('should not call onKeyDown on keyDown of the menuitem', async function () {
       const onKeyDownSpy = sinon.spy()
       const user = userEvent.setup({ delay: null })
       render(
@@ -63,11 +79,29 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
-      expect(choiceButton).to.equal(document.activeElement)
+      const choiceMenuItem = screen.getByRole('menuitem', { name: 'Aardvark' })
+      expect(choiceMenuItem).to.equal(document.activeElement)
       await user.keyboard('{enter}')
       expect(onKeyDownSpy).to.not.have.been.called()
     })
   })
-})
 
+  describe('when selected', function () {
+    it('should show a menuitem with expected aria label', function () {
+      render(
+        <Grommet
+          theme={zooTheme}
+        >
+          <ChoiceButton
+            choiceId='RDVRK'
+            choiceLabel='Aardvark'
+            selected={true}
+            tabIndex={0}
+          />
+        </Grommet>
+      )
+      const choiceButton = screen.getByRole('menuitem', { name: 'Aardvark; identified' })
+      expect(choiceButton).to.be.ok()
+    })
+  })
+})
