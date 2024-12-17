@@ -43,7 +43,7 @@ function ChoiceButton({
   tabIndex = -1,
   thumbnailSize = 'none'
 }) {
-  const choiceButton = useRef(null)
+  const choiceMenuItem = useRef(null)
   const handleClick = useCallback(() => {
     onChoose(choiceId)
   }, [choiceId, onChoose])
@@ -55,8 +55,8 @@ function ChoiceButton({
   }, [choiceId, onKeyDown])
 
   useEffect(() => {
-    if (choiceButton && hasFocus) {
-      choiceButton.current.focus()
+    if (choiceMenuItem && hasFocus) {
+      choiceMenuItem.current.focus()
     }
   })
 
@@ -86,6 +86,7 @@ function ChoiceButton({
   
   return (
     <StyledBox
+      ref={choiceMenuItem}  
       align='center'
       aria-label={choiceLabel}
       role='menuitem'
@@ -93,18 +94,20 @@ function ChoiceButton({
       border={border}
       direction='row'
       fill
+      onKeyDown={handleKeyDown}
       pad={{
         right: '10px',
         vertical: '5px'
       }}
       selected={selected}
+      tabIndex={tabIndex}
     >
       {selected ? (
         <DeleteButton
           choiceLabel={choiceLabel}
           deleteFn={handleDelete}
           disabled={disabled}
-          tabIndex={tabIndex}
+          tabIndex={selected && tabIndex === 0 ? 0 : -1}
         >
           {thumbnailSize !== 'none' && src &&
             <StyledImage
@@ -116,7 +119,6 @@ function ChoiceButton({
         </DeleteButton>
       ) : null}
       <StyledButton
-        ref={choiceButton}
         // TODO: add the following to translations
         // TODO: use selected to update aria-label to indicate identified and answers, if applicable
         a11yTitle={`Open submenu for ${choiceLabel}`}
@@ -148,9 +150,8 @@ function ChoiceButton({
         }
         margin={{ left: '2px'}}
         onClick={handleClick}
-        onKeyDown={handleKeyDown}
         plain
-        tabIndex={tabIndex}
+        tabIndex={selected && tabIndex === 0 ? 0 : -1}
       />
     </StyledBox>
   )

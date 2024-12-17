@@ -108,6 +108,18 @@ export function Choices ({
         handleDelete(choiceId)
         return false
       }
+      case 'Enter':
+        event.preventDefault()
+        event.stopPropagation()
+
+        onChoose(choiceId)
+        return false
+      case 'Space':
+        event.preventDefault()
+        event.stopPropagation()
+
+        onChoose(choiceId)
+        return false
       default: {
         return true
       }
