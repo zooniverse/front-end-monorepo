@@ -130,7 +130,7 @@ function Choice({
           fill='horizontal'
           height='20px'
           justify='between'
-          margin={{ bottom: '30px' }}
+          margin={{ bottom: '20px' }}
         >
           <Heading
             id='choice-label'
@@ -154,7 +154,7 @@ function Choice({
         <Collapsible
           open={showInfo}
         >
-          <Box margin={{ bottom: '30px' }}>
+          <Box margin={{ bottom: '20px' }}>
             <Paragraph margin='none'>
               {strings.get(`choices.${choiceId}.description`)}
             </Paragraph>
@@ -189,7 +189,7 @@ function Choice({
           direction='row'
           fill='horizontal'
           justify='center'
-          pad={{ vertical: '30px' }}
+          pad={{ vertical: '20px' }}
         >
           <StyledButton
             fill='horizontal'

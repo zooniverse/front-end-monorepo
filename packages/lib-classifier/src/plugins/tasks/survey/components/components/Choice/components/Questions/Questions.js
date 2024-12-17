@@ -26,7 +26,7 @@ export default function Questions({
   return (
     <Box
       flex='grow'
-      gap='30px'
+      gap='20px'
     >
       {questionIds.map((questionId, index) => {
         const question = questions.get(questionId) || { answers: {}, answersOrder: [] }

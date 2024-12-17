@@ -46,7 +46,7 @@ function ConfusedWith({
   }
 
   return (
-    <Box margin={{ top: '30px' }}>
+    <Box margin={{ top: '20px' }}>
       <SpacedHeading
         color={{ dark: 'neutral-6', light: 'dark-5' }}
         margin={{ bottom: '20px', top: 'none' }}
