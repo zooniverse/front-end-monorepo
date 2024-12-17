@@ -107,7 +107,10 @@ function Choice({
           alignSelf='center'
           controls='arrows'
           data-testid='choice-images'
-          height={{ max: 'medium' }}
+          height={{
+            max: 'medium',
+            min: '160px'
+          }}
           width='100%'
         >
           {choice.images.map((filename, index) => (
