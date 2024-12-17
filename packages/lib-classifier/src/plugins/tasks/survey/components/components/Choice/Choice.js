@@ -145,7 +145,6 @@ function Choice({
             {strings.get(`choices.${choiceId}.label`)}
           </Heading>
           <Button
-            a11yTitle={showInfo ? t('SurveyTask.Choice.lessInfo') : t('SurveyTask.Choice.moreInfo')}
             label={InfoLabel}
             onClick={() => setShowInfo(!showInfo)}          
             plain
