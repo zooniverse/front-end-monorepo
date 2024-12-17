@@ -11,8 +11,8 @@ import locationValidator from '../../helpers/locationValidator'
 const PlaceholderSVG = styled.svg`
   background: no-repeat center / cover url('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png');
   touch-action: pinch-zoom;
-  max-width: ${props => props.maxWidth || '100%'};
-  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
+  max-width: ${props => props.$maxWidth || '100%'};
+  ${props => props.$maxHeight && css`max-height: ${props.$maxHeight};`}
 `
 const SVGImageCanvas = styled.svg`
   overflow: visible;
@@ -54,8 +54,8 @@ function SingleImageViewer({
       >
         <PlaceholderSVG
           focusable
-          maxHeight={svgMaxHeight}
-          maxWidth={limitSubjectHeight ? `${width}px` : '100%'}
+          $maxHeight={svgMaxHeight}
+          $maxWidth={limitSubjectHeight ? `${width}px` : '100%'}
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={`0 0 ${width} ${height}`}

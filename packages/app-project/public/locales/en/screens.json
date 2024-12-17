@@ -55,18 +55,7 @@
         "title": "There was an error in the classifier :("
       }
     },
-    "FinishedForTheDay": {
-      "buttons": {
-        "stats": "See the stats"
-      },
-      "text": "Your answers are saved for the research team while you're working. See the project stats and return to the {{projectName}} home page.",
-      "title": "Finished for the day?",
-      "ProjectImage": {
-        "alt": "Image for {{projectName}}"
-      }
-    },
     "RecentSubjects": {
-      "text": "Discuss a subject on Talk, or add it to your Favourites or a collection.",
       "title": "Your recent classifications"
     },
     "WorkflowAssignmentModal": {
@@ -77,13 +66,10 @@
       "title": "New Workflow Available"
     },
     "YourStats": {
-      "todaysCount": "Classifications today",
-      "totalCount": "Classifications total",
-      "text": "Keep up the great work!",
-      "title": "Your {{projectName}} statistics",
-      "DailyClassificationsChart": {
-        "title": "{{projectName}} daily classification counts"
-      }
+      "allTime": "All Time",
+      "lastSeven": "Last 7 Days",
+      "link": "See more",
+      "title": "Your Stats"
     }
   }
 }

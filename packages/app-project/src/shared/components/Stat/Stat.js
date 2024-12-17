@@ -3,7 +3,7 @@ import { number, string } from 'prop-types'
 
 import AnimatedNumber from '@zooniverse/react-components/AnimatedNumber'
 
-function Stat ({ className, label, value }) {
+function Stat({ className, label, value }) {
   return (
     <div className={className}>
       <Text

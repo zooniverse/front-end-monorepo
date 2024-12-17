@@ -2,18 +2,17 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 import { lazy, Suspense } from 'react'
-// import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer'
 
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
 
 const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
-const ProtoViewer = lazy(() => import('@zooniverse/subject-viewers/ProtoViewer'))
 
 function storeMapper(classifierStore) {
   const {
     subjects: { active: subject, loadingState: subjectQueueState },
-    subjectViewer: { onSubjectReady, onError, loadingState: subjectReadyState }
+    subjectViewer: { onSubjectReady, onError, loadingState: subjectReadyState },
+    projects: { active: project }
   } = classifierStore
 
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
@@ -22,6 +21,7 @@ function storeMapper(classifierStore) {
 
   return {
     enableInteractionLayer,
+    isVolumetricViewer: project?.isVolumetricViewer ?? false,
     onError,
     onSubjectReady,
     subject,
@@ -32,6 +32,7 @@ function storeMapper(classifierStore) {
 
 function SubjectViewer({
   enableInteractionLayer,
+  isVolumetricViewer,
   onError,
   onSubjectReady,
   subject,
@@ -52,12 +53,9 @@ function SubjectViewer({
       return null
     }
     case asyncStates.success: {
-      let Viewer
-      if (subject?.viewer === 'volumetric') {
-        Viewer = ProtoViewer
-      } else {
-        Viewer = getViewer(subject?.viewer)
-      }
+      const Viewer = (isVolumetricViewer)
+        ? VolumetricViewer
+        : getViewer(subject?.viewer)
 
       if (Viewer) {
         return (
