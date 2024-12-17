@@ -108,11 +108,24 @@ export function Choices ({
         handleDelete(choiceId)
         return false
       }
+      case 'End': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        setFocusIndex(filteredChoiceIds.length - 1)
+        return false
+      }
       case 'Enter':
         event.preventDefault()
         event.stopPropagation()
 
         onChoose(choiceId)
+        return false
+      case 'Home':
+        event.preventDefault()
+        event.stopPropagation()
+
+        setFocusIndex(0)
         return false
       case 'Space':
         event.preventDefault()

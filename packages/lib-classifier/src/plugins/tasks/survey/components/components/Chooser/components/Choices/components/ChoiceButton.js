@@ -88,6 +88,10 @@ function ChoiceButton({
     <StyledBox
       ref={choiceMenuItem}  
       align='center'
+      // TODO: add the following to translations
+      // TODO: use selected to update aria-label to indicate identified and answers, if applicable
+      a11yTitle={`Open submenu for ${choiceLabel}`}
+      // TODO: refactor with data-fieldset, refactor Choice as fieldset, and refactor both with related links/ids/aria-controls
       aria-label={choiceLabel}
       role='menuitem'
       background={background}
@@ -120,9 +124,7 @@ function ChoiceButton({
       ) : null}
       <StyledButton
         // TODO: add the following to translations
-        // TODO: use selected to update aria-label to indicate identified and answers, if applicable
-        a11yTitle={`Open submenu for ${choiceLabel}`}
-        // TODO: refactor with data-fieldset, refactor Choice as fieldset, and refactor both with related links/ids/aria-controls
+        a11yTitle={`Open fieldset for ${choiceLabel}`}
         disabled={disabled}
         label={
           <Box
