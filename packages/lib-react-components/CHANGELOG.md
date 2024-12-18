@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - PlainButton has text-decoration underline on hover even for links.
 - ZooFooter links and labels updated to reflect newly launched FEM pages.
 - Updated styling in ProjectCard's badge component.
+- `useProgressiveImage`: run `onLoad` callbacks immediately when `delay` is 0. Add optional `onLoad` and `onError` event handlers for image `load` events.
 
 ### Fixed
 

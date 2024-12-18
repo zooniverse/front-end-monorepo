@@ -47,8 +47,17 @@ const { data: user, error, isLoading } = usePanoptesUser()
 Use a placeholder while an image downloads.
 
 ```jsx
+function onLoad(event) {
+  console.log('image loaded: ', event.target)
+}
+
+function onError(error) {
+  console.warn('loading failed')
+  console.error(error)
+}
+
 const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
-const { img, error, loading } = useProgressiveImage({ delay: 0, src })
+const { img, error, loading } = useProgressiveImage({ delay: 0, src, onLoad, onError })
 
 return <img src={img.src} alt='This is an example of an image with a placeholder.'/>
 ```
