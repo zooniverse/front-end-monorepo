@@ -6,12 +6,14 @@ export default function useSubjectImage({ src, onReady, onError }) {
 
   const { img, error, loading } = useProgressiveImage({
     placeholderSrc: '',
-    src
+    src,
+    onLoad,
+    onError
   })
   
 
-  useEffect(function onImageLoad() {
-    const { naturalHeight, naturalWidth, src } = img
+  function onLoad(event) {
+    const { naturalHeight, naturalWidth, src } = event.target
     if (src !== '' ) {
       const svgImage = subjectImage.current
       const { width: clientWidth, height: clientHeight } = svgImage
@@ -20,14 +22,7 @@ export default function useSubjectImage({ src, onReady, onError }) {
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
     }
-  }, [img, onReady, subjectImage])
-
-  useEffect(function logError() {
-    if (!loading && error) {
-      console.error(error)
-      onError(error)
-    }
-  }, [error, loading, onError])
+  }
 
   return { img, error, loading, subjectImage }
 }
