@@ -1,36 +1,24 @@
 import asyncStates from '@zooniverse/async-states'
 import { lazy, Suspense } from 'react'
-import { withStores } from '@helpers'
+import { MobXProviderContext } from 'mobx-react'
+import { useContext } from 'react'
 
 const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
 const DEFAULT_HANDLER = () => {}
 
-function storeMapper(classifierStore) {
-  const {
-    classifications: { addAnnotation },
-    workflowSteps: { activeStepTasks },
-  } = classifierStore
-
-  const activeTask = (activeStepTasks && activeStepTasks.length > 0)
-    ? activeStepTasks[0]
-    : null;
-  
-  return {
-    activeTask,
-    addAnnotation,
-  }
-}
-
 function VolumetricViewerWrapper({
-  activeTask,
-  addAnnotation = DEFAULT_HANDLER,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject,
 }) {
+  const stores = useContext(MobXProviderContext)
+  const addAnnotation = stores?.classifierStore?.classifications?.addAnnotation ?? DEFAULT_HANDLER
+  const activeStepTasks = stores?.classifierStore?.workflowSteps?.activeStepTasks ?? []
+
   function onAnnotationUpdate(annotations) {
-    addAnnotation(activeTask, annotations)
+    if (activeStepTasks[0])
+      addAnnotation(activeStepTasks[0], annotations)
   }
 
   return <Suspense fallback={<p>Suspense boundary</p>}>
@@ -44,5 +32,4 @@ function VolumetricViewerWrapper({
   </Suspense>
 }
 
-export default withStores(VolumetricViewerWrapper, storeMapper)
-export { VolumetricViewerWrapper }
+export default VolumetricViewerWrapper
