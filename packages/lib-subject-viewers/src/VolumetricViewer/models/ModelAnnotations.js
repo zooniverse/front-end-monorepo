@@ -1,6 +1,6 @@
 import { SortedSet, SortedSetUnion } from './../helpers/SortedSet.js'
 
-const THRESHOLD_DEFAULT = 30
+const THRESHOLD_DEFAULT = 15
 let ANNOTATION_COUNT = 0
 
 // Creates the base object for an Annotation
@@ -49,7 +49,7 @@ const History = {
   }
 }
 
-export const ModelAnnotations = () => {
+export const ModelAnnotations = ({ onAnnotation }) => {
   const annotationModel = {
     annotations: [],
     config: {
@@ -106,6 +106,11 @@ export const ModelAnnotations = () => {
             annotationIndex,
             annotations: annotationModel.annotations
           })
+
+          // Send to update handler
+          const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
+          annotationExport.forEach(a => a.points.all = a.points.all.data)
+          onAnnotation(annotationExport)
         },
         active: ({ index }) => {
           // Update the Annotation Data
@@ -206,6 +211,11 @@ export const ModelAnnotations = () => {
               annotationIndex: _index,
               annotations: annotationModel.annotations
             })
+
+            // Send to update handler
+            const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
+            annotationExport.forEach(a => a.points.all = a.points.all.data)
+            onAnnotation(annotationExport)
           }
         }
       }

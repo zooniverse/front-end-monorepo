@@ -19,6 +19,16 @@ describe("Model > VolumetricTask", function () {
     type: "single",
   }
 
+  const mockAnnotationsSnapshot = [{
+    label: `Test Annotation`,
+    threshold: 15,
+    points: {
+      active: [],
+      connected: [],
+      all: []
+    }
+  }]
+
   it("should exist", function () {
     const task = VolumetricTask.TaskModel.create(volumetricTask)
     expect(task).to.be.ok()
@@ -65,13 +75,13 @@ describe("Model > VolumetricTask", function () {
       annotation = task.defaultAnnotation()
     })
 
-    it("should start up with an empty string", function () {
-      expect(annotation.value).to.equal("")
+    it("should start up with an empty array", function () {
+      expect(annotation.value).to.deep.equal([])
     })
 
     it("should update annotations", function () {
-      annotation.update("Hello there!")
-      expect(annotation.value).to.equal("Hello there!")
+      annotation.update(mockAnnotationsSnapshot);
+      expect(annotation.value).to.deep.equal(mockAnnotationsSnapshot)
     })
   })
 })
