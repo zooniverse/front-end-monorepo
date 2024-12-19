@@ -4,11 +4,13 @@ import { number, object, string } from 'prop-types'
 import styled, { css, useTheme } from 'styled-components'
 import { useState } from 'react'
 
+/* RAW SVG FOR SLIDER | Needs to be URL encoded to view
 const SVGSlider = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'>
   <rect width='100%' height='100%' rx='8' ry='8' style='fill: rgb(0,93,105);' />
   <path d='M16 10 l-7 6 l7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/>
   <path d='M24 10 l7 6 l-7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/>
 </svg>`
+*/
 
 const StyledSlider = styled(Box)`
   align-items: center;
@@ -33,7 +35,7 @@ const StyledSlider = styled(Box)`
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml,${SVGSlider}");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Crect width='100%25' height='100%25' rx='8' ry='8' style='fill: rgb(0,93,105);' /%3E%3Cpath d='M16 10 l-7 6 l7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/%3E%3Cpath d='M24 10 l7 6 l-7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/%3E%3C/svg%3E");
     background-size: cover;
     cursor: pointer;
     height: 32px;
