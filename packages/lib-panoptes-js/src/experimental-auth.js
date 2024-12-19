@@ -293,9 +293,9 @@ Possible Errors:
  */
 async function signOut (_store) {
   const store = _store || globalStore
-  console.log('+++ experimental auth client: signOut()')
+  console.log('+++ experimental auth client: signOut()', store)
 
-  if (!store.user) return false
+  if (!store.userData) return false
 
   // Step 1: get a CSRF token.
   // - The CSRF token (or rather, the anti-cross-site request forgery token) is a
@@ -314,12 +314,13 @@ async function signOut (_store) {
   const csrfToken = response1?.headers.get('x-csrf-token')  // The CSRF Token is in the response header
   // Note: we don't actually care about the response body, which happens to be blank.
 
+  // Step 2: get bearer token.
   // ❗️ TODO: change this to getBearerToken()/checkBearerToken(), which checks
   // for a fresh bearer token.
   const bearerToken = store.bearerToken
   if (!bearerToken) return false
 
-  // Step 2: 
+  // Step 3: make sign out request.
   const request2 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_out`, {
     credentials: 'include',
     method: 'DELETE',
@@ -330,10 +331,21 @@ async function signOut (_store) {
     },
   })
   const response2 = await fetch(request2)
+  
+  // Extract data and check for errors.
+  if (!response2.ok) {
+    throw new Error('Error from API. No idea what went wrong')
+  } else if (response2.status !== 204) {
+    throw new Error('Error from API. Response status isn\'t 204.')
+  }
 
-  console.log('+++ response2: ', response2)
-  console.log('+++ response2.json: ', await response2.json())
-
+  // Step 4: update the store.
+  store.userData = null
+  store.bearerToken = '',
+  store.bearerTokenExpiry = NaN
+  store.refreshToken = ''
+  _broadcastEvent('change', null, store)
+  
   return true
 }
 
