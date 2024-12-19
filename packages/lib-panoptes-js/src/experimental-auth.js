@@ -35,9 +35,9 @@ Notes:
   nothing happens.
  */
 function addEventListener (eventType, listener, _store) {
-  console.log('+++ experimental auth client: addEventListener()')
-
   const store = _store || globalStore
+  console.log('+++ experimental auth client: addEventListener()')
+  
   if (!eventType || !listener) {
     console.log('Panoptes.js auth.addEventListener(): requires event type (string) and listener (callback function).')
     return false
@@ -101,6 +101,8 @@ Output: n/a
  */
 function _broadcastEvent (eventType, args, _store) {
   const store = _store || globalStore
+  console.log('+++ experimental auth client: broadcastEvent()')
+
   store.eventListeners?.[eventType]?.forEach(listener => {
     listener(args)
   })
@@ -133,7 +135,7 @@ Possible Errors:
  */
 async function signIn (login, password, _store) {
   const store = _store || globalStore
-  console.log('+++ experimental auth client: signIn() ', login, password)
+  console.log('+++ experimental auth client: signIn()')
 
   // Here's how to sign in to Panoptes!
 
@@ -272,6 +274,14 @@ async function signIn (login, password, _store) {
 }
 
 /*
+Sign out from the Zooniverse.
+ */
+async function signOut(_store) {
+  const store = _store || globalStore
+  console.log('+++ experimental auth client: signOut()')
+}
+
+/*
 Check for current signed-in Zooniverse user.
 This function attempts to check if there's currently a signed-in user. First,
 it checks the store to see if there's any user data. If there isn't, then it
@@ -299,6 +309,7 @@ Possible Errors:
  */
 async function checkCurrentUser (_store) {
   const store = _store || globalStore
+  console.log('+++ experimental auth client: checkCurrentUser() ')
 
   // Step 1: do we already have a user in the store?
   if (store.userData) {
@@ -432,6 +443,7 @@ export {
   checkCurrent,
   checkCurrentUser,
   signIn,
+  signOut,
   addEventListener,
   removeEventListener,
 }
