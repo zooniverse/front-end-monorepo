@@ -1,7 +1,8 @@
 import { ModelAnnotations } from './../models/ModelAnnotations'
 
 describe('Component > VolumetricViewer > ModelAnnotations', () => {
-  const model = ModelAnnotations()
+  const ANNOTATION_THRESHOLD = 15
+  const model = ModelAnnotations({ onAnnotation: () => {} })
   const viewerMock = {
     setPointsAnnotationIndex: () => {}
   }
@@ -44,7 +45,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations[0]).to.equal(obj.annotation)
 
       expect(obj.annotation.label).to.equal('Annotation 2')
-      expect(obj.annotation.threshold).to.equal(30)
+      expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([activePoint])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
       expect(obj.annotation.points.all.data).deep.to.equal([])
@@ -73,7 +74,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations[1]).to.equal(obj.annotation)
 
       expect(obj.annotation.label).to.equal('Annotation 3')
-      expect(obj.annotation.threshold).to.equal(30)
+      expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([pointToAdd])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
       expect(obj.annotation.points.all.data).deep.to.equal([])
@@ -139,7 +140,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations[1]).to.equal(obj.annotation)
 
       expect(obj.annotation.label).to.equal('Annotation 4')
-      expect(obj.annotation.threshold).to.equal(30)
+      expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([activePoint])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
       expect(obj.annotation.points.all.data).deep.to.equal([])
@@ -189,7 +190,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
           active: [2],
           connected: [[]]
         },
-        threshold: 30
+        threshold: 15
       },
       {
         label: 'Annotation 4',
@@ -197,7 +198,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
           active: [3, 4],
           connected: [[], []]
         },
-        threshold: 30
+        threshold: 15
       }
     ])
   })

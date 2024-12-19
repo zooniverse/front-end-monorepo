@@ -1,27 +1,21 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
-import { lazy, Suspense } from 'react'
-
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
-
-const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer'))
 
 function storeMapper(classifierStore) {
   const {
     subjects: { active: subject, loadingState: subjectQueueState },
     subjectViewer: { onSubjectReady, onError, loadingState: subjectReadyState },
-    projects: { active: project }
   } = classifierStore
 
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
   const transcriptionTasks = classifierStore?.workflowSteps.findTasksByType('transcription')
   const enableInteractionLayer = drawingTasks.length > 0 || transcriptionTasks.length > 0
-
+  
   return {
     enableInteractionLayer,
-    isVolumetricViewer: project?.isVolumetricViewer ?? false,
     onError,
     onSubjectReady,
     subject,
@@ -32,7 +26,6 @@ function storeMapper(classifierStore) {
 
 function SubjectViewer({
   enableInteractionLayer,
-  isVolumetricViewer,
   onError,
   onSubjectReady,
   subject,
@@ -53,23 +46,19 @@ function SubjectViewer({
       return null
     }
     case asyncStates.success: {
-      const Viewer = (isVolumetricViewer)
-        ? VolumetricViewer
-        : getViewer(subject?.viewer)
+      const Viewer = getViewer(subject?.viewer)
 
       if (Viewer) {
         return (
-          <Suspense fallback={<p>Suspense boundary</p>}>
-            <Viewer
-              enableInteractionLayer={enableInteractionLayer}
-              key={subject.id}
-              subject={subject}
-              loadingState={subjectReadyState}
-              onError={onError}
-              onReady={onSubjectReady}
-              viewerConfiguration={subject?.viewerConfiguration}
-            />
-          </Suspense>
+          <Viewer
+            enableInteractionLayer={enableInteractionLayer}
+            key={subject.id}
+            loadingState={subjectReadyState}
+            onError={onError}
+            onReady={onSubjectReady}
+            subject={subject}
+            viewerConfiguration={subject?.viewerConfiguration}
+          />
         )
       }
 
