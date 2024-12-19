@@ -275,10 +275,66 @@ async function signIn (login, password, _store) {
 
 /*
 Sign out from the Zooniverse.
+
+Input:
+- _store: (optional) data store. See default globalStore.
+Output:
+- true if user is successfully signed out, false otherwise (e.g. user wasn't
+  signed in to begin with.)
+- Throws an error on a network or API failure.
+Side Effects:
+- on success, _store's userData, bearerToken, bearerTokenExpiry, and
+  refreshToken are deleted.
+Events:
+- TODO
+Possible Errors:
+- Uncategorised network errors.
+- Note: if there's no user logged in, this isn't an error.
  */
-async function signOut(_store) {
+async function signOut (_store) {
   const store = _store || globalStore
   console.log('+++ experimental auth client: signOut()')
+
+  if (!store.user) return false
+
+  // Step 1: get a CSRF token.
+  // - The CSRF token (or rather, the anti-cross-site request forgery token) is a
+  //   unique, one-off, time-sensitive token. Kinda like the time-based OTPs
+  //   provided by apps like the Google Authenticator. 
+  // - This "authenticity token", as it will be later be called, prevents third
+  //   parties from simply replaying the HTTPs-encoded sign-in request.
+  // - In our case, the CSRF token is provided Panoptes itself.
+
+  const request1 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_in/?now=${Date.now()}`, {
+    credentials: 'include',
+    method: 'GET',
+    headers: PANOPTES_HEADERS,
+  })
+  const response1 = await fetch(request1)
+  const csrfToken = response1?.headers.get('x-csrf-token')  // The CSRF Token is in the response header
+  // Note: we don't actually care about the response body, which happens to be blank.
+
+  // ❗️ TODO: change this to getBearerToken()/checkBearerToken(), which checks
+  // for a fresh bearer token.
+  const bearerToken = store.bearerToken
+  if (!bearerToken) return false
+
+  // Step 2: 
+  const request2 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_out`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: {
+      ...PANOPTES_HEADERS,
+      'X-CSRF-Token': csrfToken,
+      'Authorization': `Bearer ${bearerToken}`,
+    },
+  })
+  const response2 = await fetch(request2)
+
+  console.log('+++ response2: ', response2)
+  console.log('+++ response2.json: ', await response2.json())
+
+  return true
 }
 
 /*
@@ -387,7 +443,7 @@ async function checkCurrentUser (_store) {
           // ...PANOPTES_HEADERS,  // ❗️ Don't use standard headers.
           'Content-Type': 'application/json',
           'Accept': 'application/vnd.api+json; version=1',
-          Authorization: `Bearer ${bearerToken}`
+          'Authorization': `Bearer ${bearerToken}`,
         },
       })
 
