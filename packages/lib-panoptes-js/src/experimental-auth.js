@@ -35,9 +35,9 @@ Notes:
   nothing happens.
  */
 function addEventListener (eventType, listener, _store) {
-  console.log('+++ experimental auth client: addEventListener()')
-
   const store = _store || globalStore
+  console.log('+++ experimental auth client: addEventListener()')
+  
   if (!eventType || !listener) {
     console.log('Panoptes.js auth.addEventListener(): requires event type (string) and listener (callback function).')
     return false
@@ -101,6 +101,8 @@ Output: n/a
  */
 function _broadcastEvent (eventType, args, _store) {
   const store = _store || globalStore
+  console.log('+++ experimental auth client: broadcastEvent()')
+
   store.eventListeners?.[eventType]?.forEach(listener => {
     listener(args)
   })
@@ -133,7 +135,7 @@ Possible Errors:
  */
 async function signIn (login, password, _store) {
   const store = _store || globalStore
-  console.log('+++ experimental auth client: signIn() ', login, password)
+  console.log('+++ experimental auth client: signIn()')
 
   // Here's how to sign in to Panoptes!
 
@@ -272,6 +274,89 @@ async function signIn (login, password, _store) {
 }
 
 /*
+Sign out from the Zooniverse.
+This action attempts to sign the user out of the Panoptes system. If successful,
+the function returns true. If unsuccessful - because no user was signed in to
+begin with - it returns false.
+
+NOTE: previously, in old PJC, if there was no user signed in, an error was
+thrown.
+
+Input:
+- _store: (optional) data store. See default globalStore.
+Output:
+- true if user is successfully signed out, false otherwise (e.g. user wasn't
+  signed in to begin with.)
+- Throws an error on a network or API failure.
+Side Effects:
+- on success, _store's userData, bearerToken, bearerTokenExpiry, and
+  refreshToken are reset to null/empty strings/NaNs.
+Events:
+- "change": when the user successfully signs out, a null is broadcasted with
+  the event, to indicate the Panoptes User is now deleted.
+Possible Errors:
+- Uncategorised network errors.
+- Note: if there's no user logged in, this isn't an error.
+ */
+async function signOut (_store) {
+  const store = _store || globalStore
+  console.log('+++ experimental auth client: signOut()', store)
+
+  if (!store.userData) return false
+
+  // Step 1: get a CSRF token.
+  // - The CSRF token (or rather, the anti-cross-site request forgery token) is a
+  //   unique, one-off, time-sensitive token. Kinda like the time-based OTPs
+  //   provided by apps like the Google Authenticator. 
+  // - This "authenticity token", as it will be later be called, prevents third
+  //   parties from simply replaying the HTTPs-encoded sign-in request.
+  // - In our case, the CSRF token is provided Panoptes itself.
+
+  const request1 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_in/?now=${Date.now()}`, {
+    credentials: 'include',
+    method: 'GET',
+    headers: PANOPTES_HEADERS,
+  })
+  const response1 = await fetch(request1)
+  const csrfToken = response1?.headers.get('x-csrf-token')  // The CSRF Token is in the response header
+  // Note: we don't actually care about the response body, which happens to be blank.
+
+  // Step 2: get bearer token.
+  // ❗️ TODO: change this to getBearerToken()/checkBearerToken(), which checks
+  // for a fresh bearer token.
+  const bearerToken = store.bearerToken
+  if (!bearerToken) return false
+
+  // Step 3: make sign out request.
+  const request2 = new Request(`https://panoptes-staging.zooniverse.org/users/sign_out`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: {
+      ...PANOPTES_HEADERS,
+      'X-CSRF-Token': csrfToken,
+      'Authorization': `Bearer ${bearerToken}`,
+    },
+  })
+  const response2 = await fetch(request2)
+  
+  // Extract data and check for errors.
+  if (!response2.ok) {
+    throw new Error('Error from API. No idea what went wrong')
+  } else if (response2.status !== 204) {
+    throw new Error('Error from API. Response status isn\'t 204.')
+  }
+
+  // Step 4: update the store.
+  store.userData = null
+  store.bearerToken = '',
+  store.bearerTokenExpiry = NaN
+  store.refreshToken = ''
+  _broadcastEvent('change', null, store)
+  
+  return true
+}
+
+/*
 Check for current signed-in Zooniverse user.
 This function attempts to check if there's currently a signed-in user. First,
 it checks the store to see if there's any user data. If there isn't, then it
@@ -299,6 +384,7 @@ Possible Errors:
  */
 async function checkCurrentUser (_store) {
   const store = _store || globalStore
+  console.log('+++ experimental auth client: checkCurrentUser() ')
 
   // Step 1: do we already have a user in the store?
   if (store.userData) {
@@ -376,7 +462,7 @@ async function checkCurrentUser (_store) {
           // ...PANOPTES_HEADERS,  // ❗️ Don't use standard headers.
           'Content-Type': 'application/json',
           'Accept': 'application/vnd.api+json; version=1',
-          Authorization: `Bearer ${bearerToken}`
+          'Authorization': `Bearer ${bearerToken}`,
         },
       })
 
@@ -432,6 +518,7 @@ export {
   checkCurrent,
   checkCurrentUser,
   signIn,
+  signOut,
   addEventListener,
   removeEventListener,
 }
