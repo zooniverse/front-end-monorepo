@@ -275,6 +275,12 @@ async function signIn (login, password, _store) {
 
 /*
 Sign out from the Zooniverse.
+This action attempts to sign the user out of the Panoptes system. If successful,
+the function returns true. If unsuccessful - because no user was signed in to
+begin with - it returns false.
+
+NOTE: previously, in old PJC, if there was no user signed in, an error was
+thrown.
 
 Input:
 - _store: (optional) data store. See default globalStore.
@@ -284,9 +290,10 @@ Output:
 - Throws an error on a network or API failure.
 Side Effects:
 - on success, _store's userData, bearerToken, bearerTokenExpiry, and
-  refreshToken are deleted.
+  refreshToken are reset to null/empty strings/NaNs.
 Events:
-- TODO
+- "change": when the user successfully signs out, a null is broadcasted with
+  the event, to indicate the Panoptes User is now deleted.
 Possible Errors:
 - Uncategorised network errors.
 - Note: if there's no user logged in, this isn't an error.
