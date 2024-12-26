@@ -1,4 +1,4 @@
-import { Box, DropButton } from 'grommet'
+import { Box, Button, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
 import { useRef } from 'react';
 import styled from 'styled-components'
@@ -6,7 +6,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
 import Characteristics from '../Characteristics'
-import FilterButton from '../components/FilterButton'
+import FilterLabel from '../components/FilterLabel'
 import FilterIcon from './FilterIcon'
 
 const StyledDropButton = styled(DropButton)`
@@ -113,15 +113,19 @@ export default function FilterStatus ({
         }
 
         return (
-          <FilterButton
+          <Button
             key={`${characteristicId}-${selectedValueId}`}
-            buttonSize='small'
-            characteristicId={characteristicId}
-            checked
-            onDelete={clearSelection}
-            valueId={selectedValueId}
-            valueImageSrc={valueImageSrc}
-            valueLabel={label}
+            label={
+              <FilterLabel
+                characteristicId={characteristicId}
+                selected={true}
+                valueId={selectedValueId}
+                valueImageSrc={valueImageSrc}
+                valueLabel={label}
+              />
+            }
+            onClick={clearSelection}
+            plain
           />
         )
       })}

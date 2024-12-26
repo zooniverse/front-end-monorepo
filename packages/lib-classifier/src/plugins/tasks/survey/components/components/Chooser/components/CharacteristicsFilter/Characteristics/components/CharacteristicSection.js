@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useCallback } from 'react';
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import FilterButton from '../../components/FilterButton'
+import FilterLabel from '../../components/FilterLabel'
 
 const defaultCharacteristic = {
   values: {},
@@ -25,22 +25,13 @@ export default function CharacteristicSection({
     [characteristicId, onFilter]
   )
   const radioButtonLabel = useCallback((option, { checked, focus, hover }) => {
-    function clearSelection(event) {
-      /*
-      This is a workaround to prevent the label from being clicked in Chrome, when the radio
-      button is already checked. However, it makes the delete function hard to use from the keyboard.
-      */
-      event.preventDefault()
-      return onFilter(characteristicId)
-    }
     return (
-      <FilterButton
+      <FilterLabel
         characteristicId={characteristicId}
         characteristicLabel={label}
         checked={checked}
         focus={focus}
         hover={hover}
-        onDelete={clearSelection}
         valueId={option.value}
         valueImageSrc={option.imageSrc}
         valueLabel={option.label}

@@ -4,11 +4,10 @@ import { task } from '@plugins/tasks/survey/mock-data'
 import CharacteristicSection from './CharacteristicSection'
 
 const mockTask = SurveyTask.TaskModel.create(task)
-const characteristicLike = mockTask.characteristics.LK
+const characteristicLike = mockTask.characteristics.get('LK')
 
 export default {
-  title:
-    'Tasks / Survey / Chooser / CharacteristicsFilter / CharacteristicSection',
+  title: 'Tasks / Survey / Chooser / CharacteristicsFilter / CharacteristicSection',
   component: CharacteristicSection,
   args: {
     selectedValueId: ''
@@ -16,7 +15,7 @@ export default {
   argTypes: {
     selectedValueId: {
       type: 'select',
-      options: mockTask.characteristics.LK.valuesOrder
+      options: characteristicLike.valuesOrder
     }
   }
 }

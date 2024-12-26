@@ -1,7 +1,6 @@
 import { Box, Image } from 'grommet'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { CloseButton } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
 export const StyledFilter = styled(Box)`
@@ -10,68 +9,57 @@ export const StyledFilter = styled(Box)`
       `0 0 2px 2px ${props.theme.global.colors.brand};` 
       : 'none'
   };
-
-  button {
-    position: absolute;
-  }
 `
 
-export default function FilterButton ({
-  buttonSize = 'medium',
+export default function FilterLabel({
   characteristicId = '',
   checked = false,
   focus = false,
   hover = false,
-  onDelete = () => {},
+  selected = false,
   valueId = '',
   valueImageSrc = '',
   valueLabel = ''
 }) {
   const { t } = useTranslation('plugins')
 
-  const backgroundColor = checked ? 'accent-1' : 'neutral-6'
-  const marginPerSize = buttonSize === 'small' ? 'none' : { bottom: 'xsmall' }
-  const containerSize = buttonSize === 'small' ? '30px' : '40px'
-  const mediaSize = buttonSize === 'small' ? '18px' : '25px'
+  const backgroundColor = (checked || selected) ? 'accent-1' : 'neutral-6'
+  const containerWidth = selected ? '60px' : '40px'
 
   return (
     <StyledFilter
       align='center'
       background={{ color: backgroundColor }}
       data-testid={`filter-${characteristicId}-${valueId}`}
+      direction='row'
       focus={focus}
-      height={containerSize}
+      height='40px'
       hover={hover}
       justify='center'
-      margin={marginPerSize}
-      round='full'
-      width={containerSize}
+      margin={{ bottom: 'xsmall' }}
+      round='medium'
+      width={containerWidth}
     >
       <Image
         alt={valueLabel}
         fit='contain'
-        height={mediaSize}
+        height='25px'
         src={valueImageSrc}
-        width={mediaSize}
+        width='25px'
       />
-      {checked && (
-        <CloseButton
-          aria-label={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel })}
-          data-testid={`remove-filter-${characteristicId}-${valueId}`}
-          closeFn={onDelete}
-        />
+      {selected && (
+        <>&times;</>
       )}
     </StyledFilter>
   )
 }
 
-FilterButton.propTypes = {
-  buttonSize: PropTypes.string,
+FilterLabel.propTypes = {
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
   focus: PropTypes.bool,
   hover: PropTypes.bool,
-  onDelete: PropTypes.func,
+  selected: PropTypes.bool,
   valueId: PropTypes.string,
   valueImageSrc: PropTypes.string,
   valueLabel: PropTypes.string
