@@ -14,7 +14,7 @@ export const ModelViewer = () => {
     planesAbsoluteSets: [[], [], []],
     planeFrameActive: [0, 0, 0],
     points: [],
-    threshold: { min: 0, max: 255 },
+    threshold: { min: 5, max: 255 },  // min of 5 cuts out missing data noise
     // initialize
     initialize: ({ data }) => {
       pointModel.data = Buffer.from(data, 'base64')

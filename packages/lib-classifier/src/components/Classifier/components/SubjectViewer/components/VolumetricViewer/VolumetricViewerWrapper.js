@@ -22,7 +22,6 @@ function VolumetricViewerWrapper({
   }
 
   const config = {
-    annotations: [],
     loadingState,
     onAnnotation: onAnnotationUpdate,
     onError,

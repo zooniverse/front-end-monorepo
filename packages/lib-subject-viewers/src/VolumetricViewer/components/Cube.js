@@ -158,16 +158,16 @@ export const Cube = ({ annotations, tool, viewer }) => {
     const half = viewer.base / 2
 
     const points = [
-      [
+      [ // Y
         [1, 1, -1],
         [-1, 1, -1],
         [-1, 1, 1]
       ],
-      [
+      [ // Z
         [-1, 1, 1],
         [-1, -1, 1],
         [1, -1, 1]
-      ],
+      ], // X
       [
         [1, -1, 1],
         [1, -1, -1],

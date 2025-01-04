@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react'
 const StyledBox = styled(Box)`
   max-width: 195px;
 `
-
+const HISTOGRAM_MIN = 5
+const HISTOGRAM_MAX = 255
 const MAX_HEIGHT = 30
 
 export const Histogram = ({ viewer }) => {
@@ -71,9 +72,9 @@ export const Histogram = ({ viewer }) => {
       </svg>
       <InputRangeDual
         onChange={(min, max) => viewer.setThreshold({ min, max })}
-        valueMax={255}
+        valueMax={HISTOGRAM_MAX}
         valueMaxCurrent={viewer.threshold.max}
-        valueMin={0}
+        valueMin={HISTOGRAM_MIN}
         valueMinCurrent={viewer.threshold.min}
       />
     </StyledBox>

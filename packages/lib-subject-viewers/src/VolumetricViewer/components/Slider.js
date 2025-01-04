@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import { ForwardTen } from 'grommet-icons'
 import { number, object, string } from 'prop-types'
 import styled, { css, useTheme } from 'styled-components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /* RAW SVG FOR SLIDER | Needs to be URL encoded to view
 const SVGSlider = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'>
@@ -65,13 +65,22 @@ const StyledSlider = styled(Box)`
 export const Slider = ({ dimension, viewer }) => {
   const [active, setActive] = useState(false)
 
+  useEffect(() => {
+    // if the advance-10 button is held, allow us to automatically advance the frame
+    const interval = setInterval(() => {
+      if (active) advanceFrame();
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [active]);
+
   const theme = useTheme()
   const iconColor = (theme.dark)
     ? (active) ? '#FFFFFF' : '#FFFFFF'
     : (active) ? '#FFFFFF' : '#000000'
 
   function inChange (e) {
-    viewer.setPlaneFrameActive({ dimension, frame: e.target.value })
+    viewer.setPlaneFrameActive({ dimension, frame: +e.target.value })
   }
 
   function inMouseDown () {
@@ -80,7 +89,10 @@ export const Slider = ({ dimension, viewer }) => {
 
   function inMouseUp () {
     setActive(false)
+    advanceFrame();
+  }
 
+  function advanceFrame() {
     viewer.setPlaneFrameActive({
       dimension,
       frame: (viewer.getPlaneFrameIndex({ dimension }) + 10) % viewer.base

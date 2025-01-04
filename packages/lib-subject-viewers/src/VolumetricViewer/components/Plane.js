@@ -63,11 +63,8 @@ const StyledBox = styled(Box)`
 
     .plane-title-frame {
       flex: 1;
-
-      &.collapsed {
-        font-size: 16px !important;
-        line-height: 18.7px;
-      }
+      font-size: 16px !important;
+      line-height: 18.7px;
     }
 
     .plane-title-label {
@@ -104,7 +101,8 @@ export const Plane = ({
   tool,
   viewer
 }) => {
-  const [expanded, setExpanded] = useState(false)
+  // Default open the X/0 frame
+  const [expanded, setExpanded] = useState(dimension === 0)
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
@@ -219,7 +217,7 @@ export const Plane = ({
     <StyledBox className={`plane-container plane-container-${dimension} ${expanded ? 'expanded' : 'collapsed'}`} ref={containerRef}>
       <Box className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}>
         <Box className='plane-title-dimension'>{viewer.getDimensionLabel({ dimension })}</Box>
-        <Box className={`plane-title-frame ${expanded ? 'expanded' : 'collapsed'}`}>{currentFrameIndex}</Box>
+        <Box className={`plane-title-frame`}>{expanded ? currentFrameIndex : ' '}</Box>
         <Box className='plane-title-label'>
           {expanded ? 'Collapse' : 'Expand'}
         </Box>
