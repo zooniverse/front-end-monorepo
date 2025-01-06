@@ -96,6 +96,30 @@
       "title": "Top Contributors"
     }
   },
+  "HeaderDropdown": {
+    "label": "Group Options"
+  },
+  "MainContent": {
+    "allProjects": "All Projects",
+    "calendarTitle": "Custom Date Range",
+    "calendarBtn": "Done",
+    "certificate": "Generate Volunteer Certificate",
+    "dateRange": {
+      "allTime": "All Time",
+      "custom": "Custom",
+      "lastSevenDays": "Last 7 Days",
+      "lastThirtyDays": "Last 30 Days",
+      "lastThreeMonths": "Last 3 Months",
+      "lastTwelveMonths": "Last 12 Months",
+      "thisMonth": "This Month",
+      "thisYear": "This Year"
+    },
+    "error": "There was an error.",
+    "hoursTip": "Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.",
+    "noData": "No data found.",
+    "start": "Start by <0>classifying a project</0> now, or change the date range.",
+    "tabContents": "Tab Contents"
+  },
   "MyGroups": {
     "createNew": "Create new group",
     "error": "There was an error fetching your groups",
@@ -109,6 +133,9 @@
     "PreviewLayout": {
       "seeAll": "See all"
     }
+  },
+  "TopProjects": {
+    "title": "Top Projects"
   },
   "UserHome": {
     "Dashboard": {

@@ -7,6 +7,7 @@ const StyledTab = styled(Button)`
   color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
   font-size: 1em;
   text-align: center;
+  text-transform: uppercase;
 
   ${props => props.active && css`
     border-bottom: 4px solid ${props.theme.global.colors['neutral-1']};
