@@ -1,4 +1,5 @@
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useTranslation } from '../../translations/i18n.js'
 
 import {
   HeaderLink,
@@ -39,6 +40,8 @@ function UserStats({
   setSelectedProject = DEFAULT_HANDLER,
   user = DEFAULT_USER
 }) {
+  const { t } = useTranslation()
+
   // set stats based on selected project
   const stats = selectedProject ? projectStats : allProjectsStats
   const totalProjects = allProjectsStats?.project_contributions?.length
@@ -48,7 +51,7 @@ function UserStats({
       primaryHeaderItem={
         <HeaderLink
           href='/'
-          label='back'
+          label={t('common.back')}
           primaryItem={true}
         />
       }

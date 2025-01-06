@@ -2,6 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { SubtractCircle } from 'grommet-icons'
 import { bool, func, string } from 'prop-types'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import { HeaderButton } from '@components/shared'
 
@@ -12,13 +13,14 @@ function DeactivatedGroup({
   deleteMembershipLoading = false,
   membershipId
 }) {
+  const { t } = useTranslation()
   async function handleGroupMembershipLeave ({
     membershipId
   }) {
     await deleteMembership({ membershipId }, {
       revalidate: true
     })
-  
+
     window.location.href = '/'
   }
 
@@ -29,8 +31,7 @@ function DeactivatedGroup({
       gap='medium'
     >
       <SpacedText uppercase={false}>
-        This is a deactivated group.
-        Please leave the group or contact the group administrator if you believe this is an error.
+        {t('GroupContainer.deactivated')}
       </SpacedText>
       {deleteMembershipLoading ? (
         <Loader />
@@ -38,7 +39,7 @@ function DeactivatedGroup({
         <HeaderButton
           key='leave-group-button'
           icon={<SubtractCircle color='white' size='small' />}
-          label='Leave Group'
+          label={t('GroupContainer.leaveGroup')}
           onClick={() => handleGroupMembershipLeave({
             membershipId,
           })}

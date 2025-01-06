@@ -29,35 +29,35 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       // the following expected values are based on the UTC date April 15, 11PM, **NOT** the user's date of April 16, 1AM
       expect(dateRangeOptions).to.deep.equal([
         {
-          label: 'LAST 7 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
           value: '2023-04-09'
         },
         {
-          label: 'LAST 30 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHIRTYDAYS',
           value: '2023-03-17'
         },
         {
-          label: 'THIS MONTH',
+          label: 'MAINCONTENT.DATERANGE.THISMONTH',
           value: '2023-04-01'
         },
         {
-          label: 'LAST 3 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHREEMONTHS',
           value: '2023-01-15'
         },
         {
-          label: 'THIS YEAR',
+          label: 'MAINCONTENT.DATERANGE.THISYEAR',
           value: '2023-01-01'
         },
         {
-          label: 'LAST 12 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTWELVEMONTHS',
           value: '2022-05-01'
         },
         {
-          label: 'ALL TIME',
+          label: 'MAINCONTENT.DATERANGE.ALLTIME',
           value: '2015-07-01'
         },
-        { 
-          label: 'CUSTOM',
+        {
+          label: 'MAINCONTENT.DATERANGE.CUSTOM',
           value: 'custom'
         }
       ])
@@ -72,14 +72,14 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
         }
       })
       expect(selectedDateRangeOption).to.deep.equal({
-        label: 'LAST 7 DAYS',
+        label: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
         value: '2023-04-09'
       })
     })
   })
 
   describe('when the user\'s date is the day before UTC', function () {
-      
+
     beforeEach(function () {
       // Set the user's clock April 14, 11PM, in a timezone 2 hours behind UTC,
       // so that the UTC date is April 15, 1AM
@@ -102,35 +102,35 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       // the following expected values are based on the UTC date April 15, 1AM, **NOT** the user's date of April 14, 11PM
       expect(dateRangeOptions).to.deep.equal([
         {
-          label: 'LAST 7 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
           value: '2023-04-09'
         },
         {
-          label: 'LAST 30 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHIRTYDAYS',
           value: '2023-03-17'
         },
         {
-          label: 'THIS MONTH',
+          label: 'MAINCONTENT.DATERANGE.THISMONTH',
           value: '2023-04-01'
         },
         {
-          label: 'LAST 3 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHREEMONTHS',
           value: '2023-01-15'
         },
         {
-          label: 'THIS YEAR',
+          label: 'MAINCONTENT.DATERANGE.THISYEAR',
           value: '2023-01-01'
         },
         {
-          label: 'LAST 12 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTWELVEMONTHS',
           value: '2022-05-01'
         },
         {
-          label: 'ALL TIME',
+          label: 'MAINCONTENT.DATERANGE.ALLTIME',
           value: '2015-07-01'
         },
-        { 
-          label: 'CUSTOM',
+        {
+          label: 'MAINCONTENT.DATERANGE.CUSTOM',
           value: 'custom'
         }
       ])
@@ -145,7 +145,7 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
         }
       })
       expect(selectedDateRangeOption).to.deep.equal({
-        label: 'LAST 7 DAYS',
+        label: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
         value: '2023-04-09'
       })
     })
@@ -171,31 +171,31 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       })
       expect(dateRangeOptions).to.deep.equal([
         {
-          label: 'LAST 7 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
           value: '2023-04-09'
         },
         {
-          label: 'LAST 30 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHIRTYDAYS',
           value: '2023-03-17'
         },
         {
-          label: 'THIS MONTH',
+          label: 'MAINCONTENT.DATERANGE.THISMONTH',
           value: '2023-04-01'
         },
         {
-          label: 'LAST 3 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHREEMONTHS',
           value: '2023-01-15'
         },
         {
-          label: 'THIS YEAR',
+          label: 'MAINCONTENT.DATERANGE.THISYEAR',
           value: '2023-01-01'
         },
         {
-          label: 'LAST 12 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTWELVEMONTHS',
           value: '2022-05-01'
         },
         {
-          label: 'ALL TIME',
+          label: 'MAINCONTENT.DATERANGE.ALLTIME',
           value: '2015-11-01'
         },
         {
@@ -240,35 +240,35 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       })
       expect(dateRangeOptions).to.deep.equal([
         {
-          label: 'LAST 7 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
           value: '2023-04-09'
         },
         {
-          label: 'LAST 30 DAYS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHIRTYDAYS',
           value: '2023-03-17'
         },
         {
-          label: 'THIS MONTH',
+          label: 'MAINCONTENT.DATERANGE.THISMONTH',
           value: '2023-04-01'
         },
         {
-          label: 'LAST 3 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTHREEMONTHS',
           value: '2023-01-15'
         },
         {
-          label: 'THIS YEAR',
+          label: 'MAINCONTENT.DATERANGE.THISYEAR',
           value: '2023-01-01'
         },
         {
-          label: 'LAST 12 MONTHS',
+          label: 'MAINCONTENT.DATERANGE.LASTTWELVEMONTHS',
           value: '2022-05-01'
         },
         {
-          label: 'ALL TIME',
+          label: 'MAINCONTENT.DATERANGE.ALLTIME',
           value: '2020-04-15'
         },
-        { 
-          label: 'CUSTOM',
+        {
+          label: 'MAINCONTENT.DATERANGE.CUSTOM',
           value: 'custom'
         }
       ])

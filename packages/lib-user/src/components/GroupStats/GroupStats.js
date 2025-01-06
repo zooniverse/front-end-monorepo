@@ -2,6 +2,7 @@ import { Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useContext, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
+import { useTranslation } from '../../translations/i18n.js'
 
 import {
   usePanoptesProjects,
@@ -40,10 +41,11 @@ function GroupStats({
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
+  const { t } = useTranslation()
   const [groupModalActive, setGroupModalActive] = useState(false)
 
   const size = useContext(ResponsiveContext)
-  
+
   // define user_group membership key
   const membershipKey = {
     authUserId: authUser?.id,
@@ -55,7 +57,7 @@ function GroupStats({
   // define user_group membership delete mutation
   const { trigger: deleteMembership } = useSWRMutation(membershipKey, deletePanoptesMembership)
 
-  const showTopContributors = adminMode 
+  const showTopContributors = adminMode
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
@@ -66,7 +68,7 @@ function GroupStats({
   if (showTopContributors) {
     allProjectsStatsQuery.top_contributors = 10
   }
-  
+
   const {
     data: allProjectsStats,
     error: statsError,
@@ -77,14 +79,14 @@ function GroupStats({
     sourceId: paramsValidationMessage ? null : group?.id,
     query: allProjectsStatsQuery
   })
-  
+
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   if (showTopContributors) {
     projectStatsQuery.top_contributors = 10
   }
-  
+
   const {
     data: projectStats,
     error: projectStatsError,
@@ -109,7 +111,7 @@ function GroupStats({
     error: topContributorsError,
     isLoading: topContributorsLoading
   } = usePanoptesUsers(usersQuery)
-  
+
   // fetch projects
   const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
   const projectsQuery = {
@@ -135,13 +137,13 @@ function GroupStats({
   async function handleGroupMembershipLeave ({
     membershipId
   }) {
-    const userConfirmed = window.confirm('Are you sure you want to leave this group?')
+    const userConfirmed = window.confirm(t('GroupStats.leaveQuestion'))
     if (!userConfirmed) return
 
     await deleteMembership({ membershipId }, {
       revalidate: true
     })
-  
+
     window.location.href = '/'
   }
 
@@ -152,7 +154,8 @@ function GroupStats({
     group,
     handleGroupMembershipLeave,
     handleGroupModalActive,
-    membership
+    membership,
+    t
   })
 
   const error = statsError || projectStatsError || projectsError
@@ -163,7 +166,7 @@ function GroupStats({
       <GroupModal
         active={groupModalActive}
         handleClose={handleGroupModalActive}
-        title='manage group'
+        title={t('GroupStats.manage')}
         titleColor='black'
       >
         <GroupUpdateFormContainer

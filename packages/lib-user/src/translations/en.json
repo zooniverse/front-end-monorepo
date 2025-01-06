@@ -3,7 +3,19 @@
     "avatarAlt": "{{login}} avatar",
     "back": "Back",
     "classifications": "Classifications",
-    "hours": "Hours"
+    "contributors": "Contributors",
+    "hours": "Hours",
+    "projects": "Projects"
+  },
+  "BarChart": {
+    "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
+    "day": "Day",
+    "hourAbbrev": "hrs",
+    "minAbbrev": "min",
+    "monthOf": "Month of",
+    "time": "Time",
+    "weekOf": "Week of",
+    "year": "Year"
   },
   "Contributors": {
     "error": "There was an error",
@@ -18,6 +30,135 @@
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"
+    }
+  },
+  "GroupContainer": {
+    "deactivated": "This is a deactivated group. Please leave the group or contact the group administrator if you believe this is an error.",
+    "leaveGroup": "Leave Group",
+    "loginToJoin": "Log in to join the group.",
+    "joined": "New Group Joined!",
+    "joinFail": "Join failed.",
+    "joining": "Joining group...",
+    "notFound": "Group not found",
+    "noAuth": "You must be logged in to access a private group."
+  },
+  "GroupForm": {
+    "anyone": "you can share this group with anyone",
+    "createNew": "Create new group",
+    "deactivate": "Deactivate Group",
+    "deactivateHelp": "Are you sure you want to delete this group?",
+    "greaterThanChar": "must be > 3 characters",
+    "lessThanChar": "must be < 60 characters",
+    "name": "Group Name",
+    "nameHelp": "By creating a new Group you will become the admin.",
+    "onlyMembers": "only members can view this group",
+    "private": "Private",
+    "privateAggOnly": "No, don't show individual stats to members",
+    "privateShowAggAndInd": "Yes, show individual stats to members",
+    "public": "Public",
+    "publicAggOnly": "No, never show individual stats",
+    "publicAggShowInd": "Yes, show individual stats if member",
+    "publicShowAll": "Yes, always show individual stats",
+    "pubVis": "Public Visibility",
+    "saveChanges": "Save changes",
+    "showInd": "Show Individual Stats",
+    "showIndHelp": "Admin can always see individual stats.",
+    "showIndInfo": "You can add all other members via a Join Link after creating the new group below.",
+    "visibility": "Stats Visibility"
+  },
+  "GroupStats": {
+    "leaveQuestion": "Are you sure you want to leave this group?",
+    "manage": "Manage Group",
+    "headerItems": {
+      "all": "All My Groups",
+      "copy": "Copy Join Link",
+      "copied": "Group Link Copied!",
+      "leave": "Leave Group",
+      "share": "Share Group"
+    },
+    "GroupUpdateFormContainer": {
+      "error": "Something went wrong. Please try again."
+    },
+    "MembersList": {
+      "title": "Group Members",
+      "warning": "Removing a member inactivates their membership in the group. They will no longer have access to the group, but contributions while a member will persist."
+    },
+    "MemberListItem": {
+      "a11y": "Menu to update or remove {{name}}'s group membership",
+      "giveAdmin": "Give admin access",
+      "remove": "Remove member",
+      "removeAdmin": "Remove admin access"
+    },
+    "TopContributors": {
+      "error": "There was an error fetching the top contributors.",
+      "linkLabel": "See all contributors and detailed stats",
+      "tip": "Includes active and inactive members.",
+      "title": "Top Contributors"
+    }
+  },
+  "HeaderDropdown": {
+    "label": "Group Options"
+  },
+  "MainContent": {
+    "allProjects": "All Projects",
+    "calendarTitle": "Custom Date Range",
+    "calendarBtn": "Done",
+    "certificate": "Generate Volunteer Certificate",
+    "dateRange": {
+      "allTime": "All Time",
+      "custom": "Custom",
+      "lastSevenDays": "Last 7 Days",
+      "lastThirtyDays": "Last 30 Days",
+      "lastThreeMonths": "Last 3 Months",
+      "lastTwelveMonths": "Last 12 Months",
+      "thisMonth": "This Month",
+      "thisYear": "This Year"
+    },
+    "error": "There was an error.",
+    "hoursTip": "Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.",
+    "noData": "No data found.",
+    "start": "Start by <0>classifying a project</0> now, or change the date range.",
+    "tabContents": "Tab Contents"
+  },
+  "MyGroups": {
+    "createNew": "Create new group",
+    "error": "There was an error fetching your groups",
+    "learnMore": "Learn more about groups",
+    "noGroups": "You are not a member of any Groups.<0/>Create one below",
+    "title": "My Groups",
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "PreviewLayout": {
+      "seeAll": "See all"
+    }
+  },
+  "TopProjects": {
+    "title": "Top Projects"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "All Time",
+      "collections": "Collections",
+      "comments": "Comments",
+      "favorites": "Favorites",
+      "messages": "Messages",
+      "moreStats": "More Stats",
+      "thisWeek": "This Week"
+    },
+    "RecentProjects": {
+      "error": "There was an error fetching your recent projects",
+      "noProjects": "No Recent Projects found",
+      "start": "Start by <0>classifying any project</0>.",
+      "title": "Continue Classifying"
+    },
+    "RecentSubjects": {
+      "error": "There was an error fetching recent classifications",
+      "noSubjects": "No recent classifications found"
+    },
+    "SubjectCard": {
+      "subject": "Subject"
     }
   }
 }
