@@ -1,11 +1,17 @@
 import { Select as GrommetSelect, ThemeContext } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 import selectTheme from './theme'
 
 const DEFAULT_HANDLER = () => {}
 const DEFAULT_VALUE = { label: '', value: '' }
+
+const StyledSelect = styled(GrommetSelect)`
+  text-align: center;
+  text-transform: uppercase;
+`
 
 function Select({
   id = '',
@@ -27,7 +33,7 @@ function Select({
 
   return (
     <ThemeContext.Extend value={selectTheme}>
-      <GrommetSelect
+      <StyledSelect
         a11yTitle={name}
         id={id}
         name={name}
@@ -35,7 +41,6 @@ function Select({
         onChange={({ option }) => handleSelect(option)}
         options={options}
         size='medium'
-        style={{ textAlign: 'center' }}
         value={selected}
       />
     </ThemeContext.Extend>
