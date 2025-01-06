@@ -43,3 +43,8 @@ export const Default = {
     loading: false
   }
 }
+
+export const Empty = {
+  groups: [],
+  loading: false
+}

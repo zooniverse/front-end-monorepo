@@ -3,6 +3,7 @@ import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useTranslation, Trans } from '../../../translations/i18n.js'
 
 import {
   convertStatsSecondsToHours,
@@ -51,6 +52,7 @@ function MainContent({
   source = DEFAULT_SOURCE,
   totalProjects = 0
 }) {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
@@ -74,10 +76,11 @@ function MainContent({
   const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
     sourceCreatedAtDate,
     paramsValidationMessage,
-    selectedDateRange
+    selectedDateRange,
+    t
   })
 
-  const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject })
+  const { projectOptions, selectedProjectOption } = getProjectSelectOptions({ projects, selectedProject, t })
 
   const todayUTC = getStatsDateString(new Date())
 
@@ -123,7 +126,7 @@ function MainContent({
         active={showCalendar}
         closeFn={handleCalendarClose}
         position='top'
-        title='Custom Date Range'
+        title={t('MainContent.calendarTitle')}
       >
         <Calendar
           bounds={[
@@ -140,7 +143,7 @@ function MainContent({
           margin={{ top: 'small' }}
         >
           <StyledCalendarButton
-            label='DONE'
+            label={t('MainContent.calendarBtn')}
             onClick={handleCalendarSave}
           />
         </Box>
@@ -179,7 +182,7 @@ function MainContent({
                 aria-expanded={activeTab === 0}
                 aria-selected={activeTab === 0}
                 active={activeTab === 0}
-                label='CLASSIFICATIONS'
+                label={t('common.classifications')}
                 onClick={() => handleActiveTab(0)}
                 plain
                 fill={size === 'small' ? 'horizontal' : false}
@@ -189,14 +192,14 @@ function MainContent({
                 aria-expanded={activeTab === 1}
                 aria-selected={activeTab === 1}
                 active={activeTab === 1}
-                label='HOURS'
+                label={t('common.hours')}
                 onClick={() => handleActiveTab(1)}
                 plain
                 fill={size === 'small' ? 'horizontal' : false}
               />
             </Box>
             <Tip
-              contentText='Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.'
+              contentText={t('MainContent.hoursTip')}
             />
           </Box>
           <Box
@@ -224,7 +227,7 @@ function MainContent({
         </Box>
         <Box
           role='tabpanel'
-          aria-label={activeTab === 0 ? 'CLASSIFICATIONS Tab Contents' : 'HOURS Tab Contents'}
+          aria-label={activeTab === 0 ? `${t('common.classifications')} ${t('MainContent.tabContents')}` : `${t('common.hours')} ${t('MainContent.tabContents')}`}
           height='15rem'
           width='100%'
         >
@@ -254,7 +257,7 @@ function MainContent({
               pad='medium'
             >
               <SpacedText uppercase={false}>
-                There was an error.
+                {t('MainContent.error')}
               </SpacedText>
               <SpacedText uppercase={false}>
                 {error?.message}
@@ -267,13 +270,17 @@ function MainContent({
               justify='center'
               pad='medium'
             >
-              <SpacedText uppercase={false}>No data found.</SpacedText>
+              <Text>{t('MainContent.noData')}</Text>
               <Text>
-                Start by{' '}
-                <Anchor href='https://www.zooniverse.org/projects'>
-                  classifying a project
-                </Anchor>
-                {' ' }now, or change the date range.
+                <Trans
+                  i18nKey='MainContent.start'
+                  components={[
+                    <Anchor
+                      key='projects-page'
+                      href='https://www.zooniverse.org/projects'
+                    />
+                  ]}
+                />
               </Text>
             </Box>
           ) : (
@@ -294,7 +301,7 @@ function MainContent({
               forwardedAs={Link}
               color='neutral-1'
               href={`/users/${source.login}/stats/certificate${window.location.search}`}
-              label='Generate Volunteer Certificate'
+              label={t('MainContent.certificate')}
             />
           </Box>
         ) : null}
