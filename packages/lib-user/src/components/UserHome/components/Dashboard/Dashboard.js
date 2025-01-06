@@ -11,6 +11,7 @@ import { useContext } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import DashboardLink from './components/DashboardLink.js'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer.js'
@@ -139,9 +140,11 @@ const border = {
 }
 
 export default function Dashboard({ user, userLoading }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
   const { dark } = useTheme()
 
+  // No translations, this link is going away
   const blogLinkLabel =
     size === 'small'
       ? 'About your homepage'
@@ -183,7 +186,7 @@ export default function Dashboard({ user, userLoading }) {
           }}
         >
           <Image
-            alt='User avatar'
+            alt={t('common.avatarAlt', { login: user?.login })}
             fit='contain'
             src={
               !user?.avatar_src || userLoading
@@ -228,22 +231,22 @@ export default function Dashboard({ user, userLoading }) {
         <Box direction='row' gap='30px' margin={{ bottom: '30px' }}>
           <DashboardLink
             icon={<Favorite />}
-            text='Favorites'
+            text={t('UserHome.Dashboard.favorites')}
             href={`https://www.zooniverse.org/favorites/${user?.login}`}
           />
           <DashboardLink
             icon={<Bookmark />}
-            text='Collections'
+            text={t('UserHome.Dashboard.collections')}
             href={`https://www.zooniverse.org/collections/${user?.login}`}
           />
           <DashboardLink
             icon={<Chat />}
-            text='Comments'
+            text={t('UserHome.Dashboard.comments')}
             href={`https://www.zooniverse.org/users/${user?.login}`}
           />
           <DashboardLink
             icon={<MailOption />}
-            text='Messages'
+            text={t('UserHome.Dashboard.messages')}
             href={`https://www.zooniverse.org/inbox`}
           />
         </Box>
@@ -256,13 +259,14 @@ export default function Dashboard({ user, userLoading }) {
               alignSelf={size === 'small' ? 'center' : 'end'}
               forwardedAs={Link}
               href={`/users/${user?.login}/stats`}
-              label={<SpacedText>More Stats</SpacedText>}
+              label={<SpacedText>{t('UserHome.Dashboard.moreStats')}</SpacedText>}
               icon={<FormNext />}
               reverse
               color={{ light: 'dark-5', dark: 'white' }}
               gap='large'
             />
             <StyledBadge color='white' size='0.75rem' weight='bold'>
+              {/* No translation, this is going away */}
               NEW
             </StyledBadge>
           </Relative>
