@@ -13,14 +13,16 @@ import {
 import ChoiceButton from './components/ChoiceButton'
 
 const StyledGrid = styled.ul`
+  background: ${props => props.theme.global.colors[props.theme.dark ? 'dark-3' : 'light-3']};
   display: grid;
+  gap: ${props => props.$gap ? '1px' : '0'};
   grid-auto-flow: column;
-  grid-template-columns: repeat(${props => props.columnsCount}, ${props => {
-    if (props.columnsCount === 3) return '166px';
-    if (props.columnsCount === 2) return '250px';
+  grid-template-columns: repeat(${props => props.$columnsCount}, ${props => {
+    if (props.$columnsCount === 3) return '166px';
+    if (props.$columnsCount === 2) return '250px';
     return '1fr';
   }});
-  grid-template-rows: repeat(${props => props.rowsCount}, 60px);
+  grid-template-rows: repeat(${props => props.$rowsCount}, 60px);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -150,8 +152,9 @@ export function Choices ({
   return (
     <StyledGrid
       role='menu'
-      rowsCount={rowsCount}
-      columnsCount={columnsCount}
+      $columnsCount={columnsCount}
+      $rowsCount={rowsCount}
+      $gap={thumbnailSize === 'none'}
     >
       {filteredChoiceIds.map((choiceId, index) => {
         const choice = task.choices?.get(choiceId) || {}
