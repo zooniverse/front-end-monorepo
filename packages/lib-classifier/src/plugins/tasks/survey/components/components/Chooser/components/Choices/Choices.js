@@ -119,6 +119,10 @@ export function Choices ({
         event.preventDefault()
         event.stopPropagation()
 
+        if (selectedChoiceIds.indexOf(choiceId) > -1) {
+          return false
+        }
+
         onChoose(choiceId)
         return false
       case 'Home':
@@ -130,6 +134,10 @@ export function Choices ({
       case 'Space':
         event.preventDefault()
         event.stopPropagation()
+
+        if (selectedChoiceIds.indexOf(choiceId) > -1) {
+          return false
+        }
 
         onChoose(choiceId)
         return false
