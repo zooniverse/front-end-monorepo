@@ -110,13 +110,19 @@ function ChoiceButton({
           disabled={disabled}
           tabIndex={selected && tabIndex === 0 ? 0 : -1}
         >
-          {thumbnailSize !== 'none' && src &&
+          {thumbnailSize === 'none' ? (
+            <Box
+              height='50px'
+              width='50px'
+            />
+          ) : (
             <StyledImage
               alt=''
               height='50'
               src={thumbnailSrc}
               width={thumbnailSize === 'small' ? '50' : '60'}
-            />}
+            />
+          )}
         </DeleteButton>
       ) : null}
       <StyledButton
