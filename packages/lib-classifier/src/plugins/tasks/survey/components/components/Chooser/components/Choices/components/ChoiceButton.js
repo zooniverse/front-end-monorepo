@@ -47,6 +47,13 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `
 
+const StyledLabel = styled(Text)`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+`
+
 const DEFAULT_HANDLER = () => true
 
 function ChoiceButton({
@@ -134,6 +141,7 @@ function ChoiceButton({
             align='center'
             direction='row'
             forwardedAs='span'
+            overflow='hidden'
           >
             {!selected && thumbnailSize !== 'none' && src &&
               <StyledImage
@@ -142,14 +150,14 @@ function ChoiceButton({
                 src={thumbnailSrc}
                 width={thumbnailSize === 'small' ? '50' : '60'}
               />}
-            <Text
+            <StyledLabel
               margin={{ left: '10px', vertical: '5px' }}
               size={thumbnailSize === 'small' ? '.875rem' : '1rem'}
               weight={selected ? 'bold' : 'normal'}
               wordBreak='break-word'
             >
               {choiceLabel}
-            </Text>
+            </StyledLabel>
           </Box>
         }
         margin={{ left: '2px'}}
