@@ -2,6 +2,7 @@ import { DataChart, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import {
   getDateInterval as defaultGetDateInterval
@@ -9,11 +10,6 @@ import {
 
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
-
-const TYPE_LABEL = {
-  count: 'Classifications',
-  session_time: 'Time'
-}
 
 const X_AXIS_FREQUENCY = {
   everyOther: 'everyOther',
@@ -51,7 +47,13 @@ function BarChart({
   getDateInterval = defaultGetDateInterval,
   type = 'count'
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
+
+  const TYPE_LABEL = {
+    count: t('common.classifications'),
+    session_time: t('BarChart.time')
+  }
 
   // getDateInterval returns an object with a period property based on the date range, start_date, and end_date
   const dateInterval = getDateInterval(dateRange)
@@ -60,7 +62,7 @@ function BarChart({
   // including any periods without stats with a count and session_time of 0
   const completeData = getCompleteData({ data, dateInterval })
 
-  const dateRangeLabel = getDateRangeLabel(dateInterval)
+  const dateRangeLabel = getDateRangeLabel(dateInterval, t)
   const typeLabel = TYPE_LABEL[type]
 
   // with no data set gradient as 'brand'
@@ -106,7 +108,7 @@ function BarChart({
 
   return (
     <StyledDataChart
-      a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} from ${dateRange.startDate} to ${dateRange.endDate}`}
+      a11yTitle={t('BarChart.a11y', { typeLabel, countLabel: dateRangeLabel.countLabel, startDate: dateRange.startDate, endDate: dateRange.endDate })}
       className='styled-grommet-barchart'
       axis={{
         x: { granularity: 'fine', property: 'period' },
