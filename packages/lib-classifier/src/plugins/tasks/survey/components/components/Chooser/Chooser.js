@@ -64,7 +64,7 @@ function Chooser ({
       as={task.instruction ? 'fieldset' : 'div'}
       alignSelf='center'
       style={{ border: 'none' }}
-      width={{ max: '498px' }}
+      width='100%'
     >
       {task.instruction 
         ? <StyledText as='legend' size='small'>

@@ -28,7 +28,11 @@ const StyledGrid = styled.ul`
   padding: 0;
   width: 100%;
 
-  @media (max-width: 600px) {
+  @media (max-width: 70rem) {
+    grid-template-columns: repeat(${props => props.$columnsCount}, 1fr);
+  }
+
+  @media (max-width: 430px) {
     display: block;
     li {
       display: block;
