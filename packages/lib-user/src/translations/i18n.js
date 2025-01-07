@@ -5,8 +5,8 @@ import {
   useTranslation as useBaseTranslation
 } from 'react-i18next'
 
-const libI18n = i18n.createInstance()
-libI18n.use(initReactI18next).init({
+const libUserI18n = i18n.createInstance()
+libUserI18n.use(initReactI18next).init({
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false // not needed for react as it escapes by default
@@ -16,24 +16,24 @@ libI18n.use(initReactI18next).init({
   }
 })
 
-libI18n.addResourceBundle('en', 'translation', require('./en.json'))
+libUserI18n.addResourceBundle('en', 'translation', require('./en.json'))
 
 /* In FEM there's an i18n instance for each library, and each instance has its own functions.*/
 export function useTranslation(ns) {
-  return useBaseTranslation(ns, { i18n: libI18n })
+  return useBaseTranslation(ns, { i18n: libUserI18n })
 }
 
 export function withTranslation(ns) {
   return Component => {
     return function TranslatedComponent(props) {
       const { t } = useTranslation(ns)
-      return <Component i18n={libI18n} t={t} {...props} />
+      return <Component i18n={libUserI18n} t={t} {...props} />
     }
   }
 }
 
 export function Trans(props) {
-  return <BaseTrans {...props} i18n={libI18n}/>
+  return <BaseTrans {...props} i18n={libUserI18n}/>
 }
 
 export default i18n
