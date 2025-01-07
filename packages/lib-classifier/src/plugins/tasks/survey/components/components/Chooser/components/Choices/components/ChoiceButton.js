@@ -19,7 +19,7 @@ const StyledBox = styled(Box)`
       box-shadow: 0 0 8px 2px ${props.theme.global.colors['accent-1']};
     ` : css`
       background: ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
-      border: 3px solid ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
+      border: 2px solid ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
     `
   }
   color: ${props => props.selected ? props.theme.global.colors['neutral-6'] : props.theme.global.colors[props.theme.dark ? 'neutral-6' : 'neutral-7']};
@@ -31,7 +31,7 @@ const StyledBox = styled(Box)`
   
   &:hover {
     background: ${props => props.theme.global.colors['accent-1']};
-    border: 1px solid ${props => props.theme.global.colors['accent-1']};
+    border: 2px solid ${props => props.theme.global.colors['accent-1']};
     box-shadow: 0 0 8px 2px ${props => props.theme.global.colors['accent-1']};
     color: ${props => props.theme.global.colors['neutral-7']};
   }
