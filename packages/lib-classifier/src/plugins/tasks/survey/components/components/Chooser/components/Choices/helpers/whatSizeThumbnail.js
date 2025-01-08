@@ -1,10 +1,6 @@
 import howManyColumns from './howManyColumns'
 
 export default function whatSizeThumbnail({ length }) {
-  if (length > 30) {
-    return 'none'
-  }
-
   switch (howManyColumns({ length })) {
     case 1:
       return 'large'
