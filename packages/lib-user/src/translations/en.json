@@ -117,6 +117,8 @@
     "error": "There was an error.",
     "hoursTip": "Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.",
     "noData": "No data found.",
+    "selectDateRange": "Select date range",
+    "selectProject": "Select project",
     "start": "Start by <0>classifying a project</0> now, or change the date range.",
     "tabContents": "Tab Contents"
   },
