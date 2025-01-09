@@ -100,7 +100,7 @@
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
-    "storybook-react-i18next": "~2.0.1"
+    "storybook-react-i18next": "~3.1.8"
   },
   "engines": {
     "node": ">=20.5"
