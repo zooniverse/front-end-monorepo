@@ -73,11 +73,7 @@ export function Choices ({
   
   let thumbnailSize
   // if new survey task thumbnails property is undefined and legacy alwaysShowThumbnails is true, then show thumbnails to support legacy alwaysShowThumbnails functionality
-  if (!task.thumbnails && task.alwaysShowThumbnails) {
-    thumbnailSize = 'small'
-  } else if (task.thumbnails === 'show') {
-    thumbnailSize = 'small'
-  } else if (task.thumbnails === 'hide') {
+  if (task.thumbnails === 'hide') {
     thumbnailSize = 'none'
   } else {
     thumbnailSize = whatSizeThumbnail(filteredChoiceIds)

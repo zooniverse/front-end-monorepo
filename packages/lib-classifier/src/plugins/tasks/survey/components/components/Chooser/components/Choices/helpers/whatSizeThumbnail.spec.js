@@ -5,10 +5,6 @@ describe('Function > whatSizeThumbnail', function () {
     expect(whatSizeThumbnail).to.be.a('function')
   })
 
-  it('should return \'none\' if the length of the array is greater than 30', function () {
-    expect(whatSizeThumbnail(Array(31))).to.equal('none')
-  })
-
   it('should return \'small\' if there are 3 columns', function () {
     expect(whatSizeThumbnail(Array(21))).to.equal('small')
   })
