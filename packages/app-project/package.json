@@ -70,7 +70,7 @@
     "eslint-config-next": "~14.2.7",
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~25.0.1",
-    "mocha": "~10.8.2",
+    "mocha": "~11.0.1",
     "msw": "~2.7.0",
     "msw-storybook-addon": "~2.0.3",
     "nock": "~13.5.1",

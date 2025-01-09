@@ -25,7 +25,7 @@
     "chai": "~4.5.0",
     "dirty-chai": "~2.0.1",
     "jsdom": "~25.0.1",
-    "mocha": "~10.8.2",
+    "mocha": "~11.0.1",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.5.1",
     "sinon": "~19.0.2",
