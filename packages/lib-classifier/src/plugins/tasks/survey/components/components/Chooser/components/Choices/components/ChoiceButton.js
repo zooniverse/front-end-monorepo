@@ -119,8 +119,8 @@ function ChoiceButton({
         >
           {thumbnailSize === 'none' ? (
             <Box
-              height='50px'
-              width='50px'
+              height='100%'
+              width='40px'
             />
           ) : (
             <StyledImage
