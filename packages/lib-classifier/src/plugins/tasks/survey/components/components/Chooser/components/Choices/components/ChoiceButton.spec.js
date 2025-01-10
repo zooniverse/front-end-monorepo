@@ -36,7 +36,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('button', { name: 'Open submenu for Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'SurveyTask.ChoiceButton.openSubmenu' })
     expect(choiceButton).to.be.ok()
   })
 
@@ -57,7 +57,7 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('button', { name: 'Open submenu for Aardvark' })
+      const choiceButton = screen.getByRole('button', { name: 'SurveyTask.ChoiceButton.openSubmenu' })
       await user.click(choiceButton)
       expect(onChooseSpy).to.not.have.been.called()
     })
@@ -100,7 +100,7 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('menuitem', { name: 'Aardvark; identified' })
+      const choiceButton = screen.getByRole('menuitem', { name: 'Aardvark; SurveyTask.ChoiceButton.identified' })
       expect(choiceButton).to.be.ok()
     })
   })

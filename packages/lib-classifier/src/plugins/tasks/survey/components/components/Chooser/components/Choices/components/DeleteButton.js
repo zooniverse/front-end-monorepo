@@ -6,13 +6,20 @@ import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 const StyledButton = styled(Button)`
+  height: 100%;
+
   &:disabled {
     cursor: not-allowed;
   }
 
+  &:focus {
+    border: 2px solid ${props => props.theme.global.colors['accent-1']};
+    box-shadow: none;
+  }
+
   &:focus, &:hover {
     svg {
-      border: 1px solid ${props => props.theme.global.colors['neutral-6']};
+      border: 2px solid ${props => props.theme.global.colors['neutral-6']};
       border-radius: 50%;
     }
   }
@@ -37,12 +44,13 @@ const ChildrenWrapper = styled(Box)`
 
   &::before {
     content: '';
+    background: rgba(0, 93, 105, 0.6); // using neutral-1 #005D69 at 60%
+    border-radius: 4px;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 93, 105, 0.6); // using neutral-1 #005D69 at 60%
     pointer-events: none;
     z-index: 1;
   }
