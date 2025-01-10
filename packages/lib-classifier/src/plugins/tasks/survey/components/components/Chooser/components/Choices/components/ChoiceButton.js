@@ -21,7 +21,6 @@ const StyledBox = styled(Box)`
       box-shadow: 0 0 8px 2px ${props.theme.global.colors['accent-1']};
     ` : css`
       background: ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
-      border: 2px solid ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
     `
   }
   color: ${props => props.selected ? props.theme.global.colors['neutral-6'] : props.theme.global.colors[props.theme.dark ? 'neutral-6' : 'neutral-7']};
@@ -33,15 +32,20 @@ const StyledBox = styled(Box)`
   
   &:hover {
     background: ${props => props.theme.global.colors['accent-1']};
-    border: 2px solid ${props => props.theme.global.colors['accent-1']};
     box-shadow: 0 0 8px 2px ${props => props.theme.global.colors['accent-1']};
     color: ${props => props.theme.global.colors['neutral-7']};
   }
 `
 
 const StyledButton = styled(Button)`
+  box-shadow: none;
   flex-grow: 1;
   height: 100%;
+  &:focus { 
+    border: 2px solid ${props => props.theme.global.colors['accent-1']};
+    box-shadow: none;
+    outline: none;
+  }
 `
 
 const StyledImage = styled(Image)`
@@ -106,8 +110,7 @@ function ChoiceButton({
       fill
       onKeyDown={disabled ? DEFAULT_HANDLER : handleKeyDown}
       pad={{
-        right: '10px',
-        vertical: '5px'
+        right: '10px'
       }}
       shadedBackground={shadedBackground}
       selected={selected}
@@ -122,15 +125,14 @@ function ChoiceButton({
         >
           {thumbnailSize === 'none' ? (
             <Box
-              height='100%'
               width='40px'
             />
           ) : (
             <StyledImage
               alt=''
-              height='50'
+              height='50px'
               src={thumbnailSrc}
-              width={thumbnailSize === 'small' ? '50' : '60'}
+              width={thumbnailSize === 'small' ? '50px' : '60px'}
             />
           )}
         </DeleteButton>
@@ -140,17 +142,17 @@ function ChoiceButton({
         disabled={disabled}
         label={
           <Box
+            as='span'
             align='center'
             direction='row'
-            forwardedAs='span'
             overflow='hidden'
           >
             {!selected && thumbnailSize !== 'none' && src &&
               <StyledImage
                 alt=''
-                height='50'
+                height='50px'
                 src={thumbnailSrc}
-                width={thumbnailSize === 'small' ? '50' : '60'}
+                width={thumbnailSize === 'small' ? '50px' : '60px'}
               />}
             <StyledLabel
               margin={{ left: '10px', vertical: '5px' }}
@@ -162,7 +164,7 @@ function ChoiceButton({
             </StyledLabel>
           </Box>
         }
-        margin={{ left: '2px'}}
+        margin={{ left: (selected && thumbnailSize !== 'none') ? '2px' : '0px' }}
         onClick={handleClick}
         plain
         tabIndex={selected && tabIndex === 0 ? 0 : -1}

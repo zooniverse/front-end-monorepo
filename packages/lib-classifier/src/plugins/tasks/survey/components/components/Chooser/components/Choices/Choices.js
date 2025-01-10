@@ -2,7 +2,7 @@ import { ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useContext, useState } from 'react';
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import {
   howManyColumns,
@@ -41,13 +41,6 @@ const StyledGrid = styled.ul`
   }
 `
 
-const defaultTheme = {
-  dark: false,
-  global: {
-    colors: {}
-  }
-}
-
 export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
@@ -56,10 +49,8 @@ export function Choices ({
   handleDelete = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
-  task,
-  theme = defaultTheme
+  task
 }) {
-  // TODO: refactor focus to menuitem, with consideration for "selected" state with open submenu button and delete button
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
   const size = useContext(ResponsiveContext)
@@ -209,14 +200,9 @@ Choices.propTypes = {
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
+    thumbnails: PropTypes.string,
     type: PropTypes.string
-  }).isRequired,
-  theme: PropTypes.shape({
-    dark: PropTypes.bool,
-    global: PropTypes.shape({
-      colors: PropTypes.object
-    })
-  })
+  }).isRequired
 }
 
-export default withTheme(observer(Choices))
+export default observer(Choices)
