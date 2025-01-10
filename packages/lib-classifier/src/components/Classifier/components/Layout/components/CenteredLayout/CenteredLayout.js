@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { Box, ResponsiveContext } from 'grommet'
+import { Box, Grid } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -11,84 +10,127 @@ import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 import FieldGuide from '@components/Classifier/components/FieldGuide'
 
-export const Relative = styled(Box)`
-  position: relative; // Used for QuickTalk and FeedbackModal positioning
+const ContainerGrid = styled(Grid)`
+  position: relative;
+  grid-gap: 1.875rem;
+  grid-template-areas: 'viewer task';
+  grid-template-columns: auto ${props => (props.hasSurveyTask ? '33.75rem' : '25rem')};
+  justify-content: center;
+
+  ${props => props.hasSurveyTask ? css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      grid-gap: 1.25rem;
+      grid-template-areas:
+        'viewer'
+        'task';
+      grid-template-columns: 100%;
+      grid-template-rows: auto auto;
+      margin: 0;
+    }
+  ` : css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      grid-gap: 1.25rem;
+      grid-template-areas: 'viewer task';
+      grid-template-columns: 9fr 5fr;
+    }
+  `}
+
+  @media screen and (max-width: 768px) {
+    grid-gap: 1.25rem;
+    grid-template-areas:
+      'viewer'
+      'task';
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto;
+    margin: 0;
+  }
 `
 
-const StickySubjectViewer = styled(Box)`
-  ${props =>
-    props.size !== 'small' &&
-    css`
+export const ViewerGrid = styled(Grid)`
+  ${props => props.hasSurveyTask ? css`
+    @media screen and (min-width: 70rem) {
       position: sticky;
       top: 10px;
-    `}
-`
-
-const StickyTaskArea = styled(Box)`
-  flex: initial; // Don't stretch vertically
-  ${props =>
-    props.size !== 'small' &&
-    css`
+    }
+  ` : css`
+    @media screen and (min-width: 769px) {
       position: sticky;
       top: 10px;
-    `}
+    }
+  `}
+
+  grid-area: viewer;
+  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
+  grid-template-rows: auto;
+  grid-template-areas: 'subject toolbar';
 `
 
-const StickyImageToolbar = styled(ImageToolbar)`
+const StyledTaskAreaContainer = styled.div`
+  grid-area: task;
+`
+
+const StyledTaskArea = styled(Box)`
+  ${props => props.hasSurveyTask ? css`
+    @media screen and (min-width: 70rem) {
+      position: sticky;
+      top: 10px;
+    }
+  ` : css`
+    @media screen and (min-width: 769px) {
+      position: sticky;
+      top: 10px;
+    }
+  `}
+`
+
+const StyledImageToolbarContainer = styled.div`
+  grid-area: toolbar;
+`
+
+const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
 
-export const verticalLayout = {
-  direction: 'column',
-  gap: 'medium',
-  margin: 'none'
-}
-
-export const horizontalLayout = {
-  direction: 'row',
-  gap: 'small',
-  justify: 'center'
-}
-
 export default function CenteredLayout({
+  className = '',
   separateFramesView = false,
   hasSurveyTask = false
 }) {
-  const size = useContext(ResponsiveContext)
-  const containerProps = size === 'small' ? verticalLayout : horizontalLayout
-  const taskAreaWidth = hasSurveyTask ? '33.75rem' : '25rem'
-
   return (
-    <Relative>
-      <Box {...containerProps}>
-        <Box
-          as='section'
-          direction='row'
-          margin={size === 'small' ? 'auto' : 'none'}
+    <ContainerGrid
+      className={className}
+      hasSurveyTask={hasSurveyTask}
+    >
+      {separateFramesView ? (
+        <Box>
+          <Banners />
+          <SubjectViewer />
+          <MetaTools />
+        </Box>
+      ) : (
+        <ViewerGrid
+          forwardedAs='section'
+          hasSurveyTask={hasSurveyTask}
         >
-          <StickySubjectViewer size={size}>
+          <Box gridArea='subject'>
             <Banners />
             <SubjectViewer />
             <MetaTools />
-          </StickySubjectViewer>
-          {!separateFramesView && (
-            <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
-              <StickyImageToolbar />
-            </Box>
-          )}
-        </Box>
-        <StickyTaskArea
-          width={size === 'small' ? '100%' : taskAreaWidth}
-          fill={size === 'small' ? 'horizontal' : 'vertical'}
-          size={size}
-        >
+          </Box>
+          <StyledImageToolbarContainer>
+            <StyledImageToolbar />
+          </StyledImageToolbarContainer>
+        </ViewerGrid>
+      )}
+      <StyledTaskAreaContainer>
+        <StyledTaskArea hasSurveyTask={hasSurveyTask}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
-        </StickyTaskArea>
-      </Box>
+        </StyledTaskArea>
+      </StyledTaskAreaContainer>
       <FeedbackModal />
       <QuickTalk />
-    </Relative>
+    </ContainerGrid>
   )
 }
