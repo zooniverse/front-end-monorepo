@@ -8,7 +8,6 @@ import DashboardContainer from './components/Dashboard/DashboardContainer.js'
 import RecentProjectsContainer from './components/RecentProjects/RecentProjectsContainer.js'
 import RecentSubjectsContainer from './components/RecentSubjects/RecentSubjectsContainer.js'
 import MyGroupsContainer from '../MyGroups/MyGroupsContainer.js'
-import WelcomeModal from './components/WelcomeModal/WelcomeModal.js'
 
 const StyledGrid = styled(Grid)`
   grid-template-columns: 1fr 1fr;
@@ -23,7 +22,6 @@ function UserHome({ authUser, dailyZooPosts = [], zooBlogPosts = [] }) {
 
   return (
     <UserHomeLayout>
-      <WelcomeModal />
       <Box gap='30px'>
         <DashboardContainer authUser={authUser} />
         <StyledGrid gap='30px'>

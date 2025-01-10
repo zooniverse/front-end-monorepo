@@ -1,5 +1,6 @@
 import { Box } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import { convertStatsSecondsToHours } from '@utils'
 
@@ -10,6 +11,8 @@ function ContributorsList({
   contributors = [],
   projects = []
 }) {
+  const { t } = useTranslation()
+
   let privateProjectIndex = 1
   contributors.sort((a, b) => b.count - a.count)
 
@@ -24,11 +27,11 @@ function ContributorsList({
         return (
           <Box
             key={contributor.id}
-            a11yTitle={`${contributor.display_name} member stats`}
+            a11yTitle={t('Contributors.ContributorsList.a11y', { name: contributor.display_name })}
             as='li'
-            background={index % 2 === 0 ? 
+            background={index % 2 === 0 ?
               { dark: 'dark-3', light: 'neutral-6' }
-              : 
+              :
               { dark: 'dark-1', light: 'light-1' }
             }
             border={{ color: 'light-5', size: '0.5px' }}
@@ -56,7 +59,7 @@ function ContributorsList({
             >
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())
-                const projectDisplayName = project?.display_name || `Private Project ${privateProjectIndex++}`
+                const projectDisplayName = project?.display_name || t('Contributors.ContributorsList.privateProject', { index: privateProjectIndex })
                 const projectHoursSpent = convertStatsSecondsToHours(statsProject.session_time)
 
                 return (

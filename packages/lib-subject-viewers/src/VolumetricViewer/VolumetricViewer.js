@@ -11,14 +11,15 @@ const DEFAULT_HANDLER = () => {}
 
 export default function VolumetricViewer ({
   loadingState = asyncStates.initialized,
+  onAnnotation = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
 }) {
   const { data, loading, error } = useVolumetricSubject({ onError, onReady, subject })
-
+  
   const [modelState] = useState({
-    annotations: ModelAnnotations(),
+    annotations: ModelAnnotations({ onAnnotation }),
     tool: ModelTool(),
     viewer: ModelViewer()
   })
@@ -46,14 +47,18 @@ export default function VolumetricViewer ({
       />
 }
 
-export const VolumetricViewerData = ({ subjectData = '', subjectUrl = '' }) => {
+export const VolumetricViewerData = ({ 
+  onAnnotation = DEFAULT_HANDLER,
+  subjectData = '',
+  subjectUrl = ''
+}) => {
   return {
     data: {
       config: {},
       subjectData,
       subjectUrl,
       models: {
-        annotations: ModelAnnotations(),
+        annotations: ModelAnnotations({ onAnnotation }),
         tool: ModelTool(),
         viewer: ModelViewer()
       }

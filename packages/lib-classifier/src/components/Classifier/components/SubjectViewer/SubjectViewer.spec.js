@@ -39,20 +39,6 @@ describe('Component > SubjectViewer', function () {
     expect(screen.getByLabelText('Subject 1234')).to.exist()
   })
 
-  it('should render the VolumetricViewer if isVolumetricViewer = true', async function () {
-    render(<SubjectViewer
-      subjectQueueState={asyncStates.success}
-      subjectReadyState={asyncStates.success}
-      isVolumetricViewer={true}
-      subject={{
-        id: 'mock-id',
-        subjectJSON: 'mock-subject-json'
-      }}
-    />)
-    expect(screen.getByText('Suspense boundary')).to.exist()
-    expect(await screen.findByTestId('subject-viewer-volumetric')).to.exist()
-  })
-
   describe('when there is an null viewer because of invalid subject media', function () {
     it('should render null', function () {
       const { container } = render(

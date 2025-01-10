@@ -1,5 +1,6 @@
 import { bool, func, node, shape, string } from 'prop-types'
 import useSWRMutation from 'swr/mutation'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import {
   deletePanoptesUserGroup,
@@ -18,6 +19,7 @@ function GroupUpdateFormContainer({
   handleGroupModalActive = DEFAULT_HANDLER,
   login
 }) {
+  const { t } = useTranslation()
   const { trigger: updateGroup } = useSWRMutation({
     adminMode,
     authUserId,
@@ -28,7 +30,7 @@ function GroupUpdateFormContainer({
     try {
       const deleteResponse = await deletePanoptesUserGroup({ groupId: group?.id })
       if (!deleteResponse.ok) {
-        await alert(`Something went wrong. Please try again.\nError: ${deleteResponse?.statusText}`)
+        await alert(`${t('GroupStats.GroupUpdateFormContainer.error')} \n ${deleteResponse?.statusText}`)
         return console.error(deleteResponse)
       } else {
         window.location.href = `/users/${login}/groups`
@@ -37,7 +39,7 @@ function GroupUpdateFormContainer({
       console.error(error)
     }
   }
-  
+
   async function onSubmit(event) {
     const { display_name, stats_visibility } = event.value
     const data = {
@@ -45,7 +47,7 @@ function GroupUpdateFormContainer({
       private: stats_visibility.startsWith('private'),
       stats_visibility
     }
-    
+
     try {
       updateGroup({ groupId: group.id, data }, {
         optimisticData: { ...group, ...data },

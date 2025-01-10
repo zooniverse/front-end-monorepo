@@ -30,7 +30,7 @@ describe('components > shared > MainContent', function () {
 
   it('should show "CLASSIFICATIONS" as the active tab', function () {
     render(<DefaultStory />)
-    const activeTab = screen.getByRole('tab', { name: 'CLASSIFICATIONS', selected: true })
+    const activeTab = screen.getByRole('tab', { name: 'Classifications', selected: true })
 
     expect(activeTab).to.be.ok()
   })

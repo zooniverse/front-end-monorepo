@@ -2,6 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, Paragraph } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation, Trans } from '../../translations/i18n.js'
 
 import GroupCardList from './components/GroupCardList'
 
@@ -20,6 +21,7 @@ function MyGroups({
   groups = [],
   loading = false
 }) {
+  const { t } = useTranslation()
   return (
     <>
       {loading ? (
@@ -39,7 +41,7 @@ function MyGroups({
           pad='medium'
         >
           <SpacedText uppercase={false}>
-            There was an error.
+            {t('MyGroups.error')}
           </SpacedText>
           <SpacedText uppercase={false}>
             {error?.message}
@@ -52,11 +54,8 @@ function MyGroups({
           justify='center'
           pad='medium'
         >
-          <Paragraph margin={{ top: '0', bottom: '20px' }}>
-            You are not a member of any Groups.
-          </Paragraph>
-          <Paragraph margin={{ top: '0', bottom: '20px' }}>
-            Create one below
+          <Paragraph margin={{ top: '0', bottom: '20px' }} textAlign='center'>
+            <Trans i18nKey='MyGroups.noGroups' components={[ <br key='line-break' />]} />
           </Paragraph>
         </Box>
       ) : (

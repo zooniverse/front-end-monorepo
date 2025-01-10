@@ -1,15 +1,17 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { string, number } from 'prop-types'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 function ProjectStats({
   classifications = 0,
   hours = 0,
   projectDisplayName = ''
 }) {
+  const { t } = useTranslation()
   return (
     <Box
-      a11yTitle={`${projectDisplayName} member stats`}
+      a11yTitle={t('Contributors.ProjectStats.a11y', { project: projectDisplayName })}
       align='center'
       as='li'
       border={{ color: 'light-5', side: 'vertical', size: '0.5px' }}
@@ -30,13 +32,13 @@ function ProjectStats({
         textAlign='center'
         uppercase={false}
       >
-        {`${classifications.toLocaleString()} Classifications`}
+        {classifications.toLocaleString()} {t('common.classifications')}
       </SpacedText>
       <SpacedText
         textAlign='center'
         uppercase={false}
       >
-        {`${hours.toLocaleString()} Hours`}
+        {hours.toLocaleString()} {t('common.hours')}
       </SpacedText>
     </Box>
   )
