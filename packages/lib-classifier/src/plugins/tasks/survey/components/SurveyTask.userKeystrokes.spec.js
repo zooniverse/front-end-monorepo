@@ -23,42 +23,41 @@ describe('SurveyTask with user keystrokes', function () {
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
-      choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+      choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
     })
 
     it('should remove a previously identified choice with delete key', async function () {
       expect(choiceButtons.length).to.equal(6)
     
       // confirm choice Fire selected
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
+      choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
+      expect(choiceButton).to.be.ok()
     
       // confirm choice Fire active element
       await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
     
       // press delete key to remove choice (Fire)
       await user.keyboard('[Delete]')
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice Fire not selected
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+      choiceButton = screen.getByLabelText('Fire')
+      expect(choiceButton).to.be.ok()
     })
 
     it('should remove a previously identified choice with backspace key', async function () {
       expect(choiceButtons.length).to.equal(6)
     
       // confirm choice Fire selected
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
+      choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
+      expect(choiceButton).to.be.ok()
     
       // confirm choice Fire active element
       await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
     
       // press backspace key to remove choice (Fire)
       await user.keyboard('[Backspace]')
-      choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice Fire not selected
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+      choiceButton = screen.getByLabelText('Fire')
+      expect(choiceButton).to.be.ok()
     })
   })
 
@@ -104,7 +103,7 @@ describe('SurveyTask with user keystrokes', function () {
         // close the filters
         await user.click(filterButton)
         // confirming that the choices are filtered by the solid filter
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(3)
         expect(choiceButtons[0]).to.have.text('Aardvark')
         expect(choiceButtons[1]).to.have.text('Elephant')
@@ -128,7 +127,7 @@ describe('SurveyTask with user keystrokes', function () {
         // close the filters
         await user.click(filterButton)
         // confirm the choices are the total 6 choices, not filtered by the solid filter
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(6)
       })
 
@@ -143,13 +142,13 @@ describe('SurveyTask with user keystrokes', function () {
         // close the filters
         await user.click(filterButton)
         // confirm the solid filter is applied, of the total 6 choices only 1 choice (Kudu) matches the solid filter
-        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(3)
 
         // remove the solid filter with the "Remove solid filter" small x button in the Filter Status component
         await user.keyboard('[Tab][Space]')
         // confirm the choices are the total 6 choices, not filtered by the solid filter
-        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(6)
       })
     })

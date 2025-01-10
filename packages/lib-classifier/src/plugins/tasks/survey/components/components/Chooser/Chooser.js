@@ -62,7 +62,9 @@ function Chooser ({
   return (
     <Box
       as={task.instruction ? 'fieldset' : 'div'}
+      alignSelf='center'
       style={{ border: 'none' }}
+      width='100%'
     >
       {task.instruction 
         ? <StyledText as='legend' size='small'>

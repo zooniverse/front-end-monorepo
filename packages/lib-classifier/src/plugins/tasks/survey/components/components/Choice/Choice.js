@@ -85,7 +85,7 @@ function Choice({
 
   function handleKeyDown (event) {
     if (event.key === 'Escape') {
-      handleDelete(choiceId)
+      handleCancel(choiceId)
     }
   }
 

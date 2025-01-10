@@ -53,7 +53,7 @@ describe('SurveyTask with user clicks', function () {
 
         await user.click(redFilterButton)
         await user.click(filterButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the 3 choices that match the red filter
         expect(choiceButtons.length).to.equal(3)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -73,7 +73,7 @@ describe('SurveyTask with user clicks', function () {
         const identifyButton = screen.getByText('SurveyTask.Choice.identify')
         // identify the Fire choice
         await user.click(identifyButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the remaining choices are the 3 choices that match the red filter
         expect(choiceButtons.length).to.equal(3)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -94,7 +94,7 @@ describe('SurveyTask with user clicks', function () {
         await user.click(stripesFilterRemoveButton)
         // close the characteristics filters
         await user.click(filterButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the total 6 choices, not filtered by the stripes filter
         expect(choiceButtons.length).to.equal(6)
       })
@@ -105,14 +105,14 @@ describe('SurveyTask with user clicks', function () {
         await user.click(stripesFilterButton)
         await user.click(filterButton)
         // confirm the stripes filter is applied, of the total 6 choices only 1 choice (Kudu) matches the stripes filter
-        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(1)
 
         const filterStatusSection = screen.getByTestId('filter-status')
         const stripesFilterRemoveButton = within(filterStatusSection).getByTestId('remove-filter-PTTRN-STRPS')
         // remove the stripes filter
         await user.click(stripesFilterRemoveButton)
-        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the total 6 choices, not filtered by the stripes filter
         expect(choiceButtons.length).to.equal(6)
       })
@@ -149,14 +149,14 @@ describe('SurveyTask with user clicks', function () {
         // click/apply the color tan/yellow filter
         await user.click(tanYellowFilterButton)
         await user.click(filterButton)
-        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
         expect(choiceButtons.length).to.equal(1)
 
         const clearFiltersButton = screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')
         // clear the filters
         await user.click(clearFiltersButton)
-        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the total 6 choices, not filtered by the cow/horse and tan/yellow filters
         expect(choiceButtons.length).to.equal(6)
       })
@@ -191,14 +191,14 @@ describe('SurveyTask with user clicks', function () {
       const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
       expect(choiceMoreInfoButton).to.be.null()
       // confirm choices are shown
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
       const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice (Fire) is focused
       await waitFor(() => expect(fireChoiceButton).to.equal(document.activeElement))
     })
 
-    it('should show choices with selected choice checked and focused when Identify button is clicked', async function () {
+    it('should show choices with selected choice focused when Identify button is clicked', async function () {
       const identifyButton = screen.getByTestId('choice-identify-button')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
@@ -206,11 +206,9 @@ describe('SurveyTask with user clicks', function () {
       const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
       expect(choiceMoreInfoButton).to.be.null()
       // confirm choices are shown
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
       const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      // confirm choice (Fire) is shown as checked
-      expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
       // confirm choice (Fire) is shown as focused
       await waitFor(() => expect(fireChoiceButton).to.equal(document.activeElement))
     })

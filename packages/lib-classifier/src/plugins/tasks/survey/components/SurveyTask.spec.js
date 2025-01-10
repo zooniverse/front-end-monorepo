@@ -26,7 +26,7 @@ describe('SurveyTask', function () {
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
         const choiceMenu = document.querySelector('[role=menu]')
         // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        choiceButtons = choiceMenu.querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = choiceMenu.querySelectorAll('[role=menuitem]')
         // choicesShowingCount is the text below choices that notes "Showing X of Y"
         choicesShowingCount = screen.queryByText('SurveyTask.CharacteristicsFilter.showing')
         clearFiltersButton = screen.queryByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })
@@ -69,7 +69,7 @@ describe('SurveyTask', function () {
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
         const choiceMenu = document.querySelector('[role=menu]')
         // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        choiceButtons = choiceMenu.querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = choiceMenu.querySelectorAll('[role=menuitem]')
         // choicesShowingCount is the text below choices that notes "Showing X of Y"
         choicesShowingCount = screen.queryByText('SurveyTask.CharacteristicsFilter.showing')
         clearFiltersButton = screen.queryByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })

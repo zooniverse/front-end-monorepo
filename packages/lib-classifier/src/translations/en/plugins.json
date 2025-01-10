@@ -28,10 +28,17 @@
       "moreInfo": "More info",
       "cancel": "Cancel"
     },
+    "ChoiceButton": {
+      "identified": "identified",
+      "openSubmenu": "Open submenu for {{choiceLabel}}"
+    },
     "ConfusedWith": {
       "cancel": "Cancel",
       "confused": "Often confused with",
       "itsThis": "I think it's this"
+    },
+    "DeleteButton": {
+      "delete": "Delete choice {{choiceLabel}}"
     }
   },
   "TextTask": {

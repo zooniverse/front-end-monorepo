@@ -27,7 +27,7 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+    const choiceButtons = screen.getAllByRole('menuitem')
     expect(choiceButtons.length).to.equal(6)
     expect(choiceButtons[0]).to.have.text('Aardvark')
     expect(choiceButtons[1]).to.have.text('Elephant')
@@ -48,7 +48,7 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     await user.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+    const choiceButtons = screen.getAllByRole('menuitem')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await user.keyboard('{arrowDown}')
     expect(choiceButtons[1]).to.equal(document.activeElement)
@@ -65,7 +65,7 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     await user.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+    const choiceButtons = screen.getAllByRole('menuitem')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await user.keyboard('{arrowUp}')
     expect(choiceButtons[5]).to.equal(document.activeElement)
@@ -84,7 +84,7 @@ describe('Component > Choices', function () {
           />
         </Grommet>
       )
-      const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+      const choiceButtons = screen.getAllByRole('menuitem')
       // choiceButtons[3] is Human with ID HMN
       expect(choiceButtons[3]).to.equal(document.activeElement)
     })
@@ -103,7 +103,7 @@ describe('Component > Choices', function () {
           />
         </Grommet>
       )
-      const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+      const choiceButtons = screen.getAllByRole('menuitem')
       // choiceButtons[3] is Human with ID HMN
       expect(choiceButtons[3]).to.not.equal(document.activeElement)
     })
