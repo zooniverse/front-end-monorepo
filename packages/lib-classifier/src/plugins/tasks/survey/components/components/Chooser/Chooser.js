@@ -63,8 +63,8 @@ function Chooser ({
     <Box
       as={task.instruction ? 'fieldset' : 'div'}
       alignSelf='center'
-      margin='0'
-      pad='0'
+      margin='none'
+      pad='none'
       style={{ border: 'none' }}
       width='100%'
     >
