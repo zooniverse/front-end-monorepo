@@ -28,6 +28,10 @@
       "moreInfo": "More info",
       "cancel": "Cancel"
     },
+    "ChoiceButton": {
+      "identified": "identified",
+      "openSubmenu": "Open submenu for {{choiceLabel}}"
+    },
     "ConfusedWith": {
       "cancel": "Cancel",
       "confused": "Often confused with",

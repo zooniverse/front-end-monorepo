@@ -8,6 +8,8 @@ import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 
+import { useTranslation } from '@translations/i18n'
+
 import DeleteButton from './DeleteButton'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
@@ -70,6 +72,8 @@ function ChoiceButton({
   tabIndex = -1,
   thumbnailSize = 'none'
 }) {
+  const { t } = useTranslation('plugins')
+
   const choiceMenuItem = useRef(null)
   const handleClick = useCallback(() => {
     onChoose(choiceId)
@@ -94,8 +98,7 @@ function ChoiceButton({
   return (
     <StyledBox
       ref={choiceMenuItem}  
-      // TODO: add the following to translations
-      a11yTitle={`${choiceLabel}` + (selected ? '; identified' : '')}
+      a11yTitle={`${choiceLabel}` + (selected ? `; ${t('SurveyTask.ChoiceButton.identified')}` : '')}
       aria-haspopup='true'
       role='menuitem'
       align='center'
@@ -133,8 +136,7 @@ function ChoiceButton({
         </DeleteButton>
       ) : null}
       <StyledButton
-        // TODO: add the following to translations
-        a11yTitle={`Open submenu for ${choiceLabel}`}
+        a11yTitle={t('SurveyTask.ChoiceButton.openSubmenu', { choiceLabel })}
         disabled={disabled}
         label={
           <Box
