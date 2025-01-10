@@ -18,8 +18,8 @@ const StyledGrid = styled.ul`
   gap: ${props => props.$hideThumbnails ? '1px' : '0'};
   grid-auto-flow: column;
   grid-template-columns: repeat(${props => props.$columnsCount}, ${props => {
-    if (props.$columnsCount === 3) return '166px';
-    if (props.$columnsCount === 2) return '250px';
+    if (props.$columnsCount === 3) return (props.$hideThumbnails ? '165.33px' : '166px');
+    if (props.$columnsCount === 2) return (props.$hideThumbnails ? '248.5px' : '249px');
     return '1fr';
   }});
   grid-template-rows: repeat(${props => props.$rowsCount}, ${props => props.$hideThumbnails ? '40px' : '60px'});
