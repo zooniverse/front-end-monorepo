@@ -51,6 +51,7 @@ export function Choices ({
   selectedChoiceIds = [],
   task
 }) {
+  // TODO: refactor focus to menuitem, with consideration for "selected" state with open submenu button and delete button
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
   const size = useContext(ResponsiveContext)
