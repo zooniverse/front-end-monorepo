@@ -30,7 +30,7 @@ describe('SurveyTask with user keystrokes', function () {
       expect(choiceButtons.length).to.equal(6)
     
       // confirm choice Fire selected
-      choiceButton = screen.getByLabelText('Fire; identified')
+      choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
       expect(choiceButton).to.be.ok()
     
       // confirm choice Fire active element
@@ -47,7 +47,7 @@ describe('SurveyTask with user keystrokes', function () {
       expect(choiceButtons.length).to.equal(6)
     
       // confirm choice Fire selected
-      choiceButton = screen.getByLabelText('Fire; identified')
+      choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
       expect(choiceButton).to.be.ok()
     
       // confirm choice Fire active element
