@@ -1,4 +1,5 @@
 import { Box, Image } from 'grommet'
+import { FormClose } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -9,6 +10,12 @@ export const StyledFilter = styled(Box)`
       `0 0 2px 2px ${props.theme.global.colors.brand};` 
       : 'none'
   };
+`
+
+const StyledImage = styled(Image)`
+  flex: 0 0 auto;
+  height: 25px;
+  width: 25px;
 `
 
 export default function FilterLabel({
@@ -37,18 +44,20 @@ export default function FilterLabel({
       hover={hover}
       justify='center'
       margin={{ bottom: 'xsmall' }}
+      pad={{ horizontal: '10px', vertical: '5px' }}
       round='medium'
       width={containerWidth}
     >
-      <Image
+      <StyledImage
         alt={valueLabel}
         fit='contain'
-        height='25px'
         src={valueImageSrc}
-        width='25px'
       />
       {selected && (
-        <>&times;</>
+        <FormClose
+          color='neutral-7'
+          size='1.3rem'
+        />
       )}
     </StyledFilter>
   )
