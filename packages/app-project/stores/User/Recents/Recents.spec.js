@@ -4,7 +4,6 @@ import { getSnapshot } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import initStore from '@stores/initStore'
-import { statsClient } from '../UserPersonalization/YourStats'
 
 describe('Stores > Recents', function () {
   let rootStore
@@ -39,13 +38,11 @@ describe('Stores > Recents', function () {
         collections: []
       }
     }))
-    sinon.stub(statsClient, 'fetchDailyStats').callsFake(() => Promise.resolve(null))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
-    statsClient.fetchDailyStats.restore()
   })
 
   it('should exist', function () {

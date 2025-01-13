@@ -62,7 +62,7 @@ describe('Component > ClassifierWrapper', function () {
   describe('with a project, user, user project preferences loaded', function () {
     let recents
     let collections
-    let yourStats
+    let personalization
     let wrapper
 
     before(function () {
@@ -79,9 +79,11 @@ describe('Component > ClassifierWrapper', function () {
         addFavourites: sinon.stub(),
         removeFavourites: sinon.stub()
       }
-      yourStats = {
-        increment: sinon.stub()
+
+      personalization = {
+        incrementSessionCount: sinon.stub()
       }
+
       const user = {
         loadingState: asyncStates.success
       }
@@ -89,11 +91,11 @@ describe('Component > ClassifierWrapper', function () {
         <ClassifierWrapper
           appLoadingState={asyncStates.success}
           collections={collections}
+          personalization={personalization}
           project={project}
           recents={recents}
           router={router}
           user={user}
-          yourStats={yourStats}
         />,
         { wrappingComponent: TestWrapper }
       ).find(Classifier)
@@ -104,7 +106,7 @@ describe('Component > ClassifierWrapper', function () {
     })
 
     describe('on classification complete', function () {
-      describe('with a new subject', function () {
+      describe('with user signed in and any subject', function () {
         before(function () {
           const subject = {
             id: '1',
@@ -119,82 +121,12 @@ describe('Component > ClassifierWrapper', function () {
         })
 
         after(function () {
-          yourStats.increment.resetHistory()
           recents.add.resetHistory()
+          personalization.incrementSessionCount.resetHistory()
         })
 
-        it('should increment stats', function () {
-          expect(yourStats.increment).to.have.been.calledOnce()
-        })
-
-        it('should add to recents', function () {
-          const recent = {
-            favorite: false,
-            subjectId: '1',
-            locations: [
-              { 'image/jpeg': 'thing.jpg' }
-            ]
-          }
-          expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
-        })
-      })
-
-      describe('with a retired subject', function () {
-        before(function () {
-          const subject = {
-            id: '1',
-            already_seen: false,
-            favorite: false,
-            retired: true,
-            locations: [
-              { 'image/jpeg': 'thing.jpg' }
-            ]
-          }
-          wrapper.props().onCompleteClassification({}, subject)
-        })
-
-        after(function () {
-          yourStats.increment.resetHistory()
-          recents.add.resetHistory()
-        })
-
-        it('should not increment stats', function () {
-          expect(yourStats.increment).to.not.have.been.called()
-        })
-
-        it('should add to recents', function () {
-          const recent = {
-            favorite: false,
-            subjectId: '1',
-            locations: [
-              { 'image/jpeg': 'thing.jpg' }
-            ]
-          }
-          expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
-        })
-      })
-
-      describe('with a seen subject', function () {
-        before(function () {
-          const subject = {
-            id: '1',
-            already_seen: true,
-            favorite: false,
-            retired: false,
-            locations: [
-              { 'image/jpeg': 'thing.jpg' }
-            ]
-          }
-          wrapper.props().onCompleteClassification({}, subject)
-        })
-
-        after(function () {
-          yourStats.increment.resetHistory()
-          recents.add.resetHistory()
-        })
-
-        it('should not increment stats', function () {
-          expect(yourStats.increment).to.not.have.been.called()
+        it('should increment sessoin count', function () {
+          expect(personalization.incrementSessionCount).to.have.been.calledOnce()
         })
 
         it('should add to recents', function () {

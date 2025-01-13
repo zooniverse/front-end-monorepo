@@ -41,10 +41,6 @@ describe('Component > ClassifierWrapperConnector', function () {
         expect(wrapper.props().recents).to.equal(mockStore.user.recents)
       })
 
-      it('should include your personal stats', function () {
-        expect(wrapper.props().yourStats).to.equal(mockStore.user.personalization)
-      })
-
       it('should include the project', function () {
         expect(wrapper.props().project).to.deep.equal(mockStore.project.toJSON())
       })

@@ -18,19 +18,17 @@ function storeMapper (store) {
   return {
     isLoggedIn,
     recents,
-    projectName: project['display_name'],
     slug: project.slug
   }
 }
 
 function RecentSubjectsConnector({ size }) {
   const { store } = useContext(MobXProviderContext)
-  const { isLoggedIn, recents, projectName, slug } = storeMapper(store)
+  const { isLoggedIn, recents, slug } = storeMapper(store)
   return (
     <RecentSubjects
       isLoggedIn={isLoggedIn}
       recents={recents.slice()}
-      projectName={projectName}
       size={size}
       slug={slug}
     />

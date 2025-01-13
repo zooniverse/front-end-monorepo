@@ -9,6 +9,7 @@ import {
 import { number, shape } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from '../../../../../../translations/i18n.js'
 
 import { Tip } from '@components/shared'
 
@@ -19,6 +20,7 @@ const StyledTab = styled(Tab)`
 `
 
 function Stat({ stats }) {
+  const { t } = useTranslation()
   return (
     <Box direction='row'>
       <Box align='center' gap='xxsmall' width='50%'>
@@ -28,7 +30,7 @@ function Stat({ stats }) {
             color={{ dark: 'white', light: 'black' }}
             weight='bold'
           >
-            Classifications
+            {t('common.classifications')}
           </Text>
           <Tip contentText='Click on MORE STATS to generate a volunteer certificate' />
         </Box>
@@ -42,7 +44,7 @@ function Stat({ stats }) {
           color={{ dark: 'white', light: 'black' }}
           weight='bold'
         >
-          Projects
+          {t('common.projects')}
         </Text>
         <Text color={{ light: 'neutral-1', dark: 'accent-1' }} size='xxlarge'>
           {stats.projects?.toLocaleString()}
@@ -53,16 +55,17 @@ function Stat({ stats }) {
 }
 
 export default function StatsTabs({ statsPreview }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
   return (
     <ThemeContext.Extend value={tabsTheme}>
       <Box width={size !== 'small' ? { min: '480px' } : { min: '350px'}}>
         <GrommetTabs gap='small' size={size}>
-          <StyledTab title='This Week'>
+          <StyledTab title={t('UserHome.Dashboard.thisWeek')}>
             {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
           </StyledTab>
-          <StyledTab title='All Time'>
+          <StyledTab title={t('UserHome.Dashboard.allTime')}>
             {statsPreview?.allTime && <Stat stats={statsPreview.allTime} />}
           </StyledTab>
         </GrommetTabs>

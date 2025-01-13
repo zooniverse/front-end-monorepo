@@ -1,6 +1,7 @@
 export { default as useAdminMode } from './useAdminMode.js'
 export { default as useUserFavourites } from './useUserFavourites.js'
 export { default as usePanoptesAuth } from './usePanoptesAuth.js'
+export { default as usePanoptesAuthToken } from './usePanoptesAuthToken.js'
 export { default as usePanoptesUser } from './usePanoptesUser.js'
 export { default as usePreferredTheme } from './usePreferredTheme.js'
 export { default as useSugarProject } from './useSugarProject.js'

@@ -1,4 +1,4 @@
-import cookie from 'cookie'
+import * as cookie from 'cookie'
 
 export default function getCookie (name) {
   if (document?.cookie) {

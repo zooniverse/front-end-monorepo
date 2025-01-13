@@ -3,6 +3,7 @@ import { Box, Grid, Menu } from 'grommet'
 import { More, UserAdmin } from 'grommet-icons'
 import { bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from '../../../../../translations/i18n.js'
 
 const StyledMenu = styled(Menu)`
   div {
@@ -25,6 +26,7 @@ function MemberListItem({
   role,
   user
 }) {
+  const { t } = useTranslation()
   const createItem = (label, roles) => ({
     disabled,
     label,
@@ -35,12 +37,12 @@ function MemberListItem({
   })
 
   const items = role === ROLES.ADMIN
-    ? [createItem('Remove admin access', [ROLES.MEMBER])]
-    : [createItem('Give admin access', [ROLES.ADMIN])]
+    ? [createItem(t('GroupStats.MemberListItem.removeAdmin'), [ROLES.MEMBER])]
+    : [createItem(t('GroupStats.MemberListItem.giveAdmin'), [ROLES.ADMIN])]
 
   items.push({
     disabled,
-    label: 'Remove member',
+    label: t('GroupStats.MemberListItem.remove'),
     onClick: () => handleDelete({ membershipId })
   })
 
@@ -77,7 +79,7 @@ function MemberListItem({
         </SpacedText>
       </Grid>
       <StyledMenu
-        a11yTitle={`Menu to update or remove ${user.display_name}'s group membership`}
+        a11yTitle={t('GroupStats.MemberListItem.a11y', { name: user.display_name })}
         icon={<More />}
         items={items}
         margin='xsmall'

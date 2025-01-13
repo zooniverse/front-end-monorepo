@@ -2,28 +2,18 @@ import PropTypes from 'prop-types'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
-import { doesTheLabelHaveAnImage } from '../../helpers'
 
-const StyledTaskInputLabelWrapper = styled.span`
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`
+function doesTheLabelHaveAnImage(label) {
+  const imageRegex = /(?:!\[(.*?)\]\((.*?)\))/g
+  return label && imageRegex.test(label)
+}
 
 const StyledText = styled(Text)`
-  display: block;
-  margin: 1em 0;
-  padding-left: 15px;
-  padding-right: 15px;
-
-  img, svg {
-    padding: 10px;
-    vertical-align: middle;
-  }
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding: 5px 0 5px 15px;
+  gap: 15px; // in case there's multiple elements in the Markdown
 `
 
 export default function TaskInputLabel({
@@ -37,18 +27,17 @@ export default function TaskInputLabel({
 
   return (
     <Box
-      as={StyledTaskInputLabelWrapper}
+      as='span'
       direction='row'
       fill='horizontal'
       justify={howShouldTheLabelBeAligned}
+      pad={{ right: '15px' }}
     >
-      {labelIcon &&
-        labelIcon}
+      {labelIcon && labelIcon}
       <StyledText>
-        <Markdownz inline >{label}</Markdownz>
+        <Markdownz inline>{label}</Markdownz>
       </StyledText>
-      {labelStatus &&
-        labelStatus}
+      {labelStatus && labelStatus}
     </Box>
   )
 }

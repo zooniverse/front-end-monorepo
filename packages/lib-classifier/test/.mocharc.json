@@ -6,11 +6,12 @@
   "require": [
     "@babel/register",
     "chai/register-expect.js",
-    "chai/register-should.js",
-    "ignore-styles",
-    "./test/setup.js",
-    "./test/enzyme-config.js"
+    "chai/register-should.js"
   ],
   "reporter": "spec",
-  "ui": "bdd"
+  "ui": "bdd",
+  "file": [
+    "./test/setup.js",
+    "./test/enzyme-config.js"
+  ]
 }

@@ -1,16 +1,10 @@
 import { Grid, Box, TableRow } from 'grommet'
-import styled from 'styled-components'
 
 import Markdownz from './Markdownz'
 import readme from './README.md'
 import markdownExample from '../../.storybook/lib/example.md'
 import { examples } from './helpers/storybookExamples'
 import markdownInGrid from './markdownGridExample.md'
-
-const TableRowWithBorder = styled(TableRow)`
-  border-top: solid thin black;
-  border-bottom: solid thin black;
-`
 
 function MarkdownTableRow({ label, content, ...props }) {
   return (
@@ -57,7 +51,9 @@ function MarkdownExamplesTable(props) {
         </tr>
       </thead>
       <tbody>
-        {examples.map(rowProps => <MarkdownTableRow key={props.label} {...rowProps} {...props} />)}
+        {examples.map((rowProps, id) => (
+          <MarkdownTableRow key={id} {...rowProps} {...props} />
+        ))}
       </tbody>
     </table>
   )
@@ -95,10 +91,16 @@ export const InProjectContext = () => (
 
 export const WithCustomComponents = () => (
   <>
-    <MarkdownExamplesTable components={{ tr: TableRowWithBorder }} />
-    <Markdownz>
-      {markdownExample}
-    </Markdownz>
+    <MarkdownExamplesTable
+      components={{
+        tr: ({ id, children }) => (
+          <TableRow id={id} style={{ border: 'solid 2px red' }}>
+            {children}
+          </TableRow>
+        )
+      }}
+    />
+    <Markdownz>{markdownExample}</Markdownz>
   </>
 )
 

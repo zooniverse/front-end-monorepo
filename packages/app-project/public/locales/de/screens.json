@@ -38,7 +38,7 @@
       "content": "Glückwunsch! Du hast den nächsten Workflow freigeschalten. Wenn Du lieber in diesem Workflow bleiben möchtest, kannst Du auswählen hier zu bleiben."
     },
     "YourStats": {
-      "title": "{{projectName}} Statistik"
+      "title": "Statistik"
     }
   }
 }

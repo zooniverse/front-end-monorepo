@@ -6,6 +6,7 @@ const StyledCertificateButton = styled(Button)`
   border-radius: 4px;
   color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['dark-5']};
   min-width: 100px;
+  text-transform: uppercase;
 `
 
 export default StyledCertificateButton

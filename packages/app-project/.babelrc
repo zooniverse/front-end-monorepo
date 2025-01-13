@@ -2,6 +2,7 @@
   "env": {
     "test": {
       "plugins": [
+        "babel-plugin-styled-components",
         [ "babel-plugin-webpack-alias", { "config": "./webpack.config.test.js" } ]
       ],
       "presets": ["next/babel"]

@@ -13,7 +13,8 @@ describe('Helpers > subjectViewers', function () {
     'singleText',
     'singleVideo',
     'subjectGroup',
-    'variableStar'
+    'variableStar',
+    'volumetric'
   ]
 
   viewers.forEach(function (viewer) {

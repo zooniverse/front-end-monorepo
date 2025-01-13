@@ -32,7 +32,6 @@ function Placeholder({ height }) {
 function RecentSubjects({
   isLoggedIn = false,
   recents = [],
-  projectName,
   size = 3,
   slug
 }) {
@@ -42,10 +41,7 @@ function RecentSubjects({
   const placeholders = [...Array(size - displayedRecents.length)]
 
   return (
-    <ContentBox title={t('Classify.RecentSubjects.title', { projectName })}>
-      <Paragraph margin={{ top: 'none' }}>
-        {t('Classify.RecentSubjects.text')}
-      </Paragraph>
+    <ContentBox title={t('Classify.RecentSubjects.title')}>
       <Grid
         alignContent='stretch'
         columns={[`repeat(${size}, 1fr)`]}

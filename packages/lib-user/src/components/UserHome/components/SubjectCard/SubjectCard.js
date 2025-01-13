@@ -10,9 +10,10 @@
 /* The shape and styling of this component is similar to ProjectCard in lib-react-components */
 
 import styled from 'styled-components'
-import { Anchor, Box } from 'grommet'
+import { Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { string } from 'prop-types'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 const StyledBox = styled(Box)`
   overflow: hidden;
@@ -62,6 +63,7 @@ export default function SubjectCard({
   projectSlug = '',
   subjectID
 }) {
+  const { t } = useTranslation()
   // to PFE
   const href = `https://www.zooniverse.org/projects/${projectSlug}/talk/subjects/${subjectID}`
 
@@ -75,14 +77,14 @@ export default function SubjectCard({
       round='8px'
     >
       <Media
-        alt={`subject ${subjectID}`}
+        alt={`${t('UserHome.SubjectCard.subject')} ${subjectID}`}
         controls={false}
         src={mediaSrc}
         width={cardWidth(size) * 2}
       />
       <Gradient fill />
       <StyledSpacedText color='white' weight='bold'>
-        {'Subject ' + subjectID}
+        {t('UserHome.SubjectCard.subject')} {subjectID}
       </StyledSpacedText>
     </StyledBox>
   )

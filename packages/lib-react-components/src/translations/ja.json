@@ -1,33 +1,145 @@
 {
+  "AdminCheckbox": {
+    "label": "管理者モード"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "ユーザー名かパスワードが間違っています",
+      "forgot": "パスワードを忘れましたか？",
+      "heading": "おかえりなさい！",
+      "instruction": "おかえりなさい！サインインして、前回中断したところから再開します。",
+      "login": "ユーザー名かメールアドレス",
+      "password": "パスワード",
+      "placeholder": "例 ZooniverseFan123",
+      "signIn": "サインイン"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "新しいプロジェクトのテストに協力したいので、利用可能になったらメールで知らせてほしい（任意）",
+      "email": "メールアドレス（必須）",
+      "emailConfirm": "メールアドレスの再入力（必須）",
+      "emailConfirmError": "メールアドレスが一致しませんでした。再入力してください。",
+      "emailConflict": "このアドレスで作成されたアカウントが既に存在します",
+      "emailListSignUp": "時々メールを送っても大丈夫です（任意）",
+      "emailPlaceholder": "例:zoofan31@gmail.com",
+      "forgot": "パスワードを忘れましたか？",
+      "heading": "おかえりなさい！",
+      "instruction": "本格的な研究に参加するにはアカウントを作成してください。",
+      "password": "パスワード（必須）",
+      "passwordConfirm": "パスワードの再入力（必須）",
+      "passwordConfirmError": "パスワードが一致しません。再入力してください。",
+      "privacyAgreement": "プライバシーポリシーに同意する（必須）",
+      "privacyAgreementError": "プライバシーポリシーへの同意が必要です",
+      "privacyLink": "プライバシーポリシーを読んでください",
+      "realName": "本名（英語表記、任意）",
+      "realNameHelp": "研究成果の論文や学会でのポスター発表などの謝辞に使われます。",
+      "realNamePatternHelp": "メールアドレスではなく本名を入力してください。",
+      "realNamePlaceholder": "例 Ao Manaka",
+      "register": "新規登録",
+      "registering": "登録中...",
+      "underageConsent": "私は、私が保護者であること並びに私の子どもが私のメールアドレスを用いて登録することを認め許可します。私と子どもの両方がプライバシーポリシーを理解しています。（必須）",
+      "underageEmail": "保護者のメールアドレス（必須）",
+      "underageEmailSignUp": "（任意）同意いただいた場合は、新しい研究に関する情報や関連するほかの情報を定期的にメールでお知らせします。あなたの連絡先を商用利用することはありません。",
+      "underageNotRealName": "この名前でログインします。公開される名前ですので、希望しない方は本名を使わないでください。",
+      "underageWithParent": "16歳未満の方は、保護者と一緒に記入したことを確認するためにこの欄にチェックを入れてください。",
+      "username": "ユーザー名（必須）",
+      "usernameConflict": "このユーザー名は既に使用されています",
+      "usernameHelp": "これはメッセージボードなどで公開されます",
+      "usernamePatternHelp": "ユーザー名に使えるのは英数字、\".\" , \"-\" , \"_\" (ピリオド、ハイフン、アンダーバー)のみです",
+      "usernamePlaceholder": "例: ZooniverseFan123"
+    },
+    "title": "サインイン もしくは新規アカウント作成"
+  },
   "CloseButton": {
     "close": "閉じる"
+  },
+  "FavouritesButton": {
+    "add": "お気に入りに追加する",
+    "remove": "お気に入りに追加されました"
   },
   "Loader": {
     "loading": "読み込み中"
   },
   "ZooFooter": {
+    "aboutLabels": {
+      "about": "概要",
+      "acknowledgements": "謝辞",
+      "contact": "連絡先",
+      "faq": "よくある質問",
+      "publications": "出版物",
+      "team": "チーム"
+    },
     "buildLabels": {
+      "bestPractices": "ベストプラクティス",
+      "buildAProject": "プロジェクトを作る",
+      "glossary": "用語集",
+      "policies": "理念",
       "tutorial": "チュートリアル"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "プロジェクトの募集",
+      "collections": "コレクション",
+      "education": "教育",
+      "getInvolved": "参加する"
+    },
+    "newsLabels": {
+      "blog": "ブログ",
+      "dailyZooniverse": "Daily Zooniverse",
+      "news": "ニュース"
+    },
+    "policyLabels": {
+      "jobs": "求人情報",
+      "privacyPolicy": "プライバシーポリシー",
+      "security": "セキュリティー",
+      "systemStatus": "システム状況"
     },
     "projectLabels": {
       "projects": "プロジェクト"
     },
+    "tagLine": "人々の力で進める研究",
     "talkLabels": {
       "talk": "トーク"
-    }
+    },
+    "zooniversePolicies": "Zooniverseの理念"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "プロジェクト",
-      "talk": "トーク"
+    "SignedInUserNavigation": {
+      "ariaLabel": "ユーザーアカウント",
+      "navListLabels": {
+        "messages_one": "メッセージ ({{count}})",
+        "messages_other": "メッセージ ({{count}})",
+        "messages_zero": "メッセージ",
+        "notifications_one": "通知 ({{count}})",
+        "notifications_other": "通知 ({{count}})",
+        "notifications_zero": "通知"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "新規登録",
-      "signIn": "サインイン"
+      "signIn": "ログイン"
     },
     "ThemeModeToggle": {
-      "switchToDark": "ダーク へ切り替える",
-      "switchToLight": "ライト へ切り替える"
+      "switchToDark": "ダークテーマに切り替える",
+      "switchToLight": "ライトテーマに切り替える"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "コレクション",
+        "favorites": "お気に入り",
+        "profile": "プロフィール",
+        "settings": "設定",
+        "signOut": "ログアウト"
+      }
+    },
+    "ariaLabel": "サイト",
+    "mainHeaderNavListLabels": {
+      "about": "概要",
+      "build": "新規作成",
+      "getInvolved": "参加する",
+      "projects": "プロジェクト",
+      "talk": "トーク"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverseのロゴ"
   }
 }

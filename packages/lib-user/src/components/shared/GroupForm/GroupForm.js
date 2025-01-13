@@ -2,6 +2,7 @@ import { Box, Button, Form, FormField, RadioButtonGroup, Select, TextInput, Them
 import { func, node, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import FieldLabel from './components/FieldLabel'
 import RadioInputLabel from './components/RadioInputLabel'
@@ -10,32 +11,6 @@ import formTheme from './theme'
 const StyledButton = styled(Button)`
   border-radius: 4px;
 `
-
-const PRIVATE_STATS_VISIBILITY = [
-  {
-    label: `No, don't show individual stats to members`,
-    value: 'private_agg_only',
-  },
-  {
-    label: 'Yes, show individual stats to members',
-    value: 'private_show_agg_and_ind',
-  }
-]
-
-const PUBLIC_STATS_VISIBILITY = [
-  {
-    label: 'No, never show individual stats',
-    value: 'public_agg_only',
-  },
-  {
-    label: 'Yes, show individual stats if member',
-    value: 'public_agg_show_ind_if_member',
-  },
-  {
-    label: 'Yes, always show individual stats',
-    value: 'public_show_all',
-  }
-]
 
 const DEFAULT_HANDLER = () => true
 
@@ -51,6 +26,34 @@ function GroupForm({
   handleDelete = DEFAULT_HANDLER,
   handleSubmit = DEFAULT_HANDLER
 }) {
+  const { t } = useTranslation()
+
+  const PRIVATE_STATS_VISIBILITY = [
+    {
+      label: t('GroupForm.privateAggOnly'),
+      value: 'private_agg_only',
+    },
+    {
+      label: t('GroupForm.privateShowAggAndInd'),
+      value: 'private_show_agg_and_ind',
+    }
+  ]
+
+  const PUBLIC_STATS_VISIBILITY = [
+    {
+      label: t('GroupForm.publicAggOnly'),
+      value: 'public_agg_only',
+    },
+    {
+      label: t('GroupForm.publicAggShowInd'),
+      value: 'public_agg_show_ind_if_member',
+    },
+    {
+      label: t('GroupForm.publicShowAll'),
+      value: 'public_show_all',
+    }
+  ]
+
   const [value, setValue] = useState(defaultValue)
   const statsVisibilityOptions = value.visibility === 'Private' ? PRIVATE_STATS_VISIBILITY : PUBLIC_STATS_VISIBILITY
 
@@ -80,15 +83,15 @@ function GroupForm({
         }
       }}>
         <FormField
-          label={<FieldLabel>Group Name</FieldLabel>}
-          help={defaultValue?.id ? null : 'By creating a new Group you will become the admin.'}
+          label={<FieldLabel>{t('GroupForm.name')}</FieldLabel>}
+          help={defaultValue?.id ? null : t('GroupForm.nameHelp')}
           htmlFor='display_name'
           name='display_name'
           required
           validate={[
             (name) => {
-              if (name && name.length < 4) return 'must be > 3 characters'
-              if (name && name.length > 60) return 'must be < 60 characters'
+              if (name && name.length < 4) return t('GroupForm.greaterThanChar')
+              if (name && name.length > 60) return t('GroupForm.lessThanChar')
               return undefined
             }
           ]}
@@ -102,7 +105,7 @@ function GroupForm({
       </ThemeContext.Extend>
       <ThemeContext.Extend value={formTheme}>
         <FormField
-          label={<FieldLabel>Public Visibility</FieldLabel>}
+          label={<FieldLabel>{t('GroupForm.pubVis')}</FieldLabel>}
           htmlFor='visibility'
           name='visibility'
         >
@@ -111,17 +114,17 @@ function GroupForm({
             options={[
               {
                 label: <>
-                  <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='1rem'>Private</RadioInputLabel>
+                  <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='1rem'>{t('GroupForm.private')}</RadioInputLabel>
                   <span style={{ whiteSpace: 'pre' }}>{' - '}</span>
-                  <RadioInputLabel>only members can view this group</RadioInputLabel>
+                  <RadioInputLabel>{t('GroupForm.onlyMembers')}</RadioInputLabel>
                 </>,
                 value: 'Private'
               },
               {
                 label: <>
-                  <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='1rem'>Public</RadioInputLabel>
+                  <RadioInputLabel color={{ dark: 'neutral-6', light: 'neutral-7' }} size='1rem'>{t('GroupForm.public')}</RadioInputLabel>
                   <span style={{ whiteSpace: 'pre' }}>{' - '}</span>
-                  <RadioInputLabel>you can share this group with anyone</RadioInputLabel>
+                  <RadioInputLabel>{t('GroupForm.anyone')}</RadioInputLabel>
                 </>,
                 value: 'Public'
               }
@@ -139,15 +142,15 @@ function GroupForm({
         }
       }}>
         <FormField
-          label={<FieldLabel>Show Individual Stats</FieldLabel>}
-          help='Admin can always see individual stats.'
+          label={<FieldLabel>{t('GroupForm.showInd')}</FieldLabel>}
+          help={t('GroupForm.showIndHelp')}
           htmlFor='stats_visibility'
-          info={defaultValue.id ? null : 'You can add all other members via a Join Link after creating the new group below.'}
+          info={defaultValue.id ? null : t('GroupForm.showIndInfo')}
           name='stats_visibility'
         >
           <Select
             id='stats_visibility'
-            aria-label='Stats Visibility'
+            aria-label={t('GroupForm.visibility')}
             labelKey='label'
             name='stats_visibility'
             options={statsVisibilityOptions}
@@ -164,17 +167,17 @@ function GroupForm({
           <button
             onClick={(event) => {
               event.preventDefault()
-              if (window.confirm('Are you sure you want to delete this group?')) {
+              if (window.confirm(t('GroupForm.deactivateHelp'))) {
                 handleDelete()
               }
             }}
           >
-            Deactivate Group
+            {t('GroupForm.deactivate')}
           </button>
         ) : null}
         <StyledButton
           color={{ light: 'neutral-1', dark: 'accent-1' }}
-          label={defaultValue?.id ? 'Save changes' : 'Create new group'}
+          label={defaultValue?.id ? t('GroupForm.saveChanges') : t('GroupForm.createNew')}
           primary
           type='submit'
         />

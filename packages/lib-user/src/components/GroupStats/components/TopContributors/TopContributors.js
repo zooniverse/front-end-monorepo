@@ -2,6 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import {
   ContentBox,
@@ -17,12 +18,13 @@ function TopContributors({
   stats,
   topContributors
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
   const gridAutoFlow = size === 'small' ? 'row' : 'column'
 
   const topContributorsWithStats = topContributors?.map(user => {
     const userStats = stats?.top_contributors?.find(topUser => topUser.user_id.toString() === user.id)
-    
+
     return {
       classifications: userStats?.count,
       ...user
@@ -31,14 +33,14 @@ function TopContributors({
 
   return (
     <ContentBox
-      linkLabel='See all contributors and detailed stats'
+      linkLabel={t('GroupStats.TopContributors.linkLabel')}
       linkProps={{
         href: `/groups/${groupId}/contributors`
       }}
-      title='Top Contributors'
+      title={t('GroupStats.TopContributors.title')}
       toolTip={
         <Tip
-          contentText='Includes active and inactive members.'
+          contentText={t('GroupStats.TopContributors.tip')}
           buttonProps={{
             margin: { left: 'xsmall' }
           }}
@@ -62,7 +64,7 @@ function TopContributors({
           pad='medium'
         >
           <SpacedText uppercase={false}>
-            There was an error fetching the top contributors.
+            {t('GroupStats.TopContributors.error')}
           </SpacedText>
           <SpacedText uppercase={false}>
             {error?.message}

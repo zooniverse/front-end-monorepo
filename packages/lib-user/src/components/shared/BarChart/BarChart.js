@@ -2,6 +2,7 @@ import { DataChart, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import {
   getDateInterval as defaultGetDateInterval
@@ -9,11 +10,6 @@ import {
 
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
-
-const TYPE_LABEL = {
-  count: 'Classifications',
-  session_time: 'Time'
-}
 
 const X_AXIS_FREQUENCY = {
   everyOther: 'everyOther',
@@ -24,6 +20,24 @@ const StyledDataChart = styled(DataChart)`
   .hidden-period-label {
     display: none;
   }
+
+  // The only way to get to the x-axis bounding div
+  &.styled-grommet-barchart > :first-child {
+
+    // Align the x-axis visual label to the first date label
+    div:first-of-type > span {
+      position: relative;
+
+      &::after {
+        content: 'Date range (UTC)';
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        font-size: 0.75rem;
+        width: max-content;
+      }
+    }
+  }
 `
 
 function BarChart({
@@ -33,18 +47,24 @@ function BarChart({
   getDateInterval = defaultGetDateInterval,
   type = 'count'
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
-  
+
+  const TYPE_LABEL = {
+    count: t('common.classifications'),
+    session_time: t('BarChart.time')
+  }
+
   // getDateInterval returns an object with a period property based on the date range, start_date, and end_date
   const dateInterval = getDateInterval(dateRange)
 
   // getCompleteData returns an array of objects with a period, count, and session_time property,
   // including any periods without stats with a count and session_time of 0
   const completeData = getCompleteData({ data, dateInterval })
-  
-  const dateRangeLabel = getDateRangeLabel(dateInterval)
+
+  const dateRangeLabel = getDateRangeLabel(dateInterval, t)
   const typeLabel = TYPE_LABEL[type]
-  
+
   // with no data set gradient as 'brand'
   let gradient = 'brand'
   // with data set gradient range based on data type (count or session_time) and max value of data type
@@ -88,7 +108,8 @@ function BarChart({
 
   return (
     <StyledDataChart
-      a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} from ${dateRange.startDate} to ${dateRange.endDate}`}
+      a11yTitle={t('BarChart.a11y', { typeLabel, countLabel: dateRangeLabel.countLabel, startDate: dateRange.startDate, endDate: dateRange.endDate })}
+      className='styled-grommet-barchart'
       axis={{
         x: { granularity: 'fine', property: 'period' },
         y: { granularity: 'fine', property: type },

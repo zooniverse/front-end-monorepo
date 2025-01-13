@@ -1,5 +1,8 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
+
 import { PointTool, LineTool } from '@plugins/drawingTools/models/tools'
 import { Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -87,16 +90,18 @@ describe('Components > DrawingToolMarks', function () {
       onDelete = sinon.stub()
       onFinish = sinon.stub()
       const wrapper = mount(
-        <SVGContext.Provider value={mockContext}>
-          <svg>
-            <DrawingToolMarks
-              onDelete={onDelete}
-              onDeselectMark={onDeselectMark}
-              onFinish={onFinish}
-              marks={marks}
-            />
-          </svg>
-        </SVGContext.Provider>
+        <Grommet theme={zooTheme}>
+          <SVGContext.Provider value={mockContext}>
+            <svg>
+              <DrawingToolMarks
+                onDelete={onDelete}
+                onDeselectMark={onDeselectMark}
+                onFinish={onFinish}
+                marks={marks}
+              />
+            </svg>
+          </SVGContext.Provider>
+        </Grommet>
       )
       dragEnd = wrapper.find(Mark).at(1).prop('dragEnd')
     })

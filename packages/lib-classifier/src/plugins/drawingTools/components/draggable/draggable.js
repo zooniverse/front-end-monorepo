@@ -16,13 +16,14 @@ function createPoint(event) {
 
 function getEventOffset(event, canvas) {
   const svgPoint = createPoint(event)
-  const svgEventOffset = svgPoint.matrixTransform
-    ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
+  const ctm = canvas?.getScreenCTM()
+  const svgEventOffset = ctm && svgPoint.matrixTransform
+    ? svgPoint.matrixTransform(ctm.inverse())
     : svgPoint
   return svgEventOffset
 }
 
-function convertEvent(event, canvas) {
+export function convertEvent(event, canvas) {
   const svgEventOffset = getEventOffset(event, canvas)
   const svgCoordinateEvent = {
     type: event.type,

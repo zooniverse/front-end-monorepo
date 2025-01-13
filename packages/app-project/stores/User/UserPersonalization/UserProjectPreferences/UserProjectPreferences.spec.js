@@ -6,7 +6,6 @@ import asyncStates from '@zooniverse/async-states'
 import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
-import { statsClient } from '../YourStats'
 import UserProjectPreferences, { Settings } from './UserProjectPreferences'
 import { expect } from 'chai'
 
@@ -30,8 +29,6 @@ describe('Stores > UserProjectPreferences', function () {
     }
   }
   const initialState = {
-    activity_count: 0,
-    activity_count_by_workflow: undefined,
     error: undefined,
     id: undefined,
     links: undefined,
@@ -40,8 +37,6 @@ describe('Stores > UserProjectPreferences', function () {
     settings: undefined
   }
   const upp = {
-    activity_count: 23,
-    activity_count_by_workflow: {},
     id: '555',
     links: {
       project: '2',
@@ -72,12 +67,10 @@ describe('Stores > UserProjectPreferences', function () {
   }
 
   before(function () {
-    sinon.stub(statsClient, 'fetchDailyStats')
     sinon.stub(talkAPI, 'get').resolves([])
   })
 
   after(function () {
-    statsClient.fetchDailyStats.restore()
     talkAPI.get.restore()
   })
 
@@ -152,10 +145,6 @@ describe('Stores > UserProjectPreferences', function () {
         const storedUPP = Object.assign({}, upp, { error: undefined, loadingState: asyncStates.success })
         expect(getSnapshot(projectPreferences)).to.deep.equal(storedUPP)
       })
-
-      it('should set the total classification count on the parent node', function () {
-        expect(rootStore.user.personalization.totalClassificationCount).to.equal(23)
-      })
     })
 
     describe('when there are no user project preferences in the response', function () {
@@ -187,10 +176,6 @@ describe('Stores > UserProjectPreferences', function () {
         await rootStore.user.personalization.projectPreferences.fetchResource()
         expect(projectPreferences.loadingState).to.equal(asyncStates.success)
         expect(projectPreferences.id).to.be.undefined()
-      })
-
-      it('should not set the total classification count on the parent node', function () {
-        expect(rootStore.user.personalization.totalClassificationCount).to.equal(0)
       })
     })
 
@@ -269,8 +254,6 @@ describe('Stores > UserProjectPreferences', function () {
     beforeEach(function () {
       const personalization = {
         projectPreferences: {
-          activity_count: 28,
-          activity_count_by_workflow: {},
           id: '555',
           loadingState: asyncStates.success
         }
@@ -292,13 +275,6 @@ describe('Stores > UserProjectPreferences', function () {
       })
       const { projectPreferences } = rootStore.user.personalization
       projectPreferences.refreshSettings()
-    })
-
-    it('should not change your total classification count', async function () {
-      expect(rootStore.user.personalization.totalClassificationCount).to.equal(28)
-      const { projectPreferences } = rootStore.user.personalization
-      await when(() => projectPreferences.assignedWorkflowID)
-      expect(rootStore.user.personalization.totalClassificationCount).to.equal(28)
     })
 
     it('should not change the app loading state', function () {

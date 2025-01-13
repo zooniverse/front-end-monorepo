@@ -1,5 +1,4 @@
-import { createElement, Fragment, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { bool, object, string } from 'prop-types'
 import styled from 'styled-components'
 import {
   Anchor,
@@ -111,7 +110,7 @@ function Markdownz({
     project: { slug: projectSlug },
     settings
   })
-  
+
   return (
     <>
       {markdownChildren}
@@ -120,12 +119,12 @@ function Markdownz({
 }
 
 Markdownz.propTypes = {
-  baseURI: PropTypes.string,
-  children: PropTypes.string.isRequired,
-  components: PropTypes.object,
-  inline: PropTypes.bool,
-  projectSlug: PropTypes.string,
-  settings: PropTypes.object
+  baseURI: string,
+  children: string.isRequired,
+  components: object,
+  inline: bool,
+  projectSlug: string,
+  settings: object
 }
 
 export { Markdownz }

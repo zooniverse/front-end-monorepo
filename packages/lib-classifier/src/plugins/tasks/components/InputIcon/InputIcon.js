@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { node, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 export const StyledInputIcon = styled.span`
@@ -6,25 +6,18 @@ export const StyledInputIcon = styled.span`
   background-color: #2D2D2D;
   display: flex;
   align-items: center;
-  padding-left: 15px;
-
-  &::after {
-    content: " ";
-    margin-right: 1ch;
-    white-space: pre;
-  }
+  padding: 15px;
 
   > svg {
     fill-opacity: 0.1;
     height: 1.5em;
     stroke: currentColor;
     stroke-width: 5;
-    vertical-align: bottom;
     width: 1.5em;
   }
 `
 
-export default function InputIcon ({ color, icon }) {
+export default function InputIcon ({ color = 'white', icon }) {
   return (
     <StyledInputIcon color={color}>
       {icon}
@@ -32,11 +25,7 @@ export default function InputIcon ({ color, icon }) {
   )
 }
 
-InputIcon.defaultProps = {
-  color: 'white'
-}
-
 InputIcon.propTypes = {
-  color: PropTypes.string,
-  icon: PropTypes.node.isRequired
+  color: string,
+  icon: node.isRequired
 }

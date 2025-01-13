@@ -250,7 +250,7 @@ export default function ClassifierContainer({
             subjectID={subjectID}
             workflowSnapshot={workflowSnapshot}
           /> :
-          <Paragraph>Loading…</Paragraph>
+          <Paragraph>Loading the Classifier</Paragraph>
         }
       </Provider>
     )

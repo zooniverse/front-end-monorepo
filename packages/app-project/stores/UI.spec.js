@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
-import cookie from 'cookie'
+import * as cookie from 'cookie'
 import stringHash from '@sindresorhus/string-hash'
 
 import initStore from './initStore'

@@ -30,18 +30,7 @@
         "title": "Se ha producido un error en el clasificador :("
       }
     },
-    "FinishedForTheDay": {
-      "ProjectImage": {
-        "alt": "Imagen para {{projectName}}"
-      },
-      "buttons": {
-        "stats": "Ver las estadísticas"
-      },
-      "text": "Mientras estás trabajando, tus respuestas se guardan para el equipo de investigación. Mira las estadísticas del proyecto y vuelve a la página de inicio de {{projectName}}.",
-      "title": "¿Has terminado por hoy?"
-    },
     "RecentSubjects": {
-      "text": "Comenta un objeto en Hablemos o añádelo a tus Favoritos o a una colección.",
       "title": "Tus clasificaciones recientes"
     },
     "WorkflowAssignmentModal": {
@@ -52,13 +41,7 @@
       "title": "Nuevo flujo de trabajo disponible"
     },
     "YourStats": {
-      "DailyClassificationsChart": {
-        "title": "Recuentos diarios de la clasificación de {{projectName}}"
-      },
-      "text": "¡Sigue con ese gran trabajo!",
-      "title": "Estadística de {{projectName}}",
-      "todaysCount": "Las clasificaciones de hoy",
-      "totalCount": "Total de clasificaciones"
+      "title": "Estadística"
     }
   },
   "Home": {

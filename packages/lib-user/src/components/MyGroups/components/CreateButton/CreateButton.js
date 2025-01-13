@@ -2,6 +2,7 @@ import { PlainButton } from '@zooniverse/react-components'
 import { Add } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 const StyledButton = styled(PlainButton)`
   width: fit-content;
@@ -13,8 +14,11 @@ const StyledButton = styled(PlainButton)`
 
 function CreateButton({
   onClick,
-  text = 'create new group'
+  text = ''
 }) {
+  const { t } = useTranslation()
+  const labelText = text.length ? text : t('MyGroups.createNew')
+
   return (
     <StyledButton
       a11yTitle={text}
@@ -26,7 +30,7 @@ function CreateButton({
       icon={<Add size='1rem' />}
       labelSize='1rem'
       onClick={onClick}
-      text={text}
+      text={labelText}
     />
   )
 }

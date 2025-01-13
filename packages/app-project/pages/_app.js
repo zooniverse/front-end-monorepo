@@ -1,4 +1,3 @@
-import makeInspectable from 'mobx-devtools-mst'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
 import { useEffect, useMemo } from 'react'
@@ -50,7 +49,6 @@ function MyApp({ Component, pageProps }) {
   /* Initialize the mobx store */
   const { initialState } = pageProps
   const store = useStore(initialState)
-  makeInspectable(store)
 
   useEffect(
     function onMount() {

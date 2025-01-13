@@ -1,6 +1,8 @@
 import { Loader } from '@zooniverse/react-components'
 import { bool, shape, string } from 'prop-types'
 
+const DEFAULT_HANDLER = (key) => key
+
 export function getUserGroupStatus({
   authUserId = undefined,
   createGroupMembershipError = null,
@@ -8,18 +10,19 @@ export function getUserGroupStatus({
   group = null,
   groupError = null,
   groupLoading = false,
-  joinToken = null
+  joinToken = null,
+  t = DEFAULT_HANDLER
 }) {
   if (joinToken && !authUserId) {
-    return ('Log in to join the group.')
+    return t('GroupContainer.loginToJoin')
   }
 
   if (createGroupMembershipLoading) {
-    return ('Joining group...')
+    return t('GroupContainer.joining')
   }
 
   if (createGroupMembershipError) {
-    return ('Join failed.')
+    return t('GroupContainer.joinFail')
   }
 
   if (groupLoading) {
@@ -27,15 +30,15 @@ export function getUserGroupStatus({
   }
 
   if (groupError) {
-    return (`Error: ${groupError.message}.`)
+    return groupError.message
   }
 
   if (!group && !authUserId) {
-    return ('Group not found. You must be logged in to access a private group.')
+    return t('GroupContainer.noAuth')
   }
 
   if (!group && authUserId) {
-    return ('Group not found.')
+    return t('GroupContainer.notFound')
   }
 
   return null

@@ -1,4 +1,3 @@
-import { within } from '@testing-library/dom'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -10,15 +9,11 @@ import sinon from 'sinon'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import * as tasks from '@plugins/tasks'
-import RootStore from '@store'
-import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReductions'
 import { reducedSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
-import { WorkflowFactory, SubjectFactory } from '@test/factories'
-import mockStore, { defaultClient } from '@test/mockStore/mockStore.js'
+import { WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore/mockStore.js'
 
 import TranscribedLines from '.'
-
-import { expect } from 'chai'
 
 describe('Component > TranscribedLines', function () {
   function withStore(store) {

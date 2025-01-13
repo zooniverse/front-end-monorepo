@@ -1,14 +1,64 @@
 {
+  "FreehandLine": {
+    "active": "始点から終点までクリックしドラッグするか、線上の任意の場所をダブルクリックして接合点を作ります",
+    "closePoint": "ライン上のどこかをクリックして、終了点を設定します",
+    "inactive": "このラインを編集するにはクリックしてください",
+    "spliceDrag": "クリックして、始点から終点にドラッグします",
+    "splicePoint": "線上のどこかをダブルクリックして、接合点を作ります"
+  },
+  "HighlighterTask": {
+    "delete": "削除",
+    "noLabels": "強調タスクのラベルがありません",
+    "status": "{{count}}個マークしました"
+  },
+  "InputStatus": {
+    "drawn": "{{count}}件入力されました。",
+    "max": "{{count}}件入力されました。最大は{{max}}件です。",
+    "maxAndMin": "少なくとも{{min}}件必要なうちの{{count}}入力されました、最大は{{max}}件です",
+    "min": "必要な{{min}}件中{{count}}入力されました"
+  },
+  "LineControls": {
+    "close": "閉じる",
+    "delete": "削除",
+    "deleteCancel": "削除をやめる",
+    "deleteConfirm": "削除の確認",
+    "lineControls": "ラインコントロール",
+    "move": "移動",
+    "redo": "やり直す",
+    "undo": "元に戻す"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "入力する",
+    "otherLabel": "その他",
+    "selectPlaceholder": "回答の選択"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "フィルターを消去",
+      "filter": "フィルター",
+      "removeFilter": "{{valueLabel}}フィルターの削除",
       "showing": "{{total}}のうち{{showing}}件を表示"
     },
+    "Choice": {
+      "identify": "識別する",
+      "notThis": "これではありません"
+    },
     "ConfusedWith": {
-      "cancel": "キャンセル"
+      "cancel": "キャンセル",
+      "confused": "時々混同されます",
+      "itsThis": "これだと思います"
     }
   },
   "TextFromSubjectTask": {
     "reset": "表示をリセット"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "テキストの修飾子"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "文字起こしを作成しました",
+    "editing": "文字起こしの編集"
   }
 }

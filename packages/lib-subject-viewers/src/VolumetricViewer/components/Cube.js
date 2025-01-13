@@ -24,13 +24,13 @@ import { pointColor } from './../helpers/pointColor.js'
 import { SortedSetUnion } from './../helpers/SortedSet.js'
 
 // Shim for test:ci in GH needs this to work
-let OrbitControls = null;
+const OrbitControls = null
 // import("three/addons/controls/OrbitControls.js").then((module) => {
-// 	OrbitControls = module.OrbitControls;
+//   OrbitControls = module.OrbitControls;
 // })
 
 // Shim for node.js testing
-let glContext = null
+const glContext = null
 if (!process.browser) {
   window.requestAnimationFrame = () => {
     // needs to be stubbed out for animate() to work
@@ -148,17 +148,17 @@ export const Cube = ({ annotations, tool, viewer }) => {
     threeRef.current.renderer.setPixelRatio(window.devicePixelRatio)
     threeRef.current.renderer.setSize(width, width)
 
-		if (OrbitControls) {
-			threeRef.current.orbit = new OrbitControls(
-				threeRef.current.camera,
-				threeRef.current.renderer.domElement,
-			);
-			threeRef.current.orbit.enableDamping = false;
-			threeRef.current.orbit.enableZoom = true;
-			threeRef.current.orbit.enablePan = false;
-		} else {
-			console.log('OrbitControls are not available')
-		}
+    if (OrbitControls) {
+      threeRef.current.orbit = new OrbitControls(
+        threeRef.current.camera,
+        threeRef.current.renderer.domElement
+      )
+      threeRef.current.orbit.enableDamping = false
+      threeRef.current.orbit.enableZoom = true
+      threeRef.current.orbit.enablePan = false
+    } else {
+      console.log('OrbitControls are not available')
+    }
 
     // View Axes
     const half = viewer.base / 2

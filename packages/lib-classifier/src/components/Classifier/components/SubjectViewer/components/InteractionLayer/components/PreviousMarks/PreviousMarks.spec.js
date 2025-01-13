@@ -1,5 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import { Provider } from 'mobx-react'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { WorkflowFactory } from '@test/factories'
@@ -60,11 +62,13 @@ describe('Component > PreviousMarks', function () {
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
-        <Provider classifierStore={store}>
-          <svg>
-            {children}
-          </svg>
-        </Provider>
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            <svg>
+              {children}
+            </svg>
+          </Provider>
+        </Grommet>
       )
     }
   }

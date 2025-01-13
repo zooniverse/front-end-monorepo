@@ -1,52 +1,259 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "あなたはこのサブジェクトを既に見ています。",
+      "tooltipText": [
+        "あなたはこのサブジェクトをすでに見ており分類していますので、これ以上分類を入力しても解析への貢献にはなりません。",
+        "協力いただける方は、他のワークフローを選ぶか、別のプロジェクトに参加してください。"
+      ]
+    },
     "Banner": {
-      "next": "次へ"
+      "next": "次へ",
+      "previous": "前へ",
+      "whyAmISeeingThis": "なぜこれが表示されるのでしょうか？"
     },
     "InProgressConfirmModal": {
       "cancel": "キャンセル",
+      "confirm": "確認する",
       "inProgress": "「戻る」を押すと現在のタスクで入力した情報が消去されます。"
+    },
+    "RetiredBanner": {
+      "bannerText": "終了:このサブジェクトは既に完了しました。",
+      "tooltipText": [
+        "このサブジェクトは十分分類を受けたので、分類を追加しても分析に使われません。",
+        "協力いただける方は、他のワークフローを選ぶか、別のプロジェクトに参加してください。"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "既に見たサブジェクトです",
+      "bannerText": "{{setName}}:サブジェクト{{number}}\/{{total}}",
+      "finished": "完了しました。",
+      "tooltipText": [
+        "このプロジェクトでは、ボランティアはサブジェクトを順番に見ることができます。",
+        "この数字は、グループ全体でのサブジェクトの位置を示しています。"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "完了しました。あなたは既に全てのサブジェクトを見ています。",
+      "tooltipText": [
+        "あなたはこのワークフローの全てのサブジェクトを既に分類しています。さらにこのサブジェクトを分類しても解析には用いられません。",
+        "協力いただける方は、他のワークフローを選ぶか、別のプロジェクトに参加してください。"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "このワークフローは完了しました",
+      "tooltipText": [
+        "このワークフローの全てのサブジェクトの分類が完了しました。さらに分類しても解析には使われません。",
+        "協力いただける方は、他のワークフローを選ぶか、別のプロジェクトに参加してください。"
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "描画した注釈\/マークを回転するハンドル"
+  },
   "FeedbackModal": {
-    "keepClassifying": "次へ"
+    "keepClassifying": "次へ",
+    "label": "フィードバック"
   },
   "FieldGuide": {
-    "title": "フィールドガイド",
     "FieldGuideButton": {
       "buttonLabel": "フィールドガイド"
     },
     "FieldGuideItem": {
-      "ariaTitle": "戻る"
-    }
+      "ariaTitle": "フィールドガイドの目次に戻る"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}}を選択"
+    },
+    "title": "フィールドガイド"
   },
   "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "注釈"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "サブジェクトを通常サイズに戻す",
+        "fullscreen": "サブジェクトを全画面表示"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "サブジェクトの反転"
+    },
+    "MoveButton": {
+      "ariaLabel": "サブジェクトを移動"
+    },
     "ResetButton": {
       "ariaLabel": "表示をリセット"
+    },
+    "RotateButton": {
+      "ariaLabel": "サブジェクトを拡大"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "サブジェクトを拡大"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "サブジェクトを縮小"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "コレクションに追加"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "以前のマークを非表示",
+      "show": "以前のマークを表示"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "すべてのマークを非表示",
+      "show": "すべてのマークを表示",
+      "showUser": "あなたがつけたマークを表示する"
+    },
+    "MetadataButton": {
+      "label": "サブジェクトの情報"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "ラベル",
+        "value": "値"
+      },
+      "title": "サブジェクトのメタデータ"
     }
   },
   "ModalTutorial": {
     "title": "チュートリアル"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "コメントパネルを閉じる",
+      "goToTalk": "トークページでサブジェクトについて議論する",
+      "mainPanel": "クイックトークコメントパネル",
+      "openButton": "このサブジェクトには{{count}}件のコメントがついています。クリックして拡張します。",
+      "panelContent": "サブジェクトの議論のコメント",
+      "panelHeading": "サブジェクトの議論"
+    },
+    "errors": {
+      "failPostComment": "既存のディスカッションにコメントを追加できませんでした。",
+      "failPostDiscussion": "新しいディスカッションにコメントを追加できませんでした。",
+      "noBoard": "このサブジェクトにはコメントのためのボードが用意されていません",
+      "noText": "空白コメントは投稿できません",
+      "noUser": "ログインしていません"
+    },
+    "loginToPost": "コメントするにはログインしてください",
     "status": {
-      "loading": "読み込み中"
-    }
+      "initialized": "このサブジェクトについてメモを残す",
+      "loading": "コメントの投稿中...",
+      "success": "コメントを投稿しました！"
+    },
+    "subjectHasNoComments": "このサブジェクトにはコメントがまだありません"
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "{{index}}ステップに進む",
+      "next": "次のステップに移る",
+      "previous": "前のステップに戻る"
+    },
+    "alt": "チュートリアルステップ{{activeStep}}",
+    "error": "チュートリアルのステップを読み込めませんでした",
     "getStarted": "はじめる",
     "heading": "{{projectDisplayName}} チュートリアル"
   },
+  "StepNavigation": {
+    "go": "{{index}}ステップに移動",
+    "next": "次のステップに移る",
+    "previous": "前のステップに戻る"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "棒グラフ"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "テキストビュアーのアイコン"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "保存せずに閉じる",
+        "confirm": "閉じてもいいですか？このマークは削除されます。",
+        "keepWorking": "続行"
+      },
+      "SaveButton": {
+        "save": "保存して閉じる"
+      },
+      "SubTaskPopup": {
+        "notRender": "タスクコンポーネントをレンダリングできませんでした。",
+        "required": "このタスクは必須です"
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "集約された文字起こし",
+          "explanation": "これらの{{count}}件の文字起こしは以前にボランティアが提出したものですので修正できません。",
+          "noAggregation": "集計は利用できません",
+          "title": "以前の文字起こし",
+          "transcriptionsUnavailable": "文字起こしは利用できません"
+        },
+        "complete": "文字起こし完了",
+        "transcribed": "文字起こしあり"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "次へ"
+        "nextFrameLabel": "次へ",
+        "previousFrameLabel": "前へ",
+        "thumbnailAltText": "画像サムネイル"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "選択した{{index}}を削除"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "フリップブック表示に切り替える",
+        "switchToSeparateFrames": "個別フレーム表示に切り替える"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "サブジェクトのロード中にエラーが生じました"
+    },
+    "VariableStarViewer": {
+      "controls": "コントロール",
+      "figCaption": "HR図",
+      "flip": "フリップ",
+      "focus": "フォーカス",
+      "highlight": "ハイライト",
+      "imageTitle": "HR図:光度と温度",
+      "label": "{{id}}フィルター",
+      "periodMultiple": "複数周期",
+      "phase": "位相",
+      "phaseFocus": "位相フォーカス"
+    },
+    "VideoController": {
+      "closeVolume": "音量調整を閉じる",
+      "fullscreen": "動画を全画面表示",
+      "openVolume": "音量調整を開く",
+      "pause": "動画の一時停止",
+      "play": "動画の再生",
+      "playbackSpeed": "再生速度の選択",
+      "scrubber": "動画プレイヤーのスクラバー",
+      "volumeSlider": "音量調整"
+    },
+    "ZoomControlButton": {
+      "disable": "ズームを無効にする",
+      "enable": "ズームを有効にする"
+    },
+    "loading": "サブジェクトをロード中"
   },
   "TaskArea": {
-    "task": "タスク",
-    "tutorial": "チュートリアル",
+    "DisabledTaskPopup": {
+      "body": "このサブジェクトは十分分類を受けたので、分類を追加しても分析に使われません。参照用に表示するだけであれば可能です。",
+      "options": {
+        "dismiss": "無視",
+        "next": "次の利用可能なサブジェクト",
+        "select": "新しいプロジェクトの選択"
+      },
+      "title": "完了済み"
+    },
     "Tasks": {
       "BackButton": {
         "back": "戻る"
@@ -57,14 +264,23 @@
       "DoneButton": {
         "done": "完了"
       },
-      "loading": "読み込み中",
+      "ExpertOptions": {
+        "demoToggle": "デモモード",
+        "label": "エキスパートオプション"
+      },
       "NextButton": {
         "next": "次へ"
       },
       "TaskHelp": {
         "close": "閉じる",
         "label": "このタスクに関するヘルプが必要ですか?"
-      }
-    }
+      },
+      "demoMode": "デモモードでは分類は保存されません。これを用いて分類インターフェースの、正確ではないですが素早いデモができます。",
+      "error": "何らかの問題が発生しました",
+      "loading": "読み込み中",
+      "renderFallback": "タスクコンポーネントをレンダリングできませんでした。"
+    },
+    "task": "タスク",
+    "tutorial": "チュートリアル"
   }
 }

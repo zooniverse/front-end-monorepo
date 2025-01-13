@@ -3,6 +3,7 @@ import { Box } from 'grommet'
 import Link from 'next/link'
 import { number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import { TitledStat } from '@components/shared'
 
@@ -10,7 +11,7 @@ const StyledListItem = styled.li`
   border-radius: 8px;
   list-style: none;
   width: clamp(385px, 100%, 564px);
-  
+
   &:hover, &:focus-within {
     box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, 0.25);
   }
@@ -51,6 +52,7 @@ function GroupCard({
   projects = 0,
   role = ''
 }) {
+  const { t } = useTranslation()
   return (
     <StyledListItem>
       <StyledLink
@@ -74,7 +76,7 @@ function GroupCard({
               round='xsmall'
               background={role === 'group_admin' ? 'neutral-2' : 'accent-1'}
             >
-              {role === 'group_admin' ? 'Admin' : 'Member'}
+              {role === 'group_admin' ? t('MyGroups.GroupCard.admin') : t('MyGroups.GroupCard.member')}
             </StyledRole>
           </Box>
           <Box
@@ -82,19 +84,19 @@ function GroupCard({
             justify='between'
           >
             <TitledStat
-              title='Classifications'
+              title={t('common.classifications')}
               value={classifications}
             />
             <TitledStat
-              title='Hours'
+              title={t('common.hours')}
               value={hours}
             />
             <TitledStat
-              title='Contributors'
+              title={t('common.contributors')}
               value={contributors}
             />
             <TitledStat
-              title='Projects'
+              title={t('common.projects')}
               value={projects}
             />
           </Box>

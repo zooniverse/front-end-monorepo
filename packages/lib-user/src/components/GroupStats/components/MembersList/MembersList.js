@@ -1,6 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 import { Pagination } from '@components/shared'
 
@@ -22,6 +23,7 @@ function MembersList({
   paginationProps = DEFAULT_PAGINATION_PROPS,
   users = []
 }) {
+  const { t } = useTranslation()
   return (
     <Box
       margin={{ vertical: 'small' }}
@@ -31,14 +33,14 @@ function MembersList({
         size='1rem'
         uppercase={false}
       >
-        Group Members
+        {t('GroupStats.MembersList.title')}
       </SpacedText>
       <SpacedText
         margin={{ top: 'xxsmall' }}
         size='0.8rem'
         uppercase={false}
       >
-        Removing a member inactivates their membership in the group. They will no longer have access to the group, but contributions while a member will persist.
+        {t('GroupStats.MembersList.warning')}
       </SpacedText>
       <Box
         as='ul'
@@ -52,7 +54,7 @@ function MembersList({
           const user = users?.find(user => user.id === membership.links.user)
           const role = membership.roles[0]
           const disabled = authUserId === user?.id
-          
+
           return (
             <MemberListItem
               key={membership.id}

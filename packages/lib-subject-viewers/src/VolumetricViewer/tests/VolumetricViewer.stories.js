@@ -1,5 +1,6 @@
 import VolumetricViewer from './../VolumetricViewer'
-import subjectData from './../data/4x4x4.json'
+import asyncStates from '@zooniverse/async-states'
+import { VolumetricSubjectMock } from './../data/subjectMock'
 
 export default {
   title: 'Components / VolumetricViewer',
@@ -7,5 +8,10 @@ export default {
 }
 
 export const Default = () => {
-  return <VolumetricViewer subjectData={subjectData} />
+  return (
+    <VolumetricViewer
+      loadingState={asyncStates.success}
+      subject={VolumetricSubjectMock}
+    />
+  )
 }

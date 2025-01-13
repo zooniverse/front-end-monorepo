@@ -16,6 +16,9 @@ function commitID() {
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 
 const nextConfig = {
+  compiler: {
+    styledComponents: true
+  },
   compress: false,
   env: {
     COMMIT_ID

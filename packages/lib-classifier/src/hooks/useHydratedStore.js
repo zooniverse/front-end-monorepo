@@ -1,4 +1,3 @@
-import makeInspectable from 'mobx-devtools-mst'
 import { addDisposer, destroy, onSnapshot } from 'mobx-state-tree'
 import { useMemo } from 'react'
 
@@ -64,7 +63,6 @@ function initStore({ cachePanoptesData, storageKey, storeEnv }) {
       */
       persist(storageKey, store)
     }
-    makeInspectable(store)
   }
   return store
 }

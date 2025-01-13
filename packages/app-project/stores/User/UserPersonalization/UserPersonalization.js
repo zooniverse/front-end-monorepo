@@ -4,49 +4,16 @@ import { autorun } from 'mobx'
 
 import Notifications from './Notifications'
 import UserProjectPreferences from './UserProjectPreferences'
-import YourStats from './YourStats'
 
 const UserPersonalization = types
   .model('UserPersonalization', {
     notifications: types.optional(Notifications, {}),
     projectPreferences: types.optional(UserProjectPreferences, {}),
     sessionCount: types.optional(types.number, 0),
-    stats: types.optional(YourStats, {})
   })
   .views(self => ({
-    get counts() {
-      const today = self.todaysCount
-
-      return {
-        today,
-        total: self.totalClassificationCount
-      }
-    },
-
     get sessionCountIsDivisibleByFive() {
       return self.sessionCount % 5 === 0
-    },
-
-    get todaysCount() {
-      let todaysCount = 0
-      try {
-        todaysCount = self.todaysStats.count
-      } catch (error) {
-        todaysCount = self.sessionCount
-      }
-      return todaysCount
-    },
-
-    get todaysStats() {
-      const todaysDate = new Date()
-      if (self.stats.thisWeek.length === 7) {
-        return self.stats.thisWeek.find(stat => stat.dayNumber === todaysDate.getDay())
-      }
-      return null
-    },
-
-    get totalClassificationCount() {
-      return self.projectPreferences?.activity_count || 0
     }
   }))
   .actions(self => {
@@ -62,10 +29,8 @@ const UserPersonalization = types
         addDisposer(self, autorun(_onUserChange))
       },
 
-      increment() {
+      incrementSessionCount() {
         self.sessionCount = self.sessionCount + 1
-        self.todaysStats?.increment()
-        self.projectPreferences?.incrementActivityCount()
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshSettings()
@@ -75,7 +40,6 @@ const UserPersonalization = types
       load(newUser = true) {
         self.notifications.fetchAndSubscribe()
         if (newUser) {
-          self.stats.fetchDailyCounts()
           self.projectPreferences.fetchResource()
         } else {
           self.projectPreferences.refreshSettings()
@@ -86,7 +50,6 @@ const UserPersonalization = types
         self.notifications.reset()
         self.projectPreferences.reset()
         self.projectPreferences.setLoadingState(asyncStates.success)
-        self.stats.reset()
         self.sessionCount = 0
       }
     }

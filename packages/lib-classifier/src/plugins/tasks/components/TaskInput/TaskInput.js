@@ -37,7 +37,6 @@ function getHoverStyles (props, active = false) {
 }
 
 const StyledText = styled(Text)`
-  align-items: baseline;
   ${props => props.theme.dark ?
     css`background: transparent;` :
     css`background: ${props.theme.global.colors['light-1']};`
@@ -46,8 +45,9 @@ const StyledText = styled(Text)`
   box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
   cursor: pointer;
   display: flex;
-  margin-top: .5em;
-  margin-bottom: .5em;
+  align-items: center;
+  min-height: 45px;
+  margin: 8px 0;
 `
 
 const StyledLabel = styled.label`
@@ -85,7 +85,7 @@ const StyledLabel = styled.label`
       css`border: 2px solid ${props.theme.global.colors['light-1']};` :
       css`border: 2px solid ${props.theme.global.colors['neutral-1']};`
     }
-  
+
     > img:only-child, svg:only-child {
       background-color: inherit !important;
     }
@@ -132,7 +132,7 @@ export function TaskInput({
         type={type}
         value={index}
       />
-      <StyledText margin={{ vertical: 'small', horizontal: 'none' }}>
+      <StyledText>
         <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
       </StyledText>
     </StyledLabel>

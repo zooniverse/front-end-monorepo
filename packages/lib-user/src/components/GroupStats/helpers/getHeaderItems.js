@@ -15,7 +15,8 @@ function getHeaderItems({
   group,
   handleGroupMembershipLeave = DEFAULT_HANDLER,
   handleGroupModalActive = DEFAULT_HANDLER,
-  membership
+  membership,
+  t
 }) {
   const headerItems = {
     PrimaryHeaderItem: null,
@@ -32,8 +33,8 @@ function getHeaderItems({
     headerItems.PrimaryHeaderItem = (
       <HeaderToast
         icon={<Layer color='white' size='small' />}
-        label='Share Group'
-        message='Group Link Copied!'
+        label={t('GroupStats.headerItems.share')}
+        message={t('GroupStats.headerItems.copied')}
         primaryItem={true}
         textToCopy={shareGroupUrlString}
       />
@@ -42,7 +43,7 @@ function getHeaderItems({
     headerItems.PrimaryHeaderItem = (
       <HeaderLink
         href={`/users/${authUser?.login}/groups`}
-        label='all my groups'
+        label={t('GroupStats.headerItems.all')}
         primaryItem={true}
       />
     )
@@ -53,7 +54,7 @@ function getHeaderItems({
       <HeaderButton
         key='leave-group-button'
         icon={<SubtractCircle color='white' size='small' />}
-        label='Leave Group'
+        label={t('GroupStats.headerItems.leave')}
         onClick={() => handleGroupMembershipLeave({
           membershipId: membership.id,
         })}
@@ -63,8 +64,8 @@ function getHeaderItems({
       <HeaderToast
         key='copy-join-link-toast'
         icon={<Layer color='white' size='small' />}
-        label='Share Group'
-        message='Group Link Copied!'
+        label={t('GroupStats.headerItems.share')}
+        message={t('GroupStats.headerItems.copied')}
         textToCopy={shareGroupUrlString}
       />
     )
@@ -75,21 +76,21 @@ function getHeaderItems({
       <HeaderToast
         key='copy-join-link-toast'
         icon={<Link color='white' size='small' />}
-        label='Copy Join Link'
-        message='Join Link Copied!'
+        label={t('GroupStats.headerItems.copy')}
+        message={t('GroupStats.headerItems.copied')}
         textToCopy={`${window.location.origin}/groups/${group.id}?join_token=${group.join_token}`}
       />,
       <HeaderToast
         key='share-group-toast'
         icon={<Layer color='white' size='small' />}
-        label='Share Group'
-        message='Group Link Copied!'
+        label={t('GroupStats.headerItems.share')}
+        message={t('GroupStats.headerItems.copied')}
         textToCopy={shareGroupUrlString}
       />,
       <HeaderButton
         key='manage-group-button'
         icon={<SettingsOption color='white' size='small' />}
-        label='Manage Group'
+        label={t('GroupStats.manage')}
         onClick={() => handleGroupModalActive()}
       />
     ])

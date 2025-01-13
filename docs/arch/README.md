@@ -60,3 +60,4 @@
 - [ADR 58: Internationalisation with the Panoptes translations API](adr-58.md)
 - [ADR 59: Incremental Static Regeneration of project pages](adr-59.md)
 - [ADR 60: Enabling Aggregations (Caesar Reducers) on Workflows](adr-60.md)
+- [ADR 61: Displaying Stats in UTC Date Ranges](adr-61.md)

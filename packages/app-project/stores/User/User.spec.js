@@ -3,9 +3,6 @@ import * as client from '@zooniverse/panoptes-js'
 import { expect } from 'chai'
 import { when } from 'mobx'
 import nock from 'nock'
-import sinon from 'sinon'
-
-import { statsClient } from './UserPersonalization/YourStats'
 
 import Store from '@stores/Store'
 
@@ -19,8 +16,6 @@ describe('stores > User', function () {
   let userStore
 
   beforeEach(function () {
-    sinon.stub(statsClient, 'fetchDailyStats')
-
     nock('https://panoptes-staging.zooniverse.org/api')
     .persist()
     .get('/users/1/recents')
@@ -37,19 +32,31 @@ describe('stores > User', function () {
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 23 }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 25 }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=2&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 27 }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
 
@@ -70,7 +77,6 @@ describe('stores > User', function () {
   })
 
   afterEach(function () {
-    statsClient.fetchDailyStats.restore()
     nock.cleanAll()
   })
 
@@ -105,7 +111,6 @@ describe('stores > User', function () {
   })
 
   describe('with an existing user session', function () {
-    
     it('should refresh project preferences for the same user', async function () {
       userStore.set(user)
       const { personalization } = userStore

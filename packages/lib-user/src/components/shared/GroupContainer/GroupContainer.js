@@ -4,6 +4,7 @@ import { Notification } from 'grommet'
 import { bool, node, shape, string } from 'prop-types'
 import { Children, cloneElement, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import {
   ContentBox,
@@ -38,6 +39,7 @@ function GroupContainer({
   groupId,
   joinToken
 }) {
+  const { t } = useTranslation()
   const [showJoinNotification, setShowJoinNotification] = useState(false)
 
   // define user_group membership key
@@ -82,7 +84,7 @@ function GroupContainer({
     groupId,
     membershipId: activeMembership?.id
   })
-  
+
   useEffect(function handleJoinGroup() {
     async function createMembership() {
       try {
@@ -97,7 +99,7 @@ function GroupContainer({
     }
 
     if (
-      authUser?.id && 
+      authUser?.id &&
       joinToken &&
       !activeMembershipRole &&
       !membershipError &&
@@ -127,23 +129,24 @@ function GroupContainer({
     }
   }, [joinToken, activeMembershipRole])
 
-  const status = getUserGroupStatus({ 
+  const status = getUserGroupStatus({
     authUserId: authUser?.id,
     createGroupMembershipError,
     createGroupMembershipLoading,
     group,
     groupError,
     groupLoading,
-    joinToken
+    joinToken,
+    t
   })
 
   const activeMembershipDeactivatedGroup = activeMembershipRole && groupError?.status === 404
-  
+
   return (
     <>
       {showJoinNotification && (
         <Notification
-          message='New Group Joined!'
+          message={t('GroupContainer.joined')}
           onClose={() => setShowJoinNotification(false)}
           status='normal'
           time={4000}
@@ -177,7 +180,7 @@ function GroupContainer({
           </ContentBox>
         </Layout>
       ) : (
-        Children.map(children, child => 
+        Children.map(children, child =>
           cloneElement(
             child,
             {

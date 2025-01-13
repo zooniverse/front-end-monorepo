@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 const StyledDropButton = styled(DropButton)`
   position: relative;
@@ -57,6 +58,7 @@ const StyledLi = styled.li`
 `
 
 function HeaderDropdown({ secondaryHeaderItems = [] }) {
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => {
@@ -98,7 +100,7 @@ function HeaderDropdown({ secondaryHeaderItems = [] }) {
         pad={{ horizontal: 'medium', vertical: 'xsmall' }}
       >
         <SpacedText size='.78rem' weight={700}>
-          Group Options
+          {t('HeaderDropdown.label')}
         </SpacedText>
         <FormDown color='white' />
       </Box>
