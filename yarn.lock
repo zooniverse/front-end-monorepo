@@ -2064,10 +2064,10 @@
     node-gyp-build "^4.8.1"
     prebuildify "^6.0.1"
 
-"@newrelic/security-agent@^2.0.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-2.1.1.tgz#24f0dcf07215850a8f8bc0d582b456d0f53df697"
-  integrity sha512-dcDmxLMyvwjImTd83X2ePCImOm5qPYkorMhZr1UytK0uPZqJGJXv8SzWYoDRSQM6nzhJ4p1/acj0STgaQQOGvg==
+"@newrelic/security-agent@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-2.2.0.tgz#8de78496243b2352011ddbbbf70dbb9352274d5b"
+  integrity sha512-vjIl3dgccFC/M3CeIXhzrLI/S7IYCJK2MGw+G1WFwvtb+/9jZCOI+LbszfEGBjHQYt71hEudJN3lm2L5hs6D6g==
   dependencies:
     axios "^1.7.4"
     check-disk-space "^3.4.0"
@@ -13602,14 +13602,14 @@ neo-async@^2.5.0, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-newrelic@~12.8.1:
-  version "12.8.2"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-12.8.2.tgz#dc96ff0003403894f243e6f0e3a87778e35648cd"
-  integrity sha512-VE2jxhfXqxift93gAWIneqnQQeB49tdgA7IW9oejbyqWAEHp4cpj85F39bmzNXoow+ZF5cuFccG5K5o1s6qgTg==
+newrelic@~12.10.0:
+  version "12.10.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-12.10.0.tgz#c2bb445c0bc309829dc4b1056bc932260fbce1bd"
+  integrity sha512-Xjfa8jcSqWXweI1d9I+wNXx1VNTpNfcz9f4mKwUBzW4ZlIoLU/j0UMpyUHJA8Fwz8FAAXx1cu1lvj8gQyLaNUQ==
   dependencies:
     "@grpc/grpc-js" "^1.12.2"
     "@grpc/proto-loader" "^0.7.5"
-    "@newrelic/security-agent" "^2.0.0"
+    "@newrelic/security-agent" "^2.2.0"
     "@tyriar/fibonacci-heap" "^2.0.7"
     concat-stream "^2.0.0"
     https-proxy-agent "^7.0.1"
