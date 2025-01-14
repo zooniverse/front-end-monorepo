@@ -6,17 +6,19 @@ import { SpacedHeading } from '@zooniverse/react-components'
 
 import FilterLabel from '../../components/FilterLabel'
 
-const defaultCharacteristic = {
+const DEFAULT_CHARACTERISTIC = {
   values: {},
   valuesOrder: []
 }
 
+const DEFAULT_HANDLER = () => true
+
 export default function CharacteristicSection({
-  characteristic = defaultCharacteristic,
+  characteristic = DEFAULT_CHARACTERISTIC,
   characteristicId = '',
   images = {},
   label = '',
-  onFilter = () => true,
+  onFilter = DEFAULT_HANDLER,
   selectedValueId = '',
   strings
 }) {
@@ -96,6 +98,7 @@ CharacteristicSection.propTypes = {
   }),
   characteristicId: PropTypes.string,
   images: MobXPropTypes.observableMap,
+  label: PropTypes.string,
   onFilter: PropTypes.func,
   selectedValueId: PropTypes.string
 }

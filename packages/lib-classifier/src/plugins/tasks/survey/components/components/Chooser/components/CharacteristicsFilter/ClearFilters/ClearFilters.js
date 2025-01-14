@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
-const defaultHandler = () => true
+const DEFAULT_HANDLER = () => true
+
 export default function ClearFilters ({
-  onClick = defaultHandler,
+  onClick = DEFAULT_HANDLER,
   showingChoices = 0,
   totalChoices = 0
 }) {

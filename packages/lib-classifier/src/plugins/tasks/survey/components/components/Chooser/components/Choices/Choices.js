@@ -45,7 +45,6 @@ const defaultTheme = {
 export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
-  filterDropOpen = false,
   previousChoiceId = '',
   handleDelete = () => {},
   onChoose = () => true,
@@ -149,7 +148,7 @@ export function Choices ({
         const choice = task.choices?.get(choiceId) || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.get(choice.images?.[0]) || ''
-        const hasFocus = !filterDropOpen && (index === focusIndex)
+        const hasFocus = index === focusIndex
         let tabIndex = -1
         if (focusIndex === -1 && index === 0) {
           tabIndex = 0
@@ -189,7 +188,6 @@ Choices.propTypes = {
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
-  filterDropOpen: PropTypes.bool,
   previousChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
   onChoose: PropTypes.func,

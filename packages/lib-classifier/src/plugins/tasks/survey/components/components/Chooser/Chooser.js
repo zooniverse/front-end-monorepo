@@ -1,13 +1,11 @@
+import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useState } from 'react';
 import styled from 'styled-components'
-import { Markdownz } from '@zooniverse/react-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
-import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 const StyledText = styled(Text)`
@@ -42,20 +40,6 @@ function Chooser ({
   selectedChoiceIds = [],
   task
 }) {
-  const [filterDropOpen, setFilterDropOpen] = useState(false)
-
-  function clearFilters() {
-    handleFilter()
-  }
-
-  function handleFilterDropClose () {
-    setFilterDropOpen(false)
-  }
-
-  function handleFilterDropOpen () {
-    setFilterDropOpen(true)
-  }
-
   const showFilters = task.characteristics.size > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
   
@@ -74,33 +58,25 @@ function Chooser ({
           </StyledText>
         : null}
       {showFilters
-        ? (<FilterStatus
-            disabled={disabled}
-            filterDropOpen={filterDropOpen}
-            filters={filters}
-            handleFilter={handleFilter}
-            handleFilterDropClose={handleFilterDropClose}
-            handleFilterDropOpen={handleFilterDropOpen}
-            task={task}
-           />)
+        ? (<>
+            <FilterStatus
+              disabled={disabled}
+              filters={filters}
+              handleFilter={handleFilter}
+              showingChoices={filteredChoiceIds.length}
+              task={task}
+            />
+          </>)
         : null}
       <Choices
         disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
-        filterDropOpen={filterDropOpen}
         previousChoiceId={previousChoiceId}
         handleDelete={handleDelete}
         onChoose={onChoose}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
-      {showFilters
-        ? (<ClearFilters
-            onClick={clearFilters}
-            showingChoices={filteredChoiceIds.length}
-            totalChoices={task.choicesOrder?.length}
-           />)
-        : null}
     </Box>
   )
 }
@@ -115,6 +91,7 @@ Chooser.propTypes = {
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
+    instruction: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
     type: PropTypes.string

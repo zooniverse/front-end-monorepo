@@ -1,16 +1,18 @@
-import { Box, Button } from 'grommet'
+import { Box } from 'grommet'
 import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
 import CharacteristicSection from './components/CharacteristicSection'
 
+const DEFAULT_HANDLER = () => true
+
 function Characteristics({
   characteristics = {},
   characteristicsOrder = [],
   filters  = {},
   images = {},
-  onFilter = () => true,
+  onFilter = DEFAULT_HANDLER,
   strings
 }) {
   const { t } = useTranslation('plugins')
@@ -38,14 +40,6 @@ function Characteristics({
           />
         )
       })}
-      <Box
-        pad='small'
-      >
-        <Button
-          label={t('SurveyTask.CharacteristicsFilter.clearFilters')}
-          onClick={() => onFilter()}
-        />
-      </Box>
     </Box>
   )
 }

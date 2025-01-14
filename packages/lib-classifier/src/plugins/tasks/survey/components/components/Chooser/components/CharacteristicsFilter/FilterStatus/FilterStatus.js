@@ -1,15 +1,17 @@
-import { Box, Button, DropButton } from 'grommet'
-import PropTypes from 'prop-types'
-import { useRef } from 'react';
-import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
+import { Box, Button, Collapsible } from 'grommet'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import styled from 'styled-components'
+
 import { useTranslation } from '@translations/i18n'
 
-import Characteristics from '../Characteristics'
-import FilterLabel from '../components/FilterLabel'
 import FilterIcon from './FilterIcon'
+import FilterLabel from '../components/FilterLabel'
+import Characteristics from '../Characteristics'
+import ClearFilters from '../ClearFilters'
 
-const StyledDropButton = styled(DropButton)`
+const StyledButton = styled(Button)`
   border: none;
   border-radius: 16px;
   padding: 3px 8px;
@@ -28,51 +30,99 @@ const StyledLabel = styled(SpacedText)`
   text-transform: uppercase;
 `
 
+const DEFAULT_HANDLER = () => true
+
 export default function FilterStatus ({
   disabled = false,
-  filterDropOpen = false,
   filters = {},
-  handleFilter = () => {},
-  handleFilterDropClose = () => {},
-  handleFilterDropOpen = () => {},
+  handleFilter = DEFAULT_HANDLER,
+  showingChoices = 0,
   task
 }) {
+  const [filterOpen, setFilterOpen] = useState(false)
+
   const {
     characteristics,
     characteristicsOrder,
+    choices,
     images,
     strings
   } = task
+  
   const { t } = useTranslation('plugins')
-
-  const filterStatusRef = useRef()
 
   const selectedCharacteristicIds = Object.keys(filters)
 
+  function handleFilterOpen () {
+    setFilterOpen(!filterOpen)
+  }
+
   return (
-    <Box
-      ref={filterStatusRef}
-      align='center'
-      border={{
-        color: 'light-5',
-        size: 'xsmall',
-        style: 'solid',
-        side: 'bottom'
-      }}
-      data-testid='filter-status'
-      direction='row'
-      fill='horizontal'
-      gap='xxsmall'
-      height='xxsmall'
-    >
-      <StyledDropButton
-        a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
-        disabled={disabled}
-        dropAlign={{
-          left: 'left',
-          top: 'bottom'
-        }}
-        dropContent={
+    <Box>
+      <Box
+        align='center'
+        data-testid='filter-status'
+        direction='row'
+        gap='xxsmall'
+        height='xxsmall'
+        justify='between'
+      >
+        <StyledButton
+          a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
+          disabled={disabled}
+          gap='none'
+          icon={<FilterIcon />}
+          label={
+            <StyledLabel
+              color={{
+                dark: 'accent-1',
+                light: 'neutral-1'
+              }}
+            >
+              {t('SurveyTask.CharacteristicsFilter.filter')}
+            </StyledLabel>
+          }
+          onClick={handleFilterOpen}
+        />
+        {selectedCharacteristicIds.map(characteristicId => {
+          const characteristic = characteristics?.get(characteristicId) || {}
+          const selectedValueId = filters?.[characteristicId] || ''
+          const value = characteristic.values?.get(selectedValueId) || {}
+          const valueImageSrc = images?.get(value.image) || ''
+          const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
+          function clearSelection() {
+            handleFilter(characteristicId)
+          }
+
+          return (
+            <Button
+              key={`${characteristicId}-${selectedValueId}`}
+              label={
+                <FilterLabel
+                  characteristicId={characteristicId}
+                  selected={true}
+                  valueId={selectedValueId}
+                  valueImageSrc={valueImageSrc}
+                  valueLabel={label}
+                />
+              }
+              onClick={clearSelection}
+              plain
+            />
+          )
+        })}
+      </Box>
+      {(selectedCharacteristicIds.length && !filterOpen) ? (
+        <ClearFilters
+          onClick={() => handleFilter()}
+          showingChoices={showingChoices}
+          totalChoices={choices.size}
+        />
+      ) : null}
+      <Collapsible open={filterOpen}>
+        <Box
+          round={{ corner: 'bottom', size: 'medium' }}
+        >
           <Characteristics
             characteristics={characteristics}
             characteristicsOrder={characteristicsOrder}
@@ -81,65 +131,22 @@ export default function FilterStatus ({
             onFilter={handleFilter}
             strings={strings}
           />
-        }
-        dropProps={{
-          elevation: 'medium'
-        }}
-        dropTarget={filterStatusRef.current}
-        gap='none'
-        icon={<FilterIcon />}
-        label={
-          <StyledLabel
-            color={{
-              dark: 'accent-1',
-              light: 'neutral-1'
-            }}
-          >
-            {t('SurveyTask.CharacteristicsFilter.filter')}
-          </StyledLabel>
-        }
-        open={filterDropOpen}
-        onClose={handleFilterDropClose}
-        onOpen={handleFilterDropOpen}
-      />
-      {selectedCharacteristicIds.map(characteristicId => {
-        const characteristic = characteristics?.get(characteristicId) || {}
-        const selectedValueId = filters?.[characteristicId] || ''
-        const value = characteristic.values?.get(selectedValueId) || {}
-        const valueImageSrc = images?.get(value.image) || ''
-        const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
-        function clearSelection() {
-          handleFilter(characteristicId)
-        }
-
-        return (
           <Button
-            key={`${characteristicId}-${selectedValueId}`}
-            label={
-              <FilterLabel
-                characteristicId={characteristicId}
-                selected={true}
-                valueId={selectedValueId}
-                valueImageSrc={valueImageSrc}
-                valueLabel={label}
-              />
-            }
-            onClick={clearSelection}
+            label='Close Filters'
+            onClick={handleFilterOpen}
             plain
           />
-        )
-      })}
+        </Box>
+      </Collapsible>
     </Box>
   )
 }
 
 FilterStatus.propTypes = {
   disabled: PropTypes.bool,
-  filterDropOpen: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
-  handleFilterDropClose: PropTypes.func,
-  handleFilterDropOpen: PropTypes.func,
+  showingChoices: PropTypes.number,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
