@@ -60,15 +60,13 @@ function Chooser ({
           </StyledText>
         : null}
       {showFilters
-        ? (<>
-            <FilterStatus
-              disabled={disabled}
-              filters={filters}
-              handleFilter={handleFilter}
-              showingChoices={filteredChoiceIds.length}
-              task={task}
-            />
-          </>)
+        ? (<FilterStatus
+            disabled={disabled}
+            filters={filters}
+            handleFilter={handleFilter}
+            showingChoices={filteredChoiceIds.length}
+            task={task}
+          />)
         : null}
       <Choices
         disabled={disabled}
