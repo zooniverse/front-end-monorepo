@@ -1,13 +1,14 @@
-import { Box, Button, Carousel, Collapsible, Heading, Paragraph, Text } from 'grommet'
-import { FormDown, FormUp } from 'grommet-icons'
+import { PrimaryButton, Media } from '@zooniverse/react-components'
+import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
+import { Box, Button, Carousel, Collapsible, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+
 import { useTranslation } from '@translations/i18n'
-import { PrimaryButton, Media } from '@zooniverse/react-components'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import ConfusedWith from './components/ConfusedWith'
+import InfoLabel from './components/InfoLabel'
 import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
@@ -63,29 +64,10 @@ function Choice({
   const choice = choices?.get(choiceId) || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
-  const InfoLabel = (
-    <Box
-      align='center'
-      direction='row'
-      gap='xsmall'
-    >
-      {showInfo ? (
-        <>
-          <Text>{t('SurveyTask.Choice.lessInfo')}</Text>
-          <FormUp aria-hidden="true" />
-        </>
-      ) : (
-        <>
-          <Text>{t('SurveyTask.Choice.moreInfo')}</Text>
-          <FormDown aria-hidden="true" />
-        </>
-      )}
-    </Box>
-  )
 
   function handleKeyDown (event) {
     if (event.key === 'Escape') {
-      handleDelete(choiceId)
+      handleCancel(choiceId)
     }
   }
 
@@ -141,6 +123,7 @@ function Choice({
               dark: 'accent-1',
               light: 'neutral-7'
             }}
+            level={2}
             margin='none'
             size='1.5rem'
             weight='bold'
@@ -148,7 +131,7 @@ function Choice({
             {strings.get(`choices.${choiceId}.label`)}
           </Heading>
           <Button
-            label={InfoLabel}
+            label={<InfoLabel showInfo={showInfo} />}
             onClick={() => setShowInfo(!showInfo)}          
             plain
           />

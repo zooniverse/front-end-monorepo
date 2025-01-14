@@ -3,6 +3,7 @@ import { arrayOf, bool, node, number, string, shape } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { Loader, ProjectCard } from '@zooniverse/react-components'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import { ContentBox } from '@components/shared'
 
@@ -23,9 +24,10 @@ const StyledRowList = styled(Box)`
 `
 
 function CardsGrid({ children }) {
+  const { t } = useTranslation()
   return (
     <StyledGridList
-      a11yTitle='Top Projects'
+      a11yTitle={t('TopProjects.title')}
       columns={['1fr', '1fr', '1fr']}
       forwardedAs='ul'
       gap='xsmall'
@@ -43,9 +45,10 @@ CardsGrid.propTypes = {
 }
 
 function CardsRow({ children }) {
+  const { t } = useTranslation()
   return (
     <StyledRowList
-      a11yTitle='Top Projects'
+      a11yTitle={t('TopProjects.title')}
       direction='row'
       forwardedAs='ul'
       gap='small'
@@ -71,6 +74,7 @@ function TopProjects({
   loading = false,
   projects = []
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
   const cardSize = grid ? 'small' : size
 
@@ -96,7 +100,7 @@ function TopProjects({
 
   return (
     <ContentBox
-      title='Top Projects'
+      title={t('TopProjects.title')}
     >
       {loading ? (
         <Box

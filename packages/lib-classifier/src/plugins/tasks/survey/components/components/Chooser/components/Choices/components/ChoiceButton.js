@@ -8,25 +8,56 @@ import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 
+import { useTranslation } from '@translations/i18n'
+
 import DeleteButton from './DeleteButton'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
 const StyledBox = styled(Box)`
   ${props => props.selected ? css`
+      background: ${props.theme.global.colors['neutral-1']};
+      border: 1px solid ${props.theme.global.colors['neutral-6']};
       box-shadow: 0 0 8px 2px ${props.theme.global.colors['accent-1']};
-    ` : ''
+    ` : css`
+      background: ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
+    `
+  }
+  color: ${props => props.selected ? props.theme.global.colors['neutral-6'] : props.theme.global.colors[props.theme.dark ? 'neutral-6' : 'neutral-7']};
+
+  &:focus {
+    border: 2px solid ${props => props.theme.global.colors['accent-1']};
+    outline: none;
+  }
+  
+  &:hover {
+    background: ${props => props.theme.global.colors['accent-1']};
+    box-shadow: 0 0 8px 2px ${props => props.theme.global.colors['accent-1']};
+    color: ${props => props.theme.global.colors['neutral-7']};
   }
 `
 
 const StyledButton = styled(Button)`
+  box-shadow: none;
   flex-grow: 1;
   height: 100%;
+  &:focus { 
+    border: 2px solid ${props => props.theme.global.colors['accent-1']};
+    box-shadow: none;
+    outline: none;
+  }
 `
 
 const StyledImage = styled(Image)`
   border-radius: 4px;
   object-fit: cover;
+`
+
+const StyledLabel = styled(Text)`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 `
 
 const DEFAULT_HANDLER = () => true
@@ -45,6 +76,8 @@ function ChoiceButton({
   tabIndex = -1,
   thumbnailSize = 'none'
 }) {
+  const { t } = useTranslation('plugins')
+
   const choiceMenuItem = useRef(null)
   const handleClick = useCallback(() => {
     onChoose(choiceId)
@@ -62,26 +95,6 @@ function ChoiceButton({
     }
   })
 
-  const background = selected
-    ? 'neutral-1'
-    : shadedBackground
-      ? {
-          dark: 'dark-4',
-          light: 'light-1'
-        }
-      : {
-          dark: 'dark-5',
-          light: 'neutral-6'
-        }
-  const border = selected
-    ? { color: 'neutral-6', size: '1px' }
-    : undefined
-  const textColor = selected 
-    ? 'neutral-6' 
-    : {
-        dark: 'neutral-6',
-        light: 'neutral-7'
-      }
   const thumbnailHeight = 150
   const thumbnailWidth = Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)
   const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x${thumbnailHeight}/${src.slice(8)}`
@@ -89,20 +102,17 @@ function ChoiceButton({
   return (
     <StyledBox
       ref={choiceMenuItem}  
-      // TODO: add the following to translations
-      a11yTitle={`${choiceLabel}` + (selected ? '; identified' : '')}
+      a11yTitle={`${choiceLabel}` + (selected ? `; ${t('SurveyTask.ChoiceButton.identified')}` : '')}
       aria-haspopup='true'
       role='menuitem'
       align='center'
-      background={background}
-      border={border}
       direction='row'
       fill
       onKeyDown={disabled ? DEFAULT_HANDLER : handleKeyDown}
       pad={{
-        right: '10px',
-        vertical: '5px'
+        right: '10px'
       }}
+      shadedBackground={shadedBackground}
       selected={selected}
       tabIndex={tabIndex}
     >
@@ -113,44 +123,48 @@ function ChoiceButton({
           disabled={disabled}
           tabIndex={selected && tabIndex === 0 ? 0 : -1}
         >
-          {thumbnailSize !== 'none' && src &&
+          {thumbnailSize === 'none' ? (
+            <Box
+              width='40px'
+            />
+          ) : (
             <StyledImage
               alt=''
-              height='50'
+              height='50px'
               src={thumbnailSrc}
-              width={thumbnailSize === 'small' ? '50' : '60'}
-            />}
+              width={thumbnailSize === 'small' ? '50px' : '60px'}
+            />
+          )}
         </DeleteButton>
       ) : null}
       <StyledButton
-        // TODO: add the following to translations
-        a11yTitle={`Open submenu for ${choiceLabel}`}
+        a11yTitle={t('SurveyTask.ChoiceButton.openSubmenu', { choiceLabel })}
         disabled={disabled}
         label={
           <Box
+            as='span'
             align='center'
             direction='row'
-            forwardedAs='span'
+            overflow='hidden'
           >
             {!selected && thumbnailSize !== 'none' && src &&
               <StyledImage
                 alt=''
-                height='50'
+                height='50px'
                 src={thumbnailSrc}
-                width={thumbnailSize === 'small' ? '50' : '60'}
+                width={thumbnailSize === 'small' ? '50px' : '60px'}
               />}
-            <Text
-              color={textColor}
+            <StyledLabel
               margin={{ left: '10px', vertical: '5px' }}
               size={thumbnailSize === 'small' ? '.875rem' : '1rem'}
               weight={selected ? 'bold' : 'normal'}
               wordBreak='break-word'
             >
               {choiceLabel}
-            </Text>
+            </StyledLabel>
           </Box>
         }
-        margin={{ left: '2px'}}
+        margin={{ left: (selected && thumbnailSize !== 'none') ? '2px' : '0px' }}
         onClick={handleClick}
         plain
         tabIndex={selected && tabIndex === 0 ? 0 : -1}

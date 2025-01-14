@@ -4,6 +4,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
+import { useTranslation } from '../../translations/i18n.js'
 
 import {
   usePanoptesMemberships,
@@ -26,6 +27,7 @@ import GroupCreateFormContainer from './components/GroupCreateFormContainer'
 import PreviewLayout from './components/PreviewLayout'
 
 function MyGroupsContainer({ authUser, login, previewLayout = false }) {
+  const { t } = useTranslation()
   const [groupModalActive, setGroupModalActive] = useState(false)
   const [page, setPage] = useState(1)
 
@@ -67,7 +69,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
       <GroupModal
         active={groupModalActive}
         handleClose={handleGroupModal}
-        title='create new group'
+        title={t('MyGroups.createNew')}
         titleColor='black'
       >
         <GroupCreateFormContainer />
@@ -77,13 +79,13 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
           primaryHeaderItem={
             <HeaderLink
               href='/'
-              label='back'
+              label={t('common.back')}
               primaryItem={true}
             />
           }
         >
           <ContentBox
-            title='My Groups'
+            title={t('MyGroups.title')}
             pad={{ horizontal: '60px', vertical: '30px' }}
           >
             <MyGroups
@@ -104,7 +106,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
                 }}
                 label={
                   <SpacedText size='1rem' uppercase={false}>
-                    Learn more about groups
+                    {t('MyGroups.learnMore')}
                   </SpacedText>
                 }
               />

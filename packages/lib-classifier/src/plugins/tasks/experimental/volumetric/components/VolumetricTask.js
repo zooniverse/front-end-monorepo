@@ -1,14 +1,12 @@
+import { bool, shape, string } from "prop-types"
 import { Box, Text } from "grommet"
 import { Blank } from "grommet-icons"
 import InputStatus from "../../../components/InputStatus"
 import { Markdownz } from "@zooniverse/react-components"
 import { observer } from "mobx-react"
-import { bool, shape, string } from "prop-types"
 import styled from "styled-components"
 import TaskInput from "../../../components/TaskInput"
 
-// Note: ANNOTATION_COUNT will be refactored in next PR to use MobX Annotations
-const ANNOTATION_COUNT = 3
 const SVG_ARROW = "48 50, 48 15, 40 15, 50 0, 60 15, 52 15, 52 50"
 
 const StyledInstructionText = styled(Text)`
@@ -33,7 +31,11 @@ const StyledToolIcon = styled.div`
   }
 `
 
-function VolumetricTask({ disabled = false, task }) {
+function VolumetricTask({
+  annotation,
+  disabled = false,
+  task
+}) {
   return (
     <Box>
       <StyledInstructionText as="legend" size="small">
@@ -71,7 +73,7 @@ function VolumetricTask({ disabled = false, task }) {
             </Blank>
           </StyledToolIcon>
         }
-        labelStatus={<InputStatus count={ANNOTATION_COUNT} />}
+        labelStatus={<InputStatus count={annotation.value.length} />}
         name="volumetric-tool"
         type="radio"
       />

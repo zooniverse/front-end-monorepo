@@ -2,23 +2,50 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "研究",
-        "team": "チームメンバー",
-        "results": "結果",
         "education": "教育",
-        "faq": "よくある質問"
+        "faq": "よくある質問",
+        "research": "研究",
+        "results": "結果",
+        "team": "チームメンバー"
       }
+    },
+    "PageNav": {
+      "title": "プロジェクトの概要"
     },
     "SidebarHeading": "プロジェクト概要",
     "TeamMember": {
-      "owner": "オーナー",
       "collaborator": "協力者",
-      "translator": "翻訳者",
-      "researcher": "研究者",
-      "moderator": "モデレーター",
-      "tester": "試行者",
       "expert": "エキスパート",
-      "museum": "博物館"
+      "moderator": "モデレーター",
+      "museum": "博物館",
+      "owner": "オーナー",
+      "researcher": "研究者",
+      "tester": "テストユーザー",
+      "translator": "翻訳者"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "分類にエラーが生じました"
+      }
+    },
+    "RecentSubjects": {
+      "text": "このサブジェクトをトークページで議論したり、あなたのコレクションやお気に入りに追加できます。",
+      "title": "最近行った分類"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "結構です",
+      "confirm": "次のレベルに進みます",
+      "content": "おめでとうございます！ 次のワークフローのロックを解除しました。 このワークフローを継続したい場合は、継続を選択することも可能です。",
+      "dismiss": "今後このメッセージを表示しない",
+      "title": "新しいワークフローが利用可能です"
+    },
+    "YourStats": {
+      "allTime": "全期間",
+      "lastSeven": "過去7日間",
+      "link": "さらに見る",
+      "title": "の統計"
     }
   },
   "Home": {
@@ -31,26 +58,19 @@
       }
     },
     "MessageFromResearcher": {
+      "noMessage": "このプロジェクトについてさらに知りたい方は、トークページで研究者チームと繋がることができます！",
+      "noMessageButton": "トークページへ",
       "title": "研究者からのメッセージ"
     },
     "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "サブジェクトのロード中にエラーが生じました。",
+        "noSubjects": "まだ誰もコメントしていません。トークページで、最初のコメントを残しましょう！",
+        "subjectLabel": "サブジェクト {{id}}"
+      },
       "button": "参加する",
-      "message": "志を同じくする他のボランティアと会話ができる Talk もチェックしてください。",
-      "title": "トーク"
-    }
-  },
-  "Classify": {
-    "RecentSubjects": {
-      "title": "最近行った分類"
-    },
-    "WorkflowAssignmentModal": {
-      "cancel": "結構です",
-      "confirm": "次のレベルに進みます",
-      "content": "おめでとうございます！ 次のワークフローのロックを解除しました。 このワークフローを継続したい場合は、継続を選択することも可能です。",
-      "dismiss": "今後メッセージを表示しない"
-    },
-    "YourStats": {
-      "title": "統計"
+      "message": "志を同じくする他のボランティアと会話ができるトークページもチェックしてください。",
+      "title": "Zooniverse トーク"
     }
   }
 }

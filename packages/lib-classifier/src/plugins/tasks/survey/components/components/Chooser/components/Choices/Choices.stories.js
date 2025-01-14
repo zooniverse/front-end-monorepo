@@ -3,7 +3,8 @@ import { Box } from 'grommet'
 import SurveyTask from '@plugins/tasks/survey'
 import {
   task,
-  taskWithMoreThanTwentyChoices
+  taskWithMoreThanTwentyChoices,
+  taskHideThumbnails
 } from '@plugins/tasks/survey/mock-data'
 
 import Choices from './Choices'
@@ -23,12 +24,10 @@ export default {
 const mockTask = SurveyTask.TaskModel.create(task)
 const filteredChoiceIds = Array.from(mockTask.choicesOrder)
 
-const mockTaskWithMoreThanTwentyChoices = SurveyTask.TaskModel.create(
-  taskWithMoreThanTwentyChoices
-)
-const filteredChoiceIdsMoreThanTwenty = Array.from(
-  taskWithMoreThanTwentyChoices.choicesOrder
-)
+const mockTaskWithMoreThanTwentyChoices = SurveyTask.TaskModel.create(taskWithMoreThanTwentyChoices)
+const filteredChoiceIdsMoreThanTwenty = Array.from(taskWithMoreThanTwentyChoices.choicesOrder)
+
+const mockTaskHideThumbnails = SurveyTask.TaskModel.create(taskHideThumbnails)
 
 const Template = ({
   disabled,
@@ -78,4 +77,11 @@ LessThanSix.args = {
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 4),
   selectedChoiceIds: ['KD'],
   task: mockTask
+}
+
+export const HideThumbnails = Template.bind({})
+HideThumbnails.args = {
+  filteredChoiceIds: filteredChoiceIds,
+  selectedChoiceIds: ['FR', 'KD'],
+  task: mockTaskHideThumbnails
 }

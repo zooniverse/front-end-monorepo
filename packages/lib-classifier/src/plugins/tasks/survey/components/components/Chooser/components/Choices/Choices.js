@@ -2,7 +2,7 @@ import { ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useContext, useState } from 'react';
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import {
   howManyColumns,
@@ -13,20 +13,26 @@ import {
 import ChoiceButton from './components/ChoiceButton'
 
 const StyledGrid = styled.ul`
+  background: ${props => props.theme.global.colors[props.theme.dark ? 'dark-3' : 'light-3']};
   display: grid;
+  gap: ${props => props.$hideThumbnails ? '1px' : '0'};
   grid-auto-flow: column;
-  grid-template-columns: repeat(${props => props.columnsCount}, ${props => {
-    if (props.columnsCount === 3) return '166px';
-    if (props.columnsCount === 2) return '250px';
+  grid-template-columns: repeat(${props => props.$columnsCount}, ${props => {
+    if (props.$columnsCount === 3) return (props.$hideThumbnails ? '165.33px' : '166px');
+    if (props.$columnsCount === 2) return (props.$hideThumbnails ? '248.5px' : '249px');
     return '1fr';
   }});
-  grid-template-rows: repeat(${props => props.rowsCount}, 60px);
+  grid-template-rows: repeat(${props => props.$rowsCount}, ${props => props.$hideThumbnails ? '40px' : '60px'});
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
 
-  @media (max-width: 600px) {
+  @media (max-width: 70rem) {
+    grid-template-columns: repeat(${props => props.$columnsCount}, 1fr);
+  }
+
+  @media (max-width: 430px) {
     display: block;
     li {
       display: block;
@@ -35,13 +41,6 @@ const StyledGrid = styled.ul`
   }
 `
 
-const defaultTheme = {
-  dark: false,
-  global: {
-    colors: {}
-  }
-}
-
 export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
@@ -49,8 +48,7 @@ export function Choices ({
   handleDelete = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
-  task,
-  theme = defaultTheme
+  task
 }) {
   // TODO: refactor focus to menuitem, with consideration for "selected" state with open submenu button and delete button
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
@@ -66,11 +64,7 @@ export function Choices ({
   
   let thumbnailSize
   // if new survey task thumbnails property is undefined and legacy alwaysShowThumbnails is true, then show thumbnails to support legacy alwaysShowThumbnails functionality
-  if (!task.thumbnails && task.alwaysShowThumbnails) {
-    thumbnailSize = 'small'
-  } else if (task.thumbnails === 'show') {
-    thumbnailSize = 'small'
-  } else if (task.thumbnails === 'hide') {
+  if (task.thumbnails === 'hide') {
     thumbnailSize = 'none'
   } else {
     thumbnailSize = whatSizeThumbnail(filteredChoiceIds)
@@ -118,6 +112,10 @@ export function Choices ({
         event.preventDefault()
         event.stopPropagation()
 
+        if (selectedChoiceIds.indexOf(choiceId) > -1) {
+          return false
+        }
+
         onChoose(choiceId)
         return false
       case 'Home':
@@ -130,6 +128,10 @@ export function Choices ({
         event.preventDefault()
         event.stopPropagation()
 
+        if (selectedChoiceIds.indexOf(choiceId) > -1) {
+          return false
+        }
+
         onChoose(choiceId)
         return false
       default: {
@@ -141,8 +143,9 @@ export function Choices ({
   return (
     <StyledGrid
       role='menu'
-      rowsCount={rowsCount}
-      columnsCount={columnsCount}
+      $columnsCount={columnsCount}
+      $rowsCount={rowsCount}
+      $hideThumbnails={thumbnailSize === 'none'}
     >
       {filteredChoiceIds.map((choiceId, index) => {
         const choice = task.choices?.get(choiceId) || {}
@@ -196,14 +199,9 @@ Choices.propTypes = {
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
+    thumbnails: PropTypes.string,
     type: PropTypes.string
-  }).isRequired,
-  theme: PropTypes.shape({
-    dark: PropTypes.bool,
-    global: PropTypes.shape({
-      colors: PropTypes.object
-    })
-  })
+  }).isRequired
 }
 
-export default withTheme(observer(Choices))
+export default observer(Choices)
