@@ -1,5 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Collapsible } from 'grommet'
+import { FormUp } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -28,6 +29,13 @@ const StyledButton = styled(Button)`
 
 const StyledLabel = styled(SpacedText)`
   text-transform: uppercase;
+`
+
+const StyledBox = styled(Box)`
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(239, 242, 245, 0.80) 100%), #FFF;
+  border-radius: 0px 0px 16px 16px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
+  margin-bottom: 4px;
 `
 
 const DEFAULT_HANDLER = () => true
@@ -60,11 +68,10 @@ export default function FilterStatus ({
   return (
     <Box>
       <Box
-        align='center'
+        align='start'
         data-testid='filter-status'
         direction='row'
         gap='xxsmall'
-        height='xxsmall'
         justify='between'
       >
         <StyledButton
@@ -84,33 +91,39 @@ export default function FilterStatus ({
           }
           onClick={handleFilterOpen}
         />
-        {selectedCharacteristicIds.map(characteristicId => {
-          const characteristic = characteristics?.get(characteristicId) || {}
-          const selectedValueId = filters?.[characteristicId] || ''
-          const value = characteristic.values?.get(selectedValueId) || {}
-          const valueImageSrc = images?.get(value.image) || ''
-          const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
-          function clearSelection() {
-            handleFilter(characteristicId)
-          }
+        <Box
+          direction='row-reverse'
+          wrap={true}
+        >
+          {selectedCharacteristicIds.map(characteristicId => {
+            const characteristic = characteristics?.get(characteristicId) || {}
+            const selectedValueId = filters?.[characteristicId] || ''
+            const value = characteristic.values?.get(selectedValueId) || {}
+            const valueImageSrc = images?.get(value.image) || ''
+            const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
+            function clearSelection() {
+              handleFilter(characteristicId)
+            }
 
-          return (
-            <Button
-              key={`${characteristicId}-${selectedValueId}`}
-              label={
-                <FilterLabel
-                  characteristicId={characteristicId}
-                  selected={true}
-                  valueId={selectedValueId}
-                  valueImageSrc={valueImageSrc}
-                  valueLabel={label}
-                />
-              }
-              onClick={clearSelection}
-              plain
-            />
-          )
-        })}
+            return (
+              <Button
+                key={`${characteristicId}-${selectedValueId}`}
+                label={
+                  <FilterLabel
+                    characteristicId={characteristicId}
+                    selected={true}
+                    valueId={selectedValueId}
+                    valueImageSrc={valueImageSrc}
+                    valueLabel={label}
+                  />
+                }
+                margin={{ bottom: 'xxsmall', left: 'xxsmall' }}
+                onClick={clearSelection}
+                plain
+              />
+            )
+          })}
+        </Box>
       </Box>
       {(selectedCharacteristicIds.length && !filterOpen) ? (
         <ClearFilters
@@ -120,8 +133,9 @@ export default function FilterStatus ({
         />
       ) : null}
       <Collapsible open={filterOpen}>
-        <Box
-          round={{ corner: 'bottom', size: 'medium' }}
+        <StyledBox
+          align='center'
+          pad='small'
         >
           <Characteristics
             characteristics={characteristics}
@@ -132,11 +146,21 @@ export default function FilterStatus ({
             strings={strings}
           />
           <Button
-            label='Close Filters'
+            label={
+              <Box
+                align='center'
+                direction='row'
+              >
+                <SpacedText size='1rem'>
+                  CLOSE FILTERS
+                </SpacedText>
+                <FormUp />
+              </Box>
+            }
             onClick={handleFilterOpen}
             plain
           />
-        </Box>
+        </StyledBox>
       </Collapsible>
     </Box>
   )

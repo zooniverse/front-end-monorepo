@@ -19,9 +19,15 @@ function Characteristics({
 
   return (
     <Box
+      border={{
+        color: 'light-4',
+        style: 'solid',
+        side: 'between'
+      }}
       data-testid='characteristics'
       fill='horizontal'
       flex='grow'
+      gap='xsmall'
     >
       {characteristicsOrder.map((characteristicId) => {
         const characteristic = characteristics.get(characteristicId) || {}

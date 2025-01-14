@@ -58,15 +58,7 @@ export default function CharacteristicSection({
 
   return (
     <Box
-      border={{
-        color: 'light-5',
-        size: 'xsmall',
-        style: 'solid',
-        side: 'bottom'
-      }}
-      pad={{
-        horizontal: 'small'
-      }}
+      margin={{ bottom: 'small' }}
     >
       <SpacedHeading
         id={`${label}-heading`}
@@ -77,7 +69,7 @@ export default function CharacteristicSection({
       <RadioButtonGroup
         aria-labelledby={`${label}-heading`}
         direction='row'
-        gap='xsmall'
+        gap='small'
         name={`${characteristic.label}-filter`}
         onChange={onChange}
         options={characteristicOptions}

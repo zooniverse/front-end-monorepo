@@ -8,7 +8,7 @@ export const StyledFilter = styled(Box)`
   box-shadow: ${
     props => props.focus || props.hover ? 
       `0 0 2px 2px ${props.theme.global.colors.brand};` 
-      : 'none'
+      : '1px 1px 4px 0px rgba(0, 0, 0, 0.10);'
   };
 `
 
@@ -43,7 +43,6 @@ export default function FilterLabel({
       height='40px'
       hover={hover}
       justify='center'
-      margin={{ bottom: 'xsmall' }}
       pad={{ horizontal: '10px', vertical: '5px' }}
       round='medium'
       width={containerWidth}
