@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Collapsible } from 'grommet'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import { useTranslation } from '@translations/i18n'
@@ -48,13 +47,13 @@ const DEFAULT_HANDLER = () => true
 
 export default function FilterStatus ({
   disabled = false,
+  filterOpen = false,
   filters = {},
   handleFilter = DEFAULT_HANDLER,
+  handleFilterOpen = DEFAULT_HANDLER,
   showingChoices = 0,
   task
 }) {
-  const [filterOpen, setFilterOpen] = useState(false)
-
   const {
     characteristics,
     characteristicsOrder,
@@ -66,10 +65,6 @@ export default function FilterStatus ({
   const { t } = useTranslation('plugins')
 
   const selectedCharacteristicIds = Object.keys(filters)
-
-  function handleFilterOpen () {
-    setFilterOpen(!filterOpen)
-  }
 
   return (
     <Box
@@ -160,8 +155,10 @@ export default function FilterStatus ({
 
 FilterStatus.propTypes = {
   disabled: PropTypes.bool,
+  filterOpen: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
+  handleFilterOpen: PropTypes.func,
   showingChoices: PropTypes.number,
   task: PropTypes.shape({
     help: PropTypes.string,

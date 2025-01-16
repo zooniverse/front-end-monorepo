@@ -2,6 +2,7 @@ import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
@@ -30,7 +31,7 @@ const components = {
   span: Text
 }
 
-function Chooser ({
+function Chooser({
   disabled = false,
   filters = {},
   previousChoiceId = '',
@@ -40,8 +41,14 @@ function Chooser ({
   selectedChoiceIds = [],
   task
 }) {
+  const [filterOpen, setFilterOpen] = useState(false)
+
   const showFilters = task.characteristics.size > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
+
+  function handleFilterOpen () {
+    setFilterOpen(!filterOpen)
+  }
   
   return (
     <Box
@@ -62,8 +69,10 @@ function Chooser ({
       {showFilters
         ? (<FilterStatus
             disabled={disabled}
+            filterOpen={filterOpen}
             filters={filters}
             handleFilter={handleFilter}
+            handleFilterOpen={handleFilterOpen}
             showingChoices={filteredChoiceIds.length}
             task={task}
           />)
@@ -71,6 +80,7 @@ function Chooser ({
       <Choices
         disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
+        filterOpen={filterOpen}
         previousChoiceId={previousChoiceId}
         handleDelete={handleDelete}
         onChoose={onChoose}

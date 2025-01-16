@@ -37,3 +37,23 @@ export const Default = ({ disabled, filters }) => {
     </Box>
   )
 }
+
+export const Open = ({ disabled, filters }) => {
+  return (
+    <Box
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      pad='1em'
+      width='380px'
+    >
+      <FilterStatus
+        disabled={disabled}
+        filterOpen={true}
+        filters={filters}
+        task={mockTask}
+      />
+    </Box>
+  )
+}
