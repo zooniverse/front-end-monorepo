@@ -29,7 +29,11 @@ export const Default = ({ disabled, filters }) => {
       pad='1em'
       width='380px'
     >
-      <FilterStatus disabled={disabled} filters={filters} task={mockTask} />
+      <FilterStatus
+        disabled={disabled}
+        filters={filters}
+        task={mockTask}
+      />
     </Box>
   )
 }

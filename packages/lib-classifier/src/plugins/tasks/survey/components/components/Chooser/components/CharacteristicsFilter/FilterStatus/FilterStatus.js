@@ -2,7 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Collapsible } from 'grommet'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { useTranslation } from '@translations/i18n'
 
@@ -13,20 +13,32 @@ import ClearFilters from '../ClearFilters'
 
 const StyledButton = styled(Button)`
   border: none;
-  border-radius: 16px;
-  padding: 3px 8px;
-
-  &:focus,
-  &:enabled:hover {
+  border-radius: 32px;
+  height: 40px;
+  padding: 8px 10px;
+  
+  &:focus {
     text-decoration: underline;
   }
 
-  &:hover:not(:focus) {
-    box-shadow: none;
+  &:enabled:hover {
+    color: ${props => props.theme.global.colors['neutral-1']};
   }
+
+  ${props => props.$filterOpen && css`
+    background-color: ${props => props.theme.global.colors['neutral-1']};
+    color: ${props => props.theme.global.colors['neutral-6']};
+
+    &:enabled:hover {
+      color: ${props => props.theme.global.colors['neutral-6']};
+      text-decoration: underline;
+    }
+  `}
 `
 
 const StyledLabel = styled(SpacedText)`
+  font-size: 1rem;
+  font-weight: 500;
   text-transform: uppercase;
 `
 
@@ -58,7 +70,12 @@ export default function FilterStatus ({
   }
 
   return (
-    <Box>
+    <Box
+      margin={{
+        bottom: 'xxsmall',
+        top: 'small',
+      }}
+    >
       <Box
         align='start'
         data-testid='filter-status'
@@ -69,15 +86,11 @@ export default function FilterStatus ({
         <StyledButton
           a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
           disabled={disabled}
-          gap='none'
+          $filterOpen={filterOpen}
+          gap='xsmall'
           icon={<FilterIcon />}
           label={
-            <StyledLabel
-              color={{
-                dark: 'accent-1',
-                light: 'neutral-1'
-              }}
-            >
+            <StyledLabel>
               {t('SurveyTask.CharacteristicsFilter.filter')}
             </StyledLabel>
           }
@@ -110,7 +123,10 @@ export default function FilterStatus ({
                     valueLabel={label}
                   />
                 }
-                margin={{ bottom: 'xxsmall', left: 'xxsmall' }}
+                margin={{
+                  bottom: 'xxsmall',
+                  left: 'xxsmall'
+                }}
                 onClick={clearSelection}
                 plain
               />
