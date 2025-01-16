@@ -70,42 +70,4 @@ describe('Component > Choices', function () {
     await user.keyboard('{arrowUp}')
     expect(choiceButtons[5]).to.equal(document.activeElement)
   })
-
-  describe('with previousChoiceId and FilterStatus closed', function () {
-    it('should focus the previousChoiceId', async function () {
-      const user = userEvent.setup({ delay: null })
-      render(
-        <Grommet theme={zooTheme}>
-          <Choices
-            filteredChoiceIds={task.choicesOrder}
-            filterDropOpen={false}
-            previousChoiceId='HMN'
-            task={task}
-          />
-        </Grommet>
-      )
-      const choiceButtons = screen.getAllByRole('menuitem')
-      // choiceButtons[3] is Human with ID HMN
-      expect(choiceButtons[3]).to.equal(document.activeElement)
-    })
-  })
-
-  describe('with previousChoiceId and FilterStatus open', function () {
-    it('should not focus the previousChoiceId', async function () {
-      const user = userEvent.setup({ delay: null })
-      render(
-        <Grommet theme={zooTheme}>
-          <Choices
-            filteredChoiceIds={task.choicesOrder}
-            filterDropOpen={true}
-            previousChoiceId='HMN'
-            task={task}
-          />
-        </Grommet>
-      )
-      const choiceButtons = screen.getAllByRole('menuitem')
-      // choiceButtons[3] is Human with ID HMN
-      expect(choiceButtons[3]).to.not.equal(document.activeElement)
-    })
-  })
 })

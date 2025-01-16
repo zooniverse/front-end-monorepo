@@ -32,12 +32,13 @@ export default function FilterLabel({
 
   const backgroundColor = (checked || selected) ? 'accent-1' : 'neutral-6'
   const containerWidth = selected ? '60px' : '40px'
+  const dataTestId = selected ? `remove filter-${characteristicId}-${valueId}` : `filter-${characteristicId}-${valueId}`
 
   return (
     <StyledFilter
       align='center'
       background={{ color: backgroundColor }}
-      data-testid={`filter-${characteristicId}-${valueId}`}
+      data-testid={dataTestId}
       direction='row'
       focus={focus}
       height='40px'

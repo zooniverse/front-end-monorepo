@@ -3,7 +3,7 @@ import { Box, Button } from 'grommet'
 import { FormUp } from 'grommet-icons'
 import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { useTranslation } from '@translations/i18n'
 
@@ -42,6 +42,7 @@ function Characteristics({
       }}
     >
       <Box
+        data-testid='characteristics'
         border={{
           color: 'light-4',
           style: 'solid',

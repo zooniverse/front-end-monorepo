@@ -38,9 +38,9 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByTestId('filter-LK-CTDG')).to.be.ok()
-      expect(screen.getByTestId('filter-CLR-BLCK')).to.be.ok()
-      expect(screen.getByTestId('filter-PTTRN-SLD')).to.be.ok()
+      expect(screen.getByTestId('remove filter-LK-CTDG')).to.be.ok()
+      expect(screen.getByTestId('remove filter-CLR-BLCK')).to.be.ok()
+      expect(screen.getByTestId('remove filter-PTTRN-SLD')).to.be.ok()
     })
 
     it('should show the showing x of y text', function () {
