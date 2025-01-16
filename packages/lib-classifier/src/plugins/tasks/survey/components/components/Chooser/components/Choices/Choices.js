@@ -50,7 +50,6 @@ export function Choices ({
   selectedChoiceIds = [],
   task
 }) {
-  // TODO: refactor focus to menuitem, with consideration for "selected" state with open submenu button and delete button
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
   const size = useContext(ResponsiveContext)
@@ -63,7 +62,6 @@ export function Choices ({
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   
   let thumbnailSize
-  // if new survey task thumbnails property is undefined and legacy alwaysShowThumbnails is true, then show thumbnails to support legacy alwaysShowThumbnails functionality
   if (task.thumbnails === 'hide') {
     thumbnailSize = 'none'
   } else {

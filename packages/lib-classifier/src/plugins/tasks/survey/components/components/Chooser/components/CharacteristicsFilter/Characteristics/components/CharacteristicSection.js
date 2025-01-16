@@ -62,19 +62,32 @@ export default function CharacteristicSection({
     >
       <SpacedHeading
         id={`${label}-heading`}
-        margin='none'
+        color={{
+          dark: 'neutral-6',
+          light: 'neutral-7'
+        }}
+        margin={{
+          bottom: 'xsmall',
+          top: 'small'
+        }}
+        pad='none'
+        size='1rem'
       >
         {label}
       </SpacedHeading>
       <RadioButtonGroup
         aria-labelledby={`${label}-heading`}
+        cssGap={true}
         direction='row'
-        gap='small'
+        gap={{
+          column: 'small',
+          row: 'xsmall'
+        }}
         name={`${characteristic.label}-filter`}
         onChange={onChange}
         options={characteristicOptions}
         value={selectedValueId}
-        wrap
+        wrap={true}
       >
         {radioButtonLabel}
       </RadioButtonGroup>

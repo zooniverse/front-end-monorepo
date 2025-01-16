@@ -43,7 +43,10 @@ export default function FilterLabel({
       height='40px'
       hover={hover}
       justify='center'
-      pad={{ horizontal: '10px', vertical: '5px' }}
+      pad={{
+        horizontal: '10px',
+        vertical: '5px'
+      }}
       round='medium'
       width={containerWidth}
     >

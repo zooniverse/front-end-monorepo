@@ -1,6 +1,5 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Collapsible } from 'grommet'
-import { FormUp } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -29,13 +28,6 @@ const StyledButton = styled(Button)`
 
 const StyledLabel = styled(SpacedText)`
   text-transform: uppercase;
-`
-
-const StyledBox = styled(Box)`
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(239, 242, 245, 0.80) 100%), #FFF;
-  border-radius: 0px 0px 16px 16px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
-  margin-bottom: 4px;
 `
 
 const DEFAULT_HANDLER = () => true
@@ -108,6 +100,7 @@ export default function FilterStatus ({
             return (
               <Button
                 key={`${characteristicId}-${selectedValueId}`}
+                a11yTitle={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel: label })}
                 label={
                   <FilterLabel
                     characteristicId={characteristicId}
@@ -133,34 +126,15 @@ export default function FilterStatus ({
         />
       ) : null}
       <Collapsible open={filterOpen}>
-        <StyledBox
-          align='center'
-          pad='small'
-        >
-          <Characteristics
-            characteristics={characteristics}
-            characteristicsOrder={characteristicsOrder}
-            filters={filters}
-            images={images}
-            onFilter={handleFilter}
-            strings={strings}
-          />
-          <Button
-            label={
-              <Box
-                align='center'
-                direction='row'
-              >
-                <SpacedText size='1rem'>
-                  CLOSE FILTERS
-                </SpacedText>
-                <FormUp />
-              </Box>
-            }
-            onClick={handleFilterOpen}
-            plain
-          />
-        </StyledBox>
+        <Characteristics
+          characteristics={characteristics}
+          characteristicsOrder={characteristicsOrder}
+          filters={filters}
+          handleFilterOpen={handleFilterOpen}
+          images={images}
+          onFilter={handleFilter}
+          strings={strings}
+        />
       </Collapsible>
     </Box>
   )
