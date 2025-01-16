@@ -82,6 +82,8 @@ export default function FilterStatus ({
       >
         <StyledButton
           a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
+          aria-controls='characteristics-collapsible'
+          aria-expanded={filterOpen}
           disabled={disabled}
           $filterOpen={filterOpen}
           gap='xsmall'
@@ -138,7 +140,10 @@ export default function FilterStatus ({
           totalChoices={choices.size}
         />
       ) : null}
-      <Collapsible open={filterOpen}>
+      <Collapsible
+        id='characteristics-collapsible'
+        open={filterOpen}
+      >
         <Characteristics
           characteristics={characteristics}
           characteristicsOrder={characteristicsOrder}
