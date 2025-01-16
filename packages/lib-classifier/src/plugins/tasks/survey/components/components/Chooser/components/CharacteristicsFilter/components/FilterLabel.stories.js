@@ -16,7 +16,15 @@ export default {
 
 export const Default = ({ checked, selected }) => {
   return (
-    <Box justify='center' pad='1em' size='medium'>
+    <Box
+      background={{
+        dark: 'linear-gradient(180deg, rgba(51, 51, 51, 0.80) 0%, rgba(51, 51, 51, 0.80) 100%), #333333;',
+        light: 'linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(239, 242, 245, 0.60) 100%), #FFF;'
+      }}
+      justify='center'
+      pad='1em'
+      size='medium'
+    >
       <FilterLabel
         characteristicId='LK'
         checked={checked}

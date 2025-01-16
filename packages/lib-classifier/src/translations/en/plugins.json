@@ -17,7 +17,7 @@
   },
   "SurveyTask": {
     "CharacteristicsFilter": {
-      "clearFilters": "Clear filters",
+      "clearFilters": "Clear all filters",
       "closeFilters": "Close filters",
       "filter": "Filter",
       "removeFilter": "Remove {{valueLabel}} filter",

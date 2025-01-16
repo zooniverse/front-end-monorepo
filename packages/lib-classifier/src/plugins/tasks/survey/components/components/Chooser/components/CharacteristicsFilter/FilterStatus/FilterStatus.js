@@ -22,7 +22,9 @@ const StyledButton = styled(Button)`
   }
 
   &:enabled:hover {
-    color: ${props => props.theme.global.colors['neutral-1']};
+    color: ${props => props.theme.dark ?
+      props.theme.global.colors.brand
+      : props.theme.global.colors['neutral-1']};
   }
 
   ${props => props.$filterOpen && css`
@@ -72,8 +74,8 @@ export default function FilterStatus ({
   return (
     <Box
       margin={{
-        bottom: 'xxsmall',
         top: 'small',
+        bottom: 'xxsmall'
       }}
     >
       <Box

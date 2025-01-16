@@ -3,14 +3,17 @@ import { Box, Button } from 'grommet'
 import { FormUp } from 'grommet-icons'
 import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { useTranslation } from '@translations/i18n'
 
 import CharacteristicSection from './components/CharacteristicSection'
 
 const StyledBox = styled(Box)`
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(239, 242, 245, 0.80) 100%), #FFF;
+  background: ${props => props.theme.dark ? 
+    'linear-gradient(180deg, rgba(51, 51, 51, 0.80) 0%, rgba(51, 51, 51, 0.80) 100%), #333333;'
+    : 'linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(239, 242, 245, 0.80) 100%), #FFF;'
+  };
   border-radius: 0px 0px 16px 16px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
   margin-bottom: 4px;
@@ -34,7 +37,8 @@ function Characteristics({
       align='center'
       pad={{
         bottom: 'small',
-        horizontal: 'small'
+        horizontal: 'small',
+        top: 'xxsmall'
       }}
     >
       <Box

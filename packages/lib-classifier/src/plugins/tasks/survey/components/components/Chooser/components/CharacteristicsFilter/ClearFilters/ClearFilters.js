@@ -1,5 +1,4 @@
 import { Box } from 'grommet'
-import { Clear } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
@@ -19,15 +18,20 @@ export default function ClearFilters ({
       direction='row'
       fill='horizontal'
       gap='xxsmall'
-      justify='center'
-      pad={{ top: 'xsmall' }}
+      justify='between'
     >
-      <SpacedText>
+      <SpacedText
+        size='0.75rem'
+      >
         {t('SurveyTask.CharacteristicsFilter.showing', { showing: showingChoices, total: totalChoices })}
       </SpacedText>
       <PlainButton
+        color={{
+          dark: 'neutral-6',
+          light: 'dark-5'
+        }}
         disabled={showingChoices === totalChoices}
-        icon={<Clear aria-hidden='true' />}
+        labelSize='0.75rem'
         onClick={onClick}
         text={t('SurveyTask.CharacteristicsFilter.clearFilters')}
       />
