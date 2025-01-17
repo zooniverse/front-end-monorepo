@@ -56,6 +56,7 @@ function GroupForm({
 
   const [value, setValue] = useState(defaultValue)
   const statsVisibilityOptions = value.visibility === 'Private' ? PRIVATE_STATS_VISIBILITY : PUBLIC_STATS_VISIBILITY
+  const selectedVisibilityOption = statsVisibilityOptions.find((option) => option.value === value.stats_visibility)
 
   useEffect(() => {
     setValue(defaultValue)
@@ -64,11 +65,12 @@ function GroupForm({
   return (
     <Form
       onChange={(nextValue, { touched }) => {
+        const selectedVisibilityOption = statsVisibilityOptions.find((option) => option.label === nextValue.stats_visibility)
+        let stats_visibility = selectedVisibilityOption ? selectedVisibilityOption.value : value.stats_visibility
         if (nextValue.visibility !== value.visibility) {
-          const statsVisibility = nextValue.visibility === 'Private' ? 'private_agg_only' : 'public_agg_only'
-          nextValue.stats_visibility = statsVisibility
+          stats_visibility = nextValue.visibility === 'Private' ? 'private_agg_only' : 'public_agg_only'
         }
-        setValue(nextValue)
+        setValue({ ...nextValue, stats_visibility })
       }}
       onSubmit={handleSubmit}
       value={value}
@@ -151,10 +153,10 @@ function GroupForm({
           <Select
             id='stats_visibility'
             aria-label={t('GroupForm.visibility')}
-            labelKey='label'
             name='stats_visibility'
             options={statsVisibilityOptions}
-            valueKey={{ key: 'value', reduce: true }}
+            value={selectedVisibilityOption.label}
+            valueKey={{ key: 'label', reduce: true }}
           />
         </FormField>
       </ThemeContext.Extend>
