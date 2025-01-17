@@ -66,6 +66,7 @@
       "contact": "連絡先",
       "faq": "よくある質問",
       "publications": "出版物",
+      "resources": "リソース",
       "team": "チーム"
     },
     "buildLabels": {
@@ -77,9 +78,13 @@
     },
     "getInvolvedLabels": {
       "callForProjects": "プロジェクトの募集",
+      "collaborate": "コラボレーション",
       "collections": "コレクション",
+      "donate": "寄付",
+      "educate": "教育",
       "education": "教育",
-      "getInvolved": "参加する"
+      "getInvolved": "参加する",
+      "volunteer": "ボランティア"
     },
     "newsLabels": {
       "blog": "ブログ",
@@ -97,7 +102,11 @@
     },
     "tagLine": "人々の力で進める研究",
     "talkLabels": {
-      "talk": "トーク"
+      "announcements": "お知らせ",
+      "data": "データ処理",
+      "projectBuilding": "プロジェクトの新規作成",
+      "talk": "トーク",
+      "troubleshooting": "トラブルシューティング"
     },
     "zooniversePolicies": "Zooniverseの理念"
   },
