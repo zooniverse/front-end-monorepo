@@ -66,12 +66,25 @@ export const ViewerGrid = styled(Grid)`
             top: 10px;
           }
         `}
-
   height: fit-content;
   grid-area: viewer;
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
   grid-template-rows: auto;
   grid-template-areas: 'subject toolbar';
+`
+
+const StyledSubjectContainer = styled(Box)`
+  grid-area: subject;
+  position: sticky;
+`
+
+const StyledImageToolbarContainer = styled.div`
+  grid-area: toolbar;
+`
+
+const StyledImageToolbar = styled(ImageToolbar)`
+  position: sticky;
+  top: 10px;
 `
 
 const StyledTaskAreaContainer = styled.div`
@@ -95,15 +108,6 @@ const StyledTaskArea = styled(Box)`
         `}
 `
 
-const StyledImageToolbarContainer = styled.div`
-  grid-area: toolbar;
-`
-
-const StyledImageToolbar = styled(ImageToolbar)`
-  position: sticky;
-  top: 10px;
-`
-
 export default function MaxWidth({
   className = '',
   separateFramesView = false,
@@ -118,12 +122,15 @@ export default function MaxWidth({
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid forwardedAs='section' hasSurveyTask={hasSurveyTask}>
-          <Box gridArea='subject'>
+        <ViewerGrid
+          forwardedAs='section'
+          hasSurveyTask={hasSurveyTask}
+        >
+          <StyledSubjectContainer>
             <Banners />
             <SubjectViewer />
             <MetaTools />
-          </Box>
+          </StyledSubjectContainer>
           <StyledImageToolbarContainer>
             <StyledImageToolbar />
           </StyledImageToolbarContainer>

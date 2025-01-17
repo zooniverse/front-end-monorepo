@@ -47,22 +47,38 @@ const ContainerGrid = styled(Grid)`
 `
 
 export const ViewerGrid = styled(Grid)`
-  ${props => props.hasSurveyTask ? css`
-    @media screen and (min-width: 70rem) {
-      position: sticky;
-      top: 10px;
-    }
-  ` : css`
-    @media screen and (min-width: 769px) {
-      position: sticky;
-      top: 10px;
-    }
-  `}
-
+  ${props => props.hasSurveyTask
+    ? css`
+        @media screen and (min-width: 70rem) {
+          position: sticky;
+          top: 10px;
+        }
+      ` 
+    : css`
+        @media screen and (min-width: 769px) {
+          position: sticky;
+          top: 10px;
+        }
+      `}
+  height: fit-content;
   grid-area: viewer;
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
   grid-template-rows: auto;
   grid-template-areas: 'subject toolbar';
+`
+
+const StyledSubjectContainer = styled(Box)`
+  grid-area: subject;
+  position: sticky;
+`
+
+const StyledImageToolbarContainer = styled.div`
+  grid-area: toolbar;
+`
+
+const StyledImageToolbar = styled(ImageToolbar)`
+  position: sticky;
+  top: 10px;
 `
 
 const StyledTaskAreaContainer = styled.div`
@@ -81,15 +97,6 @@ const StyledTaskArea = styled(Box)`
       top: 10px;
     }
   `}
-`
-
-const StyledImageToolbarContainer = styled.div`
-  grid-area: toolbar;
-`
-
-const StyledImageToolbar = styled(ImageToolbar)`
-  position: sticky;
-  top: 10px;
 `
 
 export default function CenteredLayout({
@@ -113,11 +120,11 @@ export default function CenteredLayout({
           forwardedAs='section'
           hasSurveyTask={hasSurveyTask}
         >
-          <Box gridArea='subject'>
+          <StyledSubjectContainer>
             <Banners />
             <SubjectViewer />
             <MetaTools />
-          </Box>
+          </StyledSubjectContainer>
           <StyledImageToolbarContainer>
             <StyledImageToolbar />
           </StyledImageToolbarContainer>
