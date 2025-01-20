@@ -1,4 +1,12 @@
 {
+  "common": {
+    "avatarAlt": "{{login}} Translated",
+    "back": "Translated",
+    "classifications": "Translated",
+    "contributors": "Translated",
+    "hours": "Translated",
+    "projects": "Translated"
+  },
   "BarChart": {
     "a11y": "Translated {{typeLabel}} Translated {{countLabel}} Translated {{startDate}} Translated {{endDate}}",
     "day": "Translated",
@@ -154,13 +162,5 @@
     "SubjectCard": {
       "subject": "Translated"
     }
-  },
-  "common": {
-    "avatarAlt": "{{login}} Translated",
-    "back": "Translated",
-    "classifications": "Translated",
-    "contributors": "Translated",
-    "hours": "Translated",
-    "projects": "Translated"
   }
 }

@@ -1,4 +1,12 @@
 {
+  "common": {
+    "avatarAlt": "{{login}} avatar",
+    "back": "Back",
+    "classifications": "Classifications",
+    "contributors": "Contributors",
+    "hours": "Hours",
+    "projects": "Projects"
+  },
   "BarChart": {
     "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
     "day": "Day",
@@ -154,13 +162,5 @@
     "SubjectCard": {
       "subject": "Subject"
     }
-  },
-  "common": {
-    "avatarAlt": "{{login}} avatar",
-    "back": "Back",
-    "classifications": "Classifications",
-    "contributors": "Contributors",
-    "hours": "Hours",
-    "projects": "Projects"
   }
 }
