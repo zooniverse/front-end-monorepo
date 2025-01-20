@@ -1,5 +1,5 @@
 import { bool, func } from 'prop-types'
-import { Button as GrommetButton } from 'grommet'
+import { Button as GrommetButton, Text, Tip } from 'grommet'
 import styled, { css } from 'styled-components'
 
 const StyledButton = styled(GrommetButton)`
@@ -14,9 +14,9 @@ const StyledButton = styled(GrommetButton)`
       : css`background-color: ${props.theme.dark
             ? props.theme.global.colors['dark-3']
             : 'inherit'};`}
-  
+
   :not(:last-child) {
-    margin-bottom: clamp(8px, 20%, 10px); 
+    margin-bottom: clamp(8px, 20%, 10px);
     // similar to padding of Image Toolbar
   }
 
@@ -83,14 +83,25 @@ function Button({
       }
 
   return (
-    <StyledButton
-      active={active}
-      a11yTitle={a11yTitle}
-      disabled={disabled}
-      icon={icon}
+    <Tip
+      content={<Text>{a11yTitle}</Text>}
       plain
-      {...eventHandlers}
-    />
+      dropProps={{
+        align: { right: 'left' },
+        background: 'dark-4',
+        round: '5px',
+        pad: '5px'
+      }}
+    >
+      <StyledButton
+        active={active}
+        a11yTitle={a11yTitle}
+        disabled={disabled}
+        icon={icon}
+        plain
+        {...eventHandlers}
+      />
+    </Tip>
   )
 }
 
