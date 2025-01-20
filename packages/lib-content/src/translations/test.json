@@ -1,0 +1,388 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Translated",
+      "heading": "Translated",
+      "message": "Translated",
+      "returnHome": "Translated"
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Translated",
+      "collaborate": "Translated",
+      "contact": "Translated",
+      "donate": "Translated",
+      "educate": "Translated",
+      "faq": "Translated",
+      "publications": "Translated",
+      "resources": "Translated",
+      "team": "Translated",
+      "volunteer": "Translated"
+    },
+    "title": {
+      "about": "Translated",
+      "getInvolved": "Translated"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      },
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated <0>Translated</0> <1>Translated</1>",
+        "three": "Translated <0>Translated</0>",
+        "two": "Translated"
+      },
+      "subheading": "Translated"
+    },
+    "highlights": {
+      "description": "Translated <0>Translated</0>",
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated <0>Translated</0>",
+        "two": "Translated"
+      },
+      "pictures": {
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      },
+      "sidebar": "Translated",
+      "subheading": "Translated",
+      "tip": "Translated"
+    },
+    "howItWorks": {
+      "heading": "Translated",
+      "participants": {
+        "description": "Translated",
+        "link": "Translated",
+        "steps": {
+          "four": "Translated",
+          "one": "Translated",
+          "three": "Translated",
+          "two": "Translated"
+        }
+      },
+      "researchers": {
+        "description": "Translated",
+        "link": "Translated",
+        "steps": {
+          "four": "Translated",
+          "one": "Translated",
+          "three": "Translated",
+          "two": "Translated"
+        }
+      },
+      "subheading": "Translated"
+    },
+    "mobile": {
+      "altAppStore": "Translated",
+      "altImage": "Translated",
+      "altPlayStore": "Translated",
+      "description": "Translated",
+      "heading": "Translated",
+      "sidebar": "Translated",
+      "subheading": "Translated"
+    },
+    "ourMission": {
+      "discoveries": {
+        "four": "Translated",
+        "one": "Translated",
+        "three": "Translated",
+        "tip": "Translated",
+        "two": "Translated"
+      },
+      "heading": "Translated",
+      "paragraphs": {
+        "four": "Translated <0>Translated</0>",
+        "one": "Translated <0>Translated</0>",
+        "three": "Translated <0>Translated</0>",
+        "two": "Translated <0>Translated</0>"
+      },
+      "stats:one": "Translated",
+      "stats:two": "Translated",
+      "subheadings": {
+        "five": "Translated",
+        "four": "Translated",
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      },
+      "video": "Translated"
+    },
+    "sidebarLabel": "Translated",
+    "title": "Translated"
+  },
+  "Article": {
+    "url": "Translated"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eight": "Translated <0>Translated</0>",
+      "five": "Translated <0>Translated</0>",
+      "four": "Translated",
+      "nine": "Translated <0>Translated</0>",
+      "one": "Translated",
+      "seven": "Translated",
+      "six": "Translated",
+      "three": "Translated <0>Translated</0> <1>Translated</1>",
+      "two": "Translated"
+    },
+    "subheadings": {
+      "five": "Translated",
+      "four": "Translated",
+      "one": "Translated",
+      "three": "Translated",
+      "two": "Translated"
+    },
+    "title": "Translated"
+  },
+  "Donate": {
+    "button": "Translated",
+    "paragraphs": {
+      "one": "Translated",
+      "three": "Translated",
+      "two": "Translated"
+    },
+    "subheading": "Translated",
+    "title": "Translated"
+  },
+  "Educate": {
+    "articles": {
+      "four": {
+        "datePublished": "April 29, 2015",
+        "excerpt": "Translated",
+        "title": "Translated"
+      },
+      "heading": "Translated",
+      "one": {
+        "datePublished": "Translated 28, 2022",
+        "excerpt": "Translated",
+        "title": "Translated"
+      },
+      "three": {
+        "datePublished": "Translated 7, 2018",
+        "excerpt": "Translated",
+        "title": "Translated"
+      },
+      "two": {
+        "datePublished": "Translated 14, 2019",
+        "excerpt": "Translated",
+        "title": "Translated"
+      }
+    },
+    "buttons": {
+      "one": "Translated",
+      "three": "Translated",
+      "two": "Translated"
+    },
+    "forEducators": {
+      "classrooms": "Translated",
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated <0>Translated</0>",
+        "three": "Translated <0>Translated</0>",
+        "two": "Translated <0>Translated</0>"
+      },
+      "subheadings": {
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      }
+    },
+    "introduction": "Translated",
+    "subheading": "Translated",
+    "takePart": {
+      "heading": "Translated",
+      "paragraph": "Translated <0>Translated</0> <1>Translated</1>"
+    },
+    "title": "Translated"
+  },
+  "FAQ": {
+    "help": "Translated <0>Translated</0> <1>Translated</1> <2>Translated</2>",
+    "item0": {
+      "answer": "Translated",
+      "question": "Translated"
+    },
+    "item10": {
+      "answer": "Translated",
+      "question": "Translated"
+    },
+    "item1": {
+      "answer": "Translated",
+      "question": "Translated"
+    },
+    "item2": {
+      "answer": "Translated <0>Translated</0>",
+      "question": "Translated"
+    },
+    "item3": {
+      "answer": "Translated <0>Translated</0>",
+      "question": "Translated"
+    },
+    "item4": {
+      "answer": "Translated",
+      "question": "Translated"
+    },
+    "item5": {
+      "answer": "Translated <0>Translated</0> <1>Translated</1>",
+      "question": "Translated"
+    },
+    "item6": {
+      "answer": "Translated <0>Translated</0> <1>Translated</1> <2>Translated</2>",
+      "question": "Translated"
+    },
+    "item7": {
+      "answer": "Translated <0>Translated</0>",
+      "question": "Translated"
+    },
+    "item8": {
+      "answer0": "Translated",
+      "answer1": "Translated <0>Translated</0>",
+      "answer2": "Translated <0>Translated</0>",
+      "question": "Translated"
+    },
+    "item9": {
+      "answer": "Translated <0>Translated</0>",
+      "question": "Translated"
+    },
+    "title": "Translated"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Translated",
+      "feedTwo": "Translated",
+      "heading": "Translated",
+      "seeAll": "Translated",
+      "subheading": "Translated"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Translated",
+        "none": "Translated"
+      },
+      "Introduction": {
+        "description1": "Translated",
+        "description2": "Translated",
+        "register": "Translated",
+        "signIn": "Translated",
+        "video": "Translated"
+      },
+      "Researchers": {
+        "build": "Translated",
+        "description": "Translated"
+      },
+      "headings": {
+        "four": "Translated",
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      },
+      "heroText": "Translated",
+      "mainHeading": "Translated",
+      "projects": "Translated",
+      "subheadings": {
+        "four": "Translated",
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Translated",
+    "sidebarLabel": "Translated",
+    "title": "Translated"
+  },
+  "Publications": {
+    "description": "Translated",
+    "formInfo": "Translated",
+    "formInstruction": "Translated",
+    "formLabel": "Translated",
+    "sidebarLabel": "Translated",
+    "title": "Translated"
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Translated",
+      "links": {
+        "four": "Translated",
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      }
+    },
+    "cite": {
+      "heading": "Translated",
+      "paragraphs": {
+        "five": "Translated",
+        "four": "Translated",
+        "one": "Translated <0>Translated</0>",
+        "six": "Translated <0>Translated</0>",
+        "three": "Translated <0>Translated</0>",
+        "two": "Translated <0>Translated</0> <1>Translated</1>"
+      },
+      "quote": "Translated <0>Translated</0>",
+      "subheadings": {
+        "one": "Translated",
+        "two": "Translated"
+      }
+    },
+    "title": "Translated"
+  },
+  "Sidebar": {
+    "all": "Translated"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Translated",
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated",
+        "three": "Translated <0>Translated</0>",
+        "two": "Translated <0>Translated</0>"
+      }
+    },
+    "classify": {
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated"
+      }
+    },
+    "howTo": {
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated"
+      }
+    },
+    "moderate": {
+      "heading": "Translated",
+      "paragraphs": {
+        "one": "Translated <0>Translated</0>",
+        "two": "Translated <0>Translated</0>"
+      }
+    },
+    "register": {
+      "button": "Translated",
+      "heading": "Translated",
+      "paragraphs": {
+        "five": "Translated <0>Translated</0> <1>Translated</1>",
+        "four": "Translated <0>https://www.zooniverse.org/accounts/register</0>",
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      },
+      "subheadings": {
+        "one": "Translated",
+        "three": "Translated",
+        "two": "Translated"
+      }
+    },
+    "title": "Translated"
+  }
+}
