@@ -40,7 +40,6 @@
         "three": "Can't access the Contact Us button? Email us directly at <0>contact@zooniverse.org</0>."
       }
     },
-    "description": "",
     "highlights": {
       "description": "Available for purchase at <0>Blurb.com</0>",
       "heading": "Our Highlights",
@@ -207,7 +206,6 @@
     "title": "Educate"
   },
   "FAQ": {
-    "description": "",
     "help": "Don't see the answer to your question? Visit the <0>Zooniverse Solutions webpage</0>, ask on <1>Zooniverse Talk</1>, or <2>contact us</2>.",
     "title": "Frequently Asked Questions",
     "item0": {
@@ -332,7 +330,6 @@
         "two": "For Media"
       }
     },
-    "description": "",
     "title": "Resources"
   },
   "Sidebar": {
