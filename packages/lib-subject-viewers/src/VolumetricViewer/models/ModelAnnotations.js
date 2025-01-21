@@ -109,7 +109,7 @@ export const ModelAnnotations = ({ onAnnotation }) => {
 
           // Send to update handler
           const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
-          annotationExport.forEach(a => a.points.all = a.points.all.data)
+          annotationExport.forEach(a => { a.points.all = a.points.all.data })
           onAnnotation(annotationExport)
         },
         active: ({ index }) => {
@@ -214,7 +214,7 @@ export const ModelAnnotations = ({ onAnnotation }) => {
 
             // Send to update handler
             const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
-            annotationExport.forEach(a => a.points.all = a.points.all.data)
+            annotationExport.forEach(a => { a.points.all = a.points.all.data })
             onAnnotation(annotationExport)
           }
         }
