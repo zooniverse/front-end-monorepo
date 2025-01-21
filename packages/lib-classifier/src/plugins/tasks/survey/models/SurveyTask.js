@@ -5,7 +5,7 @@ import SurveyAnnotation from './SurveyAnnotation'
 
 const CharacteristicValue = types.model('CharacteristicValue', {
   label: types.string,
-  image: types.string
+  image: types.maybe(types.string)
 })
 
 const Characteristic = types.model('Characteristic', {
