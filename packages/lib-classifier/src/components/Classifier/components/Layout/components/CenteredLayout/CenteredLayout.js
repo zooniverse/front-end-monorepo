@@ -14,7 +14,7 @@ import {
   StyledSubjectContainer
 } from '../shared/StyledContainers'
 
-export const Relative = styled(Box)`
+const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
 
@@ -24,6 +24,14 @@ const ContainerBox = styled(Box)`
   gap: 1.25rem;
   justify-content: center;
 
+  ${props => props.hasSurveyTask && css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      flex-direction: column;
+      margin: 0;
+    }
+  `}
+
+  // small screens
   @media screen and (max-width: 768px) {
     flex-direction: column;
     margin: 0;
@@ -35,6 +43,7 @@ const ViewBox = styled(Box)`
   flex-direction: row;
   margin: 0;
 
+  // small screens
   @media screen and (max-width: 768px) {
     margin: auto;
   }
@@ -42,13 +51,23 @@ const ViewBox = styled(Box)`
 
 const StickyTaskArea = styled(Box)`
   flex: initial; // Don't stretch vertically
-  width: 100%;
-  
-  @media screen and (min-width: 769px) {
-    height: 100%;
-    position: sticky;
-    top: 10px;
-    width: ${props => props.hasSurveyTask ? '33.75rem' : '25rem'};
+  height: 100%;
+  min-width: ${props => props.hasSurveyTask ? '33.75rem' : 'auto'};
+  position: sticky;
+  top: 10px;
+  width: ${props => props.hasSurveyTask ? '33.75rem' : '25rem'};
+
+  ${props => props.hasSurveyTask && css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      position: static;
+      width: 100%;
+    }
+  `}
+
+  // small screens
+  @media screen and (max-width: 768px) {
+    position: static;
+    width: 100%;
   }
 `
 
@@ -58,7 +77,7 @@ export default function CenteredLayout({
 }) {
   return (
     <Relative>
-      <ContainerBox>
+      <ContainerBox hasSurveyTask={hasSurveyTask}>
         <ViewBox forwardedAs='section'>
           <StyledSubjectContainer>
             <Banners />
@@ -75,9 +94,7 @@ export default function CenteredLayout({
             </Box>
           )}
         </ViewBox>
-        <StickyTaskArea
-          hasSurveyTask={hasSurveyTask}
-        >
+        <StickyTaskArea hasSurveyTask={hasSurveyTask}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
         </StickyTaskArea>
