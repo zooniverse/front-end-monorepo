@@ -3,20 +3,6 @@ import { Box, Grid } from 'grommet'
 import ImageToolbar from '@components/Classifier/components/ImageToolbar'
 
 export const ViewerGrid = styled(Grid)`
-  ${props => props.hasSurveyTask
-    ? css`
-        @media screen and (min-width: 70rem) {
-          position: sticky;
-          top: 10px;
-        }
-      `
-    : css`
-        @media screen and (min-width: 769px) {
-          position: sticky;
-          top: 10px;
-        }
-      `}
-  height: fit-content;
   grid-area: viewer;
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
   grid-template-rows: auto;
@@ -25,7 +11,21 @@ export const ViewerGrid = styled(Grid)`
 
 export const StyledSubjectContainer = styled(Box)`
   grid-area: subject;
-  position: sticky;
+  height: fit-content;
+
+  ${props => props.hasSurveyTask
+  ? css`
+      @media screen and (min-width: 70rem) {
+        position: sticky;
+        top: 10px;
+      }
+    `
+  : css`
+      @media screen and (min-width: 769px) {
+        position: sticky;
+        top: 10px;
+      }
+    `}
 `
 
 export const StyledImageToolbarContainer = styled.div`
