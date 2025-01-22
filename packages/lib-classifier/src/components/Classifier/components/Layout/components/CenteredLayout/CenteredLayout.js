@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { Box, ResponsiveContext } from 'grommet'
+import { Box } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -19,44 +18,48 @@ export const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
 
-const StickyTaskArea = styled(Box)`
-  flex: initial; // Don't stretch vertically
-  ${props =>
-    props.size !== 'small' &&
-    css`
-      position: sticky;
-      top: 10px;
-    `}
+const ContainerBox = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 0;
+  }
 `
 
-export const verticalLayout = {
-  direction: 'column',
-  gap: 'medium',
-  margin: 'none'
-}
+const ViewBox = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  margin: 0;
 
-export const horizontalLayout = {
-  direction: 'row',
-  gap: 'small',
-  justify: 'center'
-}
+  @media screen and (max-width: 768px) {
+    margin: auto;
+  }
+`
+
+const StickyTaskArea = styled(Box)`
+  flex: initial; // Don't stretch vertically
+  width: 100%;
+  
+  @media screen and (min-width: 769px) {
+    height: 100%;
+    position: sticky;
+    top: 10px;
+    width: ${props => props.hasSurveyTask ? '33.75rem' : '25rem'};
+  }
+`
 
 export default function CenteredLayout({
   separateFramesView = false,
   hasSurveyTask = false
 }) {
-  const size = useContext(ResponsiveContext)
-  const containerProps = size === 'small' ? verticalLayout : horizontalLayout
-  const taskAreaWidth = hasSurveyTask ? '33.75rem' : '25rem'
-
   return (
     <Relative>
-      <Box {...containerProps}>
-        <Box
-          as='section'
-          direction='row'
-          margin={size === 'small' ? 'auto' : 'none'}
-        >
+      <ContainerBox>
+        <ViewBox forwardedAs='section'>
           <StyledSubjectContainer>
             <Banners />
             <SubjectViewer />
@@ -71,16 +74,14 @@ export default function CenteredLayout({
               <StyledImageToolbar />
             </Box>
           )}
-        </Box>
+        </ViewBox>
         <StickyTaskArea
-          width={size === 'small' ? '100%' : taskAreaWidth}
-          fill={size === 'small' ? 'horizontal' : 'vertical'}
-          size={size}
+          hasSurveyTask={hasSurveyTask}
         >
           <TaskArea />
           {separateFramesView && <FieldGuide />}
         </StickyTaskArea>
-      </Box>
+      </ContainerBox>
       <FeedbackModal />
       <QuickTalk />
     </Relative>
