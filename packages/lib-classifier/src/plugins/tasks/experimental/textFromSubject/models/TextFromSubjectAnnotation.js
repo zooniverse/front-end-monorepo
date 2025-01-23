@@ -19,7 +19,7 @@ const TextFromSubject = types
     return {
       updateFromSubject (value) {
         self.initializedFromSubject = true
-        self.update(value)
+        self.value = value
       }
     }
   })
