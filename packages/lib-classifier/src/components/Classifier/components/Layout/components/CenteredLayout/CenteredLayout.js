@@ -74,7 +74,7 @@ export default function CenteredLayout({
     <Relative>
       <ContainerBox hasSurveyTask={hasSurveyTask}>
         <ViewBox forwardedAs='section'>
-          <StyledSubjectContainer>
+          <StyledSubjectContainer hasSurveyTask={hasSurveyTask}>
             <Banners />
             <SubjectViewer />
             <MetaTools />
