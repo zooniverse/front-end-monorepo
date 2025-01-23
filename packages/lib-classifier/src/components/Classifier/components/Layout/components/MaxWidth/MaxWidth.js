@@ -68,11 +68,8 @@ export default function MaxWidth({
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid
-          forwardedAs='section'
-          hasSurveyTask={hasSurveyTask}
-        >
-          <StyledSubjectContainer>
+        <ViewerGrid forwardedAs='section'>
+          <StyledSubjectContainer hasSurveyTask={hasSurveyTask}>
             <Banners />
             <SubjectViewer />
             <MetaTools />
