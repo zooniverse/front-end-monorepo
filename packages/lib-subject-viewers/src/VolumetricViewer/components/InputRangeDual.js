@@ -1,14 +1,64 @@
-'use client'
-
 import { func, number } from 'prop-types'
+import styled from 'styled-components'
 import { useState } from 'react'
 
+const DEFAULT_HANDLER = () => {}
+
+const StyledContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  min-height: 16px;
+  transform: translateY(-3px);
+
+  .range-slider-container {
+    flex-grow: 1;
+    position: relative;
+
+    .range-slider-dual {
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: #A6A7A9;
+      border-radius: 4px;
+      height: 4px;
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+
+    .range-slider-dual::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: #005D69;
+      border-radius: 50%;
+      cursor: pointer;
+      height: 16px;
+      pointer-events: all;
+      width: 16px;
+    }
+
+    .range-slider-dual::-moz-range-thumb {
+\			background-color: #005D69;
+      border-radius: 50%;
+      cursor: pointer;
+      height: 16px;
+      pointer-events: all;
+      width: 16px;
+    }
+
+    .range-slider-lower-value {
+      height: 0;
+      transform: translateY(2px);
+      z-index: 1;
+    }
+  }
+`
+
 export const InputRangeDual = ({
+  onChange = DEFAULT_HANDLER,
   valueMax = 100,
-  valueMin = 0,
   valueMaxCurrent = 75,
+  valueMin = 0,
   valueMinCurrent = 25,
-  onChange = () => {}
 }) => {
   const [state, setState] = useState({
     valueMax,
@@ -24,12 +74,12 @@ export const InputRangeDual = ({
 
     return `linear-gradient(
       to right,
-      var(--grey) 0%,
-      var(--grey) ${(fromPosition / rangeDistance) * 100}%,
-      var(--primary-accent) ${(fromPosition / rangeDistance) * 100}%,
-      var(--primary-accent) ${(toPosition / rangeDistance) * 100}%, 
-      var(--grey) ${(toPosition / rangeDistance) * 100}%, 
-      var(--grey) 100%)`
+      #A6A7A9 0%,
+      #A6A7A9 ${(fromPosition / rangeDistance) * 100}%,
+      #FFFFFF ${(fromPosition / rangeDistance) * 100}%,
+      #FFFFFF ${(toPosition / rangeDistance) * 100}%, 
+      #A6A7A9 ${(toPosition / rangeDistance) * 100}%, 
+      #A6A7A9 100%)`
   }
 
   const inChange = (ev) => {
@@ -52,63 +102,31 @@ export const InputRangeDual = ({
   }
 
   return (
-    <div className='range-slider-container'>
-      <div className='range-slider-control range-flex'>
-        <div className='range-slider-min-value'>{state.valueMin}</div>
-        <div className='range-slider'>
-          <input
-            className='range-slider-dual range-slider-lower-value'
-            type='range'
-            name='valueMinCurrent'
-            value={state.valueMinCurrent}
-            min={state.valueMin}
-            max={state.valueMax}
-            onInput={inChange}
-            onChange={inChange}
-          />
-          <input
-            className='range-slider-dual'
-            id='toSlider'
-            type='range'
-            name='valueMaxCurrent'
-            value={state.valueMaxCurrent}
-            min={state.valueMin}
-            max={state.valueMax}
-            onInput={inChange}
-            onChange={inChange}
-            style={{ background: fillSlider() }}
-          />
-        </div>
-        <div className='range-slider-max-value'>{state.valueMax}</div>
+    <StyledContainer>
+      <div className='range-slider-container'>
+        <input
+          className='range-slider-dual range-slider-lower-value'
+          max={state.valueMax}
+          min={state.valueMin}
+          name='valueMinCurrent'
+          onChange={inChange}
+          onInput={inChange}
+          type='range'
+          value={state.valueMinCurrent}
+        />
+        <input
+          className='range-slider-dual range-slider-upper-value'
+          max={state.valueMax}
+          min={state.valueMin}
+          name='valueMaxCurrent'
+          onChange={inChange}
+          onInput={inChange}
+          style={{ background: fillSlider() }}
+          type='range'
+          value={state.valueMaxCurrent}
+        />
       </div>
-      <div className='range-input-control range-flex'>
-        <div className='range-flex'>
-          <label htmlFor='range-input-lower-value'>Min</label>
-          <input
-            type='number'
-            name='valueMinCurrent'
-            id='range-input-lower-value'
-            value={state.valueMinCurrent}
-            min={state.valueMin}
-            max={state.valueMax}
-            onChange={inChange}
-          />
-        </div>
-        <div className='spacer' />
-        <div className='range-flex'>
-          <div htmlFor='range-input-upper-value'>Max</div>
-          <input
-            type='number'
-            name='valueMaxCurrent'
-            id='range-input-upper-value'
-            value={state.valueMaxCurrent}
-            min={state.valueMin}
-            max={state.valueMax}
-            onChange={inChange}
-          />
-        </div>
-      </div>
-    </div>
+    </StyledContainer>
   )
 }
 
