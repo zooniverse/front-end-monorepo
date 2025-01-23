@@ -21,40 +21,35 @@ const Relative = styled(Box)`
 const ContainerBox = styled(Box)`
   display: flex;
   flex-direction: row;
-  gap: 1.25rem;
+  gap: 20px;
   justify-content: center;
 
   ${props => props.hasSurveyTask && css`
     @media screen and (min-width: 769px) and (max-width: 70rem) {
       flex-direction: column;
-      margin: 0;
     }
   `}
 
   // small screens
   @media screen and (max-width: 768px) {
     flex-direction: column;
-    margin: 0;
   }
 `
 
 const ViewBox = styled(Box)`
-  display: flex;
   flex-direction: row;
-  margin: 0;
+`
 
-  // small screens
-  @media screen and (max-width: 768px) {
-    margin: auto;
-  }
+const StyledImageToolbarContainer = styled.div`
+  min-width: 3rem;
+  width: 3rem;
 `
 
 const StickyTaskArea = styled(Box)`
-  flex: initial; // Don't stretch vertically
-  height: 100%;
-  min-width: ${props => props.hasSurveyTask ? '33.75rem' : 'auto'};
+  height: fit-content;
   position: sticky;
   top: 10px;
+  min-width: ${props => props.hasSurveyTask ? '33.75rem' : 'auto'};
   width: ${props => props.hasSurveyTask ? '33.75rem' : '25rem'};
 
   ${props => props.hasSurveyTask && css`
@@ -85,13 +80,9 @@ export default function CenteredLayout({
             <MetaTools />
           </StyledSubjectContainer>
           {!separateFramesView && (
-            <Box
-              width='3rem'
-              fill='vertical'
-              style={{ minWidth: '3rem' }}
-            >
+            <StyledImageToolbarContainer>
               <StyledImageToolbar />
-            </Box>
+            </StyledImageToolbarContainer>
           )}
         </ViewBox>
         <StickyTaskArea hasSurveyTask={hasSurveyTask}>
