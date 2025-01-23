@@ -1,92 +1,95 @@
-import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { Box, ResponsiveContext } from 'grommet'
+import { Box } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
-import ImageToolbar from '@components/Classifier/components/ImageToolbar'
 import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 import FieldGuide from '@components/Classifier/components/FieldGuide'
 
-export const Relative = styled(Box)`
+import {
+  StyledImageToolbar,
+  StyledSubjectContainer
+} from '../shared/StyledContainers'
+
+const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
 
-const StickySubjectViewer = styled(Box)`
-  ${props =>
-    props.size !== 'small' &&
-    css`
-      position: sticky;
-      top: 10px;
-    `}
+const ContainerBox = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+
+  ${props => props.hasSurveyTask && css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      flex-direction: column;
+    }
+  `}
+
+  // small screens
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`
+
+const ViewBox = styled(Box)`
+  flex-direction: row;
+`
+
+const StyledImageToolbarContainer = styled.div`
+  min-width: 3rem;
+  width: 3rem;
 `
 
 const StickyTaskArea = styled(Box)`
-  flex: initial; // Don't stretch vertically
-  ${props =>
-    props.size !== 'small' &&
-    css`
-      position: sticky;
-      top: 10px;
-    `}
-`
-
-const StickyImageToolbar = styled(ImageToolbar)`
+  height: fit-content;
   position: sticky;
   top: 10px;
+  min-width: ${props => props.hasSurveyTask ? '33.75rem' : 'auto'};
+  width: ${props => props.hasSurveyTask ? '33.75rem' : '25rem'};
+
+  ${props => props.hasSurveyTask && css`
+    @media screen and (min-width: 769px) and (max-width: 70rem) {
+      position: static;
+      width: 100%;
+    }
+  `}
+
+  // small screens
+  @media screen and (max-width: 768px) {
+    position: static;
+    width: 100%;
+  }
 `
-
-export const verticalLayout = {
-  direction: 'column',
-  gap: 'medium',
-  margin: 'none'
-}
-
-export const horizontalLayout = {
-  direction: 'row',
-  gap: 'small',
-  justify: 'center'
-}
 
 export default function CenteredLayout({
   separateFramesView = false,
   hasSurveyTask = false
 }) {
-  const size = useContext(ResponsiveContext)
-  const containerProps = size === 'small' ? verticalLayout : horizontalLayout
-  const taskAreaWidth = hasSurveyTask ? '33.75rem' : '25rem'
-
   return (
     <Relative>
-      <Box {...containerProps}>
-        <Box
-          as='section'
-          direction='row'
-          margin={size === 'small' ? 'auto' : 'none'}
-        >
-          <StickySubjectViewer size={size}>
+      <ContainerBox hasSurveyTask={hasSurveyTask}>
+        <ViewBox forwardedAs='section'>
+          <StyledSubjectContainer hasSurveyTask={hasSurveyTask}>
             <Banners />
             <SubjectViewer />
             <MetaTools />
-          </StickySubjectViewer>
+          </StyledSubjectContainer>
           {!separateFramesView && (
-            <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
-              <StickyImageToolbar />
-            </Box>
+            <StyledImageToolbarContainer>
+              <StyledImageToolbar />
+            </StyledImageToolbarContainer>
           )}
-        </Box>
-        <StickyTaskArea
-          width={size === 'small' ? '100%' : taskAreaWidth}
-          fill={size === 'small' ? 'horizontal' : 'vertical'}
-          size={size}
-        >
+        </ViewBox>
+        <StickyTaskArea hasSurveyTask={hasSurveyTask}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
         </StickyTaskArea>
-      </Box>
+      </ContainerBox>
       <FeedbackModal />
       <QuickTalk />
     </Relative>
