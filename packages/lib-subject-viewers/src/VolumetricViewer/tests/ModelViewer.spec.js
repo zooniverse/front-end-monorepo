@@ -17,7 +17,7 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
     expect(model.planesAbsoluteSets).deep.to.equal([[], [], []])
     expect(model.planeFrameActive).deep.to.equal([0, 0, 0])
     expect(model.points).deep.to.equal([])
-    expect(model.threshold).deep.to.equal({ min: 0, max: 255 })
+    expect(model.threshold).deep.to.equal({ min: 5, max: 255 })
     expect(model._listeners.length).to.equal(0)
   })
 
@@ -69,7 +69,7 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
       expect(pointAnnotationIndex).to.equal(-1)
     }
 
-    expect(model.threshold).deep.to.equal({ min: 0, max: 255 })
+    expect(model.threshold).deep.to.equal({ min: 5, max: 255 })
     expect(model._listeners.length).to.equal(0)
   })
 
