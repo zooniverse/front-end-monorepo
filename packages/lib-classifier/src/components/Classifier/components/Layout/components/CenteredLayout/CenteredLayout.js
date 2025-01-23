@@ -67,7 +67,6 @@ const StickyTaskArea = styled(Box)`
 `
 
 export default function CenteredLayout({
-  className = '',
   separateFramesView = false,
   hasSurveyTask = false
 }) {

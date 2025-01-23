@@ -25,8 +25,7 @@ export const StyledSubjectContainer = styled(Box)`
         position: sticky;
         top: 10px;
       }
-    `
-  }
+    `}
 `
 
 export const StyledImageToolbarContainer = styled.div`
