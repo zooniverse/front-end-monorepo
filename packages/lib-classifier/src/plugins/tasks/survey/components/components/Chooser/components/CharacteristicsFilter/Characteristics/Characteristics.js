@@ -19,6 +19,14 @@ const StyledBox = styled(Box)`
   margin-bottom: 4px;
 `
 
+const StyledButton = styled(Button)`
+  &:hover, &:focus {
+    span {
+      text-decoration: underline;
+    }
+  }
+`
+
 const DEFAULT_HANDLER = () => true
 
 function Characteristics({
@@ -70,7 +78,7 @@ function Characteristics({
           )
         })}
       </Box>
-      <Button
+      <StyledButton
         label={
           <Box
             align='center'

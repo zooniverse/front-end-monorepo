@@ -24,11 +24,13 @@ const StyledButton = styled(Button)`
     color: ${props => props.theme.dark ?
       props.theme.global.colors.brand
       : props.theme.global.colors['neutral-1']};
+    text-decoration: underline;
   }
 
   ${props => props.$filterOpen && css`
     background-color: ${props => props.theme.global.colors['neutral-1']};
     color: ${props => props.theme.global.colors['neutral-6']};
+    text-decoration: none;
 
     &:enabled:hover {
       color: ${props => props.theme.global.colors['neutral-6']};
