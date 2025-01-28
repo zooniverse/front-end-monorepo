@@ -24,7 +24,7 @@ function storeMapper(classifierStore) {
 function ImageToolbar (props) {
   const { hasAnnotateTask, rotation } = useStores(storeMapper)
   const { onKeyZoom } = useKeyZoom(rotation)
-  
+
   return (
     <Box
       height='min-content'
@@ -46,6 +46,7 @@ function ImageToolbar (props) {
         direction='column'
         fill
         pad='clamp(8px, 15%, 10px)'
+        gap='2px'
       >
         {hasAnnotateTask && <AnnotateButton />}
         <MoveButton />
