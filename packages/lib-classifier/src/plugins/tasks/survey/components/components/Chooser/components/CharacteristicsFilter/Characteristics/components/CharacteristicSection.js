@@ -58,7 +58,7 @@ export default function CharacteristicSection({
 
   return (
     <Box
-      margin={{ bottom: 'small' }}
+      margin={{ bottom: 'xsmall' }}
     >
       <SpacedHeading
         id={`${label}-heading`}
@@ -68,7 +68,7 @@ export default function CharacteristicSection({
         }}
         margin={{
           bottom: 'xsmall',
-          top: 'small'
+          top: 'xsmall'
         }}
         pad='none'
         size='1rem'

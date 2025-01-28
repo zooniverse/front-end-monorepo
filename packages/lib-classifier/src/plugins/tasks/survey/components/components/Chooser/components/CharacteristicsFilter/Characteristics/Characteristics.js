@@ -16,7 +16,6 @@ const StyledBox = styled(Box)`
   };
   border-radius: 0px 0px 16px 16px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
-  margin-bottom: 4px;
 `
 
 const StyledButton = styled(Button)`
@@ -45,20 +44,13 @@ function Characteristics({
       align='center'
       pad={{
         bottom: 'small',
-        horizontal: 'small',
-        top: 'xxsmall'
+        horizontal: 'small'
       }}
     >
       <Box
         data-testid='characteristics'
-        border={{
-          color: 'light-4',
-          style: 'solid',
-          side: 'between'
-        }}
         fill='horizontal'
         flex='grow'
-        gap='xsmall'
       >
         {characteristicsOrder.map((characteristicId) => {
           const characteristic = characteristics.get(characteristicId) || {}
