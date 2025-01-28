@@ -18,29 +18,29 @@
     "year": "Year"
   },
   "Contributors": {
-    "error": "There was an error",
-    "exportLink": "Export all stats",
-    "generating": "Generating stats export...",
-    "none": "There are no contributors to this group.",
-    "noPermission": "You do not have permission to view this group's contributors.",
-    "title": "Full Group Stats",
     "ContributorsList": {
       "a11y": "{{name}} member stats",
       "privateProject": "Private Project {{index}}"
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"
-    }
+    },
+    "error": "There was an error",
+    "exportLink": "Export all stats",
+    "generating": "Generating stats export...",
+    "noPermission": "You do not have permission to view this group's contributors.",
+    "none": "There are no contributors to this group.",
+    "title": "Full Group Stats"
   },
   "GroupContainer": {
     "deactivated": "This is a deactivated group. Please leave the group or contact the group administrator if you believe this is an error.",
+    "joinFail": "Join failed.",
+    "joined": "New Group Joined!",
+    "joining": "Joining group...",
     "leaveGroup": "Leave Group",
     "loginToJoin": "Log in to join the group.",
-    "joined": "New Group Joined!",
-    "joinFail": "Join failed.",
-    "joining": "Joining group...",
-    "notFound": "Group not found",
-    "noAuth": "You must be logged in to access a private group."
+    "noAuth": "You must be logged in to access a private group.",
+    "notFound": "Group not found"
   },
   "GroupForm": {
     "anyone": "you can share this group with anyone",
@@ -55,11 +55,11 @@
     "private": "Private",
     "privateAggOnly": "No, don't show individual stats to members",
     "privateShowAggAndInd": "Yes, show individual stats to members",
+    "pubVis": "Public Visibility",
     "public": "Public",
     "publicAggOnly": "No, never show individual stats",
     "publicAggShowInd": "Yes, show individual stats if member",
     "publicShowAll": "Yes, always show individual stats",
-    "pubVis": "Public Visibility",
     "saveChanges": "Save changes",
     "showInd": "Show Individual Stats",
     "showIndHelp": "Admin can always see individual stats.",
@@ -67,21 +67,8 @@
     "visibility": "Stats Visibility"
   },
   "GroupStats": {
-    "leaveQuestion": "Are you sure you want to leave this group?",
-    "manage": "Manage Group",
-    "headerItems": {
-      "all": "All My Groups",
-      "copy": "Copy Join Link",
-      "copied": "Group Link Copied!",
-      "leave": "Leave Group",
-      "share": "Share Group"
-    },
     "GroupUpdateFormContainer": {
       "error": "Something went wrong. Please try again."
-    },
-    "MembersList": {
-      "title": "Group Members",
-      "warning": "Removing a member inactivates their membership in the group. They will no longer have access to the group, but contributions while a member will persist."
     },
     "MemberListItem": {
       "a11y": "Menu to update or remove {{name}}'s group membership",
@@ -89,20 +76,33 @@
       "remove": "Remove member",
       "removeAdmin": "Remove admin access"
     },
+    "MembersList": {
+      "title": "Group Members",
+      "warning": "Removing a member inactivates their membership in the group. They will no longer have access to the group, but contributions while a member will persist."
+    },
     "TopContributors": {
       "error": "There was an error fetching the top contributors.",
       "linkLabel": "See all contributors and detailed stats",
       "tip": "Includes active and inactive members.",
       "title": "Top Contributors"
-    }
+    },
+    "headerItems": {
+      "all": "All My Groups",
+      "copied": "Group Link Copied!",
+      "copy": "Copy Join Link",
+      "leave": "Leave Group",
+      "share": "Share Group"
+    },
+    "leaveQuestion": "Are you sure you want to leave this group?",
+    "manage": "Manage Group"
   },
   "HeaderDropdown": {
     "label": "Group Options"
   },
   "MainContent": {
     "allProjects": "All Projects",
-    "calendarTitle": "Custom Date Range",
     "calendarBtn": "Done",
+    "calendarTitle": "Custom Date Range",
     "certificate": "Generate Volunteer Certificate",
     "dateRange": {
       "allTime": "All Time",
@@ -117,22 +117,24 @@
     "error": "There was an error.",
     "hoursTip": "Hours are calculated based on the start and end times of your classification efforts. Hours do not reflect your time spent on Talk.",
     "noData": "No data found.",
+    "selectDateRange": "Select date range",
+    "selectProject": "Select project",
     "start": "Start by <0>classifying a project</0> now, or change the date range.",
     "tabContents": "Tab Contents"
   },
   "MyGroups": {
-    "createNew": "Create new group",
-    "error": "There was an error fetching your groups",
-    "learnMore": "Learn more about groups",
-    "noGroups": "You are not a member of any Groups.<0/>Create one below",
-    "title": "My Groups",
     "GroupCard": {
       "admin": "Admin",
       "member": "Member"
     },
     "PreviewLayout": {
       "seeAll": "See all"
-    }
+    },
+    "createNew": "Create new group",
+    "error": "There was an error fetching your groups",
+    "learnMore": "Learn more about groups",
+    "noGroups": "You are not a member of any Groups.<0/>Create one below",
+    "title": "My Groups"
   },
   "TopProjects": {
     "title": "Top Projects"

@@ -1,77 +1,83 @@
+import { Box } from 'grommet'
+import { InputRangeDual } from './InputRangeDual'
 import { object } from 'prop-types'
-import { useEffect, useRef } from 'react'
+import styled from 'styled-components'
+import { useEffect, useState } from 'react'
+
+const StyledBox = styled(Box)`
+  max-width: 195px;
+`
+const HISTOGRAM_MIN = 5
+const HISTOGRAM_MAX = 255
+const MAX_HEIGHT = 30
 
 export const Histogram = ({ viewer }) => {
-  // canvas ref
-  const canvasRef = useRef(null)
-
-  // setup defaults
-  const histogram = []
-  let maxValue = 0
-  let maxCount = 0
-  let minValue = 255
-
-  for (let i = 0; i < 256; i++) {
-    histogram[i] = 0
-    if (viewer.data[i] < minValue) minValue = viewer.data[i]
-    if (viewer.data[i] > maxValue) maxValue = viewer.data[i]
-  }
-
-  viewer.data.forEach((point) => {
-    const newCount = histogram[point] + 1
-    if (newCount > maxCount) maxCount = newCount
-    histogram[point] = newCount
-  })
-
-  const histogramMin = []
-  histogram.forEach((val, i) => {
-    if (val !== 0) {
-      histogramMin.push({ x: i, y: val })
-    }
-  })
+  const [pathData, setPathData] = useState('')
 
   useEffect(() => {
-    const ctx = canvasRef.current.getContext('2d')
+    setupHistogram()
+    viewer.on('change:threshold', setupHistogram)
 
-    // reset dimensions because screen pixel-density depends on this
-    const crc = canvasRef.current
-    crc.width = crc.clientWidth
-    crc.height = crc.clientHeight
-    const { width, height } = crc
-
-    const range = maxValue - minValue
-    const w = width / range
-    const h = height / maxCount
-
-    ctx.fillStyle = 'grey'
-    ctx.strokeStyle = 'white'
-    ctx.beginPath()
-    ctx.moveTo(0, height)
-
-    // SMOOTHS OUT THE LINE
-    histogramMin.forEach(({ x, y }) => {
-      ctx.lineTo(
-        (x - minValue) * w,
-        height - (y * h)
-      )
-    })
-
-    ctx.lineTo(width, height)
-    ctx.fill()
+    return () => {
+      viewer.off('change:threshold', setupHistogram)
+    }
   }, [])
 
+  function setupHistogram () {
+    const histogram = [0]
+    histogram[viewer.threshold.min] = 0
+    histogram[viewer.threshold.max] = 0
+    histogram[255] = 0
+    let _maxCount = 0
+
+    // Generate data while skipping points that are outside of threshold
+    viewer.data.forEach((point) => {
+      if (point < viewer.threshold.min || point > viewer.threshold.max) return
+
+      histogram[point] = (histogram[point] ?? 0) + 1
+      if (histogram[point] > _maxCount) {
+        _maxCount = histogram[point]
+      }
+    })
+
+    const scaleFactor = MAX_HEIGHT / _maxCount
+
+    // SVG starts at top left, so we need to invert Y
+    function calculateY (x) {
+      return (_maxCount - (histogram[x] ?? 0)) * scaleFactor
+    }
+
+    // Generate the SVG path data
+    let path = `M 0, ${calculateY(0)}`
+
+    for (let x = 1; x < histogram.length; x++) {
+      if (histogram[x] !== undefined) {
+        const y = calculateY(x)
+        path += ` L ${x},${y}`
+      }
+    }
+
+    setPathData(path)
+  }
+
   return (
-    <canvas
-      data-testid='cube-histogram'
-      ref={canvasRef}
-      style={{
-        height: '75px',
-        position: 'absolute',
-        right: '10px',
-        top: '10px',
-        width: '75px'
-      }}
-    />
+    <StyledBox flex direction='column' justify='between'>
+      <svg viewBox={`0 0 260 ${MAX_HEIGHT + 5}`} width='195px' height='30px'>
+        <path
+          d={pathData}
+          stroke='white'
+          strokeWidth='3'
+          fill='none'
+        />
+      </svg>
+      <InputRangeDual
+        onChange={(min, max) => viewer.setThreshold({ min, max })}
+        valueMax={HISTOGRAM_MAX}
+        valueMaxCurrent={viewer.threshold.max}
+        valueMin={HISTOGRAM_MIN}
+        valueMinCurrent={viewer.threshold.min}
+      />
+    </StyledBox>
   )
 }
 

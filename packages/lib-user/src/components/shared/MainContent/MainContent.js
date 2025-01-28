@@ -212,6 +212,7 @@ function MainContent({
             <Select
               id='project-select'
               name='project-select'
+              aria-label={t('MainContent.selectProject')}
               handleChange={handleProjectSelect}
               options={projectOptions}
               value={selectedProjectOption}
@@ -219,6 +220,7 @@ function MainContent({
             <Select
               id='date-range-select'
               name='date-range-select'
+              aria-label={t('MainContent.selectDateRange')}
               handleChange={handleDateRangeSelect}
               options={dateRangeOptions}
               value={selectedDateRangeOption}

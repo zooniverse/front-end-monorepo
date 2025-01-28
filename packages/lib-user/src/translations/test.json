@@ -1,0 +1,166 @@
+{
+  "common": {
+    "avatarAlt": "{{login}} Translated",
+    "back": "Translated",
+    "classifications": "Translated",
+    "contributors": "Translated",
+    "hours": "Translated",
+    "projects": "Translated"
+  },
+  "BarChart": {
+    "a11y": "Translated {{typeLabel}} Translated {{countLabel}} Translated {{startDate}} Translated {{endDate}}",
+    "day": "Translated",
+    "hourAbbrev": "Translated",
+    "minAbbrev": "Translated",
+    "monthOf": "Translated",
+    "time": "Translated",
+    "weekOf": "Translated",
+    "year": "Translated"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} Translated",
+      "privateProject": "Translated {{index}}"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} Translated"
+    },
+    "error": "Translated",
+    "exportLink": "Translated",
+    "generating": "Translated",
+    "noPermission": "Translated",
+    "none": "Translated",
+    "title": "Translated"
+  },
+  "GroupContainer": {
+    "deactivated": "Translated",
+    "joinFail": "Translated",
+    "joined": "Translated",
+    "joining": "Translated",
+    "leaveGroup": "Translated",
+    "loginToJoin": "Translated",
+    "noAuth": "Translated",
+    "notFound": "Translated"
+  },
+  "GroupForm": {
+    "anyone": "Translated",
+    "createNew": "Translated",
+    "deactivate": "Translated",
+    "deactivateHelp": "Translated",
+    "greaterThanChar": "Translated",
+    "lessThanChar": "Translated",
+    "name": "Translated",
+    "nameHelp": "Translated",
+    "onlyMembers": "Translated",
+    "private": "Translated",
+    "privateAggOnly": "Translated",
+    "privateShowAggAndInd": "Translated",
+    "pubVis": "Translated",
+    "public": "Translated",
+    "publicAggOnly": "Translated",
+    "publicAggShowInd": "Translated",
+    "publicShowAll": "Translated",
+    "saveChanges": "Translated",
+    "showInd": "Translated",
+    "showIndHelp": "Translated",
+    "showIndInfo": "Translated",
+    "visibility": "Translated"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Translated"
+    },
+    "MemberListItem": {
+      "a11y": "Translated {{name}}",
+      "giveAdmin": "Translated",
+      "remove": "Translated",
+      "removeAdmin": "Translated"
+    },
+    "MembersList": {
+      "title": "Translated",
+      "warning": "Translated"
+    },
+    "TopContributors": {
+      "error": "Translated",
+      "linkLabel": "Translated",
+      "tip": "Translated",
+      "title": "Translated"
+    },
+    "headerItems": {
+      "all": "Translated",
+      "copied": "Translated",
+      "copy": "Translated",
+      "leave": "Translated",
+      "share": "Translated"
+    },
+    "leaveQuestion": "Translated",
+    "manage": "Translated"
+  },
+  "HeaderDropdown": {
+    "label": "Translated"
+  },
+  "MainContent": {
+    "allProjects": "Translated",
+    "calendarBtn": "Translated",
+    "calendarTitle": "Translated",
+    "certificate": "Translated",
+    "dateRange": {
+      "allTime": "Translated",
+      "custom": "Translated",
+      "lastSevenDays": "Translated",
+      "lastThirtyDays": "Translated",
+      "lastThreeMonths": "Translated",
+      "lastTwelveMonths": "Translated",
+      "thisMonth": "Translated",
+      "thisYear": "Translated"
+    },
+    "error": "Translated",
+    "hoursTip": "Translated",
+    "noData": "Translated",
+    "selectDateRange": "Translated",
+    "selectProject": "Translated",
+    "start": "Translated <0>Translated</0>",
+    "tabContents": "Translated"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Translated",
+      "member": "Translated"
+    },
+    "PreviewLayout": {
+      "seeAll": "Translated"
+    },
+    "createNew": "Translated",
+    "error": "Translated",
+    "learnMore": "Translated",
+    "noGroups": "Translated <0/> Translated",
+    "title": "Translated"
+  },
+  "TopProjects": {
+    "title": "Translated"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Translated",
+      "collections": "Translated",
+      "comments": "Translated",
+      "favorites": "Translated",
+      "messages": "Translated",
+      "moreStats": "Translated",
+      "thisWeek": "Translated"
+    },
+    "RecentProjects": {
+      "error": "Translated",
+      "noProjects": "Translated",
+      "start": "Translated <0>Translated</0>",
+      "title": "Translated"
+    },
+    "RecentSubjects": {
+      "error": "Translated",
+      "noSubjects": "Translated"
+    },
+    "SubjectCard": {
+      "subject": "Translated"
+    }
+  }
+}

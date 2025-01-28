@@ -1,14 +1,14 @@
 import { render } from '@testing-library/react'
 import { screen } from '@testing-library/dom'
 import { composeStory } from '@storybook/react'
-import Meta, { Default } from './VolumetricViewer.stories.js'
+import Meta, { Volume4x4x4 } from './VolumetricViewer.stories.js'
 import { VolumetricViewerData } from './../VolumetricViewer.js'
 import subjectData from './../data/4x4x4.json'
 
 // GH test:ci fails for this because of "gl" being needed
 
 xdescribe('Component > VolumetricViewer', () => {
-  const VolumetricViewer = composeStory(Default, Meta)
+  const VolumetricViewer = composeStory(Volume4x4x4, Meta)
 
   beforeEach(() => {
     render(<VolumetricViewer />)
@@ -22,10 +22,6 @@ xdescribe('Component > VolumetricViewer', () => {
     expect(screen.getByTestId('plane-canvas-0')).to.be.ok()
     expect(screen.getByTestId('plane-canvas-1')).to.be.ok()
     expect(screen.getByTestId('plane-canvas-2')).to.be.ok()
-
-    expect(screen.getByTestId('plane-input-0')).to.be.ok()
-    expect(screen.getByTestId('plane-input-1')).to.be.ok()
-    expect(screen.getByTestId('plane-input-2')).to.be.ok()
   })
 
   it('should render the cube', () => {
@@ -57,10 +53,6 @@ xdescribe('Component > VolumetricViewerData', () => {
       expect(screen.getByTestId('plane-canvas-0')).to.be.ok()
       expect(screen.getByTestId('plane-canvas-1')).to.be.ok()
       expect(screen.getByTestId('plane-canvas-2')).to.be.ok()
-
-      expect(screen.getByTestId('plane-input-0')).to.be.ok()
-      expect(screen.getByTestId('plane-input-1')).to.be.ok()
-      expect(screen.getByTestId('plane-input-2')).to.be.ok()
     })
 
     it('should render the cube', () => {

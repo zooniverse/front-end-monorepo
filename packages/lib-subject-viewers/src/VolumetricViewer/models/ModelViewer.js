@@ -14,7 +14,7 @@ export const ModelViewer = () => {
     planesAbsoluteSets: [[], [], []],
     planeFrameActive: [0, 0, 0],
     points: [],
-    threshold: { min: 0, max: 255 },
+    threshold: { min: 5, max: 255 },  // min of 5 cuts out missing data noise
     // initialize
     initialize: ({ data }) => {
       pointModel.data = Buffer.from(data, 'base64')
@@ -80,6 +80,9 @@ export const ModelViewer = () => {
       return pointModel
     },
     // getters & setters
+    getDimensionLabel: ({ dimension = 0 }) => {
+      return pointModel.dimensions[dimension]
+    },
     getPlaneFrame: ({ dimension = 0, frame }) => {
       frame = frame ?? pointModel.planeFrameActive[dimension]
       // get the base frame, then mod each point to get the absolute plane view
@@ -88,6 +91,9 @@ export const ModelViewer = () => {
 
       const offset = pointModel.baseFrameMod[dimension] * frame
       return baseFrame.map((r) => r.map((p) => p + offset))
+    },
+    getPlaneFrameIndex: ({ dimension = 0 }) => {
+      return pointModel.planeFrameActive[dimension]
     },
     getPlaneSet: ({ dimension = 0, frame = 0 }) => {
       return pointModel.planesAbsoluteSets[dimension][frame]

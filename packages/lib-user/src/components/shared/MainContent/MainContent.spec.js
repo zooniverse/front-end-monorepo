@@ -7,6 +7,7 @@ import { USER } from '../../../../test/mocks/panoptes'
 import { STATS } from '../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default, NoStats, ParamsValidationMessage } from './MainContent.stories.js'
+import { expect } from 'chai'
 
 const todayUTC = getStatsDateString(new Date())
 const sevenDaysAgoUTC = getStatsDateString(new Date(Date.now() - 6 * 24 * 60 * 60 * 1000))
@@ -37,16 +38,20 @@ describe('components > shared > MainContent', function () {
 
   it('should show "ALL PROJECTS" as the selected project', function () {
     render(<DefaultStory />)
-    const projectSelect = screen.getByRole('textbox', { name: 'project-select' })
+    const projectSelectMenu = screen.getByRole('button', { name: 'Select project; Selected: ALL PROJECTS' })
+    const projectSelect = screen.getByRole('textbox', { name: 'Select project, ALL PROJECTS' })
 
+    expect(projectSelectMenu).to.be.ok()
     expect(projectSelect).to.be.ok()
     expect(projectSelect.value).to.equal('ALL PROJECTS')
   })
 
   it('should show "LAST 7 DAYS" as the selected date range', function () {
     render(<DefaultStory />)
-    const dateRangeSelect = screen.getByRole('textbox', { name: 'date-range-select' })
+    const dateRangeSelectMenu = screen.getByRole('button', { name: 'Select date range; Selected: LAST 7 DAYS' })
+    const dateRangeSelect = screen.getByRole('textbox', { name: 'Select date range, LAST 7 DAYS' })
 
+    expect(dateRangeSelectMenu).to.be.ok()
     expect(dateRangeSelect).to.be.ok()
     expect(dateRangeSelect.value).to.equal('LAST 7 DAYS')
   })

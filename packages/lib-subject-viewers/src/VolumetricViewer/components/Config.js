@@ -1,7 +1,7 @@
-import { object } from 'prop-types'
-import { useEffect, useState } from 'react'
 import { AnnotationView } from './AnnotationView.js'
 import { InputRangeDual } from './InputRangeDual.js'
+import { object } from 'prop-types'
+import { useEffect, useState } from 'react'
 
 export const Config = ({
   annotations,

@@ -87,6 +87,10 @@ describe('Model > TextFromSubjectAnnotation', function () {
     it('should have initializedFromSubject of true', function () {
       expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
     })
+
+    it('should not be marked as modified', function () {
+      expect(textFromSubjectAnnotation._inProgress).to.be.false()
+    })
   })
 
   describe('with initial update from subject content and valid update from user', function () {

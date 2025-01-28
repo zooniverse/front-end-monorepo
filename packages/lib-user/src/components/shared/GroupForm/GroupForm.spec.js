@@ -37,7 +37,7 @@ describe('components > shared > GroupForm', function() {
       render(<CreateStory />)
 
       // the Grommet Select component renders as a button with a textbox. The statsVisibility input uses the Grommet Select, therefore we need to find the textbox role. The textbox name includes the value of the select, which by default is 'private_agg_only'.
-      const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, private_agg_only' })
+      const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, No, don\'t show individual stats to members' })
       expect(statsVisibility).to.be.ok()
     })
 
@@ -49,7 +49,7 @@ describe('components > shared > GroupForm', function() {
         const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
         expect(privateRadio.checked).to.be.true()
 
-        const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, private_agg_only' })
+        const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, No, don\'t show individual stats to members' })
         await user.click(statsVisibility)
 
         const options = screen.getAllByRole('option')
@@ -67,7 +67,7 @@ describe('components > shared > GroupForm', function() {
         await user.click(publicRadio)
         expect(publicRadio.checked).to.be.true()
 
-        const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, public_agg_only' })
+        const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, No, never show individual stats' })
         await user.click(statsVisibility)
 
         const options = screen.getAllByRole('option')
@@ -148,7 +148,7 @@ describe('components > shared > GroupForm', function() {
     it('should show the group stats visibility', function() {
       render(<ManageStory />)
 
-      const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, public_show_all' })
+      const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, Yes, always show individual stats' })
       expect(statsVisibility).to.be.ok()
     })
   })

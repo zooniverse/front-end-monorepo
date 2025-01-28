@@ -17,37 +17,37 @@ export default function VolumetricViewer ({
   subject
 }) {
   const { data, loading, error } = useVolumetricSubject({ onError, onReady, subject })
-  
+
   const [modelState] = useState({
     annotations: ModelAnnotations({ onAnnotation }),
     tool: ModelTool(),
     viewer: ModelViewer()
   })
-  
-  const isLoading = loadingState === asyncStates.initialized
-    || loadingState === asyncStates.loading
-    || loading;
-  const isError = loadingState === asyncStates.error
-    || error
-    || data === null;
+
+  const isLoading = loadingState === asyncStates.initialized ||
+    loadingState === asyncStates.loading ||
+    loading
+  const isError = loadingState === asyncStates.error ||
+    error ||
+    data === null
 
   // Specs should skip rendering the VolumetricViewer component
   // WebGL/Canvas throws exceptions when running specs due to non-browser environment
   return (data === 'mock-subject-json')
-    ? <div data-testid="subject-viewer-volumetric"></div>
+    ? <div data-testid='subject-viewer-volumetric' />
     : (isLoading)
-    ? <p>Loading...</p>
-    : (isError)
-      ? <p>Error</p>
-      : <ComponentViewer
-        data-testid="subject-viewer-volumetric"
-        config={{}}
-        data={data}
-        models={modelState}
-      />
+        ? <p>Loading...</p>
+        : (isError)
+            ? <p>Error</p>
+            : <ComponentViewer
+                data-testid='subject-viewer-volumetric'
+                config={{}}
+                data={data}
+                models={modelState}
+              />
 }
 
-export const VolumetricViewerData = ({ 
+export const VolumetricViewerData = ({
   onAnnotation = DEFAULT_HANDLER,
   subjectData = '',
   subjectUrl = ''
@@ -69,6 +69,7 @@ export const VolumetricViewerData = ({
 
 VolumetricViewer.propTypes = {
   loadingState: string,
+  onAnnotation: func,
   onError: func,
   onReady: func,
   subject: object
