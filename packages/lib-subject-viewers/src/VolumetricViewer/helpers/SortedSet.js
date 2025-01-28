@@ -139,9 +139,15 @@ export const SortedSet = ({ data } = { data: [] }) => {
       return SortedSetIntersection({ sets: [sortedSet, ...sets] })
     },
     remove: ({ value }) => {
-      const { index } = BinarySearch({ data, value })
-      if (index !== -1) data.splice(index, 1)
-      return { index, data }
+      if (Array.isArray(value)) {
+        value.map(v => {
+          return sortedSet.remove({ value: v });
+        })
+      } else {
+        const { index } = BinarySearch({ data, value })
+        if (index !== -1) data.splice(index, 1)
+        return { index, data }
+      }
     },
     union: ({ sets }) => {
       return SortedSetUnion({ sets: [sortedSet, ...sets] })

@@ -60,17 +60,17 @@ export const Cube = ({ annotations, tool, viewer }) => {
     resizeCube()
 
     // Setup State Listeners
-    annotations.on('add:annotation', addAnnotation)
-    annotations.on('remove:annotation', removeAnnotation)
-    annotations.on('update:annotation', updateAnnotation)
+    annotations.on('active:annotation', renderAnnotations)
+    annotations.on('add:annotation', renderAnnotations)
+    annotations.on('update:annotation', renderAnnotations)
     viewer.on('change:dimension:frame', renderPlanePoints)
     viewer.on('change:threshold', renderPlanePoints)
     viewer.on('save:screenshot', saveScreenshot)
 
     return () => {
-      annotations.off('add:annotation', addAnnotation)
-      annotations.off('remove:annotation', removeAnnotation)
-      annotations.off('update:annotation', updateAnnotation)
+      annotations.off('active:annotation', renderAnnotations)
+      annotations.off('add:annotation', renderAnnotations)
+      annotations.off('update:annotation', renderAnnotations)
       viewer.off('change:dimension:frame', renderPlanePoints)
       viewer.off('change:threshold', renderPlanePoints)
       viewer.off('save:screenshot', saveScreenshot)
@@ -116,7 +116,6 @@ export const Cube = ({ annotations, tool, viewer }) => {
         new MeshBasicMaterial({ color: 0xffffff }),
         NUM_MESH_POINTS
       ),
-      meshAnnotations: [],
       orbit: null,
       raycaster: new Raycaster(),
       renderer: null,
@@ -219,9 +218,27 @@ export const Cube = ({ annotations, tool, viewer }) => {
       // reset modifiers
       threeRef.current.isClicked = -1
       threeRef.current.isShift = false
+
       if (intersectionScene.length > 0) {
-        const point =
-          meshPlaneSet.current.data[intersectionScene[0].instanceId]
+        let intersectingIndex = intersectionScene.findIndex(o => {
+          return o.object.name.indexOf('Annotation') === 0 
+            || o.object.name === 'plane'
+        })
+
+        // clicked on something that's not relevant
+        if (intersectingIndex === -1) return
+
+        const iObj = intersectionScene[intersectingIndex]
+        let point
+
+        if (iObj.object.name === 'plane') {
+          point = meshPlaneSet.current.data[iObj.instanceId]
+        } else if (iObj.object.name.indexOf('Annotation') === 0) {
+          point = annotations.annotations[iObj.object.annotationIndex].points.active[0]
+        }
+
+        // clicked on something that's not relevant
+        if (!point) return
 
         if (tool.events.click) {
           tool.events.click({
@@ -264,9 +281,21 @@ export const Cube = ({ annotations, tool, viewer }) => {
 
   /** ********* ANNOTATIONS *******************/
   function renderAnnotations () {
-    annotations.annotations.forEach((annotation, annotationIndex) => {
-      addAnnotation({ annotation, annotationIndex })
-    })
+    const objsToRemove = []
+    for (let i = 0; i < threeRef.current.scene.children.length; i++) {
+      const obj = threeRef.current.scene.children[i]
+      if (obj.name.indexOf('Annotation') === 0) {
+        objsToRemove.push(obj)
+      }
+    }
+
+    threeRef.current.scene.remove(...objsToRemove)
+
+    for (let i = 0; i < annotations.annotations.length; i++) {
+      const annotation = annotations.annotations[i]
+      if (annotation.points.active.length > 0) 
+        addAnnotation({ annotation, annotationIndex: i })
+    }
   }
 
   function addAnnotation ({ annotation, annotationIndex }) {
@@ -276,7 +305,6 @@ export const Cube = ({ annotations, tool, viewer }) => {
       new MeshBasicMaterial({ color: 0xffffff }),
       annotation.points.all.data.length
     )
-    threeRef.current.meshAnnotations[annotationIndex] = mesh
 
     // Add points to the mesh
     annotation.points.all.data.forEach((point, pointIndex) => {
@@ -290,19 +318,9 @@ export const Cube = ({ annotations, tool, viewer }) => {
 
     // Add mesh to the scene
     mesh.name = annotation.label
+    mesh.annotationIndex = annotationIndex
     threeRef.current.scene.add(mesh)
     mesh.instanceMatrix.needsUpdate = true
-  }
-
-  function updateAnnotation ({ annotation, annotationIndex }) {
-    removeAnnotation({ annotationIndex })
-    addAnnotation({ annotation, annotationIndex })
-  }
-
-  function removeAnnotation ({ annotationIndex }) {
-    const mesh = threeRef.current.meshAnnotations[annotationIndex]
-    threeRef.current.scene.remove(mesh)
-    threeRef.current.meshAnnotations.splice(annotationIndex, 1)
   }
 
   /** ********* MESH *******************/
@@ -312,6 +330,11 @@ export const Cube = ({ annotations, tool, viewer }) => {
     meshPointIndex,
     point
   }) {
+    // isInactive makes all inactive marks less visible 
+    const isInactive = (annotationIndex === -1)
+      ? false
+      : (annotations.config.activeAnnotation !== annotationIndex)
+
     const pointValue = viewer.getPointValue({ point })
     const isVisible = viewer.isPointInThreshold({ point })
 
@@ -324,8 +347,9 @@ export const Cube = ({ annotations, tool, viewer }) => {
     mesh.setColorAt(
       meshPointIndex,
       pointColor({
-        isThree: true,
         annotationIndex,
+        isInactive,
+        isThree: true,
         pointValue
       })
     )
@@ -346,7 +370,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
 
   function onMouseMove (e) {
     // useEffect can setup the listeners before the cube is initialized
-    if (!canvasRef.current || !threeRef.current) return
+    if (!canvasRef.current || !threeRef.current || !threeRef.current.mouse) return
 
     // Update the base ref() so that the animation loop handles the mouse move
     const { height, left, top, width } =
@@ -362,7 +386,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
 
   function onPointerUp (e) {
     const duration = Date.now() - threeRef.current.mouseDown
-    if (duration < 150) {
+    if (duration < 250) {
       // ms to call it a click
       if (e.shiftKey) threeRef.current.isShift = true
       threeRef.current.isClicked = e.button

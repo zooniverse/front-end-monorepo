@@ -7,7 +7,9 @@ const ColorHues = [
   205, 90, 60, 30, 0, 330, 300, 270, 240, 210, 180, 150, 120
 ]
 const CanvasColors = []
+const CanvasColorsInactive = []
 const ThreeColors = []
+const ThreeColorsInactive = []
 
 const pixelToPercent = (value) => {
   // 255 => 100%
@@ -18,19 +20,27 @@ const pixelToPercent = (value) => {
 
 export const pointColor = ({
   annotationIndex = -1,
+  isInactive = false,
   isThree = false,
   pointValue
 }) => {
-  const ref = isThree ? ThreeColors : CanvasColors
-  return ref[annotationIndex + 1][pointValue]
+  // inactive colors are homogenous
+  if (isInactive) {
+    return isThree ? ThreeColorsInactive[annotationIndex + 1] : CanvasColorsInactive[annotationIndex + 1]
+  } else {
+    const ref = isThree ? ThreeColors : CanvasColors
+    return ref[annotationIndex + 1][pointValue]
+  }
 }
 
 // Generate the cached colors
 for (let i = 0; i < ColorHues.length; i++) {
   const hue = ColorHues[i]
 
-  if (!CanvasColors[i]) CanvasColors[i] = []
-  if (!ThreeColors[i]) ThreeColors[i] = []
+  if (!CanvasColors[i]) {
+    CanvasColors[i] = []
+    ThreeColors[i] = []
+  }
 
   for (let ii = 0; ii < 256; ii++) {
     const pointNormed = Math.floor(ii / 2) + 64
@@ -38,5 +48,11 @@ for (let i = 0; i < ColorHues.length; i++) {
 
     CanvasColors[i][ii] = hslColor
     ThreeColors[i][ii] = new Color(hslColor)
+
+    // Create inactive colors
+    if (ii === 8) {
+      CanvasColorsInactive[i] = hslColor
+      ThreeColorsInactive[i] = new Color(hslColor)
+    }
   }
 }

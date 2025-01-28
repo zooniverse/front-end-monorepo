@@ -36,6 +36,10 @@ function VolumetricTask({
   disabled = false,
   task
 }) {
+  const annotationCount = annotation.value.reduce((acc, a) => {
+    return (a.points.active.length > 0) ? acc + 1 : acc
+  }, 0)
+
   return (
     <Box>
       <StyledInstructionText as="legend" size="small">
@@ -73,7 +77,7 @@ function VolumetricTask({
             </Blank>
           </StyledToolIcon>
         }
-        labelStatus={<InputStatus count={annotation.value.length} />}
+        labelStatus={<InputStatus count={annotationCount} />}
         name="volumetric-tool"
         type="radio"
       />

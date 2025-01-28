@@ -12,40 +12,7 @@ export const AnnotationBase = ({ point }) => {
       active: [point], // each individual point
       connected: [], // SortedSet of points from each active point
       all: SortedSet({ data: [] }) // SortedSet of all connected points
-    }
-  }
-}
-
-// Manages History at a Global level
-const History = {
-  state: [],
-  stateRedo: [], // only used for redo operations
-  add: (action) => {
-    History.state.push(action)
-  },
-  undo: ({ historyItem }) => {
-    // TRAVDO: Still to implement
-    console.log('History.undo() historyItem', historyItem)
-
-    if (historyItem.action === 'annotation.add') {
-      // console.log('TODO')
-    } else if (historyItem.action === 'annotation.remove') {
-      // console.log('TODO')
-    } else if (historyItem.action === 'point.add') {
-      // console.log('TODO')
-    }
-  },
-  redo: ({ historyItem }) => {
-    // TRAVDO: Still to implement
-    console.log('History.redo() historyItem', historyItem)
-
-    if (historyItem.action === 'annotation.add') {
-      // console.log('TODO')
-    } else if (historyItem.action === 'annotation.remove') {
-      // console.log('TODO')
-    } else if (historyItem.action === 'point.add') {
-      // console.log('TODO')
-    }
+    },
   }
 }
 
@@ -67,9 +34,7 @@ export const ModelAnnotations = ({ onAnnotation }) => {
       annotation: {
         add: ({ point }) => {
           const annotationIndex = annotationModel.annotations.length
-          const annotation = AnnotationBase({
-            point
-          })
+          const annotation = AnnotationBase({ point })
 
           // if algorithm, get connected points
           if (annotationModel.config.algorithm) {
@@ -94,12 +59,6 @@ export const ModelAnnotations = ({ onAnnotation }) => {
             index: annotationIndex
           })
 
-          // Create the history object
-          History.add({
-            action: 'annotation.add',
-            data: annotation
-          })
-
           // Publish the change
           annotationModel.publish('add:annotation', {
             annotation,
@@ -108,11 +67,12 @@ export const ModelAnnotations = ({ onAnnotation }) => {
           })
 
           // Send to update handler
-          const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
-          annotationExport.forEach(a => { a.points.all = a.points.all.data })
-          onAnnotation(annotationExport)
+          annotationModel.publishCallback()
         },
         active: ({ index }) => {
+          // Do nothing if the same annotation
+          if (annotationModel.config.activeAnnotation === index) return
+          
           // Update the Annotation Data
           annotationModel.config.activeAnnotation = index
 
@@ -124,42 +84,35 @@ export const ModelAnnotations = ({ onAnnotation }) => {
         },
         remove: ({ index }) => {
           const annotation = annotationModel.annotations[index]
-          annotation.annotationIndex = index
 
-          // Update the Annotation Data
-          if (annotationModel.config.activeAnnotation === index) {
-            annotationModel.config.activeAnnotation = null
-          } else if (annotationModel.config.activeAnnotation > index) {
-            // we're removing an annotation that's earlier in the array
-            annotationModel.config.activeAnnotation =
-              annotationModel.config.activeAnnotation - 1
+          for (let i = (annotation.points.active.length - 1); i >= 0; i--) {
+            annotationModel.actions.point.undo({ index })
           }
 
-          // Update the Viewer Annotation Data
-          annotationModel.config.viewer.setPointsAnnotationIndex({
-            points: annotation.points.all.data,
-            index: -1
-          })
-
-          // Create the history object
-          History.add({
-            action: 'annotation.remove',
-            data: annotation
-          })
-
-          // Add to the AnnotationsModel
-          annotationModel.annotations.splice(index, 1)
+          // Make sure a new annotation is created on next point
+          annotationModel.config.activeAnnotation = null
 
           // Publish the change
-          annotationModel.publish('remove:annotation', {
+          annotationModel.publish('update:annotation', {
             annotation,
             annotationIndex: index,
             annotations: annotationModel.annotations
           })
+
+          // Send to update handler
+          annotationModel.publishCallback()
         }
       },
       point: {
         add: ({ annotationIndex = null, point }) => {
+          if (!point) return
+
+          const currentIndex = annotationModel.config.viewer.getPointAnnotationIndex({ point })
+
+          // point is already part of an active annotation. make active instead
+          if (currentIndex !== -1)
+            return annotationModel.actions.annotation.active({ index: currentIndex })
+
           // check if we have an active annotation
           if (
             annotationIndex === null &&
@@ -193,18 +146,6 @@ export const ModelAnnotations = ({ onAnnotation }) => {
               index: _index
             })
 
-            // Create the history object
-            History.add({
-              action: 'point.add',
-              data: {
-                annotationIndex: _index,
-                points: {
-                  active: point,
-                  connected: connectedPoints.data
-                }
-              }
-            })
-
             // Publish the change
             annotationModel.publish('update:annotation', {
               annotation,
@@ -213,12 +154,50 @@ export const ModelAnnotations = ({ onAnnotation }) => {
             })
 
             // Send to update handler
-            const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
-            annotationExport.forEach(a => { a.points.all = a.points.all.data })
-            onAnnotation(annotationExport)
+            annotationModel.publishCallback()
           }
+        },
+        undo: ({ index }) => {
+          const annotation = annotationModel.annotations[index]
+
+          // Update the Viewer Annotation Data
+          annotation.points.active.pop()
+
+          const points = annotation.points.connected.pop()
+
+          annotationModel.config.viewer.setPointsAnnotationIndex({
+            points: points,
+            index: -1
+          })
+
+          annotation.points.all.remove({ value: points })
+
+          // Make sure a new annotation is created on next point
+          if (annotation.points.active.length === 0) 
+            annotationModel.config.activeAnnotation = null
+            
+          
+          // Publish the change
+          annotationModel.publish('update:annotation', {
+            annotation,
+            annotationIndex: index,
+            annotations: annotationModel.annotations
+          })
+
+          // Send to update handler
+          annotationModel.publishCallback()
         }
       }
+    },
+    publishCallback: () => {
+      if (!onAnnotation) return
+
+      const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
+      annotationExport.forEach(a => { 
+        a.points.all = a.points.all.data
+      })
+      onAnnotation(annotationExport)
+
     },
     export: () => {
       return annotationModel.annotations.map(annotation => {
