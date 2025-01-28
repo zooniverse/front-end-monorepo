@@ -1,13 +1,12 @@
-import { Box, Text } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
+import { AnnounceContext, Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Markdownz } from '@zooniverse/react-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
-import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 const StyledText = styled(Text)`
@@ -32,7 +31,7 @@ const components = {
   span: Text
 }
 
-function Chooser ({
+function Chooser({
   disabled = false,
   filters = {},
   previousChoiceId = '',
@@ -42,22 +41,20 @@ function Chooser ({
   selectedChoiceIds = [],
   task
 }) {
-  const [filterDropOpen, setFilterDropOpen] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
 
-  function clearFilters() {
-    handleFilter()
-  }
-
-  function handleFilterDropClose () {
-    setFilterDropOpen(false)
-  }
-
-  function handleFilterDropOpen () {
-    setFilterDropOpen(true)
-  }
+  const announce = useContext(AnnounceContext)
 
   const showFilters = task.characteristics.size > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
+
+  useEffect(function announceFilteredChoiceCount () {
+    announce(`Showing ${filteredChoiceIds.length} of ${task.choices.size} choices`, 'polite', 1000)
+  }, [filteredChoiceIds?.length, task.choices?.size, announce])
+
+  function handleFilterOpen () {
+    setFilterOpen(!filterOpen)
+  }
   
   return (
     <Box
@@ -78,31 +75,24 @@ function Chooser ({
       {showFilters
         ? (<FilterStatus
             disabled={disabled}
-            filterDropOpen={filterDropOpen}
+            filterOpen={filterOpen}
             filters={filters}
             handleFilter={handleFilter}
-            handleFilterDropClose={handleFilterDropClose}
-            handleFilterDropOpen={handleFilterDropOpen}
+            handleFilterOpen={handleFilterOpen}
+            showingChoices={filteredChoiceIds.length}
             task={task}
-           />)
+          />)
         : null}
       <Choices
         disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
-        filterDropOpen={filterDropOpen}
+        filterOpen={filterOpen}
         previousChoiceId={previousChoiceId}
         handleDelete={handleDelete}
         onChoose={onChoose}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
-      {showFilters
-        ? (<ClearFilters
-            onClick={clearFilters}
-            showingChoices={filteredChoiceIds.length}
-            totalChoices={task.choicesOrder?.length}
-           />)
-        : null}
     </Box>
   )
 }
@@ -117,6 +107,7 @@ Chooser.propTypes = {
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
+    instruction: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
     type: PropTypes.string

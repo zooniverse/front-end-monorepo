@@ -1,7 +1,7 @@
 import { ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components'
 
 import {
@@ -41,18 +41,21 @@ const StyledGrid = styled.ul`
   }
 `
 
-export function Choices ({
+export function Choices({
   disabled = false,
   filteredChoiceIds = [],
-  filterDropOpen = false,
+  filterOpen = false,
   previousChoiceId = '',
   handleDelete = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
   task
 }) {
-  // TODO: refactor focus to menuitem, with consideration for "selected" state with open submenu button and delete button
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
+
+  useEffect(function resetFocusIndex() {
+    setFocusIndex(filteredChoiceIds.indexOf(previousChoiceId))
+  }, [filteredChoiceIds.length])
 
   const size = useContext(ResponsiveContext)
 
@@ -64,7 +67,6 @@ export function Choices ({
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   
   let thumbnailSize
-  // if new survey task thumbnails property is undefined and legacy alwaysShowThumbnails is true, then show thumbnails to support legacy alwaysShowThumbnails functionality
   if (task.thumbnails === 'hide') {
     thumbnailSize = 'none'
   } else {
@@ -152,7 +154,7 @@ export function Choices ({
         const choice = task.choices?.get(choiceId) || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.get(choice.images?.[0]) || ''
-        const hasFocus = !filterDropOpen && (index === focusIndex)
+        const hasFocus = !filterOpen && index === focusIndex
         let tabIndex = -1
         if (focusIndex === -1 && index === 0) {
           tabIndex = 0
@@ -192,7 +194,7 @@ Choices.propTypes = {
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
-  filterDropOpen: PropTypes.bool,
+  filterOpen: PropTypes.bool,
   previousChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
   onChoose: PropTypes.func,

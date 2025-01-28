@@ -29,19 +29,13 @@ describe('SurveyTask with user clicks', function () {
     })
 
     describe('when filters are clicked', function () {
-      it('should show the filter button with a remove filter button', async function () {
-        // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic
+      it('should show a related remove filter button', async function () {
         const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
-        expect(stripesFilterButton).to.be.ok()
-
-        // the stripesFilterRemoveButton is the small x button that appears over a filter to remove the filter, after it is selected. The presence of this button indicates that the filter is selected. The absence of this button indicates that the filter is not selected
-        let characteristicsSection = screen.getByTestId('characteristics')
-        let stripesFilterRemoveButton = within(characteristicsSection).queryByTestId('remove-filter-PTTRN-STRPS')
-        expect(stripesFilterRemoveButton).to.be.null()
-        
+        // click/apply the stripes filter
         await user.click(stripesFilterButton)
-        characteristicsSection = screen.getByTestId('characteristics')
-        stripesFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-STRPS')
+        
+        // confirm the stripes filter is selected by checking for the presence of the related remove filter button
+        const stripesFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-STRPS')
         expect(stripesFilterRemoveButton).to.be.ok()
       })
 
@@ -81,25 +75,7 @@ describe('SurveyTask with user clicks', function () {
         expect(choiceButtons[2]).to.have.text('Fire')
       })
 
-      it('should remove the filter on remove filter button click (within Characteristics)', async function () {
-        const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
-        // click/apply the stripes filter
-        await user.click(stripesFilterButton)
-        const characteristicsSection = screen.getByTestId('characteristics')
-        const stripesFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-STRPS')
-        // confirm the stripes filter is selected by checking for the presence of the remove filter button
-        expect(stripesFilterRemoveButton).to.be.ok()
-
-        // remove the stripes filter
-        await user.click(stripesFilterRemoveButton)
-        // close the characteristics filters
-        await user.click(filterButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
-        // confirm the choices are the total 6 choices, not filtered by the stripes filter
-        expect(choiceButtons.length).to.equal(6)
-      })
-
-      it('should remove the filter on remove filter button click (within FilterStatus)', async function () {
+      it('should remove the filter on remove filter button click', async function () {
         const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
         // click/apply the stripes filter
         await user.click(stripesFilterButton)
@@ -108,8 +84,7 @@ describe('SurveyTask with user clicks', function () {
         let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(1)
 
-        const filterStatusSection = screen.getByTestId('filter-status')
-        const stripesFilterRemoveButton = within(filterStatusSection).getByTestId('remove-filter-PTTRN-STRPS')
+        const stripesFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-STRPS')
         // remove the stripes filter
         await user.click(stripesFilterRemoveButton)
         choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
@@ -117,31 +92,7 @@ describe('SurveyTask with user clicks', function () {
         expect(choiceButtons.length).to.equal(6)
       })
 
-      it('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
-        // click/apply the like a cow/horse filter
-        const cowHorseFilterButton = document.querySelector('label[for="LK-CWHRS"]')
-        await user.click(cowHorseFilterButton)
-        // click/apply the color tan/yellow filter
-        const tanYellowFilterButton = screen.getByTestId('filter-CLR-TNLLW')
-        await user.click(tanYellowFilterButton)
-        const characteristicsSection = screen.getByTestId('characteristics')
-        let cowHorseFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-LK-CWHRS')
-        let tanYellowFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-CLR-TNLLW')
-        // confirm the cow/horse and tan/yellow filters are applied
-        expect(cowHorseFilterRemoveButton).to.be.ok()
-        expect(tanYellowFilterRemoveButton).to.be.ok()
-
-        const clearFiltersButton = within(characteristicsSection).getByText('SurveyTask.CharacteristicsFilter.clearFilters')
-        // clear the filters
-        await user.click(clearFiltersButton)
-        cowHorseFilterRemoveButton = screen.queryByTestId('remove-filter-LK-CWHRS')
-        tanYellowFilterRemoveButton = screen.queryByTestId('remove-filter-CLR-TNLLW')
-        // confirm the cow/horse and tan/yellow filters are removed
-        expect(cowHorseFilterRemoveButton).to.be.null()
-        expect(tanYellowFilterRemoveButton).to.be.null()
-      })
-
-      it('should remove filters on Clear Filters button click (within Chooser)', async function () {
+      it('should remove filters on Clear All Filters button click', async function () {
         const cowHorseFilterButton = document.querySelector('label[for="LK-CWHRS"]')
         // click/apply the like a cow/horse filter
         await user.click(cowHorseFilterButton)
