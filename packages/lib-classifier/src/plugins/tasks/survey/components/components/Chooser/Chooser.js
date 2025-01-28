@@ -1,8 +1,8 @@
 import { Markdownz } from '@zooniverse/react-components'
-import { Box, Text } from 'grommet'
+import { AnnounceContext, Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
@@ -43,8 +43,14 @@ function Chooser({
 }) {
   const [filterOpen, setFilterOpen] = useState(false)
 
+  const announce = useContext(AnnounceContext)
+
   const showFilters = task.characteristics.size > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
+
+  useEffect(function announceFilteredChoiceCount () {
+    announce(`Showing ${filteredChoiceIds.length} of ${task.choices.size} choices`, 'polite', 1000)
+  }, [filteredChoiceIds?.length, task.choices?.size, announce])
 
   function handleFilterOpen () {
     setFilterOpen(!filterOpen)
