@@ -80,7 +80,7 @@ export default function FilterStatus ({
         data-testid='filter-status'
         direction='row'
         gap='xxsmall'
-        justify='between'
+        wrap={true}
       >
         <StyledButton
           a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
@@ -97,43 +97,38 @@ export default function FilterStatus ({
           }
           onClick={handleFilterOpen}
         />
-        <Box
-          direction='row-reverse'
-          wrap={true}
-        >
-          {selectedCharacteristicIds.map(characteristicId => {
-            const characteristic = characteristics?.get(characteristicId) || {}
-            const selectedValueId = filters?.[characteristicId] || ''
-            const value = characteristic.values?.get(selectedValueId) || {}
-            const valueImageSrc = images?.get(value.image) || ''
-            const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
-            function clearSelection() {
-              handleFilter(characteristicId)
-            }
+        {selectedCharacteristicIds.map(characteristicId => {
+          const characteristic = characteristics?.get(characteristicId) || {}
+          const selectedValueId = filters?.[characteristicId] || ''
+          const value = characteristic.values?.get(selectedValueId) || {}
+          const valueImageSrc = images?.get(value.image) || ''
+          const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
+          function clearSelection() {
+            handleFilter(characteristicId)
+          }
 
-            return (
-              <Button
-                key={`${characteristicId}-${selectedValueId}`}
-                a11yTitle={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel: label })}
-                label={
-                  <FilterLabel
-                    characteristicId={characteristicId}
-                    selected={true}
-                    valueId={selectedValueId}
-                    valueImageSrc={valueImageSrc}
-                    valueLabel={label}
-                  />
-                }
-                margin={{
-                  bottom: 'xxsmall',
-                  left: 'xxsmall'
-                }}
-                onClick={clearSelection}
-                plain
-              />
-            )
-          })}
-        </Box>
+          return (
+            <Button
+              key={`${characteristicId}-${selectedValueId}`}
+              a11yTitle={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel: label })}
+              label={
+                <FilterLabel
+                  characteristicId={characteristicId}
+                  selected={true}
+                  valueId={selectedValueId}
+                  valueImageSrc={valueImageSrc}
+                  valueLabel={label}
+                />
+              }
+              margin={{
+                bottom: 'xxsmall',
+                left: 'xxsmall'
+              }}
+              onClick={clearSelection}
+              plain
+            />
+          )
+        })}
       </Box>
       {(selectedCharacteristicIds.length && !filterOpen) ? (
         <ClearFilters
