@@ -89,7 +89,7 @@ export default function FilterStatus ({
           disabled={disabled}
           $filterOpen={filterOpen}
           gap='xsmall'
-          icon={<FilterIcon />}
+          icon={<FilterIcon size='16px' />}
           label={
             <StyledLabel>
               {t('SurveyTask.CharacteristicsFilter.filter')}
