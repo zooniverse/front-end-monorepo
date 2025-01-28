@@ -1,5 +1,5 @@
 import { bool, func } from 'prop-types'
-import { Button as GrommetButton, Text, Tip } from 'grommet'
+import { Box, Button as GrommetButton, Text, Tip } from 'grommet'
 import styled, { css } from 'styled-components'
 
 const StyledButton = styled(GrommetButton)`
@@ -9,11 +9,16 @@ const StyledButton = styled(GrommetButton)`
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  ${props => props.active
-      ? css`background-color: ${props.theme.global.colors.brand};`
-      : css`background-color: ${props.theme.dark
+  ${props =>
+    props.active
+      ? css`
+          background-color: ${props.theme.global.colors.brand};
+        `
+      : css`
+          background-color: ${props.theme.dark
             ? props.theme.global.colors['dark-3']
-            : 'inherit'};`}
+            : 'inherit'};
+        `}
 
   :not(:last-child) {
     margin-bottom: clamp(8px, 20%, 10px);
@@ -26,9 +31,14 @@ const StyledButton = styled(GrommetButton)`
 
   &:hover:not(:disabled),
   &:focus:not(:disabled) {
-    ${props => props.theme.dark
-        ? css`background-color: ${props.theme.global.colors['neutral-1']};`
-        : css`background-color: ${props.theme.global.colors['accent-1']};`}
+    ${props =>
+      props.theme.dark
+        ? css`
+            background-color: ${props.theme.global.colors['neutral-1']};
+          `
+        : css`
+            background-color: ${props.theme.global.colors['accent-1']};
+          `}
 
     > svg {
       fill: white;
@@ -45,13 +55,51 @@ const StyledButton = styled(GrommetButton)`
   }
 
   > svg {
-    ${props => props.active
-        ? css`fill: white;`
-        : css`fill: ${props.theme.dark ? 'white' : 'black'};`}
+    ${props =>
+      props.active
+        ? css`
+            fill: white;
+          `
+        : css`
+            fill: ${props.theme.dark ? 'white' : 'black'};
+          `}
     width: min(50%, 1.2rem); // See similar dimension in FieldGuideButton
     stroke: transparent;
   }
 `
+
+const HoverContent = styled(Box)`
+  // When hover is not supported, such as a touchscreen
+  display: none;
+
+  @media (hover: hover) {
+    /* when hover is supported */
+    display: flex;
+  }
+`
+
+const Triangle = styled(Box)`
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 10px;
+  border-color: transparent transparent transparent
+    ${props => props.theme.global.colors['dark-4']};
+`
+
+const TipContent = ({ message = '' }) => (
+  <HoverContent
+    direction='row'
+    align='center'
+    width='100%'
+    animation={{ delay: 250, duration: 200, type: 'fadeIn' }}
+  >
+    <Box background='dark-4' round='5px' pad='5px'>
+      <Text>{message}</Text>
+    </Box>
+    <Triangle />
+  </HoverContent>
+)
 
 function DEFAULT_HANDLER() {
   return true
@@ -84,13 +132,10 @@ function Button({
 
   return (
     <Tip
-      content={<Text>{a11yTitle}</Text>}
+      content={<TipContent message={a11yTitle} />}
       plain
       dropProps={{
-        align: { right: 'left' },
-        background: 'dark-4',
-        round: '5px',
-        pad: '5px'
+        align: { right: 'left' }
       }}
     >
       <StyledButton
