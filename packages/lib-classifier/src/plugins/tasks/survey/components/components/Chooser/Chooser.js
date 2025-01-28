@@ -2,7 +2,7 @@ import { Markdownz } from '@zooniverse/react-components'
 import { AnnounceContext, Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
@@ -42,6 +42,7 @@ function Chooser({
   task
 }) {
   const [filterOpen, setFilterOpen] = useState(false)
+  const filterStatusRef = useRef(null)
 
   const announce = useContext(AnnounceContext)
 
@@ -54,7 +55,12 @@ function Chooser({
 
   function handleFilterOpen () {
     setFilterOpen(!filterOpen)
+    if (filterOpen) {
+      filterStatusRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
   }
+
+  const filterButtonHasFocus = filterStatusRef.current && filterStatusRef.current.contains(document.activeElement)
   
   return (
     <Box
@@ -74,6 +80,7 @@ function Chooser({
         : null}
       {showFilters
         ? (<FilterStatus
+            ref={filterStatusRef}
             disabled={disabled}
             filterOpen={filterOpen}
             filters={filters}
@@ -86,7 +93,7 @@ function Chooser({
       <Choices
         disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
-        filterOpen={filterOpen}
+        filterOpen={filterOpen || filterButtonHasFocus}
         previousChoiceId={previousChoiceId}
         handleDelete={handleDelete}
         onChoose={onChoose}

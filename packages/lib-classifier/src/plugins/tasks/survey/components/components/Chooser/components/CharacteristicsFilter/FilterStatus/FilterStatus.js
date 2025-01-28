@@ -2,6 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Collapsible } from 'grommet'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+import { forwardRef } from 'react'
 
 import { useTranslation } from '@translations/i18n'
 
@@ -47,7 +48,7 @@ const StyledLabel = styled(SpacedText)`
 
 const DEFAULT_HANDLER = () => true
 
-export default function FilterStatus ({
+const FilterStatus = forwardRef(({
   disabled = false,
   filterOpen = false,
   filters = {},
@@ -55,7 +56,7 @@ export default function FilterStatus ({
   handleFilterOpen = DEFAULT_HANDLER,
   showingChoices = 0,
   task
-}) {
+}, ref) => {
   const {
     characteristics,
     characteristicsOrder,
@@ -83,6 +84,7 @@ export default function FilterStatus ({
         wrap={true}
       >
         <StyledButton
+          ref={ref}
           a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
           aria-controls='characteristics-collapsible'
           aria-expanded={filterOpen}
@@ -153,7 +155,7 @@ export default function FilterStatus ({
       </Collapsible>
     </Box>
   )
-}
+})
 
 FilterStatus.propTypes = {
   disabled: PropTypes.bool,
@@ -169,3 +171,7 @@ FilterStatus.propTypes = {
     type: PropTypes.string
   }).isRequired
 }
+
+FilterStatus.displayName = 'FilterStatus'
+
+export default FilterStatus
