@@ -23,7 +23,7 @@ function storeMapper(classifierStore) {
 // Generalized ...props here are css rules from the page layout
 function ImageToolbar (props) {
   const { hasAnnotateTask, rotation } = useStores(storeMapper)
-  const { onKeyZoom } = useKeyZoom(rotation)
+  const { onKeyZoom } = useKeyZoom({ rotation })
 
   return (
     <Box
