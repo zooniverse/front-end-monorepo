@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImage } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
 
@@ -52,12 +52,7 @@ const FlipbookViewer = ({
     setPlaying(!playing)
   }
 
-  const handleSpaceBar = (event) => {
-    if (event.key === ' ') {
-      event.preventDefault()
-      onPlayPause()
-    }
-  }
+  const { onKeyZoom } = useKeyZoom({ customKeyMappings: { ' ': onPlayPause } })
 
   const imageLocationUrl = subject?.locations[currentFrame]?.url
 
@@ -73,7 +68,7 @@ const FlipbookViewer = ({
         move={move}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
-        onKeyDown={handleSpaceBar}
+        onKeyDown={onKeyZoom}
         rotation={rotation}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}

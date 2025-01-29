@@ -32,6 +32,7 @@ function VisXZoom({
   ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
+  
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)

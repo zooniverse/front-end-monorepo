@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
 import { bool, func, shape, string } from 'prop-types'
 
-import { useStores, useSubjectImage } from '@hooks'
+import { useKeyZoom, useStores, useSubjectImage } from '@hooks'
 
 import PlaceholderSVG from './components/PlaceholderSVG'
 import SingleImageViewer from './SingleImageViewer'
@@ -67,6 +67,8 @@ function SingleImageViewerContainer({
     subject
   } = useStores(storeMapper)
 
+  const { onKeyZoom } = useKeyZoom()
+
   // TODO: replace this with a better function to parse the image location from a subject.
 
   // if imageLocation is provided, use it, otherwise use the subject's location per subjectViewer store frame
@@ -110,6 +112,7 @@ function SingleImageViewerContainer({
         move={move}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
+        onKeyDown={onKeyZoom}
         rotation={rotation}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}

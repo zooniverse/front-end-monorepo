@@ -24,7 +24,7 @@ function storeMapper(classifierStore) {
   }
 }
 
-export default function useKeyZoom(rotate=0) {
+export default function useKeyZoom({ rotate = 0, customKeyMappings = {} } = {}) {
   const {
     panLeft,
     panRight,
@@ -38,7 +38,8 @@ export default function useKeyZoom(rotate=0) {
     '+': zoomIn,
     '=': zoomIn,
     '-': zoomOut,
-    '_': zoomOut
+    '_': zoomOut,
+    ...customKeyMappings
   }
   
   if (rotation === 0) {
@@ -78,5 +79,5 @@ export default function useKeyZoom(rotate=0) {
     return true
   }
     
-    return { onKeyZoom }
+  return { onKeyZoom }
 }
