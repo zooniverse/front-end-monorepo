@@ -86,6 +86,7 @@ function SingleImageViewerContainer({
   if (loadingState === asyncStates.loading) {
     return (
       <PlaceholderSVG
+        ref={subjectImage}
         maxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
         maxWidth={limitSubjectHeight ? `${naturalWidth}px` : '100%'}
         viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}

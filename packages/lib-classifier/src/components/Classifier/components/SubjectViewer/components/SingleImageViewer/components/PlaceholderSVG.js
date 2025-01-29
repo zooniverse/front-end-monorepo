@@ -1,4 +1,5 @@
 import { string } from 'prop-types'
+import { forwardRef } from 'react'
 import styled, { css } from 'styled-components'
 
 const StyledPlaceholderSVG = styled.svg`
@@ -8,13 +9,14 @@ const StyledPlaceholderSVG = styled.svg`
   ${props => props.$maxHeight && css`max-height: ${props.$maxHeight};`}
 `
 
-function PlaceholderSVG({
+const PlaceholderSVG = forwardRef(function PlaceholderSVG({
   maxWidth = '100%',
   maxHeight,
   viewBox = '0 0 800 600'
-}) {
+}, ref) {
   return (
     <StyledPlaceholderSVG
+      ref={ref}
       data-testid='placeholder-svg'
       focusable
       $maxHeight={maxHeight}
@@ -23,7 +25,9 @@ function PlaceholderSVG({
       viewBox={viewBox}
     />
   )
-}
+})
+
+PlaceholderSVG.displayName = 'PlaceholderSVG'
 
 PlaceholderSVG.propTypes = {
   maxWidth: string,
