@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import PropTypes from 'prop-types'
+import { useMemo } from 'react'
+import { bool, func, number, string } from 'prop-types'
 import {
   Box,
   Button,
@@ -11,25 +11,28 @@ import {
 } from 'grommet'
 import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
 import { useTranslation } from '@translations/i18n'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
 const iconSize = '16px'
 
+const DEFAULT_HANDLER = () => {}
+
 const VideoController = ({
   duration = 0,
   enableDrawing = false,
   isPlaying = false,
-  handleFullscreen = () => true,
-  handleVolumeOpen = () => true,
-  onPlayPause = () => true,
-  onSpeedChange = () => true,
-  onSliderChange = () => true,
-  onVolumeChange = () => true,
+  handleFullscreen = DEFAULT_HANDLER,
+  handleSeekChange = DEFAULT_HANDLER,
+  handleSeekMouseDown = DEFAULT_HANDLER,
+  handleSeekMouseUp = DEFAULT_HANDLER,
+  handleVolumeOpen = DEFAULT_HANDLER,
+  onPlayPause = DEFAULT_HANDLER,
+  onSpeedChange = DEFAULT_HANDLER,
+  onVolumeChange = DEFAULT_HANDLER,
   playbackSpeed = '1x',
-  timeStamp = 0, // A percentage between 0 and 1
+  played = 0, // A percentage between 0 and 1
   volume = 1,
   volumeOpen = false
 }) => {
@@ -42,7 +45,7 @@ const VideoController = ({
     ? 'SubjectViewer.VideoController.closeVolume'
     : 'SubjectViewer.VideoController.openVolume'
 
-  const sliderValue = timeStamp * duration
+  const sliderValue = played * duration
 
   const displayedDuration = useMemo(() => {
     return formatTimeStamp(duration)
@@ -51,7 +54,7 @@ const VideoController = ({
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Grid
-        columns={['110px', 'flex', '120px']}
+        columns={['110px', 'flex', 'min-content']}
         data-testid='video subject viewer custom controls'
         pad='10px' // xsmall regardless of screen size
         style={{ background: '#000000' }}
@@ -90,10 +93,12 @@ const VideoController = ({
           <RangeInput
             a11yTitle={t('SubjectViewer.VideoController.scrubber')}
             min={0}
-            max={duration}
-            step={0.1}
-            value={sliderValue}
-            onChange={onSliderChange}
+            max={0.999999} // not sure why, this was in the react-player example
+            step='any'
+            value={played}
+            onChange={handleSeekChange}
+            onMouseDown={handleSeekMouseDown}
+            onMouseUp={handleSeekMouseUp}
             style={{
               display: 'block',
               width: '100%'
@@ -101,7 +106,13 @@ const VideoController = ({
           />
         </Box>
 
-        <Box direction='row' gap='small'>
+        <Box
+            align='center'
+            justify='center'
+            direction='row'
+            fill
+            gap='small'
+          >
           {/* Rate */}
           <Select
             a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
@@ -119,13 +130,7 @@ const VideoController = ({
           />
 
           {/* Volume */}
-          <Box
-            align='center'
-            direction='row'
-            style={{
-              position: 'relative'
-            }}
-          >
+
             <Button
               a11yTitle={t(volumeButtonLabel)}
               icon={
@@ -160,10 +165,9 @@ const VideoController = ({
                 value={volume}
               />
             )}
-          </Box>
 
           {/* Full Screen */}
-          {enableDrawing && (
+          {!enableDrawing && (
             <Button
               a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
               icon={<Expand size={iconSize} color='white' />}
@@ -178,19 +182,21 @@ const VideoController = ({
 }
 
 VideoController.propTypes = {
-  duration: PropTypes.number,
-  isPlaying: PropTypes.bool,
-  handleFullscreen: PropTypes.func,
-  handleVolumeOpen: PropTypes.func,
-  onPlayPause: PropTypes.func,
-  onSpeedChange: PropTypes.func,
-  onSliderChange: PropTypes.func,
-  onVolumeChange: PropTypes.func,
-  playbackSpeed: PropTypes.string,
-  timeStamp: PropTypes.number,
-  volume: PropTypes.number,
-  volumeOpen: PropTypes.bool
+  duration: number,
+  enableDrawing: bool,
+  isPlaying: bool,
+  handleFullscreen: func,
+  handleSeekChange: func,
+  handleSeekMouseDown: func,
+  handleSeekMouseUp: func,
+  handleVolumeOpen: func,
+  onPlayPause: func,
+  onSpeedChange: func,
+  onVolumeChange: func,
+  playbackSpeed: string,
+  played: number,
+  volume: number,
+  volumeOpen:bool
 }
 
-export default withThemeContext(VideoController)
-export { VideoController }
+export default VideoController

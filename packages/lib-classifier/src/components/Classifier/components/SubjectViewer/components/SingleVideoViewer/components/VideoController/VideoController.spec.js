@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import { Grommet } from 'grommet'
 
 import formatTimeStamp from '@helpers/formatTimeStamp'
-import { VideoController } from './VideoController'
+import VideoController from './VideoController'
 import controlsTheme from './theme'
 
 describe('Component > VideoController', function () {

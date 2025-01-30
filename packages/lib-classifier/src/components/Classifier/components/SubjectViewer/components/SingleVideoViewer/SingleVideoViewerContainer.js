@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types'
+import { arrayOf, func, shape, string} from 'prop-types'
 import { MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
 import VideoViewer from './components/VideoViewer/VideoViewer.js'
-import VideoWithInteraction from './components/VideoWithInteraction/VideoWithInteraction.js'
+import VideoWithDrawing from './components/VideoWithDrawing/VideoWithDrawing.js'
 
 function useDrawingTask() {
   const store = useContext(MobXProviderContext)?.classifierStore
@@ -25,7 +25,7 @@ function SingleVideoViewerContainer({
   return (
     <>
       {enableInteractionLayer ? (
-        <VideoWithInteraction
+        <VideoWithDrawing
           loadingState={loadingState}
           onError={onError}
           onReady={onReady}
@@ -44,12 +44,12 @@ function SingleVideoViewerContainer({
 }
 
 SingleVideoViewerContainer.propTypes = {
-  loadingState: PropTypes.string,
-  onError: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onReady: PropTypes.func,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
+  loadingState: string,
+  onError: func,
+  onKeyDown: func,
+  onReady: func,
+  subject: shape({
+    locations: arrayOf(locationValidator)
   })
 }
 
