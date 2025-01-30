@@ -36,6 +36,7 @@ const StyledGrid = styled.ul`
     display: block;
     li {
       display: block;
+      height: ${props => props.$hideThumbnails ? '40px' : '60px'};
       width: 100%;
     }
   }
