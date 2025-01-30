@@ -17,7 +17,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/nextjs": "~8.48.0",
+    "@sentry/nextjs": "~8.51.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "grommet": "~2.41.0",
     "grommet-icons": "~4.12.0",
-    "i18next": "~24.1.0",
+    "i18next": "~24.2.2",
     "lodash": "~4.17.11",
     "million": "~3.1.11",
     "mobx": "~6.13.5",

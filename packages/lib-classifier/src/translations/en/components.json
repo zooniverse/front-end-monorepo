@@ -78,22 +78,22 @@
       }
     },
     "InvertButton": {
-      "ariaLabel": "Invert subject"
+      "ariaLabel": "Invert Colors"
     },
     "MoveButton": {
-      "ariaLabel": "Move subject"
+      "ariaLabel": "Pan"
     },
     "ResetButton": {
-      "ariaLabel": "Reset subject view"
+      "ariaLabel": "Reset View"
     },
     "RotateButton": {
-      "ariaLabel": "Rotate subject"
+      "ariaLabel": "Rotate"
     },
     "ZoomInButton": {
-      "ariaLabel": "Zoom in on subject"
+      "ariaLabel": "Zoom In"
     },
     "ZoomOutButton": {
-      "ariaLabel": "Zoom out from subject"
+      "ariaLabel": "Zoom Out"
     }
   },
   "MetaTools": {
