@@ -19,6 +19,8 @@ const StyledBox = styled(Box)`
 `
 
 const StyledButton = styled(Button)`
+  margin-top: 5px;
+
   &:hover, &:focus {
     span {
       text-decoration: underline;
