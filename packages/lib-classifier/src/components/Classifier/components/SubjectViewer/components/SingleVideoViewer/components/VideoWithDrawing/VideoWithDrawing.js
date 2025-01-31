@@ -36,7 +36,7 @@ function VideoWithDrawing({
   const [played, setPlayed] = useState(0)
   const [playbackSpeed, setPlaybackSpeed] = useState('1x')
   const [volume, setVolume] = useState(1)
-  const [volumeOpen, toggleVolumeOpen] = useState(false)
+  const [volumeOpen, toggleVolumeOpen] = useState(true)
 
   // For drawing tools
   const [clientWidth, setClientWidth] = useState(0)
@@ -95,7 +95,6 @@ function VideoWithDrawing({
   }
 
   const handleSetPlaybackSpeed = speed => {
-    console.log('SPEED', speed)
     setPlaybackSpeed(speed)
   }
 

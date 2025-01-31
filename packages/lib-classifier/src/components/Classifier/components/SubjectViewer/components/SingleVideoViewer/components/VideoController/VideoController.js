@@ -57,6 +57,14 @@ const VideoController = ({
     }
   }
 
+  const handleVolumeKeys = e => {
+    if (e.key === 'ArrowUp' && volume >= 0) {
+      onVolumeChange(volume + 0.25)
+    } else if (e.key === 'ArrowDown' && volume <=1) {
+      onVolumeChange(volume - 0.25)
+    }
+  }
+
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Grid
@@ -157,17 +165,11 @@ const VideoController = ({
                 max={1}
                 step={0.25}
                 onChange={onVolumeChange}
+                onKeyDown={handleVolumeKeys}
                 style={{
                   background: 'black',
                   display: 'block',
-                  transform: 'rotate(-90deg)',
-                  transformOrigin: 'top left',
-                  position: 'absolute',
-                  left: '-100%',
-                  bottom: 0,
-                  width: '120px',
-                  height: '30px',
-                  padding: '8px'
+                  width: '100px',
                 }}
                 value={volume}
               />
