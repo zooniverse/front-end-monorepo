@@ -36,6 +36,7 @@ const VideoController = ({
   volume = 1,
   volumeOpen = false
 }) => {
+  console.log('DURATION', duration)
   const { t } = useTranslation('components')
   const playPauseLabel = isPlaying
     ? 'SubjectViewer.VideoController.pause'
@@ -45,7 +46,7 @@ const VideoController = ({
     ? 'SubjectViewer.VideoController.closeVolume'
     : 'SubjectViewer.VideoController.openVolume'
 
-  const sliderValue = played * duration
+  const secondsPlayed = played * duration
 
   const displayedDuration = useMemo(() => {
     return formatTimeStamp(duration)
@@ -77,8 +78,8 @@ const VideoController = ({
           {/* Time */}
           <Box direction='row' align='center' style={{ minWidth: '4.3rem' }}>
             <Text size='small'>
-              <time dateTime={`P${Math.round(sliderValue)}S`}>
-                {formatTimeStamp(sliderValue)}
+              <time dateTime={`P${Math.round(secondsPlayed)}S`}>
+                {formatTimeStamp(secondsPlayed)}
               </time>
               {' / '}
               <time dateTime={`P${Math.round(duration)}S`}>
@@ -167,14 +168,14 @@ const VideoController = ({
             )}
 
           {/* Full Screen */}
-          {!enableDrawing && (
+          {/* {!enableDrawing && ( */}
             <Button
               a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
               icon={<Expand size={iconSize} color='white' />}
               plain
               onClick={handleFullscreen}
             />
-          )}
+          {/* )} */}
         </Box>
       </Grid>
     </ThemeContext.Extend>
@@ -182,7 +183,7 @@ const VideoController = ({
 }
 
 VideoController.propTypes = {
-  duration: number,
+  duration: number, // in seconds
   enableDrawing: bool,
   isPlaying: bool,
   handleFullscreen: func,
@@ -194,9 +195,9 @@ VideoController.propTypes = {
   onSpeedChange: func,
   onVolumeChange: func,
   playbackSpeed: string,
-  played: number,
+  played: number, // percentage
   volume: number,
-  volumeOpen:bool
+  volumeOpen: bool
 }
 
 export default VideoController

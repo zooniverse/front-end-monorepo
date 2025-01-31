@@ -1,14 +1,12 @@
 import { arrayOf, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
-import { useMemo, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useTranslation } from '@translations/i18n'
 import asyncStates from '@zooniverse/async-states'
 import ReactPlayer from 'react-player'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-
-import getFixedNumber from '../../../../helpers/getFixedNumber/getFixedNumber.js'
 import InteractionLayer from '../../../InteractionLayer/index.js'
 import locationValidator from '../../../../helpers/locationValidator/index.js'
 import VideoController from '../VideoController/index.js'
@@ -31,20 +29,24 @@ function VideoWithDrawing({
   onKeyDown = () => true,
   subject
 }) {
-  const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isSeeking, setIsSeeking] = useState(false)
   const [played, setPlayed] = useState(0)
   const [playbackSpeed, setPlaybackSpeed] = useState('1x')
-  const [videoHeight, setVideoHeight] = useState(0)
-  const [videoWidth, setVideoWidth] = useState(0)
   const [volume, setVolume] = useState(1)
   const [volumeOpen, toggleVolumeOpen] = useState(false)
 
-  const interactionLayerSVG = useRef()
+  // For drawing tools
+  const [clientWidth, setClientWidth] = useState(0)
+  const [videoHeight, setVideoHeight] = useState(0)
+  const [videoWidth, setVideoWidth] = useState(0)
+
   const playerRef = useRef()
+
+  // For drawing tools
+  const interactionLayerSVG = useRef()
   const transformLayer = useRef()
 
   const { t } = useTranslation('components')
@@ -64,10 +66,6 @@ function VideoWithDrawing({
       const reactPlayerClientHeight = playerRef.current?.getInternalPlayer().getBoundingClientRect().height
       const reactPlayerClientWidth = playerRef.current?.getInternalPlayer().getBoundingClientRect().width
 
-      setVideoHeight(reactPlayerVideoHeight)
-      setVideoWidth(reactPlayerVideoWidth)
-      setClientWidth(reactPlayerClientWidth)
-
       const target = {
         clientHeight: reactPlayerClientHeight,
         clientWidth: reactPlayerClientWidth,
@@ -75,6 +73,11 @@ function VideoWithDrawing({
         naturalWidth: reactPlayerVideoWidth
       }
       onReady({ target })
+
+      // For drawing tools
+      setVideoHeight(reactPlayerVideoHeight)
+      setVideoWidth(reactPlayerVideoWidth)
+      setClientWidth(reactPlayerClientWidth)
     } catch (error) {
       onError(error)
     }
@@ -84,8 +87,7 @@ function VideoWithDrawing({
   /* See also: https://github.com/cookpete/react-player/blob/master/examples/react/src/App.js */
 
   const handlePlayPause = () => {
-    const prevStatePlaying = isPlaying
-    setIsPlaying(!prevStatePlaying)
+    setIsPlaying(!isPlaying)
   }
 
   const handleVolume = e => {
@@ -93,6 +95,7 @@ function VideoWithDrawing({
   }
 
   const handleSetPlaybackSpeed = speed => {
+    console.log('SPEED', speed)
     setPlaybackSpeed(speed)
   }
 
@@ -109,6 +112,7 @@ function VideoWithDrawing({
   }
 
   const handleSeekChange = e => {
+    console.log(e.target.value)
     setPlayed(e.target.value)
   }
 
@@ -121,8 +125,7 @@ function VideoWithDrawing({
     const { played } = reactPlayerState // percentage of video played (0 to 1)
 
     if (!isSeeking) {
-      const fixedNumber = getFixedNumber(played, 3)
-      setPlayed(fixedNumber)
+      setPlayed([played])
     }
   }
 
@@ -163,43 +166,7 @@ function VideoWithDrawing({
 
   const sanitizedSpeed = Number(playbackSpeed.slice(0, -1))
 
-  /* Memoized so onProgress() and setTimeStamp() don't trigger each other */
-  const memoizedViewer = useMemo(
-    () => (
-      <ReactPlayer
-        controls={false}
-        height='100%'
-        onDuration={handleVideoDuration}
-        onEnded={handleVideoEnded}
-        onError={handlePlayerError}
-        onReady={onReactPlayerReady}
-        onPlay={handlePlay}
-        onPause={handlePause}
-        onProgress={handleVideoProgress}
-        playing={isPlaying}
-        playbackSpeed={sanitizedSpeed}
-        progressInterval={100} // milliseconds
-        ref={playerRef}
-        width='100%'
-        volume={volume}
-        url={videoLocation?.url}
-        config={{
-          file: {
-            // styling the <video> element
-            attributes: {
-              style: {
-                display: 'block',
-                height: '100%',
-                width: '100%'
-              }
-            }
-          }
-        }}
-      />
-    ),
-    [isPlaying, playbackSpeed, videoLocation, volume]
-  )
-
+  // For drawing tools
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
   const svgStyle = {}
@@ -209,7 +176,36 @@ function VideoWithDrawing({
     <>
       {videoLocation ? (
         <SubjectContainer>
-          {memoizedViewer}
+          <ReactPlayer
+            controls={false}
+            height='100%'
+            onDuration={handleVideoDuration}
+            onEnded={handleVideoEnded}
+            onError={handlePlayerError}
+            onReady={onReactPlayerReady}
+            onPlay={handlePlay}
+            onPause={handlePause}
+            onProgress={handleVideoProgress}
+            playing={isPlaying}
+            playbackRate={sanitizedSpeed}
+            progressInterval={100} // milliseconds
+            ref={playerRef}
+            width='100%'
+            volume={volume}
+            url={videoLocation?.url}
+            config={{
+              file: {
+                // styling the <video> element
+                attributes: {
+                  style: {
+                    display: 'block',
+                    height: '100%',
+                    width: '100%'
+                  }
+                }
+              }
+            }}
+          />
           {enableDrawing && (
             <DrawingLayer>
               <Box overflow='hidden'>
