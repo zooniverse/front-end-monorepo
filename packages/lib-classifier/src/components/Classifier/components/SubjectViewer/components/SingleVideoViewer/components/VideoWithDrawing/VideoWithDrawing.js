@@ -112,7 +112,6 @@ function VideoWithDrawing({
   }
 
   const handleSeekChange = e => {
-    console.log(e.target.value)
     setPlayed(e.target.value)
   }
 
@@ -125,7 +124,7 @@ function VideoWithDrawing({
     const { played } = reactPlayerState // percentage of video played (0 to 1)
 
     if (!isSeeking) {
-      setPlayed([played])
+      setPlayed(played)
     }
   }
 

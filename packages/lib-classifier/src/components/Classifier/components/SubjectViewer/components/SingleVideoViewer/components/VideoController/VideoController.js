@@ -51,6 +51,12 @@ const VideoController = ({
     return formatTimeStamp(duration)
   }, [duration])
 
+  const handleSliderPlayPause = e => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      onPlayPause()
+    }
+  }
+
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Grid
@@ -97,6 +103,7 @@ const VideoController = ({
             step='any'
             value={played}
             onChange={handleSeekChange}
+            onKeyDown={handleSliderPlayPause}
             onMouseDown={handleSeekMouseDown}
             onMouseUp={handleSeekMouseUp}
             style={{
