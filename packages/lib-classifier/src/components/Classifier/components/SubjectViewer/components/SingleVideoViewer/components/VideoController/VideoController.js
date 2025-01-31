@@ -36,7 +36,6 @@ const VideoController = ({
   volume = 1,
   volumeOpen = false
 }) => {
-  console.log('DURATION', duration)
   const { t } = useTranslation('components')
   const playPauseLabel = isPlaying
     ? 'SubjectViewer.VideoController.pause'
