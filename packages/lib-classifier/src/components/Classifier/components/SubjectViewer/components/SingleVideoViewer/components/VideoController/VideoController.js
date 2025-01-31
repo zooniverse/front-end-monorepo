@@ -34,6 +34,7 @@ const VideoController = ({
   playbackSpeed = '1x',
   played = 0, // A percentage between 0 and 1
   volume = 1,
+  volumeDisabled = false,
   volumeOpen = false
 }) => {
   const { t } = useTranslation('components')
@@ -53,14 +54,20 @@ const VideoController = ({
 
   const handleSliderPlayPause = e => {
     if (e.code === 'Space' || e.code === 'Enter') {
+      e.preventDefault()
+      e.stopPropagation()
       onPlayPause()
     }
   }
 
   const handleVolumeKeys = e => {
     if (e.key === 'ArrowUp' && volume >= 0) {
+      e.preventDefault()
+      e.stopPropagation()
       onVolumeChange(volume + 0.25)
     } else if (e.key === 'ArrowDown' && volume <=1) {
+      e.preventDefault()
+      e.stopPropagation()
       onVolumeChange(volume - 0.25)
     }
   }
@@ -69,6 +76,7 @@ const VideoController = ({
     <ThemeContext.Extend value={controlsTheme}>
       <Grid
         columns={['110px', 'flex', 'min-content']}
+        rows={['1fr']}
         data-testid='video subject viewer custom controls'
         pad='10px' // xsmall regardless of screen size
         style={{ background: '#000000' }}
@@ -148,6 +156,7 @@ const VideoController = ({
 
             <Button
               a11yTitle={t(volumeButtonLabel)}
+              disabled={volumeDisabled}
               icon={
                 volume > 0 ? (
                   <Volume size={iconSize} color='white' />
@@ -161,6 +170,7 @@ const VideoController = ({
             {volumeOpen && (
               <RangeInput
                 a11yTitle={t('SubjectViewer.VideoController.volumeSlider')}
+                disabled={volumeDisabled}
                 min={0}
                 max={1}
                 step={0.25}
@@ -205,6 +215,7 @@ VideoController.propTypes = {
   playbackSpeed: string,
   played: number, // percentage
   volume: number,
+  volumeDisabled: bool,
   volumeOpen: bool
 }
 

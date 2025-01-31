@@ -36,6 +36,7 @@ function VideoWithDrawing({
   const [played, setPlayed] = useState(0)
   const [playbackSpeed, setPlaybackSpeed] = useState('1x')
   const [volume, setVolume] = useState(1)
+  const [volumeDisabled, setVolumeDisabled] = useState(true)
   const [volumeOpen, toggleVolumeOpen] = useState(true)
 
   // For drawing tools
@@ -58,6 +59,18 @@ function VideoWithDrawing({
     : null
   const enableDrawing = loadingState === asyncStates.success
 
+  const detectAudioTrack = () => {
+    const internalVideo = playerRef.current.getInternalPlayer()
+    if (typeof internalVideo.webkitAudioDecodedByteCount !== 'undefined' || (typeof internalVideo.mozHasAudio !== 'undefined')) {
+      console.log('has webkit or moz audio track')
+      setVolumeDisabled(false)
+    } else
+    if (internalVideo.audioTracks && internalVideo.audioTracks.length) {
+      console.log('has Safari audio tracks') // audioTracks is only supported by Safari
+      setVolumeDisabled(false)
+    }
+  }
+
   const onReactPlayerReady = () => {
     try {
       const reactPlayerVideoHeight = playerRef.current?.getInternalPlayer().videoHeight
@@ -73,6 +86,7 @@ function VideoWithDrawing({
         naturalWidth: reactPlayerVideoWidth
       }
       onReady({ target })
+      detectAudioTrack()
 
       // For drawing tools
       setVideoHeight(reactPlayerVideoHeight)
@@ -252,6 +266,7 @@ function VideoWithDrawing({
         played={played}
         playbackSpeed={playbackSpeed}
         volume={volume}
+        volumeDisabled={volumeDisabled}
         volumeOpen={volumeOpen}
       />
     </>
