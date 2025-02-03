@@ -23,7 +23,7 @@
     "@zooniverse/user": "~0.1.0",
     "contentful": "~11.4.4",
     "express": "~4.21.0",
-    "grommet": "~2.41.0",
+    "grommet": "~2.45.0",
     "grommet-icons": "~4.12.0",
     "lodash": "~4.17.21",
     "morgan": "~1.10.0",
