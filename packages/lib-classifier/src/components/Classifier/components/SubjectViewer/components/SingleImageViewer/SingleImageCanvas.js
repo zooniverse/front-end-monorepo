@@ -22,9 +22,9 @@ function calculateAdjustedViewBox({ naturalWidth, naturalHeight, transformMatrix
   return `${x} ${y} ${newWidth} ${newHeight}`
 } 
 
-function calculateScale({ canvas, naturalWidth }) {
-  const { width: clientWidth } = canvas?.getBoundingClientRect() || {}
-  const calculatedScale = clientWidth / naturalWidth
+function calculateScale({ clientWidth, naturalWidth, transformMatrix }) {
+  const { scaleX } = transformMatrix
+  const calculatedScale = (clientWidth / naturalWidth) * scaleX
   return !Number.isNaN(calculatedScale) ? calculatedScale : 1
 }
 
@@ -49,62 +49,57 @@ function SingleImageCanvas({
   const canvasLayer = useRef()
   const canvas = canvasLayer.current
   
-  const viewBox = `0 0 ${naturalWidth} ${naturalHeight}`
-  
   const adjustedViewBox = calculateAdjustedViewBox({ naturalWidth, naturalHeight, transformMatrix })
 
   const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
 
-  const scale = calculateScale({ canvas, naturalWidth })
+  const clientWidth = canvas?.getBoundingClientRect().width || 0
+  const scale = calculateScale({ clientWidth, naturalWidth, transformMatrix })
 
   return (
-    <svg
-      onKeyDown={onKeyDown}
-      viewBox={viewBox}
+    <SVGContext.Provider
+      value={{
+        canvas,
+        rotate: rotation,
+        viewBox: adjustedViewBox,
+        width: naturalWidth,
+        height: naturalHeight,
+      }}
     >
-      <SVGContext.Provider
-        value={{
-          canvas,
-          rotate: rotation,
-          viewBox: adjustedViewBox,
-          width: naturalWidth,
-          height: naturalHeight,
-        }}
+      <svg
+        ref={canvasLayer}
+        onKeyDown={onKeyDown}
+        viewBox={adjustedViewBox}
       >
         <g
           data-testid='single-image-canvas-rotation-group'
           transform={rotationTransform}
         >
-          <svg
-            ref={canvasLayer}
-            viewBox={adjustedViewBox}
-          >
-            <SVGImage
-              ref={imgRef}
-              invert={invert}
+          <SVGImage
+            ref={imgRef}
+            invert={invert}
+            move={move}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            onDrag={onDrag}
+            src={src}
+            subjectID={subject?.id}
+          />
+          {children}
+          {enableInteractionLayer && (
+            <InteractionLayer
+              frame={frame}
+              height={naturalHeight}
               move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
               onDrag={onDrag}
-              src={src}
-              subjectID={subject?.id}
+              scale={scale}
+              subject={subject}
+              width={naturalWidth}
             />
-            {children}
-            {enableInteractionLayer && (
-              <InteractionLayer
-                frame={frame}
-                height={naturalHeight}
-                move={move}
-                onDrag={onDrag}
-                scale={scale}
-                subject={subject}
-                width={naturalWidth}
-              />
-            )}
-          </svg>
+          )}
         </g>
-      </SVGContext.Provider>
-    </svg>
+      </svg>
+    </SVGContext.Provider>
   )
 }
 
