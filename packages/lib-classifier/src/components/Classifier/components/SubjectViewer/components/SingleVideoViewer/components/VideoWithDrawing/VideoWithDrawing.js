@@ -59,14 +59,18 @@ function VideoWithDrawing({
     : null
   const enableDrawing = loadingState === asyncStates.success
 
+  /* Audio track detection does not work in Firefox, so we must enable the volume button by default */
+  /* Therefore, volume button is enabled in Firefox even if no audio track, see Storybook examples for SingleVIdeoViewer */
   const detectAudioTrack = () => {
     const internalVideo = playerRef.current.getInternalPlayer()
-    if (typeof internalVideo.webkitAudioDecodedByteCount !== 'undefined' || (typeof internalVideo.mozHasAudio !== 'undefined')) {
-      console.log('has webkit or moz audio track')
+    if (typeof internalVideo.webkitAudioDecodedByteCount !== 'undefined' && internalVideo.webkitAudioDecodedByteCount > 0) {
+      console.log('has webkit audio track')
       setVolumeDisabled(false)
-    } else
-    if (internalVideo.audioTracks && internalVideo.audioTracks.length) {
+    } else if (internalVideo.audioTracks && internalVideo.audioTracks.length) {
       console.log('has Safari audio tracks') // audioTracks is only supported by Safari
+      setVolumeDisabled(false)
+    } else if (typeof internalVideo.mozHasAudio !== 'undefined') {
+      console.log('has moz audio track')
       setVolumeDisabled(false)
     }
   }
