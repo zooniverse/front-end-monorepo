@@ -4,6 +4,7 @@ import logToSentry from '@helpers/logger/logToSentry.js'
 
 import { usePanoptesAuthToken } from '@hooks'
 import { getTodayDateString, getNumDaysAgoDateString, getQueryPeriod } from './helpers/dateRangeHelpers.js'
+import incrementStats from './helpers/incrementStats.js'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -23,6 +24,8 @@ function statsHost(env) {
 }
 
 const endpoint = '/classifications/users'
+
+let mutate
 
 /* user.created_at is needed for allTimeQuery, and not always available on the logged in user object */
 async function fetchUserCreatedAt({ token, userID }) {
@@ -96,10 +99,22 @@ async function fetchStats({ endpoint, projectID, userID, token }) {
   return null
 }
 
+/**
+ * Optimistically increment project stats, without revalidating the SWR cache.
+ * @param {string} projectID 
+ * @param {string} userID 
+ * @returns the mutated stats data
+ */
+export function updateYourStats(projectID, userID) {
+  return incrementStats(mutate, projectID, userID)
+}
+
 export default function useYourProjectStats({ projectID, userID }) {
   const token = usePanoptesAuthToken()
 
   // only fetch stats when a userID is available. Don't fetch if no user signed in.
   const key = token && userID ? { endpoint, projectID, userID, token } : null
-  return useSWR(key, fetchStats, SWROptions)
+  const fetchedStats = useSWR(key, fetchStats, SWROptions)
+  mutate = fetchedStats.mutate
+  return fetchedStats
 }
