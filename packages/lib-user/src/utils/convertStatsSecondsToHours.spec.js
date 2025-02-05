@@ -13,12 +13,12 @@ describe('utils > convertStatsSecondsToHours', function() {
     expect(convertStatsSecondsToHours(7200)).to.equal(2)
   })
 
-  it('should return 1 for 5399 seconds', function() {
-    expect(convertStatsSecondsToHours(5399)).to.equal(1)
+  it('should return 0.8 for 3000 seconds', function() {
+    expect(convertStatsSecondsToHours(3000)).to.equal(0.8)
   })
 
-  it('should return 2 for 5400 seconds', function() {
-    expect(convertStatsSecondsToHours(5400)).to.equal(2)
+  it('should return 1.5 for 5400 seconds', function() {
+    expect(convertStatsSecondsToHours(5400)).to.equal(1.5)
   })
 
   it('should return 0 for undefined', function() {

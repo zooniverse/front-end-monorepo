@@ -8,14 +8,11 @@ import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import { useAdminMode } from '@hooks'
-import {
-  AdminContainer,
-  Announcements,
-  ProjectHeader
-} from '@components'
+import { AdminContainer, Announcements, ProjectHeader } from '@components'
 import PageHeader from '../../../components/PageHeader/PageHeader.js'
 
-export const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
+export const adminBorderImage =
+  'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 const PageBox = styled(Box)`
   &.admin {
     border-image: ${adminBorderImage};

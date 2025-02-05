@@ -8,10 +8,25 @@ import { Box } from 'grommet'
 
 import { PanoptesAuthContext } from '../../../contexts'
 
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {
+    if (!value) {
+      queryParams.delete(key);
+    } else {
+      queryParams.set(key, value);
+    }
+  }
+
+  return queryParams
+}
+
 function GroupStatsContainer({
   endDate,
   groupId,
   joinToken,
+  paramsValidationMessage,
   projectId,
   startDate
 }) {
@@ -21,65 +36,43 @@ function GroupStatsContainer({
 
   // set end date per query params or default to today
   let selectedEndDate = endDate
-  if (!selectedEndDate) {
+  if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
   // set start date per query params or default to 7 days ago
   let selectedStartDate = startDate
-  if (!selectedStartDate) {
+  if (selectedStartDate === undefined) {
     const defaultStartDate = new Date()
     defaultStartDate.setUTCDate(defaultStartDate.getUTCDate() - 6)
     selectedStartDate = defaultStartDate.toISOString().substring(0, 10)
   }
 
   useEffect(function updateStartDateParam() {
-    if (selectedStartDate && !startDate) {
-      updateQueryParams([['start_date', selectedStartDate]])
+    if (selectedStartDate && (startDate === undefined)) {
+      const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
+      router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
     }
-  }, [selectedStartDate, startDate])
-
-  // set selected project per query params or default to 'AllProjects'
-  const selectedProject = projectId || 'AllProjects'
-
-  function updateQueryParams(newQueryParams) {
-    const queryParams = new URLSearchParams(window.location.search)
-
-    for (const [key, value] of newQueryParams) {
-      if (!value) {
-        queryParams.delete(key);
-      } else {
-        queryParams.set(key, value);
-      }
-    }
-
-    router.push(`${window.location.pathname}?${queryParams.toString()}`)
-  }
+  }, [selectedStartDate, startDate, router])
 
   function setSelectedDateRange({ endDate, startDate }) {
-    // TODO: validate dates
-
     const todayUTC = new Date().toISOString().substring(0, 10)
-    if (endDate === todayUTC) {
-      updateQueryParams([
+    const newQueryParams = endDate === todayUTC
+      ? updateQueryParams([
         ['end_date', null],
         ['start_date', startDate]
       ])
-    } else {
-      updateQueryParams([
+      : updateQueryParams([
         ['end_date', endDate],
         ['start_date', startDate]
       ])
-    }
+    router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
   }
 
   function setSelectedProject(selectedProjectId) {
-    // TODO: validate selected project ID
-
-    if (selectedProjectId === 'AllProjects') {
-      updateQueryParams([['project_id', null]])
-    } else {
-      updateQueryParams([['project_id', selectedProjectId]])
-    }
+    const newQueryParams = !selectedProjectId
+      ? updateQueryParams([['project_id', null]])
+      : updateQueryParams([['project_id', selectedProjectId]])
+    router.push(`${window.location.pathname}?${newQueryParams.toString()}`)
   }
 
   if (isLoading) {
@@ -96,11 +89,12 @@ function GroupStatsContainer({
       authUser={user}
       groupId={groupId}
       joinToken={joinToken}
+      paramsValidationMessage={paramsValidationMessage}
       selectedDateRange={{
         endDate: selectedEndDate,
         startDate: selectedStartDate
       }}
-      selectedProject={selectedProject}
+      selectedProject={projectId}
       setSelectedDateRange={setSelectedDateRange}
       setSelectedProject={setSelectedProject}
     />

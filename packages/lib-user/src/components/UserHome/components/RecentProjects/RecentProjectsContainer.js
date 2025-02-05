@@ -61,7 +61,7 @@ function RecentProjectsContainer({ authUser }) {
     cards: true,
     id: recentProjectIds?.join(',')
   })
-  
+
   // Attach project object to each project preference
   let projectPreferencesWithProjectObj
   if (projects?.length) {

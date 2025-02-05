@@ -4,6 +4,12 @@ import { Notification } from 'grommet'
 import { bool, node, shape, string } from 'prop-types'
 import { Children, cloneElement, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
+import { useTranslation } from '../../../translations/i18n.js'
+
+import {
+  ContentBox,
+  Layout
+} from '@components/shared'
 
 import {
   usePanoptesMemberships,
@@ -11,9 +17,11 @@ import {
 } from '@hooks'
 
 import {
-  createPanoptesMembership
+  createPanoptesMembership,
+  deletePanoptesMembership
 } from '@utils'
 
+import DeactivatedGroup from './components/DeactivatedGroup'
 import { getUserGroupStatus } from './helpers/getUserGroupStatus'
 
 function deleteJoinTokenParam() {
@@ -31,6 +39,7 @@ function GroupContainer({
   groupId,
   joinToken
 }) {
+  const { t } = useTranslation()
   const [showJoinNotification, setShowJoinNotification] = useState(false)
 
   // define user_group membership key
@@ -54,6 +63,8 @@ function GroupContainer({
     isMutating: createGroupMembershipLoading,
     trigger: createGroupMembership
   } = useSWRMutation(membershipKey, createPanoptesMembership)
+  // define user_group membership delete mutation
+  const { trigger: deleteMembership, isMutating: deleteMembershipLoading } = useSWRMutation(membershipKey, deletePanoptesMembership)
   // extract user_group active membership
   const newGroupMembership = newGroupMembershipData?.memberships?.[0]
   const membership = newGroupMembership || membershipsData?.memberships?.[0]
@@ -73,7 +84,7 @@ function GroupContainer({
     groupId,
     membershipId: activeMembership?.id
   })
-  
+
   useEffect(function handleJoinGroup() {
     async function createMembership() {
       try {
@@ -88,7 +99,7 @@ function GroupContainer({
     }
 
     if (
-      authUser?.id && 
+      authUser?.id &&
       joinToken &&
       !activeMembershipRole &&
       !membershipError &&
@@ -118,29 +129,58 @@ function GroupContainer({
     }
   }, [joinToken, activeMembershipRole])
 
-  const status = getUserGroupStatus({ 
+  const status = getUserGroupStatus({
     authUserId: authUser?.id,
     createGroupMembershipError,
     createGroupMembershipLoading,
     group,
     groupError,
     groupLoading,
-    joinToken
+    joinToken,
+    t
   })
+
+  const activeMembershipDeactivatedGroup = activeMembershipRole && groupError?.status === 404
 
   return (
     <>
       {showJoinNotification && (
         <Notification
-          message='New Group Joined!'
+          message={t('GroupContainer.joined')}
           onClose={() => setShowJoinNotification(false)}
           status='normal'
           time={4000}
           toast
         />
       )}
-      {status ? (<div>{status}</div>) : (
-        Children.map(children, child => 
+      {activeMembershipDeactivatedGroup ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            <DeactivatedGroup
+              deleteMembership={deleteMembership}
+              deleteMembershipLoading={deleteMembershipLoading}
+              membershipId={activeMembership.id}
+            />
+          </ContentBox>
+        </Layout>
+      ) : status ? (
+        <Layout>
+          <ContentBox
+            align='center'
+            direction='column'
+            justify='center'
+            pad='large'
+          >
+            {status}
+          </ContentBox>
+        </Layout>
+      ) : (
+        Children.map(children, child =>
           cloneElement(
             child,
             {

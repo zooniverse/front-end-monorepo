@@ -3,8 +3,8 @@ export const MessageFromResearcherMock = {
   talkLink: '/projects/owner/project-slug/talk',
   researcherId: '1',
   researcherName: 'John J. Johnson',
-  researcherAvatar: 'https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png',
-  projectAvatar: 'https://static.zooniverse.org/www.zooniverse.org/assets/subject-placeholder.png'
+  researcherAvatar: 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg',
+  projectAvatar: 'https://static.zooniverse.org/fem-assets/subject-placeholder.jpg'
 }
 
 const ProjectMock = {

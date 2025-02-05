@@ -16,6 +16,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 
 import Stats from '../../../components/Stats/Stats.js'
+import { YouTubeEmbed } from '@next/third-parties/google'
 
 const VideoWrapper = styled(Box)`
   border-radius: 8px; // same as Stat component
@@ -37,7 +38,7 @@ const Discovery = ({ href, src, labelString }) => (
   <Anchor href={href}>
     <Box width='8rem'>
       <CircleImage>
-        <Image alt='' src={src} width='100%' height='100%' />
+        <Image alt='' loading='lazy' src={src} width='100%' height='100%' />
       </CircleImage>
       <Text
         color={{ light: 'dark-5', dark: 'white' }}
@@ -120,13 +121,11 @@ export default function OurMission() {
       <Stats />
 
       <VideoWrapper>
-        <iframe
-          width='100%'
+        <YouTubeEmbed
           height='100%'
-          src='https://www.youtube-nocookie.com/embed/F-B8gXJyMHc?si=YGd16vJFYOB-rfrI'
-          title='YouTube video player'
-          frameborder='0'
-          allowfullscreen
+          width='100%'
+          videoid='F-B8gXJyMHc'
+          title={t('AboutPage.ourMission.video')}
         />
       </VideoWrapper>
 
@@ -162,22 +161,22 @@ export default function OurMission() {
       >
         <Discovery
           href='https://academic.oup.com/mnras/article/399/3/1191/1073770'
-          src='/assets/green-pea.jpg'
+          src='https://static.zooniverse.org/fem-assets/green-pea.jpg'
           labelString={t('AboutPage.ourMission.discoveries.one')}
         />
         <Discovery
           href='https://en.wikipedia.org/wiki/Planet_Hunters'
-          src='/assets/exoplanet.jpg'
+          src='https://static.zooniverse.org/fem-assets/exoplanet.jpg'
           labelString={t('AboutPage.ourMission.discoveries.two')}
         />
         <Discovery
           href='https://blog.shakespearesworld.org/2017/04/05/shakespeares-world-and-updating-the-oed-a-splendid-antedating-of-white-lie/'
-          src='/assets/transcription.jpg'
+          src='https://static.zooniverse.org/fem-assets/transcription.jpg'
           labelString={t('AboutPage.ourMission.discoveries.three')}
         />
         <Discovery
           href='https://en.wikipedia.org/wiki/Tabby%27s_Star'
-          src='/assets/star.jpg'
+          src='https://static.zooniverse.org/fem-assets/star.jpg'
           labelString={t('AboutPage.ourMission.discoveries.four')}
         />
       </Grid>

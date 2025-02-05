@@ -4,10 +4,10 @@ import Resource from '@store/Resource'
 import { createLocationCounts, subjectsSeenThisSession, subjectViewers } from '@helpers'
 import StepHistory from './StepHistory'
 import SubjectLocation from './SubjectLocation'
-import FreehandLineReductions from './FreehandLineReductions'
+import MachineLearntReductions from './MachineLearntReductions'
 import TranscriptionReductions from './TranscriptionReductions'
 
-const CaesarReductions = types.union(FreehandLineReductions, TranscriptionReductions)
+const CaesarReductions = types.union(MachineLearntReductions, TranscriptionReductions)
 
 const Subject = types
   .model('Subject', {
@@ -57,6 +57,10 @@ const Subject = types
 
         viewer = configuration.viewerType
 
+        // Volumetric Viewer is set at the Project level
+        if (!viewer && self.project?.isVolumetricViewer)
+          viewer = subjectViewers.volumetric
+      
         if (!viewer && counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage
@@ -72,7 +76,7 @@ const Subject = types
           }
         }
 
-        if (!viewer && counts.total > 1 && counts.total < 11) {
+        if (!viewer && counts.total > 1) {
           // This is a subject pattern for the flipbook - Note that projects that want to use the multiFrame viewer should specify in workflow config
           if (counts.total === counts.images) {
             viewer = subjectViewers.flipbook

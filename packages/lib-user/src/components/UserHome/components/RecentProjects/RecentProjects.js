@@ -2,6 +2,7 @@ import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
+import { useTranslation, Trans } from '../../../../translations/i18n.js'
 
 import { ContentBox } from '@components/shared'
 
@@ -10,10 +11,11 @@ export default function RecentProjects({
   projectPreferences = [],
   error = undefined
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title='Continue Classifying' screenSize={size}>
+    <ContentBox title={t('UserHome.RecentProjects.title')} screenSize={size}>
       {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
@@ -21,20 +23,22 @@ export default function RecentProjects({
       )}
       {!isLoading && error && (
         <Box fill justify='center' align='center' pad='medium'>
-          <SpacedText>
-            There was an error fetching your recent projects
-          </SpacedText>
+          <SpacedText>{t('UserHome.RecentProjects.error')}</SpacedText>
         </Box>
       )}
       {!isLoading && !projectPreferences.length && !error && (
         <Box fill justify='center' align='center' pad='medium'>
-          <SpacedText>No Recent Projects found</SpacedText>
+          <SpacedText>{t('UserHome.RecentProjects.noProjects')}</SpacedText>
           <Text>
-            Start by{' '}
-            <Anchor href='https://www.zooniverse.org/projects'>
-              classifying any project
-            </Anchor>
-            .
+            <Trans
+              i18nKey='UserHome.RecentProjects.start'
+              components={[
+                <Anchor
+                  key='projects-page'
+                  href='https://www.zooniverse.org/projects'
+                />
+              ]}
+            />
           </Text>
         </Box>
       )}
@@ -52,7 +56,6 @@ export default function RecentProjects({
             {projectPreferences.map(preference => (
               <li key={preference?.project?.id}>
                 <ProjectCard
-                  badge={preference?.activity_count}
                   description={preference?.project?.description}
                   displayName={preference?.project?.display_name}
                   href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}

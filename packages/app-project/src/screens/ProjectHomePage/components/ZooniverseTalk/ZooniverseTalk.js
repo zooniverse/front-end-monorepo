@@ -1,22 +1,24 @@
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 import { Chat } from 'grommet-icons'
-import { Box, Grid, Paragraph } from 'grommet'
+import { Box, Grid, Paragraph, ResponsiveContext } from 'grommet'
 import { string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
+import { useContext } from 'react'
 
 import ContentBox from '@shared/components/ContentBox'
 import WidgetHeading from '@shared/components/WidgetHeading'
-import JoinInButton from './components/JoinInButton'
+import JoinInButton from './components/JoinInButton/JoinInButton.js'
 import RecentSubjects from './components/RecentSubjects'
 
-function ZooniverseTalk (props) {
+function ZooniverseTalk ({ className = undefined }) {
   const { t } = useTranslation('screens')
-  const columns = props.screenSize === 'small' ? ['1fr'] : ['1fr', '3fr']
+  const size = useContext(ResponsiveContext)
+  const columns = size === 'small' ? ['1fr'] : ['1fr', '3fr']
 
   return (
     <ContentBox direction='row' gap='large'>
       <Grid
-        className={props.className}
+        className={className}
         columns={columns}
         fill
         gap='large'
@@ -39,7 +41,7 @@ function ZooniverseTalk (props) {
           <JoinInButton />
         </Box>
         <Box fill='horizontal'>
-          <RecentSubjects carousel={props.screenSize === 'small'} />
+          <RecentSubjects carousel={size === 'small'} />
         </Box>
       </Grid>
     </ContentBox>
@@ -47,13 +49,7 @@ function ZooniverseTalk (props) {
 }
 
 ZooniverseTalk.propTypes = {
-  className: string,
-  screenSize: string
-}
-
-ZooniverseTalk.defaultProps = {
-  className: undefined,
-  screenSize: 'medium'
+  className: string
 }
 
 export default withResponsiveContext(ZooniverseTalk)

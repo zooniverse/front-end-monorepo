@@ -1,48 +1,82 @@
 'use client'
 
-import { Certificate } from '@zooniverse/user'
-import { useContext } from 'react'
+import { Certificate, usePanoptesUser } from '@zooniverse/user'
+import { useRouter } from 'next/navigation'
+import { useContext, useEffect } from 'react'
 
 import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer'
 import { PanoptesAuthContext } from '../../../../../contexts'
 
+function updateQueryParams(newQueryParams) {
+  const queryParams = new URLSearchParams(window.location.search)
+
+  for (const [key, value] of newQueryParams) {  
+    if (!value) {
+      queryParams.delete(key);
+    } else {
+      queryParams.set(key, value);
+    }
+  }
+
+  return queryParams
+}
+
 function CertificateContainer({
   endDate,
   login,
+  paramsValidationMessage,
   projectId,
   startDate
 }) {
-  const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+  const { adminMode, isLoading, user: authUser } = useContext(PanoptesAuthContext)
 
+  // fetch user with created_at property
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authUser,
+    login,
+    requiredUserProperty: 'created_at'
+  })
+  
+  const router = useRouter()
+  
   // set end date per query params or default to today
   let selectedEndDate = endDate
-  if (!selectedEndDate) {
+  if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
-  // set start date per query params, user created_at, or default to all time
+  // set start date per query params or user.created_at
   let selectedStartDate = startDate
-  if (!selectedStartDate) {
-    selectedStartDate = user?.created_at?.substring(0, 10) || '2015-07-01'
+  if (selectedStartDate === undefined) {
+    selectedStartDate = user?.created_at?.substring(0, 10)
   }
-  
-  // set selected project per query params or default to 'AllProjects'
-  const selectedProject = projectId || 'AllProjects'
+
+  useEffect(function updateStartDateParam() {
+    if (selectedStartDate && (startDate === undefined)) {
+      const newQueryParams = updateQueryParams([['start_date', selectedStartDate]])
+      router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
+    }
+  }, [selectedStartDate, startDate, router])
 
   return (
     <AuthenticatedUsersPageContainer
       adminMode={adminMode}
-      isLoading={isLoading}
+      isLoading={isLoading || userLoading}
       login={login}
-      user={user}
+      user={authUser}
     >
       <Certificate
-        authUser={user}
+        authUser={authUser}
         login={login}
+        paramsValidationMessage={paramsValidationMessage}
         selectedDateRange={{
           endDate: selectedEndDate,
           startDate: selectedStartDate
         }}
-        selectedProject={selectedProject}
+        selectedProject={projectId}
       />
     </AuthenticatedUsersPageContainer>
   )

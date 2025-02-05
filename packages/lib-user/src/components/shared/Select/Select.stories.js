@@ -2,10 +2,6 @@ import { Box } from 'grommet'
 
 import Select from './Select.js'
 
-import { 
-  getDateRangeSelectOptions
-} from '../MainContent/helpers/getDateRangeSelectOptions'
-
 export default {
   title: 'Components/shared/Select',
   component: Select,
@@ -27,13 +23,16 @@ function ComponentDecorator (Story) {
   )
 }
 
-const options = getDateRangeSelectOptions()
-
-export const DateRanges = {
+export const Default = {
   args: {
-    id: 'DateRanges',
-    name: 'DateRanges',
-    options: options,
-    value: options[0]
+    id: 'select',
+    name: 'select',
+    options: [
+      { label: 'ALL PROJECTS', value: undefined },
+      { label: 'Project 1', value: '111' },
+      { label: 'Project 2', value: '222' },
+      { label: 'Project 3', value: '333' }
+    ],
+    value: { label: 'ALL PROJECTS', value: undefined }
   }
 }

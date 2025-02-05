@@ -43,7 +43,7 @@ function Choice({
 
   const { t } = useTranslation('plugins')
 
-  const choice = choices?.[choiceId] || {}
+  const choice = choices?.get(choiceId) || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
@@ -70,6 +70,7 @@ function Choice({
     >
       {choice.images?.length > 0 && (
         <Carousel
+          alignSelf='center'
           controls='arrows'
           data-testid='choice-images'
           height={{ max: 'medium' }}
@@ -79,7 +80,7 @@ function Choice({
             <Media
               key={filename}
               alt={`${choice.label}-image${index}`}
-              src={images[filename]}
+              src={images.get(filename)}
             />
           ))}
         </Carousel>

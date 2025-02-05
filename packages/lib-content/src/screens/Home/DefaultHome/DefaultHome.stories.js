@@ -3,7 +3,7 @@ import zooBlogPosts from '../Community/zooBlogPosts.mock.json'
 import DefaultHome from './DefaultHome.js'
 
 export default {
-  title: 'Screens / Home / DefaultHome',
+  title: 'Home / DefaultHome',
   component: DefaultHome,
   args: {
     dailyZooPosts,

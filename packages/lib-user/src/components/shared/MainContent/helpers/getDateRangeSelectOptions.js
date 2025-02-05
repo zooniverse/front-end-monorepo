@@ -1,38 +1,79 @@
+import {
+  getStatsDateString,
+  getDefaultDateRange
+} from '@utils'
+
+import { formatSelectOptionDateLabel } from './formatSelectOptionDateLabel'
+
 function getNextMonth(month) {
   return month === 11 ? 0 : month + 1
 }
 
-export function getDateRangeSelectOptions(created_at = '2015-07-01') {
-  const endDate = new Date()
-
+function getPresetSelectOptions({ sourceCreatedAtDate, today, t }) {
   return [
     {
-      label: 'LAST 7 DAYS',
-      value: new Date(new Date().setUTCDate(endDate.getUTCDate() - 6)).toISOString().substring(0, 10)
+      label: t('MainContent.dateRange.lastSevenDays').toUpperCase(),
+      value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 6)))
     },
     {
-      label: 'LAST 30 DAYS',
-      value: new Date(new Date().setUTCDate(endDate.getUTCDate() - 29)).toISOString().substring(0, 10)
+      label: t('MainContent.dateRange.lastThirtyDays').toUpperCase(),
+      value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 29)))
     },
     {
-      label: 'THIS MONTH',
-      value: new Date(endDate.getUTCFullYear(), endDate.getUTCMonth(), 1).toISOString().substring(0, 10)
+      label: t('MainContent.dateRange.thisMonth').toUpperCase(),
+      value: getStatsDateString(new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1)))
     },
     {
-      label: 'LAST 3 MONTHS',
-      value: new Date(new Date().setUTCDate(endDate.getUTCDate() - 90)).toISOString().substring(0, 10)
+      label: t('MainContent.dateRange.lastThreeMonths').toUpperCase(),
+      value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 90)))
     },
     {
-      label: 'THIS YEAR',
-      value: new Date(endDate.getUTCFullYear(), 0, 1).toISOString().substring(0, 10)
+      label: t('MainContent.dateRange.thisYear').toUpperCase(),
+      value: getStatsDateString(new Date(Date.UTC(today.getUTCFullYear(), 0, 1)))
     },
     {
-      label: 'LAST 12 MONTHS',
-      value: new Date((endDate.getUTCFullYear() - 1), getNextMonth(endDate.getUTCMonth()), 1).toISOString().substring(0, 10)
+      label: t('MainContent.dateRange.lastTwelveMonths').toUpperCase(),
+      value: getStatsDateString(new Date(Date.UTC((today.getUTCFullYear() - 1), getNextMonth(today.getUTCMonth()), 1)))
     },
     {
-      label: 'ALL TIME',
-      value: created_at.substring(0, 10)
+      label: t('MainContent.dateRange.allTime').toUpperCase(),
+      value: sourceCreatedAtDate
     }
   ]
+}
+
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
+const DEFAULT_HANDLER = key => key
+
+export function getDateRangeSelectOptions({
+  sourceCreatedAtDate = '',
+  paramsValidationMessage = '',
+  selectedDateRange = DEFAULT_DATE_RANGE,
+  t = DEFAULT_HANDLER
+}) {
+  const today = new Date()
+  const todayUTC = getStatsDateString(today)
+
+  const dateRangeOptions = getPresetSelectOptions({ sourceCreatedAtDate, today, t })
+
+  let selectedDateRangeOption = dateRangeOptions.find(option =>
+    (selectedDateRange.endDate === todayUTC) &&
+    (option.value === selectedDateRange.startDate)
+  )
+
+  if (!selectedDateRangeOption && !paramsValidationMessage) {
+    const customDateRangeOption = {
+      label: `${formatSelectOptionDateLabel(selectedDateRange)}`,
+      value: 'custom'
+    }
+    dateRangeOptions.push(customDateRangeOption)
+    selectedDateRangeOption = customDateRangeOption
+  } else {
+    dateRangeOptions.push({
+      label: t('MainContent.dateRange.custom').toUpperCase(),
+      value: 'custom'
+    })
+  }
+
+  return { dateRangeOptions, selectedDateRangeOption }
 }

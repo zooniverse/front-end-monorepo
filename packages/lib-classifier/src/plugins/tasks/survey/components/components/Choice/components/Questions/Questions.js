@@ -28,10 +28,10 @@ export default function Questions({
       flex='grow'
     >
       {questionIds.map((questionId, index) => {
-        const question = questions[questionId] || { answers: {}, answersOrder: [] }
+        const question = questions.get(questionId) || { answers: {}, answersOrder: [] }
         const inputType = question.multiple ? 'checkbox' : 'radio'
         const options = question.answersOrder.map(answerId => ({
-          label: question.answers[answerId].label,
+          label: question.answers.get(answerId).label,
           value: answerId
         }))
 

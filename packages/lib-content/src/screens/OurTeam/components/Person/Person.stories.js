@@ -1,7 +1,7 @@
 import Person from './Person.js'
 
 export default {
-  title: 'Screens / Our Team / Person',
+  title: 'About / Our Team / Person',
   component: Person
 }
 

@@ -1,6 +1,8 @@
 import { DataChart, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import {
   getDateInterval as defaultGetDateInterval
@@ -9,6 +11,35 @@ import {
 import { getCompleteData as defaultGetCompleteData } from './helpers/getCompleteData'
 import getDateRangeLabel from './helpers/getDateRangeLabel'
 
+const X_AXIS_FREQUENCY = {
+  everyOther: 'everyOther',
+  everyFourth: 'everyFourth'
+}
+
+const StyledDataChart = styled(DataChart)`
+  .hidden-period-label {
+    display: none;
+  }
+
+  // The only way to get to the x-axis bounding div
+  &.styled-grommet-barchart > :first-child {
+
+    // Align the x-axis visual label to the first date label
+    div:first-of-type > span {
+      position: relative;
+
+      &::after {
+        content: 'Date range (UTC)';
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        font-size: 0.75rem;
+        width: max-content;
+      }
+    }
+  }
+`
+
 function BarChart({
   data = [],
   dateRange,
@@ -16,18 +47,24 @@ function BarChart({
   getDateInterval = defaultGetDateInterval,
   type = 'count'
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
-  
+
+  const TYPE_LABEL = {
+    count: t('common.classifications'),
+    session_time: t('BarChart.time')
+  }
+
   // getDateInterval returns an object with a period property based on the date range, start_date, and end_date
   const dateInterval = getDateInterval(dateRange)
 
   // getCompleteData returns an array of objects with a period, count, and session_time property,
   // including any periods without stats with a count and session_time of 0
   const completeData = getCompleteData({ data, dateInterval })
-  
-  const dateRangeLabel = getDateRangeLabel(dateInterval)
-  const typeLabel = type === 'count' ? 'Classifications' : 'Time'
-  
+
+  const dateRangeLabel = getDateRangeLabel(dateInterval, t)
+  const typeLabel = TYPE_LABEL[type]
+
   // with no data set gradient as 'brand'
   let gradient = 'brand'
   // with data set gradient range based on data type (count or session_time) and max value of data type
@@ -47,10 +84,19 @@ function BarChart({
     type: 'bar'
   }
 
+  let xAxisFrequency
+  if (completeData.length > 12 && completeData.length < 25) {
+    xAxisFrequency = X_AXIS_FREQUENCY.everyOther
+  } else if (completeData.length > 24) {
+    xAxisFrequency = X_AXIS_FREQUENCY.everyFourth
+  }
+
   if (size !== 'small' && completeData.length < 9) {
     chartOptions.thickness = 'xlarge'
   }
   if (size === 'small') {
+    xAxisFrequency = xAxisFrequency || X_AXIS_FREQUENCY.everyOther
+
     if (completeData.length < 12) {
       chartOptions.thickness = 'small'
     } else if (completeData.length > 11 && completeData.length < 19) {
@@ -60,17 +106,12 @@ function BarChart({
     }
   }
 
-  // set x axis granularity based on data length
-  let xAxisGranularity = 'fine'
-  if (completeData.length > 12) {
-    xAxisGranularity = 'medium'
-  }
-
   return (
-    <DataChart
-      a11yTitle={`Bar chart of ${typeLabel} by ${dateRangeLabel.countLabel} from ${dateRange.startDate} to ${dateRange.endDate}`}
+    <StyledDataChart
+      a11yTitle={t('BarChart.a11y', { typeLabel, countLabel: dateRangeLabel.countLabel, startDate: dateRange.startDate, endDate: dateRange.endDate })}
+      className='styled-grommet-barchart'
       axis={{
-        x: { granularity: xAxisGranularity, property: 'period' },
+        x: { granularity: 'fine', property: 'period' },
         y: { granularity: 'fine', property: type },
       }}
       chart={chartOptions}
@@ -85,30 +126,57 @@ function BarChart({
         {
           property: 'period',
           label: dateRangeLabel.countLabel,
-          render: (period) => {
+          render: ((period, datum, datumIndex) => {
             const date = new Date(period)
-            return (
-              <Text data-testid='periodLabel' textAlign='center'>
-                {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
-              </Text>
-            )
-          },
+
+            if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
+              return (
+                <Text
+                  className='hidden-period-label'
+                  data-testid='periodLabel'
+                  textAlign='center'
+                >
+                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                </Text>
+              )
+            } else if (xAxisFrequency === X_AXIS_FREQUENCY.everyFourth && datum?.index % 4 !== 0) {
+              return (
+                <Text
+                  className='hidden-period-label'
+                  data-testid='periodLabel'
+                  textAlign='center'
+                >
+                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                </Text>
+              )
+            } else {
+              return (
+                <Text
+                  data-testid='periodLabel'
+                  textAlign='center'
+                >
+                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                </Text>
+              )
+            }
+          }),
         },
         {
           property: type,
           label: typeLabel,
           render: ((number) => {
             if (type === 'session_time') {
-              const time = number / dateRangeLabel.time  
+              const time = number / dateRangeLabel.time
+              const timeLabelText = dateRangeLabel.timeLabel === 'hrs' ? `${time.toFixed(1).toLocaleString()} ${dateRangeLabel.timeLabel}` : `${time.toFixed(0).toLocaleString()} ${dateRangeLabel.timeLabel}`
               return (
                 <Text data-testid='timeLabel'>
-                  {`${time.toFixed(0)} ${dateRangeLabel.timeLabel}`}
+                  {timeLabelText}
                 </Text>
               )
             } else {
               return (
                 <Text data-testid='countLabel'>
-                  {new Number(number).toLocaleString()}
+                  {number.toLocaleString()}
                 </Text>
               )
             }

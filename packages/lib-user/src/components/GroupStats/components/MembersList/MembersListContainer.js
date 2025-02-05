@@ -17,6 +17,10 @@ function MembersListContainer({
 }) {
   const [page, setPage] = useState(1)
 
+  function handlePageChange({ page }) {
+    setPage(page)
+  }
+
   const query = {
     include: 'user',
     page,
@@ -29,7 +33,10 @@ function MembersListContainer({
     isLoading
   } = usePanoptesMemberships({
     authUserId: authUser?.id,
-    query
+    query,
+    swrOptions: {
+      keepPreviousData: true
+    }
   })
 
   const { trigger: deleteMembership } = useSWRMutation({ query }, deletePanoptesMembership)
@@ -38,10 +45,10 @@ function MembersListContainer({
   const memberships = membershipsData?.memberships?.filter(membership => membership.state === 'active')
 
   const paginationProps = {
-    numberItems: membershipsData?.meta?.count,
-    onChange: setPage,
+    numberItems: membershipsData?.meta?.memberships?.count,
+    onChange: handlePageChange,
     page,
-    step: membershipsData?.meta?.page_size
+    step: membershipsData?.meta?.memberships?.page_size
   }
 
   function handleDeleteMembership({ membershipId }) {

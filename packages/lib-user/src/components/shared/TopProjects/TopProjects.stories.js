@@ -18,8 +18,8 @@ function ComponentDecorator (Story) {
         dark: 'dark-3',
         light: 'neutral-6'
       }}
-      height='900px'
       pad='30px'
+      width={{ max: '700px' }}
     >
       <Story />
     </Box>
@@ -38,5 +38,11 @@ export const Grid = {
     allProjectsStats: STATS,
     grid: true,
     projects: PROJECTS
+  }
+}
+
+export const Loading = {
+  args: {
+    loading: true
   }
 }

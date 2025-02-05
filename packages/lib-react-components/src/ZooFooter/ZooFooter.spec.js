@@ -11,7 +11,6 @@ describe('<ZooFooter />', function () {
     'About',
     'Build a Project',
     'Get Involved',
-    'News',
     'Projects',
     'Talk'
   ]

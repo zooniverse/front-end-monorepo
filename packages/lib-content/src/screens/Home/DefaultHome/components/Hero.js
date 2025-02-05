@@ -1,35 +1,24 @@
 import { Anchor, Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { SpacedText, ZooniverseLogotype } from '@zooniverse/react-components'
-import { useContext } from 'react'
+import { useHasMounted } from '@zooniverse/react-components/hooks'
+import { useContext, useRef } from 'react'
 
 import { useTranslation } from '../../../../translations/i18n.js'
-import { mobileBreakpoint } from '../../../../components/SharedStyledComponents/SharedStyledComponents.js'
 
 const Relative = styled(Box)`
   position: relative;
   overflow: hidden;
   background: ${props => props.theme.global.colors['neutral-1']};
+  min-height: 60vh;
 `
 
-const VideoContainer = styled(Box)`
-  width: 100%;
-
-  @media (width <= ${mobileBreakpoint}) {
-    display: none;
-  }
-
-  @media (prefers-reduced-motion) {
-    display: none;
-  }
-`
-
-const MobileHeroImage = styled(Box)`
+const HeroImage = styled(Box)`
   width: 100%;
   height: 60vh;
 
-  @media (width > ${mobileBreakpoint}) {
-    display: none;
+  @media (width > 768px) {
+    height: 90vh;
   }
 `
 
@@ -64,11 +53,12 @@ const StyledLogo = styled(ZooniverseLogotype)`
 `
 
 const StyledLink = styled(Anchor)`
+  display: flex;
+  justify-content: center;
   width: 300px;
   border-radius: 5px;
   font-size: 0.8rem;
   padding: 8px 5px;
-  text-align: center;
   color: black;
   background-color: ${props => props.theme.global.colors['neutral-2']};
   font-weight: normal;
@@ -80,20 +70,36 @@ const StyledLink = styled(Anchor)`
 `
 
 export default function Hero() {
+  const videoRef = useRef(null)
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
+  const hasMounted = useHasMounted()
+
+  let prefersReducedMotion
+  if (hasMounted) {
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    prefersReducedMotion = reducedMotionQuery?.matches
+  }
+
+  // Only autoplay a video element if desktop width and device does not prefer reduced motion
+   if (size !== 'small' && !prefersReducedMotion && hasMounted && videoRef.current) {
+    videoRef.current.play()
+   }
 
   return (
     <Relative width='100%'>
-      <VideoContainer>
-        <video autoPlay loop disablePictureInPicture muted preload='metadata'>
-          <source type='video/webm' src='/assets/home-video.webm' />
-          <source type='video/mp4' src='/assets/home-video.mp4' />
-        </video>
-      </VideoContainer>
-      <MobileHeroImage
-        background={`url(${'/assets/home-video-placeholder.jpg'})`}
-      />
+      {size !== 'small' && !prefersReducedMotion ? (
+        <Box fill>
+          <video loop disablePictureInPicture muted preload='metadata' ref={videoRef}>
+            <source type='video/webm' src='https://static.zooniverse.org/fem-assets/home-video.webm' />
+            <source type='video/mp4' src='https://static.zooniverse.org/fem-assets/home-video.mp4' />
+          </video>
+        </Box>
+      ) : (
+        <HeroImage
+          background={`url(${'https://static.zooniverse.org/fem-assets/home-video-placeholder.jpg'})`}
+        />
+      )}
       <HeroCopy justify='center' align='center' pad='medium'>
         <StyledHeading level={1} margin='0'>
           <SpacedText

@@ -44,7 +44,7 @@ describe('Component > QuickTalk > Comment', function () {
     expect(screen.getByText(/\(@\s*zootester\s*\)/)).to.exist()
 
     expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.exist()
-    expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png')
+    expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg')
 
   })
 

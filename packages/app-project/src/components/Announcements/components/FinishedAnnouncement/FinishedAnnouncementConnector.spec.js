@@ -5,9 +5,10 @@ import Meta, { Default } from './FinishedAnnouncement.stories.js'
 describe('Component > FinishedAnnouncementConnector', function () {
   const DefaultStory = composeStory(Default, Meta)
 
-  it('should show a results link if results page exists', function () {
+  it('should show a results link if results page exists', async function () {
     render(<DefaultStory />)
-    const link = screen.findByLabelText('Announcements.FinishedAnnouncement.seeResults')
+    const link = await screen.findByRole('link', { name: 'Announcements.FinishedAnnouncement.seeResults' })
     expect(link).exists()
+    expect(link?.getAttribute('href')).to.equal('/projects/zookeeper/galaxy-zoo/about/results')
   })
 })

@@ -17,7 +17,19 @@ export default function Contact({ widgetLoaded = false }) {
 
   const handleClick = e => {
     if (widgetLoaded) {
+      const contactButton = document.activeElement
       window.FreshworksWidget('open')
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe#widget-frame')
+        const input = iframe?.contentDocument?.querySelector('input#name')
+        input?.focus()
+        iframe?.contentDocument?.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            contactButton.focus() // keeps focus in this component rather than jumping to the top of the page
+            window.FreshworksWidget('close')
+          }
+        })
+      }, 1000)
     }
   }
 
@@ -82,8 +94,8 @@ export default function Contact({ widgetLoaded = false }) {
           t={t}
           components={[
             <Anchor
-              key='publications-page'
-              href='/publications' // after switch to app-root, this will need to be /about/publications
+              key='faq-page'
+              href='/about/faq'
             />,
             <Anchor
               key='freshdesk-page'
@@ -94,11 +106,17 @@ export default function Contact({ widgetLoaded = false }) {
       </Paragraph>
       <Paragraph>{t('AboutPage.contact.paragraphs.two')}</Paragraph>
       <Box align='center' pad={{ top: 'small', bottom: '180px' }}>
-        <StyledButton primary textAlign='center' onClick={handleClick}>
+        <StyledButton primary textAlign='center' onClick={handleClick} aria-haspopup='dialog'>
           {t('AboutPage.contact.heading')}
         </StyledButton>
         <Paragraph margin={{ top: 'medium' }}>
-          {t('AboutPage.contact.paragraphs.three')}
+          <Trans
+            i18nKey='AboutPage.contact.paragraphs.three'
+            t={t}
+            components={[
+              <Anchor key='direct-email-contact' href='mailto:contact@zooniverse.org' />
+            ]}
+          />
         </Paragraph>
       </Box>
     </Box>

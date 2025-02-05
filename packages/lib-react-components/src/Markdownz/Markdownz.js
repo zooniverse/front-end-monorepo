@@ -1,5 +1,4 @@
-import { createElement, Fragment, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { bool, object, string } from 'prop-types'
 import styled from 'styled-components'
 import {
   Anchor,
@@ -46,13 +45,17 @@ const StyledHorizontalRule = styled.hr`
   width: 100%;
 `
 const StyledOrderedList = styled.ol`
-  font-size: 14px;
+  font-size: 1rem;
   margin-top: 0;
 `
 const StyledUnorderedList = styled.ul`
-  font-size: 14px;
+  font-size: 1rem;
   margin-top: 0;
 `
+const StyledTable = styled(Table)`
+  font-size: 1rem;
+`
+
 const StyledVideo = styled.video`
   max-width: 100%;
 `
@@ -68,7 +71,7 @@ const componentMappings = {
   img: renderMedia,
   p: Paragraph,
   span: Text,
-  table: Table,
+  table: StyledTable,
   tfoot: TableFooter,
   thead: TableHeader,
   tbody: TableBody,
@@ -107,7 +110,7 @@ function Markdownz({
     project: { slug: projectSlug },
     settings
   })
-  
+
   return (
     <>
       {markdownChildren}
@@ -116,12 +119,12 @@ function Markdownz({
 }
 
 Markdownz.propTypes = {
-  baseURI: PropTypes.string,
-  children: PropTypes.string.isRequired,
-  components: PropTypes.object,
-  inline: PropTypes.bool,
-  projectSlug: PropTypes.string,
-  settings: PropTypes.object
+  baseURI: string,
+  children: string.isRequired,
+  components: object,
+  inline: bool,
+  projectSlug: string,
+  settings: object
 }
 
 export { Markdownz }

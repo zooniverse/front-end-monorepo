@@ -1,4 +1,5 @@
 import { Box, DropButton } from 'grommet'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
 import styled, { withTheme } from 'styled-components'
@@ -58,11 +59,11 @@ function ConfusedWith({
               autoFocus={hasFocus && index === 0}
               backgroundColor={backgroundColor}
               dropAlign={{
-                bottom: 'top'
+                top: 'bottom'
               }}
               dropContent={
                 <Confusion
-                  confusion={choices[confusionId]}
+                  confusion={choices.get(confusionId)}
                   confusionId={confusionId}
                   confusionText={strings.get(`choices.${choiceId}.confusions.${confusionId}`)}
                   handleChoice={handleChoice}
@@ -72,7 +73,9 @@ function ConfusedWith({
                 />
               }
               dropProps={{
-                overflow: 'visible'
+                elevation: 'none',
+                overflow: 'visible',
+                responsive: false
               }}
               label={strings.get(`choices.${confusionId}.label`)}
               open={open === confusionId}
@@ -87,19 +90,12 @@ function ConfusedWith({
 }
 
 ConfusedWith.propTypes = {
-  choices: PropTypes.objectOf(
-    PropTypes.shape({
-      confusions: PropTypes.objectOf(PropTypes.string),
-      confusionsOrder: PropTypes.arrayOf(PropTypes.string),
-      images: PropTypes.arrayOf(PropTypes.string),
-      label: PropTypes.string
-    })
-  ),
-  confusions: PropTypes.objectOf(PropTypes.string),
+  choices: MobXPropTypes.observableMap,
+  confusions: MobXPropTypes.observableMap,
   confusionsOrder: PropTypes.arrayOf(PropTypes.string),
   handleChoice: PropTypes.func,
   hasFocus: PropTypes.bool,
-  images: PropTypes.objectOf(PropTypes.string)
+  images: MobXPropTypes.observableMap,
 }
 
 export default withTheme(ConfusedWith)

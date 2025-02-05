@@ -2,6 +2,7 @@ import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box, ResponsiveContext } from 'grommet'
 import { number, string } from 'prop-types'
 import { useContext } from 'react'
+import { useTranslation } from '../../../translations/i18n.js'
 
 import {
   Avatar,
@@ -17,6 +18,7 @@ function ProfileHeader({
   login = '',
   projects = undefined
 }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
   return (
@@ -35,7 +37,7 @@ function ProfileHeader({
             src={avatar}
             alt={`${login} avatar`}
           />
-          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' />}
+          : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' color='#00979d' />}
         <Box
           align={size === 'small' ? 'start' : 'center'}
           direction={size === 'small' ? 'column' : 'row'}
@@ -65,25 +67,25 @@ function ProfileHeader({
       >
         {classifications !== undefined ?
           <TitledStat
-            title='Classifications'
-            value={classifications} 
+            title={t('common.classifications')}
+            value={classifications}
           />
           : null}
         {hours !== undefined ?
           <TitledStat
-            title='Hours'
+            title={t('common.hours')}
             value={hours}
-          /> 
+          />
           : null}
         {contributors !== undefined ?
           <TitledStat
-            title='Contributors'
+            title={t('common.contributors')}
             value={contributors}
           />
           : null}
         {projects !== undefined ?
           <TitledStat
-            title='Projects'
+            title={t('common.projects')}
             value={projects}
           />
           : null}

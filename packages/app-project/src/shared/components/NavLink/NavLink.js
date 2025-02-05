@@ -1,58 +1,64 @@
+import { bool, elementType, object, oneOfType, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
-import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
-function NavLink ({
+const DefaultAnchor = styled(Anchor)``
+function NavLink({
   color,
-  disabled = false,
   link,
-  StyledAnchor = Anchor,
+  StyledAnchor = DefaultAnchor,
   StyledSpacedText = SpacedText,
   weight,
   ...anchorProps
 }) {
-  const { href, text } = link
+  const { externalLink = false, href, text } = link
 
-  const label = <StyledSpacedText color={color} weight={weight}>{text}</StyledSpacedText>
+  const label = (
+    <StyledSpacedText color={color} weight={weight}>
+      {text}
+    </StyledSpacedText>
+  )
 
-  if (disabled) {
-    // On the surface this may look odd, since you can't disable links
-    // Sometimes we want to render anchors that look like buttons
-    // In case of when StyledAnchor is set to use a Grommet Button (Button can be rendered as an anchor if href is defined)
-    // This enables us to render links to look like buttons
-    // Regardless, though, if disabled is passed along
-    // render a placeholder span for a link that is "disabled"
-    // Also pass along a disabled prop so it renders like a disabled button
-    // If a Grommet Button (or one of the component library buttons) is set to StyledAnchor
-    // We also do not wrap it with next.js's Link
-    return <StyledAnchor as='span' color={color} disabled label={label} {...anchorProps} />
-  }
-
+  // We don't want to use next/link for external webpages, aka external routes
+  // Zooniverse routes that use PFE are considered external!
+  // (therefore don't prefetch or call Next.js router functions unless we're confident it's an internal route)
   return (
-    <StyledAnchor
-      forwardedAs={Link}
-      href={addQueryParams(href)}
-      color={color}
-      label={label}
-      {...anchorProps}
-    />
+    <>
+      {externalLink ? (
+        <StyledAnchor
+          href={addQueryParams(href)}
+          color={color}
+          label={label}
+          {...anchorProps}
+        />
+      ) : (
+        <StyledAnchor
+          forwardedAs={Link}
+          href={addQueryParams(href)}
+          color={color}
+          label={label}
+          {...anchorProps}
+        />
+      )}
+    </>
   )
 }
 
 NavLink.propTypes = {
-  // color: PropTypes.string, can also be Grommet object {{ light, dark }}
-  disabled: PropTypes.bool,
-  link: PropTypes.shape({
-    as: PropTypes.string,
-    href: PropTypes.string,
-    text: PropTypes.string
+  color: oneOfType([object, string]),
+  link: shape({
+    as: string,
+    externalLink: bool,
+    href: string,
+    text: string
   }).isRequired,
-  StyledAnchor: PropTypes.elementType,
-  StyledSpacedText: PropTypes.elementType,
-  weight: PropTypes.string
+  StyledAnchor: elementType,
+  StyledSpacedText: elementType,
+  weight: string
 }
 
 export default NavLink

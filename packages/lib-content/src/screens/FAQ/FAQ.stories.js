@@ -1,7 +1,7 @@
 import FAQ from './FAQ.js'
 
 export default {
-  title: 'Screens / FAQ',
+  title: 'About / FAQ',
   component: FAQ
 }
 

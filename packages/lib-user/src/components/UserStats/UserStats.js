@@ -1,4 +1,5 @@
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useTranslation } from '../../translations/i18n.js'
 
 import {
   HeaderLink,
@@ -28,28 +29,37 @@ const DEFAULT_USER = {
 
 function UserStats({
   allProjectsStats = DEFAULT_STATS,
+  error = undefined,
+  loading = false,
+  paramsValidationMessage = '',
   projectStats = DEFAULT_STATS,
   projects = [],
   selectedDateRange,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
   user = DEFAULT_USER
 }) {
-  // set stats based on selected project or all projects
-  const stats = selectedProject === 'AllProjects' ? allProjectsStats : projectStats
+  const { t } = useTranslation()
+
+  // set stats based on selected project
+  const stats = selectedProject ? projectStats : allProjectsStats
+  const totalProjects = allProjectsStats?.project_contributions?.length
 
   return (
     <Layout
       primaryHeaderItem={
         <HeaderLink
           href='/'
-          label='back'
+          label={t('common.back')}
           primaryItem={true}
         />
       }
     >
       <MainContent
+        error={error}
+        loading={loading}
+        paramsValidationMessage={paramsValidationMessage}
         projects={projects}
         selectedDateRange={selectedDateRange}
         selectedProject={selectedProject}
@@ -57,9 +67,11 @@ function UserStats({
         setSelectedProject={setSelectedProject}
         stats={stats}
         source={user}
+        totalProjects={totalProjects}
       />
       <TopProjects
         allProjectsStats={allProjectsStats}
+        loading={loading}
         projects={projects}
       />
     </Layout>
@@ -83,6 +95,8 @@ const statsShape = shape({
 
 UserStats.propTypes = {
   allProjectsStats: statsShape,
+  loading: bool,
+  paramsValidationMessage: string,
   projectStats: statsShape,
   projects: arrayOf(shape({
     id: string,

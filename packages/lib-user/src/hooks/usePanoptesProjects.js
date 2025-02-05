@@ -1,8 +1,7 @@
 import { projects as panoptesProjects } from '@zooniverse/panoptes-js'
-import auth from 'panoptes-client/lib/auth'
 import useSWR from 'swr'
 
-const isBrowser = typeof window !== 'undefined'
+import usePanoptesAuthToken from './usePanoptesAuthToken'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -12,44 +11,41 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-if (isBrowser) {
-  auth.checkCurrent()
-}
-
-async function fetchProjects(query) {
-  let token = await auth.checkBearerToken()
-  if (!token) {
-    await auth.checkCurrent()
-    token = await auth.checkBearerToken()
-  }
+async function fetchProjects({ query, token }) {
   const authorization = token ? `Bearer ${token}` : undefined
 
   let projectsAccumulator = []
   
   async function getProjects (page = 1) {
-    const response = await panoptesProjects.get({
-      query: {
-        page,
-        ...query
-      },
-      authorization
-    })
-    const { meta, projects } = response?.body || {}
+    try {
+      const response = await panoptesProjects.get({
+        query: {
+          page,
+          ...query
+        },
+        authorization
+      })
 
-    if (meta?.projects?.page_count > 5) {
-      console.warn('There are more than 500 projects related to this request. This is likely an error.')
-      return []
+      const { meta, projects } = response?.body || {}
+  
+      if (meta?.projects?.page_count > 5) {
+        console.warn('There are more than 500 projects related to this request. This is likely an error.')
+        return []
+      }
+      
+      if (projects && projects.length) {
+        projectsAccumulator = projectsAccumulator.concat(projects)
+      }
+  
+      if (meta?.projects?.next_page) {
+        return getProjects(meta.projects.next_page)
+      }
+  
+      return projectsAccumulator
+    } catch (error) {
+      console.error(error)
+      return projectsAccumulator
     }
-    
-    if (projects && projects.length) {
-      projectsAccumulator = projectsAccumulator.concat(projects)
-    }
-
-    if (meta?.projects?.next_page) {
-      return getProjects(meta.projects.next_page)
-    }
-
-    return projectsAccumulator
   }
 
   await getProjects(1)
@@ -57,9 +53,10 @@ async function fetchProjects(query) {
 }
 
 export function usePanoptesProjects(query) {
+  const token = usePanoptesAuthToken()
   let key = null
-  if (query?.id) {
-    key = query
+  if (token && query?.id) {
+    key = { query, token }
   }
   return useSWR(key, fetchProjects, SWROptions)
 }

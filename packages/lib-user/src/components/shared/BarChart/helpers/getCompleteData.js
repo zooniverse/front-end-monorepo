@@ -6,6 +6,7 @@ export function getCompleteData({ data, dateInterval }) {
     const startDate = start_date ? new Date(start_date) : new Date(data[0]?.period)
     const endDate = end_date ? new Date(end_date) : new Date()
     let currentDate = startDate
+    let index = 0
     if (period === 'week') {
       // determine the Monday on or before the start date
       const day = startDate.getUTCDay()
@@ -34,9 +35,13 @@ export function getCompleteData({ data, dateInterval }) {
       })
       
       if (matchingData) {
-        completeData.push(matchingData)
+        completeData.push({
+          index,
+          ...matchingData
+        })
       } else {
         completeData.push({
+          index,
           period: currentDate.toISOString(),
           count: 0,
           session_time: 0
@@ -52,6 +57,7 @@ export function getCompleteData({ data, dateInterval }) {
       } else if (period === 'year') {
         currentDate.setUTCFullYear(currentDate.getUTCFullYear() + 1)
       }
+      index += 1
     }
   }
   return completeData

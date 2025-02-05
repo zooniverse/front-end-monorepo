@@ -2,6 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Layer } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
+import { useTranslation } from '../../translations/i18n.js'
 
 import { fetchPanoptesUsers } from '../../utils'
 
@@ -30,10 +31,11 @@ function Contributors({
   group,
   membership
 }) {
+  const { t } = useTranslation()
   const [exportLoading, setExportLoading] = useState(false)
   const [page, setPage] = useState(1)
 
-  const showContributors = adminMode 
+  const showContributors = adminMode
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
@@ -43,7 +45,7 @@ function Contributors({
   const statsQuery = {
     individual_stats_breakdown: true,
   }
-  
+
   const {
     data: stats,
     error: statsError,
@@ -68,7 +70,7 @@ function Contributors({
     error: usersError,
     isLoading: usersLoading
   } = usePanoptesUsers(usersQuery)
-  
+
   // fetch projects
   const arrayOfProjectContributionArrays = stats?.group_member_stats_breakdown?.map(member => member.project_contributions)
   const flattenedProjectContributionArray = arrayOfProjectContributionArrays?.flat()
@@ -96,7 +98,7 @@ function Contributors({
     })
   }
 
-  const loadingExportMessage = 'Generating stats export...'
+  const loadingExportMessage = t('Contributors.generating')
 
   async function handleGenerateExport() {
     setExportLoading(true)
@@ -114,7 +116,7 @@ function Contributors({
       stats,
       users: allUsers
     })
-    
+
     // Create an anchor element and trigger download
     const link = document.createElement('a')
     link.href = dataExportUrl
@@ -130,7 +132,9 @@ function Contributors({
     setPage(page)
   }
 
-  if (!showContributors) return (<div>Not authorized</div>)
+  const error = statsError || usersError || projectsError
+  const loading = statsLoading || usersLoading || projectsLoading
+  const disableStatsExport = !showContributors || !!error || loading || !contributors?.length
 
   return (
     <>
@@ -157,26 +161,51 @@ function Contributors({
         primaryHeaderItem={
           <HeaderLink
             href={`/groups/${group.id}`}
-            label='back'
+            label={t('common.back')}
             primaryItem={true}
           />
         }
       >
         <ContentBox
-          linkLabel='Export all stats'
+          linkLabel={t('Contributors.exportLink')}
           linkProps={{
             as: 'button',
+            disabled: disableStatsExport,
             onClick: handleGenerateExport
           }}
-          title='Full Group Stats'
+          title={t('Contributors.title')}
         >
-          {contributors.length > 0 ? (
-              <ContributorsList
-                contributors={contributors}
-                projects={projects}
-              />
-            ) : <div>Loading...</div>
-          }
+          {!showContributors ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                {t('Contributors.noPermission')}
+              </SpacedText>
+            </Box>
+          ) : loading ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <Loader />
+            </Box>
+          ) : error ? (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                {t('Contributors.error')}
+              </SpacedText>
+              <SpacedText uppercase={false}>
+                {error?.message}
+              </SpacedText>
+            </Box>
+          ) : contributors?.length > 0 ? (
+            <ContributorsList
+              contributors={contributors}
+              projects={projects}
+            />
+          ) : (
+            <Box align='center' justify='center' fill pad='medium'>
+              <SpacedText uppercase={false}>
+                {t('Contributors.none')}
+              </SpacedText>
+            </Box>
+          )}
           {memberIdsPerStats?.length > CONTRIBUTORS_PER_PAGE ? (
             <Pagination
               alignSelf='center'

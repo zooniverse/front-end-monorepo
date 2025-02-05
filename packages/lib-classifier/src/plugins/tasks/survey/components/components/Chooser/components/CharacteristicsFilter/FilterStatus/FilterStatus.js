@@ -103,10 +103,10 @@ export default function FilterStatus ({
         onOpen={handleFilterDropOpen}
       />
       {selectedCharacteristicIds.map(characteristicId => {
-        const characteristic = characteristics?.[characteristicId] || {}
+        const characteristic = characteristics?.get(characteristicId) || {}
         const selectedValueId = filters?.[characteristicId] || ''
-        const value = characteristic.values?.[selectedValueId] || {}
-        const valueImageSrc = images?.[value.image] || ''
+        const value = characteristic.values?.get(selectedValueId) || {}
+        const valueImageSrc = images?.get(value.image) || ''
         const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
         function clearSelection() {
           handleFilter(characteristicId)

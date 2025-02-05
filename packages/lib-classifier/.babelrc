@@ -1,5 +1,6 @@
 {
   "plugins": [
+    "babel-plugin-styled-components",
     ["@babel/plugin-transform-runtime", {
       "helpers": false
     }],
@@ -9,6 +10,9 @@
       },
       "@zooniverse/react-components": {
         "transform": "@zooniverse/react-components/${member}"
+      },
+      "@zooniverse/subject-viewers": {
+        "transform": "@zooniverse/subject-viewers/${member}"
       }
     }],
     ["module-resolver", {
@@ -27,7 +31,7 @@
     }]
   ],
   "presets": [
-    ["@babel/preset-react", { 
+    ["@babel/preset-react", {
       "runtime": "automatic"
     }],
     ["@babel/preset-env", {
@@ -40,7 +44,7 @@
   "env": {
     "es6": {
       "presets": [
-        ["@babel/preset-react", { 
+        ["@babel/preset-react", {
           "runtime": "automatic"
         }],
         ["@babel/preset-env", {
@@ -54,7 +58,7 @@
     "test": {
       "presets": [
         "@babel/preset-env",
-        ["@babel/preset-react", { 
+        ["@babel/preset-react", {
           "runtime": "automatic"
         }]
       ]

@@ -77,6 +77,8 @@ const ArrowBox = styled(Box)`
 `
 
 const StyledButton = styled(Button)`
+  display: flex;
+  justify-content: center;
   background: white;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
   font-size: 0.8rem;
@@ -84,7 +86,6 @@ const StyledButton = styled(Button)`
   width: clamp(130px, 100%, 240px);
   border-radius: 8px;
   border: solid 1px ${props => props.theme.global.colors['neutral-2']};
-  text-align: center;
 
   &:hover {
     text-decoration: none;
@@ -287,7 +288,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             <Image
               alt='The Adler Planetarium'
               width='100px'
-              src='/assets/adler.png'
+              src='https://static.zooniverse.org/fem-assets/adler.png'
               fit='contain'
             />
           </Institute>
@@ -295,7 +296,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             <Image
               alt='University of Minnesota'
               width='100%'
-              src='/assets/minnesota.png'
+              src='https://static.zooniverse.org/fem-assets/minnesota.png'
               fit='contain'
             />
           </Institute>
@@ -303,7 +304,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             <Image
               alt='University of Oxford'
               width='75px'
-              src='/assets/oxford.jpg'
+              src='https://static.zooniverse.org/fem-assets/oxford.jpg'
               fit='contain'
             />
           </Institute>

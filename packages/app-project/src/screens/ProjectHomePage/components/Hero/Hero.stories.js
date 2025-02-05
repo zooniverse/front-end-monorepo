@@ -1,4 +1,3 @@
-import { MediaContextProvider } from '@shared/components/Media'
 import asyncStates from '@zooniverse/async-states'
 import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
@@ -91,16 +90,14 @@ const snapshot = {
   project: PROJECT,
   user: USER
 }
-const store = Store.create(snapshot)  
+const store = Store.create(snapshot)
 
 export function Default({ isWide }) {
   return (
     <RouterMock>
-      <MediaContextProvider>
-        <Provider store={store}>
-          <Hero isWide={isWide} workflows={WORKFLOWS} />
-        </Provider>
-      </MediaContextProvider>
+      <Provider store={store}>
+        <Hero isWide={isWide} workflows={WORKFLOWS} />
+      </Provider>
     </RouterMock>
   )
 }
@@ -110,16 +107,14 @@ const snapshotWithOrganization = {
   project: PROJECT,
   user: USER
 }
-const storeWithOrganization = Store.create(snapshotWithOrganization)  
+const storeWithOrganization = Store.create(snapshotWithOrganization)
 
 export function WithOrganization({ isWide }) {
   return (
     <RouterMock>
-      <MediaContextProvider>
-        <Provider store={storeWithOrganization}>
-          <Hero isWide={isWide} workflows={WORKFLOWS} />
-        </Provider>
-      </MediaContextProvider>
+      <Provider store={storeWithOrganization}>
+        <Hero isWide={isWide} workflows={WORKFLOWS} />
+      </Provider>
     </RouterMock>
   )
 }

@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react'
 import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
 
 import { useTranscriptionReductions } from '@hooks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
+import { focusMark } from '@plugins/drawingTools/components/Mark/Mark'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
@@ -77,6 +78,7 @@ function TranscribedLines({
   const [ bounds, setBounds ] = useState({})
   const [ line, setLine ] = useState(defaultLine)
   const [ show, setShow ] = useState(false)
+  const activeLine = useRef()
 
   const { t } = useTranslation('components')
 
@@ -127,12 +129,14 @@ function TranscribedLines({
     setBounds(bounds)
     setLine(line)
     setShow(true)
+    activeLine.current = document.activeElement
   }
 
   function close() {
     setBounds({})
     setLine(defaultLine)
     setShow(false)
+    focusMark(activeLine.current)
   }
 
   return (

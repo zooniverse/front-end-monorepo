@@ -1,10 +1,10 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
-import { shape, string } from 'prop-types'
+import { object, oneOfType, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
-  font-family: 'Karla', Arial, sans-serif; 
+  font-family: 'Karla', Arial, sans-serif;
   font-size: 1rem;
   line-height: normal;
   background: none;
@@ -26,6 +26,7 @@ function ContentLink({
         dark: 'light-4',
         light: 'dark-5'
       }}
+      disabled={link.disabled || false}
       download={link.download || false}
       forwardedAs={link.as || 'a'}
       href={link.href}
@@ -44,7 +45,7 @@ function ContentLink({
 
 ContentLink.propTypes = {
   link: shape({
-    as: string,
+    as: oneOfType([object, string]),
     href: string,
     text: string
   })

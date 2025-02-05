@@ -9,23 +9,22 @@ import {
 } from '@hooks'
 
 import {
-  getDateInterval
+  getDateInterval,
+  getDefaultDateRange
 } from '@utils'
 
 import UserStats from './UserStats'
 
-const DEFAULT_DATE_RANGE = {
-  endDate: null,
-  startDate: null
-}
+const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
 function UserStatsContainer({
   authUser,
   login,
+  paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
-  selectedProject = 'AllProjects',
+  selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
@@ -36,42 +35,43 @@ function UserStatsContainer({
     isLoading: userLoading
   } = usePanoptesUser({
     authUser,
-    login
+    login,
+    requiredUserProperty: 'created_at'
   })
-  
+
   // fetch all projects stats, used by projects select and top projects regardless of selected project
   const allProjectsStatsQuery = getDateInterval(selectedDateRange)
   allProjectsStatsQuery.project_contributions = true
   allProjectsStatsQuery.time_spent = true
-  
+
   const {
     data: allProjectsStats,
     error: statsError,
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: paramsValidationMessage ? null : user?.id,
     query: allProjectsStatsQuery
   })
-  
+
   // fetch individual project stats
   const projectStatsQuery = getDateInterval(selectedDateRange)
   projectStatsQuery.project_id = parseInt(selectedProject)
   projectStatsQuery.time_spent = true
-  
+
   const {
     data: projectStats,
     error: projectStatsError,
     isLoading: projectStatsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: user?.id,
+    sourceId: selectedProject ? user?.id : null,
     query: projectStatsQuery
   })
-  
+
   // fetch projects
   const projectIds = allProjectsStats?.project_contributions?.map(project => project.project_id)
-  
+
   const {
     data: projects,
     error: projectsError,
@@ -82,9 +82,15 @@ function UserStatsContainer({
     page_size: 100
   })
 
+  const error = userError || statsError || projectStatsError || projectsError
+  const loading = userLoading || statsLoading || projectStatsLoading || projectsLoading
+
   return (
     <UserStats
       allProjectsStats={allProjectsStats}
+      error={error}
+      loading={loading}
+      paramsValidationMessage={paramsValidationMessage}
       projectStats={projectStats}
       projects={projects}
       selectedDateRange={selectedDateRange}
@@ -101,6 +107,7 @@ UserStatsContainer.propTypes = {
     id: string
   }),
   login: string,
+  paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string

@@ -2,6 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from '../../../../translations/i18n.js'
 
 const StyledBox = styled(Box)`
   box-shadow: 8px 0px 6px -6px rgba(0, 0, 0, 0.25);
@@ -16,6 +17,7 @@ function MemberStats({
   hours = 0,
   login = ''
 }) {
+  const { t } = useTranslation()
   return (
     <StyledBox
       align='center'
@@ -31,8 +33,8 @@ function MemberStats({
         gap='xsmall'
       >
         <Avatar
-          alt={`${login} avatar`}
-          src={avatar || 'https://www.zooniverse.org/assets/simple-avatar.png'}
+          alt={t('common.avatarAlt', { login })}
+          src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
         />
         <Box
           flex='grow'
@@ -60,7 +62,7 @@ function MemberStats({
             color={{ dark: 'neutral-6', light: 'neutral-7' }}
             uppercase={false}
           >
-            Classifications
+            {t('common.classifications')}
           </SpacedText>
           <SpacedText
             color={{ light: 'neutral-1', dark: 'accent-1' }}
@@ -77,14 +79,14 @@ function MemberStats({
             color={{ dark: 'neutral-6', light: 'neutral-7' }}
             uppercase={false}
           >
-            Hours
+            {t('common.hours')}
           </SpacedText>
           <SpacedText
             color={{ light: 'neutral-1', dark: 'accent-1' }}
             size='large'
             weight='bold'
           >
-            {Math.round(hours).toLocaleString()}
+            {hours.toLocaleString()}
           </SpacedText>
         </Box>
       </Box>

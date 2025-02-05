@@ -11,7 +11,7 @@ import ThemeModeToggle from '../ThemeModeToggle/ThemeModeToggle.js'
 import { getHost } from '../../helpers'
 
 const StyledBlank = styled(Blank)`
-  vertical-align: -0.125em;
+  vertical-align: -3px; // to help align-items center in nav
 `
 
 const StyledNotificationIcon = styled(Notification)`

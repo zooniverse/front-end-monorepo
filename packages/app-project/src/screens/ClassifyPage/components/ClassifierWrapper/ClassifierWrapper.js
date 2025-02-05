@@ -5,12 +5,13 @@ import { bool, func, string, shape } from 'prop-types'
 import { useCallback } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
+import { Loader } from '@zooniverse/react-components'
 
 import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
-import { Loader } from '@zooniverse/react-components'
+import { updateYourStats } from '../YourProjectStats/useYourProjectStats.js'
 
 function onError(error, errorInfo = {}) {
   logToSentry(error, errorInfo)
@@ -35,6 +36,7 @@ export default function ClassifierWrapper({
   mode,
   onAddToCollection = DEFAULT_HANDLER,
   onSubjectReset = DEFAULT_HANDLER,
+  personalization = null,
   project = null,
   recents = null,
   router = null,
@@ -43,8 +45,7 @@ export default function ClassifierWrapper({
   subjectSetID,
   user = null,
   userID,
-  workflowID,
-  yourStats
+  workflowID
 }) {
   const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
@@ -53,20 +54,23 @@ export default function ClassifierWrapper({
   const ownerSlug = router?.query.owner
   const projectSlug = router?.query.project
 
-  /* Only increment stats on the classify page if the subject is not retired or not already seen by current user */
-  const incrementStats = yourStats?.increment
+  /*
+    Increment sessionCount regardless if a user is signed-in (for auth invitation UI).
+    Increment signed-in user stats on every classification submitted.
+    Add the recently classified subject to the signed-in user's Recents.
+  */
+  const projectID = project?.id
+
   const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
-    const finishedSubject = subject.already_seen || subject.retired
-    if (!finishedSubject) {
-      incrementStats()
-    }
+    personalization.incrementSessionCount()
+    updateYourStats(projectID, userID)
     addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
-  }, [addRecents, incrementStats])
+  }, [addRecents, projectID, userID])
 
   /*
     If the page URL contains a subject ID, update that ID when the classification subject changes.
@@ -102,18 +106,24 @@ export default function ClassifierWrapper({
     return isFavourite ? addFavourites([subjectId]) : removeFavourites([subjectId])
   }, [addFavourites, removeFavourites])
 
-  const somethingWentWrong = appLoadingState === asyncStates.error
+  /* Loading UI if user and project are loading in the store */
+  if (appLoadingState === asyncStates.loading)
+    return (
+      <Box fill align='center'>
+        <Loader />
+      </Box>
+    )
 
-  if (somethingWentWrong) {
+  /* Error UI if any errors loading the user or project in the store */
+  if (appLoadingState === asyncStates.error) {
     const { error: projectError } = project
     const { error: userError } = user
 
     const errorToMessage = projectError || userError || new Error('Something went wrong')
-    return (
-      <ErrorMessage error={errorToMessage} />
-    )
+    return <ErrorMessage error={errorToMessage} />
   }
 
+  /* Display the Classifier */
   try {
     if (appLoadingState === asyncStates.success) {
       const key = userID || 'no-user'
@@ -143,12 +153,6 @@ export default function ClassifierWrapper({
     onError(error)
     return <ErrorMessage error={error} />
   }
-
-  return (
-    <Box height='100%' width='100%' align='center'>
-      <Loader />
-    </Box>
-  )
 }
 
 ClassifierWrapper.propTypes = {

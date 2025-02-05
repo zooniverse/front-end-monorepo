@@ -100,9 +100,9 @@ export function Choices ({
       rowsCount={rowsCount}
     >
       {filteredChoiceIds.map((choiceId, index) => {
-        const choice = task.choices?.[choiceId] || {}
+        const choice = task.choices?.get(choiceId) || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
-        const src = task.images?.[choice.images?.[0]] || ''
+        const src = task.images?.get(choice.images?.[0]) || ''
         const hasFocus = !filterDropOpen && (index === focusIndex)
         let tabIndex = -1
         if (focusIndex === -1 && index === 0) {

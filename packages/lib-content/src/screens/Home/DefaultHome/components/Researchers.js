@@ -1,4 +1,5 @@
 import { Anchor, Box, Paragraph } from 'grommet'
+import { YouTubeEmbed } from '@next/third-parties/google'
 import { useTranslation } from '../../../../translations/i18n.js'
 import styled, { css } from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
@@ -7,11 +8,12 @@ import SubHeading from '../../../../components/HeadingForAboutNav/SubHeading.js'
 import MaxWidthContent from '../../../../components/MaxWidthContent/MaxWidthContent.js'
 
 const StyledLink = styled(Anchor)`
+  display: flex;
+  justify-content: center;
   width: 300px;
   border-radius: 5px;
   font-size: 0.8rem;
   padding: 8px 5px;
-  text-align: center;
   color: black;
   background-color: ${props => props.theme.global.colors['neutral-2']};
   font-weight: normal;
@@ -62,9 +64,9 @@ const VideoWrapper = styled(Box)`
 `
 
 const YOUTUBE_SOURCES = [
-  'https://www.youtube-nocookie.com/embed/CaTNIoJy4Dg?si=-rG8luvWD_FtFBc5', // PH TESS
-  'https://www.youtube-nocookie.com/embed/8lZiZoBcMjE?si=wPKWlRjQcKeTIOB5', // Wildcam Gorongosa
-  'https://www.youtube-nocookie.com/embed/B6diEbpEblQ?si=tt3jtcINdleiBT8g' // Backyard Worlds
+  ['CaTNIoJy4Dg', 'Around the Zoo – Planet Hunters TESS'],
+  ['8lZiZoBcMjE', 'Around the Zoo – Wildcam Gorongosa'],
+  ['B6diEbpEblQ', 'Around the Zoo – Backyard Worlds'],
 ]
 
 export default function Researchers() {
@@ -93,15 +95,13 @@ export default function Researchers() {
           pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
           overflow={{ horizontal: 'auto' }}
         >
-          {YOUTUBE_SOURCES.map(src => (
-            <VideoWrapper key={src}>
-              <iframe
-                width='100%'
+          {YOUTUBE_SOURCES.map(([id, title]) => (
+            <VideoWrapper key={id}>
+              <YouTubeEmbed
                 height='100%'
-                src={src}
-                title='TESS YouTube video player'
-                frameBorder='0'
-                allowFullScreen
+                width='100%'
+                videoid={id}
+                title={title}
               />
             </VideoWrapper>
           ))}

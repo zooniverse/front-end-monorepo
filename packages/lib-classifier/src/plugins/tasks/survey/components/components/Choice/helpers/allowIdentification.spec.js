@@ -1,5 +1,8 @@
 import allowIdentification from './allowIdentification'
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import { task } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+
+const mockTask = SurveyTask.TaskModel.create(task)
 
 // choice without questions: fire, id = 'FR'
 

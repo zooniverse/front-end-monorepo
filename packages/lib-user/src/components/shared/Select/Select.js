@@ -1,18 +1,25 @@
 import { Select as GrommetSelect, ThemeContext } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 import selectTheme from './theme'
 
 const DEFAULT_HANDLER = () => {}
 const DEFAULT_VALUE = { label: '', value: '' }
 
+const StyledSelect = styled(GrommetSelect)`
+  text-align: center;
+  text-transform: uppercase;
+`
+
 function Select({
   id = '',
   name = '',
   handleChange = DEFAULT_HANDLER,
   options = [],
-  value = DEFAULT_VALUE
+  value = DEFAULT_VALUE,
+  ...props
 }) {
   const [selected, setSelected] = useState(value)
 
@@ -27,16 +34,16 @@ function Select({
 
   return (
     <ThemeContext.Extend value={selectTheme}>
-      <GrommetSelect
-        a11yTitle={name}
+      <StyledSelect
         id={id}
         name={name}
         labelKey='label'
         onChange={({ option }) => handleSelect(option)}
         options={options}
         size='medium'
-        style={{ textAlign: 'center' }}
-        value={selected}
+        value={selected.label}
+        valueKey={{ key: 'label', reduce: true }}
+        {...props}
       />
     </ThemeContext.Extend>
   )

@@ -37,7 +37,7 @@ const StyledGroup = styled.g`
   }
 `
 
-function focusMark(markNode) {
+export function focusMark(markNode) {
   const hasFocus = markNode === document.activeElement
   if (!hasFocus) {
     const x = scrollX
@@ -49,12 +49,6 @@ function focusMark(markNode) {
 
 function defaultHandler() {
   return true
-}
-
-const defaultTheme = {
-  global: {
-    colors: {}
-  }
 }
 
 const Mark = forwardRef(function Mark(

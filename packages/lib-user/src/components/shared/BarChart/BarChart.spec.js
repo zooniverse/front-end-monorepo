@@ -38,7 +38,14 @@ describe('components > shared > BarChart', function () {
     it('should show the expected number of period labels', function () {
       render(<Last30DaysHoursStory />)
       
-      expect(screen.getAllByTestId('periodLabel')).to.have.lengthOf(2)
+      const periodLabels = screen.getAllByTestId('periodLabel')
+      const visiblePeriodLabels = periodLabels.filter(periodLabel => {
+        const className = periodLabel.className
+        return !className.includes('hidden-period-label')
+      })
+
+      // every fourth day within 30 days would be 8 days
+      expect(visiblePeriodLabels).to.have.lengthOf(8)
     })
   })
   

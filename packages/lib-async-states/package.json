@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
-    "chai": "~4.3.4",
-    "mocha": "~10.3.0",
+    "chai": "~4.5.0",
+    "mocha": "~10.8.2",
     "snazzy": "~9.0.0"
   },
   "engines": {

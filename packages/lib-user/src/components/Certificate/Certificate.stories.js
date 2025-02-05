@@ -7,29 +7,27 @@ export default {
 
 export const Default = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'ExampleUser',
     hours: 45,
     login: 'testUser',
+    name: 'Example T. User',
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2023-12-31',
-      startDate: '2015-07-01'
+      startDate: '2015-03-17'
     },
-    selectedProject: 'AllProjects'
+    selectedProject: undefined
   }
 }
 
 export const ProjectSpecific = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'Example User',
-    hours: 45,
+    hours: 12.8,
     login: 'testUser',
+    name: 'Example T. User',
     projectDisplayName: 'Test Project',
     selectedDateRange: {
       endDate: '2023-12-31',
-      startDate: '2015-07-01'
+      startDate: '2015-03-17'
     },
     selectedProject: 'Galaxy Zoo'
   }
@@ -37,30 +35,37 @@ export const ProjectSpecific = {
 
 export const ThisMonth = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'Example User',
-    hours: 45,
+    hours: 20.1,
     login: 'testUser',
+    name: 'Example T. User',
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2021-07-31',
       startDate: '2021-07-01'
     },
-    selectedProject: 'AllProjects'
+    selectedProject: undefined
   }
 }
 
 export const ThisYear = {
   args: {
-    creditedName: 'Example T. User',
-    displayName: 'Example User',
     hours: 45,
     login: 'testUser',
+    name: 'Example T. User',
     projectsCount: 67,
     selectedDateRange: {
       endDate: '2021-12-31',
       startDate: '2021-01-01'
     },
-    selectedProject: 'AllProjects'
+    selectedProject: undefined
+  }
+}
+
+export const ParamsValidationMessage = {
+  args: {
+    login: 'testUser',
+    name: 'Example T. User',
+    paramsValidationMessage: 'Invalid start_date, must be in the format YYYY-MM-DD',
+    selectedProject: undefined
   }
 }

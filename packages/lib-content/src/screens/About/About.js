@@ -43,7 +43,7 @@ function AboutPage() {
   const [activeSection, setActiveSection] = useState(0)
 
   const sidebarSections = [
-    { name: t('AboutPage.ourMission.heading'), slug: '' },
+    { name: t('AboutPage.ourMission.heading'), slug: 'our-mission' },
     { name: t('AboutPage.howItWorks.heading'), slug: 'how-it-works' },
     { name: t('AboutPage.mobile.sidebar'), slug: 'mobile' },
     { name: t('AboutPage.highlights.sidebar'), slug: 'highlights' },

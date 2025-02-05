@@ -1,5 +1,7 @@
 import { Box } from 'grommet'
 
+import { getStatsDateString } from '@utils'
+
 import { PROJECTS, USER } from '../../../../test/mocks/panoptes'
 import { STATS } from '../../../../test/mocks/stats.mock'
 
@@ -11,8 +13,8 @@ export default {
   decorators: [ComponentDecorator]
 }
 
-const todayUTC = new Date().toISOString().substring(0, 10)
-const sevenDaysAgoUTC = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10)
+const todayUTC = getStatsDateString(new Date())
+const sevenDaysAgoUTC = getStatsDateString(new Date(Date.now() - 6 * 24 * 60 * 60 * 1000))
 
 function ComponentDecorator (Story) {
   return (
@@ -37,8 +39,49 @@ export const Default = {
       endDate: todayUTC,
       startDate: sevenDaysAgoUTC
     },
-    selectedProject: 'AllProjects',
+    selectedProject: undefined,
     stats: STATS,
+    source: USER
+  }
+}
+
+export const NoStats = {
+  args: {
+    activeTab: 0,
+    onActive: () => {},
+    projects: [],
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
+    stats: {
+      data: [],
+      project_contributions: [],
+      time_spent: 0,
+      total_count: 0
+    },
+    source: USER
+  }
+}
+
+export const ParamsValidationMessage = {
+  args: {
+    activeTab: 0,
+    onActive: () => {},
+    paramsValidationMessage: 'Invalid project_id, must be a number',
+    projects: [],
+    selectedDateRange: {
+      endDate: todayUTC,
+      startDate: sevenDaysAgoUTC
+    },
+    selectedProject: undefined,
+    stats: {
+      data: [],
+      project_contributions: [],
+      time_spent: 0,
+      total_count: 0
+    },
     source: USER
   }
 }

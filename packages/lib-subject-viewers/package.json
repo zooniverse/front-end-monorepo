@@ -1,0 +1,67 @@
+{
+  "name": "@zooniverse/subject-viewers",
+  "description": "Zooniverse library for Subject Viewers",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "0.1.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./*": {
+      "import": "./dist/esm/*/index.js",
+      "require": "./dist/cjs/*/index.js"
+    }
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zooniverse/front-end-monorepo.git",
+    "directory": "packages/lib-subject-viewers"
+  },
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:es6",
+    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "lint": "zoo-standard --fix | snazzy",
+    "prepare": "yarn build",
+    "storybook": "storybook dev -p 6008",
+    "build-storybook": "storybook build",
+    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
+    "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
+    "watch": "watch 'yarn build' ./src",
+    "watch:test": "watch 'yarn test' ./src"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "three": "^0.171.0"
+  },
+  "peerDependencies": {
+    "@zooniverse/async-states": "~0.0.1",
+    "@zooniverse/grommet-theme": "3.x.x",
+    "grommet": "2.x.x",
+    "grommet-icons": "4.x.x",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "~7.6.11",
+    "@storybook/addon-essentials": "~7.6.11",
+    "@storybook/react": "~7.6.11",
+    "canvas": "^2.11.2",
+    "chai": "~4.5.0",
+    "chai-dom": "~1.12.0",
+    "dirty-chai": "~2.0.1",
+    "mocha": "~10.8.2",
+    "sinon": "~19.0.2",
+    "sinon-chai": "~3.7.0",
+    "storybook": "~7.6.11",
+    "watch": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=20.5"
+  }
+}

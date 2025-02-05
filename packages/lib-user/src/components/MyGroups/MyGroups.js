@@ -1,30 +1,83 @@
-import { Grid, ResponsiveContext } from 'grommet'
-import { node } from 'prop-types'
-import { useContext } from 'react'
+import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Box, Grid, Paragraph } from 'grommet'
+import { arrayOf, bool, shape, string } from 'prop-types'
+import styled from 'styled-components'
+import { useTranslation, Trans } from '../../translations/i18n.js'
+
+import GroupCardList from './components/GroupCardList'
+
+const StyledGrid = styled(Grid)`
+  gap: 20px 40px;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+
+  @media (width < 80rem) {
+    grid-template-columns: 1fr;
+  }
+`
 
 function MyGroups({
-  children
+  error = undefined,
+  groups = [],
+  loading = false
 }) {
-  const size = useContext(ResponsiveContext)
-  const columnCount = size === 'small' ? 1 : 2
-
+  const { t } = useTranslation()
   return (
-    <Grid
-      as='ul'
-      columns={{
-        count: columnCount,
-        size: 'auto'
-      }}
-      gap={{ row: '20px', column: '40px' }}
-      pad='none'
-    >
-      {children}
-    </Grid>
+    <>
+      {loading ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <Loader />
+        </Box>
+      ) : error ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <SpacedText uppercase={false}>
+            {t('MyGroups.error')}
+          </SpacedText>
+          <SpacedText uppercase={false}>
+            {error?.message}
+          </SpacedText>
+        </Box>
+      ) : !groups?.length ? (
+        <Box
+          align='center'
+          fill
+          justify='center'
+          pad='medium'
+        >
+          <Paragraph margin={{ top: '0', bottom: '20px' }} textAlign='center'>
+            <Trans i18nKey='MyGroups.noGroups' components={[ <br key='line-break' />]} />
+          </Paragraph>
+        </Box>
+      ) : (
+        <StyledGrid
+          forwardedAs='ul'
+          pad='none'
+        >
+          <GroupCardList groups={groups} />
+        </StyledGrid>
+      )}
+    </>
   )
 }
 
 MyGroups.propTypes = {
-  children: node
+  groups: arrayOf(
+    shape({
+      id: string,
+      display_name: string
+    })
+  ),
+  loading: bool
 }
 
 export default MyGroups

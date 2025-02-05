@@ -1,7 +1,6 @@
 import { Box } from 'grommet'
 
 import MyGroups from './MyGroups'
-import GroupCard from './components/GroupCard/GroupCard'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles'
 
@@ -29,6 +28,7 @@ function ComponentDecorator(Story) {
         light: 'neutral-6'
       }}
       fill
+      overflow='auto'
       pad='30px'
     >
       <Story />
@@ -38,20 +38,13 @@ function ComponentDecorator(Story) {
 }
 
 export const Default = {
-  render: () => (
-    <MyGroups>
-      {groups.map(group => (
-        <GroupCard
-          key={group.id}
-          classifications={Math.floor(Math.random() * 1000)}
-          contributors={Math.floor(Math.random() * 10)}
-          displayName={group.display_name}
-          hours={Math.floor(Math.random() * 50)}
-          id={group.id}
-          projects={Math.floor(Math.random() * 10)}
-          role={group.roles[0]}
-        />
-      ))}
-    </MyGroups>
-  )
+  args: {
+    groups: groups,
+    loading: false
+  }
+}
+
+export const Empty = {
+  groups: [],
+  loading: false
 }

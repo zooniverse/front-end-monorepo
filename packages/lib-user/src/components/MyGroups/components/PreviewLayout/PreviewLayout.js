@@ -1,6 +1,8 @@
-import { Loader } from '@zooniverse/react-components'
-import { Box, Paragraph } from 'grommet'
+import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Anchor, Box, Paragraph } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
+import Link from 'next/link'
+import { useTranslation, Trans } from '../../../../translations/i18n.js'
 
 import { ContentBox } from '@components/shared'
 import GroupCardContainer from '../GroupCard/GroupCardContainer.js'
@@ -14,11 +16,12 @@ export default function PreviewLayout({
   loading = false,
   handleGroupModal = DEFAULT_HANDLER
 }) {
+  const { t } = useTranslation()
   return (
     <ContentBox
-      linkLabel='See all'
-      linkProps={{ href: `/users/${authUser?.login}/groups` }}
-      title='My Groups'
+      linkLabel={t('MyGroups.PreviewLayout.seeAll')}
+      linkProps={{ as: Link, href: `/users/${authUser?.login}/groups` }}
+      title={t('MyGroups.title')}
     >
       {loading && (
         <Box fill justify='center' align='center'>
@@ -44,15 +47,26 @@ export default function PreviewLayout({
         </Box>
       ) : (
         <Box fill justify='center' align='center'>
-          <Paragraph margin={{ top: '0', bottom: '20px' }}>
-            You are not a member of any Groups.
-          </Paragraph>
-          <Paragraph margin={{ top: '0', bottom: '20px' }}>
-            Create one below
+          <Paragraph margin={{ top: '0', bottom: '20px' }} textAlign='center'>
+            <Trans i18nKey='MyGroups.noGroups' components={[ <br key='line-break' />]} />
           </Paragraph>
         </Box>
       )}
-      <CreateButton onClick={handleGroupModal} />
+      <Box direction='row' justify='between'>
+        <Anchor
+          href='https://blog.zooniverse.org/2024/09/17/launch-news-community-building-pages'
+          color={{
+            dark: 'light-4',
+            light: 'dark-5'
+          }}
+          label={
+            <SpacedText size='1rem' uppercase={false}>
+              {t('MyGroups.learnMore')}
+            </SpacedText>
+          }
+        />
+        <CreateButton onClick={handleGroupModal} />
+      </Box>
     </ContentBox>
   )
 }
