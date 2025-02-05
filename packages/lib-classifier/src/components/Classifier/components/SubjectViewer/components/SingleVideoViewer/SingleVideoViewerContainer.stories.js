@@ -63,14 +63,12 @@ export default {
   component: SingleVideoViewerContainer
 }
 
-export const Default = ({ onError, onReady }) => {
+export const Default = () => {
   return (
     <Provider classifierStore={noDrawingStore}>
       <Box width='large'>
         <SingleVideoViewerContainer
           loadingState='success'
-          onError={onError}
-          onReady={onReady}
           subject={noDrawingStore.subjects.active}
         />
       </Box>
@@ -78,14 +76,12 @@ export const Default = ({ onError, onReady }) => {
   )
 }
 
-export const WithDrawing = ({ onError, onReady }) => {
+export const WithDrawing = () => {
   return (
     <Provider classifierStore={drawingStore}>
       <Box width='large'>
         <SingleVideoViewerContainer
           loadingState='success'
-          onError={onError}
-          onReady={onReady}
           subject={drawingStore.subjects.active}
         />
       </Box>
@@ -93,14 +89,12 @@ export const WithDrawing = ({ onError, onReady }) => {
   )
 }
 
-export const WithDrawingNoSound = ({ onError, onReady }) => {
+export const WithDrawingNoSound = () => {
   return (
     <Provider classifierStore={drawingNoSoundStore}>
       <Box width='large'>
         <SingleVideoViewerContainer
           loadingState='success'
-          onError={onError}
-          onReady={onReady}
           subject={drawingNoSoundStore.subjects.active}
         />
       </Box>
@@ -108,10 +102,10 @@ export const WithDrawingNoSound = ({ onError, onReady }) => {
   )
 }
 
-export const NoSubject = ({ onError, onReady }) => {
+export const NoSubject = () => {
   return (
     <Box width='large'>
-      <SingleVideoViewerContainer onError={onError} onReady={onReady} />
+      <SingleVideoViewerContainer />
     </Box>
   )
 }
