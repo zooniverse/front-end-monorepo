@@ -1,4 +1,4 @@
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
 import { useState, useRef } from 'react'
@@ -22,12 +22,16 @@ const DrawingLayer = styled.div`
   cursor: default;
 `
 
+const DEFAULT_HANDLER = () => true
+
 function VideoWithDrawing({
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
-  onKeyDown = () => true,
-  subject
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  setVolume = DEFAULT_HANDLER,
+  subject,
+  volume = 1
 }) {
   const [duration, setDuration] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
@@ -35,7 +39,6 @@ function VideoWithDrawing({
   const [isSeeking, setIsSeeking] = useState(false)
   const [played, setPlayed] = useState(0)
   const [playbackSpeed, setPlaybackSpeed] = useState('1x')
-  const [volume, setVolume] = useState(1)
   const [volumeDisabled, setVolumeDisabled] = useState(true)
   const [volumeOpen, toggleVolumeOpen] = useState(true)
 
@@ -109,7 +112,7 @@ function VideoWithDrawing({
   }
 
   const handleVolume = e => {
-    setVolume(e.target.value)
+    setVolume(Number(e.target.value))
   }
 
   const handleSetPlaybackSpeed = speed => {
@@ -282,9 +285,11 @@ VideoWithDrawing.propTypes = {
   onError: func,
   onKeyDown: func,
   onReady: func,
+  setVolume: func,
   subject: shape({
     locations: arrayOf(locationValidator)
-  })
+  }),
+  volume: number
 }
 
 export default VideoWithDrawing
