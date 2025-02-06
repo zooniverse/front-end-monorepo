@@ -233,7 +233,7 @@ const VideoController = ({
                 a11yTitle={t(volumeButtonLabel)}
                 disabled={volumeDisabled}
                 icon={
-                  volume <= 0 ? (
+                  volume <= 0 || volumeDisabled ? (
                     <VolumeMute size={iconSize} color={color} />
                   ) : volume <= 0.5 ? (
                     <VolumeLow size={iconSize} color={color} />
