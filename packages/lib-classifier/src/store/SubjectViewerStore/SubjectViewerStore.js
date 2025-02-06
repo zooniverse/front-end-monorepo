@@ -20,6 +20,7 @@ const SubjectViewer = types
     rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0),
     separateFramesView: types.optional(types.boolean, false),
+    videoSpeed: types.optional(types.string, '1x'),
     volume: types.optional(types.number, 1)
   })
 
@@ -199,6 +200,10 @@ const SubjectViewer = types
 
       setSeparateFramesView(mode) {
         self.separateFramesView = mode
+      },
+
+      setVideoSpeed(value) {
+        self.videoSpeed = value
       },
 
       setVolume(value) {

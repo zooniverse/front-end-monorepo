@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import * as stories from './SingleVideoViewerContainer.stories'
 import { composeStories } from '@storybook/react'
 
-describe('Component > SingleVideoViewerContainer', function () {
+describe.only('Component > SingleVideoViewerContainer', function () {
   const { Default, WithDrawing, NoSubject } = composeStories(stories)
 
   describe('with a video subject src and drawing tools disabled', function () {

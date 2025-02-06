@@ -29,8 +29,10 @@ function VideoWithDrawing({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
+  setVideoSpeed = DEFAULT_HANDLER,
   setVolume = DEFAULT_HANDLER,
   subject,
+  videoSpeed = '1x',
   volume = 1
 }) {
   const [duration, setDuration] = useState(0)
@@ -38,7 +40,6 @@ function VideoWithDrawing({
   const [isPlaying, setIsPlaying] = useState(false)
   const [isSeeking, setIsSeeking] = useState(false)
   const [played, setPlayed] = useState(0)
-  const [playbackSpeed, setPlaybackSpeed] = useState('1x')
   const [volumeDisabled, setVolumeDisabled] = useState(true)
   const [volumeOpen, toggleVolumeOpen] = useState(true)
 
@@ -116,7 +117,7 @@ function VideoWithDrawing({
   }
 
   const handleSetPlaybackSpeed = speed => {
-    setPlaybackSpeed(speed)
+    setVideoSpeed(speed)
   }
 
   const handlePlay = () => {
@@ -183,7 +184,7 @@ function VideoWithDrawing({
     onError(error)
   }
 
-  const sanitizedSpeed = Number(playbackSpeed.slice(0, -1))
+  const sanitizedSpeed = Number(videoSpeed.slice(0, -1))
 
   // For drawing tools
   const canvas = transformLayer?.current
@@ -271,7 +272,7 @@ function VideoWithDrawing({
         onSpeedChange={handleSetPlaybackSpeed}
         onVolumeChange={handleVolume}
         played={played}
-        playbackSpeed={playbackSpeed}
+        playbackSpeed={videoSpeed}
         volume={volume}
         volumeDisabled={volumeDisabled}
         volumeOpen={volumeOpen}
@@ -285,10 +286,12 @@ VideoWithDrawing.propTypes = {
   onError: func,
   onKeyDown: func,
   onReady: func,
+  setVideoSpeed: func,
   setVolume: func,
   subject: shape({
     locations: arrayOf(locationValidator)
   }),
+  videoSpeed: string,
   volume: number
 }
 

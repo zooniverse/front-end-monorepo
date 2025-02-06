@@ -199,6 +199,20 @@ describe('Model > SubjectViewerStore', function () {
     })
   })
 
+  describe('Actions > setVideoSpeed', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should set a new video playback speed', function () {
+      expect(subjectViewerStore.videoSpeed).to.equal('1x')
+      subjectViewerStore.setVideoSpeed('0.5x')
+      expect(subjectViewerStore.videoSpeed).to.equal('0.5x')
+    })
+  })
+
   describe('Actions > setVolume', function () {
     let subjectViewerStore
 
