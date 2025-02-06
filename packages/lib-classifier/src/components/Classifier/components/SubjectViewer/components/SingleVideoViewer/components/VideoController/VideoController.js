@@ -18,7 +18,7 @@ import {
   VolumeMute,
   Pause
 } from 'grommet-icons'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 import controlsTheme from './theme'
@@ -27,15 +27,36 @@ import formatTimeStamp from '@helpers/formatTimeStamp'
 const iconSize = '1rem'
 const color = { light: 'dark-5', dark: 'white' }
 
+const StyledButton = styled(Button)`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    ${props =>
+      props.theme.dark
+        ? css`
+            background-color: ${props.theme.global.colors['neutral-1']};
+          `
+        : css`
+            background-color: ${props.theme.global.colors['accent-1']};
+          `}
+
+    > svg {
+      stroke: white;
+    }
+  }
+`
+
 const SpeedSelect = styled(Select)`
   display: flex;
   align-content: center;
   width: 2rem;
   text-align: right;
-`
-
-const VolumeButton = styled(Button)`
-  padding: 0 20px;
 `
 
 const VolumeContainer = styled(Box)`
@@ -52,8 +73,8 @@ const VolumeRange = styled(RangeInput)`
       ? props.theme.global.colors['dark-1']
       : props.theme.global.colors['light-1']};
   position: absolute;
-  left: -40%;
-  bottom: 62px;
+  left: -30px;
+  bottom: 74px;
   transform: rotate(-90deg);
 `
 
@@ -119,7 +140,7 @@ const VideoController = ({
   return (
     <Box
       background={{ light: 'white', dark: 'dark-1' }}
-      pad={{ horizontal: 'medium', vertical: '12px' }}
+      pad={{ horizontal: 'small' }}
       border={[
         {
           color: {
@@ -145,7 +166,7 @@ const VideoController = ({
         >
           <Box direction='row'>
             {/* Play/Pause */}
-            <Button
+            <StyledButton
               a11yTitle={t(playPauseLabel)}
               onClick={onPlayPause}
               icon={
@@ -191,7 +212,7 @@ const VideoController = ({
           </Box>
 
           {/* Slider */}
-          <Box direction='row' align='center'>
+          <Box direction='row' align='center' margin={{ right: '10px' }}>
             <RangeInput
               a11yTitle={t('SubjectViewer.VideoController.scrubber')}
               min={0}
@@ -208,7 +229,7 @@ const VideoController = ({
           <Box align='center' direction='row' fill>
             <VolumeContainer>
               {/* Volume */}
-              <VolumeButton
+              <StyledButton
                 a11yTitle={t(volumeButtonLabel)}
                 disabled={volumeDisabled}
                 icon={
@@ -240,7 +261,7 @@ const VideoController = ({
 
             {/* Full Screen */}
             {/* {!enableDrawing && ( */}
-            <Button
+            <StyledButton
               a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
               icon={<Expand size={iconSize} color={color} />}
               plain

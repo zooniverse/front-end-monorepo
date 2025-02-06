@@ -16,13 +16,12 @@ const controlsTheme = {
   },
   rangeInput: {
     track: {
-      color: { light: 'black', dark: 'white' },
       height: '3px',
       lower: {
-        color: { light: 'black', dark: 'light-3' }
+        color: { light: 'black', dark: 'light-1' }
       },
       upper: {
-        color: { light: 'dark-5', dark: 'light-2' }
+        color: { light: 'dark-5', dark: 'dark-6' }
       }
     },
     thumb: {
