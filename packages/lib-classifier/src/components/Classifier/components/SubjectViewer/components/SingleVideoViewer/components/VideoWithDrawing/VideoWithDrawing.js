@@ -41,7 +41,6 @@ function VideoWithDrawing({
   const [isSeeking, setIsSeeking] = useState(false)
   const [played, setPlayed] = useState(0)
   const [volumeDisabled, setVolumeDisabled] = useState(true)
-  const [volumeOpen, toggleVolumeOpen] = useState(true)
 
   // For drawing tools
   const [clientWidth, setClientWidth] = useState(0)
@@ -112,10 +111,6 @@ function VideoWithDrawing({
     setIsPlaying(!isPlaying)
   }
 
-  const handleVolume = e => {
-    setVolume(Number(e.target.value))
-  }
-
   const handleSetPlaybackSpeed = speed => {
     setVideoSpeed(speed)
   }
@@ -173,11 +168,6 @@ function VideoWithDrawing({
         console.log(error)
       }
     }
-  }
-
-  const handleVolumeOpen = () => {
-    const prevVolumeOpen = volumeOpen
-    toggleVolumeOpen(!prevVolumeOpen)
   }
 
   const handlePlayerError = error => {
@@ -267,15 +257,13 @@ function VideoWithDrawing({
         handleSeekChange={handleSeekChange}
         handleSeekMouseDown={handleSeekMouseDown}
         handleSeekMouseUp={handleSeekMouseUp}
-        handleVolumeOpen={handleVolumeOpen}
         onPlayPause={handlePlayPause}
         onSpeedChange={handleSetPlaybackSpeed}
-        onVolumeChange={handleVolume}
         played={played}
-        playbackSpeed={videoSpeed}
+        playbackSpeed={playbackSpeed}
+        setVolume={setVolume}
         volume={volume}
         volumeDisabled={volumeDisabled}
-        volumeOpen={volumeOpen}
       />
     </>
   )
