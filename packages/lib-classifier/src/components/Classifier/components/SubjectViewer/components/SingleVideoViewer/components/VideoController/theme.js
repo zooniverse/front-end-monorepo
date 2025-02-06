@@ -10,30 +10,23 @@ const controlsTheme = {
     spacing: '10px'
   },
   select: {
-    background: 'black',
     icons: {
-      color: 'white',
       margin: '0'
-    },
-    options: {
-      text: {
-        size: 'small'
-      }
     }
   },
   rangeInput: {
     track: {
-      color: 'accent-1',
+      color: { light: 'black', dark: 'white' },
       height: '3px',
       lower: {
-        color: 'white'
+        color: { light: 'black', dark: 'light-3' }
       },
       upper: {
-        color: 'dark-4'
+        color: { light: 'dark-5', dark: 'light-2' }
       }
     },
     thumb: {
-      color: 'white'
+      color: 'neutral-1'
     }
   }
 }
