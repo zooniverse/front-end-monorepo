@@ -42,15 +42,16 @@ function SelectCollection ({
   }
 
   function collectionNameFilter(collection) {
-    const displayNameLowerCase = collection.display_name.toLowerCase()
+    const displayNameLowerCase = collection?.display_name?.toLowerCase()
+    if (!displayNameLowerCase) return false
     return displayNameLowerCase.includes(searchText.toLowerCase())
   }
 
   function collectionLabel(collection) {
-    if (collection.links.owner.id === userID) {
-      return collection.display_name
+    if (collection?.links?.owner?.id === userID) {
+      return collection?.display_name
     }
-    return `${collection.display_name} (${collection.links.owner.display_name})`
+    return `${collection?.display_name} (${collection?.links?.owner?.display_name})`
   }
 
   /*
