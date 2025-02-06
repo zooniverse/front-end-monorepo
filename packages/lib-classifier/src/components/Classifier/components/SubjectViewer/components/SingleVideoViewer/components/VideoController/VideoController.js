@@ -221,7 +221,6 @@ const VideoController = ({
                   )
                 }
                 onClick={() => setVolumeOpen(!volumeOpen)}
-                onFocus={() => setVolumeOpen(true)}
                 onKeyDown={handleVolumeKeys}
                 plain
               />

@@ -104,13 +104,11 @@ describe('Component > VideoController', function () {
 
   it('should have a volume range input', async function () {
     const user = userEvent.setup()
-    const handleVolumeOpenSpy = sinon.spy()
 
     const { rerender } = render(
       <Grommet theme={controlsTheme}>
         <VideoController
           duration={subjectDuration}
-          handleVolumeOpen={handleVolumeOpenSpy}
           played={subjectTimeStamp}
           volumeOpen={false}
         />
@@ -125,8 +123,6 @@ describe('Component > VideoController', function () {
       keys: '[MouseLeft]',
       target: volumeButton
     })
-
-    expect(handleVolumeOpenSpy).to.have.been.calledOnce()
 
     rerender(
       <Grommet theme={controlsTheme}>
