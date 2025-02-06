@@ -198,6 +198,7 @@ function VideoWithDrawing({
             onProgress={handleVideoProgress}
             playing={isPlaying}
             playbackRate={sanitizedSpeed}
+            playsinline
             progressInterval={100} // milliseconds
             ref={playerRef}
             width='100%'
