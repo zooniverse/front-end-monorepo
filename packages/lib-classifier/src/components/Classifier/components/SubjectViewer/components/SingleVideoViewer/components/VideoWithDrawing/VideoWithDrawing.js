@@ -260,7 +260,7 @@ function VideoWithDrawing({
         onPlayPause={handlePlayPause}
         onSpeedChange={handleSetPlaybackSpeed}
         played={played}
-        playbackSpeed={playbackSpeed}
+        playbackSpeed={videoSpeed}
         setVolume={setVolume}
         volume={volume}
         volumeDisabled={volumeDisabled}
