@@ -122,7 +122,7 @@ const VideoController = ({
   }
 
   const onVolumeChange = e => {
-    setVolume(e.target.value)
+    setVolume(Number(e.target.value))
   }
 
   const handleVolumeKeys = e => {

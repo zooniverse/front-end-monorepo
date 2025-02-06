@@ -104,8 +104,10 @@ export const WithDrawingNoSound = () => {
 
 export const NoSubject = () => {
   return (
-    <Box width='large'>
-      <SingleVideoViewerContainer />
-    </Box>
+    <Provider classifierStore={drawingStore}>
+      <Box width='large'>
+        <SingleVideoViewerContainer />
+      </Box>
+    </Provider>
   )
 }

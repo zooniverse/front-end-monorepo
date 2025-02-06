@@ -36,7 +36,7 @@ describe('Model > SubjectViewerStore', function () {
   describe('Views > disableImageToolbar', function () {
     describe('when the frame is a subject location of type image', function () {
       let subjectViewerStore
-      
+
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
 
       before(function () {
@@ -51,7 +51,7 @@ describe('Model > SubjectViewerStore', function () {
 
     describe('when the frame is a subject location of type text', function () {
       let subjectViewerStore
-      
+
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'text/plain': 'https://foo.bar/subjectText.txt' }] })
 
       before(function () {
@@ -66,7 +66,7 @@ describe('Model > SubjectViewerStore', function () {
 
     describe('when the frame is a subject location of type video', function () {
       let subjectViewerStore
-      
+
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'video/mp4': 'https://foo.bar/subjectVideo.mp4' }] })
 
       before(function () {
@@ -196,6 +196,34 @@ describe('Model > SubjectViewerStore', function () {
       expect(subjectViewerStore.flipbookSpeed).to.equal(1)
       subjectViewerStore.setFlipbookSpeed(2)
       expect(subjectViewerStore.flipbookSpeed).to.equal(2)
+    })
+  })
+
+  describe('Actions > setVideoSpeed', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should set a new video playback speed', function () {
+      expect(subjectViewerStore.videoSpeed).to.equal('1x')
+      subjectViewerStore.setVideoSpeed('0.5x')
+      expect(subjectViewerStore.videoSpeed).to.equal('0.5x')
+    })
+  })
+
+  describe('Actions > setVolume', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should set a new volume', function () {
+      expect(subjectViewerStore.volume).to.equal(1)
+      subjectViewerStore.setVolume(0.5)
+      expect(subjectViewerStore.volume).to.equal(0.5)
     })
   })
 
