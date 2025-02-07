@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Revert, Trash } from 'grommet-icons'
+import { Revert } from 'grommet-icons'
+import DeleteIcon from './DeleteIcon'
 import styled from 'styled-components'
 
 const StyledMarkButtons = styled.div`
@@ -78,7 +79,7 @@ export const MarkButtons = ({ annotations }) => {
         className={`icon ${isActive ? 'active' : 'inactive'}`}
         onClick={markUndo}
       />
-      <Trash
+      <DeleteIcon
         className={`icon ${isActive ? 'active' : 'inactive'}`}
         onClick={markDelete}
       />
