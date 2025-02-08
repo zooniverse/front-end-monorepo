@@ -7,7 +7,7 @@ const GUIDE_WIDTH = 1
 
 function Ellipse({ active, mark, onFinish, scale }) {
   const { x_center, y_center, rx, ry } = mark
-  const guideWidth = GUIDE_WIDTH / scale
+  const guideWidth = GUIDE_WIDTH
 
   function onXHandleDrag(e) {
     const r = mark.getDistance(x_center, y_center, e.x, e.y)

@@ -16,7 +16,7 @@ const CROSSHAIR_WIDTH = 1
 
 function Point({ active, children, mark, onFinish, scale }) {
   const { size } = mark.tool
-  const crosshairSpace = CROSSHAIR_SPACE / scale
+  const crosshairSpace = CROSSHAIR_SPACE
   const crosshairWidth = CROSSHAIR_WIDTH
   const selectedRadius = SELECTED_RADIUS[size] / scale
   const radius = RADIUS[size] / scale

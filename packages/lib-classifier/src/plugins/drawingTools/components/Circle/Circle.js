@@ -7,7 +7,7 @@ const GUIDE_WIDTH = 1
 
 function Circle({ active, mark, onFinish, scale }) {
   const { x_center, y_center, r } = mark
-  const guideWidth = GUIDE_WIDTH / scale
+  const guideWidth = GUIDE_WIDTH
 
   // x, y coords for handle
   const handleX = r
