@@ -30,6 +30,7 @@ function Rectangle({ active, mark, onFinish, scale }) {
         width={width}
         height={height}
         data-testid='rectangle-element'
+        vectorEffect={'non-scaling-stroke'}
       />
       <rect
         x={x_left}

@@ -22,7 +22,7 @@ function Circle({ active, mark, onFinish, scale }) {
   return (
     <g onPointerUp={active ? onFinish : undefined}>
       {/* x-translation and y-translation are set in Mark.js component: transform  */}
-      <circle r={r} data-testid='circle-element' />
+      <circle r={r} data-testid='circle-element' vectorEffect={'non-scaling-stroke'} />
       {active && (
         <g>
           <line
