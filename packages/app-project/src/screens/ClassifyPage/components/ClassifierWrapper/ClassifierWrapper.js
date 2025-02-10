@@ -11,8 +11,7 @@ import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
-import useYourProjectStats from '../YourProjectStats/useYourProjectStats.js'
-import incrementStats from '../YourProjectStats/helpers/incrementStats.js'
+import { updateYourStats } from '../YourProjectStats/useYourProjectStats.js'
 
 function onError(error, errorInfo = {}) {
   logToSentry(error, errorInfo)
@@ -61,18 +60,17 @@ export default function ClassifierWrapper({
     Add the recently classified subject to the signed-in user's Recents.
   */
   const projectID = project?.id
-  const { mutate } = useYourProjectStats({ projectID, userID })
 
   const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
     personalization.incrementSessionCount()
-    incrementStats(mutate, projectID, userID)
+    updateYourStats(projectID, userID)
     addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
-  }, [addRecents, mutate, projectID, userID])
+  }, [addRecents, projectID, userID])
 
   /*
     If the page URL contains a subject ID, update that ID when the classification subject changes.
