@@ -40,10 +40,11 @@ function SingleImageCanvas({
         onKeyDown={onKeyDown}
       >
         <g
+          data-testid='single-image-canvas-visxzoom-transform-group'
           transform={transform}
         >
           <g
-            data-testid='single-image-canvas-rotation-group'
+            data-testid='single-image-canvas-rotation-transform-group'
             transform={rotationTransform}
           >
             <SVGImage
