@@ -15,7 +15,7 @@ function RotateRectangle({
   scale = 1
 }) {
   const { angle, height, width, x_center, y_center } = mark
-  const guideWidth = GUIDE_WIDTH / scale
+  const guideWidth = GUIDE_WIDTH
 
   const x_left = x_center - width / 2
   const x_right = x_center + width / 2
@@ -41,14 +41,15 @@ function RotateRectangle({
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <rect x={x_left} y={y_top} width={width} height={height} />
+      <rect x={x_left} y={y_top} width={width} height={height} vectorEffect={'non-scaling-stroke'} />
       <rect
         x={x_left}
         y={y_top}
         width={width}
         height={height}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {/* Rotate Handle */}
       {active && (
@@ -60,6 +61,7 @@ function RotateRectangle({
             y2={y_center}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
+            vectorEffect={'non-scaling-stroke'}
           />
           <RotateHandle
             dragMove={onRotateDrag}

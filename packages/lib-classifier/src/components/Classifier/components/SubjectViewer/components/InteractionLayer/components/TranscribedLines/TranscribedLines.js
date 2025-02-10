@@ -12,7 +12,7 @@ import { useTranslation } from '@translations/i18n'
 import TooltipIcon from './components/TooltipIcon'
 import ConsensusPopup from './components/ConsensusPopup'
 
-export const ConsensusLine = styled('g')`
+export const ConsensusLine = styled.g`
   cursor: pointer;
   filter: drop-shadow(1px 1px 4px #5c5c5c);
 
@@ -21,7 +21,7 @@ export const ConsensusLine = styled('g')`
   }
 
   &:focus-visible {
-    ${props => css`outline: solid 4px ${props.focusColor};`}
+    ${props => css`outline: solid medium ${props.focusColor};`}
   }
 
   &[aria-disabled="true"] {

@@ -9,6 +9,10 @@ const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
 
 const StyledGroup = styled.g`
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
   &:hover {
     cursor: pointer;
   }
@@ -74,9 +78,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   // The model uses this internally
   mark.setScale(scale)
 
-  // Stroke width varies as a function of the zoom level. Ranges 1-5.75
-  const STROKE_WIDTH = (scale < 3) ? (4 - scale) : 1
-
   function onDoubleClick(event) {
     if (active) {
       mark.splicePathDragPoint(createPoint(event))
@@ -118,24 +119,19 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         return <Fragment key={i}>
           <path // Main Path that's visible
             d={pointsToPath(pts)}
-            style={{
-              strokeWidth: STROKE_WIDTH,
-              strokeLinejoin: 'round',
-              strokeLinecap: 'round',
-              fill: 'none',
-              strokeOpacity: 1,
-            }}
+            fill='none'
+            strokeOpacity={1}
+            vectorEffect={'non-scaling-stroke'}
           />
           <title>{getHoverText()}</title>
           <path // Main Path that's clickable. Not visible as its thick for click purposes
             d={pointsToPath(pts)}
             onDoubleClick={onDoubleClick}
             onPointerDown={onPointerDown}
-            style={{
-              strokeOpacity: '0',
-              strokeWidth: GRAB_STROKE_WIDTH / scale
-            }}
             fill='none'
+            strokeWidth={GRAB_STROKE_WIDTH}
+            strokeOpacity={0}
+            vectorEffect={'non-scaling-stroke'}
           />
         </Fragment>
       })}
@@ -143,8 +139,8 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       <path // Clipped Path
         d={pointsToPath(mark.splicePathRender)}
         strokeDasharray='2 2'
-        strokeWidth={STROKE_WIDTH}
         opacity=".4"
+        vectorEffect={'non-scaling-stroke'}
       />
 
       {active && mark.closePoint &&
@@ -153,6 +149,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           r={FINISHER_RADIUS / scale}
           cx={mark.closePoint.x}
           cy={mark.closePoint.y}
+          vectorEffect={'non-scaling-stroke'}
         />
       }
 

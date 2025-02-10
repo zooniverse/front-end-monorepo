@@ -7,7 +7,7 @@ const GUIDE_WIDTH = 1
 
 function Circle({ active, mark, onFinish, scale }) {
   const { x_center, y_center, r } = mark
-  const guideWidth = GUIDE_WIDTH / scale
+  const guideWidth = GUIDE_WIDTH
 
   // x, y coords for handle
   const handleX = r
@@ -22,7 +22,7 @@ function Circle({ active, mark, onFinish, scale }) {
   return (
     <g onPointerUp={active ? onFinish : undefined}>
       {/* x-translation and y-translation are set in Mark.js component: transform  */}
-      <circle r={r} data-testid='circle-element' />
+      <circle r={r} data-testid='circle-element' vectorEffect={'non-scaling-stroke'} />
       {active && (
         <g>
           <line
@@ -32,6 +32,7 @@ function Circle({ active, mark, onFinish, scale }) {
             y2={handleY}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
+            vectorEffect={'non-scaling-stroke'}
           />
           <DragHandle
             scale={scale}

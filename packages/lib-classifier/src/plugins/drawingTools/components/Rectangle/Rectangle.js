@@ -30,14 +30,16 @@ function Rectangle({ active, mark, onFinish, scale }) {
         width={width}
         height={height}
         data-testid='rectangle-element'
+        vectorEffect={'non-scaling-stroke'}
       />
       <rect
         x={x_left}
         y={y_top}
         width={width}
         height={height}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {active && (
         <DragHandle
