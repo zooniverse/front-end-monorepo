@@ -13,14 +13,15 @@ function Line({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} />
+      <line x1={x1} y1={y1} x2={x2} y2={y2} vectorEffect={'non-scaling-stroke'} />
       <line
         x1={x1}
         y1={y1}
         x2={x2}
         y2={y2}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {active && (
         <DragHandle

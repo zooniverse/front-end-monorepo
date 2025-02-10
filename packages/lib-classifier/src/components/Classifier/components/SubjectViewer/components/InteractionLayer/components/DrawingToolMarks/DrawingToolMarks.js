@@ -89,7 +89,6 @@ function DrawingToolMarks({
         onFinish={onFinish}
         onSelect={selectMark}
         pointerEvents={isActive ? 'painted' : pointerEvents}
-        scale={scale}
       >
         <MarkingComponent
           active={isActive}

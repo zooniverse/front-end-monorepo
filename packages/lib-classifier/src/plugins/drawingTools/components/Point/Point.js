@@ -16,8 +16,8 @@ const CROSSHAIR_WIDTH = 1
 
 function Point({ active, children, mark, onFinish, scale }) {
   const { size } = mark.tool
-  const crosshairSpace = CROSSHAIR_SPACE / scale
-  const crosshairWidth = CROSSHAIR_WIDTH / scale
+  const crosshairSpace = CROSSHAIR_SPACE
+  const crosshairWidth = CROSSHAIR_WIDTH
   const selectedRadius = SELECTED_RADIUS[size] / scale
   const radius = RADIUS[size] / scale
 
@@ -29,6 +29,7 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2='0'
         y2={-1 * selectedRadius}
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1={-1 * crosshairSpace * selectedRadius}
@@ -36,6 +37,7 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2={-1 * selectedRadius}
         y2='0'
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1='0'
@@ -43,6 +45,7 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2='0'
         y2={selectedRadius}
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1={crosshairSpace * selectedRadius}
@@ -50,9 +53,9 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2={selectedRadius}
         y2='0'
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
-      <circle r={active ? selectedRadius : radius} />
-      {children}
+      <circle r={active ? selectedRadius : radius} vectorEffect={'non-scaling-stroke'} />
     </g>
   )
 }
