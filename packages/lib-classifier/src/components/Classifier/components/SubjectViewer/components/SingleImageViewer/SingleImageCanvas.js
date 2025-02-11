@@ -1,5 +1,5 @@
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
@@ -26,51 +26,80 @@ function SingleImageCanvas({
   transformMatrix // per VisXZoom
 }) {
   const canvasLayer = useRef()
-  const canvas = canvasLayer.current
+  const zoomLayer = useRef() // used for scale calculation per getBoundingClientRect inconsistency between Firefox and Chrome/Safari
+  const [scale, setScale] = useState(1)
+
+  const handleResize = useCallback(() => {
+    const zoom = zoomLayer.current
+    if (!zoom) return
+
+    const width = zoom.getBoundingClientRect().width
+
+    if (width > 0 && naturalWidth > 0) {
+      setScale(width / naturalWidth)
+    }
+  }, [naturalWidth])
+
+  useEffect(() => {
+    const zoom = zoomLayer.current
+    if (!zoom) return
+
+    const mutationObserver = new MutationObserver(handleResize)
+    mutationObserver.observe(zoom, {
+      attributes: true,
+      attributeFilter: ['transform']
+    })
+    
+    handleResize()
+
+    return () => {
+      mutationObserver.disconnect()
+    }
+  }, [handleResize])
 
   const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
-  
-  const clientWidth = canvas?.getBoundingClientRect().width || 0
-  const scale = clientWidth / naturalWidth
 
   return (
-    <SVGContext.Provider value={{ canvas }}>
-      <svg
-        ref={canvasLayer}
-        onKeyDown={onKeyDown}
+      <SVGContext.Provider
+        value={{ canvas: canvasLayer.current }}
       >
-        <g
-          data-testid='single-image-canvas-visxzoom-transform-group'
-          transform={transform}
+        <svg
+          ref={canvasLayer}
+          onKeyDown={onKeyDown}
         >
           <g
-            data-testid='single-image-canvas-rotation-transform-group'
-            transform={rotationTransform}
+            ref={zoomLayer}
+            data-testid='single-image-canvas-visxzoom-transform-group'
+            transform={transform}
           >
-            <SVGImage
-              ref={imgRef}
-              invert={invert}
-              move={false} // dragging is handled by VisXZoom in SingleImageViewer
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
-              src={src}
-              subjectID={subject?.id}
-            />
-            {children}
-            {enableInteractionLayer && (
-              <InteractionLayer
-                frame={frame}
-                height={naturalHeight}
-                move={move}
-                scale={scale}
-                subject={subject}
-                width={naturalWidth}
+            <g
+              data-testid='single-image-canvas-rotation-transform-group'
+              transform={rotationTransform}
+            >
+              <SVGImage
+                ref={imgRef}
+                invert={invert}
+                move={false} // dragging is handled by VisXZoom in SingleImageViewer
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                src={src}
+                subjectID={subject?.id}
               />
-            )}
+              {children}
+              {enableInteractionLayer && (
+                <InteractionLayer
+                  frame={frame}
+                  height={naturalHeight}
+                  move={move}
+                  scale={scale}
+                  subject={subject}
+                  width={naturalWidth}
+                />
+              )}
+            </g>
           </g>
-        </g>
-      </svg>
-    </SVGContext.Provider>
+        </svg>
+      </SVGContext.Provider>
   )
 }
 
