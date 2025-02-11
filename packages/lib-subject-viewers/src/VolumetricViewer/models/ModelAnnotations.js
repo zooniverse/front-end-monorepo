@@ -193,9 +193,11 @@ export const ModelAnnotations = ({ onAnnotation }) => {
       if (!onAnnotation) return
 
       const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
-      annotationExport.forEach(a => { 
-        a.points.all = a.points.all.data
-      })
+        .filter(a => a.points.active.length > 0)
+        .map(a => { 
+          a.points.all = a.points.all.data
+          return a
+        })
       onAnnotation(annotationExport)
 
     },
