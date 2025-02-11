@@ -1,4 +1,4 @@
-import { bool, shape, string } from "prop-types"
+import { bool, object, shape, string } from "prop-types"
 import { Box, Text } from "grommet"
 import { Blank } from "grommet-icons"
 import InputStatus from "../../../components/InputStatus"
@@ -36,7 +36,7 @@ function VolumetricTask({
   disabled = false,
   task
 }) {
-  const annotationCount = annotation.value.reduce((acc, a) => {
+  const markCount = annotation.value.reduce((acc, a) => {
     return (a.points.active.length > 0) ? acc + 1 : acc
   }, 0)
 
@@ -77,7 +77,7 @@ function VolumetricTask({
             </Blank>
           </StyledToolIcon>
         }
-        labelStatus={<InputStatus count={annotationCount} />}
+        labelStatus={<InputStatus count={markCount} />}
         name="volumetric-tool"
         type="radio"
       />
@@ -86,6 +86,7 @@ function VolumetricTask({
 }
 
 VolumetricTask.propTypes = {
+  annotation: object,
   disabled: bool,
   task: shape({
     instruction: string,
