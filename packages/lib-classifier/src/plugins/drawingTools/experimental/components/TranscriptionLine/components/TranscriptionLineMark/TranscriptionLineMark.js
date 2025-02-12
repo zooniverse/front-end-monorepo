@@ -4,19 +4,29 @@ import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 import { HANDLE_RADIUS, GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
-// Forward ref incase it is being rendered with the Tooltip
-const TranscriptionLineMark = forwardRef((props, ref) => {
-  const {
-    active,
-    color,
-    handleFinishClick,
-    handlePointerDown,
-    handleRadius,
-    mark,
-    onHandleDrag,
-    scale
-  }  = props
+const Circle = ({ fill, r, transform, ...props }) => (
+  <g transform={transform}>
+    <circle
+      fill={fill}
+      r={r}
+      stroke='currentColor'
+      vectorEffect={'non-scaling-size'}
+      {...props}
+    />
+  </g>
+)
 
+// Forward ref incase it is being rendered with the Tooltip
+const TranscriptionLineMark = forwardRef(({
+  active,
+  color,
+  handleFinishClick,
+  handlePointerDown,
+  handleRadius = HANDLE_RADIUS,
+  mark,
+  onHandleDrag,
+  scale
+}, ref) => {
   const {
     finished,
     x1,
@@ -29,9 +39,18 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
   if (mark.length) {
     const deltaX = x2 - x1
     const deltaY = y2 - y1
-    offsetX = deltaX * (handleRadius / mark.length)
-    offsetY = deltaY * (handleRadius / mark.length)
+    offsetX = deltaX * (handleRadius / mark.length) / scale
+    offsetY = deltaY * (handleRadius / mark.length) / scale
   }
+
+  function onDragStartPoint(e, d) {
+    onHandleDrag({ x1: x1 + d.x, y1: y1 + d.y, x2, y2 })
+  }
+
+  function onDragEndPoint(e, d) {
+    onHandleDrag({ x1, y1, x2: x2 + d.x, y2: y2 + d.y })
+  }
+
   return (
     <g
       color={color}
@@ -45,57 +64,48 @@ const TranscriptionLineMark = forwardRef((props, ref) => {
       {active ?
         <DragHandle
           fill='transparent'
-          radius={HANDLE_RADIUS}
+          radius={handleRadius}
           scale={scale}
           x={x1}
           y={y1}
-          dragMove={(e, d) => onHandleDrag({ x1: x1 + d.x, y1: y1 + d.y, x2, y2 })}
+          dragMove={onDragStartPoint}
         /> :
-        <circle
-          cx={x1}
-          cy={y1}
+        <Circle
           fill='transparent'
           r={handleRadius}
-          stroke='currentColor'
-          vectorEffect={'non-scaling-stroke'}
+          transform={`translate(${x1}, ${y1}) scale(${1 / scale})`}
         />
       }
       {active ?
         <DragHandle
-          radius={HANDLE_RADIUS}
+          radius={handleRadius}
           scale={scale}
           x={x2}
           y={y2}
-          dragMove={(e, d) => onHandleDrag({ x1, y1, x2: x2 + d.x, y2: y2 + d.y })}
+          dragMove={onDragEndPoint}
         /> :
-        <circle
-          cx={x2}
-          cy={y2}
+        <Circle
           fill='currentColor'
           r={handleRadius}
-          stroke='currentColor'
-          vectorEffect={'non-scaling-stroke'}
+          transform={`translate(${x2}, ${y2}) scale(${1 / scale})`}
         />
       }
 
       {active && !finished &&
         <g>
-          <circle
+          <Circle
+            className='startPoint'
             r={handleRadius}
-            cx={x1}
-            cy={y1}
-            fill="transparent"
+            transform={`translate(${x1}, ${y1}) scale(${1 / scale})`}
             onPointerDown={handlePointerDown}
             onPointerUp={handleFinishClick}
-            vectorEffect={'non-scaling-stroke'}
           />
-          <circle
+          <Circle
+            className='endPoint'
             r={handleRadius}
-            cx={x2}
-            cy={y2}
+            transform={`translate(${x2}, ${y2}) scale(${1 / scale})`}
             onPointerDown={handlePointerDown}
             onPointerUp={handleFinishClick}
-            vectorEffect={'non-scaling-stroke'}
           />
         </g>
       }
