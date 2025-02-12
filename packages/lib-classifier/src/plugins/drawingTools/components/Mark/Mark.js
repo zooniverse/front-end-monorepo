@@ -4,8 +4,8 @@ import { forwardRef, useEffect, useRef } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import draggable from '../draggable'
 
-const STROKE_WIDTH = 3
-const SELECTED_STROKE_WIDTH = 6
+const STROKE_WIDTH = 2
+const SELECTED_STROKE_WIDTH = 4
 
 const StyledGroup = styled.g`
   stroke-width: ${STROKE_WIDTH}px;
