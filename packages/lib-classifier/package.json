@@ -48,7 +48,7 @@
     "lodash": "~4.17.11",
     "react-i18next": "~14.1.0",
     "react-player": "~2.13.0",
-    "swr": "~2.2.0",
+    "swr": "~2.3.2",
     "valid-url": "~1.0.9"
   },
   "peerDependencies": {
