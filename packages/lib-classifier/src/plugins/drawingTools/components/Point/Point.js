@@ -34,7 +34,7 @@ function Point({ active = false, children, mark = {DEFAULT_MARK}, onFinish, scal
         x2='0'
         y2={-1 * selectedRadius}
         strokeWidth={crosshairWidth}
-        vectorEffect={'non-scaling-size'}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1={-1 * crosshairSpace * selectedRadius}
@@ -42,7 +42,7 @@ function Point({ active = false, children, mark = {DEFAULT_MARK}, onFinish, scal
         x2={-1 * selectedRadius}
         y2='0'
         strokeWidth={crosshairWidth}
-        vectorEffect={'non-scaling-size'}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1='0'
@@ -50,7 +50,7 @@ function Point({ active = false, children, mark = {DEFAULT_MARK}, onFinish, scal
         x2='0'
         y2={selectedRadius}
         strokeWidth={crosshairWidth}
-        vectorEffect={'non-scaling-size'}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1={crosshairSpace * selectedRadius}
@@ -58,9 +58,9 @@ function Point({ active = false, children, mark = {DEFAULT_MARK}, onFinish, scal
         x2={selectedRadius}
         y2='0'
         strokeWidth={crosshairWidth}
-        vectorEffect={'non-scaling-size'}
+        vectorEffect={'non-scaling-stroke'}
       />
-      <circle r={active ? selectedRadius : radius} vectorEffect={'non-scaling-size'} />
+      <circle r={active ? selectedRadius : radius} vectorEffect={'non-scaling-stroke'} />
     </g>
   )
 }

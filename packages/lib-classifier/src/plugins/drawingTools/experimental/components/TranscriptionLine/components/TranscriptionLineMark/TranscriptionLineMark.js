@@ -10,7 +10,7 @@ const Circle = ({ fill, r, transform, ...props }) => (
       fill={fill}
       r={r}
       stroke='currentColor'
-      vectorEffect={'non-scaling-size'}
+      vectorEffect={'non-scaling-stroke'}
       {...props}
     />
   </g>
