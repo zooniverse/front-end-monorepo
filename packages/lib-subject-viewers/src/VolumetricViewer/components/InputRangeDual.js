@@ -105,6 +105,7 @@ export const InputRangeDual = ({
     <StyledContainer>
       <div className='range-slider-container'>
         <input
+          aria-label="Range slider minimum value"
           className='range-slider-dual range-slider-lower-value'
           max={state.valueMax}
           min={state.valueMin}
@@ -115,6 +116,7 @@ export const InputRangeDual = ({
           value={state.valueMinCurrent}
         />
         <input
+          aria-label="Range slider max value"
           className='range-slider-dual range-slider-upper-value'
           max={state.valueMax}
           min={state.valueMin}

@@ -19,13 +19,11 @@ export const Config = ({
     annotations.on('active:annotation', annotationsChange)
     annotations.on('add:annotation', annotationsChange)
     annotations.on('update:annotation', annotationsChange)
-    annotations.on('remove:annotation', annotationsChange)
 
     return () => {
       annotations.off('active:annotation', annotationsChange)
       annotations.off('add:annotation', annotationsChange)
       annotations.off('update:annotation', annotationsChange)
-      annotations.off('remove:annotation', annotationsChange)
     }
   }, [])
 

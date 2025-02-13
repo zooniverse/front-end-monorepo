@@ -6,7 +6,6 @@ import { Tooltip } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
-import { HANDLE_RADIUS } from './helpers/constants'
 import TranscriptionLineMark from './components/TranscriptionLineMark'
 
 function storeMapper(stores) {
@@ -35,7 +34,6 @@ function TranscriptionLine(props) {
     lineState = 'active'
   }
   const colorToRender = (usesTranscriptionTask) ? transcriptionTaskColors[lineState] : color
-  const handleRadius = HANDLE_RADIUS / scale
 
   function onHandleDrag(coords) {
     mark.setCoordinates(coords)
@@ -66,7 +64,6 @@ function TranscriptionLine(props) {
           color={colorToRender}
           handlePointerDown={handlePointerDown}
           handleFinishClick={handleFinishClick}
-          handleRadius={handleRadius}
           mark={mark}
           onHandleDrag={onHandleDrag}
           scale={scale}
@@ -81,7 +78,6 @@ function TranscriptionLine(props) {
       color={colorToRender}
       handlePointerDown={handlePointerDown}
       handleFinishClick={handleFinishClick}
-      handleRadius={handleRadius}
       mark={mark}
       onHandleDrag={onHandleDrag}
       scale={scale}

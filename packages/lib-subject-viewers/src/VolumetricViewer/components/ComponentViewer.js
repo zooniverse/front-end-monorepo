@@ -2,7 +2,7 @@ import { AlgorithmAStar } from './../helpers/AlgorithmAStar.js'
 import { Box } from 'grommet'
 import { Cube } from './Cube.js'
 import { Histogram } from './Histogram.js'
-import { Orientation } from './Orientation.js'
+import { MarkButtons } from './MarkButtons.js'
 import { object, string } from 'prop-types'
 import { Plane } from './Plane.js'
 import styled, { css } from 'styled-components'
@@ -131,7 +131,10 @@ export const ComponentViewer = ({
             />
           </Box>
           <Box className='volume-controls' flex direction='row' justify='between'>
-            <Orientation />
+            <MarkButtons
+              annotations={models.annotations}
+            />
+
             <Histogram
               annotations={models.annotations}
               tool={models.tool}
