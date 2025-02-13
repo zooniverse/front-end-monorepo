@@ -92,7 +92,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           }
         }
       )
-      expect(wrapper.find(DragHandle).find('[x=100]').at(0)).to.have.lengthOf(1)
+      expect(wrapper.find(DragHandle).find({ x: 100 }).at(0)).to.have.lengthOf(1)
     })
 
     it('should have a transparent start point', function () {
@@ -229,7 +229,7 @@ describe('Components > Drawing marks > Transcription line', function () {
       )
       const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
 
-      wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
+      wrapper.find('circle.endPoint').at(0).simulate('pointerdown')
       expect(mark.x2).to.equal(300)
       expect(mark.y2).to.equal(400)
       dragMove({}, { x: 10, y: 20 })
@@ -262,9 +262,9 @@ describe('Components > Drawing marks > Transcription line', function () {
       )
       const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
 
-      wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
+      wrapper.find('circle.endPoint').at(0).simulate('pointerdown')
       expect(mark.finished).to.be.false()
-      wrapper.find('circle[cx=300]').at(0).simulate('pointerup')
+      wrapper.find('circle.endPoint').at(0).simulate('pointerup')
       expect(mark.finished).to.be.true()
       dragMove({}, { x: 10, y: 20 })
       expect(mark.finished).to.be.true()
