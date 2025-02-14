@@ -6,11 +6,21 @@ const FullWidthDiv = styled.div`
   width: 100%;
 `
 
-function imageScale(imgRef, naturalWidth) {
-  const { width: clientWidth, height: clientHeight } = imgRef?.current
+function imageScale(imgRef) {
+  const { width: clientWidth, height: clientHeight } = imgRef.current
     ? imgRef.current.getBoundingClientRect()
     : {}
-  const scale = clientWidth / naturalWidth
+  const actualWidth = imgRef.current?.getBBox().width
+  // get the g element that rotates the image.
+  const transformRoot = imgRef.current?.closest('g[transform]')
+  const transformList = transformRoot?.transform.baseVal
+  // the rotation transform is the only item in the list.
+  const transform = transformList?.numberOfItems > 0
+    ? transformList.getItem(0)
+    : null
+  const scale = (transform?.angle % 180 === 0)
+    ? clientWidth / actualWidth // rotation is 0 or 180 degrees.
+    : clientHeight / actualWidth // rotation is 90 or 270 degrees.
   return !Number.isNaN(scale) ? scale : 1
 }
 
@@ -126,7 +136,7 @@ function SVGPanZoom({
   }
 
   const { x, y, width, height } = viewBox
-  const scale = imageScale(imgRef, naturalWidth)
+  const scale = imageScale(imgRef)
 
   return (
     <FullWidthDiv>
