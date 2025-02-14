@@ -29,19 +29,13 @@ describe('SurveyTask with user clicks', function () {
     })
 
     describe('when filters are clicked', function () {
-      it('should show the filter button with a remove filter button', async function () {
-        // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic
+      it('should show a related remove filter button', async function () {
         const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
-        expect(stripesFilterButton).to.be.ok()
-
-        // the stripesFilterRemoveButton is the small x button that appears over a filter to remove the filter, after it is selected. The presence of this button indicates that the filter is selected. The absence of this button indicates that the filter is not selected
-        let characteristicsSection = screen.getByTestId('characteristics')
-        let stripesFilterRemoveButton = within(characteristicsSection).queryByTestId('remove-filter-PTTRN-STRPS')
-        expect(stripesFilterRemoveButton).to.be.null()
-        
+        // click/apply the stripes filter
         await user.click(stripesFilterButton)
-        characteristicsSection = screen.getByTestId('characteristics')
-        stripesFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-STRPS')
+        
+        // confirm the stripes filter is selected by checking for the presence of the related remove filter button
+        const stripesFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-STRPS')
         expect(stripesFilterRemoveButton).to.be.ok()
       })
 
@@ -53,7 +47,7 @@ describe('SurveyTask with user clicks', function () {
 
         await user.click(redFilterButton)
         await user.click(filterButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the 3 choices that match the red filter
         expect(choiceButtons.length).to.equal(3)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -73,7 +67,7 @@ describe('SurveyTask with user clicks', function () {
         const identifyButton = screen.getByText('SurveyTask.Choice.identify')
         // identify the Fire choice
         await user.click(identifyButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the remaining choices are the 3 choices that match the red filter
         expect(choiceButtons.length).to.equal(3)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -81,67 +75,24 @@ describe('SurveyTask with user clicks', function () {
         expect(choiceButtons[2]).to.have.text('Fire')
       })
 
-      it('should remove the filter on remove filter button click (within Characteristics)', async function () {
-        const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
-        // click/apply the stripes filter
-        await user.click(stripesFilterButton)
-        const characteristicsSection = screen.getByTestId('characteristics')
-        const stripesFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-STRPS')
-        // confirm the stripes filter is selected by checking for the presence of the remove filter button
-        expect(stripesFilterRemoveButton).to.be.ok()
-
-        // remove the stripes filter
-        await user.click(stripesFilterRemoveButton)
-        // close the characteristics filters
-        await user.click(filterButton)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-        // confirm the choices are the total 6 choices, not filtered by the stripes filter
-        expect(choiceButtons.length).to.equal(6)
-      })
-
-      it('should remove the filter on remove filter button click (within FilterStatus)', async function () {
+      it('should remove the filter on remove filter button click', async function () {
         const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
         // click/apply the stripes filter
         await user.click(stripesFilterButton)
         await user.click(filterButton)
         // confirm the stripes filter is applied, of the total 6 choices only 1 choice (Kudu) matches the stripes filter
-        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         expect(choiceButtons.length).to.equal(1)
 
-        const filterStatusSection = screen.getByTestId('filter-status')
-        const stripesFilterRemoveButton = within(filterStatusSection).getByTestId('remove-filter-PTTRN-STRPS')
+        const stripesFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-STRPS')
         // remove the stripes filter
         await user.click(stripesFilterRemoveButton)
-        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the total 6 choices, not filtered by the stripes filter
         expect(choiceButtons.length).to.equal(6)
       })
 
-      it('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
-        // click/apply the like a cow/horse filter
-        const cowHorseFilterButton = document.querySelector('label[for="LK-CWHRS"]')
-        await user.click(cowHorseFilterButton)
-        // click/apply the color tan/yellow filter
-        const tanYellowFilterButton = screen.getByTestId('filter-CLR-TNLLW')
-        await user.click(tanYellowFilterButton)
-        const characteristicsSection = screen.getByTestId('characteristics')
-        let cowHorseFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-LK-CWHRS')
-        let tanYellowFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-CLR-TNLLW')
-        // confirm the cow/horse and tan/yellow filters are applied
-        expect(cowHorseFilterRemoveButton).to.be.ok()
-        expect(tanYellowFilterRemoveButton).to.be.ok()
-
-        const clearFiltersButton = within(characteristicsSection).getByText('SurveyTask.CharacteristicsFilter.clearFilters')
-        // clear the filters
-        await user.click(clearFiltersButton)
-        cowHorseFilterRemoveButton = screen.queryByTestId('remove-filter-LK-CWHRS')
-        tanYellowFilterRemoveButton = screen.queryByTestId('remove-filter-CLR-TNLLW')
-        // confirm the cow/horse and tan/yellow filters are removed
-        expect(cowHorseFilterRemoveButton).to.be.null()
-        expect(tanYellowFilterRemoveButton).to.be.null()
-      })
-
-      it('should remove filters on Clear Filters button click (within Chooser)', async function () {
+      it('should remove filters on Clear All Filters button click', async function () {
         const cowHorseFilterButton = document.querySelector('label[for="LK-CWHRS"]')
         // click/apply the like a cow/horse filter
         await user.click(cowHorseFilterButton)
@@ -149,14 +100,14 @@ describe('SurveyTask with user clicks', function () {
         // click/apply the color tan/yellow filter
         await user.click(tanYellowFilterButton)
         await user.click(filterButton)
-        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
         expect(choiceButtons.length).to.equal(1)
 
         const clearFiltersButton = screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')
         // clear the filters
         await user.click(clearFiltersButton)
-        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
         // confirm the choices are the total 6 choices, not filtered by the cow/horse and tan/yellow filters
         expect(choiceButtons.length).to.equal(6)
       })
@@ -173,9 +124,9 @@ describe('SurveyTask with user clicks', function () {
       await user.click(choiceButton)
     })
 
-    it('should show the choice description', async function () {
-      const choiceDescription = screen.getByText('It\'s a fire. Pretty sure you know what this looks like.')
-      expect(choiceDescription).to.be.ok()
+    it('should show the "More info" button', async function () {
+      const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.ok()
     })
 
     it('should show choice images', async function () {
@@ -184,33 +135,31 @@ describe('SurveyTask with user clicks', function () {
     })
 
     it('should show choices with closed choice focused when Not This button is clicked', async function () {
-      const notThisButton = screen.getByText('SurveyTask.Choice.notThis')
+      const cancelButton = screen.getByText('SurveyTask.Choice.cancel')
       // close choice (Fire) component
-      await user.click(notThisButton)
-      // confirm choice (Fire) description, and therefore choice, is not shown
-      const choiceDescription = screen.queryByText('It\'s a fire. Pretty sure you know what this looks like.')
-      expect(choiceDescription).to.be.null()
+      await user.click(cancelButton)
+      // confirm choice "More info" button is not shown, therefore choice is closed
+      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.null()
       // confirm choices are shown
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
       const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice (Fire) is focused
       await waitFor(() => expect(fireChoiceButton).to.equal(document.activeElement))
     })
 
-    it('should show choices with selected choice checked and focused when Identify button is clicked', async function () {
+    it('should show choices with selected choice focused when Identify button is clicked', async function () {
       const identifyButton = screen.getByTestId('choice-identify-button')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
-      // confirm choice (Fire) description, and therefore choice, is not shown
-      const choiceDescription = screen.queryByText('It\'s a fire. Pretty sure you know what this looks like.')
-      expect(choiceDescription).to.be.null()
+      // confirm choice "More info" button is not shown, therefore choice is closed
+      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      expect(choiceMoreInfoButton).to.be.null()
       // confirm choices are shown
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
       const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      // confirm choice (Fire) is shown as checked
-      expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
       // confirm choice (Fire) is shown as focused
       await waitFor(() => expect(fireChoiceButton).to.equal(document.activeElement))
     })
