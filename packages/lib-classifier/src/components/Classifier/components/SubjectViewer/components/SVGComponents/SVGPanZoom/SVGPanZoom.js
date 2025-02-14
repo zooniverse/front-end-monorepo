@@ -46,6 +46,7 @@ function SVGPanZoom({
     width: naturalWidth
   }
   const zoom = useRef(1)
+  const [scale, setScale] = useState(1)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {
@@ -136,7 +137,9 @@ function SVGPanZoom({
   }
 
   const { x, y, width, height } = viewBox
-  const scale = imageScale(imgRef)
+  setTimeout(() => {
+    setScale(imageScale(imgRef))
+  })
 
   return (
     <FullWidthDiv>
