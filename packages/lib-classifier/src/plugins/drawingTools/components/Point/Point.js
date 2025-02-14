@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 
+import useScale from '@plugins/drawingTools/hooks/useScale'
+
 // TODO update per tool size prop
 
 const RADIUS = {
@@ -19,7 +21,9 @@ const DEFAULT_MARK = {
     size: 'large'
   }
 }
-function Point({ active = false, children, mark = {DEFAULT_MARK}, onFinish, scale = 1 }) {
+
+function Point({ active = false, mark = {DEFAULT_MARK}, onFinish }) {
+  const scale = useScale()
   const { size } = mark.tool
   const crosshairSpace = CROSSHAIR_SPACE
   const crosshairWidth = CROSSHAIR_WIDTH
@@ -68,7 +72,6 @@ function Point({ active = false, children, mark = {DEFAULT_MARK}, onFinish, scal
 Point.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.object,
-  scale: PropTypes.number
 }
 
 export default observer(Point)

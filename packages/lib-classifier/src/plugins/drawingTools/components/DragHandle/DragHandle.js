@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import draggable from '../draggable'
 import { STROKE_WIDTH } from '../Mark/Mark';
 
+import useScale from '@plugins/drawingTools/hooks/useScale'
+
 const StyledCircle = styled('circle')`
   stroke-width: 2;
   &:hover {
@@ -16,7 +18,6 @@ const DragHandle = forwardRef(function DragHandle(
   {
     fill = 'currentColor',
     radius = RADIUS,
-    scale = 1,
     x,
     y,
     dragging = false,
@@ -25,6 +26,7 @@ const DragHandle = forwardRef(function DragHandle(
   },
   ref
 ) {
+  const scale = useScale()
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
   const styleProps = {
     fill: dragging && invisibleWhenDragging ? 'transparent' : fill,
@@ -43,7 +45,6 @@ const DragHandle = forwardRef(function DragHandle(
 DragHandle.propTypes = {
   fill: PropTypes.string,
   radius: PropTypes.number,
-  scale: PropTypes.number,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired
 }

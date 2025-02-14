@@ -21,18 +21,6 @@ describe('Drawing Tools > Drag Handle', function () {
     expect(transform).to.have.string('translate(50, -120)')
   })
 
-  it('should render at the correct scale', function () {
-    const wrapper = shallow(
-      <DragHandle.wrappedComponent
-        scale={0.5}
-        x={50}
-        y={-120}
-      />
-    )
-    const transform = wrapper.root().prop('transform')
-    expect(transform).to.have.string('scale(2)')
-  })
-
   describe('with custom styling', function () {
     it('should override the default fill', function () {
       const wrapper = shallow(

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled, { css, withTheme } from 'styled-components'
 
+import useScale from '@plugins/drawingTools/hooks/useScale'
+
 const StyledGroup = styled('g')`
   &:focus {
     ${props => css`outline: solid 4px ${props.focusColor};`}
@@ -12,7 +14,8 @@ const StyledGroup = styled('g')`
   }
 `
 
-function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, scale, theme }) {
+function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, theme }) {
+  const scale = useScale()
   const focusColor = theme.global.colors[theme.global.colors.focus]
   const RADIUS = (screen.width < 900) ? 11 : 8
   const STROKE_COLOR = 'white'
@@ -30,6 +33,7 @@ function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, scale, theme
     rotate(${rotate})
     scale(${1 / scale})
   `
+  
   function onKeyDown (event) {
     switch (event.key) {
       case 'Enter':
@@ -81,14 +85,12 @@ DeleteButton.propTypes = {
   onDelete: PropTypes.func,
   onDeselect: PropTypes.func,
   rotate: PropTypes.number,
-  scale: PropTypes.number,
   theme: PropTypes.object
 }
 DeleteButton.defaultProps = {
   onDelete: () => true,
   onDeselect: () => true,
   rotate: 0,
-  scale: 1,
   theme: {
     global: {
       colors: {}

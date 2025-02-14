@@ -4,6 +4,8 @@ import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 import { HANDLE_RADIUS, GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
+import useScale from '@plugins/drawingTools/hooks/useScale'
+
 const Circle = ({ fill, r, transform, ...props }) => (
   <g transform={transform}>
     <circle
@@ -25,8 +27,8 @@ const TranscriptionLineMark = forwardRef(({
   handleRadius = HANDLE_RADIUS,
   mark,
   onHandleDrag,
-  scale
 }, ref) => {
+  const scale = useScale()
   const {
     finished,
     x1,
@@ -65,7 +67,6 @@ const TranscriptionLineMark = forwardRef(({
         <DragHandle
           fill='transparent'
           radius={handleRadius}
-          scale={scale}
           x={x1}
           y={y1}
           dragMove={onDragStartPoint}
@@ -79,7 +80,6 @@ const TranscriptionLineMark = forwardRef(({
       {active ?
         <DragHandle
           radius={handleRadius}
-          scale={scale}
           x={x2}
           y={y2}
           dragMove={onDragEndPoint}

@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
 import { useTranslation } from '@translations/i18n'
 
+import useScale from '@plugins/drawingTools/hooks/useScale'
+
 const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
 
@@ -69,7 +71,9 @@ function pointsToPath(points) {
   return path.join(' ')
 }
 
-function FreehandLine({ active, mark, onFinish, scale }) {
+const DEFAULT_HANDLER = () => true
+function FreehandLine({ active = false, mark, onFinish = DEFAULT_HANDLER }) {
+  const scale = useScale()
   // If the user decides to cancel a splice
   if (active === false) {
     mark.inactive()
@@ -156,7 +160,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       {active && mark.dragPoint &&
         <DragHandle
           testid="freehandline-drag-handle"
-          scale={scale}
           x={mark.dragPoint.x}
           y={mark.dragPoint.y}
           fill='none'
@@ -196,16 +199,6 @@ FreehandLine.propTypes = {
     Callback to reset the drawing canvas when creation of the line is finished.
   */
   onFinish: PropTypes.func,
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: PropTypes.number
-}
-
-FreehandLine.defaultProps = {
-  active: false,
-  onFinish: () => true,
-  scale: 1,
 }
 
 export default observer(FreehandLine)

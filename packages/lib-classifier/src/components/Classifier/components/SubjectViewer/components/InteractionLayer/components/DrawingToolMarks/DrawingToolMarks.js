@@ -101,7 +101,6 @@ function DrawingToolMarks({
           <DeleteButton
             label={`Delete ${tool.type}`}
             mark={mark}
-            scale={scale}
             onDelete={deleteMark}
             onDeselect={deselectMark}
           />
