@@ -6,25 +6,62 @@ const FullWidthDiv = styled.div`
   width: 100%;
 `
 
+/**
+ * Get the rotation angle of the drawing canvas.
+ * @param {SVGGraphicsElement} node - An SVG node on the drawing canvas.
+ * @returns {number} The rotation angle of the drawing canvas.
+ * @default 0
+ */
+function getRotationAngle(node) {
+  const transformRoot = node.closest('g[transform]')
+  if (transformRoot) {
+    const transformList = transformRoot.transform?.baseVal
+    // the rotation transform is the only item in the list.
+    const transform = transformList?.numberOfItems > 0
+      ? transformList.getItem(0)
+      : null
+    return transform?.angle || 0
+  }
+  return 0
+}
+
+/**
+ * Get the scale (screen width / intrinsic width) of the zoomed and rotated drawing canvas.
+ * @param {Ref<SVGGraphicsElement>} imgRef - React ref to the SVG image node.
+ * @returns {number} The scale of the drawing canvas.
+ * @default 1
+ */
 function imageScale(imgRef) {
   if (imgRef?.current) {
     const { width: clientWidth, height: clientHeight } = imgRef.current.getBoundingClientRect()
     const actualWidth = imgRef.current.getBBox
       ? imgRef.current.getBBox().width
       : imgRef.current.naturalWidth
-    // get the g element that rotates the image.
-    const transformRoot = imgRef.current.closest('g[transform]')
-    const transformList = transformRoot?.transform?.baseVal
-    // the rotation transform is the only item in the list.
-    const transform = transformList?.numberOfItems > 0
-      ? transformList.getItem(0)
-      : null
-    const scale = (transform?.angle % 180 === 0)
+    const rotationAngle = getRotationAngle(imgRef.current)
+    const scale = (rotationAngle % 180 === 0)
       ? clientWidth / actualWidth // rotation is 0 or 180 degrees.
       : clientHeight / actualWidth // rotation is 90 or 270 degrees.
     return !Number.isNaN(scale) ? scale : 1
   }
   return 1
+}
+
+/**
+ * Get the scale (screen width / intrinsic width) of the zoomed and rotated drawing canvas.
+ * @param {Ref<SVGGraphicsElement>} imgRef - React ref to the SVG image node.
+ * @returns {number} The scale of the drawing canvas.
+ * @default 1
+ */
+function useScale(imgRef) {
+  const [scale, setScale] = useState(1)
+  
+  setTimeout(() => {
+    const newScale = imageScale(imgRef)
+    if (scale !== newScale) {
+      setScale(newScale)
+    }
+  })
+  return scale
 }
 
 const DEFAULT_HANDLER = () => true
@@ -49,7 +86,7 @@ function SVGPanZoom({
     width: naturalWidth
   }
   const zoom = useRef(1)
-  const [scale, setScale] = useState(1)
+  const scale = useScale(imgRef)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {
@@ -140,12 +177,6 @@ function SVGPanZoom({
   }
 
   const { x, y, width, height } = viewBox
-  setTimeout(() => {
-    const newScale = imageScale(imgRef)
-    if (scale !== newScale) {
-      setScale(newScale)
-    }
-  })
 
   return (
     <FullWidthDiv>
