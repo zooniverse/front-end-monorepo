@@ -12,7 +12,7 @@ const RADIUS = 3
 const GUIDELINE_STROKE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 6
 
-function Polygon({ active, mark, scale, onFinish }) {
+function Polygon({ active, mark, onFinish }) {
   const {
     path,
     points,

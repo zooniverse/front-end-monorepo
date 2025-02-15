@@ -17,7 +17,6 @@ function DrawingToolMarks({
   onMove = () => true,
   onSelectMark = () => true,
   pointerEvents = 'painted',
-  scale = 1,
   played,
 }) {
   const { canvas } = useContext(SVGContext)
@@ -75,44 +74,43 @@ function DrawingToolMarks({
     if (videoTime !== undefined && played < videoTime) return null
 
     return (
-      <Mark
-        key={mark.id}
-        isActive={isActive}
-        coords={mark.coords}
-        disabled={disabled}
-        dragStart={selectMark}
-        dragMove={moveMark}
-        dragEnd={endMoveMark}
-        label={`Mark ${index}`}
-        mark={mark}
-        onDelete={deleteMark}
-        onFinish={onFinish}
-        onSelect={selectMark}
-        pointerEvents={isActive ? 'painted' : pointerEvents}
-      >
-        <MarkingComponent
-          active={isActive}
+      <g key={mark.id}>
+        <Mark
+          isActive={isActive}
+          coords={mark.coords}
+          disabled={disabled}
+          dragStart={selectMark}
+          dragMove={moveMark}
+          dragEnd={endMoveMark}
+          label={`Mark ${index}`}
           mark={mark}
+          onDelete={deleteMark}
           onFinish={onFinish}
-          scale={scale}
-          played={played}
-        />
-        {isActive && mark.tool.type !== 'freehandLine' && (
-          <DeleteButton
-            label={`Delete ${tool.type}`}
+          onSelect={selectMark}
+          pointerEvents={isActive ? 'painted' : pointerEvents}
+        >
+          <MarkingComponent
+            active={isActive}
             mark={mark}
-            onDelete={deleteMark}
-            onDeselect={deselectMark}
+            onFinish={onFinish}
+            played={played}
           />
-        )}
+          {isActive && mark.tool.type !== 'freehandLine' && (
+            <DeleteButton
+              label={`Delete ${tool.type}`}
+              mark={mark}
+              onDelete={deleteMark}
+              onDeselect={deselectMark}
+            />
+          )}
+        </Mark>
         {isActive && mark.tool.type == 'freehandLine' && (
           <LineControls
             mark={mark}
-            scale={scale}
             onDelete={deleteMark}
           />
         )}
-      </Mark>
+      </g>
     )
   })
 }
@@ -128,7 +126,6 @@ DrawingToolMarks.propTypes = {
   onFinish: PropTypes.func,
   onMove: PropTypes.func,
   onSelectMark: PropTypes.func,
-  scale: PropTypes.number
 }
 
 export default DrawingToolMarks

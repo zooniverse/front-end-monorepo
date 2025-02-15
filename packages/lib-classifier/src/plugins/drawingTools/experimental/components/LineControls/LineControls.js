@@ -5,6 +5,7 @@ import { Tooltip } from '@zooniverse/react-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { useTranslation } from '@translations/i18n'
 import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
+import useScale from '@plugins/drawingTools/hooks/useScale'
 
 const StyledPath = styled('path')`
   &:hover {
@@ -14,12 +15,12 @@ const StyledPath = styled('path')`
 
 const LineControls = forwardRef(function LineControls({
   mark,
-  scale = 1,
   onDelete,
   theme
 },
   ref
 ) {
+  const scale = useScale()
   let [activePosition, setActivePosition] = useState('tr')
   let [showDeleteButtons, setShowDeleteButtons] = useState(false)
   const { t } = useTranslation('plugins')
@@ -234,7 +235,6 @@ LineControls.propTypes = {
     id: PropTypes.string,
     setSubTaskVisibility: PropTypes.func
   }),
-  scale: PropTypes.number,
   onDelete: PropTypes.func,
 }
 
