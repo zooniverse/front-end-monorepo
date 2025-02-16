@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../hooks/useScale'
 
 // TODO update per tool size prop
 

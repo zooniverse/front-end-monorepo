@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import draggable from '../draggable'
 import { STROKE_WIDTH } from '../Mark/Mark';
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../hooks/useScale'
 
 const StyledCircle = styled('circle')`
   stroke-width: 2;

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 import { HANDLE_RADIUS, GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../../../../hooks/useScale'
 
 const Circle = ({ fill, r, transform, ...props }) => (
   <g transform={transform}>

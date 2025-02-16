@@ -3,7 +3,7 @@ import { string, number } from 'prop-types'
 import draggable from '../draggable'
 import { useTranslation } from '@translations/i18n'
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../hooks/useScale'
 
 const RotateHandle = forwardRef(function RotateHandle(
   { fill = 'currentColor', x, y },

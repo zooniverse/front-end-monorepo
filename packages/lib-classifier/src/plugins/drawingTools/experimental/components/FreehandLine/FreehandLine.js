@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
 import { useTranslation } from '@translations/i18n'
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../../hooks/useScale'
 
 const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4

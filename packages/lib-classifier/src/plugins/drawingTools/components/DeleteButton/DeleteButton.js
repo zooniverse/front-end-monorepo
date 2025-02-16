@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled, { css, withTheme } from 'styled-components'
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../hooks/useScale'
 
 const StyledGroup = styled('g')`
   &:focus {

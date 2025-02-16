@@ -2,7 +2,7 @@ import { number, func } from 'prop-types'
 import styled from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
 
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../hooks/useScale'
 
 const StyledGroup = styled('g')`
   &:hover {

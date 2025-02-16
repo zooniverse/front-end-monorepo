@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import SVGContext from '../shared/SVGContext'
 
 /**
  * Get the rotation angle of the drawing canvas.

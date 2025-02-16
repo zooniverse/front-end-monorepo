@@ -2,10 +2,10 @@ import React, { forwardRef, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import SVGContext from '../../../shared/SVGContext'
 import { useTranslation } from '@translations/i18n'
 import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
-import useScale from '@plugins/drawingTools/hooks/useScale'
+import useScale from '../../../hooks/useScale'
 
 const StyledPath = styled('path')`
   &:hover {
