@@ -12,11 +12,10 @@ A React component for a mark takes a Mark model and renders it as SVG. The basic
 
 ```jsx
 const MarkComponent = mark.toolComponent
-<MarkComponent active mark={mark} scale={scale} onFinish={onFinish} />
+<MarkComponent active mark={mark} onFinish={onFinish} />
 ```
 
 - _mark_ is the mark model to render.
-- _scale_ is the linear scale of the subject image (_clientWidth_ / _naturalWidth_).
 - _active_ is a boolean attribute indicating whether the mark is currently editable.
 - _onFinish_ is a callback that should be called when initial creation of the mark is complete. It resets the drawing canvas and tells it to start listening to clicks to create new marks again.
 
