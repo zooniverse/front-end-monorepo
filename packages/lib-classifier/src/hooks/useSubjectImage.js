@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useProgressiveImage } from '@zooniverse/react-components/hooks'
 
-export default function useSubjectImage({ src, onReady, onError }) {
+export default function useSubjectImage({ frame = 0, src, onReady, onError }) {
   const subjectImage = useRef()
 
   const { img, error, loading } = useProgressiveImage({
@@ -20,7 +20,7 @@ export default function useSubjectImage({ src, onReady, onError }) {
         ? svgImage.getBoundingClientRect()
         : {}
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
+      onReady({ target }, frame)
     }
   }
 
