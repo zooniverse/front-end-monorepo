@@ -3,40 +3,25 @@ import { useContext, useState } from 'react'
 import SVGContext from '../shared/SVGContext'
 
 /**
- * Get the rotation angle of the drawing canvas.
- * @param {SVGGraphicsElement} node - An SVG node on the drawing canvas.
- * @returns {number} The rotation angle of the drawing canvas.
- * @default 0
- */
-function getRotationAngle(node) {
-  const transformRoot = node.closest('g[transform]')
-  if (transformRoot) {
-    const transformList = transformRoot.transform?.baseVal
-    // the rotation transform is the only item in the list.
-    const transform = transformList?.numberOfItems > 0
-      ? transformList.getItem(0)
-      : null
-    return transform?.angle || 0
-  }
-  return 0
-}
-
-/**
  * Get the scale (screen width / intrinsic width) of the zoomed and rotated drawing canvas.
- * @param {SVGGraphicsElement} canvas - The drawing canvas node from the DOM.
+ * @param {Object} svgContext - The drawing canvas context.
+ * @param {SVGGraphicsElement} svgContext.canvas - The drawing canvas node from the DOM.
+ * @param { number } svgContext.rotate - The rotation angle of the drawing canvas.
  * @returns {number} The scale of the drawing canvas.
  * @default 1
  */
-function getScale(canvas) {
+function getScale(svgContext) {
+  const { canvas, rotate = 0 } = svgContext
   // JSDOM doesn't support SVG, so we need to check for `getBBox` to run the tests.
   if (canvas?.getBBox) {
+    // zoomed and rotated height and width relative to the viewport.
     const { width: clientWidth, height: clientHeight } = canvas.getBoundingClientRect()
+    // intrinsic width in SVG coordinates.
     const actualWidth = canvas.getBBox().width
-    const rotationAngle = getRotationAngle(canvas)
-    const scale = (rotationAngle % 180 === 0)
+    const scale = (rotate % 180 === 0)
       ? clientWidth / actualWidth // rotation is 0 or 180 degrees.
       : clientHeight / actualWidth // rotation is 90 or 270 degrees.
-    return !Number.isNaN(scale) ? scale : 1
+    return Number.isNaN(scale) ? 1 : scale
   }
   // return a scale of 1 in JSDOM.
   return 1
@@ -59,11 +44,12 @@ function getScale(canvas) {
  * @default 1
  */
 export default function useScale() {
-  const { canvas } = useContext(SVGContext)
-  const [scale, setScale] = useState(1)
+  const svgContext = useContext(SVGContext)
+  const initialScale = getScale(svgContext)
+  const [scale, setScale] = useState(initialScale)
 
   setTimeout(() => {
-    const newScale = getScale(canvas)
+    const newScale = getScale(svgContext)
     if (newScale !== scale) setScale(newScale)
   })
 
