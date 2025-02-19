@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { autorun, reaction } from 'mobx'
+import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types

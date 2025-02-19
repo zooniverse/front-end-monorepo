@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useStores } from '@hooks'
-
-import useSubjectImage from '@hooks/useSubjectImage.js'
-import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../../../SVGComponents/SVGImage'
+import { useState } from 'react'
+import { useKeyZoom, useStores, useSubjectImage } from '@hooks'
+import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
 import {
   AnnotateButton,
   InvertButton,
@@ -19,7 +16,9 @@ import {
 const DEFAULT_HANDLER = () => true
 
 function storeMapper(classifierStore) {
-  return { hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask }
+  return {
+    hasAnnotateTask: classifierStore.subjectViewer.hasAnnotateTask
+  }
 }
 
 const SeparateFrame = ({
@@ -29,77 +28,35 @@ const SeparateFrame = ({
   frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER
+  onReady = DEFAULT_HANDLER,
+  subject
 }) => {
-  const { img, error, loading, subjectImage } = useSubjectImage({
-    src: frameUrl,
-    onReady,
-    onError
-  })
-
-  const { naturalHeight = 600, naturalWidth = 800, src: frameSrc } = img
-
-  const maxZoom = 5
-  const minZoom = 0.1
-
-  const defaultViewBox = {
-    x: 0,
-    y: 0,
-    height: naturalHeight,
-    width: naturalWidth
-  }
-
-  /** State Variables */
-
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
-  const [viewBox, setViewBox] = useState(defaultViewBox)
-  const [zoom, setZoom] = useState(1)
 
-  /** Effects */
+  const { onKeyZoom } = useKeyZoom()
+  
+  const { img, error, loading, subjectImage } = useSubjectImage({
+    src: frameUrl,
+    onError,
+    onReady
+  })
+  const {
+    naturalHeight = 600,
+    naturalWidth = 800
+  } = img
 
-  useEffect(() => {
-    if (frameSrc) {
-      enableRotation()
-      setViewBox(defaultViewBox)
-      setZoom(1)
-    }
-  }, [frameSrc])
+  let onPan
+  let onZoom
 
-  useEffect(() => {
-    const newViewBox = scaledViewBox(zoom)
-    setViewBox(newViewBox)
-  }, [zoom])
-
-  /** Move/Zoom functions */
-
-  const imageScale = img => {
-    const { width: clientWidth } = img ? img.getBoundingClientRect() : {}
-    const scale = clientWidth / naturalWidth
-    return !Number.isNaN(scale) ? scale : 1
-  }
-  const scale = imageScale(subjectImage.current) // For images with an InteractionLayer
-
-  const scaledViewBox = scale => {
-    const viewBoxScale = 1 / scale
-    const xCentre = viewBox.x + viewBox.width / 2
-    const yCentre = viewBox.y + viewBox.height / 2
-    const width = parseInt(naturalWidth * viewBoxScale, 10)
-    const height = parseInt(naturalHeight * viewBoxScale, 10)
-    const x = xCentre - width / 2
-    const y = yCentre - height / 2
-    return { x, y, width, height }
+  function setOnPan(fn) {
+    onPan = fn
   }
 
-  const onDrag = (event, difference) => {
-    setViewBox(prevViewBox => {
-      const newViewBox = { ...prevViewBox }
-      newViewBox.x -= difference.x
-      newViewBox.y -= difference.y
-      return newViewBox
-    })
+  function setOnZoom(fn) {
+    onZoom = fn
   }
 
   /** Image Toolbar functions */
@@ -113,124 +70,52 @@ const SeparateFrame = ({
     setSeparateFrameAnnotate(false)
   }
 
-  /** NOTE: This is to disable the annotate button if there are no annotate tasks */
   const { hasAnnotateTask } = useStores(storeMapper)
   if (!hasAnnotateTask && separateFrameAnnotate) {
-    separateFrameEnableMove();
-  }
-
-  const separateFrameZoomIn = () => {
-    setZoom(prevZoom => Math.min(prevZoom + 0.1, maxZoom))
-  }
-
-  const separateFrameZoomOut = () => {
-    setZoom(prevZoom => Math.max(prevZoom - 0.1, minZoom))
+    separateFrameEnableMove()
   }
 
   const separateFrameRotate = () => {
-    const newRotation = rotation - 90
-    setRotation(newRotation)
+    setRotation(prevRotation => prevRotation - 90)
   }
 
   const separateFrameInvert = () => {
-    setInvert(!invert)
+    setInvert(prev => !prev)
+  }
+
+  const separateFrameZoomIn = () => {
+    onZoom('zoomin', 1)
+  }
+
+  const separateFrameZoomOut = () => {
+    onZoom('zoomout', -1)
   }
 
   const separateFrameResetView = () => {
     setRotation(0)
     setInvert(false)
-    setZoom(1)
-    setViewBox({
-      x: 0,
-      y: 0,
-      width: naturalWidth,
-      height: naturalHeight
-    })
+    onZoom('zoomto', 1.0)
   }
-
-  /** Panning with Keyboard */
-
-  const onPan = (dx, dy) => {
-    setViewBox(prevViewBox => {
-      const newViewBox = { ...prevViewBox }
-      newViewBox.x += dx * 10
-      newViewBox.y += dy * 10
-      return newViewBox
-    })
-  }
-
-  const onKeyDown = e => {
-    const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
-    const htmlTag = e.target?.tagName.toLowerCase()
-
-    if (ALLOWED_TAGS.includes(htmlTag)) {
-      switch (e.key) {
-        case '+':
-        case '=': {
-          separateFrameZoomIn()
-          return true
-        }
-        case '-':
-        case '_': {
-          separateFrameZoomOut()
-          return true
-        }
-        case 'ArrowRight': {
-          e.preventDefault()
-          onPan(1, 0)
-          return false
-        }
-        case 'ArrowLeft': {
-          e.preventDefault()
-          onPan(-1, 0)
-          return false
-        }
-        case 'ArrowUp': {
-          e.preventDefault()
-          onPan(0, -1)
-          return false
-        }
-        case 'ArrowDown': {
-          e.preventDefault()
-          onPan(0, 1)
-          return false
-        }
-        default: {
-          return true
-        }
-      }
-    }
-  }
-
-  /** Frame Component */
-
-  const { x, y, width, height } = scaledViewBox(zoom)
 
   return (
     <Box direction='row'>
       <SingleImageViewer
         enableInteractionLayer={enableInteractionLayer}
+        enableRotation={enableRotation}
         frame={frame}
-        height={naturalHeight}
+        imgRef={subjectImage}
+        invert={invert}
         limitSubjectHeight={limitSubjectHeight}
-        onKeyDown={onKeyDown}
-        rotate={rotation}
-        scale={scale}
-        svgMaxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
-        viewBox={`${x} ${y} ${width} ${height}`}
-        width={naturalWidth}
-      >
-        <SVGImage
-          ref={subjectImage}
-          invert={invert}
-          move={separateFrameMove}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          onDrag={onDrag}
-          src={frameSrc}
-          subjectID={frameUrl} // for aria-label
-        />
-      </SingleImageViewer>
+        move={separateFrameMove}
+        naturalHeight={naturalHeight}
+        naturalWidth={naturalWidth}
+        onKeyDown={onKeyZoom}
+        rotation={rotation}
+        setOnPan={setOnPan}
+        setOnZoom={setOnZoom}
+        src={img.src}
+        subject={subject}
+      />
       <Box
         background={{
           dark: 'dark-3',
@@ -245,11 +130,10 @@ const SeparateFrame = ({
         }}
         direction='column'
         height='fit-content'
-        onKeyDown={onKeyDown}
         pad='8px'
         style={{ width: '3rem' }}
       >
-        { hasAnnotateTask &&
+        {hasAnnotateTask &&
           <AnnotateButton
             separateFrameAnnotate={separateFrameAnnotate}
             separateFrameEnableAnnotate={separateFrameEnableAnnotate}
@@ -278,12 +162,18 @@ SeparateFrame.propTypes = {
   frame: PropTypes.number,
   /** String of Object.values(subject.locations[this frame index][0]) */
   frameUrl: PropTypes.string,
-  /** Function passed from Workflow Configuration */
+  /** Function passed from Workflow Configuration via Subject Viewer Store */
   limitSubjectHeight: PropTypes.bool,
   /** Passed from Subject Viewer Store and called whe a frame's src is not loaded */
   onError: PropTypes.func,
   /** Passed from Subject Viewer Store and called when a frame's src is loaded */
-  onReady: PropTypes.func
+  onReady: PropTypes.func,
+  /** Subject Object */
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(PropTypes.shape({
+      url: PropTypes.string
+    }))
+  })
 }
 
 export default SeparateFrame

@@ -42,9 +42,13 @@ export default function useSubjectText({
   const [error, setError] = useState(null)
 
   useEffect(function onSubjectChange() {
+    let isMounted = true
+
     function onLoad(rawData) {
-      setData(rawData)
-      onReady()
+      if (isMounted) {
+        setData(rawData)
+        onReady()
+      }
     }
 
     async function handleSubject() {
@@ -52,13 +56,19 @@ export default function useSubjectText({
         const rawData = await requestData(subject)
         if (rawData) onLoad(rawData)
       } catch (error) {
-        setError(error)
-        onError(error)
+        if (isMounted) {
+          setError(error)
+          onError(error)
+        }
       }
     }
 
     if (subject) {
       handleSubject()
+    }
+
+    return () => {
+      isMounted = false
     }
   }, [subject, onReady, onError])
 
