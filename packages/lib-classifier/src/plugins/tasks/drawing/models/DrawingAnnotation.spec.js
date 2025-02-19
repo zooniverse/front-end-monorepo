@@ -125,7 +125,8 @@ describe('Model > DrawingAnnotation', function () {
         })
         const point2 = pointTool.createMark({
           x: 150,
-          y: 200
+          y: 200,
+          frame: 1
         })
         const questionTask = pointTool.tasks[0]
         point1.addAnnotation(questionTask, 0)
@@ -181,7 +182,7 @@ describe('Model > DrawingAnnotation', function () {
           }
           const point2Snapshot = {
             details: [{ task: 'T0.0.0' }],
-            frame: 0,
+            frame: 1,
             toolIndex: 0,
             toolType: 'point',
             x: 150,
