@@ -34,8 +34,6 @@ function storeMapper(classifierStore) {
 function PreviousMarks ({
   /** The current active frame in the subject viewer. */
   frame = 0,
-  /** SVG image scale (client size / natural size.)*/
-  scale = 1
 }) {
   const {
     /** Clone all previous marks across all frames */
@@ -67,7 +65,6 @@ function PreviousMarks ({
               <DrawingToolMarks
                 disabled
                 marks={annotationValuesPerFrame}
-                scale={scale}
               />
             </g>
           )
@@ -81,7 +78,6 @@ function PreviousMarks ({
 
 PreviousMarks.propTypes = {
   frame: PropTypes.number,
-  scale: PropTypes.number
 }
 
 export default observer(PreviousMarks)

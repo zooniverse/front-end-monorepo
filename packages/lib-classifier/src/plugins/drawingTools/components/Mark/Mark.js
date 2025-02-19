@@ -182,7 +182,6 @@ Mark.propTypes = {
   onDelete: PropTypes.func,
   onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
-  scale: PropTypes.number,
   tool: PropTypes.shape({
     color: PropTypes.string
   })

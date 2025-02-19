@@ -5,7 +5,7 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Circle({ active, mark, onFinish, scale }) {
+function Circle({ active, mark, onFinish }) {
   const { x_center, y_center, r } = mark
   const guideWidth = GUIDE_WIDTH
 
@@ -35,7 +35,6 @@ function Circle({ active, mark, onFinish, scale }) {
             vectorEffect={'non-scaling-stroke'}
           />
           <DragHandle
-            scale={scale}
             x={handleX}
             y={handleY}
             dragMove={onHandleDrag}
@@ -65,17 +64,11 @@ Circle.propTypes = {
     Callback to reset the drawing canvas when creation of the rectangle is finished.
   */
   onFinish: PropTypes.func,
-
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: PropTypes.number
 }
 
 Circle.defaultProps = {
   active: false,
   onFinish: () => true,
-  scale: 1
 }
 
 export default observer(Circle)

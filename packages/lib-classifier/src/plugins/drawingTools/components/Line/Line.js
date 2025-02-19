@@ -4,7 +4,7 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Line({ active, mark, onFinish, scale }) {
+function Line({ active = false, mark, onFinish }) {
   const { x1, y1, x2, y2 } = mark
 
   function onHandleDrag(coords) {
@@ -25,7 +25,6 @@ function Line({ active, mark, onFinish, scale }) {
       />
       {active && (
         <DragHandle
-          scale={scale}
           x={x1}
           y={y1}
           dragMove={(e, d) =>
@@ -35,7 +34,6 @@ function Line({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x2}
           y={y2}
           dragMove={(e, d) =>
@@ -50,12 +48,6 @@ function Line({ active, mark, onFinish, scale }) {
 Line.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.object.isRequired,
-  scale: PropTypes.number
-}
-
-Line.defaultProps = {
-  active: false,
-  scale: 1
 }
 
 export default observer(Line)

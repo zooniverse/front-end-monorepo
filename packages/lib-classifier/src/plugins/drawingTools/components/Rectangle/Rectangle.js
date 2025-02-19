@@ -4,7 +4,7 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Rectangle({ active, mark, onFinish, scale }) {
+function Rectangle({ active, mark, onFinish }) {
   const { x_center, y_center, width, height } = mark
 
   function onHandleDrag(coords) {
@@ -43,7 +43,6 @@ function Rectangle({ active, mark, onFinish, scale }) {
       />
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_top}
           testid='rect-dragHandle1'
@@ -59,7 +58,6 @@ function Rectangle({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_bottom}
           testid='rect-dragHandle2'
@@ -75,7 +73,6 @@ function Rectangle({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_bottom}
           testid='rect-dragHandle3'
@@ -91,7 +88,6 @@ function Rectangle({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_top}
           testid='rect-dragHandle4'

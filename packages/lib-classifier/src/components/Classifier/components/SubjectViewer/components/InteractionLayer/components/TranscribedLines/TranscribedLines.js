@@ -53,10 +53,7 @@ function onKeyDown(event, callback, line) {
   }
 }
 
-function TranscribedLines({
-  /** SVG image scale (client width / natural width.) */
-  scale = 1
-}) {
+function TranscribedLines() {
   const {
     /** is the transcription task active? */
     active,
@@ -174,7 +171,6 @@ function TranscribedLines({
                 <TranscriptionLine
                   state='complete'
                   mark={mark}
-                  scale={scale}
                 />
               </ConsensusLine>
             </Tooltip>
@@ -216,7 +212,6 @@ function TranscribedLines({
                 <TranscriptionLine
                   state='transcribed'
                   mark={mark}
-                  scale={scale}
                 />
               </ConsensusLine>
             </Tooltip>
@@ -233,8 +228,6 @@ function TranscribedLines({
   )
 }
 
-TranscribedLines.propTypes = {
-  scale: number
-}
+TranscribedLines.propTypes = {}
 
 export default observer(TranscribedLines)

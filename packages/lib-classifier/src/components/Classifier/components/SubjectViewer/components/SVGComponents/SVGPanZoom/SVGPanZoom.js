@@ -6,17 +6,8 @@ const FullWidthDiv = styled.div`
   width: 100%;
 `
 
-function imageScale(imgRef, naturalWidth) {
-  const { width: clientWidth, height: clientHeight } = imgRef?.current
-    ? imgRef.current.getBoundingClientRect()
-    : {}
-  const scale = clientWidth / naturalWidth
-  return !Number.isNaN(scale) ? scale : 1
-}
-
 const DEFAULT_HANDLER = () => true
 function SVGPanZoom({
-  imgRef = null,
   children,
   limitSubjectHeight = false,
   maxZoom = 2,
@@ -126,12 +117,10 @@ function SVGPanZoom({
   }
 
   const { x, y, width, height } = viewBox
-  const scale = imageScale(imgRef, naturalWidth)
 
   return (
     <FullWidthDiv>
       {cloneElement(children, {
-        scale,
         viewBox: `${x} ${y} ${width} ${height}`,
         svgMaxHeight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
       })}

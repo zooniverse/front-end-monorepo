@@ -84,7 +84,6 @@ const FlipbookViewer = ({
     <Box>
       <SVGPanZoom
         key={`${naturalWidth}-${naturalHeight}`}
-        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}

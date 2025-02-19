@@ -1,12 +1,15 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { string, number } from 'prop-types'
 import draggable from '../draggable'
 import { useTranslation } from '@translations/i18n'
 
+import useScale from '../../hooks/useScale'
+
 const RotateHandle = forwardRef(function RotateHandle(
-  { fill = 'currentColor', scale = 1, x, y },
+  { fill = 'currentColor', x, y },
   ref
 ) {
+  const scale = useScale()
   const { t } = useTranslation('components')
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
 
@@ -39,10 +42,6 @@ RotateHandle.propTypes = {
     The RotateHandle color
    */
   fill: string,
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-   */
-  scale: number,
   /**
     x position of the vertex closets to the origin before rotation
    */

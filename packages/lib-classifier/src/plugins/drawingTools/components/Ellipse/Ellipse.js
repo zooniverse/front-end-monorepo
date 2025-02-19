@@ -5,7 +5,7 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Ellipse({ active, mark, onFinish, scale }) {
+function Ellipse({ active, mark, onFinish }) {
   const { x_center, y_center, rx, ry } = mark
   const guideWidth = GUIDE_WIDTH
 
@@ -45,13 +45,12 @@ function Ellipse({ active, mark, onFinish, scale }) {
             strokeDasharray={GUIDE_DASH}
             vectorEffect={'non-scaling-stroke'}
           />
-          <DragHandle dragMove={onXHandleDrag} x={rx} y={0} scale={scale} />
+          <DragHandle dragMove={onXHandleDrag} x={rx} y={0} />
           <DragHandle
             dragMove={onYHandleDrag}
             dragEnd={mark.finish}
             x={0}
             y={-1 * ry}
-            scale={scale}
           />
         </g>
       )}
@@ -63,13 +62,11 @@ Ellipse.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
-  scale: PropTypes.number
 }
 
 Ellipse.defaultProps = {
   active: false,
   onFinish: () => true,
-  scale: 1
 }
 
 export default observer(Ellipse)

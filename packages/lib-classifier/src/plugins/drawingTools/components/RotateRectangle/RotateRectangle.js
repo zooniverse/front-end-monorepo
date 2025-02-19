@@ -12,7 +12,6 @@ function RotateRectangle({
   active = false,
   mark,
   onFinish = () => true,
-  scale = 1
 }) {
   const { angle, height, width, x_center, y_center } = mark
   const guideWidth = GUIDE_WIDTH
@@ -65,7 +64,6 @@ function RotateRectangle({
           />
           <RotateHandle
             dragMove={onRotateDrag}
-            scale={scale}
             x={xRotationHandle}
             y={y_center}
           />
@@ -75,7 +73,6 @@ function RotateRectangle({
       {/* Original Top Left corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_top}
           dragMove={(e, d) =>
@@ -93,7 +90,6 @@ function RotateRectangle({
       {/* Original Top Right corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_top}
           dragMove={(e, d) =>
@@ -111,7 +107,6 @@ function RotateRectangle({
       {/* Original Bottom Right corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_bottom}
           dragMove={(e, d) =>
@@ -129,7 +124,6 @@ function RotateRectangle({
       {/* Original Bottom Left corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_bottom}
           dragMove={(e, d) =>
@@ -167,10 +161,6 @@ RotateRectangle.propTypes = {
     Callback to reset the drawing canvas when creation of the rectangle is finished.
   */
   onFinish: PropTypes.func,
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: PropTypes.number
 }
 
 export default observer(RotateRectangle)
