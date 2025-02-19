@@ -80,7 +80,7 @@ taskEntries.forEach(([key, value]) => {
 const surveyWorkflowSnapshot = WorkflowFactory.build({
   configuration: {
     invert_subject: true,
-    limit_subject_height: true
+    limit_subject_height: false
   },
   first_task: 'T0',
   strings: surveyTaskStrings,

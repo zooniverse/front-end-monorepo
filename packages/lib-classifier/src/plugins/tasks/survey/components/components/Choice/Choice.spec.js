@@ -12,10 +12,10 @@ const mockTask = SurveyTask.TaskModel.create(task)
 describe('Component > Choice', function () {
   this.timeout(0)
 
-  describe('with choice with images, confusions, and questions', function () {
-    let carousel, confusedWith, question
+  describe('with choice with images and questions', function () {
+    let carousel, showMoreInfo, question
 
-    // choice 'KD' (Kudu) includes images, confusions, and questions
+    // choice 'KD' (Kudu) includes images and questions
     before(function () {
       render(
         <Grommet
@@ -30,7 +30,7 @@ describe('Component > Choice', function () {
       )
 
       carousel = screen.getByTestId('choice-images')
-      confusedWith = screen.getByText('SurveyTask.ConfusedWith.confused')
+      showMoreInfo = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
       question = screen.getByText('Are there any young present?')
     })
     
@@ -38,8 +38,8 @@ describe('Component > Choice', function () {
       expect(carousel).to.be.ok()
     })
   
-    it('should show ConfusedWith', function () {
-      expect(confusedWith).to.be.ok()
+    it('should show "More info" button', function () {
+      expect(showMoreInfo).to.be.ok()
     })
   
     it('should show Questions', function () {
@@ -47,8 +47,8 @@ describe('Component > Choice', function () {
     })
   })
 
-  describe('with choice without images, with confusions', function () {
-    // choice 'NTHNGHR' (Nothing here) excludes images, includes confusions
+  describe('with choice without images', function () {
+    // choice 'NTHNGHR' (Nothing here) excludes images
 
     it('should not render Carousel', function () {
       render(
@@ -66,27 +66,8 @@ describe('Component > Choice', function () {
     })
   })
 
-  describe('with choice without images or confusions, with questions', function () {
-    // choice 'HMN' (Human) excludes images and confusions, includes questions
-
-    it('should not render ConfusedWith', function () {
-      render(
-        <Grommet
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Choice
-            choiceId='HMN'
-            task={mockTask}
-          />
-        </Grommet>
-      )
-      expect(screen.queryByText('Sometimes confused with')).to.be.null()
-    })
-  })
-
-  describe('with choice without more than 1 image, confusions, or questions', function () {
-    // choice 'FR' (Fire) has 1 image, excludes confusions and questions
+  describe('with choice without more than 1 image or questions', function () {
+    // choice 'FR' (Fire) has 1 image excludes questions
 
     it('should not render Questions', function () {
       render(
