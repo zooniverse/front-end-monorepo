@@ -12,7 +12,11 @@ describe('ThumbnailImage', function () {
     constructor () {
       this.naturalHeight = 200
       this.naturalWidth = 400
-      setTimeout(() => this.onload(), 0)
+      const fakeLoadEvent = {
+        ...new Event('load'),
+        target: this
+      }
+      setTimeout(() => this.onload(fakeLoadEvent), 0)
     }
   }
 

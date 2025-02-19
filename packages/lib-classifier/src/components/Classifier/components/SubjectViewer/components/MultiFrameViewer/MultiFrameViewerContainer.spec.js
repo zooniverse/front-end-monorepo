@@ -26,7 +26,11 @@ describe('Component > MultiFrameViewerContainer', function () {
     constructor () {
       this.naturalHeight = height
       this.naturalWidth = width
-      setTimeout(() => this.onload(), DELAY)
+      const fakeLoadEvent = {
+        ...new Event('load'),
+        target: this
+      }
+      setTimeout(() => this.onload(fakeLoadEvent), DELAY)
     }
   }
 
