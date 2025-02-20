@@ -38,7 +38,7 @@ function Circle({ active, mark, onFinish }) {
             x={handleX}
             y={handleY}
             dragMove={onHandleDrag}
-            testid='circle-dragHandle'
+            data-testid='circle-dragHandle'
           />
         </g>
       )}

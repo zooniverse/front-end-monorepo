@@ -159,7 +159,7 @@ function FreehandLine({ active = false, mark, onFinish = DEFAULT_HANDLER }) {
 
       {active && mark.dragPoint &&
         <DragHandle
-          testid="freehandline-drag-handle"
+          data-testid="freehandline-drag-handle"
           x={mark.dragPoint.x}
           y={mark.dragPoint.y}
           fill='none'

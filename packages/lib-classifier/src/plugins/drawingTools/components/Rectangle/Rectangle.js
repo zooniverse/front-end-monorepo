@@ -45,7 +45,7 @@ function Rectangle({ active, mark, onFinish }) {
         <DragHandle
           x={x_left}
           y={y_top}
-          testid='rect-dragHandle1'
+          data-testid='rect-dragHandle1'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
@@ -60,7 +60,7 @@ function Rectangle({ active, mark, onFinish }) {
         <DragHandle
           x={x_right}
           y={y_bottom}
-          testid='rect-dragHandle2'
+          data-testid='rect-dragHandle2'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left,
@@ -75,7 +75,7 @@ function Rectangle({ active, mark, onFinish }) {
         <DragHandle
           x={x_left}
           y={y_bottom}
-          testid='rect-dragHandle3'
+          data-testid='rect-dragHandle3'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
@@ -90,7 +90,7 @@ function Rectangle({ active, mark, onFinish }) {
         <DragHandle
           x={x_right}
           y={y_top}
-          testid='rect-dragHandle4'
+          data-testid='rect-dragHandle4'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left,
