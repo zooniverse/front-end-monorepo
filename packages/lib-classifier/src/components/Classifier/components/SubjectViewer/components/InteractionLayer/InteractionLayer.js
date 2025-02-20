@@ -9,7 +9,6 @@ import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import getFixedNumber from '../../helpers/getFixedNumber'
-import locationValidator from '../../helpers/locationValidator'
 
 const DrawingCanvas = styled('rect')`
   ${(props) =>
@@ -39,8 +38,6 @@ function InteractionLayer({
   move,
   multiImageCloneMarkers = false,
   setActiveMark = () => { },
-  scale = 1,
-  subject,
   width,
   played,
   duration
@@ -144,7 +141,7 @@ function InteractionLayer({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
       />
-      <TranscribedLines scale={scale} />
+      <TranscribedLines />
       <SubTaskPopup
         activeMark={activeMark}
         onDelete={inactivateMark}
@@ -158,7 +155,6 @@ function InteractionLayer({
         onSelectMark={onSelectMark}
         onMove={(mark, difference) => mark.move(difference)}
         pointerEvents={creating ? 'none' : 'painted'}
-        scale={scale}
         played={played}
       />
     </>
@@ -180,11 +176,7 @@ InteractionLayer.propTypes = {
   height: PropTypes.number.isRequired,
   marks: PropTypes.array,
   multiImageCloneMarkers: PropTypes.bool,
-  scale: PropTypes.number,
   setActiveMark: PropTypes.func,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  }),
   width: PropTypes.number.isRequired
 }
 

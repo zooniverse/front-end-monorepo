@@ -1,7 +1,8 @@
-import { forwardRef } from 'react';
 import { number, func } from 'prop-types'
 import styled from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
+
+import useScale from '../../hooks/useScale'
 
 const StyledGroup = styled('g')`
   &:hover {
@@ -9,10 +10,8 @@ const StyledGroup = styled('g')`
   }
 `
 
-const UndoButton = forwardRef(function UndoButton(
-  { scale = 1, x, y, undoDrawing },
-  ref
-) {
+function UndoButton({ x, y, undoDrawing }) {
+  const scale = useScale()
   const ARIA_LABEL = 'Undo'
   const STROKE_COLOR = 'black'
   const ARROW_STROKE_COLOR = 'white'
@@ -44,7 +43,6 @@ const UndoButton = forwardRef(function UndoButton(
 
   return (
     <StyledGroup
-      ref={ref}
       x={cx}
       y={cy}
       role='button'
@@ -66,13 +64,9 @@ const UndoButton = forwardRef(function UndoButton(
       </Tooltip>
     </StyledGroup>
   )
-})
+}
 
 UndoButton.propTypes = {
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: number,
   /**
     x position of the vertex closets to the origin
   */

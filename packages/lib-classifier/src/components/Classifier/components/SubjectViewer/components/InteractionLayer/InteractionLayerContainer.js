@@ -5,7 +5,6 @@ import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { withStores } from '@helpers'
-import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper(classifierStore) {
   const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
@@ -63,10 +62,8 @@ export function InteractionLayerContainer({
   marks = [],
   move = false,
   multiImageCloneMarkers = false,
-  scale = 1,
   setActiveMark = () => { },
   shownMarks = SHOWN_MARKS.ALL,
-  subject,
   taskKey = '',
   viewBox,
   width,
@@ -97,14 +94,11 @@ export function InteractionLayerContainer({
           multiImageCloneMarkers={multiImageCloneMarkers}
           played={played}
           setActiveMark={setActiveMark}
-          scale={scale}
-          subject={subject}
           viewBox={viewBox}
           width={width}
         />
       )}
       <PreviousMarks
-        scale={scale}
         frame={frame}
       />
     </>
@@ -123,12 +117,8 @@ InteractionLayerContainer.propTypes = {
   marks: PropTypes.array,
   move: PropTypes.bool,
   played: PropTypes.number,
-  scale: PropTypes.number,
   setActiveMark: PropTypes.func,
   shownMarks: PropTypes.string,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  }),
   taskKey: PropTypes.string,
   width: PropTypes.number.isRequired
 }
