@@ -93,7 +93,6 @@ export function InteractionLayerContainer({
           multiImageCloneMarkers={multiImageCloneMarkers}
           played={played}
           setActiveMark={setActiveMark}
-          viewBox={viewBox}
           width={width}
         />
       )}

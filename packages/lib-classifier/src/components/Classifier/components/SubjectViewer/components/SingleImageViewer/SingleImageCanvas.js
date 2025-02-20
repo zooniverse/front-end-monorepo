@@ -26,36 +26,6 @@ function SingleImageCanvas({
   transformMatrix // per VisXZoom
 }) {
   const canvasLayer = useRef()
-  const zoomLayer = useRef() // used for scale calculation per getBoundingClientRect inconsistency between Firefox and Chrome/Safari
-  const [scale, setScale] = useState(1)
-
-  const handleResize = useCallback(() => {
-    const zoom = zoomLayer.current
-    if (!zoom) return
-
-    const width = zoom.getBoundingClientRect().width
-
-    if (width > 0 && naturalWidth > 0) {
-      setScale(width / naturalWidth)
-    }
-  }, [naturalWidth])
-
-  useEffect(() => {
-    const zoom = zoomLayer.current
-    if (!zoom) return
-
-    const mutationObserver = new MutationObserver(handleResize)
-    mutationObserver.observe(zoom, {
-      attributes: true,
-      attributeFilter: ['transform']
-    })
-    
-    handleResize()
-
-    return () => {
-      mutationObserver.disconnect()
-    }
-  }, [handleResize])
 
   const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
 
@@ -68,7 +38,6 @@ function SingleImageCanvas({
           onKeyDown={onKeyDown}
         >
           <g
-            ref={zoomLayer}
             data-testid='single-image-canvas-visxzoom-transform-group'
             transform={transform}
           >
@@ -90,9 +59,6 @@ function SingleImageCanvas({
                 <InteractionLayer
                   frame={frame}
                   height={naturalHeight}
-                  move={move}
-                  scale={scale}
-                  subject={subject}
                   width={naturalWidth}
                 />
               )}
