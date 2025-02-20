@@ -31,6 +31,8 @@ const DEFAULT_HANDLER = function () {
   A custom hook to load text data subjects from Panoptes
 */
 export default function useSubjectText({
+  /** location frame index */
+  frame = 0,
   /** Panoptes subject */
   subject,
   /** on data ready callback */
@@ -44,7 +46,7 @@ export default function useSubjectText({
   useEffect(function onSubjectChange() {
     function onLoad(rawData) {
       setData(rawData)
-      onReady()
+      onReady(null, frame)
     }
 
     async function handleSubject() {
