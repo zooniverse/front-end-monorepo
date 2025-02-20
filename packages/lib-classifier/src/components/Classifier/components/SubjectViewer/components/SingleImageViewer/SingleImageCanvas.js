@@ -31,7 +31,10 @@ function SingleImageCanvas({
 
   return (
       <SVGContext.Provider
-        value={{ canvas: canvasLayer.current }}
+        value={{
+          canvas: canvasLayer.current,
+          rotate: rotation
+        }}
       >
         <svg
           ref={canvasLayer}
