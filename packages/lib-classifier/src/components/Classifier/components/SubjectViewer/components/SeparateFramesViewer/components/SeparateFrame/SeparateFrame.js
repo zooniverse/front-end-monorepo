@@ -32,6 +32,7 @@ const SeparateFrame = ({
   onReady = DEFAULT_HANDLER
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
+    frame,
     src: frameUrl,
     onReady,
     onError
