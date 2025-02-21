@@ -39,6 +39,7 @@ const SeparateFrame = ({
   const { onKeyZoom } = useKeyZoom()
   
   const { img, error, loading, subjectImage } = useSubjectImage({
+    frame,
     src: frameUrl,
     onError,
     onReady

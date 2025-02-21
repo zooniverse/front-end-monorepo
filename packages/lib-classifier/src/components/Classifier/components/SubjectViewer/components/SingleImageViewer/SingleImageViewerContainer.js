@@ -76,6 +76,7 @@ function SingleImageViewerContainer({
   const imageLocationUrl = imageLocation?.url ? imageLocation.url : subject?.locations[frame]?.url
 
   const { img, error, loading, subjectImage } = useSubjectImage({
+    frame,
     src: imageLocationUrl,
     onError,
     onReady

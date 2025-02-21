@@ -62,6 +62,7 @@ function SingleImageCanvas({
                 <InteractionLayer
                   frame={frame}
                   height={naturalHeight}
+                  move={move}
                   width={naturalWidth}
                 />
               )}
