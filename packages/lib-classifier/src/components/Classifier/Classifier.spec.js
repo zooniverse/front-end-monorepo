@@ -38,7 +38,11 @@ describe('Components > Classifier', function () {
     constructor () {
       this.naturalHeight = 1000
       this.naturalWidth = 500
-      setTimeout(() => this.onload(), 500)
+      const fakeLoadEvent = {
+        ...new Event('load'),
+        target: this
+      }
+      setTimeout(() => this.onload(fakeLoadEvent), 500)
     }
   }
 
@@ -46,7 +50,11 @@ describe('Components > Classifier', function () {
     constructor () {
       this.naturalHeight = 1000
       this.naturalWidth = 500
-      setTimeout(() => this.onload(), 5000)
+      const fakeLoadEvent = {
+        ...new Event('load'),
+        target: this
+      }
+      setTimeout(() => this.onload(fakeLoadEvent), 5000)
     }
   }
 
