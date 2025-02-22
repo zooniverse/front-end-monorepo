@@ -12,6 +12,17 @@ const SVGSlider = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'>
 </svg>`
 
 
+/**
+ * A custom thumb for the range input slider.
+ */
+const customThumbStyles = `
+  appearance: none;
+  background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
+  background-size: cover;
+  cursor: pointer;
+  height: 32px;
+  width: 40px;
+`
 const StyledRangeInput = styled.input`
   ${props =>
     props.theme.dark
@@ -25,21 +36,11 @@ const StyledRangeInput = styled.input`
   width: 250px;
 
   &::-webkit-slider-thumb {
-    appearance: none;
-    background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
-    background-size: cover;
-    cursor: pointer;
-    height: 32px;
-    width: 40px;
+    ${customThumbStyles}
   }
 
   &::-moz-range-thumb {
-    appearance: none;
-    background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
-    background-size: cover;
-    cursor: pointer;
-    height: 32px;
-    width: 40px;
+    ${customThumbStyles}
   }
 `
 const StyledButton = styled.button`
