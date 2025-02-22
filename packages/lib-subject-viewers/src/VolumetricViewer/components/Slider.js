@@ -4,18 +4,17 @@ import { number, object, string } from 'prop-types'
 import styled, { css, useTheme } from 'styled-components'
 import { useEffect, useState } from 'react'
 
-/* RAW SVG FOR SLIDER | Needs to be URL encoded to view
+// RAW SVG FOR SLIDER | Needs to be URL encoded to view
 const SVGSlider = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'>
   <rect width='100%' height='100%' rx='8' ry='8' style='fill: rgb(0,93,105);' />
   <path d='M16 10 l-7 6 l7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/>
   <path d='M24 10 l7 6 l-7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/>
 </svg>`
-*/
+
 
 const StyledSlider = styled(Box)`
   align-items: center;
-  display: flex;
-  flex-direction: column;
+  gap: 10px;
   height: 60px;
   width: 60px;
 
@@ -25,21 +24,29 @@ const StyledSlider = styled(Box)`
         ? css`background: #FFF;`
         : css`background: #000;`
     }
-    -webkit-appearance: none;
+    appearance: none;
     border-radius: 5px;
     height: 4px;
     transform: rotate(-90deg) translateX(-125px);
     width: 250px;
-  }
-  
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Crect width='100%25' height='100%25' rx='8' ry='8' style='fill: rgb(0,93,105);' /%3E%3Cpath d='M16 10 l-7 6 l7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/%3E%3Cpath d='M24 10 l7 6 l-7 6;' style='stroke:rgb(173, 221, 224); stroke-width:2; fill: none;'/%3E%3C/svg%3E");
-    background-size: cover;
-    cursor: pointer;
-    height: 32px;
-    width: 40px;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
+      background-size: cover;
+      cursor: pointer;
+      height: 32px;
+      width: 40px;
+    }
+
+    &::-moz-range-thumb {
+      appearance: none;
+      background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
+      background-size: cover;
+      cursor: pointer;
+      height: 32px;
+      width: 40px;
+    }
   }
   
   .plane-slider-forward {
@@ -49,15 +56,23 @@ const StyledSlider = styled(Box)`
         : css`color: #000;`
     }
 
-    height: 20px;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 20px;
+    height: fit-content;
+    width: fit-content;
+    padding: 0;
+    border: none;
+    background: none;
 
     &:active {
       background-color: #ADDDE0;
       border-radius: 20px;
       color: white;
+    }
+    
+    svg {
+      fill: currentColor;
+      height: 20px;
+      width: 20px;
+      padding: 10px;
     }
   }
 `
@@ -101,16 +116,19 @@ export const Slider = ({ dimension, viewer }) => {
 
   return (
     <StyledSlider>
-      <ForwardTen
+      <button
         className='plane-slider-forward'
         color={iconColor}
-        onMouseDown={inMouseDown}
-        onMouseUp={inMouseUp}
-      />
+        onPointerDown={inMouseDown}
+        onPointerUp={inMouseUp}
+        aria-label='Advance 10 Frames'
+      >
+        <ForwardTen height={20} width={20} />
+      </button>
       <input
         aria-label={`Plane ${dimension} Slider`}
         max={viewer.base - 1}
-        min='0'
+        min={0}
         onChange={inChange}
         orient='vertical'
         type='range'
