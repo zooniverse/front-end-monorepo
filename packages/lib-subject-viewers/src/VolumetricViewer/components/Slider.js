@@ -42,39 +42,36 @@ const StyledRangeInput = styled.input`
     width: 40px;
   }
 `
+const StyledButton = styled.button`
+  ${props =>
+    props.theme.dark
+      ? css`color: #FFF;`
+      : css`color: #000;`
+  }
+  height: fit-content;
+  width: fit-content;
+  padding: 0;
+  border: none;
+  background: none;
 
+  &:active {
+    background-color: #ADDDE0;
+    border-radius: 20px;
+    color: white;
+  }
+  
+  svg {
+    fill: currentColor;
+    height: 20px;
+    width: 20px;
+    padding: 10px;
+  }
+`
 const StyledSlider = styled(Box)`
   align-items: center;
   gap: 10px;
   height: 60px;
   width: 60px;
-  
-  .plane-slider-forward {
-    ${props =>
-      props.theme.dark
-        ? css`color: #FFF;`
-        : css`color: #000;`
-    }
-
-    height: fit-content;
-    width: fit-content;
-    padding: 0;
-    border: none;
-    background: none;
-
-    &:active {
-      background-color: #ADDDE0;
-      border-radius: 20px;
-      color: white;
-    }
-    
-    svg {
-      fill: currentColor;
-      height: 20px;
-      width: 20px;
-      padding: 10px;
-    }
-  }
 `
 
 export const Slider = ({ dimension, viewer }) => {
@@ -116,15 +113,14 @@ export const Slider = ({ dimension, viewer }) => {
 
   return (
     <StyledSlider>
-      <button
+      <StyledButton
         className='plane-slider-forward'
-        color={iconColor}
         onPointerDown={inMouseDown}
         onPointerUp={inMouseUp}
         aria-label='Advance 10 Frames'
       >
-        <ForwardTen height={20} width={20} />
-      </button>
+        <ForwardTen color={iconColor} height={20} width={20} />
+      </StyledButton>
       <StyledRangeInput
         aria-label={`Plane ${dimension} Slider`}
         max={viewer.base - 1}
