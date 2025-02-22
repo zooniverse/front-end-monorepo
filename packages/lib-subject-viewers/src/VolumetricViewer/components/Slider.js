@@ -12,42 +12,42 @@ const SVGSlider = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'>
 </svg>`
 
 
+const StyledRangeInput = styled.input`
+  ${props =>
+    props.theme.dark
+      ? css`background: #FFF;`
+      : css`background: #000;`
+  }
+  appearance: none;
+  border-radius: 5px;
+  height: 4px;
+  transform: rotate(-90deg) translateX(-125px);
+  width: 250px;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
+    background-size: cover;
+    cursor: pointer;
+    height: 32px;
+    width: 40px;
+  }
+
+  &::-moz-range-thumb {
+    appearance: none;
+    background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
+    background-size: cover;
+    cursor: pointer;
+    height: 32px;
+    width: 40px;
+  }
+`
+
 const StyledSlider = styled(Box)`
   align-items: center;
   gap: 10px;
   height: 60px;
   width: 60px;
-
-  input[type="range"] {
-    ${props =>
-      props.theme.dark
-        ? css`background: #FFF;`
-        : css`background: #000;`
-    }
-    appearance: none;
-    border-radius: 5px;
-    height: 4px;
-    transform: rotate(-90deg) translateX(-125px);
-    width: 250px;
-
-    &::-webkit-slider-thumb {
-      appearance: none;
-      background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
-      background-size: cover;
-      cursor: pointer;
-      height: 32px;
-      width: 40px;
-    }
-
-    &::-moz-range-thumb {
-      appearance: none;
-      background-image: url("data:image/svg+xml,${encodeURIComponent(SVGSlider)}");
-      background-size: cover;
-      cursor: pointer;
-      height: 32px;
-      width: 40px;
-    }
-  }
   
   .plane-slider-forward {
     ${props =>
@@ -125,12 +125,11 @@ export const Slider = ({ dimension, viewer }) => {
       >
         <ForwardTen height={20} width={20} />
       </button>
-      <input
+      <StyledRangeInput
         aria-label={`Plane ${dimension} Slider`}
         max={viewer.base - 1}
         min={0}
-        onChange={inChange}
-        orient='vertical'
+        onInput={inChange}
         type='range'
         value={viewer.getPlaneFrameIndex({ dimension })}
       />
