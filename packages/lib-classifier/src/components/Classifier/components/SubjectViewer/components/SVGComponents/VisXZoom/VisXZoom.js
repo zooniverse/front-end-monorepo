@@ -1,15 +1,18 @@
-import { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
-import ZoomEventLayer from '../ZoomEventLayer'
+import { throttle } from 'lodash'
+import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+
 import { useKeyZoom } from '@hooks'
+import ZoomEventLayer from '../ZoomEventLayer'
 
 const defaultZoomConfig = {
   direction: 'both',
   minZoom: 1,
   maxZoom: 10,
+  onWheelThrottleWait: 0,
   zoomInValue: 1.2,
   zoomOutValue: 0.8
 }
@@ -124,6 +127,7 @@ function VisXZoom({
       zoomToPoint(event, zoomDirection)
     }
   }
+  const throttledOnWheel = throttle(onWheel, zoomConfiguration?.onWheelThrottleWait)
 
   const ZoomingComponent = zoomingComponent
   return (
@@ -158,7 +162,7 @@ function VisXZoom({
               onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
               onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
               onPointerLeave={onPointerLeave}
-              onWheel={onWheel}
+              onWheel={throttledOnWheel}
               panning={panning}
               tabIndex={0}
               width={width}

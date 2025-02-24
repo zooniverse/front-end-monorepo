@@ -13,6 +13,7 @@ const DEFAULT_ZOOM_CONFIG = {
   direction: 'both',
   maxZoom: 10,
   minZoom: 0.1,
+  onWheelThrottleWait: 100,
   zoomInValue: 1.2,
   zoomOutValue: 0.8
 }
