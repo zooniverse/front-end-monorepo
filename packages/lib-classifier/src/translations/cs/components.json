@@ -1,67 +1,286 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "S tímto objektem jste se již setkali",
+      "tooltipText": [
+        "Tento objekt jste již viděli a klasifikovali, takže další klasifikace nepřispěje k jeho analýze.",
+        "Pokud chcete pomoci, zkuste zvolit jiný pracovní postup nebo přispět do jiného projektu."
+      ]
+    },
     "Banner": {
-      "next": "Další"
+      "next": "Další",
+      "previous": "Předchozí",
+      "whyAmISeeingThis": "Proč se mi to zobrazuje?"
     },
     "InProgressConfirmModal": {
       "cancel": "Zrušit",
-      "confirm": "OK",
-      "inProgress": "Krokem zpět ztratíte započatou práci na tomto úkolu."
+      "confirm": "Potvrdit",
+      "inProgress": "Opravdu chcete přejít na jiný objekt? Veškeré anotace, které jste vytvořili pro aktuální objekt, budou ztraceny."
+    },
+    "RetiredBanner": {
+      "bannerText": "Dokončeno: Tento objekt byl vyřazen",
+      "tooltipText": [
+        "Tento objekt má již dostatek klasifikací, takže vaše nebudou použity při jeho analýze.",
+        "Pokud chcete pomoci, zkuste zvolit jiný pracovní postup nebo přispět do jiného projektu."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Již viděno",
+      "bannerText": "{{setName}}: Objekt {{number}}\/{{total}}",
+      "finished": "Dokončeno",
+      "tooltipText": [
+        "Tento projekt umožňuje dobrovolníkům prohlížet si objekty v postupném pořadí.",
+        "Číslo zobrazuje pozici objektu v rámci celé skupiny."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Dokončeno: Viděli jste všechno",
+      "tooltipText": [
+        "V tomto pracovním postupu jste již vše klasifikovali, takže další klasifikace tohoto objektu nebudou při jeho analýze použity.",
+        "Pokud chcete pomoci, zkuste zvolit jiný pracovní postup nebo přispět do jiného projektu."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Tento pracovní postup je dokončen",
+      "tooltipText": [
+        "Všechny objekty v tomto pracovním postupu byly dokončeny, takže další klasifikace tohoto objektu nebudou při jeho analýze použity.",
+        "Pokud chcete pomoci, zkuste zvolit jiný pracovní postup nebo přispět do jiného projektu."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Úchop pro otáčení nakreslené anotace\/značky."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Pokračovat"
+    "keepClassifying": "Pokračovat v klasifikaci",
+    "label": "Zpětná vazba"
   },
   "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Terénní průvodce"
+    },
     "FieldGuideItem": {
-      "ariaTitle": "Zpět"
+      "ariaTitle": "Zpět na seznam položek terénního průvodce"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Vybrat {{title}}"
+    },
+    "title": "Terénní průvodce"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Poznámky"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Zobrazit objekt v normální velikosti",
+        "fullscreen": "Zobrazit objekt v režimu celé obrazovky"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Obrátit objekt"
+    },
+    "MoveButton": {
+      "ariaLabel": "Přesun objektu"
+    },
+    "ResetButton": {
+      "ariaLabel": "Obnovení zobrazení předmětu"
+    },
+    "RotateButton": {
+      "ariaLabel": "Otáčení objektu"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Přiblížení objektu"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Oddálení od objektu"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Přidat do sbírek"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Skrýt předchozí značky",
+      "show": "Zobrazit předchozí značky"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Skrýt všechny značky",
+      "show": "Zobrazit všechny značky",
+      "showUser": "Zobrazit své značky"
+    },
+    "MetadataButton": {
+      "label": "Info o objektu"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Štítek",
+        "value": "Hodnota"
+      },
+      "title": "Metadata objektu"
     }
   },
   "ModalTutorial": {
     "title": "Návod"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Zavřít panel komentářů",
+      "goToTalk": "Přejít na téma Diskuze na straně Talk",
+      "mainPanel": "Panel komentářů QuickTalk",
+      "openButton": "Předmět má {{count}} komentář(ů). Klikněte pro rozbalení.",
+      "panelContent": "Komentáře k předmětu diskuze",
+      "panelHeading": "Předmět Diskuze"
+    },
+    "errors": {
+      "failPostComment": "Nepodařilo se přidat komentáře ke stávající diskusi.",
+      "failPostDiscussion": "Do nové diskuse se nepodařilo přidat komentáře.",
+      "noBoard": "Pro tento projekt zatím nebyla zřízena nástěnka pro připomínky k objektu.",
+      "noText": "Nelze vložit prázdný komentář.",
+      "noUser": "Uživatel není přihlášen."
+    },
+    "loginToPost": "Pro vložení komentáře se přihlaste.",
     "status": {
-      "loading": "(načítá se)"
-    }
+      "initialized": "Zanechte poznámku k tomuto objektu",
+      "loading": "Vložení komentáře...",
+      "success": "Komentář odeslán!"
+    },
+    "subjectHasNoComments": "Tento objekt zatím nemá žádné komentáře."
   },
   "SlideTutorial": {
-    "getStarted": "Začít",
-    "heading": "{{projectDisplayName}} Návod"
+    "StepNavigation": {
+      "go": "Přejít na krok {{index}}",
+      "next": "Přejít na další krok",
+      "previous": "Přejít na předchozí krok"
+    },
+    "alt": "Krok výukového programu {{activeStep}}",
+    "error": "Krok výukového programu se nepodařilo načíst.",
+    "getStarted": "Začínáme",
+    "heading": "Návod {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Přejít na krok {{index}}",
+    "next": "Přejít na další krok",
+    "previous": "Přejít na předchozí krok"
   },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Sloupcový graf"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikona prohlížeče textu"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Zavřít bez uložení",
+        "confirm": "Opravdu chcete zavřít? Tato značka bude smazána.",
+        "keepWorking": "Pokračujte v práci"
+      },
+      "SaveButton": {
+        "save": "Uložit a zavřít"
+      },
+      "SubTaskPopup": {
+        "notRender": "Komponentu úlohy se nepodařilo vykreslit.",
+        "required": "Tato úloha je vyžadována."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "agregovaný přepis",
+          "explanation": "Těchto {{count}} přepisů bylo odesláno předchozími dobrovolníky a nelze je upravovat.",
+          "noAggregation": "Agregace není k dispozici.",
+          "title": "Předchozí přepisy",
+          "transcriptionsUnavailable": "Přepisy jsou nedostupné."
+        },
+        "complete": "Přepis dokončen",
+        "transcribed": "Má přepisy"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Další"
+        "nextFrameLabel": "Další",
+        "previousFrameLabel": "Předchozí",
+        "thumbnailAltText": "Miniatura obrázku"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Odstranit výběr {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Přepnout na zobrazení flipbooku",
+        "switchToSeparateFrames": "Přepnout na zobrazení samostatných rámečků"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Při načítání objektu došlo k chybě."
+    },
+    "VariableStarViewer": {
+      "controls": "ovládací prvky",
+      "figCaption": "HR Diagram",
+      "flip": "překlopení",
+      "focus": "zaměření",
+      "highlight": "zvýraznění",
+      "imageTitle": "HR diagram: Jas v poměru k teplotě",
+      "label": "Filtr {{id}}",
+      "periodMultiple": "opakování doby",
+      "phase": "fáze",
+      "phaseFocus": "fázové zaměření"
+    },
+    "VideoController": {
+      "closeVolume": "Zavřít posuvník hlasitosti",
+      "fullscreen": "Zobrazit video přes celou obrazovku",
+      "openVolume": "Otevřít posuvník hlasitosti",
+      "pause": "Pozastavit video",
+      "play": "Přehrát video",
+      "playbackSpeed": "Volba rychlosti přehrávání videa",
+      "scrubber": "Posuvník videopřehrávače",
+      "volumeSlider": "Posuvník hlasitosti"
+    },
+    "ZoomControlButton": {
+      "disable": "zakázat zvětšení",
+      "enable": "povolit zvětšení"
+    },
+    "loading": "Načítání objektu"
   },
   "TaskArea": {
-    "task": "Úkol",
-    "tutorial": "Návod",
     "DisabledTaskPopup": {
+      "body": "Tento objekt má dostatek klasifikací, takže žádné další předložené klasifikace nebudou při jeho analýze použity. Tento objekt si přesto můžete zobrazit pro referenci.",
       "options": {
-        "dismiss": "Zamítnout možnost"
-      }
+        "dismiss": "Odmítnout",
+        "next": "Další dostupný objekt",
+        "select": "Vyberte nový objekt"
+      },
+      "title": "Dokončeno"
     },
     "Tasks": {
       "BackButton": {
-        "back": "Zpět"
+        "back": "zpět"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "Dokončit & Komentovat"
       },
       "DoneButton": {
-        "done": "Dokončit"
+        "done": "dokončit"
       },
-      "loading": "(načítá se)",
+      "ExpertOptions": {
+        "demoToggle": "Ukázkový režim",
+        "label": "Expertní možnosti"
+      },
       "NextButton": {
-        "next": "Další"
+        "next": "další"
       },
       "TaskHelp": {
         "close": "Zavřít",
-        "label": "Potřebuješ pomoct s tímto úkolem?"
-      }
-    }
+        "label": "Potřebujete s tímto úkolem pomoci?"
+      },
+      "demoMode": "V ukázkovém režimu se klasifikace neukládají. Použijte jej pro rychlé a nepřesné ukázky rozhraní klasifikace.",
+      "error": "Něco se pokazilo",
+      "loading": "Načítání",
+      "renderFallback": "Komponentu úlohy se nepodařilo vykreslit."
+    },
+    "task": "Úkol",
+    "tutorial": "Návod"
   }
 }
