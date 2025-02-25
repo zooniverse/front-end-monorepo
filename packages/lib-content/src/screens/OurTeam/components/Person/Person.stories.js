@@ -20,10 +20,3 @@ export const PlaceholderAvatar = {
     avatarSrc: ''
   }
 }
-
-export const WithTwitter = {
-  args: {
-    ...Default.args,
-    twitterID: 'mockTwitter'
-  }
-}
