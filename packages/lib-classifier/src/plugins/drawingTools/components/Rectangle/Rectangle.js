@@ -4,7 +4,7 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Rectangle({ active, mark, onFinish, scale }) {
+function Rectangle({ active, mark, onFinish }) {
   const { x_center, y_center, width, height } = mark
 
   function onHandleDrag(coords) {
@@ -30,21 +30,22 @@ function Rectangle({ active, mark, onFinish, scale }) {
         width={width}
         height={height}
         data-testid='rectangle-element'
+        vectorEffect={'non-scaling-stroke'}
       />
       <rect
         x={x_left}
         y={y_top}
         width={width}
         height={height}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_top}
-          testid='rect-dragHandle1'
+          data-testid='rect-dragHandle1'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
@@ -57,10 +58,9 @@ function Rectangle({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_bottom}
-          testid='rect-dragHandle2'
+          data-testid='rect-dragHandle2'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left,
@@ -73,10 +73,9 @@ function Rectangle({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_bottom}
-          testid='rect-dragHandle3'
+          data-testid='rect-dragHandle3'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
@@ -89,10 +88,9 @@ function Rectangle({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_top}
-          testid='rect-dragHandle4'
+          data-testid='rect-dragHandle4'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left,

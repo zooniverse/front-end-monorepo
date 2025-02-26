@@ -49,6 +49,7 @@ function DEFAULT_HANDLER() {
 }
 
 export function SingleTextViewerContainer ({
+  frame = 0,
   height = '',
   latest,
   loadingState = asyncStates.initialized,
@@ -57,6 +58,7 @@ export function SingleTextViewerContainer ({
   subject = defaultSubject
 }) {
   const { data, error, loading } = useSubjectText({
+    frame,
     subject,
     onReady,
     onError

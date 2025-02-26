@@ -1,5 +1,5 @@
 import { forwardRef, useContext, useRef, useState } from 'react';
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import SVGContext from '../../shared/SVGContext'
 
 function createPoint(event) {
   const { clientX, clientY } = event

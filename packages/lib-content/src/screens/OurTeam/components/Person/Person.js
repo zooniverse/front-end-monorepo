@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import withResponsiveContext from '@zooniverse/react-components/helpers/withResponsiveContext'
 
 import Avatar from './components/Avatar'
-import TwitterLink from './components/TwitterLink'
 
 const PersonName = styled(Heading)`
   margin: 0;
@@ -21,7 +20,6 @@ function Person({
   jobTitle = '',
   name = '',
   screenSize = 'medium',
-  twitterID = ''
 }) {
   return (
     <Box
@@ -40,7 +38,6 @@ function Person({
             size={screenSize === 'small' ? '1rem' : '1.13rem'}
           >
             {`${name}, ${jobTitle}`}
-            {twitterID && <TwitterLink name={name} twitterId={twitterID} />}
           </PersonName>
         </Box>
         <Text size='medium'>{bio}</Text>
@@ -55,7 +52,6 @@ Person.propTypes = {
   bio: string,
   jobTitle: string,
   name: string,
-  twitterID: string
 }
 
 export default withResponsiveContext(Person)

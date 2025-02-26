@@ -25,9 +25,7 @@ function SingleImageViewer({
   limitSubjectHeight = false,
   onKeyDown = () => true,
   rotate = 0,
-  scale = 1,
   svgMaxHeight = null,
-  subject,
   title = {},
   viewBox,
   width,
@@ -59,7 +57,6 @@ function SingleImageViewer({
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={`0 0 ${width} ${height}`}
-          xmlns='http://www.w3.org/2000/svg'
         >
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
@@ -76,8 +73,6 @@ function SingleImageViewer({
                 <InteractionLayer
                   frame={frame}
                   height={height}
-                  scale={scale}
-                  subject={subject}
                   width={width}
                 />
               )}
@@ -99,13 +94,7 @@ SingleImageViewer.propTypes = {
   /** Stored in subject viewer store */
   rotate: PropTypes.number,
   /** Calculated in SVGPanZoom component */
-  scale: PropTypes.number,
-  /** Calculated in SVGPanZoom component */
   svgMaxHeight: PropTypes.string,
-  /** Passed from container */
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  }),
   title: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string
