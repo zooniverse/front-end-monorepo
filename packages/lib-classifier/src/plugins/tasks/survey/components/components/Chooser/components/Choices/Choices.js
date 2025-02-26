@@ -32,6 +32,7 @@ const StyledGrid = styled.ul`
     grid-template-columns: repeat(${props => props.$columnsCount}, 1fr);
   }
 
+  // regardless of shown choices and related columns count, at 430px and below show 1 column
   @media (max-width: 430px) {
     display: block;
     li {
@@ -174,6 +175,7 @@ export function Choices({
               choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
               disabled={disabled}
               hasFocus={hasFocus}
+              index={index}
               onChoose={onChoose}
               onDelete={handleDelete}
               onKeyDown={handleKeyDown}

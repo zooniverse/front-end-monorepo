@@ -21,6 +21,11 @@ const StyledBox = styled(Box)`
       box-shadow: 0 0 8px 2px ${props.theme.global.colors['accent-1']};
     ` : css`
       background: ${props.shadedBackground ? props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1'] : props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6']};
+      // if the screen width is 430px or less the ChoiceButtons will be in 1 column regardless of shown choices and related columns count
+      // and the ChoiceButton background color should alternate as follows
+      @media (max-width: 430px) {
+        background: ${(props.index % 2) ? props.theme.global.colors[props.theme.dark ? 'dark-5' : 'neutral-6'] : props.theme.global.colors[props.theme.dark ? 'dark-4' : 'light-1']};
+      }
     `
   }
   color: ${props => props.selected ? props.theme.global.colors['neutral-6'] : props.theme.global.colors[props.theme.dark ? 'neutral-6' : 'neutral-7']};
@@ -67,6 +72,7 @@ function ChoiceButton({
   choiceLabel = '',
   disabled = false,
   hasFocus = false,
+  index = 0,
   onChoose = DEFAULT_HANDLER,
   onDelete = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
@@ -108,6 +114,7 @@ function ChoiceButton({
       align='center'
       direction='row'
       fill
+      index={index}
       onKeyDown={disabled ? DEFAULT_HANDLER : handleKeyDown}
       pad={{
         right: '10px'
@@ -180,6 +187,7 @@ ChoiceButton.propTypes = {
   columnsCount: PropTypes.number,
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
+  index: PropTypes.number,
   onChoose: PropTypes.func,
   onDelete: PropTypes.func,
   onKeyDown: PropTypes.func,
