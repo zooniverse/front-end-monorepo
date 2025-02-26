@@ -1,6 +1,6 @@
 import { ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { arrayOf, bool, func, oneOfType, shape, string } from 'prop-types'
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components'
 
@@ -192,21 +192,21 @@ export function Choices({
 }
 
 Choices.propTypes = {
-  disabled: PropTypes.bool,
-  filteredChoiceIds: PropTypes.arrayOf(
-    PropTypes.string
+  disabled: bool,
+  filteredChoiceIds: arrayOf(
+    string
   ),
-  filterOpen: PropTypes.bool,
-  previousChoiceId: PropTypes.string,
-  handleDelete: PropTypes.func,
-  onChoose: PropTypes.func,
-  selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
-  task: PropTypes.shape({
-    help: PropTypes.string,
-    required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    taskKey: PropTypes.string,
-    thumbnails: PropTypes.string,
-    type: PropTypes.string
+  filterOpen: bool,
+  previousChoiceId: string,
+  handleDelete: func,
+  onChoose: func,
+  selectedChoiceIds: arrayOf(string),
+  task: shape({
+    help: string,
+    required: oneOfType([string, bool]),
+    taskKey: string,
+    thumbnails: string,
+    type: string
   }).isRequired
 }
 

@@ -4,7 +4,7 @@ import {
   Image,
   Text
 } from 'grommet'
-import PropTypes from 'prop-types'
+import { bool, func, number, string } from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 
@@ -181,22 +181,22 @@ function ChoiceButton({
 }
 
 ChoiceButton.propTypes = {
-  ariaChecked: PropTypes.string,
-  choiceId: PropTypes.string,
-  choiceLabel: PropTypes.string,
-  columnsCount: PropTypes.number,
-  disabled: PropTypes.bool,
-  hasFocus: PropTypes.bool,
-  index: PropTypes.number,
-  onChoose: PropTypes.func,
-  onDelete: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  role: PropTypes.string,
-  selected: PropTypes.bool,
-  shadedBackground: PropTypes.bool,
-  src: PropTypes.string,
-  tabIndex: PropTypes.number,
-  thumbnailSize: PropTypes.string
+  ariaChecked: string,
+  choiceId: string,
+  choiceLabel: string,
+  columnsCount: number,
+  disabled: bool,
+  hasFocus: bool,
+  index: number,
+  onChoose: func,
+  onDelete: func,
+  onKeyDown: func,
+  role: string,
+  selected: bool,
+  shadedBackground: bool,
+  src: string,
+  tabIndex: number,
+  thumbnailSize: string
 }
 
 export default ChoiceButton
