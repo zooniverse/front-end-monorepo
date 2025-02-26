@@ -1,7 +1,8 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useKeyZoom, useStores, useSubjectImage } from '@hooks'
+import { useStores, useSubjectImage } from '@hooks'
+import { defaultKeyMappings } from '../../../../../../../../hooks/useKeyZoom'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
 import {
   AnnotateButton,
@@ -36,8 +37,6 @@ const SeparateFrame = ({
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
 
-  const { onKeyZoom } = useKeyZoom()
-  
   const { img, error, loading, subjectImage } = useSubjectImage({
     frame,
     src: frameUrl,
@@ -59,6 +58,40 @@ const SeparateFrame = ({
   function setOnZoom(fn) {
     onZoom = fn
   }
+
+  function panLeft() {
+    onPan(-1, 0)
+  }
+
+  function panRight() {
+    onPan(1, 0)
+  }
+
+  function panUp() {
+    onPan(0, -1)
+  }
+
+  function panDown() {
+    onPan(0, 1)
+  }
+
+  function zoomIn() {
+    onZoom('zoomin', 1)
+  }
+
+  function zoomOut() {
+    onZoom('zoomout', -1)
+  }
+
+  const { onKeyZoom } = defaultKeyMappings({
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
+    rotate: rotation,
+    zoomIn,
+    zoomOut
+  })
 
   /** Image Toolbar functions */
   const separateFrameEnableAnnotate = () => {

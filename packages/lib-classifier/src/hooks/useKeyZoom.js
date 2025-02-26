@@ -24,15 +24,16 @@ function storeMapper(classifierStore) {
   }
 }
 
-export default function useKeyZoom({ rotate = 0, customKeyMappings = {} } = {}) {
-  const {
-    panLeft,
-    panRight,
-    panUp,
-    panDown,
-    zoomIn,
-    zoomOut
-  } = useStores(storeMapper)
+export function defaultKeyMappings({
+  panLeft,
+  panRight,
+  panUp,
+  panDown,
+  rotate,
+  zoomIn,
+  zoomOut,
+  customKeyMappings = {}
+}) {
   const rotation = Math.abs(rotate) % 360
   const keyMappings = {
     '+': zoomIn,
@@ -41,7 +42,7 @@ export default function useKeyZoom({ rotate = 0, customKeyMappings = {} } = {}) 
     '_': zoomOut,
     ...customKeyMappings
   }
-  
+
   if (rotation === 0) {
     keyMappings['ArrowRight'] = panRight
     keyMappings['ArrowLeft'] = panLeft
@@ -78,6 +79,30 @@ export default function useKeyZoom({ rotate = 0, customKeyMappings = {} } = {}) 
 
     return true
   }
-    
+
   return { onKeyZoom }
+}
+
+export default function useKeyZoom({ rotate = 0, customKeyMappings = {}} = {}) {
+  const {
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
+    zoomIn,
+    zoomOut
+  } = useStores(storeMapper)
+  
+  const onKeyZoom = defaultKeyMappings({
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
+    rotate,
+    zoomIn,
+    zoomOut,
+    customKeyMappings
+  })
+
+  return onKeyZoom
 }
