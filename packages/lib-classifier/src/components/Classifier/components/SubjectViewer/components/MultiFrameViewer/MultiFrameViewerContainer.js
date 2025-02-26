@@ -77,6 +77,7 @@ function MultiFrameViewerContainer({
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
+    frame,
     src: imageLocation?.url,
     onReady,
     onError
@@ -122,7 +123,6 @@ function MultiFrameViewerContainer({
         />
         <SVGPanZoom
           key={`${naturalWidth}-${naturalHeight}`}
-          imgRef={subjectImage}
           limitSubjectHeight={limitSubjectHeight}
           maxZoom={5}
           minZoom={0.1}

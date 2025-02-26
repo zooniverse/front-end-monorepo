@@ -104,7 +104,7 @@ A custom hook that fetches an image from a URL, with a ref to the image's DOM no
 Usage:
 ```jsx
 // img is a DOM img. subjectImage is a React ref to the element that displays the image.
-const { img, error, loading, subjectImage } = useSubjectImage({ src, onReady, onError })
+const { img, error, loading, subjectImage } = useSubjectImage({ frame, src, onReady, onError })
 
 if (loading) {
   return <p>The image is still loading.</p>

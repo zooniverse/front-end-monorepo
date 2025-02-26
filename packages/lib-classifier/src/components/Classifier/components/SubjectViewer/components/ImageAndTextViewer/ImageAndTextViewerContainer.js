@@ -48,6 +48,7 @@ function ImageAndTextViewerContainer ({
         {(type === 'text')
           ? (
             <SingleTextViewer
+              frame={frame}
               height={dimensions[0]?.clientHeight ? `${dimensions[0]?.clientHeight}px` : ''}
               onError={onError}
               onReady={onReady}
@@ -55,6 +56,7 @@ function ImageAndTextViewerContainer ({
           : (
             <SingleImageViewer
               enableInteractionLayer={false}
+              frame={frame}
               loadingState={loadingState}
               onError={onError}
               onReady={onReady}

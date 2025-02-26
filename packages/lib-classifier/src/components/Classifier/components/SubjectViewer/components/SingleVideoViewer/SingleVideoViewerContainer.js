@@ -38,7 +38,6 @@ function SingleVideoViewerContainer({
   onKeyDown = () => true,
   subject
 }) {
-  const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -71,7 +70,6 @@ function SingleVideoViewerContainer({
 
       setVideoHeight(reactPlayerVideoHeight)
       setVideoWidth(reactPlayerVideoWidth)
-      setClientWidth(reactPlayerClientWidth)
 
       const target = {
         clientHeight: reactPlayerClientHeight,
@@ -183,7 +181,6 @@ function SingleVideoViewerContainer({
   ), [enableDrawing, isPlaying, playbackSpeed, videoLocation, volume])
 
   const canvas = transformLayer?.current
-  const interactionLayerScale = clientWidth / videoWidth
   const svgStyle = {}
   if (enableDrawing) {
     svgStyle.touchAction = 'pinch-zoom'
@@ -210,7 +207,6 @@ function SingleVideoViewerContainer({
                     >
                       <g ref={transformLayer} transform=''>
                         <InteractionLayer
-                          scale={interactionLayerScale}
                           duration={duration}
                           height={videoHeight}
                           played={timeStamp}

@@ -32,6 +32,7 @@ const SeparateFrame = ({
   onReady = DEFAULT_HANDLER
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
+    frame,
     src: frameUrl,
     onReady,
     onError
@@ -74,13 +75,6 @@ const SeparateFrame = ({
   }, [zoom])
 
   /** Move/Zoom functions */
-
-  const imageScale = img => {
-    const { width: clientWidth } = img ? img.getBoundingClientRect() : {}
-    const scale = clientWidth / naturalWidth
-    return !Number.isNaN(scale) ? scale : 1
-  }
-  const scale = imageScale(subjectImage.current) // For images with an InteractionLayer
 
   const scaledViewBox = scale => {
     const viewBoxScale = 1 / scale
@@ -215,7 +209,6 @@ const SeparateFrame = ({
         limitSubjectHeight={limitSubjectHeight}
         onKeyDown={onKeyDown}
         rotate={rotation}
-        scale={scale}
         svgMaxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
         viewBox={`${x} ${y} ${width} ${height}`}
         width={naturalWidth}
