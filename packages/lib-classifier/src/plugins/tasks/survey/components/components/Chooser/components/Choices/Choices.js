@@ -67,12 +67,11 @@ export function Choices({
 
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   
-  let thumbnailSize
-  if (task.thumbnails === 'hide') {
-    thumbnailSize = 'none'
-  } else {
-    thumbnailSize = whatSizeThumbnail(filteredChoiceIds)
-  }
+  const thumbnailSetting = task.thumbnails || (task.alwaysShowThumbnails ? 'show' : 'default')
+  const thumbnailSize = whatSizeThumbnail({
+    length: filteredChoiceIds.length,
+    thumbnailSetting
+  })
 
   function handleKeyDown (choiceId, event) {
     const index = filteredChoiceIds.indexOf(choiceId)
