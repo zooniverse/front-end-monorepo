@@ -1,4 +1,5 @@
-import { getRoot, getSnapshot, resolveIdentifier, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, getSnapshot, resolveIdentifier, types } from 'mobx-state-tree'
 import DrawingTask from './DrawingTask'
 import Annotation from '../../models/Annotation'
 import * as markTypes from '@plugins/drawingTools/models/marks'
@@ -11,31 +12,53 @@ const Drawing = types.model('Drawing', {
   value: types.array(types.safeReference(GenericMark))
 })
   .views(self => ({
-    toSnapshot () {
+    /**
+    Resolve `annotation.task`, which is a task key, to its corresponding task object.
+    */
+    get actualTask() {
+      return resolveIdentifier(DrawingTask, getRoot(self), self.task)
+    },
+
+    /**
+    Generate a snapshot in the format expected by Panoptes, Caesar etc.
+    See ADR 25.
+    https://github.com/zooniverse/front-end-monorepo/blob/master/docs/arch/adr-25.md
+    */
+    toSnapshot() {
       const snapshot = getSnapshot(self)
-      // resolve mark references (IDs) in the snapshot to mark snapshots
-      const actualTask = resolveIdentifier(DrawingTask, getRoot(self), self.task)
-      const value = actualTask.marks.map(mark => getSnapshot(mark))
-      const drawingSnapshot = Object.assign({}, snapshot, { value })
-      // flatten subtask annotations into a single annotations array
-      // then return the flattened array
+      // Replace mark references (IDs) with mark snapshots.
+      const markSnapshots = self.value.map(mark => getSnapshot(mark))
+      const drawingSnapshot = { ...snapshot, value: markSnapshots }
+      // Flatten subtask annotations into a single annotations array
+      // then return the flattened array.
       const drawingAnnotations = [drawingSnapshot]
-      drawingSnapshot.value.forEach((markSnapshot, markIndex) => {
-        const mark = Object.assign({}, markSnapshot)
-        // map subtask keys to mark.details
+      markSnapshots.forEach((markSnapshot, markIndex) => {
+        const mark = { ...markSnapshot }
+        // `mark.details` is an array of subtask keys.
         mark.details = mark.annotations.map(annotation => ({ task: annotation.task }))
-        // push mark.annotations to the returned array
+        // Push mark subtask annotations to the returned array.
         mark.annotations.forEach(markAnnotation => {
-          const finalAnnotation = Object.assign({}, markAnnotation, { markIndex })
-          // strip annotation IDs
-          const { id, ...rest } = finalAnnotation
-          drawingAnnotations.push(rest)
+          // Strip annotation IDs and add markIndex.
+          const { id, ...rest } = markAnnotation
+          const finalAnnotation = { ...rest, markIndex }
+          drawingAnnotations.push(finalAnnotation)
         })
-        // remove annotations from individual marks
+        // Remove annotations from individual marks.
         const { annotations, ...rest } = mark
         drawingSnapshot.value[markIndex] = rest
       })
       return drawingAnnotations
+    }
+  }))
+  .actions(self => ({
+    afterAttach() {
+      function _onMarksChange() {
+        // A drawing annotation stores an array of mark IDs for the corresponding task.
+        const newValue = self.actualTask.marks.map(mark => mark.id)
+        self.update(newValue)
+      }
+
+      addDisposer(self, autorun(_onMarksChange))
     }
   }))
 
