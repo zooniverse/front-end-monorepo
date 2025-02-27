@@ -8,7 +8,7 @@ import { useTranslation } from '@translations/i18n'
 import { DisabledTaskPopup, Tasks } from './components'
 import SlideTutorial from '../SlideTutorial'
 
-const TaskContainer = styled(Box)`
+const TaskContainer = styled.div`
   &[inert] {
     opacity: 0.5;
   }
@@ -67,35 +67,37 @@ export default function TaskArea({
       <DisabledTaskPopup
         isOpen={disabled}
         onClose={enableTasks}
-        target={taskArea?.current}
       />
-      <Tabs
-        activeIndex={activeIndex}
-        className={className}
-        onActive={onTabClick}
-        flex
+      <TaskContainer
+        ref={taskArea}
       >
-        <Tab
-          title={t('TaskArea.task')}
+        <Tabs
+          activeIndex={activeIndex}
+          className={className}
+          onActive={onTabClick}
+          flex
         >
-          <TaskContainer
-            ref={taskArea}
-            fill
+          <Tab
+            title={t('TaskArea.task')}
           >
-            <Tasks
-              disabled={disabled}
-            />
-          </TaskContainer>
-        </Tab>
-        <Tab
-          disabled={disabled || disableTutorialTab}
-          title={t('TaskArea.tutorial')}
-        >
-          <Box>
-            <SlideTutorial onClick={onClose} pad='none' />
-          </Box>
-        </Tab>
-      </Tabs>
+            <Box
+              fill
+            >
+              <Tasks
+                disabled={disabled}
+              />
+            </Box>
+          </Tab>
+          <Tab
+            disabled={disabled || disableTutorialTab}
+            title={t('TaskArea.tutorial')}
+          >
+            <Box>
+              <SlideTutorial onClick={onClose} pad='none' />
+            </Box>
+          </Tab>
+        </Tabs>
+      </TaskContainer>
     </>
   )
 }
