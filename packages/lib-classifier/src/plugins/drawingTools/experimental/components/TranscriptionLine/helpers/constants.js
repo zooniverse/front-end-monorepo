@@ -1,4 +1,4 @@
-const HANDLE_RADIUS = 5
+const HANDLE_RADIUS = screen.width > 900 ? 5 : 2
 const GRAB_STROKE_WIDTH = 12
 
 export {

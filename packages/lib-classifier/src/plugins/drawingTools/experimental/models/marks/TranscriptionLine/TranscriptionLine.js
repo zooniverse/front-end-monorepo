@@ -20,7 +20,7 @@ const TranscriptionLineModel = types
 
     deleteButtonPosition(scale) {
       const BUFFER = 16
-      const x = self.x1 + BUFFER / scale
+      const x = self.x1 - BUFFER / scale
       const y = self.y1
       return { x, y }
     },
