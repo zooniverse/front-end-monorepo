@@ -63,7 +63,7 @@ function DeleteButton ({
   disabled = false,
   tabIndex = -1
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('plugins')
 
   return (
     <StyledButton
