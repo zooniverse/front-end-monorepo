@@ -1,11 +1,18 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { bool, func, shape, string } from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 import { DisabledTaskPopup, Tasks } from './components'
 import SlideTutorial from '../SlideTutorial'
+
+const TaskContainer = styled.div`
+  &[inert] {
+    opacity: 0.5;
+  }
+`
 
 // TODO: add autofocus for the first tab/task area
 /**
@@ -27,9 +34,12 @@ export default function TaskArea({
   const [ activeIndex, setActiveIndex ] = useState(0)
   const [ disabled, setDisabled ] = useState(false)
   const taskArea = useRef(null)
+  const finished = retired || alreadySeen
+  if (taskArea.current) {
+    taskArea.current.inert = finished && disabled
+  }
 
   useEffect(function onSubjectChange() {
-    const finished = retired || alreadySeen
     setDisabled(finished && workflow.hasIndexedSubjects)
   }, [alreadySeen, subject, retired])
 
@@ -57,35 +67,37 @@ export default function TaskArea({
       <DisabledTaskPopup
         isOpen={disabled}
         onClose={enableTasks}
-        target={taskArea?.current}
       />
-      <Tabs
-        activeIndex={activeIndex}
-        className={className}
-        onActive={onTabClick}
-        flex
+      <TaskContainer
+        ref={taskArea}
       >
-        <Tab
-          title={t('TaskArea.task')}
+        <Tabs
+          activeIndex={activeIndex}
+          className={className}
+          onActive={onTabClick}
+          flex
         >
-          <Box
-            ref={taskArea}
-            fill
+          <Tab
+            title={t('TaskArea.task')}
           >
-            <Tasks
-              disabled={disabled}
-            />
-          </Box>
-        </Tab>
-        <Tab
-          disabled={disabled || disableTutorialTab}
-          title={t('TaskArea.tutorial')}
-        >
-          <Box>
-            <SlideTutorial onClick={onClose} pad='none' />
-          </Box>
-        </Tab>
-      </Tabs>
+            <Box
+              fill
+            >
+              <Tasks
+                disabled={disabled}
+              />
+            </Box>
+          </Tab>
+          <Tab
+            disabled={disabled || disableTutorialTab}
+            title={t('TaskArea.tutorial')}
+          >
+            <Box>
+              <SlideTutorial onClick={onClose} pad='none' />
+            </Box>
+          </Tab>
+        </Tabs>
+      </TaskContainer>
     </>
   )
 }
