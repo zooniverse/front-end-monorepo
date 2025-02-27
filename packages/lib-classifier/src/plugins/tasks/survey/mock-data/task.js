@@ -505,4 +505,9 @@ Object.entries(taskWithMoreThanTwentyChoices.choices).forEach(([choiceID, choice
 })
 taskWithMoreThanTwentyChoices.strings = taskWithMoreThanTwentyChoicesStrings
 
+export const taskHideThumbnails = {
+  ...task,
+  thumbnails: 'hide'
+}
+
 export default task
