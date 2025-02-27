@@ -17,7 +17,7 @@ const StyledGroup = styled('g')`
 function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, theme }) {
   const scale = useScale()
   const focusColor = theme.global.colors[theme.global.colors.focus]
-  const RADIUS = (screen.width < 900) ? 11 : 8
+  const RADIUS = (screen.width < 900) ? 5 : 8
   const STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
   const STROKE_WIDTH = 1.5
