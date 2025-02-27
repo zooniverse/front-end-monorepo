@@ -1,0 +1,33 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registreren",
+      "signIn": "Inloggen"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Links"
+  },
+  "Head": {
+    "siteName": "Zooniverse"
+  },
+  "ProjectHeader": {
+    "about": "Over",
+    "classify": "Classificeren",
+    "talk": "Forum",
+    "collect": "Verzamelingen",
+    "recents": "Mijn waarnemingen",
+    "ApprovedIcon": {
+      "title": "Goedgekeurd door Zooniverse"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Wacht op controle"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Vrijwilligers"
+  },
+  "RequireUser": {
+    "text": "Je bent niet ingelogd"
+  }
+}
