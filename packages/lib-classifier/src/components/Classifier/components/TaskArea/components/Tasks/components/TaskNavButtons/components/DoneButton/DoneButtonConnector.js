@@ -23,7 +23,7 @@ function storeMapper(store) {
       event.preventDefault()
       step.completeAndValidate(annotations)
       finish()
-      return completeClassification()
+      return completeClassification({ doneAndTalk: false })
     }
 
     return {
