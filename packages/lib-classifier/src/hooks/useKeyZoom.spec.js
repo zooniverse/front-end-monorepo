@@ -185,5 +185,70 @@ describe('Hooks > useKeyZoom', function () {
       expect(onPan).to.have.not.been.called()
       expect(onZoom).to.have.not.been.called()
     })
+
+    describe('with custom key mappings', function () {
+      let wrappedComponent
+      const customMap = sinon.stub()
+
+      const customKeyMappings = {
+        ' ': customMap
+      }
+
+      function WithCustomMap(props) {
+        const { onKeyZoom } = useKeyZoom({ customKeyMappings })
+        return (
+          <button
+            id='testStub'
+            tabIndex='0'
+            onKeyDown={onKeyZoom}
+            {...props}
+          >
+            Hello
+          </button>
+        )
+      }
+
+      beforeEach(function () {
+        const subjectViewer = SubjectViewerStore.create({})
+        const classifierStore = {
+          subjectViewer
+        }
+        subjectViewer.setOnPan(onPan)
+        subjectViewer.setOnZoom(onZoom)
+        render(
+          <Provider classifierStore={classifierStore}>
+            <WithCustomMap />
+          </Provider>
+        )
+        wrappedComponent = document.getElementById('testStub')
+      })
+
+      afterEach(function () {
+        onPan.resetHistory()
+        onZoom.resetHistory()
+        customMap.resetHistory()
+      })
+
+      it('should call custom map', async function () {
+        const user = userEvent.setup()
+        wrappedComponent.focus()
+        await user.keyboard(`{ }`)
+        expect(customMap).to.have.been.calledOnce()
+      })
+
+      it('should call useKeyZoom zoom mappings', async function () {
+        const user = userEvent.setup()
+        wrappedComponent.focus()
+        await user.keyboard(`{=}`)
+        expect(onZoom).to.have.been.calledOnce()
+      })
+
+      it('should call useKeyZoom pan mappings', async function () {
+        const user = userEvent.setup()
+        wrappedComponent.focus()
+        await user.keyboard(`{ArrowRight}`)
+        expect(onPan).to.have.been.calledOnce()
+      })
+    })
   })
 })

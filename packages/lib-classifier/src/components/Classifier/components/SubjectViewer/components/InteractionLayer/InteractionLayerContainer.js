@@ -65,7 +65,6 @@ export function InteractionLayerContainer({
   setActiveMark = () => { },
   shownMarks = SHOWN_MARKS.ALL,
   taskKey = '',
-  viewBox,
   width,
   played,
   duration
@@ -94,7 +93,6 @@ export function InteractionLayerContainer({
           multiImageCloneMarkers={multiImageCloneMarkers}
           played={played}
           setActiveMark={setActiveMark}
-          viewBox={viewBox}
           width={width}
         />
       )}
