@@ -9,6 +9,8 @@ import { useTranslation } from '@translations/i18n'
 const StyledDialog = styled.dialog`
   z-index: 1000;
   border: none;
+  padding: 0;
+  margin: 2em 1em;
   /* override the browser default height, which is fit-content */
   height: min-content;
   /* Safari needs a minimum height, because the dialog contents use flexbox? */
