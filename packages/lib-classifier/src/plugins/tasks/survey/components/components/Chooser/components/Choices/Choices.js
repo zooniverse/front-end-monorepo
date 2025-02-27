@@ -1,61 +1,78 @@
+import { ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
-import { useState } from 'react';
-import styled, { css, withTheme } from 'styled-components'
+import { arrayOf, bool, func, oneOfType, shape, string } from 'prop-types'
+import { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components'
 
-import howManyColumns from './helpers/howManyColumns'
-import whatSizeThumbnail from './helpers/whatSizeThumbnail'
+import {
+  howManyColumns,
+  shouldShadeBackground,
+  whatSizeThumbnail
+} from './helpers'
+
 import ChoiceButton from './components/ChoiceButton'
 
 const StyledGrid = styled.ul`
-  ${props => props.theme.dark
-    ? css`background-color: ${props.theme.global.colors['dark-1']};`
-    : css`background-color: ${props.theme.global.colors['light-1']};`
-  }
+  background: ${props => props.theme.global.colors[props.theme.dark ? 'dark-3' : 'light-3']};
   display: grid;
+  gap: ${props => props.$hideThumbnails ? '1px' : '0'};
   grid-auto-flow: column;
-  grid-gap: 2px;
-  grid-template-rows: repeat(${props => props.rowsCount}, auto);
+  grid-template-columns: repeat(${props => props.$columnsCount}, ${props => {
+    if (props.$columnsCount === 3) return (props.$hideThumbnails ? '165.33px' : '166px');
+    if (props.$columnsCount === 2) return (props.$hideThumbnails ? '248.5px' : '249px');
+    return '1fr';
+  }});
+  grid-template-rows: repeat(${props => props.$rowsCount}, ${props => props.$hideThumbnails ? '40px' : '60px'});
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
+
+  @media (max-width: 70rem) {
+    grid-template-columns: repeat(${props => props.$columnsCount}, 1fr);
+  }
+
+  // regardless of shown choices and related columns count, at 430px and below show 1 column
+  @media (max-width: 430px) {
+    display: block;
+    li {
+      display: block;
+      height: ${props => props.$hideThumbnails ? '40px' : '60px'};
+      width: 100%;
+    }
+  }
 `
 
-const defaultTheme = {
-  dark: false,
-  global: {
-    colors: {}
-  }
-}
-
-export function Choices ({
+export function Choices({
   disabled = false,
   filteredChoiceIds = [],
-  filterDropOpen = false,
+  filterOpen = false,
   previousChoiceId = '',
   handleDelete = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
-  task,
-  theme = defaultTheme
+  task
 }) {
   const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
-  const columnsCount = howManyColumns(filteredChoiceIds)
+  useEffect(function resetFocusIndex() {
+    setFocusIndex(filteredChoiceIds.indexOf(previousChoiceId))
+  }, [filteredChoiceIds.length])
+
+  const size = useContext(ResponsiveContext)
+
+  let columnsCount = howManyColumns(filteredChoiceIds)
+  if (size === 'small' && columnsCount === 3) {
+    columnsCount = 2
+  }
+
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   
-  let thumbnailSize
-  // if new survey task thumbnails property is undefined and legacy alwaysShowThumbnails is true, then show thumbnails to support legacy alwaysShowThumbnails functionality
-  if (!task.thumbnails && task.alwaysShowThumbnails) {
-    thumbnailSize = 'small'
-  } else if (task.thumbnails === 'show') {
-    thumbnailSize = 'small'
-  } else if (task.thumbnails === 'hide') {
-    thumbnailSize = 'none'
-  } else {
-    thumbnailSize = whatSizeThumbnail(filteredChoiceIds)
-  }
+  const thumbnailSetting = task.thumbnails || (task.alwaysShowThumbnails ? 'show' : 'default')
+  const thumbnailSize = whatSizeThumbnail({
+    length: filteredChoiceIds.length,
+    thumbnailSetting
+  })
 
   function handleKeyDown (choiceId, event) {
     const index = filteredChoiceIds.indexOf(choiceId)
@@ -88,6 +105,39 @@ export function Choices ({
         handleDelete(choiceId)
         return false
       }
+      case 'End': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        setFocusIndex(filteredChoiceIds.length - 1)
+        return false
+      }
+      case 'Enter':
+        event.preventDefault()
+        event.stopPropagation()
+
+        if (selectedChoiceIds.indexOf(choiceId) > -1) {
+          return false
+        }
+
+        onChoose(choiceId)
+        return false
+      case 'Home':
+        event.preventDefault()
+        event.stopPropagation()
+
+        setFocusIndex(0)
+        return false
+      case 'Space':
+        event.preventDefault()
+        event.stopPropagation()
+
+        if (selectedChoiceIds.indexOf(choiceId) > -1) {
+          return false
+        }
+
+        onChoose(choiceId)
+        return false
       default: {
         return true
       }
@@ -97,19 +147,22 @@ export function Choices ({
   return (
     <StyledGrid
       role='menu'
-      rowsCount={rowsCount}
+      $columnsCount={columnsCount}
+      $rowsCount={rowsCount}
+      $hideThumbnails={thumbnailSize === 'none'}
     >
       {filteredChoiceIds.map((choiceId, index) => {
         const choice = task.choices?.get(choiceId) || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.get(choice.images?.[0]) || ''
-        const hasFocus = !filterDropOpen && (index === focusIndex)
+        const hasFocus = !filterOpen && index === focusIndex
         let tabIndex = -1
         if (focusIndex === -1 && index === 0) {
           tabIndex = 0
         } else if (focusIndex === index) {
           tabIndex = 0
         }
+        const shadedBackground = shouldShadeBackground({ index, rowsCount })
 
         return (
           <li
@@ -117,16 +170,16 @@ export function Choices ({
             role='presentation'
           >
             <ChoiceButton
-              ariaChecked={selected ? 'true' : 'false'}
               choiceId={choiceId}
               choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
-              columnsCount={columnsCount}
               disabled={disabled}
               hasFocus={hasFocus}
+              index={index}
               onChoose={onChoose}
+              onDelete={handleDelete}
               onKeyDown={handleKeyDown}
-              role='menuitemcheckbox'
               selected={selected}
+              shadedBackground={shadedBackground}
               src={src}
               tabIndex={tabIndex}
               thumbnailSize={thumbnailSize}
@@ -139,27 +192,22 @@ export function Choices ({
 }
 
 Choices.propTypes = {
-  disabled: PropTypes.bool,
-  filteredChoiceIds: PropTypes.arrayOf(
-    PropTypes.string
+  disabled: bool,
+  filteredChoiceIds: arrayOf(
+    string
   ),
-  filterDropOpen: PropTypes.bool,
-  previousChoiceId: PropTypes.string,
-  handleDelete: PropTypes.func,
-  onChoose: PropTypes.func,
-  selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
-  task: PropTypes.shape({
-    help: PropTypes.string,
-    required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    taskKey: PropTypes.string,
-    type: PropTypes.string
-  }).isRequired,
-  theme: PropTypes.shape({
-    dark: PropTypes.bool,
-    global: PropTypes.shape({
-      colors: PropTypes.object
-    })
-  })
+  filterOpen: bool,
+  previousChoiceId: string,
+  handleDelete: func,
+  onChoose: func,
+  selectedChoiceIds: arrayOf(string),
+  task: shape({
+    help: string,
+    required: oneOfType([string, bool]),
+    taskKey: string,
+    thumbnails: string,
+    type: string
+  }).isRequired
 }
 
-export default withTheme(observer(Choices))
+export default observer(Choices)
