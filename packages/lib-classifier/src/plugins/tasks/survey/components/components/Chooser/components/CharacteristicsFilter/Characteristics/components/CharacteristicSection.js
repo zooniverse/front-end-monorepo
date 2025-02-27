@@ -4,19 +4,21 @@ import PropTypes from 'prop-types'
 import { useCallback } from 'react';
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import FilterButton from '../../components/FilterButton'
+import FilterLabel from '../../components/FilterLabel'
 
-const defaultCharacteristic = {
+const DEFAULT_CHARACTERISTIC = {
   values: {},
   valuesOrder: []
 }
 
+const DEFAULT_HANDLER = () => true
+
 export default function CharacteristicSection({
-  characteristic = defaultCharacteristic,
+  characteristic = DEFAULT_CHARACTERISTIC,
   characteristicId = '',
   images = {},
   label = '',
-  onFilter = () => true,
+  onFilter = DEFAULT_HANDLER,
   selectedValueId = '',
   strings
 }) {
@@ -25,22 +27,13 @@ export default function CharacteristicSection({
     [characteristicId, onFilter]
   )
   const radioButtonLabel = useCallback((option, { checked, focus, hover }) => {
-    function clearSelection(event) {
-      /*
-      This is a workaround to prevent the label from being clicked in Chrome, when the radio
-      button is already checked. However, it makes the delete function hard to use from the keyboard.
-      */
-      event.preventDefault()
-      return onFilter(characteristicId)
-    }
     return (
-      <FilterButton
+      <FilterLabel
         characteristicId={characteristicId}
         characteristicLabel={label}
         checked={checked}
         focus={focus}
         hover={hover}
-        onDelete={clearSelection}
         valueId={option.value}
         valueImageSrc={option.imageSrc}
         valueLabel={option.label}
@@ -65,31 +58,36 @@ export default function CharacteristicSection({
 
   return (
     <Box
-      border={{
-        color: 'light-5',
-        size: 'xsmall',
-        style: 'solid',
-        side: 'bottom'
-      }}
-      pad={{
-        horizontal: 'small'
-      }}
+      margin={{ bottom: 'xsmall' }}
     >
       <SpacedHeading
         id={`${label}-heading`}
-        margin='none'
+        color={{
+          dark: 'neutral-6',
+          light: 'neutral-7'
+        }}
+        margin={{
+          bottom: 'xsmall',
+          top: 'xsmall'
+        }}
+        pad='none'
+        size='1rem'
       >
         {label}
       </SpacedHeading>
       <RadioButtonGroup
         aria-labelledby={`${label}-heading`}
+        cssGap={true}
         direction='row'
-        gap='xsmall'
+        gap={{
+          column: 'small',
+          row: 'xsmall'
+        }}
         name={`${characteristic.label}-filter`}
         onChange={onChange}
         options={characteristicOptions}
         value={selectedValueId}
-        wrap
+        wrap={true}
       >
         {radioButtonLabel}
       </RadioButtonGroup>
@@ -105,6 +103,7 @@ CharacteristicSection.propTypes = {
   }),
   characteristicId: PropTypes.string,
   images: MobXPropTypes.observableMap,
+  label: PropTypes.string,
   onFilter: PropTypes.func,
   selectedValueId: PropTypes.string
 }
