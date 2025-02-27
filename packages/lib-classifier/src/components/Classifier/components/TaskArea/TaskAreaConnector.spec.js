@@ -32,10 +32,8 @@ describe('TaskAreaConnector', function () {
   }
 
   describe('without indexed subjects', function () {
-    let finishedMessage
-    let selectButton
-    let nextButton
-    let dismissButton
+
+    let disabledTaskPopup
     let inputs
 
     before(function () {
@@ -48,11 +46,7 @@ describe('TaskAreaConnector', function () {
           wrapper: withStore(store)
         }
       )
-      /** The translation function will simply return keys in a testing environment */
-      finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
-      selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.select')
-      nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.next')
-      dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.dismiss')
+      disabledTaskPopup = screen.queryByRole('dialog')
       inputs = screen.queryAllByRole('radio')
     })
 
@@ -63,20 +57,8 @@ describe('TaskAreaConnector', function () {
       })
     })
 
-    it('should not show a message that the subject is finished', function () {
-      expect(finishedMessage).to.be.null()
-    })
-
-    it('should not show a button to choose a new subject', function () {
-      expect(selectButton).to.be.null()
-    })
-
-    it('should not show a button to choose the next available subject', function () {
-      expect(nextButton).to.be.null()
-    })
-
-    it('should not show a button to dismiss the popup', function () {
-      expect(dismissButton).to.be.null()
+    it('should not show the disabled task popup', function () {
+      expect(disabledTaskPopup).to.be.null()
     })
   })
 
@@ -115,6 +97,7 @@ describe('TaskAreaConnector', function () {
     }
 
     describe('with a retired subject', function () {
+      let disabledTaskPopup
       let finishedMessage
       let selectButton
       let nextButton
@@ -132,12 +115,17 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
+        disabledTaskPopup = screen.queryByRole('dialog')
         /** The translation function will simply return keys in a testing environment */
         finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
         selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
         nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
         dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
         inputs = screen.queryAllByRole('radio')
+      })
+
+      it('should show the disabled task popup', function () {
+        expect(disabledTaskPopup.getAttribute('open')).to.exist()
       })
 
       it('should show a message that the subject is finished', function () {
@@ -165,6 +153,7 @@ describe('TaskAreaConnector', function () {
     })
 
     describe('with an already seen subject', function () {
+      let disabledTaskPopup
       let finishedMessage
       let selectButton
       let nextButton
@@ -182,12 +171,17 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
+        disabledTaskPopup = screen.queryByRole('dialog')
         /** The translation function will simply return keys in a testing environment */
         finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
         selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
         nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
         dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
         inputs = screen.queryAllByRole('radio')
+      })
+
+      it('should show the disabled task popup', function () {
+        expect(disabledTaskPopup.getAttribute('open')).to.exist()
       })
 
       it('should show a message that the subject is finished', function () {
@@ -215,10 +209,7 @@ describe('TaskAreaConnector', function () {
     })
 
     describe('with an unfinished subject', function () {
-      let finishedMessage
-      let selectButton
-      let nextButton
-      let dismissButton
+      let disabledTaskPopup
       let inputs
 
       before(async function () {
@@ -230,28 +221,12 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        /** The translation function will simply return keys in a testing environment */
-        finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
-        selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
-        nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
-        dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
+        disabledTaskPopup = screen.queryByRole('dialog')
         inputs = screen.queryAllByRole('radio')
       })
 
-      it('should not show a message that the subject is finished', function () {
-        expect(finishedMessage).to.be.null()
-      })
-
-      it('should not show a button to choose a new subject', function () {
-        expect(selectButton).to.be.null()
-      })
-
-      it('should not show a button to choose the next available subject', function () {
-        expect(nextButton).to.be.null()
-      })
-
-      it('should not show a button to dismiss the popup', function () {
-        expect(dismissButton).to.be.null()
+      it('should not show the disabled task popup', function () {
+        expect(disabledTaskPopup).to.be.null()
       })
 
       it('should not disable the active task', function () {

@@ -1,5 +1,4 @@
-import { Modal } from '@zooniverse/react-components'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import sinon from 'sinon'
 
 import DisabledTaskPopup from './DisabledTaskPopup'
@@ -9,7 +8,7 @@ describe('TaskArea > DisabledTaskPopup', function () {
 
   describe('without isOpen', function () {
     before(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <DisabledTaskPopup
           onClose={sinon.stub()}
         />
@@ -21,8 +20,8 @@ describe('TaskArea > DisabledTaskPopup', function () {
     })
 
     it('should be closed', function () {
-      const modal = wrapper.find(Modal)
-      expect(modal.prop('active')).to.be.false()
+      const modal = wrapper.find('dialog')
+      expect(modal.prop('open')).to.be.false()
     })
   })
 
@@ -32,7 +31,7 @@ describe('TaskArea > DisabledTaskPopup', function () {
     const nextAvailable = sinon.stub()
 
     before(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <DisabledTaskPopup
           isOpen
           nextAvailable={nextAvailable}
@@ -47,8 +46,8 @@ describe('TaskArea > DisabledTaskPopup', function () {
     })
 
     it('should be open', function () {
-      const modal = wrapper.find(Modal)
-      expect(modal.prop('active')).to.be.true()
+      const modal = wrapper.find('dialog')
+      expect(modal.prop('open')).to.be.true()
     })
 
     describe('Choose Another Subject button', function () {
@@ -56,7 +55,7 @@ describe('TaskArea > DisabledTaskPopup', function () {
 
       before(function () {
         /** The translation function will simply return keys in a testing environment */
-        button = wrapper.find({ text: 'TaskArea.DisabledTaskPopup.options.select' })
+        button = wrapper.find({ text: 'TaskArea.DisabledTaskPopup.options.select' }).find('button')
         button.simulate('click')
       })
 
@@ -69,8 +68,8 @@ describe('TaskArea > DisabledTaskPopup', function () {
       })
 
       it('should close the modal', function () {
-        const modal = wrapper.find(Modal)
-        expect(modal.prop('active')).to.be.false()
+        const modal = wrapper.find('dialog')
+        expect(modal.prop('open')).to.be.false()
       })
     })
 
@@ -91,8 +90,8 @@ describe('TaskArea > DisabledTaskPopup', function () {
       })
 
       it('should close the modal', function () {
-        const modal = wrapper.find(Modal)
-        expect(modal.prop('active')).to.be.false()
+        const modal = wrapper.find('dialog')
+        expect(modal.prop('open')).to.be.false()
       })
     })
 
@@ -100,7 +99,7 @@ describe('TaskArea > DisabledTaskPopup', function () {
       let button
 
       before(function () {
-        button = wrapper.find({ text: 'TaskArea.DisabledTaskPopup.options.dismiss' })
+        button = wrapper.find({ text: 'TaskArea.DisabledTaskPopup.options.dismiss' }).find('button')
         button.simulate('click')
       })
 
@@ -109,8 +108,8 @@ describe('TaskArea > DisabledTaskPopup', function () {
       })
 
       it('should close the modal', function () {
-        const modal = wrapper.find(Modal)
-        expect(modal.prop('active')).to.be.false()
+        const modal = wrapper.find('dialog')
+        expect(modal.prop('open')).to.be.false()
       })
 
       it('should call the onClose callback', function () {
