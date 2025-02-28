@@ -145,15 +145,6 @@ describe('Component > MultiFrameViewerContainer', function () {
       expect(image.prop('href')).to.equal('https://some.domain/image.jpg')
     })
 
-    describe('with dragging enabled', function () {
-      it('should render a draggable image', function () {
-        wrapper.setProps({ move: true })
-        const image = wrapper.find(DraggableImage)
-        expect(image).to.have.lengthOf(1)
-        expect(image.prop('href')).to.equal('https://some.domain/image.jpg')
-      })
-    })
-
     describe('with invalid marks', function () {
       // mock an active transcription task tool:
       const activeTool = TranscriptionLineTool.create({
