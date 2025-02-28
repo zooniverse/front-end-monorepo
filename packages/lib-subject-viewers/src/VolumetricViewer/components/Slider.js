@@ -108,6 +108,7 @@ export const Slider = ({ dimension, viewer }) => {
         onMouseUp={inMouseUp}
       />
       <input
+        aria-label={`Plane ${dimension} Slider`}
         max={viewer.base - 1}
         min='0'
         onChange={inChange}

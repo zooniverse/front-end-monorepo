@@ -4,7 +4,7 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Line({ active, mark, onFinish, scale }) {
+function Line({ active = false, mark, onFinish }) {
   const { x1, y1, x2, y2 } = mark
 
   function onHandleDrag(coords) {
@@ -13,18 +13,18 @@ function Line({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} />
+      <line x1={x1} y1={y1} x2={x2} y2={y2} vectorEffect={'non-scaling-stroke'} />
       <line
         x1={x1}
         y1={y1}
         x2={x2}
         y2={y2}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {active && (
         <DragHandle
-          scale={scale}
           x={x1}
           y={y1}
           dragMove={(e, d) =>
@@ -34,7 +34,6 @@ function Line({ active, mark, onFinish, scale }) {
       )}
       {active && (
         <DragHandle
-          scale={scale}
           x={x2}
           y={y2}
           dragMove={(e, d) =>
@@ -49,12 +48,6 @@ function Line({ active, mark, onFinish, scale }) {
 Line.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.object.isRequired,
-  scale: PropTypes.number
-}
-
-Line.defaultProps = {
-  active: false,
-  scale: 1
 }
 
 export default observer(Line)

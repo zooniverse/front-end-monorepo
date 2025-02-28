@@ -30,7 +30,7 @@ function validationErrors({ email, emailConfirm, password, passwordConfirm, priv
 export default function RegisterFormContainer({
   closeModal = DEFAULT_HANDLER,
   project = null,
-  onSignIn
+  onSignIn = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation()
   const [error, setError] = useState('')

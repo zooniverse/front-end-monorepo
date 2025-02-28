@@ -117,16 +117,16 @@ export const Plane = ({
     drawFrame()
 
     // State Listeners to bypass React rerenders
+    annotations.on('active:annotation', drawFrame)
     annotations.on('add:annotation', drawFrame)
     annotations.on('update:annotation', drawFrame)
-    annotations.on('remove:annotation', drawFrame)
     viewer.on(`change:dimension-${dimension}:frame`, drawFrame)
     viewer.on('change:threshold', drawFrame)
 
     return () => {
+      annotations.off('active:annotation', drawFrame)
       annotations.off('add:annotation', drawFrame)
       annotations.off('update:annotation', drawFrame)
-      annotations.off('remove:annotation', drawFrame)
       viewer.off(`change:dimension-${dimension}:frame`, drawFrame)
       viewer.off('change:threshold', drawFrame)
     }
@@ -163,8 +163,16 @@ export const Plane = ({
   function drawPoint ({ context, point, x, y }) {
     // Draw points that are not in threshold same color as background
     if (viewer.isPointInThreshold({ point })) {
+      const annotationIndex = viewer.getPointAnnotationIndex({ point })
+
+      // isInactive makes all inactive marks less visible 
+      const isInactive = (annotationIndex === -1)
+        ? false
+        : (annotations.config.activeAnnotation !== annotationIndex)
+  
       context.fillStyle = pointColor({
-        annotationIndex: viewer.getPointAnnotationIndex({ point }),
+        annotationIndex,
+        isInactive,
         pointValue: viewer.getPointValue({ point })
       })
     } else {

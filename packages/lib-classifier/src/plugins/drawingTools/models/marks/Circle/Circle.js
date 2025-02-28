@@ -24,8 +24,8 @@ const CircleModel = types
 
     deleteButtonPosition(scale) {
       const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
-      const dx = ((self.r + BUFFER) / scale) * Math.cos(theta)
-      const dy = ((self.r + BUFFER) / scale) * Math.sin(theta)
+      const dx = (self.r + BUFFER) * Math.cos(theta)
+      const dy = (self.r + BUFFER) * Math.sin(theta)
       return {
         x: dx,
         y: dy

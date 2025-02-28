@@ -4,6 +4,7 @@ import { ComponentViewer } from './components/ComponentViewer.js'
 import { ModelViewer } from './models/ModelViewer.js'
 import { ModelAnnotations } from './models/ModelAnnotations.js'
 import { ModelTool } from './models/ModelTool.js'
+import { useEffect } from 'react'
 import { useVolumetricSubject } from './../hooks/useVolumetricSubject.js'
 import asyncStates from '@zooniverse/async-states'
 
@@ -18,11 +19,16 @@ export default function VolumetricViewer ({
 }) {
   const { data, loading, error } = useVolumetricSubject({ onError, onReady, subject })
 
-  const [modelState] = useState({
-    annotations: ModelAnnotations({ onAnnotation }),
-    tool: ModelTool(),
-    viewer: ModelViewer()
-  })
+  const [modelState, setModelState] = useState({})
+
+  // Ensures model setup is only run once
+  useEffect(() => {
+    setModelState({
+      annotations: ModelAnnotations({ onAnnotation }),
+      tool: ModelTool(),
+      viewer: ModelViewer()
+    })
+  }, [])
 
   const isLoading = loadingState === asyncStates.initialized ||
     loadingState === asyncStates.loading ||

@@ -5,10 +5,16 @@ import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
 import { useTranslation } from '@translations/i18n'
 
+import useScale from '../../../hooks/useScale'
+
 const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
 
 const StyledGroup = styled.g`
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
   &:hover {
     cursor: pointer;
   }
@@ -65,7 +71,9 @@ function pointsToPath(points) {
   return path.join(' ')
 }
 
-function FreehandLine({ active, mark, onFinish, scale }) {
+const DEFAULT_HANDLER = () => true
+function FreehandLine({ active = false, mark, onFinish = DEFAULT_HANDLER }) {
+  const scale = useScale()
   // If the user decides to cancel a splice
   if (active === false) {
     mark.inactive()
@@ -73,9 +81,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
 
   // The model uses this internally
   mark.setScale(scale)
-
-  // Stroke width varies as a function of the zoom level. Ranges 1-5.75
-  const STROKE_WIDTH = (scale < 3) ? (4 - scale) : 1
 
   function onDoubleClick(event) {
     if (active) {
@@ -118,24 +123,19 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         return <Fragment key={i}>
           <path // Main Path that's visible
             d={pointsToPath(pts)}
-            style={{
-              strokeWidth: STROKE_WIDTH,
-              strokeLinejoin: 'round',
-              strokeLinecap: 'round',
-              fill: 'none',
-              strokeOpacity: 1,
-            }}
+            fill='none'
+            strokeOpacity={1}
+            vectorEffect={'non-scaling-stroke'}
           />
           <title>{getHoverText()}</title>
           <path // Main Path that's clickable. Not visible as its thick for click purposes
             d={pointsToPath(pts)}
             onDoubleClick={onDoubleClick}
             onPointerDown={onPointerDown}
-            style={{
-              strokeOpacity: '0',
-              strokeWidth: GRAB_STROKE_WIDTH / scale
-            }}
             fill='none'
+            strokeWidth={GRAB_STROKE_WIDTH}
+            strokeOpacity={0}
+            vectorEffect={'non-scaling-stroke'}
           />
         </Fragment>
       })}
@@ -143,8 +143,8 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       <path // Clipped Path
         d={pointsToPath(mark.splicePathRender)}
         strokeDasharray='2 2'
-        strokeWidth={STROKE_WIDTH}
         opacity=".4"
+        vectorEffect={'non-scaling-stroke'}
       />
 
       {active && mark.closePoint &&
@@ -153,13 +153,13 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           r={FINISHER_RADIUS / scale}
           cx={mark.closePoint.x}
           cy={mark.closePoint.y}
+          vectorEffect={'non-scaling-stroke'}
         />
       }
 
       {active && mark.dragPoint &&
         <DragHandle
-          testid="freehandline-drag-handle"
-          scale={scale}
+          data-testid="freehandline-drag-handle"
           x={mark.dragPoint.x}
           y={mark.dragPoint.y}
           fill='none'
@@ -199,16 +199,6 @@ FreehandLine.propTypes = {
     Callback to reset the drawing canvas when creation of the line is finished.
   */
   onFinish: PropTypes.func,
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: PropTypes.number
-}
-
-FreehandLine.defaultProps = {
-  active: false,
-  onFinish: () => true,
-  scale: 1,
 }
 
 export default observer(FreehandLine)
