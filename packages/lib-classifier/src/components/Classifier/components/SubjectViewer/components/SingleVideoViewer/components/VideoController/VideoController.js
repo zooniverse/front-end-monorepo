@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { bool, func, number, string } from 'prop-types'
 import {
   Box,
   Button,
   Grid,
   RangeInput,
+  ResponsiveContext,
   Select,
   Text,
   ThemeContext
@@ -67,14 +68,14 @@ const VolumeRange = styled(RangeInput)`
   display: block;
   width: 100px;
   height: 24px;
-  padding: 0 8px 0 0;
+  padding: 0 8px;
   background: ${props =>
     props.theme.dark
       ? props.theme.global.colors['dark-1']
       : props.theme.global.colors['light-1']};
   position: absolute;
   left: -30px;
-  bottom: 74px;
+  bottom: 80px;
   transform: rotate(-90deg);
 `
 
@@ -94,8 +95,9 @@ const VideoController = ({
   played = 0, // A percentage between 0 and 1
   setVolume = DEFAULT_HANDLER,
   volume = 1,
-  volumeDisabled = false
+  volumeDisabled = false,
 }) => {
+  const size = useContext(ResponsiveContext)
   const { t } = useTranslation('components')
   const [volumeOpen, setVolumeOpen] = useState(false)
 
@@ -139,8 +141,8 @@ const VideoController = ({
 
   return (
     <Box
-      background={{ light: 'white', dark: 'dark-1' }}
-      pad={{ horizontal: 'small' }}
+      background={{ light: 'white', dark: 'dark-3' }}
+      pad={{ horizontal: size === 'small' ? '0' : 'small' }}
       border={[
         {
           color: {
@@ -197,7 +199,7 @@ const VideoController = ({
               direction='row'
               align='center'
               width='max-content'
-              pad={{ horizontal: '20px' }}
+              pad={{ horizontal: size === 'small' ? '10px' : '20px' }}
             >
               <Text size='0.75rem' color={color}>
                 <time dateTime={`P${Math.round(secondsPlayed)}S`}>
@@ -286,6 +288,7 @@ VideoController.propTypes = {
   onSpeedChange: func,
   playbackSpeed: string,
   played: number, // percentage
+  setVolume: func,
   volume: number,
   volumeDisabled: bool
 }

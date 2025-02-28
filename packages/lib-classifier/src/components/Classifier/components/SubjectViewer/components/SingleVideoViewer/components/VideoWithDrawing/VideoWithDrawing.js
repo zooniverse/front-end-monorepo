@@ -1,6 +1,6 @@
 import { arrayOf, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { Box } from 'grommet'
+import { Box, Text } from 'grommet'
 import { useState, useRef } from 'react'
 import { useTranslation } from '@translations/i18n'
 import asyncStates from '@zooniverse/async-states'
@@ -30,7 +30,7 @@ function VideoWithDrawing({
   subject
 }) {
   const [duration, setDuration] = useState(0)
-  const [fullscreen, setFullscreen] = useState(false)
+  const [fullscreenError, setFullscreenError] = useState(false) /* No support for iPhones: https://caniuse.com/fullscreen */
   const [isPlaying, setIsPlaying] = useState(false)
   const [isSeeking, setIsSeeking] = useState(false)
   const [played, setPlayed] = useState(0)
@@ -62,25 +62,31 @@ function VideoWithDrawing({
   /* Therefore, volume button is enabled in Firefox even if no audio track, see Storybook examples for SingleVIdeoViewer */
   const detectAudioTrack = () => {
     const internalVideo = playerRef.current.getInternalPlayer()
-    if (typeof internalVideo.webkitAudioDecodedByteCount !== 'undefined' && internalVideo.webkitAudioDecodedByteCount > 0) {
-      console.log('has webkit audio track')
+    if (
+      typeof internalVideo.webkitAudioDecodedByteCount !== 'undefined' &&
+      internalVideo.webkitAudioDecodedByteCount > 0
+    ) {
       setVolumeDisabled(false)
     } else if (internalVideo.audioTracks && internalVideo.audioTracks.length) {
-      console.log('has Safari audio tracks') // audioTracks is only supported by Safari
       setVolumeDisabled(false)
     } else if (typeof internalVideo.mozHasAudio !== 'undefined') {
-      console.log('has moz audio track')
       setVolumeDisabled(false)
     }
   }
 
   const onReactPlayerReady = () => {
     try {
-      const reactPlayerVideoHeight = playerRef.current?.getInternalPlayer().videoHeight
-      const reactPlayerVideoWidth = playerRef.current?.getInternalPlayer().videoWidth
+      const reactPlayerVideoHeight =
+        playerRef.current?.getInternalPlayer().videoHeight
+      const reactPlayerVideoWidth =
+        playerRef.current?.getInternalPlayer().videoWidth
 
-      const reactPlayerClientHeight = playerRef.current?.getInternalPlayer().getBoundingClientRect().height
-      const reactPlayerClientWidth = playerRef.current?.getInternalPlayer().getBoundingClientRect().width
+      const reactPlayerClientHeight = playerRef.current
+        ?.getInternalPlayer()
+        .getBoundingClientRect().height
+      const reactPlayerClientWidth = playerRef.current
+        ?.getInternalPlayer()
+        .getBoundingClientRect().width
 
       const target = {
         clientHeight: reactPlayerClientHeight,
@@ -148,21 +154,12 @@ function VideoWithDrawing({
     setDuration(duration)
   }
 
+  /* No support for iPhones specifically: https://caniuse.com/fullscreen */
   const handleFullscreen = () => {
-    if (fullscreen) {
-      try {
-        document.exitFullscreen()
-        setFullscreen(false)
-      } catch (error) {
-        console.log(error)
-      }
-    } else {
-      try {
-        playerRef.current?.getInternalPlayer().requestFullscreen()
-        setFullscreen(true)
-      } catch (error) {
-        console.log(error)
-      }
+    try {
+      playerRef.current?.getInternalPlayer().requestFullscreen()
+    } catch (error) {
+      setFullscreenError(true)
     }
   }
 
@@ -262,6 +259,7 @@ function VideoWithDrawing({
         volume={volume}
         volumeDisabled={volumeDisabled}
       />
+      {fullscreenError && <Text>Fullscreen not supported on iPhone</Text>}
     </>
   )
 }
