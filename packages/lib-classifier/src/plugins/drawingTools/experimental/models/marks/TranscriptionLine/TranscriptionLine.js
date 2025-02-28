@@ -19,9 +19,13 @@ const TranscriptionLineModel = types
     },
 
     deleteButtonPosition(scale) {
+      const dx = self.x2 - self.x1
+      const dy = self.y2 - self.y1
       const BUFFER = 20 // NB. WCAG 2.5.8 requires a minumum target size of 24 CSS pixels.
-      const x = self.x1 - (BUFFER / scale)
-      const y = self.y1
+      const xBuffer = dx ? BUFFER * (dx / self.length) : BUFFER
+      const yBuffer = dy ? BUFFER * (dy / self.length) : 0
+      const x = self.x1 - xBuffer / scale
+      const y = self.y1 - yBuffer / scale
       return { x, y }
     },
 
