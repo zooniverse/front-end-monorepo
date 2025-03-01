@@ -243,8 +243,9 @@ function VideoWithDrawing({
         handleSeekMouseUp={handleSeekMouseUp}
         onPlayPause={handlePlayPause}
         onSpeedChange={handleSetPlaybackSpeed}
-        played={played}
         playbackSpeed={playbackSpeed}
+        played={played}
+        playerRef={playerRef}
         setVolume={setVolume}
         volume={volume}
         volumeDisabled={volumeDisabled}

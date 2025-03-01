@@ -93,6 +93,7 @@ const VideoController = ({
   onSpeedChange = DEFAULT_HANDLER,
   playbackSpeed = '1x',
   played = 0, // A percentage between 0 and 1
+  playerRef,
   setVolume = DEFAULT_HANDLER,
   volume = 1,
   volumeDisabled = false,
@@ -115,11 +116,25 @@ const VideoController = ({
     return formatTimeStamp(duration)
   }, [duration])
 
-  const handleSliderPlayPause = e => {
+  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or input */
+  const handleSliderKeys = e => {
     if (e.code === 'Space' || e.code === 'Enter') {
       e.preventDefault()
       e.stopPropagation()
       onPlayPause()
+      // Sensitivity of left/right keys can be adjusted if needed
+    } else if (e.code === 'ArrowLeft') {
+      e.preventDefault()
+      e.stopPropagation()
+      if (played === 0) return
+      else if (0 < played && played <= 0.05) playerRef?.current?.seekTo(0)
+      else playerRef?.current?.seekTo(played - 0.05)
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault()
+      e.stopPropagation()
+      if (played === 1) return
+      else if (1 > played && played >= 0.95) playerRef?.current?.seekTo(duration)
+      else playerRef?.current?.seekTo(played + 0.05)
     }
   }
 
@@ -127,6 +142,7 @@ const VideoController = ({
     setVolume(e.target.value)
   }
 
+  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or slider */
   const handleVolumeKeys = e => {
     if (e.key === 'ArrowUp' && volume < 1) {
       e.preventDefault()
@@ -222,7 +238,7 @@ const VideoController = ({
               step={0.01}
               value={played}
               onChange={handleSeekChange}
-              onKeyDown={handleSliderPlayPause}
+              onKeyDown={handleSliderKeys}
               onMouseDown={handleSeekMouseDown}
               onMouseUp={handleSeekMouseUp}
             />
