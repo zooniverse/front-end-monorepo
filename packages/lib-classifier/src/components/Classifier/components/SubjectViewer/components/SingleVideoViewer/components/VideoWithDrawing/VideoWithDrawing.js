@@ -1,4 +1,4 @@
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box, Text } from 'grommet'
 import { useState, useRef } from 'react'
@@ -22,20 +22,24 @@ const DrawingLayer = styled.div`
   cursor: default;
 `
 
+const DEFAULT_HANDLER = () => true
+
 function VideoWithDrawing({
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
-  onKeyDown = () => true,
-  subject
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  setVideoSpeed = DEFAULT_HANDLER,
+  setVolume = DEFAULT_HANDLER,
+  subject,
+  videoSpeed = '1x',
+  volume = 1
 }) {
   const [duration, setDuration] = useState(0)
   const [fullscreenError, setFullscreenError] = useState(false) /* No support for iPhones: https://caniuse.com/fullscreen */
   const [isPlaying, setIsPlaying] = useState(false)
   const [isSeeking, setIsSeeking] = useState(false)
   const [played, setPlayed] = useState(0)
-  const [playbackSpeed, setPlaybackSpeed] = useState('1x')
-  const [volume, setVolume] = useState(1)
   const [volumeDisabled, setVolumeDisabled] = useState(true)
 
   // For drawing tools
@@ -114,7 +118,7 @@ function VideoWithDrawing({
   }
 
   const handleSetPlaybackSpeed = speed => {
-    setPlaybackSpeed(speed)
+    setVideoSpeed(speed)
   }
 
   const handleSeekMouseDown = e => {
@@ -159,7 +163,7 @@ function VideoWithDrawing({
     onError(error)
   }
 
-  const sanitizedSpeed = Number(playbackSpeed.slice(0, -1))
+  const sanitizedSpeed = Number(videoSpeed.slice(0, -1))
 
   // For drawing tools
   const canvas = transformLayer?.current
@@ -243,8 +247,8 @@ function VideoWithDrawing({
         handleSeekMouseUp={handleSeekMouseUp}
         onPlayPause={handlePlayPause}
         onSpeedChange={handleSetPlaybackSpeed}
-        playbackSpeed={playbackSpeed}
         played={played}
+        playbackSpeed={videoSpeed}
         playerRef={playerRef}
         setVolume={setVolume}
         volume={volume}
@@ -260,9 +264,13 @@ VideoWithDrawing.propTypes = {
   onError: func,
   onKeyDown: func,
   onReady: func,
+  setVideoSpeed: func,
+  setVolume: func,
   subject: shape({
     locations: arrayOf(locationValidator)
-  })
+  }),
+  videoSpeed: string,
+  volume: number
 }
 
 export default VideoWithDrawing
