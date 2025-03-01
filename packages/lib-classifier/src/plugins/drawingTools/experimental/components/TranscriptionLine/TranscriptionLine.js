@@ -6,20 +6,25 @@ import { Tooltip } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
-import { HANDLE_RADIUS } from './helpers/constants'
 import TranscriptionLineMark from './components/TranscriptionLineMark'
 
 function storeMapper(stores) {
   return stores.classifierStore.workflows.active?.usesTranscriptionTask || false
 }
 
-function TranscriptionLine(props) {
+const DEFAULT_HANDLER = () => true
+function TranscriptionLine({
+  active = false,
+  color = '',
+  mark,
+  onFinish = DEFAULT_HANDLER,
+  state = ''
+}) {
   let transcriptionTaskColors = {}
   const stores = useContext(MobXProviderContext)
   const theme = useContext(ThemeContext)
   const [allowFinish, setAllowFinish] = useState(false)
   const usesTranscriptionTask = storeMapper(stores)
-  const { active, color, mark, onFinish, scale, state } = props
   const { t } = useTranslation('plugins')
   if (theme) {
     transcriptionTaskColors = {
@@ -35,7 +40,6 @@ function TranscriptionLine(props) {
     lineState = 'active'
   }
   const colorToRender = (usesTranscriptionTask) ? transcriptionTaskColors[lineState] : color
-  const handleRadius = HANDLE_RADIUS / scale
 
   function onHandleDrag(coords) {
     mark.setCoordinates(coords)
@@ -66,10 +70,8 @@ function TranscriptionLine(props) {
           color={colorToRender}
           handlePointerDown={handlePointerDown}
           handleFinishClick={handleFinishClick}
-          handleRadius={handleRadius}
           mark={mark}
           onHandleDrag={onHandleDrag}
-          scale={scale}
         />
       </Tooltip>
     )
@@ -81,10 +83,8 @@ function TranscriptionLine(props) {
       color={colorToRender}
       handlePointerDown={handlePointerDown}
       handleFinishClick={handleFinishClick}
-      handleRadius={handleRadius}
       mark={mark}
       onHandleDrag={onHandleDrag}
-      scale={scale}
     />
   )
 }
@@ -94,16 +94,7 @@ TranscriptionLine.propTypes = {
   color: PropTypes.string,
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
-  scale: PropTypes.number,
   state: PropTypes.string
-}
-
-TranscriptionLine.defaultProps = {
-  active: false,
-  color: '',
-  onFinish: () => true,
-  scale: 1,
-  state: ''
 }
 
 export default TranscriptionLine

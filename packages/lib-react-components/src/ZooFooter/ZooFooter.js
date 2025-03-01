@@ -159,6 +159,7 @@ export default function ZooFooter({
           >
             <SocialAnchor service='facebook' />
             <SocialAnchor service='twitter' />
+            <SocialAnchor service='bluesky' />
             <SocialAnchor service='instagram' />
           </Box>
         </Box>

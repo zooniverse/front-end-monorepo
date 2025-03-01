@@ -32,12 +32,13 @@ const FlipbookViewer = ({
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
   const [dragMove, setDragMove] = useState()
-  /** This initializes an image element from the subject's defaultFrame src url.
+  /** This initializes an image element from the subject's currentFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
-   * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameLocation = subject ? subject.locations[defaultFrame] : null
+   */
+  const currentFrameLocation = subject ? subject.locations[currentFrame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: defaultFrameLocation.url,
+    frame: currentFrame,
+    src: currentFrameLocation.url,
     onReady,
     onError
   })
@@ -84,7 +85,6 @@ const FlipbookViewer = ({
     <Box>
       <SVGPanZoom
         key={`${naturalWidth}-${naturalHeight}`}
-        imgRef={subjectImage}
         limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}

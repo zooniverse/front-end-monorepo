@@ -33,8 +33,12 @@ describe('components > ClassifierContainer', function () {
     constructor () {
       this.naturalHeight = 1000
       this.naturalWidth = 500
+      const fakeLoadEvent = {
+        ...new Event('load'),
+        target: this
+      }
       setTimeout(() => {
-        this.onload()
+        this.onload(fakeLoadEvent)
       }, 500)
     }
   }

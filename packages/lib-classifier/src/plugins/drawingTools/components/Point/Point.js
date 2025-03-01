@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 
+import useScale from '../../hooks/useScale'
+
 // TODO update per tool size prop
 
 const RADIUS = {
@@ -14,21 +16,29 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-function Point({ active, children, mark, onFinish, scale }) {
+const DEFAULT_MARK = {
+  tool: {
+    size: 'large'
+  }
+}
+
+function Point({ active = false, mark = {DEFAULT_MARK}, onFinish }) {
+  const scale = useScale()
   const { size } = mark.tool
-  const crosshairSpace = CROSSHAIR_SPACE / scale
-  const crosshairWidth = CROSSHAIR_WIDTH / scale
-  const selectedRadius = SELECTED_RADIUS[size] / scale
-  const radius = RADIUS[size] / scale
+  const crosshairSpace = CROSSHAIR_SPACE
+  const crosshairWidth = CROSSHAIR_WIDTH
+  const selectedRadius = SELECTED_RADIUS[size]
+  const radius = RADIUS[size]
 
   return (
-    <g onPointerUp={active ? onFinish : undefined}>
+    <g transform={`scale(${1 / scale})`} onPointerUp={active ? onFinish : undefined}>
       <line
         x1='0'
         y1={-1 * crosshairSpace * selectedRadius}
         x2='0'
         y2={-1 * selectedRadius}
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1={-1 * crosshairSpace * selectedRadius}
@@ -36,6 +46,7 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2={-1 * selectedRadius}
         y2='0'
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1='0'
@@ -43,6 +54,7 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2='0'
         y2={selectedRadius}
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
       <line
         x1={crosshairSpace * selectedRadius}
@@ -50,9 +62,9 @@ function Point({ active, children, mark, onFinish, scale }) {
         x2={selectedRadius}
         y2='0'
         strokeWidth={crosshairWidth}
+        vectorEffect={'non-scaling-stroke'}
       />
-      <circle r={active ? selectedRadius : radius} />
-      {children}
+      <circle r={active ? selectedRadius : radius} vectorEffect={'non-scaling-stroke'} />
     </g>
   )
 }
@@ -60,17 +72,6 @@ function Point({ active, children, mark, onFinish, scale }) {
 Point.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.object,
-  scale: PropTypes.number
-}
-
-Point.defaultProps = {
-  active: false,
-  mark: {
-    tool: {
-      size: 'large'
-    }
-  },
-  scale: 1
 }
 
 export default observer(Point)

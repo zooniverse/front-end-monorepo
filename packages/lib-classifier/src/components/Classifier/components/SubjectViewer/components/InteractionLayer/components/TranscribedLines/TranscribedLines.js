@@ -12,7 +12,7 @@ import { useTranslation } from '@translations/i18n'
 import TooltipIcon from './components/TooltipIcon'
 import ConsensusPopup from './components/ConsensusPopup'
 
-export const ConsensusLine = styled('g')`
+export const ConsensusLine = styled.g`
   cursor: pointer;
   filter: drop-shadow(1px 1px 4px #5c5c5c);
 
@@ -21,7 +21,7 @@ export const ConsensusLine = styled('g')`
   }
 
   &:focus-visible {
-    ${props => css`outline: solid 4px ${props.focusColor};`}
+    ${props => css`outline: solid medium ${props.focusColor};`}
   }
 
   &[aria-disabled="true"] {
@@ -53,10 +53,7 @@ function onKeyDown(event, callback, line) {
   }
 }
 
-function TranscribedLines({
-  /** SVG image scale (client width / natural width.) */
-  scale = 1
-}) {
+function TranscribedLines() {
   const {
     /** is the transcription task active? */
     active,
@@ -174,7 +171,6 @@ function TranscribedLines({
                 <TranscriptionLine
                   state='complete'
                   mark={mark}
-                  scale={scale}
                 />
               </ConsensusLine>
             </Tooltip>
@@ -216,7 +212,6 @@ function TranscribedLines({
                 <TranscriptionLine
                   state='transcribed'
                   mark={mark}
-                  scale={scale}
                 />
               </ConsensusLine>
             </Tooltip>
@@ -233,8 +228,6 @@ function TranscribedLines({
   )
 }
 
-TranscribedLines.propTypes = {
-  scale: number
-}
+TranscribedLines.propTypes = {}
 
 export default observer(TranscribedLines)

@@ -12,10 +12,9 @@ function RotateRectangle({
   active = false,
   mark,
   onFinish = () => true,
-  scale = 1
 }) {
   const { angle, height, width, x_center, y_center } = mark
-  const guideWidth = GUIDE_WIDTH / scale
+  const guideWidth = GUIDE_WIDTH
 
   const x_left = x_center - width / 2
   const x_right = x_center + width / 2
@@ -41,14 +40,15 @@ function RotateRectangle({
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <rect x={x_left} y={y_top} width={width} height={height} />
+      <rect x={x_left} y={y_top} width={width} height={height} vectorEffect={'non-scaling-stroke'} />
       <rect
         x={x_left}
         y={y_top}
         width={width}
         height={height}
-        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeWidth={GRAB_STROKE_WIDTH}
         strokeOpacity='0'
+        vectorEffect={'non-scaling-stroke'}
       />
       {/* Rotate Handle */}
       {active && (
@@ -60,10 +60,10 @@ function RotateRectangle({
             y2={y_center}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
+            vectorEffect={'non-scaling-stroke'}
           />
           <RotateHandle
             dragMove={onRotateDrag}
-            scale={scale}
             x={xRotationHandle}
             y={y_center}
           />
@@ -73,7 +73,6 @@ function RotateRectangle({
       {/* Original Top Left corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_top}
           dragMove={(e, d) =>
@@ -91,7 +90,6 @@ function RotateRectangle({
       {/* Original Top Right corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_top}
           dragMove={(e, d) =>
@@ -109,7 +107,6 @@ function RotateRectangle({
       {/* Original Bottom Right corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_right}
           y={y_bottom}
           dragMove={(e, d) =>
@@ -127,7 +124,6 @@ function RotateRectangle({
       {/* Original Bottom Left corner */}
       {active && (
         <DragHandle
-          scale={scale}
           x={x_left}
           y={y_bottom}
           dragMove={(e, d) =>
@@ -165,10 +161,6 @@ RotateRectangle.propTypes = {
     Callback to reset the drawing canvas when creation of the rectangle is finished.
   */
   onFinish: PropTypes.func,
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: PropTypes.number
 }
 
 export default observer(RotateRectangle)

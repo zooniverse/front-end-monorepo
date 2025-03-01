@@ -5,6 +5,7 @@ export const AlgorithmAStar = ({
   point: pointOriginal,
   viewer
 }) => {
+  let pointsMax = 1000;
   const pointValueStart = viewer.getPointValue({ point: pointOriginal })
   const traversedPoints = []
   const connectedPoints = SortedSet({ data: [pointOriginal] })
@@ -50,7 +51,8 @@ export const AlgorithmAStar = ({
     }
   }
 
-  while (pointsToCheck.length > 0) {
+  while (pointsToCheck.length > 0 && pointsMax > 0) {
+    --pointsMax; // prevents creating accidental marks that are extremely large
     checkConnectedPoints()
   }
 

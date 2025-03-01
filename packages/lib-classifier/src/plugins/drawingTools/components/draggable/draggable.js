@@ -1,5 +1,5 @@
 import { forwardRef, useContext, useRef, useState } from 'react';
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import SVGContext from '../../shared/SVGContext'
 
 function createPoint(event) {
   const { clientX, clientY } = event
@@ -47,6 +47,9 @@ function draggable(WrappedComponent) {
     dragStart = DEFAULT_HANDLER,
     dragMove = DEFAULT_HANDLER,
     dragEnd = DEFAULT_HANDLER,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
     ...rest
   }, ref) {
     const { canvas } = useContext(SVGContext)
@@ -63,6 +66,7 @@ function draggable(WrappedComponent) {
       setDragging(true)
       pointerId.current = event.pointerId
       dragStart({ x, y, pointerId: event.pointerId })
+      onPointerDown?.(event)
       wrappedComponent.current?.setPointerCapture(event.pointerId)
     }
 
@@ -77,6 +81,7 @@ function draggable(WrappedComponent) {
         dragMove({ currentTarget, x, y, pointerId: event.pointerId }, difference)
         coords.current = { x, y }
       }
+      onPointerMove?.(event)
     }
 
     function onDragEnd(event) {
@@ -88,6 +93,7 @@ function draggable(WrappedComponent) {
       coords.current = { x: null, y: null }
       setDragging(false)
       pointerId.current = -1
+      onPointerUp?.(event)
     }
 
     return (

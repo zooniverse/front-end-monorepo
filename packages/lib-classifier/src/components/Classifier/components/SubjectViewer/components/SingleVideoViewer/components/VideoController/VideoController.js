@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { bool, func, number, string } from 'prop-types'
 import {
   Box,
   Button,
   Grid,
   RangeInput,
+  ResponsiveContext,
   Select,
   Text,
   ThemeContext
@@ -67,14 +68,14 @@ const VolumeRange = styled(RangeInput)`
   display: block;
   width: 100px;
   height: 24px;
-  padding: 0 8px 0 0;
+  padding: 0 8px;
   background: ${props =>
     props.theme.dark
       ? props.theme.global.colors['dark-1']
       : props.theme.global.colors['light-1']};
   position: absolute;
   left: -30px;
-  bottom: 74px;
+  bottom: 80px;
   transform: rotate(-90deg);
 `
 
@@ -92,10 +93,12 @@ const VideoController = ({
   onSpeedChange = DEFAULT_HANDLER,
   playbackSpeed = '1x',
   played = 0, // A percentage between 0 and 1
+  playerRef,
   setVolume = DEFAULT_HANDLER,
   volume = 1,
-  volumeDisabled = false
+  volumeDisabled = false,
 }) => {
+  const size = useContext(ResponsiveContext)
   const { t } = useTranslation('components')
   const [volumeOpen, setVolumeOpen] = useState(false)
 
@@ -113,11 +116,25 @@ const VideoController = ({
     return formatTimeStamp(duration)
   }, [duration])
 
-  const handleSliderPlayPause = e => {
+  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or input */
+  const handleSliderKeys = e => {
     if (e.code === 'Space' || e.code === 'Enter') {
       e.preventDefault()
       e.stopPropagation()
       onPlayPause()
+      // Sensitivity of left/right keys can be adjusted if needed
+    } else if (e.code === 'ArrowLeft') {
+      e.preventDefault()
+      e.stopPropagation()
+      if (played === 0) return
+      else if (0 < played && played <= 0.05) playerRef?.current?.seekTo(0)
+      else playerRef?.current?.seekTo(played - 0.05)
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault()
+      e.stopPropagation()
+      if (played === 1) return
+      else if (1 > played && played >= 0.95) playerRef?.current?.seekTo(duration)
+      else playerRef?.current?.seekTo(played + 0.05)
     }
   }
 
@@ -125,6 +142,7 @@ const VideoController = ({
     setVolume(Number(e.target.value))
   }
 
+  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or slider */
   const handleVolumeKeys = e => {
     if (e.key === 'ArrowUp' && volume < 1) {
       e.preventDefault()
@@ -139,8 +157,8 @@ const VideoController = ({
 
   return (
     <Box
-      background={{ light: 'white', dark: 'dark-1' }}
-      pad={{ horizontal: 'small' }}
+      background={{ light: 'white', dark: 'dark-3' }}
+      pad={{ horizontal: size === 'small' ? '0' : 'small' }}
       border={[
         {
           color: {
@@ -196,8 +214,8 @@ const VideoController = ({
             <Box
               direction='row'
               align='center'
-              width='max-content'
-              pad={{ horizontal: '20px' }}
+              width={{ min: '3.7rem', max: '3.7rem'}}
+              margin={{ horizontal: size === 'small' ? '10px' : '20px' }}
             >
               <Text size='0.75rem' color={color}>
                 <time dateTime={`P${Math.round(secondsPlayed)}S`}>
@@ -217,10 +235,10 @@ const VideoController = ({
               a11yTitle={t('SubjectViewer.VideoController.scrubber')}
               min={0}
               max={0.999999} // not sure why, this was in the react-player example
-              step='any'
+              step={0.01}
               value={played}
               onChange={handleSeekChange}
-              onKeyDown={handleSliderPlayPause}
+              onKeyDown={handleSliderKeys}
               onMouseDown={handleSeekMouseDown}
               onMouseUp={handleSeekMouseUp}
             />
@@ -286,6 +304,7 @@ VideoController.propTypes = {
   onSpeedChange: func,
   playbackSpeed: string,
   played: number, // percentage
+  setVolume: func,
   volume: number,
   volumeDisabled: bool
 }

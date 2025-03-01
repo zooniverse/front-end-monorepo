@@ -1,4 +1,4 @@
-import { bool, shape, string } from "prop-types"
+import { bool, object, shape, string } from "prop-types"
 import { Box, Text } from "grommet"
 import { Blank } from "grommet-icons"
 import InputStatus from "../../../components/InputStatus"
@@ -82,6 +82,7 @@ function VolumetricTask({
 }
 
 VolumetricTask.propTypes = {
+  annotation: object,
   disabled: bool,
   task: shape({
     instruction: string,

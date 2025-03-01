@@ -117,7 +117,7 @@ const SubjectViewer = types
         self.loadingState = asyncStates.error
       },
 
-      onSubjectReady (event) {
+      onSubjectReady (event, frameIndex = 0) {
         const { target = {} } = event || {}
         const {
           clientHeight = 0,
@@ -125,7 +125,7 @@ const SubjectViewer = types
           naturalHeight = 0,
           naturalWidth = 0
         } = target || {}
-        self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
+        self.dimensions[frameIndex] = { clientHeight, clientWidth, naturalHeight, naturalWidth }
         self.rotation = 0
         self.loadingState = asyncStates.success
       },

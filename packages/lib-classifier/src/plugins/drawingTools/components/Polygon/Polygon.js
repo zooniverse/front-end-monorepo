@@ -9,11 +9,10 @@ const GuideLine = styled.line`
 `
 
 const RADIUS = 3
-const STROKE_WIDTH = 3
-const GUIDELINE_STROKE_WIDTH = 2
+const GUIDELINE_STROKE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 6
 
-function Polygon({ active, mark, scale, onFinish }) {
+function Polygon({ active, mark, onFinish }) {
   const {
     path,
     points,
@@ -24,10 +23,9 @@ function Polygon({ active, mark, scale, onFinish }) {
     guideLineY
   } = mark
 
-  const radius = RADIUS / scale
-  const strokeWidth = STROKE_WIDTH / scale
-  const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
-  const grabStrokeWidth = GRAB_STROKE_WIDTH / scale
+  const radius = RADIUS
+  const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH
+  const grabStrokeWidth = GRAB_STROKE_WIDTH
 
   function onUndoDrawing() {
     mark.shortenPath()
@@ -45,7 +43,6 @@ function Polygon({ active, mark, scale, onFinish }) {
     <g>
       {active && !finished && points.length > 1 && (
         <UndoButton
-          scale={scale}
           x={initialPoint.x}
           y={initialPoint.y}
           undoDrawing={onUndoDrawing}
@@ -53,7 +50,7 @@ function Polygon({ active, mark, scale, onFinish }) {
       )}
 
       /* Visible lines */
-      <polyline points={path} strokeWidth={strokeWidth} fill='none' />
+      <polyline points={path} fill='none' vectorEffect={'non-scaling-stroke'} />
 
       /* So users can easily select the polygon */
       <polyline
@@ -61,6 +58,7 @@ function Polygon({ active, mark, scale, onFinish }) {
         strokeWidth={grabStrokeWidth}
         strokeOpacity='0'
         fill={fill}
+        vectorEffect={'non-scaling-stroke'}
       />
 
       /* To visibly show a closed polygon */
@@ -69,22 +67,20 @@ function Polygon({ active, mark, scale, onFinish }) {
           y1={lastPoint.y}
           x2={initialPoint.x}
           y2={initialPoint.y}
-          strokeWidth={strokeWidth}
           strokeDasharray={strokeDasharray}
+          vectorEffect={'non-scaling-stroke'}
         />
-      )}
 
       {active &&
         points.map((point, i) => (
             <DragHandle
               key={`${mark.id}-${i}`}
-              scale={scale}
               r={radius}
               x={point.x}
               y={point.y}
               fill='currentColor'
               dragMove={point.moveTo}
-              onPointerDown={handleClosePolygon}
+              onPointerUp={handleClosePolygon}
             />
           ))
         }
@@ -101,6 +97,7 @@ function Polygon({ active, mark, scale, onFinish }) {
             y2={guideLineY}
             strokeWidth={guideLineStrokeWidth}
             strokeDasharray='2 2'
+            vectorEffect={'non-scaling-stroke'}
           />
         )}
     </g>
@@ -127,15 +124,10 @@ Polygon.propTypes = {
     }),
     finished: PropTypes.bool
   }).isRequired,
-  /**
-    Image scale factor. Used to keep line widths and sizes constant at all image scales.
-  */
-  scale: PropTypes.number
 }
 
 Polygon.defaultProps = {
   active: false,
-  scale: 1
 }
 
 export default observer(Polygon)

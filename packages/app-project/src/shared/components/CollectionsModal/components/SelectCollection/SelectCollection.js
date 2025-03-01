@@ -42,15 +42,31 @@ function SelectCollection ({
   }
 
   function collectionNameFilter(collection) {
-    const displayNameLowerCase = collection.display_name.toLowerCase()
+    const displayNameLowerCase = collection?.display_name?.toLowerCase()
+    if (!displayNameLowerCase) return false
     return displayNameLowerCase.includes(searchText.toLowerCase())
   }
 
+  /*
+  Determines the display label for the specific collection.
+  Returns "Example Collection" if that collection belongs to the current user,
+  otherwise returns "Example Collection (Another User's Name)"
+
+  NOTE: sometime between Grommet > 2.41.0 and <= 2.45.1, the behaviour of
+  <Select> changed. Now, when <Select> initially renders and _nothing_ is
+  selected, labelKey is called with an empty object {} argument. Prior to this
+  change, collectionLabel() was only called when there's a valid collection
+  object to render. (e.g. when clicking on Select to display list of options.)
+  
+  As a result, collectionLabel() now handles "no selection" (collection === {})
+  without crashing, returning a meaningless "undefined (undefined)". The
+  <Select> still shows blank ("") when there's no selection, though. Go figure.
+   */
   function collectionLabel(collection) {
-    if (collection.links.owner.id === userID) {
-      return collection.display_name
+    if (collection?.links?.owner?.id === userID) {
+      return collection?.display_name
     }
-    return `${collection.display_name} (${collection.links.owner.display_name})`
+    return `${collection?.display_name} (${collection?.links?.owner?.display_name})`
   }
 
   /*
