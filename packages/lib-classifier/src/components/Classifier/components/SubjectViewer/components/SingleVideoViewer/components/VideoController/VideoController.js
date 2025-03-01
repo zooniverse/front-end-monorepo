@@ -198,8 +198,8 @@ const VideoController = ({
             <Box
               direction='row'
               align='center'
-              width='max-content'
-              pad={{ horizontal: size === 'small' ? '10px' : '20px' }}
+              width={{ min: '3.7rem', max: '3.7rem'}}
+              margin={{ horizontal: size === 'small' ? '10px' : '20px' }}
             >
               <Text size='0.75rem' color={color}>
                 <time dateTime={`P${Math.round(secondsPlayed)}S`}>
@@ -219,7 +219,7 @@ const VideoController = ({
               a11yTitle={t('SubjectViewer.VideoController.scrubber')}
               min={0}
               max={0.999999} // not sure why, this was in the react-player example
-              step='any'
+              step={0.01}
               value={played}
               onChange={handleSeekChange}
               onKeyDown={handleSliderPlayPause}

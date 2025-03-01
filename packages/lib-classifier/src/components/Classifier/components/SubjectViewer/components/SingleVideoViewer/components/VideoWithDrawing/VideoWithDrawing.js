@@ -117,32 +117,24 @@ function VideoWithDrawing({
     setPlaybackSpeed(speed)
   }
 
-  const handlePlay = () => {
-    setIsPlaying(true)
-  }
-
-  const handlePause = () => {
-    setIsPlaying(false)
-  }
-
   const handleSeekMouseDown = e => {
     setIsSeeking(true)
   }
 
   const handleSeekChange = e => {
-    setPlayed(e.target.value)
+    setPlayed(parseFloat(e.target.value))
+    playerRef?.current?.seekTo(parseFloat(e.target.value))
   }
 
   const handleSeekMouseUp = e => {
     setIsSeeking(false)
-    playerRef?.current?.seekTo(parseFloat(e.target.value))
   }
 
   const handleVideoProgress = reactPlayerState => {
     const { played } = reactPlayerState // percentage of video played (0 to 1)
 
     if (!isSeeking) {
-      setPlayed(played)
+      setPlayed(played) // played is value passed to Slider
     }
   }
 
@@ -154,7 +146,7 @@ function VideoWithDrawing({
     setDuration(duration)
   }
 
-  /* No support for iPhones specifically: https://caniuse.com/fullscreen */
+  /* NOTE: No fullscreen support for iPhones: https://caniuse.com/fullscreen */
   const handleFullscreen = () => {
     try {
       playerRef.current?.getInternalPlayer().requestFullscreen()
@@ -186,13 +178,11 @@ function VideoWithDrawing({
             onEnded={handleVideoEnded}
             onError={handlePlayerError}
             onReady={onReactPlayerReady}
-            onPlay={handlePlay}
-            onPause={handlePause}
             onProgress={handleVideoProgress}
             playing={isPlaying}
             playbackRate={sanitizedSpeed}
             playsinline
-            progressInterval={100} // milliseconds
+            progressInterval={10} // milliseconds
             ref={playerRef}
             width='100%'
             volume={volume}
@@ -259,7 +249,7 @@ function VideoWithDrawing({
         volume={volume}
         volumeDisabled={volumeDisabled}
       />
-      {fullscreenError && <Text>Fullscreen not supported on iPhone</Text>}
+      {fullscreenError && <Text>Fullscreen not supported in some mobile browsers</Text>}
     </>
   )
 }
