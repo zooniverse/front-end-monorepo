@@ -80,7 +80,7 @@ function Polygon({ active, mark, onFinish }) {
               y={point.y}
               fill='currentColor'
               dragMove={point.moveTo}
-              onPointerDown={handleClosePolygon}
+              onPointerUp={handleClosePolygon}
             />
           ))
         }

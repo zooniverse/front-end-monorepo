@@ -3,12 +3,19 @@ import { Box, Grid } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
-import ImageToolbar from '@components/Classifier/components/ImageToolbar'
 import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 import FieldGuide from '@components/Classifier/components/FieldGuide'
+import {
+  ViewerGrid,
+  StyledSubjectContainer,
+  StyledImageToolbarContainer,
+  StyledImageToolbar,
+  StyledTaskAreaContainer,
+  StyledTaskArea
+} from '../shared/StyledContainers'
 
 const ContainerGrid = styled(Grid)`
   position: relative;
@@ -46,53 +53,6 @@ const ContainerGrid = styled(Grid)`
   }
 `
 
-export const ViewerGrid = styled(Grid)`
-  ${props => props.hasSurveyTask ? css`
-    @media screen and (min-width: 70rem) {
-      position: sticky;
-      top: 10px;
-    }
-  ` : css`
-    @media screen and (min-width: 769px) {
-      position: sticky;
-      top: 10px;
-    }
-  `}
-
-  height: fit-content;
-  grid-area: viewer;
-  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
-  grid-template-rows: auto;
-  grid-template-areas: 'subject toolbar';
-`
-
-const StyledTaskAreaContainer = styled.div`
-  grid-area: task;
-`
-
-const StyledTaskArea = styled(Box)`
-  ${props => props.hasSurveyTask ? css`
-    @media screen and (min-width: 70rem) {
-      position: sticky;
-      top: 10px;
-    }
-  ` : css`
-    @media screen and (min-width: 769px) {
-      position: sticky;
-      top: 10px;
-    }
-  `}
-`
-
-const StyledImageToolbarContainer = styled.div`
-  grid-area: toolbar;
-`
-
-const StyledImageToolbar = styled(ImageToolbar)`
-  position: sticky;
-  top: 10px;
-`
-
 export default function NoMaxWidth({
   className = '',
   separateFramesView = false,
@@ -110,15 +70,12 @@ export default function NoMaxWidth({
           <MetaTools />
         </Box>
       ) : (
-        <ViewerGrid
-          forwardedAs='section'
-          hasSurveyTask={hasSurveyTask}
-        >
-          <Box gridArea='subject'>
+        <ViewerGrid forwardedAs='section'>
+          <StyledSubjectContainer hasSurveyTask={hasSurveyTask}>
             <Banners />
             <SubjectViewer />
             <MetaTools />
-          </Box>
+          </StyledSubjectContainer>
           <StyledImageToolbarContainer>
             <StyledImageToolbar />
           </StyledImageToolbarContainer>
