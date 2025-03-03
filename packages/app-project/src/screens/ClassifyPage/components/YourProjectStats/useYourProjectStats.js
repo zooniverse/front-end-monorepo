@@ -10,8 +10,8 @@ import incrementStats from './helpers/incrementStats.js'
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  // revalidateOnFocus: true,
-  // revalidateOnReconnect: true,
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
   refreshInterval: 0
 }
 
