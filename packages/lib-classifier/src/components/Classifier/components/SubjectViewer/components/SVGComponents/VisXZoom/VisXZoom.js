@@ -3,7 +3,7 @@ import { Zoom } from '@visx/zoom'
 import { throttle } from 'lodash'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useKeyZoom } from '@hooks'
 import ZoomEventLayer from '../ZoomEventLayer'
@@ -18,7 +18,6 @@ const defaultZoomConfig = {
 }
 
 const DEFAULT_HANDLER = () => true
-let zoom = null
 
 function VisXZoom({
   constrain,
@@ -35,11 +34,12 @@ function VisXZoom({
   ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
-  
+  const zoomRef = useRef(null)
+
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)
-  }, [setOnPan, setOnZoom])
+  }, [])
 
   function handleToolbarPan(xMultiplier, yMultiplier) {
     onPan(xMultiplier, yMultiplier)
@@ -60,25 +60,25 @@ function VisXZoom({
   function zoomIn() {
     if (!zooming) return
     const { zoomInValue } = zoomConfiguration
-    zoom.scale({ scaleX: zoomInValue, scaleY: zoomInValue })
+    zoomRef.current.scale({ scaleX: zoomInValue, scaleY: zoomInValue })
   }
 
   function zoomOut() {
     if (!zooming) return
     const { zoomOutValue } = zoomConfiguration
-    zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
+    zoomRef.current.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
   }
 
   function zoomReset() {
     if (!zooming) return
-    zoom.reset()
+    zoomRef.current.reset()
   }
 
   function zoomToPoint(event, zoomDirection) {
     const { zoomInValue, zoomOutValue } = zoomConfiguration
     const zoomValue = (zoomDirection === 'in') ? zoomInValue : zoomOutValue
     const point = localPoint(event)
-    zoom.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
+    zoomRef.current.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
   }
 
   function onDoubleClick(event) {
@@ -95,13 +95,13 @@ function VisXZoom({
         translateX,
         translateY
       }
-    } = zoom
+    } = zoomRef.current
     const panDistance = 20
     const newTransformation = {
       translateX: translateX - xMultiplier * panDistance,
       translateY: translateY - yMultiplier * panDistance
     }
-    zoom.setTranslate(newTransformation)
+    zoomRef.current.setTranslate(newTransformation)
   }
 
   function onPointerEnter() {
@@ -117,7 +117,7 @@ function VisXZoom({
       document.body.style.overflow = ''
       document.body.style.paddingRight = ''
     }
-    if (!zoom.isDragging && !panning) return zoom.dragEnd()
+    if (!zoomRef.current.isDragging && !panning) return zoomRef.current.dragEnd()
   }
 
   function onWheel(event) {
@@ -144,7 +144,7 @@ function VisXZoom({
       width={width}
     >
       {_zoom => {
-        zoom = _zoom
+        zoomRef.current = _zoom
         return (
           <ZoomingComponent
             initialTransformMatrix={_zoom.initialTransformMatrix}

@@ -34,6 +34,8 @@ const SeparateFrame = ({
 }) => {
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
+  const [onPan, setOnPanState] = useState(DEFAULT_HANDLER)
+  const [onZoom, setOnZoomState] = useState(DEFAULT_HANDLER)
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
 
@@ -48,15 +50,13 @@ const SeparateFrame = ({
     naturalWidth = 800
   } = img
 
-  let onPan
-  let onZoom
 
-  function setOnPan(fn) {
-    onPan = fn
+  function handleSetOnPan(fn) {
+    setOnPanState(() => fn)
   }
 
-  function setOnZoom(fn) {
-    onZoom = fn
+  function handleSetOnZoom(fn) {
+    setOnZoomState(() => fn)
   }
 
   function panLeft() {
@@ -145,8 +145,8 @@ const SeparateFrame = ({
         naturalWidth={naturalWidth}
         onKeyDown={onKeyZoom}
         rotation={rotation}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
+        setOnPan={handleSetOnPan}
+        setOnZoom={handleSetOnZoom}
         src={img.src}
         subject={subject}
       />
