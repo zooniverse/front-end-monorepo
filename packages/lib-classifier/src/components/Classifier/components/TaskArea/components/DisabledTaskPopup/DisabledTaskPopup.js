@@ -1,8 +1,21 @@
-import { Modal, PlainButton, PrimaryButton } from '@zooniverse/react-components'
+import { PlainButton, PrimaryButton } from '@zooniverse/react-components'
+import { Modal } from '@zooniverse/react-components/Modal'
 import { Paragraph } from 'grommet'
 import { bool, func } from 'prop-types'
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useTranslation } from '@translations/i18n'
+
+const StyledDialog = styled.dialog`
+  z-index: 1000;
+  border: none;
+  padding: 0;
+  margin: 2em 1em;
+  /* override the browser default height, which is fit-content */
+  height: min-content;
+  /* Safari needs a minimum height, because the dialog contents use flexbox? */
+  min-height: 30ch;
+`
 
 /**
  A popup which interrupts classification for subjects that are retired or already seen.
@@ -22,7 +35,6 @@ export default function DisabledTaskPopup({
   nextAvailable,
   onClose = () => true,
   reset,
-  target
 }) {
   const { t } = useTranslation('components')
   const [ active, setActive ] = useState(isOpen)
@@ -47,35 +59,33 @@ export default function DisabledTaskPopup({
   }
 
   return (
-    <Modal
-      active={active}
-      full='horizontal'
-      modal={false}
-      position='top'
-      target={target}
-      title={t('TaskArea.DisabledTaskPopup.title')}
-    >
-      <Paragraph>
-        {t('TaskArea.DisabledTaskPopup.body')}
-      </Paragraph>
-      <PlainButton
-        alignSelf='center'
-        onClick={onReset}
-        text={t('TaskArea.DisabledTaskPopup.options.select')}
-      />
-      <PrimaryButton
-        alignSelf='center'
-        color='teal'
-        label={t('TaskArea.DisabledTaskPopup.options.next')}
-        onClick={onNext}
-        margin='xsmall'
-      />
-      <PlainButton
-        alignSelf='center'
-        text={t('TaskArea.DisabledTaskPopup.options.dismiss')}
-        onClick={closeModal}
-      />
-    </Modal>
+    <StyledDialog open={active} aria-label={t('TaskArea.DisabledTaskPopup.title')}>
+      <Modal
+        full='horizontal'
+        title={t('TaskArea.DisabledTaskPopup.title')}
+      >
+        <Paragraph>
+          {t('TaskArea.DisabledTaskPopup.body')}
+        </Paragraph>
+        <PlainButton
+          alignSelf='center'
+          onClick={onReset}
+          text={t('TaskArea.DisabledTaskPopup.options.select')}
+        />
+        <PrimaryButton
+          alignSelf='center'
+          color='teal'
+          label={t('TaskArea.DisabledTaskPopup.options.next')}
+          onClick={onNext}
+          margin='xsmall'
+        />
+        <PlainButton
+          alignSelf='center'
+          text={t('TaskArea.DisabledTaskPopup.options.dismiss')}
+          onClick={closeModal}
+        />
+      </Modal>
+    </StyledDialog>
   )
 }
 
