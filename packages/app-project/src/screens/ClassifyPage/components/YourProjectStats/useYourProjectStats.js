@@ -6,11 +6,12 @@ import { usePanoptesAuthToken } from '@hooks'
 import { getTodayDateString, getNumDaysAgoDateString, getQueryPeriod } from './helpers/dateRangeHelpers.js'
 import incrementStats from './helpers/incrementStats.js'
 
+// Classification count does not change in the background while a user classifies, so no need to revalidate on focus or reconnect
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  revalidateOnFocus: true,
-  revalidateOnReconnect: true,
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
   refreshInterval: 0
 }
 
@@ -101,8 +102,8 @@ async function fetchStats({ endpoint, projectID, userID, token }) {
 
 /**
  * Optimistically increment project stats, without revalidating the SWR cache.
- * @param {string} projectID 
- * @param {string} userID 
+ * @param {string} projectID
+ * @param {string} userID
  * @returns the mutated stats data
  */
 export function updateYourStats(projectID, userID) {
