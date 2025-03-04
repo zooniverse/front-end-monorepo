@@ -120,6 +120,39 @@ function VisXZoom({
     if (!zoomRef.current.isDragging && !panning) return zoomRef.current.dragEnd()
   }
 
+  function onTouchStart(event) {
+    if (zooming) {
+      event.stopPropagation()
+
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    }
+
+    return zoomRef.current.dragStart(event)
+  }
+
+  function onTouchMove(event) {
+    if (zooming) {
+      event.stopPropagation()
+
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    }
+    
+    return zoomRef.current.dragMove(event)
+  }
+
+  function onTouchEnd() {
+    if (zooming) {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
+    
+    return zoomRef.current.dragEnd()
+  }
+
   function onWheel(event) {
     // performance of this is pretty bad
     if (zooming) {
@@ -157,11 +190,14 @@ function VisXZoom({
               height={height}
               onDoubleClick={onDoubleClick}
               onKeyDown={onKeyZoom}
-              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerEnter={onPointerEnter}
+              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
               onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
               onPointerLeave={onPointerLeave}
+              onTouchStart={onTouchStart}
+              onTouchMove={panning ? onTouchMove : DEFAULT_HANDLER}
+              onTouchEnd={onTouchEnd}
               onWheel={throttledOnWheel}
               panning={panning}
               tabIndex={0}
