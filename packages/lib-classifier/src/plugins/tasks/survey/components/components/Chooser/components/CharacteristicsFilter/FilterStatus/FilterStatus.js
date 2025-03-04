@@ -16,7 +16,7 @@ const StyledButton = styled(Button)`
   border-radius: 32px;
   height: 40px;
   padding: 8px 10px;
-  
+
   &:focus {
     text-decoration: underline;
   }
@@ -64,7 +64,7 @@ const FilterStatus = forwardRef(({
     images,
     strings
   } = task
-  
+
   const { t } = useTranslation('plugins')
 
   const selectedCharacteristicIds = Object.keys(filters)
@@ -72,7 +72,6 @@ const FilterStatus = forwardRef(({
   return (
     <Box
       margin={{
-        top: 'small',
         bottom: 'xxsmall'
       }}
     >
