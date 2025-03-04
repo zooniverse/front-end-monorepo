@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useProgressiveImage } from '@zooniverse/react-components/hooks'
 
 export default function useSubjectImage({ frame = 0, src, onReady, onError }) {

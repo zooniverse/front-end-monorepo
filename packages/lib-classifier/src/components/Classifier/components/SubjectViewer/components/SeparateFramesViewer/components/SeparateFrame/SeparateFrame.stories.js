@@ -32,6 +32,7 @@ export const Default = ({ frameUrl, limitSubjectHeight }) => {
       <SeparateFrame
         frameUrl={frameUrl}
         limitSubjectHeight={limitSubjectHeight}
+        subject={{ id: '1' }}
       />
     </Provider>
   )
