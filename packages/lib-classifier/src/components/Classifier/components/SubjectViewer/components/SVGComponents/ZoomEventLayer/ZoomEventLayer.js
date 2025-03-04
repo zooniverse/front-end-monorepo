@@ -25,11 +25,14 @@ function ZoomEventLayer ({
   left = 0,
   onDoubleClick = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
-  onPointerDown = DEFAULT_HANDLER,
   onPointerEnter = DEFAULT_HANDLER,
+  onPointerDown = DEFAULT_HANDLER,
   onPointerMove = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
   onPointerLeave = DEFAULT_HANDLER,
+  onTouchStart = DEFAULT_HANDLER,
+  onTouchMove = DEFAULT_HANDLER,
+  onTouchEnd = DEFAULT_HANDLER,
   onWheel = DEFAULT_HANDLER,
   panning = false,
   top = 0,
@@ -46,11 +49,14 @@ function ZoomEventLayer ({
       height={height}
       onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
-      onPointerDown={onPointerDown}
       onPointerEnter={onPointerEnter}
+      onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
       onWheel={onWheel}
       $panning={(panning) ? 'true' : undefined}
       transform={`translate(${left}, ${top})`}
@@ -70,6 +76,9 @@ ZoomEventLayer.propTypes = {
   onPointerMove: PropTypes.func.isRequired,
   onPointerUp: PropTypes.func.isRequired,
   onPointerLeave: PropTypes.func.isRequired,
+  onTouchStart: PropTypes.func.isRequired,
+  onTouchMove: PropTypes.func.isRequired,
+  onTouchEnd: PropTypes.func.isRequired,
   onWheel: PropTypes.func,
   panning: PropTypes.bool,
   theme: PropTypes.object,
