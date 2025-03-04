@@ -3,28 +3,33 @@ import withThemeContext from '@zooniverse/react-components/helpers/withThemeCont
 import { Button } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { bool, number, object, shape, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
+import { useCallback, useContext } from 'react'
+import { MobXProviderContext } from 'mobx-react'
 
 import addQueryParams from '@helpers/addQueryParams'
 import theme from './theme'
 
 export const ThemedButton = withThemeContext(Button, theme)
 
+function useProject() {
+  const stores = useContext(MobXProviderContext)
+  const { project } = stores.store
+  return project
+}
 function WorkflowSelectButton ({
   disabled = false,
-  router,
   workflow,
   ...rest
 }) {
   const { t } = useTranslation('components')
-  const nextRouter = useRouter()
-  router = router || nextRouter
-  const owner = router?.query?.owner
-  const project = router?.query?.project
+  const project = useProject()
 
-  const url = `/${owner}/${project}/classify/workflow/${workflow.id}`
+  const url = `/${project.slug}/classify/workflow/${workflow.id}`
+  const onClick = useCallback(() => {
+    project.setSelectedWorkflow(workflow.id)
+  }, [project, workflow.id])
 
   const href = addQueryParams(url)
   const completeness = parseInt(workflow.completeness * 100, 10)
@@ -68,6 +73,7 @@ function WorkflowSelectButton ({
       icon={<Next size='15px' />}
       reverse
       label={label}
+      onClick={onClick}
       primary
       {...rest}
     />
