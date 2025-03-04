@@ -31,9 +31,9 @@ if (!process.browser) {
 }
 
 const AXIS_COLORS = [
+  0xE45950, // x
   0x06FE76, // y
   0x235DFF, // z
-  0xE45950 // x
 ]
 
 export const Cube = ({ annotations, tool, viewer }) => {
@@ -152,41 +152,6 @@ export const Cube = ({ annotations, tool, viewer }) => {
     threeRef.current.orbit.enableZoom = false
     threeRef.current.orbit.enablePan = false
     threeRef.current.orbit.update()
-
-    // View Axes
-    const half = viewer.base / 2
-
-    const points = [
-      [ // Y
-        [1, 1, -1],
-        [-1, 1, -1],
-        [-1, 1, 1]
-      ],
-      [ // Z
-        [-1, 1, 1],
-        [-1, -1, 1],
-        [1, -1, 1]
-      ], // X
-      [
-        [1, -1, 1],
-        [1, -1, -1],
-        [1, 1, -1]
-      ]
-    ]
-
-    points.forEach((pointArr, index) => {
-      const _points = []
-      pointArr.forEach((point) => {
-        _points.push(
-          new Vector3(point[0] * half, point[1] * half, point[2] * half)
-        )
-      })
-
-      const geometry = new BufferGeometry().setFromPoints(_points)
-      const material = new LineBasicMaterial({ color: AXIS_COLORS[index] })
-      const line = new Line(geometry, material)
-      threeRef.current.scene.add(line)
-    })
   }
 
   function animate () {
@@ -275,8 +240,56 @@ export const Cube = ({ annotations, tool, viewer }) => {
     })
     // console.log("Performance: renderPlanePoints()", performance.now() - t0)
 
+    renderPlaneOutline({ frames })
+
     threeRef.current.meshPlane.instanceMatrix.needsUpdate = true
     threeRef.current.meshPlane.instanceColor.needsUpdate = true
+  }
+
+  function renderPlaneOutline ({ frames }) {
+    const OUTLINE_MAX = viewer.base - .25
+    const OUTLINE_MIN = -.75
+
+    const planeOutlines = [
+      [
+        [frames[0], OUTLINE_MIN, OUTLINE_MIN],
+        [frames[0], OUTLINE_MAX, OUTLINE_MIN],
+        [frames[0], OUTLINE_MAX, OUTLINE_MAX],
+        [frames[0], OUTLINE_MIN, OUTLINE_MAX],
+        [frames[0], OUTLINE_MIN, OUTLINE_MIN],
+      ],
+      [
+        [OUTLINE_MAX, frames[1], OUTLINE_MAX],
+        [OUTLINE_MAX, frames[1], OUTLINE_MIN],
+        [OUTLINE_MIN, frames[1], OUTLINE_MIN],
+        [OUTLINE_MIN, frames[1], OUTLINE_MAX],
+        [OUTLINE_MAX, frames[1], OUTLINE_MAX],
+      ],
+      [
+        [OUTLINE_MAX, OUTLINE_MIN, frames[2]],
+        [OUTLINE_MAX, OUTLINE_MAX, frames[2]],
+        [OUTLINE_MIN, OUTLINE_MAX, frames[2]],
+        [OUTLINE_MIN, OUTLINE_MIN, frames[2]],
+        [OUTLINE_MAX, OUTLINE_MIN, frames[2]],
+      ],
+    ]
+
+    planeOutlines.forEach((planeOutline, dimension) => {
+      const points = planeOutline
+        .map(coors => getPositionInSpace({ coors }))
+        .map(pnt => new Vector3(...pnt))
+      const line = threeRef.current.scene.children
+        .find(c => c.name === `Line ${dimension}`)
+
+      if (line)
+        return line.geometry.setFromPoints(points)
+
+      const geometry = new BufferGeometry().setFromPoints(points)
+      const material = new LineBasicMaterial({ color: AXIS_COLORS[dimension] })
+      const newLine = new Line(geometry, material)
+      newLine.name = `Line ${dimension}`
+      threeRef.current.scene.add(newLine)
+    })
   }
 
   /** ********* ANNOTATIONS *******************/
