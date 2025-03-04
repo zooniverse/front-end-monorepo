@@ -21,8 +21,7 @@ const StyledBox = styled(Box)`
     `
   }
   
-  border-bottom-left-radius: 16px;
-  border-top-left-radius: 16px;
+  border-radius: 16px;
   width: 100%;
   
   .volume-container {
@@ -52,7 +51,7 @@ const StyledBox = styled(Box)`
       }
 
       .volume-controls {
-        margin-top: 0px;
+        margin-top: 0;
         max-height: 60px;
         width: 100%;
       }
@@ -94,7 +93,7 @@ const StyledBox = styled(Box)`
     -webkit-touch-callout: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
-    pointer-events:auto;
+    pointer-events: auto;
     touch-action: none;
     user-drag: none;
     user-select: none;

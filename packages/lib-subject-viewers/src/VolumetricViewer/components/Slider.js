@@ -89,14 +89,17 @@ const StyledSlider = styled(Box)`
 `
 
 export const Slider = ({ dimension, viewer }) => {
+  const currentFrame = viewer.base - 1 - viewer.getPlaneFrameIndex({ dimension });
+
   function inChange (e) {
-    viewer.setPlaneFrameActive({ dimension, frame: +e.target.value })
+    const nextFrame = viewer.base - 1 - +e.target.value;
+    viewer.setPlaneFrameActive({ dimension, frame: nextFrame })
   }
 
   function advanceFrame() {
     viewer.setPlaneFrameActive({
       dimension,
-      frame: (viewer.getPlaneFrameIndex({ dimension }) + 10) % viewer.base
+      frame: (viewer.getPlaneFrameIndex({ dimension }) - 10 + viewer.base) % viewer.base
     })
   }
 
@@ -112,7 +115,7 @@ export const Slider = ({ dimension, viewer }) => {
         min='0'
         onChange={inChange}
         type='range'
-        value={viewer.getPlaneFrameIndex({ dimension })}
+        value={currentFrame}
       />
     </StyledSlider>
   )
