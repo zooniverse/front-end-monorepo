@@ -12,7 +12,6 @@ export async function getStaticProps({ locale, params }) {
   const pageTitle = page?.strings?.title ?? 'Team'
 
   const teamArray = await fetchTeam(project, panoptesEnv)
-  const reversedTeamArray = teamArray.slice().reverse()
 
   return {
     notFound,
@@ -21,7 +20,7 @@ export async function getStaticProps({ locale, params }) {
       pageTitle,
       pageType: 'team',
       ...props,
-      teamArray: reversedTeamArray
+      teamArray: teamArray
     },
     revalidate: 60
   }
