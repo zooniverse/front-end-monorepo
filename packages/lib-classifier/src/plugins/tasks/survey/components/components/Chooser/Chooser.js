@@ -10,7 +10,7 @@ import Choices from './components/Choices'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 const StyledText = styled(Text)`
-  margin: 0;
+  margin: 0 0 20px;
   padding: 0;
   width: 100%;
 
@@ -61,7 +61,7 @@ function Chooser({
   }
 
   const filterButtonHasFocus = filterStatusRef.current && filterStatusRef.current.contains(document.activeElement)
-  
+
   return (
     <Box
       as={task.instruction ? 'fieldset' : 'div'}
@@ -71,7 +71,7 @@ function Chooser({
       style={{ border: 'none' }}
       width='100%'
     >
-      {task.instruction 
+      {task.instruction
         ? <StyledText as='legend' size='small'>
             <Markdownz components={components}>
               {task.instruction}

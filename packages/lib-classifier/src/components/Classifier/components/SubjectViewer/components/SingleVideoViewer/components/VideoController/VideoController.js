@@ -139,7 +139,7 @@ const VideoController = ({
   }
 
   const onVolumeChange = e => {
-    setVolume(Number(e.target.value))
+    setVolume(parseFloat(e.target.value))
   }
 
   /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or slider */
