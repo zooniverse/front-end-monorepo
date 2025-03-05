@@ -43,6 +43,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   jsonData = JSON_DATA,
   loadingState,
   parentWidth,
+  resetView,
   setAllowPanZoom = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -74,6 +75,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   const rows = (parentWidth <= 500) ? ['auto', 'auto'] : ['full']
 
   function disableImageZoom () {
+    resetView()
     setAllowPanZoom('')
   }
 
