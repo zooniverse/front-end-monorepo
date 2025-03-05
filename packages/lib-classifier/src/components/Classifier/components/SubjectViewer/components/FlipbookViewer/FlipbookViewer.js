@@ -90,7 +90,7 @@ const FlipbookViewer = ({
 FlipbookViewer.propTypes = {
   /** Fetched from metadata.default_frame or initialized to zero */
   defaultFrame: PropTypes.number,
-  /** Passed from Subject Viewer Store */
+  /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
@@ -98,15 +98,13 @@ FlipbookViewer.propTypes = {
   flipbookAutoplay: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
-  /** Passed from Subject Viewer Store */
+  /** Passed from Workflow Store per workflow configuration */
   limitSubjectHeight: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** Passed from Subject Viewer Store */
+  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** Passed from Subject Viewer Store */
-  onFrameChange: PropTypes.func,
-  /** Passed from Subject Viewer Store and called when default frame's src is loaded */
+  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */
   playIterations: PropTypes.number,

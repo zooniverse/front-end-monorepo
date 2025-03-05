@@ -109,7 +109,7 @@ function SeparateFramesViewer({
 export default observer(SeparateFramesViewer)
 
 SeparateFramesViewer.propTypes = {
-  /** Passed from Subject Viewer Store */
+  /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   enableRotation: PropTypes.func,

@@ -111,7 +111,7 @@ function FlipbookViewerContainer({
 }
 
 FlipbookViewerContainer.propTypes = {
-  /** Passed from Subject Viewer Store */
+  /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
   /** @zooniverse/async-states */
   loadingState: PropTypes.string,

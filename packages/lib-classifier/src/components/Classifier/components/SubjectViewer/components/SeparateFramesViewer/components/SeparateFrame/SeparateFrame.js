@@ -32,13 +32,6 @@ const SeparateFrame = ({
   onReady = DEFAULT_HANDLER,
   subject
 }) => {
-  const [invert, setInvert] = useState(false)
-  const [rotation, setRotation] = useState(0)
-  const [onPan, setOnPanState] = useState(DEFAULT_HANDLER)
-  const [onZoom, setOnZoomState] = useState(DEFAULT_HANDLER)
-  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
-  const [separateFrameMove, setSeparateFrameMove] = useState(false)
-
   const { img, error, loading, subjectImage } = useSubjectImage({
     frame,
     src: frameUrl,
@@ -50,6 +43,15 @@ const SeparateFrame = ({
     naturalWidth = 800
   } = img
 
+  /** Image Viewer state */
+  const [invert, setInvert] = useState(false)
+  const [rotation, setRotation] = useState(0)
+  const [onPan, setOnPanState] = useState(DEFAULT_HANDLER)
+  const [onZoom, setOnZoomState] = useState(DEFAULT_HANDLER)
+  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
+  const [separateFrameMove, setSeparateFrameMove] = useState(false)
+
+  /** Image Viewer actions */
   const handleSetOnPan = useCallback((fn) => {
     setOnPanState(() => fn)
   }, [])
@@ -103,19 +105,6 @@ const SeparateFrame = ({
     setSeparateFrameAnnotate(false)
   }
 
-  const { hasAnnotateTask } = useStores(storeMapper)
-  if (!hasAnnotateTask && separateFrameAnnotate) {
-    separateFrameEnableMove()
-  }
-
-  const separateFrameRotate = () => {
-    setRotation(prevRotation => prevRotation - 90)
-  }
-
-  const separateFrameInvert = () => {
-    setInvert(prev => !prev)
-  }
-
   const separateFrameZoomIn = () => {
     onZoom('zoomin', 1)
   }
@@ -123,11 +112,25 @@ const SeparateFrame = ({
   const separateFrameZoomOut = () => {
     onZoom('zoomout', -1)
   }
+  
+  const separateFrameRotate = () => {
+    setRotation(prevRotation => prevRotation - 90)
+  }
 
   const separateFrameResetView = () => {
     setRotation(0)
     setInvert(false)
     onZoom('zoomto', 1.0)
+  }
+
+  const separateFrameInvert = () => {
+    setInvert(prev => !prev)
+  }
+
+  /** NOTE: This is to disable the annotate button if there are no annotate tasks */
+  const { hasAnnotateTask } = useStores(storeMapper)
+  if (!hasAnnotateTask && separateFrameAnnotate) {
+    separateFrameEnableMove()
   }
 
   return (
@@ -187,7 +190,7 @@ const SeparateFrame = ({
 }
 
 SeparateFrame.propTypes = {
-  /** Passed from Subject Viewer Store */
+  /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
@@ -195,11 +198,11 @@ SeparateFrame.propTypes = {
   frame: PropTypes.number,
   /** String of Object.values(subject.locations[this frame index][0]) */
   frameUrl: PropTypes.string,
-  /** Function passed from Workflow Configuration via Subject Viewer Store */
+  /** Passed from Workflow Store per workflow configuration */
   limitSubjectHeight: PropTypes.bool,
-  /** Passed from Subject Viewer Store and called whe a frame's src is not loaded */
+  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** Passed from Subject Viewer Store and called when a frame's src is loaded */
+  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
   /** Subject Object */
   subject: PropTypes.shape({
