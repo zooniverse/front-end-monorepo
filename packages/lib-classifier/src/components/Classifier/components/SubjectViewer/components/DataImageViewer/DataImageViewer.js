@@ -43,7 +43,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   jsonData = JSON_DATA,
   loadingState,
   parentWidth,
-  resetView,
+  resetView = DEFAULT_HANDLER,
   setAllowPanZoom = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -84,7 +84,6 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     SuperWASP Black Hole Hunters use jsonData.data.x and jsonData.data.y
   */
   const data = jsonData.data ? jsonData.data : jsonData
-  
   return (
     <Grid
       areas={areas}
@@ -104,13 +103,13 @@ const DataImageViewer = forwardRef(function DataImageViewer({
           data={data}
           invertAxes={chartOptions?.invertAxes}
           margin={CHART_MARGINS}
+          setOnPan={zoomEnabled.scatterPlot ? setOnPan : DEFAULT_HANDLER}
+          setOnZoom={zoomEnabled.scatterPlot ? setOnZoom : DEFAULT_HANDLER}
           xAxisLabel={chartOptions?.xAxisLabel}
           yAxisLabel={chartOptions?.yAxisLabel}
           yAxisLabelOffset={50}
           zoomConfiguration={zoomConfiguration}
           zoomControlFn={(zoomEnabled.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
-          setOnPan={zoomEnabled.scatterPlot ? setOnPan : DEFAULT_HANDLER}
-          setOnZoom={zoomEnabled.scatterPlot ? setOnZoom : DEFAULT_HANDLER}
           zooming={zoomEnabled.scatterPlot}
         />
       </StyledBox>
@@ -124,9 +123,9 @@ const DataImageViewer = forwardRef(function DataImageViewer({
             enableInteractionLayer={false}
             imageLocation={imageLocation}
             loadingState={loadingState}
-            zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
             setOnPan={zoomEnabled.image ? setOnPan : DEFAULT_HANDLER}
             setOnZoom={zoomEnabled.image ? setOnZoom : DEFAULT_HANDLER}
+            zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
             zooming={zoomEnabled.image}
           />}
       </Box>

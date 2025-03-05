@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 import { withStores } from '@helpers'
 

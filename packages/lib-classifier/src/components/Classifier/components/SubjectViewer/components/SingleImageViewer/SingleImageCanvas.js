@@ -1,5 +1,5 @@
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useRef } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
