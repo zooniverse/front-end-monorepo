@@ -13,6 +13,8 @@ const SUBJECT = {
 export default function DataImageViewerContainer({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   subject = SUBJECT,
   viewerConfiguration,
   ...rest
@@ -33,6 +35,8 @@ export default function DataImageViewerContainer({
       ref={viewer}
       jsonData={jsonData}
       setAllowPanZoom={setAllowPanZoom}
+      setOnPan={setOnPan}
+      setOnZoom={setOnZoom}
       zoomConfiguration={zoomConfiguration}
       {...rest}
     />

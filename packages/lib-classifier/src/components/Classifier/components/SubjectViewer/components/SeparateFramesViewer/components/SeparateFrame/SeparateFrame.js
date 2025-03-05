@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useStores, useSubjectImage } from '@hooks'
 import { defaultKeyMappings } from '../../../../../../../../hooks/useKeyZoom'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
@@ -50,14 +50,13 @@ const SeparateFrame = ({
     naturalWidth = 800
   } = img
 
-
-  function handleSetOnPan(fn) {
+  const handleSetOnPan = useCallback((fn) => {
     setOnPanState(() => fn)
-  }
+  }, [])
 
-  function handleSetOnZoom(fn) {
+  const handleSetOnZoom = useCallback((fn) => {
     setOnZoomState(() => fn)
-  }
+  }, [])
 
   function panLeft() {
     onPan(-1, 0)

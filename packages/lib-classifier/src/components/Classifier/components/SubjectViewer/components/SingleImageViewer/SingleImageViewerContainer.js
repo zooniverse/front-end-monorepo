@@ -51,6 +51,8 @@ function SingleImageViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
+  setOnPan: propSetOnPan = null,
+  setOnZoom: propSetOnZoom = null,
   title = undefined,
   zoomControlFn = null,
   zooming = true
@@ -62,12 +64,15 @@ function SingleImageViewerContainer({
     limitSubjectHeight,
     move,
     rotation,
-    setOnZoom,
-    setOnPan,
+    setOnZoom: storeSetOnZoom,
+    setOnPan: storeSetOnPan,
     subject
   } = useStores(storeMapper)
 
   const { onKeyZoom } = useKeyZoom()
+
+  const effectiveSetOnPan = propSetOnPan || storeSetOnPan
+  const effectiveSetOnZoom = propSetOnZoom || storeSetOnZoom
 
   // TODO: replace this with a better function to parse the image location from a subject.
 
@@ -115,8 +120,8 @@ function SingleImageViewerContainer({
         naturalWidth={naturalWidth}
         onKeyDown={onKeyZoom}
         rotation={rotation}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
+        setOnPan={effectiveSetOnPan}
+        setOnZoom={effectiveSetOnZoom}
         src={img.src}
         subject={subject}
         title={title}
@@ -137,6 +142,8 @@ SingleImageViewerContainer.propTypes = {
   loadingState: string,
   onError: func,
   onReady: func,
+  setOnPan: func,
+  setOnZoom: func,
   title: shape({
     id: string,
     text: string

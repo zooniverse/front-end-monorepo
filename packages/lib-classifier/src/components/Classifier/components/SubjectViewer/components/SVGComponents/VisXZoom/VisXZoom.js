@@ -39,7 +39,7 @@ function VisXZoom({
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)
-  }, [])
+  }, [setOnPan, setOnZoom])
 
   function handleToolbarPan(xMultiplier, yMultiplier) {
     onPan(xMultiplier, yMultiplier)

@@ -44,6 +44,8 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   loadingState,
   parentWidth,
   setAllowPanZoom = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   theme = DEFAULT_THEME,
   zoomConfiguration
 }, ref) {
@@ -105,6 +107,8 @@ const DataImageViewer = forwardRef(function DataImageViewer({
           yAxisLabelOffset={50}
           zoomConfiguration={zoomConfiguration}
           zoomControlFn={(zoomEnabled.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
+          setOnPan={zoomEnabled.scatterPlot ? setOnPan : DEFAULT_HANDLER}
+          setOnZoom={zoomEnabled.scatterPlot ? setOnZoom : DEFAULT_HANDLER}
           zooming={zoomEnabled.scatterPlot}
         />
       </StyledBox>
@@ -119,6 +123,8 @@ const DataImageViewer = forwardRef(function DataImageViewer({
             imageLocation={imageLocation}
             loadingState={loadingState}
             zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
+            setOnPan={zoomEnabled.image ? setOnPan : DEFAULT_HANDLER}
+            setOnZoom={zoomEnabled.image ? setOnZoom : DEFAULT_HANDLER}
             zooming={zoomEnabled.image}
           />}
       </Box>
