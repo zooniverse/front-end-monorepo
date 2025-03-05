@@ -4,7 +4,7 @@ import * as stories from './SingleVideoViewerContainer.stories'
 import { composeStories } from '@storybook/react'
 
 describe('Component > SingleVideoViewerContainer', function () {
-  const { Default, WithDrawingEnabled, NoSubject } = composeStories(stories)
+  const { Default, WithDrawing, NoSubject } = composeStories(stories)
 
   describe('with a video subject src and drawing tools disabled', function () {
     it('should render a video html element and no custom controls', async function () {
@@ -34,7 +34,7 @@ describe('Component > SingleVideoViewerContainer', function () {
 
   describe('with drawing tools enabled', function () {
     it('should display custom video controls', function () {
-      const { getByTestId } = render(<WithDrawingEnabled />)
+      const { getByTestId } = render(<WithDrawing />)
       const customControls = getByTestId('video subject viewer custom controls')
       expect(customControls).exists()
     })

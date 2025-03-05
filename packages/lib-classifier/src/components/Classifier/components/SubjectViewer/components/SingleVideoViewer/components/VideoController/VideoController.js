@@ -1,39 +1,107 @@
-import { useMemo } from 'react';
-import PropTypes from 'prop-types'
+import { useContext, useMemo, useState } from 'react'
+import { bool, func, number, string } from 'prop-types'
 import {
   Box,
   Button,
   Grid,
   RangeInput,
+  ResponsiveContext,
   Select,
   Text,
   ThemeContext
 } from 'grommet'
-import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
+import {
+  CirclePlay,
+  Expand,
+  FormDown,
+  Volume,
+  VolumeLow,
+  VolumeMute,
+  Pause
+} from 'grommet-icons'
+import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
 
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
-const iconSize = '16px'
+const iconSize = '1rem'
+const color = { light: 'dark-5', dark: 'white' }
+
+const StyledButton = styled(Button)`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    ${props =>
+      props.theme.dark
+        ? css`
+            background-color: ${props.theme.global.colors['neutral-1']};
+          `
+        : css`
+            background-color: ${props.theme.global.colors['accent-1']};
+          `}
+
+    > svg {
+      stroke: white;
+    }
+  }
+`
+
+const SpeedSelect = styled(Select)`
+  display: flex;
+  align-content: center;
+  width: 2rem;
+  text-align: right;
+`
+
+const VolumeContainer = styled(Box)`
+  position: relative;
+`
+
+const VolumeRange = styled(RangeInput)`
+  display: block;
+  width: 100px;
+  height: 24px;
+  padding: 0 8px;
+  background: ${props =>
+    props.theme.dark
+      ? props.theme.global.colors['dark-1']
+      : props.theme.global.colors['light-1']};
+  position: absolute;
+  left: -30px;
+  bottom: 80px;
+  transform: rotate(-90deg);
+`
+
+const DEFAULT_HANDLER = () => {}
 
 const VideoController = ({
   duration = 0,
   enableDrawing = false,
   isPlaying = false,
-  handleFullscreen = () => true,
-  handleVolumeOpen = () => true,
-  onPlayPause = () => true,
-  onSpeedChange = () => true,
-  onSliderChange = () => true,
-  onVolumeChange = () => true,
+  handleFullscreen = DEFAULT_HANDLER,
+  handleSeekChange = DEFAULT_HANDLER,
+  handleSeekMouseDown = DEFAULT_HANDLER,
+  handleSeekMouseUp = DEFAULT_HANDLER,
+  onPlayPause = DEFAULT_HANDLER,
+  onSpeedChange = DEFAULT_HANDLER,
   playbackSpeed = '1x',
-  timeStamp = 0, // A percentage between 0 and 1
+  played = 0, // A percentage between 0 and 1
+  playerRef,
+  setVolume = DEFAULT_HANDLER,
   volume = 1,
-  volumeOpen = false
+  volumeDisabled = false,
 }) => {
+  const size = useContext(ResponsiveContext)
   const { t } = useTranslation('components')
+  const [volumeOpen, setVolumeOpen] = useState(false)
+
   const playPauseLabel = isPlaying
     ? 'SubjectViewer.VideoController.pause'
     : 'SubjectViewer.VideoController.play'
@@ -42,155 +110,203 @@ const VideoController = ({
     ? 'SubjectViewer.VideoController.closeVolume'
     : 'SubjectViewer.VideoController.openVolume'
 
-  const sliderValue = timeStamp * duration
+  const secondsPlayed = played * duration
 
   const displayedDuration = useMemo(() => {
     return formatTimeStamp(duration)
   }, [duration])
 
+  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or input */
+  const handleSliderKeys = e => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      e.preventDefault()
+      e.stopPropagation()
+      onPlayPause()
+      // Sensitivity of left/right keys can be adjusted if needed
+    } else if (e.code === 'ArrowLeft') {
+      e.preventDefault()
+      e.stopPropagation()
+      if (played === 0) return
+      else if (0 < played && played <= 0.05) playerRef?.current?.seekTo(0)
+      else playerRef?.current?.seekTo(played - 0.05)
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault()
+      e.stopPropagation()
+      if (played === 1) return
+      else if (1 > played && played >= 0.95) playerRef?.current?.seekTo(duration)
+      else playerRef?.current?.seekTo(played + 0.05)
+    }
+  }
+
+  const onVolumeChange = e => {
+    setVolume(parseFloat(e.target.value))
+  }
+
+  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or slider */
+  const handleVolumeKeys = e => {
+    if (e.key === 'ArrowUp' && volume < 1) {
+      e.preventDefault()
+      e.stopPropagation()
+      setVolume(volume + 0.25)
+    } else if (e.key === 'ArrowDown' && volume > 0) {
+      e.preventDefault()
+      e.stopPropagation()
+      setVolume(volume - 0.25)
+    }
+  }
+
   return (
-    <ThemeContext.Extend value={controlsTheme}>
-      <Grid
-        columns={['110px', 'flex', '120px']}
-        data-testid='video subject viewer custom controls'
-        pad='10px' // xsmall regardless of screen size
-        style={{ background: '#000000' }}
-      >
-        <Box background='neutral-7' direction='row' gap='small'>
-          {/* Play/Pause */}
-          <Button
-            a11yTitle={t(playPauseLabel)}
-            onClick={onPlayPause}
-            icon={
-              isPlaying ? (
-                <Pause color='white' size={iconSize} />
-              ) : (
-                <CirclePlay color='white' size={iconSize} />
-              )
-            }
-            plain
-          />
-
-          {/* Time */}
-          <Box direction='row' align='center' style={{ minWidth: '4.3rem' }}>
-            <Text size='small'>
-              <time dateTime={`P${Math.round(sliderValue)}S`}>
-                {formatTimeStamp(sliderValue)}
-              </time>
-              {' / '}
-              <time dateTime={`P${Math.round(duration)}S`}>
-                {displayedDuration}
-              </time>
-            </Text>
-          </Box>
-        </Box>
-
-        {/* Slider */}
-        <Box direction='row' align='center' pad={{ left: 'xsmall' }}>
-          <RangeInput
-            a11yTitle={t('SubjectViewer.VideoController.scrubber')}
-            min={0}
-            max={duration}
-            step={0.1}
-            value={sliderValue}
-            onChange={onSliderChange}
-            style={{
-              display: 'block',
-              width: '100%'
-            }}
-          />
-        </Box>
-
-        <Box direction='row' gap='small'>
-          {/* Rate */}
-          <Select
-            a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
-            options={['0.25x', '0.5x', '1x']}
-            value={playbackSpeed}
-            onChange={({ option }) => onSpeedChange(option)}
-            plain
-            size='small'
-            style={{
-              color: 'white',
-              display: 'block',
-              textAlign: 'right',
-              width: '36px'
-            }}
-          />
-
-          {/* Volume */}
-          <Box
-            align='center'
-            direction='row'
-            style={{
-              position: 'relative'
-            }}
-          >
-            <Button
-              a11yTitle={t(volumeButtonLabel)}
+    <Box
+      background={{ light: 'white', dark: 'dark-3' }}
+      pad={{ horizontal: size === 'small' ? '0' : 'small' }}
+      border={[
+        {
+          color: {
+            dark: 'dark-1',
+            light: 'light-3'
+          },
+          side: 'all'
+        },
+        {
+          color: {
+            dark: 'transparent',
+            light: 'transparent'
+          },
+          side: 'top'
+        }
+      ]}
+    >
+      <ThemeContext.Extend value={controlsTheme}>
+        <Grid
+          columns={['min-content', 'flex', 'min-content']}
+          rows={['1fr']}
+          data-testid='video subject viewer custom controls'
+        >
+          <Box direction='row'>
+            {/* Play/Pause */}
+            <StyledButton
+              a11yTitle={t(playPauseLabel)}
+              onClick={onPlayPause}
               icon={
-                volume > 0 ? (
-                  <Volume size={iconSize} color='white' />
+                isPlaying ? (
+                  <Pause size={iconSize} color={color} />
                 ) : (
-                  <VolumeMute size={iconSize} color='white' />
+                  <CirclePlay size={iconSize} color={color} />
                 )
               }
               plain
-              onClick={handleVolumeOpen}
             />
-            {volumeOpen && (
-              <RangeInput
-                a11yTitle={t('SubjectViewer.VideoController.volumeSlider')}
-                min={0}
-                max={1}
-                step={0.25}
-                onChange={onVolumeChange}
-                style={{
-                  background: 'black',
-                  display: 'block',
-                  transform: 'rotate(-90deg)',
-                  transformOrigin: 'top left',
-                  position: 'absolute',
-                  left: '-100%',
-                  bottom: 0,
-                  width: '120px',
-                  height: '30px',
-                  padding: '8px'
-                }}
-                value={volume}
-              />
-            )}
+
+            {/* Speed */}
+            <SpeedSelect
+              a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
+              options={['0.25x', '0.5x', '1x']}
+              value={playbackSpeed}
+              onChange={({ option }) => onSpeedChange(option)}
+              plain
+              icon={<FormDown size='0.75rem' color={color} />}
+              focusIndicator
+              size='0.75rem'
+              color={color}
+            />
+
+            {/* Time */}
+            <Box
+              direction='row'
+              align='center'
+              width={{ min: '3.7rem', max: '3.7rem'}}
+              margin={{ horizontal: size === 'small' ? '10px' : '20px' }}
+            >
+              <Text size='0.75rem' color={color}>
+                <time dateTime={`P${Math.round(secondsPlayed)}S`}>
+                  {formatTimeStamp(secondsPlayed)}
+                </time>
+                {' / '}
+                <time dateTime={`P${Math.round(duration)}S`}>
+                  {displayedDuration}
+                </time>
+              </Text>
+            </Box>
           </Box>
 
-          {/* Full Screen */}
-          {enableDrawing && (
-            <Button
+          {/* Slider */}
+          <Box direction='row' align='center' margin={{ right: '10px' }}>
+            <RangeInput
+              a11yTitle={t('SubjectViewer.VideoController.scrubber')}
+              min={0}
+              max={0.999999} // not sure why, this was in the react-player example
+              step={0.01}
+              value={played}
+              onChange={handleSeekChange}
+              onKeyDown={handleSliderKeys}
+              onMouseDown={handleSeekMouseDown}
+              onMouseUp={handleSeekMouseUp}
+            />
+          </Box>
+
+          <Box align='center' direction='row' fill>
+            <VolumeContainer>
+              {/* Volume */}
+              <StyledButton
+                a11yTitle={t(volumeButtonLabel)}
+                disabled={volumeDisabled}
+                icon={
+                  volume <= 0 || volumeDisabled ? (
+                    <VolumeMute size={iconSize} color={color} />
+                  ) : volume <= 0.5 ? (
+                    <VolumeLow size={iconSize} color={color} />
+                  ) : (
+                    <Volume size={iconSize} color={color} />
+                  )
+                }
+                onClick={() => setVolumeOpen(!volumeOpen)}
+                onKeyDown={handleVolumeKeys}
+                plain
+              />
+              {volumeOpen && (
+                <VolumeRange
+                  a11yTitle={t('SubjectViewer.VideoController.volumeSlider')}
+                  disabled={volumeDisabled}
+                  min={0}
+                  max={1}
+                  step={0.25}
+                  onChange={onVolumeChange}
+                  onKeyDown={handleVolumeKeys}
+                  value={volume}
+                />
+              )}
+            </VolumeContainer>
+
+            {/* Full Screen */}
+            {/* {!enableDrawing && ( */}
+            <StyledButton
               a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
-              icon={<Expand size={iconSize} color='white' />}
+              icon={<Expand size={iconSize} color={color} />}
               plain
               onClick={handleFullscreen}
             />
-          )}
-        </Box>
-      </Grid>
-    </ThemeContext.Extend>
+          </Box>
+        </Grid>
+      </ThemeContext.Extend>
+    </Box>
   )
 }
 
 VideoController.propTypes = {
-  duration: PropTypes.number,
-  isPlaying: PropTypes.bool,
-  handleFullscreen: PropTypes.func,
-  handleVolumeOpen: PropTypes.func,
-  onPlayPause: PropTypes.func,
-  onSpeedChange: PropTypes.func,
-  onSliderChange: PropTypes.func,
-  onVolumeChange: PropTypes.func,
-  playbackSpeed: PropTypes.string,
-  timeStamp: PropTypes.number,
-  volume: PropTypes.number,
-  volumeOpen: PropTypes.bool
+  duration: number, // in seconds
+  enableDrawing: bool,
+  isPlaying: bool,
+  handleFullscreen: func,
+  handleSeekChange: func,
+  handleSeekMouseDown: func,
+  handleSeekMouseUp: func,
+  onPlayPause: func,
+  onSpeedChange: func,
+  playbackSpeed: string,
+  played: number, // percentage
+  setVolume: func,
+  volume: number,
+  volumeDisabled: bool
 }
 
-export default withThemeContext(VideoController)
-export { VideoController }
+export default VideoController
