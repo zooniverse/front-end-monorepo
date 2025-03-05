@@ -7,7 +7,7 @@ import {
 } from 'grommet'
 import { withParentSize } from '@visx/responsive'
 import ScatterPlotViewer from '../ScatterPlotViewer'
-import { SingleImageViewerContainer } from '../SingleImageViewer'
+import SingleImageViewer from '../SingleImageViewer'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 
 const StyledBox = styled(Box)`
@@ -39,17 +39,11 @@ const DEFAULT_THEME = {
 }
 const DataImageViewer = forwardRef(function DataImageViewer({
   allowPanZoom = '',
-  enableRotation = DEFAULT_HANDLER,
   imageLocation = null,
   jsonData = JSON_DATA,
   loadingState,
-  move = false,
   parentWidth,
-  resetView = DEFAULT_HANDLER,
-  rotation = 0,
   setAllowPanZoom = DEFAULT_HANDLER,
-  setOnPan = DEFAULT_HANDLER,
-  setOnZoom = DEFAULT_HANDLER,
   theme = DEFAULT_THEME,
   zoomConfiguration
 }, ref) {
@@ -78,7 +72,6 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   const rows = (parentWidth <= 500) ? ['auto', 'auto'] : ['full']
 
   function disableImageZoom () {
-    resetView()
     setAllowPanZoom('')
   }
 
@@ -87,6 +80,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     SuperWASP Black Hole Hunters use jsonData.data.x and jsonData.data.y
   */
   const data = jsonData.data ? jsonData.data : jsonData
+  
   return (
     <Grid
       areas={areas}
@@ -106,8 +100,6 @@ const DataImageViewer = forwardRef(function DataImageViewer({
           data={data}
           invertAxes={chartOptions?.invertAxes}
           margin={CHART_MARGINS}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
           xAxisLabel={chartOptions?.xAxisLabel}
           yAxisLabel={chartOptions?.yAxisLabel}
           yAxisLabelOffset={50}
@@ -122,15 +114,10 @@ const DataImageViewer = forwardRef(function DataImageViewer({
         gridArea='image'
       >
         {imageLocation &&
-          <SingleImageViewerContainer
+          <SingleImageViewer
             enableInteractionLayer={false}
-            enableRotation={enableRotation}
             imageLocation={imageLocation}
             loadingState={loadingState}
-            move={move}
-            rotation={rotation}
-            setOnPan={setOnPan}
-            setOnZoom={setOnZoom}
             zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
             zooming={zoomEnabled.image}
           />}
@@ -138,8 +125,6 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     </Grid>
   )
 })
-
-
 
 DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,
