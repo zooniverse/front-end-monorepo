@@ -46,10 +46,12 @@ export const MarkButtons = ({ annotations }) => {
   useEffect(() => {
     annotations.on('add:annotation', checkState)
     annotations.on('update:annotation', checkState)
+    annotations.on('active:annotation', checkState)
 
     return () => {
       annotations.off('add:annotation', checkState)
       annotations.off('update:annotation', checkState)
+      annotations.off('active:annotation', checkState)
     }
   }, [])
 
