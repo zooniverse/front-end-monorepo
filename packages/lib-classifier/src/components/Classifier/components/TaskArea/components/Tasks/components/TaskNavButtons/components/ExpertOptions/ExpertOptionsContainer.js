@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { bool, func } from 'prop-types'
 import ExpertOptions from './ExpertOptions'
 
 function ExpertOptionsContainer ({ storeDemoMode, setDemoMode, ...rest }) {
@@ -11,15 +11,15 @@ function ExpertOptionsContainer ({ storeDemoMode, setDemoMode, ...rest }) {
   if (showDemoModeToggle) {
     return (
       <ExpertOptions {...rest} />
-    );
+    )
   }
 
   return null
 }
 
 ExpertOptionsContainer.propTypes = {
-  setDemoMode: PropTypes.func,
-  storeDemoMode: PropTypes.bool
+  setDemoMode: func,
+  storeDemoMode: bool
 }
 
 export default ExpertOptionsContainer

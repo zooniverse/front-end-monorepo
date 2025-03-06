@@ -23,8 +23,8 @@ function storeMapper(store) {
 
     function onClick(event) {
       event.preventDefault()
-      const isCmdClick = event.metaKey
-      subject.openInTalk(isCmdClick)
+      // const isCmdClick = event.metaKey
+      subject.openInTalk()
       finish()
       return completeClassification()
     }

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { bool } from 'prop-types'
 import { Box } from 'grommet'
 import { useState } from 'react'
 
@@ -17,6 +17,7 @@ export default function TaskNavButtons({
     <Box
       direction='row'
       justify='center'
+      gap='1ch'
     >
       <BackButton />
       <NextButton
@@ -24,12 +25,10 @@ export default function TaskNavButtons({
         disabled={disabled}
       />
       <DoneAndTalkButton
-        flex='grow'
         disabled={disabled || saving}
         setSaving={setSaving}
       />
       <DoneButton
-        flex='grow'
         disabled={disabled || saving}
         setSaving={setSaving}
       />
@@ -39,5 +38,5 @@ export default function TaskNavButtons({
 }
 
 TaskNavButtons.propTypes = {
-  disabled: PropTypes.bool
+  disabled: bool
 }
