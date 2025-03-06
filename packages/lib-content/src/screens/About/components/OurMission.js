@@ -41,7 +41,7 @@ const Discovery = ({ href, src, labelString }) => (
         <Image alt='' loading='lazy' src={src} width='100%' height='100%' />
       </CircleImage>
       <Text
-        color={{ light: 'dark-5', dark: 'white' }}
+        color={{ light: 'black', dark: 'white' }}
         textAlign='center'
         weight='normal'
         size='0.875rem'
@@ -67,7 +67,7 @@ export default function OurMission() {
           ]}
         />
       </Paragraph>
-      <Heading level={3} size='1.125rem' textAlign='start' margin='0'>
+      <Heading level={3} size='1.125rem' textAlign='start' margin='0' color={{ light: 'black', dark: 'white' }}>
         {t('AboutPage.ourMission.subheadings.two')}
       </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
@@ -82,7 +82,7 @@ export default function OurMission() {
           ]}
         />
       </Paragraph>
-      <Heading level={3} size='1.125rem' margin='0'>
+      <Heading level={3} size='1.125rem' margin='0' color={{ light: 'black', dark: 'white' }}>
         {t('AboutPage.ourMission.subheadings.three')}
       </Heading>
       <Paragraph margin={{ vertical: '20px' }}>

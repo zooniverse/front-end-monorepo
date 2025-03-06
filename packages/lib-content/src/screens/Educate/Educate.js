@@ -102,7 +102,7 @@ function Educate() {
               imgSrc='https://static.zooniverse.org/fem-assets/educate-btn2.jpg'
             />
             <StyledAnchor
-              href='https://blog.zooniverse.org/2022/07/13/zooniverse-based-activities-for-undergraduates-are-here'
+              href='https://classroom.zooniverse.org/#/activities-for-undergraduates'
               label={t('Educate.buttons.three')}
               imgSrc='https://static.zooniverse.org/fem-assets/educate-btn3.jpg'
             />
@@ -124,12 +124,7 @@ function Educate() {
               {t('Educate.forEducators.heading')}
             </Heading>
             <Anchor
-              size='0.75rem'
-              weight='normal'
-              color={{
-                dark: 'light-4',
-                light: 'dark-5'
-              }}
+              size='1rem'
               label={t('Educate.forEducators.classrooms')}
               href='https://classroom.zooniverse.org'
             />
@@ -139,7 +134,7 @@ function Educate() {
               <BarChart size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
@@ -163,7 +158,7 @@ function Educate() {
               <Workshop size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
@@ -187,7 +182,7 @@ function Educate() {
               <Certificate size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
