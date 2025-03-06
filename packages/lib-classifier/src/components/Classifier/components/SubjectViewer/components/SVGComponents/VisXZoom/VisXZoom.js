@@ -117,7 +117,10 @@ function VisXZoom({
       document.body.style.overflow = ''
       document.body.style.paddingRight = ''
     }
-    if (!zoomRef.current.isDragging && !panning) return zoomRef.current.dragEnd()
+
+    if (!zoomRef.current.isDragging && !panning) return
+    
+    zoomRef.current.dragEnd()
   }
 
   function onWheel(event) {
