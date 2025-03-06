@@ -30,9 +30,6 @@ function ZoomEventLayer ({
   onPointerMove = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
   onPointerLeave = DEFAULT_HANDLER,
-  onTouchStart = DEFAULT_HANDLER,
-  onTouchMove = DEFAULT_HANDLER,
-  onTouchEnd = DEFAULT_HANDLER,
   onWheel = DEFAULT_HANDLER,
   panning = false,
   top = 0,
@@ -54,9 +51,6 @@ function ZoomEventLayer ({
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
       onWheel={onWheel}
       $panning={(panning) ? 'true' : undefined}
       transform={`translate(${left}, ${top})`}

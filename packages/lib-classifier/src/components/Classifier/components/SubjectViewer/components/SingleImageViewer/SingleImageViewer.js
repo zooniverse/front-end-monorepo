@@ -73,7 +73,10 @@ function SingleImageViewer({
         {title?.id && title?.text && (
           <title id={title.id}>{title.text}</title>
         )}
-        <svg viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}>
+        <svg
+          style={{ touchAction: 'pinch-zoom' }}
+          viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+        >
           <VisXZoom
             height={naturalHeight}
             panning={panning}
