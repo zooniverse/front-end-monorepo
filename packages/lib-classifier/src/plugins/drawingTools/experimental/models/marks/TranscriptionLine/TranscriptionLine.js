@@ -3,6 +3,9 @@ import { TranscriptionLine as TranscriptionLineComponent } from '@plugins/drawin
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { TranscriptionLineTool } from '@plugins/drawingTools/models/tools'
 
+// Change this to 'before' to place the delete button at the beginning of the text.
+const deleteButtonPlacement = 'after'
+
 const TranscriptionLineModel = types
   .model('TranscriptionLineModel', {
     x1: types.maybe(types.number),
@@ -19,9 +22,17 @@ const TranscriptionLineModel = types
     },
 
     deleteButtonPosition(scale) {
-      const BUFFER = 16
-      const x = self.x1 + BUFFER / scale
-      const y = self.y1
+      const dx = self.x2 - self.x1
+      const dy = self.y2 - self.y1
+      const BUFFER = 20 // NB. WCAG 2.5.8 requires a minumum target size of 24 CSS pixels.
+      const xBuffer = dx ? BUFFER * (dx / self.length) : BUFFER
+      const yBuffer = dy ? BUFFER * (dy / self.length) : 0
+      const x = deleteButtonPlacement === 'before'
+        ? self.x1 - xBuffer / scale // Before the start point.
+        : self.x2 + xBuffer / scale // After the end point.
+      const y = deleteButtonPlacement === 'before'
+        ? self.y1 - yBuffer / scale // Before the start point.
+        : self.y2 + yBuffer / scale // After the end point.
       return { x, y }
     },
 
