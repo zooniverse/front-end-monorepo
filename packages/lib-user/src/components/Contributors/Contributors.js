@@ -103,29 +103,56 @@ function Contributors({
   async function handleGenerateExport() {
     setExportLoading(true)
 
-    const allUsersQuery = {
-      id: memberIdsPerStats?.join(','),
-      page_size: 100
+    let allUsers = []
+    const CHUNK_SIZE = 100 // maximum number of IDs per request, see GitHub issue front-end-monorepo/issues/6363
+
+    try {
+      if (memberIdsPerStats && memberIdsPerStats.length > 0) {
+        // If there are more than CHUNK_SIZE users, make multiple requests
+        if (memberIdsPerStats.length > CHUNK_SIZE) {
+          const userPromises = []
+          
+          for (let i = 0; i < memberIdsPerStats.length; i += CHUNK_SIZE) {
+            const chunk = memberIdsPerStats.slice(i, i + CHUNK_SIZE)
+            const chunkQuery = {
+              id: chunk.join(','),
+              page_size: 100 // per panoptes, maximum page_size is 100
+            }
+            userPromises.push(fetchPanoptesUsers(chunkQuery))
+          }
+          
+          const userResults = await Promise.all(userPromises)
+          allUsers = userResults.flat()
+        } else {
+          // If there are 100 or fewer users, make a single request
+          const allUsersQuery = {
+            id: memberIdsPerStats.join(','),
+            page_size: CHUNK_SIZE
+          }
+          allUsers = await fetchPanoptesUsers(allUsersQuery)
+        }
+      }
+
+      const { filename, dataExportUrl } = await generateExport({
+        group,
+        projects,
+        stats,
+        users: allUsers
+      })
+
+      // Create an anchor element and trigger download
+      const link = document.createElement('a')
+      link.href = dataExportUrl
+      link.setAttribute('download', filename)
+      document.body.appendChild(link) // Append to the document
+      link.click() // Programmatically click the link to trigger the download
+      document.body.removeChild(link) // Clean up
+    } catch (error) {
+      console.error('Error generating export:', error)
+      alert(t('Contributors.error'))
+    } finally {
+      setExportLoading(false)
     }
-
-    const allUsers = await fetchPanoptesUsers(allUsersQuery)
-
-    const { filename, dataExportUrl } = await generateExport({
-      group,
-      projects,
-      stats,
-      users: allUsers
-    })
-
-    // Create an anchor element and trigger download
-    const link = document.createElement('a')
-    link.href = dataExportUrl
-    link.setAttribute('download', filename)
-    document.body.appendChild(link) // Append to the document
-    link.click() // Programmatically click the link to trigger the download
-    document.body.removeChild(link) // Clean up
-
-    setExportLoading(false)
   }
 
   function handlePageChange({ page }) {
