@@ -19,7 +19,9 @@ const SubjectViewer = types
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0),
-    separateFramesView: types.optional(types.boolean, false)
+    separateFramesView: types.optional(types.boolean, false),
+    videoSpeed: types.optional(types.string, '1x'),
+    volume: types.optional(types.number, 1)
   })
 
   .volatile(self => ({
@@ -46,7 +48,7 @@ const SubjectViewer = types
       }
       return false
     },
- 
+
     get hasAnnotateTask () {
       return getRoot(self)?.workflowSteps.hasAnnotateTask
     },
@@ -198,6 +200,14 @@ const SubjectViewer = types
 
       setSeparateFramesView(mode) {
         self.separateFramesView = mode
+      },
+
+      setVideoSpeed(value) {
+        self.videoSpeed = value
+      },
+
+      setVolume(value) {
+        self.volume = value
       },
 
       zoomIn () {
