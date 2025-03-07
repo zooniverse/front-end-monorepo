@@ -67,6 +67,7 @@ function SingleImageViewer({
       <Box
         align='flex-end'
         animation='fadeIn'
+        background='light-4'
         overflow='hidden'
         width='100%'
       >
