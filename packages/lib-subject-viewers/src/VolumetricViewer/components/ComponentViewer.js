@@ -15,17 +15,18 @@ const StyledBox = styled(Box)`
     `
     : css`
       background-color: #FFFFFF;
-      border: 1px solid #E2E5E9;
+      border: .5px solid #A6A7A9;
+      border-bottom: none;
       color: #000000;
     `
   }
   
-  border-bottom-left-radius: 16px;
-  border-top-left-radius: 16px;
+  border-radius: 16px;
   width: 100%;
   
   .volume-container {
     background-color: #000000;
+    border-bottom-left-radius: 16px;
     position: relative;
 
     .volume-cube {
@@ -33,7 +34,7 @@ const StyledBox = styled(Box)`
     }
   }
 
-  @media (width > 1325px) {
+  @media (width >= 1280px) {
     max-width: 975px;
 
     .planes-container {
@@ -41,7 +42,7 @@ const StyledBox = styled(Box)`
     }
 
     .volume-container {
-      height: 590px;
+      height: 575px;
       min-width: 330px;
       padding: 20px;
 
@@ -50,14 +51,14 @@ const StyledBox = styled(Box)`
       }
 
       .volume-controls {
-        margin-top: 20px;
+        margin-top: 0;
         max-height: 60px;
         width: 100%;
       }
     }
   }
   
-  @media (width <= 1325px) {
+  @media (width < 1280px) {
     background: none;
     border: none;
     flex-direction: column-reverse;
@@ -83,6 +84,19 @@ const StyledBox = styled(Box)`
         width: 90%;
       }
     }
+  }
+
+  .no-select {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    pointer-events: auto;
+    touch-action: none;
+    user-drag: none;
+    user-select: none;
   }
 `
 

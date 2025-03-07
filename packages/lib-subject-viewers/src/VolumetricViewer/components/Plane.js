@@ -48,7 +48,6 @@ const StyledBox = styled(Box)`
     flex-direction: row;
     font-size: 24px;
     height: ${SLIDER_WIDTH}px;
-    line-height: 28px;
 
     &.collapsed {
       border-bottom-left-radius: 16px;
@@ -77,10 +76,11 @@ const StyledBox = styled(Box)`
     }
 
     .plane-title-toggle {
+      align-items: center;
       cursor: pointer;
-      min-width: ${SLIDER_WIDTH}px;
-      padding-top: 3px;
-      text-align: center;
+      display: flex;
+      margin-right: 10px;
+      padding: 6px;
     }
   }
 
@@ -101,8 +101,8 @@ export const Plane = ({
   tool,
   viewer
 }) => {
-  // Default open the X/0 frame
-  const [expanded, setExpanded] = useState(dimension === 0)
+  const [hideCoor, setHideCoor] = useState()
+  const [expanded, setExpanded] = useState()
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
@@ -114,6 +114,9 @@ export const Plane = ({
 
   // State Change Management through useEffect()
   useEffect(() => {
+    // Default open the X/0 frame
+    setHideCoor(dimension !== 0)
+    setExpanded(dimension === 0)
     drawFrame()
 
     // State Listeners to bypass React rerenders
@@ -183,6 +186,7 @@ export const Plane = ({
 
   // Interaction Functions
   function toggleContentVisibility () {
+    setHideCoor(false)
     setExpanded(!expanded)
   }
 
@@ -222,11 +226,11 @@ export const Plane = ({
   }
 
   return (
-    <StyledBox className={`plane-container plane-container-${dimension} ${expanded ? 'expanded' : 'collapsed'}`} ref={containerRef}>
+    <StyledBox className={`plane-container plane-container-${dimension} ${expanded ? 'expanded' : 'collapsed'} no-select`} ref={containerRef}>
       <Box className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}>
         <Box className='plane-title-dimension'>{viewer.getDimensionLabel({ dimension })}</Box>
-        <Box className={`plane-title-frame`}>{expanded ? currentFrameIndex : ' '}</Box>
-        <Box className='plane-title-label'>
+        <Box className={`plane-title-frame`}>{hideCoor ? '' : currentFrameIndex}</Box>
+        <Box className='plane-title-label' onClick={toggleContentVisibility}>
           {expanded ? 'Collapse' : 'Expand'}
         </Box>
         <div className='plane-title-toggle' onClick={toggleContentVisibility}>
