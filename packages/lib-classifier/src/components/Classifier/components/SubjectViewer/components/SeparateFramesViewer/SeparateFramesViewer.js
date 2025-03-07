@@ -26,6 +26,7 @@ const minFrameWidth = 300
 
 function SeparateFramesViewer({
   enableInteractionLayer = false,
+  enableRotation = DEFAULT_HANDLER,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -86,13 +87,15 @@ function SeparateFramesViewer({
       >
         {subject.locations?.map((location, index) => (
           <SeparateFrame
+            key={location.url}
             enableInteractionLayer={enableInteractionLayer}
+            enableRotation={enableRotation}
             frame={index}
             frameUrl={location.url}
-            key={location.url}
             limitSubjectHeight={limitSubjectHeight}
             onError={onError}
             onReady={onReady}
+            subject={subject}
           />
         ))}
       </Grid>
@@ -106,8 +109,10 @@ function SeparateFramesViewer({
 export default observer(SeparateFramesViewer)
 
 SeparateFramesViewer.propTypes = {
-  /** Passed from Subject Viewer Store */
+  /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
+  /** Passed from Subject Viewer Store */
+  enableRotation: PropTypes.func,
   /** @zooniverse/async-states */
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
