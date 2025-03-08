@@ -100,6 +100,21 @@ function Contributors({
 
   const loadingExportMessage = t('Contributors.generating')
 
+  function confirmExport() {
+    const approximateSize = memberIdsPerStats?.length * 1.85
+    let csvSizeEstimate = ''
+    if (approximateSize > 1000) {
+      csvSizeEstimate = `${Math.round(approximateSize / 1000)} MB`
+    } else {
+      csvSizeEstimate = `${Math.round(approximateSize)} KB`
+    }
+    const message = `Download CSV of groups stats for ${memberIdsPerStats?.length.toLocaleString()} members? Approximately ${csvSizeEstimate}.`
+
+    if (confirm(message)) {
+      handleGenerateExport()
+    }
+  }
+
   async function handleGenerateExport() {
     setExportLoading(true)
 
@@ -198,7 +213,7 @@ function Contributors({
           linkProps={{
             as: 'button',
             disabled: disableStatsExport,
-            onClick: handleGenerateExport
+            onClick: confirmExport
           }}
           title={t('Contributors.title')}
         >
