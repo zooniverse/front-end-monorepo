@@ -20,19 +20,22 @@ function ExportBox({ children }) {
   )
 }
 
+const DEFAULT_DOWNLOAD_URL = {
+  url: '',
+  filename: ''
+}
+const DEFAULT_HANDLER = () => true
+
 function ExportStats({
   csvSizeEstimate = '',
-  downloadUrl = {
-    url: '',
-    filename: ''
-  },
+  downloadUrl = DEFAULT_DOWNLOAD_URL,
   errorMessage = '',
   exportProgress = 0,
   exportStatus = asyncStates.initialized,
   memberCount = 0,
-  onClose,
-  onConfirm,
-  onRetry
+  onClose = DEFAULT_HANDLER,
+  onConfirm = DEFAULT_HANDLER,
+  onRetry = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation()
   const loadingExportMessage = t('Contributors.generating')
@@ -45,9 +48,7 @@ function ExportStats({
           <Text>
             {loadingExportMessage}
           </Text>
-          <Loader
-            loadingMessage={loadingExportMessage}
-          />
+          <Loader loadingMessage={loadingExportMessage} />
           <Text>
             {`Progress: ${Math.round(exportProgress)}%`}
           </Text>
@@ -61,13 +62,23 @@ function ExportStats({
     return (
       <Layer>
         <ExportBox>
-          <Box align='center' gap='small'>
-            <Alert color='status-error' size='large' />
-            <Text textAlign='center' weight='bold' color='status-error'>
+          <Box
+            align='center'
+            gap='small'
+          >
+            <Alert
+              color='status-error'
+              size='large'
+            />
+            <Text
+              textAlign='center'
+              weight='bold'
+              color='status-error'
+            >
               {'Export Error'}
             </Text>
             <Text textAlign='center'>
-              {errorMessage}
+              {errorMessage || 'Failed to generate export.'}
             </Text>
           </Box>
           <Box
@@ -95,7 +106,10 @@ function ExportStats({
     return (
       <Layer>
         <ExportBox>
-          <Text textAlign='center' weight='bold'>
+          <Text
+            textAlign='center'
+            weight='bold'
+          >
             {'Export Complete'}
           </Text>
           <Box

@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { array, func, object } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import ExportStats from './ExportStats'
@@ -62,11 +62,28 @@ function ExportStatsContainer({
 }
 
 ExportStatsContainer.propTypes = {
-  group: object,
+  group: shape({
+    display_name: string,
+    id: string
+  }),
   handleShowExport: func,
-  memberIdsPerStats: array,
-  projects: array,
-  stats: array
+  memberIdsPerStats: arrayOf(string),
+  projects: arrayOf(shape({
+    display_name: string,
+    id: string
+  })),
+  stats: shape({
+    group_member_stats_breakdown: arrayOf(shape({
+      user_id: number,
+      count: number,
+      session_time: number,
+      project_contributions: arrayOf(shape({
+        project_id: number,
+        count: number,
+        session_time: number
+      }))
+    }))
+  })
 }
 
 export default ExportStatsContainer

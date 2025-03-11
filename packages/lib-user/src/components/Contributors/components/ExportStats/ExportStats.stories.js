@@ -1,5 +1,4 @@
 import React from 'react'
-import { action } from '@storybook/addon-actions'
 import asyncStates from '@zooniverse/async-states'
 
 import ExportStats from './ExportStats'
@@ -38,6 +37,15 @@ export function Loading() {
   )
 }
 
+export function Error() {
+  return (
+    <ExportStats
+      errorMessage='Network error: Failed to fetch user data'
+      exportStatus={asyncStates.error}
+    />
+  )
+}
+
 export function Success() {
   return (
     <ExportStats
@@ -46,16 +54,6 @@ export function Success() {
         filename: 'contributors-export-12345.csv'
       }}
       exportStatus={asyncStates.success}
-      memberCount={3254}
-    />
-  )
-}
-
-export function Error() {
-  return (
-    <ExportStats
-      errorMessage='Network error: Failed to fetch user data'
-      exportStatus={asyncStates.error}
     />
   )
 }

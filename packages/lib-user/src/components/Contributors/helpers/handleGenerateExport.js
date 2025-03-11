@@ -1,6 +1,8 @@
 import asyncStates from '@zooniverse/async-states'
-import { generateExport } from './generateExport'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+
 import { getAllUsers } from './getAllUsers'
+import { generateExport } from './generateExport'
 
 export async function handleGenerateExport({
   group,
@@ -30,7 +32,35 @@ export async function handleGenerateExport({
     setExportStatus(asyncStates.success)
   } catch (error) {
     console.error('Error generating export: ', error)
-    setErrorMessage(error.message || 'Failed to generate export')
+    setErrorMessage(error.message)
     setExportStatus(asyncStates.error)
   }
+}
+
+handleGenerateExport.propTypes = {
+  group: shape({
+    id: string,
+    display_name: string
+  }),
+  memberIdsPerStats: arrayOf(string),
+  projects: arrayOf(shape({
+    display_name: string,
+    id: string
+  })),
+  setDownloadUrl: func,
+  setExportProgress: func,
+  setExportStatus: func,
+  setErrorMessage: func,
+  stats: shape({
+    group_member_stats_breakdown: arrayOf(shape({
+      user_id: number,
+      count: number,
+      session_time: number,
+      project_contributions: arrayOf(shape({
+        project_id: number,
+        count: number,
+        session_time: number
+      }))
+    }))
+  })
 }

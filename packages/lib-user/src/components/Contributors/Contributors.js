@@ -2,6 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
+
 import { useTranslation } from '../../translations/i18n.js'
 
 import {
