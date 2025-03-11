@@ -50,8 +50,8 @@ export function Success() {
   return (
     <ExportStats
       downloadUrl={{
-        url: 'https://example.com/contributors-export-12345.csv',
-        filename: 'contributors-export-12345.csv'
+        url: 'https://example.com/TestGroup1234_data_export_2025-01-01T101010.csv',
+        filename: 'TestGroup1234_data_export_2025-01-01T101010.csv'
       }}
       exportStatus={asyncStates.success}
     />

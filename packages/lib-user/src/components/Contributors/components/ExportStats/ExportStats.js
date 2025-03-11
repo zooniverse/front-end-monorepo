@@ -13,7 +13,8 @@ function ExportBox({ children }) {
       gap='small'
       height='medium'
       justify='center'
-      width='medium'
+      pad='medium'
+      width={{ min: 'medium' }}
     >
       {children}
     </Box>
@@ -38,7 +39,7 @@ function ExportStats({
   onRetry = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation()
-  const loadingExportMessage = t('Contributors.generating')
+  const loadingExportMessage = t('Contributors.ExportStats.generating')
 
   // loading state
   if (exportStatus === asyncStates.loading) {
@@ -50,7 +51,9 @@ function ExportStats({
           </Text>
           <Loader loadingMessage={loadingExportMessage} />
           <Text>
-            {`Progress: ${Math.round(exportProgress)}%`}
+            {t('Contributors.ExportStats.progress', {
+              progress: Math.round(exportProgress)
+            })}
           </Text>
         </ExportBox>
       </Layer>
@@ -75,10 +78,10 @@ function ExportStats({
               weight='bold'
               color='status-error'
             >
-              {'Export Error'}
+              {t('Contributors.ExportStats.error')}
             </Text>
             <Text textAlign='center'>
-              {errorMessage || 'Failed to generate export.'}
+              {errorMessage || t('Contributors.ExportStats.errorMessage')}
             </Text>
           </Box>
           <Box
@@ -87,11 +90,11 @@ function ExportStats({
             margin={{ top: 'medium' }}
           >
             <Button 
-              label='Close'
+              label={t('Contributors.ExportStats.close')}
               onClick={onClose}
             />
             <Button 
-              label='Retry'
+              label={t('Contributors.ExportStats.retry')}
               onClick={onRetry}
               primary
             />
@@ -110,7 +113,10 @@ function ExportStats({
             textAlign='center'
             weight='bold'
           >
-            {'Export Complete'}
+            {t('Contributors.ExportStats.complete')}
+          </Text>
+          <Text textAlign='center'>
+            {t('Contributors.ExportStats.download')}
           </Text>
           <Box
             align='center'
@@ -120,13 +126,17 @@ function ExportStats({
               href={downloadUrl.url}
               download={downloadUrl.filename}
               icon={<Download />}
-              label={'Download CSV'}
+              label={
+                <Text>
+                  {downloadUrl.filename}
+                </Text>
+              }
               primary
               target='_blank'
             />
           </Box>
           <Button
-            label={'Close'}
+            label={t('Contributors.ExportStats.close')}
             onClick={onClose}
             margin={{ top: 'medium' }}
           />
@@ -139,7 +149,14 @@ function ExportStats({
     <Layer>
       <ExportBox>
         <Text textAlign='center'>
-          {`Download CSV of groups stats for ${memberCount.toLocaleString()} members? Approximately ${csvSizeEstimate}.`}
+          {t('Contributors.ExportStats.confirmMessage', {
+            memberCount: memberCount.toLocaleString()
+          })}
+        </Text>
+        <Text>
+          {t('Contributors.ExportStats.fileSize', {
+            fileSize: csvSizeEstimate
+          })}
         </Text>
         <Box
           direction='row'
@@ -147,11 +164,11 @@ function ExportStats({
           margin={{ top: 'medium' }}
         >
           <Button 
-            label='Cancel'
+            label={t('Contributors.ExportStats.cancel')}
             onClick={onClose}
           />
           <Button 
-            label='Confirm'
+            label={t('Contributors.ExportStats.confirm')}
             onClick={onConfirm}
             primary
           />
