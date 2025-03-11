@@ -5,8 +5,6 @@ import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from '../../translations/i18n.js'
 
-import { fetchPanoptesUsers } from '../../utils'
-
 import {
   usePanoptesProjects,
   usePanoptesUsers,
@@ -21,7 +19,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
-import { generateExport } from './helpers/generateExport'
+import { handleGenerateExport } from './helpers/handleGenerateExport'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 const CONTRIBUTORS_PER_PAGE = 40
@@ -114,74 +112,14 @@ function Contributors({
     const message = `Download CSV of groups stats for ${memberIdsPerStats?.length.toLocaleString()} members? Approximately ${csvSizeEstimate}.`
 
     if (confirm(message)) {
-      handleGenerateExport()
-    }
-  }
-
-  async function handleGenerateExport() {
-    setExportStatus(asyncStates.loading)
-    setExportProgress(0)
-
-    let allUsers = []
-    
-    // maximum number of IDs per request, see GitHub issue front-end-monorepo/issues/6363
-    // to keep request less then 2084 characters, with IDs ~6 characters long plus %2C2 (encoded comma), use chunk size of 200
-    const CHUNK_SIZE = 200
-
-    try {
-      if (memberIdsPerStats && memberIdsPerStats.length > 0) {
-        // If there are more than CHUNK_SIZE users, make multiple requests
-        if (memberIdsPerStats.length > CHUNK_SIZE) {
-          const userPromises = []
-          const totalChunks = Math.ceil(memberIdsPerStats.length / CHUNK_SIZE)
-
-          for (let i = 0; i < memberIdsPerStats.length; i += CHUNK_SIZE) {
-            const chunk = memberIdsPerStats.slice(i, i + CHUNK_SIZE)
-            const chunkQuery = {
-              id: chunk.join(','),
-              page_size: 100 // per panoptes, maximum page_size is 100
-            }
-
-            const wrappedPromise = fetchPanoptesUsers(chunkQuery).then(result => {
-              setExportProgress(prevProgress => prevProgress + ((1 / totalChunks) * 100))
-              return result
-            })
-
-            userPromises.push(wrappedPromise)
-          }
-          
-          const userResults = await Promise.all(userPromises)
-          allUsers = userResults.flat()
-        } else {
-          // If there are fewer users than CHUNK_SIZE, make a single request
-          const allUsersQuery = {
-            id: memberIdsPerStats.join(','),
-            page_size: 100 // per panoptes, maximum page_size is 100
-          }
-          allUsers = await fetchPanoptesUsers(allUsersQuery)
-          setExportProgress(100)
-        }
-      }
-
-      const { filename, dataExportUrl } = await generateExport({
+      handleGenerateExport({
         group,
+        memberIdsPerStats,
         projects,
-        stats,
-        users: allUsers
+        setExportProgress,
+        setExportStatus,
+        stats
       })
-
-      // Create an anchor element and trigger download
-      const link = document.createElement('a')
-      link.href = dataExportUrl
-      link.setAttribute('download', filename)
-      document.body.appendChild(link) // Append to the document
-      link.click() // Programmatically click the link to trigger the download
-      document.body.removeChild(link) // Clean up
-    } catch (error) {
-      console.error('Error generating export:', error)
-      alert(t('Contributors.error'))
-    } finally {
-      setExportStatus(asyncStates.success)
     }
   }
 
