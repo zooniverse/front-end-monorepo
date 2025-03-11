@@ -1,21 +1,23 @@
-import { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
-import ZoomEventLayer from '../ZoomEventLayer'
+import { throttle } from 'lodash'
+import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import { useEffect, useRef } from 'react'
+
 import { useKeyZoom } from '@hooks'
+import ZoomEventLayer from '../ZoomEventLayer'
 
 const defaultZoomConfig = {
   direction: 'both',
   minZoom: 1,
   maxZoom: 10,
+  onWheelThrottleWait: 0,
   zoomInValue: 1.2,
   zoomOutValue: 0.8
 }
 
 const DEFAULT_HANDLER = () => true
-let zoom = null
 
 function VisXZoom({
   constrain,
@@ -32,6 +34,8 @@ function VisXZoom({
   ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
+  const zoomRef = useRef(null)
+
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)
@@ -56,25 +60,25 @@ function VisXZoom({
   function zoomIn() {
     if (!zooming) return
     const { zoomInValue } = zoomConfiguration
-    zoom.scale({ scaleX: zoomInValue, scaleY: zoomInValue })
+    zoomRef.current.scale({ scaleX: zoomInValue, scaleY: zoomInValue })
   }
 
   function zoomOut() {
     if (!zooming) return
     const { zoomOutValue } = zoomConfiguration
-    zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
+    zoomRef.current.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
   }
 
   function zoomReset() {
     if (!zooming) return
-    zoom.reset()
+    zoomRef.current.reset()
   }
 
   function zoomToPoint(event, zoomDirection) {
     const { zoomInValue, zoomOutValue } = zoomConfiguration
     const zoomValue = (zoomDirection === 'in') ? zoomInValue : zoomOutValue
     const point = localPoint(event)
-    zoom.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
+    zoomRef.current.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
   }
 
   function onDoubleClick(event) {
@@ -91,27 +95,32 @@ function VisXZoom({
         translateX,
         translateY
       }
-    } = zoom
+    } = zoomRef.current
     const panDistance = 20
     const newTransformation = {
       translateX: translateX - xMultiplier * panDistance,
       translateY: translateY - yMultiplier * panDistance
     }
-    zoom.setTranslate(newTransformation)
+    zoomRef.current.setTranslate(newTransformation)
   }
 
   function onPointerEnter() {
     if (zooming) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${scrollbarWidth}px`
     }
   }
 
   function onPointerLeave() {
     if (zooming) {
       document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
     }
-    if (!zoom.isDragging && !panning) return
-    zoom.dragEnd()
+
+    if (!zoomRef.current.isDragging && !panning) return
+    
+    zoomRef.current.dragEnd()
   }
 
   function onWheel(event) {
@@ -121,7 +130,7 @@ function VisXZoom({
       zoomToPoint(event, zoomDirection)
     }
   }
-
+  const throttledOnWheel = throttle(onWheel, zoomConfiguration?.onWheelThrottleWait)
 
   const ZoomingComponent = zoomingComponent
   return (
@@ -138,7 +147,7 @@ function VisXZoom({
       width={width}
     >
       {_zoom => {
-        zoom = _zoom
+        zoomRef.current = _zoom
         return (
           <ZoomingComponent
             initialTransformMatrix={_zoom.initialTransformMatrix}
@@ -151,12 +160,12 @@ function VisXZoom({
               height={height}
               onDoubleClick={onDoubleClick}
               onKeyDown={onKeyZoom}
-              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerEnter={onPointerEnter}
+              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
               onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
               onPointerLeave={onPointerLeave}
-              onWheel={onWheel}
+              onWheel={throttledOnWheel}
               panning={panning}
               tabIndex={0}
               width={width}
@@ -170,7 +179,6 @@ function VisXZoom({
 
 VisXZoom.propTypes = {
   constrain: PropTypes.func,
-  data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
   panning: PropTypes.bool,

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled, { css, useTheme } from 'styled-components'
 
 const StyledRect = styled.rect`
-  ${props => props.panning ?
+  ${props => props.$panning ?
    css`cursor: move;` :
    css`cursor: inherit;`}
   overscroll-behavior: none;
@@ -10,9 +10,9 @@ const StyledRect = styled.rect`
   &:focus {
     ${props => 
       css`
-        outline-color: ${props.focusColor};
-        border: solid thick ${props.focusColor};
-        box-shadow: 0 0 4px 4px ${props.focusColor};
+        outline-color: ${props.$focusColor};
+        border: solid thick ${props.$focusColor};
+        box-shadow: 0 0 4px 4px ${props.$focusColor};
       `
     }
   }
@@ -25,8 +25,8 @@ function ZoomEventLayer ({
   left = 0,
   onDoubleClick = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
-  onPointerDown = DEFAULT_HANDLER,
   onPointerEnter = DEFAULT_HANDLER,
+  onPointerDown = DEFAULT_HANDLER,
   onPointerMove = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
   onPointerLeave = DEFAULT_HANDLER,
@@ -42,17 +42,17 @@ function ZoomEventLayer ({
     <StyledRect
       data-testid='zoom-layer'
       fill='transparent'
-      focusColor={focusColor}
+      $focusColor={focusColor}
       height={height}
       onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
-      onPointerDown={onPointerDown}
       onPointerEnter={onPointerEnter}
+      onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}
       onWheel={onWheel}
-      panning={(panning) ? 'true' : undefined}
+      $panning={(panning) ? 'true' : undefined}
       transform={`translate(${left}, ${top})`}
       width={width}
       {...rest}

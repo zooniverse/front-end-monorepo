@@ -1,26 +1,41 @@
-import { arrayOf, func, shape, string} from 'prop-types'
-import { MobXProviderContext } from 'mobx-react'
-import { useContext } from 'react'
+import { arrayOf, func, shape, string } from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
+import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import VideoViewer from './components/VideoViewer/VideoViewer.js'
 import VideoWithDrawing from './components/VideoWithDrawing/VideoWithDrawing.js'
 
-function useDrawingTask() {
-  const store = useContext(MobXProviderContext)?.classifierStore
-  const drawingTasks = store?.workflowSteps.findTasksByType('drawing')
-  return !!drawingTasks?.length
+function storeMapper(store) {
+  const drawingTasks = store.workflowSteps.findTasksByType('drawing')
+  const { setVideoSpeed, setVolume, videoSpeed, volume } = store.subjectViewer
+
+  return {
+    enableInteractionLayer: !!drawingTasks?.length,
+    setVideoSpeed,
+    setVolume,
+    videoSpeed,
+    volume
+  }
 }
+
+const DEFAULT_HANDLER = () => {}
 
 function SingleVideoViewerContainer({
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
-  onKeyDown = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
   subject
 }) {
-  const enableInteractionLayer = useDrawingTask()
+  const {
+    enableInteractionLayer,
+    setVideoSpeed,
+    setVolume,
+    videoSpeed,
+    volume
+  } = useStores(storeMapper)
 
   return (
     <>
@@ -30,7 +45,11 @@ function SingleVideoViewerContainer({
           onError={onError}
           onReady={onReady}
           onKeyDown={onKeyDown}
+          setVideoSpeed={setVideoSpeed}
+          setVolume={setVolume}
           subject={subject}
+          volume={volume}
+          videoSpeed={videoSpeed}
         />
       ) : (
         <VideoViewer
@@ -53,4 +72,4 @@ SingleVideoViewerContainer.propTypes = {
   })
 }
 
-export default SingleVideoViewerContainer
+export default observer(SingleVideoViewerContainer)

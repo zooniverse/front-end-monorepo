@@ -47,4 +47,3 @@ DataImageViewerContainer.propTypes = {
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
-

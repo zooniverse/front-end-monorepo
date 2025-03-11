@@ -71,7 +71,7 @@ describe('Components > Classifier', function () {
   }
 
   describe('while the subject is loading', function () {
-    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+    let subjectImagePlaceholder, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(function () {
       sinon.replace(window, 'Image', MockSlowImage)
@@ -90,7 +90,7 @@ describe('Components > Classifier', function () {
       )
       taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
+      subjectImagePlaceholder = screen.getByTestId('placeholder-svg')
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
@@ -109,8 +109,8 @@ describe('Components > Classifier', function () {
       expect(tutorialTab).to.be.ok()
     })
 
-    it('should have a subject image', function () {
-      expect(subjectImage).to.be.ok()
+    it('should have a placeholder', function () {
+      expect(subjectImagePlaceholder).to.be.ok()
     })
 
     describe('task answers', function () {

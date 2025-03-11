@@ -1,136 +1,155 @@
 import asyncStates from '@zooniverse/async-states'
-import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
+import { bool, func, shape, string } from 'prop-types'
 
-import { useKeyZoom, useSubjectImage } from '@hooks'
+import { useKeyZoom, useStores, useSubjectImage } from '@hooks'
 
-import locationValidator from '../../helpers/locationValidator'
-import SVGImage from '../SVGComponents/SVGImage'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
+import PlaceholderSVG from './components/PlaceholderSVG'
 import SingleImageViewer from './SingleImageViewer'
+
+function storeMapper(classifierStore) {
+  const {
+    subjects: {
+      active: subject
+    },
+    subjectViewer: {
+      enableRotation,
+      frame,
+      invert,
+      move,
+      rotation,
+      setOnZoom,
+      setOnPan
+    },
+    workflows: {
+      active: {
+        configuration: {
+          limit_subject_height: limitSubjectHeight
+        }
+      }
+    }
+  } = classifierStore
+
+  return {
+    enableRotation,
+    frame,
+    invert,
+    limitSubjectHeight,
+    move,
+    rotation,
+    setOnZoom,
+    setOnPan,
+    subject
+  }
+}
 
 const DEFAULT_HANDLER = () => true
 
 function SingleImageViewerContainer({
   enableInteractionLayer = true,
-  enableRotation = DEFAULT_HANDLER,
-  frame = 0,
-  invert = false,
-  limitSubjectHeight = false,
+  imageLocation = null,
   loadingState = asyncStates.initialized,
-  move = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  rotation = 0,
-  setOnPan = DEFAULT_HANDLER,
-  setOnZoom = DEFAULT_HANDLER,
-  subject,
-  title = {},
-  zoomControlFn,
+  setOnPan: propSetOnPan = null,
+  setOnZoom: propSetOnZoom = null,
+  title = undefined,
+  zoomControlFn = null,
   zooming = true
 }) {
-  const { onKeyZoom } = useKeyZoom(rotation)
-  const [dragMove, setDragMove] = useState()
+  const {
+    enableRotation,
+    frame,
+    invert,
+    limitSubjectHeight,
+    move,
+    rotation,
+    setOnZoom: storeSetOnZoom,
+    setOnPan: storeSetOnPan,
+    subject
+  } = useStores(storeMapper)
+
+  const { onKeyZoom } = useKeyZoom()
+
+  const effectiveSetOnPan = propSetOnPan || storeSetOnPan
+  const effectiveSetOnZoom = propSetOnZoom || storeSetOnZoom
+
   // TODO: replace this with a better function to parse the image location from a subject.
-  const imageLocation = subject ? subject.locations[frame] : null
+
+  // if imageLocation is provided, use it, otherwise use the subject's location per subjectViewer store frame
+
+  const imageLocationUrl = imageLocation?.url ? imageLocation.url : subject?.locations[frame]?.url
+
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: imageLocation?.url,
-    onReady,
-    onError
+    frame,
+    src: imageLocationUrl,
+    onError,
+    onReady
   })
   const {
     naturalHeight = 600,
     naturalWidth = 800
   } = img
 
-  useEffect(function onMount() {
-    enableRotation()
-  }, [])
-
-  function setOnDrag(callback) {
-    setDragMove(() => callback)
-  }
-
-  function onDrag(event, difference) {
-    dragMove?.(event, difference)
+  if (loadingState === asyncStates.loading) {
+    return (
+      <PlaceholderSVG
+        ref={subjectImage}
+        maxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
+        maxWidth={limitSubjectHeight ? `${naturalWidth}px` : '100%'}
+        viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+      />
+    )
   }
 
   if (loadingState === asyncStates.error) {
     return <div>Something went wrong.</div>
   }
 
-  const enableDrawing =
-    loadingState === asyncStates.success && enableInteractionLayer
-
-  if (loadingState !== asyncStates.initialized) {
-    const subjectID = subject?.id || 'unknown'
-
+  if (loadingState === asyncStates.success) {
     return (
-      <SVGPanZoom
-        key={`${naturalWidth}-${naturalHeight}`}
+      <SingleImageViewer
+        enableInteractionLayer={enableInteractionLayer}
+        enableRotation={enableRotation}
+        frame={frame}
+        imgRef={subjectImage}
+        invert={invert}
         limitSubjectHeight={limitSubjectHeight}
-        maxZoom={5}
-        minZoom={0.1}
+        move={move}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
-        setOnDrag={setOnDrag}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
-        zooming={zooming}
+        onKeyDown={onKeyZoom}
+        rotation={rotation}
+        setOnPan={effectiveSetOnPan}
+        setOnZoom={effectiveSetOnZoom}
         src={img.src}
-      >
-        <SingleImageViewer
-          enableInteractionLayer={enableDrawing}
-          height={naturalHeight}
-          invert={invert}
-          limitSubjectHeight={limitSubjectHeight}
-          onKeyDown={onKeyZoom}
-          rotate={rotation}
-          title={title}
-          width={naturalWidth}
-          zoomControlFn={zoomControlFn}
-          zooming={zooming}
-          subject={subject}
-        >
-          <SVGImage
-            ref={subjectImage}
-            invert={invert}
-            move={move}
-            naturalHeight={naturalHeight}
-            naturalWidth={naturalWidth}
-            onDrag={onDrag}
-            src={img.src}
-            subjectID={subjectID}
-          />
-        </SingleImageViewer>
-      </SVGPanZoom>
+        subject={subject}
+        title={title}
+        zoomControlFn={zoomControlFn}
+        zooming={zooming}
+      />
     )
   }
+
   return null
 }
 
 SingleImageViewerContainer.propTypes = {
-  enableInteractionLayer: PropTypes.bool,
-  enableRotation: PropTypes.func,
-  frame: PropTypes.number,
-  invert: PropTypes.bool,
-  limitSubjectHeight: PropTypes.bool,
-  loadingState: PropTypes.string,
-  move: PropTypes.bool,
-  onError: PropTypes.func,
-  onReady: PropTypes.func,
-  rotation: PropTypes.number,
-  setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
+  enableInteractionLayer: bool,
+  imageLocation: shape({
+    url: string
   }),
-  title: PropTypes.shape({
-    id: PropTypes.string,
-    text: PropTypes.string
+  loadingState: string,
+  onError: func,
+  onReady: func,
+  setOnPan: func,
+  setOnZoom: func,
+  title: shape({
+    id: string,
+    text: string
   }),
-  zoomControlFn: PropTypes.func,
-  zooming: PropTypes.bool
+  zoomControlFn: func,
+  zooming: bool
 }
 
-export default SingleImageViewerContainer
+export default observer(SingleImageViewerContainer)
