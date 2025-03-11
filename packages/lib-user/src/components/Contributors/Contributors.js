@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Layer } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
@@ -31,11 +32,12 @@ function Contributors({
   group,
   membership
 }) {
-  const { t } = useTranslation()
-  const [exportLoading, setExportLoading] = useState(false)
+  const [exportStatus, setExportStatus] = useState(asyncStates.initialized)
   const [exportProgress, setExportProgress] = useState(0)
   const [page, setPage] = useState(1)
-
+  
+  const { t } = useTranslation()
+  
   const showContributors = adminMode
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
@@ -117,7 +119,7 @@ function Contributors({
   }
 
   async function handleGenerateExport() {
-    setExportLoading(true)
+    setExportStatus(asyncStates.loading)
     setExportProgress(0)
 
     let allUsers = []
@@ -179,7 +181,7 @@ function Contributors({
       console.error('Error generating export:', error)
       alert(t('Contributors.error'))
     } finally {
-      setExportLoading(false)
+      setExportStatus(asyncStates.success)
     }
   }
 
@@ -193,7 +195,7 @@ function Contributors({
 
   return (
     <>
-      {exportLoading ? (
+      {exportStatus === asyncStates.loading ? (
           <Layer>
             <Box
               align='center'
