@@ -6,8 +6,10 @@ export async function handleGenerateExport({
   group,
   memberIdsPerStats,
   projects,
+  setDownloadUrl,
   setExportProgress,
   setExportStatus,
+  setErrorMessage,
   stats
 }) {
   setExportStatus(asyncStates.loading)
@@ -22,18 +24,13 @@ export async function handleGenerateExport({
       stats,
       users: allUsers
     })
-
-    // Create an anchor element and trigger download
-    const link = document.createElement('a')
-    link.href = dataExportUrl
-    link.setAttribute('download', filename)
-    document.body.appendChild(link) // Append to the document
-    link.click() // Programmatically click the link to trigger the download
-    document.body.removeChild(link) // Clean up
+    
+    // Set the download URL and filename for the UI to use
+    setDownloadUrl({ url: dataExportUrl, filename })
+    setExportStatus(asyncStates.success)
   } catch (error) {
     console.error('Error generating export: ', error)
-    alert('Error generating export')
-  } finally {
-    setExportStatus(asyncStates.success)
+    setErrorMessage(error.message || 'Failed to generate export')
+    setExportStatus(asyncStates.error)
   }
 }

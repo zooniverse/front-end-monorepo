@@ -1,4 +1,3 @@
-import asyncStates from '@zooniverse/async-states'
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
@@ -19,8 +18,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
-import ExportStats from './components/ExportStats/ExportStats'
-import { handleGenerateExport } from './helpers/handleGenerateExport'
+import ExportStats from './components/ExportStats'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 const CONTRIBUTORS_PER_PAGE = 40
@@ -31,8 +29,7 @@ function Contributors({
   group,
   membership
 }) {
-  const [exportStatus, setExportStatus] = useState(asyncStates.initialized)
-  const [exportProgress, setExportProgress] = useState(0)
+  const [showExport, setShowExport] = useState(false)
   const [page, setPage] = useState(1)
   
   const { t } = useTranslation()
@@ -100,28 +97,6 @@ function Contributors({
     })
   }
 
-  function confirmExport() {
-    const approximateSize = memberIdsPerStats?.length * 1.85
-    let csvSizeEstimate = ''
-    if (approximateSize > 1000) {
-      csvSizeEstimate = `${Math.round(approximateSize / 1000)} MB`
-    } else {
-      csvSizeEstimate = `${Math.round(approximateSize)} KB`
-    }
-    const message = `Download CSV of groups stats for ${memberIdsPerStats?.length.toLocaleString()} members? Approximately ${csvSizeEstimate}.`
-
-    if (confirm(message)) {
-      handleGenerateExport({
-        group,
-        memberIdsPerStats,
-        projects,
-        setExportProgress,
-        setExportStatus,
-        stats
-      })
-    }
-  }
-
   function handlePageChange({ page }) {
     setPage(page)
   }
@@ -132,10 +107,15 @@ function Contributors({
 
   return (
     <>
-      <ExportStats 
-        exportProgress={exportProgress}
-        exportStatus={exportStatus}
-      />
+      {showExport && (
+        <ExportStats
+          group={group}
+          handleShowExport={setShowExport}
+          memberIdsPerStats={memberIdsPerStats}
+          projects={projects}
+          stats={stats}
+        />
+      )}
       <Layout
         primaryHeaderItem={
           <HeaderLink
@@ -150,7 +130,7 @@ function Contributors({
           linkProps={{
             as: 'button',
             disabled: disableStatsExport,
-            onClick: confirmExport
+            onClick: () => setShowExport(true)
           }}
           title={t('Contributors.title')}
         >
