@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Loader, SpacedText } from '@zooniverse/react-components'
-import { Box, Layer } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from '../../translations/i18n.js'
@@ -19,6 +19,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
+import ExportStats from './components/ExportStats/ExportStats'
 import { handleGenerateExport } from './helpers/handleGenerateExport'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
@@ -99,8 +100,6 @@ function Contributors({
     })
   }
 
-  const loadingExportMessage = t('Contributors.generating')
-
   function confirmExport() {
     const approximateSize = memberIdsPerStats?.length * 1.85
     let csvSizeEstimate = ''
@@ -133,28 +132,10 @@ function Contributors({
 
   return (
     <>
-      {exportStatus === asyncStates.loading ? (
-          <Layer>
-            <Box
-              align='center'
-              gap='small'
-              height='medium'
-              justify='center'
-              width='medium'
-            >
-              <SpacedText>
-                {loadingExportMessage}
-              </SpacedText>
-              <Loader
-                loadingMessage={loadingExportMessage}
-              />
-              <SpacedText>
-                {`Progress: ${Math.round(exportProgress)}%`}
-              </SpacedText>
-            </Box>
-          </Layer>
-        ) : null
-      }
+      <ExportStats 
+        exportProgress={exportProgress}
+        exportStatus={exportStatus}
+      />
       <Layout
         primaryHeaderItem={
           <HeaderLink
