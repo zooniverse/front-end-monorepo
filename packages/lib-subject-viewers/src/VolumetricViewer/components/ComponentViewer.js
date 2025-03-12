@@ -34,7 +34,7 @@ const StyledBox = styled(Box)`
     }
   }
 
-  @media (width >= 1280px) {
+  @media (width > 1200px) {
     max-width: 975px;
 
     .planes-container {
@@ -45,6 +45,7 @@ const StyledBox = styled(Box)`
       height: 575px;
       min-width: 330px;
       padding: 20px;
+      border-top-right-radius: 16px;
 
       .volume-cube {
         max-width: 460px;
@@ -58,7 +59,7 @@ const StyledBox = styled(Box)`
     }
   }
   
-  @media (width < 1280px) {
+  @media (width <= 1200px) {
     background: none;
     border: none;
     flex-direction: column-reverse;
@@ -70,7 +71,6 @@ const StyledBox = styled(Box)`
 
     .volume-container {
       border-radius: 16px;
-      border-top-right-radius: 0;
       margin: 0 0 0 20px;
       width: 390px;
 
