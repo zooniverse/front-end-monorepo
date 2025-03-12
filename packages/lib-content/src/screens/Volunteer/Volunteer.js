@@ -116,7 +116,7 @@ function Volunteer() {
               <BarChart size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
@@ -131,7 +131,7 @@ function Volunteer() {
               <Certificate size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
@@ -146,7 +146,7 @@ function Volunteer() {
               <Chat size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >

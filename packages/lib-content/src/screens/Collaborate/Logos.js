@@ -20,6 +20,8 @@ export function Supporters() {
     <Box
       gap={size !== 'small' ? '40px' : '15px'}
       margin={{ top: 'small', bottom: 'xlarge' }}
+      pad='xsmall'
+      background={{ light: 'transparent', dark: 'white' }}
     >
       <Grid columns={['1fr 1fr 1fr']} rows='auto' gap={gap}>
         <LogoImage
@@ -34,7 +36,10 @@ export function Supporters() {
           src='https://static.zooniverse.org/fem-assets/collaborate/nasa.png'
           alt='National Aeronautics and Space Administration (NASA)'
         />
-        <LogoImage src='https://static.zooniverse.org/fem-assets/collaborate/google.png' alt='Google' />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/google.png'
+          alt='Google'
+        />
         <LogoImage
           src='https://static.zooniverse.org/fem-assets/collaborate/imls.jpeg'
           alt='Institute of Museum and Library Services'
@@ -78,75 +83,89 @@ export function SelectedCollaborators() {
   const size = useContext(ResponsiveContext)
 
   return (
-    <Grid
-      columns={['1fr 1fr 1fr']}
-      rows='auto'
-      gap={size !== 'small' ? { column: '40px', row: '30px' } : '15px'}
+    <Box
+      background={{ light: 'transparent', dark: 'white' }}
       margin={{ top: 'small', bottom: 'large' }}
+      pad='xsmall'
     >
-      <LogoImage src='https://static.zooniverse.org/fem-assets/collaborate/dupage.jpg' alt='College of Dupage' />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/uts.jpg'
-        alt='University of Technology Sydney'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/nwu.jpg'
-        alt='Northwestern University'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/usfws.png'
-        alt='United States Fish and Wildlife Service'
-      />
-      <LogoImage src='https://static.zooniverse.org/fem-assets/collaborate/brlib.png' alt='British Library' />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/gorongosa.png'
-        alt='Parque Nacional Da Gorongosa'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/saskatchawan.jpeg'
-        alt='University of Saskatchawan'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/nmk.jpg'
-        alt='National Museums of Kenya'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/lpo.jpg'
-        alt='Agir pour la Biodiversité'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/upenn.jpg'
-        alt='Penn Libraries University of Pennsylvania'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/tsinghua.jpg'
-        alt='Tsinghua University'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/nhm.jpeg'
-        alt='National History Museum'
-      />
-      <LogoImage src='https://static.zooniverse.org/fem-assets/collaborate/lpzoo.jpg' alt='Lincoln Park Zoo' />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/lancaster.jpg'
-        alt='Lancaster University'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/mio.jpg'
-        alt='Mediterranean Institute of Oceanography'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/coram.jpg'
-        alt='Coram Story Foundling Hospital'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/maxplanck.jpg'
-        alt='Max Planck Society'
-      />
-      <LogoImage
-        src='https://static.zooniverse.org/fem-assets/collaborate/crick.png'
-        alt='The Francis Crick Institute'
-      />
-    </Grid>
+      <Grid
+        columns={['1fr 1fr 1fr']}
+        rows='auto'
+        gap={size !== 'small' ? { column: '40px', row: '30px' } : '15px'}
+      >
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/dupage.jpg'
+          alt='College of Dupage'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/uts.jpg'
+          alt='University of Technology Sydney'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/nwu.jpg'
+          alt='Northwestern University'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/usfws.png'
+          alt='United States Fish and Wildlife Service'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/brlib.png'
+          alt='British Library'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/gorongosa.png'
+          alt='Parque Nacional Da Gorongosa'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/saskatchawan.jpeg'
+          alt='University of Saskatchawan'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/nmk.jpg'
+          alt='National Museums of Kenya'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/lpo.jpg'
+          alt='Agir pour la Biodiversité'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/upenn.jpg'
+          alt='Penn Libraries University of Pennsylvania'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/tsinghua.jpg'
+          alt='Tsinghua University'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/nhm.jpeg'
+          alt='National History Museum'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/lpzoo.jpg'
+          alt='Lincoln Park Zoo'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/lancaster.jpg'
+          alt='Lancaster University'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/mio.jpg'
+          alt='Mediterranean Institute of Oceanography'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/coram.jpg'
+          alt='Coram Story Foundling Hospital'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/maxplanck.jpg'
+          alt='Max Planck Society'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/crick.png'
+          alt='The Francis Crick Institute'
+        />
+      </Grid>
+    </Box>
   )
 }

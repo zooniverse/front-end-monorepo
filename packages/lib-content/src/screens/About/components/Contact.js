@@ -53,7 +53,7 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Help size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem' color={{ light: 'black', dark: 'white' }}>
             {t('AboutPage.contact.categories.one')}
           </Text>
         </Box>
@@ -68,7 +68,7 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Group size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem' color={{ light: 'black', dark: 'white' }}>
             {t('AboutPage.contact.categories.two')}
           </Text>
         </Box>
@@ -83,7 +83,7 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Edit size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem' color={{ light: 'black', dark: 'white' }}>
             {t('AboutPage.contact.categories.three')}
           </Text>
         </Box>

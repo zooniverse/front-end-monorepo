@@ -12,7 +12,7 @@ export default function Mobile() {
           width='300px'
           margin={{ vertical: '30px' }}
         />
-        <Text textAlign='center'>{t('AboutPage.mobile.description')}</Text>
+        <Text textAlign='center' color={{ light: 'black', dark: 'white' }}>{t('AboutPage.mobile.description')}</Text>
       </Box>
       <Box justify='center' gap='xxsmall' direction='row' margin={{ top: '15px' }}>
         <Button
