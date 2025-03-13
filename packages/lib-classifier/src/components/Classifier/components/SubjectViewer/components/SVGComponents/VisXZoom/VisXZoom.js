@@ -1,6 +1,7 @@
+import { useWheel } from '@use-gesture/react'
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
@@ -23,6 +24,7 @@ function VisXZoom({
   constrain,
   height,
   left = 0,
+  move = false,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -35,11 +37,27 @@ function VisXZoom({
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
+  const wheelEventLayer = useRef(null)
 
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)
   }, [setOnPan, setOnZoom])
+
+  function wheelDelta(event) {
+    const zoomValue = (-event.deltaY > 0) ? 1.1 : 0.9
+    return { scaleX: zoomValue, scaleY: zoomValue }
+  }
+
+  const wheelHandler = move && zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
+  const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
+  useWheel(({ event }) => {
+    event.preventDefault()
+    return throttledWheelHandler(event)
+  }, {
+    eventOptions: { passive: false },
+    target: wheelEventLayer
+  })
 
   function handleToolbarPan(xMultiplier, yMultiplier) {
     onPan(xMultiplier, yMultiplier)
@@ -124,10 +142,8 @@ function VisXZoom({
   }
 
   function onWheel(event) {
-    // performance of this is pretty bad
     if (zooming) {
-      const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
-      zoomToPoint(event, zoomDirection)
+      zoomRef.current.handleWheel(event)
     }
   }
   const throttledOnWheel = throttle(onWheel, zoomConfiguration?.onWheelThrottleWait)
@@ -145,32 +161,36 @@ function VisXZoom({
       passive
       top={top}
       width={width}
+      wheelDelta={wheelDelta}
     >
       {_zoom => {
         zoomRef.current = _zoom
         return (
-          <ZoomingComponent
-            initialTransformMatrix={_zoom.initialTransformMatrix}
-            transformMatrix={_zoom.transformMatrix}
-            transform={_zoom.toString()}
-            {...props}
-          >
-            <ZoomEventLayer
-              focusable
-              height={height}
-              onDoubleClick={onDoubleClick}
-              onKeyDown={onKeyZoom}
-              onPointerEnter={onPointerEnter}
-              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
-              onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
-              onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
-              onPointerLeave={onPointerLeave}
-              onWheel={throttledOnWheel}
-              panning={panning}
-              tabIndex={0}
-              width={width}
-            />
-          </ZoomingComponent>
+          <g ref={wheelEventLayer}>
+            <ZoomingComponent
+              initialTransformMatrix={_zoom.initialTransformMatrix}
+              move={move}
+              transformMatrix={_zoom.transformMatrix}
+              transform={_zoom.toString()}
+              {...props}
+            >
+              <ZoomEventLayer
+                focusable
+                height={height}
+                onDoubleClick={onDoubleClick}
+                onKeyDown={onKeyZoom}
+                onPointerEnter={onPointerEnter}
+                onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
+                onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
+                onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
+                onPointerLeave={onPointerLeave}
+                onWheel={throttledOnWheel}
+                panning={panning}
+                tabIndex={0}
+                width={width}
+              />
+            </ZoomingComponent>
+          </g>
         )
       }}
     </Zoom>
@@ -181,6 +201,7 @@ VisXZoom.propTypes = {
   constrain: PropTypes.func,
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
+  move: PropTypes.bool,
   panning: PropTypes.bool,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,

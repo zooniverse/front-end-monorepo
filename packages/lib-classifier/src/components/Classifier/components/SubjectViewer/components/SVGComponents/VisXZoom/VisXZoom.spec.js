@@ -395,7 +395,9 @@ describe('Component > VisXZoom', function () {
           preventDefault: sinon.spy()
         }
         // these are defaults set in the VisXZoom component
-        const zoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
+        const baseZoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
+        const wheelZoomValue = (eventMock.deltaY < 0) ? 1.1 : 0.9
+        const zoomValue = (type === 'wheel') ? wheelZoomValue : baseZoomValue
         wrapper.find(ZoomEventLayer).simulate(type, eventMock)
         const currentTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue })
@@ -1039,8 +1041,19 @@ describe('Component > VisXZoom', function () {
         const zoomedInTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
 
-        // zoom out by mouse wheel
-        // 1 * 1.2 * 1.2 * 0.8 is 1.152 then * 0.8 is 0.9216
+        // zoom out by mouse wheel until we stop at the minimum zoom
+        wrapper.find(ZoomEventLayer).simulate('wheel', {
+          clientX: 50,
+          clientY: 50,
+          deltaY: 10,
+          preventDefault: sinon.spy()
+        })
+        wrapper.find(ZoomEventLayer).simulate('wheel', {
+          clientX: 50,
+          clientY: 50,
+          deltaY: 10,
+          preventDefault: sinon.spy()
+        })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
