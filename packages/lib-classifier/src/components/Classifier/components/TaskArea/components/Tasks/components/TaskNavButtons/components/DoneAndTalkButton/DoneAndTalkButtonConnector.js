@@ -26,7 +26,7 @@ function storeMapper(store) {
       const isCmdClick = event.metaKey
       subject.openInTalk(isCmdClick)
       finish()
-      return completeClassification()
+      return completeClassification({ doneAndTalk: true })
     }
 
     return {
