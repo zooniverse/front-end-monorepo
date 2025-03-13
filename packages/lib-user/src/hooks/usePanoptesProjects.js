@@ -55,7 +55,7 @@ async function fetchProjects({ query, token }) {
 export function usePanoptesProjects(query) {
   const token = usePanoptesAuthToken()
   let key = null
-  if (token && query?.id) {
+  if (query?.id) {
     key = { query, token }
   }
   return useSWR(key, fetchProjects, SWROptions)

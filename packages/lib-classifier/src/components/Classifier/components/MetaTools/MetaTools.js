@@ -23,9 +23,8 @@ function storeMapper(store) {
   }
 }
 
-const MetaTools = () => {
+const MetaTools = ({ className = '' }) => {
   const {
-    className = '',
     interactionTask = {},
     isThereMetadata = false,
     subject = null,

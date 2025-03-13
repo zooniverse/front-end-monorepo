@@ -5,15 +5,20 @@ import getLayout from './helpers/getLayout'
 
 function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
-  const limitSubjectHeight = workflow?.configuration?.limit_subject_height
-  const layout = limitSubjectHeight ? 'centered' : workflow?.layout
-  const separateFramesView = classifierStore.subjectViewer.separateFramesView
   const hasSurveyTask = workflow?.hasSurveyTask
+  const limitSubjectHeight = workflow?.configuration?.limit_subject_height
+  const separateFramesView = classifierStore.subjectViewer.separateFramesView
 
+  const layout = (classifierStore.projects?.active?.isVolumetricViewer)
+    ? 'volumetric'
+    : limitSubjectHeight
+      ? 'centered'
+      : workflow?.layout
+  
   return {
+    hasSurveyTask,
     layout,
-    separateFramesView,
-    hasSurveyTask
+    separateFramesView
   }
 }
 
