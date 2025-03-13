@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { bool, func, object} from 'prop-types'
 import { Button, Text } from 'grommet'
 import styled from 'styled-components'
 import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
@@ -31,9 +31,9 @@ function BackButton({
 }
 
 BackButton.propTypes = {
-  canUndo: PropTypes.bool,
-  onClick: PropTypes.func,
-  theme: PropTypes.object
+  canUndo: bool,
+  onClick: func,
+  theme: object
 }
 
 export default withThemeContext(BackButton, theme)
