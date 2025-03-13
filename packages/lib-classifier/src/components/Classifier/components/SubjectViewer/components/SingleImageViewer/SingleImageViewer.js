@@ -71,13 +71,14 @@ function SingleImageViewer({
         overflow='hidden'
         width='100%'
       >
-        {title?.id && title?.text && (
-          <title id={title.id}>{title.text}</title>
-        )}
         <svg
           style={{ touchAction: 'none' }}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+          aria-labelledby={title?.id}
         >
+          {title?.id && title?.text && (
+            <title id={title.id}>{title.text}</title>
+          )}
           <VisXZoom
             height={naturalHeight}
             panning={panning}
