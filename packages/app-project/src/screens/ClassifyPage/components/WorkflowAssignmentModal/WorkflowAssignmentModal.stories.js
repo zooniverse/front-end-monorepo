@@ -22,6 +22,7 @@ const mockRouter = {
 
 const snapshot = {
   project: {
+    slug: 'zooniverse/snapshot-serengeti',
     strings: {
       display_name: 'Snapshot Serengeti',
     },
