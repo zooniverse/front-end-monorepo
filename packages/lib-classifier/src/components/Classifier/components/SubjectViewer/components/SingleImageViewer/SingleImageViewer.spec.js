@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 
 const SUBJECT_IMAGE_URL = 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg'
 
-import Meta, { Default, Error, Loading, PanAndZoom } from './SingleImageViewer.stories'
+import Meta, { subject, Default, Error, Loading, PanAndZoom } from './SingleImageViewer.stories'
 
 describe('Component > SingleImageViewer', function () {
   describe('with a successful subject location request', function () {
@@ -18,7 +18,7 @@ describe('Component > SingleImageViewer', function () {
     describe('with title', function () {
       it('should render the title', function () {
         render(<DefaultStory />)
-        const title = screen.getByText('Subject 1234')
+        const title = screen.getByTitle(`Subject ${subject.id}`)
         expect(title).to.exist()
       })
     })
