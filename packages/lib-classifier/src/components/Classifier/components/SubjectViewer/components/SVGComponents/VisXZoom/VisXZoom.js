@@ -1,6 +1,6 @@
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
@@ -123,11 +123,15 @@ function VisXZoom({
     zoomRef.current.dragEnd()
   }
 
+  function wheelDelta(event) {
+    const { zoomInValue, zoomOutValue } = zoomConfiguration
+    const zoomValue = (-event.deltaY > 0) ? zoomInValue : zoomOutValue
+    return { scaleX: zoomValue, scaleY: zoomValue }
+  }
+
   function onWheel(event) {
-    // performance of this is pretty bad
     if (zooming) {
-      const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
-      zoomToPoint(event, zoomDirection)
+      zoomRef.current.handleWheel(event)
     }
   }
   const throttledOnWheel = throttle(onWheel, zoomConfiguration?.onWheelThrottleWait)
@@ -145,6 +149,7 @@ function VisXZoom({
       passive
       top={top}
       width={width}
+      wheelDelta={wheelDelta}
     >
       {_zoom => {
         zoomRef.current = _zoom
