@@ -9,7 +9,7 @@ import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
 import SingleImageViewerContainer from './SingleImageViewerContainer'
 
-const subject = SubjectFactory.build({
+export const subject = SubjectFactory.build({
   locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg' }]
 })
 
@@ -37,8 +37,8 @@ export function Default() {
         <SingleImageViewerContainer
           loadingState={asyncStates.success}
           title={{
-            id: '1234',
-            text: 'Subject 1234'
+            id: 'subject-title',
+            text: `Subject ${subject.id}`
           }}
         />
       </Box>

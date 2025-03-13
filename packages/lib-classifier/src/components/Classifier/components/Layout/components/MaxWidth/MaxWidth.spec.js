@@ -12,7 +12,7 @@ describe('Component > Layouts > MaxWidth', function () {
     // Mock the loading state transition
     Default.store.subjectViewer.onSubjectReady()
 
-    await waitFor(() => expect(screen.getByLabelText('Subject 1')).exists()) // img aria-label from SVGImage
+    await waitFor(() => expect(screen.getByTitle('Subject 1')).exists()) // subject viewer title
     await waitFor(() => expect(screen.getByText(mockTasks.init.strings.question)).exists()) // task question paragraph
   })
 })
