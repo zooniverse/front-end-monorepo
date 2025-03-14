@@ -75,7 +75,7 @@ function SingleImageViewer({
           <title id={title.id}>{title.text}</title>
         )}
         <svg
-          style={{ touchAction: 'none' }}
+          style={{ touchAction: 'pinch-zoom' }}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
           <VisXZoom

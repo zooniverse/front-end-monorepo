@@ -52,8 +52,10 @@ function VisXZoom({
   const wheelHandler = move && zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   useWheel(({ event }) => {
-    event.preventDefault()
-    return throttledWheelHandler(event)
+    if (event.shiftKey) {
+      event.preventDefault()
+      return throttledWheelHandler(event)
+    }
   }, {
     eventOptions: { passive: false },
     target: wheelEventLayer
@@ -125,14 +127,12 @@ function VisXZoom({
   function onPointerEnter() {
     if (zooming) {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-      document.body.style.overflow = 'hidden'
       document.body.style.paddingRight = `${scrollbarWidth}px`
     }
   }
 
   function onPointerLeave() {
     if (zooming) {
-      document.body.style.overflow = ''
       document.body.style.paddingRight = ''
     }
 
@@ -184,7 +184,12 @@ function VisXZoom({
                 onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
                 onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
                 onPointerLeave={onPointerLeave}
-                onWheel={throttledOnWheel}
+                onWheel={(event) => {
+                  if (event.shiftKey) {
+                    event.preventDefault()
+                    return throttledOnWheel(event)
+                  }
+                }}
                 panning={panning}
                 tabIndex={0}
                 width={width}

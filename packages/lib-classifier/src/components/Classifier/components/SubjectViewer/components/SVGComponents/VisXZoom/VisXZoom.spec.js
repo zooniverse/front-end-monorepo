@@ -392,7 +392,8 @@ describe('Component > VisXZoom', function () {
           clientX: 50,
           clientY: 50,
           deltaY: -1,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         }
         // these are defaults set in the VisXZoom component
         const baseZoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
@@ -420,7 +421,6 @@ describe('Component > VisXZoom', function () {
 
         expect(document.body.style.overflow).to.be.empty()
         wrapper.find(ZoomEventLayer).simulate('pointerenter')
-        expect(document.body.style.overflow).to.equal('hidden')
         wrapper.find(ZoomEventLayer).simulate('pointerleave')
         expect(document.body.style.overflow).to.be.empty()
       })
@@ -467,7 +467,8 @@ describe('Component > VisXZoom', function () {
           clientX: 50,
           clientY: 50,
           deltaY: -1,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         }
 
         // zooming in first
@@ -479,7 +480,8 @@ describe('Component > VisXZoom', function () {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         }
 
         testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
@@ -1046,26 +1048,30 @@ describe('Component > VisXZoom', function () {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         })
         const firstZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          shiftKey: true
         })
         const secondZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 

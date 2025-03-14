@@ -37,14 +37,16 @@ describe('Component > ZoomingScatterPlot', function() {
     clientX: 50,
     clientY: 50,
     deltaY: -1,
-    preventDefault: sinon.spy()
+    preventDefault: sinon.spy(),
+    shiftKey: true
   }
 
   const zoomOutEventMock = {
     clientX: 50,
     clientY: 50,
     deltaY: 10,
-    preventDefault: sinon.spy()
+    preventDefault: sinon.spy(),
+    shiftKey: true
   }
 
   it('should render without crashing', function() {
