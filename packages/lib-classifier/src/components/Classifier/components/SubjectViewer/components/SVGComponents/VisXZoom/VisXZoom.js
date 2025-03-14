@@ -55,7 +55,7 @@ function VisXZoom({
   function onWheel(event) {
     // allow the page to scroll unless scrolling is disabled.
     if (!disablesScrolling) document.body.style.overflow = ''
-    if (disablesScrolling || event.shiftKey) {
+    if (disablesScrolling || event.ctrlKey) {
       // override body overflow to prevent scrolling in Safari.
       document.body.style.overflow = 'hidden'
       event.preventDefault()
