@@ -54,16 +54,30 @@ function VisXZoom({
 
   const wheelHandler = zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
+  
   function onWheel(event) {
-    // allow the page to scroll unless scrolling is disabled.
-    if (!disablesScrolling) document.body.style.overflow = ''
-    if (disablesScrolling || event[ZOOM_HOT_KEY]) {
-      // override body overflow to prevent scrolling in Safari.
-      document.body.style.overflow = 'hidden'
+    if (disablesScrolling) {
       event.preventDefault()
       return throttledWheelHandler(event)
     }
+    
+    if (!disablesScrolling) {
+      if (event[ZOOM_HOT_KEY]) {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+        if (scrollbarWidth) {
+          document.body.style.paddingRight = `${scrollbarWidth}px`
+          document.body.style.overflow = 'hidden'
+        }
+
+        event.preventDefault()
+        return throttledWheelHandler(event)
+      } else {
+        document.body.style.overflow = ''
+        document.body.style.paddingRight = ''
+      }
+    }
   }
+  
   useWheel(move ? ({ event }) => onWheel(event) : DEFAULT_HANDLER, {
     eventOptions: { passive: false },
     target: wheelEventLayer
@@ -133,12 +147,10 @@ function VisXZoom({
   }
 
   function onPointerEnter() {
-    if (zooming) {
+    if (zooming && disablesScrolling) {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       document.body.style.paddingRight = `${scrollbarWidth}px`
-      if (disablesScrolling) {
-        document.body.style.overflow = 'hidden'
-      }
+      document.body.style.overflow = 'hidden'
     }
   }
 
