@@ -9,7 +9,7 @@ import mockStore from '@test/mockStore'
 import {
   lightCurveMockData
 } from '../../ScatterPlotViewer/helpers/mockData'
-import VisXZoom from './VisXZoom'
+import VisXZoom, { ZOOM_HOT_KEY } from './VisXZoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
 describe('Component > VisXZoom', function () {
@@ -393,7 +393,7 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: -1,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         }
         // these are defaults set in the VisXZoom component
         const baseZoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
@@ -468,7 +468,7 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: -1,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         }
 
         // zooming in first
@@ -481,7 +481,7 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         }
 
         testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
@@ -1049,21 +1049,21 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         })
         const firstZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         wrapper.find(ZoomEventLayer).simulate('wheel', {
@@ -1071,7 +1071,7 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          shiftKey: true
+          [ZOOM_HOT_KEY]: true
         })
         const secondZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 

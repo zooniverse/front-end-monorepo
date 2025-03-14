@@ -9,6 +9,8 @@ import { useEffect, useRef } from 'react'
 import { useKeyZoom } from '@hooks'
 import ZoomEventLayer from '../ZoomEventLayer'
 
+export const ZOOM_HOT_KEY = 'ctrlKey'
+
 const defaultZoomConfig = {
   direction: 'both',
   minZoom: 1,
@@ -55,7 +57,7 @@ function VisXZoom({
   function onWheel(event) {
     // allow the page to scroll unless scrolling is disabled.
     if (!disablesScrolling) document.body.style.overflow = ''
-    if (disablesScrolling || event.ctrlKey) {
+    if (disablesScrolling || event[ZOOM_HOT_KEY]) {
       // override body overflow to prevent scrolling in Safari.
       document.body.style.overflow = 'hidden'
       event.preventDefault()
