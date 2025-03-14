@@ -50,14 +50,15 @@ function VisXZoom({
     return { scaleX: zoomValue, scaleY: zoomValue }
   }
 
-  const wheelHandler = move && zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
+  const wheelHandler = zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
-  useWheel(({ event }) => {
+  function onWheel(event) {
     if (disablesScrolling || event.shiftKey) {
       event.preventDefault()
       return throttledWheelHandler(event)
     }
-  }, {
+  }
+  useWheel(move ? ({ event }) => onWheel(event) : DEFAULT_HANDLER, {
     eventOptions: { passive: false },
     target: wheelEventLayer
   })
@@ -146,13 +147,6 @@ function VisXZoom({
     zoomRef.current.dragEnd()
   }
 
-  function onWheel(event) {
-    if (zooming) {
-      zoomRef.current.handleWheel(event)
-    }
-  }
-  const throttledOnWheel = throttle(onWheel, zoomConfiguration?.onWheelThrottleWait)
-
   const ZoomingComponent = zoomingComponent
   return (
     <Zoom
@@ -189,12 +183,7 @@ function VisXZoom({
                 onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
                 onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
                 onPointerLeave={onPointerLeave}
-                onWheel={(event) => {
-                  if (disablesScrolling || event.shiftKey) {
-                    event.preventDefault()
-                    return throttledOnWheel(event)
-                  }
-                }}
+                onWheel={onWheel}
                 panning={panning}
                 tabIndex={0}
                 width={width}
