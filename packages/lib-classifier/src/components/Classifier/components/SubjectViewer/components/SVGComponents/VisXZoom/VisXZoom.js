@@ -53,7 +53,11 @@ function VisXZoom({
   const wheelHandler = zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   function onWheel(event) {
+    // allow the page to scroll unless scrolling is disabled.
+    if (!disablesScrolling) document.body.style.overflow = ''
     if (disablesScrolling || event.shiftKey) {
+      // override body overflow to prevent scrolling in Safari.
+      document.body.style.overflow = 'hidden'
       event.preventDefault()
       return throttledWheelHandler(event)
     }
