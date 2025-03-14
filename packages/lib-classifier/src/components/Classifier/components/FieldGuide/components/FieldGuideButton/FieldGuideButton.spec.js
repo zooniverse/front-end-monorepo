@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { FieldGuideButton } from './FieldGuideButton'
+import FieldGuideButton from './FieldGuideButton'
 import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'
 import { Provider } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
