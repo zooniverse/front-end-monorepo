@@ -22,6 +22,7 @@ const DEFAULT_HANDLER = () => true
 
 function VisXZoom({
   constrain,
+  disablesScrolling = true,
   height,
   left = 0,
   move = false,
@@ -52,7 +53,7 @@ function VisXZoom({
   const wheelHandler = move && zooming ? (e) => zoomRef.current?.handleWheel(e) : DEFAULT_HANDLER
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   useWheel(({ event }) => {
-    if (event.shiftKey) {
+    if (disablesScrolling || event.shiftKey) {
       event.preventDefault()
       return throttledWheelHandler(event)
     }
@@ -128,11 +129,15 @@ function VisXZoom({
     if (zooming) {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       document.body.style.paddingRight = `${scrollbarWidth}px`
+      if (disablesScrolling) {
+        document.body.style.overflow = 'hidden'
+      }
     }
   }
 
   function onPointerLeave() {
     if (zooming) {
+      document.body.style.overflow = ''
       document.body.style.paddingRight = ''
     }
 
@@ -185,7 +190,7 @@ function VisXZoom({
                 onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
                 onPointerLeave={onPointerLeave}
                 onWheel={(event) => {
-                  if (event.shiftKey) {
+                  if (disablesScrolling || event.shiftKey) {
                     event.preventDefault()
                     return throttledOnWheel(event)
                   }
@@ -204,6 +209,7 @@ function VisXZoom({
 
 VisXZoom.propTypes = {
   constrain: PropTypes.func,
+  disablesScrolling: PropTypes.bool,
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
   move: PropTypes.bool,

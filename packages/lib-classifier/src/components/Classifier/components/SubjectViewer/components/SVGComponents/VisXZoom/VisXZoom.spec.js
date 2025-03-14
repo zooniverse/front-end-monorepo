@@ -419,8 +419,8 @@ describe('Component > VisXZoom', function () {
           </Grommet>
         )
 
-        expect(document.body.style.overflow).to.be.empty()
         wrapper.find(ZoomEventLayer).simulate('pointerenter')
+        expect(document.body.style.overflow).to.equal('hidden')
         wrapper.find(ZoomEventLayer).simulate('pointerleave')
         expect(document.body.style.overflow).to.be.empty()
       })
