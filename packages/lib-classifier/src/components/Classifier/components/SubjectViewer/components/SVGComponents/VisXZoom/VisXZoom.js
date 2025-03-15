@@ -44,8 +44,9 @@ const DEFAULT_HANDLER = () => true
  *     }}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
- *     zoomingComponent={SVGComponent}
- *     {...SVGComponentProps}
+ *     zoomingComponent={(zoomProps) => (
+ *       <SVGComponent {...zoomProps} {...SVGComponentProps} />
+ *     )}
  *   />
  * ```
  */
@@ -63,7 +64,6 @@ function VisXZoom({
   zoomConfiguration = defaultZoomConfig,
   zoomingComponent,
   zooming = false,
-  ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
@@ -232,7 +232,6 @@ function VisXZoom({
               move={move}
               transformMatrix={_zoom.transformMatrix}
               transform={_zoom.toString()}
-              {...props}
             >
               <ZoomEventLayer
                 focusable
@@ -296,7 +295,20 @@ VisXZoom.propTypes = {
   }),
   /** Enable zooming. true by default. */
   zooming: PropTypes.bool,
-  /** A React component to zoom. It must render SVG, **not** HTML. */
+  /** A React component to zoom. It must render SVG, **not** HTML.
+   * `VisXZoom` will inject the following props into this component:
+   * - `initialTransformMatrix`: the initial transformation matrix.
+   * - `transformMatrix`: the current transformation matrix.
+   * - `transform`: a string representation of the matrix transform.
+   * - `children`: `ZoomEventLayer`, an SVG `<rect>` which handles zoom pointer and wheel events.
+   * ```jsx
+   * ({ children, ...zoomProps }) => (
+   *   <SVGComponent {...zoomProps} {...SVGComponentProps} >
+   *     {children}
+   *   </SVGComponent>
+   * )
+   * ```
+  */
   zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 }
 
