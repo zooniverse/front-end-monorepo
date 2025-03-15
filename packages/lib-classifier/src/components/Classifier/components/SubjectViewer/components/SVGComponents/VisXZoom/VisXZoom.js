@@ -22,6 +22,33 @@ const defaultZoomConfig = {
 
 const DEFAULT_HANDLER = () => true
 
+/**
+ * Decorate a React SVG component with zoom functionality from `@visx/zoom`.
+ * https://airbnb.io/visx/docs/zoom
+ * ```jsx
+ *   <VisXZoom
+ *     height={100}
+ *     width={100}
+ *     left={0}
+ *     top={0}
+ *     move
+ *     zooming
+ *     panning
+ *     disablesScrolling
+ *     zoomConfiguration={{
+ *       direction: 'both',
+ *       minZoom: 1,
+ *       maxZoom: 10,
+ *       zoomInValue: 1.2,
+ *       zoomOutValue: 0.8
+ *     }}
+ *     setOnPan={setOnPan}
+ *     setOnZoom={setOnZoom}
+ *     zoomingComponent={SVGComponent}
+ *     {...SVGComponentProps}
+ *   />
+ * ```
+ */
 function VisXZoom({
   constrain,
   disablesScrolling = true,
@@ -232,24 +259,45 @@ function VisXZoom({
 }
 
 VisXZoom.propTypes = {
+  /** 
+   * Custom constraints on the SVG transformation matrix.
+   * https://airbnb.io/visx/docs/zoom#Zoom_constrain
+  */
   constrain: PropTypes.func,
+  /** Disable window scrolling for the mouse wheel. */
   disablesScrolling: PropTypes.bool,
+  /** Height in SVG viewport. */
   height: PropTypes.number.isRequired,
+  /** Left coordinate in SVG viewport. */
   left: PropTypes.number,
+  /** True if pan and zoom is enabled in the subject toolbar. */
   move: PropTypes.bool,
+  /** Enable panning. Ignored if zooming is false. */
   panning: PropTypes.bool,
+  /** Set the subject toolbar's onPan callback in the classifier store. */
   setOnPan: PropTypes.func,
+  /** Set the subject toolbar's onZoom callback in the classifier store. */
   setOnZoom: PropTypes.func,
+  /** Top coordinate in SVG viewport. */
   top: PropTypes.number,
+  /** Width in SVG viewport. */
   width: PropTypes.number.isRequired,
+  /** Zoom configuration for the subject or workflow. */
   zoomConfiguration: PropTypes.shape({
+    /** Allowed directions for zoom. */
     direction: PropTypes.oneOf(['both', 'x', 'y']),
+    /** Minimum zoom scale. */
     minZoom: PropTypes.number,
+    /** Maximum zoom scale. */
     maxZoom: PropTypes.number,
+    /** Zoom in scale step. */
     zoomInValue: PropTypes.number,
+    /** Zoom out scale step. */
     zoomOutValue: PropTypes.number
   }),
+  /** Enable zooming. true by default. */
   zooming: PropTypes.bool,
+  /** A React component to zoom. It must render SVG, **not** HTML. */
   zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 }
 
