@@ -150,6 +150,7 @@ describe('Component > ZoomingScatterPlot', function() {
         expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
         // Zoom out
         fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
@@ -278,6 +279,7 @@ describe('Component > ZoomingScatterPlot', function() {
         expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
         expect(yAxisLabelPreZoomIn).to.equal(yAxisLabelPostZoomIn)
         // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
@@ -408,6 +410,7 @@ describe('Component > ZoomingScatterPlot', function() {
         expect(xAxisLabelPreZoomIn).to.equal(xAxisLabelPostZoomIn)
         expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
         // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
