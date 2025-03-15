@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore/mockStore.js'
 import ImageToolbar from './ImageToolbar'
+
+import * as storybook from './ImageToolbar.stories.js'
+const { default: Meta, ...stories } = storybook
 
 import {
   DrawingTaskFactory,
@@ -66,6 +70,12 @@ describe('Component > ImageToolbar', function () {
       } else {
         expect(screen.queryByLabelText('ImageToolbar.AnnotateButton.ariaLabel')).to.be.null()
       }
+    })
+  })
+  Object.entries(stories).forEach(([name, story]) => {
+    it(`renders the "${name}" story`, () => {
+      const Story = composeStory(story, Meta)
+      render(<Story />)
     })
   })
 })
