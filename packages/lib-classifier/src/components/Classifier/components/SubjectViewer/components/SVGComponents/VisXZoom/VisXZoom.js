@@ -219,7 +219,6 @@ function VisXZoom({
       scaleXMax={zoomConfiguration.maxZoom}
       scaleYMin={zoomConfiguration.minZoom}
       scaleYMax={zoomConfiguration.maxZoom}
-      passive
       top={top}
       width={width}
       wheelDelta={wheelDelta}
