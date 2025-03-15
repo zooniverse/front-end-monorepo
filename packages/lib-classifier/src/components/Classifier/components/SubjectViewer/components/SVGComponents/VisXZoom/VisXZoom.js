@@ -56,26 +56,43 @@ function VisXZoom({
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   
   function onWheel(event) {
+    /* Default behaviour for subject viewers that don't scroll vertically.
+    Cancel the default event (ignored unless the listener explicitly
+    sets passive: false) and call the wheel handler with a throttled delay.
+    */
     if (disablesScrolling) {
+      /* event.preventDefault() will throw a warning in the browser
+      for passive events. To avoid that, use addEventListener with 
+      { passive: false }.
+      */
       event.preventDefault()
       return throttledWheelHandler(event)
     }
     
-    if (!disablesScrolling) {
-      if (event[ZOOM_HOT_KEY]) {
-        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-        if (scrollbarWidth) {
-          document.body.style.paddingRight = `${scrollbarWidth}px`
-          document.body.style.overflow = 'hidden'
-        }
-
-        event.preventDefault()
-        return throttledWheelHandler(event)
-      } else {
-        document.body.style.overflow = ''
-        document.body.style.paddingRight = ''
+    /* Zoom if the zoom hot key is pressed.
+    Passive event listeners, like React's onWheel or default browser wheel events,
+    won't prevent the default wheel scroll, so style the document body to stop
+    scrolling and remove scrollbars.
+    */
+    if (event[ZOOM_HOT_KEY]) {
+      /* Disable scroll in Safari (or for passive wheel events.) */
+      document.body.style.overflow = 'hidden'
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+      if (scrollbarWidth) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`
       }
+
+      /* event.preventDefault() will throw a warning in the browser
+      for passive events. To avoid that, use addEventListener with 
+      { passive: false }.
+      */
+      event.preventDefault()
+      return throttledWheelHandler(event)
     }
+    /* If we aren't zooming, reset body styles to allow scrolling with 
+    the mouse wheel */
+    document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
   }
   
   useWheel(move ? ({ event }) => onWheel(event) : DEFAULT_HANDLER, {
