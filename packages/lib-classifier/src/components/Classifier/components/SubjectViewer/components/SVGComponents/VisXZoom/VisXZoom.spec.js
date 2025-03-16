@@ -393,7 +393,6 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: -1,
           preventDefault: sinon.spy(),
-          [ZOOM_HOT_KEY]: true
         }
         // these are defaults set in the VisXZoom component
         const baseZoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
@@ -419,6 +418,7 @@ describe('Component > VisXZoom', function () {
           </Grommet>
         )
 
+        expect(document.body.style.overflow).to.be.empty()
         wrapper.find(ZoomEventLayer).simulate('pointerenter')
         expect(document.body.style.overflow).to.equal('hidden')
         wrapper.find(ZoomEventLayer).simulate('pointerleave')
@@ -430,6 +430,7 @@ describe('Component > VisXZoom', function () {
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
               <VisXZoom
+                allowsScrolling
                 data={mockData}
                 height={height}
                 width={width}
@@ -443,7 +444,15 @@ describe('Component > VisXZoom', function () {
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
+        const zoomInEvent = {
+          clientX: 50,
+          clientY: 50,
+          deltaY: -1,
+          preventDefault: sinon.spy(),
+          [ZOOM_HOT_KEY]: true
+        }
+
+        testEvent({ wrapper, type: 'wheel', event: zoomInEvent, previousTransformMatrix: initialTransformMatrix })
       })
 
       it('should scale out the transform matrix on mouse wheel', function () {
@@ -451,6 +460,7 @@ describe('Component > VisXZoom', function () {
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
               <VisXZoom
+                allowsScrolling
                 data={mockData}
                 height={height}
                 width={width}
@@ -1049,21 +1059,18 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          [ZOOM_HOT_KEY]: true
         })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          [ZOOM_HOT_KEY]: true
         })
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          [ZOOM_HOT_KEY]: true
         })
         const firstZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         wrapper.find(ZoomEventLayer).simulate('wheel', {
@@ -1071,7 +1078,6 @@ describe('Component > VisXZoom', function () {
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy(),
-          [ZOOM_HOT_KEY]: true
         })
         const secondZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 

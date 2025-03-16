@@ -65,7 +65,7 @@ function SingleImageViewer({
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
           <VisXZoom
-            disablesScrolling={false}
+            allowsScrolling
             height={naturalHeight}
             move={move}
             panning={panning}

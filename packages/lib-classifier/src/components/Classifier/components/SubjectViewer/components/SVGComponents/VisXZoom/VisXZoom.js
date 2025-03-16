@@ -34,7 +34,7 @@ const DEFAULT_HANDLER = () => true
  *     move
  *     zooming
  *     panning
- *     disablesScrolling
+ *     allowsScrolling
  *     zoomConfiguration={{
  *       direction: 'both',
  *       minZoom: 1,
@@ -51,8 +51,8 @@ const DEFAULT_HANDLER = () => true
  * ```
  */
 function VisXZoom({
+  allowsScrolling = false,
   constrain,
-  disablesScrolling = true,
   height,
   left = 0,
   move = false,
@@ -87,7 +87,7 @@ function VisXZoom({
     Cancel the default event (ignored unless the listener explicitly
     sets passive: false) and call the wheel handler with a throttled delay.
     */
-    if (disablesScrolling) {
+    if (!allowsScrolling) {
       /* event.preventDefault() will throw a warning in the browser
       for passive events. To avoid that, use addEventListener with 
       { passive: false }.
@@ -191,7 +191,7 @@ function VisXZoom({
   }
 
   function onPointerEnter() {
-    if (zooming && disablesScrolling) {
+    if (zooming && !allowsScrolling) {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       document.body.style.paddingRight = `${scrollbarWidth}px`
       document.body.style.overflow = 'hidden'
@@ -257,13 +257,13 @@ function VisXZoom({
 }
 
 VisXZoom.propTypes = {
+  /** Allow window scrolling with the mouse wheel. */
+  allowsScrolling: PropTypes.bool,
   /** 
    * Custom constraints on the SVG transformation matrix.
    * https://airbnb.io/visx/docs/zoom#Zoom_constrain
   */
   constrain: PropTypes.func,
-  /** Disable window scrolling for the mouse wheel. */
-  disablesScrolling: PropTypes.bool,
   /** Height in SVG viewport. */
   height: PropTypes.number.isRequired,
   /** Left coordinate in SVG viewport. */
