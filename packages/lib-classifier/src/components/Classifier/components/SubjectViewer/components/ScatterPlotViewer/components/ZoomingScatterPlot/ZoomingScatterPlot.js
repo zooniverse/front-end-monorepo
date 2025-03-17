@@ -10,6 +10,7 @@ import {
 import { PAN_DISTANCE } from '../../helpers/constants'
 import ScatterPlot from '../ScatterPlot'
 
+const DEFAULT_HANDLER = () => true
 
 const DEFAULT_ZOOM = {
   scaleX: 1,
@@ -49,6 +50,8 @@ const defaultZoomConfig = {
 
 function ZoomingScatterPlot({
   panning = true,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   zoomConfiguration = defaultZoomConfig,
   zooming = true,
   ...scatterPlotProps
@@ -212,6 +215,8 @@ function ZoomingScatterPlot({
       panning={panning}
       top={topPosition}
       width={width}
+      setOnPan={setOnPan}
+      setOnZoom={setOnZoom}
       zoomingComponent={(zoomProps) => (
         <ScatterPlot {...zoomProps} {...scatterPlotProps} />
       )}
@@ -223,6 +228,8 @@ function ZoomingScatterPlot({
 
 ZoomingScatterPlot.propTypes = {
   panning: PropTypes.bool,
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   zoomConfiguration: PropTypes.shape({
     direction: PropTypes.oneOf(['both', 'x', 'y']),
     minZoom: PropTypes.number,

@@ -102,10 +102,12 @@ function VisXZoom({
     scrolling and remove scrollbars.
     */
     if (event[ZOOM_HOT_KEY]) {
+      // Get the scrollbar width, if the container can be scrolled.
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       /* Disable scroll in Safari (or for passive wheel events.) */
       document.body.style.overflow = 'hidden'
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       if (scrollbarWidth) {
+        // Prevent the page from jumping when the scrollbar is removed.
         document.body.style.paddingRight = `${scrollbarWidth}px`
       }
 
@@ -229,7 +231,6 @@ function VisXZoom({
           <g ref={wheelEventLayer}>
             <ZoomingComponent
               initialTransformMatrix={_zoom.initialTransformMatrix}
-              move={move}
               transformMatrix={_zoom.transformMatrix}
               transform={_zoom.toString()}
             >
