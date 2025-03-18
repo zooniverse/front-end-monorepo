@@ -4,7 +4,7 @@ import asyncStates from '@zooniverse/async-states'
 
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import { ViewerGrid } from '../Layout/components/NoMaxWidth/NoMaxWidth'
+import { ViewerGrid } from '../Layout/components/shared/StyledContainers'
 import MultiFrameViewer from '../SubjectViewer/components/MultiFrameViewer'
 import SingleImageViewer from '../SubjectViewer/components/SingleImageViewer'
 import SingleTextViewer from '../SubjectViewer/components/SingleTextViewer'
