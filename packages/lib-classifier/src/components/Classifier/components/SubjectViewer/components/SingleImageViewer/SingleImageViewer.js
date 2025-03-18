@@ -57,13 +57,14 @@ function SingleImageViewer({
         overflow='hidden'
         width='100%'
       >
-        {title?.id && title?.text && (
-          <title id={title.id}>{title.text}</title>
-        )}
         <svg
           style={{ touchAction: 'pinch-zoom' }}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+          aria-labelledby={title?.id}
         >
+          {title?.id && title?.text && (
+            <title id={title.id}>{title.text}</title>
+          )}
           <VisXZoom
             allowsScrolling
             height={naturalHeight}
