@@ -23,7 +23,6 @@ function SingleImageCanvas({
   src,
   subject,
   transform, // per VisXZoom
-  transformMatrix // per VisXZoom
 }) {
   const canvasLayer = useRef()
 
