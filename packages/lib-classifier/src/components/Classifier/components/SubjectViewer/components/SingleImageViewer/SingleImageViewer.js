@@ -42,20 +42,6 @@ function SingleImageViewer({
     enableRotation()
   }, [])
 
-  const singleImageCanvasProps = {
-    enableInteractionLayer,
-    frame,
-    imgRef,
-    invert,
-    move,
-    naturalHeight,
-    naturalWidth,
-    onKeyDown,
-    rotation,
-    src,
-    subject
-  }
-
   return (
     <>
       {zoomControlFn && (
@@ -75,19 +61,35 @@ function SingleImageViewer({
           <title id={title.id}>{title.text}</title>
         )}
         <svg
-          style={{ touchAction: 'none' }}
+          style={{ touchAction: 'pinch-zoom' }}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
           <VisXZoom
+            allowsScrolling
             height={naturalHeight}
+            move={move}
             panning={panning}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
             width={naturalWidth}
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
-            zoomingComponent={SingleImageCanvas}
+            zoomingComponent={(zoomProps) => (
+              <SingleImageCanvas
+                {...zoomProps}
+                enableInteractionLayer={enableInteractionLayer}
+                frame={frame}
+                imgRef={imgRef}
+                invert={invert}
+                move={move}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                onKeyDown={onKeyDown}
+                rotation={rotation}
+                src={src}
+                subject={subject}
+              />
+            )}
             zooming={zooming}
-            {...singleImageCanvasProps}
           />
         </svg>
       </Box>
@@ -96,38 +98,18 @@ function SingleImageViewer({
 }
 
 SingleImageViewer.propTypes = {
-  enableInteractionLayer: bool,
   enableRotation: func,
-  frame: number,
-  imgRef: shape({
-    current: shape({
-      naturalHeight: number,
-      naturalWidth: number,
-      src: string
-    })
-  }),
-  invert: bool,
   limitSubjectHeight: bool,
-  move: bool,
-  naturalHeight: number,
-  naturalWidth: number,
-  onKeyDown: func,
   panning: bool,
-  rotation: number,
   setOnPan: func,
   setOnZoom: func,
-  src: string,
-  subject: shape({
-    locations: arrayOf(shape({
-      url: string
-    }))
-  }),
   title: shape({
     id: string,
     text: string
   }),
   zoomControlFn: func,
-  zooming: bool
+  zooming: bool,
+  ...SingleImageCanvas.propTypes
 }
 
 export default SingleImageViewer
