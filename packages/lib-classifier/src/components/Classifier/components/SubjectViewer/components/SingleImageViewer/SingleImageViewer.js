@@ -68,14 +68,15 @@ function SingleImageViewer({
         overflow='hidden'
         width='100%'
       >
-        {title?.id && title?.text && (
-          <title id={title.id}>{title.text}</title>
-        )}
         <StyledSVG
+          aria-labelledby={title?.id}
           $maxHeight={maxHeight}
           $maxWidth={maxWidth}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
+          {title?.id && title?.text && (
+            <title id={title.id}>{title.text}</title>
+          )}
           <VisXZoom
             allowsScrolling
             height={naturalHeight}
