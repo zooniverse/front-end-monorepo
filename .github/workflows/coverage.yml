@@ -18,7 +18,7 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.18'
+          node-version-file: ./.nvmrc
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile --ignore-scripts
