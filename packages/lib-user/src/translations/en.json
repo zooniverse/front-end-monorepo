@@ -119,7 +119,7 @@
     "noData": "No data found.",
     "selectDateRange": "Select date range",
     "selectProject": "Select project",
-    "start": "Start by <0>classifying a project</0> now, or change the date range.",
+    "start": "<0>Classify on a project</0> now, or change the date range.",
     "tabContents": "Tab Contents"
   },
   "MyGroups": {
@@ -152,7 +152,7 @@
     "RecentProjects": {
       "error": "There was an error fetching your recent projects",
       "noProjects": "No Recent Projects found",
-      "start": "Start by <0>classifying any project</0>.",
+      "start": "Start by <0>classifying on any project</0>.",
       "title": "Continue Classifying"
     },
     "RecentSubjects": {
