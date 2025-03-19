@@ -7,6 +7,7 @@ import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 import { StyledSubjectContainer } from '../shared/StyledContainers'
+import FieldGuide from '@components/Classifier/components/FieldGuide'
 
 const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
@@ -60,6 +61,7 @@ export default function VolumetricLayout() {
         </ViewBox>
         <StickyTaskArea>
           <TaskArea />
+          <FieldGuide />
         </StickyTaskArea>
       </ContainerBox>
       <FeedbackModal />

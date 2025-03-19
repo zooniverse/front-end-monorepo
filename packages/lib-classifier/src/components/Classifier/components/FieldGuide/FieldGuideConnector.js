@@ -7,17 +7,13 @@ function storeMapper(classifierStore) {
     fieldGuide: {
       active: fieldGuide,
       attachedMedia: icons
-    },
-    subjectViewer: {
-      separateFramesView
     }
   } = classifierStore
 
   return {
     locale,
     fieldGuide,
-    icons,
-    separateFramesView
+    icons
   }
 }
 
