@@ -1,9 +1,8 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-const SUBJECT_IMAGE_URL = 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg'
-
-import Meta, { subject, Default, Error, Loading, PanAndZoom } from './SingleImageViewer.stories'
+import Meta, { Default, Error, Loading, PanAndZoom } from './SingleImageViewer.stories'
+import { subject } from './constants'
 
 describe('Component > SingleImageViewer', function () {
   describe('with a successful subject location request', function () {
