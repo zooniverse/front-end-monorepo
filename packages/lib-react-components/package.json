@@ -6,6 +6,7 @@
   "version": "1.13.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "type": "commonjs",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
