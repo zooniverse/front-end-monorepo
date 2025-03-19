@@ -57,6 +57,10 @@ function SubjectViewer({
             onError={onError}
             onReady={onSubjectReady}
             subject={subject}
+            title={{
+              id: 'subject-title',
+              text: `Subject ${subject.id}`
+            }}
             viewerConfiguration={subject?.viewerConfiguration}
           />
         )

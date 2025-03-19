@@ -49,6 +49,6 @@ export function useStats({
   sourceId
 }) {
   const token = usePanoptesAuthToken()
-  const key = token && sourceId ? { endpoint, query, sourceId, token } : null
+  const key = sourceId ? { endpoint, query, sourceId, token } : null
   return useSWR(key, fetchStats, SWROptions)
 }

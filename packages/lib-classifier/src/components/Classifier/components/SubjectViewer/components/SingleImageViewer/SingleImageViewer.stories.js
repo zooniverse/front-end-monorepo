@@ -1,51 +1,78 @@
+import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
-import SubjectViewerStore from '@store/SubjectViewerStore'
-import SingleImageViewer from '@viewers/components/SingleImageViewer'
-import asyncStates from '@zooniverse/async-states'
+
+import ImageToolbar from '../../../ImageToolbar'
 
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
-const subject = SubjectFactory.build({
+import SingleImageViewerContainer from './SingleImageViewerContainer'
+
+export const subject = SubjectFactory.build({
   locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg' }]
 })
 
-const workflow = WorkflowFactory.build('workflow', {
+const workflow = WorkflowFactory.build({
   configuration: {
-    limit_subject_height: true
+    invert_subject: true
   }
 })
 
+const store = mockStore({ subject, workflow })
+
+const ViewerContext = ({ store, children }) => {
+  return <Provider classifierStore={store}>{children}</Provider>
+}
+
 export default {
   title: 'Subject Viewers / SingleImageViewer',
-  component: SingleImageViewer
+  component: SingleImageViewerContainer
 }
 
 export function Default() {
   return (
-    <Provider classifierStore={Default.store}>
+    <ViewerContext store={store}>
       <Box width='large'>
-        <SingleImageViewer
+        <SingleImageViewerContainer
           loadingState={asyncStates.success}
-          enableInteractionLayer={false}
+          title={{
+            id: 'subject-title',
+            text: `Subject ${subject.id}`
+          }}
         />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
-Default.store = mockStore({ subject })
 
-export function LimitSubjectHeight() {
+export function PanAndZoom() {
   return (
-    <Provider classifierStore={LimitSubjectHeight.store}>
-      <Box width='large'>
-        <SingleImageViewer
-          loadingState={asyncStates.success}
-          enableInteractionLayer={false}
-        />
+    <ViewerContext store={store}>
+      <Box direction='row' width='large'>
+      <SingleImageViewerContainer loadingState={asyncStates.success} />
+        <ImageToolbar width='4rem' />
       </Box>
-    </Provider>
+    </ViewerContext>
   )
 }
-LimitSubjectHeight.store = mockStore({ subject, workflow })
+
+export function Error() {
+  return (
+    <ViewerContext store={store}>
+      <Box width='large'>
+        <SingleImageViewerContainer loadingState={asyncStates.error} />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+export function Loading() {
+  return (
+    <ViewerContext store={store}>
+      <Box width='large'>
+        <SingleImageViewerContainer loadingState={asyncStates.loading} />
+      </Box>
+    </ViewerContext>
+  )
+}

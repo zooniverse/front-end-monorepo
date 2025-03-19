@@ -1,27 +1,19 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react'
 
 import { withStores } from '@helpers'
-import { useKeyZoom, useSubjectImage } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
-import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
-import SVGImage from '../SVGComponents/SVGImage'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
+import SingleImageViewer from '../SingleImageViewer'
 import FrameCarousel from './FrameCarousel'
 
 function storeMapper(store) {
   const {
-    enableRotation,
     frame,
-    invert,
-    move,
-    rotation,
-    setFrame,
-    setOnPan,
-    setOnZoom
+    resetView,
+    setFrame
   } = store.subjectViewer
 
   const { activeStepTasks } = store.workflowSteps
@@ -33,75 +25,35 @@ function storeMapper(store) {
     activeTool
   } = activeInteractionTask || {}
 
-  const {
-    limit_subject_height: limitSubjectHeight
-  } = store.workflows?.active?.configuration
-
   return {
     activeTool,
-    enableRotation,
     frame,
-    invert,
-    limitSubjectHeight,
-    move,
-    rotation,
-    setFrame,
-    setOnPan,
-    setOnZoom
+    resetView,
+    setFrame
   }
 }
 
-const defaultTool = {
+const DEFAULT_HANDLER = () => true
+
+const DEFAULT_TOOL = {
   validate: () => {}
 }
 
 function MultiFrameViewerContainer({
-  activeTool = defaultTool,
+  activeTool = DEFAULT_TOOL,
   enableInteractionLayer = false,
-  enableRotation = () => null,
   frame = 0,
-  invert = false,
-  limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
-  move,
-  onError = () => true,
-  onReady = () => true,
-  rotation,
-  setFrame = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  resetView = DEFAULT_HANDLER,
+  setFrame = DEFAULT_HANDLER,
   subject
 }) {
-  const { onKeyZoom } = useKeyZoom(rotation)
-  const [dragMove, setDragMove] = useState()
-  // TODO: replace this with a better function to parse the image location from a subject.
-  const imageLocation = subject ? subject.locations[frame] : null
-  const { img, error, loading, subjectImage } = useSubjectImage({
-    frame,
-    src: imageLocation?.url,
-    onReady,
-    onError
-  })
-  const {
-    naturalHeight = 600,
-    naturalWidth = 800
-  } = img
-
-  useEffect(function onMount() {
-    enableRotation()
-  }, [])
-
   useEffect(function onFrameChange() {
     activeTool?.validate()
+    resetView()
   }, [frame])
-
-  function setOnDrag(callback) {
-    setDragMove(() => callback)
-  }
-
-  function onDrag(event, difference) {
-    dragMove?.(event, difference)
-  }
 
   if (loadingState === asyncStates.error) {
     return (
@@ -110,7 +62,6 @@ function MultiFrameViewerContainer({
   }
 
   if (loadingState !== asyncStates.initialized) {
-    const subjectID = subject?.id || 'unknown'
     return (
       <Box
         direction='row'
@@ -121,39 +72,12 @@ function MultiFrameViewerContainer({
           onFrameChange={setFrame}
           locations={subject.locations}
         />
-        <SVGPanZoom
-          key={`${naturalWidth}-${naturalHeight}`}
-          limitSubjectHeight={limitSubjectHeight}
-          maxZoom={5}
-          minZoom={0.1}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          setOnDrag={setOnDrag}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
-          src={img.src}
-        >
-          <SingleImageViewer
-            enableInteractionLayer={loadingState === asyncStates.success && enableInteractionLayer}
-            frame={frame}
-            height={naturalHeight}
-            limitSubjectHeight={limitSubjectHeight}
-            onKeyDown={onKeyZoom}
-            rotate={rotation}
-            width={naturalWidth}
-          >
-            <SVGImage
-              ref={subjectImage}
-              invert={invert}
-              move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
-              onDrag={onDrag}
-              src={img.src}
-              subjectID={subjectID}
-            />
-          </SingleImageViewer>
-        </SVGPanZoom>
+        <SingleImageViewer
+          enableInteractionLayer={enableInteractionLayer}
+          loadingState={loadingState}
+          onError={onError}
+          onReady={onReady}
+        />
       </Box>
     )
   }
@@ -165,16 +89,12 @@ MultiFrameViewerContainer.propTypes = {
     validate: PropTypes.func
   }),
   enableInteractionLayer: PropTypes.bool,
-  enableRotation: PropTypes.func,
   frame: PropTypes.number,
-  invert: PropTypes.bool,
-  limitSubjectHeight: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  resetView: PropTypes.func,
   setFrame: PropTypes.func,
-  setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }).isRequired

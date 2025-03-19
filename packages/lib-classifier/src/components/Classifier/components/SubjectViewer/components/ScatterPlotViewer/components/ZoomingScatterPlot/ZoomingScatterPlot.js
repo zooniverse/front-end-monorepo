@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types'
 import VisXZoom from '../../../SVGComponents/VisXZoom'
 import {
@@ -11,6 +10,7 @@ import {
 import { PAN_DISTANCE } from '../../helpers/constants'
 import ScatterPlot from '../ScatterPlot'
 
+const DEFAULT_HANDLER = () => true
 
 const DEFAULT_ZOOM = {
   scaleX: 1,
@@ -49,18 +49,23 @@ const defaultZoomConfig = {
 }
 
 function ZoomingScatterPlot({
-  data,
-  invertAxes = defaultInvertAxes,
-  margin = defaultMargin,
-  padding = defaultPadding,
   panning = true,
-  parentHeight,
-  parentWidth,
-  tickDirection = 'outer',
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   zoomConfiguration = defaultZoomConfig,
   zooming = true,
-  ...props
+  ...scatterPlotProps
 }) {
+  const {
+    data,
+    invertAxes = defaultInvertAxes,
+    margin = defaultMargin,
+    padding = defaultPadding,
+    parentHeight,
+    parentWidth,
+    tickDirection = 'outer'
+  } = scatterPlotProps
+
   const rangeParameters = {
     invertAxes,
     margin,
@@ -205,47 +210,26 @@ function ZoomingScatterPlot({
   return (
     <VisXZoom
       constrain={constrain}
-      data={data}
       height={height}
-      invertAxes={invertAxes}
       left={leftPosition}
-      margin={margin}
-      padding={padding}
       panning={panning}
-      parentHeight={parentHeight}
-      parentWidth={parentWidth}
-      tickDirection={tickDirection}
       top={topPosition}
       width={width}
-      zoomingComponent={ScatterPlot}
+      setOnPan={setOnPan}
+      setOnZoom={setOnZoom}
+      zoomingComponent={(zoomProps) => (
+        <ScatterPlot {...zoomProps} {...scatterPlotProps} />
+      )}
       zoomConfiguration={zoomConfiguration}
       zooming={zooming}
-      {...props}
     />
   )
 }
 
 ZoomingScatterPlot.propTypes = {
-  invertAxes: PropTypes.shape({
-    x: PropTypes.bool,
-    y: PropTypes.bool
-  }),
-  margin: PropTypes.shape({
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number
-  }),
-  padding: PropTypes.shape({
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number
-  }),
   panning: PropTypes.bool,
-  parentHeight: PropTypes.number.isRequired,
-  parentWidth: PropTypes.number.isRequired,
-  tickDirection: PropTypes.oneOf(['inner', 'outer']),
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   zoomConfiguration: PropTypes.shape({
     direction: PropTypes.oneOf(['both', 'x', 'y']),
     minZoom: PropTypes.number,
@@ -253,7 +237,8 @@ ZoomingScatterPlot.propTypes = {
     zoomInValue: PropTypes.number,
     zoomOutValue: PropTypes.number
   }),
-  zooming: PropTypes.bool
+  zooming: PropTypes.bool,
+  ...ScatterPlot.propTypes
 }
 
 export default ZoomingScatterPlot
