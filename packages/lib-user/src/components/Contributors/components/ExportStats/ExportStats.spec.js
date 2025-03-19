@@ -1,0 +1,83 @@
+import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
+
+import Meta, { ConfirmLargeExport, ConfirmSmallExport, Loading, Error, Success } from './ExportStats.stories.js'
+
+describe('components > Contributors > ExportStats', function () {
+  describe('ConfirmLargeExport', function () {
+    const ConfirmLargeExportStory = composeStory(ConfirmLargeExport, Meta)
+    let memberCount, fileSize
+
+    before(function () {
+      render(<ConfirmLargeExportStory />)
+      memberCount = screen.getByText('Generate CSV of group stats for 5,000 members?')
+      fileSize = screen.getByText('Approximately 3.5 MB.')
+    })
+
+    it('should show the correct member count', function () {
+      expect(memberCount).to.be.ok()
+    })
+
+    it('should show the correct file size estimate', function () {
+      expect(fileSize).to.be.ok()
+    })
+  })
+
+  describe('ConfirmSmallExport', function () {
+    const ConfirmSmallExportStory = composeStory(ConfirmSmallExport, Meta)
+    let memberCount, fileSize
+
+    before(function () {
+      render(<ConfirmSmallExportStory />)
+      memberCount = screen.getByText('Generate CSV of group stats for 400 members?')
+      fileSize = screen.getByText('Approximately 750 KB.')
+    })
+
+    it('should show the correct member count', function () {
+      expect(memberCount).to.be.ok()
+    })
+
+    it('should show the correct file size estimate', function () {
+      expect(fileSize).to.be.ok()
+    })
+  })
+
+  describe('Loading', function () {
+    const LoadingStory = composeStory(Loading, Meta)
+    let loadingMessage, progress
+
+    before(function () {
+      render(<LoadingStory />)
+      loadingMessage = screen.getByText('Generating stats export...')
+      progress = screen.getByText('Progress: 65%')
+    })
+
+    it('should show the loading message', function () {
+      expect(loadingMessage).to.be.ok()
+    })
+
+    it('should show the progress', function () {
+      expect(progress).to.be.ok()
+    })
+  })
+
+  describe('Error', function () {
+    const ErrorStory = composeStory(Error, Meta)
+
+    it('should show the error message', function () {
+      render(<ErrorStory />)
+      const errorMessage = screen.getByText('Network error: Failed to fetch user data')
+      expect(errorMessage).to.be.ok()
+    })
+  })
+
+  describe('Success', function () {
+    const SuccessStory = composeStory(Success, Meta)
+
+    it('should show the download link', function () {
+      render(<SuccessStory />)
+      const downloadLink = screen.getByText('TestGroup1234_data_export_2025-01-01T101010.csv')
+      expect(downloadLink).to.be.ok()
+    })
+  })
+})

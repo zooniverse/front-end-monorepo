@@ -25,9 +25,22 @@
     "ProjectStats": {
       "a11y": "{{project}} member stats"
     },
+    "ExportStats": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "complete": "Export Complete",
+      "confirm": "Confirm",
+      "confirmMessage": "Generate CSV of group stats for {{memberCount}} members?",
+      "download": "Click link to download CSV:",
+      "error": "Export Error",
+      "errorMessage": "Failed to generate export.",
+      "fileSize": "Approximately {{fileSize}}.",
+      "generating": "Generating stats export...",
+      "progress": "Progress: {{progress}}%",
+      "retry": "Retry"
+    },
     "error": "There was an error",
     "exportLink": "Export all stats",
-    "generating": "Generating stats export...",
     "noPermission": "You do not have permission to view this group's contributors.",
     "none": "There are no contributors to this group.",
     "title": "Full Group Stats"
