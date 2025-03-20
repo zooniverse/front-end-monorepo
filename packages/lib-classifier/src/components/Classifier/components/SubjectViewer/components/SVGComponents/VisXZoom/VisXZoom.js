@@ -44,9 +44,8 @@ const DEFAULT_HANDLER = () => true
  *     }}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
- *     zoomingComponent={(zoomProps) => (
- *       <SVGComponent {...zoomProps} {...SVGComponentProps} />
- *     )}
+ *     zoomingComponent={SVGComponent}
+ *     ...props
  *   />
  * ```
  */
@@ -64,6 +63,7 @@ function VisXZoom({
   zoomConfiguration = defaultZoomConfig,
   zoomingComponent,
   zooming = false,
+  ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
@@ -233,6 +233,8 @@ function VisXZoom({
               initialTransformMatrix={_zoom.initialTransformMatrix}
               transformMatrix={_zoom.transformMatrix}
               transform={_zoom.toString()}
+              move={move}
+              {...props}
             >
               <ZoomEventLayer
                 focusable
