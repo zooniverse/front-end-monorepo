@@ -5,6 +5,8 @@ import {
   useTranslation as useBaseTranslation
 } from 'react-i18next'
 
+import en from './en.json' with { type: "json" }
+
 const libUserI18n = i18n.createInstance()
 libUserI18n.use(initReactI18next).init({
   fallbackLng: 'en',
@@ -16,7 +18,7 @@ libUserI18n.use(initReactI18next).init({
   }
 })
 
-libUserI18n.addResourceBundle('en', 'translation', require('./en.json'))
+libUserI18n.addResourceBundle('en', 'translation', en)
 
 /* In FEM there's an i18n instance for each library, and each instance has its own functions.*/
 export function useTranslation(ns) {
