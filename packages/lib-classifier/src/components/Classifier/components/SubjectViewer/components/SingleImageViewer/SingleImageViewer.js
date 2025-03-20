@@ -56,7 +56,6 @@ function SingleImageViewer({
     frame,
     imgRef,
     invert,
-    move,
     naturalHeight,
     naturalWidth,
     onKeyDown,

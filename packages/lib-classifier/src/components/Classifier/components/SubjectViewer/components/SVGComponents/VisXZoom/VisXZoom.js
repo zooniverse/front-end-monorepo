@@ -233,6 +233,7 @@ function VisXZoom({
               initialTransformMatrix={_zoom.initialTransformMatrix}
               transformMatrix={_zoom.transformMatrix}
               transform={_zoom.toString()}
+              move={move}
               {...props}
             >
               <ZoomEventLayer
