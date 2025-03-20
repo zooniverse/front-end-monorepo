@@ -3,6 +3,9 @@
   "extension": [
     "js"
   ],
+  "node-option": [
+    "loader=@node-loader/babel"
+  ],
   "require": [
     "@babel/register",
     "chai/register-expect.js",
