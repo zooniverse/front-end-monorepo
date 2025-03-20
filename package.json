@@ -29,7 +29,7 @@
     "test:ci": "nyc --silent lerna run --parallel test:ci"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   },
   "nyc": {
     "exclude": [

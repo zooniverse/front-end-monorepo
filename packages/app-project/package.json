@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@babel/register": "~7.25.9",
+    "@node-loader/babel": "~2.1.0",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/nextjs": "~7.6.11",
@@ -81,7 +82,7 @@
     "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   },
   "msw": {
     "workerDirectory": [

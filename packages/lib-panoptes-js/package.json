@@ -4,6 +4,7 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.5.2",
+  "type": "commonjs",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -33,7 +34,7 @@
     "snazzy": "~9.0.0"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   },
   "standard": {
     "env": {

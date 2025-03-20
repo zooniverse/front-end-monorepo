@@ -1869,6 +1869,11 @@
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.8.0.tgz#cee43d801fcef9644b11b8194857695acd5f815a"
   integrity sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==
 
+"@node-loader/babel@~2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-2.1.0.tgz#ab2bf4b424f2af38807d27ce55260998b7c08f25"
+  integrity sha512-I+73iuJ/OsXAho2FjrM6mnvs1Pb8NwTtDMXmxXOm8q3l2xi2/C4tTedcKkf2865118YEukrhF385/Fyn+2PZ0Q==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
