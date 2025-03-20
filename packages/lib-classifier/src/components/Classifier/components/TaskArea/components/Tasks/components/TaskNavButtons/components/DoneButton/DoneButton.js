@@ -1,13 +1,15 @@
 import { PrimaryButton } from '@zooniverse/react-components'
-import PropTypes from 'prop-types'
+import { bool, func } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
+import styled from 'styled-components'
 
 const DEFAULT_HANDLER = () => true
-// TODO add back gold standard and demo buttons using grommet Button icon prop
-// {props.demoMode && <i className="fa fa-trash fa-fw" />}
-// {props.goldStandardMode && <i className="fa fa-star fa-fw" />}
-function DoneButton ({
-  completed = false,
+
+const StyledButton = styled(PrimaryButton)`
+  flex: 1 0;
+`
+
+function DoneButton({
   disabled = false,
   hasNextStep = false,
   onClick = DEFAULT_HANDLER,
@@ -22,12 +24,11 @@ function DoneButton ({
 
   if (!hasNextStep) {
     return (
-      <PrimaryButton
+      <StyledButton
         color='green'
         disabled={disabled}
         label={t('TaskArea.Tasks.DoneButton.done')}
         onClick={handleClick}
-        style={{ flex: '1 0', textTransform: 'capitalize' }}
       />
     )
   }
@@ -36,12 +37,10 @@ function DoneButton ({
 }
 
 DoneButton.propTypes = {
-  completed: PropTypes.bool,
-  demoMode: PropTypes.bool,
-  disabled: PropTypes.bool,
-  hasNextStep: PropTypes.bool,
-  onClick: PropTypes.func,
-  setSaving: PropTypes.func
+  disabled: bool,
+  hasNextStep: bool,
+  onClick: func,
+  setSaving: func
 }
 
 export default DoneButton

@@ -1,6 +1,6 @@
 import { Markdownz, Modal, PlainButton } from '@zooniverse/react-components'
 import { Button, Box } from 'grommet'
-import PropTypes from 'prop-types'
+import { arrayOf, object } from 'prop-types'
 import { Fragment, useState } from 'react';
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
@@ -46,7 +46,7 @@ function TaskHelp (props) {
                 </Fragment>
               );
             }
-            
+
             return <Markdownz key={task.taskKey}>{task.help}</Markdownz>
           })}
         </Box>
@@ -63,7 +63,7 @@ function TaskHelp (props) {
 }
 
 TaskHelp.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired
+  tasks: arrayOf(object).isRequired
 }
 
 export default TaskHelp

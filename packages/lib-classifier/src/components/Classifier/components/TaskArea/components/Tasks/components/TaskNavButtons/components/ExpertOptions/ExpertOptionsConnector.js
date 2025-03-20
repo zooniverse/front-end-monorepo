@@ -16,7 +16,7 @@ function useStores() {
   }
 }
 
-function ExpertOptionsConnector(props) {
+function ExpertOptionsConnector() {
   const {
     storeDemoMode,
     setDemoMode
