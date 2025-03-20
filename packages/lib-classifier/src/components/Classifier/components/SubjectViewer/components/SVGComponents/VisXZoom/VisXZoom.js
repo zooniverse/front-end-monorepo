@@ -44,9 +44,8 @@ const DEFAULT_HANDLER = () => true
  *     }}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
- *     zoomingComponent={(zoomProps) => (
- *       <SVGComponent {...zoomProps} {...SVGComponentProps} />
- *     )}
+ *     zoomingComponent={SVGComponent}
+ *     ...props
  *   />
  * ```
  */
