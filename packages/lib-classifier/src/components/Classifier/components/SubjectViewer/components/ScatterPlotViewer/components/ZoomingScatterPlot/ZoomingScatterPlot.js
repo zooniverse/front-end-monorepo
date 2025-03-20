@@ -217,11 +217,10 @@ function ZoomingScatterPlot({
       width={width}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
-      zoomingComponent={(zoomProps) => (
-        <ScatterPlot {...zoomProps} {...scatterPlotProps} />
-      )}
+      zoomingComponent={ScatterPlot}
       zoomConfiguration={zoomConfiguration}
       zooming={zooming}
+      {...scatterPlotProps}
     />
   )
 }

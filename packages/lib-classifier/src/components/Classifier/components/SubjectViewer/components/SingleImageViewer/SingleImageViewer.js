@@ -51,6 +51,19 @@ function SingleImageViewer({
     enableRotation()
   }, [])
 
+  const singleImageCanvasProps = {
+    enableInteractionLayer,
+    frame,
+    imgRef,
+    invert,
+    naturalHeight,
+    naturalWidth,
+    onKeyDown,
+    rotation,
+    src,
+    subject
+  }
+
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
@@ -86,23 +99,9 @@ function SingleImageViewer({
             setOnZoom={setOnZoom}
             width={naturalWidth}
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
-            zoomingComponent={(zoomProps) => (
-              <SingleImageCanvas
-                {...zoomProps}
-                enableInteractionLayer={enableInteractionLayer}
-                frame={frame}
-                imgRef={imgRef}
-                invert={invert}
-                move={move}
-                naturalHeight={naturalHeight}
-                naturalWidth={naturalWidth}
-                onKeyDown={onKeyDown}
-                rotation={rotation}
-                src={src}
-                subject={subject}
-              />
-            )}
+            zoomingComponent={SingleImageCanvas}
             zooming={zooming}
+            {...singleImageCanvasProps}
           />
         </StyledSVG>
       </Box>
