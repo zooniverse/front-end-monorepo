@@ -18,7 +18,6 @@ function SingleImageCanvas({
   move = false,
   naturalHeight,
   naturalWidth,
-  onKeyDown = DEFAULT_HANDLER,
   rotation = 0,
   src,
   subject,
@@ -37,7 +36,6 @@ function SingleImageCanvas({
       >
         <svg
           ref={canvasLayer}
-          onKeyDown={onKeyDown}
         >
           <g
             data-testid='single-image-canvas-visxzoom-transform-group'
@@ -84,7 +82,6 @@ SingleImageCanvas.propTypes = {
   move: bool,
   naturalHeight: number,
   naturalWidth: number,
-  onKeyDown: func,
   rotation: number,
   src: string,
   subject: shape({

@@ -39,6 +39,12 @@ function ZoomEventLayer ({
 }) {
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
+
+  function handlePointerFocus(event) {
+    event.currentTarget?.focus()
+    onPointerDown(event)
+  }
+
   return (
     <StyledGroup
       data-testid='zoom-layer'
@@ -48,7 +54,7 @@ function ZoomEventLayer ({
       onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
       onPointerEnter={onPointerEnter}
-      onPointerDown={onPointerDown}
+      onPointerDown={handlePointerFocus}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}

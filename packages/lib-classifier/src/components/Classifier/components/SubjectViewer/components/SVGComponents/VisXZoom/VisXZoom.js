@@ -42,6 +42,7 @@ const DEFAULT_HANDLER = () => true
  *       zoomInValue: 1.2,
  *       zoomOutValue: 0.8
  *     }}
+ *     onKeyDown={onKeyDown}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
  *   >
@@ -56,6 +57,7 @@ function VisXZoom({
   height,
   left = 0,
   move = false,
+  onKeyDown,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -231,7 +233,7 @@ function VisXZoom({
               focusable
               height={height}
               onDoubleClick={onDoubleClick}
-              onKeyDown={onKeyZoom}
+              onKeyDown={onKeyDown || onKeyZoom}
               onPointerEnter={onPointerEnter}
               onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
@@ -270,6 +272,8 @@ VisXZoom.propTypes = {
   left: PropTypes.number,
   /** True if pan and zoom is enabled in the subject toolbar. */
   move: PropTypes.bool,
+  /** Custom callback for keydown events. */
+  onKeyDown: PropTypes.func,
   /** Enable panning. Ignored if zooming is false. */
   panning: PropTypes.bool,
   /** Set the subject toolbar's onPan callback in the classifier store. */

@@ -82,6 +82,7 @@ function SingleImageViewer({
             allowsScrolling
             height={naturalHeight}
             move={move}
+            onKeyDown={onKeyDown}
             panning={panning}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
@@ -97,7 +98,6 @@ function SingleImageViewer({
               move={move}
               naturalHeight={naturalHeight}
               naturalWidth={naturalWidth}
-              onKeyDown={onKeyDown}
               rotation={rotation}
               src={src}
               subject={subject}
