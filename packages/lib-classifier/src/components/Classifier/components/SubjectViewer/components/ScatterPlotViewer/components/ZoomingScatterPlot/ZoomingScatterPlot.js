@@ -217,11 +217,11 @@ function ZoomingScatterPlot({
       width={width}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
-      zoomingComponent={ScatterPlot}
       zoomConfiguration={zoomConfiguration}
       zooming={zooming}
-      {...scatterPlotProps}
-    />
+    >
+      <ScatterPlot {...scatterPlotProps} />
+    </VisXZoom>
   )
 }
 

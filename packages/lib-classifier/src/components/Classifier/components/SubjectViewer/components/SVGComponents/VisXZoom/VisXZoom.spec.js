@@ -44,8 +44,9 @@ describe('Component > VisXZoom', function () {
             data={mockData}
             height={height}
             width={width}
-            zoomingComponent={StubComponent}
-          />
+          >
+            <StubComponent />
+          </VisXZoom>
         </Provider>
       </Grommet>
     )
@@ -63,8 +64,9 @@ describe('Component > VisXZoom', function () {
               height={height}
               width={width}
               setOnZoom={setOnZoomSpy}
-              zoomingComponent={StubComponent}
-            />
+            >
+              <StubComponent />
+            </VisXZoom>
           </Provider>
         </Grommet>
       )
@@ -89,9 +91,10 @@ describe('Component > VisXZoom', function () {
               data={mockData}
               height={height}
               width={width}
-              zoomingComponent={StubComponent}
               zoomConfiguration={zoomConfiguration}
-            />
+            >
+              <StubComponent />
+            </VisXZoom>
           </Provider>
         </Grommet>
       )
@@ -110,8 +113,9 @@ describe('Component > VisXZoom', function () {
               data={mockData}
               height={height}
               width={width}
-              zoomingComponent={StubComponent}
-            />
+            >
+              <StubComponent />
+            </VisXZoom>
           </Provider>
         </Grommet>
       )
@@ -135,8 +139,9 @@ describe('Component > VisXZoom', function () {
             data={mockData}
             height={height}
             width={width}
-            zoomingComponent={StubComponent}
-          />,
+          >
+            <StubComponent />
+          </VisXZoom>,
           {
             wrappingComponent: StoreAndGrommet
           }
@@ -158,8 +163,9 @@ describe('Component > VisXZoom', function () {
               data={mockData}
               height={height}
               width={width}
-              zoomingComponent={StubComponent}
-            />
+            >
+              <StubComponent />
+            </VisXZoom>
           </Provider>
         </Grommet>
       )
@@ -176,8 +182,9 @@ describe('Component > VisXZoom', function () {
               data={mockData}
               height={height}
               width={width}
-              zoomingComponent={StubComponent}
-            />
+            >
+              <StubComponent />
+            </VisXZoom>
           </Provider>
         </Grommet>
       )
@@ -193,8 +200,9 @@ describe('Component > VisXZoom', function () {
               data={mockData}
               height={height}
               width={width}
-              zoomingComponent={StubComponent}
-            />
+            >
+              <StubComponent />
+            </VisXZoom>
           </Provider>
         </Grommet>
       )
@@ -221,8 +229,9 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -238,8 +247,9 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -274,8 +284,9 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -291,8 +302,9 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -307,8 +319,9 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -360,8 +373,9 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 width={width}
                 setOnZoom={setZoomCallback}
-                zoomingComponent={StubComponent}
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -411,9 +425,10 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -434,9 +449,10 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -464,9 +480,10 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -505,9 +522,10 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -538,9 +556,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -568,9 +587,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -604,9 +624,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -645,9 +666,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -708,9 +730,10 @@ describe('Component > VisXZoom', function () {
                   height={height}
                   width={width}
                   setOnZoom={setZoomCallback}
-                  zoomingComponent={StubComponent}
                   zooming
-                />
+                >
+                  <StubComponent />
+                </VisXZoom>
               </Provider>
             </Grommet>
           )
@@ -727,9 +750,10 @@ describe('Component > VisXZoom', function () {
                   height={height}
                   width={width}
                   setOnZoom={setZoomCallback}
-                  zoomingComponent={StubComponent}
                   zooming
-                />
+                >
+                  <StubComponent />
+                </VisXZoom>
               </Provider>
             </Grommet>
           )
@@ -751,9 +775,10 @@ describe('Component > VisXZoom', function () {
                   height={height}
                   width={width}
                   setOnZoom={setZoomCallback}
-                  zoomingComponent={StubComponent}
                   zooming
-                />
+                >
+                  <StubComponent />
+                </VisXZoom>
               </Provider>
             </Grommet>
           )
@@ -776,9 +801,10 @@ describe('Component > VisXZoom', function () {
                 data={mockData}
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
           </Provider>
           </Grommet>
         )
@@ -806,9 +832,10 @@ describe('Component > VisXZoom', function () {
                 panning
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -861,9 +888,10 @@ describe('Component > VisXZoom', function () {
                   height={height}
                   onKeyDown={sinon.stub()}
                   width={width}
-                  zoomingComponent={StubComponent}
                   zooming
-                />
+                >
+                  <StubComponent />
+                </VisXZoom>
               </Provider>
             </Grommet>
           )
@@ -991,10 +1019,11 @@ describe('Component > VisXZoom', function () {
                 panning
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zoomConfiguration={zoomConfiguration}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -1037,10 +1066,11 @@ describe('Component > VisXZoom', function () {
                 panning
                 height={height}
                 width={width}
-                zoomingComponent={StubComponent}
                 zoomConfiguration={zoomConfiguration}
                 zooming
-              />
+              >
+                <StubComponent />
+              </VisXZoom>
             </Provider>
           </Grommet>
         )

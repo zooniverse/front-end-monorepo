@@ -4,7 +4,7 @@ import { Zoom } from '@visx/zoom'
 import throttle from 'lodash/throttle'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { cloneElement, useEffect, useRef } from 'react'
 
 import { useKeyZoom } from '@hooks'
 import ZoomEventLayer from '../ZoomEventLayer'
@@ -44,13 +44,14 @@ const DEFAULT_HANDLER = () => true
  *     }}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
- *     zoomingComponent={SVGComponent}
- *     ...props
- *   />
+ *   >
+ *    <SVGComponent />
+ *  </VisXZoom>
  * ```
  */
 function VisXZoom({
   allowsScrolling = false,
+  children,
   constrain,
   height,
   left = 0,
@@ -61,9 +62,7 @@ function VisXZoom({
   top = 0,
   width,
   zoomConfiguration = defaultZoomConfig,
-  zoomingComponent,
   zooming = false,
-  ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
@@ -211,7 +210,6 @@ function VisXZoom({
     zoomRef.current.dragEnd()
   }
 
-  const ZoomingComponent = zoomingComponent
   return (
     <Zoom
       constrain={constrain}
@@ -244,13 +242,12 @@ function VisXZoom({
               tabIndex={0}
               width={width}
             >
-              <ZoomingComponent
-                initialTransformMatrix={_zoom.initialTransformMatrix}
-                transformMatrix={_zoom.transformMatrix}
-                transform={_zoom.toString()}
-                move={move}
-                {...props}
-              />
+              {cloneElement(children, {
+                initialTransformMatrix: _zoom.initialTransformMatrix,
+                transformMatrix: _zoom.transformMatrix,
+                transform: _zoom.toString(),
+                move
+               })}
             </ZoomEventLayer>
           </g>
         )
@@ -299,20 +296,12 @@ VisXZoom.propTypes = {
   /** Enable zooming. true by default. */
   zooming: PropTypes.bool,
   /** A React component to zoom. It must render SVG, **not** HTML.
-   * `VisXZoom` will inject the following props into this component:
+   * `VisXZoom` will inject the following props into its children:
    * - `initialTransformMatrix`: the initial transformation matrix.
    * - `transformMatrix`: the current transformation matrix.
    * - `transform`: a string representation of the matrix transform.
-   * - `children`: `ZoomEventLayer`, an SVG `<rect>` which handles zoom pointer and wheel events.
-   * ```jsx
-   * ({ children, ...zoomProps }) => (
-   *   <SVGComponent {...zoomProps} {...SVGComponentProps} >
-   *     {children}
-   *   </SVGComponent>
-   * )
-   * ```
   */
-  zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+  children: PropTypes.element.isRequired
 }
 
 export default observer(VisXZoom)
