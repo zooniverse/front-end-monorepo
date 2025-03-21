@@ -227,7 +227,7 @@ describe('Component > VisXZoom', function () {
           </Grommet>
         )
 
-        expect(wrapper.find(StubComponent).find(ZoomEventLayer)).to.have.lengthOf(1)
+        expect(wrapper.find(ZoomEventLayer)).to.have.lengthOf(1)
       })
 
       it('should set the height and width by props', function () {
@@ -244,7 +244,7 @@ describe('Component > VisXZoom', function () {
           </Grommet>
         )
 
-        const zoomEventLayer = wrapper.find(StubComponent).find(ZoomEventLayer)
+        const zoomEventLayer = wrapper.find(ZoomEventLayer)
         expect(zoomEventLayer.props().height).to.equal(height)
         expect(zoomEventLayer.props().width).to.equal(width)
       })

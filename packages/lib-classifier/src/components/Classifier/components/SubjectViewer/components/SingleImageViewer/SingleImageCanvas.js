@@ -50,13 +50,11 @@ function SingleImageCanvas({
               <SVGImage
                 ref={imgRef}
                 invert={invert}
-                move={false} // dragging is handled by VisXZoom in SingleImageViewer
                 naturalHeight={naturalHeight}
                 naturalWidth={naturalWidth}
                 src={src}
                 subjectID={subject?.id}
               />
-              {children}
               {enableInteractionLayer && (
                 <InteractionLayer
                   frame={frame}

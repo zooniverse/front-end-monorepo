@@ -229,29 +229,29 @@ function VisXZoom({
         zoomRef.current = _zoom
         return (
           <g ref={wheelEventLayer}>
-            <ZoomingComponent
-              initialTransformMatrix={_zoom.initialTransformMatrix}
-              transformMatrix={_zoom.transformMatrix}
-              transform={_zoom.toString()}
-              move={move}
-              {...props}
+            <ZoomEventLayer
+              focusable
+              height={height}
+              onDoubleClick={onDoubleClick}
+              onKeyDown={onKeyZoom}
+              onPointerEnter={onPointerEnter}
+              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
+              onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
+              onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
+              onPointerLeave={onPointerLeave}
+              onWheel={onWheel}
+              panning={panning}
+              tabIndex={0}
+              width={width}
             >
-              <ZoomEventLayer
-                focusable
-                height={height}
-                onDoubleClick={onDoubleClick}
-                onKeyDown={onKeyZoom}
-                onPointerEnter={onPointerEnter}
-                onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
-                onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
-                onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
-                onPointerLeave={onPointerLeave}
-                onWheel={onWheel}
-                panning={panning}
-                tabIndex={0}
-                width={width}
+              <ZoomingComponent
+                initialTransformMatrix={_zoom.initialTransformMatrix}
+                transformMatrix={_zoom.transformMatrix}
+                transform={_zoom.toString()}
+                move={move}
+                {...props}
               />
-            </ZoomingComponent>
+            </ZoomEventLayer>
           </g>
         )
       }}

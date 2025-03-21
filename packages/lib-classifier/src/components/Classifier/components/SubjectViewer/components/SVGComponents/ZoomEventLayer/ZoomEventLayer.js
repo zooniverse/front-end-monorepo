@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled, { css, useTheme } from 'styled-components'
 
-const StyledRect = styled.rect`
+const StyledGroup = styled.g`
   ${props => props.$panning ?
    css`cursor: move;` :
    css`cursor: inherit;`}
@@ -34,12 +34,13 @@ function ZoomEventLayer ({
   panning = false,
   top = 0,
   width,
+  children,
   ...rest
 }) {
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
   return (
-    <StyledRect
+    <StyledGroup
       data-testid='zoom-layer'
       fill='transparent'
       $focusColor={focusColor}
@@ -56,7 +57,9 @@ function ZoomEventLayer ({
       transform={`translate(${left}, ${top})`}
       width={width}
       {...rest}
-    />
+    >
+      {children}
+    </StyledGroup>
   )
 }
 
