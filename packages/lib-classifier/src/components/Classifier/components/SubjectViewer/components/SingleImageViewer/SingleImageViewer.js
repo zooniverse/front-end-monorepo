@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useEffect } from 'react'
+import { bool, func, shape, string } from 'prop-types'
+import { useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 
 import ZoomControlButton from '../ZoomControlButton'
@@ -51,19 +51,32 @@ function SingleImageViewer({
     enableRotation()
   }, [])
 
-  const singleImageCanvasProps = {
+  const singleImageCanvasProps = useMemo(() => ({
     enableInteractionLayer,
     frame,
     imgRef,
     invert,
+    move,
     naturalHeight,
     naturalWidth,
     onKeyDown,
     rotation,
     src,
     subject
-  }
-
+  }), [
+    enableInteractionLayer,
+    frame,
+    imgRef,
+    invert,
+    move,
+    naturalHeight,
+    naturalWidth,
+    onKeyDown,
+    rotation,
+    src,
+    subject
+  ])
+  
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
@@ -100,8 +113,8 @@ function SingleImageViewer({
             width={naturalWidth}
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
             zoomingComponent={SingleImageCanvas}
+            zoomingComponentProps={singleImageCanvasProps}
             zooming={zooming}
-            {...singleImageCanvasProps}
           />
         </StyledSVG>
       </Box>

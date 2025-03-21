@@ -45,7 +45,7 @@ const DEFAULT_HANDLER = () => true
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
  *     zoomingComponent={SVGComponent}
- *     ...props
+ *     zoomingComponentProps={SVGComponentProps}
  *   />
  * ```
  */
@@ -62,8 +62,8 @@ function VisXZoom({
   width,
   zoomConfiguration = defaultZoomConfig,
   zoomingComponent,
+  zoomingComponentProps,
   zooming = false,
-  ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
@@ -233,8 +233,7 @@ function VisXZoom({
               initialTransformMatrix={_zoom.initialTransformMatrix}
               transformMatrix={_zoom.transformMatrix}
               transform={_zoom.toString()}
-              move={move}
-              {...props}
+              {...zoomingComponentProps}
             >
               <ZoomEventLayer
                 focusable
@@ -304,15 +303,10 @@ VisXZoom.propTypes = {
    * - `transformMatrix`: the current transformation matrix.
    * - `transform`: a string representation of the matrix transform.
    * - `children`: `ZoomEventLayer`, an SVG `<rect>` which handles zoom pointer and wheel events.
-   * ```jsx
-   * ({ children, ...zoomProps }) => (
-   *   <SVGComponent {...zoomProps} {...SVGComponentProps} >
-   *     {children}
-   *   </SVGComponent>
-   * )
-   * ```
   */
-  zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+  zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  /** Props to pass directly to the `zoomingComponent`. */
+  zoomingComponentProps: PropTypes.object
 }
 
 export default observer(VisXZoom)
