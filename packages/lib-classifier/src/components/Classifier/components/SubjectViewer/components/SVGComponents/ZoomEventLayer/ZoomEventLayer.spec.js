@@ -1,16 +1,27 @@
-import { mount } from 'enzyme'
+import { fireEvent, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import sinon from 'sinon'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import ZoomEventLayer from '.'
+import SVGImage from '../SVGImage'
 
 const width = 768
 const height = 384
 
 describe('Component > ZoomEventLayer', function () {
-  let onKeyDownSpy, onPointerDownSpy, onPointerMoveSpy, onPointerUpSpy, onPointerLeaveSpy, onDoubleClickSpy, onWheelSpy, wrapper
-  before(function () {
+  let onKeyDownSpy,
+    onPointerDownSpy,
+    onPointerMoveSpy,
+    onPointerUpSpy,
+    onPointerLeaveSpy,
+    onDoubleClickSpy,
+    onWheelSpy,
+    wrapper,
+    user,
+    image
+  beforeEach(function () {
     onKeyDownSpy = sinon.spy()
     onPointerDownSpy = sinon.spy()
     onPointerUpSpy = sinon.spy()
@@ -19,22 +30,33 @@ describe('Component > ZoomEventLayer', function () {
     onDoubleClickSpy = sinon.spy()
     onWheelSpy = sinon.spy()
 
-    wrapper = mount(
-      <ZoomEventLayer
-        onDoubleClick={onDoubleClickSpy}
-        onKeyDown={onKeyDownSpy}
-        onPointerDown={onPointerDownSpy}
-        onPointerMove={onPointerMoveSpy}
-        onPointerUp={onPointerUpSpy}
-        onPointerLeave={onPointerLeaveSpy}
-        onWheel={onWheelSpy}
-        height={height}
-        width={width}
-      />,
-      { wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
+    render(
+      <Grommet theme={zooTheme}>
+        <svg>
+          <ZoomEventLayer
+            onDoubleClick={onDoubleClickSpy}
+            onKeyDown={onKeyDownSpy}
+            onPointerDown={onPointerDownSpy}
+            onPointerMove={onPointerMoveSpy}
+            onPointerUp={onPointerUpSpy}
+            onPointerLeave={onPointerLeaveSpy}
+            onWheel={onWheelSpy}
+            height={height}
+            width={width}
+          >
+            <SVGImage
+              naturalWidth={width}
+              naturalHeight={height}
+              src="https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg"
+              subjectID={'12345'}
+            />
+          </ZoomEventLayer>
+        </svg>
+      </Grommet>
     )
+    wrapper = screen.getByTestId('zoom-layer')
+    user = userEvent.setup({ delay: null })
+    image = document.querySelector('image')
   })
 
   afterEach(function () {
@@ -52,42 +74,59 @@ describe('Component > ZoomEventLayer', function () {
   })
 
   it('should be the size of the parent', function () {
-    expect(wrapper.props().height).to.equal(height)
-    expect(wrapper.props().width).to.equal(width)
+    expect(wrapper.getAttribute('height')).to.equal(height.toString())
+    expect(wrapper.getAttribute('width')).to.equal(width.toString())
   })
 
-  it('should call the onKeyDown prop callbak when onKeyDown event fires', function () {
-    wrapper.simulate('keydown')
+  it('should call the onKeyDown prop callback when onKeyDown event fires', async function () {
+    image.focus()
+    await user.keyboard(' ')
     expect(onKeyDownSpy).to.have.been.calledOnce()
   })
 
-  it('should call the onPointerDown prop callback when onPointerDown event fires', function () {
-    wrapper.simulate('pointerdown')
+  it('should call the onPointerDown prop callback when onPointerDown event fires', async function () {
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: image },
+      { coords: { x: 10, y: 10 }, target: image },
+      { keys: '[/MouseLeft]', target: image }
+    ])
     expect(onPointerDownSpy).to.have.been.calledOnce()
   })
 
-  it('should call the onPointerUp prop callback when onPointerUp event fires', function () {
-    wrapper.simulate('pointerup')
+  it('should call the onPointerUp prop callback when onPointerUp event fires', async function () {
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: image },
+      { coords: { x: 10, y: 10 }, target: image },
+      { keys: '[/MouseLeft]', target: image }
+    ])
     expect(onPointerUpSpy).to.have.been.calledOnce()
   })
 
-  it('should call the onPointerMove prop callback when onPointerMove event fires', function () {
-    wrapper.simulate('pointermove')
+  it('should call the onPointerMove prop callback when onPointerMove event fires', async function () {
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: image },
+      { coords: { x: 10, y: 10 }, target: image },
+      { keys: '[/MouseLeft]', target: image }
+    ])
     expect(onPointerMoveSpy).to.have.been.calledOnce()
   })
 
-  it('should call the onPointerLeave prop callback when onPointerLeave event fires', function () {
-    wrapper.simulate('pointerleave')
+  it('should call the onPointerLeave prop callback when onPointerLeave event fires', async function () {
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: image },
+      { pointerName: 'mouse', target: document.body },
+      { keys: '[/MouseLeft]', target: document.body }
+    ])
     expect(onPointerLeaveSpy).to.have.been.calledOnce()
   })
 
-  it('should call the onDoubleClick prop callback when onDoubleClick event fires', function () {
-    wrapper.simulate('dblclick')
+  it('should call the onDoubleClick prop callback when onDoubleClick event fires', async function () {
+    await user.dblClick(wrapper)
     expect(onDoubleClickSpy).to.have.been.calledOnce()
   })
 
   it('should call the onWheel prop callback when onWheel event fires', function () {
-    wrapper.simulate('wheel')
+    fireEvent.wheel(image)
     expect(onWheelSpy).to.have.been.calledOnce()
   })
 })

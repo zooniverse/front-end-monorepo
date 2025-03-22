@@ -51,18 +51,6 @@ function SingleImageViewer({
     enableRotation()
   }, [])
 
-  const singleImageCanvasProps = {
-    enableInteractionLayer,
-    frame,
-    imgRef,
-    invert,
-    naturalHeight,
-    naturalWidth,
-    onKeyDown,
-    rotation,
-    src,
-    subject
-  }
 
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
@@ -70,17 +58,9 @@ function SingleImageViewer({
   return (
     <>
       {zoomControlFn && (
-        <ZoomControlButton
-          onClick={zoomControlFn}
-          zooming={zooming}
-        />
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
-      <Box
-        align='flex-end'
-        animation='fadeIn'
-        overflow='hidden'
-        width='100%'
-      >
+      <Box align="flex-end" animation="fadeIn" overflow="hidden" width="100%">
         <StyledSVG
           aria-labelledby={title?.id}
           $maxHeight={maxHeight}
@@ -94,19 +74,34 @@ function SingleImageViewer({
             allowsScrolling
             height={naturalHeight}
             move={move}
+            onKeyDown={onKeyDown}
             panning={panning}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
             width={naturalWidth}
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
-            zoomingComponent={SingleImageCanvas}
             zooming={zooming}
-            {...singleImageCanvasProps}
-          />
+          >
+            {(zoomProps) => (
+              <SingleImageCanvas
+                {...zoomProps}
+                enableInteractionLayer={enableInteractionLayer}
+                frame={frame}
+                imgRef={imgRef}
+                invert={invert}
+                move={move}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                rotation={rotation}
+                src={src}
+                subject={subject}
+              />
+            )}
+          </VisXZoom>
         </StyledSVG>
       </Box>
     </>
-  )
+  );
 }
 
 SingleImageViewer.propTypes = {

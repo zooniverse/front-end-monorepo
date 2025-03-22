@@ -35,10 +35,14 @@ function SVGImageWithRef({
 
   const props = {
     'aria-label': `Subject ${subjectID}`,
+    draggable: false,
     filter: invert ? 'url("#svg-invert-filter")' : undefined,
+    focusable: true,
     height: naturalHeight,
     href: src,
+    onPointerDown: e => e.preventDefault(),
     role: 'img',
+    tabIndex: 0,
     width: naturalWidth,
   }
 

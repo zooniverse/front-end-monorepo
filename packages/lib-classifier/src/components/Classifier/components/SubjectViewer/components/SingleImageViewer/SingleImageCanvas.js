@@ -18,7 +18,6 @@ function SingleImageCanvas({
   move = false,
   naturalHeight,
   naturalWidth,
-  onKeyDown = DEFAULT_HANDLER,
   rotation = 0,
   src,
   subject,
@@ -37,7 +36,6 @@ function SingleImageCanvas({
       >
         <svg
           ref={canvasLayer}
-          onKeyDown={onKeyDown}
         >
           <g
             data-testid='single-image-canvas-visxzoom-transform-group'
@@ -50,13 +48,11 @@ function SingleImageCanvas({
               <SVGImage
                 ref={imgRef}
                 invert={invert}
-                move={false} // dragging is handled by VisXZoom in SingleImageViewer
                 naturalHeight={naturalHeight}
                 naturalWidth={naturalWidth}
                 src={src}
                 subjectID={subject?.id}
               />
-              {children}
               {enableInteractionLayer && (
                 <InteractionLayer
                   frame={frame}
@@ -86,7 +82,6 @@ SingleImageCanvas.propTypes = {
   move: bool,
   naturalHeight: number,
   naturalWidth: number,
-  onKeyDown: func,
   rotation: number,
   src: string,
   subject: shape({
