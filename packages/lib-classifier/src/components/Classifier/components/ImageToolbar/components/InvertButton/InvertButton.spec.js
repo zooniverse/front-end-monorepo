@@ -63,7 +63,7 @@ describe('Component > InvertButton', function () {
     expect(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })).to.be.ok()
   })
 
-  it('should change the subject viewer invert property on click', async function () {
+  it('should have a pressed state', async function () {
     const user = userEvent.setup({ delay: null })
 
     const workflowSnapshot = WorkflowFactory.build({
@@ -76,16 +76,17 @@ describe('Component > InvertButton', function () {
       workflow: workflowSnapshot
     })
 
-    expect(store.subjectViewer.invert).to.be.false()
-
     render(
       <InvertButtonContainer />, {
         wrapper: withStore(store)
       }
     )
 
-    await user.click(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' }))
-
+    const button = screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })
+    expect(button).to.have.attribute('aria-pressed', 'false')
+    expect(store.subjectViewer.invert).to.be.false()
+    await user.click(button)
+    expect(button).to.have.attribute('aria-pressed', 'true')
     expect(store.subjectViewer.invert).to.be.true()
   })
 })
