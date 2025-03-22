@@ -220,7 +220,12 @@ function ZoomingScatterPlot({
       zoomConfiguration={zoomConfiguration}
       zooming={zooming}
     >
-      <ScatterPlot {...scatterPlotProps} />
+      {(zoomProps) =>(
+        <ScatterPlot
+          {...scatterPlotProps}
+          {...zoomProps}
+        />
+      )}
     </VisXZoom>
   )
 }

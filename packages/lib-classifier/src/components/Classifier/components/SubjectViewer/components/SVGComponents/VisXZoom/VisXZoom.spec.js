@@ -45,7 +45,7 @@ describe('Component > VisXZoom', function () {
             height={height}
             width={width}
           >
-            <StubComponent />
+            {(zoomProps) => <StubComponent {...zoomProps} />}
           </VisXZoom>
         </Provider>
       </Grommet>
@@ -65,7 +65,7 @@ describe('Component > VisXZoom', function () {
               width={width}
               setOnZoom={setOnZoomSpy}
             >
-              <StubComponent />
+              {(zoomProps) => <StubComponent {...zoomProps} />}
             </VisXZoom>
           </Provider>
         </Grommet>
@@ -93,7 +93,7 @@ describe('Component > VisXZoom', function () {
               width={width}
               zoomConfiguration={zoomConfiguration}
             >
-              <StubComponent />
+              {(zoomProps) => <StubComponent {...zoomProps} />}
             </VisXZoom>
           </Provider>
         </Grommet>
@@ -114,7 +114,7 @@ describe('Component > VisXZoom', function () {
               height={height}
               width={width}
             >
-              <StubComponent />
+              {(zoomProps) => <StubComponent {...zoomProps} />}
             </VisXZoom>
           </Provider>
         </Grommet>
@@ -140,7 +140,7 @@ describe('Component > VisXZoom', function () {
             height={height}
             width={width}
           >
-            <StubComponent />
+            {(zoomProps) => <StubComponent {...zoomProps} />}
           </VisXZoom>,
           {
             wrappingComponent: StoreAndGrommet
@@ -164,7 +164,7 @@ describe('Component > VisXZoom', function () {
               height={height}
               width={width}
             >
-              <StubComponent />
+              {(zoomProps) => <StubComponent {...zoomProps} />}
             </VisXZoom>
           </Provider>
         </Grommet>
@@ -183,7 +183,7 @@ describe('Component > VisXZoom', function () {
               height={height}
               width={width}
             >
-              <StubComponent />
+              {(zoomProps) => <StubComponent {...zoomProps} />}
             </VisXZoom>
           </Provider>
         </Grommet>
@@ -201,7 +201,7 @@ describe('Component > VisXZoom', function () {
               height={height}
               width={width}
             >
-              <StubComponent />
+              {(zoomProps) => <StubComponent {...zoomProps} />}
             </VisXZoom>
           </Provider>
         </Grommet>
@@ -230,7 +230,7 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 width={width}
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -248,7 +248,7 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 width={width}
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -285,7 +285,7 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 width={width}
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -303,7 +303,7 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 width={width}
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -320,7 +320,7 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 width={width}
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -374,7 +374,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 setOnZoom={setZoomCallback}
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -427,7 +427,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -451,7 +451,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -482,7 +482,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -524,7 +524,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -558,7 +558,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -589,7 +589,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -626,7 +626,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -668,7 +668,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -732,7 +732,7 @@ describe('Component > VisXZoom', function () {
                   setOnZoom={setZoomCallback}
                   zooming
                 >
-                  <StubComponent />
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
                 </VisXZoom>
               </Provider>
             </Grommet>
@@ -752,7 +752,7 @@ describe('Component > VisXZoom', function () {
                   setOnZoom={setZoomCallback}
                   zooming
                 >
-                  <StubComponent />
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
                 </VisXZoom>
               </Provider>
             </Grommet>
@@ -777,7 +777,7 @@ describe('Component > VisXZoom', function () {
                   setOnZoom={setZoomCallback}
                   zooming
                 >
-                  <StubComponent />
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
                 </VisXZoom>
               </Provider>
             </Grommet>
@@ -803,7 +803,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
           </Provider>
           </Grommet>
@@ -834,7 +834,7 @@ describe('Component > VisXZoom', function () {
                 width={width}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -890,7 +890,7 @@ describe('Component > VisXZoom', function () {
                   width={width}
                   zooming
                 >
-                  <StubComponent />
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
                 </VisXZoom>
               </Provider>
             </Grommet>
@@ -1022,7 +1022,7 @@ describe('Component > VisXZoom', function () {
                 zoomConfiguration={zoomConfiguration}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>
@@ -1069,7 +1069,7 @@ describe('Component > VisXZoom', function () {
                 zoomConfiguration={zoomConfiguration}
                 zooming
               >
-                <StubComponent />
+                {(zoomProps) => <StubComponent {...zoomProps} />}
               </VisXZoom>
             </Provider>
           </Grommet>

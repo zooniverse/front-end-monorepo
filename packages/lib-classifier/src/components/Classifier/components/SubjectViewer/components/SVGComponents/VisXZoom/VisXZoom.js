@@ -4,7 +4,7 @@ import { Zoom } from '@visx/zoom'
 import throttle from 'lodash/throttle'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { cloneElement, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useKeyZoom } from '@hooks'
 import ZoomEventLayer from '../ZoomEventLayer'
@@ -46,7 +46,7 @@ const DEFAULT_HANDLER = () => true
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
  *   >
- *    <SVGComponent />
+ *    {(zoomProps) => <SVGComponent {...zoomProps} />}
  *  </VisXZoom>
  * ```
  */
@@ -244,7 +244,7 @@ function VisXZoom({
               tabIndex={0}
               width={width}
             >
-              {cloneElement(children, {
+              {children({
                 initialTransformMatrix: _zoom.initialTransformMatrix,
                 transformMatrix: _zoom.transformMatrix,
                 transform: _zoom.toString(),
@@ -299,13 +299,18 @@ VisXZoom.propTypes = {
   }),
   /** Enable zooming. true by default. */
   zooming: PropTypes.bool,
-  /** A React component to zoom. It must render SVG, **not** HTML.
-   * `VisXZoom` will inject the following props into its children:
+  /** A child render function that injects the following props into the zoomed component.
+   * 
    * - `initialTransformMatrix`: the initial transformation matrix.
    * - `transformMatrix`: the current transformation matrix.
    * - `transform`: a string representation of the matrix transform.
+   * 
+   * It must render SVG, **not** HTML.
+   * ```jsx
+   * {(zoomProps) => <SVGComponent {...zoomProps} />}
+   * ```
   */
-  children: PropTypes.element.isRequired
+  children: PropTypes.func.isRequired
 }
 
 export default observer(VisXZoom)
