@@ -13,6 +13,7 @@ function InvertButton ({
   return (
     <Button
       active={active}
+      aria-pressed={active.toString()}
       a11yTitle={t('ImageToolbar.InvertButton.ariaLabel')}
       disabled={disabled}
       icon={<InvertIcon />}
