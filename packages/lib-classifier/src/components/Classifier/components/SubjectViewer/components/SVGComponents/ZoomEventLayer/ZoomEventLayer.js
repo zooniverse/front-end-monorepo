@@ -1,3 +1,4 @@
+import { useWheel } from '@use-gesture/react'
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
 import styled, { css, useTheme } from 'styled-components'
@@ -42,6 +43,11 @@ function ZoomEventLayer ({
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
 
+  useWheel(({ event }) => onWheel(event), {
+    eventOptions: { passive: false },
+    target: root
+  })
+
   function handlePointerFocus(event) {
     root.current?.focus()
     onPointerDown(event)
@@ -61,7 +67,6 @@ function ZoomEventLayer ({
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}
-      onWheel={onWheel}
       $panning={(panning) ? 'true' : undefined}
       transform={`translate(${left}, ${top})`}
       width={width}

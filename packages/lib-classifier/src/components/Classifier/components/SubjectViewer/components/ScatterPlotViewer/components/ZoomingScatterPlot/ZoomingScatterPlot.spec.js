@@ -206,9 +206,9 @@ describe('Component > ZoomingScatterPlot', function() {
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
         // The the scales and transform are reset
-        //expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
-        //expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
-        //expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
+        expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
+        expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
+        expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
       })
     })
 
@@ -343,9 +343,9 @@ describe('Component > ZoomingScatterPlot', function() {
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
         // The the scales and transform are reset
-        //expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
-        //expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
-        //expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
+        expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
+        expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
+        expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
       })
     })
 
@@ -480,9 +480,9 @@ describe('Component > ZoomingScatterPlot', function() {
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
         // The the scales and transform are reset
-        //expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
-        //expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
-        //expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
+        expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
+        expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
+        expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
       })
     })
   })
@@ -815,11 +815,11 @@ describe('Component > ZoomingScatterPlot', function() {
 
         // When the constraint is hit, we should reset
         expect(pointTransformZoomedOut).to.not.equal(pointTransformPostZooming)
-        //expect(pointTransformZoomedOut).to.equal(pointTransformPreZooming)
-        //expect(xAxisLabelZoomedOut).to.not.equal(xAxisLabelPostZooming)
-        //expect(xAxisLabelZoomedOut).to.equal(xAxisLabelPreZooming)
-        //expect(yAxisLabelZoomedOut).to.not.equal(yAxisLabelPostZooming)
-        //expect(yAxisLabelZoomedOut).to.equal(yAxisLabelPreZooming)
+        expect(pointTransformZoomedOut).to.equal(pointTransformPreZooming)
+        expect(xAxisLabelZoomedOut).to.not.equal(xAxisLabelPostZooming)
+        expect(xAxisLabelZoomedOut).to.equal(xAxisLabelPreZooming)
+        expect(yAxisLabelZoomedOut).to.not.equal(yAxisLabelPostZooming)
+        expect(yAxisLabelZoomedOut).to.equal(yAxisLabelPreZooming)
       })
     })
 

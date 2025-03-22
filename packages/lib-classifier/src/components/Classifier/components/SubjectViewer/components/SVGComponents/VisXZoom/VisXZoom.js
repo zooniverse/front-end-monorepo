@@ -1,4 +1,3 @@
-import { useWheel } from '@use-gesture/react'
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
 import throttle from 'lodash/throttle'
@@ -68,7 +67,6 @@ function VisXZoom({
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
-  const wheelEventLayer = useRef(null)
 
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
@@ -125,11 +123,6 @@ function VisXZoom({
     document.body.style.overflow = ''
     document.body.style.paddingRight = ''
   }
-  
-  useWheel(({ event }) => onWheel(event), {
-    eventOptions: { passive: false },
-    target: wheelEventLayer
-  })
 
   function handleToolbarPan(xMultiplier, yMultiplier) {
     onPan(xMultiplier, yMultiplier)
@@ -229,30 +222,28 @@ function VisXZoom({
       {_zoom => {
         zoomRef.current = _zoom
         return (
-          <g ref={wheelEventLayer}>
-            <ZoomEventLayer
-              focusable
-              height={height}
-              onDoubleClick={onDoubleClick}
-              onKeyDown={onKeyDown || onKeyZoom}
-              onPointerEnter={onPointerEnter}
-              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
-              onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
-              onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
-              onPointerLeave={onPointerLeave}
-              onWheel={onWheel}
-              panning={panning}
-              tabIndex={0}
-              width={width}
-            >
-              {children({
-                initialTransformMatrix: _zoom.initialTransformMatrix,
-                transformMatrix: _zoom.transformMatrix,
-                transform: _zoom.toString(),
-                move
-               })}
-            </ZoomEventLayer>
-          </g>
+          <ZoomEventLayer
+            focusable
+            height={height}
+            onDoubleClick={onDoubleClick}
+            onKeyDown={onKeyDown || onKeyZoom}
+            onPointerEnter={onPointerEnter}
+            onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
+            onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
+            onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
+            onPointerLeave={onPointerLeave}
+            onWheel={onWheel}
+            panning={panning}
+            tabIndex={0}
+            width={width}
+          >
+            {children({
+              initialTransformMatrix: _zoom.initialTransformMatrix,
+              transformMatrix: _zoom.transformMatrix,
+              transform: _zoom.toString(),
+              move
+              })}
+          </ZoomEventLayer>
         )
       }}
     </Zoom>
