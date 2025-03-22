@@ -14,6 +14,7 @@ function AnnotateButton({
   return (
     <Button
       active={active}
+      aria-pressed={active.toString()}
       a11yTitle={t('ImageToolbar.AnnotateButton.ariaLabel')}
       icon={<EditIcon />}
       onClick={onClick}
