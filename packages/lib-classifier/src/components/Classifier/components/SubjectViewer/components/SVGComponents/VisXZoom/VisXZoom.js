@@ -56,7 +56,7 @@ function VisXZoom({
   constrain,
   height,
   left = 0,
-  move = false,
+  move = true,
   onKeyDown,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
@@ -84,6 +84,7 @@ function VisXZoom({
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   
   function onWheel(event) {
+    if (!move) return false
     /* Default behaviour for subject viewers that don't scroll vertically.
     Cancel the default event (ignored unless the listener explicitly
     sets passive: false) and call the wheel handler with a throttled delay.
@@ -125,7 +126,7 @@ function VisXZoom({
     document.body.style.paddingRight = ''
   }
   
-  useWheel(move ? ({ event }) => onWheel(event) : DEFAULT_HANDLER, {
+  useWheel(({ event }) => onWheel(event), {
     eventOptions: { passive: false },
     target: wheelEventLayer
   })
