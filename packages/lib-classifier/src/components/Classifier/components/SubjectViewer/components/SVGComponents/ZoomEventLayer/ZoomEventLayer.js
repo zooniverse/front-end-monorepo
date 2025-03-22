@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useRef } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 
 const StyledGroup = styled.g`
@@ -37,16 +38,18 @@ function ZoomEventLayer ({
   children,
   ...rest
 }) {
+  const root = useRef(null)
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
 
   function handlePointerFocus(event) {
-    event.currentTarget?.focus()
+    root.current?.focus()
     onPointerDown(event)
   }
 
   return (
     <StyledGroup
+      ref={root}
       data-testid='zoom-layer'
       fill='transparent'
       $focusColor={focusColor}
