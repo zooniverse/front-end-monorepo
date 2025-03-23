@@ -23,6 +23,7 @@ const StyledGroup = styled.g`
 const DEFAULT_HANDLER = () => true
 
 function ZoomEventLayer ({
+  disabled = false,
   height,
   left = 0,
   onDoubleClick = DEFAULT_HANDLER,
@@ -43,12 +44,15 @@ function ZoomEventLayer ({
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
 
-  useWheel(({ event }) => onWheel(event), {
+  const handleWheel = disabled ? DEFAULT_HANDLER : ({ event }) => onWheel(event)
+  useWheel(handleWheel, {
     eventOptions: { passive: false },
     target: root
   })
 
   function handlePointerFocus(event) {
+    console.log('handlePointerFocus')
+    if (disabled) return false
     root.current?.focus()
     onPointerDown(event)
   }
@@ -68,6 +72,7 @@ function ZoomEventLayer ({
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}
       $panning={(panning) ? 'true' : undefined}
+      pointerEvents={disabled ? 'none' : 'all'}
       transform={`translate(${left}, ${top})`}
       width={width}
       {...rest}
@@ -78,6 +83,7 @@ function ZoomEventLayer ({
 }
 
 ZoomEventLayer.propTypes = {
+  disabled: PropTypes.bool,
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
   onDoubleClick: PropTypes.func,

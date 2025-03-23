@@ -82,7 +82,6 @@ function VisXZoom({
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   
   function onWheel(event) {
-    if (!move) return false
     /* Default behaviour for subject viewers that don't scroll vertically.
     Cancel the default event (ignored unless the listener explicitly
     sets passive: false) and call the wheel handler with a throttled delay.
@@ -223,6 +222,7 @@ function VisXZoom({
         zoomRef.current = _zoom
         return (
           <ZoomEventLayer
+            disabled={!zooming || !move}
             focusable
             height={height}
             onDoubleClick={onDoubleClick}
