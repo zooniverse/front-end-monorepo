@@ -43,6 +43,7 @@ function ZoomEventLayer ({
   const root = useRef(null)
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
+  const pointerEvents = disabled ? 'none' : 'all'
 
   const handleWheel = disabled ? DEFAULT_HANDLER : ({ event }) => onWheel(event)
   useWheel(handleWheel, {
@@ -51,10 +52,11 @@ function ZoomEventLayer ({
   })
 
   function handlePointerFocus(event) {
-    console.log('handlePointerFocus')
     if (disabled) return false
-    root.current?.focus()
-    onPointerDown(event)
+    event.currentTarget?.focus({
+      preventScroll: true
+    })
+    return onPointerDown(event)
   }
 
   return (
@@ -72,7 +74,7 @@ function ZoomEventLayer ({
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}
       $panning={(panning) ? 'true' : undefined}
-      pointerEvents={disabled ? 'none' : 'all'}
+      pointerEvents={pointerEvents}
       transform={`translate(${left}, ${top})`}
       width={width}
       {...rest}
