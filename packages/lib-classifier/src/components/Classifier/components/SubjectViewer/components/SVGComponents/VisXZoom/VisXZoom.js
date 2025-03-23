@@ -242,7 +242,7 @@ function VisXZoom({
               transformMatrix: _zoom.transformMatrix,
               transform: _zoom.toString(),
               move
-              })}
+            })}
           </ZoomEventLayer>
         )
       }}
