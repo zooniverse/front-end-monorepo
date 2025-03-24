@@ -85,9 +85,9 @@ describe('Component > FlipbookViewer', function () {
       const user = userEvent.setup({ delay: null })
 
       const { container, getByLabelText, getByTestId } = render(<DefaultStory />)
-      const imageSVGZoomLayer = getByTestId('zoom-layer')
+      const image = document.querySelector('image')
 
-      imageSVGZoomLayer.focus()
+      await user.click(image)
       await user.keyboard(' ')
 
       const pauseButton = getByLabelText('SubjectViewer.VideoController.pause')

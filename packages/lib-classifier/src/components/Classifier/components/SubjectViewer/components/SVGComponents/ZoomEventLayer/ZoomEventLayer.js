@@ -65,10 +65,10 @@ function ZoomEventLayer ({
     const baseVal = className?.baseVal
     const actualClassName = baseVal ?? className
     if (actualClassName.includes('StyledLayer')) return false
-    /* Focus ZoomEventLayer so that it can handle
+    /* Focus the clicked element so that it can handle
     * keyboard events.
     */
-    root.current?.focus({
+    event.target?.focus({
       preventScroll: true
     })
     return onPointerDown(event)
