@@ -52,7 +52,6 @@ function ZoomEventLayer ({
   })
 
   function handlePointerFocus(event) {
-    if (disabled) return false
     /*
     * Ignore clicks to close open popups for subtasks etc
     * by checking whether the event target is a Grommet Layer.
@@ -74,6 +73,15 @@ function ZoomEventLayer ({
     return onPointerDown(event)
   }
 
+  const zoomEventHandlers = disabled ? {} : {
+    onDoubleClick,
+    onPointerDown: handlePointerFocus,
+    onPointerEnter,
+    onPointerMove,
+    onPointerUp,
+    onPointerLeave
+  }
+
   return (
     <StyledGroup
       ref={root}
@@ -81,17 +89,12 @@ function ZoomEventLayer ({
       fill='transparent'
       $focusColor={focusColor}
       height={height}
-      onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
-      onPointerEnter={onPointerEnter}
-      onPointerDown={handlePointerFocus}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerLeave={onPointerLeave}
       $panning={(panning) ? 'true' : undefined}
       pointerEvents={pointerEvents}
       transform={`translate(${left}, ${top})`}
       width={width}
+      {...zoomEventHandlers}
       {...rest}
     >
       {children}

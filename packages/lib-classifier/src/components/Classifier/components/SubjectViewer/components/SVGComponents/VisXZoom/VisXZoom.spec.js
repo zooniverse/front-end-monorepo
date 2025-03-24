@@ -291,7 +291,6 @@ describe('Component > VisXZoom', function () {
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
         wrapper.find(ZoomEventLayer).simulate(type, event)
-        if (event) expect(event.preventDefault).to.have.been.called()
         const currentTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testNoZoom(currentTransformMatrix, initialTransformMatrix)
       }
@@ -332,7 +331,7 @@ describe('Component > VisXZoom', function () {
             </Provider>
           </Grommet>
         )
-        testEventPrevention({ wrapper, type: 'dblclick', event: { preventDefault: sinon.spy() } })
+        testEventPrevention({ wrapper, type: 'dblclick' })
       })
 
       it('should not scale the transform matrix on key down', function () {
