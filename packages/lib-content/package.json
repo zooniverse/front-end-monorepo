@@ -43,7 +43,7 @@
     "@zooniverse/grommet-theme": "3.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
-    "next": "~13.5.5",
+    "next": "~14.2.26",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "styled-components": "6.x.x"
