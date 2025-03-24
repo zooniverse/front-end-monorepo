@@ -1833,13 +1833,6 @@
   dependencies:
     third-party-capital "1.0.20"
 
-"@next/third-parties@~14.2.7":
-  version "14.2.7"
-  resolved "https://registry.yarnpkg.com/@next/third-parties/-/third-parties-14.2.7.tgz#542e354cb129e5a4751fa3c28f96d00515a4d3b8"
-  integrity sha512-cE/1MAvmbKFZ9VCCj+Gvv21rMm/72JRTeLr24QEqCBNe17xuXyCzg9c7cRCXLdbk1VTBSALZCK9o13gbOvSMKA==
-  dependencies:
-    third-party-capital "1.0.20"
-
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/chokidar-2/-/chokidar-2-2.1.8-no-fsevents.3.tgz#323d72dd25103d0c4fbdce89dadf574a787b1f9b"
