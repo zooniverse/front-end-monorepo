@@ -74,8 +74,8 @@ describe('Component > ZoomEventLayer', function () {
   })
 
   it('should be the size of the parent', function () {
-    expect(wrapper.getAttribute('height')).to.equal(height.toString())
-    expect(wrapper.getAttribute('width')).to.equal(width.toString())
+    expect(wrapper).to.have.attribute('width', width.toString())
+    expect(wrapper).to.have.attribute('height', height.toString())
   })
 
   it('should call the onKeyDown prop callback when onKeyDown event fires', async function () {
