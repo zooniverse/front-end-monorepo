@@ -53,7 +53,22 @@ function ZoomEventLayer ({
 
   function handlePointerFocus(event) {
     if (disabled) return false
-    event.currentTarget?.focus({
+    /*
+    * Ignore clicks to close open popups for subtasks etc
+    * by checking whether the event target is a Grommet Layer.
+    * Otherwse, clicking outside an open popup can start dragging
+    * in the ZoomEventLayer.
+    */
+    // HTMLElement class name.
+    const className = event.target?.className
+    // SVGElement class name.
+    const baseVal = className?.baseVal
+    const actualClassName = baseVal ?? className
+    if (actualClassName.includes('StyledLayer')) return false
+    /* Focus ZoomEventLayer so that it can handle
+    * keyboard events.
+    */
+    root.current?.focus({
       preventScroll: true
     })
     return onPointerDown(event)
