@@ -236,9 +236,9 @@ function Selections({
       className='brushLayer'
       focusable='true'
       onKeyDown={onKeyDown}
-      onPointerDown={e => cancelEvent(e)}
-      onPointerMove={e => cancelEvent(e)}
-      onPointerUp={e => cancelEvent(e)}
+      onPointerDown={cancelEvent}
+      onPointerMove={cancelEvent}
+      onPointerUp={cancelEvent}
       tabIndex='-1'
     >
       {selections?.map((selection, index) => (
