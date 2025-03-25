@@ -38,7 +38,7 @@
     "mobx-state-tree": "~5.4.0",
     "morgan": "^1.10.0",
     "newrelic": "~12.10.0",
-    "next": "~14.2.7",
+    "next": "~14.2.26",
     "next-i18next": "~15.4.0",
     "panoptes-client": "~5.6.0",
     "path-match": "~1.2.4",
@@ -61,13 +61,13 @@
     "@testing-library/react": "~14.2.0",
     "@testing-library/user-event": "~14.5.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
-    "babel-loader": "~9.2.1",
+    "babel-loader": "~10.0.0",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.5.0",
     "chai-dom": "~1.12.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
-    "eslint-config-next": "~14.2.7",
+    "eslint-config-next": "~14.2.26",
     "eslint-plugin-jsx-a11y": "~6.10.1",
     "jsdom": "~25.0.1",
     "mocha": "~10.8.2",
@@ -81,7 +81,7 @@
     "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
-    "node": ">=20.5"
+    "node": ">=20.5 <=20.18"
   },
   "msw": {
     "workerDirectory": [

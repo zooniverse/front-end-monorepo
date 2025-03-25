@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:20.18-alpine AS builder
 
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
@@ -55,7 +55,7 @@ RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.
 RUN echo $COMMIT_ID > /usr/src/packages/app-root/public/commit_id.txt
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-root build
 
-FROM node:20-alpine AS runner
+FROM node:20.18-alpine AS runner
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV

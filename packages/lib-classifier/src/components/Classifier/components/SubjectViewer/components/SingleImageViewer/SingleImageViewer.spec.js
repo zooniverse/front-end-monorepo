@@ -1,46 +1,45 @@
-import { shallow } from 'enzyme'
+import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
 
-import SingleImageViewer from './SingleImageViewer'
-import InteractionLayer from '../InteractionLayer'
-
-let wrapper
+import Meta, { Default, Error, Loading, PanAndZoom } from './SingleImageViewer.stories'
+import { subject } from './constants'
 
 describe('Component > SingleImageViewer', function () {
-  beforeEach(function () {
-    wrapper = shallow(<SingleImageViewer height={200} width={100} viewBox='0 0 100 100' />)
-  })
+  describe('with a successful subject location request', function () {
+    const DefaultStory = composeStory(Default, Meta)
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should be upright', function () {
-    const transform = wrapper.find('g[transform]').prop('transform')
-    expect(transform).to.have.string('rotate(0 50 100)')
-  })
-
-  describe('with a rotation angle', function () {
-    beforeEach(function () {
-      wrapper.setProps({ rotate: -90 })
+    it('should render the image', function () {
+      render(<DefaultStory />)
+      const image = screen.getByRole('img')
+      expect(image).to.exist()
     })
 
-    it('should be rotated', function () {
-      const transform = wrapper.find('g[transform]').prop('transform')
-      expect(transform).to.have.string('rotate(-90 50 100)')
+    describe('with title', function () {
+      it('should render the title', function () {
+        render(<DefaultStory />)
+        const title = screen.getByTitle(`Subject ${subject.id}`)
+        expect(title).to.exist()
+      })
     })
   })
 
-  describe('with interaction layer', function () {
-    it('should default to not render the InteractionLayer', function () {
-      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(0)
-    })
+  describe('with an error from the subject location request', function () {
+    const ErrorStory = composeStory(Error, Meta)
 
-    it('should be possible to disable the render of the InteractionLayer by prop', function () {
-      wrapper.setProps({ enableInteractionLayer: false })
-      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(0)
-      wrapper.setProps({ enableInteractionLayer: true })
-      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
-      wrapper.setProps({ enableInteractionLayer: false })
+    it('should render an error message', function () {
+      render(<ErrorStory />)
+      const error = screen.getByText('Something went wrong.')
+      expect(error).to.exist()
+    })
+  })
+
+  describe('while loading the subject location', function () {
+    const LoadingStory = composeStory(Loading, Meta)
+
+    it('should render a placeholder', function () {
+      render(<LoadingStory />)
+      const placeholder = screen.getByTestId('placeholder-svg')
+      expect(placeholder).to.exist()
     })
   })
 })

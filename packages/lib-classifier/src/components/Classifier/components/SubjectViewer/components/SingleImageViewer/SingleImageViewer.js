@@ -1,43 +1,74 @@
 import { Box } from 'grommet'
-import PropTypes from 'prop-types'
-import { useRef } from 'react'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useEffect } from 'react'
 import styled, { css } from 'styled-components'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
-import locationValidator from '../../helpers/locationValidator'
 
-const PlaceholderSVG = styled.svg`
-  background: no-repeat center / cover url('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png');
+import VisXZoom from '../SVGComponents/VisXZoom'
+
+import SingleImageCanvas from './SingleImageCanvas'
+
+const StyledSVG = styled.svg`
+  background-color: ${props => props.theme.global.colors['light-4']};
   touch-action: pinch-zoom;
-  max-width: ${props => props.$maxWidth || '100%'};
+  max-width: ${props => props.$maxWidth};
   ${props => props.$maxHeight && css`max-height: ${props.$maxHeight};`}
 `
-const SVGImageCanvas = styled.svg`
-  overflow: visible;
-`
+
+const DEFAULT_HANDLER = () => true
+const DEFAULT_ZOOM_CONFIG = {
+  direction: 'both',
+  maxZoom: 10,
+  minZoom: 0.1,
+  onWheelThrottleWait: 100,
+  zoomInValue: 1.2,
+  zoomOutValue: 0.8
+}
+
 function SingleImageViewer({
-  children,
-  enableInteractionLayer = false,
+  enableInteractionLayer = true,
+  enableRotation = DEFAULT_HANDLER,
   frame = 0,
-  height,
+  imgRef,
+  invert = false,
   limitSubjectHeight = false,
-  onKeyDown = () => true,
-  rotate = 0,
-  svgMaxHeight = null,
-  title = {},
-  viewBox,
-  width,
+  move = false,
+  naturalHeight,
+  naturalWidth,
+  onKeyDown = DEFAULT_HANDLER,
+  panning = true,
+  rotation = 0,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
+  src,
+  subject,
+  title = undefined,
   zoomControlFn = null,
-  zooming = false
+  zooming = true
 }) {
-  const canvasLayer = useRef()
-  const canvas = canvasLayer.current
-  const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
+  useEffect(function onMount() {
+    enableRotation()
+  }, [])
+
+  const singleImageCanvasProps = {
+    enableInteractionLayer,
+    frame,
+    imgRef,
+    invert,
+    naturalHeight,
+    naturalWidth,
+    onKeyDown,
+    rotation,
+    src,
+    subject
+  }
+
+  const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+  const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
   return (
-    <SVGContext.Provider value={{ canvas, viewBox, rotate, width, height }}>
+    <>
       {zoomControlFn && (
         <ZoomControlButton
           onClick={zoomControlFn}
@@ -45,68 +76,52 @@ function SingleImageViewer({
         />
       )}
       <Box
+        align='flex-end'
         animation='fadeIn'
         overflow='hidden'
         width='100%'
-        align='flex-end'
       >
-        <PlaceholderSVG
-          focusable
-          $maxHeight={svgMaxHeight}
-          $maxWidth={limitSubjectHeight ? `${width}px` : '100%'}
-          onKeyDown={onKeyDown}
-          tabIndex={0}
-          viewBox={`0 0 ${width} ${height}`}
+        <StyledSVG
+          aria-labelledby={title?.id}
+          $maxHeight={maxHeight}
+          $maxWidth={maxWidth}
+          viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
-          <g
-            transform={transform}
-          >
-            <SVGImageCanvas
-              ref={canvasLayer}
-              viewBox={viewBox}
-            >
-              {children}
-              {enableInteractionLayer && (
-                <InteractionLayer
-                  frame={frame}
-                  height={height}
-                  width={width}
-                />
-              )}
-            </SVGImageCanvas>
-          </g>
-        </PlaceholderSVG>
+          <VisXZoom
+            allowsScrolling
+            height={naturalHeight}
+            move={move}
+            panning={panning}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
+            width={naturalWidth}
+            zoomConfiguration={DEFAULT_ZOOM_CONFIG}
+            zoomingComponent={SingleImageCanvas}
+            zooming={zooming}
+            {...singleImageCanvasProps}
+          />
+        </StyledSVG>
       </Box>
-    </SVGContext.Provider>
+    </>
   )
 }
 
 SingleImageViewer.propTypes = {
-  /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
-  frame: PropTypes.number,
-  /** Passed from container */
-  enableInteractionLayer: PropTypes.bool,
-  /** Calculated by useSubjectImage() */
-  height: PropTypes.number.isRequired,
-  /** Stored in subject viewer store */
-  rotate: PropTypes.number,
-  /** Calculated in SVGPanZoom component */
-  svgMaxHeight: PropTypes.string,
-  title: PropTypes.shape({
-    id: PropTypes.string,
-    text: PropTypes.string
+  enableRotation: func,
+  limitSubjectHeight: bool,
+  panning: bool,
+  setOnPan: func,
+  setOnZoom: func,
+  title: shape({
+    id: string,
+    text: string
   }),
-  /** Calculated in SVGPanZoom component */
-  viewBox: PropTypes.string,
-  /** Calculated by useSubjectImage() */
-  width: PropTypes.number.isRequired,
-  /** Stored in subject viewer store */
-  zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  /** Passed from container */
-  zooming: PropTypes.bool
+  zoomControlFn: func,
+  zooming: bool,
+  ...SingleImageCanvas.propTypes
 }
 
 export default SingleImageViewer

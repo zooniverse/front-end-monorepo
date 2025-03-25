@@ -7,22 +7,16 @@ function storeMapper(classifierStore) {
       active: subject
     },
     subjectViewer: {
-      enableRotation,
-      move,
       resetView,
-      rotation,
-      setOnZoom,
-      setOnPan
+      setOnPan,
+      setOnZoom
     }
   } = classifierStore
 
   return {
-    enableRotation,
-    move,
     resetView,
-    rotation,
-    setOnZoom,
     setOnPan,
+    setOnZoom,
     subject
   }
 }

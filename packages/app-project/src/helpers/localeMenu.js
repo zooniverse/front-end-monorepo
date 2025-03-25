@@ -10,6 +10,7 @@ const localeMenu = {
   he: 'עברית',
   hi: 'हिन्दी',
   hr: 'Hrvatski',
+  id: 'Bahasa Indonesia',
   it: 'Italiano',
   ja: '日本語',
   nl: 'Nederlands',

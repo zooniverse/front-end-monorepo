@@ -5,7 +5,6 @@ import asyncStates from '@zooniverse/async-states'
 
 import DataImageViewer from './index.js'
 import ImageToolbar from '../../../ImageToolbar'
-import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import readme from './README.md'
 

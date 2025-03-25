@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
@@ -8,15 +7,14 @@ import ImageAndTextControls from './components/ImageAndTextControls'
 import SingleImageViewer from '../SingleImageViewer'
 import SingleTextViewer from '../SingleTextViewer'
 
-const defaultDimensions = [{
+const DEFAULT_DIMENSIONS = [{
   clientHeight: 400
 }]
 
 const DEFAULT_HANDLER = () => true
 
 function ImageAndTextViewerContainer ({
-  dimensions = defaultDimensions,
-  enableRotation = DEFAULT_HANDLER,
+  dimensions = DEFAULT_DIMENSIONS,
   frame = 0,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
@@ -24,10 +22,6 @@ function ImageAndTextViewerContainer ({
   setFrame = DEFAULT_HANDLER,
   subject
 }) {
-  useEffect(function onMount() {
-    enableRotation()
-  }, [])
-
   function handleFrameChange (newFrame) {
     setFrame(newFrame)
   }
@@ -56,7 +50,6 @@ function ImageAndTextViewerContainer ({
           : (
             <SingleImageViewer
               enableInteractionLayer={false}
-              frame={frame}
               loadingState={loadingState}
               onError={onError}
               onReady={onReady}
@@ -80,6 +73,8 @@ ImageAndTextViewerContainer.propTypes = {
   ),
   frame: PropTypes.number,
   loadingState: PropTypes.string,
+  onError: PropTypes.func,
+  onReady: PropTypes.func,
   setFrame: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
