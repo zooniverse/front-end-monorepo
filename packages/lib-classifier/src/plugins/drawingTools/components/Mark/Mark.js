@@ -56,7 +56,6 @@ const Mark = forwardRef(function Mark(
     children,
     disabled = false,
     dragging = false,
-    id,
     isActive = false,
     label,
     mark,
@@ -154,7 +153,7 @@ const Mark = forwardRef(function Mark(
   return (
     <StyledGroup
       {...mainStyle}
-      id={id}
+      id={`mark-${mark.id}`}
       data-testid="mark-mark"
       aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
@@ -179,7 +178,6 @@ const Mark = forwardRef(function Mark(
 Mark.propTypes = {
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  id: PropTypes.string,
   isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onDelete: PropTypes.func,

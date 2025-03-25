@@ -68,7 +68,6 @@ function DrawingToolMarks({
     return (
       <g key={mark.id}>
         <Mark
-          id={`mark-${mark.id}`}
           isActive={isActive}
           coords={mark.coords}
           disabled={disabled}
