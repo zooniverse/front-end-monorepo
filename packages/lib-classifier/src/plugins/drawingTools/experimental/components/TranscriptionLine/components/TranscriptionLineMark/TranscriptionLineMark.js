@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { forwardRef } from 'react';
 import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
-import { HANDLE_RADIUS, GRAB_STROKE_WIDTH } from '../../helpers/constants'
+import { GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
 import useScale from '../../../../../hooks/useScale'
 
@@ -24,10 +24,10 @@ const TranscriptionLineMark = forwardRef(({
   color,
   handleFinishClick,
   handlePointerDown,
-  handleRadius = HANDLE_RADIUS,
   mark,
   onHandleDrag,
 }, ref) => {
+  const HANDLE_RADIUS = window?.innerWidth < 900 ? 3 : 5
   const scale = useScale()
   const {
     finished,
@@ -41,8 +41,8 @@ const TranscriptionLineMark = forwardRef(({
   if (mark.length) {
     const deltaX = x2 - x1
     const deltaY = y2 - y1
-    offsetX = deltaX * (handleRadius / mark.length) / scale
-    offsetY = deltaY * (handleRadius / mark.length) / scale
+    offsetX = deltaX * (HANDLE_RADIUS / mark.length) / scale
+    offsetY = deltaY * (HANDLE_RADIUS / mark.length) / scale
   }
 
   function onDragStartPoint(e, d) {
@@ -66,27 +66,27 @@ const TranscriptionLineMark = forwardRef(({
       {active ?
         <DragHandle
           fill='transparent'
-          radius={handleRadius}
+          radius={HANDLE_RADIUS}
           x={x1}
           y={y1}
           dragMove={onDragStartPoint}
         /> :
         <Circle
           fill='transparent'
-          r={handleRadius}
+          r={HANDLE_RADIUS}
           transform={`translate(${x1}, ${y1}) scale(${1 / scale})`}
         />
       }
       {active ?
         <DragHandle
-          radius={handleRadius}
+          radius={HANDLE_RADIUS}
           x={x2}
           y={y2}
           dragMove={onDragEndPoint}
         /> :
         <Circle
           fill='currentColor'
-          r={handleRadius}
+          r={HANDLE_RADIUS}
           transform={`translate(${x2}, ${y2}) scale(${1 / scale})`}
         />
       }
@@ -95,14 +95,14 @@ const TranscriptionLineMark = forwardRef(({
         <g>
           <Circle
             className='startPoint'
-            r={handleRadius}
+            r={HANDLE_RADIUS}
             transform={`translate(${x1}, ${y1}) scale(${1 / scale})`}
             onPointerDown={handlePointerDown}
             onPointerUp={handleFinishClick}
           />
           <Circle
             className='endPoint'
-            r={handleRadius}
+            r={HANDLE_RADIUS}
             transform={`translate(${x2}, ${y2}) scale(${1 / scale})`}
             onPointerDown={handlePointerDown}
             onPointerUp={handleFinishClick}
@@ -118,7 +118,6 @@ TranscriptionLineMark.propTypes = {
   color: PropTypes.string,
   handleFinishClick: PropTypes.func,
   handlePointerDown: PropTypes.func,
-  handleRadius: PropTypes.func,
   mark: PropTypes.object.isRequired,
   onHandleDrag: PropTypes.func,
   scale: PropTypes.number
