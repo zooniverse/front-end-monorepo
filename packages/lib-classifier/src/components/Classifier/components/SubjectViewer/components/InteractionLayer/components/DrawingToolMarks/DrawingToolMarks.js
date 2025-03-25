@@ -4,6 +4,8 @@ import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import { LineControls } from '@plugins/drawingTools/experimental/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
+import { isInBounds } from '../../helpers/isInBounds.js'
+
 function DrawingToolMarks({
   activeMark = {
     id: '',
@@ -31,16 +33,6 @@ function DrawingToolMarks({
     const MarkingComponent = mark.toolComponent
     const isActive = mark.id === activeMark?.id
 
-    function isInBounds(markElement) {
-      const object = markElement.getBoundingClientRect()
-      const bounds = canvas.getBoundingClientRect()
-      const notBeyondLeft = object.left + object.width > bounds.left
-      const notBeyondRight = object.left < bounds.left + bounds.width
-      const notBeyondTop = object.top + object.height > bounds.top
-      const notBeyondBottom = object.top < bounds.top + bounds.height
-      return notBeyondLeft && notBeyondRight && notBeyondTop && notBeyondBottom
-    }
-
     function deleteMark() {
       activeMark.setSubTaskVisibility(false)
       tool.deleteMark(mark)
@@ -52,7 +44,7 @@ function DrawingToolMarks({
     }
 
     function deselectMark(event) {
-      if (event?.currentTarget && !isInBounds(event.currentTarget)) {
+      if (event?.currentTarget && !isInBounds(event.currentTarget, canvas)) {
         deleteMark()
       } else {
         onDeselectMark(mark)
@@ -60,7 +52,7 @@ function DrawingToolMarks({
     }
 
     function endMoveMark(event) {
-      if (event?.currentTarget && !isInBounds(event.currentTarget)) {
+      if (event?.currentTarget && !isInBounds(event.currentTarget, canvas)) {
         deleteMark()
       } else {
         onFinish(event)
@@ -76,6 +68,7 @@ function DrawingToolMarks({
     return (
       <g key={mark.id}>
         <Mark
+          id={`mark-${mark.id}`}
           isActive={isActive}
           coords={mark.coords}
           disabled={disabled}

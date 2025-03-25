@@ -8,6 +8,7 @@ import { convertEvent } from '@plugins/drawingTools/components/draggable/draggab
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import { isInBounds } from './helpers/isInBounds'
 import getFixedNumber from '../../helpers/getFixedNumber'
 
 const DrawingCanvas = styled('rect')`
@@ -110,6 +111,11 @@ function InteractionLayer({
     event?.preventDefault?.()
     event?.stopPropagation?.()
     setCreating(false)
+    const activeMarkElement = document.getElementById(`mark-${activeMark.id}`)
+    if (activeMarkElement && !isInBounds(activeMarkElement, canvasRef.current)) {
+      activeTool.deleteMark(activeMark)
+      setActiveMark(undefined)
+    }
   }
 
   function onPointerUp(event) {
