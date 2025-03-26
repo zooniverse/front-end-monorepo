@@ -63,7 +63,6 @@ export default function DisabledTaskPopup({
       <Modal
         role={undefined}
         aria-label={undefined}
-        autoFocus={false}
         full='horizontal'
         title={t('TaskArea.DisabledTaskPopup.title')}
       >
