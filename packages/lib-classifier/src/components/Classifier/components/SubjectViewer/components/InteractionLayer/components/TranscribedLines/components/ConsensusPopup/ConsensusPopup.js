@@ -57,6 +57,7 @@ export default function ConsensusPopup ({
       }}
       title={t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title')}
       titleColor=''
+      trapFocus={true}
     >
       <Paragraph>
         {t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.explanation', { count: line.textOptions.length })}
