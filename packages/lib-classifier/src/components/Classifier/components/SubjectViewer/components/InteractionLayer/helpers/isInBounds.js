@@ -1,3 +1,9 @@
+/**
+ * Calculate whether the bounding client rectangles of two elements overlap.
+ * @param {Element} markElement 
+ * @param {Element} canvas 
+ * @returns {boolean} true if the two elements overlap.
+ */
 export function isInBounds(markElement, canvas) {
     const object = markElement.getBoundingClientRect()
     const bounds = canvas.getBoundingClientRect()

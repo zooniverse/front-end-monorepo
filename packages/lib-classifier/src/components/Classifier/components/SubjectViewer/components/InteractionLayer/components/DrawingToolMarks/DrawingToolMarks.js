@@ -5,7 +5,9 @@ import { LineControls } from '@plugins/drawingTools/experimental/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import { isInBounds } from '../../helpers/isInBounds.js'
-
+/**
+ * Render selectable, editable marks for the current drawing task.
+ */
 function DrawingToolMarks({
   activeMark = {
     id: '',
@@ -108,16 +110,25 @@ function DrawingToolMarks({
 }
 
 DrawingToolMarks.propTypes = {
+  /** Current selected mark. */
   activeMark: PropTypes.shape({
     id: PropTypes.string,
     setSubTaskVisibility: PropTypes.func
   }),
+  /** A list of marks for the current drawing task. */
   marks: PropTypes.array.isRequired,
+  /** Callback after deleting a mark. */
   onDelete: PropTypes.func,
+  /** Callback after deselecting a mark. */
   onDeselectMark: PropTypes.func,
+  /** Callback after moving a mark. */
   onFinish: PropTypes.func,
+  /** Callback while moving a mark. */
   onMove: PropTypes.func,
+  /** Callback on selecting a mark. */
   onSelectMark: PropTypes.func,
+  /** pointer-events style for each mark. */
+  pointerEvents: PropTypes.oneOf(['all', 'none', 'painted']),
 }
 
 export default DrawingToolMarks

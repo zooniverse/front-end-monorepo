@@ -27,6 +27,13 @@ function cancelEvent(event) {
   event.stopPropagation()
 }
 
+/**
+ * Render a drawing canvas for the current drawing task, including:
+ * - a canvas that handles pointer events while creating a new mark.
+ * - previously transcribed lines if the current task is a transcription task.
+ * - popups for any subtasks of the current task's tools.
+ * - editable marks created by the current drawing task.
+ */
 function InteractionLayer({
   activeMark,
   activeTool,
@@ -167,21 +174,28 @@ function InteractionLayer({
 }
 
 InteractionLayer.propTypes = {
+  /** The active, or selected, mark. */
   activeMark: PropTypes.object,
+  /** The selected drawing tool. */
   activeTool: PropTypes.object.isRequired,
   activeToolIndex: PropTypes.number,
+  /** Annotation for the current drawing task. */
   annotation: PropTypes.shape({
     task: PropTypes.string,
     taskType: PropTypes.string,
     value: PropTypes.array
   }).isRequired,
+  /** Disable creating new marks. */
   disabled: PropTypes.bool,
   /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
   frame: PropTypes.number,
+  /** Height of the canvas in SVG coordinates. */
   height: PropTypes.number.isRequired,
+  /** Array of marks for the current drawing task. */
   marks: PropTypes.array,
   multiImageCloneMarkers: PropTypes.bool,
   setActiveMark: PropTypes.func,
+  /** Width of the canvas in SVG coordinates. */
   width: PropTypes.number.isRequired
 }
 
