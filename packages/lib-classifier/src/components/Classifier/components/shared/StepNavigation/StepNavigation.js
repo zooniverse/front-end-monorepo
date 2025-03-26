@@ -18,6 +18,7 @@ const StyledButton = styled(Button)`
 
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   position: relative;
+  overflow: auto;
 
   > label {
     > span {
