@@ -11,7 +11,6 @@ const DEFAULT_BACKGROUND = {
 }
 
 const Modal = forwardRef(function ({
-  autoFocus=true,
   bodyBackground = DEFAULT_BACKGROUND,
   children,
   className = '',
@@ -21,6 +20,7 @@ const Modal = forwardRef(function ({
   pad,
   title = '',
   titleColor = 'neutral-6',
+  trapFocus = false,
   ...props
 },
 ref) {
@@ -28,8 +28,8 @@ ref) {
   const root = ref || defaultRef
 
   useEffect(function onMount(){
-    if (autoFocus) root.current?.focus()
-  }, [autoFocus])
+    if (trapFocus) root.current?.focus()
+  }, [trapFocus])
 
   return (
     <Box
@@ -71,10 +71,6 @@ Modal.propTypes = {
   */
   active: PropTypes.bool,
   /**
-   * Focus the modal automatically when it mounts.
-   */
-  autoFocus: PropTypes.bool,
-  /**
     The background color for the modal body. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
   */
   bodyBackground: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
@@ -99,7 +95,11 @@ Modal.propTypes = {
   /**
     The color of the title text. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
   */
-  titleColor: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ])
+  titleColor: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
+  /**
+   * Capture keyboard focus when the modal opens.
+   */
+  trapFocus: PropTypes.bool,
 }
 
 export default withLayer(Modal)

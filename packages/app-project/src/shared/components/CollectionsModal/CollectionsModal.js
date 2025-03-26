@@ -13,6 +13,7 @@ function CollectionsModal ({
       active={active}
       closeFn={closeFn}
       title={t('CollectionsModal.title')}
+      trapFocus={true}
     >
       {children}
     </Modal>
