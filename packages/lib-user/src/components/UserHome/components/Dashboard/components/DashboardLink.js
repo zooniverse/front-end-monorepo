@@ -8,8 +8,8 @@ function Icon({ icon, text = '', size = 'medium' }) {
   return (
     <Blank
       role='img'
-      aria-label={text}
-      aria-hidden='false'
+      aria-label={size === 'small' ? text : null}
+      aria-hidden={size === 'small' ? 'false' : 'true'}
       size={size === 'small' ? '1.5rem' : '1rem'}
     >
       {icon}
