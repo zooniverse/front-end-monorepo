@@ -203,7 +203,7 @@ export const NoSubject = () => {
   return (
     <Provider classifierStore={store}>
       <Box width='large'>
-        <FlipbookViewerContainer loadingState={asyncStates.success} />
+        <FlipbookViewerContainer loadingState={asyncStates.success} subject={{}} />
       </Box>
     </Provider>
   )
