@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import { Box } from 'grommet'
 import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'
@@ -23,9 +23,18 @@ const Modal = forwardRef(function ({
   ...props
 },
 ref) {
+  const defaultRef = useRef(null)
+  const root = ref || defaultRef
+
+  useEffect(function onMount(){
+    root.current?.focus()
+  }, [])
+
   return (
     <Box
-      ref={ref}
+      ref={root}
+      role='dialog'
+      aria-label={title}
       background={{
         dark: 'dark-5',
         light: 'neutral-6'
@@ -33,6 +42,7 @@ ref) {
       elevation='xlarge'
       fill
       pad='0'
+      tabIndex={-1}
       {...props}
     >
       <ModalHeading
