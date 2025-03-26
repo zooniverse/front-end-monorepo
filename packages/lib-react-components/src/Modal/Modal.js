@@ -11,6 +11,7 @@ const DEFAULT_BACKGROUND = {
 }
 
 const Modal = forwardRef(function ({
+  autoFocus=true,
   bodyBackground = DEFAULT_BACKGROUND,
   children,
   className = '',
@@ -27,8 +28,8 @@ ref) {
   const root = ref || defaultRef
 
   useEffect(function onMount(){
-    root.current?.focus()
-  }, [])
+    if (autoFocus) root.current?.focus()
+  }, [autoFocus])
 
   return (
     <Box
@@ -69,6 +70,10 @@ Modal.propTypes = {
     Determines whether the modal is visible or not.
   */
   active: PropTypes.bool,
+  /**
+   * Focus the modal automatically when it mounts.
+   */
+  autoFocus: PropTypes.bool,
   /**
     The background color for the modal body. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
   */
