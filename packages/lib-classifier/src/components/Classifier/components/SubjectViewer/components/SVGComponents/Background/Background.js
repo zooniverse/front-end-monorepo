@@ -14,9 +14,11 @@ function Background ({
       <rect
         className={className}
         fill={fill}
+        focusable
         height={height}
         stroke={borderColor || ''}
         strokeWidth={(borderColor) ? 1 : 0}
+        tabIndex={0}
         width={width}
         {...rest}
       />
@@ -29,6 +31,7 @@ function Background ({
               key={Math.random()}
               fill={fill}
               height={height}
+              pointerEvents='none'
               transform={`translate(${left}, ${(borderColor ? 1 : 0)})`}
               width={width}
               {...rest}
