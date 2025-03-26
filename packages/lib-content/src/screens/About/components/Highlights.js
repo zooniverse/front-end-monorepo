@@ -77,7 +77,7 @@ export default function Highlights() {
         margin={{ bottom: 'medium', top: '8px' }}
         alignContent='center'
       >
-        <Text>
+        <Text color={{ light: 'black', dark: 'white' }}>
           <Trans
             i18nKey={'AboutPage.highlights.description'}
             t={t}

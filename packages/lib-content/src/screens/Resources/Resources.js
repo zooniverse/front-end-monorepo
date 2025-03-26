@@ -101,6 +101,7 @@ function Resources() {
                 margin={{ vertical: '0', left: 'medium' }}
                 weight='bold'
                 size='1rem'
+                color={{ light: 'black', dark: 'white' }}
               >
                 <Trans
                   i18nKey='Resources.cite.quote'
