@@ -46,7 +46,7 @@
     "@zooniverse/react-components": "~1.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "~4.x.x",
-    "next": "~14.2.7",
+    "next": "~14.2.26",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
     "styled-components": "6.x.x"
@@ -94,6 +94,6 @@
     "webpack-dev-server": "~5.2.0"
   },
   "engines": {
-    "node": ">=20.5"
+    "node": ">=20.5 <=20.18"
   }
 }

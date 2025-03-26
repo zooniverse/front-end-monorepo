@@ -3,15 +3,12 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import ImageToolbar from '../../../ImageToolbar'
+import { subject } from './constants'
 
 import mockStore from '@test/mockStore'
-import { SubjectFactory, WorkflowFactory } from '@test/factories'
+import { WorkflowFactory } from '@test/factories'
 
 import SingleImageViewerContainer from './SingleImageViewerContainer'
-
-export const subject = SubjectFactory.build({
-  locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg' }]
-})
 
 const workflow = WorkflowFactory.build({
   configuration: {
