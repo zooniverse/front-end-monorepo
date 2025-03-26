@@ -1,4 +1,4 @@
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useRef } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -7,10 +7,8 @@ import InteractionLayer from '../InteractionLayer'
 
 import SVGImage from '../SVGComponents/SVGImage'
 
-const DEFAULT_HANDLER = () => true
 
 function SingleImageCanvas({
-  children,
   enableInteractionLayer = false,
   frame = 0,
   imgRef,
