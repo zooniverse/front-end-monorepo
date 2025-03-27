@@ -1,4 +1,4 @@
-import { bool, func, object} from 'prop-types'
+import { func, object } from 'prop-types'
 import { Button, Text } from 'grommet'
 import styled from 'styled-components'
 import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
@@ -10,29 +10,23 @@ export const StyledBackButtonWrapper = styled.div`
   flex: 0 0 33%;
 `
 
-function BackButton({
-  canUndo = false,
-  onClick = () => true
-}) {
+const DEFAULT_HANDLER = () => {}
+
+function BackButton({ onClick = DEFAULT_HANDLER }) {
   const { t } = useTranslation('components')
-  if (canUndo) {
-    return (
-      <StyledBackButtonWrapper>
-        <Button
-          focusIndicator={false}
-          label={
-            <Text size='small'>{t('TaskArea.Tasks.BackButton.back')}</Text>
-          }
-          onClick={onClick}
-        />
-      </StyledBackButtonWrapper>
-    )
-  }
-  return null
+
+  return (
+    <StyledBackButtonWrapper>
+      <Button
+        focusIndicator={false}
+        label={<Text size='small'>{t('TaskArea.Tasks.BackButton.back')}</Text>}
+        onClick={onClick}
+      />
+    </StyledBackButtonWrapper>
+  )
 }
 
 BackButton.propTypes = {
-  canUndo: bool,
   onClick: func,
   theme: object
 }

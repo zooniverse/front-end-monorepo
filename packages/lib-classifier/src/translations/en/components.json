@@ -260,7 +260,8 @@
         "back": "back"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Done & Talk"
+        "doneAndTalk": "Done & Talk",
+        "newTab": "in a new tab"
       },
       "DoneButton": {
         "done": "Done"

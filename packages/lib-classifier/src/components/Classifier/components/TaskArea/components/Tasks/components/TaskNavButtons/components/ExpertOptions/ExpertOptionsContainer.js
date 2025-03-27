@@ -1,7 +1,13 @@
 import { bool, func } from 'prop-types'
 import ExpertOptions from './ExpertOptions'
 
-function ExpertOptionsContainer ({ storeDemoMode, setDemoMode, ...rest }) {
+const DEFAULT_HANDLER = () => {}
+
+function ExpertOptionsContainer({
+  storeDemoMode,
+  setDemoMode = DEFAULT_HANDLER,
+  ...rest
+}) {
   const showDemoModeToggle = window?.location?.search?.includes('demo=true')
 
   if (showDemoModeToggle && storeDemoMode === undefined) {
@@ -9,9 +15,7 @@ function ExpertOptionsContainer ({ storeDemoMode, setDemoMode, ...rest }) {
   }
 
   if (showDemoModeToggle) {
-    return (
-      <ExpertOptions {...rest} />
-    )
+    return <ExpertOptions {...rest} />
   }
 
   return null

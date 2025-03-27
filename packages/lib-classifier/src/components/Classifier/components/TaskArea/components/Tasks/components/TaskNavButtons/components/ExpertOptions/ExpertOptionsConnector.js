@@ -1,14 +1,10 @@
-import { useContext } from 'react';
-import { MobXProviderContext, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
+
+import { useStores } from '@hooks'
 import ExpertOptionsContainer from './ExpertOptionsContainer'
 
-function useStores() {
-  const stores = useContext(MobXProviderContext)
-
-  const {
-    demoMode,
-    setDemoMode
-  } = stores.classifierStore.classifications
+function storeMapper(classifierStore) {
+  const { demoMode, setDemoMode } = classifierStore.classifications
 
   return {
     storeDemoMode: demoMode,
@@ -17,10 +13,7 @@ function useStores() {
 }
 
 function ExpertOptionsConnector() {
-  const {
-    storeDemoMode,
-    setDemoMode
-  } = useStores()
+  const { storeDemoMode, setDemoMode } = useStores(storeMapper)
 
   return (
     <ExpertOptionsContainer

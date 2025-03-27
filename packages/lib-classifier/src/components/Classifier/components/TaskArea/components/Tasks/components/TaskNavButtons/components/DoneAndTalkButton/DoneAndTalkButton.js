@@ -22,41 +22,41 @@ const Label = () => {
   return (
     <StyledLabel>
       {t('TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')}
-      <ShareRounded size='1rem' color='black' />
+      <ShareRounded
+        size='1rem'
+        color='black'
+        aria-label={t('TaskArea.Tasks.DoneAndTalkButton.newTab')}
+      />
     </StyledLabel>
   )
 }
 
 const DEFAULT_HANDLER = () => true
+
 function DoneAndTalkButton({
   disabled = false,
   onClick = DEFAULT_HANDLER,
-  setSaving = DEFAULT_HANDLER,
-  visible = false
+  setSaving = DEFAULT_HANDLER
 }) {
   function handleClick(event) {
     setSaving(true)
     return onClick(event)
   }
 
-  if (visible) {
-    return (
-      <StyledButton
-        color='blue'
-        disabled={disabled}
-        label={<Label />}
-        onClick={handleClick}
-      />
-    )
-  }
-  return null
+  return (
+    <StyledButton
+      color='blue'
+      disabled={disabled}
+      label={<Label />}
+      onClick={handleClick}
+    />
+  )
 }
 
 DoneAndTalkButton.propTypes = {
   disabled: bool,
   onClick: func,
-  setSaving: func,
-  visible: bool
+  setSaving: func
 }
 
 export default DoneAndTalkButton

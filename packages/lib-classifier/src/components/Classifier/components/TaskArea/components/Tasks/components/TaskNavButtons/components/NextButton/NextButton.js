@@ -12,33 +12,27 @@ const StyledButton = styled(PrimaryButton)`
   flex: 1 0;
 `
 
-function NextButton ({
+function NextButton({
   autoFocus = false,
   disabled = false,
-  hasNextStep = false,
   onClick = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   const label = t('TaskArea.Tasks.NextButton.next')
 
-  if (hasNextStep) {
-    return (
-      <StyledButton
-        autoFocus={autoFocus}
-        disabled={disabled}
-        label={label}
-        onClick={onClick}
-      />
-    )
-  }
-
-  return null
+  return (
+    <StyledButton
+      autoFocus={autoFocus}
+      disabled={disabled}
+      label={label}
+      onClick={onClick}
+    />
+  )
 }
 
 NextButton.propTypes = {
   autoFocus: bool,
-  disabled: bool,
-  hasNextStep: bool
+  disabled: bool
 }
 
 export default withThemeContext(NextButton, nextButtonTheme)

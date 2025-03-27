@@ -11,7 +11,6 @@ const StyledButton = styled(PrimaryButton)`
 
 function DoneButton({
   disabled = false,
-  hasNextStep = false,
   onClick = DEFAULT_HANDLER,
   setSaving = DEFAULT_HANDLER
 }) {
@@ -22,23 +21,18 @@ function DoneButton({
     return onClick(event)
   }
 
-  if (!hasNextStep) {
-    return (
-      <StyledButton
-        color='green'
-        disabled={disabled}
-        label={t('TaskArea.Tasks.DoneButton.done')}
-        onClick={handleClick}
-      />
-    )
-  }
-
-  return null
+  return (
+    <StyledButton
+      color='green'
+      disabled={disabled}
+      label={t('TaskArea.Tasks.DoneButton.done')}
+      onClick={handleClick}
+    />
+  )
 }
 
 DoneButton.propTypes = {
   disabled: bool,
-  hasNextStep: bool,
   onClick: func,
   setSaving: func
 }

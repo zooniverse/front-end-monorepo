@@ -1,13 +1,12 @@
-import { withStores } from '@helpers'
+import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import BackButton from './BackButton'
 
-function storeMapper(store) {
+function storeMapper(classifierStore) {
   const {
-    subjects: {
-      active: subject
-    }
-  } = store
+    subjects: { active: subject }
+  } = classifierStore
 
   if (subject?.stepHistory) {
     const { back, canUndo } = subject?.stepHistory
@@ -21,8 +20,12 @@ function storeMapper(store) {
       onClick
     }
   }
-
-  return {}
 }
 
-export default withStores(BackButton, storeMapper)
+function BackButtonConnector(props) {
+  const { canUndo, onClick } = useStores(storeMapper)
+
+  return canUndo ? <BackButton onClick={onClick} {...props} /> : null
+}
+
+export default observer(BackButtonConnector)

@@ -12,15 +12,15 @@ const singleChoiceTask = {
     { label: 'no', next: 'P1' }
   ],
   help: '',
-  question: 'Is there a cat?',
+  question: 'Yes or No?',
   required: true,
   type: 'single'
 }
 
 const multipleChoiceTask = {
-  answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
+  answers: [{ label: 'Jimin' }, { label: 'Jungkook' }, { label: 'j-hope' }],
   help: '',
-  question: 'What is/are the cat(s) doing?',
+  question: 'Who is your favorite member of BTS?',
   required: true,
   type: 'multiple'
 }
