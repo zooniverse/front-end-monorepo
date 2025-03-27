@@ -93,17 +93,17 @@ function Educate() {
           >
             <StyledAnchor
               href='https://blog.zooniverse.org/2020/03/18/zooniverse-remote-online-learning-resources'
-              label={t('Educate.buttons.one')}
+              label={t('Educate.buttons.first')}
               imgSrc='https://static.zooniverse.org/fem-assets/educate-btn1.jpg'
             />
             <StyledAnchor
               href='https://classroom.zooniverse.org/#/zooniverse-in-schools'
-              label={t('Educate.buttons.two')}
+              label={t('Educate.buttons.second')}
               imgSrc='https://static.zooniverse.org/fem-assets/educate-btn2.jpg'
             />
             <StyledAnchor
               href='https://classroom.zooniverse.org/#/activities-for-undergraduates'
-              label={t('Educate.buttons.three')}
+              label={t('Educate.buttons.third')}
               imgSrc='https://static.zooniverse.org/fem-assets/educate-btn3.jpg'
             />
           </Box>
@@ -138,11 +138,11 @@ function Educate() {
                   weight='bold'
                   size='1rem'
                 >
-                  {t('Educate.forEducators.subheadings.one')}
+                  {t('Educate.forEducators.subheadings.first')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
                   <Trans
-                    i18nKey='Educate.forEducators.paragraphs.one'
+                    i18nKey='Educate.forEducators.paragraphs.first'
                     t={t}
                     components={[
                       <Anchor
@@ -162,11 +162,11 @@ function Educate() {
                   weight='bold'
                   size='1rem'
                 >
-                  {t('Educate.forEducators.subheadings.two')}
+                  {t('Educate.forEducators.subheadings.second')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
                   <Trans
-                    i18nKey='Educate.forEducators.paragraphs.two'
+                    i18nKey='Educate.forEducators.paragraphs.second'
                     t={t}
                     components={[
                       <Anchor
@@ -186,11 +186,11 @@ function Educate() {
                   weight='bold'
                   size='1rem'
                 >
-                  {t('Educate.forEducators.subheadings.three')}
+                  {t('Educate.forEducators.subheadings.third')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
                   <Trans
-                    i18nKey='Educate.forEducators.paragraphs.three'
+                    i18nKey='Educate.forEducators.paragraphs.third'
                     t={t}
                     components={[
                       <Anchor
@@ -216,43 +216,43 @@ function Educate() {
           </Heading>
           <Box gap='small'>
             <Article
-              date={t('Educate.articles.one.datePublished')}
+              date={t('Educate.articles.first.datePublished')}
               excerpt={
-                t('Educate.articles.one.excerpt').slice(0, articleExcerptSize) +
+                t('Educate.articles.first.excerpt').slice(0, articleExcerptSize) +
                 '...'
               }
-              title={t('Educate.articles.one.title')}
+              title={t('Educate.articles.first.title')}
               url='https://astroedjournal.org/index.php/ijae/article/view/43'
             />
             <Article
-              date={t('Educate.articles.two.datePublished')}
+              date={t('Educate.articles.second.datePublished')}
               excerpt={
-                t('Educate.articles.two.excerpt').slice(0, articleExcerptSize) +
+                t('Educate.articles.second.excerpt').slice(0, articleExcerptSize) +
                 '...'
               }
-              title={t('Educate.articles.two.title')}
+              title={t('Educate.articles.second.title')}
               url='https://blog.zooniverse.org/2019/08/14/uscientist-and-the-galaxy-zoo-touch-table-at-adler-planetarium'
             />
             <Article
-              date={t('Educate.articles.three.datePublished')}
+              date={t('Educate.articles.third.datePublished')}
               excerpt={
-                t('Educate.articles.three.excerpt').slice(
+                t('Educate.articles.third.excerpt').slice(
                   0,
                   articleExcerptSize
                 ) + '...'
               }
-              title={t('Educate.articles.three.title')}
+              title={t('Educate.articles.third.title')}
               url='https://www.bpl.org/blogs/post/8th-graders-in-missouri-transcribe-anti-slavery-documents-and-learn-about-the-abolitionist-movement'
             />
             <Article
-              date={t('Educate.articles.four.datePublished')}
+              date={t('Educate.articles.fourth.datePublished')}
               excerpt={
-                t('Educate.articles.four.excerpt').slice(
+                t('Educate.articles.fourth.excerpt').slice(
                   0,
                   articleExcerptSize
                 ) + '...'
               }
-              title={t('Educate.articles.four.title')}
+              title={t('Educate.articles.fourth.title')}
               url='https://blog.zooniverse.org/2015/04/29/floating-forests-teaching-young-children-about-kelp'
             />
           </Box>

@@ -57,9 +57,9 @@ export default function DefaultHome({ dailyZooPosts = [], zooBlogPosts = [] }) {
             textAlign='center'
             fill
           >
-            {t('Home.DefaultHome.headings.four')}
+            {t('Home.DefaultHome.headings.fourth')}
           </SpacedHeading>
-          <SubHeading>{t('Home.DefaultHome.subheadings.four')}</SubHeading>
+          <SubHeading>{t('Home.DefaultHome.subheadings.fourth')}</SubHeading>
           <Box margin={{ bottom: 'medium' }}>
             <Mobile />
           </Box>

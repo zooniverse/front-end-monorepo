@@ -62,9 +62,9 @@ function Donate() {
           <StyledBox round='16px'>
             <Image src='https://static.zooniverse.org/fem-assets/donate-page.jpeg' />
           </StyledBox>
-          <Paragraph margin={{ top: 'medium' }}>{t('Donate.paragraphs.one')}</Paragraph>
-          <Paragraph margin='0'>{t('Donate.paragraphs.two')}</Paragraph>
-          <Paragraph>{t('Donate.paragraphs.three')}</Paragraph>
+          <Paragraph margin={{ top: 'medium' }}>{t('Donate.paragraphs.first')}</Paragraph>
+          <Paragraph margin='0'>{t('Donate.paragraphs.second')}</Paragraph>
+          <Paragraph>{t('Donate.paragraphs.third')}</Paragraph>
           <StyledDonate
             margin={{ top: '15px' }}
             href='https://give.adlerplanetarium.org/give/245802/#!/donation/checkout'
