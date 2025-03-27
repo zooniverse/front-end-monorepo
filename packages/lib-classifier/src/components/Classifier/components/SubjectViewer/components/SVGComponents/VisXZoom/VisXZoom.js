@@ -57,6 +57,7 @@ function VisXZoom({
   left = 0,
   move = true,
   onKeyDown,
+  onFirstScroll = DEFAULT_HANDLER,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -67,6 +68,7 @@ function VisXZoom({
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
+  const hasScrolledRef = useRef(false)
 
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
@@ -82,6 +84,12 @@ function VisXZoom({
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   
   function onWheel(event) {
+    // Check for first scroll event
+    if (!hasScrolledRef.current && allowsScrolling) {
+      hasScrolledRef.current = true
+      onFirstScroll()
+    }
+    
     /* Default behaviour for subject viewers that don't scroll vertically.
     Cancel the default event (ignored unless the listener explicitly
     sets passive: false) and call the wheel handler with a throttled delay.
@@ -266,6 +274,8 @@ VisXZoom.propTypes = {
   move: PropTypes.bool,
   /** Custom callback for keydown events. */
   onKeyDown: PropTypes.func,
+  /** Callback for first scroll event when allowsScrolling is true */
+  onFirstScroll: PropTypes.func,
   /** Enable panning. Ignored if zooming is false. */
   panning: PropTypes.bool,
   /** Set the subject toolbar's onPan callback in the classifier store. */
