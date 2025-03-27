@@ -9,6 +9,7 @@ export const StyledBackButtonWrapper = styled.div`
   margin-right: 1ch;
   flex: 0 0 33%;
 `
+
 function BackButton({
   canUndo = false,
   onClick = () => true

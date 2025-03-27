@@ -17,7 +17,6 @@ export default function TaskNavButtons({
     <Box
       direction='row'
       justify='center'
-      gap='1ch'
     >
       <BackButton />
       <NextButton

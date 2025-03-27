@@ -13,6 +13,7 @@ const StyledLabel = styled(Text)`
 `
 
 const StyledButton = styled(PrimaryButton)`
+  margin-right: 1ch;
   flex: 1 0;
 `
 

@@ -1,50 +1,50 @@
 import { WorkflowFactory } from '@test/factories'
 
+/* 
+  An example workflow created by the new workflow editor, 
+  which includes steps in the editor interface. This workflow is
+  non-branching, has three steps with one task each, all required.
+*/
+
 const singleChoiceTask = {
-  answers: [{ label: 'yes' }, { label: 'no' }],
+  answers: [
+    { label: 'yes', next: 'P1' },
+    { label: 'no', next: 'P1' }
+  ],
+  help: '',
   question: 'Is there a cat?',
   required: true,
-  taskKey: 'T0',
   type: 'single'
 }
+
 const multipleChoiceTask = {
   answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
+  help: '',
   question: 'What is/are the cat(s) doing?',
   required: true,
-  taskKey: 'T1',
   type: 'multiple'
 }
+
 const finalSingleChoiceTask = {
   answers: [{ label: 'oranges' }, { label: 'apples' }],
-  question: 'Favourite fruit?',
+  help: '',
+  question: 'Favorite fruit?',
   required: true,
-  taskKey: 'T2',
   type: 'single'
 }
 
 const mockWorkflow = WorkflowFactory.build({
   display_name: 'Multi-step workflow',
-  first_task: 'T0',
   tasks: {
     T0: singleChoiceTask,
     T1: multipleChoiceTask,
     T2: finalSingleChoiceTask
   },
-  version: '0.0'
+  steps: [
+    ['P0', { stepKey: 'P0', taskKeys: ['T0'] }],
+    ['P1', { next: 'P2', stepKey: 'P1', taskKeys: ['T1'] }],
+    ['P2', { stepKey: 'P2', taskKeys: ['T2'] }]
+  ]
 })
-
-export const workflowStrings = {
-  display_name: 'Multi-step workflow',
-  'tasks.T0.question': 'Is there a cat?',
-  'tasks.T0.answers.0.label': 'yes',
-  'tasks.T0.answers.1.label': 'no',
-  'tasks.T1.question': 'What is/are the cats doing?',
-  'tasks.T1.answers.0.label': 'napping',
-  'tasks.T1.answers.1.label': 'standing',
-  'tasks.T1.answers.2.label': 'playing',
-  'tasks.T2.question': 'Favourite fruit?',
-  'tasks.T2.answers.0.label': 'oranges',
-  'tasks.T2.answers.1.label': 'apples'
-}
 
 export default mockWorkflow
