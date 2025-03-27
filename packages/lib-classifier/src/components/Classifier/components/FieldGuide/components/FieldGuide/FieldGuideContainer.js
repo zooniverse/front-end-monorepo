@@ -27,8 +27,7 @@ function FieldGuideContainer ({
     modal: false,
     pad: '0',
     position: 'right',
-    title: t('FieldGuide.title'),
-    trapFocus: true,
+    title: t('FieldGuide.title')
   }
   const rndProps = {
     cancel: 'button, a.item, div.item-content',

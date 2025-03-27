@@ -61,8 +61,6 @@ export default function DisabledTaskPopup({
   return (
     <StyledDialog open={active} aria-label={t('TaskArea.DisabledTaskPopup.title')}>
       <Modal
-        role={undefined}
-        aria-label={undefined}
         full='horizontal'
         title={t('TaskArea.DisabledTaskPopup.title')}
       >

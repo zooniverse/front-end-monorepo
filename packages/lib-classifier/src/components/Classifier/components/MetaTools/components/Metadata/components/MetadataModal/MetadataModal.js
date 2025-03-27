@@ -78,7 +78,6 @@ export default function MetadataModal ({
       active={active}
       closeFn={closeFn}
       title={t('MetaTools.MetadataModal.title')}
-      trapFocus={true}
     >
       <Box height='medium' overflow='auto'>
         <StyledDataTable

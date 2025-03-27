@@ -29,7 +29,6 @@ function TaskHelp (props) {
       active={showModal}
       closeFn={() => setShowModal(false)}
       title={label}
-      trapFocus={true}
     >
       <>
         <Box

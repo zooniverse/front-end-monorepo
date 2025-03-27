@@ -34,8 +34,6 @@ ref) {
   return (
     <Box
       ref={root}
-      role='dialog'
-      aria-label={title}
       background={{
         dark: 'dark-5',
         light: 'neutral-6'
