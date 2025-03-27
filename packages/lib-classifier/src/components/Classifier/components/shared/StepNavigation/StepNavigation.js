@@ -16,9 +16,11 @@ const StyledButton = styled(Button)`
   }
 `
 
+// flex-wrap + gap are used to ensure if the Tutorial has too many steps, the 
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   position: relative;
-  overflow: auto;
+  flex-wrap: wrap;
+  gap: 20px 0;
 
   > label {
     > span {
