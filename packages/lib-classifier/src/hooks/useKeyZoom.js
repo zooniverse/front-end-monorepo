@@ -1,6 +1,6 @@
 import { useStores } from '@hooks'
 
-const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
+const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect', 'image']
 
 function storeMapper(classifierStore) {
   const {

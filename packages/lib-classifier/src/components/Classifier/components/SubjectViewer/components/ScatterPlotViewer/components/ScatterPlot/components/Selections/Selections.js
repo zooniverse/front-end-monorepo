@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTheme } from 'styled-components'
 import { Brush } from '@visx/brush'
 
@@ -18,6 +18,11 @@ const TRANSFORM_MATRIX = {
   skewY: 0,
   translateX: 0,
   translateY: 0
+}
+
+function cancelEvent(event) {
+  event.preventDefault()
+  event.stopPropagation()
 }
 
 function useDataSelectionTool() {
@@ -231,6 +236,9 @@ function Selections({
       className='brushLayer'
       focusable='true'
       onKeyDown={onKeyDown}
+      onPointerDown={cancelEvent}
+      onPointerMove={cancelEvent}
+      onPointerUp={cancelEvent}
       tabIndex='-1'
     >
       {selections?.map((selection, index) => (

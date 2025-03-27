@@ -1,12 +1,20 @@
 import { Box } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useEffect } from 'react'
+import styled, { css } from 'styled-components'
 
 import ZoomControlButton from '../ZoomControlButton'
 
 import VisXZoom from '../SVGComponents/VisXZoom'
 
 import SingleImageCanvas from './SingleImageCanvas'
+
+const StyledSVG = styled.svg`
+  background-color: ${props => props.theme.global.colors['light-4']};
+  touch-action: pinch-zoom;
+  max-width: ${props => props.$maxWidth};
+  ${props => props.$maxHeight && css`max-height: ${props.$maxHeight};`}
+`
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_ZOOM_CONFIG = {
@@ -24,6 +32,7 @@ function SingleImageViewer({
   frame = 0,
   imgRef,
   invert = false,
+  limitSubjectHeight = false,
   move = false,
   naturalHeight,
   naturalWidth,
@@ -42,92 +51,72 @@ function SingleImageViewer({
     enableRotation()
   }, [])
 
-  const singleImageCanvasProps = {
-    enableInteractionLayer,
-    frame,
-    imgRef,
-    invert,
-    move,
-    naturalHeight,
-    naturalWidth,
-    onKeyDown,
-    rotation,
-    src,
-    subject
-  }
+
+  const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+  const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
   return (
     <>
       {zoomControlFn && (
-        <ZoomControlButton
-          onClick={zoomControlFn}
-          zooming={zooming}
-        />
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
-      <Box
-        align='flex-end'
-        animation='fadeIn'
-        background='light-4'
-        overflow='hidden'
-        width='100%'
-      >
-        {title?.id && title?.text && (
-          <title id={title.id}>{title.text}</title>
-        )}
-        <svg
-          style={{ touchAction: 'none' }}
+      <Box align="flex-end" animation="fadeIn" overflow="hidden" width="100%">
+        <StyledSVG
+          aria-labelledby={title?.id}
+          $maxHeight={maxHeight}
+          $maxWidth={maxWidth}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
+          {title?.id && title?.text && (
+            <title id={title.id}>{title.text}</title>
+          )}
           <VisXZoom
+            allowsScrolling
             height={naturalHeight}
+            move={move}
+            onKeyDown={onKeyDown}
             panning={panning}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
             width={naturalWidth}
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
-            zoomingComponent={SingleImageCanvas}
             zooming={zooming}
-            {...singleImageCanvasProps}
-          />
-        </svg>
+          >
+            {(zoomProps) => (
+              <SingleImageCanvas
+                {...zoomProps}
+                enableInteractionLayer={enableInteractionLayer}
+                frame={frame}
+                imgRef={imgRef}
+                invert={invert}
+                move={move}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                rotation={rotation}
+                src={src}
+                subject={subject}
+              />
+            )}
+          </VisXZoom>
+        </StyledSVG>
       </Box>
     </>
-  )
+  );
 }
 
 SingleImageViewer.propTypes = {
-  enableInteractionLayer: bool,
   enableRotation: func,
-  frame: number,
-  imgRef: shape({
-    current: shape({
-      naturalHeight: number,
-      naturalWidth: number,
-      src: string
-    })
-  }),
-  invert: bool,
   limitSubjectHeight: bool,
-  move: bool,
-  naturalHeight: number,
-  naturalWidth: number,
-  onKeyDown: func,
   panning: bool,
-  rotation: number,
   setOnPan: func,
   setOnZoom: func,
-  src: string,
-  subject: shape({
-    locations: arrayOf(shape({
-      url: string
-    }))
-  }),
   title: shape({
     id: string,
     text: string
   }),
   zoomControlFn: func,
-  zooming: bool
+  zooming: bool,
+  ...SingleImageCanvas.propTypes
 }
 
 export default SingleImageViewer
