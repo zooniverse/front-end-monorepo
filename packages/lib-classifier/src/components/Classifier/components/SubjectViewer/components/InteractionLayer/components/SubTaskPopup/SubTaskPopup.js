@@ -105,7 +105,6 @@ function SubTaskPopup({
         position='top-left'
         rndProps={rndProps}
         titleColor=''
-        trapFocus={true}
       >
         <Box 
           className='subtaskpopup-element-that-ignores-drag-actions'

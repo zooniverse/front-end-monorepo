@@ -13,6 +13,7 @@ function withLayer (WrappedComponent) {
     plain = false,
     position = 'center',
     target,
+    title,
     ...rest
   },
   ref) {
@@ -22,6 +23,8 @@ function withLayer (WrappedComponent) {
 
     return (
       <Layer
+        role='dialog'
+        aria-label={title}
         animate={animate}
         className={className}
         full={full}
@@ -32,7 +35,13 @@ function withLayer (WrappedComponent) {
         onEsc={closeFn}
         target={target}
       >
-        <WrappedComponent ref={ref} closeFn={closeFn} {...rest} />
+        <WrappedComponent
+          ref={ref}
+          closeFn={closeFn}
+          title={title}
+          trapFocus
+          {...rest}
+        />
       </Layer>
     )
   }
