@@ -1,39 +1,33 @@
 import { PrimaryButton } from '@zooniverse/react-components'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
-import { bool } from 'prop-types'
+import { bool, func } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
+import styled from 'styled-components'
 
-import nextButtonTheme from './theme'
+const DEFAULT_HANDLER = () => true
 
-function NextButton ({
-  autoFocus = false,
+const StyledButton = styled(PrimaryButton)`
+  flex: 1 0;
+`
+
+function NextButton({
   disabled = false,
-  hasNextStep = false,
-  onClick = () => true
+  onClick = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   const label = t('TaskArea.Tasks.NextButton.next')
 
-  if (hasNextStep) {
-    return (
-      <PrimaryButton
-        autoFocus={autoFocus}
-        disabled={disabled}
-        label={label}
-        onClick={onClick}
-        style={{ flex: '1 0' }}
-      />
-    )
-  }
-
-  return null
+  return (
+    <StyledButton
+      disabled={disabled}
+      label={label}
+      onClick={onClick}
+    />
+  )
 }
 
 NextButton.propTypes = {
-  autoFocus: bool,
   disabled: bool,
-  hasNextStep: bool
+  onClick: func
 }
 
-export default withThemeContext(NextButton, nextButtonTheme)
-export { NextButton }
+export default NextButton

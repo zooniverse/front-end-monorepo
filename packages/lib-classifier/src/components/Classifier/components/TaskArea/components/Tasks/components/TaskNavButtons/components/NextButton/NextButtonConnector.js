@@ -1,8 +1,9 @@
-import { withStores } from '@helpers'
+import { observer } from 'mobx-react'
 
-import NextButton from './NextButton'
+import { useStores } from '@hooks'
+import NextButton from './NextButton.js'
 
-function storeMapper(store) {
+function storeMapper(classifierStore) {
   const {
     subjects: {
       active: subject
@@ -10,9 +11,9 @@ function storeMapper(store) {
     workflowSteps: {
       active: step
     }
-  } = store
+  } = classifierStore
 
-  if (subject?.stepHistory) {
+  if (subject?.stepHistory) { // stepHistory is not ready when subject is loading
     const { next, hasNextStep, latest } = subject.stepHistory
     const annotations = latest?.annotations
 
@@ -30,4 +31,10 @@ function storeMapper(store) {
   return {}
 }
 
-export default withStores(NextButton, storeMapper)
+function NextButtonConnector(props) {
+  const { hasNextStep, onClick } = useStores(storeMapper)
+
+  return hasNextStep ? <NextButton onClick={onClick} {...props} /> : null
+}
+
+export default observer(NextButtonConnector)
