@@ -10,7 +10,6 @@ const StyledButton = styled(PrimaryButton)`
 `
 
 function NextButton({
-  autoFocus = false,
   disabled = false,
   onClick = DEFAULT_HANDLER
 }) {
@@ -19,7 +18,6 @@ function NextButton({
 
   return (
     <StyledButton
-      autoFocus={autoFocus}
       disabled={disabled}
       label={label}
       onClick={onClick}
@@ -28,7 +26,6 @@ function NextButton({
 }
 
 NextButton.propTypes = {
-  autoFocus: bool,
   disabled: bool,
   onClick: func
 }
