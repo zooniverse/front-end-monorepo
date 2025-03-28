@@ -16,11 +16,10 @@ function storeMapper(classifierStore) {
     }
   } = classifierStore
 
-  let visible = false
-  if (subject?.stepHistory) {
+  if (subject?.stepHistory) { // stepHistory is not ready while the subject is loading
     const { finish, hasNextStep } = subject.stepHistory
 
-    visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
+    const visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
 
     function onClick(event) {
       event.preventDefault()
@@ -34,6 +33,8 @@ function storeMapper(classifierStore) {
       visible
     }
   }
+
+  return {}
 }
 
 function DoneAndTalkConnector(props) {

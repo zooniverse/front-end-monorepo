@@ -24,7 +24,7 @@ const Label = () => {
       {t('TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')}
       <ShareRounded
         size='1rem'
-        color='black'
+        color={{ light: 'black', dark: 'white' }}
         aria-label={t('TaskArea.Tasks.DoneAndTalkButton.newTab')}
       />
     </StyledLabel>

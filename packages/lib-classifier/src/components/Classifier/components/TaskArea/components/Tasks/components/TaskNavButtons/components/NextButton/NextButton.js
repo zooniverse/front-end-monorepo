@@ -1,10 +1,7 @@
 import { PrimaryButton } from '@zooniverse/react-components'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
-import { bool } from 'prop-types'
+import { bool, func } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
-
-import nextButtonTheme from './theme'
 
 const DEFAULT_HANDLER = () => true
 
@@ -32,8 +29,8 @@ function NextButton({
 
 NextButton.propTypes = {
   autoFocus: bool,
-  disabled: bool
+  disabled: bool,
+  onClick: func
 }
 
-export default withThemeContext(NextButton, nextButtonTheme)
-export { NextButton }
+export default NextButton

@@ -8,7 +8,7 @@ function storeMapper(classifierStore) {
     subjects: { active: subject }
   } = classifierStore
 
-  if (subject?.stepHistory) {
+  if (subject?.stepHistory) { // stepHistory is not ready while the subject is loading
     const { back, canUndo } = subject?.stepHistory
 
     function onClick() {
@@ -20,6 +20,8 @@ function storeMapper(classifierStore) {
       onClick
     }
   }
+
+  return {}
 }
 
 function BackButtonConnector(props) {

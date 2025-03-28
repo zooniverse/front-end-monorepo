@@ -1,24 +1,23 @@
 import { bool, func } from 'prop-types'
+import { useEffect } from 'react'
+
 import ExpertOptions from './ExpertOptions'
 
 const DEFAULT_HANDLER = () => {}
 
 function ExpertOptionsContainer({
   storeDemoMode,
-  setDemoMode = DEFAULT_HANDLER,
-  ...rest
+  setDemoMode = DEFAULT_HANDLER
 }) {
   const showDemoModeToggle = window?.location?.search?.includes('demo=true')
 
-  if (showDemoModeToggle && storeDemoMode === undefined) {
-    setDemoMode(true)
-  }
+  useEffect(() => {
+    if (showDemoModeToggle && storeDemoMode === undefined) {
+      setDemoMode(true)
+    }
+  }, [storeDemoMode, setDemoMode])
 
-  if (showDemoModeToggle) {
-    return <ExpertOptions {...rest} />
-  }
-
-  return null
+  return showDemoModeToggle ? <ExpertOptions /> : null
 }
 
 ExpertOptionsContainer.propTypes = {

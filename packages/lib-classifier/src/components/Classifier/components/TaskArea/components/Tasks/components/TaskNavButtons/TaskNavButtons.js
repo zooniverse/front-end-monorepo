@@ -8,29 +8,15 @@ import DoneAndTalkButton from './components/DoneAndTalkButton'
 import BackButton from './components/BackButton'
 import ExpertOptions from './components/ExpertOptions'
 
-export default function TaskNavButtons({
-  disabled = false
-}) {
+export default function TaskNavButtons({ disabled = false }) {
   const [saving, setSaving] = useState(false)
 
   return (
-    <Box
-      direction='row'
-      justify='center'
-    >
+    <Box direction='row' justify='center'>
       <BackButton />
-      <NextButton
-        autoFocus={false}
-        disabled={disabled}
-      />
-      <DoneAndTalkButton
-        disabled={disabled || saving}
-        setSaving={setSaving}
-      />
-      <DoneButton
-        disabled={disabled || saving}
-        setSaving={setSaving}
-      />
+      <NextButton disabled={disabled} />
+      <DoneAndTalkButton disabled={disabled || saving} setSaving={setSaving} />
+      <DoneButton disabled={disabled || saving} setSaving={setSaving} />
       <ExpertOptions />
     </Box>
   )

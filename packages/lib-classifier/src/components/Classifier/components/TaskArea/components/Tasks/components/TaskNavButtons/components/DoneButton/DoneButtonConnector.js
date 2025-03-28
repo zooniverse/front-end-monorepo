@@ -16,7 +16,7 @@ function storeMapper(classifierStore) {
     }
   } = classifierStore
 
-  if (subject?.stepHistory) {
+  if (subject?.stepHistory) { // stepHistory is not ready while subject is loading
     const { finish, hasNextStep, latest } = subject.stepHistory
     const annotations = latest?.annotations
 
@@ -32,6 +32,8 @@ function storeMapper(classifierStore) {
       onClick
     }
   }
+
+  return {}
 }
 
 function DoneButtonConnector(props) {

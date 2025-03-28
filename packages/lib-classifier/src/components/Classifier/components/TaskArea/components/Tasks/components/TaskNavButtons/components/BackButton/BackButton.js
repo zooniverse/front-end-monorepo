@@ -1,13 +1,29 @@
 import { func, object } from 'prop-types'
-import { Button, Text } from 'grommet'
-import styled from 'styled-components'
-import withThemeContext from '@zooniverse/react-components/helpers/withThemeContext'
-import theme from './theme'
+import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
+import PrimaryButton from '@zooniverse/react-components/PrimaryButton'
 
-export const StyledBackButtonWrapper = styled.div`
+const StyledButton = styled(PrimaryButton)`
   margin-right: 1ch;
   flex: 0 0 33%;
+
+  ${props =>
+    props.theme.dark
+      ? css`
+          border: white 1px solid;
+          font-color: white;
+          background: ${props.theme.global.colors['dark-1']};
+        `
+      : css`
+          border: none;
+          font-color: black;
+          background: ${props.theme.global.colors['light-1']};
+        `}
+
+  &:focus:not(:disabled),
+  &:hover:not(:disabled) {
+    background: linear-gradient(180deg, #c0e5e7, #84ccd1);
+  }
 `
 
 const DEFAULT_HANDLER = () => {}
@@ -16,13 +32,10 @@ function BackButton({ onClick = DEFAULT_HANDLER }) {
   const { t } = useTranslation('components')
 
   return (
-    <StyledBackButtonWrapper>
-      <Button
-        focusIndicator={false}
-        label={<Text size='small'>{t('TaskArea.Tasks.BackButton.back')}</Text>}
-        onClick={onClick}
-      />
-    </StyledBackButtonWrapper>
+    <StyledButton
+      label={t('TaskArea.Tasks.BackButton.back')}
+      onClick={onClick}
+    />
   )
 }
 
@@ -31,5 +44,4 @@ BackButton.propTypes = {
   theme: object
 }
 
-export default withThemeContext(BackButton, theme)
-export { BackButton }
+export default BackButton
