@@ -14,15 +14,11 @@ import AvailableSubjects from './AvailableSubjects'
 const MINIMUM_QUEUE_SIZE = 3
 
 function openTalkPage (talkURL) {
-  // if (newTab) {
     const newTab = window.open()
     newTab.opener = null
     newTab.location = talkURL
     newTab.target = '_blank'
     newTab.focus()
-  // } else {
-  //   window.location.assign(talkURL)
-  // }
 }
 
 const SubjectStore = types
