@@ -9,20 +9,29 @@ const StyledButton = styled(GrommetButton)`
   width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  ${props =>
-    props.active
-      ? css`
-          background-color: ${props.theme.global.colors.brand};
-        `
-      : css`
-          background-color: ${props.theme.dark
-            ? props.theme.global.colors['dark-3']
-            : 'inherit'};
-        `}
+  background-color: ${props =>
+    props.theme.dark
+      ? props.theme.global.colors['dark-3']
+      : 'inherit'
+    };
+  
+  > svg {
+    fill: ${props => (props.theme.dark ? 'white' : 'black')};
+    width: min(50%, 1.2rem); // See similar dimension in FieldGuideButton
+    stroke: transparent;
+  }
 
   :not(:last-child) {
     margin-bottom: clamp(8px, 20%, 10px);
     // similar to padding of Image Toolbar
+  }
+  
+  &[aria-pressed='true'] {
+    background-color: ${props => props.theme.global.colors.brand};
+
+    > svg {
+      fill: white;
+    }
   }
 
   &:disabled {
@@ -52,19 +61,6 @@ const StyledButton = styled(GrommetButton)`
         fill: ${props => (props.theme.dark ? 'black' : 'white')};
       }
     }
-  }
-
-  > svg {
-    ${props =>
-      props.active
-        ? css`
-            fill: white;
-          `
-        : css`
-            fill: ${props.theme.dark ? 'white' : 'black'};
-          `}
-    width: min(50%, 1.2rem); // See similar dimension in FieldGuideButton
-    stroke: transparent;
   }
 `
 
@@ -116,7 +112,8 @@ function Button({
   onPointerDown = DEFAULT_HANDLER,
   onPointerOut = DEFAULT_HANDLER,
   onPointerOver = DEFAULT_HANDLER,
-  onPointerUp = DEFAULT_HANDLER
+  onPointerUp = DEFAULT_HANDLER,
+  ...props
 }) {
   const eventHandlers = disabled
     ? {}
@@ -145,6 +142,7 @@ function Button({
         icon={icon}
         plain
         {...eventHandlers}
+        {...props}
       />
     </Tip>
   )
