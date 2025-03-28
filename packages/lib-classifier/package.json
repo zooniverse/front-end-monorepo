@@ -6,6 +6,7 @@
   "version": "0.0.1",
   "main": "dist/cjs/components/Classifier/index.js",
   "module": "dist/esm/components/Classifier/index.js",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/zooniverse/front-end-monorepo.git",
