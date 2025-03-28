@@ -9,6 +9,10 @@ const InlineBox = styled.span`
   display: inline-flex;
 `
 
+const StyledImage = styled(Image)`
+  max-width: 100%;
+`
+
 export function Placeholder({ children, flex, ...props}) {
   return (
     <Box as={InlineBox} background='brand' flex={flex} justify='center' align='center' {...props}>
@@ -60,10 +64,9 @@ export default function ThumbnailImage({
           width={boxWidth}
           {...rest}
         >
-          <Image
+          <StyledImage
             alt={alt}
             fit={fit}
-            fill
             src={imageSrc}
           />
         </Box>}
