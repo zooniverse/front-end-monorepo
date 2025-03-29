@@ -1,10 +1,9 @@
 import { Loader, SpacedText } from '@zooniverse/react-components'
-import { Box, Layer } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
-import { useTranslation } from '../../translations/i18n.js'
 
-import { fetchPanoptesUsers } from '../../utils'
+import { useTranslation } from '../../translations/i18n.js'
 
 import {
   usePanoptesProjects,
@@ -20,7 +19,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
-import { generateExport } from './helpers/generateExport'
+import ExportStats from './components/ExportStats'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 const CONTRIBUTORS_PER_PAGE = 40
@@ -31,10 +30,11 @@ function Contributors({
   group,
   membership
 }) {
-  const { t } = useTranslation()
-  const [exportLoading, setExportLoading] = useState(false)
+  const [showExport, setShowExport] = useState(false)
   const [page, setPage] = useState(1)
-
+  
+  const { t } = useTranslation()
+  
   const showContributors = adminMode
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
@@ -98,36 +98,6 @@ function Contributors({
     })
   }
 
-  const loadingExportMessage = t('Contributors.generating')
-
-  async function handleGenerateExport() {
-    setExportLoading(true)
-
-    const allUsersQuery = {
-      id: memberIdsPerStats?.join(','),
-      page_size: 100
-    }
-
-    const allUsers = await fetchPanoptesUsers(allUsersQuery)
-
-    const { filename, dataExportUrl } = await generateExport({
-      group,
-      projects,
-      stats,
-      users: allUsers
-    })
-
-    // Create an anchor element and trigger download
-    const link = document.createElement('a')
-    link.href = dataExportUrl
-    link.setAttribute('download', filename)
-    document.body.appendChild(link) // Append to the document
-    link.click() // Programmatically click the link to trigger the download
-    document.body.removeChild(link) // Clean up
-
-    setExportLoading(false)
-  }
-
   function handlePageChange({ page }) {
     setPage(page)
   }
@@ -138,25 +108,15 @@ function Contributors({
 
   return (
     <>
-      {exportLoading ? (
-          <Layer>
-            <Box
-              align='center'
-              gap='small'
-              height='medium'
-              justify='center'
-              width='medium'
-            >
-              <SpacedText>
-                {loadingExportMessage}
-              </SpacedText>
-              <Loader
-                loadingMessage={loadingExportMessage}
-              />
-            </Box>
-          </Layer>
-        ) : null
-      }
+      {showExport && (
+        <ExportStats
+          group={group}
+          handleShowExport={setShowExport}
+          memberIdsPerStats={memberIdsPerStats}
+          projects={projects}
+          stats={stats}
+        />
+      )}
       <Layout
         primaryHeaderItem={
           <HeaderLink
@@ -171,7 +131,7 @@ function Contributors({
           linkProps={{
             as: 'button',
             disabled: disableStatsExport,
-            onClick: handleGenerateExport
+            onClick: () => setShowExport(true)
           }}
           title={t('Contributors.title')}
         >
