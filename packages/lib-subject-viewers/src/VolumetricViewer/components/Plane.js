@@ -234,7 +234,7 @@ export const Plane = ({
     <StyledBox className={`plane-container plane-container-${dimension} ${expanded ? 'expanded' : 'collapsed'} no-select`} ref={containerRef}>
       <button
         aria-controls={`section-${planeId}`}
-        aria-expanded={expanded}
+        aria-expanded={expanded.toString()}
         aria-label={`Toggle ${viewer.dimensions[dimension]} Plane Visibility`}
         className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}
         id={`accordion-${planeId}`}
