@@ -24,12 +24,16 @@ export const pointColor = ({
   isThree = false,
   pointValue
 }) => {
+  // To allow infinite marks, we need to use loop through our colors
+  // We have to skip the 0th index for looping because that handles un-annotated points
+  const i = (annotationIndex % (ColorHues.length - 1)) + 1
+  
   // inactive colors are homogenous
   if (isInactive) {
-    return isThree ? ThreeColorsInactive[annotationIndex + 1] : CanvasColorsInactive[annotationIndex + 1]
+    return isThree ? ThreeColorsInactive[i] : CanvasColorsInactive[i]
   } else {
     const ref = isThree ? ThreeColors : CanvasColors
-    return ref[annotationIndex + 1][pointValue]
+    return ref[i][pointValue];
   }
 }
 
