@@ -169,10 +169,10 @@ export const Plane = ({
   }
 
   function drawPoint ({ context, point, x, y }) {
-    // Draw points that are not in threshold same color as background
-    if (viewer.isPointInThreshold({ point })) {
-      const annotationIndex = viewer.getPointAnnotationIndex({ point })
+    const annotationIndex = viewer.getPointAnnotationIndex({ point })
 
+    // Draw points that are not in threshold same color as background
+    if (viewer.isPointInThreshold({ point }) || annotationIndex !== -1) {
       // isInactive makes all inactive marks less visible 
       const isInactive = (annotationIndex === -1)
         ? false
