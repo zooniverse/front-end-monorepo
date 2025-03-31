@@ -4,7 +4,7 @@ import { number, object } from 'prop-types'
 import { pointColor } from './../helpers/pointColor.js'
 import { Slider } from './Slider'
 import styled, { css } from 'styled-components'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 const BACKGROUND_COLOR = '#000'
 const CANVAS_WIDTH = 330
@@ -19,6 +19,10 @@ const StyledBox = styled(Box)`
   border-radius: 16px;
   margin-bottom: 20px;
   width: 390px;
+
+  button {
+    border: none;
+  }
 
   &.expanded {
     border-bottom-right-radius: 0px;
@@ -106,6 +110,7 @@ export const Plane = ({
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
+  const planeId = useId();
 
   // Offscreen Canvas for fast rendering
   const frameCanvas = document.createElement('canvas')
@@ -227,18 +232,31 @@ export const Plane = ({
 
   return (
     <StyledBox className={`plane-container plane-container-${dimension} ${expanded ? 'expanded' : 'collapsed'} no-select`} ref={containerRef}>
-      <Box className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}>
+      <button
+        aria-controls={`section-${planeId}`}
+        aria-expanded={expanded.toString()}
+        aria-label={`Toggle ${viewer.dimensions[dimension]} Plane Visibility`}
+        className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}
+        id={`accordion-${planeId}`}
+        onClick={toggleContentVisibility}
+        type="button"
+      >
         <Box className='plane-title-dimension'>{viewer.getDimensionLabel({ dimension })}</Box>
         <Box className={`plane-title-frame`}>{hideCoor ? '' : currentFrameIndex}</Box>
-        <Box className='plane-title-label' onClick={toggleContentVisibility}>
+        <Box className='plane-title-label'>
           {expanded ? 'Collapse' : 'Expand'}
         </Box>
-        <div className='plane-title-toggle' onClick={toggleContentVisibility}>
+        <div className='plane-title-toggle'>
           {expanded ? <FormUp /> : <FormDown />}
         </div>
-      </Box>
+      </button>
       {expanded &&
-        <Box className='plane-content'>
+        <Box 
+          aria-labelledby={`accordion-${planeId}`}
+          className='plane-content'
+          id={`section-${planeId}`}
+          role="region"
+        >
           <Slider
             dimension={dimension}
             viewer={viewer}
