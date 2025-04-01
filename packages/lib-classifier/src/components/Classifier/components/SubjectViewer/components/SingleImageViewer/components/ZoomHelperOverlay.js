@@ -2,6 +2,8 @@ import { Box, Text } from 'grommet'
 import { bool, string } from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 
+import { useTranslation } from '@translations/i18n'
+
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
@@ -34,6 +36,8 @@ function ZoomHelperOverlay({
   width = '100%',
   zoomHelperMessageTop = '60px'
 }) {
+  const { t } = useTranslation('components')
+
   return (
     <StyledOverlay
       direction='row'
@@ -57,7 +61,7 @@ function ZoomHelperOverlay({
           weight='bold'
           size='18px'
         >
-          Use CTRL + scroll to zoom
+          {t('SubjectViewer.zoomHelp')}
         </Text>
       </StyledBox>
     </StyledOverlay>

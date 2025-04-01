@@ -160,6 +160,7 @@
   },
   "SubjectViewer": {
     "loading": "Loading a subject",
+    "zoomHelp": "Use CTRL + scroll to zoom",
     "BarChartViewer": {
       "chartLabel": "Bar chart"
     },
