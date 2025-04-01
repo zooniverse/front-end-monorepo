@@ -79,13 +79,13 @@ function SingleImageViewer({
       // Set fading out after 1.5 seconds
       setTimeout(() => {
         setFadingOut(true)
-      }, 1500)
+      }, 3000)
       
       // Hide completely after animation completes (300ms animation)
       setTimeout(() => {
         setShowZoomHelper(false)
         setFadingOut(false)
-      }, 1800)
+      }, 3300)
     }
   }
 
