@@ -4,7 +4,11 @@ import { useTranslation } from '@translations/i18n'
 
 import DemoModeToggle from './components/DemoModeToggle'
 
-function ExpertOptions (props) {
+/*
+  This component is setup as a DropButton because other expert options existing in PFE like 'gold standard',
+  but in FEM the only expert option is demo mode
+*/
+function ExpertOptions () {
   const { t } = useTranslation('components')
   return (
     <DropButton
@@ -17,7 +21,6 @@ function ExpertOptions (props) {
       }
       icon={<SettingsOption size='small' />}
       plain
-      {...props}
     />
   )
 }

@@ -13,16 +13,12 @@ import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
 
-function openTalkPage (talkURL, newTab = false) {
-  if (newTab) {
+function openTalkPage (talkURL) {
     const newTab = window.open()
     newTab.opener = null
     newTab.location = talkURL
     newTab.target = '_blank'
     newTab.focus()
-  } else {
-    window.location.assign(talkURL)
-  }
 }
 
 const SubjectStore = types
@@ -103,8 +99,8 @@ const SubjectStore = types
       if (validSubjectReference) {
         const subject = self.active
         if (!root.feedback.shouldShowFeedback && subject && subject.shouldDiscuss) {
-          const { url, newTab } = subject.shouldDiscuss
-          openTalkPage(url, newTab)
+          const { url } = subject.shouldDiscuss
+          openTalkPage(url)
         }
       }
       next(call)

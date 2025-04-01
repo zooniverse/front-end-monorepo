@@ -1,11 +1,9 @@
 import * as Sentry from '@sentry/browser'
 import { auth } from '@zooniverse/panoptes-js'
 import { when } from 'mobx'
-import { getType } from 'mobx-state-tree'
 import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
-import asyncStates from '@zooniverse/async-states'
 
 import RootStore from '@store/RootStore'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
@@ -679,16 +677,6 @@ describe('Model > SubjectStore', function () {
 
     after(function () {
       global.window = originalWindow
-    })
-
-    describe('in the same tab', function () {
-      before(function () {
-        openTalkPage(talkURL, false)
-      })
-
-      it('should open a Talk URL', function () {
-        expect(window.location.assign.withArgs(talkURL)).to.have.been.calledOnce()
-      })
     })
 
     describe('in a new tab', function () {

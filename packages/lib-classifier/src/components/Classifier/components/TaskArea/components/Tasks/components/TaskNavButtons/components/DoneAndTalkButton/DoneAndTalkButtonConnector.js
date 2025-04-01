@@ -1,8 +1,9 @@
-import { withStores } from '@helpers'
+import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import DoneAndTalkButton from './DoneAndTalkButton'
 
-function storeMapper(store) {
+function storeMapper(classifierStore) {
   const {
     classifications: {
       completeClassification
@@ -13,18 +14,16 @@ function storeMapper(store) {
     workflowSteps: {
       shouldWeShowDoneAndTalkButton
     }
-  } = store
+  } = classifierStore
 
-  let visible = false
-  if (subject?.stepHistory) {
+  if (subject?.stepHistory) { // stepHistory is not ready while the subject is loading
     const { finish, hasNextStep } = subject.stepHistory
 
-    visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
+    const visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
 
     function onClick(event) {
       event.preventDefault()
-      const isCmdClick = event.metaKey
-      subject.openInTalk(isCmdClick)
+      subject.openInTalk()
       finish()
       return completeClassification()
     }
@@ -38,4 +37,10 @@ function storeMapper(store) {
   return {}
 }
 
-export default withStores(DoneAndTalkButton, storeMapper)
+function DoneAndTalkConnector(props) {
+  const { onClick, visible } = useStores(storeMapper)
+
+  return visible ? <DoneAndTalkButton onClick={onClick} {...props} /> : null
+}
+
+export default observer(DoneAndTalkConnector)
