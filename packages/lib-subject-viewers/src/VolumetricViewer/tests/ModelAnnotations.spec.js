@@ -5,7 +5,8 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
   const model = ModelAnnotations({ onAnnotation: () => {} })
   const viewerMock = {
     getPointAnnotationIndex: () => -1,
-    setPointsAnnotationIndex: () => {}
+    setPointsAnnotationIndex: () => {},
+    getPointCoordinates: ({ point }) => [point, point, point]
   }
 
   it('should have initial state', () => {
@@ -239,5 +240,34 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
         threshold: ANNOTATION_THRESHOLD
       }
     ])
+  })
+
+  it('should publish data in the correct format', (done) => {
+    const publishListener = (data) => {
+      expect(data).deep.to.equal([
+        {
+          label: 'Annotation 3',
+          points: {
+            active: [{ x: 2, y: 2, z: 2 }],
+            connected: [[]],
+            all: []
+          },
+          threshold: ANNOTATION_THRESHOLD
+        },
+        {
+          label: 'Annotation 4',
+          points: {
+            active: [{ x: 3, y: 3, z: 3 }],
+            connected: [[]],
+            all: []
+          },
+          threshold: ANNOTATION_THRESHOLD
+        }
+      ])
+      done()
+    }
+
+    model.on('publish:annotation', publishListener)
+    model.publishCallback();
   })
 })
