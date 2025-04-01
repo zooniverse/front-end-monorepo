@@ -7,6 +7,8 @@ const DEFAULT_HANDLER = () => true
 
 const StyledButton = styled(PrimaryButton)`
   flex: 1 0;
+  padding: 10px;
+  font-weight: bold; // intentionally bolder than Back, Next, Done & Talk labels
 `
 
 function DoneButton({

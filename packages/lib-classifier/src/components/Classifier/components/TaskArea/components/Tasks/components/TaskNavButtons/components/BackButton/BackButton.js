@@ -5,7 +5,8 @@ import PrimaryButton from '@zooniverse/react-components/PrimaryButton'
 
 const StyledButton = styled(PrimaryButton)`
   margin-right: 1ch;
-  flex: 0 0 33%;
+  width: fit-content;
+  padding: 10px 20px;
 
   ${props =>
     props.theme.dark

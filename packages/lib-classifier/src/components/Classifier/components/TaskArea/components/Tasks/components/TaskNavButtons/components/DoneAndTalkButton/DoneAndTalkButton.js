@@ -9,12 +9,13 @@ const StyledLabel = styled(Text)`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1ch;
+  gap: 5px;
 `
 
 const StyledButton = styled(PrimaryButton)`
   margin-right: 1ch;
   flex: 1 0;
+  padding: 10px;
 `
 
 const Label = () => {
@@ -23,7 +24,7 @@ const Label = () => {
     <StyledLabel>
       {t('TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')}
       <ShareRounded
-        size='1rem'
+        size='0.825rem'
         color={{ light: 'black', dark: 'white' }}
         aria-label={t('TaskArea.Tasks.DoneAndTalkButton.newTab')}
       />
