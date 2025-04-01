@@ -1,5 +1,5 @@
 import { Box, Text } from 'grommet'
-import { bool, number, string } from 'prop-types'
+import { bool, string } from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 
 const fadeIn = keyframes`
@@ -24,18 +24,18 @@ const StyledOverlay = styled(Box)`
 const StyledBox = styled(Box)`
   background: ${props => props.theme.dark ? 'rgba(45, 45, 45, 0.60)' : 'rgba(255, 255, 255, 0.60)'};
   backdrop-filter: blur(4px);
+  position: sticky;
+  top: ${props => props.$top};
 `
 
 function ZoomHelperOverlay({
   fadingOut = false,
   height = '100%',
   width = '100%',
-  zoomHelperMessageTop = 60
+  zoomHelperMessageTop = '60px'
 }) {
   return (
     <StyledOverlay
-      role='status'
-      aria-live='polite'
       direction='row'
       $fadeOut={fadingOut}
       justify='center'
@@ -47,9 +47,10 @@ function ZoomHelperOverlay({
         flex='grow'
         height='120px'
         justify='center'
-        margin={{ top: `${zoomHelperMessageTop}px` }}
+        margin={{ top: zoomHelperMessageTop }}
         pad={{ horizontal: 'medium', vertical: 'small' }}
         round='8px'
+        $top={zoomHelperMessageTop}
         width={{ max: '400px' }}
       >
         <Text
@@ -67,7 +68,7 @@ ZoomHelperOverlay.propTypes = {
   fadingOut: bool,
   height: string,
   width: string,
-  zoomHelperMessageTop: number
+  zoomHelperMessageTop: string
 }
 
 export default ZoomHelperOverlay

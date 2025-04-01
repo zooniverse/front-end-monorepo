@@ -57,10 +57,10 @@ function SingleImageViewer({
     enableRotation()
   }, [])
 
-  useEffect(() => {
-    // Update dimensions after component has mounted and whenever naturalWidth/Height changes
+  useEffect(function onDimensionChange() {
+    // Update dimensions after component has mounted and whenever natural width/height changes
     if (styledSVGRef.current) {
-      const updateDimensions = () => {
+      function updateDimensions() {
         setSvgDimensions({
           width: `${styledSVGRef.current.clientWidth}px`,
           height: `${styledSVGRef.current.clientHeight}px`
@@ -72,7 +72,7 @@ function SingleImageViewer({
   }, [naturalWidth, naturalHeight, styledSVGRef])
 
   // Handle the first scroll event
-  const handleFirstScroll = () => {
+  function handleFirstScroll() {
     if (allowsScrolling && zooming) {
       setShowZoomHelper(true)
       
@@ -92,7 +92,9 @@ function SingleImageViewer({
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
-  const zoomHelperMessageTop = naturalHeight > naturalWidth ? 280 : 60
+  // If the image is landscape, set the top margin to 60px
+  // If the image is portrait, set the top margin to 240px (ImageToolbar with fewest options height of 360px - ZoomHelperOverlay message box height of 120px)
+  const zoomHelperMessageTop = naturalHeight > naturalWidth ? '240px' : '60px'
 
   return (
     <>
