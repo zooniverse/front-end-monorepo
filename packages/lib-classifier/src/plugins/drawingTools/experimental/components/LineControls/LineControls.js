@@ -7,10 +7,9 @@ import { useTranslation } from '@translations/i18n'
 import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
 import useScale from '../../../hooks/useScale'
 
-const StyledPath = styled('path')`
-  &:hover {
-    cursor: pointer;
-  }
+const StyledGroup = styled.g`
+  cursor: pointer;
+  pointer-events: all !important;
 `
 
 const LineControls = forwardRef(function LineControls({
@@ -33,11 +32,22 @@ const LineControls = forwardRef(function LineControls({
   const OUTER_RADIUS = 40 / scale
   const INNER_RADIUS = 20 / scale
 
-  const { viewBox, rotate, width, height } = useContext(SVGContext)
-  const [x, y, w, h] = viewBox.split(' ').map(n => parseInt(n, 10))
+  const { canvas } = useContext(SVGContext)
+
+  // Get the transformation that's been applied to a parent element
+  const matrix = canvas.parentElement.parentElement.getAttribute('transform');
+  const regex = /\((.*?)\)/;
+  const match = matrix.match(regex);
+  const [hScale, hSkew, vSkew, vScale, hTranlate, vTranslate] = match[1].split(', ').map(s => parseInt(s, 10))
+
+  const { width } = canvas.getBoundingClientRect()
+  const x = -hTranlate / scale
+  const y = -vTranslate / scale
+  const w = (width / scale) / scale;
+
   const p = (activePosition == 'tr')
-    ? { x: x + (50 / scale), y: y + (50 / scale) }
-    : { x: x + w - (50 / scale), y: y + (50 / scale) }
+    ? { x: x + 50, y: y + 50 }
+    : { x: x + w - 50, y: y + 50 }
 
 
   function onEnterOrSpace(ev, func) {
@@ -187,19 +197,18 @@ const LineControls = forwardRef(function LineControls({
   const buttons = (showDeleteButtons) ? deleteButtons : defaultButtons
 
   return (
-    <g
+    <StyledGroup
       ref={ref}
       role='group'
       aria-label={t('lineControls.lineControls')}
       focusable='false'
-      transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
       fill={FILL_COLOR}
     >
-      {buttons.map(({ fill, label, path, action, icon }, index) => {
+      {buttons.map(({ label, path, action, icon }, index) => {
         const IconComponent = icon.type
         return <g focusable='false' key={index}>
           <Tooltip label={label}>
-            <StyledPath
+            <path
               role='button'
               aria-label={label}
               focusable='true'
@@ -210,7 +219,7 @@ const LineControls = forwardRef(function LineControls({
               strokeWidth={STROKE_WIDTH}
               onPointerDown={action}
               onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
-            ></StyledPath>
+            ></path>
           </Tooltip>
           <svg
             height={icon.size}
@@ -226,7 +235,8 @@ const LineControls = forwardRef(function LineControls({
           </svg>
         </g>
       })}
-    </g>
+
+    </StyledGroup>
   )
 })
 
