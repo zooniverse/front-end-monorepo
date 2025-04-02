@@ -122,10 +122,14 @@ function SingleImageViewer({
         <StyledSVG
           ref={styledSVGRef}
           aria-labelledby={title?.id}
+          aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
           $maxHeight={maxHeight}
           $maxWidth={maxWidth}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
+          {allowsScrolling && (
+            <desc id='scrolling-info'>In pan mode, use CTRL + scroll to zoom.</desc>
+          )}
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
