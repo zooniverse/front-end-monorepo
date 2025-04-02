@@ -1,27 +1,14 @@
-import { useTranslation } from '../../translations/i18n.js'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { Loader, ProjectCard } from '@zooniverse/react-components'
-import { Box, ResponsiveContext, Text } from 'grommet'
-import { useContext } from 'react'
-import styled from 'styled-components'
+import { useTranslation } from '../../translations/i18n.js'
 
 import { usePanoptesProjects, useStats } from '@hooks'
-import { ContentBox, HeaderLink, Layout } from '@components/shared'
+import { AllProjects, ContentBox, HeaderLink, Layout } from '@components/shared'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
-const StyledBox = styled(Box)`
-  list-style: none;
-  margin-block-start: 0;
-  padding-inline-start: 0;
-`
-
 // props are passed from GroupContainer via cloneElement
-function GroupAllProjects({ adminMode, authUser, group, membership }) {
+function GroupAllProjects({ authUser, group }) {
   const { t } = useTranslation()
-
-  const size = useContext(ResponsiveContext)
-  const cardSize = size
 
   // fetch all projects stats; date range is all time
   const {
@@ -82,33 +69,8 @@ function GroupAllProjects({ adminMode, authUser, group, membership }) {
         />
       }
     >
-      <ContentBox title='All Projects'>
-        {loading ? (
-          <Box fill align='center' justify='center'>
-            <Loader />
-          </Box>
-        ) : topProjects?.length === 0 ? (
-          <Text>No projects found for this group</Text>
-        ) : error ? (
-          <Text>There was an error fetching project stats for this group</Text>
-        ) : (
-          <StyledBox forwardedAs='ul' direction='row' wrap gap='10px'>
-            {topProjects.map(topProject => {
-              return (
-                <li key={topProject?.id}>
-                  <ProjectCard
-                    badge={topProject?.count}
-                    description={topProject?.description}
-                    displayName={topProject?.display_name}
-                    href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
-                    imageSrc={topProject?.avatar_src}
-                    size={cardSize}
-                  />
-                </li>
-              )
-            })}
-          </StyledBox>
-        )}
+      <ContentBox title='All Projects' pad='49px'>
+        <AllProjects error={error} loading={loading} projects={topProjects} />
       </ContentBox>
     </Layout>
   )
