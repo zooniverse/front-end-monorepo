@@ -8,6 +8,10 @@ import ZoomHelperOverlay from './components/ZoomHelperOverlay'
 import VisXZoom from '../SVGComponents/VisXZoom'
 import SingleImageCanvas from './SingleImageCanvas'
 
+const Relative = styled(Box)`
+  position: relative;
+`
+
 const StyledSVG = styled.svg`
   background-color: ${props => props.theme.global.colors['light-4']};
   touch-action: pinch-zoom;
@@ -101,12 +105,11 @@ function SingleImageViewer({
       {zoomControlFn && (
         <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
-      <Box
+      <Relative
         align='flex-end'
         animation='fadeIn'
         overflow='hidden'
         width='100%'
-        position='relative'
       >
         {showZoomHelper && (
           <ZoomHelperOverlay
@@ -156,7 +159,7 @@ function SingleImageViewer({
             )}
           </VisXZoom>
         </StyledSVG>
-      </Box>
+      </Relative>
     </>
   )
 }
