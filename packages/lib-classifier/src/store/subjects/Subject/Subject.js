@@ -131,9 +131,8 @@ const Subject = types
       self.already_seen = true
     }
 
-    function openInTalk(newTab = false) {
+    function openInTalk() {
       self.shouldDiscuss = {
-        newTab,
         url: self.talkURL
       }
     }

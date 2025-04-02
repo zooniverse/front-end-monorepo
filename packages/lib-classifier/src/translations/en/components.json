@@ -258,20 +258,21 @@
       "loading": "Loading",
       "renderFallback": "Task component could not be rendered.",
       "BackButton": {
-        "back": "back"
+        "back": "Back"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "done & talk"
+        "doneAndTalk": "Done & Talk",
+        "newTab": "in a new tab"
       },
       "DoneButton": {
-        "done": "done"
+        "done": "Done"
       },
       "ExpertOptions": {
         "demoToggle": "Demo Mode",
         "label": "Expert Options"
       },
       "NextButton": {
-        "next": "next"
+        "next": "Next"
       },
       "TaskHelp": {
         "close": "Close",
