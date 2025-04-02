@@ -19,7 +19,7 @@ export function Default() {
       position='relative'
     >
       <ZoomHelperOverlay />
-      <img src={subjectImage} alt='Subject' />
+      <img src={subjectImage} alt='Subject' tabIndex={0} />
     </Box>
   )
 }
@@ -32,7 +32,7 @@ export function LandscapeImage() {
       position='relative'
     >
       <ZoomHelperOverlay zoomHelperMessageTop='60px' />
-      <img src={landscapeImage} alt='Subject' />
+      <img src={landscapeImage} alt='Subject' tabIndex={0} />
     </Box>
   )
 }
@@ -45,7 +45,7 @@ export function PortraitImage() {
       position='relative'
     >
       <ZoomHelperOverlay zoomHelperMessageTop='240px' />
-      <img src={portraitImage} alt='Subject' />
+      <img src={portraitImage} alt='Subject' tabIndex={0} />
     </Box>
   )
 }
