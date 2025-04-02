@@ -20,7 +20,7 @@ const LineControls = forwardRef(function LineControls({
   ref
 ) {
   const scale = useScale()
-  let [activePosition, setActivePosition] = useState('tr')
+  let [activePosition, setActivePosition] = useState('tl')
   let [showDeleteButtons, setShowDeleteButtons] = useState(false)
   const { t } = useTranslation('plugins')
 
@@ -32,23 +32,20 @@ const LineControls = forwardRef(function LineControls({
   const OUTER_RADIUS = 40 / scale
   const INNER_RADIUS = 20 / scale
 
-  const { canvas } = useContext(SVGContext)
+  const { canvas, rotate } = useContext(SVGContext)
 
   // Get the transformation that's been applied to a parent element
-  const matrix = canvas.parentElement.parentElement.getAttribute('transform');
-  const regex = /\((.*?)\)/;
-  const match = matrix.match(regex);
-  const [hScale, hSkew, vSkew, vScale, hTranlate, vTranslate] = match[1].split(', ').map(s => parseInt(s, 10))
+  const { matrix } = canvas.parentElement.parentElement.transform.baseVal.consolidate()
+  const { a: hScale, d: vScale, e: hTranslate, f: vTranslate } = matrix
+  const LINE_CONTROL_INSET = 70;
 
-  const { width } = canvas.getBoundingClientRect()
-  const x = -hTranlate / scale
-  const y = -vTranslate / scale
-  const w = (width / scale) / scale;
+  const { width, height } = canvas.getBBox()
+  const x = (LINE_CONTROL_INSET - hTranslate) / hScale
+  const y = (LINE_CONTROL_INSET - vTranslate) / vScale
 
-  const p = (activePosition == 'tr')
-    ? { x: x + 50, y: y + 50 }
-    : { x: x + w - 50, y: y + 50 }
-
+  const p = (activePosition === 'tl')
+    ? { x, y }
+    : { x: x + ((width - (LINE_CONTROL_INSET * 2)) / hScale), y }
 
   function onEnterOrSpace(ev, func) {
     if (ev.keyCode === 13 || ev.keyCode === 32) {
@@ -58,7 +55,7 @@ const LineControls = forwardRef(function LineControls({
     }
   }
 
-  function deleteMark(event) {
+  function deleteMark() {
     setShowDeleteButtons(true)
   }
 
@@ -203,6 +200,7 @@ const LineControls = forwardRef(function LineControls({
       aria-label={t('lineControls.lineControls')}
       focusable='false'
       fill={FILL_COLOR}
+      transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
     >
       {buttons.map(({ label, path, action, icon }, index) => {
         const IconComponent = icon.type
