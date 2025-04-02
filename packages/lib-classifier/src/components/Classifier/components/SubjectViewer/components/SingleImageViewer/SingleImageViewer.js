@@ -76,7 +76,7 @@ function SingleImageViewer({
     if (allowsScrolling && zooming) {
       setShowZoomHelper(true)
       
-      // Set fading out after 1.5 seconds
+      // Set fading out after 3 seconds
       setTimeout(() => {
         setFadingOut(true)
       }, 3000)

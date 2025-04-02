@@ -41,6 +41,7 @@ const DEFAULT_HANDLER = () => true
  *       zoomInValue: 1.2,
  *       zoomOutValue: 0.8
  *     }}
+ *     onFirstScroll={onFirstScroll}
  *     onKeyDown={onKeyDown}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
@@ -56,8 +57,8 @@ function VisXZoom({
   height,
   left = 0,
   move = true,
-  onKeyDown,
   onFirstScroll = DEFAULT_HANDLER,
+  onKeyDown,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
@@ -84,12 +85,6 @@ function VisXZoom({
   const throttledWheelHandler = throttle(wheelHandler, zoomConfiguration?.onWheelThrottleWait)
   
   function onWheel(event) {
-    // Check for first scroll event
-    if (!hasScrolledRef.current && allowsScrolling) {
-      hasScrolledRef.current = true
-      onFirstScroll()
-    }
-    
     /* Default behaviour for subject viewers that don't scroll vertically.
     Cancel the default event (ignored unless the listener explicitly
     sets passive: false) and call the wheel handler with a throttled delay.
@@ -101,6 +96,16 @@ function VisXZoom({
       */
       event.preventDefault()
       return throttledWheelHandler(event)
+    }
+
+    /* If subject viewer allows scrolling, 
+    check for first scroll event (hasScrolledRef is false), then
+    set hasScrolledRef to true and
+    call onFirstScroll callback.
+    */
+    if (allowsScrolling && !hasScrolledRef.current) {
+      hasScrolledRef.current = true
+      onFirstScroll()
     }
     
     /* Zoom if the zoom hot key is pressed.
