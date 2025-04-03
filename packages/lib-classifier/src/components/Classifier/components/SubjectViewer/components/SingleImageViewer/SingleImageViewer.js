@@ -51,29 +51,12 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = true
 }) {
-  const styledSVGRef = useRef(null)
-  const [svgDimensions, setSvgDimensions] = useState({ width: '100%', height: '100%' })
-  
   const [showZoomHelper, setShowZoomHelper] = useState(false)
   const [fadingOut, setFadingOut] = useState(false)
 
   useEffect(function onMount() {
     enableRotation()
   }, [])
-
-  useEffect(function onDimensionChange() {
-    // Update dimensions after component has mounted and whenever natural width/height changes
-    if (styledSVGRef.current) {
-      function updateDimensions() {
-        setSvgDimensions({
-          width: `${styledSVGRef.current.clientWidth}px`,
-          height: `${styledSVGRef.current.clientHeight}px`
-        })
-      }
-      
-      updateDimensions()
-    }
-  }, [naturalWidth, naturalHeight, styledSVGRef])
 
   // Handle the first scroll event
   function handleFirstScroll() {
@@ -96,10 +79,6 @@ function SingleImageViewer({
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
-  // If the image is landscape, set the top margin to 60px
-  // If the image is portrait, set the top margin to 240px (ImageToolbar with fewest options height of 360px - ZoomHelperOverlay message box height of 120px)
-  const zoomHelperMessageTop = naturalHeight > naturalWidth ? '240px' : '60px'
-
   return (
     <>
       {zoomControlFn && (
@@ -112,15 +91,9 @@ function SingleImageViewer({
         width='100%'
       >
         {showZoomHelper && (
-          <ZoomHelperOverlay
-            fadingOut={fadingOut}
-            height={svgDimensions.height}
-            width={svgDimensions.width}
-            zoomHelperMessageTop={zoomHelperMessageTop}
-          />
+          <ZoomHelperOverlay fadingOut={fadingOut} />
         )}
         <StyledSVG
-          ref={styledSVGRef}
           aria-labelledby={title?.id}
           aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
           $maxHeight={maxHeight}

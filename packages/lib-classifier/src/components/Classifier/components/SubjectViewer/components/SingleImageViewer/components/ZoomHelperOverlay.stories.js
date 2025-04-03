@@ -31,7 +31,7 @@ export function LandscapeImage() {
       width='100%'
       position='relative'
     >
-      <ZoomHelperOverlay zoomHelperMessageTop='60px' />
+      <ZoomHelperOverlay />
       <img src={landscapeImage} alt='Subject' tabIndex={0} />
     </Box>
   )
@@ -44,7 +44,7 @@ export function PortraitImage() {
       width='100%'
       position='relative'
     >
-      <ZoomHelperOverlay zoomHelperMessageTop='240px' />
+      <ZoomHelperOverlay />
       <img src={portraitImage} alt='Subject' tabIndex={0} />
     </Box>
   )
