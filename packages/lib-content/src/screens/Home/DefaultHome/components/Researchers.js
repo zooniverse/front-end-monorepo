@@ -82,9 +82,9 @@ export default function Researchers() {
           textAlign='center'
           fill
         >
-          {t('Home.DefaultHome.headings.three')}
+          {t('Home.DefaultHome.headings.third')}
         </SpacedHeading>
-        <SubHeading>{t('Home.DefaultHome.subheadings.three')}</SubHeading>
+        <SubHeading>{t('Home.DefaultHome.subheadings.third')}</SubHeading>
       </MaxWidthContent>
       <Relative>
         <Box

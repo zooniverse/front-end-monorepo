@@ -78,9 +78,9 @@ export default function Introduction() {
         margin={{ top: '30px', bottom: '10px' }}
         textAlign='center'
       >
-        {t('Home.DefaultHome.headings.one')}
+        {t('Home.DefaultHome.headings.first')}
       </SpacedHeading>
-      <SubHeading>{t('Home.DefaultHome.subheadings.one')}</SubHeading>
+      <SubHeading>{t('Home.DefaultHome.subheadings.first')}</SubHeading>
       <Paragraph
         color={{ light: 'black', dark: 'white' }}
         margin={{ top: 'medium' }}
@@ -112,7 +112,7 @@ export default function Introduction() {
         alignSelf='center'
         margin={{ bottom: 'small', top: '0' }}
       >
-        {t('Home.DefaultHome.subheadings.two')}
+        {t('Home.DefaultHome.subheadings.second')}
       </SpacedHeading>
       <Stats />
       <VideoWrapper>

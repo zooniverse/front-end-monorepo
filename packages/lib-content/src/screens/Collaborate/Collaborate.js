@@ -36,15 +36,15 @@ function Collaborate() {
             margin={{ top: 'medium' }}
             textAlign='center'
           >
-            {t('Collaborate.subheadings.one')}
+            {t('Collaborate.subheadings.first')}
           </SpacedHeading>
           <Paragraph margin={{ top: '0' }}>
-            {t('Collaborate.paragraphs.one')}
+            {t('Collaborate.paragraphs.first')}
           </Paragraph>
-          <Paragraph margin='0'>{t('Collaborate.paragraphs.two')}</Paragraph>
+          <Paragraph margin='0'>{t('Collaborate.paragraphs.second')}</Paragraph>
           <Paragraph>
             <Trans
-              i18nKey='Collaborate.paragraphs.three'
+              i18nKey='Collaborate.paragraphs.third'
               t={t}
               components={[
                 <Anchor key='lab' href='https://www.zooniverse.org/lab' />,
@@ -57,7 +57,7 @@ function Collaborate() {
           </Paragraph>
           <Paragraph margin='0'>
             <Trans
-              i18nKey='Collaborate.paragraphs.four'
+              i18nKey='Collaborate.paragraphs.fourth'
               t={t}
               components={[
                 <Anchor key='lab' href='https://www.zooniverse.org/lab' />
@@ -66,7 +66,7 @@ function Collaborate() {
           </Paragraph>
           <Paragraph margin={{ bottom: 'medium' }}>
             <Trans
-              i18nKey='Collaborate.paragraphs.five'
+              i18nKey='Collaborate.paragraphs.fifth'
               t={t}
               components={[<Anchor key='contact-us' href='/about#contact' />]}
             />
@@ -74,24 +74,24 @@ function Collaborate() {
 
           {/** Our Supporters */}
           <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
-            {t('Collaborate.subheadings.two')}
+            {t('Collaborate.subheadings.second')}
           </SpacedHeading>
           <Supporters />
 
           {/** Selected Collaborators */}
           <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
-            {t('Collaborate.subheadings.three')}
+            {t('Collaborate.subheadings.third')}
           </SpacedHeading>
           <SelectedCollaborators />
 
           <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
-            {t('Collaborate.subheadings.four')}
+            {t('Collaborate.subheadings.fourth')}
           </SpacedHeading>
-          <Paragraph>{t('Collaborate.paragraphs.six')}</Paragraph>
-          <Paragraph margin='0'>{t('Collaborate.paragraphs.seven')}</Paragraph>
+          <Paragraph>{t('Collaborate.paragraphs.sixth')}</Paragraph>
+          <Paragraph margin='0'>{t('Collaborate.paragraphs.seventh')}</Paragraph>
           <Paragraph margin={{ bottom: 'medium' }}>
             <Trans
-              i18nKey='Collaborate.paragraphs.eight'
+              i18nKey='Collaborate.paragraphs.eighth'
               t={t}
               components={[
                 <Anchor
@@ -103,11 +103,11 @@ function Collaborate() {
           </Paragraph>
 
           <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
-            {t('Collaborate.subheadings.five')}
+            {t('Collaborate.subheadings.fifth')}
           </SpacedHeading>
           <Paragraph>
             <Trans
-              i18nKey='Collaborate.paragraphs.nine'
+              i18nKey='Collaborate.paragraphs.nineth'
               t={t}
               components={[<Anchor key='contact-us' href='/about#contact' />]}
             />
