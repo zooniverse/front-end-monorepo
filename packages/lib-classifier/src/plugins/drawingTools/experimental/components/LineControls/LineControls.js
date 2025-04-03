@@ -35,7 +35,8 @@ const LineControls = forwardRef(function LineControls({
   const { canvas, rotate } = useContext(SVGContext)
 
   // Get the transformation that's been applied to a parent element
-  const matrix = canvas.parentElement.parentElement.getCTM()
+  const canvasSVG = canvas.closest('svg')
+  const matrix = canvasSVG.firstChild.getCTM()
   const { a: hScale, d: vScale, e: hTranslate, f: vTranslate } = matrix
   const LINE_CONTROL_INSET = 70;
 
