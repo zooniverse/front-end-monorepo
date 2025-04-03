@@ -1,8 +1,19 @@
-import { Box } from 'grommet'
+import { Box, ThemeContext } from 'grommet'
 import { useTranslation } from '../../translations/i18n.js'
+import { css } from 'styled-components'
 
 import ContainerBox from './ContainerBox.js'
 import AboutHeader from '../AboutHeader'
+
+const customTheme = {
+  paragraph: {
+    extend: props => {
+      return css`
+        color: ${props.theme.dark ? 'white' : 'black'};
+      `
+    }
+  }
+}
 
 function AboutLayout({ children }) {
   const { t } = useTranslation()
@@ -36,21 +47,23 @@ function AboutLayout({ children }) {
     <>
       <AboutHeader links={links} navTitle={navTitle} />
       <main>
-        <Box
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          align='center'
-        >
-          <ContainerBox
+        <ThemeContext.Extend value={customTheme}>
+          <Box
+            background={{
+              dark: 'dark-1',
+              light: 'light-1'
+            }}
             align='center'
-            background={{ dark: 'dark-3', light: 'neutral-6' }}
-            width='min(100%, 90rem)'
           >
-            {children}
-          </ContainerBox>
-        </Box>
+            <ContainerBox
+              align='center'
+              background={{ dark: 'dark-3', light: 'neutral-6' }}
+              width='min(100%, 90rem)'
+            >
+              {children}
+            </ContainerBox>
+          </Box>
+        </ThemeContext.Extend>
       </main>
     </>
   )

@@ -9,7 +9,7 @@ const customTheme = {
   paragraph: {
     extend: props => {
       return css`
-        color: ${props.theme.dark ? '#ffffff' : '#000000'};
+        color: ${props.theme.dark ? 'white' : 'black'};
       `
     }
   }

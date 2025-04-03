@@ -310,30 +310,4 @@ describe('Model > Subject', function () {
       expect(store.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce()
     })
   })
-
-  describe('Actions > openInTalk', function () {
-    let url
-
-    before(function () {
-      url = `https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`
-    })
-
-    function testOpenInTalk (newTab) {
-      const store = mockStore({ project, subject: stub })
-      store.subjects.active.openInTalk(newTab)
-      expect(store.subjects.active.shouldDiscuss).to.eql({ newTab, url })
-    }
-
-    describe('in the same tab', function () {
-      it('should set the shouldDiscuss property', function () {
-        testOpenInTalk(false)
-      })
-    })
-
-    describe('in a new tab', function () {
-      it('should set the shouldDiscuss property', function () {
-        testOpenInTalk(true)
-      })
-    })
-  })
 })

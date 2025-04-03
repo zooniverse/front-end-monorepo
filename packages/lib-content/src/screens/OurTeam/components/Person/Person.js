@@ -40,7 +40,7 @@ function Person({
             {`${name}, ${jobTitle}`}
           </PersonName>
         </Box>
-        <Text size='medium'>{bio}</Text>
+        <Text size='medium' color={{ light: 'black', dark: 'white' }}>{bio}</Text>
       </Box>
     </Box>
   )

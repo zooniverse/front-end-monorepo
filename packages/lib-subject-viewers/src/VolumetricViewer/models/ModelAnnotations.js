@@ -192,14 +192,24 @@ export const ModelAnnotations = ({ onAnnotation }) => {
     publishCallback: () => {
       if (!onAnnotation) return
 
+      function absToRelative({ point }) {
+        const [ x, y, z ] = annotationModel.config.viewer.getPointCoordinates({ point })
+        return { x, y, z }
+      }
+
       const annotationExport = JSON.parse(JSON.stringify(annotationModel.annotations))
         .filter(a => a.points.active.length > 0)
         .map(a => { 
-          a.points.all = a.points.all.data
+          a.points.active = a.points.active.map(point => absToRelative({ point }))
+          a.points.connected = a.points.connected.map(pointArray => pointArray.map(point => absToRelative({ point })))
+          delete a.points.all;
           return a
         })
+      
       onAnnotation(annotationExport)
 
+      // Publish the change for testing
+      annotationModel.publish('publish:annotation', annotationExport)
     },
     export: () => {
       return annotationModel.annotations.map(annotation => {

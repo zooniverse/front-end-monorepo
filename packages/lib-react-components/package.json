@@ -66,7 +66,7 @@
     "styled-components": "6.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "~7.26.4",
+    "@babel/cli": "~7.27.0",
     "@babel/core": "~7.26.0",
     "@babel/preset-env": "~7.26.0",
     "@babel/preset-react": "~7.26.3",
@@ -103,7 +103,7 @@
     "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
-    "node": ">=20.5"
+    "node": ">=20.5 <=20.18"
   },
   "publishConfig": {
     "access": "public"

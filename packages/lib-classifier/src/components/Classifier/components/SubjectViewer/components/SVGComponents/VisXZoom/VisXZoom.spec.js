@@ -9,7 +9,7 @@ import mockStore from '@test/mockStore'
 import {
   lightCurveMockData
 } from '../../ScatterPlotViewer/helpers/mockData'
-import VisXZoom from './VisXZoom'
+import VisXZoom, { ZOOM_HOT_KEY } from './VisXZoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
 describe('Component > VisXZoom', function () {
@@ -40,12 +40,15 @@ describe('Component > VisXZoom', function () {
     const wrapper = mount(
       <Grommet theme={zooTheme}>
         <Provider classifierStore={store}>
-          <VisXZoom
-            data={mockData}
-            height={height}
-            width={width}
-            zoomingComponent={StubComponent}
-          />
+          <svg>
+            <VisXZoom
+              data={mockData}
+              height={height}
+              width={width}
+            >
+              {(zoomProps) => <StubComponent {...zoomProps} />}
+            </VisXZoom>
+          </svg>
         </Provider>
       </Grommet>
     )
@@ -58,13 +61,16 @@ describe('Component > VisXZoom', function () {
       mount(
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              setOnZoom={setOnZoomSpy}
-              zoomingComponent={StubComponent}
-            />
+            <svg>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+                setOnZoom={setOnZoomSpy}
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
+            </svg>
           </Provider>
         </Grommet>
       )
@@ -85,13 +91,16 @@ describe('Component > VisXZoom', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              zoomingComponent={StubComponent}
-              zoomConfiguration={zoomConfiguration}
-            />
+            <svg>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+                zoomConfiguration={zoomConfiguration}
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
+            </svg>
           </Provider>
         </Grommet>
       )
@@ -106,12 +115,15 @@ describe('Component > VisXZoom', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              zoomingComponent={StubComponent}
-            />
+            <svg>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
+            </svg>
           </Provider>
         </Grommet>
       )
@@ -124,7 +136,9 @@ describe('Component > VisXZoom', function () {
         return (
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              {children}
+              <svg>
+                {children}
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -135,8 +149,9 @@ describe('Component > VisXZoom', function () {
             data={mockData}
             height={height}
             width={width}
-            zoomingComponent={StubComponent}
-          />,
+          >
+            {(zoomProps) => <StubComponent {...zoomProps} />}
+          </VisXZoom>,
           {
             wrappingComponent: StoreAndGrommet
           }
@@ -153,13 +168,16 @@ describe('Component > VisXZoom', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            <VisXZoom
-              constrain={constrainSpy}
-              data={mockData}
-              height={height}
-              width={width}
-              zoomingComponent={StubComponent}
-            />
+            <svg>
+              <VisXZoom
+                constrain={constrainSpy}
+                data={mockData}
+                height={height}
+                width={width}
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
+            </svg>
           </Provider>
         </Grommet>
       )
@@ -172,12 +190,15 @@ describe('Component > VisXZoom', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              zoomingComponent={StubComponent}
-            />
+            <svg>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
+            </svg>
           </Provider>
         </Grommet>
       )
@@ -189,12 +210,15 @@ describe('Component > VisXZoom', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            <VisXZoom
-              data={mockData}
-              height={height}
-              width={width}
-              zoomingComponent={StubComponent}
-            />
+            <svg>
+              <VisXZoom
+                data={mockData}
+                height={height}
+                width={width}
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
+            </svg>
           </Provider>
         </Grommet>
       )
@@ -217,34 +241,40 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
 
-        expect(wrapper.find(StubComponent).find(ZoomEventLayer)).to.have.lengthOf(1)
+        expect(wrapper.find(ZoomEventLayer)).to.have.lengthOf(1)
       })
 
       it('should set the height and width by props', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
 
-        const zoomEventLayer = wrapper.find(StubComponent).find(ZoomEventLayer)
+        const zoomEventLayer = wrapper.find(ZoomEventLayer)
         expect(zoomEventLayer.props().height).to.equal(height)
         expect(zoomEventLayer.props().width).to.equal(width)
       })
@@ -261,7 +291,6 @@ describe('Component > VisXZoom', function () {
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
         wrapper.find(ZoomEventLayer).simulate(type, event)
-        if (event) expect(event.preventDefault).to.have.been.called()
         const currentTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testNoZoom(currentTransformMatrix, initialTransformMatrix)
       }
@@ -270,12 +299,15 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -287,28 +319,34 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
-        testEventPrevention({ wrapper, type: 'dblclick', event: { preventDefault: sinon.spy() } })
+        testEventPrevention({ wrapper, type: 'dblclick' })
       })
 
       it('should not scale the transform matrix on key down', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -355,13 +393,16 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                setOnZoom={setZoomCallback}
-                zoomingComponent={StubComponent}
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                  setOnZoom={setZoomCallback}
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -392,10 +433,17 @@ describe('Component > VisXZoom', function () {
           clientX: 50,
           clientY: 50,
           deltaY: -1,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
         }
         // these are defaults set in the VisXZoom component
-        const zoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
+        const baseZoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
+        const wheelZoomValue = (eventMock.deltaY < 0) ? 1.1 : 0.9
+        const zoomValue = (type === 'wheel') ? wheelZoomValue : baseZoomValue
+        if (type === 'wheel') {
+          const onWheel = wrapper.find(ZoomEventLayer).props().onWheel
+          onWheel(eventMock)
+          wrapper.update()
+        }
         wrapper.find(ZoomEventLayer).simulate(type, eventMock)
         const currentTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue })
@@ -405,13 +453,16 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -427,13 +478,17 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  allowsScrolling
+                  data={mockData}
+                  height={height}
+                  width={width}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -441,20 +496,32 @@ describe('Component > VisXZoom', function () {
         const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
+        const zoomInEvent = {
+          clientX: 50,
+          clientY: 50,
+          deltaY: -1,
+          preventDefault: sinon.spy(),
+          [ZOOM_HOT_KEY]: true
+        }
+
+        testEvent({ wrapper, type: 'wheel', event: zoomInEvent, previousTransformMatrix: initialTransformMatrix })
       })
 
       it('should scale out the transform matrix on mouse wheel', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  allowsScrolling
+                  data={mockData}
+                  height={height}
+                  width={width}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -465,19 +532,23 @@ describe('Component > VisXZoom', function () {
           clientX: 50,
           clientY: 50,
           deltaY: -1,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          [ZOOM_HOT_KEY]: true
         }
 
         // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
+        wrapper.find(ZoomEventLayer).props().onWheel(zoomInEvent)
+        wrapper.update()
+        wrapper.find(ZoomEventLayer).props().onWheel(zoomInEvent)
+        wrapper.update()
         const zoomedInTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         const zoomOutEvent = {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
+          [ZOOM_HOT_KEY]: true
         }
 
         testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
@@ -487,13 +558,16 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -524,9 +598,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -554,9 +629,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -590,9 +666,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -631,9 +708,10 @@ describe('Component > VisXZoom', function () {
                 height={height}
                 onKeyDown={sinon.stub()}
                 width={width}
-                zoomingComponent={StubComponent}
                 zooming
-              />
+              >
+                {(zoomProps) => <StubComponent {...zoomProps} />}
+              </VisXZoom>
             </Provider>
           </Grommet>
         )
@@ -689,14 +767,17 @@ describe('Component > VisXZoom', function () {
           const wrapper = mount(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={store}>
-                <VisXZoom
-                  data={mockData}
-                  height={height}
-                  width={width}
-                  setOnZoom={setZoomCallback}
-                  zoomingComponent={StubComponent}
-                  zooming
-                />
+                <svg>
+                  <VisXZoom
+                    data={mockData}
+                    height={height}
+                    width={width}
+                    setOnZoom={setZoomCallback}
+                    zooming
+                  >
+                    {(zoomProps) => <StubComponent {...zoomProps} />}
+                  </VisXZoom>
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -708,14 +789,17 @@ describe('Component > VisXZoom', function () {
           const wrapper = mount(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={store}>
-                <VisXZoom
-                  data={mockData}
-                  height={height}
-                  width={width}
-                  setOnZoom={setZoomCallback}
-                  zoomingComponent={StubComponent}
-                  zooming
-                />
+                <svg>
+                  <VisXZoom
+                    data={mockData}
+                    height={height}
+                    width={width}
+                    setOnZoom={setZoomCallback}
+                    zooming
+                  >
+                    {(zoomProps) => <StubComponent {...zoomProps} />}
+                  </VisXZoom>
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -732,14 +816,17 @@ describe('Component > VisXZoom', function () {
           const wrapper = mount(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={store}>
-                <VisXZoom
-                  data={mockData}
-                  height={height}
-                  width={width}
-                  setOnZoom={setZoomCallback}
-                  zoomingComponent={StubComponent}
-                  zooming
-                />
+                <svg>
+                  <VisXZoom
+                    data={mockData}
+                    height={height}
+                    width={width}
+                    setOnZoom={setZoomCallback}
+                    zooming
+                  >
+                    {(zoomProps) => <StubComponent {...zoomProps} />}
+                  </VisXZoom>
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -758,13 +845,16 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  height={height}
+                  width={width}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
           </Provider>
           </Grommet>
         )
@@ -787,14 +877,17 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                panning
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  panning
+                  height={height}
+                  width={width}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -841,15 +934,18 @@ describe('Component > VisXZoom', function () {
           wrapper = mount(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={store}>
-                <VisXZoom
-                  data={mockData}
-                  panning
-                  height={height}
-                  onKeyDown={sinon.stub()}
-                  width={width}
-                  zoomingComponent={StubComponent}
-                  zooming
-                />
+                <svg>
+                  <VisXZoom
+                    data={mockData}
+                    panning
+                    height={height}
+                    onKeyDown={sinon.stub()}
+                    width={width}
+                    zooming
+                  >
+                    {(zoomProps) => <StubComponent {...zoomProps} />}
+                  </VisXZoom>
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -972,15 +1068,18 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                panning
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zoomConfiguration={zoomConfiguration}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  panning
+                  height={height}
+                  width={width}
+                  zoomConfiguration={zoomConfiguration}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -1018,15 +1117,18 @@ describe('Component > VisXZoom', function () {
         const wrapper = mount(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={store}>
-              <VisXZoom
-                data={mockData}
-                panning
-                height={height}
-                width={width}
-                zoomingComponent={StubComponent}
-                zoomConfiguration={zoomConfiguration}
-                zooming
-              />
+              <svg>
+                <VisXZoom
+                  data={mockData}
+                  panning
+                  height={height}
+                  width={width}
+                  zoomConfiguration={zoomConfiguration}
+                  zooming
+                >
+                  {(zoomProps) => <StubComponent {...zoomProps} />}
+                </VisXZoom>
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -1039,21 +1141,36 @@ describe('Component > VisXZoom', function () {
         const zoomedInTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
 
-        // zoom out by mouse wheel
-        // 1 * 1.2 * 1.2 * 0.8 is 1.152 then * 0.8 is 0.9216
-        wrapper.find(ZoomEventLayer).simulate('wheel', {
+        // zoom out by mouse wheel until we stop at the minimum zoom
+        wrapper.find(ZoomEventLayer).props().onWheel({
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
         })
+        wrapper.update()
+        wrapper.find(ZoomEventLayer).props().onWheel({
+          clientX: 50,
+          clientY: 50,
+          deltaY: 10,
+          preventDefault: sinon.spy(),
+        })
+        wrapper.update()
+        wrapper.find(ZoomEventLayer).props().onWheel({
+          clientX: 50,
+          clientY: 50,
+          deltaY: 10,
+          preventDefault: sinon.spy(),
+        })
+        wrapper.update()
         const firstZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
-        wrapper.find(ZoomEventLayer).simulate('wheel', {
+        wrapper.find(ZoomEventLayer).props().onWheel({
           clientX: 50,
           clientY: 50,
           deltaY: 10,
-          preventDefault: sinon.spy()
+          preventDefault: sinon.spy(),
         })
+        wrapper.update()
         const secondZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         expect(secondZoomedOutTransformMatrix.scaleX).to.be.above(zoomConfiguration.minZoom)
