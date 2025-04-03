@@ -76,7 +76,7 @@ describe('components > Contributors > ExportStats', function () {
 
     it('should show the download link', function () {
       render(<SuccessNoFilenameStory />)
-      const downloadLink = screen.getByText('Generating stats export file...')
+      const downloadLink = screen.getByText('Generating stats export file. Do not close this browser tab.')
       expect(downloadLink).to.be.ok()
     })
   })
