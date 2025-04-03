@@ -28,7 +28,6 @@ function storeMapper(classifierStore) {
 
     return {
       onClick,
-      subjectID: subject.id,
       talkURL: subject.talkURL,
       visible
     }
@@ -38,9 +37,9 @@ function storeMapper(classifierStore) {
 }
 
 function DoneAndTalkConnector(props) {
-  const { onClick, subjectID, talkURL, visible } = useStores(storeMapper)
+  const { onClick, talkURL, visible } = useStores(storeMapper)
 
-  return visible ? <DoneAndTalkButton onClick={onClick} {...props} subjectID={subjectID} talkURL={talkURL} /> : null
+  return visible ? <DoneAndTalkButton onClick={onClick} {...props} talkURL={talkURL} /> : null
 }
 
 export default observer(DoneAndTalkConnector)
