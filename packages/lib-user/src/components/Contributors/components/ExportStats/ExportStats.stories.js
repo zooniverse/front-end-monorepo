@@ -46,7 +46,19 @@ export function Error() {
   )
 }
 
-export function Success() {
+export function SuccessNoFilename() {
+  return (
+    <ExportStats
+      downloadUrl={{
+        url: '',
+        filename: ''
+      }}
+      exportStatus={asyncStates.success}
+    />
+  )
+}
+
+export function SuccessWithFilename() {
   return (
     <ExportStats
       downloadUrl={{

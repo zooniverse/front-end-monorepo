@@ -19,6 +19,13 @@ export async function handleGenerateExport({
 
   try {
     const allUsers = await getAllUsers({ memberIdsPerStats, setExportProgress })
+    
+    // set the export status to success, before generating the CSV
+    // the CSV file creation may freeze the UI, making it appear as if the process is stuck
+    setExportStatus(asyncStates.success)
+
+    // Wait for the UI to update before proceeding
+    await new Promise(resolve => setTimeout(resolve, 0)) // Allows React to process the exportStatus state update
 
     const { filename, dataExportUrl } = await generateExport({
       group,
@@ -29,7 +36,6 @@ export async function handleGenerateExport({
     
     // Set the download URL and filename for the UI to use
     setDownloadUrl({ url: dataExportUrl, filename })
-    setExportStatus(asyncStates.success)
   } catch (error) {
     console.error('Error generating export: ', error)
     setErrorMessage(error.message)

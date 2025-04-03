@@ -1,7 +1,7 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import Meta, { ConfirmLargeExport, ConfirmSmallExport, Loading, Error, Success } from './ExportStats.stories.js'
+import Meta, { ConfirmLargeExport, ConfirmSmallExport, Loading, Error, SuccessNoFilename, SuccessWithFilename } from './ExportStats.stories.js'
 
 describe('components > Contributors > ExportStats', function () {
   describe('ConfirmLargeExport', function () {
@@ -48,7 +48,7 @@ describe('components > Contributors > ExportStats', function () {
 
     before(function () {
       render(<LoadingStory />)
-      loadingMessage = screen.getByText('Generating stats export...')
+      loadingMessage = screen.getByText('Downloading data...')
       progress = screen.getByText('Progress: 65%')
     })
 
@@ -71,11 +71,21 @@ describe('components > Contributors > ExportStats', function () {
     })
   })
 
-  describe('Success', function () {
-    const SuccessStory = composeStory(Success, Meta)
+  describe('Success without filename', function () {
+    const SuccessNoFilenameStory = composeStory(SuccessNoFilename, Meta)
 
     it('should show the download link', function () {
-      render(<SuccessStory />)
+      render(<SuccessNoFilenameStory />)
+      const downloadLink = screen.getByText('Generating stats export file...')
+      expect(downloadLink).to.be.ok()
+    })
+  })
+
+  describe('Success with filename', function () {
+    const SuccessWithFilenameStory = composeStory(SuccessWithFilename, Meta)
+
+    it('should show the download link', function () {
+      render(<SuccessWithFilenameStory />)
       const downloadLink = screen.getByText('TestGroup1234_data_export_2025-01-01T101010.csv')
       expect(downloadLink).to.be.ok()
     })

@@ -31,11 +31,12 @@
       "complete": "Export Complete",
       "confirm": "Confirm",
       "confirmMessage": "Generate CSV of group stats for {{memberCount}} members?",
+      "downloading": "Downloading data...",
       "download": "Click link to download CSV:",
       "error": "Export Error",
       "errorMessage": "Failed to generate export.",
       "fileSize": "Approximately {{fileSize}}.",
-      "generating": "Generating stats export...",
+      "generating": "Generating stats export file...",
       "progress": "Progress: {{progress}}%",
       "retry": "Retry"
     },

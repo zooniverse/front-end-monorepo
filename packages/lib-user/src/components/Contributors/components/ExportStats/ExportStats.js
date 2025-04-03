@@ -39,7 +39,7 @@ function ExportStats({
   onRetry = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation()
-  const loadingExportMessage = t('Contributors.ExportStats.generating')
+  const loadingExportMessage = t('Contributors.ExportStats.downloading')
 
   // loading state
   if (exportStatus === asyncStates.loading) {
@@ -104,8 +104,28 @@ function ExportStats({
     )
   }
 
-  // success state
-  if (exportStatus === asyncStates.success) {
+  // success state without filename
+  if (exportStatus === asyncStates.success && !downloadUrl.filename) {
+    return (
+      <Layer>
+        <ExportBox>
+          <Text
+            textAlign='center'
+          >
+            {t('Contributors.ExportStats.generating')}
+          </Text>
+          <Button
+            label={t('Contributors.ExportStats.close')}
+            onClick={onClose}
+            margin={{ top: 'medium' }}
+          />
+        </ExportBox>
+      </Layer>
+    )
+  }
+
+  // success state with filename
+  if (exportStatus === asyncStates.success && downloadUrl.filename) {
     return (
       <Layer>
         <ExportBox>
