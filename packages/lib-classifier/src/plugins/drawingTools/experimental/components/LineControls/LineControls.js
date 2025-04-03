@@ -11,6 +11,15 @@ const StyledGroup = styled.g`
   cursor: pointer;
   pointer-events: all !important;
 `
+const DEFAULT_TRANSFORM_MATRIX = {
+  scaleX: 1,
+  scaleY: 1,
+  skewX: 0,
+  skewY: 0,
+  translateX: 0,
+  translateY: 0
+}
+const LINE_CONTROL_INSET = 70
 
 const LineControls = forwardRef(function LineControls({
   mark,
@@ -32,21 +41,17 @@ const LineControls = forwardRef(function LineControls({
   const OUTER_RADIUS = 40 / scale
   const INNER_RADIUS = 20 / scale
 
-  const { canvas, rotate } = useContext(SVGContext)
-
-  // Get the transformation that's been applied to a parent element
-  const canvasSVG = canvas.closest('svg')
-  const matrix = canvasSVG.firstChild.getCTM()
-  const { a: hScale, d: vScale, e: hTranslate, f: vTranslate } = matrix
-  const LINE_CONTROL_INSET = 70;
+  const { canvas, rotate, transformMatrix = DEFAULT_TRANSFORM_MATRIX } = useContext(SVGContext)
+  const { scaleX, scaleY, translateX, translateY } = transformMatrix
 
   const { width, height } = canvas.getBBox()
-  const x = (LINE_CONTROL_INSET - hTranslate) / hScale
-  const y = (LINE_CONTROL_INSET - vTranslate) / vScale
+  const xLeft = (LINE_CONTROL_INSET - translateX) / scaleX
+  const xRight = (width - translateX - LINE_CONTROL_INSET) / scaleX
+  const y = (LINE_CONTROL_INSET - translateY) / scaleY
 
   const p = (activePosition === 'tl')
-    ? { x, y }
-    : { x: x + ((width - (LINE_CONTROL_INSET * 2)) / hScale), y }
+    ? { x: xLeft, y }
+    : { x: xRight, y }
 
   function onEnterOrSpace(ev, func) {
     if (ev.keyCode === 13 || ev.keyCode === 32) {
