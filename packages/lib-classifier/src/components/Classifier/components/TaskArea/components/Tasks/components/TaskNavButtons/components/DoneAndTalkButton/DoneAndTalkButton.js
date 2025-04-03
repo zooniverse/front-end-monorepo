@@ -1,5 +1,5 @@
 import { PrimaryButton } from '@zooniverse/react-components'
-import { bool, func } from 'prop-types'
+import { bool, func, string } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 import { ShareRounded } from 'grommet-icons'
 import { Text } from 'grommet'
@@ -37,7 +37,8 @@ const DEFAULT_HANDLER = () => true
 function DoneAndTalkButton({
   disabled = false,
   onClick = DEFAULT_HANDLER,
-  setSaving = DEFAULT_HANDLER
+  setSaving = DEFAULT_HANDLER,
+  talkURL = ''
 }) {
   function handleClick(event) {
     setSaving(true)
@@ -47,9 +48,12 @@ function DoneAndTalkButton({
   return (
     <StyledButton
       color='blue'
-      disabled={disabled}
+      href={disabled ? '' : talkURL}
       label={<Label />}
       onClick={handleClick}
+      disabled={disabled}
+      target='_blank'
+      onContextMenu={e => e.preventDefault()} // Done & Talk link should not be opened via right click + open in a new tab. We do not want volunteers to see Talk for a subject while still classifying.
     />
   )
 }
@@ -57,7 +61,8 @@ function DoneAndTalkButton({
 DoneAndTalkButton.propTypes = {
   disabled: bool,
   onClick: func,
-  setSaving: func
+  setSaving: func,
+  talkURL: string
 }
 
 export default DoneAndTalkButton

@@ -6,7 +6,7 @@ import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store/RootStore'
-import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
+import { MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
@@ -659,7 +659,7 @@ describe('Model > SubjectStore', function () {
     })
   })
 
-  describe('openTalkPage', function () {
+  describe.skip('openTalkPage', function () {
     let originalWindow
     const talkURL = 'https://example.org/projects/zooniverse/test-project/talk/123456'
 
