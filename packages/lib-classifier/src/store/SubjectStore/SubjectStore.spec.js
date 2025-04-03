@@ -6,7 +6,7 @@ import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store/RootStore'
-import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
+import { MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
@@ -656,57 +656,6 @@ describe('Model > SubjectStore', function () {
       await subjects.populateQueue()
       expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(1)
       expect(subjects.isThereMetadata).to.be.true()
-    })
-  })
-
-  describe('openTalkPage', function () {
-    let originalWindow
-    const talkURL = 'https://example.org/projects/zooniverse/test-project/talk/123456'
-
-    before(function () {
-      originalWindow = window
-      global.window = {
-        ...window,
-        location: {
-          ...window.location,
-          origin: 'https://example.org',
-          assign: sinon.stub().callsFake(url => console.log(url))
-        }
-      }
-    })
-
-    after(function () {
-      global.window = originalWindow
-    })
-
-    describe('in a new tab', function () {
-      let newTab = {
-        opener: null,
-        location: null,
-        target: null,
-        focus: sinon.stub()
-      }
-
-      before(function () {
-        window.open = sinon.stub().callsFake(() => newTab)
-        openTalkPage(talkURL, true)
-      })
-
-      after(function () {
-        window.location.assign.resetHistory()
-      })
-
-      it('should open a new tab', function () {
-        expect(newTab.target).to.equal('_blank')
-      })
-
-      it('should open a Talk URL', function () {
-        expect(newTab.location).to.equal(talkURL)
-      })
-
-      it('should switch focus to the new tab', function () {
-        expect(newTab.focus).to.have.been.calledOnce()
-      })
     })
   })
 })
