@@ -2,7 +2,38 @@ import asyncStates from '@zooniverse/async-states'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
 import { getAllUsers } from './getAllUsers'
-import { generateExport } from './generateExport'
+
+async function generateExportWithWorker({ group, projects, stats, users }) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL('./generateExport.worker.js', import.meta.url))
+
+    // send data to the worker
+    worker.postMessage({ group, projects, stats, users })
+
+    // handle messages from the worker
+    worker.onmessage = ({ data }) => {
+      if (data.error) {
+        worker.terminate()
+        reject(new Error(data.error)) // reject the promise with the error
+      } else {
+        const { csvContent, filename } = data
+
+        // create the Blob and object URL on the main thread
+        const csvBlob = new Blob([csvContent], { type: 'text/csv' })
+        const dataExportUrl = URL.createObjectURL(csvBlob)
+
+        worker.terminate()
+        resolve({ filename, dataExportUrl }) // resolve the promise with the result
+      }
+    }
+
+    // handle errors in the worker
+    worker.onerror = (error) => {
+      worker.terminate()
+      reject(new Error(`Worker error: ${error.message}`)) // reject the promise with the error
+    }
+  })
+}
 
 export async function handleGenerateExport({
   group,
@@ -18,23 +49,22 @@ export async function handleGenerateExport({
   setExportProgress(0)
 
   try {
+    // fetch all users for the group
     const allUsers = await getAllUsers({ memberIdsPerStats, setExportProgress })
     
-    // set the export status to success, before generating the CSV
-    // the CSV file creation may freeze the UI, making it appear as if the process is stuck
+    // update exportStatus state to success
     setExportStatus(asyncStates.success)
+    await new Promise(resolve => setTimeout(resolve, 0)) // helps React process the exportStatus state update
 
-    // Wait for the UI to update before proceeding
-    await new Promise(resolve => setTimeout(resolve, 0)) // Allows React to process the exportStatus state update
-
-    const { filename, dataExportUrl } = await generateExport({
+    // generate the export using a Web Worker
+    const { filename, dataExportUrl } = await generateExportWithWorker({
       group,
       projects,
       stats,
       users: allUsers
     })
-    
-    // Set the download URL and filename for the UI to use
+
+    // set the download URL and filename
     setDownloadUrl({ url: dataExportUrl, filename })
   } catch (error) {
     console.error('Error generating export: ', error)

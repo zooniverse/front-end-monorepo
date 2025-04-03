@@ -22,14 +22,16 @@ describe('components > Contributors > generateExport', function () {
   })
 
   it('should return the expected export data', async function () {
-    const { filename, dataExportUrl } = await generateExport({
+    const { csvContent, filename } = await generateExport({
       group: USER_GROUPS[0],
       projects,
       stats,
-      users
+      users,
+      includeMetadata: true
     })
 
     expect(filename).to.equal('TestGroup_data_export_2023-04-15T000000.csv')
-    expect(dataExportUrl).to.be.a('string')
+    expect(csvContent).to.include('Display Name', 'Username', 'Total Classifications', 'Total Hours')
+    expect(csvContent).to.be.a('string')
   })
 })
