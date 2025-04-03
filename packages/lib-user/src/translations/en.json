@@ -36,7 +36,7 @@
       "error": "Export Error",
       "errorMessage": "Failed to generate export.",
       "fileSize": "Approximately {{fileSize}}.",
-      "generating": "Generating stats export file...",
+      "generating": "Generating stats export file. Do not close this browser tab.",
       "progress": "Progress: {{progress}}%",
       "retry": "Retry"
     },
