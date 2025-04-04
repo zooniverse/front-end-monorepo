@@ -7,6 +7,10 @@
     "hours": "Hours",
     "projects": "Projects"
   },
+  "AllProjects": {
+    "error": "There was an error",
+    "noProjects": "No projects found"
+  },
   "BarChart": {
     "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
     "day": "Day",

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import {
   Certificate,
   Contributors,
+  GroupAllProjects,
   GroupStats,
   MyGroups,
   UserHome,
@@ -147,6 +148,13 @@ function App({
           groupId={groupId}
           joinToken={joinToken}
         />
+      )
+    } else if (subpaths[1] === 'projects') {
+      content = (
+        <GroupAllProjects
+          authUser={user}
+          groupId={groupId}
+          joinToken={joinToken}/>
       )
     } else {
       content = (

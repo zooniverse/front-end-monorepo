@@ -1,5 +1,6 @@
 // components
 export { default as Certificate } from './components/Certificate'
+export { default as GroupAllProjects } from './components/GroupAllProjects'
 export { default as GroupStats } from './components/GroupStats'
 export { default as MyGroups } from './components/MyGroups'
 export { default as Contributors } from './components/Contributors'
