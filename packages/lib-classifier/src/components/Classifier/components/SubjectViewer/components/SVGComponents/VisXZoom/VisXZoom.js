@@ -98,12 +98,13 @@ function VisXZoom({
       return throttledWheelHandler(event)
     }
 
-    /* If subject viewer allows scrolling, 
+    /* If subject viewer allows scrolling,
+    and user is not zooming with hot key, 
     check for first scroll event (hasScrolledRef is false), then
     set hasScrolledRef to true and
     call onFirstScroll callback.
     */
-    if (allowsScrolling && !hasScrolledRef.current) {
+    if (allowsScrolling && !event[ZOOM_HOT_KEY] && !hasScrolledRef.current) {
       hasScrolledRef.current = true
       onFirstScroll()
     }
@@ -122,6 +123,9 @@ function VisXZoom({
         // Prevent the page from jumping when the scrollbar is removed.
         document.body.style.paddingRight = `${scrollbarWidth}px`
       }
+
+      /* the user is zooming with the hot key, so set hasScrolledRef to true */
+      hasScrolledRef.current = true
 
       /* event.preventDefault() will throw a warning in the browser
       for passive events. To avoid that, use addEventListener with 
