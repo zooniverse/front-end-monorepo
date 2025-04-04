@@ -52,10 +52,13 @@ describe('Component > MoveButton', function () {
         wrapper: withStore(store)
       }
     )
-
-    await user.click(screen.getByRole('button', { name: 'ImageToolbar.MoveButton.ariaLabel' }))
+    const button = screen.getByRole('button', { name: 'ImageToolbar.MoveButton.ariaLabel' })
+    expect(button).to.have.attribute('aria-pressed', 'false')
+    await user.click(button)
+    expect(button).to.have.attribute('aria-pressed', 'true')
 
     expect(store.subjectViewer.move).to.be.true()
     expect(store.subjectViewer.annotate).to.be.false()
+    expect(store.subjectViewer.interactionMode).to.equal('move')
   })
 })
