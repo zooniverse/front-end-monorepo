@@ -1,7 +1,4 @@
-import { List, Paragraph, Text } from 'grommet'
 import { render, screen } from '@testing-library/react'
-import sinon from 'sinon'
-import { MovableModal } from '@zooniverse/react-components'
 import ConsensusPopup from './ConsensusPopup'
 import setupMock from './helpers/setupMock'
 

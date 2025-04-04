@@ -76,7 +76,10 @@ describe('SubTaskPopup', function () {
 
     describe('on saving an incomplete annotation', function () {
       before(function () {
-        wrapper.find(SaveButton).simulate('click')
+        wrapper.find(SaveButton).simulate('click', {
+          preventDefault: sinon.stub(),
+          stopPropagation: sinon.stub()
+        })
       })
 
       it('should render a confirm modal', function () {
@@ -102,7 +105,10 @@ describe('SubTaskPopup', function () {
       let taskWrappers
 
       before(function () {
-        wrapper.find(SaveButton).simulate('click')
+        wrapper.find(SaveButton).simulate('click', {
+          preventDefault: sinon.stub(),
+          stopPropagation: sinon.stub()
+        })
         wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
         taskWrappers = wrapper.find('.subtaskpopup-task')
       })
@@ -151,7 +157,10 @@ describe('SubTaskPopup', function () {
           onDelete={onDeleteSpy}
         />
       )
-      wrapper.find(SaveButton).simulate('click')
+      wrapper.find(SaveButton).simulate('click', {
+        preventDefault: sinon.stub(),
+        stopPropagation: sinon.stub()
+      })
       wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
     })
 
@@ -255,7 +264,10 @@ describe('SubTaskPopup', function () {
                 activeMark={mark}
               />
             )
-            wrapper.find(SaveButton).simulate('click')
+            wrapper.find(SaveButton).simulate('click', {
+              preventDefault: sinon.stub(),
+              stopPropagation: sinon.stub()
+            })
             expect(mark.subTaskVisibility).to.be.false()
           })
 
