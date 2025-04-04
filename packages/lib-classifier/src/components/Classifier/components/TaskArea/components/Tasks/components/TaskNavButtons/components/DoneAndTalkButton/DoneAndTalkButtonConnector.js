@@ -23,7 +23,7 @@ function storeMapper(classifierStore) {
 
     function onClick() {
       finish()
-      return completeClassification()
+      return completeClassification({ doneAndTalk: true })
     }
 
     return {
