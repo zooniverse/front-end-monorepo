@@ -126,26 +126,29 @@ function MainContent({
         active={showCalendar}
         closeFn={handleCalendarClose}
         position='top'
+        rndProps={{ cancel: '.element-that-ignores-drag-actions' }}
         title={t('MainContent.calendarTitle')}
       >
-        <Calendar
-          bounds={[
-            sourceCreatedAtDate,
-            todayUTC
-          ]}
-          date={[customDateRange]}
-          onSelect={handleCalendarChange}
-          range='array'
-        />
-        <Box
-          direction='row'
-          justify='end'
-          margin={{ top: 'small' }}
-        >
-          <StyledCalendarButton
-            label={t('MainContent.calendarBtn')}
-            onClick={handleCalendarSave}
+        <Box className='element-that-ignores-drag-actions'>
+          <Calendar
+            bounds={[
+              sourceCreatedAtDate,
+              todayUTC
+            ]}
+            date={[customDateRange]}
+            onSelect={handleCalendarChange}
+            range='array'
           />
+          <Box
+            direction='row'
+            justify='end'
+            margin={{ top: 'small' }}
+          >
+            <StyledCalendarButton
+              label={t('MainContent.calendarBtn')}
+              onClick={handleCalendarSave}
+            />
+          </Box>
         </Box>
       </MovableModal>
       <ContentBox
