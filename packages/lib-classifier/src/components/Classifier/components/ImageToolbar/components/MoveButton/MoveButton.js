@@ -14,6 +14,7 @@ function MoveButton({
     <Button
       a11yTitle={t('ImageToolbar.MoveButton.ariaLabel')}
       active={active}
+      aria-pressed={active.toString()}
       disabled={disabled}
       icon={<MoveIcon />}
       onClick={onClick}
