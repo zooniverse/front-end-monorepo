@@ -67,6 +67,10 @@ const BaseMark = types
       return Math.sqrt(aSquared + bSquared)
     },
 
+    get element() {
+      return document.getElementById(`mark-${self.id}`)
+    },
+
     get isComplete() {
       const incomplete = self.tasks.some((task) => {
         const taskAnnotation = self.annotation(task)
