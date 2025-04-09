@@ -106,7 +106,7 @@ export const Plane = ({
   viewer
 }) => {
   const [hideCoor, setHideCoor] = useState()
-  const [expanded, setExpanded] = useState()
+  const [expanded, setExpanded] = useState(false)
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)

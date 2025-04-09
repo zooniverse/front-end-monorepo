@@ -249,8 +249,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
           label: 'Annotation 3',
           points: {
             active: [{ x: 2, y: 2, z: 2 }],
-            connected: [[]],
-            all: []
+            connected: [[]]
           },
           threshold: ANNOTATION_THRESHOLD
         },
@@ -258,8 +257,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
           label: 'Annotation 4',
           points: {
             active: [{ x: 3, y: 3, z: 3 }],
-            connected: [[]],
-            all: []
+            connected: [[]]
           },
           threshold: ANNOTATION_THRESHOLD
         }

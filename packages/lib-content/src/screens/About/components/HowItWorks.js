@@ -208,19 +208,19 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             </ArrowBox>
             <ListItem>
               <Compass color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.participants.steps.one')}</Step>
+              <Step>{t('AboutPage.howItWorks.participants.steps.first')}</Step>
             </ListItem>
             <ListItem>
               <Info color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.participants.steps.two')}</Step>
+              <Step>{t('AboutPage.howItWorks.participants.steps.second')}</Step>
             </ListItem>
             <ListItem>
               <Compliance color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.participants.steps.three')}</Step>
+              <Step>{t('AboutPage.howItWorks.participants.steps.third')}</Step>
             </ListItem>
             <ListItem>
               <Certificate color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.participants.steps.four')}</Step>
+              <Step>{t('AboutPage.howItWorks.participants.steps.fourth')}</Step>
             </ListItem>
           </Box>
 
@@ -239,19 +239,19 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             </ArrowBox>
             <ListItem>
               <Troubleshoot color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.researchers.steps.one')}</Step>
+              <Step>{t('AboutPage.howItWorks.researchers.steps.first')}</Step>
             </ListItem>
             <ListItem>
               <Validate color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.researchers.steps.two')}</Step>
+              <Step>{t('AboutPage.howItWorks.researchers.steps.second')}</Step>
             </ListItem>
             <ListItem>
               <Deploy color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.researchers.steps.three')}</Step>
+              <Step>{t('AboutPage.howItWorks.researchers.steps.third')}</Step>
             </ListItem>
             <ListItem>
               <Download color='white' size='50px' />
-              <Step>{t('AboutPage.howItWorks.researchers.steps.four')}</Step>
+              <Step>{t('AboutPage.howItWorks.researchers.steps.fourth')}</Step>
             </ListItem>
           </Box>
         </ListsContainer>

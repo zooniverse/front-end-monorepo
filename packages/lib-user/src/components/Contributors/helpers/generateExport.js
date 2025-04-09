@@ -11,23 +11,18 @@ export function generateExport({
 }) {
   const data = getExportData({ projects, stats, users })
 
-  let str = ''
+  // Generate CSV content as a string
+  const csvRows = data.map((row) => row.map((col) => JSON.stringify(col)).join(','))
+  const csvContent = csvRows.join('\n')
 
-  data.forEach((row) => {
-    str += row.map((col) => JSON.stringify(col)).join(',').concat('\n')
-  })
-
-  // The following regexp sanitizes the group name by removing all non-alphanumeric characters (i.e. emojis, spaces, punctuation, etc.)
+  // Sanitize the group name and generate the filename
   const sanitizedGroupName = group.display_name.replace(/[^a-zA-Z0-9]/g, '')
   const date = dayjs().format('YYYY-MM-DDTHHmmss')
   const filename = `${sanitizedGroupName}_data_export_${date}.csv`
 
-  let file = new File([str], filename, { type: 'text/csv' })
-  let dataExportUrl = URL.createObjectURL(file)
-  
   return {
-    filename,
-    dataExportUrl
+    csvContent,
+    filename
   }
 }
 

@@ -13,7 +13,7 @@ describe('TaskNavButtons', function () {
     const DefaultStory = composeStory(Default, Meta)
     render(<DefaultStory />)
     expect(
-      screen.getByRole('button', {
+      screen.getByRole('link', {
         name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
       })
     ).to.be.ok()

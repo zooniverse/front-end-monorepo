@@ -1,13 +1,16 @@
 import { Box } from 'grommet'
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useEffect } from 'react'
+import { bool, func, shape, string } from 'prop-types'
+import { useEffect, useState, useRef } from 'react'
 import styled, { css } from 'styled-components'
 
 import ZoomControlButton from '../ZoomControlButton'
-
+import ZoomHelperOverlay from './components/ZoomHelperOverlay'
 import VisXZoom from '../SVGComponents/VisXZoom'
-
 import SingleImageCanvas from './SingleImageCanvas'
+
+const Relative = styled(Box)`
+  position: relative;
+`
 
 const StyledSVG = styled.svg`
   background-color: ${props => props.theme.global.colors['light-4']};
@@ -27,6 +30,7 @@ const DEFAULT_ZOOM_CONFIG = {
 }
 
 function SingleImageViewer({
+  allowsScrolling = true,
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
@@ -47,10 +51,30 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = true
 }) {
+  const [showZoomHelper, setShowZoomHelper] = useState(false)
+  const [fadingOut, setFadingOut] = useState(false)
+
   useEffect(function onMount() {
     enableRotation()
   }, [])
 
+  // Handle the first scroll event
+  function handleFirstScroll() {
+    if (allowsScrolling && zooming) {
+      setShowZoomHelper(true)
+      
+      // Set fading out after 3 seconds
+      setTimeout(() => {
+        setFadingOut(true)
+      }, 3000)
+      
+      // Hide completely after animation completes (300ms animation)
+      setTimeout(() => {
+        setShowZoomHelper(false)
+        setFadingOut(false)
+      }, 3300)
+    }
+  }
 
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
@@ -60,20 +84,33 @@ function SingleImageViewer({
       {zoomControlFn && (
         <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
-      <Box align="flex-end" animation="fadeIn" overflow="hidden" width="100%">
+      <Relative
+        align='flex-end'
+        animation='fadeIn'
+        overflow='hidden'
+        width='100%'
+      >
+        {showZoomHelper && (
+          <ZoomHelperOverlay fadingOut={fadingOut} />
+        )}
         <StyledSVG
           aria-labelledby={title?.id}
+          aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
           $maxHeight={maxHeight}
           $maxWidth={maxWidth}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
+          {allowsScrolling && (
+            <desc id='scrolling-info'>In pan mode, use CTRL + scroll to zoom.</desc>
+          )}
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
           <VisXZoom
-            allowsScrolling
+            allowsScrolling={allowsScrolling}
             height={naturalHeight}
             move={move}
+            onFirstScroll={handleFirstScroll}
             onKeyDown={onKeyDown}
             panning={panning}
             setOnPan={setOnPan}
@@ -99,12 +136,13 @@ function SingleImageViewer({
             )}
           </VisXZoom>
         </StyledSVG>
-      </Box>
+      </Relative>
     </>
-  );
+  )
 }
 
 SingleImageViewer.propTypes = {
+  allowsScrolling: bool,
   enableRotation: func,
   limitSubjectHeight: bool,
   panning: bool,

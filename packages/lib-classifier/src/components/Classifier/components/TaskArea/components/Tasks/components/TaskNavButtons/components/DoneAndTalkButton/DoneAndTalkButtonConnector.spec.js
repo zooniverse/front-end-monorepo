@@ -25,7 +25,7 @@ describe('Components > DoneAndTalkButtonConnector', function () {
         </Grommet>
       )
       const user = userEvent.setup()
-      const button = screen.getByRole('button', {
+      const button = screen.getByRole('link', {
         name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
       })
       await user.click(button)
@@ -42,11 +42,6 @@ describe('Components > DoneAndTalkButtonConnector', function () {
 
     it('should complete the classification', function () {
       expect(classification.completed).to.be.true()
-    })
-
-    it('should open the subject in Talk', function () {
-      const talkURL = `https://example.org/projects/zooniverse/example/talk/subjects/${subject.id}`
-      expect(subject.shouldDiscuss.url).to.equal(talkURL)
     })
   })
 })
