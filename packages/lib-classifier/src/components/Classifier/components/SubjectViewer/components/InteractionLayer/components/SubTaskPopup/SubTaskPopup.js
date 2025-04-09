@@ -86,7 +86,7 @@ function SubTaskPopup({
   })
 
   const rndProps = {
-    cancel: '.subtaskpopup-element-that-ignores-drag-actions',
+    cancel: '.element-that-ignores-drag-actions',
     minHeight,
     minWidth,
     onDragStop,
@@ -109,7 +109,7 @@ function SubTaskPopup({
         titleColor=''
       >
         <Box 
-          className='subtaskpopup-element-that-ignores-drag-actions'
+          className='element-that-ignores-drag-actions'
           gap='small'
         >
           <form onSubmit={close}>
