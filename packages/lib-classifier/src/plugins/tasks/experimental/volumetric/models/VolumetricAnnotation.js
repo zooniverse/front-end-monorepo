@@ -9,8 +9,7 @@ const CoordinateModel = types.model('CoordinateModel', {
 
 const PointsModel = types.model('PointsModel', {
   active: types.array(CoordinateModel),
-  connected: types.array(types.array(CoordinateModel), []),
-  all: types.array(CoordinateModel),
+  connected: types.array(types.array(CoordinateModel), [])
 })
 
 const AnnotationModel = types.model('AnnotationModel', {

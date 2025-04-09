@@ -1,14 +1,10 @@
-import { useContext } from 'react';
-import { MobXProviderContext, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
+
+import { useStores } from '@hooks'
 import DemoModeToggle from './DemoModeToggle'
 
-function useStores() {
-  const stores = useContext(MobXProviderContext)
-
-  const {
-    demoMode,
-    setDemoMode
-  } = stores.classifierStore.classifications
+function storeMapper(classifierStore) {
+  const { demoMode, setDemoMode } = classifierStore.classifications
 
   return {
     demoMode,
@@ -17,17 +13,10 @@ function useStores() {
 }
 
 function DemoModeToggleConnector(props) {
-  const {
-    demoMode,
-    setDemoMode
-  } = useStores()
+  const { demoMode, setDemoMode } = useStores(storeMapper)
 
   return (
-    <DemoModeToggle
-      demoMode={demoMode}
-      setDemoMode={setDemoMode}
-      {...props}
-    />
+    <DemoModeToggle demoMode={demoMode} setDemoMode={setDemoMode} {...props} />
   )
 }
 

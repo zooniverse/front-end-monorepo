@@ -50,6 +50,7 @@ export default function ConsensusPopup ({
       position='top-left'
       plain
       rndProps={{
+        cancel: '.element-that-ignores-drag-actions',
         default: position,
         maxHeight: 350,
         minHeight: MIN_POPUP_HEIGHT,
@@ -61,7 +62,9 @@ export default function ConsensusPopup ({
       <Paragraph>
         {t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.explanation', { count: line.textOptions.length })}
       </Paragraph>
-      <StyledBox>
+      <StyledBox
+        className='element-that-ignores-drag-actions'
+      >
         {line.consensusText &&
           <Paragraph>
             {line.consensusText}

@@ -41,6 +41,7 @@ const DEFAULT_HANDLER = () => true
  *       zoomInValue: 1.2,
  *       zoomOutValue: 0.8
  *     }}
+ *     onFirstScroll={onFirstScroll}
  *     onKeyDown={onKeyDown}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
@@ -56,6 +57,7 @@ function VisXZoom({
   height,
   left = 0,
   move = true,
+  onFirstScroll = DEFAULT_HANDLER,
   onKeyDown,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
@@ -67,6 +69,7 @@ function VisXZoom({
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
+  const hasScrolledRef = useRef(false)
 
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
@@ -94,6 +97,17 @@ function VisXZoom({
       event.preventDefault()
       return throttledWheelHandler(event)
     }
+
+    /* If subject viewer allows scrolling,
+    and user is not zooming with hot key, 
+    check for first scroll event (hasScrolledRef is false), then
+    set hasScrolledRef to true and
+    call onFirstScroll callback.
+    */
+    if (allowsScrolling && !event[ZOOM_HOT_KEY] && !hasScrolledRef.current) {
+      hasScrolledRef.current = true
+      onFirstScroll()
+    }
     
     /* Zoom if the zoom hot key is pressed.
     Passive event listeners, like React's onWheel or default browser wheel events,
@@ -109,6 +123,9 @@ function VisXZoom({
         // Prevent the page from jumping when the scrollbar is removed.
         document.body.style.paddingRight = `${scrollbarWidth}px`
       }
+
+      /* the user is zooming with the hot key, so set hasScrolledRef to true */
+      hasScrolledRef.current = true
 
       /* event.preventDefault() will throw a warning in the browser
       for passive events. To avoid that, use addEventListener with 
@@ -266,6 +283,8 @@ VisXZoom.propTypes = {
   move: PropTypes.bool,
   /** Custom callback for keydown events. */
   onKeyDown: PropTypes.func,
+  /** Callback for first scroll event when allowsScrolling is true */
+  onFirstScroll: PropTypes.func,
   /** Enable panning. Ignored if zooming is false. */
   panning: PropTypes.bool,
   /** Set the subject toolbar's onPan callback in the classifier store. */

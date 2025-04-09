@@ -166,8 +166,10 @@ describe('SurveyTask with user clicks', function () {
     
     it('should disable "Done & Talk" and "Done" buttons', async function () {
       let buttons = Array.from(document.querySelectorAll('button'))
-      let doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
       let doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
+      const doneAndTalkButton = screen.getByRole('button', {
+        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+      })
       
       // confirm the Done & Talk and Done buttons are disabled while a choice is selected
       expect(doneAndTalkButton.disabled).to.be.true()
@@ -178,11 +180,14 @@ describe('SurveyTask with user clicks', function () {
       await user.click(identifyButton)
 
       buttons = Array.from(document.querySelectorAll('button'))
-      doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
+      // doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
       doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
 
       // confirm the Done & Talk and Done buttons are enabled after a choice is selected
-      expect(doneAndTalkButton.disabled).to.be.false()
+      const doneAndTalkLink = screen.getByRole('link', {
+        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+      })
+      expect(doneAndTalkLink).to.be.ok()
       expect(doneButton.disabled).to.be.false()
     })
   })

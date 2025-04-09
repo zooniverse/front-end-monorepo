@@ -7,10 +7,9 @@ import { useTranslation } from '@translations/i18n'
 import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
 import useScale from '../../../hooks/useScale'
 
-const StyledPath = styled('path')`
-  &:hover {
-    cursor: pointer;
-  }
+const StyledGroup = styled.g`
+  cursor: pointer;
+  pointer-events: all !important;
 `
 
 const LineControls = forwardRef(function LineControls({
@@ -21,7 +20,7 @@ const LineControls = forwardRef(function LineControls({
   ref
 ) {
   const scale = useScale()
-  let [activePosition, setActivePosition] = useState('tr')
+  let [activePosition, setActivePosition] = useState('tl')
   let [showDeleteButtons, setShowDeleteButtons] = useState(false)
   const { t } = useTranslation('plugins')
 
@@ -33,12 +32,20 @@ const LineControls = forwardRef(function LineControls({
   const OUTER_RADIUS = 40 / scale
   const INNER_RADIUS = 20 / scale
 
-  const { viewBox, rotate, width, height } = useContext(SVGContext)
-  const [x, y, w, h] = viewBox.split(' ').map(n => parseInt(n, 10))
-  const p = (activePosition == 'tr')
-    ? { x: x + (50 / scale), y: y + (50 / scale) }
-    : { x: x + w - (50 / scale), y: y + (50 / scale) }
+  const { canvas, rotate } = useContext(SVGContext)
 
+  // Get the transformation that's been applied to a parent element
+  const { matrix } = canvas.parentElement.parentElement.transform.baseVal.consolidate()
+  const { a: hScale, d: vScale, e: hTranslate, f: vTranslate } = matrix
+  const LINE_CONTROL_INSET = 70;
+
+  const { width, height } = canvas.getBBox()
+  const x = (LINE_CONTROL_INSET - hTranslate) / hScale
+  const y = (LINE_CONTROL_INSET - vTranslate) / vScale
+
+  const p = (activePosition === 'tl')
+    ? { x, y }
+    : { x: x + ((width - (LINE_CONTROL_INSET * 2)) / hScale), y }
 
   function onEnterOrSpace(ev, func) {
     if (ev.keyCode === 13 || ev.keyCode === 32) {
@@ -48,7 +55,7 @@ const LineControls = forwardRef(function LineControls({
     }
   }
 
-  function deleteMark(event) {
+  function deleteMark() {
     setShowDeleteButtons(true)
   }
 
@@ -187,19 +194,19 @@ const LineControls = forwardRef(function LineControls({
   const buttons = (showDeleteButtons) ? deleteButtons : defaultButtons
 
   return (
-    <g
+    <StyledGroup
       ref={ref}
       role='group'
       aria-label={t('lineControls.lineControls')}
       focusable='false'
-      transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
       fill={FILL_COLOR}
+      transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
     >
-      {buttons.map(({ fill, label, path, action, icon }, index) => {
+      {buttons.map(({ label, path, action, icon }, index) => {
         const IconComponent = icon.type
         return <g focusable='false' key={index}>
           <Tooltip label={label}>
-            <StyledPath
+            <path
               role='button'
               aria-label={label}
               focusable='true'
@@ -210,7 +217,7 @@ const LineControls = forwardRef(function LineControls({
               strokeWidth={STROKE_WIDTH}
               onPointerDown={action}
               onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
-            ></StyledPath>
+            ></path>
           </Tooltip>
           <svg
             height={icon.size}
@@ -226,7 +233,8 @@ const LineControls = forwardRef(function LineControls({
           </svg>
         </g>
       })}
-    </g>
+
+    </StyledGroup>
   )
 })
 
