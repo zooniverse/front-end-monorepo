@@ -118,7 +118,7 @@ function AboutPage() {
               slug={sidebarSections[0].slug}
             />
             <SubHeading>
-              &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
+              &quot;{t('AboutPage.ourMission.subheadings.first')}&quot;
             </SubHeading>
             <OurMission />
 
