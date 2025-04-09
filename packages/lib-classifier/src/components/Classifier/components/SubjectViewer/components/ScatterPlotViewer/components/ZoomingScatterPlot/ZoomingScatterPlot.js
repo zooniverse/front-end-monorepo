@@ -58,6 +58,7 @@ function ZoomingScatterPlot({
 }) {
   const {
     data,
+    interactionMode = 'move',
     invertAxes = defaultInvertAxes,
     margin = defaultMargin,
     padding = defaultPadding,
@@ -215,13 +216,19 @@ function ZoomingScatterPlot({
       panning={panning}
       top={topPosition}
       width={width}
+      move={interactionMode === 'move'}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
-      zoomingComponent={ScatterPlot}
       zoomConfiguration={zoomConfiguration}
       zooming={zooming}
-      {...scatterPlotProps}
-    />
+    >
+      {(zoomProps) =>(
+        <ScatterPlot
+          {...scatterPlotProps}
+          {...zoomProps}
+        />
+      )}
+    </VisXZoom>
   )
 }
 

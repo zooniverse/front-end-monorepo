@@ -1,55 +1,60 @@
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import TaskNavButtons from './TaskNavButtons'
-import NextButton from './components/NextButton'
-import DoneButton from './components/DoneButton'
-import BackButton from './components/BackButton'
-import DoneAndTalkButton from './components/DoneAndTalkButton'
-import ExpertOptions from './components/ExpertOptions'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-const classification = { gold_standard: false }
+import Meta, {
+  Default,
+  Disabled,
+  Next,
+  BackOrDone
+} from './TaskNavButtons.stories.js'
 
 describe('TaskNavButtons', function () {
-  let wrapper
+  it('should display Done + DoneAndTalk by default', function () {
+    const DefaultStory = composeStory(Default, Meta)
+    render(<DefaultStory />)
+    expect(
+      screen.getByRole('link', {
+        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+      })
+    ).to.be.ok()
 
-  it('should render without crashing', function () {
-    wrapper = shallow(<TaskNavButtons classification={classification} />)
-    expect(wrapper).to.be.ok()
+    expect(
+      screen.getByRole('button', {
+        name: 'TaskArea.Tasks.DoneButton.done'
+      })
+    ).to.be.ok()
   })
 
-  it('should render ExpertOptions', function () {
-    wrapper = shallow(<TaskNavButtons classification={classification} />)
-    expect(wrapper.find(ExpertOptions)).to.have.lengthOf(1)
+  it('should disable the buttons based on the disabled prop', function () {
+    const DisabledStory = composeStory(Disabled, Meta)
+    render(<DisabledStory />)
+
+    expect(
+      screen.getByRole('button', {
+        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+      }).disabled
+    ).to.be.true()
+
+    expect(
+      screen.getByRole('button', {
+        name: 'TaskArea.Tasks.DoneButton.done'
+      }).disabled
+    ).to.be.true()
   })
 
-  it('should render a NextButton component', function () {
-    expect(wrapper.find(NextButton)).to.have.lengthOf(1)
+  it('should display a labeled NextButton when there is a next step', function () {
+    const NextButtonStory = composeStory(Next, Meta)
+    render(<NextButtonStory />)
+    expect(
+      screen.getByRole('button', { name: 'TaskArea.Tasks.NextButton.next' })
+    ).to.be.ok()
   })
 
-  it('should render a BackButton', function () {
-    expect(wrapper.find(BackButton)).to.have.lengthOf(1)
-  })
-
-  it('should disable the Next button when disabled.', function () {
-    wrapper.setProps({ disabled: true })
-    expect(wrapper.find(NextButton).prop('disabled')).to.be.true()
-  })
-
-  it('should render a DoneButton component', function () {
-    expect(wrapper.find(DoneButton)).to.have.lengthOf(1)
-  })
-
-  it('should render a DoneAndTalkButton component', function () {
-    expect(wrapper.find(DoneAndTalkButton)).to.have.lengthOf(1)
-  })
-
-  it('should disable the Done button when disabled.', function () {
-    wrapper.setProps({ disabled: true })
-    expect(wrapper.find(DoneButton).prop('disabled')).to.be.true()
-  })
-
-  it('should disable the Done & Talk button when disabled.', function () {
-    wrapper.setProps({ disabled: true })
-    expect(wrapper.find(DoneAndTalkButton).prop('disabled')).to.be.true()
+  it('should display a labeled BackButton when step history can go back', function () {
+    const BackOrDoneStory = composeStory(BackOrDone, Meta)
+    render(<BackOrDoneStory />)
+    expect(
+      screen.getByRole('button', { name: 'TaskArea.Tasks.BackButton.back' })
+    ).to.be.ok()
   })
 })

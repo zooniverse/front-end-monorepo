@@ -13,18 +13,6 @@ import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
 
-function openTalkPage (talkURL, newTab = false) {
-  if (newTab) {
-    const newTab = window.open()
-    newTab.opener = null
-    newTab.location = talkURL
-    newTab.target = '_blank'
-    newTab.focus()
-  } else {
-    window.location.assign(talkURL)
-  }
-}
-
 const SubjectStore = types
   .model('SubjectStore', {
     active: types.safeReference(SubjectType),
@@ -98,15 +86,6 @@ const SubjectStore = types
     }
 
     function _onSubjectAdvance(call, next, abort) {
-      const root = getRoot(self)
-      const validSubjectReference = isValidReference(() => self.active)
-      if (validSubjectReference) {
-        const subject = self.active
-        if (!root.feedback.shouldShowFeedback && subject && subject.shouldDiscuss) {
-          const { url, newTab } = subject.shouldDiscuss
-          openTalkPage(url, newTab)
-        }
-      }
       next(call)
     }
 
@@ -409,4 +388,4 @@ const SubjectStore = types
   })
 
 export default types.compose('SubjectResourceStore', ResourceStore, SubjectStore)
-export { openTalkPage, MINIMUM_QUEUE_SIZE }
+export { MINIMUM_QUEUE_SIZE }

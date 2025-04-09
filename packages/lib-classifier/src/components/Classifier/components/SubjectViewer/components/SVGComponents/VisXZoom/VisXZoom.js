@@ -1,4 +1,3 @@
-import { useWheel } from '@use-gesture/react'
 import { localPoint } from '@visx/event'
 import { Zoom } from '@visx/zoom'
 import throttle from 'lodash/throttle'
@@ -42,32 +41,35 @@ const DEFAULT_HANDLER = () => true
  *       zoomInValue: 1.2,
  *       zoomOutValue: 0.8
  *     }}
+ *     onFirstScroll={onFirstScroll}
+ *     onKeyDown={onKeyDown}
  *     setOnPan={setOnPan}
  *     setOnZoom={setOnZoom}
- *     zoomingComponent={SVGComponent}
- *     ...props
- *   />
+ *   >
+ *    {(zoomProps) => <SVGComponent {...zoomProps} />}
+ *  </VisXZoom>
  * ```
  */
 function VisXZoom({
   allowsScrolling = false,
+  children,
   constrain,
   height,
   left = 0,
-  move = false,
+  move = true,
+  onFirstScroll = DEFAULT_HANDLER,
+  onKeyDown,
   panning = false,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
   top = 0,
   width,
   zoomConfiguration = defaultZoomConfig,
-  zoomingComponent,
   zooming = false,
-  ...props
 }) {
   const { onKeyZoom } = useKeyZoom()
   const zoomRef = useRef(null)
-  const wheelEventLayer = useRef(null)
+  const hasScrolledRef = useRef(false)
 
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
@@ -94,6 +96,16 @@ function VisXZoom({
       */
       event.preventDefault()
       return throttledWheelHandler(event)
+    }
+
+    /* If subject viewer allows scrolling, 
+    check for first scroll event (hasScrolledRef is false), then
+    set hasScrolledRef to true and
+    call onFirstScroll callback.
+    */
+    if (allowsScrolling && !hasScrolledRef.current) {
+      hasScrolledRef.current = true
+      onFirstScroll()
     }
     
     /* Zoom if the zoom hot key is pressed.
@@ -123,11 +135,6 @@ function VisXZoom({
     document.body.style.overflow = ''
     document.body.style.paddingRight = ''
   }
-  
-  useWheel(move ? ({ event }) => onWheel(event) : DEFAULT_HANDLER, {
-    eventOptions: { passive: false },
-    target: wheelEventLayer
-  })
 
   function handleToolbarPan(xMultiplier, yMultiplier) {
     onPan(xMultiplier, yMultiplier)
@@ -211,7 +218,6 @@ function VisXZoom({
     zoomRef.current.dragEnd()
   }
 
-  const ZoomingComponent = zoomingComponent
   return (
     <Zoom
       constrain={constrain}
@@ -228,31 +234,29 @@ function VisXZoom({
       {_zoom => {
         zoomRef.current = _zoom
         return (
-          <g ref={wheelEventLayer}>
-            <ZoomingComponent
-              initialTransformMatrix={_zoom.initialTransformMatrix}
-              transformMatrix={_zoom.transformMatrix}
-              transform={_zoom.toString()}
-              move={move}
-              {...props}
-            >
-              <ZoomEventLayer
-                focusable
-                height={height}
-                onDoubleClick={onDoubleClick}
-                onKeyDown={onKeyZoom}
-                onPointerEnter={onPointerEnter}
-                onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
-                onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
-                onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
-                onPointerLeave={onPointerLeave}
-                onWheel={onWheel}
-                panning={panning}
-                tabIndex={0}
-                width={width}
-              />
-            </ZoomingComponent>
-          </g>
+          <ZoomEventLayer
+            disabled={!zooming || !move}
+            focusable
+            height={height}
+            onDoubleClick={onDoubleClick}
+            onKeyDown={onKeyDown || onKeyZoom}
+            onPointerEnter={onPointerEnter}
+            onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
+            onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
+            onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
+            onPointerLeave={onPointerLeave}
+            onWheel={onWheel}
+            panning={panning}
+            tabIndex={0}
+            width={width}
+          >
+            {children({
+              initialTransformMatrix: _zoom.initialTransformMatrix,
+              transformMatrix: _zoom.transformMatrix,
+              transform: _zoom.toString(),
+              move
+            })}
+          </ZoomEventLayer>
         )
       }}
     </Zoom>
@@ -273,6 +277,10 @@ VisXZoom.propTypes = {
   left: PropTypes.number,
   /** True if pan and zoom is enabled in the subject toolbar. */
   move: PropTypes.bool,
+  /** Custom callback for keydown events. */
+  onKeyDown: PropTypes.func,
+  /** Callback for first scroll event when allowsScrolling is true */
+  onFirstScroll: PropTypes.func,
   /** Enable panning. Ignored if zooming is false. */
   panning: PropTypes.bool,
   /** Set the subject toolbar's onPan callback in the classifier store. */
@@ -298,21 +306,18 @@ VisXZoom.propTypes = {
   }),
   /** Enable zooming. true by default. */
   zooming: PropTypes.bool,
-  /** A React component to zoom. It must render SVG, **not** HTML.
-   * `VisXZoom` will inject the following props into this component:
+  /** A child render function that injects the following props into the zoomed component.
+   * 
    * - `initialTransformMatrix`: the initial transformation matrix.
    * - `transformMatrix`: the current transformation matrix.
    * - `transform`: a string representation of the matrix transform.
-   * - `children`: `ZoomEventLayer`, an SVG `<rect>` which handles zoom pointer and wheel events.
+   * 
+   * It must render SVG, **not** HTML.
    * ```jsx
-   * ({ children, ...zoomProps }) => (
-   *   <SVGComponent {...zoomProps} {...SVGComponentProps} >
-   *     {children}
-   *   </SVGComponent>
-   * )
+   * {(zoomProps) => <SVGComponent {...zoomProps} />}
    * ```
   */
-  zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+  children: PropTypes.func.isRequired
 }
 
 export default observer(VisXZoom)

@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types'
+import { bool, func } from 'prop-types'
 import { CheckBox } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
-export default function DemoModeToggle ({ demoMode, setDemoMode }) {
+const DEFAULT_HANDLER = () => {}
+
+export default function DemoModeToggle ({ demoMode = false, setDemoMode = DEFAULT_HANDLER }) {
   const { t } = useTranslation('components')
   return (
     <CheckBox
@@ -15,12 +17,7 @@ export default function DemoModeToggle ({ demoMode, setDemoMode }) {
   )
 }
 
-DemoModeToggle.defaultProps = {
-  demoMode: false,
-  setDemoMode: () => { }
-}
-
 DemoModeToggle.propTypes = {
-  demoMode: PropTypes.bool,
-  setDemoMode: PropTypes.func
+  demoMode: bool,
+  setDemoMode: func
 }
