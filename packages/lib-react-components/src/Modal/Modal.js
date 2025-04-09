@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import { Box } from 'grommet'
 import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'
@@ -20,12 +20,20 @@ const Modal = forwardRef(function ({
   pad,
   title = '',
   titleColor = 'neutral-6',
+  trapFocus = false,
   ...props
 },
 ref) {
+  const defaultRef = useRef(null)
+  const root = ref || defaultRef
+
+  useEffect(function onMount(){
+    if (trapFocus) root.current?.focus()
+  }, [trapFocus])
+
   return (
     <Box
-      ref={ref}
+      ref={root}
       background={{
         dark: 'dark-5',
         light: 'neutral-6'
@@ -33,6 +41,7 @@ ref) {
       elevation='xlarge'
       fill
       pad='0'
+      tabIndex={-1}
       {...props}
     >
       <ModalHeading
@@ -84,7 +93,11 @@ Modal.propTypes = {
   /**
     The color of the title text. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
   */
-  titleColor: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ])
+  titleColor: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
+  /**
+   * Capture keyboard focus when the modal opens.
+   */
+  trapFocus: PropTypes.bool,
 }
 
 export default withLayer(Modal)
