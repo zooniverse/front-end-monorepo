@@ -1,8 +1,9 @@
-import { withStores } from '@helpers'
+import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import DoneButton from './DoneButton'
 
-function storeMapper(store) {
+function storeMapper(classifierStore) {
   const {
     subjects: {
       active: subject
@@ -13,9 +14,9 @@ function storeMapper(store) {
     workflowSteps: {
       active: step
     }
-  } = store
+  } = classifierStore
 
-  if (subject?.stepHistory) {
+  if (subject?.stepHistory) { // stepHistory is not ready while subject is loading
     const { finish, hasNextStep, latest } = subject.stepHistory
     const annotations = latest?.annotations
 
@@ -33,7 +34,11 @@ function storeMapper(store) {
   }
 
   return {}
-
 }
 
-export default withStores(DoneButton, storeMapper)
+function DoneButtonConnector(props) {
+  const { hasNextStep, onClick } = useStores(storeMapper)
+  return hasNextStep ? null : <DoneButton onClick={onClick} {...props} />
+}
+
+export default observer(DoneButtonConnector)
