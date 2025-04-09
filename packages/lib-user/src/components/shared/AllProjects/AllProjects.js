@@ -31,7 +31,7 @@ function AllProjects({ error, loading, projects }) {
           <Text>{t('AllProjects.error')}</Text>
         </Box>
       ) : (
-        <StyledBox forwardedAs='ul' direction='row' wrap>
+        <StyledBox forwardedAs='ul' direction='row' wrap justify='center'>
           {projects.map(project => {
             return (
               <li key={project?.id}>

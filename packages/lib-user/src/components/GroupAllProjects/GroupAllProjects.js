@@ -69,7 +69,7 @@ function GroupAllProjects({ authUser, group }) {
         />
       }
     >
-      <ContentBox title='All Projects' pad='49px'>
+      <ContentBox title='All Projects' pad='45px'>
         <AllProjects error={error} loading={loading} projects={topProjects} />
       </ContentBox>
     </Layout>
