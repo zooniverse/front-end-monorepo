@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react'
-import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
 
 import { useTranscriptionReductions } from '@hooks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
-import { focusMark } from '@plugins/drawingTools/components/Mark/Mark'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
@@ -75,9 +73,21 @@ function TranscribedLines() {
   const [ bounds, setBounds ] = useState({})
   const [ line, setLine ] = useState(defaultLine)
   const [ show, setShow ] = useState(false)
-  const activeLine = useRef()
+  const activeLine = useRef(null)
+  const scrollPosition = useRef(null)
 
   const { t } = useTranslation('components')
+
+  useEffect(function handleVisibilityChange() {
+    if (!show && activeLine.current) {
+      activeLine.current.focus({
+        preventScroll: true
+      })
+      if (scrollPosition.current) {
+        window.scrollTo(scrollPosition.current.x, scrollPosition.current.y)
+      }
+    }
+  }, [show])
 
   if (!visible) {
     return null
@@ -122,18 +132,23 @@ function TranscribedLines() {
   }
 
   function showConsensus(line, node) {
+    activeLine.current = document.activeElement
+    scrollPosition.current = {
+      x: window.scrollX,
+      y: window.scrollY
+    }
     const bounds = node?.getBoundingClientRect() || {}
     setBounds(bounds)
     setLine(line)
     setShow(true)
-    activeLine.current = document.activeElement
   }
 
-  function close() {
+  function close(event) {
+    event.preventDefault()
+    event.stopPropagation()
     setBounds({})
     setLine(defaultLine)
     setShow(false)
-    focusMark(activeLine.current)
   }
 
   return (

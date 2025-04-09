@@ -201,9 +201,8 @@ export const ModelAnnotations = ({ onAnnotation }) => {
         .filter(a => a.points.active.length > 0)
         .map(a => { 
           a.points.active = a.points.active.map(point => absToRelative({ point }))
-          a.points.all = a.points.all.data
-          a.points.all = a.points.all.map(point => absToRelative({ point }))
           a.points.connected = a.points.connected.map(pointArray => pointArray.map(point => absToRelative({ point })))
+          delete a.points.all;
           return a
         })
       

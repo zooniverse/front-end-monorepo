@@ -24,8 +24,7 @@ describe("Model > VolumetricTask", function () {
     threshold: 15,
     points: {
       active: [],
-      connected: [],
-      all: []
+      connected: []
     }
   }]
 
