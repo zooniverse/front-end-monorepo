@@ -56,7 +56,9 @@ function SubTaskPopup({
     onDelete()
   }
 
-  function close() {
+  function close(event) {
+    event.preventDefault()
+    event.stopPropagation()
     if (!activeMark.isComplete) {
       setConfirm('confirming')
     } else {

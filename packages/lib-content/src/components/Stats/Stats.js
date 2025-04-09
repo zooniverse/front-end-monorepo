@@ -72,7 +72,7 @@ export default function Stats() {
         </Text>
         <ClassificationsLabel>
           <SpacedText color='white' weight='bold' size='1.4rem' textAlign='center'>
-            {t('AboutPage.ourMission.stats.one')}
+            {t('AboutPage.ourMission.stats.classifications')}
           </SpacedText>
         </ClassificationsLabel>
       </Stat>
@@ -86,7 +86,7 @@ export default function Stats() {
         </Text>
         <VolunteersLabel>
           <SpacedText color='white' weight='bold' size='1.4rem' textAlign='center'>
-            {t('AboutPage.ourMission.stats.two')}
+            {t('AboutPage.ourMission.stats.volunteers')}
           </SpacedText>
         </VolunteersLabel>
       </Stat>
