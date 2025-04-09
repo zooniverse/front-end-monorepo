@@ -21,15 +21,14 @@ function storeMapper(classifierStore) {
 
     const visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
 
-    function onClick(event) {
-      event.preventDefault()
-      subject.openInTalk()
+    function onClick() {
       finish()
       return completeClassification()
     }
 
     return {
       onClick,
+      talkURL: subject.talkURL,
       visible
     }
   }
@@ -38,9 +37,9 @@ function storeMapper(classifierStore) {
 }
 
 function DoneAndTalkConnector(props) {
-  const { onClick, visible } = useStores(storeMapper)
+  const { onClick, talkURL, visible } = useStores(storeMapper)
 
-  return visible ? <DoneAndTalkButton onClick={onClick} {...props} /> : null
+  return visible ? <DoneAndTalkButton onClick={onClick} {...props} talkURL={talkURL} /> : null
 }
 
 export default observer(DoneAndTalkConnector)
