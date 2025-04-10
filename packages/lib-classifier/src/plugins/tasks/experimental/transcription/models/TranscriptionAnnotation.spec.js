@@ -77,7 +77,8 @@ describe('Model > TranscriptionAnnotation', function () {
           x1: 150,
           x2: 175,
           y1: 200,
-          y2: 238
+          y2: 238,
+          frame: 1
         })
         const textTask = transcriptionLineTool.tasks[0]
         transcriptionLine1.addAnnotation(textTask, 'foo')
@@ -137,7 +138,7 @@ describe('Model > TranscriptionAnnotation', function () {
           }
           const transcriptionLine2Snapshot = {
             details: [{ task: 'T0.0.0' }],
-            frame: 0,
+            frame: 1,
             toolIndex: 0,
             toolType: 'transcriptionLine',
             x1: 150,
