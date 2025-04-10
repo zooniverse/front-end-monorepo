@@ -34,10 +34,6 @@ const nextConfig = {
   webpack: (config, options) => {
     config.resolve = {
       ...config.resolve,
-      alias: {
-        ...config.resolve.alias,
-        hexoid: 'hexoid/dist/index.js'
-      },
       fallback: {
         ...config.resolve.fallback,
         fs: false
