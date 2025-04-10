@@ -67,7 +67,7 @@ function Publications({ publicationsData = [], sections = [] }) {
           <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('Publications.sideBarLabel')}
+              ariaLabel={t('Publications.sidebarLabel')}
               sections={sections}
               setActiveSection={setActiveSection}
             />

@@ -34,7 +34,7 @@ describe('Component > Our Team', function () {
   })
 
   it('should have a nav with label', function () {
-    const sideBar = screen.getByText('Institution')
+    const sideBar = screen.getByText('Institution') // This is the DropdownNav in jsdom
     expect(sideBar).to.be.ok()
   })
 

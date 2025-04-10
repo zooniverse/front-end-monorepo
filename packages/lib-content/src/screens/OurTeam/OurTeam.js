@@ -44,7 +44,7 @@ function OurTeam({ teamData = [], sections = [] }) {
           <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('OurTeam.sideBarLabel')}
+              ariaLabel={t('OurTeam.sidebarLabel')}
               sections={sections}
               setActiveSection={setActiveSection}
             />
