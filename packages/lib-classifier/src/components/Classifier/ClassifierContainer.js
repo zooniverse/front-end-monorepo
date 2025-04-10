@@ -75,7 +75,7 @@ export default function ClassifierContainer({
   const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
 
   /*
-    A user must have one of the following roles to view an inactive workflow.
+    A user must have one of the following roles to view an inactive workflow. Or have admin mode enabled.
   */
   const canPreviewWorkflows = adminMode ||
     projectRoles?.indexOf('owner') > -1 ||
@@ -242,14 +242,16 @@ export default function ClassifierContainer({
   try {
     return (
       <Provider classifierStore={classifierStore}>
-        {classifierIsReady ?
-          <Classifier
-            onError={onError}
-            showTutorial={showTutorial}
-            subjectSetID={subjectSetID}
-            subjectID={subjectID}
-            workflowSnapshot={workflowSnapshot}
-          /> :
+      {!allowedWorkflowID ?
+        <Paragraph>This workflow does not exist or you do not have permission to view it.</Paragraph>
+        : classifierIsReady ?
+           <Classifier
+              onError={onError}
+              showTutorial={showTutorial}
+              subjectSetID={subjectSetID}
+              subjectID={subjectID}
+              workflowSnapshot={workflowSnapshot}
+            /> :
           <Paragraph>Loading the Classifier</Paragraph>
         }
       </Provider>
