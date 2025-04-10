@@ -1,7 +1,7 @@
 import { Box, Text } from 'grommet'
-import { useState } from 'react'
 import styled from 'styled-components'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
+import useSWRInfinite from 'swr/infinite'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import Loader from '@zooniverse/react-components/Loader'
 
@@ -18,20 +18,27 @@ const StyledBox = styled(Box)`
   row-gap: 20px;
 `
 
-function AllProjects({ error, loading, projectContributions }) {
-  console.log(projectContributions)
+function AllProjects({
+  containerError,
+  containerLoading,
+  projectContributions
+}) {
   const { t } = useTranslation()
-  const [page, setPage] = useState(0)
 
   // grab the project ids
   const projectIds = projectContributions?.map(project => project.project_id)
 
   const numProjects = projectIds?.length
   const numPages = Math.ceil(numProjects / PAGE_SIZE)
+
+  // fetch project data from panoptes
   const startSlice = page * PAGE_SIZE
   const endSlice = page === numPages ? numProjects : (page + 1) * PAGE_SIZE
 
-  // fetch project data from panoptes
+  // const { data, error, isLoading, isValidating, mutate, size, setSize } = useSWRInfinite(
+  //   getKey, fetcher?, options?
+  // )
+
   const projectsQuery = {
     cards: true,
     id: projectIds?.slice(startSlice, endSlice).join(','),
@@ -56,12 +63,12 @@ function AllProjects({ error, loading, projectContributions }) {
     })
     .filter(project => project?.id) // in case of private project not returned from panoptes?
 
-  const showLoading = loading || projectsLoading
-  const showError = error || projectsError
+  const loading = containerLoading || projectsLoading
+  const error = containerError || projectsError
 
   return (
     <>
-      {showLoading ? (
+      {loading ? (
         <Box fill align='center' justify='center'>
           <Loader />
         </Box>
@@ -69,13 +76,13 @@ function AllProjects({ error, loading, projectContributions }) {
         <Box fill align='center' pad='medium'>
           <Text>{t('AllProjects.noProjects')}</Text>
         </Box>
-      ) : showError ? (
+      ) : error ? (
         <Box fill align='center' pad='medium'>
           <Text>{t('AllProjects.error')}</Text>
         </Box>
       ) : (
         <StyledBox forwardedAs='ul' direction='row' wrap justify='center'>
-          {renderedProjects.map(project => {
+          {renderedProjects?.map(project => {
             return (
               <li key={project?.id}>
                 <ProjectCard
@@ -104,7 +111,7 @@ AllProjects.propTypes = {
   projectContributions: arrayOf(
     shape({
       count: number,
-      project_id: number,
+      project_id: number
     })
   )
 }
