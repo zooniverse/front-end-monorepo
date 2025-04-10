@@ -37,7 +37,7 @@ describe('Component > Publications Page', function () {
   })
 
   it('should have sidebar nav label', function () {
-    const sideBar = screen.getByText('Discipline')
+    const sideBar = screen.getByText('Discipline')  // This is the DropdownNav in jsdom
     expect(sideBar).to.be.ok()
   })
 
