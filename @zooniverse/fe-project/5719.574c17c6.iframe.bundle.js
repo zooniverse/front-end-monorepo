@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_zooniverse_fe_project=self.webpackChunk_zooniverse_fe_project||[]).push([[5719],{"./public/locales/id/screens.json":module=>{module.exports={}}}]);

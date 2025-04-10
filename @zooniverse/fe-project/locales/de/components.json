@@ -1,0 +1,37 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registrierung",
+      "signIn": "Anmeldung"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Links"
+  },
+  "Head": {
+    "defaultTitle": "Projekte"
+  },
+  "ProjectHeader": {
+    "about": "Über",
+    "classify": "Klassifizieren",
+    "exploreProject": "Erkunde das Projekt",
+    "talk": "Diskutieren",
+    "collect": "Sammeln",
+    "recents": "Neueste",
+    "ApprovedIcon": {
+      "title": "Genehmigt von Zooniverse"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projekt"
+    },
+    "UnderReviewLabel": {
+      "underReview": "In Begutachtung"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Freiwillige"
+  },
+  "RequireUser": {
+    "text": "Du bist nicht angemeldet."
+  }
+}

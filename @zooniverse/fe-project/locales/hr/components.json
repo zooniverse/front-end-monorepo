@@ -1,0 +1,32 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registrirajte se",
+      "signIn": "Prijavite se"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Poveznice"
+  },
+  "Head": {
+    "defaultTitle": "Projekti",
+    "siteName": "Zooniverse"
+  },
+  "ProjectHeader": {
+    "about": "O projektu",
+    "classify": "Klasificiraj",
+    "exploreProject": "Istraži projekt",
+    "talk": "Pričaj ",
+    "collect": "Prikupi",
+    "recents": "Nedavno",
+    "ApprovedIcon": {
+      "title": "Odobrio Zooniverse"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Recenzija u tijeku"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Volonteri"
+  }
+}
