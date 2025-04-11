@@ -1,11 +1,22 @@
 import { Box } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
+import styled from 'styled-components'
 import { useTranslation } from '../../../../translations/i18n.js'
 
 import { convertStatsSecondsToHours } from '@utils'
 
 import MemberStats from '../MemberStats'
 import ProjectStats from '../ProjectStats'
+
+const StyledBox = styled(Box)`
+  box-shadow: inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25);
+  list-style: none;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: center;
+  }
+`
 
 function ContributorsList({
   contributors = [],
@@ -46,17 +57,13 @@ function ContributorsList({
               hours={totalHoursSpent}
               login={contributor.login}
             />
-            <Box
+            <StyledBox
               a11yTitle={t('Contributors.ContributorsList.projectStats', {name: contributor.display_name })}
-              as='ol'
+              forwardedAs='ol'
               direction='row'
               fill='horizontal'
               overflow={{ horizontal: 'auto' }}
               pad='none'
-              style={{
-                boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)',
-                listStyle: 'none'
-              }}
               tabIndex={0}
             >
               {contributor.project_contributions.map(statsProject => {
@@ -73,7 +80,7 @@ function ContributorsList({
                   />
                 )
               })}
-            </Box>
+            </StyledBox>
           </Box>
         )
       })}

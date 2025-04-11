@@ -21,6 +21,11 @@ const StyledRowList = styled(Box)`
   list-style: none;
   margin-block-end: 0;
   margin-block-start: 0;
+  scroll-snap-type: x mandatory;
+  
+  li {
+    scroll-snap-align: center;
+  }
 `
 
 function CardsGrid({ children }) {

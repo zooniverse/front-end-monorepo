@@ -1,10 +1,20 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
 import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 import { useTranslation, Trans } from '../../../../translations/i18n.js'
 
 import { ContentBox } from '@components/shared'
+
+const StyledBox = styled(Box)`
+  list-style: none;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: center;
+  }
+`
 
 export default function RecentProjects({
   isLoading = false,
@@ -48,14 +58,13 @@ export default function RecentProjects({
       )}
       {!isLoading &&
         projectPreferences?.length ? (
-          <Box
+          <StyledBox
             aria-labelledby='recent-projects'
-            as='ul'
+            forwardedAs='ul'
             direction='row'
             gap='small'
             pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
             overflow={{ horizontal: 'auto' }}
-            style={{ listStyle: 'none' }}
             tabIndex={0}
             margin='0'
           >
@@ -70,7 +79,7 @@ export default function RecentProjects({
                 />
               </li>
             ))}
-          </Box>
+          </StyledBox>
         ) : null}
     </ContentBox>
   )
