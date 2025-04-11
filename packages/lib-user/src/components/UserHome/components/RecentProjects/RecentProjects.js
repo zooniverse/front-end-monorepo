@@ -15,7 +15,11 @@ export default function RecentProjects({
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title={t('UserHome.RecentProjects.title')} screenSize={size}>
+    <ContentBox
+      title={t('UserHome.RecentProjects.title')}
+      titleId='recent-projects'
+      screenSize={size}
+    >
       {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
@@ -45,6 +49,7 @@ export default function RecentProjects({
       {!isLoading &&
         projectPreferences?.length ? (
           <Box
+            aria-labelledby='recent-projects'
             as='ul'
             direction='row'
             gap='small'

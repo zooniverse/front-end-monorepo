@@ -16,7 +16,11 @@ function RecentSubjects({
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title='Recent Classifications' screenSize={size}>
+    <ContentBox
+      title='Recent Classifications'
+      titleId='recent-subjects'
+      screenSize={size}
+    >
       {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
@@ -48,6 +52,7 @@ function RecentSubjects({
       {!isLoading && recents?.length
         ? (
           <Box
+            aria-labelledby='recent-subjects'
             as='ul'
             direction='row'
             gap='small'

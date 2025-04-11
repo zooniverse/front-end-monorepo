@@ -47,6 +47,7 @@ function ContributorsList({
               login={contributor.login}
             />
             <Box
+              a11yTitle={t('Contributors.ContributorsList.projectStats', {name: contributor.display_name })}
               as='ol'
               direction='row'
               fill='horizontal'
