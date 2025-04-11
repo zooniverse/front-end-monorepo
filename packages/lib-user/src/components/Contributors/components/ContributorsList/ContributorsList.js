@@ -56,6 +56,7 @@ function ContributorsList({
                 boxShadow: 'inset -10px 0px 10px -10px rgba(0, 0, 0, 0.25)',
                 listStyle: 'none'
               }}
+              tabIndex={0}
             >
               {contributor.project_contributions.map(statsProject => {
                 const project = projects.find(project => project.id === statsProject.project_id.toString())

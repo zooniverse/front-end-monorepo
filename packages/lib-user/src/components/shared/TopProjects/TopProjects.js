@@ -58,6 +58,7 @@ function CardsRow({ children }) {
         horizontal: 'xxsmall',
         top: 'xxsmall'
       }}
+      tabIndex={0}
     >
       {children}
     </StyledRowList>

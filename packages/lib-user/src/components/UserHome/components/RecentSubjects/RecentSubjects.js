@@ -54,6 +54,7 @@ function RecentSubjects({
             pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
             overflow={{ horizontal: 'auto' }}
             style={{ listStyle: 'none' }}
+            tabIndex={0}
             margin='0'
           >
             {recents.map(recent => {

@@ -51,6 +51,7 @@ export default function RecentProjects({
             pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
             overflow={{ horizontal: 'auto' }}
             style={{ listStyle: 'none' }}
+            tabIndex={0}
             margin='0'
           >
             {projectPreferences.map(preference => (
