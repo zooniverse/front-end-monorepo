@@ -37,7 +37,7 @@ function GroupAllProjects({ authUser, group }) {
       }
     >
       <ContentBox title={t('AllProjects.title')} pad='45px'>
-        <AllProjects error={statsError} loading={statsLoading} projectContributions={projectContributions} />
+        <AllProjects containerError={statsError} containerLoading={statsLoading} projectContributions={projectContributions} />
       </ContentBox>
     </Layout>
   )

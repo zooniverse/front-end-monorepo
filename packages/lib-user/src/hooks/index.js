@@ -1,3 +1,4 @@
+export { useInfiniteScrollProjects } from './useInfiniteScrollProjects.js'
 export { usePanoptesMemberships } from './usePanoptesMemberships.js'
 export { usePanoptesProjects } from './usePanoptesProjects.js'
 export { usePanoptesUser } from './usePanoptesUser.js'

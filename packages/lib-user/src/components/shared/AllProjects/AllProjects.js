@@ -1,11 +1,13 @@
-import { Box, Text } from 'grommet'
+import { Box, ResponsiveContext, Text } from 'grommet'
 import styled from 'styled-components'
+import { useContext } from 'react'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import Loader from '@zooniverse/react-components/Loader'
+import PrimaryButton from '@zooniverse/react-components/PrimaryButton'
 
 import { useTranslation } from '../../../translations/i18n.js'
-import { useInfiniteScrollProjects } from './hooks/useInfiniteScrollProjects.js'
+import { useInfiniteScrollProjects } from '@hooks'
 
 const PAGE_SIZE = 20
 
@@ -23,6 +25,7 @@ function AllProjects({
   projectContributions
 }) {
   const { t } = useTranslation()
+  const grommetSize = useContext(ResponsiveContext)
 
   // grab the project ids
   const projectIds = projectContributions?.map(project => project.project_id)
@@ -41,6 +44,7 @@ function AllProjects({
     renderedProjects,
     error: projectsError,
     isLoading: projectsLoading,
+    isValidating,
     size,
     setSize
   } = useInfiniteScrollProjects(projectContributions, projectsQuery)
@@ -54,6 +58,9 @@ function AllProjects({
 
   const loading = containerLoading || projectsLoading
   const error = containerError || projectsError
+
+  const disableLoadMore =
+    loading || isValidating || error || numProjects === 0 || size === numPages
 
   return (
     <>
@@ -81,15 +88,24 @@ function AllProjects({
                     displayName={project?.display_name}
                     href={`https://www.zooniverse.org/projects/${project?.slug}`}
                     imageSrc={project?.avatar_src}
-                    size='large'
+                    size={grommetSize}
                   />
                 </li>
               )
             })}
           </StyledBox>
-          <button disabled={size === numPages} onClick={handleLoadMore}>
-            Load More
-          </button>
+          {loading || isValidating && size > 1 && (
+            <Box align='center' pad='medium'>
+              <Loader />
+            </Box>
+          )}
+          <Box align='center'>
+            <PrimaryButton
+              label={t('AllProjects.more')}
+              disabled={disableLoadMore}
+              onClick={handleLoadMore}
+            />
+          </Box>
         </>
       )}
     </>

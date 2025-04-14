@@ -6,6 +6,7 @@ export { default as MyGroups } from './components/MyGroups'
 export { default as Contributors } from './components/Contributors'
 export { default as UserHome } from './components/UserHome'
 export { default as UserStats } from './components/UserStats'
+export { default as UserStatsAllProjects } from './components/UserStatsAllProjects'
 
 // components/shared
 export { default as Avatar } from './components/shared/Avatar'
@@ -27,6 +28,7 @@ export { default as TitledStat } from './components/shared/TitledStat'
 export { default as TopProjects } from './components/shared/TopProjects'
 
 // hooks
+export { useInfiniteScrollProjects } from './hooks/useInfiniteScrollProjects.js'
 export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'
 export { usePanoptesProjects } from './hooks/usePanoptesProjects.js'
 export { usePanoptesUser } from './hooks/usePanoptesUser.js'

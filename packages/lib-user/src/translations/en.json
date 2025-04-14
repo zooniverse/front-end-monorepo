@@ -9,6 +9,7 @@
   },
   "AllProjects": {
     "error": "There was an error",
+    "more": "Load More",
     "noProjects": "No projects found",
     "title": "All Projects"
   },
