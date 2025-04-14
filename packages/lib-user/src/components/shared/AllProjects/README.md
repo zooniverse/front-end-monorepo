@@ -1,0 +1,5 @@
+# AllProjects
+
+This components creates a hybrid infinite scroll UI for an array of projects. AllProjects gives the choice to load more projects triggered by a button instead of triggered via browser scroll position bcause we want users to be able to choose to load more projects or choose to scroll down to the footer of the page.
+
+The motivation behind a Load More button instead of traditional pagination is that the `/projects` response from panoptes is not always a perfect 20 projects per page. For instance, if a volunteer has classified hundreds of projects, a handful of those are likely to be private projects, and a paginated UI designed for 20 projects will be missing project cards, which is confusing to volunteers. This is especially true when fetching "recent" projects via `/project_preferences` where the response includes projects even if the volunteer only completed the tutorial and did not make a classification. Those have to be filtered out of the response, and a hybrid infinite scroll UI plus Load More button adapts well.

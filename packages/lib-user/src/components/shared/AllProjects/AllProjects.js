@@ -20,7 +20,7 @@ const StyledBox = styled(Box)`
 `
 
 function AllProjects({
-  containerError = {},
+  containerError,
   containerLoading = false,
   projectContributions = []
 }) {
