@@ -20,9 +20,9 @@ const StyledBox = styled(Box)`
 `
 
 function AllProjects({
-  containerError,
-  containerLoading,
-  projectContributions
+  containerError = {},
+  containerLoading = false,
+  projectContributions = []
 }) {
   const { t } = useTranslation()
   const grommetSize = useContext(ResponsiveContext)

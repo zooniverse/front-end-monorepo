@@ -27,7 +27,7 @@ async function fetchProjects({ pageIndex, query, token }) {
         page: pageIndex + 1, // SWR's initial pageIndex is 0, but panoptes's first page is 1
         ...query
       },
-      authorization // Although project data doesn't require a signed-in user,
+      authorization // Although project data doesn't usually require a signed-in user,
                     // authorization allows for fetching projects that aren't "Live"
     })
 
@@ -39,6 +39,7 @@ async function fetchProjects({ pageIndex, query, token }) {
 
     return []
   } catch (error) {
+    console.log
     console.error(error)
     return []
   }
