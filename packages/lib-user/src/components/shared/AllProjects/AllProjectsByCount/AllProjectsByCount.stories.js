@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 
-import { PROJECTS, PROJECT_CONTRIBUTIONS } from './AllProjects.mocks.js'
-import AllProjects from './AllProjects.js'
+import { PROJECTS, PROJECT_CONTRIBUTIONS } from '../AllProjects.mocks.js'
+import AllProjectsByCount, { PAGE_SIZE } from './AllProjectsByCount.js'
 
 // panoptes-staging when Storybook is run locally, or production when Storybook is deployed
 const PANOPTES_HOST =
@@ -9,38 +9,46 @@ const PANOPTES_HOST =
     ? 'https://www.zooniverse.org'
     : 'https://panoptes-staging.zooniverse.org'
 
+const projectIds = PROJECT_CONTRIBUTIONS?.map(project => project.project_id)
+
 export default {
   title: 'Components/shared/AllProjects',
-  component: AllProjects,
+  component: AllProjectsByCount,
   parameters: {
     // See the mocked req and res in the browser console
     msw: {
       handlers: [
-        // usePanoptesAuthToken() is in useInfiniteScrollProjects() and it makes a POST to oauth.
+        // usePanoptesAuthToken() is in usePanoptesProjects() and it makes a POST to oauth.
         // This response replicates when a there's no signed-in user. For instance, public groups still show AllProjects.
         // https://mswjs.io/docs/basics/mocking-responses/#mocking-error-responses
         http.post(`${PANOPTES_HOST}/oauth/token`, () => {
           return new HttpResponse(null, { status: 401 })
         }),
-        // useSWRInfinite handles the page searchParam, increasing it on every click of Load More.
-        // PROJECTS mock contains 22 projects
+        // The query to /projects is manually handled per page in AllProjects
+        // We're intercepting /projects here, reading the query, and returning mock projects
         http.get(`${PANOPTES_HOST}/api/projects`, ({ request }) => {
-          const url = new URL(request.url)
-          const page = url.searchParams.get('page')
-
-          return page === '1'
-            ? HttpResponse.json({
-                projects: PROJECTS.slice(0, 20)
-              })
-            : HttpResponse.json({
-                projects: PROJECTS.slice(20)
-              })
+          const searchParams = new URL(request.url).searchParams
+          // // 1st page
+          if (searchParams?.get('id') === projectIds.slice(0, PAGE_SIZE).join(',')) {
+            return HttpResponse.json({
+              projects: PROJECTS.slice(0, PAGE_SIZE)
+            })
+          // // 2nd page
+          } else if (
+            searchParams?.get('id') === projectIds.slice(PAGE_SIZE).join(',')
+          ) {
+            return HttpResponse.json({
+              projects: PROJECTS.slice(PAGE_SIZE)
+            })
+          }
+          return HttpResponse.json({ projects: []}) // default case so we don't make any /projects req to the real api
         })
       ]
     }
   }
 }
 
+// PROJECTS mock contains 22 projects
 export const Default = {
   args: {
     containerError: null,

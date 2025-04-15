@@ -1,5 +1,43 @@
 # AllProjects
 
-This components creates a hybrid infinite scroll UI for an array of projects. AllProjects gives the choice to load more projects triggered by a button instead of triggered via browser scroll position bcause we want users to be able to choose to load more projects or choose to scroll down to the footer of the page.
+## UI Decision
 
-The motivation behind a Load More button instead of traditional pagination is that the `/projects` response from panoptes is not always a perfect 20 projects per page. For instance, if a volunteer has classified hundreds of projects, a handful of those are likely to be private projects, and a paginated UI designed for 20 projects will be missing project cards, which is confusing to volunteers. This is especially true when fetching "recent" projects via `/project_preferences` where the response includes projects even if the volunteer only completed the tutorial and did not make a classification. Those have to be filtered out of the response, and a hybrid infinite scroll UI plus Load More button adapts well.
+The components in this folder build a classic pagination UI. Projects get filtered out of a page when a user did not make classifications (`/project_preferences`) or a project is private (`/projects`). This means the UI is designed for `PAGE_SIZE`, but a couple of ProjectCards might be missing even though Pagination hasn't reached the last page. This is an intentional UI tradeoff.
+
+An infinite scroll UI with a 'Load More' button and `useSWRInfinite` was considered, but panoptes and ERAS API limitations prevent that strategy. ERAS does not have pagination capabilities. Panoptes `/api/projects` can be passed a string of multiple project ids, but if the query's `page_size` is smaller than the number of project ids, the `projects` response is in an unpredictable order. The response does not respect the order of project ids passed in the query.
+
+## Components
+
+### AllProjectsByCount
+
+Used in:
+- Individual users' stats page such as `/users/[login]/stats/projects`
+- Group stats page such as `/groups/[groupId]/projects`
+
+Features:
+- Takes `projectContributions` and fetches more info about each project via panoptes `api/projects`
+- Attaches project data to each "contribution" in the `projectContributions` array
+
+### AllRecentProjects
+
+Used in:
+- Individual users' stats page such as `/users/[login]/stats/projects`
+
+Features:
+- Takes a `recentProjectPreferences` array and fetches more info about each project via panoptes `api/projects`
+- Takes a `projectContributions` array
+- Attaches a `count` from `projectContributions` array to each project SORTED BY `recentProjectPreferences` array order
+
+### AllProjects
+
+Used in:
+- AllProjectsByCount
+- AllRecentProjects
+
+Features
+- Displays ProjectCards in a classic pagination UI
+- Has a nav for pagination via Grommet's Pagination component
+
+## Notes on Tests and Storybook
+
+MSW is used to mock network requests called by custom hook `usePanoptesProjects()` so AllProjectsByCount and AllRecentProjects display in lib-user's Storybook. Their Stories are not used for test suites because `nock` does not play nicely with this manually-handled pagination architecture. In the future, we could consider MSW loaders applied automatically via the `play()` function in Storybook v8+. For now, Project.js is intentionally tested while excluding network requests.

@@ -1,8 +1,15 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.js'
+import { Heading } from 'grommet'
+import SpacedText from '@zooniverse/react-components/SpacedText'
 
 import { useStats } from '@hooks'
-import { AllProjects, ContentBox, HeaderLink, Layout } from '@components/shared'
+import {
+  AllProjectsByCount,
+  ContentBox,
+  HeaderLink,
+  Layout
+} from '@components/shared'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -36,8 +43,33 @@ function GroupAllProjects({ authUser, group }) {
         />
       }
     >
-      <ContentBox title={t('AllProjects.title')} pad='45px'>
-        <AllProjects containerError={statsError} containerLoading={statsLoading} projectContributions={projectContributions} />
+      <ContentBox pad='45px'>
+        <Heading level='1'>
+          <SpacedText
+            color={{ dark: 'accent-1', light: 'neutral-1' }}
+            size='large'
+            weight='bold'
+          >
+            {group.display_name}
+          </SpacedText>
+        </Heading>
+        <Heading level={2} size='1rem' margin={{ top: '0', bottom: 'small' }}>
+          <SpacedText
+            color={{
+              dark: 'light-1',
+              light: 'black'
+            }}
+            size='inherit'
+            weight='bold'
+          >
+            {t('AllProjects.title')}
+          </SpacedText>
+        </Heading>
+        <AllProjectsByCount
+          containerError={statsError}
+          containerLoading={statsLoading}
+          projectContributions={projectContributions}
+        />
       </ContentBox>
     </Layout>
   )

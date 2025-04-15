@@ -1,13 +1,21 @@
 'use client'
 
 import { bool, shape, string } from 'prop-types'
+import { Heading } from 'grommet'
+import SpacedText from '@zooniverse/react-components/SpacedText'
+import styled from 'styled-components'
 
 import { usePanoptesUser, useStats } from '@hooks'
-import { AllProjects, ContentBox, HeaderLink, Layout } from '@components/shared'
+import { AllProjectsByCount, ContentBox, HeaderLink, Layout } from '@components/shared'
 import { getDateInterval, getStatsDateString } from '@utils'
 import { useTranslation } from '../../translations/i18n.js'
 
 const STATS_ENDPOINT = '/classifications/users'
+
+const StyledH1 = styled(Heading)`
+  display: flex;
+  align-items: center;
+`
 
 function UserStatsAllProjects({ authUser, login }) {
   const { t } = useTranslation()
@@ -59,8 +67,34 @@ function UserStatsAllProjects({ authUser, login }) {
         />
       }
     >
-      <ContentBox title={t('AllProjects.title')} pad='45px'>
-        <AllProjects
+      <ContentBox pad='45px'>
+        <StyledH1 level='1'>
+          {user?.display_name && <SpacedText
+            color={{ dark: 'accent-1', light: 'neutral-1' }}
+            size='large'
+            weight='bold'
+          >
+            {user.display_name}
+          </SpacedText>}
+          {login ? (
+            <SpacedText uppercase={false} margin={{ left: 'xsmall' }}>
+              @{login}
+            </SpacedText>
+          ) : null}
+        </StyledH1>
+        <Heading level={2} size='1rem' margin={{ top: '0', bottom: 'small' }}>
+          <SpacedText
+            color={{
+              dark: 'light-1',
+              light: 'black'
+            }}
+            size='inherit'
+            weight='bold'
+          >
+            {t('AllProjects.title')}
+          </SpacedText>
+        </Heading>
+        <AllProjectsByCount
           containerError={containerError}
           containerLoading={containerLoading}
           projectContributions={projectContributions}
