@@ -8,17 +8,18 @@ import { PROJECTS, PROJECT_CONTRIBUTIONS } from '../AllProjects.mocks.js'
 
 describe('components > shared > AllProjects', function () {
   describe('when there are projectContributions', function () {
-
+    let oldEvent
     // Grommet's Pagination component is creating a `new Event()` out of our control.
     // For this test suite, set global.Event to window.Event to prevent this error:
     // Failed to execute 'dispatchEvent' on 'EventTarget': parameter 1 is not of type 'Event'.
     // https://github.com/jsdom/jsdom/issues/3331#issuecomment-1137376839
     before(function () {
+      oldEvent = global.Event
       global.Event = window.Event
     })
 
     after(function () {
-      // what to restore here?
+      global.Event = oldEvent
     })
 
     // Must wrap with Grommet provider because Pagination looks for icons via theme.pagination.icons.next or ...previous
