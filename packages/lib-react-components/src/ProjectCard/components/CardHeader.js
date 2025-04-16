@@ -4,9 +4,9 @@ import styled from 'styled-components'
 
 const StyledBox = styled(Box)`
   background: ${props => props.state === 'paused' ? 
-    props.theme.global.colors['neutral-5']
+    'rgba(67, 187, 253, 0.5)'
     : props.state === 'finished' ?
-    props.theme.global.colors['neutral-4']
+    'rgba(228, 89, 80, 0.5)'
     : undefined};
   position: relative;
 `
