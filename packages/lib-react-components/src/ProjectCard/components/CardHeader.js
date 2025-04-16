@@ -2,6 +2,9 @@ import { Box, Text } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
 
+import { useTranslation } from '../../translations/i18n'
+import SpacedText from '../../SpacedText'
+
 const StyledBox = styled(Box)`
   background: ${props => props.state === 'paused' ? 
     'rgba(67, 187, 253, 0.5)'
@@ -21,14 +24,24 @@ const StyledBadge = styled(Text)`
   position: absolute;
   right: 5px;
   text-align: center;
+  top: 5px;
 `
 
 function CardHeader({
   badge,
   state = 'live'
 }) {
-  if (state === 'live' && !badge) return null
+  if ((state === 'live' || state === 'development') && !badge) return null
   
+  const { t } = useTranslation()
+
+  let stateText
+  if (state === 'paused') {
+    stateText = t('ProjectCard.paused')
+  } else if (state === 'finished') {
+    stateText = t('ProjectCard.finished')
+  }
+
   return (
     <StyledBox
       direction='row'
@@ -38,14 +51,14 @@ function CardHeader({
       round={{ corner: 'top', size: '8px' }}
       state={state}
     >
-      {state !== 'live' ? (
-        <Text
+      {stateText ? (
+        <SpacedText
           color='white'
           size='0.75rem'
           weight='bold'
         >
-          {state.toUpperCase()}
-        </Text>
+          {stateText}
+        </SpacedText>
       ) : null}
       {badge ? (
         <StyledBadge
