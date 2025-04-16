@@ -21,7 +21,7 @@
     "@zooniverse/panoptes-js": "~0.5.0",
     "@zooniverse/react-components": "~1.13.0",
     "@zooniverse/user": "~0.1.0",
-    "contentful": "~11.4.4",
+    "contentful": "~11.5.14",
     "express": "~4.21.0",
     "grommet": "~2.45.1",
     "grommet-icons": "~4.12.0",
