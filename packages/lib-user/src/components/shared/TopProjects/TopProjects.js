@@ -123,6 +123,7 @@ function TopProjects({
                   href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
                   imageSrc={topProject?.avatar_src}
                   size={cardSize}
+                  state={topProject?.state}
                 />
               </li>
             )

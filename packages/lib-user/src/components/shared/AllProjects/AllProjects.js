@@ -42,6 +42,7 @@ function AllProjects({ error, loading, projects }) {
                   href={`https://www.zooniverse.org/projects/${project?.slug}`}
                   imageSrc={project?.avatar_src}
                   size='large'
+                  state={project?.state}
                 />
               </li>
             )
