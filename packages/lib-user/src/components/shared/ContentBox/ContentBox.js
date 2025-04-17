@@ -10,6 +10,7 @@ function ContentBox({
   linkLabel = undefined,
   linkProps = undefined,
   title = undefined,
+  titleId = undefined,
   toolTip = undefined,
   ...rest
 }) {
@@ -51,7 +52,7 @@ function ContentBox({
         >
 
           {title ? (
-            <ContentHeading>
+            <ContentHeading id={titleId}>
               {title}
               {toolTip ? toolTip : null}
             </ContentHeading>
@@ -76,6 +77,7 @@ ContentBox.propTypes = {
   linkProps: object,
   screenSize: string,
   title: string,
+  titleId: string,
   toolTip: node
 }
 
