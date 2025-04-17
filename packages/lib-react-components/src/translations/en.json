@@ -59,6 +59,10 @@
   "Loader": {
     "loading": "Loading"
   },
+  "ProjectCard": {
+    "finished": "Finished",
+    "paused": "Paused"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "About",
