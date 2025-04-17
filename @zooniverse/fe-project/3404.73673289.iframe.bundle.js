@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_zooniverse_fe_project=self.webpackChunk_zooniverse_fe_project||[]).push([[3404],{"./public/locales/ar/components.json":module=>{module.exports=JSON.parse('{"ProjectHeader":{"about":"من نحن","classify":"فَهرَسَة","talk":"محادثة","collect":"مجموعات","recents":"مؤخّرًا"},"ProjectStatistics":{"volunteers":"مشاركون"}}')}}]);

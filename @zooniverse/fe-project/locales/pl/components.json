@@ -1,0 +1,13 @@
+{
+  "ProjectHeader": {
+    "about": "Opis",
+    "classify": "Klasyfikowanie",
+    "talk": "Dyskutowanie",
+    "collect": "Kolekcjonowanie"
+  },
+  "ProjectStatistics": {
+    "percentComplete": "Percent Kompletność",
+    "title": "{{projectName}} statystyka",
+    "volunteers": "Wolontariusze"
+  }
+}
