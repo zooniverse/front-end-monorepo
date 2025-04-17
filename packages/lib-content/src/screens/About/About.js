@@ -102,7 +102,7 @@ function AboutPage() {
           <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('AboutPage.sideBarLabel')}
+              ariaLabel={t('AboutPage.sidebarLabel')}
               sections={sidebarSections}
               setActiveSection={setActiveSection}
             />
