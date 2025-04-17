@@ -1,6 +1,6 @@
-import { Box, ResponsiveContext, Text } from 'grommet'
+import { Box, Text } from 'grommet'
+import { useRef } from 'react'
 import styled from 'styled-components'
-import { useContext } from 'react'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import Loader from '@zooniverse/react-components/Loader'
@@ -12,8 +12,8 @@ const StyledBox = styled(Box)`
   list-style: none;
   margin-block-start: 0;
   padding-inline-start: 0;
-  column-gap: 20px;
-  row-gap: 20px;
+  column-gap: 10px;
+  row-gap: 10px;
 `
 
 const DEFAULT_HANDLER = () => {}
@@ -28,7 +28,7 @@ function Projects({
   setPage = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation()
-  const size = useContext(ResponsiveContext)
+  const firstCardRef = useRef(null)
 
   function handlePageChange({ page }) {
     setPage(page)
@@ -49,9 +49,21 @@ function Projects({
           <Text>{t('AllProjects.noProjects')}</Text>
         </Box>
       ) : (
-        <>
+        <Box align='center'>
           <StyledBox forwardedAs='ul' direction='row' wrap justify='center'>
-            {renderedProjects?.map(project => {
+            {renderedProjects?.length && (
+              <li key={renderedProjects?.[0].id} ref={firstCardRef}>
+                <ProjectCard
+                  badge={renderedProjects?.[0].count}
+                  description={renderedProjects?.[0].description}
+                  displayName={renderedProjects?.[0].display_name}
+                  href={`https://www.zooniverse.org/projects/${renderedProjects?.[0].slug}`}
+                  imageSrc={renderedProjects?.[0].avatar_src}
+                  size='small'
+                />
+              </li>
+            )}
+            {renderedProjects?.length && renderedProjects?.slice(1).map(project => {
               return (
                 <li key={project?.id}>
                   <ProjectCard
@@ -60,7 +72,7 @@ function Projects({
                     displayName={project?.display_name}
                     href={`https://www.zooniverse.org/projects/${project?.slug}`}
                     imageSrc={project?.avatar_src}
-                    size={size}
+                    size='small'
                   />
                 </li>
               )
@@ -75,7 +87,7 @@ function Projects({
               step={pageSize}
             />
           ) : null}
-        </>
+        </Box>
       )}
     </>
   )

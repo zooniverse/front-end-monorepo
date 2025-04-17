@@ -48,7 +48,7 @@ export default {
   }
 }
 
-// PROJECTS mock contains 22 projects
+// PROJECTS mock contains 51 projects
 export const Default = {
   args: {
     containerError: null,

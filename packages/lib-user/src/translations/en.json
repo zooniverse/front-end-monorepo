@@ -11,7 +11,7 @@
     "error": "There was an error",
     "more": "Load More",
     "noProjects": "No projects found",
-    "title": "All Projects"
+    "title": "{{displayName}}'s Projects"
   },
   "BarChart": {
     "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",

@@ -50,19 +50,7 @@ function GroupAllProjects({ authUser, group }) {
             size='large'
             weight='bold'
           >
-            {group.display_name}
-          </SpacedText>
-        </Heading>
-        <Heading level={2} size='1rem' margin={{ top: '0', bottom: 'small' }}>
-          <SpacedText
-            color={{
-              dark: 'light-1',
-              light: 'black'
-            }}
-            size='inherit'
-            weight='bold'
-          >
-            {t('AllProjects.title')}
+            {t('AllProjects.title', { displayName: group?.display_name })}
           </SpacedText>
         </Heading>
         <AllProjectsByCount

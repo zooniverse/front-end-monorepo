@@ -4,7 +4,7 @@ import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { usePanoptesProjects } from '@hooks'
 import Projects from '../Projects/Projects.js'
 
-export const PAGE_SIZE = 20
+export const PAGE_SIZE = 49 // 7 cards in each row
 
 function AllProjects({
   containerError,
