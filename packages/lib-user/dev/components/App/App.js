@@ -12,7 +12,8 @@ import {
   GroupStats,
   MyGroups,
   UserHome,
-  UserStats
+  UserStats,
+  UserStatsAllProjects
 } from '@components'
 import { getDefaultDateRange, getStatsDateString } from '../../../src/utils'
 
@@ -202,6 +203,13 @@ function App({
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
+          authUser={user}
+          login={login}
+        />
+      )
+    } else if (subpaths[1] === 'projects') {
+      content = (
+        <UserStatsAllProjects
           authUser={user}
           login={login}
         />

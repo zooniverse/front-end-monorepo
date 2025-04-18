@@ -1,4 +1,4 @@
-export { default as AllProjects } from './AllProjects'
+export { default as AllProjectsByCount } from './AllProjects/AllProjectsByCount'
 export { default as Avatar } from './Avatar'
 export { default as BarChart } from './BarChart'
 export { default as ContentBox } from './ContentBox'
