@@ -1,0 +1,58 @@
+{
+  "name": "lib-content-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js"
+    },
+    "./*": {
+      "import": "./dist/esm/*/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6005",
+    "build-storybook": "storybook build"
+
+  },
+  "dependencies": {
+    "@zooniverse/react-components": "~1.13.0",
+    "dayjs": "~1.11.13",
+    "i18next": "~25.0.0",
+    "react-i18next": "~15.4.1"
+  },
+  "peerDependencies": {
+    "@zooniverse/grommet-theme": "3.x.x",
+    "grommet": "2.x.x",
+    "grommet-icons": "4.x.x",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": "6.x.x"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@storybook/addon-a11y": "~7.6.11",
+    "@storybook/addon-essentials": "~7.6.11",
+    "@storybook/nextjs": "~7.6.11",
+    "@storybook/react": "7.6.11",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "storybook": "~7.6.11",
+    "storybook-react-i18next": "~2.0.1",
+    "vite": "^6.3.1"
+  }
+}
