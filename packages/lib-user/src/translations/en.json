@@ -26,7 +26,8 @@
   "Contributors": {
     "ContributorsList": {
       "a11y": "{{name}} member stats",
-      "privateProject": "Private Project {{index}}"
+      "privateProject": "Private Project {{index}}",
+      "projectStats": "{{name}} project stats"
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"
