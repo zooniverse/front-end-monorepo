@@ -50,13 +50,6 @@ function UserStatsAllProjects({ authUser, login }) {
     (a, b) => b.count - a.count
   )
 
-  function getPadding() {
-    switch (size) {
-      case 'small':
-        return ''
-    }
-  }
-
   const containerLoading = statsLoading || userLoading
   const containerError = statsError || userError
 

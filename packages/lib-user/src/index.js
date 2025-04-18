@@ -28,7 +28,6 @@ export { default as TitledStat } from './components/shared/TitledStat'
 export { default as TopProjects } from './components/shared/TopProjects'
 
 // hooks
-export { useInfiniteScrollProjects } from './hooks/useInfiniteScrollProjects.js'
 export { usePanoptesMemberships } from './hooks/usePanoptesMemberships.js'
 export { usePanoptesProjects } from './hooks/usePanoptesProjects.js'
 export { usePanoptesUser } from './hooks/usePanoptesUser.js'
