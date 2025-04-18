@@ -1,4 +1,4 @@
-import { About } from '@zooniverse/content'
+import AboutPageContainer from '@/components/About/AboutPageContainer'
 
 export const metadata = {
   title: 'About',
@@ -6,7 +6,5 @@ export const metadata = {
 }
 
 export default function AboutPage() {
-  return (
-    <About />
-  )
+  return <AboutPageContainer />
 }

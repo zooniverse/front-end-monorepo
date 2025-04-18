@@ -1,5 +1,5 @@
 import { Anchor, Box, Heading, Image, Paragraph, ResponsiveContext } from 'grommet'
-// import { string } from 'prop-types'
+import { string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.jsx'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
@@ -86,10 +86,10 @@ export default function Article({
   )
 }
 
-// Article.propTypes = {
-//   date: string,
-//   excerpt: string,
-//   imageSrc: string,
-//   title: string,
-//   url: string
-// }
+Article.propTypes = {
+  date: string,
+  excerpt: string,
+  imageSrc: string,
+  title: string,
+  url: string
+}
