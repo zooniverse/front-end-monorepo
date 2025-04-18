@@ -5,12 +5,20 @@ import { Tooltip } from '@zooniverse/react-components'
 import SVGContext from '../../../shared/SVGContext'
 import { useTranslation } from '@translations/i18n'
 import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
-import useScale from '../../../hooks/useScale'
 
 const StyledGroup = styled.g`
   cursor: pointer;
   pointer-events: all !important;
 `
+const DEFAULT_TRANSFORM_MATRIX = {
+  scaleX: 1,
+  scaleY: 1,
+  skewX: 0,
+  skewY: 0,
+  translateX: 0,
+  translateY: 0
+}
+const LINE_CONTROL_INSET = 70
 
 const LineControls = forwardRef(function LineControls({
   mark,
@@ -19,33 +27,29 @@ const LineControls = forwardRef(function LineControls({
 },
   ref
 ) {
-  const scale = useScale()
   let [activePosition, setActivePosition] = useState('tl')
   let [showDeleteButtons, setShowDeleteButtons] = useState(false)
   const { t } = useTranslation('plugins')
+
+  const { canvas, rotate, transformMatrix = DEFAULT_TRANSFORM_MATRIX } = useContext(SVGContext)
+  const { scaleX, scaleY, translateX, translateY } = transformMatrix
 
   const FILL_COLOR = theme.dark ? '#333333' : '#ffffff'
   const STROKE_COLOR = theme.dark ? '#ffffff' : '#000000'
   const DELETE_CANCEL_COLOR = '#E45950'
   const DELETE_CONFIRM_COLOR = '#1ED359'
-  const STROKE_WIDTH = 0.5 / scale
-  const OUTER_RADIUS = 40 / scale
-  const INNER_RADIUS = 20 / scale
-
-  const { canvas, rotate } = useContext(SVGContext)
-
-  // Get the transformation that's been applied to a parent element
-  const { matrix } = canvas.parentElement.parentElement.transform.baseVal.consolidate()
-  const { a: hScale, d: vScale, e: hTranslate, f: vTranslate } = matrix
-  const LINE_CONTROL_INSET = 70;
+  const STROKE_WIDTH = 0.5 / scaleX
+  const OUTER_RADIUS = 40 / scaleX
+  const INNER_RADIUS = 20 / scaleX
 
   const { width, height } = canvas.getBBox()
-  const x = (LINE_CONTROL_INSET - hTranslate) / hScale
-  const y = (LINE_CONTROL_INSET - vTranslate) / vScale
+  const xLeft = (LINE_CONTROL_INSET - translateX) / scaleX
+  const xRight = (width - translateX - LINE_CONTROL_INSET) / scaleX
+  const y = (LINE_CONTROL_INSET - translateY) / scaleY
 
   const p = (activePosition === 'tl')
-    ? { x, y }
-    : { x: x + ((width - (LINE_CONTROL_INSET * 2)) / hScale), y }
+    ? { x: xLeft, y }
+    : { x: xRight, y }
 
   function onEnterOrSpace(ev, func) {
     if (ev.keyCode === 13 || ev.keyCode === 32) {
@@ -81,9 +85,9 @@ const LineControls = forwardRef(function LineControls({
       action: deleteMarkCancel,
       icon: {
         type: Close,
-        size: (16 / scale),
-        x: p.x - (27 / scale),
-        y: p.y - (8 / scale),
+        size: (16 / scaleX),
+        x: p.x - (27 / scaleX),
+        y: p.y - (8 / scaleY),
         color: DELETE_CANCEL_COLOR
       },
       path: `M ${p.x} ${p.y + OUTER_RADIUS}
@@ -96,9 +100,9 @@ const LineControls = forwardRef(function LineControls({
       action: deleteMarkConfirm,
       icon: {
         type: Checkmark,
-        size: (18 / scale),
-        x: p.x + (12 / scale),
-        y: p.y - (10 / scale),
+        size: (18 / scaleX),
+        x: p.x + (12 / scaleX),
+        y: p.y - (10 / scaleY),
         color: DELETE_CONFIRM_COLOR
       },
       path: `M ${p.x} ${p.y + OUTER_RADIUS}
@@ -113,9 +117,9 @@ const LineControls = forwardRef(function LineControls({
       action: undo,
       icon: {
         type: Undo,
-        size: (10 / scale),
-        x: p.x - (27 / scale),
-        y: p.y - (27 / scale),
+        size: (10 / scaleX),
+        x: p.x - (27 / scaleX),
+        y: p.y - (27 / scaleY),
         color: STROKE_COLOR
       },
       path: `M ${p.x - OUTER_RADIUS} ${p.y}
@@ -129,9 +133,9 @@ const LineControls = forwardRef(function LineControls({
       action: mark.redo,
       icon: {
         type: Redo,
-        size: (10 / scale),
-        x: p.x + (17 / scale),
-        y: p.y - (27 / scale),
+        size: (10 / scaleX),
+        x: p.x + (17 / scaleX),
+        y: p.y - (27 / scaleY),
         color: STROKE_COLOR
       },
       path: `M ${p.x + OUTER_RADIUS} ${p.y}
@@ -145,9 +149,9 @@ const LineControls = forwardRef(function LineControls({
       action: mark.close,
       icon: {
         type: Radial,
-        size: (10 / scale),
-        x: p.x - (27 / scale),
-        y: p.y + (17 / scale),
+        size: (10 / scaleX),
+        x: p.x - (27 / scaleX),
+        y: p.y + (17 / scaleY),
         color: STROKE_COLOR
       },
       path: `M ${p.x - OUTER_RADIUS} ${p.y}
@@ -161,9 +165,9 @@ const LineControls = forwardRef(function LineControls({
       action: deleteMark,
       icon: {
         type: Trash,
-        size: (10 / scale),
-        x: p.x + (17 / scale),
-        y: p.y + (17 / scale),
+        size: (10 / scaleX),
+        x: p.x + (17 / scaleX),
+        y: p.y + (17 / scaleY),
         color: STROKE_COLOR
       },
       path: `M ${p.x + OUTER_RADIUS} ${p.y}
@@ -179,9 +183,9 @@ const LineControls = forwardRef(function LineControls({
       },
       icon: {
         type: Pan,
-        size: (20 / scale),
-        x: p.x - (10 / scale),
-        y: p.y - (10 / scale),
+        size: (20 / scaleX),
+        x: p.x - (10 / scaleX),
+        y: p.y - (10 / scaleY),
         color: STROKE_COLOR
       },
       path: `M ${p.x - INNER_RADIUS} ${p.y}
