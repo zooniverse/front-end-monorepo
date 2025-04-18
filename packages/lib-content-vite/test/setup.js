@@ -1,18 +1,24 @@
 // import '@testing-library/jest-dom'
 import { JSDOM } from 'jsdom'
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setProjectAnnotations } from '@storybook/react'
 
+import preview from '../.storybook/preview.jsx'
+setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
+
+global.after = afterAll
+global.before = beforeAll
+global.beforeEach = beforeEach
+global.describe = describe
 global.expect = expect
 global.it = it
-global.describe = describe
-global.before = beforeAll
-global.after = afterAll
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
   url: 'https://localhost'
 })
 const { window } = jsdom
 
+// might not be necesary
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
     .filter(prop => typeof target[prop] === 'undefined')

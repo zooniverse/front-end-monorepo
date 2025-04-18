@@ -1,5 +1,5 @@
 import { Anchor, Box, Button, Heading, Image, Text } from 'grommet'
-import { useTranslation } from '../../../translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n.jsx'
 import styled, { useTheme } from 'styled-components'
 import {
   Certificate,

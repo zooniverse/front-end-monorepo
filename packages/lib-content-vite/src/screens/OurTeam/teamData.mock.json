@@ -1,0 +1,433 @@
+[
+  {
+    "name": "Oxford",
+    "weight": 1,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/227h1Q6Yym8FLKmW1Tn2f3/5f6b9552db07d4150395f790e71bfb9a/adam.jpg?w=160&h=160",
+        "bio": "Adam is responsible for managing the Zooniverse's web hosting infrastructure., He has a computer science degree and has worked in web hosting and development for many years. He's also working on a degree in astronomy with the OU.",
+        "jobTitle": "Infrastructure Engineer ",
+        "name": "Adam McMaster"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/7CQGmMWqLK1lRtOYUd0Ora/d6a40017b11720b0160638440282f2f2/cam.jpg?w=160&h=160",
+        "bio": "Responsible for building the Zooniverse's API infrastructure. Cam considers himself a music and fine wine connoisseur - others do not. In his spare time he enjoys playing an obscure form of rugby.",
+        "jobTitle": "Developer",
+        "name": "Campbell Allen"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/3iT0i6mJxGijAz8HaYviXo/17e8cc9b141165cf5e1d97d4450ae62d/chris-l.png?w=160&h=160",
+        "bio": "Astronomer and co-founder of both Galaxy Zoo and the Zooniverse that grew from it, Chris is interested in how galaxies form and evolve, how citizen science can change the world, and whether the Chicago Fire can get their act together.",
+        "jobTitle": "Zooniverse PI",
+        "name": "Chris Lintott"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1px1NWtV5tlhl0N7lQ00O0/76acce5b7b6f0fde6fa8179eda4d5728/grant.jpg?w=160&h=160",
+        "bio": "A former exoplanetary scientist, Grant is now responsible for communicating with our volunteers and researchers. He is also behind the Zooniverse's presence on social media and publishes the Daily Zooniverse blog.",
+        "jobTitle": "Communications Lead",
+        "name": "Grant Robert MacKinnon Miller"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4btxAcyxrM3XkvUQBoavHW/71bc3869873f600af3dfd675e254f63c/helenspiers.jpg?w=160&h=160",
+        "bio": "After finishing a PhD studying the molecular basis of human brain development, Helen joined the Zooniverse as a Postdoc in citizen science and medical research.",
+        "jobTitle": "Researcher",
+        "name": "Helen Spiers"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4YLojpl7fsGKGKsPS6uk3M/f8b42b70bf8fbeb07126c9701a904247/jim.jpg?w=160&h=160",
+        "bio": "Professional cynic but his heart's not in it. Web developer for the Zooniverse, Web Standards organiser, Amnesty UK activist.",
+        "jobTitle": "UX Developer",
+        "name": "Jim O'Donnell"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/dYyWJGUWHrADq7NIrquqw/e5a63101172031306fede1d160fd61a5/becky.jpg?w=160&h=160",
+        "bio": "Becky is an astrophysicist working towards her doctorate in Oxford. She is interested in how galaxies change over time and how we can track this evolution. Happy-go-lucky about outreach, the Zooniverse and everything.",
+        "jobTitle": "Researcher",
+        "name": "Rebecca Smethurst"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/5OGhFjgTwxFl7onUFWlPAI/d36c4c118caa6627cb36f1f24f4f35d6/roger.jpg?w=160&h=160",
+        "bio": "Roger builds front end interfaces for the Zooniverse, and enjoys coding, music and rebuilding motorbikes in his spare time.",
+        "jobTitle": "Developer",
+        "name": "Roger Hutchings"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/3WqVYfxNnZwWEVvhQwaeZy/7d0c305e367fa544e32b79529c0f3b3b/sandor.jpg?w=160&h=160",
+        "bio": "Sandor is a graduate student working on his PhD in Astrophysics at Oxford. He is looking at how galaxies evolve using data from Galaxy Zoo and enjoys stargazing, using telescopes, and dancing in his free time.",
+        "jobTitle": "Researcher",
+        "name": "Sandor Kruk"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4lPkDT9EqVoSNve3mHdaTp/c4d42ced1213b7352134fe2352f29032/shaunanoordin.jpg?w=160&h=160",
+        "bio": "Shaun was raised by Nintendo consoles and somehow transformed his love for video games into a love for creating interactive experiences. When not at his PC playing games or reading comics, he's at his PC studying web design and coding experimental apps.",
+        "jobTitle": "Web Developer",
+        "name": "Shaun A. Noordin"
+      }
+    ]
+  },
+  {
+    "name": "The Adler Planetarium",
+    "weight": 10,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/QyTOux5UR2Njfrnve51jO/07ddeb16d7c5e6909920aa9e17c02a77/amy.png?w=160&h=160",
+        "bio": "Amy has been a Zooniverse developer at the Adler since November 2015. She holds a BS and MS in computer science and has over a decade of industry experience. An aspiring astronomer as a child, she couldn't be happier to have landed here.",
+        "jobTitle": "Developer",
+        "name": "Amy Boyer"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2B7cdCWP3L1Z6gHobmgJLi/e9a63c2929d4a6e74ee40f9442fdbf57/59874340-a1f8e700-9363-11e9-9d91-b31bc3a7217e.jpg?w=160&h=160",
+        "bio": "Becky Rother joined the Zooniverse team at the Adler in 2017, leading design efforts across the Zooniverse and beyond. She enjoys live music and pictures of other people's pets.",
+        "jobTitle": "Designer ",
+        "name": "Becky Rother"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4uHzqTyHgdm27Kv6G7Brkn/8d484161cb73f21d487ef8d1eff7895c/chelsea-troy.jpg?w=160&h=160",
+        "bio": "Chelsea is a software engineer and data scientist currently focused on The Zooniverse's citizen science mobile app. When she isn't writing code, she is lifting weights, enjoying the outdoors, or writing about tech at chelseatroy.com.",
+        "jobTitle": "Software Engineer",
+        "name": "Chelsea Troy"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4VLR5cADevEVF8bvlW6kFN/e9c51f81f54a466e7c77f0d660919afe/59866818-204c8d80-9352-11e9-8fcc-5676aa100fdf.jpg?w=160&h=160",
+        "bio": "Cliff Johnson is a postdoctoral fellow jointly-appointed at the Adler Planetarium and the Center for Interdisciplinary Exploration and Research in Astrophysics (CIERA) at Northwestern University. As an astronomer, he is a longtime Zooniverse collaborator as science lead for the Andromeda Project and currently leads the Local Group Cluster Search project. Cliff joined the Zooniverse team at the Adler in May 2019.",
+        "jobTitle": "Postdoctoral Fellow",
+        "name": "Cliff Johnson"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4dWSIbCSUZfFNICtGfOxLA/91df316b64c942ffe7c088048b3f5171/kelly.jpg?w=160&h=160",
+        "bio": "With a background in museum education, Kelly joined the Zooniverse in 2011 to bring an educator's perspective and spread the word amongst teachers and students. She's fond of several C's: chocolate, cats, coffee, and more chocolate.",
+        "jobTitle": "Educator",
+        "name": "Kelly Borden"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1j7WkbxH80PpAw471yIJHo/e910c138d79260306c01037e237f570c/laura.jpg?w=160&h=160",
+        "bio": "In July 2015, Laura became Director of Citizen Science at the Adler Planetarium and co-I of the Zooniverse. While earning her Ph.D. in 2010 studying galaxy evolution, she embodied cosmic collisions as a roller derby queen aptly named ‘The Big Bang’.",
+        "jobTitle": "Zooniverse co-I",
+        "name": "Laura Trouille"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4xiVzv2RG9GYmBrNoRKstx/b315e8336160afd915c87169289ae777/mark.jpg?w=160&h=160",
+        "bio": "Mark is a front-end web developer for the Zooniverse team at the Adler Planetarium. Joining in November 2015 from a career in accounting, he’s thrilled to focus his number crunching to 1’s and 0’s and is constantly inspired and humbled by the power of programming, citizen science and coffee.",
+        "jobTitle": "Developer",
+        "name": "Mark Bouslog"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1AfWcJxP0R3kZAfGY8Y3lt/73b91802287f52415f3fe64f3aeaa903/59878788-cc9c6d00-936e-11e9-8ec6-e7f83348f140.jpg?w=160&h=160",
+        "bio": "Molly Simon is a postdoctoral fellow at the Adler Planetarium leading the development, assessment, and implementation efforts of new curricular material for classroom.zooniverse.org. In her spare time, Molly enjoys reading non-fiction, hanging out with her dog \"Mr. T\" and trying out new restaurants.",
+        "jobTitle": " Education Postdoctoral Fellow",
+        "name": "Molly Simon"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/33meo6CEZqGzqphcBaWtyN/9bddd878b1be804c6a705dae25b7c21e/59879029-6532ed00-936f-11e9-9928-ebff7211f92d.jpg?w=160&h=160",
+        "bio": "Samantha Blickhan is a postdoctoral fellow at the Adler Planetarium, leading humanities research efforts for the Zooniverse. Likes music notation, old books, and memento mori.",
+        "jobTitle": "Humanities Lead",
+        "name": "Samantha Blickhan"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/011xtOdPO78fgxQk6Aff1z/a9434c237c6ed5eccc2cad6046215c3e/sarah.jpg?w=160&h=160",
+        "bio": "Sarah Allen is a front-end web developer for the Zooniverse team at the Adler Planetarium starting in September 2014. She also has a degree in music and enjoys cooking and live concerts in her free time.",
+        "jobTitle": "Developer",
+        "name": "Sarah Allen"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/frzKhhHD1y1svy2c2iF6J/b45b926062ef3e7acc8a2ba4625034c6/will.jpg?w=160&h=160",
+        "bio": "Will joined the Adler Planetarium in 2016 as a front-end developer for the Zooniverse. In the past, he has taught English overseas, toured in bands, and helped open a music venue in Alabama.",
+        "jobTitle": "Developer",
+        "name": "Will Granger"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2YAmAmojsuNRRElUhQHgbS/e364de9c08a64e85a2908305c1076d92/zach.JPG?w=160&h=160",
+        "bio": "Zach is a software developer. He was a molecular biologist, but then the lab needed some code to be written and the die was cast. He’s also in a couple of bands and can be found playing shows at bars and comic conventions all over the midwest.",
+        "jobTitle": "Developer",
+        "name": "Zach Wolfenbarger"
+      }
+    ]
+  },
+  {
+    "name": "Minnesota",
+    "weight": 20,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4DptNFJuRGAHpoICElxGth/ddbcc2081919478e709833b8da38a8ef/andrea.jpg?w=160&h=160",
+        "bio": "Andrea joined Zooniverse as a developer at the University of Minnesota in 2015. When she is not captivated by code, she can be found enjoying snow on skis and exploring lakes by kayak. She graduated from Carleton College with a degree in Cognitive Science.",
+        "jobTitle": "Developer",
+        "name": "Andrea Simenstad"
+      },
+      {
+        "bio": "Darryl is doing machine learning research with the Zooniverse, based in Minnesota.",
+        "jobTitle": "Researcher",
+        "name": "Darryl Wright"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/51OQ0UllMoZaMJgcYBsWLO/3de05ded3f41af646058d896d2ee4c25/hugh.jpg?w=160&h=160",
+        "bio": "Hugh is a postdoc studying the Zooniverse.",
+        "jobTitle": "Reseacher",
+        "name": "Hugh Dickinson"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/6ylHAHyJXRxGBdodItg68t/616f9b900bf24ea54b8e3625e5be2dad/lucy.jpg?w=160&h=160",
+        "bio": "Associate Professor of Physics and Astronomy at the University of Minnesota. One of the Zooniverse co-founders, she helps with project wrangling (aka management) and strategic planning while trying to squeeze a bit of galaxy evolution science in.",
+        "jobTitle": "University of Minnesota Zooniverse Director",
+        "name": "Lucy Fortson"
+      }
+    ]
+  },
+  {
+    "name": "Portsmouth",
+    "weight": 30,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2HvpApwTlqX6XPuQVHYVqq/50bf1d2e263ad3dced2500578d63b6fd/coleman.jpg?w=160&h=160",
+        "bio": "Coleman is helping to create new data analysis and visualization tools for existing Zooniverse projects as well as identifying new projects within the University of Portsmouth. He received his PhD in astrophysics from Drexel University.",
+        "jobTitle": "Data Scientist",
+        "name": "Coleman Krawczyk"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/6AnAFy6VYA8hUEm46RM2qH/35a1450babc3e776a7ef37bffa1accb4/jen_gupta.jpg?w=160&h=160",
+        "bio": "Jen works on Galaxy Zoo education in her role as the SEPnet/Ogden Outreach Officer for the Institute of Cosmology and Gravitation, and has a PhD in astrophysics. Active galactic nuclei were her first love.",
+        "jobTitle": "Educator",
+        "name": "Jen Gupta"
+      }
+    ]
+  },
+  {
+    "name": "Lancaster",
+    "weight": 40,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/6HU16Wy1zcup9y8sv5vTYD/d5fb507a54e972ba23c7b306c0a7171e/brooke.jpg?w=160&h=160",
+        "bio": "Brooke is an astrophysicist studying black holes, galaxies, and how citizen science can be applied to other non-traditional problems.",
+        "jobTitle": "Researcher",
+        "name": "Brooke Simmons"
+      }
+    ]
+  },
+  {
+    "name": "Haverford",
+    "weight": 50,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1i7HerDPPYvM7U4uvf84E7/5ad012ef7864a383311fc1781c47343b/karen.jpg?w=160&h=160",
+        "bio": "Karen is an astronomer and the Project Scientist of Galaxy Zoo, which she's been involved in as a researcher since 2008. She's particularly interested in the evolution of spiral galaxies.",
+        "jobTitle": "Researcher",
+        "name": "Karen Masters"
+      }
+    ]
+  },
+  {
+    "name": "Hilo",
+    "weight": 50,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/MX6iHQTtt6RUY9Ld8AGar/ab2339571040f0328b2e75e27cf9908c/meg.jpg?w=160&h=160",
+        "bio": "Meg is a planetary scientist and astronomer involved in the Planet Four projects, and Comet Hunters for which she is project scientist. She studies small bodies in the Solar System, exoplanets, and Mars. Meg has a fondness for baking, soccer, and champagne.",
+        "jobTitle": "Researcher",
+        "name": "Meg Schwamb"
+      }
+    ]
+  },
+  {
+    "name": "Alumni",
+    "weight": 100,
+    "people": [
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4Q9Eg7fI7W3jkfGQFbZBj7/2ccfdd29b87b81d727dc0bb21e77438e/alex_bowyer.jpg?w=160&h=160",
+        "bio": "Alex worked remotely for Zooniverse from his home in Northumberland. He designed and ran Zooniverse experiments and developed infrastructure and front-end code. Alex is a Dad of three, an improv player, a board gamer, and is running five half-marathons in 2016.",
+        "jobTitle": "Web Science Architect",
+        "name": "Alex Bowyer"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/7hmlHM68o5X0Wn9AoaUYWn/dc5eff44466f48ce056202cc286f3035/alex.jpg?w=160&h=160",
+        "bio": "Alex previously attended University of Miami, where he studied Psychology, Biology, and English. Alex enjoys reading, coding, and sailing in his free time.",
+        "jobTitle": "Developer",
+        "name": "Alex Weiksnar"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1QcwOSRYMaLNJh4jt9khQ2/f720e6d3036685cee37c21987f590cf6/ali.jpg?w=160&h=160",
+        "bio": "Ali spent most of her PhD chasing lions around the Serengeti. She finished her PhD in Ecology, Evolution, and Behavior at the University of Minnesota in 2014, and joined the Zooniverse as a Postdoc in Ecology and Citizen Science.",
+        "jobTitle": "Researcher ",
+        "name": "Ali Swanson"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/21BbKrynZFJGv41vaj6Sdo/004606d8b0feef61de3b061e5f8e0d8a/arfon.jpg?w=160&h=160",
+        "bio": "Arfon was co-founder and Technical Lead of the Zooniverse for the first five years of the project. Arfon served as Director of Citizen Science at the Adler Planetarium and co-lead of the Zooniverse until fall 2013.",
+        "jobTitle": "Technical Lead",
+        "name": "Arfon Smith"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/5DzwXb3ostd3EqyAtFaaJB/f0e34a4883d97c1bf8590a3e096de1cc/beverley.jpg?w=160&h=160",
+        "bio": "Beverley is an English and German literature graduate and worked as a Web Developer Intern at Zooniverse. In her spare time she's an avid fan of geese and enjoys motorbiking.",
+        "jobTitle": "Web Developer Intern",
+        "name": "Beverley Newing"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/7lpjwPqS9Q7zr197wDDkgm/509da06d30885854e24baaf80a710aab/brian.jpg?w=160&h=160",
+        "bio": "Brian Carstensen moved from Chicago to Oxford and back again. Brian has a degree in graphic design from Columbia College in Chicago, and worked in that field for a number of years before finding a niche in web development.",
+        "jobTitle": "UX Developer",
+        "name": "Brian Carstensen"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/nZ1Jbk8OSctaWhmvXpzuI/516282108ed29ed93ec5aaf8042324cc/chriss.png?w=160&h=160",
+        "bio": "Chris Snyder began working on the Zooniverse team in fall 2012 as a web developer. In July 2013, he became the technical project manager. He received a degree in computer science from the University of Dayton.",
+        "jobTitle": "Project Manager",
+        "name": "Chris Snyder"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/6PuPkk4hKagK05vDz87LAN/b937ba0d4e3193946731567f4a6e2750/chris-d.jpg?w=160&h=160",
+        "bio": "Chris supported the Zooniverse Oxford team from 2014-16. He had been with the Department of Astrophysics for over 2 years administratively supporting various projects. A former trained actor, he has the ability to look like he's smiling in the face of adversity!",
+        "jobTitle": "Project Assistant",
+        "name": "Christopher Doogue"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1mwWLmfEGd2B3CVHht6Gd1/cca5e4a26a9245454dccb828ec125605/darren.jpg?w=160&h=160",
+        "bio": "Darren (DZM) served as a liaison to the Zooniverse community and assisted with strategic content for projects. A Northwestern University graduate in journalism, he is also a golf addict, amateur author, and hopeless animal lover.",
+        "jobTitle": "Community Manager",
+        "name": "Darren McRoy"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4MCMCgFORaWFt8zE48uZGj/0c549d3bb7555d3ef2e564cf91a3f2d3/greg.jpg?w=160&h=160",
+        "bio": "Greg used machine learning and statistics to help projects analyse their volunteer classifications. He has a PhD in Computer Science from University of Waterloo, Canada. Greg loves to eat pancakes with real maple syrup and run ultramarathons.",
+        "jobTitle": "Data Scientist",
+        "name": "Greg Hines"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/38Z0qmCIdxYTLrtgZUxslf/2bb8cdc88534c212c33799af72fac560/hannah_s.jpg?w=160&h=160",
+        "bio": "Hannah is a PhD student in plant genetics from The University of Sheffield. She is visiting Zooniverse on a placement to learn web development for a few months and is definitely not an intern.",
+        "jobTitle": "Web Development placement student ",
+        "name": "Hannah Sewell"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1MPLaWCnPKMP7rzsuTENV6/e4d24840f2347456fb174666e8990cf2/heath.png?w=160&h=160",
+        "bio": "Heath was the UX/UI Designer at the Zooniverse where he worked to craft thoughtful and engaging user experiences. Apart from design, Heath also enjoys illustration, a good sci-fi or fantasy novel, and exploring his new home in the Pacific Northwest.",
+        "jobTitle": "Designer",
+        "name": "Heath van Singel"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/D8S1P6fYM2kglL0GP3tQb/1ab361c29b9c498ab899554d4a9c370d/james.jpg?w=160&h=160",
+        "bio": "James joined the Zooniverse team in 2017. Before discovering his passion for code, he received a Ph.D in Mediterranean Archaeology from SUNY Buffalo, focusing on ancient Greece. In his free time he enjoys wood working and the ancient art of fermentation.",
+        "jobTitle": "Developer",
+        "name": "James Artz"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/39Qc50XlDoP8g2Q7MO9eFV/37b4584364d13e5729b0c6ca9b51d82a/jordan.jpg?w=160&h=160",
+        "bio": "Jordan joined at the Adler Planetarium as Zooniverse's Visual Designer starting in 2015. She spent her time making our user interfaces beautiful, engaging, and a rewarding experience. At home she spends time with her two cats and many houseplants.",
+        "jobTitle": "Visual Designer",
+        "name": "Jordan Martin"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/17nKvHA0heHFrlwF1VkEq5/87610c331c63c851f4c7260701381c40/julie.png?w=160&h=160",
+        "bio": "Julie has a background in space physics and museum studies. She works on educational experiences, and Skype in the Classroom lessons for the Zooniverse. She loves to run, mostly to compensate for her love of cupcakes and chocolate.",
+        "jobTitle": "Educator",
+        "name": "Julie Feldt"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/19xYs95ELCLsYvE1OCHaN3/aa8f3e0caefedf3304e71eb6b007e4c5/kyle.jpg?w=160&h=160",
+        "bio": "Kyle is an astronomer who studies galaxies, masers, and black holes (although he's been getting more into data science). He worked on both Galaxy Zoo and Radio Galaxy Zoo, and developed advanced tools for the volunteers.",
+        "jobTitle": "Researcher",
+        "name": "Kyle Willett"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1u9RjI0zzo3wyP3uz82zLA/774645d43e8f35a5cf30d0d05045b245/laura_w.jpg?w=160&h=160",
+        "bio": "Laura was the Director of Citizen Science at Adler Planetarium and co-lead of the Zooniverse from fall 2013 to summer 2015.",
+        "jobTitle": "Adler Planetarium Zooniverse Director",
+        "name": "Laura Whyte"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/UzdNNTEQ5pJotJ4bUasaz/4291d27b26271fb386312376352f5a38/mariam_s.jpg?w=160&h=160",
+        "bio": "Mariam is the 2017 Web Development Intern at Zooniverse. She is proficient with HTML and CSS and is currently learning JavaScript and Rails.",
+        "jobTitle": "Web Developer Intern",
+        "name": "Mariam Saeedi"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/779irK3kcJbV6hRtWpNhEK/dcd04097859fe6686734731817da53c4/marten.jpg?w=160&h=160",
+        "bio": "Marten joined the development team in 2015, and left in 2019. He has a degree in computer science and enjoys crafting maintainable software. Marten learned about orbital mechanics from Kerbal Space Program, and feels like he's therefore basically an astrophysicist.",
+        "jobTitle": "Developer",
+        "name": "Marten Veldthuis"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2VPyNed8pbiDhMXiR3ubw5/e646286e89a55b5bc1dd69ad3d85f3f4/melanie.jpg?w=160&h=160",
+        "bio": "A PhD student at the University of Minnesota, Melanie works on combining machine learning with volunteer votes for classification tasks on the Galaxy Zoo project with the goal of classifying *billions* of galaxies that future telescopes will see.",
+        "jobTitle": "Researcher",
+        "name": "Melanie Beck"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/1odwEyOIGgwRDJmbVCPowE/2f9874203f4bc652ccbee3b9c0c2b3e3/michael.png?w=160&h=160",
+        "bio": "Software developer at the Zooniverse. He pwns databases daily. Dog, fishing, snakes, and bourbon.",
+        "jobTitle": "Rails/Backend Developer",
+        "name": "Michael Parrish"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2y8QoJwmmxNVJEhje851zD/69ecc5d20728e2af727c9733f33647dd/noah.jpg?w=160&h=160",
+        "bio": "Noah mainly has a background in mobile app development as well as some firmware and backend experience. Outside of work, Noah enjoys cooking, baking and climbing.",
+        "jobTitle": "Mobile App Developer",
+        "name": "Noah Malmed"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/7d9DloXUivI4CDhcGPnteb/42e5cc6c0511e206106eb6a0717ca2e3/perry.jpg?w=160&h=160",
+        "bio": "Perry was a developer with the Zooniverse, based in Oxford.",
+        "jobTitle": "Developer",
+        "name": "Perry Roper"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/6fZ06yhdhd0FgyxPKmxfxO/789d318c0decf63339f5231ee06a85d6/rob.jpg?w=160&h=160",
+        "bio": "Robert was one of the founding developers of the Zooniverse, based in Oxford. If you can keep your head when all around you are losing theirs, you are probably Rob Simpson.",
+        "jobTitle": "Developer",
+        "name": "Robert Simpson"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/7HCKqLeYXLOdO4QSoOnob6/42ee31b3c9f99cf6d1c98f976f46da78/robin.jpg?w=160&h=160",
+        "bio": "Robin has a background in web development for educational institutions. In her free time she enjoys board games and playing bass guitar.",
+        "jobTitle": "Mobile App Developer",
+        "name": "Robin Schaaf"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2HoMAjgFCjeA2pKLC4qf8A/d608b08277416f708f07fd65346ca569/rona.jpg?w=160&h=160",
+        "bio": "Rona is a PhD student studying plant evolution at Oxford and joined the Zooniverse to get some web development experience for a few months. Enjoys movies, board games and hanging out under the sea.",
+        "jobTitle": "Web Development placement student",
+        "name": "Rona Costello"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4E0I2VEEPWWEE0hp9KeoEC/bf86fa667cefe03dd9152886cbce4a27/samuel.jpg?w=160&h=160",
+        "bio": "Samuel is a DPhil student studying the swimming behaviour of soil bacteria at Oxford. He joined Zooniverse to learn professional coding skills and perhaps build something useful.",
+        "jobTitle": "Web Development placement student",
+        "name": "Samuel Aroney"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/3o2BDDqPpy287AHWTJ3US4/61bac2599bf028d4f5248a63b7bef75c/sascha.png?w=160&h=160",
+        "bio": "Sascha joined the Zooniverse team in November 2013 as a front-end developer. A former researcher and software developer at NASA Ames, he received degrees in both computer science and mechanical engineering.",
+        "jobTitle": "Developer",
+        "name": "Sascha Ishikawa"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2PdqjsS9fi7Y2ZicSFLI4v/4b4d0fcd8228d0d380494b9d5d126920/simone.jpg?w=160&h=160",
+        "bio": "Simone joined the Zooniverse in 2015 as a frontend developer. In a previous life, he received a PhD in logic and philosophy from Bristol. After moving \"Up North\", he joined another worthy cause in 2018.",
+        "jobTitle": "Developer",
+        "name": "Simone Duca"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/5jdcfMtbZkFTSvkJQrY0Kt/145b2eb01d32539d9a7dc0b6b8530034/steve.png?w=160&h=160",
+        "bio": "Steve Raden was a developer at the Adler in Chicago.",
+        "jobTitle": "Developer",
+        "name": "Steve Raden"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/4tB4JARUhxwC8JDnQBAP7j/287fb636cf7264718dedb99eb22ad4fa/stuart.png?w=160&h=160",
+        "bio": "Stuart arrived at the Adler as a developer in July 2011, having been one of the founding developers at Oxford. He studied mathematical physics at Edinburgh University and received his doctorate in astrophysics from Royal Observatory Edinburgh. Data analysis maestro and web developer.",
+        "jobTitle": "Developer",
+        "name": "Stuart Lynn"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/2tasqZHrfRMX0WFO3pIVIA/ac984899f237634402c7ea1b325ce430/veronica.jpg?w=160&h=160",
+        "bio": "Veronica is a Data Scientist who worked on discovering patterns in Zooniverse data, by manipulating it and using it to create machine learning models. She received a PhD in Information Science and Technology from Syracuse University.",
+        "jobTitle": "Data Scientist",
+        "name": "Veronica Maidel"
+      },
+      {
+        "avatarSrc": "//images.ctfassets.net/jt90kyhvp0qv/6BtyWgWrriPPvnS7UDKU6m/41fa9b15d4c67c7b70fd1ecc7cbfd131/victoria.JPG?w=160&h=160",
+        "bio": "Victoria is a British Academy postdoctoral fellow in English at Oxford, and is the humanities PI at Zooniverse. She works on Science Gossip, Annotate, and Shakespeare's World and more. Coffee is her lifeblood.",
+        "jobTitle": "Researcher",
+        "name": "Victoria Van Hyning"
+      }
+    ]
+  }
+]

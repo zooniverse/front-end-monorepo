@@ -38,6 +38,5 @@ describe('Component > AboutHeader', function () {
     expect(document.querySelector('[href="/about/team"]').href).to.equal('https://localhost/about/team')
     expect(document.querySelector('[href="/about/resources"]').href).to.equal('https://localhost/about/resources')
     expect(document.querySelector('[href="/about/faq"]').href).to.equal('https://localhost/about/faq')
-
   })
 })

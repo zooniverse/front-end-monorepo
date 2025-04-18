@@ -7,7 +7,7 @@ import {
   Text,
   Tip
 } from 'grommet'
-import { Trans, useTranslation } from '../../../translations/i18n.jsx'
+import { Trans, useTranslation } from '@translations/i18n.jsx'
 import { CircleInformation } from 'grommet-icons'
 import styled from 'styled-components'
 

@@ -1,7 +1,5 @@
-'use client'
-
 import { Box, Heading } from 'grommet'
-import { useTranslation } from '../../translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n.jsx'
 import Script from 'next/script'
 import { useState } from 'react'
 import styled from 'styled-components'

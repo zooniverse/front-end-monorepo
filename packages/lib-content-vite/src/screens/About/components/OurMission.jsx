@@ -14,7 +14,7 @@ import { CircleInformation } from 'grommet-icons'
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { YouTubeEmbed } from '@next/third-parties/google'
-import { Trans, useTranslation } from '../../../translations/i18n.jsx'
+import { Trans, useTranslation } from '@translations/i18n.jsx'
 
 import Stats from '../../../components/Stats/Stats.jsx'
 

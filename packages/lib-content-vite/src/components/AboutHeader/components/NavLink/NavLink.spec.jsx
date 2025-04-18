@@ -24,7 +24,7 @@ function RouterMock({ children }) {
   )
 }
 
-describe('Component > NavLink', function () {
+describe('Component > NavLink', () => {
   before(function () {
     render(
       <RouterMock>
@@ -33,7 +33,7 @@ describe('Component > NavLink', function () {
     )
   })
 
-  it('should correctly set the label and href', function () {
+  it('should correctly set the label and href', () => {
     expect(document.querySelector('a').firstChild.textContent).to.equal(LABEL)
     expect(document.querySelector('a').href).to.include(HREF)
   })

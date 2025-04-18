@@ -3,7 +3,7 @@ import { useTranslation } from '../../translations/i18n.jsx'
 import { css } from 'styled-components'
 
 import ContainerBox from './ContainerBox.jsx'
-import AboutHeader from '../AboutHeader'
+import AboutHeader from '../AboutHeader/AboutHeader.jsx'
 
 const customTheme = {
   paragraph: {
