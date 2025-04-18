@@ -1,6 +1,6 @@
 'use client'
 
-import { About } from '@zooniverse/content-vite'
+import { About } from '@zooniverse/content'
 
 export default function AboutPageContainer() {
   return (

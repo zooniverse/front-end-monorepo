@@ -17,7 +17,6 @@
     "@next/third-parties": "~14.2.26",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/content": "~0.0.1",
-    "@zooniverse/content-vite": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.5.0",
     "@zooniverse/react-components": "~1.13.0",

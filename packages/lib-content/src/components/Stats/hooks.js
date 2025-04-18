@@ -1,9 +1,14 @@
 import useSWR from 'swr'
-import { panoptes } from '@zooniverse/panoptes-js'
 
-/* See lib-user useUserStats hook. If those env + host options
-are moved to lib-panoptes-js config files, then this could be too */
-const statsHost = 'https://eras.zooniverse.org'
+const STATS_HOST =
+  process.env.NODE_ENV === 'production'
+    ? 'https://eras.zooniverse.org'
+    : 'https://eras-staging.zooniverse.org'
+
+const PANOPTES_HOST =
+  process.env.NODE_ENV === 'production'
+    ? 'https://www.zooniverse.org/api'
+    : 'https://panoptes-staging.zooniverse.org/api'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -15,7 +20,7 @@ const SWROptions = {
 
 const getClassificationCounts = async () => {
   try {
-    const statsResponse = await fetch(`${statsHost}/classifications`)
+    const statsResponse = await fetch(`${STATS_HOST}/classifications`)
     const data = await statsResponse.json()
     return data.total_count
   } catch (error) {
@@ -25,14 +30,26 @@ const getClassificationCounts = async () => {
 }
 
 export function useTotalClassificationCount() {
-  return useSWR('eras-classifications-total', getClassificationCounts, SWROptions)
+  return useSWR(
+    'eras-classifications-total',
+    getClassificationCounts,
+    SWROptions
+  )
 }
 
 const getVolunteerCount = async () => {
   try {
-    const query = { page_size: 1 } // will return one account in { users }, but we really only care about { meta }
-    const response = await panoptes.get('/users', query)
-    return response.body.meta.users.count
+    const response = await fetch(
+      `${PANOPTES_HOST}/users?page_size=1&http_cache=true`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.api+json; version=1'
+        }
+      }
+    )
+    const data = await response.json()
+    return data.meta.users.count
   } catch (error) {
     console.log(error)
     return null
