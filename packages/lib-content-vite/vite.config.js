@@ -1,22 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { resolve } from 'path'
 
 import { dependencies, peerDependencies } from './package.json'
 
 // https://vite.dev/config/
 // https://vite.dev/guide/build.html#library-mode
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
 export default defineConfig({
   plugins: [react()],
   build: {
-    copyPublicDir: false, // maybe enable this and copy translation dictionaries from /public
-    // define: {
-    //   'process.env.NODE_ENV': JSON.stringify('production'),
-    // },
+    copyPublicDir: false,
     lib: { // Library Mode
       entry: resolve(__dirname, 'src/index.js'),
       formats: ['es']
@@ -35,10 +29,17 @@ export default defineConfig({
     },
     outDir: 'dist', // default
     target: 'modules' // default, targets browsers with native ES modules
-  }
-  // resolve: {
-  //   alias: {
-  //     '@': resolve(__dirname, 'lib'),
-  //   },
-  // },
+  },
+  resolve: {
+    alias: {
+      '@translations': resolve(__dirname, 'src/translations'),
+    },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './test/setup.js',
+    // you might want to disable it, if you don't have tests that rely on CSS since parsing CSS is slow
+    css: true,
+  },
 })

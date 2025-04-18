@@ -22,7 +22,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6005",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest run"
   },
   "dependencies": {
     "dayjs": "~1.11.13",
@@ -49,6 +50,9 @@
     "@storybook/builder-vite": "~7.6.11",
     "@storybook/nextjs": "~7.6.11",
     "@storybook/react": "7.6.11",
+    "@testing-library/dom": "~9.3.0",
+    "@testing-library/react": "~14.2",
+    "@testing-library/user-event": "~14.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
@@ -56,9 +60,11 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "jsdom": "~26.0.0",
     "storybook": "~7.6.11",
     "storybook-react-i18next": "~2.0.1",
-    "vite": "^6.3.1"
+    "vite": "^6.3.1",
+    "vitest": "~3.1.1"
   },
   "engines": {
     "node": ">=20.5 <=20.18"

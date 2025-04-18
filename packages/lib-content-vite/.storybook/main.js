@@ -1,3 +1,5 @@
+import viteConfig from '../vite.config'
+
 const config = {
   stories: ['../src/**/*.stories.jsx'],
   addons: [
@@ -5,7 +7,7 @@ const config = {
     '@storybook/addon-essentials',
     'storybook-react-i18next'
   ],
-  // This can be changed to framework: '@storybook/react-vite' in Storybook v8+
+  // Change to framework: '@storybook/react-vite' in Storybook v8+
   framework: {
     name: '@storybook/nextjs',
     options: {}
@@ -15,6 +17,17 @@ const config = {
   // },
   docs: {
     autodocs: 'tag'
+  },
+  webpackFinal: async config => {
+    return {
+      ...config,
+      resolve: {
+        ...viteConfig.resolve,
+        fallback: {
+          fs: false
+        }
+      }
+    }
   }
 }
 export default config
