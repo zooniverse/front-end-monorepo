@@ -5,6 +5,7 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "build": "APP_ENV=${APP_ENV:-development} NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/server.js",
