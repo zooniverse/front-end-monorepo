@@ -1,1 +1,1 @@
-export { default as CommunityContainer } from './CommunityContainer.js'
+export { default as CommunityContainer } from './CommunityContainer.jsx'
