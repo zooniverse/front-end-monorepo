@@ -1,8 +1,15 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useTranslation } from '../../translations/i18n.js'
+import { Heading } from 'grommet'
+import SpacedText from '@zooniverse/react-components/SpacedText'
 
-import { usePanoptesProjects, useStats } from '@hooks'
-import { AllProjects, ContentBox, HeaderLink, Layout } from '@components/shared'
+import { useStats } from '@hooks'
+import {
+  AllProjectsByCount,
+  ContentBox,
+  HeaderLink,
+  Layout
+} from '@components/shared'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
@@ -10,7 +17,7 @@ const STATS_ENDPOINT = '/classifications/user_groups'
 function GroupAllProjects({ authUser, group }) {
   const { t } = useTranslation()
 
-  // fetch all projects stats; date range is all time
+  // fetch all projects contributions from ERAS; Date range is "All Time"
   const {
     data: allProjectsStats,
     error: statsError,
@@ -21,43 +28,10 @@ function GroupAllProjects({ authUser, group }) {
     sourceId: group?.id
   })
 
-  // fetch project data from panoptes
-  const projectIds = allProjectsStats?.project_contributions?.map(
-    project => project.project_id
-  )
-  const projectsQuery = {
-    cards: true,
-    id: projectIds?.join(','),
-    page_size: 100
-  }
-  const {
-    data: projects,
-    error: projectsError,
-    isLoading: projectsLoading
-  } = usePanoptesProjects(projectsQuery)
-
-  // order by top projects
-  let topProjects = []
-  const topProjectContributions = allProjectsStats?.project_contributions?.sort(
+  // order by most contributions --> least contributions
+  const projectContributions = allProjectsStats?.project_contributions?.sort(
     (a, b) => b.count - a.count
   )
-
-  if (topProjectContributions?.length > 0) {
-    topProjects = topProjectContributions
-      ?.map(projectContribution => {
-        const projectData = projects?.find(
-          project => project.id === projectContribution.project_id.toString()
-        )
-        return {
-          count: projectContribution.count,
-          ...projectData
-        }
-      })
-      .filter(project => project?.id)
-  }
-
-  const error = statsError || projectsError
-  const loading = statsLoading || projectsLoading
 
   return (
     <Layout
@@ -69,8 +43,21 @@ function GroupAllProjects({ authUser, group }) {
         />
       }
     >
-      <ContentBox title='All Projects' pad='45px'>
-        <AllProjects error={error} loading={loading} projects={topProjects} />
+      <ContentBox pad='45px'>
+        <Heading level='1'>
+          <SpacedText
+            color={{ dark: 'accent-1', light: 'neutral-1' }}
+            size='large'
+            weight='bold'
+          >
+            {t('AllProjects.title', { displayName: group?.display_name })}
+          </SpacedText>
+        </Heading>
+        <AllProjectsByCount
+          containerError={statsError}
+          containerLoading={statsLoading}
+          projectContributions={projectContributions}
+        />
       </ContentBox>
     </Layout>
   )

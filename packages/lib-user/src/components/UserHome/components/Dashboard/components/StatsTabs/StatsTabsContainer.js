@@ -32,7 +32,7 @@ export default function StatsTabsContainer({ user }) {
   })
 
   const allTimeQuery = getDateInterval({
-    endDate: getStatsDateString(new Date()), // Today's UTC date string like 24-09-23.
+    endDate: getStatsDateString(new Date()), // Today's UTC date string like 2024-09-23.
     startDate: getStatsDateString(user?.created_at) // Limit stats range to when the user acccount was created in panoptes.
   })
   allTimeQuery.project_contributions = true

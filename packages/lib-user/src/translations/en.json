@@ -9,7 +9,8 @@
   },
   "AllProjects": {
     "error": "There was an error",
-    "noProjects": "No projects found"
+    "noProjects": "No projects found",
+    "title": "{{displayName}}'s Projects"
   },
   "BarChart": {
     "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
@@ -24,7 +25,8 @@
   "Contributors": {
     "ContributorsList": {
       "a11y": "{{name}} member stats",
-      "privateProject": "Private Project {{index}}"
+      "privateProject": "Private Project {{index}}",
+      "projectStats": "{{name}} project stats"
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"

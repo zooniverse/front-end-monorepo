@@ -28,7 +28,7 @@
     "prepare": "yarn build",
     "test": "NODE_ENV=test mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
     "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
-    "storybook": "storybook dev -p 6008",
+    "storybook": "storybook dev -p 6008 ",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -81,6 +81,8 @@
     "html-webpack-plugin": "~5.6.0",
     "jsdom": "~26.0.0",
     "mocha": "~11.1.0",
+    "msw": "~2.7.0",
+    "msw-storybook-addon": "~2.0.3",
     "nock": "~13.5.4",
     "process": "~0.11.10",
     "prop-types": "^15.8.1",
@@ -89,9 +91,12 @@
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
     "style-loader": "~4.0.0",
-    "webpack": "~5.97.1",
+    "webpack": "~5.99.6",
     "webpack-cli": "~6.0.1",
     "webpack-dev-server": "~5.2.0"
+  },
+  "msw": {
+    "workerDirectory": "./storybook-public"
   },
   "engines": {
     "node": ">=20.5 <=20.18"

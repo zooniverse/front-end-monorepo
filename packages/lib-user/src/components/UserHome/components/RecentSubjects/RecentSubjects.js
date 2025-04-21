@@ -1,11 +1,21 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { useTranslation, Trans } from '../../../../translations/i18n.js'
 
 import { ContentBox } from '@components/shared'
 import SubjectCard from '../SubjectCard/SubjectCard.js'
+
+const StyledBox = styled(Box)`
+  list-style: none;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: center;
+  }
+`
 
 function RecentSubjects({
   isLoading = false,
@@ -16,7 +26,11 @@ function RecentSubjects({
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title='Recent Classifications' screenSize={size}>
+    <ContentBox
+      title='Recent Classifications'
+      titleId='recent-subjects'
+      screenSize={size}
+    >
       {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
@@ -47,13 +61,14 @@ function RecentSubjects({
       )}
       {!isLoading && recents?.length
         ? (
-          <Box
-            as='ul'
+          <StyledBox
+            aria-labelledby='recent-subjects'
+            forwardedAs='ul'
             direction='row'
             gap='small'
             pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
             overflow={{ horizontal: 'auto' }}
-            style={{ listStyle: 'none' }}
+            tabIndex={0}
             margin='0'
           >
             {recents.map(recent => {
@@ -71,7 +86,7 @@ function RecentSubjects({
                 </li>
               )
             })}
-          </Box>
+          </StyledBox>
         ) : null}
     </ContentBox>
   )
