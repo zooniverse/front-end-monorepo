@@ -31,7 +31,8 @@ function CardHeader({
   badge,
   state = 'live'
 }) {
-  if ((state === 'live' || state === 'development') && !badge) return null
+  // project.state can be 'live', 'paused', 'finished', or 'development'
+  if ((state !== 'paused' && state !== 'finished') && !badge) return null
   
   const { t } = useTranslation()
 
