@@ -76,6 +76,7 @@ export default function RecentProjects({
                   href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
                   imageSrc={preference?.project?.avatar_src}
                   size={size}
+                  state={preference?.project?.state}
                 />
               </li>
             ))}
