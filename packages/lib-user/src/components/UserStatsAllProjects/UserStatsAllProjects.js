@@ -2,17 +2,30 @@
 
 import { bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
-import { Heading, ResponsiveContext } from 'grommet'
+import { Box, Heading, ResponsiveContext } from 'grommet'
 import SpacedText from '@zooniverse/react-components/SpacedText'
 
 import { usePanoptesUser, useStats } from '@hooks'
-import { AllProjectsByCount, ContentBox, HeaderLink, Layout } from '@components/shared'
+import {
+  AllProjectsByCount,
+  AllProjectsByRecent,
+  ContentBox,
+  HeaderLink,
+  Layout,
+  SortDropdown
+} from '@components/shared'
 import { getDateInterval, getStatsDateString } from '@utils'
 import { useTranslation } from '../../translations/i18n.js'
 
 const STATS_ENDPOINT = '/classifications/users'
+const DEFAULT_HANDLER = () => true
 
-function UserStatsAllProjects({ authUser, login }) {
+function UserStatsAllProjects({
+  authUser,
+  login,
+  handleSortParam = DEFAULT_HANDLER,
+  sortParam = 'top'
+}) {
   const { t } = useTranslation()
   const grommetSize = useContext(ResponsiveContext)
 
@@ -64,22 +77,38 @@ function UserStatsAllProjects({ authUser, login }) {
       }
     >
       <ContentBox pad={grommetSize}>
-        <Heading level='1'>
-          {user?.display_name && (
-            <SpacedText
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='large'
-              weight='bold'
-            >
-              {t('AllProjects.title', { displayName: user?.display_name })}
-            </SpacedText>
-          )}
-        </Heading>
-        <AllProjectsByCount
-          containerError={containerError}
-          containerLoading={containerLoading}
-          projectContributions={projectContributions}
-        />
+        <Box direction='row' width='100%' margin={{ bottom: 'small' }} justify='between'>
+          <Heading level='1'>
+            {user?.display_name && (
+              <SpacedText
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                size='large'
+                weight='bold'
+              >
+                {t('AllProjects.title', { displayName: user?.display_name })}
+              </SpacedText>
+            )}
+          </Heading>
+          <SortDropdown
+            handleSortParam={handleSortParam}
+            sortParam={sortParam}
+          />
+        </Box>
+        {sortParam === 'top' ? (
+          <AllProjectsByCount
+            containerError={containerError}
+            containerLoading={containerLoading}
+            projectContributions={projectContributions}
+          />
+        ) : (
+          // sortParam = 'recent'
+          <AllProjectsByRecent
+            containerError={containerError}
+            containerLoading={containerLoading}
+            projectContributions={projectContributions}
+            user={user}
+          />
+        )}
       </ContentBox>
     </Layout>
   )

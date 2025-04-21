@@ -5,6 +5,6 @@ export const metadata = {
   description: 'My Zooniverse user projects page'
 }
 
-export default function UserStatAllProjectsPage({ params }) {
-  return <AllProjectsContainer login={params.login} />
+export default function UserStatAllProjectsPage({ params, searchParams }) {
+  return <AllProjectsContainer login={params.login} searchParams={searchParams} />
 }

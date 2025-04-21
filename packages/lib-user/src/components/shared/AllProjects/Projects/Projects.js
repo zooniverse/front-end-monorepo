@@ -48,7 +48,7 @@ function Projects({
         <Box fill align='center' pad='medium'>
           <Text>{t('AllProjects.noProjects')}</Text>
         </Box>
-      ) : (
+      ) : renderedProjects.length ? (
         <Box align='center'>
           <StyledBox forwardedAs='ul' direction='row' wrap justify='center'>
             {renderedProjects?.length && (
@@ -63,20 +63,21 @@ function Projects({
                 />
               </li>
             )}
-            {renderedProjects?.length && renderedProjects?.slice(1).map(project => {
-              return (
-                <li key={project?.id}>
-                  <ProjectCard
-                    badge={project?.count}
-                    description={project?.description}
-                    displayName={project?.display_name}
-                    href={`https://www.zooniverse.org/projects/${project?.slug}`}
-                    imageSrc={project?.avatar_src}
-                    size='small'
-                  />
-                </li>
-              )
-            })}
+            {renderedProjects?.length &&
+              renderedProjects?.slice(1).map(project => {
+                return (
+                  <li key={project?.id}>
+                    <ProjectCard
+                      badge={project?.count}
+                      description={project?.description}
+                      displayName={project?.display_name}
+                      href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                      imageSrc={project?.avatar_src}
+                      size='small'
+                    />
+                  </li>
+                )
+              })}
           </StyledBox>
           {numProjects > pageSize ? (
             <Pagination
@@ -88,7 +89,7 @@ function Projects({
             />
           ) : null}
         </Box>
-      )}
+      ) : null}
     </>
   )
 }
