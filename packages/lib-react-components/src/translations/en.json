@@ -60,8 +60,10 @@
     "loading": "Loading"
   },
   "ProjectCard": {
+    "classifications": "Classifications",
     "finished": "Finished",
-    "paused": "Paused"
+    "paused": "Paused",
+    "state": "State"
   },
   "ZooFooter": {
     "aboutLabels": {

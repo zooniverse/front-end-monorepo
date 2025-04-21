@@ -2,6 +2,7 @@ import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
 
+import { useTranslation } from '../translations/i18n'
 import SpacedText from '../SpacedText'
 import CardHeader from './components/CardHeader'
 
@@ -83,8 +84,21 @@ function ProjectCard({
   size = 'medium',
   state = 'live'
 }) {
+  const { t } = useTranslation()
+
+  let cardTitle = `${displayName}, ${description}`
+  if (state === 'paused') {
+    cardTitle = cardTitle + `, ${t('ProjectCard.state')}: ${t('ProjectCard.paused')}`
+  } else if (state === 'finished') {
+    cardTitle = cardTitle + `, ${t('ProjectCard.state')}: ${t('ProjectCard.finished')}`
+  }
+  if (badge) {
+    cardTitle = cardTitle + `, ${t('ProjectCard.classifications')}: ${badge}`
+  }
+
   return (
     <StyledProjectCard
+      a11yTitle={cardTitle}
       elevation='small'
       flex={false}
       forwardedAs='a'
