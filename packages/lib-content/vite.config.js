@@ -10,6 +10,10 @@ import { dependencies, peerDependencies } from './package.json'
 export default defineConfig({
   plugins: [react()],
   build: {
+    commonjsOptions: {
+      include: [/node_modules/, /lib-panoptes-js/],
+      transformMixedEsModules: true,
+    },
     copyPublicDir: false,
     lib: { // Library Mode
       entry: resolve(__dirname, 'src/index.js'),
@@ -25,7 +29,10 @@ export default defineConfig({
         'next/link', // not caught by peerDep 'next'
         'next/script',
         'react/jsx-runtime', // not caught by peerDep 'react
-      ]
+      ],
+      output: {
+        banner: '"use client";',
+      }
     },
     outDir: 'dist', // default
     target: 'modules' // default, targets browsers with native ES modules
@@ -34,6 +41,9 @@ export default defineConfig({
     alias: {
       '@translations': resolve(__dirname, 'src/translations'),
     },
+  },
+  optimizeDeps: {
+    include: ['@zooniverse/panoptes-js'],
   },
   test: {
     globals: true,

@@ -5,14 +5,14 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "type": "module",
-  "main": "dist/content-vite.js",
-  "module": "dist/content-vite.js",
+  "main": "dist/content.js",
+  "module": "dist/content.js",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/content-vite.js"
+      "import": "./dist/content.js"
     }
   },
   "sideEffects": false,
@@ -20,8 +20,10 @@
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
     "build": "vite build",
+    "build:es6": "yarn build",
     "storybook": "storybook dev -p 6005",
     "build-storybook": "storybook build",
+    "prepare": "yarn build",
     "test": "vitest run"
   },
   "dependencies": {

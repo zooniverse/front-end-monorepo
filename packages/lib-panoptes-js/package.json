@@ -5,6 +5,7 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.5.2",
   "main": "src/index.js",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/zooniverse/front-end-monorepo.git",
