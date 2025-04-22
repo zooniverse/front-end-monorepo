@@ -76,9 +76,14 @@ function UserStatsAllProjects({
         />
       }
     >
-      <ContentBox pad={grommetSize}>
-        <Box direction='row' width='100%' margin={{ bottom: 'small' }} justify='between'>
-          <Heading level='1'>
+      <ContentBox pad={'50px'}>
+        <Box
+          direction={grommetSize === 'small' ? 'column' : 'row'}
+          width='100%'
+          margin={{ bottom: 'small' }}
+          justify={grommetSize === 'small' ? 'start' : 'between'}
+        >
+          <Heading level='1' margin={{ top: '0' }}>
             {user?.display_name && (
               <SpacedText
                 color={{ dark: 'accent-1', light: 'neutral-1' }}

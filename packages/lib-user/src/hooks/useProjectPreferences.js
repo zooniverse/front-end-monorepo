@@ -25,9 +25,15 @@ async function fetchUserProjectPreferences({ page, pageSize, token, userID }) {
       authorization
     })
 
-    return response.body.project_preferences?.filter(
-      preference => preference.activity_count > 0
-    )
+    // grab the project ids in sort order from /project_preferences
+    // but only if the user actually made a classification
+    const recentProjectIds = response.body?.project_preferences?.map(preference => {
+        return preference.links.project // project id as a string
+    }).filter(id => id) // just in case, make sure there's no empty spots in the recentProjectIds array
+
+    const numProjects = response.body.meta?.project_preferences?.count
+
+    return { numProjects, recentProjectIds }
   } catch (error) {
     console.error(error)
     throw error

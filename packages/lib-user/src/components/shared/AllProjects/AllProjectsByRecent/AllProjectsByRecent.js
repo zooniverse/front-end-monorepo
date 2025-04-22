@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 
 import { usePanoptesProjects, useProjectPreferences } from '@hooks'
@@ -14,27 +14,24 @@ function AllProjectsByRecent({
 }) {
   const [page, setPage] = useState(1)
 
-  // Number of page in Pagination is determined by the length of project_contributions
-  // returned from ERAS even though we're showing this UI sorted by 'recent' as
-  // determined by project_preferences
-  const numProjects = projectContributions?.length
-
   // fetch first page of /project_preferences
   const {
     data: projectPreferences,
     error: preferencesError,
     loading: preferencesLoading
-  } = useProjectPreferences({ page, pageSize: PAGE_SIZE, userID: user?.id })
+  } = useProjectPreferences({
+    page,
+    pageSize: PAGE_SIZE,
+    projectContributions,
+    userID: user?.id
+  })
 
-  // grab the project ids in sort order from /project_preferences
-  const recentProjectIds = projectPreferences?.map(
-    preference => preference.links.project
-  )
+  const numProjects = projectPreferences?.numProjects
 
   // fetch project data from panoptes for the cards
   const projectsQuery = {
     cards: true,
-    id: recentProjectIds?.join(','),
+    id: projectPreferences?.recentProjectIds?.join(','),
     page_size: PAGE_SIZE
   }
 
@@ -47,24 +44,21 @@ function AllProjectsByRecent({
   // Match project data and ERAS count by project id to each project preference to keep the sort order
   let renderedProjects = []
   if (projects?.length) {
-    projectPreferences
-      .map(preference => {
-        const matchedProjectObj = projects?.find(
-          project => project.id === preference.links?.project // id string
-        )
+    projectPreferences?.recentProjectIds.map(recentProjectID => {
+      const matchedProjectObj = projects?.find(
+        project => project.id === recentProjectID
+      )
 
-        if (matchedProjectObj) {
-          const erasStat = projectContributions?.find(
-            stat => stat.project_id.toString() === matchedProjectObj.id
-          )
-          renderedProjects.push({
-            ...matchedProjectObj,
-            count: erasStat.count
-          })
-        }
-        // return null
-      })
-      .filter(preference => preference?.project?.slug)
+      if (matchedProjectObj) {
+        const erasStat = projectContributions?.find(
+          stat => stat.project_id.toString() === matchedProjectObj.id
+        )
+        renderedProjects.push({
+          ...matchedProjectObj,
+          count: erasStat?.count // this will be blank if user did not make classifications on the project
+        })
+      }
+    })
   }
 
   const loading = containerLoading || projectsLoading || preferencesLoading
