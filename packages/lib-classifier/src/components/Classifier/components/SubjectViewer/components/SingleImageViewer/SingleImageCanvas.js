@@ -20,6 +20,7 @@ function SingleImageCanvas({
   src,
   subject,
   transform, // per VisXZoom
+  transformMatrix,
 }) {
   const canvasLayer = useRef()
 
@@ -29,7 +30,8 @@ function SingleImageCanvas({
       <SVGContext.Provider
         value={{
           canvas: canvasLayer.current,
-          rotate: rotation
+          rotate: rotation,
+          transformMatrix
         }}
       >
         <svg

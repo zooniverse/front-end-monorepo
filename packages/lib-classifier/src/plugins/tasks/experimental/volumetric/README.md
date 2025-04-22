@@ -20,8 +20,7 @@ The volumetric annotation consists of the following structure:
   "threshold": 15,
   "points": {
     "active": [{ "x": 1, "y": 1, "z": 1 }],
-    "connected": [[{ "x": 1, "y": 1, "z": 1 }]],
-    "all": [{ "x": 1, "y": 1, "z": 1 }]
+    "connected": [[{ "x": 1, "y": 1, "z": 1 }]]
   }
 }
 ```
@@ -29,4 +28,3 @@ The volumetric annotation consists of the following structure:
 - **threshold**: the value the A* algorithm uses to choose connected points
 - **points.active**: the individual voxel the user clicks
 - **points.connected**: the voxels connected to the index-adjusted active voxel using the threshold value for the a* algorithm
-- **points.all**: collapsed array of all points in active and connected

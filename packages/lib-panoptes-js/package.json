@@ -3,7 +3,7 @@
   "description": "A Javascript client for Panoptes API using Superagent",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -18,17 +18,17 @@
   },
   "dependencies": {
     "jose": "~5.9.6",
-    "superagent": "^8.0.6"
+    "superagent": "^10.2.0"
   },
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
     "chai": "~4.5.0",
     "dirty-chai": "~2.0.1",
-    "jsdom": "~25.0.1",
-    "mocha": "~10.8.2",
+    "jsdom": "~26.0.0",
+    "mocha": "~11.1.0",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.5.1",
-    "sinon": "~19.0.2",
+    "sinon": "~20.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0"
   },

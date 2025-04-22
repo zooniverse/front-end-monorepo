@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - ZooFooter links and labels updated to reflect newly launched FEM pages.
 - Updated styling in ProjectCard's badge component.
 - `useProgressiveImage`: run `onLoad` callbacks immediately when `delay` is 0. Add optional `onLoad` and `onError` event handlers for image `load` events.
+- Add project state (paused, finished) overlay to ProjectCard.
 
 ### Fixed
 
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Project card badges are now circular in Safari.
 - Inconsistent text sizes for Markdown tables and lists.
 - `useUnreadNotifications` and `useUnreadMessages` now wait for Panoptes auth to complete before fetching data.
+- `Modal`: add the `dialog` role and an accessible name. Pass keyboard focus to dialogs when they open.
 
 ## [1.13.0] 2024-05-17
 

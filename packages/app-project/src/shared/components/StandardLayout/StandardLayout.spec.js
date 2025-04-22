@@ -115,7 +115,7 @@ describe('Component > StandardLayout', function () {
     it('should have a teal border', function () {
       expect(projectPage).to.be.ok()
       const { border } = window.getComputedStyle(projectPage)
-      expect(border).to.equal('4px solid #00979d')
+      expect(border).to.equal('4px solid rgb(0, 151, 157)') // jsdom returns rbg even though the component uses hex
     })
   })
 

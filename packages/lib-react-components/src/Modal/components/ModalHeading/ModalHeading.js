@@ -34,7 +34,7 @@ function ModalHeading ({ background = 'brand', color = 'neutral-6', className = 
         </StyledHeading>}
       {closeFn &&
         <CloseButton
-          className='subtaskpopup-element-that-ignores-drag-actions'
+          className='element-that-ignores-drag-actions'
           closeFn={closeFn}
           color={color}
         />

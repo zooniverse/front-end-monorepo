@@ -7,6 +7,11 @@
     "hours": "Hours",
     "projects": "Projects"
   },
+  "AllProjects": {
+    "error": "There was an error",
+    "noProjects": "No projects found",
+    "title": "{{displayName}}'s Projects"
+  },
   "BarChart": {
     "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
     "day": "Day",
@@ -20,14 +25,29 @@
   "Contributors": {
     "ContributorsList": {
       "a11y": "{{name}} member stats",
-      "privateProject": "Private Project {{index}}"
+      "privateProject": "Private Project {{index}}",
+      "projectStats": "{{name}} project stats"
     },
     "ProjectStats": {
       "a11y": "{{project}} member stats"
     },
+    "ExportStats": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "complete": "Export Complete",
+      "confirm": "Confirm",
+      "confirmMessage": "Generate CSV of group stats for {{memberCount}} members?",
+      "downloading": "Downloading data...",
+      "download": "Click link to download CSV:",
+      "error": "Export Error",
+      "errorMessage": "Failed to generate export.",
+      "fileSize": "Approximately {{fileSize}}.",
+      "generating": "Generating stats export file. Do not close this browser tab.",
+      "progress": "Progress: {{progress}}%",
+      "retry": "Retry"
+    },
     "error": "There was an error",
     "exportLink": "Export all stats",
-    "generating": "Generating stats export...",
     "noPermission": "You do not have permission to view this group's contributors.",
     "none": "There are no contributors to this group.",
     "title": "Full Group Stats"

@@ -102,7 +102,7 @@ function AboutPage() {
           <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('AboutPage.sideBarLabel')}
+              ariaLabel={t('AboutPage.sidebarLabel')}
               sections={sidebarSections}
               setActiveSection={setActiveSection}
             />
@@ -118,7 +118,7 @@ function AboutPage() {
               slug={sidebarSections[0].slug}
             />
             <SubHeading>
-              &quot;{t('AboutPage.ourMission.subheadings.one')}&quot;
+              &quot;{t('AboutPage.ourMission.subheadings.first')}&quot;
             </SubHeading>
             <OurMission />
 

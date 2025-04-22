@@ -1,10 +1,20 @@
 import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
+import styled from 'styled-components'
 import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 import { useTranslation, Trans } from '../../../../translations/i18n.js'
 
 import { ContentBox } from '@components/shared'
+
+const StyledBox = styled(Box)`
+  list-style: none;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: center;
+  }
+`
 
 export default function RecentProjects({
   isLoading = false,
@@ -15,7 +25,11 @@ export default function RecentProjects({
   const size = useContext(ResponsiveContext)
 
   return (
-    <ContentBox title={t('UserHome.RecentProjects.title')} screenSize={size}>
+    <ContentBox
+      title={t('UserHome.RecentProjects.title')}
+      titleId='recent-projects'
+      screenSize={size}
+    >
       {isLoading && (
         <Box fill justify='center' align='center'>
           <Loader />
@@ -44,13 +58,14 @@ export default function RecentProjects({
       )}
       {!isLoading &&
         projectPreferences?.length ? (
-          <Box
-            as='ul'
+          <StyledBox
+            aria-labelledby='recent-projects'
+            forwardedAs='ul'
             direction='row'
             gap='small'
             pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
             overflow={{ horizontal: 'auto' }}
-            style={{ listStyle: 'none' }}
+            tabIndex={0}
             margin='0'
           >
             {projectPreferences.map(preference => (
@@ -61,10 +76,11 @@ export default function RecentProjects({
                   href={`https://www.zooniverse.org/projects/${preference?.project?.slug}`}
                   imageSrc={preference?.project?.avatar_src}
                   size={size}
+                  state={preference?.project?.state}
                 />
               </li>
             ))}
-          </Box>
+          </StyledBox>
         ) : null}
     </ContentBox>
   )
