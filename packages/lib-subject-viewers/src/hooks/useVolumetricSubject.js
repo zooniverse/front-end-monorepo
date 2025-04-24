@@ -15,15 +15,16 @@ export const useVolumetricSubject = ({ onError, onReady, subject }) => {
 
     const jsonLocation =
       subject.locations.find(
-        (l) => l.type === 'application' || l.type === 'text'
-      ) || {}
+        (l) => l['application/json']
+        ) || { 'application/json': null }
 
-    if (!jsonLocation.url) return setError('No JSON url found for this subject')
+    const url = jsonLocation['application/json'];
+    if (!url) return setError('No JSON url found for this subject')
 
-    fetch(jsonLocation.url)
+    fetch(url)
       .then((res) => res.json())
-      .then((data) => {
-        setData(data)
+      .then((json) => {
+        setData(json.data)
         onReady()
       })
       .catch((err) => {

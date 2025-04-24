@@ -11,13 +11,18 @@ import asyncStates from '@zooniverse/async-states'
 const DEFAULT_HANDLER = () => {}
 
 export default function VolumetricViewer ({
-  loadingState = asyncStates.initialized,
+  loadingState = asyncStates.success,
   onAnnotation = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  subject
+  subject,
+  view = 'default', // 'default' | 'preview'
 }) {
-  const { data, loading, error } = useVolumetricSubject({ onError, onReady, subject })
+  const { data, loading, error } = useVolumetricSubject({
+    onError,
+    onReady,
+    subject: JSON.parse(JSON.stringify(subject)) // doesn't work properly with MobX-structured subjects
+  })
 
   const [modelState, setModelState] = useState({})
 
@@ -50,6 +55,7 @@ export default function VolumetricViewer ({
                 config={{}}
                 data={data}
                 models={modelState}
+                view={view}
               />
 }
 
@@ -78,5 +84,6 @@ VolumetricViewer.propTypes = {
   onAnnotation: func,
   onError: func,
   onReady: func,
-  subject: object
+  subject: object,
+  view: string
 }

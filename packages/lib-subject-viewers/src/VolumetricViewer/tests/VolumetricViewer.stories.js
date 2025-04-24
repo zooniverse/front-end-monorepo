@@ -57,3 +57,13 @@ export const Volume64x64x64 = () => {
     />
   )
 }
+
+export const Volume64x64x64Preview = () => {
+  return (
+    <VolumetricViewer
+      loadingState={asyncStates.success}
+      subject={VolumetricSubjectMock64}
+      view="preview"
+    />
+  )
+}
