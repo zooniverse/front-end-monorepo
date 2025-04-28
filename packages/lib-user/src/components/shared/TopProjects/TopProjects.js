@@ -24,7 +24,7 @@ const StyledRowList = styled(Box)`
   scroll-snap-type: x mandatory;
   
   li {
-    scroll-snap-align: center;
+    scroll-snap-align: start;
   }
 `
 
