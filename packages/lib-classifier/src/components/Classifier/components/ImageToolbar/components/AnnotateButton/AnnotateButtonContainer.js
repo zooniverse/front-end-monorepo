@@ -5,12 +5,21 @@ import { useStores } from '@hooks'
 import AnnotateButton from './AnnotateButton'
 
 function storeMapper(classifierStore) {
-  const { annotate, enableAnnotate, separateFramesView } =
-    classifierStore.subjectViewer
+  const {
+    subjectViewer: {
+      annotate,
+      enableAnnotate,
+      separateFramesView
+    },
+    workflowSteps: {
+      hasActiveAnnotateTask
+    }
+  } = classifierStore
 
   return {
     annotate,
     enableAnnotate,
+    hasActiveAnnotateTask,
     separateFramesView
   }
 }
@@ -22,12 +31,14 @@ function AnnotateButtonContainer({
   const {
     annotate,
     enableAnnotate,
+    hasActiveAnnotateTask,
     separateFramesView
   } = useStores(storeMapper)
 
   return (
     <AnnotateButton
       active={separateFramesView ? separateFrameAnnotate : annotate}
+      disabled={!hasActiveAnnotateTask}
       onClick={
         separateFramesView ? separateFrameEnableAnnotate : enableAnnotate
       }
