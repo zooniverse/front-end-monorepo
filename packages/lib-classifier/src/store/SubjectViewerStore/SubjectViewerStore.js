@@ -49,6 +49,10 @@ const SubjectViewer = types
       return false
     },
 
+    get hasActiveAnnotateTask () {
+      return getRoot(self)?.workflowSteps.hasActiveAnnotateTask
+    },
+
     get hasAnnotateTask () {
       return getRoot(self)?.workflowSteps.hasAnnotateTask
     },
@@ -75,8 +79,8 @@ const SubjectViewer = types
       afterAttach () {
         function _syncAnnotateVisibility() {
           // Make sure the right button is active in the ImageToolbar
-          self.setAnnotateVisibility(self.hasAnnotateTask)
-          if (self.hasAnnotateTask) {
+          self.setAnnotateVisibility(self.hasActiveAnnotateTask)
+          if (self.hasActiveAnnotateTask) {
             self.enableAnnotate()
           } else {
             self.enableMove()

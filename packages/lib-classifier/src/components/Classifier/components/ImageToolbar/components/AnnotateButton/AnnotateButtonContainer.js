@@ -6,15 +6,11 @@ import AnnotateButton from './AnnotateButton'
 
 function storeMapper(classifierStore) {
   const {
-    subjectViewer: {
-      annotate,
-      enableAnnotate,
-      separateFramesView
-    },
-    workflowSteps: {
-      hasActiveAnnotateTask
-    }
-  } = classifierStore
+    annotate,
+    enableAnnotate,
+    hasActiveAnnotateTask,
+    separateFramesView
+  } = classifierStore.subjectViewer
 
   return {
     annotate,
