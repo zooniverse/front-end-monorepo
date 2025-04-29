@@ -1,13 +1,15 @@
 import { Box } from 'grommet'
 import { bool, func, shape, string } from 'prop-types'
-import { useEffect, useState, useRef } from 'react'
-import styled, { css } from 'styled-components'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { useTranslation } from '@translations/i18n'
 
 import ZoomControlButton from '../ZoomControlButton'
 import ZoomHelperOverlay from './components/ZoomHelperOverlay'
 import VisXZoom from '../SVGComponents/VisXZoom'
 import SingleImageCanvas from './SingleImageCanvas'
 
+// For positioning ZoomHelperOverlay on top of StyledSVG (the subject)
 const Relative = styled(Box)`
   position: relative;
 `
@@ -16,7 +18,7 @@ const StyledSVG = styled.svg`
   background-color: ${props => props.theme.global.colors['light-4']};
   touch-action: pinch-zoom;
   max-width: ${props => props.$maxWidth};
-  ${props => props.$maxHeight && css`max-height: ${props.$maxHeight};`}
+  max-height: ${props => props.$maxHeight};
 `
 
 const DEFAULT_HANDLER = () => true
@@ -51,6 +53,7 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = true
 }) {
+  const { t } = useTranslation('components')
   const [showZoomHelper, setShowZoomHelper] = useState(false)
   const [fadingOut, setFadingOut] = useState(false)
 
@@ -62,12 +65,12 @@ function SingleImageViewer({
   function handleFirstScroll() {
     if (allowsScrolling && zooming) {
       setShowZoomHelper(true)
-      
+
       // Set fading out after 3 seconds
       setTimeout(() => {
         setFadingOut(true)
       }, 3000)
-      
+
       // Hide completely after animation completes (300ms animation)
       setTimeout(() => {
         setShowZoomHelper(false)
@@ -76,6 +79,7 @@ function SingleImageViewer({
     }
   }
 
+  // For CenteredLayout dimensions
   const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
   const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
@@ -101,7 +105,7 @@ function SingleImageViewer({
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
           {allowsScrolling && (
-            <desc id='scrolling-info'>In pan mode, use CTRL + scroll to zoom.</desc>
+            <desc id='scrolling-info'>{t('SubjectViewer.zoomHelp')}</desc>
           )}
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>

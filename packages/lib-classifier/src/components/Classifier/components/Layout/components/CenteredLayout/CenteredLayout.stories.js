@@ -53,7 +53,7 @@ tasksEntries.forEach(([taskKey, task]) => {
 const workflowSnapshot = WorkflowFactory.build({
   configuration: {
     invert_subject: true,
-    limit_subject_height: true
+    limit_subject_height: true // required for this layout to be applied
   },
   first_task: 'init',
   strings: taskStrings,
