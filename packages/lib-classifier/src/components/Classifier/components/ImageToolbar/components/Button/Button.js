@@ -38,8 +38,8 @@ const StyledButton = styled(GrommetButton)`
     cursor: not-allowed;
   }
 
-  &:hover:not(:disabled):not([aria-pressed='true']),
-  &:focus:not(:disabled):not([aria-pressed='true']) {
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
     ${props =>
       props.theme.dark
         ? css`
