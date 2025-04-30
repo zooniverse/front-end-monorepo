@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { Box } from 'grommet'
+import { Box, Grid } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -36,8 +36,13 @@ const ContainerBox = styled(Box)`
   }
 `
 
-const ViewBox = styled(Box)`
-  flex-direction: row;
+// Similar to the shared ViewerGrid component, but 'auto' columns
+// allows for always 3rem-width toolbar and adapts to limited-height subjects
+const ViewerGrid = styled(Grid)`
+  grid-area: viewer;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas: 'subject toolbar';
 `
 
 const StyledImageToolbarContainer = styled.div`
@@ -74,7 +79,7 @@ export default function CenteredLayout({
   return (
     <Relative>
       <ContainerBox hasSurveyTask={hasSurveyTask}>
-        <ViewBox forwardedAs='section'>
+        <ViewerGrid forwardedAs='section'>
           <StyledSubjectContainer hasSurveyTask={hasSurveyTask}>
             <Banners />
             <SubjectViewer />
@@ -85,7 +90,7 @@ export default function CenteredLayout({
               <StyledImageToolbar />
             </StyledImageToolbarContainer>
           )}
-        </ViewBox>
+        </ViewerGrid>
         <StickyTaskArea hasSurveyTask={hasSurveyTask}>
           <TaskArea />
           {separateFramesView && <FieldGuide />}
