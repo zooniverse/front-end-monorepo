@@ -25,14 +25,6 @@ const StyledButton = styled(GrommetButton)`
     margin-bottom: clamp(8px, 20%, 10px);
     // similar to padding of Image Toolbar
   }
-  
-  &[aria-pressed='true'] {
-    background-color: ${props => props.theme.global.colors.brand};
-
-    > svg {
-      fill: white;
-    }
-  }
 
   &:disabled {
     cursor: not-allowed;
@@ -59,6 +51,22 @@ const StyledButton = styled(GrommetButton)`
 
       > path {
         fill: ${props => (props.theme.dark ? 'black' : 'white')};
+      }
+    }
+  }
+
+  &[aria-pressed='true'] {
+    background-color: ${props => props.theme.global.colors.brand};
+
+    > svg {
+      fill: white;
+    }
+
+    &:not(:hover) {
+      background-color: ${props => props.theme.global.colors.brand};
+      
+      > svg {
+        fill: white;
       }
     }
   }
