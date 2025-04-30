@@ -6,6 +6,7 @@ import { useTranslation } from '../../translations/i18n'
 import SpacedText from '../../SpacedText'
 
 const StyledBox = styled(Box)`
+  backdrop-filter: blur(2px);
   background: ${props => props.state === 'paused' ? 
     'rgba(67, 187, 253, 0.5)'
     : props.state === 'finished' ?
