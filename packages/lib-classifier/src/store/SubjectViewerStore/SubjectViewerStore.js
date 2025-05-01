@@ -182,8 +182,6 @@ const SubjectViewer = types
         } else {
           self.enableMove()
         }
-
-        self.showAnnotate = canAnnotate 
       },
 
       setFlipbookSpeed (speed) {
