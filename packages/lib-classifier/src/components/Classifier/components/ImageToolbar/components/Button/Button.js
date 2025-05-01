@@ -31,7 +31,7 @@ const StyledButton = styled(GrommetButton)`
   }
 
   &:hover:not(:disabled),
-  &:focus:not(:disabled) {
+  &:focus-visible:not(:disabled) {
     ${props =>
       props.theme.dark
         ? css`
