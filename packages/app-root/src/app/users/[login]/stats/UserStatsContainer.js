@@ -1,6 +1,6 @@
 'use client'
 
-import { UserStats } from '@zooniverse/user'
+import { UserStats, usePanoptesUser } from '@zooniverse/user'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
 
@@ -28,7 +28,18 @@ function UserStatsContainer({
   projectId,
   startDate
 }) {
-  const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
+  const { adminMode, isLoading, user: authUser } = useContext(PanoptesAuthContext)
+
+  // fetch user with created_at property
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = usePanoptesUser({
+    authUser,
+    login,
+    requiredUserProperty: 'created_at'
+  })
   
   const router = useRouter()
 
@@ -37,12 +48,10 @@ function UserStatsContainer({
   if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
-  // set start date per query params or default to 7 days ago
+  // set start date per query params or default to user.created_at
   let selectedStartDate = startDate
   if (selectedStartDate === undefined) {
-    const defaultStartDate = new Date()
-    defaultStartDate.setUTCDate(defaultStartDate.getUTCDate() - 6)
-    selectedStartDate = defaultStartDate.toISOString().substring(0, 10)
+    selectedStartDate = user?.created_at?.substring(0, 10)
   }
 
   useEffect(function updateStartDateParam() {
@@ -51,8 +60,6 @@ function UserStatsContainer({
       router.replace(`${window.location.pathname}?${newQueryParams.toString()}`)
     }
   }, [selectedStartDate, startDate, router])
-
-  
 
   function setSelectedDateRange({ endDate, startDate }) {
     const todayUTC = new Date().toISOString().substring(0, 10)
@@ -78,12 +85,12 @@ function UserStatsContainer({
   return (
     <AuthenticatedUsersPageContainer
       adminMode={adminMode}
-      isLoading={isLoading}
+      isLoading={isLoading || userLoading}
       login={login}
-      user={user}
+      user={authUser}
     >
       <UserStats
-        authUser={user}
+        authUser={authUser}
         login={login}
         paramsValidationMessage={paramsValidationMessage}
         selectedDateRange={{
