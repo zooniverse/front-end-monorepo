@@ -78,7 +78,7 @@
     "sinon": "~20.0.0",
     "sinon-chai": "~3.7.0",
     "storybook": "~7.6.11",
-    "storybook-react-i18next": "~2.0.1"
+    "storybook-react-i18next": "~3.3.1"
   },
   "engines": {
     "node": ">=20.5 <=20.18"

@@ -117,7 +117,7 @@
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
-    "storybook-react-i18next": "~2.0.1",
+    "storybook-react-i18next": "~3.3.1",
     "style-loader": "~4.0.0",
     "superagent": "~8.1.0",
     "webpack": "~5.99.6",
