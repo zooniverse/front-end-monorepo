@@ -95,7 +95,18 @@
       "security": "Security"
     },
     "projectLabels": {
-      "projects": "Projects"
+      "projects": "Projects",
+      "arts": "Arts",
+      "biology": "Biology",
+      "climate": "Climate",
+      "history": "History",
+      "language": "Language",
+      "literature": "Literature",
+      "medicine": "Medicine",
+      "nature": "Nature",
+      "physics": "Physics",
+      "social": "Social Science",
+      "space": "Space"
     },
     "talkLabels": {
       "announcements": "Announcements",
