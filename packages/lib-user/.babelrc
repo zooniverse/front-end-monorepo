@@ -17,25 +17,10 @@
       "runtime": "automatic"
     }],
     ["@babel/preset-env", {
-      "modules": "auto",
+      "modules": false,
       "targets": {
-        "browsers": "last 2 versions"
+        "esmodules": true
       }
     }]
-  ],
-  "env": {
-    "es6": {
-      "presets": [
-        ["@babel/preset-react", {
-          "runtime": "automatic"
-        }],
-        ["@babel/preset-env", {
-          "modules": false,
-          "targets": {
-            "esmodules": true
-          }
-        }]
-      ]
-    }
-  }
+  ]
 }

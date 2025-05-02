@@ -9,6 +9,7 @@
   },
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "version": "0.0.1",
+  "type": "commonjs",
   "main": "src/async-states.js",
   "scripts": {
     "lint": "zoo-standard src --fix | snazzy",
@@ -22,7 +23,7 @@
     "snazzy": "~9.0.0"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   },
   "publishConfig": {
     "access": "public"
