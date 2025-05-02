@@ -17,7 +17,7 @@ const StyledBox = styled(Box)`
   column-gap: 8px;
 `
 
-export default function TwoColumnLinkList({ className, labels, urls }) {
+export default function TwoColumnLinkList({ labels, urls }) {
   const [title, ...links] = zipLabelsAndUrls(labels, urls)
 
   return (
