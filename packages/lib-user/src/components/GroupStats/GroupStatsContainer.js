@@ -3,11 +3,9 @@
 import { bool, func, shape, string } from 'prop-types'
 
 import { GroupContainer } from '@components/shared'
-import { getDefaultDateRange } from '../../utils'
 
 import GroupStats from './GroupStats'
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_HANDLER = () => true
 
 function GroupStatsContainer({
@@ -16,7 +14,7 @@ function GroupStatsContainer({
   groupId,
   joinToken,
   paramsValidationMessage = '',
-  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedDateRange,
   selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
@@ -44,13 +42,13 @@ GroupStatsContainer.propTypes = {
   authUser: shape({
     id: string
   }),
-  groupId: string,
+  groupId: string.isRequired,
   joinToken: string,
   paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
+  }).isRequired,
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func

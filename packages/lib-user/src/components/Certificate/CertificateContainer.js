@@ -36,13 +36,12 @@ function CertificateContainer({
 
   // fetch stats
   // only fetch stats (define sourceId with user.id) if valid params and start date defined
-  let userId = null
+  let sourceId = null
   if (!paramsValidationMessage && selectedDateRange?.startDate) {
-    userId = user?.id
+    sourceId = user?.id
   }
   const statsQuery = {
     end_date: selectedDateRange?.endDate,
-    period: 'year',
     start_date: selectedDateRange?.startDate,
     time_spent: true
   }
@@ -58,7 +57,7 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: userId,
+    sourceId,
     query: statsQuery
   })
 
