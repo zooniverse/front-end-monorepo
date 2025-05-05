@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.14.0] 2025-05-02
 
 ### Changed
 
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Updated styling in ProjectCard's badge component.
 - `useProgressiveImage`: run `onLoad` callbacks immediately when `delay` is 0. Add optional `onLoad` and `onError` event handlers for image `load` events.
 - Add project state (paused, finished) overlay to ProjectCard.
+- Add disciplines to the Projects links in ZooFooter
 
 ### Fixed
 

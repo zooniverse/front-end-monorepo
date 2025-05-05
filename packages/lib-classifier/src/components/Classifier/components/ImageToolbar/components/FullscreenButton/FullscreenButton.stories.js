@@ -1,26 +1,31 @@
-import { Box } from 'grommet'
 import FullscreenButton from './FullscreenButton'
-
-const args = {
-  active: false,
-  disabled: false
-}
+import { ComponentDecorator } from '../shared/ComponentDecorator'
 
 export default {
   title: 'Image Toolbar / FullscreenButton',
   component: FullscreenButton,
+  decorators: [ComponentDecorator],
   argTypes: {
+    active: {
+      control: 'boolean',
+      value: false
+    },
+    disabled: {
+      control: 'boolean',
+      value: false
+    },
     onClick: {
       action: 'clicked'
     }
-  },
-  args
+  }
 }
 
 export function Default({ active, disabled, onClick }) {
   return (
-    <Box width='72px' pad='12px'>
-      <FullscreenButton active={active} disabled={disabled} onClick={onClick} />
-    </Box>
+    <FullscreenButton
+      active={active}
+      disabled={disabled}
+      onClick={onClick}
+    />
   )
 }
