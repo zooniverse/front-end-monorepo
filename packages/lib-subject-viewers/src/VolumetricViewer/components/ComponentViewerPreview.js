@@ -13,7 +13,7 @@ const StyledBox = styled(Box)`
 export const ComponentViewerPreview = ({ models }) => {
   return (
     <StyledBox className='volume-cube'>
-      <Cube {...models} />
+      <Cube {...models} orbitControlsEnabled={false} />
     </StyledBox>
   )
 }

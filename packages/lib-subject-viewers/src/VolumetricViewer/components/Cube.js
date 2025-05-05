@@ -36,7 +36,7 @@ const AXIS_COLORS = [
   0x235DFF, // z
 ]
 
-export const Cube = ({ annotations, tool, viewer }) => {
+export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true }) => {
   const FPS_INTERVAL = 1000 / 60
   const NUM_MESH_POINTS = Math.pow(viewer.base, 2) * 3 - viewer.base * 3 + 1
 
@@ -151,6 +151,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
     threeRef.current.orbit.enableDamping = false
     threeRef.current.orbit.enableZoom = false
     threeRef.current.orbit.enablePan = false
+    threeRef.current.orbit.enableRotate = orbitControlsEnabled
     threeRef.current.orbit.update()
   }
 
