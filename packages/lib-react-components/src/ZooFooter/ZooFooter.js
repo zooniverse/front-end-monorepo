@@ -9,7 +9,8 @@ import {
   LinkList,
   PolicyLinkSection,
   LogoAndTagline,
-  SocialAnchor
+  SocialAnchor,
+  TwoColumnLinkList
 } from './components'
 
 const StyledFooter = styled(Box)`
@@ -17,6 +18,10 @@ const StyledFooter = styled(Box)`
   @media print {
     display: none;
   }
+`
+
+const StyledGrid = styled(Grid)`
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 `
 
 const defaultProps = {
@@ -49,7 +54,20 @@ const defaultProps = {
     'https://status.zooniverse.org/',
     'https://www.zooniverse.org/security'
   ],
-  projectNavListURLs: ['https://www.zooniverse.org/projects'],
+  projectNavListURLs: [
+    'https://www.zooniverse.org/projects',
+    'https://www.zooniverse.org/projects?discipline=arts',
+    'https://www.zooniverse.org/projects?discipline=biology',
+    'https://www.zooniverse.org/projects?discipline=climate',
+    'https://www.zooniverse.org/projects?discipline=history',
+    'https://www.zooniverse.org/projects?discipline=language',
+    'https://www.zooniverse.org/projects?discipline=literature',
+    'https://www.zooniverse.org/projects?discipline=medicine',
+    'https://www.zooniverse.org/projects?discipline=nature',
+    'https://www.zooniverse.org/projects?discipline=physics',
+    'https://www.zooniverse.org/projects?discipline=space',
+    'https://www.zooniverse.org/projects?discipline=social+science',
+  ],
   talkNavListURLs: [
     'https://www.zooniverse.org/talk',
     'https://www.zooniverse.org/talk/17',
@@ -111,14 +129,27 @@ export default function ZooFooter({
     t('ZooFooter.policyLabels.security')
   ]
 
-  const projectNavListLabels = [t('ZooFooter.projectLabels.projects')]
+  const projectNavListLabels = [
+    t('ZooFooter.projectLabels.projects'),
+    t('ZooFooter.projectLabels.arts'),
+    t('ZooFooter.projectLabels.biology'),
+    t('ZooFooter.projectLabels.climate'),
+    t('ZooFooter.projectLabels.history'),
+    t('ZooFooter.projectLabels.language'),
+    t('ZooFooter.projectLabels.literature'),
+    t('ZooFooter.projectLabels.medicine'),
+    t('ZooFooter.projectLabels.nature'),
+    t('ZooFooter.projectLabels.physics'),
+    t('ZooFooter.projectLabels.space'),
+    t('ZooFooter.projectLabels.social'),
+  ]
 
   const talkNavListLabels = [
     t('ZooFooter.talkLabels.talk'),
     t('ZooFooter.talkLabels.troubleshooting'),
     t('ZooFooter.talkLabels.announcements'),
     t('ZooFooter.talkLabels.projectBuilding'),
-    t('ZooFooter.talkLabels.data'),
+    t('ZooFooter.talkLabels.data')
   ]
 
   return (
@@ -164,16 +195,12 @@ export default function ZooFooter({
           </Box>
         </Box>
 
-        <Grid
-          as='section'
+        <StyledGrid
+          forwardedAs='section'
           gap='small'
-          columns={{
-            count: 'fit',
-            size: '120px'
-          }}
-          pad={{ horizontal: 'large', top: 'medium', bottom: 'large' }}
+          pad={{ horizontal: 'medium', top: 'medium', bottom: 'large' }}
         >
-          <LinkList labels={projectNavListLabels} urls={projectNavListURLs} />
+          <TwoColumnLinkList labels={projectNavListLabels} urls={projectNavListURLs} />
           <LinkList labels={aboutNavListLabels} urls={aboutNavListURLs} />
           <LinkList
             labels={getInvolvedNavListLabels}
@@ -181,7 +208,7 @@ export default function ZooFooter({
           />
           <LinkList labels={talkNavListLabels} urls={talkNavListURLs} />
           <LinkList labels={buildNavListLabels} urls={buildNavListURLs} />
-        </Grid>
+        </StyledGrid>
       </Box>
       <Box
         background={{
