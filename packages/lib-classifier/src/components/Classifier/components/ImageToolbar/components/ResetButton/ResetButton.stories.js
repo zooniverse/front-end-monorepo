@@ -1,25 +1,26 @@
-import { Box } from 'grommet'
 import ResetButton from './ResetButton'
-
-const args = {
-  disabled: false
-}
+import { ComponentDecorator } from '../shared/ComponentDecorator'
 
 export default {
   title: 'Image Toolbar / ResetButton',
   component: ResetButton,
+  decorators: [ComponentDecorator],
   argTypes: {
+    disabled: {
+      control: 'boolean',
+      value: false
+    },
     onClick: {
       action: 'clicked'
     }
-  },
-  args
+  }
 }
 
 export function Default({ disabled, onClick }) {
   return (
-    <Box width='72px' pad='12px'>
-      <ResetButton disabled={disabled} onClick={onClick} />
-    </Box>
+    <ResetButton
+      disabled={disabled}
+      onClick={onClick}
+    />
   )
 }
