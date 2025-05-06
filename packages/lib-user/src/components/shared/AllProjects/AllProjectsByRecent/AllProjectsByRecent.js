@@ -22,10 +22,10 @@ function AllProjectsByRecent({
   } = useProjectPreferences({
     page,
     pageSize: PAGE_SIZE,
-    projectContributions,
     userID: user?.id
   })
 
+  // for the Pagination component
   const numProjects = projectPreferences?.numProjects
 
   // fetch project data from panoptes for the cards
@@ -55,7 +55,7 @@ function AllProjectsByRecent({
         )
         renderedProjects.push({
           ...matchedProjectObj,
-          count: erasStat?.count // this will be blank if user did not make classifications on the project
+          count: erasStat?.count
         })
       }
     })
@@ -65,17 +65,15 @@ function AllProjectsByRecent({
   const error = containerError || projectsError || preferencesError
 
   return (
-    <>
-      <Projects
-        error={error}
-        loading={loading}
-        numProjects={numProjects}
-        page={page}
-        pageSize={PAGE_SIZE}
-        renderedProjects={renderedProjects}
-        setPage={setPage}
-      />
-    </>
+    <Projects
+      error={error}
+      loading={loading}
+      numProjects={numProjects}
+      page={page}
+      pageSize={PAGE_SIZE}
+      renderedProjects={renderedProjects}
+      setPage={setPage}
+    />
   )
 }
 

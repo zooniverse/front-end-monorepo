@@ -19,18 +19,19 @@ async function fetchUserProjectPreferences({ page, pageSize, token, userID }) {
       sort: '-updated_at',
       user_id: userID,
       page,
-      page_size: pageSize
+      page_size: pageSize,
+      non_null_activity_count: true
     }
     const response = await panoptes.get('/project_preferences', query, {
       authorization
     })
 
     // grab the project ids in sort order from /project_preferences
-    // but only if the user actually made a classification
     const recentProjectIds = response.body?.project_preferences?.map(preference => {
         return preference.links.project // project id as a string
     }).filter(id => id) // just in case, make sure there's no empty spots in the recentProjectIds array
 
+    // needed for Pagination component of AllProjects
     const numProjects = response.body.meta?.project_preferences?.count
 
     return { numProjects, recentProjectIds }

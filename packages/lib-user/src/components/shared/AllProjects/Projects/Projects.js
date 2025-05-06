@@ -60,6 +60,7 @@ function Projects({
                   href={`https://www.zooniverse.org/projects/${renderedProjects?.[0].slug}`}
                   imageSrc={renderedProjects?.[0].avatar_src}
                   size='small'
+                  state={renderedProjects?.[0].state}
                 />
               </li>
             ) : null}
@@ -74,6 +75,7 @@ function Projects({
                         href={`https://www.zooniverse.org/projects/${project?.slug}`}
                         imageSrc={project?.avatar_src}
                         size='small'
+                        state={project?.state}
                       />
                     </li>
                   )

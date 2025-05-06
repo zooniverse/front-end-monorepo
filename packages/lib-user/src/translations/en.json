@@ -5,7 +5,8 @@
     "classifications": "Classifications",
     "contributors": "Contributors",
     "hours": "Hours",
-    "projects": "Projects"
+    "projects": "Projects",
+    "seeAll": "See all"
   },
   "AllProjects": {
     "error": "There was an error",
@@ -149,9 +150,6 @@
     "GroupCard": {
       "admin": "Admin",
       "member": "Member"
-    },
-    "PreviewLayout": {
-      "seeAll": "See all"
     },
     "createNew": "Create new group",
     "error": "There was an error fetching your groups",
