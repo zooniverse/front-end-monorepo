@@ -18,21 +18,22 @@ Features:
 - Takes `projectContributions` and fetches more info about each project via panoptes `api/projects`
 - Attaches project data to each "contribution" in the `projectContributions` array
 
-### AllRecentProjects
+### AllProjectsByRecent
 
 Used in:
 - Individual users' stats page such as `/users/[login]/stats/projects`
 
 Features:
-- Takes a `recentProjectPreferences` array and fetches more info about each project via panoptes `api/projects`
+- Fetches `/project_preferences` based on PAGE_SIZE
+- Fetches more info about each project via panoptes `/api/projects`
 - Takes a `projectContributions` array
-- Attaches a `count` from `projectContributions` array to each project SORTED BY `recentProjectPreferences` array order
+- Attaches a `count` from `projectContributions` array to each project SORTED BY the original `/project_preferences` array order
 
 ### AllProjects
 
 Used in:
 - AllProjectsByCount
-- AllRecentProjects
+- AllProjectsByRecent
 
 Features
 - Displays ProjectCards in a classic pagination UI

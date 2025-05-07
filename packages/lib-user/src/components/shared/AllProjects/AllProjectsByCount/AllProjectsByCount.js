@@ -6,7 +6,7 @@ import Projects from '../Projects/Projects.js'
 
 export const PAGE_SIZE = 49 // 7 cards in each row
 
-function AllProjects({
+function AllProjectsByCount({
   containerError,
   containerLoading = false,
   projectContributions = []
@@ -38,8 +38,7 @@ function AllProjects({
   const renderedProjects = projectContributions
     ?.map(projectContribution => {
       const projectData = projects
-        ?.flat()
-        .find(
+        ?.find(
           project => project.id === projectContribution.project_id.toString()
         )
       return {
@@ -65,7 +64,7 @@ function AllProjects({
   )
 }
 
-AllProjects.propTypes = {
+AllProjectsByCount.propTypes = {
   containerError: shape({
     message: string,
     status: number
@@ -79,4 +78,4 @@ AllProjects.propTypes = {
   )
 }
 
-export default AllProjects
+export default AllProjectsByCount

@@ -5,12 +5,16 @@
     "classifications": "Classifications",
     "contributors": "Contributors",
     "hours": "Hours",
-    "projects": "Projects"
+    "projects": "Projects",
+    "seeAll": "See all"
   },
   "AllProjects": {
     "error": "There was an error",
     "noProjects": "No projects found",
-    "title": "{{displayName}}'s Projects"
+    "recent": "Recent",
+    "sortBy": "Sort by",
+    "title": "{{displayName}}'s Projects",
+    "top": "Top"
   },
   "BarChart": {
     "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
@@ -146,9 +150,6 @@
     "GroupCard": {
       "admin": "Admin",
       "member": "Member"
-    },
-    "PreviewLayout": {
-      "seeAll": "See all"
     },
     "createNew": "Create new group",
     "error": "There was an error fetching your groups",
