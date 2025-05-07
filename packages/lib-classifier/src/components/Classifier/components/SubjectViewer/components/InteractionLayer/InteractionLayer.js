@@ -53,7 +53,10 @@ function InteractionLayer({
   const [creating, setCreating] = useState(false)
   const svgContext = useContext(SVGContext)
   const canvasRef = useRef()
-  svgContext.canvas = canvasRef.current
+  
+  if (canvasRef.current) {
+    svgContext.canvas = canvasRef.current
+  }
 
   if (creating && !activeMark) {
     setCreating(false)
