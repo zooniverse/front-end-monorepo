@@ -1,7 +1,16 @@
 // Inspired by useSubjectJSON.js in the lib-classifier package
 import { useEffect, useState } from 'react'
 
-export const useVolumetricSubject = ({ onError, onReady, subject }) => {
+const DEFAULT_HANDLER = () => {}
+
+export const useVolumetricSubject = ({
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  subject
+}) => {
+  // sometimes proxy objects are sent in and attribute detection fails
+  subject = JSON.parse(JSON.stringify(subject))
+
   const [error, setError] = useState()
   const [data, setData] = useState()
 
@@ -28,7 +37,7 @@ export const useVolumetricSubject = ({ onError, onReady, subject }) => {
         onReady()
       })
       .catch((err) => {
-        console.log('useVolumetricSubject() error', err)
+        setError(err)
         onError(err)
       })
   }, [subject])

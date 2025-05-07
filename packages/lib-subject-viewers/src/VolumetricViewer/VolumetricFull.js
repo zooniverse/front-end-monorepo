@@ -1,6 +1,7 @@
 import { func, object, string } from 'prop-types'
 import { useState } from 'react'
-import { ComponentViewer } from './components/ComponentViewer.js'
+import { AlgorithmAStar } from './helpers/AlgorithmAStar'
+import { ComponentFull } from './components/ComponentFull.js'
 import { ModelViewer } from './models/ModelViewer.js'
 import { ModelAnnotations } from './models/ModelAnnotations.js'
 import { ModelTool } from './models/ModelTool.js'
@@ -10,34 +11,52 @@ import asyncStates from '@zooniverse/async-states'
 
 const DEFAULT_HANDLER = () => {}
 
-export default function VolumetricViewer ({
+export default function VolumetricFull ({
   loadingState = asyncStates.success,
   onAnnotation = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject,
-  view = 'default', // 'default' | 'preview'
 }) {
   const { data, loading, error } = useVolumetricSubject({
     onError,
     onReady,
-    subject: JSON.parse(JSON.stringify(subject)) // doesn't work properly with MobX-structured subjects
+    subject
   })
 
-  const [modelState, setModelState] = useState({})
+  const [modelState, setModelState] = useState(null)
 
-  // Ensures model setup is only run once
   useEffect(() => {
-    setModelState({
+    if (!data) return
+
+    const state = {
       annotations: ModelAnnotations({ onAnnotation }),
       tool: ModelTool(),
       viewer: ModelViewer()
+    };
+
+    state.annotations.initialize({
+      algorithm: AlgorithmAStar,
+      viewer: state.viewer
     })
-  }, [])
+
+    state.tool.initialize({
+      annotations: state.annotations
+    })
+
+    state.viewer.initialize({
+      annotations: state.annotations,
+      data,
+      tool: state.tool
+    })
+    
+    setModelState(state)
+  }, [data])
 
   const isLoading = loadingState === asyncStates.initialized ||
     loadingState === asyncStates.loading ||
-    loading
+    loading || 
+    modelState === null
   const isError = loadingState === asyncStates.error ||
     error ||
     data === null
@@ -50,36 +69,14 @@ export default function VolumetricViewer ({
         ? <p>Loading...</p>
         : (isError)
             ? <p>Error</p>
-            : <ComponentViewer
+            : <ComponentFull
                 data-testid='subject-viewer-volumetric'
-                config={{}}
                 data={data}
                 models={modelState}
-                view={view}
               />
 }
 
-export const VolumetricViewerData = ({
-  onAnnotation = DEFAULT_HANDLER,
-  subjectData = '',
-  subjectUrl = ''
-}) => {
-  return {
-    data: {
-      config: {},
-      subjectData,
-      subjectUrl,
-      models: {
-        annotations: ModelAnnotations({ onAnnotation }),
-        tool: ModelTool(),
-        viewer: ModelViewer()
-      }
-    },
-    component: VolumetricViewer
-  }
-}
-
-VolumetricViewer.propTypes = {
+VolumetricFull.propTypes = {
   loadingState: string,
   onAnnotation: func,
   onError: func,

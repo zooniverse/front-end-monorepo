@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import { Cube } from './Cube.js'
 import { Histogram } from './Histogram.js'
 import { MarkButtons } from './MarkButtons.js'
-import { object } from 'prop-types'
+import { object, string } from 'prop-types'
 import { Plane } from './Plane.js'
 import styled, { css } from 'styled-components'
 
@@ -99,7 +99,7 @@ const StyledBox = styled(Box)`
   }
 `
 
-export const ComponentViewerDefault = ({ models }) => {
+export const ComponentFull = ({ models }) => {
   return (
     <Box flex align='end'>
       <StyledBox direction='row'>
@@ -125,15 +125,12 @@ export const ComponentViewerDefault = ({ models }) => {
             />
           </Box>
           <Box className='volume-controls' flex direction='row' justify='between'>
-            <MarkButtons
-              annotations={models.annotations}
-            />
+            {models.annotations
+              ? <MarkButtons annotations={models.annotations} />
+              : <div style={{ flex: 1 }} />
+            }
 
-            <Histogram
-              annotations={models.annotations}
-              tool={models.tool}
-              viewer={models.viewer}
-            />
+            <Histogram viewer={models.viewer} />
           </Box>
         </Box>
       </StyledBox>
@@ -141,6 +138,7 @@ export const ComponentViewerDefault = ({ models }) => {
   )
 }
 
-ComponentViewerDefault.propTypes = {
+ComponentFull.propTypes = {
+  data: string,
   models: object
 }
