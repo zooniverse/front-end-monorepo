@@ -177,6 +177,8 @@ function GroupStats({
     t
   })
 
+  const linkProps={ href: `/groups/${group?.id}/projects` }
+
   const error = statsError || projectStatsError || projectsError
   const loading = statsLoading || projectStatsLoading || projectsLoading
 
@@ -235,6 +237,7 @@ function GroupStats({
                 <TopProjects
                   allProjectsStats={allProjectsStats}
                   grid={true}
+                  linkProps={linkProps}
                   loading={loading}
                   projects={projects}
                 />
@@ -244,6 +247,7 @@ function GroupStats({
                 <TopProjects
                   allProjectsStats={allProjectsStats}
                   grid={false}
+                  linkProps={linkProps}
                   loading={loading}
                   projects={projects}
                 />
@@ -261,6 +265,7 @@ function GroupStats({
           <TopProjects
             allProjectsStats={allProjectsStats}
             grid={false}
+            linkProps={linkProps}
             loading={loading}
             projects={projects}
           />

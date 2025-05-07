@@ -22,7 +22,7 @@ const StyledRowList = styled(Box)`
   margin-block-end: 0;
   margin-block-start: 0;
   scroll-snap-type: x mandatory;
-  
+
   li {
     scroll-snap-align: start;
   }
@@ -77,6 +77,7 @@ CardsRow.propTypes = {
 function TopProjects({
   allProjectsStats = {},
   grid = false,
+  linkProps = { href: '' },
   loading = false,
   projects = []
 }) {
@@ -106,6 +107,8 @@ function TopProjects({
 
   return (
     <ContentBox
+      linkLabel={t('common.seeAll')}
+      linkProps={linkProps}
       title={t('TopProjects.title')}
     >
       {loading ? (
@@ -148,6 +151,9 @@ TopProjects.propTypes = {
     }))
   }),
   grid: bool,
+  linkProps: shape({
+    href: string
+  }),
   loading: bool,
   projects: arrayOf(shape({
     avatar_src: string,

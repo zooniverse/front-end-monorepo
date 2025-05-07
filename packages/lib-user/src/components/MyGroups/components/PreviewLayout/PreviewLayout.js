@@ -19,7 +19,7 @@ export default function PreviewLayout({
   const { t } = useTranslation()
   return (
     <ContentBox
-      linkLabel={t('MyGroups.PreviewLayout.seeAll')}
+      linkLabel={t('common.seeAll')}
       linkProps={{ as: Link, href: `/users/${authUser?.login}/groups` }}
       title={t('MyGroups.title')}
     >
