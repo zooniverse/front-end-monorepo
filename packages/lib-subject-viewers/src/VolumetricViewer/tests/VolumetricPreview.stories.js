@@ -1,5 +1,4 @@
-import VolumetricViewer from './../VolumetricViewer'
-import asyncStates from '@zooniverse/async-states'
+import { default as Component } from '../VolumetricPreview.js'
 import {
   VolumetricSubjectMock4,
   VolumetricSubjectMock8,
@@ -9,14 +8,13 @@ import {
 } from './../data/subjectMock'
 
 export default {
-  title: 'Components / VolumetricViewer',
-  component: VolumetricViewer
+  title: 'Components / VolumetricViewer / Preview',
+  component: Component
 }
 
 export const Volume4x4x4 = () => {
   return (
-    <VolumetricViewer
-      loadingState={asyncStates.success}
+    <Component
       subject={VolumetricSubjectMock4}
     />
   )
@@ -24,8 +22,7 @@ export const Volume4x4x4 = () => {
 
 export const Volume8x8x8 = () => {
   return (
-    <VolumetricViewer
-      loadingState={asyncStates.success}
+    <Component
       subject={VolumetricSubjectMock8}
     />
   )
@@ -33,8 +30,7 @@ export const Volume8x8x8 = () => {
 
 export const Volume16x16x16 = () => {
   return (
-    <VolumetricViewer
-      loadingState={asyncStates.success}
+    <Component
       subject={VolumetricSubjectMock16}
     />
   )
@@ -42,8 +38,7 @@ export const Volume16x16x16 = () => {
 
 export const Volume32x32x32 = () => {
   return (
-    <VolumetricViewer
-      loadingState={asyncStates.success}
+    <Component
       subject={VolumetricSubjectMock32}
     />
   )
@@ -51,19 +46,8 @@ export const Volume32x32x32 = () => {
 
 export const Volume64x64x64 = () => {
   return (
-    <VolumetricViewer
-      loadingState={asyncStates.success}
+    <Component
       subject={VolumetricSubjectMock64}
-    />
-  )
-}
-
-export const Volume64x64x64Preview = () => {
-  return (
-    <VolumetricViewer
-      loadingState={asyncStates.success}
-      subject={VolumetricSubjectMock64}
-      view="preview"
     />
   )
 }

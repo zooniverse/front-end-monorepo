@@ -10,7 +10,7 @@ const StyledBox = styled(Box)`
   margin-top: -50px;
 `
 
-export const ComponentViewerPreview = ({ models }) => {
+export const ComponentPreview = ({ models }) => {
   return (
     <StyledBox className='volume-cube'>
       <Cube {...models} orbitControlsEnabled={false} />
@@ -18,6 +18,6 @@ export const ComponentViewerPreview = ({ models }) => {
   )
 }
 
-ComponentViewerPreview.propTypes = {
+ComponentPreview.propTypes = {
   models: object
 }
