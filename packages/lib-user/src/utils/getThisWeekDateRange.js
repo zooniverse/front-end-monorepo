@@ -1,9 +1,9 @@
 import { getStatsDateString } from '@utils'
 
 /*
-  Get the default end date (UTC) for stats query
+  Get today's date (UTC) for stats query
 */
-function getDefaultEndDate() {
+function getThisWeekEndDate() {
   // Construct a new Javascript Date object
   const today = new Date()
 
@@ -12,25 +12,25 @@ function getDefaultEndDate() {
 }
 
 /*
-  Get the default start date (UTC) for stats query
+  Get this week's start date (UTC) for stats query
 */
-function getDefaultStartDate() {
+function getThisWeekStartDate() {
   // Construct a new Javascript Date object
-  const defaultStartDate = new Date()
+  const thisWeekStartDate = new Date()
 
   // .getUTCDate() returns numeric day of the month (UTC).
   // If a negative number is provided to .setUTCDate(), the date will be
   // set counting backwards from the last day of the previous month.
-  const sevenDaysAgo = defaultStartDate.getUTCDate() - 6
-  defaultStartDate.setUTCDate(sevenDaysAgo)
+  const sevenDaysAgo = thisWeekStartDate.getUTCDate() - 6
+  thisWeekStartDate.setUTCDate(sevenDaysAgo)
 
   // .toISOString() in this function returns a UTC string
-  return getStatsDateString(defaultStartDate)
+  return getStatsDateString(thisWeekStartDate)
 }
 
-export function getDefaultDateRange() {
+export function getThisWeekDateRange() {
   return {
-    endDate: getDefaultEndDate(),
-    startDate: getDefaultStartDate()
+    endDate: getThisWeekEndDate(),
+    startDate: getThisWeekStartDate()
   }
 }

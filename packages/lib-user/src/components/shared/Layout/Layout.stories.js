@@ -1,5 +1,6 @@
 import { Layer, Link, SettingsOption } from 'grommet-icons'
 
+import { getThisWeekDateRange } from '@utils'
 import Layout from './Layout'
 import HeaderLink from '../HeaderLink'
 import ContentBox from '../ContentBox'
@@ -12,7 +13,8 @@ export default {
   component: Layout
 }
 
-const pageContent = <MainContent />
+const selectedDateRange = getThisWeekDateRange()
+const pageContent = <MainContent selectedDateRange={selectedDateRange} />
 
 export const Default = {
   args: {

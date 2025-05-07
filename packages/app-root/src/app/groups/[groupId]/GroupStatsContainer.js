@@ -39,13 +39,8 @@ function GroupStatsContainer({
   if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
-  // set start date per query params or default to 7 days ago
+  // set start date per query params or leave as undefined
   let selectedStartDate = startDate
-  if (selectedStartDate === undefined) {
-    const defaultStartDate = new Date()
-    defaultStartDate.setUTCDate(defaultStartDate.getUTCDate() - 6)
-    selectedStartDate = defaultStartDate.toISOString().substring(0, 10)
-  }
 
   useEffect(function updateStartDateParam() {
     if (selectedStartDate && (startDate === undefined)) {

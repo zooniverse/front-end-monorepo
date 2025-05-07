@@ -9,13 +9,11 @@ import {
 } from '@hooks'
 
 import {
-  getDateInterval,
-  getDefaultDateRange
+  getDateInterval
 } from '@utils'
 
 import UserStats from './UserStats'
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_HANDLER = () => true
 const STATS_ENDPOINT = '/classifications/users'
 
@@ -23,7 +21,7 @@ function UserStatsContainer({
   authUser,
   login,
   paramsValidationMessage = '',
-  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedDateRange,
   selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
@@ -105,13 +103,13 @@ function UserStatsContainer({
 UserStatsContainer.propTypes = {
   authUser: shape({
     id: string
-  }),
-  login: string,
+  }).isRequired,
+  login: string.isRequired,
   paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
+  }).isRequired,
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func

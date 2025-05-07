@@ -15,7 +15,7 @@ import {
   UserStats,
   UserStatsAllProjects
 } from '@components'
-import { getDefaultDateRange, getStatsDateString } from '../../../src/utils'
+import { getThisWeekDateRange, getStatsDateString } from '../../../src/utils'
 
 const isBrowser = typeof window !== 'undefined'
 const today = new Date()
@@ -25,7 +25,7 @@ if (isBrowser) {
   auth.checkCurrent()
 }
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
+const DEFAULT_DATE_RANGE = getThisWeekDateRange()
 
 function App({
   endDate = DEFAULT_DATE_RANGE.endDate,

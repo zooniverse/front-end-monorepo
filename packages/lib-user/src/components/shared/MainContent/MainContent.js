@@ -7,7 +7,6 @@ import { useTranslation, Trans } from '../../../translations/i18n.js'
 
 import {
   convertStatsSecondsToHours,
-  getDefaultDateRange,
   getStatsDateString
 } from '@utils'
 
@@ -28,7 +27,6 @@ import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
 
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -44,7 +42,7 @@ function MainContent({
   loading = false,
   paramsValidationMessage = '',
   projects = [],
-  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedDateRange,
   selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
@@ -341,7 +339,7 @@ MainContent.propTypes = {
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
+  }).isRequired,
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func,

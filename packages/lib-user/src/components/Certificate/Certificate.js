@@ -10,7 +10,6 @@ import {
 } from '@components/shared'
 
 import { formatDateRange } from './helpers/formatDateRange'
-import { getDefaultDateRange } from '@utils'
 
 const PrintableBox = styled(Box)`
   font-size: 16px;
@@ -58,8 +57,6 @@ const PrintableBox = styled(Box)`
   }
 `
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
-
 function handleClickPrint() {
   window.print()
 }
@@ -73,7 +70,7 @@ function Certificate({
   paramsValidationMessage = '',
   projectDisplayName = '',
   projectsCount = 0,
-  selectedDateRange = DEFAULT_DATE_RANGE
+  selectedDateRange
 }) {
   const { endDate, startDate } = selectedDateRange
   const formattedDateRange = formatDateRange({ startDate, endDate })
@@ -320,7 +317,7 @@ Certificate.propTypes = {
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  })
+  }).isRequired
 }
 
 export default Certificate

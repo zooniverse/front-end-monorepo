@@ -9,21 +9,18 @@ import {
 } from '@hooks'
 
 import {
-  convertStatsSecondsToHours,
-  getDateInterval,
-  getDefaultDateRange
+  convertStatsSecondsToHours
 } from '@utils'
 
 import Certificate from './Certificate'
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const STATS_ENDPOINT = '/classifications/users'
 
 function CertificateContainer({
   authUser,
   login,
   paramsValidationMessage = '',
-  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedDateRange,
   selectedProject = undefined
 }) {
   // fetch user
@@ -39,12 +36,15 @@ function CertificateContainer({
 
   // fetch stats
   // only fetch stats (define sourceId with user.id) if valid params and start date defined
-  let userId = null
-  if (!paramsValidationMessage && selectedDateRange.startDate) {
-    userId = user?.id
+  let sourceId = null
+  if (!paramsValidationMessage && selectedDateRange?.startDate) {
+    sourceId = user?.id
   }
-  const statsQuery = getDateInterval(selectedDateRange)
-  statsQuery.time_spent = true
+  const statsQuery = {
+    end_date: selectedDateRange?.endDate,
+    start_date: selectedDateRange?.startDate,
+    time_spent: true
+  }
   if (selectedProject === undefined) {
     statsQuery.project_contributions = true
   } else {
@@ -57,7 +57,7 @@ function CertificateContainer({
     isLoading: statsLoading
   } = useStats({
     endpoint: STATS_ENDPOINT,
-    sourceId: userId,
+    sourceId,
     query: statsQuery
   })
 
@@ -96,13 +96,13 @@ CertificateContainer.propTypes = {
   authUser: shape({
     id: string,
     login: string
-  }),
-  login: string,
+  }).isRequired,
+  login: string.isRequired,
   paramsValidationMessage: string,
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
+  }).isRequired,
   selectedProject: string,
 }
 
