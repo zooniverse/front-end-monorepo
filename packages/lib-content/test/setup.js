@@ -1,16 +1,21 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
-import sinonChai from 'sinon-chai'
 import { JSDOM } from 'jsdom'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setProjectAnnotations } from '@storybook/react'
 
-chai.use(dirtyChai)
-chai.use(sinonChai)
-global.expect = chai.expect
+import preview from '../.storybook/preview.jsx'
+setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})
 const { window } = jsdom
 
+global.after = afterAll
+global.before = beforeAll
+global.beforeEach = beforeEach
+global.describe = describe
+global.expect = expect
+global.it = it
 
+// might not be necessary if relic of old testing env
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
     .filter(prop => typeof target[prop] === 'undefined')
@@ -29,8 +34,6 @@ class IntersectionObserver {
   observe() {}
   unobserve() {}
 }
-
-
 
 window.IntersectionObserver = IntersectionObserver
 window.ResizeObserver = ResizeObserver
