@@ -6,7 +6,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 import { useTranslation } from '@translations/i18n.jsx'
-import AboutLayout from '@/components/PageLayout/AboutLayout.jsx'
+import AboutLayout from '@components/PageLayout/AboutLayout.jsx'
 import DropdownNav from '@components/DropdownNav/DropdownNav.jsx'
 import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav.jsx'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
