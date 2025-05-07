@@ -6,7 +6,7 @@ const selectTheme = {
       },
       color: {
         dark: 'white',
-        light: 'dark-5',
+        light: 'dark-5'
       }
     },
     drop: {
@@ -15,7 +15,8 @@ const selectTheme = {
   },
   select: {
     // container: {}, // this is the drop content
-    control: { // this is the select button/input
+    control: {
+      // this is the select button/input
       extend: `
         font-weight: 700;
         border: none;
@@ -34,9 +35,18 @@ const selectTheme = {
     icons: {
       color: {
         dark: 'white',
-        light: 'dark-5',
+        light: 'dark-5'
       },
       margin: { left: '0', right: 'xsmall' }
+    },
+    listbox: {
+      extend: `
+        & > button {
+          &[aria-selected='true'] {
+            text-decoration: underline;
+          }
+        }
+      `
     },
     options: {
       container: {
@@ -49,6 +59,6 @@ const selectTheme = {
       }
     }
   }
-};
+}
 
 export default selectTheme

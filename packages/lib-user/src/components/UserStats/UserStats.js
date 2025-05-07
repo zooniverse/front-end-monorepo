@@ -46,6 +46,8 @@ function UserStats({
   const stats = selectedProject ? projectStats : allProjectsStats
   const totalProjects = allProjectsStats?.project_contributions?.length
 
+  const linkProps = { href: `/users/${user?.login}/stats/projects?sort=top`}
+
   return (
     <Layout
       primaryHeaderItem={
@@ -71,6 +73,7 @@ function UserStats({
       />
       <TopProjects
         allProjectsStats={allProjectsStats}
+        linkProps={linkProps}
         loading={loading}
         projects={projects}
       />

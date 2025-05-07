@@ -27,8 +27,12 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@next/third-parties": "~14.2.26",
+    "@zooniverse/async-states": "~0.0.1",
+    "@zooniverse/react-components": "~1.14.0",
     "dayjs": "~1.11.13",
     "i18next": "~25.0.0",
+    "panoptes-client": "~5.6.0",
     "prop-types": "~15.8.1",
     "react-i18next": "~15.4.1",
     "swr": "~2.3.2"

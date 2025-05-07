@@ -12,8 +12,8 @@ const StyledBox = styled(Box)`
   list-style: none;
   margin-block-start: 0;
   padding-inline-start: 0;
-  column-gap: 10px;
-  row-gap: 10px;
+  column-gap: 12px;
+  row-gap: 12px;
 `
 
 const DEFAULT_HANDLER = () => {}
@@ -50,8 +50,8 @@ function Projects({
         </Box>
       ) : (
         <Box align='center'>
-          <StyledBox forwardedAs='ul' direction='row' wrap justify='center'>
-            {renderedProjects?.length && (
+          <StyledBox forwardedAs='ul' direction='row' wrap justify='start'>
+            {renderedProjects?.length ? (
               <li key={renderedProjects?.[0].id} ref={firstCardRef}>
                 <ProjectCard
                   badge={renderedProjects?.[0].count}
@@ -60,23 +60,27 @@ function Projects({
                   href={`https://www.zooniverse.org/projects/${renderedProjects?.[0].slug}`}
                   imageSrc={renderedProjects?.[0].avatar_src}
                   size='small'
+                  state={renderedProjects?.[0].state}
                 />
               </li>
-            )}
-            {renderedProjects?.length && renderedProjects?.slice(1).map(project => {
-              return (
-                <li key={project?.id}>
-                  <ProjectCard
-                    badge={project?.count}
-                    description={project?.description}
-                    displayName={project?.display_name}
-                    href={`https://www.zooniverse.org/projects/${project?.slug}`}
-                    imageSrc={project?.avatar_src}
-                    size='small'
-                  />
-                </li>
-              )
-            })}
+            ) : null}
+            {renderedProjects?.length
+              ? renderedProjects?.slice(1).map(project => {
+                  return (
+                    <li key={project?.id}>
+                      <ProjectCard
+                        badge={project?.count}
+                        description={project?.description}
+                        displayName={project?.display_name}
+                        href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                        imageSrc={project?.avatar_src}
+                        size='small'
+                        state={project?.state}
+                      />
+                    </li>
+                  )
+                })
+              : null}
           </StyledBox>
           {numProjects > pageSize ? (
             <Pagination

@@ -66,6 +66,10 @@ export const ParamsValidationMessage = {
     login: 'testUser',
     name: 'Example T. User',
     paramsValidationMessage: 'Invalid start_date, must be in the format YYYY-MM-DD',
+    selectedDateRange: {
+      endDate: '2023-12-31',
+      startDate: 'THIS_IS_NOT_A_DATE'
+    },
     selectedProject: undefined
   }
 }

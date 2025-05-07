@@ -43,7 +43,7 @@ function GroupAllProjects({ authUser, group }) {
         />
       }
     >
-      <ContentBox pad='45px'>
+      <ContentBox pad='50px'>
         <Heading level='1'>
           <SpacedText
             color={{ dark: 'accent-1', light: 'neutral-1' }}
