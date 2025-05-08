@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-const DEFAULT_TRANSFORM_MATRIX = {
+export const DEFAULT_TRANSFORM_MATRIX = {
   scaleX: 1,
   scaleY: 1,
   skewX: 0,
