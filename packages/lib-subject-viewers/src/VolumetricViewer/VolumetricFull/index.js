@@ -1,18 +1,18 @@
 import { func, object, string } from 'prop-types'
 import { useState } from 'react'
-import { AlgorithmAStar } from './helpers/AlgorithmAStar'
-import { ComponentFull } from './components/ComponentFull.js'
-import { ModelViewer } from './models/ModelViewer.js'
-import { ModelAnnotations } from './models/ModelAnnotations.js'
-import { ModelTool } from './models/ModelTool.js'
+import { AlgorithmAStar } from '../helpers/AlgorithmAStar'
+import { ComponentFull } from '../components/ComponentFull.js'
+import { ModelViewer } from '../models/ModelViewer.js'
+import { ModelAnnotations } from '../models/ModelAnnotations.js'
+import { ModelTool } from '../models/ModelTool.js'
 import { useEffect } from 'react'
-import { useVolumetricSubject } from './../hooks/useVolumetricSubject.js'
+import { useVolumetricSubject } from '../../hooks/useVolumetricSubject.js'
 import asyncStates from '@zooniverse/async-states'
 
 const DEFAULT_HANDLER = () => {}
 
 export default function VolumetricFull ({
-  loadingState = asyncStates.success,
+  loadingState = asyncStates.initialized,
   onAnnotation = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,

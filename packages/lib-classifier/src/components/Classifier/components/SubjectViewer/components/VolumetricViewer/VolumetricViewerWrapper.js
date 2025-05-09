@@ -4,9 +4,8 @@ import { MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
 
 const DEFAULT_HANDLER = () => {}
-const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer').then(module => {
-  return { default: module.default.Full }
-}))
+const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer/VolumetricFull'))
+
 
 function VolumetricViewerWrapper({
   loadingState = asyncStates.initialized,

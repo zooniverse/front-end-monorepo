@@ -1,5 +1,4 @@
-import { default as Component } from '../VolumetricView.js'
-import asyncStates from '@zooniverse/async-states'
+import { default as Component } from './index.js'
 import {
   VolumetricSubjectMock4,
   VolumetricSubjectMock8,
@@ -9,7 +8,7 @@ import {
 } from './../data/subjectMock'
 
 export default {
-  title: 'Components / VolumetricViewer / View',
+  title: 'Components / VolumetricViewer / Preview',
   component: Component
 }
 

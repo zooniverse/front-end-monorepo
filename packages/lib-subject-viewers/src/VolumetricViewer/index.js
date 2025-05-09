@@ -1,9 +1,9 @@
-import Full from './VolumetricFull';
-import Preview from './VolumetricPreview';
-import View from './VolumetricView';
+import VolumetricFull from './VolumetricFull';
+import VolumetricPreview from './VolumetricPreview';
+import VolumetricView from './VolumetricView';
 
 export default {
-  Full,
-  Preview,
-  View
+  VolumetricFull,
+  VolumetricPreview,
+  VolumetricView
 }
