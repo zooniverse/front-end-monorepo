@@ -1,8 +1,6 @@
 import { lazy, Suspense } from 'react'
 
-const VolumetricViewerComponent = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer').then(module => {
-  return { default: module.default.Preview }
-}))
+const VolumetricPreview = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer/VolumetricPreview'))
 
 function VolumetricViewer({ data }) {
   const config = {
@@ -13,7 +11,7 @@ function VolumetricViewer({ data }) {
   }
 
   return <Suspense fallback={<p>Loading Volumetric Viewer...</p>}>
-    <VolumetricViewerComponent {...config} />
+    <VolumetricPreview {...config} />
   </Suspense>
 }
 

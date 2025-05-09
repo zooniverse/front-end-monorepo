@@ -1,9 +1,9 @@
 import { object } from 'prop-types'
 import { useState } from 'react'
-import { ComponentPreview } from './components/ComponentPreview.js'
-import { ModelViewer } from './models/ModelViewer.js'
+import { ComponentPreview } from '../components/ComponentPreview.js'
+import { ModelViewer } from '../models/ModelViewer.js'
 import { useEffect } from 'react'
-import { useVolumetricSubject } from './../hooks/useVolumetricSubject.js'
+import { useVolumetricSubject } from '../../hooks/useVolumetricSubject.js'
 
 export default function VolumetricPreview ({ subject }) {
   const { data, loading, error } = useVolumetricSubject({ subject })
