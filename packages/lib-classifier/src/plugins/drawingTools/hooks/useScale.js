@@ -44,13 +44,15 @@ function getScale(svgContext) {
  * @default 1
  */
 export default function useScale() {
-  const svgContext = useContext(SVGContext)
-  const initialScale = getScale(svgContext)
+  const { canvas, rotate = 0 } = useContext(SVGContext)
+  const initialScale = getScale({ canvas, rotate })
   const [scale, setScale] = useState(initialScale)
 
   setTimeout(() => {
-    const newScale = getScale(svgContext)
-    if (newScale !== scale) setScale(newScale)
+    if (!!canvas) {
+      const newScale = getScale({ canvas, rotate})
+      if (newScale !== scale) setScale(newScale)
+    }
   })
 
   return scale
