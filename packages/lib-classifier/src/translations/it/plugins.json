@@ -1,1 +1,75 @@
-{}
+{
+  "FreehandLine": {
+    "active": "Fai clic e trascina dal punto di apertura al punto di chiusura o fai doppio clic ovunque sulla linea per creare un punto di giunzione",
+    "closePoint": "Clicca ovunque sulla linea per impostare il punto di chiusura",
+    "inactive": "Fai clic per modificare questa linea",
+    "spliceDrag": "Clicca e trascina dal punto di apertura al punto di chiusura",
+    "splicePoint": "Fai doppio clic ovunque sulla linea per creare un punto di giunzione"
+  },
+  "HighlighterTask": {
+    "delete": "Elimina",
+    "noLabels": "Nessuna etichetta per l'attività di evidenziazione",
+    "status": "{{count}} segnati"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} disegnati",
+    "max": "{{count}} disegnati su un massimo di {{max}}",
+    "maxAndMin": "{{count}} disegnati su un minimo di {{min}} e un massimo di {{max}}",
+    "min": "{{count}} disegnati su un minimo di {{min}}"
+  },
+  "LineControls": {
+    "close": "Chiudi",
+    "delete": "Elimina",
+    "deleteCancel": "Annulla l'eliminazione",
+    "deleteConfirm": "Conferma l'eliminazione",
+    "lineControls": "Comandi linea",
+    "move": "Sposta",
+    "redo": "Ripeti",
+    "undo": "Annulla"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Inserisci qualcosa",
+    "otherLabel": "Altro...",
+    "selectPlaceholder": "Scegli una risposta"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Azzera filtri",
+      "closeFilters": "Chiudi i filtri",
+      "filter": "Filtra",
+      "removeFilter": "Rimuovi il filtro {{valueLabel}}",
+      "showing": "{{showing}} su {{total}} mostrati"
+    },
+    "Choice": {
+      "cancel": "Annulla",
+      "identify": "Identifica",
+      "lessInfo": "Meno informazioni",
+      "moreInfo": "Altre informazioni",
+      "notThis": "Non è questo"
+    },
+    "ChoiceButton": {
+      "identified": "identificato",
+      "openSubmenu": "Apri il sottomenu per {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Annulla",
+      "confused": "Può essere confuso con",
+      "itsThis": "Penso che sia questo"
+    },
+    "DeleteButton": {
+      "delete": "Elimina l'opzione {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Resetta"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Modificatori di testo"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Trascrizione creata",
+    "editing": "Modifica della trascrizione"
+  }
+}

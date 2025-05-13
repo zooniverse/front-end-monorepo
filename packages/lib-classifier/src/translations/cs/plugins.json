@@ -35,18 +35,29 @@
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Zrušit filtry",
+      "closeFilters": "Zavřít filtry",
       "filter": "Filtr",
       "removeFilter": "Odebrat filtr {{valueLabel}}",
       "showing": "Zobrazuje {{showing}} kategorií z {{total}}"
     },
     "Choice": {
+      "cancel": "Zrušit",
       "identify": "Identifikovat",
+      "lessInfo": "Méně informací",
+      "moreInfo": "Více informací",
       "notThis": "Tohle ne"
+    },
+    "ChoiceButton": {
+      "identified": "identifikováno",
+      "openSubmenu": "Otevřít podnabídku pro {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Zrušit",
       "confused": "Někdy zaměněno za",
       "itsThis": "Myslím, že to je tohle"
+    },
+    "DeleteButton": {
+      "delete": "Odstrant volbu {{choiceLabel}}"
     }
   },
   "TextFromSubjectTask": {
@@ -58,7 +69,7 @@
     }
   },
   "TranscriptionLine": {
-    "created": "Vytvořený přepis",
+    "created": "Vytvořen přepis",
     "editing": "Úprava přepisu"
   }
 }

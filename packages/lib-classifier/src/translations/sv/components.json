@@ -1,72 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Du har redan sett det här motivet",
+      "tooltipText": [
+        "Du har redan sett och klassificerat detta motiv, så ytterligare klassificeringar kommer inte att bidra till dess analys.",
+        "Om du vill hjälpa till, försök att välja ett annat arbetsflöde eller att bidra till ett annat projekt."
+      ]
+    },
     "Banner": {
-      "next": "Nästa"
+      "next": "Nästa",
+      "previous": "Tidigare",
+      "whyAmISeeingThis": "Varför ser jag detta?"
     },
     "InProgressConfirmModal": {
       "cancel": "Avbryt",
       "confirm": "OK",
       "inProgress": "Om du går tillbaka sparas inte ditt arbete med den aktuella uppgiften."
+    },
+    "RetiredBanner": {
+      "bannerText": "Avslutat: Detta motivet har tagits ur bruk",
+      "tooltipText": [
+        "Det här motivet har redan tillräckligt med klassificeringar, så din kommer inte att användas i dess analys.",
+        "Om du vill hjälpa till, försök att välja ett annat arbetsflöde eller att bidra till ett annat projekt."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Redan sett",
+      "bannerText": "{{setName}}: Motiv {{number}}\/{{total}}",
+      "finished": "Slutfört",
+      "tooltipText": [
+        "Det här projektet gör det möjligt för volontärer att se försökspersoner i ordningsföljd.",
+        "Siffran visar dig motivets position inom den totala gruppen."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Klart: Du har sett allt",
+      "tooltipText": [
+        "Du har redan klassificerat allt i det här arbetsflödet, så ytterligare klassificeringar av detta motiv kommer inte att användas i analysen.",
+        "Om du vill hjälpa till, försök att välja ett annat arbetsflöde eller att bidra till ett annat projekt."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Detta arbetsflöde är slutfört",
+      "tooltipText": [
+        "Alla motiv i det här arbetsflödet har slutförts, så ytterligare klassificeringar av detta motiv kommer inte att användas i analysen.",
+        "Om du vill hjälpa till, försök att välja ett annat arbetsflöde eller att bidra till ett annat projekt."
+      ]
     }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Handtag för roterande ritad kommentar\/markering."
   },
   "FeedbackModal": {
-    "keepClassifying": "Fortsätt"
+    "keepClassifying": "Fortsätt",
+    "label": "Feedback"
   },
   "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Fältguide"
+    },
     "FieldGuideItem": {
       "ariaTitle": "Tillbaka"
-    }
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Välj {{title}}"
+    },
+    "title": "Fältguide"
   },
   "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Kommentera"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Visa motivet i normal storlek",
+        "fullscreen": "Visa motivet i helskärmsläge"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Invertera motiv"
+    },
+    "MoveButton": {
+      "ariaLabel": "Flytta motiv"
+    },
     "ResetButton": {
       "ariaLabel": "Återställ"
+    },
+    "RotateButton": {
+      "ariaLabel": "Rotera motivet"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zooma in på motivet"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Zooma ut från motivet"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Lägg till i samling"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Dölj tidigare markeringar",
+      "show": "Visa tidigare markeringar"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Dölj alla markeringar",
+      "show": "Visa alla markeringar",
+      "showUser": "Visa dina markeringar"
+    },
+    "MetadataButton": {
+      "label": "Motivinformation"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Märka",
+        "value": "Värde"
+      },
+      "title": "Motivmetadata"
     }
   },
   "ModalTutorial": {
     "title": "Snabbkurs"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Stäng kommentarspanelen",
+      "goToTalk": "Gå till motivsdiskussion på Talk",
+      "mainPanel": "QuickTalk-kommentarspanelen",
+      "openButton": "Motivet har {{count}} kommentar(er). Klicka för att expandera.",
+      "panelContent": "Kommentarer till motivdiskussionen",
+      "panelHeading": "Motivdiskussion"
+    },
+    "errors": {
+      "failPostComment": "Kunde inte lägga till kommentarer i befintlig diskussion.",
+      "failPostDiscussion": "Kunde inte lägga till kommentarer i den nya diskussionen.",
+      "noBoard": "En forum för motivkommentarer har ännu inte skapats för detta projekt.",
+      "noText": "Det går inte att posta en tom kommentar.",
+      "noUser": "Användaren är inte inloggad."
+    },
+    "loginToPost": "Logga in för att posta en kommentar.",
     "status": {
-      "loading": "(Laddar)"
-    }
+      "initialized": "Lämna en kommentar om detta motiv",
+      "loading": "(Laddar)",
+      "success": "Kommentar postad!"
+    },
+    "subjectHasNoComments": "Det här motivet har inga kommentarer ännu."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Gå till steg {{index}}",
+      "next": "Gå till nästa steg",
+      "previous": "Gå till föregående steg"
+    },
+    "alt": "Handledningssteg {{activeStep}}",
+    "error": "Handledningssteget kunde inte laddas.",
     "getStarted": "Kom igång",
     "heading": "{{projectDisplayName}} Snabbkurs"
   },
+  "StepNavigation": {
+    "go": "Gå till steg {{index}}",
+    "next": "Gå till nästa steg",
+    "previous": "Gå till föregående steg"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Stapeldiagram"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikon för textvisare"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Stäng utan att spara",
+        "confirm": "Är du säker på att du vill stänga? Denna markering kommer att raderas.",
+        "keepWorking": "Fortsätt arbeta"
+      },
+      "SaveButton": {
+        "save": "Spara och stäng"
+      },
+      "SubTaskPopup": {
+        "notRender": "Det gick inte att återge uppgiftskomponenten.",
+        "required": "Denna uppgift krävs."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "aggregerad transkription",
+          "explanation": "Dessa {{count}} transkriptioner har skickats in av tidigare volontärer och de kan inte ändras.",
+          "noAggregation": "Ingen tillgänglig aggregering.",
+          "title": "Tidigare transkriptioner",
+          "transcriptionsUnavailable": "Transkriptioner är inte tillgängliga."
+        },
+        "complete": "Skapad transkription",
+        "transcribed": "Har transkriptioner"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Nästa"
+        "nextFrameLabel": "Nästa",
+        "previousFrameLabel": "Tidigare",
+        "thumbnailAltText": "Miniatyr av bild"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Ta bort val {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Byt till blädderboksvy",
+        "switchToSeparateFrames": "Byt till vy med separata ramar"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Det uppstod ett fel vid inläsning av motivet."
+    },
+    "VariableStarViewer": {
+      "controls": "kontroller",
+      "figCaption": "HR-diagram",
+      "flip": "vänd",
+      "focus": "fokusera",
+      "highlight": "markera",
+      "imageTitle": "HR-diagram: Luminans kontra temperatur",
+      "label": "Filtrera {{id}}",
+      "periodMultiple": "period multipel",
+      "phase": "fas",
+      "phaseFocus": "fasfokus"
+    },
+    "VideoController": {
+      "closeVolume": "Stäng volymreglaget",
+      "fullscreen": "Visa video i helskärmsläge",
+      "openVolume": "Öppna volymreglaget",
+      "pause": "Pausa video",
+      "play": "Spela upp video",
+      "playbackSpeed": "Val av uppspelningshastighet för video",
+      "scrubber": "Scrubber för videospelare",
+      "volumeSlider": "Volymreglage"
+    },
+    "ZoomControlButton": {
+      "disable": "inaktivera zoom",
+      "enable": "aktivera zoom"
+    },
+    "loading": "Laddar ett motiv",
+    "zoomHelp": "Använd CTRL + scrolla för att zooma"
   },
   "TaskArea": {
-    "task": "Uppgift",
-    "tutorial": "Snabbkurs",
     "DisabledTaskPopup": {
+      "body": "Det här motivet har tillräckligt många klassificeringar, så eventuella ytterligare klassificeringar som skickas in kommer inte att användas i analysen. Du kan fortfarande se detta motiv som referens.",
       "options": {
-        "dismiss": "Stäng"
-      }
+        "dismiss": "Stäng",
+        "next": "Nästa tillgängliga motiv",
+        "select": "Välj ett nytt motiv"
+      },
+      "title": "Slutfört"
     },
     "Tasks": {
       "BackButton": {
         "back": "Tillbaka"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Klart & diskutera"
+        "doneAndTalk": "Klart & diskutera",
+        "newTab": "i en ny flik"
       },
       "DoneButton": {
         "done": "Klart"
       },
-      "loading": "(Laddar)",
+      "ExpertOptions": {
+        "demoToggle": "Demoläge",
+        "label": "Expertalternativ"
+      },
       "NextButton": {
         "next": "Nästa"
       },
       "TaskHelp": {
         "close": "Stäng",
         "label": "Behöver du hjälp med den här uppgiften?"
-      }
-    }
+      },
+      "demoMode": "I demoläge sparas inte klassificeringar. Använd detta för snabba, felaktiga demonstrationer av klassificeringsgränssnittet.",
+      "error": "Något gick fel",
+      "loading": "(Laddar)",
+      "renderFallback": "Det gick inte att återge uppgiftskomponenten."
+    },
+    "task": "Uppgift",
+    "tutorial": "Snabbkurs"
   }
 }

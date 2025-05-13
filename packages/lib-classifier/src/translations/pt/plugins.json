@@ -35,18 +35,29 @@
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Limpar filtros",
+      "closeFilters": "Fechar filtros",
       "filter": "Filtro",
       "removeFilter": "Remover filtro {{valueLabel}}",
       "showing": "Mostrar {{showing}} de {{total}}"
     },
     "Choice": {
+      "cancel": "Cancelar",
       "identify": "Identificar",
+      "lessInfo": "Menos informações",
+      "moreInfo": "Mais informações",
       "notThis": "Isto não"
+    },
+    "ChoiceButton": {
+      "identified": "identificado",
+      "openSubmenu": "Abrir o submenu para {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Cancelar",
       "confused": "Muitas vezes confundido com",
       "itsThis": "Creio que é isto"
+    },
+    "DeleteButton": {
+      "delete": "Eliminar opção {{choiceLabel}}"
     }
   },
   "TextFromSubjectTask": {

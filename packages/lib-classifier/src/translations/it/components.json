@@ -1,61 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Hai già visto questo oggetto",
+      "tooltipText": [
+        "Hai già visto e contribuito a questo oggetto. Eventuali altri contributi non verranno inclusi nell'analisi.",
+        "Se vuoi dare una mano, prova a scegliere un altro flusso di lavoro o a contribuire a un altro progetto."
+      ]
+    },
     "Banner": {
-      "next": "Avanti"
+      "next": "Avanti",
+      "previous": "Indietro",
+      "whyAmISeeingThis": "Perché lo vedo?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Annulla",
+      "confirm": "Conferma",
+      "inProgress": "Confermi di voler passare a un altro oggetto? Eventuali annotazioni sull'oggetto attuale andranno perse."
+    },
+    "RetiredBanner": {
+      "bannerText": "Terminato: questo oggetto è stato ritirato",
+      "tooltipText": [
+        "Questo oggetto ha già un numero sufficiente di contributi. Il tuo contributo non verrà incluso nell'analisi.",
+        "Se vuoi dare una mano, prova a scegliere un altro flusso di lavoro o a contribuire a un altro progetto."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Già visto",
+      "bannerText": "{{setName}}: oggetto {{number}}\/{{total}}",
+      "finished": "Terminato",
+      "tooltipText": [
+        "Questo progetto permette ai volontari di vedere gli oggetti in ordine di sequenza",
+        "Il numero indica la posizione dell'oggetto all'interno del gruppo totale."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Terminato: hai visto tutto",
+      "tooltipText": [
+        "Hai già completato tutti i contributi di questo flusso di lavoro. Eventuali altri contributi su questo oggetto non verranno inclusi nell'analisi.",
+        "Se vuoi dare una mano, prova a scegliere un altro flusso di lavoro o a contribuire a un altro progetto."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Questo flusso di lavoro è terminato",
+      "tooltipText": [
+        "Tutti gli oggetti di questo flusso di lavoro sono stati completati. Eventuali altri contributi non verranno inclusi nell'analisi.",
+        "Se vuoi dare una mano, prova a scegliere un altro flusso di lavoro o a contribuire a un altro progetto."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Punto di presa per ruotare l'annotazione o il segno disegnato."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Continua"
+    "keepClassifying": "Continua",
+    "label": "Feedback"
   },
   "FieldGuide": {
-    "title": "Guida Pratica",
     "FieldGuideButton": {
       "buttonLabel": "Guida Pratica"
     },
     "FieldGuideItem": {
       "ariaTitle": "Indietro"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Seleziona {{title}}"
+    },
+    "title": "Guida Pratica"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Annota"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Visualizza l'oggetto con la dimensione standard",
+        "fullscreen": "Visualizza l'oggetto in modalità a schermo intero"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Inverti l'oggetto"
+    },
+    "MoveButton": {
+      "ariaLabel": "Sposta l'oggetto"
+    },
+    "ResetButton": {
+      "ariaLabel": "Resetta la vista dell'oggetto"
+    },
+    "RotateButton": {
+      "ariaLabel": "Ruota l'oggetto"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Ingrandisci l'oggetto"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Riduci l'oggetto"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Aggiungi alle collezioni"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Nascondi i segni precedenti",
+      "show": "Mostra i segni precedenti"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Nascondi tutti i segni",
+      "show": "Mostra tutti i segni",
+      "showUser": "Mostra i tuoi segni"
+    },
+    "MetadataButton": {
+      "label": "Informazioni sull'oggetto"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Etichetta",
+        "value": "Valore"
+      },
+      "title": "Metadati dell'oggetto"
     }
   },
   "ModalTutorial": {
     "title": "Tutorial"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Chiudi il pannello dei commenti",
+      "goToTalk": "Vai alla discussione sull'oggetto nel Forum",
+      "mainPanel": "Pannello dei commenti QuickTalk",
+      "openButton": "L'oggetto ha {{count}} commento\/i. Fai clic per espandere.",
+      "panelContent": "Commenti nella discussione sull'oggetto",
+      "panelHeading": "Discussione sull'oggetto"
+    },
+    "errors": {
+      "failPostComment": "Impossibile aggiungere commenti a una discussione esistente.",
+      "failPostDiscussion": "Impossibile aggiungere commenti a una nuova discussione.",
+      "noBoard": "Non è stato ancora creato un forum per i commenti sugli oggetti di questo progetto.",
+      "noText": "Impossibile pubblicare un commento vuoto.",
+      "noUser": "L'utente non ha eseguito l'accesso."
+    },
+    "loginToPost": "Accedi per pubblicare un commento.",
     "status": {
-      "loading": "(Caricamento in corso)"
-    }
+      "initialized": "Lascia una nota su questo oggetto",
+      "loading": "(Caricamento in corso)",
+      "success": "Commento pubblicato!"
+    },
+    "subjectHasNoComments": "Questo oggetto non ha ancora nessun commento."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Passa allo step {{index}}",
+      "next": "Passa allo step successivo",
+      "previous": "Passa allo step precedente"
+    },
+    "alt": "Step {{activeStep}} del tutorial",
+    "error": "Impossibile caricare lo step del tutorial",
     "getStarted": "Inizia ora",
     "heading": "{{projectDisplayName}} Tutorial"
   },
+  "StepNavigation": {
+    "go": "Passa allo step {{index}}",
+    "next": "Passa allo step successivo",
+    "previous": "Passa allo step precedente"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Grafico a barre"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Icona del visualizzatore di testo"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Chiudi senza salvare",
+        "confirm": "Confermi di voler chiudere? Questo segno verrà eliminato.",
+        "keepWorking": "Continua il lavoro"
+      },
+      "SaveButton": {
+        "save": "Salva e chiudi"
+      },
+      "SubTaskPopup": {
+        "notRender": "Impossibile visualizzare la componente dell'attività",
+        "required": "Questa attività è obbligatoria."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "trascrizione aggregata",
+          "explanation": "Queste {{count}} trascrizioni sono state inviate dai volontari precedenti e non possono essere modificate.",
+          "noAggregation": "Nessuna aggregazione disponibile",
+          "title": "Trascrizioni precedenti",
+          "transcriptionsUnavailable": "Trascrizioni non disponibili."
+        },
+        "complete": "Trascrizione completata",
+        "transcribed": "Ha delle trascrizioni"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Avanti"
+        "nextFrameLabel": "Avanti",
+        "previousFrameLabel": "Indietro",
+        "thumbnailAltText": "Miniatura dell'immagine"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Elimina la selezione {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Passa alla vista a carosello",
+        "switchToSeparateFrames": "Passa alla vista in riquadri separati"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Errore durante il caricamento dell'oggetto."
+    },
+    "VariableStarViewer": {
+      "controls": "comandi",
+      "figCaption": "Diagramma H-R",
+      "flip": "gira",
+      "focus": "focus",
+      "highlight": "evidenzia",
+      "imageTitle": "Diagramma H-R: luminosità vs. temperatura",
+      "label": "Filtra {{id}}",
+      "periodMultiple": "multipli del periodo",
+      "phase": "fase",
+      "phaseFocus": "focus di fase"
+    },
+    "VideoController": {
+      "closeVolume": "Chiudi il cursore del volume",
+      "fullscreen": "Mostra video a schermo intero",
+      "openVolume": "Apri il cursore del volume",
+      "pause": "Sospendi video",
+      "play": "Riproduci video",
+      "playbackSpeed": "Selezione della velocità di riproduzione video",
+      "scrubber": "Scorrimento lettore video",
+      "volumeSlider": "Cursore del volume"
+    },
+    "ZoomControlButton": {
+      "disable": "disattiva zoom",
+      "enable": "attiva zoom"
+    },
+    "loading": "Caricamento di un oggetto",
+    "zoomHelp": "Tieni premuto CTRL e scorri per fare zoom"
   },
   "TaskArea": {
-    "task": "Task",
-    "tutorial": "Tutorial",
+    "DisabledTaskPopup": {
+      "body": "Questo oggetto ha un numero sufficiente di contributi: eventuali altri contributi inviati non verranno inclusi nell'analisi. Puoi comunque visualizzare l'oggetto come riferimento.",
+      "options": {
+        "dismiss": "Ignora",
+        "next": "Prossimo oggetto disponibile",
+        "select": "Scegli un nuovo oggetto"
+      },
+      "title": "Terminato"
+    },
     "Tasks": {
       "BackButton": {
         "back": "Indietro"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Concludi e Commenta"
+        "doneAndTalk": "Concludi e Commenta",
+        "newTab": "in una nuova scheda"
       },
       "DoneButton": {
         "done": "Completato"
       },
-      "loading": "(Caricamento in corso)",
+      "ExpertOptions": {
+        "demoToggle": "Modalità demo",
+        "label": "Opzioni avanzate"
+      },
       "NextButton": {
         "next": "Avanti"
       },
       "TaskHelp": {
         "close": "Chiudi",
         "label": "Hai bisogno di aiuto?"
-      }
-    }
+      },
+      "demoMode": "In modalità demo, i contributi non verranno salvati. Usa questa modalità per prove rapide e imprecise dell'interfaccia di lavoro.",
+      "error": "Si è verificato un errore",
+      "loading": "(Caricamento in corso)",
+      "renderFallback": "Impossibile visualizzare la componente dell'attività"
+    },
+    "task": "Task",
+    "tutorial": "Tutorial"
   }
 }

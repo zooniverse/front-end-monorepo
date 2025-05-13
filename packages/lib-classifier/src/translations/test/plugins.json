@@ -35,18 +35,29 @@
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Translated",
+      "closeFilters": "Translated",
       "filter": "Translated",
       "removeFilter": "Translated {{valueLabel}}",
       "showing": "Translated  {{total}} Translated {{showing}}"
     },
     "Choice": {
+      "cancel": "Translated",
       "identify": "Translated",
+      "lessInfo": "Translated",
+      "moreInfo": "Translated",
       "notThis": "Translated"
+    },
+    "ChoiceButton": {
+      "identified": "Translated",
+      "openSubmenu": "Translated {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Translated",
       "confused": "Translated",
       "itsThis": "Translated"
+    },
+    "DeleteButton": {
+      "delete": "Translated {{choiceLabel}}"
     }
   },
   "TextFromSubjectTask": {
