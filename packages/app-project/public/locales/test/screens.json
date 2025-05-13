@@ -31,6 +31,7 @@
       }
     },
     "RecentSubjects": {
+      "text": "Translated",
       "title": "Translated"
     },
     "WorkflowAssignmentModal": {
@@ -41,6 +42,9 @@
       "title": "Translated"
     },
     "YourStats": {
+      "allTime": "Translated",
+      "lastSeven": "Translated",
+      "link": "Translated",
       "title": "Translated"
     }
   },

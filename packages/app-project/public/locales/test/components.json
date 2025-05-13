@@ -32,9 +32,11 @@
     "ProjectLink": {
       "types": {
         "bitbucket": "Translated",
+        "bluesky": "Translated",
         "facebook": "Translated",
         "github": "Translated",
         "instagram": "Translated",
+        "mastodon": "Translated",
         "medium": "Translated",
         "pinterest": "Translated",
         "reddit": "Translated",

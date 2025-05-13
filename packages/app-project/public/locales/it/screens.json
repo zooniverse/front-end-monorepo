@@ -2,14 +2,51 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Ricerca",
-        "team": "Il Team",
-        "results": "Risultati",
         "education": "Approfondimento",
-        "faq": "FAQ"
+        "faq": "FAQ",
+        "research": "Ricerca",
+        "results": "Risultati",
+        "team": "Il Team"
       }
     },
-    "SidebarHeading": "About"
+    "PageNav": {
+      "title": "Informazioni sul progetto"
+    },
+    "SidebarHeading": "About",
+    "TeamMember": {
+      "collaborator": "Collaboratore",
+      "expert": "Esperto",
+      "moderator": "Moderatore",
+      "museum": "Museo",
+      "owner": "Titolare",
+      "researcher": "Ricercatore",
+      "tester": "Collaudatore",
+      "translator": "Traduttore"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Errore dello strumento di lavoro :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Parla di un oggetto nel Forum o aggiungilo ai Preferiti o a una collezione.",
+      "title": "I tuoi contributi recenti"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, grazie",
+      "confirm": "Passa al prossimo flusso di lavoro!",
+      "content": "Congratulazioni! Stai lavorando così bene che puoi accedere a un altro flusso di lavoro. Se preferisci restare nel flusso di lavoro attuale, puoi scegliere di farlo.",
+      "dismiss": "Non mostrare più questi messaggi.",
+      "title": "Nuovo flusso di lavoro disponibile"
+    },
+    "YourStats": {
+      "allTime": "Sempre",
+      "lastSeven": "Ultimi 7 giorni",
+      "link": "Vedi altro",
+      "title": "Statistiche"
+    }
   },
   "Home": {
     "AboutProject": {
@@ -20,18 +57,20 @@
         "link": "Per saperne di piu"
       }
     },
-    "ZooniverseTalk": {
-      "button": "Partecipa",
-      "title": "Forum"
-    }
-  },
-  "Classify": {
-    "WorkflowAssignmentModal": {
-      "cancel": "No, grazie",
-      "dismiss": "Non mostrare più questi messaggi."
+    "MessageFromResearcher": {
+      "noMessage": "Comunica con il team di ricerca nel Forum per conoscere meglio questo progetto!",
+      "noMessageButton": "Vai al Forum",
+      "title": "Messaggio dal ricercatore"
     },
-    "YourStats": {
-      "title": "Statistiche"
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Errore durante il caricamento degli oggetti :(",
+        "noSubjects": "Sembra che nessuno abbia ancora commentato un oggetto. Vai nel Forum e comincia tu!",
+        "subjectLabel": "Oggetto {{id}}"
+      },
+      "button": "Partecipa",
+      "message": "Chatta con il team di ricerca e gli altri volontari!",
+      "title": "Forum"
     }
   }
 }
