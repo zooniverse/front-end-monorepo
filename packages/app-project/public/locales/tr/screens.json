@@ -31,16 +31,20 @@
       }
     },
     "RecentSubjects": {
-      "title": "En son çalışmalarınız"
+      "text": "Sohbet'te bir konuyu tartışın veya Favorilerinize ya da bir koleksiyona ekleyin.",
+      "title": "En son sınıflandırmalarınız"
     },
     "WorkflowAssignmentModal": {
       "cancel": "Hayır, teşekkürler",
-      "confirm": "Beni bir sonraki seviyeye ilerlet!",
+      "confirm": "Bir sonraki iş akışına geç!",
       "content": "Tebrikler! Bir sonraki iş akışının kilidini açtınız. Eğer isterseniz bu iş akışında kalmayı tercih edebilirsiniz.",
-      "dismiss": "Bana daha fazla mesaj gösterme",
+      "dismiss": "Bu oturumda bunu tekrar gösterme",
       "title": "Yeni İş Akışı Mevcut"
     },
     "YourStats": {
+      "allTime": "Tüm Zamanlar",
+      "lastSeven": "Son 7 Gün",
+      "link": "Daha fazlasını gör",
       "title": "İstatistiğiniz"
     }
   },
@@ -61,8 +65,8 @@
     "ZooniverseTalk": {
       "RecentSubjects": {
         "error": "Yükleme sırasında bir hata oluştu.",
-        "noSubjects": "Görünüşe göre henüz kimse bir konu hakkında yorum yapmamış. Sohbet'e gidin ve ilk yorumu yazan siz olun!",
-        "subjectLabel": "Konu {{id}}"
+        "noSubjects": "Görünüşe göre henüz kimse bir görüntü hakkında yorum yapmamış. Sohbet'e gidin ve ilk yorumu yazan siz olun!",
+        "subjectLabel": "Görüntü {{id}}"
       },
       "button": "Katıl",
       "message": "Araştırma ekibi ve diğer gönüllülerle sohbet edin!",
