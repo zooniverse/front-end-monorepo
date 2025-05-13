@@ -1,33 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "एडमिन मोड"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "उपयोगकर्ता नाम या पासवर्ड गलत है",
+      "forgot": "अपना पासवर्ड भूल गए(ई)?",
+      "heading": "वापसी पर स्वागत है!",
+      "instruction": "हमें खुशी है कि आप वापस आ गए(ई) हैं! साइन इन करें और वहीं से शुरू करें जहां आपने छोड़ा था।",
+      "login": "उपयोगकर्ता नाम या ईमेल पता",
+      "password": "पासवर्ड",
+      "placeholder": "जैसे ZooniverseFan123",
+      "signIn": "साइन इन"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "मैं नए प्रोजेक्ट्स के टेस्ट में मदद करना चाहता(ती) हूँ और जब वे उपलब्ध हों तो मुझे ईमेल किया जाएगा (वैकल्पिक)",
+      "email": "ईमेल पता (आवश्यक)",
+      "emailConfirm": "ईमेल पते की पुष्टि करें (आवश्यक)",
+      "emailConfirmError": "ईमेल पते मेल नहीं खाते, कृपया फिर से कोशिश करें।",
+      "emailConflict": "इस पते वाला एक खाता पहले से मौजूद है",
+      "emailListSignUp": "मुझे समय-समय पर ईमेल भेजना ठीक है (वैकल्पिक)",
+      "emailPlaceholder": "जैसे zoofan31@gmail.com",
+      "forgot": "अपना पासवर्ड भूल गए(ई)?",
+      "heading": "वापसी पर स्वागत है!",
+      "instruction": "कृपया वास्तविक रिसर्च शुरू करने के लिए एक खाता बनाएं।",
+      "password": "पासवर्ड (आवश्यक)",
+      "passwordConfirm": "पासवर्ड की पुष्टि करें (आवश्यक)",
+      "passwordConfirmError": "दिए गए पासवर्ड एक दूसरे से नहीं मिलते। कृपया दोबारा प्रयास करें। ",
+      "privacyAgreement": "आप हमारी गोपनीयता नीति से सहमत हैं (आवश्यक)",
+      "privacyAgreementError": "गोपनीयता नीति से सहमत होना आवश्यक है।",
+      "privacyLink": "हमारी गोपनीयता नीति पढ़ें",
+      "realName": "वास्तविक नाम (वैकल्पिक)",
+      "realNameHelp": "हम इसका उपयोग वैज्ञानिक पेपरों, पोस्टरों आदि में आपको श्रेय देने के लिए करेंगे।",
+      "realNamePatternHelp": "नाम दर्ज करें, ईमेल पता नहीं",
+      "realNamePlaceholder": "जैसे मैगी स्मिथ",
+      "register": "रजिस्टर",
+      "registering": "पंजीकरण हो रहा है...",
+      "underageConsent": "मैं पुष्टि करता(ती) हूँ कि मैं अभिभावक\/संरक्षक हूँ और अपने बच्चे को मुख्य संपर्क पते के रूप में अपना ईमेल पता देकर पंजीकरण करने की अनुमति देता(ती) हूँ। मैं और मेरा बच्चा दोनों गोपनीयता नीति को समझते हैं और उससे सहमत हैं (आवश्यक)",
+      "underageEmail": "माता-पिता\/अभिभावक का ईमेल पता (आवश्यक)",
+      "underageEmailSignUp": "यदि आप सहमत हैं, तो हम समय-समय पर नए रिसर्च-संबंधित प्रोजेक्ट या हमारी रिसर्च से संबंधित अन्य जानकारी को बढ़ावा देने वाले ईमेल भेजेंगे। हम आपकी संपर्क जानकारी का व्यावसायिक उद्देश्यों के लिए उपयोग नहीं करेंगे। (वैकल्पिक)",
+      "underageNotRealName": "आप लॉग इन करने के लिए इस नाम का उपयोग करेंगे। इसे सार्वजनिक रूप से दिखाया जाएगा। अपना असली नाम उपयोग न करें।",
+      "underageWithParent": "यदि आपकी आयु 16 वर्ष से कम है, तो इस बॉक्स पर टिक करके पुष्टि करें कि आपने अपने माता-पिता या अभिभावक के साथ फॉर्म भर दिया है",
+      "username": "उपयोगकर्ता नाम (आवश्यक)",
+      "usernameConflict": "वह उपयोगकर्ता नाम लिया गया है",
+      "usernameHelp": "इसे मैसेज बोर्ड आदि पर सार्वजनिक रूप से दिखाया जाएगा।",
+      "usernamePatternHelp": "उपयोगकर्ता नामों में केवल अक्षर, संख्याएं, '.','-', और '_' हो सकते हैं",
+      "usernamePlaceholder": "जैसे ZooniverseFan123"
+    },
+    "title": "साइन इन करें या एक नया खाता खोलें।"
+  },
   "CloseButton": {
     "close": "बन्द करें"
   },
+  "FavouritesButton": {
+    "add": "पसंदीदा में जोड़ें",
+    "remove": "पसंदीदा में जोड़ा गया"
+  },
   "Loader": {
-    "loading": "लोडिंग / लोड हो रहा है"
+    "loading": "लोडिंग \/ लोड हो रहा है"
+  },
+  "ProjectCard": {
+    "classifications": "वर्गीकरण",
+    "finished": "पूर्ण",
+    "paused": "रोका",
+    "state": "राज्य"
   },
   "ZooFooter": {
+    "aboutLabels": {
+      "about": "परिचय",
+      "acknowledgements": "अभिस्वीकृतियां",
+      "contact": "संपर्क",
+      "faq": "अक्सर पूछे जाने वाले प्रश्न",
+      "publications": "प्रकाशन",
+      "resources": "संसाधन",
+      "team": "टीम"
+    },
     "buildLabels": {
+      "bestPractices": "सर्वोत्तम प्रथाएं",
+      "buildAProject": "कोई प्रोजेक्ट बनाएं",
+      "glossary": "शब्दावली",
+      "policies": "नीतियां",
       "tutorial": "ट्यूटोरियल"
     },
-    "projectLabels": {
-      "projects": "परियोजनाओं"
+    "getInvolvedLabels": {
+      "callForProjects": "प्रोजेक्ट्स के लिए कॉल",
+      "collaborate": "सहयोग करें",
+      "collections": "संग्रह",
+      "donate": "दान करें",
+      "educate": "शिक्षित करें",
+      "education": "शिक्षा",
+      "getInvolved": "शामिल हो जाएं",
+      "volunteer": "स्वयंसेवक"
     },
+    "newsLabels": {
+      "blog": "ब्लॉग",
+      "dailyZooniverse": "Daily Zooniverse",
+      "news": "समाचार"
+    },
+    "policyLabels": {
+      "jobs": "जॉब्स",
+      "privacyPolicy": "गोपनीयता नीति",
+      "security": "सुरक्षा",
+      "systemStatus": "सिस्टम स्थिति"
+    },
+    "projectLabels": {
+      "arts": "कला",
+      "biology": "जीवविज्ञान",
+      "climate": "जलवायु",
+      "history": "इतिहास",
+      "language": "भाषा",
+      "literature": "साहित्य",
+      "medicine": "मेडिसिन",
+      "nature": "प्रकृति",
+      "physics": "भौतिक विज्ञान",
+      "projects": "परियोजनाओं",
+      "social": "सामाजिक विज्ञान",
+      "space": "अंतरिक्ष"
+    },
+    "tagLine": "लोगों द्वारा संचालित रिसर्च",
     "talkLabels": {
-      "talk": "बात करें"
-    }
+      "announcements": "घोषणाएं",
+      "data": "डेटा संसाधन",
+      "projectBuilding": "प्रोजेक्ट बिल्डिंग",
+      "talk": "बात करें",
+      "troubleshooting": "समस्या समाधान"
+    },
+    "zooniversePolicies": "Zooniverse नीतियां"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "परियोजनाओं",
-      "talk": "बात करें"
+    "SignedInUserNavigation": {
+      "ariaLabel": "उपयोगकर्ता खाता",
+      "navListLabels": {
+        "messages_one": "संदेश ( {{count}} )",
+        "messages_other": "संदेश ( {{count}} )",
+        "messages_zero": "संदेश",
+        "notifications_one": "सूचनाएं ( {{count}} )",
+        "notifications_other": "सूचनाएं ( {{count}} )",
+        "notifications_zero": "सूचनाएं"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "रजिस्टर",
       "signIn": "साइन इन"
     },
     "ThemeModeToggle": {
-      "switchToDark": "थीम से बदलें गहरा",
-      "switchToLight": "थीम से बदलें हल्का"
+      "switchToDark": "डार्क थीम पर स्विच करें",
+      "switchToLight": "लाइट थीम पर स्विच करें"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "संग्रह",
+        "favorites": "पसंदीदा",
+        "profile": "प्रोफाइल",
+        "settings": "सेटिंग्स",
+        "signOut": "साइन आउट"
+      }
+    },
+    "ariaLabel": "साइट",
+    "mainHeaderNavListLabels": {
+      "about": "परिचय",
+      "build": "निर्माण करें",
+      "getInvolved": "शामिल हो जाएं",
+      "projects": "परियोजनाओं",
+      "talk": "बात करें"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse लोगो"
   }
 }
