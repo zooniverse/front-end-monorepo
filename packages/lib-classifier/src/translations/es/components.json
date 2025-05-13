@@ -48,6 +48,9 @@
       ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Control para girar la anotación\/marca dibujada."
+  },
   "FeedbackModal": {
     "keepClassifying": "Continuar",
     "label": "Opinión"
@@ -155,9 +158,17 @@
     "getStarted": "Comenzar",
     "heading": "{{projectDisplayName}} Tutorial"
   },
+  "StepNavigation": {
+    "go": "Ir al paso {{index}}",
+    "next": "Ir al paso siguiente",
+    "previous": "Ir al paso anterior"
+  },
   "SubjectViewer": {
     "BarChartViewer": {
       "chartLabel": "Gráfico de barras"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Icono para el visor de texto"
     },
     "InteractionLayer": {
       "ConfirmModal": {
@@ -191,6 +202,20 @@
         "thumbnailAltText": "Miniatura de imagen"
       }
     },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Eliminar selección {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Cambiar a vista de carrusel",
+        "switchToSeparateFrames": "Cambiar a vista de marcos separados"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Se ha producido un error al cargar el objeto."
+    },
     "VariableStarViewer": {
       "controls": "controles",
       "figCaption": "Diagrama HR",
@@ -204,15 +229,21 @@
       "phaseFocus": "enfoque de la fase"
     },
     "VideoController": {
+      "closeVolume": "Cerrar control deslizante de volumen",
+      "fullscreen": "Mostrar vídeo en pantalla completa",
+      "openVolume": "Abrir control deslizante de volumen",
       "pause": "Pausar vídeo",
       "play": "Reproducir vídeo",
       "playbackSpeed": "Selección de la velocidad de reproducción del vídeo",
-      "scrubber": "Limpiador del reproductor de vídeo"
+      "scrubber": "Limpiador del reproductor de vídeo",
+      "volumeSlider": "Control deslizante de volumen"
     },
     "ZoomControlButton": {
       "disable": "desactivar zoom",
       "enable": "activar zoom"
-    }
+    },
+    "loading": "Cargando un objeto",
+    "zoomHelp": "Utiliza CTRL + rueda del ratón para hacer zoom"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
@@ -226,11 +257,11 @@
     },
     "Tasks": {
       "BackButton": {
-        "back": "Atrás",
-        "tooltip": "Al regresar se borrará su trabajo para la tarea actual."
+        "back": "Atrás"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Listo & Hablemos"
+        "doneAndTalk": "Listo & Hablemos",
+        "newTab": "en una nueva pestaña"
       },
       "DoneButton": {
         "done": "Listo"

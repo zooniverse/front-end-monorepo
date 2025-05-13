@@ -35,18 +35,29 @@
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "フィルターを消去",
+      "closeFilters": "フィルターを閉じる",
       "filter": "フィルター",
       "removeFilter": "{{valueLabel}}フィルターの削除",
       "showing": "{{total}}のうち{{showing}}件を表示"
     },
     "Choice": {
+      "cancel": "キャンセル",
       "identify": "識別する",
+      "lessInfo": "一部の情報のみ表示",
+      "moreInfo": "情報をさらに表示",
       "notThis": "これではありません"
+    },
+    "ChoiceButton": {
+      "identified": "選択済み",
+      "openSubmenu": "{{choiceLabel}}のサブメニューを開く"
     },
     "ConfusedWith": {
       "cancel": "キャンセル",
       "confused": "時々混同されます",
       "itsThis": "これだと思います"
+    },
+    "DeleteButton": {
+      "delete": "{{choiceLabel}}の選択を削除"
     }
   },
   "TextFromSubjectTask": {

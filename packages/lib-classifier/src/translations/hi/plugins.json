@@ -1,16 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "खुले पॉइंट से बंद पॉइंट तक क्लिक करें और खींचें या स्प्लिस पॉइंट बनाने के लिए लाइन पर कहीं भी डबल क्लिक करें",
+    "closePoint": "बंद पॉइंट को सेट करने के लिए लाइन पर कहीं भी क्लिक करें",
+    "inactive": "इस लाइन को संपादित करने के लिए क्लिक करें",
+    "spliceDrag": "खुले पॉइंट से बंद पॉइंट तक क्लिक करें और खींचें",
+    "splicePoint": "स्प्लिस पॉइंट बनाने के लिए लाइन पर कहीं भी डबल क्लिक करें"
+  },
+  "HighlighterTask": {
+    "delete": "हटाएं",
+    "noLabels": "हाइलाइटर टास्क के लिए कोई लेबल नहीं",
+    "status": "{{count}} चिह्नित"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} निकाला गया",
+    "max": "{{count}} में से {{max}} अधिकतम निकाला गया",
+    "maxAndMin": "{{count}} का {{min}} आवश्यक {{max}} अधिकतम निकाला",
+    "min": "{{count}} में से {{min}} निकालना आवश्यक है"
+  },
+  "LineControls": {
+    "close": "बंद करें",
+    "delete": "हटाएं",
+    "deleteCancel": "हटाना रद्द करें",
+    "deleteConfirm": "हटाने की पुष्टि करें",
+    "lineControls": "लाइन नियंत्रण",
+    "move": "मूव करें",
+    "redo": "रीडू करें",
+    "undo": "अनडू करें"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "कुछ इनपुट करें",
+    "otherLabel": "अन्य...",
+    "selectPlaceholder": "कोई उत्तर चुनें"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "फिल्टर साफ करें",
+      "closeFilters": "फिल्टर बंद करें",
+      "filter": "फिल्टर",
+      "removeFilter": "{{valueLabel}} फिल्टर निकालें",
       "showing": "{{showing}}) में से {{total}} जाहिर है "
     },
     "Choice": {
-      "identify": "पहचानें / पहचान करें"
+      "cancel": "रद्द करें",
+      "identify": "पहचानें \/ पहचान करें",
+      "lessInfo": "कम जानकारी",
+      "moreInfo": "अधिक जानकारी",
+      "notThis": "यह नहीं"
+    },
+    "ChoiceButton": {
+      "identified": "पहचाना",
+      "openSubmenu": "{{choiceLabel}} के लिए सबमेनू दिखाएं"
     },
     "ConfusedWith": {
       "cancel": "रद्द करें",
       "confused": "अक्सर भूल से ...",
       "itsThis": "मेरे विचार में यह है "
+    },
+    "DeleteButton": {
+      "delete": "विकल्प {{choiceLabel}} हटाएं"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "रीसेट करें"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "पाठ संशोधक"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "ट्रांसक्रिप्शन बनाया गया",
+    "editing": "ट्रांसक्रिप्शन संपादित करना"
   }
 }
