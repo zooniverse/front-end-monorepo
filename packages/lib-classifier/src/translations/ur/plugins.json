@@ -1,19 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "اوپن پوائنٹ سے کلوز پوائنٹ تک کلک کریں اور گھسیٹیں یا اسپلائس پوائنٹ تخلیق کرنے کے لیے لائن پر کسی بھی جگہ پر دو مرتبہ کلک کریں",
+    "closePoint": "کلوز پوائنٹ سیٹ کرنے کے لیے لائن پر کسی بھی جگہ پر کلک کریں",
+    "inactive": "اس لائن میں ترمیم کرنے کے لیے کلک کریں",
+    "spliceDrag": "اوپن پوائنٹ سے کلوز پوائنٹ تک کلک کریں اور گھسیٹیں",
+    "splicePoint": "اسپلائس پوائنٹ تخلیق کرنے کے لیے لائن پر کسی بھی جگہ پر دو مرتبہ کلک کریں"
+  },
+  "HighlighterTask": {
+    "delete": "حذف کریں",
+    "noLabels": "ہائی لائٹر ٹاسک کے لیے کوئی لیبلز موجود نہیں",
+    "status": "{{count}} نشان زد ہے"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} ڈرا ہو گئی ہیں",
+    "max": "زیادہ سے زیادہ {{max}} از {{count}} ڈرا ہو گئی ہیں",
+    "maxAndMin": "{{min}} از {{count}} درکار ہے، زیادہ سے زیادہ {{max}} ڈرا کر دی گئی ہیں",
+    "min": "{{min}} از {{count}} ڈرا کرنے کی ضرورت ہے"
+  },
+  "LineControls": {
+    "close": "بند کریں",
+    "delete": "حذف کریں",
+    "deleteCancel": "حذفگی منسوخ کریں",
+    "deleteConfirm": "حذفگی کی تصدیق کریں",
+    "lineControls": "لائن کنٹرولز",
+    "move": "منتقل کریں",
+    "redo": "دوبارہ کریں",
+    "undo": "کالعدم کریں"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "کچھ ان پٹ کریں",
+    "otherLabel": "دیگر...",
+    "selectPlaceholder": "جواب کا انتخاب کریں"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": " فلٹر صاف ​ کریں ​ ",
+      "closeFilters": "فلٹرز بند کریں",
+      "filter": "فلٹر کریں",
+      "removeFilter": "{{valueLabel}} فلٹر ہٹائیں",
       "showing": "{{showing}} کے {{total}} دکھایا جا رہا ہے"
     },
     "Choice": {
-      "identify": "شناخت"
+      "cancel": "منسوخ کریں",
+      "identify": "شناخت",
+      "lessInfo": "کم معلومات",
+      "moreInfo": "مزید معلومات",
+      "notThis": "یہ نہیں"
+    },
+    "ChoiceButton": {
+      "identified": "شناخت کردہ",
+      "openSubmenu": "{{choiceLabel}} کے لیے ذیلی مینو کھولیں"
     },
     "ConfusedWith": {
       "cancel": "منسوخ ",
       "confused": "اکثر غیر واضح ",
       "itsThis": "میرے خیال میں یہی ہے"
+    },
+    "DeleteButton": {
+      "delete": "انتخاب {{choiceLabel}} حذف کریں"
     }
   },
   "TextFromSubjectTask": {
-    "reset": "بصری معائنہ کو ترتیب دیں۔ "
+    "reset": "بصری معائنہ کو ترتیب دیں۔"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "متن میں ترمیم کرنے والے"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "تخلیق کردہ ٹرانسکرپشن",
+    "editing": "ٹرانسکرپشن کی ایڈیٹنگ کرنا"
   }
 }

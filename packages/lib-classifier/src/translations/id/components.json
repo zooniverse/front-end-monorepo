@@ -1,1 +1,288 @@
-{}
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Anda sudah melihat subjek ini.",
+      "tooltipText": [
+        "Anda sudah melihat dan mengklasifikasikan subjek ini, jadi klasifikasi lanjutan tidak akan berkontribusi dalam analisis.",
+        "Jika Anda ingin membantu, coba pilih alur kerja lain atau berkontribusi di proyek lain."
+      ]
+    },
+    "Banner": {
+      "next": "Berikutnya",
+      "previous": "Sebelumnya",
+      "whyAmISeeingThis": "Mengapa saya melihat ini?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Batal",
+      "confirm": "Konfirmasi",
+      "inProgress": "Yakin ingin menavigasi ke Subjek lain? Semua anotasi yang Anda buat untuk Subjek saat ini akan hilang."
+    },
+    "RetiredBanner": {
+      "bannerText": "Selesai: Subjek ini sudah tidak digunakan",
+      "tooltipText": [
+        "Subjek ini sudah memiliki klasifikasi yang memadai, jadi klasifikasi Anda tidak akan digunakan dalam analisis.",
+        "Jika Anda ingin membantu, coba pilih alur kerja lain atau berkontribusi di proyek lain."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Sudah dilihat",
+      "bannerText": "{{setName}}: Subjek {{number}}\/{{total}}",
+      "finished": "Selesai",
+      "tooltipText": [
+        "Project ini memungkinkan sukarelawan melihat subjek secara berurutan.",
+        "Angka ini menunjukkan posisi subjek dalam total grup."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Selesai: Anda sudah melihat semuanya",
+      "tooltipText": [
+        "Anda sudah mengklasifikasikan semua dalam alur kerja ini, jadi klasifikasi lanjutan untuk subjek ini tidak akan digunakan dalam analisis.",
+        "Jika Anda ingin membantu, coba pilih alur kerja lain atau berkontribusi di proyek lain."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Alur kerja ini sudah selesai",
+      "tooltipText": [
+        "Semua subjek dalam alur kerja ini sudah selesai, jadi klasifikasi lanjutan untuk subjek ini tidak akan digunakan dalam analisis.",
+        "Jika Anda ingin membantu, coba pilih alur kerja lain atau berkontribusi di proyek lain."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Tangkai untuk memutar anotasi\/tanda yang dibuat."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Terus Klasifikasikan",
+    "label": "Masukan"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Panduan Lapangan"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Kembali ke daftar item Pedoman Lapangan"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Pilih {{title}}"
+    },
+    "title": "Pedoman Lapangan"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Buat anotasi"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Lihat subjek dalam ukuran normal",
+        "fullscreen": "Lihat subjek dalam mode layar penuh"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Balikkan subjek"
+    },
+    "MoveButton": {
+      "ariaLabel": "Pindahkan subjek"
+    },
+    "ResetButton": {
+      "ariaLabel": "Atur ulang tampilan subjek"
+    },
+    "RotateButton": {
+      "ariaLabel": "Putar subjek"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Perbesar subjek"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Perkecil subjek"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Tambah ke koleksi"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Sembunyikan Tanda Sebelumnya",
+      "show": "Tampilkan Tanda Sebelumnya"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Sembunyikan Semua Tanda",
+      "show": "Tampilkan Semua Tanda",
+      "showUser": "Tampilkan Tanda Anda"
+    },
+    "MetadataButton": {
+      "label": "Info Subjek"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Label",
+        "value": "Nilai"
+      },
+      "title": "Metadata Subjek"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Panduan"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Tutup panel komentar",
+      "goToTalk": "Masuk ke Diskusi Subjek di Bicarakan",
+      "mainPanel": "Panel Komentar QuickTalk",
+      "openButton": "Subjek mendapat {{count}} komentar. Klik untuk memperluas.",
+      "panelContent": "Komentar Diskusi Subjek",
+      "panelHeading": "Diskusi Subjek"
+    },
+    "errors": {
+      "failPostComment": "Tidak bisa menambahkan komentar ke diskusi yang sudah ada.",
+      "failPostDiscussion": "Tidak bisa menambahkan komentar ke diskusi baru.",
+      "noBoard": "Papan untuk komentar subjek belum dibuat untuk proyek ini.",
+      "noText": "Tidak bisa memposting komentar kosong.",
+      "noUser": "Pengguna belum masuk."
+    },
+    "loginToPost": "Masuk untuk memposting komentar.",
+    "status": {
+      "initialized": "Beri catatan tentang subjek ini",
+      "loading": "Memposting komentar...",
+      "success": "Komentar diposting!"
+    },
+    "subjectHasNoComments": "Subjek ini belum mendapat komentar."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Ke langkah {{index}}",
+      "next": "Ke langkah berikutnya",
+      "previous": "Ke langkah sebelumnya"
+    },
+    "alt": "Langkah panduan {{activeStep}}",
+    "error": "Langkah panduan tidak bisa dimuat.",
+    "getStarted": "Mulai",
+    "heading": "Panduan {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Ke langkah {{index}}",
+    "next": "Ke langkah berikutnya",
+    "previous": "Ke langkah sebelumnya"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Diagram batang"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikon untuk penampil teks"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Tutup tanpa menyimpan",
+        "confirm": "Yakin ingin menutup? Tanda ini akan dihapus.",
+        "keepWorking": "Lanjutkan"
+      },
+      "SaveButton": {
+        "save": "Simpan dan Tutup"
+      },
+      "SubTaskPopup": {
+        "notRender": "Komponen tugas tidak bisa diubah.",
+        "required": "Tugas ini harus ada."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "transkripsi agregat",
+          "explanation": "{{count}} transkripsi ini sudah dikirim oleh sukarelawan terdahulu dan tidak bisa diubah.",
+          "noAggregation": "Agregasi tidak tersedia.",
+          "title": "Transkripsi Sebelumnya",
+          "transcriptionsUnavailable": "Transkripsi tidak tersedia."
+        },
+        "complete": "Transkripsi selesai",
+        "transcribed": "Ada transkripsi"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Berikutnya",
+        "previousFrameLabel": "Sebelumnya",
+        "thumbnailAltText": "Gambar Mini"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Hapus pilihan {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Beralih ke tampilan flipbook",
+        "switchToSeparateFrames": "Beralih ke tampilan frame terpisah"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Ada kesalahan saat memuat subjek."
+    },
+    "VariableStarViewer": {
+      "controls": "kontrol",
+      "figCaption": "Diagram HR",
+      "flip": "balik",
+      "focus": "fokus",
+      "highlight": "sorot",
+      "imageTitle": "Diagram HR: Kilau vs. Suhu",
+      "label": "Filter {{id}}",
+      "periodMultiple": "periode banyak",
+      "phase": "fase",
+      "phaseFocus": "fokus fase"
+    },
+    "VideoController": {
+      "closeVolume": "Tutup Penggeser Volume",
+      "fullscreen": "Tampilkan Video di Layar Penuh",
+      "openVolume": "Buka Penggeser Volume",
+      "pause": "Jeda video",
+      "play": "Putar video",
+      "playbackSpeed": "Pilihan kecepatan pemutaran video",
+      "scrubber": "Scrubber pemutar video",
+      "volumeSlider": "Penggeser Volume"
+    },
+    "ZoomControlButton": {
+      "disable": "nonaktifkan perbesar",
+      "enable": "aktifkan perbesar"
+    },
+    "loading": "Memuat subjek",
+    "zoomHelp": "Gunakan CTRL + gulir untuk memperbesar"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Subjek ini memiliki klasifikasi yang memadai, jadi klasifikasi tambahan lain yang dikirim tidak akan digunakan dalam analisisnya. Anda masih dapat melihat subjek ini sebagai rujukan.",
+      "options": {
+        "dismiss": "Buang",
+        "next": "Subjek yang tersedia selanjutnya",
+        "select": "Pilih subjek baru"
+      },
+      "title": "Selesai"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Kembali"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Selesai & Bicarakan",
+        "newTab": "di tab baru"
+      },
+      "DoneButton": {
+        "done": "Selesai"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Mode Demo",
+        "label": "Opsi Ahli"
+      },
+      "NextButton": {
+        "next": "Berikutnya"
+      },
+      "TaskHelp": {
+        "close": "Tutup",
+        "label": "Perlu bantuan untuk tugas ini?"
+      },
+      "demoMode": "Dalam mode demo, klasifikasi tidak akan disimpan. Gunakan ini untuk demo cepat yang tidak akurat di antarmuka klasifikasi.",
+      "error": "Ada yang salah",
+      "loading": "Memuat",
+      "renderFallback": "Komponen tugas tidak bisa diubah."
+    },
+    "task": "Tugas",
+    "tutorial": "Panduan"
+  }
+}

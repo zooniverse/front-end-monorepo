@@ -242,7 +242,8 @@
       "disable": "ズームを無効にする",
       "enable": "ズームを有効にする"
     },
-    "loading": "サブジェクトをロード中"
+    "loading": "サブジェクトをロード中",
+    "zoomHelp": "CTRL + スクロールでズームします"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
@@ -259,7 +260,8 @@
         "back": "戻る"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "完了とトーク"
+        "doneAndTalk": "完了とトーク",
+        "newTab": "新しいタブで開きます"
       },
       "DoneButton": {
         "done": "完了"

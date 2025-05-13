@@ -1,9 +1,31 @@
 {
+  "FreehandLine": {
+    "active": "Açış noktasından kapanış noktasına tıklayıp sürükleyin veya birleştirme noktası oluşturmak için çizgi üzerinde herhangi bir yere çift tıklayın",
+    "closePoint": "Kapanış noktasını belirlemek için çizgi üzerinde herhangi bir yere tıklayın",
+    "inactive": "Bu çizgiyi düzenlemek için tıklayın",
+    "spliceDrag": "Açış noktasından kapanış noktasına tıklayıp sürükleyin",
+    "splicePoint": "Birleştirme noktası oluşturmak için çizgi üzerinde herhangi bir yere çift tıklayın"
+  },
+  "HighlighterTask": {
+    "delete": "Sil",
+    "noLabels": "Vurgulayıcı Görevi için etiket yok",
+    "status": "{{count}} İşaretli"
+  },
   "InputStatus": {
     "drawn": "{{count}} çizildi",
     "max": "{{count}}\/{{max}} maksimum çizim",
-    "maxAndMin": "{{count}}\/{{min}} gerekli, {{max}} maksimum çizim",
+    "maxAndMin": "{{count}}\/{{min}}   gerekli , {{max}} maksimum çizim",
     "min": "{{count}} \/ {{min}} gerekli çizim"
+  },
+  "LineControls": {
+    "close": "Kapat",
+    "delete": "Sil",
+    "deleteCancel": "Silme İşlemini İptal Et",
+    "deleteConfirm": "Silme İşlemini Onayla",
+    "lineControls": "Çizgi Kontrolleri",
+    "move": "Taşı",
+    "redo": "Yeniden yap",
+    "undo": "Geri al"
   },
   "SimpleDropdownTask": {
     "customInputPlaceholder": "Bir şey girin",
@@ -12,23 +34,34 @@
   },
   "SurveyTask": {
     "CharacteristicsFilter": {
-      "clearFilters": "Filtreleri sil",
-      "filter": "Filtre et",
+      "clearFilters": "Filtreleri temizle",
+      "closeFilters": "Filtreleri kapat",
+      "filter": "Filtrele",
       "removeFilter": "{{valueLabel}} Filtresini kaldır",
       "showing": "{{showing}} \/ {{total}} gösteriliyor"
     },
     "Choice": {
+      "cancel": "İptal et",
       "identify": "Tanımla",
+      "lessInfo": "Daha az bilgi",
+      "moreInfo": "Daha fazla bilgi",
       "notThis": "Bu değil"
+    },
+    "ChoiceButton": {
+      "identified": "tanımlanmış",
+      "openSubmenu": "{{choiceLabel}} için alt menüyü aç"
     },
     "ConfusedWith": {
       "cancel": "İptal et",
       "confused": "Bazen şununla karıştırılır",
       "itsThis": "Bence bu"
+    },
+    "DeleteButton": {
+      "delete": "{{choiceLabel}} seçimini sil"
     }
   },
   "TextFromSubjectTask": {
-    "reset": "Görünümü sıfırla"
+    "reset": "Sıfırla"
   },
   "TextTask": {
     "TextTagButtons": {

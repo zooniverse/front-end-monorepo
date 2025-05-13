@@ -1,16 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "Klicken und ziehen Sie vom offenen Punkt zum geschlossenen Punkt oder klicken Sie doppelt auf eine beliebige Stelle der Linie, um einen Anschlusspunkt zu erstellen.",
+    "closePoint": "Klicken Sie auf eine beliebige Stelle auf der Linie, um den Punkt zu schließen.",
+    "inactive": "Klicken, um diese Linie zu bearbeiten",
+    "spliceDrag": "Klicken und ziehen Sie vom offenen Punkt zum geschlossenen Punkt.",
+    "splicePoint": "Klicken Sie doppelt auf eine beliebige Stelle der Linie, um einen Anschlusspunkt zu erstellen."
+  },
+  "HighlighterTask": {
+    "delete": "Löschen",
+    "noLabels": "Keine Label für die Highlighter-Aufgabe",
+    "status": "{{count}} markiert"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} gezeichnet",
+    "max": "{{count}} von {{max}} maximal gezeichnet",
+    "maxAndMin": "{{count}} von {{min}} erforderlich, {{max}} maximal gezeichnet",
+    "min": "{{count}} von {{min}} erforderlichen gezeichnet"
+  },
+  "LineControls": {
+    "close": "Schließen",
+    "delete": "Löschen",
+    "deleteCancel": "Löschen abbrechen",
+    "deleteConfirm": "Löschen bestätigen",
+    "lineControls": "Liniensteuerungen",
+    "move": "Verschieben",
+    "redo": "Wiederholen",
+    "undo": "Rückgängig machen"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Geben Sie etwas ein",
+    "otherLabel": "Sonstiges …",
+    "selectPlaceholder": "Wählen Sie eine Antwort"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Filter löschen",
+      "closeFilters": "Filter schließen",
+      "filter": "Filtern",
+      "removeFilter": "{{valueLabel}}-Filter entfernen",
       "showing": "Zeigt {{showing}} von {{total}}"
     },
     "Choice": {
-      "identify": "Identifizieren"
+      "cancel": "Abbrechen",
+      "identify": "Identifizieren",
+      "lessInfo": "Mehr Informationen",
+      "moreInfo": "Weitere Informationen",
+      "notThis": "Nicht das"
+    },
+    "ChoiceButton": {
+      "identified": "identifiziert",
+      "openSubmenu": "Untermenü für {{choiceLabel}} öffnen"
     },
     "ConfusedWith": {
       "cancel": "Zurückziehen",
       "confused": "Oft verwechselt mit",
       "itsThis": "Ich denke, das ist es."
+    },
+    "DeleteButton": {
+      "delete": "Auswahl {{choiceLabel}} löschen"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Zurücksetzen"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Textmodifikatoren"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Erstellte Transkription",
+    "editing": "Transkription wird bearbeitet"
   }
 }

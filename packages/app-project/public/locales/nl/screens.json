@@ -2,14 +2,51 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Onderzoek",
-        "team": "Het team",
-        "results": "Resultaten",
         "education": "Onderwijs",
-        "faq": "Veelgestelde vragen"
+        "faq": "Veelgestelde vragen",
+        "research": "Onderzoek",
+        "results": "Resultaten",
+        "team": "Het team"
       }
     },
-    "SidebarHeading": "Over"
+    "PageNav": {
+      "title": "Over het project"
+    },
+    "SidebarHeading": "Over",
+    "TeamMember": {
+      "collaborator": "Medewerker",
+      "expert": "Expert",
+      "moderator": "Moderator",
+      "museum": "Museum",
+      "owner": "Eigenaar",
+      "researcher": "Onderzoeker",
+      "tester": "Tester",
+      "translator": "Vertaler"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Er is een fout opgetreden in de classifier :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Bespreek een onderwerp op Talk, of plaats het in uw favorieten of een verzameling.",
+      "title": "Je recente waarnemingen"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nee, bedankt",
+      "confirm": "Ga naar de volgende workflow!",
+      "content": "Gefeliciteerd! U doet het uitstekend en u heeft nu toegang tot een andere workflow. Als u liever bij de huidige workflow blijft, kunt u ervoor kiezen om te blijven.",
+      "dismiss": "Dit niet meer weergeven tijdens deze sessie",
+      "title": "Nieuwe workflow beschikbaar"
+    },
+    "YourStats": {
+      "allTime": "Altijd",
+      "lastSeven": "Afgelopen 7 dagen",
+      "link": "Meer zien",
+      "title": "statistieken"
+    }
   },
   "Home": {
     "AboutProject": {
@@ -20,18 +57,20 @@
         "link": "Lees meer"
       }
     },
-    "MessageFromResearcher": {},
-    "ZooniverseTalk": {
-      "button": "Doe mee!",
-      "title": "Forum"
-    }
-  },
-  "Classify": {
-    "RecentSubjects": {
-      "title": "Je recente waarnemingen"
+    "MessageFromResearcher": {
+      "noMessage": "Contacteer het onderzoeksteam via Talk voor meer informatie over dit project!",
+      "noMessageButton": "Ga naar Talk",
+      "title": "Bericht van de onderzoeker"
     },
-    "YourStats": {
-      "title": "statistieken"
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Er is iets misgegaan bij het laden van het onderwerp :(",
+        "noSubjects": "Er lijkt nog niemand op dit onderwerp te hebben gereageerd. Ga naar Talk en wees de eerste!",
+        "subjectLabel": "Onderwerp {{id}}"
+      },
+      "button": "Doe mee!",
+      "message": "Praat met het onderzoeksteam en andere vrijwilligers.",
+      "title": "Forum"
     }
   }
 }

@@ -1,30 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "管理员模式"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "用户名或电子邮件地址不正确",
+      "forgot": "忘记密码？",
+      "heading": "欢迎回来！",
+      "instruction": "欢迎回来！登录以从您停止的地方继续。",
+      "login": "用户名或电子邮件地址",
+      "password": "密码",
+      "placeholder": "例如，ZooniverseFan123",
+      "signIn": "登录"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "我想帮助测试新项目，并在项目就绪时收到电子邮件（可选）",
+      "email": "电子邮件地址（必填）",
+      "emailConfirm": "确认电子邮件地址（必填）",
+      "emailConfirmError": "电子邮件地址不匹配，请重试。",
+      "emailConflict": "已存在使用此地址的账户",
+      "emailListSignUp": "偶尔给我发一封电子邮件是可以接受的（可选）",
+      "emailPlaceholder": "例如，zoofan31@gmail.com",
+      "forgot": "忘记密码？",
+      "heading": "欢迎回来！",
+      "instruction": "请创建一个账户以开始进行实际研究。",
+      "password": "密码（必填）",
+      "passwordConfirm": "确认密码（必填）",
+      "passwordConfirmError": "密码不匹配，请重试。",
+      "privacyAgreement": "您同意我们的隐私政策（必填）",
+      "privacyAgreementError": "必须同意隐私政策。",
+      "privacyLink": "阅读我们的隐私政策",
+      "realName": "真名（可选）",
+      "realNameHelp": "我们将使用该信息在科学论文、海报等材料上注明您的贡献。",
+      "realNamePatternHelp": "输入姓名，而不是电子邮件地址",
+      "realNamePlaceholder": "例如，Maggie Smith",
+      "register": "注册",
+      "registering": "正在注册...",
+      "underageConsent": "我确认我是家长\/监护人，并通过提供我的电子邮件地址作为主要联系地址，允许我的孩子注册。我和我的孩子都理解并同意隐私政策（必填）",
+      "underageEmail": "家长或监护人的电子邮件地址（必填）",
+      "underageEmailSignUp": "如果您同意，我们将定期发送电子邮件，宣传新的研究相关项目或与我们的研究相关的其他信息。我们不会将您的联系信息用于商业目的。（可选）",
+      "underageNotRealName": "您将使用此名称登录。它将公开显示。切勿使用您的真名。",
+      "underageWithParent": "如果您未满 16 岁，请勾选此框以确认您已与父母或监护人一起填写了该表单",
+      "username": "用户名（必填）",
+      "usernameConflict": "该用户名已被使用",
+      "usernameHelp": "这将在留言板等位置公开显示。",
+      "usernamePatternHelp": "用户名只能包含字母、数字、“。”、“,”、“-”和“_”",
+      "usernamePlaceholder": "例如，ZooniverseFan123"
+    },
+    "title": "登录或创建新账户。"
+  },
   "CloseButton": {
     "close": "关闭"
   },
+  "FavouritesButton": {
+    "add": "添加至收藏夹",
+    "remove": "添加至收藏夹"
+  },
+  "Loader": {
+    "loading": "加载中"
+  },
+  "ProjectCard": {
+    "classifications": "分类",
+    "finished": "已完成",
+    "paused": "已暂停",
+    "state": "国家"
+  },
   "ZooFooter": {
     "aboutLabels": {
-      "about": "关于"
+      "about": "关于",
+      "acknowledgements": "鸣谢",
+      "contact": "联系人",
+      "faq": "常见问题",
+      "publications": "出版物",
+      "resources": "资源",
+      "team": "团队"
     },
     "buildLabels": {
+      "bestPractices": "最佳实践",
+      "buildAProject": "构建项目",
+      "glossary": "词汇表",
+      "policies": "政策",
       "tutorial": "教程"
     },
+    "getInvolvedLabels": {
+      "callForProjects": "征集项目",
+      "collaborate": "协作",
+      "collections": "合集",
+      "donate": "捐赠",
+      "educate": "教育",
+      "education": "教育",
+      "getInvolved": "参与",
+      "volunteer": "志愿者"
+    },
+    "newsLabels": {
+      "blog": "博客",
+      "dailyZooniverse": "每日 Zooniverse",
+      "news": "新闻"
+    },
+    "policyLabels": {
+      "jobs": "工作",
+      "privacyPolicy": "隐私政策",
+      "security": "安全性",
+      "systemStatus": "系统状态"
+    },
+    "projectLabels": {
+      "arts": "艺术",
+      "biology": "生物学",
+      "climate": "气候",
+      "history": "历史",
+      "language": "语言",
+      "literature": "文学",
+      "medicine": "医学",
+      "nature": "自然学",
+      "physics": "物理学",
+      "projects": "项目",
+      "social": "社会科学",
+      "space": "太空"
+    },
+    "tagLine": "众创科研",
     "talkLabels": {
-      "talk": "讨论"
-    }
+      "announcements": "公告",
+      "data": "数据处理",
+      "projectBuilding": "项目构建",
+      "talk": "讨论",
+      "troubleshooting": "故障排除"
+    },
+    "zooniversePolicies": "Zooniverse 政策"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "about": "关于",
-      "talk": "讨论"
+    "SignedInUserNavigation": {
+      "ariaLabel": "用户账户",
+      "navListLabels": {
+        "messages_one": "消息 ({{count}})",
+        "messages_other": "消息 ({{count}})",
+        "messages_zero": "消息",
+        "notifications_one": "通知 ({{count}})",
+        "notifications_other": "通知 ({{count}})",
+        "notifications_zero": "通知"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "注册",
       "signIn": "登录"
     },
     "ThemeModeToggle": {
-      "switchToDark": "切换至 深色 主题",
-      "switchToLight": "切换至 浅色 主题"
+      "switchToDark": "切换至深色主题",
+      "switchToLight": "切换至浅色主题"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "合集",
+        "favorites": "收藏夹",
+        "profile": "个人资料",
+        "settings": "设置",
+        "signOut": "注销"
+      }
+    },
+    "ariaLabel": "站点",
+    "mainHeaderNavListLabels": {
+      "about": "关于",
+      "build": "构建",
+      "getInvolved": "参与",
+      "projects": "项目",
+      "talk": "讨论"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse 徽标"
   }
 }
