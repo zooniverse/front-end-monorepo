@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Style RegisterForm as one column for `small` screensize.
 - Project card badges are now circular in Safari.
 - Inconsistent text sizes for Markdown tables and lists.
+- `ThumbnailImage` renders tiny images inside markdown tables.
 - `useUnreadNotifications` and `useUnreadMessages` now wait for Panoptes auth to complete before fetching data.
 - `Modal`: add the `dialog` role and an accessible name. Pass keyboard focus to dialogs when they open.
 
