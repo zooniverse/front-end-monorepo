@@ -84,7 +84,7 @@ function ProjectSubjectPage({
               }}
               height={{ min: '600px' }}
             >
-              Talk Data goes here
+              Talk data goes here
             </Box>
           </Box>
         </ContainerGrid>
