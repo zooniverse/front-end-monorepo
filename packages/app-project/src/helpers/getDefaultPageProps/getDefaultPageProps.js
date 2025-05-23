@@ -9,7 +9,15 @@ const HOSTS = {
 
 export default async function getDefaultPageProps({ locale, params }) {
   const { props: staticProps } = await getStaticPageProps({ locale, params })
-  const { project, notFound, title, workflowID, workflows, organization } = staticProps
+  const {
+    project,
+    notFound,
+    title,
+    workflowID,
+    workflows,
+    organization,
+    subject
+  } = staticProps
   const host = HOSTS[environment] || 'https://localhost:3000'
   /*
     snapshot for store hydration in the browser
@@ -34,6 +42,10 @@ export default async function getDefaultPageProps({ locale, params }) {
 
   if (organization) {
     props.initialState.organization = organization
+  }
+
+  if (subject) {
+    props.subject = subject
   }
 
   return { notFound, props }

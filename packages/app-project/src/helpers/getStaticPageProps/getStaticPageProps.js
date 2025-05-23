@@ -4,6 +4,7 @@ import notFoundError from '@helpers/notFoundError'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchOrganization from '@helpers/fetchOrganization'
 import fetchProjectData from '@helpers/fetchProjectData'
+import fetchSubject from '@helpers/fetchSubject'
 import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
 import initStore from '@stores'
@@ -98,6 +99,18 @@ export default async function getStaticPageProps({ locale, params }) {
       applySnapshot(store.organization, organization)
       props.organization = getSnapshot(store.organization)
     }
+  }
+
+  /*
+    Fetch the subject
+  */
+
+  if (!params.workflowID && params.subjectID) {
+    const subject = await fetchSubject(params.subjectID, env)
+    if (!subject) {
+      return notFoundError(`Subject ${params.subjectID} was not found`)
+    }
+    props.subject = subject
   }
 
   return { props }
