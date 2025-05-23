@@ -12,7 +12,7 @@ const ContainerGrid = styled(Grid)`
   position: relative;
   grid-gap: 1.875rem;
   grid-template-areas: 'viewer talkData';
-  grid-template-columns: minmax(auto, 100rem) '25rem';
+  grid-template-columns: minmax(auto, 100rem) 25rem;
   margin: auto;
 
   @media screen and (max-width: 1024px) {
@@ -23,6 +23,7 @@ const ContainerGrid = styled(Grid)`
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
     margin: 0;
+    width: 100%;
   }
 `
 
@@ -42,10 +43,17 @@ function ProjectSubjectPage({
         pad='medium'
       >
         <ContainerGrid>
-          <Box>
+          <Box
+            background={{
+              dark: 'dark-3',
+              light: 'white'
+            }}
+            style={{
+              gridArea: 'viewer'
+            }}
+          >
             <Media
               alt={`subject ${subjectID}`}
-              controls={true}
               subject={subject}
               src={subjectURL}
             />
@@ -62,11 +70,20 @@ function ProjectSubjectPage({
               <SubtractCircle />
             </Box>
           </Box>
-          <Box gap='small'>
+          <Box
+            gap='small'
+            style={{ gridArea: 'talkData' }}
+          >
             {/* <TalkSearch /> */}
             <input type='text' placeholder='Search this project for tags, subjects, or @users' />
             {/* <TalkData /> */}
-            <Box>
+            <Box
+              background={{
+                dark: 'dark-3',
+                light: 'white'
+              }}
+              height={{ min: '600px' }}
+            >
               Talk Data goes here
             </Box>
           </Box>
