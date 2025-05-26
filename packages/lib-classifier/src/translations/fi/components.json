@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Olet jo nähnyt tämän aiheen",
+      "tooltipText": [
+        "Olet jo nähnyt ja luokitellut tämän aiheen, joten tulevat luokittelut eivät edistä sen analyysiä.",
+        "Jos haluat auttaa, kokeile valita toinen työnkulku tai osallistua eri projektiin."
+      ]
+    },
+    "Banner": {
+      "next": "Seuraava",
+      "previous": "Edellinen",
+      "whyAmISeeingThis": "Miksi näen tämän?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Peruuta",
+      "confirm": "Vahvista",
+      "inProgress": "Haluatko varmasti siirtyä eri aiheeseen? Kaikki tekemäsi merkinnät nykyisessä aiheessa menetetään."
+    },
+    "RetiredBanner": {
+      "bannerText": "Valmis: Tämä aihe on suljettu",
+      "tooltipText": [
+        "Tässä aiheessa on jo tarpeeksi luokitteluja, joten omaasi ei käytetä sen analyysissä.",
+        "Jos haluat auttaa, kokeile valita toinen työnkulku tai osallistua eri projektiin."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Jo nähty",
+      "bannerText": "{{setName}}: aihe {{number}}\/{{total}}",
+      "finished": "Valmis",
+      "tooltipText": [
+        "Tämän projektin avulla vapaaehtoiset voivat katsella aiheita peräkkäisessä järjestyksessä.",
+        "Tämä luku näyttää aiheen sijainnin kokonaisryhmässä."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Valmis: Olet nähnyt kaiken",
+      "tooltipText": [
+        "Olet jo luokitellut kaiken tässä työnkulussa, joten tämän aiheen muita luokitteluja ei käytetä sen analyysissä.",
+        "Jos haluat auttaa, kokeile valita toinen työnkulku tai osallistua eri projektiin."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Tämä työnkulku on valmis.",
+      "tooltipText": [
+        "Kaikki tämän työnkulun aiheet ovat valmiita, joten tämän aiheen muita luokitteluja ei käytetä sen analyysissä.",
+        "Jos haluat auttaa, kokeile valita toinen työnkulku tai osallistua eri projektiin."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Piirretyn huomautuksen\/merkinnän kääntämiseen käytettävä vipu."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Jatka luokittelua",
+    "label": "Palaute"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Kenttäopas"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Siirry takaisin kenttäoppaan kohdeluetteloon"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Valitse {{title}}"
+    },
+    "title": "Kenttäopas"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Lisää huomautus"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Katsele aihetta normaalikoossa",
+        "fullscreen": "Katsele aihetta koko näytön tilassa"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Käännä aihe"
+    },
+    "MoveButton": {
+      "ariaLabel": "Siirrä aihetta"
+    },
+    "ResetButton": {
+      "ariaLabel": "Nollaa aihenäkymä"
+    },
+    "RotateButton": {
+      "ariaLabel": "Kierrä aihetta"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Lähennä aiheeseen"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Loitonna aiheesta"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Lisää kokoelmiin"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Piilota edelliset merkinnät",
+      "show": "Näytä edelliset merkinnät"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Piilota kaikki merkinnät",
+      "show": "Näytä kaikki merkinnät",
+      "showUser": "Näytä omat merkinnät"
+    },
+    "MetadataButton": {
+      "label": "Aiheen tiedot"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Merkintä",
+        "value": "Arvo"
+      },
+      "title": "Aiheen metatiedot"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutoriaali"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Sulje kommenttipaneeli",
+      "goToTalk": "Siirry aihekeskusteluun Talkissa",
+      "mainPanel": "QuickTalk-kommenttipaneeli",
+      "openButton": "Aiheessa on {{count}} kommentti(a). Laajenna napsauttamalla.",
+      "panelContent": "Aihekeskustelun kommentit",
+      "panelHeading": "Aihekeskustelu"
+    },
+    "errors": {
+      "failPostComment": "Olemassa olevaan keskusteluun ei voitu lisätä kommentteja.",
+      "failPostDiscussion": "Uuteen keskusteluun ei voitu lisätä kommentteja.",
+      "noBoard": "Taulua aiheen kommenteille ei ole vielä määritetty tälle projektille.",
+      "noText": "Et voi julkaista tyhjää kommenttia.",
+      "noUser": "Käyttäjä ei ole kirjautunut sisään."
+    },
+    "loginToPost": "Kirjaudu sisään julkaistaksesi kommentin.",
+    "status": {
+      "initialized": "Jätä aiheeseen kommentti",
+      "loading": "Julkaistaan kommenttia...",
+      "success": "Kommentti julkaistu!"
+    },
+    "subjectHasNoComments": "Tässä aiheessa ei vielä ole kommentteja."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Siirry vaiheeseen {{index}}",
+      "next": "Siirry seuraavaan vaiheeseen",
+      "previous": "Siirry edelliseen vaiheeseen"
+    },
+    "alt": "Tutoriaalivaihe {{activeStep}}",
+    "error": "Tutoriaalin vaihetta ei voitu ladata.",
+    "getStarted": "Aloita",
+    "heading": "Tutoriaali {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Siirry vaiheeseen {{index}}",
+    "next": "Siirry seuraavaan vaiheeseen",
+    "previous": "Siirry edelliseen vaiheeseen"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Pylväskaavio"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Tekstin katseluohjelman kuvake"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Sulje tallentamatta",
+        "confirm": "Haluatko varmasti sulkea? Tämä merkintä poistetaan.",
+        "keepWorking": "Jatka työstämistä"
+      },
+      "SaveButton": {
+        "save": "Tallenna ja sulje"
+      },
+      "SubTaskPopup": {
+        "notRender": "Tehtävän komponenttia ei voitu renderöidä.",
+        "required": "Tämä tehtävä on valmis."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "koostettu transkriptio",
+          "explanation": "Edelliset vapaaehtoiset ovat lähettäneet nämä {{count}} transkriptiota eikä nitä voi muokata.",
+          "noAggregation": "Koostetta ei saatavilla.",
+          "title": "Edelliset transkriptiot",
+          "transcriptionsUnavailable": "Transkriptioita ei saatavilla."
+        },
+        "complete": "Transkriptio valmis",
+        "transcribed": "Omaa transkriptioita"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Seuraava",
+        "previousFrameLabel": "Edellinen",
+        "thumbnailAltText": "Kuvan pikkukuva"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Poista valinta {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Vaihda näkymää",
+        "switchToSeparateFrames": "Vaihda erillisten kuvien näkymään"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Aihetta ladattaessa ilmeni virhe."
+    },
+    "VariableStarViewer": {
+      "controls": "hallinta",
+      "figCaption": "HR-kaavio",
+      "flip": "käännä",
+      "focus": "tarkenna",
+      "highlight": "korosta",
+      "imageTitle": "HR-kaavio: valoisuus vs lämpötila",
+      "label": "Suodata {{id}}",
+      "periodMultiple": "useita ajanjaksoja",
+      "phase": "vaihe",
+      "phaseFocus": "vaiheen tarkennus"
+    },
+    "VideoController": {
+      "closeVolume": "Sulje äänenvoimakkuuden liukusäädin",
+      "fullscreen": "Näytä video koko näytössä",
+      "openVolume": "Avaa äänenvoimakkuuden liukusäädin",
+      "pause": "Pysäytä video",
+      "play": "Toista video",
+      "playbackSpeed": "Videon toiston nopeuden valinta",
+      "scrubber": "Videosoittimen säädin",
+      "volumeSlider": "Äänenvoimakkuuden liukusäädin"
+    },
+    "ZoomControlButton": {
+      "disable": "poista lähennys käytöstä",
+      "enable": "ota lähennys käyttöön"
+    },
+    "loading": "Ladataan aihetta",
+    "zoomHelp": "Lähennä painamalla CTRL + vierittämällä"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Tässä aiheessa on tarpeeksi luokitteluja, joten muita lähetettyjä luokitteluja ei käytetä sen analyysissä. Voit kuitenkin edelleen katsella tätä aihetta.",
+      "options": {
+        "dismiss": "Ohita",
+        "next": "Uusi saatavilla oleva aihe",
+        "select": "Valitse uusi aihe"
+      },
+      "title": "Valmis"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Takaisin"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Done & Talk",
+        "newTab": "uudessa välilehdessä"
+      },
+      "DoneButton": {
+        "done": "Valmis"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Demotila",
+        "label": "Asiantuntijan vaihtoehdot"
+      },
+      "NextButton": {
+        "next": "Seuraava"
+      },
+      "TaskHelp": {
+        "close": "Sulje",
+        "label": "Tarvitsetko apua tämän tehtävän parissa?"
+      },
+      "demoMode": "Luokitteluja ei tallenneta demotilassa. Tämä sopii luokittelukäyttöliittymän nopeisiin ja epätarkkoihin demoihin.",
+      "error": "Jokin meni vikaan.",
+      "loading": "Ladataan",
+      "renderFallback": "Tehtävän komponenttia ei voitu renderöidä."
+    },
+    "task": "Tehtävä",
+    "tutorial": "Tutoriaali"
+  }
+}
