@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Bạn đã xem chủ thể này rồi",
+      "tooltipText": [
+        "Bạn đã xem và phân loại chủ thể này, vì vậy các phân loại tiếp theo sẽ không được tính vào phân tích.",
+        "Nếu bạn muốn đóng góp, hãy thử chọn một quy trình làm việc khác hoặc tham gia vào một dự án khác."
+      ]
+    },
+    "Banner": {
+      "next": "Tiếp theo",
+      "previous": "Trước",
+      "whyAmISeeingThis": "Tại sao tôi thấy điều này?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Hủy",
+      "confirm": "Xác nhận",
+      "inProgress": "Bạn có chắc chắn muốn chuyển sang chủ thể khác không? Mọi chú thích bạn đã thực hiện cho chủ thể hiện tại sẽ bị mất."
+    },
+    "RetiredBanner": {
+      "bannerText": "Hoàn tất: Chủ thể này đã được kết thúc xử lý",
+      "tooltipText": [
+        "Chủ thể này đã có đủ phân loại, vì vậy phân loại của bạn sẽ không được sử dụng trong phân tích.",
+        "Nếu bạn muốn đóng góp, hãy thử chọn một quy trình làm việc khác hoặc tham gia vào một dự án khác."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Đã xem",
+      "bannerText": "{{setName}}: Chủ thể {{number}}\/{{total}}",
+      "finished": "Đã hoàn thành",
+      "tooltipText": [
+        "Dự án này cho phép các tình nguyện viên xem các chủ thể theo thứ tự tuần tự.",
+        "Con số cho bạn biết vị trí của chủ thể trong toàn bộ nhóm."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Hoàn tất: Bạn đã xem tất cả",
+      "tooltipText": [
+        "Bạn đã phân loại toàn bộ trong quy trình làm việc này, vì vậy các phân loại thêm đối với chủ thể này sẽ không được sử dụng trong phân tích.",
+        "Nếu bạn muốn đóng góp, hãy thử chọn một quy trình làm việc khác hoặc tham gia vào một dự án khác."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Quy trình làm việc này đã hoàn tất",
+      "tooltipText": [
+        "Tất cả các chủ thể trong quy trình làm việc này đã được hoàn thành, vì vậy các phân loại thêm đối với chủ thể này sẽ không được sử dụng trong phân tích.",
+        "Nếu bạn muốn đóng góp, hãy thử chọn một quy trình làm việc khác hoặc tham gia vào một dự án khác."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Tay cầm để xoay chú thích\/dấu đã vẽ"
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Tiếp tục phân loại",
+    "label": "Phản hồi"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Hướng dẫn thực địa"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Quay lại danh sách mục Hướng dẫn Thực địa"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Chọn {{title}}"
+    },
+    "title": "Hướng dẫn Thực địa"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Chú thích"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Xem chủ thể ở kích thước bình thường",
+        "fullscreen": "Xem chủ thể ở chế độ toàn màn hình"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Đảo ngược chủ thể"
+    },
+    "MoveButton": {
+      "ariaLabel": "Di chuyển chủ thể"
+    },
+    "ResetButton": {
+      "ariaLabel": "Đặt lại chế độ xem chủ thể"
+    },
+    "RotateButton": {
+      "ariaLabel": "Xoay chủ thể"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Phóng to vào chủ thể"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Thu nhỏ khỏi chủ thể"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Thêm vào bộ sưu tập"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Ẩn điểm trước đó",
+      "show": "Hiển thị điểm trước đó"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Ẩn tất cả điểm",
+      "show": "Hiển thị tất cả điểm",
+      "showUser": "Hiển thị điểm của bạn"
+    },
+    "MetadataButton": {
+      "label": "Thông tin chủ thể"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Nhãn",
+        "value": "Giá trị"
+      },
+      "title": "Siêu dữ liệu chủ đề"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Hướng dẫn"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Đóng bảng bình luận",
+      "goToTalk": "Chuyển đến phần Thảo luận chủ thể trên Talk",
+      "mainPanel": "Bảng bình luận QuickTalk",
+      "openButton": "Chủ thể có {{count}} bình luận. Nhấp để mở rộng.",
+      "panelContent": "Bình luận trong phần thảo luận chủ thể",
+      "panelHeading": "Thảo luận về chủ thể"
+    },
+    "errors": {
+      "failPostComment": "Không thể thêm bình luận vào thảo luận hiện có.",
+      "failPostDiscussion": "Không thể thêm bình luận vào thảo luận mới.",
+      "noBoard": "Bảng bình luận cho chủ thể vẫn chưa được thiết lập cho dự án này.",
+      "noText": "Không thể đăng bình luận trống.",
+      "noUser": "Người dùng chưa đăng nhập."
+    },
+    "loginToPost": "Vui lòng đăng nhập để đăng bình luận.",
+    "status": {
+      "initialized": "Để lại ghi chú về chủ thể này",
+      "loading": "Đang đăng bình luận...",
+      "success": "Bình luận đã được đăng!"
+    },
+    "subjectHasNoComments": "Chủ thể này chưa có bình luận nào."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Chuyển đến bước {{index}}",
+      "next": "Chuyển sang bước tiếp theo",
+      "previous": "Quay lại bước trước"
+    },
+    "alt": "Bước hướng dẫn {{activeStep}}",
+    "error": "Không thể tải bước hướng dẫn.",
+    "getStarted": "Bắt đầu",
+    "heading": "Hướng dẫn {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Chuyển đến bước {{index}}",
+    "next": "Chuyển sang bước tiếp theo",
+    "previous": "Quay lại bước trước"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Biểu đồ thanh"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Biểu tượng cho trình xem văn bản"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Đóng mà không lưu",
+        "confirm": "Bạn có chắc chắn muốn đóng không? Dấu đánh dấu này sẽ bị xóa.",
+        "keepWorking": "Tiếp tục làm việc"
+      },
+      "SaveButton": {
+        "save": "Lưu và Đóng"
+      },
+      "SubTaskPopup": {
+        "notRender": "Không thể hiển thị thành phần nhiệm vụ.",
+        "required": "Nhiệm vụ này là bắt buộc."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "bản chép lời tổng hợp",
+          "explanation": "{{count}} bản chép lời này đã được gửi bởi các tình nguyện viên trước đó và không thể chỉnh sửa.",
+          "noAggregation": "Không có dữ liệu tổng hợp.",
+          "title": "Các bản chép lời trước đó",
+          "transcriptionsUnavailable": "Bản chép lời không khả dụng."
+        },
+        "complete": "Hoàn tất bản chép lời",
+        "transcribed": "Có các bản chép lời"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Tiếp theo",
+        "previousFrameLabel": "Trước",
+        "thumbnailAltText": "Ảnh thu nhỏ"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Xóa lựa chọn {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Chuyển sang chế độ xem dạng lật trang",
+        "switchToSeparateFrames": "Chuyển sang chế độ xem khung riêng biệt"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Đã xảy ra lỗi khi tải chủ thể."
+    },
+    "VariableStarViewer": {
+      "controls": "điều khiển",
+      "figCaption": "Biểu đồ HR",
+      "flip": "lật",
+      "focus": "tập trung",
+      "highlight": "nêu bật",
+      "imageTitle": "Biểu đồ HR: Độ sáng so với Nhiệt độ",
+      "label": "Bộ lọc {{id}}",
+      "periodMultiple": "bội số chu kỳ",
+      "phase": "giai đoạn",
+      "phaseFocus": "Lấy nét theo pha"
+    },
+    "VideoController": {
+      "closeVolume": "Đóng thanh trượt âm lượng",
+      "fullscreen": "Hiển thị video toàn màn hình",
+      "openVolume": "Mở thanh trượt âm lượng",
+      "pause": "Tạm dừng video",
+      "play": "Phát video",
+      "playbackSpeed": "Chọn tốc độ phát lại video",
+      "scrubber": "Scrubber trình phát video",
+      "volumeSlider": "Thanh trượt âm lượng"
+    },
+    "ZoomControlButton": {
+      "disable": "Tắt chức năng thu phóng",
+      "enable": "Bật chức năng thu phóng"
+    },
+    "loading": "Đang tải chủ thể",
+    "zoomHelp": "Dùng CTRL + cuộn để phóng to\/thu nhỏ"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Chủ thể này đã có đủ phân loại, vì vậy mọi phân loại bổ sung sẽ không được sử dụng trong quá trình phân tích. Tuy nhiên, bạn vẫn có thể xem chủ thể này để tham khảo.",
+      "options": {
+        "dismiss": "Đóng",
+        "next": "Chủ thể khả dụng tiếp theo",
+        "select": "Chọn một chủ thể mới"
+      },
+      "title": "Đã hoàn thành"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Quay lại"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Hoàn tất & Trò chuyện",
+        "newTab": "trong một tab mới"
+      },
+      "DoneButton": {
+        "done": "Hoàn tất"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Chế độ Demo",
+        "label": "Tùy chọn nâng cao"
+      },
+      "NextButton": {
+        "next": "Tiếp theo"
+      },
+      "TaskHelp": {
+        "close": "Đóng",
+        "label": "Cần trợ giúp với nhiệm vụ này không?"
+      },
+      "demoMode": "Ở chế độ Demo, các phân loại sẽ không được lưu. Sử dụng chế độ này để trình diễn nhanh giao diện phân loại, không yêu cầu độ chính xác cao.",
+      "error": "Đã xảy ra sự cố",
+      "loading": "Đang tải",
+      "renderFallback": "Không thể hiển thị thành phần nhiệm vụ."
+    },
+    "task": "Nhiệm vụ",
+    "tutorial": "Hướng dẫn"
+  }
+}

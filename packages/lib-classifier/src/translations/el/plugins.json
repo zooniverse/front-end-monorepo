@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Κάντε κλικ και σύρετε από το σημείο ανοίγματος έως το σημείο κλεισίματος ή κάντε διπλό κλικ οπουδήποτε στη γραμμή για να δημιουργήσετε ένα σημείο σύνδεσης",
+    "closePoint": "Κάντε κλικ οπουδήποτε στη γραμμή για να ορίσετε το σημείο κλεισίματος",
+    "inactive": "Κάντε κλικ για να επεξεργαστείτε αυτήν τη γραμμή",
+    "spliceDrag": "Κάντε κλικ και σύρετε από το σημείο ανοίγματος στο σημείο κλεισίματος",
+    "splicePoint": "Κάντε διπλό κλικ οπουδήποτε στη γραμμή για να δημιουργήσετε ένα σημείο σύνδεσης"
+  },
+  "HighlighterTask": {
+    "delete": "Διαγραφή",
+    "noLabels": "Δεν υπάρχουν ετικέτες για την Εργασία υπογράμμισης",
+    "status": "{{count}} σε επισήμανση"
+  },
+  "InputStatus": {
+    "drawn": "Σχεδιάστηκαν {{count}}",
+    "max": "Σχεδιάστηκαν {{count}} από {{max}} που απαιτούνται",
+    "maxAndMin": "Απαιτούνται {{count}} από {{min}}, μέγιστη σχεδίαση {{max}}",
+    "min": "Σχεδιάστηκαν {{count}} από {{min}} που απαιτούνται"
+  },
+  "LineControls": {
+    "close": "Κλείσιμο",
+    "delete": "Διαγραφή",
+    "deleteCancel": "Ακύρωση διαγραφής",
+    "deleteConfirm": "Επιβεβαίωση διαγραφής",
+    "lineControls": "Έλεγχοι γραμμής",
+    "move": "Μετακίνηση",
+    "redo": "Επανάληψη",
+    "undo": "Αναίρεση"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Προσθέστε κάτι",
+    "otherLabel": "Άλλο...",
+    "selectPlaceholder": "Επιλέξτε μια απάντηση"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Απαλοιφή φίλτρων",
+      "closeFilters": "Κλείσιμο φίλτρων",
+      "filter": "Φίλτρο",
+      "removeFilter": "Κατάργηση φίλτρου {{valueLabel}}",
+      "showing": "Εμφάνιση {{showing}} από {{total}}"
+    },
+    "Choice": {
+      "cancel": "Ακύρωση",
+      "identify": "Ταυτοποίηση",
+      "lessInfo": "Λιγότερες πληροφορίες",
+      "moreInfo": "Περισσότερες πληροφορίες",
+      "notThis": "Όχι αυτό"
+    },
+    "ChoiceButton": {
+      "identified": "ταυτοποιήθηκε",
+      "openSubmenu": "Άνοιγμα υπομενού για {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Ακύρωση",
+      "confused": "Μερικές φορές συγχέεται για",
+      "itsThis": "Νομίζω πως είναι αυτό"
+    },
+    "DeleteButton": {
+      "delete": "Διαγραφή επιλογής {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Επαναφορά"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Στοιχεία τροποποίησης κειμένου"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Η μεταγραφή δημιουργήθηκε",
+    "editing": "Επεξεργασία μεταγραφής"
+  }
+}
