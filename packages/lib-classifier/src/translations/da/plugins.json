@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Klik og træk fra åbningspunktet til lukkepunktet, eller dobbeltklik et vilkårligt sted på linjen for at oprette et splejsepunkt.",
+    "closePoint": "Klik et vilkårligt sted på linjen for at indstille lukkepunktet",
+    "inactive": "Klik for at redigere denne linje",
+    "spliceDrag": "Klik og træk fra åbningspunktet til lukkepunktet",
+    "splicePoint": "Dobbeltklik hvor som helst på linjen for at oprette et splejsepunkt"
+  },
+  "HighlighterTask": {
+    "delete": "Slet",
+    "noLabels": "Ingen etiketter til fremhævningsopgaven",
+    "status": "{{count}} markeret"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} er tegnet",
+    "max": "{{count}} ud af maksimalt {{max}} er tegnet",
+    "maxAndMin": "{{count}} af {{min}} er påkrævet, {{max}} maksimalt tegnet",
+    "min": "{{count}} ud af {{min}} påkrævne er tegnet"
+  },
+  "LineControls": {
+    "close": "Luk",
+    "delete": "Slet",
+    "deleteCancel": "Annuller sletning",
+    "deleteConfirm": "Bekræft sletning",
+    "lineControls": "Linjestyring",
+    "move": "Flyt",
+    "redo": "Gentag",
+    "undo": "Fortryd"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Indtast noget",
+    "otherLabel": "Andet ...",
+    "selectPlaceholder": "Vælg et svar"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Ryd filtre",
+      "closeFilters": "Luk filtre",
+      "filter": "Filtrér",
+      "removeFilter": "Fjern filteret {{valueLabel}}",
+      "showing": "Viser {{showing}} ud af {{total}}"
+    },
+    "Choice": {
+      "cancel": "Annuller",
+      "identify": "Identificer",
+      "lessInfo": "Færre oplysninger",
+      "moreInfo": "Flere oplysninger",
+      "notThis": "Ikke dette"
+    },
+    "ChoiceButton": {
+      "identified": "identificeret",
+      "openSubmenu": "Åbn undermenuen for {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Annuller",
+      "confused": "Forveksles somme tider med",
+      "itsThis": "Jeg tror, det er dette"
+    },
+    "DeleteButton": {
+      "delete": "Slet valg {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Nulstil"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Tekstmodificeringer"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transskriptionen er oprettet",
+    "editing": "Redigering af transskription"
+  }
+}

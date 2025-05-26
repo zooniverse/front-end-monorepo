@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Du har allerede set dette emne",
+      "tooltipText": [
+        "Du har allerede set og klassificeret dette emne, så yderligere klassifikationer vil ikke bidrage til analysen.",
+        "Hvis du gerne vil hjælpe, kan du prøve at vælge en anden arbejdsgang eller bidrage til et andet projekt."
+      ]
+    },
+    "Banner": {
+      "next": "Næste",
+      "previous": "Forrige",
+      "whyAmISeeingThis": "Hvorfor ser jeg dette?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Annuller",
+      "confirm": "Bekræft",
+      "inProgress": "Er du sikker på, at du vil navigere til et andet emne? Alle anmærkninger, du har lavet for det aktuelle emne, vil gå tabt."
+    },
+    "RetiredBanner": {
+      "bannerText": "Færdig: Dette emne er blevet trukket tilbage",
+      "tooltipText": [
+        "Dette emne har allerede nok klassifikationer, så din vil ikke blive brugt i dets analyse.",
+        "Hvis du gerne vil hjælpe, kan du prøve at vælge en anden arbejdsgang eller bidrage til et andet projekt."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Allerede set",
+      "bannerText": "{{setName}}: Emne {{number}} \/ {{total}}",
+      "finished": "Færdig",
+      "tooltipText": [
+        "Dette projekt giver frivillige mulighed for at se emner i rækkefølge.",
+        "Tallet viser dig emnets position inden for den samlede gruppe."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Færdig: Du har set det hele",
+      "tooltipText": [
+        "Du har allerede klassificeret alt i denne arbejdsgang, så yderligere klassifikationer af dette emne vil ikke blive brugt i analysen.",
+        "Hvis du gerne vil hjælpe, kan du prøve at vælge en anden arbejdsgang eller bidrage til et andet projekt."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Denne arbejdsgang er afsluttet",
+      "tooltipText": [
+        "Alle emnerne i denne arbejdsproces er blevet fuldført, så yderligere klassifikationer om dette emne vil ikke blive brugt i analysen.",
+        "Hvis du gerne vil hjælpe, kan du prøve at vælge en anden arbejdsgang eller bidrage til et andet projekt."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Håndtag til at rotere tegnet anmærkning\/markering"
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Fortsæt med at klassificere",
+    "label": "Feedback"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Feltvejledning"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Gå tilbage til listen over elementer i feltvejledningen"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Vælg {{title}}"
+    },
+    "title": "Feltvejledning"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Anmærkning"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Vis emnet i normal størrelse",
+        "fullscreen": "Vis emnet i fuld skærm"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Omvend emne"
+    },
+    "MoveButton": {
+      "ariaLabel": "Flyt emnet"
+    },
+    "ResetButton": {
+      "ariaLabel": "Nulstil visning af emnet"
+    },
+    "RotateButton": {
+      "ariaLabel": "Roter emnet"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zoom ind på emnet"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Zoom ud fra emnet"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Føj til samlinger"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Skjul tidligere markeringer",
+      "show": "Vis tidligere markeringer"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Skjul alle markeringer",
+      "show": "Vis alle markeringer",
+      "showUser": "Vis dine markeringer"
+    },
+    "MetadataButton": {
+      "label": "Oplysninger om emnet"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Etiket",
+        "value": "Værdi"
+      },
+      "title": "Metadata for emne"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Vejledning"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Luk kommentarpanelet",
+      "goToTalk": "Gå til Emnedebat under Snak",
+      "mainPanel": "QuickTalk-kommentarpanel",
+      "openButton": "Emnet har {{count}} kommentar(er). Klik for at udvide.",
+      "panelContent": "Kommentarer til emnedebat",
+      "panelHeading": "Emnedebat"
+    },
+    "errors": {
+      "failPostComment": "Der kunne ikke føjes kommentarer til den eksisterende debat.",
+      "failPostDiscussion": "Der kunne ikke føjes kommentarer til den nye debat.",
+      "noBoard": "Der er endnu ikke oprettet en tavle til emnekommentarer til dette projekt.",
+      "noText": "Tom kommentar – kan ikke slås op.",
+      "noUser": "Brugeren er ikke logget ind."
+    },
+    "loginToPost": "Log ind for at skrive en kommentar.",
+    "status": {
+      "initialized": "Skriv en bemærkning om dette emne",
+      "loading": "Sender kommentar ...",
+      "success": "Kommentaren er udgivet!"
+    },
+    "subjectHasNoComments": "Dette emne har endnu ingen kommentarer."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Gå til trin {{index}}",
+      "next": "Gå til næste trin",
+      "previous": "Gå til forrige trin"
+    },
+    "alt": "Vejledningstrin {{activeStep}}",
+    "error": "Vejledningstrinnet kunne ikke indlæses.",
+    "getStarted": "Kom godt i gang",
+    "heading": "Vejledning for {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Gå til trin {{index}}",
+    "next": "Gå til næste trin",
+    "previous": "Gå til forrige trin"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Søjlediagram"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikon for tekstvisning"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Luk uden at gemme",
+        "confirm": "Er du sikker på, at du vil lukke? Denne markering vil blive slettet.",
+        "keepWorking": "Fortsæt med at arbejde"
+      },
+      "SaveButton": {
+        "save": "Gem og luk"
+      },
+      "SubTaskPopup": {
+        "notRender": "Opgavekomponenten kunne ikke gengives.",
+        "required": "Denne opgave er obligatorisk."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "sammenlagt transskription",
+          "explanation": "Disse {{count}} transskriptioner er blevet indsendt af tidligere frivillige og kan ikke ændres.",
+          "noAggregation": "Ingen sammenlægning tilgængelig.",
+          "title": "Tidligere transskriptioner",
+          "transcriptionsUnavailable": "Transskriptioner er ikke tilgængelige."
+        },
+        "complete": "Transskriptionen er fuldført",
+        "transcribed": "Har transskriptioner"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Næste",
+        "previousFrameLabel": "Forrige",
+        "thumbnailAltText": "Miniature af billede"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Slet valg {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Skift til bladrevisning",
+        "switchToSeparateFrames": "Skift til visning med separate rammer"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Der opstod en fejl under indlæsning af emnet."
+    },
+    "VariableStarViewer": {
+      "controls": "styring",
+      "figCaption": "HR-diagram",
+      "flip": "vend",
+      "focus": "fokus",
+      "highlight": "fremhævning",
+      "imageTitle": "HR-diagram: Lysstyrke vs. temperatur",
+      "label": "Filter {{id}}",
+      "periodMultiple": "periode med flere",
+      "phase": "fase",
+      "phaseFocus": "fasefokus"
+    },
+    "VideoController": {
+      "closeVolume": "Luk lydstyrkeknap",
+      "fullscreen": "Vis video i fuld skærm",
+      "openVolume": "Åbn lydstyrkeknap",
+      "pause": "Sæt videoen på pause",
+      "play": "Afspil video",
+      "playbackSpeed": "Valg af hastighed for videoafspilning",
+      "scrubber": "Søgning i videoafspilning",
+      "volumeSlider": "Knap til lydstyrke"
+    },
+    "ZoomControlButton": {
+      "disable": "deaktiver zoom",
+      "enable": "aktivér zoom"
+    },
+    "loading": "Indlæser et emne",
+    "zoomHelp": "Brug CTRL + scroll for at zoome"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Dette emne har tilstrækkeligt mange klassifikationer, så eventuelle yderligere klassifikationer, der indsendes, vil ikke blive brugt i analysen. Du kan stadig se dette emne som reference.",
+      "options": {
+        "dismiss": "Afvis",
+        "next": "Næste tilgængelige emne",
+        "select": "Vælg et nyt emne"
+      },
+      "title": "Færdig"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Tilbage"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Færdig – snak",
+        "newTab": "i en ny fane"
+      },
+      "DoneButton": {
+        "done": "Færdig"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Demotilstand",
+        "label": "Ekspertindstillinger"
+      },
+      "NextButton": {
+        "next": "Næste"
+      },
+      "TaskHelp": {
+        "close": "Luk",
+        "label": "Har du brug for hjælp til denne opgave?"
+      },
+      "demoMode": "I demotilstand gemmes klassifikationer ikke. Brug dette til hurtige, unøjagtige demonstrationer af klassifikationsgrænsefladen.",
+      "error": "Der gik noget galt",
+      "loading": "Indlæser",
+      "renderFallback": "Opgavekomponenten kunne ikke gengives."
+    },
+    "task": "Opgave",
+    "tutorial": "Vejledning"
+  }
+}
