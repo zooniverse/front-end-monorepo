@@ -1,30 +1,44 @@
 import i18n from 'i18next'
 import { initReactI18next, useTranslation as useBaseTranslation } from 'react-i18next'
 
-/** supportedLngs array matches app-project's next-i18next.config.js */
+/** supportedLngs array matches all other FEM packages and PFE */
 const supportedLngs = [
-  'ar',
-  'cs',
-  'de',
-  'en',
-  'es',
-  'fr',
-  'he',
-  'hi',
-  'hr',
-  'id',
-  'it',
-  'ja',
-  'nl',
-  'pl',
-  'pt',
-  'ru',
-  'sv',
-  'test',
-  'tr',
-  'ur',
-  'zh-CN',
-  'zh-TW'
+  'ar', // Arabic
+  'bn', // Bengali
+  'cs', // Czech
+  'da', // Danish
+  'de', // German
+  'el', // Greek
+  'en', // English
+  'es', // Spanish
+  'fr', // French
+  'ha', // Hausa
+  'he', // Hebrew
+  'hi', // Hindi
+  'hr', // Croatian
+  'hu', // Hungarian
+  'hy', // Armenian
+  'id', // Indonesian
+  'it', // Italian
+  'ja', // Japanese
+  'kn', // Kannada
+  'ko', // Korean
+  'mr', // Marathi
+  'nl', // Dutch
+  'pl', // Polish
+  'pt', // Portuguese
+  'ru', // Russian
+  'sw', // Swahili
+  'sv', // Swedish
+  'te', // Telugu
+  'test', // Test Language
+  'tr', // Turkish
+  'uk', // Ukrainian
+  'ur', // Urdu
+  've', // Venda
+  'vi', // Vietnamese
+  'zh-CN', // Chinese Simplified
+  'zh-TW' // Chinese Traditional
 ]
 
 const zrcI18n = i18n.createInstance()
