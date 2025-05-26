@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "অ্যাডমিন মোড"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "ব্যবহারকারীর নাম বা পাসওয়ার্ড ভুল",
+      "forgot": "আপনার পাসওয়ার্ড ভুলে গেছেন?",
+      "heading": "আবারও আপনাকে স্বাগতম!",
+      "instruction": "আপনি ফিরে এসেছেন জেনে আমরা খুশি! আপনি যেখানে ছেড়ে গেছিলেন সেখান থেকে শুরু করতে সাইন ইন করুন।",
+      "login": "ব্যবহারকারীর নাম অথবা ইমেল ঠিকানা",
+      "password": "পাসওয়ার্ড",
+      "placeholder": "যেমন, জুনিভার্সফ্যান123",
+      "signIn": "সাইন ইন করুন"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "আমি নতুন প্রোজেক্টগুলি পরীক্ষা করতে সাহায্য করতে চাই এবং যখন সেগুলি উপলব্ধ হবে তখন আমাকে ইমেল করা হবে (ঐচ্ছিক)",
+      "email": "ইমেল ঠিকানা (প্রয়োজন)",
+      "emailConfirm": "ইমেল ঠিকানা নিশ্চিত করুন (প্রয়োজন)",
+      "emailConfirmError": "ইমেল ঠিকানাগুলি মিলছে না, অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "emailConflict": "এই ঠিকানার একটি অ্যাকাউন্ট ইতিমধ্যেই বিদ্যমান",
+      "emailListSignUp": "মাঝে মাঝে আমাকে ইমেল পাঠানো ঠিক আছে (ঐচ্ছিক)",
+      "emailPlaceholder": "যেমন zoofan31@gmail.com",
+      "forgot": "আপনার পাসওয়ার্ড ভুলে গেছেন?",
+      "heading": "আবারও আপনাকে স্বাগতম!",
+      "instruction": "প্রকৃত গবেষণা শুরু করতে অনুগ্রহ করে একটি অ্যাকাউন্ট তৈরি করুন।",
+      "password": "পাসওয়ার্ড (প্রয়োজন)",
+      "passwordConfirm": "পাসওয়ার্ড নিশ্চিত করুন (প্রয়োজন)",
+      "passwordConfirmError": "পাসওয়ার্ডগুলি মিলছে না, অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "privacyAgreement": "আপনি আমাদের গোপনীয়তা নীতিতে সম্মত (প্রয়োজন)",
+      "privacyAgreementError": "গোপনীয়তা নীতিতে সম্মতি প্রয়োজন।",
+      "privacyLink": "আমাদের গোপনীয়তা নীতি পড়ুন",
+      "realName": "আসল নাম (ঐচ্ছিক)",
+      "realNameHelp": "আমরা এটি ব্যবহার করে আপনাকে বৈজ্ঞানিক গবেষণাপত্র, পোস্টার ইত্যাদিতে কৃতিত্ব দেব।",
+      "realNamePatternHelp": "একটি নাম লিখুন, ইমেল ঠিকানা নয়",
+      "realNamePlaceholder": "যেমন ম্যাগি স্মিথ",
+      "register": "নিবন্ধন করুন",
+      "registering": "নিবন্ধন করা হচ্ছে...",
+      "underageConsent": "আমি নিশ্চিত করছি যে আমিই পিতা-মাতা\/অভিভাবক এবং আমি প্রধান যোগাযোগের ঠিকানা হিসেবে আমার ইমেল ঠিকানা প্রদান করে, আমার সন্তানকে নিবন্ধনের অনুমতি দিচ্ছি। আমি এবং আমার সন্তান উভয়ই গোপনীয়তা নীতি বুঝতে পারি এবং তাতে সম্মত হই (প্রয়োজন)",
+      "underageEmail": "পিতা-মাতা\/অভিভাবকের ইমেল ঠিকানা (প্রয়োজন)",
+      "underageEmailSignUp": "আপনি যদি সম্মত হন, তাহলে আমরা পর্যায়ক্রমে নতুন গবেষণা-সম্পর্কিত প্রোজেক্ট বা আমাদের গবেষণা সম্পর্কিত অন্যান্য তথ্য প্রচারের জন্য ইমেল পাঠাব। আমরা আপনার যোগাযোগের তথ্য বাণিজ্যিক উদ্দেশ্যে ব্যবহার করব না। (ঐচ্ছিক)",
+      "underageNotRealName": "লগ ইন করার জন্য আপনি এই নামটি ব্যবহার করবেন। এটি জনসম্মুখে দেখানো হবে। আপনার আসল নাম ব্যবহার করবেন না।",
+      "underageWithParent": "আপনার বয়স যদি 16 বছরের কম হয়, তাহলে আপনার পিতা-মাতা বা অভিভাবকের সাথে ফর্মটি পূরণ করেছেন কিনা তা নিশ্চিত করতে এই বাক্সে টিক দিন।",
+      "username": "ব্যবহারকারীর নাম (প্রয়োজন)",
+      "usernameConflict": "এই ব্যবহারকারীর নামটি ইতিমধ্যেই ব্যবহৃত",
+      "usernameHelp": "এটি ম্যাসেজ বোর্ড ইত্যাদি স্থানে জনসম্মুখে দেখানো হবে।",
+      "usernamePatternHelp": "ব্যবহারকারীর নামে কেবল অক্ষর, সংখ্যা, '.','-', এবং '_' থাকতে পারে",
+      "usernamePlaceholder": "যেমন, জুনিভার্সফ্যান123"
+    },
+    "title": "সাইন ইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন।"
+  },
+  "CloseButton": {
+    "close": "বন্ধ করুন"
+  },
+  "FavouritesButton": {
+    "add": "ফেভারিটস-এ যোগ করুন",
+    "remove": "ফেভারিটস-এ যোগ করা হয়েছে"
+  },
+  "Loader": {
+    "loading": "লোড হচ্ছে"
+  },
+  "ProjectCard": {
+    "classifications": "শ্রেণীবিভাগ",
+    "finished": "সমাপ্ত",
+    "paused": "থামানো",
+    "state": "অবস্থা"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "সম্পর্কে",
+      "acknowledgements": "স্বীকৃতি",
+      "contact": "যোগাযোগ",
+      "faq": "প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী",
+      "publications": "প্রকাশনা",
+      "resources": "সম্পদ",
+      "team": "দল"
+    },
+    "buildLabels": {
+      "bestPractices": "সেরা অনুশীলন",
+      "buildAProject": "একটি প্রোজেক্ট তৈরি করুন",
+      "glossary": "গ্লসারি",
+      "policies": "নীতিমালা",
+      "tutorial": "টিউটোরিয়াল"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "প্রোজেক্টের জন্য আহ্বান",
+      "collaborate": "সহযোগিতা করুন",
+      "collections": "কালেকশনস",
+      "donate": "দান করুন",
+      "educate": "শেখান",
+      "education": "শিক্ষা",
+      "getInvolved": "জড়িত হন",
+      "volunteer": "ভলেন্টিয়ার"
+    },
+    "newsLabels": {
+      "blog": "ব্লগ",
+      "dailyZooniverse": "দৈনিক Zooniverse",
+      "news": "নিউজ"
+    },
+    "policyLabels": {
+      "jobs": "চাকরি",
+      "privacyPolicy": "গোপনীয়তা নীতি",
+      "security": "নিরাপত্তা",
+      "systemStatus": "সিস্টেমের অবস্থা"
+    },
+    "projectLabels": {
+      "arts": "কলা",
+      "biology": "জীববিজ্ঞান",
+      "climate": "জলবায়ু",
+      "history": "ইতিহাস",
+      "language": "ভাষা",
+      "literature": "সাহিত্য",
+      "medicine": "চিকিৎসাবিজ্ঞান",
+      "nature": "প্রকৃতি",
+      "physics": "পদার্থবিদ্যা",
+      "projects": "প্রোজেক্ট",
+      "social": "সমাজবিজ্ঞান",
+      "space": "মহাকাশ"
+    },
+    "tagLine": "মানব-চালিত গবেষণা",
+    "talkLabels": {
+      "announcements": "ঘোষণা",
+      "data": "ডেটা প্রক্রিয়াকরণ",
+      "projectBuilding": "প্রোজেক্ট তৈরি করা",
+      "talk": "কথা বলুন",
+      "troubleshooting": "সমস্যা সমাধান"
+    },
+    "zooniversePolicies": "Zooniverse-এর নীতিমালা"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "ব্যবহারকারীর অ্যাকাউন্ট",
+      "navListLabels": {
+        "messages_one": "ম্যাসেজ {{count}}",
+        "messages_other": "ম্যাসেজ {{count}}",
+        "messages_zero": "ম্যাসেজ",
+        "notifications_one": "নোটিফিকেশন {{count}}",
+        "notifications_other": "নোটিফিকেশন {{count}}",
+        "notifications_zero": "নোটিফিকেশন"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "নিবন্ধন করুন",
+      "signIn": "সাইন ইন করুন"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "ডার্ক থিমে স্যুইচ করুন",
+      "switchToLight": "লাইট থিমে স্যুইচ করুন"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "কালেকশনস",
+        "favorites": "ফেভারিটস",
+        "profile": "প্রোফাইল",
+        "settings": "সেটিংস",
+        "signOut": "সাইন আউট করুন"
+      }
+    },
+    "ariaLabel": "সাইট",
+    "mainHeaderNavListLabels": {
+      "about": "সম্পর্কে",
+      "build": "তৈরি করুন",
+      "getInvolved": "জড়িত হন",
+      "projects": "প্রোজেক্ট",
+      "talk": "কথা বলুন"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse লোগো"
+  }
+}

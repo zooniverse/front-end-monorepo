@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "ॲडमिन मोड"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "युजरनेम किंवा पासवर्ड चुकीचा आहे",
+      "forgot": "तुमचा पासवर्ड विसरलात?",
+      "heading": "पुन्हा स्वागत आहे!",
+      "instruction": "तुम्ही परत आलात याचा आम्हाला आनंद आहे! तुम्ही जिथे सोडले होते तिथे सुरू करण्यासाठी साइन इन करा.",
+      "login": "युजरनेम किंवा इ मेल पत्ता",
+      "password": "पासवर्ड",
+      "placeholder": "उदा. ZooniverseFan123",
+      "signIn": "साइन इन"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "मला ्नवीन प्रोजेक्ट्स टेस्ट करायला आवडेल आणि ते उपलब्ध असताना मला मेल केली जावी (ऐच्छिक)",
+      "email": "इ मेल पत्ता (आवश्यक)",
+      "emailConfirm": "इ मेल पत्त्याची पुष्टी करा (आवश्यक)",
+      "emailConfirmError": "इ मेल पत्ते जुळत नाहीत, कृपया पुन्हा प्रयत्न करा",
+      "emailConflict": "हा पत्ता असलेले अकाऊंट आधीपासूनच अस्तित्वात आहे",
+      "emailListSignUp": "अधून मधून मला इ मेल पाठवण्यास हरकत नाही (आवश्यक)",
+      "emailPlaceholder": "उदा. zoofan31@gmail.com",
+      "forgot": "तुमचा पासवर्ड विसरलात?",
+      "heading": "पुन्हा स्वागत आहे!",
+      "instruction": "खरे संशोधन सुरू करण्यासाठी एक अकऊंट तयार करा.",
+      "password": "पासवर्ड (आवश्यक)",
+      "passwordConfirm": "पासवर्डची पुष्टी करा (आवश्यक)",
+      "passwordConfirmError": "पासवर्ड्स जुळत नाहीत, कृपया पुन्हा प्रयत्न करा",
+      "privacyAgreement": "तुम्ही आमच्या गोपनीयता धोरणास सहमती देत आहात (आवश्यक)",
+      "privacyAgreementError": "गोपीयता धोरणास सहमती देणे आवश्यक आहे",
+      "privacyLink": "आमचे गोपनीयता धोरण वाचा",
+      "realName": "खरे नाव (ऐच्छिक)",
+      "realNameHelp": "आम्ही याचा वापर तुम्हाला वैज्ञानिक पेपर्स, पोस्टर्स इ. मध्ये श्रेय देण्यास वापरू.",
+      "realNamePatternHelp": "नाव भरा, इ मेल पत्ता नव्हे",
+      "realNamePlaceholder": "उदा. मॅगी स्मिथ",
+      "register": "नोंदणी करा",
+      "registering": "नोंदणी करत आहे...",
+      "underageConsent": "मी पुष्टी करतो\/करते की मी आईवडिल\/पालक आहे आणि माझा इ मेल पत्ता मुख्य संपर्क पत्ता देऊन माझ्या बालकाची नोंदणी करण्यास परवानगी देत आहे. मी आणि माझे बालक दोघांनाही गोपनीयता धोरण समजते आणि त्यास सहमती देतो (आवश्यक)",
+      "underageEmail": "आईवडिल\/पालकांचा इ मेल पत्ता (आवश्यक)",
+      "underageEmailSignUp": "तुम्ही मान्य करत असाल तर नवीन संशोधन प्रोजेक्ट्सना प्रोत्साहन  किंवा आमच्या संशोधनाशी संबंधित इतर माहितीस प्रोत्साहन देणारी इ मेल आम्ही वेळोवेळी  पाठवू.",
+      "underageNotRealName": "हे जाहिर रित्या मेसेज बोर्ड्स इ. वर दाखवले जाईलहे जाहिर रित्या दाखवले जाईल. तुमचे खरे नाव वापरू नका.",
+      "underageWithParent": "तुम्ही 16 वर्षे वयाखाली असाल तर तुमच्या आईवडिलांसह किंवा पालकांसह फॉर्म पूर्ण केला आहे याची पुष्टी करण्यासाठी ही बॉक्स टिक करा",
+      "username": "युजरनेम (आवश्यक)",
+      "usernameConflict": "ते युजरनेम घेतलेले आहे",
+      "usernameHelp": "हे जाहिर रित्या मेसेज बोर्ड्स इ. वर दाखवले जाईल",
+      "usernamePatternHelp": "युजरनेम मध्ये फक्त अक्षरे, अंक, '.','-', व '_' असू शकतात",
+      "usernamePlaceholder": "उदा. ZooniverseFan123"
+    },
+    "title": "नवीन अकाऊंट उघडण्यासाठी साइन इन करा"
+  },
+  "CloseButton": {
+    "close": "बंद करा"
+  },
+  "FavouritesButton": {
+    "add": "फेवरेट्स मध्ये जोडा",
+    "remove": "फेवरेट्स मध्ये जोडले"
+  },
+  "Loader": {
+    "loading": "लोड होत आहे"
+  },
+  "ProjectCard": {
+    "classifications": "वर्गीकरणे",
+    "finished": "संपवले",
+    "paused": "स्थगित केले",
+    "state": "स्थिती"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "बद्दल",
+      "acknowledgements": "पोचपावती",
+      "contact": "संपर्क",
+      "faq": "नेहमी विचारले जाणारे प्रश्न",
+      "publications": "प्रकाशने",
+      "resources": "स्त्रोत",
+      "team": "टीम"
+    },
+    "buildLabels": {
+      "bestPractices": "सर्वोत्तम पध्दती",
+      "buildAProject": "एक प्रोजेक्ट तयार करा",
+      "glossary": "ग्लॉसरी\/शब्दावली",
+      "policies": "धोरणे",
+      "tutorial": "ट्युटोरियल"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "प्रोजेक्ट्ससाठी आमंत्रण",
+      "collaborate": "सहयोग करणे",
+      "collections": "कलेक्शन्स",
+      "donate": "दान देणे",
+      "educate": "शिक्षित करणे",
+      "education": "शिक्षण",
+      "getInvolved": "गुंतवून घ्या",
+      "volunteer": "व्हॉलंटियर"
+    },
+    "newsLabels": {
+      "blog": "ब्लॉग",
+      "dailyZooniverse": "डेली Zooniverse",
+      "news": "बातम्या"
+    },
+    "policyLabels": {
+      "jobs": "कामे\/नोकर्‍या",
+      "privacyPolicy": "गोपनीयता धोरण",
+      "security": "सुरक्षितता",
+      "systemStatus": "सिस्टीम स्थिती"
+    },
+    "projectLabels": {
+      "arts": "कला",
+      "biology": "जीवशास्त्र",
+      "climate": "हवामान",
+      "history": "इतिहास",
+      "language": "भाषा",
+      "literature": "साहित्य",
+      "medicine": "औषध",
+      "nature": "निसर्ग",
+      "physics": "भौतिक शास्त्र",
+      "projects": "प्रोजेक्ट्स",
+      "social": "समाज शास्त्र",
+      "space": "अंतराळ"
+    },
+    "tagLine": "जन-संचलित संशोधन",
+    "talkLabels": {
+      "announcements": "घोषणा",
+      "data": "डेटा प्रोसेसिंग",
+      "projectBuilding": "प्रोजेक्ट निर्मिती",
+      "talk": "बोला",
+      "troubleshooting": "समस्यानिवारण"
+    },
+    "zooniversePolicies": "Zooniverse धोरणे"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "युजर अकाऊंट",
+      "navListLabels": {
+        "messages_one": "संदेश ({{count}})",
+        "messages_other": "संदेश ({{count}})",
+        "messages_zero": "संदेश",
+        "notifications_one": "नोटिफिकेशन्स {{count}}",
+        "notifications_other": "नोटिफिकेशन्स {{count}}",
+        "notifications_zero": "नोटिफिकेशन्स"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "नोंदणी करा",
+      "signIn": "साइन इन"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "अंधार थीमवर बदला",
+      "switchToLight": "प्रकाश थीमवर बदला"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "कलेक्शन्स",
+        "favorites": "आवडते",
+        "profile": "प्रोफाईल",
+        "settings": "सेटिंग्ज",
+        "signOut": "साइन आऊट"
+      }
+    },
+    "ariaLabel": "साइट",
+    "mainHeaderNavListLabels": {
+      "about": "बद्दल",
+      "build": "निर्माण करा",
+      "getInvolved": "गुंतवून घ्या",
+      "projects": "प्रोजेक्ट्स",
+      "talk": "बोला"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse लोगो"
+  }
+}
