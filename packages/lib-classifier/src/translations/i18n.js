@@ -16,6 +16,7 @@ const supportedLngs = [
   'el', // Greek
   'en', // English
   'es', // Spanish
+  'fi', // Finnish
   'fr', // French
   'ha', // Hausa
   'he', // Hebrew
