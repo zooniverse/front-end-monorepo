@@ -27,7 +27,7 @@ const localeMenu = {
   pl: 'Polski', // Polish
   pt: 'Português', // Portuguese
   ru: 'русский', // Russian
-  sw: 'Swahili', // Swahili
+  sw: 'Kiswahili', // Swahili
   sv: 'Svenska', // Swedish
   te: 'తెలుగు', // Telugu
   test: 'Test Language',
