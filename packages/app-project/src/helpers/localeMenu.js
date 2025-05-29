@@ -1,28 +1,43 @@
 /** This locale menu matches next-18next.config.js and PFE's app/locales */
 
 const localeMenu = {
-  ar: 'العربية',
-  cs: 'Čeština',
-  de: 'Deutsch',
-  en: 'English',
-  es: 'Español',
-  fr: 'Français',
-  he: 'עברית',
-  hi: 'हिन्दी',
-  hr: 'Hrvatski',
-  id: 'Bahasa Indonesia',
-  it: 'Italiano',
-  ja: '日本語',
-  nl: 'Nederlands',
-  pl: 'Polski',
-  pt: 'Português',
-  ru: 'русский',
-  sv: 'Svenska',
+  ar: 'العربية', // Arabic
+  bn: 'বাংলা', // Bengali
+  cs: 'Čeština', // Czech
+  da: 'Dansk', // Danish
+  de: 'Deutsch', // German
+  el: 'Ελληνικά', // Greek
+  en: 'English', // English
+  es: 'Español', // Spanish
+  fi: 'Suomi', // Finnish
+  fr: 'Français', // French
+  ha: 'Hausa', // Hausa
+  he: 'עברית', // Hebrew
+  hi: 'हिन्दी', // Hindi
+  hr: 'Hrvatski', // Croatian
+  hu: 'Magyar', // Hungarian
+  hy: 'հայերեն', // Armenian
+  id: 'Bahasa Indonesia', // Indonesian
+  it: 'Italiano', // Italian
+  ja: '日本語', // Japanese
+  kn: 'ಕನ್ನಡ', // Kannada
+  ko: '한국어', // Korean
+  mr: 'मराठी, 𑘦𑘨𑘰𑘙𑘲', // Marathi
+  nl: 'Nederlands', // Dutch
+  pl: 'Polski', // Polish
+  pt: 'Português', // Portuguese
+  ru: 'русский', // Russian
+  sw: 'Kiswahili', // Swahili
+  sv: 'Svenska', // Swedish
+  te: 'తెలుగు', // Telugu
   test: 'Test Language',
-  tr: 'Türkçe',
-  ur: 'اُردُو',
-  'zh-CN': '简体中文',
-  'zh-TW': '繁體中文'
+  tr: 'Türkçe', // Turkish
+  uk: 'українська мова', // Ukrainian
+  ur: 'اُردُو', // Urdu
+  ve: 'Tshivenḓa', // Venda
+  vi: 'Tiếng Việt', // Vietnamese
+  'zh-CN': '简体中文', // Chinese Simplified
+  'zh-TW': '繁體中文' // Chinese Traditional
 }
 
 export default localeMenu

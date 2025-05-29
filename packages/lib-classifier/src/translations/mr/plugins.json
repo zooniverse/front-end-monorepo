@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "स्प्लाइस पॉइंट निर्माण करण्यासाठी ओपन पॉइंटपासून क्लोज पॉइंटवर क्लिक आणि ड्रॅग करा किंवा रेषेवर कोठेही डबल क्लिक करा",
+    "closePoint": "क्लोज पॉइंट सेट करण्यासाठी रेषेवर कोठेही क्लिक करा",
+    "inactive": "ही रेषा एडिट करण्यासाठी क्लिक करा",
+    "spliceDrag": "ओपन पॉइंट्स वरून क्लोज पॉइंट्स वर क्लिक व ड्रॅग करा",
+    "splicePoint": "स्प्लाइस पॉइंट निर्माण करण्यासाठी रेषेवर कोठेही डबल क्लिक करा"
+  },
+  "HighlighterTask": {
+    "delete": "डिलिट करा",
+    "noLabels": "हायलायटर टास्क साठी लेबल्स नाहीत",
+    "status": "{{count}} मार्क केले"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} काढला",
+    "max": "{{max}} पैकी {{count}} कमाल काढले",
+    "maxAndMin": "{{min}} पैकी {{count}} आवश्यक,कमाल {{max}}काढले",
+    "min": "{{min}} पैकी {{count}} काढणे आवश्यक"
+  },
+  "LineControls": {
+    "close": "बंद करा",
+    "delete": "डिलिट",
+    "deleteCancel": "डिलिट रद्द करा",
+    "deleteConfirm": "डिलिटची पुष्टी करा",
+    "lineControls": "लाइन कंट्रोल्स",
+    "move": "मुव्ह",
+    "redo": "रि डु",
+    "undo": "अनडु"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "काहीतरी इन्पुट करा",
+    "otherLabel": "इतर",
+    "selectPlaceholder": "उत्तर निवडा"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "फिल्टर्स क्लियर करा",
+      "closeFilters": "फिल्टर्स बंद करा",
+      "filter": "फिल्टर करा",
+      "removeFilter": "{{valueLabel}} हे फिल्टर हटवा",
+      "showing": "{{total}}पैकी{{showing}}दाखवत आहे"
+    },
+    "Choice": {
+      "cancel": "रद्द करा",
+      "identify": "ओळखा",
+      "lessInfo": "कमी माहिती",
+      "moreInfo": "अधिक माहिती",
+      "notThis": "हे नाही"
+    },
+    "ChoiceButton": {
+      "identified": "ओळखले",
+      "openSubmenu": "{{choiceLabel}}साठी सबमेनु उघडा"
+    },
+    "ConfusedWith": {
+      "cancel": "रद्द करा",
+      "confused": "कधी कधी हे म्हणून चुकीचे समजले जाते",
+      "itsThis": "मला वाटते ते हे आहे"
+    },
+    "DeleteButton": {
+      "delete": "{{choiceLabel}}चॉइस डिलिट करा"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "रिसेट करा"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "टेक्स्ट मॉडिफायर्स\/मजकूर सुधारक"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "ट्रान्स्क्रिप्शन निर्माण केले",
+    "editing": "ट्रान्स्क्रिप्शन एडिट\/संपादन करत आहे"
+  }
+}

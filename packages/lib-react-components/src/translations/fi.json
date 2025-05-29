@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Pääkäyttäjätila"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Käyttäjänimi tai salasana on virheellinen",
+      "forgot": "Unohtunut salasana?",
+      "heading": "Tervetuloa takaisin!",
+      "instruction": "Kiva, että olet palannut! Kirjaudu sisään jatkaaksesi siitä, mihin jäit.",
+      "login": "Käyttäjänimi tai sähköpostiosoite",
+      "password": "Salasana",
+      "placeholder": "esim. ZooniverseFani123",
+      "signIn": "Kirjaudu sisään"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Haluan auttaa testaamaan uusia projekteja ja saada sähköpostitse ilmoituksen, kun niitä on saatavilla (valinnainen)",
+      "email": "Sähköpostiosoite (pakollinen)",
+      "emailConfirm": "Vahvista sähköpostiosoite (pakollinen)",
+      "emailConfirmError": "Sähköpostiosoitteet eivät täsmää, yritä uudelleen.",
+      "emailConflict": "Tili tällä sähköpostiosoitteella on jo olemassa",
+      "emailListSignUp": "Voitte lähettää minulle sähköpostia ajoittain (valinnainen)",
+      "emailPlaceholder": "esim. zoofani31@gmail.com",
+      "forgot": "Unohtunut salasana?",
+      "heading": "Tervetuloa takaisin!",
+      "instruction": "Luo tili aloittaaksesi todellisen tutkimuksen tekemisen.",
+      "password": "Salasana (pakollinen)",
+      "passwordConfirm": "Vahvista salasana (pakollinen)",
+      "passwordConfirmError": "Salasanat eivät täsmää, yritä uudelleen.",
+      "privacyAgreement": "Hyväksyt tietosuojaselosteemme (pakollinen)",
+      "privacyAgreementError": "Tietosuojaselosteen hyväksyminen on pakollista.",
+      "privacyLink": "Lue tietosuojaselosteemme",
+      "realName": "Oikea nimi (valinnainen)",
+      "realNameHelp": "Käytämme tätä antamaan sinulle kunnian tieteellisissä julkaisuissa, julisteissa jne.",
+      "realNamePatternHelp": "Syötä nimi, ei sähköpostiosoitetta",
+      "realNamePlaceholder": "esim. Maija Meikäläinen",
+      "register": "Rekisteröidy",
+      "registering": "Rekisteröidytään...",
+      "underageConsent": "Vahvistan, että olen vanhempi\/huoltaja ja annan lapselleni luvan rekisteröityä antamalla sähköpostiosoitteeni ensisijaisena yhteyssähköpostina. Sekä minä ja lapseni ymmärrämme ja hyväksymme tietosuojaselosteen (pakollinen)",
+      "underageEmail": "Vanhemman\/huoltajan sähköpostiosoite (pakollinen)",
+      "underageEmailSignUp": "Jos suostut, lähetämme säännöllisesti sähköposteja, joissa ilmoitamme uusista tutkimukseen liittyvistä projekteista tai muista tutkimukseemme liittyvistä tiedoista. Emme käytä yhteystietojasi kaupallisiin tarkoituksiin. (valinnainen)",
+      "underageNotRealName": "Käytät tätä nimeä kirjautumaan sisään. Se näkyy julkisesti. Ethän käytä oikeaa nimeäsi.",
+      "underageWithParent": "Jos olet alle 16-vuotias, rasti tämä ruutu vahvistaaksesi, että olet täyttänyt lomakkeen vanhemman tai huoltajan kanssa.",
+      "username": "Käyttäjänimi (pakollinen)",
+      "usernameConflict": "Käyttäjänimi on varattu",
+      "usernameHelp": "Tämä näkyy julkisesti ilmoitustauluilla jne.",
+      "usernamePatternHelp": "Käyttäjänimissä voi olla vain kirjaimia, numeroita ja merkkejä \".\", \"-\" ja \"_\"",
+      "usernamePlaceholder": "esim. ZooniverseFani123"
+    },
+    "title": "Kirjaudu sisään tai luo uusi tili."
+  },
+  "CloseButton": {
+    "close": "Sulje"
+  },
+  "FavouritesButton": {
+    "add": "Lisää suosikkeihin",
+    "remove": "Lisätty suosikkeihin"
+  },
+  "Loader": {
+    "loading": "Ladataan"
+  },
+  "ProjectCard": {
+    "classifications": "Luokittelut",
+    "finished": "Valmis",
+    "paused": "Keskeytetty",
+    "state": "Tila"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Tietoa",
+      "acknowledgements": "Tunnustukset",
+      "contact": "Ota yhteyttä",
+      "faq": "UKK",
+      "publications": "Julkaisut",
+      "resources": "Resurssit",
+      "team": "Tiimi"
+    },
+    "buildLabels": {
+      "bestPractices": "Parhaat käytännöt",
+      "buildAProject": "Luo projekti",
+      "glossary": "Sanasto",
+      "policies": "Käytännöt",
+      "tutorial": "Tutoriaali"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Projektikutsut",
+      "collaborate": "Tee yhteistyötä",
+      "collections": "Kokoelmat",
+      "donate": "Lahjoita",
+      "educate": "Kouluta",
+      "education": "Koulutus",
+      "getInvolved": "Osallistu",
+      "volunteer": "Ilmoittaudu vapaaehtoiseksi"
+    },
+    "newsLabels": {
+      "blog": "Blogi",
+      "dailyZooniverse": "Päivittäinen Zooniverse",
+      "news": "Uutiset"
+    },
+    "policyLabels": {
+      "jobs": "Työpaikat",
+      "privacyPolicy": "Tietosuojaseloste",
+      "security": "Turvallisuus",
+      "systemStatus": "Järjestelmän tila"
+    },
+    "projectLabels": {
+      "arts": "Taide",
+      "biology": "Biologia",
+      "climate": "Ilmasto",
+      "history": "Historia",
+      "language": "Kielet",
+      "literature": "Kirjallisuus",
+      "medicine": "Lääketiede",
+      "nature": "Luonto",
+      "physics": "Fysiikka",
+      "projects": "Projektit",
+      "social": "Yhteiskuntatiede",
+      "space": "Tila"
+    },
+    "tagLine": "Ihmisvoimainen tutkimus",
+    "talkLabels": {
+      "announcements": "Ilmoitukset",
+      "data": "Tietojen käsittely",
+      "projectBuilding": "Projektin rakentaminen",
+      "talk": "Puhu",
+      "troubleshooting": "Vianetsintä"
+    },
+    "zooniversePolicies": "Zooniverse-käytännöt"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Käyttäjätili",
+      "navListLabels": {
+        "messages_one": "Viestit ({{count}})",
+        "messages_other": "Viestit ({{count}})",
+        "messages_zero": "Viestit",
+        "notifications_one": "Ilmoitukset ({{count}})",
+        "notifications_other": "Ilmoitukset ({{count}})",
+        "notifications_zero": "Ilmoitukset"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Rekisteröidy",
+      "signIn": "Kirjaudu sisään"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Vaihda tummaan teemaan",
+      "switchToLight": "Vaihda vaaleaan teemaan"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Kokoelmat",
+        "favorites": "Suosikit",
+        "profile": "Profiili",
+        "settings": "Asetukset",
+        "signOut": "Kirjaudu ulos"
+      }
+    },
+    "ariaLabel": "Sivusto",
+    "mainHeaderNavListLabels": {
+      "about": "Tietoa",
+      "build": "Rakenna",
+      "getInvolved": "Osallistu",
+      "projects": "Projektit",
+      "talk": "Puhu"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse-logo"
+  }
+}

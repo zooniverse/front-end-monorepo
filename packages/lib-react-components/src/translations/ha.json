@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Tsarin Mai Gudanarwa"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Sunan mai akawun ko kalmar sirri ba daidai ba ce",
+      "forgot": "Kun manta kalmar sirrinku",
+      "heading": "Barka da dawowa!",
+      "instruction": "Mun yi farincikin dawowarku! Ku shiga ciki domin ci gaba daga wurin da kuka tsaya.",
+      "login": "Sunan mai akawun ko adireshin imel",
+      "password": "Kalmar Sirri",
+      "placeholder": "Misali, ZooniverseFan123",
+      "signIn": "Shiga ciki"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Zan so in gwada sababbin ayyuka sannan a turo mini sanarwar ta imel yayin da suka samu (na zaɓi)",
+      "email": "Adireshin Imel (Ana Buƙata)",
+      "emailConfirm": "Tabbatar da Adireshin Imel (Ana Buƙata)",
+      "emailConfirmError": "Adireshin imel ɗin bai yi daidai ba, a daure a sake gwadawa.",
+      "emailConflict": "Akwai akawun wanda yake ɗauke da wannan adireshin",
+      "emailListSignUp": "Ba matsala idan aka riƙa tura mini saƙon imel lokaci-lokaci (na zaɓi)",
+      "emailPlaceholder": "Misali, zoofan31@gmail.com",
+      "forgot": "Kun mance kalmar sirrinku?",
+      "heading": "Barka da zuwa!",
+      "instruction": "A daure a ƙirƙiri akawun domin fara gudanar da bincike na ainihi.",
+      "password": "Kalmar Sirri (Ana Buƙata)",
+      "passwordConfirm": "Tabbatar Da Kalmar Sirri (Ana Buƙata)",
+      "passwordConfirmError": "Kalmomin sirrin ba su yi daidai ba, a daure a sake gwadawa.",
+      "privacyAgreement": "Kun aminta da ƙa'idar sirrantawarmu (ana buƙata)",
+      "privacyAgreementError": "Ana buƙatar a amince da ƙa'idar sirrantawa.",
+      "privacyLink": "Karanta ƙa'idar sirrantawarmu",
+      "realName": "Asalin Suna (Na Zaɓi)",
+      "realNameHelp": "Za mu yi amfani da wannan domin ba ka maki a takardun kimiyya, fastoci, da sauransu.",
+      "realNamePatternHelp": "A sanya suna, ba adireshin imel ba",
+      "realNamePlaceholder": "Misali, Maggie Smith",
+      "register": "Rajista",
+      "registering": "Ana yin rajista...",
+      "underageConsent": "Na tabbatar da cewa ni ne uwa\/uba\/mariƙi sannan na ba da dama ga yarona\/yarinyata su yi rajista ta hanyar bayar da adireshina na imel a matsayin babbar hanyar tuntuɓa. Ni da ɗiyana mun fahimta sannan mun aminta da ƙa'idar sirrantawa (ana buƙata)",
+      "underageEmail": "Adireshin imel na Iyaye\/Mariƙa (Ana Buƙata)",
+      "underageEmailSignUp": "Idan kun aminta, lokaci zuwa lokaci za mu riƙa turo muku da saƙon imel domin tallata sababbin ayyuka masu alaƙa da bincike ko wasu bayanai masu dangantaka da bincikenmu. Ba za mu yi amfani da bayananku na tuntuɓa ba domin cimma muradai na kasuwanci. (na zaɓi)",
+      "underageNotRealName": "Za ku iy amfani da sunan domin shiga ciki. Za a bayyana wa kowa. Kada ku yi amfani da sunanku na asali.",
+      "underageWithParent": "Idan ba ku kai shekaru 16 ba, to ku yi alama a cikin akwatin domin tabbatar da cewa kun cike fom ɗin tare da iyaye ko mariƙanku",
+      "username": "Sunan Mai Akawun (Ana Buƙata)",
+      "usernameConflict": "An ɗauki wannan sunan mai akawun",
+      "usernameHelp": "Za a nuna wannan ga kowa a kan allon saƙo, misali",
+      "usernamePatternHelp": "Sunan mai akawun ba zai iya ƙunsar komai ba face haruffa, lambobi, '.','-', da '_'",
+      "usernamePlaceholder": "Misali ZooniverseFan123"
+    },
+    "title": "A shiga ciki ko a ƙirƙiri sabon akawun."
+  },
+  "CloseButton": {
+    "close": "Rufe"
+  },
+  "FavouritesButton": {
+    "add": "Ƙara cikin waɗanda aka fi so",
+    "remove": "An ƙara a kan waɗanda aka fi so"
+  },
+  "Loader": {
+    "loading": "Lodawa"
+  },
+  "ProjectCard": {
+    "classifications": "Rabe-Rabe",
+    "finished": "An Kammala",
+    "paused": "An Dakatar",
+    "state": "Matsayi"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Game Da",
+      "acknowledgements": "Godiya",
+      "contact": "Bayanan Tuntuɓa",
+      "faq": "Tambayoyin Da Ake Yawan Yi",
+      "publications": "Wallafe-Wallafe",
+      "resources": "Kayan Aiki",
+      "team": "Tawaga"
+    },
+    "buildLabels": {
+      "bestPractices": "Abubuwan da Suka fi Dawewa",
+      "buildAProject": "Gina aiki",
+      "glossary": "Jerin Kalmomi",
+      "policies": "Ƙa'idoji",
+      "tutorial": "Koyarwa"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Neman Ayyuka",
+      "collaborate": "Haɗa Guiwa",
+      "collections": "Jeri",
+      "donate": "Bayar Da Gudummawa",
+      "educate": "Ilimantar",
+      "education": "Karatu",
+      "getInvolved": "Kasance Ciki",
+      "volunteer": "Mai Aikin Sa-Kai"
+    },
+    "newsLabels": {
+      "blog": "Kafar Intanet",
+      "dailyZooniverse": "Zooniverse na Rana-Rana",
+      "news": "Labarai"
+    },
+    "policyLabels": {
+      "jobs": "Ayyuka",
+      "privacyPolicy": "Ƙa'idar Sirrantawa",
+      "security": "Tsaro",
+      "systemStatus": "Matsayin Na'ura"
+    },
+    "projectLabels": {
+      "arts": "Fasaha",
+      "biology": "Ilimin Halitta",
+      "climate": "Yanayi",
+      "history": "Tarihi",
+      "language": "Harshe",
+      "literature": "Adabi",
+      "medicine": "Magani",
+      "nature": "Na Yanayi",
+      "physics": "Physics",
+      "projects": "Ayyuka",
+      "social": "Kimiyyar Zamantakewa",
+      "space": "Fili"
+    },
+    "tagLine": "Binciken da Mutane Suke Tallafawa wa",
+    "talkLabels": {
+      "announcements": "Sanarwa",
+      "data": "Sarrafa Bayanai",
+      "projectBuilding": "Gina Aiki",
+      "talk": "Magana",
+      "troubleshooting": "Nemo Matsala"
+    },
+    "zooniversePolicies": "Ƙa'idojin Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Akawun ɗin mutum",
+      "navListLabels": {
+        "messages_one": "Saƙonni {{count}}",
+        "messages_other": "Saƙonni {{count}}",
+        "messages_zero": "Saƙonni",
+        "notifications_one": "Sanarwa {{count}}",
+        "notifications_other": "Sanarwa ({{count}})",
+        "notifications_zero": "Sanarwa"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Rajista",
+      "signIn": "Shiga Ciki"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Koma tsarin fuskar na'ura mai duhu",
+      "switchToLight": "Koma tsarin fuskar na'ura mai haske"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Jeri",
+        "favorites": "Waɗanda aka fi so",
+        "profile": "Furofayil",
+        "settings": "Saituna",
+        "signOut": "Fita"
+      }
+    },
+    "ariaLabel": "Kafa",
+    "mainHeaderNavListLabels": {
+      "about": "Game da",
+      "build": "Gina",
+      "getInvolved": "Kasance Ciki",
+      "projects": "Ayyuka",
+      "talk": "Magana"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Tambarin Zooniverse"
+  }
+}

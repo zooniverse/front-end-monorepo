@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Katints a nyitó pontra, és húzd a lezárási pontra, vagy kattints duplán a vonal bármelyik pontjára illesztési pont létrehozásához.",
+    "closePoint": "Kattints a vonal bármely pontjára lezáró pont beállításához",
+    "inactive": "A vonal szerkesztéséhez kattints",
+    "spliceDrag": "Katintsa a nyitó pontra, és húzd a lezáró pontra.",
+    "splicePoint": "Illesztési pont létrehozásához kattints duplán a vonal bármely pontjára."
+  },
+  "HighlighterTask": {
+    "delete": "Törlés",
+    "noLabels": "Nincsenek címkék a Kiemelőfeladathoz",
+    "status": "{{count}} megjelölve"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} megrajzolva",
+    "max": "{{max}}\/{{count}} maximum megrajzolva",
+    "maxAndMin": " {{min}}\/{{count}} szükséges, {{max}} rajzolva maximum",
+    "min": "{{min}}\/{{count}} kötelező megrajzolva"
+  },
+  "LineControls": {
+    "close": "Bezárás",
+    "delete": "Törlés",
+    "deleteCancel": "Törlés megszakítása",
+    "deleteConfirm": "Törlés megerősítése",
+    "lineControls": "Vonalevezérlők",
+    "move": "Mozgatás",
+    "redo": "Újra",
+    "undo": "Visszavonás"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Adj meg valamit",
+    "otherLabel": "Egyéb…",
+    "selectPlaceholder": "Válassz ki egy választ"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Szűrők törlése",
+      "closeFilters": "Szűrők bezárása",
+      "filter": "Szűrő",
+      "removeFilter": "{{valueLabel}} szűrő eltávolítása",
+      "showing": "{{total}}\/{{showing}} megjelenítve"
+    },
+    "Choice": {
+      "cancel": "Mégse",
+      "identify": "Beazonosít",
+      "lessInfo": "Kevesebb információ",
+      "moreInfo": "További információ",
+      "notThis": "Nem ez"
+    },
+    "ChoiceButton": {
+      "identified": "azonosítva",
+      "openSubmenu": "Almenü megnyitása a következőhöz: {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Mégse",
+      "confused": "Néha összetéveszthető ezzel:",
+      "itsThis": "Szerintem ez az"
+    },
+    "DeleteButton": {
+      "delete": "A(z) {{choiceLabel}} választás törlése"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Visszaállítás"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Szövegmódosítók"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Átirat létrehozva",
+    "editing": "Átirat szerkesztése"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "시작점에서 끝점으로 클릭하여 드래그하거나 선의 아무 부분이나 더블 클릭하여 이음점을 생성합니다",
+    "closePoint": "선의 아무 부분이나 클릭하여 끝점을 설정합니다",
+    "inactive": "이 선을 편집하려면 클릭합니다",
+    "spliceDrag": "시작점에서 끝점으로 클릭하여 드래그하세요",
+    "splicePoint": "선의 아무 부분이나 더블 클릭하여 이음점을 생성합니다"
+  },
+  "HighlighterTask": {
+    "delete": "삭제",
+    "noLabels": "하이라이터 과제 라벨 없음",
+    "status": "{{count}}개 표시됨"
+  },
+  "InputStatus": {
+    "drawn": "{{count}}개 그려짐",
+    "max": "최대 {{max}}개 중 {{count}}개 그려짐",
+    "maxAndMin": "필수 {{min}}개 , 최대 {{max}}개 중 {{count}}개 그려짐",
+    "min": "필수 {{min}}개 중 {{count}}개 그려짐"
+  },
+  "LineControls": {
+    "close": "닫기",
+    "delete": "삭제",
+    "deleteCancel": "삭제 취소",
+    "deleteConfirm": "삭제 확인",
+    "lineControls": "선 제어",
+    "move": "이동",
+    "redo": "다시 실행",
+    "undo": "실행 취소"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "의견 입력",
+    "otherLabel": "기타...",
+    "selectPlaceholder": "답변 선택"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "필터 지우기",
+      "closeFilters": "필터 닫기",
+      "filter": "필터링",
+      "removeFilter": "{{valueLabel}} 필터 제거",
+      "showing": "{{total}}개 중 {{showing}}개 표시"
+    },
+    "Choice": {
+      "cancel": "취소",
+      "identify": "식별",
+      "lessInfo": "정보 덜 표시",
+      "moreInfo": "정보 더 표시",
+      "notThis": "이것이 아닙니다"
+    },
+    "ChoiceButton": {
+      "identified": "식별됨",
+      "openSubmenu": "{{choiceLabel}} 하위 메뉴 열기"
+    },
+    "ConfusedWith": {
+      "cancel": "취소",
+      "confused": "때때로 다음으로 혼동됩니다",
+      "itsThis": "이것인 것 같습니다"
+    },
+    "DeleteButton": {
+      "delete": "선택 {{choiceLabel}} 삭제"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "재설정"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "텍스트 모디파이어"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "전사 생성됨",
+    "editing": "전사 편집 중"
+  }
+}

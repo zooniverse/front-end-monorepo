@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "ಅನ್ವೇಷಿಸಲು ಹೊಸ ಪ್ರಾಜೆಕ್ಟ್‌ ಅನ್ನು ಹುಡುಕಿ",
+    "heading": "ಇಲ್ಲಿ ಏನೂ ಇಲ್ಲ.",
+    "message": "ನೀವು ಹುಡುಕುತ್ತಿರುವ ಪುಟ ಇನ್ನು ಮುಂದೆ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.",
+    "returnHome": "ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "ನಿಮ್ಮ ಕೊಡುಗೆಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ದಯವಿಟ್ಟು ಸೈನ್ ಇನ್ ಮಾಡಿ ಅಥವಾ ಸೈನ್ ಅಪ್ ಆಗಿ.",
+      "register": "ನೋಂದಾಯಿಸಿ",
+      "signIn": "ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "ಮುಗಿದಿದೆ! ಸದ್ಯಕ್ಕೆ ಈ ಪ್ರಾಜೆಕ್ಟ್‌ನಲ್ಲಿನ ಡೇಟಾ ಖಾಲಿಯಾಗಿರುವಂತೆ ಕಾಣುತ್ತಿದೆ!",
+      "seeResults": "ಫಲಿತಾಂಶಗಳನ್ನು ನೋಡಿ"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "ರಚಿಸಿ ಮತ್ತು ಸೇರಿಸಿ",
+      "label": "ಹೊಸ ಕಲೆಕ್ಷನ್‌ ಅನ್ನು ರಚಿಸಿ",
+      "private": "ವೈಯಕ್ತಿಕ ಕಲೆಕ್ಷನ್‌"
+    },
+    "SelectCollection": {
+      "addButton": "ಸೇರಿಸಿ",
+      "label": "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಕಲೆಕ್ಷನ್‌ಗೆ ಸೇರಿಸಿ"
+    },
+    "title": "ಕಲೆಕ್ಷನ್‌ಗೆ ಸೇರಿಸಿ"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "ಬ್ಲೂಸ್ಕೈ",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "ಮಾಸ್ಟೋಡಾನ್",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "ವೆಬ್‌ಸೈಟ್‌",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "{{projectName}} ನೊಂದಿಗೆ ಕನೆಕ್ಟ್‌ ಆಗಿ"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse ಜನ-ಚಾಲಿತ ಸಂಶೋಧನೆಗೆ ವಿಶ್ವದ ಅತಿದೊಡ್ಡ ಮತ್ತು ಅತ್ಯಂತ ಜನಪ್ರಿಯ ವೇದಿಕೆಯಾಗಿದೆ.",
+    "defaultTitle": "ಪ್ರಾಜೆಕ್ಟ್‌ಗಳು",
+    "siteName": "Zooniverse - ಜನ-ಚಾಲಿತ ಸಂಶೋಧನೆ"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zooniverse ಅನುಮೋದಿಸಲಾಗಿದೆ"
+    },
+    "Avatar": {
+      "alt": "{{project}} ಗಾಗಿ ಪ್ರಾಜೆಕ್ಟ್ ಅವತಾರ್"
+    },
+    "LocaleSwitcher": {
+      "label": "ಭಾಷೆಯನ್ನು ಬದಲಾಯಿಸಿ"
+    },
+    "ProjectNav": {
+      "ariaLabel": "ಪ್ರಾಜೆಕ್ಟ್‌"
+    },
+    "UnderReviewLabel": {
+      "underReview": "ಪರಿಶೀಲನೆಯಲ್ಲಿದೆ"
+    },
+    "about": "ಬಗ್ಗೆ",
+    "admin": "ಅಡ್ಮಿನ್‌ ಪುಟ",
+    "classify": "ವರ್ಗೀಕರಿಸಿ",
+    "collect": "ಕಲೆಕ್ಟ್‌ ಮಾಡಿ",
+    "exploreProject": "ಪ್ರಾಜೆಕ್ಟ್‌ ಬಗ್ಗೆ ತಿಳಿದುಕೊಳ್ಳಿ",
+    "organization": "ಸಂಸ್ಥೆಯಿಂದ:",
+    "recents": "ಇತ್ತೀಚಿನವುಗಳು",
+    "talk": "ಮಾತನಾಡಿ (ಟಾಕ್‌ ಮಾಡಿ)"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "ಸಂಖ್ಯೆಗಳ ಮೂಲಕ",
+    "classifications": "ವರ್ಗೀಕರಣಗಳು",
+    "completedSubjects": "ಪೂರ್ಣಗೊಳಿಸಿದ ವಿಷಯಗಳು",
+    "percentComplete": "ಪೂರ್ಣಗೊಂಡ ಶೇಕಡಾವಾರು",
+    "subjects": "ವಿಷಯಗಳು",
+    "subtitle": "ಈ ಪ್ರಾಜೆಕ್ಟ್‌ ನಲ್ಲಿ ನೀವು ಮತ್ತು ನಿಮ್ಮ ಜೊತೆಯಲ್ಲಿರುವ ವಾಲೆಂಟಿಯರ್‌ಗಳು ಸಾಧಿಸಿರುವ ಪ್ರಗತಿಯನ್ನು ಟ್ರ‍್ಯಾಕ್‌ ಮಾಡಿ.",
+    "text": "ಪ್ರತಿಯೊಂದು ಕ್ಲಿಕ್ ಕೂಡ ಎಣಿಕೆಯಾಗುತ್ತದೆ! ಈ ಪ್ರಾಜೆಕ್ಟ್‌ ಅನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ಮತ್ತು ಸಂಶೋಧಕರು ಪ್ರಮುಖ ಫಲಿತಾಂಶಗಳನ್ನು ತಯಾರಿಸಲು ಸಹಾಯ ಮಾಡಲು {{projectName}} ಸಮುದಾಯವನ್ನು ಸೇರಿ. ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಂಕಿಅಂಶಗಳನ್ನು ನೋಡಲು \"ಇನ್ನಷ್ಟು ಅಂಕಿಅಂಶಗಳನ್ನು ನೋಡಿ\" ಕ್ಲಿಕ್ ಮಾಡಿ.",
+    "title": "{{projectName}} ಅಂಕಿಅಂಶಗಳು",
+    "viewMoreStats": "ಹೆಚ್ಚಿನ ಅಂಕಿಅಂಶಗಳನ್ನು ನೋಡಿ",
+    "volunteers": "ವಾಲೆಂಟಿಯರ್‌ಗಳು"
+  },
+  "RequireUser": {
+    "text": "ನೀವು ಸೈನ್ ಇನ್ ಆಗಿರಬೇಕು!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse ಸೈಟ್ ಹೆಡರ್"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "ಈಗಾಗಲೇ ನೋಡಲಾಗಿದೆ",
+    "back": "ಬೇರೆಯ ವಿಷಯದ ಗುಂಪನ್ನು ಆರಿಸಿ",
+    "byline": "ಕಾಲಮ್ ಹೆಸರುಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡುವ ಮೂಲಕ ಪಟ್ಟಿಯನ್ನು ವಿಂಗಡಿಸಿ. ನೀವು ಆಯ್ಕೆ ಮಾಡಿದರಿಂದ ಪ್ರಾರಂಭಿಸಿ, ನೀವು ವಿಷಯಗಳನ್ನು ಅನುಕ್ರಮವಾಗಿ ನೋಡುತ್ತೀರಿ.",
+    "fetching": "ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ...",
+    "heading": "ಪ್ರಾರಂಭಿಸಲು ಒಂದು ವಿಷಯವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ",
+    "retired": "ನಿವೃತ್ತಿಯಾಗಿದೆ",
+    "unclassified": "ಲಭ್ಯವಿದೆ"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "ಕಲೆಕ್ಷನ್‌ಗಳಿಗೆ ಸೇರಿಸಿ"
+    },
+    "TalkLink": {
+      "label": "Talk ನಲ್ಲಿ ಚರ್ಚಿಸಿ"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "ಮುಗಿದಿದೆ (ಮುಗಿಸಲಾಗಿದೆ)"
+    },
+    "back": "ಬೇರೆಯ ಕೆಲಸದ ಹರಿವನ್ನು ಆರಿಸಿ",
+    "byline": "ಲಿಪ್ಯಂತರ ಪ್ರಾರಂಭಿಸಲು ವಿಷಯದ ಗುಂಪನ್ನು ಆರಿಸಿ.",
+    "heading": "ಎಲ್ಲಿಂದ ಪ್ರಾರಂಭಿಸಬೇಕೆಂದು ಆರಿಸಿ"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% ಪೂರ್ಣಗೊಂಡಿದೆ",
+      "setSelection": "ಆಯ್ಕೆಯನ್ನು ಹೊಂದಿಸಿ",
+      "subjectSelection": "ವಿಷಯದ ಆಯ್ಕೆ"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "ಲಾಕ್‌ ಮಾಡಲಾಗಿದೆ",
+      "unlocked": "ಅನ್‌ಲಾಕ್ ಮಾಡಲಾಗಿದೆ"
+    },
+    "error": "ಕೆಲಸದ ಹರಿವುಗಳನ್ನು ಫೆಚ್‌ ಮಾಡುವಲ್ಲಿ ದೋಷ ಉಂತಾಗಿತ್ತು :(",
+    "getStarted": "ಪ್ರಾರಂಭಿಸೋಣ",
+    "message": "ಇಲ್ಲಿ ಪ್ರಾರಂಭಿಸಲು ಕ್ಲಿಕ್ ಮಾಡುವ ಮೂಲಕ, ನೀವು ನಿಜವಾದ ಸಂಶೋಧನೆಯನ್ನು ಮಾಡಬಹುದು!",
+    "noWorkflows": "ವರ್ಗೀಕರಿಸಲು ಏನೂ ಇಲ್ಲ"
+  }
+}
