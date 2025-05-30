@@ -30,7 +30,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@next/third-parties": "~14.2.26",
+    "@next/third-parties": "~15.3.3",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/react-components": "~1.14.0",
     "dayjs": "~1.11.11",
