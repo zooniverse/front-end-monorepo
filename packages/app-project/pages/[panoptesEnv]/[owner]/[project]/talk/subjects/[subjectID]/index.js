@@ -1,7 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
-export { default } from '@screens/ProjectSubjectPage'
+export { default } from '@screens/SubjectTalkPage'
 
 export async function getStaticProps({ locale, params }) {
   const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })

@@ -1,7 +1,7 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 
-import ProjectSubjectPage from './ProjectSubjectPage'
+import ProjectSubjectPage from './SubjectTalkPage'
 
 function useStore(store) {
   const { appLoadingState } = store
