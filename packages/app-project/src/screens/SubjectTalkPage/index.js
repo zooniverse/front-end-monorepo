@@ -1,1 +1,1 @@
-export { default } from './SubjectTalkPageConnector'
+export { default } from './SubjectTalkPage'

@@ -28,7 +28,6 @@ const ContainerGrid = styled(Grid)`
 `
 
 function ProjectSubjectPage({
-  appLoadingState,
   subject,
   subjectID
 }) {
@@ -117,7 +116,6 @@ function ProjectSubjectPage({
 }
 
 ProjectSubjectPage.propTypes = {
-  appLoadingState: string,
   subject: shape({
     id: string.isRequired
   }),
