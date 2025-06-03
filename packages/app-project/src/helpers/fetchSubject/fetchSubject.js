@@ -5,11 +5,13 @@ import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
 async function fetchSubjectData(subjectID, env) {
   const { headers, host } = getServerSideAPIHost(env)
+  
+  const query = {
+    env,
+    id: subjectID
+  }
+  
   try {
-    const query = {
-      env,
-      id: subjectID
-    }
     const response = await panoptes.get('/subjects', query, { ...headers }, host)
     const [ subject ] = response.body.subjects
     return subject
