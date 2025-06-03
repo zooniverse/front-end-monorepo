@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "আপনি ইতিমধ্যেই এই বিষয়টি দেখেছেন",
+      "tooltipText": [
+        "আপনি ইতিমধ্যেই এই বিষয়টি দেখেছেন এবং শ্রেণীবদ্ধ করেছেন, তাই আরও শ্রেণীবদ্ধকরণ এর বিশ্লেষণে অবদান রাখবে না।",
+        "যদি আপনি সাহায্য করতে চান, তাহলে ভিন্ন ওয়ার্কফ্লো বেছে নেওয়ার চেষ্টা করুন অথবা ভিন্ন প্রোজেক্টে অবদান রাখার চেষ্টা করুন।"
+      ]
+    },
+    "Banner": {
+      "next": "পরবর্তী",
+      "previous": "পূর্ববর্তী",
+      "whyAmISeeingThis": "আমি এটা কেন দেখছি?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "বাতিল করুন",
+      "confirm": "নিশ্চিত করুন",
+      "inProgress": "আপনি কি নিশ্চিত যে আপনি অন্য কোনো বিষয়ে যেতে চান? বর্তমান বিষয়ে আপনার করা যেকোনো অ্যানোটেশন হারিয়ে যাবে।"
+    },
+    "RetiredBanner": {
+      "bannerText": "সমাপ্ত: এই বিষয়টি বন্ধ করে দেওয়া হয়েছে",
+      "tooltipText": [
+        "এই বিষয়টির ইতিমধ্যেই যথেষ্ট শ্রেণীবিভাগ রয়েছে, তাই আপনার বিষয়টি এর বিশ্লেষণে ব্যবহার করা হবে না।",
+        "যদি আপনি সাহায্য করতে চান, তাহলে ভিন্ন ওয়ার্কফ্লো বেছে নেওয়ার চেষ্টা করুন অথবা ভিন্ন প্রোজেক্টে অবদান রাখার চেষ্টা করুন।"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "ইতিমধ্যে দেখা হয়েছে",
+      "bannerText": "{{setName}}:বিষয় {{number}}\/{{total}}",
+      "finished": "সমাপ্ত",
+      "tooltipText": [
+        "এই প্রোজেক্টটি ভলেন্টিয়ারদের ক্রমানুসারে বিষয়গুলি দেখার সুযোগ করে দেয়।",
+        "সংখ্যাটি আপনাকে মোট গ্ৰুপ-এর মধ্যে বিষয়ের অবস্থান দেখায়।"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "সমাপ্ত: আপনি সবকিছু দেখেছেন",
+      "tooltipText": [
+        "আপনি ইতিমধ্যেই এই ওয়ার্কফ্লো-এর সবকিছু শ্রেণীবদ্ধ করেছেন, তাই এই বিষয়ে আরও শ্রেণীবিভাগ এর বিশ্লেষণে ব্যবহার করা হবে না।",
+        "আপনি যদি সাহায্য করতে চান, তাহলে ভিন্ন ওয়ার্কফ্লো বেছে নেওয়ার চেষ্টা করুন অথবা ভিন্ন প্রোজেক্টে অবদান রাখার চেষ্টা করুন।"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "এই ওয়ার্কফ্লোটি শেষ হয়েছে।",
+      "tooltipText": [
+        "এই ওয়ার্কফ্লোতে সমস্ত বিষয় সম্পন্ন হয়েছে, তাই এই বিষয়ের বিশ্লেষণে আরও শ্রেণীবিভাগ ব্যবহার করা হবে না।",
+        "শ্রেণীবদ্ধ করতে থাকুন"
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "রোটেটিং আঁকা অ্যানোটেশন\/চিহ্নের জন্য হাতল।"
+  },
+  "FeedbackModal": {
+    "keepClassifying": "শ্রেণীবদ্ধ করতে থাকুন",
+    "label": "ফিডব্যাক"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "ফিল্ড গাইড"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "ফিল্ড গাইড আইটেম তালিকায় ফিরে যান"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}} নির্বাচন করুন"
+    },
+    "title": "ফিল্ড গাইড"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "অ্যানোটেট"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "সাধারণ আকারে বিষয় দেখুন",
+        "fullscreen": "ফুল স্ক্রিন মোডে বিষয় দেখুন"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "বিষয় উল্টে দিন"
+    },
+    "MoveButton": {
+      "ariaLabel": "বিষয় সরান"
+    },
+    "ResetButton": {
+      "ariaLabel": "বিষয় ভিউ রিসেট করুন"
+    },
+    "RotateButton": {
+      "ariaLabel": "বিষয় পুনরাবৃত্ত করুন"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "বিষয় তে জুম ইন করুন"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "বিষয় থেকে জুম আউট করুন"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "কালেকশনস-এ যোগ করুন"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "পূর্ববর্তী নম্বর লুকান",
+      "show": "পূর্ববর্তী নম্বর দেখান"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "সমস্ত নম্বর লুকান",
+      "show": "সমস্ত নম্বর দেখান",
+      "showUser": "আপনার নম্বর দেখুন"
+    },
+    "MetadataButton": {
+      "label": "বিষয় তথ্য"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "লেবেল",
+        "value": "মান"
+      },
+      "title": "বিষয় মেটাডেটা"
+    }
+  },
+  "ModalTutorial": {
+    "title": "টিউটোরিয়াল"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "কমেন্ট প্যানেল বন্ধ করুন",
+      "goToTalk": "বিষয় সংক্রান্ত আলোচনার জন্য কথা বলার স্থানে যান",
+      "mainPanel": "কুইকটক কমেন্ট প্যানেল",
+      "openButton": "বিষয়টিতে {{count}} কমেন্ট(গুলি) আছে। প্রসারিত করতে ক্লিক করুন।",
+      "panelContent": "বিষয় সংক্রান্ত আলোচনার কমেন্ট",
+      "panelHeading": "বিষয় সংক্রান্ত আলোচনা"
+    },
+    "errors": {
+      "failPostComment": "বিদ্যমান আলোচনায় কমেন্ট যোগ করা যায়নি।",
+      "failPostDiscussion": "নতুন আলোচনায় কমেন্ট যোগ করা যায়নি।",
+      "noBoard": "এই প্রোজেক্টের জন্য এখনও বিষয় সংক্রান্ত কমেন্টের জন্য একটি বোর্ড স্থাপন করা হয়নি।",
+      "noText": "খালি কমেন্ট পোস্ট করা যাবে না।",
+      "noUser": "ব্যবহারকারী লগ ইন করেননি।"
+    },
+    "loginToPost": "কমেন্ট পোস্ট করতে অনুগ্রহ করে লগইন করুন।",
+    "status": {
+      "initialized": "এই বিষয় সম্পর্কে একটি নোট রাখুন",
+      "loading": "কমেন্ট পোস্ট করা হচ্ছে...",
+      "success": "কমেন্ট পোস্ট করা হয়েছে!"
+    },
+    "subjectHasNoComments": "এই বিষয়টির সম্পর্কে এখনও কোনো কমেন্ট নেই।"
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "ধাপ {{index}}-এ যান",
+      "next": "পরবর্তী ধাপে যান",
+      "previous": "পূর্ববর্তী ধাপে যান"
+    },
+    "alt": "টিউটোরিয়াল ধাপ {{activeStep}}",
+    "error": "টিউটোরিয়াল ধাপটি লোড করা যায়নি।",
+    "getStarted": "শুরু করুন",
+    "heading": "{{projectDisplayName}} টিউটোরিয়াল"
+  },
+  "StepNavigation": {
+    "go": "{{index}} ধাপে যান",
+    "next": "পরবর্তী ধাপে যান",
+    "previous": "পূর্ববর্তী ধাপে যান"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "বার চার্ট"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "টেক্সট ভিউয়ারের আইকন"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "সংরক্ষণ না করেই বন্ধ করুন",
+        "confirm": "আপনি কি নিশ্চিত যে আপনি বন্ধ করতে চান? এই চিহ্নটি মুছে ফেলা হবে।",
+        "keepWorking": "কাজ করতে থাকুন"
+      },
+      "SaveButton": {
+        "save": "সংরক্ষণ করুন এবং বন্ধ করুন"
+      },
+      "SubTaskPopup": {
+        "notRender": "টাস্ক কম্পোনেন্ট রেন্ডার করা যায়নি।",
+        "required": "এই কাজটি আবশ্যক।"
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "সমষ্টিগত ট্রান্সক্রিপশন",
+          "explanation": "এই {{count}} ট্রান্সক্রিপশনগুলি পূর্ববর্তী স্বেচ্ছাসেবকদের দ্বারা জমা দেওয়া হয়েছে এবং এগুলি পরিবর্তন করা যাবে না।",
+          "noAggregation": "কোনো সমষ্টি উপলব্ধ নেই।",
+          "title": "পূর্ববর্তী ট্রান্সক্রিপশন",
+          "transcriptionsUnavailable": "ট্রান্সক্রিপশন অনুপলব্ধ।"
+        },
+        "complete": "ট্রান্সক্রিপশন সম্পন্ন হয়েছে",
+        "transcribed": "ট্রান্সক্রিপশন আছে"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "পরবর্তী",
+        "previousFrameLabel": "পূর্ববর্তী",
+        "thumbnailAltText": "ছবির থাম্বনেইল"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "{{index}} নির্বাচন মুছুন"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "ফ্লিপবুক ভিউতে স্যুইচ করুন",
+        "switchToSeparateFrames": "আলাদা ফ্রেম ভিউতে স্যুইচ করুন"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "বিষয়টি লোড করার সময় একটি সমস্যা হয়েছে।"
+    },
+    "VariableStarViewer": {
+      "controls": "নিয়ন্ত্রণ",
+      "figCaption": "HR ডায়াগ্রাম",
+      "flip": "উল্টানো",
+      "focus": "ফোকাস",
+      "highlight": "হাইলাইট",
+      "imageTitle": "HR ডায়াগ্রাম: উজ্জ্বলতা বনাম তাপমাত্রা",
+      "label": "ফিল্টার {{id}}",
+      "periodMultiple": "পিরিয়ড মাল্টিপল",
+      "phase": "ফেজ",
+      "phaseFocus": "ফেজ ফোকাস"
+    },
+    "VideoController": {
+      "closeVolume": "ভলিউম স্লাইডার বন্ধ করুন",
+      "fullscreen": "ভিডিও ফুলস্ক্রিনে দেখান",
+      "openVolume": "ভলিউম স্লাইডার খুলুন",
+      "pause": "ভিডিও পজ করুন",
+      "play": "ভিডিও চালান",
+      "playbackSpeed": "ভিডিও প্লেব্যাক গতি নির্বাচন",
+      "scrubber": "ভিডিও প্লেয়ার স্ক্রাবার",
+      "volumeSlider": "ভলিউম স্লাইডার"
+    },
+    "ZoomControlButton": {
+      "disable": "জুম অক্ষম করুন",
+      "enable": "জুম সক্ষম করুন"
+    },
+    "loading": "একটি বিষয় লোড হচ্ছে",
+    "zoomHelp": "জুম করতে কন্ট্রোল + স্ক্রোল ব্যবহার করুন"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "এই বিষয়ের যথেষ্ট শ্রেণীবিভাগ আছে, তাই জমা দেওয়া কোনো অতিরিক্ত শ্রেণীবিভাগ এর বিশ্লেষণে ব্যবহার করা হবে না। আপনি এখনও রেফারেন্সের জন্য এই বিষয়টি দেখতে পারেন।",
+      "options": {
+        "dismiss": "খারিজ করুন",
+        "next": "পরবর্তী উপলব্ধ বিষয়",
+        "select": "একটি নতুন বিষয় নির্বাচন করুন"
+      },
+      "title": "সমাপ্ত"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "পিছনে যান"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "সম্পন্ন এবং কথা বলুন",
+        "newTab": "একটি নতুন ট্যাবে"
+      },
+      "DoneButton": {
+        "done": "সম্পন্ন"
+      },
+      "ExpertOptions": {
+        "demoToggle": "ডেমো মোড",
+        "label": "বিশেষজ্ঞ বিকল্প"
+      },
+      "NextButton": {
+        "next": "পরবর্তী"
+      },
+      "TaskHelp": {
+        "close": "বন্ধ করুন",
+        "label": "এই কাজে কিছু সাহায্যের প্রয়োজন?"
+      },
+      "demoMode": "ডেমো মোডে, শ্রেণীবিভাগ সংরক্ষণ করা হবে না। শ্রেণীবিভাগ ইন্টারফেসের দ্রুত, অযথাযথ ডেমোর জন্য এটি ব্যবহার করুন।",
+      "error": "কিছু একটা সমস্যা হয়েছে।",
+      "loading": "লোড হচ্ছে",
+      "renderFallback": "টাস্ক কম্পোনেন্ট রেন্ডার করা যায়নি।"
+    },
+    "task": "কাজ",
+    "tutorial": "টিউটোরিয়াল"
+  }
+}

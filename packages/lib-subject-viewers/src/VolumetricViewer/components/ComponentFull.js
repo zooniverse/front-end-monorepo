@@ -1,4 +1,3 @@
-import { AlgorithmAStar } from './../helpers/AlgorithmAStar.js'
 import { Box } from 'grommet'
 import { Cube } from './Cube.js'
 import { Histogram } from './Histogram.js'
@@ -100,26 +99,7 @@ const StyledBox = styled(Box)`
   }
 `
 
-export const ComponentViewer = ({
-  data,
-  models
-}) => {
-  models.annotations.initialize({
-    algorithm: AlgorithmAStar,
-    data: [],
-    viewer: models.viewer
-  })
-
-  models.tool.initialize({
-    annotations: models.annotations
-  })
-
-  models.viewer.initialize({
-    annotations: models.annotations,
-    data,
-    tool: models.tool
-  })
-
+export const ComponentFull = ({ models }) => {
   return (
     <Box flex align='end'>
       <StyledBox direction='row'>
@@ -145,15 +125,12 @@ export const ComponentViewer = ({
             />
           </Box>
           <Box className='volume-controls' flex direction='row' justify='between'>
-            <MarkButtons
-              annotations={models.annotations}
-            />
+            {models.annotations
+              ? <MarkButtons annotations={models.annotations} />
+              : <div style={{ flex: 1 }} />
+            }
 
-            <Histogram
-              annotations={models.annotations}
-              tool={models.tool}
-              viewer={models.viewer}
-            />
+            <Histogram viewer={models.viewer} />
           </Box>
         </Box>
       </StyledBox>
@@ -161,7 +138,7 @@ export const ComponentViewer = ({
   )
 }
 
-ComponentViewer.propTypes = {
+ComponentFull.propTypes = {
   data: string,
   models: object
 }

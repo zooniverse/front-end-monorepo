@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Admin mód"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "A felhasználónév vagy e-mail-cím helytelen",
+      "forgot": "Elfelejtette a jelszavát?",
+      "heading": "Örülünk, hogy újra látjuk!",
+      "instruction": "Örülünk, hogy visszatért! Jelentkezzen be, és folytassa ott, ahol abbahagyta.",
+      "login": "Felhasználónév vagy e-mai-cím",
+      "password": "Jelszó",
+      "placeholder": "pl. ZooniverseFan123",
+      "signIn": "Bejelentkezés"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Szeretnék segíteni az új projektek tesztelésében, és szeretnék e-mailt kapni, amikor elérhetővé válnak (opcionális)",
+      "email": "E-mail-cím (kötelező)",
+      "emailConfirm": "E-mail-cím megerősítése (kötelező)",
+      "emailConfirmError": "Az e-mail-címek nem egyeznek, próbálja újra.",
+      "emailConflict": "Már létezik egy fiók ezzel az e-mail-címmel",
+      "emailListSignUp": "Időnként küldhetnek nekem egy-egy emailt (opcionális)",
+      "emailPlaceholder": "pl. zoofan31@gmail.com",
+      "forgot": "Elfelejtette a jelszavát?",
+      "heading": "Örülünk, hogy újra látjuk!",
+      "instruction": "Hozzon létre egy fiókot a valódi kutatások megkezdéséhez.",
+      "password": "Jelszó (kötelező)",
+      "passwordConfirm": "Jelszó megerősítése (kötelező)",
+      "passwordConfirmError": "A jelszavak nem egyeznek, próbálja újra.",
+      "privacyAgreement": "Ön elfogadja az adatvédelmi szabályzatunkat (kötelező)",
+      "privacyAgreementError": "Az adatvédelmi szabályzat elfogadása kötelező.",
+      "privacyLink": "Olvassa el adatvédelmi szabályzatunkat",
+      "realName": "Valódi név (opcionális)",
+      "realNameHelp": "Ezt arra használjuk fel, hogy elismerjük Önt a tudományos publikációkban, posztereken és hasonlókban.",
+      "realNamePatternHelp": "Nevet adjon meg, ne egy e-mail-címet",
+      "realNamePlaceholder": "pl. Maggie Smith",
+      "register": "Regisztráció",
+      "registering": "Regisztráció...",
+      "underageConsent": "Megerősítem, hogy én vagyok a szülő\/gondviselő, és engedélyezem a gyermekemnek a regisztrációt azáltal, hogy a saját e-mail-címemet adom meg fő kapcsolattartási címként. Én és gyermekem egyaránt tudomásul vesszük és elfogadjuk az adatvédelmi szabályzatot (kötelező)",
+      "underageEmail": "Szülő\/gondviselő e-mail-címe (kötelező)",
+      "underageEmailSignUp": "Amennyiben beleegyezik, rendszeres időközönként kutatásokhoz kapcsolódó új projekteket népszerűsítő e-maileket, illetve a kutatásunkhoz kapcsolódó egyéb információkat küldünk Önnek. A kapcsolattartási adatait nem használjuk fel kereskedelmi célokra. (opcionális)",
+      "underageNotRealName": "Ezt a nevet fogja használni a bejelentkezéshez. A név nyilvánosan fog megjelenni. Ne használja a valódi nevét.",
+      "underageWithParent": "Amennyiben Ön 16 év alatti, az alábbi jelölőnégyzet bejelölésével erősítse meg, hogy az űrlapot a szülőjével vagy gondviselőjével együtt töltötte ki",
+      "username": "Felhasználónév (kötelező)",
+      "usernameConflict": "Ez a felhasználónév foglalt",
+      "usernameHelp": "Ez nyilvánosan megjelenik az üzenőfalakon és hasonlókon.",
+      "usernamePatternHelp": "A felhasználónév csak betűket, számokat, valamint a „.”, „-” és „_” karaktereket tartalmazhatja",
+      "usernamePlaceholder": "pl. ZooniverseFan123"
+    },
+    "title": "Jelentkezzen be, vagy hozzon létre egy új fiókot."
+  },
+  "CloseButton": {
+    "close": "Bezárás"
+  },
+  "FavouritesButton": {
+    "add": "Hozzáadás a kedvencekhez",
+    "remove": "Hozzáadva a kedvencekhez"
+  },
+  "Loader": {
+    "loading": "Betöltés"
+  },
+  "ProjectCard": {
+    "classifications": "Osztályozások",
+    "finished": "Befejezve",
+    "paused": "Szüneteltetve",
+    "state": "Állapot"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Rólunk",
+      "acknowledgements": "Köszönetnyilvánítás",
+      "contact": "Kapcsolatfelvétel",
+      "faq": "GyIK",
+      "publications": "Publikációk",
+      "resources": "Erőforrások",
+      "team": "Csapat"
+    },
+    "buildLabels": {
+      "bestPractices": "Bevált gyakorlatok",
+      "buildAProject": "Projekt létrehozása",
+      "glossary": "Szójegyzék",
+      "policies": "Szabályzatok",
+      "tutorial": "Útmutató"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Projektfelhívások",
+      "collaborate": "Együttműködés",
+      "collections": "Gyűjtemények",
+      "donate": "Adományozás",
+      "educate": "Oktatás",
+      "education": "Oktatás",
+      "getInvolved": "Vegyen részt Ön is",
+      "volunteer": "Önkéntes"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Napi Zooniverse",
+      "news": "Hírek"
+    },
+    "policyLabels": {
+      "jobs": "Állások",
+      "privacyPolicy": "Adatvédelmi szabályzat",
+      "security": "Biztonság",
+      "systemStatus": "Rendszerállapot"
+    },
+    "projectLabels": {
+      "arts": "Művészetek",
+      "biology": "Biológia",
+      "climate": "Klíma",
+      "history": "Történelem",
+      "language": "Nyelv",
+      "literature": "Irodalom",
+      "medicine": "Gyógyászat",
+      "nature": "Természet",
+      "physics": "Fizika",
+      "projects": "Projektek",
+      "social": "Társadalomtudomány",
+      "space": "Világűr"
+    },
+    "tagLine": "Emberek által támogatott kutatás",
+    "talkLabels": {
+      "announcements": "Közlemények",
+      "data": "Adatfeldolgozás",
+      "projectBuilding": "Projektek létrehozása",
+      "talk": "Talk fórum",
+      "troubleshooting": "Hibaelhárítás"
+    },
+    "zooniversePolicies": "A Zooniverse szabályzatai"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Felhasználói fiók",
+      "navListLabels": {
+        "messages_one": "Üzenetek ({{count}})",
+        "messages_other": "Üzenetek ({{count}})",
+        "messages_zero": "Üzenetek",
+        "notifications_one": "Értesítések ({{count}})",
+        "notifications_other": "Értesítések ({{count}})",
+        "notifications_zero": "Értesítések"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Regisztráció",
+      "signIn": "Bejelentkezés"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Váltás sötét témára",
+      "switchToLight": "Váltás világos témára"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Gyűjtemények",
+        "favorites": "Kedvencek",
+        "profile": "Profil",
+        "settings": "Beállítások",
+        "signOut": "Kijelentkezés"
+      }
+    },
+    "ariaLabel": "Oldal",
+    "mainHeaderNavListLabels": {
+      "about": "Rólunk",
+      "build": "Építés",
+      "getInvolved": "Vegyen részt Ön is",
+      "projects": "Projektek",
+      "talk": "Talk fórum"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse logó"
+  }
+}

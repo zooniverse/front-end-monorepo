@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "ওপেন পয়েন্ট থেকে ক্লোজ পয়েন্টে ক্লিক করুন এবং টেনে আনুন অথবা লাইনের যেকোনো জায়গায় ডাবল ক্লিক করে একটি স্প্লাইস পয়েন্ট তৈরি করুন",
+    "closePoint": "ক্লোজ পয়েন্ট সেট করতে লাইনের যেকোনো জায়গায় ক্লিক করুন",
+    "inactive": "এই লাইনটি এডিট করতে ক্লিক করুন",
+    "spliceDrag": "খোলা পয়েন্ট থেকে বন্ধ পয়েন্টে ক্লিক করুন এবং টেনে আনুন",
+    "splicePoint": "একটি স্প্লাইস পয়েন্ট তৈরি করতে লাইনের যেকোনো জায়গায় ডাবল ক্লিক করুন"
+  },
+  "HighlighterTask": {
+    "delete": "মুছে ফেলুন",
+    "noLabels": "হাইলাইটার টাস্কের জন্য কোনো লেবেল নেই",
+    "status": "{{count}} মার্ক করা হয়েছে"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} আঁকা হয়েছে",
+    "max": "{{max}} এর মধ্যে {{count}} সর্বোচ্চ আঁকা হয়েছে",
+    "maxAndMin": "{{min}} এর মধ্যে {{count}} প্রয়োজন, সর্বোচ্চ {{max}} আঁকা হয়েছে",
+    "min": "{{min}} এর মধ্যে {{count}} আঁকা প্রয়োজন"
+  },
+  "LineControls": {
+    "close": "বন্ধ করুন",
+    "delete": "মুছে ফেলুন",
+    "deleteCancel": "মুছে ফেলা নিশ্চিত করুন",
+    "deleteConfirm": "মুছে ফেলা নিশ্চিত করুন",
+    "lineControls": "লাইন নিয়ন্ত্রণ",
+    "move": "সরিয়ে দিন",
+    "redo": "রিডু করুন",
+    "undo": "আন্ডু করুন"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "কিছু একটা ইনপুট করুন",
+    "otherLabel": "অন্যান্য...",
+    "selectPlaceholder": "একটি উত্তর বেছে নিন"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "ফিল্টার ক্লিয়ার করুন",
+      "closeFilters": "ফিল্টার বন্ধ করুন",
+      "filter": "ফিল্টার",
+      "removeFilter": "{{valueLabel}} ফিল্টার সরান",
+      "showing": "{{total}} এর মধ্যে {{showing}} দেখানো হচ্ছে"
+    },
+    "Choice": {
+      "cancel": "বাতিল করুন",
+      "identify": "শনাক্ত করুন",
+      "lessInfo": "কম তথ্য",
+      "moreInfo": "আরও তথ্য",
+      "notThis": "এটা না"
+    },
+    "ChoiceButton": {
+      "identified": "চিহ্নিত",
+      "openSubmenu": "{{choiceLabel}} এর জন্য সাবমেনু খুলুন"
+    },
+    "ConfusedWith": {
+      "cancel": "বাতিল করুন",
+      "confused": "মাঝে মাঝে বিভ্রান্ত হয়",
+      "itsThis": "আমার মনে হয় এটা সেটি"
+    },
+    "DeleteButton": {
+      "delete": "পছন্দ মুছে ফেলুন {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "রিসেট করুন"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "টেক্সট মডিফায়ার"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "তৈরি করা ট্রান্সক্রিপশন",
+    "editing": "ট্রান্সক্রিপশন এডিট করা"
+  }
+}

@@ -27,8 +27,10 @@ const StyledText = styled(Text)`
     margin-top: 0;
   }
 `
-function DrawingTask(props) {
-  const { task } = props
+function DrawingTask({
+  disabled = false,
+  task
+}) {
   const { setActiveTool } = task
   function onChange(index, event) {
     if (event.target.checked) {
@@ -47,7 +49,7 @@ function DrawingTask(props) {
         return (
           <TaskInput
             checked={checked}
-            disabled={tool.disabled}
+            disabled={disabled}
             index={index}
             key={`${task.taskKey}_${index}`}
             label={task.strings.get(`tools.${index}.label`)}
@@ -69,16 +71,14 @@ function DrawingTask(props) {
   )
 }
 
-DrawingTask.defaultProps = {
-  task: {}
-}
-
 DrawingTask.propTypes = {
+  disabled: PropTypes.bool,
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,
-    required: PropTypes.bool
-  })
+    required: PropTypes.bool,
+    setActiveTool: PropTypes.func
+  }).isRequired
 }
 
 export default observer(DrawingTask)

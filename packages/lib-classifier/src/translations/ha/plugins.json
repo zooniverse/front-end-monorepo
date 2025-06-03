@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "A latsa sannan a ja daga wurin buɗewa zuwa wurin rufewa ko a latsa sau biyu a wani wuri a kan layin domin samar da wurin haɗawa",
+    "closePoint": "Latsa wani wuri a kan layin domin samar da wurin rufewa",
+    "inactive": "Latsa domin gyara wannan layin",
+    "spliceDrag": "A latsa sannan a ja daga wurin buɗewa zuwa wurin rufewa",
+    "splicePoint": "A latsa sau biya a wani wuri a kan layin domin samar da wurin haɗawa"
+  },
+  "HighlighterTask": {
+    "delete": "Share",
+    "noLabels": "Ba a sa rukunoni game da Aikin Haskakawa",
+    "status": "An yi alama a guda {{count}}"
+  },
+  "InputStatus": {
+    "drawn": "An zana {{count}}",
+    "max": "{{count}} a cikin {{max}} mafi yawa da ake buƙata ne aka zana",
+    "maxAndMin": "{{count}} a cikin {{min}} ake buƙata, {{max}} ne mafi yawa da aka zana",
+    "min": "{{count}} a cikin {{min}} da ake buƙata ne aka zana"
+  },
+  "LineControls": {
+    "close": "Rufe",
+    "delete": "Soke",
+    "deleteCancel": "Soke Sharewa",
+    "deleteConfirm": "Tabbatar Da Sharewa",
+    "lineControls": "Masarrafar Layi",
+    "move": "Matsa",
+    "redo": "Sake",
+    "undo": "Maido"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Sanya wani abu",
+    "otherLabel": "Wani daban...",
+    "selectPlaceholder": "Zaɓi amsa"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Cire matata",
+      "closeFilters": "Rufe matata",
+      "filter": "Tace",
+      "removeFilter": "Cire matacin {{valueLabel}}",
+      "showing": "Ana nuna {{showing}} a cikin {{total}}"
+    },
+    "Choice": {
+      "cancel": "Soke",
+      "identify": "Gano",
+      "lessInfo": "Ƙarancin bayani",
+      "moreInfo": "Ƙarin bayani",
+      "notThis": "Ba wannan ba"
+    },
+    "ChoiceButton": {
+      "identified": "an gano",
+      "openSubmenu": "Buɗe ƙaramin menu na {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Soke",
+      "confused": "Wani lokaci aka ɗauke shi a matsayin",
+      "itsThis": "Ina tunanin wannan ne"
+    },
+    "DeleteButton": {
+      "delete": "Share zaɓi {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Sake saitawa"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Masu gyara rubutu"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Rubutaccen bayani da aka samar",
+    "editing": "Ana gyara rubutaccen bayani"
+  }
+}

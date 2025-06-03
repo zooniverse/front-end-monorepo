@@ -1,0 +1,76 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Koulutus",
+        "faq": "UKK",
+        "research": "Tutkimus",
+        "results": "Tulokset",
+        "team": "Tiimi"
+      }
+    },
+    "PageNav": {
+      "title": "Tietoa projektista"
+    },
+    "SidebarHeading": "Tietoa",
+    "TeamMember": {
+      "collaborator": "Yhteistyökumppani",
+      "expert": "Asiantuntija",
+      "moderator": "Moderaattori",
+      "museum": "Museo",
+      "owner": "Omistaja",
+      "researcher": "Tutkija",
+      "tester": "Testaaja",
+      "translator": "Kääntäjä"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Luokittelussa tapahtui virhe :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Keskustele aiheesta Talkissa tai lisää se suosikkeihin tai kokoelmaan.",
+      "title": "Viimeaikaiset luokittelusi"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ei kiitos",
+      "confirm": "Vie minue seuraavaan työnkulkuun!",
+      "content": "Onnittelut! Koska sinulla menee hyvin, voit nyt käyttää toista työnkulkua. Jos haluat pysyä mieluummin nykyisessä työnkulussa, voit pysyä siinä.",
+      "dismiss": "Älä käytä tätä uudelleen tämän istunnon aikana",
+      "title": "Uusi työnkulku saatavilla"
+    },
+    "YourStats": {
+      "allTime": "Koko aika",
+      "lastSeven": "Viimeiset 7 päivää",
+      "link": "Näytä lisää",
+      "title": "Tilastosi"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Tietoa projektista {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Lue lisää"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Ole yhteydessä tutkimustiimiin Talkissa oppiaksesi lisää tästä projektista!",
+      "noMessageButton": "Siirry Talkiin",
+      "title": "Viesti tutkijalta"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Aihetta ladattaessa tapahtui virhe :(",
+        "noSubjects": "Näyttää siltä, ettei kukaan ole vielä kommentoinut aiheeseen. Siirry Talkiin ja ole ensimmäinen!",
+        "subjectLabel": "Aihe {{id}}"
+      },
+      "button": "Liity mukaan",
+      "message": "Keskustele tutkimustiimin ja muiden vapaaehtoisten kanssa!",
+      "title": "Zooniverse Talk"
+    }
+  }
+}
