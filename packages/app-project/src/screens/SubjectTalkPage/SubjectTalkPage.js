@@ -1,6 +1,7 @@
 import { Media } from '@zooniverse/react-components'
 import { Box, Grid } from 'grommet'
 import { Bookmark, Favorite, ShareOption, SubtractCircle } from 'grommet-icons'
+import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
 import styled from 'styled-components'
 
@@ -31,6 +32,8 @@ function ProjectSubjectPage({
   subject,
   subjectID
 }) {
+  const { t } = useTranslation('screens')
+
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
 
@@ -52,7 +55,7 @@ function ProjectSubjectPage({
             }}
           >
             <Media
-              alt={`subject ${subjectID}`}
+              alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
               subject={subject}
               src={subjectURL}
             />
@@ -74,7 +77,7 @@ function ProjectSubjectPage({
             style={{ gridArea: 'talkData' }}
           >
             {/* <TalkSearch /> */}
-            <input type='text' placeholder='Search this project for tags, subjects, or @users' />
+            <input type='text' placeholder={t('Talk.searchPlaceholder')} />
             {/* <TalkData /> */}
             <Box
               background={{
@@ -94,20 +97,20 @@ function ProjectSubjectPage({
         >
           {/* <MetaData /> */}
           <ContentBox
-            title='Subject Metadata'
+            title={t('Talk.subjectMetadata')}
           />
           {/* <AncillaryData /> */}
           {/* <FeaturedCollections /> */}
           <ContentBox
-            title='Featured in these Collections'
-            linkLabel='See more'
+            title={t('Talk.featuredCollections')}
+            linkLabel={t('Classify.YourStats.link')}
             linkProps={{
               href: ''
             }}
           />
           {/* <RelatedSubjects /> */}
           <ContentBox
-            title='Other subject being discussed'
+            title={t('Talk.relatedSubjects')}
           />
         </Box>
       </Box>
