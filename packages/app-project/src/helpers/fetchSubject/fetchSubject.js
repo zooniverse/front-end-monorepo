@@ -1,4 +1,5 @@
 import { panoptes } from '@zooniverse/panoptes-js'
+import logToSentry from '@helpers/logger/logToSentry.js'
 
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
@@ -14,6 +15,7 @@ async function fetchSubjectData(subjectID, env) {
     return subject
   } catch (error) {
     console.error('Error loading subject:', error)
+    logToSentry(error, { query, host })
     return null
   }
 }
