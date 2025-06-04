@@ -22,6 +22,7 @@ function ZoomOutButton({
       disabled={disabled}
       icon={<ZoomOutIcon />}
       onClick={onClick}
+      onContextMenu={onClick}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />
