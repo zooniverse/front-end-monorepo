@@ -38,6 +38,8 @@ function ZoomInButtonContainer({ separateFrameZoomIn }) {
   function onPointerUp(event) {
     const { currentTarget, pointerId } = event
     currentTarget.releasePointerCapture(pointerId)
+    clearInterval(timer)
+    setTimer('')
   }
 
   return (
