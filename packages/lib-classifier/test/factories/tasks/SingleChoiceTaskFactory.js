@@ -5,7 +5,7 @@ export default new Factory()
     { label: 'Yes' },
     { label: 'No' }
   ])
-  .attr('required', 'true')
+  .attr('required', true)
   .attr('strings', {
     question: 'Is there a galaxy?'
   })
