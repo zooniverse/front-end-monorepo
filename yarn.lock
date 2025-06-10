@@ -10599,10 +10599,10 @@ grommet-icons@^4.12.4, grommet-icons@~4.12.0:
   resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.12.4.tgz#23d2d994ca666197f3132e4b02edc11b39a1cc84"
   integrity sha512-LB2u1X7B22wq6ib0DUPhdXmiYXvkg+Xx3eP1tVrKGqhfk+tTkX0nDyK7wFhH+7fvj2ebWjJMYia6G0zH1voGOw==
 
-grommet@~2.46.1:
-  version "2.46.1"
-  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.46.1.tgz#71ba125fe7fba21c571841ec8e9b022cf267ab57"
-  integrity sha512-jrkoK8cVledKhf5tQFDWgnxzs9S+1gun6Nq3NTIsN/jYSpIF6gj1PsXmGyRm8eJ/nyH0Lu5ZtczemhowjEgUZw==
+grommet@~2.47.0:
+  version "2.47.0"
+  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.47.0.tgz#10284291dcbde8d4179b605ab05742676aba909b"
+  integrity sha512-JQYh2JdSgpv2XoOK5N/5BHynEswUrukXFBiSPqfVFAiTfXRccrQD3zMdtYaLNbTuHh7LYeE+jrwjujJVjQb+hw==
   dependencies:
     "@emotion/is-prop-valid" "^1.3.1"
     grommet-icons "^4.12.4"
