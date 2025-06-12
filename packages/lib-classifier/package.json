@@ -47,7 +47,7 @@
     "hash.js": "~1.1.7",
     "i18next": "~24.2.2",
     "lodash": "~4.17.11",
-    "react-i18next": "~14.1.0",
+    "react-i18next": "~15.5.3",
     "react-player": "~2.13.0",
     "swr": "~2.3.2",
     "valid-url": "~1.0.9"
