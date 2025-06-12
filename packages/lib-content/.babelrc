@@ -1,6 +1,11 @@
 {
   "plugins": [
-    "babel-plugin-styled-components"
+    "babel-plugin-styled-components",
+    ["transform-imports", {
+      "@zooniverse/react-components": {
+        "transform": "@zooniverse/react-components/${member}"
+      }
+    }]
   ],
   "presets": [
     ["@babel/preset-react", {
