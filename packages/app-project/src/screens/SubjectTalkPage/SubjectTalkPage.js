@@ -1,8 +1,10 @@
+import { FlipbookControls } from '@zooniverse/classifier'
 import { Media } from '@zooniverse/react-components'
 import { Box, Grid } from 'grommet'
 import { Bookmark, Favorite, ShareOption, SubtractCircle } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
@@ -32,10 +34,12 @@ function ProjectSubjectPage({
   subject,
   subjectID
 }) {
+  const [frame, setFrame] = useState(0)
+
   const { t } = useTranslation('screens')
 
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
-  const subjectURL = subjectURLs[0]
+  const subjectURL = subjectURLs[frame]
 
   return (
     <StandardLayout>
@@ -59,6 +63,13 @@ function ProjectSubjectPage({
               subject={subject}
               src={subjectURL}
             />
+            {subject?.locations?.length > 1 ? (
+              <FlipbookControls
+                currentFrame={frame}
+                locations={subject.locations}
+                onFrameChange={setFrame}
+              />
+            ) : null}
             {/* <MetaTools /> */}
             <Box
               direction='row'
