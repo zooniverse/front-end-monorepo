@@ -7,16 +7,14 @@ import {
   FormDown
 } from 'grommet-icons'
 import debounce  from 'lodash/debounce'
-import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
-import styled, { withTheme, css } from 'styled-components'
+import { arrayOf, bool, func, number } from 'prop-types'
+import { useEffect, useRef, useState } from 'react'
+import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
-import { observer } from 'mobx-react'
-import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
-import locationValidator from '../../../helpers/locationValidator'
-import ViewModeButton from '../../SeparateFramesViewer/components/ViewModeButton/ViewModeButton.js'
+import locationValidator from '../../../../helpers/locationValidator/index.js'
+import ViewModeButton from '../../../SeparateFramesViewer/components/ViewModeButton/ViewModeButton.js'
 
 const SpeedSelect = styled(Select)`
   display: block;
@@ -49,32 +47,19 @@ const ThumbnailButton = styled(Button)`
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
-function storeMapper(store) {
-  const {
-    flipbookSpeed,
-    setFlipbookSpeed
-  } = store.subjectViewer
-
-  const {
-    enable_switching_flipbook_and_separate: enableSwitchView
-  } = store.workflows?.active?.configuration
-
-  return {
-    enableSwitchView,
-    flipbookSpeed,
-    setFlipbookSpeed
-  }
-}
+const DEFAULT_HANDLER = () => true
 
 const FlipbookControls = ({
   currentFrame = 0,
+  enableSwitchView = false,
+  flipbookSpeed = 1,
   locations = [],
-  onFrameChange = () => true,
-  onPlayPause = () => true,
+  onFrameChange = DEFAULT_HANDLER,
+  onPlayPause = DEFAULT_HANDLER,
   playing = false,
-  playIterations
-}) => {
-  const { enableSwitchView, flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
+  playIterations,
+  setFlipbookSpeed = DEFAULT_HANDLER
+}) => {  
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
@@ -298,11 +283,14 @@ const FlipbookControls = ({
 }
 
 FlipbookControls.propTypes = {
-  currentFrame: PropTypes.number,
-  locations: PropTypes.arrayOf(locationValidator).isRequired,
-  onFrameChange: PropTypes.func,
-  onPlayPause: PropTypes.func,
-  playing: PropTypes.bool
+  currentFrame: number,
+  enableSwitchView: bool,
+  flipbookSpeed: number,
+  // locations: arrayOf(locationValidator).isRequired,
+  onFrameChange: func,
+  onPlayPause: func,
+  playing: bool,
+  setFlipbookSpeed: func,
 }
 
-export default withTheme(observer(FlipbookControls))
+export default FlipbookControls
