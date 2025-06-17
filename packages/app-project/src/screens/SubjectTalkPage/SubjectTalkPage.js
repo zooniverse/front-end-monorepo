@@ -1,14 +1,11 @@
-import { FlipbookControls } from '@zooniverse/classifier'
-import { Media } from '@zooniverse/react-components'
 import { Box, Grid } from 'grommet'
-import { Bookmark, Favorite, ShareOption, SubtractCircle } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
-import { useState } from 'react'
 import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
+import SubjectTalkViewer from './components/SubjectTalkViewer'
 
 // based on the lib-classifier MaxWidth layout
 const ContainerGrid = styled(Grid)`
@@ -34,12 +31,7 @@ function ProjectSubjectPage({
   subject,
   subjectID
 }) {
-  const [frame, setFrame] = useState(0)
-
   const { t } = useTranslation('screens')
-
-  const subjectURLs = subject.locations.map(location => Object.values(location)[0])
-  const subjectURL = subjectURLs[frame]
 
   return (
     <StandardLayout>
@@ -49,40 +41,9 @@ function ProjectSubjectPage({
         pad='medium'
       >
         <ContainerGrid>
-          <Box
-            background={{
-              dark: 'dark-3',
-              light: 'white'
-            }}
-            style={{
-              gridArea: 'viewer'
-            }}
-          >
-            <Media
-              alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
-              subject={subject}
-              src={subjectURL}
-            />
-            {subject?.locations?.length > 1 ? (
-              <FlipbookControls
-                currentFrame={frame}
-                locations={subject.locations}
-                onFrameChange={setFrame}
-              />
-            ) : null}
-            {/* <MetaTools /> */}
-            <Box
-              direction='row'
-              gap='small'
-              justify='center'
-              margin='small'
-            >
-              <Favorite />
-              <Bookmark />
-              <ShareOption />
-              <SubtractCircle />
-            </Box>
-          </Box>
+          <SubjectTalkViewer
+            subject={subject}
+          />
           <Box
             gap='small'
             style={{ gridArea: 'talkData' }}
