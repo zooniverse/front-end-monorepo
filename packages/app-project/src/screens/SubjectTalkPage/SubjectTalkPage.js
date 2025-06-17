@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
+
 import SubjectTalkViewer from './components/SubjectTalkViewer'
 
 // based on the lib-classifier MaxWidth layout
