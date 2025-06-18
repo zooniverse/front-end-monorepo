@@ -28,7 +28,7 @@ const ContainerGrid = styled(Grid)`
   }
 `
 
-function ProjectSubjectPage({
+function SubjectTalkPage({
   subject,
   subjectID
 }) {
@@ -91,11 +91,11 @@ function ProjectSubjectPage({
   )
 }
 
-ProjectSubjectPage.propTypes = {
+SubjectTalkPage.propTypes = {
   subject: shape({
     id: string.isRequired
   }),
   subjectID: string.isRequired
 }
 
-export default ProjectSubjectPage
+export default SubjectTalkPage
