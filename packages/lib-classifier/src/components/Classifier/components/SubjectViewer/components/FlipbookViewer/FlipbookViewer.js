@@ -7,7 +7,7 @@ import { useKeyZoom, useSubjectImage } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
-import FlipbookControls from './components'
+import FlipbookControls from './components/FlipbookControls'
 
 const DEFAULT_HANDLER = () => true
 
