@@ -211,6 +211,20 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
     model.actions.point.undo({ index: activeIndex })
   })
 
+  it('should deactive the current active annotation', (done) => {
+    const activeAnnotationListener = (obj) => {
+      model.off('active:annotation', activeAnnotationListener)
+
+      expect(obj.annotationIndex).to.equal(null)
+      expect(model.config.activeAnnotation).to.equal(null)
+      done()
+    }
+
+    expect(model.config.activeAnnotation).not.to.equal(null)
+    model.on('active:annotation', activeAnnotationListener)
+    model.actions.annotation.inactive()
+  })
+
   it('should export the current annotation data', () => {
     const data = model.export()
 
@@ -249,7 +263,6 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
           label: 'Annotation 3',
           points: {
             active: [{ x: 2, y: 2, z: 2 }],
-            connected: [[]]
           },
           threshold: ANNOTATION_THRESHOLD
         },
@@ -257,7 +270,6 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
           label: 'Annotation 4',
           points: {
             active: [{ x: 3, y: 3, z: 3 }],
-            connected: [[]]
           },
           threshold: ANNOTATION_THRESHOLD
         }

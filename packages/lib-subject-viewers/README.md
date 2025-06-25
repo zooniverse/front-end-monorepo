@@ -13,7 +13,7 @@ npm i @zooniverse/subject-viewers
 and use it
 
 ```
-import { VolumetricViewer } from '@zooniverse/subject-viewers';
+import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer/VolumetricFull'
 ```
 
 ## Run
