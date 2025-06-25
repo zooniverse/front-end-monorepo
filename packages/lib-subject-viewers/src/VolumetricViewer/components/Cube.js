@@ -368,7 +368,8 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
         annotationIndex,
         isInactive,
         isThree: true,
-        pointValue
+        pointValue,
+        threshold: viewer.threshold
       })
     )
   }
@@ -412,6 +413,8 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
   }
 
   function resizeCube () {
+    if (!threeRef.current.camera) return
+
     // constrain based on parent element width and height
     const { width } =
       canvasRef.current.parentElement.getBoundingClientRect()

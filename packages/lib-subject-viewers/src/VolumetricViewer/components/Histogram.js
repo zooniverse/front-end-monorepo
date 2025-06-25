@@ -16,17 +16,12 @@ export const Histogram = ({ viewer }) => {
 
   useEffect(() => {
     setupHistogram()
-    viewer.on('change:threshold', setupHistogram)
-
-    return () => {
-      viewer.off('change:threshold', setupHistogram)
-    }
   }, [])
 
   function setupHistogram () {
     const histogram = [0]
-    histogram[viewer.threshold.min] = 0
-    histogram[viewer.threshold.max] = 0
+    histogram[HISTOGRAM_MIN] = 0
+    histogram[HISTOGRAM_MAX] = 0
     histogram[255] = 0
     let _maxCount = 0
 
