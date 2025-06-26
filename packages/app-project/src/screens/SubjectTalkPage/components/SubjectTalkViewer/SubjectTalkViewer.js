@@ -45,12 +45,15 @@ function SubjectTalkViewer({ subject }) {
         dark: 'dark-3',
         light: 'white'
       }}
+      height={{ max: '90vh'}}
       style={{
         gridArea: 'viewer'
       }}
     >
       <Media
         alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
+        fit='contain'
+        flex='shrink'
         subject={subject}
         src={subjectURL}
       />
