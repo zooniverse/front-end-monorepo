@@ -30,14 +30,21 @@ describe('Video', function () {
   describe('height and width', function () {
     it('should be set if specified', function () {
       const wrapper = shallow(<Video height={200} width={270} src={video} />)
-      const { maxHeight, maxWidth } = wrapper.props()
-      expect(maxHeight).to.equal(200)
-      expect(maxWidth).to.equal(270)
+
+      console.log(wrapper.debug())
+
+      const { height, width } = wrapper.props()
+      const { max: maxHeight } = height
+      const { max: maxWidth } = width
+      expect(maxHeight).to.equal('200px')
+      expect(maxWidth).to.equal('270px')
     })
 
     it('should be ignored if not specified', function () {
       const wrapper = shallow(<Video src={video} />)
-      const { maxHeight, maxWidth } = wrapper.props()
+      const { height, width } = wrapper.props()
+      const { max: maxHeight } = height
+      const { max: maxWidth } = width
       expect(maxHeight).to.be.undefined()
       expect(maxWidth).to.be.undefined()
     })
