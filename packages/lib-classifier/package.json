@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
-  "main": "dist/cjs/components/Classifier/index.js",
+  "main": "dist/esm/components/Classifier/index.js",
   "module": "dist/esm/components/Classifier/index.js",
   "repository": {
     "type": "git",
@@ -12,16 +12,14 @@
     "directory": "packages/lib-classifier"
   },
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
+    "build": "babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "dev": "webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "eslint": "eslint ./src --fix | snazzy",
-    "prepare": "yarn build:cjs && yarn build:es6",
+    "prepare": "yarn build",
     "start": "PANOPTES_ENV=production npm run dev",
-    "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  \"./{src,test}/**/*.spec.js\"",
-    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  --reporter=min \"./{src,test}/**/*.spec.js\"",
+    "test": "BABEL_ENV=test NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  \"./{src,test}/**/*.spec.js\"",
+    "test:ci": "BABEL_ENV=test NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json ./.storybook/specConfig.js  --reporter=min \"./{src,test}/**/*.spec.js\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -125,6 +123,6 @@
     "webpack-dev-server": "~5.2.0"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   }
 }

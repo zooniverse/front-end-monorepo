@@ -4,26 +4,25 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.1.0",
-  "main": "dist/cjs/index.js",
+  "type": "module",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/esm/index.js"
     },
     "./*": {
       "import": "./dist/esm/*/index.js",
-      "require": "./dist/cjs/*/index.js"
+      "require": "./dist/esm/*/index.js"
     }
   },
   "sideEffects": false,
   "repository": "https://github.com/zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored",
-    "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
+    "build": "babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored",
+    "dev": "webpack serve --config webpack.dev.js",
     "eslint": "eslint ./src --fix | snazzy",
     "prepare": "yarn build",
     "test": "NODE_ENV=test mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
@@ -59,6 +58,7 @@
     "@babel/preset-env": "~7.26.0",
     "@babel/preset-react": "~7.26.3",
     "@babel/register": "~7.25.9",
+    "@node-loader/babel": "~2.1.0",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/react": "~7.6.11",
@@ -99,6 +99,6 @@
     "workerDirectory": "./storybook-public"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   }
 }

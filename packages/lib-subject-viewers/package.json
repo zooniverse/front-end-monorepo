@@ -9,11 +9,11 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/esm/index.js"
     },
     "./*": {
       "import": "./dist/esm/*/index.js",
-      "require": "./dist/cjs/*/index.js"
+      "require": "./dist/esm/*/index.js"
     }
   },
   "sideEffects": false,
@@ -23,9 +23,7 @@
     "directory": "packages/lib-subject-viewers"
   },
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "build": "babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "lint": "zoo-standard --fix | snazzy",
     "prepare": "yarn build",
     "storybook": "storybook dev -p 6008",
@@ -48,6 +46,7 @@
     "react-dom": "~18.2.0"
   },
   "devDependencies": {
+    "@node-loader/babel": "~2.1.0",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/react": "~7.6.11",
@@ -60,6 +59,6 @@
     "storybook": "~7.6.11"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   }
 }
