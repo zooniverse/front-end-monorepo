@@ -1,4 +1,4 @@
-import { Anchor, Box, Video as GrommetVideo } from 'grommet'
+import { Box, Video as GrommetVideo } from 'grommet'
 import styled, { css } from 'styled-components'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
@@ -12,21 +12,28 @@ export default function Video({
   controls = defaultProps.controls,
   fit = defaultProps.fit,
   flex = defaultProps.flex,
-  height = defaultProps.height,
+  height,
   src = defaultProps.src,
-  width = defaultProps.width,
+  width,
   ...rest
 }) {
   const controlsOption = (controls) ? 'below' : false
+
+  const cssHeight = height > 0 ? `${height}px` : height
+  const cssWidth = width > 0 ? `${width}px` : width
+  const boxHeight = {
+    max: cssHeight
+  }
+  const boxWidth = {
+    max: cssWidth
+  }
 
   return (
     <StyledBox
       {...rest}
       flex={flex}
-      height='100%'
-      maxWidth={width}
-      maxHeight={height}
-      width='100%'
+      height={boxHeight}
+      width={boxWidth}
     >
       <GrommetVideo a11yTitle={alt} controls={controlsOption} fit={fit} preload='metadata' src={src} />
     </StyledBox>
