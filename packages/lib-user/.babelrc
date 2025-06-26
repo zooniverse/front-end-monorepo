@@ -4,6 +4,11 @@
     ["@babel/plugin-transform-runtime", {
       "helpers": false
     }],
+    ["transform-imports", {
+      "@zooniverse/react-components": {
+        "transform": "@zooniverse/react-components/${member}"
+      }
+    }],
     ["module-resolver", {
       "alias": {
         "@components": "./src/components",
