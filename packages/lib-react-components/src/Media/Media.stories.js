@@ -63,9 +63,21 @@ export function Image() {
 
 export function Video() {
   return (
-    <Box>
-      <Text>Width set as 270</Text>
-      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} width={270} />
+    <Box background={{ dark: 'dark-3', light: 'white' }}>
+      <Text>Width set as 270px, height set as 200px</Text>
+      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} height={200} width={270} />
+      <Text>Controls set as false</Text>
+      <Media alt='Zooniverse in a nutshell' controls={false} src={VIDEO_URL} width={270} />
+      <Text>Container width and height set as 540px</Text>
+      <Text>Media fit set as contain, flex set as shrink</Text>
+      <Box width='540px' height='540px'>
+        <Media alt='Zooniverse in a nutshell' fit='contain' flex='shrink' src={VIDEO_URL} />
+      </Box>
+      <Text>Container width and height set as 540px</Text>
+      <Text>Media fit set as (default) cover</Text>
+      <Box width='540px' height='540px'>
+        <Media alt='Zooniverse in a nutshell' fit='cover' src={VIDEO_URL} />
+      </Box>
     </Box>
   )
 }

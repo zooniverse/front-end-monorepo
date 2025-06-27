@@ -50,7 +50,6 @@ function SubjectPreview ({
           width={width}
         >
           <Media
-            data-testid={`subject-image-${subject.id}`}
             alt={`subject ${subject.id}`}
             controls={false}
             height={700}
