@@ -64,8 +64,8 @@ export function Image() {
 export function Video() {
   return (
     <Box background={{ dark: 'dark-3', light: 'white' }}>
-      <Text>Width set as 270px</Text>
-      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} width={270} />
+      <Text>Width set as 270px, height set as 200px</Text>
+      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} height={200} width={270} />
       <Text>Controls set as false</Text>
       <Media alt='Zooniverse in a nutshell' controls={false} src={VIDEO_URL} width={270} />
       <Text>Container width and height set as 540px</Text>

@@ -31,11 +31,18 @@ export default function Video({
   return (
     <StyledBox
       {...rest}
+      data-testid='video-viewer'
       flex={flex}
       height={boxHeight}
       width={boxWidth}
     >
-      <GrommetVideo a11yTitle={alt} controls={controlsOption} fit={fit} preload='metadata' src={src} />
+      <GrommetVideo
+        a11yTitle={alt}
+        controls={controlsOption}
+        fit={fit}
+        preload='metadata'
+        src={src} 
+      />
     </StyledBox>
   )
 }
