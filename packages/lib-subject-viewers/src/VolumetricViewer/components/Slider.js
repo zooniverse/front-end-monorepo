@@ -2,7 +2,6 @@ import { Box } from 'grommet'
 import { ForwardTen } from 'grommet-icons'
 import { number, object, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-import { useEffect, useState } from 'react'
 
 const COLORS = {
   active: '#265B68',
@@ -61,17 +60,26 @@ const StyledSlider = styled(Box)`
         ? css`color: ${COLORS.white};`
         : css`color: ${COLORS.black};`
     }
-
+    background: none;
+    border: none;
     border-radius: 20px;
-    cursor: pointer;
-    height: 20px;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 20px;
+    height: fit-content;
+    padding: 0;
+    width: fit-content;
     
     &:active {
       background-color: ${COLORS.active};
-      color: ${COLORS.white};
+    }
+
+    svg {
+      height: 20px;
+      width: 20px;
+      padding: 10px;
+
+      &:hover, &:active {
+        stroke: ${COLORS.white};
+
+      }
     }
   }
 
@@ -105,10 +113,14 @@ export const Slider = ({ dimension, viewer }) => {
 
   return (
     <StyledSlider>
-      <ForwardTen
+      <button
         className='plane-slider-forward no-select'
         onClick={advanceFrame}
-      />
+        aria-label='Advance 10 Frames'
+      >
+        <ForwardTen />
+      </button>
+
       <input
         aria-label={`Plane ${dimension} Slider`}
         max={viewer.base - 1}
