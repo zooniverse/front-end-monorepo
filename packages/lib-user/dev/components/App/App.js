@@ -56,7 +56,7 @@ function App({
     }
 
     auth.listen('change', checkUserSession)
-
+    
     return function () {
       auth.stopListening('change', checkUserSession)
     }
