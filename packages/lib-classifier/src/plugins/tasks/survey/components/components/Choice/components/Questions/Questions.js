@@ -32,7 +32,7 @@ export default function Questions({
         const question = questions.get(questionId) || { answers: {}, answersOrder: [] }
         const inputType = question.multiple ? 'checkbox' : 'radio'
         const options = question.answersOrder.map(answerId => ({
-          label: question.answers.get(answerId).label,
+          label: strings.get(`questions.${questionId}.answers.${answerId}.label`),
           value: answerId
         }))
 
