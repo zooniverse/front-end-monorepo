@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+- `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
+
 ## [1.14.0] 2025-05-02
 
 ### Changed
