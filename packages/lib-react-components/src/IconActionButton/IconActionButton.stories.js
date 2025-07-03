@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { Add } from 'grommet-icons'
+import { CircleInformation } from 'grommet-icons'
 import IconActionButton from './IconActionButton'
 
 export default {
@@ -7,20 +7,32 @@ export default {
   component: IconActionButton,
   decorators: [
     (Story) => (
-      <Box pad='medium'>
+      <Box pad='large'>
         <Story />
       </Box>
     )
   ]
-};
+}
 
 export const Button = {
   args: {
-    a11yTitle: 'Add',
-    disabled: false,
-    height: '40px',
-    icon: <Add size='small' />,
-    tip: true,
-    width: '40px',
+    a11yTitle: 'Metadata',
+    icon: <CircleInformation />
+  }
+}
+
+export const Disabled = {
+  args: {
+    a11yTitle: 'Metadata',
+    disabled: true,
+    icon: <CircleInformation />
+  }
+}
+
+export const Active = {
+  args: {
+    a11yTitle: 'Metadata',
+    active: true,
+    icon: <CircleInformation />
   }
 }

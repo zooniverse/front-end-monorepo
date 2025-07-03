@@ -1,67 +1,65 @@
 import { Box, Button as GrommetButton, Text, Tip } from 'grommet'
 import { bool, func, node, object, oneOfType, shape, string } from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const StyledButton = styled(GrommetButton)`
   align-items: center;
   aspect-ratio: 1;
   background-color: ${props =>
     props.theme.dark
-    ? props.theme.global.colors['dark-3']
-    : 'inherit'
-  };
+      ? props.theme.global.colors['dark-3']
+      : props.theme.global.colors['neutral-6']};
+  border: 1px solid transparent;
   border-radius: 50%;
   display: flex;
-  height: ${props => props.height};
+  height: ${props => props.height || '40px' };
   justify-content: center;
-  width: ${props => props.width};
-  
+  width: ${props => props.width || '40px' };
+
   > svg {
-    fill: ${props => (props.theme.dark ? 'white' : 'black')};
+    fill: ${props =>
+      props.theme.dark
+        ? props.theme.global.colors['neutral-6']
+        : props.theme.global.colors['dark-5']};
+    stroke: ${props =>
+      props.theme.dark
+        ? props.theme.global.colors['neutral-6']
+        : props.theme.global.colors['dark-5']};
+    width: min(50%, 1.2rem);
   }
 
   &:disabled {
     cursor: not-allowed;
-  }
-
-  &:hover:not(:disabled),
-  &:focus-visible:not(:disabled) {
-    ${props =>
-      props.theme.dark
-        ? css`
-            background-color: ${props.theme.global.colors['neutral-1']};
-          `
-        : css`
-            background-color: ${props.theme.global.colors['accent-1']};
-          `}
+    background-color: ${props => props.theme.global.colors['light-4']};
 
     > svg {
-      fill: white;
-
-      > circle {
-        fill: ${props => (props.theme.dark ? 'white' : 'black')};
-        stroke: ${props => (props.theme.dark ? 'black' : 'white')};
-      }
-
-      > path {
-        fill: ${props => (props.theme.dark ? 'black' : 'white')};
-      }
+      fill: ${props => props.theme.global.colors['light-5']};
     }
+  }
+
+  &:hover:not(:disabled) {
+    background-color: ${props => props.theme.global.colors['accent-1']};
+
+    > svg {
+      fill: ${props => props.theme.global.colors['neutral-6']};
+      stroke: ${props => props.theme.global.colors['neutral-6']};
+    }
+  }
+
+  &:focus-visible:not(:disabled) {
+    border: 1px solid ${props => props.theme.dark
+      ? props.theme.global.colors['accent-1']
+      : props.theme.global.colors['neutral-1']};
+    box-shadow: 0px 0px 8px ${props => props.theme.global.colors['accent-1']};
+    outline: none;
   }
 
   &[aria-pressed='true'] {
-    background-color: ${props => props.theme.global.colors.brand};
+    background-color: ${props => props.theme.global.colors['neutral-1']};
 
     > svg {
-      fill: white;
-    }
-
-    &:not(:hover) {
-      background-color: ${props => props.theme.global.colors.brand};
-      
-      > svg {
-        fill: white;
-      }
+      fill: ${props => props.theme.global.colors['neutral-6']};
+      stroke: ${props => props.theme.global.colors['neutral-6']};
     }
   }
 `
@@ -76,15 +74,6 @@ const HoverContent = styled(Box)`
   }
 `
 
-const Triangle = styled(Box)`
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 8px 0 8px 10px;
-  border-color: transparent transparent transparent
-    ${props => props.theme.global.colors['dark-4']};
-`
-
 const TipContent = ({ message = '' }) => (
   <HoverContent
     direction='row'
@@ -95,16 +84,19 @@ const TipContent = ({ message = '' }) => (
     <Box background='dark-4' round='5px' pad='5px'>
       <Text>{message}</Text>
     </Box>
-    <Triangle />
   </HoverContent>
 )
 
+const DEFAULT_DROP_PROPS = {
+  align: { top: 'bottom' }
+}
 const DEFAULT_HANDLER = () => true
 
 function IconActionButton({
   active = false,
   a11yTitle,
   disabled = false,
+  dropProps = DEFAULT_DROP_PROPS,
   icon,
   onBlur = DEFAULT_HANDLER,
   onClick = DEFAULT_HANDLER,
@@ -113,7 +105,7 @@ function IconActionButton({
   onPointerOut = DEFAULT_HANDLER,
   onPointerOver = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
-  tip = false,
+  tip = true,
   ...props
 }) {
   const eventHandlers = disabled
@@ -130,8 +122,9 @@ function IconActionButton({
 
   const ActionButton = (
     <StyledButton
-      active={active}
       a11yTitle={a11yTitle}
+      active={active}
+      aria-pressed={active.toString()}
       data-testid='test-icon-action-button'
       disabled={disabled}
       icon={icon}
@@ -146,9 +139,7 @@ function IconActionButton({
       <Tip
         content={<TipContent message={a11yTitle} />}
         plain
-        dropProps={{
-          align: { right: 'left' }
-        }}
+        dropProps={dropProps}
       >
         {ActionButton}
       </Tip>
@@ -162,9 +153,17 @@ IconActionButton.propTypes = {
   active: bool,
   a11yTitle: string,
   disabled: bool,
+  dropProps: shape({
+    align: shape({
+      top: string,
+      bottom: string,
+      left: string,
+      right: string
+    })
+  }),
   icon: oneOfType([node, object]),
-  onClick: func,
   onBlur: func,
+  onClick: func,
   onFocus: func,
   onPointerDown: func,
   onPointerOut: func,
