@@ -105,7 +105,6 @@ function IconActionButton({
   onPointerOut = DEFAULT_HANDLER,
   onPointerOver = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
-  tip = true,
   ...props
 }) {
   const eventHandlers = disabled
@@ -120,33 +119,24 @@ function IconActionButton({
         onPointerUp
       }
 
-  const ActionButton = (
-    <StyledButton
-      a11yTitle={a11yTitle}
-      active={active}
-      aria-pressed={active.toString()}
-      data-testid='test-icon-action-button'
-      disabled={disabled}
-      icon={icon}
+  return (
+    <Tip
+      content={<TipContent message={a11yTitle} />}
       plain
-      {...eventHandlers}
-      {...props}
-    />
-  )
-
-  if (tip) {
-    return (
-      <Tip
-        content={<TipContent message={a11yTitle} />}
+      dropProps={dropProps}
+    >
+      <StyledButton
+        a11yTitle={a11yTitle}
+        active={active}
+        aria-pressed={active.toString()}
+        disabled={disabled}
+        icon={icon}
         plain
-        dropProps={dropProps}
-      >
-        {ActionButton}
-      </Tip>
-    )
-  }
-
-  return ActionButton
+        {...eventHandlers}
+        {...props}
+      />
+    </Tip>
+  )
 }
 
 IconActionButton.propTypes = {
@@ -171,8 +161,7 @@ IconActionButton.propTypes = {
   onPointerUp: func,
   theme: shape({
     dark: bool
-  }),
-  tip: bool
+  })
 }
 
 export default IconActionButton

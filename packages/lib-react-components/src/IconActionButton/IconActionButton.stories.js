@@ -3,7 +3,7 @@ import { CircleInformation } from 'grommet-icons'
 import IconActionButton from './IconActionButton'
 
 export default {
-  title: 'Components / Icon Action Button',
+  title: 'Components / IconActionButton',
   component: IconActionButton,
   decorators: [
     (Story) => (
@@ -14,7 +14,7 @@ export default {
   ]
 }
 
-export const Button = {
+export const Default = {
   args: {
     a11yTitle: 'Metadata',
     icon: <CircleInformation />
