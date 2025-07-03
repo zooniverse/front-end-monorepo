@@ -82,6 +82,16 @@ export const ModelAnnotations = ({ onAnnotation }) => {
             annotations: annotationModel.annotations
           })
         },
+        inactive: () => {
+          // Update the Annotation Data
+          annotationModel.config.activeAnnotation = null
+
+          // Publish the change
+          annotationModel.publish('active:annotation', {
+            annotationIndex: null,
+            annotations: annotationModel.annotations
+          })
+        },
         remove: ({ index }) => {
           const annotation = annotationModel.annotations[index]
 
@@ -201,7 +211,7 @@ export const ModelAnnotations = ({ onAnnotation }) => {
         .filter(a => a.points.active.length > 0)
         .map(a => { 
           a.points.active = a.points.active.map(point => absToRelative({ point }))
-          a.points.connected = a.points.connected.map(pointArray => pointArray.map(point => absToRelative({ point })))
+          delete a.points.connected;
           delete a.points.all;
           return a
         })

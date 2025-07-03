@@ -6,7 +6,6 @@ import { useContext } from 'react'
 const DEFAULT_HANDLER = () => {}
 const VolumetricViewer = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer/VolumetricFull'))
 
-
 function VolumetricViewerWrapper({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,

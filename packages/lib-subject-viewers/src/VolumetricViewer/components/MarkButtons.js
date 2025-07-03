@@ -1,41 +1,54 @@
 import { useEffect, useState } from 'react'
 import { Revert } from 'grommet-icons'
 import DeleteIcon from './DeleteIcon'
+import MarkCreateIcon from './MarkCreateIcon'
 import styled from 'styled-components'
 
 const StyledMarkButtons = styled.div`
-  .icon {
-    border-radius: 20px;
-    height: 20px;
-    padding: 10px;
-    width: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 
+  button {
     background-color: #FFFFFF;
+    border: none;
+    border-radius: 30px;
+    height: fit-content;
+    margin-right: 10px;
+    padding: 10px;
+    width: fit-content;
 
-    &.inactive {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.inactive svg {
       fill: #a5a6a9 !important;
       stroke: #a5a6a9 !important;
     }
 
-    &.active {
+    &.active svg {
       fill: #000;
       stroke: #000;
     }
 
     &.active:hover {
       background-color: #ADDDE0;
-      fill: #fff;
-      stroke: #fff;
+
+      svg {
+        fill: #fff;
+        stroke: #fff;
+      }
     }
 
     &.active:active {
       background-color: #265B68;
-      fill: #fff;
-      stroke: #fff;
-    }
 
-    &:first-of-type {
-      margin-right: 20px;
+      svg {
+        fill: #fff;
+        stroke: #fff;
+      }
     }
   }
 `
@@ -59,6 +72,10 @@ export const MarkButtons = ({ annotations }) => {
     setIsActive(annotations.config.activeAnnotation !== null)
   }
 
+  function markCreate() {
+    annotations.actions.annotation.inactive();
+  }
+
   function markUndo() {
     if (annotations.config.activeAnnotation === null) return
 
@@ -70,21 +87,35 @@ export const MarkButtons = ({ annotations }) => {
   function markDelete() {
     if (annotations.config.activeAnnotation === null) return
 
-    annotations.actions.annotation.remove({ 
-      index: annotations.config.activeAnnotation
-    })
+    if (window.confirm('Are you sure you would like to delete this mark? This action cannot be undone.')) {
+      annotations.actions.annotation.remove({ 
+        index: annotations.config.activeAnnotation
+      })
+    }
   }
 
   return (
     <StyledMarkButtons>
-      <Revert
-        className={`icon ${isActive ? 'active' : 'inactive'}`}
+      <button
+        aria-label='Add a new mark'
+        className={isActive ? 'active' : 'inactive'}
+        onClick={markCreate}
+        title='Add a new mark'
+      ><MarkCreateIcon /></button>
+
+      <button
+        aria-label='Undo last action on mark'
+        className={isActive ? 'active' : 'inactive'}
         onClick={markUndo}
-      />
-      <DeleteIcon
-        className={`icon ${isActive ? 'active' : 'inactive'}`}
+        title='Undo last action on mark'
+      ><Revert /></button>
+
+      <button
+        aria-label='Delete last mark'
+        className={isActive ? 'active' : 'inactive'}
         onClick={markDelete}
-      />
+        title='Undo last action on mark'
+      ><DeleteIcon /></button>
     </StyledMarkButtons>
   )
 }

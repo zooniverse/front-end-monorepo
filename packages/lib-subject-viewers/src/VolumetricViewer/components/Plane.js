@@ -68,6 +68,7 @@ const StyledBox = styled(Box)`
       flex: 1;
       font-size: 16px !important;
       line-height: 18.7px;
+      text-align: left;
     }
 
     .plane-title-label {
@@ -185,7 +186,8 @@ export const Plane = ({
       context.fillStyle = pointColor({
         annotationIndex,
         isInactive,
-        pointValue: viewer.getPointValue({ point })
+        pointValue: viewer.getPointValue({ point }),
+        threshold: viewer.threshold,
       })
     } else {
       context.fillStyle = BACKGROUND_COLOR
