@@ -9,7 +9,7 @@ const StyledButton = styled(GrommetButton)`
     props.theme.dark
       ? props.theme.global.colors['dark-3']
       : props.theme.global.colors['neutral-6']};
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   border-radius: 50%;
   display: flex;
   height: ${props => props.height || '40px' };
@@ -47,9 +47,7 @@ const StyledButton = styled(GrommetButton)`
   }
 
   &:focus-visible:not(:disabled) {
-    border: 1px solid ${props => props.theme.dark
-      ? props.theme.global.colors['accent-1']
-      : props.theme.global.colors['neutral-1']};
+    border: 1.5px solid ${props => props.theme.global.colors['accent-1']};
     box-shadow: 0px 0px 8px ${props => props.theme.global.colors['accent-1']};
     outline: none;
   }
