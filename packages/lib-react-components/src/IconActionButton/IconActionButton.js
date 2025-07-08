@@ -52,6 +52,7 @@ const StyledButton = styled(GrommetButton)`
     outline: none;
   }
 
+  &:active:not(:disabled),
   &[aria-pressed='true'] {
     background-color: ${props => props.theme.global.colors['neutral-1']};
 
