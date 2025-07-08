@@ -11,20 +11,28 @@ export const StyledSvg = styled.svg`
   }
 `
 
-function Bars (props) {
-  const {
-    data,
-    xAxisLabel,
-    xScale,
-    yAxisLabel,
-    yScale,
-    yMax,
-    theme: { global: { colors } }
-  } = props
+const DEFAULT_THEME = { 
+  dark: false,
+  global: {
+    colors: {
+      brand: '',
+      text: {}
+    }
+  }
+}
 
+function Bars ({
+  data,
+  xAxisLabel = 'x-axis',
+  xScale,
+  yAxisLabel = 'y-axis',
+  yScale,
+  yMax,
+  theme = DEFAULT_THEME
+}) {
   return data.map((datum, index) => {
       const { color, label, value } = datum
-      const fill = colors[color] || color || colors.brand
+      const fill = theme.global.colors[color] || color || theme.global.colors.brand
       const key = `bar-${label}`
       const barHeight = yMax - yScale(value)
       const barWidth = xScale.bandwidth()
@@ -40,14 +48,14 @@ function Bars (props) {
             aria-label={alt}
             tabIndex='0'
             focusable
-            focusColor={colors[colors.focus]}
+            focusColor={theme.global.colors[theme.global.colors.focus]}
             role='listitem'
           >
             <Bar
               data-label={label}
               data-value={value}
               fill={fill}
-              focusColor={colors.focus}
+              focusColor={theme.global.colors.focus}
               height={barHeight}
               index={index}
               width={barWidth}
@@ -58,20 +66,6 @@ function Bars (props) {
         </Tooltip>
       )
     })
-}
-
-Bars.defaultProps = {
-  theme: {
-    dark: false,
-    global: {
-      colors: {
-        brand: '',
-        text: {}
-      }
-    }
-  },
-  xAxisLabel: 'x-axis',
-  yAxisLabel: 'y-axis'
 }
 
 Bars.propTypes = {

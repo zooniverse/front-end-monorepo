@@ -11,7 +11,15 @@ const Fieldset = styled('fieldset')`
   outline: none;
 `
 
-export default function TextTagButtons ({ disabled, tags, taskKey, onClick }) {
+const DEFAULT_HANDLER = () => false
+const DEFAULT_TAGS = []
+
+export default function TextTagButtons ({ 
+  disabled = false,
+  tags = DEFAULT_TAGS,
+  taskKey,
+  onClick = DEFAULT_HANDLER
+}) {
   const { t } = useTranslation('plugins')
   if (tags.length > 0) {
     return (
@@ -47,12 +55,6 @@ export default function TextTagButtons ({ disabled, tags, taskKey, onClick }) {
   }
 
   return null
-}
-
-TextTagButtons.defaultProps = {
-  disabled: false,
-  onClick: () => {},
-  tags: []
 }
 
 TextTagButtons.propTypes = {

@@ -6,7 +6,19 @@ import { useState } from 'react'
 
 import CollectionsIcon from './CollectionsIcon'
 
-export default function CollectionsButton({ disabled, onClick, subject }) {
+const DEFAULT_HANDLER = () => false
+const DEFAULT_SUBJECT = {
+  favorite: false,
+  id: '',
+  toggleFavorite: DEFAULT_HANDLER,
+  locations: []
+}
+
+export default function CollectionsButton({
+  disabled = false,
+  onClick = DEFAULT_HANDLER,
+  subject = DEFAULT_SUBJECT
+}) {
   const { t } = useTranslation('components')
 
   const [collectionsModalActive, setCollectionsModalActive] = useState(false)
@@ -42,15 +54,4 @@ CollectionsButton.propTypes = {
     toggleFavourite: func,
     locations: array
   })
-}
-
-CollectionsButton.defaultProps = {
-  disabled: false,
-  onClick: () => false,
-  subject: {
-    favorite: false,
-    id: '',
-    toggleFavorite: () => false,
-    locations: []
-  }
 }

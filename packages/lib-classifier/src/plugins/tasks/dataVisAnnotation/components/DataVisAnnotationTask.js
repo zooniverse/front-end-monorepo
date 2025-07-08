@@ -19,7 +19,9 @@ const StyledText = styled(Text)`
 `
 
 function DataVisAnnotationTask (props) {
-  const { task } = props
+  const {
+    task = {}
+  } = props
   const { setActiveTool } = task
   function onChange (index, event) {
     if (event.target.checked) {
@@ -55,10 +57,6 @@ function DataVisAnnotationTask (props) {
       })}
     </Box>
   )
-}
-
-DataVisAnnotationTask.defaultProps = {
-  task: {}
 }
 
 DataVisAnnotationTask.propTypes = {
