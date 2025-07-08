@@ -1,5 +1,8 @@
 import { Box } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
+
+import CloseIcon from '../CloseButton/components/CloseIcon'
+
 import IconActionButton from './IconActionButton'
 
 export default {
@@ -34,5 +37,12 @@ export const Active = {
     a11yTitle: 'Metadata',
     active: true,
     icon: <CircleInformation />
+  }
+}
+
+export const CloseButton = {
+  args: {
+    a11yTitle: 'Close',
+    icon: <CloseIcon />
   }
 }
