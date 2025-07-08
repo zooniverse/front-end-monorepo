@@ -8,10 +8,18 @@ function HighlightSeriesCheckBoxes (props) {
   const {
     data,
     highlightedSeries,
-    setSeriesHighlight,
+    setSeriesHighlight = () => {},
     theme: {
       global: {
-        colors
+        colors = {
+          drawingTools: {}
+        }
+      }
+    } = {
+      global: {
+        colors: {
+          drawingTools: {}
+        }
       }
     }
   } = props
@@ -46,17 +54,6 @@ function HighlightSeriesCheckBoxes (props) {
       })}
     </Box>
   )
-}
-
-HighlightSeriesCheckBoxes.defaultProps = {
-  setSeriesHighlight: () => {},
-  theme: {
-    global: {
-      colors: {
-        drawingTools: {}
-      }
-    }
-  }
 }
 
 HighlightSeriesCheckBoxes.propTypes = {

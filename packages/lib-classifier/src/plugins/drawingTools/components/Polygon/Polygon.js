@@ -12,7 +12,11 @@ const RADIUS = 3
 const GUIDELINE_STROKE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 6
 
-function Polygon({ active, mark, onFinish }) {
+function Polygon({
+  active = false,
+  mark,
+  onFinish
+}) {
   const {
     path,
     points,
@@ -124,10 +128,6 @@ Polygon.propTypes = {
     }),
     finished: PropTypes.bool
   }).isRequired,
-}
-
-Polygon.defaultProps = {
-  active: false,
 }
 
 export default observer(Polygon)
