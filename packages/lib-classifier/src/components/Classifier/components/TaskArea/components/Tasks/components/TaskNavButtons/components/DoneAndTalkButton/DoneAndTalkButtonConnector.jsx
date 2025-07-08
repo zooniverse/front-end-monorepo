@@ -1,7 +1,6 @@
-import { observer } from 'mobx-react'
-
-import { useStores } from '@hooks'
 import DoneAndTalkButton from './DoneAndTalkButton'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 function storeMapper(classifierStore) {
   const {
@@ -10,6 +9,11 @@ function storeMapper(classifierStore) {
     },
     subjects: {
       active: subject
+    },
+    workflows: {
+      active: {
+        configuration: workflowConfiguration
+      }
     },
     workflowSteps: {
       shouldWeShowDoneAndTalkButton
@@ -21,14 +25,21 @@ function storeMapper(classifierStore) {
 
     const visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
 
-    function onClick() {
+    function onClick(e) {
+      // SubjectGroup: Prevent Done&Talk auto-routing & enable Modal 
+      if (workflowConfiguration.subject_viewer === 'subjectGroup') {
+        e.preventDefault();
+        workflowConfiguration.setSubjectGroupModalState(true);
+      }
       finish()
       return completeClassification({ doneAndTalk: true })
     }
 
     return {
       onClick,
+      subject,
       talkURL: subject.talkURL,
+      workflowConfiguration,
       visible
     }
   }
@@ -38,7 +49,6 @@ function storeMapper(classifierStore) {
 
 function DoneAndTalkConnector(props) {
   const { onClick, talkURL, visible } = useStores(storeMapper)
-
   return visible ? <DoneAndTalkButton onClick={onClick} {...props} talkURL={talkURL} /> : null
 }
 
