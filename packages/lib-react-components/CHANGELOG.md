@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
+
 ### Fixed
 
-- Media / Video: fix video and video controls positioning
+- `Media` / Video: fix video and video controls positioning
 
 ## [1.14.0] 2025-05-02
 
