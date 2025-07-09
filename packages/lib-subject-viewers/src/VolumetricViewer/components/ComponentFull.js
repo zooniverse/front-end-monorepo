@@ -25,7 +25,7 @@ const StyledBox = styled(Box)`
   
   .volume-container {
     background-color: #000000;
-    border-bottom-left-radius: 16px;
+    border-radius: 16px;
     position: relative;
 
     .volume-cube {
