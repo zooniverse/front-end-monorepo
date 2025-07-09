@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { VolumetricViewerWrapper } from './VolumetricViewerWrapper'
+import VolumetricViewerWrapper from './VolumetricViewerWrapper'
 import { VolumetricSubjectMock } from './VolumetricMockSubject'
 
 export default {
