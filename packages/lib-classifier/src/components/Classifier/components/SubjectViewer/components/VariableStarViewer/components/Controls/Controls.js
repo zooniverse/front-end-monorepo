@@ -28,16 +28,16 @@ export const FlipButton = styled(PlainButton)`
 
 function Controls(props) {
   const {
-    data,
-    gridArea,
-    highlightedSeries,
-    periodMultiple,
-    periodMultipleOptions,
-    phaseFocusedSeries,
-    setSeriesHighlight,
+    data = [],
+    gridArea = '',
+    highlightedSeries = [],
+    periodMultiple = 1,
+    periodMultipleOptions = ['0.5', '1', '2', '3'],
+    phaseFocusedSeries = 0,
+    setSeriesHighlight = () => {},
     setSeriesPhaseFocus,
-    setPeriodMultiple,
-    setYAxisInversion,
+    setPeriodMultiple = () => {},
+    setYAxisInversion = () => {},
   } = props
   const { t } = useTranslation('components')
   const radioButtonOptions = periodMultipleOptions.map((option) => {
@@ -102,18 +102,6 @@ function Controls(props) {
       </Box>
     </Box>
   )
-}
-
-Controls.defaultProps = {
-  data: [],
-  gridArea: '',
-  highlightedSeries: [],
-  periodMultiple: 1,
-  periodMultipleOptions: ['0.5', '1', '2', '3'],
-  phaseFocusedSeries: 0,
-  setSeriesHighlight: () => {},
-  setPeriodMultiple: () => {},
-  setYAxisInversion: () => {},
 }
 
 Controls.propTypes = {

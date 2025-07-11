@@ -26,25 +26,25 @@ const ClickableRect = styled('rect')`
 
 function SGVGridCell (props) {
   const {
-    image,
-    index,
-    subjectId,
+    image = undefined,
+    index = 0,
+    subjectId = '',
 
-    dragMove,
+    dragMove = () => {},
 
-    cellWidth,
-    cellHeight,
-    cellStyle,
-    gridRows,
-    gridColumns,
+    cellWidth = 200,
+    cellHeight = 200,
+    cellStyle = {},
+    gridRows = 1,
+    gridColumns = 1,
 
-    panX,
-    panY,
-    zoom,
+    panX = 0,
+    panY = 0,
+    zoom = 1,
 
-    annotation,
-    annotationMode,
-    cellAnnotated,
+    annotation = undefined,
+    annotationMode = true,
+    cellAnnotated = false,
   } = props
 
   const [checked, setChecked] = useState(cellAnnotated)
@@ -197,28 +197,6 @@ SGVGridCell.propTypes = {
   }),
   annotationMode: PropTypes.bool,
   cellAnnotated: PropTypes.bool,
-}
-
-SGVGridCell.defaultProps = {
-  image: undefined,
-  index: 0,
-  subjectId: '',
-
-  dragMove: () => {},
-
-  cellWidth: 200,
-  cellHeight: 200,
-  cellStyle: {},
-  gridRows: 1,
-  gridColumns: 1,
-
-  panX: 0,
-  panY: 0,
-  zoom: 1,
-
-  annotation: undefined,
-  annotationMode: true,
-  cellAnnotated: false,
 }
 
 export default SGVGridCell

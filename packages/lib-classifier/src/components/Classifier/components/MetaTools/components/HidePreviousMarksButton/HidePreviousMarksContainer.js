@@ -3,7 +3,9 @@ import HidePreviousMarksButton from './HidePreviousMarksButton'
 import HidePreviousTranscriptionsButton from './HidePreviousTranscriptionsButton'
 
 export default function HidePreviousMarksContainer (props) {
-  const { type } = props
+  const {
+    type = 'drawing'
+  } = props
 
   const HideMarksButton = type === 'transcription' ?
     HidePreviousTranscriptionsButton : HidePreviousMarksButton
@@ -13,8 +15,4 @@ export default function HidePreviousMarksContainer (props) {
 
 HidePreviousMarksContainer.propTypes = {
   type: PropTypes.string
-}
-
-HidePreviousMarksContainer.defaultProps = {
-  type: 'drawing'
 }

@@ -6,11 +6,11 @@ import QuestionInput from './components/QuestionInput'
 export default function InputGroup (props) {
   const {
     labelledBy,
-    handleAnswer,
-    hasFocus,
-    options,
-    questionAnswer,
-    questionId,
+    handleAnswer = () => {},
+    hasFocus = false,
+    options = [],
+    questionAnswer = '',
+    questionId = '',
     type
   } = props
 
@@ -91,14 +91,6 @@ export default function InputGroup (props) {
       })}
     </Box>
   )
-}
-
-InputGroup.defaultProps = {
-  handleAnswer: () => {},
-  hasFocus: false,
-  options: [],
-  questionAnswer: '',
-  questionId: ''
 }
 
 InputGroup.propTypes = {

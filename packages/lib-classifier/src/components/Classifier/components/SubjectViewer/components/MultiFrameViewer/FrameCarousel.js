@@ -114,8 +114,13 @@ export const StyledFrameList = styled.ul`
 `
 
 class FrameCarousel extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+    this.theme = props.theme || {
+      global: {
+        colors: {}
+      }
+    }
     this.handleScroll = this.handleScroll.bind(this)
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
@@ -233,14 +238,6 @@ FrameCarousel.propTypes = {
   locations: PropTypes.arrayOf(locationValidator).isRequired,
   onFrameChange: PropTypes.func.isRequired,
   theme: PropTypes.object
-}
-
-FrameCarousel.defaultProps = {
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 const ThemedFrameCarousel = withTheme(FrameCarousel)

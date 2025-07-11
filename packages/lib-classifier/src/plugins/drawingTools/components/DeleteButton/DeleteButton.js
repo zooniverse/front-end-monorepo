@@ -14,7 +14,18 @@ const StyledGroup = styled('g')`
   }
 `
 
-function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, theme }) {
+function DeleteButton ({ 
+  label, 
+  mark, 
+  onDelete = () => true, 
+  onDeselect = () => true, 
+  rotate = 0, 
+  theme = {
+    global: {
+      colors: {}
+    }
+  } 
+}) {
   const scale = useScale()
   const focusColor = theme.global.colors[theme.global.colors.focus]
   const RADIUS = (window?.innerWidth < 900) ? 5 : 8
@@ -86,16 +97,6 @@ DeleteButton.propTypes = {
   onDeselect: PropTypes.func,
   rotate: PropTypes.number,
   theme: PropTypes.object
-}
-DeleteButton.defaultProps = {
-  onDelete: () => true,
-  onDeselect: () => true,
-  rotate: 0,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 export default withTheme(observer(DeleteButton))
