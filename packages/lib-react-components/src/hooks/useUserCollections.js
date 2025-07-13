@@ -19,7 +19,7 @@ async function fetchUserCollections({ query, token }) {
   return response?.body?.collections
 }
 
-export default function useUserCollections({ user, query }) {
+export default function useUserCollections({ query }) {
   const token = usePanoptesAuthToken()
   const key = token ? { query, token } : null
 

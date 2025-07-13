@@ -1,1 +1,1 @@
-export { default } from './FavoritesIconButton'
+export { default } from './FavoritesIconButtonContainer'

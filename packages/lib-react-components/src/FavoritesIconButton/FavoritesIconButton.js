@@ -24,7 +24,7 @@ function FavoritesIconButton({
 
   const { t } = useTranslation()
 
-  const label = isFavorite ? 'FavoritesButton.remove' : 'FavoritesButton.add'
+  const label = isFavorite ? 'FavouritesButton.remove' : 'FavouritesButton.add'
 
   function toggleFavorite() {
     setIsFavorite(!isFavorite)
