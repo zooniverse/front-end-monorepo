@@ -40,19 +40,21 @@ function FavoritesIconButtonContainer({
 
   function handleAddToFavorites() {
     addToFavorites({
-      collectionId: favorites[0].id,
-      subjectIds: [subject.id]
+      collectionId: favorites?.[0]?.id,
+      subjectIds: [subject.id],
+      projectId: project.id,
+      projectSlug: project.slug
     }, {
       optimisticData: (prevFavorites) => {
         if (!prevFavorites) return prevFavorites
         const updatedSubjects = [
-          ...prevFavorites[0].links.subjects,
+          ...prevFavorites[0]?.links?.subjects || [],
           subject.id
         ]
         const updatedFavorite = {
           ...prevFavorites[0],
           links: {
-            ...prevFavorites[0].links,
+            ...prevFavorites[0]?.links,
             subjects: updatedSubjects
           }
         }
