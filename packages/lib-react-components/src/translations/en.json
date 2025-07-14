@@ -56,6 +56,10 @@
     "add": "Add to favorites",
     "remove": "Added to favorites"
   },
+  "InvertIconButton": {
+    "invert": "Invert subject",
+    "reset": "Reset subject"
+  },
   "Loader": {
     "loading": "Loading"
   },
