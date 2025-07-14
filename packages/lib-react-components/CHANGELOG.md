@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
+- `InvertIconButton` component, a toggle button with an `InvertIcon` icon
 
 ### Fixed
 
