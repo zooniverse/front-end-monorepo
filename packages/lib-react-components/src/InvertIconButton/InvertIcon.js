@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Blank } from 'grommet-icons';
+import styled from 'styled-components'
+import { Blank } from 'grommet-icons'
 
 const StyledBlank = styled(Blank)`
   circle {
@@ -14,7 +14,11 @@ const StyledBlank = styled(Blank)`
 
 export default function InvertIcon(props) {
   return (
-    <StyledBlank viewBox="0 0 32 32" {...props}>
+    <StyledBlank
+      className='invert-icon'
+      viewBox="0 0 32 32"
+      {...props}
+    >
       <circle cx="16" cy="16" r="15" strokeWidth={1.5} />
       <path d="M16,1.5c6.6,0,14.5,5.4,14.5,14.5s-5.4,14.5-14.5,14.5" />
     </StyledBlank>
