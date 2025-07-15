@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
-- `ShareIconButton` component, a button to copy the current page URL to clipboard for sharing
+- `ShareIconButton` component, a button to copy the current page URL to the clipboard
+- `InvertIconButton` component, a toggle button with an `InvertIcon` icon
 
 ### Fixed
 

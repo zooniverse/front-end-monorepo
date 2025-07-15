@@ -44,6 +44,16 @@ const StyledButton = styled(GrommetButton)`
       fill: ${props => props.theme.global.colors['neutral-6']};
       stroke: ${props => props.theme.global.colors['neutral-6']};
     }
+
+    .invert-icon {
+      circle {
+        fill: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-6']};
+      }
+
+      path {
+        fill: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['accent-1']};
+      }
+    }
   }
 
   &:focus-visible:not(:disabled) {
