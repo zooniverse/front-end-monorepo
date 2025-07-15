@@ -1,5 +1,6 @@
-import { useTranslation } from 'next-i18next'
+import { bool } from 'prop-types'
 
+import { useTranslation } from '../translations/i18n'
 import IconActionButton from '../IconActionButton'
 import InvertIcon from './InvertIcon'
 
@@ -21,6 +22,10 @@ function InvertIconButton({
       {...props}
     />
   )
+}
+
+InvertIconButton.propTypes = {
+  checked: bool
 }
 
 export default InvertIconButton

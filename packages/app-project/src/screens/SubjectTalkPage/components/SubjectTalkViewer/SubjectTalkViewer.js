@@ -1,4 +1,4 @@
-import { Media, InvertIconButton } from '@zooniverse/react-components'
+import { InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { Favorite, Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
