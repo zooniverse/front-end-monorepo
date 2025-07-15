@@ -1,15 +1,20 @@
-import { Media, FavoritesIconButton } from '@zooniverse/react-components'
+import { FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { Bookmark, ShareOption, SubtractCircle } from 'grommet-icons'
+import { Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 // Dynamically import FlipbookControls with SSR disabled
 const FlipbookControls = dynamic(() => import('@zooniverse/classifier').then(mod => mod.FlipbookControls), {
   ssr: false
 })
+
+const StyledMedia = styled(Media)`
+  filter: ${props => props.$invert ? 'invert(1)' : 'none'};
+`
 
 function processSubjectLocations(rawLocations) {
   return rawLocations.map(location => {
@@ -30,6 +35,7 @@ function SubjectTalkViewer({
   }) {
   const [frame, setFrame] = useState(0)
   const [flipbookSpeed, setFlipbookSpeed] = useState(1)
+  const [invert, setInvert] = useState(false)
   const [playing, setPlaying] = useState(false)
 
   const { t } = useTranslation('screens')
@@ -39,7 +45,11 @@ function SubjectTalkViewer({
   const subjectURL = subjectURLs[frame]
   const locations = processSubjectLocations(subject.locations)
 
-  const onPlayPause = () => {
+  function onInvert() {
+    setInvert(!invert)
+  }
+
+  function onPlayPause() {
     setPlaying(!playing)
   }
 
@@ -54,10 +64,11 @@ function SubjectTalkViewer({
         gridArea: 'viewer'
       }}
     >
-      <Media
+      <StyledMedia
         alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
         fit='contain'
         flex='shrink'
+        $invert={invert}
         subject={subject}
         src={subjectURL}
       />
@@ -88,7 +99,10 @@ function SubjectTalkViewer({
           />
           <Bookmark />
           <ShareOption />
-          <SubtractCircle />
+          <InvertIconButton
+            checked={invert}
+            onClick={onInvert}
+          />
         </Box>
       </Box>
     </Box>
