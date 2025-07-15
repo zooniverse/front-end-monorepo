@@ -56,6 +56,9 @@
     "add": "Add to favorites",
     "remove": "Added to favorites"
   },
+  "ImageIconButton": {
+    "viewImage": "Subject image"
+  },
   "InvertIconButton": {
     "invert": "Invert subject color",
     "reset": "Reset subject color"
