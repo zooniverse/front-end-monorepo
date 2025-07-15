@@ -2,10 +2,10 @@ import { Blank } from 'grommet-icons'
 
 function MarkCreateIcon (props) {
   return (
-    <Blank viewBox='0 0 199 206' aria-label="Add a new mark" {...props}>
+    <Blank viewBox='0 0 199 206' {...props}>
       <g
         transform="translate(0.000000,206.000000) scale(0.100000,-0.100000)"
-        fill="#000" stroke="none"
+        stroke="none"
       >
         <path d="M447 1763 c-4 -3 -7 -69 -7 -145 l0 -138 -140 0 -140 0 0 -60 0 -60
         140 0 140 0 0 -140 0 -140 60 0 60 0 0 140 0 139 143 3 142 3 3 58 3 57 -146

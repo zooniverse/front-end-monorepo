@@ -42,6 +42,7 @@
   "peerDependencies": {
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "3.x.x",
+    "@zooniverse/react-components": "~1.14.0",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "react": "~18.2.0",
