@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Button, Heading, Paragraph } from 'grommet'
+import { Box, Button, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
 import StepNavigation from '@shared/StepNavigation'
+
+const StyledBox = styled(Box)`
+  max-height: 80vh;
+`
 
 const StyledMarkdownWrapper = styled(Box)`
   > h1, h2 {
@@ -48,7 +52,6 @@ function SlideTutorial({
   const { t } = useTranslation('components')
   const { medium, step } = stepWithMedium(stepIndex)
   const isThereMedia = medium?.src
-  const isFirstStep = stepIndex === 0
   const isLastStep = stepIndex === steps.length - 1
 
   if (!step) {
@@ -60,7 +63,7 @@ function SlideTutorial({
   }
 
   return (
-    <Box
+    <StyledBox
       className={className}
       height={height}
       justify='between'
@@ -95,7 +98,7 @@ function SlideTutorial({
           margin={{ top: 'medium' }}
           primary
         />}
-    </Box>
+    </StyledBox>
   )
 }
 
