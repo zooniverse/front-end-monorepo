@@ -69,6 +69,10 @@
     "paused": "Paused",
     "state": "State"
   },
+  "ShareIconButton": {
+    "copied": "URL copied to clipboard",
+    "share": "Share"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "About",
