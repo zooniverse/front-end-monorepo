@@ -57,8 +57,8 @@
     "remove": "Added to favorites"
   },
   "InvertIconButton": {
-    "invert": "Invert subject",
-    "reset": "Reset subject"
+    "invert": "Invert subject color",
+    "reset": "Reset subject color"
   },
   "Loader": {
     "loading": "Loading"
