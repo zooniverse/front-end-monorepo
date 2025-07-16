@@ -107,6 +107,7 @@ function IconActionButton({
   disabled = false,
   dropProps = DEFAULT_DROP_PROPS,
   icon,
+  href,
   onBlur = DEFAULT_HANDLER,
   onClick = DEFAULT_HANDLER,
   onFocus = DEFAULT_HANDLER,
@@ -114,6 +115,7 @@ function IconActionButton({
   onPointerOut = DEFAULT_HANDLER,
   onPointerOver = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
+  role,
   ...props
 }) {
   const eventHandlers = disabled
@@ -126,7 +128,9 @@ function IconActionButton({
         onPointerOut,
         onPointerOver,
         onPointerUp
-      }
+      };
+
+  const ariaPressed = role === 'checkbox' || href ? undefined : active.toString()
 
   return (
     <Tip
@@ -137,10 +141,12 @@ function IconActionButton({
       <StyledButton
         a11yTitle={a11yTitle}
         active={active}
-        aria-pressed={active.toString()}
+        aria-pressed={ariaPressed}
         disabled={disabled}
+        href={href}
         icon={icon}
         plain
+        role={role}
         {...eventHandlers}
         {...props}
       />
@@ -160,6 +166,7 @@ IconActionButton.propTypes = {
       right: string
     })
   }),
+  href: string,
   icon: oneOfType([node, object]),
   onBlur: func,
   onClick: func,
@@ -168,6 +175,7 @@ IconActionButton.propTypes = {
   onPointerOut: func,
   onPointerOver: func,
   onPointerUp: func,
+  role: string,
   theme: shape({
     dark: bool
   })
