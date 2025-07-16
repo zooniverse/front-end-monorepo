@@ -1,18 +1,12 @@
 import { collections } from '@zooniverse/panoptes-js'
 
 export async function addSubjectsToCollection(key,
-  { arg: { collectionId, subjectIds, projectId, projectSlug } }
+  { arg: { collectionId, options, subjectIds } }
 ) {
   const { token } = key
   const authorization = `Bearer ${token}`
 
   if (!collectionId) {
-    const options = {
-      display_name: `Favorites ${projectSlug}`,
-      favorite: true,
-      private: true
-    }
-
     const response = await collections.create({
       authorization,
       data: options,

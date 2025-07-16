@@ -41,9 +41,12 @@ function FavoritesIconButtonContainer({
   function handleAddToFavorites() {
     addToFavorites({
       collectionId: favorites?.[0]?.id,
-      subjectIds: [subject.id],
-      projectId: project.id,
-      projectSlug: project.slug
+      options: {
+        display_name: `Favorites ${project?.slug}`,
+        favorite: true,
+        private: true
+      },
+      subjectIds: [subject.id]
     }, {
       optimisticData: (prevFavorites) => {
         if (!prevFavorites) return prevFavorites
@@ -111,6 +114,9 @@ FavoritesIconButtonContainer.propTypes = {
   project: shape({
     id: string,
     slug: string
+  }),
+  subject: shape({
+    id: string
   }),
   user: shape({
     id: string,
