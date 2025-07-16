@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
+- `ShareIconButton` component, a button to copy the current page URL to the clipboard
+- `InvertIconButton` component, a toggle button with an `InvertIcon` icon
+- `ImageIconButton` component, a button that behaves like an anchor link with an image icon
+
+### Fixed
+
+- `Media` / Video: fix video and video controls positioning
+
 ## [1.14.0] 2025-05-02
 
 ### Changed

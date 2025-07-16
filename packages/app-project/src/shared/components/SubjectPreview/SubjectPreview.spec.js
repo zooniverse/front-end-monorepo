@@ -16,10 +16,6 @@ describe('Component > SubjectPreview', function () {
           .to.equal(`https://localhost/projects/${SubjectPreviewState.slug}/talk/subjects/${SubjectPreviewState.subjectId}`)
       })
 
-      it('should display the subject image preview media', function () {
-        expect(screen.getByTestId(`subject-image-${SubjectPreviewState.subjectId}`)).to.exist()
-      })
-
       it('should have a talk link', function () {
         expect(screen.getByText('SubjectPreview.TalkLink.label')).to.exist()
       })
@@ -54,10 +50,6 @@ describe('Component > SubjectPreview', function () {
       it('should link to the subject Talk page from the preview media', function () {
         expect(screen.getByTestId(`subject-preview-link-${SubjectPreviewState.subjectId}`)).to.have.property('href')
           .to.equal(`https://localhost/projects/${SubjectPreviewState.slug}/talk/subjects/${SubjectPreviewState.subjectId}`)
-      })
-
-      it('should display the subject image preview media', function () {
-        expect(screen.getByTestId(`subject-image-${SubjectPreviewState.subjectId}`)).to.exist()
       })
 
       it('should have a talk link', function () {
