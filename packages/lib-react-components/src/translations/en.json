@@ -56,6 +56,13 @@
     "add": "Add to favorites",
     "remove": "Added to favorites"
   },
+  "ImageIconButton": {
+    "viewImage": "Subject image"
+  },
+  "InvertIconButton": {
+    "invert": "Invert subject color",
+    "reset": "Reset subject color"
+  },
   "Loader": {
     "loading": "Loading"
   },
@@ -64,6 +71,10 @@
     "finished": "Finished",
     "paused": "Paused",
     "state": "State"
+  },
+  "ShareIconButton": {
+    "copied": "URL copied to clipboard",
+    "share": "Share"
   },
   "ZooFooter": {
     "aboutLabels": {
