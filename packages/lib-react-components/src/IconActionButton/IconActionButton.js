@@ -63,7 +63,8 @@ const StyledButton = styled(GrommetButton)`
   }
 
   &:active:not(:disabled),
-  &[aria-pressed='true'] {
+  &[aria-pressed='true'],
+  &[aria-checked='true'] {
     background-color: ${props => props.theme.global.colors['neutral-1']};
 
     > svg {
