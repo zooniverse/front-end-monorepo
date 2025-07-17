@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Revert } from 'grommet-icons'
+import { Edit, Revert } from 'grommet-icons'
 import DeleteIcon from './DeleteIcon'
-import MarkCreateIcon from './MarkCreateIcon'
 import styled from 'styled-components'
 import { IconActionButton } from '@zooniverse/react-components'
 
@@ -63,7 +62,7 @@ export const MarkButtons = ({ annotations }) => {
       <IconActionButton
         a11yTitle='Add a new mark'
         disabled={isDisabled}
-        icon={<MarkCreateIcon />}
+        icon={<Edit />}
         onClick={markCreate}
       />
 
