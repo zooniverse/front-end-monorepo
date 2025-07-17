@@ -40,7 +40,7 @@ export const Active = {
   }
 }
 
-export const CloseButton = {
+export const CustomIconButton = {
   args: {
     a11yTitle: 'Close',
     icon: <CloseIcon />
