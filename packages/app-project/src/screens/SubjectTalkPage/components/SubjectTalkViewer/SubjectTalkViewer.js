@@ -1,6 +1,6 @@
-import { InvertIconButton, Media } from '@zooniverse/react-components'
+import { FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { Favorite, Bookmark, ShareOption } from 'grommet-icons'
+import { Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
@@ -24,11 +24,15 @@ function processSubjectLocations(rawLocations) {
       type: type,
       mimeType: mimeType,
       url: url
-    };
-  });
+    }
+  })
 }
 
-function SubjectTalkViewer({ subject }) {
+function SubjectTalkViewer({
+    project,
+    subject,
+    user
+  }) {
   const [frame, setFrame] = useState(0)
   const [flipbookSpeed, setFlipbookSpeed] = useState(1)
   const [invert, setInvert] = useState(false)
@@ -68,32 +72,38 @@ function SubjectTalkViewer({ subject }) {
         subject={subject}
         src={subjectURL}
       />
-      {locations?.length > 1 ? (
-        <FlipbookControls
-          currentFrame={frame}
-          flipbookSpeed={flipbookSpeed}
-          locations={locations}
-          onFrameChange={setFrame}
-          onPlayPause={onPlayPause}
-          playing={playing}
-          playIterations={1}
-          setFlipbookSpeed={setFlipbookSpeed}
-        />
-      ) : null}
-      {/* <MetaTools /> */}
-      <Box
-        direction='row'
-        gap='small'
-        justify='center'
-        margin='small'
-      >
-        <Favorite />
-        <Bookmark />
-        <ShareOption />
-        <InvertIconButton
-          checked={invert}
-          onClick={onInvert}
-        />
+      <Box>
+        {locations?.length > 1 ? (
+          <FlipbookControls
+            currentFrame={frame}
+            flipbookSpeed={flipbookSpeed}
+            locations={locations}
+            onFrameChange={setFrame}
+            onPlayPause={onPlayPause}
+            playing={playing}
+            playIterations={1}
+            setFlipbookSpeed={setFlipbookSpeed}
+          />
+        ) : null}
+        {/* <MetaTools /> */}
+        <Box
+          direction='row'
+          gap='small'
+          justify='center'
+          margin='small'
+        >
+          <FavoritesIconButton
+            project={project}
+            subject={subject}
+            user={user}
+          />
+          <Bookmark />
+          <ShareOption />
+          <InvertIconButton
+            checked={invert}
+            onClick={onInvert}
+          />
+        </Box>
       </Box>
     </Box>
   )
