@@ -7,10 +7,6 @@ import { useTranslation } from '@translations/i18n'
 
 import StepNavigation from '@shared/StepNavigation'
 
-const StyledBox = styled(Box)`
-  max-height: 80vh;
-`
-
 const StyledMarkdownWrapper = styled(Box)`
   > h1, h2 {
     font-size: 26px;
@@ -63,7 +59,7 @@ function SlideTutorial({
   }
 
   return (
-    <StyledBox
+    <Box
       className={className}
       height={height}
       justify='between'
@@ -98,7 +94,7 @@ function SlideTutorial({
           margin={{ top: 'medium' }}
           primary
         />}
-    </StyledBox>
+    </Box>
   )
 }
 
