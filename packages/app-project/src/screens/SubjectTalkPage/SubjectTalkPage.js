@@ -29,10 +29,11 @@ export const ContainerGrid = styled(Grid)`
 `
 
 function SubjectTalkPage({
-  project,
+  login,
+  projectId,
+  projectSlug,
   subject,
-  subjectID,
-  user
+  subjectId
 }) {
   const { t } = useTranslation('screens')
 
@@ -45,9 +46,10 @@ function SubjectTalkPage({
       >
         <ContainerGrid>
           <SubjectTalkViewer
-            project={project}
+            login={login}
+            projectId={projectId}
+            projectSlug={projectSlug}
             subject={subject}
-            user={user}
           />
           <Box
             gap='small'
@@ -95,18 +97,13 @@ function SubjectTalkPage({
 }
 
 SubjectTalkPage.propTypes = {
-  project: shape({
-    id: string,
-    slug: string
-  }),
+  login: string,
+  projectId: string,
+  projectSlug: string,
   subject: shape({
     id: string.isRequired
   }),
-  subjectID: string.isRequired,
-  user: shape({
-    id: string,
-    login: string
-  })
+  subjectId: string.isRequired,
 }
 
 export default SubjectTalkPage

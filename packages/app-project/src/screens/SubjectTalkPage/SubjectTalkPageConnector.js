@@ -9,8 +9,9 @@ function useStores(mockStore) {
   const store = mockStore || stores.store
   const { project, user } = store
   return {
-    project,
-    user
+    login: user?.login,
+    projectId: project?.id,
+    projectSlug: project?.slug
   }
 }
 
@@ -18,14 +19,15 @@ function SubjectTalkPageConnector({
   subject,
   subjectID
 }) {
-  const { project, user } = useStores()
+  const { login, projectId, projectSlug } = useStores()
 
   return (
     <SubjectTalkPage
-      project={project}
+      login={login}
+      projectId={projectId}
+      projectSlug={projectSlug}
       subject={subject}
-      subjectID={subjectID}
-      user={user}
+      subjectId={subjectID}
     />
   )
 }

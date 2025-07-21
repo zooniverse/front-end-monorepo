@@ -29,9 +29,10 @@ function processSubjectLocations(rawLocations) {
 }
 
 function SubjectTalkViewer({
-    project,
-    subject,
-    user
+    login,
+    projectId,
+    projectSlug,
+    subject
   }) {
   const [frame, setFrame] = useState(0)
   const [flipbookSpeed, setFlipbookSpeed] = useState(1)
@@ -40,7 +41,7 @@ function SubjectTalkViewer({
 
   const { t } = useTranslation('screens')
   
-  const subjectID = subject.id
+  const subjectId = subject.id
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[frame]
   const locations = processSubjectLocations(subject.locations)
@@ -65,7 +66,7 @@ function SubjectTalkViewer({
       }}
     >
       <StyledMedia
-        alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
+        alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
         fit='contain'
         flex='shrink'
         $invert={invert}
@@ -93,9 +94,10 @@ function SubjectTalkViewer({
           margin='small'
         >
           <FavoritesIconButton
-            project={project}
-            subject={subject}
-            user={user}
+            login={login}
+            projectId={projectId}
+            projectSlug={projectSlug}
+            subjectId={subjectId}
           />
           <Bookmark />
           <ShareOption />
@@ -110,6 +112,9 @@ function SubjectTalkViewer({
 }
 
 SubjectTalkViewer.propTypes = {
+  login: string,
+  projectId: string,
+  projectSlug: string,
   subject: shape({
     id: string
   })

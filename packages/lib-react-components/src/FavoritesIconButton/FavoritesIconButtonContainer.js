@@ -1,4 +1,4 @@
-import { shape, string } from 'prop-types'
+import { string } from 'prop-types'
 import useSWRMutation from 'swr/mutation'
 
 import {
@@ -12,17 +12,18 @@ import {
 import FavoritesIconButton from './FavoritesIconButton'
 
 function FavoritesIconButtonContainer({
-  project,
-  subject,
-  user,
+  login,
+  projectId,
+  projectSlug,
+  subjectId,
   ...props
 }) {
   const token = usePanoptesAuthToken()
 
   const query = {
     favorite: true,
-    project_ids: [project?.id],
-    owner: user?.login
+    project_ids: [projectId],
+    owner: login
   }
 
   const { trigger: addToFavorites } = useSWRMutation({ query, token }, addSubjectsToCollection)
@@ -36,23 +37,23 @@ function FavoritesIconButtonContainer({
     query
   })
 
-  const isFavorite = favorites?.[0]?.links?.subjects?.includes(subject.id) ?? false
+  const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
 
   function handleAddToFavorites() {
     addToFavorites({
       collectionId: favorites?.[0]?.id,
       options: {
-        display_name: `Favorites ${project?.slug}`,
+        display_name: `Favorites ${projectSlug}`,
         favorite: true,
         private: true
       },
-      subjectIds: [subject.id]
+      subjectIds: [subjectId]
     }, {
       optimisticData: (prevFavorites) => {
         if (!prevFavorites) return prevFavorites
         const updatedSubjects = [
           ...prevFavorites[0]?.links?.subjects || [],
-          subject.id
+          subjectId
         ]
         const updatedFavorite = {
           ...prevFavorites[0],
@@ -72,11 +73,11 @@ function FavoritesIconButtonContainer({
   function handleRemoveFromFavorites() {
     removeFromFavorites({
       collectionId: favorites[0].id,
-      subjectIds: [subject.id]
+      subjectIds: [subjectId]
     }, {
       optimisticData: (prevFavorites) => {
         if (!prevFavorites) return prevFavorites
-        const updatedSubjects = prevFavorites[0].links.subjects.filter(subjectId => subjectId !== subject.id)
+        const updatedSubjects = prevFavorites[0].links.subjects.filter(subjectId => subjectId !== subjectId)
         const updatedFavorite = {
           ...prevFavorites[0],
           links: {
@@ -111,17 +112,10 @@ function FavoritesIconButtonContainer({
 }
 
 FavoritesIconButtonContainer.propTypes = {
-  project: shape({
-    id: string,
-    slug: string
-  }),
-  subject: shape({
-    id: string
-  }),
-  user: shape({
-    id: string,
-    login: string
-  })
+  login: string,
+  projectId: string,
+  projectSlug: string,
+  subjectId: string
 }
 
 export default FavoritesIconButtonContainer
