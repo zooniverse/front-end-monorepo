@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { CircleInformation } from 'grommet-icons'
+import { CircleInformation, Home } from 'grommet-icons'
 
 import CloseIcon from '../CloseButton/components/CloseIcon'
 
@@ -40,9 +40,19 @@ export const Active = {
   }
 }
 
-export const CloseButton = {
+export const CustomIconButton = {
   args: {
     a11yTitle: 'Close',
     icon: <CloseIcon />
+  }
+}
+
+export const Anchor = {
+  args: {
+    a11yTitle: 'Home',
+    href: 'https://www.zooniverse.org',
+    icon: <Home />,
+    rel: 'noopener noreferrer',
+    target: '_blank'
   }
 }
