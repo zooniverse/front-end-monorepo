@@ -37,6 +37,10 @@ function FavoritesIconButtonContainer({
     query
   })
 
+  // Currently, this code checks if a subject is a favorite by checking if the subject ID is included in the favorites collection linked subjects.
+  // However, subjects from /recents or the subject queue in the classifier include a 'favorite' boolean property.
+  // Before using FavoritesIconButton with /recents or in the classifier, consider refactoring to avoid unnecessary requests for the favorites collection to determine if a subject is a favorite.
+  // Related refactoring will also require refactoring the add to favorites functionality to determine if a favorites collection exists then adding to or creating a favorites collection.
   const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
 
   function handleAddToFavorites() {
