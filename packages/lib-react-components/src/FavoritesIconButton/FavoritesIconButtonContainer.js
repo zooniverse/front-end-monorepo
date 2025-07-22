@@ -92,7 +92,7 @@ FavoritesIconButtonContainer.propTypes = {
   login: string,
   projectId: string,
   projectSlug: string,
-  subjectId: string
+  subjectId: string.isRequired
 }
 
 export default FavoritesIconButtonContainer
