@@ -1,14 +1,8 @@
 import { string } from 'prop-types'
-import useSWRMutation from 'swr/mutation'
 
-import {
-  usePanoptesAuthToken,
-  useUserCollections
-} from '../hooks'
-import {
-  addSubjectsToCollection,
-  removeSubjectsFromCollection
-} from '../helpers/collections'
+import { useUserCollections } from '../hooks'
+import { addSubjectsToCollection, removeSubjectsFromCollection } from '../helpers/collections'
+
 import FavoritesIconButton from './FavoritesIconButton'
 
 function FavoritesIconButtonContainer({
@@ -18,83 +12,62 @@ function FavoritesIconButtonContainer({
   subjectId,
   ...props
 }) {
-  const token = usePanoptesAuthToken()
-
   const query = {
     favorite: true,
     project_ids: [projectId],
     owner: login
   }
 
-  const { trigger: addToFavorites } = useSWRMutation({ query, token }, addSubjectsToCollection)
-  const { trigger: removeFromFavorites } = useSWRMutation({ query, token }, removeSubjectsFromCollection)
-
   const {
     data: favorites,
     error,
-    isLoading
+    isLoading,
+    mutate
   } = useUserCollections({
     query
   })
 
-  // Currently, this code checks if a subject is a favorite by checking if the subject ID is included in the favorites collection linked subjects.
-  // However, subjects from /recents or the subject queue in the classifier include a 'favorite' boolean property.
-  // Before using FavoritesIconButton with /recents or in the classifier, consider refactoring to avoid unnecessary requests for the favorites collection to determine if a subject is a favorite.
-  // Related refactoring will also require refactoring the add to favorites functionality to determine if a favorites collection exists then adding to or creating a favorites collection.
   const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
 
-  function handleAddToFavorites() {
-    addToFavorites({
-      collectionId: favorites?.[0]?.id,
-      options: {
-        display_name: `Favorites ${projectSlug}`,
-        favorite: true,
-        private: true
-      },
-      subjectIds: [subjectId]
-    }, {
-      optimisticData: (prevFavorites) => {
-        if (!prevFavorites) return prevFavorites
-        const updatedSubjects = [
-          ...prevFavorites[0]?.links?.subjects || [],
-          subjectId
-        ]
-        const updatedFavorite = {
-          ...prevFavorites[0],
-          links: {
-            ...prevFavorites[0]?.links,
-            subjects: updatedSubjects
-          }
-        }
-        return [updatedFavorite]
-      },
-      rollbackOnError: true,
-      revalidate: true,
-      populateCache: true
-    })
+  async function handleAddToFavorites() {
+    try {
+      const updatedFavorites = await addSubjectsToCollection({
+        collectionId: favorites?.[0]?.id,
+        options: {
+          display_name: `Favorites ${projectSlug}`,
+          favorite: true,
+          private: true
+        },
+        projectId,
+        subjectIds: [subjectId]
+      })
+      mutate((current) => current.map((item) => item.id === updatedFavorites.id ? updatedFavorites : item), { revalidate: false })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  function handleRemoveFromFavorites() {
-    removeFromFavorites({
-      collectionId: favorites[0].id,
-      subjectIds: [subjectId]
-    }, {
-      optimisticData: (prevFavorites) => {
-        if (!prevFavorites) return prevFavorites
-        const updatedSubjects = prevFavorites[0].links.subjects.filter(subjectId => subjectId !== subjectId)
-        const updatedFavorite = {
-          ...prevFavorites[0],
-          links: {
-            ...prevFavorites[0].links,
-            subjects: updatedSubjects
+  async function handleRemoveFromFavorites() {
+    try {
+      const updatedFavorites = await removeSubjectsFromCollection({
+        collectionId: favorites[0].id,
+        subjectIds: [subjectId]
+      })
+      mutate((current) => current.map((item) => {
+        if (item.id === updatedFavorites.id) {
+          return {
+            ...item,
+            links: {
+              ...item.links,
+              subjects: item.links.subjects.filter((id) => id !== subjectId)
+            }
           }
         }
-        return [updatedFavorite]
-      },
-      rollbackOnError: true,
-      revalidate: true,
-      populateCache: true
-    })
+        return item
+      }), { revalidate: false })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   function handleClick() {

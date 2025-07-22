@@ -1,9 +1,8 @@
 import { collections } from '@zooniverse/panoptes-js'
+import auth from 'panoptes-client/lib/auth'
 
-export async function addSubjectsToCollection(key,
-  { arg: { collectionId, options, subjectIds } }
-) {
-  const { token } = key
+export async function addSubjectsToCollection({ collectionId, options, projectId, subjectIds }) {
+  const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
 
   if (!collectionId) {
