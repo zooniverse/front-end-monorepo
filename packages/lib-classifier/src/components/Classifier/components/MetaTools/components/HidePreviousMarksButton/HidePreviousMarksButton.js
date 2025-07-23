@@ -5,9 +5,12 @@ import { useTranslation } from '@translations/i18n'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-export default function HidePreviousMarksButton (props) {
+export default function HidePreviousMarksButton ({
+  disabled = false,
+  onClick = () => false,
+  shownMarks = SHOWN_MARKS.ALL
+}) {
   const { t } = useTranslation('components')
-  const { disabled, onClick, shownMarks } = props
   const text = shownMarks === SHOWN_MARKS.ALL ?
     t('MetaTools.HidePreviousMarksDrawingButton.hide') :
     t('MetaTools.HidePreviousMarksDrawingButton.show')
@@ -30,10 +33,4 @@ HidePreviousMarksButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   shownMarks: PropTypes.string
-}
-
-HidePreviousMarksButton.defaultProps = {
-  disabled: false,
-  onClick: () => false,
-  shownMarks: SHOWN_MARKS.ALL
 }

@@ -10,12 +10,12 @@ function PhaseFocusControls(props) {
     data,
     highlightedSeries,
     phaseFocusedSeries,
-    setSeriesPhaseFocus,
+    setSeriesPhaseFocus = () => { },
     theme: {
       global: {
-        colors
+        colors = { drawingTools: {} }
       }
-    }
+    } = { global: { colors: { drawingTools: {} } } }
   } = props
 
   const { t } = useTranslation('components')
@@ -50,17 +50,6 @@ function PhaseFocusControls(props) {
       })}
     </Box>
   )
-}
-
-PhaseFocusControls.defaultProps = {
-  setSeriesPhaseFocus: () => { },
-  theme: {
-    global: {
-      colors: {
-        drawingTools: {}
-      }
-    }
-  }
 }
 
 PhaseFocusControls.propTypes = {

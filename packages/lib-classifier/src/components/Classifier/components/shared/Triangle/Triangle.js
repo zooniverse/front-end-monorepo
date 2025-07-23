@@ -12,17 +12,16 @@ const SVG = styled.svg`
   z-index: 1;
 `
 
-function Triangle (props) {
+function Triangle ({
+  backgroundColor,
+  height = 20,
+  justify = 'end',
+  pad = { horizontal: 'small' },
+  pointDirection = 'up',
+  theme,
+  width = 20
+}) {
   let fill
-  const {
-    backgroundColor,
-    height,
-    justify,
-    pad,
-    pointDirection,
-    theme,
-    width
-  } = props
   const { colors } = theme.global
   if (backgroundColor) {
     fill = backgroundColor
@@ -54,14 +53,6 @@ function Triangle (props) {
       </SVG>
     </Box>
   )
-}
-
-Triangle.defaultProps = {
-  pad: { horizontal: 'small' },
-  pointDirection: 'up',
-  justify: 'end',
-  height: 20,
-  width: 20
 }
 
 Triangle.propTypes = {

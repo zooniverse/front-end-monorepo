@@ -24,19 +24,22 @@ export const StyledBox = styled(Box)`
   } 
 `
 
-function QuestionInput (props) {
-  const {
-    handleCheckBoxChange,
-    handleRadioChange,
-    handleRadioKeyDown,
-    hasFocus,
-    isChecked,
-    option,
-    questionId,
-    theme,
-    type
-  } = props
-
+function QuestionInput ({
+  handleCheckBoxChange = () => {},
+  handleRadioChange = () => {},
+  handleRadioKeyDown = () => {},
+  hasFocus = false,
+  isChecked = false,
+  option = {
+    label: '',
+    value: ''
+  },
+  questionId = '',
+  theme = {
+    dark: false
+  },
+  type
+}) {
   let backgroundColor = 'light-1'
   if (theme.dark) {
     backgroundColor = 'dark-4'
@@ -82,22 +85,6 @@ function QuestionInput (props) {
       </StyledBox>
     </label>
   )
-}
-
-QuestionInput.defaultProps = {
-  handleCheckBoxChange: () => {},
-  handleRadioChange: () => {},
-  handleRadioKeyDown: () => {},
-  hasFocus: false,
-  isChecked: false,
-  option: {
-    label: '',
-    value: ''
-  },
-  questionId: '',
-  theme: {
-    dark: false
-  }
 }
 
 QuestionInput.propTypes = {
