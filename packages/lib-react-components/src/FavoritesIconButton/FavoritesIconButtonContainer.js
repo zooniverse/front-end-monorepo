@@ -1,7 +1,11 @@
 import { string } from 'prop-types'
 
 import { useUserCollections } from '../hooks'
-import { addSubjectsToCollection, removeSubjectsFromCollection } from '../helpers/collections'
+import {
+  addSubjectsToCollection,
+  createCollection,
+  removeSubjectsFromCollection
+} from '../helpers/collections'
 
 import FavoritesIconButton from './FavoritesIconButton'
 
@@ -31,16 +35,23 @@ function FavoritesIconButtonContainer({
 
   async function handleAddToFavorites() {
     try {
-      const updatedFavorites = await addSubjectsToCollection({
-        collectionId: favorites?.[0]?.id,
-        options: {
-          display_name: `Favorites ${projectSlug}`,
-          favorite: true,
-          private: true
-        },
-        projectId,
-        subjectIds: [subjectId]
-      })
+      let updatedFavorites
+      if (favorites?.[0]?.id) {
+        updatedFavorites = await addSubjectsToCollection({
+          collectionId: favorites[0].id,
+          subjectIds: [subjectId]
+        })
+      } else {
+        updatedFavorites = await createCollection({
+          options: {
+            display_name: `Favorites ${projectSlug}`,
+            favorite: true,
+            private: true
+          },
+          projectId,
+          subjectIds: [subjectId]
+        })
+      }
       mutate((current) => current.map((item) => item.id === updatedFavorites.id ? updatedFavorites : item), { revalidate: false })
     } catch (error) {
       console.error(error)
