@@ -21,17 +21,16 @@ function FavoritesIconButtonContainer({
   const {
     data: favorites,
     error,
-    isLoading,
-    mutate
+    isLoading
   } = useUserCollections({
     query
   })
 
   const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
 
-  async function handleAddToFavorites() {
+  function handleAddToFavorites() {
     try {
-      const updatedFavorites = await addSubjectsToCollection({
+      addSubjectsToCollection({
         collectionId: favorites?.[0]?.id,
         options: {
           display_name: `Favorites ${projectSlug}`,
@@ -41,30 +40,17 @@ function FavoritesIconButtonContainer({
         projectId,
         subjectIds: [subjectId]
       })
-      mutate((current) => current.map((item) => item.id === updatedFavorites.id ? updatedFavorites : item), { revalidate: false })
     } catch (error) {
       console.error(error)
     }
   }
 
-  async function handleRemoveFromFavorites() {
+  function handleRemoveFromFavorites() {
     try {
-      const updatedFavorites = await removeSubjectsFromCollection({
+      removeSubjectsFromCollection({
         collectionId: favorites[0].id,
         subjectIds: [subjectId]
       })
-      mutate((current) => current.map((item) => {
-        if (item.id === updatedFavorites.id) {
-          return {
-            ...item,
-            links: {
-              ...item.links,
-              subjects: item.links.subjects.filter((id) => id !== subjectId)
-            }
-          }
-        }
-        return item
-      }), { revalidate: false })
     } catch (error) {
       console.error(error)
     }
