@@ -1,6 +1,6 @@
 import { Favorite } from 'grommet-icons'
-import { bool } from 'prop-types'
-import { useState } from 'react'
+import { bool, func } from 'prop-types'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { useTranslation } from '../translations/i18n'
@@ -21,6 +21,10 @@ function FavoritesIconButton({
   onClick = DEFAULT_HANDLER
 }) {
   const [isFavorite, setIsFavorite] = useState(checked)
+
+  useEffect(function updateIsFavorite() {
+    setIsFavorite(checked)
+  }, [checked])
 
   const { t } = useTranslation()
 
@@ -44,7 +48,9 @@ function FavoritesIconButton({
 }
 
 FavoritesIconButton.propTypes = {
-  disabled: bool
+  checked: bool,
+  disabled: bool,
+  onClick: func
 }
 
 export default FavoritesIconButton
