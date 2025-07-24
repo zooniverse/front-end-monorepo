@@ -40,4 +40,3 @@ SubjectTalkPageConnector.propTypes = {
 }
 
 export default observer(SubjectTalkPageConnector)
-export { SubjectTalkPageConnector }
