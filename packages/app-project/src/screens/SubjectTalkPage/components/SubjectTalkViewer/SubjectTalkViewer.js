@@ -42,8 +42,8 @@ function SubjectTalkViewer({
 
   const { t } = useTranslation('screens')
   
-  const subjectId = subject.id
-  const subjectURLs = subject.locations.map(location => Object.values(location)[0])
+  const subjectId = subject?.id
+  const subjectURLs = subject?.locations?.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[frame]
   const locations = processSubjectLocations(subject.locations)
 

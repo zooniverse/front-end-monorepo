@@ -4,10 +4,9 @@ import { shape, string } from 'prop-types'
 
 import SubjectTalkPage from './SubjectTalkPage'
 
-function useStores(mockStore) {
+function useStores() {
   const stores = useContext(MobXProviderContext)
-  const store = mockStore || stores.store
-  const { project, user } = store
+  const { project, user } = stores.store
   return {
     login: user?.login,
     projectId: project?.id,
@@ -47,4 +46,3 @@ SubjectTalkPageConnector.propTypes = {
 }
 
 export default observer(SubjectTalkPageConnector)
-export { SubjectTalkPageConnector }
