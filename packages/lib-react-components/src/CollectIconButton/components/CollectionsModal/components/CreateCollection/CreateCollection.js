@@ -11,7 +11,12 @@ const defaultCollection = {
 
 const DEFAULT_HANDLER = () => true
 
-function CreateCollection ({ collection = defaultCollection, disabled = false, onChange = DEFAULT_HANDLER, onSubmit = DEFAULT_HANDLER }) {
+function CreateCollection ({
+  collection = defaultCollection,
+  disabled = false,
+  onChange = DEFAULT_HANDLER,
+  onSubmit = DEFAULT_HANDLER
+}) {
   const { t } = useTranslation()
   const checkboxRef = useRef()
   const textInputRef = useRef()
