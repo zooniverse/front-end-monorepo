@@ -1,6 +1,6 @@
-import { InvertIconButton, Media } from '@zooniverse/react-components'
+import { FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { Favorite, Bookmark, ShareOption } from 'grommet-icons'
+import { Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
@@ -24,11 +24,16 @@ function processSubjectLocations(rawLocations) {
       type: type,
       mimeType: mimeType,
       url: url
-    };
-  });
+    }
+  })
 }
 
-function SubjectTalkViewer({ subject }) {
+function SubjectTalkViewer({
+    login,
+    projectId,
+    projectSlug,
+    subject
+  }) {
   const [frame, setFrame] = useState(0)
   const [flipbookSpeed, setFlipbookSpeed] = useState(1)
   const [invert, setInvert] = useState(false)
@@ -36,8 +41,8 @@ function SubjectTalkViewer({ subject }) {
 
   const { t } = useTranslation('screens')
   
-  const subjectID = subject.id
-  const subjectURLs = subject.locations.map(location => Object.values(location)[0])
+  const subjectId = subject?.id
+  const subjectURLs = subject?.locations?.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[frame]
   const locations = processSubjectLocations(subject.locations)
 
@@ -61,45 +66,55 @@ function SubjectTalkViewer({ subject }) {
       }}
     >
       <StyledMedia
-        alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
+        alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
         fit='contain'
         flex='shrink'
         $invert={invert}
         subject={subject}
         src={subjectURL}
       />
-      {locations?.length > 1 ? (
-        <FlipbookControls
-          currentFrame={frame}
-          flipbookSpeed={flipbookSpeed}
-          locations={locations}
-          onFrameChange={setFrame}
-          onPlayPause={onPlayPause}
-          playing={playing}
-          playIterations={1}
-          setFlipbookSpeed={setFlipbookSpeed}
-        />
-      ) : null}
-      {/* <MetaTools /> */}
-      <Box
-        direction='row'
-        gap='small'
-        justify='center'
-        margin='small'
-      >
-        <Favorite />
-        <Bookmark />
-        <ShareOption />
-        <InvertIconButton
-          checked={invert}
-          onClick={onInvert}
-        />
+      <Box>
+        {locations?.length > 1 ? (
+          <FlipbookControls
+            currentFrame={frame}
+            flipbookSpeed={flipbookSpeed}
+            locations={locations}
+            onFrameChange={setFrame}
+            onPlayPause={onPlayPause}
+            playing={playing}
+            playIterations={1}
+            setFlipbookSpeed={setFlipbookSpeed}
+          />
+        ) : null}
+        {/* <MetaTools /> */}
+        <Box
+          direction='row'
+          gap='small'
+          justify='center'
+          margin='small'
+        >
+          <FavoritesIconButton
+            login={login}
+            projectId={projectId}
+            projectSlug={projectSlug}
+            subjectId={subjectId}
+          />
+          <Bookmark />
+          <ShareOption />
+          <InvertIconButton
+            checked={invert}
+            onClick={onInvert}
+          />
+        </Box>
       </Box>
     </Box>
   )
 }
 
 SubjectTalkViewer.propTypes = {
+  login: string,
+  projectId: string,
+  projectSlug: string,
   subject: shape({
     id: string
   })
