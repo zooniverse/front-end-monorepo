@@ -32,9 +32,11 @@
     "ProjectLink": {
       "types": {
         "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
         "facebook": "Facebook",
         "github": "GitHub",
         "instagram": "Instagram",
+        "mastodon": "Mastodon",
         "medium": "Medium",
         "pinterest": "Pinterest",
         "reddit": "Reddit",
@@ -107,7 +109,7 @@
   },
   "SubjectPreview": {
     "CollectionsButton": {
-      "add": "Přidat do sbírek"
+      "add": "Přidat do alb"
     },
     "TalkLink": {
       "label": "Diskutovat na Talk"

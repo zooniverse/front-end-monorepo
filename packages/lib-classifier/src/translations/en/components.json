@@ -13,9 +13,9 @@
       "whyAmISeeingThis": "Why am I seeing this?"
     },
     "InProgressConfirmModal": {
-      "inProgress": "Are you sure you want to navigate to a different Subject? Any annotation you've made for the current Subject will be lost.",
       "cancel": "Cancel",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "inProgress": "Are you sure you want to navigate to a different Subject? Any annotation you've made for the current Subject will be lost."
     },
     "RetiredBanner": {
       "bannerText": "Finished: This subject has been retired",
@@ -26,7 +26,7 @@
     },
     "SubjectSetProgressBanner": {
       "alreadySeen": "Already seen",
-      "bannerText": "{{setName}}: Subject {{number}}/{{total}}",
+      "bannerText": "{{setName}}: Subject {{number}}\/{{total}}",
       "finished": "Finished",
       "tooltipText": [
         "This project allows volunteers to view subjects in sequential order.",
@@ -49,14 +49,13 @@
     }
   },
   "DrawingTools": {
-    "RotateHandle": "Handle for rotating drawn annotation/mark."
+    "RotateHandle": "Handle for rotating drawn annotation\/mark."
   },
   "FeedbackModal": {
     "keepClassifying": "Keep Classifying",
     "label": "Feedback"
   },
   "FieldGuide": {
-    "title": "Field Guide",
     "FieldGuideButton": {
       "buttonLabel": "Field Guide"
     },
@@ -65,7 +64,8 @@
     },
     "FieldGuideItemAnchor": {
       "ariaTitle": "Select {{title}}"
-    }
+    },
+    "title": "Field Guide"
   },
   "ImageToolbar": {
     "AnnotateButton": {
@@ -73,27 +73,27 @@
     },
     "FullscreenButton": {
       "ariaLabel": {
-        "fullscreen": "View subject in full screen mode",
-        "actualSize": "View subject at normal size"
+        "actualSize": "View subject at normal size",
+        "fullscreen": "View subject in full screen mode"
       }
     },
     "InvertButton": {
-      "ariaLabel": "Invert Colors"
+      "ariaLabel": "Invert subject"
     },
     "MoveButton": {
-      "ariaLabel": "Pan"
+      "ariaLabel": "Move subject"
     },
     "ResetButton": {
-      "ariaLabel": "Reset View"
+      "ariaLabel": "Reset subject view"
     },
     "RotateButton": {
-      "ariaLabel": "Rotate"
+      "ariaLabel": "Rotate subject"
     },
     "ZoomInButton": {
-      "ariaLabel": "Zoom In"
+      "ariaLabel": "Zoom in on subject"
     },
     "ZoomOutButton": {
-      "ariaLabel": "Zoom Out"
+      "ariaLabel": "Zoom out from subject"
     }
   },
   "MetaTools": {
@@ -113,11 +113,11 @@
       "label": "Subject Info"
     },
     "MetadataModal": {
-      "title": "Subject Metadata",
       "table": {
         "label": "Label",
         "value": "Value"
-      }
+      },
+      "title": "Subject Metadata"
     }
   },
   "ModalTutorial": {
@@ -125,19 +125,12 @@
   },
   "QuickTalk": {
     "aria": {
-      "openButton": "Subject has {{count}} comment(s). Click to expand.",
-      "mainPanel": "QuickTalk Comments Panel",
       "closeButton": "Close comments panel",
-      "goToTalk": "Or, view this Subject Discussion on Talk (opens new window)",
+      "goToTalk": "Go to Subject Discussion on Talk",
+      "mainPanel": "QuickTalk Comments Panel",
+      "openButton": "Subject has {{count}} comment(s). Click to expand.",
       "panelContent": "Subject Discussion comments",
       "panelHeading": "Subject Discussion"
-    },
-    "loginToPost": "Please login to post a comment.",
-    "subjectHasNoComments": "This Subject doesn't have any comments yet.",
-    "status": {
-      "initialized": "Leave a note about this subject",
-      "loading": "Posting comment...",
-      "success": "Comment posted!"
     },
     "errors": {
       "failPostComment": "Couldn't add comments to existing discussion.",
@@ -145,9 +138,21 @@
       "noBoard": "A board for subject comments has not been setup for this project yet.",
       "noText": "Can't post an empty comment.",
       "noUser": "User not logged in."
-    }
+    },
+    "loginToPost": "Please log in to post a comment.",
+    "status": {
+      "initialized": "Leave a note about this subject",
+      "loading": "Posting comment...",
+      "success": "Comment posted!"
+    },
+    "subjectHasNoComments": "This Subject doesn't have any comments yet."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Go to step {{index}}",
+      "next": "Go to next step",
+      "previous": "Go to previous step"
+    },
     "alt": "Tutorial step {{activeStep}}",
     "error": "Tutorial step could not be loaded.",
     "getStarted": "Get Started",
@@ -159,10 +164,11 @@
     "previous": "Go to previous step"
   },
   "SubjectViewer": {
-    "loading": "Loading a subject",
-    "zoomHelp": "Use CTRL + scroll to zoom",
     "BarChartViewer": {
       "chartLabel": "Bar chart"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Icon for text viewer"
     },
     "InteractionLayer": {
       "ConfirmModal": {
@@ -178,25 +184,22 @@
         "required": "This task is required."
       },
       "TranscribedLines": {
-        "complete": "Transcription completed",
-        "transcribed": "Has transcriptions",
         "ConsensusPopup": {
           "aggregatedTranscription": "aggregated transcription",
           "explanation": "These {{count}} transcriptions have been submitted by previous volunteers and cannot be modified.",
           "noAggregation": "No aggregation available.",
           "title": "Previous Transcriptions",
           "transcriptionsUnavailable": "Transcriptions unavailable."
-        }
+        },
+        "complete": "Transcription completed",
+        "transcribed": "Has transcriptions"
       }
-    },
-    "ImageAndTextViewer": {
-      "textIconAltText": "Icon for text viewer"
     },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "thumbnailAltText": "Thumbnail of Image",
+        "nextFrameLabel": "Next",
         "previousFrameLabel": "Previous",
-        "nextFrameLabel": "Next"
+        "thumbnailAltText": "Thumbnail of Image"
       }
     },
     "ScatterPlotViewer": {
@@ -206,8 +209,8 @@
     },
     "SeparateFramesViewer": {
       "ViewModeButton": {
-        "switchToSeparateFrames": "Switch to separate frames view",
-        "switchToFlipbook": "Switch to flipbook view"
+        "switchToFlipbook": "Switch to flipbook view",
+        "switchToSeparateFrames": "Switch to separate frames view"
       }
     },
     "SingleVideoViewerContainer": {
@@ -226,37 +229,33 @@
       "phaseFocus": "phase focus"
     },
     "VideoController": {
-      "scrubber": "Video player scrubber",
-      "playbackSpeed": "Video playback speed selection",
-      "play": "Play video",
-      "pause": "Pause video",
-      "openVolume": "Open Volume Slider",
       "closeVolume": "Close Volume Slider",
-      "volumeSlider": "Volume Slider",
-      "fullscreen": "Show Video Fullscreen"
+      "fullscreen": "Show Video Fullscreen",
+      "openVolume": "Open Volume Slider",
+      "pause": "Pause video",
+      "play": "Play video",
+      "playbackSpeed": "Video playback speed selection",
+      "scrubber": "Video player scrubber",
+      "volumeSlider": "Volume Slider"
     },
     "ZoomControlButton": {
-      "enable": "enable zoom",
-      "disable": "disable zoom"
-    }
+      "disable": "disable zoom",
+      "enable": "enable zoom"
+    },
+    "loading": "Loading a subject",
+    "zoomHelp": "Use CTRL + scroll to zoom"
   },
   "TaskArea": {
-    "task": "Task",
-    "tutorial": "Tutorial",
     "DisabledTaskPopup": {
-      "title": "Finished",
       "body": "This subject has enough classifications, so any additional classifications submitted will not be used in its analysis. You can still view this subject for reference.",
       "options": {
         "dismiss": "Dismiss",
         "next": "Next available subject",
         "select": "Choose a new subject"
-      }
+      },
+      "title": "Finished"
     },
     "Tasks": {
-      "demoMode": "In demo mode, classifications will not be saved. Use this for quick, inaccurate demos of the classification interface.",
-      "error": "Something went wrong",
-      "loading": "Loading",
-      "renderFallback": "Task component could not be rendered.",
       "BackButton": {
         "back": "Back"
       },
@@ -277,7 +276,13 @@
       "TaskHelp": {
         "close": "Close",
         "label": "Need some help with this task?"
-      }
-    }
+      },
+      "demoMode": "In demo mode, classifications will not be saved. Use this for quick, inaccurate demos of the classification interface.",
+      "error": "Something went wrong",
+      "loading": "Loading",
+      "renderFallback": "Task component could not be rendered."
+    },
+    "task": "Task",
+    "tutorial": "Tutorial"
   }
 }

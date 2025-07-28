@@ -1,32 +1,84 @@
 {
+  "404": {
+    "findNewProject": "Hitta ett nytt projekt att utforska",
+    "heading": "Ingenting här.",
+    "message": "Sidan du letar efter finns inte längre.",
+    "returnHome": "Tillbaka till startsidan"
+  },
   "Announcements": {
     "AuthenticationInvitation": {
+      "announcement": "Logga in eller registrera dig för att spåra dina bidrag.",
       "register": "Registrera dig",
       "signIn": "Logga in"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Klart! Det verkar som att det här projektet har slut på data för tillfället!",
+      "seeResults": "Se resultat"
     }
   },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Skapa och lägg till",
+      "label": "Skapa en ny samling",
+      "private": "Privat samling"
+    },
+    "SelectCollection": {
+      "addButton": "Lägg till",
+      "label": "Lägg till i en befintlig samling"
+    },
+    "title": "Lägg till i samling"
+  },
   "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Webbplats",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
     "title": "Ta kontakt med {{projectName}}"
   },
   "Head": {
-    "defaultTitle": "Projekt"
+    "defaultDescription": "Zooniverse är världens största och mest populära plattform för människodriven forskning.",
+    "defaultTitle": "Projekt",
+    "siteName": "Zooniverse - människodriven forskning"
   },
   "ProjectHeader": {
-    "about": "Om",
-    "classify": "Klassificera",
-    "exploreProject": "Utforska projektet",
-    "talk": "Prata",
-    "collect": "Samla",
-    "recents": "Senaste",
     "ApprovedIcon": {
       "title": "Zooniverse-godkänt"
+    },
+    "Avatar": {
+      "alt": "Projektavatar för {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Ändra språk"
     },
     "ProjectNav": {
       "ariaLabel": "Projekt"
     },
     "UnderReviewLabel": {
       "underReview": "Under granskning"
-    }
+    },
+    "about": "Om",
+    "admin": "Adminsidan",
+    "classify": "Klassificera",
+    "collect": "Samla",
+    "exploreProject": "Utforska projektet",
+    "organization": "Från organisationen:",
+    "recents": "Senaste",
+    "talk": "Prata"
   },
   "ProjectStatistics": {
     "byTheNumbers": "I siffror",
@@ -37,9 +89,53 @@
     "subtitle": "Håll koll på hur långt du och andra frivilliga har kommit med projektet.",
     "text": "Varje klick räknas! Gå med i {{projectName}}-communityt för att göra klart projektet och hjälpa forskarna att få fram viktiga resultat.",
     "title": "{{projectName}} statistik",
+    "viewMoreStats": "Visa fler statistikuppgifter",
     "volunteers": "Frivilliga"
   },
   "RequireUser": {
     "text": "Du är inte inloggad"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse webbplatsrubrik"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Redan sett",
+    "back": "Välj en annan motivuppsättning",
+    "byline": "Sortera listan genom att klicka på kolumnnamnen. Du kommer att se motiven i ordningsföljd, med början från det du valt.",
+    "fetching": "Vänta...",
+    "heading": "Välj ett motiv för att komma igång",
+    "retired": "Avslutad",
+    "unclassified": "Tillgänglig"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Lägg till i samlingarna"
+    },
+    "TalkLink": {
+      "label": "Diskutera på Talk"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Slutfört"
+    },
+    "back": "Välj ett annat arbetsflöde",
+    "byline": "Välj en motivuppsättning för att börja transkribera.",
+    "heading": "Välj var du vill börja"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% färdigt",
+      "setSelection": "ställa in val",
+      "subjectSelection": "motivval"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "låsta",
+      "unlocked": "olåsta"
+    },
+    "error": "Det uppstod ett fel vid hämtning av arbetsflödena :(",
+    "getStarted": "Kom igång!",
+    "message": "Du kan göra riktig forskning genom att klicka för att komma igång här!",
+    "noWorkflows": "Inget att klassificera"
   }
 }

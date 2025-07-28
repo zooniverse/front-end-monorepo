@@ -59,6 +59,12 @@
   "Loader": {
     "loading": "読み込み中"
   },
+  "ProjectCard": {
+    "classifications": "分類",
+    "finished": "完了済み",
+    "paused": "一時停止",
+    "state": "状態"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "概要",
@@ -98,7 +104,18 @@
       "systemStatus": "システム状況"
     },
     "projectLabels": {
-      "projects": "プロジェクト"
+      "arts": "芸術",
+      "biology": "生物学",
+      "climate": "気候",
+      "history": "歴史",
+      "language": "言語",
+      "literature": "文学",
+      "medicine": "医学",
+      "nature": "自然",
+      "physics": "物理学",
+      "projects": "プロジェクト",
+      "social": "社会学",
+      "space": "宇宙"
     },
     "tagLine": "人々の力で進める研究",
     "talkLabels": {

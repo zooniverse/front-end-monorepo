@@ -59,6 +59,12 @@
   "Loader": {
     "loading": "(načítá se)"
   },
+  "ProjectCard": {
+    "classifications": "Klasifikace",
+    "finished": "Dokončeno",
+    "paused": "Pozastaveno",
+    "state": "Stav"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "O Zooniverse",
@@ -79,7 +85,7 @@
     "getInvolvedLabels": {
       "callForProjects": "Výzva k podání projektů",
       "collaborate": "Spolupracujte",
-      "collections": "Sbírky",
+      "collections": "Alba",
       "donate": "Darujte",
       "educate": "Vzdělávejte se",
       "education": "Výuka",
@@ -98,7 +104,18 @@
       "systemStatus": "Stav systému"
     },
     "projectLabels": {
-      "projects": "Projekty"
+      "arts": "Umění",
+      "biology": "Biologie",
+      "climate": "Klima",
+      "history": "Historie",
+      "language": "Jazyk",
+      "literature": "Literatura",
+      "medicine": "Lékařství",
+      "nature": "Přírodověda",
+      "physics": "Fyzika",
+      "projects": "Projekty",
+      "social": "Společenské vědy",
+      "space": "Vesmír"
     },
     "tagLine": "Výzkum podporovaný lidmi",
     "talkLabels": {

@@ -64,7 +64,7 @@
     "@vitejs/plugin-react": "~4.4.1",
     "babel-plugin-module-resolver": "~5.0.0",
     "eslint-plugin-jsx-a11y": "~6.10.1",
-    "jsdom": "~26.0.0",
+    "jsdom": "~26.1.0",
     "storybook": "~7.6.11",
     "storybook-react-i18next": "~2.0.1",
     "vitest": "~3.1.3"

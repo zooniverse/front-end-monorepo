@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Chế độ Quản trị viên"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Tên người dùng hoặc mật khẩu không chính xác",
+      "forgot": "Quên mật khẩu?",
+      "heading": "Chào mừng bạn trở lại!",
+      "instruction": "Chúng tôi rất vui khi bạn quay lại! Đăng nhập để tiếp tục từ nơi bạn đã dừng.",
+      "login": "Tên người dùng hoặc địa chỉ email",
+      "password": "Mật khẩu",
+      "placeholder": "ví dụ: ZooniverseFan123",
+      "signIn": "Đăng nhập"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Tôi muốn giúp thử nghiệm các dự án mới và nhận email khi chúng có sẵn (không bắt buộc)",
+      "email": "Địa chỉ email (Bắt buộc)",
+      "emailConfirm": "Xác nhận địa chỉ email (Bắt buộc)",
+      "emailConfirmError": "Địa chỉ email không khớp, vui lòng thử lại.",
+      "emailConflict": "Một tài khoản với địa chỉ này đã tồn tại",
+      "emailListSignUp": "Tôi đồng ý thỉnh thoảng nhận email (không bắt buộc)",
+      "emailPlaceholder": "ví dụ: zoofan31@gmail.com",
+      "forgot": "Bạn quên mật khẩu?",
+      "heading": "Chào mừng bạn trở lại!",
+      "instruction": "Vui lòng tạo tài khoản để bắt đầu thực hiện nghiên cứu thực sự.",
+      "password": "Mật khẩu (Bắt buộc)",
+      "passwordConfirm": "Xác nhận mật khẩu (Bắt buộc)",
+      "passwordConfirmError": "Mật khẩu không khớp, vui lòng thử lại.",
+      "privacyAgreement": "Bạn đồng ý với chính sách quyền riêng tư của chúng tôi (bắt buộc)",
+      "privacyAgreementError": "Việc đồng ý với chính sách quyền riêng tư là bắt buộc.",
+      "privacyLink": "Đọc chính sách quyền riêng tư của chúng tôi",
+      "realName": "Tên thật (Không bắt buộc)",
+      "realNameHelp": "Chúng tôi sẽ sử dụng tên này để ghi nhận bạn trong các bài báo khoa học, áp phích, v.v.",
+      "realNamePatternHelp": "Nhập tên, không phải địa chỉ email",
+      "realNamePlaceholder": "ví dụ: Maggie Smith",
+      "register": "Đăng ký",
+      "registering": "Đang đăng ký...",
+      "underageConsent": "Tôi xác nhận rằng tôi là cha mẹ\/người giám hộ và cho phép con tôi đăng ký bằng cách cung cấp địa chỉ email của tôi làm địa chỉ liên hệ chính. Cả tôi và con tôi đều hiểu và đồng ý với chính sách quyền riêng tư (bắt buộc).",
+      "underageEmail": "Địa chỉ email của cha mẹ\/người giám hộ (Bắt buộc)",
+      "underageEmailSignUp": "Nếu bạn đồng ý, chúng tôi sẽ định kỳ gửi email quảng bá các dự án nghiên cứu mới hoặc thông tin khác liên quan đến nghiên cứu của chúng tôi. Chúng tôi sẽ không sử dụng thông tin liên lạc của bạn cho mục đích thương mại. (không bắt buộc)",
+      "underageNotRealName": "Bạn sẽ sử dụng tên này để đăng nhập. Tên này sẽ được hiển thị công khai. Đừng sử dụng tên thật của bạn.",
+      "underageWithParent": "Nếu bạn dưới 16 tuổi, hãy đánh dấu vào ô này để xác nhận rằng bạn đã hoàn thành mẫu đơn với cha mẹ hoặc người giám hộ của mình.",
+      "username": "Tên người dùng (Bắt buộc)",
+      "usernameConflict": "Tên người dùng đó đã được sử dụng",
+      "usernameHelp": "Thông tin này sẽ được hiển thị công khai trên các bảng tin, v.v.",
+      "usernamePatternHelp": "Tên người dùng chỉ được chứa chữ cái, số, '.', '-' và '_'",
+      "usernamePlaceholder": "ví dụ: ZooniverseFan123"
+    },
+    "title": "Đăng nhập hoặc tạo tài khoản mới."
+  },
+  "CloseButton": {
+    "close": "Đóng"
+  },
+  "FavouritesButton": {
+    "add": "Đã thêm vào mục yêu thích",
+    "remove": "Đã thêm vào mục yêu thích"
+  },
+  "Loader": {
+    "loading": "Đang tải"
+  },
+  "ProjectCard": {
+    "classifications": "Phân loại",
+    "finished": "Đã hoàn thành",
+    "paused": "Đã tạm dừng",
+    "state": "Trạng thái"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Giới thiệu",
+      "acknowledgements": "Lời cảm ơn",
+      "contact": "Liên hệ",
+      "faq": "Câu hỏi thường gặp",
+      "publications": "Các ấn phẩm",
+      "resources": "Tài nguyên",
+      "team": "Đội ngũ"
+    },
+    "buildLabels": {
+      "bestPractices": "Thực hành Tốt nhất",
+      "buildAProject": "Xây dựng một Dự án",
+      "glossary": "Thuật ngữ",
+      "policies": "Chính sách",
+      "tutorial": "Hướng dẫn"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Kêu gọi Dự án",
+      "collaborate": "Hợp tác",
+      "collections": "Bộ sưu tập",
+      "donate": "Quyên góp",
+      "educate": "Giáo dục",
+      "education": "Giáo dục",
+      "getInvolved": "Tham gia",
+      "volunteer": "Tình nguyện"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Zooniverse Hằng ngày",
+      "news": "Tin tức"
+    },
+    "policyLabels": {
+      "jobs": "Việc làm",
+      "privacyPolicy": "Chính sách quyền riêng tư",
+      "security": "Bảo mật",
+      "systemStatus": "Trạng thái hệ thống"
+    },
+    "projectLabels": {
+      "arts": "Nghệ thuật",
+      "biology": "Sinh học",
+      "climate": "Khí hậu",
+      "history": "Lịch sử",
+      "language": "Ngôn ngữ",
+      "literature": "Văn học",
+      "medicine": "Y học",
+      "nature": "Thiên nhiên",
+      "physics": "Vật lý",
+      "projects": "Dự án",
+      "social": "Khoa học xã hội",
+      "space": "Space"
+    },
+    "tagLine": "Nghiên cứu dựa trên sức mạnh cộng đồng",
+    "talkLabels": {
+      "announcements": "Thông báo",
+      "data": "Xử lý dữ liệu",
+      "projectBuilding": "Xây dựng dự án",
+      "talk": "Trò chuyện",
+      "troubleshooting": "Khắc phục sự cố"
+    },
+    "zooniversePolicies": "Chính sách của Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Tài khoản người dùng",
+      "navListLabels": {
+        "messages_one": "Tin nhắn ({{count}})",
+        "messages_other": "Tin nhắn ({{count}})",
+        "messages_zero": "Tin nhắn",
+        "notifications_one": "Thông báo ({{count}})",
+        "notifications_other": "Thông báo ({{count}})",
+        "notifications_zero": "Thông báo"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Đăng ký",
+      "signIn": "Đăng nhập"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Chuyển sang giao diện tối",
+      "switchToLight": "Chuyển sang giao diện sáng"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Bộ sưu tập",
+        "favorites": "Yêu thích",
+        "profile": "Hồ sơ",
+        "settings": "Cài đặt",
+        "signOut": "Đăng xuất"
+      }
+    },
+    "ariaLabel": "Trang web",
+    "mainHeaderNavListLabels": {
+      "about": "Giới thiệu",
+      "build": "Xây dựng",
+      "getInvolved": "Tham gia",
+      "projects": "Dự án",
+      "talk": "Trò chuyện"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Logo Zooniverse"
+  }
+}

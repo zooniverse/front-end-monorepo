@@ -5,6 +5,8 @@
  * @returns {boolean} true if the two elements overlap.
  */
 export function isInBounds(markElement, canvas) {
+    if (!canvas) return true
+    if (!markElement) return true
     const object = markElement.getBoundingClientRect()
     const bounds = canvas.getBoundingClientRect()
     const notBeyondLeft = object.left + object.width > bounds.left

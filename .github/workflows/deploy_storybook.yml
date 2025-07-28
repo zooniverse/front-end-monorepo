@@ -21,6 +21,7 @@ jobs:
       - run: yarn install --production=false --frozen-lockfile
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/subject-viewers build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
       - name: Deploy to GH Pages
         run: yarn deploy-storybook -- --ci
         env:

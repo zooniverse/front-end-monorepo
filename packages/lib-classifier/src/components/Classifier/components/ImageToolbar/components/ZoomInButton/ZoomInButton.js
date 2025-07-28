@@ -22,6 +22,7 @@ function ZoomInButton ({
       disabled={disabled}
       icon={<ZoomInIcon />}
       onClick={onClick}
+      onContextMenu={onClick}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />

@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Սեղմեք և քաշեք բաց կետից մինչև փակ կետը կամ կրկնակի սեղմեք գծի վրա՝ միացման կետ ստեղծելու համար",
+    "closePoint": "Սեղմեք գծի ցանկացած կետ՝ փակ կետը սահմանելու համար",
+    "inactive": "Սեղմեք այս տողը խմբագրելու համար",
+    "spliceDrag": "Սեղմեք և քաշեք բաց կետից փակ կետ",
+    "splicePoint": "Կրկնակի սեղմեք գծի վրա ցանկացած կետ՝ միացման կետ ստեղծելու համար"
+  },
+  "HighlighterTask": {
+    "delete": "Ջնջել",
+    "noLabels": "Ընդգծված առաջադրանքի համար պիտակներ չկան",
+    "status": "{{count}} Նշված"
+  },
+  "InputStatus": {
+    "drawn": "{{count}}-ը հանվել է",
+    "max": "Պահանջված {{max}}-ից {{count}}-ը հանվել է",
+    "maxAndMin": "Պահանջվում է {{min}}-ից {{count}}, առավելագույնը հանված {{max}}",
+    "min": "Պահանջված {{min}}-ից {{count}}-ը հանվել է"
+  },
+  "LineControls": {
+    "close": "Փակել",
+    "delete": "Ջնջել",
+    "deleteCancel": "Չեղարկել ջնջումը",
+    "deleteConfirm": "Հաստատել ջնջումը",
+    "lineControls": "Գծերի կառավարում",
+    "move": "Տեղաշարժել",
+    "redo": "Կրկնել",
+    "undo": "Հետարկել"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Մուտքագրել որևէ բան",
+    "otherLabel": "Այլ․․․",
+    "selectPlaceholder": "Ընտրել պատասխան"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Մաքրել ֆիլտրները",
+      "closeFilters": "Փակել ֆիլտրները",
+      "filter": "Ֆիլտրել",
+      "removeFilter": "Հեռացնել {{valueLabel}}զտիչը",
+      "showing": "Ցուցադրված է {{total}}-ից {{showing}}-ը"
+    },
+    "Choice": {
+      "cancel": "Չեղարկել",
+      "identify": "Նույնականացնել",
+      "lessInfo": "Ավելի քիչ տեղեկություններ",
+      "moreInfo": "Ավելի շատ տեղեկություններ",
+      "notThis": "Սա չէ"
+    },
+    "ChoiceButton": {
+      "identified": "նույնականացված",
+      "openSubmenu": "Բացել ենթացանկը {{choiceLabel}}-ի համար"
+    },
+    "ConfusedWith": {
+      "cancel": "Չեղարկել",
+      "confused": "Երբեմն շփոթում են",
+      "itsThis": "Ես կարծում եմ սա է"
+    },
+    "DeleteButton": {
+      "delete": "Ջնջել ընտրությունը {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Վերակայել"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Տեքստի ձևափոխիչներ"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Ստեղծված տրանսկրիպցիա",
+    "editing": "Տրանսկրիպցիայի խմբագրում"
+  }
+}
