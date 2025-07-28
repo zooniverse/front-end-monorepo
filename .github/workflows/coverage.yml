@@ -1,0 +1,29 @@
+name: Coverage report
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  run_tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    env:
+      PANOPTES_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./.nvmrc
+          cache: 'yarn'
+
+      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
+      - run: yarn workspace @zooniverse/react-components build:cjs
+      - run: yarn workspace @zooniverse/user build:cjs
+      - run: yarn workspace @zooniverse/subject-viewers build:cjs
+      - run: yarn workspace @zooniverse/classifier build:cjs
+      - run: yarn test:ci
