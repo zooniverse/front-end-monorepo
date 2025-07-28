@@ -11,7 +11,6 @@
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
     "lerna": "~8.2.2",
-    "nyc": "~17.1.0",
     "snazzy": "~9.0.0"
   },
   "scripts": {
@@ -24,24 +23,10 @@
     "panic-button": "./bin/panic-button.sh",
     "storybook": "lerna run --parallel storybook",
     "test": "lerna run --parallel test",
-    "test:ci": "nyc --silent lerna run --parallel test:ci"
+    "test:ci": "lerna run --parallel test:ci"
   },
   "engines": {
     "node": ">=20.5 <=20.18"
-  },
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js",
-      "**/*.spec.jsx",
-      "**/dist/*",
-      "**/test/*",
-      "bin",
-      "docs",
-      "node_modules"
-    ],
-    "extension": [
-      ".jsx"
-    ]
   },
   "workspaces": {
     "packages": [
