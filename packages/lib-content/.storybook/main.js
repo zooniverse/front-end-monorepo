@@ -19,6 +19,7 @@ const config = {
       ...config,
       resolve: {
         ...vitetestConfig.resolve,
+        extensions: ['.jsx', '.js', '...'],
         fallback: {
           fs: false
         }

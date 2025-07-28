@@ -4,7 +4,7 @@ import { SpacedText, ZooniverseLogotype } from '@zooniverse/react-components'
 import { useHasMounted } from '@zooniverse/react-components/hooks'
 import { useContext, useRef } from 'react'
 
-import { useTranslation } from '@translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n'
 
 const Relative = styled(Box)`
   position: relative;

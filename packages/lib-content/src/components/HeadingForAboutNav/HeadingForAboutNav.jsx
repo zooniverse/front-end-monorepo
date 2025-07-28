@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Box } from 'grommet'
 import { func, number, string } from 'prop-types'
 
-import { mobileBreakpoint } from '../SharedStyledComponents/SharedStyledComponents.jsx'
+import { mobileBreakpoint } from '../SharedStyledComponents/SharedStyledComponents'
 
 const HeadingForNav = styled(SpacedHeading)`
   margin: 0;

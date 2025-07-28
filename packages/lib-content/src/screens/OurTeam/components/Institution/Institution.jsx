@@ -1,8 +1,8 @@
 import { Box } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
-import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav.jsx'
-import Person from '../Person/Person.jsx'
+import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav'
+import Person from '../Person/Person'
 
 function Institution({
   name = '',

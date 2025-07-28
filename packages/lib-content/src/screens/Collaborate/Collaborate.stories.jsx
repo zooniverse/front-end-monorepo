@@ -1,4 +1,4 @@
-import Collaborate from './Collaborate.jsx'
+import Collaborate from './Collaborate'
 
 export default {
   title: 'Get Involved / Collaborate',

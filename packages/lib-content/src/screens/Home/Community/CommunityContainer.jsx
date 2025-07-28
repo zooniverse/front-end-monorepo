@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
-import Community from './Community.jsx'
+import Community from './Community'
 
 function stripTags(html) {
   if (typeof window === 'undefined') return

@@ -3,7 +3,7 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 import { useContext } from 'react'
-import { useTranslation } from '@translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n'
 
 const StyledParagraph = styled(Paragraph)`
   line-height: 1.2;

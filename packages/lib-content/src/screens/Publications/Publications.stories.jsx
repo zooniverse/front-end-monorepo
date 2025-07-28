@@ -1,4 +1,4 @@
-import Publications from './Publications.jsx'
+import Publications from './Publications'
 import mockPublicationsData from './publicationsData.mock.json'
 
 const mockSections = mockPublicationsData.map(category => ({

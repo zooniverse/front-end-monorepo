@@ -1,4 +1,4 @@
-import Resources from './Resources.jsx'
+import Resources from './Resources'
 
 export default {
   title: 'About / Resources',

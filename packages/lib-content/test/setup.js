@@ -2,7 +2,7 @@ import { JSDOM } from 'jsdom'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { setProjectAnnotations } from '@storybook/react'
 
-import preview from '../.storybook/preview.jsx'
+import preview from '../.storybook/preview'
 setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { Media, ZooniverseLogo } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-import Publication from '../Publication/Publication.jsx'
+import Publication from '../Publication/Publication'
 
 const StyledBox = styled(Box)`
   border-radius: 5px;

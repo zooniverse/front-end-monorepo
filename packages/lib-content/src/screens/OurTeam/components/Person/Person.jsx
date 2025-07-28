@@ -3,7 +3,7 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 import { useContext } from 'react'
 
-import Avatar from './components/Avatar/Avatar.jsx'
+import Avatar from './components/Avatar/Avatar'
 
 const PersonName = styled(Heading)`
   margin: 0;

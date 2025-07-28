@@ -1,4 +1,4 @@
-import Sidebar from './Sidebar.jsx'
+import Sidebar from './Sidebar'
 import mockPublicationsData from '../../../test/mocks/Publications.mock.json'
 
 const mockSections = mockPublicationsData.map(category => ({

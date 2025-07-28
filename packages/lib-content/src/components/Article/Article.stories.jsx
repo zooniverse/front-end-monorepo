@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import Article from './Article.jsx'
+import Article from './Article'
 
 const mockData = {
   date: '10 YRS AGO',

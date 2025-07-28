@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import Meta, { Default, MissingUrl } from './Publication.stories.jsx'
+import Meta, { Default, MissingUrl } from './Publication.stories'
 
 describe('Publications > Publication', function () {
   const DefaultStory = composeStory(Default, Meta)

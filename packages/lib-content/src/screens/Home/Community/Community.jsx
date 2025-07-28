@@ -2,9 +2,9 @@ import { Anchor, Box, Heading, ResponsiveContext } from 'grommet'
 import { SpacedHeading } from '@zooniverse/react-components'
 import { useContext } from 'react'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import Article from '@components/Article/Article.jsx'
-import SubHeading from '@components/HeadingForAboutNav/SubHeading.jsx'
+import { useTranslation } from '@translations/i18n'
+import Article from '@components/Article/Article'
+import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 
 // Same as lib-user's ContentBox
 const border = {

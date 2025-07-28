@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { composeStory } from '@storybook/react'
 
 import mockData from './teamData.mock.json'
-import Meta, { Default } from './OurTeam.stories.jsx'
+import Meta, { Default } from './OurTeam.stories'
 
 function RouterMock({ children }) {
   const mockRouter = {

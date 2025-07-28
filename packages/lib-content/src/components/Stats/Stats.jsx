@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import SpacedText from '@zooniverse/react-components/SpacedText'
 import AnimatedNumber from '@zooniverse/react-components/AnimatedNumber'
-import { useTranslation } from '@translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n'
 
 import { useTotalClassificationCount, useTotalVolunteerCount } from './hooks.js'
 

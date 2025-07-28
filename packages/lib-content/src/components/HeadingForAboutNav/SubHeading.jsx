@@ -1,7 +1,7 @@
 import { Heading } from 'grommet'
 import styled from 'styled-components'
 
-import { mobileBreakpoint } from '../SharedStyledComponents/SharedStyledComponents.jsx'
+import { mobileBreakpoint } from '../SharedStyledComponents/SharedStyledComponents'
 
 const StyledSubHeading = styled(Heading)`
   font-size: 2rem;

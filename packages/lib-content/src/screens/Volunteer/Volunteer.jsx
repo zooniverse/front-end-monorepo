@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import { BarChart, Certificate, Chat } from 'grommet-icons'
 
-import { Trans, useTranslation } from '@translations/i18n.jsx'
-import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
+import { Trans, useTranslation } from '@translations/i18n'
+import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
   StyledHeading
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
 
 const headingColor = { light: 'black', dark: 'white' }
 

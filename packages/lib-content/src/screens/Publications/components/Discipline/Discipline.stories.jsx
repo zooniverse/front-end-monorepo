@@ -1,4 +1,4 @@
-import Discipline from './Discipline.jsx'
+import Discipline from './Discipline'
 
 export default {
   title: 'About / Publications / Discipline',

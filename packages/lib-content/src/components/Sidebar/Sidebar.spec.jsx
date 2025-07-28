@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import Meta, { Default } from './Sidebar.stories.jsx'
+import Meta, { Default } from './Sidebar.stories'
 
 describe('Component > Sidebar', function () {
   const DefaultStory = composeStory(Default, Meta)

@@ -1,4 +1,4 @@
-import Mobile from './Mobile.jsx'
+import Mobile from './Mobile'
 
 export default {
   title: 'Shared / Mobile',

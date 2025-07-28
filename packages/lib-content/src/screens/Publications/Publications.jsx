@@ -5,10 +5,10 @@ import { Anchor, Box, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import DropdownNav from '@components/DropdownNav/DropdownNav.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
-import AboutLayout from '@components/PageLayout/AboutLayout.jsx'
+import { useTranslation } from '@translations/i18n'
+import DropdownNav from '@components/DropdownNav/DropdownNav'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
+import AboutLayout from '@components/PageLayout/AboutLayout'
 import {
   mobileBreakpoint,
   MobileHeading,
@@ -16,8 +16,8 @@ import {
   StickySidebar,
   StyledGrid,
   StyledHeading
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
-import Discipline from './components/Discipline/Discipline.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
+import Discipline from './components/Discipline/Discipline'
 
 const FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'

@@ -1,4 +1,4 @@
-import FAQ from './FAQ.jsx'
+import FAQ from './FAQ'
 
 export default {
   title: 'About / FAQ',

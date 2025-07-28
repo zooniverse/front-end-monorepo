@@ -11,7 +11,7 @@ import {
 } from 'grommet'
 import styled from 'styled-components'
 import { useContext } from 'react'
-import { useTranslation } from '@translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n'
 
 const ContainerBox = styled(Box)`
   position: relative;

@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-import NavLink from './components/NavLink/NavLink.jsx'
+import NavLink from './components/NavLink/NavLink'
 
 const AboutHeaderBreakpoint = '36rem'
 

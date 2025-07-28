@@ -1,4 +1,4 @@
-import Project from './Project.jsx'
+import Project from './Project'
 
 export default {
   title: 'About / Publications / Project',

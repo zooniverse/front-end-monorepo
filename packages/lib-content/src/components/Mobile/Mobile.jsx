@@ -1,5 +1,5 @@
 import { Anchor, Box, Button, Image, Text } from 'grommet'
-import { useTranslation } from '@translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n'
 
 export default function Mobile() {
   const { t } = useTranslation()

@@ -3,7 +3,7 @@ import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtim
 import Router from 'next/router'
 import { composeStory } from '@storybook/react'
 
-import Meta, { Default } from './Publications.stories.jsx'
+import Meta, { Default } from './Publications.stories'
 
 function RouterMock({ children }) {
   const mockRouter = {

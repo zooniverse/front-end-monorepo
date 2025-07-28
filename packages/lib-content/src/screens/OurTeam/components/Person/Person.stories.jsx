@@ -1,4 +1,4 @@
-import Person from './Person.jsx'
+import Person from './Person'
 
 export default {
   title: 'About / Our Team / Person',

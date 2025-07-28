@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import Meta, { Default } from './DropdownNav.stories.jsx'
+import Meta, { Default } from './DropdownNav.stories'
 
 describe('Component > DropdownNav', function() {
   const DefaultStory = composeStory(Default, Meta)

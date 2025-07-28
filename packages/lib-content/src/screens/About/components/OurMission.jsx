@@ -15,8 +15,8 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { YouTubeEmbed } from '@next/third-parties/google'
 
-import { Trans, useTranslation } from '@translations/i18n.jsx'
-import Stats from '@components/Stats/Stats.jsx'
+import { Trans, useTranslation } from '@translations/i18n'
+import Stats from '@components/Stats/Stats'
 
 const VideoWrapper = styled(Box)`
   border-radius: 8px; // same as Stat component

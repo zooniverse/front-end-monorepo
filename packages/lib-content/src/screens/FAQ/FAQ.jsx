@@ -3,13 +3,13 @@
 import { Anchor, Box, Paragraph, Text } from 'grommet'
 import styled from 'styled-components'
 
-import { Trans, useTranslation } from '@translations/i18n.jsx'
-import AboutLayout from '@components/PageLayout/AboutLayout.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
+import { Trans, useTranslation } from '@translations/i18n'
+import AboutLayout from '@components/PageLayout/AboutLayout'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
   StyledHeading
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
 
 const StyledList = styled.ul`
   margin-block-start: 0;

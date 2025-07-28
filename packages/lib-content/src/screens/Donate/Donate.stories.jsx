@@ -1,4 +1,4 @@
-import Donate from './Donate.jsx'
+import Donate from './Donate'
 
 export default {
   title: 'Get Involved / Donate',

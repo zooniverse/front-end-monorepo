@@ -1,4 +1,4 @@
-import OurTeam from './OurTeam.jsx'
+import OurTeam from './OurTeam'
 import mockData from './teamData.mock.json'
 
 const mockSections = mockData.map(team => ({

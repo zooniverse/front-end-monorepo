@@ -2,7 +2,7 @@
 
 import styled, { css } from 'styled-components'
 import { Box, Grid, Heading } from 'grommet'
-import Sidebar from '../Sidebar/Sidebar.jsx'
+import Sidebar from '../Sidebar/Sidebar'
 
 export const mobileBreakpoint = '72rem'
 

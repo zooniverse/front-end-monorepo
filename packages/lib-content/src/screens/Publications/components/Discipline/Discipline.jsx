@@ -1,8 +1,8 @@
 import { Box } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 
-import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav.jsx'
-import Project from '../Project/Project.jsx'
+import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav'
+import Project from '../Project/Project'
 
 function Discipline({
   projects = [],

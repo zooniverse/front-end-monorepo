@@ -1,5 +1,5 @@
-import Stats from './Stats.jsx'
-import MaxWidthContent from '../MaxWidthContent/MaxWidthContent.jsx'
+import Stats from './Stats'
+import MaxWidthContent from '../MaxWidthContent/MaxWidthContent'
 
 export default {
   title: 'Shared / Stats',

@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { AuthModal, SpacedHeading } from '@zooniverse/react-components'
 import { YouTubeEmbed } from '@next/third-parties/google'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import Stats from '@components/Stats/Stats.jsx'
-import SubHeading from '@components/HeadingForAboutNav/SubHeading.jsx'
+import { useTranslation } from '@translations/i18n'
+import Stats from '@components/Stats/Stats'
+import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 
 const StyledSignIn = styled(Button)`
   width: 47%;

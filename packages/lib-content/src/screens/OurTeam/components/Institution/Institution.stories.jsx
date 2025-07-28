@@ -1,4 +1,4 @@
-import Institute from './Institution.jsx'
+import Institute from './Institution'
 
 export default {
   title: 'About / Our Team / Institution',

@@ -1,4 +1,4 @@
-import Volunteer from './Volunteer.jsx'
+import Volunteer from './Volunteer'
 
 export default {
   title: 'Get Involved / Volunteer',

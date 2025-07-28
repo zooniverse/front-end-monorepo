@@ -7,8 +7,8 @@ import useSWR from 'swr'
 import { projects } from '@zooniverse/panoptes-js'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo.jsx'
+import { useTranslation } from '@translations/i18n'
+import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo'
 
 const SWROptions = {
   revalidateIfStale: true,

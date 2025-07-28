@@ -1,4 +1,4 @@
-import Publication from './Publication.jsx'
+import Publication from './Publication'
 
 export default {
   title: 'About / Publications / Publication',

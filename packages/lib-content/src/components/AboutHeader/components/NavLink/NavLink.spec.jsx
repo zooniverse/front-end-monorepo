@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
 
-import NavLink from './NavLink.jsx'
+import NavLink from './NavLink'
 
 const HREF = '/baz'
 const LABEL = 'Foobar'

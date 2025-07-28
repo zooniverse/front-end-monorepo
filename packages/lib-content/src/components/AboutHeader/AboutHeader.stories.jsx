@@ -1,4 +1,4 @@
-import AboutHeader from './AboutHeader.jsx'
+import AboutHeader from './AboutHeader'
 
 export default {
   title: 'Shared / AboutHeader',

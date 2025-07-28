@@ -1,4 +1,4 @@
-import HorizontalRuleLogo from './HorizontalRuleLogo.jsx'
+import HorizontalRuleLogo from './HorizontalRuleLogo'
 
 export default {
   title: 'Shared / HorizontalRuleLogo',

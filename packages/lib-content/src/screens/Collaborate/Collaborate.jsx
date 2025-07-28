@@ -3,14 +3,14 @@
 import { Anchor, Box, Paragraph } from 'grommet'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 
-import { Trans, useTranslation } from '@translations/i18n.jsx'
-import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
+import { Trans, useTranslation } from '@translations/i18n'
+import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
   StyledHeading
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
-import { Supporters, SelectedCollaborators } from './Logos.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
+import { Supporters, SelectedCollaborators } from './Logos'
 
 function Collaborate() {
   const { t } = useTranslation()

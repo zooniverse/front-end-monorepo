@@ -4,18 +4,18 @@ import { useState } from 'react'
 import { Box } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import DropdownNav from '@components/DropdownNav/DropdownNav.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
-import AboutLayout from '@components/PageLayout/AboutLayout.jsx'
+import { useTranslation } from '@translations/i18n'
+import DropdownNav from '@components/DropdownNav/DropdownNav'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
+import AboutLayout from '@components/PageLayout/AboutLayout'
 import {
   MobileHeading,
   StickyBox,
   StickySidebar,
   StyledGrid,
   StyledHeading
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
-import Institution from './components/Institution/Institution.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
+import Institution from './components/Institution/Institution'
 
 function OurTeam({ teamData = [], sections = [] }) {
   const { t } = useTranslation()

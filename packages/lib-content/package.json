@@ -5,24 +5,21 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "type": "module",
-  "main": "dist/cjs/index.js",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/esm/index.js"
     },
     "./*": {
-      "import": "./dist/esm/*/index.js",
-      "require": "./dist/cjs/*/index.js"
+      "import": "./dist/esm/*/index.js"
     }
   },
   "sideEffects": false,
   "repository": "https://github.com/zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
+    "build": "yarn build:es6",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
     "prepare": "yarn build",
     "test": "vitest run",

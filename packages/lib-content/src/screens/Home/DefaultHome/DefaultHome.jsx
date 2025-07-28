@@ -4,17 +4,17 @@ import { Box } from 'grommet'
 import { SpacedHeading } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import ContainerBox from '@components/PageLayout/ContainerBox.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
-import SubHeading from '@components/HeadingForAboutNav/SubHeading.jsx'
+import { useTranslation } from '@translations/i18n'
+import ContainerBox from '@components/PageLayout/ContainerBox'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
+import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 
-import CommunityContainer from '../Community/CommunityContainer.jsx'
-import Introduction from './components/Introduction.jsx'
-import Hero from './components/Hero.jsx'
-import FeaturedProjects from './components/FeaturedProjects.jsx'
-import Mobile from '@components/Mobile/Mobile.jsx'
-import Researchers from './components/Researchers.jsx'
+import CommunityContainer from '../Community/CommunityContainer'
+import Introduction from './components/Introduction'
+import Hero from './components/Hero'
+import FeaturedProjects from './components/FeaturedProjects'
+import Mobile from '@components/Mobile/Mobile'
+import Researchers from './components/Researchers'
 
 const StyledBox = styled(Box)`
   padding: 0 0 50px 0;

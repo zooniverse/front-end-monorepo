@@ -1,9 +1,9 @@
 import { Box, ThemeContext } from 'grommet'
-import { useTranslation } from '@translations/i18n.jsx'
+import { useTranslation } from '@translations/i18n'
 import { css } from 'styled-components'
 
-import ContainerBox from './ContainerBox.jsx'
-import AboutHeader from '../AboutHeader/AboutHeader.jsx'
+import ContainerBox from './ContainerBox'
+import AboutHeader from '../AboutHeader/AboutHeader'
 
 const customTheme = {
   paragraph: {

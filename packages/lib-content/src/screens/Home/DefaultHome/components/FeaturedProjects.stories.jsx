@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import FeaturedProjects from './FeaturedProjects.jsx'
+import FeaturedProjects from './FeaturedProjects'
 
 export default {
   title: 'Home  / FeaturedProjects',

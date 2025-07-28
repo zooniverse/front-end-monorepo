@@ -1,4 +1,4 @@
-import Educate from './Educate.jsx'
+import Educate from './Educate'
 
 export default {
   title: 'Get Involved / Educate',

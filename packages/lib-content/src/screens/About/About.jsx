@@ -5,26 +5,26 @@ import Script from 'next/script'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import AboutLayout from '@components/PageLayout/AboutLayout.jsx'
-import DropdownNav from '@components/DropdownNav/DropdownNav.jsx'
-import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
+import { useTranslation } from '@translations/i18n'
+import AboutLayout from '@components/PageLayout/AboutLayout'
+import DropdownNav from '@components/DropdownNav/DropdownNav'
+import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   mobileBreakpoint,
   MobileHeading,
   StickyBox,
   StickySidebar,
   StyledGrid
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
-import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo.jsx'
-import Mobile from '@components/Mobile/Mobile.jsx'
-import SubHeading from '@components/HeadingForAboutNav/SubHeading.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
+import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo'
+import Mobile from '@components/Mobile/Mobile'
+import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 
-import Contact from './components/Contact.jsx'
-import Highlights from './components/Highlights.jsx'
-import HowItWorks from './components/HowItWorks.jsx'
-import OurMission from './components/OurMission.jsx'
+import Contact from './components/Contact'
+import Highlights from './components/Highlights'
+import HowItWorks from './components/HowItWorks'
+import OurMission from './components/OurMission'
 
 const StyledAboutHeading = styled(Heading)`
   position: relative;

@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import mockDailyZooPosts from './dailyZooPosts.mock.json'
 import mockZooBlogPosts from './zooBlogPosts.mock.json'
-import CommunityContainer from './CommunityContainer.jsx'
+import CommunityContainer from './CommunityContainer'
 
 export default {
   title: 'Home / Community',

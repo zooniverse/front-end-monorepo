@@ -13,14 +13,14 @@ import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import { BarChart, Certificate, Workshop } from 'grommet-icons'
 import { useContext } from 'react'
 
-import { Trans, useTranslation } from '@translations/i18n.jsx'
-import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
+import { Trans, useTranslation } from '@translations/i18n'
+import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
   StyledHeading
-} from '@components/SharedStyledComponents/SharedStyledComponents.jsx'
-import Article from '@components/Article/Article.jsx'
+} from '@components/SharedStyledComponents/SharedStyledComponents'
+import Article from '@components/Article/Article'
 
 const StyledAnchor = styled(Anchor)`
   border-radius: 8px;

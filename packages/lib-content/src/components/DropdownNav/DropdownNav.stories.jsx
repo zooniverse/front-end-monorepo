@@ -1,4 +1,4 @@
-import DropdownNav from './DropdownNav.jsx'
+import DropdownNav from './DropdownNav'
 import mockPublicationsData from '../../../test/mocks/Publications.mock.json'
 
 const mockSections = mockPublicationsData.map(category => ({

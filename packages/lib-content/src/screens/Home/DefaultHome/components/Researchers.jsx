@@ -3,9 +3,9 @@ import { YouTubeEmbed } from '@next/third-parties/google'
 import styled, { css } from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import { useTranslation } from '@translations/i18n.jsx'
-import SubHeading from '@components/HeadingForAboutNav/SubHeading.jsx'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent.jsx'
+import { useTranslation } from '@translations/i18n'
+import SubHeading from '@components/HeadingForAboutNav/SubHeading'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
 const StyledLink = styled(Anchor)`
   display: flex;
@@ -66,7 +66,7 @@ const VideoWrapper = styled(Box)`
 const YOUTUBE_SOURCES = [
   ['CaTNIoJy4Dg', 'Around the Zoo – Planet Hunters TESS'],
   ['8lZiZoBcMjE', 'Around the Zoo – Wildcam Gorongosa'],
-  ['B6diEbpEblQ', 'Around the Zoo – Backyard Worlds'],
+  ['B6diEbpEblQ', 'Around the Zoo – Backyard Worlds']
 ]
 
 export default function Researchers() {
