@@ -19,9 +19,14 @@ const MIN_POPUP_HEIGHT = 200
 */
 function SubTaskPopup({
   /** The active drawing mark */
-  activeMark,
+  activeMark = {
+    subTaskMarkBounds: undefined,
+    subTaskPreviousAnnotationValues: undefined,
+    subTaskVisibility: false,
+    setSubTaskVisibility: () => { }
+  },
   /** A callback that is called if the active mark is deleted. */
-  onDelete
+  onDelete = () => true
 }) {
   const {
     subTaskMarkBounds,
@@ -189,16 +194,6 @@ SubTaskPopup.propTypes = {
     setSubTaskVisibility: PropTypes.func
   }),
   onDelete: PropTypes.func
-}
-
-SubTaskPopup.defaultProps = {
-  activeMark: {
-    subTaskMarkBounds: undefined,
-    subTaskPreviousAnnotationValues: undefined,
-    subTaskVisibility: false,
-    setSubTaskVisibility: () => { }
-  },
-  onDelete: () => true
 }
 
 export default SubTaskPopup

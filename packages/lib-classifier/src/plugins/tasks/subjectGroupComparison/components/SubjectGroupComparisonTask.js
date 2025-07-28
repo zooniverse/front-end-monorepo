@@ -23,10 +23,14 @@ const StyledText = styled(Text)`
 function SubjectGroupComparisonTask (props) {
   const {
     annotation,
-    className,
-    disabled,
+    className = '',
+    disabled = false,
     task,
-    theme
+    theme = {
+      global: {
+        colors: {}
+      }
+    }
   } = props
   const { value } = annotation
   function onChange (index, event) {
@@ -46,16 +50,6 @@ function SubjectGroupComparisonTask (props) {
       </StyledText>
     </StyledBox>
   )
-}
-
-SubjectGroupComparisonTask.defaultProps = {
-  className: '',
-  disabled: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 SubjectGroupComparisonTask.propTypes = {
