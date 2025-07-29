@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Button, Heading, Paragraph } from 'grommet'
+import { Box, Button, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
@@ -48,7 +48,6 @@ function SlideTutorial({
   const { t } = useTranslation('components')
   const { medium, step } = stepWithMedium(stepIndex)
   const isThereMedia = medium?.src
-  const isFirstStep = stepIndex === 0
   const isLastStep = stepIndex === steps.length - 1
 
   if (!step) {

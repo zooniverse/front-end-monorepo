@@ -16,6 +16,7 @@ const FixedBox = styled(Box)`
   right: 2.5em;
   max-width: 80vw;
   max-height: 80vh;
+  z-index: 10;
 `
 
 const ButtonContainer = styled(Box)`

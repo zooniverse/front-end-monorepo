@@ -1,15 +1,20 @@
-import { Media } from '@zooniverse/react-components'
+import { FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { Favorite, Bookmark, ShareOption, SubtractCircle } from 'grommet-icons'
+import { Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 // Dynamically import FlipbookControls with SSR disabled
 const FlipbookControls = dynamic(() => import('@zooniverse/classifier').then(mod => mod.FlipbookControls), {
   ssr: false
 })
+
+const StyledMedia = styled(Media)`
+  filter: ${props => props.$invert ? 'invert(1)' : 'none'};
+`
 
 function processSubjectLocations(rawLocations) {
   return rawLocations.map(location => {
@@ -19,23 +24,33 @@ function processSubjectLocations(rawLocations) {
       type: type,
       mimeType: mimeType,
       url: url
-    };
-  });
+    }
+  })
 }
 
-function SubjectTalkViewer({ subject }) {
+function SubjectTalkViewer({
+    login,
+    projectId,
+    projectSlug,
+    subject
+  }) {
   const [frame, setFrame] = useState(0)
   const [flipbookSpeed, setFlipbookSpeed] = useState(1)
+  const [invert, setInvert] = useState(false)
   const [playing, setPlaying] = useState(false)
 
   const { t } = useTranslation('screens')
   
-  const subjectID = subject.id
-  const subjectURLs = subject.locations.map(location => Object.values(location)[0])
+  const subjectId = subject?.id
+  const subjectURLs = subject?.locations?.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[frame]
   const locations = processSubjectLocations(subject.locations)
 
-  const onPlayPause = () => {
+  function onInvert() {
+    setInvert(!invert)
+  }
+
+  function onPlayPause() {
     setPlaying(!playing)
   }
 
@@ -50,42 +65,56 @@ function SubjectTalkViewer({ subject }) {
         gridArea: 'viewer'
       }}
     >
-      <Media
-        alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectID })}
+      <StyledMedia
+        alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
         fit='contain'
         flex='shrink'
+        $invert={invert}
         subject={subject}
         src={subjectURL}
       />
-      {locations?.length > 1 ? (
-        <FlipbookControls
-          currentFrame={frame}
-          flipbookSpeed={flipbookSpeed}
-          locations={locations}
-          onFrameChange={setFrame}
-          onPlayPause={onPlayPause}
-          playing={playing}
-          playIterations={1}
-          setFlipbookSpeed={setFlipbookSpeed}
-        />
-      ) : null}
-      {/* <MetaTools /> */}
-      <Box
-        direction='row'
-        gap='small'
-        justify='center'
-        margin='small'
-      >
-        <Favorite />
-        <Bookmark />
-        <ShareOption />
-        <SubtractCircle />
+      <Box>
+        {locations?.length > 1 ? (
+          <FlipbookControls
+            currentFrame={frame}
+            flipbookSpeed={flipbookSpeed}
+            locations={locations}
+            onFrameChange={setFrame}
+            onPlayPause={onPlayPause}
+            playing={playing}
+            playIterations={1}
+            setFlipbookSpeed={setFlipbookSpeed}
+          />
+        ) : null}
+        {/* <MetaTools /> */}
+        <Box
+          direction='row'
+          gap='small'
+          justify='center'
+          margin='small'
+        >
+          <FavoritesIconButton
+            login={login}
+            projectId={projectId}
+            projectSlug={projectSlug}
+            subjectId={subjectId}
+          />
+          <Bookmark />
+          <ShareOption />
+          <InvertIconButton
+            checked={invert}
+            onClick={onInvert}
+          />
+        </Box>
       </Box>
     </Box>
   )
 }
 
 SubjectTalkViewer.propTypes = {
+  login: string,
+  projectId: string,
+  projectSlug: string,
   subject: shape({
     id: string
   })
