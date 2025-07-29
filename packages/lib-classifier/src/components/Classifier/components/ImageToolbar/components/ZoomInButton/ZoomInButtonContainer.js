@@ -23,6 +23,7 @@ function ZoomInButtonContainer({ separateFrameZoomIn }) {
   const zoomCallback = separateFrameZoomIn || zoomIn
 
   function onClick() {
+    // Stop the zoom callback
     clearInterval(timer)
     zoomCallback()
   }
@@ -30,6 +31,7 @@ function ZoomInButtonContainer({ separateFrameZoomIn }) {
   function onPointerDown(event) {
     const { currentTarget, pointerId } = event
     clearInterval(timer)
+    // Start the zoom callback running every 100ms
     const newTimer = setInterval(zoomCallback, 100)
     setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
@@ -38,6 +40,9 @@ function ZoomInButtonContainer({ separateFrameZoomIn }) {
   function onPointerUp(event) {
     const { currentTarget, pointerId } = event
     currentTarget.releasePointerCapture(pointerId)
+    // Stop the zoom callback
+    clearInterval(timer)
+    setTimer('')
   }
 
   return (

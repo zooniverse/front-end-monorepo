@@ -74,11 +74,11 @@ function Resources() {
               weight='bold'
               color={{ light: 'black', dark: 'white' }}
             >
-              {t('Resources.cite.subheadings.one')}
+              {t('Resources.cite.subheadings.first')}
             </Text>
             <Paragraph margin={{ top: 'small', bottom: '0' }}>
               <Trans
-                i18nKey='Resources.cite.paragraphs.one'
+                i18nKey='Resources.cite.paragraphs.first'
                 t={t}
                 components={[
                   <Anchor
@@ -101,6 +101,7 @@ function Resources() {
                 margin={{ vertical: '0', left: 'medium' }}
                 weight='bold'
                 size='1rem'
+                color={{ light: 'black', dark: 'white' }}
               >
                 <Trans
                   i18nKey='Resources.cite.quote'
@@ -116,7 +117,7 @@ function Resources() {
             </Box>
             <Paragraph margin='0'>
               <Trans
-                i18nKey='Resources.cite.paragraphs.two'
+                i18nKey='Resources.cite.paragraphs.second'
                 t={t}
                 components={[
                   <Anchor
@@ -132,7 +133,7 @@ function Resources() {
             </Paragraph>
             <Paragraph margin={{ top: 'small', bottom: 'medium' }}>
               <Trans
-                i18nKey='Resources.cite.paragraphs.three'
+                i18nKey='Resources.cite.paragraphs.third'
                 t={t}
                 components={[
                   <Anchor
@@ -149,17 +150,17 @@ function Resources() {
               weight='bold'
               color={{ light: 'black', dark: 'white' }}
             >
-              {t('Resources.cite.subheadings.two')}
+              {t('Resources.cite.subheadings.second')}
             </Text>
             <Paragraph margin={{ top: 'small', bottom: '0' }}>
-              {t('Resources.cite.paragraphs.four')}
+              {t('Resources.cite.paragraphs.fourth')}
             </Paragraph>
             <Paragraph margin={{ vertical: 'small' }}>
-              {t('Resources.cite.paragraphs.five')}
+              {t('Resources.cite.paragraphs.fifth')}
             </Paragraph>
             <Paragraph margin={{ top: '0', bottom: 'medium' }}>
               <Trans
-                i18nKey='Resources.cite.paragraphs.six'
+                i18nKey='Resources.cite.paragraphs.sixth'
                 t={t}
                 components={[
                   <Anchor
@@ -197,7 +198,7 @@ function Resources() {
                 <Anchor
                   href='https://github.com/zooniverse/Brand/tree/master/style%20guide/logos'
                   label={
-                    <Text size='1rem'>{t('Resources.brand.links.one')}</Text>
+                    <Text size='1rem'>{t('Resources.brand.links.first')}</Text>
                   }
                 />
               </Box>
@@ -218,7 +219,7 @@ function Resources() {
                 <Anchor
                   href='https://github.com/zooniverse/Brand/tree/master/style%20guide/downloads'
                   label={
-                    <Text size='1rem'>{t('Resources.brand.links.two')}</Text>
+                    <Text size='1rem'>{t('Resources.brand.links.second')}</Text>
                   }
                 />
               </Box>
@@ -239,7 +240,7 @@ function Resources() {
                 <Anchor
                   href='https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System'
                   label={
-                    <Text size='1rem'>{t('Resources.brand.links.three')}</Text>
+                    <Text size='1rem'>{t('Resources.brand.links.third')}</Text>
                   }
                 />
               </Box>
@@ -254,7 +255,7 @@ function Resources() {
                 <Anchor
                   href='https://zooniverse.github.io/front-end-monorepo/'
                   label={
-                    <Text size='1rem'>{t('Resources.brand.links.four')}</Text>
+                    <Text size='1rem'>{t('Resources.brand.links.fourth')}</Text>
                   }
                 />
               </Box>

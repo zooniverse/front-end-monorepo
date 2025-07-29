@@ -153,6 +153,7 @@ const Mark = forwardRef(function Mark(
   return (
     <StyledGroup
       {...mainStyle}
+      id={`mark-${mark.id}`}
       data-testid="mark-mark"
       aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}

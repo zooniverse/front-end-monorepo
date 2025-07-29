@@ -1,12 +1,25 @@
 import { Box } from 'grommet'
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useEffect } from 'react'
+import { bool, func, shape, string } from 'prop-types'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { useTranslation } from '@translations/i18n'
 
 import ZoomControlButton from '../ZoomControlButton'
-
+import ZoomHelperOverlay from './components/ZoomHelperOverlay'
 import VisXZoom from '../SVGComponents/VisXZoom'
-
 import SingleImageCanvas from './SingleImageCanvas'
+
+// For positioning ZoomHelperOverlay on top of StyledSVG (the subject)
+const Relative = styled(Box)`
+  position: relative;
+`
+
+const StyledSVG = styled.svg`
+  background-color: ${props => props.theme.global.colors['light-4']};
+  touch-action: pinch-zoom;
+  max-width: ${props => props.$maxWidth};
+  max-height: ${props => props.$maxHeight};
+`
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_ZOOM_CONFIG = {
@@ -19,11 +32,13 @@ const DEFAULT_ZOOM_CONFIG = {
 }
 
 function SingleImageViewer({
+  allowsScrolling = true,
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
   imgRef,
   invert = false,
+  limitSubjectHeight = false,
   move = false,
   naturalHeight,
   naturalWidth,
@@ -38,96 +53,112 @@ function SingleImageViewer({
   zoomControlFn = null,
   zooming = true
 }) {
+  const { t } = useTranslation('components')
+  const [showZoomHelper, setShowZoomHelper] = useState(false)
+  const [fadingOut, setFadingOut] = useState(false)
+
   useEffect(function onMount() {
     enableRotation()
   }, [])
 
-  const singleImageCanvasProps = {
-    enableInteractionLayer,
-    frame,
-    imgRef,
-    invert,
-    move,
-    naturalHeight,
-    naturalWidth,
-    onKeyDown,
-    rotation,
-    src,
-    subject
+  // Handle the first scroll event
+  function handleFirstScroll() {
+    if (allowsScrolling && zooming) {
+      setShowZoomHelper(true)
+
+      // Set fading out after 3 seconds
+      setTimeout(() => {
+        setFadingOut(true)
+      }, 3000)
+
+      // Hide completely after animation completes (300ms animation)
+      setTimeout(() => {
+        setShowZoomHelper(false)
+        setFadingOut(false)
+      }, 3300)
+    }
   }
+
+  // For CenteredLayout dimensions
+  const maxHeight = limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+  const maxWidth = limitSubjectHeight ? `${naturalWidth}px` : '100%'
 
   return (
     <>
       {zoomControlFn && (
-        <ZoomControlButton
-          onClick={zoomControlFn}
-          zooming={zooming}
-        />
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
-      <Box
+      <Relative
         align='flex-end'
         animation='fadeIn'
-        background='light-4'
         overflow='hidden'
         width='100%'
       >
-        {title?.id && title?.text && (
-          <title id={title.id}>{title.text}</title>
+        {showZoomHelper && (
+          <ZoomHelperOverlay fadingOut={fadingOut} />
         )}
-        <svg
-          style={{ touchAction: 'none' }}
+        <StyledSVG
+          aria-labelledby={title?.id}
+          aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
+          $maxHeight={maxHeight}
+          $maxWidth={maxWidth}
           viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
         >
+          {allowsScrolling && (
+            <desc id='scrolling-info'>{t('SubjectViewer.zoomHelp')}</desc>
+          )}
+          {title?.id && title?.text && (
+            <title id={title.id}>{title.text}</title>
+          )}
           <VisXZoom
+            allowsScrolling={allowsScrolling}
             height={naturalHeight}
+            move={move}
+            onFirstScroll={handleFirstScroll}
+            onKeyDown={onKeyDown}
             panning={panning}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
             width={naturalWidth}
             zoomConfiguration={DEFAULT_ZOOM_CONFIG}
-            zoomingComponent={SingleImageCanvas}
             zooming={zooming}
-            {...singleImageCanvasProps}
-          />
-        </svg>
-      </Box>
+          >
+            {(zoomProps) => (
+              <SingleImageCanvas
+                {...zoomProps}
+                enableInteractionLayer={enableInteractionLayer}
+                frame={frame}
+                imgRef={imgRef}
+                invert={invert}
+                move={move}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                rotation={rotation}
+                src={src}
+                subject={subject}
+              />
+            )}
+          </VisXZoom>
+        </StyledSVG>
+      </Relative>
     </>
   )
 }
 
 SingleImageViewer.propTypes = {
-  enableInteractionLayer: bool,
+  allowsScrolling: bool,
   enableRotation: func,
-  frame: number,
-  imgRef: shape({
-    current: shape({
-      naturalHeight: number,
-      naturalWidth: number,
-      src: string
-    })
-  }),
-  invert: bool,
   limitSubjectHeight: bool,
-  move: bool,
-  naturalHeight: number,
-  naturalWidth: number,
-  onKeyDown: func,
   panning: bool,
-  rotation: number,
   setOnPan: func,
   setOnZoom: func,
-  src: string,
-  subject: shape({
-    locations: arrayOf(shape({
-      url: string
-    }))
-  }),
   title: shape({
     id: string,
     text: string
   }),
   zoomControlFn: func,
-  zooming: bool
+  zooming: bool,
+  ...SingleImageCanvas.propTypes
 }
 
 export default SingleImageViewer

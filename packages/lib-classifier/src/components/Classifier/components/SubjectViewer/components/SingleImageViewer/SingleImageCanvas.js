@@ -1,4 +1,4 @@
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useRef } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -7,10 +7,8 @@ import InteractionLayer from '../InteractionLayer'
 
 import SVGImage from '../SVGComponents/SVGImage'
 
-const DEFAULT_HANDLER = () => true
 
 function SingleImageCanvas({
-  children,
   enableInteractionLayer = false,
   frame = 0,
   imgRef,
@@ -18,12 +16,11 @@ function SingleImageCanvas({
   move = false,
   naturalHeight,
   naturalWidth,
-  onKeyDown = DEFAULT_HANDLER,
   rotation = 0,
   src,
   subject,
   transform, // per VisXZoom
-  transformMatrix // per VisXZoom
+  transformMatrix,
 }) {
   const canvasLayer = useRef()
 
@@ -33,31 +30,28 @@ function SingleImageCanvas({
       <SVGContext.Provider
         value={{
           canvas: canvasLayer.current,
-          rotate: rotation
+          rotate: rotation,
+          transformMatrix
         }}
       >
-        <svg
-          ref={canvasLayer}
-          onKeyDown={onKeyDown}
-        >
+        <svg>
           <g
             data-testid='single-image-canvas-visxzoom-transform-group'
             transform={transform}
           >
             <g
+              ref={canvasLayer}
               data-testid='single-image-canvas-rotation-transform-group'
               transform={rotationTransform}
             >
               <SVGImage
                 ref={imgRef}
                 invert={invert}
-                move={false} // dragging is handled by VisXZoom in SingleImageViewer
                 naturalHeight={naturalHeight}
                 naturalWidth={naturalWidth}
                 src={src}
                 subjectID={subject?.id}
               />
-              {children}
               {enableInteractionLayer && (
                 <InteractionLayer
                   frame={frame}
@@ -87,7 +81,6 @@ SingleImageCanvas.propTypes = {
   move: bool,
   naturalHeight: number,
   naturalWidth: number,
-  onKeyDown: func,
   rotation: number,
   src: string,
   subject: shape({

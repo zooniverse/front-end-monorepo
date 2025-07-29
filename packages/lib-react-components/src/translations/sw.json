@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Hali ya Msimamizi"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Jina la mtumiaji au barua pepe si sahihi",
+      "forgot": "Umesahau nenosiri lako?",
+      "heading": "Karibu tena!",
+      "instruction": "Tumefurahi umerejea! Ingia katika akaunti ili uendelee kutoka mahali ulipoachia.",
+      "login": "Jina la mtumiaji au barua pepe",
+      "password": "Nenosiri",
+      "placeholder": "k.m. ZooniverseFan123",
+      "signIn": "Ingia katika akaunti"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Ningependa kusaidia kujaribu miradi mipya na kutumiwa barua pepe inapopatikana (si lazima)",
+      "email": "Anwani ya Barua Pepe (Inatakikana)",
+      "emailConfirm": "Thibitisha Anwani ya Barua Pepe (Inatakikana)",
+      "emailConfirmError": "Anwani za barua pepe zinatofautiana, tafadhali jaribu tena.",
+      "emailConflict": "Tayari kuna akaunti inayotumia anwani hii",
+      "emailListSignUp": "Ninakubali kutumiwa barua pepe mara moja moja (si lazima)",
+      "emailPlaceholder": "k.m. zoofan31@gmail.com",
+      "forgot": "Umesahau nenosiri lako?",
+      "heading": "Karibu tena!",
+      "instruction": "Tafadhali fungua akaunti ili uanze kufanya utafiti wa kweli.",
+      "password": "Nenosiri (Linatakikana)",
+      "passwordConfirm": "Thibitisha Nenosiri (Inatakikana)",
+      "passwordConfirmError": "Manenosiri yanatofautiana, tafadhali jaribu tena.",
+      "privacyAgreement": "Unakubali sera yetu ya faragha (inatakikana)",
+      "privacyAgreementError": "Unatakikana kukubali sera ya faragha.",
+      "privacyLink": "Soma sera yetu ya faragha",
+      "realName": "Jina la Kweli (Si lazima)",
+      "realNameHelp": "Tutalitumia kukutaja katika hati za kisayansi, mabango, nk.",
+      "realNamePatternHelp": "Weka jina, bali si anwani ya barua pepe",
+      "realNamePlaceholder": "k.m. Maggie Smith",
+      "register": "Jiandikishe",
+      "registering": "Inaandiksha...",
+      "underageConsent": "Ninathibitisha kuwa mimi ni mzazi\/mlezi na ninaruhusu mtoto wangu ajiandikishe kwa kutoa anwani yangu ya barua pepe kama anwani kuu ya mawasiliano. Mimi na mtoto wangu tunaelewa na tunakubali sera ya faragha (inatakikana)",
+      "underageEmail": "Anwani ya barua pepe ya Mzazi\/Mlezi (Inatakikana)",
+      "underageEmailSignUp": "Ukikubali, tutakutumia mara kwa mara barua pepe ya kutangaza miradi mipya inayohusiana na utafiti au maelezo mengine yanayohusiana na utafiti wetu. Hatutatumia maelezo yako ya mawasiliano kwa makusudi ya biashara. (si lazima)",
+      "underageNotRealName": "Utaona jina hili la kuingia. Litaonyeshwa wazi. Usitumie jina lako la kweli.",
+      "underageWithParent": "Ikiwa uko chini ya umri wa miaka 16, weka tiki kwenye kisanduku hiki ili kuthibitisha kuwa umejaza fomu na mzazi au mlezi wako",
+      "username": "Jina la mtumiaji (Linatakikana)",
+      "usernameConflict": "Jina hilo la mtumiaji linatumika",
+      "usernameHelp": "Hili litaonyeshwa wazi kwenye bodi za ujumbe, nk.",
+      "usernamePatternHelp": "Majina ya watumiaji yanapaswa tu kuwa na herufi, nambari, '.','-', na '_'",
+      "usernamePlaceholder": "k.m. ZooniverseFan123"
+    },
+    "title": "Ingia katika akaunti au fungua akaunti mpya."
+  },
+  "CloseButton": {
+    "close": "Funga"
+  },
+  "FavouritesButton": {
+    "add": "Weka kwenye vipendwa",
+    "remove": "Imewekwa kwenye vipenda"
+  },
+  "Loader": {
+    "loading": "Inapakia"
+  },
+  "ProjectCard": {
+    "classifications": "Uainishaji",
+    "finished": "Imekamilika",
+    "paused": "Imesimamishwa",
+    "state": "Hali"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Kuhusu",
+      "acknowledgements": "Uthibitishaji",
+      "contact": "Anwani ya mawasiliano",
+      "faq": "Maswali Yanayoulizwa Sana",
+      "publications": "Machapisho",
+      "resources": "Nyenzo",
+      "team": "Timu"
+    },
+    "buildLabels": {
+      "bestPractices": "Mbinu Bora",
+      "buildAProject": "Tengeneza Mradi",
+      "glossary": "Faharasa",
+      "policies": "Sera",
+      "tutorial": "Mafunzo"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Wito wa Kushiriki katika Miradi",
+      "collaborate": "Shirikiana",
+      "collections": "Mikusanyiko",
+      "donate": "Changa",
+      "educate": "Elimisha",
+      "education": "Elimu",
+      "getInvolved": "Husika",
+      "volunteer": "Jitolee"
+    },
+    "newsLabels": {
+      "blog": "Blogu",
+      "dailyZooniverse": "Zooniverse ya Kila Siku",
+      "news": "Habari"
+    },
+    "policyLabels": {
+      "jobs": "Kazi",
+      "privacyPolicy": "Sera ya Faragha",
+      "security": "Usalama",
+      "systemStatus": "Hali ya Mfumo"
+    },
+    "projectLabels": {
+      "arts": "Sanaa",
+      "biology": "Biolojia",
+      "climate": "Hali ya Anga",
+      "history": "Historia",
+      "language": "Lugha",
+      "literature": "Fasihi",
+      "medicine": "Matibabu",
+      "nature": "Ulimwengu",
+      "physics": "Fizikia",
+      "projects": "Miradi",
+      "social": "Sayansi ya Jamii",
+      "space": "Nafasi"
+    },
+    "tagLine": "Utafiti Unaoendeshwa na Watu",
+    "talkLabels": {
+      "announcements": "Matangazo",
+      "data": "Uchakataji wa Data",
+      "projectBuilding": "Kutengeneza Mradi",
+      "talk": "Talk",
+      "troubleshooting": "Utatuzi"
+    },
+    "zooniversePolicies": "Sera za Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Akaunti ya mtumiaji",
+      "navListLabels": {
+        "messages_one": "Ujumbe ({{count}})",
+        "messages_other": "Ujumbe ({{count}})",
+        "messages_zero": "Ujumbe",
+        "notifications_one": "Arifa ({{count}})",
+        "notifications_other": "Arifa ({{count}})",
+        "notifications_zero": "Arifa"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Jiandikishe",
+      "signIn": "Ingia katika Akaunti"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Badili iwe mandhari meusi",
+      "switchToLight": "Badili iwe mandhari meupe"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Mikusanyiko",
+        "favorites": "Vipendwa",
+        "profile": "Wasifu",
+        "settings": "Mipangilio",
+        "signOut": "Ondoka katika akaunti"
+      }
+    },
+    "ariaLabel": "Tovuti",
+    "mainHeaderNavListLabels": {
+      "about": "Kuhusu",
+      "build": "Tengeneza",
+      "getInvolved": "Husika",
+      "projects": "Miradi",
+      "talk": "Talk"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Nembo ya Zooniverse"
+  }
+}

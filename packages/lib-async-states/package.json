@@ -18,11 +18,11 @@
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
     "chai": "~4.5.0",
-    "mocha": "~10.8.2",
+    "mocha": "~11.4.0",
     "snazzy": "~9.0.0"
   },
   "engines": {
-    "node": ">=20.5"
+    "node": ">=20.5 <=20.18"
   },
   "publishConfig": {
     "access": "public"

@@ -1,24 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "Tryb administratora"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Nazwa użytkownika lub hasło są niepoprawne",
+      "forgot": "Nie pamiętasz hasła?",
+      "heading": "Witaj z powrotem!",
+      "instruction": "Cieszymy się, że wracasz! Zaloguj się, aby zacząć od momentu, w którym praca została przerwana.",
+      "login": "Nazwa użytkownika lub adres e-mail",
+      "password": "Hasło",
+      "placeholder": "np. FanZooniverse123",
+      "signIn": "Zaloguj"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Chcę pomagać w testowaniu nowych projektów i otrzymywać e-mail z informacją, gdy takie projekty będą dostępne (Opcjonalnie)",
+      "email": "Adres e-mail (Wymagane)",
+      "emailConfirm": "Potwierdź adres e-mail (Wymagane)",
+      "emailConfirmError": "Adresy e-mail są niezgodne. Spróbuj ponownie.",
+      "emailConflict": "Konto zarejestrowane na ten adres już istnieje",
+      "emailListSignUp": "Możecie wysyłać mi wiadomość e-mail od czasu do czasu (Opcjonalnie)",
+      "emailPlaceholder": "np. fanzoo31@gmail.com",
+      "forgot": "Nie pamiętasz hasła?",
+      "heading": "Witaj z powrotem!",
+      "instruction": "Utwórz konto, aby przystąpić do prowadzenia prawdziwych badań.",
+      "password": "Hasło (Wymagane)",
+      "passwordConfirm": "Potwierdź hasło (Wymagane)",
+      "passwordConfirmError": "Hasła są niezgodne. Spróbuj ponownie.",
+      "privacyAgreement": "Wyrażasz zgodę na warunki zawarte w naszej polityce prywatności (Wymagane)",
+      "privacyAgreementError": "Wyrażenie zgody na warunki polityki prywatności jest wymagane.",
+      "privacyLink": "Przeczytaj naszą politykę prywatności",
+      "realName": "Prawdziwe imię i nazwisko (Opcjonalnie)",
+      "realNameHelp": "Będziemy je zamieszczać w artykułach naukowych, na plakatach oraz w innych miejscach jako potwierdzenie Twojego udziału w ich powstaniu.",
+      "realNamePatternHelp": "Podaj nazwisko, nie adres e-mail",
+      "realNamePlaceholder": "np. Maria Nowak",
+      "register": "Zarejestruj",
+      "registering": "Rejestrowanie...",
+      "underageConsent": "Potwierdzam, że jestem rodzicem\/opiekunem i zgadzam się, aby moje dziecko dokonało rejestracji, podając mój własny adres e-mail jako główny adres kontaktowy. Zarówno ja, jak i moje dziecko, znamy i rozumiemy treść polityki prywatności. (Wymagane)",
+      "underageEmail": "Adres e-mail rodzica lub opiekuna. (Wymagane)",
+      "underageEmailSignUp": "Jeśli wyrazisz zgodę, okresowo będziemy wysyłali Ci promocyjny e-mail z informacjami o nowych projektach powiązanych z badaniami lub innymi informacjami na temat naszych badań. Nie będziemy wykorzystywali Twoich danych kontaktowych w celach komercyjnych. (Opcjonalnie)",
+      "underageNotRealName": "Tej nazwy będziesz używać do logowania. Będzie ona widoczna publicznie. Nie używaj swojego prawdziwego imienia i nazwiska.",
+      "underageWithParent": "Jeśli nie masz jeszcze ukończonych 16 lat, zaznacz to pole wyboru, aby potwierdzić, że uzupełnianie tego formularza było nadzorowane przez Twojego rodzica lub opiekuna",
+      "username": "Nazwa użytkownika (wymagana)",
+      "usernameConflict": "Ta nazwa użytkownika jest zajęta",
+      "usernameHelp": "Nazwa będzie widoczna publicznie, na przykład na tablicach z komunikatami.",
+      "usernamePatternHelp": "Nazwy użytkowników mogą się składać wyłącznie z liter, cyfr oraz znaków „.”, „-” i „_”",
+      "usernamePlaceholder": "np. FanZooniverse123"
+    },
+    "title": "Zaloguj się lub utwórz nowe konto."
+  },
+  "CloseButton": {
+    "close": "Zamknij"
+  },
+  "FavouritesButton": {
+    "add": "Dodaj do ulubionych",
+    "remove": "Dodano do ulubionych"
+  },
+  "Loader": {
+    "loading": "Wczytywanie"
+  },
+  "ProjectCard": {
+    "classifications": "Klasyfikacje",
+    "finished": "Zakończone",
+    "paused": "Wstrzymane",
+    "state": "Stan"
+  },
   "ZooFooter": {
+    "aboutLabels": {
+      "about": "O nas",
+      "acknowledgements": "Podziękowania",
+      "contact": "Kontakt",
+      "faq": "FAQ",
+      "publications": "Publikacje",
+      "resources": "Zasoby",
+      "team": "Zespół"
+    },
     "buildLabels": {
+      "bestPractices": "Dobre praktyki",
+      "buildAProject": "Utwórz projekt",
+      "glossary": "Słowniczek",
+      "policies": "Zasady",
       "tutorial": "Samouczek"
     },
+    "getInvolvedLabels": {
+      "callForProjects": "Zgłoszenia projektów",
+      "collaborate": "Współpraca",
+      "collections": "Zbiory",
+      "donate": "Darowizna",
+      "educate": "Edukacja",
+      "education": "Edukacja",
+      "getInvolved": "Dołącz",
+      "volunteer": "Wolontariat"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Dziennik Zooniverse",
+      "news": "Aktualności"
+    },
+    "policyLabels": {
+      "jobs": "Praca",
+      "privacyPolicy": "Polityka prywatności",
+      "security": "Bezpieczeństwo",
+      "systemStatus": "Stan systemu"
+    },
+    "projectLabels": {
+      "arts": "Sztuka",
+      "biology": "Biologia",
+      "climate": "Klimat",
+      "history": "Historia",
+      "language": "Język",
+      "literature": "Literatura",
+      "medicine": "Medycyna",
+      "nature": "Przyroda",
+      "physics": "Fizyka",
+      "projects": "Projekty",
+      "social": "Nauki społeczne",
+      "space": "Kosmos"
+    },
+    "tagLine": "Badania prowadzone przez ludzi",
     "talkLabels": {
-      "talk": "Dyskutowanie"
-    }
+      "announcements": "Ogłoszenia",
+      "data": "Przetwarzanie danych",
+      "projectBuilding": "Tworzenie projektu",
+      "talk": "Dyskutowanie",
+      "troubleshooting": "Rozwiązywanie problemów"
+    },
+    "zooniversePolicies": "Zasady Zooniverse"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "talk": "Dyskutowanie"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Konto użytkownika",
+      "navListLabels": {
+        "messages_one": "Wiadomości ({{count}})",
+        "messages_other": "Wiadomości ({{count}})",
+        "messages_zero": "Wiadomości",
+        "notifications_one": "Powiadomienia ({{count}})",
+        "notifications_other": "Powiadomienia ({{count}})",
+        "notifications_zero": "Powiadomienia"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Rejestracja",
+      "signIn": "Logowanie"
     },
     "ThemeModeToggle": {
-      "switchToDark": "Przełącz do ciemnego trybu",
-      "switchToLight": "Przełącz do jasnego trybu"
+      "switchToDark": "Przełącz na motyw ciemny",
+      "switchToLight": "Przełącz na motyw jasny"
     },
     "UserMenu": {
       "userNavListLabels": {
-        "collections": "Kolekcje"
+        "collections": "Kolekcje",
+        "favorites": "Ulubione",
+        "profile": "Profil",
+        "settings": "Ustawienia",
+        "signOut": "Wyloguj się"
       }
+    },
+    "ariaLabel": "Witryna",
+    "mainHeaderNavListLabels": {
+      "about": "O nas",
+      "build": "Utwórz",
+      "getInvolved": "Dołącz",
+      "projects": "Projekty",
+      "talk": "Dyskutowanie"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Logo Zooniverse"
   }
 }

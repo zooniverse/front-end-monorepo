@@ -51,14 +51,16 @@ describe('Component > ZoomingScatterPlot', function() {
     const output = render(
       <Grommet theme={zooTheme}>
         <Provider classifierStore={mockStore}>
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            xAxisLabelOffset={10}
-            yAxisLabelOffset={10}
-          />
+          <svg>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+            />
+          </svg>
         </Provider>
       </Grommet>
     )
@@ -69,14 +71,16 @@ describe('Component > ZoomingScatterPlot', function() {
     const output = render(
       <Grommet theme={zooTheme}>
         <Provider classifierStore={mockStore}>
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            xAxisLabelOffset={10}
-            yAxisLabelOffset={10}
-          />
+          <svg>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+            />
+          </svg>
         </Provider>
       </Grommet>
     )
@@ -90,14 +94,16 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </svg>
           </Provider>
           </Grommet>
         )
@@ -121,14 +127,16 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -150,6 +158,7 @@ describe('Component > ZoomingScatterPlot', function() {
         expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
         // Zoom out
         fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
@@ -163,14 +172,16 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -217,15 +228,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -249,15 +262,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -279,6 +294,7 @@ describe('Component > ZoomingScatterPlot', function() {
         expect(yAxisLabelPreZoomIn).to.equal(yAxisLabelPostZoomIn)
         // Zoom out
         fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
@@ -292,15 +308,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -347,15 +365,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -379,15 +399,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -409,6 +431,7 @@ describe('Component > ZoomingScatterPlot', function() {
         expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
         // Zoom out
         fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
         const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
         const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
         const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
@@ -422,15 +445,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -468,15 +493,17 @@ describe('Component > ZoomingScatterPlot', function() {
         render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                panning={false}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  panning={false}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -513,14 +540,16 @@ describe('Component > ZoomingScatterPlot', function() {
           render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                  />
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -569,15 +598,17 @@ describe('Component > ZoomingScatterPlot', function() {
           render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                  zoomConfiguration={zoomConfiguration}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                    zoomConfiguration={zoomConfiguration}
+                  />
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -625,15 +656,17 @@ describe('Component > ZoomingScatterPlot', function() {
           render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                  zoomConfiguration={zoomConfiguration}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                    zoomConfiguration={zoomConfiguration}
+                  />
+                </svg>
             </Provider>
             </Grommet>
           )
@@ -688,15 +721,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -739,15 +774,17 @@ describe('Component > ZoomingScatterPlot', function() {
         const { container, getByTestId } = render(
           <Grommet theme={zooTheme}>
             <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfig}
-              />
+              <svg>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfig}
+                />
+              </svg>
             </Provider>
           </Grommet>
         )
@@ -792,14 +829,16 @@ describe('Component > ZoomingScatterPlot', function() {
           const { container, getByTestId } = render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                  />
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -839,14 +878,16 @@ describe('Component > ZoomingScatterPlot', function() {
           const { container, getByTestId } = render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                  />
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -888,14 +929,16 @@ describe('Component > ZoomingScatterPlot', function() {
           const { container, getByTestId } = render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                  />
+                </svg>
               </Provider>
             </Grommet>
           )
@@ -935,14 +978,16 @@ describe('Component > ZoomingScatterPlot', function() {
           const { container, getByTestId } = render(
             <Grommet theme={zooTheme}>
               <Provider classifierStore={mockStore}>
-                <ZoomingScatterPlot
-                  data={mockData}
-                  parentHeight={height}
-                  parentWidth={width}
-                  theme={zooTheme}
-                  xAxisLabelOffset={10}
-                  yAxisLabelOffset={10}
-                />
+                <svg>
+                  <ZoomingScatterPlot
+                    data={mockData}
+                    parentHeight={height}
+                    parentWidth={width}
+                    theme={zooTheme}
+                    xAxisLabelOffset={10}
+                    yAxisLabelOffset={10}
+                  />
+                </svg>
               </Provider>
             </Grommet>
           )

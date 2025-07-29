@@ -1,27 +1,31 @@
-import { Box } from 'grommet'
 import AnnotateButton from './AnnotateButton'
-
-const args = {
-  active: false
-}
+import { ComponentDecorator } from '../shared/ComponentDecorator'
 
 export default {
   title: 'Image Toolbar / AnnotateButton',
   component: AnnotateButton,
+  decorators: [ComponentDecorator],
   argTypes: {
+    active: {
+      control: 'boolean',
+      value: false
+    },
+    disabled: {
+      control: 'boolean',
+      value: false
+    },
     onClick: {
       action: 'clicked'
     }
   },
-  args
 }
 
-export function Default({ active, onClick }) {
+export function Default({ active, disabled, onClick }) {
   return (
-    <Box width='72px'>
-      <Box pad='12px'>
-        <AnnotateButton active={active} onClick={onClick} />
-      </Box>
-    </Box>
+    <AnnotateButton
+      active={active}
+      disabled={disabled}
+      onClick={onClick}
+    />
   )
 }

@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Kun riga da kun ga wannan batu",
+      "tooltipText": [
+        "Kun riga da kun gani kuma kun sanya rukuni ga wannan batu, saboda haka sake sanya rukuni ba zai taimaka ba wajen ƙwanƙwance shi.",
+        "Idan kana son yin taimako, yi ƙoƙarin zaɓen wani aiki na daban ko kuma taimaka wa wani aiki na daban."
+      ]
+    },
+    "Banner": {
+      "next": "Gaba",
+      "previous": "Baya",
+      "whyAmISeeingThis": "Me ya sa nake kallon wannan?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Soke",
+      "confirm": "Tabbatar",
+      "inProgress": "Shin kun tabbatar da cewa kuna son duba wani batu na daban? Duk wani bayani da kuka yi game da wannan Batu na yanzu zai salwanta."
+    },
+    "RetiredBanner": {
+      "bannerText": "An kammala: An mayar da wannan batu",
+      "tooltipText": [
+        "Tuni wannan batu yake da rabe-rabe wadatattu, saboda haka ba za a yi amfani da naku ba yayin ƙwanƙwance shi.",
+        "Idan kana son yin taimako, yi ƙoƙarin zaɓen wani aiki na daban ko kuma taimaka wa wani aiki na daban."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "An riga da an gani",
+      "bannerText": "{{setName}}: Batu {{number}}\/{{total}}",
+      "finished": "An kammala",
+      "tooltipText": [
+        "Wannan batu yana bayar da dama ga masu sa-kai domin duba batutuwa a cikin tsari a jere.",
+        "Lambar yana muku nuni ga gurbin batun a cikin illahirin rukunin."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "An Kammala: Kun gama ganin komai",
+      "tooltipText": [
+        "Kun riga da kun kammala dukkannin abubuwan da suke cikin wannan aikin, saboda haka ba za a yi amfani da wani sabon rabe-rabe ba game da wannan batu yayin ƙwanƙwance shi.",
+        "Idan kana son yin taimako, yi ƙoƙarin zaɓen wani aiki na daban ko kuma taimaka wa wani aiki na daban."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "An kammala wannan aikin",
+      "tooltipText": [
+        "An kammala dukkannin batutuwan da suke cikin wannan aikin, saboda haka ba za a yi amfani da wani sabon rabe-rabe ba game da wannan batu yayin ƙwanƙwance shi.",
+        "Idan kana son yin taimako, yi ƙoƙarin zaɓen wani aiki na daban ko kuma taimaka wa wani aiki na daban."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Maɓallin juya inkiya\/alamar da aka zana."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Ci Gaba Da Rabawa",
+    "label": "Tsokaci"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Jagoran Fage"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Koma zuwa jerin abubuwan da suke ƙarƙashin Jagoran Fage"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Zaɓi {{title}}"
+    },
+    "title": "Jagoran Fage"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Yi bayani"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Duba batu a cikin girma na gama-gari",
+        "fullscreen": "Duba batu a cikin tsarin cike fuskar na'ura"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Juya batu"
+    },
+    "MoveButton": {
+      "ariaLabel": "Matsar da batu"
+    },
+    "ResetButton": {
+      "ariaLabel": "Gyara tsarin batu"
+    },
+    "RotateButton": {
+      "ariaLabel": "Juya batu"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zuke batu"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Faɗaɗa batu"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Ƙara rukunoni"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Ɓoye Makin Da Suka Gabata",
+      "show": "Nuna Makin Da Suka Gabata"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Rufe Dukkannin Maki",
+      "show": "Nuna Dukkannin Maki",
+      "showUser": "Nuna Makinku"
+    },
+    "MetadataButton": {
+      "label": "Bayanan Darasi"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Rukuni",
+        "value": "Ƙima"
+      },
+      "title": "Bayanan Darasi"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Koyarwa"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Rufe shafin tsokaci",
+      "goToTalk": "Je zuwa ɓangaren Tattauna Batu a sashen Magana",
+      "mainPanel": "Shafin Tsokaci na QuickTalk",
+      "openButton": "Batun yana da tsokaci {{count}}. Latsa domin faɗaɗawa.",
+      "panelContent": "Tsokaci a fannin Tattauna Batu",
+      "panelHeading": "Tattauna Batu"
+    },
+    "errors": {
+      "failPostComment": "Ba za a iya yin tsokaci a tattaunar da aka yi ba.",
+      "failPostDiscussion": "Ba za a iya yin tsokaci a sabon tattaunawa ba.",
+      "noBoard": "Ba a saita allon tsokaci game da batu ba dangane da wannan aikin.",
+      "noText": "Ba za a iya ɗora tsokacin da babu komai a cikinsa ba.",
+      "noUser": "Mai akawun bai shiga ciki ba."
+    },
+    "loginToPost": "A shiga ciki domin yin tsokaci.",
+    "status": {
+      "initialized": "Yi tsokaci game da wannan batu",
+      "loading": "Ana ɗora tsokaci...",
+      "success": "An sanya tsokaci!"
+    },
+    "subjectHasNoComments": "Wannan Batu ba shi da wani tsokaci ya zuwa yanzu."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Je zuwa mataki na {{index}}",
+      "next": "Je zuwa matakin gaba",
+      "previous": "Koma zuwa matakin baya"
+    },
+    "alt": "Matakin koyarwa na {{activeStep}}",
+    "error": "An kasa buɗe matakin koyarwa.",
+    "getStarted": "Fara",
+    "heading": "Koyarwa Na {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Je zuwa mataki na {{index}}",
+    "next": "Je zuwa matakin gaba",
+    "previous": "Koma zuwa matakin baya"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Jadawalin bacat"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Tambari don mai duba rubutu"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "A rufe ba tare da adanawa ba.",
+        "confirm": "Shin an tabbatar da ana son a rufe? Za a share wannan alama.",
+        "keepWorking": "Ci gaba da aiki"
+      },
+      "SaveButton": {
+        "save": "A Adana a Rufe"
+      },
+      "SubTaskPopup": {
+        "notRender": "Ba za a iya gabatar da wannan ɓangaren aiki ba.",
+        "required": "Ana buƙatar wannan aikin."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "haɗaɗɗen rubutaccen bayani",
+          "explanation": "'Yan sa-kai da suka gabata sun tura waɗannan rubutattun bayanai guda {{count}} sannan ba za a iya gyara su ba.",
+          "noAggregation": "Babu tarin abubuwa.",
+          "title": "Rubutattun Bayanai Da Suka Gabata",
+          "transcriptionsUnavailable": "Babu rubutattun bayanai."
+        },
+        "complete": "An kammala rubuta bayanai",
+        "transcribed": "Yana da rubutatun bayanai"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Gaba",
+        "previousFrameLabel": "Baya",
+        "thumbnailAltText": "Ƙaramin Hoto Na Bidiyo"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Share zaɓi {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Sauya zuwa tsarin littafi mai shafuka",
+        "switchToSeparateFrames": "Sauya tsuwa tsarin firam-firam daban"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "An samu matsala yayin buɗe maudu'in."
+    },
+    "VariableStarViewer": {
+      "controls": "masarrafai",
+      "figCaption": "Taswirar HR",
+      "flip": "buɗewa",
+      "focus": "manufa",
+      "highlight": "nunawa",
+      "imageTitle": "Taswirar HR: Haske da Zafi",
+      "label": "{{id}} na Mataci",
+      "periodMultiple": "lokaci mai yawa",
+      "phase": "mataki",
+      "phaseFocus": "muradin mataki"
+    },
+    "VideoController": {
+      "closeVolume": "Rufe Majayin Sauti",
+      "fullscreen": "Nuna Bidiyo a Tsarin Cike Fuskar Na'ura",
+      "openVolume": "Buɗe Majayin Sauti",
+      "pause": "Dakatar da bidiyo",
+      "play": "Kunna bidiyo",
+      "playbackSpeed": "Zaɓin kunna saurin bidiyo",
+      "scrubber": "Majanyin bidiyo zuwa gaba da baya",
+      "volumeSlider": "Majayin Sauti"
+    },
+    "ZoomControlButton": {
+      "disable": "kashe tsarin faɗaɗawa",
+      "enable": "kunna tsarin faɗaɗawa"
+    },
+    "loading": "Ana buɗe maudu'i",
+    "zoomHelp": "Yi amfani da CTRL + scroll domin faɗaɗawa"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Wannan batu yana da rabe-rabe wadatattu, saboda da haka duk wani ƙarin rabe-rabe da aka tura, ba za a yi amfani da shi ba yayin ƙwanƙwance shi. Har yanzu za ku iya ganin wannan batu domin dubawa.",
+      "options": {
+        "dismiss": "Kawar",
+        "next": "Batu na gaba da ake da shi",
+        "select": "Zaɓi sabon batu"
+      },
+      "title": "An Kammala"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Baya"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Kammalawa & Magana",
+        "newTab": "a sabon shafin burawuza"
+      },
+      "DoneButton": {
+        "done": "An Kammala"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Tsarin Samfuri",
+        "label": "Zaɓukan Gwani"
+      },
+      "NextButton": {
+        "next": "Na gaba"
+      },
+      "TaskHelp": {
+        "close": "Rufe",
+        "label": "Ana buƙatar taimako game da wannan aikin?"
+      },
+      "demoMode": "A tsarin samfuri, ba za a iya adana rabe-rabe ba. A yi amfani da wannan domin abin da ya shafi samar da rabe-rabe cikin gaggawa da daidaito.",
+      "error": "Wata matsala ta auku.",
+      "loading": "Lodawa",
+      "renderFallback": "An kasa gabato da ɓangaren aiki."
+    },
+    "task": "Aiki",
+    "tutorial": "Koyarwa"
+  }
+}

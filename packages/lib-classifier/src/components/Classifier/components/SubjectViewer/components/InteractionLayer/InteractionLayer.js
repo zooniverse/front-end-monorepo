@@ -1,13 +1,13 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { convertEvent } from '@plugins/drawingTools/components/draggable/draggable'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import { isInBounds } from './helpers/isInBounds'
 import getFixedNumber from '../../helpers/getFixedNumber'
 
 const DrawingCanvas = styled('rect')`
@@ -26,6 +26,13 @@ function cancelEvent(event) {
   event.stopPropagation()
 }
 
+/**
+ * Render a drawing canvas for the current drawing task, including:
+ * - a canvas that handles pointer events while creating a new mark.
+ * - previously transcribed lines if the current task is a transcription task.
+ * - popups for any subtasks of the current task's tools.
+ * - editable marks created by the current drawing task.
+ */
 function InteractionLayer({
   activeMark,
   activeTool,
@@ -43,9 +50,7 @@ function InteractionLayer({
   duration
 }) {
   const [creating, setCreating] = useState(false)
-  const svgContext = useContext(SVGContext)
-  const canvasRef = useRef()
-  svgContext.canvas = canvasRef.current
+  const canvasRef = useRef(null)
 
   if (creating && !activeMark) {
     setCreating(false)
@@ -110,6 +115,10 @@ function InteractionLayer({
     event?.preventDefault?.()
     event?.stopPropagation?.()
     setCreating(false)
+    if (activeMark.element && !isInBounds(activeMark.element, canvasRef.current)) {
+      activeTool.deleteMark(activeMark)
+      setActiveMark(undefined)
+    }
   }
 
   function onPointerUp(event) {
@@ -162,21 +171,28 @@ function InteractionLayer({
 }
 
 InteractionLayer.propTypes = {
+  /** The active, or selected, mark. */
   activeMark: PropTypes.object,
+  /** The selected drawing tool. */
   activeTool: PropTypes.object.isRequired,
   activeToolIndex: PropTypes.number,
+  /** Annotation for the current drawing task. */
   annotation: PropTypes.shape({
     task: PropTypes.string,
     taskType: PropTypes.string,
     value: PropTypes.array
   }).isRequired,
+  /** Disable creating new marks. */
   disabled: PropTypes.bool,
   /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */
   frame: PropTypes.number,
+  /** Height of the canvas in SVG coordinates. */
   height: PropTypes.number.isRequired,
+  /** Array of marks for the current drawing task. */
   marks: PropTypes.array,
   multiImageCloneMarkers: PropTypes.bool,
   setActiveMark: PropTypes.func,
+  /** Width of the canvas in SVG coordinates. */
   width: PropTypes.number.isRequired
 }
 

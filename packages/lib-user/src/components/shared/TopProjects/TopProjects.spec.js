@@ -14,12 +14,10 @@ describe('components > shared > TopProjects', function () {
     expect(screen.getByText('Top Projects')).to.be.ok()
   })
 
-  // temporarily skipping until the new All Projects page is created
-  // once the All Projects page is created the "see more" to that page will be added and this test can be enabled
-  it.skip('should show a "see more" link', function () {
+  it('should show a "see more" link', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByRole('link', { name: 'See more' })).to.be.ok()
+    expect(screen.getByRole('link', { name: 'See all' })).to.be.ok()
   })
 
   it('should show the projects provided', function () {

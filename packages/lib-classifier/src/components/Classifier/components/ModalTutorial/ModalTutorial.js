@@ -1,12 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
-import asyncStates from '@zooniverse/async-states'
 import { useTranslation } from '@translations/i18n'
-
 import { withStores } from '@helpers'
 import SlideTutorial from '../SlideTutorial'
+
+const StyledModal = styled(Modal)`
+  max-height: 80vh;
+`
 
 function storeMapper (classifierStore) {
   const {
@@ -45,7 +49,7 @@ function ModalTutorial ({
 
   if (tutorial) {
     return (
-      <Modal
+      <StyledModal
         {...props}
         active={active}
         closeFn={onClose}
@@ -56,7 +60,7 @@ function ModalTutorial ({
           pad='none'
           width={width}
         />
-      </Modal>
+      </StyledModal>
     )
   }
 

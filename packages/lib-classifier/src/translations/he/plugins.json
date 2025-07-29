@@ -1,1 +1,75 @@
-{}
+{
+  "FreehandLine": {
+    "active": "לחצו וגררו מהנקודה הפתוחה לנקודה הסגירה או לחצו פעמיים בכל מקום על הקו כדי להוסיף נקודת חיבור",
+    "closePoint": "לחצו במקום כלשהו על הקו כדי להגדיר את נקודת הסגירה",
+    "inactive": "לחצו כדי לערוך שורה זו",
+    "spliceDrag": "לחצו וגררו מהנקודה הפתוחה לנקודה הסגירה",
+    "splicePoint": "לחצו פעמיים בכל מקום על הקו כדי להוסיף נקודת חיבור"
+  },
+  "HighlighterTask": {
+    "delete": "מחק",
+    "noLabels": "אין תגיות להדגשת המשימה",
+    "status": "{{count}} מסומנים"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} ציורים",
+    "max": "{{count}} מתוך {{max}} ציורים לכל היותר",
+    "maxAndMin": "נדרשים {{count}} מתוך {{min}},  עד {{max}} ציורים לכל היותר",
+    "min": "נדרשים {{count}} מתוך {{min}} ציורים לכל היותר"
+  },
+  "LineControls": {
+    "close": "סגור",
+    "delete": "מחק",
+    "deleteCancel": "ביטול מחיקה",
+    "deleteConfirm": "אשר מחיקה",
+    "lineControls": "בקרות קו",
+    "move": "עבור",
+    "redo": "בצע שוב",
+    "undo": "לחצן ביטול"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "הזינו משהו",
+    "otherLabel": "אחר...",
+    "selectPlaceholder": "בחירת תשובה"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "מחיקת מסננים",
+      "closeFilters": "סגור מסננים",
+      "filter": "מסנן",
+      "removeFilter": "הסרת מסנן {{valueLabel}}",
+      "showing": "מציג {{showing}} מתוך {{total}}"
+    },
+    "Choice": {
+      "cancel": "ביטול",
+      "identify": "לזהות",
+      "lessInfo": "פחות מידע",
+      "moreInfo": "מידע נוסף",
+      "notThis": "לא את זה"
+    },
+    "ChoiceButton": {
+      "identified": "מזוהה",
+      "openSubmenu": "פתיחת תפריט משנה ל {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "ביטול",
+      "confused": "לפעמים מבולבלים עם",
+      "itsThis": "נראה לי שזהו"
+    },
+    "DeleteButton": {
+      "delete": "מחיקת הבחירה {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "איפוס"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "משנה טקסט"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "תמלול שנוצר",
+    "editing": "עריכת תמלול"
+  }
+}

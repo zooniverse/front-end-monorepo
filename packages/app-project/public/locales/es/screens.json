@@ -31,6 +31,7 @@
       }
     },
     "RecentSubjects": {
+      "text": "Comenta un objeto en Hablemos o añádelo a tus Favoritos o a una colección.",
       "title": "Tus clasificaciones recientes"
     },
     "WorkflowAssignmentModal": {
@@ -41,7 +42,10 @@
       "title": "Nuevo flujo de trabajo disponible"
     },
     "YourStats": {
-      "title": "Estadística"
+      "allTime": "Todos los tiempos",
+      "lastSeven": "Últimos 7 días",
+      "link": "Ver más",
+      "title": "Estadísticas"
     }
   },
   "Home": {

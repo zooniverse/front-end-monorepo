@@ -4,7 +4,7 @@ import { number, object } from 'prop-types'
 import { pointColor } from './../helpers/pointColor.js'
 import { Slider } from './Slider'
 import styled, { css } from 'styled-components'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 const BACKGROUND_COLOR = '#000'
 const CANVAS_WIDTH = 330
@@ -19,6 +19,10 @@ const StyledBox = styled(Box)`
   border-radius: 16px;
   margin-bottom: 20px;
   width: 390px;
+
+  button {
+    border: none;
+  }
 
   &.expanded {
     border-bottom-right-radius: 0px;
@@ -64,6 +68,7 @@ const StyledBox = styled(Box)`
       flex: 1;
       font-size: 16px !important;
       line-height: 18.7px;
+      text-align: left;
     }
 
     .plane-title-label {
@@ -102,10 +107,11 @@ export const Plane = ({
   viewer
 }) => {
   const [hideCoor, setHideCoor] = useState()
-  const [expanded, setExpanded] = useState()
+  const [expanded, setExpanded] = useState(false)
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0)
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
+  const planeId = useId();
 
   // Offscreen Canvas for fast rendering
   const frameCanvas = document.createElement('canvas')
@@ -120,16 +126,20 @@ export const Plane = ({
     drawFrame()
 
     // State Listeners to bypass React rerenders
-    annotations.on('active:annotation', drawFrame)
-    annotations.on('add:annotation', drawFrame)
-    annotations.on('update:annotation', drawFrame)
+    if (annotations) {
+      annotations.on('active:annotation', drawFrame)
+      annotations.on('add:annotation', drawFrame)
+      annotations.on('update:annotation', drawFrame)
+    }
     viewer.on(`change:dimension-${dimension}:frame`, drawFrame)
     viewer.on('change:threshold', drawFrame)
 
     return () => {
-      annotations.off('active:annotation', drawFrame)
-      annotations.off('add:annotation', drawFrame)
-      annotations.off('update:annotation', drawFrame)
+      if (annotations) {
+        annotations.off('active:annotation', drawFrame)
+        annotations.off('add:annotation', drawFrame)
+        annotations.off('update:annotation', drawFrame)
+      }
       viewer.off(`change:dimension-${dimension}:frame`, drawFrame)
       viewer.off('change:threshold', drawFrame)
     }
@@ -164,19 +174,20 @@ export const Plane = ({
   }
 
   function drawPoint ({ context, point, x, y }) {
-    // Draw points that are not in threshold same color as background
-    if (viewer.isPointInThreshold({ point })) {
-      const annotationIndex = viewer.getPointAnnotationIndex({ point })
+    const annotationIndex = viewer.getPointAnnotationIndex({ point })
 
+    // Draw points that are not in threshold same color as background
+    if (viewer.isPointInThreshold({ point }) || annotationIndex !== -1) {
       // isInactive makes all inactive marks less visible 
       const isInactive = (annotationIndex === -1)
         ? false
-        : (annotations.config.activeAnnotation !== annotationIndex)
+        : (annotations?.config.activeAnnotation !== annotationIndex)
   
       context.fillStyle = pointColor({
         annotationIndex,
         isInactive,
-        pointValue: viewer.getPointValue({ point })
+        pointValue: viewer.getPointValue({ point }),
+        threshold: viewer.threshold,
       })
     } else {
       context.fillStyle = BACKGROUND_COLOR
@@ -191,7 +202,7 @@ export const Plane = ({
   }
 
   function onClick (e) {
-    if (!tool.events.click) return // no tool, no interaction on click
+    if (!tool?.events.click) return // no tool, no interaction on click
 
     const { button, clientX, clientY, shiftKey } = e
     const { left, top } = canvasRef.current.getBoundingClientRect()
@@ -227,18 +238,31 @@ export const Plane = ({
 
   return (
     <StyledBox className={`plane-container plane-container-${dimension} ${expanded ? 'expanded' : 'collapsed'} no-select`} ref={containerRef}>
-      <Box className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}>
+      <button
+        aria-controls={`section-${planeId}`}
+        aria-expanded={expanded.toString()}
+        aria-label={`Toggle ${viewer.dimensions[dimension]} Plane Visibility`}
+        className={`plane-title ${expanded ? 'expanded' : 'collapsed'}`}
+        id={`accordion-${planeId}`}
+        onClick={toggleContentVisibility}
+        type="button"
+      >
         <Box className='plane-title-dimension'>{viewer.getDimensionLabel({ dimension })}</Box>
         <Box className={`plane-title-frame`}>{hideCoor ? '' : currentFrameIndex}</Box>
-        <Box className='plane-title-label' onClick={toggleContentVisibility}>
+        <Box className='plane-title-label'>
           {expanded ? 'Collapse' : 'Expand'}
         </Box>
-        <div className='plane-title-toggle' onClick={toggleContentVisibility}>
+        <div className='plane-title-toggle'>
           {expanded ? <FormUp /> : <FormDown />}
         </div>
-      </Box>
+      </button>
       {expanded &&
-        <Box className='plane-content'>
+        <Box 
+          aria-labelledby={`accordion-${planeId}`}
+          className='plane-content'
+          id={`section-${planeId}`}
+          role="region"
+        >
           <Slider
             dimension={dimension}
             viewer={viewer}

@@ -11,7 +11,7 @@
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
     "coveralls": "~3.1.0",
-    "lerna": "~8.1.2",
+    "lerna": "~8.2.2",
     "nyc": "~17.1.0",
     "snazzy": "~9.0.0"
   },
@@ -29,7 +29,7 @@
     "test:ci": "nyc --silent lerna run --parallel test:ci"
   },
   "engines": {
-    "node": ">=20.5"
+    "node": ">=20.5 <=20.18"
   },
   "nyc": {
     "exclude": [
@@ -49,6 +49,9 @@
     "packages": [
       "packages/**"
     ]
+  },
+  "resolutions": {
+    "superagent": "^10.2.0"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

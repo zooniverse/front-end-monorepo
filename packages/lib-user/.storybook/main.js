@@ -10,6 +10,7 @@ const config = {
   },
   docs: {
     autodocs: 'tag'
-  }
+  },
+  staticDirs: ['../storybook-public'], // needed for msw-storybook-addon
 }
 export default config

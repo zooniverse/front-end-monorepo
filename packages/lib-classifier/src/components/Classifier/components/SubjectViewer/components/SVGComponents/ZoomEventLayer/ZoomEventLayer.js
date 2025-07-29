@@ -1,7 +1,9 @@
+import { useWheel } from '@use-gesture/react'
 import PropTypes from 'prop-types'
+import { useRef } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 
-const StyledRect = styled.rect`
+const StyledGroup = styled.g`
   ${props => props.$panning ?
    css`cursor: move;` :
    css`cursor: inherit;`}
@@ -21,6 +23,7 @@ const StyledRect = styled.rect`
 const DEFAULT_HANDLER = () => true
 
 function ZoomEventLayer ({
+  disabled = false,
   height,
   left = 0,
   onDoubleClick = DEFAULT_HANDLER,
@@ -34,33 +37,73 @@ function ZoomEventLayer ({
   panning = false,
   top = 0,
   width,
+  children,
   ...rest
 }) {
+  const root = useRef(null)
   const theme = useTheme()
   const focusColor = theme?.global.colors[theme.global.colors.focus]
+  const pointerEvents = disabled ? 'none' : 'all'
+
+  const handleWheel = disabled ? DEFAULT_HANDLER : ({ event }) => onWheel(event)
+  useWheel(handleWheel, {
+    eventOptions: { passive: false },
+    target: root
+  })
+
+  function handlePointerFocus(event) {
+    /*
+    * Ignore clicks to close open popups for subtasks etc
+    * by checking whether the event target is a Grommet Layer.
+    * Otherwse, clicking outside an open popup can start dragging
+    * in the ZoomEventLayer.
+    */
+    // HTMLElement class name.
+    const className = event.target?.className
+    // SVGElement class name.
+    const baseVal = className?.baseVal
+    const actualClassName = baseVal ?? className
+    if (actualClassName.includes('StyledLayer')) return false
+    /* Focus the clicked element so that it can handle
+    * keyboard events.
+    */
+    event.target?.focus({
+      preventScroll: true
+    })
+    return onPointerDown(event)
+  }
+
+  const zoomEventHandlers = disabled ? {} : {
+    onDoubleClick,
+    onPointerDown: handlePointerFocus,
+    onPointerEnter,
+    onPointerMove,
+    onPointerUp,
+    onPointerLeave
+  }
+
   return (
-    <StyledRect
+    <StyledGroup
+      ref={root}
       data-testid='zoom-layer'
       fill='transparent'
       $focusColor={focusColor}
       height={height}
-      onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
-      onPointerEnter={onPointerEnter}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerLeave={onPointerLeave}
-      onWheel={onWheel}
       $panning={(panning) ? 'true' : undefined}
+      pointerEvents={pointerEvents}
       transform={`translate(${left}, ${top})`}
       width={width}
+      {...zoomEventHandlers}
       {...rest}
-    />
+    >
+      {children}
+    </StyledGroup>
   )
 }
 
 ZoomEventLayer.propTypes = {
+  disabled: PropTypes.bool,
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
   onDoubleClick: PropTypes.func,

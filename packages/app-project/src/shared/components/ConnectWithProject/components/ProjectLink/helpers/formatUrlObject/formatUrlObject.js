@@ -34,6 +34,7 @@ function formatUrlObject(obj, t) {
   if (obj.site && obj.site.includes('bsky.app')) {
     formattedObject.IconComponent = BlueSkyIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.bluesky')
+    formattedObject.url = `https://bsky.app/profile/${obj.path}`
   }
 
   if (obj.site && obj.site.includes('facebook')) {

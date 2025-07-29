@@ -1,6 +1,5 @@
 import {
-  getStatsDateString,
-  getDefaultDateRange
+  getStatsDateString
 } from '@utils'
 
 import { formatSelectOptionDateLabel } from './formatSelectOptionDateLabel'
@@ -42,7 +41,10 @@ function getPresetSelectOptions({ sourceCreatedAtDate, today, t }) {
   ]
 }
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
 const DEFAULT_HANDLER = key => key
 
 export function getDateRangeSelectOptions({

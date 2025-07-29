@@ -1,1 +1,75 @@
-{}
+{
+  "FreehandLine": {
+    "active": "النقر والسحب من نقطة الفتح إلى نقطة الإغلاق أو النقر مرتين في أي مكان على الخط لإنشاء نقطة تقسيم",
+    "closePoint": "النقر في أي مكان على الخط لتعيين نقطة الإغلاق",
+    "inactive": "النقر لتعديل هذا الخط",
+    "spliceDrag": "النقر والسحب من نقطة الفتح إلى نقطة الإغلاق",
+    "splicePoint": "النقر مرتين في أي مكان على الخط لإنشاء نقطة تقسيم"
+  },
+  "HighlighterTask": {
+    "delete": "حذف",
+    "noLabels": "لا توجد تسميات لمهمة التمييز",
+    "status": "{{count}} مع علامة"
+  },
+  "InputStatus": {
+    "drawn": "تم رسم {{count}}",
+    "max": "تم رسم {{count}} من {{max}} كحد أقصى",
+    "maxAndMin": "تم رسم {{count}} من {{min}} المطلوب، {{max}} كحد أقصى",
+    "min": "تم رسم {{count}} من {{min}} المطلوب"
+  },
+  "LineControls": {
+    "close": "إغلاق",
+    "delete": "حذف",
+    "deleteCancel": "إلغاء حذف",
+    "deleteConfirm": "تأكيد الحذف",
+    "lineControls": "التحكم في الخط",
+    "move": "نقل",
+    "redo": "تكرار",
+    "undo": "تراجع"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "أدخل شيئاً",
+    "otherLabel": "غير ذلك...",
+    "selectPlaceholder": "اختر إجابة"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "مسح عوامل التصفية",
+      "closeFilters": "إغلاق عوامل التصفية",
+      "filter": "فلتر",
+      "removeFilter": "إزالة عامل تصفية {{valueLabel}}",
+      "showing": "يتم عرض {{showing}} من {{total}}"
+    },
+    "Choice": {
+      "cancel": "إلغاء",
+      "identify": "تحديد",
+      "lessInfo": "معلومات أقل",
+      "moreInfo": "معلومات أكثر",
+      "notThis": "ليس هذا"
+    },
+    "ChoiceButton": {
+      "identified": "محدد",
+      "openSubmenu": "فتح القائمة الفرعية لـ {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "إلغاء",
+      "confused": "أحياناً يُخلط بينه وبين",
+      "itsThis": "أظن أن"
+    },
+    "DeleteButton": {
+      "delete": "حذف الاختيار {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "إعادة ضبط"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "مُعدِّلات النص"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "تم إنشاء النص المنسوخ",
+    "editing": "تعديل النص المنسوخ"
+  }
+}

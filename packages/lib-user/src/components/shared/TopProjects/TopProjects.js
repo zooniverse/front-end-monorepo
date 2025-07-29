@@ -21,6 +21,11 @@ const StyledRowList = styled(Box)`
   list-style: none;
   margin-block-end: 0;
   margin-block-start: 0;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: start;
+  }
 `
 
 function CardsGrid({ children }) {
@@ -58,6 +63,7 @@ function CardsRow({ children }) {
         horizontal: 'xxsmall',
         top: 'xxsmall'
       }}
+      tabIndex={0}
     >
       {children}
     </StyledRowList>
@@ -71,6 +77,7 @@ CardsRow.propTypes = {
 function TopProjects({
   allProjectsStats = {},
   grid = false,
+  linkProps = { href: '' },
   loading = false,
   projects = []
 }) {
@@ -100,6 +107,8 @@ function TopProjects({
 
   return (
     <ContentBox
+      linkLabel={t('common.seeAll')}
+      linkProps={linkProps}
       title={t('TopProjects.title')}
     >
       {loading ? (
@@ -123,6 +132,7 @@ function TopProjects({
                   href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
                   imageSrc={topProject?.avatar_src}
                   size={cardSize}
+                  state={topProject?.state}
                 />
               </li>
             )
@@ -141,6 +151,9 @@ TopProjects.propTypes = {
     }))
   }),
   grid: bool,
+  linkProps: shape({
+    href: string
+  }),
   loading: bool,
   projects: arrayOf(shape({
     avatar_src: string,

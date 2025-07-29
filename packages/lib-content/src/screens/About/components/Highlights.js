@@ -23,7 +23,7 @@ export default function Highlights() {
     <>
       <Paragraph>
         <Trans
-          i18nKey={'AboutPage.highlights.paragraphs.one'}
+          i18nKey={'AboutPage.highlights.paragraphs.first'}
           t={t}
           components={[
             <Anchor
@@ -34,7 +34,7 @@ export default function Highlights() {
         />
       </Paragraph>
       <Paragraph margin='0'>
-        {t('AboutPage.highlights.paragraphs.two')}
+        {t('AboutPage.highlights.paragraphs.second')}
       </Paragraph>
       <Box
         justify='center'
@@ -44,7 +44,7 @@ export default function Highlights() {
       >
         <Box>
           <Image
-            alt={t('AboutPage.highlights.pictures.one')}
+            alt={t('AboutPage.highlights.pictures.first')}
             src='https://static.zooniverse.org/fem-assets/into-the-zooniverse1.jpg'
             loading='lazy'
             fit='contain'
@@ -53,7 +53,7 @@ export default function Highlights() {
         </Box>
         <Box>
           <Image
-            alt={t('AboutPage.highlights.pictures.two')}
+            alt={t('AboutPage.highlights.pictures.second')}
             src='https://static.zooniverse.org/fem-assets/into-the-zooniverse2.png'
             loading='lazy'
             fit='contain'
@@ -63,7 +63,7 @@ export default function Highlights() {
         </Box>
         <Box>
           <Image
-            alt={t('AboutPage.highlights.pictures.three')}
+            alt={t('AboutPage.highlights.pictures.third')}
             src='https://static.zooniverse.org/fem-assets/into-the-zooniverse3.jpg'
             loading='lazy'
             fit='contain'
@@ -77,7 +77,7 @@ export default function Highlights() {
         margin={{ bottom: 'medium', top: '8px' }}
         alignContent='center'
       >
-        <Text>
+        <Text color={{ light: 'black', dark: 'white' }}>
           <Trans
             i18nKey={'AboutPage.highlights.description'}
             t={t}

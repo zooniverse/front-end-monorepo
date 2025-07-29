@@ -8,12 +8,14 @@ import { useEffect, useState } from 'react'
 import {
   Certificate,
   Contributors,
+  GroupAllProjects,
   GroupStats,
   MyGroups,
   UserHome,
-  UserStats
+  UserStats,
+  UserStatsAllProjects
 } from '@components'
-import { getDefaultDateRange, getStatsDateString } from '../../../src/utils'
+import { getThisWeekDateRange, getStatsDateString } from '../../../src/utils'
 
 const isBrowser = typeof window !== 'undefined'
 const today = new Date()
@@ -23,7 +25,7 @@ if (isBrowser) {
   auth.checkCurrent()
 }
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
+const DEFAULT_DATE_RANGE = getThisWeekDateRange()
 
 function App({
   endDate = DEFAULT_DATE_RANGE.endDate,
@@ -148,6 +150,13 @@ function App({
           joinToken={joinToken}
         />
       )
+    } else if (subpaths[1] === 'projects') {
+      content = (
+        <GroupAllProjects
+          authUser={user}
+          groupId={groupId}
+          joinToken={joinToken}/>
+      )
     } else {
       content = (
         <GroupStats
@@ -194,6 +203,13 @@ function App({
     } else if (subpaths[1] === 'groups') {
       content = (
         <MyGroups
+          authUser={user}
+          login={login}
+        />
+      )
+    } else if (subpaths[1] === 'projects') {
+      content = (
+        <UserStatsAllProjects
           authUser={user}
           login={login}
         />

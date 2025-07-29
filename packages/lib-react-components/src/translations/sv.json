@@ -1,33 +1,143 @@
 {
+  "AdminCheckbox": {
+    "label": "Administratörsläge"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Användarnamnet eller lösenordet är felaktigt",
+      "forgot": "Glömt ditt lösenord?",
+      "heading": "Välkommen tillbaka!",
+      "instruction": "Kul att du är tillbaka! Logga in för att fortsätta där du slutade.",
+      "login": "Användarnamn eller e-postadress",
+      "password": "Lösenord",
+      "placeholder": "t.ex. ZooniverseFan123",
+      "signIn": "Logga in"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Jag vill gärna hjälpa till att testa nya projekt och få ett e-postmeddelande när de är tillgängliga (valfritt)",
+      "email": "E-postadress (krav)",
+      "emailConfirm": "Bekräfta e-postadress (krav)",
+      "emailConfirmError": "E-postadresserna matchar inte, försök igen.",
+      "emailConflict": "Ett konto med den här adressen finns redan",
+      "emailListSignUp": "Det är ok att skicka mig ett e-postmeddelande då och då (valfritt)",
+      "emailPlaceholder": "t.ex. zoofan31@gmail.com",
+      "forgot": "Glömt ditt lösenord?",
+      "heading": "Välkommen tillbaka!",
+      "instruction": "Skapa ett konto för att börja göra riktig research.",
+      "password": "Lösenord (krav)",
+      "passwordConfirm": "Bekräfta lösenord (krav)",
+      "passwordConfirmError": "Lösenorden stämmer inte överens. Försök igen.",
+      "privacyAgreement": "Du godkänner vår integritetspolicy (krav)",
+      "privacyAgreementError": "Det krävs att du godkänner integritetspolicyn.",
+      "privacyLink": "Läs vår integritetspolicy",
+      "realName": "Ditt riktiga namn (frivilligt)",
+      "realNameHelp": "Här kan du uppge ditt riktiga namn som vi använder om vi behöver tacka dig i forskningsartiklar, planscher, med mera.",
+      "realNamePatternHelp": "Ange ett namn, inte en e-postadress",
+      "realNamePlaceholder": "t.ex. Maggie Smith",
+      "register": "Registrera dig",
+      "registering": "Registrerar...",
+      "underageConsent": "Jag bekräftar att jag är förälder\/vårdnadshavare och att jag ger mitt barn tillstånd att registrera sig genom att ange min e-postadress som huvudsaklig kontaktadress. Både jag och mitt barn förstår och godkänner integritetspolicyn (krav)",
+      "underageEmail": "Förälders\/vårdnadshavares e-postadress (krav)",
+      "underageEmailSignUp": "Om du samtycker skickar vi regelbundet e-post med information om nya forskningsrelaterade projekt eller annan information som rör vår forskning. Vi kommer inte att använda dina kontaktuppgifter för kommersiella ändamål. (valfritt)",
+      "underageNotRealName": "Du kommer att använda det här namnet för att logga in. Det kommer att visas offentligt. Använd inte ditt riktiga namn.",
+      "underageWithParent": "Är du under 16 år, markera den här rutan för att bekräfta att du fyllt i formuläret tillsammans med din förälder eller vårdnadshavare",
+      "username": "Användarnamn (krav)",
+      "usernameConflict": "Det användarnamnet är upptaget",
+      "usernameHelp": "Detta kommer att visas offentligt på anslagstavlor etc.",
+      "usernamePatternHelp": "Användarnamn får enbart innehålla bokstäver, siffror, '.', '-' och '_'",
+      "usernamePlaceholder": "t.ex. ZooniverseFan123"
+    },
+    "title": "Logga in eller skapa ett nytt konto."
+  },
   "CloseButton": {
     "close": "Stäng"
+  },
+  "FavouritesButton": {
+    "add": "Lägg till i favoriter",
+    "remove": "Tillagd i favoriter"
   },
   "Loader": {
     "loading": "(Laddar)"
   },
+  "ProjectCard": {
+    "classifications": "Klassificeringar",
+    "finished": "Avslutad",
+    "paused": "Pausad",
+    "state": "Status"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Om",
-      "publications": "Publikationer",
-      "team": "Vårt team",
+      "acknowledgements": "Tack till",
       "contact": "Kontakta oss",
-      "faq": "Vanliga frågor"
+      "faq": "Vanliga frågor",
+      "publications": "Publikationer",
+      "resources": "Resurser",
+      "team": "Vårt team"
     },
     "buildLabels": {
+      "bestPractices": "Bästa praxis",
+      "buildAProject": "Skapa ett projekt",
+      "glossary": "Ordlista",
+      "policies": "Policyer",
       "tutorial": "Snabbkurs"
     },
-    "projectLabels": {
-      "projects": "Projekt"
+    "getInvolvedLabels": {
+      "callForProjects": "Utlysning av projekt",
+      "collaborate": "Samarbeta",
+      "collections": "Samlingar",
+      "donate": "Donera",
+      "educate": "Utbilda",
+      "education": "Utbildning",
+      "getInvolved": "Engagera dig",
+      "volunteer": "Volontär"
     },
+    "newsLabels": {
+      "blog": "Blogg",
+      "dailyZooniverse": "Daily Zooniverse",
+      "news": "Nyheter"
+    },
+    "policyLabels": {
+      "jobs": "Jobb",
+      "privacyPolicy": "Integritetspolicy",
+      "security": "Säkerhet",
+      "systemStatus": "Systemstatus"
+    },
+    "projectLabels": {
+      "arts": "Konst",
+      "biology": "Biologi",
+      "climate": "Klimat",
+      "history": "Historia",
+      "language": "Språk",
+      "literature": "Litteratur",
+      "medicine": "Medicin",
+      "nature": "Natur",
+      "physics": "Fysik",
+      "projects": "Projekt",
+      "social": "Samhällsvetenskap",
+      "space": "Rymden"
+    },
+    "tagLine": "Deltagardriven forskning",
     "talkLabels": {
-      "talk": "Prata"
-    }
+      "announcements": "Meddelanden",
+      "data": "Databehandling",
+      "projectBuilding": "Projektbyggande",
+      "talk": "Prata",
+      "troubleshooting": "Felsökning"
+    },
+    "zooniversePolicies": "Zooniverse-policyer"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "Projekt",
-      "about": "Om",
-      "talk": "Prata"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Användarkonto",
+      "navListLabels": {
+        "messages_one": "Meddelanden ({{count}})",
+        "messages_other": "Meddelanden ({{count}})",
+        "messages_zero": "Meddelanden",
+        "notifications_one": "Aviseringar ({{count}})",
+        "notifications_other": "Aviseringar ({{count}})",
+        "notifications_zero": "Aviseringar"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "Registrera dig",
@@ -36,6 +146,26 @@
     "ThemeModeToggle": {
       "switchToDark": "Byt till mörkt tema",
       "switchToLight": "Byt till ljust tema"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Samlingar",
+        "favorites": "Favoriter",
+        "profile": "Profil",
+        "settings": "Inställningar",
+        "signOut": "Logga ut"
+      }
+    },
+    "ariaLabel": "Plats",
+    "mainHeaderNavListLabels": {
+      "about": "Om",
+      "build": "Skapa",
+      "getInvolved": "Engagera dig",
+      "projects": "Projekt",
+      "talk": "Prata"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse-logotyp"
   }
 }

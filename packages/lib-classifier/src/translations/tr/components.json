@@ -1,9 +1,9 @@
 {
   "Banners": {
     "AlreadySeenBanner": {
-      "bannerText": "Bu konuyu zaten gördünüz",
+      "bannerText": "Bu görüntüyü daha önce gördünüz",
       "tooltipText": [
-        "Bu konuyu zaten gördünüz ve sınıflandırdınız, bu nedenle daha fazla sınıflandırma onun analizine katkıda bulunmayacaktır.",
+        "Bu görüntüyü daha önce gördünüz ve sınıflandırdınız, bu nedenle daha fazla sınıflandırma onun analizine katkıda bulunmayacaktır.",
         "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
       ]
     },
@@ -14,36 +14,36 @@
     },
     "InProgressConfirmModal": {
       "cancel": "İptal et",
-      "confirm": "Onaylayın",
-      "inProgress": "Farklı bir Konuya gitmek istediğinizden emin misiniz? Mevcut Konu için yaptığınız tüm çalışmalar kaybolacaktır."
+      "confirm": "Onayla",
+      "inProgress": "Farklı bir görüntüye gitmek istediğinizden emin misiniz? Mevcut görüntü için yaptığınız tüm çalışmalar kaybolacaktır."
     },
     "RetiredBanner": {
-      "bannerText": "Bitti: Bu konu kullanımdan kaldırıldı",
+      "bannerText": "Bitti: Bu görüntü kullanımdan kaldırıldı",
       "tooltipText": [
-        "Bu konu zaten yeterince sınıflandırmaya sahiptir, bu nedenle sizinki analizde kullanılmayacaktır.",
+        "Bu görüntü yeterince sınıflandırmaya sahiptir, bu nedenle sizinki analizde kullanılmayacaktır.",
         "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
       ]
     },
     "SubjectSetProgressBanner": {
       "alreadySeen": "Daha önce görüldü",
-      "bannerText": "{{setName}}: Konu {{number}}\/{{total}}",
+      "bannerText": "{{setName}}: Görüntü {{number}}\/{{total}}",
       "finished": "Bitti",
       "tooltipText": [
-        "Bu proje, gönüllülerin konuları sırayla görüntülemesine olanak tanır.",
-        "Bu sayı, konunun tüm grup içindeki konumunu gösterir."
+        "Bu proje, gönüllülerin görüntüleri sırayla görmesine olanak tanır.",
+        "Bu sayı, görüntünün tüm grup içindeki konumunu gösterir."
       ]
     },
     "UserHasFinishedWorkflowBanner": {
       "bannerText": "Bitti: Her şeyi gördünüz",
       "tooltipText": [
-        "Bu iş akışındaki her şeyi zaten sınıflandırdınız, bu konuyla ilgili daha fazla sınıflandırma analizde kullanılmayacak.",
+        "Bu iş akışındaki her şeyi zaten sınıflandırdınız, bu görüntüyle ilgili daha fazla sınıflandırma analizde kullanılmayacak.",
         "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
       ]
     },
     "WorkflowIsFinishedBanner": {
       "bannerText": "Bu iş akışı tamamlandı",
       "tooltipText": [
-        "Bu iş akışındaki tüm konular tamamlanmıştır, bu konuyla ilgili daha fazla çalışma analizde kullanılmayacaktır.",
+        "Bu iş akışındaki tüm görüntüler tamamlanmıştır, bu görüntüyle ilgili daha fazla çalışma analizde kullanılmayacaktır.",
         "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
       ]
     }
@@ -81,19 +81,19 @@
       "ariaLabel": "Görüntüyü tersine çevir"
     },
     "MoveButton": {
-      "ariaLabel": "Taşı"
+      "ariaLabel": "Görüntüyü taşı"
     },
     "ResetButton": {
-      "ariaLabel": "Görünümü sıfırla"
+      "ariaLabel": "Görüntüyü sıfırla"
     },
     "RotateButton": {
-      "ariaLabel": "Döndür"
+      "ariaLabel": "Görüntüyü döndür"
     },
     "ZoomInButton": {
-      "ariaLabel": "Yakınlaştır"
+      "ariaLabel": "Görüntüye yakınlaş"
     },
     "ZoomOutButton": {
-      "ariaLabel": "Uzaklaştır"
+      "ariaLabel": "Görüntüden uzaklaş"
     }
   },
   "MetaTools": {
@@ -135,17 +135,17 @@
     "errors": {
       "failPostComment": "Mevcut tartışmaya yorum eklenemedi.",
       "failPostDiscussion": "Yeni tartışmaya yorum eklenemedi.",
-      "noBoard": "Bu proje için yorum panosu henüz oluşturulmadı.",
+      "noBoard": "Bu görüntü için yorum panosu henüz oluşturulmadı.",
       "noText": "Boş yorum gönderilemiyor.",
       "noUser": "Kullanıcı giriş yapmamış."
     },
     "loginToPost": "Yorum yapmak için lütfen giriş yapınız.",
     "status": {
-      "initialized": "Bu konu hakkında not bırakın",
+      "initialized": "Bu görüntü hakkında not bırakın",
       "loading": "Yorum gönderiliyor...",
       "success": "Yorum gönderildi!"
     },
-    "subjectHasNoComments": "Bu konuda henüz herhangi bir yorum yapılmamıştır."
+    "subjectHasNoComments": "Bu görüntü hakkında henüz herhangi bir yorum yapılmamıştır."
   },
   "SlideTutorial": {
     "StepNavigation": {
@@ -167,6 +167,9 @@
     "BarChartViewer": {
       "chartLabel": "Çubuk grafik"
     },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Metin görüntüleyici simgesi"
+    },
     "InteractionLayer": {
       "ConfirmModal": {
         "close": "Kaydetmeden kapat",
@@ -177,8 +180,8 @@
         "save": "Kaydet ve Kapat"
       },
       "SubTaskPopup": {
-        "notRender": "Görev öğesi oluşturulamadı.",
-        "required": "Bu görev gereklidir."
+        "notRender": "İşlem öğesi oluşturulamadı.",
+        "required": "Bu işlem gereklidir."
       },
       "TranscribedLines": {
         "ConsensusPopup": {
@@ -197,6 +200,17 @@
         "nextFrameLabel": "Sonraki",
         "previousFrameLabel": "Önceki",
         "thumbnailAltText": "Resmin Önizlemesi"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "{{index}} seçimini sil"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Geçişli görünüme geç",
+        "switchToSeparateFrames": "Ayrı kareler görünümüne geç"
       }
     },
     "SingleVideoViewerContainer": {
@@ -228,11 +242,12 @@
       "disable": "Yakınlaştırmayı devre dışı bırak",
       "enable": "Yakınlaştırmayı etkinleştir"
     },
-    "loading": "Yükleniyor"
+    "loading": "Yükleniyor",
+    "zoomHelp": "Yakınlaştırmak için CTRL + kaydırma tuşlarını kullanın"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
-      "body": "Bu konu yeterli sınıflandırmaya sahiptir, bu nedenle gönderilen herhangi bir ek sınıflandırma analizde kullanılmayacaktır. Referans için bu konuyu görüntülemeye devam edebilirsiniz.",
+      "body": "Bu görüntü yeterli sınıflandırmaya sahiptir, bu nedenle gönderilen herhangi bir ek sınıflandırma analizde kullanılmayacaktır. Referans için bu görüntüyü görmeye devam edebilirsiniz.",
       "options": {
         "dismiss": "Reddet",
         "next": "Bir sonraki kullanılabilir görüntü",
@@ -245,7 +260,8 @@
         "back": "Geri git"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Bitir & Sohbet Et"
+        "doneAndTalk": "Bitir & Sohbet Et",
+        "newTab": "yeni bir sekmede"
       },
       "DoneButton": {
         "done": "Bitti"
@@ -264,9 +280,9 @@
       "demoMode": "Demo modunda, sınıflandırmalar kaydedilmeyecektir. Bunu, sınıflandırma arayüzünün hızlı ve hatasız demoları için kullanın.",
       "error": "Bir sorun oluştu",
       "loading": "Yükleniyor",
-      "renderFallback": "Görev öğesi oluşturulamadı."
+      "renderFallback": "İşlem öğesi oluşturulamadı."
     },
-    "task": "Transkripsiyon  işlemi",
+    "task": "İşlem",
     "tutorial": "Tutorial"
   }
 }

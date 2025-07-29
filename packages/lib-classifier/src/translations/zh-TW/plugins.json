@@ -1,7 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "從開始點按住並拖曳到結束點，或在線上任何地方點按兩下來建立連結點",
+    "closePoint": "點按線上任何地方來設定結束點",
+    "inactive": "點按以編輯此線條",
+    "spliceDrag": "從開始點按住並拖曳到結束點",
+    "splicePoint": "在線上任何地方點按兩下來建立連接點"
+  },
+  "HighlighterTask": {
+    "delete": "刪除",
+    "noLabels": "重點標示任務沒有標籤",
+    "status": "已標記 {{count}} 個"
+  },
+  "InputStatus": {
+    "drawn": "已畫 {{count}}",
+    "max": "最多畫 {{count}}\/{{max}}",
+    "maxAndMin": "需畫 {{count}}\/{{min}}，最多畫 {{max}}",
+    "min": "需畫 {{count}}\/{{min}}"
+  },
+  "LineControls": {
+    "close": "關閉",
+    "delete": "刪除",
+    "deleteCancel": "取消刪除",
+    "deleteConfirm": "確認刪除",
+    "lineControls": "線條控制",
+    "move": "移動",
+    "redo": "重做",
+    "undo": "復原"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "輸入內容",
+    "otherLabel": "其他…",
+    "selectPlaceholder": "選擇答案"
+  },
   "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "清除篩選條件",
+      "closeFilters": "關閉篩選器",
+      "filter": "篩選",
+      "removeFilter": "移除 {{valueLabel}} 篩選條件",
+      "showing": "顯示 {{showing}} 個，共 {{total}} 個"
+    },
     "Choice": {
-      "identify": "辨識"
+      "cancel": "取消",
+      "identify": "辨識",
+      "lessInfo": "較少資訊",
+      "moreInfo": "更多資訊",
+      "notThis": "不是這個"
+    },
+    "ChoiceButton": {
+      "identified": "已確定",
+      "openSubmenu": "開啟 {{choiceLabel}} 的子選單"
+    },
+    "ConfusedWith": {
+      "cancel": "取消",
+      "confused": "有時會混淆",
+      "itsThis": "我認為是這個"
+    },
+    "DeleteButton": {
+      "delete": "刪除 {{choiceLabel}} 選項"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "重設"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "文字修飾詞"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "已建立逐字稿",
+    "editing": "編輯逐字稿中"
   }
 }

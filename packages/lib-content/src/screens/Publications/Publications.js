@@ -37,8 +37,6 @@ function Publications({ publicationsData = [], sections = [] }) {
   const { t } = useTranslation()
   const [activeSection, setActiveSection] = useState(0)
 
-  const sectionsPlusAll = [{ name: t('Sidebar.all'), slug: '' }, ...sections]
-
   return (
     <>
       <AboutLayout>
@@ -49,7 +47,7 @@ function Publications({ publicationsData = [], sections = [] }) {
           <DropdownNav
             activeSection={activeSection}
             sidebarLabel={t('Publications.sidebarLabel')}
-            sections={sectionsPlusAll}
+            sections={sections}
             setActiveSection={setActiveSection}
           />
         </StickyBox>
@@ -69,8 +67,8 @@ function Publications({ publicationsData = [], sections = [] }) {
           <Box as='aside' align='center'>
             <StickySidebar
               activeSection={activeSection}
-              ariaLabel={t('Publications.sideBarLabel')}
-              sections={sectionsPlusAll}
+              ariaLabel={t('Publications.sidebarLabel')}
+              sections={sections}
               setActiveSection={setActiveSection}
             />
           </Box>
@@ -79,7 +77,7 @@ function Publications({ publicationsData = [], sections = [] }) {
               <Discipline
                 key={item.title}
                 projects={item.projects}
-                sectionIndex={index + 1} // Have to account for "All" as index=0 in the Sidebar
+                sectionIndex={index}
                 setActiveSection={setActiveSection}
                 slug={item.slug}
                 title={item.title}

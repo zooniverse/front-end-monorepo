@@ -9,3 +9,22 @@ The volumetric task does not support a required property.
 The volumetric task does not support tags (i.e. insertion, deletion).
 
 The volumetric task is disabled until the subject is loaded.
+
+## VolumetricAnnotation
+
+The volumetric annotation consists of the following structure:
+
+```json
+{
+  "label": "Annotation #1",
+  "threshold": 15,
+  "points": {
+    "active": [{ "x": 1, "y": 1, "z": 1 }],
+    "connected": [[{ "x": 1, "y": 1, "z": 1 }]]
+  }
+}
+```
+
+- **threshold**: the value the A* algorithm uses to choose connected points
+- **points.active**: the individual voxel the user clicks
+- **points.connected**: the voxels connected to the index-adjusted active voxel using the threshold value for the a* algorithm

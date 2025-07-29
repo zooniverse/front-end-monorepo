@@ -15,12 +15,13 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/iron'
+         node-version-file: ./.nvmrc
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
       - run: yarn workspace @zooniverse/react-components build:es6
       - run: yarn workspace @zooniverse/subject-viewers build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
       - name: Deploy to GH Pages
         run: yarn deploy-storybook -- --ci
         env:

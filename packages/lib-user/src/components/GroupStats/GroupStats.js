@@ -1,6 +1,6 @@
 import { Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 import { useTranslation } from '../../translations/i18n.js'
 
@@ -46,6 +46,19 @@ function GroupStats({
 
   const size = useContext(ResponsiveContext)
 
+  useEffect(function handleDefaultStartDate() {
+    // set default start date to group created_at if not defined
+    if (!selectedDateRange.startDate && group?.created_at) {
+      setSelectedDateRange({
+        endDate: selectedDateRange.endDate,
+        startDate: group.created_at.substring(0, 10)
+      })
+    }
+  }, [
+    group?.created_at,
+    selectedDateRange.startDate,
+  ])
+
   // define user_group membership key
   const membershipKey = {
     authUserId: authUser?.id,
@@ -69,6 +82,12 @@ function GroupStats({
     allProjectsStatsQuery.top_contributors = 10
   }
 
+  // only fetch stats (define sourceId with group.id) if valid params and start date defined
+  let sourceId = null
+  if (!paramsValidationMessage && selectedDateRange?.startDate) {
+    sourceId = group?.id
+  }
+
   const {
     data: allProjectsStats,
     error: statsError,
@@ -76,7 +95,7 @@ function GroupStats({
   } = useStats({
     authUserId: authUser?.id,
     endpoint: STATS_ENDPOINT,
-    sourceId: paramsValidationMessage ? null : group?.id,
+    sourceId,
     query: allProjectsStatsQuery
   })
 
@@ -158,6 +177,8 @@ function GroupStats({
     t
   })
 
+  const linkProps={ href: `/groups/${group?.id}/projects` }
+
   const error = statsError || projectStatsError || projectsError
   const loading = statsLoading || projectStatsLoading || projectsLoading
 
@@ -216,6 +237,7 @@ function GroupStats({
                 <TopProjects
                   allProjectsStats={allProjectsStats}
                   grid={true}
+                  linkProps={linkProps}
                   loading={loading}
                   projects={projects}
                 />
@@ -225,6 +247,7 @@ function GroupStats({
                 <TopProjects
                   allProjectsStats={allProjectsStats}
                   grid={false}
+                  linkProps={linkProps}
                   loading={loading}
                   projects={projects}
                 />
@@ -242,6 +265,7 @@ function GroupStats({
           <TopProjects
             allProjectsStats={allProjectsStats}
             grid={false}
+            linkProps={linkProps}
             loading={loading}
             projects={projects}
           />
@@ -257,6 +281,7 @@ GroupStats.propTypes = {
     id: string
   }),
   group: shape({
+    created_at: string,
     display_name: string,
     id: string
   }),
@@ -268,7 +293,7 @@ GroupStats.propTypes = {
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
+  }).isRequired,
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func

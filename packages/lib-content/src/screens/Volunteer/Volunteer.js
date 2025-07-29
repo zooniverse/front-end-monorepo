@@ -79,7 +79,7 @@ function Volunteer() {
             {t('Volunteer.howTo.heading')}
           </SpacedHeading>
           <Paragraph margin={{ top: '0' }}>
-            {t('Volunteer.howTo.paragraphs.one')}
+            {t('Volunteer.howTo.paragraph')}
           </Paragraph>
 
           {/** CLASSIFY */}
@@ -92,10 +92,10 @@ function Volunteer() {
           >
             {t('Volunteer.classify.heading')}
           </Heading>
-          <Paragraph>{t('Volunteer.classify.paragraphs.one')}</Paragraph>
+          <Paragraph>{t('Volunteer.classify.paragraphs.first')}</Paragraph>
           <Paragraph margin='0'>
             <Trans
-              i18nKey='Volunteer.classify.paragraphs.two'
+              i18nKey='Volunteer.classify.paragraphs.second'
               t={t}
               components={[<Anchor key='zooniverse-homepage' href='/' />]}
             />
@@ -116,14 +116,14 @@ function Volunteer() {
               <BarChart size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
-                  {t('Volunteer.register.subheadings.one')}
+                  {t('Volunteer.register.subheadings.first')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
-                  {t('Volunteer.register.paragraphs.one')}
+                  {t('Volunteer.register.paragraphs.first')}
                 </Paragraph>
               </Box>
             </StyledBox>
@@ -131,14 +131,14 @@ function Volunteer() {
               <Certificate size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
-                  {t('Volunteer.register.subheadings.two')}
+                  {t('Volunteer.register.subheadings.second')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
-                  {t('Volunteer.register.paragraphs.two')}
+                  {t('Volunteer.register.paragraphs.second')}
                 </Paragraph>
               </Box>
             </StyledBox>
@@ -146,21 +146,21 @@ function Volunteer() {
               <Chat size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
                 <Text
-                  color={{ light: 'neutral-1', dark: 'white' }}
+                  color={{ light: 'black', dark: 'white' }}
                   weight='bold'
                   size='1rem'
                 >
-                  {t('Volunteer.register.subheadings.three')}
+                  {t('Volunteer.register.subheadings.third')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
-                  {t('Volunteer.register.paragraphs.three')}
+                  {t('Volunteer.register.paragraphs.third')}
                 </Paragraph>
               </Box>
             </StyledBox>
           </Box>
           <Paragraph margin={{ top: 'medium', bottom: '0' }}>
             <Trans
-              i18nKey='Volunteer.register.paragraphs.four'
+              i18nKey='Volunteer.register.paragraphs.fourth'
               t={t}
               components={[
                 <Anchor
@@ -172,7 +172,7 @@ function Volunteer() {
           </Paragraph>
           <Paragraph>
             <Trans
-              i18nKey='Volunteer.register.paragraphs.five'
+              i18nKey='Volunteer.register.paragraphs.fifth'
               t={t}
               components={[
                 <Anchor
@@ -197,10 +197,10 @@ function Volunteer() {
           <Heading level={3} size='1.13rem' weight='bold' color={headingColor}>
             {t('Volunteer.beta.heading')}
           </Heading>
-          <Paragraph>{t('Volunteer.beta.paragraphs.one')}</Paragraph>
+          <Paragraph>{t('Volunteer.beta.paragraphs.first')}</Paragraph>
           <Paragraph margin='0'>
             <Trans
-              i18nKey='Volunteer.beta.paragraphs.two'
+              i18nKey='Volunteer.beta.paragraphs.second'
               t={t}
               components={[
                 <Anchor
@@ -212,7 +212,7 @@ function Volunteer() {
           </Paragraph>
           <Paragraph>
             <Trans
-              i18nKey='Volunteer.beta.paragraphs.three'
+              i18nKey='Volunteer.beta.paragraphs.third'
               t={t}
               components={[
                 <Anchor
@@ -235,7 +235,7 @@ function Volunteer() {
           </Heading>
           <Paragraph>
             <Trans
-              i18nKey='Volunteer.moderate.paragraphs.one'
+              i18nKey='Volunteer.moderate.paragraphs.first'
               t={t}
               components={[
                 <Anchor
@@ -247,7 +247,7 @@ function Volunteer() {
           </Paragraph>
           <Paragraph margin='0'>
             <Trans
-              i18nKey='Volunteer.moderate.paragraphs.two'
+              i18nKey='Volunteer.moderate.paragraphs.second'
               t={t}
               components={[<Anchor key='contact-us' href='/about#contact' />]}
             />

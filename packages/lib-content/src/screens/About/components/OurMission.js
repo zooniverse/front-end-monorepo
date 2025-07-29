@@ -41,7 +41,7 @@ const Discovery = ({ href, src, labelString }) => (
         <Image alt='' loading='lazy' src={src} width='100%' height='100%' />
       </CircleImage>
       <Text
-        color={{ light: 'dark-5', dark: 'white' }}
+        color={{ light: 'black', dark: 'white' }}
         textAlign='center'
         weight='normal'
         size='0.875rem'
@@ -60,19 +60,19 @@ export default function OurMission() {
     <>
       <Paragraph margin={{ vertical: '20px' }}>
         <Trans
-          i18nKey='AboutPage.ourMission.paragraphs.one'
+          i18nKey='AboutPage.ourMission.paragraphs.first'
           t={t}
           components={[
             <Anchor key='publications-page' href='/about/publications' />
           ]}
         />
       </Paragraph>
-      <Heading level={3} size='1.125rem' textAlign='start' margin='0'>
-        {t('AboutPage.ourMission.subheadings.two')}
+      <Heading level={3} size='1.125rem' textAlign='start' margin='0' color={{ light: 'black', dark: 'white' }}>
+        {t('AboutPage.ourMission.subheadings.second')}
       </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
         <Trans
-          i18nKey='AboutPage.ourMission.paragraphs.two'
+          i18nKey='AboutPage.ourMission.paragraphs.second'
           t={t}
           components={[
             <Anchor
@@ -82,12 +82,12 @@ export default function OurMission() {
           ]}
         />
       </Paragraph>
-      <Heading level={3} size='1.125rem' margin='0'>
-        {t('AboutPage.ourMission.subheadings.three')}
+      <Heading level={3} size='1.125rem' margin='0' color={{ light: 'black', dark: 'white' }}>
+        {t('AboutPage.ourMission.subheadings.third')}
       </Heading>
       <Paragraph margin={{ vertical: '20px' }}>
         <Trans
-          i18nKey='AboutPage.ourMission.paragraphs.three'
+          i18nKey='AboutPage.ourMission.paragraphs.third'
           t={t}
           components={[
             <Anchor
@@ -99,7 +99,7 @@ export default function OurMission() {
       </Paragraph>
       <Paragraph margin={{ top: '0', bottom: '50px' }}>
         <Trans
-          i18nKey='AboutPage.ourMission.paragraphs.four'
+          i18nKey='AboutPage.ourMission.paragraphs.fourth'
           t={t}
           components={[
             <Anchor key='talk-page' href='https://www.zooniverse.org/talk' /> // hardcoded while /talk exists in a separate app
@@ -115,7 +115,7 @@ export default function OurMission() {
         textAlign='center'
         alignSelf='center'
       >
-        {t('AboutPage.ourMission.subheadings.four').toUpperCase()}
+        {t('AboutPage.ourMission.subheadings.fourth').toUpperCase()}
       </Heading>
 
       <Stats />
@@ -137,7 +137,7 @@ export default function OurMission() {
           size='1.125rem'
           textAlign='center'
         >
-          {t('AboutPage.ourMission.subheadings.five').toUpperCase()}
+          {t('AboutPage.ourMission.subheadings.fifth').toUpperCase()}
         </Heading>
         <Tip
           content={<Text>{t('AboutPage.ourMission.discoveries.tip')}</Text>}
@@ -162,22 +162,22 @@ export default function OurMission() {
         <Discovery
           href='https://academic.oup.com/mnras/article/399/3/1191/1073770'
           src='https://static.zooniverse.org/fem-assets/green-pea.jpg'
-          labelString={t('AboutPage.ourMission.discoveries.one')}
+          labelString={t('AboutPage.ourMission.discoveries.first')}
         />
         <Discovery
           href='https://en.wikipedia.org/wiki/Planet_Hunters'
           src='https://static.zooniverse.org/fem-assets/exoplanet.jpg'
-          labelString={t('AboutPage.ourMission.discoveries.two')}
+          labelString={t('AboutPage.ourMission.discoveries.second')}
         />
         <Discovery
           href='https://blog.shakespearesworld.org/2017/04/05/shakespeares-world-and-updating-the-oed-a-splendid-antedating-of-white-lie/'
           src='https://static.zooniverse.org/fem-assets/transcription.jpg'
-          labelString={t('AboutPage.ourMission.discoveries.three')}
+          labelString={t('AboutPage.ourMission.discoveries.third')}
         />
         <Discovery
           href='https://en.wikipedia.org/wiki/Tabby%27s_Star'
           src='https://static.zooniverse.org/fem-assets/star.jpg'
-          labelString={t('AboutPage.ourMission.discoveries.four')}
+          labelString={t('AboutPage.ourMission.discoveries.fourth')}
         />
       </Grid>
     </>

@@ -1,19 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "Klicka och dra från öppningspunkten till stängningspunkten eller dubbelklicka var som helst på linjen för att skapa en skarvpunkt",
+    "closePoint": "Klicka var som helst på linjen för att ställa in stängningspunkten",
+    "inactive": "Klicka för att redigera denna linjen",
+    "spliceDrag": "Klicka och dra från öppningspunkten till stängningspunkten",
+    "splicePoint": "Dubbelklicka var som helst på linjen för att skapa en skarvpunkt"
+  },
+  "HighlighterTask": {
+    "delete": "Radera",
+    "noLabels": "Inga märkningar för överstrykningspennan",
+    "status": "{{count}} har markerats"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} ritad",
+    "max": "{{count}} av {{max}} maximalt ritade",
+    "maxAndMin": "{{count}} av {{min}} som krävs, {{max}} maximalt ritade",
+    "min": "{{count}} av {{min}} ritade enligt krav"
+  },
+  "LineControls": {
+    "close": "Stäng",
+    "delete": "Radera",
+    "deleteCancel": "Avbryt radering",
+    "deleteConfirm": "Bekräfta radering",
+    "lineControls": "Linjekontroller",
+    "move": "Flytta",
+    "redo": "Gör om",
+    "undo": "Ångra"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Ange något",
+    "otherLabel": "Annat...",
+    "selectPlaceholder": "Välj ett svar"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Rensa filter",
+      "closeFilters": "Stäng filter",
+      "filter": "Filtrera",
+      "removeFilter": "Ta bort {{valueLabel}} filtret",
       "showing": "Visar {{showing}} av {{total}}"
     },
     "Choice": {
-      "identify": "Identifiera"
+      "cancel": "Avbryt",
+      "identify": "Identifiera",
+      "lessInfo": "Mindre information",
+      "moreInfo": "Mer information",
+      "notThis": "Inte detta"
+    },
+    "ChoiceButton": {
+      "identified": "identifierad",
+      "openSubmenu": "Öppna undermeny för {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Avbryt",
       "confused": "Förväxlas ofta med",
       "itsThis": "Jag tror att det är det här"
+    },
+    "DeleteButton": {
+      "delete": "Ta bort val {{choiceLabel}}"
     }
   },
   "TextFromSubjectTask": {
     "reset": "Återställ"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Textmodifierare"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Skapad transkription",
+    "editing": "Redigering av transkription"
   }
 }

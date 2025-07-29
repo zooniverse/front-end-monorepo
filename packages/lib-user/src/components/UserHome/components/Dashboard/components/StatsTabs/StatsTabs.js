@@ -7,7 +7,7 @@ import {
   ThemeContext
 } from 'grommet'
 import { number, shape } from 'prop-types'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '../../../../../../translations/i18n.js'
 
@@ -55,13 +55,23 @@ function Stat({ stats }) {
 }
 
 export default function StatsTabs({ statsPreview }) {
+  const [index, setIndex] = useState(1)
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
+  
+  function onActive(index) {
+    setIndex(index)
+  }
 
   return (
     <ThemeContext.Extend value={tabsTheme}>
       <Box width={size !== 'small' ? { min: '480px' } : { min: '350px'}}>
-        <GrommetTabs gap='small' size={size}>
+        <GrommetTabs
+          activeIndex={index}
+          gap='small'
+          onActive={onActive}
+          size={size}
+        >
           <StyledTab title={t('UserHome.Dashboard.thisWeek')}>
             {statsPreview?.thisWeek && <Stat stats={statsPreview.thisWeek} />}
           </StyledTab>

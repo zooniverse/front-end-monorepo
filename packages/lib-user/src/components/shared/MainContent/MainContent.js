@@ -1,4 +1,4 @@
-import { Loader, MovableModal, SpacedText } from '@zooniverse/react-components'
+import { Loader, Modal, MovableModal, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
@@ -7,7 +7,6 @@ import { useTranslation, Trans } from '../../../translations/i18n.js'
 
 import {
   convertStatsSecondsToHours,
-  getDefaultDateRange,
   getStatsDateString
 } from '@utils'
 
@@ -28,7 +27,6 @@ import { getDateRangeSelectOptions, getProjectSelectOptions } from './helpers'
 
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
 const DEFAULT_STATS = {
   data: [],
   time_spent: 0,
@@ -44,7 +42,7 @@ function MainContent({
   loading = false,
   paramsValidationMessage = '',
   projects = [],
-  selectedDateRange = DEFAULT_DATE_RANGE,
+  selectedDateRange,
   selectedProject = undefined,
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER,
@@ -66,6 +64,8 @@ function MainContent({
   }, [selectedDateRange])
 
   const size = useContext(ResponsiveContext)
+  
+  const CalendarModal = size === 'small' ? Modal : MovableModal
 
   const hoursSpent = convertStatsSecondsToHours(stats?.time_spent)
 
@@ -122,32 +122,49 @@ function MainContent({
 
   return (
     <>
-      <MovableModal
+      <CalendarModal
         active={showCalendar}
         closeFn={handleCalendarClose}
+        pad='none'
         position='top'
+        rndProps={{ cancel: '.element-that-ignores-drag-actions' }}
         title={t('MainContent.calendarTitle')}
       >
-        <Calendar
-          bounds={[
-            sourceCreatedAtDate,
-            todayUTC
-          ]}
-          date={[customDateRange]}
-          onSelect={handleCalendarChange}
-          range='array'
-        />
         <Box
-          direction='row'
-          justify='end'
-          margin={{ top: 'small' }}
+          align='center'
+          className='element-that-ignores-drag-actions'
+          fill
+          pad={{
+            bottom: 'medium',
+            horizontal: size === 'small' ? 'none' : 'medium',
+            top: 'small'
+          }}
         >
-          <StyledCalendarButton
-            label={t('MainContent.calendarBtn')}
-            onClick={handleCalendarSave}
-          />
+          <Box>
+            <Calendar
+              bounds={[
+                sourceCreatedAtDate,
+                todayUTC
+              ]}
+              date={[customDateRange]}
+              onSelect={handleCalendarChange}
+              range='array'
+            />
+            <Box
+              direction='row'
+              fill
+              justify='end'
+              margin={{ top: 'small' }}
+              pad={{ horizontal: size === 'small' ? 'small' : 'none' }}
+            >
+              <StyledCalendarButton
+                label={t('MainContent.calendarBtn')}
+                onClick={handleCalendarSave}
+              />
+            </Box>
+          </Box>
         </Box>
-      </MovableModal>
+      </CalendarModal>
       <ContentBox
         direction='column'
         gap='medium'
@@ -322,7 +339,7 @@ MainContent.propTypes = {
   selectedDateRange: shape({
     endDate: string,
     startDate: string
-  }),
+  }).isRequired,
   selectedProject: string,
   setSelectedDateRange: func,
   setSelectedProject: func,

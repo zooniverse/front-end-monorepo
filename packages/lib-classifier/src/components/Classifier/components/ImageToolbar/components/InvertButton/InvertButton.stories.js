@@ -1,31 +1,31 @@
-import { Box } from 'grommet'
-
 import InvertButton from './InvertButton'
-
-const args = {
-  active: false,
-  disabled: false,
-}
+import { ComponentDecorator } from '../shared/ComponentDecorator'
 
 export default {
   title: 'Image Toolbar / InvertButton',
   component: InvertButton,
+  decorators: [ComponentDecorator],
   argTypes: {
+    active: {
+      control: 'boolean',
+      value: false
+    },
+    disabled: {
+      control: 'boolean',
+      value: false
+    },
     onClick: {
       action: 'clicked'
     }
-  },
-  args
+  }
 }
 
 export function Default({ active, disabled, onClick }) {
   return (
-    <Box width='72px' pad='12px'>
-      <InvertButton
-        active={active}
-        disabled={disabled}
-        onClick={onClick}
-      />
-    </Box>
+    <InvertButton
+      active={active}
+      disabled={disabled}
+      onClick={onClick}
+    />
   )
 }

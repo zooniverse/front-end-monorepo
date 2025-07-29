@@ -1,16 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "Щелкните и перетащите от открытой точки к закрытой точке или дважды щелкните в любом месте линии, чтобы создать точку соединения",
+    "closePoint": "Щелкните в любом месте линии, чтобы установить точку закрытия",
+    "inactive": "Нажмите, чтобы изменить эту линию",
+    "spliceDrag": "Щелкните и перетащите от точки открытия к точке закрытия",
+    "splicePoint": "Дважды щелкните в любом месте линии, чтобы создать точку соединения"
+  },
+  "HighlighterTask": {
+    "delete": "Удалить",
+    "noLabels": "Нет меток для задания «Выделение»",
+    "status": "{{count}} Помечено"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} нарисовано",
+    "max": "{{count}} из максимум {{max}} нарисовано",
+    "maxAndMin": "{{count}} из {{min}} требуется, нарисовано максимум {{max}}",
+    "min": "{{count}} из необходимых {{min}} нарисовано"
+  },
+  "LineControls": {
+    "close": "Закрыть",
+    "delete": "Удалить",
+    "deleteCancel": "Отменить удаление",
+    "deleteConfirm": "Подтвердить удаление",
+    "lineControls": "Линейное управление",
+    "move": "Переместить",
+    "redo": "Переделать",
+    "undo": "Отменить"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Введите что-нибудь",
+    "otherLabel": "Другое...",
+    "selectPlaceholder": "Выберите ответ"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Очистить фильтры",
+      "closeFilters": "Закрыть фильтры",
+      "filter": "Фильтровать",
+      "removeFilter": "Убрать {{valueLabel}} фильтр(а)",
       "showing": "Показать  {{showing}} of {{total}}"
     },
     "Choice": {
-      "identify": "Определить"
+      "cancel": "Отменить",
+      "identify": "Определить",
+      "lessInfo": "Меньше информации",
+      "moreInfo": "Больше информации",
+      "notThis": "Не это"
+    },
+    "ChoiceButton": {
+      "identified": "идентифицирован",
+      "openSubmenu": "Открыть подменю для {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Отменить",
       "confused": "Не путать с",
       "itsThis": "Думаю, что это"
+    },
+    "DeleteButton": {
+      "delete": "Удалить выбор {{choiceLabel}}"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Перезагрузить"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Модификаторы текста"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Созданная транскрипция",
+    "editing": "Редактирование транскрипции"
   }
 }

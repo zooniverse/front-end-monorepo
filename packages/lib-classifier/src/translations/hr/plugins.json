@@ -1,16 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "Klikni i povuci od točke otvaranja do točke zatvaranja ili dvaput klikni bilo gdje na liniji za kreiranje točke spajanja",
+    "closePoint": "Klikni bilo gdje na liniji za postavljanje točke zatvaranja",
+    "inactive": "Klikni za uređivanje ove linije",
+    "spliceDrag": "Klikni i povuci od točke otvaranja do točke zatvaranja",
+    "splicePoint": "Dvaput klikni bilo gdje na liniji za kreiranje točke spajanja"
+  },
+  "HighlighterTask": {
+    "delete": "Izbriši",
+    "noLabels": "Nema oznaka za zadatak isticanja",
+    "status": "{{count}} označeno"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} izvučeno",
+    "max": "Izvučeno {{count}} od maksimalno {{max}}",
+    "maxAndMin": "Potrebno je {{count}} od {{min}}, maksimalno izvučeno {{max}}",
+    "min": "Potrebno je izvući {{count}} od {{min}}"
+  },
+  "LineControls": {
+    "close": "Zatvori",
+    "delete": "Izbriši",
+    "deleteCancel": "Poništi brisanje",
+    "deleteConfirm": "Potvrdi brisanje",
+    "lineControls": "Kontrole linije",
+    "move": "Premjesti",
+    "redo": "Vrati",
+    "undo": "Poništi"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Unesi nešto",
+    "otherLabel": "Drugo...",
+    "selectPlaceholder": "Odaberi odgovor"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Očisti filtre",
-      "showing": "Pokazuje se {{showing}} od {{total}}"
+      "closeFilters": "Zatvori filtre",
+      "filter": "Filtar",
+      "removeFilter": "Ukloni filtar {{valueLabel}}",
+      "showing": "Prikazuje se {{showing}} od {{total}}"
     },
     "Choice": {
-      "identify": "Identificiraj"
+      "cancel": "Poništi",
+      "identify": "Identificiraj",
+      "lessInfo": "Manje informacija",
+      "moreInfo": "Više informacija",
+      "notThis": "Ne ovo"
+    },
+    "ChoiceButton": {
+      "identified": "identificirano",
+      "openSubmenu": "Otvori podizbornik za {{choiceLabel}}"
     },
     "ConfusedWith": {
-      "cancel": "Otkaži",
-      "confused": "Često zamijenjen sa",
+      "cancel": "Poništi",
+      "confused": "Ponekad se zamijenjuje s",
       "itsThis": "Mislim da je ovo"
+    },
+    "DeleteButton": {
+      "delete": "Izbriši izbor {{choiceLabel}}"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Ponovno postavi"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Modifikatori teksta"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Izrađena transkripcija",
+    "editing": "Uređivanje transkripcije"
   }
 }

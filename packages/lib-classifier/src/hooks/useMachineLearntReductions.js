@@ -37,8 +37,8 @@ export default function useMachineLearntReductions() {
         newMark.id = newMark.markId;
         delete newMark.markId;
 
-        const task = step?.tasks[0]	// we only get access to one task at a time in a step
-        task?.activeTool.createMark(newMark)
+        // we only get access to one task at a time in a step
+        step?.tasks[0].tools[newMark.toolIndex]?.createMark(newMark)
       })
     }
 

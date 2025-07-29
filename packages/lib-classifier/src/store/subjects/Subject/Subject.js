@@ -131,13 +131,6 @@ const Subject = types
       self.already_seen = true
     }
 
-    function openInTalk(newTab = false) {
-      self.shouldDiscuss = {
-        newTab,
-        url: self.talkURL
-      }
-    }
-
     function setCaesarReductions({ reducer, reductions, subjectId, workflowId }) {
       if (reducer) {
         self.caesarReductions = CaesarReductions.create({
@@ -168,7 +161,6 @@ const Subject = types
     return {
       addToCollection,
       markAsSeen,
-      openInTalk,
       setCaesarReductions,
       startClassification,
       toggleFavorite,

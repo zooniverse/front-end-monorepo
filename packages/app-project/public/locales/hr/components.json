@@ -1,32 +1,141 @@
 {
+  "404": {
+    "findNewProject": "Pronađite novi projekt za istraživanje",
+    "heading": "Ovdje nema sadržaja.",
+    "message": "Stranica koju tražite više ne postoji.",
+    "returnHome": "Povratak na početnu stranicu"
+  },
   "Announcements": {
     "AuthenticationInvitation": {
-      "register": "Registrirajte se",
-      "signIn": "Prijavite se"
+      "announcement": "Prijavite se ili registrirajte kako biste pratili svoje doprinose.",
+      "register": "registracija",
+      "signIn": "prijava"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Završeno! Čini se da je ovom projektu trenutno ponestalo podataka!",
+      "seeResults": "Prikaži rezultate"
     }
   },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Izradi i dodaj",
+      "label": "Izradi novu zbirku",
+      "private": "Privatna zbirka"
+    },
+    "SelectCollection": {
+      "addButton": "Dodaj",
+      "label": "Dodaj u postojeću zbirku"
+    },
+    "title": "Dodaj u zbirku"
+  },
   "ConnectWithProject": {
-    "title": "Poveznice"
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Web stranica",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Poveži se s projektom {{projectName}}"
   },
   "Head": {
+    "defaultDescription": "Zooniverse je najveća i najpopularnija svjetska platforma za istraživanja koja pokreću ljudi.",
     "defaultTitle": "Projekti",
-    "siteName": "Zooniverse"
+    "siteName": "Zooniverse – istraživanja koja pokreću ljudi"
   },
   "ProjectHeader": {
-    "about": "O projektu",
-    "classify": "Klasificiraj",
-    "exploreProject": "Istraži projekt",
-    "talk": "Pričaj ",
-    "collect": "Prikupi",
-    "recents": "Nedavno",
     "ApprovedIcon": {
       "title": "Odobrio Zooniverse"
     },
+    "Avatar": {
+      "alt": "Avatar projekta za {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Promijeni jezik"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projekt"
+    },
     "UnderReviewLabel": {
-      "underReview": "Recenzija u tijeku"
-    }
+      "underReview": "recenzija u tijeku"
+    },
+    "about": "O projektu",
+    "admin": "Administratorska stranica",
+    "classify": "Klasificiraj",
+    "collect": "Prikupi",
+    "exploreProject": "Istraži projekt",
+    "organization": "Od organizacije:",
+    "recents": "Nedavno",
+    "talk": "Talk"
   },
   "ProjectStatistics": {
+    "byTheNumbers": "Po brojevima",
+    "classifications": "Klasifikacije",
+    "completedSubjects": "Dovršeni predmetni elementi",
+    "percentComplete": "Postotak dovršenosti",
+    "subjects": "Predmetni elementi",
+    "subtitle": "Pratite napredak koji ste vi i vaši kolege volonteri postigli na ovom projektu.",
+    "text": "Svaki klik je važan! Pridružite se zajednici projekta {{projectName}} kako biste dovršili ovaj projekt i pomogli istraživačima da ostvare važne rezultate. Kliknite na \"Prikaži više statističkih podataka\" za prikaz dodatnih statističkih podataka.",
+    "title": "Statistika projekta {{projectName}}",
+    "viewMoreStats": "Prikaži više statističkih podataka",
     "volunteers": "Volonteri"
+  },
+  "RequireUser": {
+    "text": "Morate se prijaviti!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zaglavlje web stranice Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Već pregledano",
+    "back": "Odaberi drugi skup predmetnih elemenata",
+    "byline": "Sortirajte popis klikom na nazive stupaca. Vidjet ćete predmetne elemente po redu, počevši od onog koji odaberete.",
+    "fetching": "Pričekajte...",
+    "heading": "Odaberi predmetni element za početak rada",
+    "retired": "Povučeno",
+    "unclassified": "Dostupno"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Dodaj u zbirke"
+    },
+    "TalkLink": {
+      "label": "Raspravljaj na Talku"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Završeno"
+    },
+    "back": "Odaberi drugi tijek rada",
+    "byline": "Odaberite skup predmetnih elemenata za početak transkripcije.",
+    "heading": "Odaberite gdje želite početi"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% dovršeno",
+      "setSelection": "odabir skupa",
+      "subjectSelection": "odabir predmetnog elementa"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "zaključano",
+      "unlocked": "otključano"
+    },
+    "error": "Došlo je do greške prilikom dohvaćanja tijekova rada :(",
+    "getStarted": "Počnite s radom!",
+    "message": "Kliknite ovdje za početak stvarnog istraživanja!",
+    "noWorkflows": "Nema sadržaja za klasifikaciju"
   }
 }

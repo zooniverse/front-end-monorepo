@@ -53,8 +53,8 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Help size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
-            {t('AboutPage.contact.categories.one')}
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem' color={{ light: 'black', dark: 'white' }}>
+            {t('AboutPage.contact.categories.first')}
           </Text>
         </Box>
         <Box width='30%' align='center' pad={{ horizontal: 'small' }}>
@@ -68,8 +68,8 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Group size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
-            {t('AboutPage.contact.categories.two')}
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem' color={{ light: 'black', dark: 'white' }}>
+            {t('AboutPage.contact.categories.second')}
           </Text>
         </Box>
         <Box width='30%' align='center'>
@@ -83,14 +83,14 @@ export default function Contact({ widgetLoaded = false }) {
           >
             <Edit size='1.5rem' color='white' />
           </Box>
-          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem'>
-            {t('AboutPage.contact.categories.three')}
+          <Text textAlign='center' margin={{ top: 'xsmall' }} size='1rem' color={{ light: 'black', dark: 'white' }}>
+            {t('AboutPage.contact.categories.third')}
           </Text>
         </Box>
       </Box>
       <Paragraph margin={{ top: '0' }}>
         <Trans
-          i18nKey='AboutPage.contact.paragraphs.one'
+          i18nKey='AboutPage.contact.paragraphs.first'
           t={t}
           components={[
             <Anchor
@@ -104,14 +104,14 @@ export default function Contact({ widgetLoaded = false }) {
           ]}
         />
       </Paragraph>
-      <Paragraph>{t('AboutPage.contact.paragraphs.two')}</Paragraph>
+      <Paragraph>{t('AboutPage.contact.paragraphs.second')}</Paragraph>
       <Box align='center' pad={{ top: 'small', bottom: '180px' }}>
         <StyledButton primary textAlign='center' onClick={handleClick} aria-haspopup='dialog'>
           {t('AboutPage.contact.heading')}
         </StyledButton>
         <Paragraph margin={{ top: 'medium' }}>
           <Trans
-            i18nKey='AboutPage.contact.paragraphs.three'
+            i18nKey='AboutPage.contact.paragraphs.third'
             t={t}
             components={[
               <Anchor key='direct-email-contact' href='mailto:contact@zooniverse.org' />

@@ -71,5 +71,11 @@
       "link": "See more",
       "title": "Your Stats"
     }
+  },
+  "Talk": {
+    "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "subjectMetadata": "Subject Metadata",
+    "featuredCollections": "Featured in these Collections",
+    "relatedSubjects": "Other subjects being discussed:"
   }
 }

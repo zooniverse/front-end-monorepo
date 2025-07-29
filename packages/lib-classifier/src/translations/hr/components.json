@@ -1,67 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Već ste pregledali ovaj predmetni element",
+      "tooltipText": [
+        "Već ste pregledali i klasificirali ovaj predmetni element i stoga daljnje klasifikacije neće doprinijeti njegovoj analizi.",
+        "Ako želite pomoći, pokušajte odabrati drugi tijek rada ili doprinijeti drugom projektu."
+      ]
+    },
     "Banner": {
-      "next": "Sljedeće"
+      "next": "Sljedeće",
+      "previous": "Prethodno",
+      "whyAmISeeingThis": "Zašto vidim ovo?"
     },
     "InProgressConfirmModal": {
-      "cancel": "Otkaži",
-      "confirm": "OK",
-      "inProgress": "Vraćanje natrag će obrisati Vaš rad za trenutni zadatak"
+      "cancel": "Poništi",
+      "confirm": "Potvrdi",
+      "inProgress": "Zaista želite prijeći na drugi predmetni element? Sve vaše bilješke za trenutni predmetni element bit će izgubljene."
+    },
+    "RetiredBanner": {
+      "bannerText": "Završeno: Ovaj predmetni element je povučen",
+      "tooltipText": [
+        "Ovaj predmetni element već ima dovoljno klasifikacija i stoga se vaša klasifikacija neće upotrebljavati u njegovoj analizi.",
+        "Ako želite pomoći, pokušajte odabrati drugi tijek rada ili doprinijeti drugom projektu."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Već pregledano",
+      "bannerText": "{{setName}}: predmetni element {{number}}\/{{total}}",
+      "finished": "Završeno",
+      "tooltipText": [
+        "Ovaj projekt omogućuje volonterima da pregledaju predmetne elemente uzastopnim redoslijedom.",
+        "Broj pokazuje položaj ovog predmetnog elementa unutar cijele grupe."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Završeno: sve je pregledano",
+      "tooltipText": [
+        "Već ste sve klasificirali u ovom tijeku rada i stoga se daljnje klasifikacije za ovaj predmetni element neće upotrebljavati u njegovoj analizi.",
+        "Ako želite pomoći, pokušajte odabrati drugi tijek rada ili doprinijeti drugom projektu."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Ovaj tijek rada je završen",
+      "tooltipText": [
+        "Svi predmetni elementi u ovom tijeku rada su dovršeni i stoga se daljnje klasifikacije za ovaj predmetni element neće upotrebljavati u njegovoj analizi.",
+        "Ako želite pomoći, pokušajte odabrati drugi tijek rada ili doprinijeti drugom projektu."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Ručica za rotiranje nacrtane napomene\/oznake."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Nastavi"
+    "keepClassifying": "Nastavi s klasifikacijom",
+    "label": "Povratne informacije"
   },
   "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Terenski vodič"
+    },
     "FieldGuideItem": {
-      "ariaTitle": "Natrag"
+      "ariaTitle": "Idi natrag na popis stavki Terenskog vodiča"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Odaberi {{title}}"
+    },
+    "title": "Terenski vodič"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Zabilježi"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Prikaži predmetni element u normalnoj veličini",
+        "fullscreen": "Prikaži predmetni element preko cijelog zaslona"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Okreni predmetni element"
+    },
+    "MoveButton": {
+      "ariaLabel": "Premjesti predmetni element"
+    },
+    "ResetButton": {
+      "ariaLabel": "Ponovno postavi prikaz predmetnog elementa"
+    },
+    "RotateButton": {
+      "ariaLabel": "Rotiraj predmetni element"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Uvećaj prikaz predmetnog elementa"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Umanji prikaz predmetnog elementa"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Dodaj u zbirke"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Sakrij prethodne oznake",
+      "show": "Prikaži prethodne oznake"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Sakrij sve oznake",
+      "show": "Prikaži sve oznake",
+      "showUser": "Prikaži svoje oznake"
+    },
+    "MetadataButton": {
+      "label": "Informacije o predmetnom elementu"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Oznaka",
+        "value": "Vrijednost"
+      },
+      "title": "Metapodaci o predmetnom elementu"
     }
   },
   "ModalTutorial": {
-    "title": "Uputstva"
+    "title": "Vodič"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Zatvori panel za komentare",
+      "goToTalk": "Idi na raspravu o predmetnom elementu na Talku",
+      "mainPanel": "Panel za komentare QuickTalk",
+      "openButton": "Predmetni element ima {{count}} komentar(a). Kliknite za proširenje.",
+      "panelContent": "Komentari u raspravi o predmetnom elementu",
+      "panelHeading": "Rasprava o predmetnom elementu"
+    },
+    "errors": {
+      "failPostComment": "Nije moguće dodati komentare postojećoj raspravi.",
+      "failPostDiscussion": "Nije moguće dodati komentare u novu raspravu.",
+      "noBoard": "Ploča za komentare o predmetnom elementu još nije postavljena za ovaj projekt.",
+      "noText": "Nije moguće objaviti prazan komentar.",
+      "noUser": "Korisnik nije prijavljen."
+    },
+    "loginToPost": "Prijavite se kako biste objavili komentar.",
     "status": {
-      "loading": "(Učitava se)"
-    }
+      "initialized": "Ostavite bilješku o ovom predmetnom elementu",
+      "loading": "Objavljivanje komentara...",
+      "success": "Komentar je objavljen!"
+    },
+    "subjectHasNoComments": "Ovaj predmetni element još nema nijedan komentar."
   },
   "SlideTutorial": {
-    "getStarted": "Započnite",
-    "heading": "{{projectDisplayName}} Uputstva"
+    "StepNavigation": {
+      "go": "Idi na korak {{index}}",
+      "next": "Idi na sljedeći korak",
+      "previous": "Idi na prethodni korak"
+    },
+    "alt": "Korak vodiča {{activeStep}}",
+    "error": "Korak vodiča nije moguće učitati.",
+    "getStarted": "Početak rada",
+    "heading": "Vodič za {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Idi na korak {{index}}",
+    "next": "Idi na sljedeći korak",
+    "previous": "Idi na prethodni korak"
   },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Trakasti grafikon"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikona za preglednik teksta"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Zatvori bez spremanja",
+        "confirm": "Zaista želite zatvoriti? Ova će oznaka biti izbrisana.",
+        "keepWorking": "Nastavi s radom"
+      },
+      "SaveButton": {
+        "save": "Spremi i zatvori"
+      },
+      "SubTaskPopup": {
+        "notRender": "Komponenta zadatka nije se mogla prikazati.",
+        "required": "Ovaj zadatak je obavezan."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "agregirana transkripcija",
+          "explanation": "Ovih {{count}} transkripcija poslali su prethodni volonteri i ne mogu se mijenjati.",
+          "noAggregation": "Agregacija nije dostupna.",
+          "title": "Prethodne transkripcije",
+          "transcriptionsUnavailable": "Transkripcije nisu dostupne."
+        },
+        "complete": "Transkripcija je dovršena",
+        "transcribed": "Ima transkripcije"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Sljedeće"
+        "nextFrameLabel": "Sljedeće",
+        "previousFrameLabel": "Prethodno",
+        "thumbnailAltText": "Sličica slike"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Izbriši odabir {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Prijeđi na prikaz za prebacivanje",
+        "switchToSeparateFrames": "Prijeđi na prikaz odvojenih okvira"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Došlo je do greške prilikom učitavanja predmetnog elementa."
+    },
+    "VariableStarViewer": {
+      "controls": "kontrole",
+      "figCaption": "HR dijagram",
+      "flip": "okreni",
+      "focus": "fokus",
+      "highlight": "istaknuto",
+      "imageTitle": "HR dijagram: Svjetlina u odnosu na temperaturu",
+      "label": "Filtar {{id}}",
+      "periodMultiple": "više razdoblja",
+      "phase": "faza",
+      "phaseFocus": "fazni fokus"
+    },
+    "VideoController": {
+      "closeVolume": "Zatvori klizač za glasnoću",
+      "fullscreen": "Prikaži video preko cijelog zaslona",
+      "openVolume": "Otvori klizač za glasnoću",
+      "pause": "Pauziraj video",
+      "play": "Reproduciraj video",
+      "playbackSpeed": "Odabir brzine reprodukcije videa",
+      "scrubber": "Klizač videoreproduktora",
+      "volumeSlider": "Klizač za glasnoću"
+    },
+    "ZoomControlButton": {
+      "disable": "onemogući zumiranje",
+      "enable": "omogući zumiranje"
+    },
+    "loading": "Učitavanje predmetnog elementa",
+    "zoomHelp": "Zumiraj pomoću CTRL +"
   },
   "TaskArea": {
-    "task": "Zadatak",
-    "tutorial": "Uputstva",
     "DisabledTaskPopup": {
+      "body": "Ovaj predmetni element ima dovoljno klasifikacija i stoga se dodatne podnesene klasifikacije neće upotrebljavati u njegovoj analizi. I dalje možete pregledati ovaj predmetni element kao referencu.",
       "options": {
-        "dismiss": "Odbaci"
-      }
+        "dismiss": "Odbaci",
+        "next": "Sljedeći dostupan predmetni element",
+        "select": "Odaberi novi predmetni element"
+      },
+      "title": "Završeno"
     },
     "Tasks": {
       "BackButton": {
         "back": "Natrag"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Završi i pričaj"
+        "doneAndTalk": "Završi i pričaj",
+        "newTab": "u novoj kartici"
       },
       "DoneButton": {
-        "done": "Završi"
+        "done": "Gotovo"
       },
-      "loading": "(Učitava se)",
+      "ExpertOptions": {
+        "demoToggle": "Demo način rada",
+        "label": "Opcije za stručnjake"
+      },
       "NextButton": {
         "next": "Sljedeće"
       },
       "TaskHelp": {
         "close": "Zatvori",
         "label": "Trebate li pomoć s ovim zadatkom?"
-      }
-    }
+      },
+      "demoMode": "U demo načinu rada klasifikacije neće biti spremljene. Upotrebljavajte ga za brze, netočne demonstracije sučelja klasifikacije.",
+      "error": "Nešto nije bilo u redu",
+      "loading": "Učitavanje",
+      "renderFallback": "Komponenta zadatka nije se mogla prikazati."
+    },
+    "task": "Zadatak",
+    "tutorial": "Vodič"
   }
 }

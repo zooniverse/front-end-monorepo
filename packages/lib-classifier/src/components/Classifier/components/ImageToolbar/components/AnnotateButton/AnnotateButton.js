@@ -8,13 +8,16 @@ const DEFAULT_HANDLER = () => {}
 
 function AnnotateButton({
   active = false,
+  disabled = false,
   onClick = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   return (
     <Button
       active={active}
+      aria-pressed={active.toString()}
       a11yTitle={t('ImageToolbar.AnnotateButton.ariaLabel')}
+      disabled={disabled}
       icon={<EditIcon />}
       onClick={onClick}
     />
@@ -23,6 +26,7 @@ function AnnotateButton({
 
 AnnotateButton.propTypes = {
   active: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 

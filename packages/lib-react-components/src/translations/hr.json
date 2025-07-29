@@ -1,52 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "Administratorski način rada"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Korisničko ime ili lozinka su netočni",
+      "forgot": "Zaboravili ste lozinku?",
+      "heading": "Dobro došli natrag!",
+      "instruction": "Drago nam je da ste se vratili! Prijavite se da biste nastavili ondje gdje ste stali.",
+      "login": "Korisničko ime ili adresa e-pošte",
+      "password": "Lozinka",
+      "placeholder": "npr. ZooniverseFan123",
+      "signIn": "Prijava"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Želim pomoći u testiranju novih projekata i primati e-poruke kada budu dostupni (opcionalno)",
+      "email": "Adresa e-pošte (obavezno)",
+      "emailConfirm": "Potvrdi adresu e-pošte (obavezno)",
+      "emailConfirmError": "Adrese e-pošte se ne podudaraju. Pokušajte ponovno.",
+      "emailConflict": "Već postoji račun s ovom adresom",
+      "emailListSignUp": "Pristajem na to da mi povremeno pošaljete e-poruku (opcionalno)",
+      "emailPlaceholder": "npr. zoofan31@gmail.com",
+      "forgot": "Zaboravili ste lozinku?",
+      "heading": "Dobro došli natrag!",
+      "instruction": "Kreirajte račun kako biste započeli s pravim istraživanjem.",
+      "password": "Lozinka (obavezno)",
+      "passwordConfirm": "Potvrdi lozinku (obavezno)",
+      "passwordConfirmError": "Lozinke se ne podudaraju. Pokušajte ponovno.",
+      "privacyAgreement": "Prihvaćate naša pravila o privatnosti (obavezno)",
+      "privacyAgreementError": "Prihvaćanje pravila o privatnosti je obavezno.",
+      "privacyLink": "Pročitajte naša pravila o privatnosti",
+      "realName": "Pravo ime (opcionalno)",
+      "realNameHelp": "Njime ćemo se koristiti kako bismo vam dali priznanje u znanstvenim radovima, na posterima itd.",
+      "realNamePatternHelp": "Unesite ime, a ne adresu e-pošte",
+      "realNamePlaceholder": "npr. Maggie Smith",
+      "register": "Registracija",
+      "registering": "Registracija...",
+      "underageConsent": "Potvrđujem da sam roditelj\/skrbnik i dajem dopuštenje za registraciju svog djeteta navođenjem svoje adrese e-pošte kao glavne adrese za kontakt. I ja i moje dijete razumijemo i prihvaćamo pravila o privatnosti (obavezno)",
+      "underageEmail": "E-mail adresa roditelja\/skrbnika (obavezno)",
+      "underageEmailSignUp": "Ako se slažete, periodično ćemo vam slati e-poruke u kojima promoviramo nove istraživačke projekte ili druge informacije vezane uz naša istraživanja. Vaše podatke za kontakt nećemo upotrebljavati u komercijalne svrhe. (opcionalno)",
+      "underageNotRealName": "Ovo ime upotrebljavat ćete za prijavu. Bit će javno prikazano. Nemojte upotrebljavati svoje pravo ime.",
+      "underageWithParent": "Ako imate manje od 16 godina, označite ovaj okvir kako biste potvrdili da ste obrazac ispunili s roditeljem ili skrbnikom.",
+      "username": "Korisničko ime (obavezno)",
+      "usernameConflict": "To korisničko ime je zauzeto",
+      "usernameHelp": "Ovo će biti javno prikazano na oglasnim pločama itd.",
+      "usernamePatternHelp": "Korisnička imena smiju sadržavati samo slova, brojeve, '.', '-' i '_'",
+      "usernamePlaceholder": "npr. ZooniverseFan123"
+    },
+    "title": "Prijavite se ili kreirajte novi račun."
+  },
   "CloseButton": {
     "close": "Zatvori"
   },
+  "FavouritesButton": {
+    "add": "Dodaj u omiljeno",
+    "remove": "Dodano u omiljeno"
+  },
   "Loader": {
-    "loading": "(Učitava se)"
+    "loading": "Učitavanje"
+  },
+  "ProjectCard": {
+    "classifications": "Klasifikacije",
+    "finished": "Završeno",
+    "paused": "Pauzirano",
+    "state": "Stanje"
   },
   "ZooFooter": {
     "aboutLabels": {
       "about": "O Zooniversu",
+      "acknowledgements": "Zahvale",
+      "contact": "Kontakt",
+      "faq": "Česta pitanja",
       "publications": "Publikacije",
-      "team": "Naš tim",
-      "contact": "Kontaktirajte nas",
-      "faq": "Često postavljana pitanja"
+      "resources": "Resursi",
+      "team": "Tim"
     },
     "buildLabels": {
-      "tutorial": "Uputstva"
+      "bestPractices": "Najbolje prakse",
+      "buildAProject": "Izradi projekt",
+      "glossary": "Glosar",
+      "policies": "Pravila",
+      "tutorial": "Vodič"
     },
     "getInvolvedLabels": {
+      "callForProjects": "Poziv za projekte",
+      "collaborate": "Surađuj",
+      "collections": "Zbirke",
+      "donate": "Doniraj",
+      "educate": "Educiraj",
+      "education": "Edukacija",
       "getInvolved": "Uključi se",
-      "educate": "Edukacija"
+      "volunteer": "Volonter"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Novosti na platformi Zooniverse",
+      "news": "Novosti"
+    },
+    "policyLabels": {
+      "jobs": "Radna mjesta",
+      "privacyPolicy": "Pravila o privatnosti",
+      "security": "Sigurnost",
+      "systemStatus": "Status sustava"
     },
     "projectLabels": {
-      "projects": "Projekti"
+      "arts": "Umjetnost",
+      "biology": "Biologija",
+      "climate": "Klima",
+      "history": "Povijest",
+      "language": "Jezik",
+      "literature": "Književnost",
+      "medicine": "Medicina",
+      "nature": "Prirodne znanosti",
+      "physics": "Fizika",
+      "projects": "Projekti",
+      "social": "Društvene znanosti",
+      "space": "Prostor"
     },
+    "tagLine": "Istraživanja koja pokreću ljudi",
     "talkLabels": {
-      "talk": "Pričaj "
-    }
+      "announcements": "Objave",
+      "data": "Obrada podataka",
+      "projectBuilding": "Izrada projekta",
+      "talk": "Talk",
+      "troubleshooting": "Rješavanje problema"
+    },
+    "zooniversePolicies": "Pravila platforme Zooniverse"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "Projekti",
-      "about": "O Zooniversu",
-      "getInvolved": "Uključi se",
-      "talk": "Pričaj "
+    "SignedInUserNavigation": {
+      "ariaLabel": "Korisnički račun",
+      "navListLabels": {
+        "messages_one": "Poruke ({{count}})",
+        "messages_other": "Poruke ({{count}})",
+        "messages_zero": "Poruke",
+        "notifications_one": "Obavijesti ({{count}})",
+        "notifications_other": "Obavijesti ({{count}})",
+        "notifications_zero": "Obavijesti"
+      }
     },
     "SignedOutUserNavigation": {
-      "register": "Registrirajte se",
-      "signIn": "Prijavite se"
+      "register": "Registracija",
+      "signIn": "Prijava"
     },
     "ThemeModeToggle": {
-      "switchToDark": "Prebaci na tamno temu",
-      "switchToLight": "Prebaci na svijetlo temu"
+      "switchToDark": "Prebaci na tamnu temu",
+      "switchToLight": "Prebaci na svijetlu temu"
     },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Zbirke",
-        "favorites": "Omiljeno"
+        "favorites": "Omiljeno",
+        "profile": "Profil",
+        "settings": "Postavke",
+        "signOut": "Odjava"
       }
+    },
+    "ariaLabel": "Stranica",
+    "mainHeaderNavListLabels": {
+      "about": "O Zooniversu",
+      "build": "Kreiraj",
+      "getInvolved": "Uključi se",
+      "projects": "Projekti",
+      "talk": "Razgovaraj"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Logotip platforme Zooniverse"
   }
 }
