@@ -107,5 +107,6 @@ const query = {
   project_ids: ['1234'],
   owner: 'user_login'
 }
-const { data, error, isLoading } = useUserCollections({ query })
+
+const { data, error, isLoading, mutate } = useUserCollections({ query })
 ```

@@ -1,8 +1,6 @@
 import { Favorite } from 'grommet-icons'
 import { bool, func } from 'prop-types'
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
 import { useTranslation } from '../translations/i18n'
 import IconActionButton from '../IconActionButton'
 
@@ -20,27 +18,20 @@ function FavoritesIconButton({
   disabled = false,
   onClick = DEFAULT_HANDLER
 }) {
-  const [isFavorite, setIsFavorite] = useState(checked)
-
-  useEffect(function updateIsFavorite() {
-    setIsFavorite(checked)
-  }, [checked])
-
   const { t } = useTranslation()
 
-  const label = isFavorite ? 'FavouritesButton.remove' : 'FavouritesButton.add'
+  const label = checked ? 'FavouritesButton.remove' : 'FavouritesButton.add'
 
   function toggleFavorite() {
-    setIsFavorite(!isFavorite)
     onClick()
   }
 
   return (
     <IconActionButton
       a11yTitle={t(label)}
-      aria-checked={isFavorite}
+      aria-checked={checked}
       disabled={disabled}
-      icon={<StyledFavorite $isFavorite={isFavorite} />}
+      icon={<StyledFavorite $isFavorite={checked} />}
       role='checkbox'
       onClick={toggleFavorite}
     />

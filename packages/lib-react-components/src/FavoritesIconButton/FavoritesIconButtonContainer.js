@@ -33,16 +33,38 @@ function FavoritesIconButtonContainer({
 
   const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
 
-  async function handleAddToFavorites() {
+  function handleAddToFavorites() {
+    // first param is a func that returns the modified state data you want to show locally.
+    // favorited subjects are nested like this because the generic useUserCollections hook
+    // returns an array of collections [] and the first item is the user's favorites.
+    mutate(
+      prevData => {
+        // must return a new object in this function in order for SWR to recognize data returned from
+        // useSWR has changed. Modifying the original Javscript object is not enough.
+        const newData = [
+          {
+            ...prevData[0],
+            links: {
+              ...prevData[0].links,
+              subjects: [...prevData[0].links.subjects, subjectId]
+            }
+          }
+        ]
+        return newData
+      },
+      {
+        revalidate: false // Don't need to revalidate useUserCollections every time this button is clicked
+      }
+    )
+
     try {
-      let updatedFavorites
       if (favorites?.[0]?.id) {
-        updatedFavorites = await addSubjectsToCollection({
+        addSubjectsToCollection({
           collectionId: favorites[0].id,
           subjectIds: [subjectId]
         })
       } else {
-        updatedFavorites = await createCollection({
+        createCollection({
           options: {
             display_name: `Favorites ${projectSlug}`,
             favorite: true,
@@ -52,30 +74,46 @@ function FavoritesIconButtonContainer({
           subjectIds: [subjectId]
         })
       }
-      mutate((current) => current.map((item) => item.id === updatedFavorites.id ? updatedFavorites : item), { revalidate: false })
     } catch (error) {
       console.error(error)
     }
   }
 
-  async function handleRemoveFromFavorites() {
+  function handleRemoveFromFavorites() {
+    // first param is a func that returns the modified state data you want to show locally.
+    // favorited subjects are nested like this because the generic useUserCollections hook
+    // returns an array of collections [] and the first item is the user's favorites
+    mutate(
+      prevData => {
+        const indexToRemove = prevData[0].links.subjects.indexOf(subjectId)
+        const newSubjects = prevData[0].links.subjects.slice()
+        if (indexToRemove > -1) {
+          newSubjects.splice(indexToRemove, 1)
+        }
+
+        // must return a new object in this function in order for SWR to recognize data returned from
+        // useSWR has changed. Modifying the original Javscript object is not enough.
+        const newData = [
+          {
+            ...prevData[0],
+            links: {
+              ...prevData[0].links,
+              subjects: newSubjects
+            }
+          }
+        ]
+        return newData
+      },
+      {
+        revalidate: false // Don't need to revalidate useUserCollections every time this button is clicked
+      }
+    )
+
     try {
-      const updatedFavorites = await removeSubjectsFromCollection({
+      removeSubjectsFromCollection({
         collectionId: favorites[0].id,
         subjectIds: [subjectId]
       })
-      mutate((current) => current.map((item) => {
-        if (item.id === updatedFavorites.id) {
-          return {
-            ...item,
-            links: {
-              ...item.links,
-              subjects: item.links.subjects.filter((id) => id !== subjectId)
-            }
-          }
-        }
-        return item
-      }), { revalidate: false })
     } catch (error) {
       console.error(error)
     }
@@ -86,7 +124,7 @@ function FavoritesIconButtonContainer({
       handleRemoveFromFavorites()
     } else {
       handleAddToFavorites()
-    } 
+    }
   }
 
   return (
