@@ -36,7 +36,7 @@ const AXIS_COLORS = [
   0x235DFF, // z
 ]
 
-export const Cube = ({ annotations, tool, viewer }) => {
+export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true }) => {
   const FPS_INTERVAL = 1000 / 60
   const NUM_MESH_POINTS = Math.pow(viewer.base, 2) * 3 - viewer.base * 3 + 1
 
@@ -60,17 +60,21 @@ export const Cube = ({ annotations, tool, viewer }) => {
     resizeCube()
 
     // Setup State Listeners
-    annotations.on('active:annotation', renderAnnotations)
-    annotations.on('add:annotation', renderAnnotations)
-    annotations.on('update:annotation', renderAnnotations)
+    if (annotations) {
+      annotations.on('active:annotation', renderAnnotations)
+      annotations.on('add:annotation', renderAnnotations)
+      annotations.on('update:annotation', renderAnnotations)
+    }
     viewer.on('change:dimension:frame', renderPlanePoints)
     viewer.on('change:threshold', renderPlanePoints)
     viewer.on('save:screenshot', saveScreenshot)
 
     return () => {
-      annotations.off('active:annotation', renderAnnotations)
-      annotations.off('add:annotation', renderAnnotations)
-      annotations.off('update:annotation', renderAnnotations)
+      if (annotations) {
+        annotations.off('active:annotation', renderAnnotations)
+        annotations.off('add:annotation', renderAnnotations)
+        annotations.off('update:annotation', renderAnnotations)
+      }
       viewer.off('change:dimension:frame', renderPlanePoints)
       viewer.off('change:threshold', renderPlanePoints)
       viewer.off('save:screenshot', saveScreenshot)
@@ -151,6 +155,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
     threeRef.current.orbit.enableDamping = false
     threeRef.current.orbit.enableZoom = false
     threeRef.current.orbit.enablePan = false
+    threeRef.current.orbit.enableRotate = orbitControlsEnabled
     threeRef.current.orbit.update()
   }
 
@@ -205,7 +210,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
         // clicked on something that's not relevant
         if (!point) return
 
-        if (tool.events.click) {
+        if (tool?.events.click) {
           tool.events.click({
             button,
             point,
@@ -346,7 +351,7 @@ export const Cube = ({ annotations, tool, viewer }) => {
     // isInactive makes all inactive marks less visible 
     const isInactive = (annotationIndex === -1)
       ? false
-      : (annotations.config.activeAnnotation !== annotationIndex)
+      : (annotations?.config.activeAnnotation !== annotationIndex)
 
     const pointValue = viewer.getPointValue({ point })
     const isVisible = viewer.isPointInThreshold({ point })
@@ -363,7 +368,8 @@ export const Cube = ({ annotations, tool, viewer }) => {
         annotationIndex,
         isInactive,
         isThree: true,
-        pointValue
+        pointValue,
+        threshold: viewer.threshold
       })
     )
   }
@@ -407,6 +413,8 @@ export const Cube = ({ annotations, tool, viewer }) => {
   }
 
   function resizeCube () {
+    if (!threeRef.current.camera) return
+
     // constrain based on parent element width and height
     const { width } =
       canvasRef.current.parentElement.getBoundingClientRect()

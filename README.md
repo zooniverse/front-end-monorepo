@@ -1,7 +1,6 @@
 # Zooniverse Front-End Monorepo
 
 [![Build Status](https://travis-ci.com/zooniverse/front-end-monorepo.svg?branch=master)](https://travis-ci.com/zooniverse/front-end-monorepo)
-[![Coverage Status](https://coveralls.io/repos/github/zooniverse/front-end-monorepo/badge.svg?branch=master)](https://coveralls.io/github/zooniverse/front-end-monorepo?branch=master)
 [![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)

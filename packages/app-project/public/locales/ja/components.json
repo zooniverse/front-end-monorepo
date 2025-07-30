@@ -32,9 +32,11 @@
     "ProjectLink": {
       "types": {
         "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
         "facebook": "フェイスブック",
         "github": "GitHub",
         "instagram": "インスタグラム",
+        "mastodon": "Mastodon",
         "medium": "Medium",
         "pinterest": "Pinterest",
         "reddit": "Reddit",

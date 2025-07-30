@@ -3,6 +3,7 @@ import { Provider } from 'mobx-react'
 import SubjectPreview from './'
 
 import {
+  AudioSubjectMock,
   PlainSubjectMock,
   TranscriptionSubjectMock,
   VideoSubjectMock,
@@ -15,6 +16,22 @@ export default {
   title: 'Project App / Shared / Subject Preview',
   component: SubjectPreview
 }
+
+export const Audio = ({ isLoggedIn, subject, slug }) => (
+  <Provider store={StoreMock}>
+    <Box height='medium' pad='medium' width='medium'>
+      <SubjectPreview
+        height='200px'
+        isLoggedIn={isLoggedIn}
+        subject={subject}
+        slug={slug}
+        width='270px'
+      />
+    </Box>
+  </Provider>
+)
+
+Audio.args = { ...SubjectPreviewState, subject: AudioSubjectMock }
 
 export const Plain = ({ isLoggedIn, subject, slug }) => (
   <Provider store={StoreMock}>

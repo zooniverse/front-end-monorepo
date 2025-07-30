@@ -2,14 +2,51 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "研究项目",
-        "team": "研究团队",
-        "results": "结果",
         "education": "教育",
-        "faq": "常见问题"
+        "faq": "常见问题",
+        "research": "研究",
+        "results": "结果",
+        "team": "团队"
       }
     },
-    "SidebarHeading": "关于"
+    "PageNav": {
+      "title": "关于项目"
+    },
+    "SidebarHeading": "关于",
+    "TeamMember": {
+      "collaborator": "协作者",
+      "expert": "专家",
+      "moderator": "管理员",
+      "museum": "博物馆",
+      "owner": "负责人",
+      "researcher": "研究者",
+      "tester": "测试人员",
+      "translator": "翻译"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "该分类器出现错误 :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "在 Talk 上就某个主体展开讨论，或者将其添加到您的收藏夹或某个合集中。",
+      "title": "您近期的分类"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "不用，谢谢",
+      "confirm": "带我进入下一工作流程！",
+      "content": "恭喜！鉴于您表现出色，现可进入另一个工作流程。如果您更倾向于继续当前工作流程，也可以选择留下。",
+      "dismiss": "在此会话中不再显示此内容",
+      "title": "新工作流程可用"
+    },
+    "YourStats": {
+      "allTime": "所有时间",
+      "lastSeven": "过去 7 天",
+      "link": "查看更多",
+      "title": "您的统计数据"
+    }
   },
   "Home": {
     "AboutProject": {
@@ -20,14 +57,20 @@
         "link": "了解更多"
       }
     },
+    "MessageFromResearcher": {
+      "noMessage": "在 Talk 上与研究团队取得联系，以了解更多关于此项目的信息！",
+      "noMessageButton": "转至 Talk",
+      "title": "来自研究人员的消息"
+    },
     "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "加载这些主体时出现错误 :(",
+        "noSubjects": "看起来还没有人对此主体发表过评论。前往 Talk，抢占首评之位！",
+        "subjectLabel": "主体 {{id}}"
+      },
       "button": "加入",
-      "title": "讨论"
-    }
-  },
-  "Classify": {
-    "YourStats": {
-      "title": "数据"
+      "message": "和研究团队以及其他志愿者聊一聊吧！",
+      "title": "Zooniverse Talk"
     }
   }
 }

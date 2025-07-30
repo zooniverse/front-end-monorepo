@@ -6,6 +6,17 @@ export const SubjectPreviewState = {
   subjectId: '123'
 }
 
+export const AudioSubjectMock = {
+  favorite: false,
+  id: SubjectPreviewState.subjectId,
+  locations: [
+    {
+      'audio/mpeg':
+        'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga'
+    }
+  ]
+}
+
 export const PlainSubjectMock = {
   favorite: false,
   id: SubjectPreviewState.subjectId,

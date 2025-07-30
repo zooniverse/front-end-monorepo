@@ -1,0 +1,76 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Elimu",
+        "faq": "Maswali Yanayoulizwa Sana",
+        "research": "Utafiti",
+        "results": "Matokeo",
+        "team": "Timu"
+      }
+    },
+    "PageNav": {
+      "title": "Kuhusu mradi"
+    },
+    "SidebarHeading": "Kuhusu",
+    "TeamMember": {
+      "collaborator": "Mshirika",
+      "expert": "Mtaalamu",
+      "moderator": "Mdhibiti",
+      "museum": "Makumbusho",
+      "owner": "Mmiliki",
+      "researcher": "Mtafiti",
+      "tester": "Anayejaribu",
+      "translator": "Mtafsiri"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Hitilafu imetokea kwenye kiainishaji :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Jadili picha kwenye Talk, au iweke kwenye Vipendwa au mkusanyiko wako.",
+      "title": "Uainishaji wako wa hivi majuzi"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Hapana, asante",
+      "confirm": "Nipeleke kwenye mtiririko wa kazi unaofuata!",
+      "content": "Hongera! Kwa sababu unafanya vizuri sana, sasa unaweza kufikia mtiririko mwingine wa kazi. Ikiwa unapendelea kuendelea na mtiririko wa sasa wa kazi, unaweza kuchagua kuendelea.",
+      "dismiss": "Usionyeshe hii tena katika kipindi hiki",
+      "title": "Mtiririko Mpya wa Kazi Unapatikana"
+    },
+    "YourStats": {
+      "allTime": "Muda Wote",
+      "lastSeven": "Siku 7 Zilizopita",
+      "link": "Angalia zaidi",
+      "title": "Takwimu zako"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Kuhusu {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Pata maelezo zaidi"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Wasiliana na timu ya utafiti kwenye Talk ili upate maelezo zaidi kuhusu mradi huu!",
+      "noMessageButton": "Nenda kwenye Talk",
+      "title": "Ujumbe kutoka kwa mtafiti"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Hitilafu imetokea wakati wa kupakia picha :(",
+        "noSubjects": "Inaonekana bado hakuna aliyetoa maoni kuhusu picha. Nenda kwenye Talk na uwe wa kwanza!",
+        "subjectLabel": "Picha {{id}}"
+      },
+      "button": "Jiunge",
+      "message": "Piga gumzo na timu ya utafiti na watu wengine wa kujitolea!",
+      "title": "Zooniverse Talk"
+    }
+  }
+}

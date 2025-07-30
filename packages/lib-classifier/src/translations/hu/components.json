@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Már láttad ezt a tárgyat",
+      "tooltipText": [
+        "Ezt a tárgyat már láttad és besoroltad már, ezért a további besorolásokat nem használjuk fel az elemzés során.",
+        "Ha segíteni szeretnél, próbálj választani egy másik munkafolyamatot, vagy vegyél részt egy másik projektben."
+      ]
+    },
+    "Banner": {
+      "next": "Következő",
+      "previous": "Előző",
+      "whyAmISeeingThis": "MIért látom ezt?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Mégse",
+      "confirm": "Megerősítés",
+      "inProgress": "Biztosan egy másik tárgyra szeretnél navigálni? Az aktuális tárgyhoz készített összes annotáció elveszik."
+    },
+    "RetiredBanner": {
+      "bannerText": "Elkészült: Ezt a tárgyat kivezettük",
+      "tooltipText": [
+        "A tárgyhoz már elég besorolás tartozik, ezért a tiédet nem használjuk fel az elemzés során.",
+        "Ha segíteni szeretnél, próbálj választani egy másik munkafolyamatot, vagy vegyél részt egy másik projektben."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Már megtekintve",
+      "bannerText": "{{setName}}:  {{total}}\/{{number}}. tárgy",
+      "finished": "Befejezve",
+      "tooltipText": [
+        "Ez a projekt lehetővé teszi, hogy az önkéntesek egymást követő sorrendben tekintsék meg a tárgyakat.",
+        "A szám a tárgy pozícióját mutatja meg a teljes csoportban."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Kész: Már mindent láttál",
+      "tooltipText": [
+        "A munkafolyamatban szereplő összes tárgyat besoroltad már, ezért a tárggyal kapcsolatos további besorolásokat nem használjuk fel az elemzés során.",
+        "Ha segíteni szeretnél, próbálj választani egy másik munkafolyamatot, vagy vegyél részt egy másik projektben."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Ez a munkafolyamat elkészült",
+      "tooltipText": [
+        "A munkafolyamatban szereplő összes tárgy elkészült, ezért a tárggyal kapcsolatos további besorolásokat nem használjuk fel az elemzés során.",
+        "Ha segíteni szeretnél, próbálj választani egy másik munkafolyamatot, vagy vegyél részt egy másik projektben."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Fogantyú a rajzolt annotáció\/jelölés elforgatásához."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Besorolás folytatása",
+    "label": "Visszajelzés"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Útmutató"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Vissza az útmutató elemlistájához"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}} kijelölése"
+    },
+    "title": "Útmutató"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Annotálás"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Tárgy megjelenítése normál méretben",
+        "fullscreen": "Tárgy megjelenítése teljse képernyős módban"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Tárgy invertálása"
+    },
+    "MoveButton": {
+      "ariaLabel": "Tárgy mozgatása"
+    },
+    "ResetButton": {
+      "ariaLabel": "Tárgynézet alaphelyzetbe állítása"
+    },
+    "RotateButton": {
+      "ariaLabel": "Tárgy elforgatása"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Ránagyítás a tárgyra"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Kizoomolás a tárgyról"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Hozzáadás gyűjteményekhez"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Korábbi jelölések elrejtése",
+      "show": "Korábbi jelölések megjelenítése"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Összes jelölés elrejtése",
+      "show": "Minden jelölés megjelenítése",
+      "showUser": "Jelöléseid megjelenítése"
+    },
+    "MetadataButton": {
+      "label": "Tárgyinformációk"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Címke",
+        "value": "Érték"
+      },
+      "title": "Tárgy metaadatai"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Útmutató"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Hozzászóláspanel bezárása",
+      "goToTalk": "Ugrás a tárggyal kapcsolatos megbeszélésre a Talk fórumban",
+      "mainPanel": "QuickTalk-hozzászóláspanel",
+      "openButton": "A témához  {{count}} hozzászólás érkezett. Kattints a kibontáshoz.",
+      "panelContent": "Tárggyal kapcsolatos megbeszélés hozzászólásai",
+      "panelHeading": "Tárggyal kapcsolatos megbeszélés"
+    },
+    "errors": {
+      "failPostComment": "Nem sikerült hozzászólásokat adni a meglévő beszélgetéshez.",
+      "failPostDiscussion": "Nem sikerült hozzászólásokat adni az új beszélgetéshez.",
+      "noBoard": "A projekthez még nincs beállítva fórum a tárggyal kapcsolatos megbeszélésekhez.",
+      "noText": "Nem tehetsz közzé üres hozzászólást.",
+      "noUser": "A felhasználó nincs bejelentkezve."
+    },
+    "loginToPost": "A hozzászóláshoz jelentkezz be.",
+    "status": {
+      "initialized": "Megjegyzés hagyása erről a tárgyról",
+      "loading": "Hozzászólás közzététele…",
+      "success": "Hozzászólás közzétéve!"
+    },
+    "subjectHasNoComments": "Még nincsenek hozzászólások a tárggyal kapcsolatosan"
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Ugrás a(z) {{index}}. lépésre ",
+      "next": "Ugrás a következő lépésre",
+      "previous": "Ugrás az előző lépésre"
+    },
+    "alt": "{{activeStep}}. útmutatólépés",
+    "error": "Az útmutatólépés betöltése nem sikerült.",
+    "getStarted": "Kezdjünk neki",
+    "heading": "{{projectDisplayName}} útmutatója"
+  },
+  "StepNavigation": {
+    "go": "Ugrás a(z) {{index}}. lépésre ",
+    "next": "Ugrás a következő lépésre",
+    "previous": "Ugrás az előző lépésre"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Oszlopdiagram"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikon a szövegmegjelenítőhöz"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Bezárás mentés nélkül",
+        "confirm": "Biztosan be szeretnéd zárni? Ez a jelölés törölve lesz.",
+        "keepWorking": "Munka folytatása"
+      },
+      "SaveButton": {
+        "save": "Mentés és bezárás"
+      },
+      "SubTaskPopup": {
+        "notRender": "A feladatösszetevőt nem sikerült megjeleníteni.",
+        "required": "Ez a feladat kötelező."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "összesített átírat",
+          "explanation": "Ezt a(z) {{count}} átiratot korábbi önkéntesek küldték be, és nem módosíthatók.",
+          "noAggregation": "Nincs elérhető összegzés",
+          "title": "Korábbi átiratok",
+          "transcriptionsUnavailable": "Az átiratok nem érhetők el."
+        },
+        "complete": "Átirat befejezve",
+        "transcribed": "Átiratokkal rendelkezik"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Következő",
+        "previousFrameLabel": "Előző",
+        "thumbnailAltText": "Kép indexképe"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "{{index}} kijelölés törlése"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Váltás lapozható nézetre",
+        "switchToSeparateFrames": "Váltás különálló képkockákból álló nézetére"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Hiba történt a tárgy betöltésekor"
+    },
+    "VariableStarViewer": {
+      "controls": "vezérlők",
+      "figCaption": "HR-diagram",
+      "flip": "megfordítás",
+      "focus": "fókusz",
+      "highlight": "kiemelés",
+      "imageTitle": "HR-diagram: fényesség és hőmérséklet",
+      "label": "{{id}} szűrő",
+      "periodMultiple": "több periódus",
+      "phase": "fázis",
+      "phaseFocus": "fázisfókusz"
+    },
+    "VideoController": {
+      "closeVolume": "Hangerő csúszka bezárása",
+      "fullscreen": "Videó megjelenítése teljes képernyőn",
+      "openVolume": "Hangerő csúszka megnyitása",
+      "pause": "Videó szüneteltetése",
+      "play": "Videó lejátszása",
+      "playbackSpeed": "Videó lejátszási sebességének kiválasztása",
+      "scrubber": "Videolejátszó-csúszka",
+      "volumeSlider": "Hangerő csúszka"
+    },
+    "ZoomControlButton": {
+      "disable": "nagyítás\/kicsinyítés letiltása",
+      "enable": "nagyítás\/kicsinyítés engedélyezése"
+    },
+    "loading": "Tárgy betöltése",
+    "zoomHelp": "Nagyításhoz használd a CTRL + görgetés billentyűkombinációt"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Ez a tárgy elegendő besorolással rendelkezik, így a további benyújtott besorolások nem lesznek felhasználva az elemzés során. Ezt a tárgyat továbbra is megtekintheted referenciaként.",
+      "options": {
+        "dismiss": "Elutasít",
+        "next": "Következő elérhető tárgy",
+        "select": "Válassz új témát"
+      },
+      "title": "Befejezve"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Vissza"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Kész és Talk fórum",
+        "newTab": "új lapon"
+      },
+      "DoneButton": {
+        "done": "Kész"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Demó mód",
+        "label": "Szakértői beállítások"
+      },
+      "NextButton": {
+        "next": "Következő"
+      },
+      "TaskHelp": {
+        "close": "Bezárás",
+        "label": "Segítségre van szükséged a feladattal kapcsolatosan?"
+      },
+      "demoMode": "Demó módban az besorolások nem kerülnek mentésre. Ezt a besorolási felület gyors és pontatlan demóihoz használhatod.",
+      "error": "Valamilyen hiba történt.",
+      "loading": "Betöltés…",
+      "renderFallback": "A feladatösszetevőt nem sikerült megjeleníteni."
+    },
+    "task": "Feladat",
+    "tutorial": "Útmutató"
+  }
+}

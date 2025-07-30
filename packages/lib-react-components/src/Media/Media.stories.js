@@ -28,6 +28,8 @@ const VIDEO_URL =
   'https://static.zooniverse.org/fem-assets/home-video.mp4'
 const TEXT_URL =
   'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+const VOLUMETRIC_URL = 
+  'https://panoptes-uploads-staging.zooniverse.org/subject_location/3c56e6a7-be27-4ab3-93a7-c41a3c867baf.json'
 
 export function Image() {
   return (
@@ -61,9 +63,21 @@ export function Image() {
 
 export function Video() {
   return (
-    <Box>
-      <Text>Width set as 270</Text>
-      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} width={270} />
+    <Box background={{ dark: 'dark-3', light: 'white' }}>
+      <Text>Width set as 270px, height set as 200px</Text>
+      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} height={200} width={270} />
+      <Text>Controls set as false</Text>
+      <Media alt='Zooniverse in a nutshell' controls={false} src={VIDEO_URL} width={270} />
+      <Text>Container width and height set as 540px</Text>
+      <Text>Media fit set as contain, flex set as shrink</Text>
+      <Box width='540px' height='540px'>
+        <Media alt='Zooniverse in a nutshell' fit='contain' flex='shrink' src={VIDEO_URL} />
+      </Box>
+      <Text>Container width and height set as 540px</Text>
+      <Text>Media fit set as (default) cover</Text>
+      <Box width='540px' height='540px'>
+        <Media alt='Zooniverse in a nutshell' fit='cover' src={VIDEO_URL} />
+      </Box>
     </Box>
   )
 }
@@ -96,6 +110,19 @@ export function TextMedia() {
       <Media
         alt='A text file'
         src={TEXT_URL}
+        width={270}
+      />
+    </Box>
+  )
+}
+
+export function VolumetricMedia() {
+  return (
+    <Box>
+      <Text>Width set as 270</Text>
+      <Media
+        alt='A volumetric file'
+        src={VOLUMETRIC_URL}
         width={270}
       />
     </Box>

@@ -1,1 +1,171 @@
-{}
+{
+  "AdminCheckbox": {
+    "label": "Mode Admin"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Nama pengguna atau kata sandi salah",
+      "forgot": "Lupa kata sandi?",
+      "heading": "Selamat datang kembali!",
+      "instruction": "Kami senang Anda kembali! Masuk untuk melihat apa yang terakhir Anda kerjakan.",
+      "login": "Nama pengguna atau alamat email",
+      "password": "Kata Sandi",
+      "placeholder": "misalnya: ZooniverseFan123",
+      "signIn": "Masuk"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Saya ingin membantu menguji proyek baru dan dikirimi email ketika proyek sudah tersedia (opsional)",
+      "email": "Alamat Email (Harus Diisi)",
+      "emailConfirm": "Konfirmasi Alamat Email (Harus Diisi)",
+      "emailConfirmError": "Alamat email tidak cocok, coba lagi.",
+      "emailConflict": "Sudah ada akun dengan alamat ini",
+      "emailListSignUp": "Saya mau menerima email sesekali (opsional)",
+      "emailPlaceholder": "misalnya: zoofan31@gmail.com",
+      "forgot": "Lupa kata sandi?",
+      "heading": "Selamat datang kembali!",
+      "instruction": "Buat akun untuk mulai melakukan riset nyata.",
+      "password": "Kata Sandi (Harus Diisi)",
+      "passwordConfirm": "Konfirmasi Kata Sandi (Harus Diisi)",
+      "passwordConfirmError": "Kata sandi tidak cocok, coba lagi.",
+      "privacyAgreement": "Anda setuju pada kebijakan privasi kami (harus diisi)",
+      "privacyAgreementError": "Anda harus menyetujui kebijakan privasi.",
+      "privacyLink": "Baca kebijakan privasi kami",
+      "realName": "Nama Asli (Opsional)",
+      "realNameHelp": "Kami akan menggunakan ini untuk memberi Anda kredit makalah ilmiah, poster, dll.",
+      "realNamePatternHelp": "Masukkan nama, bukan alamat email",
+      "realNamePlaceholder": "misalnya: Maggie Smith",
+      "register": "Daftar",
+      "registering": "Mendaftar...",
+      "underageConsent": "Saya mengonfirmasi bahwa saya adalah wali\/orang tua dan memberi izin kepada anak saya untuk mendaftar dengan memberikan alamat email saya sebagai kontak utama. Saya dan anak saya memahami dan menyetujui kebijakan privasi (harus diisi)",
+      "underageEmail": "Alamat email orang tua\/wali (Harus Diisi)",
+      "underageEmailSignUp": "Jika Anda setuju, kami akan mengirim email secara periodik untuk mempromosikan proyek terkait riset atau informasi lain terkait riset kami. Kami tidak akan menggunakan informasi kontak Anda untuk tujuan komersial. (opsional)",
+      "underageNotRealName": "Anda akan menggunakan nama ini untuk masuk. Nama akan terlihat oleh semua orang. Jangan gunakan nama asli Anda.",
+      "underageWithParent": "Jika Anda berusia di bawah 16 tahun, centang kotak ini untuk mengonfirmasi bahwa Anda sudah mengisi formulir bersama orang tua atau wali Anda",
+      "username": "Nama Pengguna (Harus Diisi)",
+      "usernameConflict": "Nama pengguna sudah ada",
+      "usernameHelp": "Ini akan terlihat di papan pesan, dll.",
+      "usernamePatternHelp": "Nama pengguna hanya boleh berisi huruf, angka, '.','-', dan '_'",
+      "usernamePlaceholder": "misalnya: ZooniverseFan123"
+    },
+    "title": "Masuk atau buat akun baru"
+  },
+  "CloseButton": {
+    "close": "Tutup"
+  },
+  "FavouritesButton": {
+    "add": "Tambah ke favorit",
+    "remove": "Ditambahkan ke favorit"
+  },
+  "Loader": {
+    "loading": "Memuat"
+  },
+  "ProjectCard": {
+    "classifications": "Klasifikasi",
+    "finished": "Selesai",
+    "paused": "Dijeda",
+    "state": "Status"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Tentang",
+      "acknowledgements": "Ucapan Terima Kasih",
+      "contact": "Kontak",
+      "faq": "Tanya Jawab",
+      "publications": "Publikasi",
+      "resources": "Sumber Daya",
+      "team": "Tim"
+    },
+    "buildLabels": {
+      "bestPractices": "Praktik Terbaik",
+      "buildAProject": "Buat Proyek",
+      "glossary": "Glosarium",
+      "policies": "Kebijakan",
+      "tutorial": "Panduan"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Ajakan untuk Proyek",
+      "collaborate": "Kolaborasi",
+      "collections": "Koleksi",
+      "donate": "Donasi",
+      "educate": "Edukasi",
+      "education": "Edukasi",
+      "getInvolved": "Ikut Terlibat",
+      "volunteer": "Sukarelawan"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Zooniverse Harian",
+      "news": "Berita"
+    },
+    "policyLabels": {
+      "jobs": "Pekerjaan",
+      "privacyPolicy": "Kebijakan Privasi",
+      "security": "Keamanan",
+      "systemStatus": "Status Sistem"
+    },
+    "projectLabels": {
+      "arts": "Seni",
+      "biology": "Biologi",
+      "climate": "Iklim",
+      "history": "Sejarah",
+      "language": "Bahasa",
+      "literature": "Sastra",
+      "medicine": "Pengobatan",
+      "nature": "Alam",
+      "physics": "Fisika",
+      "projects": "Proyek",
+      "social": "Ilmu Sosial",
+      "space": "Ruang Angkasa"
+    },
+    "tagLine": "Riset oleh Masyarakat",
+    "talkLabels": {
+      "announcements": "Pengumuman",
+      "data": "Pemrosesan Data",
+      "projectBuilding": "Pembentukan Proyek",
+      "talk": "Bicarakan",
+      "troubleshooting": "Penyelesaian Masalah"
+    },
+    "zooniversePolicies": "Kebijakan Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Akun pengguna",
+      "navListLabels": {
+        "messages_one": "Pesan ({{count}})",
+        "messages_other": "Pesan ({{count}})",
+        "messages_zero": "Pesan",
+        "notifications_one": "Notifikasi ({{count}})",
+        "notifications_other": "Notifikasi ({{count}})",
+        "notifications_zero": "Notifikasi"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Daftar",
+      "signIn": "Masuk"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Beralih ke tema gelap",
+      "switchToLight": "Beralih ke tema terang"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Koleksi",
+        "favorites": "Favorit",
+        "profile": "Profil",
+        "settings": "Pengaturan",
+        "signOut": "Keluar"
+      }
+    },
+    "ariaLabel": "Lokasi",
+    "mainHeaderNavListLabels": {
+      "about": "Tentang",
+      "build": "Kembangkan",
+      "getInvolved": "Ikut terlibat",
+      "projects": "Proyek",
+      "talk": "Bicarakan"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Logo Zooniverse"
+  }
+}

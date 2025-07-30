@@ -1,76 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "آپ نے پہلے ہی یہ سبجیکٹ دیکھ لیا ہے",
+      "tooltipText": [
+        "آپ نے پہلے ہی اس سبجیکٹ کو دیکھ لیا اور درجہ بند کر دیا ہے، تو اضافی درجہ بندیاں اس کے تجزیے میں شامل نہیں ہوں گی۔",
+        "اگر آپ مدد چاہتے ہیں، تو مختلف ورک فلو کا انتخاب کرنے یا مختلف پروجیکٹ میں شرکت کرنے کی کوشش کریں۔"
+      ]
+    },
     "Banner": {
-      "next": "اگلا"
+      "next": "اگلا",
+      "previous": "سابقہ",
+      "whyAmISeeingThis": "مجھے یہ کیوں نظر آ رہا ہے؟"
     },
     "InProgressConfirmModal": {
       "cancel": "منسوخ ",
       "confirm": "ٹھیک ہے",
       "inProgress": " واپس جانے سے آپ کا موجودہ کام ختم ہو جائےگا۔"
+    },
+    "RetiredBanner": {
+      "bannerText": "ختم ہو گیا: اس سبجیکٹ کا اختتام کر دیا گیا ہے",
+      "tooltipText": [
+        "اس سبجیکٹ میں پہلے سے کافی درجہ بندیاں موجود ہیں، تو آپ کی والی کو اس کے تجزیے میں استعمال نہیں کیا جائے گا۔",
+        "اگر آپ مدد چاہتے ہیں، تو مختلف ورک فلو کا انتخاب کرنے یا مختلف پروجیکٹ میں شرکت کرنے کی کوشش کریں۔"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "پہلے ہی دیکھ لیا ہے",
+      "bannerText": "{{setName}}: سبجیکٹ {{number}}\/{{total}}",
+      "finished": "ختم ہو گیا",
+      "tooltipText": [
+        "یہ پروجیکٹ رضاکاران کو سلسلہ وار ترتیب میں سبجیکٹس دیکھنے کی اجازت دیتا ہے۔",
+        "نمبر آپ کو کُل گروپ کے اندر سبجیکٹ کی پوزیشن دکھاتا ہے۔"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "ختم ہو گیا: آپ نے ہر چیز دیکھ لی ہے",
+      "tooltipText": [
+        "آپ نے اس ورک فلو میں پہلے ہی ہر چیز درجہ بند کر دی ہے، تو اس سبجیکٹ پر اضافی درجہ بندیوں کو اس کے تجزیے میں استعمال نہیں کیا جائے گا۔",
+        "اگر آپ مدد چاہتے ہیں، تو مختلف ورک فلو کا انتخاب کرنے یا مختلف پروجیکٹ میں شرکت کرنے کی کوشش کریں۔"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "اس ورک فلو کا اختتام ہو گیا ہے",
+      "tooltipText": [
+        "اس ورک فلو میں موجود تمام سبجیکٹس مکمل کر دیے گئے ہیں، تو اس سبجیکٹ پر اضافی درجہ بندیوں کو اس کے تجزیے میں استعمال نہیں کیا جائے گا۔",
+        "اگر آپ مدد چاہتے ہیں، تو مختلف ورک فلو کا انتخاب کرنے یا مختلف پروجیکٹ میں شرکت کرنے کی کوشش کریں۔"
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "ڈرا کیے گئے اشارے\/نشان کو گھمانے کا ہینڈل۔"
+  },
   "FeedbackModal": {
-    "keepClassifying": "جاری رکھیں"
+    "keepClassifying": "جاری رکھیں",
+    "label": "فیڈبیک دیں"
   },
   "FieldGuide": {
-    "title": "فیلڈ گائیڈ",
     "FieldGuideButton": {
       "buttonLabel": "فیلڈ گائیڈ"
     },
     "FieldGuideItem": {
       "ariaTitle": "واپس"
-    }
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}} منتخب کریں"
+    },
+    "title": "فیلڈ گائیڈ"
   },
   "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "تشریح کریں"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "سبجیکٹ نارمل سائز پر دیکھیں",
+        "fullscreen": "سبجیکٹ پوری اسکرین کے موڈ میں دیکھیں"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "سبجیکٹ کی ترتیب بدلیں"
+    },
+    "MoveButton": {
+      "ariaLabel": "سبجیکٹ منتقل کریں"
+    },
     "ResetButton": {
       "ariaLabel": "بصری معائنہ کو ترتیب دیں۔ "
+    },
+    "RotateButton": {
+      "ariaLabel": "سبجیکٹ گھمائیں"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "سبجیکٹ پر زوم ان کریں"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "سبجیکٹ سے زوم آؤٹ کریں"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "کلیکشنز میں شامل کریں"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "سابقہ مارکس چھپائیں",
+      "show": "سابقہ مارکس دکھائیں"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "تمام مارکس چھپائیں",
+      "show": "تمام مارکس دکھائیں",
+      "showUser": "اپنے مارکس دکھائیں"
+    },
+    "MetadataButton": {
+      "label": "سبجیکٹ کی معلومات"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "لیبل",
+        "value": "قدر"
+      },
+      "title": "سبجیکٹ کا میٹا ڈیٹا"
     }
   },
   "ModalTutorial": {
     "title": " درس"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "تبصروں کا پینل بند کریں",
+      "goToTalk": "Talk پر سبجیکٹ سے متعلق گفتگو پر جائیں",
+      "mainPanel": "QuickTalk کے تبصروں کا پینل",
+      "openButton": "سبجیکٹ پر {{count}} تبصرہ(تبصرے) موجود ہے۔ پھیلانے کے لیے کلک کریں۔",
+      "panelContent": "سبجیکٹ پر گفتگو سے متعلق تبصرے",
+      "panelHeading": "سبجیکٹ پر گفتگو"
+    },
+    "errors": {
+      "failPostComment": "پہلے سے موجود گفتگو میں تبصرے شامل نہیں کیے جا سکے۔",
+      "failPostDiscussion": "نئی گفتگو میں تبصرے شامل نہیں کیے جا سکے۔",
+      "noBoard": "فی الحال اس پروجیکٹ کے لیے سبجیکٹ پر تبصروں کی غرض سے بورڈ سیٹ اپ نہیں کیا گیا ہے۔",
+      "noText": "کوئی خالی تبصرہ پوسٹ نہیں کر سکتے۔",
+      "noUser": "صارف نے لاگ ان نہیں کیا۔"
+    },
+    "loginToPost": "براہ کرم تبصرہ پوسٹ کرنے کے لیے لاگ ان کریں۔",
     "status": {
-      "loading": "لوڈنگ"
-    }
+      "initialized": "اس سبجیکٹ کے متعلق ایک نوٹ تحریر کریں",
+      "loading": "لوڈنگ",
+      "success": "تبصرہ پوسٹ ہو گیا!"
+    },
+    "subjectHasNoComments": "اس سبجیکٹ پر فی الحال کوئی تبصرے موجود نہیں۔"
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "مرحلہ {{index}} پر جائیں",
+      "next": "اگلے مرحلے پر جائیں",
+      "previous": "پچھلے مرحلے پر جائیں"
+    },
+    "alt": "ٹیوٹوریل کا مرحلہ {{activeStep}}",
+    "error": "ٹیوٹوریل کا مرحلہ لوڈ نہیں کیا جا سکا۔",
     "getStarted": "شروع کریں",
     "heading": "{{projectDisplayName}}  درس"
   },
+  "StepNavigation": {
+    "go": "مرحلہ {{index}} پر جائیں",
+    "next": "اگلے مرحلے پر جائیں",
+    "previous": "پچھلے مرحلے پر جائیں"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "بار چارٹ"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "ٹیکسٹ ویور کا آئیکن"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "محفوظ کیے بغیر بند کریں",
+        "confirm": "کیا آپ واقعی بند کرنا چاہتے ہیں؟ یہ نشان حذف ہو جائے گا۔",
+        "keepWorking": "کام جاری رکھیں"
+      },
+      "SaveButton": {
+        "save": "محفوظ کریں اور بند کریں"
+      },
+      "SubTaskPopup": {
+        "notRender": "ٹاسک کے جزو کو ظاہر نہیں کیا جا سکتا۔",
+        "required": "یہ ٹاسک درکار ہے۔"
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "مجموعی ٹرانسکرپشن",
+          "explanation": "ان {{count}} ٹرانسکرپشنز کو سابقہ رضاکاران کی جانب سے جمع کروایا گیا تھا اور ان میں تدوین نہیں کی جا سکتی۔",
+          "noAggregation": "کوئی مجموعہ دستیاب نہیں۔",
+          "title": "سابقہ ٹرانسکرپشنز",
+          "transcriptionsUnavailable": "ٹرانسکرپشنز عدم دستیاب ہیں۔"
+        },
+        "complete": "ٹرانسکرپشن مکمل ہو گئی",
+        "transcribed": "ٹرانسکرپشنز موجود ہیں"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "اگلا"
+        "nextFrameLabel": "اگلا",
+        "previousFrameLabel": "سابقہ",
+        "thumbnailAltText": "تصویر کا تھمب نیل"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "انتخاب {{index}} حذف کریں"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "فلپ بک ویو پر سوئچ کریں",
+        "switchToSeparateFrames": "علیحدہ فریمز والے ویو پر سوئچ کریں"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "سبجیکٹ لوڈ کرنے میں نقص پیش آ گیا تھا۔"
+    },
+    "VariableStarViewer": {
+      "controls": "کنٹرولز",
+      "figCaption": "HR ڈایاگرام",
+      "flip": "پلٹائیں",
+      "focus": "فوکس کریں",
+      "highlight": "ہائی لائٹ کریں",
+      "imageTitle": "HR ڈایاگرام: چمک بمقابلہ درجہ حرارت",
+      "label": "فلٹر {{id}}",
+      "periodMultiple": "متعدد دورانیہ",
+      "phase": "فیز",
+      "phaseFocus": "فیز فوکس"
+    },
+    "VideoController": {
+      "closeVolume": "والیوم سلائیڈر بند کریں",
+      "fullscreen": "ویڈیو پوری اسکرین پر دکھائیں",
+      "openVolume": "والیوم سلائیڈر کھولیں",
+      "pause": "ویڈیو روکیں",
+      "play": "ویڈیو چلائیں",
+      "playbackSpeed": "ویڈیو پلے بیک کی رفتار کا انتخاب",
+      "scrubber": "ویڈیو پلیئر اسکربر",
+      "volumeSlider": "والیوم سلائیڈر"
+    },
+    "ZoomControlButton": {
+      "disable": "زوم کو غیر فعال کریں",
+      "enable": "زوم کو فعال کریں"
+    },
+    "loading": "سبجیکٹ لوڈ ہو رہا ہے",
+    "zoomHelp": "زوم کرنے کے لیے CTRL + اسکرول استعمال کریں"
   },
   "TaskArea": {
-    "task": "کام",
-    "tutorial": " درس",
     "DisabledTaskPopup": {
+      "body": "اس سبجیکٹ میں کافی درجہ بندیاں موجود ہیں، تو جمع کردہ کوئی بھی اضافی درجہ بندیاں اس کے تجزیے میں استعمال نہیں کی جائیں گی۔ آپ ابھی بھی ریفرنس کے لیے اس سبجیکٹ کو دیکھ سکتے ہیں۔",
       "options": {
-        "dismiss": "خارج کریں"
-      }
+        "dismiss": "خارج کریں",
+        "next": "اگلا دستیاب سبجیکٹ",
+        "select": "نئے سبجیکٹ کا انتخاب کریں"
+      },
+      "title": "ختم ہو گیا"
     },
     "Tasks": {
       "BackButton": {
         "back": "واپس"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "ختم ہو گیا اور بات کریں"
+        "doneAndTalk": "ختم ہو گیا اور بات کریں",
+        "newTab": "نئے ٹیب میں"
       },
       "DoneButton": {
         "done": "ختم ہو گیا"
       },
-      "loading": "لوڈنگ",
+      "ExpertOptions": {
+        "demoToggle": "ڈیمو موڈ",
+        "label": "ماہر کے اختیارات"
+      },
       "NextButton": {
         "next": "اگلا"
       },
       "TaskHelp": {
         "close": "بند کریں",
         "label": "اس کام میں کوئی مدد درکار ہے؟"
-      }
-    }
+      },
+      "demoMode": "ڈیمو موڈ میں، درجہ بندیاں محفوظ نہیں ہوں گی۔ درجہ بندی انٹرفیس کے فوری، نامناسب ڈیموز کے لیے اسے استعمال کریں۔",
+      "error": "کچھ غلط ہو گیا",
+      "loading": "لوڈنگ",
+      "renderFallback": "ٹاسک کے جزو کو ظاہر نہیں کیا جا سکتا۔"
+    },
+    "task": "کام",
+    "tutorial": " درس"
   }
 }

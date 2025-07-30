@@ -1,25 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "מצב אדמין"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "הסיסמה או שם המשתמש שגויים",
+      "forgot": "שכחת את הסיסמה שלך?",
+      "heading": "ברוך שובך!",
+      "instruction": "שמח שחזרת! התחבר כדי להמשיך בדיוק מהמקום שבו הפסקת",
+      "login": "שם משתמש או כתובת דוא\"ל",
+      "password": "סיסמה",
+      "placeholder": "למשל ZooniverseFan123",
+      "signIn": "כניסה"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "אני רוצה לעזור בבדיקת פרויקטים חדשים. אם אפשר, אשמח לקבל על כך הודעה בדוא''ל כשהם יהיו זמינים",
+      "email": "כתובת דוא\"ל (חובה)",
+      "emailConfirm": "אישור כתובת דוא\"ל (חובה)",
+      "emailConfirmError": "כתובות הדוא\"ל לא תואמות. נסו שוב.",
+      "emailConflict": "כבר יש חשבון עם הכתובת הזו",
+      "emailListSignUp": "אפשר לשלוח לי דוא''ל מדי פעם (לא חובה)",
+      "emailPlaceholder": "למשל zoofan31@gmail.com",
+      "forgot": "שכחת את הסיסמה שלך?",
+      "heading": "ברוך שובך!",
+      "instruction": "אנא צרו חשבון כדי להתחיל לעשות מחקר רציני.",
+      "password": "סיסמה (חובה)",
+      "passwordConfirm": "אישור סיסמה (חובה)",
+      "passwordConfirmError": "הסיסמאות לא תואמות, נסו שוב.",
+      "privacyAgreement": "אתם מסכימים למדיניות הפרטיות שלנו (חובה)",
+      "privacyAgreementError": "הסכמה למדיניות הפרטיות היא חובה.",
+      "privacyLink": "קראו את מדיניות הפרטיות שלנו",
+      "realName": "שם אמיתי (לא חובה)",
+      "realNameHelp": "אנחנו נשתמש בזה כדי לתת לך קרדיט בפרסומים מדעיים, פוסטרים וכדומה.",
+      "realNamePatternHelp": "הזינו שם, לא כתובת דוא\"ל",
+      "realNamePlaceholder": "למשל Maggie Smith",
+      "register": "הרשמה",
+      "registering": "רישום...",
+      "underageConsent": "אני מאשר\/ת שאני ההורה או האפוטרופוס של הילד\/ה, ונותן\/נת את הסכמתי לרישומו\/ה. כתובת הדוא\"ל שלי תשמש ככתובת הקשר העיקרית. אני והילד\/ה מבינים\/ות ומסכימים\/ות למדיניות הפרטיות (חובה).",
+      "underageEmail": "כתובת הדוא\"ל של הורה או אפוטרופוס (חובה)",
+      "underageEmailSignUp": "אם תרצו, מדי פעם נשלח לכם הודעות דוא\"ל על פרויקטים חדשים במחקר שלנו או מידע רלוונטי אחר. אנחנו לא נשתמש בפרטים שלכם למטרות פרסומיות (לא חובה)",
+      "underageNotRealName": "השתמשו בשם הזה כדי להתחבר. הוא יוצג לכולם, אז אל תשתמשו בשם האמיתי שלכם.",
+      "underageWithParent": "אם אתם מתחת לגיל 16, אנא סמנו את התיבה כדי לאשר שמילאתם את הטופס יחד עם הורה או אפוטרופוס",
+      "username": "שם משתמש (חובה)",
+      "usernameConflict": "שם המשתמש הזה כבר קיים",
+      "usernameHelp": "זה יוצג לציבור באמצעות לוחות מודעות וכדומה.",
+      "usernamePatternHelp": "שמות משתמש יכולים להכיל רק אותיות, מספרים, '.','-' ו-'_'",
+      "usernamePlaceholder": "למשל ZooniverseFan123"
+    },
+    "title": "היכנס או צור חשבון חדש."
+  },
   "CloseButton": {
     "close": "סגור"
+  },
+  "FavouritesButton": {
+    "add": "הוסיפו למועדפים",
+    "remove": "נוסף למועדפים"
   },
   "Loader": {
     "loading": "(בטעינה)"
   },
+  "ProjectCard": {
+    "classifications": "סיווגים",
+    "finished": "הסתיים",
+    "paused": "מושהה",
+    "state": "מצב"
+  },
   "ZooFooter": {
+    "aboutLabels": {
+      "about": "אודות",
+      "acknowledgements": "תודות",
+      "contact": "צור קשר",
+      "faq": "שאלות נפוצות",
+      "publications": "פרסומים",
+      "resources": "משאבים",
+      "team": "צוות"
+    },
     "buildLabels": {
+      "bestPractices": "שיטות עבודה מומלצות",
+      "buildAProject": "יצירת פרויקט",
+      "glossary": "מונחון",
+      "policies": "מדיניות",
       "tutorial": "הדרכה"
     },
+    "getInvolvedLabels": {
+      "callForProjects": "הזמנה להצעת פרויקטים",
+      "collaborate": "שיתוף פעולה",
+      "collections": "אוספים",
+      "donate": "תרומה",
+      "educate": "לחנך",
+      "education": "חינוך",
+      "getInvolved": "השתתפו",
+      "volunteer": "מתנדב"
+    },
+    "newsLabels": {
+      "blog": "בלוג",
+      "dailyZooniverse": "Zoouniverse יומי",
+      "news": "חדשות"
+    },
+    "policyLabels": {
+      "jobs": "משרות",
+      "privacyPolicy": "מדיניות הפרטיות",
+      "security": "אבטחה",
+      "systemStatus": "מצב מערכת"
+    },
+    "projectLabels": {
+      "arts": "אמנויות",
+      "biology": "ביולוגיה",
+      "climate": "אקלים",
+      "history": "היסטוריה",
+      "language": "שפה",
+      "literature": "ספרות",
+      "medicine": "רפואה",
+      "nature": "טבע",
+      "physics": "פיזיקה",
+      "projects": "פרויקטים",
+      "social": "מדעי החברה",
+      "space": "חלל"
+    },
+    "tagLine": "מחקר בהשתתפות הציבור",
     "talkLabels": {
-      "talk": "שיחה"
-    }
+      "announcements": "הודעות",
+      "data": "עיבוד נתונים",
+      "projectBuilding": "בניית פרויקט",
+      "talk": "שיחה",
+      "troubleshooting": "פתרון תקלות"
+    },
+    "zooniversePolicies": "מדיניות Zoouniverse"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "talk": "שיחה"
+    "SignedInUserNavigation": {
+      "ariaLabel": "חשבון משתמש",
+      "navListLabels": {
+        "messages_one": "({{count}}) הודעות",
+        "messages_other": "{{count}} הודעות",
+        "messages_zero": "הודעות",
+        "notifications_one": "התראות ({{count}})",
+        "notifications_other": "({{count}}) התראות",
+        "notifications_zero": "התראות"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "הרשמה",
+      "signIn": "כניסה"
     },
     "ThemeModeToggle": {
       "switchToDark": "החלף לרקע כהה",
       "switchToLight": "החלף לרקע בהיר"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "אוספים",
+        "favorites": "מועדפים",
+        "profile": "פרופיל",
+        "settings": "הגדרות",
+        "signOut": "יציאה"
+      }
+    },
+    "ariaLabel": "אתר",
+    "mainHeaderNavListLabels": {
+      "about": "אודות",
+      "build": "לבנות",
+      "getInvolved": "השתתפו",
+      "projects": "פרויקטים",
+      "talk": "שיחה"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "לוגו Zoouniverse"
   }
 }

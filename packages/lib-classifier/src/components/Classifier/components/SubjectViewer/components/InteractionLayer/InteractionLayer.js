@@ -1,9 +1,8 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { convertEvent } from '@plugins/drawingTools/components/draggable/draggable'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
@@ -51,9 +50,7 @@ function InteractionLayer({
   duration
 }) {
   const [creating, setCreating] = useState(false)
-  const svgContext = useContext(SVGContext)
-  const canvasRef = useRef()
-  svgContext.canvas = canvasRef.current
+  const canvasRef = useRef(null)
 
   if (creating && !activeMark) {
     setCreating(false)

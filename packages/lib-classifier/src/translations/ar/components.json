@@ -1,67 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "لقد شاهدت هذا الموضوع بالفعل",
+      "tooltipText": [
+        "لقد رأيت هذا الموضوع وصنّفته بالفعل، ولذا فإن المزيد من التصنيفات لن تساهم في تحليله.",
+        "إذا كنت تتطلع إلى المساعدة، فجرب اختيار مسار عمل آخر أو المساهمة في مشروع مختلف."
+      ]
+    },
     "Banner": {
-      "next": "التالي"
+      "next": "التالي",
+      "previous": "السابق",
+      "whyAmISeeingThis": "لماذا أرى هذا؟"
     },
     "InProgressConfirmModal": {
-      "inProgress": "العودة إلى الخلف ستُلغي الجواب الذي أشرتم/نّ إليه"
+      "cancel": "إلغاء",
+      "confirm": "تأكيد",
+      "inProgress": "العودة إلى الخلف ستُلغي الجواب الذي أشرتم\/نّ إليه"
+    },
+    "RetiredBanner": {
+      "bannerText": "انتهى: تم إيقاف هذا الموضوع",
+      "tooltipText": [
+        "يحتوي هذا الموضوع على تصنيفات كافية بالفعل، لذا لن تُستخدم تصنيفاتك في تحليله.",
+        "إذا كنت تتطلع إلى المساعدة، فجرب اختيار مسار عمل آخر أو المساهمة في مشروع مختلف."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "شوهد بالفعل",
+      "bannerText": "{{setName}}: الموضوع {{number}}\/{{total}}",
+      "finished": "تم",
+      "tooltipText": [
+        "يتيح هذا المشروع للمتطوعين عرض الموضوعات بترتيب تسلسلي.",
+        "يوضح لك الرقم مكان الموضوع ضمن المجموعة الكلية."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "انتهى: لا توجد إجراءات أخرى",
+      "tooltipText": [
+        "لقد صنفت كل شيء بالفعل في مسار العمل هذا، ولذا لن تُستخدم المزيد من التصنيفات لهذا الموضوع في تحليله.",
+        "إذا كنت تتطلع إلى المساعدة، فجرب اختيار مسار عمل آخر أو المساهمة في مشروع مختلف."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "تم الانتهاء من مسار العمل هذا",
+      "tooltipText": [
+        "تم الانتهاء من جميع الموضوعات في مسار العمل هذا، ولذلك لن تُستخدم المزيد من التصنيفات لهذا الموضوع في تحليله.",
+        "في حال تطلعك إلى المساعدة، جرب اختيار مسار عمل آخر أو المساهمة في مشروع مختلف."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "مقبض لتدوير التعليق\/العلامة المرسومة."
+  },
   "FeedbackModal": {
-    "keepClassifying": "واصل"
+    "keepClassifying": "واصل",
+    "label": "المُلاحظات"
   },
   "FieldGuide": {
-    "title": "الدليل العمليّ",
     "FieldGuideButton": {
       "buttonLabel": "الدليل العمليّ"
     },
     "FieldGuideItem": {
       "ariaTitle": "إلى الخلف"
-    }
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "حدد {{title}}"
+    },
+    "title": "الدليل العمليّ"
   },
   "ImageToolbar": {
-    "ResetButton": {}
+    "AnnotateButton": {
+      "ariaLabel": "تعليق"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "عرض الموضوع بالحجم الطبيعي",
+        "fullscreen": "عرض الموضوع في ملء الشاشة"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "عكس الموضوع"
+    },
+    "MoveButton": {
+      "ariaLabel": "نقل الموضوع"
+    },
+    "ResetButton": {
+      "ariaLabel": "إعادة ضبط عرض الموضوع"
+    },
+    "RotateButton": {
+      "ariaLabel": "تدوير الموضوع"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "تكبير على الموضوع"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "تصغير من الموضوع"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "إضافة إلى المجموعات"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "إخفاء العلامات السابقة",
+      "show": "عرض العلامات السابقة"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "إخفاء كل العلامات",
+      "show": "عرض كل العلامات",
+      "showUser": "عرض علاماتك"
+    },
+    "MetadataButton": {
+      "label": "معلومات الموضوع"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "التسمية",
+        "value": "القيمة"
+      },
+      "title": "البيانات الوصفية للموضوع"
+    }
   },
   "ModalTutorial": {
     "title": "إرشاد"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "إغلاق لوحة التعليقات",
+      "goToTalk": "انتقال إلى مناقشة الموضوع في المحادثة",
+      "mainPanel": "لوحة تعليقات QuickTalk",
+      "openButton": "يحتوي الموضوع على {{count}} من التعليقات. انقر للتوسيع.",
+      "panelContent": "تعليقات مناقشة الموضوع",
+      "panelHeading": "مناقشة الموضوع"
+    },
+    "errors": {
+      "failPostComment": "تعذرت إضافة تعليقات إلى مناقشة حالية.",
+      "failPostDiscussion": "تعذرت إضافة تعليقات إلى مناقشة جديدة.",
+      "noBoard": "لم يتم إعداد لوحة لتعليقات موضوع هذا المشروع.",
+      "noText": "لا يمكن نشر تعليق فارغ.",
+      "noUser": "المستخدم لم يسجل الدخول."
+    },
+    "loginToPost": "سجل الدخول لنشر تعليق.",
     "status": {
-      "loading": "(قيد التحميل)"
-    }
+      "initialized": "وضع ملاحظة عن هذا الموضوع",
+      "loading": "(قيد التحميل)",
+      "success": "تم نشر التعليق!"
+    },
+    "subjectHasNoComments": "هذا الموضوع ليس عليه أي تعليقات حتى الآن."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "انتقال إلى الخطوة {{index}}",
+      "next": "انتقال إلى الخطوة التالية",
+      "previous": "انتقال إلى الخطوة السابقة"
+    },
+    "alt": "خطوة الدليل الإرشادي {{activeStep}}",
+    "error": "تعذر تحميل خطوة الدليل الإرشادي.",
     "getStarted": "هيّا نبدأ",
     "heading": "{{projectDisplayName}} إرشاد"
   },
+  "StepNavigation": {
+    "go": "انتقال إلى الخطوة {{index}}",
+    "next": "انتقال إلى الخطوة التالية",
+    "previous": "انتقال إلى الخطوة السابقة"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "مخطط شريطي"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "رمز أداة عرض النص"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "إغلاق بدون حفظ",
+        "confirm": "هل تريد الإغلاق حقاً؟ ستُحذف هذه العلامة.",
+        "keepWorking": "استمرار العمل"
+      },
+      "SaveButton": {
+        "save": "حفظ وإغلاق"
+      },
+      "SubTaskPopup": {
+        "notRender": "تعذرت معالجة مكون المهمة.",
+        "required": "هذه المهمة مطلوبة."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "نص منسوخ مُجمع",
+          "explanation": "تم تقديم هذه النصوص المنسوخة البالغة {{count}} من قبل متطوعين سابقين ولا يمكن تعديلها.",
+          "noAggregation": "لا يتوفر تجميع.",
+          "title": "النصوص المنسوخة السابقة",
+          "transcriptionsUnavailable": "النصوص المنسوخة غير متاحة."
+        },
+        "complete": "اكتمل نسخ النص",
+        "transcribed": "يشمل نصوص منسوخة"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "التالي"
+        "nextFrameLabel": "التالي",
+        "previousFrameLabel": "السابق",
+        "thumbnailAltText": "صورة مصغرة للصورة"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "حذف الاختيار {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "تبديل إلى عرض الكتاب المتحرك",
+        "switchToSeparateFrames": "تبديل إلى عرض الإطارات المنفصلة"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "حدث خطأ عند تحميل الموضوع."
+    },
+    "VariableStarViewer": {
+      "controls": "أدوات التحكم",
+      "figCaption": "مخطط HR",
+      "flip": "تحريك",
+      "focus": "تركيز",
+      "highlight": "تمييز",
+      "imageTitle": "مخطط HR: اللمعان مقابل درجة الحرارة",
+      "label": "عامل تصفية {{id}}",
+      "periodMultiple": "مضاعف المدة",
+      "phase": "المرحلة",
+      "phaseFocus": "تركيز المرحلة"
+    },
+    "VideoController": {
+      "closeVolume": "إغلاق شريط مستوى الصوت",
+      "fullscreen": "عرض الفيديو ملء الشاشة",
+      "openVolume": "فتح شريط مستوى الصوت",
+      "pause": "إيقاف الفيديو مؤقتاً",
+      "play": "تشغيل الفيديو",
+      "playbackSpeed": "اختيار سرعة تشغيل الفيديو",
+      "scrubber": "شريط الفيديو",
+      "volumeSlider": "شريط مستوى الصوت"
+    },
+    "ZoomControlButton": {
+      "disable": "تعطيل التكبير والتصغير",
+      "enable": "تمكين التكبير والتصغير"
+    },
+    "loading": "موضوع قيد التحميل",
+    "zoomHelp": "استخدم CTRL + التمرير بالعجلة للتكبير والتصغير"
   },
   "TaskArea": {
-    "task": "مهمّة",
-    "tutorial": "إرشاد",
+    "DisabledTaskPopup": {
+      "body": "يحتوي هذا الموضوع على تصنيفات كافية، لذلك لن تُستخدم أي تصنيفات مُقدمة إضافية في تحليله. يظل بإمكانك عرض هذا الموضوع كمرجع.",
+      "options": {
+        "dismiss": "رفض",
+        "next": "الموضوع التالي المتاح",
+        "select": "اختر موضوعاً جديداً"
+      },
+      "title": "تم"
+    },
     "Tasks": {
       "BackButton": {
         "back": "إلى الخلف"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "احفظ وانتقل إلى المحادثة"
+        "doneAndTalk": "احفظ وانتقل إلى المحادثة",
+        "newTab": "في تبويب جديد"
       },
       "DoneButton": {
         "done": "حفظ"
       },
-      "loading": "(قيد التحميل)",
+      "ExpertOptions": {
+        "demoToggle": "الوضع التجريبي",
+        "label": "خيارات متخصصة"
+      },
       "NextButton": {
         "next": "التالي"
       },
       "TaskHelp": {
         "close": "أغلِق",
         "label": "بحاجة إلى مساعدة في هذه المهمّة؟"
-      }
-    }
+      },
+      "demoMode": "لن تُحفظ التصنيفات في الوضع التجريبي. استخدمه للحصول على عروض توضيحية سريعة غير دقيقة لواجهة التصنيف.",
+      "error": "حدث خطأ",
+      "loading": "(قيد التحميل)",
+      "renderFallback": "تعذرت معالجة مكون المهمة."
+    },
+    "task": "مهمّة",
+    "tutorial": "إرشاد"
   }
 }

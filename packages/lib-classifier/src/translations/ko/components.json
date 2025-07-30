@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "이미 이 대상을 보셨습니다",
+      "tooltipText": [
+        "이 대상을 모두 보고 기여하셨으므로, 추가적인 기여는 분석에 사용되지 않습니다.",
+        "도움을 주고 싶으신 경우, 다른 워크플로를 선택하거나 다른 프로젝트에 기여해 보세요."
+      ]
+    },
+    "Banner": {
+      "next": "다음",
+      "previous": "이전",
+      "whyAmISeeingThis": "이 배너가 표시되는 이유"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "취소",
+      "confirm": "확인",
+      "inProgress": "다른 대상을 탐색하시겠습니까? 현재 대상에 남기신 주석은 저장되지 않습니다."
+    },
+    "RetiredBanner": {
+      "bannerText": "완료됨: 이미 완료된 대상입니다",
+      "tooltipText": [
+        "이 대상에는 이미 충분한 기여 데이터가 있어 사용자의 기여는 분석에 사용되지 않습니다.",
+        "도움을 주고 싶으신 경우, 다른 워크플로를 선택하거나 다른 프로젝트에 기여해 보세요."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "이미 확인함",
+      "bannerText": "{{setName}}: 대상 {{number}}\/{{total}}개",
+      "finished": "완료됨",
+      "tooltipText": [
+        "이 프로젝트에서는 자발적 참여자가 순차적으로 대상을 볼 수 있습니다.",
+        "총 그룹 내의 대상의 위치를 보여주는 수입니다."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "완료됨: 모두 보셨습니다",
+      "tooltipText": [
+        "이 워크플로의 모든 항목에 기여하셨으므로, 이 대상에 대한 추가적인 기여는 분석에 사용되지 않습니다.",
+        "도움을 주고 싶으신 경우, 다른 워크플로를 선택하거나 다른 프로젝트에 기여해 보세요."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "이 워크플로는 완료되었습니다",
+      "tooltipText": [
+        "이 워크플로의 모든 대상이 완료되어, 이 대상에 대한 추가적인 기여는 분석에 사용되지 않습니다.",
+        "도움을 주고 싶으신 경우, 다른 워크플로를 선택하거나 다른 프로젝트에 기여해 보세요."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "그려진 주석\/마크 회전을 위한 핸들."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "계속 기여",
+    "label": "피드백"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "필드 가이드"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "필드 가이드 항목 목록으로 돌아가기"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}} 선택"
+    },
+    "title": "필드 가이드"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "주석 달기"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "기본 크기로 대상 보기",
+        "fullscreen": "전체 화면 모드로 대상 보기"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "대상 도치"
+    },
+    "MoveButton": {
+      "ariaLabel": "대상 이동"
+    },
+    "ResetButton": {
+      "ariaLabel": "대상 보기 재설정"
+    },
+    "RotateButton": {
+      "ariaLabel": "대상 회전"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "대상 확대"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "대상 축소"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "컬렉션에 추가"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "이전 마크 숨기기",
+      "show": "이전 마크 표시"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "모든 마크 숨기기",
+      "show": "모든 마크 표시",
+      "showUser": "내 마크 표시"
+    },
+    "MetadataButton": {
+      "label": "대상 정보"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "라벨",
+        "value": "값"
+      },
+      "title": "대상 메타데이터"
+    }
+  },
+  "ModalTutorial": {
+    "title": "튜토리얼"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "댓글 패널 닫기",
+      "goToTalk": "토크의 대상 토론으로 이동",
+      "mainPanel": "빠른 토크 댓글 패널",
+      "openButton": "대상에 {{count}}개의 댓글이 있습니다. 확장하려면 클릭하세요.",
+      "panelContent": "대상 토론 댓글",
+      "panelHeading": "대상 토론"
+    },
+    "errors": {
+      "failPostComment": "기존 토론에 댓글을 추가할 수 없습니다.",
+      "failPostDiscussion": "새 토론에 댓글을 추가할 수 없습니다.",
+      "noBoard": "아직 이 프로젝트의 대상 댓글 게시판이 설정되지 않았습니다.",
+      "noText": "빈 댓글은 게시할 수 없습니다.",
+      "noUser": "로그인하지 않은 사용자입니다."
+    },
+    "loginToPost": "댓글을 게시하려면 로그인합니다.",
+    "status": {
+      "initialized": "대상에 대한 참고 사항을 남기세요",
+      "loading": "댓글 게시 중...",
+      "success": "댓글이 게시되었습니다!"
+    },
+    "subjectHasNoComments": "아직 대상에 달린 댓글이 없습니다."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "{{index}}단계로 가기",
+      "next": "다음 단계로 가기",
+      "previous": "이전 단계로 가기"
+    },
+    "alt": "튜토리얼 단계 {{activeStep}}",
+    "error": "튜토리얼 단계를 불러올 수 없습니다.",
+    "getStarted": "시작하기",
+    "heading": "{{projectDisplayName}} 튜토리얼"
+  },
+  "StepNavigation": {
+    "go": "{{index}}단계로 가기",
+    "next": "다음 단계로 가기",
+    "previous": "이전 단계로 가기"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "막대 차트"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "텍스트 뷰어 아이콘"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "저장하지 않고 닫기",
+        "confirm": "정말 닫으시겠어요? 이 마크는 삭제됩니다.",
+        "keepWorking": "계속 작업하기"
+      },
+      "SaveButton": {
+        "save": "저장 및 닫기"
+      },
+      "SubTaskPopup": {
+        "notRender": "과제 요소를 가져올 수 없습니다.",
+        "required": "이 과제는 필수입니다."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "종합된 전사",
+          "explanation": "이전의 자발적 참여자가 {{count}}개의 전사를 제출했으며 수정할 수 없습니다.",
+          "noAggregation": "이용 가능한 종합이 없습니다.",
+          "title": "이전 전사",
+          "transcriptionsUnavailable": "전사를 이용할 수 없습니다."
+        },
+        "complete": "전사 완료됨",
+        "transcribed": "전사 있음"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "다음",
+        "previousFrameLabel": "이전",
+        "thumbnailAltText": "이미지 섬네일"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "선택 {{index}} 삭제"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "플립 북 보기로 전환",
+        "switchToSeparateFrames": "개별 프레임 보기로 전환"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "대상을 불러오는 중에 오류가 발생했습니다."
+    },
+    "VariableStarViewer": {
+      "controls": "제어",
+      "figCaption": "HR 도표",
+      "flip": "플립",
+      "focus": "포커스",
+      "highlight": "하이라이트",
+      "imageTitle": "HR 도표: 광도 및 온도 비교",
+      "label": "필터 {{id}}",
+      "periodMultiple": "주기 배수",
+      "phase": "위상",
+      "phaseFocus": "위상 포커스"
+    },
+    "VideoController": {
+      "closeVolume": "볼륨 슬라이더 닫기",
+      "fullscreen": "동영상 전체 화면 표시",
+      "openVolume": "볼륨 슬라이더 열기",
+      "pause": "동영상 일시 중지",
+      "play": "동영상 재생",
+      "playbackSpeed": "동영상 재생 속도 선택",
+      "scrubber": "동영상 플레이어 스크러버",
+      "volumeSlider": "볼륨 슬라이더"
+    },
+    "ZoomControlButton": {
+      "disable": "확대\/축소 비활성화",
+      "enable": "확대\/축소 활성화"
+    },
+    "loading": "대상 불러오는 중",
+    "zoomHelp": "CTRL 키를 누르고 스크롤하여 확대\/축소"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "이 대상에는 충분한 기여 데이터가 있어 추가로 제출되는 기여 데이터는 분석에 사용되지 않습니다. 하지만 이 대상을 참고용으로 확인할 수는 있습니다.",
+      "options": {
+        "dismiss": "확인",
+        "next": "이용 가능한 다음 대상",
+        "select": "새 대상 선택"
+      },
+      "title": "완료됨"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "뒤로"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "완료 및 토크",
+        "newTab": "새 탭에서"
+      },
+      "DoneButton": {
+        "done": "완료"
+      },
+      "ExpertOptions": {
+        "demoToggle": "데모 모드",
+        "label": "전문가 옵션"
+      },
+      "NextButton": {
+        "next": "다음"
+      },
+      "TaskHelp": {
+        "close": "닫기",
+        "label": "이 과제에 도움이 필요하신가요?"
+      },
+      "demoMode": "데모 모드에서는 기여가 저장되지 않습니다. 기여 인터페이스의 빠르지만 부정확한 데모로 사용하세요.",
+      "error": "문제가 발생했습니다",
+      "loading": "불러오는 중",
+      "renderFallback": "과제 요소를 가져올 수 없습니다."
+    },
+    "task": "과제",
+    "tutorial": "튜토리얼"
+  }
+}

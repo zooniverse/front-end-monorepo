@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
-import Meta, { Plain, Transcription, Video, Text } from './SubjectPreview.stories.js'
+import Meta, { Audio, Plain, Transcription, Video, Text } from './SubjectPreview.stories.js'
 import { SubjectPreviewState } from './SubjectPreview.mock.js'
 
 describe('Component > SubjectPreview', function () {
-  [Plain, Transcription, Text, Video].forEach(Component => {
+  [Audio, Plain, Transcription, Text, Video].forEach(Component => {
     describe(`${Component.name} logged in story`, function () {
       beforeEach(function () {
         const Story = composeStory(Component, Meta)
@@ -14,10 +14,6 @@ describe('Component > SubjectPreview', function () {
       it('should link to the subject Talk page from the preview media', function () {
         expect(screen.getByTestId(`subject-preview-link-${SubjectPreviewState.subjectId}`)).to.have.property('href')
           .to.equal(`https://localhost/projects/${SubjectPreviewState.slug}/talk/subjects/${SubjectPreviewState.subjectId}`)
-      })
-
-      it('should display the subject image preview media', function () {
-        expect(screen.getByTestId(`subject-image-${SubjectPreviewState.subjectId}`)).to.exist()
       })
 
       it('should have a talk link', function () {
@@ -54,10 +50,6 @@ describe('Component > SubjectPreview', function () {
       it('should link to the subject Talk page from the preview media', function () {
         expect(screen.getByTestId(`subject-preview-link-${SubjectPreviewState.subjectId}`)).to.have.property('href')
           .to.equal(`https://localhost/projects/${SubjectPreviewState.slug}/talk/subjects/${SubjectPreviewState.subjectId}`)
-      })
-
-      it('should display the subject image preview media', function () {
-        expect(screen.getByTestId(`subject-image-${SubjectPreviewState.subjectId}`)).to.exist()
       })
 
       it('should have a talk link', function () {

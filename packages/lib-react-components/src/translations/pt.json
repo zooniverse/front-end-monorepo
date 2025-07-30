@@ -59,12 +59,20 @@
   "Loader": {
     "loading": "(A carregar)"
   },
+  "ProjectCard": {
+    "classifications": "Classificações",
+    "finished": "Concluído",
+    "paused": "Pausado",
+    "state": "Estado"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Sobre",
+      "acknowledgements": "Reconhecimentos",
       "contact": "Contacte-nos",
       "faq": "FAQ",
       "publications": "Publicações",
+      "resources": "Recursos",
       "team": "A Nossa Equipa"
     },
     "buildLabels": {
@@ -75,8 +83,19 @@
       "tutorial": "Tutorial"
     },
     "getInvolvedLabels": {
-      "educate": "Educação",
-      "getInvolved": "Faça parte"
+      "callForProjects": "Solicitação de Projectos",
+      "collaborate": "Colaborar",
+      "collections": "Coleções",
+      "donate": "Doar",
+      "educate": "Educar",
+      "education": "Educação",
+      "getInvolved": "Faça parte",
+      "volunteer": "Voluntário"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Zooniverse diário",
+      "news": "Notícias"
     },
     "policyLabels": {
       "jobs": "Funções",
@@ -85,11 +104,26 @@
       "systemStatus": "Estado do sistema"
     },
     "projectLabels": {
-      "projects": "Projectos"
+      "arts": "Artes",
+      "biology": "Biologia",
+      "climate": "Clima",
+      "history": "História",
+      "language": "Língua",
+      "literature": "Literatura",
+      "medicine": "Medicina",
+      "nature": "Natureza",
+      "physics": "Física",
+      "projects": "Projectos",
+      "social": "Ciências sociais",
+      "space": "Espaço"
     },
     "tagLine": "Investigação feita por pessoas",
     "talkLabels": {
-      "talk": "Debater"
+      "announcements": "Anúncios",
+      "data": "Processamento de dados",
+      "projectBuilding": "Construção de projetos",
+      "talk": "Debater",
+      "troubleshooting": "Resolução de problemas"
     },
     "zooniversePolicies": "Políticas da Zooniverse"
   },

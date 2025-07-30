@@ -34,14 +34,13 @@ function SingleImageCanvas({
           transformMatrix
         }}
       >
-        <svg
-          ref={canvasLayer}
-        >
+        <svg>
           <g
             data-testid='single-image-canvas-visxzoom-transform-group'
             transform={transform}
           >
             <g
+              ref={canvasLayer}
               data-testid='single-image-canvas-rotation-transform-group'
               transform={rotationTransform}
             >

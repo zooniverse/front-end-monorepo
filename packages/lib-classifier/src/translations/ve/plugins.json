@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Puṱedzani ni kokodze u bva kha ṱhodzi yo vuleaho u ya kha ṱhodzi yo valwaho kana ni puṱedze luvhili huṅwe na huṅwe kha ḽaini u itela u sika ṱhodzi ya u ṱanganya",
+    "closePoint": "Puṱedzani fhethu hoṱhe kha ḽaini u itela u vhea fhethu ha u vala",
+    "inactive": "Puṱedzani u itela u shandula ḽaini iyi",
+    "spliceDrag": "Puṱedzani ni kokodze u bva kha ṱhodzi yo vuleaho u ya kha ṱhodzi ya u vala",
+    "splicePoint": "Puṱedzani luvhili fhethu hoṱhe kha ḽaini u itela u sika ṱhodzi ya u ṱanganya"
+  },
+  "HighlighterTask": {
+    "delete": "Thuthani",
+    "noLabels": "A hu na zwiga zwa Mushumo Hailaitha",
+    "status": "{{count}}Yo swaiwa"
+  },
+  "InputStatus": {
+    "drawn": "{{count}}olani",
+    "max": "{{count}}ha {{max}}zwine zwa olwa",
+    "maxAndMin": "{{count}}ha {{min}}zwine zwa{{max}}tea u olwa",
+    "min": "{{count}}ha {{min}}zwine zwa tea u olwa"
+  },
+  "LineControls": {
+    "close": "Valani",
+    "delete": "Thuthani",
+    "deleteCancel": "Khantselani uri ni khou thutha",
+    "deleteConfirm": "Khwaṱhisedzani uri ni khou thutha",
+    "lineControls": "Mutevhe wa u  langa",
+    "move": "Pfukelani phanḓa",
+    "redo": "Dovhani ni ite",
+    "undo": "Itululani"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Input zwṅwe zwithu",
+    "otherLabel": "Zwṅwe...",
+    "selectPlaceholder": "Phindulo yo khethiwaho"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "U bvisa filithara",
+      "closeFilters": "Filithara dzo valwaho",
+      "filter": "filithara",
+      "removeFilter": "Bvisani{{valueLabel}}filithara",
+      "showing": "U shumbedza {{showing}} ha{{total}}"
+    },
+    "Choice": {
+      "cancel": "Khantsela",
+      "identify": "Ṱhalusavhuṋe",
+      "lessInfo": "Mafhungo a si gathi",
+      "moreInfo": "Mafhungo o engedzeaho",
+      "notThis": "Hu si hezwi"
+    },
+    "ChoiceButton": {
+      "identified": "zwo topolwa",
+      "openSubmenu": "Vulani menyu muṱuku wa{{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Thuthani",
+      "confused": "Tshiṅwe tshifhinga zwi ṱanganyiswa na",
+      "itsThis": "Ndi vhona unga ndi hezwi"
+    },
+    "DeleteButton": {
+      "delete": "Thuthani khetho{{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Sethani hafhu"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Vhashandukisi vha maṅwalo"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Ho sikiwa u ṅwalulula",
+    "editing": "U dzudzanya u ṅwalululwa"
+  }
+}

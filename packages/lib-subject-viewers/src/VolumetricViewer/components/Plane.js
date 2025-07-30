@@ -68,6 +68,7 @@ const StyledBox = styled(Box)`
       flex: 1;
       font-size: 16px !important;
       line-height: 18.7px;
+      text-align: left;
     }
 
     .plane-title-label {
@@ -125,16 +126,20 @@ export const Plane = ({
     drawFrame()
 
     // State Listeners to bypass React rerenders
-    annotations.on('active:annotation', drawFrame)
-    annotations.on('add:annotation', drawFrame)
-    annotations.on('update:annotation', drawFrame)
+    if (annotations) {
+      annotations.on('active:annotation', drawFrame)
+      annotations.on('add:annotation', drawFrame)
+      annotations.on('update:annotation', drawFrame)
+    }
     viewer.on(`change:dimension-${dimension}:frame`, drawFrame)
     viewer.on('change:threshold', drawFrame)
 
     return () => {
-      annotations.off('active:annotation', drawFrame)
-      annotations.off('add:annotation', drawFrame)
-      annotations.off('update:annotation', drawFrame)
+      if (annotations) {
+        annotations.off('active:annotation', drawFrame)
+        annotations.off('add:annotation', drawFrame)
+        annotations.off('update:annotation', drawFrame)
+      }
       viewer.off(`change:dimension-${dimension}:frame`, drawFrame)
       viewer.off('change:threshold', drawFrame)
     }
@@ -176,12 +181,13 @@ export const Plane = ({
       // isInactive makes all inactive marks less visible 
       const isInactive = (annotationIndex === -1)
         ? false
-        : (annotations.config.activeAnnotation !== annotationIndex)
+        : (annotations?.config.activeAnnotation !== annotationIndex)
   
       context.fillStyle = pointColor({
         annotationIndex,
         isInactive,
-        pointValue: viewer.getPointValue({ point })
+        pointValue: viewer.getPointValue({ point }),
+        threshold: viewer.threshold,
       })
     } else {
       context.fillStyle = BACKGROUND_COLOR
@@ -196,7 +202,7 @@ export const Plane = ({
   }
 
   function onClick (e) {
-    if (!tool.events.click) return // no tool, no interaction on click
+    if (!tool?.events.click) return // no tool, no interaction on click
 
     const { button, clientX, clientY, shiftKey } = e
     const { left, top } = canvasRef.current.getBoundingClientRect()

@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Bofya na uburute kutoka sehemu ya kufungua hadi sehemu ya kufunga au bofya mara mbili popote kwenye mstari ili utengeneze sehemu ya kuunganisha",
+    "closePoint": "Bofya popote kwenye mstari ili uweke sehemu ya kufunga",
+    "inactive": "Bofya ili ubadilishe mstari huu",
+    "spliceDrag": "Bofya na uburute kutoka sehemu ya kufungua hadi sehemu ya kufunga",
+    "splicePoint": "Bofya mara mbili popote kwenye mstari ili uweke sehemu ya kuunganisha"
+  },
+  "HighlighterTask": {
+    "delete": "Futa",
+    "noLabels": "Hakuna lebo za Kazi ya Kiangaziaji",
+    "status": "{{count}} Umewekewa alama"
+  },
+  "InputStatus": {
+    "drawn": "Umechora {{count}}",
+    "max": "Umechora {{count}} kati ya kikomo cha juu cha {{max}}",
+    "maxAndMin": "Inatakikana {{count}} kati ya {{min}}, umechora isiyozidi {{max}}",
+    "min": "Umechora {{count}} kati ya {{min}} inayotakikana"
+  },
+  "LineControls": {
+    "close": "Funga",
+    "delete": "Futa",
+    "deleteCancel": "Acha Kufuta",
+    "deleteConfirm": "Thibitisha Kufuta",
+    "lineControls": "Vidhibiti vya Mstari",
+    "move": "Hamisha",
+    "redo": "Rejesha",
+    "undo": "Tendua"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Andika kitu",
+    "otherLabel": "Nyingine...",
+    "selectPlaceholder": "Chagua jibu"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Futa vichujio",
+      "closeFilters": "Funga vichujio",
+      "filter": "Chuja",
+      "removeFilter": "Ondoa kichujio {{valueLabel}}",
+      "showing": "Inaonyesha {{showing}} kati ya {{total}}"
+    },
+    "Choice": {
+      "cancel": "Acha",
+      "identify": "Tambua",
+      "lessInfo": "Maelezo machache",
+      "moreInfo": "Maelezo zaidi",
+      "notThis": "Si hii"
+    },
+    "ChoiceButton": {
+      "identified": "imetambuliwa",
+      "openSubmenu": "Fungua mengu ndogo ya {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Acha",
+      "confused": "Wakati mwingine inachanganywa na",
+      "itsThis": "Ninafikiri ni hii"
+    },
+    "DeleteButton": {
+      "delete": "Futa chaguo {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Badilisha"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Virekebishaji maandishi"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Imetayarisha manukuu",
+    "editing": "Inahariri manukuu"
+  }
+}

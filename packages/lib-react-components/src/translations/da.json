@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Administratortilstand"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Brugernavn eller adgangskode er forkert",
+      "forgot": "Glemt din adgangskode?",
+      "heading": "Velkommen tilbage!",
+      "instruction": "Vi er glade for at have dig tilbage! Log ind for at fortsætte, hvor du slap.",
+      "login": "Brugernavn eller e-mailadresse",
+      "password": "Adgangskode",
+      "placeholder": "f.eks. ZooniverseFan123",
+      "signIn": "Log ind"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Jeg vil gerne hjælpe med at teste nye projekter og få en e-mail, når de er tilgængelige (valgfrit)",
+      "email": "E-mailadresse (obligatorisk)",
+      "emailConfirm": "Bekræft e-mailadresse (obligatorisk)",
+      "emailConfirmError": "E-mailadresserne stemmer ikke overens. Prøv igen.",
+      "emailConflict": "Der findes allerede en konto med denne adresse",
+      "emailListSignUp": "Det er okay at sende mig en e-mail en gang imellem (valgfrit)",
+      "emailPlaceholder": "f.eks. zoofan31@gmail.com",
+      "forgot": "Glemt din adgangskode?",
+      "heading": "Velkommen tilbage!",
+      "instruction": "Opret en konto, så du kan begynde at lave seriøs research.",
+      "password": "Adgangskode (obligatorisk)",
+      "passwordConfirm": "Bekræft adgangskode (obligatorisk)",
+      "passwordConfirmError": "Adgangskoderne stemmer ikke overens. Prøv igen.",
+      "privacyAgreement": "Du accepterer vores privatlivspolitik (obligatorisk)",
+      "privacyAgreementError": "Det er obligatorisk at acceptere privatlivspolitikken.",
+      "privacyLink": "Læs vores privatlivspolitik",
+      "realName": "Rigtigt navn (valgfrit)",
+      "realNameHelp": "Vi bruger dette til at give dig kredit i videnskabelige artikler, på plakater osv.",
+      "realNamePatternHelp": "Indtast et navn – ikke en e-mailadresse",
+      "realNamePlaceholder": "f.eks. Karen Sørensen",
+      "register": "Tilmeld dig",
+      "registering": "Tilmelder ...",
+      "underageConsent": "Jeg bekræfter, at jeg er forælder\/værge og giver mit barn tilladelse til at tilmelde sig ved at angive min e-mailadresse som den primære kontaktadresse. Både jeg og mit barn forstår og accepterer privatlivspolitikken (obligatorisk)",
+      "underageEmail": "Forælders\/værges e-mailadresse (obligatorisk)",
+      "underageEmailSignUp": "Hvis du accepterer, sender vi med jævne mellemrum e-mails for at promovere nye forskningsrelaterede projekter eller anden information om vores forskning. Vi bruger ikke dine kontaktoplysninger til kommercielle formål. (valgfrit)",
+      "underageNotRealName": "Du skal bruge dette navn til at logge ind. Den vil blive vist offentligt. Brug ikke dit rigtige navn.",
+      "underageWithParent": "Hvis du er under 16 år, skal du markere dette felt for at bekræfte, at du har udfyldt formularen sammen med din forælder eller værge",
+      "username": "Brugernavn (obligatorisk)",
+      "usernameConflict": "Dette brugernavn er taget",
+      "usernameHelp": "Dette vil blive vist offentligt på opslagstavler osv.",
+      "usernamePatternHelp": "Brugernavne må kun indeholde bogstaver, tal, \".\", \"-\" og \"_\"",
+      "usernamePlaceholder": "f.eks. ZooniverseFan123"
+    },
+    "title": "Log ind eller opret en ny konto."
+  },
+  "CloseButton": {
+    "close": "Luk"
+  },
+  "FavouritesButton": {
+    "add": "Føj til favoritter",
+    "remove": "Føjet til favoritter"
+  },
+  "Loader": {
+    "loading": "Indlæser"
+  },
+  "ProjectCard": {
+    "classifications": "Klassificeringer",
+    "finished": "Færdig",
+    "paused": "På pause",
+    "state": "Tilstand"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Om",
+      "acknowledgements": "Tak til",
+      "contact": "Kontakt",
+      "faq": "Hyppige spørgsmål",
+      "publications": "Udgivelser",
+      "resources": "Ressourcer",
+      "team": "Team"
+    },
+    "buildLabels": {
+      "bestPractices": "Bedste fremgangsmåder",
+      "buildAProject": "Opbyg et projekt",
+      "glossary": "Ordliste",
+      "policies": "Politikker",
+      "tutorial": "Vejledning"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Efterspørg projekter",
+      "collaborate": "Samarbejde",
+      "collections": "Samlinger",
+      "donate": "Donér",
+      "educate": "Undervis",
+      "education": "Undervisning",
+      "getInvolved": "Deltag",
+      "volunteer": "Frivillig"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Zooniverse til daglig",
+      "news": "Nyheder"
+    },
+    "policyLabels": {
+      "jobs": "Jobs",
+      "privacyPolicy": "Privatlivspolitik",
+      "security": "Sikkerhed",
+      "systemStatus": "Systemstatus"
+    },
+    "projectLabels": {
+      "arts": "Kunst",
+      "biology": "Biologi",
+      "climate": "Klima",
+      "history": "Historie",
+      "language": "Sprog",
+      "literature": "Litteratur",
+      "medicine": "Medicin",
+      "nature": "Natur",
+      "physics": "Fysik",
+      "projects": "Projekter",
+      "social": "Samfundsvidenskab",
+      "space": "Rummet"
+    },
+    "tagLine": "Menneskedrevet forskning",
+    "talkLabels": {
+      "announcements": "Meddelelser",
+      "data": "Databehandling",
+      "projectBuilding": "Projektopbygning",
+      "talk": "Snak",
+      "troubleshooting": "Fejlsøgning"
+    },
+    "zooniversePolicies": "Zooniverse-politikker"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Brugerkonto",
+      "navListLabels": {
+        "messages_one": "Beskeder ({{count}})",
+        "messages_other": "Beskeder ({{count}})",
+        "messages_zero": "Beskeder",
+        "notifications_one": "Meddelelser ({{count}})",
+        "notifications_other": "Meddelelser ({{count}})",
+        "notifications_zero": "Meddelelser"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Tilmeld dig",
+      "signIn": "Log ind"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Skift til mørkt tema",
+      "switchToLight": "Skift til lyst tema"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Samlinger",
+        "favorites": "Favoritter",
+        "profile": "Profil",
+        "settings": "Indstillinger",
+        "signOut": "Log ud"
+      }
+    },
+    "ariaLabel": "Sted",
+    "mainHeaderNavListLabels": {
+      "about": "Om",
+      "build": "Opbyg",
+      "getInvolved": "Deltag",
+      "projects": "Projekter",
+      "talk": "Snak"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse-logo"
+  }
+}
