@@ -1,33 +1,56 @@
 {
   "plugins": [
     "babel-plugin-styled-components",
-    ["module-resolver", {
-      "alias": {
-        "@components": "./src/components",
-        "@translations": "./src/translations"
+    [
+      "transform-imports",
+      {
+        "@zooniverse/react-components": {
+          "transform": "@zooniverse/react-components/${member}"
+        }
       }
-    }]
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@components": "./src/components",
+          "@translations": "./src/translations"
+        }
+      }
+    ]
   ],
   "presets": [
-    ["@babel/preset-react", {
-      "runtime": "automatic"
-    }],
-    ["@babel/preset-env", {
-      "modules": "auto"
-    }]
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ],
+    [
+      "@babel/preset-env",
+      {
+        "modules": "auto"
+      }
+    ]
   ],
   "env": {
     "es6": {
       "presets": [
-        ["@babel/preset-react", {
-          "runtime": "automatic"
-        }],
-        ["@babel/preset-env", {
-          "modules": false,
-          "targets": {
-            "esmodules": true
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
           }
-        }]
+        ],
+        [
+          "@babel/preset-env",
+          {
+            "modules": false,
+            "targets": {
+              "esmodules": true
+            }
+          }
+        ]
       ]
     },
     "test": {
