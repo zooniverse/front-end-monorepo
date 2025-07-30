@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "새 프로젝트를 찾아 탐험하세요",
+    "heading": "여기는 비어 있습니다.",
+    "message": "찾고 계신 페이지는 더 이상 존재하지 않습니다.",
+    "returnHome": "홈페이지로 돌아가기"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "기여 활동을 추적하려면 로그인하거나 가입해 주세요.",
+      "register": "등록하기",
+      "signIn": "로그인하기"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "완료되었습니다! 현재 이 프로젝트는 시일이 지난 것 같네요!",
+      "seeResults": "결과 보기"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "생성 및 추가",
+      "label": "새 컬렉션 만들기",
+      "private": "비공개 컬렉션"
+    },
+    "SelectCollection": {
+      "addButton": "추가",
+      "label": "기존 컬렉션에 추가"
+    },
+    "title": "컬렉션에 추가"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "웹사이트",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "{{projectName}}에 연결되기"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse는 사람 기반 연구를 위한 세계에서 가장 크고 널리 알려진 플랫폼입니다.",
+    "defaultTitle": "프로젝트",
+    "siteName": "Zooniverse - 사람 기반 연구"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zooniverse에서 승인함"
+    },
+    "Avatar": {
+      "alt": "{{project}} 프로젝트 아바타"
+    },
+    "LocaleSwitcher": {
+      "label": "언어 변경"
+    },
+    "ProjectNav": {
+      "ariaLabel": "프로젝트"
+    },
+    "UnderReviewLabel": {
+      "underReview": "검토 중"
+    },
+    "about": "소개",
+    "admin": "관리자 페이지",
+    "classify": "기여하기",
+    "collect": "수집",
+    "exploreProject": "프로젝트 탐색",
+    "organization": "조직:",
+    "recents": "최근",
+    "talk": "토크"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "숫자별",
+    "classifications": "기여",
+    "completedSubjects": "완료된 대상",
+    "percentComplete": "완료 비율",
+    "subjects": "대상",
+    "subtitle": "자신과 동료 참여자들이 이 프로젝트에 기여한 진행 상황을 계속 추적하세요.",
+    "text": "모든 클릭은 의미가 있습니다! {{projectName}}의 커뮤니티에 참가하여 이 프로젝트를 완료하고 연구자들이 중요한 결과를 낼 수 있게 도와주세요. '더 많은 통계 보기'를 클릭하면 더 많은 통계치를 볼 수 있습니다.",
+    "title": "{{projectName}} 통계",
+    "viewMoreStats": "더 많은 통계 보기",
+    "volunteers": "자발적 참여자"
+  },
+  "RequireUser": {
+    "text": "로그인 상태여야 합니다!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse 사이트 머리글"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "이미 확인함",
+    "back": "다른 대상 세트를 선택하세요",
+    "byline": "열 이름을 클릭하여 목록을 정렬합니다. 선택한 대상을 시작으로, 대상을 순차적으로 확인할 수 있습니다.",
+    "fetching": "기다려 주세요...",
+    "heading": "대상을 선택하여 시작하세요",
+    "retired": "완료됨",
+    "unclassified": "이용 가능"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "컬렉션에 추가"
+    },
+    "TalkLink": {
+      "label": "토크에서 토론하세요"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "완료됨"
+    },
+    "back": "다른 워크플로 선택",
+    "byline": "전사를 시작할 대상 세트를 선택하세요.",
+    "heading": "시작 지점 선택"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% 완료",
+      "setSelection": "세트 선택",
+      "subjectSelection": "대상 선택"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "잠김",
+      "unlocked": "잠금 해제됨"
+    },
+    "error": "워크플로를 가져오는 중에 오류가 발생했습니다 :(",
+    "getStarted": "시작하세요!",
+    "message": "여기서 시작하기를 클릭하면 실제 연구를 할 수 있어요!",
+    "noWorkflows": "기여할 항목 없음"
+  }
+}
