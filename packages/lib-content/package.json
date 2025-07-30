@@ -6,7 +6,6 @@
   "version": "0.0.1",
   "type": "module",
   "main": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js"
