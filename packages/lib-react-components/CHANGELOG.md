@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `ShareIconButton` component, a button to copy the current page URL to the clipboard
 - `InvertIconButton` component, a toggle button with an `InvertIcon` icon
 - `ImageIconButton` component, a button that behaves like an anchor link with an image icon
+- `FavoritesIconButton` component, an icon button to favorite a subject, with hooks to request and update the favorite collection
 
 ### Fixed
 
