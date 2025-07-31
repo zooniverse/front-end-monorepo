@@ -17,6 +17,8 @@ const StyledDisplayName = styled(Text)`
 `
 
 const StyledDate = styled(Text)`
+  visibility: visible;
+
   ${StyledCommentCard}:hover &,
   ${StyledCommentCard}:focus &,
   ${StyledCommentCard}:focus-within & {
@@ -25,12 +27,14 @@ const StyledDate = styled(Text)`
 `
 
 const StyledLink = styled(Anchor)`
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 
   ${StyledCommentCard}:hover &,
   ${StyledCommentCard}:focus &,
   ${StyledCommentCard}:focus-within & {
-    display: inline-block;
+    opacity: 1;
+    pointer-events: auto;
   }
 `
 
@@ -48,6 +52,7 @@ function TalkComment({
   displayName = '',
   login = '',
   projectSlug = '',
+  upvoted = false,
   upvotes = 0
 }) {
   const { t } = useTranslation('screens')
@@ -57,7 +62,14 @@ function TalkComment({
     timeStyle: 'short'
   })
 
-  const LikeIcon = upvotes > 0 ? LikeFill : Like
+  const LikeIcon = upvotes > 0 ? (
+    <LikeFill
+      size='small'
+      color={upvoted ? { dark: 'accent-1', light: 'neutral-1' } : undefined}
+    />
+  ) : (
+    <Like size='small' />
+  )
 
   return (
     <StyledCommentCard
@@ -99,7 +111,10 @@ function TalkComment({
               : null}
           </Box>
         </Box>
-        <Box pad={{ top: 'xsmall' }}>
+        <Box
+          align='end'
+          pad={{ top: 'xsmall' }}
+        >
           <StyledDate
             size='xsmall'
             uppercase={false}
@@ -107,6 +122,7 @@ function TalkComment({
             {localeDate}
           </StyledDate>
           <StyledLink
+            a11yTitle={t('Talk.goToComment')}
             gap='xsmall'
             href={commentLink}
             icon={<Share size='14.667px' />}
@@ -130,10 +146,7 @@ function TalkComment({
         gap='xxsmall'
         justify='end'
       >
-        <LikeIcon
-          color={{ dark: 'accent-1', light: 'neutral-1' }}
-          size='small'
-        />
+        {LikeIcon}
         <Text
           color={{ dark: 'accent-1', light: 'neutral-1' }}
           size='16px'
