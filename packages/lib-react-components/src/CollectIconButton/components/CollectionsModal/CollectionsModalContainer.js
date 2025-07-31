@@ -12,6 +12,10 @@ import SelectCollection from './components/SelectCollection'
 import CreateCollection from './components/CreateCollection'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_COLLECTION_QUERY = {
+  favorite: false,
+  current_user_roles: 'owner,collaborator,contributor'
+}
 const defaultNewCollection = {
   display_name: '',
   private: false
@@ -24,7 +28,7 @@ const CollectionsModalContainer = ({
   subjectId = '',
   userId = ''
 }) => {
-  const [collectionsQuery, setCollectionsQuery] = useState(undefined)
+  const [collectionsQuery, setCollectionsQuery] = useState(DEFAULT_COLLECTION_QUERY)
   const [newCollection, setNewCollection] = useState(defaultNewCollection)
   const [selectedCollection, setSelectedCollection] = useState(undefined)
 
