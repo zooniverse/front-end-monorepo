@@ -1,4 +1,5 @@
 export { default as useAdminMode } from './useAdminMode.js'
+export { default as useDiscussions } from './useDiscussions.js'
 export { default as useUserFavourites } from './useUserFavourites.js'
 export { default as usePanoptesAuth } from './usePanoptesAuth.js'
 export { default as usePanoptesAuthToken } from './usePanoptesAuthToken.js'
