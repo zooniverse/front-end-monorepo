@@ -37,7 +37,7 @@ const CollectionsModalContainer = ({
     error,
     isLoading
   } = useUserCollections({
-    query: collectionsQuery
+    query: collectionsModalActive && collectionsQuery
   })
 
   function searchCollections (query) {
