@@ -4,16 +4,16 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "1.14.0",
-  "main": "dist/cjs/index.js",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/esm/index.js"
     },
     "./*": {
       "import": "./dist/esm/*/index.js",
-      "require": "./dist/cjs/*/index.js"
+      "require": "./dist/esm/*/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -24,14 +24,12 @@
     "directory": "packages/lib-react-components"
   },
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "build": "babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "lint": "zoo-standard --fix | snazzy",
-    "prepare": "yarn build:cjs && yarn build:es6",
+    "prepare": "yarn build",
     "start": "start-storybook -p 6007",
-    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
-    "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
+    "test": "BABEL_ENV=test mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
+    "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build"
   },
@@ -104,7 +102,7 @@
     "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   },
   "publishConfig": {
     "access": "public"
