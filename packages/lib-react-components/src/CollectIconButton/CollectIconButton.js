@@ -42,7 +42,7 @@ function CollectIconButton({
 CollectIconButton.propTypes = {
   projectId: string,
   subjectId: string.isRequired,
-  userId: string.isRequired
+  userId: string
 }
 
 export default CollectIconButton
