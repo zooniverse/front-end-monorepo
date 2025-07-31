@@ -87,7 +87,7 @@ We label issues that are a good place to start for new contributors with [`good 
 
 ### Testing
 
-1. At a minimum, code you submit should be unit tested - we use Coveralls to measure how much of our code is covered.
+1. At a minimum, code you submit should be unit tested.
 2. Tests should be located alongside the code:
     ```
     /path/to/component $ ls

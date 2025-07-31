@@ -27,9 +27,3 @@ jobs:
       - run: yarn workspace @zooniverse/subject-viewers build:cjs
       - run: yarn workspace @zooniverse/classifier build:cjs
       - run: yarn test:ci
-      - run: yarn coverage-lcov
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          fail-on-error: false
