@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed: 2024-08-06
+Approved
 
 ## Context
 
@@ -16,7 +16,7 @@ The `lib-subject-viewers` package is being created to store the source code for 
 
 Within `lib-classifier`, there is a new `VolumetricViewerWrapper` component that ties together the Volumetric Viewer in `lib-subject-viewers` with the Classifier's state management, which uses MobX, with the internal state management of the Volumetric Viewer. This component lives within the `SubjectViewer` component alongside the other existing viewers. Because of this component, the `lib-subject-viewers` VolumetricViewer is able to be loaded asynchronously, keeping core `lib-classifier` bundle size at a minimum.
 
-To enable the Volumetric Viewer within a Project, an experimental feature flag called `volumetricViewer` has been created. Once enabled, alongside the `femLab` experimental feature flag, the Project Builder shows a new task called `Volumetric Task`. This task, when added, instructs FEM to load the Volumetric Viewer from `lib-subject-viewers`.
+To enable the Volumetric Viewer within a Project, an experimental feature flag called `volumetricProject` has been created. Once enabled, alongside the `femLab` experimental feature flag, the Project Builder shows a new task called `Volumetric Task`. This task, when added, instructs FEM to load the Volumetric Viewer from `lib-subject-viewers`.
 
 Within the experimental tasks section of `lib-classifier`, the `VolumetricTask` component and `VolumetricAnnotation` model have been defined to support both the new task and annotation of the Volumetric Viewer as is needed for state management support within MobX. 
 
@@ -31,7 +31,7 @@ Within the experimental tasks section of `lib-classifier`, the `VolumetricTask` 
 
 The VolumetricViewer supports a Base64 encoded string that is converted into a uint8 array. The decision to use a Base64 encoded string is to decrease the file size of volumetric data within Panoptes and the bandwidth needed to transfer the data as a network request. Data uploaded should have the `json` extension as it is used for fetching the correct file from Panoptes.
 
-In order for Volumetric JSON subjects to be visible in Talk, particularly in the Favorites collection, it is important to add a `metadata:volumetric` column to the  manifest file with a value of `true`. This is due to Talk > Favorites not containing project context and JSON subjects handling as a group. In order to display a Volumetric subject without the metadata property, the subject would have to be fully fetched in order to detect the subject type.
+In order for Volumetric JSON subjects to be visible as a subject preview anywhere on the frontend, particularly in the Talk > Favorites collection, it is important to add a `metadata:volumetric` column to the manifest file with a value of `true`. This is due to Talk > Favorites not containing project context, it cannot know the `volumetricProject` experimental flag, and subject preview presentational components need to detect the _type_ of JSON. Otherwise, in order to display a Volumetric subject without the metadata property, the subject's data would have to be fully fetched in order to detect the subject type.
 
 ## Features
 
@@ -49,6 +49,6 @@ Features of the Volumetric Viewer include:
   - It is manually trimmed and embedded locally to reduce file size in PFE
 - Testing ThreeJS in specs is not easily doable due to WebGL, therefore no specs are written to test UI interactions / rendering
 - Subject size is limited to 128^3 as it generates a ~2MB subject
-- Requires both the `volumetricViewer` and `femLab` feature flags within project configuration
-- Requires `metadata:volumetric` to have a value of `true` in the subject manifest / on subject upload for Talk to work properly
+- Requires both the `volumetricProject` and `femLab` feature flags within project configuration
+- Requires `metadata:volumetric` to have a value of `true` in the subject manifest / on subject upload for subject previews to work properly
 - Mobile interaction has limited functionality
