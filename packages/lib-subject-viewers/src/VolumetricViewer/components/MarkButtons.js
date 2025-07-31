@@ -4,8 +4,6 @@ import DeleteIcon from './DeleteIcon'
 import styled from 'styled-components'
 import { IconActionButton } from '@zooniverse/react-components'
 
-console.log('IconActionButton', IconActionButton)
-
 const StyledMarkButtons = styled.div`
   display: flex;
   align-items: center;
