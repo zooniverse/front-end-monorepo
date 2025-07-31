@@ -6,10 +6,23 @@ const Task = types.model('Task', {
   // override annotation in individual task models with specific annotation types
   annotation: types.safeReference(Annotation),
   taskKey: types.identifier,
-  required: types.maybe(types.union(types.string, types.boolean)), // text task required default = false
+  required: types.optional(types.boolean, false),
   strings: types.map(types.string),
   type: types.literal('default')
 })
+  .preProcessSnapshot(snapshot => {
+    if (typeof snapshot.required !== 'boolean') {
+      // 'false' is a true value, so handle that here
+      const required = (snapshot.required === 'false')
+        ? false
+        : Boolean(snapshot.required)
+      return {
+        ...snapshot,
+        required
+      }
+    }
+    return snapshot
+  })
   .views(self => ({
 
     defaultAnnotation(id = cuid()) {
