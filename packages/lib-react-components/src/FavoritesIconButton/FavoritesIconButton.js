@@ -1,7 +1,6 @@
 import { Favorite } from 'grommet-icons'
 import { bool, func } from 'prop-types'
 import styled from 'styled-components'
-
 import { useTranslation } from '../translations/i18n'
 import IconActionButton from '../IconActionButton'
 

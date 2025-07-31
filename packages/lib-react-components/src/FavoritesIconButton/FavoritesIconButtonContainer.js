@@ -1,7 +1,11 @@
 import { string } from 'prop-types'
 
 import { useUserCollections } from '../hooks'
-import { addSubjectsToCollection, removeSubjectsFromCollection } from '../helpers/collections'
+import {
+  addSubjectsToCollection,
+  createCollection,
+  removeSubjectsFromCollection
+} from '../helpers/collections'
 
 import FavoritesIconButton from './FavoritesIconButton'
 
@@ -54,16 +58,22 @@ function FavoritesIconButtonContainer({
     )
 
     try {
-      addSubjectsToCollection({
-        collectionId: favorites?.[0]?.id,
-        options: {
-          display_name: `Favorites ${projectSlug}`,
-          favorite: true,
-          private: true
-        },
-        projectId,
-        subjectIds: [subjectId]
-      })
+      if (favorites?.[0]?.id) {
+        addSubjectsToCollection({
+          collectionId: favorites[0].id,
+          subjectIds: [subjectId]
+        })
+      } else {
+        createCollection({
+          options: {
+            display_name: `Favorites ${projectSlug}`,
+            favorite: true,
+            private: true
+          },
+          projectId,
+          subjectIds: [subjectId]
+        })
+      }
     } catch (error) {
       console.error(error)
     }
