@@ -7,6 +7,7 @@ import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import SubjectTalkViewer from './components/SubjectTalkViewer'
+import SubjectTalkData from './components/SubjectTalkData'
 
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
@@ -51,22 +52,10 @@ function SubjectTalkPage({
             projectSlug={projectSlug}
             subject={subject}
           />
-          <Box
-            gap='small'
-            style={{ gridArea: 'talkData' }}
-          >
-            {/* <TalkSearch /> */}
-            <input type='text' placeholder={t('Talk.searchPlaceholder')} />
-            {/* <TalkData /> */}
-            <Box
-              background={{
-                dark: 'dark-3',
-                light: 'white'
-              }}
-            >
-              Talk data goes here
-            </Box>
-          </Box>
+          <SubjectTalkData
+            projectId={projectId}
+            subjectId={subjectId}
+          />
         </ContainerGrid>
         <Box
           as='aside'
