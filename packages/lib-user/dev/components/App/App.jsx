@@ -15,7 +15,7 @@ import {
   UserStats,
   UserStatsAllProjects
 } from '@components'
-import { getThisWeekDateRange, getStatsDateString } from '../../../src/utils'
+import { getThisWeekDateRange, getStatsDateString } from '@utils'
 
 const isBrowser = typeof window !== 'undefined'
 const today = new Date()

@@ -1,7 +1,8 @@
-const { execSync } = require('child_process')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
-const webpack = require('webpack')
+import { execSync }  from 'child_process'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { resolve } from 'path'
+import webpack from 'webpack'
+const __dirname = import.meta.dirname
 
 function gitCommit() {
   try {
@@ -26,7 +27,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
-module.exports = {
+const webpackConfig = {
   devServer: {
     allowedHosts: [
       'bs-local.com',
@@ -36,19 +37,21 @@ module.exports = {
     server: 'https'
   },
   entry: [
-    './dev/index.js'
+    './dev/index.jsx'
   ],
   mode: 'development',
   resolve: {
     alias: {
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@hooks': path.resolve(__dirname, 'src/hooks'),
-      '@utils': path.resolve(__dirname, 'src/utils')
+      '@components': resolve(__dirname, 'src/components'),
+      '@hooks': resolve(__dirname, 'src/hooks'),
+      '@translations': resolve(__dirname, 'src/translations'),
+      '@utils': resolve(__dirname, 'src/utils')
     },
+    extensions: ['.jsx', '.js', '...'],
     fallback: {
       fs: false,
       // for markdown-it plugins
-      path: require.resolve("path-browserify"),
+      path: import.meta.resolve("path-browserify"),
       process: false,
       url: false,
     }
@@ -56,7 +59,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
@@ -73,10 +76,10 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve('build'),
+    path: resolve('build'),
     filename: 'main.js',
     library: '@zooniverse/user',
-    libraryTarget: 'umd',
+    // libraryTarget: 'umd',
     umdNamedDefine: true
   },
   plugins: [
@@ -87,3 +90,5 @@ module.exports = {
     HtmlWebpackPluginConfig
   ]
 }
+
+export default webpackConfig
