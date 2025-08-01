@@ -41,4 +41,4 @@ Features
 
 ## Notes on Tests and Storybook
 
-MSW is used to mock network requests called by custom hook `usePanoptesProjects()` so AllProjectsByCount and AllRecentProjects display in lib-user's Storybook. Their Stories are not used for test suites because `nock` does not play nicely with this manually-handled pagination architecture. In the future, we could consider MSW loaders applied automatically via the `play()` function in Storybook v8+. For now, Project.js is intentionally tested while excluding network requests.
+MSW is used to mock network requests called by custom hook `usePanoptesProjects()` so AllProjectsByCount and AllRecentProjects display in lib-user's Storybook. Their Stories are not used for test suites because `nock` does not play nicely with this manually-handled pagination architecture. In the future, we could consider MSW loaders applied automatically via the `play()` function in Storybook v8+. For now, Projects is intentionally tested while excluding network requests.

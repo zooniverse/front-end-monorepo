@@ -1,1 +1,1 @@
-export { default } from './GroupAllProjectsContainer.js'
+export { default } from './GroupAllProjectsContainer'

@@ -18,8 +18,8 @@ module.exports = [
       'src/**/*.js'
     ],
     ignores: [
-      'src/**/*.spec.js',
-      'src/**/*.stories.js'
+      'src/**/*.spec.jsx',
+      'src/**/*.stories.jsx'
     ],
     languageOptions: {
       parser: babelParser,
