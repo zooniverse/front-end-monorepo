@@ -1,9 +1,11 @@
 import { Box, Heading } from 'grommet'
+import { BlockQuote, Tag } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
+import SectionHeading from './components/SectionHeading'
 
 const StyledHeading = styled(Heading)`
   font-size: 1.5rem;
@@ -51,7 +53,15 @@ function SubjectTalkData({
         <Box
           pad='small'
         >
-          <h3>Tags</h3>
+          <SectionHeading
+            icon={
+              <Tag
+                color={{ dark: 'light-1', light: 'dark-4' }}
+                size='16px'
+              />
+            }
+            title='Tags'
+          />
         </Box>
         <Discussions
           projectId={projectId}
@@ -60,7 +70,15 @@ function SubjectTalkData({
         <Box
           pad='small'
         >
-          <h3>Mentions</h3>
+          <SectionHeading
+            icon={
+              <BlockQuote
+                color={{ dark: 'light-1', light: 'dark-4' }}
+                size='16px'
+              />
+            }
+            title='Mentions'
+          />
         </Box>
       </Box>
     </Box>
