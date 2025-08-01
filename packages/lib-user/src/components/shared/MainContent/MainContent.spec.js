@@ -7,7 +7,6 @@ import { USER } from '../../../../test/mocks/panoptes'
 import { STATS } from '../../../../test/mocks/stats.mock.js'
 
 import Meta, { Default, NoStats, ParamsValidationMessage } from './MainContent.stories.js'
-import { expect } from 'chai'
 
 const todayUTC = getStatsDateString(new Date())
 const sevenDaysAgoUTC = getStatsDateString(new Date(Date.now() - 6 * 24 * 60 * 60 * 1000))

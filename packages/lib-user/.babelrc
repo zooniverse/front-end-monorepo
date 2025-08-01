@@ -1,45 +1,67 @@
 {
   "plugins": [
     "babel-plugin-styled-components",
-    ["@babel/plugin-transform-runtime", {
-      "helpers": false
-    }],
-    ["transform-imports", {
-      "@zooniverse/react-components": {
-        "transform": "@zooniverse/react-components/${member}"
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "helpers": false
       }
-    }],
-    ["module-resolver", {
-      "alias": {
-        "@components": "./src/components",
-        "@hooks": "./src/hooks",
-        "@utils": "./src/utils"
+    ],
+    [
+      "transform-imports",
+      {
+        "@zooniverse/react-components": {
+          "transform": "@zooniverse/react-components/${member}"
+        }
       }
-    }]
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@components": "./src/components",
+          "@hooks": "./src/hooks",
+          "@translations": "./src/translations",
+          "@utils": "./src/utils"
+        }
+      }
+    ]
   ],
   "presets": [
-    ["@babel/preset-react", {
-      "runtime": "automatic"
-    }],
-    ["@babel/preset-env", {
-      "modules": "auto",
-      "targets": {
-        "browsers": "last 2 versions"
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
       }
-    }]
+    ],
+    [
+      "@babel/preset-env",
+      {
+        "modules": "auto",
+        "targets": {
+          "browsers": "last 2 versions"
+        }
+      }
+    ]
   ],
   "env": {
     "es6": {
       "presets": [
-        ["@babel/preset-react", {
-          "runtime": "automatic"
-        }],
-        ["@babel/preset-env", {
-          "modules": false,
-          "targets": {
-            "esmodules": true
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
           }
-        }]
+        ],
+        [
+          "@babel/preset-env",
+          {
+            "modules": false,
+            "targets": {
+              "esmodules": true
+            }
+          }
+        ]
       ]
     }
   }
