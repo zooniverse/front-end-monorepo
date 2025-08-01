@@ -1,1 +1,1 @@
-export { default } from './PreviewLayout.js'
+export { default } from './PreviewLayout'

@@ -37,9 +37,15 @@ Note: query params are used for local development work, but are not used in prod
 - `https://www.zooniverse.org/users/[login]/stats/certificate`
 - `https://www.zooniverse.org/groups/[user group ID]`
 
+## Build
+
+`yarn build` to bundle the components.
+
 ## Tests
 
-`yarn test` to run mocha tests.
+`yarn test` to run Vitest tests.
+
+`yarn test MainContent.spec.jsx` to test one file at a time.
 
 <!-- ## Contributing
 

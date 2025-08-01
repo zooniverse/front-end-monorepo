@@ -1,1 +1,1 @@
-export { default } from './ContentBox.js'
+export { default } from './ContentBox'
