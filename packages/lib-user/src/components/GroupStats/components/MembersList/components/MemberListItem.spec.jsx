@@ -13,19 +13,19 @@ describe('components > GroupStats > MemberListItem', function () {
     it('should show the user\'s display name', function () {
       render(<DefaultStory />)
       const displayName = screen.getByText(GROUP_MEMBER_USER.display_name)
-      expect(displayName).to.be.ok()
+      expect(displayName).toBeTruthy()
     })
 
     it('should show the user\'s login', function () {
       render(<DefaultStory />)
       const login = screen.getByText(`@${GROUP_MEMBER_USER.login}`)
-      expect(login).to.be.ok()
+      expect(login).toBeTruthy()
     })
 
     it('should show a menu button', function () {
       render(<DefaultStory />)
       const menuButton = screen.getByRole('button', { name: `Menu to update or remove ${GROUP_MEMBER_USER.display_name}'s group membership` })
-      expect(menuButton).to.be.ok()
+      expect(menuButton).toBeTruthy()
     })
 
     describe('when the menu button is clicked', function () {
@@ -38,7 +38,7 @@ describe('components > GroupStats > MemberListItem', function () {
         await user.click(menuButton)
 
         const giveAdminAccess = screen.getByRole('menuitem', { name: 'Give admin access' })
-        expect(giveAdminAccess).to.be.ok()
+        expect(giveAdminAccess).toBeTruthy()
       })
 
       it('should show a "Remove member" option', async function () {
@@ -48,7 +48,7 @@ describe('components > GroupStats > MemberListItem', function () {
         await user.click(menuButton)
 
         const removeMember = screen.getByRole('menuitem', { name: 'Remove member' })
-        expect(removeMember).to.be.ok()
+        expect(removeMember).toBeTruthy()
       })
     })
   })
@@ -59,25 +59,25 @@ describe('components > GroupStats > MemberListItem', function () {
     it('should an admin icon', function () {
       render(<GroupAdminStory />)
       const adminIcon = screen.getByLabelText('UserAdmin')
-      expect(adminIcon).to.be.ok()
+      expect(adminIcon).toBeTruthy()
     })
 
     it('should show the user\'s display name', function () {
       render(<GroupAdminStory />)
       const displayName = screen.getByText(GROUP_ADMIN_USER.display_name)
-      expect(displayName).to.be.ok()
+      expect(displayName).toBeTruthy()
     })
 
     it('should show the user\'s login', function () {
       render(<GroupAdminStory />)
       const login = screen.getByText(`@${GROUP_ADMIN_USER.login}`)
-      expect(login).to.be.ok()
+      expect(login).toBeTruthy()
     })
 
     it('should show a menu button', function () {
       render(<GroupAdminStory />)
       const menuButton = screen.getByRole('button', { name: `Menu to update or remove ${GROUP_ADMIN_USER.display_name}'s group membership` })
-      expect(menuButton).to.be.ok()
+      expect(menuButton).toBeTruthy()
     })
 
     describe('when the menu button is clicked', function () {
@@ -90,7 +90,7 @@ describe('components > GroupStats > MemberListItem', function () {
         await user.click(menuButton)
 
         const removeAdminAccess = screen.getByRole('menuitem', { name: 'Remove admin access' })
-        expect(removeAdminAccess).to.be.ok()
+        expect(removeAdminAccess).toBeTruthy()
       })
 
       it('should show a "Remove member" option', async function () {
@@ -100,7 +100,7 @@ describe('components > GroupStats > MemberListItem', function () {
         await user.click(menuButton)
 
         const removeMember = screen.getByRole('menuitem', { name: 'Remove member' })
-        expect(removeMember).to.be.ok()
+        expect(removeMember).toBeTruthy()
       })
     })
   })

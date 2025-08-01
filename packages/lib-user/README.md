@@ -45,6 +45,8 @@ Note: query params are used for local development work, but are not used in prod
 
 `yarn test` to run Vitest tests.
 
+`yarn test MainContent.spec.jsx` to test one file at a time.
+
 <!-- ## Contributing
 
 Components should be added to the `src/components` folder and an export to `src/index.js`. Each component should be tested, documented readme, and have a storybook example added. -->

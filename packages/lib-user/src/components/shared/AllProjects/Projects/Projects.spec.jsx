@@ -43,7 +43,7 @@ describe('components > shared > AllProjects', function () {
   describe('when there are no projectContributions', function () {
     it('should show the `no projects` message', function () {
       render(<Projects renderedProjects={[]} />)
-      expect(screen.getByText('No projects found')).to.be.ok()
+      expect(screen.getByText('No projects found')).toBeTruthy()
     })
   })
 
@@ -55,7 +55,7 @@ describe('components > shared > AllProjects', function () {
           error={{ status: 500, message: 'This is a mock error' }}
         />
       )
-      expect(screen.getByText('There was an error')).to.be.ok()
+      expect(screen.getByText('There was an error')).toBeTruthy()
     })
   })
 })

@@ -17,18 +17,18 @@ describe('components > GroupStats > TopContributors', function () {
   it('should show the user\'s avatar', function () {
     render(<DefaultStory />)
     const avatar = screen.getByAltText(`${USERS[0].login} avatar`)
-    expect(avatar).to.be.ok()
+    expect(avatar).toBeTruthy()
   })
 
   it('should show the user\'s display name', function () {
     render(<DefaultStory />)
     const displayName = screen.getByText(USERS[0].display_name)
-    expect(displayName).to.be.ok()
+    expect(displayName).toBeTruthy()
   })
 
   it('should show the user\'s classifications', function () {
     render(<DefaultStory />)
     const classifications = screen.getByText('123 Classifications')
-    expect(classifications).to.be.ok()
+    expect(classifications).toBeTruthy()
   })
 })

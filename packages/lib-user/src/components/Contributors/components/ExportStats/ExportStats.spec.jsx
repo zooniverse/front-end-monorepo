@@ -15,11 +15,11 @@ describe('components > Contributors > ExportStats', function () {
     })
 
     it('should show the correct member count', function () {
-      expect(memberCount).to.be.ok()
+      expect(memberCount).toBeTruthy()
     })
 
     it('should show the correct file size estimate', function () {
-      expect(fileSize).to.be.ok()
+      expect(fileSize).toBeTruthy()
     })
   })
 
@@ -34,11 +34,11 @@ describe('components > Contributors > ExportStats', function () {
     })
 
     it('should show the correct member count', function () {
-      expect(memberCount).to.be.ok()
+      expect(memberCount).toBeTruthy()
     })
 
     it('should show the correct file size estimate', function () {
-      expect(fileSize).to.be.ok()
+      expect(fileSize).toBeTruthy()
     })
   })
 
@@ -53,11 +53,11 @@ describe('components > Contributors > ExportStats', function () {
     })
 
     it('should show the loading message', function () {
-      expect(loadingMessage).to.be.ok()
+      expect(loadingMessage).toBeTruthy()
     })
 
     it('should show the progress', function () {
-      expect(progress).to.be.ok()
+      expect(progress).toBeTruthy()
     })
   })
 
@@ -67,7 +67,7 @@ describe('components > Contributors > ExportStats', function () {
     it('should show the error message', function () {
       render(<ErrorStory />)
       const errorMessage = screen.getByText('Network error: Failed to fetch user data')
-      expect(errorMessage).to.be.ok()
+      expect(errorMessage).toBeTruthy()
     })
   })
 
@@ -77,7 +77,7 @@ describe('components > Contributors > ExportStats', function () {
     it('should show the download link', function () {
       render(<SuccessNoFilenameStory />)
       const downloadLink = screen.getByText('Generating stats export file. Do not close this browser tab.')
-      expect(downloadLink).to.be.ok()
+      expect(downloadLink).toBeTruthy()
     })
   })
 
@@ -87,7 +87,7 @@ describe('components > Contributors > ExportStats', function () {
     it('should show the download link', function () {
       render(<SuccessWithFilenameStory />)
       const downloadLink = screen.getByText('TestGroup1234_data_export_2025-01-01T101010.csv')
-      expect(downloadLink).to.be.ok()
+      expect(downloadLink).toBeTruthy()
     })
   })
 })

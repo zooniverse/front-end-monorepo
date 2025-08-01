@@ -14,7 +14,7 @@ describe('components > shared > GroupForm', function() {
       render(<CreateStory />)
 
       const displayName = screen.getByRole('textbox', { name: 'Group Name' })
-      expect(displayName).to.be.ok()
+      expect(displayName).toBeTruthy()
     })
 
     it('should have radio buttons for public or private visibility', function() {
@@ -22,15 +22,15 @@ describe('components > shared > GroupForm', function() {
 
       const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
       const publicRadio = screen.getByRole('radio', { name: 'Public - you can share this group with anyone' })
-      expect(privateRadio).to.be.ok()
-      expect(publicRadio).to.be.ok()
+      expect(privateRadio).toBeTruthy()
+      expect(publicRadio).toBeTruthy()
     })
 
     it('should default to private visibility', function() {
       render(<CreateStory />)
 
       const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
-      expect(privateRadio.checked).to.be.true()
+      expect(privateRadio.checked).to.equal(true)
     })
 
     it('should have a select for stats visibility', function() {
@@ -38,7 +38,7 @@ describe('components > shared > GroupForm', function() {
 
       // the Grommet Select component renders as a button with a textbox. The statsVisibility input uses the Grommet Select, therefore we need to find the textbox role. The textbox name includes the value of the select, which by default is 'private_agg_only'.
       const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, No, don\'t show individual stats to members' })
-      expect(statsVisibility).to.be.ok()
+      expect(statsVisibility).toBeTruthy()
     })
 
     describe('with private visibility', function() {
@@ -47,7 +47,7 @@ describe('components > shared > GroupForm', function() {
 
         // by default, the visibility is private
         const privateRadio = screen.getByRole('radio', { name: 'Private - only members can view this group' })
-        expect(privateRadio.checked).to.be.true()
+        expect(privateRadio.checked).to.equal(true)
 
         const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, No, don\'t show individual stats to members' })
         await user.click(statsVisibility)
@@ -65,7 +65,7 @@ describe('components > shared > GroupForm', function() {
 
         const publicRadio = screen.getByRole('radio', { name: 'Public - you can share this group with anyone' })
         await user.click(publicRadio)
-        expect(publicRadio.checked).to.be.true()
+        expect(publicRadio.checked).to.equal(true)
 
         const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, No, never show individual stats' })
         await user.click(statsVisibility)
@@ -85,7 +85,7 @@ describe('components > shared > GroupForm', function() {
         await user.click(submit)
 
         const error = screen.getByText('required')
-        expect(error).to.be.ok()
+        expect(error).toBeTruthy()
       })
     })
 
@@ -99,13 +99,12 @@ describe('components > shared > GroupForm', function() {
         await user.click(submit)
 
         const error = screen.getByText('must be > 3 characters')
-        expect(error).to.be.ok()
+        expect(error).toBeTruthy()
       })
     })
 
     describe('with an invalid display name, above maximum characters', function() {
-      // this turns off Mocha's time limit for slow tests
-      this.timeout(0)
+
 
       it('should show display name is invalid', async function() {
         render(<CreateStory />)
@@ -116,7 +115,7 @@ describe('components > shared > GroupForm', function() {
         await user.click(submit)
 
         const error = screen.getByText('must be < 60 characters')
-        expect(error).to.be.ok()
+        expect(error).toBeTruthy()
       })
     })
   })
@@ -128,7 +127,7 @@ describe('components > shared > GroupForm', function() {
       render(<ManageStory />)
 
       const deactivateButton = screen.getByRole('button', { name: 'Deactivate Group' })
-      expect(deactivateButton).to.be.ok()
+      expect(deactivateButton).toBeTruthy()
     })
 
     it('should show the group display name', function() {
@@ -142,14 +141,14 @@ describe('components > shared > GroupForm', function() {
       render(<ManageStory />)
 
       const publicRadio = screen.getByRole('radio', { name: 'Public - you can share this group with anyone' })
-      expect(publicRadio.checked).to.be.true()
+      expect(publicRadio.checked).to.equal(true)
     })
 
     it('should show the group stats visibility', function() {
       render(<ManageStory />)
 
       const statsVisibility = screen.getByRole('textbox', { name: 'Stats Visibility, Yes, always show individual stats' })
-      expect(statsVisibility).to.be.ok()
+      expect(statsVisibility).toBeTruthy()
     })
   })
 })

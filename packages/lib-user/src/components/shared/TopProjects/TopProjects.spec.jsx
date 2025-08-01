@@ -11,20 +11,20 @@ describe('components > shared > TopProjects', function () {
   it('should show "Top Projects" content section title', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByText('Top Projects')).to.be.ok()
+    expect(screen.getByText('Top Projects')).toBeTruthy()
   })
 
   it('should show a "see more" link', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByRole('link', { name: 'See all' })).to.be.ok()
+    expect(screen.getByRole('link', { name: 'See all' })).toBeTruthy()
   })
 
   it('should show the projects provided', function () {
     render(<DefaultStory />)
 
     PROJECTS.forEach(project => {
-      expect(screen.getByText(project.display_name)).to.be.ok()
+      expect(screen.getByText(project.display_name)).toBeTruthy()
     })
   })
 })

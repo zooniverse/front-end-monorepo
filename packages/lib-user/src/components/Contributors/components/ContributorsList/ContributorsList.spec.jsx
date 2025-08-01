@@ -27,22 +27,22 @@ describe('components > Contributors > ContributorsList', function () {
 
     it('should show the user\'s avatar', function () {
       const avatar = within(contributorItem).getByAltText(`${USERS[0].login} avatar`)
-      expect(avatar).to.be.ok()
+      expect(avatar).toBeTruthy()
     })
 
     it('should show the user\'s display name', function () {
       const displayName = within(contributorItem).getByText(USERS[0].display_name)
-      expect(displayName).to.be.ok()
+      expect(displayName).toBeTruthy()
     })
 
     it('should show the user\'s classifications', function () {
       const classifications = within(contributorItem).getByText(group_member_stats_breakdown[0].count.toLocaleString())
-      expect(classifications).to.be.ok()
+      expect(classifications).toBeTruthy()
     })
 
     it('should show the user\'s session time', function () {
       const sessionTime = within(contributorItem).getByText(convertStatsSecondsToHours(group_member_stats_breakdown[0].session_time).toLocaleString())
-      expect(sessionTime).to.be.ok()
+      expect(sessionTime).toBeTruthy()
     })
 
     it('should show the user\'s project stats', function () {

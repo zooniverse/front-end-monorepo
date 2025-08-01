@@ -22,7 +22,7 @@ describe('components > shared > GroupContainer > getUserGroupStatus', function (
     render(<div>{getUserGroupStatus({ groupLoading: true })}</div>)
     const result = screen.getByLabelText('Loading')
 
-    expect(result).to.be.ok()
+    expect(result).toBeTruthy()
   })
 
   it('should return a message when there is a group error', function () {
@@ -42,6 +42,6 @@ describe('components > shared > GroupContainer > getUserGroupStatus', function (
 
   it('should return null when there is a group and an auth user', function () {
     const result = getUserGroupStatus({ authUserId: '1', group: { id: '1' } })
-    expect(result).to.be.null()
+    expect(result).to.equal(null)
   })
 })

@@ -12,7 +12,7 @@ describe('components > shared > HeaderToast', function() {
     render(<DefaultStory />)
 
     // The first "Link" in the button name is from the link icon
-    expect(screen.getByRole('button', { name: 'Link Copy Join Link' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'Link Copy Join Link' })).toBeTruthy()
   })
 
   describe('when the button is clicked', function() {
@@ -24,7 +24,7 @@ describe('components > shared > HeaderToast', function() {
 
       const toast = screen.getByText('Join Link Copied!')
 
-      expect(toast).to.be.ok()
+      expect(toast).toBeTruthy()
     })
   })
 })

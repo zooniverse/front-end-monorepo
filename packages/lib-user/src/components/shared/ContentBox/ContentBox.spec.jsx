@@ -9,12 +9,12 @@ describe('components > shared > ContentBox', function () {
 
     it('should render the title', function () {
       render(<TopProjectsFullStory />)
-      expect(screen.getByText('Top Projects')).to.be.ok()
+      expect(screen.getByText('Top Projects')).toBeTruthy()
     })
 
     it('should render the link', function () {
       render(<TopProjectsFullStory />)
-      expect(screen.getByRole('link', { name: 'See more' })).to.be.ok()
+      expect(screen.getByRole('link', { name: 'See more' })).toBeTruthy()
     })
   })
 
@@ -23,12 +23,12 @@ describe('components > shared > ContentBox', function () {
 
     it('should not render the title', function () {
       render(<NoTitleStory />)
-      expect(screen.queryByText('Top Projects')).to.be.null()
+      expect(screen.queryByText('Top Projects')).to.equal(null)
     })
 
     it('should render the link', function () {
       render(<NoTitleStory />)
-      expect(screen.getByRole('link', { name: 'See more' })).to.be.ok()
+      expect(screen.getByRole('link', { name: 'See more' })).toBeTruthy()
     })
   })
 
@@ -37,12 +37,12 @@ describe('components > shared > ContentBox', function () {
 
     it('should render the title', function () {
       render(<NoLinkStory />)
-      expect(screen.getByText('No link')).to.be.ok()
+      expect(screen.getByText('No link')).toBeTruthy()
     })
 
     it('should not render the link', function () {
       render(<NoLinkStory />)
-      expect(screen.queryByRole('link')).to.be.null()
+      expect(screen.queryByRole('link')).to.equal(null)
     })
   })
 
@@ -51,12 +51,12 @@ describe('components > shared > ContentBox', function () {
 
     it('should not render the title', function () {
       render(<NoTitleNoLinkStory />)
-      expect(screen.queryByText('Top Projects')).to.be.null()
+      expect(screen.queryByText('Top Projects')).to.equal(null)
     })
 
     it('should not render the link', function () {
       render(<NoTitleNoLinkStory />)
-      expect(screen.queryByRole('link')).to.be.null()
+      expect(screen.queryByRole('link')).to.equal(null)
     })
   })
 })

@@ -18,11 +18,12 @@ global.describe = describe
 global.expect = expect
 global.it = it
 
-// function copyProps(src, target) {
-//   const props = Object.getOwnPropertyNames(src)
-//     .filter((prop) => typeof target[prop] === 'undefined')
-//     .map(prop => Object.getOwnPropertyDescriptor(src, prop))
-//   Object.defineProperties(target, props)
+function copyProps(src, target) {
+  const props = Object.getOwnPropertyNames(src)
+    .filter((prop) => typeof target[prop] === 'undefined')
+    .map(prop => Object.getOwnPropertyDescriptor(src, prop))
+  Object.defineProperties(target, props)
+}
 
 
 class ResizeObserver {

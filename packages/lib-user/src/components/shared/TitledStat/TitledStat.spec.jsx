@@ -9,12 +9,12 @@ describe('components > shared > TitledStat', function () {
   it('should show the title', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByText('Classifications')).to.be.ok()
+    expect(screen.getByText('Classifications')).toBeTruthy()
   })
 
   it('should show the value', function () {
     render(<DefaultStory />)
 
-    expect(screen.getByText('1,234')).to.be.ok()
+    expect(screen.getByText('1,234')).toBeTruthy()
   })
 })
