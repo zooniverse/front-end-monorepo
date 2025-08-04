@@ -25,7 +25,8 @@ const DEFAULT_HANDLER = () => true
 function PlainButton({
   icon,
   onClick = DEFAULT_HANDLER,
-  text = ''
+  text = '',
+  ...props
 }) {
   return (
     <StyledButton
@@ -35,13 +36,14 @@ function PlainButton({
         <StyledLabel
           color={{ dark: 'accent-1', light: 'neutral-1' }}
           size='1rem'
-          weight='500'
+          weight={500}
         >
           {text}
         </StyledLabel>
       }
       plain
       onClick={onClick}
+      {...props}
     />
   )
 }

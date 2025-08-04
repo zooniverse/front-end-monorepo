@@ -73,10 +73,17 @@
     }
   },
   "Talk": {
+    "chronologically": "Chronologically",
+    "comments": "Comments",
+    "commentsOldFirst": "Comments oldest first",
+    "commentsNewFirst": "Comments newest first",
     "discussions": "{{count}} Discussions",
     "noDiscussions": "No Discussions",
     "oneDiscussion": "1 Discussion",
+    "participants": "Participants",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "sortOldFirst": "Sort by oldest first",
+    "sortNewFirst": "Sort by newest first",
     "startDiscussion": "Start a discussion",
     "subjectMetadata": "Subject Metadata",
     "featuredCollections": "Featured in these Collections",
