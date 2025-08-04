@@ -28,7 +28,7 @@ function FavoritesIconButtonContainer({
     isLoading,
     mutate
   } = useUserCollections({
-    query
+    query: login && query
   })
 
   const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
