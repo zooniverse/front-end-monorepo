@@ -1,60 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Revert } from 'grommet-icons'
+import { Edit, Revert } from 'grommet-icons'
 import DeleteIcon from './DeleteIcon'
-import MarkCreateIcon from './MarkCreateIcon'
 import styled from 'styled-components'
+import { IconActionButton } from '@zooniverse/react-components'
 
 const StyledMarkButtons = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-
+  
   button {
-    background-color: #FFFFFF;
-    border: none;
-    border-radius: 30px;
-    height: fit-content;
-    margin-right: 10px;
-    padding: 10px;
-    width: fit-content;
-
-    svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    &.inactive svg {
-      fill: #a5a6a9 !important;
-      stroke: #a5a6a9 !important;
-    }
-
-    &.active svg {
-      fill: #000;
-      stroke: #000;
-    }
-
-    &.active:hover {
-      background-color: #ADDDE0;
-
-      svg {
-        fill: #fff;
-        stroke: #fff;
-      }
-    }
-
-    &.active:active {
-      background-color: #265B68;
-
-      svg {
-        fill: #fff;
-        stroke: #fff;
-      }
-    }
+      margin-right: 10px;
   }
 `
 
 export const MarkButtons = ({ annotations }) => {
-  const [isActive, setIsActive] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
 
   useEffect(() => {
     annotations.on('add:annotation', checkState)
@@ -69,7 +30,7 @@ export const MarkButtons = ({ annotations }) => {
   }, [])
 
   function checkState() {
-    setIsActive(annotations.config.activeAnnotation !== null)
+    setIsDisabled(annotations.config.activeAnnotation === null)
   }
 
   function markCreate() {
@@ -96,26 +57,26 @@ export const MarkButtons = ({ annotations }) => {
 
   return (
     <StyledMarkButtons>
-      <button
-        aria-label='Add a new mark'
-        className={isActive ? 'active' : 'inactive'}
+      <IconActionButton
+        a11yTitle='Add a new mark'
+        disabled={isDisabled}
+        icon={<Edit />}
         onClick={markCreate}
-        title='Add a new mark'
-      ><MarkCreateIcon /></button>
+      />
 
-      <button
-        aria-label='Undo last action on mark'
-        className={isActive ? 'active' : 'inactive'}
+      <IconActionButton
+        a11yTitle='Undo last action on mark'
+        disabled={isDisabled}
+        icon={<Revert />}
         onClick={markUndo}
-        title='Undo last action on mark'
-      ><Revert /></button>
+      />
 
-      <button
-        aria-label='Delete last mark'
-        className={isActive ? 'active' : 'inactive'}
+      <IconActionButton
+        a11yTitle='Delete last mark'
+        disabled={isDisabled}
+        icon={<DeleteIcon />}
         onClick={markDelete}
-        title='Undo last action on mark'
-      ><DeleteIcon /></button>
+      />
     </StyledMarkButtons>
   )
 }
