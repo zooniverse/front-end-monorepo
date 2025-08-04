@@ -105,8 +105,9 @@ function Discussion({ discussion }) {
         style={{ listStyle: 'none', margin: 0, padding: 0 }}
       >
         {comments?.map((comment) => (
-          <li>
+          <li key={comment.id}>
             <h5>{comment.id}</h5>
+            <span>{comment.created_at}</span>
             <p>{comment.body}</p>
           </li>
         ))}
