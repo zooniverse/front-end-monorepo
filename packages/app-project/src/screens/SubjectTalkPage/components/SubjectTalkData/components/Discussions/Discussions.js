@@ -19,7 +19,7 @@ function Discussions({
     section: `project-${projectId}`,
     focus_id: subjectId,
     focus_type: 'Subject',
-    sort: '-created_at',
+    sort: '-last_comment_created_at',
   }
 
   const {
@@ -67,12 +67,19 @@ function Discussions({
           />
         )}
       </Box>
-      {discussions?.map((discussion) => (
-        <Discussion
-          key={discussion.id}
-          discussion={discussion}
-        />
-      ))}
+      <Box
+        as='ol'
+        border='between'
+        gap='60px'
+        style={{ listStyle: 'none', margin: 0, padding: 0 }}
+      >
+        {discussions?.map((discussion) => (
+          <Discussion
+            key={discussion.id}
+            discussion={discussion}
+          />
+        ))}
+      </Box>
     </Box>
   )
 }

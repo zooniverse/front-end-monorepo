@@ -15,13 +15,14 @@ const StyledTitle = styled(Heading)`
 `
 
 function Discussion({ discussion }) {
-  const [sort, setSort] = useState('created_at')
+  const [sort, setSort] = useState('-created_at')
 
   const { t } = useTranslation('screens')
 
   const query = {
     discussion_id: discussion.id,
-    sort
+    sort,
+    page_size: 10,
   }
   
   const {
@@ -29,6 +30,8 @@ function Discussion({ discussion }) {
     isLoading,
     error
   } = useComments(query)
+
+  const showCommentsViewingMessage = discussion.comments_count > 10
 
   function handleSortChange() {
     setSort(prevSort => (
@@ -39,11 +42,13 @@ function Discussion({ discussion }) {
   }
 
   return (
-    <Box>
+    <Box
+      as='li'
+    >
       <Box
+        align='center'
         direction='row'
         justify='between'
-        align='center'
       >
         <StyledTitle
           level={4}
@@ -111,6 +116,22 @@ function Discussion({ discussion }) {
             <p>{comment.body}</p>
           </li>
         ))}
+      </Box>
+      <Box
+        direction='row-reverse'
+        justify='between'
+        align='center'
+      >
+        <PlainButton
+          a11yTitle={t('Talk.viewFullDiscussion')}
+          text={t('Talk.viewFullDiscussion')}
+          href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`}
+        />
+        {showCommentsViewingMessage && (
+          <Text size='1rem'>
+            {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
+          </Text>
+        )}
       </Box>
     </Box>
   )

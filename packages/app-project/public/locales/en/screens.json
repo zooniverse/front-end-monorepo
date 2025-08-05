@@ -75,18 +75,20 @@
   "Talk": {
     "chronologically": "Chronologically",
     "comments": "Comments",
-    "commentsOldFirst": "Comments oldest first",
     "commentsNewFirst": "Comments newest first",
+    "commentsOldFirst": "Comments oldest first",
+    "commentsViewing": "Viewing {{count}} of {{total}} comments",
     "discussions": "{{count}} Discussions",
     "noDiscussions": "No Discussions",
     "oneDiscussion": "1 Discussion",
     "participants": "Participants",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
-    "sortOldFirst": "Sort by oldest first",
     "sortNewFirst": "Sort by newest first",
+    "sortOldFirst": "Sort by oldest first",
     "startDiscussion": "Start a discussion",
     "subjectMetadata": "Subject Metadata",
     "featuredCollections": "Featured in these Collections",
-    "relatedSubjects": "Other subjects being discussed:"
+    "relatedSubjects": "Other subjects being discussed:",
+    "viewFullDiscussion": "View full discussion"
   }
 }
