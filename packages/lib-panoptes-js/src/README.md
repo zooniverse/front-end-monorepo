@@ -164,7 +164,7 @@ panoptes.post(endpoint, data, authorization, query, host)
 Create a project:
 
 ``` javascript
-panoptes.get('/projects', { private: true }).then((response) => {
+panoptes.post('/projects', { private: true }).then((response) => {
   // Do something with the response
 });
 ```
