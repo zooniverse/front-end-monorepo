@@ -1,17 +1,22 @@
-import chai from 'chai'
-import sinonChai from 'sinon-chai'
-import dirtyChai from 'dirty-chai'
 import { JSDOM } from 'jsdom'
 import nock from 'nock'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setProjectAnnotations } from '@storybook/react'
 
-chai.use(dirtyChai)
-chai.use(sinonChai)
-global.expect = chai.expect
+import preview from '../.storybook/preview'
+setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 
 nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://example.org/' })
 const { window } = jsdom
+
+global.after = afterAll
+global.before = beforeAll
+global.beforeEach = beforeEach
+global.describe = describe
+global.expect = expect
+global.it = it
 
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
@@ -19,6 +24,7 @@ function copyProps(src, target) {
     .map(prop => Object.getOwnPropertyDescriptor(src, prop))
   Object.defineProperties(target, props)
 }
+
 
 class ResizeObserver {
     disconnect() {

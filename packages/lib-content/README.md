@@ -18,6 +18,8 @@ Starts a dev storybook on port 6005.
 
 `yarn test` to run Vitest tests.
 
+`yarn test AboutHeader.spec.jsx` to test one file at a time.
+
 ### Technologies
 
 - @zooniverse/panoptes-js - Panoptes API javascript client
