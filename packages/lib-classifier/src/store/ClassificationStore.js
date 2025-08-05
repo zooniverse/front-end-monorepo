@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import cuid from 'cuid'
 import { snakeCase } from 'lodash'
-import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { flow, getRoot, getSnapshot, getType, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -137,8 +137,7 @@ const ClassificationStore = types
         classificationToSubmit.metadata = convertedMetadata
 
         // SubjectGroup wants to submit all subject.subjectIds for analytics & retirement rules
-        const workflow = tryReference(() => getRoot(self).workflows.active)
-        if (workflow.configuration.subject_viewer === 'subjectGroup') {
+        if (getType(subject).name === 'SubjectGroup') {
           const links = {...classificationToSubmit.links}
           links.subjects = [...classificationToSubmit.links.subjects, ...subject.subjectIds.toJSON()]
           classificationToSubmit.links = links
