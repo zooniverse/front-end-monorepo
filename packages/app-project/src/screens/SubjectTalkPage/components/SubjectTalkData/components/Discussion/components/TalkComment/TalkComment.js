@@ -86,12 +86,10 @@ function TalkComment({
           direction='row'
           gap='xsmall'
         >
-          {avatar ?
-            <Avatar
-              src={avatar}
-              alt={`${login} avatar`}
-            />
-            : <ZooniverseLogo id='GroupZooniverseLogo' size='50px' color='#00979d' />}
+          <Avatar
+            alt={t('Talk.avatarAlt', { login })}
+            src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
+          />
           <Box
             justify='center'
           >

@@ -16,7 +16,7 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
 
   it('should render an avatar with alt text', function () {
     render(<DefaultStory />)
-    const avatar = screen.getByRole('img', { name: 'zootester1 avatar' })
+    const avatar = screen.getByRole('img', { name: 'Talk.avatarAlt' })
     expect(avatar).to.exist()
   })
 

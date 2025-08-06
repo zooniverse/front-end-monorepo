@@ -73,6 +73,7 @@
     }
   },
   "Talk": {
+    "avatarAlt": "{{login}} avatar",
     "featuredCollections": "Featured in these Collections",
     "goToComment": "Go to comment",
     "relatedSubjects": "Other subjects being discussed:",
