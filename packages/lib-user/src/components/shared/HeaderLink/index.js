@@ -1,1 +1,1 @@
-export { default } from './HeaderLink.js'
+export { default } from './HeaderLink'

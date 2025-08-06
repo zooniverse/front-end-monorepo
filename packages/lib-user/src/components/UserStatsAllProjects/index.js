@@ -1,1 +1,1 @@
-export { default } from './UserStatsAllProjects.js'
+export { default } from './UserStatsAllProjects'
