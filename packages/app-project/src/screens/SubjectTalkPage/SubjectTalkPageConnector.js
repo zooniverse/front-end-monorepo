@@ -10,7 +10,8 @@ function useStores() {
   return {
     login: user?.login,
     projectId: project?.id,
-    projectSlug: project?.slug
+    projectSlug: project?.slug,
+    userId: user?.id
   }
 }
 
@@ -18,7 +19,12 @@ function SubjectTalkPageConnector({
   subject,
   subjectID
 }) {
-  const { login, projectId, projectSlug } = useStores()
+  const {
+    login,
+    projectId,
+    projectSlug,
+    userId
+  } = useStores()
 
   return (
     <SubjectTalkPage
@@ -27,6 +33,7 @@ function SubjectTalkPageConnector({
       projectSlug={projectSlug}
       subject={subject}
       subjectId={subjectID}
+      userId={userId}
     />
   )
 }

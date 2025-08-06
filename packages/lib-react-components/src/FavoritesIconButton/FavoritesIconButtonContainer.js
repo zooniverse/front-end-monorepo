@@ -1,7 +1,11 @@
 import { string } from 'prop-types'
 
 import { useUserCollections } from '../hooks'
-import { addSubjectsToCollection, removeSubjectsFromCollection } from '../helpers/collections'
+import {
+  addSubjectsToCollection,
+  createCollection,
+  removeSubjectsFromCollection
+} from '../helpers/collections'
 
 import FavoritesIconButton from './FavoritesIconButton'
 
@@ -24,7 +28,7 @@ function FavoritesIconButtonContainer({
     isLoading,
     mutate
   } = useUserCollections({
-    query
+    query: login && query
   })
 
   const isFavorite = favorites?.[0]?.links?.subjects?.includes(subjectId) ?? false
@@ -36,17 +40,26 @@ function FavoritesIconButtonContainer({
     mutate(
       prevData => {
         // must return a new object in this function in order for SWR to recognize data returned from
-        // useSWR has changed. Modifying the original Javscript object is not enough.
-        const newData = [
-          {
-            ...prevData[0],
+        // useSWR has changed. Modifying the original Javascript object is not enough.
+        
+        if (!prevData || prevData.length === 0) {
+          return [{
             links: {
-              ...prevData[0].links,
-              subjects: [...prevData[0].links.subjects, subjectId]
+              subjects: [subjectId]
             }
-          }
-        ]
-        return newData
+          }]
+        } else {
+          const newData = [
+            {
+              ...prevData[0],
+              links: {
+                ...prevData[0].links,
+                subjects: [...prevData[0].links.subjects, subjectId]
+              }
+            }
+          ]
+          return newData
+        }
       },
       {
         revalidate: false // Don't need to revalidate useUserCollections every time this button is clicked
@@ -54,16 +67,22 @@ function FavoritesIconButtonContainer({
     )
 
     try {
-      addSubjectsToCollection({
-        collectionId: favorites?.[0]?.id,
-        options: {
-          display_name: `Favorites ${projectSlug}`,
-          favorite: true,
-          private: true
-        },
-        projectId,
-        subjectIds: [subjectId]
-      })
+      if (favorites?.[0]?.id) {
+        addSubjectsToCollection({
+          collectionId: favorites[0].id,
+          subjectIds: [subjectId]
+        })
+      } else {
+        createCollection({
+          options: {
+            display_name: `Favorites ${projectSlug}`,
+            favorite: true,
+            private: true
+          },
+          projectId,
+          subjectIds: [subjectId]
+        })
+      }
     } catch (error) {
       console.error(error)
     }
@@ -82,7 +101,7 @@ function FavoritesIconButtonContainer({
         }
 
         // must return a new object in this function in order for SWR to recognize data returned from
-        // useSWR has changed. Modifying the original Javscript object is not enough.
+        // useSWR has changed. Modifying the original Javascript object is not enough.
         const newData = [
           {
             ...prevData[0],
