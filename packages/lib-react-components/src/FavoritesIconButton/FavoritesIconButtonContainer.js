@@ -40,17 +40,26 @@ function FavoritesIconButtonContainer({
     mutate(
       prevData => {
         // must return a new object in this function in order for SWR to recognize data returned from
-        // useSWR has changed. Modifying the original Javscript object is not enough.
-        const newData = [
-          {
-            ...prevData[0],
+        // useSWR has changed. Modifying the original Javascript object is not enough.
+        
+        if (!prevData || prevData.length === 0) {
+          return [{
             links: {
-              ...prevData[0].links,
-              subjects: [...prevData[0].links.subjects, subjectId]
+              subjects: [subjectId]
             }
-          }
-        ]
-        return newData
+          }]
+        } else {
+          const newData = [
+            {
+              ...prevData[0],
+              links: {
+                ...prevData[0].links,
+                subjects: [...prevData[0].links.subjects, subjectId]
+              }
+            }
+          ]
+          return newData
+        }
       },
       {
         revalidate: false // Don't need to revalidate useUserCollections every time this button is clicked
@@ -92,7 +101,7 @@ function FavoritesIconButtonContainer({
         }
 
         // must return a new object in this function in order for SWR to recognize data returned from
-        // useSWR has changed. Modifying the original Javscript object is not enough.
+        // useSWR has changed. Modifying the original Javascript object is not enough.
         const newData = [
           {
             ...prevData[0],
