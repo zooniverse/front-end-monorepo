@@ -74,6 +74,7 @@ function TalkComment({
   return (
     <StyledCommentCard
       forwardedAs='li'
+      flex='grow'
       pad='xsmall'
       round='xxsmall'
       tabIndex={0}
@@ -84,7 +85,7 @@ function TalkComment({
       >
         <Box
           direction='row'
-          gap='xsmall'
+          gap='10px'
         >
           <Avatar
             alt={t('Talk.avatarAlt', { login })}
