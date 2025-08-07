@@ -55,14 +55,14 @@ class Banner extends Component {
   render () {
     const {
       background,
-      bannerText,
-      color,
+      bannerText = '',
+      color = 'neutral-6',
       onNext,
       onPrevious,
-      show,
+      show = false,
       subjects,
       t,
-      theme: { mode },
+      theme: { mode = 'light' } = { mode: 'light' },
       tooltipText,
     } = this.props
 
@@ -139,14 +139,7 @@ Banner.propTypes = {
   ])
 }
 
-Banner.defaultProps = {
-  bannerText: '',
-  color: 'neutral-6',
-  show: false,
-  theme: {
-    mode: 'light'
-  }
-}
+
 
 export default withTranslation('components')(withTheme(Banner))
 export {

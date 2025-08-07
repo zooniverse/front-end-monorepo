@@ -23,7 +23,7 @@ const StyledLabel = styled.span`
 `
 
 function Label (props) {  
-  const { colors, label, seriesIndex, seriesOptions, highlightedSeries } = props
+  const { colors, label, seriesIndex, seriesOptions = {}, highlightedSeries } = props
   const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions })
   const Glyph = getDataSeriesSymbol({ seriesOptions, seriesIndex })
   const color = getDataSeriesColor({
@@ -62,11 +62,6 @@ Label.propTypes = {
   seriesIndex: PropTypes.number.isRequired,
   seriesOptions: PropTypes.object,
   highlighted: PropTypes.bool
-}
-
-Label.defaultProps = {
-  seriesOptions: {},
-  highlighted: true
 }
 
 export default Label

@@ -49,33 +49,32 @@ export const SVG = styled.svg`
     : ''}
 `
 
-const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
-  const {
-    images,
-    subjectIds,
-    
-    dragMove,
-    onKeyDown,
-    
-    cellWidth,
-    cellHeight,
-    cellStyle,
-    gridRows,
-    gridColumns,
-    gridMaxWidth,
-    gridMaxHeight,
-    
-    width,
-    height,
-    
-    panX,
-    panY,
-    zoom,
-    
-    annotation,
-    interactionMode,
-    isCurrentTaskValidForAnnotation,
-  } = props
+const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
+  images = [],
+  subjectIds = [],
+  
+  dragMove = () => {},
+  onKeyDown = () => {},
+  
+  cellWidth = 200,
+  cellHeight = 200,
+  cellStyle = {},
+  gridRows = 1,
+  gridColumns = 1,
+  gridMaxWidth = '',
+  gridMaxHeight = '',
+  
+  width,
+  height,
+  
+  panX = 0,
+  panY = 0,
+  zoom = 1,
+  
+  annotation,
+  interactionMode = 'move',
+  isCurrentTaskValidForAnnotation = false,
+}, ref) {
 
   const transformLayer = useRef()
   const canvas = transformLayer.current
@@ -162,30 +161,6 @@ SubjectGroupViewer.propTypes = {
   }),
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
   isCurrentTaskValidForAnnotation: PropTypes.bool,
-}
-
-SubjectGroupViewer.defaultProps = {
-  images: [],
-  subjectIds: [],
-            
-  dragMove: () => {},
-  onKeyDown: () => {},
-  
-  cellWidth: 200,
-  cellHeight: 200,
-  cellStyle: {},
-  gridRows: 1,
-  gridColumns: 1,
-  gridMaxWidth: '',
-  gridMaxHeight: '',
-
-  panX: 0,
-  panY: 0,
-  zoom: 1,
-
-  annotation: undefined,
-  interactionMode: 'move',
-  isCurrentTaskValidForAnnotation: false,
 }
 
 export default SubjectGroupViewer

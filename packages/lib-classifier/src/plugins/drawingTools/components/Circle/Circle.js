@@ -5,7 +5,11 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Circle({ active, mark, onFinish }) {
+function Circle({
+  active = false,
+  mark,
+  onFinish = () => true,
+}) {
   const { x_center, y_center, r } = mark
   const guideWidth = GUIDE_WIDTH
 
@@ -64,11 +68,6 @@ Circle.propTypes = {
     Callback to reset the drawing canvas when creation of the rectangle is finished.
   */
   onFinish: PropTypes.func,
-}
-
-Circle.defaultProps = {
-  active: false,
-  onFinish: () => true,
 }
 
 export default observer(Circle)

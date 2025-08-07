@@ -4,7 +4,11 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Rectangle({ active, mark, onFinish }) {
+function Rectangle({
+  active = false,
+  mark,
+  onFinish
+}) {
   const { x_center, y_center, width, height } = mark
 
   function onHandleDrag(coords) {
@@ -107,10 +111,6 @@ function Rectangle({ active, mark, onFinish }) {
 
 Rectangle.propTypes = {
   active: PropTypes.bool
-}
-
-Rectangle.defaultProps = {
-  active: false
 }
 
 export default observer(Rectangle)
