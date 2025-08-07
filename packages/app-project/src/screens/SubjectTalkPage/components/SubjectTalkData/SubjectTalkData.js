@@ -67,7 +67,7 @@ function SubjectTalkData({
           projectId={projectId}
           subjectId={subjectId}
         />
-        <Box
+        {/* <Box
           pad='small'
         >
           <SectionHeading
@@ -79,7 +79,7 @@ function SubjectTalkData({
             }
             title='Mentions'
           />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   )

@@ -31,7 +31,7 @@ function Discussion({ discussion }) {
     error
   } = useComments(query)
 
-  const showCommentsViewingMessage = discussion.comments_count > 10
+  const showChronologicalSort = discussion.comments_count > 1
 
   function handleSortChange() {
     setSort(prevSort => (
@@ -82,25 +82,29 @@ function Discussion({ discussion }) {
           >
             {discussion.comments_count}
           </Text>
-          <PlainButton
-            a11yTitle={sort === 'created_at' ? t('Talk.sortNewFirst') : t('Talk.sortOldFirst')}
-            aria-pressed={sort === 'created_at'}
-            margin={{ left: 'xsmall' }}
-            onClick={handleSortChange}
-            text={t('Talk.chronologically')}
-          />
-          {sort === 'created_at' ? (
-            <Up
-              a11yTitle={t('Talk.commentsOldFirst')}
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='12px'
-            />
-          ) : (
-            <Down
-              a11yTitle={t('Talk.commentsNewFirst')}
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='12px'
-            />
+          {showChronologicalSort && (
+            <>
+              <PlainButton
+                a11yTitle={sort === 'created_at' ? t('Talk.sortNewFirst') : t('Talk.sortOldFirst')}
+                aria-pressed={sort === 'created_at'}
+                margin={{ left: 'xsmall' }}
+                onClick={handleSortChange}
+                text={t('Talk.chronologically')}
+              />
+              {sort === 'created_at' ? (
+                <Up
+                  a11yTitle={t('Talk.commentsOldFirst')}
+                  color={{ dark: 'accent-1', light: 'neutral-1' }}
+                  size='12px'
+                />
+              ) : (
+                <Down
+                  a11yTitle={t('Talk.commentsNewFirst')}
+                  color={{ dark: 'accent-1', light: 'neutral-1' }}
+                  size='12px'
+                />
+              )}
+            </>
           )}
         </Box>
       </Box>
@@ -127,11 +131,9 @@ function Discussion({ discussion }) {
           text={t('Talk.viewFullDiscussion')}
           href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`}
         />
-        {showCommentsViewingMessage && (
-          <Text size='1rem'>
-            {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
-          </Text>
-        )}
+        <Text size='1rem'>
+          {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
+        </Text>
       </Box>
     </Box>
   )
