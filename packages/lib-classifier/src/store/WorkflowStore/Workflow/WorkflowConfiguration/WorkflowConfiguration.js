@@ -1,10 +1,11 @@
-import { types } from 'mobx-state-tree'
+import { getRoot, tryReference, types } from 'mobx-state-tree'
 import subjectViewers from '@helpers/subjectViewers'
 
 const WorkflowConfiguration = types.snapshotProcessor(
   types.model({
     enable_caesar_data_fetching: types.optional(types.boolean, false),
     enable_switching_flipbook_and_separate: types.optional(types.boolean, false),
+    enable_subject_group_modal: types.optional(types.boolean, false),
     flipbook_autoplay: types.optional(types.boolean, false),
     invert_subject: types.optional(types.boolean, false),
     limit_subject_height: types.optional(types.boolean, false),
@@ -39,57 +40,75 @@ const WorkflowConfiguration = types.snapshotProcessor(
       })
     )
   })
-    .views(self => ({
-      get viewerType() {
-        switch (self.subject_viewer) {
-          case 'dataImage': {
-            return subjectViewers.dataImage
-          }
-          case 'flipbook': {
-            return subjectViewers.flipbook
-          }
-          case 'jsonData': {
-            return subjectViewers.jsonData
-          }
-          case 'lightcurve': {
-            return subjectViewers.lightCurve
-          }
-          case 'multiFrame': {
-            return subjectViewers.multiFrame
-          }
-          case 'scatterPlot': {
-            return subjectViewers.scatterPlot
-          }
-          case 'singleImage': {
-            return subjectViewers.singleImage
-          }
-          case 'subjectGroup': {
-            return subjectViewers.subjectGroup
-          }
-          case 'variableStar': {
-            return subjectViewers.variableStar
-          }
-          default: {
-            return null
-          }
+  .views(self => ({
+    get viewerType() {
+      switch (self.subject_viewer) {
+        case 'dataImage': {
+          return subjectViewers.dataImage
+        }
+        case 'flipbook': {
+          return subjectViewers.flipbook
+        }
+        case 'jsonData': {
+          return subjectViewers.jsonData
+        }
+        case 'lightcurve': {
+          return subjectViewers.lightCurve
+        }
+        case 'multiFrame': {
+          return subjectViewers.multiFrame
+        }
+        case 'scatterPlot': {
+          return subjectViewers.scatterPlot
+        }
+        case 'singleImage': {
+          return subjectViewers.singleImage
+        }
+        case 'subjectGroup': {
+          return subjectViewers.subjectGroup
+        }
+        case 'variableStar': {
+          return subjectViewers.variableStar
+        }
+        default: {
+          return null
         }
       }
-    })),
-
-  {
-    preProcessor(snapshot) {
-      const newSnapshot = Object.assign({}, snapshot)
-      if (typeof snapshot?.playIterations === 'string') {
-        if (snapshot?.playIterations.length) {
-          const newIterations = Number(snapshot.playIterations)
-          newSnapshot.playIterations = newIterations
-        } else {
-          newSnapshot.playIterations = Infinity
-        }
-      }
-      return newSnapshot
     }
-  }
-)
+  }))
+  .volatile(self => {
+    return {
+      lastSubject: null
+    }
+  })
+  .actions(self => {
+    function setSubjectGroupModalState(boolState) {
+      self.enable_subject_group_modal = boolState
+      self.lastSubject = boolState
+        ? tryReference(() => getRoot(self).subjects.active)
+        : null
+    }
+
+    return {
+      setSubjectGroupModalState
+    }
+  }),
+
+    {
+      preProcessor(snapshot) {
+        const newSnapshot = Object.assign({}, snapshot)
+        if (typeof snapshot?.playIterations === 'string') {
+          if (snapshot?.playIterations.length) {
+            const newIterations = Number(snapshot.playIterations)
+            newSnapshot.playIterations = newIterations
+          } else {
+            newSnapshot.playIterations = Infinity
+          }
+        }
+        return newSnapshot
+      }
+    }
+  )
+
 
 export default WorkflowConfiguration
