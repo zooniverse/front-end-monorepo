@@ -1,13 +1,19 @@
-import { Box } from 'grommet'
+import { Box, Heading } from 'grommet'
 import { Chat } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
+import styled from 'styled-components'
 
 import { useDiscussions } from '@hooks'
 
 import Discussion from '../Discussion'
 import PlainButton from '../PlainButton'
 import SectionHeading from '../SectionHeading'
+
+const StyledUppercaseTitle = styled(Heading)`
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+`
 
 function Discussions({
   projectId,
@@ -27,6 +33,12 @@ function Discussions({
     isLoading,
     error
   } = useDiscussions(query)
+
+  const sortedBoardIds = discussions?.map(discussion => discussion.board_id)
+  const uniqueSortedBoardIds = [...new Set(sortedBoardIds)]
+  const groupedDiscussions = uniqueSortedBoardIds.map(boardId => (
+    discussions.filter(discussion => discussion.board_id === boardId)
+  ))
 
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {
@@ -73,12 +85,40 @@ function Discussions({
         gap='60px'
         style={{ listStyle: 'none', margin: 0, padding: 0 }}
       >
-        {discussions?.map((discussion) => (
-          <Discussion
-            key={discussion.id}
-            discussion={discussion}
-          />
-        ))}
+        {groupedDiscussions?.map((discussions) => {
+          const boardId = discussions[0].board_id
+          const boardTitle = discussions[0].board_title
+          
+          return (
+            <Box
+              key={boardId}
+              as='li'
+            >
+              {discussions[0].subject_default ? null : (
+                <StyledUppercaseTitle
+                  level={4}
+                  size='1rem'
+                  weight={500}
+                >
+                  {boardTitle}
+                </StyledUppercaseTitle>
+              )}
+              <Box
+                as='ol'
+                border='between'
+                gap='60px'
+                style={{ listStyle: 'none', margin: 0, padding: 0 }}
+              >
+                {discussions.map((discussion) => (
+                  <Discussion
+                    key={discussion.id}
+                    discussion={discussion}
+                  />
+                ))}
+              </Box>
+            </Box>
+          )
+        })}
       </Box>
     </Box>
   )

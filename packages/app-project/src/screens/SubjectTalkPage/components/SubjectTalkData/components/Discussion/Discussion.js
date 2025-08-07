@@ -11,6 +11,10 @@ import PlainButton from '../PlainButton'
 
 const StyledTitle = styled(Heading)`
   letter-spacing: 0.8px;
+`
+
+const StyledUppercaseTitle = styled(Heading)`
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 `
 
@@ -31,6 +35,7 @@ function Discussion({ discussion }) {
     error
   } = useComments(query)
 
+  const title = discussion.subject_default ? discussion.board_title : discussion.title
   const showChronologicalSort = discussion.comments_count > 1
 
   function handleSortChange() {
@@ -50,13 +55,24 @@ function Discussion({ discussion }) {
         direction='row'
         justify='between'
       >
-        <StyledTitle
-          level={4}
-          size='1rem'
-          weight={500}
-        >
-          {discussion.title}
-        </StyledTitle>
+        {discussion.subject_default ? (
+          <StyledUppercaseTitle
+            level={5}
+            size='1rem'
+            weight={500}
+          >
+            {title}
+          </StyledUppercaseTitle>
+        ) : (
+          <StyledTitle
+            color={{ dark: 'accent-1', light: 'neutral-1' }}
+            level={5}
+            size='1rem'
+            weight={600}
+          >
+            {title}
+          </StyledTitle>
+        )}
         <Box
           align='center'
           direction='row'
