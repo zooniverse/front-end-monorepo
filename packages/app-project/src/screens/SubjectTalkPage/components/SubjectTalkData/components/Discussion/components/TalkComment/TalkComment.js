@@ -1,10 +1,14 @@
-import { Markdownz, ZooniverseLogo } from '@zooniverse/react-components'
-import { Anchor, Box, Text } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
+import { Anchor, Box, Paragraph, Text } from 'grommet'
 import { Like, LikeFill, Share } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import Avatar from './components/Avatar'
+
+const markdownComponents = {
+  p: (nodeProps) => <Paragraph color={{ dark: 'neutral-6', light: 'neutral-7' }}>{nodeProps.children}</Paragraph>
+}
 
 const StyledCommentCard = styled(Box)`
   &:hover {
@@ -133,6 +137,7 @@ function TalkComment({
       >
         <Markdownz
           baseURI={''}
+          components={markdownComponents}
           projectSlug={projectSlug}
         >
           {body}
