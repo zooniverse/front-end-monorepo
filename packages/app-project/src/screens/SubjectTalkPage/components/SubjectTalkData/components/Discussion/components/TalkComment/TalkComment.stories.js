@@ -10,12 +10,10 @@ export default {
       align='center'
       justify='center'
       background={{ dark: 'dark-3', light: 'white' }}
-      fill
       pad='small'
     >
       <Box
         as='ol'
-        fill
         width={{ max: '600px' }}
       >
         <Story />
