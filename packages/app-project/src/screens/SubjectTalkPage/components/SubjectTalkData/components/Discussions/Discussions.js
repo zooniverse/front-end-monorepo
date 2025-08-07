@@ -10,7 +10,7 @@ import Discussion from '../Discussion'
 import PlainButton from '../PlainButton'
 import SectionHeading from '../SectionHeading'
 
-const StyledUppercaseTitle = styled(Heading)`
+export const StyledUppercaseTitle = styled(Heading)`
   letter-spacing: 0.8px;
   text-transform: uppercase;
 `

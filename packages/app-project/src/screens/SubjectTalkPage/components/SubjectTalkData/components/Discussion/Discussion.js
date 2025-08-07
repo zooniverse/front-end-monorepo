@@ -8,14 +8,10 @@ import styled from 'styled-components'
 import { useComments } from '@hooks'
 
 import PlainButton from '../PlainButton'
+import { StyledUppercaseTitle } from '../Discussions'
 
 const StyledTitle = styled(Heading)`
   letter-spacing: 0.8px;
-`
-
-const StyledUppercaseTitle = styled(Heading)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
 `
 
 function Discussion({ discussion }) {
