@@ -1,1 +1,1 @@
-export { default } from './Tip.js'
+export { default } from './Tip'

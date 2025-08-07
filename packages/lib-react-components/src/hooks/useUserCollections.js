@@ -21,7 +21,7 @@ async function fetchUserCollections({ query, token }) {
 
 export default function useUserCollections({ query }) {
   const token = usePanoptesAuthToken()
-  const key = token ? { query, token } : null
+  const key = token && query ? { query, token } : null
 
   return useSWR(key, fetchUserCollections, SWRoptions)
 }

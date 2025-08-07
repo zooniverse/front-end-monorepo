@@ -1,6 +1,7 @@
 export { default as AdminCheckbox } from './AdminCheckbox/index.js'
 export { default as AuthModal } from './AuthModal/index.js'
 export { default as CloseButton } from './CloseButton/index.js'
+export { default as CollectIconButton } from './CollectIconButton/index.js'
 export { default as FavoritesIconButton } from './FavoritesIconButton/index.js'
 export { default as FavouritesButton } from './FavouritesButton/index.js'
 export { default as IconActionButton } from './IconActionButton/index.js'

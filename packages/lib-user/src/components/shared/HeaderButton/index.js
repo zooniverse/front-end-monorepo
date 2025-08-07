@@ -1,1 +1,1 @@
-export { default } from './HeaderButton.js'
+export { default } from './HeaderButton'

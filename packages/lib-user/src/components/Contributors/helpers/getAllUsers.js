@@ -1,6 +1,6 @@
 import { arrayOf, func, string } from 'prop-types'
 
-import { fetchPanoptesUsers } from '../../../utils'
+import { fetchPanoptesUsers } from '@utils'
 
 // maximum number of IDs per request, see GitHub issue front-end-monorepo/issues/6363
 // to keep request less than 2084 characters, with IDs ~6 characters long plus %2C2 (encoded comma), use chunk size of 200
@@ -32,7 +32,7 @@ export async function getAllUsers({
 
         userPromises.push(wrappedPromise)
       }
-      
+
       const userResults = await Promise.all(userPromises)
       allUsers = userResults.flat()
     } else {

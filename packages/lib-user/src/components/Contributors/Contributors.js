@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
-import { useTranslation } from '../../translations/i18n.js'
+import { useTranslation } from '@translations/i18n'
 
 import {
   usePanoptesProjects,
@@ -32,9 +32,9 @@ function Contributors({
 }) {
   const [showExport, setShowExport] = useState(false)
   const [page, setPage] = useState(1)
-  
+
   const { t } = useTranslation()
-  
+
   const showContributors = adminMode
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
