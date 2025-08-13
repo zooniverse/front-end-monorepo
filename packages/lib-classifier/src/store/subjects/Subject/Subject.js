@@ -57,6 +57,13 @@ const Subject = types
 
         viewer = configuration.viewerType
 
+        // ❗️ ZTM2025 DEV TEST
+        // This is used to enable the experimental Ztm2025GeoMapViewer for Shaun's test workflow on
+        // https://local.zooniverse.org:8080/?env=staging&project=2021&workflow=3864
+        if (self.project?.id === '2021' && self.workflow?.id === '3864') {  // TODO: check if this is staging
+          viewer = 'ztm2025geomap'
+        }
+
         // Volumetric Viewer is set at the Project level
         if (!viewer && self.project?.isVolumetricViewer)
           viewer = subjectViewers.volumetric
