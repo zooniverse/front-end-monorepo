@@ -3,7 +3,7 @@ import LeafletGeoMap from './LeafletGeoMap.js'
 import OpenLayersGeoMap from './OpenLayersGeoMap.js'
 
 function Ztm2025GeoMapViewer (props) {
-  const [mapLibrary, setMapLibrary] = useState('openlayers')
+  const [mapLibrary, setMapLibrary] = useState('leaflet')
 
   function selectMapLibrary (e) {
     setMapLibrary(e?.currentTarget?.dataset.maplib)

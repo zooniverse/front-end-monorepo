@@ -46,6 +46,7 @@
     "graphql-request": "~6.1.0",
     "hash.js": "~1.1.7",
     "i18next": "~24.2.2",
+    "leaflet": "~1.9.4",
     "lodash": "~4.17.11",
     "ol": "~10.6.1",
     "react-i18next": "~14.1.0",
