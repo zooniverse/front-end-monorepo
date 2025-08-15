@@ -17,14 +17,16 @@ Notes:
 - Our code sometimes uses the term GeoMap instead of Map to differentiate it
   from a JavaScript Map object.
 
-2025.08.15: ❗️⚠️☠️ the OpenLayers import kills `yarn build`... on the
-_app-project_ project. This means this PR breaks `yarn bootstrap` 😬
+2025.08.15: ❗️⚠️☠️ the OpenLayers & Leaflet imports kill `yarn build` on the
+_app-project_ package. This means this PR breaks `yarn bootstrap` 😬
 - Error message when running `cd packages/app-project ; yarn build`
   is `Module not found: ESM packages (ol/Map.js) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals`
-- `yarn build` and `yarn dev` both work fine in lib-classifier, and we are
-  using imports.
-- This makes me think that app-project is using the CommonJS version of
-  lib-classifier.
+- `yarn build` and `yarn dev` both work fine in lib-classifier.
+- UPDATE: after some trial and error, it appears that the CSS imports, i.e.
+  `import 'ol/ol.css'` and `import 'leaflet/dist/leaflet.css'`, were the reasons
+  that app-project threw a fit. app-project's `yarn build` seems to work once
+  those CSS import lines were commented out, but this 'solution' does mean we'd
+  need to find another way of getting those CSS styles into the FEM page.
 
 ## Dev Notes
 
@@ -38,7 +40,45 @@ experiment.
 
 **How to enable/use this experiment**
 
-TODO
+Setup:
+- Create (or select) a **workflow** which is configured to use the
+  Ztm2025GeoMapViewer.
+  - To enable the map viewer for a workflow, you just need to set its
+    workflow.configuration.subject_viewer value to `ztm2025geomap` (see below).
+    This is usually done via Panoptes CLI.
+
+```
+// Example workflow config
+myWorkflow = {
+  configuration: {
+    subject_viewer: "ztm2025geomap"
+  }
+} 
+```
+
+- Add whatever **tasks** you want to the workflow.
+  - At the moment, we don't have map-specific tasks.
+- Add whatever **subjects** you want to the workflow's associated subject sets.
+  - At the moment, we don't have map specific subjects.
+- View the workflow on lib-classifier's dev server.
+  - e.g.: `cd packages/lib-classifier ; yarn dev`
+    then use Chrome to open https://local.zooniverse.org:8080/?env=staging&project=2025
+
+Features:
+- If you're looking at a workflow that's correctly set up, you should see...
+  - ...a geographical map on the Subject Classifier.
+  - ...that the map can be explored (using mouse drag, mouse scroll) like a
+    typical map widget.
+  - ...that the map displays data from OpenStreetMaps.
+- You can switch between Leaflet and OpenLayers implementations of the
+  explorable map.
+- The Leaflet version...
+  - ...should default to a view of somewhere in London.
+- The OpenLayers version...
+  - ...should default to a view of the Denys Wilkinson Building in the
+    University of Oxford, in the UK.
+  - ...allows you switch between Web Mercator and WGS84 (GPS) projections, if
+    only to prove why we're using Web Mercator projections.
 
 ## Dev Journal (aka How's the Experiment Going?)
 
