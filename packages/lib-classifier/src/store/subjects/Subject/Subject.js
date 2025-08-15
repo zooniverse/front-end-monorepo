@@ -56,7 +56,6 @@ const Subject = types
         // Otherwise, take a guess using the Subject.
 
         viewer = configuration.viewerType
-        console.log('+++ viewer', viewer)
 
         // Volumetric Viewer is set at the Project level
         if (!viewer && self.project?.isVolumetricViewer)
