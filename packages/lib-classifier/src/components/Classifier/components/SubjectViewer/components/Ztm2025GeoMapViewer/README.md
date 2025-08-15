@@ -17,6 +17,15 @@ Notes:
 - Our code sometimes uses the term GeoMap instead of Map to differentiate it
   from a JavaScript Map object.
 
+2025.08.15: ❗️⚠️☠️ the OpenLayers import kills `yarn build`... on the
+_app-project_ project. This means this PR breaks `yarn bootstrap` 😬
+- Error message when running `cd packages/app-project ; yarn build`
+  is `Module not found: ESM packages (ol/Map.js) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals`
+- `yarn build` and `yarn dev` both work fine in lib-classifier, and we are
+  using imports.
+- This makes me think that app-project is using the CommonJS version of
+  lib-classifier.
+
 ## Dev Notes
 
 **Safety and Scope**
