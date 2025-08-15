@@ -82,4 +82,4 @@ If we choose to eject:
   (assuming these aren't used anywhere else)
 - Remove ztm2025geomap entry from `viewers` in getViewer.js (packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/getViewer/getViewer.js)
 - Remove ztm2025geomap property from subjectViewers.js (packages/lib-classifier/src/helpers/subjectViewers/subjectViewers.js)
-- Double check that there's no leftover code that forces the ztm2025geomap selection in Subject's get viewer() (packages/lib-classifier/src/store/subjects/Subject/Subject.js)
+- Remove ztm2025geomap option from the subject_viewer & viewerType() lists in WorkflowConfiguration.js (packages/lib-classifier/src/store/WorkflowStore/Workflow/WorkflowConfiguration/WorkflowConfiguration.js)
