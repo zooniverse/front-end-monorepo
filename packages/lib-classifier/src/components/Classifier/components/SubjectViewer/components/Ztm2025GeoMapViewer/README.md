@@ -31,9 +31,33 @@ experiment.
 
 TODO
 
-## Dev Journal
+## Dev Journal (aka How's the Experiment Going?)
 
 **August 2025: ZTM Hack**
+
+- Ztm2025GeoMapViewer added.
+  - OpenLayers version added.
+  - Leaflet version added.
+- ⚒️ Ongoing Experiment: what are the pros/cons of OpenLayers vs Leaflet?
+- 🤔 Item of Interest: **projections**
+  - Different maps can have different projections (i.e. how they represent the
+    curved Earth on a 2D plane).
+    - Web apps like Google Maps use Web Mercator (EPSG:3857). 
+    - Traditional GPS coordinates use WGS84 (aka EPSG:4326).
+    - ⚠️ Coordinates based on different projections aren't compatible with one
+      another! e.g. The University of Oxford's Denys Wilkinson Building has the
+      coordinates 51.7595°N, 1.2595°W in traditional GPS, but in Web Mercator
+      those same coordinates are x=-140206 y=6756756.
+    - ❗️ It's incredibly important that we figure out what projections we use to
+      (1) display maps to volunteers, and (2) collect coordinates (annotations)
+      from classifications.
+    - ❗️ Different research teams may be used to different coordinate systems.
+      We require real life examples.
+  - OpenLayers uses Web Mercator by default, but natively supports all sorts of
+    projections. (It's super easy to get WGS84 working, though the map is
+    visually stretched and looks kinda bad.)
+  - Leaflet only supports Web Mercator. There are plugins that could solve this,
+    but this requires exploration.
 
 ## End-Of-Experiment Plans (aka Adoption or Ejection)
 
