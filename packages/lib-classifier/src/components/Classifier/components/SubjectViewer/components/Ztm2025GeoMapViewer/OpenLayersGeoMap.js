@@ -26,7 +26,8 @@ function OpenLayersGeoMap (props) {
     zoom: 18,
   })
 
-  // GPS coordinates use the WGS84 (aka EPSG:4326) projection.
+  // GPS coordinates use the general WGS84 (aka EPSG:4326) projection.
+  // (For bonus confusion, Web Mercator is a subset/variant of WGS84)
   // Pro: much easier to use GPS coordinates.
   // Con: map looks preeetty stretched out when viewing more northern/southern locations.
   const wgs84View = new View({

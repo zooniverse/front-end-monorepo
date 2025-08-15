@@ -42,8 +42,11 @@ TODO
 - 🤔 Item of Interest: **projections**
   - Different maps can have different projections (i.e. how they represent the
     curved Earth on a 2D plane).
-    - Web apps like Google Maps use Web Mercator (EPSG:3857). 
     - Traditional GPS coordinates use WGS84 (aka EPSG:4326).
+    - Web apps like Google Maps use Web Mercator (EPSG:3857). 
+      - For bonus confusion points, Web Mercator is actually a subset or variant
+        of WGS84, so you'll also see Web Mercator called
+        "WGS 84 / Pseudo-Mercator".
     - ⚠️ Coordinates based on different projections aren't compatible with one
       another! e.g. The University of Oxford's Denys Wilkinson Building has the
       coordinates 51.7595°N, 1.2595°W in traditional GPS, but in Web Mercator
