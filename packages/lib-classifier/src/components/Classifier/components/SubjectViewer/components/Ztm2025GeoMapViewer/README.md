@@ -62,6 +62,43 @@ TODO
   - Leaflet only supports Web Mercator. There are plugins that could solve this,
     but this requires exploration.
 
+**Case Study: Planetary Response Network**
+
+2025.08.15: Shaun & Brooke had a quick chat about how PRN uses maps on the
+Zooniverse, and asked the question of, "if the GeoMapViewer wants to be useful
+for the specific PRN use case, what does it need to address?"
+
+- Map Tile Layers:
+  - For disaster relief, we'll need to pull map tiles with (1) very recent data
+    and (2) very high zoom (i.e. we want to see details in the _meter_ range.)
+  - ❓ Question: where can we get access to this map data? Who'd provide it?
+    - Would this be coming from a paid service, or hosted on a private server?
+      Do we need to worry about archiving this data for future reference
+      (e.g. for posts on Talk) ?
+  - ⭐️ Useful feature: provide layers with "Before" and "After" data. Allow
+    volunteers to examine/evaluate changes resulting from a disaster.
+  - OpenStreetMaps might actually still be useful (if just a bit) so volunteers
+    can compare the "official" map data and actual map photos. Might be worth
+    adding a "map data doesn't match reality!" button for reporting, maybe.
+- "Subject Data":
+  - Most of the time we want to constrain/clamp volunteers to classifying on
+    a specific area of the map, and prevent too much wandering around the larger
+    map. (Dev note: we should be able to implement this.)
+  - Conversely, it may sometimes be useful to allow volunteers to classify
+    random parts of the map. (TODO: investigate cases for both.)
+  - 🤔 Is allowing volunteers to choose which part of the map they look at,
+    similar to letting volunteers choose their subject?
+- Annotations & Classifying:
+  - With PRN, the Subjects are such zoomed-in satellite images that getting
+    exact GPS coordinates wasn't an issue. They took the lat/long of the image's
+    corners and the x,y coordinates of annotations on the image, and extrapolated
+    the GPS coordinates of the annotations from there. 
+  - If we use the GeoMapViewer, we can actually get accurate GPS coordinates,
+    so we SHOULD record those in annotations.
+    - This means we devs need to figure out how to convert Web Mercator (x,y)
+      coordinates to standard GSP (latitude, longitude) coordinates.
+    - Storing exact GPS coordinates will also make it much easier to aggregate.
+
 ## End-Of-Experiment Plans (aka Adoption or Ejection)
 
 Eventually, this experiment has to end with either formal adoption into the FEM
