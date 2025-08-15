@@ -1,5 +1,5 @@
 import { useEffect, useId } from 'react'
-import 'ol/ol.css'  // this automatically inserts additional CSS into the rendered document's <style>
+// import 'ol/ol.css'  // this automatically inserts additional CSS into the rendered document's <style>
 import OLMap from 'ol/Map.js'
 import OpenStreetMaps from 'ol/source/OSM.js'
 import TileLayer from 'ol/layer/Tile.js'
