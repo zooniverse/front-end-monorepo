@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import PropTypes from 'prop-types'
+import { array, bool, object, oneOf, shape, string } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
 import Task from './components/Task'
@@ -21,6 +21,7 @@ export default function Tasks({
   subjectReadyState,
   step
 }) {
+
   const { t } = useTranslation('components')
 
   switch (loadingState) {
@@ -37,11 +38,6 @@ export default function Tasks({
     case asyncStates.success: {
       const ready = subjectReadyState === asyncStates.success
       if (classification && step) {
-        // setting the wrapping box of the task component to a basis of 246px feels hacky,
-        // but gets the area to be the same 453px height (or very close) as the subject area
-        // and keeps the task nav buttons at the the bottom area
-        // there has to be a better way
-        // but works for now
         return (
           <Box
             key={classification.id}
@@ -78,23 +74,26 @@ export default function Tasks({
 }
 
 Tasks.propTypes = {
+  classification: shape({
+    id: string
+  }),
   /** Enable demo mode and turn off classification submission  */
-  demoMode: PropTypes.bool,
+  demoMode: bool,
   /** disable the entire task area */
-  disabled: PropTypes.bool,
+  disabled: bool,
   /** Are these tasks complete, so that we can go to the next step. */
-  isComplete: PropTypes.bool,
+  isComplete: bool,
   /** show a help button for these tasks */
-  isThereTaskHelp: PropTypes.bool,
+  isThereTaskHelp: bool,
   /** The workflow loading state */
-  loadingState: PropTypes.oneOf(asyncStates.values),
+  loadingState: oneOf(asyncStates.values),
   /** A map of previous annotation values for the step's tasks. */
-  previousAnnotationValues: PropTypes.object,
+  previousAnnotationValues: object,
   /** Subject loading state. */
-  subjectReadyState: PropTypes.oneOf(asyncStates.values),
+  subjectReadyState: oneOf(asyncStates.values),
   /** The active workflow step. */
-  step: PropTypes.shape({
+  step: shape({
     /** The step's tasks. */
-    tasks: PropTypes.array
+    tasks: array
   })
 }
