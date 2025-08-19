@@ -9,7 +9,7 @@ describe('Component > Loader', function () {
   it('should be accessible', function () {
     render(<DefaultStory />)
     const component = screen.getByLabelText('Loading')
-    expect(component).to.exist()
+    expect(component).toBeDefined()
     expect(component.getAttribute('role')).to.equal('status')
   })
 })

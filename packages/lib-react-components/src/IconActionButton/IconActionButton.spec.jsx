@@ -8,7 +8,7 @@ describe('IconActionButton', function () {
     const IconActionButtonStory = composeStory(Default, Meta)
     render(<IconActionButtonStory />)
     const button = screen.getByRole('button', { name: 'Metadata' })
-    expect(button).to.exist()
+    expect(button).toBeDefined()
   })
 
   describe('when disabled', function () {
@@ -16,7 +16,7 @@ describe('IconActionButton', function () {
       const IconActionButtonStory = composeStory(Disabled, Meta)
       render(<IconActionButtonStory />)
       const button = screen.getByRole('button', { name: 'Metadata' })
-      expect(button.disabled).to.be.true()
+      expect(button.disabled).to.equal(true)
     })
   })
 
@@ -34,7 +34,7 @@ describe('IconActionButton', function () {
       const IconActionButtonStory = composeStory(Anchor, Meta)
       render(<IconActionButtonStory />)
       const link = screen.getByRole('link', { name: 'Home' })
-      expect(link).to.exist()
+      expect(link).toBeDefined()
     })
   })
 })

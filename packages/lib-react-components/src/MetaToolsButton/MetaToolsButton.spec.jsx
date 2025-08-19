@@ -14,11 +14,11 @@ describe('MetaToolsButton', function () {
     })
 
     it('should render the text', function () {
-      expect(screen.getByText(MetaToolsButtonMock.text)).to.exist()
+      expect(screen.getByText(MetaToolsButtonMock.text)).toBeDefined()
     })
 
     it('should render the aria label', function () {
-      expect(screen.getByLabelText(MetaToolsButtonMock.text)).to.exist()
+      expect(screen.getByLabelText(MetaToolsButtonMock.text)).toBeDefined()
     })
 
     it('should not have a link', function () {
@@ -34,11 +34,11 @@ describe('MetaToolsButton', function () {
     })
 
     it('should render the text', function () {
-      expect(screen.getByText(MetaToolsButtonMock.text)).to.exist()
+      expect(screen.getByText(MetaToolsButtonMock.text)).toBeDefined()
     })
 
     it('should render the aria label', function () {
-      expect(screen.getByLabelText(MetaToolsButtonMock.text)).to.exist()
+      expect(screen.getByLabelText(MetaToolsButtonMock.text)).toBeDefined()
     })
 
     it('should have a link', function () {

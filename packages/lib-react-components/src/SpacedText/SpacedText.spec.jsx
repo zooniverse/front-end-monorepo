@@ -8,6 +8,6 @@ describe('Component > SpacedText', function () {
   it('should render children as text', function () {
     const { getByText } = render(<Default />)
     const item = getByText(Default.args.children)
-    expect(item).exists()
+    expect(item).toBeTruthy()
   })
 })

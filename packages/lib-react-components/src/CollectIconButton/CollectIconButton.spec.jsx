@@ -8,7 +8,7 @@ describe('CollectIconButton', function () {
     const CollectIconButtonStory = composeStory(Default, Meta)
     render(<CollectIconButtonStory />)
     const button = screen.getByRole('button', { name: 'Add to collection' })
-    expect(button).to.exist()
+    expect(button).toBeDefined()
   })
 
   describe('when disabled', function () {
@@ -16,7 +16,7 @@ describe('CollectIconButton', function () {
       const CollectIconButtonStory = composeStory(Disabled, Meta)
       render(<CollectIconButtonStory />)
       const button = screen.getByRole('button', { name: 'Add to collection' })
-      expect(button.disabled).to.be.true()
+      expect(button.disabled).to.equal(true)
     })
   })
 })

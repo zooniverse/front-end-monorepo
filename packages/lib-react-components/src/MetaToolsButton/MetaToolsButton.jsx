@@ -1,4 +1,4 @@
-import { bool, func, node, object, string } from 'prop-types'
+import { bool, func, node, object, oneOfType, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import PlainButton from '../PlainButton'
 

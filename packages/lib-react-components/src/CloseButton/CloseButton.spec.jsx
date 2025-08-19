@@ -6,12 +6,12 @@ describe('Component > CloseButton', function () {
   it('renders the default button', function () {
     const DefaultStory = composeStory(Default, Meta)
     render(<DefaultStory />)
-    expect(screen.getByRole('button').hasAttribute('disabled')).to.be.false()
+    expect(screen.getByRole('button').hasAttribute('disabled')).to.equal(false)
   })
 
   it('renders the disabled button', function () {
     const DisabledStory = composeStory(Disabled, Meta)
     render(<DisabledStory />)
-    expect(screen.getByRole('button').hasAttribute('disabled')).to.be.true()
+    expect(screen.getByRole('button').hasAttribute('disabled')).to.equal(true)
   })
 })

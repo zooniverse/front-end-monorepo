@@ -8,7 +8,7 @@ describe('FavoritesIconButton', function () {
     const FavoritesIconButtonStory = composeStory(Default, Meta)
     render(<FavoritesIconButtonStory />)
     const button = screen.getByRole('checkbox', { name: 'Add to favorites' })
-    expect(button).to.exist()
+    expect(button).toBeDefined()
   })
 
   describe('when checked', function () {
@@ -25,7 +25,7 @@ describe('FavoritesIconButton', function () {
       const FavoritesIconButtonStory = composeStory(Disabled, Meta)
       render(<FavoritesIconButtonStory />)
       const button = screen.getByRole('checkbox', { name: 'Add to favorites' })
-      expect(button.disabled).to.be.true()
+      expect(button.disabled).to.equal(true)
     })
   })
 })

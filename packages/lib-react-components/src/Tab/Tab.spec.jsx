@@ -24,9 +24,9 @@ describe('Component > Tab', function () {
       const tabsContainer = screen.getByRole('tablist')
       const arrayOfTabs = screen.getAllByRole('tab')
       const tabPanel = screen.getByRole('tabpanel')
-      expect(tabsContainer).to.exist()
+      expect(tabsContainer).toBeDefined()
       expect(arrayOfTabs).to.have.length(3)
-      expect(tabPanel).to.exist()
+      expect(tabPanel).toBeDefined()
     })
 
     it('should render the `title` prop as standard text if it\'s a string', function () {
@@ -36,9 +36,9 @@ describe('Component > Tab', function () {
       const tab1 = within(arrayOfTabs[1])
       const tab2 = within(arrayOfTabs[2])
 
-      expect(tab0.getByText('apples')).to.exist()
-      expect(tab1.getByText('bananas')).to.exist()
-      expect(tab2.getByText('cherries')).to.exist()
+      expect(tab0.getByText('apples')).toBeDefined()
+      expect(tab1.getByText('bananas')).toBeDefined()
+      expect(tab2.getByText('cherries')).toBeDefined()
     })
   })
 
@@ -65,13 +65,13 @@ describe('Component > Tab', function () {
     it('should pass through the `title` prop if it\'s a component', function () {
       const icon = screen.getByTestId('icon')
       const text = screen.getByTestId('text')
-      expect(icon).to.exist()
-      expect(text).to.exist()
+      expect(icon).toBeDefined()
+      expect(text).toBeDefined()
     })
 
     it('should render the complex title in a way accessible to screen readers', function () {
       const title = screen.getByRole('tab', { name: 'Restricted Section: Members Only' })
-      expect(title).to.exist()
+      expect(title).toBeDefined()
     })
   })
 })

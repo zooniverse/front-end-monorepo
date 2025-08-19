@@ -1,7 +1,7 @@
+describe.skip('Higher Order Component > withCustomFormik', function () {
+
 // Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
 
-// import { mount, shallow } from 'enzyme'
-// import { expect } from 'chai'
 // import { Formik } from 'formik'
 // import { Box, Button, FormField, Grommet, TextInput } from 'grommet'
 // import sinon from 'sinon'
@@ -134,3 +134,4 @@
 //     })
 //   })
 // })
+})

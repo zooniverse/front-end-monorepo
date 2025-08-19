@@ -14,21 +14,21 @@ describe('Component > FavouritesButton', function () {
     })
 
     it('should not show a favourited icon', function () {
-      expect(screen.getByRole('checkbox', { checked: false })).to.exist()
-      expect(screen.getByText('Add to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
+      expect(screen.getByText('Add to favorites')).toBeDefined()
     })
 
     it('should toggle favourites on', async function () {
       await user.click(screen.getByRole('checkbox', { checked: false }))
-      expect(screen.getByRole('checkbox', { checked: true })).to.exist()
-      expect(screen.getByText('Added to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: true })).toBeDefined()
+      expect(screen.getByText('Added to favorites')).toBeDefined()
     })
 
     it('should toggle favourites on then off', async function () {
       await user.click(screen.getByRole('checkbox', { checked: false}))
       await user.click(screen.getByRole('checkbox', { checked: true }))
-      expect(screen.getByRole('checkbox', { checked: false })).to.exist()
-      expect(screen.getByText('Add to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
+      expect(screen.getByText('Add to favorites')).toBeDefined()
     })
   })
 
@@ -40,21 +40,21 @@ describe('Component > FavouritesButton', function () {
     })
 
     it('should show a favourited icon', function () {
-      expect(screen.getByRole('checkbox', { checked: true })).to.exist()
-      expect(screen.getByText('Added to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: true })).toBeDefined()
+      expect(screen.getByText('Added to favorites')).toBeDefined()
     })
 
     it('should toggle favourites off', async function () {
       await user.click(screen.getByRole('checkbox', { checked: true}))
-      expect(screen.getByRole('checkbox', { checked: false })).to.exist()
-      expect(screen.getByText('Add to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
+      expect(screen.getByText('Add to favorites')).toBeDefined()
     })
 
     it('should toggle favourites off then on', async function () {
       await user.click(screen.getByRole('checkbox', { checked: true}))
       await user.click(screen.getByRole('checkbox', { checked: false }))
-      expect(screen.getByRole('checkbox', { checked: true })).to.exist()
-      expect(screen.getByText('Added to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: true })).toBeDefined()
+      expect(screen.getByText('Added to favorites')).toBeDefined()
     })
   })
 
@@ -66,11 +66,11 @@ describe('Component > FavouritesButton', function () {
     })
 
     it('should not be clickable', async function () {
-      expect(screen.getByRole('checkbox', { checked: false })).to.exist()
-      expect(screen.getByText('Add to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
+      expect(screen.getByText('Add to favorites')).toBeDefined()
       await user.click(screen.getByRole('checkbox', { checked: false}))
-      expect(screen.getByRole('checkbox', { checked: false })).to.exist()
-      expect(screen.getByText('Add to favorites')).to.exist()
+      expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
+      expect(screen.getByText('Add to favorites')).toBeDefined()
     })
   })
 })

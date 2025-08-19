@@ -8,34 +8,34 @@ describe('Media', function () {
     const Story = composeStory(Stories.Image, Meta)
     render(<Story />)
     const image = await screen.findByRole('img')
-    expect(image).to.be.ok()
+    expect(image).toBeTruthy()
   })
 
   it('should render video if the source mimetype is a video', function () {
     const Story = composeStory(Stories.Video, Meta)
     render(<Story />)
     const video = document.querySelector('video')
-    expect(video).to.be.ok()
+    expect(video).toBeTruthy()
   })
 
   it('should render audio if the source mimetype is audio', function () {
     const Story = composeStory(Stories.Audio, Meta)
     render(<Story />)
     const audio = document.querySelector('audio')
-    expect(audio).to.be.ok()
+    expect(audio).toBeTruthy()
   })
 
   it('should render an SVG image if the source mimetype is application/json', async function () {
     const Story = composeStory(Stories.Data, Meta)
     render(<Story />)
     const image = await screen.findByTestId('data-viewer')
-    expect(image).to.be.ok()
+    expect(image).toBeTruthy()
   })
 
   it('should render text if the source mimetype is text/plain', async function () {
     const Story = composeStory(Stories.TextMedia, Meta)
     render(<Story />)
     const text = document.querySelector('pre')
-    expect(text).to.be.ok()
+    expect(text).toBeTruthy()
   })
 })

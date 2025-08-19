@@ -11,13 +11,13 @@ describe('Tooltip > Component > Label', function () {
     })
 
     it('should render the label', function () {
-      expect(screen.queryByText(Default.args.label)).to.exist()
+      expect(screen.queryByText(Default.args.label)).toBeDefined()
     })
 
     it('should render a triangle/arrow, by default', function () {
       render(<Default />)
       const triangle = document.querySelector('svg polygon')
-      expect(triangle).to.exist()
+      expect(triangle).toBeDefined()
       expect(triangle.getAttribute('points')).to.equal('5,0 10,10 0,10')
     })
 
@@ -32,7 +32,7 @@ describe('Tooltip > Component > Label', function () {
     it('should not render a triangle/arrow if arrow=false', function () {
       render(<NoArrow />)
       const triangle = document.querySelector('svg polygon')
-      expect(triangle).to.not.exist()
+      expect(triangle).to.equal(null)
     })
 
     it('should render an upward triangle/arrow if Tippy-defined placement = bottom', function () {

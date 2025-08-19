@@ -8,7 +8,7 @@ describe('ImageIconButton', function () {
     const ImageIconButtonStory = composeStory(Default, Meta)
     render(<ImageIconButtonStory />)
     const link = screen.getByRole('link', { name: 'Subject image' })
-    expect(link).to.exist()
+    expect(link).toBeDefined()
     expect(link.href).to.equal('https://panoptes-uploads.zooniverse.org/subject_location/124cfc2d-2d39-4c84-995c-2e3ce9f75317.jpeg')
   })
 
@@ -17,7 +17,7 @@ describe('ImageIconButton', function () {
       const ImageIconButtonStory = composeStory(Disabled, Meta)
       render(<ImageIconButtonStory />)
       const button = screen.getByRole('button', { name: 'Subject image' })
-      expect(button.disabled).to.be.true()
+      expect(button.disabled).to.equal(true)
     })
   })
 })

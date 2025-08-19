@@ -12,30 +12,30 @@ describe('Component > Tooltip', function () {
   })
 
   it('should show the element without a tooltip by default', function () {
-    expect(screen.queryByText(Default.args.btnLabel)).to.exist()
-    expect(screen.queryByText(Default.args.label)).to.not.exist()
+    expect(screen.queryByText(Default.args.btnLabel)).toBeDefined()
+    expect(screen.queryByText(Default.args.label)).to.equal(null)
   })
 
   it('should show the tooltip when the pointer hovers over the element', async function () {
     await user.hover(screen.queryByText(Default.args.btnLabel))
-    expect(screen.queryByText(Default.args.label)).to.exist()
+    expect(screen.queryByText(Default.args.label)).toBeDefined()
   })
 
   it('should show the tooltip when the user tab-navigates to the element', async function () {
     await user.tab()
-    expect(screen.queryByText(Default.args.label)).to.exist()
+    expect(screen.queryByText(Default.args.label)).toBeDefined()
   })
 
   it('should show the tooltip when the the element has focus for whatever reason', function () {
     screen.queryByText(Default.args.btnLabel).focus()
-    expect(screen.queryByText(Default.args.label)).to.exist()
+    expect(screen.queryByText(Default.args.label)).toBeDefined()
   })
 
   it('should hide the tooltip when the user clicks the element', async function () {
     await user.hover(screen.queryByText(Default.args.btnLabel))
-    expect(screen.queryByText(Default.args.label)).to.exist()
+    expect(screen.queryByText(Default.args.label)).toBeDefined()
 
     await user.click(screen.queryByText(Default.args.btnLabel))
-    expect(screen.queryByText(Default.args.label)).to.not.exist()
+    expect(screen.queryByText(Default.args.label)).to.equal(null)
   })
 })

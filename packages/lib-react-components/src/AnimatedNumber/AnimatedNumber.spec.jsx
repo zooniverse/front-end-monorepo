@@ -42,7 +42,7 @@ describe('AnimatedNumber', function () {
       it('should animate the number', async function () {
         const Story = composeStory(Stories.Default, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.true()
+        expect(prefersReducedMotion()).to.equal(true)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         await waitFor(() => {
@@ -50,12 +50,12 @@ describe('AnimatedNumber', function () {
         })
       })
     })
-    
+
     describe('with 0', function () {
       it('should not animate the number', async function () {
         const Story = composeStory(Stories.Zero, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.true()
+        expect(prefersReducedMotion()).to.equal(true)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         await waitFor(() => {
@@ -69,7 +69,7 @@ describe('AnimatedNumber', function () {
         const user = userEvent.setup()
         const Story = composeStory(Stories.UpdateTheValue, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.true()
+        expect(prefersReducedMotion()).to.equal(true)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         await waitFor(() => {
@@ -81,7 +81,7 @@ describe('AnimatedNumber', function () {
         })
       })
     })
-  
+
     describe('with a deferred value', function () {
       it('should animate the number', async function () {
         const clock = sinon.useFakeTimers({
@@ -89,7 +89,7 @@ describe('AnimatedNumber', function () {
         })
         const Story = composeStory(Stories.DeferredAnimation, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.true()
+        expect(prefersReducedMotion()).to.equal(true)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         // wait 2000ms for the value prop to change
@@ -104,12 +104,6 @@ describe('AnimatedNumber', function () {
   })
 
   describe('with animation', function() {
-    /*
-    * Override the slow test warning threshold
-    * as the d3 animations take ~1000ms to run.
-    */
-    this.slow(3000)
-
     beforeEach(function() {
       sinon.stub(window, 'matchMedia').returns({
         matches: false
@@ -124,7 +118,7 @@ describe('AnimatedNumber', function () {
       it('should animate the number', async function () {
         const Story = composeStory(Stories.Default, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.false()
+        expect(prefersReducedMotion()).to.equal(false)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         await waitFor(() => {
@@ -132,12 +126,12 @@ describe('AnimatedNumber', function () {
         }, { timeout: 2000 })
       })
     })
-    
+
     describe('with 0', function () {
       it('should not animate the number', async function () {
         const Story = composeStory(Stories.Zero, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.false()
+        expect(prefersReducedMotion()).to.equal(false)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         await waitFor(() => {
@@ -145,13 +139,13 @@ describe('AnimatedNumber', function () {
         })
       })
     })
-  
+
     describe('updating after the animation', function () {
       it('should update the number when the animation completes', async function () {
         const user = userEvent.setup()
         const Story = composeStory(Stories.UpdateTheValue, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.false()
+        expect(prefersReducedMotion()).to.equal(false)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         await waitFor(() => {
@@ -171,7 +165,7 @@ describe('AnimatedNumber', function () {
         })
         const Story = composeStory(Stories.DeferredAnimation, Meta)
         render(<Story />)
-        expect(prefersReducedMotion()).to.be.false()
+        expect(prefersReducedMotion()).to.equal(false)
         const number = document.querySelector('span')
         expect(number.textContent).to.equal('0')
         // wait 2000ms for the value prop to change

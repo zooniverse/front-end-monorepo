@@ -8,7 +8,7 @@ describe('ShareIconButton', function () {
     const ShareIconButtonStory = composeStory(Default, Meta)
     render(<ShareIconButtonStory />)
     const button = screen.getByRole('button', { name: 'Share' })
-    expect(button).to.exist()
+    expect(button).toBeDefined()
   })
 
   describe('when disabled', function () {
@@ -16,7 +16,7 @@ describe('ShareIconButton', function () {
       const ShareIconButtonStory = composeStory({ ...Default, args: { disabled: true } }, Meta)
       render(<ShareIconButtonStory />)
       const button = screen.getByRole('button', { name: 'Share' })
-      expect(button.disabled).to.be.true()
+      expect(button.disabled).to.equal(true)
     })
   })
 })

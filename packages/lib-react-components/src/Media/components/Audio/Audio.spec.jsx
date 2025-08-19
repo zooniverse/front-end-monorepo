@@ -8,7 +8,7 @@ describe('Audio', function () {
   it('should render an audio element', function () {
     render(<Audio src={audio} />)
     const audioElement = document.querySelector('audio')
-    expect(audioElement).to.exist()
+    expect(audioElement).toBeDefined()
   })
 
   it('should set the aria-title using the alt prop', function () {

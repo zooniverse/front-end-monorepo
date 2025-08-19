@@ -31,19 +31,19 @@ describe('ThumbnailImage', function () {
   it('should render without crashing', async function () {
     render(<ThumbnailImage alt='a test image' src={src} />)
     const image = await screen.findByRole('img', { name: 'a test image' })
-    expect(image).to.be.ok()
+    expect(image).toBeTruthy()
   })
 
   it('should use alt text to describe the image.', async function () {
     const alt = "A galaxy"
     render(<ThumbnailImage alt={alt} src={src} />)
     const image = await screen.findByRole('img', { name: alt })
-    expect(image).to.be.ok()
+    expect(image).toBeTruthy()
   })
 
   it('should render the Placeholder component if loading', function () {
     render(<ThumbnailImage src={src} />)
-    expect(screen.queryByRole('img')).to.be.null()
+    expect(screen.queryByRole('img')).to.equal(null)
   })
 
   it('should delay loading the image the given time in props.delay', function (done) {
@@ -51,7 +51,7 @@ describe('ThumbnailImage', function () {
     render(<ThumbnailImage alt='a test image' delay={delay} src={src} />)
     setTimeout(function () {
       const image = screen.findByRole('img', { name: 'a test image' })
-      expect(image).to.be.ok()
+      expect(image).toBeTruthy()
       done()
     }, delay + 1)
   })
@@ -59,7 +59,7 @@ describe('ThumbnailImage', function () {
   it('should have a `<noscript />` image for SSR', function () {
     render(<ThumbnailImage src={src} />)
     const noscriptWrapper = document.querySelector('noscript')
-    expect(noscriptWrapper).to.exist()
+    expect(noscriptWrapper).toBeDefined()
   })
 
   describe('height and width', function () {

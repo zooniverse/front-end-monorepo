@@ -8,7 +8,7 @@ describe('InvertIconButton', function () {
     const InvertIconButtonStory = composeStory(Default, Meta)
     render(<InvertIconButtonStory />)
     const button = screen.getByRole('checkbox', { name: 'Invert subject color' })
-    expect(button).to.exist()
+    expect(button).toBeDefined()
   })
 
   describe('when checked', function () {
@@ -25,7 +25,7 @@ describe('InvertIconButton', function () {
       const InvertIconButtonStory = composeStory(Disabled, Meta)
       render(<InvertIconButtonStory />)
       const button = screen.getByRole('checkbox', { name: 'Invert subject color' })
-      expect(button.disabled).to.be.true()
+      expect(button.disabled).to.equal(true)
     })
   })
 })

@@ -21,7 +21,9 @@ const config = {
         ...vitetestConfig.resolve,
         extensions: ['.jsx', '.js', '...'],
         fallback: {
-          fs: false
+          fs: false,
+          // for markdown-it plugins
+          path: require.resolve("path-browserify"),
         }
       }
     }

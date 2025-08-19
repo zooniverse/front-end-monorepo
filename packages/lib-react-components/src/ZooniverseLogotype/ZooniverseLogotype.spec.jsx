@@ -16,7 +16,7 @@ describe('ZooniverseLogotype', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen).to.be.ok()
+      expect(screen).toBeTruthy()
     })
 
     it('should set the height and width from the `width` prop', function () {

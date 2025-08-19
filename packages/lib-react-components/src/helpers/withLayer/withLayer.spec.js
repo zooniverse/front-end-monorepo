@@ -1,6 +1,7 @@
+describe.skip('HOC > withLayer', function () {
+
 // Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
 
-// import { shallow } from 'enzyme'
 // import sinon from 'sinon'
 // import withLayer from './withLayer'
 // import { Modal } from '../../Modal'
@@ -72,3 +73,4 @@
 //     expect(wrapper.find(Modal).props().foo).to.equal('bar')
 //   })
 // })
+})

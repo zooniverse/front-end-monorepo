@@ -1,4 +1,4 @@
-import { bool, number, object, oneOfType, string } from 'prop-types'
+import { bool, node, number, object, oneOf, oneOfType, string } from 'prop-types'
 
 export const propTypes = {
   alt: string,

@@ -21,7 +21,7 @@ describe('Component > Tabs', function () {
 
   it('should render without crashing', function () {
     const tabsContainer = screen.getByRole('tablist')
-    expect(tabsContainer).to.exist()
+    expect(tabsContainer).toBeDefined()
   })
 
   it('should render the correct number of tabs', function () {
@@ -40,12 +40,12 @@ describe('Component > Tabs', function () {
     const tabButton1 = screen.getByRole('tab', { name: 'bananas' })
     const tabButton2 = screen.getByRole('tab', { name: 'cherries' })
 
-    expect(within(tabPanel).getByText('An apple is a red fruit.')).to.exist()
+    expect(within(tabPanel).getByText('An apple is a red fruit.')).toBeDefined()
 
     await user.click(tabButton1)
-    await waitFor(() => expect(within(tabPanel).getByText('A banana is a long fruit.')).to.exist())
+    await waitFor(() => expect(within(tabPanel).getByText('A banana is a long fruit.')).toBeDefined())
 
     await user.click(tabButton2)
-    await waitFor(() => expect(within(tabPanel).getByText('A cherry is a stone fruit.')).to.exist())
+    await waitFor(() => expect(within(tabPanel).getByText('A cherry is a stone fruit.')).toBeDefined())
   })
 })

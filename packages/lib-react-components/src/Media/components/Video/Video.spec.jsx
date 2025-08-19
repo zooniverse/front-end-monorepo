@@ -8,13 +8,13 @@ describe('Video', function () {
   it('should show a video element', function () {
     render(<Video src={video} />)
     const videoElement = document.querySelector('video')
-    expect(videoElement).to.be.ok()
+    expect(videoElement).toBeTruthy()
   })
 
   it('should show the video controls', function () {
     render(<Video src={video} />)
     const videoPlayButton = screen.getByRole('button', { name: 'play' })
-    expect(videoPlayButton).to.be.ok()
+    expect(videoPlayButton).toBeTruthy()
   })
 
   describe('height and width', function () {

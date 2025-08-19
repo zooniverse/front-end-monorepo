@@ -4,7 +4,6 @@ import ZooFooter from './ZooFooter'
 
 
 describe('<ZooFooter />', function () {
-  this.timeout(5000)
   let homeLink, tagLine, linkLists, socialLinks, policyNavigation
 
   const LINK_LISTS = [
@@ -35,7 +34,7 @@ describe('<ZooFooter />', function () {
   })
 
   it('should show the Zooniverse tag line', function () {
-    expect(tagLine).to.exist()
+    expect(tagLine).toBeDefined()
   })
 
   it('should containe lists of Zooniverse links', function () {
@@ -47,6 +46,6 @@ describe('<ZooFooter />', function () {
   })
 
   it('should contain links to Zooniverse Policies', function () {
-    expect(policyNavigation).to.exist()
+    expect(policyNavigation).toBeDefined()
   })
 })

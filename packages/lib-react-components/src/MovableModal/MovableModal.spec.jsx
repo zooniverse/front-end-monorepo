@@ -1,6 +1,7 @@
+describe.skip('MovableModal', function () {
+
 // Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
 
-// import { shallow } from 'enzyme'
 // import { Rnd } from 'react-rnd'
 // import sinon from 'sinon'
 // import { MovableModal } from './MovableModal'
@@ -106,3 +107,4 @@
 //     })
 //   })
 // })
+})

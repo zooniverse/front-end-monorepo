@@ -14,7 +14,7 @@ describe('Text', function () {
       </Grommet>
     )
     const text = document.querySelector('pre')
-    expect(text).to.be.ok()
+    expect(text).toBeTruthy()
   })
 
   it('should use alt text to describe the text.', function () {

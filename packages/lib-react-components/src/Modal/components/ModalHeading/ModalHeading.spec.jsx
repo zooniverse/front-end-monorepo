@@ -1,6 +1,7 @@
+describe.skip('Modal > ModalHeading', function () {
+
 // Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
 
-// import { shallow } from 'enzyme'
 // import sinon from 'sinon'
 // import CloseButton from '../../../CloseButton'
 // import ModalHeading, { StyledHeading } from './ModalHeading'
@@ -105,3 +106,4 @@
 //     })
 //   })
 // })
+})
