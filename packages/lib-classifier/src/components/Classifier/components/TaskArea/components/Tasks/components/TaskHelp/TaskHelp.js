@@ -9,13 +9,12 @@ export const StyledPlainButton = styled(PlainButton)`
   text-align: center;
 `
 
-function TaskHelp(props) {
+function TaskHelp({ tasks }) {
   const { t } = useTranslation('components')
   const [showModal, setShowModal] = useState(false)
 
   const label = t('TaskArea.Tasks.TaskHelp.label')
-  const { tasks } = props
-  const tasksWithHelp = tasks.filter(task => !!task.help)
+  const tasksWithHelp = tasks?.filter(task => !!task.help)
 
   return (
     <>
@@ -40,7 +39,7 @@ function TaskHelp(props) {
               )
             }
 
-            return <Markdownz key={task.taskKey}>{task.help}{task.taskKey}</Markdownz>
+            return <Markdownz key={task.taskKey}>{task.help}</Markdownz>
           })}
           <Button
             margin={{ top: 'small' }}

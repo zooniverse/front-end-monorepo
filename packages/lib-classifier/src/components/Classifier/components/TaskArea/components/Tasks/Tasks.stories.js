@@ -6,28 +6,28 @@ import { Box } from 'grommet'
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
+import Tasks from './Tasks'
 import TasksConnector from './TasksConnector'
+
+function ComponentDecorator(Story) {
+  return (
+    <Box
+      width='25rem'
+      pad='medium'
+      margin='medium'
+      border={{ style: 'solid', color: { dark: 'white', light: 'light-3' } }}
+      background={{ light: 'white' }}
+    >
+      <Story />
+    </Box>
+  )
+}
 
 export default {
   title: 'Tasks / General',
-  component: TasksConnector
+  component: Tasks,
+  decorators: [ComponentDecorator]
 }
-
-// export function Loading() {
-//   return (
-//     <MockTask
-//       loadingState={asyncStates.loading}
-//     />
-//   )
-// }
-
-// export function Error() {
-//   return (
-//     <MockTask
-//       loadingState={asyncStates.error}
-//     />
-//   )
-// }
 
 const singleChoiceTask = {
   answers: [
@@ -95,15 +95,42 @@ subjectViewer.onSubjectReady()
 export function MultipleTasks() {
   return (
     <Provider classifierStore={mockedStore}>
-      <Box
-        width='25rem'
-        pad='medium'
-        margin='medium'
-        border={{ style: 'solid', color: { dark: 'white', light: 'light-3' } }}
-        background={{ light: 'white'}}
-      >
-        <TasksConnector />
-      </Box>
+      <TasksConnector />
     </Provider>
+  )
+}
+
+export function WorkflowLoading() {
+  return <Tasks loadingState={asyncStates.loading} />
+}
+
+export function SubjectLoading() {
+  return (
+    <Tasks
+      loadingState={asyncStates.success}
+      subjectReadyState={asyncStates.loading}
+    />
+  )
+}
+
+export function Error() {
+  return <Tasks loadingState={asyncStates.error} />
+}
+
+export function NoClassification() {
+  return (
+    <Tasks
+      loadingState={asyncStates.success}
+      step={mockedStore.workflowSteps.active}
+    />
+  )
+}
+
+export function NoStep() {
+  return (
+    <Tasks
+      classification={mockedStore.classifications.active}
+      loadingState={asyncStates.success}
+    />
   )
 }
