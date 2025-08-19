@@ -27,6 +27,7 @@ function TaskHelp({ tasks }) {
         active={showModal}
         closeFn={() => setShowModal(false)}
         title={label}
+        height={{ max: '90vh' }}
       >
         <Box overflow='auto'>
           {tasksWithHelp.map((task, index) => {
