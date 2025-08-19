@@ -77,7 +77,7 @@ describe('ThumbnailImage', function () {
       const image = await screen.findByRole('img', { name: 'a test image' })
       const imageWrapper = document.querySelector('span.thumbnailImage')
       const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
-      expect(maxHeight).to.be.empty()
+      expect(maxHeight).to.equal('')
       expect(maxWidth).to.equal('100%')
     })
   })

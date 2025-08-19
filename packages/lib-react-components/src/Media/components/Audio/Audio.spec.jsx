@@ -21,7 +21,7 @@ describe('Audio', function () {
   describe('height and width', function () {
     it('should be set if specified', function () {
       render(<Audio height={200} width={270} src={audio} />)
-      const audioWrapper = document.querySelector('[class*="Audio__StyledBox"]')
+      const audioWrapper = document.querySelector('[class*="StyledBox"]')
       const computedStyle = window.getComputedStyle(audioWrapper)
       expect(computedStyle.maxHeight).to.equal('200px')
       expect(computedStyle.maxWidth).to.equal('270px')
@@ -29,9 +29,9 @@ describe('Audio', function () {
 
     it('should be ignored if not specified', function () {
       render(<Audio src={audio} />)
-      const audioWrapper = document.querySelector('[class*="Audio__StyledBox"]')
+      const audioWrapper = document.querySelector('[class*="StyledBox"]')
       const computedStyle = window.getComputedStyle(audioWrapper)
-      expect(computedStyle.maxHeight).to.be.empty
+      expect(computedStyle.maxHeight).to.equal('')
       expect(computedStyle.maxWidth).to.equal('100%')
     })
   })

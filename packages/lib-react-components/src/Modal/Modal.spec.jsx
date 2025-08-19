@@ -1,6 +1,6 @@
-// Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
+describe.skip('Modal', function () {
 
-// import { shallow } from 'enzyme'
+// Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
 
 // import { Modal } from './Modal'
 // import ModalBody from './components/ModalBody'
@@ -111,3 +111,4 @@
 //     expect(wrapper.find(ModalBody).contains(content)).to.true()
 //   })
 // })
+})
