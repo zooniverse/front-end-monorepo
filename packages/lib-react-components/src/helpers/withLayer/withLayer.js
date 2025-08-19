@@ -1,5 +1,5 @@
 import { Layer } from 'grommet'
-import PropTypes from 'prop-types'
+import { bool, func, node, shape, string } from 'prop-types'
 import { forwardRef } from 'react';
 
 function withLayer (WrappedComponent) {
@@ -48,15 +48,15 @@ function withLayer (WrappedComponent) {
 
   const WithLayer = forwardRef(HOC)
   WithLayer.propTypes = {
-    active: PropTypes.bool,
-    animate: PropTypes.bool,
-    className: PropTypes.string,
-    closeFn: PropTypes.func,
-    modal: PropTypes.bool,
-    plain: PropTypes.bool,
-    position: PropTypes.string,
-    target: PropTypes.shape({
-      current: PropTypes.node
+    active: bool,
+    animate: bool,
+    className: string,
+    closeFn: func,
+    modal: bool,
+    plain: bool,
+    position: string,
+    target: shape({
+      current: node
     })
   }
 

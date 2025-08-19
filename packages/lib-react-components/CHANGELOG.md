@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+
+- Removed outdated HOC `withOnlyRenderOnBrowser`. See `useHasMounted` as a replacement hook.
+
+### Changed
+
+- Replace Mocha with Vitest. Moving toward ESM-only.
+
 ### Added
 
 - `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support

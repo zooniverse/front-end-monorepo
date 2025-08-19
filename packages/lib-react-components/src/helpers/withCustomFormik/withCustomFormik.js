@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import PropTypes from 'prop-types'
+import { func, object } from 'prop-types'
 import { Formik } from 'formik'
 
 const DEFAULT_HANDLER = () => true
@@ -55,10 +55,10 @@ function withCustomFormik (WrappedComponent) {
   }
 
   FormikHOC.propTypes = {
-    initialValues: PropTypes.object.isRequired,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func.isRequired
+    initialValues: object.isRequired,
+    onBlur: func,
+    onChange: func,
+    onSubmit: func.isRequired
   }
 
   const DecoratedFormikHOC = forwardRef(function (props, ref) {

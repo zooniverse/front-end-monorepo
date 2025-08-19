@@ -1,1 +1,1 @@
-export { default } from './ProjectCard.js'
+export { default } from './ProjectCard'
