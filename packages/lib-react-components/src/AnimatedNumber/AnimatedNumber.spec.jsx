@@ -103,6 +103,9 @@ describe('AnimatedNumber', function () {
     })
   })
 
+  // Two tests are skipped here because they throw an error
+  // Error messages are unclear, but might have to do with window.matchMedia,
+  // which is also mocked in test/setup.js
   describe('with animation', function() {
     beforeEach(function() {
       sinon.stub(window, 'matchMedia').returns({
