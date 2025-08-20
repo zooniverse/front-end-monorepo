@@ -1,1 +1,1 @@
-export { default } from './TitledStat.js'
+export { default } from './TitledStat'

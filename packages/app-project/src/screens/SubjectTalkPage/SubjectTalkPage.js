@@ -34,7 +34,8 @@ function SubjectTalkPage({
   projectId,
   projectSlug,
   subject,
-  subjectId
+  subjectId,
+  userId
 }) {
   const { t } = useTranslation('screens')
 
@@ -51,6 +52,7 @@ function SubjectTalkPage({
             projectId={projectId}
             projectSlug={projectSlug}
             subject={subject}
+            userId={userId}
           />
           <SubjectTalkData
             projectId={projectId}
@@ -93,6 +95,7 @@ SubjectTalkPage.propTypes = {
     id: string.isRequired
   }),
   subjectId: string.isRequired,
+  userId: string
 }
 
 export default SubjectTalkPage

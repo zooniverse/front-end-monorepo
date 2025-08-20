@@ -1,4 +1,4 @@
-import { FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
+import { CollectIconButton, FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
@@ -32,7 +32,8 @@ function SubjectTalkViewer({
     login,
     projectId,
     projectSlug,
-    subject
+    subject,
+    userId
   }) {
   const [frame, setFrame] = useState(0)
   const [flipbookSpeed, setFlipbookSpeed] = useState(1)
@@ -99,7 +100,11 @@ function SubjectTalkViewer({
             projectSlug={projectSlug}
             subjectId={subjectId}
           />
-          <Bookmark />
+          <CollectIconButton
+            projectId={projectId}
+            subjectId={subjectId}
+            userId={userId}
+          />
           <ShareOption />
           <InvertIconButton
             checked={invert}
@@ -117,7 +122,8 @@ SubjectTalkViewer.propTypes = {
   projectSlug: string,
   subject: shape({
     id: string
-  })
+  }),
+  userId: string
 }
 
 export default SubjectTalkViewer

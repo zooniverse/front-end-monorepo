@@ -1,1 +1,1 @@
-export { default } from './SortDropdown.js'
+export { default } from './SortDropdown'
