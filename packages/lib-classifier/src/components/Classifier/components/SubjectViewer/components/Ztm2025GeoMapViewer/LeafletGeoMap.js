@@ -1,6 +1,6 @@
 import { useEffect, useId } from 'react'
 import Leaflet from 'leaflet'
-// import 'leaflet/dist/leaflet.css'
+import LeafletCss from './LeafletCss.js'  // Replaces import 'leaflet/dist/leaflet.css'
 
 function LeafletGeoMap (props) {
   const leafMapId = useId()
@@ -26,6 +26,7 @@ function LeafletGeoMap (props) {
 
   return (
     <div>
+      <LeafletCss />
       <h6 style={{ margin: '0.25em', padding: 0 }}>LeafletGeoMap</h6>
       <div
         id={leafMapId}

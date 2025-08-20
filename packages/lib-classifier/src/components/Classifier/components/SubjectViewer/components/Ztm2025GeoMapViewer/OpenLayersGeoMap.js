@@ -1,9 +1,9 @@
 import { useEffect, useId } from 'react'
-// import 'ol/ol.css'  // this automatically inserts additional CSS into the rendered document's <style>
 import OLMap from 'ol/Map.js'
 import OpenStreetMaps from 'ol/source/OSM.js'
 import TileLayer from 'ol/layer/Tile.js'
 import View from 'ol/View.js'
+import OpenLayersCss from './OpenLayersCss.js'  // replaces import 'ol/ol.css'
 
 function OpenLayersGeoMap (props) {
   const olMapId = useId()
@@ -75,6 +75,7 @@ function OpenLayersGeoMap (props) {
 
   return (
     <div>
+      <OpenLayersCss />
       <h6 style={{ margin: '0.25em', padding: 0 }}>OpenLayersGeoMap</h6>
       <div style={{ display: 'flex' }}>
         <b>Projection:</b>
