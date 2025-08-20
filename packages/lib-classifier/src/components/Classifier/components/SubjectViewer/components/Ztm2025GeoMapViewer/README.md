@@ -17,7 +17,9 @@ Notes:
 - Our code sometimes uses the term GeoMap instead of Map to differentiate it
   from a JavaScript Map object.
 
-2025.08.20: ⚠️☠️ OpenLayers & Leaflet are killing `yarn test` on both
+⚠️☠️  ** Active Issue: Broken Tests**
+
+2025.08.20: OpenLayers & Leaflet are killing `yarn test` on both
 lib-classifier and app-project. Error message is:
 
 ```
@@ -25,6 +27,11 @@ Exception during run: TypeError: Cannot read properties of undefined (reading 'i
   at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/src/core/Browser.js:65:30
   at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/dist/leaflet-src.js:7:66
 ```
+
+⚠️ **Active Issue: **
+
+2025.08.20: adding OpenLayers (ol) and Leaflet to lib-classifier may increase
+build size of lib-classifier as a whole? This needs to be evaluated.
 
 ## Dev Notes
 
