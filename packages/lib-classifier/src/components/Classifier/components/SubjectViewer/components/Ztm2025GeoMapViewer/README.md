@@ -7,7 +7,7 @@ Context:
   (of planet Earth mostly, but we're not limited to the terrestrial) on the
   Zooniverse platform.
 - We don't have this functionality yet, as of 2025.
-- During the Zooniverse Team Meeting in August 2025, a rogue loose canon
+- During the Zooniverse Team Meeting in August 2025, a rogue loose cannon
   web developer who doesn't play by the rules decided to explore what can be
   done with web mapping technology, what options are available, and what
   challenges we need to be aware of when building a Geographical Map Viewer.
