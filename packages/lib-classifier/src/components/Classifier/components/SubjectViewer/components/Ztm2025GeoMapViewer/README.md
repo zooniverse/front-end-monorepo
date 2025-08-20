@@ -17,16 +17,14 @@ Notes:
 - Our code sometimes uses the term GeoMap instead of Map to differentiate it
   from a JavaScript Map object.
 
-2025.08.15: ❗️⚠️☠️ the OpenLayers & Leaflet imports kill `yarn build` on the
-_app-project_ package. This means this PR breaks `yarn bootstrap` 😬
-- Error message when running `cd packages/app-project ; yarn build`
-  is `Module not found: ESM packages (ol/Map.js) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals`
-- `yarn build` and `yarn dev` both work fine in lib-classifier.
-- UPDATE: after some trial and error, it appears that the CSS imports, i.e.
-  `import 'ol/ol.css'` and `import 'leaflet/dist/leaflet.css'`, were the reasons
-  that app-project threw a fit. app-project's `yarn build` seems to work once
-  those CSS import lines were commented out, but this 'solution' does mean we'd
-  need to find another way of getting those CSS styles into the FEM page.
+2025.08.20: ⚠️☠️ OpenLayers & Leaflet are killing `yarn test` on both
+lib-classifier and app-project. Error message is:
+
+```
+Exception during run: TypeError: Cannot read properties of undefined (reading 'indexOf')
+  at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/src/core/Browser.js:65:30
+  at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/dist/leaflet-src.js:7:66
+```
 
 ## Dev Notes
 
@@ -147,6 +145,29 @@ for the specific PRN use case, what does it need to address?"
     - This means we devs need to figure out how to convert Web Mercator (x,y)
       coordinates to standard GSP (latitude, longitude) coordinates.
     - Storing exact GPS coordinates will also make it much easier to aggregate.
+
+**Solved Issue: CSS Imports Breaking Build**
+
+2025.08.15: (Fixed) OpenLayers & Leaflet imports used to kill `yarn build`
+on the _app-project_ package. This meant that this PR used to break
+`yarn bootstrap`. The error was traced to CSS imports (e.g.
+`import 'ol/ol.css'`), and our workaround was to use inline CSS copies.
+
+<details>
+<summary>[Previous Notes]</summary>
+
+2025.08.15: ❗️⚠️☠️ the OpenLayers & Leaflet imports kill `yarn build` on the
+_app-project_ package. This means this PR breaks `yarn bootstrap` 😬
+- Error message when running `cd packages/app-project ; yarn build`
+  is `Module not found: ESM packages (ol/Map.js) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals`
+- `yarn build` and `yarn dev` both work fine in lib-classifier.
+- UPDATE: after some trial and error, it appears that the CSS imports, i.e.
+  `import 'ol/ol.css'` and `import 'leaflet/dist/leaflet.css'`, were the reasons
+  that app-project threw a fit. app-project's `yarn build` seems to work once
+  those CSS import lines were commented out, but this 'solution' does mean we'd
+  need to find another way of getting those CSS styles into the FEM page.
+
+</details>
 
 ## End-Of-Experiment Plans (aka Adoption or Ejection)
 
