@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { useComments } from '@hooks'
 
 import PlainButton from '../PlainButton'
+import TalkComment from '../TalkComment'
 import { StyledUppercaseTitle } from '../Discussions'
 
 const StyledTitle = styled(Heading)`
@@ -30,7 +31,7 @@ function Discussion({ discussion }) {
     isLoading,
     error
   } = useComments(query)
-
+  
   const title = discussion.subject_default ? discussion.board_title : discussion.title
   const showChronologicalSort = discussion.comments_count > 1
 
@@ -127,9 +128,17 @@ function Discussion({ discussion }) {
       >
         {comments?.map((comment) => (
           <li key={comment.id}>
-            <h5>{comment.id}</h5>
-            <span>{comment.created_at}</span>
-            <p>{comment.body}</p>
+            <TalkComment
+              avatar='' // TODO: update with users
+              body={comment.body}
+              commentLink={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}?comment=${comment.id}`}
+              date={comment.created_at}
+              displayName={comment.user_display_name}
+              login={comment.user_login}
+              projectSlug={discussion.project_slug}
+              upvoted={false} // TODO: update with user match
+              upvotes={Object.keys(comment.upvotes)?.length}
+            />
           </li>
         ))}
       </Box>
