@@ -28,7 +28,7 @@ class CompletionBar extends Component {
 
     this.d3svg
       .selectAll('.bar')
-      .data([this.props.completeness])
+      .data([this.props.completeness ?? 0])
       .enter()
       .append('g')
       .attr('class', 'bar')
@@ -84,10 +84,6 @@ class CompletionBar extends Component {
 
 CompletionBar.propTypes = {
   completeness: number.isRequired
-}
-
-CompletionBar.defaultProps = {
-  completeness: 0
 }
 
 export default CompletionBar

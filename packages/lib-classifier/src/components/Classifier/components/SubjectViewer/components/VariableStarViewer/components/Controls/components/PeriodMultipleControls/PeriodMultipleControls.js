@@ -29,7 +29,16 @@ export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
 `
 
 export function PeriodMultipleControls (props) {
-  const { periodMultiple, options, setPeriodMultiple, theme } = props
+  const { 
+    periodMultiple, 
+    options, 
+    setPeriodMultiple, 
+    theme = {
+      global: {
+        colors: {}
+      }
+    }
+  } = props
   const { t } = useTranslation('components')
   return (
     <FormField
@@ -55,14 +64,6 @@ PeriodMultipleControls.propTypes = {
   periodMultiple: PropTypes.number.isRequired,
   setPeriodMultiple: PropTypes.func.isRequired,
   theme: PropTypes.object
-}
-
-PeriodMultipleControls.defaultProps = {
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 export default withThemeContext(PeriodMultipleControls, theme)

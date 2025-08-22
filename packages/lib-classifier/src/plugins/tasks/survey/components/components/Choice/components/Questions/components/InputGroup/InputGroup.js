@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 
 import QuestionInput from './components/QuestionInput'
 
+const DEFAULT_HANDLER = () => false
+
 export default function InputGroup (props) {
   const {
     labelledBy,
-    handleAnswer,
-    hasFocus,
-    options,
-    questionAnswer,
-    questionId,
+    handleAnswer = DEFAULT_HANDLER,
+    hasFocus = false,
+    options = [],
+    questionAnswer = '',
+    questionId = '',
     type
   } = props
 
@@ -91,14 +93,6 @@ export default function InputGroup (props) {
       })}
     </Box>
   )
-}
-
-InputGroup.defaultProps = {
-  handleAnswer: () => {},
-  hasFocus: false,
-  options: [],
-  questionAnswer: '',
-  questionId: ''
 }
 
 InputGroup.propTypes = {

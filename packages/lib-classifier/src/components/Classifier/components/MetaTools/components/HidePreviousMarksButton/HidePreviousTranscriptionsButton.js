@@ -8,6 +8,8 @@ import { useTranslation } from '@translations/i18n'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 
+const DEFAULT_HANDLER = () => false
+
 const StyledDrop = styled(DropButton)`
   div {
     padding: 0;
@@ -18,9 +20,12 @@ const StyledDrop = styled(DropButton)`
   }
 `
 
-function HidePreviousTranscriptionsButton (props) {
+function HidePreviousTranscriptionsButton ({
+  disabled = false,
+  onClick = DEFAULT_HANDLER,
+  shownMarks = SHOWN_MARKS.ALL
+}) {
   const { t } = useTranslation('components')
-  const { disabled, onClick, shownMarks } = props
   const [isOpen, setOpen] = useState(false)
 
   const titles = {
@@ -98,12 +103,6 @@ HidePreviousTranscriptionsButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   shownMarks: PropTypes.string
-}
-
-HidePreviousTranscriptionsButton.defaultProps = {
-  disabled: false,
-  onClick: () => false,
-  shownMarks: SHOWN_MARKS.ALL
 }
 
 export default withTheme(HidePreviousTranscriptionsButton)
