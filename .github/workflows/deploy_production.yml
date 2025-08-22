@@ -41,7 +41,7 @@ jobs:
     needs: build_and_push_image
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - uses: azure/login@v2
       with:
