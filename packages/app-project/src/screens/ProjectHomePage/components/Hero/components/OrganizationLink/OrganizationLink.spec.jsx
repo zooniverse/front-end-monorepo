@@ -8,6 +8,6 @@ const TITLE = 'Test Organization'
 describe('Component > Hero > OrganizationLink', function () {
   it('should render a link to the organization page', function () {
     render(<OrganizationLink slug={SLUG} title={TITLE} />)
-    expect(screen.getByRole('link', { name: TITLE })).to.exist()
+    expect(screen.getByRole('link', { name: TITLE })).toBeDefined()
   })
 })

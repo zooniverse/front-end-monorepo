@@ -9,12 +9,12 @@ describe('Component > SubjectTalkPage > SubjectTalkViewer', function () {
   describe('with a single image subject', function () {
     it('should render without crashing', function () {
       const output = render(<SingleImageSubjectStory />)
-      expect(output).to.be.ok()
+      expect(output).toBeTruthy() // These assertions should be refined to look for a specific UI element
     })
-    
+
     it('should not render flipbook controls with location thumbnails', function () {
       render(<SingleImageSubjectStory />)
-      
+
       const imageThumbnails = screen.queryByLabelText('Image thumbnails')
       expect(imageThumbnails).to.not.exist()
     })
@@ -23,14 +23,14 @@ describe('Component > SubjectTalkPage > SubjectTalkViewer', function () {
   describe('with a multi image subject', function () {
     it('should render without crashing', function () {
       const output = render(<MultiImageSubjectStory />)
-      expect(output).to.be.ok()
+      expect(output).toBeTruthy() // These assertions should be refined to look for a specific UI element
     })
 
     it('should render flipbook controls with location thumbnails', function () {
       render(<MultiImageSubjectStory />)
-      
+
       const imageThumbnails = screen.getByLabelText('Image thumbnails')
-      expect(imageThumbnails).to.exist()
+      expect(imageThumbnails).toBeDefined()
     })
   })
 })

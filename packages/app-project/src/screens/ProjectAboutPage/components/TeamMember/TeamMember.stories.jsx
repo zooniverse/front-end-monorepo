@@ -1,7 +1,7 @@
 import { Box, Grid } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import Router from 'next/router'
-import PropTypes from 'prop-types'
+import { node } from 'prop-types'
 import TeamMember from './TeamMember'
 
 function RouterMock({ children }) {
@@ -25,7 +25,7 @@ function RouterMock({ children }) {
 }
 
 RouterMock.propTypes = {
-  children: PropTypes.node.isRequired
+  children: node.isRequired
 }
 
 const defaultUser = {

@@ -9,7 +9,7 @@ describe('Component > CollectionsButton', function () {
   })
 
   it('should render the CollectionsButton', function () {
-    expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+    expect(screen.getByText('SubjectPreview.CollectionsButton.add')).toBeDefined()
   })
 
   // NOTE: We do not test the CollectionsModal functionality here.
@@ -17,10 +17,10 @@ describe('Component > CollectionsButton', function () {
   it('should open the CollectionsModal and dismiss correctly', function () {
     fireEvent.click(screen.getByText('SubjectPreview.CollectionsButton.add'))
     waitFor(function() {
-      expect(screen.getByText('CollectionsModal.title')).to.exist()
+      expect(screen.getByText('CollectionsModal.title')).toBeDefined()
       fireEvent.click(screen.getByLabelText('Close'))
       waitFor(function() {
-        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).toBeDefined()
       })
     })
   })

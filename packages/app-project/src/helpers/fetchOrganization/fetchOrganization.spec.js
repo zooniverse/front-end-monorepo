@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import nock from 'nock'
 
 import fetchOrganization from './fetchOrganization'
@@ -48,7 +47,7 @@ describe('Helpers > fetchOrganization', function () {
 
   it('should provide the expected result', async function () {
     const result = await fetchOrganization('456', 'en', 'staging')
-    
+
     expect(result).to.deep.equal({
       ...ORGANIZATION,
       strings: TRANSLATIONS[0].strings
@@ -80,7 +79,7 @@ describe('Helpers > fetchOrganization', function () {
         })
       const result = await fetchOrganization('456', 'en', 'staging')
 
-      expect(result).to.be.null
+      expect(result).to.equal(null)
     })
   })
 })

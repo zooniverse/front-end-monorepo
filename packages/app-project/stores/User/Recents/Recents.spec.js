@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
 import { getSnapshot } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
@@ -46,7 +45,7 @@ describe('Stores > Recents', function () {
   })
 
   it('should exist', function () {
-    expect(recentsStore).to.be.ok()
+    expect(recentsStore).toBeDefined()
   })
 
   describe('with a project and user', function () {

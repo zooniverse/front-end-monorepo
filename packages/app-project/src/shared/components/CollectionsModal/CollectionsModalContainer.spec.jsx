@@ -8,7 +8,7 @@ describe('Component > CollectionsModalContainer', function () {
 
   it('should have a modal label', function () {
     render(<DefaultStory />)
-    expect(screen.getByText('CollectionsModal.title')).to.be.ok()
+    expect(screen.getByText('CollectionsModal.title')).toBeDefined()
   })
 
   describe('when no collection is selected', function () {
@@ -18,13 +18,13 @@ describe('Component > CollectionsModalContainer', function () {
 
     it('should have a disabled Add button', function () {
       const btn = screen.getByText('CollectionsModal.SelectCollection.addButton')
-      expect(btn).to.be.ok()
+      expect(btn).toBeDefined()
       expect(btn.disabled).to.equal(true)
     })
 
     it('should have a disabled Create button', function () {
       const btn = screen.getByText('CollectionsModal.CreateCollection.createButton')
-      expect(btn).to.be.ok()
+      expect(btn).toBeDefined()
       expect(btn.disabled).to.equal(true)
     })
   })

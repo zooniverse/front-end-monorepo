@@ -26,13 +26,13 @@ describe('Component > PageHeader', function () {
     })
 
     it('should display Sign-in and Register buttons', function () {
-      expect(screen.getByText('Sign In')).exists()
-      expect(screen.getByText('Register')).exists()
+      expect(screen.getByText('Sign In')).toBeDefined()
+      expect(screen.getByText('Register')).toBeDefined()
     })
 
     it('should not display the user menu', function () {
       const dropButton = screen.queryByRole('button', { name: 'Test User' })
-      expect(dropButton).to.be.null()
+      expect(dropButton).to.equal(null)
     })
   })
 
@@ -65,18 +65,18 @@ describe('Component > PageHeader', function () {
     })
 
     it('should display the number of unread notifications and messages', function () {
-      expect(screen.getByText(`Notifications (${snapshot.user.personalization.notifications.unreadNotificationsCount})`)).exists()
-      expect(screen.getByText(`Messages (${snapshot.user.personalization.notifications.unreadConversationsIds.length})`)).exists()
+      expect(screen.getByText(`Notifications (${snapshot.user.personalization.notifications.unreadNotificationsCount})`)).toBeDefined()
+      expect(screen.getByText(`Messages (${snapshot.user.personalization.notifications.unreadConversationsIds.length})`)).toBeDefined()
     })
 
     it('should not display sign-in or register buttons', function () {
-      expect(screen.queryByText('Sign In')).to.be.null()
-      expect(screen.queryByText('Register')).to.be.null()
+      expect(screen.queryByText('Sign In')).to.equal(null)
+      expect(screen.queryByText('Register')).to.equal(null)
     })
 
     it('should display user menu dropdown', function () {
       const dropButton = screen.findByRole('button', { name: 'Test User' })
-      expect(dropButton).exists()
+      expect(dropButton).toBeDefined()
     })
   })
 })

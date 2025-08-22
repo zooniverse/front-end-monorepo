@@ -17,11 +17,11 @@ describe('Component > WorkflowAssignmentModal', function () {
 
     it('should render a confirmation link', function () {
       const link = document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)
-      expect(link).to.be.ok()
+      expect(link).toBeDefined()
     })
 
     it('should have a labeled checkbox', function () {
-      expect(screen.getByLabelText('Classify.WorkflowAssignmentModal.dismiss')).to.be.ok()
+      expect(screen.getByLabelText('Classify.WorkflowAssignmentModal.dismiss')).toBeDefined()
     })
   })
 
@@ -36,7 +36,7 @@ describe('Component > WorkflowAssignmentModal', function () {
 
     it('the modal should not be active', function () {
       render(<DefaultStory />)
-      expect(document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)).to.be.null()
+      expect(document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)).to.equal(null)
     })
   })
 })

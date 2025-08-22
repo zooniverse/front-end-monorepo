@@ -14,11 +14,11 @@ describe('Component > SubjectSetPicker', function () {
       })
 
       it('should contain the heading text', function () {
-        expect(screen.getByText('SubjectSetPicker.heading')).to.exist()
+        expect(screen.getByText('SubjectSetPicker.heading')).toBeDefined()
       })
 
       it('should contain the byline text', function () {
-        expect(screen.getByText('SubjectSetPicker.byline')).to.exist()
+        expect(screen.getByText('SubjectSetPicker.byline')).toBeDefined()
       })
 
       it('should render the correct number of subject cards', function () {
@@ -29,12 +29,12 @@ describe('Component > SubjectSetPicker', function () {
       mockWorkflow.subjectSets.forEach((subjectSet, index) => {
         it(`should find the subject set name at index ${index}`, async function () {
           const card = screen.getByTestId(`subject-set-card-${subjectSet.id}`)
-          await expect(within(card).getByText(subjectSet.display_name)).to.exist()
+          await expect(within(card).getByText(subjectSet.display_name)).toBeDefined()
         })
 
         it(`should find the subject set total subjects at index ${index}`, async function () {
           const card = screen.getByTestId(`subject-set-card-${subjectSet.id}`)
-          await expect(within(card).getByText(`${subjectSet.set_member_subjects_count} subjects`)).to.exist()
+          await expect(within(card).getByText(`${subjectSet.set_member_subjects_count} subjects`)).toBeDefined()
         })
 
         it(`should find the subject set completion at index ${index}`, async function () {

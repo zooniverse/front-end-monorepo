@@ -12,7 +12,7 @@ describe('Component > ConnectWithProject', function () {
 
     ConnectWithProjectMock.project.urls.forEach(function (urlObject) {
       it(`should render the ${urlObject.name} icon`, async function () {
-        await expect(screen.getByLabelText(urlObject.name)).to.be.ok()
+        await expect(screen.getByLabelText(urlObject.name)).toBeTruthy()
       })
 
       it(`should render the ${urlObject.name} link`, function () {
@@ -22,7 +22,7 @@ describe('Component > ConnectWithProject', function () {
 
       it(`should render the ${urlObject.name} label`, function () {
         const el = document.getElementsByClassName(`connect-with-project-${urlObject.site}`)[0]
-        expect(within(el).getByText(`ConnectWithProject.ProjectLink.types.${urlObject.name.toLowerCase()}`)).to.exist()
+        expect(within(el).getByText(`ConnectWithProject.ProjectLink.types.${urlObject.name.toLowerCase()}`)).toBeDefined()
       })
     })
   })

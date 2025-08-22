@@ -7,8 +7,6 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import UserProjectPreferences, { Settings } from './UserProjectPreferences'
-import { expect } from 'chai'
-
 
 describe('Stores > UserProjectPreferences', function () {
   const project = {
@@ -175,7 +173,7 @@ describe('Stores > UserProjectPreferences', function () {
         expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
         await rootStore.user.personalization.projectPreferences.fetchResource()
         expect(projectPreferences.loadingState).to.equal(asyncStates.success)
-        expect(projectPreferences.id).to.be.undefined()
+        expect(projectPreferences.id).toBeUndefined()
       })
     })
 
@@ -203,7 +201,7 @@ describe('Stores > UserProjectPreferences', function () {
         const { projectPreferences } = rootStore.user.personalization
         projectPreferences.reset()
         expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
-        expect(projectPreferences.error).to.be.undefined()
+        expect(projectPreferences.error).toBeUndefined()
         projectPreferences.fetchResource()
         await when(preferencesAreReady(projectPreferences))
         expect(projectPreferences.error.message).to.equal('Error!')
@@ -239,7 +237,7 @@ describe('Stores > UserProjectPreferences', function () {
         const { projectPreferences } = rootStore.user.personalization
         projectPreferences.reset()
         expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
-        expect(projectPreferences.error).to.be.undefined()
+        expect(projectPreferences.error).toBeUndefined()
         projectPreferences.fetchResource()
         await when(preferencesAreReady(projectPreferences))
         expect(projectPreferences.error.message).to.equal('Unauthorized')
@@ -283,7 +281,7 @@ describe('Stores > UserProjectPreferences', function () {
 
     it('should update your assigned workflow', async function () {
       const { projectPreferences } = rootStore.user.personalization
-      expect(projectPreferences.assignedWorkflowID).to.be.undefined()
+      expect(projectPreferences.assignedWorkflowID).toBeUndefined()
       await when(() => projectPreferences.assignedWorkflowID)
       expect(projectPreferences.assignedWorkflowID).to.equal('999')
     })
@@ -323,7 +321,7 @@ describe('Stores > UserProjectPreferences', function () {
       it('should not prompt the user', function () {
         const { projectPreferences } = rootStore.user.personalization
         expect(projectPreferences.assignedWorkflowID).to.equal('555')
-        expect(projectPreferences.promptAssignment()).to.be.false()
+        expect(projectPreferences.promptAssignment()).to.equal(false)
       })
     })
 
@@ -347,8 +345,8 @@ describe('Stores > UserProjectPreferences', function () {
       it('should not prompt the user', function () {
         const { projectPreferences } = rootStore.user.personalization
         expect(projectPreferences.assignedWorkflowID).to.equal('555')
-        expect(projectPreferences.promptAssignment('123')).to.be.false()
-        expect(rootStore.project.workflowIsActive('555')).to.be.false()
+        expect(projectPreferences.promptAssignment('123')).to.equal(false)
+        expect(rootStore.project.workflowIsActive('555')).to.equal(false)
       })
     })
 
@@ -372,8 +370,8 @@ describe('Stores > UserProjectPreferences', function () {
       it('should not prompt the user', function () {
         const { projectPreferences } = rootStore.user.personalization
         expect(projectPreferences.assignedWorkflowID).to.equal('555')
-        expect(projectPreferences.promptAssignment('555')).to.be.false()
-        expect(rootStore.project.workflowIsActive('555')).to.be.true()
+        expect(projectPreferences.promptAssignment('555')).to.equal(false)
+        expect(rootStore.project.workflowIsActive('555')).to.equal(true)
       })
     })
 
@@ -397,9 +395,9 @@ describe('Stores > UserProjectPreferences', function () {
       it('should prompt the user', function () {
         const { projectPreferences } = rootStore.user.personalization
         expect(projectPreferences.assignedWorkflowID).to.equal('555')
-        expect(projectPreferences.promptAssignment('123')).to.be.true()
-        expect(rootStore.project.workflowIsActive('123')).to.be.true()
-        expect(rootStore.project.workflowIsActive('555')).to.be.true()
+        expect(projectPreferences.promptAssignment('123')).to.equal(true)
+        expect(rootStore.project.workflowIsActive('123')).to.equal(true)
+        expect(rootStore.project.workflowIsActive('555')).to.equal(true)
       })
     })
   })
@@ -421,7 +419,7 @@ describe('Stores > UserProjectPreferences', function () {
       })
       specify('should be optional', function () {
         const settings = Settings.create({})
-        expect(settings.workflow_id).to.be.undefined()
+        expect(settings.workflow_id).toBeUndefined()
       })
     })
   })

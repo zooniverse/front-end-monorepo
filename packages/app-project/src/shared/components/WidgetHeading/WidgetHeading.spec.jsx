@@ -7,7 +7,7 @@ describe('Component > WidgetHeading', function () {
   it('should render the element correctly', async function () {
     const WidgetHeadingStory = composeStory(WidgetHeading, Meta)
     render(<WidgetHeadingStory />)
-    expect(screen.getByRole('heading', {level: parseInt(WidgetHeadingMock.level, 10)})).to.exist()
-    expect(screen.getByText(WidgetHeadingMock.text)).to.exist()
+    expect(screen.getByRole('heading', {level: parseInt(WidgetHeadingMock.level, 10)})).toBeDefined()
+    expect(screen.getByText(WidgetHeadingMock.text)).toBeDefined()
   })
 })

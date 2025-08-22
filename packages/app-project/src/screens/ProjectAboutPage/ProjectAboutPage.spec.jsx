@@ -88,7 +88,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
           </Provider>
         </RouterContext.Provider>
       )
-      expect(output).to.be.ok()
+      expect(output).toBeTruthy()
     })
 
     it('should pass correct data to ProjectAboutPage depending on pageType', function () {
@@ -102,9 +102,9 @@ describe('Component > ProjectAboutPage & Connector', function () {
         </RouterContext.Provider>
       )
       const content = screen.getByText(mockStore.project.about_pages[0].strings.content)
-      expect(content).to.exist()
+      expect(content).toBeDefined()
       const heading = screen.getByRole('heading', { name: 'About.PageHeading.title.research' })
-      expect(heading).to.exist()
+      expect(heading).toBeDefined()
     })
 
     it('should pass default content if a page doesnt exist yet', function () {
@@ -118,8 +118,8 @@ describe('Component > ProjectAboutPage & Connector', function () {
         </RouterContext.Provider>
       )
       const heading = screen.getByRole('heading', { name: 'About.PageHeading.title.team' })
-      expect(heading).to.exist()
-      expect(screen.getByText('No content yet.')).to.exist()
+      expect(heading).toBeDefined()
+      expect(screen.getByText('No content yet.')).toBeDefined()
     })
 
     it('should pass a navLinks array for pages with content', async function () {
@@ -134,7 +134,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
       )
       // AboutDropdown exists because default screen size is smaller than mobile breakpoint
       const dropdown = screen.getByRole('button', { name: 'About.SidebarHeading' })
-      expect(dropdown).to.exist()
+      expect(dropdown).toBeDefined()
       fireEvent.click(dropdown)
 
 			await waitFor(() => {
@@ -184,7 +184,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
           </RouterContext.Provider>
         )
         const teamList = screen.getAllByRole('list', { name: 'List of team members' })
-        expect(teamList[0]).to.exist()
+        expect(teamList[0]).toBeDefined()
         const teamMembers = within(teamList[0]).getAllByText('Mock Name')
         expect(teamMembers).to.have.lengthOf(2)
       })

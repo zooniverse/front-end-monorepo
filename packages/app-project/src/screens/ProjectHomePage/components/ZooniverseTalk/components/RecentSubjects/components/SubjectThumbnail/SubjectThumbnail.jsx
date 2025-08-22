@@ -1,6 +1,6 @@
 import { Anchor, Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
-import PropTypes from 'prop-types'
+import { number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Media, SpacedText } from '@zooniverse/react-components'
 
@@ -61,12 +61,12 @@ function SubjectThumbnail({ height, href, width, subject }) {
 }
 
 SubjectThumbnail.propTypes = {
-  height: PropTypes.number.isRequired,
-  href: PropTypes.string.isRequired,
-  subject: PropTypes.shape({
-    id: PropTypes.string
+  height: number.isRequired,
+  href: string.isRequired,
+  subject: shape({
+    id: string
   }).isRequired,
-  width: PropTypes.number.isRequired
+  width: number.isRequired
 }
 
 export default SubjectThumbnail

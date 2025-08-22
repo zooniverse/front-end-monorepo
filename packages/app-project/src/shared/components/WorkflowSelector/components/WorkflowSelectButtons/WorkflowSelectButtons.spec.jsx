@@ -68,7 +68,7 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
             <WorkflowSelectButtons assignedWorkflowID='2' workflowAssignmentEnabled workflows={workflows} />
           </RouterContext.Provider>
         )
-        expect(getByText('workflow 3')).to.exist()
+        expect(getByText('workflow 3')).toBeDefined()
       })
     })
 
@@ -79,7 +79,7 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
             <WorkflowSelectButtons assignedWorkflowID='1' workflowAssignmentEnabled workflows={workflows} />
           </RouterContext.Provider>
         )
-        expect(getByRole('link', { href: '/projects/undefined/undefined/classify/workflow/1' })).to.exist()
+        expect(getByRole('link', { href: '/projects/undefined/undefined/classify/workflow/1' })).toBeDefined()
         expect(getAllByRole('link')).to.have.lengthOf(1)
 
       })
@@ -90,8 +90,8 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
             <WorkflowSelectButtons assignedWorkflowID='1' workflowAssignmentEnabled workflows={workflows} />
           </RouterContext.Provider>
         )
-        expect(getByText('workflow 2')).to.exist()
-        expect(getByText('workflow 3')).to.exist()
+        expect(getByText('workflow 2')).toBeDefined()
+        expect(getByText('workflow 3')).toBeDefined()
       })
     })
   })

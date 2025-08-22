@@ -8,6 +8,6 @@ describe('Component > AboutNavLink', function () {
   it('should render the component', function () {
     const { getByRole } = render(<Default />)
     const link = getByRole('link')
-    expect(link).exists()
+    expect(link).toBeDefined()
   })
 })

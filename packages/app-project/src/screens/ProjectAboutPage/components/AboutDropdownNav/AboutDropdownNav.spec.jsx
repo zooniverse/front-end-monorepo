@@ -11,8 +11,8 @@ describe('Component > AboutDropdownNav', function () {
 		await waitFor(() => {
 			const links = screen.getAllByRole('link')
 			expect(links).to.have.lengthOf(4)
-			expect(screen.getByText('About.PageHeading.title.education')).exists()
-			expect(screen.getByText('About.PageHeading.title.faq')).exists()
+			expect(screen.getByText('About.PageHeading.title.education')).toBeDefined()
+			expect(screen.getByText('About.PageHeading.title.faq')).toBeDefined()
 		});
   })
 })

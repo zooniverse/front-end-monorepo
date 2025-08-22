@@ -40,11 +40,11 @@ describe('Components > Subject Picker', function () {
   })
 
   it('should show the subject set name', function () {
-    expect(displayName).to.exist()
+    expect(displayName).toBeDefined()
   })
 
   it('should have column headings, including indexed subject fields', function () {
-    expect(columnHeadings).to.exist()
+    expect(columnHeadings).toBeDefined()
   })
 
   it('should have a row for each subject', function () {

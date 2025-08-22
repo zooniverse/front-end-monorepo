@@ -19,19 +19,19 @@ describe('Component > ProjectStatisticsContainer', function () {
   })
 
   it('should render a volunteers stat', async function () {
-    expect(screen.getByText('ProjectStatistics.volunteers')).to.be.ok()
+    expect(screen.getByText('ProjectStatistics.volunteers')).toBeDefined()
   })
 
   it('should render a classifications stat', function () {
-    expect(screen.getByText('ProjectStatistics.classifications')).to.be.ok()
+    expect(screen.getByText('ProjectStatistics.classifications')).toBeDefined()
   })
 
   it('should render a subjects stat', function () {
-    expect(screen.getByText('ProjectStatistics.subjects')).to.be.ok()
+    expect(screen.getByText('ProjectStatistics.subjects')).toBeDefined()
   })
 
   it('should render a completed subjects stat', function () {
-    expect(screen.getByText('ProjectStatistics.completedSubjects')).to.be.ok()
+    expect(screen.getByText('ProjectStatistics.completedSubjects')).toBeDefined()
   })
 
   it('should render the percent completed', async function () {

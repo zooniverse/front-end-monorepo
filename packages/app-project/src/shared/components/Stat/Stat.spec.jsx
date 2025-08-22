@@ -14,6 +14,6 @@ describe('Component > Stat', function () {
   })
 
   it('should render the Text Label', function () {
-    expect(screen.getByText(DefaultMock.label)).to.exist()
+    expect(screen.getByText(DefaultMock.label)).toBeDefined()
   })
 })

@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
 import { collections } from '@zooniverse/panoptes-js'
-import { expect } from 'chai'
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
@@ -13,7 +12,7 @@ describe('stores > Collections', function () {
   let collectionsStore = rootStore.collections
 
   it('should exist', function () {
-    expect(rootStore.user.collections).to.be.ok()
+    expect(rootStore.user.collections).toBeDefined()
   })
 
   describe('searchCollections', function () {
@@ -180,7 +179,7 @@ describe('stores > Collections', function () {
         expect(collectionsStore.loadingState).to.equal(asyncStates.initialized)
         const favourites = await collectionsStore.fetchFavourites()
         expect(collectionsStore.loadingState).to.equal(asyncStates.success)
-        expect(favourites).to.be.undefined()
+        expect(favourites).toBeUndefined()
       })
     })
   })
@@ -281,7 +280,7 @@ describe('stores > Collections', function () {
       })
 
       it('should create a new favourites collection and add subjects to it', async function () {
-        expect(collectionsStore.favourites).to.be.null()
+        expect(collectionsStore.favourites).to.equal(null)
         await collectionsStore.addFavourites(['1', '2'])
         const favourites = getSnapshot(collectionsStore.favourites)
         const params = {
@@ -292,7 +291,7 @@ describe('stores > Collections', function () {
         expect(rootStore.client.collections.addSubjects).to.have.been.calledOnceWith(params)
         expect(favourites.links.subjects).to.eql(['1', '2'])
       })
-    }) 
+    })
   })
 
   describe('remove favourites', function () {

@@ -18,7 +18,7 @@ describe('helpers > withEnvironments', function () {
     it('should render the wrapped component', function () {
       const ExperimentalFeature = withEnvironments(TestComponent, 'development,staging')
       render(<ExperimentalFeature text='Hello World!' />)
-      expect(screen.getByRole('button', { name: 'Hello World!'})).to.exist()
+      expect(screen.getByRole('button', { name: 'Hello World!'})).toBeDefined()
     })
   })
 
@@ -26,7 +26,7 @@ describe('helpers > withEnvironments', function () {
     it('should not render the wrapped component', function () {
       const ExperimentalFeature = withEnvironments(TestComponent, 'production')
       render(<ExperimentalFeature text='Hello World!' />)
-      expect(screen.queryByRole('button', { name: 'Hello World!'})).to.be.null()
+      expect(screen.queryByRole('button', { name: 'Hello World!'})).to.equal(null)
     })
   })
 })

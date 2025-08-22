@@ -17,15 +17,15 @@ describe('Component > SubjectPreview', function () {
       })
 
       it('should have a talk link', function () {
-        expect(screen.getByText('SubjectPreview.TalkLink.label')).to.exist()
+        expect(screen.getByText('SubjectPreview.TalkLink.label')).toBeDefined()
       })
 
       it('should have a favorites button', function () {
-        expect(screen.getByText('Add to favorites')).to.exist()
+        expect(screen.getByText('Add to favorites')).toBeDefined()
       })
 
       it('should be able to add to favorites', function () {
-        expect(screen.getByRole('checkbox', { checked: false })).to.exist()
+        expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
       })
 
       it('should not have favorites disabled', function () {
@@ -33,7 +33,7 @@ describe('Component > SubjectPreview', function () {
       })
 
       it('should have a collections button', function () {
-        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).toBeDefined()
       })
 
       it('should have collections enabled', function () {
@@ -53,15 +53,15 @@ describe('Component > SubjectPreview', function () {
       })
 
       it('should have a talk link', function () {
-        expect(screen.getByText('SubjectPreview.TalkLink.label')).to.exist()
+        expect(screen.getByText('SubjectPreview.TalkLink.label')).toBeDefined()
       })
 
       it('should have a favorites button', function () {
-        expect(screen.getByText('Add to favorites')).to.exist()
+        expect(screen.getByText('Add to favorites')).toBeDefined()
       })
 
       it('should be able to add to favorites', function () {
-        expect(screen.getByRole('checkbox', { checked: false })).to.exist()
+        expect(screen.getByRole('checkbox', { checked: false })).toBeDefined()
       })
 
       it('should have favorites disabled', function () {
@@ -69,7 +69,7 @@ describe('Component > SubjectPreview', function () {
       })
 
       it('should have a collections button', function () {
-        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).to.exist()
+        expect(screen.getByText('SubjectPreview.CollectionsButton.add')).toBeDefined()
       })
 
       it('should have collections disabled', function () {

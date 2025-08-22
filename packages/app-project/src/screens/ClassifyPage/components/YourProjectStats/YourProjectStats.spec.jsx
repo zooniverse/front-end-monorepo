@@ -13,11 +13,11 @@ describe('Component > YourProjectStats', function() {
     })
 
     it('should show the RequireUser message', function() {
-      expect(screen.getByText('RequireUser.text')).to.be.ok()
+      expect(screen.getByText('RequireUser.text')).toBeDefined()
     })
 
     it('should not have a link to user /stats page', function() {
-      expect(screen.queryByText('Classify.YourStats.link')).to.be.null()
+      expect(screen.queryByText('Classify.YourStats.link')).to.equal(null)
     })
   })
 
@@ -27,12 +27,12 @@ describe('Component > YourProjectStats', function() {
     })
 
     it('should have a link to the user /stats page', function() {
-      expect(screen.getByText('Classify.YourStats.link')).to.be.ok()
+      expect(screen.getByText('Classify.YourStats.link')).toBeDefined()
     })
 
     it('should have a link with href to user /stats page filtered to the current project', function() {
       const link = document.querySelector(`a[href='https://www.zooniverse.org/users/zootester1/stats?project_id=1234']`)
-      expect(link).to.be.ok()
+      expect(link).toBeDefined()
     })
 
     it('should show user stats data', function() {
@@ -50,11 +50,11 @@ describe('Component > YourProjectStats', function() {
     })
 
     it('should display the error message', function() {
-      expect(screen.getByText('There was an error fetching your stats')).to.be.ok()
+      expect(screen.getByText('There was an error fetching your stats')).toBeDefined()
     })
 
     it('should not have a link to user /stats page', function() {
-      expect(screen.queryByText('Classify.YourStats.link')).to.be.null()
+      expect(screen.queryByText('Classify.YourStats.link')).to.equal(null)
     })
   })
 })

@@ -35,11 +35,11 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
     })
 
     it('should show the menu button', function () {
-      expect(dropdownButton).to.exist()
+      expect(dropdownButton).toBeDefined()
     })
 
     it('should open the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should display the default nav links', function () {
@@ -64,11 +64,11 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
     })
 
     it('should show the menu button', function () {
-      expect(dropdownButton).to.exist()
+      expect(dropdownButton).toBeDefined()
     })
 
     it('should open the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should include recents in the project navigation', function () {
@@ -91,11 +91,11 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
     })
 
     it('should show the menu button', function () {
-      expect(dropdownButton).to.exist()
+      expect(dropdownButton).toBeDefined()
     })
 
     it('should open the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should show the admin page link', function () {
@@ -118,11 +118,11 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
     })
 
     it('should show the menu button', function () {
-      expect(dropdownButton).to.exist()
+      expect(dropdownButton).toBeDefined()
     })
 
     it('should open the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should show the organization link', function () {

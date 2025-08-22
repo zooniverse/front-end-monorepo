@@ -9,10 +9,10 @@ describe('Component > TalkLink', function () {
   })
 
   it('should display a Talk icon', function () {
-    expect(screen.getByTestId('talk-icon', { hidden: true })).to.exist()
+    expect(screen.getByTestId('talk-icon', { hidden: true })).toBeDefined()
   })
 
   it('should link to the subject Talk page', function () {
-    expect(screen.getByText('SubjectPreview.TalkLink.label')).to.exist()
+    expect(screen.getByText('SubjectPreview.TalkLink.label')).toBeDefined()
   })
 })

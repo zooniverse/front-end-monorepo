@@ -24,7 +24,7 @@ describe('Component > SelectCollection', function () {
   })
 
   it('should contain an Add button', function () {
-    expect(screen.getByText('CollectionsModal.SelectCollection.addButton')).exists()
+    expect(screen.getByText('CollectionsModal.SelectCollection.addButton')).toBeDefined()
   })
 
   it('should call the onSearch callback', async function () {

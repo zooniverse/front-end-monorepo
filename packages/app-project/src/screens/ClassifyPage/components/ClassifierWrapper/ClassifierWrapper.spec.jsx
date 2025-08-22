@@ -1,157 +1,159 @@
-import asyncStates from '@zooniverse/async-states'
-import Classifier from '@zooniverse/classifier'
-import zooTheme from '@zooniverse/grommet-theme'
-import { mount } from 'enzyme'
-import { Grommet } from 'grommet'
-import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
-import sinon from 'sinon'
-import { Loader } from '@zooniverse/react-components'
+// Old enzyme tests are here for reference, but we no longer use enzyme in this app (Aug '25)
+describe.skip('Component > ClassifierWrapper', function () {})
 
-import ClassifierWrapper from './ClassifierWrapper'
+// import asyncStates from '@zooniverse/async-states'
+// import Classifier from '@zooniverse/classifier'
+// import zooTheme from '@zooniverse/grommet-theme'
+// import { Grommet } from 'grommet'
+// import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+// import sinon from 'sinon'
+// import { Loader } from '@zooniverse/react-components'
 
-describe('Component > ClassifierWrapper', function () {
-  const router = {
-    asPath: '',
-    locale: 'en',
-    query: {
-      owner: 'zootester1',
-      project: 'my-project'
-    },
-    prefetch: () => Promise.resolve()
-  }
+// import ClassifierWrapper from './ClassifierWrapper'
 
-  function TestWrapper({ children }) {
-    return(
-      <RouterContext.Provider value={router}>
-        <Grommet theme={zooTheme}>
-          {children}
-        </Grommet>
-      </RouterContext.Provider>
-    )
-  }
-  it('should render without crashing', function () {
-    const project = {}
-    const user = {}
-    const wrapper = mount(
-      <ClassifierWrapper
-        project={project}
-        router={router}
-        user={user}
-      />,
-      { wrappingComponent: TestWrapper }
-    )
-    expect(wrapper).to.be.ok()
-  })
+// describe('Component > ClassifierWrapper', function () {
+//   const router = {
+//     asPath: '',
+//     locale: 'en',
+//     query: {
+//       owner: 'zootester1',
+//       project: 'my-project'
+//     },
+//     prefetch: () => Promise.resolve()
+//   }
 
-  describe('without a project, user, and user project preferences loaded', function () {
-    it('should render a Loader component', function () {
-      const wrapper = mount(
-        <ClassifierWrapper
-          appLoadingState={asyncStates.loading}
-          project={{}}
-          router={router}
-          user={{}}
-        />,
-        { wrappingComponent: TestWrapper }
-      )
+//   function TestWrapper({ children }) {
+//     return(
+//       <RouterContext.Provider value={router}>
+//         <Grommet theme={zooTheme}>
+//           {children}
+//         </Grommet>
+//       </RouterContext.Provider>
+//     )
+//   }
+//   it('should render without crashing', function () {
+//     const project = {}
+//     const user = {}
+//     const wrapper = mount(
+//       <ClassifierWrapper
+//         project={project}
+//         router={router}
+//         user={user}
+//       />,
+//       { wrappingComponent: TestWrapper }
+//     )
+//     expect(wrapper).to.be.ok()
+//   })
 
-      expect(wrapper.find(Loader)).to.have.lengthOf(1)
-    })
-  })
+//   describe('without a project, user, and user project preferences loaded', function () {
+//     it('should render a Loader component', function () {
+//       const wrapper = mount(
+//         <ClassifierWrapper
+//           appLoadingState={asyncStates.loading}
+//           project={{}}
+//           router={router}
+//           user={{}}
+//         />,
+//         { wrappingComponent: TestWrapper }
+//       )
 
-  describe('with a project, user, user project preferences loaded', function () {
-    let recents
-    let collections
-    let personalization
-    let wrapper
+//       expect(wrapper.find(Loader)).to.have.lengthOf(1)
+//     })
+//   })
 
-    before(function () {
-      const project = {
-        links: {
-          active_workflows: []
-        },
-        loadingState: asyncStates.success
-      }
-      recents = {
-        add: sinon.stub()
-      }
-      collections = {
-        addFavourites: sinon.stub(),
-        removeFavourites: sinon.stub()
-      }
+//   describe('with a project, user, user project preferences loaded', function () {
+//     let recents
+//     let collections
+//     let personalization
+//     let wrapper
 
-      personalization = {
-        incrementSessionCount: sinon.stub()
-      }
+//     before(function () {
+//       const project = {
+//         links: {
+//           active_workflows: []
+//         },
+//         loadingState: asyncStates.success
+//       }
+//       recents = {
+//         add: sinon.stub()
+//       }
+//       collections = {
+//         addFavourites: sinon.stub(),
+//         removeFavourites: sinon.stub()
+//       }
 
-      const user = {
-        loadingState: asyncStates.success
-      }
-      wrapper = mount(
-        <ClassifierWrapper
-          appLoadingState={asyncStates.success}
-          collections={collections}
-          personalization={personalization}
-          project={project}
-          recents={recents}
-          router={router}
-          user={user}
-        />,
-        { wrappingComponent: TestWrapper }
-      ).find(Classifier)
-    })
+//       personalization = {
+//         incrementSessionCount: sinon.stub()
+//       }
 
-    it('should render the classifier', function () {
-      expect(wrapper).to.have.lengthOf(1)
-    })
+//       const user = {
+//         loadingState: asyncStates.success
+//       }
+//       wrapper = mount(
+//         <ClassifierWrapper
+//           appLoadingState={asyncStates.success}
+//           collections={collections}
+//           personalization={personalization}
+//           project={project}
+//           recents={recents}
+//           router={router}
+//           user={user}
+//         />,
+//         { wrappingComponent: TestWrapper }
+//       ).find(Classifier)
+//     })
 
-    describe('on classification complete', function () {
-      describe('with user signed in and any subject', function () {
-        before(function () {
-          const subject = {
-            id: '1',
-            already_seen: false,
-            favorite: false,
-            retired: false,
-            locations: [
-              { 'image/jpeg': 'thing.jpg' }
-            ]
-          }
-          wrapper.props().onCompleteClassification({}, subject)
-        })
+//     it('should render the classifier', function () {
+//       expect(wrapper).to.have.lengthOf(1)
+//     })
 
-        after(function () {
-          recents.add.resetHistory()
-          personalization.incrementSessionCount.resetHistory()
-        })
+//     describe('on classification complete', function () {
+//       describe('with user signed in and any subject', function () {
+//         before(function () {
+//           const subject = {
+//             id: '1',
+//             already_seen: false,
+//             favorite: false,
+//             retired: false,
+//             locations: [
+//               { 'image/jpeg': 'thing.jpg' }
+//             ]
+//           }
+//           wrapper.props().onCompleteClassification({}, subject)
+//         })
 
-        it('should increment sessoin count', function () {
-          expect(personalization.incrementSessionCount).to.have.been.calledOnce()
-        })
+//         after(function () {
+//           recents.add.resetHistory()
+//           personalization.incrementSessionCount.resetHistory()
+//         })
 
-        it('should add to recents', function () {
-          const recent = {
-            favorite: false,
-            subjectId: '1',
-            locations: [
-              { 'image/jpeg': 'thing.jpg' }
-            ]
-          }
-          expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
-        })
-      })
-    })
+//         it('should increment sessoin count', function () {
+//           expect(personalization.incrementSessionCount).to.have.been.calledOnce()
+//         })
 
-    describe('on toggle favourite', function () {
-      it('should add a subject to favourites', function () {
-        wrapper.props().onToggleFavourite('3', true)
-        expect(collections.addFavourites.withArgs(['3'])).to.have.been.calledOnce()
-      })
+//         it('should add to recents', function () {
+//           const recent = {
+//             favorite: false,
+//             subjectId: '1',
+//             locations: [
+//               { 'image/jpeg': 'thing.jpg' }
+//             ]
+//           }
+//           expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+//         })
+//       })
+//     })
 
-      it('should remove a subject from favourites', function () {
-        wrapper.props().onToggleFavourite('3', false)
-        expect(collections.removeFavourites.withArgs(['3'])).to.have.been.calledOnce()
-      })
-    })
-  })
-})
+//     describe('on toggle favourite', function () {
+//       it('should add a subject to favourites', function () {
+//         wrapper.props().onToggleFavourite('3', true)
+//         expect(collections.addFavourites.withArgs(['3'])).to.have.been.calledOnce()
+//       })
+
+//       it('should remove a subject from favourites', function () {
+//         wrapper.props().onToggleFavourite('3', false)
+//         expect(collections.removeFavourites.withArgs(['3'])).to.have.been.calledOnce()
+//       })
+//     })
+//   })
+// })

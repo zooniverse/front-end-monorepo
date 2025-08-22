@@ -75,7 +75,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
         )
-      ).to.be.null()
+      ).to.equal(null)
     })
 
     it('should be visible with sessionCount > 5', function () {
@@ -86,7 +86,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
       )
       expect(
         screen.getByText('Announcements.AuthenticationInvitation.announcement')
-      ).to.be.ok()
+      ).toBeDefined()
     })
   })
 
@@ -101,7 +101,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
         )
-      ).to.be.null()
+      ).to.equal(null)
     })
   })
 
@@ -116,7 +116,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
         )
-      ).to.be.null()
+      ).to.equal(null)
     })
   })
 })

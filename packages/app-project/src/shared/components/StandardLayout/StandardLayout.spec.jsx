@@ -79,15 +79,15 @@ describe('Component > StandardLayout', function () {
   })
 
   it('should show the Zooniverse header', function () {
-    expect(zooHeader).to.be.ok()
+    expect(zooHeader).toBeDefined()
   })
 
   it('should show the Zooniverse footer', function () {
-    expect(zooFooter).to.be.ok()
+    expect(zooFooter).toBeDefined()
   })
 
   it('should not show the admin toggle', function () {
-    expect(adminToggle).to.be.null()
+    expect(adminToggle).to.equal(null)
   })
 
   describe('in beta', function () {
@@ -113,7 +113,7 @@ describe('Component > StandardLayout', function () {
     })
 
     it('should have a teal border', function () {
-      expect(projectPage).to.be.ok()
+      expect(projectPage).toBeDefined()
       const { border } = window.getComputedStyle(projectPage)
       expect(border).to.equal('4px solid rgb(0, 151, 157)') // jsdom returns rbg even though the component uses hex
     })
@@ -142,7 +142,7 @@ describe('Component > StandardLayout', function () {
     })
 
     it('should not have a teal border', function () {
-      expect(projectPage).to.be.ok()
+      expect(projectPage).toBeDefined()
       const { border } = window.getComputedStyle(projectPage)
       expect(border).to.be.empty()
     })
@@ -176,8 +176,8 @@ describe('Component > StandardLayout', function () {
     })
 
     it('should show the admin toggle', function () {
-      expect(adminToggle).to.be.ok()
-      expect(adminToggle.checked).to.be.false()
+      expect(adminToggle).toBeDefined()
+      expect(adminToggle.checked).to.equal(false)
     })
   })
 
@@ -215,14 +215,14 @@ describe('Component > StandardLayout', function () {
     })
 
     it('should have a striped border', function () {
-      expect(projectPage).to.be.ok()
+      expect(projectPage).toBeDefined()
       const borderImage = window.getComputedStyle(projectPage)['border-image']
       expect(borderImage).to.equal(adminBorderImage)
     })
 
     it('should show the admin toggle in the footer', function () {
-      expect(adminToggle).to.be.ok()
-      expect(adminToggle.checked).to.be.true()
+      expect(adminToggle).toBeDefined()
+      expect(adminToggle.checked).to.equal(true)
     })
   })
 
@@ -249,7 +249,7 @@ describe('Component > StandardLayout', function () {
     })
 
     it('should not render the header components', function () {
-      expect(zooHeader).to.be.null()
+      expect(zooHeader).to.equal(null)
     })
   })
 })

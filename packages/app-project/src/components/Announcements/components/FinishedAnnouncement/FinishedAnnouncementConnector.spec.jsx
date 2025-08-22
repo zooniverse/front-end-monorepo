@@ -8,7 +8,7 @@ describe('Component > FinishedAnnouncementConnector', function () {
   it('should show a results link if results page exists', async function () {
     render(<DefaultStory />)
     const link = await screen.findByRole('link', { name: 'Announcements.FinishedAnnouncement.seeResults' })
-    expect(link).exists()
+    expect(link).toBeDefined()
     expect(link?.getAttribute('href')).to.equal('/projects/zookeeper/galaxy-zoo/about/results')
   })
 })

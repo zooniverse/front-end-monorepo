@@ -45,27 +45,27 @@ describe('Component > ProjectHeader', function () {
     })
 
     it('should display the project title', function () {
-      expect(projectTitle).to.be.ok()
+      expect(projectTitle).toBeDefined()
     })
 
     it('should show the project avatar', function () {
-      expect(projectAvatar).to.exist()
+      expect(projectAvatar).toBeDefined()
     })
 
     it('should show the project background', function () {
-      expect(projectBackground).to.exist()
+      expect(projectBackground).toBeDefined()
     })
 
     it('should show the project navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should not show the language menu button', function () {
-      expect(languageButton).to.be.null()
+      expect(languageButton).to.equal(null)
     })
 
     it('should not show the organization link', function () {
-      expect(organizationLink).to.be.null()
+      expect(organizationLink).to.equal(null)
     })
   })
 
@@ -109,11 +109,11 @@ describe('Component > ProjectHeader', function () {
     })
 
     it('should show the Under Review label', function () {
-      expect(underReviewLabel).to.exist()
+      expect(underReviewLabel).toBeDefined()
     })
 
     it('should not show the approved badge', function () {
-      expect(approvedIcon).to.be.null()
+      expect(approvedIcon).to.equal(null)
     })
   })
 
@@ -127,11 +127,11 @@ describe('Component > ProjectHeader', function () {
     })
 
     it('should not show the Under Review label', function () {
-      expect(underReviewLabel).to.be.null()
+      expect(underReviewLabel).to.equal(null)
     })
 
     it('should show the approved badge', function () {
-      expect(approvedIcon).to.exist()
+      expect(approvedIcon).toBeDefined()
     })
   })
 
@@ -168,7 +168,7 @@ describe('Component > ProjectHeader', function () {
     })
 
     it('should show the language menu button', async function () {
-      expect(languageButton).to.exist()
+      expect(languageButton).toBeDefined()
     })
   })
 
@@ -181,7 +181,7 @@ describe('Component > ProjectHeader', function () {
     })
 
     it('should show the organization link', async function () {
-      expect(organizationLink).to.exist()
+      expect(organizationLink).toBeDefined()
     })
   })
 })

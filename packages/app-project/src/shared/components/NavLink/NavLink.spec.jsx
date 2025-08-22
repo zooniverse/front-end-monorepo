@@ -15,7 +15,7 @@ describe('Component > NavLink', function () {
     })
 
     it('should have the correct text', function () {
-      expect(screen.getByText(NavLinkMock.text)).to.be.ok()
+      expect(screen.getByText(NavLinkMock.text)).toBeDefined()
     })
   })
 
@@ -30,7 +30,7 @@ describe('Component > NavLink', function () {
     })
 
     it('should have the correct text', function () {
-      expect(screen.getByText(NavLinkMock.text)).to.be.ok()
+      expect(screen.getByText(NavLinkMock.text)).toBeDefined()
     })
   })
 })

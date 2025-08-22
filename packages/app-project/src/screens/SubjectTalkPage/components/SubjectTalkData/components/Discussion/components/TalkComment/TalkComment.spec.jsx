@@ -11,13 +11,13 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
   it('should render the comment body', function () {
     render(<WithoutAvatarStory />)
     const commentBody = screen.getByText('This is a test comment without an avatar.')
-    expect(commentBody).to.exist()
+    expect(commentBody).toBeDefined()
   })
 
   it('should render an avatar with alt text', function () {
     render(<DefaultStory />)
     const avatar = screen.getByRole('img', { name: 'Talk.avatarAlt' })
-    expect(avatar).to.exist()
+    expect(avatar).toBeDefined()
   })
 
   describe('on hover', function () {
@@ -29,7 +29,7 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
       await user.hover(commentBody)
 
       const commentLink = screen.getByRole('link', { name: 'Talk.goToComment'})
-      expect(commentLink).to.exist()
+      expect(commentLink).toBeDefined()
     })
   })
 })

@@ -31,7 +31,7 @@ describe('Component > ProjectHeader > Nav', function () {
     })
 
     it('should show the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should display the default nav links', function () {
@@ -53,7 +53,7 @@ describe('Component > ProjectHeader > Nav', function () {
     })
 
     it('should show the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should include recents in the project navigation', function () {
@@ -73,7 +73,7 @@ describe('Component > ProjectHeader > Nav', function () {
     })
 
     it('should show the navigation menu', function () {
-      expect(navMenu).to.exist()
+      expect(navMenu).toBeDefined()
     })
 
     it('should show the admin page link', function () {

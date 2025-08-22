@@ -18,7 +18,7 @@ describe('Component > AuthenticationInvitationContainer', function () {
       render(<AuthenticationInvitationContainer isVisible />)
       expect(
         screen.getByText('Announcements.AuthenticationInvitation.announcement')
-      ).to.be.ok()
+      ).toBeDefined()
     })
   })
 
@@ -29,7 +29,7 @@ describe('Component > AuthenticationInvitationContainer', function () {
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
         )
-      ).to.be.null()
+      ).to.equal(null)
     })
   })
 
@@ -47,7 +47,7 @@ describe('Component > AuthenticationInvitationContainer', function () {
     it('should not render an announcement banner', async function () {
       expect(
         screen.getByText('Announcements.AuthenticationInvitation.announcement')
-      ).to.be.ok()
+      ).toBeDefined()
 
       const button = screen.getByLabelText('Close')
       await user.click(button)
@@ -56,7 +56,7 @@ describe('Component > AuthenticationInvitationContainer', function () {
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
         )
-      ).to.be.null()
+      ).to.equal(null)
     })
   })
 })

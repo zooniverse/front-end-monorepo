@@ -1,110 +1,112 @@
-import { mount } from 'enzyme'
-import { Button, CheckBox, Grommet, TextInput } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
-import sinon from 'sinon'
+// Old enzyme tests are here for reference, but we no longer use enzyme in this app (Aug '25)
+describe.skip('CollectionsModal > Component > CreateCollection', function () {})
 
-import CreateCollection from './CreateCollection'
+// import { Button, CheckBox, Grommet, TextInput } from 'grommet'
+// import zooTheme from '@zooniverse/grommet-theme'
+// import sinon from 'sinon'
 
-describe('CollectionsModal > Component > CreateCollection', function () {
-  let wrapper
-  const collection = { display_name: 'Test One', private: true }
-  const onChange = sinon.stub()
-  const onSubmit = sinon.stub()
+// import CreateCollection from './CreateCollection'
 
-  before(function () {
-    // use mount because we're testing a component that uses refs
-    wrapper = mount(
-      <CreateCollection
-        collection={collection}
-        onChange={onChange}
-        onSubmit={onSubmit}
-      />,
-      { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } }
-    )
-  })
+// describe('CollectionsModal > Component > CreateCollection', function () {
+//   let wrapper
+//   const collection = { display_name: 'Test One', private: true }
+//   const onChange = sinon.stub()
+//   const onSubmit = sinon.stub()
 
-  afterEach(function () {
-    onChange.resetHistory()
-  })
+//   before(function () {
+//     // use mount because we're testing a component that uses refs
+//     wrapper = mount(
+//       <CreateCollection
+//         collection={collection}
+//         onChange={onChange}
+//         onSubmit={onSubmit}
+//       />,
+//       { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } }
+//     )
+//   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+//   afterEach(function () {
+//     onChange.resetHistory()
+//   })
 
-  it('should call the onSubmit callback on submit', function () {
-    wrapper.find('form').simulate('submit')
-    expect(onSubmit).to.have.been.calledOnce()
-  })
+//   it('should render without crashing', function () {
+//     expect(wrapper).to.be.ok()
+//   })
 
-  describe('collection name input', function () {
-    let textInput
+//   it('should call the onSubmit callback on submit', function () {
+//     wrapper.find('form').simulate('submit')
+//     expect(onSubmit).to.have.been.calledOnce()
+//   })
 
-    before(function () {
-      textInput = wrapper.find(TextInput)
-    })
+//   describe('collection name input', function () {
+//     let textInput
 
-    it('should exist', function () {
-      expect(textInput).to.have.lengthOf(1)
-    })
+//     before(function () {
+//       textInput = wrapper.find(TextInput)
+//     })
 
-    it('should display the collection name', function () {
-      expect(textInput.prop('value')).to.equal(collection.display_name)
-    })
+//     it('should exist', function () {
+//       expect(textInput).to.have.lengthOf(1)
+//     })
 
-    it('should call the onChange callback', function () {
-      const changeSpy = onChange.withArgs({
-        display_name: 'Test One',
-        private: true
-      })
-      textInput.props().onChange()
-      expect(changeSpy).to.have.been.calledOnce()
-    })
-  })
+//     it('should display the collection name', function () {
+//       expect(textInput.prop('value')).to.equal(collection.display_name)
+//     })
 
-  describe('private checkbox', function () {
-    let checkbox
+//     it('should call the onChange callback', function () {
+//       const changeSpy = onChange.withArgs({
+//         display_name: 'Test One',
+//         private: true
+//       })
+//       textInput.props().onChange()
+//       expect(changeSpy).to.have.been.calledOnce()
+//     })
+//   })
 
-    before(function () {
-      checkbox = wrapper.find(CheckBox)
-    })
+//   describe('private checkbox', function () {
+//     let checkbox
 
-    it('should exist', function () {
-      expect(checkbox).to.have.lengthOf(1)
-    })
+//     before(function () {
+//       checkbox = wrapper.find(CheckBox)
+//     })
 
-    it('should show the collection private status', function () {
-      expect(checkbox.prop('checked')).to.equal(collection.private)
-    })
+//     it('should exist', function () {
+//       expect(checkbox).to.have.lengthOf(1)
+//     })
 
-    it('should call the onChange callback', function () {
-      const changeSpy = onChange.withArgs({
-        display_name: 'Test One',
-        private: true
-      })
-      checkbox.props().onChange()
-      expect(changeSpy).to.have.been.calledOnce()
-    })
-  })
+//     it('should show the collection private status', function () {
+//       expect(checkbox.prop('checked')).to.equal(collection.private)
+//     })
 
-  describe('Add button', function () {
-    let button
+//     it('should call the onChange callback', function () {
+//       const changeSpy = onChange.withArgs({
+//         display_name: 'Test One',
+//         private: true
+//       })
+//       checkbox.props().onChange()
+//       expect(changeSpy).to.have.been.calledOnce()
+//     })
+//   })
 
-    before(function () {
-      button = wrapper.find(Button)
-    })
+//   describe('Add button', function () {
+//     let button
 
-    it('should exist', function () {
-      expect(button).to.have.lengthOf(1)
-    })
+//     before(function () {
+//       button = wrapper.find(Button)
+//     })
 
-    it('should submit the form', function () {
-      expect(button.props().type).to.equal('submit')
-    })
+//     it('should exist', function () {
+//       expect(button).to.have.lengthOf(1)
+//     })
 
-    it('can be disabled', function () {
-      wrapper.setProps({ disabled: true })
-      button = wrapper.find(Button)
-      expect(button.prop('disabled')).to.be.true()
-    })
-  })
-})
+//     it('should submit the form', function () {
+//       expect(button.props().type).to.equal('submit')
+//     })
+
+//     it('can be disabled', function () {
+//       wrapper.setProps({ disabled: true })
+//       button = wrapper.find(Button)
+//       expect(button.prop('disabled')).to.be.true()
+//     })
+//   })
+// })

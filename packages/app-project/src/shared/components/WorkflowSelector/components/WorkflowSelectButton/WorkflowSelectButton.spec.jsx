@@ -8,7 +8,6 @@ describe.skip('Component > WorkflowSelector > WorkflowSelectButton', function ()
 
 // import WorkflowSelectButton, { ThemedButton } from './WorkflowSelectButton'
 // import Link from 'next/link'
-// import { expect } from 'chai'
 
 // describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
 //   const mockRouter = {

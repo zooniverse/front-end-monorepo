@@ -10,10 +10,10 @@ describe('Component > AboutProject', function () {
   })
 
   it('should show the project name by translation key', function () {
-    expect(screen.getByText('Home.AboutProject.title')).to.exist()
+    expect(screen.getByText('Home.AboutProject.title')).toBeDefined()
   })
 
   it('should show the project description', function () {
-    expect(screen.getByText(AboutProjectMock.project.introduction)).to.exist()
+    expect(screen.getByText(AboutProjectMock.project.introduction)).toBeDefined()
   })
 })

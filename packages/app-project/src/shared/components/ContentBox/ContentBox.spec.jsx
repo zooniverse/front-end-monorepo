@@ -13,15 +13,15 @@ describe('Component > ContentBox', function () {
     })
 
     it('should render the content', async function () {
-      expect(screen.getByText(ContentBoxMock.contentText)).to.exist()
+      expect(screen.getByText(ContentBoxMock.contentText)).toBeDefined()
     })
 
     it('should not render the title', async function () {
-      expect(screen.queryByText(ContentBoxMock.title)).to.be.null()
+      expect(screen.queryByText(ContentBoxMock.title)).to.equal(null)
     })
 
     it('should not render the link', function () {
-      expect(screen.queryByRole('link')).to.be.null()
+      expect(screen.queryByRole('link')).to.equal(null)
     })
   })
 
@@ -32,15 +32,15 @@ describe('Component > ContentBox', function () {
     })
 
     it('should render the content', async function () {
-      expect(screen.getByText(ContentBoxMock.contentText)).to.exist()
+      expect(screen.getByText(ContentBoxMock.contentText)).toBeDefined()
     })
 
     it('should render the title', async function () {
-      expect(screen.getByText(ContentBoxMock.title)).to.exist()
+      expect(screen.getByText(ContentBoxMock.title)).toBeDefined()
     })
 
     it('should not render the link', function () {
-      expect(screen.queryByRole('link')).to.be.null()
+      expect(screen.queryByRole('link')).to.equal(null)
     })
   })
 
@@ -51,11 +51,11 @@ describe('Component > ContentBox', function () {
     })
 
     it('should render the content', async function () {
-      expect(screen.getByText(ContentBoxMock.contentText)).to.exist()
+      expect(screen.getByText(ContentBoxMock.contentText)).toBeDefined()
     })
 
     it('should render the title', async function () {
-      expect(screen.getByText(ContentBoxMock.title)).to.exist()
+      expect(screen.getByText(ContentBoxMock.title)).toBeDefined()
     })
 
     it('should render the link', function () {

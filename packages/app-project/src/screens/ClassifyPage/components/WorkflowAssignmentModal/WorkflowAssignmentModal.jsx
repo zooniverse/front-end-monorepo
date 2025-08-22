@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { Button, Box, CheckBox } from 'grommet'
 import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
@@ -102,7 +102,7 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
 }
 
 WorkflowAssignmentModal.propTypes = {
-  currentWorkflowID: PropTypes.string
+  currentWorkflowID: string
 }
 
 export default observer(WorkflowAssignmentModal)

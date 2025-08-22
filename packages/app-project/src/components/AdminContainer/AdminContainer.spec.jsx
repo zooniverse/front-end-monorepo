@@ -35,7 +35,7 @@ describe('Components > AdminContainer', function () {
       const wrapper = withStore({ project })
       render(<AdminContainer />, { wrapper })
       const adminToggle = screen.queryByRole('checkbox', { name: 'Admin Mode' })
-      expect(adminToggle).to.be.null()
+      expect(adminToggle).to.equal(null)
     })
   })
 
@@ -48,7 +48,7 @@ describe('Components > AdminContainer', function () {
       const wrapper = withStore({ project, user })
       render(<AdminContainer />, { wrapper })
       const adminToggle = screen.queryByRole('checkbox', { name: 'Admin Mode' })
-      expect(adminToggle).to.be.null()
+      expect(adminToggle).to.equal(null)
     })
   })
 
@@ -62,7 +62,7 @@ describe('Components > AdminContainer', function () {
       const wrapper = withStore({ project, user })
       render(<AdminContainer />, { wrapper })
       const adminToggle = screen.queryByRole('checkbox', { name: 'Admin Mode' })
-      expect(adminToggle).to.be.ok()
+      expect(adminToggle).toBeDefined()
     })
   })
 })
