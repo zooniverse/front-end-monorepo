@@ -14,32 +14,59 @@ import { SingleImageViewerContainer } from '../SingleImageViewer'
 import BarChartViewer from '../BarChartViewer'
 import Controls from './components/Controls'
 
+const DEFAULT_HANDLER = () => false
+
 const VariableStarViewer = forwardRef((props, ref) => {
   const {
-    allowPanZoom,
-    barJSON,
-    highlightedSeries,
-    imageLocation,
-    invertYAxis,
+    allowPanZoom = '',
+    barJSON = {
+      amplitude: {
+        data: [],
+        chartOptions: {}
+      },
+      period: {
+        data: [],
+        chartOptions: {}
+      }
+    },
+    highlightedSeries = [],
+    imageLocation = null,
+    invertYAxis = false,
     loadingState,
     parentHeight,
     parentWidth,
-    periodMultiple,
-    phaseFocusedSeries,
-    phasedJSON,
+    periodMultiple = 1,
+    phaseFocusedSeries = 0,
+    phasedJSON = {
+      data: [],
+      chartOptions: {}
+    },
     phaseLimit,
-    rawJSON: {
-      scatterPlot
+    rawJSON = {
+      data: {
+        scatterPlot: {
+          data: [],
+          chartOptions: {}
+        },
+        barCharts: {}
+      }
     },
     setAllowPanZoom,
-    setOnPan,
-    setOnZoom,
-    setPeriodMultiple,
-    setSeriesPhaseFocus,
-    setSeriesHighlight,
-    setYAxisInversion,
-    theme,
+    setOnPan = () => true,
+    setOnZoom = () => true,
+    setPeriodMultiple = DEFAULT_HANDLER,
+    setSeriesPhaseFocus = DEFAULT_HANDLER,
+    setSeriesHighlight = DEFAULT_HANDLER,
+    setYAxisInversion = DEFAULT_HANDLER,
+    theme = {
+      dark: false,
+      global: {
+        colors: {},
+        font: {}
+      }
+    },
   } = props
+  const scatterPlot = rawJSON?.scatterPlot || rawJSON?.data?.scatterPlot
 
   const { t } = useTranslation('components')
 
@@ -224,52 +251,6 @@ const VariableStarViewer = forwardRef((props, ref) => {
     </Grid>
   )
 })
-
-VariableStarViewer.defaultProps = {
-  allowPanZoom: '',
-  barJSON: {
-    amplitude: {
-      data: [],
-      chartOptions: {}
-    },
-    period: {
-      data: [],
-      chartOptions: {}
-    }
-  },
-  highlightedSeries: [],
-  imageLocation: null,
-  invertYAxis: false,
-  periodMultiple: 1,
-  phaseFocusedSeries: 0,
-  phasedJSON: {
-    data: [],
-    chartOptions: {}
-  },
-  rawJSON: {
-    data: {
-      scatterPlot: {
-        data: [],
-        chartOptions: {}
-      },
-      barCharts: {}
-    }
-  },
-  setOnPan: () => true,
-  setOnZoom: () => true,
-  setPeriodMultiple: () => { },
-  setSeriesPhaseFocus: () => {},
-  setSeriesHighlight: () => { },
-  setYAxisInversion: () => {},
-  theme: {
-    dark: false,
-    global: {
-      colors: {},
-      font: {}
-    }
-  },
-  zooming: false
-}
 
 VariableStarViewer.propTypes = {
   allowPanZoom: PropTypes.string,

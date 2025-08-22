@@ -13,15 +13,22 @@ import SaveButton from './components/SaveButton'
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 200
+const DEFAULT_HANDLER = () => false
+const DEFAULT_ACTIVE_MARK = {
+  subTaskMarkBounds: undefined,
+  subTaskPreviousAnnotationValues: undefined,
+  subTaskVisibility: false,
+  setSubTaskVisibility: DEFAULT_HANDLER
+}
 
 /**
   A popup that renders activeMark.tasks for the active mark. Incomplete task annotations are confirmed, on save or close, for required tasks.
 */
 function SubTaskPopup({
   /** The active drawing mark */
-  activeMark,
+  activeMark = DEFAULT_ACTIVE_MARK,
   /** A callback that is called if the active mark is deleted. */
-  onDelete
+  onDelete = DEFAULT_HANDLER
 }) {
   const {
     subTaskMarkBounds,
@@ -189,16 +196,6 @@ SubTaskPopup.propTypes = {
     setSubTaskVisibility: PropTypes.func
   }),
   onDelete: PropTypes.func
-}
-
-SubTaskPopup.defaultProps = {
-  activeMark: {
-    subTaskMarkBounds: undefined,
-    subTaskPreviousAnnotationValues: undefined,
-    subTaskVisibility: false,
-    setSubTaskVisibility: () => { }
-  },
-  onDelete: () => true
 }
 
 export default SubTaskPopup
