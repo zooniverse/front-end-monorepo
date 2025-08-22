@@ -1,5 +1,5 @@
-const proxyquire = require('proxyquire')
-const sinon = require('sinon')
+import proxyquire from 'proxyquire'
+import sinon from 'sinon'
 
 describe('Server > setLogging', function () {
   let setLogging
