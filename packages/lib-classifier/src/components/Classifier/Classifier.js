@@ -6,6 +6,7 @@ import { StrictMode, useEffect } from 'react';
 import { useStores } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
+import SubjectGroupModal from './components/SubjectGroupModal/SubjectGroupModal'
 
 function Classifier({
   onError = () => true,
@@ -59,6 +60,7 @@ function Classifier({
       <StrictMode>
         <Layout />
         {showTutorial && <ModalTutorial />}
+        <SubjectGroupModal />
       </StrictMode>
     )
   } catch (error) {
