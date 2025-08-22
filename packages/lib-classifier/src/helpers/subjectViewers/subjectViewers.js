@@ -65,6 +65,11 @@ Object.defineProperty(subjectViewers, 'volumetric', {
   enumerable: true
 })
 
+Object.defineProperty(subjectViewers, 'ztm2025geomap', {
+  value: 'ztm2025geomap',
+  enumerable: true
+})
+
 // helper for returning subject viewers (e.g. for use in MST enumerable type)
 Object.defineProperty(subjectViewers, 'values', {
   value: Object.values(subjectViewers)
