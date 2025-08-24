@@ -1,4 +1,3 @@
-import { Grommet } from 'grommet'
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import Meta, { MessageFromResearcher, NoMessageFromResearcher, NoResearcher } from './MessageFromResearcher.stories'
@@ -11,7 +10,7 @@ describe('Component > MessageFromResearcher', function () {
   describe('Researcher and Message', function () {
     beforeEach(function () {
       const MessageFromResearcherStory = composeStory(MessageFromResearcher, Meta)
-      render(<Grommet><MessageFromResearcherStory /></Grommet>)
+      render(<MessageFromResearcherStory />)
     })
 
     it('should render the researcher name', function () {
@@ -32,7 +31,7 @@ describe('Component > MessageFromResearcher', function () {
   describe('No Researcher and Message', function () {
     beforeEach(function () {
       const NoResearcherStory = composeStory(NoResearcher, Meta)
-      render(<Grommet><NoResearcherStory /></Grommet>)
+      render(<NoResearcherStory />)
     })
 
     it('should render the project slug', function () {
@@ -53,7 +52,7 @@ describe('Component > MessageFromResearcher', function () {
   describe('No Message', function () {
     beforeEach(function () {
       const NoMessageFromResearcherStory = composeStory(NoMessageFromResearcher, Meta)
-      render(<Grommet><NoMessageFromResearcherStory /></Grommet>)
+      render(<NoMessageFromResearcherStory />)
     })
 
     it('should render the default no-message text', function () {

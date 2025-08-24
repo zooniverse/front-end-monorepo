@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import Meta, { Default } from './JoinInButton.stories.js'
+import Meta, { Default } from './JoinInButton.stories'
 
 describe('Component > Zooniverse Talk > Join In', function () {
   const DefaultStory = composeStory(Default, Meta)
@@ -15,6 +15,6 @@ describe('Component > Zooniverse Talk > Join In', function () {
       document.querySelector(
         `[href="https://www.zooniverse.org/projects/zooniverse/snapshot-serengeti/talk"]`
       )
-    ).to.be.ok()
+    ).toBeDefined()
   })
 })

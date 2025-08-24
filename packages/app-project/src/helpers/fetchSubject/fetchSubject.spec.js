@@ -85,7 +85,7 @@ describe('Helpers > fetchSubject', function () {
     })
 
     it('should log the error to the console', function () {
-      expect(consoleErrorStub).to.have.been.calledWith('Error loading subject:')
+      sinon.assert.calledWith(consoleErrorStub, 'Error loading subject:')
     })
   })
 })

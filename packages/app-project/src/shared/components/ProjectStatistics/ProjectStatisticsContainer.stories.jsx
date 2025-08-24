@@ -1,6 +1,6 @@
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 import { Provider } from 'mobx-react'
-import ProjectStatisticsComponent from './ProjectStatistics'
+import ProjectStatisticsComponent from './ProjectStatisticsContainer'
 import {
   ProjectStatisticsContainerMock,
   ProjectStatisticsContainerRouterMock

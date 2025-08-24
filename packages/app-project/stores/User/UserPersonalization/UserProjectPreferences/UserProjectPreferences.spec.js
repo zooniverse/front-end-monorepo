@@ -92,7 +92,7 @@ describe('Stores > UserProjectPreferences', function () {
     })
 
     it('should not request for the resource if a snapshot has been applied', function () {
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.not.have.been.called()
+      sinon.assert.notCalled(rootStore.client.panoptes.get)
     })
   })
 
@@ -125,11 +125,11 @@ describe('Stores > UserProjectPreferences', function () {
       it('should request the user project preferences resource', async function () {
         const { projectPreferences } = rootStore.user.personalization
         projectPreferences.reset()
-        expect(rootStore.client.panoptes.get).to.not.have.been.called()
+        sinon.assert.notCalled(rootStore.client.panoptes.get)
         expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
         projectPreferences.fetchResource()
         await when(preferencesAreReady(projectPreferences))
-        expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
+        sinon.assert.calledOnceWithExactly(rootStore.client.panoptes.get, endpoint, query, { authorization })
         expect(projectPreferences.loadingState).to.equal(asyncStates.success)
         projectPreferences.reset()
       })
@@ -404,20 +404,20 @@ describe('Stores > UserProjectPreferences', function () {
 
   describe('Settings', function () {
     describe('workflow_id', function () {
-      specify('should always be a string', function () {
+      it('should always be a string', function () {
         let settings = Settings.create({ workflow_id: '123' })
         expect(settings.workflow_id).to.equal('123')
         settings = Settings.create({ workflow_id: 123 })
         expect(settings.workflow_id).to.equal('123')
       })
-      specify('should be a Panoptes ID', function () {
+      it('should be a Panoptes ID', function () {
         expect(() => Settings.create({ workflow_id: '123456' })).not.to.throw()
         expect(() => Settings.create({ workflow_id: 123456 })).not.to.throw()
         expect(() => Settings.create({ workflow_id: '123.456' })).to.throw()
         expect(() => Settings.create({ workflow_id: 123.456 })).to.throw()
         expect(() => Settings.create({ workflow_id: 'not an ID' })).to.throw()
       })
-      specify('should be optional', function () {
+      it('should be optional', function () {
         const settings = Settings.create({})
         expect(settings.workflow_id).toBeUndefined()
       })

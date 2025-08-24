@@ -1,5 +1,5 @@
 import { Provider } from 'mobx-react'
-import MessageFromResearcherComponent from './MessageFromResearcher'
+import MessageFromResearcherComponent from './MessageFromResearcherContainer'
 import {
   MessageFromResearcherProjectNamedMock,
   MessageFromResearcherProjectNoMessageMock,

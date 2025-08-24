@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import StandardLayout from '@shared/components/StandardLayout'
-import ProjectAboutPageLayout from './ProjectAboutPageLayout.js'
+import ProjectAboutPageLayout from './ProjectAboutPageLayout'
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'

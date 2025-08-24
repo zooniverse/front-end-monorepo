@@ -7,9 +7,9 @@ export const DynamicallyImportedAuthenticationInvitationContainer = dynamic(
   { ssr: false }
 )
 
-function useStores(mockStore) {
+function useStores() {
   const stores = useContext(MobXProviderContext)
-  const store = mockStore || stores.store
+  const store = stores.store
 
   const { setAuthModalActiveIndex } = store.ui
 
@@ -24,8 +24,8 @@ function useStores(mockStore) {
   }
 }
 
-function AuthenticationInvitationConnector({ mockStore }) {
-  const { isVisible = false, setAuthModalActiveIndex } = useStores(mockStore)
+function AuthenticationInvitationConnector() {
+  const { isVisible = false, setAuthModalActiveIndex } = useStores()
 
   return (
     <DynamicallyImportedAuthenticationInvitationContainer

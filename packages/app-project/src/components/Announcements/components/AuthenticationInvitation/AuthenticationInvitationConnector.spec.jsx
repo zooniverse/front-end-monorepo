@@ -1,5 +1,11 @@
 import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
+
+/* This test suite uses vi.dynamicImportSettled because AuthenticationInvitationContainer
+  is dynamically imported in AuthenticationInvitationConnector.
+  https://v0.vitest.dev/api/vi.html#vi-dynamicimportsettled
+*/
 
 import AuthenticationInvitationConnector from './AuthenticationInvitationConnector'
 
@@ -65,12 +71,13 @@ describe('Component > AuthenticationInvitationConnector', function () {
   }
 
   describe('when the user is logged out and project is not finished ', function () {
-    it('should not be visible with sessionCount < 5', function () {
+    it('should not be visible with sessionCount < 5', async function () {
       render(
         <Provider store={defaultStore}>
           <AuthenticationInvitationConnector />
         </Provider>
       )
+      await vi.dynamicImportSettled()
       expect(
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
@@ -78,12 +85,13 @@ describe('Component > AuthenticationInvitationConnector', function () {
       ).to.equal(null)
     })
 
-    it('should be visible with sessionCount > 5', function () {
+    it('should be visible with sessionCount > 5', async function () {
       render(
         <Provider store={sessionCountFiveStore}>
           <AuthenticationInvitationConnector />
         </Provider>
       )
+      await vi.dynamicImportSettled()
       expect(
         screen.getByText('Announcements.AuthenticationInvitation.announcement')
       ).toBeDefined()
@@ -91,12 +99,13 @@ describe('Component > AuthenticationInvitationConnector', function () {
   })
 
   describe('when the project is finished', function () {
-    it('should not be visible', function () {
+    it('should not be visible', async function () {
       render(
         <Provider store={projectFinishedStore}>
           <AuthenticationInvitationConnector />
         </Provider>
       )
+      await vi.dynamicImportSettled()
       expect(
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'
@@ -106,12 +115,13 @@ describe('Component > AuthenticationInvitationConnector', function () {
   })
 
   describe('when the user is logged in', function () {
-    it('should not be visible', function () {
+    it('should not be visible', async function () {
       render(
         <Provider store={loggedInUserStore}>
           <AuthenticationInvitationConnector />
         </Provider>
       )
+      await vi.dynamicImportSettled()
       expect(
         screen.queryByText(
           'Announcements.AuthenticationInvitation.announcement'

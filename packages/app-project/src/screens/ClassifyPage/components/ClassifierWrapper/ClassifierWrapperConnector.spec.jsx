@@ -1,57 +1,59 @@
-import { shallow } from 'enzyme'
-import asyncStates from '@zooniverse/async-states'
+// Old enzyme tests are here for reference, but enzyme is no longer used in this app (Aug '25)
 
-import initStore from '@stores/initStore'
-import ClassifierWrapperConnector from './ClassifierWrapperConnector'
+describe.skip('Component > ClassifierWrapperConnector', function () {})
+// import asyncStates from '@zooniverse/async-states'
 
-describe('Component > ClassifierWrapperConnector', function () {
-  let wrapper
-  let mockStore
+// import initStore from '@stores/initStore'
+// import ClassifierWrapperConnector from './ClassifierWrapperConnector'
 
-  describe('after logging in', function () {
-    before(function () {
-      mockStore = initStore(true, {
-        project: {
-          configuration: {
-            languages: ['en']
-          },
-          slug: 'Foo/Bar',
-          strings: {
-            display_name: 'Foobar'
-          },
-          links: {
-            active_workflows: ['1']
-          }
-        },
-        user: {
-          id: '1',
-          loadingState: asyncStates.success,
-          login: 'testUser'
-        }
-      })
-      wrapper = shallow(<ClassifierWrapperConnector mockStore={mockStore} />)
-    })
+// describe('Component > ClassifierWrapperConnector', function () {
+//   let wrapper
+//   let mockStore
 
-    describe('classifier wrapper props', function () {
-      it('should include collections', function () {
-        expect(wrapper.props().collections).to.equal(mockStore.user.collections)
-      })
+//   describe('after logging in', function () {
+//     before(function () {
+//       mockStore = initStore(true, {
+//         project: {
+//           configuration: {
+//             languages: ['en']
+//           },
+//           slug: 'Foo/Bar',
+//           strings: {
+//             display_name: 'Foobar'
+//           },
+//           links: {
+//             active_workflows: ['1']
+//           }
+//         },
+//         user: {
+//           id: '1',
+//           loadingState: asyncStates.success,
+//           login: 'testUser'
+//         }
+//       })
+//       wrapper = shallow(<ClassifierWrapperConnector mockStore={mockStore} />)
+//     })
 
-      it('should include recents', function () {
-        expect(wrapper.props().recents).to.equal(mockStore.user.recents)
-      })
+//     describe('classifier wrapper props', function () {
+//       it('should include collections', function () {
+//         expect(wrapper.props().collections).to.equal(mockStore.user.collections)
+//       })
 
-      it('should include the project', function () {
-        expect(wrapper.props().project).to.deep.equal(mockStore.project.toJSON())
-      })
+//       it('should include recents', function () {
+//         expect(wrapper.props().recents).to.equal(mockStore.user.recents)
+//       })
 
-      it('should include the logged-in user', function () {
-        expect(wrapper.props().user).to.equal(mockStore.user)
-      })
+//       it('should include the project', function () {
+//         expect(wrapper.props().project).to.deep.equal(mockStore.project.toJSON())
+//       })
 
-      it('should include the theme mode', function () {
-        expect(wrapper.props().mode).to.equal(mockStore.ui.mode)
-      })
-    })
-  })
-})
+//       it('should include the logged-in user', function () {
+//         expect(wrapper.props().user).to.equal(mockStore.user)
+//       })
+
+//       it('should include the theme mode', function () {
+//         expect(wrapper.props().mode).to.equal(mockStore.ui.mode)
+//       })
+//     })
+//   })
+// })

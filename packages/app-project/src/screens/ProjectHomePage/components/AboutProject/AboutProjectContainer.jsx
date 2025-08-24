@@ -15,7 +15,7 @@ function useStores() {
 }
 
 function AboutProjectContainer() {
-  const { description, projectName } = useStores(mockStore)
+  const { description, projectName } = useStores()
   return (
     <AboutProject
       description={description}

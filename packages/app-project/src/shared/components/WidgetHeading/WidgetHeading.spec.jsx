@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import Meta, { WidgetHeading } from './WidgetHeading.stories'
-import { WidgetHeadingMock } from './WidgetHeading.mock.js'
+import { WidgetHeadingMock } from './WidgetHeading.mock'
 
 describe('Component > WidgetHeading', function () {
   it('should render the element correctly', async function () {

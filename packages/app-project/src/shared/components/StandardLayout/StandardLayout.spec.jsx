@@ -144,7 +144,7 @@ describe('Component > StandardLayout', function () {
     it('should not have a teal border', function () {
       expect(projectPage).toBeDefined()
       const { border } = window.getComputedStyle(projectPage)
-      expect(border).to.be.empty()
+      expect(border).to.equal('')
     })
   })
 

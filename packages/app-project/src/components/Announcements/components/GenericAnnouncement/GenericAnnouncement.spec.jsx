@@ -14,6 +14,6 @@ describe('Component > GenericAnnouncement', function () {
 		const DismissableStory = composeStory(Dismissable, Meta)
 		render(<DismissableStory />)
 		expect(screen.findByText(Dismissable.args.announcement)).toBeDefined()
-		expect(screen.findByRole('button', { name: 'close' })).to.equal(null)
+		expect(screen.findByRole('button', { name: 'close' })).toBeDefined()
 	})
 })

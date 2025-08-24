@@ -68,7 +68,7 @@ describe('Stores > Recents', function () {
         project_id: '2',
         sort: '-created_at'
       }
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
+      sinon.assert.calledWith(rootStore.client.panoptes.get, endpoint, query, { authorization })
     })
 
     it('should store existing recents', function () {
@@ -110,7 +110,7 @@ describe('Stores > Recents', function () {
     })
 
     it('should not request recent subjects from Panoptes', function () {
-      expect(rootStore.client.panoptes.get).to.have.not.been.called()
+      sinon.assert.notCalled(rootStore.client.panoptes.get)
     })
 
     it('should initialise recents with an empty array', function () {

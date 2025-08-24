@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import withEnvironments from './'
+import withEnvironments from './withEnvironments'
 
 describe('helpers > withEnvironments', function () {
   function TestComponent({ text }) {

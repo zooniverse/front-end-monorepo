@@ -1,5 +1,5 @@
 import { Provider } from 'mobx-react'
-import AboutProjectComponent from './AboutProject'
+import AboutProjectComponent from './AboutProjectContainer'
 import { AboutProjectMock } from './AboutProject.mock'
 
 export default {
