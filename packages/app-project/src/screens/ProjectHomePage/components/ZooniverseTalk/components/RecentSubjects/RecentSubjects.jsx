@@ -38,7 +38,7 @@ RecentSubjects.propTypes = {
   /** Recent subjects from the Talk API. */
   subjects: arrayOf(shape({
     id: string
-  })).isRequired
+  }))
 }
 
 export default RecentSubjects

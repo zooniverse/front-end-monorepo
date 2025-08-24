@@ -13,7 +13,7 @@ import { ZooFooter } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import { useContext } from 'react'
 
-import PageHeader from '../src/components/PageHeader/PageHeader.js'
+import PageHeader from '../src/components/PageHeader/PageHeader'
 
 const ContainerBox = styled(Box)`
   position: relative;

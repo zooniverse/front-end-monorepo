@@ -83,7 +83,7 @@ class CompletionBar extends Component {
 }
 
 CompletionBar.propTypes = {
-  completeness: number.isRequired
+  completeness: number
 }
 
 export default CompletionBar
