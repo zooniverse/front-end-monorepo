@@ -13,7 +13,6 @@ export default {
       pad='small'
     >
       <Box
-        as='ol'
         width={{ max: '600px' }}
       >
         <Story />
