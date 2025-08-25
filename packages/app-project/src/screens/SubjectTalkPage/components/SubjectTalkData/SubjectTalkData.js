@@ -14,6 +14,7 @@ const StyledHeading = styled(Heading)`
 `
 
 function SubjectTalkData({
+  login,
   projectId,
   subjectId
 }) {
@@ -64,6 +65,7 @@ function SubjectTalkData({
           />
         </Box>
         <Discussions
+          login={login}
           projectId={projectId}
           subjectId={subjectId}
         />
@@ -86,6 +88,7 @@ function SubjectTalkData({
 }
 
 SubjectTalkData.propTypes = {
+  login: string,
   projectId: string.isRequired,
   subjectId: string.isRequired
 }

@@ -16,6 +16,7 @@ export const StyledUppercaseTitle = styled(Heading)`
 `
 
 function Discussions({
+  login,
   projectId,
   subjectId
 }) {
@@ -113,6 +114,7 @@ function Discussions({
                   <Discussion
                     key={discussion.id}
                     discussion={discussion}
+                    login={login}
                   />
                 ))}
               </Box>
@@ -125,6 +127,7 @@ function Discussions({
 }
 
 Discussions.propTypes = {
+  login: string,
   projectId: string.isRequired,
   subjectId: string.isRequired
 }

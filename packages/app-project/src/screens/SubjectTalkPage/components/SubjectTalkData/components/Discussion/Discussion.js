@@ -15,7 +15,7 @@ const StyledTitle = styled(Heading)`
   letter-spacing: 0.8px;
 `
 
-function Discussion({ discussion }) {
+function Discussion({ discussion, login }) {
   const [sort, setSort] = useState('-created_at')
 
   const { t } = useTranslation('screens')
@@ -166,7 +166,8 @@ Discussion.propTypes = {
     comments_count: number,
     title: string,
     users_count: number
-  })
+  }),
+  login: string
 }
 
 export default Discussion

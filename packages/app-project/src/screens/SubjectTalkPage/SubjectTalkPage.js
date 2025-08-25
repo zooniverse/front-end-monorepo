@@ -55,6 +55,7 @@ function SubjectTalkPage({
             userId={userId}
           />
           <SubjectTalkData
+            login={login}
             projectId={projectId}
             subjectId={subjectId}
           />
