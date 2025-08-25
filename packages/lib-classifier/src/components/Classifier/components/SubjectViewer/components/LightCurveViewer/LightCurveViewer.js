@@ -37,6 +37,7 @@ const ZOOM_IN_VALUE = 1.2
 const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100 // milliseconds
 const PAN_DISTANCE = 20
+const DEFAULT_HANDLER = () => true
 
 function drawFeedbackBrushes(d3annotationsLayer, repositionBrush, feedbackBrushes) {
   feedbackBrushes.forEach(feedbackBrush => {
@@ -79,9 +80,36 @@ function drawFeedbackBrushes(d3annotationsLayer, repositionBrush, feedbackBrushe
 
 class LightCurveViewer extends Component {
   constructor (props) {
-    super(props)
-
-    this.svgContainer = props.forwardRef
+    const defaultProps = {
+      forwardRef: createRef(),
+      dataExtent: { x: [-1, 1], y: [-1, 1] },
+      dataPoints: [[]],
+      minZoom: 1,
+      maxZoom: 10,
+      innerMargin: 30,
+      outerMargin: 10,
+      axisXLabel: 'Days',
+      axisXOffsetX: -40,
+      axisXOffsetY: -20,
+      axisYLabel: 'Brightness',
+      axisYOffsetX: 20,
+      axisYOffsetY: 20,
+      chartStyle: {
+        color: '#eff2f5',
+        background: '#003941',
+        dataPointSize: '1.5',
+        fontFamily: 'inherit',
+        fontSize: '0.75rem'
+      },
+      interactionMode: 'annotate',
+      onKeyDown: DEFAULT_HANDLER
+    }
+    
+    super({ ...defaultProps, ...props })
+    
+    // Store the merged props in an instance variable
+    this.mergedProps = { ...defaultProps, ...props }
+    this.svgContainer = this.mergedProps.forwardRef
 
     // D3 Selection elements
     this.d3annotationsLayer = null
@@ -133,15 +161,15 @@ class LightCurveViewer extends Component {
 
   componentDidMount () {
     this.initChart()
-    this.props.setOnZoom(this.handleToolbarZoom)
-    this.props.setOnPan(this.pan)
+    this.mergedProps.setOnZoom(this.handleToolbarZoom)
+    this.mergedProps.setOnPan(this.pan)
     this.drawChart()
   }
 
   componentDidUpdate (prevProps) {
-    const dataChanged = this.props.dataPoints !== prevProps.dataPoints
+    const dataChanged = this.mergedProps.dataPoints !== prevProps.dataPoints
 
-    const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
+    const currentTaskKey = (this.mergedProps.currentTask && this.mergedProps.currentTask.taskKey) || ''
     const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
     const sameTask = (currentTaskKey === prevTaskKey)
 
@@ -153,8 +181,8 @@ class LightCurveViewer extends Component {
       // If invalid task, blank out all annotaitons
     }
 
-    if (prevProps.interactionMode !== this.props.interactionMode) {
-      this.updateInteractionMode(this.props.interactionMode)
+    if (prevProps.interactionMode !== this.mergedProps.interactionMode) {
+      this.updateInteractionMode(this.mergedProps.interactionMode)
     }
   }
 
@@ -188,7 +216,7 @@ class LightCurveViewer extends Component {
       feedbackBrushes,
       innerMargin,
       outerMargin
-    } = this.props
+    } = this.mergedProps
     const container = this.svgContainer.current
     const { height, width } = container?.getBoundingClientRect()
     if (height && width) {
@@ -211,7 +239,7 @@ class LightCurveViewer extends Component {
         .domain(dataExtent.x)
         .range([0 + innerMargin, width - innerMargin])
       this.yScale
-        .domain(this.props.dataExtent.y)
+        .domain(this.mergedProps.dataExtent.y)
         .range([height - innerMargin, 0 + innerMargin]) // Note that this is reversed
 
       this.updatePresentation(width, height)
@@ -232,7 +260,7 @@ class LightCurveViewer extends Component {
       this.updateDataPoints(shouldAnimate)
       this.updatePresentation(width, height)
 
-      if (this.props.feedback) {
+      if (this.mergedProps.feedback) {
         this.updateInteractionMode('move')
         this.disableBrushEvents()
         drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush, feedbackBrushes)
@@ -294,7 +322,7 @@ class LightCurveViewer extends Component {
       addAnnotation,
       currentTask,
       toolIndex
-    } = this.props
+    } = this.mergedProps
     if (!this.isCurrentTaskValidForAnnotation()) return // Sanity check
 
     const annotations = this.annotationBrushes
@@ -373,7 +401,7 @@ class LightCurveViewer extends Component {
   onAnnotationBrushEnd ({ selection }, annotationBrush) {
     const {
       enableMove
-    } = this.props
+    } = this.mergedProps
     const brushSelection = selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
 
     // If the user attempted to make a selection, BUT the current task isn't
@@ -429,7 +457,7 @@ class LightCurveViewer extends Component {
   }
 
   getAnnotationValues () {
-    const { annotation } = this.props
+    const { annotation } = this.mergedProps
     if (annotation && this.isCurrentTaskValidForAnnotation()) return Array.from(annotation.value) || []
     return []
   }
@@ -458,10 +486,10 @@ class LightCurveViewer extends Component {
   doZoom () {
     this.updateDataPoints()
     this.updatePresentation()
-    if (this.props.feedback) {
+    if (this.mergedProps.feedback) {
       this.updateInteractionMode('move')
       this.disableBrushEvents()
-      drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush, this.props.feedbackBrushes)
+      drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush, this.mergedProps.feedbackBrushes)
     } else {
       this.updateAnnotationBrushes()
     }
@@ -498,7 +526,7 @@ class LightCurveViewer extends Component {
       minZoom,
       maxZoom,
       outerMargin
-    } = this.props
+    } = this.mergedProps
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
       .style('cursor', 'crosshair')
@@ -571,13 +599,14 @@ class LightCurveViewer extends Component {
   }
 
   isCurrentTaskValidForAnnotation () {
-    return this.props.currentTask.type === 'dataVisAnnotation' && this.props.currentTask.tools.some(tool => tool.type === 'graph2dRangeX')
+    return this.mergedProps.currentTask.type === 'dataVisAnnotation' && this.mergedProps.currentTask.tools.some(tool => tool.type === 'graph2dRangeX')
   }
 
   /*
   Updates and re-draws the Annotation Brushes.
    */
   updateAnnotationBrushes () {
+    const { feedbackBrushes } = this.mergedProps
     const annotationBrushes = this.annotationBrushes
     const defaultBrush = this.getDefaultBrush()
 
@@ -656,7 +685,7 @@ class LightCurveViewer extends Component {
   updateDataPoints (shouldAnimate = false) {
     const currentTransform = this.getCurrentTransform()
     const dataPoints = this.d3dataLayer.selectAll('.data-point')
-
+    
     if (shouldAnimate) {
       dataPoints
         .transition()
@@ -675,10 +704,7 @@ class LightCurveViewer extends Component {
   width and height are only defined if the container size changes.
    */
   updatePresentation (width, height) {
-    const {
-      chartStyle,
-      outerMargin
-    } = this.props
+    const { chartStyle, outerMargin } = this.mergedProps
     const currentTransform = this.getCurrentTransform()
 
     this.updateScales(currentTransform)
@@ -709,7 +735,7 @@ class LightCurveViewer extends Component {
       axisXOffsetY,
       axisYOffsetX,
       axisYOffsetY
-    } = this.props
+    } = this.mergedProps
     this.d3svg.select('.x-axis-label')
       .attr('transform', `translate(${width + axisXOffsetX}, ${height + axisXOffsetY})`)
     this.d3svg.select('.y-axis-label')
@@ -724,11 +750,12 @@ class LightCurveViewer extends Component {
   }
 
   render () {
+    // Use this.mergedProps instead of this.props in the render method
     return (
       <Chart
         className='light-curve-viewer'
         focusable
-        onKeyDown={this.props.onKeyDown}
+        onKeyDown={this.mergedProps.onKeyDown}
         tabIndex={0}
         ref={this.svgContainer}
         style={{
@@ -775,40 +802,6 @@ LightCurveViewer.propTypes = {
   setOnZoom: PropTypes.func.isRequired,
 
   onKeyDown: PropTypes.func
-}
-
-LightCurveViewer.defaultProps = {
-  forwardRef: createRef(),
-
-  dataExtent: { x: [-1, 1], y: [-1, 1] },
-  dataPoints: [[]],
-
-  minZoom: 1,
-  maxZoom: 10,
-
-  innerMargin: 30,
-  outerMargin: 10,
-
-  axisXLabel: 'Days',
-  axisXOffsetX: -40,
-  axisXOffsetY: -20,
-
-  axisYLabel: 'Brightness',
-  axisYOffsetX: 20,
-  axisYOffsetY: 20,
-
-  chartStyle: {
-    color: '#eff2f5', // Zooniverse Light Grey
-    background: '#003941', // Zooniverse Dark Teal
-    dataPointSize: '1.5',
-    fontFamily: 'inherit',
-    fontSize: '0.75rem'
-  },
-
-  id: undefined, // Specify a unique ID for each LCV; required to distinguish data-masks. WARNING: do not apply Math.random() here, as the random value will be set at the class level, and therefore be the same for each instance of the LCV.
-  interactionMode: 'annotate',
-
-  onKeyDown: () => true
 }
 
 export default LightCurveViewer

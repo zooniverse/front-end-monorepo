@@ -23,21 +23,43 @@ export const StyledGroup = styled(Group)`
 const BarChartViewer = forwardRef(function BarChartViewer (props, ref) {
   const {
     barStyles: {
-      padding
+      padding = 0.25
+    } = { 
+      padding: 0.25
     },
     data,
     margin: {
-      bottom,
-      left,
-      right,
-      top
+      bottom = 40,
+      left = 40,
+      right = 10,
+      top = 10
+    } = {
+      bottom: 40,
+      left: 40,
+      right: 10,
+      top: 10
     },
     parentHeight,
     parentWidth,
-    theme: { dark, global: { colors, font } },
-    xAxisLabel,
+    theme: { 
+      dark = false, 
+      global: { 
+        colors = {}, 
+        font = { family: '' } 
+      } = { 
+        colors: { brand: '', text: {} },
+        font: { family: '' }
+      }
+    } = {
+      dark: false,
+      global: { 
+        colors: { brand: '', text: {} },
+        font: { family: '' }
+      }
+    },
+    xAxisLabel = 'x-axis',
     yAxisDomain,
-    yAxisLabel
+    yAxisLabel = 'y-axis'
   } = props
 
   const { t } = useTranslation('components')
@@ -140,31 +162,7 @@ const BarChartViewer = forwardRef(function BarChartViewer (props, ref) {
   )
 })
 
-BarChartViewer.defaultProps = {
-  barStyles: {
-    padding: 0.25
-  },
-  margin: {
-    bottom: 40,
-    left: 40,
-    right: 10,
-    top: 10
-  },
-  xAxisLabel: 'x-axis',
-  yAxisLabel: 'y-axis',
-  theme: {
-    dark: false,
-    global: {
-      colors: {
-        brand: '',
-        text: {}
-      },
-      font: {
-        family: ''
-      }
-    }
-  }
-}
+
 
 BarChartViewer.propTypes = {
   barStyles: PropTypes.shape({

@@ -9,6 +9,8 @@ import { useTranslation, withTranslation } from '@translations/i18n'
 import Triangle from '@shared/Triangle'
 import TooltipText from './components/TooltipText'
 
+const DEFAULT_THEME = { mode: 'light' }
+
 function Label ({ color }) {
   const { t } = useTranslation('components')
 
@@ -55,16 +57,18 @@ class Banner extends Component {
   render () {
     const {
       background,
-      bannerText,
-      color,
+      bannerText = '',
+      color = 'neutral-6',
       onNext,
       onPrevious,
-      show,
+      show = false,
       subjects,
       t,
-      theme: { mode },
+      theme = DEFAULT_THEME,
       tooltipText,
     } = this.props
+
+    const { mode = DEFAULT_THEME.mode } = theme
 
     return show && (
       <Box
@@ -139,14 +143,7 @@ Banner.propTypes = {
   ])
 }
 
-Banner.defaultProps = {
-  bannerText: '',
-  color: 'neutral-6',
-  show: false,
-  theme: {
-    mode: 'light'
-  }
-}
+
 
 export default withTranslation('components')(withTheme(Banner))
 export {

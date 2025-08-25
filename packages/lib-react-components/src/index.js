@@ -28,7 +28,6 @@ export { default as ZooniverseLogo } from './ZooniverseLogo/index.js'
 export { default as ZooniverseLogotype } from './ZooniverseLogotype/index.js'
 
 export { default as withCustomFormik } from './helpers/withCustomFormik/index.js'
-export { default as withOnlyRenderOnBrowser } from './helpers/withOnlyRenderOnBrowser/index.js'
 export { default as withResponsiveContext } from './helpers/withResponsiveContext/index.js'
 export { default as withThemeContext } from './helpers/withThemeContext/index.js'
 export { default as withLayer } from './helpers/withLayer/index.js'

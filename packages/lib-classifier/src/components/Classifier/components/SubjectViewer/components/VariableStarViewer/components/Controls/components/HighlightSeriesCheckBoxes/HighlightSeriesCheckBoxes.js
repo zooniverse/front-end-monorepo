@@ -4,14 +4,24 @@ import { withTheme } from 'styled-components'
 import Label from '../Label'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
+const DEFAULT_HANDLER = () => false
+
 function HighlightSeriesCheckBoxes (props) {
   const {
     data,
     highlightedSeries,
-    setSeriesHighlight,
+    setSeriesHighlight = DEFAULT_HANDLER,
     theme: {
       global: {
-        colors
+        colors = {
+          drawingTools: {}
+        }
+      }
+    } = {
+      global: {
+        colors: {
+          drawingTools: {}
+        }
       }
     }
   } = props
@@ -46,17 +56,6 @@ function HighlightSeriesCheckBoxes (props) {
       })}
     </Box>
   )
-}
-
-HighlightSeriesCheckBoxes.defaultProps = {
-  setSeriesHighlight: () => {},
-  theme: {
-    global: {
-      colors: {
-        drawingTools: {}
-      }
-    }
-  }
 }
 
 HighlightSeriesCheckBoxes.propTypes = {

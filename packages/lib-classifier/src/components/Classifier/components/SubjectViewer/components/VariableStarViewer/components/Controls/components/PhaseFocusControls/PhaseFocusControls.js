@@ -5,17 +5,19 @@ import { useTranslation } from '@translations/i18n'
 
 import Label from '../Label'
 
+const DEFAULT_HANDLER = () => false
+
 function PhaseFocusControls(props) {
   const {
     data,
     highlightedSeries,
     phaseFocusedSeries,
-    setSeriesPhaseFocus,
+    setSeriesPhaseFocus = DEFAULT_HANDLER,
     theme: {
       global: {
-        colors
+        colors = { drawingTools: {} }
       }
-    }
+    } = { global: { colors: { drawingTools: {} } } }
   } = props
 
   const { t } = useTranslation('components')
@@ -50,17 +52,6 @@ function PhaseFocusControls(props) {
       })}
     </Box>
   )
-}
-
-PhaseFocusControls.defaultProps = {
-  setSeriesPhaseFocus: () => { },
-  theme: {
-    global: {
-      colors: {
-        drawingTools: {}
-      }
-    }
-  }
 }
 
 PhaseFocusControls.propTypes = {

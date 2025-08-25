@@ -4,9 +4,13 @@ import { useTranslation } from '@translations/i18n'
 
 import CollectionsIcon from './CollectionsIcon'
 
-export default function CollectionsButton (props) {
+const DEFAULT_HANDLER = () => false
+
+export default function CollectionsButton ({
+  disabled = false,
+  onClick = DEFAULT_HANDLER
+}) {
   const { t } = useTranslation('components')
-  const { disabled, onClick } = props
   return (
     <MetaToolsButton
       disabled={disabled}
@@ -20,9 +24,4 @@ export default function CollectionsButton (props) {
 CollectionsButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func
-}
-
-CollectionsButton.defaultProps = {
-  disabled: false,
-  onClick: () => false
 }

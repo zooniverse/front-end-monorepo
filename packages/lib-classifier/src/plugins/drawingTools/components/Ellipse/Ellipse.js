@@ -5,7 +5,13 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Ellipse({ active, mark, onFinish }) {
+const DEFAULT_HANDLER = () => false
+
+function Ellipse({
+  active = false,
+  mark,
+  onFinish = DEFAULT_HANDLER,
+}) {
   const { x_center, y_center, rx, ry } = mark
   const guideWidth = GUIDE_WIDTH
 
@@ -62,11 +68,6 @@ Ellipse.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
-}
-
-Ellipse.defaultProps = {
-  active: false,
-  onFinish: () => true,
 }
 
 export default observer(Ellipse)

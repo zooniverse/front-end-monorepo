@@ -9,21 +9,22 @@ const StyledWrapper = styled.span`
   justify-content: center;
 `
 
-function ResizeIcon (props) {
-  return (
-    <StyledWrapper {...props}>&#8690;</StyledWrapper>
-  )
-}
-
-ResizeIcon.defaultProps = {
-  theme: {
-    dark: false,
-    global: {
-      colors: {
-        text: {}
-      }
+const DEFAULT_THEME = {
+  dark: false,
+  global: {
+    colors: {
+      text: {}
     }
   }
+}
+
+function ResizeIcon ({
+  theme = DEFAULT_THEME,
+  ...props
+}) {
+  return (
+    <StyledWrapper theme={theme} {...props}>&#8690;</StyledWrapper>
+  )
 }
 
 ResizeIcon.propTypes = {
