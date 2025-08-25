@@ -5,7 +5,7 @@ import { number, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { useComments } from '@hooks'
+import { useComments, usePanoptesUsers } from '@hooks'
 
 import PlainButton from '../PlainButton'
 import TalkComment from '../TalkComment'
@@ -20,7 +20,7 @@ function Discussion({ discussion, login }) {
 
   const { t } = useTranslation('screens')
 
-  const query = {
+  const commentsQuery = {
     discussion_id: discussion.id,
     sort,
     page_size: 10,
@@ -30,7 +30,11 @@ function Discussion({ discussion, login }) {
     data: comments,
     isLoading,
     error
-  } = useComments(query)
+  } = useComments(commentsQuery)
+
+  const userIds = comments?.map(comment => comment.user_id)
+  const uniqueUserIds = [...new Set(userIds)]
+  const { data: users } = usePanoptesUsers({ id: uniqueUserIds.join(',') })
   
   const title = discussion.subject_default ? discussion.board_title : discussion.title
   const showChronologicalSort = discussion.comments_count > 1
@@ -126,21 +130,27 @@ function Discussion({ discussion, login }) {
         gap='small'
         style={{ listStyle: 'none', margin: 0, padding: 0 }}
       >
-        {comments?.map((comment) => (
-          <li key={comment.id}>
-            <TalkComment
-              avatar='' // TODO: update with users
-              body={comment.body}
-              commentLink={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}?comment=${comment.id}`}
-              date={comment.created_at}
-              displayName={comment.user_display_name}
-              login={comment.user_login}
-              projectSlug={discussion.project_slug}
-              upvoted={false} // TODO: update with user match
-              upvotes={Object.keys(comment.upvotes)?.length}
-            />
-          </li>
-        ))}
+        {comments?.map((comment) => {
+          const user = users?.find(user => user.id === comment.user_id)
+
+          const upvoted = comment?.upvotes && login && Object.keys(comment.upvotes).includes(login)
+
+          return (
+            <li key={comment.id}>
+              <TalkComment
+                avatar={user?.avatar_src}
+                body={comment.body}
+                commentLink={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}?comment=${comment.id}`}
+                date={comment.created_at}
+                displayName={comment.user_display_name}
+                login={comment.user_login}
+                projectSlug={discussion.project_slug}
+                upvoted={upvoted}
+                upvotes={Object.keys(comment.upvotes)?.length}
+              />
+            </li>
+          )
+        })}
       </Box>
       <Box
         direction='row-reverse'
