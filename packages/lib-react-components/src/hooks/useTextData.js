@@ -22,7 +22,6 @@ export default function useTextData(src) {
         if (rawData) setData(rawData)
       } catch (error) {
         setError(error)
-        onError(error)
       }
     }
 
