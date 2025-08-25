@@ -8,7 +8,7 @@ import ZoomControlButton from '../ZoomControlButton'
 const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
   const {
     zoomControlFn,
-    zooming
+    zooming = false
   } = props
   const Plot = (zooming) ? ZoomingScatterPlot : ScatterPlot
 
@@ -29,10 +29,6 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
     </ParentSize>
   )
 })
-
-ScatterPlotViewer.defaultProps = {
-  zooming: false
-}
 
 ScatterPlotViewer.propTypes = {
   zooming: PropTypes.bool

@@ -5,16 +5,31 @@ import InnerTickAxis from '../InnerTickAxis'
 
 function Axis (props) {
   const {
-    axis,
+    axis = {},
     className,
-    color,
-    margin,
-    padding,
+    color = '',
+    margin = {
+      bottom: 10,
+      left: 10,
+      right: 10,
+      top: 10
+    },
+    padding = {
+      bottom: 30,
+      left: 30,
+      right: 0,
+      top: 0
+    },
     parentHeight,
     parentWidth,
-    theme,
-    tickDirection,
-    tickLength
+    theme = {
+      global: {
+        colors: {},
+        font: {}
+      }
+    },
+    tickDirection = 'outer',
+    tickLength = 5
   } = props
   let axisColor
 
@@ -125,32 +140,6 @@ function Axis (props) {
   }
 
   return null
-}
-
-Axis.defaultProps = {
-  axis: {},
-  color: '',
-  margin: {
-    bottom: 10,
-    left: 10,
-    right: 10,
-    top: 10
-  },
-  numTicks: 10,
-  padding: {
-    bottom: 30,
-    left: 30,
-    right: 0,
-    top: 0
-  },
-  theme: {
-    global: {
-      colors: {},
-      font: {}
-    }
-  },
-  tickDirection: 'outer',
-  tickLength: 5
 }
 
 Axis.propTypes = {

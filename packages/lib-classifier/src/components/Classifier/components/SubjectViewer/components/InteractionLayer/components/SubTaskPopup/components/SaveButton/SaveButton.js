@@ -5,8 +5,11 @@ import { useTranslation } from '@translations/i18n'
 
 import saveButtonTheme from './theme'
 
-function SaveButton (props) {
-  const { autoFocus, disabled, onClick } = props
+function SaveButton ({
+  autoFocus = false,
+  disabled = false,
+  onClick
+}) {
   const { t } = useTranslation('components')
   const label = t('SubjectViewer.InteractionLayer.SaveButton.save')
   return (
@@ -17,11 +20,6 @@ function SaveButton (props) {
       onClick={onClick}
     />
   )
-}
-
-SaveButton.defaultProps = {
-  autoFocus: false,
-  disabled: false
 }
 
 SaveButton.propTypes = {

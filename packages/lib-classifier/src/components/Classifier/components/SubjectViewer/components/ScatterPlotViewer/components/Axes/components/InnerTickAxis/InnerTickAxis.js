@@ -3,22 +3,37 @@ import { Axis } from '@visx/axis'
 import { Line } from '@visx/shape'
 import { Group } from '@visx/group'
 
-function InnerTickAxis (props) {
+const DEFAULT_AXIS = {}
+const DEFAULT_MARGIN = {
+  bottom: 10,
+  left: 10,
+  right: 10,
+  top: 10
+}
+
+const DEFAULT_PADDING = {
+  bottom: 30,
+  left: 30,
+  right: 0,
+  top: 0
+}
+
+function InnerTickAxis ({
+  axis = DEFAULT_AXIS,
+  color = 'black',
+  fontSize = 12,
+  margin = DEFAULT_MARGIN,
+  numTicks = 10,
+  padding = DEFAULT_PADDING,
+  parentHeight,
+  parentWidth,
+  tickLength = 5
+}) {
   const {
-    axis: {
-      label,
-      orientation,
-      scale
-    },
-    color,
-    fontSize,
-    margin,
-    numTicks,
-    padding,
-    parentHeight,
-    parentWidth,
-    tickLength
-  } = props
+    label,
+    orientation,
+    scale
+  } = axis
 
   const top = {
     bottom: parentHeight - margin.top - tickLength,
@@ -83,26 +98,6 @@ function InnerTickAxis (props) {
       }}
     </Axis>
   )
-}
-
-InnerTickAxis.defaultProps = {
-  axis: {},
-  color: 'black',
-  fontSize: 12,
-  margin: {
-    bottom: 10,
-    left: 10,
-    right: 10,
-    top: 10
-  },
-  numTicks: 10,
-  padding: {
-    bottom: 30,
-    left: 30,
-    right: 0,
-    top: 0
-  },
-  tickLength: 5
 }
 
 InnerTickAxis.propTypes = {
