@@ -1,7 +1,4 @@
-import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
-import { projects } from '@zooniverse/panoptes-js'
-import sinon from 'sinon'
 import Store from './Store'
 import placeholderEnv from './helpers/placeholderEnv'
 
@@ -21,7 +18,7 @@ describe('Stores > Project', function () {
       }
     }, placeholderEnv)
     projectStore = rootStore.project
-    expect(projectStore).to.be.ok()
+    expect(projectStore).toBeDefined()
   })
 
   describe('default model properties', function () {
@@ -72,7 +69,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have an `id` property', function () {
-      expect(projectStore.id).to.be.null()
+      expect(projectStore.id).to.equal(null)
     })
 
     it('should have an `launch_approved` property', function () {
@@ -148,7 +145,7 @@ describe('Stores > Project', function () {
       })
 
       it('should be undefined', function () {
-        expect(project.defaultWorkflow).to.be.undefined()
+        expect(project.defaultWorkflow).toBeUndefined()
       })
     })
 
@@ -168,7 +165,7 @@ describe('Stores > Project', function () {
       })
 
       it('should be undefined', function () {
-        expect(project.defaultWorkflow).to.be.undefined()
+        expect(project.defaultWorkflow).toBeUndefined()
       })
     })
   })

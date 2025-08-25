@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import nock from 'nock'
 
 import fetchWorkflowsHelper from './fetchWorkflowsHelper'
@@ -239,7 +238,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         thrownError = error
       }
       expect(thrownError).to.deep.equal(mockError)
-      expect(workflows).to.be.undefined()
+      expect(workflows).toBeUndefined()
     })
   })
 

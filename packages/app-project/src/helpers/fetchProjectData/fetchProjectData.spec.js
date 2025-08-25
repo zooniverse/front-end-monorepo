@@ -64,9 +64,7 @@ describe('Helpers > fetchProjectData', function () {
     })
 
     await fetchProjectData('foo/bar', { env: 'staging' })
-    expect(projects.getWithLinkedResources).to.be.calledOnceWith(
-      { query: { slug: 'foo/bar', env: 'staging' }, headers: {}, host }
-    )
+    sinon.assert.calledOnceWithExactly(projects.getWithLinkedResources, { query: { slug: 'foo/bar', env: 'staging' }, headers: {}, host })
     projects.getWithLinkedResources.restore()
   })
 })

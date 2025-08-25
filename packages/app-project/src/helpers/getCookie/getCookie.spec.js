@@ -1,5 +1,3 @@
-import { expect } from 'chai'
-
 import getCookie from './getCookie'
 
 describe('Helper > getCookie', function () {

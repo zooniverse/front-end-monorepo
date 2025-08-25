@@ -34,7 +34,7 @@ describe('Helpers > fetchSubject', function () {
     after(function () {
       nock.cleanAll()
     })
-    
+
     it('should return the subject data', async function () {
       subject = await fetchSubject('12345', 'staging')
       expect(subject).to.deep.equal(mockSubject)
@@ -57,14 +57,14 @@ describe('Helpers > fetchSubject', function () {
 
     it('should return null', async function () {
       subject = await fetchSubject('12345', 'staging')
-      expect(subject).to.be.null
+      expect(subject).to.equal(null)
     })
   })
 
   describe('when the panoptes call errors', function () {
     let subject
     let consoleErrorStub
-    
+
     before(function () {
       nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects')
@@ -81,11 +81,11 @@ describe('Helpers > fetchSubject', function () {
 
     it('should return null', async function () {
       subject = await fetchSubject('12345', 'staging')
-      expect(subject).to.be.null
+      expect(subject).to.equal(null)
     })
 
     it('should log the error to the console', function () {
-      expect(consoleErrorStub).to.have.been.calledWith('Error loading subject:')
+      sinon.assert.calledWith(consoleErrorStub, 'Error loading subject:')
     })
   })
 })

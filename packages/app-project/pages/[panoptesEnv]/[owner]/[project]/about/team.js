@@ -14,7 +14,7 @@ export async function getStaticProps({ locale, params }) {
 
   const teamArray = await fetchTeam(project, panoptesEnv)
 
-  // Axonal Pathfinders Project is the 1st Volumetric Project and requests only showing the owner due to animal ethics concerns and researcher privacy
+  // Mind Mapper is the 1st Volumetric Project and requests only showing the owner due to animal ethics concerns and researcher privacy
   const isVolumetricProject = project.experimental_tools.indexOf('volumetricProject') > -1
   const teamArrayFiltered = (isVolumetricProject)
     ? teamArray.filter(user => user.roles.indexOf('owner') > -1)

@@ -80,17 +80,18 @@ yarn test
 
 #### Node/yarn
 ```sh
-yarn test
+yarn test to run Vitest tests
+
+`yarn test ProjectHeader.spec.jsx` to test one file at a time.
 ```
 
 ## <a name="testing"></a> Testing
 
   Testing is done by
 
-  - [Mocha](https://mochajs.org/) - test runner
-  - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
-  - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
-  - [Enzyme](https://airbnb.io/enzyme/) - testing utility for React
+  - [Vitest](https://vitest.dev)
+  - [React Testing Library](https://testing-library.com)
+  - [Storybook](https://storybook.js.org)
 
 ## Technologies
 

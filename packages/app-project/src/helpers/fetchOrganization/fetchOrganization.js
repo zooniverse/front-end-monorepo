@@ -25,7 +25,7 @@ async function fetchOrganizationData(organizationID, env) {
 async function fetchOrganization(organizationID, locale, env) {
   const organization = await fetchOrganizationData(organizationID, env)
   if (!organization) return null
-  
+
   const translation = await fetchTranslations({
     translated_id: organizationID,
     translated_type: 'organization',
@@ -33,7 +33,7 @@ async function fetchOrganization(organizationID, locale, env) {
     language: locale,
     env
   })
-  
+
   return {
     ...organization,
     strings: translation?.strings || null

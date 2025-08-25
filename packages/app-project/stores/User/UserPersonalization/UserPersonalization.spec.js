@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import nock from 'nock'
 import auth from 'panoptes-client/lib/auth'
 import sinon from 'sinon'
@@ -56,7 +55,7 @@ describe('Stores > UserPersonalization', function () {
   })
 
   it('should exist', function () {
-    expect(rootStore.user.personalization).to.be.ok()
+    expect(rootStore.user.personalization).toBeDefined()
   })
 
   describe('with a project and user', function () {
@@ -80,27 +79,19 @@ describe('Stores > UserPersonalization', function () {
         project_id: '2',
         user_id: '123'
       }
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
+      sinon.assert.calledWith(rootStore.client.panoptes.get, endpoint, query, { authorization })
     })
 
     it('should trigger the child Notifications store to request unread notifications', function () {
-      expect(talkAPI.get).to.have.been.calledWith(
-        '/notifications',
+      sinon.assert.calledWith(talkAPI.get, '/notifications',
         { delivered: false, page_size: 1 },
-        { authorization: 'Bearer ' }
-      )
+        { authorization: 'Bearer ' })
     })
 
     it('should trigger the child Notifications store to request unread conversations', function () {
-      expect(talkAPI.get).to.have.been.calledWith(
-        '/conversations',
+      sinon.assert.calledWith(talkAPI.get, '/conversations',
         { unread: true, page: 1 },
-        { authorization: 'Bearer ' }
-      )
-    })
-
-    xit('should trigger the child Notifications store to subscribe to Sugar notifications', function () {
-      expect(true).to.be.false()
+        { authorization: 'Bearer ' })
     })
 
     describe('incrementing your session count', function () {
@@ -134,7 +125,7 @@ describe('Stores > UserPersonalization', function () {
             user_id: '123'
           }
 
-          expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
+          sinon.assert.calledWith(rootStore.client.panoptes.get, endpoint, query, { authorization })
           expect(rootStore.user.personalization.sessionCount).to.equal(5)
         })
       })
@@ -158,7 +149,7 @@ describe('Stores > UserPersonalization', function () {
     it('should reset the child project preferences', function () {
       expect(rootStore.user.personalization.projectPreferences.id).to.equal('5')
       rootStore.user.clear()
-      expect(rootStore.user.personalization.projectPreferences.id).to.be.undefined()
+      expect(rootStore.user.personalization.projectPreferences.id).toBeUndefined()
     })
   })
 
@@ -168,7 +159,7 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should not trigger the child UPP store to request user preferences from Panoptes', function () {
-      expect(rootStore.client.panoptes.get).to.have.not.been.called()
+      sinon.assert.notCalled(rootStore.client.panoptes.get)
     })
 
     it('should start session count from 0', function () {
@@ -176,7 +167,7 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should not trigger the child Notifications store to request unread notifications or conversations', function () {
-      expect(talkAPI.get).to.have.not.been.called()
+      sinon.assert.notCalled(talkAPI.get)
     })
 
     describe('when we successfully know there is an anonymous user', function () {
@@ -185,7 +176,7 @@ describe('Stores > UserPersonalization', function () {
       })
 
       it('should set the user project preferences load to success', function () {
-        expect(rootStore.user.isLoggedIn).to.be.false()
+        expect(rootStore.user.isLoggedIn).to.equal(false)
         expect(rootStore.user.loadingState).to.equal(asyncStates.success)
         expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.success)
       })
@@ -203,7 +194,7 @@ describe('Stores > UserPersonalization', function () {
       })
 
       it('should not trigger the child UPP store to request user preferences from Panoptes', function () {
-        expect(rootStore.client.panoptes.get).to.have.not.been.called()
+        sinon.assert.notCalled(rootStore.client.panoptes.get)
       })
     })
   })

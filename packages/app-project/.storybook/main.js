@@ -10,11 +10,13 @@ function webpackFinal(config, options) {
       ['@sentry/node']: '@sentry/browser',
       'next-i18next': 'react-i18next'
     },
+    extensions: ['.jsx', '.js', '...'],
     fallback: {
       ...webpackConfig.resolve.fallback,
       "url": false,
       crypto: false,
       fs: false,
+      // for markdown-it
       path: 'path-browserify'
     }
   }
@@ -23,7 +25,7 @@ function webpackFinal(config, options) {
 }
 
 const config = {
-  stories: ['../src/**/*.stories.js'],
+  stories: ['../src/**/*.stories.jsx'],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-essentials',

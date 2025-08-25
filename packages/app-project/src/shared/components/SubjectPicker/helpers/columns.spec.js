@@ -26,7 +26,7 @@ describe('Components > Subject Picker > helpers > columns', function () {
       })
 
       it('should be sortable', function () {
-        expect(column.sortable).to.be.true()
+        expect(column.sortable).to.equal(true)
       })
     })
   }
