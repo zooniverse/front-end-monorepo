@@ -77,23 +77,37 @@ function Discussion({ discussion, login }) {
           direction='row'
           gap='xxsmall'
         >
-          <User
-            a11yTitle={t('Talk.participants')}
-            color={{ dark: 'accent-1', light: 'neutral-1' }}
-            size='12px'
-          />
+          <span
+            id='participants-icon'
+            aria-hidden='true'
+          >
+            <User
+              a11yTitle={t('Talk.participants')}
+              color={{ dark: 'accent-1', light: 'neutral-1' }}
+              size='12px'
+            />
+          </span>
           <Text
+            aria-labelledby='participants-icon'
             color={{ dark: 'accent-1', light: 'neutral-1' }}
+            data-testid='participants-count'
           >
             {discussion.users_count}
           </Text>
-          <Chat
-            a11yTitle={t('Talk.comments')}
-            color={{ dark: 'accent-1', light: 'neutral-1' }}
-            size='12px'
-          />
+          <span 
+            id='comments-icon'
+            aria-hidden='true'
+          >
+            <Chat
+              a11yTitle={t('Talk.comments')}
+              color={{ dark: 'accent-1', light: 'neutral-1' }}
+              size='12px'
+            />
+          </span>
           <Text
+            aria-labelledby='comments-icon'
             color={{ dark: 'accent-1', light: 'neutral-1' }}
+            data-testid='comments-count'
           >
             {discussion.comments_count}
           </Text>
