@@ -48,9 +48,7 @@ function Discussion({ discussion, login }) {
   }
 
   return (
-    <Box
-      as='li'
-    >
+    <Box>
       <Box
         align='center'
         direction='row'

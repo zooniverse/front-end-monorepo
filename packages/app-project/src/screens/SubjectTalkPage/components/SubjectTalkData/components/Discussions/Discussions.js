@@ -111,11 +111,12 @@ function Discussions({
                 style={{ listStyle: 'none', margin: 0, padding: 0 }}
               >
                 {discussions.map((discussion) => (
-                  <Discussion
-                    key={discussion.id}
-                    discussion={discussion}
-                    login={login}
-                  />
+                  <li key={discussion.id}>
+                    <Discussion
+                      discussion={discussion}
+                      login={login}
+                    />
+                  </li>
                 ))}
               </Box>
             </Box>
