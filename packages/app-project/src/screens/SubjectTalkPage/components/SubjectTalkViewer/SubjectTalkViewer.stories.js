@@ -1,23 +1,11 @@
-import { Box } from 'grommet'
-
 import SubjectTalkViewer from './SubjectTalkViewer'
 
-const SinglePortraitImageSubjectMock = {
+const SingleImageSubjectMock = {
   id: '1234',
   locations: [
     {
       'image/jpeg':
         'https://panoptes-uploads-staging.zooniverse.org/subject_location/89cdf135-3349-4149-8255-57bc7875323f.png'
-    }
-  ],
-}
-
-const SingleLandscapeImageSubjectMock = {
-  id: '1235',
-  locations: [
-    {
-      'image/jpeg':
-        'https://panoptes-uploads-staging.zooniverse.org/subject_location/db95206a-7ddc-4c18-9501-3add4a54a756.jpeg'
     }
   ],
 }
@@ -55,26 +43,29 @@ export default {
   component: SubjectTalkViewer
 }
 
-export const SinglePortraitImageSubject = {
+export const SingleImageSubject = {
   args: {
-    subject: SinglePortraitImageSubjectMock
-  }
-}
-
-export const SingleLandscapeImageSubject = {
-  args: {
-    subject: SingleLandscapeImageSubjectMock
+    login: 'zootester1',
+    subject: SingleImageSubjectMock
   }
 }
 
 export const MultiImageSubject = {
   args: {
+    login: 'zootester1',
     subject: MultiImageSubjectMock
   }
 }
 
 export const VideoSubject = {
   args: {
+    login: 'zootester1',
     subject: VideoSubjectMock
+  }
+}
+
+export const LoggedOut = {
+  args: {
+    subject: SingleImageSubjectMock
   }
 }

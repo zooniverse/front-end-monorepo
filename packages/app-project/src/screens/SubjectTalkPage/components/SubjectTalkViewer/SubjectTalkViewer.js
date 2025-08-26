@@ -1,6 +1,12 @@
-import { CollectIconButton, FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
+import {
+  CollectIconButton,
+  FavoritesIconButton,
+  ImageIconButton,
+  InvertIconButton,
+  Media,
+  ShareIconButton
+} from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { Bookmark, ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
@@ -43,9 +49,9 @@ function SubjectTalkViewer({
   const { t } = useTranslation('screens')
   
   const subjectId = subject?.id
-  const subjectURLs = subject?.locations?.map(location => Object.values(location)[0])
-  const subjectURL = subjectURLs[frame]
   const locations = processSubjectLocations(subject.locations)
+  const subjectURL = locations?.[frame]?.url || ''
+  const isImage = locations?.[frame]?.type === 'image'
 
   function onInvert() {
     setInvert(!invert)
@@ -87,7 +93,6 @@ function SubjectTalkViewer({
             setFlipbookSpeed={setFlipbookSpeed}
           />
         ) : null}
-        {/* <MetaTools /> */}
         <Box
           direction='row'
           gap='small'
@@ -95,21 +100,28 @@ function SubjectTalkViewer({
           margin='small'
         >
           <FavoritesIconButton
+            disabled={!login}
             login={login}
             projectId={projectId}
             projectSlug={projectSlug}
             subjectId={subjectId}
           />
           <CollectIconButton
+            disabled={!login}
             projectId={projectId}
             subjectId={subjectId}
             userId={userId}
           />
-          <ShareOption />
+          <ShareIconButton />
           <InvertIconButton
             checked={invert}
             onClick={onInvert}
           />
+          {isImage ? (
+            <ImageIconButton
+              href={subjectURL}
+            />
+          ) : null}
         </Box>
       </Box>
     </Box>
