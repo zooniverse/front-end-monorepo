@@ -1,5 +1,3 @@
-import { expect } from 'chai'
-import sinon from 'sinon'
 import { reducedEmptySubject, reducedSubject } from './mocks'
 
 import TranscriptionReductions from './TranscriptionReductions'

@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import isFeedbackActive from './is-feedback-active'
 
 describe('Feedback: isFeedbackActive', function () {

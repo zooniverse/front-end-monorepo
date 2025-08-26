@@ -1,4 +1,3 @@
-import { types } from 'mobx-state-tree'
 import SimpleDropdownTask from '@plugins/tasks/dropdown-simple'
 import { MIN_OPTIONS, MAX_OPTIONS } from './SimpleDropdownTask'
 

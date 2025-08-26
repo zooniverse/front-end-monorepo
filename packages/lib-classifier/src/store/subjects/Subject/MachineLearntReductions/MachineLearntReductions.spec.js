@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import { reducedSubjectMocks } from './reducedSubjectMocks'
 import MachineLearntReductions from './MachineLearntReductions'
 
@@ -32,18 +31,18 @@ describe('Models > MachineLearntReductions', () => {
           reductions: [{ data: { data: [ reducedSubject ] } }]
         })
       })
-    
+
       it('should exist', () => {
         expect(reductionsModel).to.be.ok()
       })
-    
+
       it('should find a current mark', () => {
         reductionsModel.reductions.forEach(reduction => {
           expect(reduction.data.data[0].markId).to.equal(reducedSubject.markId)
         })
         expect(reductionsModel.findCurrentTaskMarks(reductionsTaskStub)).not.to.be.empty()
       })
-    
+
       it('should have array of x and y values', () => {
         let caesarMarks = reductionsModel.findCurrentTaskMarks(reductionsTaskStub)
         expect(caesarMarks[0]).to.deep.equal(reducedSubject)

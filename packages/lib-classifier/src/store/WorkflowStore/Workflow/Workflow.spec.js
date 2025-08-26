@@ -6,7 +6,6 @@ import Workflow from './Workflow'
 
 import { MultipleChoiceTaskFactory, SubjectSetFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import { expect } from 'chai'
 
 describe('Model > Workflow', function () {
   it('should exist', function () {

@@ -1,8 +1,4 @@
-import chai from 'chai'
-
 import index from './index'
-
-const expect = chai.expect
 
 describe('Feedback > Survey > Simple > Index', function () {
   it('should have a `createRule` property', function () {

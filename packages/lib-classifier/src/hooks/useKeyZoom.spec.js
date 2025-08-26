@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
 

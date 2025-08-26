@@ -1,4 +1,3 @@
-import { expect } from "chai"
 import subjectsSeenThisSession from "."
 
 describe('Helper > subjectsSeenThisSession', function () {

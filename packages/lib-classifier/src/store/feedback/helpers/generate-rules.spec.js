@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import generateRules from './generate-rules'
 
 describe('feedback: generateRules', function () {

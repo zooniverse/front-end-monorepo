@@ -1,8 +1,6 @@
 import { applySnapshot, getSnapshot, types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/drawing'
 import SHOWN_MARKS from '@helpers/shownMarks'
-import sinon from 'sinon'
-import { expect } from 'chai'
 
 describe('Model > DrawingTask', function () {
   const details = [

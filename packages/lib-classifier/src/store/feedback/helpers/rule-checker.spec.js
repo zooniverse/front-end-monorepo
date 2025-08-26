@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import ruleChecker from './rule-checker'
 
 describe('feedback: rule checker', function () {

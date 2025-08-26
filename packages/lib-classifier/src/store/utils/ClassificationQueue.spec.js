@@ -1,6 +1,5 @@
 import * as Sentry from '@sentry/browser'
 import { auth } from '@zooniverse/panoptes-js'
-import { expect } from 'chai'
 import nock from 'nock'
 import sinon from 'sinon'
 import ClassificationQueue, { RETRY_INTERVAL } from './ClassificationQueue'

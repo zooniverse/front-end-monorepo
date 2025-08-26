@@ -1,8 +1,4 @@
-import chai from 'chai'
-
 import reducer from './reducer'
-
-const expect = chai.expect
 
 describe('Feedback > Single Answer Question > Reducer', function () {
   it('should not mutate the original object', function () {

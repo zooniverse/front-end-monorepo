@@ -14,7 +14,6 @@ import {
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
 import * as tasks from '@plugins/tasks'
-import { expect } from 'chai'
 
 describe('Model > ClassificationStore', function () {
     const { AnnotationModel: SingleChoiceAnnotation } = tasks.single
@@ -201,7 +200,7 @@ describe('Model > ClassificationStore', function () {
         helpers.isFeedbackActive.restore()
       })
 
-      /* 
+      /*
         Why is this test here?
         The observer is in the root store.
         I'm not sure why these are here either. (JOD)

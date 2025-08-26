@@ -7,7 +7,6 @@ import {
   TranscriptionTaskFactory
 } from '@test/factories'
 import * as tasks from '@plugins/tasks'
-import { expect } from 'chai'
 
 describe('Model > Step', function () {
   let step

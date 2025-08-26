@@ -1,8 +1,4 @@
-import chai from 'chai'
-
 import createRule from './create-rule'
-
-const expect = chai.expect
 
 describe('Feedback > Single Answer Question > Rule Creator', function () {
   it('should create a rule with `failureEnabled` and `successEnabled` defaulting to false', function () {

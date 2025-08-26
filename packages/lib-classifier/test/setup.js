@@ -1,14 +1,11 @@
-import chai from 'chai'
-import chaiDom from 'chai-dom'
-import sinonChai from 'sinon-chai'
-import dirtyChai from 'dirty-chai'
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
 import nock from 'nock'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setProjectAnnotations } from '@storybook/react'
+import preview from '../.storybook/preview'
 
-chai.use(chaiDom)
-chai.use(dirtyChai)
-chai.use(sinonChai)
+setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 
 // require all net requests to be mocked.
 nock.disableNetConnect()
@@ -48,6 +45,13 @@ class ResizeObserver {
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
 window.matchMedia = () => { return { matches: false } }
+
+global.after = afterAll
+global.before = beforeAll
+global.beforeEach = beforeEach
+global.describe = describe
+global.expect = expect
+global.it = it
 
 global.fetch = fetch
 global.window = window
