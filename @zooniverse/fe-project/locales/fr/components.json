@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Trouver un nouveau projet à explorer",
+    "heading": "Rien ici.",
+    "message": "La page que vous recherchez n'existe plus.",
+    "returnHome": "Retour à la page d'accueil"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Veuillez vous connecter ou vous inscrire pour suivre vos contributions.",
+      "register": "S'inscrire",
+      "signIn": "Se connecter"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Terminé! Apparemment, ce projet est à court de données pour le moment!",
+      "seeResults": "Voir les résultats"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Créer et ajouter",
+      "label": "Créer une nouvelle collection",
+      "private": "Collection privée"
+    },
+    "SelectCollection": {
+      "addButton": "Ajouter",
+      "label": "Ajouter à une collection existante"
+    },
+    "title": "Ajouter à une collection"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Site Web",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Liens"
+  },
+  "Head": {
+    "defaultDescription": "Le Zooniverse est la plateforme de recherche citoyenne la plus importante en termes de taille et la plus populaire au monde.",
+    "defaultTitle": "Projets",
+    "siteName": "Zooniverse"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Approuvé par Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Avatar du projet pour {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Changer de langue"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projet"
+    },
+    "UnderReviewLabel": {
+      "underReview": "En cours de révision"
+    },
+    "about": "À propos",
+    "admin": "Page d'administration",
+    "classify": "Classifier",
+    "collect": "Collectionner",
+    "exploreProject": "Explorer le project",
+    "organization": "De l'organisation:",
+    "recents": "Récents",
+    "talk": "Discussions"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "En chiffres",
+    "classifications": "Classifications",
+    "completedSubjects": "Sujets terminés",
+    "percentComplete": "Pourcentage d'achèvement",
+    "subjects": "Sujets",
+    "subtitle": "Gardez une trace des progrès que vous et vos collègues bénévoles avez accomplis sur ce projet.",
+    "text": "Chaque clic compte! Rejoignez la communauté de {{projectName}} pour mener à bien ce projet et aider les chercheurs à produire des résultats importants. Cliquez sur \"Afficher plus de statistiques\" pour voir encore plus de statistiques.",
+    "title": "Statistiques de {{projectName}}",
+    "viewMoreStats": "Afficher plus de statistiques",
+    "volunteers": "Volontaires"
+  },
+  "RequireUser": {
+    "text": "Vous n'êtes pas connecté"
+  },
+  "StandardLayout": {
+    "headerLabel": "En-tête du site Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Déjà vu",
+    "back": "Choisissez un autre ensemble de sujets",
+    "byline": "Triez la liste en cliquant sur les noms de colonnes. Vous verrez les sujets de manière séquentielle, en commençant par celui que vous choisissez.",
+    "fetching": "Veuillez patienter...",
+    "heading": "Commencez par choisir un sujet",
+    "retired": "Retiré",
+    "unclassified": "Disponible"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Ajouter aux collections"
+    },
+    "TalkLink": {
+      "label": "Discuter sur Talk"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Terminé"
+    },
+    "back": "Choisissez un autre module",
+    "byline": "Choisissez un sujet pour commencer la transcription.",
+    "heading": "Choisissez par où commencer"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "Terminé à {{completeness}}%",
+      "setSelection": "définir la sélection",
+      "subjectSelection": "sélection de sujets"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "bloqué",
+      "unlocked": "débloqué"
+    },
+    "error": "Une erreur s'est produite lors de la récupération des modules :(",
+    "getStarted": "C'est parti!",
+    "message": "Vous pouvez faire de vraies recherches en cliquant ici pour commencer!",
+    "noWorkflows": "Rien à classifier"
+  }
+}
