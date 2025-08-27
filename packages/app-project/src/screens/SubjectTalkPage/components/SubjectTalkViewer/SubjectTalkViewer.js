@@ -1,10 +1,6 @@
 import {
-  CollectIconButton,
-  FavoritesIconButton,
-  ImageIconButton,
-  InvertIconButton,
   Media,
-  ShareIconButton
+  MetaTools
 } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import dynamic from 'next/dynamic'
@@ -27,8 +23,8 @@ function processSubjectLocations(rawLocations) {
     const [mimeType, url] = Object.entries(location)[0];
     const [type] = mimeType.split('/');
     return {
-      type: type,
       mimeType: mimeType,
+      type: type,
       url: url
     }
   })
@@ -49,9 +45,7 @@ function SubjectTalkViewer({
   const { t } = useTranslation('screens')
   
   const subjectId = subject?.id
-  const locations = processSubjectLocations(subject.locations)
-  const subjectURL = locations?.[frame]?.url || ''
-  const isImage = locations?.[frame]?.type === 'image'
+  const processedLocations = processSubjectLocations(subject?.locations)
 
   function onInvert() {
     setInvert(!invert)
@@ -74,14 +68,14 @@ function SubjectTalkViewer({
         flex='shrink'
         $invert={invert}
         subject={subject}
-        src={subjectURL}
+        src={processedLocations?.[frame]?.url}
       />
       <Box flex={false}>
-        {locations?.length > 1 ? (
+        {subject?.locations?.length > 1 ? (
           <FlipbookControls
             currentFrame={frame}
             flipbookSpeed={flipbookSpeed}
-            locations={locations}
+            locations={processedLocations}
             onFrameChange={setFrame}
             onPlayPause={onPlayPause}
             playing={playing}
@@ -89,38 +83,16 @@ function SubjectTalkViewer({
             setFlipbookSpeed={setFlipbookSpeed}
           />
         ) : null}
-        <Box
-          align='center'
-          direction='row'
-          flex={false}
-          gap='small'
-          justify='center'
-          margin='xsmall'
-        >
-          <FavoritesIconButton
-            disabled={!login}
-            login={login}
-            projectId={projectId}
-            projectSlug={projectSlug}
-            subjectId={subjectId}
-          />
-          <CollectIconButton
-            disabled={!login}
-            projectId={projectId}
-            subjectId={subjectId}
-            userId={userId}
-          />
-          <ShareIconButton />
-          <InvertIconButton
-            checked={invert}
-            onClick={onInvert}
-          />
-          {isImage ? (
-            <ImageIconButton
-              href={subjectURL}
-            />
-          ) : null}
-        </Box>
+        <MetaTools
+          invert={invert}
+          location={subject?.locations?.[frame]}
+          login={login}
+          onInvert={onInvert}
+          projectId={projectId}
+          projectSlug={projectSlug}
+          subjectId={subjectId}
+          userId={userId}
+        />
       </Box>
     </Box>
   )
