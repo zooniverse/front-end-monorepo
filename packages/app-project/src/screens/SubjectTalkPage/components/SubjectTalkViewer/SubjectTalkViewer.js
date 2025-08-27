@@ -67,10 +67,6 @@ function SubjectTalkViewer({
         dark: 'dark-3',
         light: 'white'
       }}
-      height={{ max: '90vh'}}
-      style={{
-        gridArea: 'viewer'
-      }}
     >
       <StyledMedia
         alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
@@ -80,7 +76,7 @@ function SubjectTalkViewer({
         subject={subject}
         src={subjectURL}
       />
-      <Box>
+      <Box flex={false}>
         {locations?.length > 1 ? (
           <FlipbookControls
             currentFrame={frame}
@@ -94,10 +90,12 @@ function SubjectTalkViewer({
           />
         ) : null}
         <Box
+          align='center'
           direction='row'
+          flex={false}
           gap='small'
           justify='center'
-          margin='small'
+          margin='xsmall'
         >
           <FavoritesIconButton
             disabled={!login}
