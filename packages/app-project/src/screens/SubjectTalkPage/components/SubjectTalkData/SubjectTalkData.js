@@ -1,11 +1,11 @@
 import { Box, Heading } from 'grommet'
-import { BlockQuote, Tag } from 'grommet-icons'
+import { BlockQuote } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
-import SectionHeading from './components/SectionHeading'
+import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
   font-size: 1.5rem;
@@ -16,7 +16,8 @@ const StyledHeading = styled(Heading)`
 function SubjectTalkData({
   login,
   projectId,
-  subjectId
+  subjectId,
+  userId
 }) {
   const { t } = useTranslation('screens')
 
@@ -51,19 +52,11 @@ function SubjectTalkData({
             {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
           </StyledHeading>
         </Box>
-        <Box
-          pad='small'
-        >
-          <SectionHeading
-            icon={
-              <Tag
-                color={{ dark: 'light-1', light: 'dark-4' }}
-                size='16px'
-              />
-            }
-            title='Tags'
-          />
-        </Box>
+        <Tags
+          projectId={projectId}
+          subjectId={subjectId}
+          userId={userId}
+        />
         <Discussions
           login={login}
           projectId={projectId}
@@ -90,7 +83,8 @@ function SubjectTalkData({
 SubjectTalkData.propTypes = {
   login: string,
   projectId: string.isRequired,
-  subjectId: string.isRequired
+  subjectId: string.isRequired,
+  userId: string
 }
 
 export default SubjectTalkData

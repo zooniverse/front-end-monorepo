@@ -1,7 +1,8 @@
-import { Box, Heading } from 'grommet'
+import { Box } from 'grommet'
 import { Tag as TagIcon } from 'grommet-icons'
 import { string } from 'prop-types'
-import styled from 'styled-components'
+
+import SectionHeading from '../SectionHeading'
 
 import {
   addTagVote,
@@ -16,11 +17,6 @@ import {
 } from '@hooks'
 
 import Tag from './components/Tag'
-
-const StyledHeading = styled(Heading)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-`
 
 function Tags({
   projectId,
@@ -160,13 +156,12 @@ function Tags({
 
     mutateVotableTags(
       prevData => {
+        const modifiedTag = {
+          ...newVotableTag,
+          userVoted: true,
+          vote_count: 1,
+        }
         if (!prevData) {
-          const modifiedTag = {
-            ...newVotableTag,
-            userVoted: true,
-            vote_count: 1,
-          }
-
           return [modifiedTag]
         } else {
           const newData = [...prevData, modifiedTag]
@@ -247,20 +242,15 @@ function Tags({
     <Box
       pad='small'
     >
-      <Box
-        align='center'
-        direction='row'
-        gap='xsmall'
-      >
-        <TagIcon />
-        <StyledHeading
-          color={{ dark: 'light-1', light: 'dark-4' }}
-          level={3}
-          size='1rem'
-        >
-          Tags
-        </StyledHeading>
-      </Box>
+      <SectionHeading
+        icon={
+          <TagIcon
+            color={{ dark: 'light-1', light: 'dark-4' }}
+            size='16px'
+          />
+        }
+        title='Tags'
+      />
       <Box
         as='ol'
         direction='row-wrap'

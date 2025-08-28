@@ -27,9 +27,9 @@ const StyledButton = styled(Button)`
       'linear-gradient(180deg, #4D2A8E 0%, #3C2F53 100%);'
       : '#E0D4F6'
     };
-    color: ${props => props.theme.global.colors['neutral-6']};  
     border: none;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
+    color: ${props => props.theme.global.colors['neutral-6']};
   }
 `
 
@@ -101,7 +101,6 @@ function Tag({
     >
       <StyledButton
         align='center'
-        disabled={disabled}
         fill={false}
         gap='xsmall'
         justify='center'
@@ -129,7 +128,7 @@ function Tag({
             ) : null}
           </>
         )}
-        onClick={onClick}
+        onClick={disabled ? null : onClick}
         pad={{ horizontal: '15px', vertical: '14px' }}
         $userVoted={userVoted}
       />
