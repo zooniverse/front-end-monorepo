@@ -7,6 +7,7 @@ import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import SubjectTalkViewer from './components/SubjectTalkViewer'
+import Tags from './components/SubjectTalkData/components/Tags'
 
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
@@ -66,7 +67,11 @@ function SubjectTalkPage({
                 light: 'white'
               }}
             >
-              Talk data goes here
+              <Tags
+                projectId={projectId}
+                subjectId={subjectId}
+                userId={userId}
+              />
             </Box>
           </Box>
         </ContainerGrid>
