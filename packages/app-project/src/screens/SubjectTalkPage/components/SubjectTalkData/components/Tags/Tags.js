@@ -1,6 +1,7 @@
 import { Box, Heading } from 'grommet'
 import { Tag as TagIcon } from 'grommet-icons'
 import { string } from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -27,6 +28,8 @@ function Tags({
   subjectId,
   userId
 }) {
+  const [loading, setLoading] = useState(false)
+
   const tagsQuery = {
     limit: 10,
     page_size: 10,
@@ -37,8 +40,9 @@ function Tags({
   
   const {
     data: tags,
-    error,
-    isLoading
+    error: tagsError,
+    isLoading: tagsIsLoading,
+    mutate: mutateTags
   } = useTags(tagsQuery)
 
   const votableTagsQuery = {
@@ -81,7 +85,7 @@ function Tags({
       if (votableTags.some(votableTag => votableTag.id === tag.id)) {
         return {
           ...tag,
-          userVoted: tag.userVoted || tagVotes?.some(vote => vote.votable_tag_id === tag.id) || false
+          userVoted: tag.userVoted ?? tagVotes?.some(vote => vote.votable_tag_id === tag.id)
         }
       }
       return tag
@@ -89,44 +93,30 @@ function Tags({
   } else if (votableTags) {
     combinedTags = votableTags.map(tag => ({
       ...tag,
-      userVoted: tag.userVoted || tagVotes?.some(vote => vote.votable_tag_id === tag.id) || false
+      userVoted: tag.userVoted ?? tagVotes?.some(vote => vote.votable_tag_id === tag.id)
     }))
   } else if (tags) {
     combinedTags = tags
   }
 
-  function handleAddVote(tag) {
-    const newTagVote = {
-      votable_tag_id: tag.id
-    }
+  async function handleAddVote(tag) {
+    const newTagVote = { votable_tag_id: tag.id }
 
     mutateVotableTags(
       prevData => {
-        if (!prevData) {
-          const modifiedTag = {
-            ...tag,
-            userVoted: true,
-            vote_count: 1,
-          }
-
-          return [modifiedTag]
-        } else {
-          const newData = prevData.map(t => {
-            if (t.id === tag.id) {
-              return {
-                ...t,
-                userVoted: true,
-                vote_count: t.vote_count + 1
-              }
+        const newData = prevData.map(t => {
+          if (t.id === tag.id) {
+            return {
+              ...t,
+              userVoted: true,
+              vote_count: t.vote_count + 1
             }
-            return t
-          })
-          return newData
-        }
+          }
+          return t
+        })
+        return newData
       },
-      {
-        revalidate: false
-      }
+      { revalidate: false }
     )
 
     mutateTagVotes(
@@ -138,19 +128,21 @@ function Tags({
           return newData
         }
       },
-      {
-        revalidate: false
-      }
+      { revalidate: false }
     )
-
+    
     try {
-      addTagVote(newTagVote)
+      setLoading(true)
+      await addTagVote({ votable_tag_id: tag.id })
     } catch (error) {
       console.error(error)
+    } finally {
+      await mutateTagVotes()
+      setLoading(false)
     }
   }
 
-  function handleCreateVotableTag(tag) {
+  async function handleCreateVotableTag(tag) {
     const newVotableTag = {
       name: tag.name,
       section: `project-${projectId}`,
@@ -158,72 +150,100 @@ function Tags({
       taggable_type: 'Subject'
     }
 
-    mutateVotableTags(
+    mutateTags(
       prevData => {
+        const modifiedTag = {
+          ...tag,
+          userVoted: true,
+          vote_count: 1
+        }
+        
         if (!prevData) {
-          const modifiedTag = {
-            ...newVotableTag,
-            userVoted: true,
-            vote_count: 1,
-          }
-
           return [modifiedTag]
         } else {
-          const newData = [...prevData, modifiedTag]
-          return newData
-        }
-      },
-      {
-        revalidate: false
-      }
-    )
-
-    try {
-      createVotableTag(newVotableTag)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  function handleRemoveVote(tag) {
-    const tagVoteToRemove = tagVotes?.find(vote => vote.votable_tag_id === tag.id)
-    if (!tagVoteToRemove) return
-
-    mutateVotableTags(
-      prevData => {
-        if (!prevData) {
-          return []
-        } else {
           const newData = prevData.map(t => {
-            if (t.id === tag.id) {
-              return {
-                ...t,
-                userVoted: false,
-                vote_count: t.vote_count > 0 ? t.vote_count - 1 : 0
-              }
+            if (t.name === tag.name) {
+              return modifiedTag
             }
             return t
           })
           return newData
         }
       },
-      {
-        revalidate: false
-      }
+      { revalidate: false }
     )
+    
+    try {
+      setLoading(true)
+      await createVotableTag(newVotableTag)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      await mutateTagVotes()
+      setLoading(false)
+    }
+  }
+
+  function handleRemoveVote(tag) {
+    console.log('removing vote for tag', tag)
+
+    const tagVoteToRemove = tagVotes?.find(vote => vote.votable_tag.name === tag.name)
+    if (!tagVoteToRemove || !tagVoteToRemove.id) return
+
+    if (tag.usages) {
+      mutateTags(
+        prevData => {
+          if (!prevData) {
+            return []
+          } else {
+            const newData = prevData.map(t => {
+              if (t.name === tag.name) {
+                return {
+                  ...t,
+                  userVoted: false,
+                  vote_count: 0
+                }
+              }
+              return t
+            })
+            return newData
+          }
+        },
+        { revalidate: false }
+      )
+    } else {
+      mutateVotableTags(
+        prevData => {
+          if (!prevData) {
+            return []
+          } else {
+            const newData = prevData.map(t => {
+              if (t.id === tag.id) {
+                return {
+                  ...t,
+                  userVoted: false,
+                  vote_count: t.vote_count > 0 ? t.vote_count - 1 : 0
+                }
+              }
+              return t
+            })
+            return newData
+          }
+        },
+        { revalidate: false }
+      )
+    }
 
     mutateTagVotes(
       prevData => {
         if (!prevData) {
           return []
         } else {
-          const newData = prevData.filter(vote => vote.votable_tag_id !== tag.id)
+          const newData = prevData.filter(vote => vote.id !== tagVoteToRemove.id)
           return newData
         }
       },
-      {
-        revalidate: false
-      }
+      { revalidate: false }
     )
 
     try {
@@ -242,6 +262,8 @@ function Tags({
       handleAddVote(tag)
     }
   }
+
+  console.log('combinedTags', combinedTags)
 
   return (
     <Box
@@ -263,14 +285,17 @@ function Tags({
       </Box>
       <Box
         as='ol'
-        direction='row-wrap'
-        gap='small'
+        direction='row'
+        wrap
         style={{ listStyleType: 'none', paddingLeft: 0 }}
       >
         {combinedTags?.map(tag => (
-          <li key={`${tag.id}-${tag.name}`}>
+          <li
+            key={`${tag.id}-${tag.name}`}
+            style={{ margin: '0 10px 10px 0' }}
+          >
             <Tag
-              disabled={!userId}
+              disabled={!userId || loading}
               name={tag.name}
               onClick={() => handleClick(tag)}
               userVoted={tag.userVoted}
