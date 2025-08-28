@@ -21,13 +21,20 @@ const StyledButton = styled(Button)`
     };
   width: fit-content;
 
-  &:hover,
-  &:focus-visible {
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
     background: ${props => props.$userVoted ?
       'linear-gradient(180deg, #4D2A8E 0%, #3C2F53 100%);'
       : '#E0D4F6'
-    };
-    color: ${props => props.theme.global.colors['neutral-6']};  
+      };
+    color: ${props => props.$userVoted ?
+      props.theme.global.colors['neutral-6']
+      : props.theme.global.colors['dark-3']};
     border: none;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
   }
@@ -36,8 +43,8 @@ const StyledButton = styled(Button)`
 const StyledText = styled(Text)`
   display: none;
 
-  ${StyledButton}:hover &,
-  ${StyledButton}:focus-visible & {
+  ${StyledButton}:hover:not(:disabled) &,
+  ${StyledButton}:focus-visible:not(:disabled) & {
     display: inline;
     margin-left: 10px;
   }
@@ -46,8 +53,8 @@ const StyledText = styled(Text)`
 const StyledVoteCount = styled(Text)`
   margin-left: 10px;
 
-  ${StyledButton}:hover &,
-  ${StyledButton}:focus-visible & {
+  ${StyledButton}:hover:not(:disabled) &,
+  ${StyledButton}:focus-visible:not(:disabled) & {
     display: none;
   }
 `
@@ -67,7 +74,7 @@ const TipContent = ({ message = '' }) => (
     direction='row'
     align='center'
     width='100%'
-    animation={{ delay: 250, duration: 200, type: 'fadeIn' }}
+    animation={{ type: 'fadeIn' }}
   >
     <Box background='dark-4' round='5px' pad='5px'>
       <Text>{message}</Text>
@@ -86,8 +93,10 @@ function Tag({
 }) {
   const { t } = useTranslation('screens')
 
-  let message = t('Talk.logInToVote')
-  if (userVoted) {
+  let message
+  if (!userVoted && disabled) {
+    message = t('Talk.logInToVote')
+  } else if (userVoted) {
     message = t('Talk.removeVote')
   } else if (!disabled) {
     message = t('Talk.addVote')
@@ -102,7 +111,6 @@ function Tag({
       <StyledButton
         align='center'
         disabled={disabled}
-        fill={false}
         gap='xsmall'
         justify='center'
         label={(
@@ -138,6 +146,7 @@ function Tag({
 }
 
 Tag.propTypes = {
+  disabled: bool,
   name: string,
   onClick: func,
   userVoted: bool,

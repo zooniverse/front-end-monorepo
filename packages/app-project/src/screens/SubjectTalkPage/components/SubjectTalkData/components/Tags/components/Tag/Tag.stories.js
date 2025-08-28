@@ -35,3 +35,20 @@ export const UserVoted = {
     voteCount: 5
   }
 }
+
+export const Disabled = {
+  args: {
+    disabled: true,
+    name: 'blue_jay',
+    voteCount: 2
+  }
+}
+
+export const DisabledUserVoted = {
+  args: {
+    disabled: true,
+    name: 'blue_jay',
+    userVoted: true,
+    voteCount: 4
+  }
+}
