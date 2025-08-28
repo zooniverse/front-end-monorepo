@@ -77,7 +77,6 @@ function TalkComment({
 
   return (
     <StyledCommentCard
-      forwardedAs='li'
       pad='xsmall'
       round='xxsmall'
       tabIndex={0}

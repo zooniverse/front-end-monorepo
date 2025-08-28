@@ -75,12 +75,25 @@
   "Talk": {
     "addVote": "Add your vote",
     "avatarAlt": "{{login}} avatar",
+    "chronologically": "Chronologically",
+    "comments": "Comments",
+    "commentsNewFirst": "Comments newest first",
+    "commentsOldFirst": "Comments oldest first",
+    "commentsViewing": "Viewing {{count}} of {{total}} comments",
+    "discussions": "{{count}} Discussions",
     "featuredCollections": "Featured in these Collections",
     "goToComment": "Go to comment",
     "logInToVote": "Log in to vote",
+    "noDiscussions": "No Discussions",
+    "oneDiscussion": "1 Discussion",
+    "participants": "Participants",
     "relatedSubjects": "Other subjects being discussed:",
     "removeVote": "Remove your vote",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
-    "subjectMetadata": "Subject Metadata"
+    "sortNewFirst": "Sort by newest first",
+    "sortOldFirst": "Sort by oldest first",
+    "startDiscussion": "Start a discussion",
+    "subjectMetadata": "Subject Metadata",
+    "viewFullDiscussion": "View full discussion"
   }
 }
