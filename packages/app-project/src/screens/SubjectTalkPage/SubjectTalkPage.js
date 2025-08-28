@@ -64,6 +64,7 @@ function SubjectTalkPage({
             login={login}
             projectId={projectId}
             subjectId={subjectId}
+            userId={userId}
           />
         </ContainerGrid>
         <Box

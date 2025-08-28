@@ -73,6 +73,7 @@
     }
   },
   "Talk": {
+    "addVote": "Add your vote",
     "avatarAlt": "{{login}} avatar",
     "chronologically": "Chronologically",
     "comments": "Comments",
@@ -82,10 +83,12 @@
     "discussions": "{{count}} Discussions",
     "featuredCollections": "Featured in these Collections",
     "goToComment": "Go to comment",
+    "logInToVote": "Log in to vote",
     "noDiscussions": "No Discussions",
     "oneDiscussion": "1 Discussion",
     "participants": "Participants",
     "relatedSubjects": "Other subjects being discussed:",
+    "removeVote": "Remove your vote",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
     "sortNewFirst": "Sort by newest first",
     "sortOldFirst": "Sort by oldest first",
