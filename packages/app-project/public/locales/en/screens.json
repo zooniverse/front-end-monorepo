@@ -73,10 +73,13 @@
     }
   },
   "Talk": {
+    "addVote": "Add your vote",
     "avatarAlt": "{{login}} avatar",
     "featuredCollections": "Featured in these Collections",
     "goToComment": "Go to comment",
+    "logInToVote": "Log in to vote",
     "relatedSubjects": "Other subjects being discussed:",
+    "removeVote": "Remove your vote",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
     "subjectMetadata": "Subject Metadata"
   }
