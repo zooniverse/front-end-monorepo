@@ -74,30 +74,13 @@ function Tags({
     mutate: mutateTagVotes
   } = useTagVotes(tagVotesQuery)
 
-  let combinedTags = []
-  if (tags && votableTags) {
-    const votableTagNames = votableTags.map(tag => tag.name)
-    const filteredTags = tags.filter(tag => !votableTagNames.includes(tag.name))
-    combinedTags = [...votableTags, ...filteredTags]
-
-    // Add userVoted property to votableTags
-    combinedTags = combinedTags.map(tag => {
-      if (votableTags.some(votableTag => votableTag.id === tag.id)) {
-        return {
-          ...tag,
-          userVoted: tag.userVoted ?? tagVotes?.some(vote => vote.votable_tag_id === tag.id)
-        }
-      }
-      return tag
-    })
-  } else if (votableTags) {
-    combinedTags = votableTags.map(tag => ({
+  const votableTagNames = votableTags?.map(tag => tag.name) || [];
+  const filteredTags = tags?.filter(tag => !votableTagNames.includes(tag.name)) || [];
+  const combinedTags = [...(votableTags || []), ...filteredTags]
+    .map(tag => ({
       ...tag,
-      userVoted: tag.userVoted ?? tagVotes?.some(vote => vote.votable_tag_id === tag.id)
+      userVoted: tag.userVoted ?? tagVotes?.some(vote => vote.votable_tag_id === tag.id)  
     }))
-  } else if (tags) {
-    combinedTags = tags
-  }
 
   async function handleAddVote(tag) {
     const newTagVote = { votable_tag_id: tag.id }
@@ -185,8 +168,6 @@ function Tags({
   }
 
   function handleRemoveVote(tag) {
-    console.log('removing vote for tag', tag)
-
     const tagVoteToRemove = tagVotes?.find(vote => vote.votable_tag.name === tag.name)
     if (!tagVoteToRemove || !tagVoteToRemove.id) return
 
@@ -262,8 +243,6 @@ function Tags({
       handleAddVote(tag)
     }
   }
-
-  console.log('combinedTags', combinedTags)
 
   return (
     <Box
