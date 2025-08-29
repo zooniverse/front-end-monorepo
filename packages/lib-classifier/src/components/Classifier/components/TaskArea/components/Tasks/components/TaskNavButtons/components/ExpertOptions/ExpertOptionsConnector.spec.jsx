@@ -17,7 +17,7 @@ describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
       )
       expect(
         screen.queryByLabelText('TaskArea.Tasks.ExpertOptions.label')
-      ).to.be.null()
+      ).to.equal(null)
     })
   })
 })

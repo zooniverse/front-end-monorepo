@@ -17,12 +17,12 @@ describe('Model > SimpleDropdownAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(simpleDropdownAnnotation).to.be.ok()
+      expect(simpleDropdownAnnotation).toBeDefined()
       expect(simpleDropdownAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(simpleDropdownAnnotation.isComplete).to.be.true()
+      expect(simpleDropdownAnnotation.isComplete).to.equal(true)
     })
   })
 
@@ -38,12 +38,12 @@ describe('Model > SimpleDropdownAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(simpleDropdownAnnotation).to.be.ok()
+      expect(simpleDropdownAnnotation).toBeDefined()
       expect(simpleDropdownAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(simpleDropdownAnnotation.isComplete).to.be.false()
+      expect(simpleDropdownAnnotation.isComplete).to.equal(false)
     })
   })
 })

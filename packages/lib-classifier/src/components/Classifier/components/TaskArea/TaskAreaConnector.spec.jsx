@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { render, screen } from '@testing-library/react'
-import { expect } from 'chai'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
@@ -53,12 +52,12 @@ describe('TaskAreaConnector', function () {
     it('should render the active task', function () {
       expect(inputs).to.not.be.empty()
       inputs.forEach(input => {
-        expect(input.disabled).to.be.false()
+        expect(input.disabled).to.equal(false)
       })
     })
 
     it('should not show the disabled task popup', function () {
-      expect(disabledTaskPopup).to.be.null()
+      expect(disabledTaskPopup).to.equal(null)
     })
   })
 
@@ -125,29 +124,29 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should show the disabled task popup', function () {
-        expect(disabledTaskPopup.getAttribute('open')).to.exist()
+        expect(disabledTaskPopup.getAttribute('open')).toBeDefined()
       })
 
       it('should show a message that the subject is finished', function () {
-        expect(finishedMessage).to.be.ok()
+        expect(finishedMessage).toBeDefined()
       })
 
       it('should show a button to choose a new subject', function () {
-        expect(selectButton).to.be.ok()
+        expect(selectButton).toBeDefined()
       })
 
       it('should show a button to choose the next available subject', function () {
-        expect(nextButton).to.be.ok()
+        expect(nextButton).toBeDefined()
       })
 
       it('should show a button to dismiss the popup', function () {
-        expect(dismissButton).to.be.ok()
+        expect(dismissButton).toBeDefined()
       })
 
       it('should disable the active task', function () {
         expect(inputs).to.not.be.empty()
         inputs.forEach(input => {
-          expect(input.disabled).to.be.true()
+          expect(input.disabled).to.equal(true)
         })
       })
     })
@@ -181,29 +180,29 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should show the disabled task popup', function () {
-        expect(disabledTaskPopup.getAttribute('open')).to.exist()
+        expect(disabledTaskPopup.getAttribute('open')).toBeDefined()
       })
 
       it('should show a message that the subject is finished', function () {
-        expect(finishedMessage).to.be.ok()
+        expect(finishedMessage).toBeDefined()
       })
 
       it('should show a button to choose a new subject', function () {
-        expect(selectButton).to.be.ok()
+        expect(selectButton).toBeDefined()
       })
 
       it('should show a button to choose the next available subject', function () {
-        expect(nextButton).to.be.ok()
+        expect(nextButton).toBeDefined()
       })
 
       it('should show a button to dismiss the popup', function () {
-        expect(dismissButton).to.be.ok()
+        expect(dismissButton).toBeDefined()
       })
 
       it('should disable the active task', function () {
         expect(inputs).to.not.be.empty()
         inputs.forEach(input => {
-          expect(input.disabled).to.be.true()
+          expect(input.disabled).to.equal(true)
         })
       })
     })
@@ -226,13 +225,13 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should not show the disabled task popup', function () {
-        expect(disabledTaskPopup).to.be.null()
+        expect(disabledTaskPopup).to.equal(null)
       })
 
       it('should not disable the active task', function () {
         expect(inputs).to.not.be.empty()
         inputs.forEach(input => {
-          expect(input.disabled).to.be.false()
+          expect(input.disabled).to.equal(false)
         })
       })
     })

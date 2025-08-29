@@ -11,7 +11,7 @@ const rectangle = {
 describe('Model > DrawingTools > Rectangle', function () {
   it('should exist', function () {
     const rectangleToolInstance = RectangleTool.create(rectangle)
-    expect(rectangleToolInstance).to.exist()
+    expect(rectangleToolInstance).toBeDefined()
     expect(rectangleToolInstance).to.be.an('object')
   })
 

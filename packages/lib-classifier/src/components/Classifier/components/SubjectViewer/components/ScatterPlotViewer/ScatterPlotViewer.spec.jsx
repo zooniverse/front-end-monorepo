@@ -1,6 +1,11 @@
 import { composeStory } from '@storybook/react'
 import { render, waitFor } from '@testing-library/react'
-import Meta, { Default, ErrorBars, KeplerLightCurve, SelectionFeedback } from './ScatterPlotViewer.stories.js'
+import Meta, {
+  Default,
+  ErrorBars,
+  KeplerLightCurve,
+  SelectionFeedback
+} from './ScatterPlotViewer.stories'
 
 describe('Component > ScatterPlotViewer', function () {
   describe('default plot', function () {
@@ -13,7 +18,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should render without errors', function () {
-      expect(chart).to.exist()
+      expect(chart).toBeDefined()
     })
 
     it('should render the chart background', function () {
@@ -40,7 +45,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should render without errors', function () {
-      expect(chart).to.exist()
+      expect(chart).toBeDefined()
     })
 
     it('should render the chart background', function () {
@@ -67,7 +72,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should render without errors', function () {
-      expect(chart).to.exist()
+      expect(chart).toBeDefined()
     })
 
     it('should render the chart background', function () {
@@ -85,25 +90,36 @@ describe('Component > ScatterPlotViewer', function () {
   })
 
   describe('with data selection feedback', function () {
-    let chart
-
     beforeEach(async function () {
       const MockScatterPlotViewer = composeStory(SelectionFeedback, Meta)
       render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
-      await waitFor(() => expect(document.querySelector('svg.scatterPlot')).to.exist())
-      chart = document.querySelector('svg.scatterPlot')
     })
 
-    it('should show successful matches', function () {
-      expect(chart.querySelectorAll('rect.selection[fill=green]')).to.have.lengthOf(1)
+    it('should show successful matches', async function () {
+      await waitFor(() => {
+        const chart = document.querySelector('svg.scatterPlot')
+        expect(
+          chart.querySelectorAll('rect.selection[fill=green]')
+        ).to.have.lengthOf(1)
+      })
     })
 
-    it('should show failed matches', function () {
-      expect(chart.querySelectorAll('rect.selection[fill=red]')).to.have.lengthOf(1)
+    it('should show failed matches', async function () {
+      await waitFor(() => {
+        const chart = document.querySelector('svg.scatterPlot')
+        expect(
+          chart.querySelectorAll('rect.selection[fill=red]')
+        ).to.have.lengthOf(1)
+      })
     })
 
-    it('should show volunteer selections', function () {
-      expect(chart.querySelectorAll('rect.selection[fill=transparent]')).to.have.lengthOf(3)
+    it('should show volunteer selections', async function () {
+      await waitFor(() => {
+        const chart = document.querySelector('svg.scatterPlot')
+        expect(
+          chart.querySelectorAll('rect.selection[fill=transparent]')
+        ).to.have.lengthOf(3)
+      })
     })
   })
 })

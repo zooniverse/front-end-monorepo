@@ -9,12 +9,12 @@ describe('Model > MultipleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(multipleChoiceAnnotation).to.be.ok()
+      expect(multipleChoiceAnnotation).toBeDefined()
       expect(multipleChoiceAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(multipleChoiceAnnotation.isComplete).to.be.true()
+      expect(multipleChoiceAnnotation.isComplete).to.equal(true)
     })
   })
 
@@ -26,12 +26,12 @@ describe('Model > MultipleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(multipleChoiceAnnotation).to.be.ok()
+      expect(multipleChoiceAnnotation).toBeDefined()
       expect(multipleChoiceAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(multipleChoiceAnnotation.isComplete).to.be.false()
+      expect(multipleChoiceAnnotation.isComplete).to.equal(false)
     })
   })
 })

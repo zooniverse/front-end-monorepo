@@ -3,7 +3,6 @@
 describe.skip('TaskArea', function () {})
 
 // import { Tab, Tabs } from '@zooniverse/react-components'
-// import { expect } from 'chai'
 // import sinon from 'sinon'
 
 // import TaskArea from './TaskArea'

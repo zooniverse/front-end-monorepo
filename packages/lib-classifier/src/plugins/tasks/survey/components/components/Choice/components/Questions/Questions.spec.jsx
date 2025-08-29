@@ -35,9 +35,9 @@ describe('Component > Questions', function () {
     const checkboxInputs = screen.queryAllByRole('checkbox', { hidden: true })
     radioInputs.forEach(checkboxInput => {
       if (checkboxInput.getAttribute('value') === '9') {
-        expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+        expect(checkboxInput.getAttribute('checked')).toBeTruthy()
       } else {
-        expect(checkboxInput.getAttribute('checked')).to.be.null()
+        expect(checkboxInput.getAttribute('checked')).to.equal(null)
       }
     })
     checkboxInputs.forEach(checkboxInput => {
@@ -46,7 +46,7 @@ describe('Component > Questions', function () {
       } else if (checkboxInput.getAttribute('value') === 'TNG') {
         expect(checkboxInput.getAttribute('checked')).to.not.be.null()
       } else {
-        expect(checkboxInput.getAttribute('checked')).to.be.null()
+        expect(checkboxInput.getAttribute('checked')).to.equal(null)
       }
     })
   })

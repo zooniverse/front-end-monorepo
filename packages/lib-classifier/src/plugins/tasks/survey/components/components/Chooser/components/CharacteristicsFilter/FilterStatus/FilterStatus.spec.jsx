@@ -20,7 +20,7 @@ describe('Component > FilterStatus', function () {
         task={task}
       />
     )
-    expect(screen.queryByRole('radiogroup')).to.be.null()
+    expect(screen.queryByRole('radiogroup')).to.equal(null)
   })
 
   describe('with selected filters', function () {
@@ -37,9 +37,9 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByTestId('remove filter-LK-CTDG')).to.be.ok()
-      expect(screen.getByTestId('remove filter-CLR-BLCK')).to.be.ok()
-      expect(screen.getByTestId('remove filter-PTTRN-SLD')).to.be.ok()
+      expect(screen.getByTestId('remove filter-LK-CTDG')).toBeDefined()
+      expect(screen.getByTestId('remove filter-CLR-BLCK')).toBeDefined()
+      expect(screen.getByTestId('remove filter-PTTRN-SLD')).toBeDefined()
     })
 
     it('should show the showing x of y text', function () {
@@ -55,7 +55,7 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByText('SurveyTask.CharacteristicsFilter.showing')).to.be.ok()
+      expect(screen.getByText('SurveyTask.CharacteristicsFilter.showing')).toBeDefined()
     })
 
     it('should show the clear all filters button', function () {
@@ -71,7 +71,7 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })).to.be.ok()
+      expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })).toBeDefined()
     })
   })
 })

@@ -76,7 +76,7 @@ describe('Model > FieldGuideStore', function () {
       const fieldGuideStore = setupStores(panoptesClientStub)
 
       expect(fieldGuideStore.loadingState).to.equal(asyncStates.loading)
-      expect(fieldGuideStore.active).to.be.undefined()
+      expect(fieldGuideStore.active).to.equal(undefined)
 
       fieldGuideStore.fetchFieldGuide(project.id).then(() => {
         const fieldGuideInStore = fieldGuideStore.active
@@ -248,7 +248,7 @@ describe('Model > FieldGuideStore', function () {
       expect(fieldGuideStore.attachedMedia.size).to.equal(1)
 
       fieldGuideStore.reset()
-      expect(fieldGuideStore.active).to.be.undefined()
+      expect(fieldGuideStore.active).to.equal(undefined)
       expect(fieldGuideStore.resources.size).to.equal(0)
       expect(fieldGuideStore.attachedMedia.size).to.equal(0)
     })

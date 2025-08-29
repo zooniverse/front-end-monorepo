@@ -30,7 +30,7 @@ describe('SurveyTask with user keystrokes', function () {
 
       // confirm choice Fire selected
       choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
-      expect(choiceButton).to.be.ok()
+      expect(choiceButton).toBeDefined()
 
       // confirm choice Fire active element
       await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
@@ -39,7 +39,7 @@ describe('SurveyTask with user keystrokes', function () {
       await user.keyboard('[Delete]')
       // confirm choice Fire not selected
       choiceButton = screen.getByLabelText('Fire')
-      expect(choiceButton).to.be.ok()
+      expect(choiceButton).toBeDefined()
     })
 
     it('should remove a previously identified choice with backspace key', async function () {
@@ -47,7 +47,7 @@ describe('SurveyTask with user keystrokes', function () {
 
       // confirm choice Fire selected
       choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
-      expect(choiceButton).to.be.ok()
+      expect(choiceButton).toBeDefined()
 
       // confirm choice Fire active element
       await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
@@ -56,7 +56,7 @@ describe('SurveyTask with user keystrokes', function () {
       await user.keyboard('[Backspace]')
       // confirm choice Fire not selected
       choiceButton = screen.getByLabelText('Fire')
-      expect(choiceButton).to.be.ok()
+      expect(choiceButton).toBeDefined()
     })
   })
 
@@ -83,14 +83,14 @@ describe('SurveyTask with user keystrokes', function () {
         // the "remove solid filter" button is a button that renders after the "solid" filter is applied
         // confirm the "remove solid filter" button does not exist before the solid filter is applied
         let solidFilterRemoveButton = screen.queryByTestId('remove filter-PTTRN-SLD')
-        expect(solidFilterRemoveButton).to.be.null()
+        expect(solidFilterRemoveButton).to.equal(null)
 
         // tabbing to the pattern section that contains the solid filter and applying the solid filter with space key
         await user.keyboard('[Tab][Tab][Space]')
 
         // confirm the solid filter is selected with existence of the related remove filter button
         solidFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-SLD')
-        expect(solidFilterRemoveButton).to.be.ok()
+        expect(solidFilterRemoveButton).toBeDefined()
       })
 
       it('should show the choices that match the filter', async function () {
@@ -111,7 +111,7 @@ describe('SurveyTask with user keystrokes', function () {
         await user.keyboard('[Tab][Tab][Space]')
         // confirm the solid filter is selected with existence of the related remove filter button
         let solidFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-SLD')
-        expect(solidFilterRemoveButton).to.be.ok()
+        expect(solidFilterRemoveButton).toBeDefined()
 
         // close the filters
         await user.click(filterButton)
@@ -142,20 +142,20 @@ describe('SurveyTask with user keystrokes', function () {
 
     it('should show the "more info" button', async function () {
       const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
-      expect(choiceMoreInfoButton).to.be.ok()
+      expect(choiceMoreInfoButton).toBeDefined()
     })
 
     it('should show choice images', async function () {
       const choiceImages = screen.getByTestId('choice-images')
-      expect(choiceImages).to.be.ok()
+      expect(choiceImages).toBeDefined()
     })
 
     it('should close choice on Escape key', async function () {
-      await waitFor(() => expect(document.activeElement === document.body).to.be.false())
+      await waitFor(() => expect(document.activeElement === document.body).to.equal(false))
       // pressing Escape to close the choice (Aardvark)
       await user.keyboard('[Escape]')
       // confirm choice (Aardvark) description, and therefore choice, is not visible
-      expect(screen.queryByText('Not as awesome as a pangolin, but surprisingly big.')).to.be.null()
+      expect(screen.queryByText('Not as awesome as a pangolin, but surprisingly big.')).to.equal(null)
     })
   })
 })

@@ -44,8 +44,8 @@ describe('Component > FieldGuideButton', function () {
         wrapper: withStore(mockStore)
       }
     )
-    const fieldGuideBtn = getByText('FieldGuide.FieldGuideButton.buttonLabel')
-    expect(fieldGuideBtn.closest('button')).to.have.attribute('disabled')
+    const fieldGuideBtn = getByText('Field Guide')
+    expect(fieldGuideBtn.closest('button').disabled).to.equal(true)
   })
 
   it('should disable the button if the field guide doesn\'t have items', function () {
@@ -58,8 +58,8 @@ describe('Component > FieldGuideButton', function () {
         wrapper: withStore(mockStore)
       }
     )
-    const fieldGuideBtn = getByText('FieldGuide.FieldGuideButton.buttonLabel')
-    expect(fieldGuideBtn.closest('button')).to.have.attribute('disabled')
+    const fieldGuideBtn = getByText('Field Guide')
+    expect(fieldGuideBtn.closest('button').disabled).to.equal(true)
   })
 
   it('should enable the button if the field guide has items', function () {
@@ -72,7 +72,7 @@ describe('Component > FieldGuideButton', function () {
         wrapper: withStore(mockStore)
       }
     )
-    const fieldGuideBtn = getByText('FieldGuide.FieldGuideButton.buttonLabel')
-    expect(fieldGuideBtn.closest('button')).to.not.have.attribute('disabled')
+    const fieldGuideBtn = getByText('Field Guide')
+    expect(fieldGuideBtn.closest('button').disabled).to.equal(false)
   })
 })

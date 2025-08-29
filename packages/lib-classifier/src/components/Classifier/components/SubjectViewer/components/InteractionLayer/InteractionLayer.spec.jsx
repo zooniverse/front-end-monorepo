@@ -13,7 +13,6 @@ describe.skip('Component > InteractionLayer', function () {})
 //   Point,
 //   TranscriptionLine
 // } from '@plugins/drawingTools/components'
-// import { expect } from 'chai'
 
 // describe('Component > InteractionLayer', function () {
 //   let wrapper

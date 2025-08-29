@@ -21,13 +21,13 @@ describe('Model > SubjectGroup', function () {
   })
 
   it('should exist', function () {
-    expect(subjectGroup).to.be.ok()
+    expect(subjectGroup).toBeDefined()
   })
 
   it('should contain locations', function () {
     expect(subjectGroup.locations).to.have.lengthOf(4)
   })
-  
+
   it('should contain subjects IDs', function () {
     expect(subjectGroup.subjectIds).to.have.lengthOf(4)
   })

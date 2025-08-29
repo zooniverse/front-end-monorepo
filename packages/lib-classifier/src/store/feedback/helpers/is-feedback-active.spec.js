@@ -31,46 +31,46 @@ describe('Feedback: isFeedbackActive', function () {
   }
   describe('with a valid project, workflow and subject', function () {
     it('should be true with a valid project, workflow and subject', function () {
-      expect(isFeedbackActive(project, subject, workflow)).to.be.true()
+      expect(isFeedbackActive(project, subject, workflow)).to.equal(true)
     })
   })
   describe('with an invalid project, workflow or subject', function () {
     it('should be false with an invalid project', function () {
-      expect(isFeedbackActive(false, subject, workflow)).to.be.false()
+      expect(isFeedbackActive(false, subject, workflow)).to.equal(false)
     })
     it('should be false with an invalid workflow', function () {
-      expect(isFeedbackActive(project, subject, false)).to.be.false()
+      expect(isFeedbackActive(project, subject, false)).to.equal(false)
     })
     it('should be false with an invalid subject', function () {
-      expect(isFeedbackActive(project, false, workflow)).to.be.false()
+      expect(isFeedbackActive(project, false, workflow)).to.equal(false)
     })
   })
   describe('with undefined arguments', function () {
     it('should be false', function () {
-      expect(isFeedbackActive()).to.be.false()
+      expect(isFeedbackActive()).to.equal(false)
     })
     it('should be false with an undefined project', function () {
-      expect(isFeedbackActive(undefined, subject, workflow)).to.be.false()
+      expect(isFeedbackActive(undefined, subject, workflow)).to.equal(false)
     })
     it('should be false with an undefined workflow', function () {
-      expect(isFeedbackActive(project, subject, undefined)).to.be.false()
+      expect(isFeedbackActive(project, subject, undefined)).to.equal(false)
     })
     it('should be false with an undefined subject', function () {
-      expect(isFeedbackActive(project, undefined, workflow)).to.be.false()
+      expect(isFeedbackActive(project, undefined, workflow)).to.equal(false)
     })
   })
   describe('with null arguments', function () {
     it('should be false', function () {
-      expect(isFeedbackActive(null, null, null)).to.be.false()
+      expect(isFeedbackActive(null, null, null)).to.equal(false)
     })
     it('should be false with a null project', function () {
-      expect(isFeedbackActive(null, subject, workflow)).to.be.false()
+      expect(isFeedbackActive(null, subject, workflow)).to.equal(false)
     })
     it('should be false with a null workflow', function () {
-      expect(isFeedbackActive(project, subject, null)).to.be.false()
+      expect(isFeedbackActive(project, subject, null)).to.equal(false)
     })
     it('should be false with a null subject', function () {
-      expect(isFeedbackActive(project, null, workflow)).to.be.false()
+      expect(isFeedbackActive(project, null, workflow)).to.equal(false)
     })
   })
 })

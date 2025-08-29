@@ -20,7 +20,7 @@ describe('Task models', function () {
       })
 
       it('should exist', function () {
-        expect(task).to.be.ok()
+        expect(task).toBeDefined()
       })
 
       describe('annotations', function () {
@@ -31,7 +31,7 @@ describe('Task models', function () {
         })
 
         it('should exist', function () {
-          expect(annotation).to.be.ok()
+          expect(annotation).toBeDefined()
         })
 
         it('should store the task key', function () {
@@ -43,13 +43,13 @@ describe('Task models', function () {
         })
 
         it('should not be in progress', function () {
-          expect(annotation._inProgress).to.be.false()
+          expect(annotation._inProgress).to.equal(false)
         })
 
         describe('on update', function () {
           it('should be marked in progress', function () {
             annotation.update(annotation.value)
-            expect(annotation._inProgress).to.be.true()
+            expect(annotation._inProgress).to.equal(true)
           })
         })
       })

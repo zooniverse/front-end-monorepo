@@ -12,7 +12,7 @@ describe('Model > SubjectSet', function () {
   })
 
   it('should exist', function () {
-    expect(model).to.be.ok()
+    expect(model).toBeDefined()
     expect(model).to.be.an('object')
   })
 
@@ -38,7 +38,7 @@ describe('Model > SubjectSet', function () {
       })
 
       it('should be false', function () {
-        expect(isIndexed).to.be.false()
+        expect(isIndexed).to.equal(false)
       })
     })
 
@@ -57,7 +57,7 @@ describe('Model > SubjectSet', function () {
         })
 
         it('should be false', function () {
-          expect(isIndexed).to.be.false()
+          expect(isIndexed).to.equal(false)
         })
       })
 
@@ -75,7 +75,7 @@ describe('Model > SubjectSet', function () {
         })
 
         it('should be true', function () {
-          expect(isIndexed).to.be.true()
+          expect(isIndexed).to.equal(true)
         })
       })
     })

@@ -1,6 +1,6 @@
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
-describes.skip('Component > DataImageViewer', function () {})
+describe.skip('Component > DataImageViewer', function () {})
 
 // import sinon from 'sinon'
 // import { DataImageViewer } from './DataImageViewer'

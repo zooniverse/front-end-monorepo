@@ -6,7 +6,7 @@ import Meta, {
   Disabled,
   Next,
   BackOrDone
-} from './TaskNavButtons.stories.js'
+} from './TaskNavButtons.stories'
 
 describe('TaskNavButtons', function () {
   it('should display Done + DoneAndTalk by default', function () {
@@ -14,15 +14,15 @@ describe('TaskNavButtons', function () {
     render(<DefaultStory />)
     expect(
       screen.getByRole('link', {
-        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+        name: 'Done & Talk in a new tab'
       })
-    ).to.be.ok()
+    ).toBeDefined()
 
     expect(
       screen.getByRole('button', {
-        name: 'TaskArea.Tasks.DoneButton.done'
+        name: 'Done'
       })
-    ).to.be.ok()
+    ).toBeDefined()
   })
 
   it('should disable the buttons based on the disabled prop', function () {
@@ -31,30 +31,30 @@ describe('TaskNavButtons', function () {
 
     expect(
       screen.getByRole('button', {
-        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+        name: 'Done & Talk in a new tab'
       }).disabled
-    ).to.be.true()
+    ).to.equal(true)
 
     expect(
       screen.getByRole('button', {
-        name: 'TaskArea.Tasks.DoneButton.done'
+        name: 'Done'
       }).disabled
-    ).to.be.true()
+    ).to.equal(true)
   })
 
   it('should display a labeled NextButton when there is a next step', function () {
     const NextButtonStory = composeStory(Next, Meta)
     render(<NextButtonStory />)
     expect(
-      screen.getByRole('button', { name: 'TaskArea.Tasks.NextButton.next' })
-    ).to.be.ok()
+      screen.getByRole('button', { name: 'Next' })
+    ).toBeDefined()
   })
 
   it('should display a labeled BackButton when step history can go back', function () {
     const BackOrDoneStory = composeStory(BackOrDone, Meta)
     render(<BackOrDoneStory />)
     expect(
-      screen.getByRole('button', { name: 'TaskArea.Tasks.BackButton.back' })
-    ).to.be.ok()
+      screen.getByRole('button', { name: 'Back' })
+    ).toBeDefined()
   })
 })

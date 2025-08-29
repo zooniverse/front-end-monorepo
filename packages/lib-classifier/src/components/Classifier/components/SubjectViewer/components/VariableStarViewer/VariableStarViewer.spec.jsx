@@ -7,7 +7,6 @@ describe.skip('Component > VariableStarViewer', function () {})
 // import { VariableStarViewer } from './VariableStarViewer'
 // import { SingleImageViewerContainer } from '../SingleImageViewer'
 // import ScatterPlotViewer from '../ScatterPlotViewer'
-// import { expect } from 'chai'
 
 // describe('Component > VariableStarViewer', function () {
 //   it('should render without crashing', function () {

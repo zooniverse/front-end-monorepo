@@ -9,12 +9,12 @@ describe('Model > SingleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(singleChoiceAnnotation).to.be.ok()
+      expect(singleChoiceAnnotation).toBeDefined()
       expect(singleChoiceAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(singleChoiceAnnotation.isComplete).to.be.true()
+      expect(singleChoiceAnnotation.isComplete).to.equal(true)
     })
   })
 
@@ -26,12 +26,12 @@ describe('Model > SingleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(singleChoiceAnnotation).to.be.ok()
+      expect(singleChoiceAnnotation).toBeDefined()
       expect(singleChoiceAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(singleChoiceAnnotation.isComplete).to.be.false()
+      expect(singleChoiceAnnotation.isComplete).to.equal(false)
     })
   })
 })

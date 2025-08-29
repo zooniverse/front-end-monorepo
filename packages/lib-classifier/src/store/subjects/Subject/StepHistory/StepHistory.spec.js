@@ -7,7 +7,7 @@ describe('Model > StepHistory', function () {
   it('should exist', function () {
     const store = mockStore()
     const stepHistory = store.subjects.active.stepHistory
-    expect(stepHistory).to.be.ok()
+    expect(stepHistory).toBeDefined()
     expect(stepHistory).to.be.an('object')
   })
 
@@ -21,22 +21,22 @@ describe('Model > StepHistory', function () {
     })
 
     it('should be false', function () {
-      expect(stepHistory.checkForProgress).to.be.false()
+      expect(stepHistory.checkForProgress).to.equal(false)
     })
 
     it('should be true after updating an annotation', function () {
       const { annotations } = stepHistory.latest
       const [ annotation ] = annotations
       annotation.update(0)
-      expect(stepHistory.checkForProgress).to.be.true()
+      expect(stepHistory.checkForProgress).to.equal(true)
     })
 
     it('should reset on starting a new subject', async function () {
-      expect(stepHistory.checkForProgress).to.be.true()
+      expect(stepHistory.checkForProgress).to.equal(true)
       store.subjects.advance()
       await when(() => store.subjects.loadingState === asyncStates.success)
       stepHistory = store.subjects.active.stepHistory
-      expect(stepHistory.checkForProgress).to.be.false()
+      expect(stepHistory.checkForProgress).to.equal(false)
     })
   })
 
@@ -68,7 +68,7 @@ describe('Model > StepHistory', function () {
       })
 
       it('should not be able to undo', function () {
-        expect(stepHistory.canUndo).to.be.false()
+        expect(stepHistory.canUndo).to.equal(false)
       })
     })
 
@@ -104,7 +104,7 @@ describe('Model > StepHistory', function () {
       })
 
       it('should be able to undo', function () {
-        expect(stepHistory.canUndo).to.be.true()
+        expect(stepHistory.canUndo).to.equal(true)
       })
 
       describe('on undo', function () {
@@ -126,7 +126,7 @@ describe('Model > StepHistory', function () {
         })
 
         it('should not be able to undo', function () {
-          expect(stepHistory.canUndo).to.be.false()
+          expect(stepHistory.canUndo).to.equal(false)
         })
       })
 
@@ -150,7 +150,7 @@ describe('Model > StepHistory', function () {
         })
 
         it('should be able to undo', function () {
-          expect(stepHistory.canUndo).to.be.true()
+          expect(stepHistory.canUndo).to.equal(true)
         })
       })
 
@@ -172,11 +172,11 @@ describe('Model > StepHistory', function () {
         it('should clear the second step\'s annotations from history', function () {
           const classification = store.classifications.active
           const annotation = classification.annotation('T1')
-          expect(annotation).to.be.undefined()
+          expect(annotation).to.equal(undefined)
         })
 
         it('should be able to undo', function () {
-          expect(stepHistory.canUndo).to.be.true()
+          expect(stepHistory.canUndo).to.equal(true)
         })
       })
 
@@ -223,7 +223,7 @@ describe('Model > StepHistory', function () {
     })
 
     it('should not be able to undo', function () {
-      expect(stepHistory.canUndo).to.be.false()
+      expect(stepHistory.canUndo).to.equal(false)
     })
   })
 })

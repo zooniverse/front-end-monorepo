@@ -27,11 +27,11 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
     const durationText = screen.getByText(formatTimeStamp(subjectDuration))
-    expect(durationText).exists()
+    expect(durationText).toBeDefined()
     const timeStampText = screen.getByText(
       formatTimeStamp(subjectTimeStamp, subjectDuration)
     )
-    expect(timeStampText).exists()
+    expect(timeStampText).toBeDefined()
   })
 
   it('should handle play and pause', async function () {
@@ -47,7 +47,7 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
     const playButton = screen.getByLabelText(
-      'SubjectViewer.VideoController.play'
+      'Play video'
     )
     await user.pointer({
       keys: '[MouseLeft]',
@@ -67,7 +67,7 @@ describe('Component > VideoController', function () {
     )
 
     const pauseButton = screen.getByLabelText(
-      'SubjectViewer.VideoController.pause'
+      'Pause video'
     )
     await user.pointer({
       keys: '[MouseLeft]',
@@ -89,7 +89,7 @@ describe('Component > VideoController', function () {
     )
 
     const speedInput = screen.getByLabelText(
-      'SubjectViewer.VideoController.playbackSpeed; Selected: 1x'
+      'Video playback speed selection; Selected: 1x' // button is labeled "Video playback speed selection; Selected: 1x"
     )
 
     fireEvent.change(speedInput, { target: { value: '0.25x' } })
@@ -115,7 +115,7 @@ describe('Component > VideoController', function () {
     )
 
     const volumeButton = screen.getByLabelText(
-      'SubjectViewer.VideoController.openVolume'
+      'Open Volume Slider'
     )
 
     await user.pointer({
@@ -133,12 +133,12 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
 
-    const volumeRangeInput = screen.getByLabelText('SubjectViewer.VideoController.volumeSlider')
-    expect(volumeRangeInput).exists()
+    const volumeRangeInput = screen.getByLabelText('Volume')
+    expect(volumeRangeInput).toBeDefined()
   })
 
   // Skipped while improving styling and accessibility of the custom controls
-  xit('should not have a fullscreen button if drawing tools are enabled', async function () {
+  it.skip('should not have a fullscreen button if drawing tools are enabled', async function () {
     render(
       <Grommet theme={controlsTheme}>
         <VideoController
@@ -149,7 +149,7 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
 
-    const fullscreenButton = screen.queryByLabelText('SubjectViewer.VideoController.fullscreen')
-    expect(fullscreenButton).to.be.null()
+    const fullscreenButton = screen.queryByLabelText('Show Video Fullscreen')
+    expect(fullscreenButton).to.equal(null)
   })
 })

@@ -256,9 +256,9 @@ describe('Model > TutorialStore', function () {
 
     it('should reset the active tutorial if the id parameter is not defined', function () {
       rootStore.tutorials.setActiveTutorial()
-      expect(rootStore.tutorials.active).to.be.undefined()
+      expect(rootStore.tutorials.active).to.equal(undefined)
       expect(rootStore.tutorials.activeStep).to.equal(0)
-      expect(rootStore.tutorials.activeMedium).to.be.undefined()
+      expect(rootStore.tutorials.activeMedium).to.equal(undefined)
     })
 
     it('should set the active tutorial to the id parameter', function (done) {

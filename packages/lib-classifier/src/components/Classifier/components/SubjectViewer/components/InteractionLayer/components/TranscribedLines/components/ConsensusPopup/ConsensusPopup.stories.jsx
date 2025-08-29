@@ -27,3 +27,11 @@ function ConsensusPopupStory(props) {
 export function Default() {
   return <ConsensusPopupStory />
 }
+
+export function MissingLines() {
+  return (
+    <Box width='1000px'>
+      <ConsensusPopup active />
+    </Box>
+  )
+}

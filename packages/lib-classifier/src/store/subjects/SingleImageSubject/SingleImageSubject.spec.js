@@ -18,20 +18,20 @@ describe('Model > SingleImageSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleImageSubject).to.be.ok()
+    expect(SingleImageSubject).toBeDefined()
     expect(SingleImageSubject).to.be.an('object')
   })
 
   it('should have a `locations` property', function () {
     expect(getSnapshot(subject.locations)).to.deep.equal(subjectSnapshot.locations)
   })
-  
+
   it('should have one location', function () {
     expect(subject.locations).to.have.lengthOf(1)
   })
 
   describe('with an invalid subject', function () {
-    const subjectSnapshot = SubjectFactory.build({ 
+    const subjectSnapshot = SubjectFactory.build({
       locations: [
         { 'image/png': 'https://foo.bar/example.png' },
         { 'audio/mpeg': 'https://foo.bar/example.mp3' }

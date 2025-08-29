@@ -24,7 +24,7 @@ describe('Model > ImageSubject', function () {
   })
 
   it('should exist', function () {
-    expect(ImageSubject).to.be.ok()
+    expect(ImageSubject).toBeDefined()
     expect(ImageSubject).to.be.an('object')
   })
 
@@ -37,7 +37,7 @@ describe('Model > ImageSubject', function () {
   })
 
   describe('with an invalid subject', function () {
-    const subjectSnapshot = SubjectFactory.build({ 
+    const subjectSnapshot = SubjectFactory.build({
       locations: [
         { 'image/png': 'https://foo.bar/example.png' },
         { 'audio/mpeg': 'https://foo.bar/example.mp3' }

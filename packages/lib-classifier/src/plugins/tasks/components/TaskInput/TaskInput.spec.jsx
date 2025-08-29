@@ -48,7 +48,7 @@ describe('TaskInput', function () {
         { wrapper: withGrommet()}
       )
       const radioButton = document.querySelector('input[type="radio"]')
-      expect(radioButton.disabled).to.be.true()
+      expect(radioButton.disabled).to.equal(true)
     })
   })
 

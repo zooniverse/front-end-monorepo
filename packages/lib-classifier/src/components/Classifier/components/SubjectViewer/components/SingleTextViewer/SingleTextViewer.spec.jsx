@@ -13,7 +13,7 @@ describe('SingleTextViewerConnector', function () {
         <DefaultStory
           loadingState={asyncStates.success}
         />)
-      expect(screen.getByLabelText('Subject 1234 text')).to.be.ok()
+      expect(screen.getByLabelText('Subject 1234 text')).toBeDefined()
     })
   })
 
@@ -23,7 +23,7 @@ describe('SingleTextViewerConnector', function () {
         <DefaultStory
           loadingState={asyncStates.error}
         />)
-      expect(screen.getByText('Something went wrong.')).to.be.ok()
+      expect(screen.getByText('Something went wrong.')).toBeDefined()
     })
   })
 })

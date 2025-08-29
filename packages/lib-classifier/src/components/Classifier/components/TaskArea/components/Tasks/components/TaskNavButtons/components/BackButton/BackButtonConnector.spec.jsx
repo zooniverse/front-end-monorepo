@@ -24,8 +24,8 @@ describe('Components > BackButtonConnector', function () {
         </Grommet>
       )
       expect(
-        screen.getByRole('button', { name: 'TaskArea.Tasks.BackButton.back' })
-      ).to.be.ok()
+        screen.getByRole('button', { name: 'Back' })
+      ).toBeDefined()
     })
 
     describe('when clicked', async function () {
@@ -39,7 +39,7 @@ describe('Components > BackButtonConnector', function () {
         )
         const user = userEvent.setup()
         const button = screen.getByRole('button', {
-          name: 'TaskArea.Tasks.BackButton.back'
+          name: 'Back'
         })
         await user.click(button)
       })
@@ -61,7 +61,7 @@ describe('Components > BackButtonConnector', function () {
         const [annotation] = annotations.filter(
           annotation => annotation.task === 'T1'
         )
-        expect(annotation).to.be.undefined()
+        expect(annotation).to.equal(undefined)
       })
     })
   })

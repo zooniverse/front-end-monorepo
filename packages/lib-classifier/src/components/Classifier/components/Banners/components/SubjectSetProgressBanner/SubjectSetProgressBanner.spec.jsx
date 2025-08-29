@@ -25,7 +25,7 @@ describe('Component > SubjectSetProgressBanner', function () {
   describe('with #priority metadata', function () {
     it('should render without crashing', function () {
       const component = render(<Default />)
-      expect(component).to.be.ok()
+      expect(component).toBeDefined()
     })
 
     it('should indicate your position within the subject set', function () {
@@ -51,7 +51,7 @@ describe('Component > SubjectSetProgressBanner', function () {
   describe('with priority metadata', function () {
     it('should render without crashing', function () {
       const component = render(<WithVisiblePriorityMetadata />)
-      expect(component).to.be.ok()
+      expect(component).toBeDefined()
     })
 
     it('should indicate your position within the subject set', function () {

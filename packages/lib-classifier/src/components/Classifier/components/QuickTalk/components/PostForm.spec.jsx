@@ -24,8 +24,8 @@ describe('Component > QuickTalk > PostForm', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.getByRole('textbox', { name: 'Write comments' })).to.exist()
-      expect(screen.getByRole('button', { name: 'Post comment' })).to.exist()
+      expect(screen.getByRole('textbox', { name: 'Write comments' })).toBeDefined()
+      expect(screen.getByRole('button', { name: 'Post comment' })).toBeDefined()
     })
 
     it('should have a "ready to post" status message', function () {

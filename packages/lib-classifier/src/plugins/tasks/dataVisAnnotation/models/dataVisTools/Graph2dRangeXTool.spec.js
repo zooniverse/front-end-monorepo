@@ -10,7 +10,7 @@ const graph2dRangeTool = {
 describe('Model > Graph2dRangeXTool', function () {
   it('should exist', function () {
     const graph2dRangeToolInstance = Graph2dRangeXTool.create(graph2dRangeTool)
-    expect(graph2dRangeToolInstance).to.be.ok()
+    expect(graph2dRangeToolInstance).toBeDefined()
     expect(graph2dRangeToolInstance).to.be.an('object')
   })
 })

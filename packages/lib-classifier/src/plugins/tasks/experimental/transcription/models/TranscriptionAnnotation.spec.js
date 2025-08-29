@@ -25,7 +25,7 @@ describe('Model > TranscriptionAnnotation', function () {
 
   it('should exist', function () {
     const transcriptionAnnotation = TranscriptionAnnotation.create(transcriptionAnnotationSnapshot)
-    expect(transcriptionAnnotation).to.exist()
+    expect(transcriptionAnnotation).toBeDefined()
     expect(transcriptionAnnotation).to.be.an('object')
   })
 

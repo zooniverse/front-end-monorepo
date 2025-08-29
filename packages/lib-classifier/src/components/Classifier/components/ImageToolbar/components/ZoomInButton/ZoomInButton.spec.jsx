@@ -39,7 +39,7 @@ describe('Component > ZoomInButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.ZoomInButton.ariaLabel' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'ImageToolbar.ZoomInButton.ariaLabel' })).toBeDefined()
   })
 
   it('should zoom in the subject viewer when clicked', async function () {

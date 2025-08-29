@@ -9,7 +9,6 @@ describe.skip('Component > VariableStarViewer > HighlightSeriesCheckBoxes', func
 // import { HighlightSeriesCheckBoxes } from './HighlightSeriesCheckBoxes'
 // import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
 // import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
-// import { expect } from 'chai'
 
 // describe('Component > HighlightSeriesCheckBoxes', function () {
 //   const seriesOneLabel = variableStar.data.scatterPlot.data[0].seriesOptions.label

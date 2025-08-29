@@ -51,11 +51,11 @@ describe('TextFromSubject Task', function () {
     })
 
     it('should show a labelled textarea', function () {
-      expect(textArea).to.exist()
+      expect(textArea).toBeDefined()
     })
 
     it('should show a disabled textarea', function () {
-      expect(textArea.disabled).to.be.true()
+      expect(textArea.disabled).to.equal(true)
     })
   })
 
@@ -87,17 +87,17 @@ describe('TextFromSubject Task', function () {
     })
 
     it('should show a labelled textarea', function () {
-      expect(textArea).to.exist()
+      expect(textArea).toBeDefined()
     })
 
     it('should show an enabled textarea with subject text', function () {
-      expect(textArea.disabled).to.be.false()
+      expect(textArea.disabled).to.equal(false)
       expect(textArea).to.have.value('This is test subject text.')
     })
 
     describe('with textarea value unchanged from subject text', function () {
       it('should have a disabled reset button', function () {
-        expect(resetButton.disabled).to.be.true()
+        expect(resetButton.disabled).to.equal(true)
       })
     })
   })
@@ -136,7 +136,7 @@ describe('TextFromSubject Task', function () {
     })
 
     it('should have an enabled reset button', function () {
-      expect(resetButton.disabled).to.be.false()
+      expect(resetButton.disabled).to.equal(false)
     })
   })
 

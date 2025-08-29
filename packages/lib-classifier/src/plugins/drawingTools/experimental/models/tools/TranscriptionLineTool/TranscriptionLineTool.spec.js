@@ -12,7 +12,7 @@ describe('Model > TranscriptionLineTool', function () {
   })
 
   it('should exist', function () {
-    expect(tool).to.exist()
+    expect(tool).toBeDefined()
     expect(tool).to.be.an('object')
   })
 
@@ -32,7 +32,7 @@ describe('Model > TranscriptionLineTool', function () {
         const mark = tool.createMark({ x: 0, y: 0 })
         tool.handlePointerDown(pointerEvent, mark)
         expect(tool.marks.size).to.equal(1)
-        expect(mark.finished).to.be.true()
+        expect(mark.finished).to.equal(true)
       })
     })
 

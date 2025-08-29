@@ -176,13 +176,13 @@ describe('ScatterPlotViewer > helpers > utils', function () {
         inputData.forEach((series) => {
           series.seriesData.forEach((dataPoint) => {
             // x minimum is less than or equal to
-            expect(extent.x[0]).to.be.at.most(dataPoint.x)
+            expect(extent.x[0]).toBeLessThanOrEqual(dataPoint.x)
             // x maximum is greater than or equal to
-            expect(extent.x[1]).to.be.at.least(dataPoint.x)
+            expect(extent.x[1]).toBeGreaterThanOrEqual(dataPoint.x)
             // y minimum is less than or equal to
-            expect(extent.y[0]).to.be.at.most(dataPoint.y)
+            expect(extent.y[0]).toBeLessThanOrEqual(dataPoint.y)
             // y maximum is greater than or equal to
-            expect(extent.y[1]).to.be.at.least(dataPoint.y)
+            expect(extent.y[1]).toBeGreaterThanOrEqual(dataPoint.y)
           })
         })
       })
@@ -229,7 +229,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
         const scale = transformXScale(randomSingleSeriesData.data, transformMatrix, rangeParameters)
         const xDomainMin = scale.domain()[0]
         const xDomainMax = scale.domain()[1]
-        expect(xDomainMin).to.be.below(xDomainMax)
+        expect(xDomainMin).toBeLessThan(xDomainMax)
       })
     })
 
@@ -253,7 +253,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
         const scale = transformXScale(randomSingleSeriesData.data, transformMatrix, rangeParameters)
         const xDomainMin = scale.domain()[0]
         const xDomainMax = scale.domain()[1]
-        expect(xDomainMin).to.be.below(xDomainMax)
+        expect(xDomainMin).toBeLessThan(xDomainMax)
       })
     })
   })
@@ -298,7 +298,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
         const scale = transformYScale(randomSingleSeriesData.data, transformMatrix, rangeParameters)
         const yDomainMin = scale.domain()[0]
         const yDomainMax = scale.domain()[1]
-        expect(yDomainMin).to.be.below(yDomainMax)
+        expect(yDomainMin).toBeLessThan(yDomainMax)
       })
     })
 
@@ -322,7 +322,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
         const scale = transformYScale(randomSingleSeriesData.data, transformMatrix, rangeParameters)
         const yDomainMin = scale.domain()[0]
         const yDomainMax = scale.domain()[1]
-        expect(yDomainMin).to.be.below(yDomainMax)
+        expect(yDomainMin).toBeLessThan(yDomainMax)
       })
     })
   })

@@ -49,21 +49,21 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).to.be.ok()
+      expect(metadata).toBeDefined()
     })
 
     it('should have a disabled Collections button', function () {
-      expect(addToCollections).to.be.ok()
-      expect(addToCollections.disabled).to.be.true()
+      expect(addToCollections).toBeDefined()
+      expect(addToCollections.disabled).to.equal(true)
     })
 
     it('should have a disabled Favourites checkbox', function () {
-      expect(favourite).to.be.ok()
-      expect(favourite.disabled).to.be.true()
+      expect(favourite).toBeDefined()
+      expect(favourite.disabled).to.equal(true)
     })
 
     it('should not have a Hide Previous Marks checkbox', function () {
-      expect(hidePreviousMarks).to.be.null()
+      expect(hidePreviousMarks).to.equal(null)
     })
   })
 
@@ -98,21 +98,21 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).to.be.ok()
+      expect(metadata).toBeDefined()
     })
 
     it('should have a disabled Collections button', function () {
-      expect(addToCollections).to.be.ok()
-      expect(addToCollections.disabled).to.be.true()
+      expect(addToCollections).toBeDefined()
+      expect(addToCollections.disabled).to.equal(true)
     })
 
     it('should have a disabled Favourites checkbox', function () {
-      expect(favourite).to.be.ok()
-      expect(favourite.disabled).to.be.true()
+      expect(favourite).toBeDefined()
+      expect(favourite.disabled).to.equal(true)
     })
 
     it('should have an unchecked Hide Previous Marks checkbox', function () {
-      expect(hidePreviousMarks).to.be.ok()
+      expect(hidePreviousMarks).toBeDefined()
       expect(hidePreviousMarks.getAttribute('aria-checked')).to.equal('false')
     })
   })
@@ -148,22 +148,22 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).to.be.ok()
+      expect(metadata).toBeDefined()
     })
 
     it('should have an enabled Collections button', function () {
-      expect(addToCollections).to.be.ok()
-      expect(addToCollections.disabled).to.be.false()
+      expect(addToCollections).toBeDefined()
+      expect(addToCollections.disabled).to.equal(false)
     })
 
     it('should have an enabled, unchecked Favourites checkbox', function () {
-      expect(favourite).to.be.ok()
-      expect(favourite.disabled).to.be.false()
+      expect(favourite).toBeDefined()
+      expect(favourite.disabled).to.equal(false)
       expect(favourite.getAttribute('aria-checked')).to.equal('false')
     })
 
     it('should not have a Hide Previous Marks checkbox', function () {
-      expect(hidePreviousMarks).to.be.null()
+      expect(hidePreviousMarks).to.equal(null)
     })
   })
 
@@ -199,22 +199,22 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).to.be.ok()
+      expect(metadata).toBeDefined()
     })
 
     it('should have an enabled Collections button', function () {
-      expect(addToCollections).to.be.ok()
-      expect(addToCollections.disabled).to.be.false()
+      expect(addToCollections).toBeDefined()
+      expect(addToCollections.disabled).to.equal(false)
     })
 
     it('should have an enabled, checked Favourites checkbox', function () {
-      expect(favourite).to.be.ok()
-      expect(favourite.disabled).to.be.false()
+      expect(favourite).toBeDefined()
+      expect(favourite.disabled).to.equal(false)
       expect(favourite.getAttribute('aria-checked')).to.equal('true')
     })
 
     it('should not have a Hide Previous Marks checkbox', function () {
-      expect(hidePreviousMarks).to.be.null()
+      expect(hidePreviousMarks).to.equal(null)
     })
   })
 })

@@ -22,10 +22,10 @@ describe('Component > FlipbookViewer', function () {
 
     it('should have previous and next buttons', function () {
       const { getByText } = render(<DefaultStory />)
-      const nextButton = getByText('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')
-      const prevButton = getByText('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')
-      expect(nextButton).exists()
-      expect(prevButton).exists()
+      const nextButton = getByText('Next')
+      const prevButton = getByText('Previous')
+      expect(nextButton).toBeDefined()
+      expect(prevButton).toBeDefined()
     })
 
     it('should handle changing the current frame via thumbnail', async function () {
@@ -68,36 +68,36 @@ describe('Component > FlipbookViewer', function () {
 
       const imageElement = container.querySelector('image')
       const errorMessage = screen.getByText('Something went wrong.')
-      expect(imageElement).to.be.null()
-      expect(errorMessage).exists()
+      expect(imageElement).to.equal(null)
+      expect(errorMessage).toBeDefined()
     })
   })
 
   describe('Flipbook controls', function () {
     it('should have a play or pause button', function () {
       const { getByLabelText } = render(<DefaultStory />)
-      const playButton = getByLabelText('SubjectViewer.VideoController.play')
-      expect(playButton).exists()
+      const playButton = getByLabelText('Play video')
+      expect(playButton).toBeDefined()
     })
 
     it('should play or pause via keyboard when image is focused', async function () {
       const user = userEvent.setup({ delay: null })
 
-      const { container, getByLabelText, getByTestId } = render(<DefaultStory />)
+      const { getByLabelText } = render(<DefaultStory />)
       const image = document.querySelector('image')
 
       await user.click(image)
       await user.keyboard(' ')
 
-      const pauseButton = getByLabelText('SubjectViewer.VideoController.pause')
-      expect(pauseButton).exists()
+      const pauseButton = getByLabelText('Pause video')
+      expect(pauseButton).toBeDefined()
     })
 
     it('should change the looping speed', async function () {
       const user = userEvent.setup({ delay: null })
       const { findByLabelText, findByRole } = render(<DefaultStory />)
       const speedButton = await findByLabelText(
-        'SubjectViewer.VideoController.playbackSpeed; Selected: 1x'
+        'Video playback speed selection; Selected: 1x'
       )
 
       await user.pointer({
@@ -106,7 +106,7 @@ describe('Component > FlipbookViewer', function () {
       })
 
       const selectedSpeed = await findByRole('option', { name: '1x' })
-      expect(selectedSpeed.selected).to.be.true()
+      expect(selectedSpeed.selected).to.equal(true)
 
       /** The following is the correct way to test with RTL
        *  but Grommet does not render Select as a <select>
@@ -115,7 +115,7 @@ describe('Component > FlipbookViewer', function () {
 
       // await userEvent.selectOptions(getByRole('listbox'), '0.5x')
       // const newSelectedSpeed = getByRole('option', { name: '0.5x' })
-      // expect(newSelectedSpeed.selected).to.be.true()
+      // expect(newSelectedSpeed.selected).to.equal(true)
     })
   })
 })

@@ -24,8 +24,8 @@ describe('Components > NextButtonConnector', function () {
         </Grommet>
       )
       expect(
-        screen.getByRole('button', { name: 'TaskArea.Tasks.NextButton.next' })
-      ).to.be.ok()
+        screen.getByRole('button', { name: 'Next' })
+      ).toBeDefined()
     })
   })
 
@@ -40,7 +40,7 @@ describe('Components > NextButtonConnector', function () {
       )
       const user = userEvent.setup()
       const button = screen.getByRole('button', {
-        name: 'TaskArea.Tasks.NextButton.next'
+        name: 'Next'
       })
       await user.click(button)
     })
@@ -64,7 +64,7 @@ describe('Components > NextButtonConnector', function () {
     it('should complete the previous step tasks', function () {
       const firstStep = classifierStore.workflowSteps.steps.get('P0')
       const { annotations } = classifierStore.subjects.active.stepHistory
-      expect(firstStep.isComplete(annotations)).to.be.true()
+      expect(firstStep.isComplete(annotations)).to.equal(true)
     })
   })
 })

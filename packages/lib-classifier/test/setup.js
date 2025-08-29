@@ -1,6 +1,9 @@
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
 import nock from 'nock'
+import chai from 'chai'
+import chaiDom from 'chai-dom'
+import sinonChai from 'sinon-chai'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { setProjectAnnotations } from '@storybook/react'
 import preview from '../.storybook/preview'
@@ -10,6 +13,9 @@ setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 // require all net requests to be mocked.
 nock.disableNetConnect()
 nock.enableNetConnect('panoptes-uploads.zooniverse.org')
+
+chai.use(sinonChai)
+chai.use(chaiDom)
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
   pretendToBeVisual: true, // See: https://github.com/jsdom/jsdom#pretending-to-be-a-visual-browser

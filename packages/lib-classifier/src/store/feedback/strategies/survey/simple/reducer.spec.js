@@ -17,7 +17,7 @@ describe('Feedback > Survey > Simple > Reducer', function () {
         choice: 'HONEYBADGER'
       }
     ])
-    expect(result.success).to.be.true()
+    expect(result.success).to.equal(true)
   })
 
   it('should handle an incorrect choiceIds', function () {
@@ -27,7 +27,7 @@ describe('Feedback > Survey > Simple > Reducer', function () {
         choice: 'BUSHPIG'
       }
     ])
-    expect(result.success).to.be.false()
+    expect(result.success).to.equal(false)
   })
 
   it('should handle a partial match of choiceIds', function () {
@@ -37,18 +37,18 @@ describe('Feedback > Survey > Simple > Reducer', function () {
         choice: 'HONEYBADGER'
       }
     ])
-    expect(result.success).to.be.false()
+    expect(result.success).to.equal(false)
   })
 
   it('should handle a correct empty choiceIds', function () {
     const rule = { choiceIds: '' }
     const result = reducer(rule, [])
-    expect(result.success).to.be.true()
+    expect(result.success).to.equal(true)
   })
 
   it('should handle an incorrect empty choiceIds', function () {
     const rule = { choiceIds: 'AARDVARK,HONEYBADGER' }
     const result = reducer(rule, [])
-    expect(result.success).to.be.false()
+    expect(result.success).to.equal(false)
   })
 })

@@ -10,7 +10,7 @@ describe('Model > Task', function () {
 
   it('should exist', function () {
     const taskInstance = Task.create({ taskKey: 'T3', type: 'default' })
-    expect(taskInstance).to.be.ok()
+    expect(taskInstance).toBeDefined()
     expect(taskInstance).to.be.an('object')
   })
 
@@ -21,7 +21,7 @@ describe('Model > Task', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   it('should have a validation function', function () {
@@ -38,7 +38,7 @@ describe('Model > Task', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).toBeDefined()
       expect(annotation.task).to.equal('T0')
       expect(annotation.taskType).to.equal('default')
     })
@@ -60,11 +60,11 @@ describe('Model > Task', function () {
     })
 
     it('should start up with an undefined value', function () {
-      expect(task.annotation).to.be.undefined()
+      expect(task.annotation).to.equal(undefined)
     })
 
     it('should always be complete', function () {
-      expect(task.isComplete(annotation)).to.be.true()
+      expect(task.isComplete(annotation)).to.equal(true)
     })
 
     it('should create new Annotation models', function () {
@@ -76,7 +76,7 @@ describe('Model > Task', function () {
     })
 
     it('should always be valid', function () {
-      expect(task.isValid).to.be.true()
+      expect(task.isValid).to.equal(true)
     })
   })
 })

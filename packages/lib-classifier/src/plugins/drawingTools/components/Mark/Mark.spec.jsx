@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { expect } from 'chai'
 import { when } from 'mobx'
 import sinon from 'sinon'
 import { Grommet } from 'grommet'
@@ -63,7 +62,7 @@ describe('Drawing tools > Mark', function () {
     })
 
     it('should render a child drawing tool', function () {
-      expect(svgPoint).to.exist()
+      expect(svgPoint).toBeDefined()
     })
   })
 
@@ -161,7 +160,7 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should open the subtasks popup', async function () {
-        expect(point.subTaskVisibility).to.be.true()
+        expect(point.subTaskVisibility).to.equal(true)
       })
 
       it('should call onFinish', async function () {
@@ -200,7 +199,7 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should open the subtasks popup', async function () {
-        expect(point.subTaskVisibility).to.be.true()
+        expect(point.subTaskVisibility).to.equal(true)
       })
 
       it('should call onFinish', async function () {
@@ -271,9 +270,9 @@ describe('Drawing tools > Mark', function () {
     it('should open the subtask popup', async function () {
       const user = userEvent.setup({ delay: 'none' })
       point.setSubTaskVisibility(false)
-      expect(point.subTaskVisibility).to.be.false()
+      expect(point.subTaskVisibility).to.equal(false)
       await user.click(svgPoint)
-      expect(point.subTaskVisibility).to.be.true()
+      expect(point.subTaskVisibility).to.equal(true)
     })
   })
 
@@ -381,7 +380,7 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should open the subtask popup', async function () {
-        expect(newMark.subTaskVisibility).to.be.true()
+        expect(newMark.subTaskVisibility).to.equal(true)
       })
     })
   })

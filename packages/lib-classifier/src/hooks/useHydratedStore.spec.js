@@ -99,12 +99,12 @@ describe('Hooks > useHydratedStore', function () {
 
     it('should restart the subject queue', function () {
       const snapshot = getSnapshot(store)
-      expect(snapshot.subjects.queue).to.be.empty()
+      expect(snapshot.subjects.queue.length).to.equal(0)
     })
 
     it('should reset the active subject', function () {
       const snapshot = getSnapshot(store)
-      expect(snapshot.subjects.active).to.be.undefined()
+      expect(snapshot.subjects.active).to.equal(undefined)
     })
   })
 
@@ -131,7 +131,8 @@ describe('Hooks > useHydratedStore', function () {
 
     it('should preserve the subject queue across page loads', function () {
       const snapshot = getSnapshot(store)
-      expect(snapshot.subjects.queue).not.to.be.empty()
+      console.log('TEST', snapshot.subjects.queue)
+      expect(snapshot.subjects.queue.length).toBeGreaterThan(0)
     })
 
     it('should preserve the active subject across page loads', function () {

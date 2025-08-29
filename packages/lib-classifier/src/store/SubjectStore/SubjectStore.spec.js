@@ -76,7 +76,7 @@ describe('Model > SubjectStore', function () {
         })
 
         it('should remove the active subject from the queue', function () {
-          expect(subjects.resources.get(previousSubjectID)).to.be.undefined()
+          expect(subjects.resources.get(previousSubjectID)).to.equal(undefined)
         })
 
         it('should change the active subject', function () {
@@ -130,7 +130,7 @@ describe('Model > SubjectStore', function () {
 
           it('should not advance the queue', function () {
             expect(subjects.resources.size).to.equal(0)
-            expect(subjects.active).to.be.undefined()
+            expect(subjects.active).to.equal(undefined)
           })
         })
       })
@@ -147,7 +147,7 @@ describe('Model > SubjectStore', function () {
 
         it('should leave the active subject empty', function () {
           expect(subjects.resources.size).to.equal(0)
-          expect(subjects.active).to.be.undefined()
+          expect(subjects.active).to.equal(undefined)
         })
       })
     })
@@ -417,7 +417,7 @@ describe('Model > SubjectStore', function () {
 
       it('should not preserve the previous active subject', function () {
         const previousSubject = store.subjects.resources.get(subjects[0].id)
-        expect(previousSubject).to.be.undefined()
+        expect(previousSubject).to.equal(undefined)
       })
 
       it('should move the active subject by one forwards', function () {
@@ -550,13 +550,13 @@ describe('Model > SubjectStore', function () {
       it('should mark the previous active subject as seen', function () {
         let activeSubject = store.subjects.active
         const previousSubject = store.subjects.resources.get(subjects[0].id)
-        expect(previousSubject.already_seen).to.be.true()
-        expect(activeSubject.already_seen).to.be.false()
+        expect(previousSubject.already_seen).to.equal(true)
+        expect(activeSubject.already_seen).to.equal(false)
       })
 
       it('should preserve the previous active subject', function () {
         const previousSubject = store.subjects.resources.get(subjects[0].id)
-        expect(previousSubject).to.be.ok()
+        expect(previousSubject).toBeDefined()
       })
 
       it('should move the active subject by one forwards', function () {
@@ -575,7 +575,7 @@ describe('Model > SubjectStore', function () {
 
       it('should preserve the previous active subject', function () {
         const previousSubject = store.subjects.resources.get(subjects[5].id)
-        expect(previousSubject).to.be.ok()
+        expect(previousSubject).toBeDefined()
       })
 
       it('should move the active subject by one backwards', function () {
@@ -628,14 +628,14 @@ describe('Model > SubjectStore', function () {
     it('should return false when there is not an active queue subject', async function () {
       const subjects = await mockSubjectStore([])
       await subjects.populateQueue()
-      expect(subjects.isThereMetadata).to.be.false()
+      expect(subjects.isThereMetadata).to.equal(false)
     })
 
     it('should return false if the active subject does not have metadata', async function () {
       const subjects = await mockSubjectStore(longListSubjects)
       await subjects.populateQueue()
       expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(0)
-      expect(subjects.isThereMetadata).to.be.false()
+      expect(subjects.isThereMetadata).to.equal(false)
     })
 
     it('should return false if the active subject only has hidden metadata', async function () {
@@ -646,7 +646,7 @@ describe('Model > SubjectStore', function () {
       const metadataKeys = Object.keys(subjects.active.metadata)
       expect(metadataKeys).to.have.lengthOf(1)
       expect(metadataKeys[0]).to.equal('#foo')
-      expect(subjects.isThereMetadata).to.be.false()
+      expect(subjects.isThereMetadata).to.equal(false)
     })
 
     it('should return true if the active subject has metadata', async function () {
@@ -655,7 +655,7 @@ describe('Model > SubjectStore', function () {
       const subjects = await mockSubjectStore(subjectWithMetadata)
       await subjects.populateQueue()
       expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(1)
-      expect(subjects.isThereMetadata).to.be.true()
+      expect(subjects.isThereMetadata).to.equal(true)
     })
   })
 })

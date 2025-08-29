@@ -16,7 +16,7 @@ describe('Model > DrawingAnnotation', function () {
 
   it('should exist', function () {
     const drawingAnnotation = DrawingAnnotation.create(drawingAnnotationSnapshot)
-    expect(drawingAnnotation).to.exist()
+    expect(drawingAnnotation).toBeDefined()
     expect(drawingAnnotation).to.be.an('object')
   })
 

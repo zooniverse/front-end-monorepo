@@ -9,7 +9,7 @@ describe('HighlighterTask', function () {
     it('should show the instruction', function () {
       render(<DefaultStory />)
       const instruction = screen.getByText('Highlight the text')
-      expect(instruction).to.be.ok()
+      expect(instruction).toBeDefined()
     })
 
     it('should show the label buttons', function () {
@@ -23,7 +23,7 @@ describe('HighlighterTask', function () {
         render(<DefaultStory disabled />)
         const labelButtons = document.querySelectorAll('button[name="highlighter-label"]')
         labelButtons.forEach(button => {
-          expect(button.disabled).to.be.true()
+          expect(button.disabled).to.equal(true)
         })
       })
     })

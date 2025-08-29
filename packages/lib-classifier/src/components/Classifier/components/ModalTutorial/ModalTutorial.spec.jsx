@@ -36,7 +36,7 @@ describe('ModalTutorial', function () {
       }
     )
     const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-    expect(tutorialTitle).to.be.null()
+    expect(tutorialTitle).to.equal(null)
   })
 
   it('should not show the tutorial if it has been seen before', function () {
@@ -58,7 +58,7 @@ describe('ModalTutorial', function () {
       }
     )
     const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-    expect(tutorialTitle).to.be.null()
+    expect(tutorialTitle).to.equal(null)
   })
 
   it('should show the tutorial if it hasn\'t been seen before', function () {
@@ -81,7 +81,7 @@ describe('ModalTutorial', function () {
       }
     )
     const tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-    expect(tutorialTitle).to.be.ok()
+    expect(tutorialTitle).toBeDefined()
   })
 
   describe('on close', function () {
@@ -132,11 +132,11 @@ describe('ModalTutorial', function () {
         }
       )
       let tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-      expect(tutorialTitle).to.be.ok()
+      expect(tutorialTitle).toBeDefined()
       const closeButton = screen.getByRole('button', { name: 'Close' })
       await user.click(closeButton)
       tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-      expect(tutorialTitle).to.be.null()
+      expect(tutorialTitle).to.equal(null)
     })
   })
 })

@@ -12,7 +12,7 @@ describe('Component > VolumetricViewer', function () {
         subjectJSON: 'mock-subject-json'
       }}
     />)
-    expect(screen.getByText('Loading Volumetric Viewer...')).to.exist()
-    expect(await screen.findByTestId('subject-viewer-volumetric')).to.exist()
+    expect(screen.getByText('Loading Volumetric Viewer...')).toBeDefined()
+    expect(await screen.findByTestId('subject-viewer-volumetric')).toBeDefined()
   })
 })

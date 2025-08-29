@@ -42,7 +42,7 @@ describe('Component > AnnotateButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.AnnotateButton.ariaLabel' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'ImageToolbar.AnnotateButton.ariaLabel' })).toBeDefined()
   })
 
   it('should change the subject viewer annotate and move states when clicked', async function () {
@@ -51,8 +51,8 @@ describe('Component > AnnotateButton', function () {
     const store = mockStore({ workflow })
     store.subjectViewer.enableMove()
 
-    expect(store.subjectViewer.annotate).to.be.false()
-    expect(store.subjectViewer.move).to.be.true()
+    expect(store.subjectViewer.annotate).to.equal(false)
+    expect(store.subjectViewer.move).to.equal(true)
 
     render(
       <AnnotateButtonContainer />, {
@@ -65,8 +65,8 @@ describe('Component > AnnotateButton', function () {
     await user.click(button)
     expect(button).to.have.attribute('aria-pressed', 'true')
 
-    expect(store.subjectViewer.annotate).to.be.true()
-    expect(store.subjectViewer.move).to.be.false()
+    expect(store.subjectViewer.annotate).to.equal(true)
+    expect(store.subjectViewer.move).to.equal(false)
     expect (store.subjectViewer.interactionMode).to.equal('annotate')
   })
 
@@ -77,8 +77,8 @@ describe('Component > AnnotateButton', function () {
       const store = mockStore() // mockStore default workflow does not include an annotate task
       store.subjectViewer.enableMove()
 
-      expect(store.subjectViewer.annotate).to.be.false()
-      expect(store.subjectViewer.move).to.be.true()
+      expect(store.subjectViewer.annotate).to.equal(false)
+      expect(store.subjectViewer.move).to.equal(true)
 
       render(
         <AnnotateButtonContainer />, {
@@ -91,8 +91,8 @@ describe('Component > AnnotateButton', function () {
       await user.click(button)
       expect(button).to.have.attribute('aria-pressed', 'false')
 
-      expect(store.subjectViewer.annotate).to.be.false()
-      expect(store.subjectViewer.move).to.be.true()
+      expect(store.subjectViewer.annotate).to.equal(false)
+      expect(store.subjectViewer.move).to.equal(true)
     })
   })
 })

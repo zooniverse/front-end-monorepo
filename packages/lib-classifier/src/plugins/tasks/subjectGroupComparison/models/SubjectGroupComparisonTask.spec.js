@@ -13,7 +13,7 @@ const subjectGroupTask = {
 describe('Model > SubjectGroupComparisonTask', function () {
   it('should exist', function () {
     const subjectGroupTaskInstance = SubjectGroupComparisonTask.TaskModel.create(subjectGroupTask)
-    expect(subjectGroupTaskInstance).to.be.ok()
+    expect(subjectGroupTaskInstance).toBeDefined()
     expect(subjectGroupTaskInstance).to.be.an('object')
   })
 
@@ -24,7 +24,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe('with an annotation', function () {
@@ -36,7 +36,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
     })
 
     it('should start up with an empty value', function () {
-      expect(annotation.value).to.be.empty()
+      expect(annotation.value.length).to.equal(0)
     })
 
     it('should update annotations', function () {
@@ -57,7 +57,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete(annotation)).to.be.false()
+        expect(task.isComplete(annotation)).to.equal(false)
       })
     })
 
@@ -65,7 +65,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
       it('should be complete', function () {
         const markedCell = { index: 1, subject: 'subject1111' }
         annotation.update([ markedCell ])
-        expect(task.isComplete(annotation)).to.be.true()
+        expect(task.isComplete(annotation)).to.equal(true)
       })
     })
   })

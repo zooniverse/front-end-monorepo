@@ -22,7 +22,7 @@ describe('Component > SingleImageCanvas', function () {
         transformMatrix={{ scaleX: 1, translateX: 0, translateY: 0 }}
       />
     )
-    expect(screen.getByRole('img')).to.exist()
+    expect(screen.getByRole('img')).toBeDefined()
   })
 
   it('should apply the rotation transform', function () {

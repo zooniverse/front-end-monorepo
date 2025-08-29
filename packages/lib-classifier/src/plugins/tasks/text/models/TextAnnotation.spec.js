@@ -9,12 +9,12 @@ describe('Model > TextAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(textAnnotation).to.be.ok()
+      expect(textAnnotation).toBeDefined()
       expect(textAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(textAnnotation.isComplete).to.be.true()
+      expect(textAnnotation.isComplete).to.equal(true)
     })
 
     it('should error for invalid annotations', function () {
@@ -24,7 +24,7 @@ describe('Model > TextAnnotation', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
   })
 
@@ -36,8 +36,8 @@ describe('Model > TextAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(textAnnotation).to.be.ok()
-      expect(textAnnotation).to.be.an('object')
+      expect(textAnnotation).toBeDefined()
+      expect(typeof textAnnotation).toBe('object')
     })
 
     it('should have a default value', function () {
@@ -45,7 +45,7 @@ describe('Model > TextAnnotation', function () {
     })
 
     it('should be incomplete', function () {
-      expect(textAnnotation.isComplete).to.be.false()
+      expect(textAnnotation.isComplete).to.equal(false)
     })
   })
 })

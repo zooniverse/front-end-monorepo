@@ -4,7 +4,7 @@ import Selection from "./Selection";
 
 describe('Selection', function () {
   let selection, deleteButton
-  
+
   before(function () {
     render(<Selection color='#65EECA' text='This is a test' />)
     selection = document.querySelector('mark')
@@ -16,7 +16,7 @@ describe('Selection', function () {
   })
 
   it('should render the delete button', function () {
-    expect(deleteButton).to.be.ok()
+    expect(deleteButton).toBeDefined()
     expect(deleteButton).to.have.text('×')
   })
 })

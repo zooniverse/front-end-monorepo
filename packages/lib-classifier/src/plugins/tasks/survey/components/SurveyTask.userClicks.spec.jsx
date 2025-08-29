@@ -35,12 +35,12 @@ describe('SurveyTask with user clicks', function () {
 
         // confirm the stripes filter is selected by checking for the presence of the related remove filter button
         const stripesFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-STRPS')
-        expect(stripesFilterRemoveButton).to.be.ok()
+        expect(stripesFilterRemoveButton).toBeDefined()
       })
 
       it('should show the choices that match the filter', async function () {
         const redFilterButton = document.querySelector('label[for="CLR-RD"]')
-        expect(redFilterButton).to.be.ok()
+        expect(redFilterButton).toBeDefined()
 
         // the following user events filter choices by the color red and then close the characteristics filters, returning to the list of choices
 
@@ -125,12 +125,12 @@ describe('SurveyTask with user clicks', function () {
 
     it('should show the "More info" button', async function () {
       const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
-      expect(choiceMoreInfoButton).to.be.ok()
+      expect(choiceMoreInfoButton).toBeDefined()
     })
 
     it('should show choice images', async function () {
       const choiceImages = screen.getByTestId('choice-images')
-      expect(choiceImages).to.be.ok()
+      expect(choiceImages).toBeDefined()
     })
 
     it('should show choices with closed choice focused when Not This button is clicked', async function () {
@@ -139,7 +139,7 @@ describe('SurveyTask with user clicks', function () {
       await user.click(cancelButton)
       // confirm choice "More info" button is not shown, therefore choice is closed
       const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
-      expect(choiceMoreInfoButton).to.be.null()
+      expect(choiceMoreInfoButton).to.equal(null)
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
@@ -154,7 +154,7 @@ describe('SurveyTask with user clicks', function () {
       await user.click(identifyButton)
       // confirm choice "More info" button is not shown, therefore choice is closed
       const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
-      expect(choiceMoreInfoButton).to.be.null()
+      expect(choiceMoreInfoButton).to.equal(null)
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
       expect(choiceButtons.length).to.equal(6)
@@ -171,8 +171,8 @@ describe('SurveyTask with user clicks', function () {
       })
 
       // confirm the Done & Talk and Done buttons are disabled while a choice is selected
-      expect(doneAndTalkButton.disabled).to.be.true()
-      expect(doneButton.disabled).to.be.true()
+      expect(doneAndTalkButton.disabled).to.equal(true)
+      expect(doneButton.disabled).to.equal(true)
 
       // identify choice (Fire) and close choice (Fire) component
       const identifyButton = screen.getByTestId('choice-identify-button')
@@ -186,8 +186,8 @@ describe('SurveyTask with user clicks', function () {
       const doneAndTalkLink = screen.getByRole('link', {
         name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
       })
-      expect(doneAndTalkLink).to.be.ok()
-      expect(doneButton.disabled).to.be.false()
+      expect(doneAndTalkLink).toBeDefined()
+      expect(doneButton.disabled).to.equal(false)
     })
   })
 })

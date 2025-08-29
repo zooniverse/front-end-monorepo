@@ -46,7 +46,7 @@ describe('feedback: generateRules', function () {
     const subject = {}
     const workflow = {}
     it('should return an empty object', function () {
-      expect(generateRules(subject, workflow)).to.be.empty()
+      expect(Object.keys(generateRules(subject, workflow)).length).toBe(0)
     })
   })
 
@@ -60,27 +60,27 @@ describe('feedback: generateRules', function () {
     }
 
     it('should return an empty object for an invalid subject', function () {
-      expect(generateRules(false, workflow)).to.be.empty()
+      expect(Object.keys(generateRules(false, workflow)).length).to.equal(0)
     })
 
     it('should return an empty object for an undefined subject', function () {
-      expect(generateRules(undefined, workflow)).to.be.empty()
+      expect(Object.keys(generateRules(undefined, workflow)).length).to.equal(0)
     })
 
     it('should return an empty object for a null subject', function () {
-      expect(generateRules(null, workflow)).to.be.empty()
+      expect(Object.keys(generateRules(null, workflow)).length).to.equal(0)
     })
 
     it('should return an empty object for an invalid workflow', function () {
-      expect(generateRules(subject, false)).to.be.empty()
+      expect(Object.keys(generateRules(subject, false)).length).to.equal(0)
     })
 
     it('should return an empty object for an undefined workflow', function () {
-      expect(generateRules(subject, undefined)).to.be.empty()
+      expect(Object.keys(generateRules(subject, undefined)).length).to.equal(0)
     })
 
     it('should return an empty object for a null workflow', function () {
-      expect(generateRules(subject, null)).to.be.empty()
+      expect(Object.keys(generateRules(subject, null)).length).to.equal(0)
     })
   })
 
@@ -137,7 +137,7 @@ describe('feedback: generateRules', function () {
         }
       }
 
-      expect(generateRules(subject, workflow)).to.be.empty()
+      expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
     })
 
     it('should return an empty object when undefined', function () {
@@ -148,7 +148,7 @@ describe('feedback: generateRules', function () {
         }
       }
 
-      expect(generateRules(subject, workflow)).to.be.empty()
+      expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
     })
   })
 
@@ -162,12 +162,12 @@ describe('feedback: generateRules', function () {
 
       it('should return an empty object for a falsy subject rule ID', function () {
         const subject = mockSubjectWithRule(null)
-        expect(generateRules(subject, workflow)).to.be.empty()
+        expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
       })
 
       it('should return an empty object for a truthy subject rule ID', function () {
         const subject = mockSubjectWithRule('0')
-        expect(generateRules(subject, workflow)).to.be.empty()
+        expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
       })
     })
 
@@ -180,12 +180,12 @@ describe('feedback: generateRules', function () {
 
       it('should return an empty object for a numeric subject rule ID', function () {
         const subject = mockSubjectWithRule(1)
-        expect(generateRules(subject, workflow)).to.be.empty()
+        expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
       })
 
       it('should return an empty object for a string subject rule ID', function () {
         const subject = mockSubjectWithRule('1')
-        expect(generateRules(subject, workflow)).to.be.empty()
+        expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
       })
     })
   })

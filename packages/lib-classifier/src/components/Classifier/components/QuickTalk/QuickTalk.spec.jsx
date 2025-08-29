@@ -73,18 +73,18 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
       expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
     })
 
     it('should expand when clicked', async function () {
       const user = userEvent.setup({ delay: null })
 
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
       await user.click(screen.queryByRole('button', quickTalkButton_target))
 
       expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      await waitFor(() => expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist())
+      await waitFor(() => expect(screen.queryByRole('dialog', quickTalkPanel_target)).toBeDefined())
     })
   })
 
@@ -104,7 +104,7 @@ describe('Component > QuickTalk', function () {
 
     it('should render without crashing', function () {
       expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist()
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).toBeDefined()
     })
 
     it('should have the correct number of comments', function () {
@@ -115,7 +115,7 @@ describe('Component > QuickTalk', function () {
       const user = userEvent.setup({ delay: null })
       await user.click(screen.queryByRole('button', quickTalkCloseButton_target))
 
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
       expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
     })
   })

@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { expect } from 'chai'
 import * as stories from './SingleVideoViewerContainer.stories'
 import { composeStories } from '@storybook/react'
 
@@ -12,9 +11,9 @@ describe('Component > SingleVideoViewerContainer', function () {
       // We need to wait for React Player to be ready
       await waitFor(() => {
         const videoElement = container.querySelector('video')
-        expect(videoElement).exists()
+        expect(videoElement).toBeDefined()
         const customControls = queryByTestId('video subject viewer custom controls')
-        expect(customControls).to.be.null()
+        expect(customControls).to.equal(null)
       })
     })
   })
@@ -24,11 +23,9 @@ describe('Component > SingleVideoViewerContainer', function () {
       const { container } = render(<NoSubject />)
 
       const videoElement = container.querySelector('video')
-      const errorMessage = screen.getByText(
-        'SubjectViewer.SingleVideoViewerContainer.error'
-      )
-      expect(videoElement).to.be.null()
-      expect(errorMessage).exists()
+      const errorMessage = screen.getByText('There was an error loading the subject.')
+      expect(videoElement).to.equal(null)
+      expect(errorMessage).toBeDefined()
     })
   })
 
@@ -36,7 +33,7 @@ describe('Component > SingleVideoViewerContainer', function () {
     it('should display custom video controls', function () {
       const { getByTestId } = render(<WithDrawing />)
       const customControls = getByTestId('video subject viewer custom controls')
-      expect(customControls).exists()
+      expect(customControls).toBeDefined()
     })
   })
 })

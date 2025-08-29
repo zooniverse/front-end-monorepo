@@ -17,7 +17,7 @@ describe('Helper > locationValidator', function () {
 
   it('should return an error when passed an invalid array of locations', function () {
     const result = locationValidator(invalid, 0, 'TestComponent', 'prop', 'subject.locations[0]')
-    expect(result).to.be.an('error')
+    expect(locationValidator).toThrow()
     expect(result.message).to.equal('Invalid prop `subject.locations[0]` supplied to `TestComponent`. Validation failed.')
   })
 })

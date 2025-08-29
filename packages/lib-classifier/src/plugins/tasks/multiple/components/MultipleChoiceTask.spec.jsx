@@ -17,14 +17,14 @@ describe('MultipleChoiceTask', function () {
 
     it('should have a question', function () {
       const question = screen.getByText(task.question)
-      expect(question).to.exist()
+      expect(question).toBeDefined()
     })
 
     it('should render the correct number of answer choices', function () {
       task.answers.forEach((answer, index) => {
         const label = task.strings.get(`answers.${index}.label`)
         const checkbox = screen.getByRole('checkbox', { name: label })
-        expect(checkbox).to.exist()
+        expect(checkbox).toBeDefined()
       })
     })
   })
@@ -38,7 +38,7 @@ describe('MultipleChoiceTask', function () {
     it('should check the selected answer', function () {
       const label = task.strings.get('answers.0.label')
       const checkbox = screen.getByRole('checkbox', { name: label })
-      expect(checkbox.checked).to.be.true()
+      expect(checkbox.checked).to.equal(true)
     })
   })
 

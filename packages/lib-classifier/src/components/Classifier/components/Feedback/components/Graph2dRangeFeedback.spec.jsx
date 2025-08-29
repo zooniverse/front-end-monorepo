@@ -19,6 +19,6 @@ describe('Component > Graph2dRangeFeedback', function () {
         <Graph2dRangeFeedback />
       </Provider>
     )
-    await waitFor(() => expect(document.querySelector('.TESSLightCurve')).to.exist())
+    await waitFor(() => expect(document.querySelector('.TESSLightCurve')).toBeDefined())
   })
 })

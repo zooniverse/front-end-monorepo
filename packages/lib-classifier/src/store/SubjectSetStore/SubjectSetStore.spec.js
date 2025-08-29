@@ -19,7 +19,7 @@ describe('Model > SubjectSetStore', function () {
   })
 
   it('should exist', function () {
-    expect(model).to.be.ok()
+    expect(model).toBeDefined()
     expect(model).to.be.an('object')
   })
 

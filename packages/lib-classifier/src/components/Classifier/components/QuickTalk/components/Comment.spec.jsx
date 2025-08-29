@@ -36,19 +36,19 @@ describe('Component > QuickTalk > Comment', function () {
   })
 
   it('should render the comment', function () {
-    expect(screen.getByText('This is the first comment')).to.exist()
+    expect(screen.getByText('This is the first comment')).toBeDefined()
   })
 
   it('should render the author details', function () {
-    expect(screen.getByText('Zooniverse Tester')).to.exist()
-    expect(screen.getByText(/\(@\s*zootester\s*\)/)).to.exist()
+    expect(screen.getByText('Zooniverse Tester')).toBeDefined()
+    expect(screen.getByText(/\(@\s*zootester\s*\)/)).toBeDefined()
 
-    expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.exist()
+    expect(screen.getByAltText('QuickTalk.aria.userAvatar')).toBeDefined()
     expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg')
 
   })
 
   it('should render the correct roles', function () {
-    expect(screen.getByText(/\[\s*Researcher\s*\]/)).to.exist()
+    expect(screen.getByText(/\[\s*Researcher\s*\]/)).toBeDefined()
   })
 })

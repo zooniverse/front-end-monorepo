@@ -20,6 +20,7 @@ module.exports = [
     ],
     ignores: [
       'src/**/*.spec.jsx',
+      'src/**/*.spec.js',
       'src/**/*.stories.jsx'
     ],
     languageOptions: {

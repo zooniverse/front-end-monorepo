@@ -22,25 +22,25 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should exist', function () {
-      expect(reductionsModel).to.be.ok()
+      expect(reductionsModel).toBeDefined()
     })
 
     it('should have transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
-      expect(reductionsModel.consensusLines(0)).not.to.be.empty()
+      expect(reductionsModel.consensusLines(0).length).toBeGreaterThan(0)
     })
 
     it('should have points', function () {
       reductionsModel.consensusLines(0).forEach(function (consensusLine) {
-        expect(consensusLine.points).to.be.a('array')
-        expect(consensusLine.points).not.to.be.empty
+        expect(Array.isArray(consensusLine.points)).to.equal(true)
+        expect(Object.keys(consensusLine.points[0]).length).toBeGreaterThan(0)
       })
     })
 
     it('should have text options', function () {
       reductionsModel.consensusLines(0).forEach(function (consensusLine) {
-        expect(consensusLine.textOptions).to.be.a('array')
-        expect(consensusLine.textOptions).not.to.be.empty
+        expect(Array.isArray(consensusLine.textOptions)).to.equal(true)
+        expect(Object.keys(consensusLine.textOptions[0]).length).toBeGreaterThan(0)
       })
     })
 
@@ -100,15 +100,15 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should exist', function () {
-      expect(reductionsModel).to.be.ok()
+      expect(reductionsModel).toBeDefined()
     })
 
     it('should not have any transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(0))
-      expect(reductionsModel.consensusLines(0)).to.be.empty()
-      expect(reductionsModel.consensusLines(1)).to.be.empty()
-      expect(reductionsModel.consensusLines(2)).to.be.empty()
-      expect(reductionsModel.consensusLines(3)).to.be.empty()
+      expect(reductionsModel.consensusLines(0).length).to.equal(0)
+      expect(reductionsModel.consensusLines(1).length).to.equal(0)
+      expect(reductionsModel.consensusLines(2).length).to.equal(0)
+      expect(reductionsModel.consensusLines(3).length).to.equal(0)
     })
   })
 })

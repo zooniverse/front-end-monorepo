@@ -34,15 +34,15 @@ describe('Component > Choice', function () {
     })
 
     it('should show Carousel', function () {
-      expect(carousel).to.be.ok()
+      expect(carousel).toBeDefined()
     })
 
     it('should show "More info" button', function () {
-      expect(showMoreInfo).to.be.ok()
+      expect(showMoreInfo).toBeDefined()
     })
 
     it('should show Questions', function () {
-      expect(question).to.be.ok()
+      expect(question).toBeDefined()
     })
   })
 
@@ -61,7 +61,7 @@ describe('Component > Choice', function () {
           />
         </Grommet>
       )
-      expect(screen.queryByTestId('choice-images')).to.be.null()
+      expect(screen.queryByTestId('choice-images')).to.equal(null)
     })
   })
 
@@ -100,7 +100,7 @@ describe('Component > Choice', function () {
           />
         </Grommet>
       )
-      expect(screen.getByTestId('choice-identify-button').disabled).to.be.true()
+      expect(screen.getByTestId('choice-identify-button').disabled).to.equal(true)
     })
   })
 
@@ -123,7 +123,7 @@ describe('Component > Choice', function () {
           />
         </Grommet>
       )
-      expect(screen.getByTestId('choice-identify-button').disabled).to.be.false()
+      expect(screen.getByTestId('choice-identify-button').disabled).to.equal(false)
     })
   })
 })

@@ -14,9 +14,9 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
         <ConfirmModal active={true} />
       </Grommet>
     )
-    expect(wrapper).to.be.ok()
-    expect(useTranslationStub).to.have.been.calledWith('Banners.InProgressConfirmModal.cancel')
-    expect(useTranslationStub).to.have.been.calledWith('Banners.InProgressConfirmModal.confirm')
+    expect(wrapper).toBeDefined()
+    expect(useTranslationStub).to.have.been.calledWith('Cancel')
+    expect(useTranslationStub).to.have.been.calledWith('Confirm')
     useTranslationStub.restore()
   })
 
@@ -26,8 +26,8 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
         <ConfirmModal active={false} />
       </Grommet>
     )
-    expect(wrapper).to.be.ok()
-    expect(wrapper.queryByTestId('confirm-modal')).to.be.null()
+    expect(wrapper).toBeDefined()
+    expect(wrapper.queryByTestId('confirm-modal')).to.equal(null)
   })
 
   it('should call onConfirm() when "Confirm" button is clicked', function () {

@@ -99,15 +99,15 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
+      expect(taskTab).toBeDefined()
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
+      expect(tutorialTab).toBeDefined()
     })
 
     it('should have a placeholder', function () {
-      expect(subjectImagePlaceholder).to.be.ok()
+      expect(subjectImagePlaceholder).toBeDefined()
     })
 
     describe('task answers', function () {
@@ -123,7 +123,7 @@ describe('Components > Classifier', function () {
 
       it('should be disabled', function () {
         taskAnswers.forEach(radioButton => {
-          expect(radioButton.disabled).to.be.true()
+          expect(radioButton.disabled).to.equal(true)
         })
       })
     })
@@ -163,11 +163,11 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
+      expect(taskTab).toBeDefined()
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
+      expect(tutorialTab).toBeDefined()
     })
 
     it('should have a subject image', function () {
@@ -187,7 +187,7 @@ describe('Components > Classifier', function () {
 
       it('should be enabled', function () {
         taskAnswers.forEach(radioButton => {
-          expect(radioButton.disabled).to.be.false()
+          expect(radioButton.disabled).to.equal(false)
         })
       })
     })
@@ -302,11 +302,11 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
+      expect(taskTab).toBeDefined()
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
+      expect(tutorialTab).toBeDefined()
     })
 
     it('should have a subject image', function () {
@@ -326,7 +326,7 @@ describe('Components > Classifier', function () {
 
       it('should be enabled', function () {
         taskAnswers.forEach(radioButton => {
-          expect(radioButton.disabled).to.be.false()
+          expect(radioButton.disabled).to.equal(false)
         })
       })
     })
@@ -367,7 +367,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should show the popup tutorial', function () {
-      expect(tutorialHeading).to.exist()
+      expect(tutorialHeading).toBeDefined()
     })
   })
 
@@ -406,7 +406,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should not show the popup tutorial', function () {
-      expect(tutorialHeading).to.be.null()
+      expect(tutorialHeading).to.equal(null)
     })
   })
 
@@ -503,11 +503,11 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
+      expect(taskTab).toBeDefined()
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
+      expect(tutorialTab).toBeDefined()
     })
 
     it('should show a subject image from the selected set', function () {
@@ -527,7 +527,7 @@ describe('Components > Classifier', function () {
 
       it('should be enabled', function () {
         taskAnswers.forEach(radioButton => {
-          expect(radioButton.disabled).to.be.false()
+          expect(radioButton.disabled).to.equal(false)
         })
       })
     })

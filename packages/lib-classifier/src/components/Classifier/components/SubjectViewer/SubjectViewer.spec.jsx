@@ -9,34 +9,34 @@ import { default as SubjectViewerWithStore, SubjectViewer } from './SubjectViewe
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {
     render(<SubjectViewer />)
-    expect(screen).to.be.ok()
+    expect(screen).toBeDefined()
   })
 
   it('should render nothing if the subject store is initialized', function () {
     const { container } = render(<SubjectViewer subjectQueueState={asyncStates.initialized} />)
-    expect(container.firstChild).to.be.null()
+    expect(container.firstChild).to.equal(null)
   })
-  
+
   it('should render a loading indicator if the subject store is loading', function () {
     render(<SubjectViewer subjectQueueState={asyncStates.loading} />)
-    expect(screen.getByText('SubjectViewer.loading')).to.exist()
+    expect(screen.getByText('SubjectViewer.loading')).toBeDefined()
   })
 
   it('should render nothing if the subject store errors', function () {
     const { container } = render(<SubjectViewer subjectQueueState={asyncStates.error} />)
-    expect(container.firstChild).to.be.null()
+    expect(container.firstChild).to.equal(null)
   })
 
   it('should render a subject viewer if the subject store successfully loads', async function () {
     const store = mockStore({
       subject: SubjectType.create(Factory.build('subject', { id: '1234' }))
     })
-    
+
     render(<Provider classifierStore={store}>
       <SubjectViewerWithStore />
     </Provider>)
 
-    expect(screen.getByLabelText('Subject 1234')).to.exist()
+    expect(screen.getByLabelText('Subject 1234')).toBeDefined()
   })
 
   describe('when there is an null viewer because of invalid subject media', function () {
@@ -47,7 +47,7 @@ describe('Component > SubjectViewer', function () {
           subject={{ viewer: null }}
         />
       )
-      expect(container.firstChild).to.be.null()
+      expect(container.firstChild).to.equal(null)
     })
   })
 })

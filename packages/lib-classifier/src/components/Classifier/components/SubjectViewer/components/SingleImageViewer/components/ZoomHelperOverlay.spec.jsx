@@ -7,6 +7,6 @@ describe('Component > SingleImageViewer > ZoomHelperOverlay', function () {
   it('should show the expected text', function (){
     const DefaultStory = composeStory(Default, Meta)
     render(<DefaultStory />)
-    expect(screen.getByText('SubjectViewer.zoomHelp')).to.be.ok()
+    expect(screen.getByText('Use CTRL + scroll to zoom')).toBeDefined()
   })
 })

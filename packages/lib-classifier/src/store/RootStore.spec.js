@@ -13,7 +13,7 @@ describe('Model > RootStore', function () {
   })
 
   it('should exist', function () {
-    expect(RootStore).to.be.ok()
+    expect(RootStore).toBeDefined()
   })
 
   const stores = [
@@ -31,7 +31,7 @@ describe('Model > RootStore', function () {
 
   stores.forEach(function (store) {
     it(`should have a \`${store}\` property`, function () {
-      expect(model[store]).to.be.ok()
+      expect(model[store]).toBeDefined()
     })
   })
 
@@ -60,7 +60,7 @@ describe('Model > RootStore', function () {
     model.setOnAddToCollection(addToCollection)
     expect(model.onAddToCollection).to.equal(addToCollection)
   })
-  
+
   describe('when a subject advances', function () {
     let model
     let subjects
@@ -70,7 +70,7 @@ describe('Model > RootStore', function () {
         id: 'testProject',
         display_name: 'A test project',
         links: {
-          default_workflow: 'testWorkflow' 
+          default_workflow: 'testWorkflow'
         }
       })
       subjects = Factory.buildList('subject', 10)
@@ -120,7 +120,7 @@ describe('Model > RootStore', function () {
       model.workflowSteps.selectStep('S2')
       model.feedback.showFeedback()
     })
-    
+
 
     it('should reset workflow steps', function () {
       let activeStep = model.workflowSteps.active
@@ -153,9 +153,9 @@ describe('Model > RootStore', function () {
     })
 
     it('should reset subject feedback', function () {
-      expect(model.feedback.showModal).to.be.true()
+      expect(model.feedback.showModal).to.equal(true)
       model.subjects.advance()
-      expect(model.feedback.showModal).to.be.false()
+      expect(model.feedback.showModal).to.equal(false)
     })
   })
 })

@@ -38,7 +38,7 @@ describe('Tasks', function () {
 
     it('should display a loading message while the workflow loads', function () {
       render(<WorkflowLoadingStory />)
-      expect(screen.getByText('TaskArea.Tasks.loading')).to.be.ok()
+      expect(screen.getByText('TaskArea.Tasks.loading')).toBeDefined()
       expect(screen.queryByText('TaskArea.Tasks.DoneButton.done')).to.equal(
         null
       )
@@ -57,7 +57,7 @@ describe('Tasks', function () {
 
     it('should render a task component if the workflow is loaded', function () {
       render(<MultipleTasksStory />)
-      expect(screen.getByText('TaskArea.Tasks.DoneButton.done')).to.be.ok()
+      expect(screen.getByText('TaskArea.Tasks.DoneButton.done')).toBeDefined()
     })
 
     it('should autofocus the task', function () {

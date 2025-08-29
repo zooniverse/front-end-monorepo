@@ -5,8 +5,8 @@ describe('Feedback > Survey > Simple > Rule Creator', function () {
     const subjectRule = { choiceIds: 'AARDVARK,HONEYBADGER', id: '1' }
     const workflowRule = { strategy: '2' }
     const rule = createRule(subjectRule, workflowRule)
-    expect(rule.failureEnabled).to.be.false()
-    expect(rule.successEnabled).to.be.false()
+    expect(rule.failureEnabled).to.equal(false)
+    expect(rule.successEnabled).to.equal(false)
   })
 
   it('should create a rule with the right properties derived from the workflow', function () {

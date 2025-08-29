@@ -52,7 +52,7 @@ describe('Text Task', function () {
     })
 
     it('should have a labelled text input', function () {
-      expect(textInput).to.exist()
+      expect(textInput).toBeDefined()
     })
 
     it('should save typed text', function () {
@@ -64,7 +64,7 @@ describe('Text Task', function () {
     })
 
     it('should not have text modifier buttons', function () {
-      expect(modifiers).to.be.null()
+      expect(modifiers).to.equal(null)
     })
   })
 
@@ -103,7 +103,7 @@ describe('Text Task', function () {
     })
 
     it('should have a labelled text input', function () {
-      expect(textInput).to.exist()
+      expect(textInput).toBeDefined()
     })
 
     it('should save typed text', function () {
@@ -115,7 +115,7 @@ describe('Text Task', function () {
     })
 
     it('should have text modifier buttons', function () {
-      expect(modifiers).to.exist()
+      expect(modifiers).toBeDefined()
     })
 
     it('should have a modifier button for each text tag', function () {
@@ -278,7 +278,7 @@ describe('Text Task', function () {
     })
 
     it('should have a labelled text input', function () {
-      expect(textInput).to.exist()
+      expect(textInput).toBeDefined()
     })
 
     it('should save the selected suggestion', function () {
@@ -290,7 +290,7 @@ describe('Text Task', function () {
     })
 
     it('should have text modifier buttons', function () {
-      expect(modifiers).to.exist()
+      expect(modifiers).toBeDefined()
     })
 
     it('should have a modifier button for each text tag', function () {

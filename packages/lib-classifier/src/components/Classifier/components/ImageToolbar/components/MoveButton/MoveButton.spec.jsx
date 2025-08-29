@@ -30,7 +30,7 @@ describe('Component > MoveButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.MoveButton.ariaLabel' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'Move subject' })).toBeDefined()
   })
 
   it('should change the subject viewer annotate and move state when clicked', async function () {
@@ -43,21 +43,21 @@ describe('Component > MoveButton', function () {
       })
     })
 
-    expect(store.subjectViewer.move).to.be.false()
-    expect(store.subjectViewer.annotate).to.be.true()
+    expect(store.subjectViewer.move).to.equal(false)
+    expect(store.subjectViewer.annotate).to.equal(true)
 
     render(
       <MoveButtonContainer />, {
         wrapper: withStore(store)
       }
     )
-    const button = screen.getByRole('button', { name: 'ImageToolbar.MoveButton.ariaLabel' })
-    expect(button).to.have.attribute('aria-pressed', 'false')
+    const button = screen.getByRole('button', { name: 'Move subject' })
+    expect(button).to.have.property('aria-pressed', 'false')
     await user.click(button)
-    expect(button).to.have.attribute('aria-pressed', 'true')
+    expect(button).to.have.property('aria-pressed', 'true')
 
-    expect(store.subjectViewer.move).to.be.true()
-    expect(store.subjectViewer.annotate).to.be.false()
+    expect(store.subjectViewer.move).to.equal(true)
+    expect(store.subjectViewer.annotate).to.equal(false)
     expect(store.subjectViewer.interactionMode).to.equal('move')
   })
 })

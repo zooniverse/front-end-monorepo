@@ -17,14 +17,14 @@ describe('Helper > subjectsSeenThisSession', function () {
     it('should only add if the workflow id and subject ids parameters are defined', function () {
       subjectsSeenThisSession.add()
       const seenSubjects = window.sessionStorage.getItem("subjectsSeenThisSession")
-      expect(seenSubjects).to.be.null()
+      expect(seenSubjects).to.equal(null)
     })
 
     it('should add each subject id with workflow id to the already seen list to session storage', function () {
       subjectsSeenThisSession.add('1234', ['5678', '3333'])
       const seenSubjects = window.sessionStorage.getItem("subjectsSeenThisSession")
-      expect(seenSubjects.includes('1234/5678')).to.be.true()
-      expect(seenSubjects.includes('1234/3333')).to.be.true()
+      expect(seenSubjects.includes('1234/5678')).to.equal(true)
+      expect(seenSubjects.includes('1234/3333')).to.equal(true)
     })
 
     it('should only add new ids to the already seen list', function () {
@@ -42,7 +42,7 @@ describe('Helper > subjectsSeenThisSession', function () {
 
     it('should add new ids additively and not overwrite existing already seen ids', function () {
       let seenSubjects = window.sessionStorage.getItem("subjectsSeenThisSession")
-      expect(seenSubjects).to.be.null()
+      expect(seenSubjects).to.equal(null)
       subjectsSeenThisSession.add('1234', ['5678'])
       seenSubjects = window.sessionStorage.getItem("subjectsSeenThisSession")
       let parsedSubjects = JSON.parse(seenSubjects)
@@ -68,18 +68,18 @@ describe('Helper > subjectsSeenThisSession', function () {
 
     it('should return false if the workflow and subject id pair is not in the list', function () {
       let seen = subjectsSeenThisSession.check('9999', '7777')
-      expect(seen).to.be.false()
+      expect(seen).to.equal(false)
       subjectsSeenThisSession.add('1234', ['5678'])
       seen = subjectsSeenThisSession.check('9999', '7777')
-      expect(seen).to.be.false()
+      expect(seen).to.equal(false)
     })
 
     it('should return true if teh workflow and subject id pair is in the list', function () {
       let seen = subjectsSeenThisSession.check('1234', '5678')
-      expect(seen).to.be.false()
+      expect(seen).to.equal(false)
       subjectsSeenThisSession.add('1234', ['5678'])
       seen = subjectsSeenThisSession.check('1234', '5678')
-      expect(seen).to.be.true()
+      expect(seen).to.equal(true)
     })
   })
 })

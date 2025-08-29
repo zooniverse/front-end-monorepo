@@ -41,7 +41,7 @@ describe('Components > DoneAndTalkButtonConnector', function () {
     })
 
     it('should complete the classification', function () {
-      expect(classification.completed).to.be.true()
+      expect(classification.completed).to.equal(true)
     })
   })
 })

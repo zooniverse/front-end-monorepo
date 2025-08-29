@@ -12,8 +12,8 @@ describe('Metadata', function () {
           <Metadata />
         </Grommet>
       )
-      const button = getByText('MetaTools.MetadataButton.label').closest('button')
-      expect(button).to.have.attribute('disabled')
+      const button = getByText('Subject Info').closest('button')
+      expect(button.disabled).to.equal(true)
     })
   })
 })

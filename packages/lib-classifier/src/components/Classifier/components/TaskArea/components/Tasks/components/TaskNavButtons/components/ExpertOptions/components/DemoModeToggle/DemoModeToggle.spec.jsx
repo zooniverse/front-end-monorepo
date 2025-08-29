@@ -10,8 +10,8 @@ describe('ExpertOptions > Component > DemoModeToggle', function () {
   it('should render as a labeled checkbox', function () {
     expect(
       screen.getByRole('checkbox', {
-        name: 'TaskArea.Tasks.ExpertOptions.demoToggle'
+        name: 'Demo Mode'
       })
-    ).to.be.ok()
+    ).toBeDefined()
   })
 })

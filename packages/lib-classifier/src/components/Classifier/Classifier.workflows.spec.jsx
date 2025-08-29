@@ -152,11 +152,11 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
   })
 
   it('should have a task tab', function () {
-    expect(taskTab).to.be.ok()
+    expect(taskTab).toBeDefined()
   })
 
   it('should have a tutorial tab', function () {
-    expect(tutorialTab).to.be.ok()
+    expect(tutorialTab).toBeDefined()
   })
 
   it('should show a subject image from the selected set', function () {
@@ -176,7 +176,7 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
 
     it('should be enabled', function () {
       taskAnswers.forEach(radioButton => {
-        expect(radioButton.disabled).to.be.false()
+        expect(radioButton.disabled).to.equal(false)
       })
     })
   })

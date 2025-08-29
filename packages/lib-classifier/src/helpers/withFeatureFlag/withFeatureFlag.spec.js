@@ -33,7 +33,7 @@ describe('helpers > withFeatureFlag', function () {
           wrapper: withStore(store)
         }
       )
-      expect(screen.getByRole('button', { name: 'Hello World!'})).to.exist()
+      expect(screen.getByRole('button', { name: 'Hello World!'})).toBeDefined()
     })
   })
   describe('when a feature is not enabled', function () {
@@ -49,7 +49,7 @@ describe('helpers > withFeatureFlag', function () {
           wrapper: withStore(store)
         }
       )
-      expect(screen.queryByRole('button', { name: 'Hello World!'})).to.be.null()
+      expect(screen.queryByRole('button', { name: 'Hello World!'})).to.equal(null)
     })
   })
 })

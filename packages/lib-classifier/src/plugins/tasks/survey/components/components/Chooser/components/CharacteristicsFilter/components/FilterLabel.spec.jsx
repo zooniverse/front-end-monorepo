@@ -15,7 +15,7 @@ describe('Component > FilterButton', function () {
       />
     )
 
-    expect(screen.getByTestId('filter-LK-CTDG')).to.be.ok()
+    expect(screen.getByTestId('filter-LK-CTDG')).toBeDefined()
   })
 
   describe('when selected', function () {
@@ -30,7 +30,7 @@ describe('Component > FilterButton', function () {
         />
       )
 
-      expect(screen.getByLabelText('FormClose')).to.be.ok()
+      expect(screen.getByLabelText('FormClose')).toBeDefined()
     })
   })
 })

@@ -10,7 +10,6 @@ import {
   parentHeight as height,
   parentWidth as width
 } from '../../helpers/mockData'
-import { expect } from 'chai'
 
 describe('Component > ZoomingScatterPlot', function() {
   const mockData = [{
@@ -64,7 +63,7 @@ describe('Component > ZoomingScatterPlot', function() {
         </Provider>
       </Grommet>
     )
-    expect(output).to.be.ok()
+    expect(output).toBeDefined()
   })
 
   it('should render a scatter plot', function () {
@@ -643,7 +642,7 @@ describe('Component > ZoomingScatterPlot', function() {
           expect(yAxisLabelPrePanning).to.equal(yAxisLabelPostPanning)
         })
       })
-      
+
       describe('when only panning the y-axis', function () {
         it('should translate the SVG position', function () {
           const zoomConfiguration = {

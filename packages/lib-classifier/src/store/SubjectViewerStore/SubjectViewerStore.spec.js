@@ -7,7 +7,7 @@ import SubjectViewerStore from './SubjectViewerStore'
 
 describe('Model > SubjectViewerStore', function () {
   it('should exist', function () {
-    expect(SubjectViewerStore).to.be.ok()
+    expect(SubjectViewerStore).toBeDefined()
     expect(SubjectViewerStore).to.be.an('object')
   })
 
@@ -45,7 +45,7 @@ describe('Model > SubjectViewerStore', function () {
       })
 
       it('should return false', function () {
-        expect(subjectViewerStore.disableImageToolbar).to.be.false()
+        expect(subjectViewerStore.disableImageToolbar).to.equal(false)
       })
     })
 
@@ -60,7 +60,7 @@ describe('Model > SubjectViewerStore', function () {
       })
 
       it('should return true', function () {
-        expect(subjectViewerStore.disableImageToolbar).to.be.true()
+        expect(subjectViewerStore.disableImageToolbar).to.equal(true)
       })
     })
 
@@ -75,7 +75,7 @@ describe('Model > SubjectViewerStore', function () {
       })
 
       it('should return true', function () {
-        expect(subjectViewerStore.disableImageToolbar).to.be.true()
+        expect(subjectViewerStore.disableImageToolbar).to.equal(true)
       })
     })
   })
@@ -88,9 +88,9 @@ describe('Model > SubjectViewerStore', function () {
     })
 
     it('should enable subject rotation', function () {
-      expect(subjectViewerStore.rotationEnabled).to.be.false()
+      expect(subjectViewerStore.rotationEnabled).to.equal(false)
       subjectViewerStore.enableRotation()
-      expect(subjectViewerStore.rotationEnabled).to.be.true()
+      expect(subjectViewerStore.rotationEnabled).to.equal(true)
     })
   })
 
@@ -133,9 +133,9 @@ describe('Model > SubjectViewerStore', function () {
 
     it('should reset the invert when there is a new active subject', function () {
       subjectViewerStore.invertView()
-      expect(subjectViewerStore.invert).to.be.true()
+      expect(subjectViewerStore.invert).to.equal(true)
       subjectViewerStore.resetSubject()
-      expect(subjectViewerStore.invert).to.be.false()
+      expect(subjectViewerStore.invert).to.equal(false)
     })
 
     it('should reset the rotation angle when there is a new active subject', function () {

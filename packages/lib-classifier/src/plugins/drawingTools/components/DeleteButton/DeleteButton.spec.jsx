@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import { expect } from 'chai'
 import { Point } from '@plugins/drawingTools/models/marks'
 import { DeleteButton } from './DeleteButton'
 
@@ -17,6 +16,6 @@ describe('Drawing tools > DeleteButton', function () {
       name: /delete/i
     })
 
-    expect(deleteButton).to.exist()
+    expect(deleteButton).toBeDefined()
   })
 })

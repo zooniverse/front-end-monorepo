@@ -23,7 +23,7 @@ describe('Model > SingleJSONSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleJSONSubject).to.be.ok()
+    expect(SingleJSONSubject).toBeDefined()
     expect(SingleJSONSubject).to.be.an('object')
   })
 
@@ -36,7 +36,7 @@ describe('Model > SingleJSONSubject', function () {
   })
 
   describe('with an invalid subject', function () {
-    const subjectSnapshot = SubjectFactory.build({ 
+    const subjectSnapshot = SubjectFactory.build({
       locations: [
         { 'image/png': 'https://foo.bar/example.png' },
         { 'audio/mpeg': 'https://foo.bar/example.mp3' }
@@ -71,7 +71,7 @@ describe('Model > SingleJSONSubject', function () {
     })
 
     it('should not have a default subject viewer', function () {
-      expect(subject.viewer).to.be.null()
+      expect(subject.viewer).to.equal(null)
     })
   })
 })

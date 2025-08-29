@@ -31,25 +31,25 @@ describe('Component > Confusion', function () {
     })
 
     it('should show the confusion choice label', function () {
-      expect(label).to.be.ok()
+      expect(label).toBeDefined()
     })
 
     it('should show confusion images', function () {
-      expect(images).to.be.ok()
+      expect(images).toBeDefined()
     })
 
     it('should show confusion text', function () {
-      expect(confusionText).to.be.ok()
+      expect(confusionText).toBeDefined()
     })
 
     it('should show a "Cancel" button', function () {
       /** The translation function will simply return keys in a testing env */
-      expect(cancel).to.be.ok()
+      expect(cancel).toBeDefined()
     })
 
     it('should show a "I think it\'s this" button', function () {
       /** The translation function will simply return keys in a testing env */
-      expect(itsThis).to.be.ok()
+      expect(itsThis).toBeDefined()
     })
   })
 
@@ -64,7 +64,7 @@ describe('Component > Confusion', function () {
           label={mockTask.strings.get('choices.HMN.label')}
         />
       )
-      expect(screen.queryByTestId('confusion-images')).to.be.null()
+      expect(screen.queryByTestId('confusion-images')).to.equal(null)
     })
   })
 })

@@ -69,7 +69,7 @@ describe('feedback: metadataToRules', function () {
 
   describe('with undefined metadata', function () {
     it('should generate an empty rules object', function () {
-      expect(metadataToRules()).to.be.empty()
+      expect(Object.keys(metadataToRules()).length).to.equal(0)
     })
   })
 })

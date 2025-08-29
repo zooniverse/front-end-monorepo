@@ -19,7 +19,7 @@ describe('Component > DeleteButton', function () {
       </Grommet>
     )
     const deleteButton = screen.getByRole('button', { name: 'SurveyTask.DeleteButton.delete' })
-    expect(deleteButton).to.be.ok()
+    expect(deleteButton).toBeDefined()
   })
 
   describe('when disabled', function () {

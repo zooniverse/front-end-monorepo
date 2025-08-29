@@ -17,17 +17,17 @@ describe('TaskInputLabel', function () {
 
   it('should use props.label as the innerHTML text', function () {
     render(<TaskInputLabel label={label} />)
-    expect(screen.getByText(label)).to.exist()
+    expect(screen.getByText(label)).toBeDefined()
   })
 
   it('should not render props.labelIcon if not defined', function () {
     render(<TaskInputLabel label={label} />)
-    expect(document.querySelector('span#icon')).to.be.null()
+    expect(document.querySelector('span#icon')).to.equal(null)
   })
 
   it('should not render props.labelStatus if not defined', function () {
     render(<TaskInputLabel label={label} />)
-    expect(document.querySelector('span#status')).to.be.null()
+    expect(document.querySelector('span#status')).to.equal(null)
   })
 
   it('should render props.labelIcon if defined', function () {

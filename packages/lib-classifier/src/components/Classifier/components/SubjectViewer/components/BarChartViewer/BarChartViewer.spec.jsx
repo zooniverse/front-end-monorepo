@@ -10,7 +10,6 @@ describe.skip('Component > BarChartViewer', function () {})
 // import { BarChartViewer, StyledGroup } from './BarChartViewer'
 // import Chart from '../SVGComponents/Chart'
 // import Background from '../SVGComponents/Background'
-// import { expect } from 'chai'
 
 // const {
 //   data,

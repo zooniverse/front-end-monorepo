@@ -39,7 +39,7 @@ describe('Component > InvertButton', function () {
       }
     )
 
-    expect(screen.queryByRole('button')).to.be.null()
+    expect(screen.queryByRole('button')).to.equal(null)
   })
 
   it('should have an accessible name', function () {
@@ -59,7 +59,7 @@ describe('Component > InvertButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })).toBeDefined()
   })
 
   it('should have a pressed state', async function () {
@@ -83,9 +83,9 @@ describe('Component > InvertButton', function () {
 
     const button = screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })
     expect(button).to.have.attribute('aria-pressed', 'false')
-    expect(store.subjectViewer.invert).to.be.false()
+    expect(store.subjectViewer.invert).to.equal(false)
     await user.click(button)
     expect(button).to.have.attribute('aria-pressed', 'true')
-    expect(store.subjectViewer.invert).to.be.true()
+    expect(store.subjectViewer.invert).to.equal(true)
   })
 })

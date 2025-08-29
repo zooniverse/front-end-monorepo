@@ -30,7 +30,7 @@ describe("Model > VolumetricTask", function () {
 
   it("should exist", function () {
     const task = VolumetricTask.TaskModel.create(volumetricTask)
-    expect(task).to.be.ok()
+    expect(task).toBeDefined()
     expect(task).to.be.an("object")
   })
 
@@ -41,7 +41,7 @@ describe("Model > VolumetricTask", function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe("Views > defaultAnnotation", function () {
@@ -53,7 +53,7 @@ describe("Model > VolumetricTask", function () {
 
     it("should be a valid annotation", function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).toBeDefined()
       expect(annotation.task).to.equal("T0")
       expect(annotation.taskType).to.equal("volumetric")
     })

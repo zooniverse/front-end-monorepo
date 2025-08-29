@@ -22,7 +22,7 @@ describe('Component > QuestionInput', function () {
           />
         </Grommet>
       )
-      expect(screen.getByText('Eating')).to.be.ok()
+      expect(screen.getByText('Eating')).toBeDefined()
     })
 
     it('should not be the document active element', function () {
@@ -84,7 +84,7 @@ describe('Component > QuestionInput', function () {
           />
         </Grommet>
       )
-      expect(screen.getByText('Yes')).to.be.ok()
+      expect(screen.getByText('Yes')).toBeDefined()
     })
 
     it('should have input not as the document active element', function () {

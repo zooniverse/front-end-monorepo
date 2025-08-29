@@ -1,4 +1,4 @@
-import PointTool from './PointTool'
+import { PointTool } from '@plugins/drawingTools/models/tools'
 
 const point = {
   color: '#ff0000',
@@ -12,7 +12,7 @@ const point = {
 describe('Model > DrawingTools > PointTool', function () {
   it('should exist', function () {
     const pointToolInstance = PointTool.create(point)
-    expect(pointToolInstance).to.exist()
+    expect(pointToolInstance).toBeDefined()
     expect(pointToolInstance).to.be.an('object')
   })
 

@@ -27,7 +27,7 @@ describe('Tasks / Simple Dropdown', function () {
       const options = screen.getAllByRole('option')
 
       expect(options.length).to.equal(SimpleDropdownTaskMockShort.options.length)
-      expect(within(options[0]).getByText(SimpleDropdownTaskMockShort.options[0])).to.exist()
+      expect(within(options[0]).getByText(SimpleDropdownTaskMockShort.options[0])).toBeDefined()
     })
   })
 })

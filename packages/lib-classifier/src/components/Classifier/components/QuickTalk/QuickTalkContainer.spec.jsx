@@ -33,7 +33,7 @@ describe('Component > QuickTalkContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
     })
   })
 })

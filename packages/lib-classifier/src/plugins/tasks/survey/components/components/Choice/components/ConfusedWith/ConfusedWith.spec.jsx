@@ -21,7 +21,7 @@ describe('Component > ConfusedWith', function () {
       />
     )
     /** The translation function will simply return keys in a testing env */
-    expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.be.ok()
+    expect(screen.getByText('SurveyTask.ConfusedWith.confused')).toBeDefined()
   })
 
   it('should show the appropriate confused with buttons', function () {
@@ -37,8 +37,8 @@ describe('Component > ConfusedWith', function () {
     )
 
     expect(screen.getAllByRole('button')).to.have.lengthOf(2)
-    expect(screen.getByRole('button', { name: 'Elephant' })).to.be.ok()
-    expect(screen.getByRole('button', { name: 'Aardvark' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'Elephant' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Aardvark' })).toBeDefined()
   })
 
   describe('with hasFocus of true', function () {

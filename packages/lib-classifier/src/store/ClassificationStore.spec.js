@@ -57,7 +57,7 @@ describe('Model > ClassificationStore', function () {
   }
 
   it('should exist', function () {
-    expect(ClassificationStore).to.be.ok()
+    expect(ClassificationStore).toBeDefined()
     expect(ClassificationStore).to.be.an('object')
   })
 
@@ -86,7 +86,7 @@ describe('Model > ClassificationStore', function () {
     it('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
       const classification = classifications.active.toJSON()
       const subject = subjectsSnapshot[0]
-      expect(classification).to.be.ok()
+      expect(classification).toBeDefined()
       expect(classification.links.project).to.equal(projectSnapshot.id)
       expect(classification.links.workflow).to.equal(workflowSnapshot.id)
       expect(classification.links.subjects[0]).to.equal(subject.id)
@@ -95,7 +95,7 @@ describe('Model > ClassificationStore', function () {
     it('should create an empty Classification with the correct Subject Selection metadata', function () {
       const classification = classifications.active.toJSON()
       const subject = subjectsSnapshot[0]
-      expect(classification.metadata.subjectSelectionState).to.be.ok()
+      expect(classification.metadata.subjectSelectionState).toBeDefined()
       expect(classification.metadata.subjectSelectionState.already_seen).to.equal(subject.already_seen)
       expect(classification.metadata.subjectSelectionState.finished_workflow).to.equal(subject.finished_workflow)
       expect(classification.metadata.subjectSelectionState.retired).to.equal(subject.retired)
@@ -150,7 +150,7 @@ describe('Model > ClassificationStore', function () {
       })
 
       it('should not add feedback to classification metadata', function () {
-        expect(classifications.active.metadata.feedback).to.be.empty()
+        expect(classifications.active.metadata.feedback.size).to.equal(0)
       })
     })
 

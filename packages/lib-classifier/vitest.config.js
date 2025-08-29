@@ -12,7 +12,8 @@ export default defineConfig({
       '@plugins': resolve(__dirname, 'src/plugins'),
       '@shared': resolve(__dirname, 'src/components/Classifier/components/shared'),
       '@store': resolve(__dirname, 'src/store'),
-      '@test': resolve(__dirname, 'src/test'),
+      '@stories': resolve(__dirname, 'src/stories'),
+      '@test': resolve(__dirname, 'test'),
       '@translations': resolve(__dirname, 'src/translations'),
       '@viewers': resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     }

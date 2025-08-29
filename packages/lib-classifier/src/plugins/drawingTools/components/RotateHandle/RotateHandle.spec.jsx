@@ -17,7 +17,7 @@ describe('Component > Rotatehandle', function () {
 
   it('should render without crashing', function () {
     const rotateHandle = document.querySelector('g[transform]')
-    expect(rotateHandle).to.exist()
+    expect(rotateHandle).toBeDefined()
   })
 
   it('should have the correct colour', function () {

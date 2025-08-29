@@ -98,7 +98,7 @@ describe('Model > FeedbackStore', function () {
 
   describe('existance', function () {
     it('should exist', function () {
-      expect(FeedbackStore).to.be.ok()
+      expect(FeedbackStore).toBeDefined()
       expect(FeedbackStore).to.be.an('object')
     })
   })
@@ -145,7 +145,7 @@ describe('Model > FeedbackStore', function () {
 
       it('should generate rules', function () {
         const workflow = rootStore.workflows.active
-        expect(feedback.rules.toJSON()).to.be.empty()
+        expect(feedback.rules.size).to.equal(0)
         feedback.createRules(subject)
         expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce()
         expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
@@ -236,18 +236,18 @@ describe('Model > FeedbackStore', function () {
       it('should reset feedback rules', function () {
         expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
         feedback.reset()
-        expect(feedback.rules).to.be.empty()
+        expect(feedback.rules.size).to.equal(0)
       })
 
       it('should reset showModal state', function () {
-        expect(feedback.showModal).to.be.true()
+        expect(feedback.showModal).to.equal(true)
         feedback.reset()
-        expect(feedback.showModal).to.be.false()
+        expect(feedback.showModal).to.equal(false)
       })
 
       it('should set the onHide callback', function () {
         expect(feedback.onHide).to.be.a('function')
-        expect(feedback.onHide()).to.be.true() // default to just return true
+        expect(feedback.onHide()).to.equal(true) // default to just return true
         feedback.reset()
         expect(feedback.onHide).to.equal(rootStore.subjects.advance)
       })
@@ -266,9 +266,9 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should set showModal state to true', function () {
-        expect(feedback.showModal).to.be.false()
+        expect(feedback.showModal).to.equal(false)
         feedback.showFeedback()
-        expect(feedback.showModal).to.be.true()
+        expect(feedback.showModal).to.equal(true)
       })
     })
 
@@ -290,7 +290,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should set showModal state to false', function () {
-        expect(feedback.showModal).to.be.false()
+        expect(feedback.showModal).to.equal(false)
       })
 
       it('should call the onHide callback', function () {
@@ -308,8 +308,8 @@ describe('Model > FeedbackStore', function () {
 
     it('should return an array of applicable rules', function () {
       expect(feedback.applicableRules).to.have.lengthOf(2)
-      expect(feedback.applicableRules.some(rule => rule.id === 'testRule1-1')).to.be.true()
-      expect(feedback.applicableRules.some(rule => rule.id === 'testRule2-1')).to.be.true()
+      expect(feedback.applicableRules.some(rule => rule.id === 'testRule1-1')).to.equal(true)
+      expect(feedback.applicableRules.some(rule => rule.id === 'testRule2-1')).to.equal(true)
     })
   })
 
@@ -317,7 +317,7 @@ describe('Model > FeedbackStore', function () {
     it('should return true if any rule hides subject viewer', function () {
       const feedbackStub = FeedbackFactory.build({ rules: rulesStub })
       const feedback = FeedbackStore.create(feedbackStub)
-      expect(feedback.hideSubjectViewer).to.be.true()
+      expect(feedback.hideSubjectViewer).to.equal(true)
     })
 
     it('should return false if no rule hides subject viewer', function () {
@@ -336,7 +336,7 @@ describe('Model > FeedbackStore', function () {
       }
       const feedbackStub = FeedbackFactory.build({ rules })
       const feedback = FeedbackStore.create(feedbackStub)
-      expect(feedback.hideSubjectViewer).to.be.false()
+      expect(feedback.hideSubjectViewer).to.equal(false)
     })
   })
 
@@ -407,7 +407,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should show feedback', function () {
-        expect(feedback.showModal).to.be.true()
+        expect(feedback.showModal).to.equal(true)
       })
     })
   })
@@ -454,11 +454,11 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should not set isActive', function () {
-        expect(feedback.isActive).to.be.false()
+        expect(feedback.isActive).to.equal(false)
       })
 
       it('should not generate rules', function () {
-        expect(feedback.rules).to.be.empty()
+        expect(feedback.rules.size).to.equal(0)
       })
     })
 
@@ -483,7 +483,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should set isActive', function () {
-        expect(feedback.isActive).to.be.true()
+        expect(feedback.isActive).to.equal(true)
       })
 
       it('should generate new rules', function () {

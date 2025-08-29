@@ -17,14 +17,14 @@ describe('SingleChoiceTask', function () {
 
     it('should have a question', function () {
       const question = screen.getByText(task.question)
-      expect(question).to.exist()
+      expect(question).toBeDefined()
     })
 
     it('should render the correct number of answer choices', function () {
       task.answers.forEach((answer, index) => {
         const label = task.strings.get(`answers.${index}.label`)
         const radioButton = screen.getByRole('radio', { name: label })
-        expect(radioButton).to.exist()
+        expect(radioButton).toBeDefined()
       })
     })
   })
@@ -39,7 +39,7 @@ describe('SingleChoiceTask', function () {
     it('should check the selected answer', function () {
       const label = task.strings.get('answers.0.label')
       const radioButton = screen.getByRole('radio', { name: label })
-      expect(radioButton.checked).to.be.true()
+      expect(radioButton.checked).to.equal(true)
     })
   })
 

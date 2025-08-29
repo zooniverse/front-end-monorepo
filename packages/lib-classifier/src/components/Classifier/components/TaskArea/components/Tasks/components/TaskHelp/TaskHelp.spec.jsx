@@ -12,7 +12,7 @@ describe('TaskHelp', function () {
     render(<OneTaskStory />)
 
     const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
-    expect(needHelpButton).to.be.ok()
+    expect(needHelpButton).toBeDefined()
   })
 
   describe('with a single task', function () {
@@ -28,7 +28,7 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      await waitFor(() => expect(screen.getByText('Try this')).to.be.ok())
+      await waitFor(() => expect(screen.getByText('Try this')).toBeDefined())
     })
 
     it('should not show any <hr />', async function () {
@@ -37,7 +37,7 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      expect(screen.queryByRole('separator')).to.be.null()
+      expect(screen.queryByRole('separator')).to.equal(null)
     })
 
     it('should no longer show the modal when the close button is clicked', async function () {
@@ -46,11 +46,11 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      await waitFor(() => expect(screen.getByText('Try this')).to.be.ok())
+      await waitFor(() => expect(screen.getByText('Try this')).toBeDefined())
       const closeButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.close' })
       await user.click(closeButton)
 
-      expect(screen.queryByText('Try this')).to.be.null()
+      expect(screen.queryByText('Try this')).to.equal(null)
     })
   })
 
@@ -67,8 +67,8 @@ describe('TaskHelp', function () {
       const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
       await user.click(needHelpButton)
 
-      await waitFor(() => expect(screen.getByText('Try this')).to.be.ok())
-      expect(screen.getByText('Try this again')).to.be.ok()
+      await waitFor(() => expect(screen.getByText('Try this')).toBeDefined())
+      expect(screen.getByText('Try this again')).toBeDefined()
     })
 
     it('should show the expected <hr />', async function () {

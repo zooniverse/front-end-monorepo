@@ -12,7 +12,7 @@ describe('ImageAndTextViewer', function () {
     it('should render "Something went wrong."', function () {
       render(<DefaultStory loadingState={asyncStates.error} />)
 
-      expect(screen.getByText('Something went wrong.')).to.exist()
+      expect(screen.getByText('Something went wrong.')).toBeDefined()
     })
   })
 
@@ -22,9 +22,9 @@ describe('ImageAndTextViewer', function () {
       const image = document.querySelector('image')
       const pre = document.querySelector('pre')
 
-      expect(screen.queryByText('Something went wrong.')).to.be.null()
-      expect(image).to.be.null()
-      expect(pre).to.be.null()
+      expect(screen.queryByText('Something went wrong.')).to.equal(null)
+      expect(image).to.equal(null)
+      expect(pre).to.equal(null)
     })
   })
 
@@ -33,7 +33,7 @@ describe('ImageAndTextViewer', function () {
       render(<DefaultStory />)
       const image = document.querySelector('image')
 
-      expect(image).to.exist()
+      expect(image).toBeDefined()
     })
 
     it('should highlight the active frame image thumbnail with a border', function () {
@@ -46,11 +46,11 @@ describe('ImageAndTextViewer', function () {
 
     it('should have previous and next buttons', function () {
       render(<DefaultStory />)
-      const nextButton = screen.getByText('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')
-      const prevButton = screen.getByText('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')
+      const nextButton = screen.getByText('Next')
+      const prevButton = screen.getByText('Previous')
 
-      expect(nextButton).exists()
-      expect(prevButton).exists()
+      expect(nextButton).toBeDefined()
+      expect(prevButton).toBeDefined()
     })
   })
 
@@ -58,7 +58,7 @@ describe('ImageAndTextViewer', function () {
     it('should render the text viewer', function () {
       render(<TextLocationFirstStory />)
 
-      expect(screen.getByLabelText('Subject 5678 text')).to.exist()
+      expect(screen.getByLabelText('Subject 5678 text')).toBeDefined()
     })
   })
 

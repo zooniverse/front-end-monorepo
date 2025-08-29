@@ -31,7 +31,7 @@ describe('Component > SingleImageViewer > PlaceholderSVG', function () {
     const DefaultStory = composeStory(Default, Meta)
     render(<DefaultStory />)
     const svg = screen.getByTestId('placeholder-svg')
-    expect(svg.getAttribute('focusable')).to.exist()
+    expect(svg.getAttribute('focusable')).toBeDefined()
     expect(svg.getAttribute('tabindex')).to.equal('0')
   })
 })

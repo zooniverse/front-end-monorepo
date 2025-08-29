@@ -17,7 +17,7 @@ describe('Model > MultipleChoiceTask', function () {
 
   it('should exist', function () {
     const multipleChoiceTaskInstance = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
-    expect(multipleChoiceTaskInstance).to.be.ok()
+    expect(multipleChoiceTaskInstance).toBeDefined()
     expect(multipleChoiceTaskInstance).to.be.an('object')
   })
 
@@ -28,7 +28,7 @@ describe('Model > MultipleChoiceTask', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe('Views > defaultAnnotation', function () {
@@ -40,7 +40,7 @@ describe('Model > MultipleChoiceTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).toBeDefined()
       expect(annotation.task).to.equal('T2')
       expect(annotation.taskType).to.equal('multiple')
     })
@@ -62,7 +62,7 @@ describe('Model > MultipleChoiceTask', function () {
     })
 
     it('should start up with an empty value', function () {
-      expect(annotation.value).to.be.empty()
+      expect(annotation.value.length).to.equal(0)
     })
 
     it('should update annotations', function () {
@@ -83,14 +83,14 @@ describe('Model > MultipleChoiceTask', function () {
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete(annotation)).to.be.false()
+        expect(task.isComplete(annotation)).to.equal(false)
       })
     })
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
         annotation.update([1])
-        expect(task.isComplete(annotation)).to.be.true()
+        expect(task.isComplete(annotation)).to.equal(true)
       })
     })
   })

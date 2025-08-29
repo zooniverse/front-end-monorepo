@@ -26,7 +26,7 @@ describe('Component > Background', function () {
     let rect
     render(<svg><Background fill='black' /></svg>)
     rect = document.querySelector('rect')
-    expect(rect.getAttribute('stroke')).to.be.empty()
+    expect(rect.getAttribute('stroke')).to.equal('')
     expect(rect.getAttribute('stroke-width')).to.equal('0')
     cleanup()
     render(<svg><Background fill='black' borderColor='#fff' /></svg>)

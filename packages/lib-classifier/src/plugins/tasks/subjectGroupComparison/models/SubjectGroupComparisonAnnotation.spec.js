@@ -17,12 +17,12 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(subjectGroupAnnotation).to.be.ok()
+      expect(subjectGroupAnnotation).toBeDefined()
       expect(subjectGroupAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(subjectGroupAnnotation.isComplete).to.be.true()
+      expect(subjectGroupAnnotation.isComplete).to.equal(true)
     })
   })
 
@@ -38,12 +38,12 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(subjectGroupAnnotation).to.be.ok()
+      expect(subjectGroupAnnotation).toBeDefined()
       expect(subjectGroupAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(subjectGroupAnnotation.isComplete).to.be.false()
+      expect(subjectGroupAnnotation.isComplete).to.equal(false)
     })
   })
 })

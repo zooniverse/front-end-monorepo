@@ -35,9 +35,9 @@ describe('ClassificationQueue', function () {
     })
 
     it('saves classifications to the API', async function () {
-      expect(nock.isDone()).to.be.false()
+      expect(nock.isDone()).to.equal(false)
       await classificationQueue.add(classificationData)
-      expect(nock.isDone()).to.be.true()
+      expect(nock.isDone()).to.equal(true)
     })
 
     it('does not store saved classifications', async function () {
@@ -86,9 +86,9 @@ describe('ClassificationQueue', function () {
     })
 
     it('saves classifications to the API', async function () {
-      expect(nock.isDone()).to.be.false()
+      expect(nock.isDone()).to.equal(false)
       await classificationQueue.add(classificationData)
-      expect(nock.isDone()).to.be.true()
+      expect(nock.isDone()).to.equal(true)
     })
 
     it('does not store saved classifications', async function () {
@@ -135,9 +135,9 @@ describe('ClassificationQueue', function () {
     })
 
     it('should not save failed classifications', async function () {
-      expect(nock.isDone()).to.be.false()
+      expect(nock.isDone()).to.equal(false)
       await classificationQueue.add(classificationData)
-      expect(nock.isDone()).to.be.true()
+      expect(nock.isDone()).to.equal(true)
     })
 
     it('should queue failed classifications to retry', async function () {
@@ -151,16 +151,16 @@ describe('ClassificationQueue', function () {
     })
 
     it('should set a timer to retry failed classifications', async function () {
-      expect(classificationQueue.flushTimeout).to.be.null()
+      expect(classificationQueue.flushTimeout).to.equal(null)
       await classificationQueue.add(classificationData)
-      expect(classificationQueue.flushTimeout).to.exist()
+      expect(classificationQueue.flushTimeout).toBeDefined()
     })
 
     it('should cancel any existing timer before flushing the queue', async function () {
       await classificationQueue.add(classificationData)
-      expect(classificationQueue.flushTimeout).to.exist()
+      expect(classificationQueue.flushTimeout).toBeDefined()
       classificationQueue.add(classificationData)
-      expect(classificationQueue.flushTimeout).to.be.null()
+      expect(classificationQueue.flushTimeout).to.equal(null)
     })
   })
 
@@ -187,9 +187,9 @@ describe('ClassificationQueue', function () {
     })
 
     it('should not save failed classifications', async function () {
-      expect(nock.isDone()).to.be.false()
+      expect(nock.isDone()).to.equal(false)
       await classificationQueue.add(classificationData)
-      expect(nock.isDone()).to.be.true()
+      expect(nock.isDone()).to.equal(true)
     })
 
     it('should not queue failed classifications to retry', async function () {
@@ -203,16 +203,16 @@ describe('ClassificationQueue', function () {
     })
 
     it('should not set a timer to retry failed classifications', async function () {
-      expect(classificationQueue.flushTimeout).to.be.null()
+      expect(classificationQueue.flushTimeout).to.equal(null)
       await classificationQueue.add(classificationData)
-      expect(classificationQueue.flushTimeout).to.be.null()
+      expect(classificationQueue.flushTimeout).to.equal(null)
     })
 
     it('should cancel any existing timer before flushing the queue', async function () {
       classificationQueue.flushTimeout = setTimeout(classificationQueue.flushToBackend, RETRY_INTERVAL)
-      expect(classificationQueue.flushTimeout).to.exist()
+      expect(classificationQueue.flushTimeout).toBeDefined()
       classificationQueue.add(classificationData)
-      expect(classificationQueue.flushTimeout).to.be.null()
+      expect(classificationQueue.flushTimeout).to.equal(null)
     })
   })
 
@@ -251,9 +251,9 @@ describe('ClassificationQueue', function () {
     })
 
     it('saves each classification once', function () {
-      expect(firstRequest.isDone()).to.be.true()
-      expect(secondRequest.isDone()).to.be.true()
-      expect(thirdRequest.isDone()).to.be.false()
+      expect(firstRequest.isDone()).to.equal(true)
+      expect(secondRequest.isDone()).to.equal(true)
+      expect(thirdRequest.isDone()).to.equal(false)
     })
   })
 })

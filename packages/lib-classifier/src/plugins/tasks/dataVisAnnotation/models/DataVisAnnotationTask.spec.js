@@ -25,7 +25,7 @@ describe('Model > DataVisAnnotationTask', function () {
   let model
   it('should exist', function () {
     model = DataVisAnnotationTask.create(dataVisAnnotationTaskSnapshot)
-    expect(model).to.be.ok()
+    expect(model).toBeDefined()
     expect(model).to.be.an('object')
   })
 
@@ -38,7 +38,7 @@ describe('Model > DataVisAnnotationTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).toBeDefined()
       expect(annotation.task).to.equal('T3')
       expect(annotation.taskType).to.equal('dataVisAnnotation')
     })

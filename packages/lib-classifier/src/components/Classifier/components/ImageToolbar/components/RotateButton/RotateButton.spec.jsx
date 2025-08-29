@@ -31,7 +31,7 @@ describe('Component > RotateButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.RotateButton.ariaLabel' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'ImageToolbar.RotateButton.ariaLabel' })).toBeDefined()
   })
 
   it('should rotate the subject viewer when clicked', async function () {

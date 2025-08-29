@@ -22,14 +22,14 @@ describe('Model > Step', function () {
   })
 
   it('should exist', function () {
-    expect(step).to.be.ok()
+    expect(step).toBeDefined()
     expect(step).to.be.an('object')
   })
 
   describe('with valid tasks', function () {
     it('should be valid', function () {
       // All tasks default to valid
-      expect(step.isValid).to.be.true()
+      expect(step.isValid).to.equal(true)
     })
   })
 
@@ -51,7 +51,7 @@ describe('Model > Step', function () {
       // drawing task or transcription task can be invalid if it has an invalid mark
       // only transcription line currently has logic to be invalid
       // step is invalid if any task evaluates to be invalid
-      expect(step.isValid).to.be.false()
+      expect(step.isValid).to.equal(false)
     })
   })
 
@@ -66,7 +66,7 @@ describe('Model > Step', function () {
 
     it('should be complete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isComplete()).to.be.true()
+      expect(step.isComplete()).to.equal(true)
     })
   })
 
@@ -81,7 +81,7 @@ describe('Model > Step', function () {
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isComplete()).to.be.false()
+      expect(step.isComplete()).to.equal(false)
     })
   })
 
@@ -105,7 +105,7 @@ describe('Model > Step', function () {
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2', 'T3'], tasks })
-      expect(step.isComplete()).to.be.false()
+      expect(step.isComplete()).to.equal(false)
     })
   })
 
@@ -127,20 +127,20 @@ describe('Model > Step', function () {
     })
 
     it('should be incomplete', function () {
-      expect(step.isComplete(annotations)).to.be.false()
+      expect(step.isComplete(annotations)).to.equal(false)
     })
 
     describe('after annotating task T2', function () {
       it('should still be incomplete', function () {
         singleChoiceAnnotation.update(1)
-        expect(step.isComplete(annotations)).to.be.false()
+        expect(step.isComplete(annotations)).to.equal(false)
       })
     })
 
     describe('after annotating tasks T1 & T2', function () {
       it('should be complete', function () {
         multipleChoiceAnnotation.update([1])
-        expect(step.isComplete(annotations)).to.be.true()
+        expect(step.isComplete(annotations)).to.equal(true)
       })
     })
   })
@@ -163,7 +163,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -187,7 +187,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T0'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -210,7 +210,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -233,7 +233,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -255,7 +255,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.false()
+      expect(step.isThereBranching).to.equal(false)
     })
   })
 
@@ -278,7 +278,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.false()
+      expect(step.isThereBranching).to.equal(false)
     })
   })
 
@@ -300,7 +300,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.false()
+      expect(step.isThereBranching).to.equal(false)
     })
   })
 
@@ -339,7 +339,7 @@ describe('Model > Step', function () {
         it('should be undefined', function () {
           const step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks })
           const annotations = []
-          expect(step.nextStepKey(annotations)).to.be.undefined()
+          expect(step.nextStepKey(annotations)).to.equal(undefined)
         })
       })
 

@@ -18,16 +18,16 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(surveyAnnotation).to.be.ok()
+      expect(surveyAnnotation).toBeDefined()
       expect(surveyAnnotation).to.be.an('object')
     })
 
     it('should have _choiceInProgress as false', function () {
-      expect(surveyAnnotation._choiceInProgress).to.be.false()
+      expect(surveyAnnotation._choiceInProgress).to.equal(false)
     })
 
     it('should be complete', function () {
-      expect(surveyAnnotation.isComplete).to.be.true()
+      expect(surveyAnnotation.isComplete).to.equal(true)
     })
 
     it('should error for invalid annotations', function () {
@@ -44,7 +44,7 @@ describe('Model > SurveyAnnotation', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
   })
 
@@ -103,12 +103,12 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(surveyAnnotation).to.be.ok()
+      expect(surveyAnnotation).toBeDefined()
       expect(surveyAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(surveyAnnotation.isComplete).to.be.true()
+      expect(surveyAnnotation.isComplete).to.equal(true)
     })
   })
 
@@ -130,13 +130,13 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should be incomplete', function () {
-      expect(surveyAnnotationInProgress.isComplete).to.be.false()
+      expect(surveyAnnotationInProgress.isComplete).to.equal(false)
     })
 
     it('should update _choiceInProgress to false when action inProgress is called with false', function () {
-      expect(surveyAnnotationInProgress._choiceInProgress).to.be.true()
+      expect(surveyAnnotationInProgress._choiceInProgress).to.equal(true)
       surveyAnnotationInProgress.setChoiceInProgress(false)
-      expect(surveyAnnotationInProgress._choiceInProgress).to.be.false()
+      expect(surveyAnnotationInProgress._choiceInProgress).to.equal(false)
     })
   })
 
@@ -148,7 +148,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(surveyAnnotation).to.be.ok()
+      expect(surveyAnnotation).toBeDefined()
       expect(surveyAnnotation).to.be.an('object')
     })
 
@@ -158,7 +158,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should be incomplete', function () {
-      expect(surveyAnnotation.isComplete).to.be.false()
+      expect(surveyAnnotation.isComplete).to.equal(false)
     })
   })
 })

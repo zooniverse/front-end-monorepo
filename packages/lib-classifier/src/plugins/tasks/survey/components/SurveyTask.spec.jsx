@@ -11,7 +11,7 @@ describe('SurveyTask', function () {
 
         const instruction = screen.findByText('Select the animals you see in the image.')
 
-        expect(instruction).to.be.ok()
+        expect(instruction).toBeDefined()
       })
     })
 
@@ -32,7 +32,7 @@ describe('SurveyTask', function () {
       })
 
       it('should show a filter button', function () {
-        expect(filterButton).to.be.ok()
+        expect(filterButton).toBeDefined()
       })
 
       it('should show the choices', function () {

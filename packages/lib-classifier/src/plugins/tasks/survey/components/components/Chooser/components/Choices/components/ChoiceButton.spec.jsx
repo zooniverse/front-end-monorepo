@@ -20,7 +20,7 @@ describe('Component > ChoiceButton', function () {
       </Grommet>
     )
     const choiceMenuItem = screen.getByRole('menuitem', { name: 'Aardvark' })
-    expect(choiceMenuItem).to.be.ok()
+    expect(choiceMenuItem).toBeDefined()
   })
 
   it('should have a button to open the submenu for the choice', function () {
@@ -36,7 +36,7 @@ describe('Component > ChoiceButton', function () {
       </Grommet>
     )
     const choiceButton = screen.getByRole('button', { name: 'SurveyTask.ChoiceButton.openSubmenu' })
-    expect(choiceButton).to.be.ok()
+    expect(choiceButton).toBeDefined()
   })
 
   describe('when disabled', function () {
@@ -100,7 +100,7 @@ describe('Component > ChoiceButton', function () {
         </Grommet>
       )
       const choiceButton = screen.getByRole('menuitem', { name: 'Aardvark; SurveyTask.ChoiceButton.identified' })
-      expect(choiceButton).to.be.ok()
+      expect(choiceButton).toBeDefined()
     })
   })
 })

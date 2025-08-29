@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { expect } from 'chai'
-import Meta, { OneColumn } from './SeparateFramesViewer.stories.js'
+import Meta, { OneColumn } from './SeparateFramesViewer.stories'
 import { composeStory } from '@storybook/react'
 
 describe('Component > SeparateFramesViewer', function () {
@@ -14,7 +13,7 @@ describe('Component > SeparateFramesViewer', function () {
 
   it('should display an image toolbar for each frame', function () {
     render(<OneColumnStory />)
-    const zoomInBtns = screen.getAllByLabelText('ImageToolbar.ZoomInButton.ariaLabel')
+    const zoomInBtns = screen.getAllByLabelText('Zoom in on subject')
     expect(zoomInBtns.length).to.equal(4)
   })
 })

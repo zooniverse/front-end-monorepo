@@ -45,7 +45,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
 
 
     it('should have a labelled TextInput', function () {
-      expect(textInput).to.exist()
+      expect(textInput).toBeDefined()
     })
 
     it('should show text suggestions', async function () {

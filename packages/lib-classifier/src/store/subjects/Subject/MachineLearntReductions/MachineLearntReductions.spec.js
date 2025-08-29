@@ -33,14 +33,15 @@ describe('Models > MachineLearntReductions', () => {
       })
 
       it('should exist', () => {
-        expect(reductionsModel).to.be.ok()
+        expect(reductionsModel).toBeDefined()
       })
 
       it('should find a current mark', () => {
         reductionsModel.reductions.forEach(reduction => {
           expect(reduction.data.data[0].markId).to.equal(reducedSubject.markId)
         })
-        expect(reductionsModel.findCurrentTaskMarks(reductionsTaskStub)).not.to.be.empty()
+        console.log('TEST', reductionsModel.findCurrentTaskMarks(reductionsTaskStub))
+        expect(Object.keys(reductionsModel.findCurrentTaskMarks(reductionsTaskStub)[0]).length).toBeGreaterThan(0)
       })
 
       it('should have array of x and y values', () => {
