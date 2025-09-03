@@ -65,6 +65,9 @@ window.HTMLElement.prototype.releasePointerCapture = vi.fn(pointerId => {
   pointers.delete(pointerId)
 })
 
+// For survey task's Chooser.jsx
+window.Element.prototype.scrollIntoView = () => true
+
 class ResizeObserver {
   disconnect() {
     // do nothing

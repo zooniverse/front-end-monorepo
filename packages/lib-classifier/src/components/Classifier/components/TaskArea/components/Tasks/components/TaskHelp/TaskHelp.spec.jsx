@@ -47,7 +47,6 @@ describe('TaskHelp', function () {
       await user.click(needHelpButton)
 
       await waitFor(() => expect(screen.getByText('Try this')).to.exist)
-      screen.debug()
       const closeButtons = screen.getAllByRole('button', { name: 'Close' })
       await user.click(closeButtons[0])
 

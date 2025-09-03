@@ -103,7 +103,6 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      screen.debug()
       expect(screen.queryByRole('button', quickTalkButton_target)).to.equal(null)
       expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist
     })
