@@ -85,11 +85,9 @@ describe('Model > TutorialStore', function () {
     listen: sinon.stub()
   }
 
-  function fetchTutorials (rootStore) {
-    return rootStore.workflows.setActive(workflow.id)
-      .then(() => {
-        return rootStore.tutorials.fetchTutorials()
-      })
+  async function fetchTutorials (rootStore) {
+    await rootStore.workflows.setActive(workflow.id)
+    await rootStore.tutorials.fetchTutorials()
   }
 
   function setupStores (clientStub, authClientStub) {
@@ -124,15 +122,13 @@ describe('Model > TutorialStore', function () {
       expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
     })
 
-    it('should set the tutorial if there is a workflow', function (done) {
+    it('should set the tutorial if there is a workflow', async function () {
       const panoptesClientStub = clientStub()
       rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          const tutorialInStore = rootStore.tutorials.resources.get(tutorial.id)
-          expect(tutorialInStore.toJSON()).to.deep.equal(tutorial)
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      const tutorialInStore = rootStore.tutorials.resources.get(tutorial.id)
+      expect(tutorialInStore.toJSON()).to.deep.equal(tutorial)
     })
   })
 
@@ -142,17 +138,15 @@ describe('Model > TutorialStore', function () {
       rootStore = null
     })
 
-    it('should request for tutorials linked to the active workflow', function (done) {
+    it('should request for tutorials linked to the active workflow', async function () {
       const panoptesClientStub = clientStub()
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(panoptesClientStub.tutorials.get).to.have.been.calledWith({ workflowId: workflow.id })
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      expect(panoptesClientStub.tutorials.get).to.have.been.calledWith({ workflowId: workflow.id })
     })
 
-    it('should not request for media or set the resources if there are no tutorials in the response', function (done) {
+    it('should not request for media or set the resources if there are no tutorials in the response', async function () {
       const panoptesClientStub = Object.assign({}, panoptesClient, {
         tutorials: {
           get: () => { return Promise.resolve({ body: { tutorials: [] } }) }
@@ -160,40 +154,31 @@ describe('Model > TutorialStore', function () {
       })
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(rootStore.tutorials.loadingState).to.equal(asyncStates.success)
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      expect(rootStore.tutorials.loadingState).to.equal(asyncStates.success)
     })
 
-    it('should request for the media if there are tutorials', function (done) {
+    it('should request for the media if there are tutorials', async function () {
       const panoptesClientStub = clientStub()
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      rootStore.workflows.setActive(workflow.id)
-        .then(() => panoptesClientStub.tutorials.getAttachedImages.resetHistory())
-        .then(() => {
-          return rootStore.tutorials.fetchTutorials()
-        })
-        .then(() => {
-          expect(panoptesClientStub.tutorials.getAttachedImages).to.have.been.calledOnceWith({ id: tutorial.id })
-        }).then(done, done)
+      await rootStore.workflows.setActive(workflow.id)
+      await panoptesClientStub.tutorials.getAttachedImages.resetHistory()
+      await rootStore.tutorials.fetchTutorials()
+      expect(panoptesClientStub.tutorials.getAttachedImages).to.have.been.calledOnceWith({ id: tutorial.id })
     })
 
-    it.skip('should call setTutorials if there are tutorials', function (done) {
+    it.skip('should call setTutorials if there are tutorials', async function () {
       const panoptesClientStub = clientStub()
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setTutorialsSpy = sinon.spy(rootStore.tutorials, 'setTutorials')
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(setTutorialsSpy).to.have.been.calledOnceWith([tutorial])
-        }).then(() => {
-          setTutorialsSpy.restore()
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      expect(setTutorialsSpy).to.have.been.calledOnceWith([tutorial])
+      setTutorialsSpy.restore()
     })
 
-    it('should set the loadingState to error if the request errors', function (done) {
+    it('should set the loadingState to error if the request errors', async function () {
       const panoptesClientStub = Object.assign({}, panoptesClient, {
         tutorials: {
           get: () => { return Promise.reject(new Error('testing error state')) }
@@ -201,10 +186,8 @@ describe('Model > TutorialStore', function () {
       })
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(rootStore.tutorials.loadingState).to.equal(asyncStates.error)
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      expect(rootStore.tutorials.loadingState).to.equal(asyncStates.error)
     })
   })
 
@@ -214,7 +197,7 @@ describe('Model > TutorialStore', function () {
       rootStore = null
     })
 
-    it.skip('should not call setMediaResources if there is no media in the response', function (done) {
+    it.skip('should not call setMediaResources if there is no media in the response', async function () {
       const panoptesClientStub = Object.assign({}, panoptesClient, {
         tutorials: {
           get: () => { return Promise.resolve({ body: { tutorials: [tutorial] } }) },
@@ -225,25 +208,19 @@ describe('Model > TutorialStore', function () {
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called
-        }).then(() => {
-          setMediaResourcesSpy.restore()
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      expect(setMediaResourcesSpy).to.have.not.been.called
+      setMediaResourcesSpy.restore()
     })
 
-    it.skip('should call setMediaResources if there is media in the response', function (done) {
+    it.skip('should call setMediaResources if there is media in the response', async function () {
       const panoptesClientStub = clientStub()
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
-        }).then(() => {
-          setMediaResourcesSpy.restore()
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
+      setMediaResourcesSpy.restore()
     })
   })
 
@@ -261,12 +238,10 @@ describe('Model > TutorialStore', function () {
       expect(rootStore.tutorials.activeMedium).to.equal(undefined)
     })
 
-    it('should set the active tutorial to the id parameter', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id)
-      }).then(() => {
-        expect(rootStore.tutorials.active.toJSON()).to.deep.equal(tutorial)
-      }).then(done, done)
+    it('should set the active tutorial to the id parameter', async function () {
+      await rootStore.tutorials.setTutorials([tutorial])
+      rootStore.tutorials.setActiveTutorial(tutorial.id)
+      expect(rootStore.tutorials.active.toJSON()).to.deep.equal(tutorial)
     })
   })
 })
