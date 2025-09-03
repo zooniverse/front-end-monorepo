@@ -4,7 +4,7 @@ import sinonChai from 'sinon-chai'
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
 import nock from 'nock'
-import { afterAll, beforeAll, beforeEach, describe, it } from 'vitest'
+import { afterAll, beforeAll, beforeEach, describe, it, vi } from 'vitest'
 import { expect } from 'chai'
 import { setProjectAnnotations } from '@storybook/react'
 import preview from '../.storybook/preview'
@@ -49,6 +49,21 @@ function copyProps(src, target) {
     )
   Object.defineProperties(target, props)
 }
+
+/* Mock these pointer events for draggable components, and hover states manipulated by Javascript */
+const pointers = new Set()
+
+window.Element.prototype.setPointerCapture = vi.fn(pointerId => {
+  pointers.add(pointerId)
+})
+
+window.HTMLElement.prototype.hasPointerCapture = vi.fn(pointerId => {
+  return pointers.has(pointerId)
+})
+
+window.HTMLElement.prototype.releasePointerCapture = vi.fn(pointerId => {
+  pointers.delete(pointerId)
+})
 
 class ResizeObserver {
   disconnect() {
