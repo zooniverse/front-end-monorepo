@@ -9,8 +9,8 @@ import { expect } from 'chai'
 import { setProjectAnnotations } from '@storybook/react'
 import preview from '../.storybook/preview'
 
-chai.use(sinonChai)
 chai.use(chaiDom)
+chai.use(sinonChai)
 
 // Vitest uses chai assertion syntax
 global.after = afterAll

@@ -1,11 +1,11 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { Button, CheckBox, Grommet, Box, base as baseTheme } from 'grommet'
-import _ from 'lodash'
+import merge from 'lodash/merge'
 import oauth from 'panoptes-client/lib/oauth'
 import { Component } from 'react'
 
-import Classifier from '../../../src/components/Classifier'
+import Classifier from '@components/Classifier'
 import localeMenu from './localeMenu.js'
 
 const onAddToCollection = (subjectId) => console.log(subjectId)
@@ -173,7 +173,7 @@ class App extends Component {
     const { active_workflows } = project.links
     const [singleActiveWorkflow] = (active_workflows.length === 1) ? active_workflows : []
     const workflowID = this.state.workflowID ?? singleActiveWorkflow
-    const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
+    const mergedThemes = merge({}, baseTheme, zooTheme, { dark: this.state.dark })
     const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
     const availableLocales = project?.available_languages.map(current => {
