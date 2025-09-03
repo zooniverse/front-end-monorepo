@@ -1,4 +1,4 @@
-import LineTool from './LineTool'
+import { LineTool } from '@plugins/drawingTools/models/tools'
 
 const line = {
   color: '#ff0000',

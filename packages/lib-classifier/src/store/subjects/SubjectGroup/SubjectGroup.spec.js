@@ -1,4 +1,3 @@
-import { Factory } from 'rosie'
 import SubjectGroup from './SubjectGroup'
 
 describe('Model > SubjectGroup', function () {

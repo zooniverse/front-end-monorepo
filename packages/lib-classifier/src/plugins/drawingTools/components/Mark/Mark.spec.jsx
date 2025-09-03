@@ -6,7 +6,6 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Ellipse, Mark, Point } from '@plugins/drawingTools/components'
-import { vi } from 'vitest'
 
 describe('Drawing tools > Mark', function () {
   function withGrommetWrapper() {

@@ -1,4 +1,4 @@
-import RectangleTool from './RectangleTool'
+import { RectangleTool } from '@plugins/drawingTools/models/tools'
 
 const rectangle = {
   color: '#ff0000',
