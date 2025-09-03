@@ -1,6 +1,6 @@
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
-describes.skip('Component > Banners', function () {})
+describe.skip('Component > Banners', function () {})
 
 // import sinon from 'sinon'
 

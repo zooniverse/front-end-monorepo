@@ -85,8 +85,8 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
-      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+      taskTab = screen.getByRole('tab', { name: 'Task'})
+      tutorialTab = screen.getByRole('tab', { name: 'Tutorial'})
       subjectImagePlaceholder = screen.getByTestId('placeholder-svg')
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
@@ -149,8 +149,8 @@ describe('Components > Classifier', function () {
         }
       )
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
-      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+      taskTab = screen.getByRole('tab', { name: 'Task'})
+      tutorialTab = screen.getByRole('tab', { name: 'Tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
@@ -288,8 +288,8 @@ describe('Components > Classifier', function () {
       )
       workflow = store.workflows.active
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
-      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+      taskTab = screen.getByRole('tab', { name: 'Task'})
+      tutorialTab = screen.getByRole('tab', { name: 'Tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
       const task = newSnapshot.tasks.T0
@@ -359,7 +359,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
-      tutorialHeading = await screen.findByRole('heading', { name: 'ModalTutorial.title' })
+      tutorialHeading = await screen.findByRole('heading', { name: 'Tutorial' })
     })
 
     after(function () {
@@ -398,7 +398,7 @@ describe('Components > Classifier', function () {
         }
       )
       await when(() => store.tutorials.active.hasNotBeenSeen)
-      tutorialHeading = screen.queryByRole('heading', { name: 'ModalTutorial.title' })
+      tutorialHeading = screen.queryByRole('heading', { name: 'Tutorial' })
     })
 
     after(function () {
@@ -488,8 +488,8 @@ describe('Components > Classifier', function () {
       workflow = store.workflows.active
       await when(() => store.subjectViewer.loadingState === asyncStates.loading)
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
-      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+      taskTab = screen.getByRole('tab', { name: 'Task'})
+      tutorialTab = screen.getByRole('tab', { name: 'Tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subjectTwoSnapshot.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0

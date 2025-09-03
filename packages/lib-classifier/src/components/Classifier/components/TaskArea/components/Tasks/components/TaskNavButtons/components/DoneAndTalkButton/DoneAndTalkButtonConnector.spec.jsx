@@ -26,7 +26,7 @@ describe('Components > DoneAndTalkButtonConnector', function () {
       )
       const user = userEvent.setup()
       const button = screen.getByRole('link', {
-        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+        name: 'Done & Talk in a new tab'
       })
       await user.click(button)
     })

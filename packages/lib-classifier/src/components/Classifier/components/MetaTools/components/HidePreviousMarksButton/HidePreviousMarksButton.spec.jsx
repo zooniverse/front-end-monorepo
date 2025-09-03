@@ -1,6 +1,6 @@
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
-describes.skip('Component > HidePreviousMarksButton', function () {})
+describe.skip('Component > HidePreviousMarksButton', function () {})
 
 // import sinon from 'sinon'
 // import { MetaToolsButton } from '@zooniverse/react-components'

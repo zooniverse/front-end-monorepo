@@ -64,7 +64,6 @@ describe('Drawing tools > Mark', function () {
     })
 
     it('should render a child drawing tool', function () {
-      console.log('TEST', svgPoint)
       expect(svgPoint).to.exist
     })
   })

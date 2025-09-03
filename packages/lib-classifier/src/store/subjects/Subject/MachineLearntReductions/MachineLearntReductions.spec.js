@@ -40,8 +40,7 @@ describe('Models > MachineLearntReductions', () => {
         reductionsModel.reductions.forEach(reduction => {
           expect(reduction.data.data[0].markId).to.equal(reducedSubject.markId)
         })
-        console.log('TEST', reductionsModel.findCurrentTaskMarks(reductionsTaskStub))
-        expect(Object.keys(reductionsModel.findCurrentTaskMarks(reductionsTaskStub)[0]).length).toBeGreaterThan(0)
+        expect(Object.keys(reductionsModel.findCurrentTaskMarks(reductionsTaskStub)[0]).length).to.be.above(0)
       })
 
       it('should have array of x and y values', () => {

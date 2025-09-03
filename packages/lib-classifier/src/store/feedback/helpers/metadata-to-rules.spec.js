@@ -62,7 +62,7 @@ describe('feedback: metadataToRules', function () {
       const improperMetadataSubject = mockSubjectWithRuleNonIntegerN(0)
       metadataToRules(improperMetadataSubject.metadata)
 
-      expect(logError).to.have.been.calledThrice()
+      expect(logError).to.have.been.calledThrice
       expect(logError).to.have.been.calledWith('Subject metadata feedback rule index [1] is improperly formatted. The feedback rule index should be an integer.')
     })
   })

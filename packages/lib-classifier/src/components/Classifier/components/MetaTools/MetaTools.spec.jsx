@@ -32,7 +32,7 @@ describe('Components > MetaTools', function () {
         }
       )
       addToCollections = screen.getByRole('button', {
-        name: 'MetaTools.CollectionsButton.add'
+        name: 'Add to collections'
       })
       metadata = screen.getByRole('button', {
         name: 'Subject Info'
@@ -41,7 +41,7 @@ describe('Components > MetaTools', function () {
         name: 'Add to favorites'
       })
       hidePreviousMarks = screen.queryByRole('checkbox', {
-        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+        name: 'FormView Hide Previous Marks'
       })
     })
 
@@ -81,7 +81,7 @@ describe('Components > MetaTools', function () {
         }
       )
       addToCollections = screen.getByRole('button', {
-        name: 'MetaTools.CollectionsButton.add'
+        name: 'Add to collections'
       })
       metadata = screen.getByRole('button', {
         name: 'Subject Info'
@@ -90,7 +90,7 @@ describe('Components > MetaTools', function () {
         name: 'Add to favorites'
       })
       hidePreviousMarks = screen.getByRole('checkbox', {
-        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+        name: 'FormView Hide Previous Marks'
       })
     })
 
@@ -131,7 +131,7 @@ describe('Components > MetaTools', function () {
         }
       )
       addToCollections = screen.getByRole('button', {
-        name: 'MetaTools.CollectionsButton.add'
+        name: 'Add to collections'
       })
       metadata = screen.getByRole('button', {
         name: 'Subject Info'
@@ -140,7 +140,7 @@ describe('Components > MetaTools', function () {
         name: 'Add to favorites'
       })
       hidePreviousMarks = screen.queryByRole('checkbox', {
-        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+        name: 'FormView Hide Previous Marks'
       })
     })
 
@@ -182,7 +182,7 @@ describe('Components > MetaTools', function () {
         }
       )
       addToCollections = screen.getByRole('button', {
-        name: 'MetaTools.CollectionsButton.add'
+        name: 'Add to collections'
       })
       metadata = screen.getByRole('button', {
         name: 'Subject Info'
@@ -191,7 +191,7 @@ describe('Components > MetaTools', function () {
         name: 'Added to favorites'
       })
       hidePreviousMarks = screen.queryByRole('checkbox', {
-        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+        name: 'FormView Hide Previous Marks'
       })
     })
 

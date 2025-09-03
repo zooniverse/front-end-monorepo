@@ -131,8 +131,7 @@ describe('Hooks > useHydratedStore', function () {
 
     it('should preserve the subject queue across page loads', function () {
       const snapshot = getSnapshot(store)
-      console.log('TEST', snapshot.subjects.queue)
-      expect(snapshot.subjects.queue.length).toBeGreaterThan(0)
+      expect(snapshot.subjects.queue.length).to.be.above(0)
     })
 
     it('should preserve the active subject across page loads', function () {

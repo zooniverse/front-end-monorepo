@@ -1,6 +1,6 @@
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
-describ.skip('Components > Task', function () {})
+describe.skip('Components > Task', function () {})
 
 // import Task from './Task'
 // import * as tasks from '@plugins/tasks'

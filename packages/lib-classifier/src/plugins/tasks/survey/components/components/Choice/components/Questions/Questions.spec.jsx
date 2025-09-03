@@ -42,9 +42,9 @@ describe('Component > Questions', function () {
     })
     checkboxInputs.forEach(checkboxInput => {
       if (checkboxInput.getAttribute('value') === 'RSTNG') {
-        expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+        expect(checkboxInput.getAttribute('checked')).to.exist
       } else if (checkboxInput.getAttribute('value') === 'TNG') {
-        expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+        expect(checkboxInput.getAttribute('checked')).to.exist
       } else {
         expect(checkboxInput.getAttribute('checked')).to.equal(null)
       }

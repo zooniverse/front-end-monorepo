@@ -35,7 +35,7 @@ describe('ModalTutorial', function () {
         wrapper: withStore(store)
       }
     )
-    const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+    const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'Tutorial' })
     expect(tutorialTitle).to.equal(null)
   })
 
@@ -57,7 +57,7 @@ describe('ModalTutorial', function () {
         wrapper: withStore(store)
       }
     )
-    const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+    const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'Tutorial' })
     expect(tutorialTitle).to.equal(null)
   })
 

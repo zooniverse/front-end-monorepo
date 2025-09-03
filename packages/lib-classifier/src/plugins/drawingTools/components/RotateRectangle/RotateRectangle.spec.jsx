@@ -1,6 +1,6 @@
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
-describe('Drawing Tools > RotateRectangle tool', function () {})
+describe.skip('Drawing Tools > RotateRectangle tool', function () {})
 
 // import sinon from 'sinon'
 // import { RotateRectangle as RotateRectangleMark } from '@plugins/drawingTools/models/marks'

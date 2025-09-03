@@ -136,8 +136,8 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
     )
     await when(() => store.subjectViewer.loadingState === asyncStates.success)
     workflow = store.workflows.active
-    taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-    tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+    taskTab = screen.getByRole('tab', { name: 'Task'})
+    tutorialTab = screen.getByRole('tab', { name: 'Tutorial'})
     subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
     tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
     const task = workflowSnapshot.tasks.T0

@@ -24,7 +24,7 @@ describe('Components > DoneButtonConnector', function () {
       )
       const user = userEvent.setup()
       const button = screen.getByRole('button', {
-        name: 'TaskArea.Tasks.DoneButton.done'
+        name: 'Done'
       })
       await user.click(button)
     })
