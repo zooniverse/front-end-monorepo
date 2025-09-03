@@ -4,8 +4,6 @@ import userEvent from '@testing-library/user-event'
 import Meta, { Default } from './SurveyTask.stories'
 
 describe('SurveyTask with user clicks', function () {
-  // this turns off Mocha's time limit for slow tests
-  this.timeout(0)
   const DefaultStory = composeStory(Default, Meta)
 
   describe('when the Filter button is clicked', function () {
@@ -15,7 +13,7 @@ describe('SurveyTask with user clicks', function () {
       user = userEvent.setup({ delay: null })
       render(<DefaultStory />)
       // click the Filter button above choices to open the characteristics filters
-      filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
+      filterButton = screen.getByLabelText('Filter')
       await user.click(filterButton)
     })
 
@@ -35,12 +33,12 @@ describe('SurveyTask with user clicks', function () {
 
         // confirm the stripes filter is selected by checking for the presence of the related remove filter button
         const stripesFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-STRPS')
-        expect(stripesFilterRemoveButton).toBeDefined()
+        expect(stripesFilterRemoveButton).to.exist
       })
 
       it('should show the choices that match the filter', async function () {
         const redFilterButton = document.querySelector('label[for="CLR-RD"]')
-        expect(redFilterButton).toBeDefined()
+        expect(redFilterButton).to.exist
 
         // the following user events filter choices by the color red and then close the characteristics filters, returning to the list of choices
 
@@ -63,7 +61,7 @@ describe('SurveyTask with user clicks', function () {
         const fireChoiceButton = screen.getByText('Fire')
         // select the Fire choice
         await user.click(fireChoiceButton)
-        const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+        const identifyButton = screen.getByText('Identify')
         // identify the Fire choice
         await user.click(identifyButton)
         const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
@@ -103,7 +101,7 @@ describe('SurveyTask with user clicks', function () {
         // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
         expect(choiceButtons.length).to.equal(1)
 
-        const clearFiltersButton = screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')
+        const clearFiltersButton = screen.getByText('Clear filters')
         // clear the filters
         await user.click(clearFiltersButton)
         choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
@@ -124,21 +122,21 @@ describe('SurveyTask with user clicks', function () {
     })
 
     it('should show the "More info" button', async function () {
-      const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
-      expect(choiceMoreInfoButton).toBeDefined()
+      const choiceMoreInfoButton = screen.getByRole('button', { name: 'More info' })
+      expect(choiceMoreInfoButton).to.exist
     })
 
     it('should show choice images', async function () {
       const choiceImages = screen.getByTestId('choice-images')
-      expect(choiceImages).toBeDefined()
+      expect(choiceImages).to.exist
     })
 
     it('should show choices with closed choice focused when Not This button is clicked', async function () {
-      const cancelButton = screen.getByText('SurveyTask.Choice.cancel')
+      const cancelButton = screen.getByText('Cancel')
       // close choice (Fire) component
       await user.click(cancelButton)
       // confirm choice "More info" button is not shown, therefore choice is closed
-      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'More info' })
       expect(choiceMoreInfoButton).to.equal(null)
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
@@ -153,7 +151,7 @@ describe('SurveyTask with user clicks', function () {
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choice "More info" button is not shown, therefore choice is closed
-      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
+      const choiceMoreInfoButton = screen.queryByRole('button', { name: 'More info' })
       expect(choiceMoreInfoButton).to.equal(null)
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitem]')
@@ -165,9 +163,9 @@ describe('SurveyTask with user clicks', function () {
 
     it('should disable "Done & Talk" and "Done" buttons', async function () {
       let buttons = Array.from(document.querySelectorAll('button'))
-      let doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
+      let doneButton = buttons.find( button => button.textContent === 'Done')
       const doneAndTalkButton = screen.getByRole('button', {
-        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+        name: 'Done & Talk in a new tab'
       })
 
       // confirm the Done & Talk and Done buttons are disabled while a choice is selected
@@ -180,13 +178,13 @@ describe('SurveyTask with user clicks', function () {
 
       buttons = Array.from(document.querySelectorAll('button'))
       // doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
-      doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
+      doneButton = buttons.find( button => button.textContent === 'Done')
 
       // confirm the Done & Talk and Done buttons are enabled after a choice is selected
       const doneAndTalkLink = screen.getByRole('link', {
-        name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk TaskArea.Tasks.DoneAndTalkButton.newTab'
+        name: 'Done & Talk in a new tab'
       })
-      expect(doneAndTalkLink).toBeDefined()
+      expect(doneAndTalkLink).to.exist
       expect(doneButton.disabled).to.equal(false)
     })
   })

@@ -70,7 +70,7 @@ describe('Component > ZoomEventLayer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).toBeDefined()
+    expect(wrapper).to.exist
   })
 
   it('should be the size of the parent', function () {
@@ -81,7 +81,7 @@ describe('Component > ZoomEventLayer', function () {
   it('should call the onKeyDown prop callback when onKeyDown event fires', async function () {
     image.focus()
     await user.keyboard(' ')
-    expect(onKeyDownSpy).to.have.been.calledOnce()
+    expect(onKeyDownSpy).to.have.been.calledOnce
   })
 
   it('should call the onPointerDown prop callback when onPointerDown event fires', async function () {
@@ -90,7 +90,7 @@ describe('Component > ZoomEventLayer', function () {
       { coords: { x: 10, y: 10 }, target: image },
       { keys: '[/MouseLeft]', target: image }
     ])
-    expect(onPointerDownSpy).to.have.been.calledOnce()
+    expect(onPointerDownSpy).to.have.been.calledOnce
   })
 
   it('should call the onPointerUp prop callback when onPointerUp event fires', async function () {
@@ -99,7 +99,7 @@ describe('Component > ZoomEventLayer', function () {
       { coords: { x: 10, y: 10 }, target: image },
       { keys: '[/MouseLeft]', target: image }
     ])
-    expect(onPointerUpSpy).to.have.been.calledOnce()
+    expect(onPointerUpSpy).to.have.been.calledOnce
   })
 
   it('should call the onPointerMove prop callback when onPointerMove event fires', async function () {
@@ -108,7 +108,7 @@ describe('Component > ZoomEventLayer', function () {
       { coords: { x: 10, y: 10 }, target: image },
       { keys: '[/MouseLeft]', target: image }
     ])
-    expect(onPointerMoveSpy).to.have.been.calledOnce()
+    expect(onPointerMoveSpy).to.have.been.calledOnce
   })
 
   it('should call the onPointerLeave prop callback when onPointerLeave event fires', async function () {
@@ -117,16 +117,16 @@ describe('Component > ZoomEventLayer', function () {
       { pointerName: 'mouse', target: document.body },
       { keys: '[/MouseLeft]', target: document.body }
     ])
-    expect(onPointerLeaveSpy).to.have.been.calledOnce()
+    expect(onPointerLeaveSpy).to.have.been.calledOnce
   })
 
   it('should call the onDoubleClick prop callback when onDoubleClick event fires', async function () {
     await user.dblClick(wrapper)
-    expect(onDoubleClickSpy).to.have.been.calledOnce()
+    expect(onDoubleClickSpy).to.have.been.calledOnce
   })
 
   it('should call the onWheel prop callback when onWheel event fires', function () {
     fireEvent.wheel(image)
-    expect(onWheelSpy).to.have.been.calledOnce()
+    expect(onWheelSpy).to.have.been.calledOnce
   })
 })

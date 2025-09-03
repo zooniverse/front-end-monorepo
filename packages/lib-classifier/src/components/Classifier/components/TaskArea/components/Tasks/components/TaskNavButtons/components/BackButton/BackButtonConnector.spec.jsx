@@ -25,7 +25,7 @@ describe('Components > BackButtonConnector', function () {
       )
       expect(
         screen.getByRole('button', { name: 'Back' })
-      ).toBeDefined()
+      ).to.exist
     })
 
     describe('when clicked', async function () {

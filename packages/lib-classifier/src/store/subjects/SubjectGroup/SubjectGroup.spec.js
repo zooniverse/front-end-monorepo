@@ -21,7 +21,7 @@ describe('Model > SubjectGroup', function () {
   })
 
   it('should exist', function () {
-    expect(subjectGroup).toBeDefined()
+    expect(subjectGroup).to.exist
   })
 
   it('should contain locations', function () {

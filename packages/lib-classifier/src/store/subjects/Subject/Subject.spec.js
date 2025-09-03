@@ -18,7 +18,7 @@ describe('Model > Subject', function () {
   })
 
   it('should exist', function () {
-    expect(Subject).toBeDefined()
+    expect(Subject).to.exist
     expect(Subject).to.be.an('object')
   })
 
@@ -289,7 +289,7 @@ describe('Model > Subject', function () {
     })
 
     it('should call the onToggleFavourite callback', function () {
-      expect(store.onToggleFavourite.withArgs(subject.id, subject.favorite)).to.have.been.calledOnce()
+      expect(store.onToggleFavourite.withArgs(subject.id, subject.favorite)).to.have.been.calledOnce
     })
   })
 
@@ -307,7 +307,7 @@ describe('Model > Subject', function () {
     })
 
     it('should call the onAddToCollection callback', function () {
-      expect(store.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce()
+      expect(store.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce
     })
   })
 })

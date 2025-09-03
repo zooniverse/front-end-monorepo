@@ -3,10 +3,8 @@ import sinon from 'sinon'
 
 import SingleJSONSubject from './SingleJSONSubject.js'
 import RootStore from '@store/'
-import WorkflowStore from '@store/WorkflowStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
-import subjectViewers from '@helpers/subjectViewers'
 
 describe('Model > SingleJSONSubject', function () {
   const subjectSnapshot = SubjectFactory.build({
@@ -23,7 +21,7 @@ describe('Model > SingleJSONSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleJSONSubject).toBeDefined()
+    expect(SingleJSONSubject).to.exist
     expect(SingleJSONSubject).to.be.an('object')
   })
 

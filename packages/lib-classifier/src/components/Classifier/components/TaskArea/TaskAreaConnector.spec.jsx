@@ -9,8 +9,6 @@ import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
 describe('TaskAreaConnector', function () {
-  this.timeout(0)
-
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
@@ -50,7 +48,7 @@ describe('TaskAreaConnector', function () {
     })
 
     it('should render the active task', function () {
-      expect(inputs).to.not.be.empty()
+      expect(inputs.length).to.be.above(0)
       inputs.forEach(input => {
         expect(input.disabled).to.equal(false)
       })
@@ -115,36 +113,35 @@ describe('TaskAreaConnector', function () {
           }
         )
         disabledTaskPopup = screen.queryByRole('dialog')
-        /** The translation function will simply return keys in a testing environment */
-        finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
-        selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
-        nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
-        dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
+        finishedMessage = screen.queryByText('This subject has enough classifications, so any additional classifications submitted will not be used in its analysis. You can still view this subject for reference.')
+        selectButton = screen.queryByText('Choose a new subject')
+        nextButton = screen.queryByText('Next available subject')
+        dismissButton = screen.queryByText('Dismiss')
         inputs = screen.queryAllByRole('radio')
       })
 
       it('should show the disabled task popup', function () {
-        expect(disabledTaskPopup.getAttribute('open')).toBeDefined()
+        expect(disabledTaskPopup.getAttribute('open')).to.exist
       })
 
       it('should show a message that the subject is finished', function () {
-        expect(finishedMessage).toBeDefined()
+        expect(finishedMessage).to.exist
       })
 
       it('should show a button to choose a new subject', function () {
-        expect(selectButton).toBeDefined()
+        expect(selectButton).to.exist
       })
 
       it('should show a button to choose the next available subject', function () {
-        expect(nextButton).toBeDefined()
+        expect(nextButton).to.exist
       })
 
       it('should show a button to dismiss the popup', function () {
-        expect(dismissButton).toBeDefined()
+        expect(dismissButton).to.exist
       })
 
       it('should disable the active task', function () {
-        expect(inputs).to.not.be.empty()
+        expect(inputs.length).to.be.above(0)
         inputs.forEach(input => {
           expect(input.disabled).to.equal(true)
         })
@@ -171,36 +168,35 @@ describe('TaskAreaConnector', function () {
           }
         )
         disabledTaskPopup = screen.queryByRole('dialog')
-        /** The translation function will simply return keys in a testing environment */
-        finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
-        selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
-        nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
-        dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
+        finishedMessage = screen.queryByText('This subject has enough classifications, so any additional classifications submitted will not be used in its analysis. You can still view this subject for reference.')
+        selectButton = screen.queryByText('Choose a new subject')
+        nextButton = screen.queryByText('Next available subject')
+        dismissButton = screen.queryByText('Dismiss')
         inputs = screen.queryAllByRole('radio')
       })
 
       it('should show the disabled task popup', function () {
-        expect(disabledTaskPopup.getAttribute('open')).toBeDefined()
+        expect(disabledTaskPopup.getAttribute('open')).to.exist
       })
 
       it('should show a message that the subject is finished', function () {
-        expect(finishedMessage).toBeDefined()
+        expect(finishedMessage).to.exist
       })
 
       it('should show a button to choose a new subject', function () {
-        expect(selectButton).toBeDefined()
+        expect(selectButton).to.exist
       })
 
       it('should show a button to choose the next available subject', function () {
-        expect(nextButton).toBeDefined()
+        expect(nextButton).to.exist
       })
 
       it('should show a button to dismiss the popup', function () {
-        expect(dismissButton).toBeDefined()
+        expect(dismissButton).to.exist
       })
 
       it('should disable the active task', function () {
-        expect(inputs).to.not.be.empty()
+      expect(inputs.length).to.be.above(0)
         inputs.forEach(input => {
           expect(input.disabled).to.equal(true)
         })
@@ -229,7 +225,7 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should not disable the active task', function () {
-        expect(inputs).to.not.be.empty()
+      expect(inputs.length).to.be.above(0)
         inputs.forEach(input => {
           expect(input.disabled).to.equal(false)
         })

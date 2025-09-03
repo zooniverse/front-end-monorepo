@@ -16,6 +16,6 @@ describe('Drawing tools > DeleteButton', function () {
       name: /delete/i
     })
 
-    expect(deleteButton).toBeDefined()
+    expect(deleteButton).to.exist
   })
 })

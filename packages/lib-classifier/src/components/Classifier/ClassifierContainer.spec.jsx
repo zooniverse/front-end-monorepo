@@ -16,9 +16,6 @@ import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWor
 import ClassifierContainer from '.'
 
 describe('components > ClassifierContainer', function () {
-  // Allow time for workflows and subjects to load before running the tests.
-  this.timeout(5000)
-
   function mockPanoptesAPI() {
     return nock('https://panoptes-staging.zooniverse.org/api')
       .persist()

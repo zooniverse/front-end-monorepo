@@ -9,7 +9,7 @@ import { default as SubjectViewerWithStore, SubjectViewer } from './SubjectViewe
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {
     render(<SubjectViewer />)
-    expect(screen).toBeDefined()
+    expect(screen).to.exist
   })
 
   it('should render nothing if the subject store is initialized', function () {
@@ -19,7 +19,7 @@ describe('Component > SubjectViewer', function () {
 
   it('should render a loading indicator if the subject store is loading', function () {
     render(<SubjectViewer subjectQueueState={asyncStates.loading} />)
-    expect(screen.getByText('SubjectViewer.loading')).toBeDefined()
+    expect(screen.getByText('Loading a subject')).to.exist
   })
 
   it('should render nothing if the subject store errors', function () {
@@ -36,7 +36,7 @@ describe('Component > SubjectViewer', function () {
       <SubjectViewerWithStore />
     </Provider>)
 
-    expect(screen.getByLabelText('Subject 1234')).toBeDefined()
+    expect(screen.getByLabelText('Subject 1234')).to.exist
   })
 
   describe('when there is an null viewer because of invalid subject media', function () {

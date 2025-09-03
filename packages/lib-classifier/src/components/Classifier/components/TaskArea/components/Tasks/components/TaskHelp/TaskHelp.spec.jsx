@@ -11,8 +11,8 @@ describe('TaskHelp', function () {
   it('should show a button to open the task(s) help modal', function () {
     render(<OneTaskStory />)
 
-    const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
-    expect(needHelpButton).toBeDefined()
+    const needHelpButton = screen.getByRole('button', { name: 'Need some help with this task?' })
+    expect(needHelpButton).to.exist
   })
 
   describe('with a single task', function () {
@@ -25,30 +25,31 @@ describe('TaskHelp', function () {
     it('should show the help text for a single task', async function () {
       render(<OneTaskStory />)
 
-      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      const needHelpButton = screen.getByRole('button', { name: 'Need some help with this task?' })
       await user.click(needHelpButton)
 
-      await waitFor(() => expect(screen.getByText('Try this')).toBeDefined())
+      await waitFor(() => expect(screen.getByText('Try this')).to.exist)
     })
 
     it('should not show any <hr />', async function () {
       render(<OneTaskStory />)
 
-      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      const needHelpButton = screen.getByRole('button', { name: 'Need some help with this task?' })
       await user.click(needHelpButton)
 
       expect(screen.queryByRole('separator')).to.equal(null)
     })
 
-    it('should no longer show the modal when the close button is clicked', async function () {
+    it('should no longer show the modal when a close button is clicked', async function () {
       render(<OneTaskStory />)
 
-      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      const needHelpButton = screen.getByRole('button', { name: 'Need some help with this task?' })
       await user.click(needHelpButton)
 
-      await waitFor(() => expect(screen.getByText('Try this')).toBeDefined())
-      const closeButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.close' })
-      await user.click(closeButton)
+      await waitFor(() => expect(screen.getByText('Try this')).to.exist)
+      screen.debug()
+      const closeButtons = screen.getAllByRole('button', { name: 'Close' })
+      await user.click(closeButtons[0])
 
       expect(screen.queryByText('Try this')).to.equal(null)
     })
@@ -64,17 +65,17 @@ describe('TaskHelp', function () {
     it('should show the help text for multiple tasks', async function () {
       render(<ThreeTasksStory />)
 
-      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      const needHelpButton = screen.getByRole('button', { name: 'Need some help with this task?' })
       await user.click(needHelpButton)
 
-      await waitFor(() => expect(screen.getByText('Try this')).toBeDefined())
-      expect(screen.getByText('Try this again')).toBeDefined()
+      await waitFor(() => expect(screen.getByText('Try this')).to.exist)
+      expect(screen.getByText('Try this again')).to.exist
     })
 
     it('should show the expected <hr />', async function () {
       render(<ThreeTasksStory />)
 
-      const needHelpButton = screen.getByRole('button', { name: 'TaskArea.Tasks.TaskHelp.label' })
+      const needHelpButton = screen.getByRole('button', { name: 'Need some help with this task?' })
       await user.click(needHelpButton)
 
       await waitFor(() => expect(screen.getAllByRole('separator')).to.have.lengthOf(1))

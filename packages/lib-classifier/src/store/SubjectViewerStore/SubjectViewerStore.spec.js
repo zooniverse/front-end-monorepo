@@ -7,7 +7,7 @@ import SubjectViewerStore from './SubjectViewerStore'
 
 describe('Model > SubjectViewerStore', function () {
   it('should exist', function () {
-    expect(SubjectViewerStore).toBeDefined()
+    expect(SubjectViewerStore).to.exist
     expect(SubjectViewerStore).to.be.an('object')
   })
 
@@ -243,17 +243,17 @@ describe('Model > SubjectViewerStore', function () {
 
     it('should support zooming in', function () {
       subjectViewerStore.zoomIn()
-      expect(onZoom.withArgs('zoomin', 1)).to.have.been.calledOnce()
+      expect(onZoom.withArgs('zoomin', 1)).to.have.been.calledOnce
     })
 
     it('should support zooming out', function () {
       subjectViewerStore.zoomOut()
-      expect(onZoom.withArgs('zoomout', -1)).to.have.been.calledOnce()
+      expect(onZoom.withArgs('zoomout', -1)).to.have.been.calledOnce
     })
 
     it('should reset the zoom level on reset', function () {
       subjectViewerStore.resetView()
-      expect(onZoom.withArgs('zoomto', 1)).to.have.been.calledOnce()
+      expect(onZoom.withArgs('zoomto', 1)).to.have.been.calledOnce
     })
   })
 
@@ -273,22 +273,22 @@ describe('Model > SubjectViewerStore', function () {
 
     it('should pan left', function () {
       subjectViewerStore.panLeft()
-      expect(onPan.withArgs(-1, 0)).to.have.been.calledOnce()
+      expect(onPan.withArgs(-1, 0)).to.have.been.calledOnce
     })
 
     it('should pan right', function () {
       subjectViewerStore.panRight()
-      expect(onPan.withArgs(1, 0)).to.have.been.calledOnce()
+      expect(onPan.withArgs(1, 0)).to.have.been.calledOnce
     })
 
     it('should pan up', function () {
       subjectViewerStore.panUp()
-      expect(onPan.withArgs(0, -1)).to.have.been.calledOnce()
+      expect(onPan.withArgs(0, -1)).to.have.been.calledOnce
     })
 
     it('should pan down', function () {
       subjectViewerStore.panDown()
-      expect(onPan.withArgs(0, 1)).to.have.been.calledOnce()
+      expect(onPan.withArgs(0, 1)).to.have.been.calledOnce
     })
   })
 

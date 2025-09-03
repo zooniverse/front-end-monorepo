@@ -35,7 +35,7 @@ describe('Component > Questions', function () {
     const checkboxInputs = screen.queryAllByRole('checkbox', { hidden: true })
     radioInputs.forEach(checkboxInput => {
       if (checkboxInput.getAttribute('value') === '9') {
-        expect(checkboxInput.getAttribute('checked')).toBeTruthy()
+        expect(checkboxInput.getAttribute('checked')).to.exist
       } else {
         expect(checkboxInput.getAttribute('checked')).to.equal(null)
       }

@@ -9,7 +9,7 @@ describe('Model > MultipleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(multipleChoiceAnnotation).toBeDefined()
+      expect(multipleChoiceAnnotation).to.exist
       expect(multipleChoiceAnnotation).to.be.an('object')
     })
 
@@ -26,7 +26,7 @@ describe('Model > MultipleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(multipleChoiceAnnotation).toBeDefined()
+      expect(multipleChoiceAnnotation).to.exist
       expect(multipleChoiceAnnotation).to.be.an('object')
     })
 

@@ -87,7 +87,7 @@ describe('Model > DrawingTask', function () {
 
   it('should exist', function () {
     const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-    expect(drawingTask).toBeDefined()
+    expect(drawingTask).to.exist
     expect(drawingTask).to.be.an('object')
   })
 
@@ -189,7 +189,7 @@ describe('Model > DrawingTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).toBeDefined()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T3')
       expect(annotation.taskType).to.equal('drawing')
     })
@@ -452,12 +452,6 @@ describe('Model > DrawingTask', function () {
         task.tools[1].createMark({ id: 'line1' })
         expect(task.isValid).to.equal(false)
       })
-    })
-
-    it.skip('should call validate for each tool', function () {
-      task.validate()
-      expect(pointToolValidateSpy).to.have.been.calledOnce()
-      expect(lineToolValidateSpy).to.have.been.calledOnce()
     })
   })
 })

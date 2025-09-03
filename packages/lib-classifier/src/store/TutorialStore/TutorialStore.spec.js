@@ -227,7 +227,7 @@ describe('Model > TutorialStore', function () {
 
       fetchTutorials(rootStore)
         .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called()
+          expect(setMediaResourcesSpy).to.have.not.been.called
         }).then(() => {
           setMediaResourcesSpy.restore()
         }).then(done, done)

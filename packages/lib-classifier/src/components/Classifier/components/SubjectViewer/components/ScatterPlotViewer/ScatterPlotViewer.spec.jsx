@@ -18,7 +18,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should render without errors', function () {
-      expect(chart).toBeDefined()
+      expect(chart).to.exist
     })
 
     it('should render the chart background', function () {
@@ -45,7 +45,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should render without errors', function () {
-      expect(chart).toBeDefined()
+      expect(chart).to.exist
     })
 
     it('should render the chart background', function () {
@@ -72,7 +72,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should render without errors', function () {
-      expect(chart).toBeDefined()
+      expect(chart).to.exist
     })
 
     it('should render the chart background', function () {

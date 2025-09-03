@@ -359,7 +359,7 @@ describe('Component > TranscribedLines', function () {
         })
         await when(() => task.marks.length > 0)
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -374,7 +374,7 @@ describe('Component > TranscribedLines', function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         await user.click(line)
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         await waitFor(() => {
           const line = document.querySelector('g.transcribed.line')
           expect(line.getAttribute('aria-disabled')).to.equal('true')
@@ -383,7 +383,7 @@ describe('Component > TranscribedLines', function () {
         await user.click(line)
         await when(() => task.activeMark !== undefined)
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -409,7 +409,7 @@ describe('Component > TranscribedLines', function () {
         })
         await when(() => task.marks.length > 0)
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.frame).to.equal(1)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
         task.setActiveMark(undefined)
@@ -446,7 +446,7 @@ describe('Component > TranscribedLines', function () {
           expect(line.tabIndex).to.equal(-1)
         })
         await when(() => task.marks.length === 1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -463,7 +463,7 @@ describe('Component > TranscribedLines', function () {
         line.focus()
         await user.keyboard('{Enter}')
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         await waitFor(() => {
           const line = document.querySelector('g.transcribed.line')
           expect(line.getAttribute('aria-disabled')).to.equal('true')
@@ -471,7 +471,7 @@ describe('Component > TranscribedLines', function () {
         })
         await user.keyboard('{Enter}')
         await when(() => task.activeMark !== undefined)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -496,7 +496,7 @@ describe('Component > TranscribedLines', function () {
           expect(line.tabIndex).to.equal(-1)
         })
         await when(() => task.marks.length === 1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.frame).to.equal(1)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
         task.setActiveMark(undefined)
@@ -533,7 +533,7 @@ describe('Component > TranscribedLines', function () {
           expect(line.tabIndex).to.equal(-1)
         })
         await when(() => task.marks.length === 1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -550,7 +550,7 @@ describe('Component > TranscribedLines', function () {
         line.focus()
         await user.keyboard(' ')
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         await waitFor(() => {
           const line = document.querySelector('g.transcribed.line')
           expect(line.getAttribute('aria-disabled')).to.equal('true')
@@ -558,7 +558,7 @@ describe('Component > TranscribedLines', function () {
         })
         await user.keyboard(' ')
         await when(() => task.activeMark !== undefined)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -583,7 +583,7 @@ describe('Component > TranscribedLines', function () {
           expect(line.tabIndex).to.equal(-1)
         })
         await when(() => task.marks.length === 1)
-        expect(task.activeMark).toBeDefined()
+        expect(task.activeMark).to.exist
         expect(task.activeMark.frame).to.equal(1)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
         task.setActiveMark(undefined)
@@ -652,7 +652,7 @@ describe('Component > TranscribedLines', function () {
       expect(popup).to.equal(null)
       await user.click(line)
       popup = await screen.findByRole('heading', { level: 2, name: popupTitle})
-      expect(popup).toBeDefined()
+      expect(popup).to.exist
       const closeButton = screen.queryByRole('button', { name: 'Close' })
       await user.click(closeButton)
       popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
@@ -675,7 +675,7 @@ describe('Component > TranscribedLines', function () {
       line.focus()
       await user.keyboard('{Enter}')
       popup = await screen.findByRole('heading', { level: 2, name: popupTitle})
-      expect(popup).toBeDefined()
+      expect(popup).to.exist
       const closeButton = screen.queryByRole('button', { name: 'Close' })
       closeButton.focus()
       await user.keyboard('{Enter}')
@@ -699,7 +699,7 @@ describe('Component > TranscribedLines', function () {
       line.focus()
       await user.keyboard('{ }')
       popup = await screen.findByRole('heading', { level: 2, name: popupTitle})
-      expect(popup).toBeDefined()
+      expect(popup).to.exist
       const closeButton = screen.queryByRole('button', { name: 'Close' })
       closeButton.focus()
       await user.keyboard('{ }')

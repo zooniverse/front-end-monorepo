@@ -164,7 +164,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.have.been.calledOnce()
+      ).to.have.been.calledOnce
       rootStore.client.panoptes.get.resetHistory()
     })
 
@@ -174,7 +174,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.have.not.been.called()
+      ).to.have.not.been.called
       rootStore.client.panoptes.get.resetHistory()
     })
   })

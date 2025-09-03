@@ -36,7 +36,7 @@ describe('Model > ImageAndTextSubject', function () {
   })
 
   it('should exist', function () {
-    expect(ImageAndTextSubject).toBeDefined()
+    expect(ImageAndTextSubject).to.exist
     expect(ImageAndTextSubject).to.be.an('object')
   })
 

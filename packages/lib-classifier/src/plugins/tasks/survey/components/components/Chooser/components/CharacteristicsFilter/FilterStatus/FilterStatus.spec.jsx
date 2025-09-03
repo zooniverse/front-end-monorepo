@@ -37,9 +37,9 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByTestId('remove filter-LK-CTDG')).toBeDefined()
-      expect(screen.getByTestId('remove filter-CLR-BLCK')).toBeDefined()
-      expect(screen.getByTestId('remove filter-PTTRN-SLD')).toBeDefined()
+      expect(screen.getByTestId('remove filter-LK-CTDG')).to.exist
+      expect(screen.getByTestId('remove filter-CLR-BLCK')).to.exist
+      expect(screen.getByTestId('remove filter-PTTRN-SLD')).to.exist
     })
 
     it('should show the showing x of y text', function () {
@@ -55,7 +55,7 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByText('SurveyTask.CharacteristicsFilter.showing')).toBeDefined()
+      expect(screen.getByText('Showing', { exact: false })).to.exist
     })
 
     it('should show the clear all filters button', function () {
@@ -71,7 +71,7 @@ describe('Component > FilterStatus', function () {
           task={task}
         />
       )
-      expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })).toBeDefined()
+      expect(screen.getByRole('button', { name: 'Clear filters' })).to.exist
     })
   })
 })

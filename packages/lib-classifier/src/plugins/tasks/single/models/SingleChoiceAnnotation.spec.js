@@ -9,7 +9,7 @@ describe('Model > SingleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(singleChoiceAnnotation).toBeDefined()
+      expect(singleChoiceAnnotation).to.exist
       expect(singleChoiceAnnotation).to.be.an('object')
     })
 
@@ -26,7 +26,7 @@ describe('Model > SingleChoiceAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(singleChoiceAnnotation).toBeDefined()
+      expect(singleChoiceAnnotation).to.exist
       expect(singleChoiceAnnotation).to.be.an('object')
     })
 

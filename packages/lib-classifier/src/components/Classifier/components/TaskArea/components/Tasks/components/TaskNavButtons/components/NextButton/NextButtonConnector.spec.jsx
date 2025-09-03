@@ -25,7 +25,7 @@ describe('Components > NextButtonConnector', function () {
       )
       expect(
         screen.getByRole('button', { name: 'Next' })
-      ).toBeDefined()
+      ).to.exist
     })
   })
 

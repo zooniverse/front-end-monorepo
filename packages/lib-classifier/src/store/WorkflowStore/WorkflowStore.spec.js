@@ -19,7 +19,7 @@ describe('Model > WorkflowStore', function () {
     steps: [['S1', { taskKeys: ['T1'] }]]
   })
   const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
-  const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: to.equal(undefined) } }, { activeWorkflowId: workflow.id })
+  const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
 
   function setupStores (clientStub, project) {
     const store = RootStore.create({
@@ -89,7 +89,7 @@ describe('Model > WorkflowStore', function () {
       })
 
       it('should set the active workflow to a random active workflow', function () {
-        expect(projectWithoutDefault.configuration.default_workflow).to.equal(undefined)()
+        expect(projectWithoutDefault.configuration.default_workflow).to.equal(undefined)
         expect(projectWithoutDefault.links.active_workflows.includes(rootStore.workflows.active.id)).to.equal(true)
       })
     })
@@ -123,7 +123,7 @@ describe('Model > WorkflowStore', function () {
 
       it('should not have an active subject set', function () {
         const workflow = rootStore.workflows.active
-        expect(workflow.subjectSetId).to.equal(undefined)()
+        expect(workflow.subjectSetId).to.equal(undefined)
       })
     })
 
@@ -210,7 +210,7 @@ describe('Model > WorkflowStore', function () {
 
       it('should request the selected subject from Panoptes', function () {
         const query = { ids: subjectID, workflow_id: workflowID }
-        expect(panoptesClientStub.panoptes.get.withArgs('/subjects/selection', query)).to.have.been.calledOnce()
+        expect(panoptesClientStub.panoptes.get.withArgs('/subjects/selection', query)).to.have.been.calledOnce
       })
     })
 

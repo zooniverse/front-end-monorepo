@@ -17,7 +17,7 @@ describe('Model > MultipleChoiceTask', function () {
 
   it('should exist', function () {
     const multipleChoiceTaskInstance = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
-    expect(multipleChoiceTaskInstance).toBeDefined()
+    expect(multipleChoiceTaskInstance).to.exist
     expect(multipleChoiceTaskInstance).to.be.an('object')
   })
 
@@ -40,7 +40,7 @@ describe('Model > MultipleChoiceTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).toBeDefined()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T2')
       expect(annotation.taskType).to.equal('multiple')
     })

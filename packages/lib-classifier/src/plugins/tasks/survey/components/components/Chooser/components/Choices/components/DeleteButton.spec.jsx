@@ -18,8 +18,8 @@ describe('Component > DeleteButton', function () {
         />
       </Grommet>
     )
-    const deleteButton = screen.getByRole('button', { name: 'SurveyTask.DeleteButton.delete' })
-    expect(deleteButton).toBeDefined()
+    const deleteButton = document.querySelector('[aria-label="Delete choice Aardvark"]')
+    expect(deleteButton).to.exist
   })
 
   describe('when disabled', function () {
@@ -37,9 +37,9 @@ describe('Component > DeleteButton', function () {
           />
         </Grommet>
       )
-      const deleteButton = screen.getByRole('button', { name: 'SurveyTask.DeleteButton.delete' })
+      const deleteButton = document.querySelector('[aria-label="Delete choice Aardvark"]')
       await user.click(deleteButton)
-      expect(deleteFnSpy).to.not.have.been.called()
+      expect(deleteFnSpy).to.not.have.been.called
     })
   })
 
@@ -58,9 +58,9 @@ describe('Component > DeleteButton', function () {
           />
         </Grommet>
       )
-      const deleteButton = screen.getByRole('button', { name: 'SurveyTask.DeleteButton.delete' })
+      const deleteButton = document.querySelector('[aria-label="Delete choice Aardvark"]')
       await user.click(deleteButton)
-      expect(deleteFnSpy).to.have.been.calledOnce()
+      expect(deleteFnSpy).to.have.been.calledOnce
     })
   })
 })

@@ -9,7 +9,7 @@ describe('Model > HighlighterAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(highlighterAnnotation).toBeDefined()
+      expect(highlighterAnnotation).to.exist
       expect(highlighterAnnotation).to.be.an('object')
     })
 
@@ -35,7 +35,7 @@ describe('Model > HighlighterAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(highlighterAnnotation).toBeDefined()
+      expect(highlighterAnnotation).to.exist
       expect(highlighterAnnotation).to.be.an('object')
     })
 

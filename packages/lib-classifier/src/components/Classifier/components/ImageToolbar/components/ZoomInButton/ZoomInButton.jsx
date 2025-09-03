@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { bool, func } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
 import ZoomInIcon from './ZoomInIcon'
@@ -30,8 +30,10 @@ function ZoomInButton ({
 }
 
 ZoomInButton.propTypes = {
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  disabled: bool,
+  onClick: func,
+  onPointerDown: func,
+  onPointerUp: func
 }
 
 export default ZoomInButton

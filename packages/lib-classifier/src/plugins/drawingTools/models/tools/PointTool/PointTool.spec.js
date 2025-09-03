@@ -12,7 +12,7 @@ const point = {
 describe('Model > DrawingTools > PointTool', function () {
   it('should exist', function () {
     const pointToolInstance = PointTool.create(point)
-    expect(pointToolInstance).toBeDefined()
+    expect(pointToolInstance).to.exist
     expect(pointToolInstance).to.be.an('object')
   })
 

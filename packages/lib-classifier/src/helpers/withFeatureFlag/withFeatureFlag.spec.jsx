@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 
 import mockStore from '@test/mockStore'
 import { ProjectFactory } from '@test/factories'
-import withFeatureFlag from './'
+import withFeatureFlag from '.'
 
 describe('helpers > withFeatureFlag', function () {
   function withStore(store) {
@@ -33,7 +33,7 @@ describe('helpers > withFeatureFlag', function () {
           wrapper: withStore(store)
         }
       )
-      expect(screen.getByRole('button', { name: 'Hello World!'})).toBeDefined()
+      expect(screen.getByRole('button', { name: 'Hello World!'})).to.exist
     })
   })
   describe('when a feature is not enabled', function () {

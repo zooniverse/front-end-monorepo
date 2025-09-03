@@ -10,7 +10,7 @@ describe('Component > Layouts > NoMaxWidth', function () {
     // Mock the loading state transition
     Default.store.subjectViewer.onSubjectReady()
 
-    await waitFor(() => expect(screen.getByTitle('Subject 1')).toBeDefined()) // subject viewer title
-    await waitFor(() => expect(screen.getByText(mockTasks.init.strings.question)).toBeDefined()) // task question paragraph
+    await waitFor(() => expect(screen.getByTitle('Subject 1')).to.exist) // subject viewer title
+    await waitFor(() => expect(screen.getByText(mockTasks.init.strings.question)).to.exist) // task question paragraph
   })
 })

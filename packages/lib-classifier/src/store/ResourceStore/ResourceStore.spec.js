@@ -71,7 +71,7 @@ describe('Model > ResourceStore', function () {
   })
 
   it('should have a `resources` map to store any resource objects', function () {
-    expect(resourceStore.resources).toBeDefined()
+    expect(resourceStore.resources).to.exist
     expect(resourceStore.resources.size).to.equal(2)
     expect(getSnapshot(resourceStore.resources.get('123'))).to.deep.equal(resourcesStub.resources['123'])
   })
@@ -94,13 +94,13 @@ describe('Model > ResourceStore', function () {
   it('should use an existing resources object when `setActive` is called', async function () {
     await resourceStore.setActive('456')
     expect(getSnapshot(resourceStore.active)).to.deep.equal(resourcesStub.resources['456'])
-    expect(clientStub.panoptes.get).to.have.not.been.called()
+    expect(clientStub.panoptes.get).to.have.not.been.called
   })
 
   it('should fetch a missing resource object when `setActive` is called', async function () {
     await resourceStore.setActive('789')
     expect(getSnapshot(resourceStore.active)).to.deep.equal(otherResourceStub)
-    expect(clientStub.panoptes.get).to.have.been.called()
+    expect(clientStub.panoptes.get).to.have.been.called
   })
 
   it('should set the headers object when a successful get request is made', async function () {
@@ -114,13 +114,13 @@ describe('Model > ResourceStore', function () {
     it('should return any stored resources without calling the API', async function () {
       const resource = await resourceStore.getResource('456')
       expect(getSnapshot(resource)).to.deep.equal(resourcesStub.resources['456'])
-      expect(clientStub.panoptes.get).to.have.not.been.called()
+      expect(clientStub.panoptes.get).to.have.not.been.called
     })
 
     it('should fetch any new resources from the API', async function () {
       const resource = await resourceStore.getResource('789')
       expect(getSnapshot(resource)).to.deep.equal(otherResourceStub)
-      expect(clientStub.panoptes.get).to.have.been.called()
+      expect(clientStub.panoptes.get).to.have.been.called
     })
   })
 })

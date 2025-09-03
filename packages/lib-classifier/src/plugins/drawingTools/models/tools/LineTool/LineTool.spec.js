@@ -11,7 +11,7 @@ const line = {
 describe('Model > DrawingTools > Line', function () {
   it('should exist', function () {
     const lineToolInstance = LineTool.create(line)
-    expect(lineToolInstance).toBeDefined()
+    expect(lineToolInstance).to.exist
     expect(lineToolInstance).to.be.an('object')
   })
 

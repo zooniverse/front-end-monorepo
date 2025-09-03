@@ -80,8 +80,8 @@ describe('ModalTutorial', function () {
         wrapper: withStore(store)
       }
     )
-    const tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-    expect(tutorialTitle).toBeDefined()
+    const tutorialTitle = screen.getByRole('heading', { level: 2, name: 'Tutorial' })
+    expect(tutorialTitle).to.exist
   })
 
   describe('on close', function () {
@@ -131,11 +131,11 @@ describe('ModalTutorial', function () {
           wrapper: withStore(store)
         }
       )
-      let tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
-      expect(tutorialTitle).toBeDefined()
+      let tutorialTitle = screen.getByRole('heading', { level: 2, name: 'Tutorial' })
+      expect(tutorialTitle).to.exist
       const closeButton = screen.getByRole('button', { name: 'Close' })
       await user.click(closeButton)
-      tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+      tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'Tutorial' })
       expect(tutorialTitle).to.equal(null)
     })
   })

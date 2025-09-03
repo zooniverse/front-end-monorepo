@@ -54,9 +54,9 @@ const authorRoles = {
   '300002': [],
 }
 
-const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
-const quickTalkCloseButton_target = { name: 'QuickTalk.aria.closeButton' }
-const quickTalkPanel_target = { name: 'QuickTalk.aria.mainPanel' }
+const quickTalkButton_target = { name: 'Subject has 3 comment(s). Click to expand.' }
+const quickTalkCloseButton_target = { name: 'Close comments panel' }
+const quickTalkPanel_target = { name: 'QuickTalk Comments Panel' }
 
 describe('Component > QuickTalk', function () {
   describe('when collapsed', function () {
@@ -73,18 +73,18 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.equal(null)
     })
 
     it('should expand when clicked', async function () {
       const user = userEvent.setup({ delay: null })
 
-      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist
       await user.click(screen.queryByRole('button', quickTalkButton_target))
 
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      await waitFor(() => expect(screen.queryByRole('dialog', quickTalkPanel_target)).toBeDefined())
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.equal(null)
+      await waitFor(() => expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist)
     })
   })
 
@@ -103,8 +103,9 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).toBeDefined()
+      screen.debug()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.equal(null)
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist
     })
 
     it('should have the correct number of comments', function () {
@@ -115,8 +116,8 @@ describe('Component > QuickTalk', function () {
       const user = userEvent.setup({ delay: null })
       await user.click(screen.queryByRole('button', quickTalkCloseButton_target))
 
-      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.equal(null)
     })
   })
 })

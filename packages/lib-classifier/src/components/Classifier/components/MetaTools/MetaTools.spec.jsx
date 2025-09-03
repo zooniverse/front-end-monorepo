@@ -20,9 +20,6 @@ describe('Components > MetaTools', function () {
     }
   }
 
-// this turns off Mocha's time limit for slow tests
-  this.timeout(0)
-
   describe('defaults', function () {
     let addToCollections, favourite, hidePreviousMarks, metadata
 
@@ -38,7 +35,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.CollectionsButton.add'
       })
       metadata = screen.getByRole('button', {
-        name: 'MetaTools.MetadataButton.label'
+        name: 'Subject Info'
       })
       favourite = screen.getByRole('checkbox', {
         name: 'Add to favorites'
@@ -49,16 +46,16 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).toBeDefined()
+      expect(metadata).to.exist
     })
 
     it('should have a disabled Collections button', function () {
-      expect(addToCollections).toBeDefined()
+      expect(addToCollections).to.exist
       expect(addToCollections.disabled).to.equal(true)
     })
 
     it('should have a disabled Favourites checkbox', function () {
-      expect(favourite).toBeDefined()
+      expect(favourite).to.exist
       expect(favourite.disabled).to.equal(true)
     })
 
@@ -87,7 +84,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.CollectionsButton.add'
       })
       metadata = screen.getByRole('button', {
-        name: 'MetaTools.MetadataButton.label'
+        name: 'Subject Info'
       })
       favourite = screen.getByRole('checkbox', {
         name: 'Add to favorites'
@@ -98,21 +95,21 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).toBeDefined()
+      expect(metadata).to.exist
     })
 
     it('should have a disabled Collections button', function () {
-      expect(addToCollections).toBeDefined()
+      expect(addToCollections).to.exist
       expect(addToCollections.disabled).to.equal(true)
     })
 
     it('should have a disabled Favourites checkbox', function () {
-      expect(favourite).toBeDefined()
+      expect(favourite).to.exist
       expect(favourite.disabled).to.equal(true)
     })
 
     it('should have an unchecked Hide Previous Marks checkbox', function () {
-      expect(hidePreviousMarks).toBeDefined()
+      expect(hidePreviousMarks).to.exist
       expect(hidePreviousMarks.getAttribute('aria-checked')).to.equal('false')
     })
   })
@@ -137,7 +134,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.CollectionsButton.add'
       })
       metadata = screen.getByRole('button', {
-        name: 'MetaTools.MetadataButton.label'
+        name: 'Subject Info'
       })
       favourite = screen.getByRole('checkbox', {
         name: 'Add to favorites'
@@ -148,16 +145,16 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).toBeDefined()
+      expect(metadata).to.exist
     })
 
     it('should have an enabled Collections button', function () {
-      expect(addToCollections).toBeDefined()
+      expect(addToCollections).to.exist
       expect(addToCollections.disabled).to.equal(false)
     })
 
     it('should have an enabled, unchecked Favourites checkbox', function () {
-      expect(favourite).toBeDefined()
+      expect(favourite).to.exist
       expect(favourite.disabled).to.equal(false)
       expect(favourite.getAttribute('aria-checked')).to.equal('false')
     })
@@ -188,7 +185,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.CollectionsButton.add'
       })
       metadata = screen.getByRole('button', {
-        name: 'MetaTools.MetadataButton.label'
+        name: 'Subject Info'
       })
       favourite = screen.getByRole('checkbox', {
         name: 'Added to favorites'
@@ -199,16 +196,16 @@ describe('Components > MetaTools', function () {
     })
 
     it('should have a metadata button', function () {
-      expect(metadata).toBeDefined()
+      expect(metadata).to.exist
     })
 
     it('should have an enabled Collections button', function () {
-      expect(addToCollections).toBeDefined()
+      expect(addToCollections).to.exist
       expect(addToCollections.disabled).to.equal(false)
     })
 
     it('should have an enabled, checked Favourites checkbox', function () {
-      expect(favourite).toBeDefined()
+      expect(favourite).to.exist
       expect(favourite.disabled).to.equal(false)
       expect(favourite.getAttribute('aria-checked')).to.equal('true')
     })

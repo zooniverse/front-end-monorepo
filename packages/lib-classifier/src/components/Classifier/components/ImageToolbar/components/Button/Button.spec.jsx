@@ -14,11 +14,11 @@ describe('Component > ImageToolbar > Button', function () {
     const { getByLabelText } = render(
       <Grommet theme={zooTheme}>
         <Provider classifierStore={mockStore}>
-          <Button a11yTitle='ImageToolbar.AnnotateButton.ariaLabel' />
+          <Button a11yTitle='Annotate' />
         </Provider>
       </Grommet>
     )
-    const button = getByLabelText('ImageToolbar.AnnotateButton.ariaLabel')
-    expect(button).be.ok()
+    const button = getByLabelText('Annotate')
+    expect(button).to.exist
   })
 })

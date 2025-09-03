@@ -31,7 +31,7 @@ describe('Component > RotateButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.RotateButton.ariaLabel' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Rotate subject' })).to.exist
   })
 
   it('should rotate the subject viewer when clicked', async function () {
@@ -47,7 +47,7 @@ describe('Component > RotateButton', function () {
       }
     )
 
-    await user.click(screen.getByRole('button', { name: 'ImageToolbar.RotateButton.ariaLabel' }))
+    await user.click(screen.getByRole('button', { name: 'Rotate subject' }))
 
     expect(store.subjectViewer.rotation).to.equal(-90)
   })

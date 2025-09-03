@@ -63,7 +63,7 @@ describe('Component > ZoomingScatterPlot', function() {
         </Provider>
       </Grommet>
     )
-    expect(output).toBeDefined()
+    expect(output).to.exist
   })
 
   it('should render a scatter plot', function () {

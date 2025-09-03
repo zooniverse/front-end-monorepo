@@ -17,7 +17,7 @@ describe('Model > SimpleDropdownAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(simpleDropdownAnnotation).toBeDefined()
+      expect(simpleDropdownAnnotation).to.exist
       expect(simpleDropdownAnnotation).to.be.an('object')
     })
 
@@ -38,7 +38,7 @@ describe('Model > SimpleDropdownAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(simpleDropdownAnnotation).toBeDefined()
+      expect(simpleDropdownAnnotation).to.exist
       expect(simpleDropdownAnnotation).to.be.an('object')
     })
 

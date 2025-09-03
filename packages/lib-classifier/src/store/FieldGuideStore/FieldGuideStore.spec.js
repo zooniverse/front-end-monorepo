@@ -4,7 +4,6 @@ import asyncStates from '@zooniverse/async-states'
 import { applySnapshot } from 'mobx-state-tree'
 
 import FieldGuideStore from './FieldGuideStore'
-import ProjectStore from '@store/ProjectStore'
 
 import {
   ProjectFactory,
@@ -58,7 +57,7 @@ describe('Model > FieldGuideStore', function () {
       store.client.panoptes = panoptesClientStub.panoptes
       applySnapshot(store.projects, { active: undefined, resources: {}})
       expect(store.fieldGuide.loadingState).to.equal(asyncStates.loading)
-      expect(store.client.panoptes.get).to.have.not.been.called()
+      expect(store.client.panoptes.get).to.have.not.been.called
     })
   })
 
@@ -99,7 +98,7 @@ describe('Model > FieldGuideStore', function () {
       }
       const fieldGuideStore = setupStores(panoptesClientStub)
       const fetchStub = panoptesClientStub.panoptes.get.withArgs('/field_guides', { project_id: project.id })
-      expect(fetchStub).to.have.been.calledOnce()
+      expect(fetchStub).to.have.been.calledOnce
     })
 
     it('should not request for media or set the resources if there are not a field guide in the response', function (done) {
@@ -136,7 +135,7 @@ describe('Model > FieldGuideStore', function () {
       const fieldGuideStore = setupStores(panoptesClientStub)
       const fetchStub = panoptesClientStub.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)
 
-      expect(fetchStub).to.have.been.calledOnce()
+      expect(fetchStub).to.have.been.calledOnce
     })
 
     it.skip('should call setResources and setActive if there is a field guide', function (done) {
@@ -199,7 +198,7 @@ describe('Model > FieldGuideStore', function () {
 
       fieldGuideStore.fetchFieldGuide(project.id)
         .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called()
+          expect(setMediaResourcesSpy).to.have.not.been.called
         }).then(() => {
           setMediaResourcesSpy.restore()
         }).then(done, done)

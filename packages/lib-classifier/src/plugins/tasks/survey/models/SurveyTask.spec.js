@@ -396,7 +396,7 @@ const surveyAnnotation = [
 describe('Model > SurveyTask', function () {
   it('should exist', function () {
     const surveyTaskInstance = SurveyTask.TaskModel.create(surveyTask)
-    expect(surveyTaskInstance).toBeDefined()
+    expect(surveyTaskInstance).to.exist
     expect(surveyTaskInstance).to.be.an('object')
     expect(surveyTaskInstance.type).to.equal('survey')
   })
@@ -650,7 +650,7 @@ describe('Model > SurveyTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).toBeDefined()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T0')
       expect(annotation.taskType).to.equal('survey')
     })

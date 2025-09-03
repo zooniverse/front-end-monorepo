@@ -13,7 +13,7 @@ describe('Model > DrawingTools > Tool', function () {
 
   it('should exist', function () {
     const tool = Tool.create(toolData)
-    expect(tool).toBeDefined()
+    expect(tool).to.exist
     expect(Object.keys(tool).length).not.to.equal(0)
   })
 

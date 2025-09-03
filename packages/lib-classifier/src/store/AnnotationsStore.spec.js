@@ -17,7 +17,7 @@ describe('Model > AnnotationsStore', function () {
   })
 
   it('should exist', function () {
-    expect(model).toBeDefined()
+    expect(model).to.exist
     expect(model).to.be.an('object')
   })
 

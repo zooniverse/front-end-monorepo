@@ -39,7 +39,7 @@ describe('Component > ZoomInButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.ZoomInButton.ariaLabel' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Zoom in on subject' })).to.exist
   })
 
   it('should zoom in the subject viewer when clicked', async function () {
@@ -54,7 +54,7 @@ describe('Component > ZoomInButton', function () {
       }
     )
 
-    await user.click(screen.getByRole('button', { name: 'ImageToolbar.ZoomInButton.ariaLabel' }))
+    await user.click(screen.getByRole('button', { name: 'Zoom in on subject' }))
 
     expect(zoomSpy).to.have.been.calledOnceWith("zoomin", 1)
   })

@@ -49,7 +49,7 @@ describe('Model > TextFromSubjectAnnotation', function () {
 
   describe('without an initial update from subject content', function () {
     it('should exist', function () {
-      expect(textFromSubjectAnnotation).toBeDefined()
+      expect(textFromSubjectAnnotation).to.exist
       expect(textFromSubjectAnnotation).to.be.an('object')
     })
 
@@ -72,7 +72,7 @@ describe('Model > TextFromSubjectAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(textFromSubjectAnnotation).toBeDefined()
+      expect(textFromSubjectAnnotation).to.exist
       expect(textFromSubjectAnnotation).to.be.an('object')
     })
 

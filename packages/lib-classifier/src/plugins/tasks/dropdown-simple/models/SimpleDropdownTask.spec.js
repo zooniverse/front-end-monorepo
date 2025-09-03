@@ -23,7 +23,7 @@ describe('Model > SimpleDropdownTask', function () {
 
   it('should exist', function () {
     const simpleDropdownTaskInstance = TaskModel.create(simpleDropdownTask)
-    expect(simpleDropdownTaskInstance).toBeDefined()
+    expect(simpleDropdownTaskInstance).to.exist
     expect(simpleDropdownTaskInstance).to.be.an('object')
   })
 

@@ -29,7 +29,7 @@ describe('Model > TextSubject', function () {
   })
 
   it('should exist', function () {
-    expect(TextSubject).toBeDefined()
+    expect(TextSubject).to.exist
     expect(TextSubject).to.be.an('object')
   })
 

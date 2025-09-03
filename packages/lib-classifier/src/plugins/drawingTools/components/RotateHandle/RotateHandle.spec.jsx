@@ -17,11 +17,11 @@ describe('Component > Rotatehandle', function () {
 
   it('should render without crashing', function () {
     const rotateHandle = document.querySelector('g[transform]')
-    expect(rotateHandle).toBeDefined()
+    expect(rotateHandle).to.exist
   })
 
   it('should have the correct colour', function () {
-    const innerSVG = screen.getByLabelText('DrawingTools.RotateHandle')
+    const innerSVG = screen.getByLabelText('Handle for rotating drawn annotation\/mark.')
     expect(innerSVG.getAttribute('fill')).to.equal('red')
   })
 })

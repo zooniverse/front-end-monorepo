@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react'
 import mockStore from '@test/mockStore'
 import { QuickTalkContainer } from './QuickTalkContainer'
 
-const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
+const quickTalkButton_target = { name: 'Subject has 0 comment(s). Click to expand.' }
 
 describe('Component > QuickTalkContainer', function () {
   function withStore(store) {
@@ -33,7 +33,7 @@ describe('Component > QuickTalkContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).toBeDefined()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist
     })
   })
 })

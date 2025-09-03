@@ -8,17 +8,17 @@ describe("VolumetricTask", function () {
   describe("when it renders", function () {
     it("should show the instruction", function () {
       render(<DefaultStory />)
-      expect(screen.getByText("Volumetric the task")).toBeDefined()
+      expect(screen.getByText("Volumetric the task")).to.exist
     })
 
     it("should show the label text", function () {
       render(<DefaultStory />)
-      expect(screen.getByText("3D Viewer")).toBeDefined()
+      expect(screen.getByText("3D Viewer")).to.exist
     })
 
     it("should show the classification count", function () {
       render(<DefaultStory />)
-      expect(screen.getByText("InputStatus.drawn")).toBeDefined()
+      expect(screen.getByText("0 drawn")).to.exist
     })
   })
 })

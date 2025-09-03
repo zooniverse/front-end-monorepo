@@ -11,7 +11,7 @@ describe('Component > SingleVideoViewerContainer', function () {
       // We need to wait for React Player to be ready
       await waitFor(() => {
         const videoElement = container.querySelector('video')
-        expect(videoElement).toBeDefined()
+        expect(videoElement).to.exist
         const customControls = queryByTestId('video subject viewer custom controls')
         expect(customControls).to.equal(null)
       })
@@ -25,7 +25,7 @@ describe('Component > SingleVideoViewerContainer', function () {
       const videoElement = container.querySelector('video')
       const errorMessage = screen.getByText('There was an error loading the subject.')
       expect(videoElement).to.equal(null)
-      expect(errorMessage).toBeDefined()
+      expect(errorMessage).to.exist
     })
   })
 
@@ -33,7 +33,7 @@ describe('Component > SingleVideoViewerContainer', function () {
     it('should display custom video controls', function () {
       const { getByTestId } = render(<WithDrawing />)
       const customControls = getByTestId('video subject viewer custom controls')
-      expect(customControls).toBeDefined()
+      expect(customControls).to.exist
     })
   })
 })

@@ -8,9 +8,6 @@ import TextTask from '.'
 import { default as Task } from '@plugins/tasks/text'
 
 describe('Text Task', function () {
-
-  this.timeout(0)
-
   function withGrommet({ children }) {
     return (
       <Grommet theme={zooTheme}>
@@ -43,7 +40,7 @@ describe('Text Task', function () {
         }
       )
       modifiers = screen.queryByRole('group', {
-        name: 'TextTask.TextTagButtons.modifiers'
+        name: 'Text modifiers'
       })
       textInput = screen.getByRole('textbox', {
         name: task.instruction
@@ -52,7 +49,7 @@ describe('Text Task', function () {
     })
 
     it('should have a labelled text input', function () {
-      expect(textInput).toBeDefined()
+      expect(textInput).to.exist
     })
 
     it('should save typed text', function () {
@@ -91,10 +88,10 @@ describe('Text Task', function () {
         }
       )
       modifiers = screen.getByRole('group', {
-        name: 'TextTask.TextTagButtons.modifiers'
+        name: 'Text modifiers'
       })
       buttons = task.text_tags.map(tag => within(modifiers).getByRole('button', {
-        name: `TextTask.TextTagButtons.modifiers ${tag}`
+        name: `Text modifiers ${tag}`
       }))
       textInput = screen.getByRole('textbox', {
         name: task.instruction
@@ -103,7 +100,7 @@ describe('Text Task', function () {
     })
 
     it('should have a labelled text input', function () {
-      expect(textInput).toBeDefined()
+      expect(textInput).to.exist
     })
 
     it('should save typed text', function () {
@@ -115,7 +112,7 @@ describe('Text Task', function () {
     })
 
     it('should have text modifier buttons', function () {
-      expect(modifiers).toBeDefined()
+      expect(modifiers).to.exist
     })
 
     it('should have a modifier button for each text tag', function () {
@@ -146,10 +143,10 @@ describe('Text Task', function () {
         }
       )
       modifiers = screen.getByRole('group', {
-        name: 'TextTask.TextTagButtons.modifiers'
+        name: 'Text modifiers'
       })
       const insertion = within(modifiers).getByRole('button', {
-        name: 'TextTask.TextTagButtons.modifiers insertion'
+        name: 'Text modifiers insertion'
       })
       textInput = screen.getByRole('textbox', {
         name: task.instruction
@@ -200,10 +197,10 @@ describe('Text Task', function () {
         }
       )
       modifiers = screen.getByRole('group', {
-        name: 'TextTask.TextTagButtons.modifiers'
+        name: 'Text modifiers'
       })
       const ampersand = within(modifiers).getByRole('button', {
-        name: 'TextTask.TextTagButtons.modifiers &'
+        name: 'Text modifiers &'
       })
       textInput = screen.getByRole('textbox', {
         name: task.instruction
@@ -261,10 +258,10 @@ describe('Text Task', function () {
         }
       )
       modifiers = screen.getByRole('group', {
-        name: 'TextTask.TextTagButtons.modifiers'
+        name: 'Text modifiers'
       })
       buttons = task.text_tags.map(tag => within(modifiers).getByRole('button', {
-        name: `TextTask.TextTagButtons.modifiers ${tag}`
+        name: `Text modifiers ${tag}`
       }))
       textInput = screen.getByRole('combobox', {
         name: task.instruction
@@ -278,7 +275,7 @@ describe('Text Task', function () {
     })
 
     it('should have a labelled text input', function () {
-      expect(textInput).toBeDefined()
+      expect(textInput).to.exist
     })
 
     it('should save the selected suggestion', function () {
@@ -290,7 +287,7 @@ describe('Text Task', function () {
     })
 
     it('should have text modifier buttons', function () {
-      expect(modifiers).toBeDefined()
+      expect(modifiers).to.exist
     })
 
     it('should have a modifier button for each text tag', function () {

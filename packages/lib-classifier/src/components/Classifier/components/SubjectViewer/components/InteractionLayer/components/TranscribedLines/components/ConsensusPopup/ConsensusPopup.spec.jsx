@@ -20,7 +20,7 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
     })
 
     it('should render a draggable layer', function () {
-      expect(document.querySelector('div.react-draggable')).toBeDefined()
+      expect(document.querySelector('div.react-draggable')).to.exist
     })
 
     it('should have a title bar', function () {
@@ -28,7 +28,7 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
         'heading',
         { name: 'Previous Transcriptions' }
       )
-      expect(heading).toBeDefined()
+      expect(heading).to.exist
     })
 
     it('should render an explanatory text with the number of textOptions from the line data', function () {
@@ -36,7 +36,7 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
         'These 3 transcriptions have been submitted by previous volunteers and cannot be modified.',
         { selector: 'p' }
       )
-      expect(firstParagraph).toBeDefined()
+      expect(firstParagraph).to.exist
     })
 
     it('should render the consensus text with explanation', function () {
@@ -44,12 +44,12 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
         completedLines[0].consensusText,
         { selector: 'p' }
       )
-      expect(consensusText).toBeDefined()
+      expect(consensusText).to.exist
     })
 
     it('should a List of transcriptions that contributed to the consensus text', function () {
       const list = document.querySelector('ul')
-      expect(list).toBeDefined()
+      expect(list).to.exist
       const items = list.querySelectorAll('li')
       expect(items.length).to.equal(completedLines[0].textOptions.length)
     })
@@ -67,7 +67,7 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
         'No aggregation available.',
         { selector: 'p' }
       )
-      expect(explanation).toBeDefined()
+      expect(explanation).to.exist
     })
 
     it('should render an explanation when there are no contributing transcriptions', function () {
@@ -75,7 +75,7 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
         'Transcriptions unavailable.',
         { selector: 'p' }
       )
-      expect(explanation).toBeDefined()
+      expect(explanation).to.exist
       expect(document.querySelector('ul')).to.equal(null)
     })
   })

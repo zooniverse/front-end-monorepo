@@ -22,7 +22,7 @@ describe('Model > Step', function () {
   })
 
   it('should exist', function () {
-    expect(step).toBeDefined()
+    expect(step).to.exist
     expect(step).to.be.an('object')
   })
 
@@ -365,11 +365,11 @@ describe('Model > Step', function () {
       const resetSpies = {}
       step.tasks.forEach(task => {
         resetSpies[task.taskKey] = sinon.spy(task, 'reset')
-        expect(resetSpies[task.taskKey]).to.have.not.been.called()
+        expect(resetSpies[task.taskKey]).to.have.not.been.called
       })
       step.reset()
       step.tasks.forEach(task => {
-        expect(resetSpies[task.taskKey]).to.have.been.calledOnce()
+        expect(resetSpies[task.taskKey]).to.have.been.calledOnce
       })
     })
   })
@@ -406,13 +406,13 @@ describe('Model > Step', function () {
 
     it('should validate each step task', function () {
       tasks.forEach(task => {
-        expect(task.validate).to.have.been.calledOnce()
+        expect(task.validate).to.have.been.calledOnce
       })
     })
 
     it('should complete each step task', function () {
       tasks.forEach(task => {
-        expect(task.complete).to.have.been.calledOnce()
+        expect(task.complete).to.have.been.calledOnce
       })
     })
   })

@@ -20,7 +20,7 @@ describe('Task models', function () {
       })
 
       it('should exist', function () {
-        expect(task).toBeDefined()
+        expect(task).to.exist
       })
 
       describe('annotations', function () {
@@ -31,7 +31,7 @@ describe('Task models', function () {
         })
 
         it('should exist', function () {
-          expect(annotation).toBeDefined()
+          expect(annotation).to.exist
         })
 
         it('should store the task key', function () {

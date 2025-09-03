@@ -298,7 +298,7 @@ describe('Model > WorkflowStepStore', function () {
       expect(rootStore.workflowSteps.steps.size).to.equal(2)
       rootStore.workflowSteps.steps.forEach(step => {
         step.tasks.forEach(({ taskKey, strings, answers }) => {
-          expect(strings).toBeDefined()
+          expect(strings).to.exist
           expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
           answers.forEach((answer, index) => {
             expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
@@ -346,7 +346,7 @@ describe('Model > WorkflowStepStore', function () {
       expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
       rootStore.workflowSteps.steps.forEach(step => {
         step.tasks.forEach(({ taskKey, strings, answers }) => {
-          expect(strings).toBeDefined()
+          expect(strings).to.exist
           expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
           answers.forEach((answer, index) => {
             expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
@@ -366,7 +366,7 @@ describe('Model > WorkflowStepStore', function () {
       applySnapshot(rootStore.workflows.active.strings, strings)
       rootStore.workflowSteps.steps.forEach(step => {
         step.tasks.forEach(({ taskKey, strings, answers }) => {
-          expect(strings).toBeDefined()
+          expect(strings).to.exist
           expect(strings.get('question')).to.equal(`${taskKey}: Translated question. French`)
           answers.forEach((answer, index) => {
             expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}. French`)
@@ -418,7 +418,7 @@ describe('Model > WorkflowStepStore', function () {
       expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
       rootStore.workflowSteps.steps.forEach(step => {
         step.tasks.forEach(({ taskKey, strings, answers }) => {
-          expect(strings).toBeDefined()
+          expect(strings).to.exist
           expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
           answers.forEach((answer, index) => {
             expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
@@ -441,7 +441,7 @@ describe('Model > WorkflowStepStore', function () {
       rootStore.workflows.setResources([newWorkflow])
       rootStore.workflowSteps.steps.forEach(step => {
         step.tasks.forEach(({ taskKey, strings, answers }) => {
-          expect(strings).toBeDefined()
+          expect(strings).to.exist
           expect(strings.get('question')).to.equal(`${taskKey}: Translated question. Version 2`)
           answers.forEach((answer, index) => {
             expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}. Version 2`)

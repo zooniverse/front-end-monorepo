@@ -42,7 +42,7 @@ describe('Component > AnnotateButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.AnnotateButton.ariaLabel' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Annotate' })).to.exist
   })
 
   it('should change the subject viewer annotate and move states when clicked', async function () {
@@ -60,7 +60,7 @@ describe('Component > AnnotateButton', function () {
       }
     )
 
-    const button = screen.getByRole('button', { name: 'ImageToolbar.AnnotateButton.ariaLabel' })
+    const button = screen.getByRole('button', { name: 'Annotate' })
     expect(button).to.have.attribute('aria-pressed', 'false')
     await user.click(button)
     expect(button).to.have.attribute('aria-pressed', 'true')
@@ -86,7 +86,7 @@ describe('Component > AnnotateButton', function () {
         }
       )
 
-      const button = screen.getByRole('button', { name: 'ImageToolbar.AnnotateButton.ariaLabel' })
+      const button = screen.getByRole('button', { name: 'Annotate' })
       expect(button).to.have.attribute('aria-pressed', 'false')
       await user.click(button)
       expect(button).to.have.attribute('aria-pressed', 'false')

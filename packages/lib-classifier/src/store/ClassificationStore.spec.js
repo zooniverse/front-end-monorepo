@@ -57,7 +57,7 @@ describe('Model > ClassificationStore', function () {
   }
 
   it('should exist', function () {
-    expect(ClassificationStore).toBeDefined()
+    expect(ClassificationStore).to.exist
     expect(ClassificationStore).to.be.an('object')
   })
 
@@ -86,7 +86,7 @@ describe('Model > ClassificationStore', function () {
     it('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
       const classification = classifications.active.toJSON()
       const subject = subjectsSnapshot[0]
-      expect(classification).toBeDefined()
+      expect(classification).to.exist
       expect(classification.links.project).to.equal(projectSnapshot.id)
       expect(classification.links.workflow).to.equal(workflowSnapshot.id)
       expect(classification.links.subjects[0]).to.equal(subject.id)
@@ -95,7 +95,7 @@ describe('Model > ClassificationStore', function () {
     it('should create an empty Classification with the correct Subject Selection metadata', function () {
       const classification = classifications.active.toJSON()
       const subject = subjectsSnapshot[0]
-      expect(classification.metadata.subjectSelectionState).toBeDefined()
+      expect(classification.metadata.subjectSelectionState).to.exist
       expect(classification.metadata.subjectSelectionState.already_seen).to.equal(subject.already_seen)
       expect(classification.metadata.subjectSelectionState.finished_workflow).to.equal(subject.finished_workflow)
       expect(classification.metadata.subjectSelectionState.retired).to.equal(subject.retired)
@@ -150,7 +150,7 @@ describe('Model > ClassificationStore', function () {
       })
 
       it('should not add feedback to classification metadata', function () {
-        expect(classifications.active.metadata.feedback.size).to.equal(0)
+        expect(classifications.active.metadata.feedback).to.be.empty
       })
     })
 
@@ -200,22 +200,6 @@ describe('Model > ClassificationStore', function () {
         helpers.isFeedbackActive.restore()
       })
 
-      /*
-        Why is this test here?
-        The observer is in the root store.
-        I'm not sure why these are here either. (JOD)
-        The RootStore tests could be updated to test that feedback
-        is added to classifications on classificationComplete.
-        The tests for invalid feedback would have to be moved too.
-      */
-      it.skip('should update feedback', function () {
-        const { annotations } = classificationWithAnnotation
-        expect(annotations.size).to.equal(1)
-        annotations.forEach(annotation => {
-          expect(feedback.update.withArgs(annotation)).to.have.been.calledOnce()
-        })
-      })
-
       it('should call the onComplete callback with the classification and subject', function () {
         const classificationData = classificationWithAnnotation.toSnapshot()
         const convertedMetadata = {}
@@ -225,7 +209,7 @@ describe('Model > ClassificationStore', function () {
         classificationData.metadata = convertedMetadata
         const already_seen = subjectToBeClassified.alreadySeen
         const subjectData = Object.assign({}, getSnapshot(subjectToBeClassified), { already_seen })
-        expect(classifications.onComplete.withArgs(classificationData, subjectData)).to.have.been.calledOnce()
+        expect(classifications.onComplete.withArgs(classificationData, subjectData)).to.have.been.calledOnce
       })
 
       describe('classification metadata', function () {
@@ -278,7 +262,7 @@ describe('Model > ClassificationStore', function () {
       })
 
       it.skip('should not call submitClassification', function () {
-        expect(classifications.submitClassification).to.have.not.been.called()
+        expect(classifications.submitClassification).to.have.not.been.called
       })
 
       it('should reset and create a new classification', function () {
@@ -328,7 +312,7 @@ describe('Model > ClassificationStore', function () {
       })
 
       it.skip('should call submitClassification', function () {
-        expect(classifications.submitClassification).to.have.been.calledOnce()
+        expect(classifications.submitClassification).to.have.been.calledOnce
       })
 
       it('should track the already seen subject in session storage', function () {

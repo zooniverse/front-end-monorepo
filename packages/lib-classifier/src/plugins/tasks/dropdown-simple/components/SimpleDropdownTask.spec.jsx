@@ -16,18 +16,18 @@ describe('Tasks / Simple Dropdown', function () {
     })
 
     it('should render without any option selected', async function () {
-      const inputEl = screen.getByPlaceholderText('SimpleDropdownTask.selectPlaceholder')
+      const inputEl = screen.getByPlaceholderText('Choose an answer')
       expect(inputEl.value).to.equal('')
     })
 
-    it('should render the full list of options', async function () {
-      const inputEl = screen.getByPlaceholderText('SimpleDropdownTask.selectPlaceholder')
+    it('should render the options on click', async function () {
+      const inputEl = screen.getByPlaceholderText('Choose an answer')
       await user.click(inputEl)
 
       const options = screen.getAllByRole('option')
 
       expect(options.length).to.equal(SimpleDropdownTaskMockShort.options.length)
-      expect(within(options[0]).getByText(SimpleDropdownTaskMockShort.options[0])).toBeDefined()
+      expect(within(options[0]).getByText(SimpleDropdownTaskMockShort.options[0])).to.exist
     })
   })
 })

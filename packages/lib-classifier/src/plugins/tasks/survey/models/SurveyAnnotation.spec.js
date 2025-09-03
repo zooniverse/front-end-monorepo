@@ -18,7 +18,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(surveyAnnotation).toBeDefined()
+      expect(surveyAnnotation).to.exist
       expect(surveyAnnotation).to.be.an('object')
     })
 
@@ -103,7 +103,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(surveyAnnotation).toBeDefined()
+      expect(surveyAnnotation).to.exist
       expect(surveyAnnotation).to.be.an('object')
     })
 
@@ -148,7 +148,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(surveyAnnotation).toBeDefined()
+      expect(surveyAnnotation).to.exist
       expect(surveyAnnotation).to.be.an('object')
     })
 

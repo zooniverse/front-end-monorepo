@@ -99,15 +99,15 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).toBeDefined()
+      expect(taskTab).to.exist
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).toBeDefined()
+      expect(tutorialTab).to.exist
     })
 
     it('should have a placeholder', function () {
-      expect(subjectImagePlaceholder).toBeDefined()
+      expect(subjectImagePlaceholder).to.exist
     })
 
     describe('task answers', function () {
@@ -163,11 +163,11 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).toBeDefined()
+      expect(taskTab).to.exist
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).toBeDefined()
+      expect(tutorialTab).to.exist
     })
 
     it('should have a subject image', function () {
@@ -302,11 +302,11 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).toBeDefined()
+      expect(taskTab).to.exist
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).toBeDefined()
+      expect(tutorialTab).to.exist
     })
 
     it('should have a subject image', function () {
@@ -367,7 +367,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should show the popup tutorial', function () {
-      expect(tutorialHeading).toBeDefined()
+      expect(tutorialHeading).to.exist
     })
   })
 
@@ -503,11 +503,11 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a task tab', function () {
-      expect(taskTab).toBeDefined()
+      expect(taskTab).to.exist
     })
 
     it('should have a tutorial tab', function () {
-      expect(tutorialTab).toBeDefined()
+      expect(tutorialTab).to.exist
     })
 
     it('should show a subject image from the selected set', function () {

@@ -16,12 +16,12 @@ describe('MetadataButton', function () {
         <MetadataButton disabled onClick={onClickSpy} />
       </Grommet>
     )
-    const button = screen.getByText('MetaTools.MetadataButton.label')
+    const button = screen.getByText('Subject Info')
 
     await user.pointer({
       keys: '[MouseLeft]',
       target: button
     })
-    expect(onClickSpy).to.not.have.been.called()
+    expect(onClickSpy).to.not.have.been.called
   })
 })

@@ -33,7 +33,7 @@ describe('Models > MachineLearntReductions', () => {
       })
 
       it('should exist', () => {
-        expect(reductionsModel).toBeDefined()
+        expect(reductionsModel).to.exist
       })
 
       it('should find a current mark', () => {

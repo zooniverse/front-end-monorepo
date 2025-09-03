@@ -9,12 +9,12 @@ describe('Model > Annotation', function () {
   })
 
   it('should exist', function () {
-    expect(annotationInstance).toBeDefined()
+    expect(annotationInstance).to.exist
     expect(annotationInstance).to.be.an('object')
   })
 
   it('should have an id', function () {
-    expect(annotationInstance.id).toBeDefined()
+    expect(annotationInstance.id).to.exist
     expect(annotationInstance.id).to.be.a('string')
   })
 

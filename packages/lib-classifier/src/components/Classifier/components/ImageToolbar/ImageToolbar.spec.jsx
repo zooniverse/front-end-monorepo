@@ -66,9 +66,9 @@ describe('Component > ImageToolbar', function () {
 
       // Button should exist if annotateShow is true
       if (task.annotateShow) {
-        expect(screen.queryByLabelText('ImageToolbar.AnnotateButton.ariaLabel')).toBeDefined()
+        expect(screen.queryByLabelText('Annotate')).to.exist
       } else {
-        expect(screen.queryByLabelText('ImageToolbar.AnnotateButton.ariaLabel')).to.equal(null)
+        expect(screen.queryByLabelText('Annotate')).to.equal(null)
       }
     })
   })

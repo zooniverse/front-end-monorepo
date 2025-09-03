@@ -12,6 +12,6 @@ describe('ExpertOptions > Component > DemoModeToggle', function () {
       screen.getByRole('checkbox', {
         name: 'Demo Mode'
       })
-    ).toBeDefined()
+    ).to.exist
   })
 })

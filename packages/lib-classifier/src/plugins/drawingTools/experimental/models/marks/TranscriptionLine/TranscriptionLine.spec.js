@@ -23,7 +23,7 @@ describe('Models > Drawing Task > Marks > TranscriptionLine', function () {
   })
 
   it('should exist', function () {
-    expect(mark).toBeDefined()
+    expect(mark).to.exist
   })
 
   it('should have a TranscriptionLineTool parent', function () {

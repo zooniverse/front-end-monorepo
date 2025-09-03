@@ -152,11 +152,11 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
   })
 
   it('should have a task tab', function () {
-    expect(taskTab).toBeDefined()
+    expect(taskTab).to.exist
   })
 
   it('should have a tutorial tab', function () {
-    expect(tutorialTab).toBeDefined()
+    expect(tutorialTab).to.exist
   })
 
   it('should show a subject image from the selected set', function () {

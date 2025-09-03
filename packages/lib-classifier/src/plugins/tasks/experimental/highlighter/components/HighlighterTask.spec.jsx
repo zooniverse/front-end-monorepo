@@ -9,7 +9,7 @@ describe('HighlighterTask', function () {
     it('should show the instruction', function () {
       render(<DefaultStory />)
       const instruction = screen.getByText('Highlight the text')
-      expect(instruction).toBeDefined()
+      expect(instruction).to.exist
     })
 
     it('should show the label buttons', function () {

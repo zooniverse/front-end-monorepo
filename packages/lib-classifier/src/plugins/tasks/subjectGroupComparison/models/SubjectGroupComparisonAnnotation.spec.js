@@ -17,7 +17,7 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(subjectGroupAnnotation).toBeDefined()
+      expect(subjectGroupAnnotation).to.exist
       expect(subjectGroupAnnotation).to.be.an('object')
     })
 
@@ -38,7 +38,7 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(subjectGroupAnnotation).toBeDefined()
+      expect(subjectGroupAnnotation).to.exist
       expect(subjectGroupAnnotation).to.be.an('object')
     })
 

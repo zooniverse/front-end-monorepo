@@ -30,7 +30,7 @@ describe('Component > ResetButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.ResetButton.ariaLabel' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Reset subject view' })).to.exist
   })
 
   it('should reset the subject viewer when clicked', async function () {
@@ -48,7 +48,7 @@ describe('Component > ResetButton', function () {
       }
     )
 
-    await userEvent.click(screen.getByRole('button', { name: 'ImageToolbar.ResetButton.ariaLabel' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Reset subject view' }))
 
     expect(store.subjectViewer.rotation).to.equal(0)
     expect(store.subjectViewer.invert).to.equal(false)

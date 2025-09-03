@@ -31,7 +31,7 @@ describe('Component > FullscreenButton', function () {
         }
       )
 
-      expect(screen.getByRole('button', { name: 'ImageToolbar.FullscreenButton.ariaLabel.fullscreen' })).toBeDefined()
+      expect(screen.getByRole('button', { name: 'View subject in full screen mode' })).to.exist
     })
   })
 
@@ -47,7 +47,7 @@ describe('Component > FullscreenButton', function () {
         }
       )
 
-      expect(screen.getByRole('button', { name: 'ImageToolbar.FullscreenButton.ariaLabel.actualSize' })).toBeDefined()
+      expect(screen.getByRole('button', { name: 'View subject at normal size' })).to.exist
     })
   })
 
@@ -62,7 +62,7 @@ describe('Component > FullscreenButton', function () {
       }
     )
 
-    await user.click(screen.getByRole('button', { name: 'ImageToolbar.FullscreenButton.ariaLabel.fullscreen' }))
+    await user.click(screen.getByRole('button', { name: 'View subject in full screen mode' }))
 
     expect(store.subjectViewer.fullscreen).to.equal(true)
   })

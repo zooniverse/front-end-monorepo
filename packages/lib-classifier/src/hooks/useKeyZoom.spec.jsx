@@ -93,7 +93,7 @@ describe('Hooks > useKeyZoom', function () {
             const user = userEvent.setup()
             wrappedComponent.focus()
             await user.keyboard(`{${key}}`)
-            expect(handler).to.have.been.calledOnce()
+            expect(handler).to.have.been.calledOnce
           })
         })
       })
@@ -147,7 +147,7 @@ describe('Hooks > useKeyZoom', function () {
           const user = userEvent.setup()
           wrappedComponent.focus()
           await user.keyboard(`{${key}}`)
-          expect(handler).to.not.have.been.called()
+          expect(handler).to.not.have.been.called
         })
       })
     })
@@ -181,8 +181,8 @@ describe('Hooks > useKeyZoom', function () {
       const user = userEvent.setup()
       wrappedComponent.focus()
       await user.keyboard('{Tab}')
-      expect(onPan).to.have.not.been.called()
-      expect(onZoom).to.have.not.been.called()
+      expect(onPan).to.have.not.been.called
+      expect(onZoom).to.have.not.been.called
     })
 
     describe('with custom key mappings', function () {
@@ -232,21 +232,21 @@ describe('Hooks > useKeyZoom', function () {
         const user = userEvent.setup()
         wrappedComponent.focus()
         await user.keyboard(`{ }`)
-        expect(customMap).to.have.been.calledOnce()
+        expect(customMap).to.have.been.calledOnce
       })
 
       it('should call useKeyZoom zoom mappings', async function () {
         const user = userEvent.setup()
         wrappedComponent.focus()
         await user.keyboard(`{=}`)
-        expect(onZoom).to.have.been.calledOnce()
+        expect(onZoom).to.have.been.calledOnce
       })
 
       it('should call useKeyZoom pan mappings', async function () {
         const user = userEvent.setup()
         wrappedComponent.focus()
         await user.keyboard(`{ArrowRight}`)
-        expect(onPan).to.have.been.calledOnce()
+        expect(onPan).to.have.been.calledOnce
       })
     })
   })

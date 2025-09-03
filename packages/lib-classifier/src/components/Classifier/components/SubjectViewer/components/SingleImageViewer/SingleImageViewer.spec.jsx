@@ -11,14 +11,14 @@ describe('Component > SingleImageViewer', function () {
     it('should render the image', function () {
       render(<DefaultStory />)
       const image = screen.getByRole('img')
-      expect(image).toBeDefined()
+      expect(image).to.exist
     })
 
     describe('with title', function () {
       it('should render the title', function () {
         render(<DefaultStory />)
         const title = screen.getByTitle(`Subject ${subject.id}`)
-        expect(title).toBeDefined()
+        expect(title).to.exist
       })
     })
   })
@@ -29,7 +29,7 @@ describe('Component > SingleImageViewer', function () {
     it('should render an error message', function () {
       render(<ErrorStory />)
       const error = screen.getByText('Something went wrong.')
-      expect(error).toBeDefined()
+      expect(error).to.exist
     })
   })
 
@@ -39,7 +39,7 @@ describe('Component > SingleImageViewer', function () {
     it('should render a placeholder', function () {
       render(<LoadingStory />)
       const placeholder = screen.getByTestId('placeholder-svg')
-      expect(placeholder).toBeDefined()
+      expect(placeholder).to.exist
     })
   })
 })

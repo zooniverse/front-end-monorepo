@@ -75,11 +75,11 @@ describe('Models > Drawing Task > Mark', function () {
   })
 
   it('should exist', function () {
-    expect(mark).toBeDefined()
+    expect(mark).to.exist
   })
 
   it('should have an id', function () {
-    expect(mark.id).toBeDefined()
+    expect(mark.id).to.exist
     expect(mark.id).to.be.a('string')
   })
 

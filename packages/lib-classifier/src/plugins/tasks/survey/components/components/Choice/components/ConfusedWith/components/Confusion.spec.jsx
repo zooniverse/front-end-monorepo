@@ -26,30 +26,28 @@ describe('Component > Confusion', function () {
       label = screen.getByText(KUDU.label)
       images = screen.getByTestId('confusion-images')
       confusionText = screen.getByText('Test confusion text.')
-      cancel = screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.cancel' })
-      itsThis = screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' })
+      cancel = screen.getByRole('button', { name: 'Cancel' })
+      itsThis = screen.getByRole('button', { name: `I think it's this` })
     })
 
     it('should show the confusion choice label', function () {
-      expect(label).toBeDefined()
+      expect(label).to.exist
     })
 
     it('should show confusion images', function () {
-      expect(images).toBeDefined()
+      expect(images).to.exist
     })
 
     it('should show confusion text', function () {
-      expect(confusionText).toBeDefined()
+      expect(confusionText).to.exist
     })
 
     it('should show a "Cancel" button', function () {
-      /** The translation function will simply return keys in a testing env */
-      expect(cancel).toBeDefined()
+      expect(cancel).to.exist
     })
 
     it('should show a "I think it\'s this" button', function () {
-      /** The translation function will simply return keys in a testing env */
-      expect(itsThis).toBeDefined()
+      expect(itsThis).to.exist
     })
   })
 

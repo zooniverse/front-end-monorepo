@@ -59,7 +59,7 @@ describe('Component > InvertButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Invert subject' })).to.exist
   })
 
   it('should have a pressed state', async function () {
@@ -81,7 +81,7 @@ describe('Component > InvertButton', function () {
       }
     )
 
-    const button = screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })
+    const button = screen.getByRole('button', { name: 'Invert subject' })
     expect(button).to.have.attribute('aria-pressed', 'false')
     expect(store.subjectViewer.invert).to.equal(false)
     await user.click(button)

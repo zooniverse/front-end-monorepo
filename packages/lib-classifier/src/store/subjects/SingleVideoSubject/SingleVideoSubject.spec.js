@@ -17,7 +17,7 @@ describe('Model > SingleVideoSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleVideoSubject).toBeDefined()
+    expect(SingleVideoSubject).to.exist
     expect(SingleVideoSubject).to.be.an('object')
   })
 

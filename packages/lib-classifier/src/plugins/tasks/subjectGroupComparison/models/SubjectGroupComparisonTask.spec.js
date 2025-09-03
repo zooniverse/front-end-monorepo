@@ -13,7 +13,7 @@ const subjectGroupTask = {
 describe('Model > SubjectGroupComparisonTask', function () {
   it('should exist', function () {
     const subjectGroupTaskInstance = SubjectGroupComparisonTask.TaskModel.create(subjectGroupTask)
-    expect(subjectGroupTaskInstance).toBeDefined()
+    expect(subjectGroupTaskInstance).to.exist
     expect(subjectGroupTaskInstance).to.be.an('object')
   })
 

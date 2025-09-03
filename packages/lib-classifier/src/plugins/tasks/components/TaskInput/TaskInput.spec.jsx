@@ -70,7 +70,7 @@ describe('TaskInput', function () {
       const user = userEvent.setup()
       const radioButton = document.querySelector('input[type="radio"]')
       await user.click(radioButton)
-      expect(onChangeSpy).to.have.been.calledOnce()
+      expect(onChangeSpy).to.have.been.calledOnce
     })
   })
 })

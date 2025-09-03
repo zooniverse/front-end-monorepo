@@ -24,18 +24,18 @@ describe('Component > QuickTalk > PostForm', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.getByRole('textbox', { name: 'Write comments' })).toBeDefined()
-      expect(screen.getByRole('button', { name: 'Post comment' })).toBeDefined()
+      expect(screen.getByRole('textbox', { name: 'Write comments' })).to.exist
+      expect(screen.getByRole('button', { name: 'Post comment' })).to.exist
     })
 
     it('should have a "ready to post" status message', function () {
-      expect(screen.getByRole('status')).to.have.text('QuickTalk.status.initialized')
+      expect(screen.getByRole('status')).to.have.text('Leave a note about this subject')
     })
 
     it('should call post comments when the "Post" button is clicked', async function () {
       const user = userEvent.setup({ delay: null })
       await user.click(screen.getByRole('button', { name: 'Post comment' }))
-      expect(postCommentSpy).to.have.been.calledOnce()
+      expect(postCommentSpy).to.have.been.calledOnce
     })
   })
 
@@ -49,7 +49,7 @@ describe('Component > QuickTalk > PostForm', function () {
         />
       )
 
-      expect(screen.getByRole('status')).to.have.text('QuickTalk.status.loading')
+      expect(screen.getByRole('status')).to.have.text('Posting comment...')
     })
   })
 
@@ -63,7 +63,7 @@ describe('Component > QuickTalk > PostForm', function () {
         />
       )
 
-      expect(screen.getByRole('status')).to.have.text('QuickTalk.status.success')
+      expect(screen.getByRole('status')).to.have.text('Comment posted!')
     })
   })
 

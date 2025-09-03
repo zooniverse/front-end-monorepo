@@ -15,7 +15,7 @@ describe('Store utils > getBearerToken', function () {
       }
 
       getBearerToken(mockAuthClient)
-      expect(mockAuthClient.checkBearerToken).to.have.been.calledOnce()
+      expect(mockAuthClient.checkBearerToken).to.have.been.calledOnce
     })
 
     it('returns an empty string if token returned from auth client is falsey', function () {
@@ -47,7 +47,7 @@ describe('Store utils > getBearerToken', function () {
       }
 
       getBearerToken(mockOAuthClient)
-      expect(mockOAuthClient.checkBearerToken).to.have.been.calledOnce()
+      expect(mockOAuthClient.checkBearerToken).to.have.been.calledOnce
     })
 
     it('returns an empty string if token returned from auth client is falsey', function () {

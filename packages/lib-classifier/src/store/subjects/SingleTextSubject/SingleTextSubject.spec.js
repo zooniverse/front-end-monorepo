@@ -36,7 +36,7 @@ describe('Model > SingleTextSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleTextSubject).toBeDefined()
+    expect(SingleTextSubject).to.exist
     expect(SingleTextSubject).to.be.an('object')
   })
 

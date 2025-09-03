@@ -51,7 +51,7 @@ describe('draggable', function () {
     })
 
     it('should start dragging', function () {
-      expect(onStart).to.have.been.calledOnce()
+      expect(onStart).to.have.been.calledOnce
     })
   })
 
@@ -65,7 +65,7 @@ describe('draggable', function () {
     })
 
     it('should drag to a new position', function () {
-      expect(onMove).to.have.been.calledOnce()
+      expect(onMove).to.have.been.calledOnce
     })
   })
 
@@ -80,7 +80,7 @@ describe('draggable', function () {
     })
 
     it('should stop dragging', function () {
-      expect(onEnd).to.have.been.calledOnce()
+      expect(onEnd).to.have.been.calledOnce
     })
   })
 })

@@ -3,7 +3,6 @@ import sinon from 'sinon'
 
 import SingleImageSubject from './SingleImageSubject'
 import RootStore from '@store/'
-import WorkflowStore from '@store/WorkflowStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import subjectViewers from '@helpers/subjectViewers'
@@ -18,7 +17,7 @@ describe('Model > SingleImageSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleImageSubject).toBeDefined()
+    expect(SingleImageSubject).to.exist
     expect(SingleImageSubject).to.be.an('object')
   })
 

@@ -27,11 +27,11 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
     const durationText = screen.getByText(formatTimeStamp(subjectDuration))
-    expect(durationText).toBeDefined()
+    expect(durationText).to.exist
     const timeStampText = screen.getByText(
       formatTimeStamp(subjectTimeStamp, subjectDuration)
     )
-    expect(timeStampText).toBeDefined()
+    expect(timeStampText).to.exist
   })
 
   it('should handle play and pause', async function () {
@@ -53,7 +53,7 @@ describe('Component > VideoController', function () {
       keys: '[MouseLeft]',
       target: playButton
     })
-    expect(onPlayPauseSpy).to.have.been.calledOnce()
+    expect(onPlayPauseSpy).to.have.been.calledOnce
 
     rerender(
       <Grommet theme={controlsTheme}>
@@ -73,7 +73,7 @@ describe('Component > VideoController', function () {
       keys: '[MouseLeft]',
       target: pauseButton
     })
-    expect(onPlayPauseSpy).to.have.been.calledTwice()
+    expect(onPlayPauseSpy).to.have.been.calledTwice
   })
 
   it('should change the playback rate', async function () {
@@ -96,7 +96,7 @@ describe('Component > VideoController', function () {
     expect(speedInput.value).to.equal('0.25x')
 
     // The following assertion does not work with a Grommet Select ¯\_(ツ)_/¯
-    // expect(onSpeedChangeSpy).to.have.been.calledOnce()
+    // expect(onSpeedChangeSpy).to.have.been.calledOnce
 
     window.scrollTo.restore()
   })
@@ -134,7 +134,7 @@ describe('Component > VideoController', function () {
     )
 
     const volumeRangeInput = screen.getByLabelText('Volume')
-    expect(volumeRangeInput).toBeDefined()
+    expect(volumeRangeInput).to.exist
   })
 
   // Skipped while improving styling and accessibility of the custom controls

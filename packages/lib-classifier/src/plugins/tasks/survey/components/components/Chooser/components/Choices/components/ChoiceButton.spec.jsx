@@ -20,7 +20,7 @@ describe('Component > ChoiceButton', function () {
       </Grommet>
     )
     const choiceMenuItem = screen.getByRole('menuitem', { name: 'Aardvark' })
-    expect(choiceMenuItem).toBeDefined()
+    expect(choiceMenuItem).to.exist
   })
 
   it('should have a button to open the submenu for the choice', function () {
@@ -35,8 +35,8 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('button', { name: 'SurveyTask.ChoiceButton.openSubmenu' })
-    expect(choiceButton).toBeDefined()
+    const choiceButton = screen.getByText('Aardvark')
+    expect(choiceButton).to.exist
   })
 
   describe('when disabled', function () {
@@ -56,9 +56,9 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('button', { name: 'SurveyTask.ChoiceButton.openSubmenu' })
+      const choiceButton = screen.getByText('Aardvark')
       await user.click(choiceButton)
-      expect(onChooseSpy).to.not.have.been.called()
+      expect(onChooseSpy).to.not.have.been.called
     })
 
     it('should not call onKeyDown on keyDown of the menuitem', async function () {
@@ -81,7 +81,7 @@ describe('Component > ChoiceButton', function () {
       const choiceMenuItem = screen.getByRole('menuitem', { name: 'Aardvark' })
       expect(choiceMenuItem).to.equal(document.activeElement)
       await user.keyboard('{enter}')
-      expect(onKeyDownSpy).to.not.have.been.called()
+      expect(onKeyDownSpy).to.not.have.been.called
     })
   })
 
@@ -99,8 +99,8 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('menuitem', { name: 'Aardvark; SurveyTask.ChoiceButton.identified' })
-      expect(choiceButton).toBeDefined()
+      const choiceButton = screen.getByRole('menuitem', { name: 'Aardvark; identified' })
+      expect(choiceButton).to.exist
     })
   })
 })

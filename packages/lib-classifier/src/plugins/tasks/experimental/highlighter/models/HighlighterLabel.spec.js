@@ -3,7 +3,7 @@ import HighlighterLabel from './HighlighterLabel'
 describe('Model > HighlighterLabel', function () {
   it('should exist', function () {
     const label = HighlighterLabel.create({ color: '#00979d	', label: 'test' })
-    expect(label).toBeDefined()
+    expect(label).to.exist
     expect(label).to.be.an('object')
   })
 

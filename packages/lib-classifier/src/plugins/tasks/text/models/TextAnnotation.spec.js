@@ -9,7 +9,7 @@ describe('Model > TextAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(textAnnotation).toBeDefined()
+      expect(textAnnotation).to.exist
       expect(textAnnotation).to.be.an('object')
     })
 
@@ -36,8 +36,8 @@ describe('Model > TextAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(textAnnotation).toBeDefined()
-      expect(typeof textAnnotation).toBe('object')
+      expect(textAnnotation).to.exist
+      expect(textAnnotation).to.be.an('object')
     })
 
     it('should have a default value', function () {

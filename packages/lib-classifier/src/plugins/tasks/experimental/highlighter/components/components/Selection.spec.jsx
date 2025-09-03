@@ -8,7 +8,7 @@ describe('Selection', function () {
   before(function () {
     render(<Selection color='#65EECA' text='This is a test' />)
     selection = document.querySelector('mark')
-    deleteButton = screen.getByRole('button', { name: 'HighlighterTask.delete' })
+    deleteButton = screen.getByRole('button', { name: 'Delete' })
   })
 
   it('should render the text (with delete button ×)', function () {
@@ -16,7 +16,7 @@ describe('Selection', function () {
   })
 
   it('should render the delete button', function () {
-    expect(deleteButton).toBeDefined()
+    expect(deleteButton).to.exist
     expect(deleteButton).to.have.text('×')
   })
 })

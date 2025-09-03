@@ -27,7 +27,7 @@ const transcriptionTaskSnapshot = {
 describe('Model > TranscriptionTask', function () {
   it('should exist', function () {
     const transcriptionTask = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
-    expect(transcriptionTask).toBeDefined()
+    expect(transcriptionTask).to.exist
     expect(transcriptionTask).to.be.an('object')
   })
 
@@ -60,7 +60,7 @@ describe('Model > TranscriptionTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).toBeDefined()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T3')
       expect(annotation.taskType).to.equal('transcription')
     })

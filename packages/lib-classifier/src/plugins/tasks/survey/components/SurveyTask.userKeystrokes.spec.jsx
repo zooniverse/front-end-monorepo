@@ -4,9 +4,6 @@ import userEvent from '@testing-library/user-event'
 import Meta, { Default, NoFiltersNoInstruction } from './SurveyTask.stories'
 
 describe('SurveyTask with user keystrokes', function () {
-  // this turns off Mocha's time limit for slow tests
-  this.timeout(0)
-
   const DefaultStory = composeStory(Default, Meta)
   const NoFiltersNoInstructionStory = composeStory(NoFiltersNoInstruction, Meta)
 
@@ -18,7 +15,7 @@ describe('SurveyTask with user keystrokes', function () {
       render(<NoFiltersNoInstructionStory />)
       choiceButton = screen.getByText('Fire')
       await user.click(choiceButton)
-      const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+      const identifyButton = screen.getByText('Identify')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
@@ -29,8 +26,8 @@ describe('SurveyTask with user keystrokes', function () {
       expect(choiceButtons.length).to.equal(6)
 
       // confirm choice Fire selected
-      choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
-      expect(choiceButton).toBeDefined()
+      choiceButton = screen.getByLabelText('Fire; identified')
+      expect(choiceButton).to.exist
 
       // confirm choice Fire active element
       await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
@@ -39,15 +36,15 @@ describe('SurveyTask with user keystrokes', function () {
       await user.keyboard('[Delete]')
       // confirm choice Fire not selected
       choiceButton = screen.getByLabelText('Fire')
-      expect(choiceButton).toBeDefined()
+      expect(choiceButton).to.exist
     })
 
     it('should remove a previously identified choice with backspace key', async function () {
       expect(choiceButtons.length).to.equal(6)
 
       // confirm choice Fire selected
-      choiceButton = screen.getByLabelText('Fire; SurveyTask.ChoiceButton.identified')
-      expect(choiceButton).toBeDefined()
+      choiceButton = screen.getByLabelText('Fire; identified')
+      expect(choiceButton).to.exist
 
       // confirm choice Fire active element
       await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
@@ -56,7 +53,7 @@ describe('SurveyTask with user keystrokes', function () {
       await user.keyboard('[Backspace]')
       // confirm choice Fire not selected
       choiceButton = screen.getByLabelText('Fire')
-      expect(choiceButton).toBeDefined()
+      expect(choiceButton).to.exist
     })
   })
 
@@ -66,7 +63,7 @@ describe('SurveyTask with user keystrokes', function () {
     beforeEach(async function () {
       user = userEvent.setup({ delay: null })
       render(<DefaultStory />)
-      filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
+      filterButton = screen.getByLabelText('Filter')
       // tabbing to and opening the Filter button
       await user.keyboard('[Tab][Enter]')
     })
@@ -90,7 +87,7 @@ describe('SurveyTask with user keystrokes', function () {
 
         // confirm the solid filter is selected with existence of the related remove filter button
         solidFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-SLD')
-        expect(solidFilterRemoveButton).toBeDefined()
+        expect(solidFilterRemoveButton).to.exist
       })
 
       it('should show the choices that match the filter', async function () {
@@ -111,7 +108,7 @@ describe('SurveyTask with user keystrokes', function () {
         await user.keyboard('[Tab][Tab][Space]')
         // confirm the solid filter is selected with existence of the related remove filter button
         let solidFilterRemoveButton = screen.getByTestId('remove filter-PTTRN-SLD')
-        expect(solidFilterRemoveButton).toBeDefined()
+        expect(solidFilterRemoveButton).to.exist
 
         // close the filters
         await user.click(filterButton)
@@ -141,13 +138,13 @@ describe('SurveyTask with user keystrokes', function () {
     })
 
     it('should show the "more info" button', async function () {
-      const choiceMoreInfoButton = screen.getByRole('button', { name: 'SurveyTask.Choice.moreInfo' })
-      expect(choiceMoreInfoButton).toBeDefined()
+      const choiceMoreInfoButton = screen.getByRole('button', { name: 'More info' })
+      expect(choiceMoreInfoButton).to.exist
     })
 
     it('should show choice images', async function () {
       const choiceImages = screen.getByTestId('choice-images')
-      expect(choiceImages).toBeDefined()
+      expect(choiceImages).to.exist
     })
 
     it('should close choice on Escape key', async function () {

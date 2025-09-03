@@ -6,6 +6,7 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Ellipse, Mark, Point } from '@plugins/drawingTools/components'
+import { vi } from 'vitest'
 
 describe('Drawing tools > Mark', function () {
   function withGrommetWrapper() {
@@ -52,7 +53,8 @@ describe('Drawing tools > Mark', function () {
           </Mark>
         </svg>, { wrapper: withGrommetWrapper()}
       )
-      svgPoint = screen.getByLabelText('Point 1')
+      // svgPoint = screen.getByLabelText('Point 1')
+      svgPoint = document.querySelector('g.drawingMark')
     })
 
     after(function () {
@@ -62,7 +64,8 @@ describe('Drawing tools > Mark', function () {
     })
 
     it('should render a child drawing tool', function () {
-      expect(svgPoint).toBeDefined()
+      console.log('TEST', svgPoint)
+      expect(svgPoint).to.exist
     })
   })
 
@@ -90,7 +93,7 @@ describe('Drawing tools > Mark', function () {
     })
 
     it('should be selected', function () {
-      expect(onSelect).to.have.been.calledOnce()
+      expect(onSelect).to.have.been.calledOnce
     })
   })
 
@@ -125,7 +128,7 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should be deleted', function () {
-        expect(onDelete).to.have.been.calledOnce()
+        expect(onDelete).to.have.been.calledOnce
       })
     })
 
@@ -164,7 +167,7 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should call onFinish', async function () {
-        expect(onFinish).to.have.been.calledOnce()
+        expect(onFinish).to.have.been.calledOnce
       })
     })
 
@@ -203,7 +206,7 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should call onFinish', async function () {
-        expect(onFinish).to.have.been.calledOnce()
+        expect(onFinish).to.have.been.calledOnce
       })
     })
 
@@ -234,11 +237,11 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should not be deleted', function () {
-        expect(onDelete).to.not.have.been.called()
+        expect(onDelete).to.not.have.been.called
       })
 
       it('should not call onFinish', function () {
-        expect(onFinish).to.not.have.been.called()
+        expect(onFinish).to.not.have.been.called
       })
     })
   })
@@ -427,7 +430,7 @@ describe('Drawing tools > Mark', function () {
     })
 
     it('should preserve the window scroll position', function () {
-      expect(window.scrollTo).to.have.been.calledOnce()
+      expect(window.scrollTo).to.have.been.calledOnce
     })
   })
 

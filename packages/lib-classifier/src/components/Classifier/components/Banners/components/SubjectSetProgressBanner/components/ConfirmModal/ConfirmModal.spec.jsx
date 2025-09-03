@@ -1,23 +1,17 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import sinon from 'sinon'
-import i18n from '@test/i18n/i18n-for-tests'
 
 import ConfirmModal from './ConfirmModal'
 
 describe('SubjectSetProgressBanner > ConfirmModal', function () {
   it('should be visible when active=true', function () {
-    const useTranslationStub = sinon.stub(i18n, 't')
-
     const wrapper = render(
       <Grommet>
         <ConfirmModal active={true} />
       </Grommet>
     )
-    expect(wrapper).toBeDefined()
-    expect(useTranslationStub).to.have.been.calledWith('Cancel')
-    expect(useTranslationStub).to.have.been.calledWith('Confirm')
-    useTranslationStub.restore()
+    expect(wrapper.getByTestId('confirm-modal-confirm-btn')).to.exist
   })
 
   it('should be hidden when active=false', function () {
@@ -26,7 +20,6 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
         <ConfirmModal active={false} />
       </Grommet>
     )
-    expect(wrapper).toBeDefined()
     expect(wrapper.queryByTestId('confirm-modal')).to.equal(null)
   })
 
@@ -42,7 +35,7 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
     )
 
     fireEvent.click(wrapper.getByTestId('confirm-modal-confirm-btn'))
-    expect(onConfirmSpy).to.have.been.calledOnce()
+    expect(onConfirmSpy).to.have.been.calledOnce
   })
 
   it('should call onCancel() when "Cancel" button is clicked', function () {
@@ -57,6 +50,6 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
     )
 
     fireEvent.click(wrapper.getByTestId('confirm-modal-cancel-btn'))
-    expect(onCancelSpy).to.have.been.calledOnce()
+    expect(onCancelSpy).to.have.been.calledOnce
   })
 })

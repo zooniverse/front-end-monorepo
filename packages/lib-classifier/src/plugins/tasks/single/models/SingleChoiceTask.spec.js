@@ -17,7 +17,7 @@ describe('Model > SingleChoiceTask', function () {
 
   it('should exist', function () {
     const singleChoiceTaskInstance = SingleChoiceTask.TaskModel.create(singleChoiceTask)
-    expect(singleChoiceTaskInstance).toBeDefined()
+    expect(singleChoiceTaskInstance).to.exist
     expect(singleChoiceTaskInstance).to.be.an('object')
   })
 
@@ -59,7 +59,7 @@ describe('Model > SingleChoiceTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).toBeDefined()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T1')
       expect(annotation.taskType).to.equal('single')
     })

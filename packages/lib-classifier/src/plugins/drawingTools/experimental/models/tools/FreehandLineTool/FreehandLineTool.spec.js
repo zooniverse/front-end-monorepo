@@ -219,7 +219,7 @@ describe('FreehandLineTool', () => {
   })
 
   it('should exist', () => {
-    expect(tool).toBeDefined()
+    expect(tool).to.exist
     expect(tool).to.be.an('object')
   })
 

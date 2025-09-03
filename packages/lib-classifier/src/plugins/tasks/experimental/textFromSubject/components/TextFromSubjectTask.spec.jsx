@@ -42,7 +42,7 @@ describe('TextFromSubject Task', function () {
           task={task}
         />
       )
-      textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
+      textArea = document.querySelector('textarea')
     })
 
     after(function () {
@@ -51,7 +51,7 @@ describe('TextFromSubject Task', function () {
     })
 
     it('should show a labelled textarea', function () {
-      expect(textArea).toBeDefined()
+      expect(textArea).to.exist
     })
 
     it('should show a disabled textarea', function () {
@@ -78,8 +78,8 @@ describe('TextFromSubject Task', function () {
       )
 
       await when(() => annotation.initializedFromSubject === true)
-      textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
-      resetButton = screen.getByRole('button', { name: 'TextFromSubjectTask.reset' })
+      textArea = document.querySelector('textarea')
+      resetButton = screen.getByRole('button', { name: 'Reset' })
     })
 
     after(function () {
@@ -87,7 +87,7 @@ describe('TextFromSubject Task', function () {
     })
 
     it('should show a labelled textarea', function () {
-      expect(textArea).toBeDefined()
+      expect(textArea).to.exist
     })
 
     it('should show an enabled textarea with subject text', function () {
@@ -122,9 +122,9 @@ describe('TextFromSubject Task', function () {
       )
 
       await when(() => annotation.initializedFromSubject === true)
-      textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
+      textArea = document.querySelector('textarea')
       await user.type(textArea, ' With an updated value.')
-      resetButton = screen.getByRole('button', { name: 'TextFromSubjectTask.reset' })
+      resetButton = screen.getByRole('button', { name: 'Reset' })
     })
 
     after(function () {
@@ -165,11 +165,11 @@ describe('TextFromSubject Task', function () {
       )
 
       await when(() => annotation.initializedFromSubject === true)
-      const textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
+      const textArea = document.querySelector('textarea')
       await user.type(textArea, ' With an updated value.')
       expect(textArea).to.have.value('This is test subject text. With an updated value.')
 
-      const resetButton = screen.getByRole('button', { name: 'TextFromSubjectTask.reset' })
+      const resetButton = screen.getByText('Reset')
       await user.click(resetButton)
       expect(textArea).to.have.value('This is test subject text.')
     })

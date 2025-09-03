@@ -32,13 +32,13 @@ describe('Component > FieldGuide > FieldGuideItem', function () {
         />
       </Grommet>
     )
-    const button = screen.getByLabelText('FieldGuide.FieldGuideItem.ariaTitle')
+    const button = screen.getByLabelText('Go back to Field Guide items list')
     await user.pointer({
       keys: '[MouseLeft]',
       target: button
     })
 
-    expect(setActiveItemIndexSpy).to.have.been.calledOnce()
+    expect(setActiveItemIndexSpy).to.have.been.calledOnce
   })
 
   it('should render title and markdown content', function () {
@@ -56,7 +56,7 @@ describe('Component > FieldGuide > FieldGuideItem', function () {
     )
     const title = screen.getByText('Cat')
     const content = screen.getByText('lorem ipsum')
-    expect(title).toBeDefined()
-    expect(content).toBeDefined()
+    expect(title).to.exist
+    expect(content).to.exist
   })
 })

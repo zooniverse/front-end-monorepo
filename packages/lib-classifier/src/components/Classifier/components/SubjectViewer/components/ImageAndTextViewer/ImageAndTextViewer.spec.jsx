@@ -12,7 +12,7 @@ describe('ImageAndTextViewer', function () {
     it('should render "Something went wrong."', function () {
       render(<DefaultStory loadingState={asyncStates.error} />)
 
-      expect(screen.getByText('Something went wrong.')).toBeDefined()
+      expect(screen.getByText('Something went wrong.')).to.exist
     })
   })
 
@@ -33,7 +33,7 @@ describe('ImageAndTextViewer', function () {
       render(<DefaultStory />)
       const image = document.querySelector('image')
 
-      expect(image).toBeDefined()
+      expect(image).to.exist
     })
 
     it('should highlight the active frame image thumbnail with a border', function () {
@@ -49,8 +49,8 @@ describe('ImageAndTextViewer', function () {
       const nextButton = screen.getByText('Next')
       const prevButton = screen.getByText('Previous')
 
-      expect(nextButton).toBeDefined()
-      expect(prevButton).toBeDefined()
+      expect(nextButton).to.exist
+      expect(prevButton).to.exist
     })
   })
 
@@ -58,7 +58,7 @@ describe('ImageAndTextViewer', function () {
     it('should render the text viewer', function () {
       render(<TextLocationFirstStory />)
 
-      expect(screen.getByLabelText('Subject 5678 text')).toBeDefined()
+      expect(screen.getByLabelText('Subject 5678 text')).to.exist
     })
   })
 

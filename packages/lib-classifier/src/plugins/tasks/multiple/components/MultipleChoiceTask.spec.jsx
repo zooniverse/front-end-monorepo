@@ -17,14 +17,14 @@ describe('MultipleChoiceTask', function () {
 
     it('should have a question', function () {
       const question = screen.getByText(task.question)
-      expect(question).toBeDefined()
+      expect(question).to.exist
     })
 
     it('should render the correct number of answer choices', function () {
       task.answers.forEach((answer, index) => {
         const label = task.strings.get(`answers.${index}.label`)
         const checkbox = screen.getByRole('checkbox', { name: label })
-        expect(checkbox).toBeDefined()
+        expect(checkbox).to.exist
       })
     })
   })

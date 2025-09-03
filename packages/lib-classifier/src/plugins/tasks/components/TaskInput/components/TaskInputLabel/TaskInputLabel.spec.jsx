@@ -17,7 +17,7 @@ describe('TaskInputLabel', function () {
 
   it('should use props.label as the innerHTML text', function () {
     render(<TaskInputLabel label={label} />)
-    expect(screen.getByText(label)).toBeDefined()
+    expect(screen.getByText(label)).to.exist
   })
 
   it('should not render props.labelIcon if not defined', function () {

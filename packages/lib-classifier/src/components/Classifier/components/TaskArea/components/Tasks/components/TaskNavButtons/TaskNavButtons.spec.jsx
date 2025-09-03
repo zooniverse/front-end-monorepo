@@ -16,13 +16,13 @@ describe('TaskNavButtons', function () {
       screen.getByRole('link', {
         name: 'Done & Talk in a new tab'
       })
-    ).toBeDefined()
+    ).to.exist
 
     expect(
       screen.getByRole('button', {
         name: 'Done'
       })
-    ).toBeDefined()
+    ).to.exist
   })
 
   it('should disable the buttons based on the disabled prop', function () {
@@ -47,7 +47,7 @@ describe('TaskNavButtons', function () {
     render(<NextButtonStory />)
     expect(
       screen.getByRole('button', { name: 'Next' })
-    ).toBeDefined()
+    ).to.exist
   })
 
   it('should display a labeled BackButton when step history can go back', function () {
@@ -55,6 +55,6 @@ describe('TaskNavButtons', function () {
     render(<BackOrDoneStory />)
     expect(
       screen.getByRole('button', { name: 'Back' })
-    ).toBeDefined()
+    ).to.exist
   })
 })

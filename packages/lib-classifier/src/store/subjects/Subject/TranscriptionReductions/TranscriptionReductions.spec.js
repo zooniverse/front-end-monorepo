@@ -22,25 +22,25 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should exist', function () {
-      expect(reductionsModel).toBeDefined()
+      expect(reductionsModel).to.exist
     })
 
     it('should have transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
-      expect(reductionsModel.consensusLines(0).length).toBeGreaterThan(0)
+      expect(reductionsModel.consensusLines(0).length).to.be.above(0)
     })
 
     it('should have points', function () {
       reductionsModel.consensusLines(0).forEach(function (consensusLine) {
-        expect(Array.isArray(consensusLine.points)).to.equal(true)
-        expect(Object.keys(consensusLine.points[0]).length).toBeGreaterThan(0)
+        expect(consensusLine.points).to.be.an('array')
+        expect(Object.keys(consensusLine.points[0]).length).to.be.above(0)
       })
     })
 
     it('should have text options', function () {
       reductionsModel.consensusLines(0).forEach(function (consensusLine) {
-        expect(Array.isArray(consensusLine.textOptions)).to.equal(true)
-        expect(Object.keys(consensusLine.textOptions[0]).length).toBeGreaterThan(0)
+        expect(consensusLine.textOptions).to.be.an('array')
+        expect(Object.keys(consensusLine.textOptions[0]).length).to.be.above(0)
       })
     })
 
@@ -100,7 +100,7 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should exist', function () {
-      expect(reductionsModel).toBeDefined()
+      expect(reductionsModel).to.exist
     })
 
     it('should not have any transcribed lines', function () {

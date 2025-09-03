@@ -14,7 +14,7 @@ describe('SVGImage', function () {
     )
 
     const image = screen.getByRole('img', { name: 'Subject 1234' })
-    expect(image).toBeDefined()
+    expect(image).to.exist
     expect(image.getAttribute('href')).to.equal('https://some.domain/image.jpg')
     expect(image.getAttribute('filter')).to.equal(null)
   })
@@ -32,11 +32,11 @@ describe('SVGImage', function () {
       )
 
       const filter = document.querySelector('filter')
-      expect(filter).toBeDefined()
+      expect(filter).to.exist
       expect(filter.getAttribute('id')).to.equal('svg-invert-filter')
 
       const image = screen.getByRole('img', { name: 'Subject 1234' })
-      expect(image).toBeDefined()
+      expect(image).to.exist
       expect(image.getAttribute('filter')).to.equal('url("#svg-invert-filter")')
     })
   })

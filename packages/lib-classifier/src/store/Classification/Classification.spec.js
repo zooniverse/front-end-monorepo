@@ -38,12 +38,12 @@ describe('Model > Classification', function () {
   })
 
   it('should exist', function () {
-    expect(model).toBeDefined()
+    expect(model).to.exist
     expect(model).to.be.an('object')
   })
 
   it('should have an ID', function () {
-    expect(model.id).toBeDefined()
+    expect(model.id).to.exist
     expect(model.id).to.be.a('string')
   })
 
@@ -87,7 +87,7 @@ describe('Model > Classification', function () {
     })
 
     it('should have an ID', function () {
-      expect(snapshot.id).toBeDefined()
+      expect(snapshot.id).to.exist
       expect(snapshot.id).to.be.a('string')
     })
 

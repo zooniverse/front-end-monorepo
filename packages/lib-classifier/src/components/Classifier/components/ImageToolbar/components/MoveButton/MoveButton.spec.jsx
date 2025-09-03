@@ -30,7 +30,7 @@ describe('Component > MoveButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'Move subject' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Move subject' })).to.exist
   })
 
   it('should change the subject viewer annotate and move state when clicked', async function () {
@@ -52,9 +52,9 @@ describe('Component > MoveButton', function () {
       }
     )
     const button = screen.getByRole('button', { name: 'Move subject' })
-    expect(button).to.have.property('aria-pressed', 'false')
+    expect(button).to.have.attribute('aria-pressed', 'false')
     await user.click(button)
-    expect(button).to.have.property('aria-pressed', 'true')
+    expect(button).to.have.attribute('aria-pressed', 'true')
 
     expect(store.subjectViewer.move).to.equal(true)
     expect(store.subjectViewer.annotate).to.equal(false)

@@ -98,7 +98,7 @@ describe('Model > FeedbackStore', function () {
 
   describe('existance', function () {
     it('should exist', function () {
-      expect(FeedbackStore).toBeDefined()
+      expect(FeedbackStore).to.exist
       expect(FeedbackStore).to.be.an('object')
     })
   })
@@ -147,7 +147,7 @@ describe('Model > FeedbackStore', function () {
         const workflow = rootStore.workflows.active
         expect(feedback.rules.size).to.equal(0)
         feedback.createRules(subject)
-        expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce()
+        expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce
         expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
       })
     })
@@ -210,7 +210,7 @@ describe('Model > FeedbackStore', function () {
         })
 
         it('should not reduce the rule and value', function () {
-          expect(strategies.testStrategy.reducer).to.have.not.been.called()
+          expect(strategies.testStrategy.reducer).to.have.not.been.called
         })
       })
     })
@@ -294,7 +294,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should call the onHide callback', function () {
-        expect(feedback.onHide).to.have.been.calledOnce()
+        expect(feedback.onHide).to.have.been.calledOnce
       })
     })
   })
@@ -382,7 +382,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should continue the action', function () {
-        expect(next.withArgs(call)).to.have.been.calledOnce()
+        expect(next.withArgs(call)).to.have.been.calledOnce
       })
     })
 
@@ -403,7 +403,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should abort the action', function () {
-        expect(abort).to.have.been.calledOnce()
+        expect(abort).to.have.been.calledOnce
       })
 
       it('should show feedback', function () {

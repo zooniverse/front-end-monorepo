@@ -30,7 +30,7 @@ describe('Component > QuickTalk > UserAvatar', function () {
     })
 
     it('should render the default avatar', function () {
-      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).toBeDefined()
+      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.exist
       expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg')
     })
   })
@@ -46,7 +46,7 @@ describe('Component > QuickTalk > UserAvatar', function () {
     })
 
     it('should render the default avatar', function () {
-      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).toBeDefined()
+      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.exist
       expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://example.zooniverse.org/avatar/randomDude.png')
     })
   })

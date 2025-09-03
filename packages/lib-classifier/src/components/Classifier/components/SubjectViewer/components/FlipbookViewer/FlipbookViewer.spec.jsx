@@ -24,8 +24,8 @@ describe('Component > FlipbookViewer', function () {
       const { getByText } = render(<DefaultStory />)
       const nextButton = getByText('Next')
       const prevButton = getByText('Previous')
-      expect(nextButton).toBeDefined()
-      expect(prevButton).toBeDefined()
+      expect(nextButton).to.exist
+      expect(prevButton).to.exist
     })
 
     it('should handle changing the current frame via thumbnail', async function () {
@@ -69,7 +69,7 @@ describe('Component > FlipbookViewer', function () {
       const imageElement = container.querySelector('image')
       const errorMessage = screen.getByText('Something went wrong.')
       expect(imageElement).to.equal(null)
-      expect(errorMessage).toBeDefined()
+      expect(errorMessage).to.exist
     })
   })
 
@@ -77,7 +77,7 @@ describe('Component > FlipbookViewer', function () {
     it('should have a play or pause button', function () {
       const { getByLabelText } = render(<DefaultStory />)
       const playButton = getByLabelText('Play video')
-      expect(playButton).toBeDefined()
+      expect(playButton).to.exist
     })
 
     it('should play or pause via keyboard when image is focused', async function () {
@@ -90,7 +90,7 @@ describe('Component > FlipbookViewer', function () {
       await user.keyboard(' ')
 
       const pauseButton = getByLabelText('Pause video')
-      expect(pauseButton).toBeDefined()
+      expect(pauseButton).to.exist
     })
 
     it('should change the looping speed', async function () {

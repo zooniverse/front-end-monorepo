@@ -81,7 +81,7 @@ describe('Component > ScatterPlot', function () {
 
     it('should render a Chart', function () {
       const chart = document.querySelector('.scatterPlot')
-      expect(chart).toBeDefined()
+      expect(chart).to.exist
     })
 
     it('should set the Chart\'s width and height from props', function () {
@@ -232,8 +232,8 @@ describe('Component > ScatterPlot', function () {
           const [left, top] = transform.split(',')
           expect(line.getAttribute('x1')).to.not.equal(line.getAttribute('x2'))
           expect(line.getAttribute('y1')).to.equal(line.getAttribute('y2'))
-          expect(parseFloat(line.getAttribute('x1'))).toBeLessThan(parseFloat(left))
-          expect(parseFloat(line.getAttribute('x2'))).toBeGreaterThan(parseFloat(left))
+          expect(parseFloat(line.getAttribute('x1'))).to.be.below(parseFloat(left))
+          expect(parseFloat(line.getAttribute('x2'))).to.be.above(parseFloat(left))
         })
       })
     })
@@ -263,8 +263,8 @@ describe('Component > ScatterPlot', function () {
           const [left, top] = transform.split(',')
           expect(line.getAttribute('y1')).to.not.equal(line.getAttribute('y2'))
           expect(line.getAttribute('x1')).to.equal(line.getAttribute('x2'))
-          expect(parseFloat(line.getAttribute('y1'))).toBeLessThan(parseFloat(top))
-          expect(parseFloat(line.getAttribute('y2'))).toBeGreaterThan(parseFloat(top))
+          expect(parseFloat(line.getAttribute('y1'))).to.be.below(parseFloat(top))
+          expect(parseFloat(line.getAttribute('y2'))).to.be.above(parseFloat(top))
         })
       })
     })
@@ -293,7 +293,7 @@ describe('Component > ScatterPlot', function () {
 
       underlays.forEach(({ fill }) => {
         const underlay = document.querySelector(`.chartBackground-underlay[fill="${fill}"]`)
-        expect(underlay).toBeDefined()
+        expect(underlay).to.exist
       })
     })
   })
@@ -320,7 +320,7 @@ describe('Component > ScatterPlot', function () {
       })
 
       it('should render a visx brush layer', function () {
-        expect(brushLayer.querySelector('.visx-brush-overlay')).toBeDefined()
+        expect(brushLayer.querySelector('.visx-brush-overlay')).to.exist
       })
     })
 
@@ -361,7 +361,7 @@ describe('Component > ScatterPlot', function () {
       })
 
       it('should render a visx brush layer', function () {
-        expect(brushLayer.querySelector('.visx-brush-overlay')).toBeDefined()
+        expect(brushLayer.querySelector('.visx-brush-overlay')).to.exist
       })
 
       it('should render the selections', function () {

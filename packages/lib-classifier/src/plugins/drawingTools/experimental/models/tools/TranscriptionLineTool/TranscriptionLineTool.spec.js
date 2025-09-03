@@ -12,7 +12,7 @@ describe('Model > TranscriptionLineTool', function () {
   })
 
   it('should exist', function () {
-    expect(tool).toBeDefined()
+    expect(tool).to.exist
     expect(tool).to.be.an('object')
   })
 

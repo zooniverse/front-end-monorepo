@@ -1,13 +1,12 @@
 import asyncStates from '@zooniverse/async-states'
 import { when } from 'mobx'
-import sinon from 'sinon'
 import mockStore from '@test/mockStore'
 
 describe('Model > StepHistory', function () {
   it('should exist', function () {
     const store = mockStore()
     const stepHistory = store.subjects.active.stepHistory
-    expect(stepHistory).toBeDefined()
+    expect(stepHistory).to.exist
     expect(stepHistory).to.be.an('object')
   })
 

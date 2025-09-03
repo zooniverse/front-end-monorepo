@@ -1,4 +1,3 @@
-import { types } from 'mobx-state-tree'
 import TextTask from '@plugins/tasks/text'
 
 describe('Model > TextTask', function () {
@@ -24,7 +23,7 @@ describe('Model > TextTask', function () {
 
   it('should exist', function () {
     const task = TextTask.TaskModel.create(textTask)
-    expect(task).toBeDefined()
+    expect(task).to.exist
     expect(task).to.be.an('object')
   })
 
@@ -47,7 +46,7 @@ describe('Model > TextTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).toBeDefined()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T0')
       expect(annotation.taskType).to.equal('text')
     })

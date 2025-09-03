@@ -15,7 +15,7 @@ describe('Tasks', function () {
 
     it('should render null', function () {
       render(<NoClassificationStory />)
-      expect(screen.queryByText('TaskArea.Tasks.DoneButton.done')).to.equal(
+      expect(screen.queryByText('Done')).to.equal(
         null
       )
     })
@@ -26,7 +26,7 @@ describe('Tasks', function () {
 
     it('should render null', function () {
       render(<NoStepStory />)
-      expect(screen.queryByText('TaskArea.Tasks.DoneButton.done')).to.equal(
+      expect(screen.queryByText('Done')).to.equal(
         null
       )
     })
@@ -38,15 +38,15 @@ describe('Tasks', function () {
 
     it('should display a loading message while the workflow loads', function () {
       render(<WorkflowLoadingStory />)
-      expect(screen.getByText('TaskArea.Tasks.loading')).toBeDefined()
-      expect(screen.queryByText('TaskArea.Tasks.DoneButton.done')).to.equal(
+      expect(screen.getByText('Loading')).to.exist
+      expect(screen.queryByText('Done')).to.equal(
         null
       )
     })
 
     it('should render null while the subject loads', function () {
       render(<SubjectLoadingStory />)
-      expect(screen.queryByText('TaskArea.Tasks.DoneButton.done')).to.equal(
+      expect(screen.queryByText('Done')).to.equal(
         null
       )
     })
@@ -57,7 +57,7 @@ describe('Tasks', function () {
 
     it('should render a task component if the workflow is loaded', function () {
       render(<MultipleTasksStory />)
-      expect(screen.getByText('TaskArea.Tasks.DoneButton.done')).toBeDefined()
+      expect(screen.getByText('Done')).to.exist
     })
 
     it('should autofocus the task', function () {

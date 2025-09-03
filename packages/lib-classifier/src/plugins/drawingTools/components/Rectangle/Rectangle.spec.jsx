@@ -38,10 +38,10 @@ describe('Rectangle tool', () => {
       </svg>
     )
 
-    expect(screen.getByTestId('rect-dragHandle1')).toBeDefined()
-    expect(screen.getByTestId('rect-dragHandle2')).toBeDefined()
-    expect(screen.getByTestId('rect-dragHandle3')).toBeDefined()
-    expect(screen.getByTestId('rect-dragHandle4')).toBeDefined()
+    expect(screen.getByTestId('rect-dragHandle1')).to.exist
+    expect(screen.getByTestId('rect-dragHandle2')).to.exist
+    expect(screen.getByTestId('rect-dragHandle3')).to.exist
+    expect(screen.getByTestId('rect-dragHandle4')).to.exist
   })
 
   it('should resize when a drag handle is moved', async () => {
