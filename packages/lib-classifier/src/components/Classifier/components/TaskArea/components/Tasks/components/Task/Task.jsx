@@ -54,7 +54,7 @@ function Task ({
   if (previousAnnotationValues) {
     suggestions = previousAnnotationValues.get(task.taskKey)
   }
-  
+
   if (!annotation) {
     return <Paragraph>Annotation missing for task <code>{task.taskKey}</code></Paragraph>
   }

@@ -40,7 +40,7 @@ describe('components > ClassifierContainer', function () {
     }
   }
 
-  function withGrommet(store) {
+  function withGrommet() {
     /*
     The Classifier uses Grommet but isn't wrapped in the Grommet context,
     so add that here.
@@ -73,7 +73,6 @@ describe('components > ClassifierContainer', function () {
     beforeEach(async function () {
       cleanStore()
       sinon.replace(window, 'Image', MockSubjectImage)
-      const roles = []
       nock('https://panoptes-staging.zooniverse.org/oauth')
         .post('/token')
         .reply(401,{ error: 'invalid_grant' })

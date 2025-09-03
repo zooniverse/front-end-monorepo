@@ -47,7 +47,7 @@ function SingleChoiceTask ({
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
   const { value } = annotation
   const questionHasFocus = autoFocus && value === null
-  
+
   useEffect(function autofocusFieldset() {
     if (questionHasFocus && document.activeElement !== fieldset.current) {
       fieldset.current?.focus()
@@ -109,7 +109,8 @@ SingleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    taskKey: PropTypes.string
   }).isRequired
 }
 
