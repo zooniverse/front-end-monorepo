@@ -169,7 +169,7 @@ describe('Helpers > getDefaultPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(response.notFound).to.be.true()
+        expect(response.notFound).to.equal(true)
       })
 
       it('should pass an error message to the error page', function () {
@@ -191,7 +191,7 @@ describe('Helpers > getDefaultPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(response.notFound).to.be.true()
+        expect(response.notFound).to.equal(true)
       })
 
       it('should pass an error message to the error page', function () {
@@ -246,7 +246,7 @@ describe('Helpers > getDefaultPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(response.notFound).to.be.true()
+        expect(response.notFound).to.equal(true)
       })
 
       it('should pass an error message to the error page', function () {
@@ -268,7 +268,7 @@ describe('Helpers > getDefaultPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(response.notFound).to.be.true()
+        expect(response.notFound).to.equal(true)
       })
 
       it('should pass an error message to the error page', function () {
@@ -279,7 +279,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
   describe('deployed to kubernetes (production API)', function () {
     const deployEnvs = ['staging', 'production']
-    
+
     deployEnvs.forEach(function testDeploy(deployEnv) {
       describe(`deployed to ${deployEnv}`, function () {
         before(function () {
@@ -333,7 +333,7 @@ describe('Helpers > getDefaultPageProps', function () {
           })
 
           it('should return notFound', function () {
-            expect(response.notFound).to.be.true()
+            expect(response.notFound).to.equal(true)
           })
 
           it('should pass an error message to the error page', function () {
@@ -355,7 +355,7 @@ describe('Helpers > getDefaultPageProps', function () {
           })
 
           it('should return notFound', function () {
-            expect(response.notFound).to.be.true()
+            expect(response.notFound).to.equal(true)
           })
 
           it('should pass an error message to the error page', function () {
@@ -368,7 +368,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
   describe('deployed to kubernetes (staging API)', function () {
     const deployEnvs = ['staging', 'production']
-    
+
     deployEnvs.forEach(function testDeploy(deployEnv) {
       describe(`deployed to ${deployEnv}`, function () {
         before(function () {
@@ -422,7 +422,7 @@ describe('Helpers > getDefaultPageProps', function () {
           })
 
           it('should return notFound', function () {
-            expect(response.notFound).to.be.true()
+            expect(response.notFound).to.equal(true)
           })
 
           it('should pass an error message to the error page', function () {
@@ -444,7 +444,7 @@ describe('Helpers > getDefaultPageProps', function () {
           })
 
           it('should return notFound', function () {
-            expect(response.notFound).to.be.true()
+            expect(response.notFound).to.equal(true)
           })
 
           it('should pass an error message to the error page', function () {
