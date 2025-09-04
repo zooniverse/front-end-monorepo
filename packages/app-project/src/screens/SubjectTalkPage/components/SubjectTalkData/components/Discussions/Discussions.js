@@ -1,16 +1,26 @@
-import { Box, Heading } from 'grommet'
-import { Chat } from 'grommet-icons'
+import { Box, Button, Text } from 'grommet'
+import { Chat, Down, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import { useDiscussions } from '@hooks'
 
 import Discussion from '../Discussion'
+import ParticipantsAndComments from '../ParticipantsAndComments'
 import PlainButton from '../PlainButton'
 import SectionHeading from '../SectionHeading'
 
-export const StyledUppercaseTitle = styled(Heading)`
+const StyledButton = styled(Button)`
+  background: ${props => props.theme.global.colors['accent-1']};
+  border: none;
+  border-radius: 32px;
+  box-shadow: none;
+  color: ${props => props.theme.global.colors['neutral-1']};
+`
+
+const StyledLabel = styled(Text)`
   letter-spacing: 0.8px;
   text-transform: uppercase;
 `
@@ -20,13 +30,14 @@ function Discussions({
   projectId,
   subjectId
 }) {
+  const [sort, setSort] = useState('-last_comment_created_at')
   const { t } = useTranslation('screens')
 
   const query = {
     section: `project-${projectId}`,
     focus_id: subjectId,
     focus_type: 'Subject',
-    sort: '-last_comment_created_at',
+    sort,
   }
 
   const {
@@ -34,12 +45,6 @@ function Discussions({
     isLoading,
     error
   } = useDiscussions(query)
-
-  const sortedBoardIds = discussions?.map(discussion => discussion.board_id)
-  const uniqueSortedBoardIds = [...new Set(sortedBoardIds)]
-  const groupedDiscussions = uniqueSortedBoardIds.map(boardId => (
-    discussions.filter(discussion => discussion.board_id === boardId)
-  ))
 
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {
@@ -50,8 +55,21 @@ function Discussions({
     discussionsTitle = t('Talk.discussions', { count: discussions.length })
   }
 
+  const totalCommentsCount = discussions?.reduce((total, discussion) => total + discussion.comments_count, 0) || 0
+  const totalUsersCount = discussions?.reduce((total, discussion) => total + discussion.users_count, 0) || 0
+  const sortButtonLabel = sort === 'last_comment_created_at' ? t('Talk.sortedOldestFirst') : t('Talk.sortedNewestFirst')
+
+  function handleSortChange() {
+    setSort(prevSort => (
+      prevSort === 'last_comment_created_at' ?
+        '-last_comment_created_at'
+        : 'last_comment_created_at'
+    ))
+  }
+
   return (
     <Box
+      gap='small'
       pad='small'
     >
       <Box
@@ -59,25 +77,61 @@ function Discussions({
         direction='row'
         justify='between'
       >
-        <SectionHeading
-          icon={
-            <Chat
-              color={{ dark: 'light-1', light: 'dark-4' }}
-              size='16px'
-            />
-          }
-          title={discussionsTitle}
-        />
-        {!discussions?.length && (
-          <PlainButton
+        <Box
+          align='center'
+          direction='row'
+          gap='xsmall'
+        >
+          <SectionHeading
             icon={
               <Chat
-                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                color={{ dark: 'light-1', light: 'dark-4' }}
                 size='16px'
               />
             }
-            text={t('Talk.startDiscussion')}
+            title={discussionsTitle}
           />
+          {discussions?.length > 0 && (
+            <ParticipantsAndComments
+              commentsCount={totalCommentsCount}
+              usersCount={totalUsersCount}
+            />
+          )}
+        </Box>
+        {discussions?.length > 0 && (
+          <Box
+            align='center'
+            direction='row'
+            gap='xsmall'
+          >
+            <Text size='1rem'>{t('Talk.sortBy')}</Text>
+            <StyledButton
+              onClick={handleSortChange}
+              label={(
+                <Box
+                  align='center'
+                  direction='row'
+                  gap='xxsmall'
+                >
+                  <StyledLabel weight={700}>
+                    {sortButtonLabel}
+                  </StyledLabel>
+                  {sort === 'last_comment_created_at' ? (
+                    <Up
+                      color='neutral-1'
+                      size='14px'
+                    />
+                  ) : (
+                    <Down
+                      color='neutral-1'
+                      size='14px'
+                    />
+                  )}
+                </Box>
+              )}
+              pad={{ horizontal: 'small', vertical: 'xsmall' }}
+            />
+          </Box>
         )}
       </Box>
       <Box
@@ -86,42 +140,25 @@ function Discussions({
         gap='60px'
         style={{ listStyle: 'none', margin: 0, padding: 0 }}
       >
-        {groupedDiscussions?.map((discussions) => {
-          const boardId = discussions[0].board_id
-          const boardTitle = discussions[0].board_title
-          
-          return (
-            <Box
-              key={boardId}
-              as='li'
-            >
-              {discussions[0].subject_default ? null : (
-                <StyledUppercaseTitle
-                  level={4}
-                  size='1rem'
-                  weight={500}
-                >
-                  {boardTitle}
-                </StyledUppercaseTitle>
-              )}
-              <Box
-                as='ol'
-                border='between'
-                gap='60px'
-                style={{ listStyle: 'none', margin: 0, padding: 0 }}
-              >
-                {discussions.map((discussion) => (
-                  <li key={discussion.id}>
-                    <Discussion
-                      discussion={discussion}
-                      login={login}
-                    />
-                  </li>
-                ))}
-              </Box>
-            </Box>
-          )
-        })}
+        {discussions?.map((discussion) => (
+          <li key={discussion.id}>
+            <Discussion
+              discussion={discussion}
+              login={login}
+            />
+          </li>
+        ))}
+      </Box>
+      <Box margin={{ vertical: 'small' }}>
+        <PlainButton
+          icon={
+            <Chat
+              color={{ dark: 'accent-1', light: 'neutral-1' }}
+              size='16px'
+            />
+          }
+          text={t('Talk.startDiscussion')}
+        />
       </Box>
     </Box>
   )

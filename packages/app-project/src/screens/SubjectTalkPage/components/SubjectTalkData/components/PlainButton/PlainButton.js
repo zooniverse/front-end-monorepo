@@ -1,7 +1,7 @@
 import { Button, Text } from 'grommet'
 import styled from 'styled-components'
 
-// to be used with Add a Tag, Chronologically, (eventually) Classify this Subject, and View Fill Discussion
+// to be used with Add a Tag, comments' Newest/Oldest First, and (eventually) Classify this Subject
 
 const StyledButton = styled(Button)`
   &:focus,
