@@ -1,5 +1,5 @@
-import { Box, Heading, Text } from 'grommet'
-import { Chat, Down, Up, User } from 'grommet-icons'
+import { Anchor, Box, Text } from 'grommet'
+import { Down, FormNext, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { number, shape, string } from 'prop-types'
 import { useState } from 'react'
@@ -7,12 +7,13 @@ import styled from 'styled-components'
 
 import { useComments, usePanoptesUsers } from '@hooks'
 
+import ParticipantsAndComments from '../ParticipantsAndComments'
 import PlainButton from '../PlainButton'
 import TalkComment from '../TalkComment'
-import { StyledUppercaseTitle } from '../Discussions'
 
-const StyledTitle = styled(Heading)`
-  letter-spacing: 0.8px;
+const StyledBox = styled(Box)`
+  border-radius: 4px 0 0 0;
+  border-left: 4px solid ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
 `
 
 function Discussion({ discussion, login }) {
@@ -36,8 +37,8 @@ function Discussion({ discussion, login }) {
   const uniqueUserIds = [...new Set(userIds)]
   const { data: users } = usePanoptesUsers({ id: uniqueUserIds.join(',') })
   
-  const title = discussion.subject_default ? discussion.board_title : discussion.title
   const showChronologicalSort = discussion.comments_count > 1
+  const sortButtonLabel = sort === 'created_at' ? t('Talk.sortedOldestFirst') : t('Talk.sortedNewestFirst')
 
   function handleSortChange() {
     setSort(prevSort => (
@@ -54,86 +55,64 @@ function Discussion({ discussion, login }) {
         direction='row'
         justify='between'
       >
-        {discussion.subject_default ? (
-          <StyledUppercaseTitle
-            level={5}
-            size='1rem'
-            weight={500}
-          >
-            {title}
-          </StyledUppercaseTitle>
-        ) : (
-          <StyledTitle
-            color={{ dark: 'accent-1', light: 'neutral-1' }}
-            level={5}
-            size='1rem'
-            weight={600}
-          >
-            {title}
-          </StyledTitle>
-        )}
         <Box
           align='center'
           direction='row'
-          gap='xxsmall'
+          gap='xsmall'
         >
-          <span
-            id='participants-icon'
-            aria-hidden='true'
+          <StyledBox
+            align='center'
+            direction='row'
+            pad={{ horizontal:'xxsmall' }}
           >
-            <User
-              a11yTitle={t('Talk.participants')}
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='12px'
+            <Anchor
+              href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}`}
+              label={discussion.board_title}
+              size='1rem'
             />
-          </span>
-          <Text
-            aria-labelledby='participants-icon'
-            color={{ dark: 'accent-1', light: 'neutral-1' }}
-            data-testid='participants-count'
-          >
-            {discussion.users_count}
-          </Text>
-          <span 
-            id='comments-icon'
-            aria-hidden='true'
-          >
-            <Chat
-              a11yTitle={t('Talk.comments')}
+            <FormNext
               color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='12px'
+              size='1rem'
             />
-          </span>
-          <Text
-            aria-labelledby='comments-icon'
-            color={{ dark: 'accent-1', light: 'neutral-1' }}
-            data-testid='comments-count'
-          >
-            {discussion.comments_count}
-          </Text>
+            <Anchor
+              href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`}
+              label={discussion.title}
+              size='1rem'
+            />
+          </StyledBox>
+          <ParticipantsAndComments
+            commentsCount={discussion.comments_count}
+            usersCount={discussion.users_count}
+          />
+        </Box>
+        <Box
+          align='center'
+          direction='row'
+          gap='xsmall'
+        >
           {showChronologicalSort && (
-            <>
+            <Box
+              align='center'
+              direction='row'
+              gap='xxsmall'
+            >
               <PlainButton
-                a11yTitle={sort === 'created_at' ? t('Talk.sortNewFirst') : t('Talk.sortOldFirst')}
-                aria-pressed={sort === 'created_at'}
                 margin={{ left: 'xsmall' }}
                 onClick={handleSortChange}
-                text={t('Talk.chronologically')}
+                text={sortButtonLabel}
               />
               {sort === 'created_at' ? (
                 <Up
-                  a11yTitle={t('Talk.commentsOldFirst')}
                   color={{ dark: 'accent-1', light: 'neutral-1' }}
                   size='12px'
                 />
               ) : (
                 <Down
-                  a11yTitle={t('Talk.commentsNewFirst')}
                   color={{ dark: 'accent-1', light: 'neutral-1' }}
                   size='12px'
                 />
               )}
-            </>
+            </Box>
           )}
         </Box>
       </Box>
@@ -164,20 +143,9 @@ function Discussion({ discussion, login }) {
           )
         })}
       </Box>
-      <Box
-        direction='row-reverse'
-        justify='between'
-        align='center'
-      >
-        <PlainButton
-          a11yTitle={t('Talk.viewFullDiscussion')}
-          text={t('Talk.viewFullDiscussion')}
-          href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`}
-        />
-        <Text size='1rem'>
-          {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
-        </Text>
-      </Box>
+      <Text size='1rem'>
+        {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
+      </Text>
     </Box>
   )
 }

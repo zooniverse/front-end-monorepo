@@ -115,11 +115,12 @@ export function Default(args) {
 Default.args = {
   discussion: {
     id: '456',
-    comments_count: 3,
-    title: 'Test Discussion',
-    users_count: 2,
     board_id: '123',
-    project_slug: 'researcher/project-name'
+    board_title: 'Test Board',
+    comments_count: 3,
+    project_slug: 'researcher/project-name',
+    title: 'Test Discussion',
+    users_count: 2
   },
   login: 'zootester2'
 }
