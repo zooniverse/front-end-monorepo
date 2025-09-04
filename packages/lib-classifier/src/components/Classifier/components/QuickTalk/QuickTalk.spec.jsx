@@ -41,8 +41,8 @@ const authors = {
     login: 'zootester',
   },
   '300002': {
+    id: '300002',
     avatar_src: null,
-    login: 'randomdude',
     credited_name: 'randomdude',
     display_name: 'Random Dude',
     login: 'randomdude',
