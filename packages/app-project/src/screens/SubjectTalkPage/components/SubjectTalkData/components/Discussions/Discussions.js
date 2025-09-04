@@ -201,6 +201,9 @@ function Discussions({
             </Box>
           )}
           margin={{ horizontal: 'xsmall' }}
+          onClick={() => {
+            window.alert('Coming soon!')
+          }}
           plain
         />
       </StyledBox>
