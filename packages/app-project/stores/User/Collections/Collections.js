@@ -1,5 +1,4 @@
-import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 

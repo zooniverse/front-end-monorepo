@@ -9,7 +9,7 @@
   "overrides": [
     {
       "files": [
-        "src/**/*.stories.js"
+        "src/**/*.stories.jsx"
       ],
       "rules": {
         "import/no-anonymous-default-export": "off"

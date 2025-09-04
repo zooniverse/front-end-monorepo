@@ -73,7 +73,7 @@ describe('Component > SubjectTalkPage', function () {
           </Provider>
         </RouterContext.Provider>
       )
-      expect(output).to.be.ok()
+      expect(output).toBeTruthy() // 'render without crashing' should look for something specific in the UI. Please refine these unit tests
     })
   })
 })
