@@ -1,5 +1,5 @@
 import { Box, Button, Text } from 'grommet'
-import { Chat, Down, Up } from 'grommet-icons'
+import { Add, Chat, Down, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
 import { useState } from 'react'
@@ -9,7 +9,6 @@ import { useDiscussions } from '@hooks'
 
 import Discussion from '../Discussion'
 import ParticipantsAndComments from '../ParticipantsAndComments'
-import PlainButton from '../PlainButton'
 import SectionHeading from '../SectionHeading'
 
 const StyledButton = styled(Button)`
@@ -23,6 +22,27 @@ const StyledButton = styled(Button)`
 const StyledLabel = styled(Text)`
   letter-spacing: 0.8px;
   text-transform: uppercase;
+`
+
+const StyledBox = styled(Box)`
+  &::before,
+  &::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
+  }
+`
+const StyledDiscussionButton = styled(Button)`
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    text-decoration: none;
+  }
 `
 
 function Discussions({
@@ -134,32 +154,56 @@ function Discussions({
           </Box>
         )}
       </Box>
-      <Box
-        as='ol'
-        border='between'
-        gap='60px'
-        style={{ listStyle: 'none', margin: 0, padding: 0 }}
+      {discussions?.length > 0 && (
+        <Box
+          as='ol'
+          border='between'
+          gap='60px'
+          style={{ listStyle: 'none', margin: 0, padding: 0 }}
+        >
+          {discussions?.map((discussion) => (
+            <li key={discussion.id}>
+              <Discussion
+                discussion={discussion}
+                login={login}
+              />
+            </li>
+          ))}
+        </Box>
+      )}
+      <StyledBox
+        align='center'
+        direction='row'
       >
-        {discussions?.map((discussion) => (
-          <li key={discussion.id}>
-            <Discussion
-              discussion={discussion}
-              login={login}
-            />
-          </li>
-        ))}
-      </Box>
-      <Box margin={{ vertical: 'small' }}>
-        <PlainButton
-          icon={
-            <Chat
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='16px'
-            />
-          }
-          text={t('Talk.startDiscussion')}
+        <StyledDiscussionButton
+          label={(
+            <Box
+              align='center'
+              direction='row'
+              gap='xsmall'
+              justify='center'
+            >
+              <Chat
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                size='18px'
+              />
+              <StyledLabel
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                size='18px'
+                weight={600}
+              >
+                {t('Talk.startDiscussion')}
+              </StyledLabel>
+              <Add
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                size='18px'
+              />
+            </Box>
+          )}
+          margin={{ horizontal: 'xsmall' }}
+          plain
         />
-      </Box>
+      </StyledBox>
     </Box>
   )
 }
