@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
@@ -182,47 +183,96 @@ describe('Component > StandardLayout', function () {
   })
 
   describe('in admin mode', function () {
-    before(function () {
-      const snapshot = {
-        project: {
-          configuration: {
-            languages: ['en']
+    describe('when the user is loading', function () {
+      before(function () {
+        const snapshot = {
+          project: {
+            configuration: {
+              languages: ['en']
+            },
+            slug: 'Foo/Bar',
+            strings: {
+              display_name: 'Foobar'
+            },
+            links: {
+              active_workflows: ['1']
+            }
           },
-          slug: 'Foo/Bar',
-          strings: {
-            display_name: 'Foobar'
-          },
-          links: {
-            active_workflows: ['1']
+          user: {
+            loadingState: asyncStates.loading
           }
-        },
-        user: {
-          id: '1',
-          admin: true,
-          login: 'zooVolunteer'
         }
-      }
-      window.localStorage.setItem('adminFlag', true)
-      render(<StandardLayout />, { wrapper: withStore(snapshot)})
-      projectPage = screen.getByTestId('project-page')
-      zooHeader = screen.getByRole('banner')
-      zooFooter = screen.getByRole('contentinfo')
-      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+        window.localStorage.setItem('adminFlag', true)
+        render(<StandardLayout />, { wrapper: withStore(snapshot)})
+        projectPage = screen.getByTestId('project-page')
+        zooHeader = screen.getByRole('banner')
+        zooFooter = screen.getByRole('contentinfo')
+        adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
+      })
+
+      after(function () {
+        window.localStorage.removeItem('adminFlag')
+      })
+
+      it('should not have a striped border', function () {
+        expect(projectPage).toBeDefined()
+        const borderImage = window.getComputedStyle(projectPage)['border-image']
+        expect(borderImage).to.equal('')
+      })
+
+      it('should not show the admin toggle in the footer', function () {
+        expect(adminToggle).toBeNull()
+      })
+
+      it('should preserve the stored adminFlag', function () {
+        expect(window.localStorage.getItem('adminFlag')).to.equal('true')
+      })
     })
 
-    after(function () {
-      window.localStorage.removeItem('adminFlag')
-    })
+    describe('when the user has loaded', function () {
+      before(function () {
+        const snapshot = {
+          project: {
+            configuration: {
+              languages: ['en']
+            },
+            slug: 'Foo/Bar',
+            strings: {
+              display_name: 'Foobar'
+            },
+            links: {
+              active_workflows: ['1']
+            }
+          },
+          user: {
+            id: '1',
+            admin: true,
+            login: 'zooVolunteer',
+            loadingState: asyncStates.success
+          }
+        }
+        window.localStorage.setItem('adminFlag', true)
+        render(<StandardLayout />, { wrapper: withStore(snapshot)})
+        projectPage = screen.getByTestId('project-page')
+        zooHeader = screen.getByRole('banner')
+        zooFooter = screen.getByRole('contentinfo')
+        adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+      })
 
-    it('should have a striped border', function () {
-      expect(projectPage).toBeDefined()
-      const borderImage = window.getComputedStyle(projectPage)['border-image']
-      expect(borderImage).to.equal(adminBorderImage)
-    })
+      after(function () {
+        window.localStorage.removeItem('adminFlag')
+      })
 
-    it('should show the admin toggle in the footer', function () {
-      expect(adminToggle).toBeDefined()
-      expect(adminToggle.checked).to.equal(true)
+      it('should have a striped border', function () {
+        expect(projectPage).toBeDefined()
+        const borderImage = window.getComputedStyle(projectPage)['border-image']
+        expect(borderImage).to.equal(adminBorderImage)
+      })
+
+      it('should show the admin toggle in the footer', function () {
+        expect(adminToggle).toBeDefined()
+        expect(adminToggle.checked).to.equal(true)
+      })
     })
   })
 
