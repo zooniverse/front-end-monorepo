@@ -12,7 +12,7 @@ const ERROR = 'That page does not exist'
     })
 
     it('should set notFound', function () {
-      expect(props.notFound).to.be.true()
+      expect(props.notFound).to.equal(true)
     })
 
     it('should set a title for the error page', function () {
@@ -29,11 +29,11 @@ const ERROR = 'That page does not exist'
     })
 
     it('should set notFound', function () {
-      expect(props.notFound).to.be.true()
+      expect(props.notFound).to.equal(true)
     })
 
     it('should not set a title for the error page', function () {
-      expect(props.title).to.be.undefined()
+      expect(props.title).toBeUndefined()
     })
   })
 })
