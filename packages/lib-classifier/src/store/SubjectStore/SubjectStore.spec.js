@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/browser'
 import { auth } from '@zooniverse/panoptes-js'
 import { when } from 'mobx'
 import nock from 'nock'
@@ -136,16 +135,11 @@ describe('Model > SubjectStore', function () {
       })
 
       describe('after emptying the queue', function () {
-        let subjects
-
-        beforeEach(async function () {
-          subjects = await mockSubjectStore(longListSubjects)
+        it('should leave the active subject empty', async function () {
+          const subjects = await mockSubjectStore(longListSubjects)
           while (subjects.resources.size > 0) {
             subjects.advance()
           }
-        })
-
-        it('should leave the active subject empty', function () {
           expect(subjects.resources.size).to.equal(0)
           expect(subjects.active).to.equal(undefined)
         })

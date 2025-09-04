@@ -16,7 +16,6 @@ import { ProjectFactory, SubjectFactory, SubjectSetFactory, TutorialFactory } fr
 import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore.js'
 import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow.js'
 import Classifier from './Classifier'
-import TutorialModel from '@store/TutorialStore/Tutorial/Tutorial.js'
 
 describe('Components > Classifier', function () {
   function mockPanoptesAPI() {
@@ -334,6 +333,7 @@ describe('Components > Classifier', function () {
     })
   })
 
+  // Skipped because tutorials.setResources() does not work in this env
   describe.skip('with showTutorial', function () {
     let tutorialHeading
 
@@ -372,6 +372,7 @@ describe('Components > Classifier', function () {
     })
   })
 
+  // Skipped because tutorials.setResources() does not work in this env
   describe.skip('without showTutorial', function () {
     let tutorialHeading
 
