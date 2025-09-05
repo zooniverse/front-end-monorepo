@@ -22,12 +22,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './test/setup.js',
-    sequence: {
-      hooks: 'parallel'
-    },
     silent: 'passed-only',
     // you might want to disable the css propery here, if you don't have tests that rely on CSS since parsing CSS is slow
     css: true,
-    // testTimeout: 10000 // default is 5000ms, and some tests are known to occasionally take longer than 5000ms
+    testTimeout: 10000 // default is 5000ms, and some tests are known to occasionally take longer than 5000ms
     }
 })
