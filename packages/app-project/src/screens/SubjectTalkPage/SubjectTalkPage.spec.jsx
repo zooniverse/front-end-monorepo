@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
@@ -31,6 +31,7 @@ describe('Component > SubjectTalkPage', function () {
       configuration: {
         announcement: ''
       },
+      id: '678',
       inBeta: false,
       slug: 'foo/bar',
       strings: {
@@ -60,20 +61,42 @@ describe('Component > SubjectTalkPage', function () {
   })
 
   describe('SubjectTalkPage', function () {
-    it('should render without crashing', function () {
-      const output = render(
+    it('should show a subject viewer', function () {
+      render(
         <RouterContext.Provider value={routerMock}>
           <Provider store={mockStore}>
             <Grommet theme={zooTheme} themeMode='light'>
               <SubjectTalkPage
+                projectId='678'
+                projectSlug='foo/bar'
                 subject={mockSubject}
-                subjectID={mockSubject.id}
+                subjectId={mockSubject.id}
               />
             </Grommet>
           </Provider>
         </RouterContext.Provider>
       )
-      expect(output).toBeTruthy() // 'render without crashing' should look for something specific in the UI. Please refine these unit tests
+      const subjectViewer = screen.getByTestId('viewer')
+      expect(subjectViewer).toBeDefined()
     })
+  })
+
+  it('should show subject talk data', function () {
+    render(
+      <RouterContext.Provider value={routerMock}>
+        <Provider store={mockStore}>
+          <Grommet theme={zooTheme} themeMode='light'>
+            <SubjectTalkPage
+              projectId='678'
+              projectSlug='foo/bar'
+              subject={mockSubject}
+              subjectId={mockSubject.id}
+            />
+          </Grommet>
+        </Provider>
+      </RouterContext.Provider>
+    )
+    const talkData = screen.getByTestId('talkData')
+    expect(talkData).toBeDefined()
   })
 })

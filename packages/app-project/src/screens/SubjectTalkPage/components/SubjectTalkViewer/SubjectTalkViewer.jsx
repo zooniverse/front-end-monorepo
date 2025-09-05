@@ -1,6 +1,6 @@
 import { CollectIconButton, FavoritesIconButton, InvertIconButton, Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { Bookmark, ShareOption } from 'grommet-icons'
+import { ShareOption } from 'grommet-icons'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
@@ -60,10 +60,6 @@ function SubjectTalkViewer({
       background={{
         dark: 'dark-3',
         light: 'white'
-      }}
-      height={{ max: '90vh'}}
-      style={{
-        gridArea: 'viewer'
       }}
     >
       <StyledMedia
