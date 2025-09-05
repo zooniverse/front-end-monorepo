@@ -1,5 +1,5 @@
 import { Box, Heading } from 'grommet'
-import { BlockQuote, Tag } from 'grommet-icons'
+import { Tag } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
 import styled from 'styled-components'
@@ -23,7 +23,6 @@ function SubjectTalkData({
   return (
     <Box
       gap='small'
-      style={{ gridArea: 'talkData' }}
     >
       {/* <TalkSearch /> */}
       <input type='text' placeholder={t('Talk.searchPlaceholder')} />

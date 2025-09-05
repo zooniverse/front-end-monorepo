@@ -12,7 +12,7 @@ const SWROptions = {
 }
 
 async function fetchDiscussions({ query, token }) {
-  const authorization = token ? `Bearer ${token}` : undefined
+  const authorization = token ? `Bearer ${token}` : ''
 
   try {
     const { body } = await talkAPI.get('/discussions', query, { authorization })

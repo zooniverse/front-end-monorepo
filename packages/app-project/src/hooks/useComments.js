@@ -12,7 +12,7 @@ const SWROptions = {
 }
 
 async function fetchComments({ query, token }) {
-  const authorization = token ? `Bearer ${token}` : undefined
+  const authorization = token ? `Bearer ${token}` : ''
 
   return talkAPI.get('/comments', query, { authorization })
     .then(response => response?.body?.comments)

@@ -15,7 +15,6 @@ export const ContainerGrid = styled(Grid)`
   grid-gap: 1.875rem;
   grid-template-areas: 'viewer talkData';
   grid-template-columns: auto 600px;
-  margin: auto;
 
   @media screen and (max-width: 1280px) {
     grid-gap: 1.25rem;
@@ -47,18 +46,32 @@ function SubjectTalkPage({
         pad='medium'
       >
         <ContainerGrid>
-          <SubjectTalkViewer
-            login={login}
-            projectId={projectId}
-            projectSlug={projectSlug}
-            subject={subject}
-            userId={userId}
-          />
-          <SubjectTalkData
-            login={login}
-            projectId={projectId}
-            subjectId={subjectId}
-          />
+          <Box
+            data-testid='viewer'
+            height={{ max: '90vh'}}
+            style={{
+              gridArea: 'viewer'
+            }}
+          >
+            <SubjectTalkViewer
+              login={login}
+              projectId={projectId}
+              projectSlug={projectSlug}
+              subject={subject}
+              userId={userId}
+            />
+          </Box>
+          <Box
+            data-testid='talkData'
+            height={{ max: '90vh', min: '300px' }}
+            style={{ gridArea: 'talkData' }}
+          >
+            <SubjectTalkData
+              login={login}
+              projectId={projectId}
+              subjectId={subjectId}
+            />
+          </Box>
         </ContainerGrid>
         <Box
           as='aside'
