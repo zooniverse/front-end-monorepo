@@ -21,7 +21,7 @@
     "prepare": "yarn build:cjs && yarn build:es6",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_ENV=test vitest run",
-    "test:ci": "NODE_ENV=test vitest run --silent=passed-only --reporter=dot",
+    "test:ci": "NODE_ENV=test vitest run --reporter=basic --silent='passed-only' --hideSkippedTests",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

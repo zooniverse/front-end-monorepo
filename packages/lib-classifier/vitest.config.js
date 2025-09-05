@@ -21,11 +21,11 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    reporters: 'default',
+    reporters: ['default'],
     setupFiles: './test/setup.js',
-    // silent: 'passed-only',
     // you might want to disable the css propery here, if you don't have tests that rely on CSS since parsing CSS is slow
     css: true,
+    // silent: 'passed-only', // use this to silence console logs or errors except for tests tha failed
     // testTimeout: 10000 // default is 5000ms, and some tests are known to occasionally take longer than 5000ms
     }
 })
