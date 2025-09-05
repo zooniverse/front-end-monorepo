@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import radialReducer from './reducer'
 
 describe('feedback drawing radial reducer', function () {

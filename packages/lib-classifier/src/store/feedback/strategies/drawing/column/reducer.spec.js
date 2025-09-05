@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import columnReducer from './reducer'
 
 describe('feedback drawing column reducer', function () {

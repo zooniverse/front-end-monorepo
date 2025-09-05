@@ -16,18 +16,18 @@ describe('Function > allowIdentification', function () {
   })
 
   it('should return true if there are no questions', function () {
-    expect(allowIdentification({}, 'FR', mockTask)).to.be.true()
+    expect(allowIdentification({}, 'FR', mockTask)).to.equal(true)
   })
 
   it('should return true if the questions are not required', function () {
-    expect(allowIdentification({}, 'HMN', mockTask)).to.be.true()
+    expect(allowIdentification({}, 'HMN', mockTask)).to.equal(true)
   })
 
   it('should return true if required questions are complete', function () {
-    expect(allowIdentification({ HWMN: '3', WHTBHVRSDS: ['MVNG'] }, 'BFFL', mockTask)).to.be.true()
+    expect(allowIdentification({ HWMN: '3', WHTBHVRSDS: ['MVNG'] }, 'BFFL', mockTask)).to.equal(true)
   })
 
   it('should return false if any required questions are incomplete', function () {
-    expect(allowIdentification({}, 'BFFL', mockTask)).to.be.false()
+    expect(allowIdentification({}, 'BFFL', mockTask)).to.equal(false)
   })
 })

@@ -36,7 +36,7 @@ describe('Helpers > createLocationCounts', function () {
   describe('when the mime types are valid', function () {
     it('should return an object', function () {
       const result1 = createLocationCounts(mockSubject(mockLocations1))
-      expect(result1 !== null && typeof result1 === 'object').to.be.true()
+      expect(result1 !== null && typeof result1 === 'object').to.equal(true)
     })
 
     it('should return a total location count', function () {

@@ -4,7 +4,6 @@ import asyncStates from '@zooniverse/async-states'
 import { applySnapshot } from 'mobx-state-tree'
 
 import FieldGuideStore from './FieldGuideStore'
-import ProjectStore from '@store/ProjectStore'
 
 import {
   ProjectFactory,
@@ -58,12 +57,12 @@ describe('Model > FieldGuideStore', function () {
       store.client.panoptes = panoptesClientStub.panoptes
       applySnapshot(store.projects, { active: undefined, resources: {}})
       expect(store.fieldGuide.loadingState).to.equal(asyncStates.loading)
-      expect(store.client.panoptes.get).to.have.not.been.called()
+      expect(store.client.panoptes.get).to.have.not.been.called
     })
   })
 
   describe('when there is a project', function () {
-    it('should set the field guide', function (done) {
+    it('should set the field guide', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -76,13 +75,13 @@ describe('Model > FieldGuideStore', function () {
       const fieldGuideStore = setupStores(panoptesClientStub)
 
       expect(fieldGuideStore.loadingState).to.equal(asyncStates.loading)
-      expect(fieldGuideStore.active).to.be.undefined()
+      expect(fieldGuideStore.active).to.equal(undefined)
 
-      fieldGuideStore.fetchFieldGuide(project.id).then(() => {
-        const fieldGuideInStore = fieldGuideStore.active
-        expect(fieldGuideInStore.id).to.deep.equal(fieldGuide.id)
-        expect(fieldGuideStore.loadingState).to.equal(asyncStates.success)
-      }).then(done, done)
+      await fieldGuideStore.fetchFieldGuide(project.id)
+
+      const fieldGuideInStore = fieldGuideStore.active
+      expect(fieldGuideInStore.id).to.deep.equal(fieldGuide.id)
+      expect(fieldGuideStore.loadingState).to.equal(asyncStates.success)
     })
   })
 
@@ -99,10 +98,10 @@ describe('Model > FieldGuideStore', function () {
       }
       const fieldGuideStore = setupStores(panoptesClientStub)
       const fetchStub = panoptesClientStub.panoptes.get.withArgs('/field_guides', { project_id: project.id })
-      expect(fetchStub).to.have.been.calledOnce()
+      expect(fetchStub).to.have.been.calledOnce
     })
 
-    it('should not request for media or set the resources if there are not a field guide in the response', function (done) {
+    it('should not request for media or set the resources if there are not a field guide in the response', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -116,11 +115,8 @@ describe('Model > FieldGuideStore', function () {
 
       expect(fieldGuideStore.loadingState).to.equal(asyncStates.loading)
 
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          expect(fieldGuideStore.loadingState).to.equal(asyncStates.success)
-        })
-        .then(done, done)
+      await fieldGuideStore.fetchFieldGuide(project.id)
+      expect(fieldGuideStore.loadingState).to.equal(asyncStates.success)
     })
 
     it.skip('should request for the media if there is a field guide', function () {
@@ -136,10 +132,10 @@ describe('Model > FieldGuideStore', function () {
       const fieldGuideStore = setupStores(panoptesClientStub)
       const fetchStub = panoptesClientStub.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)
 
-      expect(fetchStub).to.have.been.calledOnce()
+      expect(fetchStub).to.have.been.calledOnce
     })
 
-    it.skip('should call setResources and setActive if there is a field guide', function (done) {
+    it.skip('should call setResources and setActive if there is a field guide', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -154,17 +150,14 @@ describe('Model > FieldGuideStore', function () {
       const setResourcesSpy = sinon.spy(fieldGuideStore, 'setResources')
       const setActiveSpy = sinon.spy(fieldGuideStore, 'setActive')
 
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          expect(setResourcesSpy).to.have.been.calledOnceWith([fieldGuide])
-          expect(setActiveSpy).to.have.been.calledOnceWith(fieldGuide.id)
-        }).then(() => {
-          setResourcesSpy.restore()
-          setActiveSpy.restore()
-        }).then(done, done)
+      await fieldGuideStore.fetchFieldGuide(project.id)
+      expect(setResourcesSpy).to.have.been.calledOnceWith([fieldGuide])
+      expect(setActiveSpy).to.have.been.calledOnceWith(fieldGuide.id)
+      setResourcesSpy.restore()
+      setActiveSpy.restore()
     })
 
-    it('should set the loadingState to error if the request errors', function (done) {
+    it('should set the loadingState to error if the request errors', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake(() => {
@@ -175,15 +168,13 @@ describe('Model > FieldGuideStore', function () {
       const fieldGuideStore = setupStores(panoptesClientStub)
       expect(fieldGuideStore.loadingState).to.equal(asyncStates.loading)
 
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          expect(fieldGuideStore.loadingState).to.equal(asyncStates.error)
-        }).then(done, done)
+      await fieldGuideStore.fetchFieldGuide(project.id)
+      expect(fieldGuideStore.loadingState).to.equal(asyncStates.error)
     })
   })
 
   describe.skip('Actions > fetchMedia', function () {
-    it('should not call setMediaResources if there is no media in the response', function (done) {
+    it('should not call setMediaResources if there is no media in the response', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -197,15 +188,12 @@ describe('Model > FieldGuideStore', function () {
 
       const setMediaResourcesSpy = sinon.spy(fieldGuideStore, 'setMediaResources')
 
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called()
-        }).then(() => {
-          setMediaResourcesSpy.restore()
-        }).then(done, done)
+      await fieldGuideStore.fetchFieldGuide(project.id)
+      expect(setMediaResourcesSpy).to.have.not.been.called
+      setMediaResourcesSpy.restore()
     })
 
-    it.skip('should call setMediaResources if there is media in the response', function (done) {
+    it.skip('should call setMediaResources if there is media in the response', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -219,12 +207,9 @@ describe('Model > FieldGuideStore', function () {
 
       const setMediaResourcesSpy = sinon.spy(fieldGuideStore, 'setMediaResources')
 
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
-        }).then(() => {
-          setMediaResourcesSpy.restore()
-        }).then(done, done)
+      await fieldGuideStore.fetchFieldGuide(project.id)
+      expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
+      setMediaResourcesSpy.restore()
     })
   })
 
@@ -248,7 +233,7 @@ describe('Model > FieldGuideStore', function () {
       expect(fieldGuideStore.attachedMedia.size).to.equal(1)
 
       fieldGuideStore.reset()
-      expect(fieldGuideStore.active).to.be.undefined()
+      expect(fieldGuideStore.active).to.equal(undefined)
       expect(fieldGuideStore.resources.size).to.equal(0)
       expect(fieldGuideStore.attachedMedia.size).to.equal(0)
     })

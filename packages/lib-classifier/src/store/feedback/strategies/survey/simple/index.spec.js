@@ -1,8 +1,4 @@
-import chai from 'chai'
-
 import index from './index'
-
-const expect = chai.expect
 
 describe('Feedback > Survey > Simple > Index', function () {
   it('should have a `createRule` property', function () {
@@ -18,11 +14,11 @@ describe('Feedback > Survey > Simple > Index', function () {
   })
 
   it('should have a `labComponent` property', function () {
-    expect(index.labComponent).to.be.null()
+    expect(index.labComponent).to.equal(null)
   })
 
   it('should have a `validations` property', function () {
-    expect(index.validations).to.be.null()
+    expect(index.validations).to.equal(null)
   })
 
   it('should have a `reducer` property', function () {

@@ -1,4 +1,4 @@
-import LineTool from './LineTool'
+import { LineTool } from '@plugins/drawingTools/models/tools'
 
 const line = {
   color: '#ff0000',
@@ -11,7 +11,7 @@ const line = {
 describe('Model > DrawingTools > Line', function () {
   it('should exist', function () {
     const lineToolInstance = LineTool.create(line)
-    expect(lineToolInstance).to.exist()
+    expect(lineToolInstance).to.exist
     expect(lineToolInstance).to.be.an('object')
   })
 

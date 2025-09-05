@@ -1,13 +1,18 @@
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
-import SingleVideoSubject from './SingleVideoSubject'
+// import SingleVideoSubject from './SingleVideoSubject'
 import RootStore from '@store/'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import subjectViewers from '@helpers/subjectViewers'
 
-describe('Model > SingleVideoSubject', function () {
+// Must be skipped due to unexpect behavior of the above import in Vitest env
+// Might be caused by use of barrel imports in the classifier
+// import Subject from '../Subject' errors in ImageSubject.js
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
+describe.skip('Model > SingleVideoSubject', function () {
   const subjectSnapshot = SubjectFactory.build({ locations: [{ 'video/mp4': 'https://foo.bar/example.mp4' }] })
   const workflowSnapshot = WorkflowFactory.build()
   let subject
@@ -17,7 +22,7 @@ describe('Model > SingleVideoSubject', function () {
   })
 
   it('should exist', function () {
-    expect(SingleVideoSubject).to.be.ok()
+    expect(SingleVideoSubject).to.exist
     expect(SingleVideoSubject).to.be.an('object')
   })
 

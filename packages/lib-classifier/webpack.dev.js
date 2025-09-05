@@ -53,10 +53,11 @@ module.exports = {
       '@translations': path.resolve(__dirname, 'src/translations'),
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     },
+    extensions: ['.jsx', '.js', '...'],
     fallback: {
       fs: false,
       // for markdown-it plugins
-      path: require.resolve("path-browserify"),
+      path: 'path-browserify',
       process: false,
     }
   },
@@ -64,6 +65,14 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'babel-loader',
+          options: { compact: false }
+        }]
+      },
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',

@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
 import metadataToRules from './metadata-to-rules'
 
@@ -63,14 +62,14 @@ describe('feedback: metadataToRules', function () {
       const improperMetadataSubject = mockSubjectWithRuleNonIntegerN(0)
       metadataToRules(improperMetadataSubject.metadata)
 
-      expect(logError).to.have.been.calledThrice()
+      expect(logError).to.have.been.calledThrice
       expect(logError).to.have.been.calledWith('Subject metadata feedback rule index [1] is improperly formatted. The feedback rule index should be an integer.')
     })
   })
 
   describe('with undefined metadata', function () {
     it('should generate an empty rules object', function () {
-      expect(metadataToRules()).to.be.empty()
+      expect(Object.keys(metadataToRules()).length).to.equal(0)
     })
   })
 })

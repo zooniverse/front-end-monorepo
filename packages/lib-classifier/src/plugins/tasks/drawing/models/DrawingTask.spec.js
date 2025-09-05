@@ -1,8 +1,6 @@
 import { applySnapshot, getSnapshot, types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/drawing'
 import SHOWN_MARKS from '@helpers/shownMarks'
-import sinon from 'sinon'
-import { expect } from 'chai'
 
 describe('Model > DrawingTask', function () {
   const details = [
@@ -89,7 +87,7 @@ describe('Model > DrawingTask', function () {
 
   it('should exist', function () {
     const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-    expect(drawingTask).to.be.ok()
+    expect(drawingTask).to.exist
     expect(drawingTask).to.be.an('object')
   })
 
@@ -191,7 +189,7 @@ describe('Model > DrawingTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T3')
       expect(annotation.taskType).to.equal('drawing')
     })
@@ -212,14 +210,14 @@ describe('Model > DrawingTask', function () {
       })
 
       it('should return isComplete of false for under minimum tool mark count', function () {
-        expect(task.isComplete()).to.be.false()
+        expect(task.isComplete()).to.equal(false)
       })
 
       it('should return isComplete of true for over minimum tool mark count', function () {
         task.tools[0].createMark({ id: 'point1' })
         task.tools[0].createMark({ id: 'point2' })
 
-        expect(task.isComplete()).to.be.true()
+        expect(task.isComplete()).to.equal(true)
       })
     })
 
@@ -233,7 +231,7 @@ describe('Model > DrawingTask', function () {
       })
 
       it('should return isComplete of false', function () {
-        expect(task.isComplete()).to.be.false()
+        expect(task.isComplete()).to.equal(false)
       })
     })
 
@@ -251,7 +249,7 @@ describe('Model > DrawingTask', function () {
       it('should return isComplete of true', function () {
         mark.addAnnotation(singleTask, 1)
 
-        expect(task.isComplete()).to.be.true()
+        expect(task.isComplete()).to.equal(true)
       })
     })
   })
@@ -284,7 +282,7 @@ describe('Model > DrawingTask', function () {
     })
 
     it('should be undefined by default', function () {
-      expect(drawingTask.activeMark).to.be.undefined()
+      expect(drawingTask.activeMark).to.equal(undefined)
     })
 
     it('should be set from stored marks', function () {
@@ -371,7 +369,7 @@ describe('Model > DrawingTask', function () {
     })
 
     it('should reset the subtask visiblity', function () {
-      expect(task.subTaskVisibility).to.be.false()
+      expect(task.subTaskVisibility).to.equal(false)
     })
 
     describe('on deleting a mark', function () {
@@ -446,20 +444,14 @@ describe('Model > DrawingTask', function () {
 
     describe('computing validity for all of the tools marks', function () {
       it('should return true when all marks are valid', function () {
-        expect(task.isValid).to.be.true()
+        expect(task.isValid).to.equal(true)
       })
 
       it('should return false when there is an invalid mark for any of the tools', function () {
-        expect(task.isValid).to.be.true()
+        expect(task.isValid).to.equal(true)
         task.tools[1].createMark({ id: 'line1' })
-        expect(task.isValid).to.be.false()
+        expect(task.isValid).to.equal(false)
       })
-    })
-
-    it.skip('should call validate for each tool', function () {
-      task.validate()
-      expect(pointToolValidateSpy).to.have.been.calledOnce()
-      expect(lineToolValidateSpy).to.have.been.calledOnce()
     })
   })
 })

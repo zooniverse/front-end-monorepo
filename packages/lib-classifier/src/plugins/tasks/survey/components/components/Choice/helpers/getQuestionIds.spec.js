@@ -22,7 +22,7 @@ describe('Function > getQuestionIds', function () {
 
   it('should return the task questionsOrder if the choice is not included in the task questionsMap', function () {
     expect(getQuestionIds('LPHNT', mockTask)).to.have.lengthOf(3)
-    expect(getQuestionIds('LPHNT', mockTask)).to.be.equal(mockTask.questionsOrder)
+    expect(getQuestionIds('LPHNT', mockTask)).to.equal(mockTask.questionsOrder)
   })
 
   it('should return the task questionsMap for the choice if the choice is included in the task questionsMap', function () {

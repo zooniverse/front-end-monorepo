@@ -37,6 +37,12 @@ flowchart TB
 ## Classifier Hooks
 [Hooks](/packages/lib-classifier/src/hooks/README.md) are a collection of utility functions for the `Classifier`.
 
+## Tests
+
+`yarn test` to run Vitest tests.
+
+`yarn test FlipbookViewer.spec.jsx` to test one file at a time.
+
 ## Contributing
 
 ### Docker
@@ -73,7 +79,6 @@ d3.js should only be used for the interactive subject viewer visualizations and 
 
     Testing uses:
 
-  - [Mocha](https://mochajs.org/) - test runner
-  - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
-  - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
-  - [Enzyme](https://airbnb.io/enzyme/) - testing utility for React
+  - [Vitest](https://vitest.dev)
+  - [React Testing Library](https://testing-library.com)
+  - [Storybook](https://storybook.js.org)

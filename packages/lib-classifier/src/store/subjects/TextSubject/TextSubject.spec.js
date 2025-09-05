@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
@@ -30,7 +29,7 @@ describe('Model > TextSubject', function () {
   })
 
   it('should exist', function () {
-    expect(TextSubject).to.be.ok()
+    expect(TextSubject).to.exist
     expect(TextSubject).to.be.an('object')
   })
 

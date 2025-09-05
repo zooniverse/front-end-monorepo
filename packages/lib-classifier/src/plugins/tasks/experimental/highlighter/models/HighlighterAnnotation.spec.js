@@ -9,12 +9,12 @@ describe('Model > HighlighterAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(highlighterAnnotation).to.be.ok()
+      expect(highlighterAnnotation).to.exist
       expect(highlighterAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(highlighterAnnotation.isComplete).to.be.false()
+      expect(highlighterAnnotation.isComplete).to.equal(false)
     })
   })
 
@@ -35,12 +35,12 @@ describe('Model > HighlighterAnnotation', function () {
     })
 
     it('should exist', function () {
-      expect(highlighterAnnotation).to.be.ok()
+      expect(highlighterAnnotation).to.exist
       expect(highlighterAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(highlighterAnnotation.isComplete).to.be.true()
+      expect(highlighterAnnotation.isComplete).to.equal(true)
     })
   })
 
@@ -69,7 +69,7 @@ describe('Model > HighlighterAnnotation', function () {
       expect(highlighterAnnotation.value.length).to.equal(2)
 
       highlighterAnnotation.deleteHighlight(0)
-      
+
       expect(highlighterAnnotation.value.length).to.equal(1)
       expect(highlighterAnnotation.value[0].text).to.equal('This is another test')
     })

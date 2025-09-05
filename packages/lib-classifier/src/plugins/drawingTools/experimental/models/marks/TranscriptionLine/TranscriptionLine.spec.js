@@ -23,7 +23,7 @@ describe('Models > Drawing Task > Marks > TranscriptionLine', function () {
   })
 
   it('should exist', function () {
-    expect(mark).to.be.ok()
+    expect(mark).to.exist
   })
 
   it('should have a TranscriptionLineTool parent', function () {
@@ -51,11 +51,11 @@ describe('Models > Drawing Task > Marks > TranscriptionLine', function () {
     })
 
     it('should not be finished', function () {
-      expect(mark.finished).to.be.false()
+      expect(mark.finished).to.equal(false)
     })
 
     it('should not be valid', function () {
-      expect(mark.isValid).to.be.false()
+      expect(mark.isValid).to.equal(false)
     })
   })
 
@@ -98,12 +98,12 @@ describe('Models > Drawing Task > Marks > TranscriptionLine', function () {
     })
 
     it('is valid', function () {
-      expect(mark.isValid).to.be.true()
+      expect(mark.isValid).to.equal(true)
     })
 
     it('can be finished', function () {
       mark.finish()
-      expect(mark.finished).to.be.true()
+      expect(mark.finished).to.equal(true)
     })
 
     it('has length', function () {
@@ -130,7 +130,7 @@ describe('Models > Drawing Task > Marks > TranscriptionLine', function () {
       expect(mark.y1).to.equal(pointOne.y + diff.y)
       expect(mark.y2).to.equal(pointTwo.y + diff.y)
     })
-    
+
     it('can set both points\' coordinates', function () {
       const newCoordinates = { x1: 36, y1: 74, x2: 47, y2: 103 }
       mark.setCoordinates(newCoordinates)

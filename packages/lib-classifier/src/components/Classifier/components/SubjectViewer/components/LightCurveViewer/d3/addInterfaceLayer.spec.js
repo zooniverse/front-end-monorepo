@@ -27,11 +27,11 @@ describe('LightCurveViewer > d3 > addInterfaceLayer', function () {
 
   it('should append a rect with the correct attributes and style to the selection', function () {
     addInterfaceLayer(selectionFixture)
-    expect(appendStub.withArgs('rect')).to.have.been.calledOnce()
-    expect(attrStub.withArgs('class', 'interface-layer')).to.have.been.calledOnce()
-    expect(attrStub.withArgs('width', '100%')).to.have.been.calledOnce()
-    expect(attrStub.withArgs('height', '100%')).to.have.been.calledOnce()
-    expect(styleStub.withArgs('fill', 'none')).to.have.been.calledOnce()
-    expect(styleStub.withArgs('pointer-events', 'all')).to.have.been.calledOnce()
+    expect(appendStub.withArgs('rect')).to.have.been.calledOnce
+    expect(attrStub.withArgs('class', 'interface-layer')).to.have.been.calledOnce
+    expect(attrStub.withArgs('width', '100%')).to.have.been.calledOnce
+    expect(attrStub.withArgs('height', '100%')).to.have.been.calledOnce
+    expect(styleStub.withArgs('fill', 'none')).to.have.been.calledOnce
+    expect(styleStub.withArgs('pointer-events', 'all')).to.have.been.calledOnce
   })
 })

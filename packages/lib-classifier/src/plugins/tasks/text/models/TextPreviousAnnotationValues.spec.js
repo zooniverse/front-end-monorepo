@@ -13,7 +13,7 @@ describe('Model > TextPreviousAnnotationValues', function () {
 
   it('should exist', function () {
     const model = TextPreviousAnnotationValues.create(textPreviousAnnotationValues)
-    expect(model).to.be.ok()
+    expect(model).to.exist
     expect(model).to.be.an('object')
   })
 
@@ -32,6 +32,6 @@ describe('Model > TextPreviousAnnotationValues', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 })

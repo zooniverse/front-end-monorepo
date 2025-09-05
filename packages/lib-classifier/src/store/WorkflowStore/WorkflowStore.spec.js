@@ -34,7 +34,7 @@ describe('Model > WorkflowStore', function () {
       tutorials: {},
       workflowSteps: {},
       userProjectPreferences: {}
-    }, { client: clientStub, authClient: { 
+    }, { client: clientStub, authClient: {
       checkBearerToken: () => Promise.resolve(),
       checkCurrent: () => Promise.resolve(),
       listen: sinon.stub()
@@ -89,8 +89,8 @@ describe('Model > WorkflowStore', function () {
       })
 
       it('should set the active workflow to a random active workflow', function () {
-        expect(projectWithoutDefault.configuration.default_workflow).to.be.undefined()
-        expect(projectWithoutDefault.links.active_workflows.includes(rootStore.workflows.active.id)).to.be.true()
+        expect(projectWithoutDefault.configuration.default_workflow).to.equal(undefined)
+        expect(projectWithoutDefault.links.active_workflows.includes(rootStore.workflows.active.id)).to.equal(true)
       })
     })
   })
@@ -123,7 +123,7 @@ describe('Model > WorkflowStore', function () {
 
       it('should not have an active subject set', function () {
         const workflow = rootStore.workflows.active
-        expect(workflow.subjectSetId).to.be.undefined()
+        expect(workflow.subjectSetId).to.equal(undefined)
       })
     })
 
@@ -210,7 +210,7 @@ describe('Model > WorkflowStore', function () {
 
       it('should request the selected subject from Panoptes', function () {
         const query = { ids: subjectID, workflow_id: workflowID }
-        expect(panoptesClientStub.panoptes.get.withArgs('/subjects/selection', query)).to.have.been.calledOnce()
+        expect(panoptesClientStub.panoptes.get.withArgs('/subjects/selection', query)).to.have.been.calledOnce
       })
     })
 
@@ -240,7 +240,7 @@ describe('Model > WorkflowStore', function () {
           expect(e.message).to.equal(`unable to load workflow 101 for project ${projectWithoutDefault.id}`)
           errorThrown = true
         }
-        expect(errorThrown).to.be.true()
+        expect(errorThrown).to.equal(true)
       })
     })
   })

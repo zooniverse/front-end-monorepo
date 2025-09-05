@@ -17,7 +17,7 @@ describe('Model > SingleChoiceTask', function () {
 
   it('should exist', function () {
     const singleChoiceTaskInstance = SingleChoiceTask.TaskModel.create(singleChoiceTask)
-    expect(singleChoiceTaskInstance).to.be.ok()
+    expect(singleChoiceTaskInstance).to.exist
     expect(singleChoiceTaskInstance).to.be.an('object')
   })
 
@@ -28,7 +28,7 @@ describe('Model > SingleChoiceTask', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe('with an annotation', function () {
@@ -41,7 +41,7 @@ describe('Model > SingleChoiceTask', function () {
     })
 
     it('should start up with a null value', function () {
-      expect(annotation.value).to.be.null()
+      expect(annotation.value).to.equal(null)
     })
 
     it('should update annotations', function () {
@@ -59,7 +59,7 @@ describe('Model > SingleChoiceTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T1')
       expect(annotation.taskType).to.equal('single')
     })
@@ -83,14 +83,14 @@ describe('Model > SingleChoiceTask', function () {
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete(annotation)).to.be.false()
+        expect(task.isComplete(annotation)).to.equal(false)
       })
     })
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
         annotation.update(1)
-        expect(task.isComplete(annotation)).to.be.true()
+        expect(task.isComplete(annotation)).to.equal(true)
       })
     })
   })

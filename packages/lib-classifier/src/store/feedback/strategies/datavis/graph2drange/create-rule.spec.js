@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import createRule from './create-rule'
 
 describe('feedback drawing graph2drange create-rule', function () {

@@ -1,11 +1,8 @@
 import {
-  addDisposer,
-  getRoot,
   getParentOfType,
-  isValidReference,
   types
 } from 'mobx-state-tree'
-import { Rectangle as RectangleComponent } from '../../../components/'
+import { Rectangle as RectangleComponent } from '@plugins/drawingTools/components'
 import { RectangleTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'

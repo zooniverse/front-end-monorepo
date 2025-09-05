@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import getDataSeriesSymbol from './getDataSeriesSymbol'
 import glyphComponents from './glyphComponents'
 

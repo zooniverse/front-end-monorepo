@@ -25,5 +25,5 @@ jobs:
       - run: yarn workspace @zooniverse/subject-viewers build
       - run: yarn workspace @zooniverse/react-components build
       - run: yarn workspace @zooniverse/user build
-      - run: yarn workspace @zooniverse/classifier build:cjs
+      - run: yarn workspace @zooniverse/classifier build
       - run: yarn test:ci

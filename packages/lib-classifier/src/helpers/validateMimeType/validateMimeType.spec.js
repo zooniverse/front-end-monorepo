@@ -36,7 +36,7 @@ describe('Helpers > validateMimeType', function () {
   describe('valid mime types', function () {
     it('should return true', function () {
       validMimeTypes.forEach((mimeType) => {
-        expect(validateMimeType(mimeType)).to.be.true()
+        expect(validateMimeType(mimeType)).to.equal(true)
       })
     })
   })
@@ -44,7 +44,7 @@ describe('Helpers > validateMimeType', function () {
   describe('invalid mime types', function () {
     it('should return false', function () {
       invalidMimeTypes.forEach((mimeType) => {
-        expect(validateMimeType(mimeType)).to.be.false()
+        expect(validateMimeType(mimeType)).to.equal(false)
       })
     })
 
