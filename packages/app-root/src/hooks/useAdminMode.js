@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
+import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 
 const isBrowser = typeof window !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : null
 const storedAdminFlag = !!localStorage?.getItem('adminFlag')
 const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25px,#ff0 50px) 5'
 
-export default function useAdminMode(user) {
+export default function useAdminMode() {
+  const { data: user, error, isLoading } = usePanoptesUser()
   const [adminState, setAdminState] = useState(storedAdminFlag)
-  const userIsLoaded = user !== undefined
+  const userIsLoaded = !isLoading && !error
   const userIsLoggedIn = !!user?.id
   const userIsAdmin = userIsLoggedIn && user?.admin
   const adminMode = userIsLoaded && userIsAdmin && adminState
