@@ -827,7 +827,6 @@ describe('components > ClassifierContainer', function () {
     beforeEach(async function () {
       cleanStore()
       sinon.replace(window, 'Image', MockSubjectImage)
-      const roles = []
       const frenchStrings = { ...workflowStrings }
       Object.entries(frenchStrings).forEach(([key, value]) => {
         const frenchValue = `${value} - French translation.`
@@ -896,7 +895,7 @@ describe('components > ClassifierContainer', function () {
         }
       )
       await waitFor(() => {
-        const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
+        const subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
         expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       })
 
