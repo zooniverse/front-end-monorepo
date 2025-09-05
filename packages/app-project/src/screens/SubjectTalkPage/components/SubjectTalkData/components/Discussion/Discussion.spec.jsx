@@ -27,27 +27,27 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Discussion', function 
 
   it('should show a link to the related board', async function () {
     const boardLink = await screen.getByRole('link', { name: 'Test Board' })
-    expect(boardLink).to.exist()
+    expect(boardLink).toBeDefined()
   })
 
   it('should show a link to the discussion', async function () {
     const discussionLink = await screen.getByRole('link', { name: 'Test Discussion' })
-    expect(discussionLink).to.exist()
+    expect(discussionLink).toBeDefined()
   })
 
   it('should show a "Newest First" button', async function () {
     const sortButton = await screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
-    expect(sortButton).to.exist()
+    expect(sortButton).toBeDefined()
   })
 
   describe('when the sort button is clicked', function () {
     it('should show an "Oldest First" button', async function () {
       const sortButton = await screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
-      expect(sortButton).to.exist()
+      expect(sortButton).toBeDefined()
       fireEvent.click(sortButton)
       await waitFor(() => {
         const newSortButton = screen.getByRole('button', { name: 'Talk.sortedOldestFirst' })
-        expect(newSortButton).to.exist()
+        expect(newSortButton).toBeDefined()
       })
     })
   })
