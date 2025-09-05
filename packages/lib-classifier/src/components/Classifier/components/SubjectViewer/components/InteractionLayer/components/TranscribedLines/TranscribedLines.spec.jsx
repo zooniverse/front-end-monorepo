@@ -16,6 +16,7 @@ import mockStore from '@test/mockStore/mockStore.js'
 // import TranscribedLines from '.'
 
 // Must be skipped due to unexpect behavior of the above import in Vitest env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Component > TranscribedLines', function () {
   function withStore(store) {
     return function Wrapper({ children }) {

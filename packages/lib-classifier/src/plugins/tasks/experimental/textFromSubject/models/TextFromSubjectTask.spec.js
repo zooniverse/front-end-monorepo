@@ -1,6 +1,7 @@
 // import TextFromSubjectTask from '@plugins/tasks/experimental/textFromSubject'
 
 // Must be skipped due to unexpect behavior of the above import in Vitest env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Model > TextFromSubjectTask', function () {
   const textFromSubjectTask = {
     strings: {

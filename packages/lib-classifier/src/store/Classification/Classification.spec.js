@@ -8,6 +8,8 @@ import mockStore from '@test/mockStore'
 
 // Must be skipped due to Vitest unable to resolve some of these imports
 // Might be caused by barrel imports in the classifier like import * as tasks from '@plugins/tasks'
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Model > Classification', function () {
   let model
 

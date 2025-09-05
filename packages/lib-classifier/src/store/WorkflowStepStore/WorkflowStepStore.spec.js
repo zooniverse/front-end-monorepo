@@ -14,6 +14,8 @@ import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 // Must be skipped due to unexpect behavior of the above import in Vitest env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Model > WorkflowStepStore', function () {
   it('should exist', function () {
     expect(WorkflowStepStore).to.be.an('object')

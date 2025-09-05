@@ -4,6 +4,7 @@ import Circle from './Circle'
 // import { default as CircleMark } from '../../models/marks/Circle'
 
 // Must be skipped because the above import isn't handled as expected in Vitest's env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Circle tool', function () {
   let mark
   beforeEach(function () {

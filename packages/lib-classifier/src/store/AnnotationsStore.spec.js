@@ -12,6 +12,8 @@ import { applySnapshot } from 'mobx-state-tree'
 
 // Must be skipped because the above imports aren't handled as expected in Vitest's env
 // Might be caused by barrel imports in the classifier like import * as tasks from '@plugins/tasks'
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Model > AnnotationsStore', function () {
   let model
   before(function () {

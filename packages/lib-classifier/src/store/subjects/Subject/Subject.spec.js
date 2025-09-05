@@ -8,6 +8,8 @@ import subjectViewers from '@helpers/subjectViewers'
 import { subjectsSeenThisSession } from '@helpers'
 
 // Must be skipped because of unexpected behavior of the above import in Vitest env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Model > Subject', function () {
   const stub = SubjectFactory.build()
   const workflow = WorkflowFactory.build()

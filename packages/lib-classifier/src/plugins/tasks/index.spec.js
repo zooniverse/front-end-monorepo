@@ -1,5 +1,7 @@
 // import * as tasks from './'
 
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 // Must be skipped due to unexpect behavior of the above import in Vitest env
 // Specfically, textFromSubject does not get imported as expected
 describe.skip('Task models', function () {

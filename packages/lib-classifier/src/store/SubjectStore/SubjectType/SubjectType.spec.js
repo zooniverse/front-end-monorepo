@@ -6,6 +6,8 @@ import { SubjectFactory } from '@test/factories'
 
 // Must be skipped due to Vitest unable to resolve "import * as subjects from '@store/subjects'"
 // The same import statement can be found in SubjectType.js
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Models > SubjectType', function () {
 
   describe('single image subjects', function () {

@@ -3,6 +3,7 @@ import { DeleteButton } from './DeleteButton'
 // import { Point } from '@plugins/drawingTools/models/marks'
 
 // Must be skipped because the above import isn't handled as expected in Vitest's env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Drawing tools > DeleteButton', function () {
   // const mark = Point.create({ id: 'point1', x: 50, y: 50, toolType: 'point' })
 

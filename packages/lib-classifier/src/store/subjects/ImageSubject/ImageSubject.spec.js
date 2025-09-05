@@ -10,6 +10,8 @@ import subjectViewers from '@helpers/subjectViewers'
 // Must be skipped due to unexpect behavior of the above import in Vitest env
 // Might be caused by use of barrel imports in the classifier
 // import Subject from '../Subject' errors in ImageSubject.js
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Model > ImageSubject', function () {
   const subjectSnapshot = SubjectFactory.build({
     locations: [

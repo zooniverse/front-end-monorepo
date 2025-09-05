@@ -4,6 +4,7 @@ import Rectangle from './Rectangle'
 // import { default as RectangleMark } from '../../models/marks/Rectangle'
 
 // Must be skipped because the above import isn't handled as expected in Vitest's env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Rectangle tool', () => {
   let mark
   beforeEach(() => {

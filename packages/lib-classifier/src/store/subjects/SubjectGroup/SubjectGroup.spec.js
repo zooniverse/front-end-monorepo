@@ -1,6 +1,8 @@
 // import SubjectGroup from './SubjectGroup'
 
 // Must be skipped due to unexpect behavior of the above import in Vitest env
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
 describe.skip('Model > SubjectGroup', function () {
   let subjectGroup
 
