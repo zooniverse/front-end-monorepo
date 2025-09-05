@@ -7,17 +7,21 @@ const adminBorderImage = 'repeating-linear-gradient(45deg,#000,#000 25px,#ff0 25
 
 export default function useAdminMode(user) {
   const [adminState, setAdminState] = useState(storedAdminFlag)
-  const adminMode = user?.admin && adminState
+  const userIsLoaded = user !== undefined
+  const userIsLoggedIn = !!user?.id
+  const userIsAdmin = userIsLoggedIn && user?.admin
+  const adminMode = userIsLoaded && userIsAdmin && adminState
 
   useEffect(function onUserChange() {
-    const isAdmin = user?.admin
-    if (isAdmin) {
-      const adminFlag = !!localStorage?.getItem('adminFlag')
-      setAdminState(adminFlag)
-    } else {
-      localStorage?.removeItem('adminFlag')
+    if(userIsLoaded) {
+      if (userIsAdmin) {
+        const adminFlag = !!localStorage?.getItem('adminFlag')
+        setAdminState(adminFlag)
+      } else {
+        localStorage?.removeItem('adminFlag')
+      }
     }
-  }, [user?.admin])
+  }, [userIsAdmin, userIsLoaded])
 
   useEffect(function onAdminChange() {
     if (adminMode) {
