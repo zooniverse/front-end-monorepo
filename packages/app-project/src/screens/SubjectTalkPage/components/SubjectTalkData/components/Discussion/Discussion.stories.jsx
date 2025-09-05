@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { http, HttpResponse } from 'msw'
 
-import Discussion from './Discussion'
+import Discussion from '../Discussion'
 
 function DecoratedStory(Story) {
   return (

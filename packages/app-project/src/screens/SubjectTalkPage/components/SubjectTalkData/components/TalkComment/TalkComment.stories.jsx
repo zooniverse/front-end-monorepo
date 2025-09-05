@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 
-import TalkComment from './TalkComment'
+import TalkComment from '../TalkComment'
 
 export default {
   title: 'Project App / Screens / Subject Talk / Talk Data / TalkComment',
