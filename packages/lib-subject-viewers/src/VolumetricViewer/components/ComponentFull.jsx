@@ -1,9 +1,9 @@
 import { Box } from 'grommet'
-import { Cube } from './Cube.js'
-import { Histogram } from './Histogram.js'
-import { MarkButtons } from './MarkButtons.js'
+import { Cube } from './Cube'
+import { Histogram } from './Histogram'
+import { MarkButtons } from './MarkButtons'
 import { object, string } from 'prop-types'
-import { Plane } from './Plane.js'
+import { Plane } from './Plane'
 import styled, { css } from 'styled-components'
 
 const StyledBox = styled(Box)`
@@ -19,10 +19,10 @@ const StyledBox = styled(Box)`
       color: #000000;
     `
   }
-  
+
   border-radius: 16px;
   width: 100%;
-  
+
   .volume-container {
     background-color: #000000;
     border-radius: 16px;
@@ -57,7 +57,7 @@ const StyledBox = styled(Box)`
       }
     }
   }
-  
+
   @media (width <= 1200px) {
     background: none;
     border: none;

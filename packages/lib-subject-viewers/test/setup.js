@@ -1,14 +1,21 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
-import sinonChai from 'sinon-chai'
 import { JSDOM } from 'jsdom'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setProjectAnnotations } from '@storybook/react'
+import preview from '../.storybook/preview'
 
-chai.use(dirtyChai)
-chai.use(sinonChai)
-global.expect = chai.expect
+// Attachs Story decorator with Grommet theme
+
+setProjectAnnotations(preview)
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom
+
+global.after = afterAll
+global.before = beforeAll
+global.beforeEach = beforeEach
+global.describe = describe
+global.expect = expect
+global.it = it
 
 function copyProps (src, target) {
   const props = Object.getOwnPropertyNames(src)
@@ -26,4 +33,8 @@ global.document = window.document
 global.navigator = {
   userAgent: 'node.js'
 }
+
+window.requestAnimationFrame = () => true // Referenced in Cube.jsx
+// window.devicePixelRatio
+
 copyProps(window, global)

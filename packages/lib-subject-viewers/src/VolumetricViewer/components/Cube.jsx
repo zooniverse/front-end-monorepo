@@ -17,12 +17,12 @@ import {
   WebGLRenderer
 } from 'three'
 import { object } from 'prop-types'
-import { OrbitControls } from './../helpers/OrbitControls.js'
-import { pointColor } from './../helpers/pointColor.js'
-import { SortedSetUnion } from './../helpers/SortedSet.js'
+import { OrbitControls } from '../helpers/OrbitControls'
+import { pointColor } from '../helpers/pointColor.js'
+import { SortedSetUnion } from '../helpers/SortedSet.js'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
-// Shim for node.js testing
+// // Shim for node.js testing
 const glContext = null
 if (!process.browser) {
   window.requestAnimationFrame = () => {
@@ -67,7 +67,6 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
     }
     viewer.on('change:dimension:frame', renderPlanePoints)
     viewer.on('change:threshold', renderPlanePoints)
-    viewer.on('save:screenshot', saveScreenshot)
 
     return () => {
       if (annotations) {
@@ -77,7 +76,6 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
       }
       viewer.off('change:dimension:frame', renderPlanePoints)
       viewer.off('change:threshold', renderPlanePoints)
-      viewer.off('save:screenshot', saveScreenshot)
     }
   }, [])
 
@@ -90,16 +88,6 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
       window.removeEventListener('mousemove', onMouseMove)
     }
   }, [])
-
-  // Save the viewer as a screenshot
-  function saveScreenshot () {
-    const encodedUri = encodeURI(canvasRef.current.toDataURL())
-    const link = document.createElement('a')
-    link.setAttribute('href', encodedUri)
-    link.setAttribute('download', 'brainsweeper.png')
-    document.body.appendChild(link)
-    link.click()
-  }
 
   // Functions that do the actual work
   function setupCube () {
@@ -191,7 +179,7 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
 
       if (intersectionScene.length > 0) {
         let intersectingIndex = intersectionScene.findIndex(o => {
-          return o.object.name.indexOf('Annotation') === 0 
+          return o.object.name.indexOf('Annotation') === 0
             || o.object.name === 'plane'
         })
 
@@ -311,7 +299,7 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
 
     for (let i = 0; i < annotations.annotations.length; i++) {
       const annotation = annotations.annotations[i]
-      if (annotation.points.active.length > 0) 
+      if (annotation.points.active.length > 0)
         addAnnotation({ annotation, annotationIndex: i })
     }
   }
@@ -348,7 +336,7 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
     meshPointIndex,
     point
   }) {
-    // isInactive makes all inactive marks less visible 
+    // isInactive makes all inactive marks less visible
     const isInactive = (annotationIndex === -1)
       ? false
       : (annotations?.config.activeAnnotation !== annotationIndex)

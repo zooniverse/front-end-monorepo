@@ -1,8 +1,8 @@
 import { object } from 'prop-types'
-import { useState } from 'react'
-import { ComponentFull } from '../components/ComponentFull.js'
+import { useEffect, useState } from 'react'
+
+import { ComponentFull } from '../components/ComponentFull'
 import { ModelViewer } from '../models/ModelViewer.js'
-import { useEffect } from 'react'
 import { useVolumetricSubject } from '../../hooks/useVolumetricSubject.js'
 
 export default function VolumetricView ({ subject }) {
@@ -14,7 +14,7 @@ export default function VolumetricView ({ subject }) {
 
     const state = { viewer: ModelViewer() }
     state.viewer.initialize({ data })
-    
+
     setModelState(state)
   }, [data])
 

@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { FormUp, FormDown } from 'grommet-icons'
 import { number, object } from 'prop-types'
-import { pointColor } from './../helpers/pointColor.js'
+import { pointColor } from '../helpers/pointColor.js'
 import { Slider } from './Slider'
 import styled, { css } from 'styled-components'
 import { useEffect, useId, useRef, useState } from 'react'
@@ -39,7 +39,7 @@ const StyledBox = styled(Box)`
   &.plane-container-2 {
     border: 1px solid #235DFF;
   }
-  
+
   .plane-title {
     ${props => props.theme.dark
       ? css`background: linear-gradient(#5C5C5C, #404040);`
@@ -178,11 +178,11 @@ export const Plane = ({
 
     // Draw points that are not in threshold same color as background
     if (viewer.isPointInThreshold({ point }) || annotationIndex !== -1) {
-      // isInactive makes all inactive marks less visible 
+      // isInactive makes all inactive marks less visible
       const isInactive = (annotationIndex === -1)
         ? false
         : (annotations?.config.activeAnnotation !== annotationIndex)
-  
+
       context.fillStyle = pointColor({
         annotationIndex,
         isInactive,
@@ -257,7 +257,7 @@ export const Plane = ({
         </div>
       </button>
       {expanded &&
-        <Box 
+        <Box
           aria-labelledby={`accordion-${planeId}`}
           className='plane-content'
           id={`section-${planeId}`}

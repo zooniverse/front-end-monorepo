@@ -1,13 +1,13 @@
 import { func, object, string } from 'prop-types'
-import { useState } from 'react'
-import { AlgorithmAStar } from '../helpers/AlgorithmAStar'
-import { ComponentFull } from '../components/ComponentFull.js'
+import { useEffect, useState } from 'react'
+import asyncStates from '@zooniverse/async-states'
+
+import { AlgorithmAStar } from '../helpers/AlgorithmAStar.js'
+import { ComponentFull } from '../components/ComponentFull'
 import { ModelViewer } from '../models/ModelViewer.js'
 import { ModelAnnotations } from '../models/ModelAnnotations.js'
 import { ModelTool } from '../models/ModelTool.js'
-import { useEffect } from 'react'
 import { useVolumetricSubject } from '../../hooks/useVolumetricSubject.js'
-import asyncStates from '@zooniverse/async-states'
 
 const DEFAULT_HANDLER = () => {}
 
@@ -49,13 +49,13 @@ export default function VolumetricFull ({
       data,
       tool: state.tool
     })
-    
+
     setModelState(state)
   }, [data])
 
   const isLoading = loadingState === asyncStates.initialized ||
     loadingState === asyncStates.loading ||
-    loading || 
+    loading ||
     modelState === null
   const isError = loadingState === asyncStates.error ||
     error ||
