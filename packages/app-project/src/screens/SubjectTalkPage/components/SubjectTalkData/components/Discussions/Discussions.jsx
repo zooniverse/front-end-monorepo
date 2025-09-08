@@ -90,6 +90,7 @@ function Discussions({
   return (
     <Box
       gap='small'
+      height={{ min: '110px' }}
       pad='small'
     >
       <Box
@@ -159,6 +160,7 @@ function Discussions({
           as='ol'
           border='between'
           gap='60px'
+          overflow={{ vertical: 'scroll' }}
           style={{ listStyle: 'none', margin: 0, padding: 0 }}
         >
           {discussions?.map((discussion) => (

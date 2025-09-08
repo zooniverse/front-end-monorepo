@@ -11,6 +11,7 @@ const StyledHeading = styled(Heading)`
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1.2px;
+  margin: 0;
 `
 
 function SubjectTalkData({
@@ -40,6 +41,8 @@ function SubjectTalkData({
       >
         <Box
           align='start'
+          height={{ min: '60px' }}
+          justify='center'
           pad='small'
           round={{ corner: 'top', size: '8px' }}
         >
@@ -51,6 +54,7 @@ function SubjectTalkData({
           </StyledHeading>
         </Box>
         <Box
+          height={{ min: '110px' }}
           pad='small'
         >
           <SectionHeading
