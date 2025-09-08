@@ -21,6 +21,7 @@ const StyledButton = styled(Button)`
     };
   width: fit-content;
 
+
   &:disabled {
     cursor: not-allowed;
     opacity: 1;
@@ -37,21 +38,25 @@ const StyledButton = styled(Button)`
       : props.theme.global.colors['dark-3']};
     border: none;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
+    padding: 14px 15px;
   }
 `
 
 const StyledText = styled(Text)`
   display: none;
+  min-width: 10px;
 
   ${StyledButton}:hover:not(:disabled) &,
   ${StyledButton}:focus-visible:not(:disabled) & {
-    display: inline;
+    display: inline-block;
     margin-left: 10px;
   }
 `
 
 const StyledVoteCount = styled(Text)`
+  display: inline-block;
   margin-left: 10px;
+  min-width: 10px;
 
   ${StyledButton}:hover:not(:disabled) &,
   ${StyledButton}:focus-visible:not(:disabled) & {
@@ -102,6 +107,8 @@ function Tag({
     message = t('Talk.addVote')
   }
 
+  const padHorizontal = voteCount > 0 ? '15px' : '25px'
+
   return (
     <Tip
       content={<TipContent message={message} />}
@@ -138,7 +145,7 @@ function Tag({
           </>
         )}
         onClick={onClick}
-        pad={{ horizontal: '15px', vertical: '14px' }}
+        pad={{ horizontal: padHorizontal, vertical: '14px' }}
         $userVoted={userVoted}
       />
     </Tip>
