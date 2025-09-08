@@ -22,7 +22,7 @@ import { pointColor } from '../helpers/pointColor.js'
 import { SortedSetUnion } from '../helpers/SortedSet.js'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
-// // Shim for node.js testing
+// Shim for node.js testing
 const glContext = null
 if (!process.browser) {
   window.requestAnimationFrame = () => {
