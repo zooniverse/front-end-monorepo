@@ -2,7 +2,7 @@ import { ModelAnnotations } from './../models/ModelAnnotations'
 
 describe('Component > VolumetricViewer > ModelAnnotations', () => {
   const ANNOTATION_THRESHOLD = 15
-  const model = ModelAnnotations({ onAnnotation: () => {} }) // This should probably be mocked with something like sinon rather than overwritten completely
+  const model = ModelAnnotations({ onAnnotation: () => {} })
   const viewerMock = {
     getPointAnnotationIndex: () => -1,
     setPointsAnnotationIndex: () => {},

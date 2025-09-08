@@ -1,6 +1,6 @@
-import VolumetricFull from './VolumetricFull/VolumetricFull'
-import VolumetricPreview from './VolumetricPreview/VolumetricPreview'
-import VolumetricView from './VolumetricView/VolumetricView'
+import VolumetricFull from './VolumetricFull'
+import VolumetricPreview from './VolumetricPreview'
+import VolumetricView from './VolumetricView'
 
 export default {
   VolumetricFull,
