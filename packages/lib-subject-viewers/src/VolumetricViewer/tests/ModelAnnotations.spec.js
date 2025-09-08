@@ -2,7 +2,7 @@ import { ModelAnnotations } from './../models/ModelAnnotations'
 
 describe('Component > VolumetricViewer > ModelAnnotations', () => {
   const ANNOTATION_THRESHOLD = 15
-  const model = ModelAnnotations({ onAnnotation: () => {} })
+  const model = ModelAnnotations({ onAnnotation: () => {} }) // This should probably be mocked with something like sinon rather than overwritten completely
   const viewerMock = {
     getPointAnnotationIndex: () => -1,
     setPointsAnnotationIndex: () => {},
@@ -10,8 +10,8 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
   }
 
   it('should have initial state', () => {
-    expect(model).to.exist()
-    expect(model.annotations).to.exist()
+    expect(model).to.exist
+    expect(model.annotations).to.exist
     expect(model.annotations.length).to.equal(0)
     expect(model.config).deep.to.equal({
       activeAnnotation: null,
@@ -35,7 +35,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
     })
   })
 
-  it('should create a new annotation', (done) => {
+  it('should create a new annotation', () => {
     const activePoint = 1
 
     const addAnnotationListener = (obj) => {
@@ -46,7 +46,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations.length).to.equal(1)
       expect(obj.annotations[0]).to.equal(obj.annotation)
 
-      expect(obj.annotation.label).to.equal('Annotation 2')
+      expect(obj.annotation.label).to.equal('Annotation 1')
       expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([activePoint])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
@@ -55,15 +55,13 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(model.config.activeAnnotation).to.equal(0)
       expect(model.annotations.length).to.equal(1)
       expect(model.annotations[0]).to.equal(obj.annotation)
-
-      done()
     }
 
     model.on('add:annotation', addAnnotationListener)
     model.actions.annotation.add({ point: activePoint })
   })
 
-  it('should create a second annotation', (done) => {
+  it('should create a second annotation', () => {
     const pointToAdd = 2
 
     const addAnnotationListener = (obj) => {
@@ -75,7 +73,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations[0]).not.to.equal(obj.annotation)
       expect(obj.annotations[1]).to.equal(obj.annotation)
 
-      expect(obj.annotation.label).to.equal('Annotation 3')
+      expect(obj.annotation.label).to.equal('Annotation 2')
       expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([pointToAdd])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
@@ -85,15 +83,13 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(model.annotations.length).to.equal(2)
       expect(model.annotations[0]).not.to.equal(obj.annotation)
       expect(model.annotations[1]).to.equal(obj.annotation)
-
-      done()
     }
 
     model.on('add:annotation', addAnnotationListener)
     model.actions.annotation.add({ point: pointToAdd })
   })
 
-  it('should make the first annotation active', (done) => {
+  it('should make the first annotation active', () => {
     const activeIndex = 0
 
     const activeAnnotationListener = (obj) => {
@@ -101,7 +97,6 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
 
       expect(obj.annotationIndex).to.equal(activeIndex)
       expect(model.config.activeAnnotation).to.equal(obj.annotationIndex)
-      done()
     }
 
     expect(model.config.activeAnnotation).not.to.equal(activeIndex)
@@ -109,7 +104,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
     model.actions.annotation.active({ index: activeIndex })
   })
 
-  it('should remove the first annotation', (done) => {
+  it('should remove the first annotation', () => {
     const updateAnnotationListener = (obj) => {
       model.off('update:annotation', updateAnnotationListener)
 
@@ -118,7 +113,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations.length).to.equal(2)
       expect(obj.annotations[0]).to.equal(obj.annotation)
 
-      expect(obj.annotation.label).to.equal('Annotation 2')
+      expect(obj.annotation.label).to.equal('Annotation 1')
       expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([])
       expect(obj.annotation.points.connected).deep.to.equal([])
@@ -127,8 +122,6 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(model.config.activeAnnotation).to.equal(null)
       expect(model.annotations.length).to.equal(2)
       expect(model.annotations[0]).to.equal(obj.annotation)
-
-      done()
     }
 
     model.on('update:annotation', updateAnnotationListener)
@@ -136,7 +129,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
 
   });
 
-  it('should add a point to no active annotation, creating a new annotation', (done) => {
+  it('should add a point to no active annotation, creating a new annotation', () => {
     const activePoint = 3
 
     const addAnnotationListener = (obj) => {
@@ -147,7 +140,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotations.length).to.equal(3)
       expect(obj.annotations[2]).to.equal(obj.annotation)
 
-      expect(obj.annotation.label).to.equal('Annotation 4')
+      expect(obj.annotation.label).to.equal('Annotation 3')
       expect(obj.annotation.threshold).to.equal(ANNOTATION_THRESHOLD)
       expect(obj.annotation.points.active).deep.to.equal([activePoint])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
@@ -156,15 +149,13 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(model.config.activeAnnotation).to.equal(2)
       expect(model.annotations.length).to.equal(3)
       expect(model.annotations[2]).to.equal(obj.annotation)
-
-      done()
     }
 
     model.on('add:annotation', addAnnotationListener)
     model.actions.point.add({ point: activePoint })
   })
 
-  it('should add a point to an active annotation', (done) => {
+  it('should add a point to an active annotation', () => {
     const activePoint = 4
     const activeIndex = model.config.activeAnnotation
 
@@ -174,21 +165,20 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotationIndex).to.equal(activeIndex)
       expect(obj.annotations.length).to.equal(3)
 
-      expect(obj.annotation.label).to.equal('Annotation 4')
+      expect(obj.annotation.label).to.equal('Annotation 3')
       expect(obj.annotation.points.active).deep.to.equal([3, 4])
       expect(obj.annotation.points.connected).deep.to.equal([[], []])
       expect(obj.annotation.points.all.data).deep.to.equal([])
 
       expect(model.config.activeAnnotation).to.equal(activeIndex)
       expect(model.annotations.length).to.equal(3)
-      done()
     }
 
     model.on('update:annotation', updateAnnotationListener)
     model.actions.point.add({ point: activePoint })
   })
 
-  it('should undo a point to an active annotation', (done) => {
+  it('should undo a point to an active annotation', () => {
     const activeIndex = model.config.activeAnnotation
 
     const updateAnnotationListener = (obj) => {
@@ -197,27 +187,25 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
       expect(obj.annotationIndex).to.equal(activeIndex)
       expect(obj.annotations.length).to.equal(3)
 
-      expect(obj.annotation.label).to.equal('Annotation 4')
+      expect(obj.annotation.label).to.equal('Annotation 3')
       expect(obj.annotation.points.active).deep.to.equal([3])
       expect(obj.annotation.points.connected).deep.to.equal([[]])
       expect(obj.annotation.points.all.data).deep.to.equal([])
 
       expect(model.config.activeAnnotation).to.equal(activeIndex)
       expect(model.annotations.length).to.equal(3)
-      done()
     }
 
     model.on('update:annotation', updateAnnotationListener)
     model.actions.point.undo({ index: activeIndex })
   })
 
-  it('should deactive the current active annotation', (done) => {
+  it('should deactive the current active annotation', () => {
     const activeAnnotationListener = (obj) => {
       model.off('active:annotation', activeAnnotationListener)
 
       expect(obj.annotationIndex).to.equal(null)
       expect(model.config.activeAnnotation).to.equal(null)
-      done()
     }
 
     expect(model.config.activeAnnotation).not.to.equal(null)
@@ -230,7 +218,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
 
     expect(data).deep.to.equal([
       {
-        label: 'Annotation 2',
+        label: 'Annotation 1',
         points: {
           active: [],
           connected: []
@@ -238,7 +226,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
         threshold: ANNOTATION_THRESHOLD
       },
       {
-        label: 'Annotation 3',
+        label: 'Annotation 2',
         points: {
           active: [2],
           connected: [[]]
@@ -246,7 +234,7 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
         threshold: ANNOTATION_THRESHOLD
       },
       {
-        label: 'Annotation 4',
+        label: 'Annotation 3',
         points: {
           active: [3],
           connected: [[]]
@@ -256,28 +244,27 @@ describe('Component > VolumetricViewer > ModelAnnotations', () => {
     ])
   })
 
-  it('should publish data in the correct format', (done) => {
+  it('should publish data in the correct format', () => {
     const publishListener = (data) => {
       expect(data).deep.to.equal([
         {
-          label: 'Annotation 3',
+          label: 'Annotation 2',
           points: {
             active: [{ x: 2, y: 2, z: 2 }],
           },
           threshold: ANNOTATION_THRESHOLD
         },
         {
-          label: 'Annotation 4',
+          label: 'Annotation 3',
           points: {
             active: [{ x: 3, y: 3, z: 3 }],
           },
           threshold: ANNOTATION_THRESHOLD
         }
       ])
-      done()
     }
 
     model.on('publish:annotation', publishListener)
-    model.publishCallback();
+    model.publishCallback()
   })
 })
