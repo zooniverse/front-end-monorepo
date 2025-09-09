@@ -4,6 +4,7 @@ import { Like, LikeFill, Share } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
+import addQueryParams from '@helpers/addQueryParams'
 import Avatar from './components/Avatar'
 
 const markdownComponents = {
@@ -125,7 +126,7 @@ function TalkComment({
           <StyledLink
             a11yTitle={t('Talk.goToComment')}
             gap='xsmall'
-            href={commentLink}
+            href={addQueryParams(commentLink)}
             icon={<Share size='14.667px' />}
             label={<StyledLinkLabel>{t('Talk.goToComment').toUpperCase()}</StyledLinkLabel>}
           />

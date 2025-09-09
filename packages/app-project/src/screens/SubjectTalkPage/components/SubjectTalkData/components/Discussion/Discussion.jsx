@@ -5,6 +5,7 @@ import { number, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
+import addQueryParams from '@helpers/addQueryParams'
 import { useComments, usePanoptesUsers } from '@hooks'
 
 import ParticipantsAndComments from '../ParticipantsAndComments'
@@ -66,7 +67,7 @@ function Discussion({ discussion, login }) {
             pad={{ horizontal:'xxsmall' }}
           >
             <Anchor
-              href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}`}
+              href={addQueryParams(`/projects/${discussion.project_slug}/talk/${discussion.board_id}`)}
               label={discussion.board_title}
               size='1rem'
             />
@@ -75,7 +76,7 @@ function Discussion({ discussion, login }) {
               size='1rem'
             />
             <Anchor
-              href={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`}
+              href={addQueryParams(`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`)}
               label={discussion.title}
               size='1rem'
             />
