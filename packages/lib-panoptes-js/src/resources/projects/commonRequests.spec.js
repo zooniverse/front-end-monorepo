@@ -1,10 +1,9 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const projects = require('./index')
-const { endpoint } = require('./helpers')
-const { config } = require('../../config')
-const { responses } = require('./mocks')
+import projects from './index'
+import { endpoint } from './helpers'
+import { config } from '../../config'
+import { responses } from './mocks'
 
 describe('Projects resource common requests', function () {
   describe('getBySlug', function () {
