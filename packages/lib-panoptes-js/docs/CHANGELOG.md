@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] 2024-03-25
+## [Unreleased] 2025-09-08
+- Replace `mocha` with `vitest`.
+- Uninstall `chai`, `chai-dom`, `sinon-chai`, `dirty-chai`.
+
+## [0.5.2] 2025-04-17
 - Bump `jose` to 5.2.
 - Bump `mocha` to 10.3.
 - Bump `nock` to 13.5.
