@@ -94,7 +94,7 @@ We label issues that are a good place to start for new contributors with [`good 
     component.js
     component.spec.js
     ```
-3. We use Mocha, Enzyme, Sinon and Chai for expectations.
+3. We use Vitest, Sinon, and Nock for tests.
 4. Zooniverse should be accessible to everyone. We aim for our site, and projects, to conform to the [Web Content Accessibility Guidelines level AA](https://webaim.org/standards/wcag/checklist). Please test that your changes are accessible using the keyboard, and work as expected in a screenreader such as VoiceOver or Narrator. Lighthouse, in Chrome dev tools, can also be used to run an accessibility audit of your changes.
 
 ## Where can I ask for help?
