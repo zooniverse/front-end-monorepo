@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] 2025-09-08
 - Replace `mocha` with `vitest`.
-- Uninstall `chai`, `chai-dom`, `sinon-chai`, `dirty-chai`.
+- Uninstall `chai`, `chai-dom`, `sinon-chai`, `dirty-chai`, and `sinon`.
 
 ## [0.5.2] 2025-04-17
 - Bump `jose` to 5.2.
