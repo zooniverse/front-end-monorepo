@@ -18,31 +18,31 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Discussion', function 
   })
   
   beforeEach(function () {
-    render(<DefaultStory {...Default.args} />)
+    render(<DefaultStory />)
   })
 
   after(function () {
     sinon.restore()
   })
 
-  it('should show a link to the related board', async function () {
-    const boardLink = await screen.getByRole('link', { name: 'Test Board' })
+  it('should show a link to the related board', function () {
+    const boardLink = screen.getByRole('link', { name: 'Test Board' })
     expect(boardLink).toBeDefined()
   })
 
-  it('should show a link to the discussion', async function () {
-    const discussionLink = await screen.getByRole('link', { name: 'Test Discussion' })
+  it('should show a link to the discussion', function () {
+    const discussionLink = screen.getByRole('link', { name: 'Test Discussion' })
     expect(discussionLink).toBeDefined()
   })
 
-  it('should show a "Newest First" button', async function () {
-    const sortButton = await screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
+  it('should show a "Newest First" button', function () {
+    const sortButton = screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
     expect(sortButton).toBeDefined()
   })
 
   describe('when the sort button is clicked', function () {
     it('should show an "Oldest First" button', async function () {
-      const sortButton = await screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
+      const sortButton = screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
       expect(sortButton).toBeDefined()
       fireEvent.click(sortButton)
       await waitFor(() => {
