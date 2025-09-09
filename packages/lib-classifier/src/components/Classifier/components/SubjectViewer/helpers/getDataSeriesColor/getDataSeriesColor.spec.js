@@ -54,9 +54,8 @@ describe('Helper > getDataSeriesColor', function () {
       it('should error to the console and return an empty string', function () {
         dataSeriesWithInvalidCustomColor.data.forEach((series) => {
           const color = getDataSeriesColor({ seriesOptions: series.seriesOptions, highlighted: true })
-          expect(logError.withArgs(`Color for data subject viewer is invalid: ${series.seriesOptions.color}`)).to.have.been.calledOnce()
-          expect(color).to.be.a('string')
-          expect(color).to.be.empty()
+          expect(logError.withArgs(`Color for data subject viewer is invalid: ${series.seriesOptions.color}`)).to.have.been.calledOnce
+          expect(color).to.equal('')
         })
       })
     })
@@ -91,9 +90,8 @@ describe('Helper > getDataSeriesColor', function () {
 
       it('should error to the console and return an empty string', function () {
         const color = getDataSeriesColor({ defaultColors: [ 'cccccc' ], highlighted: true })
-        expect(logError.withArgs('Color for data subject viewer is invalid: cccccc')).to.have.been.calledOnce()
-        expect(color).to.be.a('string')
-        expect(color).to.be.empty()
+        expect(logError.withArgs('Color for data subject viewer is invalid: cccccc')).to.have.been.calledOnce
+        expect(color).to.equal('')
       })
     })
   })

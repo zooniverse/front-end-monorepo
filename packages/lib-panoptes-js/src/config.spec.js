@@ -1,21 +1,8 @@
-const { expect } = require('chai')
-const { JSDOM } = require('jsdom')
-const { config, locationMatch } = require('./config')
+import { config, env, locationMatch } from './config'
 
 describe('config.js', function () {
-  let jsdom
-  before(function () {
-    jsdom = new JSDOM('<!doctype html><html><body></body></html>')
-    global.location = jsdom.window.location
-  })
-
-  after(function () {
-    delete global.location
-  })
-
   describe('environment from shell', function () {
     it('should use the value of process.env.NODE_ENV', function () {
-      const { env } = require('./config')
       expect(env).to.equal('test')
     })
 

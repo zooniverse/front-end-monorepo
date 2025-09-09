@@ -1,6 +1,6 @@
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
-import Tool from './Tool'
+import { Tool } from '@plugins/drawingTools/models/tools'
 
 describe('Model > DrawingTools > Tool', function () {
   const toolData = {
@@ -13,10 +13,10 @@ describe('Model > DrawingTools > Tool', function () {
 
   it('should exist', function () {
     const tool = Tool.create(toolData)
-    expect(tool).to.exist()
-    expect(tool).to.be.an('object')
+    expect(tool).to.exist
+    expect(Object.keys(tool).length).not.to.equal(0)
   })
-  
+
   it('should load tool details from a snapshot', function () {
     const details = [
       {
@@ -69,7 +69,7 @@ describe('Model > DrawingTools > Tool', function () {
     const tool = Tool.create(Object.assign({}, toolData, { details }))
     expect(tool.details).to.deep.equal(details)
   })
-  
+
   describe('tool.createMark', function () {
     it('should add a new mark', function () {
       const mark = { id: '1' }
@@ -192,11 +192,11 @@ describe('Model > DrawingTools > Tool', function () {
       })
 
       it('should not create subtasks', function () {
-        expect(tool.tasks).to.be.empty()
+        expect(tool.tasks.length).to.equal(0)
       })
 
       it('should error', function () {
-        expect(consoleStub.withArgs('drawing is not a valid drawing subtask')).to.have.been.calledOnce()
+        sinon.assert.calledOnceWithExactly(consoleStub, 'drawing is not a valid drawing subtask')
       })
     })
   })
@@ -207,7 +207,7 @@ describe('Model > DrawingTools > Tool', function () {
       const tool = Tool.create(toolData)
       tool.createMark(mark)
       tool.deleteMark(mark)
-      expect(tool.marks).to.be.empty()
+      expect(tool.marks.size).to.equal(0) // tool.marks is a mobx Map
     })
   })
 
@@ -219,11 +219,11 @@ describe('Model > DrawingTools > Tool', function () {
     })
 
     it('should be incomplete', function () {
-      expect(tool.isComplete).to.be.false()
+      expect(tool.isComplete).to.equal(false)
     })
 
     it('should not be disabled', function () {
-      expect(tool.disabled).to.be.false()
+      expect(tool.disabled).to.equal(false)
     })
   })
 
@@ -237,11 +237,11 @@ describe('Model > DrawingTools > Tool', function () {
     })
 
     it('should be complete', function () {
-      expect(tool.isComplete).to.be.true()
+      expect(tool.isComplete).to.equal(true)
     })
 
     it('should not be disabled', function () {
-      expect(tool.disabled).to.be.false()
+      expect(tool.disabled).to.equal(false)
     })
   })
 
@@ -250,7 +250,7 @@ describe('Model > DrawingTools > Tool', function () {
       const tool = Tool.create(toolData)
       const ids = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
       ids.forEach(id => tool.createMark({ id }))
-      expect(tool.disabled).to.be.true()
+      expect(tool.disabled).to.equal(true)
     })
   })
 
@@ -263,7 +263,7 @@ describe('Model > DrawingTools > Tool', function () {
     })
 
     it('should compute a reduced validity for all marks belonging to the tool', function () {
-      expect(tool.isValid).to.be.true()
+      expect(tool.isValid).to.equal(true)
     })
 
     it('should delete invalid marks', function () {

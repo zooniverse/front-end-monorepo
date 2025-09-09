@@ -1,10 +1,9 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const { config } = require('../../config')
-const { responses } = require('./mocks')
-const { queuedEndpoint } = require('./helpers')
-const subjects = require('./index')
+import { config } from '../../config'
+import { responses } from './mocks'
+import { queuedEndpoint } from './helpers'
+import subjects from './index'
 
 describe('Subjects resource common requests', function () {
   describe('getSubjectQueue', function () {
@@ -56,7 +55,7 @@ describe('Subjects resource common requests', function () {
 
     it('should use the subject set id in the request query params if defined', async function () {
       const response = await subjects.getSubjectQueue({ subjectSetId: '40', workflowId: '10' })
-      expect(response.req.path.includes('subject_set_id=40')).to.be.true()
+      expect(response.req.path.includes('subject_set_id=40')).to.equal(true)
     })
 
     it('should add the Authorization header to the request if param is defined', async function () {
