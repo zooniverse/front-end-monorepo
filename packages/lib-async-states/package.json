@@ -8,12 +8,12 @@
     "url": "git@github.com:zooniverse/front-end-monorepo.git"
   },
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "src/async-states.js",
   "scripts": {
     "lint": "zoo-standard src --fix | snazzy",
     "test": "vitest run",
-    "test:ci": "vitest run --silent='passed-only"
+    "test:ci": "vitest run --silent='passed-only'"
   },
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
