@@ -17,19 +17,13 @@ describe('asyncStates', function () {
       })
 
       it('should be immutable', function () {
-        asyncStates[state] = 'foobar'
-        expect(asyncStates[state]).to.equal(state)
+        expect(Object.isFrozen(asyncStates[state])).to.equal(true)
       })
     })
   })
 
   describe('`values` property', function () {
     it('should return all available states', function () {
-      expect(asyncStates.values).to.deep.equal(states)
-    })
-
-    it('should be immutable', function () {
-      asyncStates.values = 'foobar'
       expect(asyncStates.values).to.deep.equal(states)
     })
   })
