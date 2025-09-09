@@ -97,6 +97,7 @@ function Discussions({
         align='center'
         direction='row'
         justify='between'
+        height={{ min: 'auto' }}
       >
         <Box
           align='center'
