@@ -75,11 +75,11 @@ describe('Models > Drawing Task > Mark', function () {
   })
 
   it('should exist', function () {
-    expect(mark).to.be.ok()
+    expect(mark).to.exist
   })
 
   it('should have an id', function () {
-    expect(mark.id).to.exist()
+    expect(mark.id).to.exist
     expect(mark.id).to.be.a('string')
   })
 
@@ -92,7 +92,7 @@ describe('Models > Drawing Task > Mark', function () {
   })
 
   it('should be valid', function () {
-    expect(mark.isValid).to.be.true()
+    expect(mark.isValid).to.equal(true)
   })
 
   it('should be able to store annotations', function () {
@@ -133,11 +133,11 @@ describe('Models > Drawing Task > Mark', function () {
         type: 'default'
       })
       const mark = pointTool.createMark({ id: 'mark1' })
-      expect(mark.subTaskMarkBounds).to.be.undefined()
-      expect(mark.subTaskVisibility).to.be.false()
+      expect(mark.subTaskMarkBounds).to.equal(undefined)
+      expect(mark.subTaskVisibility).to.equal(false)
       mark.setSubTaskVisibility(true)
-      expect(mark.subTaskMarkBounds).to.be.undefined()
-      expect(mark.subTaskVisibility).to.be.false()
+      expect(mark.subTaskMarkBounds).to.equal(undefined)
+      expect(mark.subTaskVisibility).to.equal(false)
     })
   })
 
@@ -152,11 +152,11 @@ describe('Models > Drawing Task > Mark', function () {
       })
 
       it('should be complete', function () {
-        expect(mark.isComplete).to.be.true()
+        expect(mark.isComplete).to.equal(true)
       })
 
       it('should complete the drawing tool', function () {
-        expect(drawingTool.isComplete).to.be.true()
+        expect(drawingTool.isComplete).to.equal(true)
       })
     })
 
@@ -168,11 +168,11 @@ describe('Models > Drawing Task > Mark', function () {
       })
 
       it('should be incomplete', function () {
-        expect(mark.isComplete).to.be.false()
+        expect(mark.isComplete).to.equal(false)
       })
 
       it('should not complete the drawing tool', function () {
-        expect(drawingTool.isComplete).to.be.false()
+        expect(drawingTool.isComplete).to.equal(false)
       })
     })
 
@@ -188,21 +188,21 @@ describe('Models > Drawing Task > Mark', function () {
       })
 
       it('should be incomplete', function () {
-        expect(mark.isComplete).to.be.false()
+        expect(mark.isComplete).to.equal(false)
       })
 
       it('should not complete the drawing tool', function () {
-        expect(drawingTool.isComplete).to.be.false()
+        expect(drawingTool.isComplete).to.equal(false)
       })
 
       describe('after annotating the first subtask', function () {
         it('should still be incomplete', function () {
           mark.addAnnotation(multipleTask, [0])
-          expect(mark.isComplete).to.be.false()
+          expect(mark.isComplete).to.equal(false)
         })
 
         it('should not complete the drawing tool', function () {
-          expect(drawingTool.isComplete).to.be.false()
+          expect(drawingTool.isComplete).to.equal(false)
         })
       })
 
@@ -210,11 +210,11 @@ describe('Models > Drawing Task > Mark', function () {
         it('should be complete', function () {
           mark.addAnnotation(singleTask, 1)
           mark.addAnnotation(simpleDropdownTask, { selection: 0, option: true })
-          expect(mark.isComplete).to.be.true()
+          expect(mark.isComplete).to.equal(true)
         })
 
         it('should complete the drawing tool', function () {
-          expect(drawingTool.isComplete).to.be.true()
+          expect(drawingTool.isComplete).to.equal(true)
         })
       })
     })
@@ -286,20 +286,20 @@ describe('Models > Drawing Task > Mark', function () {
       })
 
       it('should toggle the visibility of the UI', function () {
-        expect(mark.subTaskVisibility).to.be.false()
+        expect(mark.subTaskVisibility).to.equal(false)
         mark.setSubTaskVisibility(true)
-        expect(mark.subTaskVisibility).to.be.true()
+        expect(mark.subTaskVisibility).to.equal(true)
         mark.setSubTaskVisibility(false)
-        expect(mark.subTaskVisibility).to.be.false()
+        expect(mark.subTaskVisibility).to.equal(false)
       })
 
       it('should store the DOM node bounds if bounds are passed as a parameter', function () {
         const bounds = document.createElement('g').getBoundingClientRect()
-        expect(mark.subTaskMarkBounds).to.be.undefined()
+        expect(mark.subTaskMarkBounds).to.equal(undefined)
         mark.setSubTaskVisibility(true, bounds)
         expect(mark.subTaskMarkBounds).to.equal(bounds)
         mark.setSubTaskVisibility(false)
-        expect(mark.subTaskMarkBounds).to.be.undefined()
+        expect(mark.subTaskMarkBounds).to.equal(undefined)
       })
     })
   })
@@ -317,7 +317,7 @@ describe('Models > Drawing Task > Mark', function () {
     })
 
     it('should not have an ID', function () {
-      expect(snapshot.id).to.be.undefined()
+      expect(snapshot.id).to.equal(undefined)
     })
 
     it('should have an annotations array', function () {

@@ -23,7 +23,7 @@ describe('Model > ClassificationMetadata', function () {
   })
 
   it('should exist', function () {
-    expect(model).to.be.ok()
+    expect(model).to.exist
     expect(model).to.be.an('object')
   })
 
@@ -63,7 +63,7 @@ describe('Model > ClassificationMetadata', function () {
     })
 
     it('should ignore unknown keys', function () {
-      expect(snapshot.unknownKey).to.be.undefined()
+      expect(snapshot.unknownKey).to.equal(undefined)
     })
   })
 

@@ -12,7 +12,7 @@
     "lint": "next lint",
     "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "test": "BABEL_ENV=test vitest run",
-    "test:ci": "BABEL_ENV=test vitest run",
+    "test:ci": "BABEL_ENV=test vitest run --silent='passed-only' --hideSkippedTests",
     "storybook": "storybook dev -p 9001",
     "build-storybook": "storybook build"
   },

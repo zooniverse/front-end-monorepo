@@ -22,7 +22,9 @@ import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer/Volum
 
 ## Tests
 
-`yarn test` to run mocha tests.
+`yarn test` to run Vitest tests.
+
+`yarn test ModelTool.spec.jsx` to test one file at a time.
 
 ## Contributing
 
@@ -37,9 +39,9 @@ All of our components are written using React, built on top of Grommet, a compon
 
 Testing is done by
 
-- [Mocha](https://mochajs.org/) - test runner
-- [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
-- [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
+  - [Vitest](https://vitest.dev)
+  - [React Testing Library](https://testing-library.com)
+  - [Storybook](https://storybook.js.org)
 
 ## Troubleshooting
 

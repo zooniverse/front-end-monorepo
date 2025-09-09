@@ -1,10 +1,9 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const projects = require('./index')
-const { endpoint } = require('./helpers')
-const { config } = require('../../config')
-const { responses } = require('./mocks')
+import projects from './index'
+import { endpoint } from './helpers'
+import { config } from '../../config'
+import { responses } from './mocks'
 
 describe('Projects resource REST requests', function () {
   describe('create', function () {
@@ -101,7 +100,7 @@ describe('Projects resource REST requests', function () {
       it('should include query params with the request if defined', async function () {
         const queryParams = { page: '2' }
         const response = await projects.get({ id: '2', query: queryParams })
-        expect(response.req.path.includes('?page=2')).to.be.true()
+        expect(response.req.path.includes('?page=2')).to.equal(true)
       })
 
       it('should error if id arugment is not a string', async function () {

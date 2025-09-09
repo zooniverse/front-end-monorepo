@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import getFeedbackFromTasks from './get-feedback-from-tasks'
 
 describe('Feedback: getFeedbackFromTasks', function () {

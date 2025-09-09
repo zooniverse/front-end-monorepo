@@ -1,10 +1,9 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const tutorials = require('./index')
-const { endpoint } = require('./helpers')
-const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+import tutorials from './index'
+import { endpoint } from './helpers'
+import { config } from '../../config'
+import { responses } from './mocks'
 
 describe('Tutorials resource common requests', function () {
   describe('getAttachedImages', function () {
@@ -38,7 +37,7 @@ describe('Tutorials resource common requests', function () {
 
     it('should use query params if defined', async function () {
       const response = await tutorials.getAttachedImages({ id: '1', query: { page: '2' } })
-      expect(response.req.path.includes('page=2')).to.be.true()
+      expect(response.req.path.includes('page=2')).to.equal(true)
     })
 
     it('should add the Authorization header to the request if param is defined', async function () {
@@ -106,7 +105,7 @@ describe('Tutorials resource common requests', function () {
 
       it('should use the workflow id as the query param', async function () {
         const response = await tutorials.getTutorials({ workflowId: '10' })
-        expect(response.req.path.includes('workflow_id=10')).to.be.true()
+        expect(response.req.path.includes('workflow_id=10')).to.equal(true)
       })
 
       it('should not return minicourse kind tutorials', async function () {
@@ -142,7 +141,7 @@ describe('Tutorials resource common requests', function () {
 
       it('should set a default query parameter for kind', async function () {
         const response = await tutorials.getMinicourses({ id: '52' })
-        expect(response.req.path.includes('kind=mini-course')).to.be.true()
+        expect(response.req.path.includes('kind=mini-course')).to.equal(true)
       })
     })
 
@@ -168,12 +167,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should set a default query parameter for kind', async function () {
         const response = await tutorials.getMinicourses({ workflowId: '10' })
-        expect(response.req.path.includes('kind=mini-course')).to.be.true()
+        expect(response.req.path.includes('kind=mini-course')).to.equal(true)
       })
 
       it('should use the workflow id as the query param', async function () {
         const response = await tutorials.getTutorials({ workflowId: '10' })
-        expect(response.req.path.includes('workflow_id=10')).to.be.true()
+        expect(response.req.path.includes('workflow_id=10')).to.equal(true)
       })
     })
   })

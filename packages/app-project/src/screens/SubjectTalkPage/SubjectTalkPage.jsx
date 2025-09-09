@@ -7,6 +7,7 @@ import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import SubjectTalkViewer from './components/SubjectTalkViewer'
+import SubjectTalkData from './components/SubjectTalkData'
 
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
@@ -46,6 +47,7 @@ function SubjectTalkPage({
       >
         <ContainerGrid>
           <Box
+            data-testid='viewer'
             height={{ max: '90vh', min: '600px' }}
             style={{
               gridArea: 'viewer'
@@ -60,20 +62,15 @@ function SubjectTalkPage({
             />
           </Box>
           <Box
-            gap='small'
+            data-testid='talkData'
+            height={{ max: '90vh', min: '300px' }}
             style={{ gridArea: 'talkData' }}
           >
-            {/* <TalkSearch /> */}
-            <input type='text' placeholder={t('Talk.searchPlaceholder')} />
-            {/* <TalkData /> */}
-            <Box
-              background={{
-                dark: 'dark-3',
-                light: 'white'
-              }}
-            >
-              Talk data goes here
-            </Box>
+            <SubjectTalkData
+              login={login}
+              projectId={projectId}
+              subjectId={subjectId}
+            />
           </Box>
         </ContainerGrid>
         <Box
