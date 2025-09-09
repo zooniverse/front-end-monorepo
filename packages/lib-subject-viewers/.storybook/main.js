@@ -1,16 +1,33 @@
+import vitestConfig from '../vitest.config.js'
+
 const config = {
-  stories: ["../src/**/*.stories.js"],
+  stories: ['../src/**/*.stories.jsx'],
   addons: [
-    "@storybook/addon-a11y",
-    "@storybook/addon-essentials",
-    "storybook-react-i18next",
+    '@storybook/addon-a11y',
+    '@storybook/addon-essentials',
+    'storybook-react-i18next'
   ],
   framework: {
-    name: "@storybook/react-webpack5",
-    options: {},
+    name: '@storybook/react-webpack5',
+    options: {}
   },
   docs: {
-    autodocs: "tag",
+    autodocs: 'tag'
   },
-};
-export default config;
+  webpackFinal: async config => {
+    return {
+      ...config,
+      resolve: {
+        ...vitestConfig.resolve,
+        extensions: ['.jsx', '.js', '...'],
+        fallback: {
+          fs: false,
+          // for markdown-it plugins in LRC's Markdownz
+          path: 'path-browserify'
+        }
+      }
+    }
+  }
+}
+
+export default config

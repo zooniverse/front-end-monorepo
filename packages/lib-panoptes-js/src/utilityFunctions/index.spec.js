@@ -1,5 +1,4 @@
-const { expect } = require('chai')
-const { buildResponse, raiseError } = require('./index')
+import { buildResponse, raiseError } from './index'
 
 describe('Global Utility Functions', function () {
   describe('buildResponse', function () {

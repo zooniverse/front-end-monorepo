@@ -1,4 +1,3 @@
-import { expect } from "chai"
 import sortDataPointsByHighlight from "."
 import variableStarData from '../mockLightCurves/variableStar.json'
 
