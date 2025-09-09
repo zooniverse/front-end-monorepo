@@ -1,10 +1,9 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const { config } = require('../../config')
-const { responses } = require('./mocks')
-const { endpoint } = require('./helpers')
-const collections = require('./index')
+import { config } from '../../config'
+import { responses } from './mocks'
+import { endpoint } from './helpers'
+import collections from './index'
 
 describe('Collections resource REST requests', function () {
   describe('get', function () {
@@ -225,7 +224,7 @@ describe('Collections resource REST requests', function () {
 
     it('should add subjects to the specified collection', async function () {
       const response = await collections.addSubjects({ id: '10', subjects })
-      expect(response).to.be.ok()
+      expect(response).toBeDefined()
     })
   })
 
@@ -265,7 +264,7 @@ describe('Collections resource REST requests', function () {
 
     it('should unlink the specified subjects', async function () {
       const response = await collections.removeSubjects({ id: '10', subjects: ['2'], authorization: 'Bearer 1234' })
-      expect(response).to.be.ok()
+      expect(response).toBeDefined()
     })
   })
 })
