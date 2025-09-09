@@ -2,7 +2,7 @@ import { Anchor, Box } from 'grommet'
 import styled, { css } from 'styled-components'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
-// NOTE: we are inlining the SVG because mocha blows up trying to load an .svg file
+// NOTE: we are inlining the SVG because the test env blows up trying to load an .svg file
 const svgAudioIcon = `<svg width="162" height="162" viewBox="0 0 162 162" fill="none" xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <g fill="#005D69" stroke="none">

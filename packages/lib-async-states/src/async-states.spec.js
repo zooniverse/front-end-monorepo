@@ -1,4 +1,4 @@
-const asyncStates = require('./async-states')
+import asyncStates from './async-states'
 
 describe('asyncStates', function () {
   const states = [

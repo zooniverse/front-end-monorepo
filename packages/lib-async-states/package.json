@@ -12,13 +12,11 @@
   "main": "src/async-states.js",
   "scripts": {
     "lint": "zoo-standard src --fix | snazzy",
-    "test": "mocha --config ./test/.mocharc.json \"./src/async-states.spec.js\"",
-    "test:ci": "mocha --reporter=min --config ./test/.mocharc.json \"./src/async-states.spec.js\""
+    "test": "vitest run",
+    "test:ci": "vitest run --silent='passed-only"
   },
   "devDependencies": {
     "@zooniverse/standard": "~2.0.0",
-    "chai": "~4.5.0",
-    "mocha": "~11.4.0",
     "snazzy": "~9.0.0"
   },
   "engines": {
