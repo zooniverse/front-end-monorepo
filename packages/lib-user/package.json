@@ -19,11 +19,11 @@
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
     "build": "yarn build:es6",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
+    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
     "eslint": "eslint ./src --fix | snazzy",
     "prepare": "yarn build",
     "test": "vitest run",
-    "test:ci": "vitest run",
+    "test:ci": "vitest run --silent='passed-only' --hideSkippedTests",
     "coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6008 ",
     "build-storybook": "storybook build"

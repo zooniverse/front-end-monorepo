@@ -25,8 +25,8 @@ describe('LightCurveViewer > d3 > setDataPointStyle', function () {
 
   it('should add the correct attributes to the selection', function () {
     setDataPointStyle(selectionFixture, chartStyle)
-    expect(attrStub.withArgs('r', chartStyle.dataPointSize)).to.have.been.calledOnce()
-    expect(attrStub.withArgs('class', 'data-point')).to.have.been.calledOnce()
-    expect(attrStub.withArgs('fill', chartStyle.color)).to.have.been.calledOnce()
+    expect(attrStub.withArgs('r', chartStyle.dataPointSize)).to.have.been.calledOnce
+    expect(attrStub.withArgs('class', 'data-point')).to.have.been.calledOnce
+    expect(attrStub.withArgs('fill', chartStyle.color)).to.have.been.calledOnce
   })
 })

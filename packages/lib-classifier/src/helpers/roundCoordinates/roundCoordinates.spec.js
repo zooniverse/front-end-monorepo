@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import roundCoordinates from '../../helpers/roundCoordinates'
 
 describe('round coordinates', () => {

@@ -158,13 +158,13 @@ describe('Model > UserProjectPreferencesStore', function () {
     })
 
     it('should re-request for the upp if the store does not have a stored etag header', async function () {
-      expect(rootStore.userProjectPreferences.headers.etag).to.be.undefined()
+      expect(rootStore.userProjectPreferences.headers.etag).to.equal(undefined)
       await rootStore.userProjectPreferences.updateUPP(changes)
       expect(rootStore.client.panoptes.get.withArgs(
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.have.been.calledOnce()
+      ).to.have.been.calledOnce
       rootStore.client.panoptes.get.resetHistory()
     })
 
@@ -174,7 +174,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.have.not.been.called()
+      ).to.have.not.been.called
       rootStore.client.panoptes.get.resetHistory()
     })
   })

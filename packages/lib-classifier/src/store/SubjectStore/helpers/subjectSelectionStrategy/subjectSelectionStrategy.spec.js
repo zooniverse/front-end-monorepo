@@ -179,7 +179,7 @@ describe('Store > Helpers > subjectSelectionStrategy', function () {
       })
 
       it('should return null', function () {
-        expect(strategy).to.be.null()
+        expect(strategy).to.equal(null)
       })
     })
 

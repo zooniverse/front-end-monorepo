@@ -19,12 +19,12 @@ describe('Helpers > getFeedbackViewer', function () {
   })
 
   it('should return null if no rules', function () {
-    expect(getFeedbackViewer([])).to.be.null()
+    expect(getFeedbackViewer([])).to.equal(null)
   })
 
   it('should return null if multiple strategies', function () {
     const multipleStratRules = rules
     multipleStratRules[0].strategy = 'column'
-    expect(getFeedbackViewer(multipleStratRules)).to.be.null()
+    expect(getFeedbackViewer(multipleStratRules)).to.equal(null)
   })
 })

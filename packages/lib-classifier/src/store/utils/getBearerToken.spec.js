@@ -2,10 +2,9 @@ import sinon from 'sinon'
 import getBearerToken from './getBearerToken'
 
 describe('Store utils > getBearerToken', function () {
-  it('returns an empty string if the authClient is undefined', function () {
-    return getBearerToken().then((token) => {
-      return expect(token).to.equal('')
-    })
+  it('returns an empty string if the authClient is undefined', async function () {
+    const token = await getBearerToken()
+    expect(token).to.equal('')
   })
 
   describe('when using a first party auth client', function () {
@@ -15,28 +14,26 @@ describe('Store utils > getBearerToken', function () {
       }
 
       getBearerToken(mockAuthClient)
-      expect(mockAuthClient.checkBearerToken).to.have.been.calledOnce()
+      expect(mockAuthClient.checkBearerToken).to.have.been.calledOnce
     })
 
-    it('returns an empty string if token returned from auth client is falsey', function () {
+    it('returns an empty string if token returned from auth client is falsey', async function () {
       const mockAuthClient = {
         checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
       }
 
-      return getBearerToken(mockAuthClient).then((token) => {
-        return expect(token).to.equal('')
-      })
+      const token = await getBearerToken(mockAuthClient)
+      expect(token).to.equal('')
     })
 
-    it('returns the bearer token if token returned from auth client is truthy', function () {
+    it('returns the bearer token if token returned from auth client is truthy', async function () {
       const mockToken = '1234'
       const mockAuthClient = {
         checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(mockToken))
       }
 
-      return getBearerToken(mockAuthClient).then((token) => {
-        return expect(token).to.equal(`Bearer ${mockToken}`)
-      })
+      const token = await getBearerToken(mockAuthClient)
+      expect(token).to.equal(`Bearer ${mockToken}`)
     })
   })
 
@@ -47,7 +44,7 @@ describe('Store utils > getBearerToken', function () {
       }
 
       getBearerToken(mockOAuthClient)
-      expect(mockOAuthClient.checkBearerToken).to.have.been.calledOnce()
+      expect(mockOAuthClient.checkBearerToken).to.have.been.calledOnce
     })
 
     it('returns an empty string if token returned from auth client is falsey', function () {
