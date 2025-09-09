@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import { applySnapshot } from 'mobx-state-tree'
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import sinon from 'sinon'
@@ -60,7 +59,7 @@ describe('Stores > Notifications', function () {
       })
 
       it('should exist', function () {
-        expect(rootStore.user.personalization.notifications).to.be.ok()
+        expect(rootStore.user.personalization.notifications).toBeDefined()
       })
 
       it('should set the initial unreadConversationsIds', function () {
@@ -119,7 +118,7 @@ describe('Stores > Notifications', function () {
       })
 
       it('should exist', function () {
-        expect(rootStore.user.personalization.notifications).to.be.ok()
+        expect(rootStore.user.personalization.notifications).toBeDefined()
       })
 
       it('should set the initial unreadConversationsIds', function () {
@@ -245,7 +244,7 @@ describe('Stores > Notifications', function () {
       })
 
       it('should exist', function () {
-        expect(rootStore.user.personalization.notifications).to.be.ok()
+        expect(rootStore.user.personalization.notifications).toBeDefined()
       })
 
       it('should set the initial unreadNotificationsCount', function () {

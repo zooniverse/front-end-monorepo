@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import filterByLabel, { filters } from './filterByLabel'
 
 describe('filterByLabel', function () {

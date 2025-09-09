@@ -1,8 +1,7 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const { baseConfig, config } = require('./config')
-const panoptes = require('./panoptes')
+import { baseConfig, config } from './config'
+import panoptes from './panoptes'
 
 describe('panoptes.js', function () {
   describe('get', function () {
@@ -34,7 +33,7 @@ describe('panoptes.js', function () {
 
     it('should add the query object to the URL if defined', async function () {
       const response = await panoptes.get(endpoint, { page: '2', page_size: '30' })
-      expect(response.req.path.includes('?page=2&page_size=30')).to.be.true()
+      expect(response.req.path.includes('?page=2&page_size=30')).to.equal(true)
     })
 
     it('should error if query params are defined but are not an object', async function () {
@@ -157,8 +156,8 @@ describe('panoptes.js', function () {
         .reply(200, expectedResponse)
 
       const response = await panoptes.del(endpoint, queryParams)
-      expect(response.request.url.includes(host)).to.be.true()
-      expect(response.req.path.includes('env=production')).to.be.false()
+      expect(response.request.url.includes(host)).to.equal(true)
+      expect(response.req.path.includes('env=production')).to.equal(false)
     })
   })
 
@@ -187,14 +186,14 @@ describe('panoptes.js', function () {
         .reply(200, expectedResponse)
 
       const response = await panoptes[method].apply(this, methodArgs)
-      expect(response.request.url.includes(mockAPIHost)).to.be.true()
+      expect(response.request.url.includes(mockAPIHost)).to.equal(true)
     })
   }
 
   function testConfigHost (method, endpoint, update = null) {
     it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
       const response = await panoptes[method](endpoint, update)
-      expect(response.request.url.includes(config.host)).to.be.true()
+      expect(response.request.url.includes(config.host)).to.equal(true)
     })
   }
 
@@ -225,7 +224,7 @@ describe('panoptes.js', function () {
   function testHttpCache (method, endpoint, update = null) {
     it('should add the http_cache default query params to the request', async function () {
       const response = await panoptes[method](endpoint, update)
-      expect(response.req.path.includes('?http_cache=true')).to.be.true()
+      expect(response.req.path.includes('?http_cache=true')).to.equal(true)
     })
   }
 
@@ -247,8 +246,8 @@ describe('panoptes.js', function () {
         .reply(200, expectedResponse)
 
       const response = await panoptes[method].apply(this, methodArgs)
-      expect(response.request.url.includes(host)).to.be.true()
-      expect(response.req.path.includes('env=production')).to.be.false()
+      expect(response.request.url.includes(host)).to.equal(true)
+      expect(response.req.path.includes('env=production')).to.equal(false)
     })
   }
 
@@ -256,7 +255,7 @@ describe('panoptes.js', function () {
     it('should add the admin default query param if flag is found in local storage', async function () {
       localStorage.setItem('adminFlag', true)
       const response = await panoptes[method](endpoint, update)
-      expect(response.req.path.includes('?admin=true')).to.be.true()
+      expect(response.req.path.includes('?admin=true')).to.equal(true)
       localStorage.removeItem('adminFlag')
     })
   }

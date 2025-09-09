@@ -78,7 +78,7 @@ describe('Model > Project', function () {
       })
 
       it('should be undefined', function () {
-        expect(project.defaultWorkflow).to.be.undefined()
+        expect(project.defaultWorkflow).to.equal(undefined)
       })
     })
 
@@ -96,7 +96,7 @@ describe('Model > Project', function () {
       })
 
       it('should be undefined', function () {
-        expect(project.defaultWorkflow).to.be.undefined()
+        expect(project.defaultWorkflow).to.equal(undefined)
       })
     })
   })

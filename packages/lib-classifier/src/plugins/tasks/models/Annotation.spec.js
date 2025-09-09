@@ -9,12 +9,12 @@ describe('Model > Annotation', function () {
   })
 
   it('should exist', function () {
-    expect(annotationInstance).to.be.ok()
+    expect(annotationInstance).to.exist
     expect(annotationInstance).to.be.an('object')
   })
 
   it('should have an id', function () {
-    expect(annotationInstance.id).to.exist()
+    expect(annotationInstance.id).to.exist
     expect(annotationInstance.id).to.be.a('string')
   })
 
@@ -26,7 +26,7 @@ describe('Model > Annotation', function () {
     })
 
     it('should not have an ID', function () {
-      expect(snapshot.id).to.be.undefined()
+      expect(snapshot.id).to.equal(undefined)
     })
   })
 })

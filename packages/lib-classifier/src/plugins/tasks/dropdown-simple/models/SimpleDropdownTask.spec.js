@@ -1,4 +1,3 @@
-import { types } from 'mobx-state-tree'
 import SimpleDropdownTask from '@plugins/tasks/dropdown-simple'
 import { MIN_OPTIONS, MAX_OPTIONS } from './SimpleDropdownTask'
 
@@ -24,7 +23,7 @@ describe('Model > SimpleDropdownTask', function () {
 
   it('should exist', function () {
     const simpleDropdownTaskInstance = TaskModel.create(simpleDropdownTask)
-    expect(simpleDropdownTaskInstance).to.be.ok()
+    expect(simpleDropdownTaskInstance).to.exist
     expect(simpleDropdownTaskInstance).to.be.an('object')
   })
 
@@ -35,7 +34,7 @@ describe('Model > SimpleDropdownTask', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe('with an annotation', function () {
@@ -48,7 +47,7 @@ describe('Model > SimpleDropdownTask', function () {
     })
 
     it('should start up with a null value', function () {
-      expect(annotation.value).to.be.null()
+      expect(annotation.value).to.equal(null)
     })
 
     it('should update annotations', function () {
@@ -73,7 +72,7 @@ describe('Model > SimpleDropdownTask', function () {
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete(annotation)).to.be.false()
+        expect(task.isComplete(annotation)).to.equal(false)
       })
     })
 
@@ -83,7 +82,7 @@ describe('Model > SimpleDropdownTask', function () {
           selection: 5,
           option: true,
         })
-        expect(task.isComplete(annotation)).to.be.true()
+        expect(task.isComplete(annotation)).to.equal(true)
       })
     })
   })
@@ -113,7 +112,7 @@ describe('Model > SimpleDropdownTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
   })
 
@@ -142,7 +141,7 @@ describe('Model > SimpleDropdownTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
   })
 })
