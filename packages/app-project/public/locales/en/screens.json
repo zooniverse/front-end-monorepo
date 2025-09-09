@@ -74,10 +74,20 @@
   },
   "Talk": {
     "avatarAlt": "{{login}} avatar",
+    "comments": "Comments",
+    "commentsViewing": "Viewing {{count}} of {{total}} comments",
+    "discussions": "{{count}} Discussions",
     "featuredCollections": "Featured in these Collections",
     "goToComment": "Go to comment",
+    "noDiscussions": "No Discussions",
+    "oneDiscussion": "1 Discussion",
+    "participants": "Participants",
     "relatedSubjects": "Other subjects being discussed:",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "sortBy": "Sort by",
+    "sortedNewestFirst": "Newest first",
+    "sortedOldestFirst": "Oldest first",
+    "startDiscussion": "Start a new discussion",
     "subjectMetadata": "Subject Metadata"
   }
 }
