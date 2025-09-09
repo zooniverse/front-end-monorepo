@@ -102,7 +102,7 @@ function Discussions({
         <Box
           align='center'
           direction='row'
-          gap='xsmall'
+          gap='small'
         >
           <SectionHeading
             icon={
@@ -126,7 +126,7 @@ function Discussions({
             direction='row'
             gap='xsmall'
           >
-            <Text size='1rem'>{t('Talk.sortBy')}</Text>
+            <Text size='16px'>{t('Talk.sortBy')}</Text>
             <StyledButton
               onClick={handleSortChange}
               label={(

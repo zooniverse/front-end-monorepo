@@ -59,7 +59,7 @@ function Discussion({ discussion, login }) {
         <Box
           align='center'
           direction='row'
-          gap='xsmall'
+          gap='small'
         >
           <StyledBox
             align='center'
@@ -69,16 +69,16 @@ function Discussion({ discussion, login }) {
             <Anchor
               href={addQueryParams(`/projects/${discussion.project_slug}/talk/${discussion.board_id}`)}
               label={discussion.board_title}
-              size='1rem'
+              size='16px'
             />
             <FormNext
               color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='1rem'
+              size='16px'
             />
             <Anchor
               href={addQueryParams(`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`)}
               label={discussion.title}
-              size='1rem'
+              size='16px'
             />
           </StyledBox>
           <ParticipantsAndComments
@@ -144,7 +144,7 @@ function Discussion({ discussion, login }) {
           )
         })}
       </Box>
-      <Text size='1rem'>
+      <Text size='16px'>
         {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
       </Text>
     </Box>

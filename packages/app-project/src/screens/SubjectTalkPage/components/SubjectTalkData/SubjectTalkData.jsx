@@ -8,7 +8,7 @@ import Discussions from './components/Discussions'
 import SectionHeading from './components/SectionHeading'
 
 const StyledHeading = styled(Heading)`
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: 1.2px;
   margin: 0;
