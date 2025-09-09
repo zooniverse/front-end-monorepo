@@ -1,11 +1,11 @@
-import { default as Component } from './index.js'
+import { default as Component } from './VolumetricPreview.jsx'
 import {
   VolumetricSubjectMock4,
   VolumetricSubjectMock8,
   VolumetricSubjectMock16,
   VolumetricSubjectMock32,
   VolumetricSubjectMock64
-} from './../data/subjectMock'
+} from '../data/subjectMock.js'
 
 export default {
   title: 'Components / VolumetricViewer / Preview',

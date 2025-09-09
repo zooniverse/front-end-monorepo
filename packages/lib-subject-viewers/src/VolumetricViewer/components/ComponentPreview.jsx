@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { Cube } from './Cube.js'
+import { Cube } from './Cube'
 import { object } from 'prop-types'
 import styled from 'styled-components'
 

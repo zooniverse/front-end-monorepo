@@ -15,10 +15,10 @@ describe('Component > VolumetricViewer > ModelTool', () => {
   const model = ModelTool()
 
   it('should have initial state', () => {
-    expect(model).to.exist()
+    expect(model).to.exist
     expect(model.annotations).to.equal(null)
-    expect(model.initialize).to.exist()
-    expect(model.events).to.exist()
+    expect(model.initialize).to.exist
+    expect(model.events).to.exist
   })
 
   it('should initialize()', () => {
@@ -28,7 +28,7 @@ describe('Component > VolumetricViewer > ModelTool', () => {
     expect(model.annotations).deep.to.equal(ANNOTATIONS_MOCK)
   })
 
-  it('should call to create a new annotation', (done) => {
+  it('should call to create a new annotation', () => {
     const ev = {
       button: 0,
       point: 1,
@@ -41,14 +41,13 @@ describe('Component > VolumetricViewer > ModelTool', () => {
       ANNOTATIONS_MOCK.actions.annotation.add = originalFunc
 
       expect(obj).deep.to.equal({ point: 1 })
-      done()
     }
 
     ANNOTATIONS_MOCK.actions.annotation.add = spyFunc
     model.events.click(ev)
   })
 
-  it('should call to add a point to an annotation', (done) => {
+  it('should call to add a point to an annotation', () => {
     const ev = {
       button: 0,
       point: 1,
@@ -61,7 +60,6 @@ describe('Component > VolumetricViewer > ModelTool', () => {
       ANNOTATIONS_MOCK.actions.point.add = originalFunc
 
       expect(obj).deep.to.equal({ point: 1 })
-      done()
     }
 
     ANNOTATIONS_MOCK.actions.point.add = spyFunc
