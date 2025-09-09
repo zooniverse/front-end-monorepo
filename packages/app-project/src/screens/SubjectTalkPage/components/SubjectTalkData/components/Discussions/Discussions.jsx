@@ -33,6 +33,11 @@ const StyledBox = styled(Box)`
     background: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
 `
+
+const StyledOrderedList = styled(Box)`
+  list-style: none;
+`
+
 const StyledDiscussionButton = styled(Button)`
   &:focus,
   &:hover {
@@ -157,12 +162,13 @@ function Discussions({
         )}
       </Box>
       {discussions?.length > 0 && (
-        <Box
-          as='ol'
+        <StyledOrderedList
+          forwardedAs='ol'
           border='between'
           gap='60px'
+          margin='none'
           overflow={{ vertical: 'scroll' }}
-          style={{ listStyle: 'none', margin: 0, padding: 0 }}
+          pad='none'
         >
           {discussions?.map((discussion) => (
             <li key={discussion.id}>
@@ -172,7 +178,7 @@ function Discussions({
               />
             </li>
           ))}
-        </Box>
+        </StyledOrderedList>
       )}
       <StyledBox
         align='center'

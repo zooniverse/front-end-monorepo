@@ -17,6 +17,10 @@ const StyledBox = styled(Box)`
   border-left: 4px solid ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
 `
 
+const StyledOrderedList = styled(Box)`
+  list-style: none;
+`
+
 function Discussion({ discussion, login }) {
   const [sort, setSort] = useState('-created_at')
 
@@ -117,10 +121,10 @@ function Discussion({ discussion, login }) {
           )}
         </Box>
       </Box>
-      <Box
-        as='ol'
-        gap='small'
-        style={{ listStyle: 'none', margin: 0, padding: 0 }}
+      <StyledOrderedList
+        forwardedAs='ol'
+        margin='none'
+        pad='none'
       >
         {comments?.map((comment) => {
           const user = users?.find(user => user.id === comment.user_id)
@@ -143,7 +147,7 @@ function Discussion({ discussion, login }) {
             </li>
           )
         })}
-      </Box>
+      </StyledOrderedList>
       <Text size='16px'>
         {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
       </Text>
