@@ -57,6 +57,10 @@ const Subject = types
 
         viewer = configuration.viewerType
 
+        // Volumetric Viewer is set at the Project level
+        if (!viewer && self.project?.isVolumetricViewer)
+          viewer = subjectViewers.volumetric
+      
         if (!viewer && counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage
@@ -127,13 +131,6 @@ const Subject = types
       self.already_seen = true
     }
 
-    function openInTalk(newTab = false) {
-      self.shouldDiscuss = {
-        newTab,
-        url: self.talkURL
-      }
-    }
-
     function setCaesarReductions({ reducer, reductions, subjectId, workflowId }) {
       if (reducer) {
         self.caesarReductions = CaesarReductions.create({
@@ -164,7 +161,6 @@ const Subject = types
     return {
       addToCollection,
       markAsSeen,
-      openInTalk,
       setCaesarReductions,
       startClassification,
       toggleFavorite,

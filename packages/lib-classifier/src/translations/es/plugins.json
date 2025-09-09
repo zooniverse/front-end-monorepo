@@ -1,9 +1,31 @@
 {
+  "FreehandLine": {
+    "active": "Haz clic y arrastra desde el punto de apertura hasta el punto de cierre o haz doble clic en cualquier parte de la línea para crear un punto de unión",
+    "closePoint": "Haz clic en cualquier parte de la línea para establecer el punto de cierre",
+    "inactive": "Haz clic para editar esta línea",
+    "spliceDrag": "Haz clic y arrastra desde el punto de apertura hasta el punto de cierre",
+    "splicePoint": "Haz doble clic en cualquier parte de la línea para crear un punto de unión"
+  },
+  "HighlighterTask": {
+    "delete": "Eliminar",
+    "noLabels": "No hay etiquetas para la tarea de resaltado",
+    "status": "{{count}} marcado(s)"
+  },
   "InputStatus": {
     "drawn": "{{count}} dibujados",
     "max": "{{count}} de {{max}} dibujados como máximo",
     "maxAndMin": "Se necesitan {{count}} de {{min}} dibujados, {{max}} como máximo",
     "min": "Se necesitan {{count}} de {{min}} dibujados"
+  },
+  "LineControls": {
+    "close": "Cerrar",
+    "delete": "Eliminar",
+    "deleteCancel": "Cancelar eliminación",
+    "deleteConfirm": "Confirmar eliminación",
+    "lineControls": "Controles de línea",
+    "move": "Mover",
+    "redo": "Rehacer",
+    "undo": "Deshacer"
   },
   "SimpleDropdownTask": {
     "customInputPlaceholder": "Introduce algo",
@@ -13,17 +35,29 @@
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Borrar filtros",
+      "closeFilters": "Cerrar filtros",
       "filter": "Filtrar",
+      "removeFilter": "Eliminar filtro {{valueLabel}}",
       "showing": "Mostrando {{showing}} de {{total}}"
     },
     "Choice": {
+      "cancel": "Cancelar",
       "identify": "Identificar",
+      "lessInfo": "Menos información",
+      "moreInfo": "Más información",
       "notThis": "Esto no"
+    },
+    "ChoiceButton": {
+      "identified": "identificado",
+      "openSubmenu": "Abrir submenú para {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Cancelar",
       "confused": "Frecuentemente confundido con",
       "itsThis": "Pienso que es esto"
+    },
+    "DeleteButton": {
+      "delete": "Eliminar opción {{choiceLabel}}"
     }
   },
   "TextFromSubjectTask": {

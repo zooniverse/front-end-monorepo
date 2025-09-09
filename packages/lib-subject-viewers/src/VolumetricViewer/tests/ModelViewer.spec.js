@@ -8,7 +8,7 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
   const base64Data = Buffer.from(subjectData, 'base64')
 
   it('should have initial state', () => {
-    expect(model).to.exist()
+    expect(model).to.exist
     expect(model.base).to.equal(0)
     expect(model.baseFrames).deep.to.equal([[], [], []])
     expect(model.baseFrameMod).deep.to.equal([0, 0, 0])
@@ -17,7 +17,7 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
     expect(model.planesAbsoluteSets).deep.to.equal([[], [], []])
     expect(model.planeFrameActive).deep.to.equal([0, 0, 0])
     expect(model.points).deep.to.equal([])
-    expect(model.threshold).deep.to.equal({ min: 0, max: 255 })
+    expect(model.threshold).deep.to.equal({ min: 5, max: 255 })
     expect(model._listeners.length).to.equal(0)
   })
 
@@ -50,7 +50,7 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
     }
 
     expect(model.baseFrameMod).deep.to.equal([16, 4, 1])
-    expect(model.data).not.to.be.empty()
+    expect(model.data.length).to.be.above(0)
     expect(model.dimensions).deep.to.equal(['x', 'y', 'z'])
     expect(model.planeFrameActive).deep.to.equal([3, 3, 3])
     expect(model.points.length).to.equal(numPoints)
@@ -61,15 +61,15 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
       const [value, x, y, z, isPointInThreshold, pointAnnotationIndex] = p
 
       expect(p.length).to.equal(6)
-      expect(value >= 0 && value <= 255).to.be.true()
-      expect(x >= 0 && x <= (model.base - 1)).to.be.true()
-      expect(y >= 0 && y <= (model.base - 1)).to.be.true()
-      expect(z >= 0 && z <= (model.base - 1)).to.be.true()
-      expect(isPointInThreshold).to.be.true()
+      expect(value >= 0 && value <= 255).to.equal(true)
+      expect(x >= 0 && x <= (model.base - 1)).to.equal(true)
+      expect(y >= 0 && y <= (model.base - 1)).to.equal(true)
+      expect(z >= 0 && z <= (model.base - 1)).to.equal(true)
+      expect(isPointInThreshold).to.equal(true)
       expect(pointAnnotationIndex).to.equal(-1)
     }
 
-    expect(model.threshold).deep.to.equal({ min: 0, max: 255 })
+    expect(model.threshold).deep.to.equal({ min: 5, max: 255 })
     expect(model._listeners.length).to.equal(0)
   })
 
@@ -123,7 +123,7 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
     model.setThreshold({ min: 0, max: 255 })
   })
 
-  it('should get and set an accurate plane frame', (done) => {
+  it('should get and set an accurate plane frame', () => {
     const planeFrameActive = [0, 3, 3]
     const planeFrame = [
       [0, 4, 8, 12],
@@ -137,7 +137,6 @@ describe('Component > VolumetricViewer > ModelViewer', () => {
     const onComplete = () => {
       if (--cbs === 0) {
         expect(model._listeners.length).to.equal(0)
-        done()
       }
     }
 

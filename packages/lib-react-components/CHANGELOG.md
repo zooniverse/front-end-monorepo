@@ -7,12 +7,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+
+- Removed outdated HOC `withOnlyRenderOnBrowser`. See `useHasMounted` as a replacement hook.
+
+### Changed
+
+- Replace Mocha with Vitest. Moving toward ESM-only.
+
+### Added
+
+- `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
+- `ShareIconButton` component, a button to copy the current page URL to the clipboard
+- `InvertIconButton` component, a toggle button with an `InvertIcon` icon
+- `ImageIconButton` component, a button that behaves like an anchor link with an image icon
+- `FavoritesIconButton` component, an icon button to favorite a subject, with hooks to request and update the favorite collection
+- `CollectIconButton` component, an icon button to collect a subject, opens a modal to select or create a collection for the subject
+
+### Fixed
+
+- `Media` / Video: fix video and video controls positioning
+
+## [1.14.0] 2025-05-02
+
 ### Changed
 
 - ZooFooter and ZooHeader styling to include `display: none;` when printing (`@media print`)
 - PlainButton has text-decoration underline on hover even for links.
 - ZooFooter links and labels updated to reflect newly launched FEM pages.
 - Updated styling in ProjectCard's badge component.
+- `useProgressiveImage`: run `onLoad` callbacks immediately when `delay` is 0. Add optional `onLoad` and `onError` event handlers for image `load` events.
+- Add project state (paused, finished) overlay to ProjectCard.
+- Add disciplines to the Projects links in ZooFooter
 
 ### Fixed
 
@@ -21,6 +47,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Project card badges are now circular in Safari.
 - Inconsistent text sizes for Markdown tables and lists.
 - `useUnreadNotifications` and `useUnreadMessages` now wait for Panoptes auth to complete before fetching data.
+- `Modal`: add the `dialog` role and an accessible name. Pass keyboard focus to dialogs when they open.
 
 ## [1.13.0] 2024-05-17
 

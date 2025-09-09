@@ -242,7 +242,8 @@
       "disable": "Translated",
       "enable": "Translated"
     },
-    "loading": "Translated"
+    "loading": "Translated",
+    "zoomHelp": "Translated"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
@@ -259,7 +260,8 @@
         "back": "Translated"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Translated"
+        "doneAndTalk": "Translated",
+        "newTab": "Translated"
       },
       "DoneButton": {
         "done": "Translated"

@@ -1,25 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "إمكانات المسؤول"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "اسم المستخدم أو كلمة المرور غير صحيحة",
+      "forgot": "هل نسيت كلمة مرورك؟",
+      "heading": "مرحباً بعودتك!",
+      "instruction": "تسعدنا عودتك! سجّل الدخول للمتابعة من حيث توقفت.",
+      "login": "اسم المستخدم أو عنوان البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "placeholder": "مثال، ZooniverseFan123",
+      "signIn": "تسجيل الدخول"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "أُرحب بالمساعدة في اختبار المشروعات الجديدة وإبلاغي عبر البريد الإلكتروني عندما تصبح متاحة (اختياري)",
+      "email": "عنوان البريد الإلكتروني (مطلوب)",
+      "emailConfirm": "تأكيد عنوان البريد الإلكتروني (مطلوب)",
+      "emailConfirmError": "البريد الإلكتروني غير متطابق، يُرجى تكرار المحاولة.",
+      "emailConflict": "يوجد حساب بهذا العنوان بالفعل",
+      "emailListSignUp": "يُمكن مراسلتي من وقت لآخر (اختياري)",
+      "emailPlaceholder": "مثلاً، zoofan31@gmail.com",
+      "forgot": "هل نسيت كلمة مرورك؟",
+      "heading": "مرحباً بعودتك!",
+      "instruction": "إنشاء حساب لبدء أبحاث حقيقية.",
+      "password": "كلمة المرور (مطلوبة)",
+      "passwordConfirm": "تأكيد كلمة المرور (مطلوب)",
+      "passwordConfirmError": "كلمات المرور غير متطابقة، يُرجى تكرار المحاولة.",
+      "privacyAgreement": "موافقتك على سياستنا للخصوصية (مطلوب)",
+      "privacyAgreementError": "تجب الموافقة على سياسة الخصوصية.",
+      "privacyLink": "قراءة سياستنا للخصوصية",
+      "realName": "الاسم الحقيقي (اختياري)",
+      "realNameHelp": "سنستخدم هذا لمنحك حقوقك في الأوراق العلمية والملصقات، وغيرها.",
+      "realNamePatternHelp": "أدخل اسماً، وليس عنوان بريد إلكتروني",
+      "realNamePlaceholder": "مثال: كريم ناصر",
+      "register": "تسجيل",
+      "registering": "جارٍ التسجيل...",
+      "underageConsent": "أؤكد أنني ولي أمر\/الوصي على الطفل وأنني أمنح الإذن لطفلي بالتسجيل من خلال تقديم عنوان بريدي الإلكتروني كعنوان التواصل الرئيسي. أفهم أنا وطفلي سياسة الخصوصية ونوافق عليها (مطلوب)",
+      "underageEmail": "البريد الإلكتروني لولي الأمر (مطلوب)",
+      "underageEmailSignUp": "إذا وافقت، فسنرسل إليك رسائل إلكترونية دورية للترويج لمشروعات بحثية جديدة أو معلومات أخرى بخصوص أبحاثنا. لن نستخدم معلومات التواصل معك لأغراض تجارية. (اختياري)",
+      "underageNotRealName": "ستستخدم هذا الاسم لتسجيل الدخول. سيظهر هذا الاسم بشكل علني. لا تستخدم اسمك الحقيقي.",
+      "underageWithParent": "إذا كان عمرك أصغر من 16 عاماً، فحدد هذا المربع لتأكيد إتمامك للنموذج مع ولي أمرك أو الوصي عليك",
+      "username": "اسم المستخدم (مطلوب)",
+      "usernameConflict": "اسم المستخدم هذا مأخوذ",
+      "usernameHelp": "سيُعرض هذا على لوحات الرسائل، وما شابهها.",
+      "usernamePatternHelp": "لا يمكن أن تحتوي أسماء المستخدم إلا على الحروف والأرقام و'.' و'-' و'_'",
+      "usernamePlaceholder": "مثال، ZooniverseFan123"
+    },
+    "title": "سجل الدخول أو أنشئ حساباً جديداً."
+  },
   "CloseButton": {
-    "close": "أغلِق"
+    "close": "إغلاق"
+  },
+  "FavouritesButton": {
+    "add": "إضافة إلى المفضلات",
+    "remove": "تمت الإضافة إلى المفضلات"
   },
   "Loader": {
-    "loading": "(قيد التحميل)"
+    "loading": "قيد التحميل"
+  },
+  "ProjectCard": {
+    "classifications": "التصنيفات",
+    "finished": "تم",
+    "paused": "متوقف مؤقتاً",
+    "state": "الحالة"
   },
   "ZooFooter": {
-    "buildLabels": {
-      "tutorial": "إرشاد"
+    "aboutLabels": {
+      "about": "من نحن",
+      "acknowledgements": "الحقوق والتقدير",
+      "contact": "التواصل",
+      "faq": "الأسئلة الشائعة",
+      "publications": "الإصدارات",
+      "resources": "الموارد",
+      "team": "الفريق"
     },
+    "buildLabels": {
+      "bestPractices": "أفضل الممارسات",
+      "buildAProject": "إنشاء مشروع",
+      "glossary": "مُسرد مصطلحات",
+      "policies": "السياسات",
+      "tutorial": "دليل إرشادي"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "طلب المشروعات",
+      "collaborate": "تعاون",
+      "collections": "المجموعات",
+      "donate": "تبرّع",
+      "educate": "تعليمك لآخرين",
+      "education": "التعليم",
+      "getInvolved": "مشاركة",
+      "volunteer": "تطوع"
+    },
+    "newsLabels": {
+      "blog": "المدونة",
+      "dailyZooniverse": "يوميات Zooniverse",
+      "news": "الأخبار"
+    },
+    "policyLabels": {
+      "jobs": "الوظائف",
+      "privacyPolicy": "سياسة الخصوصية",
+      "security": "الأمان",
+      "systemStatus": "حالة النظام"
+    },
+    "projectLabels": {
+      "arts": "الفنون",
+      "biology": "الأحياء",
+      "climate": "المناخ",
+      "history": "التاريخ",
+      "language": "اللغة",
+      "literature": "الأدب",
+      "medicine": "الطب",
+      "nature": "الطبيعة",
+      "physics": "الفيزياء",
+      "projects": "المشروعات",
+      "social": "العلوم الاجتماعية",
+      "space": "الفضاء"
+    },
+    "tagLine": "أبحاث مدعومة بالأشخاص",
     "talkLabels": {
+      "announcements": "الإعلانات",
+      "data": "معالجة بيانات",
+      "projectBuilding": "إنشاء مشروع",
+      "talk": "محادثة",
+      "troubleshooting": "استكشاف الأخطاء وإصلاحها"
+    },
+    "zooniversePolicies": "سياسات Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "حساب المستخدم",
+      "navListLabels": {
+        "messages_one": "الرسائل ({{count}})",
+        "messages_other": "الرسائل ({{count}})",
+        "messages_zero": "الرسائل",
+        "notifications_one": "الإشعارات ({{count}})",
+        "notifications_other": "الإشعارات ({{count}})",
+        "notifications_zero": "الإشعارات"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "تسجيل",
+      "signIn": "تسجيل الدخول"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "تبديل إلى المظهر الداكن",
+      "switchToLight": "تبديل إلى المظهر الفاتح"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "المجموعات",
+        "favorites": "المفضلات",
+        "profile": "الملف الشخصي",
+        "settings": "الإعدادات",
+        "signOut": "تسجيل الخروج"
+      }
+    },
+    "ariaLabel": "الموقع",
+    "mainHeaderNavListLabels": {
+      "about": "من نحن",
+      "build": "إنشاء",
+      "getInvolved": "مشاركة",
+      "projects": "المشروعات",
       "talk": "محادثة"
     }
   },
-  "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "talk": "محادثة"
-    },
-    "ThemeModeToggle": {
-      "switchToDark": "استبدل الخلفيّة غامق",
-      "switchToLight": "استبدل الخلفيّة فاتح"
-    }
+  "ZooniverseLogo": {
+    "title": "شعار Zooniverse"
   }
 }

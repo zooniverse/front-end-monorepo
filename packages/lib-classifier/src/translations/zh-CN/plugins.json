@@ -1,7 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "从起始点点击并拖动到结束点，或者在线条上的任意位置双击以创建一个拼接点",
+    "closePoint": "点击线条上的任意位置以设置结束点",
+    "inactive": "点击以编辑此线条",
+    "spliceDrag": "从起始点点击并拖动到结束点",
+    "splicePoint": "在线条上的任意位置双击以创建一个拼接点"
+  },
+  "HighlighterTask": {
+    "delete": "删除",
+    "noLabels": "突出显示任务没有标签",
+    "status": "{{count}} 个已标记"
+  },
+  "InputStatus": {
+    "drawn": "已绘制 {{count}} 个",
+    "max": "已绘制 {{count}} 个，最多可绘制 {{max}} 个",
+    "maxAndMin": "已绘制 {{count}} 个，至少要绘制 {{min}} 个，最多可绘制 {{max}} 个",
+    "min": "已绘制 {{count}} 个，至少要绘制 {{min}} 个"
+  },
+  "LineControls": {
+    "close": "关闭",
+    "delete": "删除",
+    "deleteCancel": "取消删除",
+    "deleteConfirm": "确认删除",
+    "lineControls": "线条控制",
+    "move": "移动",
+    "redo": "重做",
+    "undo": "撤消"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "输入一些内容",
+    "otherLabel": "其他...",
+    "selectPlaceholder": "选择答案"
+  },
   "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "清除过滤器",
+      "closeFilters": "关闭过滤器",
+      "filter": "过滤器",
+      "removeFilter": "移除 {{valueLabel}} 过滤器",
+      "showing": "显示 {{showing}} 个，共 {{total}} 个"
+    },
     "Choice": {
-      "identify": "辨识"
+      "cancel": "取消",
+      "identify": "识别",
+      "lessInfo": "更少信息",
+      "moreInfo": "更多信息",
+      "notThis": "不是这个"
+    },
+    "ChoiceButton": {
+      "identified": "已识别",
+      "openSubmenu": "打开 {{choiceLabel}} 的子菜单"
+    },
+    "ConfusedWith": {
+      "cancel": "取消",
+      "confused": "有时被误认为",
+      "itsThis": "我认为就是这个"
+    },
+    "DeleteButton": {
+      "delete": "删除选择 {{choiceLabel}}"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "重置"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "文本修饰符"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "已创建转录内容",
+    "editing": "编辑转录内容"
   }
 }

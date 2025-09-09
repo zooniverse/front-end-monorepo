@@ -1,67 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Je hebt dit onderwerp al eens gezien",
+      "tooltipText": [
+        "Je hebt dit onderwerp al gezien en geclassificeerd, dus verdere classificaties dragen niet bij aan de analyse ervan.",
+        "Als je wilt helpen, probeer dan eens een andere workflow of draag bij aan een ander project."
+      ]
+    },
     "Banner": {
-      "next": "Volgende"
+      "next": "Volgende",
+      "previous": "Vorige",
+      "whyAmISeeingThis": "Waarom zie ik dit?"
     },
     "InProgressConfirmModal": {
       "cancel": "Annuleren",
       "confirm": "OK",
       "inProgress": "Let op! Niet opgeslagen gegevens gaan verloren."
+    },
+    "RetiredBanner": {
+      "bannerText": "Klaar: Dit onderwerp is niet meer beschikbaar.",
+      "tooltipText": [
+        "Dit onderwerp is al voldoende geclassificeerd, dus jouw classificatie wordt niet gebruikt in de analyse.",
+        "Als je wilt helpen, probeer dan eens een andere workflow of draag bij aan een ander project."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Al gezien",
+      "bannerText": "{{setName}}: Onderwerp {{number}}\/{{total}}",
+      "finished": "Klaar",
+      "tooltipText": [
+        "Dit project laat vrijwilligers onderwerpen in de juiste volgorde bekijken.",
+        "Het getal laat zien waar de persoon zich bevindt in de hele groep."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Klaar: Je hebt alles gezien",
+      "tooltipText": [
+        "Je hebt al alles in deze workflow geclassificeerd, dus verdere classificaties over dit onderwerp worden niet gebruikt in de analyse.",
+        "Als je wilt helpen, probeer dan eens een andere workflow of draag bij aan een ander project."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Deze workflow is klaar.",
+      "tooltipText": [
+        "Alle onderwerpen in deze workflow zijn afgerond, dus verdere classificaties op dit onderwerp worden niet gebruikt in de analyse.",
+        "Als je wilt helpen, probeer dan eens een andere workflow of draag bij aan een ander project."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Knop om getekende aantekeningen\/markeringen te draaien."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Doorgaan"
+    "keepClassifying": "Doorgaan",
+    "label": "Feedback"
   },
   "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Praktische gids"
+    },
     "FieldGuideItem": {
       "ariaTitle": "Terug"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Selecteer {{title}}"
+    },
+    "title": "Praktische gids"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Annoteren"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Bekijk onderwerp op normale grootte",
+        "fullscreen": "Bekijk onderwerp op het volledige scherm"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Onderwerp omkeren"
+    },
+    "MoveButton": {
+      "ariaLabel": "Onderwerp verplaatsen"
+    },
+    "ResetButton": {
+      "ariaLabel": "Onderwerpweergave resetten"
+    },
+    "RotateButton": {
+      "ariaLabel": "Onderwerp draaien"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zoom in op het onderwerp"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Zoom uit van het onderwerp"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Aan collectie toevoegen"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Vorige punten verbergen",
+      "show": "Vorige punten weergeven"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Alle punten verbergen",
+      "show": "Alle punten weergeven",
+      "showUser": "Je punten weergeven"
+    },
+    "MetadataButton": {
+      "label": "Onderwerpinformatie"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Label",
+        "value": "Waarde"
+      },
+      "title": "Onderwerp metadata"
     }
   },
   "ModalTutorial": {
     "title": "Uitleg"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Sluit het opmerkingenpaneel",
+      "goToTalk": "Ga naar Onderwerp Discussie op Talk",
+      "mainPanel": "QuickTalk-opmerkingenpaneel",
+      "openButton": "Het onderwerp heeft {{count}} opmerking(en). Klik om uit te vouwen.",
+      "panelContent": "Discussie over onderwerp reacties",
+      "panelHeading": "Discussie over onderwerp"
+    },
+    "errors": {
+      "failPostComment": "Ik kon geen reacties toevoegen aan een bestaande discussie.",
+      "failPostDiscussion": "Ik kon geen reacties toevoegen aan een nieuwe discussie.",
+      "noBoard": "Er is nog geen forum voor opmerkingen over dit project.",
+      "noText": "Je kunt geen lege reactie plaatsen.",
+      "noUser": "Je bent niet ingelogd."
+    },
+    "loginToPost": "Log in om een reactie te plaatsen.",
     "status": {
-      "loading": "(Laden)"
-    }
+      "initialized": "Laat een bericht achter over dit onderwerp",
+      "loading": "(Laden)",
+      "success": "Reactie geplaatst!"
+    },
+    "subjectHasNoComments": "Er zijn nog geen reacties op dit onderwerp."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Ga naar stap {{index}}",
+      "next": "Ga naar de volgende stap",
+      "previous": "Ga terug naar de vorige stap"
+    },
+    "alt": "Tutorial stap {{activeStep}}",
+    "error": "Tutorial stap kon niet worden geladen.",
     "getStarted": "Beginnen",
     "heading": "{{projectDisplayName}} Uitleg"
   },
+  "StepNavigation": {
+    "go": "Ga naar stap {{index}}",
+    "next": "Ga naar de volgende stap",
+    "previous": "Ga terug naar de vorige stap"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Staafdiagram"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Pictogram voor tekstviewer"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Sluiten zonder op te slaan",
+        "confirm": "Wil je echt sluiten? Deze markering wordt verwijderd.",
+        "keepWorking": "Doorgaan"
+      },
+      "SaveButton": {
+        "save": "Opslaan en sluiten"
+      },
+      "SubTaskPopup": {
+        "notRender": "De taakcomponent kon niet worden weergegeven.",
+        "required": "Deze taak is verplicht."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "geaggregeerde transcriptie",
+          "explanation": "Deze {{count}} transcripties zijn ingezonden door vrijwilligers en kan niet worden aangepast.",
+          "noAggregation": "Geen samenvatting beschikbaar.",
+          "title": "Vorige transcripties",
+          "transcriptionsUnavailable": "Er zijn geen transcripties beschikbaar."
+        },
+        "complete": "Transcriptie afgerond",
+        "transcribed": "Heeft transcripties"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Volgende"
+        "nextFrameLabel": "Volgende",
+        "previousFrameLabel": "Vorige",
+        "thumbnailAltText": "Miniatuurweergave van afbeelding"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Selectie verwijderen {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Ga naar flipbook-weergave",
+        "switchToSeparateFrames": "Ga naar de weergave met aparte frames"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Er is iets misgegaan bij het laden van het onderwerp."
+    },
+    "VariableStarViewer": {
+      "controls": "bediening",
+      "figCaption": "HR-diagram",
+      "flip": "draaien",
+      "focus": "focus",
+      "highlight": "highlight",
+      "imageTitle": "HR-diagram: helderheid versus temperatuur",
+      "label": "Filter {{id}}",
+      "periodMultiple": "periode meervoud",
+      "phase": "fase",
+      "phaseFocus": "fasefocus"
+    },
+    "VideoController": {
+      "closeVolume": "Sluit volumeschuifregelaar",
+      "fullscreen": "Video op volledig scherm afspelen",
+      "openVolume": "Open volumeschuifregelaar",
+      "pause": "Video pauzeren",
+      "play": "Video afspelen",
+      "playbackSpeed": "Snelheid van video afspelen kiezen",
+      "scrubber": "Videospeler-scrubber",
+      "volumeSlider": "Volumeregelaar"
+    },
+    "ZoomControlButton": {
+      "disable": "zoom uitschakelen",
+      "enable": "zoom inschakelen"
+    },
+    "loading": "Een onderwerp laden",
+    "zoomHelp": "Gebruik CTRL + scroll om in te zoomen"
   },
   "TaskArea": {
-    "task": "Taak",
-    "tutorial": "Uitleg",
     "DisabledTaskPopup": {
+      "body": "Dit onderwerp heeft al voldoende classificaties, dus eventuele extra classificaties die worden ingediend, worden niet meegenomen in de analyse. Je kunt dit onderwerp nog steeds bekijken ter referentie.",
       "options": {
-        "dismiss": "Sluiten"
-      }
+        "dismiss": "Sluiten",
+        "next": "Volgende beschikbare onderwerp",
+        "select": "Kies een nieuw onderwerp"
+      },
+      "title": "Klaar"
     },
     "Tasks": {
       "BackButton": {
         "back": "Terug"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Afronden & Bespreken"
+        "doneAndTalk": "Afronden & Bespreken",
+        "newTab": "in een nieuwe tabblad"
       },
       "DoneButton": {
         "done": "Afronden"
       },
-      "loading": "(Laden)",
+      "ExpertOptions": {
+        "demoToggle": "Demo-modus",
+        "label": "Opties voor experts"
+      },
       "NextButton": {
         "next": "Volgende"
       },
       "TaskHelp": {
         "close": "Sluiten",
         "label": "Hulp nodig met deze taak?"
-      }
-    }
+      },
+      "demoMode": "In de demo-modus wordt de classificatie niet opgeslagen. Gebruik dit voor snelle, onnauwkeurige demo's van de classificatie-interface.",
+      "error": "Er is iets misgegaan",
+      "loading": "(Laden)",
+      "renderFallback": "De taakcomponent kon niet worden weergegeven."
+    },
+    "task": "Taak",
+    "tutorial": "Uitleg"
   }
 }

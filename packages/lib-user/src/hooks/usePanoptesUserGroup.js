@@ -29,6 +29,6 @@ async function fetchPanoptesUserGroup({ groupId, token }) {
 
 export function usePanoptesUserGroup({ adminMode, authUserId, groupId, membershipId }) {
   const token = usePanoptesAuthToken()
-  const key = token && groupId ? { groupId, token } : null
+  const key = groupId ? { adminMode, groupId, token, membershipId } : null
   return useSWR(key, fetchPanoptesUserGroup, SWROptions)
 }

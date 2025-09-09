@@ -1,6 +1,10 @@
-function formatTimeStamp(displayTime, duration) {
+function padSeconds(string) {
+  return ('0' + string).slice(-2)
+}
+
+function formatTimeStamp(played, duration) {
   // timeStamp is in seconds
-  const timeStamp = duration ? displayTime * duration : displayTime
+  const timeStamp = duration ? played * duration : played
 
   if (typeof timeStamp !== 'number' || isNaN(timeStamp)) {
     return 'NaN'
@@ -10,13 +14,10 @@ function formatTimeStamp(displayTime, duration) {
     return '0:00'
   }
 
-  let date
-  date = new Date(timeStamp * 1000).toISOString().substring(14, 19)
-  date.replace('.', ':')
-  if (date.slice(0, 2) === '00') {
-    date = date.slice(1)
-  }
-  return date
+  const date = new Date(timeStamp * 1000)
+  const mm = date.getUTCMinutes()
+  const ss = padSeconds(date.getUTCSeconds())
+  return `${mm}:${ss}`
 }
 
 export default formatTimeStamp

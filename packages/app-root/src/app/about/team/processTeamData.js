@@ -27,12 +27,6 @@ function processTeamData(data) {
       newPerson.avatarSrc = avatarSrc
     }
 
-    // Optional field
-    const twitter = get(person, 'fields.twitterID', undefined)
-    if (twitter) {
-      newPerson.twitterID = twitter
-    }
-
     acc[team.name].people.push(newPerson)
     return acc
   }, {})

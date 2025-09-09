@@ -1,0 +1,76 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Karatu",
+        "faq": "Tambayoyin Da Ake Yawan Yi",
+        "research": "Bincike",
+        "results": "Sakamako",
+        "team": "Tawagar"
+      }
+    },
+    "PageNav": {
+      "title": "Game da aikin"
+    },
+    "SidebarHeading": "Game da",
+    "TeamMember": {
+      "collaborator": "Abokin Haɗin Guiwa",
+      "expert": "Gwani",
+      "moderator": "Mai Daidaitawa",
+      "museum": "Gidan Tarihi",
+      "owner": "Mamallaki",
+      "researcher": "Manazarci",
+      "tester": "Mai Gwaji",
+      "translator": "Mai Fassara"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "An samu matsala tattare da wannan mai rarrabawa :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Tattauna batu a kan shafin Maga, ko ku sanya a cikin Waɗanda Kuka Fi So ko a rukuni.",
+      "title": "Rabonku da ya gabata"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "A'a, na gode",
+      "confirm": "Kai ni zuwa aiki na gaba!",
+      "content": "Muna taya ku murna! Kasancewar kuna ƙoƙari sosai, yanzu za ku iya buɗe wani aiki na daban. Idan kun fi son ku kasance a wannan aikin na yanzu, to kuna iya zaɓen tsayawa tare da shi.",
+      "dismiss": "Kada a sake nuna wannan a zangon nan",
+      "title": "Sabon Aikin Da Ake Da Shi"
+    },
+    "YourStats": {
+      "allTime": "Dukkannin Lokuta",
+      "lastSeven": "Kwanaki 7 Da Suka Gabata",
+      "link": "Duba ƙari",
+      "title": "Bayananku"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Game da {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Samu ƙarin bayani"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Ku haɗu da tawagar mai manazarcin a kan Magana domin samun ƙarin bayani game da wannan aiki!",
+      "noMessageButton": "Je Zuwa Magana",
+      "title": "Saƙo daga manazarcin"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "An samu matsala yayin buɗe maudu'an:",
+        "noSubjects": "Da alama babu wanda ya yi tsokaci a kan batu tukuna. Ku je kan shafin Magana domin kasancewa na farko!",
+        "subjectLabel": "Batu {{id}}"
+      },
+      "button": "Ku shiga ciki",
+      "message": "Ku tattauna tare da tawagar binciken da sauran 'yan sa-kai",
+      "title": "Shafin Magana na Zooniverse"
+    }
+  }
+}

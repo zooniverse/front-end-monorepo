@@ -1,6 +1,8 @@
-export function getProjectSelectOptions({ projects = [], selectedProject = undefined }) {
+const DEFAULT_HANDLER = key => key
+
+export function getProjectSelectOptions({ projects = [], selectedProject = undefined, t = DEFAULT_HANDLER }) {
   let projectOptions = [
-    { label: 'ALL PROJECTS', value: undefined },
+    { label: t('MainContent.allProjects').toUpperCase(), value: undefined },
     ...projects
       .map(project => ({
         label: project.display_name,

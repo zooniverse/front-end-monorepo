@@ -2,29 +2,75 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Badania",
-        "team": "Zespół",
-        "results": "Results",
         "education": "Edukacja",
-        "faq": "Pytania i odpowiedzi"
+        "faq": "Pytania i odpowiedzi",
+        "research": "Badania",
+        "results": "Results",
+        "team": "Zespół"
       }
     },
-    "SidebarHeading": "Opis"
+    "PageNav": {
+      "title": "O projekcie"
+    },
+    "SidebarHeading": "Opis",
+    "TeamMember": {
+      "collaborator": "Współpracownik",
+      "expert": "Ekspert",
+      "moderator": "Moderator",
+      "museum": "Muzeum",
+      "owner": "Właściciel",
+      "researcher": "Badacz",
+      "tester": "Tester",
+      "translator": "Tłumacz"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "W klasyfikatorze wystąpił błąd :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Omów materiał w sekcji Dyskusje lub dodaj go do Ulubionych lub kolekcji.",
+      "title": "Twoje ostatnie klasyfikacje"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nie, dziękuję",
+      "confirm": "Przejdźmy do następnego przepływu pracy!",
+      "content": "Gratulacje! Świetnie Ci idzie, więc masz teraz dostęp do kolejnego przepływu pracy. Jeśli wolisz pozostać w bieżącym przepływie, masz taką możliwość.",
+      "dismiss": "Nie pokazuj tego ponownie w tej sesji",
+      "title": "Dostępny nowy przepływ prac"
+    },
+    "YourStats": {
+      "allTime": "Z całego okresu",
+      "lastSeven": "Ostatnie 7 dni",
+      "link": "Zobacz więcej",
+      "title": "statystyka"
+    }
   },
   "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} – informacje"
+    },
     "Hero": {
       "Introduction": {
         "link": "Dowiedz się więcej"
       }
     },
+    "MessageFromResearcher": {
+      "noMessage": "Nawiąż kontakt z zespołem badawczym w sekcji Dyskusje, aby dowiedzieć się więcej na temat tego projektu!",
+      "noMessageButton": "Przejdź do Dyskusji",
+      "title": "Wiadomość od badacza"
+    },
     "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Podczas wczytywania materiałów wystąpił błąd :(",
+        "noSubjects": "Wygląda na to, że nikt nie dodał jeszcze komentarza do tego materiału. Przejdź do sekcji Dyskusje i bądź pierwszą osobą, która wypowie się na jego temat!",
+        "subjectLabel": "Materiał {{id}}"
+      },
       "button": "Dołącz",
+      "message": "Porozmawiaj z zespołem badawczym i innymi wolontariuszami!",
       "title": "Dyskutowanie"
-    }
-  },
-  "Classify": {
-    "YourStats": {
-      "title": "{{projectName}} statystyka"
     }
   }
 }

@@ -12,10 +12,10 @@ import {
   Youtube as YouTubeIcon
 } from 'grommet-icons'
 
-import BitbucketIcon from './../../components/BitbucketIcon.js'
-import BlueSkyIcon from '../../components/BlueSkyIcon.js'
-import MastodonIcon from '../../components/MastodonIcon.js'
-import WeiboIcon from './../../components/WeiboIcon.js'
+import BitbucketIcon from './../../components/BitbucketIcon'
+import BlueSkyIcon from '../../components/BlueSkyIcon'
+import MastodonIcon from '../../components/MastodonIcon'
+import WeiboIcon from './../../components/WeiboIcon'
 
 function formatUrlObject(obj, t) {
   // Default to external website
@@ -34,6 +34,7 @@ function formatUrlObject(obj, t) {
   if (obj.site && obj.site.includes('bsky.app')) {
     formattedObject.IconComponent = BlueSkyIcon
     formattedObject.type = t('ConnectWithProject.ProjectLink.types.bluesky')
+    formattedObject.url = `https://bsky.app/profile/${obj.path}`
   }
 
   if (obj.site && obj.site.includes('facebook')) {

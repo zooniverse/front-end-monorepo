@@ -18,17 +18,12 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/iron'
+          node-version-file: ./.nvmrc
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile --ignore-scripts
-      - run: yarn workspace @zooniverse/react-components build:cjs
-      - run: yarn workspace @zooniverse/user build:cjs
-      - run: yarn workspace @zooniverse/subject-viewers build:cjs
-      - run: yarn workspace @zooniverse/classifier build:cjs
+      - run: yarn workspace @zooniverse/subject-viewers build
+      - run: yarn workspace @zooniverse/react-components build
+      - run: yarn workspace @zooniverse/user build
+      - run: yarn workspace @zooniverse/classifier build
       - run: yarn test:ci
-      - run: yarn coverage-lcov
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}

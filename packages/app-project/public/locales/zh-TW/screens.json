@@ -2,14 +2,51 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "研究項目",
-        "team": "研究團隊",
-        "results": "成果",
         "education": "教育應用",
-        "faq": "常見問題"
+        "faq": "常見問題",
+        "research": "研究計畫",
+        "results": "成果",
+        "team": "研究團隊"
       }
     },
-    "SidebarHeading": "關於"
+    "PageNav": {
+      "title": "關於本專案"
+    },
+    "SidebarHeading": "關於",
+    "TeamMember": {
+      "collaborator": "協作者",
+      "expert": "專家",
+      "moderator": "審核員",
+      "museum": "博物館",
+      "owner": "所有者",
+      "researcher": "研究人員",
+      "tester": "測試員",
+      "translator": "譯者"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "分類器發生錯誤 :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "在討論區上討論題目，或新增到我的最愛或收藏夾。",
+      "title": "您最近完成的分類"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "不，謝謝",
+      "confirm": "帶我開始下一個工作流程！",
+      "content": "恭喜您！由於您表現出色，您現在可以參與另一個工作流程。如果您更希望繼續目前的工作流程，您也可以選擇繼續。",
+      "dismiss": "本次工作階段不再顯示此訊息",
+      "title": "可參與的新工作流程"
+    },
+    "YourStats": {
+      "allTime": "所有時間",
+      "lastSeven": "過去 7 天",
+      "link": "查看更多",
+      "title": "統計資料"
+    }
   },
   "Home": {
     "AboutProject": {
@@ -20,17 +57,20 @@
         "link": "瞭解更多"
       }
     },
-    "ZooniverseTalk": {
-      "button": "加入",
-      "title": "討論"
-    }
-  },
-  "Classify": {
-    "RecentSubjects": {
-      "title": "這些是你最近完成的分類"
+    "MessageFromResearcher": {
+      "noMessage": "前往討論區與研究團隊交流，瞭解更多有關此專案的資訊！",
+      "noMessageButton": "前往討論區",
+      "title": "來自研究人員的訊息"
     },
-    "YourStats": {
-      "title": "{{projectName}} 數據"
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "載入題目時發生錯誤 :(",
+        "noSubjects": "看起來還沒有人對這個題目發佈留言。前往討論區，成為第一個留言的人吧！",
+        "subjectLabel": "{{id}} 題目"
+      },
+      "button": "加入",
+      "message": "與研究團隊和其他志願者交談！",
+      "title": "Zooniverse 討論區"
     }
   }
 }

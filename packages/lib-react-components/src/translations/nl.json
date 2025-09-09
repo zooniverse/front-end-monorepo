@@ -1,29 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "Beheerdersmodus"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Gebruikersnaam of e-mailadres zijn fout",
+      "forgot": "Je wachtwoord vergeten?",
+      "heading": "Welkom terug!",
+      "instruction": "Leuk dat je er weer bent! Log in om verder te gaan waar je bent gebleven.",
+      "login": "Gebruikersnaam of e-mailadres",
+      "password": "Wachtwoord",
+      "placeholder": "bijv. ZooniverseFan123",
+      "signIn": "Inloggen"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Ik wil wel helpen met het testen van nieuwe projecten en een mailtje krijgen als ze beschikbaar zijn (optioneel)",
+      "email": "E-mailadres (verplicht)",
+      "emailConfirm": "Bevestig je e-mailadres (verplicht)",
+      "emailConfirmError": "De e-mailadressen kloppen niet, probeer het opnieuw.",
+      "emailConflict": "Er bestaat al een account met dit adres",
+      "emailListSignUp": "Je mag me af en toe een e-mail sturen (optioneel)",
+      "emailPlaceholder": "bijv. zoofan31@gmail.com",
+      "forgot": "Je wachtwoord vergeten?",
+      "heading": "Welkom terug!",
+      "instruction": "Maak een account aan om echt onderzoek te doen.",
+      "password": "Wachtwoord (verplicht)",
+      "passwordConfirm": "Wachtwoord bevestigen (verplicht)",
+      "passwordConfirmError": "De wachtwoorden komen niet overeen, probeer het alstublieft opnieuw.",
+      "privacyAgreement": "Je gaat akkoord met ons privacybeleid (verplicht)",
+      "privacyAgreementError": "Je moet akkoord gaan met het privacybeleid.",
+      "privacyLink": "Lees ons privacybeleid",
+      "realName": "Real name (optional)",
+      "realNameHelp": "Public; we’ll use this to give acknowledgement in papers, on posters, etc.",
+      "realNamePatternHelp": "Voer een naam in, geen e-mailadres",
+      "realNamePlaceholder": "bijv. Maggie Smith",
+      "register": "Registreren",
+      "registering": "Registreren...",
+      "underageConsent": "Ik ben de ouder\/voogd en geef toestemming voor de inschrijving van mijn kind door mijn e-mailadres als primair contactadres op te geven. Zowel ik als mijn kind begrijpen en gaan akkoord met het privacybeleid (verplicht)",
+      "underageEmail": "E-mailadres van ouder\/voogd (verplicht)",
+      "underageEmailSignUp": "Als je akkoord gaat, sturen we je af en toe een e-mail met info over nieuwe onderzoeksprojecten of andere dingen die met ons onderzoek te maken hebben. We gebruiken je contactgegevens niet voor commerciële doeleinden. (optioneel)",
+      "underageNotRealName": "Je gebruikt deze naam om in te loggen. Deze wordt openbaar weergegeven. Gebruik niet je echte naam.",
+      "underageWithParent": "Als je jonger bent dan 16 jaar, vink dan dit selectievakje aan om te bevestigen dat je het formulier samen met je ouder of voogd hebt ingevuld.",
+      "username": "Gebruikersnaam (vereist)",
+      "usernameConflict": "Die gebruikersnaam is al in gebruik",
+      "usernameHelp": "Dit wordt openbaar gemaakt op prikborden etc.",
+      "usernamePatternHelp": "Gebruikersnamen mogen alleen letters, cijfers, '.', '-' en '_' bevatten",
+      "usernamePlaceholder": "bijv. ZooniverseFan123"
+    },
+    "title": "Log in of maak een nieuw account aan."
+  },
   "CloseButton": {
     "close": "Sluiten"
+  },
+  "FavouritesButton": {
+    "add": "Toevoegen aan favorieten",
+    "remove": "Toegevoegd aan favorieten"
   },
   "Loader": {
     "loading": "(Laden)"
   },
+  "ProjectCard": {
+    "classifications": "Classificatie",
+    "finished": "Klaar",
+    "paused": "Pauze",
+    "state": "Staat"
+  },
   "ZooFooter": {
+    "aboutLabels": {
+      "about": "Over",
+      "acknowledgements": "Dankwoord",
+      "contact": "Contact",
+      "faq": "Veelgestelde vragen",
+      "publications": "Publicaties",
+      "resources": "Bronnen",
+      "team": "Team"
+    },
     "buildLabels": {
+      "bestPractices": "Beste praktijken",
+      "buildAProject": "Zet een project op",
+      "glossary": "Woordenlijst",
+      "policies": "Beleid",
       "tutorial": "Uitleg"
     },
+    "getInvolvedLabels": {
+      "callForProjects": "Projectoproep",
+      "collaborate": "Samenwerken",
+      "collections": "Collecties",
+      "donate": "Doneer",
+      "educate": "Onderwijs",
+      "education": "Onderwijs",
+      "getInvolved": "Doe mee",
+      "volunteer": "Vrijwilliger"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Dagelijkse Zooniverse",
+      "news": "Nieuws"
+    },
+    "policyLabels": {
+      "jobs": "Vacatures",
+      "privacyPolicy": "Privacybeleid",
+      "security": "Veiligheid",
+      "systemStatus": "Systeemstatus"
+    },
+    "projectLabels": {
+      "arts": "Kunst",
+      "biology": "Biologie",
+      "climate": "Klimaat",
+      "history": "Geschiedenis",
+      "language": "Taal",
+      "literature": "Literatuur",
+      "medicine": "Geneeskunde",
+      "nature": "Natuur",
+      "physics": "Natuurkunde",
+      "projects": "Projecten",
+      "social": "Sociale wetenschappen",
+      "space": "Ruimte"
+    },
+    "tagLine": "Onderzoek door mensen",
     "talkLabels": {
-      "talk": "Forum"
-    }
+      "announcements": "Aankondigingen",
+      "data": "Verwerking van gegevens",
+      "projectBuilding": "Projectopbouw",
+      "talk": "Forum",
+      "troubleshooting": "Problemen oplossen"
+    },
+    "zooniversePolicies": "Zooniverse Beleid"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "talk": "Forum"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Gebruikersaccount",
+      "navListLabels": {
+        "messages_one": "Berichten ({{count}})",
+        "messages_other": "Berichten ({{count}})",
+        "messages_zero": "Berichten",
+        "notifications_one": "Meldingen ({{count}})",
+        "notifications_other": "Meldingen ({{count}})",
+        "notifications_zero": "Meldingen"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "Registreren",
       "signIn": "Inloggen"
     },
     "ThemeModeToggle": {
-      "switchToDark": "Wissel naar donker thema",
-      "switchToLight": "Wissel naar licht thema"
+      "switchToDark": "Schakel over naar donker thema",
+      "switchToLight": "Schakel over naar licht thema"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Collecties",
+        "favorites": "Favorieten",
+        "profile": "Profiel",
+        "settings": "Instellingen",
+        "signOut": "Afmelden"
+      }
+    },
+    "ariaLabel": "Locatie",
+    "mainHeaderNavListLabels": {
+      "about": "Over",
+      "build": "Build",
+      "getInvolved": "Doe mee",
+      "projects": "Projecten",
+      "talk": "Forum"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse Logo"
   }
 }

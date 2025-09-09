@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Klik dan seret dari titik buka ke titik tutup atau klik dua kali di mana saja pada garis untuk membuat titik sambung",
+    "closePoint": "Klik di mana saja pada garis untuk menetapkan titik tutup",
+    "inactive": "Klik untuk mengedit garis ini",
+    "spliceDrag": "Klik dan seret dari titik buka ke titik tutup",
+    "splicePoint": "Klik dua kali di mana saja pada garis untuk membuat titik sambung"
+  },
+  "HighlighterTask": {
+    "delete": "Hapus",
+    "noLabels": "Tidak ada label untuk Tugas Highlighter",
+    "status": "{{count}} Ditandai"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} garis ditarik",
+    "max": "{{count}} dari {{max}} maksimal garis ditarik",
+    "maxAndMin": "{{count}} dari {{min}} harus ada, maksimal {{max}} garis ditarik",
+    "min": "{{count}} dari {{min}} garis harus ditarik"
+  },
+  "LineControls": {
+    "close": "Tutup",
+    "delete": "Hapus",
+    "deleteCancel": "Batalkan Penghapusan",
+    "deleteConfirm": "Konfirmasi Penghapusan",
+    "lineControls": "Pengaturan Garis",
+    "move": "Pindahkan",
+    "redo": "Ulang",
+    "undo": "Urungkan"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Ketikkan sesuatu",
+    "otherLabel": "Lainnya...",
+    "selectPlaceholder": "Pilih jawaban"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Hapus filter",
+      "closeFilters": "Tutup filter",
+      "filter": "Filter",
+      "removeFilter": "Hapus filter {{valueLabel}}",
+      "showing": "Menampilkan {{showing}} dari {{total}}"
+    },
+    "Choice": {
+      "cancel": "Batal",
+      "identify": "Identifikasi",
+      "lessInfo": "Lebih sedikit info",
+      "moreInfo": "Lebih banyak info",
+      "notThis": "Bukan ini"
+    },
+    "ChoiceButton": {
+      "identified": "teridentifikasi",
+      "openSubmenu": "Buka submenu untuk {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Batal",
+      "confused": "Kadang tertukar dengan",
+      "itsThis": "Menurut saya ini"
+    },
+    "DeleteButton": {
+      "delete": "Hapus pilihan {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Atur ulang"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Pengubah teks"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transkripsi yang dibuat",
+    "editing": "Mengedit transkripsi"
+  }
+}

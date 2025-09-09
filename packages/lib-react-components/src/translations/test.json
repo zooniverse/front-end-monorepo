@@ -59,9 +59,16 @@
   "Loader": {
     "loading": "Translated"
   },
+  "ProjectCard": {
+    "classifications": "Translated",
+    "finished": "Translated",
+    "paused": "Translated",
+    "state": "Translated"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Translated",
+      "acknowledgements": "Translated",
       "contact": "Translated",
       "faq": "Translated",
       "publications": "Translated",
@@ -76,11 +83,19 @@
       "tutorial": "Translated"
     },
     "getInvolvedLabels": {
+      "callForProjects": "Translated",
       "collaborate": "Translated",
+      "collections": "Translated",
       "donate": "Translated",
       "educate": "Translated",
+      "education": "Translated",
       "getInvolved": "Translated",
       "volunteer": "Translated"
+    },
+    "newsLabels": {
+      "blog": "Translated",
+      "dailyZooniverse": "Translated",
+      "news": "Translated"
     },
     "policyLabels": {
       "jobs": "Translated",
@@ -89,7 +104,18 @@
       "systemStatus": "Translated"
     },
     "projectLabels": {
-      "projects": "Translated"
+      "arts": "Translated",
+      "biology": "Translated",
+      "climate": "Translated",
+      "history": "Translated",
+      "language": "Translated",
+      "literature": "Translated",
+      "medicine": "Translated",
+      "nature": "Translated",
+      "physics": "Translated",
+      "projects": "Translated",
+      "social": "Translated",
+      "space": "Translated"
     },
     "tagLine": "Translated",
     "talkLabels": {

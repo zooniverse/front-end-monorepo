@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import graph2dRangeReducer from './reducer'
 
 const ruleWithStrings = {

@@ -1,10 +1,9 @@
-const { expect } = require('chai')
-const nock = require('nock')
+import nock from 'nock'
 
-const { config } = require('../../config')
-const { responses } = require('./mocks')
-const { endpoint } = require('./helpers')
-const subjects = require('./index')
+import { config } from '../../config'
+import { responses } from './mocks'
+import { endpoint } from './helpers'
+import subjects from './index'
 
 describe('Subjects resource REST requests', function () {
   describe('get', function () {

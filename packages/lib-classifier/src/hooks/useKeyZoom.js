@@ -1,6 +1,6 @@
 import { useStores } from '@hooks'
 
-const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
+const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect', 'image']
 
 function storeMapper(classifierStore) {
   const {
@@ -24,23 +24,25 @@ function storeMapper(classifierStore) {
   }
 }
 
-export default function useKeyZoom(rotate=0) {
-  const {
-    panLeft,
-    panRight,
-    panUp,
-    panDown,
-    zoomIn,
-    zoomOut
-  } = useStores(storeMapper)
+export function defaultKeyMappings({
+  panLeft,
+  panRight,
+  panUp,
+  panDown,
+  rotate,
+  zoomIn,
+  zoomOut,
+  customKeyMappings = {}
+}) {
   const rotation = Math.abs(rotate) % 360
   const keyMappings = {
     '+': zoomIn,
     '=': zoomIn,
     '-': zoomOut,
-    '_': zoomOut
+    '_': zoomOut,
+    ...customKeyMappings
   }
-  
+
   if (rotation === 0) {
     keyMappings['ArrowRight'] = panRight
     keyMappings['ArrowLeft'] = panLeft
@@ -77,6 +79,30 @@ export default function useKeyZoom(rotate=0) {
 
     return true
   }
-    
-    return { onKeyZoom }
+
+  return { onKeyZoom }
+}
+
+export default function useKeyZoom({ rotate = 0, customKeyMappings = {}} = {}) {
+  const {
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
+    zoomIn,
+    zoomOut
+  } = useStores(storeMapper)
+  
+  const onKeyZoom = defaultKeyMappings({
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
+    rotate,
+    zoomIn,
+    zoomOut,
+    customKeyMappings
+  })
+
+  return onKeyZoom
 }

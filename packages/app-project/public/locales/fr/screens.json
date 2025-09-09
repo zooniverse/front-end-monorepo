@@ -30,17 +30,6 @@
         "title": "Il y a eu une erreur avec le classificateur :("
       }
     },
-    "FinishedForTheDay": {
-      "ProjectImage": {
-        "alt": "Image pour {{projectName}}"
-      },
-      "buttons": {
-        "anotherProject": "Trouver un autre projet",
-        "stats": "Afficher les statistiques"
-      },
-      "text": "Vos réponses sont enregistrées pour l'équipe de recherche pendant que vous travaillez. Consultez les statistiques du projet et revenez à la page d'accueil de {{projectName}}.",
-      "title": "Terminé pour aujourd'hui?"
-    },
     "RecentSubjects": {
       "text": "Discutez d'un sujet sur Talk ou ajoutez-le à vos favoris ou à une collection.",
       "title": "Vos classifications récentes"
@@ -53,13 +42,10 @@
       "title": "Nouveau module disponible"
     },
     "YourStats": {
-      "DailyClassificationsChart": {
-        "title": "Nombre de classifications quotidiennes de {{projectName}}"
-      },
-      "text": "Continuez votre excellent travail !",
-      "title": "Statistiques de {{projectName}}",
-      "todaysCount": "Classifications d'aujourd'hui",
-      "totalCount": "Total des classifications"
+      "allTime": "Tous les horaires",
+      "lastSeven": "7 derniers jours",
+      "link": "Voir plus",
+      "title": "Statistiques"
     }
   },
   "Home": {

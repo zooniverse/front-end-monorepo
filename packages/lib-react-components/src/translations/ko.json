@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "관리자 모드"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "사용자 이름 또는 비밀번호가 올바르지 않습니다",
+      "forgot": "비밀번호가 생각나지 않나요?",
+      "heading": "돌아오신 것을 환영합니다!",
+      "instruction": "돌아오신 것을 보니 반가워요! 로그인하시면 멈췄던 지점에서 이어서 진행할 수 있어요.",
+      "login": "사용자 이름 또는 이메일 주소",
+      "password": "비밀번호",
+      "placeholder": "예: ZooniverseFan123",
+      "signIn": "로그인하기"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "이용 가능한 새 프로젝트가 있을 때 이메일을 받아 보고 프로젝트 테스트를 돕고 싶습니다(선택)",
+      "email": "이메일 주소(필수)",
+      "emailConfirm": "이메일 주소 확인(필수)",
+      "emailConfirmError": "이메일 주소가 일치하지 않습니다. 다시 시도해 주세요.",
+      "emailConflict": "이 주소의 계정이 이미 존재합니다",
+      "emailListSignUp": "때때로 이메일을 전송해도 괜찮습니다(선택)",
+      "emailPlaceholder": "예: zoofan31@gmail.com",
+      "forgot": "비밀번호가 생각나지 않나요?",
+      "heading": "돌아오신 것을 환영합니다!",
+      "instruction": "계정을 만들어 실제 연구를 시작하세요.",
+      "password": "비밀번호(필수)",
+      "passwordConfirm": "비밀번호 확인(필수)",
+      "passwordConfirmError": "비밀번호가 일치하지 않습니다. 다시 시도해 주세요.",
+      "privacyAgreement": "개인정보 보호정책에 동의합니다(필수)",
+      "privacyAgreementError": "개인정보 보호정책에 필수로 동의해야 합니다.",
+      "privacyLink": "개인정보 보호정책을 읽어보세요",
+      "realName": "본명(선택)",
+      "realNameHelp": "과학 논문, 포스터 등에서 기여도를 부여하는 데 이를 사용합니다.",
+      "realNamePatternHelp": "이메일 주소가 아니라 이름을 입력합니다",
+      "realNamePlaceholder": "예: Maggie Smith",
+      "register": "등록하기",
+      "registering": "등록 중...",
+      "underageConsent": "본인은 부모\/보호자임을 확인하며 기본 연락 주소로 본인의 이메일 주소를 제공하여 본인의 자녀가 등록하는 것을 허락합니다. 본인과 본인의 자녀 모두 개인정보 보호정책을 이해하고 이에 동의합니다(필수)",
+      "underageEmail": "부모\/보호자 이메일 주소(필수)",
+      "underageEmailSignUp": "동의하시면, 새로운 연구 관련 프로젝트 또는 기타 Zooniverse 연구 관련 정보를 알리고 참여를 촉진하는 이메일이 주기적으로 전송됩니다. 사용자의 연락처 정보는 상업적인 용도로 사용되지 않습니다. (선택)",
+      "underageNotRealName": "로그인에 사용할 이름이며, 이름은 공개적으로 표시됩니다. 본명을 사용하지 마세요.",
+      "underageWithParent": "16세 이하인 경우, 이 상자에 체크 표시하여 부모 또는 보호자와 함께 이 양식을 작성했음을 확인합니다",
+      "username": "사용자 이름(필수)",
+      "usernameConflict": "이미 사용 중인 사용자 이름입니다",
+      "usernameHelp": "게시판 등에 공개적으로 표시됩니다.",
+      "usernamePatternHelp": "사용자 이름에는 글자와 숫자, '.', '-', '_' 기호만 포함할 수 있습니다",
+      "usernamePlaceholder": "예: ZooniverseFan123"
+    },
+    "title": "로그인하거나 새 계정을 만드세요."
+  },
+  "CloseButton": {
+    "close": "닫기"
+  },
+  "FavouritesButton": {
+    "add": "즐겨찾기에 추가",
+    "remove": "즐겨찾기에 추가됨"
+  },
+  "Loader": {
+    "loading": "불러오는 중"
+  },
+  "ProjectCard": {
+    "classifications": "기여",
+    "finished": "완료됨",
+    "paused": "일시 중지됨",
+    "state": "상태"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "소개",
+      "acknowledgements": "감사 및 협력",
+      "contact": "문의",
+      "faq": "자주 묻는 질문",
+      "publications": "간행물",
+      "resources": "리소스",
+      "team": "팀"
+    },
+    "buildLabels": {
+      "bestPractices": "우수 사례",
+      "buildAProject": "프로젝트 구축하기",
+      "glossary": "용어 설명",
+      "policies": "정책",
+      "tutorial": "튜토리얼"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "프로젝트 모집",
+      "collaborate": "협업",
+      "collections": "컬렉션",
+      "donate": "기부",
+      "educate": "교육",
+      "education": "교육",
+      "getInvolved": "참여하기",
+      "volunteer": "자발적 참여"
+    },
+    "newsLabels": {
+      "blog": "블로그",
+      "dailyZooniverse": "데일리 Zooniverse",
+      "news": "소식"
+    },
+    "policyLabels": {
+      "jobs": "채용",
+      "privacyPolicy": "개인정보 보호정책",
+      "security": "보안",
+      "systemStatus": "시스템 상태"
+    },
+    "projectLabels": {
+      "arts": "예술",
+      "biology": "생물학",
+      "climate": "기후",
+      "history": "역사",
+      "language": "언어",
+      "literature": "문학",
+      "medicine": "의학",
+      "nature": "자연",
+      "physics": "물리학",
+      "projects": "프로젝트",
+      "social": "사회 과학",
+      "space": "우주"
+    },
+    "tagLine": "사람 기반 연구",
+    "talkLabels": {
+      "announcements": "공지",
+      "data": "데이터 처리",
+      "projectBuilding": "프로젝트 구축",
+      "talk": "토크",
+      "troubleshooting": "문제 해결"
+    },
+    "zooniversePolicies": "Zooniverse 정책"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "사용자 계정",
+      "navListLabels": {
+        "messages_one": "메시지({{count}}개)",
+        "messages_other": "메시지({{count}}개)",
+        "messages_zero": "메시지",
+        "notifications_one": "알림({{count}}개)",
+        "notifications_other": "알림({{count}}개)",
+        "notifications_zero": "알림"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "등록하기",
+      "signIn": "로그인하기"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "다크 테마로 전환",
+      "switchToLight": "라이트 테마로 전환"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "컬렉션",
+        "favorites": "즐겨찾기",
+        "profile": "프로필",
+        "settings": "설정",
+        "signOut": "로그아웃하기"
+      }
+    },
+    "ariaLabel": "사이트",
+    "mainHeaderNavListLabels": {
+      "about": "소개",
+      "build": "구축하기",
+      "getInvolved": "참여하기",
+      "projects": "프로젝트",
+      "talk": "토크"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse 로고"
+  }
+}

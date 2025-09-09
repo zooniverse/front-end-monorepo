@@ -1,6 +1,5 @@
 import {
-  getStatsDateString,
-  getDefaultDateRange
+  getStatsDateString
 } from '@utils'
 
 import { formatSelectOptionDateLabel } from './formatSelectOptionDateLabel'
@@ -9,50 +8,55 @@ function getNextMonth(month) {
   return month === 11 ? 0 : month + 1
 }
 
-function getPresetSelectOptions({ sourceCreatedAtDate, today }) {
+function getPresetSelectOptions({ sourceCreatedAtDate, today, t }) {
   return [
     {
-      label: 'LAST 7 DAYS',
+      label: t('MainContent.dateRange.lastSevenDays').toUpperCase(),
       value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 6)))
     },
     {
-      label: 'LAST 30 DAYS',
+      label: t('MainContent.dateRange.lastThirtyDays').toUpperCase(),
       value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 29)))
     },
     {
-      label: 'THIS MONTH',
+      label: t('MainContent.dateRange.thisMonth').toUpperCase(),
       value: getStatsDateString(new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1)))
     },
     {
-      label: 'LAST 3 MONTHS',
+      label: t('MainContent.dateRange.lastThreeMonths').toUpperCase(),
       value: getStatsDateString(new Date(new Date().setUTCDate(today.getUTCDate() - 90)))
     },
     {
-      label: 'THIS YEAR',
+      label: t('MainContent.dateRange.thisYear').toUpperCase(),
       value: getStatsDateString(new Date(Date.UTC(today.getUTCFullYear(), 0, 1)))
     },
     {
-      label: 'LAST 12 MONTHS',
+      label: t('MainContent.dateRange.lastTwelveMonths').toUpperCase(),
       value: getStatsDateString(new Date(Date.UTC((today.getUTCFullYear() - 1), getNextMonth(today.getUTCMonth()), 1)))
     },
     {
-      label: 'ALL TIME',
+      label: t('MainContent.dateRange.allTime').toUpperCase(),
       value: sourceCreatedAtDate
     }
   ]
 }
 
-const DEFAULT_DATE_RANGE = getDefaultDateRange()
+const DEFAULT_DATE_RANGE = {
+  endDate: undefined,
+  startDate: undefined
+}
+const DEFAULT_HANDLER = key => key
 
 export function getDateRangeSelectOptions({
   sourceCreatedAtDate = '',
   paramsValidationMessage = '',
-  selectedDateRange = DEFAULT_DATE_RANGE
+  selectedDateRange = DEFAULT_DATE_RANGE,
+  t = DEFAULT_HANDLER
 }) {
   const today = new Date()
   const todayUTC = getStatsDateString(today)
 
-  const dateRangeOptions = getPresetSelectOptions({ sourceCreatedAtDate, today })
+  const dateRangeOptions = getPresetSelectOptions({ sourceCreatedAtDate, today, t })
 
   let selectedDateRangeOption = dateRangeOptions.find(option =>
     (selectedDateRange.endDate === todayUTC) &&
@@ -68,7 +72,7 @@ export function getDateRangeSelectOptions({
     selectedDateRangeOption = customDateRangeOption
   } else {
     dateRangeOptions.push({
-      label: 'CUSTOM',
+      label: t('MainContent.dateRange.custom').toUpperCase(),
       value: 'custom'
     })
   }

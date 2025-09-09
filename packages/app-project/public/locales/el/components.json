@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Βρείτε ένα έργο για εξερεύνηση",
+    "heading": "Δεν υπάρχει τίποτα εδώ.",
+    "message": "Η σελίδα που αναζητάτε δεν υπάρχει πλέον.",
+    "returnHome": "Επιστροφή στην αρχική σελίδα"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Συνδεθείτε ή εγγραφείτε για να παρακολουθείτε τη συνεισφορά σας.",
+      "register": "εγγραφή",
+      "signIn": "είσοδος"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Τέλος! Φαίνεται ότι αυτό το έργο δεν διαθέτει άλλα δεδομένα προς το παρόν!",
+      "seeResults": "Εμφάνιση αποτελεσμάτων"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Δημιουργία και προσθήκη",
+      "label": "Δημιουργία νέας συλλογής",
+      "private": "Ιδιωτική συλλογή"
+    },
+    "SelectCollection": {
+      "addButton": "Προσθήκη",
+      "label": "Προσθήκη σε υφιστάμενη συλλογή"
+    },
+    "title": "Προσθήκη στη συλλογή"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "Μπλε ουρανός",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Μαστόδοντας",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Ιστότοπος",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Συνδεθείτε με το {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Το Zooniverse είναι η μεγαλύτερη και δημοφιλέστερη πλατφόρμα στον κόσμο για έρευνα με επίκεντρο τον άνθρωπο.",
+    "defaultTitle": "Έργα",
+    "siteName": "Zooniverse - Έρευνα με επίκεντρο τον άνθρωπο"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Με την έγκριση του Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Avatar έργου για {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Αλλαγή γλώσσας"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Έργο"
+    },
+    "UnderReviewLabel": {
+      "underReview": "υπό έλεγχο"
+    },
+    "about": "Πληροφορίες",
+    "admin": "Σελίδα διαχειριστή",
+    "classify": "Ταξινόμηση",
+    "collect": "Συλλογή",
+    "exploreProject": "Εξερεύνηση έργου",
+    "organization": "Από τον οργανισμό:",
+    "recents": "Πρόσφατα",
+    "talk": "Συνομιλία"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Αριθμητικά",
+    "classifications": "Ταξινομήσεις",
+    "completedSubjects": "Ολοκληρωμένα θέματα",
+    "percentComplete": "Ποσοστό ολοκλήρωσης",
+    "subjects": "Θέματα",
+    "subtitle": "Παρακολουθήστε την πρόοδο που κάνετε εσείς και οι άλλοι εθελοντές σε αυτό το έργο.",
+    "text": "Κάθε κλικ μετράει! Ελάτε στην κοινότητα {{projectName}} για να ολοκληρώσετε αυτό το έργο και να βοηθήσετε τους ερευνητές να πετύχουν σημαντικά αποτελέσματα. Κάντε κλικ στο \"Προβολή περισσότερων στατιστικών\" για να δείτε ακόμη περισσότερα στατιστικά.",
+    "title": "Στατιστικά {{projectName}}",
+    "viewMoreStats": "Προβολή περισσότερων στατιστικών",
+    "volunteers": "Εθελοντές"
+  },
+  "RequireUser": {
+    "text": "Θα πρέπει να έχετε συνδεθεί!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Κεφαλίδα ιστοτόπου Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Έχει ήδη προβληθεί",
+    "back": "Επιλέξτε ένα διαφορετικό σύνολο θεμάτων",
+    "byline": "Ταξινομήστε τη λίστα κάνοντας κλικ στα ονόματα των στηλών. Θα βλέπετε τα θέματα διαδοχικά, ξεκινώντας από αυτό που έχετε επιλέξει.",
+    "fetching": "Περιμένετε...",
+    "heading": "Επιλέξτε ένα θέμα για να ξεκινήσετε",
+    "retired": "Αποσυρμένο",
+    "unclassified": "Διαθέσιμο"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Προσθήκη στις συλλογές"
+    },
+    "TalkLink": {
+      "label": "Συζητήστε στη Συνομιλία"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Ολοκληρωμένο"
+    },
+    "back": "Επιλέξτε διαφορετική ροή εργασιών",
+    "byline": "Επιλέξτε ένα σύνολο θεμάτων για να ξεκινήσει η μεταγραφή.",
+    "heading": "Επιλέξτε από πού θα ξεκινήσετε"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "Ολοκληρώθηκε {{completeness}}%",
+      "setSelection": "ορισμός επιλογής",
+      "subjectSelection": "επιλογή θέματος"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "κλειδωμένο",
+      "unlocked": "ξεκλειδωμένο"
+    },
+    "error": "Παρουσιάστηκε σφάλμα κατά τη λήψη των ροών εργασιών :(",
+    "getStarted": "Ξεκινήστε!",
+    "message": "Μπορείτε να κάνετε έρευνα κάνοντας κλικ για να ξεκινήσετε εδώ!",
+    "noWorkflows": "Δεν υπάρχει κάτι για ταξινόμηση"
+  }
+}

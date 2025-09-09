@@ -1,16 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "Klik en sleep van het openingspunt naar het sluitingspunt of dubbelklik ergens op de lijn om een splitsingspunt te maken",
+    "closePoint": "Klik ergens op de lijn om het sluitpunt in te stellen",
+    "inactive": "Klik hier om deze regel te bewerken",
+    "spliceDrag": "Klik en sleep van het open punt naar het sluitpunt",
+    "splicePoint": "Klik twee keer ergens op de lijn om een splitsingspunt te maken"
+  },
+  "HighlighterTask": {
+    "delete": "Verwijderen",
+    "noLabels": "Geen labels voor de Highlighter-taak",
+    "status": "{{count}} gemarkeerd"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} getrokken",
+    "max": "{{count}} van {{max}} maximaal getrokken",
+    "maxAndMin": "{{count}} van {{min}} veplicht, {{max}} maximaal getrokken",
+    "min": "{{count}} van {{min}} verplicht getrokken"
+  },
+  "LineControls": {
+    "close": "Sluiten",
+    "delete": "Verwijderen",
+    "deleteCancel": "Verwijderen annuleren",
+    "deleteConfirm": "Verwijderen bevestigen",
+    "lineControls": "Lijnbediening",
+    "move": "Verplaatsen",
+    "redo": "Opnieuw doen",
+    "undo": "Ongedaan maken"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Iets invoeren",
+    "otherLabel": "Anders...",
+    "selectPlaceholder": "Kies een antwoord"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Wis filters",
+      "closeFilters": "Kies filters",
+      "filter": "Filter",
+      "removeFilter": "Verwijder {{valueLabel}} filter",
       "showing": "Toont {{showing}} van {{total}}"
     },
     "Choice": {
-      "identify": "Selecteren"
+      "cancel": "Annuleren",
+      "identify": "Selecteren",
+      "lessInfo": "Lees de informatie",
+      "moreInfo": "Meer informatie",
+      "notThis": "Niet dit"
+    },
+    "ChoiceButton": {
+      "identified": "geïdentificeerd",
+      "openSubmenu": "Open het submenu voor {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Annuleren",
       "confused": "Word vaak verward met",
       "itsThis": "Volgens mij het deze"
+    },
+    "DeleteButton": {
+      "delete": "Keuze verwijderen {{choiceLabel}}"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Opnieuw instellen"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Tekstwijzigers"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transcriptie gemaakt",
+    "editing": "Transcriptie bewerken"
   }
 }

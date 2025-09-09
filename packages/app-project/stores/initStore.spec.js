@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes, projects } from '@zooniverse/panoptes-js'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
@@ -25,7 +24,7 @@ describe('Stores > initStore', function () {
 
   it('should contain a project store', function () {
     const store = initStore()
-    expect(store.project).to.be.ok()
+    expect(store.project).toBeDefined()
   })
 
   it('should apply a snapshot when provided', function () {
@@ -121,9 +120,9 @@ describe('Stores > initStore', function () {
   describe('with an organization', function () {
     it('should contain an organization store', function () {
       const store = initStore()
-      expect(store.organization).to.be.ok()
+      expect(store.organization).toBeDefined()
     })
-  
+
     it('should apply a snapshot when provided', function () {
       const snapshot = {
         organization: {

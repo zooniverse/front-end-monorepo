@@ -1,47 +1,274 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "您已查看此主体",
+      "tooltipText": [
+        "您已经查看并对此主体进行了分类，所以进一步的分类对其分析并无助益。",
+        "如果您想提供帮助，可以尝试选择不同的工作流程，或者处理其他项目。"
+      ]
+    },
     "Banner": {
-      "next": "下一个"
+      "next": "下一个",
+      "previous": "上一个",
+      "whyAmISeeingThis": "为什么我会看到这个？"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "取消",
+      "confirm": "确认",
+      "inProgress": "您确定要导航到不同的主体吗？这样做的话，您为当前主体所添加的任何注释都将丢失。"
+    },
+    "RetiredBanner": {
+      "bannerText": "已完成：此主体已停用",
+      "tooltipText": [
+        "此主体已经有了足够的分类，所以您的分类将不会用于其分析之中。",
+        "如果您想提供帮助，可以尝试选择不同的工作流程，或者处理其他项目。"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "已查看",
+      "bannerText": "{{setName}}：主体 {{number}}\/{{total}}",
+      "finished": "已完成",
+      "tooltipText": [
+        "此项目允许志愿者按顺序查看主体。",
+        "该数字向您指示该主体在整个群体中的位置。"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "已完成：您已查看所有内容",
+      "tooltipText": [
+        "您已经对此工作流程中的所有内容进行了分类，所以对此主体的进一步分类将不会用于其分析之中。",
+        "如果您想提供帮助，可以尝试选择不同的工作流程，或者处理其他项目。"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "此工作流程已完成",
+      "tooltipText": [
+        "此工作流程中的所有主体均已完成，因此对此主体的进一步分类将不会用于其分析之中。",
+        "如果您想提供帮助，可以尝试选择不同的工作流程，或者处理其他项目。"
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "用于旋转所绘制的注释\/标记的操作柄。"
+  },
   "FeedbackModal": {
-    "keepClassifying": "继续"
+    "keepClassifying": "继续分类",
+    "label": "反馈"
   },
   "FieldGuide": {
-    "title": "文本教程",
     "FieldGuideButton": {
       "buttonLabel": "文本教程"
     },
     "FieldGuideItem": {
-      "ariaTitle": "返回"
+      "ariaTitle": "返回至文本教程项目列表"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "选择 {{title}}"
+    },
+    "title": "文本教程"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "注释"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "以正常大小查看主体",
+        "fullscreen": "以全屏模式查看主体"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "倒置主体"
+    },
+    "MoveButton": {
+      "ariaLabel": "移动主体"
+    },
+    "ResetButton": {
+      "ariaLabel": "重置主体视图"
+    },
+    "RotateButton": {
+      "ariaLabel": "旋转主体"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "放大主体"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "从主体部分向外缩放"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "添加至合集"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "隐藏以前的标记",
+      "show": "显示以前的标记"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "隐藏全部标记",
+      "show": "显示全部标记",
+      "showUser": "显示您的标记"
+    },
+    "MetadataButton": {
+      "label": "主体信息"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "标签",
+        "value": "值"
+      },
+      "title": "主体元数据"
     }
   },
   "ModalTutorial": {
     "title": "教程"
   },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "关闭评论面板",
+      "goToTalk": "转到 Talk 中的“主体讨论”",
+      "mainPanel": "快速对话评论面板",
+      "openButton": "主体有 {{count}} 条评论，点击可展开。",
+      "panelContent": "主体讨论评论",
+      "panelHeading": "主体讨论"
+    },
+    "errors": {
+      "failPostComment": "无法向现有讨论添加评论。",
+      "failPostDiscussion": "无法向新讨论添加评论。",
+      "noBoard": "此项目尚未设置用于主体评论的板块。",
+      "noText": "无法发表空白评论。",
+      "noUser": "用户尚未登录。"
+    },
+    "loginToPost": "请登录以发表评论。",
+    "status": {
+      "initialized": "针对此主体留言",
+      "loading": "正在发表评论...",
+      "success": "已发表评论！"
+    },
+    "subjectHasNoComments": "此主体尚无评论。"
+  },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "转到第 {{index}} 步",
+      "next": "转到下一步",
+      "previous": "转到上一步"
+    },
+    "alt": "教程第 {{activeStep}} 步",
+    "error": "教程步骤无法加载。",
     "getStarted": "开始",
     "heading": "{{projectDisplayName}} 教程"
   },
+  "StepNavigation": {
+    "go": "转到第 {{index}} 步",
+    "next": "转到下一步",
+    "previous": "转到上一步"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "条形图"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "文本查看器的图标"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "关闭而不保存",
+        "confirm": "您确定要关闭吗？这样做的话，此标记将被删除。",
+        "keepWorking": "继续工作"
+      },
+      "SaveButton": {
+        "save": "保存并关闭"
+      },
+      "SubTaskPopup": {
+        "notRender": "任务组件无法呈现。",
+        "required": "此任务必须完成。"
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "汇总转录内容",
+          "explanation": "这 {{count}} 份转录内容已由先前的志愿者提交，无法进行修改。",
+          "noAggregation": "没有可用的汇总内容。",
+          "title": "以前的转录内容",
+          "transcriptionsUnavailable": "无可用转录内容。"
+        },
+        "complete": "转录已完成",
+        "transcribed": "有转录内容"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "下一个"
+        "nextFrameLabel": "下一个",
+        "previousFrameLabel": "上一个",
+        "thumbnailAltText": "图像缩略图"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "删除选择 {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "切换至翻页视图",
+        "switchToSeparateFrames": "切换至独立帧视图"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "加载主体时出错。"
+    },
+    "VariableStarViewer": {
+      "controls": "控制",
+      "figCaption": "赫罗图",
+      "flip": "翻转",
+      "focus": "对焦",
+      "highlight": "突出显示",
+      "imageTitle": "赫罗图：光度与温度",
+      "label": "过滤器 {{id}}",
+      "periodMultiple": "周期倍数",
+      "phase": "相位",
+      "phaseFocus": "相位对焦"
+    },
+    "VideoController": {
+      "closeVolume": "关闭音量滑块",
+      "fullscreen": "全屏显示视频",
+      "openVolume": "打开音量滑块",
+      "pause": "暂停视频",
+      "play": "播放视频",
+      "playbackSpeed": "视频播放速度选择",
+      "scrubber": "视频播放器进度条",
+      "volumeSlider": "音量滑块"
+    },
+    "ZoomControlButton": {
+      "disable": "禁用缩放",
+      "enable": "启用缩放"
+    },
+    "loading": "正在加载主体",
+    "zoomHelp": "使用 CTRL + 滚动进行缩放"
   },
   "TaskArea": {
-    "task": "任务",
-    "tutorial": "教程",
+    "DisabledTaskPopup": {
+      "body": "此主体已有足够的分类，所以后续提交的任何额外分类将不会用于其分析之中。您仍然可以查看此主体进行参考。",
+      "options": {
+        "dismiss": "忽略",
+        "next": "下一个可用主体",
+        "select": "选择新主体"
+      },
+      "title": "已完成"
+    },
     "Tasks": {
       "BackButton": {
         "back": "返回"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "完成 讨论"
+        "doneAndTalk": "完成 讨论",
+        "newTab": "在新标签页中"
       },
       "DoneButton": {
         "done": "完成"
+      },
+      "ExpertOptions": {
+        "demoToggle": "演示模式",
+        "label": "专家选项"
       },
       "NextButton": {
         "next": "下一个"
@@ -49,7 +276,13 @@
       "TaskHelp": {
         "close": "关闭",
         "label": "需要帮助？"
-      }
-    }
+      },
+      "demoMode": "在演示模式下，分类将不予保存。可将此模式用于对分类界面进行快速演示，这种演示不够详尽。",
+      "error": "出错了",
+      "loading": "加载中",
+      "renderFallback": "任务组件无法呈现。"
+    },
+    "task": "任务",
+    "tutorial": "教程"
   }
 }

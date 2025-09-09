@@ -100,7 +100,7 @@ const ClassificationStore = types
       }
     }
 
-    function completeClassification () {
+    function completeClassification ({ doneAndTalk = false }) {
       const classification = tryReference(() => self.active)
       const subject = tryReference(() => getRoot(self).subjects.active)
 
@@ -155,7 +155,7 @@ const ClassificationStore = types
           return Promise.resolve(true)
         }
 
-        return self.submitClassification(classificationToSubmit)
+        return self.submitClassification(classificationToSubmit, { doneAndTalk })
       } else {
         if (process.browser) {
           console.error('No active classification or active subject. Cannot complete classification')
@@ -171,11 +171,22 @@ const ClassificationStore = types
       subjectsSeenThisSession.add(workflowID, subjectIDs)
     }
 
-    function * submitClassification (classification) {
+    function * submitClassification (classification, { doneAndTalk = false }) {
       // Service worker isn't working right now, so let's use the fallback queue for all browsers
       try {
-        yield self.classificationQueue.add(classification)
-        self.loadingState = asyncStates.posting
+        if (doneAndTalk) {
+          /* Feb. 2025: classification.add() is taking up to 10s to run.
+          * This can cause the classifier to hang while it waits for the classification to save.
+          * https://github.com/zooniverse/front-end-monorepo/issues/6698
+          */
+          yield self.classificationQueue.add(classification)
+          // advance to the next subject after the classification has been submitted.
+          self.loadingState = asyncStates.posting
+        } else {
+          // advance to the next subject immediately.
+          self.loadingState = asyncStates.posting
+          yield self.classificationQueue.add(classification)
+        }
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error

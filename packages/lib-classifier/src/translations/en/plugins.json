@@ -1,4 +1,11 @@
 {
+  "FreehandLine": {
+    "active": "Click and drag from the open point to the close point or double click anywhere on the line to create a splice point",
+    "closePoint": "Click anywhere on the line to set the close point",
+    "inactive": "Click to edit this line",
+    "spliceDrag": "Click and drag from the open point to the close point",
+    "splicePoint": "Double click anywhere on the line to create a splice point"
+  },
   "HighlighterTask": {
     "delete": "Delete",
     "noLabels": "No labels for the Highlighter Task",
@@ -7,8 +14,18 @@
   "InputStatus": {
     "drawn": "{{count}} drawn",
     "max": "{{count}} of {{max}} maximum drawn",
-    "min": "{{count}} of {{min}} required drawn",
-    "maxAndMin": "{{count}} of {{min}} required, {{max}} maximum drawn"
+    "maxAndMin": "{{count}} of {{min}} required, {{max}} maximum drawn",
+    "min": "{{count}} of {{min}} required drawn"
+  },
+  "LineControls": {
+    "close": "Close",
+    "delete": "Delete",
+    "deleteCancel": "Cancel Delete",
+    "deleteConfirm": "Confirm Delete",
+    "lineControls": "Line Controls",
+    "move": "Move",
+    "redo": "Redo",
+    "undo": "Undo"
   },
   "SimpleDropdownTask": {
     "customInputPlaceholder": "Input something",
@@ -18,47 +35,41 @@
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Clear filters",
+      "closeFilters": "Close filters",
       "filter": "Filter",
       "removeFilter": "Remove {{valueLabel}} filter",
       "showing": "Showing {{showing}} of {{total}}"
     },
     "Choice": {
+      "cancel": "Cancel",
       "identify": "Identify",
+      "lessInfo": "Less info",
+      "moreInfo": "More info",
       "notThis": "Not this"
+    },
+    "ChoiceButton": {
+      "identified": "identified",
+      "openSubmenu": "Open submenu for {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Cancel",
       "confused": "Sometimes confused with",
       "itsThis": "I think it's this"
+    },
+    "DeleteButton": {
+      "delete": "Delete choice {{choiceLabel}}"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Reset"
   },
   "TextTask": {
     "TextTagButtons": {
       "modifiers": "Text modifiers"
     }
   },
-  "TextFromSubjectTask": {
-    "reset": "Reset"
-  },
   "TranscriptionLine": {
-    "editing": "Editing transcription",
-    "created": "Created transcription"
-  },
-  "FreehandLine": {
-    "inactive": "Click to edit this line",
-    "active": "Click and drag from the open point to the close point or double click anywhere on the line to create a splice point",
-    "splicePoint": "Double click anywhere on the line to create a splice point",
-    "closePoint": "Click anywhere on the line to set the close point",
-    "spliceDrag": "Click and drag from the open point to the close point"
-  },
-  "LineControls": {
-    "lineControls": "Line Controls",
-    "close": "Close",
-    "delete": "Delete",
-    "deleteCancel": "Cancel Delete",
-    "deleteConfirm": "Confirm Delete",
-    "move": "Move",
-    "redo": "Redo",
-    "undo": "Undo"
+    "created": "Created transcription",
+    "editing": "Editing transcription"
   }
 }
