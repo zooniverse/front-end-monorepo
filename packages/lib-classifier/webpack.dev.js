@@ -1,6 +1,5 @@
 const { execSync } = require('child_process')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const million = require('million/compiler')
 const path = require('path')
 const webpack = require('webpack')
 
@@ -100,7 +99,6 @@ module.exports = {
       process: 'process/browser',
     }),
     EnvironmentWebpackPlugin,
-    HtmlWebpackPluginConfig,
-    million.webpack({ auto: true })
+    HtmlWebpackPluginConfig
   ]
 }
