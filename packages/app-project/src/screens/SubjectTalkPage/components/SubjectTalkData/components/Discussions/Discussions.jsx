@@ -125,7 +125,7 @@ function Discussions({
             />
           )}
         </Box>
-        {discussions?.length > 0 && (
+        {discussions?.length > 1 && (
           <Box
             align='center'
             direction='row'
@@ -167,7 +167,7 @@ function Discussions({
           border='between'
           gap='60px'
           margin='none'
-          overflow={{ vertical: 'scroll' }}
+          overflow={{ vertical: 'auto' }}
           pad='none'
         >
           {discussions?.map((discussion) => (
