@@ -8,6 +8,8 @@ import InvertIconButton from '../InvertIconButton'
 import ImageIconButton from '../ImageIconButton'
 
 const DEFAULT_LOCATION = {}
+// a subject location is an object with a mime type as the key and a URL as the value
+// e.g. { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/12345.jpg' }
 
 function MetaTools({
   invert = false,
