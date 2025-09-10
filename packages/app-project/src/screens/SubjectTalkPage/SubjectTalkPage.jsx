@@ -28,6 +28,16 @@ export const ContainerGrid = styled(Grid)`
   }
 `
 
+const StyledTalkDataBox = styled(Box)`
+  max-height: 90vh;
+  min-height: 300px;
+
+  @media screen and (max-width: 1280px) {
+    max-height: none;
+    min-height: auto;
+  }
+`
+
 function SubjectTalkPage({
   login,
   projectId,
@@ -48,7 +58,7 @@ function SubjectTalkPage({
         <ContainerGrid>
           <Box
             data-testid='viewer'
-            height={{ max: '90vh'}}
+            height={{ max: '90vh', min: '600px' }}
             style={{
               gridArea: 'viewer'
             }}
@@ -61,9 +71,8 @@ function SubjectTalkPage({
               userId={userId}
             />
           </Box>
-          <Box
+          <StyledTalkDataBox
             data-testid='talkData'
-            height={{ max: '90vh', min: '300px' }}
             style={{ gridArea: 'talkData' }}
           >
             <SubjectTalkData
@@ -71,7 +80,7 @@ function SubjectTalkPage({
               projectId={projectId}
               subjectId={subjectId}
             />
-          </Box>
+          </StyledTalkDataBox>
         </ContainerGrid>
         <Box
           as='aside'
