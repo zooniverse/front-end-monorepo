@@ -120,7 +120,4 @@ module.exports = withSentryConfig(nextConfig, {
     },
     telemetry: false,
     authToken: process.env.SENTRY_AUTH_TOKEN
-  }),
-  {
-    auto: true
-  }
+  })
