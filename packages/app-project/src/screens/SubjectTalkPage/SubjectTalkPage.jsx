@@ -7,7 +7,7 @@ import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import SubjectTalkViewer from './components/SubjectTalkViewer'
-import Tags from './components/SubjectTalkData/components/Tags'
+import SubjectTalkData from './components/SubjectTalkData'
 
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
@@ -15,7 +15,6 @@ export const ContainerGrid = styled(Grid)`
   grid-gap: 1.875rem;
   grid-template-areas: 'viewer talkData';
   grid-template-columns: auto 600px;
-  margin: auto;
 
   @media screen and (max-width: 1280px) {
     grid-gap: 1.25rem;
@@ -26,6 +25,16 @@ export const ContainerGrid = styled(Grid)`
     grid-template-rows: auto auto;
     margin: 0;
     width: 100%;
+  }
+`
+
+const StyledTalkDataBox = styled(Box)`
+  max-height: 90vh;
+  min-height: 300px;
+
+  @media screen and (max-width: 1280px) {
+    max-height: none;
+    min-height: auto;
   }
 `
 
@@ -47,33 +56,31 @@ function SubjectTalkPage({
         pad='medium'
       >
         <ContainerGrid>
-          <SubjectTalkViewer
-            login={login}
-            projectId={projectId}
-            projectSlug={projectSlug}
-            subject={subject}
-            userId={userId}
-          />
           <Box
-            gap='small'
+            data-testid='viewer'
+            height={{ max: '90vh', min: '600px' }}
+            style={{
+              gridArea: 'viewer'
+            }}
+          >
+            <SubjectTalkViewer
+              login={login}
+              projectId={projectId}
+              projectSlug={projectSlug}
+              subject={subject}
+              userId={userId}
+            />
+          </Box>
+          <StyledTalkDataBox
+            data-testid='talkData'
             style={{ gridArea: 'talkData' }}
           >
-            {/* <TalkSearch /> */}
-            <input type='text' placeholder={t('Talk.searchPlaceholder')} />
-            {/* <TalkData /> */}
-            <Box
-              background={{
-                dark: 'dark-3',
-                light: 'white'
-              }}
-            >
-              <Tags
-                projectId={projectId}
-                subjectId={subjectId}
-                userId={userId}
-              />
-            </Box>
-          </Box>
+            <SubjectTalkData
+              login={login}
+              projectId={projectId}
+              subjectId={subjectId}
+            />
+          </StyledTalkDataBox>
         </ContainerGrid>
         <Box
           as='aside'
