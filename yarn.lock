@@ -6026,11 +6026,6 @@
   dependencies:
     argparse "^2.0.1"
 
-"@zooniverse/async-states@~0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@zooniverse/async-states/-/async-states-0.0.1.tgz#e90b33cfb784ce64cafa46bfa64adcfb84bf976f"
-  integrity sha512-tyo+SBOGDRjRn5o2iOgg3hjfR1fBT8Pek/vpSIvuUV4Hy4Pg1q7yxRibVkbFH5xEDOEO0wMCQIQ7k6HKbN9n/g==
-
 "@zooniverse/react-components@~1.13.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@zooniverse/react-components/-/react-components-1.13.0.tgz#c5e3c4eb027a3130d80cbb31a09ce1734eab5ffa"

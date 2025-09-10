@@ -1,85 +1,39 @@
-import theme from '@zooniverse/grommet-theme'
-import { select, interpolate, format } from 'd3'
 import { number } from 'prop-types'
-import { createRef, Component } from 'react';
+import { Box } from 'grommet'
+import { SpacedText } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-import createBar from './d3/createBar'
-import createLabel from './d3/createLabel'
-
-const SVG = styled.svg`
-  display: block;
+const Relative = styled(Box)`
+  position: relative;
 `
 
-class CompletionBar extends Component {
-  constructor () {
-    super()
-    this.svgRef = createRef()
-    this.d3svg = null
-  }
+const StyledText = styled(SpacedText)`
+  position: absolute;
+  left: ${props => props.$completeness < 0.7 ? '100%' : 'auto'};
+  right: ${props => props.$completeness < 0.7 ? 'auto' : '0'};
+  top: 50%;
+  transform: translateY(-50%);
+`
 
-  componentDidMount () {
-    this.initChart()
-    this.drawChart()
-  }
-
-  initChart () {
-    this.d3svg = select(this.svgRef.current)
-
-    this.d3svg
-      .selectAll('.bar')
-      .data([this.props.completeness ?? 0])
-      .enter()
-      .append('g')
-      .attr('class', 'bar')
-      .call(createBar, theme.global.colors.brand)
-      .call(createLabel, theme.global.colors.brand)
-  }
-
-  drawChart () {
-    const bar = this.d3svg.selectAll('.bar')
-
-    bar.selectAll('rect')
-      .transition()
-      .duration(1000)
-      .attr('width', d => `${d * 100}%`)
-
-    bar.selectAll('text')
-      .transition()
-      .duration(1000)
-      .tween('text', function (d, i, elements) {
-        const node = select(this)
-        const interpolator = interpolate(0, d)
-        return t => {
-          const value = interpolator(t)
-          const percent = format('.0%')(value)
-          node.text(percent)
-            .attr('x', percent)
-          if (value > 0.5) {
-            node.attr('dx', '-12px')
-              .attr('text-anchor', 'end')
-              .attr('fill', '#fff')
-          }
-        }
-      })
-  }
-
-  render () {
-    return (
-      <SVG
-        className={this.props.className}
+function CompletionBar({ completeness = 0 }) {
+  return (
+    <Box height='40px' width='100%' background='accent-1'>
+      <Relative
         height='40px'
-        ref={this.svgRef}
-        width='100%'
+        background='brand'
+        width={`${completeness * 100}%`}
       >
-        <rect
-          fill={theme.global.colors['accent-1']}
-          height='100%'
-          width='100%'
-        />
-      </SVG>
-    )
-  }
+        <StyledText
+          margin={{ horizontal: '10px' }}
+          size='1.2rem'
+          color={completeness < 0.7 ? 'brand' : 'white'}
+          $completeness={completeness}
+        >
+          {completeness * 100}%
+        </StyledText>
+      </Relative>
+    </Box>
+  )
 }
 
 CompletionBar.propTypes = {
