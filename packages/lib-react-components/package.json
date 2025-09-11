@@ -92,7 +92,7 @@
     "mobx-state-tree": "~5.4.0",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
-    "sinon": "~20.0.0",
+    "sinon": "~21.0.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
     "storybook-react-i18next": "~2.0.1",
