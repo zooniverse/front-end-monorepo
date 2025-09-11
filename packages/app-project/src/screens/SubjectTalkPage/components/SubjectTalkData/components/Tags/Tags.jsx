@@ -58,18 +58,59 @@ function Tags({
       pad='small'
     >
       <Box
-        align='center'
         direction='row'
-        gap='xsmall'
+        justify='between'
       >
-        <TagIcon />
-        <StyledHeading
-          color={{ dark: 'light-1', light: 'dark-4' }}
-          level={3}
-          size='1rem'
+        <Box
+          align='center'
+          direction='row'
+          gap='xsmall'
         >
-          {tagHeading}
-        </StyledHeading>
+          <TagIcon />
+          <StyledHeading
+            color={{ dark: 'light-1', light: 'dark-4' }}
+            level={3}
+            size='1rem'
+          >
+            {tagHeading}
+          </StyledHeading>
+        </Box>
+        <Box
+          align='center'
+          direction='row'
+          gap='xsmall'
+        >
+          {(tags?.length > 0 && userId) ? (
+            <StyledAddTagButton
+              label={(
+                <Box
+                  align='center'
+                  direction='row'
+                  gap='xsmall'
+                  justify='center'
+                >
+                  <TagIcon
+                    color={{ dark: 'accent-1', light: 'neutral-1' }}
+                    size='16px'
+                  />
+                  <SpacedText
+                    color={{ dark: 'accent-1', light: 'neutral-1' }}
+                    size='16px'
+                  >
+                    {t('Talk.addATag')}
+                  </SpacedText>
+                </Box>
+              )}
+              margin={{ horizontal: 'xsmall' }}
+              onClick={() => window.alert('coming soon!')}
+              plain
+            />
+          ) : tags?.length > 0 ? (
+            <SpacedText>
+              {t('Talk.logInToTag')}
+            </SpacedText>
+          ) : null}
+        </Box>
       </Box>
       {error ? (
         <Box align='center' justify='center' fill pad='medium'>
@@ -110,6 +151,7 @@ function Tags({
           direction='row'
         >
           <StyledAddTagButton
+            disabled={!userId}
             label={(
               <Box
                 align='center'
@@ -135,6 +177,7 @@ function Tags({
               </Box>
             )}
             margin={{ horizontal: 'xsmall' }}
+            onClick={() => window.alert('coming soon!')}
             plain
           />
         </StyledBox>
