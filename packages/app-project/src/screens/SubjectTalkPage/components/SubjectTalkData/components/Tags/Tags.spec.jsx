@@ -1,5 +1,5 @@
 import { composeStory } from '@storybook/react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import sinon from 'sinon'
 
 import Meta, { Default, LoggedOut } from './Tags.stories'
@@ -18,7 +18,8 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
 
   it('should show a tag button for each tag', function () {
     render(<DefaultStory />)
-    const tagButtons = screen.getAllByRole('button')
+    const tagList = screen.getByRole('list')
+    const tagButtons = within(tagList).getAllByRole('button')
     expect(tagButtons.length).to.equal(8)
   })
 
@@ -30,6 +31,12 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
     sinon.assert.calledOnce(onTagClickSpy)
   })
 
+  it('should show an add tag button', function () {
+    render(<DefaultStory />)
+    const addTagButton = screen.getByRole('button', { name: 'Tag Talk.addATag' })
+    expect(addTagButton).toBeDefined()
+  })
+
   describe('when the user is logged out', function () {
     it('should not call the onTagClick handler when a tag is clicked', function () {
       onTagClickSpy = sinon.spy()
@@ -37,6 +44,26 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
       const tagButton = screen.getByRole('button', { name: 'galaxy 3' })
       tagButton.click()
       sinon.assert.notCalled(onTagClickSpy)
+    })
+
+    it('should show a log in message', function () {
+      render(<LoggedOutStory />)
+      const logInMessage = screen.getByText('Talk.logInToTag')
+      expect(logInMessage).toBeDefined()
+    })
+  })
+
+  describe('when there are no tags', function () {
+    it('should show the no tags heading', function () {
+      render(<DefaultStory tags={[]} />)
+      const noTagsMessage = screen.getByText('Talk.noTags')
+      expect(noTagsMessage).toBeDefined()
+    })
+
+    it('should show an add tag button', function () {
+      render(<DefaultStory tags={[]} />)
+      const addTagButton = screen.getByRole('button', { name: 'Tag Talk.addATag Add' })
+      expect(addTagButton).toBeDefined()
     })
   })
 })

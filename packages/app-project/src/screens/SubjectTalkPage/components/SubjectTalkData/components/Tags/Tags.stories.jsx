@@ -1,6 +1,10 @@
 import { Box } from 'grommet'
 
 import { mockTags } from './Tags.mock.js'
+const mockTagsLoggedOut = mockTags.map(tag => ({
+  ...tag,
+  userVoted: false
+}))
 import Tags from './Tags'
 
 export default {
@@ -25,7 +29,7 @@ export const Default = {
 
 export const LoggedOut = {
   args: {
-    tags: mockTags
+    tags: mockTagsLoggedOut
   }
 }
 
