@@ -28,3 +28,24 @@ export const LoggedOut = {
     tags: mockTags
   }
 }
+
+export const Loading = {
+  args: {
+    loading: true,
+    tags: []
+  }
+}
+
+export const Error = {
+  args: {
+    error: { message: 'Something went wrong' },
+    tags: []
+  }
+}
+
+export const NoTags = {
+  args: {
+    tags: [],
+    userId: '12345'
+  }
+}

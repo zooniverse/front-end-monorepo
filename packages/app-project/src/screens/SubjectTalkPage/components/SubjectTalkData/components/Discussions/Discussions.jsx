@@ -1,3 +1,4 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Text } from 'grommet'
 import { Add, Chat, Down, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
@@ -19,9 +20,8 @@ const StyledButton = styled(Button)`
   color: ${props => props.theme.global.colors['neutral-1']};
 `
 
-const StyledLabel = styled(Text)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
+const StyledOrderedList = styled(Box)`
+  list-style: none;
 `
 
 const StyledBox = styled(Box)`
@@ -32,10 +32,6 @@ const StyledBox = styled(Box)`
     height: 1px;
     background: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
-`
-
-const StyledOrderedList = styled(Box)`
-  list-style: none;
 `
 
 const StyledDiscussionButton = styled(Button)`
@@ -140,9 +136,9 @@ function Discussions({
                   direction='row'
                   gap='xxsmall'
                 >
-                  <StyledLabel weight={700}>
+                  <SpacedText weight={700}>
                     {sortButtonLabel}
-                  </StyledLabel>
+                  </SpacedText>
                   {sort === 'last_comment_created_at' ? (
                     <Up
                       color='neutral-1'
@@ -196,13 +192,13 @@ function Discussions({
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
                 size='18px'
               />
-              <StyledLabel
+              <SpacedText
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
                 size='18px'
                 weight={600}
               >
                 {t('Talk.startDiscussion')}
-              </StyledLabel>
+              </SpacedText>
               <Add
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
                 size='18px'

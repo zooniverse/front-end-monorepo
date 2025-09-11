@@ -73,6 +73,7 @@
     }
   },
   "Talk": {
+    "addATag": "Add a tag",
     "addVote": "Add your vote",
     "avatarAlt": "{{login}} avatar",
     "comments": "Comments",
@@ -82,6 +83,7 @@
     "goToComment": "Go to comment",
     "logInToVote": "Log in to vote",
     "noDiscussions": "No Discussions",
+    "noTags": "No Tags",
     "oneDiscussion": "1 Discussion",
     "participants": "Participants",
     "relatedSubjects": "Other subjects being discussed:",
@@ -91,6 +93,7 @@
     "sortedNewestFirst": "Newest first",
     "sortedOldestFirst": "Oldest first",
     "startDiscussion": "Start a new discussion",
-    "subjectMetadata": "Subject Metadata"
+    "subjectMetadata": "Subject Metadata",
+    "tags": "Tags"
   }
 }
