@@ -22,6 +22,7 @@ function TagsContainer({
 }) {
   const [loading, setLoading] = useState(false)
 
+  // Fetch popular tags for the subject, unrelated to the user
   const tagsQuery = {
     limit: 10,
     page_size: 10,
@@ -37,6 +38,7 @@ function TagsContainer({
     mutate: mutateTags
   } = useTags(tagsQuery)
 
+  // Fetch votable tags for the subject, unrelated to the user
   const votableTagsQuery = {
     page_size: 10,
     section: `project-${projectId}`,
@@ -51,8 +53,9 @@ function TagsContainer({
     mutate: mutateVotableTags
   } = useVotableTags(votableTagsQuery)
 
+  // Fetch the user's tag votes for the subject
   const tagVotesQuery = {
-    page_size: 100, // TODO: implement getAll ?
+    page_size: 100,
     section: `project-${projectId}`,
     taggable_id: subjectId,
     taggable_type: 'Subject',
@@ -66,8 +69,11 @@ function TagsContainer({
     mutate: mutateTagVotes
   } = useTagVotes(tagVotesQuery)
 
-  const votableTagNames = votableTags?.map(tag => tag.name) || [];
-  const filteredTags = tags?.filter(tag => !votableTagNames.includes(tag.name)) || [];
+  // Combine popular tags and votable tags, ensuring no duplicates, based on tag name.
+  // If a tag appears in both lists, use the votable tag (which has vote counts),
+  // add a userVoted property to each tag based on whether the user has voted for it.
+  const votableTagNames = votableTags?.map(tag => tag.name) || []
+  const filteredTags = tags?.filter(tag => !votableTagNames.includes(tag.name)) || []
   const combinedTags = [...(votableTags || []), ...filteredTags]
     .map(tag => ({
       ...tag,
@@ -77,6 +83,7 @@ function TagsContainer({
   async function handleAddVote(tag) {
     const newTagVote = { votable_tag_id: tag.id }
 
+    // Optimistically update the UI, add or update a votable tag
     mutateVotableTags(
       prevData => {
         const newData = prevData.map(t => {
@@ -94,6 +101,7 @@ function TagsContainer({
       { revalidate: false }
     )
 
+    // Optimistically update the UI, add a tag vote from the user
     mutateTagVotes(
       prevData => {
         if (!prevData) {
@@ -106,6 +114,8 @@ function TagsContainer({
       { revalidate: false }
     )
     
+    // Send the request to create the tag vote, then revalidate the tag votes
+    // Set a loading state while the request is in progress to prevent an attempt to delete the tag vote before it's created
     try {
       setLoading(true)
       await addTagVote({ votable_tag_id: tag.id })
@@ -125,6 +135,9 @@ function TagsContainer({
       taggable_type: 'Subject'
     }
 
+    // Optimistically update the UI,
+    // add a new tag to the popular tags list, that has the properties of a votable tag,
+    // to appear as a votable tag and prevent a shift in the tags list
     mutateTags(
       prevData => {
         const modifiedTag = {
@@ -148,6 +161,8 @@ function TagsContainer({
       { revalidate: false }
     )
     
+    // Send the request to create the votable tag, then revalidate the tag votes
+    // Set a loading state while the request is in progress to prevent an attempt to delete the votable tag and related tag vote before they are created
     try {
       setLoading(true)
       await createVotableTag(newVotableTag)
@@ -163,7 +178,11 @@ function TagsContainer({
     const tagVoteToRemove = tagVotes?.find(vote => vote.votable_tag.name === tag.name)
     if (!tagVoteToRemove || !tagVoteToRemove.id) return
 
+    // Optimistically update the UI
     if (tag.usages) {
+      // A tag with property 'usages' is a popular tag,
+      // if the user is removing their vote from a popular tag, they must have just voted on a popular tag that had no votes,
+      // it's still a popular tag, so update the tag to show no user vote and zero votes
       mutateTags(
         prevData => {
           if (!prevData) {
@@ -185,6 +204,8 @@ function TagsContainer({
         { revalidate: false }
       )
     } else {
+      // To remove a vote from a votable tag,
+      // update the votable tag to show no user vote and decrement the vote count
       mutateVotableTags(
         prevData => {
           if (!prevData) {
@@ -207,6 +228,7 @@ function TagsContainer({
       )
     }
 
+    // Remove the tag vote from the user's tag votes
     mutateTagVotes(
       prevData => {
         if (!prevData) {
