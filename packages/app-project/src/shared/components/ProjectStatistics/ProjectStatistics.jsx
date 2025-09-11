@@ -25,6 +25,7 @@ function ProjectStatistics ({
 	className,
 	classifications,
 	completedSubjects,
+  completeness,
 	linkProps,
 	projectName,
 	subjects,
@@ -48,7 +49,7 @@ function ProjectStatistics ({
           >
             {t('ProjectStatistics.text', { projectName })}
           </StyledParagraph>
-          <CompletionBar />
+          <CompletionBar completeness={completeness} />
           <Text margin={{ top: 'small' }} size='small' weight='bold'>
             {t('ProjectStatistics.percentComplete')}
           </Text>
@@ -86,6 +87,7 @@ ProjectStatistics.propTypes = {
   className: string,
   classifications: number.isRequired,
   completedSubjects: number.isRequired,
+  completeness: number,
   linkProps: object.isRequired,
   projectName: string,
   subjects: number.isRequired,
