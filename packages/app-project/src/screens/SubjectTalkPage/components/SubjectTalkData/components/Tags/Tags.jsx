@@ -246,6 +246,7 @@ function Tags({
 
   return (
     <Box
+      height={{ min: 'auto' }}
       pad='small'
     >
       <Box
