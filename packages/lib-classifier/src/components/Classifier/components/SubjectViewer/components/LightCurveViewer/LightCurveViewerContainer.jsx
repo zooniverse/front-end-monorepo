@@ -1,16 +1,16 @@
-import asyncStates from '@zooniverse/async-states'
 import { extent } from 'd3-array'
 import { Box } from 'grommet'
 import { zip } from 'lodash'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 
 import { useKeyZoom, useStores } from '@hooks'
 
-import { useSubjectJSON } from '@hooks'
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
+
+const DEFAULT_HANDLER = () => true
 
 function storeMapper (classifierStore) {
   const {
@@ -54,11 +54,6 @@ function storeMapper (classifierStore) {
   }
 }
 
-const SUBJECT = {
-  id: '',
-  locations: []
-}
-
 export function LightCurveViewerContainer({
   data = null,
   feedback = false,
@@ -66,14 +61,14 @@ export function LightCurveViewerContainer({
 }) {
   const {
     activeDataVisTask,
-    activeToolIndex,
-    addAnnotation,
+    activeToolIndex = 0,
+    addAnnotation = DEFAULT_HANDLER,
     annotation,  // dataVisAnnotation
-    enableAnnotate,
-    enableMove,
-    interactionMode,
-    setOnPan,
-    setOnZoom
+    enableAnnotate = DEFAULT_HANDLER,
+    enableMove = DEFAULT_HANDLER,
+    interactionMode = 'annotate',
+    setOnPan = DEFAULT_HANDLER,
+    setOnZoom = DEFAULT_HANDLER
   } = useStores(storeMapper)
   const { onKeyZoom } = useKeyZoom()
 
