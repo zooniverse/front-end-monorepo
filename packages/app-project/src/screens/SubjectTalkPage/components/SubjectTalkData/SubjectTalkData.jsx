@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
 import SectionHeading from './components/SectionHeading'
+import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
   font-size: 24px;
@@ -17,7 +18,8 @@ const StyledHeading = styled(Heading)`
 function SubjectTalkData({
   login,
   projectId,
-  subjectId
+  subjectId,
+  userId
 }) {
   const { t } = useTranslation('screens')
 
@@ -53,20 +55,11 @@ function SubjectTalkData({
             {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
           </StyledHeading>
         </Box>
-        <Box
-          height={{ min: '110px' }}
-          pad='small'
-        >
-          <SectionHeading
-            icon={
-              <Tag
-                color={{ dark: 'light-1', light: 'dark-4' }}
-                size='16px'
-              />
-            }
-            title='Tags'
-          />
-        </Box>
+        <Tags
+          projectId={projectId}
+          subjectId={subjectId}
+          userId={userId}
+        />
         <Discussions
           login={login}
           projectId={projectId}

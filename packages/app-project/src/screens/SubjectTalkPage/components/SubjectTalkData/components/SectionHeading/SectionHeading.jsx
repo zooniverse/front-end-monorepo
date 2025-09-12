@@ -1,11 +1,6 @@
-import { Box, Heading } from 'grommet'
+import { SpacedHeading } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 import { string } from 'prop-types'
-import styled from 'styled-components'
-
-const StyledHeading = styled(Heading)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-`
 
 function SectionHeading({
   icon,
@@ -18,13 +13,13 @@ function SectionHeading({
       gap='xsmall'
     >
       {icon}
-      <StyledHeading
+      <SpacedHeading
         color={{ dark: 'light-1', light: 'dark-4' }}
         level={3}
-        size='1rem'
+        size='16px'
       >
         {title}
-      </StyledHeading>
+      </SpacedHeading>
     </Box>
   )
 }
