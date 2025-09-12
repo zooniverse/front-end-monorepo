@@ -49,8 +49,8 @@
     "react-dom": "~18.2.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "~7.26.0",
-    "@babel/preset-react": "~7.26.3",
+    "@babel/preset-env": "~7.28.3",
+    "@babel/preset-react": "~7.27.1",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/react": "~7.6.11",
