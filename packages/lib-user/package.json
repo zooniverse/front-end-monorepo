@@ -49,10 +49,10 @@
     "styled-components": "6.x.x"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "~7.27.0",
-    "@babel/plugin-transform-runtime": "~7.26.9",
-    "@babel/preset-env": "~7.26.0",
-    "@babel/preset-react": "~7.26.3",
+    "@babel/eslint-parser": "~7.28.4",
+    "@babel/plugin-transform-runtime": "~7.28.3",
+    "@babel/preset-env": "~7.28.3",
+    "@babel/preset-react": "~7.27.1",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/react": "~7.6.11",
