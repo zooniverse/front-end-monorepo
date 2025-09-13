@@ -26,7 +26,7 @@
     "test:ci": "lerna run --parallel test:ci"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   },
   "workspaces": {
     "packages": [
