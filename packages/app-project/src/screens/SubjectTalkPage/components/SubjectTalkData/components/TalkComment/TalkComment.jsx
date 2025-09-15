@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
+import { StyledRole } from '../../../../../ProjectAboutPage/components/TeamMember/TeamMember'
 import Avatar from './components/Avatar'
 
 const markdownComponents = {
@@ -57,6 +58,7 @@ function TalkComment({
   displayName = '',
   login = '',
   projectSlug = '',
+  roles = undefined,
   upvoted = false,
   upvotes = 0
 }) {
@@ -111,6 +113,21 @@ function TalkComment({
                 @{login}
               </Text>
               : null}
+          </Box>
+          <Box
+            height={{ max: '50px' }}
+            wrap
+          >
+            {roles?.map(role => (
+              <StyledRole
+                key={role}
+                round='xxsmall'
+                background={role === 'owner' ? 'neutral-2' : 'accent-1'}
+                margin={{ right: '5px' }}
+              >
+                {role === 'scientist' ? t('About.TeamMember.researcher') : t(`About.TeamMember.${role}`)}
+              </StyledRole>
+            ))}
           </Box>
         </Box>
         <Box

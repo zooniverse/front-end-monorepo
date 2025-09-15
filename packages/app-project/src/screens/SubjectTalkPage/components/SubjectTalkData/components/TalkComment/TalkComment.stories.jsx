@@ -59,3 +59,18 @@ export const UserUpvoted = {
     upvotes: 7
   }
 }
+
+export const WithRoles = {
+  args: {
+    avatar: 'https://panoptes-uploads.zooniverse.org/user_avatar/57ce57cc-63cf-46e1-bc9f-a7e52c3f4c05.jpeg',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    commentLink: 'https://www.zooniverse.org/projects/researcher/project-name/talk/123/456?comment=789',
+    date: '2025-07-04T20:00:00Z',
+    displayName: 'ZooTester 4',
+    login: 'zootester4',
+    projectSlug: 'researcher/project-name',
+    upvoted: false,
+    upvotes: 3,
+    roles: ['researcher', 'moderator', 'translator']
+  }
+}
