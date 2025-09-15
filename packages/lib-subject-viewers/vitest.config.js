@@ -6,5 +6,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './test/setup.js'  }
+    setupFiles: './test/setup.js',
+    // disable the css propery here since parsing CSS is slow
+    css: false
+  }
 })
