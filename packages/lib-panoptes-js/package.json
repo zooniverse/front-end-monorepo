@@ -18,7 +18,7 @@
     "test:ci": "NODE_ENV=test vitest run --silent='passed-only'"
   },
   "dependencies": {
-    "jose": "~5.9.6",
+    "jose": "~6.1.0",
     "superagent": "^10.2.0"
   },
   "devDependencies": {
