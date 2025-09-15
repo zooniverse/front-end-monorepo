@@ -5959,6 +5959,11 @@
   dependencies:
     argparse "^2.0.1"
 
+"@zooniverse/async-states@~0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@zooniverse/async-states/-/async-states-0.0.1.tgz#e90b33cfb784ce64cafa46bfa64adcfb84bf976f"
+  integrity sha512-tyo+SBOGDRjRn5o2iOgg3hjfR1fBT8Pek/vpSIvuUV4Hy4Pg1q7yxRibVkbFH5xEDOEO0wMCQIQ7k6HKbN9n/g==
+
 "@zooniverse/react-components@~1.13.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@zooniverse/react-components/-/react-components-1.13.0.tgz#c5e3c4eb027a3130d80cbb31a09ce1734eab5ffa"
@@ -15464,10 +15469,10 @@ react-is@^18.0.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-player@~2.13.0:
-  version "2.13.0"
-  resolved "https://registry.npmjs.org/react-player/-/react-player-2.13.0.tgz"
-  integrity sha512-gkY7ZdbVFztlKFFhCPcnDrFQm+L399b8fhWsKatZ+b2wpKJwfUHBXQFMRxqYQGT0ic1/wQ7D7EZEWy7ZBqk2pw==
+react-player@~2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.16.0.tgz#89070700b03f5a5ded9f0b3165d4717390796481"
+  integrity sha512-mAIPHfioD7yxO0GNYVFD1303QFtI3lyyQZLY229UEAp/a10cSW+hPcakg0Keq8uWJxT2OiT/4Gt+Lc9bD6bJmQ==
   dependencies:
     deepmerge "^4.0.0"
     load-script "^1.0.0"
