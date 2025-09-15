@@ -1,4 +1,4 @@
-FROM node:20.18-alpine AS builder
+FROM node:20-alpine AS builder
 
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
