@@ -120,10 +120,9 @@ function TagsContainer({
       setVoteUpdating(true)
       await addTagVote({ votable_tag_id: tag.id })
       await mutateTagVotes()
+      setVoteUpdating(false)
     } catch (error) {
       console.error(error)
-    } finally {
-      setVoteUpdating(false)
     }
   }
 
@@ -167,10 +166,9 @@ function TagsContainer({
       setVoteUpdating(true)
       await createVotableTag(newVotableTag)
       await mutateTagVotes()
+      setVoteUpdating(false)
     } catch (error) {
       console.error(error)
-    } finally {
-      setVoteUpdating(false)
     }
   }
 
