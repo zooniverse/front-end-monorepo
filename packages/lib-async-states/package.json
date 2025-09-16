@@ -8,7 +8,7 @@
     "url": "git@github.com:zooniverse/front-end-monorepo.git"
   },
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "commonjs",
   "main": "src/async-states.js",
   "scripts": {
