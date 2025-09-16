@@ -16,7 +16,7 @@ function SectionHeading({
       <SpacedHeading
         color={{ dark: 'light-1', light: 'dark-4' }}
         level={3}
-        size='16px'
+        size='1rem'
       >
         {title}
       </SpacedHeading>

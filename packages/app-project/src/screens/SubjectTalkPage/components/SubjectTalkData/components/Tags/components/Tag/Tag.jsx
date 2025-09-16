@@ -123,20 +123,20 @@ function Tag({
         label={(
           <>
             <Text
-              size='16px'
+              size='1rem'
               weight={500}
               >
               {name}
             </Text>
             <StyledText
-              size='16px'
+              size='1rem'
               weight='bold'
               >
               {userVoted ? 'x' : '+'}
             </StyledText>
             {voteCount ? (
               <StyledVoteCount
-                size='16px'
+                size='1rem'
                 weight='bold'
               >
                 {voteCount}

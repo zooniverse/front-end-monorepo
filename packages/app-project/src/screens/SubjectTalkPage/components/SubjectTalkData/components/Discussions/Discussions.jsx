@@ -109,7 +109,7 @@ function Discussions({
             icon={
               <Chat
                 color={{ dark: 'light-1', light: 'dark-4' }}
-                size='16px'
+                size='1rem'
               />
             }
             title={discussionsTitle}
@@ -127,7 +127,7 @@ function Discussions({
             direction='row'
             gap='xsmall'
           >
-            <Text size='16px'>{t('Talk.sortBy')}</Text>
+            <Text size='1rem'>{t('Talk.sortBy')}</Text>
             <StyledButton
               onClick={handleSortChange}
               label={(

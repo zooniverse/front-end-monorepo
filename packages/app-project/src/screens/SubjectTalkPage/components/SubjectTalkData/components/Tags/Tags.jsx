@@ -1,16 +1,11 @@
-import { Loader, SpacedText } from '@zooniverse/react-components'
-import { Box, Button, Heading } from 'grommet'
+import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
+import { Box, Button } from 'grommet'
 import { Add, Tag as TagIcon } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import Tag from './components/Tag'
-
-const StyledHeading = styled(Heading)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-`
 
 const StyledOrderedList = styled(Box)`
   list-style: none;
@@ -67,13 +62,14 @@ function Tags({
           gap='xsmall'
         >
           <TagIcon />
-          <StyledHeading
+          <SpacedHeading
             color={{ dark: 'light-1', light: 'dark-4' }}
             level={3}
+            margin='none'
             size='1rem'
           >
             {tagHeading}
-          </StyledHeading>
+          </SpacedHeading>
         </Box>
         <Box
           align='center'
@@ -95,7 +91,7 @@ function Tags({
                   />
                   <SpacedText
                     color={{ dark: 'accent-1', light: 'neutral-1' }}
-                    size='16px'
+                    size='1rem'
                   >
                     {t('Talk.addATag')}
                   </SpacedText>
