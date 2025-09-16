@@ -9,6 +9,8 @@ import Tag from './components/Tag'
 
 const StyledOrderedList = styled(Box)`
   list-style: none;
+  row-gap: 10px;
+  column-gap: 10px;
 `
 
 const StyledBox = styled(Box)`
@@ -130,7 +132,6 @@ function Tags({
           {tags?.map(tag => (
             <li
               key={`${tag.id}-${tag.name}`}
-              style={{ margin: '0 10px 10px 0' }}
             >
               <Tag
                 disabled={!userId || voteUpdating}
