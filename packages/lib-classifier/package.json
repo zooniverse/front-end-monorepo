@@ -84,7 +84,7 @@
     "@vitejs/plugin-react": "~4.4.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.6.0",
-    "@zooniverse/react-components": "~1.13.0",
+    "@zooniverse/react-components": "~1.15.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-loader": "~10.0.0",
     "babel-plugin-module-resolver": "~5.0.0",

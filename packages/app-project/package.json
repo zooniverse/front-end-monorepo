@@ -23,7 +23,7 @@
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~3.2.0",
     "@zooniverse/panoptes-js": "~0.6.0",
-    "@zooniverse/react-components": "~1.14.0",
+    "@zooniverse/react-components": "~1.15.0",
     "cookie": "~1.0.2",
     "d3": "~6.7.0",
     "engine.io-client": "~6.6.0",
