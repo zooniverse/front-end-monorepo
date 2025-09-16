@@ -40,7 +40,8 @@ function Tags({
   loading = false,
   onTagClick = DEFAULT_HANDLER,
   tags = undefined,
-  userId = undefined
+  userId = undefined,
+  voteUpdating = false
 }) {
   const { t } = useTranslation('screens')
 
@@ -132,7 +133,7 @@ function Tags({
               style={{ margin: '0 10px 10px 0' }}
             >
               <Tag
-                disabled={!userId || loading}
+                disabled={!userId || voteUpdating}
                 name={tag.name}
                 onClick={() => onTagClick(tag)}
                 userVoted={tag.userVoted}

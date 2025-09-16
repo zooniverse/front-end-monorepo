@@ -20,7 +20,7 @@ function TagsContainer({
   subjectId,
   userId
 }) {
-  const [loading, setLoading] = useState(false)
+  const [voteUpdating, setVoteUpdating] = useState(false)
 
   // Fetch popular tags for the subject, unrelated to the user
   const tagsQuery = {
@@ -117,13 +117,13 @@ function TagsContainer({
     // Send the request to create the tag vote, then revalidate the tag votes
     // Set a loading state while the request is in progress to prevent an attempt to delete the tag vote before it's created
     try {
-      setLoading(true)
+      setVoteUpdating(true)
       await addTagVote({ votable_tag_id: tag.id })
+      await mutateTagVotes()
     } catch (error) {
       console.error(error)
     } finally {
-      await mutateTagVotes()
-      setLoading(false)
+      setVoteUpdating(false)
     }
   }
 
@@ -164,13 +164,13 @@ function TagsContainer({
     // Send the request to create the votable tag, then revalidate the tag votes
     // Set a loading state while the request is in progress to prevent an attempt to delete the votable tag and related tag vote before they are created
     try {
-      setLoading(true)
+      setVoteUpdating(true)
       await createVotableTag(newVotableTag)
+      await mutateTagVotes()
     } catch (error) {
       console.error(error)
     } finally {
-      await mutateTagVotes()
-      setLoading(false)
+      setVoteUpdating(false)
     }
   }
 
@@ -260,11 +260,12 @@ function TagsContainer({
 
   return (
     <Tags
-      loading={loading || tagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
+      loading={tagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
       error={tagsError || votableTagsError || tagVotesError}
       tags={combinedTags}
       onTagClick={handleClick}
       userId={userId}
+      voteUpdating={voteUpdating}
     />
   )
 }
