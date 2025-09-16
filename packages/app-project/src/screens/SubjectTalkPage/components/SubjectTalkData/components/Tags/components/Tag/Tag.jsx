@@ -28,16 +28,16 @@ const StyledButton = styled(Button)`
   }
 
   &:hover:not(:disabled),
-  &:focus-visible:not(:disabled) {
+  &:focus:not(:disabled) {
     background: ${props => props.$userVoted ?
       'linear-gradient(180deg, #4D2A8E 0%, #3C2F53 100%);'
       : '#E0D4F6'
       };
+    border: none;
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
     color: ${props => props.$userVoted ?
       props.theme.global.colors['neutral-6']
       : props.theme.global.colors['dark-3']};
-    border: none;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
     padding: 14px 15px;
   }
 `
@@ -47,7 +47,7 @@ const StyledText = styled(Text)`
   min-width: 10px;
 
   ${StyledButton}:hover:not(:disabled) &,
-  ${StyledButton}:focus-visible:not(:disabled) & {
+  ${StyledButton}:focus:not(:disabled) & {
     display: inline-block;
     margin-left: 10px;
   }
@@ -59,7 +59,7 @@ const StyledVoteCount = styled(Text)`
   min-width: 10px;
 
   ${StyledButton}:hover:not(:disabled) &,
-  ${StyledButton}:focus-visible:not(:disabled) & {
+  ${StyledButton}:focus:not(:disabled) & {
     display: none;
   }
 `
