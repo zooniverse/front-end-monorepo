@@ -1,1 +1,1 @@
-export { default as VolumetricView } from './VolumetricView'
+export { default } from './VolumetricView'

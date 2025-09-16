@@ -1,1 +1,1 @@
-export { default as VolumetricFull } from './VolumetricFull'
+export { default } from './VolumetricFull'
