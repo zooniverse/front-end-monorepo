@@ -187,7 +187,7 @@ function TagsContainer({
             return []
           } else {
             const newData = prevData.map(t => {
-              if (t.name === tag.name) {
+              if (t.id === tag.id) {
                 return {
                   ...t,
                   userVoted: false,
