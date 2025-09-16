@@ -42,7 +42,7 @@
     "@visx/group": "~3.12.0",
     "@visx/responsive": "~3.12.0",
     "@visx/shape": "~3.12.0",
-    "@zooniverse/panoptes-js": "~0.5.0",
+    "@zooniverse/panoptes-js": "~0.6.0",
     "@zooniverse/subject-viewers": "0.1.0",
     "cuid": "~3.0.0",
     "formik": "~2.4.0",
