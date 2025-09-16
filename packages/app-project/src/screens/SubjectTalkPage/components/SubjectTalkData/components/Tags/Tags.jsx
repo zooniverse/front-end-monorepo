@@ -162,7 +162,7 @@ function Tags({
                 />
                 <SpacedText
                   color={{ dark: 'accent-1', light: 'neutral-1' }}
-                  size='18px'
+                  size='1.125rem'
                   weight={600}
                 >
                   {t('Talk.addATag')}

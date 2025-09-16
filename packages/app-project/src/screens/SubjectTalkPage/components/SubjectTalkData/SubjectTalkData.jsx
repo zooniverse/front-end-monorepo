@@ -1,15 +1,13 @@
 import { Box, Heading } from 'grommet'
-import { Tag } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
-import SectionHeading from './components/SectionHeading'
 import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1.2px;
   margin: 0;
@@ -72,7 +70,7 @@ function SubjectTalkData({
             icon={
               <BlockQuote
                 color={{ dark: 'light-1', light: 'dark-4' }}
-                size='16px'
+                size='1rem'
               />
             }
             title='Mentions'
