@@ -80,7 +80,7 @@
     "@testing-library/react": "~14.2.0",
     "@testing-library/user-event": "~14.5.0",
     "@vitejs/plugin-react": "~4.4.1",
-    "@zooniverse/grommet-theme": "~3.2.0",
+    "@zooniverse/grommet-theme": "~3.3.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-plugin-styled-components": "~2.1.4",
     "babel-plugin-transform-imports": "~2.0.0",
