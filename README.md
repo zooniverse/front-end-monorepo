@@ -25,7 +25,7 @@
 ## Requirements
 
 - [Browser support](docs/arch/adr-4.md)
-- Node 20
+- Node 22
 - Git
 - Yarn
 
