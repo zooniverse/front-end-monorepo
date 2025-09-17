@@ -80,8 +80,9 @@ function TalkComment({
 
   return (
     <StyledCommentCard
+      margin='2px'
       pad='xsmall'
-      round='xxsmall'
+      round='4px'
       tabIndex={0}
     >
       <Box
