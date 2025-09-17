@@ -119,16 +119,30 @@ function TalkComment({
             height={{ max: '50px' }}
             wrap
           >
-            {roles?.map(role => (
-              <StyledRole
-                key={role}
-                round='xxsmall'
-                background={role === 'owner' ? 'neutral-2' : 'accent-1'}
-                margin={{ right: '5px' }}
-              >
-                {role === 'scientist' ? t('About.TeamMember.researcher') : t(`About.TeamMember.${role}`)}
-              </StyledRole>
-            ))}
+            {roles?.map(role => {
+              let roleName = ''
+              let roleColor = 'accent-1'
+              if (role.section === 'zooniverse' && role.name === 'admin') {
+                roleName = t('About.TeamMember.admin')
+                roleColor = 'light-2'
+              } else if (['admin', 'scientist', 'owner'].includes(role.name)) {
+                roleName = t('About.TeamMember.researcher')
+                roleColor = 'neutral-2'
+              } else {
+                roleName = t(`About.TeamMember.${role.name}`)
+              }
+
+              return (
+                <StyledRole
+                  key={role.name}
+                  round='xxsmall'
+                  background={roleColor}
+                  margin={{ right: '5px' }}
+                >
+                  {roleName}
+                </StyledRole>
+              )
+            })}
           </Box>
         </Box>
         <Box

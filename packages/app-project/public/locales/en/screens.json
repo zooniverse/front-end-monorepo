@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "About",
     "TeamMember": {
+      "admin": "Zooniverse Team",
       "owner": "Owner",
       "collaborator": "Collaborator",
       "translator": "Translator",

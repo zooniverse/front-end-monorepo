@@ -71,6 +71,10 @@ export const WithRoles = {
     projectSlug: 'researcher/project-name',
     upvoted: false,
     upvotes: 3,
-    roles: ['researcher', 'moderator', 'translator']
+    roles: [
+      { name: 'owner' },
+      { name: 'translator' },
+      { name: 'admin', section: 'zooniverse' }
+    ]
   }
 }

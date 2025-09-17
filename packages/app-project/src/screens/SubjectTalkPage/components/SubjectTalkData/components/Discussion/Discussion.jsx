@@ -6,7 +6,11 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
-import { useComments, usePanoptesUsers } from '@hooks'
+import {
+  useComments,
+  usePanoptesUsers,
+  useRoles
+} from '@hooks'
 
 import ParticipantsAndComments from '../ParticipantsAndComments'
 import PlainButton from '../PlainButton'
@@ -40,7 +44,23 @@ function Discussion({ discussion, login }) {
 
   const userIds = comments?.map(comment => comment.user_id)
   const uniqueUserIds = [...new Set(userIds)]
-  const { data: users } = usePanoptesUsers({ id: uniqueUserIds.join(',') })
+  const userIdsString = uniqueUserIds.join(',')
+  
+  const {
+    data: users,
+    isLoading: usersLoading,
+    error: usersError
+  } = usePanoptesUsers({ id: userIdsString })
+
+  const {
+    data: roles,
+    isLoading: rolesLoading,
+    error: rolesError
+  } = useRoles({
+    is_shown: true,
+    section: ['zooniverse', discussion.section],
+    user_id: userIdsString
+  })
   
   const showChronologicalSort = discussion.comments_count > 1
   const sortButtonLabel = sort === 'created_at' ? t('Talk.sortedOldestFirst') : t('Talk.sortedNewestFirst')
@@ -131,6 +151,8 @@ function Discussion({ discussion, login }) {
 
           const upvoted = comment?.upvotes && login && Object.keys(comment.upvotes).includes(login)
 
+          const userRoles = roles?.filter(role => role.user_id === user?.id)
+
           return (
             <li key={comment.id}>
               <TalkComment
@@ -141,6 +163,7 @@ function Discussion({ discussion, login }) {
                 displayName={comment.user_display_name}
                 login={comment.user_login}
                 projectSlug={discussion.project_slug}
+                roles={userRoles}
                 upvoted={upvoted}
                 upvotes={Object.keys(comment.upvotes)?.length}
               />
@@ -159,6 +182,7 @@ Discussion.propTypes = {
   discussion: shape({
     id: string,
     comments_count: number,
+    section: string,
     title: string,
     users_count: number
   }),
