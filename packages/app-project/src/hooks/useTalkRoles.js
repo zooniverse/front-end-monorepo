@@ -9,7 +9,7 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-async function fetchRoles(query) {
+async function fetchTalkRoles(query) {
   return talkAPI.get('/roles', query)
     .then(response => response?.body?.roles)
     .catch(error => {
@@ -18,11 +18,11 @@ async function fetchRoles(query) {
     })
 } 
 
-export default function useRoles(query) {
+export default function useTalkRoles(query) {
   let key = null
   if (query && query.user_id) {
     key = query
   }
 
-  return useSWR(key, fetchRoles, SWROptions)
+  return useSWR(key, fetchTalkRoles, SWROptions)
 }

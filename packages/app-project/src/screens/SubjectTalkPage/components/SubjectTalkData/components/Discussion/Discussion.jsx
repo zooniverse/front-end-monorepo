@@ -9,7 +9,7 @@ import addQueryParams from '@helpers/addQueryParams'
 import {
   useComments,
   usePanoptesUsers,
-  useRoles
+  useTalkRoles
 } from '@hooks'
 
 import ParticipantsAndComments from '../ParticipantsAndComments'
@@ -56,9 +56,9 @@ function Discussion({ discussion, login }) {
     data: roles,
     isLoading: rolesLoading,
     error: rolesError
-  } = useRoles({
+  } = useTalkRoles({
     is_shown: true,
-    section: ['zooniverse', discussion.section],
+    section: `zooniverse,${discussion.section}`,
     user_id: userIdsString
   })
   

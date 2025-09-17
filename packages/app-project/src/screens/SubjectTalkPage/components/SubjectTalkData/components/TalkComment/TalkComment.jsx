@@ -122,7 +122,7 @@ function TalkComment({
             {roles?.map(role => {
               let roleName = ''
               let roleColor = 'accent-1'
-              if (role.section === 'zooniverse' && role.name === 'admin') {
+              if (role.section === 'zooniverse' && ['admin', 'team'].includes(role.name)) {
                 roleName = t('About.TeamMember.admin')
                 roleColor = 'light-2'
               } else if (['admin', 'scientist', 'owner'].includes(role.name)) {
@@ -134,7 +134,7 @@ function TalkComment({
 
               return (
                 <StyledRole
-                  key={role.name}
+                  key={role.id}
                   round='xxsmall'
                   background={roleColor}
                   margin={{ right: '5px' }}
