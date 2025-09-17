@@ -100,12 +100,14 @@ function TalkComment({
           <Box
             justify='center'
           >
-            <StyledDisplayName
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='16px'
-            >
-              {displayName}
-            </StyledDisplayName>
+            <Anchor href={addQueryParams(`/projects/${projectSlug}/users/${login}`)}>
+              <StyledDisplayName
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                size='16px'
+              >
+                {displayName}
+              </StyledDisplayName>
+            </Anchor>
             {login ?
               <Text
                 size='xsmall'

@@ -20,6 +20,12 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
     expect(avatar).toBeDefined()
   })
 
+  it('should render a link to the user project profile', function () {
+    render(<DefaultStory />)
+    const profileLink = screen.getByRole('link', { name: 'ZooTester 1' })
+    expect(profileLink).toBeDefined()
+  })
+
   describe('on hover', function () {
     it('should show the comment link', async function () {
       render(<WithoutAvatarStory />)
