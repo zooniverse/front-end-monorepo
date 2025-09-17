@@ -1,0 +1,28 @@
+import { talkAPI } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
+
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
+
+async function fetchRoles(query) {
+  return talkAPI.get('/roles', query)
+    .then(response => response?.body?.roles)
+    .catch(error => {
+      console.error(error)
+      throw error
+    })
+} 
+
+export default function useRoles(query) {
+  let key = null
+  if (query && query.user_id) {
+    key = query
+  }
+
+  return useSWR(key, fetchRoles, SWROptions)
+}
