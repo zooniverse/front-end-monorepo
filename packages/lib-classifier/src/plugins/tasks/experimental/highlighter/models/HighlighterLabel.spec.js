@@ -3,7 +3,7 @@ import HighlighterLabel from './HighlighterLabel'
 describe('Model > HighlighterLabel', function () {
   it('should exist', function () {
     const label = HighlighterLabel.create({ color: '#00979d	', label: 'test' })
-    expect(label).to.be.ok()
+    expect(label).to.exist
     expect(label).to.be.an('object')
   })
 
@@ -14,6 +14,6 @@ describe('Model > HighlighterLabel', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 })

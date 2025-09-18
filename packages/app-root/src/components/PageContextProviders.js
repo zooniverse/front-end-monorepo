@@ -24,7 +24,7 @@ export default function PageContextProviders({ children }) {
   const [themeMode, setThemeMode] = usePreferredTheme()
 
   const { data: user, error, isLoading } = usePanoptesUser()
-  const { adminMode, toggleAdmin } = useAdminMode(user)
+  const { adminMode, toggleAdmin } = useAdminMode()
   const authContext = { adminMode, error, isLoading, toggleAdmin, user }
 
   function toggleTheme() {

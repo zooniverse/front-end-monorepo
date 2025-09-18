@@ -7,17 +7,20 @@ const localStorage = isBrowser ? window.localStorage : null
 export default function useAdminMode() {
   const { store } = useContext(MobXProviderContext)
   const [adminState, setAdminState] = useState(false)
-  const adminMode = store?.user.isAdmin && adminState
+  const userIsAdmin = store?.user.isAdmin
+  const userIsLoaded = store?.user.isLoaded
+  const adminMode = userIsLoaded && userIsAdmin && adminState
 
   useEffect(function onUserChange() {
-    const isAdmin = store?.user.isAdmin
-    if (isAdmin) {
-      const adminFlag = !!localStorage?.getItem('adminFlag')
-      setAdminState(adminFlag)
-    } else {
-      localStorage?.removeItem('adminFlag')
+    if (userIsLoaded) {
+      if (userIsAdmin) {
+        const adminFlag = !!localStorage?.getItem('adminFlag')
+        setAdminState(adminFlag)
+      } else {
+        localStorage?.removeItem('adminFlag')
+      }
     }
-  }, [store?.user.isAdmin])
+  }, [userIsAdmin, userIsLoaded])
 
   function toggleAdmin() {
     let newAdminState = !adminState

@@ -11,9 +11,6 @@ const opts = {
   eslintConfig: {
     baseConfig,
     overrideConfig: {
-      env: {
-        'mocha': true
-      },
       extends: [
         'plugin:react/recommended',
         'plugin:jsx-a11y/recommended',

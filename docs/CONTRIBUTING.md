@@ -87,14 +87,14 @@ We label issues that are a good place to start for new contributors with [`good 
 
 ### Testing
 
-1. At a minimum, code you submit should be unit tested - we use Coveralls to measure how much of our code is covered.
+1. At a minimum, code you submit should be unit tested.
 2. Tests should be located alongside the code:
     ```
     /path/to/component $ ls
     component.js
     component.spec.js
     ```
-3. We use Mocha, Enzyme, Sinon and Chai for expectations.
+3. We use Vitest, Sinon, and Nock for tests.
 4. Zooniverse should be accessible to everyone. We aim for our site, and projects, to conform to the [Web Content Accessibility Guidelines level AA](https://webaim.org/standards/wcag/checklist). Please test that your changes are accessible using the keyboard, and work as expected in a screenreader such as VoiceOver or Narrator. Lighthouse, in Chrome dev tools, can also be used to run an accessibility audit of your changes.
 
 ## Where can I ask for help?

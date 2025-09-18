@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+
+- Removed outdated HOC `withOnlyRenderOnBrowser`. See `useHasMounted` as a replacement hook.
+
+### Changed
+
+- Replace Mocha with Vitest. Moving toward ESM-only.
+
 ### Added
 
 - `IconActionButton` component, a styled Grommet `Button` that displays an icon with additional accessibility features and tooltip support
@@ -14,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `InvertIconButton` component, a toggle button with an `InvertIcon` icon
 - `ImageIconButton` component, a button that behaves like an anchor link with an image icon
 - `FavoritesIconButton` component, an icon button to favorite a subject, with hooks to request and update the favorite collection
+- `CollectIconButton` component, an icon button to collect a subject, opens a modal to select or create a collection for the subject
 
 ### Fixed
 

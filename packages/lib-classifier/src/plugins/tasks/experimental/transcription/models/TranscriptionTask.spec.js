@@ -1,7 +1,6 @@
 import { types } from 'mobx-state-tree'
 import TranscriptionTask from '@plugins/tasks/experimental/transcription'
 import SHOWN_MARKS from '@helpers/shownMarks'
-import { expect } from 'chai'
 
 const details = [
   {
@@ -28,7 +27,7 @@ const transcriptionTaskSnapshot = {
 describe('Model > TranscriptionTask', function () {
   it('should exist', function () {
     const transcriptionTask = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
-    expect(transcriptionTask).to.be.ok()
+    expect(transcriptionTask).to.exist
     expect(transcriptionTask).to.be.an('object')
   })
 
@@ -61,7 +60,7 @@ describe('Model > TranscriptionTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T3')
       expect(annotation.taskType).to.equal('transcription')
     })
@@ -95,7 +94,7 @@ describe('Model > TranscriptionTask', function () {
     })
 
     it('should be undefined by default', function () {
-      expect(transcriptionTask.activeMark).to.be.undefined()
+      expect(transcriptionTask.activeMark).to.equal(undefined)
     })
 
     it('should be set from stored marks', function () {
@@ -165,7 +164,7 @@ describe('Model > TranscriptionTask', function () {
     })
 
     it('should reset the subtask visiblity', function () {
-      expect(task.subTaskVisibility).to.be.false()
+      expect(task.subTaskVisibility).to.equal(false)
     })
   })
 

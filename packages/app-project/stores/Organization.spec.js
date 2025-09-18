@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import Store from './Store'
 import placeholderEnv from './helpers/placeholderEnv'
 
@@ -15,7 +14,7 @@ describe('Stores > Organization', function () {
       }
     }, placeholderEnv)
     organizationStore = rootStore.organization
-    expect(organizationStore).to.be.ok()
+    expect(organizationStore).toBeDefined()
   })
 
   describe('default model properties', function () {
@@ -36,7 +35,7 @@ describe('Stores > Organization', function () {
     })
 
     it('should have an `id` property', function () {
-      expect(organizationStore.id).to.be.null()
+      expect(organizationStore.id).to.equal(null)
     })
 
     it('should have a `slug` property', function () {

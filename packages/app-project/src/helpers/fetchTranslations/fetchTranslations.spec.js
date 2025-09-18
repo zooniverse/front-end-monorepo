@@ -111,7 +111,7 @@ describe('helpers > fetchTranslations', function () {
       language: 'en',
       env: 'staging'
     })
-    expect(translation).to.be.undefined()
+    expect(translation).toBeUndefined()
   })
 
   it('should handle language codes that include dialects', async function () {

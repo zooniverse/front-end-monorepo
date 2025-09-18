@@ -1,4 +1,4 @@
-import RectangleTool from './RectangleTool'
+import { RectangleTool } from '@plugins/drawingTools/models/tools'
 
 const rectangle = {
   color: '#ff0000',
@@ -11,7 +11,7 @@ const rectangle = {
 describe('Model > DrawingTools > Rectangle', function () {
   it('should exist', function () {
     const rectangleToolInstance = RectangleTool.create(rectangle)
-    expect(rectangleToolInstance).to.exist()
+    expect(rectangleToolInstance).to.exist
     expect(rectangleToolInstance).to.be.an('object')
   })
 

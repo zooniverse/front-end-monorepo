@@ -28,7 +28,11 @@ const User = types
     },
 
     get isAdmin() {
-      return self.admin
+      return self.isLoggedIn && self.admin
+    },
+
+    get isLoaded() {
+      return self.loadingState === asyncStates.success
     },
 
     get isLoggedIn () {

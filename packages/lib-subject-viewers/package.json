@@ -24,14 +24,14 @@
   },
   "scripts": {
     "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
+    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.jsx'",
+    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.jsx'",
     "lint": "zoo-standard --fix | snazzy",
     "prepare": "yarn build",
     "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build",
-    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
-    "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
+    "test": "vitest run",
+    "test:ci": "vitest run --silent='passed-only'",
     "watch": "watch 'yarn build' ./src",
     "watch:test": "watch 'yarn test' ./src"
   },
@@ -40,26 +40,25 @@
     "three": "^0.177.0"
   },
   "peerDependencies": {
-    "@zooniverse/async-states": "~0.0.1",
+    "@zooniverse/async-states": "~0.1.0",
     "@zooniverse/grommet-theme": "3.x.x",
+    "@zooniverse/react-components": "~1.14.0",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "react": "~18.2.0",
     "react-dom": "~18.2.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "~7.28.3",
+    "@babel/preset-react": "~7.27.1",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/react": "~7.6.11",
-    "chai": "~4.5.0",
-    "chai-dom": "~1.12.0",
-    "dirty-chai": "~2.0.1",
-    "mocha": "~11.4.0",
-    "sinon": "~20.0.0",
-    "sinon-chai": "~3.7.0",
-    "storybook": "~7.6.11"
+    "@vitejs/plugin-react": "~4.4.1",
+    "storybook": "~7.6.11",
+    "vitest": "~3.1.3"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   }
 }

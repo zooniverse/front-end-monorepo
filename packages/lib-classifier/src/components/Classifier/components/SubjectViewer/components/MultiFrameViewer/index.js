@@ -1,1 +1,1 @@
-export { default } from './MultiFrameViewerContainer.js'
+export { default } from './MultiFrameViewerContainer'

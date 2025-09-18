@@ -1,9 +1,5 @@
 # Zooniverse Front-End Monorepo
 
-[![Build Status](https://travis-ci.com/zooniverse/front-end-monorepo.svg?branch=master)](https://travis-ci.com/zooniverse/front-end-monorepo)
-[![Coverage Status](https://coveralls.io/repos/github/zooniverse/front-end-monorepo/badge.svg?branch=master)](https://coveralls.io/github/zooniverse/front-end-monorepo?branch=master)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
-
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/master/LICENSE.md)
 ![Contributors](https://img.shields.io/github/contributors/zooniverse/front-end-monorepo.svg)

@@ -1,0 +1,84 @@
+import { render, screen } from '@testing-library/react'
+import sinon from 'sinon'
+
+import ThumbnailImage from './ThumbnailImage'
+
+const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
+
+describe('ThumbnailImage', function () {
+  let oldImage
+
+  class ValidImage {
+    constructor () {
+      this.naturalHeight = 200
+      this.naturalWidth = 400
+      const fakeLoadEvent = {
+        ...new Event('load'),
+        target: this
+      }
+      setTimeout(() => this.onload(fakeLoadEvent), 0)
+    }
+  }
+
+  before(function () {
+    sinon.replace(window, 'Image', ValidImage)
+  })
+
+  after(function () {
+    sinon.restore()
+  })
+
+  it('should render without crashing', async function () {
+    render(<ThumbnailImage alt='a test image' src={src} />)
+    const image = await screen.findByRole('img', { name: 'a test image' })
+    expect(image).toBeTruthy()
+  })
+
+  it('should use alt text to describe the image.', async function () {
+    const alt = "A galaxy"
+    render(<ThumbnailImage alt={alt} src={src} />)
+    const image = await screen.findByRole('img', { name: alt })
+    expect(image).toBeTruthy()
+  })
+
+  it('should render the Placeholder component if loading', function () {
+    render(<ThumbnailImage src={src} />)
+    expect(screen.queryByRole('img')).to.equal(null)
+  })
+
+  it('should delay loading the image the given time in props.delay', function (done) {
+    const delay = 1000
+    render(<ThumbnailImage alt='a test image' delay={delay} src={src} />)
+    setTimeout(function () {
+      const image = screen.findByRole('img', { name: 'a test image' })
+      expect(image).toBeTruthy()
+      done()
+    }, delay + 1)
+  })
+
+  it('should have a `<noscript />` image for SSR', function () {
+    render(<ThumbnailImage src={src} />)
+    const noscriptWrapper = document.querySelector('noscript')
+    expect(noscriptWrapper).toBeDefined()
+  })
+
+  describe('height and width', function () {
+    it('should be set if specified', async function () {
+      render(<ThumbnailImage alt='a test image' height={200} width={270} src={src} />)
+      const image = await screen.findByRole('img', { name: 'a test image' })
+      const imageWrapper = document.querySelector('span.thumbnailImage')
+      const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
+      expect(maxHeight).to.equal('200px')
+      expect(maxWidth).to.equal('270px')
+    })
+
+    it('should fill the image container by default', async function () {
+      render(<ThumbnailImage alt='a test image' src={src} />)
+      const image = await screen.findByRole('img', { name: 'a test image' })
+      const imageWrapper = document.querySelector('span.thumbnailImage')
+      const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
+      expect(maxHeight).to.equal('')
+      expect(maxWidth).to.equal('100%')
+    })
+  })
+})

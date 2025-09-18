@@ -73,9 +73,28 @@
     }
   },
   "Talk": {
-    "searchPlaceholder": "Search this project for tags, subjects, or @users",
-    "subjectMetadata": "Subject Metadata",
+    "addATag": "Add a tag",
+    "addVote": "Add your vote",
+    "avatarAlt": "{{login}} avatar",
+    "comments": "Comments",
+    "commentsViewing": "Viewing {{count}} of {{total}} comments",
+    "discussions": "{{count}} Discussions",
     "featuredCollections": "Featured in these Collections",
-    "relatedSubjects": "Other subjects being discussed:"
+    "goToComment": "Go to comment",
+    "logInToTag": "Log in to add a tag",
+    "logInToVote": "Log in to vote",
+    "noDiscussions": "No Discussions",
+    "noTags": "No Tags",
+    "oneDiscussion": "1 Discussion",
+    "participants": "Participants",
+    "relatedSubjects": "Other subjects being discussed:",
+    "removeVote": "Remove your vote",
+    "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "sortBy": "Sort by",
+    "sortedNewestFirst": "Newest first",
+    "sortedOldestFirst": "Oldest first",
+    "startDiscussion": "Start a new discussion",
+    "subjectMetadata": "Subject Metadata",
+    "tags": "Tags"
   }
 }

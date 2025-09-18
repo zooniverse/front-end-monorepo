@@ -1,0 +1,68 @@
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
+import Meta, { MessageFromResearcher, NoMessageFromResearcher, NoResearcher } from './MessageFromResearcher.stories'
+import {
+  MessageFromResearcherProjectNamedMock,
+  MessageFromResearcherProjectNoResearcherMock
+} from './MessageFromResearcher.mock.js'
+
+describe('Component > MessageFromResearcher', function () {
+  describe('Researcher and Message', function () {
+    beforeEach(function () {
+      const MessageFromResearcherStory = composeStory(MessageFromResearcher, Meta)
+      render(<MessageFromResearcherStory />)
+    })
+
+    it('should render the researcher name', function () {
+      expect(screen.getByText(MessageFromResearcherProjectNamedMock.project.owners[0].display_name)).toBeDefined()
+    })
+
+    it('should render the researcher avatar', function () {
+      expect(screen.getByAltText(`${MessageFromResearcherProjectNamedMock.project.owners[0].display_name} avatar`)).toBeDefined()
+      expect(screen.getByAltText(`${MessageFromResearcherProjectNamedMock.project.owners[0].display_name} avatar`))
+        .to.have.property('src').to.equal(MessageFromResearcherProjectNamedMock.project.owners[0].avatar_src)
+    })
+
+    it('should render the researcher message', function () {
+      expect(screen.getByText(MessageFromResearcherProjectNamedMock.project.researcher_quote)).toBeDefined()
+    })
+  })
+
+  describe('No Researcher and Message', function () {
+    beforeEach(function () {
+      const NoResearcherStory = composeStory(NoResearcher, Meta)
+      render(<NoResearcherStory />)
+    })
+
+    it('should render the project slug', function () {
+      expect(screen.getByText(MessageFromResearcherProjectNoResearcherMock.project.display_name)).toBeDefined()
+    })
+
+    it('should render the project avatar', function () {
+      expect(screen.getByAltText(`${MessageFromResearcherProjectNamedMock.project.display_name} avatar`)).toBeDefined()
+      expect(screen.getByAltText(`${MessageFromResearcherProjectNamedMock.project.display_name} avatar`))
+        .to.have.property('src').to.equal(MessageFromResearcherProjectNamedMock.project.avatar.src)
+    })
+
+    it('should render the researcher message', function () {
+      expect(screen.getByText(MessageFromResearcherProjectNamedMock.project.researcher_quote)).toBeDefined()
+    })
+  })
+
+  describe('No Message', function () {
+    beforeEach(function () {
+      const NoMessageFromResearcherStory = composeStory(NoMessageFromResearcher, Meta)
+      render(<NoMessageFromResearcherStory />)
+    })
+
+    it('should render the default no-message text', function () {
+      expect(screen.getByText('Home.MessageFromResearcher.noMessage')).toBeDefined()
+    })
+
+    it('should render the talk link', function () {
+      expect(screen.getByText('Home.MessageFromResearcher.noMessageButton')).toBeDefined()
+      expect(screen.getByRole('link')).to.have.property('href')
+        .to.equal(`https://localhost/projects/${MessageFromResearcherProjectNamedMock.project.slug}/talk`)
+    })
+  })
+})
