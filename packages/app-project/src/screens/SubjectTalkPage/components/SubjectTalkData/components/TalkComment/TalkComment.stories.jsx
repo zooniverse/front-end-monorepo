@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import TalkComment from '../TalkComment'
 
 const commentMock = {
-  id: 123,
+  id: '123',
   body: 'This is a test comment for the TalkComment component.',
   created_at: '2025-07-04T20:00:00Z',
   project_slug: 'researcher/project',
@@ -33,6 +33,14 @@ const commentWithLongBodyMock = {
   And a [link](https://www.zooniverse.org) too!`
 }
 
+const commentReplyMock = {
+  ...commentMock,
+  body: 'This is a reply to a comment.',
+  reply_id: '987',
+  reply_user_display_name: 'ZooTester 2',
+  reply_user_id: '456',
+  reply_user_login: 'zootester2'
+}
 
 export default {
   title: 'Project App / Screens / Subject Talk / Talk Data / TalkComment',
@@ -88,6 +96,6 @@ export const WithRoles = {
 export const Reply = {
   args: {
     avatar: 'https://panoptes-uploads.zooniverse.org/user_avatar/57ce57cc-63cf-46e1-bc9f-a7e52c3f4c05.jpeg',
-    comment: commentMock
+    comment: commentReplyMock
   }
 }

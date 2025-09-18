@@ -18,6 +18,18 @@ const StyledCommentCard = styled(Box)`
   }
 `
 
+const StyledReplyBox = styled(Box)`
+  background: ${props => {
+    const lightStart = props.theme.global.colors['neutral-6']
+    const lightEnd = props.theme.global.colors['light-1']
+    const darkStart = props.theme.global.colors['dark-3']
+    const darkEnd = props.theme.global.colors['dark-4']
+    return props.theme.dark
+      ? `linear-gradient(270deg, ${darkStart} 0%, ${darkEnd} 100%), ${darkEnd}`
+      : `linear-gradient(270deg, ${lightStart} 0%, ${lightEnd} 100%), ${lightEnd}`
+  }};
+`
+
 const StyledDisplayName = styled(Text)`
   letter-spacing: 0.8px;
 `
@@ -88,13 +100,40 @@ function TalkComment({
   return (
     <StyledCommentCard
       margin='2px'
-      pad='xsmall'
+      pad={{ bottom: 'xsmall', horizontal: 'xsmall' }}
       round='4px'
       tabIndex={0}
     >
+      {comment.reply_id ? (
+        <StyledReplyBox
+          align='center'
+          direction='row'
+          gap='xxsmall'
+          margin={{ left: '60px' }}
+        >
+            <Text size='0.75rem'>
+              {t('Talk.Comment.reply')}
+            </Text>
+            <Anchor
+              href={addQueryParams(`/projects/${comment.project_slug}/users/${comment.reply_user_login}`)}
+              size='0.75rem'
+              weight='500'
+            >
+              {t('Talk.Comment.userDisplayNamePossessive', { userDisplayName: comment.reply_user_display_name })}
+            </Anchor>
+            <Anchor
+              href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.reply_id}`)}
+              size='0.75rem'
+              weight='500'
+            >
+              {t('Talk.Comment.comment')}
+            </Anchor>
+        </StyledReplyBox>
+      ) : null}
       <Box
         justify='between'
         direction='row'
+        margin={{ top: 'xsmall' }}
       >
         <Box
           direction='row'
