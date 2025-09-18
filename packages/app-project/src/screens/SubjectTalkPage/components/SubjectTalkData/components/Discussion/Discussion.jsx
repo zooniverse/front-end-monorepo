@@ -73,7 +73,7 @@ function Discussion({ discussion, login }) {
             <Anchor
               href={addQueryParams(`/projects/${discussion.project_slug}/talk/${discussion.board_id}`)}
               label={discussion.board_title}
-              size='16px'
+              size='1rem'
             />
             <FormNext
               color={{ dark: 'accent-1', light: 'neutral-1' }}
@@ -82,7 +82,7 @@ function Discussion({ discussion, login }) {
             <Anchor
               href={addQueryParams(`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}`)}
               label={discussion.title}
-              size='16px'
+              size='1rem'
             />
           </StyledBox>
           <ParticipantsAndComments
@@ -148,7 +148,7 @@ function Discussion({ discussion, login }) {
           )
         })}
       </StyledOrderedList>
-      <Text size='16px'>
+      <Text size='1rem'>
         {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
       </Text>
     </Box>
