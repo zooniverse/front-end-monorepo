@@ -242,7 +242,7 @@ export default function ClassifierContainer({
   try {
     return (
       <Provider classifierStore={classifierStore}>
-      {!allowedWorkflowID ?
+      {!allowedWorkflowID && userHasLoaded ?
         <Paragraph>This workflow does not exist or you do not have permission to view it.</Paragraph>
         : classifierIsReady ?
            <Classifier
