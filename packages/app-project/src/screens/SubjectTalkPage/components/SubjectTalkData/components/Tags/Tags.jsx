@@ -47,7 +47,7 @@ function Tags({
 }) {
   const { t } = useTranslation('screens')
 
-  const tagHeading = tags?.length > 0 ? t('Talk.tags') : t('Talk.noTags')
+  const tagHeading = tags?.length > 0 ? t('Talk.Tags.tags') : t('Talk.Tags.noTags')
 
   return (
     <Box
@@ -96,7 +96,7 @@ function Tags({
                     color={{ dark: 'accent-1', light: 'neutral-1' }}
                     size='1rem'
                   >
-                    {t('Talk.addATag')}
+                    {t('Talk.Tags.addATag')}
                   </SpacedText>
                 </Box>
               )}
@@ -106,7 +106,7 @@ function Tags({
             />
           ) : tags?.length > 0 ? (
             <SpacedText>
-              {t('Talk.logInToTag')}
+              {t('Talk.Tags.logInToTag')}
             </SpacedText>
           ) : null}
         </Box>
@@ -166,7 +166,7 @@ function Tags({
                   size='1.125rem'
                   weight={600}
                 >
-                  {t('Talk.addATag')}
+                  {t('Talk.Tags.addATag')}
                 </SpacedText>
                 <Add
                   color={{ dark: 'accent-1', light: 'neutral-1' }}

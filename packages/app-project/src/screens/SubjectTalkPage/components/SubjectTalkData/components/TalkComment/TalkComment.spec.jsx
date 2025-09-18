@@ -16,7 +16,7 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
 
   it('should render an avatar with alt text', function () {
     render(<DefaultStory />)
-    const avatar = screen.getByRole('img', { name: 'Talk.avatarAlt' })
+    const avatar = screen.getByRole('img', { name: 'Talk.Comment.avatarAlt' })
     expect(avatar).toBeDefined()
   })
 
@@ -34,7 +34,7 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
       const user = userEvent.setup()
       await user.hover(commentBody)
 
-      const commentLink = screen.getByRole('link', { name: 'Talk.goToComment'})
+      const commentLink = screen.getByRole('link', { name: 'Talk.Comment.goToComment'})
       expect(commentLink).toBeDefined()
     })
   })

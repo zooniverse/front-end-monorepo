@@ -101,7 +101,7 @@ function TalkComment({
           gap='10px'
         >
           <Avatar
-            alt={t('Talk.avatarAlt', { login: comment.user_login })}
+            alt={t('Talk.Comment.avatarAlt', { login: comment.user_login })}
             src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
           />
           <Box
@@ -165,11 +165,11 @@ function TalkComment({
             {localeDate}
           </StyledDate>
           <StyledLink
-            a11yTitle={t('Talk.goToComment')}
+            a11yTitle={t('Talk.Comment.goToComment')}
             gap='xsmall'
             href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.id}`)}
             icon={<Share size='14.667px' />}
-            label={<StyledLinkLabel>{t('Talk.goToComment').toUpperCase()}</StyledLinkLabel>}
+            label={<StyledLinkLabel>{t('Talk.Comment.goToComment').toUpperCase()}</StyledLinkLabel>}
           />
         </Box>
       </Box>

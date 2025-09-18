@@ -63,7 +63,7 @@ function Discussion({ discussion, login }) {
   })
   
   const showChronologicalSort = discussion.comments_count > 1
-  const sortButtonLabel = sort === 'created_at' ? t('Talk.sortedOldestFirst') : t('Talk.sortedNewestFirst')
+  const sortButtonLabel = sort === 'created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 
   function handleSortChange() {
     setSort(prevSort => (
@@ -166,7 +166,7 @@ function Discussion({ discussion, login }) {
         })}
       </StyledOrderedList>
       <Text size='1rem'>
-        {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
+        {t('Talk.Discussions.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
       </Text>
     </Box>
   )

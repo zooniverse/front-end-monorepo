@@ -69,16 +69,16 @@ function Discussions({
 
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {
-    discussionsTitle = t('Talk.noDiscussions')
+    discussionsTitle = t('Talk.Discussions.noDiscussions')
   } else if (discussions.length === 1) {
-    discussionsTitle = t('Talk.oneDiscussion')
+    discussionsTitle = t('Talk.Discussions.oneDiscussion')
   } else {
-    discussionsTitle = t('Talk.discussions', { count: discussions.length })
+    discussionsTitle = t('Talk.Discussions.discussions', { count: discussions.length })
   }
 
   const totalCommentsCount = discussions?.reduce((total, discussion) => total + discussion.comments_count, 0) || 0
   const totalUsersCount = discussions?.reduce((total, discussion) => total + discussion.users_count, 0) || 0
-  const sortButtonLabel = sort === 'last_comment_created_at' ? t('Talk.sortedOldestFirst') : t('Talk.sortedNewestFirst')
+  const sortButtonLabel = sort === 'last_comment_created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 
   function handleSortChange() {
     setSort(prevSort => (
@@ -127,7 +127,7 @@ function Discussions({
             direction='row'
             gap='xsmall'
           >
-            <Text size='1rem'>{t('Talk.sortBy')}</Text>
+            <Text size='1rem'>{t('Talk.Discussions.sortBy')}</Text>
             <StyledButton
               onClick={handleSortChange}
               label={(
@@ -197,7 +197,7 @@ function Discussions({
                 size='1.125rem'
                 weight={600}
               >
-                {t('Talk.startDiscussion')}
+                {t('Talk.Discussions.startDiscussion')}
               </SpacedText>
               <Add
                 color={{ dark: 'accent-1', light: 'neutral-1' }}

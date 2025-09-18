@@ -33,7 +33,7 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
 
   it('should show an add tag button', function () {
     render(<DefaultStory />)
-    const addTagButton = screen.getByRole('button', { name: 'Tag Talk.addATag' })
+    const addTagButton = screen.getByRole('button', { name: 'Tag Talk.Tags.addATag' })
     expect(addTagButton).toBeDefined()
   })
 
@@ -48,7 +48,7 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
 
     it('should show a log in message', function () {
       render(<LoggedOutStory />)
-      const logInMessage = screen.getByText('Talk.logInToTag')
+      const logInMessage = screen.getByText('Talk.Tags.logInToTag')
       expect(logInMessage).toBeDefined()
     })
   })
@@ -56,13 +56,13 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
   describe('when there are no tags', function () {
     it('should show the no tags heading', function () {
       render(<DefaultStory tags={[]} />)
-      const noTagsMessage = screen.getByText('Talk.noTags')
+      const noTagsMessage = screen.getByText('Talk.Tags.noTags')
       expect(noTagsMessage).toBeDefined()
     })
 
     it('should show an add tag button', function () {
       render(<DefaultStory tags={[]} />)
-      const addTagButton = screen.getByRole('button', { name: 'Tag Talk.addATag Add' })
+      const addTagButton = screen.getByRole('button', { name: 'Tag Talk.Tags.addATag Add' })
       expect(addTagButton).toBeDefined()
     })
   })

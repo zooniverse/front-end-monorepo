@@ -100,11 +100,11 @@ function Tag({
 
   let message
   if (!userVoted && disabled) {
-    message = t('Talk.logInToVote')
+    message = t('Talk.Tags.logInToVote')
   } else if (userVoted) {
-    message = t('Talk.removeVote')
+    message = t('Talk.Tags.removeVote')
   } else if (!disabled) {
-    message = t('Talk.addVote')
+    message = t('Talk.Tags.addVote')
   }
 
   const padHorizontal = voteCount > 0 ? '15px' : '25px'
