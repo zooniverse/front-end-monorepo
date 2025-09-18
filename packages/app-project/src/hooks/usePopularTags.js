@@ -11,18 +11,18 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchTags({ query, token }) {
+async function fetchPopularTags({ query, token }) {
   const authorization = `Bearer ${token}`
 
   const response = await talkAPI.get('/tags/popular', query, { authorization })
-  
+
   return response?.body?.popular
 }
 
-export default function useTags(query) {
+export default function usePopularTags(query) {
   const token = usePanoptesAuthToken()
-  
+
   const key = query ? { query, token } : null
 
-  return useSWR(key, fetchTags, SWRoptions)
+  return useSWR(key, fetchPopularTags, SWRoptions)
 }
