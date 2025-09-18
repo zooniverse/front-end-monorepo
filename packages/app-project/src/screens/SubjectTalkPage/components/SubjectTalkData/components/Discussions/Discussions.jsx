@@ -1,3 +1,4 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Text } from 'grommet'
 import { Add, Chat, Down, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
@@ -19,9 +20,8 @@ const StyledButton = styled(Button)`
   color: ${props => props.theme.global.colors['neutral-1']};
 `
 
-const StyledLabel = styled(Text)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
+const StyledOrderedList = styled(Box)`
+  list-style: none;
 `
 
 const StyledBox = styled(Box)`
@@ -32,10 +32,6 @@ const StyledBox = styled(Box)`
     height: 1px;
     background: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
-`
-
-const StyledOrderedList = styled(Box)`
-  list-style: none;
 `
 
 const StyledDiscussionButton = styled(Button)`
@@ -113,7 +109,7 @@ function Discussions({
             icon={
               <Chat
                 color={{ dark: 'light-1', light: 'dark-4' }}
-                size='16px'
+                size='1rem'
               />
             }
             title={discussionsTitle}
@@ -131,7 +127,7 @@ function Discussions({
             direction='row'
             gap='xsmall'
           >
-            <Text size='16px'>{t('Talk.sortBy')}</Text>
+            <Text size='1rem'>{t('Talk.sortBy')}</Text>
             <StyledButton
               onClick={handleSortChange}
               label={(
@@ -140,9 +136,9 @@ function Discussions({
                   direction='row'
                   gap='xxsmall'
                 >
-                  <StyledLabel weight={700}>
+                  <SpacedText weight={700}>
                     {sortButtonLabel}
-                  </StyledLabel>
+                  </SpacedText>
                   {sort === 'last_comment_created_at' ? (
                     <Up
                       color='neutral-1'
@@ -196,13 +192,13 @@ function Discussions({
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
                 size='18px'
               />
-              <StyledLabel
+              <SpacedText
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
-                size='18px'
+                size='1.125rem'
                 weight={600}
               >
                 {t('Talk.startDiscussion')}
-              </StyledLabel>
+              </SpacedText>
               <Add
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
                 size='18px'

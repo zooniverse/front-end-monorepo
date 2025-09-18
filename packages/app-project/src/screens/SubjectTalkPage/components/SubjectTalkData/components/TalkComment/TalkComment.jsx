@@ -44,7 +44,7 @@ const StyledLink = styled(Anchor)`
 `
 
 const StyledLinkLabel = styled(Text)`
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   text-transform: uppercase;
 `
@@ -99,7 +99,7 @@ function TalkComment({
           >
             <StyledDisplayName
               color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='16px'
+              size='1rem'
             >
               {displayName}
             </StyledDisplayName>
@@ -152,7 +152,7 @@ function TalkComment({
         {LikeIcon}
         <Text
           color={{ dark: 'accent-1', light: 'neutral-1' }}
-          size='16px'
+          size='1rem'
         >
           {upvotes}
         </Text>
