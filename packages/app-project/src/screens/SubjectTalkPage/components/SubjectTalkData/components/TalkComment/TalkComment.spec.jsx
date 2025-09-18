@@ -9,8 +9,8 @@ const WithoutAvatarStory = composeStory(WithoutAvatar, Meta)
 
 describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function () {
   it('should render the comment body', function () {
-    render(<WithoutAvatarStory />)
-    const commentBody = screen.getByText('This is a test comment without an avatar.')
+    render(<DefaultStory />)
+    const commentBody = screen.getByText('This is a test comment for the TalkComment component.')
     expect(commentBody).toBeDefined()
   })
 
@@ -28,8 +28,8 @@ describe('Component > SubjectTalkPage > SubjectTalkData > TalkComment', function
 
   describe('on hover', function () {
     it('should show the comment link', async function () {
-      render(<WithoutAvatarStory />)
-      const commentBody = screen.getByText('This is a test comment without an avatar.')
+      render(<DefaultStory />)
+      const commentBody = screen.getByText('This is a test comment for the TalkComment component.')
 
       const user = userEvent.setup()
       await user.hover(commentBody)

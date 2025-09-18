@@ -147,25 +147,19 @@ function Discussion({ discussion, login }) {
         pad='none'
       >
         {comments?.map((comment) => {
-          const user = users?.find(user => user.id === comment.user_id)
+          const author = users?.find(user => user.id === comment.user_id)
 
+          const authorRoles = roles?.filter(role => role.user_id === author?.id)
+          
           const upvoted = comment?.upvotes && login && Object.keys(comment.upvotes).includes(login)
-
-          const userRoles = roles?.filter(role => role.user_id === user?.id)
 
           return (
             <li key={comment.id}>
               <TalkComment
-                avatar={user?.avatar_src}
-                body={comment.body}
-                commentLink={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}?comment=${comment.id}`}
-                date={comment.created_at}
-                displayName={comment.user_display_name}
-                login={comment.user_login}
-                projectSlug={discussion.project_slug}
-                roles={userRoles}
+                avatar={author?.avatar_src}
+                comment={comment}
+                roles={authorRoles}
                 upvoted={upvoted}
-                upvotes={Object.keys(comment.upvotes)?.length}
               />
             </li>
           )

@@ -50,24 +50,31 @@ const StyledLinkLabel = styled(Text)`
   text-transform: uppercase;
 `
 
+const DEFAULT_COMMENT = {
+  id: '',
+  board_id: '',
+  body: '',
+  created_at: '',
+  discussion_id: '',
+  project_slug: '',
+  user_display_name: '',
+  user_login: ''
+}
+
 function TalkComment({
   avatar = '',
-  body = '',
-  commentLink = '',
-  date = '',
-  displayName = '',
-  login = '',
-  projectSlug = '',
+  comment = DEFAULT_COMMENT,
   roles = undefined,
-  upvoted = false,
-  upvotes = 0
+  upvoted = false
 }) {
   const { t } = useTranslation('screens')
   
-  const localeDate = new Date(date).toLocaleString(undefined, {
+  const localeDate = new Date(comment.created_at).toLocaleString(undefined, {
     dateStyle: 'medium',
     timeStyle: 'short'
   })
+  
+  const upvotes = comment.upvotes ? Object.keys(comment.upvotes).length : 0
 
   const LikeIcon = upvotes > 0 ? (
     <LikeFill
@@ -94,26 +101,26 @@ function TalkComment({
           gap='10px'
         >
           <Avatar
-            alt={t('Talk.avatarAlt', { login })}
+            alt={t('Talk.avatarAlt', { login: comment.user_login })}
             src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
           />
           <Box
             justify='center'
           >
-            <Anchor href={addQueryParams(`/projects/${projectSlug}/users/${login}`)}>
+            <Anchor href={addQueryParams(`/projects/${comment.project_slug}/users/${comment.user_login}`)}>
               <StyledDisplayName
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
-                size='16px'
+                size='1rem'
               >
-                {displayName}
+                {comment.user_display_name}
               </StyledDisplayName>
             </Anchor>
-            {login ?
+            {comment.user_login ?
               <Text
                 size='xsmall'
                 uppercase={false}
               >
-                @{login}
+                @{comment.user_login}
               </Text>
               : null}
           </Box>
@@ -160,7 +167,7 @@ function TalkComment({
           <StyledLink
             a11yTitle={t('Talk.goToComment')}
             gap='xsmall'
-            href={addQueryParams(commentLink)}
+            href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.id}`)}
             icon={<Share size='14.667px' />}
             label={<StyledLinkLabel>{t('Talk.goToComment').toUpperCase()}</StyledLinkLabel>}
           />
@@ -172,9 +179,9 @@ function TalkComment({
         <Markdownz
           baseURI={''}
           components={markdownComponents}
-          projectSlug={projectSlug}
+          projectSlug={comment.project_slug}
         >
-          {body}
+          {comment.body}
         </Markdownz>
       </Box>
       <Box
