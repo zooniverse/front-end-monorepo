@@ -38,7 +38,7 @@
   "peerDependencies": {
     "@next/third-parties": "~14.2.26",
     "@zooniverse/grommet-theme": "3.x.x",
-    "@zooniverse/react-components": "~1.14.0",
+    "@zooniverse/react-components": "~1.15.0",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "next": "~14.2.26",

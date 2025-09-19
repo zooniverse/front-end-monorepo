@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.0]
+### Changed
+- Adjust paragraph default font size to 16px.
+- Update code-comment url to Figma.
+- Remove restriction on Node version (all FEM packages can now use 20.19).
+
 ## [3.2.0]
 ### Changed
 - build with Node 20.

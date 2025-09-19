@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] 2025-09-08
-- Replace `mocha` with `vitest`.
-- Uninstall `chai`, `chai-dom`, `sinon-chai`, `dirty-chai`, and `sinon`.
+## [0.6.0] 2025-09-15
+- Replaced `mocha` with `vitest`.
+- Uninstalled `chai`, `chai-dom`, `sinon-chai`, `dirty-chai`, and `sinon`.
+- Removed restriction on Node > v20.18 (not reflected in the changelog, but all FEM packages can now use Node v20.19).
 
 ## [0.5.2] 2025-04-17
 - Bump `jose` to 5.2.
