@@ -77,7 +77,7 @@ function Discussion({ discussion, login }) {
     <Box>
       <Box
         align='center'
-        direction='row'
+        direction='row-responsive'
         justify='between'
       >
         <Box
@@ -112,6 +112,7 @@ function Discussion({ discussion, login }) {
         </Box>
         <Box
           align='center'
+          alignSelf='end'
           direction='row'
           gap='xsmall'
         >

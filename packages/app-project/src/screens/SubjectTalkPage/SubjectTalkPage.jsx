@@ -33,7 +33,7 @@ const StyledTalkDataBox = styled(Box)`
   min-height: 300px;
 
   @media screen and (max-width: 1280px) {
-    max-height: none;
+    max-height: auto;
     min-height: auto;
   }
 `

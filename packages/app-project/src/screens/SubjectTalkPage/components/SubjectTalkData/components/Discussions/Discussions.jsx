@@ -12,6 +12,14 @@ import Discussion from '../Discussion'
 import ParticipantsAndComments from '../ParticipantsAndComments'
 import SectionHeading from '../SectionHeading'
 
+const StyledDiscussions = styled(Box)`
+  min-height: auto;
+
+  @media screen and (max-width: 1280px) {
+    max-height: 400px;
+  }
+`
+
 const StyledButton = styled(Button)`
   background: ${props => props.theme.global.colors['accent-1']};
   border: none;
@@ -89,14 +97,13 @@ function Discussions({
   }
 
   return (
-    <Box
+    <StyledDiscussions
       gap='small'
-      height={{ min: '110px' }}
       pad='small'
     >
       <Box
         align='center'
-        direction='row'
+        direction='row-responsive'
         justify='between'
         height={{ min: 'auto' }}
       >
@@ -124,6 +131,7 @@ function Discussions({
         {discussions?.length > 1 && (
           <Box
             align='center'
+            alignSelf='end'
             direction='row'
             gap='xsmall'
           >
@@ -209,7 +217,7 @@ function Discussions({
           plain
         />
       </StyledBox>
-    </Box>
+    </StyledDiscussions>
   )
 }
 

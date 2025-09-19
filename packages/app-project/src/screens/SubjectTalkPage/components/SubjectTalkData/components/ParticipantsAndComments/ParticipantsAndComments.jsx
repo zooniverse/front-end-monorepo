@@ -10,7 +10,7 @@ function ParticipantsAndComments({ commentsCount, usersCount }) {
     <Box
       align='center'
       direction='row'
-      gap='xsmall'
+      gap='xxsmall'
     >
       <span
         id='participants-icon'
