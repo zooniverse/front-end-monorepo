@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "About",
     "TeamMember": {
+      "admin": "Zooniverse Team",
       "owner": "Owner",
       "collaborator": "Collaborator",
       "translator": "Translator",
@@ -73,28 +74,36 @@
     }
   },
   "Talk": {
-    "addATag": "Add a tag",
-    "addVote": "Add your vote",
-    "avatarAlt": "{{login}} avatar",
-    "comments": "Comments",
-    "commentsViewing": "Viewing {{count}} of {{total}} comments",
-    "discussions": "{{count}} Discussions",
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "comment",
+      "goToComment": "Go to comment",
+      "reply": "In reply to",
+      "userDisplayNamePossessive": "{{userDisplayName}}'s"
+    },
+    "Discussions": {
+      "comments": "Comments",
+      "commentsViewing": "Viewing {{count}} of {{total}} comments",
+      "discussions": "{{count}} Discussions",
+      "noDiscussions": "No Discussions",
+      "oneDiscussion": "1 Discussion",
+      "participants": "Participants",
+      "sortBy": "Sort by",
+      "sortedNewestFirst": "Newest first",
+      "sortedOldestFirst": "Oldest first",
+      "startDiscussion": "Start a new discussion"
+    },
     "featuredCollections": "Featured in these Collections",
-    "goToComment": "Go to comment",
-    "logInToTag": "Log in to add a tag",
-    "logInToVote": "Log in to vote",
-    "noDiscussions": "No Discussions",
-    "noTags": "No Tags",
-    "oneDiscussion": "1 Discussion",
-    "participants": "Participants",
     "relatedSubjects": "Other subjects being discussed:",
-    "removeVote": "Remove your vote",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
-    "sortBy": "Sort by",
-    "sortedNewestFirst": "Newest first",
-    "sortedOldestFirst": "Oldest first",
-    "startDiscussion": "Start a new discussion",
     "subjectMetadata": "Subject Metadata",
-    "tags": "Tags"
+    "Tags": {
+      "addATag": "Add a tag",
+      "addVote": "Add your vote",
+      "signInToTag": "Sign in to add a tag",
+      "noTags": "No Tags",
+      "removeVote": "Remove your vote",
+      "tags": "Tags"
+    }
   }
 }

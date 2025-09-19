@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
+import { StyledRole } from '../../../../../ProjectAboutPage/components/TeamMember/TeamMember'
 import Avatar from './components/Avatar'
 
 const markdownComponents = {
@@ -15,6 +16,18 @@ const StyledCommentCard = styled(Box)`
   &:hover {
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
   }
+`
+
+const StyledReplyBox = styled(Box)`
+  background: ${props => {
+    const lightStart = props.theme.global.colors['neutral-6']
+    const lightEnd = props.theme.global.colors['light-1']
+    const darkStart = props.theme.global.colors['dark-3']
+    const darkEnd = props.theme.global.colors['dark-4']
+    return props.theme.dark
+      ? `linear-gradient(270deg, ${darkStart} 0%, ${darkEnd} 100%), ${darkEnd}`
+      : `linear-gradient(270deg, ${lightStart} 0%, ${lightEnd} 100%), ${lightEnd}`
+  }};
 `
 
 const StyledDisplayName = styled(Text)`
@@ -49,23 +62,31 @@ const StyledLinkLabel = styled(Text)`
   text-transform: uppercase;
 `
 
+const DEFAULT_COMMENT = {
+  id: '',
+  board_id: '',
+  body: '',
+  created_at: '',
+  discussion_id: '',
+  project_slug: '',
+  user_display_name: '',
+  user_login: ''
+}
+
 function TalkComment({
   avatar = '',
-  body = '',
-  commentLink = '',
-  date = '',
-  displayName = '',
-  login = '',
-  projectSlug = '',
-  upvoted = false,
-  upvotes = 0
+  comment = DEFAULT_COMMENT,
+  roles = undefined,
+  upvoted = false
 }) {
   const { t } = useTranslation('screens')
   
-  const localeDate = new Date(date).toLocaleString(undefined, {
+  const localeDate = new Date(comment.created_at).toLocaleString(undefined, {
     dateStyle: 'medium',
     timeStyle: 'short'
   })
+  
+  const upvotes = comment.upvotes ? Object.keys(comment.upvotes).length : 0
 
   const LikeIcon = upvotes > 0 ? (
     <LikeFill
@@ -78,39 +99,98 @@ function TalkComment({
 
   return (
     <StyledCommentCard
-      pad='xsmall'
-      round='xxsmall'
+      margin='2px'
+      pad={{ bottom: 'xsmall', horizontal: 'xsmall' }}
+      round='4px'
       tabIndex={0}
     >
+      {comment.reply_id ? (
+        <StyledReplyBox
+          align='center'
+          direction='row'
+          gap='xxsmall'
+          margin={{ left: '60px' }}
+        >
+            <Text size='0.75rem'>
+              {t('Talk.Comment.reply')}
+            </Text>
+            <Anchor
+              href={addQueryParams(`/projects/${comment.project_slug}/users/${comment.reply_user_login}`)}
+              size='0.75rem'
+              weight='500'
+            >
+              {t('Talk.Comment.userDisplayNamePossessive', { userDisplayName: comment.reply_user_display_name })}
+            </Anchor>
+            <Anchor
+              href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.reply_id}`)}
+              size='0.75rem'
+              weight='500'
+            >
+              {t('Talk.Comment.comment')}
+            </Anchor>
+        </StyledReplyBox>
+      ) : null}
       <Box
         justify='between'
         direction='row'
+        margin={{ top: 'xsmall' }}
       >
         <Box
           direction='row'
           gap='10px'
         >
           <Avatar
-            alt={t('Talk.avatarAlt', { login })}
+            alt={t('Talk.Comment.avatarAlt', { login: comment.user_login })}
             src={avatar || 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'}
           />
           <Box
             justify='center'
           >
-            <StyledDisplayName
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='1rem'
-            >
-              {displayName}
-            </StyledDisplayName>
-            {login ?
+            <Anchor href={addQueryParams(`/projects/${comment.project_slug}/users/${comment.user_login}`)}>
+              <StyledDisplayName
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                size='1rem'
+              >
+                {comment.user_display_name}
+              </StyledDisplayName>
+            </Anchor>
+            {comment.user_login ?
               <Text
                 size='xsmall'
                 uppercase={false}
               >
-                @{login}
+                @{comment.user_login}
               </Text>
               : null}
+          </Box>
+          <Box
+            height={{ max: '50px' }}
+            wrap
+          >
+            {roles?.map(role => {
+              let roleName = ''
+              let roleColor = 'accent-1'
+              if (role.section === 'zooniverse' && ['admin', 'team'].includes(role.name)) {
+                roleName = t('About.TeamMember.admin')
+                roleColor = 'light-2'
+              } else if (['admin', 'scientist', 'owner'].includes(role.name)) {
+                roleName = t('About.TeamMember.researcher')
+                roleColor = 'neutral-2'
+              } else {
+                roleName = t(`About.TeamMember.${role.name}`)
+              }
+
+              return (
+                <StyledRole
+                  key={role.id}
+                  round='xxsmall'
+                  background={roleColor}
+                  margin={{ right: '5px' }}
+                >
+                  {roleName}
+                </StyledRole>
+              )
+            })}
           </Box>
         </Box>
         <Box
@@ -124,11 +204,11 @@ function TalkComment({
             {localeDate}
           </StyledDate>
           <StyledLink
-            a11yTitle={t('Talk.goToComment')}
+            a11yTitle={t('Talk.Comment.goToComment')}
             gap='xsmall'
-            href={addQueryParams(commentLink)}
+            href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.id}`)}
             icon={<Share size='14.667px' />}
-            label={<StyledLinkLabel>{t('Talk.goToComment').toUpperCase()}</StyledLinkLabel>}
+            label={<StyledLinkLabel>{t('Talk.Comment.goToComment').toUpperCase()}</StyledLinkLabel>}
           />
         </Box>
       </Box>
@@ -138,9 +218,9 @@ function TalkComment({
         <Markdownz
           baseURI={''}
           components={markdownComponents}
-          projectSlug={projectSlug}
+          projectSlug={comment.project_slug}
         >
-          {body}
+          {comment.body}
         </Markdownz>
       </Box>
       <Box

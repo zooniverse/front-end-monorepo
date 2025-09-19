@@ -36,17 +36,17 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Discussion', function 
   })
 
   it('should show a "Newest First" button', function () {
-    const sortButton = screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
+    const sortButton = screen.getByRole('button', { name: 'Talk.Discussions.sortedNewestFirst' })
     expect(sortButton).toBeDefined()
   })
 
   describe('when the sort button is clicked', function () {
     it('should show an "Oldest First" button', async function () {
-      const sortButton = screen.getByRole('button', { name: 'Talk.sortedNewestFirst' })
+      const sortButton = screen.getByRole('button', { name: 'Talk.Discussions.sortedNewestFirst' })
       expect(sortButton).toBeDefined()
       fireEvent.click(sortButton)
       await waitFor(() => {
-        const newSortButton = screen.getByRole('button', { name: 'Talk.sortedOldestFirst' })
+        const newSortButton = screen.getByRole('button', { name: 'Talk.Discussions.sortedOldestFirst' })
         expect(newSortButton).toBeDefined()
       })
     })

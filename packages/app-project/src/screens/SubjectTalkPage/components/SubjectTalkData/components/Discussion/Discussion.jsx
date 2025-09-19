@@ -6,7 +6,11 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
-import { useComments, usePanoptesUsers } from '@hooks'
+import {
+  useComments,
+  usePanoptesUsers,
+  useTalkRoles
+} from '@hooks'
 
 import ParticipantsAndComments from '../ParticipantsAndComments'
 import PlainButton from '../PlainButton'
@@ -40,10 +44,26 @@ function Discussion({ discussion, login }) {
 
   const userIds = comments?.map(comment => comment.user_id)
   const uniqueUserIds = [...new Set(userIds)]
-  const { data: users } = usePanoptesUsers({ id: uniqueUserIds.join(',') })
+  const userIdsString = uniqueUserIds.join(',')
+  
+  const {
+    data: users,
+    isLoading: usersLoading,
+    error: usersError
+  } = usePanoptesUsers({ id: userIdsString })
+
+  const {
+    data: roles,
+    isLoading: rolesLoading,
+    error: rolesError
+  } = useTalkRoles({
+    is_shown: true,
+    section: `zooniverse,${discussion.section}`,
+    user_id: userIdsString
+  })
   
   const showChronologicalSort = discussion.comments_count > 1
-  const sortButtonLabel = sort === 'created_at' ? t('Talk.sortedOldestFirst') : t('Talk.sortedNewestFirst')
+  const sortButtonLabel = sort === 'created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 
   function handleSortChange() {
     setSort(prevSort => (
@@ -57,7 +77,7 @@ function Discussion({ discussion, login }) {
     <Box>
       <Box
         align='center'
-        direction='row'
+        direction='row-responsive'
         justify='between'
       >
         <Box
@@ -92,6 +112,7 @@ function Discussion({ discussion, login }) {
         </Box>
         <Box
           align='center'
+          alignSelf='end'
           direction='row'
           gap='xsmall'
         >
@@ -127,29 +148,26 @@ function Discussion({ discussion, login }) {
         pad='none'
       >
         {comments?.map((comment) => {
-          const user = users?.find(user => user.id === comment.user_id)
+          const author = users?.find(user => user.id === comment.user_id)
 
+          const authorRoles = roles?.filter(role => role.user_id === author?.id)
+          
           const upvoted = comment?.upvotes && login && Object.keys(comment.upvotes).includes(login)
 
           return (
             <li key={comment.id}>
               <TalkComment
-                avatar={user?.avatar_src}
-                body={comment.body}
-                commentLink={`/projects/${discussion.project_slug}/talk/${discussion.board_id}/${discussion.id}?comment=${comment.id}`}
-                date={comment.created_at}
-                displayName={comment.user_display_name}
-                login={comment.user_login}
-                projectSlug={discussion.project_slug}
+                avatar={author?.avatar_src}
+                comment={comment}
+                roles={authorRoles}
                 upvoted={upvoted}
-                upvotes={Object.keys(comment.upvotes)?.length}
               />
             </li>
           )
         })}
       </StyledOrderedList>
       <Text size='1rem'>
-        {t('Talk.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
+        {t('Talk.Discussions.commentsViewing', { count: comments?.length, total: discussion.comments_count })}
       </Text>
     </Box>
   )
@@ -159,6 +177,7 @@ Discussion.propTypes = {
   discussion: shape({
     id: string,
     comments_count: number,
+    section: string,
     title: string,
     users_count: number
   }),
