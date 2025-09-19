@@ -104,9 +104,9 @@ function Tags({
               onClick={() => window.alert('coming soon!')}
               plain
             />
-          ) : tags?.length > 0 ? (
-            <SpacedText>
-              {t('Talk.Tags.logInToTag')}
+          ) : !userId ? (
+            <SpacedText uppercase={false}>
+              {t('Talk.Tags.signInToTag')}
             </SpacedText>
           ) : null}
         </Box>

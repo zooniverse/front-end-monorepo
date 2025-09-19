@@ -98,14 +98,7 @@ function Tag({
 }) {
   const { t } = useTranslation('screens')
 
-  let message
-  if (!userVoted && disabled) {
-    message = t('Talk.Tags.logInToVote')
-  } else if (userVoted) {
-    message = t('Talk.Tags.removeVote')
-  } else if (!disabled) {
-    message = t('Talk.Tags.addVote')
-  }
+  const message = userVoted ? t('Talk.Tags.removeVote') : t('Talk.Tags.addVote')
 
   const padHorizontal = voteCount > 0 ? '15px' : '25px'
 

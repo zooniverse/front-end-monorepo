@@ -48,8 +48,8 @@ describe('Component > SubjectTalkPage > SubjectTalkData > Tags', function () {
 
     it('should show a log in message', function () {
       render(<LoggedOutStory />)
-      const logInMessage = screen.getByText('Talk.Tags.logInToTag')
-      expect(logInMessage).toBeDefined()
+      const signInMessage = screen.getByText('Talk.Tags.signInToTag')
+      expect(signInMessage).toBeDefined()
     })
   })
 
