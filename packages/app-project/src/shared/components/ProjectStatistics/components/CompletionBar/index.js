@@ -1,1 +1,1 @@
-export { default } from './CompletionBarContainer'
+export { default } from './CompletionBar'

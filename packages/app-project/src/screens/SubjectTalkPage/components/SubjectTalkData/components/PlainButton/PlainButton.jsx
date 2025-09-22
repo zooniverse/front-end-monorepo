@@ -1,4 +1,5 @@
-import { Button, Text } from 'grommet'
+import { SpacedText } from '@zooniverse/react-components'
+import { Button } from 'grommet'
 import styled from 'styled-components'
 
 // to be used with Add a Tag, comments' Newest/Oldest First, and (eventually) Classify this Subject
@@ -15,11 +16,6 @@ const StyledButton = styled(Button)`
   }
 `
 
-const StyledLabel = styled(Text)`
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-`
-
 const DEFAULT_HANDLER = () => true
 
 function PlainButton({
@@ -33,13 +29,13 @@ function PlainButton({
       gap='xsmall'
       icon={icon}
       label={
-        <StyledLabel
+        <SpacedText
           color={{ dark: 'accent-1', light: 'neutral-1' }}
           size='1rem'
           weight={500}
         >
           {text}
-        </StyledLabel>
+        </SpacedText>
       }
       plain
       onClick={onClick}
