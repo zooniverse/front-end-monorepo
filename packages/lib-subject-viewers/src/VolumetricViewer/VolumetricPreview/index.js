@@ -1,1 +1,1 @@
-export { default as VolumetricPreview } from './VolumetricPreview'
+export { default } from './VolumetricPreview'

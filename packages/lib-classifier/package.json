@@ -26,8 +26,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@babel/runtime": "~7.27.0",
-    "@sentry/browser": "~8.54.0",
+    "@babel/runtime": "~7.28.4",
+    "@sentry/browser": "~10.12.0",
     "@use-gesture/react": "~10.3.1",
     "@visx/axis": "~3.12.0",
     "@visx/brush": "~3.12.0",
@@ -67,12 +67,12 @@
     "styled-components": "6.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "~7.27.0",
-    "@babel/core": "~7.26.0",
-    "@babel/eslint-parser": "~7.27.0",
-    "@babel/plugin-transform-runtime": "~7.26.9",
-    "@babel/preset-env": "~7.26.0",
-    "@babel/preset-react": "~7.26.3",
+    "@babel/cli": "~7.28.3",
+    "@babel/core": "~7.28.4",
+    "@babel/eslint-parser": "~7.28.4",
+    "@babel/plugin-transform-runtime": "~7.28.3",
+    "@babel/preset-env": "~7.28.3",
+    "@babel/preset-react": "~7.27.1",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/react": "~7.6.11",
@@ -108,7 +108,7 @@
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
     "rosie": "~2.1.0",
-    "sinon": "~20.0.0",
+    "sinon": "~21.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.6.11",
@@ -121,6 +121,6 @@
     "webpack-dev-server": "~5.2.0"
   },
   "engines": {
-    "node": ">=20.5 <=20.18"
+    "node": ">=20.5"
   }
 }
