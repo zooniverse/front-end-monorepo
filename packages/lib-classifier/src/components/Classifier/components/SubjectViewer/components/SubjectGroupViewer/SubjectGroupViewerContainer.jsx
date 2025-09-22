@@ -59,7 +59,6 @@ function storeMapper (classifierStore) {
   const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupComparison')
   
   const {
-    addAnnotation,
     active: classification,
   } = classifierStore.classifications
   
@@ -86,18 +85,18 @@ function storeMapper (classifierStore) {
     setOnZoom,
     setOnPan,
     
-    addAnnotation,
     annotation,
+    currentTask,
     isCurrentTaskValidForAnnotation,
   }
 }
 
 export function SubjectGroupViewerContainer({
-  addAnnotation,
   annotation,
   cellWidth,
   cellHeight,
   cellStyle,
+  currentTask,
   gridColumns,
   gridRows,
   gridMaxWidth,
@@ -288,6 +287,7 @@ export function SubjectGroupViewerContainer({
         zoom={zoom}
 
         annotation={annotation}
+        currentTask={currentTask}
         interactionMode={interactionMode}
         isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
       />

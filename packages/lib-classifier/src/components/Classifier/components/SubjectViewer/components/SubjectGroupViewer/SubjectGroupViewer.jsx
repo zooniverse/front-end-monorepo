@@ -77,6 +77,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
   zoom = 1,
   
   annotation,
+  currentTask = null,
   interactionMode = 'move',
   isCurrentTaskValidForAnnotation = false,
 }, ref) {
@@ -129,6 +130,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
                 annotation={annotation}
                 annotationMode={annotationMode}
                 cellAnnotated={annotatedValues.includes(index)}
+                currentTask={currentTask}
               />
             ))}
           </g>
@@ -164,6 +166,7 @@ SubjectGroupViewer.propTypes = {
     update: PropTypes.func,
     value: PropTypes.array
   }),
+  currentTask: PropTypes.object,
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
   isCurrentTaskValidForAnnotation: PropTypes.bool,
 }
