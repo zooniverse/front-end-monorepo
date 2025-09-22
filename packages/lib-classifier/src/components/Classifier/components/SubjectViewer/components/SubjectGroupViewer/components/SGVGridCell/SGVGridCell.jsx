@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
+import SubjectGroupSubTaskPopup from '../SubjectGroupSubTaskPopup'
 
 const DEFAULT_HANDLER = () => false
 const FOCUS_OFFSET = 2
@@ -48,9 +49,11 @@ function SGVGridCell (props) {
     annotation = undefined,
     annotationMode = true,
     cellAnnotated = false,
+    currentTask,
   } = props
 
   const [checked, setChecked] = useState(cellAnnotated)
+  const [showSubTaskPopup, setShowSubTaskPopup] = useState(false)
 
   const row = Math.floor(index / gridColumns)
   const col = index % gridColumns
@@ -83,26 +86,54 @@ function SGVGridCell (props) {
 
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
 
-  function toggleCellAnnotation () {
-    if (!annotationMode || !annotation?.value) return
+  function toggleCellAnnotation() {
+    if (!annotationMode || !currentTask) return
 
-    const toggledValue = !checked
-    setChecked(toggledValue)
+    const hasSubtasks = currentTask?.hasSubtasks?.()
+    const existingCell = currentTask.getCellByIndex(index)
 
-    const annotationValue = annotation?.value?.slice() || []
-    const isThisCellSelected = annotationValue.find(item => item.index === index)
+    if (existingCell) {
+      // Cell is already selected
+      if (hasSubtasks) {
+        // If cell has subtasks, open modal to edit responses
+        setShowSubTaskPopup(true)
+      } else {
+        // If no subtasks, deselect the cell
+        currentTask.removeCell(index)
+        currentTask.updateAnnotationValue()
+        setChecked(false)
+        setShowSubTaskPopup(false)
+      }
+    } else {
+      // Cell is not selected, select it
+      setChecked(true)
+      // Add cell to task's selectedCells
+      currentTask.addCell(index, subjectId)
+      currentTask.updateAnnotationValue()
 
-    if (isThisCellSelected && !toggledValue) {  // Remove cell index from annotation values
-      const indexInValue = annotationValue.indexOf(isThisCellSelected)
-      annotationValue.splice(indexInValue, 1)
-    } else if (!isThisCellSelected && toggledValue) {  // Add cell index to annotation values
-      annotationValue.push({
-        index,
-        subject: subjectId,
-      })
+      // Show subtask popup when selecting cell if subtasks exist
+      if (hasSubtasks) {
+        setShowSubTaskPopup(true)
+      }
     }
+  }
 
-    if (annotation?.update) annotation.update(annotationValue)
+  function handleSubTaskSave() {
+    // Subtask annotations are already saved to the classification store
+    setShowSubTaskPopup(false)
+  }
+
+  function handleSubTaskClose() {
+    setShowSubTaskPopup(false)
+  }
+
+  function handleCancelSelection() {
+    // Remove this cell from the task's selectedCells
+    currentTask.removeCell(index)
+    currentTask.updateAnnotationValue()
+    // Update local state
+    setChecked(false)
+    setShowSubTaskPopup(false)
   }
 
   // Use an offset to ensure the zoom/scale transform occurs at the centre of
@@ -115,10 +146,18 @@ function SGVGridCell (props) {
 
   const imageTransform = `${addOriginOffset} scale(${zoom}) ${removeOriginOffset} translate(${panX}, ${panY})`
 
+  const cellBounds = {
+    x: cellXOffset,
+    y: cellYOffset,
+    width: cellWidth,
+    height: cellHeight
+  }
+
   return (
-    <g
-      transform={`translate(${cellXOffset}, ${cellYOffset})`}
-    >
+    <>
+      <g
+        transform={`translate(${cellXOffset}, ${cellYOffset})`}
+      >
       <clipPath id={clipPathID}>
         <rect width={cellWidth} height={cellHeight} />
       </clipPath>
@@ -164,7 +203,7 @@ function SGVGridCell (props) {
               toggleCellAnnotation()
               e.preventDefault()
             }}
-            onKeyPress={(e) => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 toggleCellAnnotation()
                 e.preventDefault()
@@ -173,7 +212,18 @@ function SGVGridCell (props) {
           />
         )}
       </g>
-    </g>
+      </g>
+      {showSubTaskPopup && checked && (
+        <SubjectGroupSubTaskPopup
+          cellIndex={index}
+          cellBounds={cellBounds}
+          currentTask={currentTask}
+          onClose={handleSubTaskClose}
+          onSave={handleSubTaskSave}
+          onCancelSelection={handleCancelSelection}
+        />
+      )}
+    </>
   )
 }
 
@@ -200,6 +250,13 @@ SGVGridCell.propTypes = {
   }),
   annotationMode: PropTypes.bool,
   cellAnnotated: PropTypes.bool,
+  currentTask: PropTypes.shape({
+    hasSubtasks: PropTypes.func,
+    getCellByIndex: PropTypes.func,
+    addCell: PropTypes.func,
+    removeCell: PropTypes.func,
+    updateAnnotationValue: PropTypes.func
+  }),
 }
 
 export default SGVGridCell
