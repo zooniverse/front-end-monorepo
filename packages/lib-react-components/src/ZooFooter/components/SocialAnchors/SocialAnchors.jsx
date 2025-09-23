@@ -51,7 +51,7 @@ function SocialAnchors() {
   return (
     <Box
       direction='row'
-      gap={size === 'small' || size === 'large' ? '50px' : 'small'} // small gap for medium screens so we don't overlap the InstituteLogos
+      gap={size === 'small' || size === 'large' ? '50px' : 'medium'}
     >
       <SocialAnchor service='facebook' />
       <SocialAnchor service='twitter' />

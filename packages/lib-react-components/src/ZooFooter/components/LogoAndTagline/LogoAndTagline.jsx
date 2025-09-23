@@ -14,19 +14,22 @@ const StyledAnchor = styled(Anchor)`
   width: fit-content;
 `
 
-export default function LogoAndTagline ({ size, tagLine }) {
+export default function LogoAndTagline({ size, tagLine }) {
   return (
     <Box justify='center'>
       <StyledAnchor
         color={color}
-        margin={{ bottom: '10px' }}
+        margin={{ bottom: size === 'small' ? '5px' : '10px' }}
         href='https://www.zooniverse.org'
       >
-        <ZooniverseLogotype id='FooterZooniverseLogo' width={size === 'small' ? 150 : 178} />
+        <ZooniverseLogotype
+          id='FooterZooniverseLogo'
+          width={size === 'large' ? 220 : size === 'medium' ? 220 : 158}
+        />
       </StyledAnchor>
       <SpacedText
         color={color}
-        size={size === 'small' ? '0.75rem' : '0.875rem' }
+        size={size === 'small' ? '0.6rem' : '0.875rem'}
         weight='bold'
       >
         {tagLine}

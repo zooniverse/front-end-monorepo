@@ -187,6 +187,7 @@ export default function ZooFooter({
             direction='row'
             gap={size === 'large' ? '60px' : size === 'medium' ? 'medium' : '15px'}
             justify={size !== 'small' ? '' : 'between'}
+            align='center'
           >
             <LogoAndTagline size={size} tagLine={t('ZooFooter.tagLine')} />
             <InstituteLogos size={size} />
