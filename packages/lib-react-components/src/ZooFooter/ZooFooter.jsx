@@ -1,15 +1,16 @@
-import { Box, Grid } from 'grommet'
+import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, node, string } from 'prop-types'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import i18n, { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
 import {
+  InstituteLogos,
   LinkList,
-  PolicyLinkSection,
   LogoAndTagline,
-  SocialAnchor,
+  PolicyLinkSection,
+  SocialAnchors,
   TwoColumnLinkList
 } from './components'
 
@@ -66,7 +67,7 @@ const defaultProps = {
     'https://www.zooniverse.org/projects?discipline=nature',
     'https://www.zooniverse.org/projects?discipline=physics',
     'https://www.zooniverse.org/projects?discipline=space',
-    'https://www.zooniverse.org/projects?discipline=social+science',
+    'https://www.zooniverse.org/projects?discipline=social+science'
   ],
   talkNavListURLs: [
     'https://www.zooniverse.org/talk',
@@ -90,6 +91,7 @@ export default function ZooFooter({
 }) {
   const hasMounted = useHasMounted()
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
 
   useEffect(() => {
     if (locale) {
@@ -141,7 +143,7 @@ export default function ZooFooter({
     t('ZooFooter.projectLabels.nature'),
     t('ZooFooter.projectLabels.physics'),
     t('ZooFooter.projectLabels.space'),
-    t('ZooFooter.projectLabels.social'),
+    t('ZooFooter.projectLabels.social')
   ]
 
   const talkNavListLabels = [
@@ -177,30 +179,40 @@ export default function ZooFooter({
           }}
           direction='row-responsive'
           justify='between'
-          pad={{ vertical: 'medium' }}
+          pad={{ vertical: 'small' }}
           margin={{ horizontal: 'medium' }}
+          align='center'
         >
-          <LogoAndTagline tagLine={t('ZooFooter.tagLine')} />
           <Box
-            align='end'
             direction='row'
-            gap='small'
-            justify='end'
-            responsive={false}
+            gap={size === 'large' ? '60px' : size === 'medium' ? 'medium' : '15px'}
+            justify={size !== 'small' ? '' : 'between'}
           >
-            <SocialAnchor service='facebook' />
-            <SocialAnchor service='twitter' />
-            <SocialAnchor service='bluesky' />
-            <SocialAnchor service='instagram' />
+            <LogoAndTagline size={size} tagLine={t('ZooFooter.tagLine')} />
+            <InstituteLogos size={size} />
           </Box>
+          {size !== 'small' ? <SocialAnchors /> : null}
         </Box>
+
+        {size === 'small' ? (
+          <Box
+            pad={{ horizontal: 'small', top: 'medium' }}
+            width='100%'
+            align='center'
+          >
+            <SocialAnchors />
+          </Box>
+        ) : null}
 
         <StyledGrid
           forwardedAs='section'
           gap='small'
           pad={{ horizontal: 'medium', top: 'medium', bottom: 'large' }}
         >
-          <TwoColumnLinkList labels={projectNavListLabels} urls={projectNavListURLs} />
+          <TwoColumnLinkList
+            labels={projectNavListLabels}
+            urls={projectNavListURLs}
+          />
           <LinkList labels={aboutNavListLabels} urls={aboutNavListURLs} />
           <LinkList
             labels={getInvolvedNavListLabels}
