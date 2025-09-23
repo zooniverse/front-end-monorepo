@@ -57,13 +57,21 @@ const ListsContainer = styled(Box)`
 
 const Institute = styled(Box)`
   border: solid white 1px;
-  width: 100%;
   border-radius: 8px;
   backdrop-filter: blur(10px);
   background: rgba(239, 242, 245, 0.3);
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 5px;
   align-items: center;
+  justify-content: center;
+  width: 33%;
+
+  & > img {
+    max-width: 100px;
+    @media (max-width: 768px) { // Grommet's ResponsiveContext size 'small'
+      max-width: 70px;
+    }
+  }
 `
 
 const ArrowBox = styled(Box)`
@@ -285,27 +293,21 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
         {/** Institutes */}
         <Box direction='row' gap='small'>
           <Institute>
-            <Image
+            <img
               alt='The Adler Planetarium'
-              width='100px'
               src='https://static.zooniverse.org/fem-assets/adler.png'
-              fit='contain'
             />
           </Institute>
           <Institute>
-            <Image
+            <img
               alt='University of Minnesota'
-              width='100%'
               src='https://static.zooniverse.org/fem-assets/minnesota.png'
-              fit='contain'
             />
           </Institute>
           <Institute>
-            <Image
+            <img
               alt='University of Oxford'
-              width='75px'
               src='https://static.zooniverse.org/fem-assets/oxford.jpg'
-              fit='contain'
             />
           </Institute>
         </Box>
