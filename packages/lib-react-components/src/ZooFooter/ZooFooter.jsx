@@ -21,6 +21,20 @@ const StyledFooter = styled(Box)`
   }
 `
 
+const StyledBox = styled(Box)`
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgb(166, 167, 169) 50%, transparent 100%);
+  }
+`
+
 const StyledGrid = styled(Grid)`
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 `
@@ -171,12 +185,7 @@ export default function ZooFooter({
       responsive
     >
       <Box>
-        <Box
-          border={{
-            color: 'light-6',
-            side: 'bottom',
-            size: 'xsmall'
-          }}
+        <StyledBox
           direction='row-responsive'
           justify='between'
           pad={{ vertical: 'small' }}
@@ -193,7 +202,7 @@ export default function ZooFooter({
             <InstituteLogos size={size} />
           </Box>
           {size !== 'small' ? <SocialAnchors /> : null}
-        </Box>
+        </StyledBox>
 
         {size === 'small' ? (
           <Box
