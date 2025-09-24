@@ -33,22 +33,6 @@ function RotateRectangle({
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <g style={{
-        stroke: 'none',
-        fontSize: '0.75em',
-        fill: '#00ffff'
-      }}>
-        <text x={x_center} y={y_center}>
-          {x_center?.toFixed(0)}, {y_center?.toFixed(0)}
-        </text>
-        <text x={x_center} y={y_center + 16}>
-          {width?.toFixed(0)} x {height?.toFixed(0)}
-        </text>
-        <text x={x_center} y={y_center + 32}>
-          {angle?.toFixed(0)}º
-        </text>
-      </g>
-
       <rect x={x_left} y={y_top} width={width} height={height} vectorEffect={'non-scaling-stroke'} />
       <rect
         x={x_left}
