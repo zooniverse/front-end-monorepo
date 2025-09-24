@@ -34,7 +34,36 @@ const RotateRectangleModel = types
       self.angle = angle
     },
 
-    resizeByCorner({ dx, dy, corner }) {
+    /*
+    Resize RotateRectangle mark by moving/dragging a corner
+
+    Input:
+    - dx: number, delta X. Indicates distance that mark was moved/dragged by the
+        user, across the x-axis OF THE DRAWING CANVAS. (i.e. this is relative
+        to the drawing canvas, not relative to the rotated axes of the
+        RotateRectangle)
+    - dy: number, delta Y. As above, but for x-axis OF THE DRAWING CANVAS.
+    - corner: string indicating which corner (drag handle) of the RotateRectangle
+        component is being moved/dragged by the user. Value is either
+        'top left', 'top right', 'bottom right', or 'bottom left'.
+
+    Effect:
+    - Changes width, height, x_center, and y_center of this RotateRectangle.
+
+    Output: 
+    - none
+
+    Resizing Behaviour:
+    Given a rectangle with corners ABCD and origin/centre O...
+      A-------B
+      |   O   |
+      D-------C
+    ...when we resize the rectangle by dragging one corner, we want that resize
+    action to be anchored to the OPPOSITE corner. e.g. if C goes ↘️, A stays
+    static, B goes ➡️, D goes ⬇️, and O goes ↘️.
+
+     */
+    resizeByCorner({ dx = 0, dy = 0, corner = '' }) {
       if (dx === 0 && dy === 0) return
       if (!['top left', 'top right', 'bottom right', 'bottom left'].includes(corner)) return
       const angleOfResizeAction = Math.atan2(dy, dx)  // Radians
@@ -43,11 +72,6 @@ const RotateRectangleModel = types
       const modifiedAngle = angleOfResizeAction - (self.angle * Math.PI / 180)  // Radians. self.angle is in degrees.
       const modifiedDx = Math.cos(modifiedAngle) * distanceOfResizeAction
       const modifiedDy = Math.sin(modifiedAngle) * distanceOfResizeAction
-
-      // console.log('+++ ',
-      //   `${(angleOfResizeAction * 180 / Math.PI).toFixed(1)}º => ${(modifiedAngle * 180 / Math.PI).toFixed(1)}º \n`,
-      //   `${dx.toFixed(1)}, ${dy.toFixed(1)} => ${modifiedDx.toFixed(1)}, ${modifiedDy.toFixed(1)}`
-      // )
 
       switch (corner) {
         case 'top left':

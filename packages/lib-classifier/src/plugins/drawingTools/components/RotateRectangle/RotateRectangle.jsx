@@ -23,31 +23,13 @@ function RotateRectangle({
   const xRotationHandle = x_center + width / 2 + BUFFER
 
   function onHandleDrag(coords) {
-    mark.setCoordinates(coords)
+    mark.resizeByCorner(coords)
   }
 
   function onRotateDrag(e) {
     const angle = mark.getAngle(x_center, y_center, e.x, e.y)
     mark.setCoordinates({ x_left, x_right, y_top, y_bottom, angle })
   }
-
-  function rotateXY({ x, y }, angleInDegrees) {
-    const theta = angleInDegrees * (Math.PI / 180)
-    const xTheta = x * Math.cos(theta) + y * Math.sin(theta)
-    const yTheta = -(x * Math.sin(theta)) + y * Math.cos(theta)
-    return { x: xTheta, y: yTheta }
-  }
-
-  // Resizing behaviour:
-  // Given a rectangle with corners ABCD and origin/centre O...
-  //   A-------B
-  //   |   O   |
-  //   D-------C
-  // ...when we resize the rectangle by dragging one corner, we want that resize
-  // action to be anchored to the OPPOSITE corner. e.g. if C goes ↘️, A stays
-  // static, B goes ➡️, D goes ⬇️, and O goes ↘️.
-  // To do this in our code, we need to define which edges (AB, BC, CD, DA) stay
-  // static, and which can move... which also accounts for the angle.
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
@@ -103,7 +85,7 @@ function RotateRectangle({
           x={x_left}
           y={y_top}
           dragMove={(e, d) => {
-            mark.resizeByCorner({
+            onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'top left'
@@ -118,7 +100,7 @@ function RotateRectangle({
           x={x_right}
           y={y_top}
           dragMove={(e, d) => {
-            mark.resizeByCorner({
+            onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'top right'
@@ -133,7 +115,7 @@ function RotateRectangle({
           x={x_right}
           y={y_bottom}
           dragMove={(e, d) => {
-            mark.resizeByCorner({
+            onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'bottom right'
@@ -148,7 +130,7 @@ function RotateRectangle({
           x={x_left}
           y={y_bottom}
           dragMove={(e, d) => {
-            mark.resizeByCorner({
+            onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'bottom left'
