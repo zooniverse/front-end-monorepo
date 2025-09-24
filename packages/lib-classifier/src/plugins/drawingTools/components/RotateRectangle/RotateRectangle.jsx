@@ -68,13 +68,13 @@ function RotateRectangle({
         <DragHandle
           x={x_left}
           y={y_top}
-          dragMove={(e, d) => {
+          dragMove={(e, d) =>
             onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'top left'
             })
-          }}
+          }
         />
       )}
 
@@ -83,13 +83,13 @@ function RotateRectangle({
         <DragHandle
           x={x_right}
           y={y_top}
-          dragMove={(e, d) => {
+          dragMove={(e, d) =>
             onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'top right'
             })
-          }}
+          }
         />
       )}
 
@@ -98,13 +98,13 @@ function RotateRectangle({
         <DragHandle
           x={x_right}
           y={y_bottom}
-          dragMove={(e, d) => {
+          dragMove={(e, d) =>
             onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'bottom right'
             })
-          }}
+          }
         />
       )}
 
@@ -113,13 +113,13 @@ function RotateRectangle({
         <DragHandle
           x={x_left}
           y={y_bottom}
-          dragMove={(e, d) => {
+          dragMove={(e, d) =>
             onHandleDrag({
               dx: d.x,
               dy: d.y,
               corner: 'bottom left'
             })
-          }}
+          }
         />
       )}
     </g>
