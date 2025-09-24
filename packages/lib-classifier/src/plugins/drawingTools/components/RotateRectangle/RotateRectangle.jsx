@@ -38,10 +38,22 @@ function RotateRectangle({
     return { x: xTheta, y: yTheta }
   }
 
+  // Resizing behaviour:
+  // Given a rectangle with corners ABCD and origin/centre O...
+  //   A-------B
+  //   |   O   |
+  //   D-------C
+  // ...when we resize the rectangle by dragging one corner, we want that resize
+  // action to be anchored to the OPPOSITE corner. e.g. if C goes ↘️, A stays
+  // static, B goes ➡️, D goes ⬇️, and O goes ↘️.
+  // To do this in our code, we need to define which edges (AB, BC, CD, DA) stay
+  // static, and which can move... which also accounts for the angle.
+
   return (
     <g onPointerUp={active ? onFinish : undefined}>
       <g style={{
         stroke: 'none',
+        fontSize: '0.75em',
         fill: '#00ffff'
       }}>
         <text x={x_center} y={y_center}>
@@ -122,17 +134,15 @@ function RotateRectangle({
       {/* Original Bottom Right corner */}
       {active && (
         <DragHandle
+          fill='red'
           x={x_right}
           y={y_bottom}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              x_left: x_left - rotateXY(d, angle).x,
-              x_right: x_right + rotateXY(d, angle).x,
-              y_top: y_top - rotateXY(d, angle).y,
-              y_bottom: y_bottom + rotateXY(d, angle).y,
-              angle: angle
+          dragMove={(e, d) => {
+            mark.resizeByCorner({
+              dx: d.x,
+              dy: d.y
             })
-          }
+          }}
         />
       )}
 

@@ -32,6 +32,26 @@ const RotateRectangleModel = types
       self.width = Math.abs(x_right - x_left)
       self.height = Math.abs(y_bottom - y_top)
       self.angle = angle
+    },
+
+    resizeByCorner({ dx, dy }) {
+      if (dx === 0 && dy === 0) return
+      const angleOfResizeAction = Math.atan2(dy, dx)  // Radians
+      const distanceOfResizeAction = Math.sqrt(dx * dx + dy * dy)
+
+      const modifiedAngle = angleOfResizeAction - (self.angle * Math.PI / 180)  // Radians. self.angle is in degrees.
+      const modifiedDx = Math.cos(modifiedAngle) * distanceOfResizeAction
+      const modifiedDy = Math.sin(modifiedAngle) * distanceOfResizeAction
+
+      // console.log('+++ ',
+      //   `${(angleOfResizeAction * 180 / Math.PI).toFixed(1)}º => ${(modifiedAngle * 180 / Math.PI).toFixed(1)}º \n`,
+      //   `${dx.toFixed(1)}, ${dy.toFixed(1)} => ${modifiedDx.toFixed(1)}, ${modifiedDy.toFixed(1)}`
+      // )
+
+      self.width += modifiedDx
+      self.height += modifiedDy
+      self.x_center += dx * 0.5
+      self.y_center += dy * 0.5
     }
   }))
 
