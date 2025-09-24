@@ -34,8 +34,9 @@ const RotateRectangleModel = types
       self.angle = angle
     },
 
-    resizeByCorner({ dx, dy }) {
+    resizeByCorner({ dx, dy, corner }) {
       if (dx === 0 && dy === 0) return
+      if (!['top left', 'top right', 'bottom right', 'bottom left'].includes(corner)) return
       const angleOfResizeAction = Math.atan2(dy, dx)  // Radians
       const distanceOfResizeAction = Math.sqrt(dx * dx + dy * dy)
 
@@ -48,10 +49,33 @@ const RotateRectangleModel = types
       //   `${dx.toFixed(1)}, ${dy.toFixed(1)} => ${modifiedDx.toFixed(1)}, ${modifiedDy.toFixed(1)}`
       // )
 
-      self.width = Math.max(self.width + modifiedDx, 1)
-      self.height = Math.max(self.height + modifiedDy, 1)
-      self.x_center += dx * 0.5
-      self.y_center += dy * 0.5
+      switch (corner) {
+        case 'top left':
+          self.width = Math.max(self.width - modifiedDx, 1)
+          self.height = Math.max(self.height - modifiedDy, 1)
+          self.x_center += dx * 0.5
+          self.y_center += dy * 0.5
+          break
+        case 'top right':
+          self.width = Math.max(self.width + modifiedDx, 1)
+          self.height = Math.max(self.height - modifiedDy, 1)
+          self.x_center += dx * 0.5
+          self.y_center += dy * 0.5
+          break
+        case 'bottom right':
+          self.width = Math.max(self.width + modifiedDx, 1)
+          self.height = Math.max(self.height + modifiedDy, 1)
+          self.x_center += dx * 0.5
+          self.y_center += dy * 0.5
+          break
+        case 'bottom left':
+          self.width = Math.max(self.width - modifiedDx, 1)
+          self.height = Math.max(self.height + modifiedDy, 1)
+          self.x_center += dx * 0.5
+          self.y_center += dy * 0.5
+          break
+
+      }
     }
   }))
 

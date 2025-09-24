@@ -102,15 +102,13 @@ function RotateRectangle({
         <DragHandle
           x={x_left}
           y={y_top}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              x_left: x_left + rotateXY(d, angle).x,
-              x_right: x_right - rotateXY(d, angle).x,
-              y_top: y_top + rotateXY(d, angle).y,
-              y_bottom: y_bottom - rotateXY(d, angle).y,
-              angle: angle
+          dragMove={(e, d) => {
+            mark.resizeByCorner({
+              dx: d.x,
+              dy: d.y,
+              corner: 'top left'
             })
-          }
+          }}
         />
       )}
 
@@ -119,28 +117,26 @@ function RotateRectangle({
         <DragHandle
           x={x_right}
           y={y_top}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              x_left: x_left - rotateXY(d, angle).x,
-              x_right: x_right + rotateXY(d, angle).x,
-              y_top: y_top + rotateXY(d, angle).y,
-              y_bottom: y_bottom - rotateXY(d, angle).y,
-              angle: angle
+          dragMove={(e, d) => {
+            mark.resizeByCorner({
+              dx: d.x,
+              dy: d.y,
+              corner: 'top right'
             })
-          }
+          }}
         />
       )}
 
       {/* Original Bottom Right corner */}
       {active && (
         <DragHandle
-          fill='red'
           x={x_right}
           y={y_bottom}
           dragMove={(e, d) => {
             mark.resizeByCorner({
               dx: d.x,
-              dy: d.y
+              dy: d.y,
+              corner: 'bottom right'
             })
           }}
         />
@@ -151,15 +147,13 @@ function RotateRectangle({
         <DragHandle
           x={x_left}
           y={y_bottom}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              x_left: x_left + rotateXY(d, angle).x,
-              x_right: x_right - rotateXY(d, angle).x,
-              y_top: y_top - rotateXY(d, angle).y,
-              y_bottom: y_bottom + rotateXY(d, angle).y,
-              angle: angle
+          dragMove={(e, d) => {
+            mark.resizeByCorner({
+              dx: d.x,
+              dy: d.y,
+              corner: 'bottom left'
             })
-          }
+          }}
         />
       )}
     </g>
