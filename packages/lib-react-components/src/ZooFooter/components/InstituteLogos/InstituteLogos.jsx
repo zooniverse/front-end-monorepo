@@ -1,7 +1,13 @@
 import { Box } from 'grommet'
 import { string } from 'prop-types'
+import { useTheme } from 'styled-components'
 
 function InstituteLogos({ size }) {
+  const theme = useTheme()
+
+  const adlerSrc = theme.dark ? 'https://static.zooniverse.org/fem-assets/adler-dark.png': 'https://static.zooniverse.org/fem-assets/adler.png'
+  const minnSrc = theme.dark ? 'https://static.zooniverse.org/fem-assets/minnesota-dark.png' : 'https://static.zooniverse.org/fem-assets/minnesota.png'
+
   return (
     <Box
       direction='row'
@@ -10,11 +16,11 @@ function InstituteLogos({ size }) {
     >
       <img
         alt='The Adler Planetarium'
-        src='https://static.zooniverse.org/fem-assets/adler.png'
+        src={adlerSrc}
       />
       <img
         alt='University of Minnesota'
-        src='https://static.zooniverse.org/fem-assets/minnesota.png'
+        src={minnSrc}
       />
       <img
         alt='University of Oxford'
