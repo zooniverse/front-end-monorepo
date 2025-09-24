@@ -34,7 +34,7 @@ export default function Contact({ widgetLoaded = false }) {
   }
 
   return (
-    <Box pad={{ horizontal: 'medium' }}>
+    <Box>
       <Box
         direction='row'
         gap='xlarge'

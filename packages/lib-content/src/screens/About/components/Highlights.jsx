@@ -41,6 +41,7 @@ export default function Highlights() {
         gap='xsmall'
         margin={{ top: '30px' }}
         direction='row'
+        pad={{ horizontal: 'medium' }}
       >
         <Box>
           <Image
@@ -76,6 +77,7 @@ export default function Highlights() {
         gap='6px'
         margin={{ bottom: 'medium', top: '8px' }}
         alignContent='center'
+        pad={{ horizontal: 'medium' }}
       >
         <Text color={{ light: 'black', dark: 'white' }}>
           <Trans

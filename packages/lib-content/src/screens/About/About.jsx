@@ -126,7 +126,7 @@ function AboutPage() {
             <HowItWorks setActiveSection={setActiveSection} />
 
             {/** Mobile App */}
-            <MaxWidthContent pad={{ horizontal: 'medium' }}>
+            <MaxWidthContent>
               <HeadingForAboutNav
                 color={{ light: 'neutral-1', dark: 'accent-1' }}
                 pad={{ top: '30px', bottom: '10px' }}
@@ -140,7 +140,7 @@ function AboutPage() {
             </MaxWidthContent>
 
             {/** Highlights */}
-            <MaxWidthContent pad={{ horizontal: 'medium' }}>
+            <MaxWidthContent>
               <HeadingForAboutNav
                 color={{ light: 'neutral-1', dark: 'accent-1' }}
                 pad={{ top: '30px', bottom: '10px' }}
