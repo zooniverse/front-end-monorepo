@@ -48,8 +48,8 @@ const RotateRectangleModel = types
       //   `${dx.toFixed(1)}, ${dy.toFixed(1)} => ${modifiedDx.toFixed(1)}, ${modifiedDy.toFixed(1)}`
       // )
 
-      self.width += modifiedDx
-      self.height += modifiedDy
+      self.width = Math.max(self.width + modifiedDx, 1)
+      self.height = Math.max(self.height + modifiedDy, 1)
       self.x_center += dx * 0.5
       self.y_center += dy * 0.5
     }
