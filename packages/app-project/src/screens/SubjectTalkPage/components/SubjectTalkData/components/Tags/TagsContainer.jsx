@@ -43,7 +43,7 @@ function TagsContainer({
 
   // Fetch votable tags for the subject, unrelated to the user
   const votableTagsQuery = {
-    page_size: 10,
+    page_size: 100,
     section: `project-${projectId}`,
     taggable_type: 'Subject',
     taggable_id: subjectId
