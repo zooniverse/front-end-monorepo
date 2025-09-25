@@ -1,0 +1,76 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "교육",
+        "faq": "자주 묻는 질문",
+        "research": "연구",
+        "results": "결과",
+        "team": "팀"
+      }
+    },
+    "PageNav": {
+      "title": "프로젝트 소개"
+    },
+    "SidebarHeading": "소개",
+    "TeamMember": {
+      "collaborator": "공동 연구자",
+      "expert": "전문가",
+      "moderator": "모더레이터",
+      "museum": "전시관",
+      "owner": "소유자",
+      "researcher": "연구자",
+      "tester": "테스터",
+      "translator": "번역가"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "클래시파이어에 오류가 발생했습니다 :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "토크에서 대상에 대해 토론을 하거나, 대상을 즐겨찾기 또는 컬렉션에 추가하세요.",
+      "title": "최근 기여 활동"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "사양할게요",
+      "confirm": "다음 워크플로로 갈게요!",
+      "content": "축하합니다! 정말 잘하셨기 때문에 이제 다른 워크플로에 액세스할 수 있게 되었습니다. 현재 워크플로에 머물고 싶으신 경우, 당연히 머무르셔도 됩니다.",
+      "dismiss": "이 세션에서 다시 보지 않기",
+      "title": "새 워크플로 이용 가능"
+    },
+    "YourStats": {
+      "allTime": "모든 시간",
+      "lastSeven": "지난 7일",
+      "link": "더 보기",
+      "title": "내 통계"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} 소개"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "더 알아보기"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "토크에서 연구 팀과 연결되고 이 대상에 대해 더 알아보세요!",
+      "noMessageButton": "토크로 가기",
+      "title": "연구자의 메시지"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "대상을 불러오는 중에 오류가 발생했습니다 :(",
+        "noSubjects": "아직 대상에 댓글을 남긴 사람이 없는 것 같습니다. 토크로 가셔서 첫 댓글을 남겨 보세요!",
+        "subjectLabel": "대상 {{id}}"
+      },
+      "button": "참가하기",
+      "message": "연구 팀 및 다른 자발적 참여자들과 이야기를 나누세요!",
+      "title": "Zooniverse 토크"
+    }
+  }
+}

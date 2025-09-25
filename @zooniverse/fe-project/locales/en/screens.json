@@ -1,0 +1,100 @@
+{
+  "About": {
+    "PageNav": {
+      "title": "About the project"
+    },
+    "PageHeading": {
+      "title": {
+        "research": "Research",
+        "team": "The Team",
+        "results": "Results",
+        "education": "Education",
+        "faq": "FAQ"
+      }
+    },
+    "SidebarHeading": "About",
+    "TeamMember": {
+      "owner": "Owner",
+      "collaborator": "Collaborator",
+      "translator": "Translator",
+      "researcher": "Researcher",
+      "moderator": "Moderator",
+      "tester": "Tester",
+      "expert": "Expert",
+      "museum": "Museum"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "About {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Learn more"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Connect with the research team on Talk to learn more about this project!",
+      "noMessageButton": "Go to Talk",
+      "title": "Message from the researcher"
+    },
+    "ZooniverseTalk": {
+      "button": "Join in",
+      "message": "Chat with the research team and other volunteers!",
+      "title": "Zooniverse Talk",
+      "RecentSubjects": {
+        "error": "There was an error loading the subjects :(",
+        "noSubjects": "It looks like no-one's commented on a subject yet. Go to Talk and be the first!",
+        "subjectLabel": "Subject {{id}}"
+      }
+    }
+  },
+  "Classify" :{
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "There was an error in the classifier :("
+      }
+    },
+    "RecentSubjects": {
+      "title": "Your recent classifications"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, thanks",
+      "confirm": "Take me to the next workflow!",
+      "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
+      "dismiss": "Don't show this again this session",
+      "title": "New Workflow Available"
+    },
+    "YourStats": {
+      "allTime": "All Time",
+      "lastSeven": "Last 7 Days",
+      "link": "See more",
+      "title": "Your Stats"
+    }
+  },
+  "Talk": {
+    "addATag": "Add a tag",
+    "addVote": "Add your vote",
+    "avatarAlt": "{{login}} avatar",
+    "comments": "Comments",
+    "commentsViewing": "Viewing {{count}} of {{total}} comments",
+    "discussions": "{{count}} Discussions",
+    "featuredCollections": "Featured in these Collections",
+    "goToComment": "Go to comment",
+    "logInToTag": "Log in to add a tag",
+    "logInToVote": "Log in to vote",
+    "noDiscussions": "No Discussions",
+    "noTags": "No Tags",
+    "oneDiscussion": "1 Discussion",
+    "participants": "Participants",
+    "relatedSubjects": "Other subjects being discussed:",
+    "removeVote": "Remove your vote",
+    "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "sortBy": "Sort by",
+    "sortedNewestFirst": "Newest first",
+    "sortedOldestFirst": "Oldest first",
+    "startDiscussion": "Start a new discussion",
+    "subjectMetadata": "Subject Metadata",
+    "tags": "Tags"
+  }
+}
