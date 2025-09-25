@@ -23,19 +23,12 @@ function RotateRectangle({
   const xRotationHandle = x_center + width / 2 + BUFFER
 
   function onHandleDrag(coords) {
-    mark.setCoordinates(coords)
+    mark.resizeByCorner(coords)
   }
 
   function onRotateDrag(e) {
     const angle = mark.getAngle(x_center, y_center, e.x, e.y)
     mark.setCoordinates({ x_left, x_right, y_top, y_bottom, angle })
-  }
-
-  function rotateXY({ x, y }, angleInDegrees) {
-    const theta = angleInDegrees * (Math.PI / 180)
-    const xTheta = x * Math.cos(theta) + y * Math.sin(theta)
-    const yTheta = -(x * Math.sin(theta)) + y * Math.cos(theta)
-    return { x: xTheta, y: yTheta }
   }
 
   return (
@@ -77,11 +70,9 @@ function RotateRectangle({
           y={y_top}
           dragMove={(e, d) =>
             onHandleDrag({
-              x_left: x_left + rotateXY(d, angle).x,
-              x_right: x_right - rotateXY(d, angle).x,
-              y_top: y_top + rotateXY(d, angle).y,
-              y_bottom: y_bottom - rotateXY(d, angle).y,
-              angle: angle
+              dx: d.x,
+              dy: d.y,
+              corner: 'top left'
             })
           }
         />
@@ -94,11 +85,9 @@ function RotateRectangle({
           y={y_top}
           dragMove={(e, d) =>
             onHandleDrag({
-              x_left: x_left - rotateXY(d, angle).x,
-              x_right: x_right + rotateXY(d, angle).x,
-              y_top: y_top + rotateXY(d, angle).y,
-              y_bottom: y_bottom - rotateXY(d, angle).y,
-              angle: angle
+              dx: d.x,
+              dy: d.y,
+              corner: 'top right'
             })
           }
         />
@@ -111,11 +100,9 @@ function RotateRectangle({
           y={y_bottom}
           dragMove={(e, d) =>
             onHandleDrag({
-              x_left: x_left - rotateXY(d, angle).x,
-              x_right: x_right + rotateXY(d, angle).x,
-              y_top: y_top - rotateXY(d, angle).y,
-              y_bottom: y_bottom + rotateXY(d, angle).y,
-              angle: angle
+              dx: d.x,
+              dy: d.y,
+              corner: 'bottom right'
             })
           }
         />
@@ -128,11 +115,9 @@ function RotateRectangle({
           y={y_bottom}
           dragMove={(e, d) =>
             onHandleDrag({
-              x_left: x_left + rotateXY(d, angle).x,
-              x_right: x_right - rotateXY(d, angle).x,
-              y_top: y_top - rotateXY(d, angle).y,
-              y_bottom: y_bottom + rotateXY(d, angle).y,
-              angle: angle
+              dx: d.x,
+              dy: d.y,
+              corner: 'bottom left'
             })
           }
         />
