@@ -6,8 +6,7 @@ import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
 const SWRoptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  revalidateOnFocus: false, // can be false because its unlikely a user will change
-                           // their own tagVotes on one subject in multiple browser tabs
+  revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0
 }

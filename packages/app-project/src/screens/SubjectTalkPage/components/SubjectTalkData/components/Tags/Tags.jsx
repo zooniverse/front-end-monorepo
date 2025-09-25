@@ -40,6 +40,7 @@ const DEFAULT_HANDLER = () => true
 function Tags({
   error = undefined,
   loading = false,
+  onAddTagClick = DEFAULT_HANDLER,
   onTagClick = DEFAULT_HANDLER,
   tags = undefined,
   userId = undefined,
@@ -101,7 +102,7 @@ function Tags({
                 </Box>
               )}
               margin={{ horizontal: 'xsmall' }}
-              onClick={() => window.alert('coming soon!')}
+              onClick={onAddTagClick}
               plain
             />
           ) : tags?.length > 0 ? (
@@ -175,7 +176,7 @@ function Tags({
               </Box>
             )}
             margin={{ horizontal: 'xsmall' }}
-            onClick={() => window.alert('coming soon!')}
+            onClick={onAddTagClick}
             plain
           />
         </StyledBox>

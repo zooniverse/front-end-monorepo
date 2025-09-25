@@ -40,6 +40,7 @@ const StyledTalkDataBox = styled(Box)`
 
 function SubjectTalkPage({
   login,
+  projectDisplayName,
   projectId,
   projectSlug,
   subject,
@@ -77,6 +78,7 @@ function SubjectTalkPage({
           >
             <SubjectTalkData
               login={login}
+              projectDisplayName={projectDisplayName}
               projectId={projectId}
               subjectId={subjectId}
               userId={userId}

@@ -14,12 +14,15 @@ import {
 } from '@hooks'
 
 import Tags from './Tags'
+import AddTagModal from './components/AddTagModal'
 
 function TagsContainer({
+  projectDisplayName,
   projectId,
   subjectId,
   userId
 }) {
+  const [addTagModalActive, setAddTagModalActive] = useState(false)
   const [voteUpdating, setVoteUpdating] = useState(false)
 
   // Fetch popular tags for the subject, unrelated to the user
@@ -312,6 +315,10 @@ function TagsContainer({
       }
     )
   }
+  
+  function handleAddTagModalActive() {
+    setAddTagModalActive(!addTagModalActive)
+  }
 
   function handleClick(tag) {
     if (!tag.vote_count) {
@@ -324,14 +331,25 @@ function TagsContainer({
   }
 
   return (
-    <Tags
-      loading={popularTagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
-      error={popularTagsError || votableTagsError || tagVotesError}
-      tags={combinedTags}
-      onTagClick={handleClick}
-      userId={userId}
-      voteUpdating={voteUpdating || tagVotesIsValidating}
-    />
+    <>
+      <AddTagModal
+        active={addTagModalActive}
+        combinedTags={combinedTags}
+        handleClose={handleAddTagModalActive}
+        projectDisplayName={projectDisplayName}
+        projectId={projectId}
+        subjectId={subjectId}
+      />
+      <Tags
+        loading={popularTagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
+        error={popularTagsError || votableTagsError || tagVotesError}
+        tags={combinedTags}
+        onAddTagClick={handleAddTagModalActive}
+        onTagClick={handleClick}
+        userId={userId}
+        voteUpdating={voteUpdating || tagVotesIsValidating}
+      />
+    </>
   )
 }
 
