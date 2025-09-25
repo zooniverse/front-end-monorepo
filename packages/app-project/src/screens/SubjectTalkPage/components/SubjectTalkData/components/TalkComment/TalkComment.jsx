@@ -5,8 +5,8 @@ import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
-import { StyledRole } from '../../../../../ProjectAboutPage/components/TeamMember/TeamMember'
 import Avatar from './components/Avatar'
+import Role from './components/Role'
 
 const markdownComponents = {
   p: (nodeProps) => <Paragraph color={{ dark: 'neutral-6', light: 'neutral-7' }}>{nodeProps.children}</Paragraph>
@@ -167,30 +167,12 @@ function TalkComment({
             height={{ max: '50px' }}
             wrap
           >
-            {roles?.map(role => {
-              let roleName = ''
-              let roleColor = 'accent-1'
-              if (role.section === 'zooniverse' && ['admin', 'team'].includes(role.name)) {
-                roleName = t('About.TeamMember.admin')
-                roleColor = 'light-2'
-              } else if (['admin', 'scientist', 'owner'].includes(role.name)) {
-                roleName = t('About.TeamMember.researcher')
-                roleColor = 'neutral-2'
-              } else {
-                roleName = t(`About.TeamMember.${role.name}`)
-              }
-
-              return (
-                <StyledRole
-                  key={role.id}
-                  round='xxsmall'
-                  background={roleColor}
-                  margin={{ right: '5px' }}
-                >
-                  {roleName}
-                </StyledRole>
-              )
-            })}
+            {roles?.map(role => (
+              <Role
+                key={role.id}
+                role={role}
+              />
+            ))}
           </Box>
         </Box>
         <Box
