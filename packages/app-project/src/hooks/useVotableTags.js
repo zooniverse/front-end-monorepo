@@ -1,8 +1,6 @@
 import { talkAPI } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
-import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
-
 const SWRoptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
@@ -11,18 +9,20 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchVotableTags({ query, token }) {
-  const authorization = `Bearer ${token}`
-
-  const response = await talkAPI.get('/votable_tags', query, { authorization })
-  
-  return response?.body?.votable_tags
+async function fetchVotableTags(query) {
+  return talkAPI.get('/votable_tags', query)
+    .then(response => response?.body?.votable_tags)
+    .catch(error => {
+      console.error(error)
+      throw error
+    })
 }
 
 export default function useVotableTags(query) {
-  const token = usePanoptesAuthToken()
-  
-  const key = query ? { query, token } : null
+  let key = null
+  if (query && query.section) {
+    key = query
+  }
 
   return useSWR(key, fetchVotableTags, SWRoptions)
 }
