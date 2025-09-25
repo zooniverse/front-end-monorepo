@@ -13,7 +13,7 @@ import ParticipantsAndComments from '../ParticipantsAndComments'
 import SectionHeading from '../SectionHeading'
 
 const StyledDiscussions = styled(Box)`
-  min-height: auto;
+  max-height: auto;
 
   @media screen and (max-width: 1280px) {
     max-height: 400px;
