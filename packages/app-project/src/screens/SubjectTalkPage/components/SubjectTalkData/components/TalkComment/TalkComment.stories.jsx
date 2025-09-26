@@ -78,7 +78,7 @@ export const UserUpvoted = {
   args: {
     avatar: 'https://panoptes-uploads.zooniverse.org/user_avatar/57ce57cc-63cf-46e1-bc9f-a7e52c3f4c05.jpeg',
     comment: commentWithUpvotesMock,
-    upvoted: true
+    login: 'zootester3'
   }
 }
 

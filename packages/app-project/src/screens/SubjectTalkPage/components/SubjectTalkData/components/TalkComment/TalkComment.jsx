@@ -76,8 +76,8 @@ const DEFAULT_COMMENT = {
 function TalkComment({
   avatar = '',
   comment = DEFAULT_COMMENT,
-  roles = undefined,
-  upvoted = false
+  login = '',
+  roles = undefined
 }) {
   const { t } = useTranslation('screens')
   
@@ -86,7 +86,13 @@ function TalkComment({
     timeStyle: 'short'
   })
   
-  const upvotes = comment.upvotes ? Object.keys(comment.upvotes).length : 0
+  let upvoted = false
+  let upvotes = 0
+  if (comment?.upvotes) {
+    const upvotedLogins = Object.keys(comment.upvotes)
+    upvoted = login ? upvotedLogins.includes(login) : false
+    upvotes = upvotedLogins.length
+  }
 
   const LikeIcon = upvotes > 0 ? (
     <LikeFill

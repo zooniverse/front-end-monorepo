@@ -151,16 +151,14 @@ function Discussion({ discussion, login }) {
           const author = users?.find(user => user.id === comment.user_id)
 
           const authorRoles = roles?.filter(role => role.user_id === author?.id)
-          
-          const upvoted = comment?.upvotes && login && Object.keys(comment.upvotes).includes(login)
 
           return (
             <li key={comment.id}>
               <TalkComment
                 avatar={author?.avatar_src}
                 comment={comment}
+                login={login}
                 roles={authorRoles}
-                upvoted={upvoted}
               />
             </li>
           )
