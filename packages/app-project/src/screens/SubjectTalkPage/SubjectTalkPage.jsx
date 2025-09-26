@@ -33,7 +33,7 @@ const StyledTalkDataBox = styled(Box)`
   min-height: 300px;
 
   @media screen and (max-width: 1280px) {
-    max-height: none;
+    max-height: auto;
     min-height: auto;
   }
 `
@@ -59,7 +59,7 @@ function SubjectTalkPage({
         <ContainerGrid>
           <Box
             data-testid='viewer'
-            height={{ max: '90vh', min: '600px' }}
+            height={{ max: '90vh' }}
             style={{
               gridArea: 'viewer'
             }}
