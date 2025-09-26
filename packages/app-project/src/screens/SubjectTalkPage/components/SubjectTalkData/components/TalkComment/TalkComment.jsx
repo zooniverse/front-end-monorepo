@@ -94,15 +94,6 @@ function TalkComment({
     upvotes = upvotedLogins.length
   }
 
-  const LikeIcon = upvotes > 0 ? (
-    <LikeFill
-      size='small'
-      color={upvoted ? { dark: 'accent-1', light: 'neutral-1' } : undefined}
-    />
-  ) : (
-    <Like size='small' />
-  )
-
   return (
     <StyledCommentCard
       margin='2px'
@@ -210,20 +201,25 @@ function TalkComment({
           {comment.body}
         </Markdownz>
       </Box>
-      <Box
-        align='center'
-        direction='row'
-        gap='xxsmall'
-        justify='end'
-      >
-        {LikeIcon}
-        <Text
-          color={{ dark: 'accent-1', light: 'neutral-1' }}
-          size='1rem'
+      {upvotes > 0 ? (
+        <Box
+          align='center'
+          direction='row'
+          gap='xxsmall'
+          justify='end'
         >
-          {upvotes}
-        </Text>
-      </Box>
+          <LikeFill
+            size='small'
+            color={upvoted ? { dark: 'accent-1', light: 'neutral-1' } : undefined}
+          />
+          <Text
+            color={{ dark: 'accent-1', light: 'neutral-1' }}
+            size='1rem'
+          >
+            {upvotes}
+          </Text>
+        </Box>
+      ) : null}
     </StyledCommentCard>
   )
 }
