@@ -4,25 +4,25 @@ import useSWR from 'swr'
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  revalidateOnFocus: true,
+  revalidateOnFocus: false,
   revalidateOnReconnect: true,
   refreshInterval: 0
 }
 
-async function fetchComments(query) {
-  return talkAPI.get('/comments', query)
-    .then(response => response?.body?.comments)
+async function fetchTalkRoles(query) {
+  return talkAPI.get('/roles', query)
+    .then(response => response?.body?.roles)
     .catch(error => {
       console.error(error)
       throw error
     })
-}
+} 
 
-export default function useComments(query) {
+export default function useTalkRoles(query) {
   let key = null
-  if (query && query.discussion_id) {
+  if (query && query.user_id) {
     key = query
   }
 
-  return useSWR(key, fetchComments, SWROptions)
+  return useSWR(key, fetchTalkRoles, SWROptions)
 }
