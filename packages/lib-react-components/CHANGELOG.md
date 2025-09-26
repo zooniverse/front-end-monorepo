@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.15.0] 2025-09-15
 
 ### Removed
 
@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Replace Mocha with Vitest. Moving toward ESM-only.
+- Remove Node version restriction (all FEM packages can now use 20.19).
 
 ### Added
 
