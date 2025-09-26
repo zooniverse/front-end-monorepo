@@ -139,7 +139,6 @@ function TalkComment({
       <Box
         justify='between'
         direction='row'
-        margin={{ top: 'xsmall' }}
       >
         <Box
           direction='row'
@@ -201,7 +200,7 @@ function TalkComment({
         </Box>
       </Box>
       <Box
-        pad={{ left: '60px', top: 'xsmall'}}
+        pad={{ left: '60px' }}
       >
         <Markdownz
           baseURI={''}

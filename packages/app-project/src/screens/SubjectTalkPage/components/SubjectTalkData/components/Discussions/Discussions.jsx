@@ -98,7 +98,7 @@ function Discussions({
 
   return (
     <StyledDiscussions
-      gap='small'
+      gap='xsmall'
       pad='small'
     >
       <Box

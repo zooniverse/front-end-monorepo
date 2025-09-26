@@ -74,7 +74,7 @@ function Discussion({ discussion, login }) {
   }
 
   return (
-    <Box>
+    <Box gap='small'>
       <Box
         align='center'
         direction='row-responsive'
@@ -144,6 +144,7 @@ function Discussion({ discussion, login }) {
       </Box>
       <StyledOrderedList
         forwardedAs='ol'
+        gap='small'
         margin='none'
         pad='none'
       >

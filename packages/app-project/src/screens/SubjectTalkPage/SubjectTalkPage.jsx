@@ -58,7 +58,7 @@ function SubjectTalkPage({
         <ContainerGrid>
           <Box
             data-testid='viewer'
-            height={{ max: '90vh', min: '600px' }}
+            height={{ max: '90vh' }}
             style={{
               gridArea: 'viewer'
             }}
