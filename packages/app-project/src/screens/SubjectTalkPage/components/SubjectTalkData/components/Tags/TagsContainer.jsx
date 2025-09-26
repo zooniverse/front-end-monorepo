@@ -14,12 +14,15 @@ import {
 } from '@hooks'
 
 import Tags from './Tags'
+import AddTagModal from './components/AddTagModal'
 
 function TagsContainer({
+  projectDisplayName,
   projectId,
   subjectId,
   userId
 }) {
+  const [addTagModalActive, setAddTagModalActive] = useState(false)
   const [voteUpdating, setVoteUpdating] = useState(false)
 
   // Fetch popular tags for the subject, unrelated to the user
@@ -38,9 +41,23 @@ function TagsContainer({
     mutate: mutatePopularTags
   } = usePopularTags(popularTagsQuery)
 
+  // Fetch popular tags for the project, for the AddTagModal, unrelated to the user
+  const popularProjectTagsQuery = {
+    limit: 20,
+    page_size: 20,
+    section: `project-${projectId}`
+  }
+
+  const {
+    data: popularProjectTags,
+    error: popularProjectTagsError,
+    isLoading: popularProjectTagsIsLoading,
+    mutate: mutatePopularProjectTags
+  } = usePopularTags(addTagModalActive ? popularProjectTagsQuery : null)
+  
   // Fetch votable tags for the subject, unrelated to the user
   const votableTagsQuery = {
-    page_size: 10,
+    page_size: 100,
     section: `project-${projectId}`,
     taggable_type: 'Subject',
     taggable_id: subjectId
@@ -78,10 +95,15 @@ function TagsContainer({
   */
   const votableTagNames = votableTags?.map(tag => tag.name) || []
   const filteredTags = popularTags?.filter(tag => !votableTagNames.includes(tag.name)) || []
+  
+  /* combined votable tags and popular tags for the Tags section */
   const combinedTags = [...(votableTags || []), ...filteredTags].map(tag => ({
     ...tag,
     userVoted: tagVotes?.some(vote => vote.votable_tag.name === tag.name)
   }))
+  
+  /* popular project tags for the AddTagModal, excluding tags already in the Tags section */
+  const filteredProjectTags = popularProjectTags?.filter(tag => !combinedTags.some(t => t.name === tag.name)) || []
 
   /*
     This function runs when a user clicks a "votable tag" to add their vote
@@ -312,6 +334,10 @@ function TagsContainer({
       }
     )
   }
+  
+  function handleAddTagModalActive() {
+    setAddTagModalActive(!addTagModalActive)
+  }
 
   function handleClick(tag) {
     if (!tag.vote_count) {
@@ -324,14 +350,23 @@ function TagsContainer({
   }
 
   return (
-    <Tags
-      loading={popularTagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
-      error={popularTagsError || votableTagsError || tagVotesError}
-      tags={combinedTags}
-      onTagClick={handleClick}
-      userId={userId}
-      voteUpdating={voteUpdating || tagVotesIsValidating}
-    />
+    <>
+      <AddTagModal
+        active={addTagModalActive}
+        handleClose={handleAddTagModalActive}
+      >
+        {'coming soon!'}
+      </AddTagModal>
+      <Tags
+        loading={popularTagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
+        error={popularTagsError || votableTagsError || tagVotesError}
+        tags={combinedTags}
+        onAddTagClick={handleAddTagModalActive}
+        onTagClick={handleClick}
+        userId={userId}
+        voteUpdating={voteUpdating || tagVotesIsValidating}
+      />
+    </>
   )
 }
 
