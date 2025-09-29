@@ -1,0 +1,40 @@
+import { Box } from 'grommet'
+import styled from 'styled-components'
+
+import Tag from '../Tag'
+
+const StyledOrderedList = styled(Box)`
+  list-style: none;
+  row-gap: 10px;
+  column-gap: 10px;
+`
+
+const DEFAULT_HANDLER = () => true
+
+function TagList({
+  disabled = false,
+  onTagClick = DEFAULT_HANDLER,
+  tags = []
+}) {
+  return (
+    <StyledOrderedList
+      forwardedAs='ol'
+      direction='row'
+      margin='none'
+      pad='none'
+      wrap
+    >
+      {tags.map(tag => (
+        <li key={`${tag.id}-${tag.name}`}>
+          <Tag
+            disabled={disabled}
+            onClick={onTagClick}
+            tag={tag}
+          />
+        </li>
+      ))}
+    </StyledOrderedList>
+  )
+}
+
+export default TagList  
