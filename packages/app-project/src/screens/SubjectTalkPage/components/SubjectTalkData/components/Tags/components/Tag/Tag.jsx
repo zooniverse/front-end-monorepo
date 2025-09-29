@@ -1,6 +1,6 @@
 import { Box, Button, Text, Tip } from 'grommet'
 import { useTranslation } from 'next-i18next'
-import { bool, func, number, string } from 'prop-types'
+import { bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
@@ -91,16 +91,18 @@ const DEFAULT_HANDLER = () => true
 
 function Tag({
   disabled = false,
-  name = '',
   onClick = DEFAULT_HANDLER,
-  userVoted = false,
-  voteCount = 0,
+  tag
 }) {
   const { t } = useTranslation('screens')
 
-  const message = userVoted ? t('Talk.Tags.removeVote') : t('Talk.Tags.addVote')
+  const message = tag.userVoted ? t('Talk.Tags.removeVote') : t('Talk.Tags.addVote')
 
-  const padHorizontal = voteCount > 0 ? '15px' : '25px'
+  const padHorizontal = tag.vote_count > 0 ? '15px' : '25px'
+
+  function handleClick() {
+    onClick(tag)
+  }
 
   return (
     <Tip
@@ -119,27 +121,27 @@ function Tag({
               size='1rem'
               weight={500}
               >
-              {name}
+              {tag.name}
             </Text>
             <StyledText
               size='1rem'
               weight='bold'
               >
-              {userVoted ? 'x' : '+'}
+              {tag.userVoted ? 'x' : '+'}
             </StyledText>
-            {voteCount ? (
+            {tag.vote_count ? (
               <StyledVoteCount
                 size='1rem'
                 weight='bold'
               >
-                {voteCount}
+                {tag.vote_count}
               </StyledVoteCount>
             ) : null}
           </>
         )}
-        onClick={onClick}
+        onClick={handleClick}
         pad={{ horizontal: padHorizontal, vertical: '14px' }}
-        $userVoted={userVoted}
+        $userVoted={tag.userVoted}
       />
     </Tip>
   )
@@ -147,10 +149,13 @@ function Tag({
 
 Tag.propTypes = {
   disabled: bool,
-  name: string,
   onClick: func,
-  userVoted: bool,
-  voteCount: number,
+  tag: shape({
+    id: string,
+    name: string,
+    userVoted: bool,
+    vote_count: number
+  }).isRequired
 }
 
 export default Tag
