@@ -22,13 +22,13 @@ export default {
 
 export const Default = {
   args: {
-    tags: mockTags,
-    userId: '12345'
+    tags: mockTags
   }
 }
 
 export const LoggedOut = {
   args: {
+    disabled: true,
     tags: mockTagsLoggedOut
   }
 }
@@ -49,7 +49,6 @@ export const Error = {
 
 export const NoTags = {
   args: {
-    tags: [],
-    userId: '12345'
+    tags: []
   }
 }

@@ -1,9 +1,14 @@
-import { Modal } from '@zooniverse/react-components'
+import { Modal, SpacedText } from '@zooniverse/react-components'
+import { Box } from 'grommet'
+
+import TagList from '../TagList'
 
 function AddTagModal({
   active = false,
-  children,
-  handleClose
+  disabled = false,
+  handleClose,
+  projectDisplayName,
+  tags = []
 }) {
   return (
     <Modal
@@ -15,7 +20,16 @@ function AddTagModal({
       title='Add a Popular Tag'
       titleColor='black'
     >
-      {children}
+      <Box>
+        <SpacedText size='small'>
+          {`From ${projectDisplayName}`}
+        </SpacedText>
+        <TagList
+          disabled={disabled}
+          onTagClick={() => window.alert('coming soon!')}
+          tags={tags}
+        />
+      </Box>
     </Modal>
   )
 }

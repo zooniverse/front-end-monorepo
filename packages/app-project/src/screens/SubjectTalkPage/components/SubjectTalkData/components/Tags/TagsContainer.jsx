@@ -13,8 +13,8 @@ import {
   useVotableTags
 } from '@hooks'
 
-import Tags from './Tags'
 import AddTagModal from './components/AddTagModal'
+import Tags from './Tags'
 
 function TagsContainer({
   projectDisplayName,
@@ -353,18 +353,18 @@ function TagsContainer({
     <>
       <AddTagModal
         active={addTagModalActive}
+        disabled={!userId || voteUpdating || tagVotesIsValidating}
         handleClose={handleAddTagModalActive}
-      >
-        {'coming soon!'}
-      </AddTagModal>
+        projectDisplayName={projectDisplayName}
+        tags={filteredProjectTags}
+      />
       <Tags
-        loading={popularTagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
+        disabled={!userId || voteUpdating || tagVotesIsValidating}
         error={popularTagsError || votableTagsError || tagVotesError}
-        tags={combinedTags}
+        loading={popularTagsIsLoading || votableTagsIsLoading || tagVotesIsLoading}
         onAddTagClick={handleAddTagModalActive}
         onTagClick={handleClick}
-        userId={userId}
-        voteUpdating={voteUpdating || tagVotesIsValidating}
+        tags={combinedTags}
       />
     </>
   )

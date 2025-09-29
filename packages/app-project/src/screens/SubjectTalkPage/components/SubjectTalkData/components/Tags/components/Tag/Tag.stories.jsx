@@ -29,7 +29,7 @@ export const WithVoteCount = {
     tag: {
       id: '1',
       name: 'blue_jay',
-      voteCount: 3
+      vote_count: 3
     }
   }
 }
@@ -40,7 +40,7 @@ export const UserVoted = {
       id: '1',
       name: 'blue_jay',
       userVoted: true,
-      voteCount: 5
+      vote_count: 5
     }
   }
 }
@@ -51,7 +51,7 @@ export const Disabled = {
     tag: {
       id: '1',
       name: 'blue_jay',
-      voteCount: 2
+      vote_count: 2
     }
   }
 }
@@ -63,7 +63,7 @@ export const DisabledUserVoted = {
       id: '1',
       name: 'blue_jay',
       userVoted: true,
-      voteCount: 2
+      vote_count: 2
     }
   }
 }

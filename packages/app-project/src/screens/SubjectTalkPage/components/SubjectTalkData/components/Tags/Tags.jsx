@@ -5,13 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-import Tag from './components/Tag'
-
-const StyledOrderedList = styled(Box)`
-  list-style: none;
-  row-gap: 10px;
-  column-gap: 10px;
-`
+import TagList from './components/TagList'
 
 const StyledBox = styled(Box)`
   &::before,
@@ -38,13 +32,12 @@ const StyledAddTagButton = styled(Button)`
 const DEFAULT_HANDLER = () => true
 
 function Tags({
+  disabled = false,
   error = undefined,
   loading = false,
   onAddTagClick = DEFAULT_HANDLER,
   onTagClick = DEFAULT_HANDLER,
-  tags = undefined,
-  userId = undefined,
-  voteUpdating = false
+  tags = undefined
 }) {
   const { t } = useTranslation('screens')
 
@@ -80,7 +73,7 @@ function Tags({
           direction='row'
           gap='xsmall'
         >
-          {(tags?.length > 0 && userId) ? (
+          {(tags?.length > 0 && !disabled) ? (
             <StyledAddTagButton
               label={(
                 <Box
@@ -105,7 +98,7 @@ function Tags({
               onClick={onAddTagClick}
               plain
             />
-          ) : !userId ? (
+          ) : disabled ? (
             <SpacedText uppercase={false}>
               {t('Talk.Tags.signInToTag')}
             </SpacedText>
@@ -123,34 +116,18 @@ function Tags({
           <Loader />
         </Box>
       ) : tags?.length > 0 ? (
-        <StyledOrderedList
-          forwardedAs='ol'
-          direction='row'
-          margin='none'
-          pad='none'
-          wrap
-        >
-          {tags?.map(tag => (
-            <li
-              key={`${tag.id}-${tag.name}`}
-            >
-              <Tag
-                disabled={!userId || voteUpdating}
-                name={tag.name}
-                onClick={() => onTagClick(tag)}
-                userVoted={tag.userVoted}
-                voteCount={tag.vote_count}
-              />
-            </li>
-          ))}
-        </StyledOrderedList>
+        <TagList
+          disabled={disabled}
+          onTagClick={onTagClick}
+          tags={tags}
+        />
       ) : (
         <StyledBox
           align='center'
           direction='row'
         >
           <StyledAddTagButton
-            disabled={!userId}
+            disabled={disabled}
             label={(
               <Box
                 align='center'
@@ -186,8 +163,10 @@ function Tags({
 }
 
 Tags.propTypes = {
+  disabled: bool,
   error: shape({ message: string }),
   loading: bool,
+  onAddTagClick: func,
   onTagClick: func,
   tags: arrayOf(
     shape({
@@ -196,8 +175,7 @@ Tags.propTypes = {
       userVoted: bool,
       vote_count: number
     })
-  ),
-  userId: string
+  )
 }
 
 export default Tags
