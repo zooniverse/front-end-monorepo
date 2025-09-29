@@ -6,14 +6,15 @@ import TagList from '../TagList'
 function AddTagModal({
   active = false,
   disabled = false,
-  handleClose,
+  onClose,
+  onTagClick,
   projectDisplayName,
   tags = []
 }) {
   return (
     <Modal
       active={active}
-      closeFn={handleClose}
+      closeFn={onClose}
       headingBackground='transparent'
       role='dialog'
       round='8px'
@@ -26,7 +27,7 @@ function AddTagModal({
         </SpacedText>
         <TagList
           disabled={disabled}
-          onTagClick={() => window.alert('coming soon!')}
+          onTagClick={onTagClick}
           tags={tags}
         />
       </Box>
