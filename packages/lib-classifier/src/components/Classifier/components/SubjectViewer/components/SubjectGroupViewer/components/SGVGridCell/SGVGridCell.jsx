@@ -17,7 +17,9 @@ const DraggableRect = styled(draggable('rect'))`
   }
 `
 
-const ClickableRect = styled('rect')`
+const ClickableRect = styled('rect').withConfig({
+  shouldForwardProp: (prop) => prop !== 'cellStyle'
+})`
     cursor: pointer;
     &:focus {
       ${props => css`outline: ${props.cellStyle.focusOutline};`}
