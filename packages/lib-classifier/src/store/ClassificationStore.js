@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import cuid from 'cuid'
 import { snakeCase } from 'lodash'
-import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { flow, getRoot, getSnapshot, getType, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -126,14 +126,22 @@ const ClassificationStore = types
         classification.metadata.update(metadata)
 
         classification.completed = true
+
         // Convert from observables
-        let classificationToSubmit = classification.toSnapshot()
+        const classificationToSubmit = classification.toSnapshot()
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach(([key, value]) => {
           convertedMetadata[snakeCase(key)] = value
         })
         classificationToSubmit.metadata = convertedMetadata
+
+        // SubjectGroup wants to submit all subject.subjectIds for analytics & retirement rules
+        if (getType(subject).name === 'SubjectGroup') {
+          const links = {...classificationToSubmit.links}
+          links.subjects = [...classificationToSubmit.links.subjects, ...subject.subjectIds.toJSON()]
+          classificationToSubmit.links = links
+        }
 
         /*
           Subject.alreadySeen is a computed value, so copy it across to a copy of the subject snapshot.
