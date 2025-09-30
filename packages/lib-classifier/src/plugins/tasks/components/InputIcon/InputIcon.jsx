@@ -1,12 +1,15 @@
 import { node, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
+// In some cases, project teams choose 'black' as their drawing tool color
+// and we need to style the InputIcon with a lighter background for contrast.
+// 'black' is not in the drawingTools colors in lib-grommet-theme, but could be use in a legacy Zooniverse project.
 export const StyledInputIcon = styled.span`
   ${props => props.color && css`color: ${props.color};`}
-  background-color: #2D2D2D;
   display: flex;
   align-items: center;
   padding: 15px;
+ ${props => props.color === 'rgb(0, 0, 0)' ? css`background: radial-gradient(#cbcccb 0%, #2D2D2D 80%);` : css`background: #2D2D2D;`}
 
   > svg {
     fill-opacity: 0.1;
