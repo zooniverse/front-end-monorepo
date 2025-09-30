@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
-// panoptes-client / sugarClient requires engine.io-client 
+// panoptes-client / sugarClient requires engine.io-client
 // see https://github.com/zooniverse/Panoptes-Front-End/pull/4712#issuecomment-400752308 for additional discussion
 
 const isBrowser = typeof window !== 'undefined'
 let sugarClient
 
 /*
-An immediately-invoked async function is a workaround
-when top-level await is not supported.
+  app-project still has a mix of CJS and  ESM. An immediately-invoked async
+  function is a workaround when top-level await is not supported.
   https://v8.dev/features/top-level-await
 */
 (async function initSugarClient() {
