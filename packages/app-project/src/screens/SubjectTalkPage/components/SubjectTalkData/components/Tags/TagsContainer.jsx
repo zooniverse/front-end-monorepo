@@ -27,8 +27,8 @@ function TagsContainer({
 
   // Fetch popular tags for the subject, unrelated to the user
   const popularTagsQuery = {
-    limit: 10,
-    page_size: 10,
+    limit: 20,
+    page_size: 20,
     section: `project-${projectId}`,
     taggable_type: 'Subject',
     taggable_id: subjectId,
@@ -93,11 +93,16 @@ function TagsContainer({
     Add a userVoted property to each tag based on whether the signed-in user has voted for it.
     The rendered array (combinedTags) is ordered in most votes --> least votes.
   */
-  const votableTagNames = votableTags?.map(tag => tag.name) || []
-  const filteredTags = popularTags?.filter(tag => !votableTagNames.includes(tag.name)) || []
   
-  /* combined votable tags and popular tags for the Tags section */
-  const combinedTags = [...(votableTags || []), ...filteredTags].map(tag => ({
+  /* show up to 10 votable tags */
+  const votableTagsToShow = votableTags?.slice(0, 10) || []
+  
+  /* show up to 10 popular tags that aren't already in votableTagsToShow */
+  const votableTagsToShowNames = votableTagsToShow.map(tag => tag.name)
+  const popularTagsToShow = popularTags?.filter(tag => !votableTagsToShowNames.includes(tag.name)).slice(0, 10) || []
+
+  /* combine votable tags and popular tags for the Tags section */
+  const combinedTags = [...votableTagsToShow, ...popularTagsToShow].map(tag => ({
     ...tag,
     userVoted: tagVotes?.some(vote => vote.votable_tag.name === tag.name)
   }))
@@ -108,25 +113,25 @@ function TagsContainer({
   /*
     This function runs when a user clicks a "votable tag" to add their vote
   */
-  async function handleAddVote(tag) {
+  function handleAddVote(tag) {
     // optimistically increment vote_count of the votableTag
     mutateVotableTags(
-        prevData => {
-          if (!prevData) {
-            return []
-          } else {
-            return prevData.map(t => {
-              if (t.id === tag.id) {
-                return {
-                  ...t,
-                  vote_count: t.vote_count + 1
-                }
+      prevData => {
+        if (!prevData) {
+          return []
+        } else {
+          return prevData.map(t => {
+            if (t.id === tag.id) {
+              return {
+                ...t,
+                vote_count: t.vote_count + 1
               }
-              return t
-            })
-          }
-        },
-        { revalidate: false } // don't need to revalidate votableTags because optimistic data is enough
+            }
+            return t
+          })
+        }
+      },
+      { revalidate: false } // don't need to revalidate votableTags because optimistic data is enough
     )
 
     mutateTagVotes(
@@ -172,121 +177,69 @@ function TagsContainer({
   /*
     This function is called when a user clicks on a popular tag to add their vote.
   */
-  function handleCreateVotableTagMutatePopularTags(tag) {
-    // Note: Don't mutate votableTags in this function in order to preserve the order of combinedTags
-
-    // Mutate popularTags by adding a new tag object that has vote_count (a property of a votable tag),
-    // so it prevents a shift in the tags list. This is purely an optimistic UI strategy, no network requests.
+  function handleCreateVotableTag(tag) {
     const modifiedTag = {
       ...tag,
       vote_count: 1
     }
-    mutatePopularTags(
-      prevData => {
-        if (!prevData) {
-          return [modifiedTag]
-        } else {
-          return prevData.map(t => {
-            if (t.name === tag.name) {
-              return modifiedTag
-            }
-            return t
-          })
-        }
-      },
-      { revalidate: false } // don't need to revalidate any request to /tags/popular
-    )
 
-    mutateTagVotes(
-        async (prevData) => {
-          const newVotableTag = {
-            name: tag.name,
-            section: `project-${projectId}`,
-            taggable_id: subjectId,
-            taggable_type: 'Subject'
-          }
-          // Set a loading state while the request is in progress to prevent an attempt to delete the tagVote before it's created in the database.
-          setVoteUpdating(true)
-          await createVotableTag(newVotableTag)
-          setVoteUpdating(false)
-
-          // whatever is returned from this async function replaces tagVotes
-          // so optimistically update the tagVotes array before revalidation
+    // To avoid combinedTags shifting, determine if the tag is shown as a popular tag,
+    // then mutate the appropriate data array.
+    // This is purely an optimistic UI strategy, no network requests.
+    const shownAsPopularTag = popularTagsToShow.find(t => t.name === tag.name)
+    if (shownAsPopularTag) {
+      // i.e. a popular tag from the Tags section
+      mutatePopularTags(
+        prevData => {
           if (!prevData) {
-            return [{ votable_tag: { ...tag } }]
+            return [modifiedTag]
           } else {
-            return [...prevData, { votable_tag: { ...tag } }]
+            return prevData.map(t => {
+              if (t.name === tag.name) {
+                return modifiedTag
+              }
+              return t
+            })
           }
         },
-        {
-        // optimistically update the tagVotes array before revalidation
-        // this tagVote object will be missing votable_tag_id until tagVotes is revalidated
-        optimisticData: prevData => {
+        { revalidate: false } // don't need to revalidate any request to /tags/popular
+      )
+    } else {
+      // i.e. a popular tag or new tag from the AddTagModal
+      mutateVotableTags(
+        prevData => {
           if (!prevData) {
-            return [{ votable_tag: { ...tag } }]
+            return [modifiedTag]
           } else {
-            return [...prevData, { votable_tag: { ...tag } }]
+            return [...prevData, modifiedTag]
           }
         },
-        // revalidate tagVotes once the async function createVotableTag() is successful
-        // this will replace the optimisticData in tagVotes, and we see the newly created tagVote
-        // from the database with votable_tag_id necessary for removeTagVote()
-        revalidate: true,
-        // rollbackOnError will respond to an error thrown in createVotableTag()
-        // This could be improved to handle rollback of all mutations in handleCreateVotableTag()
-        rollbackOnError(err) {
-          console.error(err)
-          return true
-        }
-      }
-    )
-  }
-
-  /*
-    This function is called when a user clicks on a popular project tag from the AddTagModal.
-    This creates a votable tag with the same name as the popular tag, and mutates tagVotes and votableTags accordingly.
-  */
-  function handleCreateVotableTagMutateVotableTags(tag) {
-    // given a popular tag, create a votable tag with the same name
-    const newVotableTag = {
-      name: tag.name,
-      section: `project-${projectId}`,
-      taggable_id: subjectId,
-      taggable_type: 'Subject'
+        { revalidate: false } // don't need to revalidate votableTags because optimistic data is enough
+      )
     }
 
-    // Mutate votableTags by adding a new tag object that has vote_count (a property of a votable tag),
-    // this is purely an optimistic UI strategy, no network requests.
-    const modifiedTag = {
-      ...newVotableTag,
-      vote_count: 1
-    }
-    mutateVotableTags(
-      prevData => {
+    mutateTagVotes(
+      async (prevData) => {
+        const newVotableTag = {
+          name: tag.name,
+          section: `project-${projectId}`,
+          taggable_id: subjectId,
+          taggable_type: 'Subject'
+        }
+        // Set a loading state while the request is in progress to prevent an attempt to delete the tagVote before it's created in the database.
+        setVoteUpdating(true)
+        await createVotableTag(newVotableTag)
+        setVoteUpdating(false)
+
+        // whatever is returned from this async function replaces tagVotes
+        // so optimistically update the tagVotes array before revalidation
         if (!prevData) {
-          return [modifiedTag]
+          return [{ votable_tag: { ...modifiedTag } }]
         } else {
-          return [...prevData, modifiedTag]
+          return [...prevData, { votable_tag: { ...modifiedTag } }]
         }
       },
-      { revalidate: false } // don't need to revalidate votableTags because optimistic data is enough
-    )
-    
-    mutateTagVotes(
-        async (prevData) => {
-          // Set a loading state while the request is in progress to prevent an attempt to delete the tagVote before it's created in the database.
-          setVoteUpdating(true)
-          await createVotableTag(newVotableTag)
-          setVoteUpdating(false)  
-          // whatever is returned from this async function replaces tagVotes
-          // so optimistically update the tagVotes array before revalidation
-          if (!prevData) {
-            return [{ votable_tag: { ...modifiedTag } }]
-          } else {
-            return [...prevData, { votable_tag: { ...modifiedTag } }]
-          }
-        },
-        {
+      {
         // optimistically update the tagVotes array before revalidation
         // this tagVote object will be missing votable_tag_id until tagVotes is revalidated
         optimisticData: prevData => {
@@ -311,17 +264,16 @@ function TagsContainer({
   }
 
   /*
-    When this function is called, we can assume the clicked Tag is a "votable tag"
-    and therefore exists in tagVotes and votableTags.
+    This function runs when a user clicks a tag they've already voted for to remove their vote
   */
   function handleRemoveVote(tag) {
     const tagVoteToRemove = tagVotes?.find(vote => vote.votable_tag.name === tag.name)
     if (!tagVoteToRemove || !tagVoteToRemove.id) return
 
-    // if the user is removing their vote from a popular tag, they must have just voted on a
-    // popular tag that intially had no votes,
-    // it's still in the popularTags array, so update the tag to show zero votes
-    if (tag.usages) {
+    // To avoid combinedTags shifting, determine if the tag is shown as a popular tag,
+    // then mutate the appropriate data array
+    const shownAsPopularTag = popularTagsToShow.find(t => t.name === tag.name)
+    if (shownAsPopularTag) {
       mutatePopularTags(
         prevData => {
           if (!prevData) {
@@ -417,7 +369,7 @@ function TagsContainer({
       setAddTagModalActive(false) // close the modal
     } else {
       // if not, create a new votable tag with the popular tag's name
-      handleCreateVotableTagMutateVotableTags(tag)
+      handleCreateVotableTag(tag)
       setAddTagModalActive(false) // close the modal
     }
   }
@@ -425,10 +377,10 @@ function TagsContainer({
   function handleTagClick(tag) {
     if (tag.userVoted) {
       handleRemoveVote(tag) // remove vote is the same process regardless of tag type
-    } else if (tag.vote_count) {
+    } else if (tag.href.includes('votable_tags')) {
       handleAddVote(tag) // this is a votable tag, so add a vote
     } else {
-      handleCreateVotableTagMutatePopularTags(tag) // this is a popular tag, so create a votable tag with the popular tag's name
+      handleCreateVotableTag(tag) // this is a popular tag, so create a votable tag with the popular tag's name
     }
   }
 
@@ -455,6 +407,7 @@ function TagsContainer({
 }
 
 TagsContainer.propTypes = {
+  projectDisplayName: string,
   projectId: string,
   subjectId: string,
   userId: string
