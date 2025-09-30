@@ -2,7 +2,7 @@ import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
 import { Box, Button } from 'grommet'
 import { Add, Tag as TagIcon } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
-import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import TagList from './components/TagList'
@@ -171,9 +171,7 @@ Tags.propTypes = {
   tags: arrayOf(
     shape({
       id: string,
-      name: string,
-      userVoted: bool,
-      vote_count: number
+      name: string
     })
   )
 }

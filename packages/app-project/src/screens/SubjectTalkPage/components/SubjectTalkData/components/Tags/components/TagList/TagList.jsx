@@ -1,4 +1,5 @@
 import { Box } from 'grommet'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import Tag from '../Tag'
@@ -34,6 +35,17 @@ function TagList({
         </li>
       ))}
     </StyledOrderedList>
+  )
+}
+
+TagList.propTypes = {
+  disabled: bool,
+  onTagClick: func,
+  tags: arrayOf(
+    shape({
+      id: string,
+      name: string
+    })
   )
 }
 

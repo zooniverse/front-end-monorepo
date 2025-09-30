@@ -1,6 +1,6 @@
 import { Box, Button, Text, Tip } from 'grommet'
 import { useTranslation } from 'next-i18next'
-import { bool, func, number, shape, string } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
@@ -152,9 +152,7 @@ Tag.propTypes = {
   onClick: func,
   tag: shape({
     id: string,
-    name: string,
-    userVoted: bool,
-    vote_count: number
+    name: string
   }).isRequired
 }
 

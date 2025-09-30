@@ -1,5 +1,7 @@
 import { Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, TextInput } from 'grommet'
+import { useTranslation } from 'next-i18next'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -45,6 +47,8 @@ function AddTagModal({
 }) {
   const [newTagName, setNewTagName] = useState('')
 
+  const { t } = useTranslation('screens')
+
   function handleChange(event) {
     const { value } = event.target
     setNewTagName(value)
@@ -64,7 +68,7 @@ function AddTagModal({
       headingBackground='transparent'
       pad={{ horizontal: 'small', top: 'xsmall', bottom: 'medium' }}
       role='dialog'
-      title='Add a Tag'
+      title={t('Talk.Tags.addATag')}
       titleColor='black'
     >
       <Box
@@ -72,7 +76,7 @@ function AddTagModal({
         width='600px'
       >
         <SpacedText size='small'>
-          {`Popular Tags From ${projectDisplayName}`}
+          {t('Talk.Tags.popularTagsFrom', { projectDisplayName })}
         </SpacedText>
         <TagList
           disabled={disabled}
@@ -89,18 +93,17 @@ function AddTagModal({
           >
             <StyledFormField
               htmlFor='tag-name'
-              label={<SpacedText>Create a new tag</SpacedText>}
+              label={<SpacedText>{t('Talk.Tags.createTag')}</SpacedText>}
               name='tag-name'
               validate={[
                 (name) => {
                   if (!name || name && !/^[\w-]{3,40}$/.test(name)) {
-                    return 'Use 3-40 characters, letters, numbers, hyphens, and underscores. No spaces or other characters.'
+                    return t('Talk.Tags.tagValidationMessage')
                   }
                   return undefined
                 }
               ]}
               validateOn='submit'
-              // style={{ width: '100%' }}
             >
               <StyledTextInput
                 id='tag-name'
@@ -110,13 +113,27 @@ function AddTagModal({
               />
             </StyledFormField>
             <StyledButton
-              label='Add'
+              label={t('Talk.Tags.add')}
               type='submit'
             />
           </Box>
         </Form>
       </Box>
     </Modal>
+  )
+}
+
+AddTagModal.propTypes = {
+  active: bool,
+  disabled: bool,
+  onClose: func.isRequired,
+  onTagClick: func,
+  projectDisplayName: string,
+  tags: arrayOf(
+    shape({
+      id: string,
+      name: string
+    })
   )
 }
 
