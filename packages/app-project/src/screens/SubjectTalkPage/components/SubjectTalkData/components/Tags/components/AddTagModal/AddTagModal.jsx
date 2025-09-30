@@ -1,4 +1,4 @@
-import { Modal, SpacedText } from '@zooniverse/react-components'
+import { Loader, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, TextInput } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
@@ -37,12 +37,16 @@ const StyledTextInput = styled(TextInput)`
   height: 40px;
 `
 
+const DEFAULT_HANDLER = () => true
+
 function AddTagModal({
   active = false,
   disabled = false,
+  error = null,
+  loading = false,
   onClose,
-  onTagClick,
-  projectDisplayName,
+  onTagClick = DEFAULT_HANDLER,
+  projectDisplayName = '',
   tags = []
 }) {
   const [newTagName, setNewTagName] = useState('')
@@ -75,14 +79,28 @@ function AddTagModal({
         gap='xsmall'
         width='600px'
       >
-        <SpacedText size='small'>
-          {t('Talk.Tags.popularTagsFrom', { projectDisplayName })}
-        </SpacedText>
-        <TagList
-          disabled={disabled}
-          onTagClick={onTagClick}
-          tags={tags}
-        />
+        {error ? (
+          <Box align='center' justify='center' fill pad='medium'>
+            <SpacedText uppercase={false}>
+              {t('Talk.Tags.somethingWentWrong')}
+            </SpacedText>
+          </Box>
+        ) : loading ? (
+          <Box align='center' justify='center' fill pad='medium'>
+            <Loader />
+          </Box>
+        ) : tags.length > 0 ? (
+          <Box gap='xsmall'>
+            <SpacedText size='small'>
+              {t('Talk.Tags.popularTagsFrom', { projectDisplayName })}
+            </SpacedText>
+            <TagList
+              disabled={disabled}
+              onTagClick={onTagClick}
+              tags={tags}
+            />
+          </Box>
+        ) : null}
         <Form
           onSubmit={handleSubmit}
         >

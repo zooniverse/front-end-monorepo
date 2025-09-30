@@ -35,3 +35,24 @@ export const Default = {
     ]
   }
 }
+
+export const NoTags = {
+  args: {
+    ...Default.args,
+    tags: []
+  }
+}
+
+export const Error = {
+  args: {
+    ...Default.args,
+    error: { message: 'Detailed error message.' }
+  }
+}
+
+export const Loading = {
+  args: {
+    ...Default.args,
+    loading: true
+  }
+}

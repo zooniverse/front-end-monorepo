@@ -42,7 +42,7 @@ export const Loading = {
 
 export const Error = {
   args: {
-    error: { message: 'Something went wrong' },
+    error: { message: 'Detailed error message.' },
     tags: []
   }
 }

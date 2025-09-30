@@ -389,6 +389,8 @@ function TagsContainer({
       <AddTagModal
         active={addTagModalActive}
         disabled={!userId || voteUpdating || tagVotesIsValidating}
+        error={popularProjectTagsError}
+        loading={popularProjectTagsIsLoading}
         onClose={handleAddTagModalActive}
         onTagClick={handleAddTagModalTagClick}
         projectDisplayName={projectDisplayName}

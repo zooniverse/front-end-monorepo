@@ -108,7 +108,7 @@ function Tags({
       {error ? (
         <Box align='center' justify='center' fill pad='medium'>
           <SpacedText uppercase={false}>
-            {error?.message}
+            {t('Talk.Tags.somethingWentWrong')}
           </SpacedText>
         </Box>
       ) : loading ? (
