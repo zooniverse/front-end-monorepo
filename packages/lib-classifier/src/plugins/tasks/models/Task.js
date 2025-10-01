@@ -33,21 +33,18 @@ const Task = types.model('Task', {
     get subtasks() {
       if (self.details && Array.isArray(self.details)) {
         return self.details.map((detail, index) => {
-          const taskKey = `${self.taskKey}.details.${index}`
-
           const stringOverrides = {}
           self.strings.forEach((value, key) => {
-            const detailsMatch = key.match(/^details\.${index}\.(.+)$/)
+            const detailsMatch = key.match(new RegExp(`^details\\.${index}\\.(.+)$`))
             if (detailsMatch) {
-              const property = detailsMatch[1]
-              stringOverrides[property] = value
+              stringOverrides[detailsMatch[1]] = value
             }
           })
 
           return {
             ...detail,
             ...stringOverrides,
-            taskKey,
+            taskKey: `${self.taskKey}.details.${index}`,
             index
           }
         })
@@ -57,7 +54,7 @@ const Task = types.model('Task', {
     },
 
     hasSubtasks() {
-      return self.details && Array.isArray(self.details) && self.details.length > 0
+      return self.subtasks.length > 0
     },
 
     get question() {
