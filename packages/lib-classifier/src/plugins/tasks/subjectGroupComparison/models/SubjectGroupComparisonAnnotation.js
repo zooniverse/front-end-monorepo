@@ -1,21 +1,24 @@
-import { getRoot, getSnapshot, resolveIdentifier, types } from 'mobx-state-tree'
+import cuid from 'cuid'
+import { getSnapshot, types } from 'mobx-state-tree'
 import Annotation from '../../models/Annotation'
 import CellWithAnnotations from './CellAnnotationsStore'
-import SubjectGroupComparisonTask from './SubjectGroupComparisonTask'
 
 const SubjectGroupComparison = types.model('SubjectGroupComparison', {
   taskType: types.literal('subjectGroupComparison'),
-  value: types.array(types.safeReference(CellWithAnnotations)),
+  value: types.array(CellWithAnnotations)
 })
   .views(self => ({
     get isComplete() {
       return self.value.length > 0
     },
 
+    getCellByIndex(index) {
+      return self.value.find(cell => cell.index === index)
+    },
+
     toSnapshot() {
       const snapshot = getSnapshot(self)
-      const actualTask = resolveIdentifier(SubjectGroupComparisonTask, getRoot(self), self.task)
-      const value = Array.from(actualTask.selectedCells.values()).map(cell => getSnapshot(cell))
+      const value = self.value.map(cell => getSnapshot(cell))
       const comparisonSnapshot = { ...snapshot, value }
 
       const allAnnotations = [comparisonSnapshot]
@@ -23,19 +26,40 @@ const SubjectGroupComparison = types.model('SubjectGroupComparison', {
       comparisonSnapshot.value.forEach((cellSnapshot, cellIndex) => {
         const { annotations, ...cellWithoutAnnotations } = cellSnapshot
 
-        // Add details array showing which subtasks exist
-        cellWithoutAnnotations.details = annotations.map(annotation => ({ task: annotation.task }))
-
-        // Add each cell annotation to the flattened array
-        annotations.forEach(cellAnnotation => {
-          const { id, ...annotationWithoutId } = cellAnnotation
-          allAnnotations.push({ ...annotationWithoutId, cellIndex })
-        })
+        // Flatten nested cell annotations into top-level array
+        if (annotations && annotations.length > 0) {
+          cellWithoutAnnotations.details = annotations.map(annotation => ({ task: annotation.task }))
+          annotations.forEach(cellAnnotation => {
+            const { id, ...annotationWithoutId } = cellAnnotation
+            allAnnotations.push({ ...annotationWithoutId, cellIndex })
+          })
+        }
 
         comparisonSnapshot.value[cellIndex] = cellWithoutAnnotations
       })
 
       return allAnnotations
+    }
+  }))
+  .actions(self => ({
+    addCell(index, subjectId) {
+      const cell = CellWithAnnotations.create({
+        id: cuid(),
+        index,
+        subject: subjectId,
+        annotations: {}
+      })
+      self.value.push(cell)
+      self._inProgress = true
+      return cell
+    },
+
+    removeCell(index) {
+      const cellIndex = self.value.findIndex(cell => cell.index === index)
+      if (cellIndex > -1) {
+        self.value.splice(cellIndex, 1)
+        self._inProgress = true
+      }
     }
   }))
 
