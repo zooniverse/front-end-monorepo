@@ -10,14 +10,14 @@ function ParticipantsAndComments({ commentsCount, usersCount }) {
     <Box
       align='center'
       direction='row'
-      gap='xsmall'
+      gap='xxsmall'
     >
       <span
         id='participants-icon'
         aria-hidden='true'
       >
         <User
-          a11yTitle={t('Talk.participants')}
+          a11yTitle={t('Talk.Comment.participants')}
           size='12px'
         />
       </span>
@@ -32,7 +32,7 @@ function ParticipantsAndComments({ commentsCount, usersCount }) {
         aria-hidden='true'
       >
         <Chat
-          a11yTitle={t('Talk.comments')}
+          a11yTitle={t('Talk.Comment.comments')}
           size='12px'
         />
       </span>
