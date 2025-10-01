@@ -34,8 +34,13 @@ const CellAnnotationsStore = types
     return newSnapshot
   })
   .postProcessSnapshot((snapshot) => {
-    const { id, ...newSnapshot } = snapshot
-    newSnapshot.annotations = Object.values(snapshot.annotations)
+    const { id, annotations, ...newSnapshot } = snapshot
+    if (annotations) {
+      const annotationsArray = Object.values(annotations)
+      if (annotationsArray.length > 0) {
+        newSnapshot.annotations = annotationsArray
+      }
+    }
     return newSnapshot
   })
 

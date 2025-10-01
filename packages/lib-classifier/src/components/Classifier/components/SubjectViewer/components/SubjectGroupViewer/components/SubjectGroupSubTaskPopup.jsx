@@ -1,5 +1,5 @@
 import { Box, Paragraph } from 'grommet'
-import PropTypes from 'prop-types'
+import { array, func, number, shape } from 'prop-types'
 import { useCallback, useState } from 'react'
 import { MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
@@ -11,16 +11,18 @@ import ConfirmModal from '../../InteractionLayer/components/SubTaskPopup/compone
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 200
+const DEFAULT_HANDLER = () => true
 
-// NOTE: Heavily inspired by InteractionLayer => SubTaskPopup. SGV does not implement the InteractionLayer
+// Subtask modal for SGV (doesn't use InteractionLayer)
 
 function SubjectGroupSubTaskPopup({
   cellIndex,
   cellBounds,
+  annotation,
   currentTask,
-  onClose,
-  onSave,
-  onCancelSelection
+  onClose = DEFAULT_HANDLER,
+  onSave = DEFAULT_HANDLER,
+  onCancelSelection = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   const [dimensions, measuredContentRef] = useClientRect()
@@ -28,9 +30,14 @@ function SubjectGroupSubTaskPopup({
   const [confirmationState, setConfirm] = useState('pending')
 
   const subtaskDefinitions = currentTask?.subtasks || []
-  const currentCell = currentTask?.getCellByIndex(cellIndex)
+  const currentCell = annotation?.getCellByIndex(cellIndex)
 
   if (!subtaskDefinitions || subtaskDefinitions.length === 0 || !currentCell) return null
+
+  function normalizeAnswerLabel(answer) {
+    if (typeof answer === 'string') return answer
+    return answer?.label || answer?.value || String(answer)
+  }
 
   const subtasks = subtaskDefinitions.map((subtaskDef, index) => {
     try {
@@ -50,20 +57,12 @@ function SubjectGroupSubTaskPopup({
         }
 
         if (subtaskDef.answers && Array.isArray(subtaskDef.answers)) {
-          taskSnapshot.answers = subtaskDef.answers.map(answer => {
-            if (typeof answer === 'string') {
-              return { label: answer }
-            } else if (answer && typeof answer === 'object') {
-              return {
-                label: answer.label || answer.value || String(answer)
-              }
-            }
-            return { label: String(answer) }
-          }).filter(answer => answer.label)
+          taskSnapshot.answers = subtaskDef.answers.map(answer => ({
+            label: normalizeAnswerLabel(answer)
+          })).filter(answer => answer.label)
 
           subtaskDef.answers.forEach((answer, answerIndex) => {
-            const answerLabel = typeof answer === 'string' ? answer : (answer?.label || answer?.value || String(answer))
-            taskSnapshot.strings[`answers.${answerIndex}.label`] = answerLabel
+            taskSnapshot.strings[`answers.${answerIndex}.label`] = normalizeAnswerLabel(answer)
           })
         }
 
@@ -131,9 +130,7 @@ function SubjectGroupSubTaskPopup({
         currentCell.removeAnnotation(annotation)
       }
     })
-    if (onCancelSelection) {
-      onCancelSelection()
-    }
+    onCancelSelection()
     onClose()
   }
 
@@ -261,25 +258,22 @@ function SubjectGroupSubTaskPopup({
 }
 
 SubjectGroupSubTaskPopup.propTypes = {
-  cellIndex: PropTypes.number.isRequired,
-  cellBounds: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number,
-    width: PropTypes.number,
-    height: PropTypes.number
+  cellIndex: number.isRequired,
+  cellBounds: shape({
+    x: number,
+    y: number,
+    width: number,
+    height: number
   }).isRequired,
-  currentTask: PropTypes.shape({
-    subtasks: PropTypes.array,
-    getCellByIndex: PropTypes.func
+  annotation: shape({
+    getCellByIndex: func
   }),
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onCancelSelection: PropTypes.func
-}
-
-SubjectGroupSubTaskPopup.defaultProps = {
-  currentTask: null,
-  onCancelSelection: null
+  currentTask: shape({
+    subtasks: array
+  }),
+  onClose: func.isRequired,
+  onSave: func.isRequired,
+  onCancelSelection: func
 }
 
 export default SubjectGroupSubTaskPopup

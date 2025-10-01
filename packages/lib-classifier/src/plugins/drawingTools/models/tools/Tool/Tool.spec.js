@@ -146,22 +146,22 @@ describe('Model > DrawingTools > Tool', function () {
       })
 
       it('should create multiple choice tasks', function () {
-        const {annotation, ...snapshot} = getSnapshot(tool.tasks[0])
+        const {annotation, details, ...snapshot} = getSnapshot(tool.tasks[0])
         expect(snapshot).to.deep.equal(multipleTaskSnapshot)
       })
 
       it('should create single choice tasks', function () {
-        const {annotation, ...snapshot} = getSnapshot(tool.tasks[1])
+        const {annotation, details, ...snapshot} = getSnapshot(tool.tasks[1])
         expect(snapshot).to.deep.equal(singleTaskSnapshot)
       })
 
       it('should create text tasks', function () {
-        const {annotation, ...snapshot} = getSnapshot(tool.tasks[2])
+        const {annotation, details, ...snapshot} = getSnapshot(tool.tasks[2])
         expect(snapshot).to.deep.equal(textTaskSnapshot)
       })
 
       it('should create dropdown tasks', function () {
-        const {annotation, ...snapshot} = getSnapshot(tool.tasks[3])
+        const {annotation, details, ...snapshot} = getSnapshot(tool.tasks[3])
         expect(snapshot).to.deep.equal(simpleDropdownTaskSnapshot)
       })
     })
