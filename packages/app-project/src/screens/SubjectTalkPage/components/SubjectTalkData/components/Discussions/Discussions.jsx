@@ -6,7 +6,10 @@ import { string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { useDiscussions } from '@hooks'
+import {
+  useBoards,
+  useDiscussions
+} from '@hooks'
 
 import Discussion from '../Discussion'
 import ParticipantsAndComments from '../ParticipantsAndComments'
@@ -65,7 +68,7 @@ function Discussions({
   
   const { t } = useTranslation('screens')
 
-  const query = {
+  const discussionsQuery = {
     section: `project-${projectId}`,
     focus_id: subjectId,
     focus_type: 'Subject',
@@ -76,7 +79,18 @@ function Discussions({
     data: discussions,
     isLoading,
     error
-  } = useDiscussions(query)
+  } = useDiscussions(discussionsQuery)
+
+  const boardsQuery = {
+    page_size: 50,
+    section: `project-${projectId}`,
+  }
+
+  const {
+    data: boards,
+    isLoading: boardsLoading,
+    error: boardsError
+  } = useBoards(startDiscussionModalActive ?boardsQuery : null)
 
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {
@@ -91,23 +105,6 @@ function Discussions({
   const totalUsersCount = discussions?.reduce((total, discussion) => total + discussion.users_count, 0) || 0
   const sortButtonLabel = sort === 'last_comment_created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 
-  const boards = (() => {
-    if (!discussions || discussions.length === 0) return []
-    const map = new Map()
-    for (const discussion of discussions) {
-      const key = discussion.board_id
-      if (!map.has(key)) {
-        map.set(key, {
-          id: discussion.board_id,
-          title: discussion.board_title,
-          subject_default: discussion.board_subject_default,
-          subject_default_discussion_title: discussion.board_subject_default ? discussion.title : ''
-        })
-      }
-    }
-    return Array.from(map.values())
-  })()
-
   function handleSortChange() {
     setSort(prevSort => (
       prevSort === 'last_comment_created_at' ?
@@ -120,14 +117,20 @@ function Discussions({
     setStartDiscussionModalActive(!startDiscussionModalActive)
   }
 
+  function handleSubmit(data) {
+    console.log('submitted data', data)
+  }
+
   return (
     <>
       {startDiscussionModalActive && (
         <StartDiscussionModal
           active={startDiscussionModalActive}
           boards={boards}
+          onSubmit={handleSubmit}
           onClose={handleStartDiscussionActive}
           showCommentMessage={!!totalCommentsCount}
+          subjectId={subjectId}
         />
       )}
       <StyledDiscussions
@@ -222,6 +225,7 @@ function Discussions({
           direction='row'
         >
           <StyledDiscussionButton
+            disabled={!login}
             label={(
               <Box
                 align='center'

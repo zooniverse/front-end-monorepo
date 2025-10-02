@@ -15,15 +15,19 @@ function StartDiscussionModal({
   active = false,
   boards = undefined,
   onClose,
+  onSubmit = DEFAULT_HANDLER,
   showCommentMessage = false,
+  subjectId = ''
 }) {
   const [value, setValue] = useState(DEFAULT_VALUE)
 
   useEffect(() => {
+    const subjectDefaultBoard = boards?.find(board => board.subject_default)
+
     const newDefaultValue = {
       ...value,
-      discussion_board: boards?.find(board => board.subject_default)?.id || boards?.[0]?.id || '',
-      discussion_title: boards?.find(board => board.subject_default)?.subject_default_discussion_title || ''
+      discussion_board: subjectDefaultBoard?.id || boards?.[0]?.id || '',
+      discussion_title: subjectDefaultBoard?.id ? `Subject ${subjectId}` : ''
     }
 
     setValue(newDefaultValue)
@@ -46,7 +50,7 @@ function StartDiscussionModal({
     const selectedBoard = boards?.find(board => board.id === nextValue.discussion_board)
     const subjectDefaultBoard = selectedBoard.subject_default || boards?.find(board => board.subject_default)
     if (selectedBoard?.subject_default) {
-      nextValue.discussion_title = selectedBoard.subject_default_discussion_title
+      nextValue.discussion_title = `Subject ${subjectId}`
     } else if ((value.discussion_board === subjectDefaultBoard?.id) && (nextValue.discussion_board !== subjectDefaultBoard?.id)) {
       nextValue.discussion_title = ''
     }
@@ -55,9 +59,9 @@ function StartDiscussionModal({
 
   function handleSubmit(event) {
     event.preventDefault()
-    console.log('form submitted', {
+    onSubmit({
       ...value,
-      subject_default_board: selectedBoard?.subject_default || false
+      subject_default: selectedBoard?.subject_default || false
     })
   }
 

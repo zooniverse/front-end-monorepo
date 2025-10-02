@@ -3,10 +3,26 @@ import { Box } from 'grommet'
 import StartDiscussionModal from './StartDiscussionModal'
 
 const boards = [
-  { id: '1', title: 'Notes', subject_default: true, subject_default_discussion_title: 'Subject 789' },
-  { id: '2', title: 'Technical Support', subject_default: false },
-  { id: '3', title: 'Research Team', subject_default: false },
-  { id: '4', title: 'Team Private Board', subject_default: false }
+  {
+    id: '1',
+    subject_default: true,
+    title: 'Notes'
+  },
+  {
+    id: '2',
+    subject_default: false,
+    title: 'Technical Support'
+  },
+  {
+    id: '3',
+    subject_default: false,
+    title: 'Research Team'
+  },
+  {
+    id: '4',
+    subject_default: false,
+    title: 'Team Private Board'
+  }
 ]
 
 export default {
@@ -25,7 +41,8 @@ export const Default = {
   args: {
     active: true,
     boards,
-    onClose: () => console.log('closing modal')
+    onClose: () => console.log('closing modal'),
+    onSubmit: (data) => { console.log('submitted data', data)}
   }
 }
 
@@ -34,6 +51,7 @@ export const WithCommentMessage = {
     active: true,
     boards,
     onClose: () => console.log('closing modal'),
+    onSubmit: (data) => { console.log('submitted data', data)},
     showCommentMessage: true
   }
 }
