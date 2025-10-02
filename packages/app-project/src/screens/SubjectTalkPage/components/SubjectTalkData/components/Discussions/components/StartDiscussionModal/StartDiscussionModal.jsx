@@ -1,11 +1,12 @@
 import { Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, RadioButtonGroup, TextInput } from 'grommet'
+import { CircleInformation } from 'grommet-icons'
 import { useEffect, useState } from 'react'
 
 const DEFAULT_HANDLER = () => true
 
 const DEFAULT_VALUE = {
-  discussion_board: 'General',
+  discussion_board: '',
   discussion_title: '',
   discussion_comment: ''
 }
@@ -13,7 +14,8 @@ const DEFAULT_VALUE = {
 function StartDiscussionModal({
   active = false,
   defaultValue = DEFAULT_VALUE,
-  onClose
+  onClose,
+  showCommentMessage = false,
 }) {
   const [value, setValue] = useState(defaultValue)
 
@@ -61,6 +63,21 @@ function StartDiscussionModal({
               options={['General', 'Question', 'Idea', 'Problem']}
             />
           </FormField>
+          {showCommentMessage && (
+            <Box
+              direction='row'
+              gap='xxsmall'
+              align='center'
+            >
+              <CircleInformation size='0.75rem' />
+              <SpacedText
+                size='xsmall'
+                uppercase={false}
+              >
+                {'To respond to a specific comment, click on that comment to go to the discussion.'}
+              </SpacedText>
+            </Box>
+          )}
           <FormField
             htmlFor='discussion_title'
             label={<SpacedText>Discussion Title</SpacedText>}

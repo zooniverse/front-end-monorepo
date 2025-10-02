@@ -109,6 +109,7 @@ function Discussions({
         <StartDiscussionModal
           active={startDiscussionModalActive}
           onClose={handleStartDiscussionActive}
+          showCommentMessage={!!totalCommentsCount}
         />
       )}
       <StyledDiscussions

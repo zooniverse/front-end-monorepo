@@ -20,3 +20,11 @@ export const Default = {
     onClose: () => console.log('closing modal')
   }
 }
+
+export const WithCommentMessage = {
+  args: {
+    active: true,
+    onClose: () => console.log('closing modal'),
+    showCommentMessage: true
+  }
+}
