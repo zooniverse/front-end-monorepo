@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Samu sabon aiki domin dubawa",
+    "heading": "Babu komai a nan.",
+    "message": "Shafin da kuke nema ya daina wanzuwa.",
+    "returnHome": "Koma zuwa shafin farko"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Ku shiga ciki ko ku yi rajista domin duba gudummawarku.",
+      "register": "yi rajista",
+      "signIn": "shiga ciki"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "An kammala! Da alama wannan binciken ba shi da bayanai a yanzu!",
+      "seeResults": "Duba Sakamako"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "A ƙirƙira sannan a sanya",
+      "label": "Ƙirƙiri sabon rukuni",
+      "private": "Keɓantaccen rukuni"
+    },
+    "SelectCollection": {
+      "addButton": "Ƙara",
+      "label": "Ƙara cikin rukunin da ake da shi"
+    },
+    "title": "Sanya a cikin rukuni"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Kafar Intanet",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Haɗu da {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse kafar intanet ce mafi girma kuma mafi sanuwa na binciken da mutane suke tallafa wa",
+    "defaultTitle": "Ayyuka",
+    "siteName": "Zooniverse - Binciken da mutane suke tallafa wa"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Amintacce ga Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Hoton aiki na {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Sauya Harshe"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Aiki"
+    },
+    "UnderReviewLabel": {
+      "underReview": "ana kan dubawa"
+    },
+    "about": "Game Da",
+    "admin": "Shafin mai gudanarwa",
+    "classify": "Raba",
+    "collect": "Karɓi",
+    "exploreProject": "Duba Aiki",
+    "organization": "Domin kamfanin:",
+    "recents": "Gabatattu",
+    "talk": "Magana"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Ta la'akari da lambobi",
+    "classifications": "Rabo",
+    "completedSubjects": "Batutuwan da aka kammala",
+    "percentComplete": "An kammala kaso",
+    "subjects": "Batutuwa",
+    "subtitle": "Ku bibiyi cigaba da ake samu daga gare ku da sauran 'yan sa-kai game da wannan aiki.",
+    "text": "Kowane latsawa yana da muhimmanci! Shiga cikin tawagar {{projectName}} domin kammala wannan aikin don taimaka wa manazarta wajen fitar da muhimman sakamako. Latsa \"Duba ƙarin bayanai\" domin ganin ƙarin bayanai.",
+    "title": "Ƙididdigar Bayanan {{projectName}}",
+    "viewMoreStats": "Duba ƙarin bayanai",
+    "volunteers": "'Yan sa-kai"
+  },
+  "RequireUser": {
+    "text": "Akwai buƙatar ku shiga ciki!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Rubutun saman kafar intanet ta Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "An riga da an gani",
+    "back": "Zaɓi wani rukunin batu na daban",
+    "byline": "Tace jerin ta hanyar latsa sunayen gidajen dara. Za a ga batutuwa a jere inda na farkonsu shi ne wanda kuka zaɓa.",
+    "fetching": "A ɗan dakata...",
+    "heading": "Zaɓi batu domin farawa",
+    "retired": "An mayar",
+    "unclassified": "Akwai"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Sanya a cikin rukunoni"
+    },
+    "TalkLink": {
+      "label": "Tattauna a kan Magana"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Kammalalle"
+    },
+    "back": "Zaɓi wani rukunin aiki na daban",
+    "byline": "Zaɓi jerin batu domin fara samar da rubutaccen bayani.",
+    "heading": "Zaɓi wurin farawa"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "An kammala {{completeness}}",
+      "setSelection": "saita batu",
+      "subjectSelection": "saɓen batu"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "rufaffe",
+      "unlocked": "buɗaɗɗe"
+    },
+    "error": "An samu matsala yayin ɗauko ayyukan :(",
+    "getStarted": "A Fara!",
+    "message": "Za ku iya gudanar da bincike na ainihi ta hanyar latsa nan domin farawa!",
+    "noWorkflows": "Babu abin da za a raba"
+  }
+}
