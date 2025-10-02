@@ -1,5 +1,5 @@
 import { Modal, SpacedText } from '@zooniverse/react-components'
-import { Box, Button, Form, FormField, RadioButtonGroup, TextInput } from 'grommet'
+import { Box, Button, Form, FormField, RadioButtonGroup, TextArea, TextInput } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import { useEffect, useState } from 'react'
 
@@ -13,23 +13,52 @@ const DEFAULT_VALUE = {
 
 function StartDiscussionModal({
   active = false,
-  defaultValue = DEFAULT_VALUE,
+  boards = undefined,
   onClose,
   showCommentMessage = false,
 }) {
-  const [value, setValue] = useState(defaultValue)
+  const [value, setValue] = useState(DEFAULT_VALUE)
 
   useEffect(() => {
-    setValue(defaultValue)
-  }, [defaultValue])
+    const newDefaultValue = {
+      ...value,
+      discussion_board: boards?.find(board => board.subject_default)?.id || boards?.[0]?.id || '',
+      discussion_title: boards?.find(board => board.subject_default)?.subject_default_discussion_title || ''
+    }
 
-  function handleChange(nextValue, { touched }) {
+    setValue(newDefaultValue)
+  }, [boards])
+
+  const boardOptions = boards?.map(board => ({
+    label: board.title,
+    value: board.id
+  })) || []
+  const selectedBoard = boards?.find(board => board.id === value.discussion_board)
+
+  let commentInputLabel = 'Initial Comment'
+  let submitButtonLabel = 'Start a new discussion'
+  if (selectedBoard?.subject_default) {
+    commentInputLabel = 'New Comment'
+    submitButtonLabel = 'Add your comment'
+  }
+
+  function handleChange(nextValue) {
+    const selectedBoard = boards?.find(board => board.id === nextValue.discussion_board)
+    const subjectDefaultBoard = selectedBoard.subject_default || boards?.find(board => board.subject_default)
+    if (selectedBoard?.subject_default) {
+      nextValue.discussion_title = selectedBoard.subject_default_discussion_title
+    } else if ((value.discussion_board === subjectDefaultBoard?.id) && (nextValue.discussion_board !== subjectDefaultBoard?.id)) {
+      nextValue.discussion_title = ''
+    }
     setValue(nextValue)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
-    console.log('form submitted', value)
+    console.log('form submitted', {
+      ...value,
+      subject_default_board: selectedBoard?.subject_default || false
+    })
   }
 
   return (
@@ -60,7 +89,7 @@ function StartDiscussionModal({
           >
             <RadioButtonGroup
               name='discussion_board'
-              options={['General', 'Question', 'Idea', 'Problem']}
+              options={boardOptions}
             />
           </FormField>
           {showCommentMessage && (
@@ -79,23 +108,21 @@ function StartDiscussionModal({
             </Box>
           )}
           <FormField
+            disabled={selectedBoard?.subject_default}
             htmlFor='discussion_title'
             label={<SpacedText>Discussion Title</SpacedText>}
             name='discussion_title'
             required
           >
-            <TextInput name='discussion_title' />
+            <TextInput disabled={selectedBoard?.subject_default} name='discussion_title' />
           </FormField>
           <FormField
             htmlFor='discussion_comment'
-            label={<SpacedText>Initial Comment</SpacedText>}
+            label={<SpacedText>{commentInputLabel}</SpacedText>}
             name='discussion_comment'
             required
           >
-            <TextInput
-              name='discussion_comment'
-              type='textarea'
-            />
+            <TextArea name='discussion_comment' />
           </FormField>
           <Box
             align='center'
@@ -103,7 +130,7 @@ function StartDiscussionModal({
             justify='end'
           >
             <Button
-              label='Start a new discussion'
+              label={submitButtonLabel}
               primary
               type='submit'
             />

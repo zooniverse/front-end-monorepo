@@ -91,6 +91,23 @@ function Discussions({
   const totalUsersCount = discussions?.reduce((total, discussion) => total + discussion.users_count, 0) || 0
   const sortButtonLabel = sort === 'last_comment_created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 
+  const boards = (() => {
+    if (!discussions || discussions.length === 0) return []
+    const map = new Map()
+    for (const discussion of discussions) {
+      const key = discussion.board_id
+      if (!map.has(key)) {
+        map.set(key, {
+          id: discussion.board_id,
+          title: discussion.board_title,
+          subject_default: discussion.board_subject_default,
+          subject_default_discussion_title: discussion.board_subject_default ? discussion.title : ''
+        })
+      }
+    }
+    return Array.from(map.values())
+  })()
+
   function handleSortChange() {
     setSort(prevSort => (
       prevSort === 'last_comment_created_at' ?
@@ -108,6 +125,7 @@ function Discussions({
       {startDiscussionModalActive && (
         <StartDiscussionModal
           active={startDiscussionModalActive}
+          boards={boards}
           onClose={handleStartDiscussionActive}
           showCommentMessage={!!totalCommentsCount}
         />
