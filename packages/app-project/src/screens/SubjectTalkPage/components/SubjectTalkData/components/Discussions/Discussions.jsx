@@ -6,11 +6,17 @@ import { string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { useDiscussions } from '@hooks'
+import { fetchDiscussions } from '@helpers'
+
+import {
+  useBoards,
+  useDiscussions
+} from '@hooks'
 
 import Discussion from '../Discussion'
 import ParticipantsAndComments from '../ParticipantsAndComments'
 import SectionHeading from '../SectionHeading'
+import StartDiscussionModal from './components/StartDiscussionModal'
 
 const StyledDiscussions = styled(Box)`
   max-height: auto;
@@ -57,12 +63,15 @@ const StyledDiscussionButton = styled(Button)`
 function Discussions({
   login,
   projectId,
-  subjectId
+  subjectId,
+  userId
 }) {
   const [sort, setSort] = useState('-last_comment_created_at')
+  const [startDiscussionModalActive, setStartDiscussionModalActive] = useState(false)
+  
   const { t } = useTranslation('screens')
 
-  const query = {
+  const discussionsQuery = {
     section: `project-${projectId}`,
     focus_id: subjectId,
     focus_type: 'Subject',
@@ -73,7 +82,18 @@ function Discussions({
     data: discussions,
     isLoading,
     error
-  } = useDiscussions(query)
+  } = useDiscussions(discussionsQuery)
+
+  const boardsQuery = {
+    page_size: 50,
+    section: `project-${projectId}`,
+  }
+
+  const {
+    data: boards,
+    isLoading: boardsLoading,
+    error: boardsError
+  } = useBoards(startDiscussionModalActive ?boardsQuery : null)
 
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {
@@ -96,135 +116,221 @@ function Discussions({
     ))
   }
 
+  function handleStartDiscussionActive() {
+    setStartDiscussionModalActive(!startDiscussionModalActive)
+  }
+
+  function handleCreateComment(commentData) {
+    console.log('create comment', commentData)
+  }
+
+  function handleCreateDiscussion(discussionData) {
+    console.log('create discussion', discussionData)
+  }
+
+  async function handleSubmit(formData) {
+    // edit formData for Talk API create discussion submission
+    const data = {
+      board_id: formData.discussion_board,
+      comments: [{
+        body: formData.discussion_comment,
+        focus_id: subjectId,
+        focus_type: 'Subject',
+        user_id: userId
+      }],
+      subject_default: formData.subject_default,
+      title: formData.discussion_title,
+      user_id: userId
+    }
+
+    // if the data is NOT for the subject default board, create a new discussion
+    if (!data.subject_default) {
+      handleCreateDiscussion(data)
+    } else {
+      // if the data is for the subject default board, 
+      // and there is an existing subject default discussion in the current list, 
+      // add a comment to that discussion
+      const subjectDefaultDiscussion = discussions?.find(discussion => discussion.subject_default)
+      if (subjectDefaultDiscussion) {
+        const commentData = {
+          body: formData.discussion_comment,
+          discussion_id: subjectDefaultDiscussion.id,
+          user_id: userId
+        }
+        handleCreateComment(commentData)
+      } else {
+        // if there is no existing subject default discussion in the current list, 
+        // request the subject default discussion from the Talk API
+        const [requestedSubjectDefaultDiscussion] = await fetchDiscussions({ query: {
+            section: `project-${projectId}`,
+            focus_id: subjectId,
+            focus_type: 'Subject',
+            subject_default: true
+          }
+        })
+        // if the subject default discussion is returned, 
+        // add a comment to that discussion
+        if (requestedSubjectDefaultDiscussion) {
+          const commentData = {
+            body: formData.discussion_comment,
+            discussion_id: requestedSubjectDefaultDiscussion.id,
+            user_id: userId
+          }
+          handleCreateComment(commentData)
+        } else {
+          // if the subject default discussion is not found, 
+          // create a new subject default discussion
+          handleCreateDiscussion(data)
+        }
+      }
+    }
+    // TODO: if successful, then reroute to newly created comment
+  }
+
   return (
-    <StyledDiscussions
-      gap='xsmall'
-      pad='small'
-    >
-      <Box
-        align='center'
-        direction='row-responsive'
-        justify='between'
-        height={{ min: 'auto' }}
+    <>
+      {startDiscussionModalActive && (
+        <StartDiscussionModal
+          active={startDiscussionModalActive}
+          boards={boards}
+          onSubmit={handleSubmit}
+          onClose={handleStartDiscussionActive}
+          showCommentMessage={!!totalCommentsCount}
+          subjectId={subjectId}
+        />
+      )}
+      <StyledDiscussions
+        gap='xsmall'
+        pad='small'
       >
         <Box
           align='center'
-          direction='row'
-          gap='small'
+          direction='row-responsive'
+          justify='between'
+          height={{ min: 'auto' }}
         >
-          <SectionHeading
-            icon={
-              <Chat
-                color={{ dark: 'light-1', light: 'dark-4' }}
-                size='1rem'
-              />
-            }
-            title={discussionsTitle}
-          />
-          {discussions?.length > 0 && (
-            <ParticipantsAndComments
-              commentsCount={totalCommentsCount}
-              usersCount={totalUsersCount}
-            />
-          )}
-        </Box>
-        {discussions?.length > 1 && (
           <Box
             align='center'
-            alignSelf='end'
             direction='row'
-            gap='xsmall'
+            gap='small'
           >
-            <Text size='1rem'>{t('Talk.Discussions.sortBy')}</Text>
-            <StyledButton
-              onClick={handleSortChange}
-              label={(
-                <Box
-                  align='center'
-                  direction='row'
-                  gap='xxsmall'
-                >
-                  <SpacedText weight={700}>
-                    {sortButtonLabel}
-                  </SpacedText>
-                  {sort === 'last_comment_created_at' ? (
-                    <Up
-                      color='neutral-1'
-                      size='14px'
-                    />
-                  ) : (
-                    <Down
-                      color='neutral-1'
-                      size='14px'
-                    />
-                  )}
-                </Box>
-              )}
-              pad={{ horizontal: 'small', vertical: 'xsmall' }}
+            <SectionHeading
+              icon={
+                <Chat
+                  color={{ dark: 'light-1', light: 'dark-4' }}
+                  size='1rem'
+                />
+              }
+              title={discussionsTitle}
             />
-          </Box>
-        )}
-      </Box>
-      {discussions?.length > 0 && (
-        <StyledOrderedList
-          forwardedAs='ol'
-          border='between'
-          gap='60px'
-          margin='none'
-          overflow={{ vertical: 'auto' }}
-          pad='none'
-        >
-          {discussions?.map((discussion) => (
-            <li key={discussion.id}>
-              <Discussion
-                discussion={discussion}
-                login={login}
+            {discussions?.length > 0 && (
+              <ParticipantsAndComments
+                commentsCount={totalCommentsCount}
+                usersCount={totalUsersCount}
               />
-            </li>
-          ))}
-        </StyledOrderedList>
-      )}
-      <StyledBox
-        align='center'
-        direction='row'
-      >
-        <StyledDiscussionButton
-          label={(
+            )}
+          </Box>
+          {discussions?.length > 1 && (
             <Box
               align='center'
+              alignSelf='end'
               direction='row'
               gap='xsmall'
-              justify='center'
             >
-              <Chat
-                color={{ dark: 'accent-1', light: 'neutral-1' }}
-                size='18px'
-              />
-              <SpacedText
-                color={{ dark: 'accent-1', light: 'neutral-1' }}
-                size='1.125rem'
-                weight={600}
-              >
-                {t('Talk.Discussions.startDiscussion')}
-              </SpacedText>
-              <Add
-                color={{ dark: 'accent-1', light: 'neutral-1' }}
-                size='18px'
+              <Text size='1rem'>{t('Talk.Discussions.sortBy')}</Text>
+              <StyledButton
+                onClick={handleSortChange}
+                label={(
+                  <Box
+                    align='center'
+                    direction='row'
+                    gap='xxsmall'
+                  >
+                    <SpacedText weight={700}>
+                      {sortButtonLabel}
+                    </SpacedText>
+                    {sort === 'last_comment_created_at' ? (
+                      <Up
+                        color='neutral-1'
+                        size='14px'
+                      />
+                    ) : (
+                      <Down
+                        color='neutral-1'
+                        size='14px'
+                      />
+                    )}
+                  </Box>
+                )}
+                pad={{ horizontal: 'small', vertical: 'xsmall' }}
               />
             </Box>
           )}
-          margin={{ horizontal: 'xsmall' }}
-          plain
-        />
-      </StyledBox>
-    </StyledDiscussions>
+        </Box>
+        {discussions?.length > 0 && (
+          <StyledOrderedList
+            forwardedAs='ol'
+            border='between'
+            gap='60px'
+            margin='none'
+            overflow={{ vertical: 'auto' }}
+            pad='none'
+          >
+            {discussions?.map((discussion) => (
+              <li key={discussion.id}>
+                <Discussion
+                  discussion={discussion}
+                  login={login}
+                />
+              </li>
+            ))}
+          </StyledOrderedList>
+        )}
+        <StyledBox
+          align='center'
+          direction='row'
+        >
+          <StyledDiscussionButton
+            disabled={!login}
+            label={(
+              <Box
+                align='center'
+                direction='row'
+                gap='xsmall'
+                justify='center'
+              >
+                <Chat
+                  color={{ dark: 'accent-1', light: 'neutral-1' }}
+                  size='18px'
+                />
+                <SpacedText
+                  color={{ dark: 'accent-1', light: 'neutral-1' }}
+                  size='1.125rem'
+                  weight={600}
+                >
+                  {t('Talk.Discussions.startDiscussion')}
+                </SpacedText>
+                <Add
+                  color={{ dark: 'accent-1', light: 'neutral-1' }}
+                  size='18px'
+                />
+              </Box>
+            )}
+            margin={{ horizontal: 'xsmall' }}
+            onClick={handleStartDiscussionActive}
+            plain
+          />
+        </StyledBox>
+      </StyledDiscussions>
+    </>
   )
 }
 
 Discussions.propTypes = {
   login: string,
   projectId: string.isRequired,
-  subjectId: string.isRequired
+  subjectId: string.isRequired,
+  userId: string
 }
 
 export default Discussions
