@@ -57,3 +57,27 @@ export const WithCommentMessage = {
     subjectId: '12345'
   }
 }
+
+export const Loading = {
+  args: {
+    active: true,
+    boards,
+    loading: true,
+    onClose: () => console.log('closing modal'),
+    onSubmit: (data) => { console.log('submitted data', data)},
+    subjectId: '12345'
+  }
+}
+
+export const Error = {
+  args: {
+    active: true,
+    boards,
+    error: {
+      message: 'Detailed error message.'
+    },
+    onClose: () => console.log('closing modal'),
+    onSubmit: (data) => { console.log('submitted data', data)},
+    subjectId: '12345'
+  }
+}

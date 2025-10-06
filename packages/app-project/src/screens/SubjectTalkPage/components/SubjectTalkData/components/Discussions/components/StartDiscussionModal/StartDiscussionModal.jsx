@@ -1,6 +1,7 @@
-import { Modal, SpacedText } from '@zooniverse/react-components'
+import { Loader, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, RadioButtonGroup, TextArea, TextInput } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
 const DEFAULT_HANDLER = () => true
@@ -14,12 +15,16 @@ const DEFAULT_VALUE = {
 function StartDiscussionModal({
   active = false,
   boards = undefined,
+  error = null,
+  loading = false,
   onClose,
   onSubmit = DEFAULT_HANDLER,
   showCommentMessage = false,
   subjectId = ''
 }) {
   const [value, setValue] = useState(DEFAULT_VALUE)
+
+  const { t } = useTranslation('screens')
 
   useEffect(() => {
     const subjectDefaultBoard = boards?.find(board => board.subject_default)
@@ -79,7 +84,17 @@ function StartDiscussionModal({
       <Box
         gap='small'
         width='600px'
-      >
+      >{error ? (
+          <Box align='center' justify='center' fill pad='medium'>
+            <SpacedText uppercase={false}>
+              {t('Talk.Tags.somethingWentWrong')}
+            </SpacedText>
+          </Box>
+      ) : loading ? (
+        <Box align='center' justify='center' fill pad='medium'>
+          <Loader />
+        </Box>
+      ) : (
         <Form
           onChange={handleChange}
           onSubmit={handleSubmit}
@@ -140,6 +155,7 @@ function StartDiscussionModal({
             />
           </Box>
         </Form>
+      )}
       </Box>
     </Modal>
   )

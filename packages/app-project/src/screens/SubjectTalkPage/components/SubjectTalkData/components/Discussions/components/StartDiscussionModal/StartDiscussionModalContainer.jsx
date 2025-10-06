@@ -1,7 +1,12 @@
-import { useTranslation } from 'next-i18next'
 import { string } from 'prop-types'
+import { useState } from 'react'
 
-import { fetchDiscussions } from '@helpers'
+import {
+  addQueryParams,
+  createComment,
+  createDiscussion,
+  fetchDiscussions
+} from '@helpers'
 
 import { useBoards } from '@hooks'
 
@@ -16,7 +21,8 @@ function StartDiscussionModalContainer({
   subjectId,
   userId
 }) {
-  const { t } = useTranslation('screens')
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const boardsQuery = {
     page_size: 50,
@@ -27,14 +33,40 @@ function StartDiscussionModalContainer({
     data: boards,
     isLoading: boardsLoading,
     error: boardsError
-  } = useBoards(active ?boardsQuery : null)
+  } = useBoards(active ? boardsQuery : null)
 
-  function handleCreateComment(commentData) {
-    console.log('create comment', commentData)
+  function handleRouting(url) {
+    window.location.href = url
   }
 
-  function handleCreateDiscussion(discussionData) {
-    console.log('create discussion', discussionData)
+  async function handleCreateComment(commentData) {
+    setLoading(true)
+    setError(null)
+    try {
+      const newComment = await createComment(commentData)
+      setLoading(false)
+      const url = `/projects/${newComment.project_slug}/talk/${newComment.board_id}/${newComment.discussion_id}?comment=${newComment.id}`
+      handleRouting(url)
+    } catch (error) {
+      console.error(error)
+      setError(error)
+      setLoading(false)
+    }
+  }
+
+  async function handleCreateDiscussion(discussionData) {
+    setLoading(true)
+    setError(null)
+    try {
+      const newDiscussion = await createDiscussion(discussionData)
+      setLoading(false)
+      const url = addQueryParams(`/projects/${newDiscussion.project_slug}/talk/${newDiscussion.board_id}/${newDiscussion.id}`)
+      handleRouting(url)
+    } catch (error) {
+      console.error(error)
+      setError(error)
+      setLoading(false)
+    }
   }
 
   async function handleSubmit(formData) {
@@ -93,7 +125,6 @@ function StartDiscussionModalContainer({
         }
       }
     }
-    // TODO: if successful, then reroute to newly created comment
   }
 
   return (
@@ -102,6 +133,8 @@ function StartDiscussionModalContainer({
         <StartDiscussionModal
           active={active}
           boards={boards}
+          error={error || boardsError}
+          loading={loading || boardsLoading}
           onSubmit={handleSubmit}
           onClose={onClose}
           showCommentMessage={showCommentMessage}
