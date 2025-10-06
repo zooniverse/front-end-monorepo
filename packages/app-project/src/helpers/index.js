@@ -15,4 +15,10 @@ export { default as localeMenu } from './localeMenu.js'
 export { default as notFoundError } from './notFoundError'
 export { default as theme } from './theme'
 export { default as withEnvironments } from './withEnvironments'
-export { addTagVote, createVotableTag, removeTagVote } from './tags'
+export {
+  addTagVote,
+  createComment,
+  createDiscussion,
+  createVotableTag,
+  removeTagVote
+} from './talk/index.js'
