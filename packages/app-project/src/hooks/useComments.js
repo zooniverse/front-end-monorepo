@@ -1,6 +1,8 @@
 import { talkAPI } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
+import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
+
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
@@ -9,8 +11,11 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-async function fetchComments(query) {
-  return talkAPI.get('/comments', query)
+async function fetchComments({query, token }) {
+  const authorization = token ? `Bearer ${token}` : undefined
+
+
+  return talkAPI.get('/comments', query, { authorization })
     .then(response => response?.body?.comments)
     .catch(error => {
       console.error(error)
@@ -19,9 +24,11 @@ async function fetchComments(query) {
 }
 
 export default function useComments(query) {
+  const token = usePanoptesAuthToken()
+
   let key = null
   if (query && query.discussion_id) {
-    key = query
+    key = { query, token }
   }
 
   return useSWR(key, fetchComments, SWROptions)
