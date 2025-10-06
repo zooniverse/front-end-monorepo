@@ -1,1 +1,1 @@
-export { default } from './StartDiscussionModal'
+export { default } from './StartDiscussionModalContainer'

@@ -6,12 +6,7 @@ import { string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { fetchDiscussions } from '@helpers'
-
-import {
-  useBoards,
-  useDiscussions
-} from '@hooks'
+import { useDiscussions } from '@hooks'
 
 import Discussion from '../Discussion'
 import ParticipantsAndComments from '../ParticipantsAndComments'
@@ -66,8 +61,8 @@ function Discussions({
   subjectId,
   userId
 }) {
-  const [sort, setSort] = useState('-last_comment_created_at')
   const [startDiscussionModalActive, setStartDiscussionModalActive] = useState(false)
+  const [sort, setSort] = useState('-last_comment_created_at')
   
   const { t } = useTranslation('screens')
 
@@ -84,17 +79,6 @@ function Discussions({
     error
   } = useDiscussions(discussionsQuery)
 
-  const boardsQuery = {
-    page_size: 50,
-    section: `project-${projectId}`,
-  }
-
-  const {
-    data: boards,
-    isLoading: boardsLoading,
-    error: boardsError
-  } = useBoards(startDiscussionModalActive ?boardsQuery : null)
-
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {
     discussionsTitle = t('Talk.Discussions.noDiscussions')
@@ -108,6 +92,10 @@ function Discussions({
   const totalUsersCount = discussions?.reduce((total, discussion) => total + discussion.users_count, 0) || 0
   const sortButtonLabel = sort === 'last_comment_created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 
+  function handleStartDiscussionActive() {
+    setStartDiscussionModalActive(!startDiscussionModalActive)
+  }
+
   function handleSortChange() {
     setSort(prevSort => (
       prevSort === 'last_comment_created_at' ?
@@ -116,89 +104,17 @@ function Discussions({
     ))
   }
 
-  function handleStartDiscussionActive() {
-    setStartDiscussionModalActive(!startDiscussionModalActive)
-  }
-
-  function handleCreateComment(commentData) {
-    console.log('create comment', commentData)
-  }
-
-  function handleCreateDiscussion(discussionData) {
-    console.log('create discussion', discussionData)
-  }
-
-  async function handleSubmit(formData) {
-    // edit formData for Talk API create discussion submission
-    const data = {
-      board_id: formData.discussion_board,
-      comments: [{
-        body: formData.discussion_comment,
-        focus_id: subjectId,
-        focus_type: 'Subject',
-        user_id: userId
-      }],
-      subject_default: formData.subject_default,
-      title: formData.discussion_title,
-      user_id: userId
-    }
-
-    // if the data is NOT for the subject default board, create a new discussion
-    if (!data.subject_default) {
-      handleCreateDiscussion(data)
-    } else {
-      // if the data is for the subject default board, 
-      // and there is an existing subject default discussion in the current list, 
-      // add a comment to that discussion
-      const subjectDefaultDiscussion = discussions?.find(discussion => discussion.subject_default)
-      if (subjectDefaultDiscussion) {
-        const commentData = {
-          body: formData.discussion_comment,
-          discussion_id: subjectDefaultDiscussion.id,
-          user_id: userId
-        }
-        handleCreateComment(commentData)
-      } else {
-        // if there is no existing subject default discussion in the current list, 
-        // request the subject default discussion from the Talk API
-        const [requestedSubjectDefaultDiscussion] = await fetchDiscussions({ query: {
-            section: `project-${projectId}`,
-            focus_id: subjectId,
-            focus_type: 'Subject',
-            subject_default: true
-          }
-        })
-        // if the subject default discussion is returned, 
-        // add a comment to that discussion
-        if (requestedSubjectDefaultDiscussion) {
-          const commentData = {
-            body: formData.discussion_comment,
-            discussion_id: requestedSubjectDefaultDiscussion.id,
-            user_id: userId
-          }
-          handleCreateComment(commentData)
-        } else {
-          // if the subject default discussion is not found, 
-          // create a new subject default discussion
-          handleCreateDiscussion(data)
-        }
-      }
-    }
-    // TODO: if successful, then reroute to newly created comment
-  }
-
   return (
     <>
-      {startDiscussionModalActive && (
-        <StartDiscussionModal
-          active={startDiscussionModalActive}
-          boards={boards}
-          onSubmit={handleSubmit}
-          onClose={handleStartDiscussionActive}
-          showCommentMessage={!!totalCommentsCount}
-          subjectId={subjectId}
-        />
-      )}
+      <StartDiscussionModal
+        active={startDiscussionModalActive}
+        discussions={discussions}
+        onClose={handleStartDiscussionActive}
+        projectId={projectId}
+        showCommentMessage={!!totalCommentsCount}
+        subjectId={subjectId}
+        userId={userId}
+      />
       <StyledDiscussions
         gap='xsmall'
         pad='small'

@@ -42,7 +42,8 @@ export const Default = {
     active: true,
     boards,
     onClose: () => console.log('closing modal'),
-    onSubmit: (data) => { console.log('submitted data', data)}
+    onSubmit: (data) => { console.log('submitted data', data)},
+    subjectId: '12345'
   }
 }
 
@@ -52,6 +53,7 @@ export const WithCommentMessage = {
     boards,
     onClose: () => console.log('closing modal'),
     onSubmit: (data) => { console.log('submitted data', data)},
-    showCommentMessage: true
+    showCommentMessage: true,
+    subjectId: '12345'
   }
 }

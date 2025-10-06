@@ -145,4 +145,6 @@ function StartDiscussionModal({
   )
 }
 
+// StartDiscussionModal.propTypes = {}
+
 export default StartDiscussionModal
