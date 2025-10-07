@@ -143,6 +143,7 @@ function StartDiscussionModal({
                   required
                 >
                   <StyledRadioButtonGroup
+                    id='discussion_board'
                     direction='row'
                     name='discussion_board'
                     options={boardOptions}
@@ -183,7 +184,11 @@ function StartDiscussionModal({
                   name='discussion_title'
                   required
                 >
-                  <TextInput disabled={selectedBoard?.subject_default} name='discussion_title' />
+                  <TextInput
+                    id='discussion_title'
+                    disabled={selectedBoard?.subject_default}
+                    name='discussion_title'
+                  />
                 </FormField>
               </ThemeContext.Extend>
               <ThemeContext.Extend value={{
@@ -204,7 +209,11 @@ function StartDiscussionModal({
                   name='discussion_comment'
                   required
                 >
-                  <StyledTextArea name='discussion_comment' plain />
+                  <StyledTextArea
+                    id='discussion_comment'
+                    name='discussion_comment'
+                    plain
+                  />
                 </FormField>
               </ThemeContext.Extend>
               <Box
