@@ -11,26 +11,53 @@ The Subject Group Comparison Task was originally created by @shaunanoordin on Ma
 
 ## Data Models
 
-Subject Group Comparison Task data structure, example:
+### Task Model
+
+Subject Group Comparison Task data structure, example 1 (no subtasks):
 
 ```
-"T0":{
+"T0": {
+  details: [],
   help: "",
   question: "Please select the cells that look weird.",
   type: "subjectGroupComparison",
 }
 ```
 
-That's all! The Task Area only has a question, and nothing else.
+Example 2 (with one subtask):
+
+```
+"T0": {
+  details: [
+    {
+      help: "",
+      type: "text",
+      required: false,
+      instruction: "What's weird about this cell?"
+    }
+  ],
+  help: "",
+  question: "Please select the cells that look weird.",
+  type: "subjectGroupComparison",
+}
+```
+
+- The Task Area only has a question, and nothing else.
+- The `.details` attribute specifies Subtasks.
+  - Subtasks are optional. In fact, early versions of the SubjectGroupComparisonTask omitted the `.details` attribute altogether.
+  - SubTasks work similarly to Drawing Tools' Subtasks.
+- ⚠️ As of Oct 2025, the PFE Project Builder doesn't add a `.next` attribute to Subject Group Comparison Tasks. We haven't actually tested a Subject Group-type workflow that has more than one Subject Group Comparison Task, and we're not sure having more than one task of this type makes any sense. 🤔
 
 Most of the classification interactivity resides in the Subject Group Viewer. As such, most of the setup work is done by the `workflow.configuration` set for the Subject Group Viewer.
 
-Subject Group Comparison Task annotation (classification) data structure, example:
+### Annotation Model(s)
+
+Subject Group Comparison Task annotation (classification) data structure, example 1 **(no subtasks)**:
 
 ```
-{
-  "task": "T0",
-  "value": [
+classification.annotations[0] = {
+  task: "T0",
+  value: [
     {index: 6, subject: "134853"},
     {index: 12, subject: "134637"},
     {index: 18, subject: "134828"},
@@ -44,7 +71,31 @@ NOTE: if no cell was selected (as is the case when initially rendered), the anno
 
 ```
 {
-  "task":"T0",
-  "value": [],  // No value selected
+  task: "T0",
+  value: [],  // No value selected
 }
 ```
+
+Subject Group Comparison Task annotation (classification) data structure, example 2 **(with subtasks)**:
+
+```
+classification.annotations = [
+  {
+    task: "T0",
+    value: [
+      {index: 6, subject: "134853", details: [{ task: "T0.cell.6.subtask.0"}]},
+      {index: 12, subject: "134637", details: [{ task: "T0.cell.12.subtask.0"}]}},
+      {index: 18, subject: "134828", details: [{ task: "T0.cell.18.subtask.0"}]}},
+    ]
+  },
+  {
+    task: "T0.cell.6.subtask.0",
+    taskType: "text",
+    value: "This galaxy kinda looks like a penguin",
+    cellIndex: 0
+  },
+  ...
+]
+```
+
+`subTaskAnnotation.cellIndex` corresponds to the index of the selected cell, in `mainTaskAnnotation.value[]`.

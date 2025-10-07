@@ -1,6 +1,6 @@
 import { Box, Paragraph } from 'grommet'
 import { array, func, number, shape } from 'prop-types'
-import { useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
@@ -28,6 +28,16 @@ function SubjectGroupSubTaskPopup({
   const [dimensions, measuredContentRef] = useClientRect()
   const [position, setPosition] = useState(null)
   const [confirmationState, setConfirm] = useState('pending')
+  const [viewportSize, setViewportSize] = useState({ width: window.innerWidth, height: window.innerHeight })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight })
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const subtaskDefinitions = currentTask?.subtasks || []
   const currentCell = annotation?.getCellByIndex(cellIndex)
@@ -142,19 +152,28 @@ function SubjectGroupSubTaskPopup({
   const minWidth = dimensions?.width || MIN_POPUP_WIDTH
   const disabled = confirmationState === 'confirming'
 
-  const defaultPosition = {
-    x: cellBounds.x + cellBounds.width + 10,
-    y: cellBounds.y
-  }
+  // Calculate and clamp position
+  useEffect(() => {
+    const padding = 10
+    const x = cellBounds.x + cellBounds.width + padding
+    const y = cellBounds.y
+    const maxX = viewportSize.width - minWidth - padding
+    const maxY = viewportSize.height - minHeight - padding
 
-  const onDragStop = useCallback(function (_, data) {
+    setPosition({
+      x: Math.max(padding, Math.min(x, maxX)),
+      y: Math.max(padding, Math.min(y, maxY))
+    })
+  }, [cellBounds, minWidth, minHeight, viewportSize])
+
+  function onDragStop(_, data) {
     const { x, y } = data
     setPosition({ x, y })
-  })
+  }
 
-  const onResize = useCallback(function (_, __, ___, ____, position) {
-    setPosition(position)
-  })
+  function onResize(_, __, ___, ____, newPosition) {
+    setPosition(newPosition)
+  }
 
   const rndProps = {
     cancel: '.element-that-ignores-drag-actions',
@@ -162,7 +181,7 @@ function SubjectGroupSubTaskPopup({
     minWidth,
     onDragStop,
     onResize,
-    position: position || defaultPosition
+    position
   }
 
   return (
@@ -238,7 +257,7 @@ function SubjectGroupSubTaskPopup({
           />
 
           <PrimaryButton
-            label="Cancel Selection"
+            label="Unselect"
             onClick={handleCancelSelection}
             disabled={disabled}
             color="teal"
