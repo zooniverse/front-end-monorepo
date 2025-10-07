@@ -1,21 +1,24 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { bool, func, number, object, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
+import SubjectGroupSubTaskPopup from '../SubjectGroupSubTaskPopup'
 
 const DEFAULT_HANDLER = () => false
 const FOCUS_OFFSET = 2
 
-export const DraggableImage = styled(draggable('image'))`
-    cursor: grab;
-  }
-`
+export const DraggableImage = draggable(styled('image').withConfig({
+  shouldForwardProp: (prop) => prop !== 'dragging'
+})`
+  cursor: grab;
+`)
 
-const DraggableRect = styled(draggable('rect'))`
-    cursor: grab;
-  }
-`
+const DraggableRect = draggable(styled('rect').withConfig({
+  shouldForwardProp: (prop) => prop !== 'dragging'
+})`
+  cursor: grab;
+`)
 
 const ClickableRect = styled('rect').withConfig({
   shouldForwardProp: (prop) => prop !== 'cellStyle'
@@ -48,9 +51,11 @@ function SGVGridCell (props) {
     annotation = undefined,
     annotationMode = true,
     cellAnnotated = false,
+    currentTask,
   } = props
 
   const [checked, setChecked] = useState(cellAnnotated)
+  const [showSubTaskPopup, setShowSubTaskPopup] = useState(false)
 
   const row = Math.floor(index / gridColumns)
   const col = index % gridColumns
@@ -83,26 +88,44 @@ function SGVGridCell (props) {
 
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
 
-  function toggleCellAnnotation () {
-    if (!annotationMode || !annotation?.value) return
+  function toggleCellAnnotation() {
+    if (!annotationMode || !annotation || !currentTask) return
 
-    const toggledValue = !checked
-    setChecked(toggledValue)
+    const hasSubtasks = currentTask?.hasSubtasks?.()
+    const existingCell = annotation.getCellByIndex(index)
 
-    const annotationValue = annotation?.value?.slice() || []
-    const isThisCellSelected = annotationValue.find(item => item.index === index)
+    if (existingCell) {
+      if (hasSubtasks) {
+        setShowSubTaskPopup(true)
+      } else {
+        annotation.removeCell(index)
+        setChecked(false)
+        setShowSubTaskPopup(false)
+      }
+    } else {
+      setChecked(true)
+      annotation.addCell(index, subjectId)
 
-    if (isThisCellSelected && !toggledValue) {  // Remove cell index from annotation values
-      const indexInValue = annotationValue.indexOf(isThisCellSelected)
-      annotationValue.splice(indexInValue, 1)
-    } else if (!isThisCellSelected && toggledValue) {  // Add cell index to annotation values
-      annotationValue.push({
-        index,
-        subject: subjectId,
-      })
+      // Show subtask popup when selecting cell if subtasks exist
+      if (hasSubtasks) {
+        setShowSubTaskPopup(true)
+      }
     }
+  }
 
-    if (annotation?.update) annotation.update(annotationValue)
+  function handleSubTaskSave() {
+    // Subtask annotations are already saved to the classification store
+    setShowSubTaskPopup(false)
+  }
+
+  function handleSubTaskClose() {
+    setShowSubTaskPopup(false)
+  }
+
+  function handleCancelSelection() {
+    annotation.removeCell(index)
+    setChecked(false)
+    setShowSubTaskPopup(false)
   }
 
   // Use an offset to ensure the zoom/scale transform occurs at the centre of
@@ -115,91 +138,113 @@ function SGVGridCell (props) {
 
   const imageTransform = `${addOriginOffset} scale(${zoom}) ${removeOriginOffset} translate(${panX}, ${panY})`
 
+  const cellBounds = {
+    x: cellXOffset,
+    y: cellYOffset,
+    width: cellWidth,
+    height: cellHeight
+  }
+
   return (
-    <g
-      transform={`translate(${cellXOffset}, ${cellYOffset})`}
-    >
-      <clipPath id={clipPathID}>
-        <rect width={cellWidth} height={cellHeight} />
-      </clipPath>
-      <DraggableRect
-        fill={cellStyle.background}
-        width={cellWidth}
-        height={cellHeight}
-        dragMove={dragMove}
-      />
-      <g clipPath={`url(#${clipPathID})`}>
-        <DraggableImage
-          dragMove={dragMove}
-          height={imageHeight}
-          width={imageWidth}
-          href={image.src}
-          x={imageX}
-          y={imageY}
-          transform={imageTransform}
-        />
+    <>
+      <g transform={`translate(${cellXOffset}, ${cellYOffset})`}>
+        <clipPath id={clipPathID}>
+          <rect width={cellWidth} height={cellHeight} />
+        </clipPath>
         <DraggableRect
-          fill={(checked) ? cellStyle.overlay : 'none'}
-          stroke={(checked) ? cellStyle.selectedStroke : cellStyle.stroke}
-          strokeWidth={(checked)
-            ? cellStyle.selectedStrokeWidth
-            : cellStyle.strokeWidth
-          }
+          fill={cellStyle.background}
           width={cellWidth}
           height={cellHeight}
+          dragMove={dragMove}
         />
-        {annotationMode && (
-          <ClickableRect
-            tabIndex={0}
-            role='checkbox'
-            aria-checked={checked}
-            aria-label={`Cell at row ${row} column ${col}`}
-            fill="transparent"
-            cellStyle={cellStyle}
-            x={FOCUS_OFFSET}
-            y={FOCUS_OFFSET}
-            width={cellWidth - FOCUS_OFFSET * 2}
-            height={cellHeight - FOCUS_OFFSET * 2}
-            onClick={(e) => {
-              toggleCellAnnotation()
-              e.preventDefault()
-            }}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
+        <g clipPath={`url(#${clipPathID})`}>
+          <DraggableImage
+            dragMove={dragMove}
+            height={imageHeight}
+            width={imageWidth}
+            href={image.src}
+            x={imageX}
+            y={imageY}
+            transform={imageTransform}
+          />
+          <DraggableRect
+            fill={(checked) ? cellStyle.overlay : 'none'}
+            stroke={(checked) ? cellStyle.selectedStroke : cellStyle.stroke}
+            strokeWidth={(checked)
+              ? cellStyle.selectedStrokeWidth
+              : cellStyle.strokeWidth
+            }
+            width={cellWidth}
+            height={cellHeight}
+          />
+          {annotationMode && (
+            <ClickableRect
+              tabIndex={0}
+              role='checkbox'
+              aria-checked={checked}
+              aria-label={`Cell at row ${row} column ${col}`}
+              fill="transparent"
+              cellStyle={cellStyle}
+              x={FOCUS_OFFSET}
+              y={FOCUS_OFFSET}
+              width={cellWidth - FOCUS_OFFSET * 2}
+              height={cellHeight - FOCUS_OFFSET * 2}
+              onClick={(e) => {
                 toggleCellAnnotation()
                 e.preventDefault()
-              }
-            }}
-          />
-        )}
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  toggleCellAnnotation()
+                  e.preventDefault()
+                }
+              }}
+            />
+          )}
+        </g>
       </g>
-    </g>
+      {showSubTaskPopup && checked && (
+        <SubjectGroupSubTaskPopup
+          cellIndex={index}
+          cellBounds={cellBounds}
+          annotation={annotation}
+          currentTask={currentTask}
+          onClose={handleSubTaskClose}
+          onSave={handleSubTaskSave}
+          onCancelSelection={handleCancelSelection}
+        />
+      )}
+    </>
   )
 }
 
 SGVGridCell.propTypes = {
-  image: PropTypes.object,
-  index: PropTypes.number,
-  subjectId: PropTypes.string,
+  image: object,
+  index: number,
+  subjectId: string,
 
-  dragMove: PropTypes.func,
+  dragMove: func,
 
-  cellWidth: PropTypes.number,
-  cellHeight: PropTypes.number,
-  cellStyle: PropTypes.object,
-  gridRows: PropTypes.number,
-  gridColumns: PropTypes.number,
+  cellWidth: number,
+  cellHeight: number,
+  cellStyle: object,
+  gridRows: number,
+  gridColumns: number,
 
-  panX: PropTypes.number,
-  panY: PropTypes.number,
-  zoom: PropTypes.number,
+  panX: number,
+  panY: number,
+  zoom: number,
 
-  annotation: PropTypes.shape({
-    update: PropTypes.func,
-    value: PropTypes.array
+  annotation: shape({
+    getCellByIndex: func,
+    addCell: func,
+    removeCell: func
   }),
-  annotationMode: PropTypes.bool,
-  cellAnnotated: PropTypes.bool,
+  annotationMode: bool,
+  cellAnnotated: bool,
+  currentTask: shape({
+    hasSubtasks: func
+  })
 }
 
 export default SGVGridCell
