@@ -8,15 +8,17 @@ import SubjectGroupSubTaskPopup from '../SubjectGroupSubTaskPopup'
 const DEFAULT_HANDLER = () => false
 const FOCUS_OFFSET = 2
 
-export const DraggableImage = styled(draggable('image'))`
-    cursor: grab;
-  }
-`
+export const DraggableImage = draggable(styled('image').withConfig({
+  shouldForwardProp: (prop) => prop !== 'dragging'
+})`
+  cursor: grab;
+`)
 
-const DraggableRect = styled(draggable('rect'))`
-    cursor: grab;
-  }
-`
+const DraggableRect = draggable(styled('rect').withConfig({
+  shouldForwardProp: (prop) => prop !== 'dragging'
+})`
+  cursor: grab;
+`)
 
 const ClickableRect = styled('rect').withConfig({
   shouldForwardProp: (prop) => prop !== 'cellStyle'
