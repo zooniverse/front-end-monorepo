@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useStores } from '@hooks'
 import SGVDoneAndTalkButton from './SGVDoneAndTalkButton'
-import SubjectGroupModal from '../../../../../../../SubjectGroupModal/SubjectGroupModal'
+import SubjectGroupModal from './components/SubjectGroupModal/SubjectGroupModal'
 
 function storeMapper(classifierStore) {
   const {

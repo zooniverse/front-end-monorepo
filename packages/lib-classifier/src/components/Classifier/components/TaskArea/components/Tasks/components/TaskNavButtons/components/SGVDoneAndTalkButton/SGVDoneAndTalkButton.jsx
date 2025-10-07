@@ -51,7 +51,6 @@ function SGVDoneAndTalkButton({
       label={<Label />}
       onClick={handleClick}
       disabled={disabled}
-      onContextMenu={e => e.preventDefault()}
     />
   )
 }
