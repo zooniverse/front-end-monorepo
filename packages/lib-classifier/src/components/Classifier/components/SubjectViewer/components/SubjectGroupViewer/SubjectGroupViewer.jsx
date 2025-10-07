@@ -9,7 +9,9 @@ const DEFAULT_IMAGES = []
 const DEFAULT_HANDLER = () => false
 const DEFAULT_SUBJECT_IDS = []
 
-const Container = styled.div`
+const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['gridMaxWidth', 'gridMaxHeight'].includes(prop)
+})`
   overflow: hidden;
   height: 100%;
   width: 100%;
@@ -42,7 +44,9 @@ Note on Subject Viewer sizing/fitting:
   Safari 12. If we ignore Safari, we only need max-width/height on the
   container div, not the <svg>
  */
-export const SVG = styled.svg`
+export const SVG = styled.svg.withConfig({
+  shouldForwardProp: (prop) => !['gridMaxWidth', 'gridMaxHeight'].includes(prop)
+})`
   width: 100%;
   height: 100%;
 
