@@ -66,7 +66,7 @@ function Discussions({
   
   const { t } = useTranslation('screens')
 
-  const discussionsQuery = {
+  const query = {
     section: `project-${projectId}`,
     focus_id: subjectId,
     focus_type: 'Subject',
@@ -77,7 +77,7 @@ function Discussions({
     data: discussions,
     isLoading,
     error
-  } = useDiscussions(discussionsQuery)
+  } = useDiscussions(query)
 
   let discussionsTitle = ''
   if (!discussions || discussions.length === 0) {

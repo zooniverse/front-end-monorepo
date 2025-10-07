@@ -2,6 +2,7 @@ import { Loader, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, RadioButtonGroup, TextArea, TextInput } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 const DEFAULT_HANDLER = () => true
@@ -20,7 +21,7 @@ function StartDiscussionModal({
   onClose,
   onSubmit = DEFAULT_HANDLER,
   showCommentMessage = false,
-  subjectId = ''
+  subjectId = undefined
 }) {
   const [value, setValue] = useState(DEFAULT_VALUE)
 
@@ -44,11 +45,11 @@ function StartDiscussionModal({
   })) || []
   const selectedBoard = boards?.find(board => board.id === value.discussion_board)
 
-  let commentInputLabel = 'Initial Comment'
-  let submitButtonLabel = 'Start a new discussion'
+  let commentInputLabel = t('Talk.Discussions.initialComment')
+  let submitButtonLabel = t('Talk.Discussions.startDiscussion')
   if (selectedBoard?.subject_default) {
-    commentInputLabel = 'New Comment'
-    submitButtonLabel = 'Add your comment'
+    commentInputLabel = t('Talk.Discussions.newComment')
+    submitButtonLabel = t('Talk.Discussions.addComment')
   }
 
   function handleChange(nextValue) {
@@ -78,7 +79,7 @@ function StartDiscussionModal({
       headingBackground='transparent'
       pad={{ horizontal: 'small', top: 'xsmall', bottom: 'medium' }}
       role='dialog'
-      title='Start a new discussion'
+      title={t('Talk.Discussions.startDiscussion')}
       titleColor='black'
     >
       <Box
@@ -102,7 +103,7 @@ function StartDiscussionModal({
         >
           <FormField
             htmlFor='discussion_board'
-            label={<SpacedText>Discussion Board</SpacedText>}
+            label={<SpacedText>{t('Talk.Discussions.discussionBoard')}</SpacedText>}
             name='discussion_board'
             required
           >
@@ -122,14 +123,14 @@ function StartDiscussionModal({
                 size='xsmall'
                 uppercase={false}
               >
-                {'To respond to a specific comment, click on that comment to go to the discussion.'}
+                {t('Talk.Discussions.commentMessage')}
               </SpacedText>
             </Box>
           )}
           <FormField
             disabled={selectedBoard?.subject_default}
             htmlFor='discussion_title'
-            label={<SpacedText>Discussion Title</SpacedText>}
+            label={<SpacedText>{t('Talk.Discussions.discussionTitle')}</SpacedText>}
             name='discussion_title'
             required
           >
@@ -161,6 +162,19 @@ function StartDiscussionModal({
   )
 }
 
-// StartDiscussionModal.propTypes = {}
+StartDiscussionModal.propTypes = {
+  active: bool,
+  boards: arrayOf(shape({
+    id: string,
+    subject_default: bool,
+    title: string
+  })),
+  error: shape({}),
+  loading: bool,
+  onClose: func.isRequired,
+  onSubmit: func,
+  showCommentMessage: bool,
+  subjectId: string
+}
 
 export default StartDiscussionModal

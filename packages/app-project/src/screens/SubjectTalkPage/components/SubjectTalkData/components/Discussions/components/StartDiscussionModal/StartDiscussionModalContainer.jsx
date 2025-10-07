@@ -1,4 +1,4 @@
-import { string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useState } from 'react'
 
 import {
@@ -16,10 +16,10 @@ function StartDiscussionModalContainer({
   active = false,
   discussions = [],
   onClose,
-  projectId,
+  projectId = '',
   showCommentMessage = false,
-  subjectId,
-  userId
+  subjectId = '',
+  userId = ''
 }) {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -145,6 +145,17 @@ function StartDiscussionModalContainer({
   )
 }
 
-// StartDiscussionModalContainer.propTypes = {}
+StartDiscussionModalContainer.propTypes = {
+  active: bool,
+  discussions: arrayOf(shape({
+    id: string,
+    subject_default: bool
+  })),
+  onClose: func.isRequired,
+  projectId: string,
+  showCommentMessage: bool,
+  subjectId: string,
+  userId: string
+}
 
 export default StartDiscussionModalContainer

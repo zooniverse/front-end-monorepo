@@ -82,9 +82,15 @@
       "userDisplayNamePossessive": "{{userDisplayName}}'s"
     },
     "Discussions": {
+      "addComment": "Add your comment",
+      "commentMessage": "To respond to a specific comment, click on that comment to go to the discussion.",
       "comments": "Comments",
       "commentsViewing": "Viewing {{count}} of {{total}} comments",
       "discussions": "{{count}} Discussions",
+      "discussionBoard": "Discussion Board",
+      "discussionTitle": "Discussion Title",
+      "initialComment": "Initial Comment",
+      "newComment": "New Comment",
       "noDiscussions": "No Discussions",
       "oneDiscussion": "1 Discussion",
       "participants": "Participants",
