@@ -9,6 +9,7 @@ import {
   types 
 } from 'mobx-state-tree'
 
+import * as tasks from '@plugins/tasks'
 import Step from './Step'
 
 const WorkflowStepStore = types
@@ -46,6 +47,10 @@ const WorkflowStepStore = types
       }
 
       return false
+    },
+
+    get hasUnsupportedTasks() {
+      return Array.from(self.steps.values()).some(step => step.hasUnsupportedTasks)
     },
 
     findTasksByType (type) {
@@ -173,14 +178,22 @@ const WorkflowStepStore = types
       })
     }
 
-    function setTasks (tasks) {
+    function setTasks (workflowTasks) {
       self.steps.forEach(function (step) {
         step.taskKeys.forEach((taskKey) => {
-          const taskToStore = { ...tasks[taskKey], taskKey }
+          const taskSnapshot = workflowTasks[taskKey]
+          const taskType = taskSnapshot.type
+          const plugin = taskType === 'dropdown-simple' ? tasks.dropdownSimple : tasks[taskType]
+
+          if (!plugin?.TaskComponent) {
+            console.error(`${taskKey} ${taskType} is not a supported task type`)
+            return
+          }
+
           try {
-            step.tasks.push(taskToStore)
+            step.tasks.push({ ...taskSnapshot, taskKey })
           } catch (error) {
-            console.error(`${taskKey} ${taskToStore.type} is not a supported task type`)
+            console.error(`${taskKey} ${taskType} failed to load`)
             console.error(error)
           }
         })
