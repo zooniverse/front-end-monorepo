@@ -4,6 +4,7 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
+import SearchBar from './components/SearchBar'
 import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
@@ -16,6 +17,7 @@ const StyledHeading = styled(Heading)`
 function SubjectTalkData({
   login,
   projectId,
+  projectSlug,
   subjectId,
   userId
 }) {
@@ -25,8 +27,7 @@ function SubjectTalkData({
     <Box
       gap='small'
     >
-      {/* <TalkSearch /> */}
-      <input type='text' placeholder={t('Talk.searchPlaceholder')} />
+      <SearchBar projectSlug={projectSlug} />
       <Box
         background={{
           dark: 'dark-3',
@@ -83,6 +84,7 @@ function SubjectTalkData({
 
 SubjectTalkData.propTypes = {
   login: string,
+  projectSlug: string,
   projectId: string.isRequired,
   subjectId: string.isRequired
 }
