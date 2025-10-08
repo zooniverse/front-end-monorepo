@@ -1,5 +1,6 @@
-import { Box, Button, Text, TextInput } from 'grommet'
-import { FormSearch } from 'grommet-icons'
+import { IconActionButton } from '@zooniverse/react-components'
+import { Box, Text, TextInput } from 'grommet'
+import { Search } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -11,12 +12,6 @@ const StyledTextInput = styled(TextInput)`
 
 const StyledPlaceholderText = styled(Text)`
   color: ${props => props.theme.global.colors['light-5']};
-`
-
-const StyledButton = styled(Button)`
-  align-content: center;
-  height: 100%;
-  padding: 0 12px;
 `
 
 function SearchBar({ projectSlug }) {
@@ -38,23 +33,25 @@ function SearchBar({ projectSlug }) {
         light: 'neutral-6'
       }}
       border={{ color: 'light-5', side: 'all', size: '0.5px' }}
-      direction='row'
+      direction='row-reverse'
       height={{ min: '40px' }}
-      round='8px'
+      round='32px'
       width='600px'
     >
       <StyledTextInput
+        a11yTitle={t('Talk.searchPlaceholder')}
         onChange={handleInputChange}
         placeholder={<StyledPlaceholderText>{t('Talk.searchPlaceholder')}</StyledPlaceholderText>}
         value={searchTerm}
       />
-      <StyledButton
+      <IconActionButton
         a11yTitle={t('Talk.searchPlaceholder')}
-        disabled={disabled}
         href={disabled ? undefined : `https://www.zooniverse.org/projects/${projectSlug}/talk/search?query=${encodeURIComponent(searchTerm)}`}
-        icon={<FormSearch color={{ dark: 'neutral-6', light: 'dark-3' }} />}
+        height='38px'
+        icon={<Search color={{ dark: 'neutral-6', light: 'dark-3' }} />}
         plain
         target={disabled ? undefined : '_blank'}
+        width='38px'
       />
     </Box>
   )
