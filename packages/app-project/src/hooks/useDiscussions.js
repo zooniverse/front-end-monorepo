@@ -1,7 +1,6 @@
-import { talkAPI } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
-import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
+import fetchDiscussions from '@helpers/fetchDiscussions'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -11,20 +10,12 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-async function fetchDiscussions({ query, token }) {
-  const authorization = token ? `Bearer ${token}` : ''
-
-  try {
-    const { body } = await talkAPI.get('/discussions', query, { authorization })
-    return body.discussions || []
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
-}
-
 export default function useDiscussions(query) {
-  const token = usePanoptesAuthToken()
-  const key = { query, token }
+  let key = null
+  
+  if (query && query.section) {
+    key = { query }
+  }
+  
   return useSWR(key, fetchDiscussions, SWROptions)
 }

@@ -62,6 +62,7 @@ function SubjectTalkData({
           login={login}
           projectId={projectId}
           subjectId={subjectId}
+          userId={userId}
         />
         {/* <Box
           pad='small'

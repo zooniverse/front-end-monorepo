@@ -6,30 +6,29 @@ import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  revalidateOnFocus: true,
+  revalidateOnFocus: false,
   revalidateOnReconnect: true,
   refreshInterval: 0
 }
 
-async function fetchComments({query, token }) {
-  const authorization = token ? `Bearer ${token}` : undefined
+async function fetchBoards({ query, token }) {
+  const authorization = token ? `Bearer ${token}` : ''
 
-
-  return talkAPI.get('/comments', query, { authorization })
-    .then(response => response?.body?.comments)
+  return talkAPI.get('/boards', query, { authorization })
+    .then(response => response?.body?.boards)
     .catch(error => {
       console.error(error)
       throw error
     })
 }
 
-export default function useComments(query) {
+export default function useBoards(query) {
   const token = usePanoptesAuthToken()
 
   let key = null
-  if (query && query.discussion_id) {
+  if (query && query.section) {
     key = { query, token }
   }
 
-  return useSWR(key, fetchComments, SWROptions)
+  return useSWR(key, fetchBoards, SWROptions)
 }
