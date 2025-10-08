@@ -17,38 +17,53 @@ export default {
 
 export const Default = {
   args: {
-    name: 'blue_jay'
+    tag: {
+      id: '1',
+      name: 'blue_jay'
+    }
   }
 }
 
 export const WithVoteCount = {
   args: {
-    name: 'blue_jay',
-    voteCount: 3
+    tag: {
+      id: '1',
+      name: 'blue_jay',
+      vote_count: 3
+    }
   }
 }
 
 export const UserVoted = {
   args: {
-    name: 'blue_jay',
-    userVoted: true,
-    voteCount: 5
+    tag: {
+      id: '1',
+      name: 'blue_jay',
+      userVoted: true,
+      vote_count: 5
+    }
   }
 }
 
 export const Disabled = {
   args: {
     disabled: true,
-    name: 'blue_jay',
-    voteCount: 2
+    tag: {
+      id: '1',
+      name: 'blue_jay',
+      vote_count: 2
+    }
   }
 }
 
 export const DisabledUserVoted = {
   args: {
     disabled: true,
-    name: 'blue_jay',
-    userVoted: true,
-    voteCount: 4
+    tag: {
+      id: '1',
+      name: 'blue_jay',
+      userVoted: true,
+      vote_count: 2
+    }
   }
 }
