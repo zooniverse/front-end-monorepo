@@ -17,8 +17,30 @@ describe('Helpers > fetchSubject', function () {
     }
   }
 
+  const mockMedia = {
+    id: '67890',
+    src: 'https://panoptes-uploads-staging.zooniverse.org/subject_attached_image/b06c48fb-844f-447a-872d-94d244d5b02e.png',
+    content_type: 'image/png',
+    media_type: 'subject_attached_image',
+    external_link: false,
+    created_at: '2020-01-01T00:00:00.000Z',
+    metadata: {
+      size: 446153,
+      filename: '609780764988425780_gri_17.8096.png'
+    },
+    updated_at: '2020-01-01T00:00:00.000Z'
+  }
+
   const mockResponse = {
-    subjects: [mockSubject]
+    subjects: [mockSubject],
+    linked: {
+      media: [mockMedia]
+    }
+  }
+
+  const expectedSubject = {
+    ...mockSubject,
+    media: [mockMedia]
   }
 
   describe('when panoptes returns a subject resource', function () {
@@ -37,7 +59,7 @@ describe('Helpers > fetchSubject', function () {
 
     it('should return the subject data', async function () {
       subject = await fetchSubject('12345', 'staging')
-      expect(subject).to.deep.equal(mockSubject)
+      expect(subject).to.deep.equal(expectedSubject)
     })
   })
 
