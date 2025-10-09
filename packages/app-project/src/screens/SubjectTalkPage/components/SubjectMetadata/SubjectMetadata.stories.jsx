@@ -5,7 +5,7 @@ import SubjectMetadata from './SubjectMetadata'
 const metadataMock = {
   'RA': '150.32715203',
   'Radius': '0.000307900664592064',
-  '!secret_key': 'should_not_be_displayed',
+  '!hide_in_classifier': 'should_not_be_displayed in Classifier, should be displayed in Talk',
   'desi_link': 'https://desi.lbl.gov',
   'sersic_index': '1.2598578519847092',
   'Dec': 'With Markdown\n~~are you sure?~~\n**YES!**',

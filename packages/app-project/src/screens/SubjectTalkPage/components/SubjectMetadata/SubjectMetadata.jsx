@@ -9,10 +9,10 @@ import filterByLabel, { filters as defaultFilters } from './filterByLabel'
 
 const StyledGrid = styled(Grid)`
   grid-gap: 20px 60px;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 1fr);
 
   @media screen and (max-width: 1280px) {
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, 1fr);
   }
 `
 
@@ -40,9 +40,11 @@ function formatValue(value) {
   return ''
 }
 
+const DEFAULT_METADATA = {}
+
 function SubjectMetadata({
   filters = defaultFilters,
-  metadata,
+  metadata = DEFAULT_METADATA,
   prefixes = defaultFilters
 }) {
   const [open, setOpen] = useState(false)
