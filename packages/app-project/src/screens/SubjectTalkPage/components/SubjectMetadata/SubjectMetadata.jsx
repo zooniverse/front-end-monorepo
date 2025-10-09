@@ -2,8 +2,9 @@ import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import { Accordion, AccordionPanel, Anchor, Box, Grid, Heading, ThemeContext, Text } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
 import styled from 'styled-components'
+
+import { useSubjectMetadataPreference } from '@hooks'
 
 import filterByLabel, { filters as defaultFilters } from './filterByLabel'
 
@@ -18,8 +19,8 @@ const StyledGrid = styled(Grid)`
 
 function formatValue(value) {
   const stringValue = value?.toString()
-  stringValue?.trim()
-  if (stringValue?.startsWith('http')) {
+  const trimmedStringValue = stringValue?.trim()
+  if (trimmedStringValue?.startsWith('http')) {
     return (
       <Anchor
         href={value}
@@ -29,8 +30,8 @@ function formatValue(value) {
       </Anchor>
     )
   }
-  if (stringValue) {
-    return <Markdownz inline>{stringValue}</Markdownz>
+  if (trimmedStringValue) {
+    return <Markdownz inline>{trimmedStringValue}</Markdownz>
   }
 
   if (value === null) {
@@ -47,7 +48,7 @@ function SubjectMetadata({
   metadata = DEFAULT_METADATA,
   prefixes = defaultFilters
 }) {
-  const [open, setOpen] = useState(false)
+  const [isExpanded, handleToggle] = useSubjectMetadataPreference()
 
   const { t } = useTranslation('screens')
   
@@ -75,6 +76,7 @@ function SubjectMetadata({
         gap='xsmall'
       >
         <CircleInformation
+          aria-hidden='true'
           color={{ dark: 'light-1', light: 'dark-4' }}
           size='16px'
         />
@@ -104,14 +106,14 @@ function SubjectMetadata({
           color={{ dark: 'light-1', light: 'dark-4' }}
           size='.75rem'
         >
-          {open ? t('Talk.Metadata.collapse') : t('Talk.Metadata.expand')}
+          {isExpanded ? t('Talk.Metadata.collapse') : t('Talk.Metadata.expand')}
         </Text>
       </Box>
     </Box>
   )
 
   function handleActive() {
-    setOpen((prevOpen) => !prevOpen)
+    handleToggle(!isExpanded)
   }
 
   return (
@@ -138,9 +140,10 @@ function SubjectMetadata({
             border: { color: 'none' },
             icons: { color: { dark: 'light-1', light: 'dark-5' }}
           }
-        }} 
+        }}
       >
         <Accordion
+          activeIndex={isExpanded ? [0] : []}
           onActive={handleActive}
         >
           <AccordionPanel label={headerLabel}>
