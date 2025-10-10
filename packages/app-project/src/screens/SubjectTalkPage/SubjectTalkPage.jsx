@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
+import AncillaryData from './components/AncillaryData'
 import SubjectTalkViewer from './components/SubjectTalkViewer'
 import SubjectTalkData from './components/SubjectTalkData'
 
@@ -92,7 +93,7 @@ function SubjectTalkPage({
           <ContentBox
             title={t('Talk.subjectMetadata')}
           />
-          {/* <AncillaryData /> */}
+          <AncillaryData media={subject?.media} />
           {/* <FeaturedCollections /> */}
           <ContentBox
             title={t('Talk.featuredCollections')}

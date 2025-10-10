@@ -74,6 +74,8 @@
     }
   },
   "Talk": {
+    "ancillaryData": "Ancillary Data",
+    "ancillaryDataTip": "This is ancillary data about the subject you're viewing. For more information on this, please see the About page.",
     "Comment": {
       "avatarAlt": "{{login}} avatar",
       "comment": "comment",
