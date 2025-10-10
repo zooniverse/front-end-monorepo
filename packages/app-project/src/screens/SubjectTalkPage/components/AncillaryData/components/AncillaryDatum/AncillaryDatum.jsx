@@ -1,6 +1,7 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { Accordion, AccordionPanel, Box, Button,Heading, Text, ThemeContext, Tip } from 'grommet'
 import { CircleInformation, Multiple } from 'grommet-icons'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 const HoverContent = styled(Box)`
@@ -27,28 +28,26 @@ const TipContent = ({ message = '' }) => (
 )
 
 function InfoTip() {
+  const { t } = useTranslation('screens')
+
   return (
     <Tip
-      content={<TipContent message={`This is ancillary data about the subject you’re viewing. For more information on this, please see the About page.`} />}
+      content={<TipContent message={t('Talk.ancillaryDataTip')} />}
       plain
       dropProps={{ align: { bottom: 'top' } }}
     >
-      <Button
-        a11yTitle='More information about ancillary data'
-        icon={
-          <CircleInformation
-            aria-hidden='true'
-            color={{ dark: 'light-1', light: 'dark-4' }}
-            size='16px'
-          />
-        }
-        plain
+      <CircleInformation
+        aria-label={t('Talk.ancillaryDataTip')}
+        color={{ dark: 'light-1', light: 'dark-4' }}
+        size='16px'
       />
     </Tip>
   )
 }
 
 function AncillaryDatum({ datum }) {
+  const { t } = useTranslation('screens')
+
   const headerLabel = (
     <Box
       align='center'
@@ -74,7 +73,7 @@ function AncillaryDatum({ datum }) {
           size='1rem'
           weight='bold'
         >
-          {'Ancillary Data'}
+          {t('Talk.ancillaryData')}
         </SpacedText>
       </Heading>
       <InfoTip />
@@ -119,7 +118,7 @@ function AncillaryDatum({ datum }) {
                 width={{ max: '420px' }}
               >
                 <Media
-                  alt={datum.metadata?.filename || `Ancillary media ${datum.id}`}
+                  alt={`${t('Talk.ancillaryData')} ${datum.id}`}
                   fit='contain'
                   flex='shrink'
                   src={datum.src}
