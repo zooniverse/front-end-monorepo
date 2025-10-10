@@ -1,19 +1,28 @@
-import { Media } from '@zooniverse/react-components'
 import { Box } from 'grommet'
+import styled from 'styled-components'
+
+import AncillaryDatum from './components/AncillaryDatum'
+
+const StyledList = styled(Box)`
+  list-style: none;
+`
 
 function AncillaryData({ media }) {
   return (
-    <Box gap='small' pad={{ vertical: 'small' }}>
+    <StyledList
+      forwardedAs='ul'
+      direction='row'
+      gap='small'
+      margin='none'
+      pad='none'
+      overflow={{ horizontal: 'auto' }}
+    >
       {media?.map((item) => (
-        <Media
-          key={item.id}
-          alt={item.metadata?.filename || `Ancillary media ${item.id}`}
-          fit='contain'
-          height={500}
-          src={item.src}
-        />
+        <li key={item.id}>
+          <AncillaryDatum datum={item} />
+        </li>
       ))}
-    </Box>
+    </StyledList>
   )
 }
 
