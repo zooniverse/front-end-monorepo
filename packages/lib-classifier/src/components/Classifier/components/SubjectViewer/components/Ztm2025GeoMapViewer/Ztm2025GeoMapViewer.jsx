@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import LeafletGeoMap from './LeafletGeoMap.jsx'
-import OpenLayersGeoMap from './OpenLayersGeoMap.jsx'
+import LeafletGeoMap from './LeafletGeoMap'
+import OpenLayersGeoMap from './OpenLayersGeoMap'
 
 function Ztm2025GeoMapViewer (props) {
   const [mapLibrary, setMapLibrary] = useState('openlayers')

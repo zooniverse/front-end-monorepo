@@ -1,9 +1,9 @@
 import { useEffect, useId } from 'react'
-import OLMap from 'ol/Map.js'
-import OpenStreetMaps from 'ol/source/OSM.js'
-import TileLayer from 'ol/layer/Tile.js'
+import OLMap from 'ol/Map'
+import OpenStreetMaps from 'ol/source/OSM'
+import TileLayer from 'ol/layer/Tile'
 import View from 'ol/View.js'
-import OpenLayersCss from './OpenLayersCss.jsx'  // replaces import 'ol/ol.css'
+import OpenLayersCss from './OpenLayersCss'  // replaces import 'ol/ol.css'
 
 function OpenLayersGeoMap (props) {
   const olMapId = useId()
