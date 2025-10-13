@@ -1,6 +1,6 @@
 import { useEffect, useId } from 'react'
 import Leaflet from 'leaflet'
-import LeafletCss from './LeafletCss.js'  // Replaces import 'leaflet/dist/leaflet.css'
+import LeafletCss from './LeafletCss.jsx'  // Replaces import 'leaflet/dist/leaflet.css'
 
 function LeafletGeoMap (props) {
   const leafMapId = useId()
