@@ -17,7 +17,7 @@ Notes:
 - Our code sometimes uses the term GeoMap instead of Map to differentiate it
   from a JavaScript Map object.
 
-⚠️☠️  ** Active Issue: Broken Tests**
+⚠️☠️ ** Active Issue: Broken Tests**
 
 2025.08.20: OpenLayers & Leaflet are killing `yarn test` on both
 lib-classifier and app-project. Error message is:
@@ -28,10 +28,22 @@ Exception during run: TypeError: Cannot read properties of undefined (reading 'i
   at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/dist/leaflet-src.js:7:66
 ```
 
-⚠️ **Active Issue: **
+⚠️ **Active Issue: Build size**
 
 2025.08.20: adding OpenLayers (ol) and Leaflet to lib-classifier may increase
 build size of lib-classifier as a whole? This needs to be evaluated.
+
+⚠️☠️ **Active Issue: OpenLayers needs lib-classifier to be ESM**
+
+2025.10.13: OpenLayers library is ESM-only, meaning any related build that uses
+CJS (i.e. lib-classifier) will cause an explosion of nonsense.
+- both `yarn bootstrap` and app-project's `yarn build` fail.
+- Workaround(/Solution?): changing lib-classifier's package.json's `main` to
+  point to "dist/esm" instead of the "dist/cjs" seems to be a functional
+  workaround, but I'm still unsure if this is a permanent solution.
+- (Changing lib-classifier to use ESM instead of CJS might affect, say, tests or
+  something.)
+- PS: we're using Node v22.20 now, btw.
 
 ## Dev Notes
 
@@ -175,6 +187,39 @@ _app-project_ package. This means this PR breaks `yarn bootstrap` 😬
   need to find another way of getting those CSS styles into the FEM page.
 
 </details>
+
+**October 2025: CSSI Meeting & rebase**
+
+- The dev branch was rebased on top of 62e4c77, which required some adjustments
+  to get it (sort of) working.
+  - .js files renamed to .jsx files.
+  - All imports now don't have explicit filenames, e.g.
+    `import OLMap from 'ol/Map.js'` => `import OLMap from 'ol/Map'` 
+- We're now targetting **Node v22.20**
+- ⚠️ New issue: Leaflet fails in lib-classifier's `yarn test`
+    ```
+    TypeError: Cannot read properties of undefined (reading 'indexOf')
+    > ../../node_modules/leaflet/src/core/Browser.js:65:30
+    > ../../node_modules/leaflet/dist/leaflet-src.js:7:66
+    ```
+    - lib-classifier's `yarn build` works fine, though.
+    - "Solution"(?): remove Leaflet, since it looks like OpenLayers is the way
+      to go anyhow.
+- ⚠️ New issue: app-project can't run GeoMapViewer due to CJS/ESM nonsense
+  - Running app-project's `yarn dev` and trying to view [an example project](https://local.zooniverse.org:3000/projects/darkeshard/geo-map-project/classify/workflow/3866?env=staging) now results in an error.
+    ```
+    Module not found: ESM packages (ol/Map) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals
+    ```
+  - app-project's `yarn build` works fine.
+  - Workaround: force lib-classifier to use ESM instead of CJS by default.
+    - Change `lib-classifier/package.json`'s `"main": "dist/cjs/components/Classifier/index.js"` to `"main": "dist/esm/components/Classifier/index.js"`
+- ⚠️ New issue: yarn bootstrap also fails, do to CJS/ESM nonsense as well.
+  ```
+  ../lib-classifier/dist/cjs/components/Classifier/components/SubjectViewer/components/Ztm2025GeoMapViewer/OpenLayersGeoMap.js
+  Module not found: ESM packages (ol/Map) need to be imported. Use 'import' to reference the package instead. https://nextjs.org/docs/messages/import-esm-externals
+  ```
+  - Workaround: force lib-classifier to use ESM instead of CJS by default.
+    - Change `lib-classifier/package.json`'s `"main": "dist/cjs/components/Classifier/index.js"` to `"main": "dist/esm/components/Classifier/index.js"`
 
 ## End-Of-Experiment Plans (aka Adoption or Ejection)
 
