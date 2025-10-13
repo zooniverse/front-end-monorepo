@@ -35,14 +35,18 @@ build size of lib-classifier as a whole? This needs to be evaluated.
 
 ⚠️☠️ **Active Issue: OpenLayers needs lib-classifier to be ESM**
 
-2025.10.13: OpenLayers library is ESM-only, meaning any related build that uses
-CJS (i.e. lib-classifier) will cause an explosion of nonsense.
-- both `yarn bootstrap` and app-project's `yarn build` fail.
-- Workaround(/Solution?): changing lib-classifier's package.json's `main` to
-  point to "dist/esm" instead of the "dist/cjs" seems to be a functional
-  workaround, but I'm still unsure if this is a permanent solution.
-- (Changing lib-classifier to use ESM instead of CJS might affect, say, tests or
-  something.)
+2025.10.13: OpenLayers library is ESM-only, meaning lib-classifier can't be
+built as CommonJS.
+- `yarn bootstrap` fails. app-project's `yarn build` will also fail, if
+  lib-classifier was built with CJS.
+- Workaround(/Solution?): `yarn bootstrap:es6` works! (Don't forget to yarn
+  panic first)
+- If you want to get down to it, we just want to prevent lib-classifier from
+  giving its CJS version to app-project. One hacky way is to change
+  lib-classifier's package.json's `main` to point to "dist/esm" instead of
+  "dist/cjs". Alternatively, I think cleaning out lib-classifier's dist and then
+  running `yarn build:es6` should work too, since that's what bootstrap:es6
+  actually does.
 - PS: we're using Node v22.20 now, btw.
 
 ## Dev Notes
