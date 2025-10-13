@@ -19,6 +19,20 @@ Notes:
 
 ⚠️☠️ ** Active Issue: Broken Tests**
 
+2025.10.13: Leaflet is killing `yarn test` on lib-classifier. Error message is:
+
+```
+TypeError: Cannot read properties of undefined (reading 'indexOf')
+ > ../../node_modules/leaflet/src/core/Browser.js:65:30
+ > ../../node_modules/leaflet/dist/leaflet-src.js:7:66
+```
+
+Good news is, we may decide not to use Leaflet altogether, so this may be a moot
+issue.
+
+<details>
+<summary>[Previous Notes]</summary>
+
 2025.08.20: OpenLayers & Leaflet are killing `yarn test` on both
 lib-classifier and app-project. Error message is:
 
@@ -27,6 +41,8 @@ Exception during run: TypeError: Cannot read properties of undefined (reading 'i
   at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/src/core/Browser.js:65:30
   at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/dist/leaflet-src.js:7:66
 ```
+
+</details>
 
 ⚠️ **Active Issue: Build size**
 
