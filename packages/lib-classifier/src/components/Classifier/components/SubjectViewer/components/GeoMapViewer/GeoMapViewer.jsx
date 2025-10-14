@@ -61,13 +61,23 @@ function GeoMapViewer ({
     if (!olMap || !data) return
 
     const dataCoords = transformCoordinates([ data.long, data.lat ], 'EPSG:4326', 'EPSG:3857')
-    const dataZoom = data.zoom ?? 4
+    const dataZoom = data.zoom || 4
 
     // Set a new map view
     const mapView = new View({
       center: dataCoords,  // longitude (West is negative, East is positive), latitude (South is negative, North is positive)
       // projection: 'EPSG:3857'  // By default, we use Web Mercator
       zoom: dataZoom,
+
+      // Experimental: add arbitrary constraints!
+      extent: [
+        dataCoords[0] - 200 * dataZoom,
+        dataCoords[1] - 200 * dataZoom,
+        dataCoords[0] + 200 * dataZoom,
+        dataCoords[1] + 200 * dataZoom
+      ],
+      maxZoom: Math.min(28, dataZoom + 2),
+      minZoom: Math.max(0, dataZoom - 2),
     })
     olMap.setView(mapView)
 
