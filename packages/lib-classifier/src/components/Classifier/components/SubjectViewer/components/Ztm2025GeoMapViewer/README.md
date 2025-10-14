@@ -3,6 +3,7 @@
 This is an experimental Subject Viewer for viewing geographical map data.
 
 Context:
+
 - The Zooniverse Team believes there's interest from research teams to use maps
   (of planet Earth mostly, but we're not limited to the terrestrial) on the
   Zooniverse platform.
@@ -17,53 +18,17 @@ Notes:
 - Our code sometimes uses the term GeoMap instead of Map to differentiate it
   from a JavaScript Map object.
 
-⚠️☠️ ** Active Issue: Broken Tests**
+🌟 **This experiment is complete as of 14 Oct 2025!** 🌟
 
-2025.10.13: Leaflet is killing `yarn test` on lib-classifier. Error message is:
+Key Lessons:
 
-```
-TypeError: Cannot read properties of undefined (reading 'indexOf')
- > ../../node_modules/leaflet/src/core/Browser.js:65:30
- > ../../node_modules/leaflet/dist/leaflet-src.js:7:66
-```
-
-Good news is, we may decide not to use Leaflet altogether, so this may be a moot
-issue.
-
-<details>
-<summary>[Previous Notes]</summary>
-
-2025.08.20: OpenLayers & Leaflet are killing `yarn test` on both
-lib-classifier and app-project. Error message is:
-
-```
-Exception during run: TypeError: Cannot read properties of undefined (reading 'indexOf')
-  at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/src/core/Browser.js:65:30
-  at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/dist/leaflet-src.js:7:66
-```
-
-</details>
-
-⚠️ **Active Issue: Build size**
-
-2025.08.20: adding OpenLayers (ol) and Leaflet to lib-classifier may increase
-build size of lib-classifier as a whole? This needs to be evaluated.
-
-⚠️☠️ **Active Issue: OpenLayers needs lib-classifier to be ESM**
-
-2025.10.13: OpenLayers library is ESM-only, meaning lib-classifier can't be
-built as CommonJS.
-- `yarn bootstrap` fails. app-project's `yarn build` will also fail, if
-  lib-classifier was built with CJS.
-- Workaround(/Solution?): `yarn bootstrap:es6` works! (Don't forget to yarn
-  panic first)
-- If you want to get down to it, we just want to prevent lib-classifier from
-  giving its CJS version to app-project. One hacky way is to change
-  lib-classifier's package.json's `main` to point to "dist/esm" instead of
-  "dist/cjs". Alternatively, I think cleaning out lib-classifier's dist and then
-  running `yarn build:es6` should work too, since that's what bootstrap:es6
-  actually does.
-- PS: we're using Node v22.20 now, btw.
+- **OpenLayers** appears to be the better choice, compared to Leaflet.
+  - OL has more functionality for our needs, notably supporting different projections out of the box.
+  - OL also seems to work better with our test suite.
+- OL requires **lib-classifier be built in ES6**, not CJS.
+- Remember to **_not_ include file extensions** on imports.
+  - A lot of OL's example code has things like `import Map from 'ol/Map.js'`. For FEM, we want to change that to `import Map from 'ol/Map'`.
+- **CSS files** can just be copied straight into our code, instead of being imported.
 
 ## Dev Notes
 
@@ -208,6 +173,35 @@ _app-project_ package. This means this PR breaks `yarn bootstrap` 😬
 
 </details>
 
+** Solved Issue: Broken Tests**
+
+2025.10.14: (Fixed) Leaflet used to break our tests, so we removed Leaflet.
+
+<details>
+<summary>[Previous Notes]</summary>
+
+2025.08.20: OpenLayers & Leaflet are killing `yarn test` on both
+lib-classifier and app-project. Error message is:
+
+```
+Exception during run: TypeError: Cannot read properties of undefined (reading 'indexOf')
+  at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/src/core/Browser.js:65:30
+  at /Users/REDACTED/projects/front-end-monorepo/node_modules/leaflet/dist/leaflet-src.js:7:66
+```
+
+2025.10.13: Leaflet is killing `yarn test` on lib-classifier. Error message is:
+
+```
+TypeError: Cannot read properties of undefined (reading 'indexOf')
+ > ../../node_modules/leaflet/src/core/Browser.js:65:30
+ > ../../node_modules/leaflet/dist/leaflet-src.js:7:66
+```
+
+Good news is, we may decide not to use Leaflet altogether, so this may be a moot
+issue.
+
+</details>
+
 **October 2025: CSSI Meeting & rebase**
 
 - The dev branch was rebased on top of 62e4c77, which required some adjustments
@@ -240,6 +234,27 @@ _app-project_ package. This means this PR breaks `yarn bootstrap` 😬
   ```
   - Workaround: force lib-classifier to use ESM instead of CJS by default.
     - Change `lib-classifier/package.json`'s `"main": "dist/cjs/components/Classifier/index.js"` to `"main": "dist/esm/components/Classifier/index.js"`
+
+⚠️ **Active Issue: Build size**
+
+2025.08.20: adding OpenLayers (ol) and Leaflet to lib-classifier may increase
+build size of lib-classifier as a whole? This needs to be evaluated.
+
+⚠️ **Active Issue: OpenLayers needs lib-classifier to be ESM**
+
+2025.10.13: OpenLayers library is ESM-only, meaning lib-classifier can't be
+built as CommonJS.
+- `yarn bootstrap` fails. app-project's `yarn build` will also fail, if
+  lib-classifier was built with CJS.
+- Workaround(/Solution?): `yarn bootstrap:es6` works! (Don't forget to yarn
+  panic first)
+- If you want to get down to it, we just want to prevent lib-classifier from
+  giving its CJS version to app-project. One hacky way is to change
+  lib-classifier's package.json's `main` to point to "dist/esm" instead of
+  "dist/cjs". Alternatively, I think cleaning out lib-classifier's dist and then
+  running `yarn build:es6` should work too, since that's what bootstrap:es6
+  actually does.
+- PS: we're using Node v22.20 now, btw.
 
 ## End-Of-Experiment Plans (aka Adoption or Ejection)
 
