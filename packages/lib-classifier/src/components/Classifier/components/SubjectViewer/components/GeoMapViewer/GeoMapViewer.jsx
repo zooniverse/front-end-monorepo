@@ -38,11 +38,12 @@ function GeoMapViewer ({
     olMap.addLayer(osmLayer)
 
     // Set view on map
-    const webMercatorView = new View({
+    const mapView = new View({
       center: [0, 0],  // longitude (West is negative, East is positive), latitude (South is negative, North is positive)
+      // projection: 'EPSG:3857'  // By default, we use Web Mercator
       zoom: 1,
     })
-    olMap.setView(webMercatorView)
+    olMap.setView(mapView)
 
     return function unloadMap () {
       console.log('+++ 🔴 unloadMap')
@@ -61,8 +62,15 @@ function GeoMapViewer ({
 
     const dataCoords = transformCoordinates([ data.long, data.lat ], 'EPSG:4326', 'EPSG:3857')
     const dataZoom = data.zoom ?? 4
-    olMap?.getView()?.setCenter(dataCoords)
-    olMap?.getView()?.setZoom(dataZoom)
+
+    // Set a new map view
+    const mapView = new View({
+      center: dataCoords,  // longitude (West is negative, East is positive), latitude (South is negative, North is positive)
+      // projection: 'EPSG:3857'  // By default, we use Web Mercator
+      zoom: dataZoom,
+    })
+    olMap.setView(mapView)
+
   }, [data])
 
   // --------------------------------
