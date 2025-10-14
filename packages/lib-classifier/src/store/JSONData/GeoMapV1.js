@@ -5,7 +5,8 @@ const GeoMapV1 = types.model('GeoMapV1', {
   _version: 1,
   info: types.string,
   lat: types.number,
-  long: types.number
+  long: types.number,
+  zoom: types.number
 })
 
 export default GeoMapV1

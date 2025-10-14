@@ -26,8 +26,6 @@ function GeoMapViewerContainer ({
   const { subject } = useStores(storeMapper)
   const { data, loading, error, type } = useSubjectJSON({ onError, onReady, subject})
 
-  console.log('+++ useSubjectJSON:', data, loading, error, type)
-
   if (loading) {
     return null
   }

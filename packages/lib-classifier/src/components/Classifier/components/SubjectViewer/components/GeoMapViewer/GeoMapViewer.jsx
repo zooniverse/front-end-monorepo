@@ -4,6 +4,7 @@ import OpenStreetMaps from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
 import View from 'ol/View'
 import OpenLayersCss from './OpenLayersCss'  // replaces import 'ol/ol.css'
+import { transform as transformCoordinates } from 'ol/proj'
 
 function GeoMapViewer ({
   data
@@ -23,15 +24,11 @@ function GeoMapViewer ({
   // 0°8'30.66" W (51.50165, -0.14185), which converts to 
   // x=-15790.669769025857 and y=6710514.145334988
 
-  const webMercatorView = new View({
-    center: [0, 0],  // longitude (West is negative, East is positive), latitude (South is negative, North is positive)
-    zoom: 1,
-  })
-
   // Render the map!
   // --------------------------------
 
   useEffect(function loadMap () {
+    console.log('+++ 🟢 loadMap')
     // Init map
     olMap = new OLMap({ target: olMapId })
 
@@ -41,9 +38,14 @@ function GeoMapViewer ({
     olMap.addLayer(osmLayer)
 
     // Set view on map
+    const webMercatorView = new View({
+      center: [0, 0],  // longitude (West is negative, East is positive), latitude (South is negative, North is positive)
+      zoom: 1,
+    })
     olMap.setView(webMercatorView)
 
     return function unloadMap () {
+      console.log('+++ 🔴 unloadMap')
       olMap?.setTarget(undefined)
     }
   }, [])
@@ -52,9 +54,15 @@ function GeoMapViewer ({
   // --------------------------------
 
   useEffect(function loadSubjectData () {
-    console.log('+++ loadSubjectData: ', data)
+    console.log('+++ loadSubjectData: ', (data) ? '✔️' : '✖')
+    
+    // TODO: handle loading and error states
+    if (!olMap || !data) return
 
-    if (!data) return
+    const dataCoords = transformCoordinates([ data.long, data.lat ], 'EPSG:4326', 'EPSG:3857')
+    const dataZoom = data.zoom ?? 4
+    olMap?.getView()?.setCenter(dataCoords)
+    olMap?.getView()?.setZoom(dataZoom)
   }, [data])
 
   // --------------------------------
