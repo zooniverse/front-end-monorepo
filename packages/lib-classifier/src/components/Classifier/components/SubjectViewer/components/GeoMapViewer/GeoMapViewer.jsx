@@ -70,7 +70,7 @@ function GeoMapViewer ({
   return (
     <div>
       <OpenLayersCss />
-      <h6 style={{ margin: '0.25em', padding: 0 }}>OpenLayersGeoMap</h6>
+      <h6 style={{ margin: '0.25em', padding: 0 }}>{data?.info || '----'}</h6>
       <div
         id={olMapId}
         style={{
