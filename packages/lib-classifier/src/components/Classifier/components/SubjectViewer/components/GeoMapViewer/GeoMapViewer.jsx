@@ -9,7 +9,7 @@ function GeoMapViewer (props) {
   const olMapId = useId()
   let olMap = undefined
 
-  // Note on projections:
+  // Note on projections and coordinates:
   // By default, OpenLayers uses the Web Mercator (EPSG:3857) projection, which
   // is used by most web mapping apps. (e.g. Google Maps)
 
