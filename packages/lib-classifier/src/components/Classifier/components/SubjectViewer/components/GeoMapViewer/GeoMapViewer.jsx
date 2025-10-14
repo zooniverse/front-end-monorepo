@@ -5,7 +5,9 @@ import TileLayer from 'ol/layer/Tile'
 import View from 'ol/View'
 import OpenLayersCss from './OpenLayersCss'  // replaces import 'ol/ol.css'
 
-function GeoMapViewer (props) {
+function GeoMapViewer ({
+  data
+}) {
   const olMapId = useId()
   let olMap = undefined
 
@@ -45,6 +47,15 @@ function GeoMapViewer (props) {
       olMap?.setTarget(undefined)
     }
   }, [])
+
+  // Load the Subject data!
+  // --------------------------------
+
+  useEffect(function loadSubjectData () {
+    console.log('+++ loadSubjectData: ', data)
+
+    if (!data) return
+  }, [data])
 
   // --------------------------------
 
