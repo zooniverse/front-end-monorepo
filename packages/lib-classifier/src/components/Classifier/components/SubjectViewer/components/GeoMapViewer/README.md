@@ -1,4 +1,4 @@
-# ZTM 2025 Experimental Geographical Map Viewer
+# Experimental Geographical Map Viewer
 
 This is an experimental Subject Viewer for viewing geographical map data.
 
@@ -44,7 +44,22 @@ myWorkflow = {
 - Add whatever **tasks** you want to the workflow.
   - At the moment, we don't have map-specific tasks.
 - Add whatever **subjects** you want to the workflow's associated subject sets.
-  - At the moment, we don't have map specific subjects.
+  - See
 - View the workflow on lib-classifier's dev server.
   - e.g.: `cd packages/lib-classifier ; yarn dev`
     then use Chrome to open https://local.zooniverse.org:8080/?env=staging&project=2025
+
+### Subject Type: GeoMapV1
+
+The Geographical Map Viewer uses JSON Data Subjects. For example:
+
+```
+{
+  "_type": "geomap",
+  "_version": 1,
+  "info": "Buckingham Palace, London",
+  "lat": 51.50165,
+  "long": -0.14185,
+  "zoom": 16
+}
+```
