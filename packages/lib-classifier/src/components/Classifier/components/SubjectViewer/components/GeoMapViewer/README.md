@@ -8,10 +8,36 @@ Context:
   Zooniverse platform.
 
 Notes:
-- Our code sometimes uses the term GeoMap instead of Map to differentiate it
-  from a JavaScript Map object.
+- Our code uses the term GeoMap instead of Map to differentiate it from a
+  JavaScript Map object.
 - This is based on the Experimental ZTM2025 Geographical Map Viewer. See
   https://github.com/zooniverse/front-end-monorepo/pull/6995
+
+## Subject Viewer: GeoMapViewer
+
+- Uses OpenLayers to display geographical map regions.
+- Enabled by setting workflow.configuration.subject_viewer = 'geoMap'
+- Map exploration is constrained to a certain region around a geographical point
+  of interest.
+
+## Subject Type: GeoMapV1
+
+- A subtype of JSON Data Subjects.
+- Describes a geographical point of interest, defined by a latitude, a
+  longitude, and a zoom value.
+
+Example JSON file:
+
+```
+{
+  "_type": "geomap",
+  "_version": 1,
+  "info": "Buckingham Palace, London",
+  "lat": 51.50165,
+  "long": -0.14185,
+  "zoom": 16
+}
+```
 
 ## Dev Notes
 
@@ -25,33 +51,30 @@ experiment.
 
 **How to enable/use this experiment**
 
-Setup:
-- Create (or select) a **workflow** which is configured to use the
-  GeoMapViewer.
-  - To enable the map viewer for a workflow, you just need to set its
-    workflow.configuration.subject_viewer value to `geoMap` (see below).
-    This is usually done via Panoptes CLI.
+If you just want to preview this experiment:
 
-```
-// Example workflow config
-myWorkflow = {
-  configuration: {
-    subject_viewer: "geoMap"
-  }
-} 
-```
+- Run `yarn panic` then `yarn bootstrap:es6`
+  - (⚠️ OpenLayers requires ESM, and will cause problems if any package is built
+    in CJS. 😬)
+- Run lib-classifier's `yarn dev` and view a test project, e.g.
+  https://local.zooniverse.org:8080/?env=staging&project=darkeshard/geo-map-project&workflow=3870&demo=true
+- OR run app-project's `yarn dev` and view a test project, e.g.
+  https://local.zooniverse.org:3000/projects/darkeshard/geo-map-project/classify/workflow/3870?env=staging
+- You should see an explorable map, showing the Subject (a geographical point of interest).
 
-- Add whatever **tasks** you want to the workflow.
-  - At the moment, we don't have map-specific tasks.
-- Add whatever **subjects** you want to the workflow's associated subject sets.
-  - See
-- View the workflow on lib-classifier's dev server.
-  - e.g.: `cd packages/lib-classifier ; yarn dev`
-    then use Chrome to open https://local.zooniverse.org:8080/?env=staging&project=2025
+If you want to set up _your own test project_ to work with this experiment:
 
-### Subject Type: GeoMapV1
+<details>
+<summary>Step 1: create a new Project.</summary>
 
-The Geographical Map Viewer uses JSON Data Subjects. For example:
+Just go to https://www.zooniverse.org/lab and create a new Project.
+
+</details>
+
+<details>
+<summary>Step 2: create some GeoMapV1 subjects</summary>
+
+Here are 5 example you can copy and paste into 5 different JSON files.
 
 ```
 {
@@ -63,3 +86,61 @@ The Geographical Map Viewer uses JSON Data Subjects. For example:
   "zoom": 16
 }
 ```
+
+```
+{
+  "_type": "geomap",
+  "_version": 1,
+  "info": "Petronas Twin Towers, Kuala Lumpur",
+  "lat": 3.15757,
+  "long": 101.71157,
+  "zoom": 16
+}
+```
+
+```
+{
+  "_type": "geomap",
+  "_version": 1,
+  "info": "Radcliffe Camera, University of Oxford",
+  "lat": 51.75357,
+  "long": -1.25404,
+  "zoom": 16
+}
+```
+
+```
+{
+  "_type": "geomap",
+  "_version": 1,
+  "info": "Adler Planetarium, Chicago",
+  "lat": 41.86653,
+  "long": -87.60677,
+  "zoom": 16
+}
+```
+
+```
+{
+  "_type": "geomap",
+  "_version": 1,
+  "info": "Melbourne Central, Melbourne",
+  "lat": -37.81008,
+  "long": 144.96282,
+  "zoom": 16
+}
+```
+
+Upload these 5 JSON files to a new Subject Set, say "Example GeoMap POIs"
+
+</details>
+
+<details>
+<summary>Step 3: create a Workflow that uses the GeoMapViewer, and uses the GeoMapV1 subjects</summary>
+
+- Create a new Workflow in your new Project.
+- Using whatever dark sorcery is available to you, change the configuration so we have `workflow.configuration.subject_viewer = 'geoMap'`
+- Add a simple Question Task. (e.g. "Is this interesting?" "Yes/No")
+- Add the "Example GeoMaps POI" Subject Set to the Workflow.
+
+</details>
