@@ -33,7 +33,7 @@ function GeoMapViewer ({
   // --------------------------------
 
   useEffect(function loadMap () {
-    console.log('+++ 🟢 loadMap')
+    console.log('🟢 loadMap')
     
     // Init map
     olMap = new OLMap({ target: olMapId })
@@ -52,7 +52,7 @@ function GeoMapViewer ({
     olMap.setView(mapView)
 
     return function unloadMap () {
-      console.log('+++ 🔴 unloadMap')
+      console.log('🔴 unloadMap')
       olMap?.setTarget(undefined)
     }
   }, [])
@@ -61,7 +61,7 @@ function GeoMapViewer ({
   // --------------------------------
 
   useEffect(function loadSubjectData () {
-    console.log('+++ 🔹 loadSubjectData: ', (data) ? '✔️' : '✖')
+    console.log('🔹 loadSubjectData: ', (data) ? '✔️' : '✖')
     
     // TODO: handle loading and error states
     if (!olMap || !data) return
@@ -88,7 +88,7 @@ function GeoMapViewer ({
     olMap.setView(mapView)
 
     return function unloadSubjectData () {
-      console.log('+++ 🔸 unloadSubjectData')
+      console.log('🔸 unloadSubjectData')
     }
 
   }, [data])

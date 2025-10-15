@@ -17,7 +17,7 @@ Notes:
 
 **Safety and Scope**
 
-The Ztm2025GeoMapViewer should ONLY be accessible on a very limited set of
+The GeoMapViewer should ONLY be accessible on a very limited set of
 projects, hand-picked by Zooniverse team.
 
 Features & functionality are limited at best, wonky at worst. It's an
