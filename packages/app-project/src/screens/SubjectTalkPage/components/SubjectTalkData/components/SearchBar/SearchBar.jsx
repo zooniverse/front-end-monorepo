@@ -23,6 +23,13 @@ function SearchBar({ projectSlug }) {
     setSearchTerm(event.target.value)
   }
 
+  function handleKeyUp(event) {
+    if (event.key === 'Enter' && searchTerm.length > 0) {
+      const searchUrl = `/projects/${projectSlug}/talk/search?query=${encodeURIComponent(searchTerm)}`
+      window.open(searchUrl, '_blank')
+    }
+  }
+
   const disabled = searchTerm.length === 0
 
   return (
@@ -41,12 +48,13 @@ function SearchBar({ projectSlug }) {
       <StyledTextInput
         a11yTitle={t('Talk.searchPlaceholder')}
         onChange={handleInputChange}
+        onKeyUp={handleKeyUp}
         placeholder={<StyledPlaceholderText>{t('Talk.searchPlaceholder')}</StyledPlaceholderText>}
         value={searchTerm}
       />
       <IconActionButton
         a11yTitle={t('Talk.searchPlaceholder')}
-        href={disabled ? undefined : `https://www.zooniverse.org/projects/${projectSlug}/talk/search?query=${encodeURIComponent(searchTerm)}`}
+        href={disabled ? undefined : `/projects/${projectSlug}/talk/search?query=${encodeURIComponent(searchTerm)}`}
         height='38px'
         icon={<Search color={{ dark: 'neutral-6', light: 'dark-3' }} />}
         plain
