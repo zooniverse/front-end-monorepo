@@ -79,4 +79,52 @@ describe('Model > Task', function () {
       expect(task.isValid).to.equal(true)
     })
   })
+
+  describe('with details/subtasks', function () {
+    describe('hasSubtasks', function () {
+      it('should return false when details is undefined', function () {
+        const task = Task.create(mockTask)
+        expect(task.hasSubtasks()).to.equal(false)
+      })
+
+      it('should return false when details is empty array', function () {
+        const task = Task.create({
+          ...mockTask,
+          details: []
+        })
+        expect(task.hasSubtasks()).to.equal(false)
+      })
+
+      it('should return true when details has items', function () {
+        const task = Task.create({
+          ...mockTask,
+          details: [
+            {
+              type: 'single',
+              question: 'Which one?',
+              answers: ['A', 'B']
+            }
+          ]
+        })
+        expect(task.hasSubtasks()).to.equal(true)
+      })
+    })
+
+    it('should return empty array when no details', function () {
+      const task = Task.create(mockTask)
+      expect(task.subtasks).to.deep.equal([])
+    })
+
+    it('should return subtasks with taskKey and index from details', function () {
+      const details = [
+        { type: 'single', question: 'Which one?', answers: ['A', 'B'], required: true },
+        { type: 'multiple', question: 'Select all', answers: ['X', 'Y', 'Z'] }
+      ]
+      const task = Task.create({ ...mockTask, details })
+      expect(task.subtasks).to.deep.equal([
+        { ...details[0], taskKey: 'T0.details.0', index: 0 },
+        { ...details[1], taskKey: 'T0.details.1', index: 1 }
+      ])
+    })
+  })
 })

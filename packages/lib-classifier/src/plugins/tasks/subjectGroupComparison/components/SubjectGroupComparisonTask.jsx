@@ -1,6 +1,6 @@
 import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
-import PropTypes from 'prop-types'
+import { array, arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
 const StyledBox = styled(Box)`
@@ -53,21 +53,20 @@ function SubjectGroupComparisonTask (props) {
 }
 
 SubjectGroupComparisonTask.propTypes = {
-  annotation: PropTypes.shape({
-    update: PropTypes.func,
-    value: PropTypes.array
+  annotation: shape({
+    value: array
   }).isRequired,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  task: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string
+  className: string,
+  disabled: bool,
+  task: shape({
+    answers: arrayOf(shape({
+      label: string
     })),
-    help: PropTypes.string,
-    question: PropTypes.string,
-    required: PropTypes.bool
+    help: string,
+    question: string,
+    required: bool
   }).isRequired,
-  theme: PropTypes.object
+  theme: object
 }
 
 export default SubjectGroupComparisonTask

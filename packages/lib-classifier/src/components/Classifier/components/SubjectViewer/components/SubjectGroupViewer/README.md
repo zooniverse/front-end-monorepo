@@ -124,5 +124,11 @@ Some notes on cell_style:
 
 - The Subject Group _Viewer_ is STRONGLY ASSOCIATED with the Subject Group _Comparison Task._
 - The SGComparisonTask allows users to CLICK ON cells in the grid to "select" them. (i.e. to pick the cells that look different from the others)
+- If the SGComparisonTask has NO subtasks, then...
+  - ...clicking on an _unselected cell_ will select it, and clicking on a _selected cell_ will unselect it. Pretty straightforward.
+- If the SGComparisonTask has SUBTASKS, then...
+  - clicking on an _unselected cell_ will _select it,_ and then open the SubjectGroupSubTaskPopup.
+  - clicking on _an already selected cell_ will open the SubjectGroupSubTaskPopup.
+  - a selected cell can only be un-selected/removed via a button in the SubjectGroupSubTaskPopup.
 - Without this Task, the viewer is just a fancy way of seeing multiple images in a grid.
 - Please see `src/plugins/tasks/SubjectGroupComparisonTask/README.md` for more details.
