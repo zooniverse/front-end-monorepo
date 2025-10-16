@@ -7,35 +7,31 @@ import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import SubjectMetadata from './components/SubjectMetadata'
-import SubjectTalkViewer from './components/SubjectTalkViewer'
+import SearchBar from './components/SearchBar'
 import SubjectTalkData from './components/SubjectTalkData'
+import SubjectTalkViewer from './components/SubjectTalkViewer'
 
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
   position: relative;
   grid-gap: 1.875rem;
-  grid-template-areas: 'viewer talkData';
+  grid-template-areas: 
+    'viewer search'
+    'viewer talkData';
   grid-template-columns: auto 600px;
+  grid-template-rows: min-content 1fr;
+  height: minmax(300px, 90vh);
+  max-height: 90vh;
 
   @media screen and (max-width: 1280px) {
     grid-gap: 1.25rem;
     grid-template-areas:
+      'search'
       'viewer'
       'talkData';
     grid-template-columns: 100%;
-    grid-template-rows: auto auto;
     margin: 0;
     width: 100%;
-  }
-`
-
-const StyledTalkDataBox = styled(Box)`
-  max-height: 90vh;
-  min-height: 300px;
-
-  @media screen and (max-width: 1280px) {
-    max-height: auto;
-    min-height: auto;
   }
 `
 
@@ -59,7 +55,6 @@ function SubjectTalkPage({
         <ContainerGrid>
           <Box
             data-testid='viewer'
-            height={{ max: '90vh' }}
             style={{
               gridArea: 'viewer'
             }}
@@ -72,7 +67,13 @@ function SubjectTalkPage({
               userId={userId}
             />
           </Box>
-          <StyledTalkDataBox
+          <Box
+            data-testid='searchBar'
+            style={{ gridArea: 'search' }}
+          >
+            <SearchBar projectSlug={projectSlug} />
+          </Box>
+          <Box
             data-testid='talkData'
             style={{ gridArea: 'talkData' }}
           >
@@ -83,7 +84,7 @@ function SubjectTalkPage({
               subjectId={subjectId}
               userId={userId}
             />
-          </StyledTalkDataBox>
+          </Box>
         </ContainerGrid>
         <Box
           as='aside'
