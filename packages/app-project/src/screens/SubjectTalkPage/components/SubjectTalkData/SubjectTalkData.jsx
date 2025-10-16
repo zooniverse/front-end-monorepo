@@ -4,7 +4,6 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
-import SearchBar from './components/SearchBar'
 import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
@@ -17,7 +16,6 @@ const StyledHeading = styled(Heading)`
 function SubjectTalkData({
   login,
   projectId,
-  projectSlug,
   subjectId,
   userId
 }) {
@@ -25,59 +23,54 @@ function SubjectTalkData({
 
   return (
     <Box
-      gap='small'
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      border={[
+        { color: 'light-5', side: 'all', size: '0.5px' },
+        { color: 'light-5', side: 'between', size: '0.5px' }
+      ]}
+      gap='0.5px'
+      round='8px'
     >
-      <SearchBar projectSlug={projectSlug} />
       <Box
-        background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
-        }}
-        border={[
-          { color: 'light-5', side: 'all', size: '0.5px' },
-          { color: 'light-5', side: 'between', size: '0.5px' }
-        ]}
-        gap='0.5px'
-        round='8px'
+        align='start'
+        height={{ min: '60px' }}
+        justify='center'
+        pad='small'
+        round={{ corner: 'top', size: '8px' }}
       >
-        <Box
-          align='start'
-          height={{ min: '60px' }}
-          justify='center'
-          pad='small'
-          round={{ corner: 'top', size: '8px' }}
+        <StyledHeading
+          color={{ dark: 'light-1', light: 'dark-4' }}
+          level={2}
         >
-          <StyledHeading
-            color={{ dark: 'light-1', light: 'dark-4' }}
-            level={2}
-          >
-            {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
-          </StyledHeading>
-        </Box>
-        <Tags
-          projectId={projectId}
-          subjectId={subjectId}
-          userId={userId}
-        />
-        <Discussions
-          login={login}
-          projectId={projectId}
-          subjectId={subjectId}
-        />
-        {/* <Box
-          pad='small'
-        >
-          <SectionHeading
-            icon={
-              <BlockQuote
-                color={{ dark: 'light-1', light: 'dark-4' }}
-                size='1rem'
-              />
-            }
-            title='Mentions'
-          />
-        </Box> */}
+          {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
+        </StyledHeading>
       </Box>
+      <Tags
+        projectId={projectId}
+        subjectId={subjectId}
+        userId={userId}
+      />
+      <Discussions
+        login={login}
+        projectId={projectId}
+        subjectId={subjectId}
+      />
+      {/* <Box
+        pad='small'
+      >
+        <SectionHeading
+          icon={
+            <BlockQuote
+              color={{ dark: 'light-1', light: 'dark-4' }}
+              size='1rem'
+            />
+          }
+          title='Mentions'
+        />
+      </Box> */}
     </Box>
   )
 }

@@ -43,7 +43,6 @@ function SearchBar({ projectSlug }) {
       direction='row-reverse'
       height={{ min: '40px' }}
       round='32px'
-      width='600px'
     >
       <StyledTextInput
         a11yTitle={t('Talk.searchPlaceholder')}
@@ -54,6 +53,7 @@ function SearchBar({ projectSlug }) {
       />
       <IconActionButton
         a11yTitle={t('Talk.searchPlaceholder')}
+        disabled={disabled}
         href={disabled ? undefined : `/projects/${projectSlug}/talk/search?query=${encodeURIComponent(searchTerm)}`}
         height='38px'
         icon={<Search color={{ dark: 'neutral-6', light: 'dark-3' }} />}
