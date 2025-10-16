@@ -58,6 +58,10 @@ export function Drawing({ isThereTaskHelp, required, subjectReadyState }) {
           color: zooTheme.global.colors['drawing-yellow'],
           help: '',
           type: 'ellipse',
+        }, {
+          color: 'rgb(0, 0, 0)', // a legacy case from PFE
+          help: '',
+          type: 'rectangle',
         }
       ],
       type: 'drawing'
