@@ -17,7 +17,19 @@ describe('Helpers > fetchSubject', function () {
     }
   }
 
-  const mockMedia = {
+  const mockMediaLocation = {
+    id: '324546',
+    href: '/subjects/252638/location',
+    src: 'https://panoptes-uploads-staging.zooniverse.org/subject_location/89cdf135-3349-4149-8255-57bc7875323f.png',
+    content_type: 'image/png',
+    media_type: 'subject_location',
+    external_link: false,
+    created_at: '2020-01-01T00:00:00.000Z',
+    metadata: { index: 0 },
+    updated_at: '2020-01-01T00:00:00.000Z'
+  }
+  
+  const mockMediaAttachedImage = {
     id: '67890',
     src: 'https://panoptes-uploads-staging.zooniverse.org/subject_attached_image/b06c48fb-844f-447a-872d-94d244d5b02e.png',
     content_type: 'image/png',
@@ -34,13 +46,13 @@ describe('Helpers > fetchSubject', function () {
   const mockResponse = {
     subjects: [mockSubject],
     linked: {
-      media: [mockMedia]
+      media: [mockMediaLocation, mockMediaAttachedImage]
     }
   }
 
   const expectedSubject = {
     ...mockSubject,
-    media: [mockMedia]
+    attached_media: [mockMediaAttachedImage]
   }
 
   describe('when panoptes returns a subject resource', function () {
