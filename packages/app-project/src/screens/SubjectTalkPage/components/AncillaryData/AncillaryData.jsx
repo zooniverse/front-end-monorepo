@@ -8,6 +8,8 @@ const StyledList = styled(Box)`
 `
 
 function AncillaryData({ media }) {
+  if (!media || media.length === 0) return null
+
   return (
     <StyledList
       forwardedAs='ul'

@@ -1,5 +1,5 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
-import { Accordion, AccordionPanel, Box, Button,Heading, Text, ThemeContext, Tip } from 'grommet'
+import { Accordion, AccordionPanel, Box, Heading, Text, ThemeContext, Tip } from 'grommet'
 import { CircleInformation, Multiple } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
