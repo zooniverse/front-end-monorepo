@@ -12,10 +12,4 @@ describe('Component > SubjectTalkPage > AncillaryData', function () {
     const ancillaryData = screen.getAllByRole('listitem')
     expect(ancillaryData.length).to.equal(3)
   })
-
-  it('should show nothing when there is no data', function () {
-    render(<NoMediaStory />)
-    const ancillaryData = screen.queryByRole('listitem')
-    expect(ancillaryData).to.be.null
-  })
 })

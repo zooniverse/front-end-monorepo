@@ -93,7 +93,9 @@ function SubjectTalkPage({
           <ContentBox
             title={t('Talk.subjectMetadata')}
           />
-          <AncillaryData media={subject?.media} />
+          {subject?.attached_media?.length > 0 ? (
+            <AncillaryData media={subject?.attached_media} />
+          ) : null}
           {/* <FeaturedCollections /> */}
           <ContentBox
             title={t('Talk.featuredCollections')}

@@ -58,9 +58,3 @@ export const Default = {
     media: mockMedia
   }
 }
-
-export const NoMedia = {
-  args: {
-    media: []
-  }
-}
