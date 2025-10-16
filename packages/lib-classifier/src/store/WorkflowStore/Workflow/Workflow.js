@@ -1,3 +1,4 @@
+import { observable } from 'mobx'
 import { flow, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import SubjectSet from '@store/SubjectSet'
@@ -42,6 +43,12 @@ const Workflow = types
       return { ...newSnapshot, steps, tasks }
     }
   )
+  .volatile(self => ({
+    SGVModalState: observable({
+      showModal: false,
+      lastSubject: null
+    })
+  }))
   .views(self => ({
     get caesarReducer() {
       if (self.usesTranscriptionTask) {
@@ -115,8 +122,16 @@ const Workflow = types
       throw new Error(`No subject set ${id} for workflow ${self.id}`)
     }
 
+    function setSGVModalState(showModal, subjectData = null) {
+      self.SGVModalState = {
+        showModal,
+        lastSubject: subjectData
+      }
+    }
+
     return {
-      selectSubjectSet: flow(selectSubjectSet)
+      selectSubjectSet: flow(selectSubjectSet),
+      setSGVModalState
     }
   })
 
