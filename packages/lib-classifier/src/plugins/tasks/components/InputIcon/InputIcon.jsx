@@ -9,7 +9,7 @@ export const StyledInputIcon = styled.span`
   display: flex;
   align-items: center;
   padding: 15px;
- ${props => props.color === 'rgb(0, 0, 0)' ? css`background: radial-gradient(#cbcccb 0%, #2D2D2D 80%);` : css`background: #2D2D2D;`}
+ ${props => props.color === 'rgb(0, 0, 0)' || props.color === '#000000' ? css`background: radial-gradient(#cbcccb 0%, #2D2D2D 80%);` : css`background: #2D2D2D;`}
 
   > svg {
     fill-opacity: 0.1;
