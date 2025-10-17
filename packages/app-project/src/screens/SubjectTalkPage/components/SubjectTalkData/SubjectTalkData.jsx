@@ -62,6 +62,7 @@ function SubjectTalkData({
         login={login}
         projectId={projectId}
         subjectId={subjectId}
+        userId={userId}
       />
       {/* <Box
         pad='small'
@@ -84,7 +85,8 @@ SubjectTalkData.propTypes = {
   login: string,
   projectSlug: string,
   projectId: string.isRequired,
-  subjectId: string.isRequired
+  subjectId: string.isRequired,
+  userId: string
 }
 
 export default SubjectTalkData
