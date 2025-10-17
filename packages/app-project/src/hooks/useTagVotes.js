@@ -15,9 +15,30 @@ const SWRoptions = {
 async function fetchTagVotes({ query, token }) {
   const authorization = `Bearer ${token}`
 
-  const response = await talkAPI.get('/tag_votes', query, { authorization })
+  let tagVotesAccumulator = []
+  
+  async function getTagVotes(page = 1) {
+    try {
+      const response = await talkAPI.get('/tag_votes', { page, ...query }, { authorization })
+      const { meta, tag_votes: tagVotes } = response?.body || {}
 
-  return response?.body?.tag_votes
+      if (tagVotes && tagVotes.length) {
+        tagVotesAccumulator = tagVotesAccumulator.concat(tagVotes)
+      }
+
+      if (meta?.tag_votes?.next_page) {
+        return getTagVotes(meta.tag_votes.next_page)
+      }
+
+      return tagVotesAccumulator
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  await getTagVotes(1)
+  return tagVotesAccumulator
 }
 
 export default function useTagVotes(query) {
