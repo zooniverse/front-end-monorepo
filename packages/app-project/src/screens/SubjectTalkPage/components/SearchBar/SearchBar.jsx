@@ -19,18 +19,19 @@ function SearchBar({ projectSlug }) {
 
   const { t } = useTranslation('screens')
   
+  const trimmedSearchTerm = searchTerm.trim()
+  const disabled = trimmedSearchTerm.length === 0
+  
   function handleInputChange(event) {
     setSearchTerm(event.target.value)
   }
 
-  function handleKeyUp(event) {
-    if (event.key === 'Enter' && searchTerm.length > 0) {
+  function handleKeyDown(event) {
+    if (event.key === 'Enter' && !disabled) {
       const searchUrl = `/projects/${projectSlug}/talk/search?query=${encodeURIComponent(searchTerm)}`
       window.open(searchUrl, '_blank')
     }
   }
-
-  const disabled = searchTerm.length === 0
 
   return (
     <Box
@@ -49,7 +50,7 @@ function SearchBar({ projectSlug }) {
       <StyledTextInput
         a11yTitle={t('Talk.searchPlaceholder')}
         onChange={handleInputChange}
-        onKeyUp={handleKeyUp}
+        onKeyDown={handleKeyDown}
         placeholder={<StyledPlaceholderText>{t('Talk.searchPlaceholder')}</StyledPlaceholderText>}
         value={searchTerm}
       />
