@@ -22,7 +22,8 @@ const WorkflowConfiguration = types.snapshotProcessor(
         'scatterPlot',
         'singleImage',
         'subjectGroup',
-        'variableStar'
+        'variableStar',
+        'ztm2025geomap'
       ])
     ),
     subject_viewer_config: types.maybe(
@@ -68,6 +69,9 @@ const WorkflowConfiguration = types.snapshotProcessor(
           }
           case 'variableStar': {
             return subjectViewers.variableStar
+          }
+          case 'ztm2025geomap': {
+            return subjectViewers.ztm2025geomap
           }
           default: {
             return null
