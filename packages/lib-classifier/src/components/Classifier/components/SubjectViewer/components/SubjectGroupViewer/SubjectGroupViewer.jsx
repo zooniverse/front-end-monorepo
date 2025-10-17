@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import { forwardRef, useRef } from 'react';
+import { array, arrayOf, bool, func, number, object, oneOf, shape, string } from 'prop-types'
+import { forwardRef, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SGVGridCell from './components/SGVGridCell'
@@ -9,7 +9,9 @@ const DEFAULT_IMAGES = []
 const DEFAULT_HANDLER = () => false
 const DEFAULT_SUBJECT_IDS = []
 
-const Container = styled.div`
+const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['gridMaxWidth', 'gridMaxHeight'].includes(prop)
+})`
   overflow: hidden;
   height: 100%;
   width: 100%;
@@ -42,7 +44,9 @@ Note on Subject Viewer sizing/fitting:
   Safari 12. If we ignore Safari, we only need max-width/height on the
   container div, not the <svg>
  */
-export const SVG = styled.svg`
+export const SVG = styled.svg.withConfig({
+  shouldForwardProp: (prop) => !['gridMaxWidth', 'gridMaxHeight'].includes(prop)
+})`
   width: 100%;
   height: 100%;
 
@@ -77,14 +81,16 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
   zoom = 1,
   
   annotation,
+  currentTask = null,
   interactionMode = 'move',
   isCurrentTaskValidForAnnotation = false,
 }, ref) {
 
   const transformLayer = useRef()
   const canvas = transformLayer.current
-  const annotatedValues = annotation?.value || []
-    
+  // Extract cell indices for cellAnnotated prop
+  const annotatedValues = annotation?.value ? annotation.value.map(cell => cell.index) : []
+
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
   
   return (
@@ -129,6 +135,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
                 annotation={annotation}
                 annotationMode={annotationMode}
                 cellAnnotated={annotatedValues.includes(index)}
+                currentTask={currentTask}
               />
             ))}
           </g>
@@ -139,33 +146,36 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
 })
 
 SubjectGroupViewer.propTypes = {
-  images: PropTypes.array,
-  subjectIds: PropTypes.arrayOf(PropTypes.string),
-            
-  dragMove: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  
-  cellWidth: PropTypes.number,
-  cellHeight: PropTypes.number,
-  cellStyle: PropTypes.object,
-  gridRows: PropTypes.number,
-  gridColumns: PropTypes.number,
-  gridMaxWidth: PropTypes.string,
-  gridMaxHeight: PropTypes.string,
+  images: array,
+  subjectIds: arrayOf(string),
 
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  dragMove: func,
+  onKeyDown: func,
 
-  panX: PropTypes.number,
-  panY: PropTypes.number,
-  zoom: PropTypes.number,
+  cellWidth: number,
+  cellHeight: number,
+  cellStyle: object,
+  gridRows: number,
+  gridColumns: number,
+  gridMaxWidth: string,
+  gridMaxHeight: string,
 
-  annotation: PropTypes.shape({
-    update: PropTypes.func,
-    value: PropTypes.array
+  width: number.isRequired,
+  height: number.isRequired,
+
+  panX: number,
+  panY: number,
+  zoom: number,
+
+  annotation: shape({
+    value: array,
+    getCellByIndex: func,
+    addCell: func,
+    removeCell: func
   }),
-  interactionMode: PropTypes.oneOf(['annotate', 'move']),
-  isCurrentTaskValidForAnnotation: PropTypes.bool,
+  currentTask: object,
+  interactionMode: oneOf(['annotate', 'move']),
+  isCurrentTaskValidForAnnotation: bool
 }
 
 export default SubjectGroupViewer

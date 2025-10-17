@@ -45,6 +45,7 @@ function Tags({
 
   return (
     <Box
+      border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
       gap='small'
       height={{ min: 'auto' }}
       pad='small'

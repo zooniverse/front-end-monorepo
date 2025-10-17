@@ -13,6 +13,14 @@ const StyledHeading = styled(Heading)`
   margin: 0;
 `
 
+const StyledHeadingBox = styled(Box)`
+  display: flex;
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
+`
+
 function SubjectTalkData({
   login,
   projectDisplayName,
@@ -24,67 +32,60 @@ function SubjectTalkData({
 
   return (
     <Box
-      gap='small'
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      border={{ color: 'light-5', side: 'all', size: '0.5px' }}
+      gap='0.5px'
+      round='8px'
     >
-      {/* <TalkSearch /> */}
-      <input type='text' placeholder={t('Talk.searchPlaceholder')} />
-      <Box
-        background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
-        }}
-        border={[
-          { color: 'light-5', side: 'all', size: '0.5px' },
-          { color: 'light-5', side: 'between', size: '0.5px' }
-        ]}
-        gap='0.5px'
-        round='8px'
+      <StyledHeadingBox
+        align='start'
+        border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
+        height={{ min: '60px' }}
+        justify='center'
+        pad='small'
       >
-        <Box
-          align='start'
-          height={{ min: '60px' }}
-          justify='center'
-          pad='small'
-          round={{ corner: 'top', size: '8px' }}
+        <StyledHeading
+          color={{ dark: 'light-1', light: 'dark-4' }}
+          level={2}
         >
-          <StyledHeading
-            color={{ dark: 'light-1', light: 'dark-4' }}
-            level={2}
-          >
-            {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
-          </StyledHeading>
-        </Box>
-        <Tags
-          projectDisplayName={projectDisplayName}
-          projectId={projectId}
-          subjectId={subjectId}
-          userId={userId}
+          {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
+        </StyledHeading>
+      </StyledHeadingBox>
+      <Tags
+        projectDisplayName={projectDisplayName}
+        projectId={projectId}
+        subjectId={subjectId}
+        userId={userId}
+      />
+      <Discussions
+        login={login}
+        projectId={projectId}
+        subjectId={subjectId}
+      />
+      {/* <Box
+        pad='small'
+      >
+        <SectionHeading
+          icon={
+            <BlockQuote
+              color={{ dark: 'light-1', light: 'dark-4' }}
+              size='1rem'
+            />
+          }
+          title='Mentions'
         />
-        <Discussions
-          login={login}
-          projectId={projectId}
-          subjectId={subjectId}
-        />
-        {/* <Box
-          pad='small'
-        >
-          <SectionHeading
-            icon={
-              <BlockQuote
-                color={{ dark: 'light-1', light: 'dark-4' }}
-                size='1rem'
-              />
-            }
-            title='Mentions'
-          />
-        </Box> */}
-      </Box>
+      </Box> */}
     </Box>
   )
 }
 
 SubjectTalkData.propTypes = {
   login: string,
+  projectDisplayName: string,
+  projectSlug: string,
   projectId: string.isRequired,
   subjectId: string.isRequired
 }
