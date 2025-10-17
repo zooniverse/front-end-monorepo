@@ -5,6 +5,7 @@ import Annotation from './Annotation'
 const Task = types.model('Task', {
   // override annotation in individual task models with specific annotation types
   annotation: types.safeReference(Annotation),
+  details: types.maybe(types.array(types.frozen())),
   taskKey: types.identifier,
   required: types.maybe(types.union(types.string, types.boolean)), // text task required default = false
   strings: types.map(types.string),
@@ -27,6 +28,33 @@ const Task = types.model('Task', {
 
     get instruction() {
       return self.strings.get('instruction')
+    },
+
+    get subtasks() {
+      if (self.details && Array.isArray(self.details)) {
+        return self.details.map((detail, index) => {
+          const stringOverrides = {}
+          self.strings.forEach((value, key) => {
+            const detailsMatch = key.match(new RegExp(`^details\\.${index}\\.(.+)$`))
+            if (detailsMatch) {
+              stringOverrides[detailsMatch[1]] = value
+            }
+          })
+
+          return {
+            ...detail,
+            ...stringOverrides,
+            taskKey: `${self.taskKey}.details.${index}`,
+            index
+          }
+        })
+      }
+
+      return []
+    },
+
+    hasSubtasks() {
+      return self.subtasks.length > 0
     },
 
     get question() {
