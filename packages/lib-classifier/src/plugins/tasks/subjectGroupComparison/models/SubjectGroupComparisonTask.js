@@ -3,15 +3,12 @@ import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SubjectGroupComparisonAnnotation from './SubjectGroupComparisonAnnotation'
 
-// TODO: should we make question/instruction consistent between task types?
-// What should be it called? I think we should use 'instruction'
-
 const SubjectGroupComparison = types.model('SubjectGroupComparison', {
   annotation: types.safeReference(SubjectGroupComparisonAnnotation),
   type: types.literal('subjectGroupComparison')
 })
   .views(self => ({
-    defaultAnnotation (id = cuid()) {
+    defaultAnnotation(id = cuid()) {
       return SubjectGroupComparisonAnnotation.create({
         id,
         task: self.taskKey,

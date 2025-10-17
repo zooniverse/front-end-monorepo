@@ -1,4 +1,4 @@
-import { Box, Grid } from 'grommet'
+import { Box, Grid, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
 import styled from 'styled-components'
@@ -6,35 +6,58 @@ import styled from 'styled-components'
 import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
-import SubjectTalkViewer from './components/SubjectTalkViewer'
+import SubjectMetadata from './components/SubjectMetadata'
+import SearchBar from './components/SearchBar'
 import SubjectTalkData from './components/SubjectTalkData'
+import SubjectTalkViewer from './components/SubjectTalkViewer'
+
+const StyledBox = styled(Box)`
+  gap: 30px;
+  padding: 30px;
+
+  @media screen and (max-width: 1280px) {
+    background: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
+    gap: 20px;
+    padding: 20px;
+  }
+`
+
+const StyledHeading = styled(Heading)`
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  margin: 20px 0 0 0;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
+`
 
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
   position: relative;
-  grid-gap: 1.875rem;
-  grid-template-areas: 'viewer talkData';
+  grid-gap: 30px;
+  grid-template-areas: 
+    'viewer search'
+    'viewer talkData';
   grid-template-columns: auto 600px;
+  grid-template-rows: min-content 1fr;
+  height: minmax(300px, 90vh);
+  max-height: 90vh;
 
   @media screen and (max-width: 1280px) {
-    grid-gap: 1.25rem;
+    grid-gap: 20px;
     grid-template-areas:
+      'search'
       'viewer'
       'talkData';
     grid-template-columns: 100%;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
+    height: auto;
     margin: 0;
+    max-height: none;
     width: 100%;
-  }
-`
-
-const StyledTalkDataBox = styled(Box)`
-  max-height: 90vh;
-  min-height: 300px;
-
-  @media screen and (max-width: 1280px) {
-    max-height: auto;
-    min-height: auto;
   }
 `
 
@@ -50,15 +73,12 @@ function SubjectTalkPage({
 
   return (
     <StandardLayout>
-      <Box
+      <StyledBox
         align='center'
-        gap='medium'
-        pad='medium'
       >
         <ContainerGrid>
           <Box
             data-testid='viewer'
-            height={{ max: '90vh' }}
             style={{
               gridArea: 'viewer'
             }}
@@ -71,27 +91,37 @@ function SubjectTalkPage({
               userId={userId}
             />
           </Box>
-          <StyledTalkDataBox
+          <Box
+            data-testid='searchBar'
+            style={{ gridArea: 'search' }}
+          >
+            <SearchBar projectSlug={projectSlug} />
+            <StyledHeading
+              color={{ dark: 'light-1', light: 'dark-4' }}
+              level={2}
+            >
+              {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
+            </StyledHeading>
+          </Box>
+          <Box
             data-testid='talkData'
             style={{ gridArea: 'talkData' }}
           >
             <SubjectTalkData
               login={login}
               projectId={projectId}
+              projectSlug={projectSlug}
               subjectId={subjectId}
               userId={userId}
             />
-          </StyledTalkDataBox>
+          </Box>
         </ContainerGrid>
         <Box
           as='aside'
           gap='medium'
           width='min(100%, 90rem)'
         >
-          {/* <MetaData /> */}
-          <ContentBox
-            title={t('Talk.subjectMetadata')}
-          />
+          <SubjectMetadata metadata={subject?.metadata} />
           {/* <AncillaryData /> */}
           {/* <FeaturedCollections /> */}
           <ContentBox
@@ -106,7 +136,7 @@ function SubjectTalkPage({
             title={t('Talk.relatedSubjects')}
           />
         </Box>
-      </Box>
+      </StyledBox>
     </StandardLayout>
   )
 }
