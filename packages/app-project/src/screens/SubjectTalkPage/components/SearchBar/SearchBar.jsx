@@ -35,6 +35,7 @@ function SearchBar({ projectSlug }) {
   return (
     <Box
       align='center'
+      alignSelf='end'
       background={{
         dark: 'dark-3',
         light: 'neutral-6'
@@ -43,6 +44,7 @@ function SearchBar({ projectSlug }) {
       direction='row-reverse'
       height={{ min: '40px' }}
       round='32px'
+      width='600px'
     >
       <StyledTextInput
         a11yTitle={t('Talk.searchPlaceholder')}

@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import SearchBar from './SearchBar'
 
 export default {
-  title: 'Project App / Screens / Subject Talk / Talk Data / Search Bar',
+  title: 'Project App / Screens / Subject Talk / Search Bar',
   component: SearchBar,
   decorators: [(Story) => (
     <Box

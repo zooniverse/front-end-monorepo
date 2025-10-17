@@ -13,6 +13,14 @@ const StyledHeading = styled(Heading)`
   margin: 0;
 `
 
+const StyledHeadingBox = styled(Box)`
+  display: flex;
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
+`
+
 function SubjectTalkData({
   login,
   projectId,
@@ -27,19 +35,16 @@ function SubjectTalkData({
         dark: 'dark-3',
         light: 'neutral-6'
       }}
-      border={[
-        { color: 'light-5', side: 'all', size: '0.5px' },
-        { color: 'light-5', side: 'between', size: '0.5px' }
-      ]}
+      border={{ color: 'light-5', side: 'all', size: '0.5px' }}
       gap='0.5px'
       round='8px'
     >
-      <Box
+      <StyledHeadingBox
         align='start'
+        border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
         height={{ min: '60px' }}
         justify='center'
         pad='small'
-        round={{ corner: 'top', size: '8px' }}
       >
         <StyledHeading
           color={{ dark: 'light-1', light: 'dark-4' }}
@@ -47,7 +52,7 @@ function SubjectTalkData({
         >
           {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
         </StyledHeading>
-      </Box>
+      </StyledHeadingBox>
       <Tags
         projectId={projectId}
         subjectId={subjectId}

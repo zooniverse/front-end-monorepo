@@ -1,4 +1,4 @@
-import { Box, Grid } from 'grommet'
+import { Box, Grid, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
 import styled from 'styled-components'
@@ -11,10 +11,33 @@ import SearchBar from './components/SearchBar'
 import SubjectTalkData from './components/SubjectTalkData'
 import SubjectTalkViewer from './components/SubjectTalkViewer'
 
+const StyledBox = styled(Box)`
+  gap: 30px;
+  padding: 30px;
+
+  @media screen and (max-width: 1280px) {
+    background: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
+    gap: 20px;
+    padding: 20px;
+  }
+`
+
+const StyledHeading = styled(Heading)`
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  margin: 20px 0 0 0;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
+`
+
 // based on the lib-classifier MaxWidth layout
 export const ContainerGrid = styled(Grid)`
   position: relative;
-  grid-gap: 1.875rem;
+  grid-gap: 30px;
   grid-template-areas: 
     'viewer search'
     'viewer talkData';
@@ -24,13 +47,16 @@ export const ContainerGrid = styled(Grid)`
   max-height: 90vh;
 
   @media screen and (max-width: 1280px) {
-    grid-gap: 1.25rem;
+    grid-gap: 20px;
     grid-template-areas:
       'search'
       'viewer'
       'talkData';
     grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    height: auto;
     margin: 0;
+    max-height: none;
     width: 100%;
   }
 `
@@ -47,10 +73,8 @@ function SubjectTalkPage({
 
   return (
     <StandardLayout>
-      <Box
+      <StyledBox
         align='center'
-        gap='medium'
-        pad='medium'
       >
         <ContainerGrid>
           <Box
@@ -72,6 +96,12 @@ function SubjectTalkPage({
             style={{ gridArea: 'search' }}
           >
             <SearchBar projectSlug={projectSlug} />
+            <StyledHeading
+              color={{ dark: 'light-1', light: 'dark-4' }}
+              level={2}
+            >
+              {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
+            </StyledHeading>
           </Box>
           <Box
             data-testid='talkData'
@@ -106,7 +136,7 @@ function SubjectTalkPage({
             title={t('Talk.relatedSubjects')}
           />
         </Box>
-      </Box>
+      </StyledBox>
     </StandardLayout>
   )
 }
