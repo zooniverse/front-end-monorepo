@@ -4,6 +4,7 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
+import Mentions from './components/Mentions'
 import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
@@ -63,19 +64,10 @@ function SubjectTalkData({
         projectId={projectId}
         subjectId={subjectId}
       />
-      {/* <Box
-        pad='small'
-      >
-        <SectionHeading
-          icon={
-            <BlockQuote
-              color={{ dark: 'light-1', light: 'dark-4' }}
-              size='1rem'
-            />
-          }
-          title='Mentions'
-        />
-      </Box> */}
+      <Mentions
+        projectId={projectId}
+        subjectId={subjectId}
+      />
     </Box>
   )
 }
