@@ -30,7 +30,7 @@ async function fetchMentions({ query, token }) {
   }
 }
 
-export function useMentions(query) {
+export default function useMentions(query) {
   const token = usePanoptesAuthToken()
 
   let key = null

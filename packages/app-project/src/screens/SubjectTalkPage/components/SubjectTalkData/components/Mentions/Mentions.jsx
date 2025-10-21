@@ -4,8 +4,21 @@ import { useTranslation } from 'next-i18next'
 import { arrayOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
+import ParticipantsAndComments from '../ParticipantsAndComments'
 import SectionHeading from '../SectionHeading'
 import TalkComment from '../TalkComment'
+
+const StyledMentions = styled(Box)`
+  max-height: auto;
+  
+  @media screen and (max-width: 1280px) {
+    max-height: 400px;
+  }
+`
+
+const StyledOrderedList = styled(Box)`
+  list-style: none;
+`
 
 function Mentions({
   error,
@@ -15,35 +28,59 @@ function Mentions({
   users
 }) {
   return (
-    <Box>
-      <SectionHeading
-        icon={
-          <BlockQuote
-            color={{ dark: 'light-1', light: 'dark-4' }}
-            size='1rem'
+    <StyledMentions
+      gap='xsmall'
+      pad='small'
+    >
+      <Box
+        align='center'
+        direction='row'
+        gap='small'
+      >
+        <SectionHeading
+          icon={
+            <BlockQuote
+              color={{ dark: 'light-1', light: 'dark-4' }}
+              size='1rem'
+            />
+          }
+          title='Mentions'
+        />
+        {mentions?.length > 0 && (
+          <ParticipantsAndComments
+            commentsCount={mentions.length}
+            usersCount={mentions.length}
           />
-        }
-        title='Mentions'
-      />
+        )}
+      </Box>
       {mentions?.length > 0 ? (
-        <Box
-          as='ol'
+        <StyledOrderedList
+          forwardedAs='ol'
           gap='small'
           margin='none'
+          overflow={{ vertical: 'auto' }}
           pad='none'
         >
-          {mentions.map(mention => (
-            <TalkComment
-              key={mention.id}
-              roles={roles}
-              comment={mention.comment}
-            />
-          ))}
-        </Box>
+          {mentions.map(mention => {
+            const author = users?.find(user => user.id === mention.user_id)
+
+            const authorRoles = roles?.filter(role => role.user_id === author?.id)
+            
+            return (
+              <li key={mention.id}>
+                <TalkComment
+                  avatar={author?.avatar_src}
+                  comment={mention.comment}
+                  roles={authorRoles}
+                />
+              </li>
+            )
+          })}
+        </StyledOrderedList>
       ) : (
         <div>No mentions found.</div>
       )}
-    </Box>
+    </StyledMentions>
   )
 }
 

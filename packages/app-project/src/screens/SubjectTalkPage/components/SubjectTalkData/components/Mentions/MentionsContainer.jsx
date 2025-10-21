@@ -20,10 +20,6 @@ function MentionsContainer({
 
   const { data: mentions, isLoading, error } = useMentions(mentionsQuery)
 
-  if (!mentions || mentions.length === 0) {
-    return null
-  }
-
   const userIds = mentions?.map(mention => mention.comment.user_id)
   const uniqueUserIds = [...new Set(userIds)]
   const userIdsString = uniqueUserIds.join(',')
@@ -32,18 +28,21 @@ function MentionsContainer({
     data: users,
     isLoading: usersLoading,
     error: usersError
-  } = usePanoptesUsers({ id: userIdsString })
+  } = usePanoptesUsers(mentions ? { id: userIdsString } : null)
 
   const {
     data: roles,
     isLoading: rolesLoading,
     error: rolesError
-  } = useTalkRoles({
+  } = useTalkRoles(mentions ? {
     is_shown: true,
     section: `zooniverse,project-${projectId}`,
     user_id: userIdsString
-  })
+  } : null)
 
+  if (!mentions || mentions.length === 0) {
+    return null
+  }
   return (
     <Mentions
       error={error}

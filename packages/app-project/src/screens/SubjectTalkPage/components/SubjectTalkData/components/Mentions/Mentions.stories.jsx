@@ -25,7 +25,7 @@ const mentionsMock = [
     project_id: '2022',
     section: 'project-2022',
     updated_at: '2025-08-28T20:00:00Z',
-    user_id: '1325901'
+    user_id: '1001'
   },
   {
     href: '/mentions/179',
@@ -49,7 +49,22 @@ const mentionsMock = [
     project_id: '2022',
     section: 'project-2022',
     updated_at: '2025-07-25T20:00:00Z',
-    user_id: '1326052'
+    user_id: '1002'
+  }
+]
+
+const usersMock = [
+  {
+    id: '1001',
+    login: 'zootester1',
+    display_name: 'ZooTester 1',
+    avatar_src: 'https://panoptes-uploads-staging.zooniverse.org/user_avatar/0c51ab10-8c23-47fc-9452-c11852c754a9.jpeg'
+  },
+  {
+    id: '1002',
+    login: 'zootester2',
+    display_name: 'ZooTester 2',
+    avatar_src: null
   }
 ]
 
@@ -68,6 +83,7 @@ export default {
 
 export const Default ={
   args: {
-    mentions: mentionsMock
+    mentions: mentionsMock,
+    users: usersMock,
   }
 }
