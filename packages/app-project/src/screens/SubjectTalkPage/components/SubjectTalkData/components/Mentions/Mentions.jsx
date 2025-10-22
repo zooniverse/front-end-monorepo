@@ -10,7 +10,7 @@ import TalkComment from '../TalkComment'
 
 const StyledMentions = styled(Box)`
   max-height: auto;
-  
+
   @media screen and (max-width: 1280px) {
     max-height: 400px;
   }
@@ -29,6 +29,7 @@ function Mentions({
 }) {
   return (
     <StyledMentions
+      border={{ color: 'light-5', side: 'top', size: '0.5px' }}
       gap='xsmall'
       pad='small'
     >
@@ -53,7 +54,6 @@ function Mentions({
           />
         )}
       </Box>
-      {mentions?.length > 0 ? (
         <StyledOrderedList
           forwardedAs='ol'
           gap='small'
@@ -77,9 +77,6 @@ function Mentions({
             )
           })}
         </StyledOrderedList>
-      ) : (
-        <div>No mentions found.</div>
-      )}
     </StyledMentions>
   )
 }
