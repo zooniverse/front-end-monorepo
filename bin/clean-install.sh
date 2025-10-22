@@ -17,5 +17,5 @@ for DIR in $(find $ROOT_DIR/packages -mindepth 1 -maxdepth 1 -type d) ; do
   printf " done!\n"
 done
 
-pnpm install
+pnpm install --frozen-lockfile
 echo "Finished!"

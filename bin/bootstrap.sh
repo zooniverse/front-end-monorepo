@@ -22,7 +22,7 @@ cd $ROOT_DIR
 
 printf 'Installing dependencies...\n'
 # All `prepare` scripts are run in this step.
-pnpm install
+pnpm install --frozen-lockfile
 
 # Then build the apps:
 pnpm --filter @zooniverse/fe-project build
