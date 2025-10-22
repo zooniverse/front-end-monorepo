@@ -21,12 +21,12 @@ const StyledOrderedList = styled(Box)`
 `
 
 function Mentions({
-  error,
-  isLoading,
-  mentions,
-  roles,
-  users
+  mentions = [],
+  roles = [],
+  users = []
 }) {
+  const { t } = useTranslation('screens')
+
   return (
     <StyledMentions
       border={{ color: 'light-5', side: 'top', size: '0.5px' }}
@@ -45,7 +45,7 @@ function Mentions({
               size='1rem'
             />
           }
-          title='Mentions'
+          title={t('Talk.mentions')}
         />
         {mentions?.length > 0 && (
           <ParticipantsAndComments
@@ -79,6 +79,21 @@ function Mentions({
         </StyledOrderedList>
     </StyledMentions>
   )
+}
+
+Mentions.propTypes = {
+  mentions: arrayOf(shape({
+    id: string,
+    user_id: string
+  })),
+  roles: arrayOf(shape({
+    id: string,
+    user_id: string
+  })),
+  users: arrayOf(shape({
+    id: string,
+    avatar_src: string
+  }))
 }
 
 export default Mentions
