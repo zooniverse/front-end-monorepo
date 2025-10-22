@@ -1,6 +1,5 @@
 # Zooniverse Front-End Monorepo
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/master/LICENSE.md)
 ![Contributors](https://img.shields.io/github/contributors/zooniverse/front-end-monorepo.svg)
 

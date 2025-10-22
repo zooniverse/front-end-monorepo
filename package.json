@@ -10,7 +10,6 @@
   "version": "0.0.1",
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
-    "lerna": "~8.2.2",
     "snazzy": "~9.0.0"
   },
   "scripts": {
@@ -20,8 +19,8 @@
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
     "storybook": "lerna run --parallel storybook",
-    "test": "lerna run --parallel test",
-    "test:ci": "lerna run --parallel test:ci"
+    "test": "pnpm -r --parallel test",
+    "test:ci": "pnpm -r --parallel test:ci"
   },
   "engines": {
     "node": ">=20.19"
