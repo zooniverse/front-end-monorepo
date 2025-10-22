@@ -16,11 +16,10 @@
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
     "bootstrap:es6": "./bin/bootstrap:es6.sh",
-    "build": "lerna run --parallel build",
+    "build": "pnpm build",
     "clean-install": "./bin/clean-install.sh",
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
-    "panic-button": "./bin/panic-button.sh",
     "storybook": "lerna run --parallel storybook",
     "test": "lerna run --parallel test",
     "test:ci": "lerna run --parallel test:ci"
@@ -28,13 +27,8 @@
   "engines": {
     "node": ">=20.19"
   },
-  "workspaces": {
-    "packages": [
-      "packages/**"
-    ]
-  },
   "resolutions": {
     "superagent": "^10.2.0"
   },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  "packageManager": "pnpm@9.12.3"
 }
