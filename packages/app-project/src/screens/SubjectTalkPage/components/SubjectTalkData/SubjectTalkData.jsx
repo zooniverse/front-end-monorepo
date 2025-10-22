@@ -50,6 +50,7 @@ function SubjectTalkData({
       <StyledHeadingBox
         align='start'
         border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
+        flex={false}
         justify='center'
         pad='small'
       >
