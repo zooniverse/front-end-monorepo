@@ -18,15 +18,15 @@ import { UserStats } from '@zooniverse/user';
 
 ## Run
 
-### Node/yarn
+### Node
 ```sh
-yarn dev
-yarn storybook
+pnpm dev
+pnpm storybook
 ```
 
 Starts a development server on port 8080 and a Storybook on port 6008 by default.
 
-Use `yarn dev` to run a small development environment app at `localhost:8080`.
+Use `pnpm dev` to run a small development environment app at `localhost:8080`.
 
 - a staging user stats page can be loaded by query param: `https://localhost:8080?users=[login]/stats`
 - a staging user group stats page can be loaded by query param: `https://localhost:8080?groups=[user group ID]`
@@ -39,13 +39,13 @@ Note: query params are used for local development work, but are not used in prod
 
 ## Build
 
-`yarn build` to bundle the components.
+`pnpm build` to bundle the components.
 
 ## Tests
 
-`yarn test` to run Vitest tests.
+`pnpm test` to run Vitest tests.
 
-`yarn test MainContent.spec.jsx` to test one file at a time.
+`pnpm test MainContent.spec.jsx` to test one file at a time.
 
 <!-- ## Contributing
 

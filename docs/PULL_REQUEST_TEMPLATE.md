@@ -1,4 +1,4 @@
-_Please request review from `@zooniverse/frontend` team or an individual member of that team._ 
+_Please request review from `@zooniverse/frontend` team or an individual member of that team._
 
 ## Package
 
@@ -20,7 +20,7 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
 ## General
 - [ ] Tests are passing locally and on Github
 - [ ] Documentation is up to date and changelog has been updated if appropriate
-- [ ] You can `yarn panic && yarn bootstrap` or `docker-compose up --build` and FEM works as expected
+- [ ] You can `pnpm panic && pnpm bootstrap` or `docker-compose up --build` and FEM works as expected
 - [ ] FEM works in all major desktop browsers: Firefox, Chrome, Edge, Safari (Use Browserstack account as needed)
 - [ ] FEM works in a mobile browser
 

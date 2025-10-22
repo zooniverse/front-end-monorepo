@@ -16,13 +16,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
          node-version-file: ./.nvmrc
-         cache: 'yarn'
+         cache: 'pnpm'
 
-      - run: yarn install --production=false --frozen-lockfile
-      - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/subject-viewers build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @zooniverse/react-components build:es6
+      - run: pnpm --filter @zooniverse/subject-viewers build:es6
+      - run: pnpm --filter @zooniverse/classifier build:es6
       - name: Deploy to GH Pages
-        run: yarn deploy-storybook -- --ci
+        run: pnpm deploy-storybook -- --ci
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}

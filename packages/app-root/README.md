@@ -33,7 +33,7 @@ docker compose run --rm root test
 ### Node
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 ## Running in production
@@ -49,13 +49,13 @@ The production server is started on port 3000 by default.
 ### Node
 
 ```sh
-yarn build
-yarn start
+pnpm build
+pnpm start
 ```
 
 ### Analyze bundle sizes
 
-This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true yarn build`.
+This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true pnpm build`.
 
 ## Technologies
 

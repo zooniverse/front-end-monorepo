@@ -18,13 +18,13 @@ import VolumetricViewer from '@zooniverse/subject-viewers/VolumetricViewer/Volum
 
 ## Run
 
-`yarn run storybook` to run the storybook locally on (https://localhost:6007).
+`pnpm run storybook` to run the storybook locally on (https://localhost:6007).
 
 ## Tests
 
-`yarn test` to run Vitest tests.
+`pnpm test` to run Vitest tests.
 
-`yarn test ModelTool.spec.jsx` to test one file at a time.
+`pnpm test ModelTool.spec.jsx` to test one file at a time.
 
 ## Contributing
 

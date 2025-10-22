@@ -19,11 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: ./.nvmrc
-          cache: 'yarn'
+          cache: 'pnpm'
 
-      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
-      - run: yarn workspace @zooniverse/subject-viewers build
-      - run: yarn workspace @zooniverse/react-components build
-      - run: yarn workspace @zooniverse/user build
-      - run: yarn workspace @zooniverse/classifier build
-      - run: yarn test:ci
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @zooniverse/subject-viewers build
+      - run: pnpm --filter @zooniverse/react-components build
+      - run: pnpm --filter @zooniverse/user build
+      - run: pnpm --filter @zooniverse/classifier build
+      - run: pnpm test:ci
