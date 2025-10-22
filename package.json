@@ -15,7 +15,6 @@
   },
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
-    "bootstrap:es6": "./bin/bootstrap:es6.sh",
     "build": "pnpm build",
     "clean-install": "./bin/clean-install.sh",
     "deploy-storybook": "storybook-to-ghpages --packages packages",

@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
+
+# The script will immediately exit upon any command failure (-e).
+# You will be able to see exactly what commands are being executed before they run (-v).
 set -ev
 
 # Script for bootstrapping the monorepo into a working state for development.
-
+#
 # Runs the following tasks in order:
 #   - Install dependencies
 #   - Build `@zooniverse/react-components`
