@@ -20,9 +20,6 @@ jobs:
          cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @zooniverse/react-components build:es6
-      - run: pnpm --filter @zooniverse/subject-viewers build:es6
-      - run: pnpm --filter @zooniverse/classifier build:es6
       - name: Deploy to GH Pages
         run: pnpm deploy-storybook -- --ci
         env:

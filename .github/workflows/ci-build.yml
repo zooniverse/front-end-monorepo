@@ -20,7 +20,7 @@ jobs:
          node-version-file: ./.nvmrc
          cache: 'pnpm'
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm --filter @zooniverse/react-components build:es6
       - run: pnpm --filter @zooniverse/subject-viewers build:es6
       - run: pnpm --filter @zooniverse/classifier build:es6
@@ -42,7 +42,7 @@ jobs:
          node-version-file: ./.nvmrc
          cache: 'pnpm'
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm --filter @zooniverse/react-components build:es6
       - run: pnpm --filter @zooniverse/content build:es6
       - run: pnpm --filter @zooniverse/user build:es6
@@ -62,7 +62,7 @@ jobs:
          node-version-file: ./.nvmrc
          cache: 'pnpm'
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm --filter @zooniverse/react-components build:es6
       - run: pnpm --filter @zooniverse/content build:es6
       - run: pnpm --filter @zooniverse/user build:es6

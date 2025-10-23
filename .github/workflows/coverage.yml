@@ -22,7 +22,7 @@ jobs:
           node-version-file: ./.nvmrc
           cache: 'pnpm'
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm --filter @zooniverse/subject-viewers build
       - run: pnpm --filter @zooniverse/react-components build
       - run: pnpm --filter @zooniverse/user build
