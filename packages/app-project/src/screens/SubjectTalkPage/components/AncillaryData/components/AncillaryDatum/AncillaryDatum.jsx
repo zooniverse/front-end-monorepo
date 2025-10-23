@@ -1,6 +1,7 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
-import { Accordion, AccordionPanel, Box, Heading, Text, ThemeContext, Tip } from 'grommet'
+import { Accordion, AccordionPanel, Box, Heading, ResponsiveContext, Text, ThemeContext, Tip } from 'grommet'
 import { CircleInformation, Multiple } from 'grommet-icons'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -46,6 +47,7 @@ function InfoTip() {
 }
 
 function AncillaryDatum({ datum }) {
+  const size = useContext(ResponsiveContext)
   const { t } = useTranslation('screens')
 
   const headerLabel = (
@@ -96,7 +98,7 @@ function AncillaryDatum({ datum }) {
       }}
       pad={{ left: 'small' }}
       round='8px'
-      width='460px'
+      width={size === 'small' ? '250px' : '420px'}
     >
       <ThemeContext.Extend
         value={{
