@@ -1,4 +1,5 @@
 export { default as addQueryParams } from './addQueryParams'
+export { default as fetchDiscussions } from './fetchDiscussions'
 export { default as fetchOrganization } from './fetchOrganization'
 export { default as fetchProjectData } from './fetchProjectData'
 export { default as fetchProjectPage } from './fetchProjectPage'
@@ -14,4 +15,10 @@ export { default as localeMenu } from './localeMenu.js'
 export { default as notFoundError } from './notFoundError'
 export { default as theme } from './theme'
 export { default as withEnvironments } from './withEnvironments'
-export { addTagVote, createVotableTag, removeTagVote } from './tags'
+export {
+  addTagVote,
+  createComment,
+  createDiscussion,
+  createVotableTag,
+  removeTagVote
+} from './talk/index.js'

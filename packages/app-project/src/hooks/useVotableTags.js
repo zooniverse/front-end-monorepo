@@ -10,12 +10,31 @@ const SWRoptions = {
 }
 
 async function fetchVotableTags(query) {
-  return talkAPI.get('/votable_tags', query)
-    .then(response => response?.body?.votable_tags)
-    .catch(error => {
+  let votableTagsAccumulator = []
+
+  async function getVotableTags(page = 1) {
+    try {
+      const response = await talkAPI.get('/votable_tags', { page, ...query })
+
+      const { meta, votable_tags: votableTags } = response?.body || {}
+
+      if (votableTags && votableTags.length) {
+        votableTagsAccumulator = votableTagsAccumulator.concat(votableTags)
+      }
+
+      if (meta?.votable_tags?.next_page) {
+        return getVotableTags(meta.votable_tags.next_page)
+      }
+
+      return votableTagsAccumulator
+    } catch (error) {
       console.error(error)
       throw error
-    })
+    }
+  }
+
+  await getVotableTags(1)
+  return votableTagsAccumulator
 }
 
 export default function useVotableTags(query) {
