@@ -63,6 +63,7 @@ export const ContainerGrid = styled(Grid)`
 
 function SubjectTalkPage({
   login,
+  projectDisplayName,
   projectId,
   projectSlug,
   subject,
@@ -109,6 +110,7 @@ function SubjectTalkPage({
           >
             <SubjectTalkData
               login={login}
+              projectDisplayName={projectDisplayName}
               projectId={projectId}
               projectSlug={projectSlug}
               subjectId={subjectId}

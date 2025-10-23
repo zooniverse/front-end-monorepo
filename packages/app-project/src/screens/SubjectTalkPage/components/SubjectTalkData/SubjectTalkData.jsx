@@ -23,6 +23,7 @@ const StyledHeadingBox = styled(Box)`
 
 function SubjectTalkData({
   login,
+  projectDisplayName,
   projectId,
   subjectId,
   userId
@@ -54,6 +55,7 @@ function SubjectTalkData({
         </StyledHeading>
       </StyledHeadingBox>
       <Tags
+        projectDisplayName={projectDisplayName}
         projectId={projectId}
         subjectId={subjectId}
         userId={userId}
@@ -82,6 +84,7 @@ function SubjectTalkData({
 
 SubjectTalkData.propTypes = {
   login: string,
+  projectDisplayName: string,
   projectSlug: string,
   projectId: string.isRequired,
   subjectId: string.isRequired
