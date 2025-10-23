@@ -73,10 +73,6 @@ docker compose build
 docker compose up -d
 # shut down the running containers when you're finished
 docker compose down
-# run this if you need a shell inside the dev container
-docker compose run --rm dev-shell
-# run this for a shell inside the production container
-docker compose run --rm prod-shell
 ```
 
 You can supply a service name (from `docker-compose.yml`) to `docker compose` if you only want to run a single service eg.
@@ -96,11 +92,11 @@ docker compose up -d
 docker compose down
 ```
 
-Tip: If you're an occasional Docker Desktop user, remember to `docker image prune`.
+Tip: If you're an occasional Docker Desktop user, remember to `docker image prune` or `docker system prune`.
 
 ### With Node and pnpm
 
-Alternatively, you can install Node 20 and pnpm and build the monorepo packages.
+Alternatively, you can install Node and pnpm and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git

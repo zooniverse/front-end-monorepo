@@ -46,9 +46,8 @@ flowchart TB
 ## Contributing
 
 ### Docker
-- `docker-compose up` to run a server on http://localhost:8080 and the storybook on http://localhost:6006.
-- `docker-compose down` to stop the container.
-- `docker-compose run --rm dev test` to run the tests.
+- `docker compose up` to run a server on https://localhost:8080 and the storybook on https://localhost:6006.
+- `docker compose down` to stop the container.
 
 ### Node/pnpm
 ```sh

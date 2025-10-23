@@ -18,7 +18,7 @@
     "clean-install": "./bin/clean-install.sh",
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
-    "storybook": "lerna run --parallel storybook",
+    "storybook": "pnpm run --parallel storybook",
     "test": "pnpm -r --parallel test",
     "test:ci": "pnpm -r --parallel test:ci"
   },

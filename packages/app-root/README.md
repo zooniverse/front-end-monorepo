@@ -26,8 +26,6 @@ docker compose build
 docker compose up -d
 # stop the local services when you're finished
 docker compose down
-# run the tests
-docker compose run --rm root test
 ```
 
 ### Node
@@ -41,10 +39,6 @@ pnpm dev
 [NextJS Production Checklist](https://nextjs.org/docs/app/building-your-application/deploying/production-checklist)
 
 The production server is started on port 3000 by default.
-
-### Docker
-
-- `docker-compose run --rm root start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy.
 
 ### Node
 

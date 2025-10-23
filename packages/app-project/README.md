@@ -23,13 +23,11 @@ Once you have the hosts file configured, you'll be able to use one of those subd
 # run a development build using the top-level Dockerfile
 docker compose build
 # run a dev server on port 3000 (with HTTPS, but no authentication) and a storybook on port 9001.
-# eg. https://localhost:3000/projects/nora-dot-eisner/planet-hunters-tess
+# eg. https://localhost:3000/projects/nora-dot-eisner/planet-hunters-tess?env=production
 # http://localhost:9001
 docker compose up -d
 # stop the local services when you're finished
 docker compose down
-# run the tests
-docker compose run --rm project test
 ```
 
 ### Node
