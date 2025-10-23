@@ -34,6 +34,12 @@ function StartDiscussionModalContainer({
     isLoading: boardsLoading,
     error: boardsError
   } = useBoards(active ? boardsQuery : null)
+  // sort boards to have subject default board first
+  const sortedBoards = boards?.sort((a, b) => {
+    if (a.subject_default && !b.subject_default) return -1
+    if (!a.subject_default && b.subject_default) return 1
+    return 0
+  })
 
   function handleRouting(url) {
     window.location.href = url
@@ -44,7 +50,7 @@ function StartDiscussionModalContainer({
     setError(null)
     try {
       const newComment = await createComment(commentData)
-      setLoading(false)
+      // addQueryParams helper does not support a url that includes a query param like ?comment=, so not used here
       const url = `/projects/${newComment.project_slug}/talk/${newComment.board_id}/${newComment.discussion_id}?comment=${newComment.id}`
       handleRouting(url)
     } catch (error) {
@@ -59,7 +65,6 @@ function StartDiscussionModalContainer({
     setError(null)
     try {
       const newDiscussion = await createDiscussion(discussionData)
-      setLoading(false)
       const url = addQueryParams(`/projects/${newDiscussion.project_slug}/talk/${newDiscussion.board_id}/${newDiscussion.id}`)
       handleRouting(url)
     } catch (error) {
@@ -132,7 +137,7 @@ function StartDiscussionModalContainer({
       {active && (
         <StartDiscussionModal
           active={active}
-          boards={boards}
+          boards={sortedBoards}
           error={error || boardsError}
           loading={loading || boardsLoading}
           onSubmit={handleSubmit}

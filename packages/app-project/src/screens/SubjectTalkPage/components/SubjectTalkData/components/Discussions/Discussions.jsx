@@ -205,6 +205,7 @@ function Discussions({
         <StyledBox
           align='center'
           direction='row'
+          flex='grow'
         >
           <StyledDiscussionButton
             disabled={!login}
