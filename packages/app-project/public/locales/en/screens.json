@@ -109,13 +109,17 @@
       "subjectMetadata": "Subject Metadata"
     },
     "Tags": {
+      "add": "Add",
       "addATag": "Add a tag",
       "addVote": "Add your vote",
-      "signInToTag": "Sign in to add a tag",
+      "createTag": "Create a tag",
       "noTags": "No Tags",
+      "popularTagsFrom": "Popular tags from {{projectDisplayName}}",
       "removeVote": "Remove your vote",
+      "signInToTag": "Sign in to add a tag",
       "somethingWentWrong": "Something went wrong.",
-      "tags": "Tags"
+      "tags": "Tags",
+      "tagValidationMessage": "Use 3-40 characters, letters, numbers, hyphens, and underscores. No spaces or other characters."
     }
   }
 }
