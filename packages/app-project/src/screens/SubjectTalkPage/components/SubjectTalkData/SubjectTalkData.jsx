@@ -4,6 +4,7 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import Discussions from './components/Discussions'
+import Mentions from './components/Mentions'
 import Tags from './components/Tags'
 
 const StyledHeading = styled(Heading)`
@@ -19,6 +20,13 @@ const StyledHeadingBox = styled(Box)`
   @media screen and (max-width: 1280px) {
     display: none;
   }
+`
+
+const StyledBox = styled(Box)`
+  display: grid;
+  grid-template-rows: auto;
+  grid-auto-rows: minmax(0fr, 1fr);
+  min-height: 0;
 `
 
 function SubjectTalkData({
@@ -43,7 +51,7 @@ function SubjectTalkData({
       <StyledHeadingBox
         align='start'
         border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
-        height={{ min: '60px' }}
+        flex={false}
         justify='center'
         pad='small'
       >
@@ -54,31 +62,23 @@ function SubjectTalkData({
           {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
         </StyledHeading>
       </StyledHeadingBox>
-      <Tags
-        projectDisplayName={projectDisplayName}
-        projectId={projectId}
-        subjectId={subjectId}
-        userId={userId}
-      />
-      <Discussions
-        login={login}
-        projectId={projectId}
-        subjectId={subjectId}
-        userId={userId}
-      />
-      {/* <Box
-        pad='small'
-      >
-        <SectionHeading
-          icon={
-            <BlockQuote
-              color={{ dark: 'light-1', light: 'dark-4' }}
-              size='1rem'
-            />
-          }
-          title='Mentions'
+      <StyledBox>
+        <Tags
+          projectId={projectId}
+          subjectId={subjectId}
+          userId={userId}
         />
-      </Box> */}
+        <Discussions
+          login={login}
+          projectId={projectId}
+          subjectId={subjectId}
+        />
+        <Mentions
+          login={login}
+          projectId={projectId}
+          subjectId={subjectId}
+        />
+      </StyledBox>
     </Box>
   )
 }

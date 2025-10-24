@@ -1,6 +1,6 @@
 import { Markdownz } from '@zooniverse/react-components'
 import { Anchor, Box, Paragraph, Text } from 'grommet'
-import { Like, LikeFill, Share } from 'grommet-icons'
+import { LikeFill, Share } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
 
