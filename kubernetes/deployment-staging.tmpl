@@ -30,7 +30,7 @@ spec:
       containers:
         - name: fe-project-staging
           image: ghcr.io/zooniverse/front-end-monorepo-staging:__IMAGE_TAG__
-          command: ["yarn", "workspace", "@zooniverse/fe-project"]
+          command: ["pnpm", "--filter", "@zooniverse/fe-project"]
           args: ["start"]
           resources:
             requests:
@@ -118,7 +118,7 @@ spec:
       containers:
         - name: fe-root-staging
           image: ghcr.io/zooniverse/front-end-monorepo-staging:__IMAGE_TAG__
-          command: ["yarn", "workspace", "@zooniverse/fe-root"]
+          command: ["pnpm", "--filter", "@zooniverse/fe-root"]
           args: ["start"]
           resources:
             requests:

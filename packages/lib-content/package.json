@@ -18,9 +18,9 @@
   "repository": "https://github.com/zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
-    "build": "yarn build:es6",
+    "build": "pnpm run build:es6",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
-    "prepare": "yarn build",
+    "prepare": "pnpm run build",
     "test": "vitest run",
     "test:ci": "vitest run --silent='passed-only' --hideSkippedTests",
     "coverage": "vitest run --coverage",
@@ -28,6 +28,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@zooniverse/panoptes-js": "~0.6.0",
     "dayjs": "~1.11.11",
     "i18next": "~24.2.2",
     "panoptes-client": "~5.6.0",

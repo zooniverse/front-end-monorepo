@@ -24,11 +24,11 @@
     "directory": "packages/lib-react-components"
   },
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
+    "build": "pnpm run build:cjs && pnpm run build:es6",
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
     "lint": "zoo-standard --fix | snazzy",
-    "prepare": "yarn build:cjs && yarn build:es6",
+    "prepare": "pnpm run build:cjs && pnpm run build:es6",
     "start": "start-storybook -p 6007",
     "test": "vitest run",
     "test:ci": "vitest run --silent='passed-only' --hideSkippedTests",

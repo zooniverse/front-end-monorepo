@@ -1,28 +1,4 @@
 services:
-  prod-shell:
-    image: front-end-monorepo_prod:latest
-    volumes:
-      - node_modules-prod:/usr/src/node_modules
-    build:
-      context: ./
-      args:
-        - NODE_ENV=production
-        - PANOPTES_ENV=production
-        - NEXT_TELEMETRY_DISABLED=1
-        - APP_ENV=development
-    command:
-      - "/bin/sh"
-  dev-shell:
-    image: front-end-monorepo_dev:latest
-    volumes:
-      - node_modules-dev:/usr/src/node_modules
-    build:
-      context: ./
-      target: builder
-      args:
-        - APP_ENV=development
-    command:
-      - "/bin/sh"
   fe-project:
     image: front-end-monorepo_prod:latest
     volumes:
@@ -30,13 +6,12 @@ services:
     build:
       context: ./
       args:
-        - NODE_ENV=production
         - PANOPTES_ENV=production
         - NEXT_TELEMETRY_DISABLED=1
         - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-project"
     command: ["start"]
     environment:
@@ -50,13 +25,12 @@ services:
     build:
       context: ./
       args:
-        - NODE_ENV=production
         - PANOPTES_ENV=production
         - NEXT_TELEMETRY_DISABLED=1
         - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-root"
     command: ["start"]
     environment:
