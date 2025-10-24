@@ -31,6 +31,7 @@ const StyledBox = styled(Box)`
 
 function SubjectTalkData({
   login,
+  projectDisplayName,
   projectId,
   subjectId,
   userId
@@ -83,9 +84,11 @@ function SubjectTalkData({
 
 SubjectTalkData.propTypes = {
   login: string,
+  projectDisplayName: string,
   projectSlug: string,
   projectId: string.isRequired,
-  subjectId: string.isRequired
+  subjectId: string.isRequired,
+  userId: string
 }
 
 export default SubjectTalkData

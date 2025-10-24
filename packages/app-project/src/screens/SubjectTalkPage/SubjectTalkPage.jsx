@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
+import AncillaryData from './components/AncillaryData'
 import SubjectMetadata from './components/SubjectMetadata'
 import SearchBar from './components/SearchBar'
 import SubjectTalkData from './components/SubjectTalkData'
@@ -63,6 +64,7 @@ export const ContainerGrid = styled(Grid)`
 
 function SubjectTalkPage({
   login,
+  projectDisplayName,
   projectId,
   projectSlug,
   subject,
@@ -109,6 +111,7 @@ function SubjectTalkPage({
           >
             <SubjectTalkData
               login={login}
+              projectDisplayName={projectDisplayName}
               projectId={projectId}
               projectSlug={projectSlug}
               subjectId={subjectId}
@@ -122,7 +125,9 @@ function SubjectTalkPage({
           width='min(100%, 90rem)'
         >
           <SubjectMetadata metadata={subject?.metadata} />
-          {/* <AncillaryData /> */}
+          {subject?.attached_media?.length > 0 ? (
+            <AncillaryData media={subject?.attached_media} />
+          ) : null}
           {/* <FeaturedCollections /> */}
           <ContentBox
             title={t('Talk.featuredCollections')}

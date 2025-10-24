@@ -1,4 +1,5 @@
 export { default as useAdminMode } from './useAdminMode.js'
+export { default as useBoards } from './useBoards.js'
 export { default as useComments } from './useComments.js'
 export { default as useDiscussions } from './useDiscussions.js'
 export { default as useMentions } from './useMentions.js'
