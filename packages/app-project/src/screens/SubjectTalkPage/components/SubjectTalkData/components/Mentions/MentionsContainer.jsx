@@ -1,3 +1,5 @@
+import { string } from 'prop-types'
+
 import {
   useMentions,
   usePanoptesUsers,
@@ -7,6 +9,7 @@ import {
 import Mentions from './Mentions'
 
 function MentionsContainer({
+  login = '',
   projectId,
   subjectId
 }) {
@@ -37,11 +40,18 @@ function MentionsContainer({
   }
   return (
     <Mentions
+      login={login}
       mentions={mentions}
       roles={roles}
       users={users}
     />
   )
+}
+
+MentionsContainer.propTypes = {
+  login: string,
+  projectId: string,
+  subjectId: string
 }
 
 export default MentionsContainer

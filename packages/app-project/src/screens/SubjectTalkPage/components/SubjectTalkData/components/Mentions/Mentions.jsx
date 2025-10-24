@@ -21,6 +21,7 @@ const StyledOrderedList = styled(Box)`
 `
 
 function Mentions({
+  login = '',
   mentions = [],
   roles = [],
   users = []
@@ -71,6 +72,7 @@ function Mentions({
                 <TalkComment
                   avatar={author?.avatar_src}
                   comment={mention.comment}
+                  login={login}
                   roles={authorRoles}
                 />
               </li>
@@ -82,6 +84,7 @@ function Mentions({
 }
 
 Mentions.propTypes = {
+  login: string,
   mentions: arrayOf(shape({
     id: string,
     user_id: string

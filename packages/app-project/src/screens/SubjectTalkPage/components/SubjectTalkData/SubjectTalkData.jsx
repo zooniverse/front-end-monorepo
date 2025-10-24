@@ -74,6 +74,7 @@ function SubjectTalkData({
           subjectId={subjectId}
         />
         <Mentions
+          login={login}
           projectId={projectId}
           subjectId={subjectId}
         />
