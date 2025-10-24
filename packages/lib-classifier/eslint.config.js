@@ -1,9 +1,9 @@
-const babelParser = require('@babel/eslint-parser')
-const jsxA11y = require('eslint-plugin-jsx-a11y')
-const reactRecommended = require('eslint-plugin-react/configs/recommended')
-const jsxRuntime = require('eslint-plugin-react/configs/jsx-runtime')
+import babelParser from '@babel/eslint-parser'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import reactRecommended from 'eslint-plugin-react/configs/recommended'
+import jsxRuntime from 'eslint-plugin-react/configs/jsx-runtime'
 
-module.exports = [
+const eslintConfig = [
   {
     settings: {
       react: {
@@ -35,3 +35,5 @@ module.exports = [
     }
   }
 ]
+
+export default eslintConfig

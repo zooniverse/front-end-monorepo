@@ -63,7 +63,8 @@ supportedLngs.forEach((lang) => {
     classifierI18n.addResourceBundle(
       lang,
       n,
-      require(`./${lang}/${n}.json`)
+      // require(`./${lang}/${n}.json`)
+      import(`./${lang}/${n}.json`, { assert: { type: 'json' } })
     )
   })
 })
