@@ -1,5 +1,5 @@
 import { bool, func, node, object, oneOfType, string } from 'prop-types'
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react'
 import { Box } from 'grommet'
 import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'

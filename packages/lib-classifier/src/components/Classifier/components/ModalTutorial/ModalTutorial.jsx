@@ -8,10 +8,6 @@ import { useTranslation } from '@translations/i18n'
 import { withStores } from '@helpers'
 import SlideTutorial from '../SlideTutorial'
 
-const StyledModal = styled(Modal)`
-  max-height: 80vh;
-`
-
 function storeMapper (classifierStore) {
   const {
     active: tutorial
@@ -49,10 +45,11 @@ function ModalTutorial ({
 
   if (tutorial) {
     return (
-      <StyledModal
+      <Modal
         {...props}
         active={active}
         closeFn={onClose}
+        height={{ max: '90%' }} // To account for Safari mobile browser. Don't use vh units.
         title={t('ModalTutorial.title')}
       >
         <SlideTutorial
@@ -60,7 +57,7 @@ function ModalTutorial ({
           pad='none'
           width={width}
         />
-      </StyledModal>
+      </Modal>
     )
   }
 

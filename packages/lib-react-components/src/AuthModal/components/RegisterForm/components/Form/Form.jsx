@@ -37,7 +37,8 @@ const PrivacyPolicyLink = () => {
 // default form field box layout.
 const contentProps = {
   direction: 'row',
-  gap: 'xsmall'
+  gap: 'xsmall',
+  align: 'center'
 }
 
 const DEFAULT_VALUES = {
@@ -257,7 +258,7 @@ function Form({
             required
           />
           <Text>
-            (<PrivacyPolicyLink />)
+            <PrivacyPolicyLink />
           </Text>
         </FormField>
 
