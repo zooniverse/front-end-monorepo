@@ -64,6 +64,7 @@ function SubjectTalkData({
       </StyledHeadingBox>
       <StyledBox>
         <Tags
+          projectDisplayName={projectDisplayName}
           projectId={projectId}
           subjectId={subjectId}
           userId={userId}
