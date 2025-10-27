@@ -14,7 +14,8 @@ describe('Helpers > subjectViewers', function () {
     'singleVideo',
     'subjectGroup',
     'variableStar',
-    'volumetric'
+    'volumetric',
+    'ztm2025geomap'
   ]
 
   viewers.forEach(function (viewer) {
