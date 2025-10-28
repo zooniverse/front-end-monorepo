@@ -22,7 +22,8 @@ function TagList({
       forwardedAs='ol'
       direction='row'
       margin='none'
-      pad='none'
+      overflow={{ vertical: 'auto' }}
+      pad='2px'
       wrap
     >
       {tags.map(tag => (
