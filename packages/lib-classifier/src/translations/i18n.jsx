@@ -59,12 +59,11 @@ classifierI18n.use(initReactI18next).init({
 })
 
 supportedLngs.forEach((lang) => {
-  namespaces.forEach((n) => {
+  namespaces.forEach(async (n) => {
     classifierI18n.addResourceBundle(
       lang,
       n,
-      // require(`./${lang}/${n}.json`)
-      import(`./${lang}/${n}.json`, { assert: { type: 'json' } })
+      await import(`./${lang}/${n}.json`, { assert: { type: 'json' } })
     )
   })
 })

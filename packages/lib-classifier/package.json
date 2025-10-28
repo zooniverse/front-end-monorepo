@@ -4,21 +4,25 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
-  "main": "dist/cjs/components/Classifier/index.js",
-  "module": "dist/esm/components/Classifier/index.js",
+  "type": "module",
+  "main": "dist/esm/components/Classifier/index.js",
+    "exports": {
+    ".": {
+      "import": "./dist/esm/components/Classifier/index.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/zooniverse/front-end-monorepo.git",
     "directory": "packages/lib-classifier"
   },
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
+    "build": "yarn build:es6",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "eslint": "eslint ./src --fix | snazzy",
-    "prepare": "yarn build:cjs && yarn build:es6",
+    "prepare": "yarn build:es6",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_ENV=test vitest run",
     "test:ci": "NODE_ENV=test vitest run --reporter=basic --silent='passed-only' --hideSkippedTests",
