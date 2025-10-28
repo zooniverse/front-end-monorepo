@@ -26,14 +26,12 @@ docker compose build
 docker compose up -d
 # stop the local services when you're finished
 docker compose down
-# run the tests
-docker compose run --rm root test
 ```
 
 ### Node
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 ## Running in production
@@ -42,20 +40,16 @@ yarn dev
 
 The production server is started on port 3000 by default.
 
-### Docker
-
-- `docker-compose run --rm root start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy.
-
 ### Node
 
 ```sh
-yarn build
-yarn start
+pnpm build
+pnpm start
 ```
 
 ### Analyze bundle sizes
 
-This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true yarn build`.
+This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true pnpm build`.
 
 ## Technologies
 

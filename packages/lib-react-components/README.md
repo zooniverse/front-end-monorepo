@@ -26,13 +26,13 @@ import { ZooFooter } from '@zooniverse/react-components';
 
 ## Run
 
-`yarn start` to run the storybook locally on (https://localhost:6007).
+`pnpm start` to run the storybook locally on (https://localhost:6007).
 
 ## Tests
 
-`yarn test` to run Vitest tests.
+`pnpm test` to run Vitest tests.
 
-`yarn test ProjectCard.spec.jsx` to test one file at a time.
+`pnpm test ProjectCard.spec.jsx` to test one file at a time.
 
 ## Contributing
 

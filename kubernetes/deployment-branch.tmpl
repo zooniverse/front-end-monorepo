@@ -30,7 +30,7 @@ spec:
       containers:
         - name: fe-project-branch
           image: ghcr.io/zooniverse/front-end-monorepo-branch:__IMAGE_TAG__
-          command: ["yarn", "workspace", "@zooniverse/fe-project"]
+          command: ["pnpm", "--filter", "@zooniverse/fe-project"]
           args: ["start"]
           resources:
             requests:

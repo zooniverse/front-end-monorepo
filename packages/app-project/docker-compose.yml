@@ -11,8 +11,8 @@ services:
         - NEXT_TELEMETRY_DISABLED=1
         - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-project"
     command: ["dev"]
     ports:
@@ -25,8 +25,8 @@ services:
   storybook:
     image: front-end-monorepo_dev:latest
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-project"
     command: ["storybook"]
     ports:

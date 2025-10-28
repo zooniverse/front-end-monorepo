@@ -23,17 +23,17 @@
     "directory": "packages/lib-subject-viewers"
   },
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
+    "build": "pnpm run build:cjs && pnpm run build:es6",
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.jsx'",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.jsx'",
     "lint": "zoo-standard --fix | snazzy",
-    "prepare": "yarn build",
+    "prepare": "pnpm run build",
     "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build",
     "test": "vitest run",
     "test:ci": "vitest run --silent='passed-only'",
-    "watch": "watch 'yarn build' ./src",
-    "watch:test": "watch 'yarn test' ./src"
+    "watch": "watch 'pnpm run build' ./src",
+    "watch:test": "watch 'pnpm run test' ./src"
   },
   "dependencies": {
     "buffer": "^6.0.3",
