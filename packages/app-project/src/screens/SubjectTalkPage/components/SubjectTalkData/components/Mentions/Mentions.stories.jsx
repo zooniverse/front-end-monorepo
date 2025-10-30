@@ -73,8 +73,8 @@ export default {
   component: Mentions,
   decorators: [(Story) => (
     <Box
-      pad='large'
-      background={{ dark: 'dark-3', light: 'white' }}
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      width='600px'
     >
       <Story />
     </Box>
