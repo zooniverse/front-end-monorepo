@@ -67,9 +67,26 @@ function SubjectTalkViewer({
     >
       <StyledMedia
         alt={t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subjectId })}
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
         fit='contain'
         flex='shrink'
         $invert={invert}
+        placeholder={
+          <Box
+            align='center'
+            justify='center'
+            height='40vh'
+            width='600px'
+            background={{
+              image: `url(https://static.zooniverse.org/fem-assets/subject-placeholder.jpg)`,
+              size: 'cover',
+              position: 'center'
+            }}
+          />
+        }
         subject={subject}
         src={processedLocations?.[frame]?.url}
       />

@@ -1,4 +1,4 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Text } from 'grommet'
 import { Chat, Down, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
@@ -25,7 +25,9 @@ const DEFAULT_HANDLER = () => true
 
 function Discussions({
   discussions = [],
+  error = undefined,
   handleSortChange = DEFAULT_HANDLER,
+  loading = false,
   login = '',
   sort = ''
 }) {
@@ -114,7 +116,17 @@ function Discussions({
           </Box>
         )}
       </Box>
-      {discussions?.length > 0 && (
+      {error ? (
+        <Box align='center' justify='center' fill pad='medium'>
+          <SpacedText uppercase={false}>
+            {t('Talk.somethingWentWrong')}
+          </SpacedText>
+        </Box>
+      ) : loading ? (
+        <Box align='center' justify='center' fill pad='medium'>
+          <Loader />
+        </Box>
+      ) : discussions?.length > 0 && (
         <StyledOrderedList
           forwardedAs='ol'
           border='between'

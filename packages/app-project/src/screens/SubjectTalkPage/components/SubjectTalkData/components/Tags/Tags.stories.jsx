@@ -12,8 +12,8 @@ export default {
   component: Tags,
   decorators: [(Story) => (
     <Box
-      pad='large'
       background={{ dark: 'dark-3', light: 'white' }}
+      width='600px'
     >
       <Story />
     </Box>

@@ -7,7 +7,7 @@ import Meta, { Default, WithCommentMessage } from './StartDiscussionModal.storie
 const DefaultStory = composeStory(Default, Meta)
 const WithCommentMessageStory = composeStory(WithCommentMessage, Meta)
 
-describe('Component > SubjectTalkPage > SubjectTalkData > Discussions > StartDiscussionModal', function () {
+describe('Component > SubjectTalkPage > SubjectTalkData > StartDiscussionModal', function () {
   it('should show the board radio buttons', function () {
     render(<DefaultStory />)
     const boardsRadios = screen.getAllByRole('radio')

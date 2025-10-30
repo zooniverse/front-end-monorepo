@@ -101,7 +101,9 @@ function SubjectTalkData({
         />
         <Discussions
           discussions={discussions}
+          error={error}
           handleSortChange={handleSortChange}
+          loading={isLoading}
           login={login}
           sort={sort}
         />
