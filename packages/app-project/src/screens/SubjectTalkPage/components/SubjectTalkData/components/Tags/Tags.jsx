@@ -7,14 +7,6 @@ import styled from 'styled-components'
 
 import TagList from './components/TagList'
 
-const StyledTags = styled(Box)`
-  max-height: auto;
-
-  @media screen and (max-width: 1280px) {
-    max-height: 400px;
-  }
-`
-
 const StyledBox = styled(Box)`
   &::before,
   &::after {
@@ -52,9 +44,10 @@ function Tags({
   const tagHeading = tags?.length > 0 ? t('Talk.Tags.tags') : t('Talk.Tags.noTags')
 
   return (
-    <StyledTags
+    <Box
       border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
       gap='small'
+      flex='grow'
       pad='small'
     >
       <Box
@@ -166,7 +159,7 @@ function Tags({
           />
         </StyledBox>
       )}
-    </StyledTags>
+    </Box>
   )
 }
 

@@ -8,14 +8,6 @@ import ParticipantsAndComments from '../ParticipantsAndComments'
 import SectionHeading from '../SectionHeading'
 import TalkComment from '../TalkComment'
 
-const StyledMentions = styled(Box)`
-  max-height: auto;
-
-  @media screen and (max-width: 1280px) {
-    max-height: 400px;
-  }
-`
-
 const StyledOrderedList = styled(Box)`
   list-style: none;
 `
@@ -29,9 +21,10 @@ function Mentions({
   const { t } = useTranslation('screens')
 
   return (
-    <StyledMentions
+    <Box
       border={{ color: 'light-5', side: 'top', size: '0.5px' }}
       gap='xsmall'
+      flex='grow'
       pad='small'
     >
       <Box
@@ -59,7 +52,6 @@ function Mentions({
           forwardedAs='ol'
           gap='small'
           margin='none'
-          overflow={{ vertical: 'auto' }}
           pad='none'
         >
           {mentions.map(mention => {
@@ -79,7 +71,7 @@ function Mentions({
             )
           })}
         </StyledOrderedList>
-    </StyledMentions>
+    </Box>
   )
 }
 

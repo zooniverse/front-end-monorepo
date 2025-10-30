@@ -13,14 +13,6 @@ import ParticipantsAndComments from '../ParticipantsAndComments'
 import SectionHeading from '../SectionHeading'
 import StartDiscussionModal from './components/StartDiscussionModal'
 
-const StyledDiscussions = styled(Box)`
-  max-height: auto;
-
-  @media screen and (max-width: 1280px) {
-    max-height: 400px;
-  }
-`
-
 const StyledButton = styled(Button)`
   background: ${props => props.theme.global.colors['accent-1']};
   border: none;
@@ -115,8 +107,9 @@ function Discussions({
         subjectId={subjectId}
         userId={userId}
       />
-      <StyledDiscussions
+      <Box
         gap='xsmall'
+        flex='grow'
         pad='small'
       >
         <Box
@@ -189,7 +182,6 @@ function Discussions({
             border='between'
             gap='60px'
             margin='none'
-            overflow={{ vertical: 'auto' }}
             pad='none'
           >
             {discussions?.map((discussion) => (
@@ -238,7 +230,7 @@ function Discussions({
             plain
           />
         </StyledBox>
-      </StyledDiscussions>
+      </Box>
     </>
   )
 }
