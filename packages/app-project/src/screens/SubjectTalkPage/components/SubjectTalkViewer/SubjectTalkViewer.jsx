@@ -62,6 +62,7 @@ function SubjectTalkViewer({
         light: 'neutral-6'
       }}
       border={{ color: 'light-5', side: 'all', size: '0.5px' }}
+      height={{ min: '300px', max: '90vh' }}
       round={{ size: '8px', corner: 'bottom' }}
     >
       <StyledMedia

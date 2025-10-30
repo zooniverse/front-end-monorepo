@@ -22,7 +22,7 @@ function TagList({
       forwardedAs='ol'
       direction='row'
       margin='none'
-      pad='none'
+      pad='2px'
       wrap
     >
       {tags.map(tag => (
