@@ -11,6 +11,14 @@ import Mentions from './components/Mentions'
 import StartDiscussion from './components/StartDiscussion'
 import Tags from './components/Tags'
 
+const StyledBox = styled(Box)`
+  max-height: auto;
+
+  @media screen and (max-width: 1280px) {
+    max-height: 400px;
+  }
+`
+
 const StyledHeading = styled(Heading)`
   font-size: 1.5rem;
   font-weight: 600;
@@ -68,7 +76,7 @@ function SubjectTalkData({
       height={{ max: '900px' }}
       round='8px'
     >
-      <Box
+      <StyledBox
         overflow={{ vertical: 'auto' }}
       >
         <StyledHeadingBox
@@ -102,7 +110,7 @@ function SubjectTalkData({
           projectId={projectId}
           subjectId={subjectId}
         />
-      </Box>
+      </StyledBox>
       <StartDiscussion
         discussions={discussions}
         login={login}
