@@ -115,7 +115,7 @@ function StartDiscussionModal({
         {error ? (
           <Box align='center' justify='center' fill pad='medium'>
             <SpacedText uppercase={false}>
-              {t('Talk.Tags.somethingWentWrong')}
+              {t('Talk.somethingWentWrong')}
             </SpacedText>
           </Box>
         ) : loading ? (
