@@ -28,7 +28,7 @@
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.jsx'",
     "lint": "zoo-standard --fix | snazzy",
     "prepare": "yarn build",
-    "storybook": "storybook dev -p 6008",
+    "storybook": "storybook dev -p 6009",
     "build-storybook": "storybook build",
     "test": "vitest run",
     "test:ci": "vitest run --silent='passed-only'",
