@@ -125,17 +125,7 @@ function SubjectTalkPage({
             <AncillaryData media={subject?.attached_media} />
           ) : null}
           {/* <FeaturedCollections /> */}
-          <ContentBox
-            title={t('Talk.featuredCollections')}
-            linkLabel={t('Classify.YourStats.link')}
-            linkProps={{
-              href: ''
-            }}
-          />
           {/* <RelatedSubjects /> */}
-          <ContentBox
-            title={t('Talk.relatedSubjects')}
-          />
         </Box>
       </StyledBox>
     </StandardLayout>

@@ -52,7 +52,6 @@ export const Anchor = {
     a11yTitle: 'Home',
     href: 'https://www.zooniverse.org',
     icon: <Home />,
-    rel: 'noopener noreferrer',
     target: '_blank'
   }
 }

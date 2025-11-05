@@ -50,6 +50,7 @@ function AuthModal({
       closeFn={closeModal}
       role='dialog'
       pad='0'
+      height={{ max: '90%' }} // To account for Safari mobile browser. Don't use vh units.
     >
       <StyledTabs activeIndex={activeIndex} onActive={onActive}>
         <Tab title={t("AuthModal.LoginForm.signIn")}>
