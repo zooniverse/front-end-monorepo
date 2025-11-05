@@ -17,7 +17,6 @@ function ImageIconButton({
       disabled={disabled}
       href={disabled ? undefined : href}
       icon={<Image />}
-      rel={disabled ? undefined : 'noopener noreferrer'}
       target={disabled ? undefined : '_blank'}
       {...props}
     />

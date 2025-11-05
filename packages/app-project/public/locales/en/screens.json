@@ -101,7 +101,6 @@
       "sortedOldestFirst": "Oldest first",
       "startDiscussion": "Start a new discussion"
     },
-    "featuredCollections": "Featured in these Collections",
     "mentions": "Mentions",
     "Metadata": {
       "collapse": "Collapse",
@@ -109,7 +108,6 @@
       "noMetadata": "No metadata available",
       "subjectMetadata": "Subject Metadata"
     },
-    "relatedSubjects": "Other subjects being discussed:",
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
     "somethingWentWrong": "Something went wrong.",
     "Tags": {
