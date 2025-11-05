@@ -101,6 +101,7 @@
       "sortedOldestFirst": "Oldest first",
       "startDiscussion": "Start a new discussion"
     },
+    "mentions": "Mentions",
     "Metadata": {
       "collapse": "Collapse",
       "expand": "Expand",
@@ -108,6 +109,7 @@
       "subjectMetadata": "Subject Metadata"
     },
     "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "somethingWentWrong": "Something went wrong.",
     "Tags": {
       "add": "Add",
       "addATag": "Add a tag",
@@ -117,7 +119,6 @@
       "popularTagsFrom": "Popular tags from {{projectDisplayName}}",
       "removeVote": "Remove your vote",
       "signInToTag": "Sign in to add a tag",
-      "somethingWentWrong": "Something went wrong.",
       "tags": "Tags",
       "tagValidationMessage": "Use 3-40 characters, letters, numbers, hyphens, and underscores. No spaces or other characters."
     }

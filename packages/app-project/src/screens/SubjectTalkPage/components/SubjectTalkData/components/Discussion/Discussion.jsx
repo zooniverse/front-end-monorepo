@@ -1,3 +1,4 @@
+import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Text } from 'grommet'
 import { Down, FormNext, Up } from 'grommet-icons'
 import { useTranslation } from 'next-i18next'
@@ -148,7 +149,17 @@ function Discussion({ discussion, login }) {
         margin='none'
         pad='none'
       >
-        {comments?.map((comment) => {
+        {error ? (
+          <Box align='center' justify='center' fill pad='medium'>
+            <SpacedText uppercase={false}>
+              {t('Talk.somethingWentWrong')}
+            </SpacedText>
+          </Box>
+        ) : isLoading ? (
+          <Box align='center' justify='center' fill pad='medium'>
+            <Loader />
+          </Box>
+        ) : comments?.map((comment) => {
           const author = users?.find(user => user.id === comment.user_id)
 
           const authorRoles = roles?.filter(role => role.user_id === author?.id)

@@ -26,7 +26,7 @@ const boards = [
 ]
 
 export default {
-  title: 'Project App / Screens / Subject Talk / Talk Data / Discussions / StartDiscussionModal',
+  title: 'Project App / Screens / Subject Talk / Talk Data / StartDiscussionModal',
   component: StartDiscussionModal,
   decorators: [(Story) => (
     <Box

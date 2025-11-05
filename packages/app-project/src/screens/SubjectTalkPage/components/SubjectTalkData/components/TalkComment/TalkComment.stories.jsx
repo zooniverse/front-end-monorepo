@@ -47,10 +47,9 @@ export default {
   component: TalkComment,
   decorators: [(Story) => (
     <Box
-      align='center'
-      justify='center'
       background={{ dark: 'dark-3', light: 'white' }}
       pad='small'
+      width='600px'
     >
       <Box
         width={{ max: '600px' }}
