@@ -37,6 +37,7 @@ services:
       - PORT=3000
     ports:
       - "3003:3000"
+# Volumes are useful for inspecting contents of the node_modules via Docker Desktop.
 volumes:
   node_modules-dev:
   node_modules-prod:

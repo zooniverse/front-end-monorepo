@@ -91,7 +91,7 @@ COPY --from=builder /usr/src/packages ./packages
 # Install prod deps in the cache and don't run the `prepare` scripts
 RUN --mount=type=cache,target=/pnpm/store pnpm install --prod --frozen-lockfile --ignore-scripts
 
-# Delete the following files. Why?
+# Delete the following files because they're not needed for runtime.
 RUN rm -rf /usr/src/packages/lib-react-components/src
 RUN rm -rf /usr/src/packages/lib-content/src
 RUN rm -rf /usr/src/packages/lib-classifier/src
