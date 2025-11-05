@@ -101,13 +101,13 @@
       "sortedOldestFirst": "Oldest first",
       "startDiscussion": "Start a new discussion"
     },
-    "searchPlaceholder": "Search this project for tags, subjects, or @users",
     "Metadata": {
       "collapse": "Collapse",
       "expand": "Expand",
       "noMetadata": "No metadata available",
       "subjectMetadata": "Subject Metadata"
     },
+    "searchPlaceholder": "Search this project for tags, subjects, or @users",
     "Tags": {
       "add": "Add",
       "addATag": "Add a tag",
