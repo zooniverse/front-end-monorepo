@@ -8,12 +8,16 @@ async function fetchSubjectData(subjectID, env) {
   
   const query = {
     env,
-    id: subjectID
+    id: subjectID,
+    include: 'attached_images'
   }
   
   try {
     const response = await panoptes.get('/subjects', query, { ...headers }, host)
     const [ subject ] = response.body.subjects
+    if (subject) {
+      subject.attached_media = response.body.linked?.media?.filter(media => media.media_type === 'subject_attached_image') || []
+    }
     return subject
   } catch (error) {
     console.error('Error loading subject:', error)

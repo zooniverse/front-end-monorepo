@@ -87,8 +87,8 @@ export const WithRoles = {
     avatar: 'https://panoptes-uploads.zooniverse.org/user_avatar/57ce57cc-63cf-46e1-bc9f-a7e52c3f4c05.jpeg',
     comment: commentMock,
     roles: [
-      { id: 1, name: 'admin', section: 'zooniverse', user_id: 123 },
-      { id: 2, name: 'scientist', section: 'project', user_id: 123 }
+      { id: 1, name: 'admin', section: 'zooniverse', user_id: '123' },
+      { id: 2, name: 'scientist', section: 'project', user_id: '123' }
     ]
   }
 }
