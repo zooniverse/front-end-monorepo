@@ -24,12 +24,6 @@ const StyledButton = styled(Button)`
 
 const DEFAULT_HANDLER = () => true
 
-const DEFAULT_VALUE = {
-  discussion_board: '',
-  discussion_title: '',
-  discussion_comment: ''
-}
-
 function StartDiscussionModal({
   active = false,
   boards = undefined,
@@ -40,21 +34,20 @@ function StartDiscussionModal({
   showCommentMessage = false,
   subjectId = undefined
 }) {
-  const [value, setValue] = useState(DEFAULT_VALUE)
+  const [discussion_board, setDiscussionBoard] = useState('')
+  const [discussion_title, setDiscussionTitle] = useState('')
+  const [discussion_comment, setDiscussionComment] = useState('')
 
   const { t } = useTranslation('screens')
 
   useEffect(() => {
     const subjectDefaultBoard = boards?.find(board => board.subject_default)
 
-    const newDefaultValue = {
-      ...value,
-      discussion_board: subjectDefaultBoard?.id || boards?.[0]?.id || '',
-      discussion_title: subjectDefaultBoard?.id ? `Subject ${subjectId}` : ''
+    if (!discussion_board) {
+      setDiscussionBoard(subjectDefaultBoard?.id || boards?.[0]?.id || '')
+      setDiscussionTitle(subjectDefaultBoard?.id ? `Subject ${subjectId}` : '')
     }
-
-    setValue(newDefaultValue)
-  }, [boards])
+  }, [boards, subjectId])
 
   const boardOptions = boards?.map(board => ({
     label: (
@@ -69,7 +62,7 @@ function StartDiscussionModal({
     ),
     value: board.id
   })) || []
-  const selectedBoard = boards?.find(board => board.id === value.discussion_board)
+  const selectedBoard = boards?.find(board => board.id === discussion_board)
 
   let commentInputLabel = t('Talk.Discussions.initialComment')
   let submitButtonLabel = t('Talk.Discussions.startDiscussion')
@@ -78,21 +71,36 @@ function StartDiscussionModal({
     submitButtonLabel = t('Talk.Discussions.addComment')
   }
 
-  function handleChange(nextValue) {
-    const selectedBoard = boards?.find(board => board.id === nextValue.discussion_board)
-    const subjectDefaultBoard = selectedBoard.subject_default || boards?.find(board => board.subject_default)
-    if (selectedBoard?.subject_default) {
-      nextValue.discussion_title = `Subject ${subjectId}`
-    } else if ((value.discussion_board === subjectDefaultBoard?.id) && (nextValue.discussion_board !== subjectDefaultBoard?.id)) {
-      nextValue.discussion_title = ''
+  function handleBoardChange(event) {
+    const newBoard = event?.target?.value
+    const selected = boards?.find(board => board.id === newBoard)
+    const subjectDefaultBoard = selected?.subject_default || boards?.find(board => board.subject_default)
+
+    // If the newly selected board is a subject_default board, set the title to Subject {id}
+    if (selected?.subject_default) {
+      setDiscussionTitle(`Subject ${subjectId}`)
+    // If we changed away from a subject_default board, clear the title
+    } else if ((discussion_board === subjectDefaultBoard?.id) && (newBoard !== subjectDefaultBoard?.id)) {
+      setDiscussionTitle('')
     }
-    setValue(nextValue)
+
+    setDiscussionBoard(newBoard)
+  }
+
+  function handleTitleChange(event) {
+    setDiscussionTitle(event?.target?.value)
+  }
+
+  function handleCommentChange(event) {
+    setDiscussionComment(event?.target?.value)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
     onSubmit({
-      ...value,
+      discussion_board,
+      discussion_title,
+      discussion_comment,
       subject_default: selectedBoard?.subject_default || false
     })
   }
@@ -115,7 +123,7 @@ function StartDiscussionModal({
         {error ? (
           <Box align='center' justify='center' fill pad='medium'>
             <SpacedText uppercase={false}>
-              {t('Talk.Tags.somethingWentWrong')}
+              {t('Talk.somethingWentWrong')}
             </SpacedText>
           </Box>
         ) : loading ? (
@@ -124,9 +132,12 @@ function StartDiscussionModal({
           </Box>
         ) : (
           <Form
-            onChange={handleChange}
             onSubmit={handleSubmit}
-            value={value}
+            value={{
+              discussion_board,
+              discussion_title,
+              discussion_comment
+            }}
           >
             <Box gap='small'>
               <ThemeContext.Extend value={{
@@ -146,7 +157,9 @@ function StartDiscussionModal({
                     id='discussion_board'
                     direction='row'
                     name='discussion_board'
+                    onChange={handleBoardChange}
                     options={boardOptions}
+                    value={discussion_board}
                   />
                 </FormField>
               </ThemeContext.Extend>
@@ -188,6 +201,8 @@ function StartDiscussionModal({
                     id='discussion_title'
                     disabled={selectedBoard?.subject_default}
                     name='discussion_title'
+                    onChange={handleTitleChange}
+                    value={discussion_title}
                   />
                 </FormField>
               </ThemeContext.Extend>
@@ -212,7 +227,9 @@ function StartDiscussionModal({
                   <StyledTextArea
                     id='discussion_comment'
                     name='discussion_comment'
+                    onChange={handleCommentChange}
                     plain
+                    value={discussion_comment}
                   />
                 </FormField>
               </ThemeContext.Extend>

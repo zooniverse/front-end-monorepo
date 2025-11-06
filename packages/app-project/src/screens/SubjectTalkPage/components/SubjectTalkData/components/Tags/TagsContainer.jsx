@@ -299,14 +299,20 @@ function TagsContainer({
           if (!prevData) {
             return []
           } else {
-            return prevData.map(t => {
+            return prevData.flatMap(t => {
               if (t.id === tag.id) {
-                return {
-                  ...t,
-                  vote_count: t.vote_count > 0 ? t.vote_count - 1 : 0
+                if (t.vote_count > 1) {
+                  // decrement the count, count will be at least 1
+                  return [{
+                    ...t,
+                    vote_count: t.vote_count - 1
+                  }]
+                } else {
+                  // count will be 0, so remove the tag from votableTags
+                  return []
                 }
               }
-              return t
+              return [t]
             })
           }
         },
