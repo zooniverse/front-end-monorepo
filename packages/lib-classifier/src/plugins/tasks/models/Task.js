@@ -7,10 +7,26 @@ const Task = types.model('Task', {
   annotation: types.safeReference(Annotation),
   details: types.maybe(types.array(types.frozen())),
   taskKey: types.identifier,
-  required: types.maybe(types.union(types.string, types.boolean)), // text task required default = false
+  // Oldest Zooniverse projects may still include `required` as an empty string '' due to past project builder behavior
+  // Some of the Task spec files still mock `required` as an empty string '' in this repo
+  // https://github.com/zooniverse/front-end-monorepo/pull/6094#discussion_r1677085512
+  required: types.optional(types.boolean, false),
   strings: types.map(types.string),
   type: types.literal('default')
 })
+  .preProcessSnapshot(snapshot => {
+    if (typeof snapshot.required !== 'boolean') {
+      // 'false' is a true value, so handle that here
+      const required = (snapshot.required === 'false')
+        ? false
+        : Boolean(snapshot.required)
+      return {
+        ...snapshot,
+        required
+      }
+    }
+    return snapshot
+  })
   .views(self => ({
 
     defaultAnnotation(id = cuid()) {
