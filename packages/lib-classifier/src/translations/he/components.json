@@ -1,67 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "כבר ראית את הנושא הזה",
+      "tooltipText": [
+        "כבר ראית וסיווגת את הנושא הזה,  ולכן סיווגים נוספים לא יתרמו לניתוח שלו.",
+        "אם אתם רוצים לעזור, נסו לבחור תהליך עבודה שונה או לתרום לפרויקט אחר."
+      ]
+    },
     "Banner": {
-      "next": "הלאה"
+      "next": "הלאה",
+      "previous": "הקודם",
+      "whyAmISeeingThis": "למה אני רואה את זה?"
     },
     "InProgressConfirmModal": {
-      "inProgress": "חזרה אחורה תבטל את התשובה שסימנתם/ן"
+      "cancel": "ביטול",
+      "confirm": "אישור",
+      "inProgress": "חזרה אחורה תבטל את התשובה שסימנתם\/ן"
+    },
+    "RetiredBanner": {
+      "bannerText": "הושלם: נושא זה אינו פעיל יותר",
+      "tooltipText": [
+        "בנושא הזה כבר יש מספיק סיווגים, ולכן הסיווג שלך לא ייכלל בניתוח שלו.",
+        "אם אתם רוצים לעזור, נסו לבחור תהליך עבודה שונה או לתרום לפרויקט אחר."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "כבר נראה",
+      "bannerText": "{{setName}}: נושא {{number}}\/{{total}}",
+      "finished": "הסתיים",
+      "tooltipText": [
+        "הפרויקט הזה מאפשר למתנדבים לצפות בנושאים לפי סדר.",
+        "המספר הזה מראה את המיקום של הנושא בתוך הקבוצה כולה."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "סיום: ראיתם הכל",
+      "tooltipText": [
+        "כבר סיימת לסווג את כל הפריטים בתהליך העבודה הזה, ולכן סיווגים נוספים בנושא כבר לא יהיו רלוונטיים בניתוח שלו.",
+        "אם אתם רוצים לעזור, נסו לבחור תהליך עבודה שונה או לתרום לפרויקט אחר."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "זרימת העבודה הזו הסתיימה",
+      "tooltipText": [
+        "כל הנושאים בתהליך העבודה הזה הסתיימו, ולכן סיווגים נוספים בנושא כבר לא יהיו רלוונטיים בניתוח שלו.",
+        "אם אתם רוצים לעזור, נסו לבחור תהליך עבודה שונה או לתרום לפרויקט אחר."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "ידית לסיבוב איור\/ציור."
+  },
   "FeedbackModal": {
-    "keepClassifying": "המשך"
+    "keepClassifying": "המשך",
+    "label": "משוב"
   },
   "FieldGuide": {
-    "title": "מדריך מעשי",
     "FieldGuideButton": {
       "buttonLabel": "מדריך מעשי"
     },
     "FieldGuideItem": {
       "ariaTitle": "אחורה"
-    }
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "בחר {{title}}"
+    },
+    "title": "מדריך מעשי"
   },
   "ImageToolbar": {
-    "ResetButton": {}
+    "AnnotateButton": {
+      "ariaLabel": "להוסיף הערות"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "הצג את הנושא בגודל טבעי",
+        "fullscreen": "הצג את הנושא במסך מלא"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "היפוך הנושא"
+    },
+    "MoveButton": {
+      "ariaLabel": "העברת נושא"
+    },
+    "ResetButton": {
+      "ariaLabel": "איפוס תצוגת הנושא"
+    },
+    "RotateButton": {
+      "ariaLabel": "סובב נושא"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "הגדל את התצוגה של הנושא"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "הקטן את התצוגה מהנושא"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "הוסף לאוספים"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "הסתר את הסימנים הקודמים",
+      "show": "הצג את הסימנים הקודמים"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "הסתרת כל הסימנים",
+      "show": "הצג את כל הסימנים",
+      "showUser": "הצג את הסימנים שלך"
+    },
+    "MetadataButton": {
+      "label": "פרטי נושא"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "תווית",
+        "value": "ערך"
+      },
+      "title": "מטא-נתונים של הנושא"
+    }
   },
   "ModalTutorial": {
     "title": "הדרכה"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "סגירת חלונית התגובות",
+      "goToTalk": "עבור אל דיון על נושא ב-Talk",
+      "mainPanel": "חלונית הערות QuickTalk",
+      "openButton": "יש {{count}} תגובות לנושא הזה. לחצו כדי לראות את כולן.",
+      "panelContent": "תגובות לדיון בנושא",
+      "panelHeading": "דיון על הנושא"
+    },
+    "errors": {
+      "failPostComment": "לא הייתה אפשרות להוסיף תגובות לדיון קיים.",
+      "failPostDiscussion": "לא הייתה אפשרות להוסיף תגובות לדיון חדש.",
+      "noBoard": "לוח תגובות בנושאי המחקר עדיין לא הוקם עבור פרויקט זה.",
+      "noText": "לא ניתן לפרסם תגובה ריקה.",
+      "noUser": "המשתמש אינו מחובר."
+    },
+    "loginToPost": "יש להתחבר כדי להגיב.",
     "status": {
-      "loading": "(בטעינה)"
-    }
+      "initialized": "השאירו הערות בנוגע לנושא הזה",
+      "loading": "(בטעינה)",
+      "success": "התגובה פורסמה!"
+    },
+    "subjectHasNoComments": "עדיין אין תגובה בנושא הזה."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "עבור לשלב {{index}}",
+      "next": "עבור לשלב הבא",
+      "previous": "חזור לשלב הקודם"
+    },
+    "alt": "שלב ההדרכה {{activeStep}}",
+    "error": "לא ניתן היה לטעון את שלב ההדרכה.",
     "getStarted": "בואו נתחיל",
     "heading": "{{projectDisplayName}} הדרכה"
   },
+  "StepNavigation": {
+    "go": "עבור לשלב {{index}}",
+    "next": "עבור לשלב הבא",
+    "previous": "חזור לשלב הקודם"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "תרשים עמודים"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "סמל של מציג טקסט"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "סגור בלי לשמור",
+        "confirm": "האם אתה בטוח שאתה רוצה לסגור? הסימן הזה יימחק.",
+        "keepWorking": "המשיכו לעבוד"
+      },
+      "SaveButton": {
+        "save": "שמור וסגור"
+      },
+      "SubTaskPopup": {
+        "notRender": "לא ניתן לעבד את רכיב המשימה.",
+        "required": "המשימה הזו נדרשת."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "תמלול מצטבר",
+          "explanation": "{{count}} התמלולים האלה נשלחו על ידי מתנדבים בעבר, ואי אפשר לשנות אותם.",
+          "noAggregation": "אין אפשרות לצבירה.",
+          "title": "תמלולים קודמים",
+          "transcriptionsUnavailable": "תמלולים אינם זמינים."
+        },
+        "complete": "התמלול הושלם",
+        "transcribed": "יש תמלולים"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "הלאה"
+        "nextFrameLabel": "הלאה",
+        "previousFrameLabel": "הקודם",
+        "thumbnailAltText": "תמונה ממוזערת"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "מחיקת הבחירה {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "החלף לתצוגת ספר",
+        "switchToSeparateFrames": "עבור לתצוגת מסגרות נפרדות"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "הייתה שגיאה בטעינת הנושא."
+    },
+    "VariableStarViewer": {
+      "controls": "בקרות",
+      "figCaption": "דיאגרמת HR",
+      "flip": "היפוך",
+      "focus": "מיקוד",
+      "highlight": "הדגשה",
+      "imageTitle": "דיאגרמת HR: בהירות לעומת טמפרטורה",
+      "label": "מסנן {{id}}",
+      "periodMultiple": "ריבוי תקופות",
+      "phase": "שלב",
+      "phaseFocus": "מיקוד בשלב"
+    },
+    "VideoController": {
+      "closeVolume": "סגירת מחוון עוצמת הקול",
+      "fullscreen": "הצגת וידאו במסך מלא",
+      "openVolume": "פתיחת מחוון עוצמת הקול",
+      "pause": "השהה את הסרטון",
+      "play": "הפעל סרטון",
+      "playbackSpeed": "בחירת מהירות ההפעלה של הסרטון",
+      "scrubber": "סרגל גרירת סרטון",
+      "volumeSlider": "מחוון עוצמת הקול"
+    },
+    "ZoomControlButton": {
+      "disable": "השבת את הזום",
+      "enable": "אפשר זום"
+    },
+    "loading": "טעינת נושא",
+    "zoomHelp": "השתמשו ב-Ctrl וגלגלו כדי להגדיל או להקטין"
   },
   "TaskArea": {
-    "task": "משימה",
-    "tutorial": "הדרכה",
+    "DisabledTaskPopup": {
+      "body": "בנושא הזה יש כבר מספיק סיווגים, ולכן סיווגים נוספים שיוגשו לא ישמשו בניתוח שלו. אבל אתה עדיין יכול לעיין בנושא הזה.",
+      "options": {
+        "dismiss": "ביטול",
+        "next": "הנושא הזמין הבא",
+        "select": "בחירת נושא חדש"
+      },
+      "title": "הסתיים"
+    },
     "Tasks": {
       "BackButton": {
         "back": "אחורה"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "שמור ועבור לשיחה"
+        "doneAndTalk": "שמור ועבור לשיחה",
+        "newTab": "בכרטיסייה חדשה"
       },
       "DoneButton": {
         "done": "שמור"
       },
-      "loading": "(בטעינה)",
+      "ExpertOptions": {
+        "demoToggle": "מצב הדגמה",
+        "label": "אפשרויות של מומחים"
+      },
       "NextButton": {
         "next": "הלאה"
       },
       "TaskHelp": {
         "close": "סגור",
-        "label": "?זקוק/ה לעזרה עם המשימה הזו"
-      }
-    }
+        "label": "?זקוק\/ה לעזרה עם המשימה הזו"
+      },
+      "demoMode": "במצב הדגמה, הסיווגים לא יישמרו. השתמשו בו להדגמות מהירות ולא מדויקות של ממשק הסיווג.",
+      "error": "משהו השתבש",
+      "loading": "(בטעינה)",
+      "renderFallback": "לא ניתן לעבד את רכיב המשימה."
+    },
+    "task": "משימה",
+    "tutorial": "הדרכה"
   }
 }

@@ -4,54 +4,52 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "type": "module",
+  "main": "dist/esm/index.js",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/esm/index.js"
     },
     "./*": {
-      "import": "./dist/esm/*/index.js",
-      "require": "./dist/cjs/*/index.js"
+      "import": "./dist/esm/*/index.js"
     }
   },
   "sideEffects": false,
   "repository": "https://github.com/zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "scripts": {
-    "build": "yarn build:cjs && yarn build:es6",
-    "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "prepare": "yarn build",
-    "test": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js \"./src/**/*.spec.js\"",
-    "test:ci": "mocha --config ./test/.mocharc.json ./.storybook/specConfig.js --reporter=min \"./src/**/*.spec.js\"",
+    "build": "pnpm run build:es6",
+    "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.jsx' --ignore 'src/**/*.stories.jsx'",
+    "prepare": "pnpm run build",
+    "test": "vitest run",
+    "test:ci": "vitest run --silent='passed-only' --hideSkippedTests",
+    "coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6005",
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@next/third-parties": "~14.2.7",
-    "@zooniverse/async-states": "~0.0.1",
-    "@zooniverse/react-components": "~1.13.0",
+    "@zooniverse/panoptes-js": "~0.6.0",
     "dayjs": "~1.11.11",
-    "i18next": "~23.14.0",
+    "i18next": "~24.2.2",
     "panoptes-client": "~5.6.0",
     "prop-types": "~15.8.1",
-    "react-i18next": "~15.0.1"
+    "react-i18next": "~14.1.3",
+    "swr": "~2.3.2"
   },
   "peerDependencies": {
+    "@next/third-parties": "~14.2.26",
     "@zooniverse/grommet-theme": "3.x.x",
+    "@zooniverse/react-components": "~1.15.0",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
-    "next": "~13.5.5",
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "styled-components": "5.x.x"
+    "next": "~14.2.26",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": "6.x.x"
   },
   "devDependencies": {
-    "@babel/preset-env": "~7.25.4",
-    "@babel/preset-react": "~7.24.1",
-    "@babel/register": "~7.25.9",
+    "@babel/preset-env": "~7.28.3",
+    "@babel/preset-react": "~7.27.1",
     "@storybook/addon-a11y": "~7.6.11",
     "@storybook/addon-essentials": "~7.6.11",
     "@storybook/nextjs": "~7.6.11",
@@ -59,16 +57,15 @@
     "@testing-library/dom": "~9.3.0",
     "@testing-library/react": "~14.2.0",
     "@testing-library/user-event": "~14.5.0",
-    "chai": "~4.5.0",
-    "chai-dom": "~1.12.0",
-    "dirty-chai": "~2.0.1",
+    "@vitejs/plugin-react": "~4.4.1",
+    "babel-plugin-module-resolver": "~5.0.0",
+    "babel-plugin-styled-components": "~2.1.4",
+    "babel-plugin-transform-imports": "~2.0.0",
     "eslint-plugin-jsx-a11y": "~6.10.1",
-    "jsdom": "~24.0.0",
-    "mocha": "~10.7.3",
-    "sinon": "~17.0.0",
-    "sinon-chai": "~3.7.0",
+    "jsdom": "~26.1.0",
     "storybook": "~7.6.11",
-    "storybook-react-i18next": "~2.0.1"
+    "storybook-react-i18next": "~2.0.1",
+    "vitest": "~3.1.3"
   },
   "engines": {
     "node": ">=20.5"

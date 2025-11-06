@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { autorun, reaction } from 'mobx'
+import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
@@ -19,7 +19,9 @@ const SubjectViewer = types
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0),
-    separateFramesView: types.optional(types.boolean, false)
+    separateFramesView: types.optional(types.boolean, false),
+    videoSpeed: types.optional(types.string, '1x'),
+    volume: types.optional(types.number, 1)
   })
 
   .volatile(self => ({
@@ -46,7 +48,11 @@ const SubjectViewer = types
       }
       return false
     },
- 
+
+    get hasActiveAnnotateTask () {
+      return getRoot(self)?.workflowSteps.hasActiveAnnotateTask
+    },
+
     get hasAnnotateTask () {
       return getRoot(self)?.workflowSteps.hasAnnotateTask
     },
@@ -73,8 +79,8 @@ const SubjectViewer = types
       afterAttach () {
         function _syncAnnotateVisibility() {
           // Make sure the right button is active in the ImageToolbar
-          self.setAnnotateVisibility(self.hasAnnotateTask)
-          if (self.hasAnnotateTask) {
+          self.setAnnotateVisibility(self.hasActiveAnnotateTask)
+          if (self.hasActiveAnnotateTask) {
             self.enableAnnotate()
           } else {
             self.enableMove()
@@ -115,7 +121,7 @@ const SubjectViewer = types
         self.loadingState = asyncStates.error
       },
 
-      onSubjectReady (event) {
+      onSubjectReady (event, frameIndex = 0) {
         const { target = {} } = event || {}
         const {
           clientHeight = 0,
@@ -123,7 +129,7 @@ const SubjectViewer = types
           naturalHeight = 0,
           naturalWidth = 0
         } = target || {}
-        self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
+        self.dimensions[frameIndex] = { clientHeight, clientWidth, naturalHeight, naturalWidth }
         self.rotation = 0
         self.loadingState = asyncStates.success
       },
@@ -176,8 +182,6 @@ const SubjectViewer = types
         } else {
           self.enableMove()
         }
-
-        self.showAnnotate = canAnnotate
       },
 
       setFlipbookSpeed (speed) {
@@ -198,6 +202,14 @@ const SubjectViewer = types
 
       setSeparateFramesView(mode) {
         self.separateFramesView = mode
+      },
+
+      setVideoSpeed(value) {
+        self.videoSpeed = value
+      },
+
+      setVolume(value) {
+        self.volume = value
       },
 
       zoomIn () {

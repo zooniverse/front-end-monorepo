@@ -27,7 +27,7 @@ app.prepare().then(() => {
   const server = express()
   setLogging(server)
 
-  server.get('*', (req, res) => {
+  server.get(/(.*)/, (req, res) => {
     return handle(req, res)
   })
 

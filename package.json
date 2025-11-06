@@ -10,45 +10,23 @@
   "version": "0.0.1",
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
-    "coveralls": "~3.1.0",
-    "lerna": "~8.1.2",
-    "nyc": "~15.1.0",
     "snazzy": "~9.0.0"
   },
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
-    "bootstrap:es6": "./bin/bootstrap:es6.sh",
-    "build": "lerna run --parallel build",
+    "build": "pnpm build",
     "clean-install": "./bin/clean-install.sh",
-    "coverage-lcov": "nyc report --reporter=lcov",
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
-    "panic-button": "./bin/panic-button.sh",
-    "storybook": "lerna run --parallel storybook",
-    "test": "lerna run --parallel test",
-    "test:ci": "nyc --silent lerna run --parallel test:ci"
+    "storybook": "pnpm run --parallel storybook",
+    "test": "pnpm -r --parallel test",
+    "test:ci": "pnpm -r --parallel test:ci"
   },
   "engines": {
-    "node": ">=16.18"
+    "node": ">=20.19"
   },
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js",
-      "**/*.spec.jsx",
-      "**/dist/*",
-      "**/test/*",
-      "bin",
-      "docs",
-      "node_modules"
-    ],
-    "extension": [
-      ".jsx"
-    ]
+  "resolutions": {
+    "superagent": "^10.2.0"
   },
-  "workspaces": {
-    "packages": [
-      "packages/**"
-    ]
-  },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  "packageManager": "pnpm@10.19.0"
 }

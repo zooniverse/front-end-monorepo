@@ -1,10 +1,8 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
 import { getSnapshot } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import initStore from '@stores/initStore'
-import { statsClient } from '../UserPersonalization/YourStats'
 
 describe('Stores > Recents', function () {
   let rootStore
@@ -39,17 +37,15 @@ describe('Stores > Recents', function () {
         collections: []
       }
     }))
-    sinon.stub(statsClient, 'fetchDailyStats').callsFake(() => Promise.resolve(null))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
-    statsClient.fetchDailyStats.restore()
   })
 
   it('should exist', function () {
-    expect(recentsStore).to.be.ok()
+    expect(recentsStore).toBeDefined()
   })
 
   describe('with a project and user', function () {
@@ -72,7 +68,7 @@ describe('Stores > Recents', function () {
         project_id: '2',
         sort: '-created_at'
       }
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
+      sinon.assert.calledWith(rootStore.client.panoptes.get, endpoint, query, { authorization })
     })
 
     it('should store existing recents', function () {
@@ -114,7 +110,7 @@ describe('Stores > Recents', function () {
     })
 
     it('should not request recent subjects from Panoptes', function () {
-      expect(rootStore.client.panoptes.get).to.have.not.been.called()
+      sinon.assert.notCalled(rootStore.client.panoptes.get)
     })
 
     it('should initialise recents with an empty array', function () {

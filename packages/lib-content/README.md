@@ -5,14 +5,20 @@ A library for components used in content pages such as About Zooniverse, Get Inv
 ## Run
 
 ```sh
-yarn storybook
+pnpm storybook
 ```
 
 Starts a dev storybook on port 6005.
 
+## Build
+
+`pnpm build` to bundle the components.
+
 ## Tests
 
-`yarn test` to run mocha tests.
+`pnpm test` to run Vitest tests.
+
+`pnpm test AboutHeader.spec.jsx` to test one file at a time.
 
 ### Technologies
 
@@ -22,3 +28,5 @@ Starts a dev storybook on port 6005.
 - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
 - [Grommet](https://v2.grommet.io/components) - React UI component library
 - [styled-components](https://www.styled-components.com/) - CSS in JS styling library.
+- [react-i18next](https://react.i18next.com/) - Internationalization framework for React.
+- [Vitest](https://vitest.dev/) - Testing for React components.

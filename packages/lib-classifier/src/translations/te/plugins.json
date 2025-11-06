@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "ఓపెన్ పాయింట్ నుండి క్లోజ్ పాయింట్ వరకు క్లిక్ చేసి డ్రాగ్ చేయండి లేదా లైన్‌పై ఎక్కడైనా డబుల్ క్లిక్ చేసి స్ప్లైస్ పాయింట్‌ను క్రియేట్ చేయండి",
+    "closePoint": "క్లోజ్ పాయింటును సెట్ చేయడానికి లైన్ పై ఎక్కడైనా క్లిక్ చేయండి.",
+    "inactive": "ఈ లైన్‌ను సవరించడానికి క్లిక్ చేయండి.",
+    "spliceDrag": "ఓపెన్ పాయింట్ నుండి క్లోజ్ పాయింట్ వరకు క్లిక్ చేసి లాగండి",
+    "splicePoint": "స్ప్లైస్ పాయింట్‌ని క్రియేట్ చేయడానికి లైన్‌లో ఎక్కడైనా డబుల్ క్లిక్ చేయండి"
+  },
+  "HighlighterTask": {
+    "delete": "తొలగించండి",
+    "noLabels": "హైలైటర్ టాస్క్‌కు లేబుల్‌లు లేవు",
+    "status": "{{count}} మార్క్ చేయబడింది"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} డ్రా చేయబడినవి",
+    "max": "{{count}} లో {{max}}గరిష్టంగా డ్రా చేయబడినవి",
+    "maxAndMin": "{{count}} అవసరమైన {{min}} లో, {{max}} గరిష్ఠంగా  డ్రా చేయబడ్డాయి",
+    "min": "{{count}} అవసరమైన వాటిలో {{min}} డ్రా చేయబడ్డాయి"
+  },
+  "LineControls": {
+    "close": "మూసివేయండి",
+    "delete": "తొలగించండి",
+    "deleteCancel": "తొలగించడాన్ని రద్దు చేయండి",
+    "deleteConfirm": "తొలగింపును నిర్ధారించండి",
+    "lineControls": "లైన్ కంట్రోల్స్",
+    "move": "కదలండి",
+    "redo": "మళ్లీ చేయండి",
+    "undo": "చర్యను రద్దు చేయండి"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "ఏదైనా ఇన్‌పుట్ చేయండి",
+    "otherLabel": "ఇతర...",
+    "selectPlaceholder": "ఒక సమాధానాన్ని ఎంచుకోండి"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "ఫిల్టర్‌లను క్లియర్ చేయండి",
+      "closeFilters": "ఫిల్టర్‌లను మూసివేయండి",
+      "filter": "ఫిల్టర్ చేయండి",
+      "removeFilter": "{{valueLabel}} ఫిల్టర్‌ను తొలగించండి",
+      "showing": "{{showing}} లో {{total}} చూపుతోంది"
+    },
+    "Choice": {
+      "cancel": "రద్దు చేయండి",
+      "identify": "గుర్తించండి",
+      "lessInfo": "తక్కువ సమాచారం",
+      "moreInfo": "మరింత సమాచారం",
+      "notThis": "ఇది కాదు"
+    },
+    "ChoiceButton": {
+      "identified": "గుర్తించారు",
+      "openSubmenu": "{{choiceLabel}} కోసం సబ్‌మెనూని తెరవండి"
+    },
+    "ConfusedWith": {
+      "cancel": "రద్దు చేయండి",
+      "confused": "కొన్నిసార్లు గందరగోళంగా ఉంటుంది",
+      "itsThis": "ఇది కావచ్చని నేను భావిస్తున్నాను"
+    },
+    "DeleteButton": {
+      "delete": "ఎంపిక {{choiceLabel}}ని తొలగించండి"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "రీసెట్ చేయండి"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "టెక్స్ట్ మార్పులు"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "ట్రాన్స్క్రిప్షన్ రూపొందించబడింది",
+    "editing": "ట్రాన్స్‌క్రిప్షన్‌ను సవరిస్తోంది"
+  }
+}

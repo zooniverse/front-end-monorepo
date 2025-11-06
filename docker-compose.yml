@@ -1,27 +1,17 @@
-version: '3.7'
-
 services:
-  shell:
-    image: front-end-monorepo_dev:latest
-    volumes:
-      - node_modules:/usr/src/node_modules
-    build:
-      context: ./
-      target: builder
-    command:
-      - "/bin/sh"
   fe-project:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
-        - NODE_ENV=production
         - PANOPTES_ENV=production
         - NEXT_TELEMETRY_DISABLED=1
         - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-project"
     command: ["start"]
     environment:
@@ -30,22 +20,24 @@ services:
       - "3002:3000"
   fe-root:
     image: front-end-monorepo_prod:latest
+    volumes:
+      - node_modules-prod:/usr/src/node_modules
     build:
       context: ./
       args:
-        - NODE_ENV=production
         - PANOPTES_ENV=production
         - NEXT_TELEMETRY_DISABLED=1
         - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-root"
     command: ["start"]
     environment:
       - PORT=3000
     ports:
       - "3003:3000"
-
+# Volumes are useful for inspecting contents of the node_modules via Docker Desktop.
 volumes:
-  node_modules:
+  node_modules-dev:
+  node_modules-prod:

@@ -1,11 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import * as client from '@zooniverse/panoptes-js'
-import { expect } from 'chai'
 import { when } from 'mobx'
 import nock from 'nock'
-import sinon from 'sinon'
-
-import { statsClient } from './UserPersonalization/YourStats'
 
 import Store from '@stores/Store'
 
@@ -19,8 +15,6 @@ describe('stores > User', function () {
   let userStore
 
   beforeEach(function () {
-    sinon.stub(statsClient, 'fetchDailyStats')
-
     nock('https://panoptes-staging.zooniverse.org/api')
     .persist()
     .get('/users/1/recents')
@@ -37,19 +31,31 @@ describe('stores > User', function () {
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 23 }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=1&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 25 }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
     .get('/project_preferences?project_id=1&user_id=2&http_cache=true')
     .reply(200, {
       project_preferences: [
-        { activity_count: 27 }
+        {
+          links: {
+            user: '1'
+          }
+        }
       ]
     })
 
@@ -70,18 +76,17 @@ describe('stores > User', function () {
   })
 
   afterEach(function () {
-    statsClient.fetchDailyStats.restore()
     nock.cleanAll()
   })
 
   it('should exist', function () {
-    expect(userStore).to.be.ok()
+    expect(userStore).toBeDefined()
   })
 
   it('should set the user', function () {
-    expect(userStore.id).to.be.null()
-    expect(userStore.login).to.be.null()
-    expect(userStore.display_name).to.be.null()
+    expect(userStore.id).to.equal(null)
+    expect(userStore.login).to.equal(null)
+    expect(userStore.display_name).to.equal(null)
 
     userStore.set(user)
 
@@ -99,13 +104,12 @@ describe('stores > User', function () {
 
     userStore.clear()
 
-    expect(userStore.id).to.be.null()
-    expect(userStore.login).to.be.null()
-    expect(userStore.display_name).to.be.null()
+    expect(userStore.id).to.equal(null)
+    expect(userStore.login).to.equal(null)
+    expect(userStore.display_name).to.equal(null)
   })
 
   describe('with an existing user session', function () {
-    
     it('should refresh project preferences for the same user', async function () {
       userStore.set(user)
       const { personalization } = userStore

@@ -1,6 +1,5 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
-import cookie from 'cookie'
+import * as cookie from 'cookie'
 import stringHash from '@sindresorhus/string-hash'
 
 import initStore from './initStore'
@@ -33,20 +32,20 @@ describe('Stores > UI', function () {
     })
 
     it('should contain a dismissedProjectAnnouncementBanner property', function () {
-      expect(store.dismissedProjectAnnouncementBanner).to.be.null()
+      expect(store.dismissedProjectAnnouncementBanner).to.equal(null)
     })
 
     it('should have a `dismissProjectAnnouncementBanner` action', function () {
       const expectedValue = stringHash(PROJECT.configuration.announcement)
-      expect(store.dismissedProjectAnnouncementBanner).to.be.null()
+      expect(store.dismissedProjectAnnouncementBanner).to.equal(null)
       store.dismissProjectAnnouncementBanner()
       expect(store.dismissedProjectAnnouncementBanner).to.equal(expectedValue)
     })
 
     it('should have a showAnnouncement view', function () {
-      expect(store.showAnnouncement).to.be.true()
+      expect(store.showAnnouncement).to.equal(true)
       store.dismissProjectAnnouncementBanner()
-      expect(store.showAnnouncement).to.be.false()
+      expect(store.showAnnouncement).to.equal(false)
     })
   })
 
@@ -87,7 +86,7 @@ describe('Stores > UI', function () {
     })
 
     it('should not set the cookie on instantiation', function () {
-      expect(document.cookie).to.be.undefined()
+      expect(document.cookie).toBeUndefined()
     })
 
     it('should not update the cookie if it already matches the store value', function () {

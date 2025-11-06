@@ -1,36 +1,39 @@
 import sinon from 'sinon'
-import Step from './Step'
+// import Step from './Step'
 import {
   MultipleChoiceTaskFactory,
   SingleChoiceTaskFactory,
   DrawingTaskFactory,
   TranscriptionTaskFactory
 } from '@test/factories'
-import * as tasks from '@plugins/tasks'
-import { expect } from 'chai'
+// import * as tasks from '@plugins/tasks'
 
-describe('Model > Step', function () {
+// Must be skipped due to Vitest unable to resolve some of these imports
+// Might be caused by barrel imports in the classifier like import * as tasks from '@plugins/tasks'
+// https://github.com/zooniverse/front-end-monorepo/issues/7018
+
+describe.skip('Model > Step', function () {
   let step
-  const {
-    single: SingleChoiceTask,
-    multiple: MultipleChoiceTask,
-    drawing: DrawingTask,
-    transcription: TranscriptionTask
-  } = tasks
+  // const {
+  //   single: SingleChoiceTask,
+  //   multiple: MultipleChoiceTask,
+  //   drawing: DrawingTask,
+  //   transcription: TranscriptionTask
+  // } = tasks
 
   before(function () {
     step = Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
   })
 
   it('should exist', function () {
-    expect(step).to.be.ok()
+    expect(step).to.exist
     expect(step).to.be.an('object')
   })
 
   describe('with valid tasks', function () {
     it('should be valid', function () {
       // All tasks default to valid
-      expect(step.isValid).to.be.true()
+      expect(step.isValid).to.equal(true)
     })
   })
 
@@ -52,7 +55,7 @@ describe('Model > Step', function () {
       // drawing task or transcription task can be invalid if it has an invalid mark
       // only transcription line currently has logic to be invalid
       // step is invalid if any task evaluates to be invalid
-      expect(step.isValid).to.be.false()
+      expect(step.isValid).to.equal(false)
     })
   })
 
@@ -67,7 +70,7 @@ describe('Model > Step', function () {
 
     it('should be complete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isComplete()).to.be.true()
+      expect(step.isComplete()).to.equal(true)
     })
   })
 
@@ -82,7 +85,7 @@ describe('Model > Step', function () {
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isComplete()).to.be.false()
+      expect(step.isComplete()).to.equal(false)
     })
   })
 
@@ -106,7 +109,7 @@ describe('Model > Step', function () {
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2', 'T3'], tasks })
-      expect(step.isComplete()).to.be.false()
+      expect(step.isComplete()).to.equal(false)
     })
   })
 
@@ -128,20 +131,20 @@ describe('Model > Step', function () {
     })
 
     it('should be incomplete', function () {
-      expect(step.isComplete(annotations)).to.be.false()
+      expect(step.isComplete(annotations)).to.equal(false)
     })
 
     describe('after annotating task T2', function () {
       it('should still be incomplete', function () {
         singleChoiceAnnotation.update(1)
-        expect(step.isComplete(annotations)).to.be.false()
+        expect(step.isComplete(annotations)).to.equal(false)
       })
     })
 
     describe('after annotating tasks T1 & T2', function () {
       it('should be complete', function () {
         multipleChoiceAnnotation.update([1])
-        expect(step.isComplete(annotations)).to.be.true()
+        expect(step.isComplete(annotations)).to.equal(true)
       })
     })
   })
@@ -164,7 +167,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -188,7 +191,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T0'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -211,7 +214,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -234,7 +237,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return true', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.true()
+      expect(step.isThereBranching).to.equal(true)
     })
   })
 
@@ -256,7 +259,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.false()
+      expect(step.isThereBranching).to.equal(false)
     })
   })
 
@@ -279,7 +282,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.false()
+      expect(step.isThereBranching).to.equal(false)
     })
   })
 
@@ -301,7 +304,7 @@ describe('Model > Step', function () {
 
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isThereBranching).to.be.false()
+      expect(step.isThereBranching).to.equal(false)
     })
   })
 
@@ -340,7 +343,7 @@ describe('Model > Step', function () {
         it('should be undefined', function () {
           const step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks })
           const annotations = []
-          expect(step.nextStepKey(annotations)).to.be.undefined()
+          expect(step.nextStepKey(annotations)).to.equal(undefined)
         })
       })
 
@@ -366,11 +369,11 @@ describe('Model > Step', function () {
       const resetSpies = {}
       step.tasks.forEach(task => {
         resetSpies[task.taskKey] = sinon.spy(task, 'reset')
-        expect(resetSpies[task.taskKey]).to.have.not.been.called()
+        expect(resetSpies[task.taskKey]).to.have.not.been.called
       })
       step.reset()
       step.tasks.forEach(task => {
-        expect(resetSpies[task.taskKey]).to.have.been.calledOnce()
+        expect(resetSpies[task.taskKey]).to.have.been.calledOnce
       })
     })
   })
@@ -407,13 +410,13 @@ describe('Model > Step', function () {
 
     it('should validate each step task', function () {
       tasks.forEach(task => {
-        expect(task.validate).to.have.been.calledOnce()
+        expect(task.validate).to.have.been.calledOnce
       })
     })
 
     it('should complete each step task', function () {
       tasks.forEach(task => {
-        expect(task.complete).to.have.been.calledOnce()
+        expect(task.complete).to.have.been.calledOnce
       })
     })
   })

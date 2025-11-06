@@ -1,10 +1,12 @@
 // components
 export { default as Certificate } from './components/Certificate'
+export { default as GroupAllProjects } from './components/GroupAllProjects'
 export { default as GroupStats } from './components/GroupStats'
 export { default as MyGroups } from './components/MyGroups'
 export { default as Contributors } from './components/Contributors'
 export { default as UserHome } from './components/UserHome'
 export { default as UserStats } from './components/UserStats'
+export { default as UserStatsAllProjects } from './components/UserStatsAllProjects'
 
 // components/shared
 export { default as Avatar } from './components/shared/Avatar'

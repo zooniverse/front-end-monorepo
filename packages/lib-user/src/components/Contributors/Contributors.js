@@ -1,9 +1,9 @@
 import { Loader, SpacedText } from '@zooniverse/react-components'
-import { Box, Layer } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
-import { fetchPanoptesUsers } from '../../utils'
+import { useTranslation } from '@translations/i18n'
 
 import {
   usePanoptesProjects,
@@ -19,7 +19,7 @@ import {
 } from '@components/shared'
 
 import ContributorsList from './components/ContributorsList'
-import { generateExport } from './helpers/generateExport'
+import ExportStats from './components/ExportStats'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 const CONTRIBUTORS_PER_PAGE = 40
@@ -30,10 +30,12 @@ function Contributors({
   group,
   membership
 }) {
-  const [exportLoading, setExportLoading] = useState(false)
+  const [showExport, setShowExport] = useState(false)
   const [page, setPage] = useState(1)
 
-  const showContributors = adminMode 
+  const { t } = useTranslation()
+
+  const showContributors = adminMode
     || membership?.roles.includes('group_admin')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'private_show_agg_and_ind')
     || (membership?.roles.includes('group_member') && group?.stats_visibility === 'public_agg_show_ind_if_member')
@@ -43,7 +45,7 @@ function Contributors({
   const statsQuery = {
     individual_stats_breakdown: true,
   }
-  
+
   const {
     data: stats,
     error: statsError,
@@ -68,7 +70,7 @@ function Contributors({
     error: usersError,
     isLoading: usersLoading
   } = usePanoptesUsers(usersQuery)
-  
+
   // fetch projects
   const arrayOfProjectContributionArrays = stats?.group_member_stats_breakdown?.map(member => member.project_contributions)
   const flattenedProjectContributionArray = arrayOfProjectContributionArrays?.flat()
@@ -96,36 +98,6 @@ function Contributors({
     })
   }
 
-  const loadingExportMessage = 'Generating stats export...'
-
-  async function handleGenerateExport() {
-    setExportLoading(true)
-
-    const allUsersQuery = {
-      id: memberIdsPerStats?.join(','),
-      page_size: 100
-    }
-
-    const allUsers = await fetchPanoptesUsers(allUsersQuery)
-
-    const { filename, dataExportUrl } = await generateExport({
-      group,
-      projects,
-      stats,
-      users: allUsers
-    })
-    
-    // Create an anchor element and trigger download
-    const link = document.createElement('a')
-    link.href = dataExportUrl
-    link.setAttribute('download', filename)
-    document.body.appendChild(link) // Append to the document
-    link.click() // Programmatically click the link to trigger the download
-    document.body.removeChild(link) // Clean up
-
-    setExportLoading(false)
-  }
-
   function handlePageChange({ page }) {
     setPage(page)
   }
@@ -136,47 +108,37 @@ function Contributors({
 
   return (
     <>
-      {exportLoading ? (
-          <Layer>
-            <Box
-              align='center'
-              gap='small'
-              height='medium'
-              justify='center'
-              width='medium'
-            >
-              <SpacedText>
-                {loadingExportMessage}
-              </SpacedText>
-              <Loader
-                loadingMessage={loadingExportMessage}
-              />
-            </Box>
-          </Layer>
-        ) : null
-      }
+      {showExport && (
+        <ExportStats
+          group={group}
+          handleShowExport={setShowExport}
+          memberIdsPerStats={memberIdsPerStats}
+          projects={projects}
+          stats={stats}
+        />
+      )}
       <Layout
         primaryHeaderItem={
           <HeaderLink
             href={`/groups/${group.id}`}
-            label='back'
+            label={t('common.back')}
             primaryItem={true}
           />
         }
       >
         <ContentBox
-          linkLabel='Export all stats'
+          linkLabel={t('Contributors.exportLink')}
           linkProps={{
             as: 'button',
             disabled: disableStatsExport,
-            onClick: handleGenerateExport
+            onClick: () => setShowExport(true)
           }}
-          title='Full Group Stats'
+          title={t('Contributors.title')}
         >
           {!showContributors ? (
             <Box align='center' justify='center' fill pad='medium'>
               <SpacedText uppercase={false}>
-                You do not have permission to view this group&apos;s contributors.
+                {t('Contributors.noPermission')}
               </SpacedText>
             </Box>
           ) : loading ? (
@@ -186,7 +148,7 @@ function Contributors({
           ) : error ? (
             <Box align='center' justify='center' fill pad='medium'>
               <SpacedText uppercase={false}>
-                There was an error.
+                {t('Contributors.error')}
               </SpacedText>
               <SpacedText uppercase={false}>
                 {error?.message}
@@ -200,7 +162,7 @@ function Contributors({
           ) : (
             <Box align='center' justify='center' fill pad='medium'>
               <SpacedText uppercase={false}>
-                There are no contributors to this group.
+                {t('Contributors.none')}
               </SpacedText>
             </Box>
           )}

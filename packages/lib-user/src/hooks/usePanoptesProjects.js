@@ -27,11 +27,6 @@ async function fetchProjects({ query, token }) {
       })
 
       const { meta, projects } = response?.body || {}
-  
-      if (meta?.projects?.page_count > 5) {
-        console.warn('There are more than 500 projects related to this request. This is likely an error.')
-        return []
-      }
       
       if (projects && projects.length) {
         projectsAccumulator = projectsAccumulator.concat(projects)
@@ -55,7 +50,7 @@ async function fetchProjects({ query, token }) {
 export function usePanoptesProjects(query) {
   const token = usePanoptesAuthToken()
   let key = null
-  if (token && query?.id) {
+  if (query?.id) {
     key = { query, token }
   }
   return useSWR(key, fetchProjects, SWROptions)

@@ -13,16 +13,18 @@ jobs:
       PANOPTES_ENV: production
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/iron'
-         cache: 'yarn'
+         node-version-file: ./.nvmrc
+         cache: 'pnpm'
 
-      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
-      - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
-      - run: yarn workspace @zooniverse/fe-project build
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @zooniverse/react-components build:es6
+      - run: pnpm --filter @zooniverse/subject-viewers build:es6
+      - run: pnpm --filter @zooniverse/classifier build:es6
+      - run: pnpm --filter @zooniverse/fe-project build
 
   build_root_app:
     name: Build NextJS root app
@@ -33,35 +35,37 @@ jobs:
       PANOPTES_ENV: production
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/iron'
-         cache: 'yarn'
+         node-version-file: ./.nvmrc
+         cache: 'pnpm'
 
-      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
-      - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/content build:es6
-      - run: yarn workspace @zooniverse/user build:es6
-      - run: yarn workspace @zooniverse/subject-viewers build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
-      - run: yarn workspace @zooniverse/fe-root build
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @zooniverse/react-components build:es6
+      - run: pnpm --filter @zooniverse/content build:es6
+      - run: pnpm --filter @zooniverse/user build:es6
+      - run: pnpm --filter @zooniverse/subject-viewers build:es6
+      - run: pnpm --filter @zooniverse/classifier build:es6
+      - run: pnpm --filter @zooniverse/fe-root build
 
   build_storybooks:
     name: Build storybooks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/iron'
-         cache: 'yarn'
+         node-version-file: ./.nvmrc
+         cache: 'pnpm'
 
-      - run: yarn install --production=false --frozen-lockfile --ignore-scripts
-      - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/content build:es6
-      - run: yarn workspace @zooniverse/user build:es6
-      - run: yarn workspace @zooniverse/subject-viewers build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
-      - run: yarn deploy-storybook --dry-run
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @zooniverse/react-components build:es6
+      - run: pnpm --filter @zooniverse/content build:es6
+      - run: pnpm --filter @zooniverse/user build:es6
+      - run: pnpm --filter @zooniverse/subject-viewers build:es6
+      - run: pnpm --filter @zooniverse/classifier build:es6
+      - run: pnpm deploy-storybook --dry-run

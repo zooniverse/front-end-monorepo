@@ -1,10 +1,10 @@
-const { buildQueuedSubjectResource, buildSubjectQueue } = require('./helpers')
+import { buildQueuedSubjectResource, buildSubjectQueue } from './helpers'
 
 describe('Subjects Helpers', function () {
   describe('buildQueuedSubjectResource', function () {
     it('should return a mocked subject resource object', function () {
       const subject = buildQueuedSubjectResource()
-      expect(subject).to.exist()
+      expect(subject).to.exist
       expect(subject).to.be.an.instanceOf(Object)
     })
 

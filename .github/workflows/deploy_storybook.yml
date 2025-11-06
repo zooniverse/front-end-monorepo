@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-         node-version: 'lts/iron'
-         cache: 'yarn'
+         node-version-file: ./.nvmrc
+         cache: 'pnpm'
 
-      - run: yarn install --production=false --frozen-lockfile
-      - run: yarn workspace @zooniverse/react-components build:es6
+      - run: pnpm install --frozen-lockfile
       - name: Deploy to GH Pages
-        run: yarn deploy-storybook -- --ci
+        run: pnpm deploy-storybook -- --ci
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}

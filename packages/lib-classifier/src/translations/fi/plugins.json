@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Napsauta ja raahaa avauskohdasta sulkukohtaan tai kaksoisnapsauta missä tahansa viivalla leikkauskohdan luomiseksi",
+    "closePoint": "Napsauta missä tahansa viivalla sulkukohdan asettamiseksi",
+    "inactive": "Muokkaa tätä viivaa napsauttamalla",
+    "spliceDrag": "Napsauta ja raahaa avauskohdasta sulkukohtaan",
+    "splicePoint": "Kaksoisnapsauta missä tahansa viivalla leikkauskohdan luomiseksi"
+  },
+  "HighlighterTask": {
+    "delete": "Poista",
+    "noLabels": "Ei merkintöjä korostustehtävälle",
+    "status": "{{count}} merkitty"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} piirretty",
+    "max": "{{count}}\/{{max}} enimmäispiirrosta",
+    "maxAndMin": "Vaaditaan {{count}}\/{{min}}, {{max}} enimmäispiirrosta",
+    "min": "{{count}}\/{{min}} pakollista piirrettyä"
+  },
+  "LineControls": {
+    "close": "Sulje",
+    "delete": "Poista",
+    "deleteCancel": "Peruuta poisto",
+    "deleteConfirm": "Vahvista poisto",
+    "lineControls": "Viivan ohjaukset",
+    "move": "Siirrä",
+    "redo": "Tee uudelleen",
+    "undo": "Kumoa"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Syötä jotain",
+    "otherLabel": "Muu...",
+    "selectPlaceholder": "Valitse vastaus"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Tyhjennä suodattimet",
+      "closeFilters": "Sulje suodattimet",
+      "filter": "Suodata",
+      "removeFilter": "Poista suodatin {{valueLabel}}",
+      "showing": "Näytetään {{showing}}\/{{total}}"
+    },
+    "Choice": {
+      "cancel": "Peruuta",
+      "identify": "Tunnista",
+      "lessInfo": "Vähemmän tietoja",
+      "moreInfo": "Lisätietoja",
+      "notThis": "Ei tämä"
+    },
+    "ChoiceButton": {
+      "identified": "tunnistettu",
+      "openSubmenu": "Avaa alivalikko kohteelle {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Peruuta",
+      "confused": "Sekoitetaan joskus:",
+      "itsThis": "Luulen, että se on tämä"
+    },
+    "DeleteButton": {
+      "delete": "Poista valinta {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Nollaa"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Tekstinmuokkaus"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Luotu transkriptio",
+    "editing": "Muokataan transkriptiota"
+  }
+}

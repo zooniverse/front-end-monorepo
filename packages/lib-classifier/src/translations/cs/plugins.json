@@ -1,16 +1,75 @@
 {
+  "FreehandLine": {
+    "active": "Kliknutím a přetažením z otevřeného bodu do koncového bodu nebo dvojitým kliknutím kdekoli na čáře vytvoříte bod spoje",
+    "closePoint": "Kliknutím na libovolné místo na čáře nastavíte uzavírací bod",
+    "inactive": "Kliknutím upravíte tuto čáru",
+    "spliceDrag": "Klikněte a přetáhněte z otevřeného bodu do zavíracího bodu.",
+    "splicePoint": "Dvojitým kliknutím kdekoli na čáře vytvoříte spojovací bod."
+  },
+  "HighlighterTask": {
+    "delete": "Smazat",
+    "noLabels": "Žádné štítky pro Zvýrazněnou úlohu",
+    "status": "{{count}} Označeno"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} zakresleno",
+    "max": "{{count}} z {{max}} maximálně zakresleno",
+    "maxAndMin": "{{count}} z {{min}} vyžadováno, {{max}} maximálně zakresleno",
+    "min": "{{count}} z {{min}} vyžadováno zakreslit"
+  },
+  "LineControls": {
+    "close": "Zavřít",
+    "delete": "Smazat",
+    "deleteCancel": "Zrušit smazání",
+    "deleteConfirm": "Potvrdit smazání",
+    "lineControls": "Ovládací prvky na čáře",
+    "move": "Přesunout",
+    "redo": "Znovu",
+    "undo": "Vrátit zpět"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Zadejte něco",
+    "otherLabel": "Jiné...",
+    "selectPlaceholder": "Vyberte odpověď"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Zrušit filtry",
+      "closeFilters": "Zavřít filtry",
+      "filter": "Filtr",
+      "removeFilter": "Odebrat filtr {{valueLabel}}",
       "showing": "Zobrazuje {{showing}} kategorií z {{total}}"
     },
     "Choice": {
-      "identify": "Identifikovat"
+      "cancel": "Zrušit",
+      "identify": "Identifikovat",
+      "lessInfo": "Méně informací",
+      "moreInfo": "Více informací",
+      "notThis": "Tohle ne"
+    },
+    "ChoiceButton": {
+      "identified": "identifikováno",
+      "openSubmenu": "Otevřít podnabídku pro {{choiceLabel}}"
     },
     "ConfusedWith": {
       "cancel": "Zrušit",
       "confused": "Někdy zaměněno za",
-      "itsThis": "Myslím, že to je ono"
+      "itsThis": "Myslím, že to je tohle"
+    },
+    "DeleteButton": {
+      "delete": "Odstrant volbu {{choiceLabel}}"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Resetovat"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Úpravy textu"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Vytvořen přepis",
+    "editing": "Úprava přepisu"
   }
 }

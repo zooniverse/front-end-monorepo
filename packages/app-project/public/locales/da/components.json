@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Find et nyt projekt at udforske",
+    "heading": "Der er ikke noget her.",
+    "message": "Den side, du leder efter, findes ikke længere.",
+    "returnHome": "Tilbage til startsiden"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Log ind eller tilmeld dig for at følge dine bidrag.",
+      "register": "tilmeld dig",
+      "signIn": "log ind"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Færdig! Det ser ud til, at dette projekt er løbet tør for data i øjeblikket!",
+      "seeResults": "Se resultater"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Opret og tilføj",
+      "label": "Opret en ny samling",
+      "private": "Privat samling"
+    },
+    "SelectCollection": {
+      "addButton": "Tilføj",
+      "label": "Føj til en eksisterende samling"
+    },
+    "title": "Føj til samling"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodont",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Hjemmeside",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Opret forbindelse til {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse er verdens største og mest populære platform til menneskedrevet forskning.",
+    "defaultTitle": "Projekter",
+    "siteName": "Zooniverse – Menneskedrevet forskning"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Godkendt af Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Projektavatar for {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Skift sprog"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projekt"
+    },
+    "UnderReviewLabel": {
+      "underReview": "til gennemgang"
+    },
+    "about": "Om",
+    "admin": "Administratorside",
+    "classify": "Klassificer",
+    "collect": "Samling",
+    "exploreProject": "Udforsk projekt",
+    "organization": "Fra organisationen:",
+    "recents": "Seneste",
+    "talk": "Snak"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "I tal",
+    "classifications": "Klassificeringer",
+    "completedSubjects": "Afsluttede emner",
+    "percentComplete": "Procent færdigt",
+    "subjects": "Emner",
+    "subtitle": "Hold styr på de fremskridt, som du og dine medfrivillige har gjort på dette projekt.",
+    "text": "Hvert klik tæller! Bliv en del af fællesskabet omkring {{projectName}} for at fuldføre dette projekt og hjælpe forskerne med at skabe vigtige resultater. Klik på \"Vis flere statistikker\" for at se endnu flere statistikker.",
+    "title": "Statistikker for {{projectName}}",
+    "viewMoreStats": "Vis flere statistikker",
+    "volunteers": "Frivillige"
+  },
+  "RequireUser": {
+    "text": "Du skal være logget ind!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse-overskrift"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Allerede set",
+    "back": "Vælg et andet emnesæt",
+    "byline": "Sortér listen ved at klikke på kolonnernes navne. Du vil se emnerne i rækkefølge fra og med det, du vælger.",
+    "fetching": "Vent venligst ...",
+    "heading": "Vælg et emne for at komme i gang",
+    "retired": "Udgået",
+    "unclassified": "Tilgængelige"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Føj til samlinger"
+    },
+    "TalkLink": {
+      "label": "Debattér under Snak"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Færdig"
+    },
+    "back": "Vælg en anden arbejdsgang",
+    "byline": "Vælg et emnesæt for at begynde at transskribere.",
+    "heading": "Vælg, hvor du vil starte"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}} % færdig",
+      "setSelection": "indstil valg",
+      "subjectSelection": "emnevalg"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "låst",
+      "unlocked": "låst op"
+    },
+    "error": "Der opstod en fejl under hentning af arbejdsgangene :(",
+    "getStarted": "Kom i gang!",
+    "message": "Du kan lave rigtig forskning – klik her for at komme i gang!",
+    "noWorkflows": "Der er intet at klassificere"
+  }
+}

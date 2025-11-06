@@ -18,14 +18,20 @@ To view data from Contentful, you'll need to create a `.env` file containing the
 
 ### Docker
 
-- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
-- `docker-compose down` to stop the dev containers.
-<!-- - `docker-compose run --rm root test` to run the tests. -->
+```sh
+# run a development build using the top-level Dockerfile
+docker compose build
+# run a dev server on port 3000 (with HTTPS, but no authentication).
+# eg. https://localhost:3000/about
+docker compose up -d
+# stop the local services when you're finished
+docker compose down
+```
 
 ### Node
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 ## Running in production
@@ -34,20 +40,16 @@ yarn dev
 
 The production server is started on port 3000 by default.
 
-### Docker
-
-- `docker-compose run --rm root start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the GitHub Action build except for running behind a proxy.
-
 ### Node
 
 ```sh
-yarn build
-yarn start
+pnpm build
+pnpm start
 ```
 
 ### Analyze bundle sizes
 
-This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true yarn build`.
+This app has `@next/bundle-analyzer` as a dev dependency. To use it, run `ANALYZE=true pnpm build`.
 
 ## Technologies
 

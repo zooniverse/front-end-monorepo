@@ -10,7 +10,7 @@ describe('Model > Task', function () {
 
   it('should exist', function () {
     const taskInstance = Task.create({ taskKey: 'T3', type: 'default' })
-    expect(taskInstance).to.be.ok()
+    expect(taskInstance).to.exist
     expect(taskInstance).to.be.an('object')
   })
 
@@ -21,7 +21,7 @@ describe('Model > Task', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   it('should have a validation function', function () {
@@ -38,7 +38,7 @@ describe('Model > Task', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T0')
       expect(annotation.taskType).to.equal('default')
     })
@@ -60,11 +60,11 @@ describe('Model > Task', function () {
     })
 
     it('should start up with an undefined value', function () {
-      expect(task.annotation).to.be.undefined()
+      expect(task.annotation).to.equal(undefined)
     })
 
     it('should always be complete', function () {
-      expect(task.isComplete(annotation)).to.be.true()
+      expect(task.isComplete(annotation)).to.equal(true)
     })
 
     it('should create new Annotation models', function () {
@@ -76,7 +76,55 @@ describe('Model > Task', function () {
     })
 
     it('should always be valid', function () {
-      expect(task.isValid).to.be.true()
+      expect(task.isValid).to.equal(true)
+    })
+  })
+
+  describe('with details/subtasks', function () {
+    describe('hasSubtasks', function () {
+      it('should return false when details is undefined', function () {
+        const task = Task.create(mockTask)
+        expect(task.hasSubtasks()).to.equal(false)
+      })
+
+      it('should return false when details is empty array', function () {
+        const task = Task.create({
+          ...mockTask,
+          details: []
+        })
+        expect(task.hasSubtasks()).to.equal(false)
+      })
+
+      it('should return true when details has items', function () {
+        const task = Task.create({
+          ...mockTask,
+          details: [
+            {
+              type: 'single',
+              question: 'Which one?',
+              answers: ['A', 'B']
+            }
+          ]
+        })
+        expect(task.hasSubtasks()).to.equal(true)
+      })
+    })
+
+    it('should return empty array when no details', function () {
+      const task = Task.create(mockTask)
+      expect(task.subtasks).to.deep.equal([])
+    })
+
+    it('should return subtasks with taskKey and index from details', function () {
+      const details = [
+        { type: 'single', question: 'Which one?', answers: ['A', 'B'], required: true },
+        { type: 'multiple', question: 'Select all', answers: ['X', 'Y', 'Z'] }
+      ]
+      const task = Task.create({ ...mockTask, details })
+      expect(task.subtasks).to.deep.equal([
+        { ...details[0], taskKey: 'T0.details.0', index: 0 },
+        { ...details[1], taskKey: 'T0.details.1', index: 1 }
+      ])
     })
   })
 })

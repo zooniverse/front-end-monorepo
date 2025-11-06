@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import nock from 'nock'
 
 import getStaticPageProps from './'
@@ -286,7 +285,6 @@ describe('Helpers > getStaticPageProps', function () {
             links: {
               subject_sets: ['1', '2', '3']
             },
-            subjectSets: []
           }
         ])
       })
@@ -314,7 +312,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return workflowID undefined', function () {
-        expect(props.workflowID).to.be.undefined()
+        expect(props.workflowID).toBeUndefined()
       })
     })
 
@@ -350,7 +348,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organization).to.be.undefined()
+        expect(props.organization).toBeUndefined()
       })
     })
 
@@ -368,7 +366,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.be.true()
+        expect(props.notFound).to.equal(true)
       })
 
       it('should return a project error message', function () {
@@ -391,7 +389,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.be.true()
+        expect(props.notFound).to.equal(true)
       })
 
       it('should return a workflow error message', function () {
@@ -455,7 +453,6 @@ describe('Helpers > getStaticPageProps', function () {
             links: {
               subject_sets: ['1', '2', '3']
             },
-            subjectSets: []
           }
         ])
       })
@@ -483,7 +480,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return workflowID undefined', function () {
-        expect(props.workflowID).to.be.undefined()
+        expect(props.workflowID).toBeUndefined()
       })
     })
 
@@ -519,7 +516,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organization).to.be.undefined()
+        expect(props.organization).toBeUndefined()
       })
     })
 
@@ -537,7 +534,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.be.true()
+        expect(props.notFound).to.equal(true)
       })
 
       it('should return a project error message', function () {
@@ -560,7 +557,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.be.true()
+        expect(props.notFound).to.equal(true)
       })
 
       it('should return a workflow error message', function () {

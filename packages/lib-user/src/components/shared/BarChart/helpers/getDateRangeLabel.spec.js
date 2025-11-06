@@ -7,11 +7,11 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2021-09-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Day',
+      countLabel: 'BarChart.day',
       time: 60,
-      timeLabel: 'min',
+      timeLabel: 'BarChart.minAbbrev',
       tLDS: { timeZone: 'UTC', weekday: 'short' }
-    })      
+    })
   })
 
   it('should return the expected dateRangeLabel for LAST 30 DAYS', function () {
@@ -20,9 +20,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2021-08-16'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Day',
+      countLabel: 'BarChart.day',
       time: 60,
-      timeLabel: 'min',
+      timeLabel: 'BarChart.minAbbrev',
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     })
   })
@@ -33,9 +33,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2021-09-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Day',
+      countLabel: 'BarChart.day',
       time: 60,
-      timeLabel: 'min',
+      timeLabel: 'BarChart.minAbbrev',
       tLDS: { timeZone: 'UTC', day: 'numeric' }
     })
   })
@@ -46,9 +46,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2021-07-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Week of',
+      countLabel: 'BarChart.weekOf',
       time: 3600,
-      timeLabel: 'hrs',
+      timeLabel: 'BarChart.hourAbbrev',
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     })
   })
@@ -59,9 +59,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2021-01-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Week of',
+      countLabel: 'BarChart.weekOf',
       time: 3600,
-      timeLabel: 'hrs',
+      timeLabel: 'BarChart.hourAbbrev',
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     })
   })
@@ -72,9 +72,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2021-03-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Month of',
+      countLabel: 'BarChart.monthOf',
       time: 3600,
-      timeLabel: 'hrs',
+      timeLabel: 'BarChart.hourAbbrev',
       tLDS: { timeZone: 'UTC', month: 'short' }
     })
   })
@@ -85,9 +85,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2020-10-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Month of',
+      countLabel: 'BarChart.monthOf',
       time: 3600,
-      timeLabel: 'hrs',
+      timeLabel: 'BarChart.hourAbbrev',
       tLDS: { timeZone: 'UTC', month: 'short', year: 'numeric' }
     })
   })
@@ -98,9 +98,9 @@ describe('components > shared > BarChart > getDateRangeLabel', function () {
       start_date: '2018-01-01'
     })
     expect(dateRangeLabel).to.deep.equal({
-      countLabel: 'Year',
+      countLabel: 'BarChart.year',
       time: 3600,
-      timeLabel: 'hrs',
+      timeLabel: 'BarChart.hourAbbrev',
       tLDS: { timeZone: 'UTC', year: 'numeric' }
     })
   })

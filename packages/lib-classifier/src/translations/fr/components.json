@@ -242,7 +242,8 @@
       "disable": "désactiver le zoom",
       "enable": "activer le zoom"
     },
-    "loading": "Chargement d'un sujet"
+    "loading": "Chargement d'un sujet",
+    "zoomHelp": "Utilisez CTRL + défilement pour zoomer"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
@@ -259,7 +260,8 @@
         "back": "Retour"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Valider & Discussion"
+        "doneAndTalk": "Valider & Discussion",
+        "newTab": "dans un nouvel onglet"
       },
       "DoneButton": {
         "done": "Valider"

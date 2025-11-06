@@ -47,7 +47,7 @@ const authorization = getBearerToken(store.authClient)
 
 ## sessionUtils
 
-Get the current session ID to include with classification metadata. A new session ID is returned if more than five minutes have passed since the last call to `sessionUtils.getSessionID()`. Sessions are stored in browser session storage, so unique to individual tabs.
+Get the current session ID to include with classification metadata. Sessions are stored in browser session storage, so unique to individual tabs.
 
 ```js
 const sessionID = sessionUtils.getSessionID()

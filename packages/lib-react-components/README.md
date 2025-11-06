@@ -26,11 +26,13 @@ import { ZooFooter } from '@zooniverse/react-components';
 
 ## Run
 
-`yarn start` to run the storybook locally on (https://localhost:6007).
+`pnpm start` to run the storybook locally on (https://localhost:6007).
 
 ## Tests
 
-`yarn test` to run mocha tests.
+`pnpm test` to run Vitest tests.
+
+`pnpm test ProjectCard.spec.jsx` to test one file at a time.
 
 ## Contributing
 
@@ -47,8 +49,6 @@ Components should be added to the `src/components` folder and an export to `src/
 
   Testing is done by
 
-  - [Mocha](https://mochajs.org/) - test runner
-  - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
-  - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
-  - [Enzyme](https://airbnb.io/enzyme/) - testing utility for React
-
+  - [Vitest](https://vitest.dev)
+  - [React Testing Library](https://testing-library.com)
+  - [Storybook](https://storybook.js.org)

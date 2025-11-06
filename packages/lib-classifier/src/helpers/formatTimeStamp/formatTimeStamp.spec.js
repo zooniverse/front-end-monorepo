@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import formatTimeStamp from './formatTimeStamp'
 
 describe('Helpers > formatTimeStamp', function () {

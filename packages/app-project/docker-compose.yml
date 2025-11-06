@@ -1,13 +1,18 @@
-version: '3.7'
-
 services:
   project:
     image: front-end-monorepo_dev:latest
+    environment:
+      PANOPTES_ENV: staging
+      APP_ENV: development
     build:
       context: ../../
+      target: builder
+      args:
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-project"
     command: ["dev"]
     ports:
@@ -16,11 +21,12 @@ services:
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
+      - node_modules-dev:/usr/src/node_modules
   storybook:
     image: front-end-monorepo_dev:latest
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-project"
     command: ["storybook"]
     ports:
@@ -29,3 +35,6 @@ services:
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
+      - node_modules-dev:/usr/src/node_modules
+volumes:
+  node_modules-dev:

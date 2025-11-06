@@ -1,4 +1,4 @@
-import { autorun, toJS } from 'mobx'
+import { autorun } from 'mobx'
 import {
   addDisposer,
   applySnapshot,
@@ -75,7 +75,17 @@ const WorkflowStepStore = types
       return activeInteractionTask || {}
     },
 
-    // Needs to check all steps, not just the active one
+    // check only active step tasks for annotate task
+    get hasActiveAnnotateTask () {
+      for (const task of self.activeStepTasks) {
+        if (task.type === 'drawing' || task.type === 'transcription' || task.type === 'dataVisAnnotation' || task.type === 'subjectGroupComparison') {
+          return true
+        }
+      }
+      return false
+    },
+
+    // check all steps, not just the active one, for annotate task
     get hasAnnotateTask () {
       for (const key in self.workflow?.tasks) {
         const task = self.workflow.tasks[key]

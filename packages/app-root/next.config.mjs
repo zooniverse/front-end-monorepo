@@ -16,6 +16,9 @@ function commitID() {
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 
 const nextConfig = {
+  compiler: {
+    styledComponents: true
+  },
   compress: false,
   env: {
     COMMIT_ID
@@ -31,10 +34,6 @@ const nextConfig = {
   webpack: (config, options) => {
     config.resolve = {
       ...config.resolve,
-      alias: {
-        ...config.resolve.alias,
-        hexoid: 'hexoid/dist/index.js'
-      },
       fallback: {
         ...config.resolve.fallback,
         fs: false

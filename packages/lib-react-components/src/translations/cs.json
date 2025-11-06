@@ -1,52 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "Režim správce"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Uživatelské jméno nebo heslo je nesprávné",
+      "forgot": "Zapomněli jste heslo?",
+      "heading": "Vítejte zpátky!",
+      "instruction": "Jsme rádi, že jste zpět! Přihlaste se a pokračujte tam, kde jste skončili.",
+      "login": "Uživatelské jméno nebo e-mailová adresa",
+      "password": "Heslo",
+      "placeholder": "např. ZooniverseFan123",
+      "signIn": "Přihlásit se"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Chci pomáhat testovat nové projekty a dostávat e-maily, až budou k dispozici (nepovinné).",
+      "email": "E-mailová adresa (povinné)",
+      "emailConfirm": "Potvrzení e-mailové adresy (povinné)",
+      "emailConfirmError": "E-mailové adresy se neshodují, zkuste to prosím znovu.",
+      "emailConflict": "Účet s touto adresou již existuje",
+      "emailListSignUp": "Nevadí, když mi občas pošlete e-mail (nepovinné)",
+      "emailPlaceholder": "např. zoofan31@gmail.com",
+      "forgot": "Zapomněli jste heslo?",
+      "heading": "Vítejte zpátky!",
+      "instruction": "Vytvořte si účet a začněte provádět skutečný výzkum.",
+      "password": "Heslo (povinné)",
+      "passwordConfirm": "Potvrdit heslo (povinné)",
+      "passwordConfirmError": "Heslo neodpovídá, zkuste jej prosím zadat znovu.",
+      "privacyAgreement": "Souhlasíte s našimi zásadami ochrany osobních údajů (povinné)",
+      "privacyAgreementError": "Je třeba souhlasit se zásadami ochrany osobních údajů.",
+      "privacyLink": "Přečtěte si naše zásady ochrany osobních údajů",
+      "realName": "Skutečné jméno (nepovinné)",
+      "realNameHelp": "Použijeme je k tomu, abychom vás mohli uvést ve vědeckých článcích, na plakátech apod.",
+      "realNamePatternHelp": "Zadejte jméno, ne e-mailovou adresu",
+      "realNamePlaceholder": "např. Jan Novák",
+      "register": "Zaregistrovat se",
+      "registering": "Registrace...",
+      "underageConsent": "Potvrzuji, že jsem rodič\/opatrovník, a dávám souhlas k registraci svého dítěte uvedením své e-mailové adresy jako hlavní kontaktní adresy. Já i mé dítě rozumíme zásadám ochrany osobních údajů a souhlasíme s nimi (povinné)",
+      "underageEmail": "E-mailová adresa rodiče\/opatrovníka (povinné)",
+      "underageEmailSignUp": "Pokud budete souhlasit, budeme vám pravidelně zasílat e-maily propagující nové projekty související s výzkumem nebo jiné informace týkající se našeho výzkumu. Vaše kontaktní údaje nebudeme používat ke komerčním účelům. (nepovinné)",
+      "underageNotRealName": "Tímto jménem se budete přihlašovat. Bude se zobrazovat veřejně. Nepoužívejte své skutečné jméno.",
+      "underageWithParent": "Pokud je vám méně než 16 let, zaškrtněte toto políčko a potvrďte, že jste formulář vyplnili společně s rodičem nebo opatrovníkem.",
+      "username": "Uživatelské jméno (vyžadováno)",
+      "usernameConflict": "Toto uživatelské jméno je obsazeno",
+      "usernameHelp": "To bude veřejně zobrazeno na diskusních fórech apod.",
+      "usernamePatternHelp": "Uživatelská jména mohou obsahovat pouze písmena, číslice, znaky '.','-' a '_'.",
+      "usernamePlaceholder": "např. ZooniverseFan123"
+    },
+    "title": "Přihlaste se nebo vytvořte nový účet."
+  },
   "CloseButton": {
     "close": "Zavřít"
+  },
+  "FavouritesButton": {
+    "add": "Přidat k oblíbeným",
+    "remove": "Přidáno k oblíbeným"
   },
   "Loader": {
     "loading": "(načítá se)"
   },
+  "ProjectCard": {
+    "classifications": "Klasifikace",
+    "finished": "Dokončeno",
+    "paused": "Pozastaveno",
+    "state": "Stav"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "O Zooniverse",
+      "acknowledgements": "Poděkování",
+      "contact": "Kontakt",
+      "faq": "Časté otázky",
       "publications": "Publikace",
-      "team": "Náš tým",
-      "contact": "Kontaktujte nás",
-      "faq": "FAQ - Často kladené dotazy"
+      "resources": "Zdroje",
+      "team": "Tým"
     },
     "buildLabels": {
-      "tutorial": "Tutorial/Návod"
+      "bestPractices": "Osvědčené postupy",
+      "buildAProject": "Sestavení projektu",
+      "glossary": "Slovník",
+      "policies": "Zásady",
+      "tutorial": "Návod"
     },
     "getInvolvedLabels": {
+      "callForProjects": "Výzva k podání projektů",
+      "collaborate": "Spolupracujte",
+      "collections": "Alba",
+      "donate": "Darujte",
+      "educate": "Vzdělávejte se",
+      "education": "Výuka",
       "getInvolved": "Zapojte se",
-      "educate": "Výuka"
+      "volunteer": "Dobrovolník"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Denní Zooniverse",
+      "news": "Novinky"
+    },
+    "policyLabels": {
+      "jobs": "Úlohy",
+      "privacyPolicy": "Zásady ochrany osobních údajů",
+      "security": "Zabezpečení",
+      "systemStatus": "Stav systému"
     },
     "projectLabels": {
-      "projects": "Projekty"
+      "arts": "Umění",
+      "biology": "Biologie",
+      "climate": "Klima",
+      "history": "Historie",
+      "language": "Jazyk",
+      "literature": "Literatura",
+      "medicine": "Lékařství",
+      "nature": "Přírodověda",
+      "physics": "Fyzika",
+      "projects": "Projekty",
+      "social": "Společenské vědy",
+      "space": "Vesmír"
     },
+    "tagLine": "Výzkum podporovaný lidmi",
     "talkLabels": {
-      "talk": "Diskuze"
-    }
+      "announcements": "Oznámení",
+      "data": "Zpracování dat",
+      "projectBuilding": "Tvorba Projektu",
+      "talk": "Diskuze",
+      "troubleshooting": "Odstraňování problémů"
+    },
+    "zooniversePolicies": "Zásady Zooniverse"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "Projekty",
-      "about": "O Zooniverse",
-      "getInvolved": "Zapojte se",
-      "talk": "Diskuze"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Uživatelský účet",
+      "navListLabels": {
+        "messages_one": "Zprávy ({{count}})",
+        "messages_other": "Zprávy ({{count}})",
+        "messages_zero": "Zprávy",
+        "notifications_one": "Oznámení ({{count}})",
+        "notifications_other": "Oznámení ({{count}})",
+        "notifications_zero": "Oznámení"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "Zaregistrovat se",
       "signIn": "Přihlásit se"
     },
     "ThemeModeToggle": {
-      "switchToDark": "Přepnout do tmavého prostředí",
-      "switchToLight": "Přepnout do světlého prostředí"
+      "switchToDark": "Přepnout na tmavý motiv",
+      "switchToLight": "Přepnout na světlý motiv"
     },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Alba",
-        "favorites": "Oblíbené"
+        "favorites": "Oblíbené",
+        "profile": "Profil",
+        "settings": "Nastavení",
+        "signOut": "Odhlásit se"
       }
+    },
+    "ariaLabel": "Webová strana",
+    "mainHeaderNavListLabels": {
+      "about": "O Zooniverse",
+      "build": "Vytvořit",
+      "getInvolved": "Zapojte se",
+      "projects": "Projekty",
+      "talk": "Diskuze"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Logo Zooniverse"
   }
 }

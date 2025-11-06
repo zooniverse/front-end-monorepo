@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "तुम्ही आधीच हा विषय पाहिला आहे",
+      "tooltipText": [
+        "तुम्ही आधीच हा विषय पाहिला व वर्गीकरण केला आहे म्ह्णून आणखी वर्गीकरणे या विषयात योगदान देणार नाहीत",
+        "तुम्हाला मदत करायची असेल तर एक वेगळा वर्कफ्लो किंवा एका वेगळ्या प्रोजेक्टला योगदान करण्याचे निवडण्यात"
+      ]
+    },
+    "Banner": {
+      "next": "पुढे",
+      "previous": "आधीचे",
+      "whyAmISeeingThis": "मी हे का पाहत आहे?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "रद्द करा",
+      "confirm": "पुष्टी करा",
+      "inProgress": "तुम्हाला एका वेगळ्या विषयाच्या दिशेने नक्की जायचे आहे का? सध्याच्या विषयावर तुम्ही केलेले कोणतेही भाष्य गमावले जाईल"
+    },
+    "RetiredBanner": {
+      "bannerText": "संपले: हा विषय निवृत्त करण्यात आला आहे",
+      "tooltipText": [
+        "या विषयात आधीच पुरेशी वर्गीकरणे आहेत म्ह्णून या विश्लेषणात तुमची वापरली जाणार नाहीत",
+        "तुम्हाला मदत करायची असेल तर एक वेगळा वर्कफ्लो किंवा एका वेगळ्या प्रोजेक्टला योगदान करण्याचे निवडण्याचा प्रयत्न करा"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "आधीच पाहिले",
+      "bannerText": "{{setName}}: विषय {{number}}{{total}}",
+      "finished": "संपवले",
+      "tooltipText": [
+        "हा प्रोजेक्ट व्हॉलंटियर्सना अनुक्रमाने विषय पाहण्यास अनुमती देतो.",
+        "ही संख्या एकूण ग्रूपमध्ये विषयाची स्थिती तुम्हाला दाखवते"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "संपले: तुम्ही सर्वकाही पाहिले आहे",
+      "tooltipText": [
+        "या वर्कफ्लोमधील सर्वाचे तुम्ही आधीच वर्गीकरण केले आहे म्ह्णून या विषयावरील अधिक वर्गीकरणे या विश्लेषणात वापरली जाणार नाहीत.",
+        "तुम्हाला मदत करायची असेल तर एक वेगळा वर्कफ्लो किंवा एका वेगळ्या प्रोजेक्टला योगदान करण्याचे निवडण्याचा प्रयत्न करा"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "हा वर्कफ्लो संपला आहे",
+      "tooltipText": [
+        "या वर्कफ्लोमधील सर्व विषय पूर्ण करण्यात आले आहेत म्ह्णून या विषयावरील अधिक वर्गीकरणे या विश्लेषणात वापरली जाणार नाहीत.",
+        "तुम्हाला मदत करायची असेल तर एक वेगळा वर्कफ्लो किंवा एका वेगळ्या प्रोजेक्टला योगदान करण्याचे निवडण्याचा प्रयत्न करा"
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "फिरत्या काढलेल्या चिन्ह\/निशाणीसाठी हॅन्डल"
+  },
+  "FeedbackModal": {
+    "keepClassifying": "वर्गीकरण करत रहा",
+    "label": "फीडबॅक"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "फिल्ड गाईड"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "फिल्ड गाईड आयटम्स यादी वर जा"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}} निवडा"
+    },
+    "title": "फिल्ड गाईड"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "भाष्य करा"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "विषय सामान्य आकारात पहा",
+        "fullscreen": "विषय फुल स्क्रीन मोड मध्ये पहा"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "विषय उलटा करा"
+    },
+    "MoveButton": {
+      "ariaLabel": "विषय हलवा"
+    },
+    "ResetButton": {
+      "ariaLabel": "विषय व्ह्यु रिसेट करा"
+    },
+    "RotateButton": {
+      "ariaLabel": "विषय फिरवा"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "विषयावर झूम इन करा"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "विषयातून झूम आऊट करा"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "सर्व कलेक्शन्स जोडा"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "आधीचे मार्क्स लपवा",
+      "show": "आधीचे मार्क्स दाखवा"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "सर्व मार्क्स लपवा",
+      "show": "सर्व मार्क्स दाखवा",
+      "showUser": "तुमचे मार्क्स दाखवा"
+    },
+    "MetadataButton": {
+      "label": "विषय माहिती"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "लेबल",
+        "value": "मूल्य"
+      },
+      "title": "विषय मेटाडेटा"
+    }
+  },
+  "ModalTutorial": {
+    "title": "ट्युटोरियल"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "कॉमेंट्स पॅनल बंद करा",
+      "goToTalk": "भाषणावरील विषय चर्चेवर जा",
+      "mainPanel": "क्विकटॉक कॉमेंट्स पॅनल",
+      "openButton": "विषयावर {{count}} कॉमेंट (कॉमेन्ट्स) आहेत. विस्तार करण्यासाठी क्लिक करा.",
+      "panelContent": "विषय चर्चेबद्दल कॉमेन्ट्स",
+      "panelHeading": "विषय चर्चा"
+    },
+    "errors": {
+      "failPostComment": "सध्याचा चर्चेत कॉमेन्ट्स जोडू शकलो नाही.",
+      "failPostDiscussion": "नवीन चर्चेत कॉमेन्ट्स जोडू शकलो नाही.",
+      "noBoard": "या प्रोजेक्ट्बद्दल विषय कॉमेन्ट्स साठी अद्यापि बोर्ड सेट अप केलेला नाही.",
+      "noText": "रिकामी कॉमेन्ट पोस्ट  करता येत नाही",
+      "noUser": "युजरने लॉग इन केले नाही"
+    },
+    "loginToPost": "कॉमेन्ट पोस्ट करण्यासाठी कृपया लॉग इन करा",
+    "status": {
+      "initialized": "या विषयाबद्दल एक नोट सोडा",
+      "loading": "कॉमेन्ट पोस्ट करत आहे",
+      "success": "कॉमेंट पोस्ट केली"
+    },
+    "subjectHasNoComments": "या विषयावर अद्यापि कोणत्याही कॉमेन्ट्स नाहीत"
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "{{index}} पायरीवर जा",
+      "next": "पुढील पायरीवर जा",
+      "previous": "आधीच्या पायरीवर जा"
+    },
+    "alt": "ट्युटोरियल पायरी {{activeStep}}",
+    "error": "ट्युटोरियल पायरी लोड करता आली नाही",
+    "getStarted": "सुरू करवा",
+    "heading": "{{projectDisplayName}} ट्युटोरियल"
+  },
+  "StepNavigation": {
+    "go": "{{index}} पायरीवर जा",
+    "next": "पुढील पायरीवर जा",
+    "previous": "आधीच्या पायरीवर जा"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "बार चार्ट"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "टेक्स्ट व्ह्युअर साठी आयकॉन\/चिन्ह"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "सेव्ह न करता बंद करा",
+        "confirm": "तुम्हाला हे नक्की बंद करायचे आहे का? ही खूण डिलिट होईल.",
+        "keepWorking": "काम करत रहा"
+      },
+      "SaveButton": {
+        "save": "सेव्ह आणि बंद करा"
+      },
+      "SubTaskPopup": {
+        "notRender": "कामाचा कंपोनंट देता आला नाही",
+        "required": "हे काम आवश्यक आहे."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "ॲग्रिगे्टेड ट्रान्स्क्रिप्शन",
+          "explanation": "{{count}} ही ट्रान्स्क्रिप्शन्स आधीच्या व्हॉलंटियर्स कडून सादर करण्यात आलेली आहेत आणि ही सुधारित करता येणार नाहीत.",
+          "noAggregation": "ॲग्रिगेशन उपलब्ध नाही",
+          "title": "आधीचे ट्रान्स्क्रिप्शन्स",
+          "transcriptionsUnavailable": "ट्रान्स्क्रिप्शन्स उपलब्ध नाहीत"
+        },
+        "complete": "ट्रान्स्क्रिप्शन्स पूर्ण झाली",
+        "transcribed": "याचे ट्रान्स्क्रिप्शन आहे"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "पुढे",
+        "previousFrameLabel": "आधीचे",
+        "thumbnailAltText": "प्रतिमेचे थंबनेल"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "{{index}}निवड डिलिट करा"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "फ्लिपबुक व्ह्यु वर बदला",
+        "switchToSeparateFrames": "वेगळ्या फ्रेम्स व्ह्यु वर बदला"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "विषय लोड करताना चूक झाली"
+    },
+    "VariableStarViewer": {
+      "controls": "कंट्रोल्स",
+      "figCaption": "एचआर आकृती",
+      "flip": "फ्लिप",
+      "focus": "फोकस",
+      "highlight": "हायलाइट",
+      "imageTitle": "एचआर आकृती: प्रकाशमानता वि तापमान",
+      "label": "{{id}} फिल्टर करा",
+      "periodMultiple": "अवधी एकाधिक",
+      "phase": "फेज",
+      "phaseFocus": "फेज फोकस"
+    },
+    "VideoController": {
+      "closeVolume": "व्हॉल्युम स्लायडर बंद करा",
+      "fullscreen": "व्हिडिओ फुल  स्क्रीन दाखवा",
+      "openVolume": "व्हॉल्युम स्लायडर उघडा",
+      "pause": "व्हिडिओ थांबवा",
+      "play": "व्हिडिओ चालवा",
+      "playbackSpeed": "व्हिडिओ प्लेबॅक स्पीड निवड",
+      "scrubber": "व्हिडिओ प्लेयर स्क्रबर",
+      "volumeSlider": "व्हॉल्युम स्लायडर"
+    },
+    "ZoomControlButton": {
+      "disable": "झूम डिसेबल करा",
+      "enable": "झूम एनेबल करा"
+    },
+    "loading": "विषय लोड करत आहे",
+    "zoomHelp": "झूम करण्यासाठी CTRL + scroll वापरा"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "या विषयात पुरेशी वर्गीकरणे आहेत म्ह्णून त्याच्या विश्लेषणात कोणतीही अतिरिक्त वर्गीकरणे वापरली जाणार नाहीत. तुम्ही तरीही हा विषय संदर्भासाठी वापरू शकता.",
+      "options": {
+        "dismiss": "सोडा",
+        "next": "पुढील उपलब्ध विषय",
+        "select": "नवीन विषय निवडा"
+      },
+      "title": "संपवले"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "मागे"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "झाले व बोला",
+        "newTab": "एका नवीन टॅब मध्ये"
+      },
+      "DoneButton": {
+        "done": "झाले"
+      },
+      "ExpertOptions": {
+        "demoToggle": "डेमो मोड",
+        "label": "एक्स्पर्ट पर्याय"
+      },
+      "NextButton": {
+        "next": "पुढे"
+      },
+      "TaskHelp": {
+        "close": "बंद करा",
+        "label": "या कामात काही मदत हवी आहे का?"
+      },
+      "demoMode": "डेमो मोड मध्ये वर्गीकरणे सेव्ह होणार नाहीत. हे वर्गीकरण इंट्रफेसच्या जलद अचूक नसलेल्या वर्गीकरणासाठी वापरा.",
+      "error": "काहीतरी चुकले.",
+      "loading": "लोड होत आहे",
+      "renderFallback": "टास्क कंपोनंट देता आला नाही"
+    },
+    "task": "काम",
+    "tutorial": "ट्युटोरियल"
+  }
+}

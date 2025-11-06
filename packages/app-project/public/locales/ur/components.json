@@ -1,32 +1,84 @@
 {
+  "404": {
+    "findNewProject": "دریافت کرنے کے لیے نیا پروجیکٹ تلاش کریں",
+    "heading": "یہاں کچھ موجود نہیں۔",
+    "message": "آپ جو صفحہ تلاش کر رہے ہیں وہ اب موجود نہیں۔",
+    "returnHome": "ہوم صفحے پر واپس جائیں"
+  },
   "Announcements": {
     "AuthenticationInvitation": {
+      "announcement": "براہ کرم سائن ان کریں یا اپنے تعاون ٹریک کرنے کے لیے سائن اپ کریں۔",
       "register": "اندراج ",
       "signIn": "سائن ان"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "ختم ہو گیا! ایسا لگتا ہے کہ اس وقت پروجیکٹ میں ڈیٹا موجود نہیں!",
+      "seeResults": "نتائج دیکھیں"
     }
   },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "تخلیق کریں اور شامل کریں",
+      "label": "نیا مجموعہ تخلیق کریں",
+      "private": "نجی مجموعہ"
+    },
+    "SelectCollection": {
+      "addButton": "شامل کریں",
+      "label": "موجودہ مجموعے میں شامل کریں"
+    },
+    "title": "مجموعے میں شامل کریں"
+  },
   "ConnectWithProject": {
-    "title": "عنوان کے ساتھ جڑیں"
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "ویب سائٹ",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "{{projectName}} کے ساتھ جڑیں"
   },
   "Head": {
-    "defaultTitle": "پروجیکٹ"
+    "defaultDescription": "Zooniverse لوگوں سے تقویت یافتہ تحقیق کے لیے دنیا کا سب سے بڑا اور بہت مقبول پلیٹ فارم ہے۔",
+    "defaultTitle": "پروجیکٹ",
+    "siteName": "Zooniverse - لوگوں سے تقویت یافتہ تحقیق"
   },
   "ProjectHeader": {
-    "about": "کے متعلق",
-    "classify": "درجہ بندی",
-    "exploreProject": "پروجیکٹ کے متعلق مزید جانیں",
-    "talk": "بات (کریں)",
-    "collect": "جمع(کریں) ",
-    "recents": "حالیہ",
     "ApprovedIcon": {
-      "title": "زونیورس سے منظورشدہ "
+      "title": "Zooniverse سے منظورشدہ "
+    },
+    "Avatar": {
+      "alt": "{{project}} کے لیے پروجیکٹ اوتار"
+    },
+    "LocaleSwitcher": {
+      "label": "زبان تبدیل کریں"
     },
     "ProjectNav": {
       "ariaLabel": "پروجیکٹ"
     },
     "UnderReviewLabel": {
       "underReview": "زیر جائزہ"
-    }
+    },
+    "about": "کے متعلق",
+    "admin": "ایڈمن والا صفحہ",
+    "classify": "درجہ بندی",
+    "collect": "جمع(کریں) ",
+    "exploreProject": "پروجیکٹ کے متعلق مزید جانیں",
+    "organization": "تنظیم سے:",
+    "recents": "حالیہ",
+    "talk": "بات (کریں)"
   },
   "ProjectStatistics": {
     "byTheNumbers": "اعداد کے ذریعہ",
@@ -35,11 +87,55 @@
     "percentComplete": "مکمل فیصد ",
     "subjects": " مضامین",
     "subtitle": "آپ اور آپ کے ساتھی رضاکاروں نے اس پروجیکٹ میں جو پیش رفت کی ہے اس پر نظر رکھیں۔",
-    "text": "ہر کلک معنی رکھتا ہے! اس پروجیکٹ کو مکمل کرنے کے لئےعنوان کی برادری میں شامل ہوں اور محققین کو اہم نتائج فراہم کرنے میں مدد کریں۔",
-    "title": "(عنوان) کے اعدادوشمار",
+    "text": "ہر کلک معنی رکھتا ہے! اس پروجیکٹ کو مکمل کرنے کے لئے{{projectName}} کی برادری میں شامل ہوں اور محققین کو اہم نتائج فراہم کرنے میں مدد کریں۔",
+    "title": "{{projectName}} کے اعدادوشمار",
+    "viewMoreStats": "مزید اعدادوشمار دیکھیں",
     "volunteers": "والنٹیر"
   },
   "RequireUser": {
     "text": "آپ سائن ان نیہں ہیں"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse سائٹ ہیڈر"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "پہلے ہی دیکھ چکے ہیں",
+    "back": "مختلف سبجیکٹ کے سیٹ کا انتخاب کریں",
+    "byline": "کالم کے ناموں پر کلک کر کے فہرست کو ترتیب دیں۔ آپ جس سبجیکٹ کا انتخاب کریں گے، اس سے آغاز کر کے آپ کو سبجیکٹس ترتیب وار دکھائے جائیں گے۔",
+    "fetching": "براہ کرم انتظار کریں...",
+    "heading": "آغاز کرنے کے لیے سبجیکٹ کا انتخاب کریں",
+    "retired": "ریٹائر ہو گیا",
+    "unclassified": "دستیاب ہے"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "مجموعوں میں شامل کریں"
+    },
+    "TalkLink": {
+      "label": "Talk پر گفتگو کریں"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "ختم ہو گیا"
+    },
+    "back": "مختلف ورک فلو کا انتخاب کریں",
+    "byline": "ٹرانسکرائب کا آغاز کرنے کے لیے سبجیکٹ کے سیٹ کا انتخاب کریں۔",
+    "heading": "انتخاب کریں کہ کہاں سے آغاز کرنا ہے"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% مکمل ہے",
+      "setSelection": "انتخاب سیٹ کریں",
+      "subjectSelection": "سبجیکٹ کا انتخاب"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "لاک ہو گیا",
+      "unlocked": "ان لاک ہو گیا"
+    },
+    "error": "ورک فلوز حاصل کرنے میں نقص تھا :(",
+    "getStarted": "آغاز کریں!",
+    "message": "آپ یہاں کلک کر کے حقیقی تحقیق کا آغاز کر سکتے ہیں!",
+    "noWorkflows": "درجہ بندی کے لیے کچھ موجود نہیں"
   }
 }

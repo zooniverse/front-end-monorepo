@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import { applySnapshot } from 'mobx-state-tree'
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import sinon from 'sinon'
@@ -6,7 +5,6 @@ import asyncStates from '@zooniverse/async-states'
 import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
-import { statsClient } from '../YourStats'
 import Notifications from './Notifications'
 
 describe('Stores > Notifications', function () {
@@ -19,14 +17,12 @@ describe('Stores > Notifications', function () {
   }
 
   before(function () {
-    sinon.stub(statsClient, 'fetchDailyStats')
     sinon.stub(sugarClient, 'subscribeTo')
     sinon.stub(sugarClient, 'on')
     sinon.stub(sugarClient, 'unsubscribeFrom')
   })
 
   after(function () {
-    statsClient.fetchDailyStats.restore()
     sugarClient.subscribeTo.restore()
     sugarClient.on.restore()
     sugarClient.unsubscribeFrom.restore()
@@ -63,7 +59,7 @@ describe('Stores > Notifications', function () {
       })
 
       it('should exist', function () {
-        expect(rootStore.user.personalization.notifications).to.be.ok()
+        expect(rootStore.user.personalization.notifications).toBeDefined()
       })
 
       it('should set the initial unreadConversationsIds', function () {
@@ -122,7 +118,7 @@ describe('Stores > Notifications', function () {
       })
 
       it('should exist', function () {
-        expect(rootStore.user.personalization.notifications).to.be.ok()
+        expect(rootStore.user.personalization.notifications).toBeDefined()
       })
 
       it('should set the initial unreadConversationsIds', function () {
@@ -248,7 +244,7 @@ describe('Stores > Notifications', function () {
       })
 
       it('should exist', function () {
-        expect(rootStore.user.personalization.notifications).to.be.ok()
+        expect(rootStore.user.personalization.notifications).toBeDefined()
       })
 
       it('should set the initial unreadNotificationsCount', function () {
