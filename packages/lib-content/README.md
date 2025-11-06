@@ -5,20 +5,20 @@ A library for components used in content pages such as About Zooniverse, Get Inv
 ## Run
 
 ```sh
-yarn storybook
+pnpm storybook
 ```
 
 Starts a dev storybook on port 6005.
 
 ## Build
 
-`yarn build` to bundle the components.
+`pnpm build` to bundle the components.
 
 ## Tests
 
-`yarn test` to run Vitest tests.
+`pnpm test` to run Vitest tests.
 
-`yarn test AboutHeader.spec.jsx` to test one file at a time.
+`pnpm test AboutHeader.spec.jsx` to test one file at a time.
 
 ### Technologies
 

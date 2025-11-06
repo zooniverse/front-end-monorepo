@@ -11,8 +11,8 @@ services:
         - NEXT_TELEMETRY_DISABLED=1
         - APP_ENV=development
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/fe-root"
     command: ["dev"]
     ports:

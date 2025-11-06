@@ -39,7 +39,7 @@ The repository contains readme files under each sub-folder.
 Run the tests by command line:
 
 ```
-yarn test
+pnpm test
 ```
 
 Tests are run by [Vitest](https://vitest.dev)
