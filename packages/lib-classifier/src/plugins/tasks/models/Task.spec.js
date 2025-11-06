@@ -29,6 +29,27 @@ describe('Model > Task', function () {
     expect(taskInstance.validate).to.be.a('function')
   })
 
+  describe('task.required', function () {
+    it('should default to false', function () {
+      const task = Task.create(mockTask)
+      expect(task.required).to.equal(false)
+    })
+
+    it('should accept a boolean value', function () {
+      const task = Task.create({ ...mockTask, required: true })
+      expect(task.required).to.equal(true)
+    })
+
+    it('should accept a string value', function () {
+      let task = Task.create({ ...mockTask, required: 'true' })
+      expect(task.required).to.equal(true)
+      task = Task.create({ ...mockTask, required: 'false' })
+      expect(task.required).to.equal(false)
+      task = Task.create({ ...mockTask, required: '' })
+      expect(task.required).to.equal(false)
+    })
+  })
+
   describe('Views > defaultAnnotation', function () {
     let task
 
