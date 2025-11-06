@@ -7,6 +7,9 @@ const Task = types.model('Task', {
   annotation: types.safeReference(Annotation),
   details: types.maybe(types.array(types.frozen())),
   taskKey: types.identifier,
+  // Oldest Zooniverse projects may still include `required` as an empty string '' due to past project builder behavior
+  // Some of the Task spec files still mock `required` as an empty string '' in this repo
+  // https://github.com/zooniverse/front-end-monorepo/pull/6094#discussion_r1677085512
   required: types.optional(types.boolean, false),
   strings: types.map(types.string),
   type: types.literal('default')
