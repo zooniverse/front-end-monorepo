@@ -8,6 +8,7 @@ import SingleTextViewer from '../../components/SingleTextViewer'
 import SingleVideoViewer from '../../components/SingleVideoViewer'
 import SubjectGroupViewer from '../../components/SubjectGroupViewer'
 import VolumetricViewer from '../../components/VolumetricViewer/VolumetricViewerWrapper'
+import Ztm2025GeoMapViewer from '../../components/Ztm2025GeoMapViewer'
 
 const viewers = {
   dataImage: DataImageViewer,
@@ -22,7 +23,8 @@ const viewers = {
   singleVideo: SingleVideoViewer,
   subjectGroup: SubjectGroupViewer,
   variableStar: JSONDataViewer,
-  volumetric: VolumetricViewer
+  volumetric: VolumetricViewer,
+  ztm2025geomap: Ztm2025GeoMapViewer
 }
 
 function getViewer (viewer) {
