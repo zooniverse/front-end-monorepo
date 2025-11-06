@@ -44,8 +44,6 @@ export const ContainerGrid = styled(Grid)`
     'viewer talkData';
   grid-template-columns: auto 600px;
   grid-template-rows: min-content 1fr;
-  height: minmax(300px, 90vh);
-  max-height: 90vh;
 
   @media screen and (max-width: 1280px) {
     grid-gap: 20px;
@@ -55,9 +53,7 @@ export const ContainerGrid = styled(Grid)`
       'talkData';
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto;
-    height: auto;
     margin: 0;
-    max-height: none;
     width: 100%;
   }
 `
@@ -129,17 +125,7 @@ function SubjectTalkPage({
             <AncillaryData media={subject?.attached_media} />
           ) : null}
           {/* <FeaturedCollections /> */}
-          <ContentBox
-            title={t('Talk.featuredCollections')}
-            linkLabel={t('Classify.YourStats.link')}
-            linkProps={{
-              href: ''
-            }}
-          />
           {/* <RelatedSubjects /> */}
-          <ContentBox
-            title={t('Talk.relatedSubjects')}
-          />
         </Box>
       </StyledBox>
     </StandardLayout>

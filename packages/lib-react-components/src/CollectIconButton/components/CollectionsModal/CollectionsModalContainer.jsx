@@ -14,7 +14,8 @@ import CreateCollection from './components/CreateCollection'
 const DEFAULT_HANDLER = () => true
 const DEFAULT_COLLECTION_QUERY = {
   favorite: false,
-  current_user_roles: 'owner,collaborator,contributor'
+  current_user_roles: 'owner,collaborator,contributor',
+  page_size: 100
 }
 const defaultNewCollection = {
   display_name: '',
@@ -48,7 +49,7 @@ const CollectionsModalContainer = ({
     event.preventDefault()
     addSubjectsToCollection({
       collectionId: selectedCollection.id,
-      subjectIds: [subjectId]  
+      subjectIds: [subjectId]
     })
     close()
   }
@@ -56,7 +57,7 @@ const CollectionsModalContainer = ({
   function createNewCollection (event) {
     event.preventDefault()
     createCollection({
-      options: newCollection, 
+      options: newCollection,
       projectId,
       subjectIds: [subjectId]
     })

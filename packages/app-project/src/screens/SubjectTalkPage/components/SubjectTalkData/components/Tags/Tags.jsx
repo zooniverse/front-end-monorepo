@@ -47,7 +47,7 @@ function Tags({
     <Box
       border={{ color: 'light-5', side: 'bottom', size: '0.5px' }}
       gap='small'
-      height={{ min: 'auto' }}
+      flex='grow'
       pad='small'
     >
       <Box
@@ -109,7 +109,7 @@ function Tags({
       {error ? (
         <Box align='center' justify='center' fill pad='medium'>
           <SpacedText uppercase={false}>
-            {t('Talk.Tags.somethingWentWrong')}
+            {t('Talk.somethingWentWrong')}
           </SpacedText>
         </Box>
       ) : loading ? (
