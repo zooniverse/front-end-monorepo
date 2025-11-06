@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "এক্সপ্লোর করার জন্য একটি নতুন প্রোজেক্ট খুঁজুন",
+    "heading": "এখানে কিছুই নেই।",
+    "message": "আপনি যে পৃষ্ঠাটি খুঁজছেন তা আর বিদ্যমান নেই।",
+    "returnHome": "হোমপেজে ফিরে যান"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "আপনার অবদান সম্পর্কে ত্তয়াকিবহাল থাকতে সাইন ইন করুন অথবা সাইন আপ করুন।",
+      "register": "নিবন্ধন করুন",
+      "signIn": "সাইন ইন করুন"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "সম্পন্ন! মনে হচ্ছে এই প্রোজেক্টের ডেটা এই মুহূর্তে শেষ!",
+      "seeResults": "ফলাফল দেখুন"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "তৈরি করুন এবং যোগ করুন",
+      "label": "একটি নতুন কালেকশনে তৈরি করুন",
+      "private": "ব্যক্তিগত কালেকশনে"
+    },
+    "SelectCollection": {
+      "addButton": "যোগ করুন",
+      "label": "একটি বিদ্যমান কালেকশনে যোগ করুন"
+    },
+    "title": "কালেকশনে যোগ করুন"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "বিটবাকেট",
+        "bluesky": "ব্লুস্কাই",
+        "facebook": "ফেসবুক",
+        "github": "গিটহাব",
+        "instagram": "ইনস্টাগ্রাম",
+        "mastodon": "মাস্টোডন",
+        "medium": "মাধ্যম",
+        "pinterest": "পিন্টারেস্ট",
+        "reddit": "রেডডিট",
+        "tumblr": "টাম্বলার",
+        "twitter": "টুইটার",
+        "website": "ওয়েবসাইট",
+        "weibo": "ওয়েইবো",
+        "wordpress": "ওয়ার্ডপ্রেস",
+        "youtube": "ইউটিউব"
+      }
+    },
+    "title": "{{projectName}} এর সাথে সংযোগ করুন"
+  },
+  "Head": {
+    "defaultDescription": "জুনিভার্স হল বিশ্বের বৃহত্তম এবং সবচেয়ে জনপ্রিয় মানব-চালিত গবেষণার প্ল্যাটফর্ম।",
+    "defaultTitle": "প্রোজেক্ট",
+    "siteName": "Zooniverse - মানব-চালিত গবেষণা"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zooniverse অনুমোদিত"
+    },
+    "Avatar": {
+      "alt": "{{project}} এর জন্য প্রোজেক্ট অবতার"
+    },
+    "LocaleSwitcher": {
+      "label": "ভাষা পরিবর্তন করুন"
+    },
+    "ProjectNav": {
+      "ariaLabel": "প্রোজেক্ট"
+    },
+    "UnderReviewLabel": {
+      "underReview": "পর্যালোচনাধীন"
+    },
+    "about": "সম্পর্কে",
+    "admin": "অ্যাডমিন পৃষ্ঠা",
+    "classify": "শ্রেণীবদ্ধ করুন",
+    "collect": "সংগ্রহ করুন",
+    "exploreProject": "প্রোজেক্ট অন্বেষণ করুন",
+    "organization": "প্রতিষ্ঠানের পক্ষ থেকে:",
+    "recents": "সাম্প্রতিক",
+    "talk": "টক"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "সংখ্যা অনুসারে",
+    "classifications": "শ্রেণীবিভাগ",
+    "completedSubjects": "সম্পন্ন বিষয়গুলি",
+    "percentComplete": "শতকরা সম্পূর্ণ",
+    "subjects": "বিষয়",
+    "subtitle": "এই প্রোজেক্টে আপনার এবং আপনার সহ ভলেন্টিয়ারদের অগ্রগতির বিষয়ে ত্তয়াকিবহাল থাকুন।",
+    "text": "প্রতিটি ক্লিকই গুরুত্বপূর্ণ! এই প্রোজেক্টটি সম্পূর্ণ করতে এবং গবেষকদের গুরুত্বপূর্ণ ফলাফল তৈরি করতে সাহায্য করতে {{projectName}} কমিউনিটিতে যোগদান করুন। আরও পরিসংখ্যান দেখতে \"আরও পরিসংখ্যান দেখুন\" এ ক্লিক করুন।",
+    "title": "{{projectName}} পরিসংখ্যান",
+    "viewMoreStats": "আরও পরিসংখ্যান দেখুন",
+    "volunteers": "ভলেন্টিয়ার"
+  },
+  "RequireUser": {
+    "text": "আপনাকে সাইন ইন করতে হবে!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse সাইট হেডার"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "ইতিমধ্যে দেখা হয়েছে",
+    "back": "একটি ভিন্ন বিষয় সেট বেছে নিন",
+    "byline": "কলামের নামগুলিতে ক্লিক করে তালিকাটি সাজান। আপনি আপনার পছন্দের বিষয়গুলি থেকে শুরু করে ক্রমানুসারে বিষয়গুলি দেখতে পাবেন।",
+    "fetching": "অনুগ্রহ করে অপেক্ষা করুন...",
+    "heading": "শুরু করার জন্য একটি বিষয় বেছে নিন",
+    "retired": "অবসরপ্রাপ্ত",
+    "unclassified": "উপলব্ধ"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "কালেকশন-এ যোগ করুন"
+    },
+    "TalkLink": {
+      "label": "টক-এ আলোচনা করুন"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "সমাপ্ত"
+    },
+    "back": "একটি ভিন্ন ওয়ার্কফ্লো বেছে নিন",
+    "byline": "ট্রান্সক্রাইব করা শুরু করার জন্য একটি বিষয় সেট বেছে নিন।",
+    "heading": "কোথা থেকে শুরু করবেন তা বেছে নিন"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% সম্পূর্ণ",
+      "setSelection": "সেট নির্বাচন",
+      "subjectSelection": "বিষয় নির্বাচন"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "লক করা",
+      "unlocked": "আনলক করা"
+    },
+    "error": "ওয়ার্কফ্লোগুলি আনার সময় একটি ত্রুটি হয়েছে :(",
+    "getStarted": "শুরু করুন!",
+    "message": "আপনি এখানে ক্লিক করে প্রকৃত গবেষণা শুরু করতে পারেন!",
+    "noWorkflows": "শ্রেণীবদ্ধ করার মতো কিছুই নেই"
+  }
+}
