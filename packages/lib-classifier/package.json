@@ -51,6 +51,7 @@
     "mobx-react": "~9.2.0",
     "mobx-state-tree": "~5.4.0",
     "mst-middlewares": "~6.1.0",
+    "ol": "~10.6.1",
     "react-i18next": "~14.1.0",
     "react-player": "~2.13.0",
     "swr": "~2.3.2",
