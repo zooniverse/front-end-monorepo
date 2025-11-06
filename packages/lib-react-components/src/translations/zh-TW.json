@@ -1,23 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "管理模式"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "使用者名稱或密碼錯誤",
+      "forgot": "忘記密碼？",
+      "heading": "歡迎回來！",
+      "instruction": "很高興看到您回來！登入繼續研究。",
+      "login": "使用者名稱或電子郵件地址",
+      "password": "密碼",
+      "placeholder": "如 ZooniverseFan123",
+      "signIn": "登入"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "我希望協助測試新專案，並在專案開放時收到電子郵件通知 (可選)",
+      "email": "電子郵件 (必填)",
+      "emailConfirm": "確認電子郵件地址 (必填)",
+      "emailConfirmError": "電子郵件地址不符，請再試一次。",
+      "emailConflict": "已存在使用此電子郵件的帳戶",
+      "emailListSignUp": "可偶爾傳送電子郵件給我 (可選)",
+      "emailPlaceholder": "如 zoofan31@gmail.com",
+      "forgot": "忘記密碼？",
+      "heading": "歡迎回來！",
+      "instruction": "請建立帳戶，開始真實研究。",
+      "password": "密碼 (必填)",
+      "passwordConfirm": "確認密碼 (必填)",
+      "passwordConfirmError": "密碼不相符，請再試一次。",
+      "privacyAgreement": "您同意我們的隱私權政策 (必選)",
+      "privacyAgreementError": "必須同意隱私權政策才能繼續。",
+      "privacyLink": "閱讀我們的隱私權政策",
+      "realName": "真實姓名 (選填)",
+      "realNameHelp": "我們將使用此名稱來在科學論文、海報等中為您署名。",
+      "realNamePatternHelp": "請輸入名稱，而非電子郵件地址",
+      "realNamePlaceholder": "如：陳小王",
+      "register": "註冊",
+      "registering": "註冊中…",
+      "underageConsent": "我確認我是家長\/監護人，並允許我的孩子透過提供我的電子郵件地址作為主要聯絡地址進行註冊。我和我的孩子都瞭解並同意隱私權政策 (必選)",
+      "underageEmail": "家長\/監護人的電子郵件地址 (必填)",
+      "underageEmailSignUp": "如果您同意，我們將定期寄送電子報，傳達研究相關新專案或其他與我們研究相關的資訊。我們不會將您的聯絡資訊用於商業用途。(可選)",
+      "underageNotRealName": "您將使用此名稱登入。該名稱將公開顯示。請勿使用真實姓名。",
+      "underageWithParent": "如果您未滿 16 歲，請勾選此方框以確認您在家長或監護人的陪同下完成本表單。",
+      "username": "使用者名稱 (必填)",
+      "usernameConflict": "該使用者名稱已被使用",
+      "usernameHelp": "使用者名稱將會公開顯示在留言板等場所。",
+      "usernamePatternHelp": "使用者名稱只能包含字母、數字、「.」、「-」和「_」",
+      "usernamePlaceholder": "如 ZooniverseFan123"
+    },
+    "title": "登入或新建帳戶。"
+  },
+  "CloseButton": {
+    "close": "關閉"
+  },
+  "FavouritesButton": {
+    "add": "新增到我的最愛",
+    "remove": "已新增到我的最愛"
+  },
+  "Loader": {
+    "loading": "載入中"
+  },
+  "ProjectCard": {
+    "classifications": "分類",
+    "finished": "已完成",
+    "paused": "已暫停",
+    "state": "狀態"
+  },
   "ZooFooter": {
     "aboutLabels": {
-      "about": "關於"
+      "about": "簡介",
+      "acknowledgements": "特別感謝",
+      "contact": "聯絡方式",
+      "faq": "常見問題",
+      "publications": "出版發表",
+      "resources": "資源",
+      "team": "研究團隊"
     },
     "buildLabels": {
+      "bestPractices": "最佳實例",
+      "buildAProject": "建立專案",
+      "glossary": "詞彙表",
+      "policies": "規範",
       "tutorial": "說明"
     },
+    "getInvolvedLabels": {
+      "callForProjects": "徵求專案",
+      "collaborate": "協作",
+      "collections": "收藏夾",
+      "donate": "捐助",
+      "educate": "教育",
+      "education": "教育應用",
+      "getInvolved": "參與",
+      "volunteer": "志願者"
+    },
+    "newsLabels": {
+      "blog": "部落格",
+      "dailyZooniverse": "Zooniverse 每日新聞",
+      "news": "新聞"
+    },
+    "policyLabels": {
+      "jobs": "職缺",
+      "privacyPolicy": "隱私權政策",
+      "security": "安全",
+      "systemStatus": "系統狀態"
+    },
+    "projectLabels": {
+      "arts": "藝術",
+      "biology": "生物學",
+      "climate": "氣候",
+      "history": "歷史",
+      "language": "語言",
+      "literature": "文學",
+      "medicine": "醫學",
+      "nature": "自然",
+      "physics": "物理",
+      "projects": "專案",
+      "social": "社會科學",
+      "space": "太空"
+    },
+    "tagLine": "由群眾參與的研究",
     "talkLabels": {
-      "talk": "討論"
-    }
+      "announcements": "公告",
+      "data": "資料處理",
+      "projectBuilding": "專案建立",
+      "talk": "討論",
+      "troubleshooting": "疑難排解"
+    },
+    "zooniversePolicies": "Zooniverse 規範"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "about": "關於",
-      "talk": "討論"
+    "SignedInUserNavigation": {
+      "ariaLabel": "使用者帳戶",
+      "navListLabels": {
+        "messages_one": "訊息 ({{count}})",
+        "messages_other": "訊息 ({{count}})",
+        "messages_zero": "訊息",
+        "notifications_one": "通知 ({{count}})",
+        "notifications_other": "通知 ({{count}})",
+        "notifications_zero": "通知"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "註冊",
       "signIn": "登入"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "切換到深色主題",
+      "switchToLight": "切換到淺色主題"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "收藏夾",
+        "favorites": "我的最愛",
+        "profile": "個人資料",
+        "settings": "設定",
+        "signOut": "登出"
+      }
+    },
+    "ariaLabel": "地點",
+    "mainHeaderNavListLabels": {
+      "about": "簡介",
+      "build": "建立",
+      "getInvolved": "參與",
+      "projects": "專案",
+      "talk": "討論"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse 標誌"
   }
 }

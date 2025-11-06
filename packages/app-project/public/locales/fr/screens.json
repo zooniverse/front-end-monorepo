@@ -31,6 +31,7 @@
       }
     },
     "RecentSubjects": {
+      "text": "Discutez d'un sujet sur Talk ou ajoutez-le à vos favoris ou à une collection.",
       "title": "Vos classifications récentes"
     },
     "WorkflowAssignmentModal": {
@@ -41,6 +42,9 @@
       "title": "Nouveau module disponible"
     },
     "YourStats": {
+      "allTime": "Tous les horaires",
+      "lastSeven": "7 derniers jours",
+      "link": "Voir plus",
       "title": "Statistiques"
     }
   },

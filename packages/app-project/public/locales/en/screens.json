@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "About",
     "TeamMember": {
+      "admin": "Zooniverse Team",
       "owner": "Owner",
       "collaborator": "Collaborator",
       "translator": "Translator",
@@ -70,6 +71,56 @@
       "lastSeven": "Last 7 Days",
       "link": "See more",
       "title": "Your Stats"
+    }
+  },
+  "Talk": {
+    "ancillaryData": "Ancillary Data",
+    "ancillaryDataTip": "This is ancillary data about the subject you're viewing. For more information on this, please see the About page.",
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "comment",
+      "goToComment": "Go to comment",
+      "reply": "In reply to",
+      "userDisplayNamePossessive": "{{userDisplayName}}'s"
+    },
+    "Discussions": {
+      "addComment": "Add your comment",
+      "commentMessage": "To respond to a specific comment, click on that comment to go to the discussion.",
+      "comments": "Comments",
+      "commentsViewing": "Viewing {{count}} of {{total}} comments",
+      "discussions": "{{count}} Discussions",
+      "discussionBoard": "Discussion Board",
+      "discussionTitle": "Discussion Title",
+      "initialComment": "Initial Comment",
+      "newComment": "New Comment",
+      "noDiscussions": "No Discussions",
+      "oneDiscussion": "1 Discussion",
+      "participants": "Participants",
+      "sortBy": "Sort by",
+      "sortedNewestFirst": "Newest first",
+      "sortedOldestFirst": "Oldest first",
+      "startDiscussion": "Start a new discussion"
+    },
+    "mentions": "Mentions",
+    "Metadata": {
+      "collapse": "Collapse",
+      "expand": "Expand",
+      "noMetadata": "No metadata available",
+      "subjectMetadata": "Subject Metadata"
+    },
+    "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "somethingWentWrong": "Something went wrong.",
+    "Tags": {
+      "add": "Add",
+      "addATag": "Add a tag",
+      "addVote": "Add your vote",
+      "createTag": "Create a tag",
+      "noTags": "No Tags",
+      "popularTagsFrom": "Popular tags from {{projectDisplayName}}",
+      "removeVote": "Remove your vote",
+      "signInToTag": "Sign in to add a tag",
+      "tags": "Tags",
+      "tagValidationMessage": "Use 3-40 characters, letters, numbers, hyphens, and underscores. No spaces or other characters."
     }
   }
 }

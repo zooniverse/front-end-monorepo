@@ -15,11 +15,13 @@ module.exports = [
   jsxRuntime,
   {
     files: [
+      'src/**/*.jsx',
       'src/**/*.js'
     ],
     ignores: [
+      'src/**/*.spec.jsx',
       'src/**/*.spec.js',
-      'src/**/*.stories.js'
+      'src/**/*.stories.jsx'
     ],
     languageOptions: {
       parser: babelParser,

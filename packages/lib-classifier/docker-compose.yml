@@ -6,8 +6,8 @@ services:
     build:
       context: ../../
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/classifier"
     command: ["dev"]
     ports:
@@ -19,8 +19,8 @@ services:
   storybook:
     image: front-end-monorepo_dev:latest
     entrypoint:
-      - "yarn"
-      - "workspace"
+      - "pnpm"
+      - "--filter"
       - "@zooniverse/classifier"
     command: ["storybook"]
     ports:

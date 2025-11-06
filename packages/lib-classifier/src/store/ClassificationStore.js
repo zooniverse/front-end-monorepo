@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import cuid from 'cuid'
 import { snakeCase } from 'lodash'
-import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { flow, getRoot, getSnapshot, getType, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -100,7 +100,7 @@ const ClassificationStore = types
       }
     }
 
-    function completeClassification () {
+    function completeClassification ({ doneAndTalk = false }) {
       const classification = tryReference(() => self.active)
       const subject = tryReference(() => getRoot(self).subjects.active)
 
@@ -126,14 +126,22 @@ const ClassificationStore = types
         classification.metadata.update(metadata)
 
         classification.completed = true
+
         // Convert from observables
-        let classificationToSubmit = classification.toSnapshot()
+        const classificationToSubmit = classification.toSnapshot()
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach(([key, value]) => {
           convertedMetadata[snakeCase(key)] = value
         })
         classificationToSubmit.metadata = convertedMetadata
+
+        // SubjectGroup wants to submit all subject.subjectIds for analytics & retirement rules
+        if (getType(subject).name === 'SubjectGroup') {
+          const links = {...classificationToSubmit.links}
+          links.subjects = [...classificationToSubmit.links.subjects, ...subject.subjectIds.toJSON()]
+          classificationToSubmit.links = links
+        }
 
         /*
           Subject.alreadySeen is a computed value, so copy it across to a copy of the subject snapshot.
@@ -155,7 +163,7 @@ const ClassificationStore = types
           return Promise.resolve(true)
         }
 
-        return self.submitClassification(classificationToSubmit)
+        return self.submitClassification(classificationToSubmit, { doneAndTalk })
       } else {
         if (process.browser) {
           console.error('No active classification or active subject. Cannot complete classification')
@@ -171,11 +179,22 @@ const ClassificationStore = types
       subjectsSeenThisSession.add(workflowID, subjectIDs)
     }
 
-    function * submitClassification (classification) {
+    function * submitClassification (classification, { doneAndTalk = false }) {
       // Service worker isn't working right now, so let's use the fallback queue for all browsers
       try {
-        yield self.classificationQueue.add(classification)
-        self.loadingState = asyncStates.posting
+        if (doneAndTalk) {
+          /* Feb. 2025: classification.add() is taking up to 10s to run.
+          * This can cause the classifier to hang while it waits for the classification to save.
+          * https://github.com/zooniverse/front-end-monorepo/issues/6698
+          */
+          yield self.classificationQueue.add(classification)
+          // advance to the next subject after the classification has been submitted.
+          self.loadingState = asyncStates.posting
+        } else {
+          // advance to the next subject immediately.
+          self.loadingState = asyncStates.posting
+          yield self.classificationQueue.add(classification)
+        }
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error

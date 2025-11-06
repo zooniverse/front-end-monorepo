@@ -23,22 +23,20 @@ Once you have the hosts file configured, you'll be able to use one of those subd
 # run a development build using the top-level Dockerfile
 docker compose build
 # run a dev server on port 3000 (with HTTPS, but no authentication) and a storybook on port 9001.
-# eg. https://localhost:3000/projects/nora-dot-eisner/planet-hunters-tess
+# eg. https://localhost:3000/projects/nora-dot-eisner/planet-hunters-tess?env=production
 # http://localhost:9001
 docker compose up -d
 # stop the local services when you're finished
 docker compose down
-# run the tests
-docker compose run --rm project test
 ```
 
 ### Node
 ```sh
-yarn dev
-yarn storybook
+pnpm dev
+pnpm storybook
 ```
 
-If you want to run the app using a node inspect mode, run `yarn dev:inspect`. Then you can [connect your preferred debugger](https://nextjs.org/docs/advanced-features/debugging#step-2-connect-to-the-debugger) to be able to see the server logs and debug.
+If you want to run the app using a node inspect mode, run `pnpm dev:inspect`. Then you can [connect your preferred debugger](https://nextjs.org/docs/advanced-features/debugging#step-2-connect-to-the-debugger) to be able to see the server logs and debug.
 
 ## Running in production
 
@@ -52,8 +50,8 @@ The production server is started on port 3000 by default.
 
 ### Node
 ```sh
-yarn build
-yarn start
+pnpm build
+pnpm start
 ```
 
 ### Tests
@@ -75,22 +73,23 @@ docker-compose run --rm --entrypoint="/bin/bash" dev
 cd packages/app-project/
 
 # run the tests for this app
-yarn test
+pnpm test
 ```
 
-#### Node/yarn
+#### Node/pnpm
 ```sh
-yarn test
+pnpm test to run Vitest tests
+
+`pnpm test ProjectHeader.spec.jsx` to test one file at a time.
 ```
 
 ## <a name="testing"></a> Testing
 
   Testing is done by
 
-  - [Mocha](https://mochajs.org/) - test runner
-  - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
-  - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
-  - [Enzyme](https://airbnb.io/enzyme/) - testing utility for React
+  - [Vitest](https://vitest.dev)
+  - [React Testing Library](https://testing-library.com)
+  - [Storybook](https://storybook.js.org)
 
 ## Technologies
 

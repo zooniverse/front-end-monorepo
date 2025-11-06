@@ -44,12 +44,12 @@ describe('Model > TextFromSubjectAnnotation', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe('without an initial update from subject content', function () {
     it('should exist', function () {
-      expect(textFromSubjectAnnotation).to.be.ok()
+      expect(textFromSubjectAnnotation).to.exist
       expect(textFromSubjectAnnotation).to.be.an('object')
     })
 
@@ -58,11 +58,11 @@ describe('Model > TextFromSubjectAnnotation', function () {
     })
 
     it('should be incomplete', function () {
-      expect(textFromSubjectAnnotation.isComplete).to.be.false()
+      expect(textFromSubjectAnnotation.isComplete).to.equal(false)
     })
 
     it('should have initializedFromSubject of false', function () {
-      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.false()
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.equal(false)
     })
   })
 
@@ -70,9 +70,9 @@ describe('Model > TextFromSubjectAnnotation', function () {
     before(function () {
       textFromSubjectAnnotation.updateFromSubject('Initial subject content')
     })
-    
+
     it('should exist', function () {
-      expect(textFromSubjectAnnotation).to.be.ok()
+      expect(textFromSubjectAnnotation).to.exist
       expect(textFromSubjectAnnotation).to.be.an('object')
     })
 
@@ -81,15 +81,15 @@ describe('Model > TextFromSubjectAnnotation', function () {
     })
 
     it('should be complete', function () {
-      expect(textFromSubjectAnnotation.isComplete).to.be.true()
+      expect(textFromSubjectAnnotation.isComplete).to.equal(true)
     })
 
     it('should have initializedFromSubject of true', function () {
-      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.equal(true)
     })
 
     it('should not be marked as modified', function () {
-      expect(textFromSubjectAnnotation._inProgress).to.be.false()
+      expect(textFromSubjectAnnotation._inProgress).to.equal(false)
     })
   })
 
@@ -104,11 +104,11 @@ describe('Model > TextFromSubjectAnnotation', function () {
     })
 
     it('should be complete', function () {
-      expect(textFromSubjectAnnotation.isComplete).to.be.true()
+      expect(textFromSubjectAnnotation.isComplete).to.equal(true)
     })
 
     it('should have initializedFromSubject of true', function () {
-      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.equal(true)
     })
   })
 })

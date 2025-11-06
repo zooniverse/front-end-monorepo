@@ -396,7 +396,7 @@ const surveyAnnotation = [
 describe('Model > SurveyTask', function () {
   it('should exist', function () {
     const surveyTaskInstance = SurveyTask.TaskModel.create(surveyTask)
-    expect(surveyTaskInstance).to.be.ok()
+    expect(surveyTaskInstance).to.exist
     expect(surveyTaskInstance).to.be.an('object')
     expect(surveyTaskInstance.type).to.equal('survey')
   })
@@ -408,7 +408,7 @@ describe('Model > SurveyTask', function () {
     } catch (e) {
       errorThrown = true
     }
-    expect(errorThrown).to.be.true()
+    expect(errorThrown).to.equal(true)
   })
 
   describe('when characteristics are invalid', function () {
@@ -447,7 +447,7 @@ describe('Model > SurveyTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
 
     it('should error when a characteristic label is not a string', function () {
@@ -485,7 +485,7 @@ describe('Model > SurveyTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
 
     it('should error when an item in the valuesOrder array is not a string', function () {
@@ -523,7 +523,7 @@ describe('Model > SurveyTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
 
     it('should error when a characteristic values key is not a string', function () {
@@ -561,7 +561,7 @@ describe('Model > SurveyTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
 
     it('should error when a characteristic values label is not a string', function () {
@@ -599,7 +599,7 @@ describe('Model > SurveyTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
 
     it('should error when a characteristic values image is not a string', function () {
@@ -637,7 +637,7 @@ describe('Model > SurveyTask', function () {
       } catch (e) {
         errorThrown = true
       }
-      expect(errorThrown).to.be.true()
+      expect(errorThrown).to.equal(true)
     })
   })
 
@@ -650,7 +650,7 @@ describe('Model > SurveyTask', function () {
 
     it('should be a valid annotation', function () {
       const annotation = task.defaultAnnotation()
-      expect(annotation.id).to.be.ok()
+      expect(annotation.id).to.exist
       expect(annotation.task).to.equal('T0')
       expect(annotation.taskType).to.equal('survey')
     })
@@ -675,21 +675,21 @@ describe('Model > SurveyTask', function () {
 
       describe('without annotation', function () {
         it('should be incomplete', function () {
-          expect(task.isComplete(annotation)).to.be.false()
+          expect(task.isComplete(annotation)).to.equal(false)
         })
       })
 
       describe('with a complete annotation', function () {
         it('should be complete', function () {
           annotation.update(surveyAnnotation)
-          expect(task.isComplete(annotation)).to.be.true()
+          expect(task.isComplete(annotation)).to.equal(true)
         })
       })
 
       describe('with an identification in progress', function () {
         it('should be incomplete', function () {
           annotation.setChoiceInProgress(true)
-          expect(task.isComplete(annotation)).to.be.false()
+          expect(task.isComplete(annotation)).to.equal(false)
         })
       })
     })
@@ -705,21 +705,21 @@ describe('Model > SurveyTask', function () {
 
       describe('without annotation', function () {
         it('should be complete', function () {
-          expect(task.isComplete(annotation)).to.be.true()
+          expect(task.isComplete(annotation)).to.equal(true)
         })
       })
 
       describe('with a complete annotation', function () {
         it('should be complete', function () {
           annotation.update(surveyAnnotation)
-          expect(task.isComplete(annotation)).to.be.true()
+          expect(task.isComplete(annotation)).to.equal(true)
         })
       })
 
       describe('with an identification in progress', function () {
         it('should be incomplete', function () {
           annotation.setChoiceInProgress(true)
-          expect(task.isComplete(annotation)).to.be.false()
+          expect(task.isComplete(annotation)).to.equal(false)
         })
       })
     })

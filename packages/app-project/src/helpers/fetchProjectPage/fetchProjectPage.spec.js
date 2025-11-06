@@ -79,7 +79,7 @@ describe('helpers > fetchProjectPage', function () {
   describe('when the page doesn\'t exist', function () {
     it('should return undefined', async function () {
       const page = await fetchProjectPage(project, 'fr', 'team', 'staging')
-      expect(page).to.be.undefined()
+      expect(page).toBeUndefined()
     })
   })
 })

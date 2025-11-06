@@ -242,7 +242,8 @@
       "disable": "desativar zoom",
       "enable": "ativar zoom"
     },
-    "loading": "Carregar um objeto"
+    "loading": "Carregar um objeto",
+    "zoomHelp": "Utilize CTRL + deslocação para fazer zoom"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
@@ -259,7 +260,8 @@
         "back": "Voltar"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Concluir e Debater"
+        "doneAndTalk": "Concluir e Debater",
+        "newTab": "num novo separador"
       },
       "DoneButton": {
         "done": "Concluir"

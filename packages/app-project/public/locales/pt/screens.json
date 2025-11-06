@@ -31,6 +31,7 @@
       }
     },
     "RecentSubjects": {
+      "text": "Fale sobre qualquer objeto em Conversar ou adicione-o aos favoritos ou a uma coleção.",
       "title": "As suas classificações recentes"
     },
     "WorkflowAssignmentModal": {
@@ -41,6 +42,9 @@
       "title": "Novo fluxo de trabalho disponível"
     },
     "YourStats": {
+      "allTime": "De sempre",
+      "lastSeven": "Últimos 7 dias",
+      "link": "Ver mais",
       "title": "Estatísticas"
     }
   },

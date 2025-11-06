@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Клацніть і перетягніть від точки відкриття до точки закриття або двічі клацніть будь-де на лінії, щоб створити точку з'єднання.",
+    "closePoint": "Клацніть будь-де на лінії, щоб встановити точку закриття",
+    "inactive": "Клацніть, щоб редагувати цю лінію",
+    "spliceDrag": "Клацніть і перетягніть від точки відкриття до точки закриття",
+    "splicePoint": "Двічі клацніть будь-де на лінії, щоб створити точку з'єднання"
+  },
+  "HighlighterTask": {
+    "delete": "Видалити",
+    "noLabels": "Немає міток для завдання хайлайтера",
+    "status": "{{count}} позначених"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} намальовано",
+    "max": "{{count}} із максимально можливих {{max}} намальовано",
+    "maxAndMin": "{{count}} із мінімально необхідних {{min}}, максимально можливо — {{max}} намальовано",
+    "min": "{{count}} із мінімально необхідних {{min}} намальовано"
+  },
+  "LineControls": {
+    "close": "Закрити",
+    "delete": "Видалити",
+    "deleteCancel": "Скасувати видалення",
+    "deleteConfirm": "Підтвердити видалення",
+    "lineControls": "Лінійні елементи керування",
+    "move": "Перемістити",
+    "redo": "Відновити дію",
+    "undo": "Скасувати дію"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Введіть щось",
+    "otherLabel": "Інше...",
+    "selectPlaceholder": "Виберіть відповідь"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Очистити фільтри",
+      "closeFilters": "Закрити фільтри",
+      "filter": "Фільтр",
+      "removeFilter": "Видалити фільтр {{valueLabel}}",
+      "showing": "Показується {{showing}} з {{total}}"
+    },
+    "Choice": {
+      "cancel": "Скасувати",
+      "identify": "Ідентифікувати",
+      "lessInfo": "Менше інформації",
+      "moreInfo": "Докладніше",
+      "notThis": "Не це"
+    },
+    "ChoiceButton": {
+      "identified": "ідентифіковано",
+      "openSubmenu": "Відкрити підменю для {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Скасувати",
+      "confused": "Іноді плутають з",
+      "itsThis": "Я думаю, це ось що"
+    },
+    "DeleteButton": {
+      "delete": "Видалити варіант {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Скинути"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Модифікатори тексту"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Створена транскрипція",
+    "editing": "Редагування транскрипції"
+  }
+}

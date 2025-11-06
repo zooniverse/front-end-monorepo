@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "No no vhona thero iyi",
+      "tooltipText": [
+        "U no vhona na u khethekanya thero iyi, ngauralo u khethekanya ho engedzeaho a zwi nga ḓo shela mulenzhe kha tsenguluso yayo.",
+        "Arali ni tshi khou ṱoḓa u thusa, lingedzani u nanga nḓila yo fhambanaho ya u shuma kana u shela mulenzhe kha mushumo wo fhambanaho."
+      ]
+    },
+    "Banner": {
+      "next": "Zwi tevhelaho",
+      "previous": "Zwo fhiraho",
+      "whyAmISeeingThis": "Ndi ngani ndi tshi khou vhona zwenezwi?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Khantselani",
+      "confirm": "Khwaṱhisedzani",
+      "inProgress": "Naa ni na vhungoho ha uri ni ṱoḓa u dzhena kha Thero yo fhambanaho? Annotation iṅwe na iṅwe ye na i ita kha Thero ya zwino i ḓo xela."
+    },
+    "RetiredBanner": {
+      "bannerText": "Ro fhedza: Thero iyi yo no ḓi bviswa",
+      "tooltipText": [
+        "Thero iyi yo no vha na zwigwada zwo eḓanaho, ngauralo yaṋu a i nga ḓo shumiswa kha tsenguluso yayo.",
+        "Arali ni tshi khou ṱoḓa u thusa, lingedzani u nanga nḓila yo fhambanaho ya u shuma kana u shela mulenzhe kha mushumo wo fhambanaho."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Zwo no vhonwa",
+      "bannerText": "{{setName}}: Thero{{number}}{{total}}",
+      "finished": "U fhedza",
+      "tooltipText": [
+        "Heyi phurojeke i tendela vhashumi vha u ḓifunela u vhona thero nga u tevhekana.",
+        "Nomboro i sumbedza vhuimo ha ṱhoho kha group yoṱhe."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Ro fhedza: No vhona zwoṱhe",
+      "tooltipText": [
+        "U khethekanya zwoṱhe kha nḓila iyi ya mushumo, ngauralo u khethekanya ho engedzeaho kha thero iyi a hu nga ḓo shumiswa kha tsenguluso yayo.",
+        "Arali ni tshi khou ṱoḓa u thusa, lingedzani u nanga nḓila yo fhambanaho ya u shuma kana u shela mulenzhe kha mushumo wo fhambanaho."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Mushumo uyu wo fhela",
+      "tooltipText": [
+        "Thero dzoṱhe dzi re kha mushumo dzo no fhela, ngauralo u khethekanya ho engedzeaho kha thero iyi a hu nga ḓo shumiswa kha tsenguluso yayo.",
+        "Arali ni tshi khou ṱoḓa u thusa, lingedzani u nanga nḓila yo fhambanaho ya u shuma kana u shela mulenzhe kha mushumo wo fhambanaho."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Handle ya u rembulusa ṱhalutshedzo\/tshiga."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Dzulani ni tshi khethekanya",
+    "label": "Vhupfiwa"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Fhethu ha vhulivhisi"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Humelani kha mutevhe wa zwithu zwa Fhethu ha vhulivhisi"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Khethani{{title}}"
+    },
+    "title": "Fhethu ha vhulivhisi"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Ṅwalani ṱhalutshedzo"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Vhonani thero nga saizi yo ḓoweleaho",
+        "fullscreen": "Vhonani thero kha moudu wa tshikirini tsho fhelelaho"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Rembulusani thero"
+    },
+    "MoveButton": {
+      "ariaLabel": "Sudzulusani thero"
+    },
+    "ResetButton": {
+      "ariaLabel": "Sethani hafhu mbonalo ya thero"
+    },
+    "RotateButton": {
+      "ariaLabel": "Rembulusani thero"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zoom in kha thero"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Zoom out  kha thero"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Engedzani kha u kuvhanganya"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "U dzumba Zwiga zwo fhiraho",
+      "show": "Sumbedzani Zwiga zwo fhiraho"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Dzumbani zwiga zwoṱhe",
+      "show": "Sumbedzani Zwiga Zwoṱhe",
+      "showUser": "Sumbedzani Zwiga Zwaṋu"
+    },
+    "MetadataButton": {
+      "label": "Mafhungo a thero"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Lebuḽu",
+        "value": "Tshileme"
+      },
+      "title": "Metadatha ya thero"
+    }
+  },
+  "ModalTutorial": {
+    "title": "U funza"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Valani phanele ya vhupfiwa",
+      "goToTalk": "Iyani kha Khaseledzo ya Thero kha Nyambo",
+      "mainPanel": "Phanele ya Vhupfiwa ha QuickTalk",
+      "openButton": "Thero i na {{count}}vhupfiwa. Puṱedzani u itela u engedza.",
+      "panelContent": "Vhupfiwa ha Khaseledzo ya Thero",
+      "panelHeading": "Khaseledzo ya Thero"
+    },
+    "errors": {
+      "failPostComment": "A ri koni u engedza vhupfiwa kha nyambedzano i re hone.",
+      "failPostDiscussion": "A thi koni u engedza vhupfiwa kha nyambedzano ntswa.",
+      "noBoard": "Bodo ya vhupfiwa ha thero a i athu vhewa kha heyi phurojeke.",
+      "noText": "A thi koni u posta vhupfiwa vhu si na tshithu.",
+      "noUser": "Mushumisi ha athu log in"
+    },
+    "loginToPost": "Login ni pose vhupfiwa.",
+    "status": {
+      "initialized": "Siani notsi nga ha thero iyi",
+      "loading": "U posta vhupfiwa",
+      "success": "Vhupfiwa ho phostiwa!"
+    },
+    "subjectHasNoComments": "Thero iyi a i athu vha na vhupfiwa."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Iyani kha vhukando{{index}}",
+      "next": "Iyani kha vhukando vhu tevhelaho",
+      "previous": "Humelani kha vhukando vhu vhukando"
+    },
+    "alt": "Ḽiga ḽa u funza{{activeStep}}",
+    "error": "Ḽiga ḽa u gudisa a ḽo ngo kona u dzhena.",
+    "getStarted": "Thomani",
+    "heading": "{{projectDisplayName}} U funza"
+  },
+  "StepNavigation": {
+    "go": "Iyani kha vhukando{{index}}",
+    "next": "Iyani kha vhukando vhu tevhelaho",
+    "previous": "Iyani kha vhukando ho fhiraho"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Tshathi ya bara"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikhoni ya text viewer"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "U vala ni songo seiva",
+        "confirm": "Ni khou khwaṱhisedza uri ni khou ṱoḓa​ u vala? Luswayo ulu lu ḓo thuthiwa.",
+        "keepWorking": "Bvelani phanḓa na u shuma"
+      },
+      "SaveButton": {
+        "save": "Seivani nahone ni Vale"
+      },
+      "SubTaskPopup": {
+        "notRender": "Tshipiḓa tsha mushumo a tsho ngo kona u ṋekedzwa.",
+        "required": "Mushumo uyu u a ṱoḓea."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "u ṅwalululwa ho ṱanganyiswaho",
+          "explanation": "Hohu{{count}}u ṅwalululwa ho ṋetshedzwa nga vhashumi vha u ḓifunela vho fhiraho nahone a dzi nga shandukiswa.",
+          "noAggregation": "A hu na ṱhanganyelo ine ya vha hone.",
+          "title": "U  ṅwalululwa ho fhiraho",
+          "transcriptionsUnavailable": "Zwo ṅwalulwaho a zwi wanali."
+        },
+        "complete": "U ṅwalululwa ho fhela",
+        "transcribed": "I na zwiṅwalululwa"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "I tevhelaho",
+        "previousFrameLabel": "Yo fhiraho",
+        "thumbnailAltText": "Tshifanyiso tshiṱuku tsha tshifanyiso"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Thuthani khetho{{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Tshintshani kha mbonalo ya flipbook",
+        "switchToSeparateFrames": "Tshintshani kha mbonalo ya fureme dzo fhambanaho"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Ho vha na vhukhakhi musi hu tshi khou dzheniswa mafhungo."
+    },
+    "VariableStarViewer": {
+      "controls": "ndaulo",
+      "figCaption": "Dayagiramu ya HR",
+      "flip": "rembulusa",
+      "focus": "Mbuno ya ndeme",
+      "highlight": "U vhonetshela",
+      "imageTitle": "Dayagiramu ya HR: Tshedza vs Mufhiso",
+      "label": "Filithara{{id}}",
+      "periodMultiple": "tshifhinga tshinzhi",
+      "phase": "luṱa",
+      "phaseFocus": "luṱa lwa u sedza"
+    },
+    "VideoController": {
+      "closeVolume": "Valani Tshiḽaidara tsha Volumu",
+      "fullscreen": "Sumbedzani Vidio kha Tshikirini tsho Fhelelaho",
+      "openVolume": "Vulani Tshiḽaidara tsha Volumu",
+      "pause": "Imisani vidio",
+      "play": "Tambani vidio",
+      "playbackSpeed": "Khetho ya luvhilo lwa u tamba vidio",
+      "scrubber": "Scrubber tsha vidio",
+      "volumeSlider": "Tshiḽaidara tsha Volumu"
+    },
+    "ZoomControlButton": {
+      "disable": "dzimani zoom",
+      "enable": "zoom kha i shume"
+    },
+    "loading": "U dzhenisa thero",
+    "zoomHelp": "Shumisani CTRL + scroll u itela u ṱanḓavhudza"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Thero iyi i na zwigwada zwo eḓanaho, ngauralo zwigwada zwiṅwe na zwiṅwe zwo engedzwaho zwo ṋetshedzwaho a zwi nga ḓo shumiswa kha tsenguluso yayo. Ni nga kha ḓi vhona yeneyi thero u itela u i shumisa.",
+      "options": {
+        "dismiss": "Bvisa",
+        "next": "Thero i re hone i tevhelaho",
+        "select": "Khethani ther ntswa"
+      },
+      "title": "No fhedza"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Murahu"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Ro fhedza & Ri ambe",
+        "newTab": "kha thebu ntswa"
+      },
+      "DoneButton": {
+        "done": "Fhedza"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Moudu wa Demo",
+        "label": "Expert Options"
+      },
+      "NextButton": {
+        "next": "I tevhelaho"
+      },
+      "TaskHelp": {
+        "close": "Valani",
+        "label": "Ni khou ṱoḓa thuso kha mushumo uyu?"
+      },
+      "demoMode": "Kha moudu wa demo, zwigwada a zwi nga ḓo vhulungwa. Shumisani hezwi kha demo dzi ṱavhanyaho, dzi songo teaho dza vhukwamani ha u khethekanya.",
+      "error": "Hu na zwo khakheaho",
+      "loading": "U dzhena",
+      "renderFallback": "Tshipiḓa tsha mushumo a tsho ngo kona u ṋekedzwa."
+    },
+    "task": "Mushumo",
+    "tutorial": "U funza"
+  }
+}

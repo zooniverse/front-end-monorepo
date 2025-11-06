@@ -1,0 +1,288 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Tayari umeona picha hii",
+      "tooltipText": [
+        "Tayari umeona na kuainisha picha hii, kwa hivyo uainishaji zaidi hautachangia katika uchambuzi wake.",
+        "Ikiwa unataka kusaidia, jaribu kuchagua mtiririko tofauti wa kazi au kuchangia kwenye mradi tofauti."
+      ]
+    },
+    "Banner": {
+      "next": "Inayofuata",
+      "previous": "Iliyotangulia",
+      "whyAmISeeingThis": "Kwa nini ninaona haya?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Acha",
+      "confirm": "Thibitisha",
+      "inProgress": "Una uhakika unataka kwenda kwenye Picha tofauti? Manukuu yoyote uliyofanya kwenye Picha ya sasa yatapotea."
+    },
+    "RetiredBanner": {
+      "bannerText": "Imekamilika: Picha hii imeondolewa",
+      "tooltipText": [
+        "Tayari picha hii ina uainishaji wa kutosha, kwa hivyo uainishaji wako hautatumika katika uchambuzi wake.",
+        "Ikiwa unataka kusaidia, jaribu kuchagua mtiririko tofauti wa kazi au kuchangia kwenye mradi tofauti."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Tayari umeona",
+      "bannerText": "{{setName}}: Picha ya {{number}}kati ya{{total}}",
+      "finished": "Imekamilika",
+      "tooltipText": [
+        "Mradi huu unawezesha watu wa kujitolea kuangalia picha katika mpangilio wa mfuatano.",
+        "Namba inakuonyesha nafasi ya picha ndani ya jumla ya kikundi."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Imekamilika: Umeona kila kitu",
+      "tooltipText": [
+        "Tayari umeainisha kila kitu kwenye mtiririko huu wa kazi, kwa hivyo uainishaji zaidi wa picha hii hautatumika katika uchambuzi wake.",
+        "Ikiwa unataka kusaidia, jaribu kuchagua mtiririko tofauti wa kazi au kuchangia kwenye mradi tofauti."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Mtiririko huu wa kazi umekamilika",
+      "tooltipText": [
+        "Picha zote kwenye mtiririko huu wa kazi zimekamilishwa, kwa hivyo uainishaji zaidi wa picha hii hautatumika katika uchambuzi wake.",
+        "Ikiwa unataka kusaidia, jaribu kuchagua mtiririko tofauti wa kazi au kuchangia kwenye mradi tofauti."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Kishikio cha kuzungusha manukuu\/alama iliyochorwa."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Endelea Kuainisha",
+    "label": "Maoni"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Mwongozo wa Sehemu"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Rudi kwenye orodha ya vipengee vya Mwongozo wa Sehemu"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Chagua {{title}}"
+    },
+    "title": "Mwongozo wa Sehemu"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Manukuu"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Angalia picha katika ukubwa wa kawaida",
+        "fullscreen": "Angalia picha katika hali ya skrini nzima"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Geuza picha"
+    },
+    "MoveButton": {
+      "ariaLabel": "Hamisha picha"
+    },
+    "ResetButton": {
+      "ariaLabel": "Badilisha mwonekano wa picha"
+    },
+    "RotateButton": {
+      "ariaLabel": "Zungusha picha"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Vuta karibu na picha"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Sogeza mbali na picha"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Weka kwenye mikusanyiko"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Ficha Alama za Awali",
+      "show": "Onyesha Alama za Awali"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Ficha Alama Zote",
+      "show": "Onyesha Alama Zote",
+      "showUser": "Onyesha Alama Zako"
+    },
+    "MetadataButton": {
+      "label": "Maelezo ya Picha"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Lebo",
+        "value": "Thamani"
+      },
+      "title": "Metadata ya Picha"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Mafunzo"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Funga kidirisha cha maoni",
+      "goToTalk": "Nenda kwenye Majadiliano ya Picha kwenye Talk",
+      "mainPanel": "Kidirisha cha Maoni cha QuickTalk",
+      "openButton": "Picha ina maoni {{count}} . Bofya ili upanue.",
+      "panelContent": "Maoni ya Majadiliano ya Picha",
+      "panelHeading": "Majadiliano ya Picha"
+    },
+    "errors": {
+      "failPostComment": "Imeshindwa kuweka maoni kwenye majadiliano yaliyopo.",
+      "failPostDiscussion": "Imeshindwa kuweka maoni kwenye majadiliano mapya.",
+      "noBoard": "Bodi ya maoni ya picha bado haijawekwa kwa mradi huu.",
+      "noText": "Huwezi kuchapisha maoni yasiyo na maandishi.",
+      "noUser": "Mtumiaji hajaingia katika akaunti."
+    },
+    "loginToPost": "Tafadhali ingia katika akaunti ili uchapishe maoni.",
+    "status": {
+      "initialized": "Andika maoni kuhusu picha hii",
+      "loading": "Inachapisha maoni...",
+      "success": "Maoni yamechapishwa!"
+    },
+    "subjectHasNoComments": "Picha hii bado haina maoni yoyote."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Nenda kwenye hatua ya {{index}}",
+      "next": "Nenda kwenye hatua inayofuata",
+      "previous": "Nenda kwenye hatua iliyotangulia"
+    },
+    "alt": "Hatua ya mafunzo ya {{activeStep}}",
+    "error": "Imeshindwa kupakia hatua ya mafunzo.",
+    "getStarted": "Anza",
+    "heading": "Mafunzo ya {{projectDisplayName}}"
+  },
+  "StepNavigation": {
+    "go": "Nenda kwenye hatua ya {{index}}",
+    "next": "Nenda kwenye hatua inayofuata",
+    "previous": "Nenda kwenye hatua iliyotangulia"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Chati ya pau"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Aikoni ya kitazamaji maandishi"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Funga bila kuhifadhi",
+        "confirm": "Una uhakika unataka kufunga? Alama hii itafutwa.",
+        "keepWorking": "Endelea kufanya kazi"
+      },
+      "SaveButton": {
+        "save": "Hifadhi na Ufunge"
+      },
+      "SubTaskPopup": {
+        "notRender": "Imeshinda kutekeleza kipengele cha kazi.",
+        "required": "Kazi hii inatakikana."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "manukuu yaliyojumlishwa",
+          "explanation": "Manukuu haya {{count}} yaliwasilishwa na watu wa kujitolea waliotangulia na hayawezi kurekebishwa.",
+          "noAggregation": "Hakuna ujumlishaji unaopatikana.",
+          "title": "Manukuu ya Awali",
+          "transcriptionsUnavailable": "Manukuu hayapatikani."
+        },
+        "complete": "Manukuu yamekamilika",
+        "transcribed": "Ina manukuu"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Inayofuata",
+        "previousFrameLabel": "Iliyotangulia",
+        "thumbnailAltText": "Kijipicha cha picha"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Futa chaguo {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Badili utumie mwonekano wa kitabu cha kugeuza",
+        "switchToSeparateFrames": "Badili utumie mwonekano wa fremu tofauti"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Hitilafu imetokea wakati wa kupakia picha."
+    },
+    "VariableStarViewer": {
+      "controls": "vidhibiti",
+      "figCaption": "Mchoro wa HR",
+      "flip": "geuza",
+      "focus": "lenga",
+      "highlight": "angazia",
+      "imageTitle": "Mchoro wa HR: Ung'aavu dhidi ya Halijoto",
+      "label": "Chuja {{id}}",
+      "periodMultiple": "alama za dukuduku",
+      "phase": "awamu",
+      "phaseFocus": "uangaziaji wa awamu"
+    },
+    "VideoController": {
+      "closeVolume": "Funga Kitelezi cha Sauti",
+      "fullscreen": "Onyesha Skrini Nzima ya Video",
+      "openVolume": "Fungua Kitelezi cha Sauti",
+      "pause": "Simamisha video",
+      "play": "Cheza video",
+      "playbackSpeed": "Uteuzi wa kasi ya uchezaji wa video",
+      "scrubber": "Kitelezi cha kicheza video",
+      "volumeSlider": "Kitelezi cha Sauti"
+    },
+    "ZoomControlButton": {
+      "disable": "zima kipengele cha kukuza",
+      "enable": "washa kipengele cha kukuza"
+    },
+    "loading": "Inapakia picha",
+    "zoomHelp": "Tumia CTRL + scroll kukuza"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Picha hii ina uainishaji wa kutosha, kwa hivyo uainishaji wowote wa ziada utakaowasilishwa hautatumika katika uchambuzi wake. Bado unaweza kuangalia picha hii kama marejeleo.",
+      "options": {
+        "dismiss": "Ondoa",
+        "next": "Mradi unaofuata unaopatikana",
+        "select": "Chagua mradi mpya"
+      },
+      "title": "Imekamilika"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Nyuma"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Done & Talk",
+        "newTab": "kwenye kichupo kipya"
+      },
+      "DoneButton": {
+        "done": "Umemaliza"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Hali ya Onyesho",
+        "label": "Chaguo za Mtaalamu"
+      },
+      "NextButton": {
+        "next": "Inayofuata"
+      },
+      "TaskHelp": {
+        "close": "Funga",
+        "label": "Unahitaji msaada kwa kazi hii?"
+      },
+      "demoMode": "Katika hali ya onyesho, uainishaji hautahifadhiwa. Tumia hii kwa maonyesho ya haraka yasiyo sahihi ya kiolesura cha uainishaji.",
+      "error": "Hitilafu fulani imetokea",
+      "loading": "Inapakia",
+      "renderFallback": "Imeshinda kutekeleza kipengele cha kazi."
+    },
+    "task": "Kazi",
+    "tutorial": "Mafunzo"
+  }
+}

@@ -1,6 +1,5 @@
 const { execSync } = require('child_process')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const million = require('million/compiler')
 const path = require('path')
 const webpack = require('webpack')
 
@@ -53,10 +52,11 @@ module.exports = {
       '@translations': path.resolve(__dirname, 'src/translations'),
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     },
+    extensions: ['.jsx', '.js', '...'],
     fallback: {
       fs: false,
       // for markdown-it plugins
-      path: require.resolve("path-browserify"),
+      path: 'path-browserify',
       process: false,
     }
   },
@@ -64,6 +64,14 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'babel-loader',
+          options: { compact: false }
+        }]
+      },
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
@@ -91,7 +99,6 @@ module.exports = {
       process: 'process/browser',
     }),
     EnvironmentWebpackPlugin,
-    HtmlWebpackPluginConfig,
-    million.webpack({ auto: true })
+    HtmlWebpackPluginConfig
   ]
 }

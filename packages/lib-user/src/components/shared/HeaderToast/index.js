@@ -1,1 +1,1 @@
-export { default } from './HeaderToast.js'
+export { default } from './HeaderToast'

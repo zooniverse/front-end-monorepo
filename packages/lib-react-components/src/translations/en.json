@@ -52,12 +52,44 @@
   "CloseButton": {
     "close": "Close"
   },
+  "CollectIconButton": {
+    "collect": "Add to collection"
+  },
+  "CollectionsModal": {
+    "title": "Manage Collections",
+    "CreateCollection": {
+      "label": "Collection Name",
+      "createButton": "Create Collection",
+      "private": "Private Collection"
+    },
+    "SelectCollection": {
+      "label": "Select a Collection",
+      "addButton": "Add to Collection"
+    }
+  },
   "FavouritesButton": {
     "add": "Add to favorites",
     "remove": "Added to favorites"
   },
+  "ImageIconButton": {
+    "viewImage": "Subject image"
+  },
+  "InvertIconButton": {
+    "invert": "Invert subject color",
+    "reset": "Reset subject color"
+  },
   "Loader": {
     "loading": "Loading"
+  },
+  "ProjectCard": {
+    "classifications": "Classifications",
+    "finished": "Finished",
+    "paused": "Paused",
+    "state": "State"
+  },
+  "ShareIconButton": {
+    "copied": "URL copied to clipboard",
+    "share": "Share"
   },
   "ZooFooter": {
     "aboutLabels": {
@@ -89,7 +121,18 @@
       "security": "Security"
     },
     "projectLabels": {
-      "projects": "Projects"
+      "projects": "Projects",
+      "arts": "Arts",
+      "biology": "Biology",
+      "climate": "Climate",
+      "history": "History",
+      "language": "Language",
+      "literature": "Literature",
+      "medicine": "Medicine",
+      "nature": "Nature",
+      "physics": "Physics",
+      "social": "Social Science",
+      "space": "Space"
     },
     "talkLabels": {
       "announcements": "Announcements",

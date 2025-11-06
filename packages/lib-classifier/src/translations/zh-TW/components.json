@@ -1,51 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "您已經查看過此題目",
+      "tooltipText": [
+        "您已經查看並分類過此題目，因此後續的分類將不會對其分析產生貢獻。",
+        "如果您想提供幫助，可以嘗試選擇不同的工作流程或參與其他專案。"
+      ]
+    },
     "Banner": {
-      "next": "繼續"
+      "next": "繼續",
+      "previous": "上一步",
+      "whyAmISeeingThis": "為什麼我會看到這個？"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "取消",
+      "confirm": "確認",
+      "inProgress": "您確定要前往不同的題目嗎？您對當前題目所做的標註將會遺失。"
+    },
+    "RetiredBanner": {
+      "bannerText": "已完成：已終止此題目",
+      "tooltipText": [
+        "此題目已獲得足夠的分類，因此您的分類將不會被納入分析。",
+        "如果您想提供幫助，可以嘗試選擇不同的工作流程或參與其他專案。"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "已查看",
+      "bannerText": "{{setName}}：{{number}}\/{{total}} 個題目",
+      "finished": "已完成",
+      "tooltipText": [
+        "此專案允許志願者按順序查看題目。",
+        "這個數字顯示該題目在整體群組中的位置。"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "已完成：您已查看所有項目",
+      "tooltipText": [
+        "您已經完成分類此工作流程中的所有題目，因此對該題目的後續分類將不會被納入分析。",
+        "如果您想提供幫助，可以嘗試選擇不同的工作流程或參與其他專案。"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "此工作流程已完成",
+      "tooltipText": [
+        "此工作流程中的所有題目已完成，因此對該題目的後續分類將不會被納入分析。",
+        "如果您想提供幫助，可以嘗試選擇不同的工作流程或參與其他專案。"
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "用於旋轉所畫標註\/標記的控制工具"
+  },
+  "FeedbackModal": {
+    "keepClassifying": "繼續分類",
+    "label": "意見回饋"
+  },
   "FieldGuide": {
-    "title": "實戰手冊",
     "FieldGuideButton": {
       "buttonLabel": "實戰手冊"
     },
     "FieldGuideItem": {
       "ariaTitle": "返回"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "選擇 {{title}}"
+    },
+    "title": "實戰手冊"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "標註"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "以正常大小檢視題目",
+        "fullscreen": "以全螢幕模式檢視題目"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "插入題目"
+    },
+    "MoveButton": {
+      "ariaLabel": "移動題目"
+    },
+    "ResetButton": {
+      "ariaLabel": "重設題目檢視"
+    },
+    "RotateButton": {
+      "ariaLabel": "旋轉題目"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "放大檢視題目"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "縮小檢視題目"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "新增到收藏夾"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "隱藏先前標記",
+      "show": "顯示先前標記"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "隱藏所有標記",
+      "show": "顯示所有標記",
+      "showUser": "顯示您的標記"
+    },
+    "MetadataButton": {
+      "label": "題目資訊"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "標籤",
+        "value": "數值"
+      },
+      "title": "題目元資料"
     }
   },
   "ModalTutorial": {
     "title": "說明"
   },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "關閉留言面板",
+      "goToTalk": "前往討論區上的題目討論",
+      "mainPanel": "快速討論留言面板",
+      "openButton": "題目有 {{count}} 則留言。點按展開。",
+      "panelContent": "題目討論留言",
+      "panelHeading": "題目討論"
+    },
+    "errors": {
+      "failPostComment": "無法新增留言到現有討論中。",
+      "failPostDiscussion": "無法新增留言到新討論中。",
+      "noBoard": "此專案尚未設置題目留言板。",
+      "noText": "無法發佈空白留言。",
+      "noUser": "使用者未登入。"
+    },
+    "loginToPost": "請登入以發佈留言。",
+    "status": {
+      "initialized": "留下有關此題目的備註",
+      "loading": "發佈留言中…",
+      "success": "已發佈留言！"
+    },
+    "subjectHasNoComments": "此題目尚無任何留言。"
+  },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "前往第 {{index}} 步",
+      "next": "前往下一步",
+      "previous": "回到上一步"
+    },
+    "alt": "{{activeStep}} 說明步驟",
+    "error": "無法載入說明步驟。",
     "getStarted": "開始",
     "heading": "{{projectDisplayName}} 說明"
   },
+  "StepNavigation": {
+    "go": "前往第 {{index}} 步",
+    "next": "前往下一步",
+    "previous": "回到上一步"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "長條圖"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "文字檢視器的圖示"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "不儲存並關閉",
+        "confirm": "您確定要關閉嗎？此標記將會刪除。",
+        "keepWorking": "繼續作業"
+      },
+      "SaveButton": {
+        "save": "儲存並關閉"
+      },
+      "SubTaskPopup": {
+        "notRender": "無法渲染任務元件。",
+        "required": "必須完成此任務。"
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "匯總逐字稿",
+          "explanation": "這些 {{count}} 段逐字稿是由先前志願者提交，無法進行修改。",
+          "noAggregation": "無法進行匯總。",
+          "title": "先前逐字稿",
+          "transcriptionsUnavailable": "無法顯示逐字稿。"
+        },
+        "complete": "已完成逐字稿",
+        "transcribed": "有逐字稿"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "繼續"
+        "nextFrameLabel": "繼續",
+        "previousFrameLabel": "上一步",
+        "thumbnailAltText": "圖片縮圖"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "刪除 {{index}} 個所選項目"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "切換到翻頁書檢視畫面",
+        "switchToSeparateFrames": "切換到分割檢視畫面"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "載入題目時發生錯誤"
+    },
+    "VariableStarViewer": {
+      "controls": "控制",
+      "figCaption": "赫羅圖",
+      "flip": "翻轉",
+      "focus": "焦點",
+      "highlight": "重點標示",
+      "imageTitle": "赫羅圖：光度與溫度",
+      "label": "{{id}} 篩選條件",
+      "periodMultiple": "期間倍數",
+      "phase": "階段",
+      "phaseFocus": "焦段焦點"
+    },
+    "VideoController": {
+      "closeVolume": "關閉音量滑桿",
+      "fullscreen": "全螢幕播放影片",
+      "openVolume": "開啟音量滑桿",
+      "pause": "暫停影片",
+      "play": "播放影片",
+      "playbackSpeed": "影片播放速度選擇",
+      "scrubber": "影片播放時間軸",
+      "volumeSlider": "音量滑桿"
+    },
+    "ZoomControlButton": {
+      "disable": "停用縮放",
+      "enable": "啟用縮放"
+    },
+    "loading": "載入題目中",
+    "zoomHelp": "使用 CTRL 鍵加上滾輪來縮放"
   },
   "TaskArea": {
-    "task": "任務",
-    "tutorial": "說明",
+    "DisabledTaskPopup": {
+      "body": "此題目已有足夠的分類，因此後續提交的分類將不會納入分析。您仍可瀏覽此主體進行參考。",
+      "options": {
+        "dismiss": "略過",
+        "next": "下一個可研究主體",
+        "select": "選擇新題目"
+      },
+      "title": "已完成"
+    },
     "Tasks": {
       "BackButton": {
         "back": "返回"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "完成並前往討論區"
+        "doneAndTalk": "完成並前往討論區",
+        "newTab": "在新分頁"
       },
       "DoneButton": {
         "done": "完成"
+      },
+      "ExpertOptions": {
+        "demoToggle": "示範模式",
+        "label": "專家選項"
       },
       "NextButton": {
         "next": "繼續"
       },
       "TaskHelp": {
+        "close": "關閉",
         "label": "需要幫助？"
-      }
-    }
+      },
+      "demoMode": "在示範模式時，無法儲存分類。此模式適用於快速但不精確的分類介面展示。",
+      "error": "發生錯誤",
+      "loading": "載入中",
+      "renderFallback": "無法渲染任務元件。"
+    },
+    "task": "任務",
+    "tutorial": "說明"
   }
 }

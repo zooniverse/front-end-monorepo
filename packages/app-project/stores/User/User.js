@@ -28,7 +28,11 @@ const User = types
     },
 
     get isAdmin() {
-      return self.admin
+      return self.isLoggedIn && self.admin
+    },
+
+    get isLoaded() {
+      return self.loadingState === asyncStates.success
     },
 
     get isLoggedIn () {
@@ -64,7 +68,8 @@ const User = types
       self.recents.fetch()
       self.collections.searchCollections({
         favorite: false,
-        current_user_roles: 'owner,collaborator,contributor'
+        current_user_roles: 'owner,collaborator,contributor',
+        page_size: 100
       })
       if (self.id) {
         self.personalization.load(newUser)

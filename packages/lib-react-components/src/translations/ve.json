@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Moudu wa Admin"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Dzina ḽa mushumisi kana phasiwede a zwo khakhea",
+      "forgot": "No hagwa phasiwede yaṋu?",
+      "heading": "Ri khou dovha ra ni ṱanganedza!",
+      "instruction": "Ro takala uri no vhuya! Dzhenani uri uri ni bvele phanḓa he na litsha hone.",
+      "login": "Dzina ḽa mushumisi kana ḓiresi ya imeiḽi",
+      "password": "Phasiwede",
+      "placeholder": "e.g. ZooniverseFan123",
+      "signIn": "Dzhenani"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Ndi tama u thusa u linga phurojeke ntswa na u rumelwa imeiḽi musi dzi hone (u sa ḓikhethela)",
+      "email": "Ḓiresi ya Imeiḽi (I a Ṱoḓea)",
+      "emailConfirm": "Khwaṱhisedzani ḓiresi ya imeiḽi (Zwi a ṱoḓea)",
+      "emailConfirmError": "Ḓiresi dza imeiḽi a dzi fani, lingedzani hafhu.",
+      "emailConflict": "Akhaunthu ine ya vha na ḓiresi iyi yo no vha hone",
+      "emailListSignUp": "Ndi zwavhuḓi u nthumela imeiḽi tshifhinga tshiṅwe na tshiṅwe (zwi sa ṱoḓei)",
+      "emailPlaceholder": "\\ne.g zoofan31@gmail.com",
+      "forgot": "No hangwa phasiwede?",
+      "heading": "Ri khou ni ṱanganedza!",
+      "instruction": "Kha vha ite akhaunthu u itela u thoma u ita ṱhoḓisiso ya vhukuma.",
+      "password": "Phasiwede (I a ṱoḓea)",
+      "passwordConfirm": "Khwaṱhisedzani Phasiwede (I a Ṱoḓea)",
+      "passwordConfirmError": "Phasiwede a dzi fani, lingedzani hafhu.",
+      "privacyAgreement": "U tendelana na mbekanyamaitele yashu ya tshiphiri (zwi a ṱoḓea)",
+      "privacyAgreementError": "U tendelana na mbekanyamaitele ya tshiphiri zwi a ṱoḓea.",
+      "privacyLink": "Vhalani mbekanyamaitele yashu ya tshiphiri",
+      "realName": "Dzina ḽa vhukuma (Zwi sa ṱoḓei)",
+      "realNameHelp": "Ri ḓo shumisa hezwi u ni ṋea tshikolodo kha mabammbiri a saintsi, phosiṱara, na zwiṅwe-vho.",
+      "realNamePatternHelp": "Kha vha ṅwale dzina, hu si ḓiresi ya imeiḽi",
+      "realNamePlaceholder": "e.g. Maggie Smith",
+      "register": "Ṅwalisa",
+      "registering": "U ṅwalisa...",
+      "underageConsent": "Ndi khwaṱhisedza uri ndi mubebi\/muṱhogomeli nahone ndi ṋea thendelo ya uri ṅwana wanga a ḓiṅwalise nga u ṋetshedza ḓiresi yanga ya imeiḽi sa ḓiresi khulwane ya vhukwamani. Nṋe na ṅwananga ri a pfesesa na u tendelana na mbekanyamaitele ya tshiphiri (i a ṱoḓea)",
+      "underageEmail": "Ḓiresi ya imeiḽi ya Mubebi\/Muṱhogomeli (I a ṱoḓea)",
+      "underageEmailSignUp": "Arali na tenda, ri ḓo rumela imeiḽi tshifhinga tshoṱhe ri tshi ṱuṱuwedza phurojeke ntswa dzi tshimbidzanaho na ṱhoḓisiso kana maṅwe mafhungo a tshimbidzanaho na ṱhoḓisiso yashu. A ri nga shumisi zwidodombedzwa zwaṋu zwa vhukwamani u itela ndivho dza zwa vhubindudzi. (khetho)",
+      "underageNotRealName": "Ni ḓo shumisa dzina iḽi u dzhena. Ḽi ḓo sumbedzwa khagala. Ni songo shumisa dzina ḽaṋu ḽa vhukuma.",
+      "underageWithParent": "Arali ni fhasi ha miṅwaha ya 16, swayani bogisi iḽi u khwathisedza uri no ḓadza fomo na mubebi kana muṱhogomeli waṋu",
+      "username": "Dzina ḽa mushumisi (Ḽi a ṱoḓea)",
+      "usernameConflict": "Dzina ḽeneḽo ḽa mushumisi ḽo dzhiiwa",
+      "usernameHelp": "Hezwi zwi ḓo sumbedzwa khagala kha bodo dza milaedza, na zwiṅwe-vho.",
+      "usernamePatternHelp": "Madzina a vhashumisi a nga vha na maḽeḓere, nomboro, '.','-', na '_' fhedzi.",
+      "usernamePlaceholder": "e.g. ZooniverseFan123"
+    },
+    "title": "Kha vha dzhene kana vha ite akhaunthu ntswa."
+  },
+  "CloseButton": {
+    "close": "Vala"
+  },
+  "FavouritesButton": {
+    "add": "Engedza kha zwine vha zwi funesa",
+    "remove": "Zwo engedzwa kha zwine vha zwi funesa"
+  },
+  "Loader": {
+    "loading": "U ḓadza"
+  },
+  "ProjectCard": {
+    "classifications": "Khethekanyo",
+    "finished": "Fhedza",
+    "paused": "Fhumula",
+    "state": "Muvhuso"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Nga ha",
+      "acknowledgements": "Ndivhuho",
+      "contact": "Khwamano",
+      "faq": "FAQ",
+      "publications": "Khandiso",
+      "resources": "Zwiko",
+      "team": "Thimu"
+    },
+    "buildLabels": {
+      "bestPractices": "Maitele a khwinesa",
+      "buildAProject": "Fhaṱani phurojeke",
+      "glossary": "Glosari",
+      "policies": "Mbekanyamaitele",
+      "tutorial": "U guda"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Vhidzani vhathu u itela  Phurojeke",
+      "collaborate": "U shumisana",
+      "collections": "Kuvhanganyelwe",
+      "donate": "Ṋea",
+      "educate": "U funza",
+      "education": "Pfunzo",
+      "getInvolved": "Dzhenelelani",
+      "volunteer": "Maḓilonga"
+    },
+    "newsLabels": {
+      "blog": "Blogo",
+      "dailyZooniverse": "Zooniverse ya Ḓuvha ḽiṅwe na ḽiṅwe",
+      "news": "Mafhungo"
+    },
+    "policyLabels": {
+      "jobs": "Mishumo",
+      "privacyPolicy": "Mbekanyamaitele ya zwa vhuṋe",
+      "security": "U tsireledzea",
+      "systemStatus": "Tshiimo tsha Sisiṱeme"
+    },
+    "projectLabels": {
+      "arts": "Vhutsila",
+      "biology": "Ḓivhavhutshilo",
+      "climate": "Kilima",
+      "history": "Ḓivhazwakale",
+      "language": "Luambo",
+      "literature": "Bugu",
+      "medicine": "Mushonga",
+      "nature": "Mupo",
+      "physics": "Fisika",
+      "projects": "Phurojeke",
+      "social": "Saintsi ya Matshilisano",
+      "space": "Tshikhala"
+    },
+    "tagLine": "Tsedzuluso yo Ṱuṱuwedzwaho nga Vhathu",
+    "talkLabels": {
+      "announcements": "Nḓivhadzo",
+      "data": "U shuma ha datha",
+      "projectBuilding": "U fhaṱa phurojeke",
+      "talk": "Nyambo",
+      "troubleshooting": "U tandulula thaidzo"
+    },
+    "zooniversePolicies": "Mbekanyamaitele dza Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Akhaunthu ya mushumisi",
+      "navListLabels": {
+        "messages_one": "Milaedza{{count}}",
+        "messages_other": "Milaedza{{count}}",
+        "messages_zero": "Milaedza",
+        "notifications_one": "Nḓivhadzo{{count}}",
+        "notifications_other": "Nḓivhadzo{{count}}",
+        "notifications_zero": "Nḓivhadzo"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Ṅwalisa",
+      "signIn": "Dzhenani"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Tshintshelani fhethu ho swifhalaho",
+      "switchToLight": "Tshintshelani fhethu hu vhonadzaho"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "u kuvhanganya",
+        "favorites": "Zwine nda zwi funesa",
+        "profile": "Phurofaiḽi",
+        "settings": "Zwishumiswa",
+        "signOut": "I bvani"
+      }
+    },
+    "ariaLabel": "Fhethu",
+    "mainHeaderNavListLabels": {
+      "about": "Nga ha",
+      "build": "Fhaṱa",
+      "getInvolved": "dzhenelela",
+      "projects": "Phurojeke",
+      "talk": "Nyambo"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Logo ya Zooniverse niverse"
+  }
+}

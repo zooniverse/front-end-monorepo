@@ -1,54 +1,288 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Ten materiał został już przez Ciebie wyświetlony",
+      "tooltipText": [
+        "Ten materiał został już przez Ciebie wyświetlony i sklasyfikowany, dlatego dalsze klasyfikacje nie będą uwzględniane przy jego analizie.",
+        "Jeśli chcesz pomóc, spróbuj wybrać inny przepływ pracy lub dołącz do innego projektu."
+      ]
+    },
     "Banner": {
-      "next": "Następny"
+      "next": "Następny",
+      "previous": "Poprzedni",
+      "whyAmISeeingThis": "Dlaczego to widzę?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Anuluj",
+      "confirm": "Potwierdź",
+      "inProgress": "Czy na pewno chcesz przejść do innego materiału? Wszelkie adnotacje dodane do bieżącego materiału zostaną utracone."
+    },
+    "RetiredBanner": {
+      "bannerText": "Zakończono: ten materiał nie jest już aktywny",
+      "tooltipText": [
+        "Ten materiał zawiera już dostateczną liczbę klasyfikacji, dlatego Twoja klasyfikacja nie zostanie wykorzystana w analizie.",
+        "Jeśli chcesz pomóc, spróbuj wybrać inny przepływ pracy lub dołącz do innego projektu."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Już wyświetlano",
+      "bannerText": "{{setName}}: Materiał {{number}}\/{{total}}",
+      "finished": "Zakończono",
+      "tooltipText": [
+        "Ten projekt umożliwia wolontariuszom przeglądanie materiałów w zadanej kolejności.",
+        "Ta wartość wskazuje pozycję Twojego materiału w grupie wszystkich materiałów."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Zakończono: pokazaliśmy Ci już wszystkie materiały.",
+      "tooltipText": [
+        "Udało Ci się ukończyć wszystkie klasyfikacje w tym przepływie pracy, więc dodatkowe klasyfikacje do tego materiału nie będą uwzględniane w analizie.",
+        "Jeśli chcesz pomóc, spróbuj wybrać inny przepływ pracy lub dołącz do innego projektu."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Ten przepływ pracy został zakończony",
+      "tooltipText": [
+        "Wszystkie materiały w tym przepływie pracy zostały ukończone, więc dodatkowe klasyfikacje do tego materiału nie będą uwzględniane w analizie.",
+        "Jeśli chcesz pomóc, spróbuj wybrać inny przepływ pracy lub dołącz do innego projektu."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Uchwyt do obracania narysowanej adnotacji lub znacznika."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Dalej"
+    "keepClassifying": "Dalej",
+    "label": "Opinia"
   },
   "FieldGuide": {
-    "title": "Przewodnik",
     "FieldGuideButton": {
       "buttonLabel": "Przewodnik"
     },
     "FieldGuideItem": {
       "ariaTitle": "Wstecz"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Wybierz {{title}}"
+    },
+    "title": "Przewodnik"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Dodaj adnotację"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Wyświetl widok w normalnym rozmiarze",
+        "fullscreen": "Wyświetl widok w trybie pełnoekranowym"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Zamień materiał"
+    },
+    "MoveButton": {
+      "ariaLabel": "Przesuń widok"
+    },
+    "ResetButton": {
+      "ariaLabel": "Resetuj widok"
+    },
+    "RotateButton": {
+      "ariaLabel": "Obróć widok"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Powiększ widok"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Pomniejsz widok"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Dodaj do kolekcji"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Ukryj poprzednie znaczniki",
+      "show": "Pokaż poprzednie znaczniki"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Ukryj wszystkie znaczniki",
+      "show": "Pokaż wszystkie znaczniki",
+      "showUser": "Pokaż własne znaczniki"
+    },
+    "MetadataButton": {
+      "label": "Informacje o temacie"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Etykieta",
+        "value": "Wartość"
+      },
+      "title": "Metadane materiału"
     }
   },
   "ModalTutorial": {
     "title": "Samouczek"
   },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Zamknij panel komentarzy",
+      "goToTalk": "Przejdź do dyskusji na temat materiału w sekcji Dyskusja",
+      "mainPanel": "Panel komentarzy QuickTalk",
+      "openButton": "Do materiału dodano następującą liczbę komentarzy: {{count}}. Kliknij, aby rozwinąć.",
+      "panelContent": "Komentarze w dyskusji na temat materiału",
+      "panelHeading": "Dyskusja na temat materiału"
+    },
+    "errors": {
+      "failPostComment": "Nie udało się dodać komentarzy do istniejącej dyskusji.",
+      "failPostDiscussion": "Nie udało się dodać komentarzy do nowej dyskusji.",
+      "noBoard": "Tablica na komentarze na temat materiału nie została jeszcze skonfigurowana dla tego projektu.",
+      "noText": "Nie można zamieścić pustego komentarza.",
+      "noUser": "Użytkownik niezalogowany."
+    },
+    "loginToPost": "Zaloguj się, aby dodać komentarz.",
+    "status": {
+      "initialized": "Dodaj notatkę na temat tego materiału",
+      "loading": "Zamieszczanie komentarza...",
+      "success": "Dodano komentarz!"
+    },
+    "subjectHasNoComments": "Ten materiał nie był jeszcze komentowany."
+  },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Idź do kroku {{index}}",
+      "next": "Idź do następnego kroku",
+      "previous": "Idź do poprzedniego kroku"
+    },
+    "alt": "Krok {{activeStep}} samouczka",
+    "error": "Nie udało się wczytać kroku samouczka.",
     "getStarted": "Zaczynaj",
     "heading": "{{projectDisplayName}} Samouczek"
   },
+  "StepNavigation": {
+    "go": "Idź do kroku {{index}}",
+    "next": "Idź do następnego kroku",
+    "previous": "Idź do poprzedniego kroku"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Wykres słupkowy"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Ikona przeglądarki tekstowej"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Zamknij bez zapisywania",
+        "confirm": "Czy na pewno chcesz zamknąć? Ten znacznik zostanie usunięty.",
+        "keepWorking": "Kontynuuj pracę"
+      },
+      "SaveButton": {
+        "save": "Zapisz i zamknij"
+      },
+      "SubTaskPopup": {
+        "notRender": "Nie udało się zrenderować komponentu zadania.",
+        "required": "To zadanie jest wymagane."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "zagregowana transkrypcja",
+          "explanation": "Te transkrypcje ({{count}}) zostały przesłane przez poprzednich wolontariuszy i nie można ich modyfikować.",
+          "noAggregation": "Brak dostępnej agregacji.",
+          "title": "Poprzednie transkrypcje",
+          "transcriptionsUnavailable": "Transkrypcje niedostępne."
+        },
+        "complete": "Transkrypcja ukończona",
+        "transcribed": "Zawiera transkrypcje"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Następny"
+        "nextFrameLabel": "Następny",
+        "previousFrameLabel": "Poprzednia",
+        "thumbnailAltText": "Miniatura obrazu"
       }
-    }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Usuń zaznaczenie {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Przełącz na widok poklatkowy",
+        "switchToSeparateFrames": "Przełącz na widok poszczególnych klatek"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Podczas wczytywania materiału wystąpił błąd."
+    },
+    "VariableStarViewer": {
+      "controls": "opcje sterowania",
+      "figCaption": "Diagram Hertzsprunga-Russella",
+      "flip": "obróć",
+      "focus": "przybliż",
+      "highlight": "zaznacz",
+      "imageTitle": "Diagram Hertzsprunga-Russella: zależność między jasnością a temperaturą",
+      "label": "Filtruj {{id}}",
+      "periodMultiple": "mnożnik okresu",
+      "phase": "faza",
+      "phaseFocus": "przybliżenie fazy"
+    },
+    "VideoController": {
+      "closeVolume": "Zamknij suwak głośności",
+      "fullscreen": "Wyświetl film na pełnym ekranie",
+      "openVolume": "Otwórz suwak głośności",
+      "pause": "Wstrzymaj film",
+      "play": "Odtwórz film",
+      "playbackSpeed": "Wybór prędkości odtwarzania filmu",
+      "scrubber": "Suwak odtwarzacza",
+      "volumeSlider": "Suwak głośności"
+    },
+    "ZoomControlButton": {
+      "disable": "wyłącz powiększenie",
+      "enable": "włącz powiększenie"
+    },
+    "loading": "Wczytywanie materiału",
+    "zoomHelp": "Aby zmienić powiększenie, naciśnij klawisz CTRL i obróć kółkiem myszy"
   },
   "TaskArea": {
-    "task": "Zadanie",
-    "tutorial": "Samouczek",
+    "DisabledTaskPopup": {
+      "body": "Ten materiał ma już wystarczającą liczbę klasyfikacji, dlatego dodatkowo przesłane klasyfikacje nie zostaną wykorzystane przy jego analizie. Możesz jednak przeglądać ten materiał w charakterze materiału referencyjnego.",
+      "options": {
+        "dismiss": "Odrzuć",
+        "next": "Kolejny dostępny materiał",
+        "select": "Wybierz nowy materiał"
+      },
+      "title": "Zakończone"
+    },
     "Tasks": {
       "BackButton": {
         "back": "Wstecz"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Gotowe & Lista dyskusyjna"
+        "doneAndTalk": "Gotowe & Lista dyskusyjna",
+        "newTab": "w nowej karcie"
       },
       "DoneButton": {
         "done": "Gotowe"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Tryb demonstracyjny",
+        "label": "Opcje eksperta"
       },
       "NextButton": {
         "next": "Następny"
       },
       "TaskHelp": {
+        "close": "Zamknij",
         "label": "Potrzebujesz pomocy?"
-      }
-    }
+      },
+      "demoMode": "W trybie demonstracyjnym klasyfikacje nie zostaną zapisane. Służy on do szybkiej, niedokładnej demonstracji interfejsu klasyfikacji.",
+      "error": "Coś poszło nie tak",
+      "loading": "Wczytywanie",
+      "renderFallback": "Nie udało się zrenderować komponentu zadania."
+    },
+    "task": "Zadanie",
+    "tutorial": "Samouczek"
   }
 }

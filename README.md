@@ -1,10 +1,5 @@
 # Zooniverse Front-End Monorepo
 
-[![Build Status](https://travis-ci.com/zooniverse/front-end-monorepo.svg?branch=master)](https://travis-ci.com/zooniverse/front-end-monorepo)
-[![Coverage Status](https://coveralls.io/repos/github/zooniverse/front-end-monorepo/badge.svg?branch=master)](https://coveralls.io/github/zooniverse/front-end-monorepo?branch=master)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
-
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/master/LICENSE.md)
 ![Contributors](https://img.shields.io/github/contributors/zooniverse/front-end-monorepo.svg)
 
@@ -29,17 +24,17 @@
 ## Requirements
 
 - [Browser support](docs/arch/adr-4.md)
-- Node 20
+- Node 22
 - Git
-- Yarn
+- pnpm
 
-Node, git, and yarn can be installed through [homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of homebrew
+Node, git, and pnpm can be installed through [homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of homebrew
 
 ## Monowhat?
 
-This monorepo is managed with [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
+This monorepo is managed with pnpm Workspaces
 
-Yarn Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
+Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Getting started
 
@@ -60,12 +55,12 @@ git checkout production-release
 Run the bootstrap script to build all the libraries and apps. You can use `bootstrap:es6` here for a faster build if you don't want to run the tests.
 
 ```sh
-yarn bootstrap
+pnpm bootstrap
 ```
 
 ### Docker
 
-You can run the code locally in Docker, which avoids needing to install Node or yarn.
+You can run the code locally in Docker, which avoids needing to install Node or pnpm.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
@@ -78,10 +73,6 @@ docker compose build
 docker compose up -d
 # shut down the running containers when you're finished
 docker compose down
-# run this if you need a shell inside the dev container
-docker compose run --rm dev-shell
-# run this for a shell inside the production container
-docker compose run --rm prod-shell
 ```
 
 You can supply a service name (from `docker-compose.yml`) to `docker compose` if you only want to run a single service eg.
@@ -101,23 +92,19 @@ docker compose up -d
 docker compose down
 ```
 
-Tip: If you're an occasional Docker Desktop user, remember to `docker image prune`.
+Tip: If you're an occasional Docker Desktop user, remember to `docker image prune` or `docker system prune`.
 
-### With Node and yarn
+### With Node and pnpm
 
-Alternatively, you can install Node 20 and yarn and build the monorepo packages.
+Alternatively, you can install Node and pnpm and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
 cd front-end-monorepo
-yarn bootstrap
+pnpm bootstrap
 ```
 
 The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
-
-## Helpful Guides
-
-- [Yarn docs](https://yarnpkg.com/en/docs)
 
 ## Packages
 
@@ -158,7 +145,7 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 FEM's storybook can be viewed at [https://zooniverse.github.io/front-end-monorepo/](https://zooniverse.github.io/front-end-monorepo/).
 
-To deploy the latest version FEM's storybook, make sure you have pulled the latest production version and run `yarn bootstrap` then `yarn deploy-storybook`.
+To deploy the latest version FEM's storybook, make sure you have pulled the latest production version and run `pnpm bootstrap` then `pnpm deploy-storybook`.
 
 ### Environment variables
 
@@ -166,7 +153,7 @@ To deploy the latest version FEM's storybook, make sure you have pulled the late
   - `production` will use `https://www.zooniverse.org/api`
   - `staging` will use `https://panoptes-staging.zooniverse.org/api`.
 
-The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
+The pnpm build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
 - `NODE_ENV`: the [webpack build mode](https://webpack.js.org/configuration/mode/) for libraries and the NextJS apps (production, development or undefined.)
 - `APP_ENV`: the deployment environment, logged as the [Sentry environment](https://docs.sentry.io/product/sentry-basics/environments/) with errors:
   - `development`: local development on `localhost` or `local.zooniverse.org`.
@@ -180,20 +167,20 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 
 ### Docker images
 
-- `zooniverse/front-end-monorepo-staging`: Built from the Dockerfile in the root directory. It runs `yarn install` and builds all the libraries and apps from the latest main branch commit.
-- `zooniverse/front-end-monorepo-production`: Built from the Dockerfile in the root directory. It runs `yarn install` and builds all the libraries and apps from the `production_release` tag.
+- `zooniverse/front-end-monorepo-staging`: Built from the Dockerfile in the root directory. It runs `pnpm install` and builds all the libraries and apps from the latest main branch commit.
+- `zooniverse/front-end-monorepo-production`: Built from the Dockerfile in the root directory. It runs `pnpm install` and builds all the libraries and apps from the `production_release` tag.
 
 ### Publishing
 When publishing an individual package to [npm](https://www.npmjs.com/), first cd into the repo you would like to deploy (within the packages folder), then:
 1. Update changelog and commit
-1. `yarn version --major|--minor|--patch --no-git-tag-version` (use the desired semvar here)
+1. `pnpm version --major|--minor|--patch --no-git-tag-version` (use the desired semvar here)
 1. Update other packages to reference the newly updated package version
     - Ex: If updating lib-react-components to 1.0.0 from 0.7.2
     - lib-classifier should point to the new 1.0.0 version of lib-react-components
 1. `git push origin name-of-branch`
 1. Merge branch
 1. Checkout master, pull for latest
-1. Build the package with `yarn build` from the package dir, where available
+1. Build the package with `pnpm build` from the package dir, where available
 1. Publish using `npm`:
     - Sanity check: if you're using `nvm` (Node Version Manager), make sure you've switched to the latest version of node/npm
     - Check that you're publishing the correct version by running `npm publish --dry-run` from the package dir

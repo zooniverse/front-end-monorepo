@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Nhấn và kéo từ điểm mở đến điểm đóng hoặc nhấp đúp vào bất kỳ vị trí nào trên dòng để tạo điểm nối",
+    "closePoint": "Nhấn vào bất kỳ vị trí nào trên dòng để đặt điểm đóng",
+    "inactive": "Nhấn để chỉnh sửa dòng này",
+    "spliceDrag": "Nhấn và kéo từ điểm mở đến điểm đóng",
+    "splicePoint": "Nhấn đúp vào bất kỳ vị trí nào trên dòng để tạo điểm nối"
+  },
+  "HighlighterTask": {
+    "delete": "Xóa",
+    "noLabels": "Không có nhãn cho Nhiệm vụ Tô sáng",
+    "status": "{{count}} đã được đánh dấu"
+  },
+  "InputStatus": {
+    "drawn": "Đã rút {{count}} mục",
+    "max": "Đã rút {{count}} trong tổng số tối đa {{max}} mục",
+    "maxAndMin": "Đã chọn {{count}} trong số tối thiểu {{min}}, tối đa {{max}} mục được chọn",
+    "min": "Đã chọn {{count}} trên tối thiểu {{min}} mục cần thiết"
+  },
+  "LineControls": {
+    "close": "Đóng",
+    "delete": "Xóa",
+    "deleteCancel": "Hủy xóa",
+    "deleteConfirm": "Xác nhận xóa",
+    "lineControls": "Điều khiển dòng",
+    "move": "Di chuyển",
+    "redo": "Làm lại",
+    "undo": "Hoàn tác"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Nhập gì đó",
+    "otherLabel": "Khác...",
+    "selectPlaceholder": "Chọn một câu trả lời"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Xóa bộ lọc",
+      "closeFilters": "Đóng bộ lọc",
+      "filter": "Bộ lọc",
+      "removeFilter": "Xóa bộ lọc {{valueLabel}}",
+      "showing": "Đang hiển thị {{showing}} trong tổng số {{total}}"
+    },
+    "Choice": {
+      "cancel": "Hủy",
+      "identify": "Xác định",
+      "lessInfo": "Ít thông tin hơn",
+      "moreInfo": "Thêm thông tin",
+      "notThis": "Không phải cái này"
+    },
+    "ChoiceButton": {
+      "identified": "đã xác định",
+      "openSubmenu": "Mở menu phụ cho {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Hủy",
+      "confused": "Thỉnh thoảng bị nhầm với",
+      "itsThis": "Tôi nghĩ là cái này"
+    },
+    "DeleteButton": {
+      "delete": "Xóa lựa chọn {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Đặt lại"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Bộ chỉnh sửa văn bản"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Đã tạo bản chép lời",
+    "editing": "Đang chỉnh sửa bản chép lời"
+  }
+}

@@ -48,7 +48,7 @@ function CertificateContainer({
   if (selectedEndDate === undefined) {
     selectedEndDate = new Date().toISOString().substring(0, 10)
   }
-  // set start date per query params or user.created_at
+  // set start date per query params or default to user.created_at
   let selectedStartDate = startDate
   if (selectedStartDate === undefined) {
     selectedStartDate = user?.created_at?.substring(0, 10)

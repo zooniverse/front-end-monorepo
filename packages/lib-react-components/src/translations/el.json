@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Λειτουργία διαχειριστή"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Το όνομα χρήστη ή ο κωδικός πρόσβασης είναι λανθασμένα",
+      "forgot": "Ξεχάσατε τον κωδικό πρόσβασής σας;",
+      "heading": "Καλώς ήρθατε!",
+      "instruction": "Χαιρόμαστε που σας βλέπουμε! Συνδεθείτε για να συνεχίσετε από το σημείο που μείνατε.",
+      "login": "Όνομα χρήστη ή διεύθυνση email",
+      "password": "Κωδικός πρόσβασης",
+      "placeholder": "π.χ. ZooniverseFan123",
+      "signIn": "Είσοδος"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Θέλω να βοηθήσω ελέγχοντας νέα έργα και να λαμβάνω email όταν είναι διαθέσιμα (προαιρετικό)",
+      "email": "Διεύθυνση email (απαιτείται)",
+      "emailConfirm": "Επιβεβαίωση διεύθυνσης email (απαιτείται)",
+      "emailConfirmError": "Οι διευθύνσεις email δεν συμφωνούν, προσπαθήστε ξανά.",
+      "emailConflict": "Υπάρχει ήδη λογαριασμός με αυτήν τη διεύθυνση",
+      "emailListSignUp": "Δέχομαι να λαμβάνω email κατά περιόδους (προαιρετικό)",
+      "emailPlaceholder": "π.χ. zoofan31@gmail.com",
+      "forgot": "Ξεχάσατε τον κωδικό πρόσβασής σας;",
+      "heading": "Καλώς ήρθατε!",
+      "instruction": "Δημιουργήστε έναν λογαριασμό για να αρχίσετε να κάνετε πραγματική έρευνα.",
+      "password": "Κωδικός πρόσβασης (απαιτείται)",
+      "passwordConfirm": "Επιβεβαίωση κωδικού πρόσβασης (απαιτείται)",
+      "passwordConfirmError": "Οι κωδικοί πρόσβασης δεν συμφωνούν, προσπαθήστε ξανά.",
+      "privacyAgreement": "Αποδέχεστε την πολιτική απορρήτου μας (απαιτείται)",
+      "privacyAgreementError": "Η αποδοχή της πολιτικής απορρήτου είναι υποχρεωτική.",
+      "privacyLink": "Διαβάστε την πολιτική απορρήτου μας",
+      "realName": "Πραγματικό όνομα (προαιρετικό)",
+      "realNameHelp": "Θα το χρησιμοποιούμε για να σας αναφέρουμε σε επιστημονικές διατριβές, αφίσες κ.λπ.",
+      "realNamePatternHelp": "Πληκτρολογήστε ένα όνομα, όχι μια διεύθυνση email",
+      "realNamePlaceholder": "π.χ. Maggie Smith",
+      "register": "Εγγραφή",
+      "registering": "Εγγραφή...",
+      "underageConsent": "Επιβεβαιώνω ότι είμαι ο γονέας\/κηδεμόνας και δίνω την άδειά μου προκειμένου να εγγραφεί το παιδί μου, παρέχοντας τη διεύθυνση email μου ως βασική διεύθυνση επικοινωνίας. Εγώ και το παιδί μου κατανοούμε και αποδεχόμαστε την πολιτική απορρήτου (απαιτείται)",
+      "underageEmail": "Διεύθυνση email γονέα\/κηδεμόνα (απαιτείται)",
+      "underageEmailSignUp": "Εάν συμφωνείτε, θα σας στέλνουμε κατά καιρούς προωθητικά mail για νέα ερευνητικά έργα ή άλλες πληροφορίες σχετικά με την έρευνά μας. Δεν θα χρησιμοποιούμε τα στοιχεία επικοινωνίας σας για εμπορικούς σκοπούς. (προαιρετικό)",
+      "underageNotRealName": "Θα χρησιμοποιείτε αυτό το όνομα για να συνδέεστε. Θα εμφανίζεται δημόσια. Μη χρησιμοποιήσετε το πραγματικό σας όνομα.",
+      "underageWithParent": "Εάν είστε κάτω των 16 ετών, επιλέξτε αυτό το πλαίσιο για να επιβεβαιώσετε ότι συμπληρώσατε τη φόρμα μαζί με τον γονέα ή κηδεμόνα σας.",
+      "username": "Όνομα χρήστη (απαιτείται)",
+      "usernameConflict": "Αυτό το όνομα χρήστη χρησιμοποιείται",
+      "usernameHelp": "Αυτό θα εμφανίζεται δημόσια στους πίνακες μηνυμάτων κ.λπ.",
+      "usernamePatternHelp": "Τα ονόματα χρηστών επιτρέπεται να περιέχουν μόνο γράμματα, αριθμούς και τους χαρακτήρες '.','-' και '_'",
+      "usernamePlaceholder": "π.χ. ZooniverseFan123"
+    },
+    "title": "Συνδεθείτε ή δημιουργήστε έναν καινούριο λογαριασμό."
+  },
+  "CloseButton": {
+    "close": "Κλείσιμο"
+  },
+  "FavouritesButton": {
+    "add": "Προσθήκη στα αγαπημένα",
+    "remove": "Προστέθηκε στα αγαπημένα"
+  },
+  "Loader": {
+    "loading": "Φόρτωση"
+  },
+  "ProjectCard": {
+    "classifications": "Ταξινομήσεις",
+    "finished": "Ολοκληρωμένο",
+    "paused": "Σε παύση",
+    "state": "Κατάσταση"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Πληροφορίες",
+      "acknowledgements": "Ευχαριστήρια",
+      "contact": "Επικοινωνία",
+      "faq": "Συχνές ερωτήσεις",
+      "publications": "Δημοσιεύσεις",
+      "resources": "Πόροι",
+      "team": "Ομάδα"
+    },
+    "buildLabels": {
+      "bestPractices": "Βέλτιστες πρακτικές",
+      "buildAProject": "Δημιουργήστε ένα έργο",
+      "glossary": "Γλωσσάρι",
+      "policies": "Πολιτικές",
+      "tutorial": "Εκπαιδευτικό υλικό"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Κάλεσμα για Έργα",
+      "collaborate": "Συνεργασία",
+      "collections": "Συλλογές",
+      "donate": "Δωρεές",
+      "educate": "Επιμόρφωση",
+      "education": "Εκπαίδευση",
+      "getInvolved": "Συμμετοχή",
+      "volunteer": "Εθελοντής"
+    },
+    "newsLabels": {
+      "blog": "Ιστολόγιο",
+      "dailyZooniverse": "Καθημερινό Zooniverse",
+      "news": "Ειδήσεις"
+    },
+    "policyLabels": {
+      "jobs": "Θέσεις εργασίας",
+      "privacyPolicy": "Πολιτική απορρήτου",
+      "security": "Ασφάλεια",
+      "systemStatus": "Κατάσταση συστήματος"
+    },
+    "projectLabels": {
+      "arts": "Τέχνες",
+      "biology": "Βιολογία",
+      "climate": "Κλίμα",
+      "history": "Ιστορία",
+      "language": "Φιλολογία",
+      "literature": "Λογοτεχνία",
+      "medicine": "Ιατρική",
+      "nature": "Φύση",
+      "physics": "Φυσική",
+      "projects": "Έργα",
+      "social": "Κοινωνικές επιστήμες",
+      "space": "Διάστημα"
+    },
+    "tagLine": "Έρευνα με επίκεντρο τον άνθρωπο",
+    "talkLabels": {
+      "announcements": "Ανακοινώσεις",
+      "data": "Επεξεργασία δεδομένων",
+      "projectBuilding": "Δημιουργία έργου",
+      "talk": "Συνομιλία",
+      "troubleshooting": "Αντιμετώπιση προβλημάτων"
+    },
+    "zooniversePolicies": "Πολιτικές Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Λογαριασμός χρήστη",
+      "navListLabels": {
+        "messages_one": "Μηνύματα ({{count}})",
+        "messages_other": "Μηνύματα ({{count}})",
+        "messages_zero": "Μηνύματα",
+        "notifications_one": "Ειδοποιήσεις ({{count}})",
+        "notifications_other": "Ειδοποιήσεις ({{count}})",
+        "notifications_zero": "Ειδοποιήσεις"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Εγγραφή",
+      "signIn": "Είσοδος"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Εναλλαγή σε σκουρόχρωμο θέμα",
+      "switchToLight": "Εναλλαγή σε ανοιχτόχρωμο θέμα"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Συλλογές",
+        "favorites": "Αγαπημένα",
+        "profile": "Προφίλ",
+        "settings": "Ρυθμίσεις",
+        "signOut": "Έξοδος"
+      }
+    },
+    "ariaLabel": "Τοποθεσία",
+    "mainHeaderNavListLabels": {
+      "about": "Πληροφορίες",
+      "build": "Δημιουργία",
+      "getInvolved": "Συμμετοχή",
+      "projects": "Έργα",
+      "talk": "Συνομιλία"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Λογότυπο Zooniverse"
+  }
+}

@@ -1,0 +1,5 @@
+export { addTagVote } from './addTagVote'
+export { createComment } from './createComment'
+export { createDiscussion } from './createDiscussion'
+export { createVotableTag } from './createVotableTag'
+export { removeTagVote } from './removeTagVote'

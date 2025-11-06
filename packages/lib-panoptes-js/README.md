@@ -4,7 +4,7 @@ A Javascript client for [Panoptes API](https://github.com/zooniverse/Panoptes) u
 
 ## Description
 
-A new take on a javascript client for [Panoptes](https://github.com/zooniverse/Panoptes). This client is designed to be stateless. It is up to the consumers of the library to decide how to store the responses from Panoptes as state. 
+A new take on a javascript client for [Panoptes](https://github.com/zooniverse/Panoptes). This client is designed to be stateless. It is up to the consumers of the library to decide how to store the responses from Panoptes as state.
 
 TODO: Add documentation about consumer apps of this library like the classifier app.
 
@@ -39,12 +39,10 @@ The repository contains readme files under each sub-folder.
 Run the tests by command line:
 
 ```
-npm test
+pnpm test
 ```
 
-Tests are run by [Mocha](https://mochajs.org/), using the [BDD](https://mochajs.org/#bdd) interface.
-
-Assertions are provided by the [Chai](http://www.chaijs.com/) assertion library.
+Tests are run by [Vitest](https://vitest.dev)
 
 Panoptes API data fixture mocks are built on top of [nock](https://github.com/nock/nock) plugin.
 

@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
 import * as client from '@zooniverse/panoptes-js'
-import { expect } from 'chai'
 import { when } from 'mobx'
 import nock from 'nock'
 
@@ -81,13 +80,13 @@ describe('stores > User', function () {
   })
 
   it('should exist', function () {
-    expect(userStore).to.be.ok()
+    expect(userStore).toBeDefined()
   })
 
   it('should set the user', function () {
-    expect(userStore.id).to.be.null()
-    expect(userStore.login).to.be.null()
-    expect(userStore.display_name).to.be.null()
+    expect(userStore.id).to.equal(null)
+    expect(userStore.login).to.equal(null)
+    expect(userStore.display_name).to.equal(null)
 
     userStore.set(user)
 
@@ -105,9 +104,9 @@ describe('stores > User', function () {
 
     userStore.clear()
 
-    expect(userStore.id).to.be.null()
-    expect(userStore.login).to.be.null()
-    expect(userStore.display_name).to.be.null()
+    expect(userStore.id).to.equal(null)
+    expect(userStore.login).to.equal(null)
+    expect(userStore.display_name).to.equal(null)
   })
 
   describe('with an existing user session', function () {

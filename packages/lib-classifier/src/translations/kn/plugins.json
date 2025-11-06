@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "ಸ್ಪ್ಲೈಸ್ ಪಾಯಿಂಟ್ ರಚಿಸಲು ತೆರೆದ ಪಾಯಿಂಟ್‌ನಿಂದ ಮುಕ್ತಾಯದ ಪಾಯಿಂಟ್‌ಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಮತ್ತು ಡ್ರ‍್ಯಾಗ್‌ ಮಾಡಿ ಅಥವಾ ಲೈನ್‌ ಮೇಲೆ ಎಲ್ಲಿಯಾದರೂ ಡಬಲ್ ಕ್ಲಿಕ್ ಮಾಡಿ",
+    "closePoint": "ಕ್ಲೋಸ್ ಪಾಯಿಂಟ್ ಹೊಂದಿಸಲು ಲೈನ್‌ ಮೇಲೆ ಎಲ್ಲಿಯಾದರೂ ಕ್ಲಿಕ್ ಮಾಡಿ",
+    "inactive": "ಈ ಲೈನ್‌ ಅನ್ನು ಎಡಿಟ್‌ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ",
+    "spliceDrag": "ತೆರೆದ ಪಾಯಿಂಟ್‌ನಿಂದ ಮುಕ್ತಾಯದ ಪಾಯಿಂಟ್‌ಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಡ್ರ‍್ಯಾಗ್‌ ಮಾಡಿ",
+    "splicePoint": "ಸ್ಪ್ಲೈಸ್ ಪಾಯಿಂಟ್ ರಚಿಸಲು ಲೈನ್‌ ಮೇಲೆ ಎಲ್ಲಿಯಾದರೂ ಡಬಲ್ ಕ್ಲಿಕ್ ಮಾಡಿ"
+  },
+  "HighlighterTask": {
+    "delete": "ಅಳಿಸಿ",
+    "noLabels": "ಹೈಲೈಟರ್ ಕಾರ್ಯಕ್ಕೆ ಯಾವುದೇ ಲೇಬಲ್‌ಗಳಿಲ್ಲ",
+    "status": "{{count}} ಗುರುತಿಸಲಾಗಿದೆ"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} ಚಿತ್ರಿಸಲಾಗಿದೆ",
+    "max": "ಗರಿಷ್ಠವಾಗಿ {{max}} ರಲ್ಲಿನ {{count}} ಚಿತ್ರಿಸಲಾಗಿದೆ",
+    "maxAndMin": "ಅಗತ್ಯವಿರುವ {{min}} ರಲ್ಲಿನ {{count}}, ಗರಿಷ್ಠವಾಗಿ {{max}} ಚಿತ್ರಿಸಲಾಗಿದೆ",
+    "min": "ಅಗತ್ಯವಿರುವ {{min}} ರಲ್ಲಿನ {{count}} ಚಿತ್ರಿಸಲಾಗಿದೆ"
+  },
+  "LineControls": {
+    "close": "ಮುಚ್ಚಿ",
+    "delete": "ಅಳಿಸಿ",
+    "deleteCancel": "ಅಳಿಸುವಿಕೆಯನ್ನು ರದ್ದುಗೊಳಿಸಿ",
+    "deleteConfirm": "ಅಳಿಸುವಿಕೆಯನ್ನು ದೃಢೀಕರಿಸಿ",
+    "lineControls": "ಲೈನ್ ನಿಯಂತ್ರಣಗಳು",
+    "move": "ಸರಿಸಿ",
+    "redo": "ರೀಡೂ ಮಾಡಿ",
+    "undo": "ಅನ್‌ಡೂ ಮಾಡಿ"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "ಏನನ್ನಾದರೂ ನಮೂದಿಸಿ",
+    "otherLabel": "ಇತರೆ...",
+    "selectPlaceholder": "ಉತ್ತರವನ್ನು ಆರಿಸಿ"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "ಫಿಲ್ಟರ್‌ಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ",
+      "closeFilters": "ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಮುಚ್ಚಿ",
+      "filter": "ಫಿಲ್ಟರ್",
+      "removeFilter": "{{valueLabel}} ಫಿಲ್ಟರ್ ತೆಗೆದುಹಾಕಿ",
+      "showing": "{{total}} ರಲ್ಲಿನ {{showing}} ಅನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ"
+    },
+    "Choice": {
+      "cancel": "ರದ್ದು ಮಾಡಿ",
+      "identify": "ಗುರುತಿಸಿ",
+      "lessInfo": "ಕಡಿಮೆ ಮಾಹಿತಿ",
+      "moreInfo": "ಹೆಚ್ಚಿನ ಮಾಹಿತಿ",
+      "notThis": "ಇದಲ್ಲ"
+    },
+    "ChoiceButton": {
+      "identified": "ಗುರುತಿಸಲಾಗಿದೆ",
+      "openSubmenu": "{{choiceLabel}} ಗಾಗಿ ಸಬ್‌ಮೆನುವನ್ನು ತೆರೆಯಿರಿ"
+    },
+    "ConfusedWith": {
+      "cancel": "ರದ್ದು ಮಾಡಿ",
+      "confused": "ಕೆಲವೊಮ್ಮೆ ಇದರೊಂದಿಗೆ ಗೊಂದಲವಾಗುತ್ತದೆ",
+      "itsThis": "ಅದು ಇದು ಎಂದು ನನಗೆ ಅನ್ನಿಸುತ್ತದೆ"
+    },
+    "DeleteButton": {
+      "delete": "{{choiceLabel}} ಆಯ್ಕೆಯನ್ನು ಅಳಿಸಿ"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "ರಿಸೆಟ್‌ ಮಾಡಿ"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "ಟೆಕ್ಸ್ಟ್‌ (ಪಠ್ಯ) ಮಾರ್ಪಾಡುಗಳು"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "ಲಿಪ್ಯಂತರವನ್ನು ರಚಿಸಲಾಗಿದೆ (ರಚಿಸಲಾದ ಲಿಪ್ಯಂತರ)",
+    "editing": "ಲಿಪ್ಯಂತರವನ್ನು ಎಡಿಟ್‌ ಮಾಡಲಾಗುತ್ತಿದೆ"
+  }
+}

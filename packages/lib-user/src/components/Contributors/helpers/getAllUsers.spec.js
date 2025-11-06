@@ -24,7 +24,7 @@ describe('getAllUsers', function () {
     const result = await getAllUsers({ memberIdsPerStats, setExportProgress: setExportProgressStub })
 
     expect(result).to.deep.equal(users)
-    expect(setExportProgressStub.calledOnceWith(100)).to.be.true()
+    expect(setExportProgressStub.calledOnceWith(100)).toBeTruthy()
   })
 
   it('should return all users when memberIdsPerStats is more than CHUNK_SIZE', async function () {

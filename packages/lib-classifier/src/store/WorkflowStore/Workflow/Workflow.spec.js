@@ -6,7 +6,6 @@ import Workflow from './Workflow'
 
 import { MultipleChoiceTaskFactory, SubjectSetFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import { expect } from 'chai'
 
 describe('Model > Workflow', function () {
   it('should exist', function () {
@@ -26,33 +25,33 @@ describe('Model > Workflow', function () {
     })
 
     it('should not be grouped', function () {
-      expect(workflow.grouped).to.be.false()
+      expect(workflow.grouped).to.equal(false)
     })
 
     it('should not be prioritised', function () {
-      expect(workflow.prioritized).to.be.false()
+      expect(workflow.prioritized).to.equal(false)
     })
 
     it('should not use transcription task', function () {
-      expect(workflow.usesTranscriptionTask).to.be.false()
+      expect(workflow.usesTranscriptionTask).to.equal(false)
     })
 
     it('should not use indexed subject selection', function () {
-      expect(workflow.hasIndexedSubjects).to.be.false()
+      expect(workflow.hasIndexedSubjects).to.equal(false)
     })
 
     it('should have default configuration settings', function () {
-      expect(workflow.configuration.invert_subject).to.be.false()
+      expect(workflow.configuration.invert_subject).to.equal(false)
       expect(workflow.configuration.playIterations).to.equal(3)
-      expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
+      expect(workflow.configuration.hide_classification_summaries).to.equal(undefined)
     })
 
     it('should have flipbook_autoplay default to false', function () {
-      expect(workflow.configuration.flipbook_autoplay).to.be.false()
+      expect(workflow.configuration.flipbook_autoplay).to.equal(false)
     })
 
     it('should have limit_subject_height default to false', function () {
-      expect(workflow.configuration.limit_subject_height).to.be.false()
+      expect(workflow.configuration.limit_subject_height).to.equal(false)
     })
   })
 
@@ -159,7 +158,7 @@ describe('Model > Workflow', function () {
     })
 
     it('should use transcription task', function () {
-      expect(workflow.usesTranscriptionTask).to.be.true()
+      expect(workflow.usesTranscriptionTask).to.equal(true)
     })
   })
 
@@ -204,7 +203,7 @@ describe('Model > Workflow', function () {
     })
 
     it('should use survey task', function () {
-      expect(workflow.hasSurveyTask).to.be.true()
+      expect(workflow.hasSurveyTask).to.equal(true)
     })
   })
 
@@ -230,7 +229,7 @@ describe('Model > Workflow', function () {
     describe('with a valid subject set', function () {
 
       it('should select the subject set', async function () {
-        expect(workflow.subjectSetId).to.be.undefined()
+        expect(workflow.subjectSetId).to.equal(undefined)
         const subjectSetID = workflow.links.subject_sets[1]
         const subjectSet = await workflow.selectSubjectSet(subjectSetID)
         expect(subjectSet.id).to.equal(subjectSetID)
@@ -242,14 +241,14 @@ describe('Model > Workflow', function () {
       it('should throw an error', async function () {
         let errorThrown = false
         sinon.stub(rootStore.client.panoptes, 'get').callsFake(async () => { body: {}})
-        expect(workflow.subjectSetId).to.be.undefined()
+        expect(workflow.subjectSetId).to.equal(undefined)
         try {
           const subjectSet = await workflow.selectSubjectSet('abcdefg')
         } catch (e) {
           errorThrown= true
           expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
         }
-        expect(errorThrown).to.be.true()
+        expect(errorThrown).to.equal(true)
         rootStore.client.panoptes.get.restore()
       })
     })
@@ -286,7 +285,7 @@ describe('Model > Workflow', function () {
     describe('with no selected subject set', function () {
 
       it('should be false', async function () {
-        expect(workflow.hasIndexedSubjects).to.be.false()
+        expect(workflow.hasIndexedSubjects).to.equal(false)
       })
     })
 
@@ -294,18 +293,18 @@ describe('Model > Workflow', function () {
 
       describe('without indexed subjects', function () {
         it('should be false', async function () {
-          expect(workflow.subjectSetId).to.be.undefined()
+          expect(workflow.subjectSetId).to.equal(undefined)
           const subjectSetID = workflow.links.subject_sets[1]
           await workflow.selectSubjectSet(subjectSetID)
-          expect(workflow.hasIndexedSubjects).to.be.false()
+          expect(workflow.hasIndexedSubjects).to.equal(false)
         })
       })
 
       describe('with indexed subjects', function () {
         it('should be true', async function () {
-          expect(workflow.subjectSetId).to.be.undefined()
+          expect(workflow.subjectSetId).to.equal(undefined)
           await workflow.selectSubjectSet(indexedSet.id)
-          expect(workflow.hasIndexedSubjects).to.be.true()
+          expect(workflow.hasIndexedSubjects).to.equal(true)
         })
       })
     })
@@ -333,14 +332,14 @@ describe('Model > Workflow', function () {
     describe('with no selected subject set', function () {
 
       it('should be undefined', async function () {
-        expect(workflow.subjectSetId).to.be.undefined()
+        expect(workflow.subjectSetId).to.equal(undefined)
       })
     })
 
     describe('with a selected subject set', function () {
 
       it('should return the selected subject set ID', async function () {
-        expect(workflow.subjectSetId).to.be.undefined()
+        expect(workflow.subjectSetId).to.equal(undefined)
         const subjectSetID = workflow.links.subject_sets[1]
         await workflow.selectSubjectSet(subjectSetID)
         expect(workflow.subjectSetId).to.equal(subjectSetID)
@@ -352,14 +351,14 @@ describe('Model > Workflow', function () {
       it('should error', async function () {
         let errorThrown = false
         sinon.stub(rootStore.client.panoptes, 'get').callsFake(async () => { body: {}})
-        expect(workflow.subjectSetId).to.be.undefined()
+        expect(workflow.subjectSetId).to.equal(undefined)
         try {
           await workflow.selectSubjectSet('abcdefg')
         } catch (e) {
           errorThrown = true
           expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
         }
-        expect(errorThrown).to.be.true()
+        expect(errorThrown).to.equal(true)
         rootStore.client.panoptes.get.restore()
       })
     })

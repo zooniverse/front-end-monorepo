@@ -98,7 +98,7 @@
   },
   "MetaTools": {
     "CollectionsButton": {
-      "add": "Přidat do sbírek"
+      "add": "Přidat do alb"
     },
     "HidePreviousMarksDrawingButton": {
       "hide": "Skrýt předchozí značky",
@@ -226,7 +226,7 @@
       "label": "Filtr {{id}}",
       "periodMultiple": "opakování doby",
       "phase": "fáze",
-      "phaseFocus": "fázové zaměření"
+      "phaseFocus": "zaměření fáze"
     },
     "VideoController": {
       "closeVolume": "Zavřít posuvník hlasitosti",
@@ -242,7 +242,8 @@
       "disable": "zakázat zvětšení",
       "enable": "povolit zvětšení"
     },
-    "loading": "Načítání objektu"
+    "loading": "Načítání objektu",
+    "zoomHelp": "Použijte CTRL + scrollování pro přiblížení"
   },
   "TaskArea": {
     "DisabledTaskPopup": {
@@ -259,7 +260,8 @@
         "back": "zpět"
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Dokončit & Komentovat"
+        "doneAndTalk": "Dokončit & Komentovat",
+        "newTab": "na nové kartě"
       },
       "DoneButton": {
         "done": "dokončit"

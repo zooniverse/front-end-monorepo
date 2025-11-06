@@ -1,52 +1,171 @@
 {
+  "AdminCheckbox": {
+    "label": "ایڈمن موڈ"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "صارفی نام یا پاس ورڈ غلط ہے",
+      "forgot": "اپنا پاس ورڈ بھول گئے؟",
+      "heading": "واپس آنے پر خوش آمدید!",
+      "instruction": "ہمیں خوشی ہے کہ آپ واپس آ گئے ہیں! جہاں سے آپ نے چھوڑا تھا وہاں سے شروع کرنے کے لیے سائن ان کریں۔",
+      "login": "صارفی نام یا ای میل ایڈریس",
+      "password": "پاس ورڈ",
+      "placeholder": "مثلاً ZooniverseFan123",
+      "signIn": "سائن ان"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "میں نئے پروجیکٹس کی جانچ میں مدد کرنا چاہوں گا\/گی اور ان کے دستیاب ہونے پر ای میل کیا جائے گا (اختیاری)",
+      "email": "ای میل ایڈریس (درکار)",
+      "emailConfirm": "ای میل ایڈریس کی تصدیق کریں (درکار)",
+      "emailConfirmError": "ای میل ایڈریس مماثلت نہیں رکھتا، براہ کرم دوبارہ کوشش کریں۔",
+      "emailConflict": "اس ایڈریس کا اکاؤنٹ پہلے سے موجود ہے",
+      "emailListSignUp": "مجھے کبھی کبھار ای میل بھیجنا ٹھیک ہے (اختیاری)",
+      "emailPlaceholder": "مثلاً zoofan31@gmail.com",
+      "forgot": "اپنا پاس ورڈ بھول گئے؟",
+      "heading": "واپس آنے پر خوش آمدید!",
+      "instruction": "براہ کرم حقیقی تحقیق کا آغاز کرنے کے لیے اکاؤنٹ تخلیق کریں۔",
+      "password": "پاس ورڈ (درکار)",
+      "passwordConfirm": "پاس ورڈ کی تصدیق کریں (درکار)",
+      "passwordConfirmError": "پاس ورڈ مماثل نہیں ہے ، براہ کرم دوبارہ کوشش کریں۔",
+      "privacyAgreement": "آپ ہماری رازداری کی پالیسی سے متفق ہیں (درکار)",
+      "privacyAgreementError": "رازداری کی پالیسی سے متفق ہونا درکار ہے۔",
+      "privacyLink": "ہماری رازداری کی پالیسی پڑھیں",
+      "realName": "اصل نام (اختیاری)",
+      "realNameHelp": "عوام؛ ہم اس کا استعمال کاغذات ، پوسٹروں وغیرہ پر اعتراف کرنے کیلئے کریں گے۔",
+      "realNamePatternHelp": "نام درج کریں، ای میل ایڈریس نہیں",
+      "realNamePlaceholder": "مثلاً میگی اسمتھ",
+      "register": "اندراج ",
+      "registering": "رجسٹر ہو رہے ہیں...",
+      "underageConsent": "میں تصدیق کرتا\/کرتی ہوں کہ میں والد\/والدہ\/سرپرست ہوں اور اپنے ای میل ایڈریس کو مرکزی رابطے کے پتے کے طور پر فراہم کر کے اپنے بچے کو رجسٹر کرنے کی اجازت دیتا\/دیتی ہوں۔ میں اور میرا بچہ دونوں رازداری کی پالیسی کو سمجھتے ہیں اور اس سے متفق ہیں (درکار)",
+      "underageEmail": "والدین\/سرپرست کا ای میل ایڈریس (درکار)",
+      "underageEmailSignUp": "اگر آپ متفق ہیں، تو ہم وقتاً فوقتاً تحقیق سے متعلق نئے پروجیکٹس یا ہماری تحقیق سے متعلق دیگر معلومات پروموٹ کرنے کے لیے ای میل بھیجیں گے۔ ہم آپ کے رابطے کی معلومات کو کمرشل مقاصد کے لیے استعمال نہیں کریں گے۔ (اختیاری)",
+      "underageNotRealName": "آپ لاگ ان کرنے کے لیے یہ نام استعمال کریں گے۔ یہ عوامی طور پر دکھایا جائے گا۔ اپنا حقیقی نام استعمال نہ کریں۔",
+      "underageWithParent": "اگر آپ کی عمر 16 سال سے کم ہو، تو تصدیق کرنے کے لیے اس باکس پر نشان لگائیں کہ آپ نے اپنے والدین یا سرپرست کے ساتھ فارم مکمل کیا ہے",
+      "username": "صارفی نام (درکار)",
+      "usernameConflict": "وہ صارفی نام لے لیا گیا ہے",
+      "usernameHelp": "یہ پیغامی بورڈز، وغیرہ پر عوامی طور پر دکھایا جائے گا۔",
+      "usernamePatternHelp": "صارفی نام صرف حروف، نمبرز، '.'،'-'، اور '_' پر مشتمل ہو سکتے ہیں",
+      "usernamePlaceholder": "مثلاً ZooniverseFan123"
+    },
+    "title": "سائن ان کریں یا نیا اکاؤنٹ تخلیق کریں۔"
+  },
   "CloseButton": {
     "close": "بند کریں"
+  },
+  "FavouritesButton": {
+    "add": "پسندیدگان میں شامل کریں",
+    "remove": "پسندیدگان میں شامل ہو گیا"
   },
   "Loader": {
     "loading": "لوڈنگ"
   },
+  "ProjectCard": {
+    "classifications": "درجہ بندیاں",
+    "finished": "ختم ہو گیا",
+    "paused": "موقوف ہو گیا",
+    "state": "اسٹیٹ"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "کے متعلق",
-      "publications": "اشاعات",
-      "team": "ہماری ٹیم",
+      "acknowledgements": "اعتراف",
       "contact": "ہم سے رابطہ کریں",
-      "faq": "اکثر پوچھے جانے والے سوالات"
+      "faq": "اکثر پوچھے جانے والے سوالات",
+      "publications": "اشاعات",
+      "resources": "ذرائع",
+      "team": "ہماری ٹیم"
     },
     "buildLabels": {
+      "bestPractices": "بہترین طریقہ کار",
+      "buildAProject": "پروجیکٹ بنائیں",
+      "glossary": "گلاسری",
+      "policies": "پالیسیز",
       "tutorial": " درس"
     },
     "getInvolvedLabels": {
+      "callForProjects": "پروجیکٹس کے لئے درخواست کریں",
+      "collaborate": "اشتراک کریں",
+      "collections": "مجموعے",
+      "donate": "عطیہ کریں",
+      "educate": "تعلیم دیں",
+      "education": "تعلیم",
       "getInvolved": "شامل ہوں",
-      "educate": "تعلیم"
+      "volunteer": "رضاکار"
+    },
+    "newsLabels": {
+      "blog": "بلاگ",
+      "dailyZooniverse": "یومیہ Zooniverse",
+      "news": "خبریں"
+    },
+    "policyLabels": {
+      "jobs": "ملازمتیں",
+      "privacyPolicy": "رازداری کی پالیسی",
+      "security": "سیکیورٹی",
+      "systemStatus": "سسٹم کا اسٹیٹس"
     },
     "projectLabels": {
-      "projects": "پروجیکٹ"
+      "arts": "آرٹس",
+      "biology": "بائیولوجی",
+      "climate": "آب و ہوا",
+      "history": "تاریخ",
+      "language": "زبان",
+      "literature": "ادب",
+      "medicine": "دوا",
+      "nature": "فطرت",
+      "physics": "فزکس",
+      "projects": "پروجیکٹ",
+      "social": "سوشل سائنس",
+      "space": "اسپیس"
     },
+    "tagLine": "عوام سے تقویت یافتہ تحقیق",
     "talkLabels": {
-      "talk": "بات (کریں)"
-    }
+      "announcements": "اعلانات",
+      "data": "ڈیٹا پروسیسنگ",
+      "projectBuilding": "پروجیکٹ بنا رہے ہیں",
+      "talk": "بات (کریں)",
+      "troubleshooting": "نقص کی ازالہ کاری"
+    },
+    "zooniversePolicies": "Zooniverse کی پالیسیز"
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "پروجیکٹ",
-      "about": "کے متعلق",
-      "getInvolved": "شامل ہوں",
-      "talk": "بات (کریں)"
+    "SignedInUserNavigation": {
+      "ariaLabel": "صارفی اکاؤنٹ",
+      "navListLabels": {
+        "messages_one": "پیغامات ({{count}})",
+        "messages_other": "پیغامات ({{count}})",
+        "messages_zero": "پیغامات",
+        "notifications_one": "اطلاعات ({{count}})",
+        "notifications_other": "اطلاعات ({{count}})",
+        "notifications_zero": "اطلاعات"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "اندراج ",
       "signIn": "سائن ان"
     },
     "ThemeModeToggle": {
-      "switchToDark": "موضوع تبدیل کریں",
-      "switchToLight": "موضوع تبدیل کریں"
+      "switchToDark": "ڈارک تھیم پر سوئچ کریں",
+      "switchToLight": "لائٹ تھیم پر سوئچ کریں"
     },
     "UserMenu": {
       "userNavListLabels": {
         "collections": "مجموعہ",
-        "favorites": "پسندیدہ"
+        "favorites": "پسندیدہ",
+        "profile": "پروفائل",
+        "settings": "ترتیبات",
+        "signOut": "سائن آؤٹ کریں"
       }
+    },
+    "ariaLabel": "سائٹ",
+    "mainHeaderNavListLabels": {
+      "about": "کے متعلق",
+      "build": "بنائیں",
+      "getInvolved": "شامل ہوں",
+      "projects": "پروجیکٹ",
+      "talk": "بات (کریں)"
     }
+  },
+  "ZooniverseLogo": {
+    "title": "Zooniverse کا لوگو"
   }
 }
