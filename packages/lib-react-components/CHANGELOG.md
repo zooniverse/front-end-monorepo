@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unpublished
+
+### Fixed
+- `ThumbnailImage` renders tiny images inside markdown tables.
+
 ## [1.15.0] 2025-09-15
 
 ### Removed
@@ -47,7 +52,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Style RegisterForm as one column for `small` screensize.
 - Project card badges are now circular in Safari.
 - Inconsistent text sizes for Markdown tables and lists.
-- `ThumbnailImage` renders tiny images inside markdown tables.
 - `useUnreadNotifications` and `useUnreadMessages` now wait for Panoptes auth to complete before fetching data.
 - `Modal`: add the `dialog` role and an accessible name. Pass keyboard focus to dialogs when they open.
 
