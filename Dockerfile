@@ -27,6 +27,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ARG CONTENTFUL_ACCESS_TOKEN
 ARG CONTENTFUL_SPACE_ID
 ARG SENTRY_AUTH_TOKEN
+ARG SENTRY_PROJECT_DSN
+
+# Make the Sentry DSN available at build time (so Next.js client bundle can embed it)
+ENV SENTRY_PROJECT_DSN=$SENTRY_PROJECT_DSN
 
 # Set the working directory. -p will create all the necessary parent directories along the way.
 RUN mkdir -p /usr/src
@@ -66,6 +70,8 @@ FROM base AS runner
 # Set env variables to production.
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
+ARG SENTRY_PROJECT_DSN
+ENV SENTRY_PROJECT_DSN=$SENTRY_PROJECT_DSN
 
 # Set the working directory. -p will create all the necessary parent directories along the way.
 RUN mkdir -p /usr/src

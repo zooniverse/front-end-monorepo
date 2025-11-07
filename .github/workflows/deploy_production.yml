@@ -35,6 +35,7 @@ jobs:
           CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
           CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
           SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_PROJECT_DSN=${{ secrets.SENTRY_PROJECT_DSN }}
 
   deploy_production:
     runs-on: ubuntu-latest

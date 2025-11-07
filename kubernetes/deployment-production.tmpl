@@ -70,6 +70,11 @@ spec:
           env:
             - name: COMMIT_ID
               value: __IMAGE_TAG__
+            - name: SENTRY_PROJECT_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: sentry-project-dsn
+                  key: dsn
             - name: GITHUB_REF_NAME
               value: production-release
             - name: NEWRELIC_LICENSE_KEY
@@ -158,6 +163,11 @@ spec:
           env:
             - name: COMMIT_ID
               value: __IMAGE_TAG__
+            - name: SENTRY_PROJECT_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: sentry-project-dsn
+                  key: dsn
             - name: CONTENTFUL_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
