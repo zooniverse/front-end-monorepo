@@ -1,5 +1,6 @@
 import DataImageViewer from '../../components/DataImageViewer'
 import FlipbookViewer from '../../components/FlipbookViewer'
+import GeoMapViewer from '../../components/GeoMapViewer'
 import JSONDataViewer from '../../components/JSONDataViewer'
 import ImageAndTextViewer from '../../components/ImageAndTextViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
@@ -12,6 +13,7 @@ import VolumetricViewer from '../../components/VolumetricViewer/VolumetricViewer
 const viewers = {
   dataImage: DataImageViewer,
   flipbook: FlipbookViewer,
+  geoMap: GeoMapViewer,
   jsonData: JSONDataViewer,
   imageAndText: ImageAndTextViewer,
   lightCurve: JSONDataViewer,
