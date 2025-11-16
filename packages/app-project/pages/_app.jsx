@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import 'ol/ol.css'
 
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'

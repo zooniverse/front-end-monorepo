@@ -2,7 +2,6 @@ import { Box } from 'grommet'
 import { Map, View } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
-import 'ol/ol.css'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -14,7 +13,7 @@ const MapContainer = styled.div`
 function GeoMapViewer() {
   const mapRef = useRef()
 
-  useEffect(() => {
+  useEffect(function loadMap() {
     let map
 
     function createMap(target) {
@@ -33,7 +32,7 @@ function GeoMapViewer() {
       })
     }
 
-    function destroyMap(mapInstance) {
+    function unloadMap(mapInstance) {
       if (mapInstance) {
         mapInstance.setTarget(undefined)
       }
@@ -43,7 +42,7 @@ function GeoMapViewer() {
       map = createMap(mapRef.current)
     }
 
-    return () => destroyMap(map)
+    return () => unloadMap(map)
   }, [])
 
   return (

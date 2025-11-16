@@ -55,6 +55,7 @@ const nextConfig = {
   },
 
   experimental: {
+    esmExternals: 'loose',
     forceSwcTransforms: true,
     instrumentationHook: true,
     optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons']

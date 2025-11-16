@@ -3,6 +3,7 @@ import i18n from '@translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { StrictMode } from 'react'
+import 'ol/ol.css'
 
 const background = {
   dark: 'dark-1',
