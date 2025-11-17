@@ -18,7 +18,9 @@ function GeoMapViewer() {
 
     function createMap(target) {
       const osmLayer = new TileLayer({
-        preload: Infinity,
+        // preload tiles for 1 level of zooming
+        preload: 1,
+        // use OpenStreetMap as the base layer
         source: new OSM(),
       })
 
