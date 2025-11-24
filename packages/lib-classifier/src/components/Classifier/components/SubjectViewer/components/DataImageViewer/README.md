@@ -22,7 +22,7 @@ The Workflow of the project should have a configuration specified that the Varia
 
 ### Subject
 
-Each Subject has three files: 
+Each Subject has three files:
 - an image file (which works as a "thumbnail" to be seen on Talk, this must be first in the subject location's list)
 - a JSON file containing the data for the scatter plot
 - an image
@@ -51,9 +51,9 @@ The JSON file defines the data series for the scatter plot:
 The multiple data series JSON shape is an object consisting of an array for `data` and an object for `chartOptions`:
 
 ``` json
-{ 
+{
   "data": [
-    { 
+    {
       "seriesData": [
         { "x": 1.46,
           "y": 6.37,
@@ -96,7 +96,7 @@ The multiple data series JSON shape is an object consisting of an array for `dat
 
 #### `data`
 
-For the `data` array, this JSON takes the same shape as expected for the generic `ScatterPlotViewer` when multiple data series are defined. The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the Zooniverse theme will be chosen and applied for each series. 
+For the `data` array, this JSON takes the same shape as expected for the generic `ScatterPlotViewer` when multiple data series are defined. The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the Zooniverse theme will be chosen and applied for each series.
 
 #### `chartOptions`
 
