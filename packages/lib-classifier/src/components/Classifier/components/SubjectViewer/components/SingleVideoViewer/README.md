@@ -1,7 +1,7 @@
 # Single Video Viewer
 
 The Single Video Viewer is a variant of the Subject Viewer that's used to
-display video media. See also [Subject Viewers Info](https://github.com/zooniverse/front-end-monorepo/blob/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/README.md).
+display video media. See also [Subject Viewers Info](https://github.com/zooniverse/front-end-monorepo/blob/main/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/README.md).
 
 The only allowed video media type is mp4.
 

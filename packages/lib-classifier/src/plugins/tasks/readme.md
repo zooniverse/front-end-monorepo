@@ -65,7 +65,7 @@ The default tasks export is a simple map of unique task types (`single`, `multip
   - `taskRegistry.remove(type (string))`: remove any existing entry for `type`.
   - `taskRegistry.get(type (string))`: return the `Task` for `type`, or an empty object.
   - `taskRegistry.values(property ('TaskComponent|TaskModel|AnnotationModel'))`: return all registered Tasks. Specify an optional property to return an array of only those properties eg. `const annotationModels = taskRegistry.values('AnnotationModel')`.
-  
+
 ## React Components
 
 A React component for a task takes a Task model and renders it as HTML. The basic shape is:
@@ -86,13 +86,13 @@ import * as tasks from '@plugins/tasks'
 const SingleChoiceTask = tasks.single.TaskModel
 ```
 
-The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Task.js) defines the following common properties and actions for all tasks.
+The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-classifier/src/plugins/tasks/models/Task.js) defines the following common properties and actions for all tasks.
 
 - _taskKey (string)_ An identifier for the task eg. `T0`
 - _required (boolean = false)_ True if the task must be annotated before continuing.
 - _annotation (Annotation)_ DEPRECATED The classification annotation for this task's task key.
 - _isComplete(annotation) (boolean = true)_ False if the task is required and `annotation` is invalid.
-- _createAnnotation() (Annotation)_ Returns a new, empty annotation for this task. 
+- _createAnnotation() (Annotation)_ Returns a new, empty annotation for this task.
 
 
 All tasks should extend the Task model by implementing the following:
@@ -113,7 +113,7 @@ import * as tasks from '@plugins/tasks'
 const SingleChoiceAnnotation = tasks.single.AnnotationModel
 ```
 
-The [base Annotation model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Annotation.js) defines the following common properties and actions for all annotations.
+The [base Annotation model](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-classifier/src/plugins/tasks/models/Annotation.js) defines the following common properties and actions for all annotations.
 
 - _task (string)_ An identifier for the task that created this annotation eg. `T0`
 - _taskType (string)_ The task type that creates these annotations. Set by the annotation's task.

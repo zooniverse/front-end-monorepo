@@ -1,9 +1,7 @@
 # Zooniverse Front-End Monorepo
 
-[![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/master/LICENSE.md)
+[![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/main/LICENSE.md)
 ![Contributors](https://img.shields.io/github/contributors/zooniverse/front-end-monorepo.svg)
-
-️Take a look at [our roadmap](https://trello.com/b/yg0r4dG5/front-end-rebuild-roadmap)! 🛣️
 
 ---
 
@@ -135,9 +133,9 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images).
 
-Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end-to-end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
+Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to `main`. This is used for manual end-to-end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
-Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on master. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
+Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on `main`. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
 
@@ -179,7 +177,7 @@ When publishing an individual package to [npm](https://www.npmjs.com/), first cd
     - lib-classifier should point to the new 1.0.0 version of lib-react-components
 1. `git push origin name-of-branch`
 1. Merge branch
-1. Checkout master, pull for latest
+1. Checkout `main`, pull for latest
 1. Build the package with `pnpm build` from the package dir, where available
 1. Publish using `npm`:
     - Sanity check: if you're using `nvm` (Node Version Manager), make sure you've switched to the latest version of node/npm

@@ -44,7 +44,7 @@ Example Staging Project: [i-fancy-cats](https://local.zooniverse.org:3000/projec
 - [ ] The PR creator has listed user actions to use when testing the new feature
 - [ ] Unit tests are included for the new feature
 - [ ] A storybook story has been created or updated
-  - Example of SlideTutorial [component](https://github.com/zooniverse/front-end-monorepo/blob/master/packages/lib-classifier/src/components/Classifier/components/SlideTutorial/SlideTutorial.js) with docgen comments, and its [story](https://zooniverse.github.io/front-end-monorepo/@zooniverse/classifier/index.html?path=/docs/other-slidetutorial--default)
+  - Example of SlideTutorial [component](https://github.com/zooniverse/front-end-monorepo/blob/main/packages/lib-classifier/src/components/Classifier/components/SlideTutorial/SlideTutorial.js) with docgen comments, and its [story](https://zooniverse.github.io/front-end-monorepo/@zooniverse/classifier/index.html?path=/docs/other-slidetutorial--default)
 
 ## Refactoring
 - [ ] The PR creator has described the reason for refactoring
