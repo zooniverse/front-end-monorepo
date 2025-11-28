@@ -6,7 +6,7 @@ on:
   # https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#example-excluding-branches
   push:
     branches:
-      - '!master'
+      - '!main'
       - 'branch-deploy-k8s-setup'
   # or we can deploy via dispatch which has a ref (branch / tag) passed to it for checkout actions
   # https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event

@@ -3,7 +3,7 @@ name: Sentry Staging Release
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release:
