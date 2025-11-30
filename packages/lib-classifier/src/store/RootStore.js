@@ -1,4 +1,4 @@
-import { configure, keys, isObservableProp } from 'mobx'
+import { configure } from 'mobx'
 import {
   addMiddleware,
   getEnv,
@@ -55,6 +55,7 @@ const RootStore = types
 
     function _addMiddleware(call, next, abort) {
       if (call.name === 'setActiveSubject') {
+        console.log('RootStore middleware setActiveSubject')
         const res = next(call)
         self.startClassification()
         return res
@@ -73,6 +74,7 @@ const RootStore = types
       // TODO: why are we doing this rather than observe classifications.loadingState for changes?
       const { path, value } = patch
       if (path === '/classifications/loadingState' && value === 'posting') {
+        console.log('onPatch for /classifications/loadingState')
         self.subjects.advance()
       }
     }
@@ -113,6 +115,7 @@ const RootStore = types
       const workflow = tryReference(() => workflows?.active)
       const project = tryReference(() => projects?.active)
       if (subject && workflow && project) {
+        console.log('rootStore startClassification', subject.id)
         workflowSteps.resetSteps()
         classifications.reset()
         classifications.createClassification(subject, workflow, project)

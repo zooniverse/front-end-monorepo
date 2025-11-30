@@ -145,6 +145,9 @@ const SubjectStore = types
     function advance() {
       const workflow = tryReference(() => getRoot(self).workflows.active)
       const activeSubject = tryReference(() => self.active)
+      console.log('subjects.advance')
+      // When this function is called after a completed classification, activeSubject ref is an error
+      // advance() is triggered by RootStore.onPatch observing /classifications/loadingState
 
       if (workflow?.hasIndexedSubjects) {
         activeSubject?.markAsSeen()
@@ -338,6 +341,7 @@ const SubjectStore = types
     }
 
     function setResources(subjects = []) {
+      console.log('subjects.setResources')
       if (subjects.length > 0) {
         try {
           subjects.forEach(subject => {
@@ -355,8 +359,10 @@ const SubjectStore = types
     /** Shift the subject queue by one subject, so that the active subject is always the first subject. */
     function shift() {
       const subject = tryReference(() => self.active)
+      console.log('subjects.shift') // This is an error. It looks like the active subject is cleared on completed classification whereas it didn't used to be
 
       if (subject) {
+        console.log('subjects.shift subject.id', subject?.id)
         self.resources.delete(subject.id)
       }
       if (self.resources.size < MINIMUM_QUEUE_SIZE) {
@@ -364,6 +370,7 @@ const SubjectStore = types
         self.populateQueue()
       }
       if (self.first) {
+        console.log('subjects.shift self.first', self.first.id)
         self.setActiveSubject(self.first.id)
       }
     }
