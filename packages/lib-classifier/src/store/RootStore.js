@@ -144,9 +144,15 @@ const RootStore = types
     }
   }))
 
+
+// setLivelinessChecking is purposely set to warnings and not errors for React 19 because
+// changes from React 18 to 19 cause the completion of a classification to throw lots of liveliness errors
+// for the active subject, active annotations, active step history, etc etc,
+// but the classifier UX still works.
+
 // Forces MST warnings to throw as errors instead with full stack trace
 // Easier for debugging...
-if (process.env.NODE_ENV === 'development') setLivelinessChecking('error')
+// if (process.env.NODE_ENV === 'development') setLivelinessChecking('error')
 // mute liveliness warnings in the test logs.
 if (process.env.NODE_ENV === 'test') setLivelinessChecking('ignore')
 
