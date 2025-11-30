@@ -96,6 +96,7 @@ describe('Component > FlipbookViewer', function () {
     it('should change the looping speed', async function () {
       const user = userEvent.setup({ delay: null })
       const { findByLabelText, findByRole } = render(<DefaultStory />)
+
       const speedButton = await findByLabelText(
         'Video playback speed selection; Selected: 1x'
       )
@@ -106,7 +107,7 @@ describe('Component > FlipbookViewer', function () {
       })
 
       const selectedSpeed = await findByRole('option', { name: '1x' })
-      expect(selectedSpeed.selected).to.equal(true)
+      expect(selectedSpeed.ariaSelected).to.equal("true")
 
       /** The following is the correct way to test with RTL
        *  but Grommet does not render Select as a <select>
