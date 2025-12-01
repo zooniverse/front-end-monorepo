@@ -55,6 +55,8 @@ const nextConfig = {
   },
 
   experimental: {
+    // Required for lib-classifier which uses ESM-only dependencies like OpenLayers aka "ol". See https://nextjs.org/docs/messages/import-esm-externals
+    esmExternals: 'loose',
     forceSwcTransforms: true,
     instrumentationHook: true,
     optimizePackageImports: ['@zooniverse/react-components', 'grommet', 'grommet-icons']
