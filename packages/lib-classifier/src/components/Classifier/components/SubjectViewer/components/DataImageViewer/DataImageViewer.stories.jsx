@@ -11,7 +11,7 @@ import readme from './README.md'
 const subject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/main/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
     },
     { 'image/png': 'https://panoptes-uploads.zooniverse.org/production/subject_location/6379335f-d893-445d-a25e-c14b83eabf63.png' }
   ]

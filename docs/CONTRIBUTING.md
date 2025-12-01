@@ -30,7 +30,7 @@ We love your input! We want to make contributing to this project as easy and tra
 
 - [Issues](https://github.com/zooniverse/front-end-monorepo/issues)
 - [Getting started](https://github.com/zooniverse/front-end-monorepo#getting-started)
-- [Architecture Decision Records](https://github.com/zooniverse/front-end-monorepo/tree/master/docs/arch) (why we do things the way we do - [more info](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions))
+- [Architecture Decision Records](https://github.com/zooniverse/front-end-monorepo/tree/main/docs/arch) (why we do things the way we do - [more info](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions))
 
 ## Reporting bugs
 
@@ -63,7 +63,7 @@ We use [Github](https://github.com/) to host code, to track issues and feature r
 
 Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:
 
-1. Fork the repo and create your branch from `master`.
+1. Fork the repo and create your branch from `main`.
 2. If you've added or changed code that should be tested, [**add tests**](#testing).
 3. If you've changed APIs, update the documentation.
 4. Ensure the test suite passes.
