@@ -4,8 +4,7 @@ const config = {
   stories: ['../src/**/*.stories.jsx'],
   addons: [
     '@storybook/addon-a11y',
-    '@storybook/addon-essentials',
-    'storybook-react-i18next'
+    '@storybook/addon-webpack5-compiler-babel'
   ],
   framework: {
     name: '@storybook/react-webpack5',

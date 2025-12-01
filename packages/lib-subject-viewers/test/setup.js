@@ -9,6 +9,7 @@ const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'htt
 const { window } = jsdom
 
 window.scrollTo = () => true
+window.requestAnimationFrame = () => {}
 
 global.dom = jsdom
 global.window = window
