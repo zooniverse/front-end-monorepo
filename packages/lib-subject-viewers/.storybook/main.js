@@ -8,10 +8,7 @@ const config = {
   ],
   framework: {
     name: '@storybook/react-webpack5',
-    options: {}
-  },
-  docs: {
-    autodocs: 'tag'
+    options: { strictMode: true }
   },
   webpackFinal: async config => {
     return {

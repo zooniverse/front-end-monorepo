@@ -10,7 +10,7 @@ const config = {
   ],
   framework: {
     name: '@storybook/react-webpack5',
-    options: {}
+    options: { strictMode: true }
   },
   webpackFinal: async config => {
     config.plugins.push(

@@ -25,9 +25,6 @@ const decorators = [
 ]
 
 const preview = {
-  docs: {
-    tags: ['autodocs']
-  },
   initialGlobals: {
     locale: 'en',
     locales: {
