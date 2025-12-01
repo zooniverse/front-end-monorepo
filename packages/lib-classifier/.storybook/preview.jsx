@@ -3,6 +3,7 @@ import i18n from '@translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { StrictMode } from 'react'
+// import OpenLayers CSS for lib-classifier GeoMapViewer component styling
 import 'ol/ol.css'
 
 const background = {
