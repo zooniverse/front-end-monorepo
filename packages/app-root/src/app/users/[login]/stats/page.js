@@ -7,12 +7,15 @@ export const metadata = {
   description: 'My Zooniverse user stats page'
 }
 
-export default function UserStatsPage({ params, searchParams }) {
+export default async function UserStatsPage(props) {
+  const params = await props.params
+  const searchParams = await props.searchParams
+
   const { dateRangeMessage, validEndDate, validStartDate } = validateDateRangeParams({
     endDate: searchParams.end_date,
     startDate: searchParams.start_date
   })
-  
+
   const { projectId: validProjectId, message: projectIdMessage } = validateProjectIdParam(searchParams.project_id)
 
   const paramsValidationMessage = [dateRangeMessage, projectIdMessage]
