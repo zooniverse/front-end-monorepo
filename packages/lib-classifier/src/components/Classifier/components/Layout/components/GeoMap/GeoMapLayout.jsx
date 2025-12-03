@@ -35,7 +35,12 @@ const ViewBox = styled(Box)`
 `
 
 const GeoMapSubjectContainer = styled(StyledSubjectContainer)`
+  height: 600px;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    height: 400px;
+  }
 `
 
 const StickyTaskArea = styled(Box)`
