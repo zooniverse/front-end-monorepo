@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "探索新專案",
+    "heading": "這裡什麼都沒有。",
+    "message": "您要查看的頁面已不存在。",
+    "returnHome": "回到首頁"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "請登入或註冊以追蹤您的貢獻。",
+      "register": "註冊",
+      "signIn": "登入"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "已完成！看來這個專案已經沒有資料了！",
+      "seeResults": "查看成果"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "建立並新增",
+      "label": "新建收藏夾",
+      "private": "私人收藏夾"
+    },
+    "SelectCollection": {
+      "addButton": "新增",
+      "label": "新增到現有收藏夾"
+    },
+    "title": "新增到收藏夾"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "乳齒象",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "網站",
+        "weibo": "微博",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "連結 {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse 是全球最大且最受歡迎的群眾參與研究平台。",
+    "defaultTitle": "專案",
+    "siteName": "Zooniverse：由群眾參與的研究"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zooniverse 核准"
+    },
+    "Avatar": {
+      "alt": "{{project}} 的專案頭像"
+    },
+    "LocaleSwitcher": {
+      "label": "變更語言"
+    },
+    "ProjectNav": {
+      "ariaLabel": "專案"
+    },
+    "UnderReviewLabel": {
+      "underReview": "審核中"
+    },
+    "about": "關於",
+    "admin": "管理頁面",
+    "classify": "分類",
+    "collect": "收藏",
+    "exploreProject": "探索專案",
+    "organization": "來自組織：",
+    "recents": "最近",
+    "talk": "討論"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "按數字",
+    "classifications": "分類紀錄",
+    "completedSubjects": "已完成題目",
+    "percentComplete": "完成百分比",
+    "subjects": "題目",
+    "subtitle": "隨時掌握您和其他志願者在此專案上的進度。",
+    "text": "每次點按皆計數！加入 {{projectName}} 的社群，完成此專案，協助研究人員產出重要成果。點按「檢視更多統計資料」來查看更多統計資料。",
+    "title": "{{projectName}} 統計資料",
+    "viewMoreStats": "檢視更多統計資料",
+    "volunteers": "志願者"
+  },
+  "RequireUser": {
+    "text": "請先登入！"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse 網站頁首"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "已查看",
+    "back": "選擇其他題目集",
+    "byline": "點按欄名稱即可排序列表。您將從選擇的位置開始，按順序查看題目。",
+    "fetching": "請稍等…",
+    "heading": "選擇題目以開始",
+    "retired": "已結束",
+    "unclassified": "可參與"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "新增到收藏夾"
+    },
+    "TalkLink": {
+      "label": "在討論區上討論"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "已完成"
+    },
+    "back": "選擇其他工作流程",
+    "byline": "選擇題目集以開始轉錄。",
+    "heading": "選擇開始位置"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "完成 {{completeness}}%",
+      "setSelection": "設定選項",
+      "subjectSelection": "題目選項"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "已鎖定",
+      "unlocked": "已解鎖"
+    },
+    "error": "擷取工作流程時發生錯誤 :(",
+    "getStarted": "開始！",
+    "message": "您可以點按此處開始真正的研究！",
+    "noWorkflows": "沒有可分類的項目"
+  }
+}
