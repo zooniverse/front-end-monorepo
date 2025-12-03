@@ -1,4 +1,4 @@
-const deepFreeze = require('deep-freeze')
+import deepFreeze from 'deep-freeze'
 // Base Grommet Theme: https://github.com/grommet/grommet/blob/master/src/js/themes/base.js
 
 // Zooniverse brand: https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System
@@ -560,4 +560,4 @@ const theme = deepFreeze({
   }
 })
 
-module.exports = theme
+export default theme
