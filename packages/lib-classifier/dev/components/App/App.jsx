@@ -7,6 +7,8 @@ import { Component } from 'react'
 
 import Classifier from '@components/Classifier'
 import localeMenu from './localeMenu.js'
+// import OpenLayers CSS for lib-classifier GeoMapViewer component styling
+import 'ol/ol.css'
 
 const onAddToCollection = (subjectId) => console.log(subjectId)
 const onCompleteClassification = (classification, subject) => console.log('onComplete', classification, subject)

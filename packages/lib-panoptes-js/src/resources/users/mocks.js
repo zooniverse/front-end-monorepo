@@ -15,6 +15,6 @@ const user = {
 
 const resources = { user }
 
-module.exports = {
+export default {
   resources
 }
