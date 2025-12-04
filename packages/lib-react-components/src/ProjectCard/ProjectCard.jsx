@@ -79,7 +79,7 @@ function ProjectCard({
   badge = undefined,
   description = '',
   displayName = '',
-  href = '',
+  href = null,
   imageSrc = '',
   size = 'medium',
   state = 'live'

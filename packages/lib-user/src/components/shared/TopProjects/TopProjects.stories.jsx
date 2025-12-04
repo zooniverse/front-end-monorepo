@@ -29,7 +29,8 @@ function ComponentDecorator (Story) {
 export const Default = {
   args: {
     allProjectsStats: STATS,
-    projects: PROJECTS
+    projects: PROJECTS,
+    linkProps: { href: 'https://www.zooniverse.org/projects' },
   }
 }
 
@@ -37,7 +38,8 @@ export const Grid = {
   args: {
     allProjectsStats: STATS,
     grid: true,
-    projects: PROJECTS
+    projects: PROJECTS,
+    linkProps: { href: 'https://www.zooniverse.org/projects' },
   }
 }
 

@@ -20,10 +20,8 @@ import {
 } from '@hooks'
 
 import usePanoptesUserSession from './hooks/usePanoptesUserSession'
-import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
-// import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 function caesarClient (env) {
   switch (env) {
     case 'production': {
@@ -41,17 +39,6 @@ const client = {
   projects: projectsClient,
   tutorials: tutorialsClient
 }
-
-// We don't register the queue service worker if background sync API is not available
-// We might want to move this check elsewhere once we add other service workers for other tasks
-// if (isBackgroundSyncAvailable()) registerWorkers()
-
-// TODO: The workbox background sync queue isn't working as expected
-// It doesn't work with superagent/XHR req for interception
-// We need to migrate to fetch API, otherwise the POST will occur twice
-// Once in our store, once in the worker
-// So we'll unregister the worker for now.
-unregisterWorkers('./queue.js')
 
 const DEFAULT_HANDLER = () => true
 export default function ClassifierContainer({

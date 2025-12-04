@@ -25,7 +25,7 @@ export default defineConfig({
     setupFiles: './test/setup.js',
     // disable the css propery here since parsing CSS is slow
     css: false,
-    silent: 'passed-only', // use this to silence console logs or errors except for tests tha failed
+    // silent: 'passed-only', // use this to silence console logs or errors except for tests tha failed
     // testTimeout: 10000 // default is 5000ms, and some tests are known to occasionally take longer than 5000ms
     }
 })

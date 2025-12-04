@@ -18,7 +18,7 @@ function PrimaryButton ({
   as = '',
   color = 'gold',
   disabled = false,
-  href = '',
+  href = null,
   label,
   onClick = () => {},
   ...rest
@@ -33,7 +33,7 @@ function PrimaryButton ({
       <Button
         as={as}
         disabled={disabled}
-        href={disabled ? '' : href}
+        href={disabled ? null : href}
         label={wrappedLabel}
         primary
         onClick={onClick}

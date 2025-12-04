@@ -17,7 +17,7 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function NavLink({ color, href = '', label = '' }) {
+function NavLink({ color, href = null, label = '' }) {
   const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
