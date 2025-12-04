@@ -5,7 +5,9 @@ export const metadata = {
   description: 'My Zooniverse groups page'
 }
 
-export default function MyGroupsPage({ params }) {
+export default async function MyGroupsPage(props) {
+  const params = await props.params
+
   return (
     <MyGroupsContainer
       login={params.login}
