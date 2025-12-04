@@ -1,3 +1,1 @@
-const endpoint = '/tutorials'
-
-module.exports = { endpoint }
+export const endpoint = '/tutorials'

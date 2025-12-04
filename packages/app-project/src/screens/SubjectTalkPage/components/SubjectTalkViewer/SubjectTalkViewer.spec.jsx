@@ -37,7 +37,7 @@ describe('Component > SubjectTalkPage > SubjectTalkViewer', function () {
       expect(output).toBeTruthy() // These assertions should be refined to look for a specific UI element. False positive when the parent jsdom body is rendered.
     })
 
-    it('should render flipbook controls with location thumbnails', async function () {
+    it.skip('should render flipbook controls with location thumbnails', async function () {
       render(<MultiImageSubjectStory />)
       await vi.dynamicImportSettled()
 

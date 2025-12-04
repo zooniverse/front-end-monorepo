@@ -1,8 +1,8 @@
-const panoptes = require('../../panoptes')
-const { endpoint } = require('./helpers')
-const { raiseError } = require('../../utilityFunctions')
+import panoptes from '../../panoptes.js'
+import { endpoint } from './helpers.js'
+import { raiseError } from '../../utilityFunctions/utilityFunctions.js'
 
-function addSubjects (params) {
+export function addSubjects (params) {
   const collectionId = params && params.id
   if (!collectionId) return raiseError('Collections add subject: collections ID is required.', 'error')
   const authorization = (params && params.authorization) ? params.authorization : ''
@@ -14,7 +14,7 @@ function addSubjects (params) {
   return panoptes.post(`${endpoint}/${collectionId}/links/subjects`, { subjects }, { authorization })
 }
 
-function removeSubjects (params) {
+export function removeSubjects (params) {
   const collectionId = params && params.id
   if (!collectionId) return raiseError('Collections remove subject: collections ID is required.', 'error')
   const authorization = (params && params.authorization) ? params.authorization : ''
@@ -25,5 +25,3 @@ function removeSubjects (params) {
 
   return panoptes.del(`${endpoint}/${collectionId}/links/subjects/${subjects.join(',')}`, {}, { authorization })
 }
-
-module.exports = { addSubjects, removeSubjects }

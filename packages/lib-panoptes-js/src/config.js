@@ -1,5 +1,5 @@
 /* global location */
-const { isBrowser } = require('./utilityFunctions')
+import { isBrowser } from './utilityFunctions/utilityFunctions.js'
 
 /*
 Configuration Settings
@@ -16,7 +16,7 @@ By default, this is the development environment, but this can be changed either 
 
 // Try and match the location.search property against a regex. Basically mimics
 // the CoffeeScript existential operator, in case we're not in a browser.
-function locationMatch (regex) {
+export function locationMatch (regex) {
   let match
   if (isBrowser() || (process.env.NODE_ENV === 'test' && global.location)) {
     match = location.search.match(regex)
@@ -27,13 +27,13 @@ function locationMatch (regex) {
 const DEFAULT_ENV = 'staging'
 const envFromBrowser = locationMatch(/\W?env=(\w+)/)
 const envFromShell = process.env.PANOPTES_ENV || process.env.NODE_ENV
-const env = envFromBrowser || envFromShell || DEFAULT_ENV
+export const env = envFromBrowser || envFromShell || DEFAULT_ENV
 
 if (!env.match(/^(production|staging|development|test)$/)) {
   throw new Error(`Error: Invalid Environment - ${envFromShell}`)
 }
 
-const baseConfig = {
+export const baseConfig = {
   test: {
     host: 'https://panoptes-staging.zooniverse.org/api',
     oauth: 'https://panoptes-staging.zooniverse.org',
@@ -56,6 +56,4 @@ const baseConfig = {
   }
 }
 
-const config = baseConfig[env]
-
-module.exports = { baseConfig, config, env, locationMatch }
+export const config = baseConfig[env]

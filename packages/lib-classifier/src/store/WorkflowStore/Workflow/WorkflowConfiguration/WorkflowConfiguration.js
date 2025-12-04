@@ -16,6 +16,7 @@ const WorkflowConfiguration = types.snapshotProcessor(
       types.enumeration('subjectViewer', [
         'dataImage',
         'flipbook',
+        'geoMap',
         'jsonData',
         'lightcurve',
         'multiFrame',
@@ -47,6 +48,9 @@ const WorkflowConfiguration = types.snapshotProcessor(
           }
           case 'flipbook': {
             return subjectViewers.flipbook
+          }
+          case 'geoMap': {
+            return subjectViewers.geoMap
           }
           case 'jsonData': {
             return subjectViewers.jsonData
