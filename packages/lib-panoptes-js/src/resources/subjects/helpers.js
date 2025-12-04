@@ -1,11 +1,11 @@
-const endpoint = '/subjects'
-const queuedEndpoint = '/subjects/queued'
+export const endpoint = '/subjects'
+export const queuedEndpoint = '/subjects/queued'
 
 function getRandomID (min, max) {
   return (Math.floor(Math.random() * (max - min + 1)) + min).toString()
 }
 
-function buildQueuedSubjectResource () {
+export function buildQueuedSubjectResource () {
   const randomId = getRandomID(1, 100)
 
   return {
@@ -27,7 +27,7 @@ function buildQueuedSubjectResource () {
   }
 }
 
-function buildSubjectQueue () {
+export function buildSubjectQueue () {
   const times = 10
   const subjectQueue = []
   for (var i = 0; i < times; i++) {
@@ -36,11 +36,4 @@ function buildSubjectQueue () {
   }
 
   return subjectQueue
-}
-
-module.exports = {
-  buildQueuedSubjectResource,
-  buildSubjectQueue,
-  endpoint,
-  queuedEndpoint
 }

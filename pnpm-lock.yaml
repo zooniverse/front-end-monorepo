@@ -33,10 +33,10 @@ importers:
         specifier: ^0.0.1
         version: link:../lib-classifier
       '@zooniverse/grommet-theme':
-        specifier: ~3.3.0
+        specifier: ~4.0.0
         version: link:../lib-grommet-theme
       '@zooniverse/panoptes-js':
-        specifier: ~0.6.0
+        specifier: ~1.0.0
         version: link:../lib-panoptes-js
       '@zooniverse/react-components':
         specifier: ~1.15.0
@@ -179,7 +179,7 @@ importers:
         version: 14.2.33
       '@next/third-parties':
         specifier: ~14.2.26
-        version: 14.2.33(next@14.2.33(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        version: 14.2.33(next@14.2.33(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@zooniverse/async-states':
         specifier: ~0.1.0
         version: link:../lib-async-states
@@ -187,10 +187,10 @@ importers:
         specifier: ~0.0.1
         version: link:../lib-content
       '@zooniverse/grommet-theme':
-        specifier: ~3.3.0
+        specifier: ~4.0.0
         version: link:../lib-grommet-theme
       '@zooniverse/panoptes-js':
-        specifier: ~0.6.0
+        specifier: ~1.0.0
         version: link:../lib-panoptes-js
       '@zooniverse/react-components':
         specifier: ~1.15.0
@@ -402,10 +402,10 @@ importers:
         specifier: ~4.4.1
         version: 4.4.1(vite@6.4.1(@types/node@24.9.1)(jiti@1.21.7)(terser@5.44.0))
       '@zooniverse/grommet-theme':
-        specifier: ~3.3.0
+        specifier: ~4.0.0
         version: link:../lib-grommet-theme
       '@zooniverse/panoptes-js':
-        specifier: ~0.6.0
+        specifier: ~1.0.0
         version: link:../lib-panoptes-js
       '@zooniverse/react-components':
         specifier: ~1.15.0
@@ -517,12 +517,12 @@ importers:
     dependencies:
       '@next/third-parties':
         specifier: ~14.2.26
-        version: 14.2.33(next@14.2.33(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        version: 14.2.33(next@14.2.33(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@zooniverse/grommet-theme':
-        specifier: 3.x.x
+        specifier: 4.x.x
         version: link:../lib-grommet-theme
       '@zooniverse/panoptes-js':
-        specifier: ~0.6.0
+        specifier: ~1.0.0
         version: link:../lib-panoptes-js
       '@zooniverse/react-components':
         specifier: ~1.15.0
@@ -681,7 +681,7 @@ importers:
         specifier: ~3.12.0
         version: 3.12.0(react@18.2.0)
       '@zooniverse/panoptes-js':
-        specifier: ~0.6.0
+        specifier: ~1.0.0
         version: link:../lib-panoptes-js
       '@zooniverse/subject-viewers':
         specifier: 0.1.0
@@ -752,7 +752,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.1.3)
       '@storybook/react-webpack5':
         specifier: ~7.6.11
-        version: 7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-dev-server@5.2.2(webpack@5.101.3))(webpack-hot-middleware@2.26.1)
+        version: 7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-hot-middleware@2.26.1)
       '@testing-library/dom':
         specifier: ~9.3.0
         version: 9.3.4
@@ -766,7 +766,7 @@ importers:
         specifier: ~4.4.1
         version: 4.4.1(vite@6.4.1(@types/node@24.9.1)(jiti@1.21.7)(terser@5.44.0))
       '@zooniverse/grommet-theme':
-        specifier: ~3.3.0
+        specifier: ~4.0.0
         version: link:../lib-grommet-theme
       '@zooniverse/standard':
         specifier: ~2.0.0
@@ -823,7 +823,7 @@ importers:
         specifier: ~0.1.0
         version: link:../lib-async-states
       '@zooniverse/grommet-theme':
-        specifier: 3.x.x
+        specifier: 4.x.x
         version: link:../lib-grommet-theme
       '@zooniverse/react-components':
         specifier: ~1.15.0
@@ -881,7 +881,7 @@ importers:
         specifier: ~0.0.1
         version: link:../lib-content
       '@zooniverse/panoptes-js':
-        specifier: ~0.6.0
+        specifier: ~1.0.0
         version: link:../lib-panoptes-js
       dayjs:
         specifier: ~1.11.11
@@ -943,7 +943,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.1.3)
       '@storybook/react-webpack5':
         specifier: ~7.6.11
-        version: 7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-dev-server@5.2.2(webpack@5.101.3))(webpack-hot-middleware@2.26.1)
+        version: 7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-hot-middleware@2.26.1)
       '@testing-library/dom':
         specifier: ~9.3.0
         version: 9.3.4
@@ -957,7 +957,7 @@ importers:
         specifier: ~4.4.1
         version: 4.4.1(vite@6.4.1(@types/node@24.9.1)(jiti@1.21.7)(terser@5.44.0))
       '@zooniverse/grommet-theme':
-        specifier: ~3.3.0
+        specifier: ~4.0.0
         version: link:../lib-grommet-theme
       '@zooniverse/react-components':
         specifier: ~1.15.0
@@ -11538,7 +11538,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@14.2.33':
     optional: true
 
-  '@next/third-parties@14.2.33(next@14.2.33(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
+  '@next/third-parties@14.2.33(next@14.2.33(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
     dependencies:
       next: 14.2.33(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
@@ -11944,6 +11944,22 @@ snapshots:
     optionalDependencies:
       type-fest: 4.41.0
       webpack-dev-server: 5.2.2(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.18.20))
+      webpack-hot-middleware: 2.26.1
+
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-dev-server@5.2.2(webpack@5.101.3))(webpack-hot-middleware@2.26.1)(webpack@5.101.3)':
+    dependencies:
+      ansi-html: 0.0.9
+      core-js-pure: 3.46.0
+      error-stack-parser: 2.1.4
+      html-entities: 2.6.0
+      loader-utils: 2.0.4
+      react-refresh: 0.14.2
+      schema-utils: 4.3.3
+      source-map: 0.7.6
+      webpack: 5.101.3(webpack-cli@6.0.1)
+    optionalDependencies:
+      type-fest: 4.41.0
+      webpack-dev-server: 5.2.2(webpack-cli@6.0.1)(webpack@5.101.3)
       webpack-hot-middleware: 2.26.1
 
   '@pmmmwh/react-refresh-webpack-plugin@0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-dev-server@5.2.2)(webpack-hot-middleware@2.26.1)(webpack@5.101.3)':
@@ -13452,7 +13468,7 @@ snapshots:
     dependencies:
       '@babel/preset-flow': 7.27.1(@babel/core@7.28.4)
       '@babel/preset-react': 7.27.1(@babel/core@7.28.4)
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-dev-server@5.2.2)(webpack-hot-middleware@2.26.1)(webpack@5.101.3)
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-dev-server@5.2.2(webpack@5.101.3))(webpack-hot-middleware@2.26.1)(webpack@5.101.3)
       '@storybook/core-webpack': 7.6.20(encoding@0.1.13)
       '@storybook/docs-tools': 7.6.20(encoding@0.1.13)
       '@storybook/node-logger': 7.6.20
@@ -13565,7 +13581,7 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  '@storybook/react-webpack5@7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-dev-server@5.2.2(webpack@5.101.3))(webpack-hot-middleware@2.26.1)':
+  '@storybook/react-webpack5@7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-hot-middleware@2.26.1)':
     dependencies:
       '@storybook/builder-webpack5': 7.6.20(encoding@0.1.13)(typescript@5.1.3)(webpack-cli@6.0.1)
       '@storybook/preset-react-webpack': 7.6.20(@babel/core@7.28.4)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(type-fest@4.41.0)(typescript@5.1.3)(webpack-dev-server@5.2.2(webpack@5.101.3))(webpack-hot-middleware@2.26.1)

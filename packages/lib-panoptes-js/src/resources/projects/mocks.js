@@ -1,6 +1,6 @@
-const users = require('../users')
-const media = require('../media')
-const { buildResponse } = require('../../utilityFunctions')
+import users from '../users/index.js'
+import media from '../media/index.js'
+import { buildResponse } from '../../utilityFunctions/utilityFunctions.js'
 const { buildMockedMediumResource } = media.mocks
 
 // Resources
@@ -127,7 +127,7 @@ const projectRoles = {
   }
 }
 
-const resources = {
+export const resources = {
   projectAvatar,
   projectBackground,
   projectOne,
@@ -161,7 +161,7 @@ const projectWithLinkedResources = buildResponse('get', 'projects', [resources.p
   project_pages: [resources.projectPages]
 })
 
-const responses = {
+export const responses = {
   get: {
     project,
     projects,
@@ -179,7 +179,7 @@ const responses = {
   }
 }
 
-module.exports = {
+export default {
   resources,
   responses
 }
