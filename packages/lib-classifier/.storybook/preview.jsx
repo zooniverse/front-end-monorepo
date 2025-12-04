@@ -2,6 +2,8 @@ import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import i18n from '@translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+// import OpenLayers CSS for lib-classifier GeoMapViewer component styling
+import 'ol/ol.css'
 
 const background = {
   dark: 'dark-1',

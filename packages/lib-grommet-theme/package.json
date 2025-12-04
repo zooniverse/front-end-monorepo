@@ -3,8 +3,8 @@
   "description": "A Zooniverse theme for the Grommet React library",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "version": "3.3.0",
-  "type": "commonjs",
+  "version": "4.0.0",
+  "type": "module",
   "main": "src/index.js",
   "repository": {
     "type": "git",

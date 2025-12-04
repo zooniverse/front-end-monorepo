@@ -1,9 +1,9 @@
-const { create, get, update, del } = require('./rest')
-const { addSubjects, removeSubjects } = require('./commonRequests')
-const { endpoint } = require('./helpers')
-const mocks = require('./mocks')
+import { create, get, update, del } from './rest.js'
+import { addSubjects, removeSubjects } from './commonRequests.js'
+import { endpoint } from './helpers.js'
+import mocks from './mocks.js'
 
-module.exports = {
+const collections = {
   create,
   get,
   delete: del,
@@ -13,3 +13,5 @@ module.exports = {
   removeSubjects,
   mocks
 }
+
+export default collections
