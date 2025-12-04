@@ -1,5 +1,5 @@
-const media = require('../media')
-const { buildResponse } = require('../../utilityFunctions')
+import media from '../media/index.js'
+import { buildResponse } from '../../utilityFunctions/utilityFunctions.js'
 const { buildMockedMediumResource } = media.mocks
 
 // Resources
@@ -73,7 +73,7 @@ const attachedImageOne = buildMockedMediumResource('attached_images', 'tutorial'
 
 const attachedImageTwo = buildMockedMediumResource('attached_image', 'tutorial')
 
-const resources = {
+export const resources = {
   tutorialOne,
   tutorialTwo,
   tutorialWithNullKind,
@@ -103,7 +103,7 @@ const allTutorialsForWorkflowResponse = buildResponse('get', 'tutorials', [resou
 
 const queryNotFound = buildResponse('get', 'tutorials', [])
 
-const responses = {
+export const responses = {
   get: {
     allTutorialsForWorkflow: allTutorialsForWorkflowResponse,
     tutorial: tutorialResponse,
@@ -114,9 +114,4 @@ const responses = {
     attachedImage: attachedImageResponse,
     queryNotFound
   }
-}
-
-module.exports = {
-  resources,
-  responses
 }

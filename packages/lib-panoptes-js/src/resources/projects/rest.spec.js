@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import projects from './index'
-import { endpoint } from './helpers'
-import { config } from '../../config'
-import { responses } from './mocks'
+import projects from './index.js'
+import { endpoint } from './helpers.js'
+import { config } from '../../config.js'
+import { responses } from './mocks.js'
 
 describe('Projects resource REST requests', function () {
   describe('create', function () {

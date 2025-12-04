@@ -1,5 +1,5 @@
-const mocks = require('./mocks')
+import mocks from './mocks'
 
-module.exports = {
+export default {
   mocks
 }

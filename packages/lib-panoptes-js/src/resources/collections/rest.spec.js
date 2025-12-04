@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '../../config'
-import { responses } from './mocks'
-import { endpoint } from './helpers'
-import collections from './index'
+import { config } from '../../config.js'
+import { responses } from './mocks.js'
+import { endpoint } from './helpers.js'
+import collections from './index.js'
 
 describe('Collections resource REST requests', function () {
   describe('get', function () {

@@ -1,9 +1,9 @@
-const { create, get, update, del } = require('./rest')
-const { getSubjectQueue } = require('./commonRequests')
-const { endpoint } = require('./helpers')
-const mocks = require('./mocks')
+import { create, get, update, del } from './rest.js'
+import { getSubjectQueue } from './commonRequests.js'
+import { endpoint } from './helpers.js'
+import mocks from './mocks.js'
 
-module.exports = {
+export default {
   create,
   get,
   update,

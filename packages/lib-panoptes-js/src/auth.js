@@ -1,9 +1,9 @@
-const { importSPKI, jwtVerify } = require('jose')
+import { importSPKI, jwtVerify } from 'jose'
 
-const { env } = require('./config')
-const { productionKey, stagingKey } = require('./publicKeys')
+import { env } from './config.js'
+import { productionKey, stagingKey } from './publicKeys.js'
 
-async function verify(token) {
+export async function verify(token) {
   let data = null
   let error = null
   try {
@@ -17,7 +17,7 @@ async function verify(token) {
   return { data, error }
 }
 
-async function decodeJWT(token) {
+export async function decodeJWT(token) {
   let user = null
   const { data, error } = await verify(token)
   if (data) {
@@ -29,9 +29,4 @@ async function decodeJWT(token) {
     }
   }
   return { user, error }
-}
-
-module.exports = {
-  decodeJWT,
-  verify
 }
