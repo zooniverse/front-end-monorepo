@@ -4,14 +4,10 @@ const config = {
   stories: ['../src/**/*.stories.jsx'],
   addons: [
     '@storybook/addon-a11y',
-    '@storybook/addon-essentials'
   ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/nextjs',
     options: {}
-  },
-  docs: {
-    autodocs: 'tag'
   },
   staticDirs: ['../storybook-public'], // needed for msw-storybook-addon
     webpackFinal: async config => {

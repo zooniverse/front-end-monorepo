@@ -1,8 +1,7 @@
 import { initialize, mswLoader } from 'msw-storybook-addon'
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import { StrictMode } from 'react'
 import i18n from '../src/translations/i18n'
 
 const background = {
@@ -13,20 +12,19 @@ const background = {
 // Initialize MSW
 initialize({
   serviceWorker: {
-    url: './mockServiceWorker.js',
+    url: './mockServiceWorker.js'
   },
-  onUnhandledRequest: 'bypass',
+  onUnhandledRequest: 'bypass'
 })
 
 const globalTypes = {
   theme: {
     name: 'Grommet Theme',
     description: 'Global Grommet theme for components',
-    defaultValue: 'light',
     toolbar: {
       icon: 'arrowdown',
       items: ['light', 'dark'],
-      title: 'Grommet Theme',
+      title: 'Grommet Theme'
     }
   }
 }
@@ -34,16 +32,14 @@ const globalTypes = {
 const decorators = [
   (Story, context) => {
     return (
-      <StrictMode>
-        <Grommet
-          background={background}
-          theme={zooTheme}
-          themeMode={context.globals.theme}
-          full
-        >
-          <Story />
-        </Grommet>
-      </StrictMode>
+      <Grommet
+        background={background}
+        theme={zooTheme}
+        themeMode={context.globals.theme}
+        full
+      >
+        <Story />
+      </Grommet>
     )
   }
 ]
@@ -54,12 +50,13 @@ const preview = {
     locales: {
       en: 'English'
     },
+    theme: 'light'
   },
   parameters: {
     i18n,
     layout: 'fullscreen',
     viewport: {
-      viewports: INITIAL_VIEWPORTS
+      options: INITIAL_VIEWPORTS
     }
   },
   decorators,
