@@ -1,4 +1,4 @@
-function getProjectSlugFromURL(urlArg) {
+export function getProjectSlugFromURL(urlArg) {
   let parsed
 
   if (urlArg.startsWith('http')) {
@@ -18,6 +18,4 @@ function getProjectSlugFromURL(urlArg) {
   }
 }
 
-const endpoint = '/projects'
-
-module.exports = { getProjectSlugFromURL, endpoint }
+export const endpoint = '/projects'

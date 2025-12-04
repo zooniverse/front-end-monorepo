@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] 2025-12-3
+- Convert CJS syntax and module type to ESM
+
 ## [0.6.0] 2025-09-15
 - Replaced `mocha` with `vitest`.
 - Uninstalled `chai`, `chai-dom`, `sinon-chai`, `dirty-chai`, and `sinon`.

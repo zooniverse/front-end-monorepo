@@ -1,12 +1,12 @@
 // Borrowed from https://stackoverflow.com/questions/17575790/environment-detection-node-js-or-browser top answer
 // Testing if in browser or node environments
 
-const isBrowser = new Function('try {return this===window;}catch(e){ return false;}')
+export const isBrowser = new Function('try {return this===window;}catch(e){ return false;}')
 
-const isNode = new Function('try {return this===global;}catch(e){return false;}')
+export const isNode = new Function('try {return this===global;}catch(e){return false;}')
 
 // For response mocks
-function buildResponse (httpMethod, resourceType, resources, linked, params) {
+export function buildResponse (httpMethod, resourceType, resources, linked, params) {
   const response = { links: {}, meta: {} }
 
   if (linked) {
@@ -22,7 +22,7 @@ function buildResponse (httpMethod, resourceType, resources, linked, params) {
   return response
 }
 
-function raiseError (errorMessage, errorClass) {
+export function raiseError (errorMessage, errorClass) {
   const error = {
     error: new Error(errorMessage),
     typeError: new TypeError(errorMessage)
@@ -33,10 +33,8 @@ function raiseError (errorMessage, errorClass) {
   return Promise.reject(error[errorClass])
 }
 
-function isParamTypeInvalid (param, type) {
+export function isParamTypeInvalid (param, type) {
   if (param) return (typeof param !== type)
 
   return false
 }
-
-module.exports = { isBrowser, isNode, buildResponse, isParamTypeInvalid, raiseError }

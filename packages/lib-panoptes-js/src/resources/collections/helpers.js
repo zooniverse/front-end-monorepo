@@ -1,3 +1,1 @@
-const endpoint = '/collections'
-
-module.exports = { endpoint }
+export const endpoint = '/collections'

@@ -1,4 +1,4 @@
-import { buildQueuedSubjectResource, buildSubjectQueue } from './helpers'
+import { buildQueuedSubjectResource, buildSubjectQueue } from './helpers.js'
 
 describe('Subjects Helpers', function () {
   describe('buildQueuedSubjectResource', function () {

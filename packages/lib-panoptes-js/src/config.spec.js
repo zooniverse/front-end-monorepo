@@ -1,4 +1,4 @@
-import { config, env, locationMatch } from './config'
+import { config, env, locationMatch } from './config.js'
 
 describe('config.js', function () {
   describe('environment from shell', function () {

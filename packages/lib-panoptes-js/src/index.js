@@ -1,25 +1,11 @@
-const { config, env } = require('./config')
-const auth = require('./auth')
-const panoptes = require('./panoptes')
-const talkAPI = require('./talkAPI')
+export { config, env } from './config.js'
+export { default as auth } from './auth.js'
+export { default as panoptes } from './panoptes.js'
+export { default as talkAPI } from './talkAPI.js'
 
-const collections = require('./resources/collections')
-const media = require('./resources/media')
-const projects = require('./resources/projects')
-const subjects = require('./resources/subjects')
-const tutorials = require('./resources/tutorials')
-const users = require('./resources/users')
-
-module.exports = {
-  auth,
-  collections,
-  config,
-  env,
-  media,
-  panoptes,
-  projects,
-  subjects,
-  talkAPI,
-  tutorials,
-  users
-}
+export { default as collections } from './resources/collections/index.js'
+export { default as media } from './resources/media/index.js'
+export { default as projects } from './resources/projects/index.js'
+export { default as subjects } from './resources/subjects/index.js'
+export { default as tutorials } from './resources/tutorials/index.js'
+export { default as users } from './resources/users/index.js'

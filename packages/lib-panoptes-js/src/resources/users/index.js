@@ -1,5 +1,7 @@
-const mocks = require('./mocks')
+import mocks from './mocks'
 
-module.exports = {
+const users = {
   mocks
 }
+
+export default users

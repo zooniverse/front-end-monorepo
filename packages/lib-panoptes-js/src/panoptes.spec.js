@@ -1,7 +1,7 @@
 import nock from 'nock'
 
-import { baseConfig, config } from './config'
-import panoptes from './panoptes'
+import { baseConfig, config } from './config.js'
+import panoptes from './panoptes.js'
 
 describe('panoptes.js', function () {
   describe('get', function () {

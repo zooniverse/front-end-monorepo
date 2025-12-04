@@ -25,7 +25,7 @@ function getRandomID (min, max) {
   return (Math.floor(Math.random() * (max - min + 1)) + min).toString()
 }
 
-function buildMockedMediumResource (resourceType, linkResourceType) {
+export function buildMockedMediumResource (resourceType, linkResourceType) {
   const resource = mediaResourceTypes[resourceType]
   const linkedResource = resourcesThatCanHaveMedia[linkResourceType]
   const randomID = getRandomID(0, 100)
@@ -36,8 +36,4 @@ function buildMockedMediumResource (resourceType, linkResourceType) {
     media_type: mediaType,
     src: `https://panoptes-uploads.zooniverse.org/production/${mediaType}/random-string-example.jpeg`
   })
-}
-
-module.exports = {
-  buildMockedMediumResource
 }

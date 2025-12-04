@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import tutorials from './index'
-import { endpoint } from './helpers'
-import { config } from '../../config'
-import { responses } from './mocks'
+import tutorials from './index.js'
+import { endpoint } from './helpers.js'
+import { config } from '../../config.js'
+import { responses } from './mocks.js'
 
 describe('Tutorials resource common requests', function () {
   describe('getAttachedImages', function () {

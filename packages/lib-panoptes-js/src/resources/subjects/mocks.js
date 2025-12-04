@@ -1,5 +1,5 @@
-const { buildResponse } = require('../../utilityFunctions')
-const { buildSubjectQueue } = require('./helpers')
+import { buildResponse } from '../../utilityFunctions/utilityFunctions.js'
+import { buildSubjectQueue } from './helpers.js'
 
 const subject = {
   created_at: '2015-03-17T13:45:40.297Z',
@@ -17,7 +17,7 @@ const subject = {
 
 const subjectQueue = buildSubjectQueue()
 
-const resources = {
+export const resources = {
   subject,
   subjectQueue
 }
@@ -25,14 +25,14 @@ const resources = {
 const subjectResponse = buildResponse('get', 'subjects', [resources.subject], {})
 const subjectQueueResponse = buildResponse('get', 'subjects', subjectQueue, {})
 
-const responses = {
+export const responses = {
   get: {
     subject: subjectResponse,
     subjectQueue: subjectQueueResponse
   }
 }
 
-module.exports = {
+export default {
   resources,
   responses
 }

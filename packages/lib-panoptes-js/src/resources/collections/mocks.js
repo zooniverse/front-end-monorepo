@@ -1,4 +1,4 @@
-const { buildResponse } = require('../../utilityFunctions')
+import { buildResponse } from '../../utilityFunctions/utilityFunctions.js'
 
 const collection = {
   created_at: '2015-03-17T13:45:40.297Z',
@@ -21,7 +21,7 @@ const collections = [
   Object.assign({}, collection, { id: '2' })
 ]
 
-const resources = {
+export const resources = {
   collection,
   collections
 }
@@ -29,14 +29,14 @@ const resources = {
 const collectionResponse = buildResponse('get', 'collections', [resources.collection], {})
 const collectionsResponse = buildResponse('get', 'collections', resources.collections, {})
 
-const responses = {
+export const responses = {
   get: {
     collection: collectionResponse,
     collections: collectionsResponse
   }
 }
 
-module.exports = {
+export default {
   resources,
   responses
 }

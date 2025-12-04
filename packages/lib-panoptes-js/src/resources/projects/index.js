@@ -1,9 +1,9 @@
-const { create, get, update, del } = require('./rest')
-const { getBySlug, getWithLinkedResources } = require('./commonRequests')
-const { endpoint } = require('./helpers')
-const mocks = require('./mocks')
+import { create, get, update, del } from './rest.js'
+import { getBySlug, getWithLinkedResources } from './commonRequests.js'
+import { endpoint } from './helpers.js'
+import mocks from './mocks.js'
 
-module.exports = {
+const projects = {
   create,
   get,
   update,
@@ -13,3 +13,5 @@ module.exports = {
   getWithLinkedResources,
   mocks
 }
+
+export default projects

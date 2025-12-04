@@ -1,8 +1,8 @@
-const { endpoint, getProjectSlugFromURL } = require('./helpers')
-const { raiseError } = require('../../utilityFunctions')
-const panoptes = require('../../panoptes')
+import { endpoint, getProjectSlugFromURL } from './helpers.js'
+import { raiseError } from '../../utilityFunctions/utilityFunctions.js'
+import panoptes from '../../panoptes.js'
 
-function getBySlug (params) {
+export function getBySlug (params) {
   const queryParams = (params && params.query) ? params.query : {}
   const authorization = (params && params.authorization) ? params.authorization : ''
 
@@ -18,7 +18,7 @@ function getBySlug (params) {
   return raiseError('Projects: Get by slug request missing required parameter: slug string.', 'error')
 }
 
-function getWithLinkedResources (params) {
+export function getWithLinkedResources (params) {
   const include = { include: 'avatar,background,owners' }
   const projectId = (params && params.id) ? params.id : ''
   const authorization = (params && params.authorization) ? params.authorization : ''
@@ -37,5 +37,3 @@ function getWithLinkedResources (params) {
 
   return panoptes.get(endpoint, queryParams, { ...params.headers, authorization }, params.host)
 }
-
-module.exports = { getBySlug, getWithLinkedResources }

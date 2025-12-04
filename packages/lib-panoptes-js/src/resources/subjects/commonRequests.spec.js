@@ -1,9 +1,9 @@
 import nock from 'nock'
 
-import { config } from '../../config'
-import { responses } from './mocks'
-import { queuedEndpoint } from './helpers'
-import subjects from './index'
+import { config } from '../../config.js'
+import { responses } from './mocks.js'
+import { queuedEndpoint } from './helpers.js'
+import subjects from './index.js'
 
 describe('Subjects resource common requests', function () {
   describe('getSubjectQueue', function () {

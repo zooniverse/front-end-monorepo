@@ -1,4 +1,4 @@
-import { getProjectSlugFromURL } from './helpers'
+import { getProjectSlugFromURL } from './helpers.js'
 
 const validUrls = [
   '/projects/foo/bar',

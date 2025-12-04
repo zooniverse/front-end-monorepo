@@ -58,8 +58,8 @@
     "valid-url": "~1.0.9"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "3.x.x",
-    "@zooniverse/panoptes-js": "~0.6.0",
+    "@zooniverse/grommet-theme": "4.x.x",
+    "@zooniverse/panoptes-js": "~1.0.0",
     "@zooniverse/react-components": "~1.x.x",
     "grommet": "~2.x.x",
     "grommet-icons": "~4.x.x",
@@ -83,8 +83,8 @@
     "@testing-library/user-event": "~14.5.0",
     "@visx/mock-data": "~3.12.0",
     "@vitejs/plugin-react": "~4.4.1",
-    "@zooniverse/grommet-theme": "~3.3.0",
-    "@zooniverse/panoptes-js": "~0.6.0",
+    "@zooniverse/grommet-theme": "~4.0.0",
+    "@zooniverse/panoptes-js": "~1.0.0",
     "@zooniverse/react-components": "~1.15.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-loader": "~10.0.0",

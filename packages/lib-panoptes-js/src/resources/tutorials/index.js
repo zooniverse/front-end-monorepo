@@ -1,9 +1,9 @@
-const { create, get, update, del } = require('./rest')
-const { getAttachedImages, getMinicourses, getTutorials } = require('./commonRequests')
-const { endpoint } = require('./helpers')
-const mocks = require('./mocks')
+import { create, get, update, del } from './rest.js'
+import { getAttachedImages, getMinicourses, getTutorials } from './commonRequests.js'
+import { endpoint } from './helpers.js'
+import mocks from './mocks.js'
 
-module.exports = {
+const tutorials = {
   create,
   get,
   update,
@@ -14,3 +14,5 @@ module.exports = {
   endpoint,
   mocks
 }
+
+export default tutorials

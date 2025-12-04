@@ -1,7 +1,7 @@
 /* global localStorage */
 
-const superagent = require('superagent')
-const { baseConfig, config } = require('./config')
+import superagent from 'superagent'
+import { baseConfig, config } from './config.js'
 
 function handleMissingParameter (message) {
   return Promise.reject(new Error(message))
@@ -52,8 +52,7 @@ function getQueryParams (query) {
   }
 }
 
-// TODO: Consider how to integrate a GraphQL option
-function get (endpoint, query = {}, headers = {}, host) {
+export function get (endpoint, query = {}, headers = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
@@ -70,7 +69,7 @@ function get (endpoint, query = {}, headers = {}, host) {
   return request.query(queryParams).then(response => response)
 }
 
-function post (endpoint, data, headers = {}, query = {}, host) {
+export function post (endpoint, data, headers = {}, query = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
@@ -89,7 +88,7 @@ function post (endpoint, data, headers = {}, query = {}, host) {
     .then(response => response)
 }
 
-function put (endpoint, data, headers = {}, query = {}, host) {
+export function put (endpoint, data, headers = {}, query = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (!data) return handleMissingParameter('Request needs a defined data for update')
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
@@ -109,7 +108,7 @@ function put (endpoint, data, headers = {}, query = {}, host) {
     .then(response => response)
 }
 
-function del (endpoint, query = {}, headers = {}, host) {
+export function del (endpoint, query = {}, headers = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
@@ -134,4 +133,4 @@ const requests = {
   del
 }
 
-module.exports = requests
+export default requests

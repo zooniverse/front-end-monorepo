@@ -42,7 +42,7 @@
     "@visx/group": "~3.12.0",
     "@visx/responsive": "~3.12.0",
     "@visx/shape": "~3.12.0",
-    "@zooniverse/panoptes-js": "~0.6.0",
+    "@zooniverse/panoptes-js": "~1.0.0",
     "@zooniverse/subject-viewers": "0.1.0",
     "cuid": "~3.0.0",
     "formik": "~2.4.0",
@@ -58,7 +58,7 @@
     "swr": "~2.3.2"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "3.x.x",
+    "@zooniverse/grommet-theme": "4.x.x",
     "d3": "~6.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
@@ -80,7 +80,7 @@
     "@testing-library/react": "~14.2.0",
     "@testing-library/user-event": "~14.5.0",
     "@vitejs/plugin-react": "~4.4.1",
-    "@zooniverse/grommet-theme": "~3.3.0",
+    "@zooniverse/grommet-theme": "~4.0.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-plugin-styled-components": "~2.1.4",
     "babel-plugin-transform-imports": "~2.0.0",
