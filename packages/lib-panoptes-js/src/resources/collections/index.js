@@ -3,7 +3,7 @@ import { addSubjects, removeSubjects } from './commonRequests.js'
 import { endpoint } from './helpers.js'
 import mocks from './mocks.js'
 
-export default {
+const collections = {
   create,
   get,
   delete: del,
@@ -13,3 +13,5 @@ export default {
   removeSubjects,
   mocks
 }
+
+export default collections

@@ -1,25 +1,11 @@
-import { config, env } from './config.js'
-import auth from './auth.js'
-import panoptes from './panoptes.js'
-import talkAPI from './talkAPI.js'
+export { config, env } from './config.js'
+export { default as auth } from './auth.js'
+export { default as panoptes } from './panoptes.js'
+export { default as talkAPI } from './talkAPI.js'
 
-import collections from './resources/collections/index.js'
-import media from './resources/media/index.js'
-import projects from './resources/projects/index.js'
-import subjects from './resources/subjects/index.js'
-import tutorials from './resources/tutorials/index.js'
-import users from './resources/users/index.js'
-
-export default {
-  auth,
-  collections,
-  config,
-  env,
-  media,
-  panoptes,
-  projects,
-  subjects,
-  talkAPI,
-  tutorials,
-  users
-}
+export { default as collections } from './resources/collections/index.js'
+export { default as media } from './resources/media/index.js'
+export { default as projects } from './resources/projects/index.js'
+export { default as subjects } from './resources/subjects/index.js'
+export { default as tutorials } from './resources/tutorials/index.js'
+export { default as users } from './resources/users/index.js'

@@ -1,5 +1,7 @@
 import mocks from './mocks'
 
-export default {
+const users = {
   mocks
 }
+
+export default users

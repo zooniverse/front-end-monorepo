@@ -3,7 +3,7 @@ import { getSubjectQueue } from './commonRequests.js'
 import { endpoint } from './helpers.js'
 import mocks from './mocks.js'
 
-export default {
+const subjects = {
   create,
   get,
   update,
@@ -12,3 +12,5 @@ export default {
   getSubjectQueue,
   mocks
 }
+
+export default subjects

@@ -1,5 +1,7 @@
 import { buildMockedMediumResource } from './mocks.js'
 
-export default {
+const media = {
   mocks: { buildMockedMediumResource }
 }
+
+export default media

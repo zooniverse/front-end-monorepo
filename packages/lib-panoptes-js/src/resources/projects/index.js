@@ -3,7 +3,7 @@ import { getBySlug, getWithLinkedResources } from './commonRequests.js'
 import { endpoint } from './helpers.js'
 import mocks from './mocks.js'
 
-export default {
+const projects = {
   create,
   get,
   update,
@@ -13,3 +13,5 @@ export default {
   getWithLinkedResources,
   mocks
 }
+
+export default projects

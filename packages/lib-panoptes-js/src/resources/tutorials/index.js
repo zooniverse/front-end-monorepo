@@ -3,7 +3,7 @@ import { getAttachedImages, getMinicourses, getTutorials } from './commonRequest
 import { endpoint } from './helpers.js'
 import mocks from './mocks.js'
 
-export default {
+const tutorials = {
   create,
   get,
   update,
@@ -14,3 +14,5 @@ export default {
   endpoint,
   mocks
 }
+
+export default tutorials

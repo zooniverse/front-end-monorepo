@@ -30,3 +30,10 @@ export async function decodeJWT(token) {
   }
   return { user, error }
 }
+
+const auth = {
+  verify,
+  decodeJWT
+}
+
+export default auth

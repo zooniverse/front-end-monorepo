@@ -115,3 +115,8 @@ export const responses = {
     queryNotFound
   }
 }
+
+export default {
+  resources,
+  responses
+}

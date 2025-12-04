@@ -178,3 +178,8 @@ export const responses = {
     updatedProject
   }
 }
+
+export default {
+  resources,
+  responses
+}

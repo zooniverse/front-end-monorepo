@@ -31,3 +31,8 @@ export const responses = {
     subjectQueue: subjectQueueResponse
   }
 }
+
+export default {
+  resources,
+  responses
+}

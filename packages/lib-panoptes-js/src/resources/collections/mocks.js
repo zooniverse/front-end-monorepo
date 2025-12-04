@@ -35,3 +35,8 @@ export const responses = {
     collections: collectionsResponse
   }
 }
+
+export default {
+  resources,
+  responses
+}
