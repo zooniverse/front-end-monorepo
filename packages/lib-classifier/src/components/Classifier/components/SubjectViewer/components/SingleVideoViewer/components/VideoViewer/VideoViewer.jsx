@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { arrayOf, bool, func, shape } from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
 import { useMemo, useRef } from 'react';
@@ -9,9 +9,11 @@ import locationValidator from '../../../../helpers/locationValidator'
 
 const SubjectContainer = styled.div`
   position: relative;
+  filter: invert(${props => props.$invert ? 1 : 0});
 `
 
 function VideoViewer({
+  invert = false,
   onError = () => true,
   onReady = () => true,
   subject
@@ -74,7 +76,7 @@ function VideoViewer({
     <>
       {videoLocation
         ? (
-          <SubjectContainer>
+          <SubjectContainer $invert={invert}>
             {memoizedViewer}
           </SubjectContainer>
           )
@@ -86,10 +88,11 @@ function VideoViewer({
 }
 
 VideoViewer.propTypes = {
-  onError: PropTypes.func,
-  onReady: PropTypes.func,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
+  invert: bool,
+  onError: func,
+  onReady: func,
+  subject: shape({
+    locations: arrayOf(locationValidator)
   })
 }
 
