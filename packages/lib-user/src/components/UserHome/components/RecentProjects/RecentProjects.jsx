@@ -70,7 +70,7 @@ export default function RecentProjects({
           margin='0'
         >
           {renderedProjects.map(project => (
-            <li key={project?.project?.id}>
+            <li key={project?.id}>
               <ProjectCard
                 description={project?.description}
                 displayName={project?.display_name}

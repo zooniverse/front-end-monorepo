@@ -6,7 +6,7 @@ import IconActionButton from '../IconActionButton'
 
 function ImageIconButton({
   disabled = false,
-  href = '',
+  href = null,
   ...props
 }) {
   const { t } = useTranslation()
