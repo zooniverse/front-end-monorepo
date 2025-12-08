@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 import vitestConfig from '../vitest.config.js'
 
 const config = {
@@ -12,6 +13,11 @@ const config = {
     options: { strictMode: true }
   },
   webpackFinal: async config => {
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        process: 'process/browser.js' // For components that try to access process.env or process.browser
+      })
+    )
     return {
       ...config,
       resolve: {
@@ -20,7 +26,7 @@ const config = {
         fallback: {
           fs: false,
           // for markdown-it plugins
-          path: require.resolve("path-browserify"),
+          path: require.resolve('path-browserify')
         }
       }
     }
