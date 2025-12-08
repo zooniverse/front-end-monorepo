@@ -7,6 +7,8 @@ const DAILY_ZOO_FEED =
 const ZOO_BLOG_FEED =
   'https://public-api.wordpress.com/rest/v1.1/sites/36711287/posts?number=4'
 
+export const fetchCache = 'default-cache'
+
 /** Grab the data we want from each post */
 function parseFeedPost(post) {
   return {

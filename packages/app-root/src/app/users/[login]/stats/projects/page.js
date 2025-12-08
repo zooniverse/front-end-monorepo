@@ -5,6 +5,9 @@ export const metadata = {
   description: 'My Zooniverse user projects page'
 }
 
-export default function UserStatAllProjectsPage({ params, searchParams }) {
+export default async function UserStatAllProjectsPage(props) {
+  const params = await props.params
+  const searchParams = await props.searchParams
+
   return <AllProjectsContainer login={params.login} searchParams={searchParams} />
 }
