@@ -25,7 +25,7 @@ const StyledButton = styled(Button)`
 
 const DEFAULT_HANDLER = () => {}
 
-function CloseButton ({ closeFn = DEFAULT_HANDLER, color = '', disabled = false, href = '', ...rest }) {
+function CloseButton ({ closeFn = DEFAULT_HANDLER, color = '', disabled = false, href = null, ...rest }) {
   // We've destructured href from the props to make sure it's NOT passed along
 
   const { t } = useTranslation()

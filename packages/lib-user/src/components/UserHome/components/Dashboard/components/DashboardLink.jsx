@@ -17,7 +17,7 @@ function Icon({ icon, text = '', size = 'medium' }) {
   )
 }
 
-export default function DashboardLink({ href = '', icon, text = '' }) {
+export default function DashboardLink({ href = null, icon, text = '' }) {
   const size = useContext(ResponsiveContext)
   return (
     <PlainButton

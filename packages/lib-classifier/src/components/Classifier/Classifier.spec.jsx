@@ -263,7 +263,7 @@ describe('Components > Classifier', function () {
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
       const newSnapshot = {
         ...workflowSnapshot,
-        version: '0.1',
+        version: '0.1', // (initial branchingWorkflow version is 0.0)
         strings: {
           ...workflowSnapshot.strings,
           'tasks.T0.answers.0.label': 'Answer one',
@@ -277,10 +277,10 @@ describe('Components > Classifier', function () {
           }
         }
       }
-      store.workflows.setResources([newSnapshot])
+      // Don't manually setResources here because the check for `workflowVersionChanged` will do so in Classifier.jsx
+      // store.workflows.setResources([newSnapshot])
       rerender(
         <Classifier
-          classifierStore={store}
           workflowSnapshot={newSnapshot}
         />,
         {
@@ -479,7 +479,6 @@ describe('Components > Classifier', function () {
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
       rerender(
         <Classifier
-          classifierStore={store}
           subjectSetID='2'
           workflowSnapshot={workflowSnapshot}
         />,

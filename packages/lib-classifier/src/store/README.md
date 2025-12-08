@@ -51,7 +51,6 @@ flowchart LR
 ## Utilities
 - [Utilities](/packages/lib-classifier/src/store/utils/README.md)
 - [Translations](/packages/lib-classifier/src/translations/README.md)
-- [Workers](/packages/lib-classifier/src/workers/README.md)
 
 ## Panoptes resources
 

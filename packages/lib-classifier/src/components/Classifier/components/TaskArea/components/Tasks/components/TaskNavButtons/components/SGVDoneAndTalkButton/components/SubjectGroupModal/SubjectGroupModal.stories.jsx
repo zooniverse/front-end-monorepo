@@ -2,7 +2,7 @@ import SubjectGroupModal from './SubjectGroupModal.jsx'
 import { SubjectMock } from './SubjectMock'
 
 export default {
-  title: 'Components / SubjectGroupModal',
+  title: 'Tasks / SubjectGroupModal',
   component: SubjectGroupModal
 }
 
