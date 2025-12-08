@@ -171,6 +171,10 @@ const ClassificationStore = types
       }
     }
 
+    function onClassificationSaved (savedClassification) {
+      // handle any processing of classifications that have been saved to Panoptes.
+    }
+
     function trackAlreadySeenSubjects (workflowID, subjectIDs) {
       subjectsSeenThisSession.add(workflowID, subjectIDs)
     }
@@ -209,6 +213,7 @@ const ClassificationStore = types
       addAnnotation,
       completeClassification,
       createClassification,
+      onClassificationSaved,
       setDemoMode,
       setOnComplete,
       submitClassification: flow(submitClassification),
