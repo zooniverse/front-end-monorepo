@@ -1,11 +1,10 @@
 import ProjectsPageContainer from '@/components/ProjectsPageContainer'
 
-const PANOPTES_HOST =
-  process.env.NODE_ENV === 'production'
-    ? 'https://www.zooniverse.org/api/projects'
-    : 'https://panoptes-staging.zooniverse.org/api/projects'
+const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api/projects'
+const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api/projects'
 
-const params = {
+// Get the first page of active projects. This is the default state of the filters on page load.
+const defaultSearchParams = {
   cards: true,
   include: 'avatar',
   launch_approved: true,
@@ -15,13 +14,24 @@ const params = {
   state: 'live'
 }
 
-// Get the first page of active projects. This is the default state of the filters on page load.
 // Not using @zooniverse/panoptes-js here in favor of plain `fetch` in combo with Next.js SSR.
-async function fetchActiveProjects() {
-  const panoptesUrl = new URL(PANOPTES_HOST)
+async function fetchActiveProjects(searchParams) {
+  let panoptesUrl
+  if (process.env.NODE_ENV === 'production' || searchParams?.env === 'production') {
+    panoptesUrl = new URL(PROD_PANOPTES_HOST)
+  } else {
+    panoptesUrl = new URL(STAGING_PANOPTES_HOST)
+  }
+
+  const params = {
+    ...defaultSearchParams,
+    ...searchParams
+  }
 
   Object.keys(params).forEach(key => {
-    panoptesUrl.searchParams.append(key, params[key])
+    if (key !== 'env') {
+      panoptesUrl.searchParams.append(key, params[key])
+    }
   })
 
   try {
@@ -45,8 +55,9 @@ async function fetchActiveProjects() {
   }
 }
 
-export default async function ProjectsPage() {
-  const activeProjects = await fetchActiveProjects()
+export default async function ProjectsPage(props) {
+  const searchParams = await props.searchParams
+  const activeProjects = await fetchActiveProjects(searchParams)
 
   return <ProjectsPageContainer activeProjects={activeProjects}/>
 }
