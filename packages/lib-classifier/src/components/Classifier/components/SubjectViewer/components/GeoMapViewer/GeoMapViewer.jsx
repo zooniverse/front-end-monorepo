@@ -78,6 +78,7 @@ function GeoMapViewer({
       <MapContainer
         ref={mapRef}
         className='map-container'
+        data-testid='geo-map-container'
       />
     </Box>
   )
