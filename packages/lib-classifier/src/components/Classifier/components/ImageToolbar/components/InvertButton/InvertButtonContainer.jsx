@@ -7,7 +7,7 @@ import InvertButton from './InvertButton'
 function storeMapper (classifierStore) {
   const {
     subjectViewer: {
-      disableImageToolbar,
+      disableInvertButton,
       invert,
       invertView
     },
@@ -18,7 +18,7 @@ function storeMapper (classifierStore) {
 
   const active = invert
   const show = workflow?.configuration?.invert_subject
-  const disabled = disableImageToolbar
+  const disabled = disableInvertButton
 
   return {
     active,

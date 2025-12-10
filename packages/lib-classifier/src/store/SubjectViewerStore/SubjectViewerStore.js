@@ -49,6 +49,15 @@ const SubjectViewer = types
       return false
     },
 
+    get disableInvertButton () {
+      const subject = tryReference(() => getRoot(self).subjects?.active)
+      const frameType = subject?.locations[self.frame].type
+      if (frameType === 'text') {
+        return true
+      }
+      return false
+    },
+
     get hasActiveAnnotateTask () {
       return getRoot(self)?.workflowSteps.hasActiveAnnotateTask
     },
