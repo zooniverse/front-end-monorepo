@@ -1,4 +1,4 @@
-import ProjectsPageContainer from '@/components/ProjectsPageContainer'
+import ProjectsPageContainer from '@/components/projects/ProjectsPageContainer'
 
 const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api/projects'
 const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api/projects'
@@ -12,6 +12,11 @@ const defaultSearchParams = {
   page_size: 20,
   sort: '-launch_date',
   state: 'live'
+}
+
+export const metadata = {
+  title: 'Projects',
+  description: 'Zooniverse Projects'
 }
 
 // Not using @zooniverse/panoptes-js here in favor of plain `fetch` in combo with Next.js SSR.
@@ -57,7 +62,7 @@ async function fetchActiveProjects(searchParams) {
 
 export default async function ProjectsPage(props) {
   const searchParams = await props.searchParams
-  const activeProjects = await fetchActiveProjects(searchParams)
+  const projects = await fetchActiveProjects(searchParams)
 
-  return <ProjectsPageContainer activeProjects={activeProjects}/>
+  return <ProjectsPageContainer projects={projects}/>
 }

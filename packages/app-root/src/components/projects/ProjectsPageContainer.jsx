@@ -3,11 +3,11 @@
 import { ProjectCard } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 
-export default function ProjectsPageContainer({ activeProjects }) {
+export default function ProjectsPageContainer({ projects }) {
 
   return (
     <Box direction='row' wrap>
-      {activeProjects.map(project => (
+      {projects.map(project => (
         <ProjectCard
           key={project.id}
           description={project.description}
