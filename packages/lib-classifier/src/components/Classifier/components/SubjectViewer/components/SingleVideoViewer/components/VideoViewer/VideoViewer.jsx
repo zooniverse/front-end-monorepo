@@ -9,8 +9,10 @@ import locationValidator from '../../../../helpers/locationValidator'
 
 const SubjectContainer = styled.div`
   position: relative;
-  filter: invert(${props => props.$invert ? 1 : 0});
-`
+
+  video {
+    filter: invert(${props => props.$invert ? 1 : 0});
+  }`
 
 function VideoViewer({
   invert = false,
