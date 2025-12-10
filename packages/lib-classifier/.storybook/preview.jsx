@@ -1,8 +1,7 @@
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import i18n from '@translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import { StrictMode } from 'react'
 // import OpenLayers CSS for lib-classifier GeoMapViewer component styling
 import 'ol/ol.css'
 
@@ -15,11 +14,10 @@ const globalTypes = {
   theme: {
     name: 'Grommet Theme',
     description: 'Global Grommet theme for components',
-    defaultValue: 'light',
     toolbar: {
       icon: 'arrowdown',
       items: ['light', 'dark'],
-      title: 'Grommet Theme',
+      title: 'Grommet Theme'
     }
   }
 }
@@ -27,16 +25,14 @@ const globalTypes = {
 const decorators = [
   (Story, context) => {
     return (
-      <StrictMode>
-        <Grommet
-          background={background}
-          theme={zooTheme}
-          themeMode={context.globals.theme}
-          full
-        >
-          <Story />
-        </Grommet>
-      </StrictMode>
+      <Grommet
+        background={background}
+        theme={zooTheme}
+        themeMode={context.globals.theme}
+        full
+      >
+        <Story />
+      </Grommet>
     )
   }
 ]
@@ -48,16 +44,17 @@ const preview = {
       en: 'English',
       test: 'Test Language'
     },
+    theme: 'light'
   },
   parameters: {
     i18n,
     layout: 'fullscreen',
     viewport: {
-      viewports: INITIAL_VIEWPORTS
+      options: INITIAL_VIEWPORTS
     }
   },
   decorators,
-  globalTypes,
+  globalTypes
 }
 
 export default preview

@@ -77,7 +77,7 @@ CardsRow.propTypes = {
 function TopProjects({
   allProjectsStats = {},
   grid = false,
-  linkProps = { href: '' },
+  linkProps = { href: null },
   loading = false,
   projects = []
 }) {

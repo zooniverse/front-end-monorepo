@@ -12,7 +12,7 @@ export const NfnCaliFlowers = {
     description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
     displayName: `Notes from Nature - Capturing California's Flowers`,
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/0c4cfec1-a15b-468e-9f57-e9133993532d.jpeg',
-    slug: 'md68135/notes-from-nature-capturing-californias-flowers'
+    href: 'https://www.zooniverse.org/projects/md68135/notes-from-nature-capturing-californias-flowers'
   },
   render: args => (
     <Box gap='medium' pad='medium' direction='row'>
@@ -30,7 +30,7 @@ export const LargeNumbers = {
     description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
     displayName: `Notes from Nature - Capturing California's Flowers`,
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/0c4cfec1-a15b-468e-9f57-e9133993532d.jpeg',
-    slug: 'md68135/notes-from-nature-capturing-californias-flowers'
+    href: 'https://www.zooniverse.org/projects/md68135/notes-from-nature-capturing-californias-flowers'
   },
   render: args => (
     <Box gap='medium' pad='medium' direction='row'>
@@ -47,7 +47,7 @@ export const PlanetHuntersTess = {
     description: 'Join the Search for Undiscovered Worlds',
     displayName: 'Planet Hunters TESS',
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg',
-    slug: 'nora-dot-eisner/planet-hunters-tess'
+    href: 'https://www.zooniverse.org/projects/nora-dot-eisner/planet-hunters-tess'
   },
   render: args => (
     <Box gap='medium' pad='medium' direction='row'>
@@ -65,8 +65,8 @@ export const PausedProject = {
     description: 'Using digital images to investigate ​phenological change in a biodiversity hotspot​',
     displayName: `Notes from Nature - Capturing California's Flowers`,
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/0c4cfec1-a15b-468e-9f57-e9133993532d.jpeg',
+    href: 'https://www.zooniverse.org/projects/md68135/notes-from-nature-capturing-californias-flowers',
     state: 'paused',
-    slug: 'md68135/notes-from-nature-capturing-californias-flowers'
   },
   render: args => (
     <Box gap='medium' pad='medium' direction='row'>
@@ -83,8 +83,8 @@ export const FinishedProject = {
     description: 'Join the Search for Undiscovered Worlds',
     displayName: 'Planet Hunters TESS',
     imageSrc: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg',
+    href: 'https://www.zooniverse.org/projects/nora-dot-eisner/planet-hunters-tess',
     state: 'finished',
-    slug: 'nora-dot-eisner/planet-hunters-tess'
   },
   render: args => (
     <Box gap='medium' pad='medium' direction='row'>

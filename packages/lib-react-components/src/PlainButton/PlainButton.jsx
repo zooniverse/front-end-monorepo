@@ -25,7 +25,7 @@ function PlainButton({
   as = '',
   className = '',
   disabled = false,
-  href = '',
+  href = null,
   onClick = () => {},
   labelSize = 'medium',
   text = '',
@@ -37,7 +37,7 @@ function PlainButton({
       as={as}
       className={className}
       disabled={disabled}
-      href={disabled ? '' : href}
+      href={disabled ? null : href}
       gap='xxsmall'
       label={text ?
         <SpacedText color={color} size={labelSize}>

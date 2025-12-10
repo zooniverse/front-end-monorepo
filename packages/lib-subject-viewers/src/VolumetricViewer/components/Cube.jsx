@@ -24,11 +24,6 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 
 // Shim for node.js testing
 const glContext = null
-if (!process.browser) {
-  window.requestAnimationFrame = () => {
-    // needs to be stubbed out for animate() to work
-  }
-}
 
 const AXIS_COLORS = [
   0xE45950, // x
