@@ -7,7 +7,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@components': resolve(__dirname, 'src/components'),
-      '@translations': resolve(__dirname, 'src/translations')
+      '@translations': resolve(__dirname, 'src/translations'),
+      '@test': resolve(__dirname, 'test')
     },
   },
   test: {
