@@ -1,15 +1,18 @@
 import { Box } from 'grommet'
+import { arrayOf, number, shape, string } from 'prop-types'
+import { useEffect, useRef } from 'react'
+import styled from 'styled-components'
+
+// OpenLayers imports
 import { Map, View } from 'ol'
-import { Translate, Select } from 'ol/interaction'
 import { click } from 'ol/events/condition'
 import GeoJSON from 'ol/format/GeoJSON'
+import { Translate, Select } from 'ol/interaction'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
-import { arrayOf, number, shape, string } from 'prop-types'
-import { useEffect, useRef } from 'react'
-import styled from 'styled-components'
+
 
 const MapContainer = styled.div`
   height: 100%;
