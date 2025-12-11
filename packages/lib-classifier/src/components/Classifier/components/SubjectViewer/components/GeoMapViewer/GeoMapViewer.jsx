@@ -1,5 +1,7 @@
 import { Box } from 'grommet'
 import { Map, View } from 'ol'
+import { Translate, Select } from 'ol/interaction'
+import { click } from 'ol/events/condition'
 import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
@@ -18,6 +20,8 @@ function GeoMapViewer({
   geoJSON = undefined
 }) {
   const mapRef = useRef()
+  const selectRef = useRef()
+  const translateRef = useRef()
 
   useEffect(function loadMap() {
     let map
@@ -53,11 +57,34 @@ function GeoMapViewer({
         }),
       })
 
+      const select = new Select({
+        condition: click,
+        layers: [vectorLayer]
+      })
+
+      const translate = new Translate({
+        features: select.getFeatures()
+      })
+
+      map.addInteraction(select)
+      map.addInteraction(translate)
+
+      selectRef.current = select
+      translateRef.current = translate
+
       return map
     }
 
     function unloadMap(mapInstance) {
       if (mapInstance) {
+        if (selectRef.current) {
+          mapInstance.removeInteraction(selectRef.current)
+          selectRef.current = undefined
+        }
+        if (translateRef.current) {
+          mapInstance.removeInteraction(translateRef.current)
+          translateRef.current = undefined
+        }
         mapInstance.setTarget(undefined)
       }
     }
