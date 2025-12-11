@@ -1,7 +1,14 @@
-import ProjectsPageContainer from '@/components/projects/ProjectsPageContainer'
+/* Not using @zooniverse/panoptes-js here in favor of plain `fetch` in combo with Next.js SSR. */
+
+import { Projects } from '@zooniverse/content'
 
 const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api/projects'
 const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api/projects'
+
+export const metadata = {
+  title: 'Projects',
+  description: 'Zooniverse Projects'
+}
 
 // Get the first page of active projects. This is the default state of the filters on page load.
 const defaultSearchParams = {
@@ -14,15 +21,12 @@ const defaultSearchParams = {
   state: 'live'
 }
 
-export const metadata = {
-  title: 'Projects',
-  description: 'Zooniverse Projects'
-}
-
-// Not using @zooniverse/panoptes-js here in favor of plain `fetch` in combo with Next.js SSR.
 async function fetchActiveProjects(searchParams) {
   let panoptesUrl
-  if (process.env.NODE_ENV === 'production' || searchParams?.env === 'production') {
+  if (
+    process.env.NODE_ENV === 'production' ||
+    searchParams?.env === 'production'
+  ) {
     panoptesUrl = new URL(PROD_PANOPTES_HOST)
   } else {
     panoptesUrl = new URL(STAGING_PANOPTES_HOST)
@@ -30,7 +34,7 @@ async function fetchActiveProjects(searchParams) {
 
   const params = {
     ...defaultSearchParams,
-    ...searchParams
+    ...searchParams // if someone has entered search params in the url, honor those over the defaults
   }
 
   Object.keys(params).forEach(key => {
@@ -60,9 +64,45 @@ async function fetchActiveProjects(searchParams) {
   }
 }
 
+async function fetchFeaturedProjects(searchParams) {
+  let panoptesUrl
+  if (
+    process.env.NODE_ENV === 'production' ||
+    searchParams?.env === 'production'
+  ) {
+    panoptesUrl = new URL(PROD_PANOPTES_HOST)
+  } else {
+    panoptesUrl = new URL(STAGING_PANOPTES_HOST)
+  }
+
+  try {
+    const response = await fetch(
+      `${panoptesUrl}?featured=true&launch_approved=true&cards=true`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.api+json; version=1'
+        }
+      }
+    )
+
+    if (response.ok) {
+      const json = await response.json()
+      return json.projects
+    }
+
+    return []
+  } catch (error) {
+    console.error(error)
+    return error.message
+    // Should probably pass an error state to ProjectsPage
+  }
+}
+
 export default async function ProjectsPage(props) {
   const searchParams = await props.searchParams
   const projects = await fetchActiveProjects(searchParams)
+  const featuredProjects = await fetchFeaturedProjects(searchParams)
 
-  return <ProjectsPageContainer projects={projects}/>
+  return <Projects featuredProjects={featuredProjects} projects={projects} />
 }

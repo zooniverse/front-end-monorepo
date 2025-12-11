@@ -1,64 +1,33 @@
+/*
+  Note that this component is similar to DefaultHome > FeaturedProjects,
+  but with slightly different styling and ProjectCards size,
+  and we'll handle the ability for admins to edit featured projects here.
+*/
+
 import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
-import useSWR from 'swr'
-import { projects } from '@zooniverse/panoptes-js'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 
 import { useTranslation } from '@translations/i18n'
-import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo'
 
-const SWROptions = {
-  revalidateIfStale: true,
-  revalidateOnMount: true,
-  revalidateOnFocus: true,
-  revalidateOnReconnect: true,
-  refreshInterval: 0
-}
-
-const getFeaturedProjects = async () => {
-  try {
-    const response = await projects.get({
-      query: {
-        featured: true,
-        launch_approved: true,
-        cards: true
-      }
-    })
-    if (response.ok) {
-      return response.body.projects
-    }
-    return []
-  } catch (error) {
-    console.log(error)
-    return []
-  }
-}
-
-function useFeaturedProjects() {
-  return useSWR('featured-projects', getFeaturedProjects, SWROptions)
-}
-
-export default function FeaturedProjects() {
-  const { data: featuredProjects, isLoading } = useFeaturedProjects()
+export default function FeaturedProjects({ featuredProjects }) {
   const { t } = useTranslation()
 
   const size = useContext(ResponsiveContext)
-  const cardSize = size === 'small' ? 'medium' : 'xlarge'
+  const cardSize = size === 'small' ? 'medium' : 'large'
 
   return (
     <Box fill>
       <SpacedHeading
         level={2}
         size='1.5rem'
-        color={{ light: 'neutral-1', dark: 'accent-1' }}
+        color='white'
         textAlign='center'
         fill
         margin={{ bottom: 'medium', top: '0' }}
       >
         {t('Home.DefaultHome.FeaturedProjects.heading')}
       </SpacedHeading>
-      <HorizontalRuleLogo />
-      {/* This is a similar scrollable container like lib-user TopProjects */}
       <Box
         as='ul'
         direction='row'
@@ -78,6 +47,7 @@ export default function FeaturedProjects() {
               href={`https://www.zooniverse.org/projects/${project.slug}`}
               imageSrc={project.avatar_src}
               size={cardSize}
+              background='light-1'
             />
           ))
         ) : (
