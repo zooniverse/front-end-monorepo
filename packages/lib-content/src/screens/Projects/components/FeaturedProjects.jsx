@@ -7,8 +7,25 @@
 import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
+import styled from 'styled-components'
 
 import { useTranslation } from '@translations/i18n'
+
+const StyledBox = styled(Box)`
+  list-style: none;
+  column-gap: 30px;
+  margin: 0 30px 40px;
+
+  @media (min-width: 48rem) {
+    column-gap: 45px;
+    margin: 0 30px 60px;
+  }
+
+  @media (min-width: 90rem) {
+    column-gap: 60px;
+    margin: 0 30px 60px;
+  }
+`
 
 export default function FeaturedProjects({ featuredProjects }) {
   const { t } = useTranslation()
@@ -17,26 +34,22 @@ export default function FeaturedProjects({ featuredProjects }) {
   const cardSize = size === 'small' ? 'medium' : 'large'
 
   return (
-    <Box fill>
+    <Box>
       <SpacedHeading
         level={2}
-        size='1.5rem'
+        size='2rem'
         color='white'
         textAlign='center'
         fill
-        margin={{ bottom: 'medium', top: '0' }}
+        margin={{ vertical: '30px' }}
       >
         {t('Home.DefaultHome.FeaturedProjects.heading')}
       </SpacedHeading>
-      <Box
-        as='ul'
+      <StyledBox
+        forwardedAs='ul'
         direction='row'
-        justify='between'
-        margin={{ top: 'medium', bottom: '0' }}
-        gap='small'
-        pad={{ horizontal: 'xxsmall', bottom: 'xsmall' }}
         overflow={{ horizontal: 'auto' }}
-        style={{ listStyle: 'none' }}
+        pad='none'
       >
         {featuredProjects?.length ? (
           featuredProjects.map(project => (
@@ -55,7 +68,7 @@ export default function FeaturedProjects({ featuredProjects }) {
             {t('Home.DefaultHome.FeaturedProjects.none')}
           </Box>
         )}
-      </Box>
+      </StyledBox>
     </Box>
   )
 }

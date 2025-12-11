@@ -48,7 +48,8 @@ async function fetchActiveProjects(searchParams) {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/vnd.api+json; version=1'
-      }
+      },
+      next: { revalidate: 60 } // revalidate at most every 1min
     })
 
     if (response.ok) {
@@ -82,7 +83,8 @@ async function fetchFeaturedProjects(searchParams) {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/vnd.api+json; version=1'
-        }
+        },
+        next: { revalidate: 60 } // revalidate at most every 1min
       }
     )
 

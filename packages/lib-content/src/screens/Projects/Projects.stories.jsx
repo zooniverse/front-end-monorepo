@@ -23,13 +23,6 @@ function ComponentDecorator(Story) {
       }}
       align='center'
     >
-      <Heading level='1'>
-        <ZooniverseLogotype
-          id='projects-landing-page-h1'
-          width={450}
-          color='white'
-        />
-      </Heading>
       <Story />
     </LayoutBackground>
   )

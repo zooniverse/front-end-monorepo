@@ -1,30 +1,27 @@
 'use client'
 
-import { Box, Heading } from 'grommet'
+import { Box, Heading, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
+import { useContext } from 'react'
 
 const LayoutBackground = styled(Box)`
-  background-image: radial-gradient( #14868eff, #005d69);
+  background-image: radial-gradient(#14868eff, #005d69);
   background-size: 100% 635px;
   background-position: top;
   background-repeat: no-repeat;
 `
 
 function ProjectsPageLayout({ children }) {
+  const size = useContext(ResponsiveContext)
+
   return (
     <main>
-      <LayoutBackground
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        align='center'
-      >
-        <Heading level='1'>
+      <LayoutBackground align='center'>
+        <Heading level='1' margin={{ top: '65px', bottom: 'small' }}>
           <ZooniverseLogotype
             id='projects-landing-page-h1'
-            width={450}
+            width={size === 'small' ? 360 : 450}
             color='white'
           />
         </Heading>
