@@ -14,7 +14,7 @@ describe('components > shared > TopProjects', function () {
     expect(screen.getByText('Top Projects')).toBeTruthy()
   })
 
-  it('should show a "see more" link', function () {
+  it('should show a "see all" link', function () {
     render(<DefaultStory />)
 
     expect(screen.getByRole('link', { name: 'See all' })).toBeTruthy()

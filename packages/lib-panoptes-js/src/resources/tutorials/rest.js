@@ -1,12 +1,12 @@
-const panoptes = require('../../panoptes')
-const { endpoint } = require('./helpers')
-const { isParamTypeInvalid, raiseError } = require('../../utilityFunctions')
+import panoptes from '../../panoptes.js'
+import { endpoint } from './helpers.js'
+import { isParamTypeInvalid, raiseError } from '../../utilityFunctions/utilityFunctions.js'
 
-function create (params) {
+export function create (params) {
   console.log('todo')
 }
 
-function get (params) {
+export function get (params) {
   const queryParams = (params && params.query) ? params.query : {}
   const tutorialId = (params && params.id) ? params.id : ''
   const workflowId = (params && params.workflowId) ? params.workflowId : ''
@@ -27,12 +27,10 @@ function get (params) {
   return raiseError('Tutorials: Get request must include a workflow id or a tutorial id.', 'error')
 }
 
-function update () {
+export function update () {
   console.log('todo')
 }
 
-function del () {
+export function del () {
   console.log('todo')
 }
-
-module.exports = { create, get, update, del }

@@ -1,4 +1,4 @@
-import { buildResponse, raiseError } from './index'
+import { buildResponse, raiseError } from './utilityFunctions.js'
 
 describe('Global Utility Functions', function () {
   describe('buildResponse', function () {

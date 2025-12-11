@@ -1,4 +1,4 @@
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box, Text } from 'grommet'
 import { useState, useRef } from 'react'
@@ -13,6 +13,10 @@ import VideoController from '../VideoController'
 
 const SubjectContainer = styled.div`
   position: relative;
+
+  video {
+    filter: invert(${props => props.$invert ? 1 : 0});
+  }
 `
 
 const DrawingLayer = styled.div`
@@ -25,6 +29,7 @@ const DrawingLayer = styled.div`
 const DEFAULT_HANDLER = () => true
 
 function VideoWithDrawing({
+  invert = false,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -174,7 +179,7 @@ function VideoWithDrawing({
   return (
     <>
       {videoLocation ? (
-        <SubjectContainer>
+        <SubjectContainer $invert={invert}>
           <ReactPlayer
             controls={false}
             height='100%'
@@ -260,6 +265,7 @@ function VideoWithDrawing({
 }
 
 VideoWithDrawing.propTypes = {
+  invert: bool,
   loadingState: string,
   onError: func,
   onKeyDown: func,
