@@ -2,8 +2,8 @@
 
 import { Projects } from '@zooniverse/content'
 
-const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api/projects'
-const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api/projects'
+const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api'
+const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api'
 
 export const metadata = {
   title: 'Projects',
@@ -27,9 +27,9 @@ async function fetchActiveProjects(searchParams) {
     process.env.NODE_ENV === 'production' ||
     searchParams?.env === 'production'
   ) {
-    panoptesUrl = new URL(PROD_PANOPTES_HOST)
+    panoptesUrl = new URL(`${PROD_PANOPTES_HOST}/projects`)
   } else {
-    panoptesUrl = new URL(STAGING_PANOPTES_HOST)
+    panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/projects`)
   }
 
   const params = {
@@ -71,9 +71,9 @@ async function fetchFeaturedProjects(searchParams) {
     process.env.NODE_ENV === 'production' ||
     searchParams?.env === 'production'
   ) {
-    panoptesUrl = new URL(PROD_PANOPTES_HOST)
+    panoptesUrl = new URL(`${PROD_PANOPTES_HOST}/projects`)
   } else {
-    panoptesUrl = new URL(STAGING_PANOPTES_HOST)
+    panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/projects`)
   }
 
   try {
@@ -101,10 +101,53 @@ async function fetchFeaturedProjects(searchParams) {
   }
 }
 
+async function fetchOrganizations(searchParams) {
+  let panoptesUrl
+  if (
+    process.env.NODE_ENV === 'production' ||
+    searchParams?.env === 'production'
+  ) {
+    panoptesUrl = new URL(`${PROD_PANOPTES_HOST}/organizations`)
+  } else {
+    panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/organizations`)
+  }
+
+  try {
+    const response = await fetch(
+      `${panoptesUrl}?listed=true`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.api+json; version=1'
+        },
+        next: { revalidate: 60 } // revalidate at most every 1min
+      }
+    )
+
+    if (response.ok) {
+      const json = await response.json()
+      return json.organizations
+    }
+
+    return []
+  } catch (error) {
+    console.error(error)
+    return error.message
+    // Should probably pass an error state to ProjectsPage
+  }
+}
+
 export default async function ProjectsPage(props) {
   const searchParams = await props.searchParams
   const projects = await fetchActiveProjects(searchParams)
   const featuredProjects = await fetchFeaturedProjects(searchParams)
+  const organizations = await fetchOrganizations(searchParams)
 
-  return <Projects featuredProjects={featuredProjects} projects={projects} />
+  return (
+    <Projects
+      featuredProjects={featuredProjects}
+      projects={projects}
+      organizations={organizations}
+    />
+  )
 }
