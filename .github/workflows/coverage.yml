@@ -3,7 +3,7 @@ name: Coverage report
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -14,7 +14,7 @@ jobs:
     env:
       PANOPTES_ENV: test
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
       - name: Use Node.js 22
         uses: actions/setup-node@v6

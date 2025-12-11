@@ -18,10 +18,10 @@ The Scatter Plot Viewer...
 - `invertAxes` _(object)_ Default: `{ x: false, y: false }`. Booleans to set whether or not the x-axis or y-axis is inverted.
 - `margin` _(object)_ Default: `{ bottom: 60, left: 60, right: 10, top: 10 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space outside of the axes lines. This is configurable via the subject location JSON's `chartOptions` property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. Bottom and left margin should be greater since that is where the x-axis and y-axis are positioned for the chart.
 - `padding` _(object)_ Default: `{ bottom: 0, left: 0, right: 0, top: 0 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space inside of the axes lines. This is configurable via the subject location JSON's `chartOptions` property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. This defaults to 0 because the default `tickDirection` of the axes is `'outer'` and no extra space is required for labels inside of the axes. This will need to be defined with values if the `tickDirection` is changed to `'inner'`.
-- `panning` _(boolean)_ Default: `false`. Enable or disable being able to pan the svg. It is separately configurable from `zooming`, however, it is unlikely to keep this `false` when `zooming` is `true`. If `zooming` is false, and `panning` is set to true, then this configuration is ignored, because panning doesn't need to function unless the full data series is not in view due to zooming in. 
+- `panning` _(boolean)_ Default: `false`. Enable or disable being able to pan the svg. It is separately configurable from `zooming`, however, it is unlikely to keep this `false` when `zooming` is `true`. If `zooming` is false, and `panning` is set to true, then this configuration is ignored, because panning doesn't need to function unless the full data series is not in view due to zooming in.
 - `parentHeight` _(number)_ Required. The size of the parent container's height. This is necessary for setting the size of the SVG Chart and for calculating the maximum of the y-axis scale. This is being provided by visx's `withParentSize` HOC if the default export of the `ScatterPlotViewer` is used. An undecorated `ScatterPlotViewer` is also exported and if this is used, then the `parentHeight` needs to be provided another way so the bar chart knows what pixel height to render.
 - `parentWidth` _(number)_ Required. The size of the parent container's width. This is necessary for setting the size of the SVG Chart and for calculating the maximum of the x-axis scale. This is being provided by visx's `withParentSize` HOC if the default export of the `ScatterPlotViewer` is used. An undecorated `ScatterPlotViewer` is also exported and if this is used, then the `parentWidth` needs to be provided another way so the bar chart knows what pixel width to render.
-- `theme` _object_ An object containing style information used by svg elements for their fill color, font size, and font family. This can be set via prop or provided by the React context if `ScatterPlotViewer` component decorated by styled-components `withTheme` HOC is used. The object shape is expected to be the same as [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme).
+- `theme` _object_ An object containing style information used by svg elements for their fill color, font size, and font family. This can be set via prop or provided by the React context if `ScatterPlotViewer` component decorated by styled-components `withTheme` HOC is used. The object shape is expected to be the same as [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme).
 - `tickDirection` _(string)_ Default: `'outer'`. The tick direction of the axis. This can be set to `'inner'` which styles the direction of the axes toward the inside of the plot area similar to PH: TESS light curve viewer design. This is not configurable by the the subject location JSON `chartOptions`.
 - `tickLength` _(number)_ Default: `5`. The length of the tick used by the axis. This is not configurable by the subject location JSON `chartOptions`.
 - `underlays` _(array)_ Default: `[]`. An array of objects to indicate how background underlays should be rendered. These objects should contain a browser standard color string for `fill`, a number for `startPosition` that corresponds to a x-axis data point, and a number for `xAxisWidth` which should be the width difference from zero. The numbers are used as parameters in a d3 scaleLinear function to determine the SVG coordinate position and width to place the SVG rectangle underlays. Example: `[{ fill: '#2d2d2d', startPosition: 0, xAxisWidth: 0.2 }]`
@@ -38,7 +38,7 @@ The Scatter Plot Viewer...
 
 ### Workflow
 
-The Workflow of the project had a configuration that specified to the Front End Monorepo that the Scatter Plot Viewer should be used. 
+The Workflow of the project had a configuration that specified to the Front End Monorepo that the Scatter Plot Viewer should be used.
 
 `workflow.configuration = { subject_viewer: 'scatterPlot' }`
 
@@ -82,13 +82,13 @@ const data = await response.json()
 const chartData = JSONData.create(data)
 ```
 
-The JSON file can take two different shapes depending on if the data is a single series or multiple series. 
+The JSON file can take two different shapes depending on if the data is a single series or multiple series.
 
 #### Series Data
 
-The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. 
+The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point.
 
-Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
+Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
 
 The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis. The multiple series shape can also be used for a single series and is required if you need to use error bars:
 
@@ -117,7 +117,7 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
 
 ``` json
 { "data": [
-    { 
+    {
       "seriesData": [
         { "x": 1.46,
           "y": 6.37,
@@ -164,7 +164,7 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
 
 For both single series data and multiple series data, a set of chart options can also be supplied that define the x-axis and y-axis labels as well as optionally the margins and padding to use and zoom configurations. Padding is defined as the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes.
 
-Zoom configuration supports configuring the directionality of the zoom, the minimum zoom, maximum zoom, the zoom in value, and the zoom out value. The order of precedence for zoom configuration values are subject's chart options, the workflow configuration, then the default values. 
+Zoom configuration supports configuring the directionality of the zoom, the minimum zoom, maximum zoom, the zoom in value, and the zoom out value. The order of precedence for zoom configuration values are subject's chart options, the workflow configuration, then the default values.
 
 ```js
 // default zoom configuration values

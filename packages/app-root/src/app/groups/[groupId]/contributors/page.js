@@ -5,7 +5,10 @@ export const metadata = {
   description: 'Zooniverse group contributors page'
 }
 
-export default function GroupContributors({ params, searchParams }) {
+export default async function GroupContributors(props) {
+  const params = await props.params
+  const searchParams = await props.searchParams
+
   return (
     <GroupContributorsContainer
       groupId={params.groupId}

@@ -3,7 +3,7 @@ name: Sentry Staging Release
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release:
@@ -11,7 +11,7 @@ jobs:
 
    steps:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Create new Sentry release
       uses: getsentry/action-release@v3

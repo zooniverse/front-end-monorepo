@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
-import PropTypes from 'prop-types'
-import { StrictMode, useEffect } from 'react';
+import { bool, func, object, shape, string } from 'prop-types'
+import { StrictMode, useEffect } from 'react'
 
 import { useStores } from '@hooks'
 import Layout from './components/Layout'
@@ -71,14 +71,14 @@ function Classifier({
 }
 
 Classifier.propTypes = {
-  onError: PropTypes.func,
-  showTutorial: PropTypes.bool,
-  subjectSetID: PropTypes.string,
-  subjectID: PropTypes.string,
-  workflowSnapshot: PropTypes.shape({
-    id: PropTypes.string,
-    strings: PropTypes.object,
-    version: PropTypes.string
+  onError: func,
+  showTutorial: bool,
+  subjectSetID: string,
+  subjectID: string,
+  workflowSnapshot: shape({
+    id: string,
+    strings: object,
+    version: string
   })
 }
 

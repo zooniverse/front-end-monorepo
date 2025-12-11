@@ -23,7 +23,7 @@ describe('MetaToolsButton', function () {
 
     it('should not have a link', function () {
       expect(screen.getByTestId('test-meta-tools-button').getAttribute('href'))
-        .to.equal('')
+        .to.equal(null)
     })
   })
 

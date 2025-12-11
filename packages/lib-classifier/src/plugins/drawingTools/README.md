@@ -23,7 +23,7 @@ const MarkComponent = mark.toolComponent
 
 `import { PointTool } from '@plugins/drawingTools/models/tools'`
 
-The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/drawingTools/models/tools/Tool) defines the following common properties and actions for all drawing tools.
+The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-classifier/src/plugins/drawingTools/models/tools/Tool) defines the following common properties and actions for all drawing tools.
 
 - _color (string)_
 - _label (string)_
@@ -50,7 +50,7 @@ All tools should extend the Tool model by implementing the following:
 
 `import { Point } from '@plugins/drawingTools/models/marks'`
 
-The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/drawingTools/models/marks/Mark) defines common properties and actions for all marks.
+The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-classifier/src/plugins/drawingTools/models/marks/Mark) defines common properties and actions for all marks.
 
 - _id (string)_ Mark identifier. Automatically generated when a mark is created by a tool.
 - _annotations (Map)_ A map of annotations created on this mark by tool tasks.

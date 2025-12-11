@@ -1,6 +1,6 @@
 # Feedback
 
-Feedback is a feature to either collect data about the success or failure of the volunteer classification compared to a known classification (aka gold standard) and/or display a message to the volunteer depending on the success or failure. Feedback is commonly used in volunteer training workflows, projects that do downstream user weighting, and with the workflow assignment feature. 
+Feedback is a feature to either collect data about the success or failure of the volunteer classification compared to a known classification (aka gold standard) and/or display a message to the volunteer depending on the success or failure. Feedback is commonly used in volunteer training workflows, projects that do downstream user weighting, and with the workflow assignment feature.
 
 Feedback could be leveraged to also just display a message to a volunteer regardless of the success or failure if the success and failure messages are made to be identical for the rule or in subject specific feedback metadata. For example, informing the volunteer that the subject is a sim.
 
@@ -11,7 +11,7 @@ Feedback depends on rules to be setup on the workflow and metadata on the subjec
 - `helpers` - helper utility functions.
 - `strategies` - the different methods for reconciling subject metadata and the workflow-defined rules for different task and tool types.
 
-Note: lab components are currently part of [Panoptes-Front-End](https://github.com/zooniverse/Panoptes-Front-End/tree/master/app/features/feedback/lab) and in the future will be added to the [lab app](https://github.com/zooniverse/pfe-lab).
+Note: lab components are currently part of [Panoptes-Front-End](https://github.com/zooniverse/Panoptes-Front-End/tree/main/app/features/feedback/lab) and in the future will be added to the [lab app](https://github.com/zooniverse/pfe-lab).
 
 ## How to set up feedback on a project
 
