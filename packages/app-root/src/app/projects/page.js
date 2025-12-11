@@ -114,7 +114,7 @@ async function fetchOrganizations(searchParams) {
 
   try {
     const response = await fetch(
-      `${panoptesUrl}?listed=true`,
+      `${panoptesUrl}?listed=true&include=avatar`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -126,6 +126,14 @@ async function fetchOrganizations(searchParams) {
 
     if (response.ok) {
       const json = await response.json()
+      // Manual attaching of avatars can be replaced if panoptes if updated with a ?card=true query params for the /organizations endpoint
+      const avatars = json?.linked?.avatars
+      if (json.organizations.length > 0) {
+        json.organizations.forEach(org => {
+          const avatar = avatars.find(item => item.href === `/organizations/${org.id}/avatar`)
+          org.avatar_src = avatar?.src
+        })
+      }
       return json.organizations
     }
 

@@ -299,7 +299,8 @@
   "Projects": {
     "organizations": {
       "heading": "Organizations",
-      "description": "Organizations bring together multiple related Zooniverse projects, making it easier for participants to explore connected research efforts."
+      "description": "Organizations bring together multiple related Zooniverse projects, making it easier for participants to explore connected research efforts.",
+      "none": "No organizations found."
     }
   },
   "Publications": {

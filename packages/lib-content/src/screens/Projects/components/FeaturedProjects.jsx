@@ -11,13 +11,13 @@ import styled from 'styled-components'
 
 import { useTranslation } from '@translations/i18n'
 
-const StyledBox = styled(Box)`
+const StyledList = styled(Box)`
   list-style: none;
   column-gap: 30px;
   margin: 0 30px 40px;
 
   @media (min-width: 48rem) {
-    column-gap: 45px;
+    column-gap: 50px;
     margin: 0 30px 60px;
   }
 
@@ -31,7 +31,6 @@ export default function FeaturedProjects({ featuredProjects }) {
   const { t } = useTranslation()
 
   const size = useContext(ResponsiveContext)
-  const cardSize = size === 'small' ? 'medium' : 'large'
 
   return (
     <Box>
@@ -45,7 +44,7 @@ export default function FeaturedProjects({ featuredProjects }) {
       >
         {t('Home.DefaultHome.FeaturedProjects.heading')}
       </SpacedHeading>
-      <StyledBox
+      <StyledList
         forwardedAs='ul'
         direction='row'
         overflow={{ horizontal: 'auto' }}
@@ -53,22 +52,24 @@ export default function FeaturedProjects({ featuredProjects }) {
       >
         {featuredProjects?.length ? (
           featuredProjects.map(project => (
-            <ProjectCard
-              key={project.slug}
-              description={project.description}
-              displayName={project.display_name}
-              href={`https://www.zooniverse.org/projects/${project.slug}`}
-              imageSrc={project.avatar_src}
-              size={cardSize}
-              background='light-1'
-            />
+            <li>
+              <ProjectCard
+                key={project.slug}
+                description={project.description}
+                displayName={project.display_name}
+                href={`https://www.zooniverse.org/projects/${project.slug}`}
+                imageSrc={project.avatar_src}
+                size={size}
+                background='light-1'
+              />
+            </li>
           ))
         ) : (
           <Box as='li' align='center' fill>
             {t('Home.DefaultHome.FeaturedProjects.none')}
           </Box>
         )}
-      </StyledBox>
+      </StyledList>
     </Box>
   )
 }
