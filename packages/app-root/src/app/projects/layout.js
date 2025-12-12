@@ -1,5 +1,6 @@
 'use client'
 
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Box, Heading, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
@@ -25,7 +26,7 @@ function ProjectsPageLayout({ children }) {
             color='white'
           />
         </Heading>
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
       </LayoutBackground>
     </main>
   )

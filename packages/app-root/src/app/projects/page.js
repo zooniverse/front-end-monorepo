@@ -1,24 +1,27 @@
 /* Not using @zooniverse/panoptes-js here in favor of plain `fetch` in combo with Next.js SSR. */
 
-import { Projects } from '@zooniverse/content'
+import ProjectsContainer from './ProjectsContainer'
 
 const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api'
 const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api'
 
 export const metadata = {
   title: 'Projects',
-  description: 'Zooniverse Projects'
+  description: 'Zooniverse Projects',
+  alternates: {
+    canonical: '/projects' // tell SEO to index this page without any query params
+  }
 }
 
 // Get the first page of active projects. This is the default state of the filters on page load.
 const defaultSearchParams = {
   cards: true,
-  include: 'avatar',
   launch_approved: true,
   page: 1,
   page_size: 20,
   sort: '-launch_date',
   state: 'live'
+  // eventually add "search" and "languages" too
 }
 
 async function fetchActiveProjects(searchParams) {
@@ -54,7 +57,8 @@ async function fetchActiveProjects(searchParams) {
 
     if (response.ok) {
       const json = await response.json()
-      return json.projects
+      const numProjects = json.meta.projects.count
+      return { projects: json.projects, numProjects }
     }
 
     return []
@@ -147,13 +151,14 @@ async function fetchOrganizations(searchParams) {
 
 export default async function ProjectsPage(props) {
   const searchParams = await props.searchParams
-  const projects = await fetchActiveProjects(searchParams)
+  const { projects, numProjects } = await fetchActiveProjects(searchParams)
   const featuredProjects = await fetchFeaturedProjects(searchParams)
   const organizations = await fetchOrganizations(searchParams)
 
   return (
-    <Projects
+    <ProjectsContainer
       featuredProjects={featuredProjects}
+      numProjects={numProjects}
       projects={projects}
       organizations={organizations}
     />

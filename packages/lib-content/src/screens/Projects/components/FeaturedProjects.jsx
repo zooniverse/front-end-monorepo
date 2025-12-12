@@ -52,9 +52,8 @@ export default function FeaturedProjects({ featuredProjects }) {
       >
         {featuredProjects?.length ? (
           featuredProjects.map(project => (
-            <li>
+            <li key={project.slug}>
               <ProjectCard
-                key={project.slug}
                 description={project.description}
                 displayName={project.display_name}
                 href={`https://www.zooniverse.org/projects/${project.slug}`}

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { Box } from 'grommet'
+import { NuqsTestingAdapter } from 'nuqs/adapters/testing'
 
-import Projects from './Projects'
+import ProjectsPageContainer from './ProjectsPageContainer'
 import PROJECTS from '@test/mocks/projects.mock'
 import FEATURED_PROJECTS from '@test/mocks/featuredProjects.mock'
 import ORGANIZATIONS from '@test/mocks/organizations.mock'
@@ -16,26 +17,29 @@ const LayoutBackground = styled(Box)`
 
 function ComponentDecorator(Story) {
   return (
-    <LayoutBackground
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      align='center'
-    >
-      <Story />
-    </LayoutBackground>
+    <NuqsTestingAdapter>
+      <LayoutBackground
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        align='center'
+      >
+        <Story />
+      </LayoutBackground>
+    </NuqsTestingAdapter>
   )
 }
 
 export default {
   title: 'Projects / Projects',
-  component: Projects,
+  component: ProjectsPageContainer,
   decorators: [ComponentDecorator],
   args: {
     featuredProjects: FEATURED_PROJECTS,
-    projects: PROJECTS,
-    organizations: ORGANIZATIONS
+    numProjects: 20,
+    organizations: ORGANIZATIONS,
+    projects: PROJECTS
   }
 }
 
