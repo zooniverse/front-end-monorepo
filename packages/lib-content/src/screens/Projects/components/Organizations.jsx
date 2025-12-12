@@ -34,9 +34,8 @@ export default function Organizations({ organizations }) {
       <StyledCardsContainer>
         {organizations?.length ? (
           organizations.map(project => (
-            <li>
+            <li key={project.slug}>
               <ProjectCard
-                key={project.slug}
                 description={project.description}
                 displayName={project.display_name}
                 href={`https://www.zooniverse.org/projects/${project.slug}`}

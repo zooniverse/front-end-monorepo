@@ -7,7 +7,10 @@ const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api'
 
 export const metadata = {
   title: 'Projects',
-  description: 'Zooniverse Projects'
+  description: 'Zooniverse Projects',
+  alternates: {
+    canonical: '/projects' // tell SEO to index this page without any query params
+  }
 }
 
 // Get the first page of active projects. This is the default state of the filters on page load.
@@ -54,7 +57,8 @@ async function fetchActiveProjects(searchParams) {
 
     if (response.ok) {
       const json = await response.json()
-      return json.projects
+      const numProjects = json.meta.projects.count
+      return { projects: json.projects, numProjects }
     }
 
     return []
@@ -147,13 +151,14 @@ async function fetchOrganizations(searchParams) {
 
 export default async function ProjectsPage(props) {
   const searchParams = await props.searchParams
-  const projects = await fetchActiveProjects(searchParams)
+  const { projects, numProjects } = await fetchActiveProjects(searchParams)
   const featuredProjects = await fetchFeaturedProjects(searchParams)
   const organizations = await fetchOrganizations(searchParams)
 
   return (
     <Projects
       featuredProjects={featuredProjects}
+      numProjects={numProjects}
       projects={projects}
       organizations={organizations}
     />
