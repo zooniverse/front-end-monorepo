@@ -12,7 +12,7 @@ To support projects with complex geospatial datasets and provide a better volunt
 
 ## Decision
 
-Create a new `GeoMapViewer` subject viewer implemented with [OpenLayers](https://openlayers.org/) and a default OpenStreetMap (OSM) base tile layer. This viewer will:
+Create a new `GeoMapViewer` subject viewer implemented with [OpenLayers](https://openlayers.org/) and a default [OpenStreetMap](https://www.openstreetmap.org/) (OSM) base tile layer. This viewer will:
 
 - Be enabled via workflow configuration: `workflow.configuration.subject_viewer = 'geoMap'`
 - Utilize a default OSM base layer
@@ -20,7 +20,7 @@ Create a new `GeoMapViewer` subject viewer implemented with [OpenLayers](https:/
 
 ### OpenLayers mapping library
 
-After evaluating mapping libraries including Leaflet, Mapbox GL JS, and OpenLayers, we have chosen OpenLayers for the following reasons:
+After evaluating mapping libraries including Leaflet, Mapbox GL JS, and OpenLayers, we have chosen OpenLayers (package name `ol`) for the following reasons:
 
 - Open-source JavaScript library with permissive license
 - Active community and ongoing maintenance
@@ -36,6 +36,8 @@ The OSM base tile layer provides a free, open-source, and widely used mapping la
 
 - A subsequent ADR will be created regarding geospatial annotation tasks and tools
 - This ADR will be updated or a subsequent ADR will be created for custom tile layer support
+- OSM is an external dependency; service availability or rate limits could impact the viewer, though custom tile layers can mitigate this in future work
+- OpenLayers requires ESM support; we updated fe-project/app-project's Next.js config (`next.config.js`) with `experimental.esmExternals: 'loose'` to accommodate this, which may require revisiting as ESM and CJS interoperability evolves
 
 ### Subject
 
