@@ -1,6 +1,6 @@
 /* Not using @zooniverse/panoptes-js here in favor of plain `fetch` in combo with Next.js SSR. */
 
-import { Projects } from '@zooniverse/content'
+import ProjectsContainer from './ProjectsContainer'
 
 const PROD_PANOPTES_HOST = 'https://www.zooniverse.org/api'
 const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api'
@@ -156,7 +156,7 @@ export default async function ProjectsPage(props) {
   const organizations = await fetchOrganizations(searchParams)
 
   return (
-    <Projects
+    <ProjectsContainer
       featuredProjects={featuredProjects}
       numProjects={numProjects}
       projects={projects}

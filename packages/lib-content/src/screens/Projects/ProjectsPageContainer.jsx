@@ -15,6 +15,7 @@ import Projects from './components/Projects'
     modified from the defaults. This is ok.
 */
 export default function ProjectsPageContainer({
+  adminMode = false,
   featuredProjects,
   numProjects,
   organizations,
@@ -31,7 +32,7 @@ export default function ProjectsPageContainer({
         width='min(100%, 90rem)'
       >
         <SWRConfig value={{ fallbackData: fallbackData }}>
-          <Projects />
+          <Projects adminMode={adminMode} />
         </SWRConfig>
         <Organizations organizations={organizations} />
       </ContainerBox>
