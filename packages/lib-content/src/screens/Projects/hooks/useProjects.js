@@ -44,12 +44,11 @@ async function fetchProjects(key) {
 export function useProjects(query) {
   // include adminMode in the cache key so cached response respects launch_approved query param
   const adminMode = checkForAdminFlag()
-  // This key matches the key provided in ProjectsContainer for fallback data passed from SSR
   const key = [ '/projects', query, adminMode ]
 
   return useSWR(key, fetchProjects, {
     revalidateIfStale: true,
-    revalidateOnMount: false, // this hook receives fallback data
+    revalidateOnMount: false, // this hook receives fallback data from SSR
     refreshInterval: 0,
     revalidateOnFocus: false,
   })

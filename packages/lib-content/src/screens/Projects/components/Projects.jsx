@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
 import StyledCardsContainer from './StyledCardsContainer'
-import useProjects from '../../../hooks/useProjects'
+import useProjects from '../hooks/useProjects'
 
 export default function Projects() {
   const size = useContext(ResponsiveContext)
