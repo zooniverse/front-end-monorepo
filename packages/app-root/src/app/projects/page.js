@@ -16,12 +16,12 @@ export const metadata = {
 // Get the first page of active projects. This is the default state of the filters on page load.
 const defaultSearchParams = {
   cards: true,
-  include: 'avatar',
   launch_approved: true,
   page: 1,
   page_size: 20,
   sort: '-launch_date',
   state: 'live'
+  // eventually add "search" and "languages" too
 }
 
 async function fetchActiveProjects(searchParams) {
