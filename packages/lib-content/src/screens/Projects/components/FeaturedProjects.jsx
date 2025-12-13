@@ -14,7 +14,7 @@ import { useTranslation } from '@translations/i18n'
 const StyledList = styled(Box)`
   list-style: none;
   column-gap: 30px;
-  margin: 0 30px 40px;
+  margin: 0 20px 40px;
 
   @media (min-width: 48rem) {
     column-gap: 50px;
@@ -59,7 +59,7 @@ export default function FeaturedProjects({ featuredProjects }) {
                 href={`https://www.zooniverse.org/projects/${project.slug}`}
                 imageSrc={project.avatar_src}
                 size={size}
-                background='light-1'
+                background={{ light: 'light-1', dark: 'dark-1' }}
               />
             </li>
           ))

@@ -16,9 +16,10 @@ export default function Organizations({ organizations }) {
         id='organizations'
         level={2}
         size='2rem'
-        color={{ light: 'neutral-1', dark: 'white' }}
+        color={{ light: 'neutral-1', dark: 'accent-1' }}
         textAlign='center'
         fill
+        margin={{ top: '60px' }}
       >
         {t('Projects.organizations.heading')}
       </SpacedHeading>

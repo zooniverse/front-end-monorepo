@@ -301,6 +301,10 @@
       "heading": "Organizations",
       "description": "Organizations bring together multiple related Zooniverse projects, making it easier for participants to explore connected research efforts.",
       "none": "No organizations found."
+    },
+    "projects": {
+      "heading": "All projects",
+      "description": "Welcome! We’re so glad you’re here. Scroll down to browse all of our active projects, search for a specific project, or filter projects based on your interests. Have fun, and happy classifying! "
     }
   },
   "Publications": {
