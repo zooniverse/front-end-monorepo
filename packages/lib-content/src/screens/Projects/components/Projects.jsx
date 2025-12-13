@@ -26,6 +26,7 @@ export default function Projects({ adminMode = false }) {
   const query = {
     launch_approved: launchApproved ? true : undefined,
     page: page,
+    page_size: size === 'small' ? 10 : 20,
     sort: sort,
     state: state
     // eventually add "search" and "languages" too
@@ -54,7 +55,7 @@ export default function Projects({ adminMode = false }) {
           page={page}
           numberItems={numProjects}
           onChange={({ page }) => setPage(page)}
-          step={20}
+          step={size === 'small' ? 10 : 20}
         />
       ) : null}
       <StyledCardsContainer>
