@@ -304,7 +304,17 @@
     },
     "projects": {
       "heading": "All projects",
-      "description": "Welcome! We’re so glad you’re here. Scroll down to browse all of our active projects, search for a specific project, or filter projects based on your interests. Have fun, and happy classifying! "
+      "description": "Welcome! We’re so glad you’re here. Scroll down to browse all of our active projects, search for a specific project, or filter projects based on your interests. Have fun, and happy classifying! ",
+      "showingNum": "Showing {{number}} projects"
+    },
+    "sortBy": {
+      "label": "Sort By",
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "nameAZ": "Name A - Z",
+      "nameZA": "Name Z - A",
+      "mostActive": "Most Active",
+      "mostPopular": "Most Popular"
     }
   },
   "Publications": {

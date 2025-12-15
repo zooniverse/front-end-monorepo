@@ -1,12 +1,18 @@
-import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
+import {
+  Loader,
+  ProjectCard,
+  SpacedHeading
+} from '@zooniverse/react-components'
 import { Box, CheckBox, Paragraph, ResponsiveContext } from 'grommet'
 import { useContext, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
+import { useTranslation } from '@translations/i18n'
 import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import Pagination from './components/Pagination'
-import { useTranslation } from '@translations/i18n'
+import SortBySelect from './components/SortBySelect'
+import LoadingPlaceholder from './components/LoadingPlaceholder'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
@@ -60,7 +66,7 @@ export default function Projects({ adminMode = false }) {
         </SpacedHeading>
         <Paragraph
           margin={{ top: 'none', bottom: 'medium' }}
-          size='1.125rem'
+          size={size === 'small' ? '1rem' : '1.125rem'}
           color={{ light: 'black', dark: 'white' }}
         >
           {t('Projects.projects.description')}
@@ -73,7 +79,24 @@ export default function Projects({ adminMode = false }) {
           label='(Admin) Include not-launch-approved projects in results?'
         />
       ) : null}
+      <Box
+        fill
+        direction={size === 'small' ? 'row-reverse' : 'row'}
+        justify='between'
+        margin={{ bottom: '10px' }}
+        align='center'
+      >
+        {isValidating ? (
+          <Loader height='20px' width='20px' />
+        ) : (
+          <Paragraph margin='none' size={size === 'small' ? '0.75rem' : '0.875rem'}>
+            {t('Projects.projects.showingNum', { number: numProjects })}
+          </Paragraph>
+        )}
+        <SortBySelect setSort={setSort} value={sort} />
+      </Box>
       <StyledCardsContainer>
+        {isValidating ? <LoadingPlaceholder /> : null}
         {projects?.map(project => (
           <li key={project.id}>
             <ProjectCard

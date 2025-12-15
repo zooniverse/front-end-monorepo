@@ -30,6 +30,7 @@ export function useProjects(query) {
   const key = [ '/projects', query ]
 
   return useSWR(key, fetchProjects, {
+    keepPreviousData: true, // UI disables ProjectCards with a placeholder overtop the stale data
     revalidateIfStale: true,
     revalidateOnMount: false, // this hook receives fallback data from SSR
     refreshInterval: 0,
