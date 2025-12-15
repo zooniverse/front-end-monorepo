@@ -1,12 +1,15 @@
-import { ProjectCard } from '@zooniverse/react-components'
-import { CheckBox, Pagination, ResponsiveContext } from 'grommet'
+import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
+import { Box, CheckBox, Paragraph, ResponsiveContext } from 'grommet'
 import { useContext, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
-import StyledCardsContainer from './StyledCardsContainer'
-import useProjects from '../hooks/useProjects'
+import StyledCardsContainer from '../StyledCardsContainer'
+import useProjects from './hooks/useProjects'
+import Pagination from './components/Pagination'
+import { useTranslation } from '@translations/i18n'
 
 export default function Projects({ adminMode = false }) {
+  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1))
@@ -23,9 +26,12 @@ export default function Projects({ adminMode = false }) {
   */
   const [launchApproved, setLaunchApproved] = useState(true)
 
+  const pageSize = 20
+
   const query = {
     launch_approved: launchApproved ? true : undefined,
     page: page,
+    page_size: pageSize,
     sort: sort,
     state: state
     // eventually add "search" and "languages" too
@@ -41,20 +47,30 @@ export default function Projects({ adminMode = false }) {
 
   return (
     <>
+      <Box width='min(100%, 60rem)'>
+        <SpacedHeading
+          id='organizations'
+          level={2}
+          size='2rem'
+          color={{ light: 'neutral-1', dark: 'accent-1' }}
+          textAlign='center'
+          fill
+        >
+          {t('Projects.projects.heading')}
+        </SpacedHeading>
+        <Paragraph
+          margin={{ top: 'none', bottom: 'medium' }}
+          size='1.125rem'
+          color={{ light: 'black', dark: 'white' }}
+        >
+          {t('Projects.projects.description')}
+        </Paragraph>
+      </Box>
       {!!adminMode ? (
         <CheckBox
           checked={!launchApproved}
           onChange={() => setLaunchApproved(!launchApproved)}
           label='(Admin) Include not-launch-approved projects in results?'
-        />
-      ) : null}
-      {numProjects > 20 ? (
-        <Pagination
-          alignSelf='center'
-          page={page}
-          numberItems={numProjects}
-          onChange={({ page }) => setPage(page)}
-          step={20}
         />
       ) : null}
       <StyledCardsContainer>
@@ -71,6 +87,14 @@ export default function Projects({ adminMode = false }) {
           </li>
         ))}
       </StyledCardsContainer>
+      {numProjects > pageSize ? (
+        <Pagination
+          numProjects={numProjects}
+          page={page}
+          pageSize={pageSize}
+          setPage={setPage}
+        />
+      ) : null}
     </>
   )
 }

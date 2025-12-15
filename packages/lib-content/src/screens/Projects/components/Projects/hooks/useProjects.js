@@ -8,7 +8,6 @@ async function fetchProjects(key) {
     const response = await panoptesProjects.get({
       query: {
         cards: true,
-        page_size: 20,
         ...query
       }
     })

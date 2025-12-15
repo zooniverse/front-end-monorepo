@@ -8,8 +8,8 @@ const StyledCardsContainer = styled.ul`
   padding: 0;
   margin: 0;
   list-style: none;
-  column-gap: 20px;
-  row-gap: 20px;
+  column-gap: 15px;
+  row-gap: 15px;
 
   @media (min-width: 48rem) {
     column-gap: 40px;

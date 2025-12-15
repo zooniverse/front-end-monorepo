@@ -1,11 +1,27 @@
 'use client'
 
 import { SWRConfig } from 'swr'
+import styled from 'styled-components'
 
 import ContainerBox from '@components/PageLayout/ContainerBox'
 import FeaturedProjects from './components/FeaturedProjects'
 import Organizations from './components/Organizations'
-import Projects from './components/Projects'
+import Projects from './components/Projects/Projects'
+
+const StyledContainerBox = styled(ContainerBox)`
+  padding: 20px;
+
+  // Larger than grommet theme breakpoint 'small'
+  @media (min-width: 48rem) {
+    padding: 60px;
+  }
+
+  // When screen is wider than width of ContainerBox
+  @media (min-width: 90rem) {
+    padding: 60px 80px;
+    border-radius: 16px;
+  }
+`
 
 /**
     Pass the server-side data as fallback data for useProjects() SWR hook.
@@ -26,7 +42,7 @@ export default function ProjectsPageContainer({
   return (
     <>
       <FeaturedProjects featuredProjects={featuredProjects} />
-      <ContainerBox
+      <StyledContainerBox
         align='center'
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         width='min(100%, 90rem)'
@@ -35,7 +51,7 @@ export default function ProjectsPageContainer({
           <Projects adminMode={adminMode} />
         </SWRConfig>
         <Organizations organizations={organizations} />
-      </ContainerBox>
+      </StyledContainerBox>
     </>
   )
 }
