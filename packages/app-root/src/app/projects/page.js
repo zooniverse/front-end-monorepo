@@ -21,7 +21,6 @@ const defaultSearchParams = {
   page_size: 20,
   sort: '-launch_date',
   state: 'live'
-  // eventually add "search" and "languages" too
 }
 
 async function fetchActiveProjects(searchParams) {

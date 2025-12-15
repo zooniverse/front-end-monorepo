@@ -13,6 +13,8 @@ import useProjects from './hooks/useProjects'
 import Pagination from './components/Pagination'
 import SortBySelect from './components/SortBySelect'
 import LoadingPlaceholder from './components/LoadingPlaceholder'
+import StateSelect from './components/StateSelect'
+import LanguagesSelect from './components/LanguagesSelect'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
@@ -27,6 +29,17 @@ export default function Projects({ adminMode = false }) {
   })
 
   /*
+    This UI only allows one filtered language for now. The param is plural because of https://github.com/zooniverse/panoptes/pull/4530.
+    In theory, multiple languages can be included in the query, but that is a compounding list, not a more narrow filter.
+    We would need an updated UI design to account for multiple languages in the Select value.
+    ALSO NOTE: Querying with languages = 'en' will not return all projects from panoptes,
+    but on the frontend we do want all projects so the `languages` param is set to `undefined` in the query below.
+  */
+  const [languages, setLanguages] = useQueryState('languages', {
+    defaultValue: 'en'
+  })
+
+  /*
     Note: A signed-in admin is not required by panoptes to fetch projects where launch_approved=false or undefined,
     but this component checks if adminMode is turned on in localStorage, and provides the option to return ALL projects regardless of launch approval.
   */
@@ -36,11 +49,11 @@ export default function Projects({ adminMode = false }) {
 
   const query = {
     launch_approved: launchApproved ? true : undefined,
+    languages: languages === 'en' ? undefined : languages,
     page: page,
     page_size: pageSize,
     sort: sort,
     state: state
-    // eventually add "search" and "languages" too
   }
 
   /**
@@ -79,6 +92,11 @@ export default function Projects({ adminMode = false }) {
           label='(Admin) Include not-launch-approved projects in results?'
         />
       ) : null}
+
+      <Box fill direction='row'>
+        <StateSelect setProjectState={setProjectState} value={state} />
+        <LanguagesSelect setLanguages={setLanguages} value={languages} />
+      </Box>
       <Box
         fill
         direction={size === 'small' ? 'row-reverse' : 'row'}
@@ -86,10 +104,13 @@ export default function Projects({ adminMode = false }) {
         margin={{ bottom: '10px' }}
         align='center'
       >
-        {isValidating ? (
+        {isValidating || isLoading ? (
           <Loader height='20px' width='20px' />
         ) : (
-          <Paragraph margin='none' size={size === 'small' ? '0.75rem' : '0.875rem'}>
+          <Paragraph
+            margin='none'
+            size={size === 'small' ? '0.75rem' : '0.875rem'}
+          >
             {t('Projects.projects.showingNum', { number: numProjects })}
           </Paragraph>
         )}
