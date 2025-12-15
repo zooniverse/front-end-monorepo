@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const StyledCardsContainer = styled.ul`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;

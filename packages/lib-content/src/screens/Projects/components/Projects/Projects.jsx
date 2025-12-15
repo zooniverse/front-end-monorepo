@@ -1,4 +1,8 @@
-import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
+import {
+  Loader,
+  ProjectCard,
+  SpacedHeading
+} from '@zooniverse/react-components'
 import { Box, CheckBox, Paragraph, ResponsiveContext } from 'grommet'
 import { useContext, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
@@ -8,6 +12,7 @@ import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import Pagination from './components/Pagination'
 import SortBySelect from './components/SortBySelect'
+import LoadingPlaceholder from './components/LoadingPlaceholder'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
@@ -79,13 +84,19 @@ export default function Projects({ adminMode = false }) {
         direction={size === 'small' ? 'row-reverse' : 'row'}
         justify='between'
         margin={{ bottom: '10px' }}
+        align='center'
       >
-        <Paragraph size={size === 'small' ? '0.75rem' : '0.875rem'}>
-          {t('Projects.projects.showingNum', { number: numProjects })}
-        </Paragraph>
+        {isValidating ? (
+          <Loader height='20px' width='20px' />
+        ) : (
+          <Paragraph margin='none' size={size === 'small' ? '0.75rem' : '0.875rem'}>
+            {t('Projects.projects.showingNum', { number: numProjects })}
+          </Paragraph>
+        )}
         <SortBySelect setSort={setSort} value={sort} />
       </Box>
       <StyledCardsContainer>
+        {isValidating ? <LoadingPlaceholder /> : null}
         {projects?.map(project => (
           <li key={project.id}>
             <ProjectCard
