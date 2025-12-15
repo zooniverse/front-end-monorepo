@@ -4,6 +4,7 @@ import { SpacedText } from '@zooniverse/react-components'
 
 import { useTranslation } from '@translations/i18n'
 import selectTheme from './selectTheme'
+import localeMenu from '../localeMenu'
 
 const DEFAULT_HANDLER = () => true
 
@@ -18,33 +19,33 @@ const StyledLabel = styled(SpacedText)`
   opacity: 0;
 `
 
-function StateSelect({
-  setProjectState = DEFAULT_HANDLER,
-  value = 'live'
+const options = Object.keys(localeMenu).map((key) => {
+  const value = key.toString()
+  const label = localeMenu[key]
+  return { label, value }
+})
+
+function LanguagesSelect({
+  setLanguages = DEFAULT_HANDLER,
+  value = 'en'
 }) {
   const { t } = useTranslation()
 
-  const options = [
-    { label: t('Projects.state.active'), value: 'live' },
-    { label: t('Projects.state.paused'), value: 'paused' },
-    { label: t('Projects.state.finished'), value: 'finished' }
-  ]
-
   function handleSelect(option) {
-    setProjectState(option.value)
+    setLanguages(option.value)
   }
 
   return (
     <ThemeContext.Extend value={selectTheme}>
       <Box>
         <label>
-          <StyledLabel htmlFor='state-filter-projects-page'>
-            {t('Projects.state.label')}:
+          <StyledLabel htmlFor='languages-filter-projects-page'>
+            {t('Projects.languages.label')}:
           </StyledLabel>
         </label>
         <StyledSelect
-          id='state-filter-projects-page'
-          name='State'
+          id='languages-filter-projects-page'
+          name='Languages'
           labelKey='label'
           onChange={({ option }) => handleSelect(option)}
           options={options}
@@ -57,4 +58,4 @@ function StateSelect({
   )
 }
 
-export default StateSelect
+export default LanguagesSelect
