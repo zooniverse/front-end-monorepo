@@ -16,6 +16,7 @@ import LoadingPlaceholder from './components/LoadingPlaceholder'
 import StateSelect from './components/StateSelect'
 import LanguagesSelect from './components/LanguagesSelect'
 import DisciplineSelect from './components/DisciplineSelect'
+import SearchBar from './components/SearchBar'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
@@ -96,7 +97,8 @@ export default function Projects({ adminMode = false }) {
         />
       ) : null}
 
-      <Box fill direction='row'>
+      <Box fill direction='row' gap='10px'>
+        <SearchBar value='search' />
         <StateSelect setProjectState={setProjectState} value={state} />
         <LanguagesSelect setLanguages={setLanguages} value={languages} />
       </Box>
