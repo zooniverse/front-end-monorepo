@@ -1,11 +1,16 @@
 import { Box, Button, Image, Text } from 'grommet'
 import styled, { useTheme } from 'styled-components'
 import { ZooniverseLogo } from '@zooniverse/react-components'
+import { FormPrevious, FormNext } from 'grommet-icons'
+import { useRef } from 'react'
 
 import { useTranslation } from '@translations/i18n'
 
-const StyledList = styled.ul`
+const Relative = styled(Box)`
   position: relative;
+`
+
+const StyledList = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -53,7 +58,25 @@ const StyledButton = styled(Button)`
 `
 
 const LeftButton = styled(Button)`
+  position: absolute;
+  left: -45px;
+  top: 50%;
+  transform: translateY(-50%);
 
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+
+const RightButton = styled(Button)`
+  position: absolute;
+  right: -45px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 const DisciplineButton = ({ option, value }) => (
@@ -85,6 +108,8 @@ const DisciplineButton = ({ option, value }) => (
 function DisciplineSelect({ setDiscipline, value }) {
   const { t } = useTranslation()
   const { dark, global } = useTheme()
+
+  const scrollContainer = useRef()
 
   const options = [
     {
@@ -149,34 +174,66 @@ function DisciplineSelect({ setDiscipline, value }) {
     }
   ]
 
+    function handleLeftScroll() {
+    const scrollContainerWidth = scrollContainer?.current?.scrollWidth
+    const incrementSize = scrollContainerWidth / 5
+    scrollContainer?.current?.scrollBy({
+      left: -incrementSize,
+      behavior: 'smooth'
+    })
+  }
+
+  function handleScrollRight() {
+    const scrollContainerWidth = scrollContainer?.current?.scrollWidth
+    const incrementSize = scrollContainerWidth / 5
+    scrollContainer?.current?.scrollBy({
+      left: incrementSize,
+      behavior: 'smooth'
+    })
+  }
+
   return (
-    <>
-    <LeftButton plain />
-    <StyledList>
-      <StyledButton
-        aria-selected={value === null}
-        label={
-          <Box direction='row' align='center' gap='5px'>
-            <ZooniverseLogo
-              id='all-disciplines-projects-page'
-              size='35px'
-              color={dark ? global.colors['accent-1'] : 'black'}
-            />
-            <Text weight='bold' color={{ light: 'black', dark: 'white' }}>
-              {t('Projects.disciplines.all')}
-            </Text>
-          </Box>
-        }
-        onClick={() => setDiscipline(null)}
+    <Relative>
+      <LeftButton
         plain
+        label={<FormPrevious size='2.5rem' color='accent-1' />}
+        onClick={handleLeftScroll}
       />
-      {options.map(option => (
-        <li key={option.value}>
-          <DisciplineButton option={option} value={value} />
-        </li>
-      ))}
-    </StyledList>
-    </>
+      <StyledList ref={scrollContainer}>
+        <StyledButton
+          aria-selected={value === null}
+          label={
+            <Box direction='row' align='center' gap='5px'>
+              <ZooniverseLogo
+                id='all-disciplines-projects-page'
+                size='35px'
+                color={dark ? global.colors['accent-1'] : 'black'}
+              />
+              <Text weight='bold' color={{ light: 'black', dark: 'white' }}>
+                {t('Projects.disciplines.all')}
+              </Text>
+            </Box>
+          }
+          onClick={() => setDiscipline(null)}
+          plain
+        />
+        {options.map(option => (
+          <li key={option.value}>
+            <DisciplineButton option={option} value={value} />
+          </li>
+        ))}
+      </StyledList>
+      <RightButton
+        plain
+        label={
+          <FormNext
+            size='2.5rem'
+            color='accent-1'
+            onClick={handleScrollRight}
+          />
+        }
+      />
+    </Relative>
   )
 }
 
