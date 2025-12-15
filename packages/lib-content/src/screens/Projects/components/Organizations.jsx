@@ -26,7 +26,7 @@ export default function Organizations({ organizations }) {
       <Box width='min(100%, 60rem)'>
         <Paragraph
           margin={{ top: 'none', bottom: 'medium' }}
-          size={size === 'small' ? 'rem' : '1.125rem'}
+          size={size === 'small' ? '1rem' : '1.125rem'}
           color={{ light: 'black', dark: 'white' }}
         >
           {t('Projects.organizations.description')}

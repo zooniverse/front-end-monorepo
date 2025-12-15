@@ -42,7 +42,7 @@ async function fetchActiveProjects(searchParams) {
   Object.keys(params).forEach(key => {
     if (key !== 'env') {
       if (key === 'discipline') {
-        panoptesUrl.searchParams.append('tags', params[key]) // there are legacy links with searchPararms ?discipline=space etc
+        panoptesUrl.searchParams.append('tags', params[key]) // there are legacy links with searchParams ?discipline=space etc
       } else {
         panoptesUrl.searchParams.append(key, params[key])
       }

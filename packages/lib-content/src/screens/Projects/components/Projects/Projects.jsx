@@ -56,7 +56,7 @@ export default function Projects({ adminMode = false }) {
     page_size: pageSize,
     sort: sort,
     state: state,
-    tags: discipline === null ? undefined : discipline,
+    tags: discipline === null ? undefined : discipline, // useQueryParams expects null if no param, but for the panoptes query we want undefined
   }
 
   /**

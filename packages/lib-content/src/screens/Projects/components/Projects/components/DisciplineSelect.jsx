@@ -165,7 +165,7 @@ function DisciplineSelect({ setDiscipline, value }) {
     {
       borderColor: '#C17DDF',
       label: t('Projects.disciplines.space'),
-      value: 'astronomy'
+      value: 'astronomy' // This discipline is labeled Space, but panoptes expects `astronomy`
     },
     // Need leadership input on why this was designed as a discipline rather than a project state
     // {
