@@ -79,7 +79,7 @@ const RightButton = styled(Button)`
   }
 `
 
-const DisciplineButton = ({ option, value }) => (
+const DisciplineButton = ({ option, setDiscipline, value }) => (
   <StyledButton
     aria-selected={value === option.value}
     $borderColor={option.borderColor}
@@ -167,14 +167,15 @@ function DisciplineSelect({ setDiscipline, value }) {
       label: t('Projects.disciplines.space'),
       value: 'astronomy'
     },
-    {
-      borderColor: '#FF9300',
-      label: t('Projects.disciplines.beta'),
-      value: 'beta'
-    }
+    // Need leadership input on why this was designed as a discipline rather than a project state
+    // {
+    //   borderColor: '#FF9300',
+    //   label: t('Projects.disciplines.beta'),
+    //   value: 'beta'
+    // }
   ]
 
-    function handleLeftScroll() {
+  function handleLeftScroll() {
     const scrollContainerWidth = scrollContainer?.current?.scrollWidth
     const incrementSize = scrollContainerWidth / 5
     scrollContainer?.current?.scrollBy({
@@ -200,26 +201,32 @@ function DisciplineSelect({ setDiscipline, value }) {
         onClick={handleLeftScroll}
       />
       <StyledList ref={scrollContainer}>
-        <StyledButton
-          aria-selected={value === null}
-          label={
-            <Box direction='row' align='center' gap='5px'>
-              <ZooniverseLogo
-                id='all-disciplines-projects-page'
-                size='35px'
-                color={dark ? global.colors['accent-1'] : 'black'}
-              />
-              <Text weight='bold' color={{ light: 'black', dark: 'white' }}>
-                {t('Projects.disciplines.all')}
-              </Text>
-            </Box>
-          }
-          onClick={() => setDiscipline(null)}
-          plain
-        />
+        <li>
+          <StyledButton
+            aria-selected={value === null}
+            label={
+              <Box direction='row' align='center' gap='5px'>
+                <ZooniverseLogo
+                  id='all-disciplines-projects-page'
+                  size='35px'
+                  color={dark ? global.colors['accent-1'] : 'black'}
+                />
+                <Text weight='bold' color={{ light: 'black', dark: 'white' }}>
+                  {t('Projects.disciplines.all')}
+                </Text>
+              </Box>
+            }
+            onClick={() => setDiscipline(null)}
+            plain
+          />
+        </li>
         {options.map(option => (
           <li key={option.value}>
-            <DisciplineButton option={option} value={value} />
+            <DisciplineButton
+              option={option}
+              setDiscipline={setDiscipline}
+              value={value}
+            />
           </li>
         ))}
       </StyledList>
