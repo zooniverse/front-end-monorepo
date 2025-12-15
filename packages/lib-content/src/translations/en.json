@@ -297,6 +297,21 @@
     }
   },
   "Projects": {
+    "disciplines": {
+      "all": "All Disciplines",
+      "arts": "Arts",
+      "beta": "Beta Review",
+      "biology": "Biology",
+      "climate": "Climate",
+      "history": "History",
+      "language": "Language",
+      "literature": "Literature",
+      "medicine": "Medicine",
+      "nature": "Nature",
+      "physics": "Physics",
+      "social": "Social Science",
+      "space": "Space"
+    },
     "languages": {
       "label": "Filter projects by available translations"
     },

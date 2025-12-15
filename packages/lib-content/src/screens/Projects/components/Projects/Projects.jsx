@@ -15,6 +15,7 @@ import SortBySelect from './components/SortBySelect'
 import LoadingPlaceholder from './components/LoadingPlaceholder'
 import StateSelect from './components/StateSelect'
 import LanguagesSelect from './components/LanguagesSelect'
+import DisciplineSelect from './components/DisciplineSelect'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
@@ -38,6 +39,7 @@ export default function Projects({ adminMode = false }) {
   const [languages, setLanguages] = useQueryState('languages', {
     defaultValue: 'en'
   })
+  const [discipline, setDiscipline] = useQueryState('discipline')
 
   /*
     Note: A signed-in admin is not required by panoptes to fetch projects where launch_approved=false or undefined,
@@ -53,7 +55,8 @@ export default function Projects({ adminMode = false }) {
     page: page,
     page_size: pageSize,
     sort: sort,
-    state: state
+    state: state,
+    tags: discipline === null ? undefined : discipline,
   }
 
   /**
@@ -97,6 +100,7 @@ export default function Projects({ adminMode = false }) {
         <StateSelect setProjectState={setProjectState} value={state} />
         <LanguagesSelect setLanguages={setLanguages} value={languages} />
       </Box>
+      <DisciplineSelect value={discipline} setDiscipline={setDiscipline} />
       <Box
         fill
         direction={size === 'small' ? 'row-reverse' : 'row'}
