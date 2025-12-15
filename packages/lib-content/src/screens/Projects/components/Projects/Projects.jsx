@@ -26,7 +26,7 @@ export default function Projects({ adminMode = false }) {
   */
   const [launchApproved, setLaunchApproved] = useState(true)
 
-  const pageSize = size === 'small' ? 10 : 20
+  const pageSize = 20
 
   const query = {
     launch_approved: launchApproved ? true : undefined,
