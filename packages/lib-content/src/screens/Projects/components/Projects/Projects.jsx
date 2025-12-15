@@ -13,6 +13,7 @@ import useProjects from './hooks/useProjects'
 import Pagination from './components/Pagination'
 import SortBySelect from './components/SortBySelect'
 import LoadingPlaceholder from './components/LoadingPlaceholder'
+import StateSelect from './components/StateSelect'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
@@ -79,6 +80,10 @@ export default function Projects({ adminMode = false }) {
           label='(Admin) Include not-launch-approved projects in results?'
         />
       ) : null}
+
+      <Box fill direction='row'>
+        <StateSelect setProjectState={setProjectState} value={state} />
+      </Box>
       <Box
         fill
         direction={size === 'small' ? 'row-reverse' : 'row'}

@@ -315,6 +315,12 @@
       "nameZA": "Name Z - A",
       "mostActive": "Most Active",
       "mostPopular": "Most Popular"
+    },
+    "state": {
+      "label": "Project status",
+      "active": "Active",
+      "paused": "Paused",
+      "finished": "Finished"
     }
   },
   "Publications": {
