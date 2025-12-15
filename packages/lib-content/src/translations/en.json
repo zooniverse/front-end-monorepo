@@ -297,6 +297,9 @@
     }
   },
   "Projects": {
+    "languages": {
+      "label": "Filter projects by available translations"
+    },
     "organizations": {
       "heading": "Organizations",
       "description": "Organizations bring together multiple related Zooniverse projects, making it easier for participants to explore connected research efforts.",
@@ -317,7 +320,7 @@
       "mostPopular": "Most Popular"
     },
     "state": {
-      "label": "Project status",
+      "label": "Filter projects by status",
       "active": "Active",
       "paused": "Paused",
       "finished": "Finished"

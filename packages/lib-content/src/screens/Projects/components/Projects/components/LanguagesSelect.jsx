@@ -1,6 +1,5 @@
-import { Box, Select as GrommetSelect, ThemeContext } from 'grommet'
+import { Select as GrommetSelect, ThemeContext } from 'grommet'
 import styled from 'styled-components'
-import { SpacedText } from '@zooniverse/react-components'
 
 import { useTranslation } from '@translations/i18n'
 import selectTheme from './selectTheme'
@@ -11,15 +10,10 @@ const DEFAULT_HANDLER = () => true
 const StyledSelect = styled(GrommetSelect)`
   text-align: center;
   text-transform: uppercase;
+  color: ${props => (props.theme.dark ? 'white' : '#005D69')};
 `
 
-const StyledLabel = styled(SpacedText)`
-  // Visually hidden but remain in the accessibility tree
-  position: absolute;
-  opacity: 0;
-`
-
-const options = Object.keys(localeMenu).map((key) => {
+const options = Object.keys(localeMenu).map(key => {
   const value = key.toString()
   const label = localeMenu[key]
   return { label, value }
@@ -27,7 +21,7 @@ const options = Object.keys(localeMenu).map((key) => {
 
 function LanguagesSelect({
   setLanguages = DEFAULT_HANDLER,
-  value = 'en'
+  value = undefined
 }) {
   const { t } = useTranslation()
 
@@ -37,23 +31,17 @@ function LanguagesSelect({
 
   return (
     <ThemeContext.Extend value={selectTheme}>
-      <Box>
-        <label>
-          <StyledLabel htmlFor='languages-filter-projects-page'>
-            {t('Projects.languages.label')}:
-          </StyledLabel>
-        </label>
-        <StyledSelect
-          id='languages-filter-projects-page'
-          name='Languages'
-          labelKey='label'
-          onChange={({ option }) => handleSelect(option)}
-          options={options}
-          size='medium'
-          value={value}
-          valueKey={{ key: 'value', reduce: true }}
-        />
-      </Box>
+      <StyledSelect
+        a11yTitle={t('Projects.languages.label')}
+        id='languages-filter-projects-page'
+        name='Languages'
+        labelKey='label'
+        onChange={({ option }) => handleSelect(option)}
+        options={options}
+        size='medium'
+        value={value}
+        valueKey={{ key: 'value', reduce: true }}
+      />
     </ThemeContext.Extend>
   )
 }

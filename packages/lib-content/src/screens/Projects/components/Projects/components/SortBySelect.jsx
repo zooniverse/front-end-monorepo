@@ -16,6 +16,7 @@ const DEFAULT_HANDLER = () => true
 const StyledSelect = styled(GrommetSelect)`
   text-align: center;
   text-transform: uppercase;
+  color: ${props => (props.theme.dark ? 'white' : '#005D69')};
 `
 
 const StyledLabel = styled(SpacedText)`
@@ -49,12 +50,12 @@ function SortBySelect({ setSort = DEFAULT_HANDLER, value = '-launch_date' }) {
 
   return (
     <ThemeContext.Extend value={selectTheme}>
-      <Box direction='row' align='center' justify={size === 'small' ? 'start' : 'end'}>
-        <label>
-          <StyledLabel htmlFor='sort-by-projects-page'>
-            {t('Projects.sortBy.label')}:
-          </StyledLabel>
-        </label>
+      <Box
+        direction='row'
+        align='center'
+        justify={size === 'small' ? 'start' : 'end'}
+      >
+        <StyledLabel>{t('Projects.sortBy.label')}:</StyledLabel>
         <StyledSelect
           id='sort-by-projects-page'
           name='Sort By'

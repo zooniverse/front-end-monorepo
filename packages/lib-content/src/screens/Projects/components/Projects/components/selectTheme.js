@@ -4,17 +4,12 @@ const selectTheme = {
       border: {
         radius: '24px'
       },
-      color: {
-        dark: 'white',
-        light: 'dark-5'
-      }
     },
     drop: {
-      background: 'brand'
+      background: 'neutral-1'
     }
   },
   select: {
-    // container: {}, // this is the drop content
     control: {
       // this is the select button/input
       extend: `
@@ -29,19 +24,20 @@ const selectTheme = {
       `,
       open: {
         background: '#ADDDE0', // accent-1
-        color: '#00979d' // brand
+        color: '#005D69' // neutral-1
       }
     },
     icons: {
       color: {
         dark: 'white',
-        light: 'dark-5'
+        light: 'neutral-1'
       },
       margin: { left: '0', right: 'xsmall' }
     },
     listbox: {
       extend: `
         & > button {
+          text-transform: uppercase;
           &[aria-selected='true'] {
             text-decoration: underline;
           }
@@ -50,8 +46,8 @@ const selectTheme = {
     },
     options: {
       container: {
-        align: 'center',
-        width: '215px'
+        align: 'center'
+        // width: '215px'
       },
       text: {
         textAlign: 'center',
