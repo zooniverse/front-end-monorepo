@@ -34,9 +34,11 @@ async function fetchActiveProjects(searchParams) {
     panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/projects`)
   }
 
+  // if someone has entered search params in the url, honor those over the defaults
+  // searchParams could also contain languages, discipline, env, or search
   const params = {
     ...defaultSearchParams,
-    ...searchParams // if someone has entered search params in the url, honor those over the defaults
+    ...searchParams
   }
 
   Object.keys(params).forEach(key => {

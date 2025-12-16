@@ -13,7 +13,7 @@ const StyledTextInput = styled(TextInput)`
   font-size: 1rem;
 `
 
-function SearchBar({ value = '' }) {
+function SearchBar({ setSearch, value = '' }) {
   const { t } = useTranslation()
 
   return (
@@ -23,14 +23,16 @@ function SearchBar({ value = '' }) {
       direction='row'
       height={{ min: '40px' }}
       round='32px'
-      width='600px'
+      width='100%'
       pad={{ left: '10px' }}
     >
-      <Search size='1rem' color='black' value={value} />
+      <Search size='1rem' color={{ light: 'black', dark: 'light-1' }} />
       <StyledTextInput
         placeholder={
           <Text color='light-5'>{t('Projects.search.placeholder')}</Text>
         }
+        onChange={e => setSearch(e.target.value)}
+        value={value}
       />
     </StyledBox>
   )

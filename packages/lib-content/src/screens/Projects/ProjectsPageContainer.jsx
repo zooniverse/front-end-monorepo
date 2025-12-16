@@ -9,7 +9,7 @@ import Organizations from './components/Organizations'
 import Projects from './components/Projects/Projects'
 
 const StyledContainerBox = styled(ContainerBox)`
-  padding: 20px;
+  padding: 30px 20px 60px;
 
   // Larger than grommet theme breakpoint 'small'
   @media (min-width: 48rem) {

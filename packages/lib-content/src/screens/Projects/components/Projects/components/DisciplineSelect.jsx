@@ -25,7 +25,7 @@ const StyledButton = styled(Button)`
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 60px;
   border-width: 1px;
-  padding: 10px 20px;
+  padding: 8px 15px;
   border-color: ${props => props.$borderColor};
   border-style: solid;
   border-width: 1px;

@@ -63,6 +63,7 @@ function SortBySelect({ setSort = DEFAULT_HANDLER, value = '-launch_date' }) {
           onChange={({ option }) => handleSelect(option)}
           options={options}
           size='medium'
+          width='130px'
           value={value}
           valueKey={{ key: 'value', reduce: true }}
         />
