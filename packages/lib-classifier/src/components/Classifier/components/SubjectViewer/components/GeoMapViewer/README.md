@@ -21,3 +21,7 @@ The workflow must include a configuration for the GeoMapViewer:
 ### Subject
 
 TBD
+
+## Layout
+
+The GeoMapLayout is assigned to workflows with `configuration.subject_viewer` set as `geoMap`. The viewer container has a fixed height of 600px (400px on mobile). The task area is sticky positioned with a width of 20rem.

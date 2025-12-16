@@ -40,3 +40,15 @@ This layout is assigned to workflows with `configuration.limit_subject_height` s
 In the horizontal layout, the grid area ratio of `subject:task` is not defined. The subject image is displayed at its natural dimensions, or at a height less than `90vh`. The task area has a max-width of `25rem`.
 
 On viewports smaller than 768px, the vertical grid layout displays the subject area stacked above the task area.
+
+## VolumetricLayout
+
+This layout is assigned to projects with volumetric viewer capabilities. Components, including MetaTools, are centered with the task area sticky positioned at 20rem width.
+
+On viewports smaller than 768px, the vertical layout displays the subject area stacked above the task area.
+
+## GeoMapLayout
+
+This layout is assigned to workflows with `configuration.subject_viewer` set as `geoMap`. The viewer container has a fixed height of 600px (400px on mobile). The task area is sticky positioned with a width of 20rem.
+
+On viewports smaller than 768px, the vertical layout displays the subject area stacked above the task area.

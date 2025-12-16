@@ -69,6 +69,12 @@ const Workflow = types
       if (self.usesTranscriptionTask) {
         return 'noMaxWidth'
       }
+      if (self.configuration.limit_subject_height) {
+        return 'centered'
+      }
+      if (self.configuration.subject_viewer === 'geoMap') {
+        return 'geoMap'
+      }
       if (self.configuration.layout) {
         return self.configuration.layout
       }
@@ -110,7 +116,6 @@ const Workflow = types
   }))
 
   .actions(self => {
-
     function * selectSubjectSet(id) {
       const validSets = self.links.subject_sets || []
       if (validSets.indexOf(id) > -1) {
