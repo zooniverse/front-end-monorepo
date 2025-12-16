@@ -51,27 +51,21 @@ async function fetchActiveProjects(searchParams) {
     }
   })
 
-  try {
-    const response = await fetch(`${panoptesUrl}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.api+json; version=1'
-      },
-      next: { revalidate: 60 } // revalidate at most every 1min
-    })
+  const response = await fetch(`${panoptesUrl}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.api+json; version=1'
+    },
+    next: { revalidate: 60 } // revalidate at most every 1min
+  })
 
-    if (response.ok) {
-      const json = await response.json()
-      const numProjects = json.meta.projects.count
-      return { projects: json.projects, numProjects }
-    }
-
-    return []
-  } catch (error) {
-    console.error(error)
-    return error.message
-    // Should probably pass an error state to ProjectsPage
+  if (response.ok) {
+    const json = await response.json()
+    const numProjects = json.meta.projects.count
+    return { projects: json.projects, numProjects }
   }
+
+  return []
 }
 
 async function fetchFeaturedProjects(searchParams) {
@@ -85,29 +79,23 @@ async function fetchFeaturedProjects(searchParams) {
     panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/projects`)
   }
 
-  try {
-    const response = await fetch(
-      `${panoptesUrl}?featured=true&launch_approved=true&cards=true`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.api+json; version=1'
-        },
-        next: { revalidate: 60 } // revalidate at most every 1min
-      }
-    )
-
-    if (response.ok) {
-      const json = await response.json()
-      return json.projects
+  const response = await fetch(
+    `${panoptesUrl}?featured=true&launch_approved=true&cards=true`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.api+json; version=1'
+      },
+      next: { revalidate: 60 } // revalidate at most every 1min
     }
+  )
 
-    return []
-  } catch (error) {
-    console.error(error)
-    return error.message
-    // Should probably pass an error state to ProjectsPage
+  if (response.ok) {
+    const json = await response.json()
+    return json.projects
   }
+
+  return []
 }
 
 async function fetchOrganizations(searchParams) {
@@ -121,37 +109,30 @@ async function fetchOrganizations(searchParams) {
     panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/organizations`)
   }
 
-  try {
-    const response = await fetch(
-      `${panoptesUrl}?listed=true&include=avatar`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.api+json; version=1'
-        },
-        next: { revalidate: 60 } // revalidate at most every 1min
-      }
-    )
+  const response = await fetch(`${panoptesUrl}?listed=true&include=avatar`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.api+json; version=1'
+    },
+    next: { revalidate: 60 } // revalidate at most every 1min
+  })
 
-    if (response.ok) {
-      const json = await response.json()
-      // Manual attaching of avatars can be replaced if panoptes if updated with a ?card=true query params for the /organizations endpoint
-      const avatars = json?.linked?.avatars
-      if (json.organizations.length > 0) {
-        json.organizations.forEach(org => {
-          const avatar = avatars.find(item => item.href === `/organizations/${org.id}/avatar`)
-          org.avatar_src = avatar?.src
-        })
-      }
-      return json.organizations
+  if (response.ok) {
+    const json = await response.json()
+    // Manual attaching of avatars can be replaced if panoptes if updated with a ?card=true query params for the /organizations endpoint
+    const avatars = json?.linked?.avatars
+    if (json.organizations.length > 0) {
+      json.organizations.forEach(org => {
+        const avatar = avatars.find(
+          item => item.href === `/organizations/${org.id}/avatar`
+        )
+        org.avatar_src = avatar?.src
+      })
     }
-
-    return []
-  } catch (error) {
-    console.error(error)
-    return error.message
-    // Should probably pass an error state to ProjectsPage
+    return json.organizations
   }
+
+  return []
 }
 
 export default async function ProjectsPage(props) {

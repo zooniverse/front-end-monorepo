@@ -26,11 +26,11 @@ const StyledWarning = styled(Text)`
 function SearchBar({ setSearch, value = '' }) {
   const { t } = useTranslation()
 
-  const [showWarning, setShowWarning] = useState(true)
+  const [showWarning, setShowWarning] = useState(false)
   const debouncedWarning = useDebounce(showWarning, 800)
 
   useEffect(() => {
-    if (value.length > 0 && value.length < 4) {
+    if (value.length > 0 && value.length < 5) {
       setShowWarning(true)
     } else {
       setShowWarning(false)

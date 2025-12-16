@@ -11,7 +11,7 @@ export default function Organizations({ organizations }) {
   const size = useContext(ResponsiveContext)
 
   return (
-    <Box align='center'>
+    <Box align='center' margin={{ vertical: '80px' }}>
       <SpacedHeading
         id='organizations'
         level={2}
@@ -19,13 +19,12 @@ export default function Organizations({ organizations }) {
         color={{ light: 'neutral-1', dark: 'accent-1' }}
         textAlign='center'
         fill
-        margin={{ top: '60px' }}
       >
         {t('Projects.organizations.heading')}
       </SpacedHeading>
       <Box width='min(100%, 60rem)'>
         <Paragraph
-          margin={{ top: 'none', bottom: 'medium' }}
+          margin={{ top: 'xsmall', bottom: 'medium' }}
           size={size === 'small' ? '1rem' : '1.125rem'}
           color={{ light: 'black', dark: 'white' }}
         >

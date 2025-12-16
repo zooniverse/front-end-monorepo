@@ -20,7 +20,8 @@ function StateSelect({ setProjectState = DEFAULT_HANDLER, value = 'live' }) {
   const options = [
     { label: t('Projects.state.active'), value: 'live' },
     { label: t('Projects.state.paused'), value: 'paused' },
-    { label: t('Projects.state.finished'), value: 'finished' }
+    { label: t('Projects.state.finished'), value: 'finished' },
+    { label: t('Projects.state.all'), value: 'all'}
   ]
 
   function handleSelect(option) {
