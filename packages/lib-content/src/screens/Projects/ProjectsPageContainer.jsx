@@ -32,10 +32,10 @@ const StyledContainerBox = styled(ContainerBox)`
 */
 export default function ProjectsPageContainer({
   adminMode = false,
-  featuredProjects,
-  numProjects,
-  organizations,
-  projects
+  featuredProjects = [],
+  numProjects = 0,
+  organizations = [],
+  projects = []
 }) {
   const fallbackData = { numProjects, projects }
 

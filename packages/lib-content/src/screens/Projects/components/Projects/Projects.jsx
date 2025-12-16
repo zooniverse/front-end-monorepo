@@ -14,8 +14,12 @@ import useDebounce from './hooks/useDebounce'
 
 import DisciplineSelect from './components/DisciplineSelect'
 import LanguagesSelect from './components/LanguagesSelect'
-import LoadingPlaceholder from './components/LoadingPlaceholder'
 import Pagination from './components/Pagination'
+import {
+  LoadingPlaceholder,
+  EmptyPlaceholder,
+  ErrorPlaceholder
+} from './components/Placeholders'
 import SearchBar from './components/SearchBar'
 import SortBySelect from './components/SortBySelect'
 import StateSelect from './components/StateSelect'
@@ -61,8 +65,19 @@ export default function Projects({ adminMode = false }) {
     page_size: pageSize,
     search: search.length >= 4 ? debouncedSearch : undefined, // panoptes search requires at least 4 characters
     sort: sort,
-    state: state,
-    tags: discipline === null ? undefined : discipline // useQueryParams expects null if no param, but for the panoptes query we want undefined
+    state: state === 'all' ? undefined : state,
+    tags: discipline === null ? undefined : discipline
+  }
+
+  /**
+    For use in <EmptyPlaceholder> to clear all filters.
+   */
+  function clearFilters() {
+    setLanguages('en')
+    setPage(1)
+    setSearch('')
+    setProjectState('all')
+    setDiscipline(null)
   }
 
   /**
@@ -72,6 +87,10 @@ export default function Projects({ adminMode = false }) {
   const { data, error, isLoading, isValidating } = useProjects(query)
 
   const { numProjects, projects } = data || {}
+
+  const noProjects = projects?.length === 0
+  const statusCheck = noProjects && state !== 'all'
+  const languageCheck = noProjects && state === 'all' && languages !== 'en'
 
   return (
     <>
@@ -131,21 +150,31 @@ export default function Projects({ adminMode = false }) {
         )}
         <SortBySelect setSort={setSort} value={sort} />
       </Box>
-      <StyledCardsContainer>
-        {isValidating ? <LoadingPlaceholder /> : null}
-        {projects?.map(project => (
-          <li key={project.id}>
-            <ProjectCard
-              description={project.description}
-              displayName={project.display_name}
-              href={`/projects/${project.slug}`}
-              imageSrc={project.avatar_src}
-              size={size}
-              state={project.state}
-            />
-          </li>
-        ))}
-      </StyledCardsContainer>
+      {error ? (
+        <ErrorPlaceholder />
+      ) : statusCheck ? (
+        <EmptyPlaceholder message='status' setProjectState={setProjectState} />
+      ) : languageCheck ? (
+        <EmptyPlaceholder message='language' setLanguages={setLanguages} />
+      ) : noProjects ? (
+        <EmptyPlaceholder message='clear' clearFilters={clearFilters} />
+      ) : (
+        <StyledCardsContainer>
+          {isValidating ? <LoadingPlaceholder /> : null}
+          {projects?.map(project => (
+            <li key={project.id}>
+              <ProjectCard
+                description={project.description}
+                displayName={project.display_name}
+                href={`/projects/${project.slug}`}
+                imageSrc={project.avatar_src}
+                size={size}
+                state={project.state}
+              />
+            </li>
+          ))}
+        </StyledCardsContainer>
+      )}
       {numProjects > pageSize ? (
         <Pagination
           numProjects={numProjects}

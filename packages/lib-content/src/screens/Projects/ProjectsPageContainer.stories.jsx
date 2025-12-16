@@ -37,9 +37,9 @@ export default {
   decorators: [ComponentDecorator],
   args: {
     featuredProjects: FEATURED_PROJECTS,
-    numProjects: 20,
+    // numProjects: 20,
     organizations: ORGANIZATIONS,
-    projects: PROJECTS
+    // projects: PROJECTS
   }
 }
 
