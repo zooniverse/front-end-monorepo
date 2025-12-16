@@ -6,7 +6,6 @@ import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
-import { StyledSubjectContainer } from '../shared/StyledContainers'
 import FieldGuide from '@components/Classifier/components/FieldGuide'
 
 const Relative = styled(Box)`
@@ -17,11 +16,6 @@ const ContainerBox = styled(Box)`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  justify-content: center;
-
-  .metatools-centered {
-    justify-content: center;
-  }
 
   // small screens
   @media screen and (max-width: 768px) {
@@ -29,12 +23,12 @@ const ContainerBox = styled(Box)`
   }
 `
 
-const ViewBox = styled(Box)`
-  flex-direction: row;
+const GeoMapSubjectContainer = styled(Box)`
+  height: 100%;
   width: 100%;
 `
 
-const GeoMapSubjectContainer = styled(StyledSubjectContainer)`
+const GeoMapViewerContainer = styled(Box)`
   height: 600px;
   width: 100%;
 
@@ -45,9 +39,9 @@ const GeoMapSubjectContainer = styled(StyledSubjectContainer)`
 
 const StickyTaskArea = styled(Box)`
   height: fit-content;
+  min-width: auto;
   position: sticky;
   top: 10px;
-  min-width: auto;
   width: 20rem;
 
   // small screens
@@ -62,13 +56,13 @@ export default function GeoMapLayout() {
   return (
     <Relative>
       <ContainerBox>
-        <ViewBox forwardedAs='section'>
-          <GeoMapSubjectContainer>
-            <Banners />
+        <GeoMapSubjectContainer forwardedAs='section'>
+          <Banners />
+          <GeoMapViewerContainer>
             <SubjectViewer />
-            <MetaTools className='metatools-centered' />
-          </GeoMapSubjectContainer>
-        </ViewBox>
+          </GeoMapViewerContainer>
+          <MetaTools />
+        </GeoMapSubjectContainer>
         <StickyTaskArea>
           <TaskArea />
           <FieldGuide />
