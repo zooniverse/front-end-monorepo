@@ -41,21 +41,22 @@
   },
   "peerDependencies": {
     "@zooniverse/async-states": "~0.1.0",
-    "@zooniverse/grommet-theme": "3.x.x",
+    "@zooniverse/grommet-theme": "4.x.x",
     "@zooniverse/react-components": "~1.15.0",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
-    "react": "~18.2.0",
-    "react-dom": "~18.2.0"
+    "react": "~19.2.0",
+    "react-dom": "~19.2.0"
   },
   "devDependencies": {
     "@babel/preset-env": "~7.28.3",
     "@babel/preset-react": "~7.27.1",
-    "@storybook/addon-a11y": "~7.6.11",
-    "@storybook/addon-essentials": "~7.6.11",
-    "@storybook/react": "~7.6.11",
+    "@storybook/addon-a11y": "~9.1.16",
+    "@storybook/addon-webpack5-compiler-babel": "~3.0.0",
+    "@storybook/react": "~9.1.16",
+    "@storybook/react-webpack5": "~9.1.16",
     "@vitejs/plugin-react": "~4.4.1",
-    "storybook": "~7.6.11",
+    "storybook": "~9.1.16",
     "vitest": "~3.1.3"
   },
   "engines": {

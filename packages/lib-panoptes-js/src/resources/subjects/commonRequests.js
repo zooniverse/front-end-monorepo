@@ -1,8 +1,8 @@
-const panoptes = require('../../panoptes')
-const { queuedEndpoint } = require('./helpers')
-const { isParamTypeInvalid, raiseError } = require('../../utilityFunctions')
+import panoptes from '../../panoptes.js'
+import { queuedEndpoint } from './helpers.js'
+import { isParamTypeInvalid, raiseError } from '../../utilityFunctions/utilityFunctions.js'
 
-function getSubjectQueue (params) {
+export function getSubjectQueue (params) {
   const queryParams = (params && params.query) ? params.query : {}
   const workflowId = (params && params.workflowId) ? params.workflowId : ''
   const subjectSetId = (params && params.subjectSetId) ? params.subjectSetId : ''
@@ -19,8 +19,4 @@ function getSubjectQueue (params) {
   }
 
   return raiseError('Subjects: Get request must include a workflow id.', 'error')
-}
-
-module.exports = {
-  getSubjectQueue
 }

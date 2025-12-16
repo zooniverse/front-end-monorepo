@@ -1,4 +1,4 @@
-const stagingKey =
+export const stagingKey =
 `-----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEArqLiWfs+Nm3BBMu9bcma
 JaFhfSpKoHwsFjzRzkdFO0uKXPkS5nJq3UD/ZORr31XKYmwlbhGBzvpBUSoTmsjj
@@ -14,7 +14,7 @@ rYdQDSMt3a8UXZbw+9DocHDD0VvDHg6zuaa75tZrb7WvGrO7kbhUrJYwNCAbD2kN
 Ca6VZnNmmy57yB/+jhBSNkECAwEAAQ==
 -----END PUBLIC KEY-----`
 
-const productionKey =
+export const productionKey =
 `-----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvbmZ42QexoMJ1J9z47Y2
 7q5qvtE1mblpOnN7g4ItumcnoCv8xfdbhnzkHj/YBtqVoHhAVNwxSJKyQ4tZBehg
@@ -29,5 +29,3 @@ V01zobEXAP5Eyf3+OwYv+Qvq3cV2BvRZfEBhzj1RezVEh187hfCtCaSVf3YrEeL2
 MM74OPotMaVyaJFxj/GxhrahOgSv4TbMYk93d+vcIa0clO7wXrJJXoWwi3XpQvk7
 SwgqmRqSTqDuxJqlJAuVhmMCAwEAAQ==
 -----END PUBLIC KEY-----`
-
-module.exports = { stagingKey, productionKey }

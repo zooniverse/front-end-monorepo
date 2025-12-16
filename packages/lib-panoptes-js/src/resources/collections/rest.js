@@ -1,8 +1,8 @@
-const panoptes = require('../../panoptes')
-const { endpoint } = require('./helpers')
-const { raiseError } = require('../../utilityFunctions')
+import panoptes from '../../panoptes.js'
+import { endpoint } from './helpers.js'
+import { raiseError } from '../../utilityFunctions/utilityFunctions.js'
 
-function create (params) {
+export function create (params) {
   const newCollectionData = (params && params.data) || {}
   const authorization = (params && params.authorization) ? params.authorization : ''
   const subjects = (params && params.subjects) || []
@@ -17,7 +17,7 @@ function create (params) {
   return panoptes.post(endpoint, { collections }, { authorization })
 }
 
-function get({
+export function get({
   authorization = '',
   id = '',
   query = {}
@@ -32,7 +32,7 @@ function get({
   return panoptes.get(`${endpoint}/${id}`, {}, { authorization })
 }
 
-function update (params) {
+export function update (params) {
   const changes = (params && params.data) ? params.data : null
   const collectionId = params && params.id
   const authorization = (params && params.authorization) ? params.authorization : ''
@@ -42,7 +42,7 @@ function update (params) {
   return panoptes.put(`${endpoint}/${collectionId}`, { collections: changes }, { authorization })
 }
 
-function del (params) {
+export function del (params) {
   const collectionId = (params && params.id) ? params.id : ''
   const authorization = (params && params.authorization) ? params.authorization : ''
 
@@ -51,5 +51,3 @@ function del (params) {
 
   return panoptes.del(`${endpoint}/${collectionId}`, { authorization })
 }
-
-module.exports = { create, get, update, del }

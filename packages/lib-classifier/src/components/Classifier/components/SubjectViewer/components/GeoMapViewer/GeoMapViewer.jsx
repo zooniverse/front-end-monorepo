@@ -16,6 +16,7 @@ import VectorSource from 'ol/source/Vector'
 
 const MapContainer = styled.div`
   height: 100%;
+  min-height: 400px;
   width: 100%;
 `
 
@@ -102,8 +103,7 @@ function GeoMapViewer({
   return (
     <Box
       as='section'
-      fill='horizontal'
-      height='600px'
+      fill
     >
       <MapContainer
         ref={mapRef}
