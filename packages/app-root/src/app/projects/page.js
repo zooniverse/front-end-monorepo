@@ -24,30 +24,48 @@ const defaultSearchParams = {
 }
 
 async function fetchActiveProjects(searchParams) {
-  let panoptesUrl
-  if (
-    process.env.NODE_ENV === 'production' ||
-    searchParams?.env === 'production'
-  ) {
-    panoptesUrl = new URL(`${PROD_PANOPTES_HOST}/projects`)
+  let host
+
+  if (searchParams?.env) {
+    host =
+      searchParams.env === 'production'
+        ? PROD_PANOPTES_HOST
+        : STAGING_PANOPTES_HOST
   } else {
-    panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/projects`)
+    host =
+      process.env.NODE_ENV === 'production'
+        ? PROD_PANOPTES_HOST
+        : STAGING_PANOPTES_HOST
   }
+  const panoptesUrl = new URL(`${host}/projects`)
 
   // if someone has entered search params in the url, honor those over the defaults
-  // searchParams could also contain languages, discipline, env, or search
   const params = {
     ...defaultSearchParams,
     ...searchParams
   }
 
+  /*
+    Some modifications needed to certain keys due to UI defaults:
+    There are legacy links with searchParams ?discipline, but panoptes expects `tags` as the param.
+    The default `state` is `live`, but if searchParams.state === 'all', then panoptes query should be `state: undefined`.
+    Querying with `languages: en` will not return all projects from panoptes, but we do want all projects results so the `languages` param is set to `undefined`.
+  */
   Object.keys(params).forEach(key => {
-    if (key !== 'env') {
-      if (key === 'discipline') {
-        panoptesUrl.searchParams.append('tags', params[key]) // there are legacy links with searchParams ?discipline=space etc
-      } else {
-        panoptesUrl.searchParams.append(key, params[key])
-      }
+    if (key === 'state' && params[key] === 'all') {
+      params.state = undefined
+    } else if (key === 'languages' && params[key] === 'en') {
+      params.language = undefined
+    } else {
+      panoptesUrl.searchParams.append(key, params[key])
+    }
+  })
+
+  Object.keys(params).forEach(key => {
+    if (key === 'discipline') {
+      panoptesUrl.searchParams.append('tags', params[key])
+    } else if (key !== 'env' && params[key]) {
+      panoptesUrl.searchParams.append(key, params[key])
     }
   })
 
@@ -55,8 +73,8 @@ async function fetchActiveProjects(searchParams) {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.api+json; version=1'
-    },
-    next: { revalidate: 60 } // revalidate at most every 1min
+    }
+    // next: { revalidate: 60 } // fetch responses are not cached by default in Next 15. We can adjust this config if it makes a difference to our devOps services
   })
 
   if (response.ok) {
@@ -69,15 +87,20 @@ async function fetchActiveProjects(searchParams) {
 }
 
 async function fetchFeaturedProjects(searchParams) {
-  let panoptesUrl
-  if (
-    process.env.NODE_ENV === 'production' ||
-    searchParams?.env === 'production'
-  ) {
-    panoptesUrl = new URL(`${PROD_PANOPTES_HOST}/projects`)
+  let host
+
+  if (searchParams?.env) {
+    host =
+      searchParams.env === 'production'
+        ? PROD_PANOPTES_HOST
+        : STAGING_PANOPTES_HOST
   } else {
-    panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/projects`)
+    host =
+      process.env.NODE_ENV === 'production'
+        ? PROD_PANOPTES_HOST
+        : STAGING_PANOPTES_HOST
   }
+  const panoptesUrl = new URL(`${host}/projects`)
 
   const response = await fetch(
     `${panoptesUrl}?featured=true&launch_approved=true&cards=true`,
@@ -99,23 +122,31 @@ async function fetchFeaturedProjects(searchParams) {
 }
 
 async function fetchOrganizations(searchParams) {
-  let panoptesUrl
-  if (
-    process.env.NODE_ENV === 'production' ||
-    searchParams?.env === 'production'
-  ) {
-    panoptesUrl = new URL(`${PROD_PANOPTES_HOST}/organizations`)
-  } else {
-    panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/organizations`)
-  }
+  let host
 
-  const response = await fetch(`${panoptesUrl}?listed=true&include=avatar&page_size=100`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.api+json; version=1'
-    },
-    next: { revalidate: 60 } // revalidate at most every 1min
-  })
+  if (searchParams?.env) {
+    host =
+      searchParams.env === 'production'
+        ? PROD_PANOPTES_HOST
+        : STAGING_PANOPTES_HOST
+  } else {
+    host =
+      process.env.NODE_ENV === 'production'
+        ? PROD_PANOPTES_HOST
+        : STAGING_PANOPTES_HOST
+  }
+  const panoptesUrl = new URL(`${host}/organizations`)
+
+  const response = await fetch(
+    `${panoptesUrl}?listed=true&include=avatar&page_size=100`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.api+json; version=1'
+      },
+      next: { revalidate: 60 } // revalidate at most every 1min
+    }
+  )
 
   if (response.ok) {
     const json = await response.json()
