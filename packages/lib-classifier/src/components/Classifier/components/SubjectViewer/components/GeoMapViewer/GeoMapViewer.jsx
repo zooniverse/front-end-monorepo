@@ -73,6 +73,16 @@ function GeoMapViewer({
         }),
       })
 
+      // Fit the view to all features so everything starts visible
+      if (vectorSource.getFeatures().length) {
+        const view = map.getView()
+        view.fit(vectorSource.getExtent(), {
+          padding: [32, 32, 32, 32],
+          maxZoom: 12,
+          duration: 250
+        })
+      }
+
       const select = new Select({
         condition: click,
         layers: [vectorLayer],
