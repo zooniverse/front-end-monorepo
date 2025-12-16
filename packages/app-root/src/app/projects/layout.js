@@ -22,7 +22,7 @@ function ProjectsPageLayout({ children }) {
         <Heading level='1' margin={{ top: '65px', bottom: 'small' }}>
           <ZooniverseLogotype
             id='projects-landing-page-h1'
-            width={size === 'small' ? 360 : 450}
+            width={size === 'small' ? 350 : 450}
             color='white'
           />
         </Heading>

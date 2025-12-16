@@ -1,5 +1,6 @@
-import { Select as GrommetSelect, ThemeContext } from 'grommet'
+import { Select as GrommetSelect, ResponsiveContext, ThemeContext } from 'grommet'
 import styled from 'styled-components'
+import { useContext } from 'react'
 
 import { useTranslation } from '@translations/i18n'
 import selectTheme from './selectTheme'
@@ -24,10 +25,7 @@ function LanguagesSelect({
   value = undefined
 }) {
   const { t } = useTranslation()
-
-  function handleSelect(option) {
-    setLanguages(option.value)
-  }
+  const size = useContext(ResponsiveContext)
 
   return (
     <ThemeContext.Extend value={selectTheme}>
@@ -36,9 +34,10 @@ function LanguagesSelect({
         id='languages-filter-projects-page'
         name='Languages'
         labelKey='label'
-        onChange={({ option }) => handleSelect(option)}
+        onChange={({ option }) => setLanguages(option.value)}
         options={options}
         size='medium'
+        width={size === 'small' ? '100%' : '180px'}
         value={value}
         valueKey={{ key: 'value', reduce: true }}
       />

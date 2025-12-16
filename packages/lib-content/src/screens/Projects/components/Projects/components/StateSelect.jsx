@@ -1,5 +1,6 @@
-import { Select as GrommetSelect, ThemeContext } from 'grommet'
+import { Select as GrommetSelect, ResponsiveContext, ThemeContext } from 'grommet'
 import styled from 'styled-components'
+import { useContext } from 'react'
 
 import { useTranslation } from '@translations/i18n'
 import selectTheme from './selectTheme'
@@ -14,6 +15,7 @@ const StyledSelect = styled(GrommetSelect)`
 
 function StateSelect({ setProjectState = DEFAULT_HANDLER, value = 'live' }) {
   const { t } = useTranslation()
+  const size = useContext(ResponsiveContext)
 
   const options = [
     { label: t('Projects.state.active'), value: 'live' },
@@ -35,6 +37,7 @@ function StateSelect({ setProjectState = DEFAULT_HANDLER, value = 'live' }) {
         onChange={({ option }) => handleSelect(option)}
         options={options}
         size='medium'
+        width={size === 'small' ? '100%' : '180px'}
         value={value}
         valueKey={{ key: 'value', reduce: true }}
       />
