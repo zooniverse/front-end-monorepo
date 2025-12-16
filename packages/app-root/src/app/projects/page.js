@@ -56,8 +56,6 @@ async function fetchActiveProjects(searchParams) {
       params.state = undefined
     } else if (key === 'languages' && params[key] === 'en') {
       params.languages = undefined
-    } else {
-      panoptesUrl.searchParams.append(key, params[key])
     }
   })
 
