@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Cari proyek baru untuk ditelusuri",
+    "heading": "Tidak ada apa pun di sini.",
+    "message": "Halaman yang Anda cari sudah tidak ada.",
+    "returnHome": "Kembali ke beranda"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Masuk atau dafat untuk melacak kontribusi Anda.",
+      "register": "daftar",
+      "signIn": "masuk"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Selesai! Sepertinya proyek ini kehabisan data sekarang!",
+      "seeResults": "Lihat Hasil"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Buat dan tambahkan",
+      "label": "Buat koleksi baru",
+      "private": "Koleksi pribadi"
+    },
+    "SelectCollection": {
+      "addButton": "Tambah",
+      "label": "Tambahkan ke koleksi yang ada"
+    },
+    "title": "Tambahkan ke koleksi"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Situs Web",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Hubungkan dengan {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse adalah platform terbesar dan paling populer di dunia untuk riset oleh masyarakat.",
+    "defaultTitle": "Proyek",
+    "siteName": "Zooniverse - Riset oleh masyarakat"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Disetujui oleh Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Avatar proyek untuk {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Ganti Bahasa"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Proyek"
+    },
+    "UnderReviewLabel": {
+      "underReview": "sedang ditinjau"
+    },
+    "about": "Tentang",
+    "admin": "Halaman admin",
+    "classify": "Klasifikasikan",
+    "collect": "Kumpulkan",
+    "exploreProject": "Telusuri Proyek",
+    "organization": "Dari organisasi:",
+    "recents": "Baru-baru Ini",
+    "talk": "Bicarakan"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Menurut angka",
+    "classifications": "Klasifikasi",
+    "completedSubjects": "Subjek yang sudah selesai",
+    "percentComplete": "Persen selesai",
+    "subjects": "Subjek",
+    "subtitle": "Terus pantau kemajuan Anda dan para sukarelawan lain di proyek ini.",
+    "text": "Setiap klik berarti! Bergabung di komunitas {{projectName}} untuk menyelesaikan proyek ini dan membantu peneliti mendapatkan hasil yang penting. Klik \"Lihat lebih banyak status\" untuk melihat lebih banyak status.",
+    "title": "Statistik {{projectName}}",
+    "viewMoreStats": "Lihat lebih banyak status",
+    "volunteers": "Sukarelawan"
+  },
+  "RequireUser": {
+    "text": "Anda harus masuk dulu!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Header situs Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Sudah dilihat",
+    "back": "Pilih set subjek lain",
+    "byline": "Sortir daftar dengan mengklik nama kolom. Anda akan melihat beberapa subjek secara berurutan, dimulai dari yang Anda pilih.",
+    "fetching": "Silakan tunggu...",
+    "heading": "Pilih subjek untuk memulai",
+    "retired": "Tidak Digunakan Lagi",
+    "unclassified": "Tersedia"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Tambah ke Koleksi"
+    },
+    "TalkLink": {
+      "label": "Diskusikan di Bicarakan"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Selesai"
+    },
+    "back": "Pilih alur kerja lain",
+    "byline": "Pilih set subjek untuk mulai membuat transkripsi",
+    "heading": "Pilih tempat untuk memulai"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% selesai",
+      "setSelection": "atur pilihan",
+      "subjectSelection": "pilihan subjek"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "dikunci",
+      "unlocked": "dibuka"
+    },
+    "error": "Ada kesalahan masuk ke alur kerja ini :(",
+    "getStarted": "Mulai!",
+    "message": "Anda bisa melakukan riset sungguhan dengan mengklik untuk mulai di sini!",
+    "noWorkflows": "Tidak ada yang bisa diklasifikasikan"
+  }
+}
