@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 const MapContainer = styled.div`
   height: 100%;
+  min-height: 400px;
   width: 100%;
 `
 
@@ -50,8 +51,7 @@ function GeoMapViewer() {
   return (
     <Box
       as='section'
-      fill='horizontal'
-      height='400px'
+      fill
     >
       <MapContainer
         ref={mapRef}
