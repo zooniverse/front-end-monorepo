@@ -61,7 +61,11 @@ async function fetchActiveProjects(searchParams) {
 
   Object.keys(params).forEach(key => {
     if (key === 'discipline') {
-      panoptesUrl.searchParams.append('tags', params[key])
+      if (params[key] === 'space') {
+        panoptesUrl.searchParams.append('tags', 'astronomy')
+      } else {
+        panoptesUrl.searchParams.append('tags', params[key])
+      }
     } else if (key !== 'env' && params[key]) {
       panoptesUrl.searchParams.append(key, params[key])
     }
