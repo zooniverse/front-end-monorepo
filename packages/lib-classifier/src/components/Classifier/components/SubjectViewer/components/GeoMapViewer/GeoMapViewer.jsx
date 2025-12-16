@@ -12,7 +12,7 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
-
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -46,7 +46,19 @@ function GeoMapViewer({
       })
 
       const vectorLayer = new VectorLayer({
-        source: vectorSource
+        source: vectorSource,
+        style: new Style({
+          image: new CircleStyle({
+            radius: 10,
+            fill: new Fill({
+              color: 'rgba(255, 255, 255, 0.4)'
+            }),
+            stroke: new Stroke({
+              color: '#3399CC',
+              width: 2
+            })
+          })
+        })
       })
 
       const map = new Map({
@@ -63,7 +75,19 @@ function GeoMapViewer({
 
       const select = new Select({
         condition: click,
-        layers: [vectorLayer]
+        layers: [vectorLayer],
+        style: new Style({
+          image: new CircleStyle({
+            radius: 10,
+            fill: new Fill({
+              color: 'rgba(255, 255, 255, 0.6)'
+            }),
+            stroke: new Stroke({
+              color: '#FF0000',
+              width: 2
+            })
+          })
+        })
       })
 
       const translate = new Translate({
