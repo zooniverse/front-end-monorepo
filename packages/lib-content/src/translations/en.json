@@ -326,7 +326,8 @@
       "showingNum": "Showing {{number}} projects"
     },
     "search": {
-      "placeholder": "Search projects"
+      "placeholder": "Search projects",
+      "warning": "Search text must be at least 4 letters"
     },
     "sortBy": {
       "label": "Sort By",

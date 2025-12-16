@@ -102,7 +102,6 @@ export default function Projects({ adminMode = false }) {
           label='(Admin) Include not-launch-approved projects in results?'
         />
       ) : null}
-
       <Box
         fill
         direction={size === 'small' ? 'column' : 'row'}
