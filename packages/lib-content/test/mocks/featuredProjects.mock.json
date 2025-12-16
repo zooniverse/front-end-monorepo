@@ -1,0 +1,58 @@
+[
+  {
+    "id": "2218",
+    "display_name": "OceanEYEs",
+    "classifications_count": 54213,
+    "updated_at": "2025-12-11T01:29:20.807Z",
+    "description": "Explore the depths of the ocean to help monitor the Hawaiʻi bottomfish population!",
+    "slug": "benjamin-dot-richards/oceaneyes",
+    "redirect": "",
+    "launch_approved": true,
+    "completeness": 0.0,
+    "state": "live",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/project_avatar/4182eb83-c695-4af7-9b8a-9cf9fe664fa6.jpeg",
+    "links": {}
+  },
+  {
+    "id": "6801",
+    "display_name": "Active Asteroids",
+    "classifications_count": 12700241,
+    "updated_at": "2025-12-11T01:11:46.380Z",
+    "description": "Examine images to find comet-like tails... on asteroids! These strange objects hold clues about water on Earth, in the solar system, and beyond.",
+    "slug": "orionnau/active-asteroids",
+    "redirect": "",
+    "launch_approved": true,
+    "completeness": 0.9668,
+    "state": "live",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/project_avatar/f20bdb4d-e482-42c7-9cf2-93bb004eedbc.png",
+    "links": {}
+  },
+  {
+    "id": "24837",
+    "display_name": "Chirp Check",
+    "classifications_count": 205680,
+    "updated_at": "2025-12-11T01:56:04.412Z",
+    "description": "Is AI getting bird song right? Help ecologists study bird diversity!",
+    "slug": "hannah-dot-slesinski/chirp-check",
+    "redirect": "",
+    "launch_approved": true,
+    "completeness": 0.582,
+    "state": "live",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/project_avatar/82148afb-a7a0-4af1-9c6e-1a9af7b0acdd.png",
+    "links": {}
+  },
+  {
+    "id": "18664",
+    "display_name": "Burst Chaser",
+    "classifications_count": 306468,
+    "updated_at": "2025-12-11T01:11:48.278Z",
+    "description": "Unveiling the mysterious origin of gamma-ray bursts",
+    "slug": "amylien/burst-chaser",
+    "redirect": "",
+    "launch_approved": true,
+    "completeness": 0.6976,
+    "state": "live",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/project_avatar/8fa42ab0-cf5e-465e-8b08-287953fc6d56.png",
+    "links": {}
+  }
+]

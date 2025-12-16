@@ -1,0 +1,113 @@
+[
+  {
+    "id": "53",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/da6b5d8e-c827-422d-acbb-41672e5c557e.jpeg",
+    "display_name": "Planet Four",
+    "description": "Help researchers explore the surface, climate, and history of Mars",
+    "title": "Planet Four",
+    "href": "/organizations/53",
+    "primary_language": "en",
+    "listed_at": "2020-04-11T00:24:40.766Z",
+    "listed": true,
+    "slug": "mschwamb/planet-four",
+    "categories": [ "South Polar Region", "Mid-Latitudes" ]
+  },
+  {
+    "id": "19",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/e063d901-c7ba-42c6-ae1c-83d05b4619c1.png",
+    "display_name": "The Planetary Response Network",
+    "description": "Join the relief effort to help humanitarian responses around the world",
+    "title": "The Planetary Response Network",
+    "href": "/organizations/19",
+    "primary_language": "en",
+    "listed_at": "2025-12-04T10:06:23.673Z",
+    "listed": true,
+    "slug": "vrooje/the-planetary-response-network",
+    "categories": [ "Humanitarian", "Earth" ]
+  },
+  {
+    "id": "5",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/d30fc0ba-ef66-4b43-a89b-c7bf858758a2.png",
+    "display_name": "Snapshot Safari",
+    "description": "Identify wildlife to help scientists understand the diversity and dynamics of wildlife populations across Africa! ",
+    "title": "Snapshot Safari",
+    "href": "/organizations/5",
+    "primary_language": "en",
+    "listed_at": null,
+    "listed": true,
+    "slug": "meredithspalmer/snapshot-safari",
+    "categories": []
+  },
+  {
+    "id": "16",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/a14db28d-b578-4383-b12f-871f88ba7fe7.jpeg",
+    "display_name": "Notes from Nature",
+    "description": "Transcribe museum records!",
+    "title": "Notes from Nature",
+    "href": "/organizations/16",
+    "primary_language": "en",
+    "listed_at": null,
+    "listed": true,
+    "slug": "md68135/notes-from-nature",
+    "categories": [
+      "Plants",
+      "Bugs",
+      "Butterflies",
+      "Labs",
+      "Magnified",
+      "Marine Invertebrates"
+    ]
+  },
+  {
+    "id": "27",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/a5f567b5-2f15-4eeb-b678-67319d931a93.jpeg",
+    "display_name": "Nest Quest Go!",
+    "description": "Join us in discovering the dynamic lives of nesting birds.",
+    "title": "Nest Quest Go!",
+    "href": "/organizations/27",
+    "primary_language": "en",
+    "listed_at": null,
+    "listed": true,
+    "slug": "brbcornell/nest-quest-go",
+    "categories": []
+  },
+  {
+    "id": "82",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/baa4fdfc-8719-4983-a95c-9c70f70d4f6a.png",
+    "display_name": "Science Scribbler",
+    "description": "Investigating 3D image data with the power of Citizen Science and Artificial Intelligence!",
+    "title": "Science Scribbler",
+    "href": "/organizations/82",
+    "primary_language": "en",
+    "listed_at": null,
+    "listed": true,
+    "slug": "smith-p/science-scribbler",
+    "categories": [ "Biology", "Medicine", "Materials Science" ]
+  },
+  {
+    "id": "17",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/20a723b2-d695-4d9a-a547-1bbed5cd62be.jpeg",
+    "display_name": "Galaxy Zoo",
+    "description": "Few have witnessed what you\"re about to see",
+    "title": "Galaxy Zoo",
+    "href": "/organizations/17",
+    "primary_language": "en",
+    "listed_at": null,
+    "listed": true,
+    "slug": "zookeeper/galaxy-zoo",
+    "categories": []
+  },
+  {
+    "id": "100",
+    "avatar_src": "https://panoptes-uploads.zooniverse.org/organization_avatar/dadb26eb-19b6-408f-af65-f5d65ab45dd0.png",
+    "display_name": "Rubin Observatory",
+    "description": "Explore the Universe with the Rubin Observatory!",
+    "title": "Rubin Observatory",
+    "href": "/organizations/100",
+    "primary_language": "en",
+    "listed_at": null,
+    "listed": true,
+    "slug": "rubinepo/rubin-observatory",
+    "categories": []
+  }
+]

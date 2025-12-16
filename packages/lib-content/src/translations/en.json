@@ -296,6 +296,63 @@
       }
     }
   },
+  "Projects": {
+    "disciplines": {
+      "all": "All Disciplines",
+      "arts": "Arts",
+      "beta": "Beta Review",
+      "biology": "Biology",
+      "climate": "Climate",
+      "history": "History",
+      "language": "Language",
+      "literature": "Literature",
+      "medicine": "Medicine",
+      "nature": "Nature",
+      "physics": "Physics",
+      "social": "Social Science",
+      "space": "Space"
+    },
+    "languages": {
+      "label": "Filter projects by available translations"
+    },
+    "organizations": {
+      "heading": "Organizations",
+      "description": "Organizations bring together multiple related Zooniverse projects, making it easier for participants to explore connected research efforts.",
+      "none": "No organizations found."
+    },
+    "projects": {
+      "description": "Welcome! We’re so glad you’re here. Scroll down to browse all of our active projects, search for a specific project, or filter projects based on your interests. Have fun, and happy classifying! ",
+      "error": "There was an error fetching projects.",
+      "heading": "All projects",
+      "none": "No projects found",
+      "showingNum": "Showing {{number}} projects",
+      "empty": {
+        "clear": "<0>Clear All Filters</0>",
+        "language": "There are no projects available in your selected language. Try searching <0>English Language Projects</0>",
+        "status": "Sometimes a project will temporarily be out of data, or may have finished! Try searching <0>Any Project Status</0>"
+      }
+    },
+    "search": {
+      "placeholder": "Search projects",
+      "warning": "Search text must be at least 5 letters"
+    },
+    "sortBy": {
+      "label": "Sort By",
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "nameAZ": "Name A - Z",
+      "nameZA": "Name Z - A",
+      "mostActive": "Most Active",
+      "mostPopular": "Most Popular"
+    },
+    "state": {
+      "all": "All",
+      "label": "Filter projects by status",
+      "active": "Active",
+      "paused": "Paused",
+      "finished": "Finished"
+    }
+  },
   "Publications": {
     "description": "A list of academic publications that use Zooniverse-generated data.",
     "formInfo": "We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.",

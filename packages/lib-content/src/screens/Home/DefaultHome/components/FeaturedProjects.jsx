@@ -1,6 +1,3 @@
-/* Note that this component will also be used in the redesigned Projects landing page
-so it could be moved to lib-react-components at that time */
-
 import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 import useSWR from 'swr'

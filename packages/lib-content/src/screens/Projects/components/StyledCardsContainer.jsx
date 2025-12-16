@@ -1,0 +1,26 @@
+import styled from 'styled-components'
+
+const StyledCardsContainer = styled.ul`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  column-gap: 15px;
+  row-gap: 15px;
+
+  @media (min-width: 48rem) {
+    column-gap: 40px;
+    row-gap: 40px;
+  }
+
+  @media (min-width: 90rem) {
+    row-gap: 40px;
+    column-gap: 40px;
+  }
+`
+
+export default StyledCardsContainer
