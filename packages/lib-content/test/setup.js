@@ -15,14 +15,6 @@ global.describe = describe
 global.expect = expect
 global.it = it
 
-// might not be necessary if relic of old testing env
-function copyProps(src, target) {
-  const props = Object.getOwnPropertyNames(src)
-    .filter(prop => typeof target[prop] === 'undefined')
-    .map(prop => Object.getOwnPropertyDescriptor(src, prop))
-  Object.defineProperties(target, props)
-}
-
 class ResizeObserver {
   disconnect() {}
   observe() {}
@@ -46,4 +38,3 @@ global.document = window.document
 global.navigator = {
   userAgent: 'node.js'
 }
-copyProps(window, global)

@@ -356,6 +356,8 @@ const SubjectStore = types
     function shift() {
       const subject = tryReference(() => self.active)
 
+      // When the subject.id is deleted from resources, the .active subject is removed
+      // and the subject is deleted from .queue because both are safeReferences.
       if (subject) {
         self.resources.delete(subject.id)
       }

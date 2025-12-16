@@ -61,3 +61,5 @@
 - [ADR 59: Incremental Static Regeneration of project pages](adr-59.md)
 - [ADR 60: Enabling Aggregations (Caesar Reducers) on Workflows](adr-60.md)
 - [ADR 61: Displaying Stats in UTC Date Ranges](adr-61.md)
+- [ADR 62: lib-subject-viewers && Volumetric Viewer](adr-62.md)
+- [ADR 63: GeoMap Viewer](adr-63.md)

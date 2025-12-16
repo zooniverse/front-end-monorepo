@@ -123,10 +123,7 @@ function SubjectMetadata({
         light: 'neutral-6'
       }}
       border={{
-        color: {
-          dark: 'dark-3',
-          light: 'light-3'
-        },
+        color: 'light-5',
         side: 'all',
         size: 'thin'
       }}

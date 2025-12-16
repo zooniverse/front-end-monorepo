@@ -18,12 +18,6 @@ npm i @zooniverse/panoptes-js
 
 and use it
 
-ES5
-
-```
-var { panoptes } = require('@zooniverse/panoptes-js');
-```
-
 ES6
 
 ```
