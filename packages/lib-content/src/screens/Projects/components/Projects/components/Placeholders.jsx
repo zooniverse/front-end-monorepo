@@ -55,7 +55,7 @@ export function EmptyPlaceholder({ clearFilters, message, setLanguages, setProje
             <StyledButton
               key={`empty-state-${message}`}
               onClick={HandleClearFilter}
-              color={{ light: 'neutral-1', dark: 'white' }}
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
             />
           ]}
         />

@@ -30,7 +30,7 @@ function SearchBar({ setSearch, value = '' }) {
   const debouncedWarning = useDebounce(showWarning, 800)
 
   useEffect(() => {
-    if (value.length > 0 && value.length < 4) {
+    if (value.length > 0 && value.length < 5) {
       setShowWarning(true)
     } else {
       setShowWarning(false)

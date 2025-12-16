@@ -63,7 +63,7 @@ export default function Projects({ adminMode = false }) {
     languages: languages === 'en' ? undefined : languages,
     page: page,
     page_size: pageSize,
-    search: search.length >= 4 ? debouncedSearch : undefined, // panoptes search requires at least 4 characters
+    search: search.length >= 5 ? debouncedSearch : undefined, // panoptes search requires at least 4 characters
     sort: sort,
     state: state === 'all' ? undefined : state,
     tags: discipline === null ? undefined : discipline
@@ -87,6 +87,8 @@ export default function Projects({ adminMode = false }) {
   const { data, error, isLoading, isValidating } = useProjects(query)
 
   const { numProjects, projects } = data || {}
+
+  const loadingOrValidating = isLoading || isValidating
 
   const noProjects = projects?.length === 0
   const statusCheck = noProjects && state !== 'all'
@@ -138,7 +140,7 @@ export default function Projects({ adminMode = false }) {
         margin={{ bottom: '15px' }}
         align='center'
       >
-        {isValidating || isLoading ? (
+        {loadingOrValidating ? (
           <Loader height='20px' width='20px' />
         ) : (
           <Paragraph
@@ -150,31 +152,36 @@ export default function Projects({ adminMode = false }) {
         )}
         <SortBySelect setSort={setSort} value={sort} />
       </Box>
-      {error ? (
-        <ErrorPlaceholder />
-      ) : statusCheck ? (
-        <EmptyPlaceholder message='status' setProjectState={setProjectState} />
-      ) : languageCheck ? (
-        <EmptyPlaceholder message='language' setLanguages={setLanguages} />
-      ) : noProjects ? (
-        <EmptyPlaceholder message='clear' clearFilters={clearFilters} />
-      ) : (
-        <StyledCardsContainer>
-          {isValidating ? <LoadingPlaceholder /> : null}
-          {projects?.map(project => (
-            <li key={project.id}>
-              <ProjectCard
-                description={project.description}
-                displayName={project.display_name}
-                href={`/projects/${project.slug}`}
-                imageSrc={project.avatar_src}
-                size={size}
-                state={project.state}
-              />
-            </li>
-          ))}
-        </StyledCardsContainer>
-      )}
+      <Box height={{ min: '180px' }}>
+        {error ? (
+          <ErrorPlaceholder />
+        ) : statusCheck && !loadingOrValidating ? (
+          <EmptyPlaceholder
+            message='status'
+            setProjectState={setProjectState}
+          />
+        ) : languageCheck && !loadingOrValidating ? (
+          <EmptyPlaceholder message='language' setLanguages={setLanguages} />
+        ) : noProjects && !loadingOrValidating ? (
+          <EmptyPlaceholder message='clear' clearFilters={clearFilters} />
+        ) : (
+          <StyledCardsContainer>
+            {loadingOrValidating ? <LoadingPlaceholder /> : null}
+            {projects?.map(project => (
+              <li key={project.id}>
+                <ProjectCard
+                  description={project.description}
+                  displayName={project.display_name}
+                  href={`/projects/${project.slug}`}
+                  imageSrc={project.avatar_src}
+                  size={size}
+                  state={project.state}
+                />
+              </li>
+            ))}
+          </StyledCardsContainer>
+        )}
+      </Box>
       {numProjects > pageSize ? (
         <Pagination
           numProjects={numProjects}

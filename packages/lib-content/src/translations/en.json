@@ -334,7 +334,7 @@
     },
     "search": {
       "placeholder": "Search projects",
-      "warning": "Search text must be at least 4 letters"
+      "warning": "Search text must be at least 5 letters"
     },
     "sortBy": {
       "label": "Sort By",
