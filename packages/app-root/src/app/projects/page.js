@@ -109,7 +109,7 @@ async function fetchOrganizations(searchParams) {
     panoptesUrl = new URL(`${STAGING_PANOPTES_HOST}/organizations`)
   }
 
-  const response = await fetch(`${panoptesUrl}?listed=true&include=avatar`, {
+  const response = await fetch(`${panoptesUrl}?listed=true&include=avatar&page_size=100`, {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.api+json; version=1'
