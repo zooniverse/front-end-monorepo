@@ -3,11 +3,11 @@ import {
   ProjectCard,
   SpacedHeading
 } from '@zooniverse/react-components'
-import { Box, CheckBox, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation, Trans } from '@translations/i18n'
 import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import useDebounce from './hooks/useDebounce'
@@ -113,7 +113,17 @@ export default function Projects({ adminMode = false }) {
           size={size === 'small' ? '1rem' : '1.125rem'}
           color={{ light: 'black', dark: 'white' }}
         >
-          {t('Projects.projects.description')}
+          <Trans
+            i18nKey='Projects.projects.description'
+            t={t}
+            components={[
+              <Text
+                weight='bold'
+                key='welcome-paragraph-bold'
+                size={size === 'small' ? '1rem' : '1.125rem'}
+              />
+            ]}
+          />
         </Paragraph>
       </Box>
       {!!adminMode ? (

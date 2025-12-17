@@ -19,7 +19,7 @@ function ProjectsPageLayout({ children }) {
   return (
     <main>
       <LayoutBackground align='center'>
-        <Heading level='1' margin={{ top: '65px', bottom: 'small' }}>
+        <Heading level='1' margin={{ vertical: '50px', bottom: '40px' }}>
           <ZooniverseLogotype
             id='projects-landing-page-h1'
             width={size === 'small' ? 350 : 450}

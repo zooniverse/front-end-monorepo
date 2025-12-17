@@ -37,10 +37,10 @@ export default function FeaturedProjects({ featuredProjects }) {
       <SpacedHeading
         level={2}
         size='2rem'
-        color='white'
+        color='light-3'
         textAlign='center'
         fill
-        margin={{ vertical: '30px' }}
+        margin={{ top: 'none', bottom: '30px' }}
       >
         {t('Home.DefaultHome.FeaturedProjects.heading')}
       </SpacedHeading>
