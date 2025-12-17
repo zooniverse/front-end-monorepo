@@ -4,7 +4,7 @@ import {
   SpacedHeading
 } from '@zooniverse/react-components'
 import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
 import { useTranslation, Trans } from '@translations/i18n'
@@ -59,7 +59,7 @@ export default function Projects({ adminMode = false }) {
   const pageSize = 20
 
   const query = {
-    launch_approved: launchApproved ? true : undefined,
+    launch_approved: !adminMode || launchApproved ? true : undefined,
     languages: languages === 'en' ? undefined : languages,
     page: page,
     page_size: pageSize,
