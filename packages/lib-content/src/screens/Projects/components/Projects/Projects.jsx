@@ -85,7 +85,6 @@ export default function Projects({ adminMode = false }) {
     Otherwise, this hook will rerun anytime query changes as a result of useQueryState updates.
   */
   const { data, error, isLoading, isValidating } = useProjects(query)
-
   const { numProjects, projects } = data || {}
 
   const loadingOrValidating = isLoading || isValidating
@@ -93,6 +92,10 @@ export default function Projects({ adminMode = false }) {
   const noProjects = projects?.length === 0
   const statusCheck = noProjects && state !== 'all'
   const languageCheck = noProjects && state === 'all' && languages !== 'en'
+
+  const rangeStart = (page - 1) * pageSize + 1
+  const rangeEnd = projects?.length < pageSize ? numProjects : page * pageSize
+  const range = numProjects < pageSize ? numProjects : `${rangeStart}-${rangeEnd}`
 
   return (
     <>
@@ -157,7 +160,10 @@ export default function Projects({ adminMode = false }) {
             margin='none'
             size={size === 'small' ? '0.75rem' : '0.875rem'}
           >
-            {t('Projects.projects.showingNum', { number: numProjects })}
+            {t('Projects.projects.showingNum', {
+              range: range,
+              total: numProjects
+            })}
           </Paragraph>
         )}
         <SortBySelect setSort={setSort} value={sort} />
