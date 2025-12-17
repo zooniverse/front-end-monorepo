@@ -3,11 +3,11 @@ import {
   ProjectCard,
   SpacedHeading
 } from '@zooniverse/react-components'
-import { Box, CheckBox, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation, Trans } from '@translations/i18n'
 import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import useDebounce from './hooks/useDebounce'
@@ -40,7 +40,7 @@ export default function Projects({ adminMode = false }) {
     This UI only allows one filtered language for now. The param is plural because of https://github.com/zooniverse/panoptes/pull/4530.
     In theory, multiple languages can be included in the query, but that is a compounding list, not a more narrow filter.
     We would need an updated UI design to account for multiple languages in the Select value.
-    ALSO NOTE: Querying with languages = 'en' will not return all projects from panoptes,
+    ALSO NOTE: Querying with `languages: en` will not return all projects from panoptes,
     but on the frontend we do want all projects so the `languages` param is set to `undefined` in the query below.
   */
   const [languages, setLanguages] = useQueryState('languages', {
@@ -59,7 +59,7 @@ export default function Projects({ adminMode = false }) {
   const pageSize = 20
 
   const query = {
-    launch_approved: launchApproved ? true : undefined,
+    launch_approved: !adminMode || launchApproved ? true : undefined,
     languages: languages === 'en' ? undefined : languages,
     page: page,
     page_size: pageSize,
@@ -85,7 +85,6 @@ export default function Projects({ adminMode = false }) {
     Otherwise, this hook will rerun anytime query changes as a result of useQueryState updates.
   */
   const { data, error, isLoading, isValidating } = useProjects(query)
-
   const { numProjects, projects } = data || {}
 
   const loadingOrValidating = isLoading || isValidating
@@ -93,6 +92,10 @@ export default function Projects({ adminMode = false }) {
   const noProjects = projects?.length === 0
   const statusCheck = noProjects && state !== 'all'
   const languageCheck = noProjects && state === 'all' && languages !== 'en'
+
+  const rangeStart = (page - 1) * pageSize + 1
+  const rangeEnd = projects?.length < pageSize ? numProjects : page * pageSize
+  const range = numProjects < pageSize ? numProjects : `${rangeStart}-${rangeEnd}`
 
   return (
     <>
@@ -113,7 +116,17 @@ export default function Projects({ adminMode = false }) {
           size={size === 'small' ? '1rem' : '1.125rem'}
           color={{ light: 'black', dark: 'white' }}
         >
-          {t('Projects.projects.description')}
+          <Trans
+            i18nKey='Projects.projects.description'
+            t={t}
+            components={[
+              <Text
+                weight='bold'
+                key='welcome-paragraph-bold'
+                size={size === 'small' ? '1rem' : '1.125rem'}
+              />
+            ]}
+          />
         </Paragraph>
       </Box>
       {!!adminMode ? (
@@ -147,7 +160,10 @@ export default function Projects({ adminMode = false }) {
             margin='none'
             size={size === 'small' ? '0.75rem' : '0.875rem'}
           >
-            {t('Projects.projects.showingNum', { number: numProjects })}
+            {t('Projects.projects.showingNum', {
+              range: range,
+              total: numProjects
+            })}
           </Paragraph>
         )}
         <SortBySelect setSort={setSort} value={sort} />

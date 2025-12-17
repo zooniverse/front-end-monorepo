@@ -300,7 +300,6 @@
     "disciplines": {
       "all": "All Disciplines",
       "arts": "Arts",
-      "beta": "Beta Review",
       "biology": "Biology",
       "climate": "Climate",
       "history": "History",
@@ -321,11 +320,11 @@
       "none": "No organizations found."
     },
     "projects": {
-      "description": "Welcome! We’re so glad you’re here. Scroll down to browse all of our active projects, search for a specific project, or filter projects based on your interests. Have fun, and happy classifying! ",
+      "description": "<0>Welcome! We’re so glad you’re here.</0> Scroll down to browse all of our active projects, search for a specific project, or filter projects based on your interests. Have fun, and happy classifying! ",
       "error": "There was an error fetching projects.",
       "heading": "All projects",
       "none": "No projects found",
-      "showingNum": "Showing {{number}} projects",
+      "showingNum": "{{range}} of {{total}} projects",
       "empty": {
         "clear": "<0>Clear All Filters</0>",
         "language": "There are no projects available in your selected language. Try searching <0>English Language Projects</0>",

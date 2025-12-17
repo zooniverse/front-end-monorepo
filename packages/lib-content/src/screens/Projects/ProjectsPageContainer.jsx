@@ -11,6 +11,12 @@ import Projects from './components/Projects/Projects'
 const StyledContainerBox = styled(ContainerBox)`
   padding: 30px 20px 60px;
 
+  // The elevation elements work well in light mode, but not for this specific page layout in dark mode.
+  // Could be a future effort to build this page its own layout in lib-content.
+  &::after, &::before {
+    opacity: ${props => props.theme.dark ? '0' : '1'};
+  }
+
   // Larger than grommet theme breakpoint 'small'
   @media (min-width: 48rem) {
     padding: 60px;
@@ -19,7 +25,7 @@ const StyledContainerBox = styled(ContainerBox)`
   // When screen is wider than width of ContainerBox
   @media (min-width: 90rem) {
     padding: 60px 80px;
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
   }
 `
 

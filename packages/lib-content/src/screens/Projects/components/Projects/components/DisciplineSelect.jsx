@@ -81,7 +81,11 @@ const RightButton = styled(Button)`
 
 const DisciplineButton = ({ option, setDiscipline, value }) => (
   <StyledButton
-    aria-selected={value === option.value}
+    aria-selected={
+      value === 'space' && option.value === 'astronomy'
+        ? true
+        : value === option.value
+    }
     $borderColor={option.borderColor}
     label={
       <Box direction='row' align='center' gap='5px'>
@@ -166,13 +170,7 @@ function DisciplineSelect({ setDiscipline, value }) {
       borderColor: '#C17DDF',
       label: t('Projects.disciplines.space'),
       value: 'astronomy' // This discipline is labeled Space, but panoptes expects `astronomy`
-    },
-    // Need leadership input on why this was designed as a discipline rather than a project state
-    // {
-    //   borderColor: '#FF9300',
-    //   label: t('Projects.disciplines.beta'),
-    //   value: 'beta'
-    // }
+    }
   ]
 
   function handleLeftScroll() {

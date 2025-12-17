@@ -7,7 +7,6 @@ const STAGING_PANOPTES_HOST = 'https://panoptes-staging.zooniverse.org/api'
 
 export const metadata = {
   title: 'Projects',
-  description: 'Zooniverse Projects',
   alternates: {
     canonical: '/projects' // tell SEO to index this page without any query params
   }
@@ -75,8 +74,8 @@ async function fetchActiveProjects(searchParams) {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.api+json; version=1'
-    }
-    // next: { revalidate: 60 } // fetch responses are not cached by default in Next 15. We can adjust this config if it makes a difference to our devOps services
+    },
+    next: { revalidate: 60 } // revalidate at most every 1min. This can be adjusted if people see discrepancies between the client-side SWR and this data
   })
 
   if (response.ok) {
