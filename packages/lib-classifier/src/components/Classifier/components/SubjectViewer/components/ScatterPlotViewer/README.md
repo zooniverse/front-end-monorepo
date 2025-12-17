@@ -7,9 +7,10 @@ display two variable coordinate data. The data is expected to have a numerical x
 
 The Scatter Plot Viewer...
 - allows users to view coordinate data
-- can be configurable to display a standard outer facing axes or display a inner facing axes similar to the PH: TESS light curve viewer design. Right now this configuration is not available via API, but can be set by devs in the code if the design for the specific use case calls for it. The prop `tickDirection` which can be set to either `'outer'` or `'inner'`, defaulting to `'outer'`, is for this use case.
 - can render single or multiple data series
 - can be configurable for zoom
+- can be configurable to display a standard outer facing axes or display a inner facing axes similar to the PH: TESS light curve viewer design. Right now this configuration is not available via API, but can be set by devs in the code if the design for the specific use case calls for it. The prop `tickDirection` which can be set to either `'outer'` or `'inner'`, defaulting to `'outer'`, is for this use case.
+    - Regarding Planet Hunters TESS: that project uses the purpose-built LightCurveViewer that also follows different specifications for subject data formatting.  Please see that viewer's [README](../LightCurveViewer/README.md) for details.
 
 ## Props
 
@@ -61,13 +62,11 @@ workflow.configuration = {
 
 ### Subject
 
-Each Subject has two files: an image file (which works as a "thumbnail" to be
-seen on Talk) and a JSON file.
+Each Subject has one JSON (MIME type = "application/json") file.
 
 ``` js
 subject.locations = [
-  { "image/png": "subject1234.png" },
-  { "application/json": "subject1234.json" },
+  { "application/json": "subject1234.json" }
 ]
 ```
 
@@ -90,30 +89,7 @@ The `seriesData` property should be an array of objects where at minimum an x an
 
 Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
 
-The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis. The multiple series shape can also be used for a single series and is required if you need to use error bars:
-
-``` json
-//subject1234.json
-{ "data": {
-    "x": [
-      1,
-      2,
-      0.356
-    ],
-    "y": [
-      6,
-      3,
-      0.667
-    ]
-  },
-  "chartOptions": {
-    "xAxisLabel": "Days",
-    "yAxisLabel": "Brightness"
-  }
-}
-```
-
-The multiple series JSON shape is an array of objects consisting of `seriesData` and `seriesOptions` properties:
+Below is an example of the expected JSON formatting, where `data` contains an array of objects: one or multiple series that are each defined using `seriesData` and `seriesOptions` properties:
 
 ``` json
 { "data": [
@@ -158,8 +134,6 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
 }
 ```
 
-
-
 #### Chart Options
 
 For both single series data and multiple series data, a set of chart options can also be supplied that define the x-axis and y-axis labels as well as optionally the margins and padding to use and zoom configurations. Padding is defined as the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes.
@@ -179,23 +153,26 @@ Zoom configuration supports configuring the directionality of the zoom, the mini
 }
 ```
 
-
 Example of JSON using various chart options:
 
 ``` json
-//subject1234.json
-{ "data": {
-    "x": [
-      1,
-      2,
-      0.356
-    ],
-    "y": [
-      6,
-      3,
-      0.667
-    ]
-  },
+{ "data": [
+    { 
+      "seriesData": [
+        { "x": 1.46,
+          "y": 6.37
+        }, {
+          "x": 7.58,
+          "y": 9.210
+        }
+      ],
+      "seriesOptions": {
+        "color": "accent-1",
+        "glyph": "circle",
+        "label": "Filter 1"
+      }
+    }
+  ],
   "chartOptions": {
     "margin": {
       "bottom": 10,
