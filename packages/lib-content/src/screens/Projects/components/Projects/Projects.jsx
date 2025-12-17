@@ -4,7 +4,7 @@ import {
   SpacedHeading
 } from '@zooniverse/react-components'
 import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 
 import { useTranslation, Trans } from '@translations/i18n'
@@ -40,7 +40,7 @@ export default function Projects({ adminMode = false }) {
     This UI only allows one filtered language for now. The param is plural because of https://github.com/zooniverse/panoptes/pull/4530.
     In theory, multiple languages can be included in the query, but that is a compounding list, not a more narrow filter.
     We would need an updated UI design to account for multiple languages in the Select value.
-    ALSO NOTE: Querying with languages = 'en' will not return all projects from panoptes,
+    ALSO NOTE: Querying with `languages: en` will not return all projects from panoptes,
     but on the frontend we do want all projects so the `languages` param is set to `undefined` in the query below.
   */
   const [languages, setLanguages] = useQueryState('languages', {

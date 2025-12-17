@@ -81,7 +81,11 @@ const RightButton = styled(Button)`
 
 const DisciplineButton = ({ option, setDiscipline, value }) => (
   <StyledButton
-    aria-selected={value === option.value}
+    aria-selected={
+      value === 'space' && option.value === 'astronomy'
+        ? true
+        : value === option.value
+    }
     $borderColor={option.borderColor}
     label={
       <Box direction='row' align='center' gap='5px'>
@@ -166,7 +170,7 @@ function DisciplineSelect({ setDiscipline, value }) {
       borderColor: '#C17DDF',
       label: t('Projects.disciplines.space'),
       value: 'astronomy' // This discipline is labeled Space, but panoptes expects `astronomy`
-    },
+    }
   ]
 
   function handleLeftScroll() {
