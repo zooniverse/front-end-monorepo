@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { shape } from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 // OpenLayers imports
@@ -13,10 +13,19 @@ import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 
+import RecenterButton from './components/RecenterButton'
+
 const MapContainer = styled.div`
   height: 100%;
   min-height: 400px;
   width: 100%;
+`
+
+const ControlsBox = styled(Box)`
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  z-index: 1;
 `
 
 function GeoMapViewer({
@@ -101,6 +110,16 @@ function GeoMapViewer({
     }
   }, [])
 
+  // Helper function to fit view to features extent
+  const fitViewToFeatures = useCallback((map, features) => {
+    const view = map.getView()
+    view.fit(features.getExtent(), {
+      padding: [32, 32, 32, 32],
+      maxZoom: 12,
+      duration: 250
+    })
+  }, [])
+
   // Update feature data when geoJSON changes
   // This effect only updates the vector source; map and interactions remain unchanged
   useEffect(function updateFeatures() {
@@ -126,17 +145,24 @@ function GeoMapViewer({
 
       // Fit the view to the features extent
       if (features.getFeatures().length) {
-        const view = map.getView()
-        view.fit(features.getExtent(), {
-          padding: [32, 32, 32, 32],
-          maxZoom: 12,
-          duration: 250
-        })
+        fitViewToFeatures(map, features)
       }
     }
 
     return undefined
-  }, [geoJSON])
+  }, [geoJSON, fitViewToFeatures])
+
+  // Handler to recenter the map to fit all features
+  const handleRecenter = useCallback(() => {
+    const map = mapRef.current
+    const features = featuresRef.current
+    if (!map || !features) return
+
+    const featuresList = features.getFeatures()
+    if (featuresList.length > 0) {
+      fitViewToFeatures(map, features)
+    }
+  }, [fitViewToFeatures])
 
   return (
     <Box
@@ -148,6 +174,11 @@ function GeoMapViewer({
         className='map-container'
         data-testid='geo-map-container'
       />
+      {geoJSON && (
+        <ControlsBox>
+          <RecenterButton onClick={handleRecenter} />
+        </ControlsBox>
+      )}
     </Box>
   )
 }
