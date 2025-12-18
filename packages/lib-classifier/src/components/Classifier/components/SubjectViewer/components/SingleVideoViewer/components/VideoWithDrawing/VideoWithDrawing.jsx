@@ -1,5 +1,5 @@
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, Text } from 'grommet'
 import { useState, useRef } from 'react'
 import { useTranslation } from '@translations/i18n'
@@ -15,7 +15,7 @@ const SubjectContainer = styled.div`
   position: relative;
 
   video {
-    filter: invert(${props => (props.$invert ? 1 : 0)});
+    filter: invert(${props => props.$invert ? 1 : 0});
 
     ${props =>
       props.$limitSubjectHeight &&
