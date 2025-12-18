@@ -12,7 +12,6 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
-import Control from 'ol/control/Control'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -30,9 +29,6 @@ function GeoMapViewer({
   const featuresLayerRef = useRef() // needed for interaction setup
   const geoJSONFormatRef = useRef()
   
-  const initialViewRef = useRef()
-  const recenterControlRef = useRef()
-
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
@@ -76,34 +72,6 @@ function GeoMapViewer({
         zoom: 0,
       }),
     })
-    
-    // Fit the view to all features so everything starts visible
-      if (vectorSource.getFeatures().length) {
-        const view = map.getView()
-        view.fit(vectorSource.getExtent(), {
-          padding: [32, 32, 32, 32],
-          maxZoom: 12,
-        })
-        // Capture initial view AFTER the fit animation completes
-        map.once('moveend', () => {
-          const v = map.getView()
-          initialViewRef.current = {
-            center: (v.getCenter() || [0, 0]).slice(),
-            zoom: v.getZoom() ?? 0,
-            resolution: v.getResolution() ?? undefined,
-            rotation: v.getRotation() ?? 0
-          }
-        })
-      } else {
-        // No features: capture the default initial view immediately
-        const v = map.getView()
-        initialViewRef.current = {
-          center: (v.getCenter() || [0, 0]).slice(),
-          zoom: v.getZoom() ?? 0,
-          resolution: v.getResolution() ?? undefined,
-          rotation: v.getRotation() ?? 0
-        }
-      }
 
     // Create interactions once and add to the map
     const select = new Select({
@@ -155,6 +123,16 @@ function GeoMapViewer({
         featureProjection: 'EPSG:3857' // map display projection in Web Mercator
       })
       features.addFeatures(newFeatures)
+
+      // Fit the view to the features extent
+      if (features.getFeatures().length) {
+        const view = map.getView()
+        view.fit(features.getExtent(), {
+          padding: [32, 32, 32, 32],
+          maxZoom: 12,
+          duration: 250
+        })
+      }
     }
 
     return undefined
