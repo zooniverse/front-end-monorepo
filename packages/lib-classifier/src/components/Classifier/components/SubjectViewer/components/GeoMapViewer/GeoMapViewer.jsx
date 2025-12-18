@@ -12,7 +12,6 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -23,105 +22,105 @@ const MapContainer = styled.div`
 function GeoMapViewer({
   geoJSON = undefined
 }) {
+  // mapContainerRef: reference to the map container DOM element
+  const mapContainerRef = useRef()
+  // mapRef: reference to the OpenLayers Map instance
   const mapRef = useRef()
+  // featuresRef: reference to the OpenLayers VectorSource for GeoJSON features
+  const featuresRef = useRef()
+  // geoJSONFormatRef: reference to the OpenLayers GeoJSON format reader
+  const geoJSONFormatRef = useRef()
+  
   const selectRef = useRef()
   const translateRef = useRef()
 
-  useEffect(function loadMap() {
-    let map
+  // Create the map once on mount
+  useEffect(function createMapOnce() {
+    // if the map is already created, do nothing
+    // or if the map container ref is not set yet, do nothing
+    if (mapRef.current || !mapContainerRef.current) return undefined
 
-    function createMap(target) {
-      const osmLayer = new TileLayer({
-        // preload tiles for 1 level of zooming
-        preload: 1,
-        // use OpenStreetMap as the base layer
-        source: new OSM(),
-      })
+    // create a GeoJSON format reader
+    const format = new GeoJSON()
+    geoJSONFormatRef.current = format
 
-      const vectorSource = new VectorSource({
-        features: geoJSON ? new GeoJSON().readFeatures(geoJSON, {
-          dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
-          featureProjection: 'EPSG:3857' // map display projection in Web Mercator
-        }) : []
-      })
+    const osmLayer = new TileLayer({
+      // preload tiles for 1 level of zooming
+      preload: 1,
+      // use OpenStreetMap as the base layer
+      source: new OSM(),
+    })
 
-      const vectorLayer = new VectorLayer({
-        source: vectorSource,
-        style: new Style({
-          image: new CircleStyle({
-            radius: 10,
-            fill: new Fill({
-              color: 'rgba(255, 255, 255, 0.4)'
-            }),
-            stroke: new Stroke({
-              color: '#3399CC',
-              width: 2
-            })
-          })
-        })
-      })
+    // create a vector source and layer for the GeoJSON features
+    const featuresSource = new VectorSource({
+      features: []
+    })
+    featuresRef.current = featuresSource
+    const featuresLayer = new VectorLayer({
+      source: featuresSource
+    })
 
-      const map = new Map({
-        target,
-        layers: [
-          osmLayer,
-          vectorLayer
-        ],
-        view: new View({
-          center: [0, 0],
-          zoom: 0,
-        }),
-      })
+    const map = new Map({
+      target: mapContainerRef.current,
+      layers: [
+        osmLayer,
+        featuresLayer
+      ],
+      view: new View({
+        center: [0, 0],
+        zoom: 0,
+      }),
+    })
 
-      const select = new Select({
-        condition: click,
-        layers: [vectorLayer],
-        style: new Style({
-          image: new CircleStyle({
-            radius: 10,
-            fill: new Fill({
-              color: 'rgba(255, 255, 255, 0.6)'
-            }),
-            stroke: new Stroke({
-              color: '#FF0000',
-              width: 2
-            })
-          })
-        })
-      })
+    mapRef.current = map
 
-      const translate = new Translate({
-        features: select.getFeatures()
-      })
-
-      map.addInteraction(select)
-      map.addInteraction(translate)
-
-      selectRef.current = select
-      translateRef.current = translate
-
-      return map
+    return () => {
+      map.setTarget(undefined)
+      mapRef.current = undefined
+      featuresRef.current = undefined
+      geoJSONFormatRef.current = undefined
     }
+  }, [])
 
-    function unloadMap(mapInstance) {
-      if (mapInstance) {
-        if (selectRef.current) {
-          mapInstance.removeInteraction(selectRef.current)
-          selectRef.current = undefined
-        }
-        if (translateRef.current) {
-          mapInstance.removeInteraction(translateRef.current)
-          translateRef.current = undefined
-        }
-        mapInstance.setTarget(undefined)
-      }
+  // Update features when geoJSON changes, without recreating the map
+  useEffect(function updateFeatures() {
+    const map = mapRef.current
+    const features = featuresRef.current
+    // if the map or features source is not ready yet, do nothing
+    if (!map || !features) return undefined
+
+    // get or create the GeoJSON format reader
+    const format = geoJSONFormatRef.current || new GeoJSON()
+    geoJSONFormatRef.current = format
+
+    // clear existing features
+    features.clear()
+
+    if (geoJSON) {
+      // read and add new features from the provided GeoJSON
+      const geoJSONfeatures = format.readFeatures(geoJSON, {
+        dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
+        featureProjection: 'EPSG:3857' // map display projection in Web Mercator
+      })
+      features.addFeatures(geoJSONfeatures)
     }
+    
+    const select = new Select({
+      condition: click,
+      layers: [vectorLayer]
+    })
 
-    if (mapRef.current) {
-      map = createMap(mapRef.current)
-    }
+    const translate = new Translate({
+      features: select.getFeatures()
+    })
 
-    return () => unloadMap(map)
+    map.addInteraction(select)
+    map.addInteraction(translate)
+
+    selectRef.current = select
+    translateRef.current = translate
+
+    return undefined
   }, [geoJSON])
 
   return (
@@ -130,7 +129,7 @@ function GeoMapViewer({
       fill
     >
       <MapContainer
-        ref={mapRef}
+        ref={mapContainerRef}
         className='map-container'
         data-testid='geo-map-container'
       />
@@ -139,17 +138,7 @@ function GeoMapViewer({
 }
 
 GeoMapViewer.propTypes = {
-  geoJSON: shape({
-    type: string,
-    features: arrayOf(shape({
-      type: string,
-      geometry: shape({
-        type: string,
-        coordinates: arrayOf(number)
-      }),
-      properties: shape({})
-    }))
-  })
+  geoJSON: shape({})
 }
 
 export default GeoMapViewer

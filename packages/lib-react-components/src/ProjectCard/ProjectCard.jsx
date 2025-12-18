@@ -82,7 +82,8 @@ function ProjectCard({
   href = null,
   imageSrc = '',
   size = 'medium',
-  state = 'live'
+  state = 'live',
+  ...rest
 }) {
   const { t } = useTranslation()
 
@@ -107,6 +108,7 @@ function ProjectCard({
       cardFontSize={cardFontSize(size)}
       height={`${(cardWidth(size) * 14) / 11}px`}
       width={`${cardWidth(size)}px`}
+      {...rest}
     >
       <Box
         className='project-image'
