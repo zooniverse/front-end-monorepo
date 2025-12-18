@@ -75,9 +75,6 @@ const Workflow = types
       if (self.configuration.subject_viewer === 'geoMap') {
         return 'geoMap'
       }
-      if (self.configuration.layout) {
-        return self.configuration.layout
-      }
       return 'default'
     },
 
