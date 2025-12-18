@@ -5,7 +5,7 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { shape } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -85,17 +85,7 @@ function GeoMapViewer({
 }
 
 GeoMapViewer.propTypes = {
-  geoJSON: shape({
-    type: string,
-    features: arrayOf(shape({
-      type: string,
-      geometry: shape({
-        type: string,
-        coordinates: arrayOf(number)
-      }),
-      properties: shape({})
-    }))
-  })
+  geoJSON: shape({})
 }
 
 export default GeoMapViewer
