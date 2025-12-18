@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { shape } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -22,29 +22,29 @@ const MapContainer = styled.div`
 function GeoMapViewer({
   geoJSON = undefined
 }) {
-  // mapContainerRef: reference to the map container DOM element
+  // Map and layer refs: created once on mount, reused across feature updates
   const mapContainerRef = useRef()
-  // mapRef: reference to the OpenLayers Map instance
   const mapRef = useRef()
-  // featuresRef: reference to the OpenLayers VectorSource for GeoJSON features
   const featuresRef = useRef()
-  // geoJSONFormatRef: reference to the OpenLayers GeoJSON format reader
+  const featuresLayerRef = useRef() // needed for interaction setup
   const geoJSONFormatRef = useRef()
-  
+
+  // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
 
-  // Create the map once on mount
+  // Create the map once on mount with all layers and interactions
+  // Interactions are created here and reused on data updates to avoid stacking event listeners
   useEffect(function createMapOnce() {
     // if the map is already created, do nothing
     // or if the map container ref is not set yet, do nothing
     if (mapRef.current || !mapContainerRef.current) return undefined
 
     // create a GeoJSON format reader
-    const format = new GeoJSON()
-    geoJSONFormatRef.current = format
+    const geoJSONFormat = new GeoJSON()
+    geoJSONFormatRef.current = geoJSONFormat
 
-    const osmLayer = new TileLayer({
+    const baseLayer = new TileLayer({
       // preload tiles for 1 level of zooming
       preload: 1,
       // use OpenStreetMap as the base layer
@@ -59,11 +59,12 @@ function GeoMapViewer({
     const featuresLayer = new VectorLayer({
       source: featuresSource
     })
+    featuresLayerRef.current = featuresLayer
 
     const map = new Map({
       target: mapContainerRef.current,
       layers: [
-        osmLayer,
+        baseLayer,
         featuresLayer
       ],
       view: new View({
@@ -72,17 +73,36 @@ function GeoMapViewer({
       }),
     })
 
+    // Create interactions once and add to the map
+    const select = new Select({
+      condition: click,
+      layers: [featuresLayer]
+    })
+    const translate = new Translate({
+      features: select.getFeatures()
+    })
+    map.addInteraction(select)
+    map.addInteraction(translate)
+    selectRef.current = select
+    translateRef.current = translate
+
     mapRef.current = map
 
     return () => {
+      map.removeInteraction(select)
+      map.removeInteraction(translate)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
+      featuresLayerRef.current = undefined
       geoJSONFormatRef.current = undefined
+      selectRef.current = undefined
+      translateRef.current = undefined
     }
   }, [])
 
-  // Update features when geoJSON changes, without recreating the map
+  // Update feature data when geoJSON changes
+  // This effect only updates the vector source; map and interactions remain unchanged
   useEffect(function updateFeatures() {
     const map = mapRef.current
     const features = featuresRef.current
@@ -90,35 +110,20 @@ function GeoMapViewer({
     if (!map || !features) return undefined
 
     // get or create the GeoJSON format reader
-    const format = geoJSONFormatRef.current || new GeoJSON()
-    geoJSONFormatRef.current = format
+    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
+    geoJSONFormatRef.current = geoJSONFormat
 
     // clear existing features
     features.clear()
 
     if (geoJSON) {
       // read and add new features from the provided GeoJSON
-      const geoJSONfeatures = format.readFeatures(geoJSON, {
+      const newFeatures = geoJSONFormat.readFeatures(geoJSON, {
         dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
         featureProjection: 'EPSG:3857' // map display projection in Web Mercator
       })
-      features.addFeatures(geoJSONfeatures)
+      features.addFeatures(newFeatures)
     }
-    
-    const select = new Select({
-      condition: click,
-      layers: [vectorLayer]
-    })
-
-    const translate = new Translate({
-      features: select.getFeatures()
-    })
-
-    map.addInteraction(select)
-    map.addInteraction(translate)
-
-    selectRef.current = select
-    translateRef.current = translate
 
     return undefined
   }, [geoJSON])
