@@ -170,6 +170,9 @@
     "GeoMapViewer": {
       "RecenterButton": {
         "ariaLabel": "Recenter map to features"
+      },
+      "ResetButton": {
+        "ariaLabel": "Reset features on map"
       }
     },
     "ImageAndTextViewer": {
