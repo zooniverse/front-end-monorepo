@@ -3,8 +3,6 @@ import { shape } from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-// test change 
-
 // OpenLayers imports
 import { Map, View } from 'ol'
 import { click } from 'ol/events/condition'
