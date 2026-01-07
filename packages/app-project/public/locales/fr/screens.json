@@ -14,14 +14,14 @@
     },
     "SidebarHeading": "À propos",
     "TeamMember": {
-      "collaborator": "Collaborateur/trice",
-      "expert": "Expert/èrte",
-      "moderator": "Modérateur/trice",
+      "collaborator": "Collaborateur\/trice",
+      "expert": "Expert\/èrte",
+      "moderator": "Modérateur\/trice",
       "museum": "Musée",
-      "owner": "Administrateur/trice",
-      "researcher": "Chercheur/e",
-      "tester": "Testeur/e",
-      "translator": "Traducteur/trice"
+      "owner": "Administrateur\/trice",
+      "researcher": "Chercheur\/e",
+      "tester": "Testeur\/e",
+      "translator": "Traducteur\/trice"
     }
   },
   "Classify": {
