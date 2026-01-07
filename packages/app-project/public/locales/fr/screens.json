@@ -14,14 +14,14 @@
     },
     "SidebarHeading": "À propos",
     "TeamMember": {
-      "collaborator": "Collaborateur\/trice",
-      "expert": "Expert\/èrte",
-      "moderator": "Modérateur\/trice",
+      "collaborator": "Collaborateur/trice",
+      "expert": "Expert/èrte",
+      "moderator": "Modérateur/trice",
       "museum": "Musée",
-      "owner": "Administrateur\/trice",
-      "researcher": "Chercheur\/e",
-      "tester": "Testeur\/e",
-      "translator": "Traducteur\/trice"
+      "owner": "Administrateur/trice",
+      "researcher": "Chercheur/e",
+      "tester": "Testeur/e",
+      "translator": "Traducteur/trice"
     }
   },
   "Classify": {
@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "En savoir plus"
+      },
+      "NotApproved": {
+        "paragraph": "Ce projet a été créé avec le Zooniverse Project Builder mais n'est pas encore un projet officiel de Zooniverse. Les questions et problèmes à propos de ce projet adressés à l'équipe de Zooniverse peut ne pas recevoir de réponse."
       }
     },
     "MessageFromResearcher": {

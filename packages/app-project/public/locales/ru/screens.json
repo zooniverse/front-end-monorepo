@@ -32,7 +32,7 @@
     },
     "RecentSubjects": {
       "text": "Обсудите объект в Talk или добавьте его в Избранное или коллекцию.",
-      "title": "Ваши последние разметки\/классификации"
+      "title": "Ваши последние разметки/классификации"
     },
     "WorkflowAssignmentModal": {
       "cancel": "Нет, спасибо",
@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Подробнее"
+      },
+      "NotApproved": {
+        "paragraph": "Этот проект был создан с использованием Zooniverse Project Builder, но еще не является официальным проектом Zooniverse. Поэтому команда Zooniverse не сможет Вам ответить на вопросы, связанные с этим проектом"
       }
     },
     "MessageFromResearcher": {
