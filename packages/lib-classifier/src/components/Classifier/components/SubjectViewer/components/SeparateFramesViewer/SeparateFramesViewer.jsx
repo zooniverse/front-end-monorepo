@@ -22,7 +22,7 @@ function storeMapper(store) {
 }
 
 const DEFAULT_HANDLER = () => true
-const minFrameWidth = 300
+const minFrameWidth = 200
 
 function SeparateFramesViewer({
   enableInteractionLayer = false,
