@@ -3,7 +3,7 @@ export const examples = [
     label: 'table',
     content: `
 |fruit|colour|
-|-----|------|
+|-----|:------:|
 |apple|green|
 |banana|yellow|
 |strawberry|red|

@@ -55,6 +55,9 @@ const StyledUnorderedList = styled.ul`
 const StyledTable = styled(Table)`
   font-size: 1rem;
 `
+const StyledTableCell = styled(TableCell)`
+  ${({ styleString }) => styleString || ''}
+`
 
 const StyledVideo = styled.video`
   max-width: 100%;
@@ -75,7 +78,7 @@ const componentMappings = {
   tfoot: TableFooter,
   thead: TableHeader,
   tbody: TableBody,
-  td: TableCell,
+  td: ({ style, ...props }) => <StyledTableCell styleString={style} {...props} />,
   tr: TableRow,
   ol: StyledOrderedList,
   ul: StyledUnorderedList,
