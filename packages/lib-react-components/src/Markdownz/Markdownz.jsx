@@ -37,7 +37,18 @@ export function renderMedia(nodeProps) {
     alt = alt.split(match[0])[0].trim()
   }
 
-  if (src) return <Media alt={alt} height={height} src={src} width={width} />
+  if (src) {
+    return (
+      <Media
+        alt={alt}
+        defaultMimeType='image'
+        height={height}
+        src={src}
+        width={width}
+      />
+    )
+  }
+
   return null
 }
 
