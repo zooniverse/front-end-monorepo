@@ -8,6 +8,7 @@ export { default as survey } from './survey'
 export { default as text } from './text'
 // experimental task types
 export { default as highlighter } from './experimental/highlighter'
+export { default as geoDrawing } from './experimental/geoDrawing'
 export { default as textFromSubject } from './experimental/textFromSubject'
 export { default as transcription } from './experimental/transcription'
 export { default as volumetric } from './experimental/volumetric'
