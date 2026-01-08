@@ -48,6 +48,12 @@ export function Image() {
       </Box>
       <hr/>
       <Box>
+        <Text>Same as above - the image URL has search params - BUT we now define a defaultMimeType to fall back on. An image should be rendered below.</Text>
+        <Media alt='A galaxy' src={IMAGE_URL_WITH_SEARCH_PARAMS} width={270} defaultMimeType='image' />
+        <Text>(If the image was going to be rendered, it would have rendered right above this paragraph.)</Text>
+      </Box>
+      <hr/>
+      <Box>
         <Text>Has a placeholder (delay 3sec). Width and height set as 200</Text>
         <Media
           alt='A galaxy'
