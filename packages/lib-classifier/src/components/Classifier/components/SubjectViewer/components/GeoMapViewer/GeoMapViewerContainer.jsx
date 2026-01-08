@@ -12,11 +12,13 @@ const defaultSubject = {
   locations: []
 }
 
+const DEFAULT_HANDLER = () => true
+
 function GeoMapViewerContainer ({
   latest,
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject = defaultSubject
 }) {
   const { data, error, loading } = useSubjectJSON({
@@ -25,13 +27,13 @@ function GeoMapViewerContainer ({
     subject
   })
 
-  // If there's a geoDrawing annotation, initialize its value with the loaded GeoJSON when available.
+  // Initialize the geoDrawing annotation with loaded GeoJSON data on first load.
   useEffect(() => {
     const geoAnnotation = latest?.annotations?.find(annotation => annotation.taskType === 'geoDrawing')
-    if (geoAnnotation && data && Array.isArray(geoAnnotation.value) && geoAnnotation.value.length === 0) {
+    if (geoAnnotation && data && geoAnnotation.value.length === 0 && typeof geoAnnotation.update === 'function') {
       geoAnnotation.update([data])
     }
-  }, [data, latest])
+  }, [data, latest?.annotations])
 
   if (loading) {
     return null
@@ -40,7 +42,6 @@ function GeoMapViewerContainer ({
     return <p>{ error.message }</p>
   }
 
-  onReady()
   return (
     <GeoMapViewer
       geoJSON={data}
