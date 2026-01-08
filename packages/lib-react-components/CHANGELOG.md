@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Changed
 - Upgrade to Storybook v9
 
+## Fixed
+
+- `Markdownz`: Support `:---:` column formatting syntax in tables.
+
 ## [1.15.0] 2025-09-15
 
 ### Removed
