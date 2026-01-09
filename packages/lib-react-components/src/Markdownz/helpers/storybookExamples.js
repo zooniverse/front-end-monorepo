@@ -2,11 +2,11 @@ export const examples = [
   {
     label: 'table',
     content: `
-|fruit|colour|
-|-----|:------:|
-|apple|green|
-|banana|yellow|
-|strawberry|red|
+|fruit|colour| quantity |
+|-----|:------:|---------:|
+|apple|green|10|
+|banana|yellow|20|
+|strawberry|red|30|
 `
   },
   {
