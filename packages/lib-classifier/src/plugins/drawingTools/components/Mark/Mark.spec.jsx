@@ -117,7 +117,7 @@ describe('Drawing tools > Mark', function () {
             </Mark>
           </svg>, { wrapper: withGrommetWrapper() }
         )
-        await user.tab()
+        await user.tab() // set focus on the mark so that it receives keyboard events
         await user.keyboard('{Backspace}')
       })
 
@@ -151,7 +151,7 @@ describe('Drawing tools > Mark', function () {
             </Mark>
           </svg>, { wrapper: withGrommetWrapper() }
         )
-        point.setSubTaskVisibility(false)
+        await user.tab()
         await user.keyboard('{Enter}')
         await when(() => point.subTaskVisibility)
       })
@@ -190,7 +190,7 @@ describe('Drawing tools > Mark', function () {
             </Mark>
           </svg>, { wrapper: withGrommetWrapper() }
         )
-        point.setSubTaskVisibility(false)
+        await user.tab()
         await user.keyboard('{ }')
         await when(() => point.subTaskVisibility)
       })
@@ -229,7 +229,6 @@ describe('Drawing tools > Mark', function () {
             </Mark>
           </svg>, { wrapper: withGrommetWrapper() }
         )
-        point.setSubTaskVisibility(false)
         await user.tab()
         await user.keyboard('{Tab}')
       })
