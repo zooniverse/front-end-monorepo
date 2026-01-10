@@ -63,8 +63,8 @@ spec:
             httpGet:
               path: /projects/Index
               port: 3000
-            initialDelaySeconds: 20
-            timeoutSeconds: 10
+            initialDelaySeconds: 30
+            timeoutSeconds: 20
           ports:
             - containerPort: 3000
           env:
@@ -151,8 +151,8 @@ spec:
             httpGet:
               path: /about
               port: 3000
-            initialDelaySeconds: 20
-            timeoutSeconds: 10
+            initialDelaySeconds: 30
+            timeoutSeconds: 20
           ports:
             - containerPort: 3000
           env:
