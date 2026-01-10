@@ -73,7 +73,11 @@ const SubjectViewer = types
   }))
 
   .actions(self => {
-    function createSubjectObserver () {
+    /**
+      When the active subject changes, call this model's resetSubject function which resets
+      the viewer's frame index, rotation, invert mode, and stored dimensions. Side note: do we really need to reset invert in between subjects?
+    */
+    function createSubjectObserver() {
       const subjectDisposer = autorun(() => {
         const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
         if (validSubjectReference) {
@@ -81,7 +85,25 @@ const SubjectViewer = types
           self.resetSubject(subject)
         }
       }, { name: 'SubjectViewerStore Subject Observer autorun' })
+      // Whenever the target node (self) is destroyed, dispose of this autorun reaction
       addDisposer(self, subjectDisposer)
+    }
+
+    /**
+      When the active workflow changes, read the new active workflow after attach to get its
+      workflow configuration and setSeparateFramesView because that mode is used by the classifier's
+      layout, image toolbar, and field guide.
+     */
+    function createWorkflowConfigObserver() {
+      const workflowConfigDisposer = autorun(() => {
+        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
+        if (validWorkflowReference) {
+          const defaultMode = getRoot(self).workflows.active?.configuration?.multi_image_mode
+          self.setSeparateFramesView(defaultMode === 'separate')
+        }
+      }, { name: 'SubjectViewerStore Workflow Config Observer autorun'})
+      // Whenever the target node (self) is destroyed, dispose of this autorun reaction
+      addDisposer(self, workflowConfigDisposer)
     }
 
     return {
@@ -95,8 +117,10 @@ const SubjectViewer = types
             self.enableMove()
           }
         }
+        // Whenever the target node (self) is destroyed, dispose of this autorun reaction
         addDisposer(self, autorun(_syncAnnotateVisibility))
         createSubjectObserver()
+        createWorkflowConfigObserver()
       },
 
       enableAnnotate () {
