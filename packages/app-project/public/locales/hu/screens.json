@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "További információk"
+      },
+      "NotApproved": {
+        "paragraph": "Ez a projekt a Zooniverse Project Builder segítségével készült, de még nem hivatalos Zooniverse projekt. Előfordulhat, hogy a Zooniverse csapatához intézett, a projekttel kapcsolatos kérdések és kérdések nem kapnak választ."
       }
     },
     "MessageFromResearcher": {

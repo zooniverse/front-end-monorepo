@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "このプロジェクトについて"
+      },
+      "NotApproved": {
+        "paragraph": "このプロジェクトはZooniverse Project Builderを用いて作成されていますが、Zooniverseの公式プロジェクトにはなっていません。Zooniverseチーム宛のこのプロジェクトに関する質問や問題は回答が得られない可能性があります。"
       }
     },
     "MessageFromResearcher": {

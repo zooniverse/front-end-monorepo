@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Dowiedz się więcej"
+      },
+      "NotApproved": {
+        "paragraph": "Ten projekt utworzono przy użyciu Zooniverse Project Builder, ale nie jest jeszcze oficjalnym projektem Zooniverse. Zapytania i problemy związane z tym projektem kierowane do zespołu Zooniverse mogą pozostać bez odpowiedzi."
       }
     },
     "MessageFromResearcher": {

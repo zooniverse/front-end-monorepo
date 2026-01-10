@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "더 알아보기"
+      },
+      "NotApproved": {
+        "paragraph": "이 프로젝트는 Zooniverse 프로젝트 빌더를 이용해 구축되었으나 아직 공식 Zooniverse project는 아닙니다. Zooniverse 팀에 이 프로젝트에 관한 문의나 문제를 문의할 경우 답변을 받지 못할 수 있습니다."
       }
     },
     "MessageFromResearcher": {

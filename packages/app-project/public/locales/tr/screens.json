@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Daha fazla bilgi edin"
+      },
+      "NotApproved": {
+        "paragraph": "Bu proje Zooniverse Project Builder kullanılarak oluşturulmuştur ancak henüz resmi bir Zooniverse projesi değildir. Zooniverse Ekibine, bu proje ile ilgili yöneltilen sorular ve sorunlar herhangi bir yanıt almayabilir."
       }
     },
     "MessageFromResearcher": {

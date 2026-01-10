@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Lue lisää"
+      },
+      "NotApproved": {
+        "paragraph": "Tämä projekti on luotu Zooniverse Project Builder -toimintoa käyttäen, mutta se ei ole vielä virallinen Zooniverse-projekti. Zooniverse-tiimi ei välttämättä vastaa tätä projektia koskeviin kyselyihin ja ongelmaraportteihin."
       }
     },
     "MessageFromResearcher": {

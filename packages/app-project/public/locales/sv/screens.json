@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Lär dig mer"
+      },
+      "NotApproved": {
+        "paragraph": "Detta projekt har byggs med hjälp av Zooniverse Project Buildermen är ännu något officiellt Zooniverse-project. Frågor och problem som rapporteras till Zooniverse-teamet kanske inte får svar."
       }
     },
     "MessageFromResearcher": {
@@ -69,7 +72,7 @@
         "subjectLabel": "Motiv {{id}}"
       },
       "button": "Gå med",
-      "message": "Se till att kolla in [Prata](\/talk) där du kan chatta med andra likasinnade frivilliga.",
+      "message": "Se till att kolla in [Prata](/talk) där du kan chatta med andra likasinnade frivilliga.",
       "title": "Prata"
     }
   }

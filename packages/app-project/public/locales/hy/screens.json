@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Իմանալ ավելին"
+      },
+      "NotApproved": {
+        "paragraph": "Այս նախագիծը ստեղծվել է Zooniverse Project Builder-ի օգնությամբ, բայց դեռ չի համարվում Zooniverse-ի պաշտոնական նախագիծ: Ուստի նախագծին վերաբերվող հարցումները և դրա հետ կապված խնդիրները, ուղղված Zooniverse թիմին, կարող են մնալ անպատասխան:"
       }
     },
     "MessageFromResearcher": {

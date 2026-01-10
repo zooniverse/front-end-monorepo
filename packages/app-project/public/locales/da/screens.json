@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Få mere at vide"
+      },
+      "NotApproved": {
+        "paragraph": "Dette projekt er oprettet ved hjælp af Zooniverse Project Builder, men er endnu ikke et officielt Zooniverse-projekt. Forespørgsler og problemer vedrørende dette projekt, der rettes til Zooniverse-teamet, vil muligvis ikke blive besvaret."
       }
     },
     "MessageFromResearcher": {

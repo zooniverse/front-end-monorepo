@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Pata maelezo zaidi"
+      },
+      "NotApproved": {
+        "paragraph": "Mradi huu umeundwa kwa kutumia Kijenzi cha Mradi cha Zooniverse lakini bado si mradi rasmi wa Zooniverse. Maswali na masuala yanayohusiana na mradi huu yaliyoelekezwa kwa Timu ya Zooniverse huenda yasipokee jibu lolote."
       }
     },
     "MessageFromResearcher": {

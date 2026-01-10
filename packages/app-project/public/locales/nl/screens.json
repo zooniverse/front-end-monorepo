@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Lees meer"
+      },
+      "NotApproved": {
+        "paragraph": "Dit project is gemaakt met de Zooniverse projectbouwer maar nog geen officieel Zooniverse project. Vragen over het project die gestuurd worden aan het Zooniverseteam worden mogelijk niet beantwoord."
       }
     },
     "MessageFromResearcher": {

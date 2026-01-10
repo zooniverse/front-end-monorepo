@@ -19,6 +19,7 @@ const PROJECT = {
   background: {
     src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
   },
+  launch_approved: true,
   slug: 'brbcornell/nest-quest-go-western-bluebirds',
   strings: {
     description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
@@ -81,9 +82,6 @@ function RouterMock({ children }) {
 export default {
   title: 'Project App / Screens / Project Home / Hero',
   component: Hero,
-  args: {
-    isWide: true
-  }
 }
 
 const snapshot = {
@@ -92,11 +90,11 @@ const snapshot = {
 }
 const store = Store.create(snapshot)
 
-export function Default({ isWide }) {
+export function Default() {
   return (
     <RouterMock>
       <Provider store={store}>
-        <Hero isWide={isWide} workflows={WORKFLOWS} />
+        <Hero workflows={WORKFLOWS} />
       </Provider>
     </RouterMock>
   )
@@ -109,11 +107,33 @@ const snapshotWithOrganization = {
 }
 const storeWithOrganization = Store.create(snapshotWithOrganization)
 
-export function WithOrganization({ isWide }) {
+export function WithOrganization() {
   return (
     <RouterMock>
       <Provider store={storeWithOrganization}>
-        <Hero isWide={isWide} workflows={WORKFLOWS} />
+        <Hero workflows={WORKFLOWS} />
+      </Provider>
+    </RouterMock>
+  )
+}
+
+const notApprovedProject = {
+  ...PROJECT,
+  launch_approved: false
+}
+
+const notApprovedSnapshot = {
+  project: notApprovedProject,
+  user: USER
+}
+
+const storeWithNotApproved = Store.create(notApprovedSnapshot)
+
+export function NotApproved() {
+    return (
+    <RouterMock>
+      <Provider store={storeWithNotApproved}>
+        <Hero workflows={WORKFLOWS} />
       </Provider>
     </RouterMock>
   )
