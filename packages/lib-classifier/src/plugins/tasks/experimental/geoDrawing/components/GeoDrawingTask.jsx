@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { arrayOf, oneOfType, number, shape, string } from 'prop-types'
 import { observer } from 'mobx-react'
 
 function GeoDrawingTask({ task }) {
@@ -14,19 +14,15 @@ function GeoDrawingTask({ task }) {
 }
 
 GeoDrawingTask.propTypes = {
-  task: PropTypes.shape({
-    instruction: PropTypes.string,
-    tools: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string,
-      max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      type: PropTypes.string
+  task: shape({
+    instruction: string,
+    tools: arrayOf(shape({
+      label: string,
+      max: oneOfType([string, number]),
+      min: oneOfType([string, number]),
+      type: string
     }))
   })
-}
-
-GeoDrawingTask.defaultProps = {
-  task: undefined
 }
 
 export default observer(GeoDrawingTask)
