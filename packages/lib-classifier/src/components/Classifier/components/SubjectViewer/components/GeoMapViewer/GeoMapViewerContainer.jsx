@@ -1,26 +1,36 @@
-import { arrayOf, func, object, shape, string } from 'prop-types'
 import { observer } from 'mobx-react'
-import asyncStates from '@zooniverse/async-states'
+import { func } from 'prop-types'
 import { useEffect } from 'react'
 
-import { useSubjectJSON } from '@hooks'
-import locationValidator from '../../helpers/locationValidator'
+import { useStores, useSubjectJSON } from '@hooks'
 import GeoMapViewer from './GeoMapViewer'
 
-const defaultSubject = {
-  id: '',
-  locations: []
+function storeMapper(classifierStore) {
+  const {
+    subjects: {
+      active: subject
+    },
+    subjectViewer: {
+      loadingState
+    }
+  } = classifierStore
+
+  const latest = subject?.stepHistory.latest
+
+  return {
+    latest,
+    loadingState,
+    subject
+  }
 }
 
 const DEFAULT_HANDLER = () => true
 
 function GeoMapViewerContainer ({
-  latest,
-  loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER,
-  subject = defaultSubject
+  onReady = DEFAULT_HANDLER
 }) {
+  const { latest, subject } = useStores(storeMapper)
   const { data, error, loading } = useSubjectJSON({
     onError,
     onReady,
@@ -51,16 +61,8 @@ function GeoMapViewerContainer ({
 }
 
 GeoMapViewerContainer.propTypes = {
-  latest: shape({
-    annotations: arrayOf(object)
-  }),
-  loadingState: string,
   onError: func,
-  onReady: func,
-  subject: shape({
-    id: string,
-    locations: arrayOf(locationValidator)
-  })
+  onReady: func
 }
 
 export default observer(GeoMapViewerContainer)
