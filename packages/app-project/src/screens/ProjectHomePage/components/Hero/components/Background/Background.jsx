@@ -1,30 +1,41 @@
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { useContext } from 'react'
+import { Box } from 'grommet'
 
-const Img = styled.img`
-  height: 230px;
-  min-height: inherit;
-  object-fit: cover;
+const StyledBox = styled(Box)`
   width: 100%;
+  height: 100%;
+  background-image: url("${props => props.$imageSrc}");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
 
   // Grommet small breakpoint
-  @media (width > 769px) {
-    flex: 1 1 auto;
-    object-position: 0 50%;
+  @media (width < 769px) {
+    background-position: 50% 50%;
+    min-height: 230px;
   }
 `
 
-function Background ({ backgroundSrc }) {
-  return (
-    <Img
-      alt=''
-      src={backgroundSrc}
-    />
-  )
+
+function useStores() {
+  const { store } = useContext(MobXProviderContext)
+  const { src } = store.project?.background
+  return {
+    backgroundSrc: src
+  }
+}
+
+function Background() {
+  const { backgroundSrc } = useStores()
+
+  return <StyledBox $imageSrc={backgroundSrc} />
 }
 
 Background.propTypes = {
-  backgroundSrc: string.isRequired
+  backgroundSrc: string
 }
 
-export default Background
+export default observer(Background)

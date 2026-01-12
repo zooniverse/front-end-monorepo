@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "了解更多"
+      },
+      "NotApproved": {
+        "paragraph": "这个项目是使用 Zooniverse 项目构建器创建的，但目前还不是 Zooniverse 官方项目。针对这个项目向 Zooniverse 团队提出的疑问和问题可能不会得到任何回复。"
       }
     },
     "MessageFromResearcher": {

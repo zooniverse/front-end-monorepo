@@ -20,7 +20,7 @@ function ProjectHomePage({ workflows = [] }) {
     <StandardLayout page='home'>
       <Box height={mobileLayout ? { min: '0' } : { min: '90vh' }}>
         <HeaderComponents adminMode={adminMode} />
-        <Hero isWide={!mobileLayout} workflows={workflows} />
+        <Hero workflows={workflows} />
       </Box>
       <Box align='center'>
         <Box gap='medium' pad='medium' width='min(100%, 90rem)'>
