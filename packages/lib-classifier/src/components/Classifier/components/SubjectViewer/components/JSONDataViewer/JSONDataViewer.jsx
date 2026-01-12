@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 
 import { useStores, useSubjectJSON } from '@hooks'
 import BarChartViewer from '@viewers/components/BarChartViewer'
-// import GeoMapViewer from '@viewers/components/GeoMapViewer'
 import LightCurveViewer from '@viewers/components/LightCurveViewer'
 import ScatterPlotViewer from '@viewers/components/ScatterPlotViewer'
 import VariableStarViewer from '@viewers/components/VariableStarViewer'
@@ -11,9 +10,6 @@ import VariableStarViewer from '@viewers/components/VariableStarViewer'
 const viewers = {
   BarChart: BarChartViewer,
   DataSeriesPlot: ScatterPlotViewer,
-  // uncommenting `GeoMap: GeoMapViewer,` will show a GeoMapViewer for geoJSON data, regardless of workflow viewer configuration,
-  // eventually the intent, but not yet.
-  // GeoMap: GeoMapViewer, 
   TESSLightCurve: LightCurveViewer,
   VariableStarPlots: VariableStarViewer
 }
