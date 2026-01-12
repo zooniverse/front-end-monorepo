@@ -13,6 +13,7 @@ import WorkflowSelector from '@shared/components/WorkflowSelector'
 const StyledGrid = styled(Grid)`
   width: 100%;
   grid-template-columns: 62% 38%;
+  flex-grow: 1; // This applies when the Hero doesn't have enough content to grow to its layout parent's 90vh
 
   @media (width < 769px) {
     grid-template-columns: none;
@@ -55,6 +56,7 @@ function Hero({ workflows = [] }) {
           light: 'white'
         }}
         gap='small'
+        justify='between'
         pad='medium'
         margin={
           size === 'small'

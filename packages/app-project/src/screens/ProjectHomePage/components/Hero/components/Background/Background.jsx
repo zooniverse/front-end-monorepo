@@ -2,20 +2,23 @@ import { string } from 'prop-types'
 import styled from 'styled-components'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
-import { Image } from 'grommet'
+import { Box } from 'grommet'
 
-const Img = styled(Image)`
-  object-position: 0 50%;
-  object-fit: cover;
+const StyledBox = styled(Box)`
   width: 100%;
   height: 100%;
+  background-image: url("${props => props.$imageSrc}");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
 
   // Grommet small breakpoint
   @media (width < 769px) {
-    height: 230px;
-    min-height: inherit;
+    background-position: 50% 50%;
+    min-height: 230px;
   }
 `
+
 
 function useStores() {
   const { store } = useContext(MobXProviderContext)
@@ -28,7 +31,7 @@ function useStores() {
 function Background() {
   const { backgroundSrc } = useStores()
 
-  return <Img alt='' src={backgroundSrc} />
+  return <StyledBox $imageSrc={backgroundSrc} />
 }
 
 Background.propTypes = {
