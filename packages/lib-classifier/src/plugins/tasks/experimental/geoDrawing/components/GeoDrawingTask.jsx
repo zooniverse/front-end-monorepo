@@ -3,12 +3,14 @@ import { observer } from 'mobx-react'
 
 function GeoDrawingTask({ task }) {
   const instruction = task?.instruction || ''
-  const toolLabel = task?.tools?.[0]?.label || 'Map Point'
+  const toolLabel = task?.tools?.[0]?.label || ''
+
+  // Placeholder component for geoDrawing task
 
   return (
     <div>
       {instruction ? <p>{instruction}</p> : null}
-      <p>{toolLabel}: geoPoint tool placeholder</p>
+      <p>{toolLabel}: tool placeholder</p>
     </div>
   )
 }
