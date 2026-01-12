@@ -1,4 +1,4 @@
-import { getSnapshot, getType } from 'mobx-state-tree'
+import { getSnapshot, getType, isStateTreeNode } from 'mobx-state-tree'
 import { useEffect, useRef, useState } from 'react'
 
 import JSONData from '@store/JSONData'
@@ -55,7 +55,15 @@ export default function useSubjectJSON({
       try {
         const rawData = await requestData(subject)
         if (rawData) {
-          const jsonData = JSONData.create(rawData)
+          let jsonData
+          try {
+            // Try to match against known types
+            jsonData = JSONData.create(rawData)
+          } catch (typeError) {
+            // If no type matches, use the raw data
+            console.warn('JSON data does not match known types, using raw data:', typeError.message)
+            jsonData = rawData
+          }
           setData(jsonData)
           onLoad()
         }
@@ -74,9 +82,9 @@ export default function useSubjectJSON({
   const loading = !data && !error
   return {
     loading,
-    data : data ? getSnapshot(data) : null,
+    data : data ? (isStateTreeNode(data) ? getSnapshot(data) : data) : null,
     error,
-    type: data ? getType(data) : null,
+    type: data && isStateTreeNode(data) ? getType(data) : null,
     viewer
   }
 }
