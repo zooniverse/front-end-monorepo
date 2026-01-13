@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { shape } from 'prop-types'
-import { useCallback, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 // OpenLayers imports
