@@ -28,6 +28,15 @@ const ControlsBox = styled(Box)`
   left: 10px;
   z-index: 1;
 `
+// Helper function to fit view to features extent
+function fitViewToFeatures(map, features) {
+  const view = map.getView()
+  view.fit(features.getExtent(), {
+    padding: [32, 32, 32, 32],
+    maxZoom: 12,
+    duration: 250
+  })
+}
 
 function GeoMapViewer({
   geoJSON = undefined
@@ -117,16 +126,6 @@ function GeoMapViewer({
     }
   }, [])
 
-  // Helper function to fit view to features extent
-  const fitViewToFeatures = useCallback((map, features) => {
-    const view = map.getView()
-    view.fit(features.getExtent(), {
-      padding: [32, 32, 32, 32],
-      maxZoom: 12,
-      duration: 250
-    })
-  }, [])
-
   // Update feature data when geoJSON changes
   // This effect only updates the vector source; map and interactions remain unchanged
   useEffect(function updateFeatures() {
@@ -154,10 +153,10 @@ function GeoMapViewer({
     }
 
     return undefined
-  }, [geoJSON, fitViewToFeatures])
-
+  }, [geoJSON])
+  
   // Handler to recenter the map to fit all features
-  const handleRecenter = useCallback(() => {
+  function handleRecenter() {
     const map = mapRef.current
     const features = featuresRef.current
     if (!map || !features) return
@@ -166,10 +165,10 @@ function GeoMapViewer({
     if (featuresList.length > 0) {
       fitViewToFeatures(map, features)
     }
-  }, [fitViewToFeatures])
+  }
 
   // Handler to reset features to the original geoJSON
-  const handleReset = useCallback(() => {
+  function handleReset() {
     const map = mapRef.current
     const features = featuresRef.current
     if (!map || !features || !geoJSON) return
@@ -188,7 +187,7 @@ function GeoMapViewer({
     if (features.getFeatures().length) {
       fitViewToFeatures(map, features)
     }
-  }, [geoJSON, fitViewToFeatures])
+  }
 
   return (
     <Box

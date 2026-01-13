@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Translated"
+      },
+      "NotApproved": {
+        "paragraph": "Translated"
       }
     },
     "MessageFromResearcher": {

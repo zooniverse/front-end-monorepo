@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Samu ƙarin bayani"
+      },
+      "NotApproved": {
+        "paragraph": "An gina wannan aikin ne ta amfani da Zooniverse Project Builder, amma har yanzu ba aikin Zooniverse ba ne a bisa doka. Ba dole ne a samu wata amsa ba yayin da aka tura tambayoyi game da wannan aikin zuwa ga Tawagar Zooniverse."
       }
     },
     "MessageFromResearcher": {

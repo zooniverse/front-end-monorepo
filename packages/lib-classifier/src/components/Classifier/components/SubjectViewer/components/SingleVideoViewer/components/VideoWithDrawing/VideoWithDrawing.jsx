@@ -1,5 +1,5 @@
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, Text } from 'grommet'
 import { useState, useRef } from 'react'
 import { useTranslation } from '@translations/i18n'
@@ -16,6 +16,16 @@ const SubjectContainer = styled.div`
 
   video {
     filter: invert(${props => props.$invert ? 1 : 0});
+
+    ${props =>
+      props.$limitSubjectHeight &&
+      css`
+        display: flex;
+        width: auto;
+        max-height: 90vh;
+        max-width: 100%;
+        margin-left: auto;
+      `}
   }
 `
 
@@ -30,6 +40,7 @@ const DEFAULT_HANDLER = () => true
 
 function VideoWithDrawing({
   invert = false,
+  limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -179,7 +190,7 @@ function VideoWithDrawing({
   return (
     <>
       {videoLocation ? (
-        <SubjectContainer $invert={invert}>
+        <SubjectContainer $invert={invert} $limitSubjectHeight={limitSubjectHeight}>
           <ReactPlayer
             controls={false}
             height='100%'
@@ -203,7 +214,7 @@ function VideoWithDrawing({
                   style: {
                     display: 'block',
                     height: '100%',
-                    width: '100%'
+                    width: limitSubjectHeight ? 'auto' : '100%'
                   }
                 }
               }
@@ -266,6 +277,7 @@ function VideoWithDrawing({
 
 VideoWithDrawing.propTypes = {
   invert: bool,
+  limitSubjectHeight: bool,
   loadingState: string,
   onError: func,
   onKeyDown: func,
