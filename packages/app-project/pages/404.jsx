@@ -8,7 +8,7 @@ import {
   ThemeContext
 } from 'grommet'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
+import { useTranslation, Trans } from 'next-i18next'
 import { ZooFooter } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import { useContext } from 'react'
@@ -79,7 +79,13 @@ export default function Error404({ locale = 'en' }) {
       <PageHeader />
       <ContainerBox width='100%' height='80vh' justify='center'>
         <Overlay background={`url("${backgroundURL}")`} fill />
-        <PageContent justify='center' align='center'>
+        <PageContent
+          justify='center'
+          align='center'
+          alignSelf='center'
+          width='min(100%, 45rem)'
+          pad={{ horizontal: 'medium' }}
+        >
           <Image
             id='404-logo'
             width={logoSize(size)}
@@ -91,7 +97,17 @@ export default function Error404({ locale = 'en' }) {
             {t('404.heading')}
           </Heading>
           <Paragraph textAlign='center' color='white'>
-            <em>{t('404.message')}</em>
+            <Trans
+              i18nKey='404.message'
+              t={t}
+              components={[
+                <Anchor
+                  key='email-from-404'
+                  href='mailto:contact@zooniverse.org'
+                  color='accent-1'
+                />
+              ]}
+            />
           </Paragraph>
           <Box as='ul' fill align='center' margin='0' pad='0' gap='10px'>
             <ListItem>

@@ -9,11 +9,20 @@ import VideoWithDrawing from './components/VideoWithDrawing/VideoWithDrawing'
 
 function storeMapper(store) {
   const drawingTasks = store.workflowSteps.findTasksByType('drawing')
-  const { invert, setVideoSpeed, setVolume, videoSpeed, volume } = store.subjectViewer
+
+  const {
+    subjectViewer: { invert, setVideoSpeed, setVolume, videoSpeed, volume },
+    workflows: {
+      active: {
+        configuration: { limit_subject_height: limitSubjectHeight }
+      }
+    }
+  } = store
 
   return {
     enableInteractionLayer: !!drawingTasks?.length,
     invert,
+    limitSubjectHeight,
     setVideoSpeed,
     setVolume,
     videoSpeed,
@@ -33,6 +42,7 @@ function SingleVideoViewerContainer({
   const {
     enableInteractionLayer,
     invert,
+    limitSubjectHeight,
     setVideoSpeed,
     setVolume,
     videoSpeed,
@@ -44,6 +54,7 @@ function SingleVideoViewerContainer({
       {enableInteractionLayer ? (
         <VideoWithDrawing
           invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
           loadingState={loadingState}
           onError={onError}
           onReady={onReady}
@@ -57,6 +68,7 @@ function SingleVideoViewerContainer({
       ) : (
         <VideoViewer
           invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
           onError={onError}
           onReady={onReady}
           subject={subject}

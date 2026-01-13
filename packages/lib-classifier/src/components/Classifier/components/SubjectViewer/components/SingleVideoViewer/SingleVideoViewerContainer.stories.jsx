@@ -25,6 +25,15 @@ const subjectNoSound = Factory.build('subject', {
   ]
 })
 
+const portraitVideo = Factory.build('subject', {
+  locations: [
+    {
+      'video/mp4':
+        'https://panoptes-uploads.zooniverse.org/subject_location/cef38923-b760-4b72-9bac-2f82734bda4a.mp4'
+    }
+  ]
+})
+
 const drawingWorkflow = WorkflowFactory.build({
   display_name: 'Video Drawing Task',
   first_task: 'T0',
@@ -44,6 +53,12 @@ const drawingWorkflow = WorkflowFactory.build({
   }
 })
 
+const limitedHeightWorkflow = WorkflowFactory.build({
+  configuration: {
+    limit_subject_height: true
+  }
+})
+
 const noDrawingStore = mockStore({
   subject: subject
 })
@@ -56,6 +71,11 @@ const drawingStore = mockStore({
 const drawingNoSoundStore = mockStore({
   subject: subjectNoSound,
   workflow: drawingWorkflow
+})
+
+const limitSubjectHeightStore = mockStore({
+  subject: portraitVideo,
+  workflow: limitedHeightWorkflow
 })
 
 export default {
@@ -107,6 +127,19 @@ export const NoSubject = () => {
     <Provider classifierStore={drawingStore}>
       <Box width='large'>
         <SingleVideoViewerContainer />
+      </Box>
+    </Provider>
+  )
+}
+
+export const LimitHeight = () => {
+  return (
+    <Provider classifierStore={limitSubjectHeightStore}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          loadingState='success'
+          subject={limitSubjectHeightStore.subjects.active}
+        />
       </Box>
     </Provider>
   )

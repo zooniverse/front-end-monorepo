@@ -1,7 +1,7 @@
 import { arrayOf, bool, func, shape } from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box } from 'grommet'
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react'
 import { useTranslation } from '@translations/i18n'
 import ReactPlayer from 'react-player'
 
@@ -11,11 +11,23 @@ const SubjectContainer = styled.div`
   position: relative;
 
   video {
-    filter: invert(${props => props.$invert ? 1 : 0});
-  }`
+    filter: invert(${props => (props.$invert ? 1 : 0)});
+
+    ${props =>
+      props.$limitSubjectHeight &&
+      css`
+        display: flex;
+        width: auto;
+        max-height: 90vh;
+        max-width: 100%;
+        margin-left: auto;
+      `}
+  }
+`
 
 function VideoViewer({
   invert = false,
+  limitSubjectHeight = false,
   onError = () => true,
   onReady = () => true,
   subject
@@ -66,7 +78,7 @@ function VideoViewer({
             style: {
               display: 'block',
               height: '100%',
-              width: '100%'
+              width: limitSubjectHeight ? 'auto' : '100%'
             }
           }
         }
@@ -76,21 +88,23 @@ function VideoViewer({
 
   return (
     <>
-      {videoLocation
-        ? (
-          <SubjectContainer $invert={invert}>
-            {memoizedViewer}
-          </SubjectContainer>
-          )
-        : (
-          <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
-        )}
+      {videoLocation ? (
+        <SubjectContainer
+          $invert={invert}
+          $limitSubjectHeight={limitSubjectHeight}
+        >
+          {memoizedViewer}
+        </SubjectContainer>
+      ) : (
+        <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
+      )}
     </>
   )
 }
 
 VideoViewer.propTypes = {
   invert: bool,
+  limitSubjectHeight: bool,
   onError: func,
   onReady: func,
   subject: shape({
