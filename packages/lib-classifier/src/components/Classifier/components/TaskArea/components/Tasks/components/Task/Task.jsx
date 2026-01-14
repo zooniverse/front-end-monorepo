@@ -2,8 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
 import { array, bool, object, shape, string } from 'prop-types'
 
-import { withStores } from '@helpers'
-import * as tasks from '@plugins/tasks'
+import { getTaskPlugin, withStores } from '@helpers'
 
 function storeMapper(classifierStore) {
   const {
@@ -34,7 +33,7 @@ function Task ({
   task,
   ...props
 }) {
-  const TaskPlugin = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
+  const TaskPlugin = getTaskPlugin(task.type)
   const TaskComponent = TaskPlugin?.TaskComponent
   let annotation
   let suggestions
