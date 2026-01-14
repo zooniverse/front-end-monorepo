@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 import * as tasks from '@plugins/tasks'
+import { getTaskPlugin } from '@helpers'
 
 const taskModels = Object.values(tasks).map(task => task.TaskModel)
 
@@ -43,7 +44,14 @@ const baseStep = types
     },
 
     get hasUnsupportedTasks() {
-      return self.taskKeys.length !== self.tasks.length
+      // Check if any tasks failed to be added to the store
+      const tasksMissing = self.taskKeys.length !== self.tasks.length
+      // Check if any tasks in the store don't have a TaskComponent
+      const tasksWithoutComponent = self.tasks.some(task => {
+        const plugin = getTaskPlugin(task.type)
+        return !plugin?.TaskComponent
+      })
+      return tasksMissing || tasksWithoutComponent
     },
 
     get isThereBranching () {

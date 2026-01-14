@@ -1,6 +1,7 @@
 import * as featureDetection from './featureDetection'
 export { default as createLocationCounts } from './createLocationCounts'
 export { featureDetection }
+export { default as getTaskPlugin } from './getTaskPlugin'
 export { default as formatTimeStamp } from './formatTimeStamp'
 export { default as roundCoordinates } from './roundCoordinates'
 export { default as shownMarks } from './shownMarks'
