@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { shape } from 'prop-types'
-import { useCallback, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 // OpenLayers imports
@@ -14,6 +14,7 @@ import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 
 import RecenterButton from './components/RecenterButton'
+import ResetButton from './components/ResetButton'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -50,6 +51,12 @@ function GeoMapViewer({
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
+
+  // Shared options for reading GeoJSON and projecting to the map view
+  const geoJSONReadOptions = {
+    dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
+    featureProjection: 'EPSG:3857' // map display projection in Web Mercator
+  }
 
   // Create the map once on mount with all layers and interactions
   // Interactions are created here and reused on data updates to avoid stacking event listeners
@@ -136,10 +143,7 @@ function GeoMapViewer({
 
     if (geoJSON) {
       // read and add new features from the provided GeoJSON
-      const newFeatures = geoJSONFormat.readFeatures(geoJSON, {
-        dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
-        featureProjection: 'EPSG:3857' // map display projection in Web Mercator
-      })
+      const newFeatures = geoJSONFormat.readFeatures(geoJSON, geoJSONReadOptions)
       features.addFeatures(newFeatures)
 
       // Fit the view to the features extent
@@ -150,7 +154,7 @@ function GeoMapViewer({
 
     return undefined
   }, [geoJSON])
-
+  
   // Handler to recenter the map to fit all features
   function handleRecenter() {
     const map = mapRef.current
@@ -159,6 +163,28 @@ function GeoMapViewer({
 
     const featuresList = features.getFeatures()
     if (featuresList.length > 0) {
+      fitViewToFeatures(map, features)
+    }
+  }
+
+  // Handler to reset features to the original geoJSON
+  function handleReset() {
+    const map = mapRef.current
+    const features = featuresRef.current
+    if (!map || !features || !geoJSON) return
+
+    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
+    geoJSONFormatRef.current = geoJSONFormat
+
+    // clear existing features
+    features.clear()
+
+    // read and add features from the provided geoJSON
+    const newFeatures = geoJSONFormat.readFeatures(geoJSON, geoJSONReadOptions)
+    features.addFeatures(newFeatures)
+
+    // Fit the view to the features extent
+    if (features.getFeatures().length) {
       fitViewToFeatures(map, features)
     }
   }
@@ -176,6 +202,7 @@ function GeoMapViewer({
       {geoJSON && (
         <ControlsBox>
           <RecenterButton onClick={handleRecenter} />
+          <ResetButton onClick={handleReset} />
         </ControlsBox>
       )}
     </Box>
