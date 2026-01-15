@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Éducation",
+        "faq": "FAQ",
+        "research": "Recherche",
+        "results": "Résultats",
+        "team": "Équipe"
+      }
+    },
+    "PageNav": {
+      "title": "À propos du projet"
+    },
+    "SidebarHeading": "À propos",
+    "TeamMember": {
+      "collaborator": "Collaborateur\/trice",
+      "expert": "Expert\/èrte",
+      "moderator": "Modérateur\/trice",
+      "museum": "Musée",
+      "owner": "Administrateur\/trice",
+      "researcher": "Chercheur\/e",
+      "tester": "Testeur\/e",
+      "translator": "Traducteur\/trice"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Il y a eu une erreur avec le classificateur :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Discutez d'un sujet sur Talk ou ajoutez-le à vos favoris ou à une collection.",
+      "title": "Vos classifications récentes"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Non, merci",
+      "confirm": "Passer au prochain module!",
+      "content": "Bravo! Vous avez débloqué le prochain module. Si vous préférez rester dans ce module, vous pouvez choisir de rester.",
+      "dismiss": "Ne plus afficher cela dans cette session",
+      "title": "Nouveau module disponible"
+    },
+    "YourStats": {
+      "allTime": "Tous les horaires",
+      "lastSeven": "7 derniers jours",
+      "link": "Voir plus",
+      "title": "Statistiques"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "À propos de {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "En savoir plus"
+      },
+      "NotApproved": {
+        "paragraph": "Ce projet a été créé avec le Zooniverse Project Builder mais n'est pas encore un projet officiel de Zooniverse. Les questions et problèmes à propos de ce projet adressés à l'équipe de Zooniverse peut ne pas recevoir de réponse."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Entrez en contact avec l’équipe de recherche sur Talk pour obtenir davantage d'informations sur ce projet!",
+      "noMessageButton": "Accéder à Talk",
+      "title": "Quelques mots de l'équipe de recherche"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Une erreur s'est produite lors du chargement des sujets :(",
+        "noSubjects": "Il semble que personne n'ait encore laissé de commentaire sur un sujet. Accédez à Talk et soyez le premier!",
+        "subjectLabel": "Sujet {{id}}"
+      },
+      "button": "Les rejoindre",
+      "message": "Discutez avec l'équipe de recherche et d'autres bénévoles!",
+      "title": "Discussions"
+    }
+  }
+}
