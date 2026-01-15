@@ -55,6 +55,9 @@
     "Hero": {
       "Introduction": {
         "link": "Saznaj više"
+      },
+      "NotApproved": {
+        "paragraph": "Ovaj je projekt napravljen koristeći Zooniverse Projekt Builder, no još nije službeni Zooniversov projekt. Pitanja vezana uz ovaj projekt, a koji su usmjerena Zooniverse timu možda neće biti odgovorena."
       }
     },
     "MessageFromResearcher": {

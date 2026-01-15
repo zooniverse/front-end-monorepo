@@ -1,7 +1,7 @@
 {
   "404": {
     "heading": "Nothing here.",
-    "message": "The page you're looking for no longer exists.",
+    "message": "The page you’re looking for cannot be found. If you are having trouble accessing pages for a particular project, please email <0>contact@zooniverse.org</0> for assistance.",
     "returnHome": "Return to the homepage",
     "findNewProject": "Find a new project to explore"
   },
