@@ -9,8 +9,6 @@ describe('Model > GeoDrawingTask', function () {
     tools: [
       {
         label: 'Map Point',
-        max: '1',
-        min: '1',
         type: 'geoPoint'
       }
     ],

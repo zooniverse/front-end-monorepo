@@ -5,8 +5,6 @@ import GeoDrawingAnnotation from './GeoDrawingAnnotation'
 
 const GeoPointTool = types.model('GeoPointTool', {
   label: types.string,
-  max: types.union(types.number, types.string),
-  min: types.union(types.number, types.string),
   type: types.literal('geoPoint')
 })
 
