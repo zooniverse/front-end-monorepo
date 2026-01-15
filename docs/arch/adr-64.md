@@ -8,11 +8,11 @@ Proposed
 
 ## Context
 
-To support geographic and spatial annotation projects, we will create a task type that allows volunteers to draw geographic features on map-based subjects. This task should support common geographic annotation types such as points, lines, and polygons, and store the annotations in a standard geographic data format.
+To support geographic and spatial annotation projects, we will create a task type that allows volunteers to draw geographic features on a map viewer. This task should support common geographic annotation types such as points, lines, and polygons, and store the annotations in a standard geographic data format.
 
 ## Decision
 
-We will create a geoDrawing task that allows volunteers to draw geographic features on map subjects. The task will:
+We will create a geoDrawing task that allows volunteers to draw geographic features on a map viewer. The task will:
 
 - Initially support a point, named the geoPoint tool
 - Store annotations as a valid [GeoJSON](https://geojson.org/) FeatureCollection in the annotation value
