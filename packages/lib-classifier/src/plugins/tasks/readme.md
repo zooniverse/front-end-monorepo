@@ -4,6 +4,7 @@ Tasks are the individual steps in a workflow that are used to collect data for a
 
 - Data Vis
 - [Drawing](/packages/lib-classifier/src/plugins/drawingTools/README.md)
+- [Geo Drawing](/packages/lib-classifier/src/plugins/tasks/experimental/geoDrawing/README.md)
 - [Highlighter](/packages/lib-classifier/src/plugins/tasks/experimental/highlighter/README.md)
 - Multiple Answer Question
 - Single Answer Question

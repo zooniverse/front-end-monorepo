@@ -1,1 +1,1 @@
-export { default } from './GeoMapViewer'
+export { default } from './GeoMapViewerContainer'
