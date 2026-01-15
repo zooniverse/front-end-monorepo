@@ -37,7 +37,18 @@ export function renderMedia(nodeProps) {
     alt = alt.split(match[0])[0].trim()
   }
 
-  if (src) return <Media alt={alt} height={height} src={src} width={width} />
+  if (src) {
+    return (
+      <Media
+        alt={alt}
+        defaultMimeType='image'
+        height={height}
+        src={src}
+        width={width}
+      />
+    )
+  }
+
   return null
 }
 
@@ -54,6 +65,13 @@ const StyledUnorderedList = styled.ul`
 `
 const StyledTable = styled(Table)`
   font-size: 1rem;
+  font-weight: normal;
+  th {
+    font-weight: bold;
+  }
+`
+const StyledTableCell = styled(TableCell)`
+  ${({ styleString }) => styleString || ''}
 `
 
 const StyledVideo = styled.video`
@@ -74,8 +92,9 @@ const componentMappings = {
   table: StyledTable,
   tfoot: TableFooter,
   thead: TableHeader,
+  th: ({ style, ...props }) => <StyledTableCell scope="col" styleString={style} {...props} />,
   tbody: TableBody,
-  td: TableCell,
+  td: ({ style, ...props }) => <StyledTableCell styleString={style} {...props} />,
   tr: TableRow,
   ol: StyledOrderedList,
   ul: StyledUnorderedList,

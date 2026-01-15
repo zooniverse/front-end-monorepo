@@ -167,6 +167,15 @@
     "BarChartViewer": {
       "chartLabel": "Bar chart"
     },
+    "GeoMapViewer": {
+      "RecenterButton": {
+        "ariaLabel": "Recenter map to features"
+      },
+      "ResetButton": {
+        "ariaLabel": "Reset features on map",
+        "confirm": "Are you sure you want to reset the features on the map to their original positions?"
+      }
+    },
     "ImageAndTextViewer": {
       "textIconAltText": "Icon for text viewer"
     },
