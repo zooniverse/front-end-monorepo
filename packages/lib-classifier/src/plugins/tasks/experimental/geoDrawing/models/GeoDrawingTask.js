@@ -4,10 +4,10 @@ import Task from '../../../models/Task'
 import GeoDrawingAnnotation from './GeoDrawingAnnotation'
 
 const GeoPointTool = types.model('GeoPointTool', {
-  label: types.string,
-  max: types.union(types.number, types.string),
-  min: types.union(types.number, types.string),
-  type: types.literal('geoPoint')
+  color: types.optional(types.string, ''),
+  label: types.optional(types.string, ''),
+  type: types.literal('geoPoint'),
+  uncertainty_circle: types.optional(types.boolean, false)
 })
 
 const GeoDrawing = types.model('GeoDrawing', {
