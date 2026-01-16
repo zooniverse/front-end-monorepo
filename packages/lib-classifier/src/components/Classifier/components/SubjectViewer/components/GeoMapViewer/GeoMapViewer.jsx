@@ -12,6 +12,10 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
+import Style from 'ol/style/Style'
+import Fill from 'ol/style/Fill'
+import Stroke from 'ol/style/Stroke'
+import Circle from 'ol/style/Circle'
 
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
@@ -82,7 +86,36 @@ function GeoMapViewer({
     })
     featuresRef.current = featuresSource
     const featuresLayer = new VectorLayer({
-      source: featuresSource
+      source: featuresSource,
+      style: function(feature) {
+        const radius = feature.get('uncertainty_radius')
+        const resolution = map.getView().getResolution()
+        const styles = []
+        
+        // Always show center point
+        styles.push(new Style({
+          image: new Circle({
+            radius: 6,
+            stroke: new Stroke({ color: '#007bff', width: 2 })
+          })
+        }))
+        
+        // If radius exists, also show the circle
+        if (radius !== null && radius !== undefined) {
+          // Convert meters to pixels at current zoom level
+          const radiusInPixels = radius / resolution
+          
+          styles.push(new Style({
+            image: new Circle({
+              radius: radiusInPixels,
+              fill: new Fill({ color: 'rgba(0, 123, 255, 0.1)' }),
+              stroke: new Stroke({ color: '#007bff', width: 2, lineDash: [5, 10] })
+            })
+          }))
+        }
+        
+        return styles
+      }
     })
     featuresLayerRef.current = featuresLayer
 

@@ -41,7 +41,8 @@ export const StatueOfLiberty = {
             coordinates: [-74.0445004, 40.6892494]
           },
           properties: {
-            name: 'Statue of Liberty'
+            name: 'Statue of Liberty',
+            uncertainty_radius: 1301
           }
         }
       ]
@@ -62,7 +63,8 @@ export const FourCornersMarker = {
 
           },
           properties: {
-            name: 'Four Corners Monument'
+            name: 'Four Corners Monument',
+            uncertainty_radius: 610
           }
         }
       ]
