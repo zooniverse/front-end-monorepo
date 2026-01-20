@@ -2,13 +2,7 @@ import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../../models/Task'
 import GeoDrawingAnnotation from './GeoDrawingAnnotation'
-
-const GeoPointTool = types.model('GeoPointTool', {
-  color: types.optional(types.string, ''),
-  label: types.optional(types.string, ''),
-  type: types.literal('geoPoint'),
-  uncertainty_circle: types.optional(types.boolean, false)
-})
+import GeoPointTool from '../tools/GeoPointTool'
 
 const GeoDrawing = types.model('GeoDrawing', {
   annotation: types.safeReference(GeoDrawingAnnotation),
