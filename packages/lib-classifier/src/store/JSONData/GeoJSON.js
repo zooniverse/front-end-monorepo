@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 
 const Geometry = types.model('GeoJSONGeometry', {
-	type: types.string,
+	type: types.enumeration('Type', ['Point', 'LineString', 'LinearRing', 'Polygon', 'MultiPoint', 'MultiLineString', 'MultiPolygon', 'GeometryCollection', 'Circle']),
 	// Allow any valid GeoJSON coordinates structure (Point, LineString, Polygon, etc.).
 	coordinates: types.frozen()
 })

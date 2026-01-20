@@ -24,6 +24,8 @@ const DATA_URL =
   'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json'
 const IMAGE_URL =
   'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
+const IMAGE_URL_WITH_SEARCH_PARAMS =
+  'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg?blorp'
 const VIDEO_URL =
   'https://static.zooniverse.org/fem-assets/home-video.mp4'
 const TEXT_URL =
@@ -38,6 +40,19 @@ export function Image() {
         <Text>Width set as 270</Text>
         <Media alt='A galaxy' src={IMAGE_URL} width={270} />
       </Box>
+      <hr/>
+      <Box>
+        <Text>Same as above, but the image URL has search params. NOTHING will be rendered below, because the search params in the image URL will confuse the MIME type check.</Text>
+        <Media alt='A galaxy' src={IMAGE_URL_WITH_SEARCH_PARAMS} width={270} />
+        <Text>(If the image was going to be rendered, it would have rendered right above this paragraph.)</Text>
+      </Box>
+      <hr/>
+      <Box>
+        <Text>Same as above - the image URL has search params - BUT we now define a defaultMimeType to fall back on. An image should be rendered below.</Text>
+        <Media alt='A galaxy' src={IMAGE_URL_WITH_SEARCH_PARAMS} width={270} defaultMimeType='image' />
+        <Text>(If the image was going to be rendered, it would have rendered right above this paragraph.)</Text>
+      </Box>
+      <hr/>
       <Box>
         <Text>Has a placeholder (delay 3sec). Width and height set as 200</Text>
         <Media
@@ -49,10 +64,12 @@ export function Image() {
           width={200}
         />
       </Box>
+      <hr/>
       <Box>
         <Text>Specifying only a height will crop the image</Text>
         <Media alt='A galaxy' src={IMAGE_URL} height={100} />
       </Box>
+      <hr/>
       <Box>
         <Text>Without dimensions, the component should fall back to the original image.</Text>
         <Media alt='A galaxy' src={IMAGE_URL} />

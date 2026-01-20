@@ -63,3 +63,4 @@
 - [ADR 61: Displaying Stats in UTC Date Ranges](adr-61.md)
 - [ADR 62: lib-subject-viewers && Volumetric Viewer](adr-62.md)
 - [ADR 63: GeoMap Viewer](adr-63.md)
+- [ADR 64: GeoDrawing task](adr-64.md)
