@@ -1,4 +1,4 @@
-import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing'
+import GeoDrawingTask from './GeoDrawingTask'
 
 describe('Model > GeoDrawingTask', function () {
   const geoDrawingTask = {

@@ -16,7 +16,7 @@ const GeoPointTool = types.model('GeoPointTool', {
     get geometryType() {
       return 'Point'
     },
-    getStyles(feature, resolution, isSelected = false) {
+    getStyles({ feature, resolution, isSelected = false }) {
       const color = self.color || DEFAULT_COLOR
       const pointRadius = isSelected ? 8 : 6
       const strokeWidth = isSelected ? 3 : 2
@@ -32,8 +32,8 @@ const GeoPointTool = types.model('GeoPointTool', {
         })
       ]
 
-      // Uncertainty circle (if radius exists and not selected)
-      if (!isSelected && self.uncertainty_circle) {
+      // Uncertainty circle (if radius exists)
+      if (self.uncertainty_circle) {
         const radius = feature.get('uncertainty_radius')
         if (radius !== null && radius !== undefined) {
           const radiusInPixels = radius / resolution

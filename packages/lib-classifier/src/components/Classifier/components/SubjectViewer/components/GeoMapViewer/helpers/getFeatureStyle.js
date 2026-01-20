@@ -1,4 +1,4 @@
-function getTool(feature, geoDrawingTask) {
+function getTool({ feature, geoDrawingTask }) {
   // Check for explicit toolIndex property
   const toolIndex = feature.get('toolIndex')
   if (
@@ -27,9 +27,9 @@ function getFeatureStyle({
 }) {
   if (!geoDrawingTask) return null
 
-  const tool = getTool(feature, geoDrawingTask)
+  const tool = getTool({ feature, geoDrawingTask })
 
-  return tool.getStyles(feature, resolution, isSelected)
+  return tool.getStyles({ feature, resolution, isSelected })
 }
 
 export default getFeatureStyle
