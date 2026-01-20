@@ -29,7 +29,7 @@ describe('Model > GeoDrawingTask', function () {
   }
 
   it('should exist', function () {
-    const task = GeoDrawingTask.TaskModel.create(geoDrawingTask)
+    const task = GeoDrawingTask.create(geoDrawingTask)
     expect(task).to.exist
     expect(task).to.be.an('object')
   })
@@ -37,7 +37,7 @@ describe('Model > GeoDrawingTask', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      GeoDrawingTask.TaskModel.create(singleChoiceTask)
+      GeoDrawingTask.create(singleChoiceTask)
     } catch (e) {
       errorThrown = true
     }
@@ -48,7 +48,7 @@ describe('Model > GeoDrawingTask', function () {
     let task
 
     before(function () {
-      task = GeoDrawingTask.TaskModel.create(geoDrawingTask)
+      task = GeoDrawingTask.create(geoDrawingTask)
     })
 
     it('should be a valid annotation', function () {
@@ -70,7 +70,7 @@ describe('Model > GeoDrawingTask', function () {
     let task
 
     before(function () {
-      task = GeoDrawingTask.TaskModel.create(geoDrawingTask)
+      task = GeoDrawingTask.create(geoDrawingTask)
       annotation = task.defaultAnnotation()
     })
 

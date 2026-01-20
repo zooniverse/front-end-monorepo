@@ -21,6 +21,14 @@ describe('Component > GeoMapViewer', function () {
       })
       expect(screen.queryByRole('button', { name: 'Recenter map to features' })).to.not.exist
     })
+
+    it('should not show the reset button when geoJSON is undefined', async function () {
+      render(<DefaultStory />)
+      await waitFor(() => {
+        expect(screen.getByTestId('geo-map-container')).to.exist
+      })
+      expect(screen.queryByRole('button', { name: 'Reset features on map' })).to.not.exist
+    })
   })
 
   describe('with geoJSON data', function () {
@@ -48,6 +56,14 @@ describe('Component > GeoMapViewer', function () {
       
       await waitFor(() => {
         expect(screen.getByRole('button', { name: 'Recenter map to features' })).to.exist
+      })
+    })
+
+    it('should show the reset button when geoJSON is provided', async function () {
+      render(<EiffelTowerStory />)
+      
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: 'Reset features on map' })).to.exist
       })
     })
 
