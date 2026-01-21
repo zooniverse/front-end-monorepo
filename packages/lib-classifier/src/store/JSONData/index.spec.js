@@ -39,6 +39,22 @@ describe('Models > JSONData', function () {
     }
   }
 
+  const geoJSONSnapshot = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [2.2944810, 48.8583701]
+        },
+        properties: {
+          name: 'Eiffel Tower'
+        }
+      }
+    ]
+  }
+
   it('should load TESS data', async function () {
     const tessSnapshot = await tessSubject()
     const tessData = JSONData.create(tessSnapshot)
@@ -57,6 +73,12 @@ describe('Models > JSONData', function () {
     const barData = JSONData.create(barChartSnapshot)
     const dataType = getType(barData).name
     expect(dataType).to.equal('BarChart')
+  })
+
+  it('should load GeoJSON data', function () {
+    const geoData = JSONData.create(geoJSONSnapshot)
+    const dataType = getType(geoData).name
+    expect(dataType).to.equal('GeoJSON')
   })
 
   it('should load variable star data', async function () {
