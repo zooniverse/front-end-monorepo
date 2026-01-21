@@ -139,7 +139,7 @@ const ClassificationStore = types
         // SubjectGroup wants to submit all subject.subjectIds for analytics & retirement rules
         if (getType(subject).name === 'SubjectGroup') {
           const links = {...classificationToSubmit.links}
-          links.subjects = [...classificationToSubmit.links.subjects, ...subject.subjectIds.toJSON()]
+          links.subjects = [...subject.subjectIds.toJSON()]
           classificationToSubmit.links = links
         }
 
