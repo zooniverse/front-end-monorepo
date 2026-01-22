@@ -30,7 +30,7 @@ const StyledLabel = styled(SpacedText)`
   }
 `
 
-function SortBySelect({ setSort = DEFAULT_HANDLER, value = '-launch_date' }) {
+function SortBySelect({ handleSort = DEFAULT_HANDLER, value = '-launch_date' }) {
   const { t } = useTranslation()
 
   const size = useContext(ResponsiveContext)
@@ -45,7 +45,7 @@ function SortBySelect({ setSort = DEFAULT_HANDLER, value = '-launch_date' }) {
   ]
 
   function handleSelect(option) {
-    setSort(option.value)
+    handleSort(option.value)
   }
 
   return (

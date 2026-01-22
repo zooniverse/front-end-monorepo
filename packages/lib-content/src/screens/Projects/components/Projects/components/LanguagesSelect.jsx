@@ -21,7 +21,7 @@ const options = Object.keys(localeMenu).map(key => {
 })
 
 function LanguagesSelect({
-  setLanguages = DEFAULT_HANDLER,
+  handleLanguages = DEFAULT_HANDLER,
   value = undefined
 }) {
   const { t } = useTranslation()
@@ -34,7 +34,7 @@ function LanguagesSelect({
         id='languages-filter-projects-page'
         name='Languages'
         labelKey='label'
-        onChange={({ option }) => setLanguages(option.value)}
+        onChange={({ option }) => handleLanguages(option.value)}
         options={options}
         size='medium'
         width={size === 'small' ? '100%' : '180px'}

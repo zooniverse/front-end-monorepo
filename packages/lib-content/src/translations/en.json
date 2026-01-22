@@ -344,7 +344,7 @@
       "mostActive": "Most Active",
       "mostPopular": "Most Popular"
     },
-    "state": {
+    "status": {
       "all": "All",
       "label": "Filter projects by status",
       "active": "Active",

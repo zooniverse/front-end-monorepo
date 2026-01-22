@@ -79,7 +79,7 @@ const RightButton = styled(Button)`
   }
 `
 
-const DisciplineButton = ({ option, setDiscipline, value }) => (
+const DisciplineButton = ({ option, handleDiscipline, value }) => (
   <StyledButton
     aria-selected={
       value === 'space' && option.value === 'astronomy'
@@ -104,12 +104,12 @@ const DisciplineButton = ({ option, setDiscipline, value }) => (
         </Text>
       </Box>
     }
-    onClick={() => setDiscipline(option.value)}
+    onClick={() => handleDiscipline(option.value)}
     plain
   />
 )
 
-function DisciplineSelect({ setDiscipline, value }) {
+function DisciplineSelect({ handleDiscipline, value }) {
   const { t } = useTranslation()
   const { dark, global } = useTheme()
 
@@ -214,7 +214,7 @@ function DisciplineSelect({ setDiscipline, value }) {
                 </Text>
               </Box>
             }
-            onClick={() => setDiscipline(null)}
+            onClick={() => handleDiscipline(null)}
             plain
           />
         </li>
@@ -222,7 +222,7 @@ function DisciplineSelect({ setDiscipline, value }) {
           <li key={option.value}>
             <DisciplineButton
               option={option}
-              setDiscipline={setDiscipline}
+              handleDiscipline={handleDiscipline}
               value={value}
             />
           </li>
