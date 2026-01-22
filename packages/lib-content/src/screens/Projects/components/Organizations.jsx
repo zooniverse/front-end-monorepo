@@ -33,13 +33,13 @@ export default function Organizations({ organizations }) {
       </Box>
       <StyledCardsContainer>
         {organizations?.length ? (
-          organizations.map(project => (
-            <li key={project.slug}>
+          organizations.map(org => (
+            <li key={org.slug}>
               <ProjectCard
-                description={project.description}
-                displayName={project.display_name}
-                href={`https://www.zooniverse.org/projects/${project.slug}`}
-                imageSrc={project.avatar_src}
+                description={org.description}
+                displayName={org.display_name}
+                href={`https://www.zooniverse.org/organizations/${org.slug}`}
+                imageSrc={org.avatar_src}
                 size={size}
               />
             </li>
