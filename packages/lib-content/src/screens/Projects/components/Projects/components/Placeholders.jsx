@@ -19,17 +19,12 @@ const StyledButton = styled(Button)`
   font-weight: bold;
 `
 
-export function EmptyPlaceholder({ clearFilters, message, setLanguages, setProjectState }) {
+export function EmptyPlaceholder({ clearFilters, setPage, setProjectStatus }) {
   const { t } = useTranslation()
 
-  function HandleClearFilter() {
-    if (message === 'language') {
-      setLanguages('en')
-    } else if (message === 'status') {
-      setProjectState('all')
-    } else {
-      clearFilters()
-    }
+  function setProjectStatusToAll() {
+    setPage(1)
+    setProjectStatus('all')
   }
 
   return (
@@ -37,7 +32,7 @@ export function EmptyPlaceholder({ clearFilters, message, setLanguages, setProje
       fill
       align='center'
       justify='center'
-      width={{ max: '320px' }}
+      width={{ max: '340px' }}
       pad={{ vertical: '60px' }}
     >
       <SpacedHeading
@@ -47,14 +42,20 @@ export function EmptyPlaceholder({ clearFilters, message, setLanguages, setProje
       >
         {t('Projects.projects.none')}
       </SpacedHeading>
-      <Paragraph textAlign='center' margin='none'>
+      <StyledButton
+        onClick={clearFilters}
+        color={{ light: 'neutral-1', dark: 'accent-1' }}
+        label={t('Projects.projects.empty.clear')}
+        plain
+      />
+      <Paragraph textAlign='center' margin={{ top: 'large' }}>
         <Trans
-          i18nKey={`Projects.projects.empty.${message}`}
+          i18nKey={`Projects.projects.empty.status`}
           t={t}
           components={[
             <StyledButton
-              key={`empty-state-${message}`}
-              onClick={HandleClearFilter}
+              key={`empty-state-status`}
+              onClick={setProjectStatusToAll}
               color={{ light: 'neutral-1', dark: 'accent-1' }}
             />
           ]}

@@ -200,7 +200,7 @@ export default function Projects({ adminMode = false }) {
         {error ? (
           <ErrorPlaceholder />
         ) : noProjects && !loadingOrValidating ? (
-          <EmptyPlaceholder message='clear' clearFilters={clearFilters} />
+          <EmptyPlaceholder clearFilters={clearFilters} setPage={setPage} setProjectStatus={setProjectStatus} />
         ) : (
           <StyledCardsContainer>
             {loadingOrValidating ? <LoadingPlaceholder /> : null}
