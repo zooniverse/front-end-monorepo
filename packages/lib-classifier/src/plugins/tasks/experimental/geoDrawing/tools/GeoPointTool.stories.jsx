@@ -14,7 +14,7 @@ export const Default = {
       tools: [
         {
           type: 'geoPoint',
-          color: '#ff0000',
+          color: '#0000ff',
           label: 'A point at the Eiffel Tower',
           uncertainty_circle: false
         }
@@ -46,7 +46,7 @@ export const UncertaintyCircle = {
       tools: [
         {
           type: 'geoPoint',
-          color: '#28a745',
+          color: '#ff0000',
           label: 'A point at the Four Corners Monument',
           uncertainty_circle: true
         }
@@ -65,7 +65,7 @@ export const UncertaintyCircle = {
           },
           properties: {
             name: 'Four Corners Monument',
-            uncertainty_radius: 610
+            uncertainty_radius: 1610
           }
         }
       ]
@@ -80,8 +80,8 @@ export const MultiplePoints = {
       tools: [
         {
           type: 'geoPoint',
-          color: '#6f42c1',
-          label: 'Volcanoes in the Pacific Ring of Fire',
+          color: '#007f4d',
+          label: 'Sydney Beaches',
           uncertainty_circle: false
         }
       ],
@@ -94,30 +94,50 @@ export const MultiplePoints = {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [-155.292, 19.421]
+            coordinates: [151.2768, -33.89155]
           },
           properties: {
-            name: 'Mauna Loa'
+            name: 'Bondi Beach'
           }
         },
         {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [138.7274, 35.3606]
+            coordinates: [151.25808, -33.92041]
           },
           properties: {
-            name: 'Mount Fuji'
+            name: 'Coogee Beach'
           }
         },
         {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [121.5169, 24.1139]
+            coordinates: [151.257, -33.94881]
           },
           properties: {
-            name: 'Mount Pinatubo'
+            name: 'Maroubra Beach'
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [151.28849, -33.79645]
+          },
+          properties: {
+            name: 'Manly Beach'
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [151.27059, -33.90038]
+          },
+          properties: {
+            name: 'Tamarama Beach'
           }
         }
       ]
@@ -125,14 +145,14 @@ export const MultiplePoints = {
   }
 }
 
-export const MultiplePointsUncertaintyCircle = {
+export const MultiplePointsUncertaintyCircles = {
   args: {
     geoDrawingTask: GeoDrawingTask.create({
       taskKey: 'T0',
       tools: [
         {
           type: 'geoPoint',
-          color: '#007bff',
+          color: '#ff0000',
           label: 'Egyptian Pyramids of Giza',
           uncertainty_circle: true
         }
