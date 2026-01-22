@@ -15,7 +15,7 @@ export default function Organizations({ organizations }) {
       <SpacedHeading
         id='organizations'
         level={2}
-        size='2rem'
+        size={size === 'small' ? '1.5rem' : '2rem'}
         color={{ light: 'neutral-1', dark: 'accent-1' }}
         textAlign='center'
         fill

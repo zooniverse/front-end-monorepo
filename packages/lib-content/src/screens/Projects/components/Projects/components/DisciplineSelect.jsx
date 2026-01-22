@@ -11,14 +11,40 @@ const Relative = styled(Box)`
 `
 
 const StyledList = styled.ul`
-  width: 100%;
   display: flex;
-  flex-direction: row;
+  overflow-x: auto;
   column-gap: 10px;
   list-style: none;
   margin: 15px 0;
-  padding: 2px; // for the box-shadow
-  overflow-x: scroll;
+  padding: 2px 0;
+
+  // on a small screen width, allow this list to align to the exact edge of the screen
+  width: calc(100% + 40px);
+  position: relative;
+  left: -20px;
+
+  li:first-child {
+    margin-left: 20px;
+  }
+
+  li:last-child {
+    margin-right: 20px;
+  }
+
+  // larger than a small screen width
+  @media (min-width: 48rem) {
+    width: 100%;
+    position: static;
+    left: 0;
+
+    li:first-child {
+      margin-left: 0;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
 `
 
 const StyledButton = styled(Button)`

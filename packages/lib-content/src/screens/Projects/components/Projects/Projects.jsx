@@ -131,7 +131,7 @@ export default function Projects({ adminMode = false }) {
         <SpacedHeading
           id='all-projects'
           level={2}
-          size='2rem'
+          size={size === 'small' ? '1.5rem' : '2rem'}
           color={{ light: 'neutral-1', dark: 'accent-1' }}
           textAlign='center'
           fill
@@ -176,7 +176,7 @@ export default function Projects({ adminMode = false }) {
       <DisciplineSelect value={discipline} handleDiscipline={handleDiscipline} />
       <Box
         fill
-        direction={size === 'small' ? 'row-reverse' : 'row'}
+        direction='row'
         justify='between'
         margin={{ bottom: '15px' }}
         align='center'

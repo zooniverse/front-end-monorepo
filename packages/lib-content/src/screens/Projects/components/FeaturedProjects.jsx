@@ -14,16 +14,19 @@ import { useTranslation } from '@translations/i18n'
 const StyledList = styled(Box)`
   list-style: none;
   column-gap: 30px;
-  margin: 0 20px 40px;
+  margin: 0 0 40px 20px;
+  padding: 0 20px 0 0;
 
   @media (min-width: 48rem) {
     column-gap: 50px;
-    margin: 0 30px 60px;
+    margin: 0 0 60px 30px;
+    padding: 0 30px 0 0;
   }
 
   @media (min-width: 90rem) {
     column-gap: 60px;
     margin: 0 30px 60px;
+    padding: 0;
   }
 `
 
@@ -36,7 +39,7 @@ export default function FeaturedProjects({ featuredProjects }) {
     <Box>
       <SpacedHeading
         level={2}
-        size='2rem'
+        size={size === 'small' ? '1.5rem' : '2rem'}
         color='light-3'
         textAlign='center'
         fill
