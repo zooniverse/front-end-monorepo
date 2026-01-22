@@ -5,7 +5,7 @@ import {
 } from '@zooniverse/react-components'
 import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
-import { parseAsInteger, useQueryState } from 'nuqs'
+import { useQueryState } from 'nuqs'
 
 import { useTranslation, Trans } from '@translations/i18n'
 import StyledCardsContainer from '../StyledCardsContainer'
@@ -22,17 +22,16 @@ import {
 } from './components/Placeholders'
 import SearchBar from './components/SearchBar'
 import SortBySelect from './components/SortBySelect'
-import StateSelect from './components/StateSelect'
+import StatusSelect from './components/StatusSelect'
 
 export default function Projects({ adminMode = false }) {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
-  const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1))
   const [sort, setSort] = useQueryState('sort', {
     defaultValue: '-launch_date'
   })
-  const [state, setProjectState] = useQueryState('state', {
+  const [status, setProjectStatus] = useQueryState('status', {
     defaultValue: 'live'
   })
 
@@ -41,7 +40,7 @@ export default function Projects({ adminMode = false }) {
     In theory, multiple languages can be included in the query, but that is a compounding list, not a more narrow filter.
     We would need an updated UI design to account for multiple languages in the Select value.
     ALSO NOTE: Querying with `languages: en` will not return all projects from panoptes,
-    but on the frontend we do want all projects so the `languages` param is set to `undefined` in the query below.
+    but on the frontend we do want all projects so the `languages` param is set to `undefined` in the `query` below.
   */
   const [languages, setLanguages] = useQueryState('languages', {
     defaultValue: 'en'
@@ -55,6 +54,7 @@ export default function Projects({ adminMode = false }) {
     but this component checks if adminMode is turned on in localStorage, and provides the option to return ALL projects regardless of launch approval.
   */
   const [launchApproved, setLaunchApproved] = useState(true)
+  const [page, setPage] = useState(1)
 
   const pageSize = 20
 
@@ -63,9 +63,9 @@ export default function Projects({ adminMode = false }) {
     languages: languages === 'en' ? undefined : languages,
     page: page,
     page_size: pageSize,
-    search: search.length >= 5 ? debouncedSearch : undefined, // panoptes search requires at least 4 characters
+    search: debouncedSearch?.length >= 5 ? debouncedSearch : undefined, // panoptes search requires at least 5 characters
     sort: sort,
-    state: state === 'all' ? undefined : state,
+    state: status === 'all' ? undefined : status,
     tags: discipline === null ? undefined : discipline
   }
 
@@ -76,8 +76,38 @@ export default function Projects({ adminMode = false }) {
     setLanguages('en')
     setPage(1)
     setSearch('')
-    setProjectState('all')
+    setProjectStatus('live')
     setDiscipline(null)
+  }
+
+  /**
+    Reset page to 1 whenever another query param changes. This is not very DRY, but
+    better to set page = 1 before changing the other query param to avoid unnecessary API
+    requests with page > 1 via useEffect or other strategy.
+   */
+  function handleSearch(value) {
+    if (page !== 1) setPage(1)
+    setSearch(value)
+  }
+
+  function handleProjectStatus(value) {
+    if (page !== 1) setPage(1)
+    setProjectStatus(value)
+  }
+
+  function handleDiscipline(value) {
+    if (page !== 1) setPage(1)
+    setDiscipline(value)
+  }
+
+  function handleLanguages(value) {
+    if (page !== 1) setPage(1)
+    setLanguages(value)
+  }
+
+  function handleSort(value) {
+    if (page !== 1) setPage(1)
+    setSort(value)
   }
 
   /**
@@ -90,8 +120,6 @@ export default function Projects({ adminMode = false }) {
   const loadingOrValidating = isLoading || isValidating
 
   const noProjects = projects?.length === 0
-  const statusCheck = noProjects && state !== 'all'
-  const languageCheck = noProjects && state === 'all' && languages !== 'en'
 
   const rangeStart = (page - 1) * pageSize + 1
   const rangeEnd = projects?.length < pageSize ? numProjects : page * pageSize
@@ -103,7 +131,7 @@ export default function Projects({ adminMode = false }) {
         <SpacedHeading
           id='all-projects'
           level={2}
-          size='2rem'
+          size={size === 'small' ? '1.5rem' : '2rem'}
           color={{ light: 'neutral-1', dark: 'accent-1' }}
           textAlign='center'
           fill
@@ -141,14 +169,14 @@ export default function Projects({ adminMode = false }) {
         direction={size === 'small' ? 'column' : 'row'}
         gap={size === 'small' ? '15px' : '10px'}
       >
-        <SearchBar setSearch={setSearch} value={search} />
-        <StateSelect setProjectState={setProjectState} value={state} />
-        <LanguagesSelect setLanguages={setLanguages} value={languages} />
+        <SearchBar handleSearch={handleSearch} value={search} />
+        <StatusSelect handleProjectStatus={handleProjectStatus} value={status} />
+        <LanguagesSelect handleLanguages={handleLanguages} value={languages} />
       </Box>
-      <DisciplineSelect value={discipline} setDiscipline={setDiscipline} />
+      <DisciplineSelect value={discipline} handleDiscipline={handleDiscipline} />
       <Box
         fill
-        direction={size === 'small' ? 'row-reverse' : 'row'}
+        direction='row'
         justify='between'
         margin={{ bottom: '15px' }}
         align='center'
@@ -166,20 +194,13 @@ export default function Projects({ adminMode = false }) {
             })}
           </Paragraph>
         )}
-        <SortBySelect setSort={setSort} value={sort} />
+        <SortBySelect handleSort={handleSort} value={sort} />
       </Box>
       <Box height={{ min: '180px' }}>
         {error ? (
           <ErrorPlaceholder />
-        ) : statusCheck && !loadingOrValidating ? (
-          <EmptyPlaceholder
-            message='status'
-            setProjectState={setProjectState}
-          />
-        ) : languageCheck && !loadingOrValidating ? (
-          <EmptyPlaceholder message='language' setLanguages={setLanguages} />
         ) : noProjects && !loadingOrValidating ? (
-          <EmptyPlaceholder message='clear' clearFilters={clearFilters} />
+          <EmptyPlaceholder clearFilters={clearFilters} setPage={setPage} setProjectStatus={setProjectStatus} />
         ) : (
           <StyledCardsContainer>
             {loadingOrValidating ? <LoadingPlaceholder /> : null}
