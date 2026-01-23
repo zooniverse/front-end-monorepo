@@ -115,6 +115,11 @@ function InteractionLayer({
     event?.preventDefault?.()
     event?.stopPropagation?.()
     setCreating(false)
+
+    if (activeMark.frame !== frame) {
+      return
+    }
+
     if (activeMark.element && !isInBounds(activeMark.element, canvasRef.current)) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
