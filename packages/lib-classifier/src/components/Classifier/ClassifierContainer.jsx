@@ -235,7 +235,7 @@ export default function ClassifierContainer({
    */
   let debugMessage = ''
   if (!allowedWorkflowID) {
-    debugMessage = `selected_workflow: ${workflowID}, available_workflows: ${allowedWorkflows?.join?.(',')}, project_id: ${project?.id}, project_updated: ${project?.updated_at}, url: ${window?.location?.toString()}, timestamp: ${Date?.now()}`
+    debugMessage = `selected_workflow: ${workflowID}, available_workflows: ${allowedWorkflows?.join?.(',')}, project_id: ${project?.id}, url: ${window?.location?.toString()}, timestamp: ${Date?.now()}`
   }
 
   try {
