@@ -233,9 +233,9 @@ export default function ClassifierContainer({
   - https://github.com/zooniverse/front-end-monorepo/issues/7176
   - https://github.com/zooniverse/front-end-monorepo/issues/7193
    */
-  let errorMessage = ''
+  let debugMessage = ''
   if (!allowedWorkflowID) {
-    errorMessage = `selected_workflow: ${workflowID}, available_workflows: ${allowedWorkflows?.join?.(',')}, project_id: ${project?.id}, project_updated: ${project?.updated_at}`
+    debugMessage = `selected_workflow: ${workflowID}, available_workflows: ${allowedWorkflows?.join?.(',')}, project_id: ${project?.id}, project_updated: ${project?.updated_at}, url: ${window?.location?.toString()}, timestamp: ${Date?.now()}`
   }
 
   try {
@@ -251,11 +251,10 @@ export default function ClassifierContainer({
               This workflow does not exist or you do not have permission to view it.
             </Paragraph>
             <Paragraph
-              className='error-message'
-              size='small'
-              style={{ opacity: '0.5' }}
+              className='debug-message'
+              style={{ fontSize: '0.5em', opacity: '0.5' }}
             >
-              {errorMessage}
+              {debugMessage}
             </Paragraph>
           </>
         : classifierIsReady ?
