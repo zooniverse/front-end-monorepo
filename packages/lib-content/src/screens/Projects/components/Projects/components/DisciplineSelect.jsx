@@ -69,8 +69,7 @@ const StyledButton = styled(Button)`
     border-color: ${props =>
       props.theme.dark ? 'white' : props.theme.global.colors['neutral-1']};
 
-    &:hover:not([aria-selected='true']),
-    &:focus:not([aria-selected='true']) {
+    &:not([aria-selected='true']) {
       background: ${props =>
         props.theme.dark
           ? props.theme.global.colors['dark-5']
