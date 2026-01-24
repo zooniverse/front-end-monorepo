@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import Annotation from '../../../models/Annotation'
+import Annotation from '../../../../models/Annotation'
 
 const GeoDrawing = types.model('GeoDrawing', {
   taskType: types.literal('geoDrawing'),

@@ -1,13 +1,16 @@
 import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
-import Task from '../../../models/Task'
+import Task from '../../../../models/Task'
 import GeoDrawingAnnotation from './GeoDrawingAnnotation'
-import GeoPointTool from '../tools/GeoPointTool'
+import * as tools from '../../tools/models'
+
+const toolModels = Object.values(tools)
+const GenericTool = types.union(...toolModels)
 
 const GeoDrawing = types.model('GeoDrawing', {
   annotation: types.safeReference(GeoDrawingAnnotation),
   required: types.maybe(types.union(types.string, types.boolean)),
-  tools: types.array(GeoPointTool),
+  tools: types.array(GenericTool),
   type: types.literal('geoDrawing')
 })
   .views(self => ({
