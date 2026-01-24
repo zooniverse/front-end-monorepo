@@ -1,6 +1,6 @@
 import GeoMapViewer from './GeoMapViewer'
 
-import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/models/GeoDrawingTask'
+import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/task/models/GeoDrawingTask'
 
 export default {
   title: 'Subject Viewers / GeoMapViewer',
@@ -11,13 +11,13 @@ export const Default = {
   args: {},
 }
 
-export const EiffelTower = {
+export const WithGeoDrawingTask = {
   args: {
     geoDrawingTask: GeoDrawingTask.create({
       taskKey: 'T0',
       tools: [
         {
-          type: 'geoPoint',
+          type: 'Point',
           label: 'Eiffel Tower Point',
           color: '#ff0000',
         },
@@ -33,11 +33,28 @@ export const EiffelTower = {
             type: 'Point',
             coordinates: [2.2944810, 48.8583701]
           },
-          properties: {
-            toolIndex: 0,
-          },
         },
       ],
     },
   },
+}
+
+export const WithoutGeoDrawingTask = {
+  args: {
+    geoJSON: {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [2.2944810, 48.8583701]
+          },
+          properties: {
+            name: 'Eiffel Tower'
+          }
+        }
+      ]
+    }
+  }
 }

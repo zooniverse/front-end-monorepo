@@ -109,8 +109,8 @@ function GeoMapViewer({
       style: (feature) => getFeatureStyle({
         feature,
         geoDrawingTask,
-        resolution: map.getView().getResolution(),
-        isSelected: true
+        isSelected: true,
+        resolution: map.getView().getResolution()
       })
     })
 
@@ -118,8 +118,8 @@ function GeoMapViewer({
     featuresLayer.setStyle((feature) => getFeatureStyle({
       feature,
       geoDrawingTask,
-      resolution: map.getView().getResolution(),
-      isSelected: select.getFeatures().getArray().includes(feature)
+      isSelected: select.getFeatures().getArray().includes(feature),
+      resolution: map.getView().getResolution()
     }))
 
     // Create translate interaction and add both to map

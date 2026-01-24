@@ -1,35 +1,40 @@
-function getTool({ feature, geoDrawingTask }) {
-  // Check for explicit toolIndex property
-  const toolIndex = feature.get('toolIndex')
-  if (
-    toolIndex !== undefined &&
-    toolIndex !== null &&
-    geoDrawingTask.tools[toolIndex]
-  ) {
-    return geoDrawingTask.tools[toolIndex]
-  }
-
-  // Match first task tool by geometry type
-  const geometryType = feature.getGeometry().getType()
-  if (geoDrawingTask?.tools) {
-    const matchingTool = geoDrawingTask.tools.find(tool => tool.geometryType === geometryType)
-    if (matchingTool) return matchingTool
-  }
-
-  return null
-}
+import { isStateTreeNode } from 'mobx-state-tree'
+import * as features from '@plugins/tasks/experimental/geoDrawing/features/models'
 
 function getFeatureStyle({
   feature,
   geoDrawingTask,
-  resolution,
-  isSelected = false
+  isSelected = false,
+  resolution
 }) {
-  if (!geoDrawingTask) return null
+  // If this is already an MST feature node with styling, return its styles
+  if (isStateTreeNode(feature)) {
+    return feature.getStyles({
+      feature,
+      geoDrawingTask,
+      isSelected,
+      resolution
+    })
+  }
 
-  const tool = getTool({ feature, geoDrawingTask })
+  // Otherwise, attempt to build the appropriate MST feature model from the OL feature
+  const geometry = feature?.getGeometry?.()
+  const geometryType = geometry?.getType?.()
+  const GeoFeatureModel = geometryType ? features[geometryType] : undefined
 
-  return tool.getStyles({ feature, resolution, isSelected })
+  if (!GeoFeatureModel?.create) return null
+
+  const newFeature = GeoFeatureModel.create({
+    geometry: geometry,
+    properties: feature.getProperties?.()
+  })
+
+  return newFeature.getStyles({
+    feature,
+    geoDrawingTask,
+    isSelected,
+    resolution
+  })
 }
 
 export default getFeatureStyle
