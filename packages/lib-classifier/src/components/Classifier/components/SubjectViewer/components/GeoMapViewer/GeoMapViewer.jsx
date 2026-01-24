@@ -102,40 +102,50 @@ function GeoMapViewer({
       }),
     })
 
-    // Create select interaction first so it's available to style function
-    const select = new Select({
-      condition: click,
-      layers: [featuresLayer],
-      style: (feature) => getFeatureStyle({
+    const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
+
+    // Helper to compute style with current resolution
+    function handleFeatureStyle({ feature, isSelected = false }) {
+      return getFeatureStyle({
         feature,
-        geoDrawingTask,
-        isSelected: true,
+        geoDrawingTask: hasGeoDrawingTask ? geoDrawingTask : null,
+        isSelected,
         resolution: map.getView().getResolution()
       })
-    })
+    }
 
-    // Set the style function after map and select are created
-    featuresLayer.setStyle((feature) => getFeatureStyle({
-      feature,
-      geoDrawingTask,
-      isSelected: select.getFeatures().getArray().includes(feature),
-      resolution: map.getView().getResolution()
-    }))
+    if (hasGeoDrawingTask) {
+      // Create select interaction first so it's available to style function
+      const select = new Select({
+        condition: click,
+        layers: [featuresLayer],
+        style: (feature) => handleFeatureStyle({ feature, isSelected: true })
+      })
 
-    // Create translate interaction and add both to map
-    const translate = new Translate({
-      features: select.getFeatures()
-    })
-    map.addInteraction(select)
-    map.addInteraction(translate)
-    selectRef.current = select
-    translateRef.current = translate
+      // Set the style function after map and select are created
+      featuresLayer.setStyle((feature) => handleFeatureStyle({
+        feature,
+        isSelected: select.getFeatures().getArray().includes(feature)
+      }))
+
+      // Create translate interaction and add both to map
+      const translate = new Translate({
+        features: select.getFeatures()
+      })
+      map.addInteraction(select)
+      map.addInteraction(translate)
+      selectRef.current = select
+      translateRef.current = translate
+    } else {
+      // No task: disable feature interactions; render static styles
+      featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
+    }
 
     mapRef.current = map
 
     return () => {
-      map.removeInteraction(select)
-      map.removeInteraction(translate)
+      if (selectRef.current) map.removeInteraction(selectRef.current)
+      if (translateRef.current) map.removeInteraction(translateRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
