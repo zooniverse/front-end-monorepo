@@ -1,8 +1,8 @@
 import GeoMapViewer from '@viewers/components/GeoMapViewer/GeoMapViewer'
-import GeoDrawingTask from '../models/GeoDrawingTask'
+import GeoDrawingTask from '../../../task/models/GeoDrawingTask'
 
 export default {
-  title: 'GeoDrawing tools / GeoPoint',
+  title: 'GeoDrawing tools / Point',
   component: GeoMapViewer,
 }
 
@@ -13,7 +13,7 @@ export const Default = {
       taskKey: 'T0',
       tools: [
         {
-          type: 'geoPoint',
+          type: 'Point',
           color: '#0000ff',
           label: 'A point at the Eiffel Tower',
           uncertainty_circle: false
@@ -45,7 +45,7 @@ export const UncertaintyCircle = {
       taskKey: 'T0',
       tools: [
         {
-          type: 'geoPoint',
+          type: 'Point',
           color: '#ff0000',
           label: 'A point at the Four Corners Monument',
           uncertainty_circle: true
@@ -79,7 +79,7 @@ export const MultiplePoints = {
       taskKey: 'T0',
       tools: [
         {
-          type: 'geoPoint',
+          type: 'Point',
           color: '#007f4d',
           label: 'Sydney Beaches',
           uncertainty_circle: false
@@ -151,7 +151,7 @@ export const MultiplePointsUncertaintyCircles = {
       taskKey: 'T0',
       tools: [
         {
-          type: 'geoPoint',
+          type: 'Point',
           color: '#ff0000',
           label: 'Egyptian Pyramids of Giza',
           uncertainty_circle: true

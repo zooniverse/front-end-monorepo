@@ -1,4 +1,4 @@
-import GeoPointTool from './GeoPointTool'
+import GeoPointTool from './PointTool'
 
 describe('Model > GeoPointTool', function () {
   const geoPointTool = {
