@@ -9,7 +9,7 @@ describe('Model > GeoDrawingTask', function () {
     tools: [
       {
         label: 'Map Point',
-        type: 'geoPoint'
+        type: 'Point'
       }
     ],
     type: 'geoDrawing'
