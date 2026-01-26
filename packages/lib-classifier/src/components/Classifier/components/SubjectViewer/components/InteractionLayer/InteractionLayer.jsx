@@ -115,6 +115,17 @@ function InteractionLayer({
     event?.preventDefault?.()
     event?.stopPropagation?.()
     setCreating(false)
+
+    /*
+      When multi_image_clone_markers is enabled, marks are always created with frame: 0 regardless of which frame the user clicks.
+      When viewed in separates frames mode, the isInBounds() check isn't accurate and will delete the active mark.
+      Improvements to isInBounds() would be helpful in the future, but for now the check for activeMark.frame
+      is a fix for https://github.com/zooniverse/front-end-monorepo/issues/7195.
+    */
+    if (activeMark.frame !== frame) {
+      return
+    }
+
     if (activeMark.element && !isInBounds(activeMark.element, canvasRef.current)) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
