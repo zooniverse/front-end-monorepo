@@ -169,7 +169,7 @@ function createModifyUncertaintyInteraction({
     }
   }
 
-  // Create the PointerInteraction with our handlers
+  // Create the custom uncertainty circle PointerInteraction with handlers
   const interaction = new PointerInteraction({
     handleDownEvent,
     handleDragEvent,
