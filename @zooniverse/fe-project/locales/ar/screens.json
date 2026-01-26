@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "التعليم",
+        "faq": "الأسئلة الشائعة",
+        "research": "البحث",
+        "results": "النتائج",
+        "team": "فريق العمل"
+      }
+    },
+    "PageNav": {
+      "title": "عن المشروع"
+    },
+    "SidebarHeading": "نبذة",
+    "TeamMember": {
+      "collaborator": "متعاون",
+      "expert": "خبير",
+      "moderator": "مشرف",
+      "museum": "متحف",
+      "owner": "مالك",
+      "researcher": "باحث",
+      "tester": "فاحص",
+      "translator": "مترجم"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "حدث خطأ في أداة التصنيف :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "يمكنك مناقشة أحد الموضوعات في المناقشة أو إضافته إلى المفضلات أو إلى مجموعة.",
+      "title": "تصنيفاتك الحديثة"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "لا، شكرًا",
+      "confirm": "انتقال إلى مسار العمل التالي!",
+      "content": "تهانينا! عملك رائع، ويمكنك الآن الوصول إلى مسار عمل آخر. إذا كنت تفضل البقاء في مسار العمل الحالي، فيمكنك اختيار البقاء.",
+      "dismiss": "لا تكرر عرض ذلك في هذه الجلسة",
+      "title": "مسار عمل جديد مُتاح"
+    },
+    "YourStats": {
+      "allTime": "كل الوقت",
+      "lastSeven": "آخر 7 أيام",
+      "link": "عرض المزيد",
+      "title": "إحصائياتك"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "عن مشروع {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "معرفة المزيد"
+      },
+      "NotApproved": {
+        "paragraph": "تم إنشاء هذا المشروع باستخدام أداة إنشاء مشروعات Zooniverse ولكنه ليس مشروعاً رسمياً من Zooniverse حتى الآن. إن استفسارات ومشكلات هذا المشروع، والموجهة إلى فريق Zooniverse، قد لا تتلقى أي رد."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "تواصل مع فريق البحث على المحادثة لمعرفة المزيد عن هذا المشروع!",
+      "noMessageButton": "انتقال إلى المحادثة",
+      "title": "رسالة من الباحث"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "حدث خطأ في تحميل الموضوعات :(",
+        "noSubjects": "يبدو أنه لم يعلق أحد على الموضوع حتى الآن. انتقل إلى صفحة المحادثة وكن الأول!",
+        "subjectLabel": "موضوع {{id}}"
+      },
+      "button": "الانضمام",
+      "message": "يمكنك الدردشة مع فريق البحث والمتطوعين الآخرين!",
+      "title": "محادثة Zooniverse"
+    }
+  }
+}
