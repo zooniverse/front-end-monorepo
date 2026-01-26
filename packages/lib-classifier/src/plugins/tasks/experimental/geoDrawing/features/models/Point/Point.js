@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree'
+import { Point as OLPoint } from 'ol/geom'
 import Style from 'ol/style/Style'
 import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
@@ -73,6 +74,26 @@ const Point = types
               })
             })
           )
+
+          // Add drag handle on the right edge of uncertainty circle when selected
+          if (isSelected) {
+            const centerCoordinates = self.geometry.coordinates
+            const handleCoordinates = [
+              centerCoordinates[0] + radius,
+              centerCoordinates[1]
+            ]
+
+            styles.push(
+              new Style({
+                geometry: new OLPoint(handleCoordinates),
+                image: new Circle({
+                  radius: 6,
+                  fill: new Fill({ color }),
+                  stroke: new Stroke({ color: 'white', width: 2 })
+                })
+              })
+            )
+          }
         }
       }
 
