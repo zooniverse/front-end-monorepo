@@ -38,11 +38,21 @@ const Point = types
     return newSnapshot
   })
   .views(self => ({
+    getCenterCoordinates({ feature }) {
+      // OL feature geometry is primary (source of truth for map state)
+      const olCenter = feature?.getGeometry?.()?.getCoordinates?.()
+      if (Array.isArray(olCenter) && olCenter.length >= 2) return olCenter
+      
+      // MST model geometry as fallback (used at initialization)
+      return self.geometry.coordinates
+    },
+
     getDragHandleCoordinates({ feature, geoDrawingTask }) {
-      const radius = self.getUncertaintyRadiusMeters({ feature, geoDrawingTask })
+      const radius = self.getUncertaintyRadius({ feature, geoDrawingTask })
       if (radius === null || radius === undefined) return undefined
-      const center = feature?.getGeometry?.()?.getCoordinates?.() || self.geometry.coordinates
+      const center = self.getCenterCoordinates({ feature })
       if (!Array.isArray(center) || center.length < 2) return undefined
+      // Drag handle at right edge of uncertainty circle
       return [center[0] + radius, center[1]]
     },
 
@@ -109,7 +119,8 @@ const Point = types
       return styles
     },
 
-    getUncertaintyRadiusMeters({ feature, geoDrawingTask }) {
+    getUncertaintyRadius({ feature, geoDrawingTask }) {
+      // Returns radius in map coordinate units
       const tool = self.getTool({ feature, geoDrawingTask })
       if (tool?.uncertainty_circle === true) {
         return feature?.get?.('uncertainty_radius') ?? self.properties?.uncertainty_radius
@@ -119,9 +130,9 @@ const Point = types
 
     getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution }) {
       if (!resolution) return undefined
-      const radiusMeters = self.getUncertaintyRadiusMeters({ feature, geoDrawingTask })
-      if (radiusMeters === null || radiusMeters === undefined) return undefined
-      return (radiusMeters / resolution) 
+      const radiusCoords = self.getUncertaintyRadius({ feature, geoDrawingTask })
+      if (radiusCoords === null || radiusCoords === undefined) return undefined
+      return (radiusCoords / resolution)
     }
   }))
 

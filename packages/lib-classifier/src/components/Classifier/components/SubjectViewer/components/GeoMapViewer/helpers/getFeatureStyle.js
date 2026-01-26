@@ -1,5 +1,4 @@
-import { isStateTreeNode } from 'mobx-state-tree'
-import * as features from '@plugins/tasks/experimental/geoDrawing/features/models'
+import asMSTFeature from './asMSTFeature'
 
 function getFeatureStyle({
   feature,
@@ -7,29 +6,10 @@ function getFeatureStyle({
   isSelected = false,
   resolution
 }) {
-  // If this is already an MST feature node with styling, return its styles
-  if (isStateTreeNode(feature)) {
-    return feature.getStyles({
-      feature,
-      geoDrawingTask,
-      isSelected,
-      resolution
-    })
-  }
+  const mstFeature = asMSTFeature(feature)
+  if (!mstFeature) return null
 
-  // Otherwise, attempt to build the appropriate MST feature model from the OL feature
-  const geometry = feature?.getGeometry?.()
-  const geometryType = geometry?.getType?.()
-  const GeoFeatureModel = geometryType ? features[geometryType] : undefined
-
-  if (!GeoFeatureModel?.create) return null
-
-  const newFeature = GeoFeatureModel.create({
-    geometry: geometry,
-    properties: feature.getProperties?.()
-  })
-
-  return newFeature.getStyles({
+  return mstFeature.getStyles({
     feature,
     geoDrawingTask,
     isSelected,
