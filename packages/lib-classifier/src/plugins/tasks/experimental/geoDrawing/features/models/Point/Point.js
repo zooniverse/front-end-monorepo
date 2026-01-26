@@ -38,13 +38,29 @@ const Point = types
     return newSnapshot
   })
   .views(self => ({
+    getDragHandleCoordinates({ feature, geoDrawingTask }) {
+      const radius = self.getUncertaintyRadiusMeters({ feature, geoDrawingTask })
+      if (radius === null || radius === undefined) return undefined
+      const center = feature?.getGeometry?.()?.getCoordinates?.() || self.geometry.coordinates
+      if (!Array.isArray(center) || center.length < 2) return undefined
+      return [center[0] + radius, center[1]]
+    },
+
+    getTool({ feature, geoDrawingTask }) {
+      const tools = geoDrawingTask?.tools
+      if (!tools) return undefined
+      const toolIndex = feature?.get?.('toolIndex')
+      const indexedTool = typeof toolIndex === 'number' ? tools[toolIndex] : undefined
+      return indexedTool || tools.find(tool => tool.type === 'Point')
+    },
+
     getStyles({
       feature,
       geoDrawingTask,
       resolution,
       isSelected = false 
     }) {
-      const tool = geoDrawingTask?.tools?.[feature.get('toolIndex')] || geoDrawingTask?.tools?.find(tool => tool.type === 'Point')
+      const tool = self.getTool({ feature, geoDrawingTask })
 
       const color = tool?.color || DEFAULT_COLOR
       const pointRadius = isSelected ? 8 : 6
@@ -61,31 +77,24 @@ const Point = types
         })
       ]
 
-      const showUncertaintyCircle = tool?.uncertainty_circle === true
-      if (showUncertaintyCircle) {
-        const radius = feature.get('uncertainty_radius')
-        if (radius !== null && radius !== undefined) {
-          const radiusInPixels = radius / resolution
-          styles.push(
-            new Style({
-              image: new Circle({
-                radius: radiusInPixels,
-                stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-              })
+      const uncertaintyRadiusPixels = self.getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution })
+      if (uncertaintyRadiusPixels) {
+        styles.push(
+          new Style({
+            image: new Circle({
+              radius: uncertaintyRadiusPixels,
+              stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
             })
-          )
+          })
+        )
 
-          // Add drag handle on the right edge of uncertainty circle when selected
-          if (isSelected) {
-            const centerCoordinates = self.geometry.coordinates
-            const handleCoordinates = [
-              centerCoordinates[0] + radius,
-              centerCoordinates[1]
-            ]
-
+        // Add drag handle on the right edge of uncertainty circle when selected
+        if (isSelected) {
+          const dragHandleCoordinates = self.getDragHandleCoordinates({ feature, geoDrawingTask })
+          if (dragHandleCoordinates) {
             styles.push(
               new Style({
-                geometry: new OLPoint(handleCoordinates),
+                geometry: new OLPoint(dragHandleCoordinates),
                 image: new Circle({
                   radius: 6,
                   fill: new Fill({ color }),
@@ -98,6 +107,21 @@ const Point = types
       }
 
       return styles
+    },
+
+    getUncertaintyRadiusMeters({ feature, geoDrawingTask }) {
+      const tool = self.getTool({ feature, geoDrawingTask })
+      if (tool?.uncertainty_circle === true) {
+        return feature?.get?.('uncertainty_radius') ?? self.properties?.uncertainty_radius
+      }
+      return null
+    },
+
+    getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution }) {
+      if (!resolution) return undefined
+      const radiusMeters = self.getUncertaintyRadiusMeters({ feature, geoDrawingTask })
+      if (radiusMeters === null || radiusMeters === undefined) return undefined
+      return (radiusMeters / resolution) 
     }
   }))
 
