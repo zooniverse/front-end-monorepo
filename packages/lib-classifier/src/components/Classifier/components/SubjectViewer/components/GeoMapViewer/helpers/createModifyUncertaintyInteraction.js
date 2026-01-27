@@ -111,13 +111,15 @@ function createModifyUncertaintyInteraction({
     const centerCoordinates = state.draggedFeature.getGeometry().getCoordinates()
 
     // Calculate new radius in meters
-    const newRadius = Math.max(minRadius, distance(centerCoordinates, coordinate))
+    const newRadius = Math.round(Math.max(minRadius, distance(centerCoordinates, coordinate)))
 
-    // Update feature property
-    state.draggedFeature.set('uncertainty_radius', newRadius)
-
-    // Trigger re-render
-    state.draggedFeature.changed()
+    // Update uncertainty radius through GeoDrawingTask to keep MST activeFeature and slider in sync
+    if (geoDrawingTask?.setActiveFeatureUncertaintyRadius) {
+      geoDrawingTask.setActiveFeatureUncertaintyRadius(newRadius)
+    } else {
+      state.draggedFeature.set('uncertainty_radius', newRadius)
+      state.draggedFeature.changed()
+    }
   }
 
   /**
