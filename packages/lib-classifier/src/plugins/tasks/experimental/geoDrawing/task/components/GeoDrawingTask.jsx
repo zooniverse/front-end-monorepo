@@ -3,7 +3,9 @@ import { Box, RangeInput, Text } from 'grommet'
 import { Location } from 'grommet-icons'
 import { observer } from 'mobx-react'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import { transform } from 'ol/proj'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -59,6 +61,23 @@ function GeoDrawingTask({
   task
 }) {
   const { setActiveTool } = task
+  const [, setGeometryUpdate] = useState({})
+
+  useEffect(() => {
+    if (!task.activeOlFeature) return undefined
+
+    const feature = task.activeOlFeature
+
+    function handleFeatureChange() {
+      setGeometryUpdate({})
+    }
+
+    feature.on('change', handleFeatureChange)
+    return () => {
+      feature.un('change', handleFeatureChange)
+    }
+  }, [task.activeOlFeature])
+
   function onChange(index, event) {
     if (event.target.checked) {
       setActiveTool(index)
@@ -70,6 +89,38 @@ function GeoDrawingTask({
       <StyledText as='legend' size='small'>
         <Markdownz>{task.instruction}</Markdownz>
       </StyledText>
+      
+      {task.activeFeature && task.activeOlFeature && (
+        <ToolCard pad='small'>
+          <Text size='small' weight='bold'>
+            Selected feature:
+          </Text>
+          <Box pad={{ top: 'xsmall' }} gap='xsmall'>
+            {(() => {
+              const coords = transform(
+                task.activeOlFeature?.getGeometry?.()?.getCoordinates?.() ?? [],
+                'EPSG:3857',
+                'EPSG:4326'
+              )
+              const lon = coords[0] ? (Math.round(coords[0] * 100) / 100).toFixed(2) : 'N/A'
+              const lat = coords[1] ? (Math.round(coords[1] * 100) / 100).toFixed(2) : 'N/A'
+              return (
+                <>
+                  <Text size='xsmall'>
+                    Latitude: {lat}°
+                  </Text>
+                  <Text size='xsmall'>
+                    Longitude: {lon}°
+                  </Text>
+                </>
+              )
+            })()}
+            <Text size='xsmall'>
+              Uncertainty radius: {task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius ?? 0}m
+            </Text>
+          </Box>
+        </ToolCard>
+      )}
 
       {task.tools.map((tool, index) => {
         const checked = task.activeToolIndex === index
