@@ -97,10 +97,12 @@ function GeoDrawingTask({
                     Adjust the uncertainty circle radius:
                   </Text>
                   <RangeInput
-                    disabled={disabled || !checked}
+                    disabled={disabled || !checked || !task.activeFeature || !task.activeOlFeature}
+                    value={task.activeFeature?.properties?.uncertainty_radius ?? task.activeOlFeature?.get?.('uncertainty_radius') ?? 0}
                     min={0}
-                    max={100}
+                    max={100000}
                     step={1}
+                    onChange={(event) => task.setActiveFeatureUncertaintyRadius?.(Math.round(Number(event.target.value)))}
                   />
                 </RangeContainer>
               )}
