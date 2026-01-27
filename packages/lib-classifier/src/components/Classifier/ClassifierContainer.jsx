@@ -226,19 +226,45 @@ export default function ClassifierContainer({
   const projectIsReady = !!classifierStore.projects.active
   const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
 
+  /*
+  The "This workflow does not exist" error message has proven very unhelpful
+  with troubleshoots. We need to provide additional information to understand
+  why volunteers are encountering the problem. See:
+  - https://github.com/zooniverse/front-end-monorepo/issues/7176
+  - https://github.com/zooniverse/front-end-monorepo/issues/7193
+   */
+  let debugMessage = ''
+  if (!allowedWorkflowID) {
+    debugMessage = `selected_workflow: ${workflowID}, available_workflows: ${allowedWorkflows?.join?.(',')}, project_id: ${project?.id}, url: ${window?.location?.toString()}, timestamp: ${Date?.now()}`
+  }
+
   try {
     return (
       <Provider classifierStore={classifierStore}>
-      {!allowedWorkflowID && userHasLoaded ?
-        <Paragraph>This workflow does not exist or you do not have permission to view it.</Paragraph>
+        {/* If the Workflow ID isn't specified, it's usually when the volunteer is seeing a "select a workflow" modal. */}
+        {!workflowID ? (
+          <Paragraph>No workflow selected.</Paragraph>
+        )
+        : workflowID && !allowedWorkflowID && userHasLoaded ?
+          <>
+            <Paragraph>
+              This workflow does not exist or you do not have permission to view it.
+            </Paragraph>
+            <Paragraph
+              className='debug-message'
+              style={{ fontSize: '0.5em', opacity: '0.5' }}
+            >
+              {debugMessage}
+            </Paragraph>
+          </>
         : classifierIsReady ?
-           <Classifier
-              onError={onError}
-              showTutorial={showTutorial}
-              subjectSetID={subjectSetID}
-              subjectID={subjectID}
-              workflowSnapshot={workflowSnapshot}
-            /> :
+          <Classifier
+            onError={onError}
+            showTutorial={showTutorial}
+            subjectSetID={subjectSetID}
+            subjectID={subjectID}
+            workflowSnapshot={workflowSnapshot}
+          /> :
           <Paragraph>Loading the Classifier</Paragraph>
         }
       </Provider>
