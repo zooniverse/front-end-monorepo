@@ -20,6 +20,7 @@ import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
+import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import asMSTFeature from './helpers/asMSTFeature'
 
 const MapContainer = styled.div`
@@ -61,6 +62,7 @@ function GeoMapViewer({
   const selectRef = useRef()
   const translateRef = useRef()
   const modifyUncertaintyRef = useRef()
+  const moveToClickRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
   const geoJSONReadOptions = {
@@ -170,6 +172,15 @@ function GeoMapViewer({
       })
       map.addInteraction(modifyUncertainty)
       modifyUncertaintyRef.current = modifyUncertainty
+
+      // Create and add move-to-click interaction
+      const moveToClick = createMoveToClickInteraction({
+        selectInteraction: select,
+        geoDrawingTask,
+        featuresLayer
+      })
+      map.addInteraction(moveToClick)
+      moveToClickRef.current = moveToClick
     } else {
       // No task: disable feature interactions; render static styles
       featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
@@ -181,6 +192,7 @@ function GeoMapViewer({
       if (selectRef.current) map.removeInteraction(selectRef.current)
       if (translateRef.current) map.removeInteraction(translateRef.current)
       if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
+      if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
@@ -189,6 +201,7 @@ function GeoMapViewer({
       selectRef.current = undefined
       translateRef.current = undefined
       modifyUncertaintyRef.current = undefined
+      moveToClickRef.current = undefined
     }
   }, [])
 
@@ -215,6 +228,20 @@ function GeoMapViewer({
       // Fit the view to the features extent
       if (features.getFeatures().length) {
         fitViewToFeatures(map, features)
+        
+        // Automatically select the first feature
+        const select = selectRef.current
+        if (select && newFeatures.length > 0) {
+          select.getFeatures().clear()
+          select.getFeatures().push(newFeatures[0])
+          
+          // Trigger select event to update task state
+          select.dispatchEvent({
+            type: 'select',
+            selected: [newFeatures[0]],
+            deselected: []
+          })
+        }
       }
     }
 
