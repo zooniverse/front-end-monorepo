@@ -20,6 +20,12 @@ function storeMapper(classifierStore) {
     function onClick() {
       step.completeAndValidate(annotations)
       next()
+
+      // ensures dom update completes before scrolling back to top of Task Area
+      requestAnimationFrame(() => {
+        const taskArea = document.querySelector('[data-testid="task-area"]')
+        taskArea?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
     }
 
     return {
