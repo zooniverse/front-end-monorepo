@@ -1,5 +1,7 @@
 import GeoMapViewer from './GeoMapViewer'
 
+import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/task/models/GeoDrawingTask'
+
 export default {
   title: 'Subject Viewers / GeoMapViewer',
   component: GeoMapViewer,
@@ -9,7 +11,35 @@ export const Default = {
   args: {},
 }
 
-export const EiffelTower = {
+export const WithGeoDrawingTask = {
+  args: {
+    geoDrawingTask: GeoDrawingTask.create({
+      taskKey: 'T0',
+      tools: [
+        {
+          type: 'Point',
+          label: 'Eiffel Tower Point',
+          color: '#ff0000',
+        },
+      ],
+      type: 'geoDrawing',
+    }),
+    geoJSON: {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [2.2944810, 48.8583701]
+          },
+        },
+      ],
+    },
+  },
+}
+
+export const WithoutGeoDrawingTask = {
   args: {
     geoJSON: {
       type: 'FeatureCollection',
@@ -22,47 +52,6 @@ export const EiffelTower = {
           },
           properties: {
             name: 'Eiffel Tower'
-          }
-        }
-      ]
-    }
-  }
-}
-
-export const StatueOfLiberty = {
-  args: {
-    geoJSON: {
-      type: 'FeatureCollection',
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-74.0445004, 40.6892494]
-          },
-          properties: {
-            name: 'Statue of Liberty'
-          }
-        }
-      ]
-    }
-  }
-}
-
-export const FourCornersMarker = {
-  args: {
-    geoJSON: {
-      type: 'FeatureCollection',
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-109.0451723, 36.9989766]
-
-          },
-          properties: {
-            name: 'Four Corners Monument'
           }
         }
       ]
