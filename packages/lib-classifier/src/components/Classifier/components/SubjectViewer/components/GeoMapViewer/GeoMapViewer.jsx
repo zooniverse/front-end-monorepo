@@ -18,6 +18,7 @@ import VectorSource from 'ol/source/Vector'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import getFeatureStyle from './helpers/getFeatureStyle'
+import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -55,6 +56,7 @@ function GeoMapViewer({
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
+  const modifyUncertaintyRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
   const geoJSONReadOptions = {
@@ -136,6 +138,15 @@ function GeoMapViewer({
       map.addInteraction(translate)
       selectRef.current = select
       translateRef.current = translate
+
+      // Create and add uncertainty circle modification interaction
+      const modifyUncertainty = createModifyUncertaintyInteraction({
+        geoDrawingTask,
+        selectInteraction: select,
+        translateInteraction: translate
+      })
+      map.addInteraction(modifyUncertainty)
+      modifyUncertaintyRef.current = modifyUncertainty
     } else {
       // No task: disable feature interactions; render static styles
       featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
@@ -146,6 +157,7 @@ function GeoMapViewer({
     return () => {
       if (selectRef.current) map.removeInteraction(selectRef.current)
       if (translateRef.current) map.removeInteraction(translateRef.current)
+      if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
@@ -153,6 +165,7 @@ function GeoMapViewer({
       geoJSONFormatRef.current = undefined
       selectRef.current = undefined
       translateRef.current = undefined
+      modifyUncertaintyRef.current = undefined
     }
   }, [])
 

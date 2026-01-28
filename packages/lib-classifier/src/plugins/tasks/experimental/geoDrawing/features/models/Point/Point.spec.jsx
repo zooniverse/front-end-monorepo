@@ -71,109 +71,138 @@ describe('Model > Point', function () {
     })
   })
 
-  describe('getStyles', function () {
-    let mockFeature
-    let geoDrawingTask
-
-    beforeEach(function () {
-      mockFeature = {
-        get: (key) => {
-          if (key === 'uncertainty_radius') return 500
-          if (key === 'toolIndex') return 0
-          return null
+  describe('> Views', function () {
+    describe('getCenterCoordinates', function () {
+      it('should return OL feature coordinates', function () {
+        const mockFeature = {
+          getGeometry: () => ({
+            getCoordinates: () => [10, 20]
+          })
         }
-      }
+        const point = Point.create(basicSnapshot)
+        const center = point.getCenterCoordinates({ feature: mockFeature })
+        expect(center).to.deep.equal([10, 20])
+      })
 
-      geoDrawingTask = GeoDrawingTask.create({
-        taskKey: 'T0',
-        type: 'geoDrawing',
-        tools: [
-          {
-            type: 'Point',
-            color: '#ff0000',
-            label: 'Test Point',
-            uncertainty_circle: false
-          }
-        ]
+      it('should return model coordinates as fallback', function () {
+        const mockFeature = {}
+        const point = Point.create(basicSnapshot)
+        const center = point.getCenterCoordinates({ feature: mockFeature })
+        expect(center).to.deep.equal([2.2944810, 48.8583701])
       })
     })
 
-    it('should return an array of styles', function () {
-      const point = Point.create(basicSnapshot)
-      const styles = point.getStyles({
-        feature: mockFeature,
-        geoDrawingTask,
-        resolution: 10,
-        isSelected: false
-      })
-      expect(styles).to.be.an('array')
-      expect(styles.length).to.be.greaterThan(0)
-    })
-
-    it('should include uncertainty circle when tool has uncertainty_circle enabled', function () {
-      geoDrawingTask = GeoDrawingTask.create({
-        taskKey: 'T0',
-        type: 'geoDrawing',
-        tools: [
-          {
-            type: 'Point',
-            color: '#ff0000',
-            label: 'Test Point',
-            uncertainty_circle: true
-          }
-        ]
-      })
-      const point = Point.create(basicSnapshot)
-      const styles = point.getStyles({
-        feature: mockFeature,
-        geoDrawingTask,
-        resolution: 10,
-        isSelected: false
-      })
-      expect(styles).to.be.an('array')
-      expect(styles.length).to.equal(2) // point and uncertainty circle
-    })
-
-    it('should not include uncertainty circle when tool has uncertainty_circle disabled', function () {
-      const point = Point.create(basicSnapshot)
-      const styles = point.getStyles({
-        feature: mockFeature,
-        geoDrawingTask,
-        resolution: 10,
-        isSelected: false
-      })
-      expect(styles).to.be.an('array')
-      expect(styles.length).to.equal(1) // only point style
-    })
-
-    it('should not include uncertainty circle when uncertainty_radius is missing', function () {
-      geoDrawingTask = GeoDrawingTask.create({
-        taskKey: 'T0',
-        type: 'geoDrawing',
-        tools: [
-          {
-            type: 'Point',
-            color: '#ff0000',
-            label: 'Test Point',
-            uncertainty_circle: true
-          }
-        ]
-      })
-      mockFeature = {
-        get: (key) => {
-          if (key === 'toolIndex') return 0
-          return null // no uncertainty_radius
+    describe('getDragHandleCoordinates', function () {
+      it('should return handle at right edge of uncertainty circle', function () {
+        const mockFeature = {
+          get: (key) => {
+            if (key === 'uncertainty_radius') return 100
+            if (key === 'toolIndex') return 0
+            return null
+          },
+          getGeometry: () => ({
+            getCoordinates: () => [10, 20]
+          })
         }
-      }
-      const point = Point.create(basicSnapshot)
-      const styles = point.getStyles({
-        feature: mockFeature,
-        geoDrawingTask,
-        resolution: 10,
-        isSelected: false
+        const geoDrawingTask = GeoDrawingTask.create({
+          taskKey: 'T0',
+          type: 'geoDrawing',
+          tools: [
+            {
+              type: 'Point',
+              color: '#ff0000',
+              label: 'Test',
+              uncertainty_circle: true
+            }
+          ]
+        })
+        const point = Point.create(basicSnapshot)
+        const handle = point.getDragHandleCoordinates({ feature: mockFeature, geoDrawingTask })
+        expect(handle).to.deep.equal([110, 20]) // center[0] + radius
       })
-      expect(styles).to.be.an('array')
-      expect(styles.length).to.equal(1) // only point style
+    })
+
+    describe('getUncertaintyRadius', function () {
+      it('should return radius when tool has uncertainty_circle enabled', function () {
+        const mockFeature = {
+          get: (key) => {
+            if (key === 'uncertainty_radius') return 500
+            if (key === 'toolIndex') return 0
+            return null
+          }
+        }
+        const geoDrawingTask = GeoDrawingTask.create({
+          taskKey: 'T0',
+          type: 'geoDrawing',
+          tools: [
+            {
+              type: 'Point',
+              color: '#ff0000',
+              label: 'Test',
+              uncertainty_circle: true
+            }
+          ]
+        })
+        const point = Point.create(basicSnapshot)
+        const radius = point.getUncertaintyRadius({ feature: mockFeature, geoDrawingTask })
+        expect(radius).to.equal(500)
+      })
+
+      it('should return null when tool has uncertainty_circle disabled', function () {
+        const mockFeature = {
+          get: (key) => {
+            if (key === 'uncertainty_radius') return 500
+            if (key === 'toolIndex') return 0
+            return null
+          }
+        }
+        const geoDrawingTask = GeoDrawingTask.create({
+          taskKey: 'T0',
+          type: 'geoDrawing',
+          tools: [
+            {
+              type: 'Point',
+              color: '#ff0000',
+              label: 'Test',
+              uncertainty_circle: false
+            }
+          ]
+        })
+        const point = Point.create(basicSnapshot)
+        const radius = point.getUncertaintyRadius({ feature: mockFeature, geoDrawingTask })
+        expect(radius).to.equal(null)
+      })
+    })
+
+    describe('getUncertaintyRadiusPixels', function () {
+      it('should convert coordinate units to pixels using resolution', function () {
+        const mockFeature = {
+          get: (key) => {
+            if (key === 'uncertainty_radius') return 100
+            if (key === 'toolIndex') return 0
+            return null
+          }
+        }
+        const geoDrawingTask = GeoDrawingTask.create({
+          taskKey: 'T0',
+          type: 'geoDrawing',
+          tools: [
+            {
+              type: 'Point',
+              color: '#ff0000',
+              label: 'Test',
+              uncertainty_circle: true
+            }
+          ]
+        })
+        const point = Point.create(basicSnapshot)
+        const radiusPixels = point.getUncertaintyRadiusPixels({ 
+          feature: mockFeature, 
+          geoDrawingTask,
+          resolution: 10
+        })
+        expect(radiusPixels).to.equal(10) // 100 / 10
+      })
     })
   })
 })
