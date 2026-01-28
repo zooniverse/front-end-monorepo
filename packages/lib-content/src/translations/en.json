@@ -326,8 +326,7 @@
       "none": "No projects found",
       "showingNum": "{{range}} of {{total}} projects",
       "empty": {
-        "clear": "<0>Clear All Filters</0>",
-        "language": "There are no projects available in your selected language. Try searching <0>English Language Projects</0>",
+        "clear": "Reset Filters",
         "status": "Sometimes a project will temporarily be out of data, or may have finished! Try searching <0>Any Project Status</0>"
       }
     },
@@ -344,7 +343,7 @@
       "mostActive": "Most Active",
       "mostPopular": "Most Popular"
     },
-    "state": {
+    "status": {
       "all": "All",
       "label": "Filter projects by status",
       "active": "Active",

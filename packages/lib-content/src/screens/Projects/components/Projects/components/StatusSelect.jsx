@@ -13,27 +13,27 @@ const StyledSelect = styled(GrommetSelect)`
   color: ${props => (props.theme.dark ? 'white' : '#005D69')};
 `
 
-function StateSelect({ setProjectState = DEFAULT_HANDLER, value = 'live' }) {
+function StatusSelect({ handleProjectStatus = DEFAULT_HANDLER, value = 'live' }) {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
   const options = [
-    { label: t('Projects.state.active'), value: 'live' },
-    { label: t('Projects.state.paused'), value: 'paused' },
-    { label: t('Projects.state.finished'), value: 'finished' },
-    { label: t('Projects.state.all'), value: 'all'}
+    { label: t('Projects.status.active'), value: 'live' },
+    { label: t('Projects.status.paused'), value: 'paused' },
+    { label: t('Projects.status.finished'), value: 'finished' },
+    { label: t('Projects.status.all'), value: 'all'}
   ]
 
   function handleSelect(option) {
-    setProjectState(option.value)
+    handleProjectStatus(option.value)
   }
 
   return (
     <ThemeContext.Extend value={selectTheme}>
       <StyledSelect
-        a11yTitle={t('Projects.state.label')}
-        id='state-filter-projects-page'
-        name='State'
+        a11yTitle={t('Projects.status.label')}
+        id='status-filter-projects-page'
+        name='status'
         labelKey='label'
         onChange={({ option }) => handleSelect(option)}
         options={options}
@@ -46,4 +46,4 @@ function StateSelect({ setProjectState = DEFAULT_HANDLER, value = 'live' }) {
   )
 }
 
-export default StateSelect
+export default StatusSelect
