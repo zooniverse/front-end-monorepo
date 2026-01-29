@@ -99,6 +99,8 @@ function Choice({
             <Media
               key={filename}
               alt={`${choice.label}-image${index}`}
+              fit='contain'
+              height='medium'
               src={images.get(filename)}
             />
           ))}
