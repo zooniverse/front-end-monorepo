@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
 import { func } from 'prop-types'
 import { useEffect } from 'react'
@@ -12,12 +13,16 @@ function storeMapper(classifierStore) {
     },
     subjectViewer: {
       loadingState
+    },
+    workflowSteps: {
+      activeStepTasks
     }
   } = classifierStore
 
   const latest = subject?.stepHistory.latest
 
   return {
+    activeStepTasks,
     latest,
     loadingState,
     subject
@@ -30,8 +35,19 @@ function GeoMapViewerContainer ({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER
 }) {
-  const { latest, subject } = useStores(storeMapper)
-  const { data, error, loading, type, viewer } = useSubjectJSON({
+  const {
+    activeStepTasks,
+    latest,
+    loadingState,
+    subject
+  } = useStores(storeMapper)
+  const {
+    data,
+    error,
+    loading,
+    type,
+    viewer
+  } = useSubjectJSON({
     onError,
     onReady,
     subject
@@ -55,15 +71,18 @@ function GeoMapViewerContainer ({
     }
   }, [geoJSONData, latest?.annotations])
 
-  if (loading) {
+  if (loadingState === asyncStates.loading || loading) {
     return null
   }
   if (error) {
     return <p>{ error.message }</p>
   }
 
+  const geoDrawingTask = activeStepTasks.find(task => task.type === 'geoDrawing')
+
   return (
     <GeoMapViewer
+      geoDrawingTask={geoDrawingTask}
       geoJSON={geoJSONData}
       subjectId={subject.id}
     />

@@ -1,9 +1,9 @@
 import { composeStory } from '@storybook/react'
 import { render, screen, waitFor } from '@testing-library/react'
-import Meta, { Default, EiffelTower } from './GeoMapViewer.stories'
+import Meta, { Default, WithGeoDrawingTask } from './GeoMapViewer.stories'
 
 const DefaultStory = composeStory(Default, Meta)
-const EiffelTowerStory = composeStory(EiffelTower, Meta)
+const WithGeoDrawingTaskStory = composeStory(WithGeoDrawingTask, Meta)
 
 describe('Component > GeoMapViewer', function () {
   describe('default map', function () {
@@ -21,11 +21,19 @@ describe('Component > GeoMapViewer', function () {
       })
       expect(screen.queryByRole('button', { name: 'Recenter map to features' })).to.not.exist
     })
+
+    it('should not show the reset button when geoJSON is undefined', async function () {
+      render(<DefaultStory />)
+      await waitFor(() => {
+        expect(screen.getByTestId('geo-map-container')).to.exist
+      })
+      expect(screen.queryByRole('button', { name: 'Reset features on map' })).to.not.exist
+    })
   })
 
-  describe('with geoJSON data', function () {
+  describe('with GeoDrawingTask and geoJSON data', function () {
     it('should show the map container with geoJSON features', async function () {
-      render(<EiffelTowerStory />)
+      render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
         expect(screen.getByTestId('geo-map-container')).to.exist
@@ -33,7 +41,7 @@ describe('Component > GeoMapViewer', function () {
     })
 
     it('should add a vector layer when geoJSON is provided', async function () {
-      render(<EiffelTowerStory />)
+      render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
         const mapContainer = screen.getByTestId('geo-map-container')
@@ -44,15 +52,23 @@ describe('Component > GeoMapViewer', function () {
     })
 
     it('should show the recenter button when geoJSON is provided', async function () {
-      render(<EiffelTowerStory />)
+      render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
         expect(screen.getByRole('button', { name: 'Recenter map to features' })).to.exist
       })
     })
 
+    it('should show the reset button when geoJSON is provided', async function () {
+      render(<WithGeoDrawingTaskStory />)
+      
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: 'Reset features on map' })).to.exist
+      })
+    })
+
     it('should cleanup the map on unmount', async function () {
-      const { unmount } = render(<EiffelTowerStory />)
+      const { unmount } = render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
         expect(screen.getByTestId('geo-map-container')).to.exist
