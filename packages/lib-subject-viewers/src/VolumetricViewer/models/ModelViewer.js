@@ -99,9 +99,15 @@ export const ModelViewer = () => {
       return pointModel.planesAbsoluteSets[dimension][frame]
     },
     getPointAnnotationIndex: ({ point }) => {
+      if (point === undefined || point === null || !pointModel.points[point]) {
+        return -1
+      }
       return pointModel.points[point][5]
     },
     getPointCoordinates: ({ point }) => {
+      if (point === undefined || point === null || !pointModel.points[point]) {
+        return [0, 0, 0]
+      }
       return pointModel.points[point].slice(1, 4)
     },
     getPointFromStructured: ({ point }) => {
@@ -113,9 +119,15 @@ export const ModelViewer = () => {
         .reduce((acc, val) => acc + val, 0)
     },
     getPointValue: ({ point }) => {
+      if (point === undefined || point === null || !pointModel.points[point]) {
+        return 0
+      }
       return pointModel.points[point][0]
     },
     isPointInThreshold: ({ point }) => {
+      if (point === undefined || point === null || !pointModel.points[point]) {
+        return false
+      }
       return pointModel.points[point][4]
     },
     saveScreenshot: () => {
@@ -139,6 +151,16 @@ export const ModelViewer = () => {
         point[4] = min <= point[0] && max >= point[0]
       })
       pointModel.publish('change:threshold', { min, max })
+    },
+
+    // Cleanup
+    dispose: () => {
+      // Clear all data arrays to allow garbage collection
+      pointModel.data = []
+      pointModel.points = []
+      pointModel.baseFrames = [[], [], []]
+      pointModel.planesAbsoluteSets = [[], [], []]
+      pointModel._listeners = []
     },
 
     // Listeners
