@@ -85,22 +85,16 @@ const Mark = forwardRef(function Mark(
   }
 
   useEffect(function onSelectMark() {
-    if (isActive && mark.finished) {
+    if (isActive && mark.finished && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
     }
-  }, [isActive, mark.finished])
+  }, [isActive, mark.finished, mark.subTaskVisibility])
 
   useEffect(function onFinishMarkWithSubTasks() {
     if (usesSubTasks && mark.finished) {
       openSubTaskPopup()
     }
   }, [usesSubTasks, mark.finished])
-
-  useEffect(function onCloseSubTasks() {
-    if (mark.finished && !mark.subTaskVisibility) {
-      focusMark(markRoot.current)
-    }
-  }, [mark.finished, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
