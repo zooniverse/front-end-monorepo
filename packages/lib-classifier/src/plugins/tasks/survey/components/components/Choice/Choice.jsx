@@ -28,6 +28,12 @@ const StyledButton = styled(Button)`
   max-width: 350px;
 `
 
+const StyledMediaContainer = styled(Box)`
+  width: 100%;
+  max-width: 405px;
+  aspect-ratio: 1.5 / 1;
+`
+
 const StyledPrimaryButton = styled(PrimaryButton)`
   border-radius: 4px;
   flex: 1 0;
@@ -86,21 +92,22 @@ function Choice({
     >
       {choice.images?.length > 0 && (
         <Carousel
-          alignSelf='center'
           controls='arrows'
           data-testid='choice-images'
-          height={{
-            max: 'medium',
-            min: '160px'
-          }}
           width='100%'
         >
           {choice.images.map((filename, index) => (
-            <Media
+            <StyledMediaContainer
               key={filename}
-              alt={`${choice.label}-image${index}`}
-              src={images.get(filename)}
-            />
+              margin={{ horizontal: 'auto' }}
+            >
+              <Media
+                alt={`${choice.label}-image${index}`}
+                fit='contain'
+                height='100%'
+                src={images.get(filename)}
+              />
+            </StyledMediaContainer>
           ))}
         </Carousel>
       )}
