@@ -1,5 +1,6 @@
+// dependencies
 import { Box } from 'grommet'
-import { shape } from 'prop-types'
+import { arrayOf, shape, string } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -13,8 +14,10 @@ import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 
+// local imports
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
+import getFeatureStyle from './helpers/getFeatureStyle'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -39,6 +42,7 @@ function fitViewToFeatures(map, features) {
 }
 
 function GeoMapViewer({
+  geoDrawingTask,
   geoJSON = undefined
 }) {
   // Map and layer refs: created once on mount, reused across feature updates
@@ -51,6 +55,7 @@ function GeoMapViewer({
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
+  const pointerMoveHandlerRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
   const geoJSONReadOptions = {
@@ -98,24 +103,64 @@ function GeoMapViewer({
       }),
     })
 
-    // Create interactions once and add to the map
-    const select = new Select({
-      condition: click,
-      layers: [featuresLayer]
-    })
-    const translate = new Translate({
-      features: select.getFeatures()
-    })
-    map.addInteraction(select)
-    map.addInteraction(translate)
-    selectRef.current = select
-    translateRef.current = translate
+    const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
+
+    // Helper to compute style with current resolution
+    function handleFeatureStyle({ feature, isSelected = false }) {
+      return getFeatureStyle({
+        feature,
+        geoDrawingTask: hasGeoDrawingTask ? geoDrawingTask : null,
+        isSelected,
+        resolution: map.getView().getResolution()
+      })
+    }
+
+    if (hasGeoDrawingTask) {
+      // Create select interaction first so it's available to style function
+      const select = new Select({
+        condition: click,
+        layers: [featuresLayer],
+        style: (feature) => handleFeatureStyle({ feature, isSelected: true })
+      })
+
+      // Set the style function after map and select are created
+      featuresLayer.setStyle((feature) => handleFeatureStyle({
+        feature,
+        isSelected: select.getFeatures().getArray().includes(feature)
+      }))
+
+      // Create translate interaction and add both to map
+      const translate = new Translate({
+        features: select.getFeatures()
+      })
+      map.addInteraction(select)
+      map.addInteraction(translate)
+      selectRef.current = select
+      translateRef.current = translate
+
+      // Add pointer cursor on feature hover
+      const handlePointerMove = (event) => {
+        const hit = map.hasFeatureAtPixel(event.pixel, {
+          layerFilter: (layer) => layer === featuresLayer
+        })
+        const element = map.getTargetElement()
+        if (element) {
+          element.style.cursor = hit ? 'pointer' : ''
+        }
+      }
+      map.on('pointermove', handlePointerMove)
+      pointerMoveHandlerRef.current = handlePointerMove
+    } else {
+      // No task: disable feature interactions; render static styles
+      featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
+    }
 
     mapRef.current = map
 
     return () => {
-      map.removeInteraction(select)
-      map.removeInteraction(translate)
+      if (selectRef.current) map.removeInteraction(selectRef.current)
+      if (translateRef.current) map.removeInteraction(translateRef.current)
+      if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
@@ -123,6 +168,7 @@ function GeoMapViewer({
       geoJSONFormatRef.current = undefined
       selectRef.current = undefined
       translateRef.current = undefined
+      pointerMoveHandlerRef.current = undefined
     }
   }, [])
 
@@ -210,6 +256,14 @@ function GeoMapViewer({
 }
 
 GeoMapViewer.propTypes = {
+  geoDrawingTask: shape({
+    tools: arrayOf(shape({
+      type: string.isRequired,
+      label: string,
+      color: string,
+    })),
+    type: string.isRequired,
+  }),
   geoJSON: shape({})
 }
 
