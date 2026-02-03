@@ -18,6 +18,7 @@ import VectorSource from 'ol/source/Vector'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import getFeatureStyle from './helpers/getFeatureStyle'
+import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -55,6 +56,7 @@ function GeoMapViewer({
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
+  const modifyUncertaintyRef = useRef()
   const pointerMoveHandlerRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
@@ -138,6 +140,15 @@ function GeoMapViewer({
       selectRef.current = select
       translateRef.current = translate
 
+      // Create and add uncertainty circle modification interaction
+      const modifyUncertainty = createModifyUncertaintyInteraction({
+        geoDrawingTask,
+        selectInteraction: select,
+        translateInteraction: translate
+      })
+      map.addInteraction(modifyUncertainty)
+      modifyUncertaintyRef.current = modifyUncertainty
+      
       // Add pointer cursor on feature hover
       const handlePointerMove = (event) => {
         const hit = map.hasFeatureAtPixel(event.pixel, {
@@ -160,6 +171,7 @@ function GeoMapViewer({
     return () => {
       if (selectRef.current) map.removeInteraction(selectRef.current)
       if (translateRef.current) map.removeInteraction(translateRef.current)
+      if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
       if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
@@ -168,6 +180,7 @@ function GeoMapViewer({
       geoJSONFormatRef.current = undefined
       selectRef.current = undefined
       translateRef.current = undefined
+      modifyUncertaintyRef.current = undefined
       pointerMoveHandlerRef.current = undefined
     }
   }, [])
