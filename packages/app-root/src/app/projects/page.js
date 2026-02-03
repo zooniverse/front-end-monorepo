@@ -38,6 +38,11 @@ async function fetchActiveProjects(searchParams) {
   }
   const panoptesUrl = new URL(`${host}/projects`)
 
+  // panoptes API expects `state`, but legacy website behavior expects `status` in the url search params
+  if (searchParams.status) {
+    searchParams.state = searchParams.status
+  }
+
   // if someone has entered search params in the url, honor those over the defaults
   const params = {
     ...defaultSearchParams,
