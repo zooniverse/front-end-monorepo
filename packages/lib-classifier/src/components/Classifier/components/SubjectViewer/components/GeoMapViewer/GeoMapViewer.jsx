@@ -55,6 +55,7 @@ function GeoMapViewer({
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
+  const pointerMoveHandlerRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
   const geoJSONReadOptions = {
@@ -136,6 +137,19 @@ function GeoMapViewer({
       map.addInteraction(translate)
       selectRef.current = select
       translateRef.current = translate
+
+      // Add pointer cursor on feature hover
+      const handlePointerMove = (event) => {
+        const hit = map.hasFeatureAtPixel(event.pixel, {
+          layerFilter: (layer) => layer === featuresLayer
+        })
+        const element = map.getTargetElement()
+        if (element) {
+          element.style.cursor = hit ? 'pointer' : ''
+        }
+      }
+      map.on('pointermove', handlePointerMove)
+      pointerMoveHandlerRef.current = handlePointerMove
     } else {
       // No task: disable feature interactions; render static styles
       featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
@@ -146,6 +160,7 @@ function GeoMapViewer({
     return () => {
       if (selectRef.current) map.removeInteraction(selectRef.current)
       if (translateRef.current) map.removeInteraction(translateRef.current)
+      if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
@@ -153,6 +168,7 @@ function GeoMapViewer({
       geoJSONFormatRef.current = undefined
       selectRef.current = undefined
       translateRef.current = undefined
+      pointerMoveHandlerRef.current = undefined
     }
   }, [])
 
