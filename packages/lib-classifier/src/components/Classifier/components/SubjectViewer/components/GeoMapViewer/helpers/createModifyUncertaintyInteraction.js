@@ -46,7 +46,7 @@ function createModifyUncertaintyInteraction({
         feature: olFeature, 
         geoDrawingTask 
       })
-      if (radius == null) continue
+      if (radius === null) continue
 
       // Get the drag handle coordinates
       const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({ 
@@ -86,7 +86,7 @@ function createModifyUncertaintyInteraction({
       // Update cursor
       const viewport = map.getViewport()
       if (viewport) {
-        viewport.style.cursor = 'grabbing'
+        viewport.style.cursor = 'ew-resize'
       }
 
       // Return true to start drag sequence
@@ -165,7 +165,7 @@ function createModifyUncertaintyInteraction({
     const selectedFeature = checkDragHandleClick(event.pixel, map)
 
     if (selectedFeature) {
-      viewport.style.cursor = 'grab'
+      viewport.style.cursor = 'ew-resize'
     } else {
       viewport.style.cursor = ''
     }

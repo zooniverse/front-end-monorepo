@@ -11,14 +11,40 @@ const Relative = styled(Box)`
 `
 
 const StyledList = styled.ul`
-  width: 100%;
   display: flex;
-  flex-direction: row;
+  overflow-x: auto;
   column-gap: 10px;
   list-style: none;
   margin: 15px 0;
-  padding: 2px; // for the box-shadow
-  overflow-x: scroll;
+  padding: 2px 0;
+
+  // on a small screen width, allow this list to align to the exact edge of the screen
+  width: calc(100% + 40px);
+  position: relative;
+  left: -20px;
+
+  li:first-child {
+    margin-left: 20px;
+  }
+
+  li:last-child {
+    margin-right: 20px;
+  }
+
+  // larger than a small screen width
+  @media (min-width: 48rem) {
+    width: 100%;
+    position: static;
+    left: 0;
+
+    li:first-child {
+      margin-left: 0;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
 `
 
 const StyledButton = styled(Button)`
@@ -43,8 +69,7 @@ const StyledButton = styled(Button)`
     border-color: ${props =>
       props.theme.dark ? 'white' : props.theme.global.colors['neutral-1']};
 
-    &:hover:not([aria-selected='true']),
-    &:focus:not([aria-selected='true']) {
+    &:not([aria-selected='true']) {
       background: ${props =>
         props.theme.dark
           ? props.theme.global.colors['dark-5']
@@ -79,7 +104,7 @@ const RightButton = styled(Button)`
   }
 `
 
-const DisciplineButton = ({ option, setDiscipline, value }) => (
+const DisciplineButton = ({ option, handleDiscipline, value }) => (
   <StyledButton
     aria-selected={
       value === 'space' && option.value === 'astronomy'
@@ -104,12 +129,12 @@ const DisciplineButton = ({ option, setDiscipline, value }) => (
         </Text>
       </Box>
     }
-    onClick={() => setDiscipline(option.value)}
+    onClick={() => handleDiscipline(option.value)}
     plain
   />
 )
 
-function DisciplineSelect({ setDiscipline, value }) {
+function DisciplineSelect({ handleDiscipline, value }) {
   const { t } = useTranslation()
   const { dark, global } = useTheme()
 
@@ -214,7 +239,7 @@ function DisciplineSelect({ setDiscipline, value }) {
                 </Text>
               </Box>
             }
-            onClick={() => setDiscipline(null)}
+            onClick={() => handleDiscipline(null)}
             plain
           />
         </li>
@@ -222,7 +247,7 @@ function DisciplineSelect({ setDiscipline, value }) {
           <li key={option.value}>
             <DisciplineButton
               option={option}
-              setDiscipline={setDiscipline}
+              handleDiscipline={handleDiscipline}
               value={value}
             />
           </li>
