@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Edukasi",
+        "faq": "Tanya Jawab",
+        "research": "Riset",
+        "results": "Hasil",
+        "team": "Tim"
+      }
+    },
+    "PageNav": {
+      "title": "Tentang proyek"
+    },
+    "SidebarHeading": "Tentang",
+    "TeamMember": {
+      "collaborator": "Kolaborator",
+      "expert": "Ahli",
+      "moderator": "Moderator",
+      "museum": "Museum",
+      "owner": "Pemilik",
+      "researcher": "Peneliti",
+      "tester": "Tester",
+      "translator": "Penerjemah"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Ada kesalahan di pembuat klasifikasi :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Diskusikan subjek di Bicarakan, atau tambahkan ke Favorit atau koleksi Anda.",
+      "title": "Klasifikasi terbaru Anda"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Tidak, terima kasih",
+      "confirm": "Bawa saya ke alur kerja berikutnya!",
+      "content": "Selamat! Anda bekerja dengan baik, jadi sekarang Anda bisa mengakses alur kerja lainnya. Jika Anda memilih untuk tetap di alur kerja saat ini, Anda bisa tetap di sini.",
+      "dismiss": "Jangan tampilkan ini lagi di sesi ini",
+      "title": "Alur Kerja Baru Tersedia"
+    },
+    "YourStats": {
+      "allTime": "Sepanjang Waktu",
+      "lastSeven": "7 Hari Terakhir",
+      "link": "Lihat selengkapnya",
+      "title": "Status Anda"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Tentang {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Pelajari selengkapnya"
+      },
+      "NotApproved": {
+        "paragraph": "Proyek ini telah dibangun menggunakan Zooniverse Project Builder, tetapi belum menjadi proyek  Zooniverse resmi. Pertanyaan dan masalah terkait dengan proyek ini yang dialihkan ke  Zooniverse Team mungkin tidak mendapatkan tanggapan."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Terhubung dengan tim peneliti di Bicarakan untuk mengetahui selengkapnya tentang proyek ini!",
+      "noMessageButton": "Kunjungi Bicarakan",
+      "title": "Pesan dari peneliti"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Ada kesalahan saat memuat subjek :(",
+        "noSubjects": "Sepertinya belum ada yang berkomentar di subjek. Buka Bicarakan dan jadi yang pertama berkomentar!",
+        "subjectLabel": "Subjek {{id}}"
+      },
+      "button": "Bergabung",
+      "message": "Mengobrol dengan tim peneliti dan sukarelawan lain!",
+      "title": "Pembicaraan Zooniverse"
+    }
+  }
+}
