@@ -1,4 +1,8 @@
-import { Select as GrommetSelect, ResponsiveContext, ThemeContext } from 'grommet'
+import {
+  Select as GrommetSelect,
+  ResponsiveContext,
+  ThemeContext
+} from 'grommet'
 import styled from 'styled-components'
 import { useContext } from 'react'
 
@@ -20,10 +24,7 @@ const options = Object.keys(localeMenu).map(key => {
   return { label, value }
 })
 
-function LanguagesSelect({
-  setLanguages = DEFAULT_HANDLER,
-  value = undefined
-}) {
+function LanguagesSelect({ handleLanguages = DEFAULT_HANDLER, value = 'en' }) {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
 
@@ -31,10 +32,11 @@ function LanguagesSelect({
     <ThemeContext.Extend value={selectTheme}>
       <StyledSelect
         a11yTitle={t('Projects.languages.label')}
+        dropHeight='medium'
         id='languages-filter-projects-page'
         name='Languages'
         labelKey='label'
-        onChange={({ option }) => setLanguages(option.value)}
+        onChange={({ option }) => handleLanguages(option.value)}
         options={options}
         size='medium'
         width={size === 'small' ? '100%' : '180px'}

@@ -21,16 +21,17 @@ const StyledWarning = styled(Text)`
   bottom: 100%;
   left: 10px;
   font-size: 0.875rem;
+  white-space: nowrap;
 `
 
-function SearchBar({ setSearch, value = '' }) {
+function SearchBar({ handleSearch, value = '' }) {
   const { t } = useTranslation()
 
   const [showWarning, setShowWarning] = useState(false)
   const debouncedWarning = useDebounce(showWarning, 800)
 
   useEffect(() => {
-    if (value.length > 0 && value.length < 5) {
+    if (value?.length > 0 && value?.length < 5) {
       setShowWarning(true)
     } else {
       setShowWarning(false)
@@ -52,7 +53,7 @@ function SearchBar({ setSearch, value = '' }) {
         placeholder={
           <Text color='light-5'>{t('Projects.search.placeholder')}</Text>
         }
-        onChange={e => setSearch(e.target.value)}
+        onChange={e => handleSearch(e.target.value)}
         value={value}
       />
       {debouncedWarning ? (
