@@ -19,7 +19,9 @@ export async function getStaticProps({ defaultLocale, locale, params }) {
     return ({
       redirect: {
         destination: `${pathname}/workflow/${props.workflowID}${search}`,
-        permanent: true
+        permanent: false
+        // Do NOT use permanent: true, since the target workflowID can change.
+        // See https://github.com/zooniverse/front-end-monorepo/issues/7193
       }
     })
   }
