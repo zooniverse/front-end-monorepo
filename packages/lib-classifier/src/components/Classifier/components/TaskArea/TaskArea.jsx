@@ -71,6 +71,7 @@ export default function TaskArea({
       <TaskContainer
         data-testid="task-area"
         ref={taskArea}
+        tabIndex={-1}
       >
         <Tabs
           activeIndex={activeIndex}

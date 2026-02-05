@@ -21,10 +21,12 @@ function storeMapper(classifierStore) {
       step.completeAndValidate(annotations)
       next()
 
-      // ensures dom update completes before scrolling back to top of Task Area
       requestAnimationFrame(() => {
         const taskArea = document.querySelector('[data-testid="task-area"]')
-        taskArea?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        taskArea?.focus()
+        if (taskArea?.getBoundingClientRect().top < 0) {
+          taskArea.scrollIntoView({ block: 'start' })
+        }
       })
     }
 
