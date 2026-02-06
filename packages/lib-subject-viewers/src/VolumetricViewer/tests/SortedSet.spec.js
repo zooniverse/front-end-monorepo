@@ -1,4 +1,4 @@
-import { SortedSet } from './../helpers/SortedSet'
+import { SortedSet, SortedSetUnion, SortedSetIntersection } from './../helpers/SortedSet'
 
 describe('Component > VolumetricViewer > SortedSet', () => {
   const testSet1 = SortedSet()
@@ -144,5 +144,40 @@ describe('Component > VolumetricViewer > SortedSet', () => {
     expect(union3n4n2.data).deep.to.equal([1, 3, 5, 7, 9, 11])
     expect(union4n2n3.data).deep.to.equal([1, 3, 5, 7, 9, 11])
     expect(union4n3n2.data).deep.to.equal([1, 3, 5, 7, 9, 11])
+  })
+
+  // Edge cases: undefined/null sets should not crash
+  describe('handles undefined/null sets gracefully', () => {
+    it('SortedSetUnion should filter out undefined sets', () => {
+      const validSet = SortedSet({ data: [1, 2, 3] })
+      const result = SortedSetUnion({ sets: [validSet, undefined, null] })
+      expect(result.data).deep.to.equal([1, 2, 3])
+    })
+
+    it('SortedSetUnion should return empty set when all sets are undefined', () => {
+      const result = SortedSetUnion({ sets: [undefined, null] })
+      expect(result.data).deep.to.equal([])
+    })
+
+    it('SortedSetUnion should return empty set for empty sets array', () => {
+      const result = SortedSetUnion({ sets: [] })
+      expect(result.data).deep.to.equal([])
+    })
+
+    it('SortedSetIntersection should filter out undefined sets', () => {
+      const validSet = SortedSet({ data: [1, 2, 3] })
+      const result = SortedSetIntersection({ sets: [validSet, undefined, null] })
+      expect(result.data).deep.to.equal([1, 2, 3])
+    })
+
+    it('SortedSetIntersection should return empty set when all sets are undefined', () => {
+      const result = SortedSetIntersection({ sets: [undefined, null] })
+      expect(result.data).deep.to.equal([])
+    })
+
+    it('SortedSetIntersection should return empty set for empty sets array', () => {
+      const result = SortedSetIntersection({ sets: [] })
+      expect(result.data).deep.to.equal([])
+    })
   })
 })
