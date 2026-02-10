@@ -66,15 +66,15 @@ function GeoMapViewerContainer ({
   // Initialize the geoDrawing annotation with GeoJSON data
   useEffect(() => {
     const geoAnnotation = latest?.annotations?.find(annotation => annotation?.taskType === 'geoDrawing')
-    if (geoAnnotation && geoJSONData && geoAnnotation.value.length === 0) {
-      geoAnnotation.update([geoJSONData])
+    if (geoAnnotation && geoJSONData && !geoAnnotation.value) {
+      geoAnnotation.update(geoJSONData)
     }
   }, [geoJSONData, latest?.annotations])
 
   function handleFeaturesChange(updatedFeatureCollection) {
     const geoAnnotation = latest?.annotations?.find(annotation => annotation?.taskType === 'geoDrawing')
     if (geoAnnotation && updatedFeatureCollection) {
-      geoAnnotation.update([updatedFeatureCollection])
+      geoAnnotation.update(updatedFeatureCollection)
     }
   }
 
