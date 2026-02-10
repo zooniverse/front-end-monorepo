@@ -233,6 +233,16 @@ export const ModelAnnotations = ({ onAnnotation }) => {
         }
       })
     },
+    // Cleanup
+    dispose: () => {
+      // Clear all annotations to allow garbage collection
+      annotationModel.annotations = []
+      annotationModel.config.activeAnnotation = null
+      annotationModel.config.algorithm = null
+      annotationModel.config.viewer = null
+      annotationModel._listeners = []
+    },
+
     // Listeners
     _listeners: [],
     publish: (eventName, data) => {

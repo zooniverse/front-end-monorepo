@@ -112,14 +112,17 @@ export const Plane = ({
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
   const planeId = useId();
-
-  // Offscreen Canvas for fast rendering
-  const frameCanvas = document.createElement('canvas')
-  frameCanvas.width = viewer.base
-  frameCanvas.height = viewer.base
+  const frameCanvasRef = useRef(null)
 
   // State Change Management through useEffect()
   useEffect(() => {
+    // Create offscreen canvas once
+    if (!frameCanvasRef.current) {
+      frameCanvasRef.current = document.createElement('canvas')
+      frameCanvasRef.current.width = viewer.base
+      frameCanvasRef.current.height = viewer.base
+    }
+
     // Default open the X/0 frame
     setHideCoor(dimension !== 0)
     setExpanded(dimension === 0)
@@ -142,6 +145,9 @@ export const Plane = ({
       }
       viewer.off(`change:dimension-${dimension}:frame`, drawFrame)
       viewer.off('change:threshold', drawFrame)
+
+      // Clean up offscreen canvas
+      frameCanvasRef.current = null
     }
   }, [])
 
@@ -151,8 +157,11 @@ export const Plane = ({
 
   // Functions that do the actual work
   async function drawFrame (e) {
+    // Safety check for unmounted component
+    if (!frameCanvasRef.current || !canvasRef.current) return
+
     // draw to offscreen canvas
-    const context = frameCanvas.getContext('2d')
+    const context = frameCanvasRef.current.getContext('2d')
     const frame = viewer.getPlaneFrame({ dimension })
     frame.forEach((lines, x) => {
       lines.forEach((point, y) => {
@@ -161,19 +170,29 @@ export const Plane = ({
     })
 
     // transfer to screen
-    const data = await window.createImageBitmap(frameCanvas, {
+    const imageBitmap = await window.createImageBitmap(frameCanvasRef.current, {
       resizeWidth: CANVAS_WIDTH,
       resizeHeight: CANVAS_WIDTH,
       resizeQuality: 'pixelated'
     })
 
-    canvasRef.current?.getContext('2d').drawImage(data, 0, 0)
+    canvasRef.current?.getContext('2d').drawImage(imageBitmap, 0, 0)
+
+    // Close ImageBitmap to release memory
+    imageBitmap.close()
 
     // update frame index
     setCurrentFrameIndex(viewer.getPlaneFrameIndex({ dimension }))
   }
 
   function drawPoint ({ context, point, x, y }) {
+    // Safety check for invalid point
+    if (point === undefined || point === null) {
+      context.fillStyle = BACKGROUND_COLOR
+      context.fillRect(x, y, 1, 1)
+      return
+    }
+
     const annotationIndex = viewer.getPointAnnotationIndex({ point })
 
     // Draw points that are not in threshold same color as background
