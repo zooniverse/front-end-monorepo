@@ -65,11 +65,31 @@ function GeoMapViewerContainer ({
 
   // Initialize the geoDrawing annotation with GeoJSON data
   useEffect(() => {
-    const geoAnnotation = latest?.annotations?.find(annotation => annotation.taskType === 'geoDrawing')
-    if (geoAnnotation && geoJSONData && geoAnnotation.value.length === 0) {
-      geoAnnotation.update([geoJSONData])
+    const geoAnnotation = latest?.annotations?.find(annotation => annotation?.taskType === 'geoDrawing')
+    if (geoAnnotation && geoJSONData && !geoAnnotation.value) {
+      geoAnnotation.update(geoJSONData)
     }
   }, [geoJSONData, latest?.annotations])
+
+  function handleFeaturesChange(updatedFeatureCollection) {
+    const geoAnnotation = latest?.annotations?.find(annotation => annotation?.taskType === 'geoDrawing')
+    if (geoAnnotation && updatedFeatureCollection) {
+      geoAnnotation.update(updatedFeatureCollection)
+    }
+  }
+
+  function handleSelectedFeatureChange(featureInfo) {
+    const geoDrawingTask = activeStepTasks.find(task => task?.type === 'geoDrawing')
+    if (!geoDrawingTask) return
+
+    if (featureInfo) {
+      geoDrawingTask.setActiveFeature?.(featureInfo.mstFeature)
+      geoDrawingTask.setActiveOlFeature?.(featureInfo.olFeature)
+    } else {
+      geoDrawingTask.clearActiveFeature?.()
+      geoDrawingTask.clearActiveOlFeature?.()
+    }
+  }
 
   if (loadingState === asyncStates.loading || loading) {
     return null
@@ -85,6 +105,8 @@ function GeoMapViewerContainer ({
       geoDrawingTask={geoDrawingTask}
       geoJSON={geoJSONData}
       subjectId={subject.id}
+      onFeaturesChange={handleFeaturesChange}
+      onSelectedFeatureChange={handleSelectedFeatureChange}
     />
   )
 }
