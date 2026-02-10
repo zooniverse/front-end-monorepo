@@ -1,20 +1,7 @@
 import PointerInteraction from 'ol/interaction/Pointer'
-
 import asMSTFeature from './asMSTFeature'
+import getPixelDistance from './getPixelDistance'
 
-/**
- * Creates an interaction that moves a selected feature to clicked coordinates.
- *
- * When a feature is selected and the user clicks (without dragging) on empty map space,
- * the feature moves to that location. All other interactions (Translate, ModifyUncertainty, pan)
- * continue to work normally.
- *
- * @param {Object} params - Configuration object
- * @param {Select} params.selectInteraction - OpenLayers Select interaction with selected features
- * @param {GeoDrawingTask} params.geoDrawingTask - Mobx-State-Tree task model for updating feature state
- * @param {VectorLayer} params.featuresLayer - OpenLayers VectorLayer containing features
- * @returns {PointerInteraction} - Custom PointerInteraction for moving selected features
- */
 function createMoveToClickInteraction({
   selectInteraction,
   geoDrawingTask,
@@ -42,15 +29,6 @@ function createMoveToClickInteraction({
       { layers: [featuresLayer] }
     )
     return hasFeature
-  }
-
-  /**
-   * Calculate pixel distance
-   */
-  function pixelDistance([x1, y1], [x2, y2]) {
-    const dx = x2 - x1
-    const dy = y2 - y1
-    return Math.sqrt(dx * dx + dy * dy)
   }
 
   /**
@@ -106,7 +84,7 @@ function createMoveToClickInteraction({
 
     // Calculate if this was a drag or a click
     const upPixel = event.pixel
-    const dragDistance = pixelDistance(state.downPixel, upPixel)
+    const dragDistance = getPixelDistance(state.downPixel, upPixel)
     const wasClick = dragDistance < state.dragThreshold
 
     // Only move feature if:
