@@ -32,7 +32,7 @@ const GeoDrawing = types
         id,
         task: self.taskKey,
         taskType: self.type,
-        value: []
+        value: null
       })
     }
   }))

@@ -74,9 +74,8 @@ describe('Model > GeoDrawingTask', function () {
       annotation = task.defaultAnnotation()
     })
 
-    it('should start with an empty array', function () {
-      expect(annotation.value).to.be.an('array')
-      expect(annotation.value.length).to.equal(0)
+    it('should start with a null value', function () {
+      expect(annotation.value).to.equal(null)
     })
 
     it('should update annotations', function () {
@@ -95,9 +94,9 @@ describe('Model > GeoDrawingTask', function () {
           }
         ]
       }
-      annotation.update([geoJSON])
-      expect(annotation.value.length).to.equal(1)
-      expect(annotation.value[0].type).to.equal('FeatureCollection')
+      annotation.update(geoJSON)
+      expect(annotation.value.type).to.equal('FeatureCollection')
+      expect(annotation.value.features.length).to.equal(1)
     })
   })
 })

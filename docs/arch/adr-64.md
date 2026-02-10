@@ -26,23 +26,21 @@ The following is an example of a geoDrawing task annotation value with a geoPoin
 
 ```json
 {
-  "value": [
-    {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [2.2944810, 48.8583701]
-          },
-          "properties": {
-            "name": "Eiffel Tower"
-          }
+  "value": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [2.2944810, 48.8583701]
+        },
+        "properties": {
+          "name": "Eiffel Tower"
         }
-      ]
-    }
-  ],
+      }
+    ]
+  },
   "task": "T0",
   "taskType": "geoDrawing",
   "tool": "geoPoint"

@@ -51,6 +51,16 @@ export default function VolumetricFull ({
     })
 
     setModelState(state)
+
+    // Cleanup function to dispose resources when data changes or component unmounts
+    return () => {
+      if (state.viewer?.dispose) {
+        state.viewer.dispose()
+      }
+      if (state.annotations?.dispose) {
+        state.annotations.dispose()
+      }
+    }
   }, [data])
 
   const isLoading = loadingState === asyncStates.initialized ||

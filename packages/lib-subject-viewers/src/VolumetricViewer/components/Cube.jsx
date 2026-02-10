@@ -39,6 +39,7 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
   const canvasRef = useRef(null)
   const meshPlaneSet = useRef(null)
   const threeRef = useRef({})
+  const animationFrameId = useRef(null)
 
   // State Change management through useEffect()
   useEffect(() => {
@@ -64,6 +65,13 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
     viewer.on('change:threshold', renderPlanePoints)
 
     return () => {
+      // Cancel animation frame
+      if (animationFrameId.current) {
+        window.cancelAnimationFrame(animationFrameId.current)
+        animationFrameId.current = null
+      }
+
+      // Remove event listeners
       if (annotations) {
         annotations.off('active:annotation', renderAnnotations)
         annotations.off('add:annotation', renderAnnotations)
@@ -71,6 +79,41 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
       }
       viewer.off('change:dimension:frame', renderPlanePoints)
       viewer.off('change:threshold', renderPlanePoints)
+
+      // Dispose Three.js resources
+      if (threeRef.current) {
+        // Dispose orbit controls
+        if (threeRef.current.orbit) {
+          threeRef.current.orbit.dispose()
+        }
+
+        // Dispose scene children (geometries, materials)
+        if (threeRef.current.scene) {
+          threeRef.current.scene.traverse((object) => {
+            if (object.geometry) {
+              object.geometry.dispose()
+            }
+            if (object.material) {
+              if (Array.isArray(object.material)) {
+                object.material.forEach(material => material.dispose())
+              } else {
+                object.material.dispose()
+              }
+            }
+          })
+          threeRef.current.scene.clear()
+        }
+
+        // Dispose renderer (don't call forceContextLoss as it prevents context reuse on remount)
+        if (threeRef.current.renderer) {
+          threeRef.current.renderer.dispose()
+        }
+
+        // Clear refs
+        threeRef.current = {}
+      }
+
+      meshPlaneSet.current = null
     }
   }, [])
 
@@ -143,8 +186,11 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
   }
 
   function animate () {
+    // Safety check for unmounted component
+    if (!threeRef.current.lastRender && threeRef.current.lastRender !== 0) return
+
     const lastRender = Date.now() - threeRef.current.lastRender
-    window.requestAnimationFrame(animate)
+    animationFrameId.current = window.requestAnimationFrame(animate)
 
     if (lastRender > FPS_INTERVAL) {
       // throttle to 60fps
@@ -154,6 +200,9 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
   }
 
   function render () {
+    // Safety check for unmounted component
+    if (!threeRef.current.raycaster || !threeRef.current.renderer) return
+
     threeRef.current.raycaster.setFromCamera(
       threeRef.current.mouse,
       threeRef.current.camera
@@ -185,7 +234,7 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
         let point
 
         if (iObj.object.name === 'plane') {
-          point = meshPlaneSet.current.data[iObj.instanceId]
+          point = meshPlaneSet.current?.data?.[iObj.instanceId]
         } else if (iObj.object.name.indexOf('Annotation') === 0) {
           point = annotations.annotations[iObj.object.annotationIndex].points.active[0]
         }
