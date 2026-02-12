@@ -1,9 +1,10 @@
 import { useTranslation } from 'next-i18next'
 
-import { useStores } from '.'
+import { useHasLabAccess, useStores } from '.'
 
 export default function useProjectNavigation(adminMode) {
-  const { isAdmin, isLoggedIn, defaultWorkflow, slug } = useStores()
+  const { isAdmin, isLoggedIn, defaultWorkflow, projectId, slug, userId } = useStores()
+  const hasLabAccess = useHasLabAccess(projectId, userId)
   const { t } = useTranslation('components')
   const classifyHref = defaultWorkflow ? `/${slug}/classify/workflow/${defaultWorkflow}` : `/${slug}/classify`
   const links = [
@@ -31,6 +32,14 @@ export default function useProjectNavigation(adminMode) {
     links.push({
       href: `/projects/${slug}/recents`,
       text: t('ProjectHeader.recents'),
+      externalLink: true // code is in PFE
+    })
+  }
+
+  if (isLoggedIn && hasLabAccess) {
+    links.push({
+      href: `/lab/${projectId}`,
+      text: t('ProjectHeader.lab'),
       externalLink: true // code is in PFE
     })
   }
