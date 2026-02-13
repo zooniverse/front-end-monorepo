@@ -19,7 +19,11 @@ const Transcription = types.model('Transcription', {
 .actions(self => {
   function togglePreviousMarks (option) {
     self.shownMarks = option
-    self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
+    if (self.shownMarks === SHOWN_MARKS.NONE) {
+      self.hiddenMarkIds.replace(self.marks.map(mark => mark.id))
+    } else {
+      self.hiddenMarkIds.clear()
+    }
   }
 
   return {

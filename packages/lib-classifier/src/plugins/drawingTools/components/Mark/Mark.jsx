@@ -97,10 +97,10 @@ const Mark = forwardRef(function Mark(
   }, [usesSubTasks, mark.finished])
 
   useEffect(function onCloseSubTasks() {
-    if (mark.finished && !mark.subTaskVisibility) {
+    if (isActive && mark.finished && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
     }
-  }, [mark.finished, mark.subTaskVisibility])
+  }, [isActive, mark.finished, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
