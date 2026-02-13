@@ -5,9 +5,6 @@ const taskModels = Object.values(tasks).map(task => task.TaskModel)
 
 function taskDispatcher (snapshot) {
   switch (snapshot.type) {
-    case 'dropdown': {
-      return tasks.dropdownSimple.TaskModel
-    }
     case 'dropdown-simple': {
       return tasks.dropdownSimple.TaskModel
     }
@@ -40,6 +37,10 @@ const baseStep = types
       let isValid = self.tasks.every((task) => task.isValid)
 
       return isValid
+    },
+
+    get hasUnsupportedTasks() {
+      return self.taskKeys.length !== self.tasks.length
     },
 
     get isThereBranching () {
