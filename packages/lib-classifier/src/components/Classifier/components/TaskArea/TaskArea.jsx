@@ -69,7 +69,9 @@ export default function TaskArea({
         onClose={enableTasks}
       />
       <TaskContainer
+        data-testid="task-area"
         ref={taskArea}
+        tabIndex={-1}
       >
         <Tabs
           activeIndex={activeIndex}
