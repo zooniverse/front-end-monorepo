@@ -17,7 +17,8 @@ export const Drawing = types.model('Drawing', {
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
   shownMarks: types.optional(types.enumeration(Object.keys(SHOWN_MARKS)), SHOWN_MARKS.ALL),
-  hiddenMarkIds: types.optional(types.array(types.string), []),
+  // This array contains the ID of every mark when the "Show Previous Marks" option is toggled. This will then be used to filter out which marks should be shown or hidden on the Subject Viewer
+  hiddenMarkIds: types.optional(types.array(types.string), []), 
   tools: types.array(GenericTool),
   type: types.literal('drawing')
 })
