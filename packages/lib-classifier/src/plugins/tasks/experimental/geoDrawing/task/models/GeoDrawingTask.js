@@ -20,7 +20,8 @@ const GeoDrawing = types
     type: types.literal('geoDrawing')
   })
   .volatile(() => ({
-    activeOlFeature: null
+    activeOlFeature: null,
+    mapExtentMeters: null
   }))
   .views(self => ({
     get activeTool () {
@@ -86,6 +87,10 @@ const GeoDrawing = types
             self.activeFeature.geometry.coordinates = coordinates
           }
         }
+      },
+
+      setMapExtent(extentInfo) {
+        self.mapExtentMeters = extentInfo
       }
 
       // TODO: reset()
