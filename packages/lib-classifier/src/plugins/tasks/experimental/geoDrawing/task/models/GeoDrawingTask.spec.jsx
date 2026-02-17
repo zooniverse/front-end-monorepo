@@ -99,4 +99,38 @@ describe('Model > GeoDrawingTask', function () {
       expect(annotation.value.features.length).to.equal(1)
     })
   })
+
+  describe('Actions > setMapExtent', function () {
+    let task
+
+    before(function () {
+      task = GeoDrawingTask.create(geoDrawingTask)
+    })
+
+    it('should set mapExtentMeters', function () {
+      const extentInfo = {
+        widthMeters: 10000,
+        heightMeters: 8000,
+        resolution: 1.5
+      }
+      task.setMapExtent(extentInfo)
+      expect(task.mapExtentMeters).to.deep.equal(extentInfo)
+    })
+
+    it('should start with null mapExtentMeters', function () {
+      const newTask = GeoDrawingTask.create(geoDrawingTask)
+      expect(newTask.mapExtentMeters).to.equal(null)
+    })
+
+    it('should update mapExtentMeters when called multiple times', function () {
+      const firstExtent = { widthMeters: 5000, heightMeters: 4000, resolution: 2.0 }
+      const secondExtent = { widthMeters: 15000, heightMeters: 12000, resolution: 1.0 }
+      
+      task.setMapExtent(firstExtent)
+      expect(task.mapExtentMeters).to.deep.equal(firstExtent)
+      
+      task.setMapExtent(secondExtent)
+      expect(task.mapExtentMeters).to.deep.equal(secondExtent)
+    })
+  })
 })
