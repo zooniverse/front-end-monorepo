@@ -17,7 +17,8 @@ export const Drawing = types.model('Drawing', {
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
   shownMarks: types.optional(types.enumeration(Object.keys(SHOWN_MARKS)), SHOWN_MARKS.ALL),
-  hidingIndex: types.maybeNull(types.number),
+  // This array contains the ID of every mark when the "Show Previous Marks" option is toggled. This will then be used to filter out which marks should be shown or hidden on the Subject Viewer
+  hiddenMarkIds: types.optional(types.array(types.string), []), 
   tools: types.array(GenericTool),
   type: types.literal('drawing')
 })
@@ -99,7 +100,7 @@ export const Drawing = types.model('Drawing', {
         self.activeToolIndex = 0
         self.subTaskVisibility = false
         if (self.shownMarks === SHOWN_MARKS.NONE) {
-          self.hidingIndex = 0
+          self.hiddenMarkIds.clear()
           self.shownMarks = SHOWN_MARKS.ALL
         }
       },
@@ -128,7 +129,11 @@ export const Drawing = types.model('Drawing', {
 
       togglePreviousMarks() {
         self.shownMarks = self.shownMarks === SHOWN_MARKS.ALL ? SHOWN_MARKS.NONE : SHOWN_MARKS.ALL
-        self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
+        if (self.shownMarks === SHOWN_MARKS.NONE) {
+          self.hiddenMarkIds.replace(self.marks.map(mark => mark.id))
+        } else {
+          self.hiddenMarkIds.clear()
+        }
       },
 
       validate() {
