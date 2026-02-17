@@ -109,10 +109,10 @@ describe('Model > TranscriptionTask', function () {
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.USER)
       transcriptionTask.togglePreviousMarks(SHOWN_MARKS.NONE)
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
-      expect(transcriptionTask.hidingIndex).to.equal(transcriptionTask.marks.length)
+      expect(transcriptionTask.hiddenMarkIds.length).to.equal(transcriptionTask.marks.length)
       transcriptionTask.togglePreviousMarks(SHOWN_MARKS.ALL)
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
-      expect(transcriptionTask.hidingIndex).to.equal(0)
+      expect(transcriptionTask.hiddenMarkIds.length).to.equal(0)
     })
   })
 
@@ -196,7 +196,7 @@ describe('Model > TranscriptionTask', function () {
     })
     it('should not change the SHOWN_MARKS.USER state', function () {
       expect(task.shownMarks).to.equal(SHOWN_MARKS.USER)
-      expect(task.hidingIndex).to.equal(0)
+      expect(task.hiddenMarkIds.length).to.equal(0)
     })
   })
 })

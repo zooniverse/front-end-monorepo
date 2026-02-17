@@ -295,7 +295,7 @@ describe('Model > DrawingTask', function () {
       expect(drawingTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
       drawingTask.togglePreviousMarks()
       expect(drawingTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
-      expect(drawingTask.hidingIndex).to.equal(marks.length)
+      expect(drawingTask.hiddenMarkIds.length).to.equal(marks.length)
     })
   })
 
@@ -429,7 +429,7 @@ describe('Model > DrawingTask', function () {
 
     it('should reset the hide marks toggle', function () {
       expect(task.shownMarks).to.equal(SHOWN_MARKS.ALL)
-      expect(task.hidingIndex).to.eql(0)
+      expect(task.hiddenMarkIds.length).to.equal(0)
     })
   })
 

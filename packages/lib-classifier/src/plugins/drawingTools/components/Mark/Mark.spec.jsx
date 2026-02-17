@@ -152,6 +152,7 @@ describe('Drawing tools > Mark', function () {
           </svg>, { wrapper: withGrommetWrapper() }
         )
         point.setSubTaskVisibility(false)
+        await user.tab()
         await user.keyboard('{Enter}')
         await when(() => point.subTaskVisibility)
       })
@@ -191,6 +192,7 @@ describe('Drawing tools > Mark', function () {
           </svg>, { wrapper: withGrommetWrapper() }
         )
         point.setSubTaskVisibility(false)
+        await user.tab()
         await user.keyboard('{ }')
         await when(() => point.subTaskVisibility)
       })
