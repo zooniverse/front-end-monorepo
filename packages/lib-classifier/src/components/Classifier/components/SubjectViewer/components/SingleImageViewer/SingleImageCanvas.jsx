@@ -1,5 +1,5 @@
 import { arrayOf, bool, number, shape, string } from 'prop-types'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
@@ -23,6 +23,11 @@ function SingleImageCanvas({
   transformMatrix,
 }) {
   const canvasLayer = useRef()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
 
@@ -52,7 +57,7 @@ function SingleImageCanvas({
                 src={src}
                 subjectID={subject?.id}
               />
-              {enableInteractionLayer && (
+              {isMounted && enableInteractionLayer && (
                 <InteractionLayer
                   frame={frame}
                   height={naturalHeight}
