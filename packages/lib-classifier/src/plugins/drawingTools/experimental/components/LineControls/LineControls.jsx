@@ -233,6 +233,7 @@ const LineControls = forwardRef(function LineControls({
               color={icon.color}
               size={`${icon.size}px`}
               focusable='false'
+              pointerEvents='none'
             />
           </svg>
         </g>
