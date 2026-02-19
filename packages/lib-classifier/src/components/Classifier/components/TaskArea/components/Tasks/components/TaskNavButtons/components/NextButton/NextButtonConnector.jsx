@@ -20,6 +20,14 @@ function storeMapper(classifierStore) {
     function onClick() {
       step.completeAndValidate(annotations)
       next()
+
+      requestAnimationFrame(() => {
+        const taskArea = document.querySelector('.classifier-task-area')
+        taskArea?.focus()
+        if (taskArea?.getBoundingClientRect().top < 0) {
+          taskArea.scrollIntoView({ block: 'start' })
+        }
+      })
     }
 
     return {

@@ -96,7 +96,12 @@ export const ModelViewer = () => {
       return pointModel.planeFrameActive[dimension]
     },
     getPlaneSet: ({ dimension = 0, frame = 0 }) => {
-      return pointModel.planesAbsoluteSets[dimension][frame]
+      // Return empty SortedSet if dimension or frame is out of bounds
+      const dimensionSets = pointModel.planesAbsoluteSets[dimension]
+      if (!dimensionSets || frame < 0 || frame >= dimensionSets.length) {
+        return SortedSet({ data: [] })
+      }
+      return dimensionSets[frame] ?? SortedSet({ data: [] })
     },
     getPointAnnotationIndex: ({ point }) => {
       if (point === undefined || point === null || !pointModel.points[point]) {
