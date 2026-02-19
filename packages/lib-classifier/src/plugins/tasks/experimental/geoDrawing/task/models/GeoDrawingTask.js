@@ -77,6 +77,15 @@ const GeoDrawing = types
           self.activeOlFeature.set('uncertainty_radius', intRadius)
           self.activeOlFeature.changed?.()
         }
+      },
+
+      setActiveFeatureGeometry(geometry) {
+        if (self.activeFeature?.geometry && geometry) {
+          const coordinates = geometry.getCoordinates?.()
+          if (coordinates) {
+            self.activeFeature.geometry.coordinates = coordinates
+          }
+        }
       }
 
       // TODO: reset()
