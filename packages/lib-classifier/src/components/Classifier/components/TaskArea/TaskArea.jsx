@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { bool, func, shape, string } from 'prop-types'
+import { bool, func, number, shape, string } from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
@@ -21,10 +21,12 @@ The tabbed tasks area of the classifier, with tabs for the tutorial and active t
 export default function TaskArea({
   alreadySeen,
   className,
+  currentStepIndex = 1,
   disableTutorialTab = true,
   setActiveTutorial = () => true,
   retired,
   subject,
+  totalSteps = 1,
   tutorial = null,
   workflow = {
     hasIndexedSubjects: false
@@ -69,8 +71,10 @@ export default function TaskArea({
         onClose={enableTasks}
       />
       <TaskContainer
-        data-testid="task-area"
+        aria-label={`Task area: Step ${currentStepIndex} of ${totalSteps}`}
+        className="classifier-task-area"
         ref={taskArea}
+        role="region"
         tabIndex={-1}
       >
         <Tabs
@@ -107,6 +111,8 @@ export default function TaskArea({
 TaskArea.propTypes = {
   /** Optional CSS classes */
   className: string,
+  /** The current step index (1-based) */
+  currentStepIndex: number,
   /** disable the tutorial tab */
   disableTutorialTab: bool,
   /** select an active tutorial */
@@ -117,6 +123,8 @@ TaskArea.propTypes = {
     id: string,
     retired: bool
   }),
+  /** Total number of steps in the workflow */
+  totalSteps: number,
   /** the active workflow */
   workflow: shape({
     hasIndexedSubjects: bool

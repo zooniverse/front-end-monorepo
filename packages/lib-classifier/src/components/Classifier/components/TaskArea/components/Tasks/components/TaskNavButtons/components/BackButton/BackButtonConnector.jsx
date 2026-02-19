@@ -15,7 +15,7 @@ function storeMapper(classifierStore) {
       back()
 
       requestAnimationFrame(() => {
-        const taskArea = document.querySelector('[data-testid="task-area"]')
+        const taskArea = document.querySelector('.classifier-task-area')
         taskArea?.focus()
         if (taskArea?.getBoundingClientRect().top < 0) {
           taskArea.scrollIntoView({ block: 'start' })
