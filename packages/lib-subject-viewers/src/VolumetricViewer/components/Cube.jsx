@@ -261,6 +261,9 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
   function renderPlanePoints () {
     // const t0 = performance.now()
 
+    // Guard against disposed or uninitialized viewer/component
+    if (!viewer || viewer.base <= 0 || !threeRef.current?.meshPlane) return
+
     const frames = viewer.planeFrameActive
     const sets = frames.map((frame, dimension) =>
       viewer.getPlaneSet({ dimension, frame })
@@ -268,9 +271,12 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
 
     meshPlaneSet.current = SortedSetUnion({ sets })
 
+    const meshPlane = threeRef.current?.meshPlane
+    if (!meshPlane) return
+
     meshPlaneSet.current.data.forEach((point, index) => {
       drawMeshPoint({
-        mesh: threeRef.current.meshPlane,
+        mesh: meshPlane,
         meshPointIndex: index,
         point
       })
@@ -279,8 +285,8 @@ export const Cube = ({ annotations, tool, viewer, orbitControlsEnabled = true })
 
     renderPlaneOutline({ frames })
 
-    threeRef.current.meshPlane.instanceMatrix.needsUpdate = true
-    threeRef.current.meshPlane.instanceColor.needsUpdate = true
+    if (meshPlane.instanceMatrix) meshPlane.instanceMatrix.needsUpdate = true
+    if (meshPlane.instanceColor) meshPlane.instanceColor.needsUpdate = true
   }
 
   function renderPlaneOutline ({ frames }) {

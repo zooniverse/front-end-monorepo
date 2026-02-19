@@ -24,7 +24,7 @@ function storeMapper(classifierStore) {
   const {
     activeTool,
     activeToolIndex,
-    hidingIndex,
+    hiddenMarkIds,
     marks,
     setActiveMark,
     shownMarks,
@@ -40,7 +40,7 @@ function storeMapper(classifierStore) {
     activeToolIndex,
     annotation,
     disabled,
-    hidingIndex,
+    hiddenMarkIds,
     marks,
     move,
     multiImageCloneMarkers,
@@ -58,7 +58,7 @@ export function InteractionLayerContainer({
   disabled = false,
   frame = 0,
   height,
-  hidingIndex,
+  hiddenMarkIds = [],
   marks = [],
   move = false,
   multiImageCloneMarkers = false,
@@ -69,8 +69,9 @@ export function InteractionLayerContainer({
   played,
   duration
 }) {
+  const hiddenSet = shownMarks === SHOWN_MARKS.NONE ? new Set(hiddenMarkIds) : null
   const newMarks =
-    shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+    hiddenSet ? marks.filter(mark => !hiddenSet.has(mark.id)) : marks
   const visibleMarksPerFrame = (multiImageCloneMarkers)
     ? newMarks
     : newMarks?.filter((mark) => mark.frame === frame)
