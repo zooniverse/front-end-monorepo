@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Tafuta mradi mpya wa kugundua",
+    "heading": "Hakuna kitu hapa.",
+    "message": "Ukurasa unaotafuta haupo tena.",
+    "returnHome": "Rudi kwenye ukurasa wa kwanza"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Tafadhali ingia katika akaunti au jiandikishe ili ufuatilie michango yako",
+      "register": "jiandikishe",
+      "signIn": "ingia katika akaunti"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Umekamilika! Inaonekana mradi huu hauna data kwa sasa!",
+      "seeResults": "Angalia Matokeo"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Tayarisha na uweke",
+      "label": "Tayarisha mkusanyiko mpya",
+      "private": "Mkusanyiko wa kibinafsi"
+    },
+    "SelectCollection": {
+      "addButton": "Weka",
+      "label": "Weka kwenye mkusanyiko uliopo"
+    },
+    "title": "Weka kwenye mkusanyiko"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Njia",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Tovuti",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Jiunge na {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse ni mfumo mkubwa na maarufu zaidi duniani wa utafiti unaoendeshwa na watu.",
+    "defaultTitle": "Miradi",
+    "siteName": "Zooniverse - Utafiti unaoendeshwa na watu"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Imeidhinishwa na Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Picha ya mradi wa {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Badilisha Lugha"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Mradi"
+    },
+    "UnderReviewLabel": {
+      "underReview": "inakaguliwa"
+    },
+    "about": "Kuhusu",
+    "admin": "Ukurasa wa msimamizi",
+    "classify": "Ainisha",
+    "collect": "Kusanya",
+    "exploreProject": "Gundua Mradi",
+    "organization": "Kutoka kwa shirika:",
+    "recents": "Za hivi majuzi",
+    "talk": "Talk"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Kulingana na namba",
+    "classifications": "Uainishaji",
+    "completedSubjects": "Picha zilizokamilika",
+    "percentComplete": "Imefika asilimia",
+    "subjects": "Picha",
+    "subtitle": "Fuatilia maendeleo ambayo wewe na wenzako wa kujitolea mmefanya kwenye mradi huu.",
+    "text": "Kila mbofyo unachangia! Jiunge na Jumuiya ya {{projectName}} ili ukamilishe mradi huu na usaidie watafiti watoa matokeo muhimu. Bofya \"Angalia takwimu zaidi\" ili uone takwimu hata zaidi.",
+    "title": "Takwimu za {{projectName}}",
+    "viewMoreStats": "Angalia takwimu zaidi",
+    "volunteers": "Watu wa kujitolea"
+  },
+  "RequireUser": {
+    "text": "Unatakiwa uwe umeingia katika akaunti!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Kichwa cha tovuti ya Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Tayari umeona",
+    "back": "Chagua seti tofauti ya picha",
+    "byline": "Panga orodha kwa kubofya majina ya safuwima. Utaona picha kwa mfuatano, anza na unayopenda.",
+    "fetching": "Tafadhali subiri...",
+    "heading": "Chagua picha ili uaze",
+    "retired": "Imeondolewa",
+    "unclassified": "Inapatikana"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Weka kwenye mikusanyiko"
+    },
+    "TalkLink": {
+      "label": "Jadili kwenye Talk"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Imekamilika"
+    },
+    "back": "Chagua mtiririko tofauti wa kazi",
+    "byline": "Chagua seti ya picha ili uanze kunukuu.",
+    "heading": "Chagua pa kuanzia"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "Imefika {{completeness}}%",
+      "setSelection": "uteuzi wa seti",
+      "subjectSelection": "uteuzi wa picha"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "umefungwa",
+      "unlocked": "umefunguliwa"
+    },
+    "error": "Hitilafu imetokea wakati wa kuleta mitiririko ya kazi :(",
+    "getStarted": "Anza!",
+    "message": "Unaweza kufanya utafiti wa kweli kwa kubofya hapa ili uanze!",
+    "noWorkflows": "Hakuna cha kuainisha"
+  }
+}

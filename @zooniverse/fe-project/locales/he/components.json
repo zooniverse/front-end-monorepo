@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "חפשו פרויקט חדש כדי לחקור אותו",
+    "heading": "שום דבר כאן.",
+    "message": "הדף שחיפשת כבר לא קיים.",
+    "returnHome": "חזרה לדף הבית"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "התחברו או הירשמו כדי לעקוב אחר התרומות שלכם.",
+      "register": "הרשמה",
+      "signIn": "כניסה"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "הסתיים! נראה שלפרויקט הזה אין נתונים כרגע!",
+      "seeResults": "עיינו בתוצאות"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "יוצרים ומוסיפים",
+      "label": "יצירת אוסף חדש",
+      "private": "אוסף פרטי"
+    },
+    "SelectCollection": {
+      "addButton": "הוסף",
+      "label": "הוסף לאוסף הנוכחי"
+    },
+    "title": "הוסף לאוסף"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "ביטבוקס",
+        "bluesky": "בלוסקיי",
+        "facebook": "פייסבוק",
+        "github": "גיטהאב",
+        "instagram": "אינסטגרם",
+        "mastodon": "מסטודון",
+        "medium": "Medium",
+        "pinterest": "פינטרסט",
+        "reddit": "רדיט",
+        "tumblr": "טאמבלר",
+        "twitter": "טוויטר",
+        "website": "אתר אינטרנט",
+        "weibo": "Weibo",
+        "wordpress": "וורדפרס",
+        "youtube": "יוטיוב"
+      }
+    },
+    "title": "התחברו ל {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse היא הפלטפורמה הגדולה והפופולרית בעולם למחקר בהשתתפות הציבור.",
+    "defaultTitle": "פרויקטים",
+    "siteName": "Zooniverse - מחקר בהשתתפות הציבור"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zoouniverse אושר"
+    },
+    "Avatar": {
+      "alt": "דמות הפרויקט עבור{{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "שינוי שפה"
+    },
+    "ProjectNav": {
+      "ariaLabel": "פרויקט"
+    },
+    "UnderReviewLabel": {
+      "underReview": "בבדיקה"
+    },
+    "about": "אודות",
+    "admin": "עמוד ניהול",
+    "classify": "קיטלוג",
+    "collect": "אוספים",
+    "exploreProject": "גלו פרויקט",
+    "organization": "מהארגון:",
+    "recents": "לאחרונה",
+    "talk": "שיחה"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "לפי המספרים",
+    "classifications": "סיווגים",
+    "completedSubjects": "נושאים שהושלמו",
+    "percentComplete": "אחוזים שהושלמו",
+    "subjects": "פריטים",
+    "subtitle": "עקבו אחר ההתקדמות שלכם ושל שאר המתנדבים בפרויקט.",
+    "text": "כל לחיצה עוזרת! הצטרפו לקהילת {{projectName}} כדי לקדם אותו ולסייע לחוקרים להגיע לתובנות חשובות. לחצו על \"הצגת נתונים נוספים\" כדי לראות פרטים נוספים.",
+    "title": "סטטיסטיקת {{projectName}}",
+    "viewMoreStats": "הצגת נתונים סטטיסטיים נוספים",
+    "volunteers": "משתתפים"
+  },
+  "RequireUser": {
+    "text": "אתם חייבים להיות מחוברים!"
+  },
+  "StandardLayout": {
+    "headerLabel": "כותרת האתר של Zooniverse "
+  },
+  "SubjectPicker": {
+    "alreadySeen": "כבר נראה",
+    "back": "בחרו ערכת נושא אחרת",
+    "byline": "מינו את הרשימה על ידי לחיצה על שמות העמודות. הנושאים יופיעו בסדר רציף החל מהנושא שתבחרו.",
+    "fetching": "אנא המתן...",
+    "heading": "בחרו נושא כדי להתחיל",
+    "retired": "פנסיונר",
+    "unclassified": "זמין"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "הוסף לאוספים"
+    },
+    "TalkLink": {
+      "label": "דיון ב-Talk"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "הסתיים"
+    },
+    "back": "בחרו זרימת עבודה אחרת",
+    "byline": "בחרו ערכת נושא כדי להתחיל לתמלל.",
+    "heading": "בחרו היכן להתחיל"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% הושלם",
+      "setSelection": "הגדרת בחירה",
+      "subjectSelection": "בחירת נושא"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "נעול",
+      "unlocked": "לא נעול"
+    },
+    "error": "אירעה שגיאה בעת אחזור זרימות העבודה :(",
+    "getStarted": "בואו נתחיל!",
+    "message": "תוכלו להתחיל את המחקר שלכם בלחיצה כאן!",
+    "noWorkflows": "אין מה לסווג"
+  }
+}

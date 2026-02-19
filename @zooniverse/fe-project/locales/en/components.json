@@ -1,0 +1,141 @@
+{
+  "404": {
+    "heading": "Nothing here.",
+    "message": "The page you’re looking for cannot be found. If you are having trouble accessing pages for a particular project, please email <0>contact@zooniverse.org</0> for assistance.",
+    "returnHome": "Return to the homepage",
+    "findNewProject": "Find a new project to explore"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Please sign in or sign up to track your contributions.",
+      "register": "register",
+      "signIn": "sign in"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Finished! Looks like this project is out of data at the moment!",
+      "seeResults": "See Results"
+    }
+  },
+  "CollectionsModal": {
+    "title": "Add to collection",
+    "CreateCollection": {
+      "label": "Create a new collection",
+      "createButton": "Create and add",
+      "private": "Private collection"
+    },
+    "SelectCollection": {
+      "label": "Add to an existing collection",
+      "addButton": "Add"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Connect with {{projectName}}",
+    "ProjectLink": {
+      "types": {
+        "bluesky": "BlueSky",
+        "bitbucket": "Bitbucket",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Website",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    }
+  },
+  "Head": {
+    "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
+    "defaultTitle": "Projects",
+    "siteName": "Zooniverse - People-powered research"
+  },
+  "ProjectHeader": {
+    "about": "About",
+    "classify": "Classify",
+    "exploreProject": "Explore Project",
+    "talk": "Talk",
+    "collect": "Collect",
+    "recents": "Recents",
+    "admin": "Admin page",
+    "organization": "From the organization:",
+    "ApprovedIcon": {
+      "title": "Zooniverse Approved"
+    },
+    "Avatar": {
+      "alt": "Project avatar for {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Change Language"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Project"
+    },
+    "UnderReviewLabel": {
+      "underReview": "under review"
+    }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "By the numbers",
+    "classifications": "Classifications",
+    "completedSubjects": "Completed subjects",
+    "percentComplete": "Percent complete",
+    "subjects": "Subjects",
+    "subtitle": "Keep track of the progress you and your fellow volunteers have made on this project.",
+    "text": "Every click counts! Join {{projectName}}'s community to complete this project and help researchers produce important results. Click \"View more stats\" to see even more stats.",
+    "title": "{{projectName}} Statistics",
+    "viewMoreStats": "View more stats",
+    "volunteers": "Volunteers"
+  },
+  "RequireUser": {
+    "text": "You need to be signed in!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse site header"
+  },
+  "SubjectPicker": {
+    "back": "Choose a different subject set",
+    "heading": "Choose a subject to get started",
+    "byline": "Sort the list by clicking column names. You will see subjects sequentially, starting with the one you choose.",
+    "alreadySeen": "Already seen",
+    "retired": "Retired",
+    "unclassified": "Available",
+    "fetching": "Please wait..."
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Add to collections"
+    },
+    "TalkLink": {
+      "label": "Discuss on Talk"
+    }
+  },
+  "SubjectSetPicker": {
+    "back": "Choose a different workflow",
+    "heading": "Choose where to start",
+    "byline": "Choose a subject set to start transcribing.",
+    "SubjectSetCard": {
+      "isComplete": "Finished"
+    }
+  },
+  "WorkflowSelector": {
+    "getStarted": "Get Started!",
+    "error": "There was an error fetching the workflows :(",
+    "message": "You can do real research by clicking to get started here!",
+    "noWorkflows": "Nothing to classify",
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% complete",
+      "setSelection": "set selection",
+      "subjectSelection": "subject selection"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "locked",
+      "unlocked": "unlocked"
+    }
+  }
+}

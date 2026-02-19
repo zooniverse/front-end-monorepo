@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Trova un nuovo progetto da esplorare",
+    "heading": "Qui non c'è nulla.",
+    "message": "La pagina che stai cercando non esiste più.",
+    "returnHome": "Torna alla pagina iniziale"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Accedi o registrati per monitorare i tuoi contributi",
+      "register": "Registrazione",
+      "signIn": "Login"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Finito! Sembra che il progetto non abbia altri dati al momento!",
+      "seeResults": "Vedi risultati"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Crea e aggiungi",
+      "label": "Crea una nuova collezione",
+      "private": "Collezione privata"
+    },
+    "SelectCollection": {
+      "addButton": "Aggiungi",
+      "label": "Aggiungi a una collezione esistente"
+    },
+    "title": "Aggiungi alla collezione"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Sito web",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Links"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse è la più grande e rinomata piattaforma al mondo per la ricerca sostenuta dalle persone.",
+    "defaultTitle": "Progetti",
+    "siteName": "Zooniverse - Ricerca sostenuta dalle persone"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Approvato da Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Avatar del progetto per {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Cambia Lingua"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Progetto"
+    },
+    "UnderReviewLabel": {
+      "underReview": "in revisione"
+    },
+    "about": "A proposito",
+    "admin": "Pagina di amministrazione",
+    "classify": "Classifica",
+    "collect": "Colleziona",
+    "exploreProject": "Esplora il progetto",
+    "organization": "Dall'organizzazione:",
+    "recents": "Recenti",
+    "talk": "Forum"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "In numeri",
+    "classifications": "Contributi",
+    "completedSubjects": "Oggetti completati",
+    "percentComplete": "Percentuale completata",
+    "subjects": "Oggetti",
+    "subtitle": "Monitora i tuoi progressi e quelli degli altri volontari in questo progetto.",
+    "text": "Ogni clic conta! Entra nella community di {{projectName}} per completare questo progetto e aiutare i ricercatori a ottenere risultati importanti. Premi \"Mostra altre statistiche\" per vedere ancora più statistiche.",
+    "title": "Statistiche {{projectName}}",
+    "viewMoreStats": "Mostra altre statistiche",
+    "volunteers": "Volontari"
+  },
+  "RequireUser": {
+    "text": "Non sei autenticato"
+  },
+  "StandardLayout": {
+    "headerLabel": "Intestazione del sito Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Già visto",
+    "back": "Scegli un'altra serie di oggetti",
+    "byline": "Ordina la lista cliccando sui nomi delle colonne. Vedrai gli oggetti in sequenza a partire da quello scelto.",
+    "fetching": "Attendi...",
+    "heading": "Scegli un oggetto per iniziare",
+    "retired": "Ritirato",
+    "unclassified": "Disponibile"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Aggiungi alle collezioni"
+    },
+    "TalkLink": {
+      "label": "Parlane nel Forum"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Terminato"
+    },
+    "back": "Scegli un altro flusso di lavoro",
+    "byline": "Scegli una serie di oggetti per iniziare la trascrizione.",
+    "heading": "Scegli da dove iniziare"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% completato",
+      "setSelection": "selezione serie",
+      "subjectSelection": "selezione oggetto"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "bloccati",
+      "unlocked": "sbloccati"
+    },
+    "error": "Errore durante il recupero dei flussi di lavoro :(",
+    "getStarted": "Inizia!",
+    "message": "Clicca qui per iniziare a fare vera ricerca!",
+    "noWorkflows": "Nulla a cui contribuire"
+  }
+}

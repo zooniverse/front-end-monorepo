@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Keşfedilecek yeni bir proje bulun",
+    "heading": "Burada hiçbir şey yok.",
+    "message": "Aradığınız sayfa artık mevcut değil.",
+    "returnHome": "Ana sayfaya dön"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Katkılarınızı takip etmek için lütfen oturum açın veya kaydolun.",
+      "register": "Kayıt ol",
+      "signIn": "Giriş yap"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Bitti! Görünüşe göre bu projede veri kalmadı!",
+      "seeResults": "Sonuçları Gör"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Oluşturun ve ekleyin",
+      "label": "Yeni bir koleksiyon oluşturun",
+      "private": "Özel koleksiyon"
+    },
+    "SelectCollection": {
+      "addButton": "Ekle",
+      "label": "Mevcut bir koleksiyona ekle"
+    },
+    "title": "Koleksiyona ekle"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Web sitesi",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "{{projectName}} ile bağlan"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse, insan destekli araştırma için dünyanın en büyük ve en popüler platformudur.",
+    "defaultTitle": "Projeler",
+    "siteName": "Zooniverse - İnsan destekli araştırma"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zooniverse Onaylı"
+    },
+    "Avatar": {
+      "alt": "{{project}} için proje avatarı"
+    },
+    "LocaleSwitcher": {
+      "label": "Dil Değiştir"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Proje"
+    },
+    "UnderReviewLabel": {
+      "underReview": "İnceleme altında"
+    },
+    "about": "Hakkımızda",
+    "admin": "Yönetici sayfası",
+    "classify": "Sınıflandırma",
+    "collect": "Koleksiyon",
+    "exploreProject": "Projeyi Keşfet",
+    "organization": "Şu kuruluştan:",
+    "recents": "Son bilgiler",
+    "talk": "Sohbet"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Sayılara göre",
+    "classifications": "Sınıflandırmalar",
+    "completedSubjects": "Tamamlanan Konular",
+    "percentComplete": "Tamamlanan yüzde",
+    "subjects": "Konular",
+    "subtitle": "Sizin ve gönüllü arkadaşlarınızın bu projede kaydettiği ilerlemeyi takip edin.",
+    "text": "Her tıklama önemlidir! Bu projeyi tamamlamak ve araştırmacıların önemli sonuçlar üretmesine yardımcı olmak için {{projectName}} topluluğuna katılın.",
+    "title": "{{projectName}} İstatistikleri",
+    "viewMoreStats": "Daha fazla istatistik görüntüleyin",
+    "volunteers": "Gönüllüler"
+  },
+  "RequireUser": {
+    "text": "Oturum açmanız gerekiyor!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse site başlığı"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Daha önce görüldü",
+    "back": "Farklı bir görüntü  seti seçin",
+    "byline": "Sütun adlarını tıklayarak listeyi sıralayın. Seçtiğiniz  başlayarak, görüntüleri sırayla göreceksiniz.",
+    "fetching": "Lütfen bekleyin...",
+    "heading": "Başlamak için bir görüntü  seçin",
+    "retired": "Sistemden kaldırıldı",
+    "unclassified": "Mevcut"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Koleksiyonlara ekle"
+    },
+    "TalkLink": {
+      "label": "Sohbette Tartışın"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Bitti"
+    },
+    "back": "Farklı bir iş akışı seçin",
+    "byline": "Transkripsiyona başlamak için bir görüntü  seti seçin.",
+    "heading": "Nereden başlayacağınızı seçin"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}} % tamamlandı",
+      "setSelection": "Görüntü  seti seçimi",
+      "subjectSelection": "Görüntü seçimi"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "Kilitli",
+      "unlocked": "Kilitli değil"
+    },
+    "error": "İş akışları getirilirken bir hata oluştu :(",
+    "getStarted": "Başlayın!",
+    "message": "Başlamak için buraya tıklayarak gerçek bir araştırma yapabilirsiniz!",
+    "noWorkflows": "Sınıflandırılacak bir şey yok"
+  }
+}

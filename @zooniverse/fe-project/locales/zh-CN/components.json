@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "查找可探索的新项目",
+    "heading": "这里什么都没有。",
+    "message": "您所查找的页面已不存在。",
+    "returnHome": "返回主页"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "请登录或注册以跟踪您完成的工作。",
+      "register": "注册",
+      "signIn": "登录"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "已完成！当前该项目暂无新数据！",
+      "seeResults": "查看结果"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "创建并添加",
+      "label": "创建新合集",
+      "private": "私人合集"
+    },
+    "SelectCollection": {
+      "addButton": "添加",
+      "label": "添加至现有合集"
+    },
+    "title": "添加至合集"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "网站",
+        "weibo": "微博",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "连接 {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse 是世界上规模最大且最受欢迎的众创科研平台。",
+    "defaultTitle": "项目",
+    "siteName": "Zooniverse - 众创科研"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Zooniverse 已批准"
+    },
+    "Avatar": {
+      "alt": "{{project}} 的项目头像"
+    },
+    "LocaleSwitcher": {
+      "label": "更改语言"
+    },
+    "ProjectNav": {
+      "ariaLabel": "项目"
+    },
+    "UnderReviewLabel": {
+      "underReview": "正在审核中"
+    },
+    "about": "关于",
+    "admin": "管理员页面",
+    "classify": "分类",
+    "collect": "收藏",
+    "exploreProject": "探索项目",
+    "organization": "来自该组织：",
+    "recents": "最近",
+    "talk": "讨论"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "按数字",
+    "classifications": "分类",
+    "completedSubjects": "已完成主体",
+    "percentComplete": "完成百分比",
+    "subjects": "主体",
+    "subtitle": "跟踪您和其他志愿者在这个项目上所取得的进展。",
+    "text": "每一次点击都很重要！加入 {{projectName}} 的社区来完成此项目，并帮助研究人员得出重要结果。点击“查看更多统计数据”以了解更多统计信息。",
+    "title": "{{projectName}} 统计数据",
+    "viewMoreStats": "查看更多统计数据",
+    "volunteers": "志愿者"
+  },
+  "RequireUser": {
+    "text": "您需要登录！"
+  },
+  "StandardLayout": {
+    "headerLabel": "Zooniverse 站点标题"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "已查看",
+    "back": "选择不同的主体集",
+    "byline": "通过点击列名称对列表进行排序。您将按顺序查看各个主体，从您所选择的那个开始。",
+    "fetching": "请等待...",
+    "heading": "选择一个主体以开始",
+    "retired": "已停用",
+    "unclassified": "可用"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "添加至合集"
+    },
+    "TalkLink": {
+      "label": "在 Talk 上讨论"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "已完成"
+    },
+    "back": "选择不同的工作流程",
+    "byline": "选择一个主体集开始转录。",
+    "heading": "选择从何处开始"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "已完成 {{completeness}}%",
+      "setSelection": "集选择",
+      "subjectSelection": "主体选择"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "已锁定",
+      "unlocked": "已解锁"
+    },
+    "error": "获取工作流程时出现错误 :(",
+    "getStarted": "开始！",
+    "message": "您可通过点击这里开始实际研究！",
+    "noWorkflows": "没有可供分类的内容"
+  }
+}

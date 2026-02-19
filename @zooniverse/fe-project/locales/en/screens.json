@@ -1,0 +1,129 @@
+{
+  "About": {
+    "PageNav": {
+      "title": "About the project"
+    },
+    "PageHeading": {
+      "title": {
+        "research": "Research",
+        "team": "The Team",
+        "results": "Results",
+        "education": "Education",
+        "faq": "FAQ"
+      }
+    },
+    "SidebarHeading": "About",
+    "TeamMember": {
+      "admin": "Zooniverse Team",
+      "owner": "Owner",
+      "collaborator": "Collaborator",
+      "translator": "Translator",
+      "researcher": "Researcher",
+      "moderator": "Moderator",
+      "tester": "Tester",
+      "expert": "Expert",
+      "museum": "Museum"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "About {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Learn more"
+      },
+      "NotApproved": {
+        "paragraph": "This project has been built using the Zooniverse Project Builder but is not yet an official Zooniverse project. Queries and issues relating to this project directed at the Zooniverse Team may not receive any response."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Connect with the research team on Talk to learn more about this project!",
+      "noMessageButton": "Go to Talk",
+      "title": "Message from the researcher"
+    },
+    "ZooniverseTalk": {
+      "button": "Join in",
+      "message": "Chat with the research team and other volunteers!",
+      "title": "Zooniverse Talk",
+      "RecentSubjects": {
+        "error": "There was an error loading the subjects :(",
+        "noSubjects": "It looks like no-one's commented on a subject yet. Go to Talk and be the first!",
+        "subjectLabel": "Subject {{id}}"
+      }
+    }
+  },
+  "Classify" :{
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "There was an error in the classifier :("
+      }
+    },
+    "RecentSubjects": {
+      "title": "Your recent classifications"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, thanks",
+      "confirm": "Take me to the next workflow!",
+      "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
+      "dismiss": "Don't show this again this session",
+      "title": "New Workflow Available"
+    },
+    "YourStats": {
+      "allTime": "All Time",
+      "lastSeven": "Last 7 Days",
+      "link": "See more",
+      "title": "Your Stats"
+    }
+  },
+  "Talk": {
+    "ancillaryData": "Ancillary Data",
+    "ancillaryDataTip": "This is ancillary data about the subject you're viewing. For more information on this, please see the About page.",
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "comment",
+      "goToComment": "Go to comment",
+      "reply": "In reply to",
+      "userDisplayNamePossessive": "{{userDisplayName}}'s"
+    },
+    "Discussions": {
+      "addComment": "Add your comment",
+      "commentMessage": "To respond to a specific comment, click on that comment to go to the discussion.",
+      "comments": "Comments",
+      "commentsViewing": "Viewing {{count}} of {{total}} comments",
+      "discussions": "{{count}} Discussions",
+      "discussionBoard": "Discussion Board",
+      "discussionTitle": "Discussion Title",
+      "initialComment": "Initial Comment",
+      "newComment": "New Comment",
+      "noDiscussions": "No Discussions",
+      "oneDiscussion": "1 Discussion",
+      "participants": "Participants",
+      "sortBy": "Sort by",
+      "sortedNewestFirst": "Newest first",
+      "sortedOldestFirst": "Oldest first",
+      "startDiscussion": "Start a new discussion"
+    },
+    "mentions": "Mentions",
+    "Metadata": {
+      "collapse": "Collapse",
+      "expand": "Expand",
+      "noMetadata": "No metadata available",
+      "subjectMetadata": "Subject Metadata"
+    },
+    "searchPlaceholder": "Search this project for tags, subjects, or @users",
+    "somethingWentWrong": "Something went wrong.",
+    "Tags": {
+      "add": "Add",
+      "addATag": "Add a tag",
+      "addVote": "Add your vote",
+      "createTag": "Create a tag",
+      "noTags": "No Tags",
+      "popularTagsFrom": "Popular tags from {{projectDisplayName}}",
+      "removeVote": "Remove your vote",
+      "signInToTag": "Sign in to add a tag",
+      "tags": "Tags",
+      "tagValidationMessage": "Use 3-40 characters, letters, numbers, hyphens, and underscores. No spaces or other characters."
+    }
+  }
+}

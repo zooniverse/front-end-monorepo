@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Bakgrund",
+        "faq": "Vanliga frågor",
+        "research": "Forskning",
+        "results": "Resultat",
+        "team": "Teamet"
+      }
+    },
+    "PageNav": {
+      "title": "Om projektet"
+    },
+    "SidebarHeading": "Om",
+    "TeamMember": {
+      "collaborator": "Samarbetspartner",
+      "expert": "Expert",
+      "moderator": "Moderator",
+      "museum": "Museum",
+      "owner": "Ägare",
+      "researcher": "Forskare",
+      "tester": "Testare",
+      "translator": "Översättare"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Det uppstod ett fel i klassificeraren :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Diskutera ett motiv på Talk, eller lägg till det i dina favoriter eller en samling.",
+      "title": "Dina senaste klassificeringar"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nej tack",
+      "confirm": "Ta mig till nästa nivå!",
+      "content": "Grattis! Du har låst upp nästa arbetsflöde. Om du hellre vill fortsätta med detta arbetsflöde kan du välja att stanna kvar.",
+      "dismiss": "Visa inte fler meddelanden.",
+      "title": "Nytt arbetsflöde tillgängligt"
+    },
+    "YourStats": {
+      "allTime": "Hela tiden",
+      "lastSeven": "Senaste 7 dagarna",
+      "link": "Se mer",
+      "title": "statistik"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Om {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Lär dig mer"
+      },
+      "NotApproved": {
+        "paragraph": "Detta projekt har byggs med hjälp av Zooniverse Project Buildermen är ännu något officiellt Zooniverse-project. Frågor och problem som rapporteras till Zooniverse-teamet kanske inte får svar."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Kontakta forskargruppen på Talk för att lära dig mer om det här projektet!",
+      "noMessageButton": "Gå till Talk",
+      "title": "Meddelande från forskaren"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Det uppstod ett fel vid inläsning av motiven :(",
+        "noSubjects": "Det ser ut som att ingen har kommenterat ett motiv ännu. Gå till Talk och bli den första!",
+        "subjectLabel": "Motiv {{id}}"
+      },
+      "button": "Gå med",
+      "message": "Se till att kolla in [Prata](/talk) där du kan chatta med andra likasinnade frivilliga.",
+      "title": "Prata"
+    }
+  }
+}
