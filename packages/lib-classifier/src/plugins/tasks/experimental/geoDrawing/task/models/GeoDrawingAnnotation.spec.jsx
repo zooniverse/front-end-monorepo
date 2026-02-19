@@ -13,8 +13,8 @@ describe('Model > GeoDrawingAnnotation', function () {
       expect(geoDrawingAnnotation).to.be.an('object')
     })
 
-    it('should have an empty value array', function () {
-      expect(geoDrawingAnnotation.value).to.deep.equal([])
+    it('should have a null value', function () {
+      expect(geoDrawingAnnotation.value).to.equal(null)
     })
 
     it('should be incomplete', function () {
@@ -45,7 +45,7 @@ describe('Model > GeoDrawingAnnotation', function () {
         id: 'geo2',
         task: 'T0',
         taskType: 'geoDrawing',
-        value: [geoJSON]
+        value: geoJSON
       })
     })
 
@@ -59,8 +59,8 @@ describe('Model > GeoDrawingAnnotation', function () {
     })
 
     it('should store the GeoJSON value', function () {
-      expect(geoDrawingAnnotation.value.length).to.equal(1)
-      expect(geoDrawingAnnotation.value[0].type).to.equal('FeatureCollection')
+      expect(geoDrawingAnnotation.value.type).to.equal('FeatureCollection')
+      expect(geoDrawingAnnotation.value.features.length).to.equal(1)
     })
   })
 
@@ -76,12 +76,12 @@ describe('Model > GeoDrawingAnnotation', function () {
         taskType: 'geoDrawing'
       })
 
-      expect(geoDrawingAnnotation.value.length).to.equal(0)
+      expect(geoDrawingAnnotation.value).to.equal(null)
 
-      geoDrawingAnnotation.update([geoJSON])
+      geoDrawingAnnotation.update(geoJSON)
 
-      expect(geoDrawingAnnotation.value.length).to.equal(1)
-      expect(geoDrawingAnnotation.value[0].type).to.equal('FeatureCollection')
+      expect(geoDrawingAnnotation.value.type).to.equal('FeatureCollection')
+      expect(geoDrawingAnnotation.value.features.length).to.equal(0)
     })
   })
 })
