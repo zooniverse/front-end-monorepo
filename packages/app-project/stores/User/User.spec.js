@@ -109,6 +109,91 @@ describe('stores > User', function () {
     expect(userStore.display_name).to.equal(null)
   })
 
+  describe('adminMode', function () {
+    const adminUser = {
+      display_name: 'Admin User',
+      id: '1',
+      login: 'zootester1',
+      admin: true
+    }
+
+    const regularUser = {
+      display_name: 'Regular User',
+      id: '2',
+      login: 'zootester2',
+      admin: false
+    }
+
+    afterEach(function () {
+      window.localStorage.removeItem('adminFlag')
+    })
+
+    it('should be false by default', function () {
+      expect(userStore.adminMode).to.equal(false)
+    })
+
+    it('should be false for non-admin users regardless of _adminMode', function () {
+      userStore.set(regularUser)
+      userStore.setAdminMode(true)
+      expect(userStore.adminMode).to.equal(false)
+    })
+
+    it('should be true when admin user has _adminMode set', function () {
+      userStore.set(adminUser)
+      userStore.setAdminMode(true)
+      expect(userStore.adminMode).to.equal(true)
+    })
+
+    it('should toggle admin mode', function () {
+      userStore.set(adminUser)
+      expect(userStore.adminMode).to.equal(false)
+      userStore.toggleAdminMode()
+      expect(userStore.adminMode).to.equal(true)
+      userStore.toggleAdminMode()
+      expect(userStore.adminMode).to.equal(false)
+    })
+
+    it('should persist to localStorage when toggled on', function () {
+      userStore.set(adminUser)
+      userStore.toggleAdminMode()
+      expect(window.localStorage.getItem('adminFlag')).to.equal('true')
+    })
+
+    it('should remove from localStorage when toggled off', function () {
+      userStore.set(adminUser)
+      userStore.setAdminMode(true)
+      userStore.toggleAdminMode()
+      expect(window.localStorage.getItem('adminFlag')).to.equal(null)
+    })
+
+    it('should read adminFlag from localStorage on admin user load', function () {
+      window.localStorage.setItem('adminFlag', 'true')
+      userStore.set(adminUser)
+      expect(userStore.adminMode).to.equal(true)
+    })
+
+    it('should not read adminFlag for non-admin user load', function () {
+      window.localStorage.setItem('adminFlag', 'true')
+      userStore.set(regularUser)
+      expect(userStore.adminMode).to.equal(false)
+    })
+
+    it('should clear adminMode and localStorage on clear()', function () {
+      userStore.set(adminUser)
+      userStore.setAdminMode(true)
+      expect(userStore.adminMode).to.equal(true)
+      userStore.clear()
+      expect(userStore.adminMode).to.equal(false)
+      expect(window.localStorage.getItem('adminFlag')).to.equal(null)
+    })
+
+    it('should remove localStorage adminFlag when non-admin user loads', function () {
+      window.localStorage.setItem('adminFlag', 'true')
+      userStore.set(regularUser)
+      expect(window.localStorage.getItem('adminFlag')).to.equal(null)
+    })
+  })
+
   describe('with an existing user session', function () {
     it('should refresh project preferences for the same user', async function () {
       userStore.set(user)

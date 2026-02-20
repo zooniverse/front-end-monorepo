@@ -2,7 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
-import { bool, object, oneOfType, string } from 'prop-types'
+import { object, oneOfType, string } from 'prop-types'
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
@@ -44,14 +44,13 @@ const defaultMargin = {
 }
 
 function DropdownNav({
-  adminMode = false,
   className,
   margin = defaultMargin,
   organizationSlug = '',
   organizationTitle = ''
 }) {
   const { t } = useTranslation('components')
-  const navLinks = useProjectNavigation(adminMode)
+  const navLinks = useProjectNavigation()
   const [ isOpen, setIsOpen ] = useState(false)
 
   function onClose() {
@@ -150,8 +149,6 @@ function DropdownNav({
 }
 
 DropdownNav.propTypes = {
-  /** Zooniverse admin mode */
-  adminMode: bool,
   /** CSS class */
   className: string,
   /** Margin for the dropdown button (Grommet t-shirt size, CSS length or Grommet margin object.) */

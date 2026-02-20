@@ -1,6 +1,9 @@
 import asyncStates from '@zooniverse/async-states'
-import { applySnapshot, flow, getSnapshot, types } from 'mobx-state-tree'
+import { reaction } from 'mobx'
+import { addDisposer, applySnapshot, flow, getSnapshot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
+
+const isBrowser = typeof window !== 'undefined'
 
 import Collections from './Collections'
 import Recents from './Recents'
@@ -40,7 +43,59 @@ const User = types
     }
   }))
 
+  .volatile(self => ({
+    _adminMode: false
+  }))
+
+  .views(self => ({
+    get adminMode() {
+      return self.isAdmin && self._adminMode
+    }
+  }))
+
   .actions(self => ({
+    afterAttach() {
+      self._createAdminModeObserver()
+    },
+
+    _createAdminModeObserver() {
+      const adminModeDisposer = reaction(
+        () => ({ isLoaded: self.isLoaded, isAdmin: self.isAdmin }),
+        ({ isLoaded, isAdmin }) => {
+          if (isLoaded) {
+            if (isAdmin) {
+              self.initAdminMode()
+            } else if (isBrowser) {
+              window.localStorage.removeItem('adminFlag')
+            }
+          }
+        },
+        { fireImmediately: true, name: 'adminModeInit' }
+      )
+      addDisposer(self, adminModeDisposer)
+    },
+
+    initAdminMode() {
+      if (isBrowser && self.isAdmin) {
+        self._adminMode = !!window.localStorage.getItem('adminFlag')
+      }
+    },
+
+    setAdminMode(flag) {
+      self._adminMode = flag
+      if (isBrowser) {
+        if (flag) {
+          window.localStorage.setItem('adminFlag', 'true')
+        } else {
+          window.localStorage.removeItem('adminFlag')
+        }
+      }
+    },
+
+    toggleAdminMode() {
+      self.setAdminMode(!self._adminMode)
+    },
+
     clear() {
       const loggedOutUser = {
         id: null,
@@ -54,6 +109,10 @@ const User = types
         }
       }
       applySnapshot(self, loggedOutUser)
+      self._adminMode = false
+      if (isBrowser) {
+        window.localStorage.removeItem('adminFlag')
+      }
     },
 
     set(user) {

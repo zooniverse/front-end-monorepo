@@ -40,20 +40,19 @@ export default {
   decorators: [NextRouterStory]
 }
 
-export function NotLoggedIn({ adminMode, className, project }) {
+export function NotLoggedIn({ className, project }) {
   const snapshot = {
     project
   }
   applySnapshot(NotLoggedIn.store, snapshot)
   return (
     <Provider store={NotLoggedIn.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 NotLoggedIn.store = initStore(true)
 NotLoggedIn.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -75,7 +74,7 @@ NotLoggedIn.args = {
   }
 }
 
-export function LoggedIn({ adminMode, className, project }) {
+export function LoggedIn({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -87,13 +86,12 @@ export function LoggedIn({ adminMode, className, project }) {
   applySnapshot(LoggedIn.store, snapshot)
   return (
     <Provider store={LoggedIn.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 LoggedIn.store = initStore(true)
 LoggedIn.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -115,7 +113,7 @@ LoggedIn.args = {
   }
 }
 
-export function InBeta({ adminMode, className, project }) {
+export function InBeta({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -133,7 +131,6 @@ export function InBeta({ adminMode, className, project }) {
 }
 InBeta.store = initStore(true)
 InBeta.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -157,7 +154,7 @@ InBeta.args = {
   }
 }
 
-export function LaunchApproved({ adminMode, className, project }) {
+export function LaunchApproved({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -175,7 +172,6 @@ export function LaunchApproved({ adminMode, className, project }) {
 }
 LaunchApproved.store = initStore(true)
 LaunchApproved.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -199,7 +195,7 @@ LaunchApproved.args = {
   }
 }
 
-export function AdminMode({ adminMode, className, project }) {
+export function AdminMode({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -209,15 +205,15 @@ export function AdminMode({ adminMode, className, project }) {
     }
   }
   applySnapshot(AdminMode.store, snapshot)
+  AdminMode.store.user.setAdminMode(true)
   return (
     <Provider store={AdminMode.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 AdminMode.store = initStore(true)
 AdminMode.args = {
-  adminMode: true,
   className: '',
   project: {
     avatar: {
@@ -239,7 +235,7 @@ AdminMode.args = {
   }
 }
 
-export function DefaultWorkflow({ adminMode, className, project }) {
+export function DefaultWorkflow({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -251,13 +247,12 @@ export function DefaultWorkflow({ adminMode, className, project }) {
   applySnapshot(DefaultWorkflow.store, snapshot)
   return (
     <Provider store={DefaultWorkflow.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 DefaultWorkflow.store = initStore(true)
 DefaultWorkflow.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -279,7 +274,7 @@ DefaultWorkflow.args = {
   }
 }
 
-export function MultipleLanguages({ adminMode, className, project }) {
+export function MultipleLanguages({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -299,7 +294,6 @@ export function MultipleLanguages({ adminMode, className, project }) {
 }
 MultipleLanguages.store = initStore(true)
 MultipleLanguages.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -337,7 +331,6 @@ export function OrganizationLink({ organization, project }) {
 }
 OrganizationLink.store = initStore(true)
 OrganizationLink.args = {
-  adminMode: false,
   className: '',
   organization: ORGANIZATION,
   project: {
