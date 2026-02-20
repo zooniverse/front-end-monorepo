@@ -3,8 +3,8 @@ import { useTranslation } from 'next-i18next'
 import { useHasLabAccess, useStores } from '.'
 import PFE_SLUGS from '../../../helpers/slugList'
 
-export default function useProjectNavigation(adminMode) {
-  const { isAdmin, isLoggedIn, defaultWorkflow, projectId, slug, userId } = useStores()
+export default function useProjectNavigation() {
+  const { adminMode, isAdmin, isLoggedIn, defaultWorkflow, projectId, slug, userId } = useStores()
   const hasLabAccess = useHasLabAccess(projectId, userId)
   const { t } = useTranslation('components')
   const classifyHref = defaultWorkflow

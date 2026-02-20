@@ -33,7 +33,7 @@ export function HeaderComponents({ adminMode }) {
   return (
     <header aria-label={t('StandardLayout.headerLabel')}>
       <PageHeader adminMode={adminMode} />
-      <ProjectHeader adminMode={adminMode} />
+      <ProjectHeader />
       <Announcements />
     </header>
   )
@@ -41,7 +41,7 @@ export function HeaderComponents({ adminMode }) {
 
 function StandardLayout({ children, page = '' }) {
   const { inBeta } = useStores()
-  const { adminMode, toggleAdmin } = useAdminMode()
+  const { adminMode } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
 
@@ -56,7 +56,7 @@ function StandardLayout({ children, page = '' }) {
       {page !== 'home' && <HeaderComponents adminMode={adminMode} />}
       {children}
       <ZooFooter
-        adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
+        adminContainer={<AdminContainer />}
         locale={locale}
       />
     </PageBox>

@@ -15,6 +15,7 @@ function storeMapper(store) {
       slug
     },
     user: {
+      adminMode,
       id: userId,
       isAdmin,
       isLoggedIn
@@ -30,6 +31,7 @@ function storeMapper(store) {
   })
 
   return {
+    adminMode,
     availableLocales,
     defaultWorkflow,
     inBeta,
