@@ -8,7 +8,7 @@ import TextTagButtons from '../TextTagButtons'
 
 const StyledText = styled(Text)`
   display: block;
-  margin: 10px 0;
+  margin: 0 0 10px 0;
 `
 
 const StyledTextArea = styled(TextArea)`
@@ -58,7 +58,7 @@ function DefaultTextTask ({
     h5: StyledText,
     h6: StyledText,
     p: StyledText,
-    span: Text
+    span: StyledText
   }
 
   return (
