@@ -13,10 +13,12 @@ function storeMapper(store) {
       },
       defaultWorkflow,
       display_name: title,
+      id: projectId,
       inBeta,
       slug
     },
     user: {
+      id: userId,
       isAdmin,
       isLoggedIn
     }
@@ -38,8 +40,10 @@ function storeMapper(store) {
     isLoggedIn,
     organizationSlug,
     organizationTitle,
+    projectId,
     slug,
-    title
+    title,
+    userId
   }
 }
 
