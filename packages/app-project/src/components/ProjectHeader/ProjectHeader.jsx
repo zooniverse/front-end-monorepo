@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
-import { bool, string } from 'prop-types'
+import { string } from 'prop-types'
 import styled from 'styled-components'
 import { useResizeDetector } from 'react-resize-detector'
 
@@ -22,7 +22,6 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader({
-  adminMode = false,
   className = ''
 }) {
   const { width, height, ref } = useResizeDetector({
@@ -95,13 +94,12 @@ function ProjectHeader({
         </Box>
         {useDropdownNav ? (
           <DropdownNav
-            adminMode={adminMode}
             margin={ isNarrow ? { top: 'xsmall' } : { top : '0' }}
             organizationSlug={organizationSlug}
             organizationTitle={organizationTitle}
           />
         ) : (
-          <Nav adminMode={adminMode} />
+          <Nav />
         )}
       </StyledBox>
     </StyledBox>
@@ -109,8 +107,6 @@ function ProjectHeader({
 }
 
 ProjectHeader.propTypes = {
-  /** Zooniverse admin mode */
-  adminMode: bool,
   /** Optional CSS classes */
   className: string
 }
