@@ -3,6 +3,7 @@ import { Box } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import throttle from 'lodash/throttle'
 
 // OpenLayers imports
 import { Map, View } from 'ol'
@@ -49,6 +50,7 @@ function GeoMapViewer({
   geoDrawingTask,
   geoJSON = undefined,
   onFeaturesChange = undefined,
+  onMapExtentChange = undefined,
   onSelectedFeatureChange = undefined
 }) {
   // Map and layer refs: created once on mount, reused across feature updates
@@ -264,6 +266,37 @@ function GeoMapViewer({
     return undefined
   }, [geoJSON])
 
+  // Track map extent changes and notify the task
+  useEffect(function trackMapExtent() {
+    const map = mapRef.current
+    if (!map || !onMapExtentChange) return undefined
+
+    function updateExtent() {
+      const view = map.getView()
+      const extent = view.calculateExtent()
+      const widthMeters = extent[2] - extent[0]
+      const heightMeters = extent[3] - extent[1]
+      
+      onMapExtentChange({
+        widthMeters,
+        heightMeters,
+        resolution: view.getResolution()
+      })
+    }
+
+    // Initial calculation
+    updateExtent()
+
+    // Update on view changes (throttled)
+    const throttledUpdate = throttle(updateExtent, 250)
+    const key = map.on('moveend', throttledUpdate)
+
+    return () => {
+      unByKey(key)
+      throttledUpdate.cancel()
+    }
+  }, [onMapExtentChange])
+
   // Listen for feature changes and persist as a sanitized FeatureCollection
   useEffect(function attachFeatureListeners() {
     if (!onFeaturesChange) return undefined
@@ -376,6 +409,7 @@ GeoMapViewer.propTypes = {
   }),
   geoJSON: shape({}),
   onFeaturesChange: func,
+  onMapExtentChange: func,
   onSelectedFeatureChange: func
 }
 
