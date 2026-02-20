@@ -18,7 +18,11 @@ export const BinarySearch = ({ data, left, right, value }) => {
 }
 
 export const SortedSetIntersection = ({ sets }) => {
-  const [firstSet, ...restSets] = sets
+  // Filter out undefined/null sets to prevent crashes
+  const validSets = sets.filter(s => s?.data != null)
+  if (validSets.length === 0) return SortedSet({ data: [] })
+
+  const [firstSet, ...restSets] = validSets
     .map((s) => s.data)
     .sort((a, b) => a.length - b.length)
   const results = []
@@ -61,7 +65,11 @@ export const SortedSetIntersection = ({ sets }) => {
 }
 
 export const SortedSetUnion = ({ sets }) => {
-  const sortedSets = sets
+  // Filter out undefined/null sets to prevent crashes when getPlaneSet returns undefined
+  const validSets = sets.filter(s => s?.data != null)
+  if (validSets.length === 0) return SortedSet({ data: [] })
+
+  const sortedSets = validSets
     .map((s) => s.data)
     .sort((a, b) => a.length - b.length)
 
