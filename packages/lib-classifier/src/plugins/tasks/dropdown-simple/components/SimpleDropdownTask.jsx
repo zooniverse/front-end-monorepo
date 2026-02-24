@@ -25,6 +25,7 @@ const Label = styled.label`
 
 function SimpleDropdownTask({
   annotation,
+  autoFocus = false,
   className = '',
   disabled = false,
   task,
@@ -87,6 +88,7 @@ function SimpleDropdownTask({
         gap='xsmall'
       >
         <Select
+          autoFocus={autoFocus}
           disabled={disabled}
           icon={<Down size='small' />}
           id={`${task.taskKey}-select`}
@@ -109,6 +111,7 @@ SimpleDropdownTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.object
   }).isRequired,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
