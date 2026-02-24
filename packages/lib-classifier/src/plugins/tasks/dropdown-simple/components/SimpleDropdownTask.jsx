@@ -17,6 +17,11 @@ const StyledText = styled(Text)`
     margin-top: 0;
   }
 `
+const Label = styled.label`
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: .875rem;
+  `
 
 function SimpleDropdownTask({
   annotation,
@@ -69,8 +74,12 @@ function SimpleDropdownTask({
     <Box
       className={className}
     >
-      <StyledText as='legend' size='small'>
-        <Markdownz>
+      <StyledText
+        as={Label}
+        size='small'
+        htmlFor={`${task.taskKey}-select`}
+      >
+        <Markdownz inline>
           {task.instruction}
         </Markdownz>
       </StyledText>
@@ -80,6 +89,7 @@ function SimpleDropdownTask({
         <Select
           disabled={disabled}
           icon={<Down size='small' />}
+          id={`${task.taskKey}-select`}
           labelKey='text'
           onChange={onChange}
           onSearch={onSearch}
@@ -107,6 +117,8 @@ SimpleDropdownTask.propTypes = {
     instruction: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.string),
     required: PropTypes.bool,
+    strings: PropTypes.objectOf(PropTypes.string),
+    taskKey: PropTypes.string,
   }).isRequired,
 }
 
