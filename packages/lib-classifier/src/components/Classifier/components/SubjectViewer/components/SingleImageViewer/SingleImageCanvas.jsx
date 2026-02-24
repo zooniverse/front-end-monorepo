@@ -1,3 +1,4 @@
+import { useHasMounted } from '@zooniverse/react-components/hooks'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useRef } from 'react'
 
@@ -6,7 +7,6 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
 
 import SVGImage from '../SVGComponents/SVGImage'
-
 
 function SingleImageCanvas({
   enableInteractionLayer = false,
@@ -23,6 +23,7 @@ function SingleImageCanvas({
   transformMatrix,
 }) {
   const canvasLayer = useRef()
+  const hasMounted = useHasMounted()
 
   const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
 
@@ -52,7 +53,7 @@ function SingleImageCanvas({
                 src={src}
                 subjectID={subject?.id}
               />
-              {enableInteractionLayer && (
+              {hasMounted && enableInteractionLayer && (
                 <InteractionLayer
                   frame={frame}
                   height={naturalHeight}
