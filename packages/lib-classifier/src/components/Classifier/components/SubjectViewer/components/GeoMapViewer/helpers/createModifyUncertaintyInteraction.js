@@ -1,5 +1,6 @@
 import PointerInteraction from 'ol/interaction/Pointer'
 import asMSTFeature from './asMSTFeature'
+import getPixelDistance from './getPixelDistance'
 
 function createModifyUncertaintyInteraction({
   geoDrawingTask,
@@ -21,12 +22,6 @@ function createModifyUncertaintyInteraction({
       mstFeatureCache.set(olFeature, asMSTFeature(olFeature))
     }
     return mstFeatureCache.get(olFeature)
-  }
-
-  function distance([x1, y1], [x2, y2]) {
-    const dx = x2 - x1
-    const dy = y2 - y1
-    return Math.sqrt(dx * dx + dy * dy)
   }
 
   /**
@@ -57,7 +52,7 @@ function createModifyUncertaintyInteraction({
 
       // Check if click is near the drag handle
       const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-      if (distance(pixel, dragHandlePixel) < dragHandleTolerance) {
+      if (getPixelDistance(pixel, dragHandlePixel) < dragHandleTolerance) {
         return olFeature
       }
     }
@@ -111,7 +106,9 @@ function createModifyUncertaintyInteraction({
     const centerCoordinates = state.draggedFeature.getGeometry().getCoordinates()
 
     // Calculate new radius in meters
-    const newRadius = Math.round(Math.max(minRadius, distance(centerCoordinates, coordinate)))
+    const newRadius = Math.round(
+      Math.max(minRadius, getPixelDistance(centerCoordinates, coordinate))
+    )
 
     // Update uncertainty radius through GeoDrawingTask to keep MST activeFeature and slider in sync
     if (geoDrawingTask?.setActiveFeatureUncertaintyRadius) {
