@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, TextArea } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
@@ -25,6 +25,11 @@ function DefaultTextTask ({
 }) {
   const textAreaRef = useRef()
   const [rows, setRows] = useState(1)
+
+  /* When navigating between steps, resize on mount */
+  useEffect(() => {
+    handleResize()
+  }, [])
 
   /*
     On value change, get the <textarea>'s scrollHeight divided by height of one line
