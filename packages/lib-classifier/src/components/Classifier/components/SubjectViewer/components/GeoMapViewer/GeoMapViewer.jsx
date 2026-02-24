@@ -1,6 +1,6 @@
 // dependencies
 import { Box } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -13,12 +13,14 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
+import { unByKey } from 'ol/Observable'
 
 // local imports
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
+import asMSTFeature from './helpers/asMSTFeature'
 
 const MapContainer = styled.div`
   height: 100%;
@@ -44,7 +46,9 @@ function fitViewToFeatures(map, features) {
 
 function GeoMapViewer({
   geoDrawingTask,
-  geoJSON = undefined
+  geoJSON = undefined,
+  onFeaturesChange = undefined,
+  onSelectedFeatureChange = undefined
 }) {
   // Map and layer refs: created once on mount, reused across feature updates
   const mapContainerRef = useRef()
@@ -123,6 +127,25 @@ function GeoMapViewer({
         condition: click,
         layers: [featuresLayer],
         style: (feature) => handleFeatureStyle({ feature, isSelected: true })
+      })
+
+      // Sync active feature selection
+      select.on('select', (event) => {
+        const selected = event.selected?.[0]
+        const mstFeature = selected ? asMSTFeature(selected) : null
+
+        if (onSelectedFeatureChange) {
+          onSelectedFeatureChange(selected ? { mstFeature, olFeature: selected } : null)
+          return
+        }
+
+        if (selected) {
+          geoDrawingTask?.setActiveFeature?.(mstFeature)
+          geoDrawingTask?.setActiveOlFeature?.(selected)
+        } else {
+          geoDrawingTask?.clearActiveFeature?.()
+          geoDrawingTask?.clearActiveOlFeature?.()
+        }
       })
 
       // Set the style function after map and select are created
@@ -213,6 +236,53 @@ function GeoMapViewer({
 
     return undefined
   }, [geoJSON])
+
+  // Listen for feature changes and persist as a sanitized FeatureCollection
+  useEffect(function attachFeatureListeners() {
+    if (!onFeaturesChange) return undefined
+
+    const featuresSource = featuresRef.current
+    if (!featuresSource) return undefined
+
+    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
+    geoJSONFormatRef.current = geoJSONFormat
+
+    function sanitizeProperties(properties = {}) {
+      return Object.fromEntries(
+        Object.entries(properties).filter(([key, value]) => (
+          key !== 'geometry' && typeof value !== 'function' && value !== undefined
+        ))
+      )
+    }
+
+    function serializeAndNotify() {
+      const olFeatures = featuresSource.getFeatures()
+      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, {
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      })
+
+      const sanitizedFeatures = featureCollection.features?.map((feature) => ({
+        ...feature,
+        properties: sanitizeProperties(feature.properties || {})
+      })) || []
+
+      onFeaturesChange({
+        type: 'FeatureCollection',
+        features: sanitizedFeatures
+      })
+    }
+
+    const keys = [
+      featuresSource.on('addfeature', serializeAndNotify),
+      featuresSource.on('removefeature', serializeAndNotify),
+      featuresSource.on('changefeature', serializeAndNotify)
+    ]
+
+    return () => {
+      keys.forEach((key) => unByKey(key))
+    }
+  }, [onFeaturesChange])
   
   // Handler to recenter the map to fit all features
   function handleRecenter() {
@@ -277,7 +347,9 @@ GeoMapViewer.propTypes = {
     })),
     type: string.isRequired,
   }),
-  geoJSON: shape({})
+  geoJSON: shape({}),
+  onFeaturesChange: func,
+  onSelectedFeatureChange: func
 }
 
 export default GeoMapViewer
