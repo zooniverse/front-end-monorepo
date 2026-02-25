@@ -133,4 +133,50 @@ describe('Model > GeoDrawingTask', function () {
       expect(task.mapExtentMeters).to.deep.equal(secondExtent)
     })
   })
+
+  describe('Actions > reset', function () {
+    let task
+
+    before(function () {
+      const taskWithMultipleTools = {
+        ...geoDrawingTask,
+        tools: [
+          { label: 'Map Point', type: 'Point', color: '#ff0000' },
+          { label: 'Map Point with Uncertainty', type: 'Point', color: '#00ff00', uncertainty_circle: true }
+        ]
+      }
+      task = GeoDrawingTask.create(taskWithMultipleTools)
+    })
+
+    it('should reset activeToolIndex to 0', function () {
+      // Set up some state
+      task.setActiveTool(1)
+      expect(task.activeToolIndex).to.equal(1)
+      
+      // Reset the task
+      task.reset()
+      expect(task.activeToolIndex).to.equal(0)
+    })
+
+    it('should clear activeOlFeature to null', function () {
+      // Set up some state
+      const mockOlFeature = { id: 'mock-ol-feature' }
+      task.setActiveOlFeature(mockOlFeature)
+      expect(task.activeOlFeature).to.deep.equal(mockOlFeature)
+      
+      // Reset the task
+      task.reset()
+      expect(task.activeOlFeature).to.equal(null)
+    })
+
+    it('should clear mapExtentMeters to null', function () {
+      // Set up some state
+      task.setMapExtent({ widthMeters: 10000, heightMeters: 8000, resolution: 1.5 })
+      expect(task.mapExtentMeters).to.not.equal(null)
+      
+      // Reset the task
+      task.reset()
+      expect(task.mapExtentMeters).to.equal(null)
+    })
+  })
 })
