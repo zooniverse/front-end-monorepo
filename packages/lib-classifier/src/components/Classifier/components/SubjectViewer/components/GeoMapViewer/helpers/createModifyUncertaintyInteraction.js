@@ -7,7 +7,7 @@ function createModifyUncertaintyInteraction({
   selectInteraction,
   translateInteraction,
   dragHandleTolerance = 15, // pixels
-  minRadius = 10 // meters
+  minRadius = 0 // meters
 }) {
   const state = {
     draggedFeature: null,
