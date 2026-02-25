@@ -99,4 +99,84 @@ describe('Model > GeoDrawingTask', function () {
       expect(annotation.value.features.length).to.equal(1)
     })
   })
+
+  describe('Actions > setMapExtent', function () {
+    let task
+
+    before(function () {
+      task = GeoDrawingTask.create(geoDrawingTask)
+    })
+
+    it('should set mapExtentMeters', function () {
+      const extentInfo = {
+        widthMeters: 10000,
+        heightMeters: 8000,
+        resolution: 1.5
+      }
+      task.setMapExtent(extentInfo)
+      expect(task.mapExtentMeters).to.deep.equal(extentInfo)
+    })
+
+    it('should start with null mapExtentMeters', function () {
+      const newTask = GeoDrawingTask.create(geoDrawingTask)
+      expect(newTask.mapExtentMeters).to.equal(null)
+    })
+
+    it('should update mapExtentMeters when called multiple times', function () {
+      const firstExtent = { widthMeters: 5000, heightMeters: 4000, resolution: 2.0 }
+      const secondExtent = { widthMeters: 15000, heightMeters: 12000, resolution: 1.0 }
+      
+      task.setMapExtent(firstExtent)
+      expect(task.mapExtentMeters).to.deep.equal(firstExtent)
+      
+      task.setMapExtent(secondExtent)
+      expect(task.mapExtentMeters).to.deep.equal(secondExtent)
+    })
+  })
+
+  describe('Actions > reset', function () {
+    let task
+
+    before(function () {
+      const taskWithMultipleTools = {
+        ...geoDrawingTask,
+        tools: [
+          { label: 'Map Point', type: 'Point', color: '#ff0000' },
+          { label: 'Map Point with Uncertainty', type: 'Point', color: '#00ff00', uncertainty_circle: true }
+        ]
+      }
+      task = GeoDrawingTask.create(taskWithMultipleTools)
+    })
+
+    it('should reset activeToolIndex to 0', function () {
+      // Set up some state
+      task.setActiveTool(1)
+      expect(task.activeToolIndex).to.equal(1)
+      
+      // Reset the task
+      task.reset()
+      expect(task.activeToolIndex).to.equal(0)
+    })
+
+    it('should clear activeOlFeature to null', function () {
+      // Set up some state
+      const mockOlFeature = { id: 'mock-ol-feature' }
+      task.setActiveOlFeature(mockOlFeature)
+      expect(task.activeOlFeature).to.deep.equal(mockOlFeature)
+      
+      // Reset the task
+      task.reset()
+      expect(task.activeOlFeature).to.equal(null)
+    })
+
+    it('should clear mapExtentMeters to null', function () {
+      // Set up some state
+      task.setMapExtent({ widthMeters: 10000, heightMeters: 8000, resolution: 1.5 })
+      expect(task.mapExtentMeters).to.not.equal(null)
+      
+      // Reset the task
+      task.reset()
+      expect(task.mapExtentMeters).to.equal(null)
+    })
+  })
 })
