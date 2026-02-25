@@ -36,7 +36,7 @@ export default function useProjectNavigation(adminMode) {
     })
   }
 
-  if (isLoggedIn && hasLabAccess) {
+  if (isLoggedIn && (hasLabAccess || (isAdmin && adminMode))) {
     links.push({
       href: `/lab/${projectId}`,
       text: t('ProjectHeader.lab'),

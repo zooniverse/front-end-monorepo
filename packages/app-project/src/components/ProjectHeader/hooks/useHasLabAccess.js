@@ -1,3 +1,12 @@
+/*
+useHasLabAccess() hook
+Determines if a user has access to a project's Lab (aka Project Builder) page
+(e.g. https://www.zooniverse.org/lab/1292)
+
+- Input: project ID, user ID
+- Output: true if the user is either the project owner, or a project collaborator; false otherwise.
+ */
+
 import useSWR from 'swr'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { usePanoptesAuthToken } from '@hooks'
