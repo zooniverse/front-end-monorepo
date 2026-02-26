@@ -93,7 +93,18 @@ const GeoDrawing = types
         self.mapExtentMeters = extentInfo
       }
 
-      // TODO: reset()
+      setMapExtent(extentInfo) {
+        self.mapExtentMeters = extentInfo
+      },
+
+      reset() {
+        // model state
+        self.activeFeature = null
+        self.activeToolIndex = 0
+        // volatile state
+        self.activeOlFeature = null
+        self.mapExtentMeters = null
+      }
     })
   })
 

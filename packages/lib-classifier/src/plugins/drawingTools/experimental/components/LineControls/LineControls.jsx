@@ -42,7 +42,7 @@ const LineControls = forwardRef(function LineControls({
   const OUTER_RADIUS = 40 / scaleX
   const INNER_RADIUS = 20 / scaleX
 
-  const { width, height } = canvas.getBBox()
+  const { width, height } = canvas?.getBBox() || { width: 0, height: 0 }
   const xLeft = (LINE_CONTROL_INSET - translateX) / scaleX
   const xRight = (width - translateX - LINE_CONTROL_INSET) / scaleX
   const y = (LINE_CONTROL_INSET - translateY) / scaleY
@@ -233,6 +233,7 @@ const LineControls = forwardRef(function LineControls({
               color={icon.color}
               size={`${icon.size}px`}
               focusable='false'
+              pointerEvents='none'
             />
           </svg>
         </g>
