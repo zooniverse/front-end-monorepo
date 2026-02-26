@@ -115,6 +115,10 @@ if (!loading && error) {
 return <img ref={subjectImage} alt="This is an example of a subject image" src={img.src} />
 ```
 
+## useSubjectImageOrVideo
+
+Similar to useSubjectImage, except in this case used when your Subject might contain both image files and video files.
+
 ## useSubjectJSON
 
 A custom hook that fetches JSON data from a URL, with a ref to the viewer's DOM node for sizing etc.

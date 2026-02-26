@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { useKeyZoom, useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImageOrVideo } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
 
@@ -42,9 +42,11 @@ const FlipbookViewer = ({
   // Subject, so e.g. if the first image is 800x200, then all other images will
   // fit into a 800x200 frame.
   // --------------------------------
-  const defaultLocationUrl = subject?.locations[defaultFrame]?.url
-  const { img, error, loading, subjectImage } = useSubjectImage({
-    src: defaultLocationUrl,
+  const defaultMediaType = subject?.locations[defaultFrame]?.type
+  const defaultMediaUrl = subject?.locations[defaultFrame]?.url
+  const { img, error, loading, subjectImage } = useSubjectImageOrVideo({
+    src: defaultMediaUrl,
+    type: defaultMediaType,
     onError,
     onReady
   })
