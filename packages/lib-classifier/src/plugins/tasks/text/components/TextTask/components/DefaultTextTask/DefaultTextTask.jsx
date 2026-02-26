@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, TextArea } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
@@ -24,34 +24,30 @@ function DefaultTextTask ({
   updateAnnotation = () => true
 }) {
   const textAreaRef = useRef()
-  const [rows, setRows] = useState(1)
-
-  /* When navigating between steps, resize on mount */
-  useEffect(() => {
-    handleResize()
-  }, [])
-
   /*
-    On value change, get the <textarea>'s scrollHeight divided by height of one line
-    rounded down to the nearest integar. Without this function, <textarea>'s becomes a
-    scrollable container.
+    When the text content (annotation value) changes, recalculate the <textarea>'s height,
+    otherwise, the <textarea> becomes a scrollable container.
 
     This only works as content is expanding, not if content is backspaced. In the future,
     this resize can be improved with the CSS property `field-sizing` once supported.
+
+    https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
   */
-  function handleResize() {
-    const LINEHEIGHT = 23 // ~1rem + some vertical padding
-    const oldRows = rows
-    let newRows = textAreaRef.current ? Math.floor(textAreaRef.current.scrollHeight / LINEHEIGHT) : oldRows
-
-    if (newRows !== oldRows) {
-      setRows(newRows)
+  useLayoutEffect(() => {
+    const scrollHeight = textAreaRef.current
+      ? textAreaRef.current.scrollHeight
+      : 0
+    const clientHeight = textAreaRef.current
+      ? textAreaRef.current.clientHeight
+      : 0
+ 
+    if (scrollHeight > clientHeight) {
+      textAreaRef.current.style.height = `${scrollHeight}px`
     }
-  }
+  }, [value])
 
-  function onChange() {
+  function onChange () {
     updateAnnotation(textAreaRef)
-    handleResize()
   }
 
   const components = {
@@ -81,7 +77,7 @@ function DefaultTextTask ({
           id={`${task.taskKey}-${task.type}`}
           value={value}
           onChange={onChange}
-          rows={rows}
+          rows={1}
         />
       </label>
       <TextTagButtons
