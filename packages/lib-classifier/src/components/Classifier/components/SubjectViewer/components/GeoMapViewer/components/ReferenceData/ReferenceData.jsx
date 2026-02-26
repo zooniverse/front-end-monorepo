@@ -2,22 +2,29 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { shape, string } from 'prop-types'
 
+import { useTranslation } from '@translations/i18n'
+
 function ReferenceData({ data }) {
   if (!data || Object.keys(data).length === 0) {
     return null
   }
+  
+  const { t } = useTranslation('components')
 
   return (
     <Box
-      pad={{ horizontal: 'small', vertical: 'xsmall' }}
-      margin={{ bottom: 'medium' }}
+      a11yTitle={t('SubjectViewer.GeoMapViewer.ReferenceData')}
+      as='section'
       flex={false}
+      margin={{ bottom: 'medium' }}
+      pad={{ horizontal: 'small', vertical: 'xsmall' }}
+      tabIndex={0}
     >
       <SpacedText
-        weight='bold'
         margin={{ bottom: 'xsmall' }}
+        weight='bold'
       >
-        Reference Data
+        {t('SubjectViewer.GeoMapViewer.ReferenceData')}
       </SpacedText>
       <Box gap='xsmall'>
         {Object.entries(data).map(([key, value]) => (
