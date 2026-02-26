@@ -1,5 +1,6 @@
 export { default as ImageSubject } from './ImageSubject'
 export { default as ImageAndTextSubject } from './ImageAndTextSubject'
+export { default as ImageAndVideoSubject } from './ImageAndVideoSubject'
 export { default as SingleImageSubject } from './SingleImageSubject'
 export { default as SingleJSONSubject } from './SingleJSONSubject'
 export { default as SingleTextSubject } from './SingleTextSubject'
