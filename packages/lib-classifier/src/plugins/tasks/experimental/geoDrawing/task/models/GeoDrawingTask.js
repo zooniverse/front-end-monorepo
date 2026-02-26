@@ -91,10 +91,6 @@ const GeoDrawing = types
 
       setMapExtent(extentInfo) {
         self.mapExtentMeters = extentInfo
-      }
-
-      setMapExtent(extentInfo) {
-        self.mapExtentMeters = extentInfo
       },
 
       reset() {
