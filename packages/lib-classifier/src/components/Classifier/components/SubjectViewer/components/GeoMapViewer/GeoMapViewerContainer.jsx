@@ -91,6 +91,13 @@ function GeoMapViewerContainer ({
     }
   }
 
+  function handleMapExtentChange(extentInfo) {
+    const geoDrawingTask = activeStepTasks.find(task => task?.type === 'geoDrawing')
+    if (geoDrawingTask) {
+      geoDrawingTask.setMapExtent?.(extentInfo)
+    }
+  }
+
   if (loadingState === asyncStates.loading || loading) {
     return null
   }
@@ -106,6 +113,7 @@ function GeoMapViewerContainer ({
       geoJSON={geoJSONData}
       subjectId={subject.id}
       onFeaturesChange={handleFeaturesChange}
+      onMapExtentChange={handleMapExtentChange}
       onSelectedFeatureChange={handleSelectedFeatureChange}
     />
   )

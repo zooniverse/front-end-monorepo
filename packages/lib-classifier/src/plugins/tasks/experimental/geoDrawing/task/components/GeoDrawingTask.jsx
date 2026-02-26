@@ -3,7 +3,7 @@ import { Box, RangeInput, Text } from 'grommet'
 import { Location } from 'grommet-icons'
 import { observer } from 'mobx-react'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import { transform } from 'ol/proj'
 
@@ -62,6 +62,15 @@ function GeoDrawingTask({
 }) {
   const { setActiveTool } = task
   const [, setGeometryUpdate] = useState({})
+
+  // Calculate dynamic max radius based on map extent
+  // Memoized to avoid recalculation when other task properties change, like task.activeOlFeature
+  const maxRadius = useMemo(() => {
+    if (!task.mapExtentMeters) return 100000 // fallback before map initializes
+    const { widthMeters, heightMeters } = task.mapExtentMeters
+    const minDimension = Math.min(widthMeters, heightMeters)
+    return Math.round(minDimension / 2) // half of the lesser dimension
+  }, [task.mapExtentMeters])
 
   useEffect(() => {
     if (!task.activeOlFeature) return undefined
@@ -151,7 +160,7 @@ function GeoDrawingTask({
                     disabled={disabled || !checked || !task.activeFeature || !task.activeOlFeature}
                     value={task.activeFeature?.properties?.uncertainty_radius ?? task.activeOlFeature?.get?.('uncertainty_radius') ?? 0}
                     min={0}
-                    max={100000}
+                    max={maxRadius}
                     step={1}
                     onChange={(event) => task.setActiveFeatureUncertaintyRadius?.(Math.round(Number(event.target.value)))}
                   />
