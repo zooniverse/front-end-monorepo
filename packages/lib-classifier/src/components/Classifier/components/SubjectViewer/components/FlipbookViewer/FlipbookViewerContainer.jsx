@@ -65,8 +65,8 @@ function FlipbookViewerContainer({
   } = useStores(storeMapper)
 
   useEffect(function preloadImages() {
-    subject?.locations?.forEach(({ url }) => {
-      if (url) {
+    subject?.locations?.forEach(({ type, url }) => {
+      if (url && type === 'image') {
         const { Image } = window
         const img = new Image()
         img.src = url
