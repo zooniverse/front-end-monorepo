@@ -37,6 +37,11 @@ const FlipbookViewer = ({
     }
   }, [])
 
+  // Determine the size of the "subject frame".
+  // This is determined by the size of the first image (OR VIDEO?!?) in the
+  // Subject, so e.g. if the first image is 800x200, then all other images will
+  // fit into a 800x200 frame.
+  // --------------------------------
   const defaultLocationUrl = subject?.locations[defaultFrame]?.url
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: defaultLocationUrl,
@@ -47,6 +52,7 @@ const FlipbookViewer = ({
     naturalHeight = 600,
     naturalWidth = 800
   } = img
+  // --------------------------------
 
   const onPlayPause = () => {
     setPlaying(!playing)
