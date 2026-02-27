@@ -42,9 +42,10 @@ const FlipbookViewer = ({
   // Subject, so e.g. if the first image is 800x200, then all other images will
   // fit into a 800x200 frame.
   // --------------------------------
+  const currentMediaType = subject?.locations[currentFrame]?.type
   const defaultMediaType = subject?.locations[defaultFrame]?.type
   const defaultMediaUrl = subject?.locations[defaultFrame]?.url
-  const { img, error, loading, subjectImage } = useSubjectImageOrVideo({
+  const { image, mediaElementRef } = useSubjectImageOrVideo({
     src: defaultMediaUrl,
     type: defaultMediaType,
     onError,
@@ -53,7 +54,7 @@ const FlipbookViewer = ({
   const {
     naturalHeight = 600,
     naturalWidth = 800
-  } = img
+  } = image
   // --------------------------------
 
   const onPlayPause = () => {
@@ -66,23 +67,25 @@ const FlipbookViewer = ({
 
   return (
     <Box>
-      <SingleImageViewer
-        enableInteractionLayer={enableInteractionLayer}
-        enableRotation={enableRotation}
-        frame={currentFrame}
-        imgRef={subjectImage}
-        invert={invert}
-        limitSubjectHeight={limitSubjectHeight}
-        move={move}
-        naturalHeight={naturalHeight}
-        naturalWidth={naturalWidth}
-        onKeyDown={onKeyZoom}
-        rotation={rotation}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
-        src={imageLocationUrl}
-        subject={subject}
-      />
+      {currentMediaType === 'image' && (
+        <SingleImageViewer
+          enableInteractionLayer={enableInteractionLayer}
+          enableRotation={enableRotation}
+          frame={currentFrame}
+          imgRef={mediaElementRef}
+          invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
+          move={move}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          onKeyDown={onKeyZoom}
+          rotation={rotation}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          src={imageLocationUrl}
+          subject={subject}
+        />
+      )}
       <FlipbookControls
         currentFrame={currentFrame}
         locations={subject.locations}
