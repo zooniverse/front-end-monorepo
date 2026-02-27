@@ -43,18 +43,20 @@ const FlipbookViewer = ({
   // fit into a 800x200 frame.
   // --------------------------------
   const currentMediaType = subject?.locations[currentFrame]?.type
+  const currentMediaUrl = subject?.locations[currentFrame]?.url
+  
   const defaultMediaType = subject?.locations[defaultFrame]?.type
   const defaultMediaUrl = subject?.locations[defaultFrame]?.url
+
   const { image, mediaElementRef } = useSubjectImageOrVideo({
     src: defaultMediaUrl,
     type: defaultMediaType,
     onError,
     onReady
   })
-  const {
-    naturalHeight = 600,
-    naturalWidth = 800
-  } = image
+
+  let mediaWidth = 800
+  let mediaHeight = 600
   // --------------------------------
 
   const onPlayPause = () => {
@@ -76,14 +78,24 @@ const FlipbookViewer = ({
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
           move={move}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
+          naturalHeight={mediaHeight}
+          naturalWidth={mediaWidth}
           onKeyDown={onKeyZoom}
           rotation={rotation}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           src={imageLocationUrl}
           subject={subject}
+        />
+      )}
+      {currentMediaType === 'video' && (
+        <video
+          autoplay={false}
+          controls={true}
+          ref={mediaElementRef}
+          src={currentMediaUrl}
+          width={mediaWidth}
+          height={mediaHeight}
         />
       )}
       <FlipbookControls
