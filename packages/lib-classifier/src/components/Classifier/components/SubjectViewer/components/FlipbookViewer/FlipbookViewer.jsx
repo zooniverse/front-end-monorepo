@@ -38,17 +38,15 @@ const FlipbookViewer = ({
   }, [])
 
   // Determine the size of the "subject frame".
-  // This is determined by the size of the first image (OR VIDEO?!?) in the
+  // This is determined by the size of the first image or video file in the
   // Subject, so e.g. if the first image is 800x200, then all other images will
   // fit into a 800x200 frame.
-  // --------------------------------
-  const currentMediaType = subject?.locations[currentFrame]?.type
-  const currentMediaUrl = subject?.locations[currentFrame]?.url
-  
+  // --------------------------------  
   const defaultMediaType = subject?.locations[defaultFrame]?.type
   const defaultMediaUrl = subject?.locations[defaultFrame]?.url
 
-  const { image, mediaElementRef } = useSubjectImageOrVideo({
+  // Get the FIRST (or default) image or video.
+  const { image, mediaElementRef, video, loading, error } = useSubjectImageOrVideo({
     src: defaultMediaUrl,
     type: defaultMediaType,
     onError,
@@ -57,6 +55,24 @@ const FlipbookViewer = ({
 
   let mediaWidth = 800
   let mediaHeight = 600
+
+  if (image) {
+    mediaWidth = image.naturalWidth
+    mediaHeight = image.naturalHeight
+  } else if (video) {
+    mediaWidth = video.videoWidth
+    mediaHeight = video.videoHeight
+  }
+  // --------------------------------
+
+  // Now, get the ACTUAL image or video (from the currently-selected frame)
+  // that we want to display.
+  // Believe it or not, all that hullabaloo above 👆 with the "default media" is
+  // only for the sake of determining a consistent viewer width/height for
+  // all media files. 
+  // --------------------------------
+  const currentMediaType = subject?.locations[currentFrame]?.type
+  const currentMediaUrl = subject?.locations[currentFrame]?.url
   // --------------------------------
 
   const onPlayPause = () => {
@@ -64,8 +80,6 @@ const FlipbookViewer = ({
   }
 
   const { onKeyZoom } = useKeyZoom({ customKeyMappings: { ' ': onPlayPause } })
-
-  const imageLocationUrl = subject?.locations[currentFrame]?.url
 
   return (
     <Box>
@@ -84,13 +98,13 @@ const FlipbookViewer = ({
           rotation={rotation}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
-          src={imageLocationUrl}
+          src={currentMediaUrl}
           subject={subject}
         />
       )}
       {currentMediaType === 'video' && (
         <video
-          autoplay={false}
+          autoPlay={false}
           controls={true}
           ref={mediaElementRef}
           src={currentMediaUrl}
