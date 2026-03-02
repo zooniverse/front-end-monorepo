@@ -53,23 +53,33 @@ const FlipbookViewer = ({
   // --------------------------------
   
   function onImageLoad (event) {
-    console.log('+++ onImageLoad', event?.target)
-
     const { naturalHeight, naturalWidth } = event.target
     setViewerWidth(naturalWidth)
     setViewerHeight(naturalHeight)
     setViewerDimensionsRecorded(true)
     
-    const svgImage = imageElementRef.current
-    const { width: clientWidth, height: clientHeight } = svgImage
-      ? svgImage.getBoundingClientRect()
+    const mediaElement = imageElementRef.current
+    const { width: clientWidth, height: clientHeight } = mediaElement
+      ? mediaElement.getBoundingClientRect()
       : {}
     const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
     onReady({ target }, defaultFrame)  // onImageLoad triggers when defaultFrame loads, not currentFrame.
   }
 
   function onVideoLoad (event) {
-    console.log('+++ onVideoLoad', event?.target)
+    if (viewerDimensionsRecorded) return
+
+    const { videoHeight, videoWidth } = event.target
+    setViewerWidth(videoWidth)
+    setViewerHeight(videoHeight)
+    setViewerDimensionsRecorded(true)
+
+    const mediaElement = videoElementRef.current
+    const { width: clientWidth, height: clientHeight } = mediaElement
+      ? mediaElement.getBoundingClientRect()
+      : {}
+    const target = { clientHeight, clientWidth, naturalHeight: videoHeight, naturalWidth: videoWidth }
+    onReady({ target }, defaultFrame)  // onImageLoad triggers when defaultFrame loads, not currentFrame.
   }
 
   // When Subject changes, fetch details of the first/default image/video, to
@@ -151,6 +161,11 @@ const FlipbookViewer = ({
           src={currentMediaUrl}
           width={viewerWidth}
           height={viewerHeight}
+          onLoadedMetadata={onVideoLoad}
+          onError={onMediaError}
+          style={{
+            width: '100%',
+          }}
         />
       )}
       <FlipbookControls
