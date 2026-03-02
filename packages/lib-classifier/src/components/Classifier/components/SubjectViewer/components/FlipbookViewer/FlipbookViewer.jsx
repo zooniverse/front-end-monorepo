@@ -10,8 +10,8 @@ import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import FlipbookControls from './components/FlipbookControls'
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_WIDTH = 1000
-const DEFAULT_HEIGHT = 100
+const DEFAULT_WIDTH = 800
+const DEFAULT_HEIGHT = 600
 
 const FlipbookViewer = ({
   defaultFrame = 0,
