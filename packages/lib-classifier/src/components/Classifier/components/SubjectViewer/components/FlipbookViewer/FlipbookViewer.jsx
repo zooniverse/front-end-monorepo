@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useKeyZoom, useSubjectImageOrVideo } from '@hooks'
 
@@ -10,6 +10,8 @@ import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import FlipbookControls from './components/FlipbookControls'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_WIDTH = 1000
+const DEFAULT_HEIGHT = 100
 
 const FlipbookViewer = ({
   defaultFrame = 0,
@@ -30,6 +32,13 @@ const FlipbookViewer = ({
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
 
+  const [viewerWidth, setViewerWidth] = useState(DEFAULT_WIDTH)
+  const [viewerHeight, setViewerHeight] = useState(DEFAULT_HEIGHT)
+  const [viewerDimensionsRecorded, setViewerDimensionsRecorded] = useState(false)
+
+  const imageElementRef = useRef()
+  const videoElementRef = useRef()
+  
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (!reducedMotionQuery.matches && flipbookAutoplay) {
@@ -41,28 +50,60 @@ const FlipbookViewer = ({
   // This is determined by the size of the first image or video file in the
   // Subject, so e.g. if the first image is 800x200, then all other images will
   // fit into a 800x200 frame.
-  // --------------------------------  
-  const defaultMediaType = subject?.locations[defaultFrame]?.type
-  const defaultMediaUrl = subject?.locations[defaultFrame]?.url
+  // --------------------------------
+  
+  function onImageLoad (event) {
+    console.log('+++ onImageLoad', event?.target)
 
-  // Get the FIRST (or default) image or video.
-  const { image, mediaElementRef, video, loading, error } = useSubjectImageOrVideo({
-    src: defaultMediaUrl,
-    type: defaultMediaType,
-    onError,
-    onReady
-  })
-
-  let mediaWidth = 800
-  let mediaHeight = 600
-
-  if (image) {
-    mediaWidth = image.naturalWidth
-    mediaHeight = image.naturalHeight
-  } else if (video) {
-    mediaWidth = video.videoWidth
-    mediaHeight = video.videoHeight
+    const { naturalHeight, naturalWidth } = event.target
+    setViewerWidth(naturalWidth)
+    setViewerHeight(naturalHeight)
+    setViewerDimensionsRecorded(true)
+    
+    const svgImage = imageElementRef.current
+    const { width: clientWidth, height: clientHeight } = svgImage
+      ? svgImage.getBoundingClientRect()
+      : {}
+    const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+    onReady({ target }, defaultFrame)  // onImageLoad triggers when defaultFrame loads, not currentFrame.
   }
+
+  function onVideoLoad (event) {
+    console.log('+++ onVideoLoad', event?.target)
+  }
+
+  // When Subject changes, fetch details of the first/default image/video, to
+  // determine the viewer width & height.
+  useEffect(function onSubjectChange () {
+    setViewerWidth(DEFAULT_WIDTH)
+    setViewerHeight(DEFAULT_HEIGHT)
+    setViewerDimensionsRecorded(false)
+
+    const defaultMediaType = subject?.locations[defaultFrame]?.type
+    const defaultMediaUrl = subject?.locations[defaultFrame]?.url
+
+    if (defaultMediaType === 'image') {
+      // Use standard Image object to pre-load image files.
+      const { Image } = window
+      const img = new Image()      
+      img.onload = onImageLoad
+      img.onerror = onMediaError
+      img.src = defaultMediaUrl
+
+    } else if (defaultMediaType === 'video') {
+      // Do nothing.
+      // The video's width and height will be handled by the video element
+      // triggering onVideoLoad. We're doing this because we don't have a
+      // better way to pre-load video files.
+    }
+
+  }, [subject])
+
+  function onMediaError (error) {
+    console.error(error)
+    onError(error)
+  }
+
   // --------------------------------
 
   // Now, get the ACTUAL image or video (from the currently-selected frame)
@@ -88,12 +129,12 @@ const FlipbookViewer = ({
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
           frame={currentFrame}
-          imgRef={mediaElementRef}
+          imgRef={imageElementRef}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
           move={move}
-          naturalHeight={mediaHeight}
-          naturalWidth={mediaWidth}
+          naturalHeight={viewerHeight}
+          naturalWidth={viewerWidth}
           onKeyDown={onKeyZoom}
           rotation={rotation}
           setOnPan={setOnPan}
@@ -106,10 +147,10 @@ const FlipbookViewer = ({
         <video
           autoPlay={false}
           controls={true}
-          ref={mediaElementRef}
+          ref={videoElementRef}
           src={currentMediaUrl}
-          width={mediaWidth}
-          height={mediaHeight}
+          width={viewerWidth}
+          height={viewerHeight}
         />
       )}
       <FlipbookControls
