@@ -34,8 +34,7 @@ const FlipbookViewer = ({
 
   const [viewerWidth, setViewerWidth] = useState(DEFAULT_WIDTH)
   const [viewerHeight, setViewerHeight] = useState(DEFAULT_HEIGHT)
-  const [viewerDimensionsRecorded, setViewerDimensionsRecorded] = useState(false)
-
+  
   const imageElementRef = useRef()
   const videoElementRef = useRef()
   
@@ -56,7 +55,6 @@ const FlipbookViewer = ({
     const { naturalHeight, naturalWidth } = event.target
     setViewerWidth(naturalWidth)
     setViewerHeight(naturalHeight)
-    setViewerDimensionsRecorded(true)
     
     const mediaElement = imageElementRef.current
     const { width: clientWidth, height: clientHeight } = mediaElement
@@ -67,12 +65,9 @@ const FlipbookViewer = ({
   }
 
   function onVideoLoad (event) {
-    if (viewerDimensionsRecorded) return
-
     const { videoHeight, videoWidth } = event.target
     setViewerWidth(videoWidth)
     setViewerHeight(videoHeight)
-    setViewerDimensionsRecorded(true)
 
     const mediaElement = videoElementRef.current
     const { width: clientWidth, height: clientHeight } = mediaElement
@@ -87,7 +82,6 @@ const FlipbookViewer = ({
   useEffect(function onSubjectChange () {
     setViewerWidth(DEFAULT_WIDTH)
     setViewerHeight(DEFAULT_HEIGHT)
-    setViewerDimensionsRecorded(false)
 
     const defaultMediaType = subject?.locations[defaultFrame]?.type
     const defaultMediaUrl = subject?.locations[defaultFrame]?.url
@@ -101,10 +95,14 @@ const FlipbookViewer = ({
       img.src = defaultMediaUrl
 
     } else if (defaultMediaType === 'video') {
-      // Do nothing.
-      // The video's width and height will be handled by the video element
-      // triggering onVideoLoad. We're doing this because we don't have a
-      // better way to pre-load video files.
+      // Use <video> element to pre-load video files.
+      const video = document.createElement('video')
+      video.onloadedmetadata = onVideoLoad
+      video.onerror = onMediaError
+      video.src = defaultMediaUrl
+
+      // NOTE: alternatively, we could just add onLoadedMetadata to the <video>
+      // element in the Subject Viewer. 
     }
 
   }, [subject])
@@ -161,7 +159,6 @@ const FlipbookViewer = ({
           src={currentMediaUrl}
           width={viewerWidth}
           height={viewerHeight}
-          onLoadedMetadata={onVideoLoad}
           onError={onMediaError}
           style={{
             width: '100%',
