@@ -32,12 +32,6 @@ const FlipbookViewer = ({
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
 
-  const [viewerWidth, setViewerWidth] = useState(DEFAULT_WIDTH)
-  const [viewerHeight, setViewerHeight] = useState(DEFAULT_HEIGHT)
-  
-  const imageElementRef = useRef()
-  const videoElementRef = useRef()
-  
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (!reducedMotionQuery.matches && flipbookAutoplay) {
@@ -50,68 +44,18 @@ const FlipbookViewer = ({
   // Subject, so e.g. if the first image is 800x200, then all other images will
   // fit into a 800x200 frame.
   // --------------------------------
-  
-  function onImageLoad (event) {
-    const { naturalHeight, naturalWidth } = event.target
-    setViewerWidth(naturalWidth)
-    setViewerHeight(naturalHeight)
-    
-    const mediaElement = imageElementRef.current
-    const { width: clientWidth, height: clientHeight } = mediaElement
-      ? mediaElement.getBoundingClientRect()
-      : {}
-    const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-    onReady({ target }, defaultFrame)  // onImageLoad triggers when defaultFrame loads, not currentFrame.
-  }
+  const defaultMediaType = subject?.locations[defaultFrame]?.type
+  const defaultMediaUrl = subject?.locations[defaultFrame]?.url
+  const { media, mediaElementRef } = useSubjectImageOrVideo({
+    src: defaultMediaUrl,
+    type: defaultMediaType,
+    frame: defaultFrame,
+    onReady,
+    onError,
+  })
 
-  function onVideoLoad (event) {
-    const { videoHeight, videoWidth } = event.target
-    setViewerWidth(videoWidth)
-    setViewerHeight(videoHeight)
-
-    const mediaElement = videoElementRef.current
-    const { width: clientWidth, height: clientHeight } = mediaElement
-      ? mediaElement.getBoundingClientRect()
-      : {}
-    const target = { clientHeight, clientWidth, naturalHeight: videoHeight, naturalWidth: videoWidth }
-    onReady({ target }, defaultFrame)  // onImageLoad triggers when defaultFrame loads, not currentFrame.
-  }
-
-  // When Subject changes, fetch details of the first/default image/video, to
-  // determine the viewer width & height.
-  useEffect(function onSubjectChange () {
-    setViewerWidth(DEFAULT_WIDTH)
-    setViewerHeight(DEFAULT_HEIGHT)
-
-    const defaultMediaType = subject?.locations[defaultFrame]?.type
-    const defaultMediaUrl = subject?.locations[defaultFrame]?.url
-
-    if (defaultMediaType === 'image') {
-      // Use standard Image object to pre-load image files.
-      const { Image } = window
-      const img = new Image()      
-      img.onload = onImageLoad
-      img.onerror = onMediaError
-      img.src = defaultMediaUrl
-
-    } else if (defaultMediaType === 'video') {
-      // Use <video> element to pre-load video files.
-      const video = document.createElement('video')
-      video.onloadedmetadata = onVideoLoad
-      video.onerror = onMediaError
-      video.src = defaultMediaUrl
-
-      // NOTE: alternatively, we could just add onLoadedMetadata to the <video>
-      // element in the Subject Viewer. 
-    }
-
-  }, [subject])
-
-  function onMediaError (error) {
-    console.error(error)
-    onError(error)
-  }
-
+  const viewerWidth = media?.naturalWidth || media?.videoWidth || DEFAULT_WIDTH
+  const viewerHeight = media?.naturalHeight || media?.videoHeight || DEFAULT_HEIGHT
   // --------------------------------
 
   // Now, get the ACTUAL image or video (from the currently-selected frame)
@@ -137,7 +81,7 @@ const FlipbookViewer = ({
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
           frame={currentFrame}
-          imgRef={imageElementRef}
+          imgRef={mediaElementRef}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
           move={move}
@@ -155,11 +99,10 @@ const FlipbookViewer = ({
         <video
           autoPlay={false}
           controls={true}
-          ref={videoElementRef}
+          ref={mediaElementRef}
           src={currentMediaUrl}
           width={viewerWidth}
           height={viewerHeight}
-          onError={onMediaError}
           style={{
             width: '100%',
             height: '100%',
