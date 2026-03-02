@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useKeyZoom, useSubjectImageOrVideo } from '@hooks'
 
@@ -136,7 +136,7 @@ FlipbookViewer.propTypes = {
   limitSubjectHeight: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
+  /** Passed from SubjectViewer and called if media-fetching hook fails. */
   onError: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,

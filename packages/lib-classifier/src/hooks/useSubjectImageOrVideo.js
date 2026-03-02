@@ -39,7 +39,7 @@ Dev Notes (2026):
 
 import { useEffect, useRef, useState } from 'react'
 
-export default function useSubjectImageOrVideo({ type = 'image', frame = 0, src, onReady, onError }) {
+export default function useSubjectImageOrVideo({ src, type = 'image', frame = 0, onReady, onError }) {
   const mediaElementRef = useRef()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
