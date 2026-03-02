@@ -29,7 +29,8 @@ const DirectionButton = styled(Button)`
     }
 `
 
-const ThumbnailButton = styled(Button)`
+// For image files, show a thumbnail of the image 
+const ImageThumbnailButton = styled(Button)`
   display: flex;
   ${props => css`height: ${props.thumbnailDimension};`}
   ${props => css`width: ${props.thumbnailDimension};`}
@@ -39,6 +40,21 @@ const ThumbnailButton = styled(Button)`
   background-repeat: no-repeat;
   background-position: center;
   ${props => css`background-image: url(${props.thumbnailerUrl});`}
+  &[aria-selected=true] {
+    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+  }
+`
+
+// For video files, just show a "play video" icon
+const VideoThumbnailButton = styled(Button)`
+  display: flex;
+  ${props => css`height: ${props.thumbnailDimension};`}
+  ${props => css`width: ${props.thumbnailDimension};`}
+  padding: 0;
+  border: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   &[aria-selected=true] {
     border: solid 2px ${props => props.theme.global.colors['neutral-2']};
   }
@@ -237,32 +253,56 @@ const FlipbookControls = ({
             >
               {locations?.length &&
                 locations.map((location, index) => {
-                  const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${location.url.slice(
-                    7,
-                    location.url.length
-                  )}`
-                  // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
-
+                  const mediaType = location.type
                   const activeFrame = currentFrame === index
                   const tabIndex = activeFrame ? 0 : -1
 
-                  return (
-                    <ThumbnailButton
-                      key={`${location.url}-${index}`}
-                      id={`thumbnail-${index}`}
-                      aria-controls='flipbook-tab-panel'
-                      aria-label={`${t(
-                        'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
-                      )} ${index + 1}`}
-                      aria-selected={activeFrame ? 'true' : 'false'}
-                      onClick={() => handleThumbnailClick(index)}
-                      onKeyDown={handleKeyDown}
-                      role='tab'
-                      tabIndex={tabIndex}
-                      thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
-                      thumbnailerUrl={thumbnailerUrl}
-                    />
-                  )
+                  if (mediaType === 'image') {
+                    const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${location.url.slice(
+                      7,
+                      location.url.length
+                    )}`
+                    // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
+
+                    return (
+                      <ImageThumbnailButton
+                        key={`${location.url}-${index}`}
+                        id={`thumbnail-${index}`}
+                        aria-controls='flipbook-tab-panel'
+                        aria-label={`${t(
+                          'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
+                        )} ${index + 1}`}
+                        aria-selected={activeFrame ? 'true' : 'false'}
+                        onClick={() => handleThumbnailClick(index)}
+                        onKeyDown={handleKeyDown}
+                        role='tab'
+                        tabIndex={tabIndex}
+                        thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
+                        thumbnailerUrl={thumbnailerUrl}
+                      />
+                    )
+                  }
+
+                  if (mediaType === 'video') {
+                    return (
+                      <VideoThumbnailButton
+                        key={`${location.url}-${index}`}
+                        id={`thumbnail-${index}`}
+                        aria-controls='flipbook-tab-panel'
+                        aria-label={`${t(
+                          'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
+                        )} ${index + 1}`}
+                        aria-selected={activeFrame ? 'true' : 'false'}
+                        onClick={() => handleThumbnailClick(index)}
+                        onKeyDown={handleKeyDown}
+                        role='tab'
+                        tabIndex={tabIndex}
+                        thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
+                      >
+                        ▶️
+                      </VideoThumbnailButton>
+                    )
+                  }
                 })}
             </Box>
             <DirectionButton
