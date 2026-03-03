@@ -4,7 +4,8 @@ import {
   Pause,
   FormNext,
   FormPrevious,
-  FormDown
+  FormDown,
+  Video as VideoIcon,
 } from 'grommet-icons'
 import debounce  from 'lodash/debounce'
 import { bool, func, number } from 'prop-types'
@@ -50,11 +51,13 @@ const VideoThumbnailButton = styled(Button)`
   display: flex;
   ${props => css`height: ${props.thumbnailDimension};`}
   ${props => css`width: ${props.thumbnailDimension};`}
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   padding: 0;
   border: none;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: ${props => props.theme.dark ? props.theme.global.colors['dark-2'] : props.theme.global.colors['light-2']};
   &[aria-selected=true] {
     border: solid 2px ${props => props.theme.global.colors['neutral-2']};
   }
@@ -299,7 +302,7 @@ const FlipbookControls = ({
                         tabIndex={tabIndex}
                         thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
                       >
-                        ▶️
+                        <VideoIcon color='brand' size='small' />
                       </VideoThumbnailButton>
                     )
                   }
