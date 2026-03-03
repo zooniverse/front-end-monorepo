@@ -23,14 +23,17 @@ export default function Text({
   }
 
   if (data) {
-    content = <PreDisplay content={data} maxHeight={height} maxWidth={width} {...rest} />
+    content = data
   }
 
-  return content
-}
-
-Text.propTypes = {
-  ...propTypes
+  return <PreDisplay
+    a11yTitle={alt}
+    content={content}
+    flex={flex}
+    maxHeight={height}
+    maxWidth={width}
+    {...rest}
+  />
 }
 
 Text.propTypes = {

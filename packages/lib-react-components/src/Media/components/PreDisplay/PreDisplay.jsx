@@ -25,18 +25,27 @@ const StyledPre = styled.pre`
   overflow-y: scroll;
 `
 
-function PreDisplay({ content, maxHeight, maxWidth }) {
+function PreDisplay({
+    a11yTitle,
+    content,
+    flex,
+    maxHeight,
+    maxWidth,
+    ...rest
+  }) {
   const theme = useTheme()
 
   return (
     <StyledBox
-      flex
+      a11yTitle={a11yTitle}
+      flex={flex}
       forwardedAs='section'
       height='100%'
       maxHeight={maxHeight}
       maxWidth={maxWidth}
       pad={{ horizontal: 'xsmall', top: 'xsmall', bottom: 'medium' }}
       width='100%'
+      {...rest}
     >
       <StyledPre
         tabIndex='0'
