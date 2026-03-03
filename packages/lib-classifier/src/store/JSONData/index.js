@@ -6,4 +6,4 @@ import GeoJSON from './GeoJSON'
 import TESSLightCurve from './TESSLightCurve'
 import VariableStarPlots from './VariableStarPlots'
 
-export default types.union(BarChart, DataSeriesPlot, GeoJSON, TESSLightCurve, VariableStarPlots)
+export default types.union(GeoJSON, BarChart, DataSeriesPlot, VariableStarPlots, TESSLightCurve)
