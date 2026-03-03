@@ -30,15 +30,9 @@ export default function Data({
   }
 
   if (jsonData) {
-    const { data, chartOptions } = jsonData
-    const Viewer = Viewers[type]
-    if (Viewer) {
-      content = <Viewer
-        alt={alt}
-        chartOptions={chartOptions}
-        data={data}
-      />
-    }
+    const Viewer = Viewers[type] || Viewers.JSONViewer
+
+    content = <Viewer alt={alt} jsonData={jsonData} />
   }
 
   return (

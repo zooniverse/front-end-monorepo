@@ -2,10 +2,13 @@ import { lazy, Suspense } from 'react'
 
 const VolumetricPreview = lazy(() => import('@zooniverse/subject-viewers/VolumetricViewer/VolumetricPreview'))
 
-function VolumetricViewer({ data }) {
+function VolumetricViewer({ jsonData }) {
+  // Destructure data from jsonData
+  const { data: volumetricData } = jsonData || {}
+
   const config = {
     subject: {
-      subjectJSON: data
+      subjectJSON: volumetricData
     },
     view: 'preview'
   }
