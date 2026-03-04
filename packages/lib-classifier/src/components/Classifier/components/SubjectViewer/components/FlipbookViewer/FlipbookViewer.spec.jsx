@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Meta, { Default, NoSubject } from './FlipbookViewer.stories'
+import Meta, { Default, WithImagesAndVideos, NoSubject } from './FlipbookViewer.stories'
 import { composeStory } from '@storybook/react'
 import userEvent from '@testing-library/user-event'
 
@@ -57,6 +57,16 @@ describe('Component > FlipbookViewer', function () {
 
       expect(thumbnailButtons[0].tabIndex).to.equal(-1)
       expect(thumbnailButtons[1].tabIndex).to.equal(0)
+    })
+  })
+
+  describe('with an image+video subject', function () {
+    const ImageAndVideoStory = composeStory(WithImagesAndVideos, Meta)
+
+    it('should render the correct number of thumbnnails', function () {
+      const { getAllByRole } = render(<ImageAndVideoStory />)
+      const thumbnailButtons = getAllByRole('tab')
+      expect(thumbnailButtons).to.have.length(5)
     })
   })
 
