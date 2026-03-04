@@ -136,16 +136,6 @@ const SeparateFrame = ({
     separateFrameEnableMove()
   }
 
-  if (loading) {
-    return (
-      <p>Loading...</p>
-    )
-  } else if (!loading && error) {
-    return (
-      <p>{error.message || 'ERROR'}</p>
-    )
-  }
-
   if (mediaType === 'image') {
     return (
       <Box direction='row'>
@@ -221,6 +211,8 @@ const SeparateFrame = ({
       </Box>
     )
   }
+
+  return null
 }
 
 SeparateFrame.propTypes = {
