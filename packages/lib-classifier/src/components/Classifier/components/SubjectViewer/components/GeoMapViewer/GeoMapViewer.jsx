@@ -25,18 +25,23 @@ import createModifyUncertaintyInteraction from './helpers/createModifyUncertaint
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import asMSTFeature from './helpers/asMSTFeature'
 
+const StyledBox = styled(Box)`
+  position: relative;
+`
+
+const ControlsBox = styled(Box)`
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  z-index: 1;
+`
+
 const MapContainer = styled.div`
   height: 100%;
   min-height: 400px;
   width: 100%;
 `
 
-const ControlsBox = styled(Box)`
-  position: absolute;
-  top: 80px;
-  left: 10px;
-  z-index: 1;
-`
 // Helper function to fit view to features extent
 function fitViewToFeatures(map, features) {
   const view = map.getView()
@@ -160,10 +165,12 @@ function GeoMapViewer({
         isSelected: select.getFeatures().getArray().includes(feature)
       }))
 
-      // Create translate interaction and add both to map
+      // Create translate interaction
       const translate = new Translate({
         features: select.getFeatures()
       })
+
+      // Add select and translate interactions to the map
       map.addInteraction(select)
       map.addInteraction(translate)
       selectRef.current = select
@@ -381,22 +388,22 @@ function GeoMapViewer({
   }
 
   return (
-    <Box
-      as='section'
+    <StyledBox
+      forwardedAs='section'
       fill
     >
-      <MapContainer
-        ref={mapContainerRef}
-        className='map-container'
-        data-testid='geo-map-container'
-      />
       {geoJSON && (
         <ControlsBox>
           <RecenterButton onClick={handleRecenter} />
           <ResetButton onClick={handleReset} />
         </ControlsBox>
       )}
-    </Box>
+      <MapContainer
+        ref={mapContainerRef}
+        className='map-container'
+        data-testid='geo-map-container'
+      />
+    </StyledBox>
   )
 }
 
