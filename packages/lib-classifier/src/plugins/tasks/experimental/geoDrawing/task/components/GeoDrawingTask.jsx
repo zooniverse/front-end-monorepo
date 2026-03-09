@@ -124,9 +124,11 @@ function GeoDrawingTask({
                   <Text size='xsmall'>
                     Longitude: {lon}°
                   </Text>
-                  <Text size='xsmall'>
-                    Uncertainty radius: {radiusDisplay}
-                  </Text>
+                  {radius !== null && (
+                    <Text size='xsmall'>
+                      Uncertainty radius: {radiusDisplay}
+                    </Text>
+                  )}
                 </>
               )
             })()}
