@@ -29,11 +29,11 @@ const GeoMapSubjectContainer = styled(Box)`
 `
 
 const GeoMapViewerContainer = styled(Box)`
-  height: 600px;
+  height: 90vh;
   width: 100%;
 
   @media screen and (max-width: 768px) {
-    height: 400px;
+    height: 70vh;
   }
 `
 
