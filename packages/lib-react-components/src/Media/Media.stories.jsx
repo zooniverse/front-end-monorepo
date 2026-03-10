@@ -22,14 +22,16 @@ const AUDIO_URL =
   'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga'
 const DATA_URL =
   'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json'
+const GEOJSON_URL =
+  'https://panoptes-uploads.zooniverse.org/subject_location/8a2e4e5a-64cd-4128-a19f-4183ea610099.json'
 const IMAGE_URL =
   'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
 const IMAGE_URL_WITH_SEARCH_PARAMS =
   'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg?blorp'
-const VIDEO_URL =
-  'https://static.zooniverse.org/fem-assets/home-video.mp4'
 const TEXT_URL =
   'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+const VIDEO_URL =
+  'https://static.zooniverse.org/fem-assets/home-video.mp4'
 const VOLUMETRIC_URL = 
   'https://panoptes-uploads-staging.zooniverse.org/subject_location/3c56e6a7-be27-4ab3-93a7-c41a3c867baf.json'
 
@@ -113,6 +115,19 @@ export function Data() {
       <Media
         alt='SuperWASP Black Hole Hunters'
         src={DATA_URL}
+        height={250}
+        width={270}
+      />
+    </Box>
+  )
+}
+
+export function GeoJSONData() {
+  return (
+    <Box>
+      <Media
+        alt='A GeoJSON file'
+        src={GEOJSON_URL}
         height={250}
         width={270}
       />

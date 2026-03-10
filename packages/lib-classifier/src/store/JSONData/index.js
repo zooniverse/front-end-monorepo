@@ -6,4 +6,8 @@ import GeoJSON from './GeoJSON'
 import TESSLightCurve from './TESSLightCurve'
 import VariableStarPlots from './VariableStarPlots'
 
-export default types.union(BarChart, DataSeriesPlot, GeoJSON, TESSLightCurve, VariableStarPlots)
+// NOTE: Union order is intentional. Similar, but not identical, to lib-react-components/src/types/JSONData/index.js.
+// MST union matching can be order-sensitive when model snapshots overlap,
+// so changing this order may change which model a payload resolves to.
+// This classifier package includes VariableStarPlots in the union.
+export default types.union(GeoJSON, BarChart, DataSeriesPlot, VariableStarPlots, TESSLightCurve)

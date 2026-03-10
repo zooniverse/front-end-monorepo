@@ -7,6 +7,8 @@ import throttle from 'lodash/throttle'
 
 // OpenLayers imports
 import { Map, View } from 'ol'
+import { defaults as defaultControls } from 'ol/control/defaults'
+import ScaleLine from 'ol/control/ScaleLine'
 import { click } from 'ol/events/condition'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Translate, Select } from 'ol/interaction'
@@ -15,7 +17,6 @@ import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 import { unByKey } from 'ol/Observable'
-import ScaleLine from 'ol/control/ScaleLine'
 
 // local imports
 import RecenterButton from './components/RecenterButton'
@@ -117,7 +118,9 @@ function GeoMapViewer({
         center: [0, 0],
         zoom: 0,
       }),
-      controls: [new ScaleLine()]
+      controls: defaultControls().extend([
+        new ScaleLine()
+      ])
     })
 
     const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0

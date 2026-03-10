@@ -112,9 +112,8 @@ function DataSeriesPoint({
 function DataSeriesPlot({
   alt = '',
   backgroundColor = '',
-  chartOptions = CHART_OPTIONS,
   children,
-  data,
+  jsonData,
   dataPointSize = 25,
   parentHeight,
   parentWidth,
@@ -127,6 +126,9 @@ function DataSeriesPlot({
       colors = {}
     }
   } = useTheme()
+
+  // Destructure data and chartOptions from jsonData
+  const { data, chartOptions = CHART_OPTIONS } = jsonData || {}
 
   const {
     invertAxes = INVERT_AXES,
@@ -226,42 +228,44 @@ function DataSeriesPlot({
 
 DataSeriesPlot.propTypes = {
   backgroundColor: string,
-  chartOptions: shape({
-    invertAxes: shape({
-      x: bool,
-      y: bool
+  jsonData: shape({
+    chartOptions: shape({
+      invertAxes: shape({
+        x: bool,
+        y: bool
+      }),
+      margin: shape({
+        bottom: number,
+        left: number,
+        right: number,
+        top: number
+      }),
+      padding: shape({
+        bottom: number,
+        left: number,
+        right: number,
+        top: number
+      })
     }),
-    margin: shape({
-      bottom: number,
-      left: number,
-      right: number,
-      top: number
-    }),
-    padding: shape({
-      bottom: number,
-      left: number,
-      right: number,
-      top: number
-    })
-  }),
-  data: oneOfType([
-    shape({
-      x: arrayOf(number),
-      y: arrayOf(number)
-    }),
-    arrayOf(shape({
-      seriesData: arrayOf(shape({
-        x: number.isRequired,
-        y: number.isRequired,
-        x_error: number,
-        y_error: number
-      })).isRequired,
-      seriesOptions: shape({
-        color: string,
-        label: string.isRequired
-      }).isRequired
-    }))
-  ]).isRequired,
+    data: oneOfType([
+      shape({
+        x: arrayOf(number),
+        y: arrayOf(number)
+      }),
+      arrayOf(shape({
+        seriesData: arrayOf(shape({
+          x: number.isRequired,
+          y: number.isRequired,
+          x_error: number,
+          y_error: number
+        })).isRequired,
+        seriesOptions: shape({
+          color: string,
+          label: string.isRequired
+        }).isRequired
+      }))
+    ]).isRequired
+  }).isRequired,
   dataPointSize: number,
   parentHeight: number.isRequired,
   parentWidth: number.isRequired,

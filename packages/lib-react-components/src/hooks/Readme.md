@@ -16,7 +16,9 @@ return (
 
 ## useJSONData
 
-Fetch the raw JSON data and MobX State Tree data type for a Panoptes JSON subject.
+Fetch the raw JSON data and MobX State Tree (MST) data type for a Panoptes JSON subject.
+If the JSON data doesn't match any Zooniverse-defined MST types,
+then the returned type is null and the returned data is a raw JSON object (not an MST object).
 
 ```js
 const url = 'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json'
