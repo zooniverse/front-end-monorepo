@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react'
 
 import JSONData from '../types/JSONData'
 
+// NOTE: this hook is similar to the useSubjectJSON hook in lib-classifier.
+// Please consider whether changes to one hook should be mirrored in the other,
+// until a shared useJSONData hook can be implemented.
+
 async function requestData(src) {
   const response = await fetch(src)
   if (!response.ok) {

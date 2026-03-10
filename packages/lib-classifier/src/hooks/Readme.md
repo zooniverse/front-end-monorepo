@@ -118,6 +118,7 @@ return <img ref={subjectImage} alt="This is an example of a subject image" src={
 ## useSubjectJSON
 
 A custom hook that fetches JSON data from a URL, with a ref to the viewer's DOM node for sizing etc.
+If the JSON data matches a Zooniverse-defined MobX State Tree (MST) type, then the returned data is an MST object. If the JSON data doesn't match any Zooniverse-defined MST types, then the returned type is null and the returned data is a raw JSON object (not an MST object).
 
 Usage:
 ```jsx

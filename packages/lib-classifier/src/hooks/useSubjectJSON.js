@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from 'react'
 
 import JSONData from '@store/JSONData'
 
+// NOTE: this hook is similar to the useJSONData hook in lib-react-components.
+// Please consider whether changes to one hook should be mirrored in the other,
+// until a shared useJSONData hook can be implemented.
+
 function getSubjectUrl(subject) {
   /*
   Find the first location that has a JSON MIME type.
