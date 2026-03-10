@@ -29,14 +29,14 @@
     "contact": {
       "categories": {
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "second": "Translated",
+        "third": "Translated"
       },
       "heading": "Translated",
       "paragraphs": {
         "first": "Translated <0>Translated</0> <1>Translated</1>",
-        "third": "Translated <0>Translated</0>",
-        "second": "Translated"
+        "second": "Translated",
+        "third": "Translated <0>Translated</0>"
       },
       "subheading": "Translated"
     },
@@ -49,8 +49,8 @@
       },
       "pictures": {
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "second": "Translated",
+        "third": "Translated"
       },
       "sidebar": "Translated",
       "subheading": "Translated",
@@ -62,20 +62,20 @@
         "description": "Translated",
         "link": "Translated",
         "steps": {
-          "fourth": "Translated",
           "first": "Translated",
-          "third": "Translated",
-          "second": "Translated"
+          "fourth": "Translated",
+          "second": "Translated",
+          "third": "Translated"
         }
       },
       "researchers": {
         "description": "Translated",
         "link": "Translated",
         "steps": {
-          "fourth": "Translated",
           "first": "Translated",
-          "third": "Translated",
-          "second": "Translated"
+          "fourth": "Translated",
+          "second": "Translated",
+          "third": "Translated"
         }
       },
       "subheading": "Translated"
@@ -91,29 +91,29 @@
     },
     "ourMission": {
       "discoveries": {
-        "fourth": "Translated",
         "first": "Translated",
+        "fourth": "Translated",
+        "second": "Translated",
         "third": "Translated",
-        "tip": "Translated",
-        "second": "Translated"
+        "tip": "Translated"
       },
       "heading": "Translated",
       "paragraphs": {
-        "fourth": "Translated <0>Translated</0>",
         "first": "Translated <0>Translated</0>",
-        "third": "Translated <0>Translated</0>",
-        "second": "Translated <0>Translated</0>"
+        "fourth": "Translated <0>Translated</0>",
+        "second": "Translated <0>Translated</0>",
+        "third": "Translated <0>Translated</0>"
       },
       "stats": {
-        "first": "Translated",
-        "second": "Translated"
+        "classifications": "Translated",
+        "volunteers": "Translated"
       },
       "subheadings": {
         "fifth": "Translated",
-        "fourth": "Translated",
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "fourth": "Translated",
+        "second": "Translated",
+        "third": "Translated"
       },
       "video": "Translated"
     },
@@ -127,20 +127,20 @@
     "paragraphs": {
       "eighth": "Translated <0>Translated</0>",
       "fifth": "Translated <0>Translated</0>",
+      "first": "Translated",
       "fourth": "Translated",
       "nineth": "Translated <0>Translated</0>",
-      "first": "Translated",
+      "second": "Translated",
       "seventh": "Translated",
       "sixth": "Translated",
-      "third": "Translated <0>Translated</0> <1>Translated</1>",
-      "second": "Translated"
+      "third": "Translated <0>Translated</0> <1>Translated</1>"
     },
     "subheadings": {
       "fifth": "Translated",
-      "fourth": "Translated",
       "first": "Translated",
-      "third": "Translated",
-      "second": "Translated"
+      "fourth": "Translated",
+      "second": "Translated",
+      "third": "Translated"
     },
     "title": "Translated"
   },
@@ -148,22 +148,27 @@
     "button": "Translated",
     "paragraphs": {
       "first": "Translated",
-      "third": "Translated",
-      "second": "Translated"
+      "second": "Translated",
+      "third": "Translated"
     },
     "subheading": "Translated",
     "title": "Translated"
   },
   "Educate": {
     "articles": {
+      "first": {
+        "datePublished": "Translated 28, 2022",
+        "excerpt": "Translated",
+        "title": "Translated"
+      },
       "fourth": {
         "datePublished": "April 29, 2015",
         "excerpt": "Translated",
         "title": "Translated"
       },
       "heading": "Translated",
-      "first": {
-        "datePublished": "Translated 28, 2022",
+      "second": {
+        "datePublished": "Translated 14, 2019",
         "excerpt": "Translated",
         "title": "Translated"
       },
@@ -171,30 +176,25 @@
         "datePublished": "Translated 7, 2018",
         "excerpt": "Translated",
         "title": "Translated"
-      },
-      "second": {
-        "datePublished": "Translated 14, 2019",
-        "excerpt": "Translated",
-        "title": "Translated"
       }
     },
     "buttons": {
       "first": "Translated",
-      "third": "Translated",
-      "second": "Translated"
+      "second": "Translated",
+      "third": "Translated"
     },
     "forEducators": {
       "classrooms": "Translated",
       "heading": "Translated",
       "paragraphs": {
         "first": "Translated <0>Translated</0>",
-        "third": "Translated <0>Translated</0>",
-        "second": "Translated <0>Translated</0>"
+        "second": "Translated <0>Translated</0>",
+        "third": "Translated <0>Translated</0>"
       },
       "subheadings": {
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "second": "Translated",
+        "third": "Translated"
       }
     },
     "introduction": "Translated",
@@ -280,19 +280,19 @@
         "description": "Translated"
       },
       "headings": {
-        "fourth": "Translated",
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "fourth": "Translated",
+        "second": "Translated",
+        "third": "Translated"
       },
       "heroText": "Translated",
       "mainHeading": "Translated",
       "projects": "Translated",
       "subheadings": {
-        "fourth": "Translated",
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "fourth": "Translated",
+        "second": "Translated",
+        "third": "Translated"
       }
     }
   },
@@ -300,6 +300,61 @@
     "description": "Translated",
     "sidebarLabel": "Translated",
     "title": "Translated"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Translated",
+      "arts": "Translated",
+      "biology": "Translated",
+      "climate": "Translated",
+      "history": "Translated",
+      "language": "Translated",
+      "literature": "Translated",
+      "medicine": "Translated",
+      "nature": "Translated",
+      "physics": "Translated",
+      "social": "Translated",
+      "space": "Translated"
+    },
+    "languages": {
+      "label": "Translated"
+    },
+    "organizations": {
+      "description": "Translated",
+      "heading": "Translated",
+      "none": "Translated"
+    },
+    "projects": {
+      "description": "<0>Translated</0> Translated",
+      "empty": {
+        "clear": "Translated",
+        "status": "Translated <0>Translated</0>"
+      },
+      "error": "Translated",
+      "heading": "Translated",
+      "none": "Translated",
+      "showingNum": "{{range}} Translated {{total}} Translated"
+    },
+    "search": {
+      "placeholder": "Translated",
+      "warning": "Translated"
+    },
+    "sortBy": {
+      "label": "Translated",
+      "mostActive": "Translated",
+      "mostPopular": "Translated",
+      "nameAZ": "Translated",
+      "nameZA": "Translated",
+      "newest": "Translated",
+      "oldest": "Translated"
+    },
+    "status": {
+      "active": "Translated",
+      "all": "Translated",
+      "finished": "Translated",
+      "label": "Translated",
+      "paused": "Translated"
+    }
   },
   "Publications": {
     "description": "Translated",
@@ -313,21 +368,21 @@
     "brand": {
       "heading": "Translated",
       "links": {
-        "fourth": "Translated",
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "fourth": "Translated",
+        "second": "Translated",
+        "third": "Translated"
       }
     },
     "cite": {
       "heading": "Translated",
       "paragraphs": {
         "fifth": "Translated",
-        "fourth": "Translated",
         "first": "Translated <0>Translated</0>",
+        "fourth": "Translated",
+        "second": "Translated <0>Translated</0> <1>Translated</1>",
         "sixth": "Translated <0>Translated</0>",
-        "third": "Translated <0>Translated</0>",
-        "second": "Translated <0>Translated</0> <1>Translated</1>"
+        "third": "Translated <0>Translated</0>"
       },
       "quote": "Translated <0>Translated</0>",
       "subheadings": {
@@ -346,8 +401,8 @@
       "heading": "Translated",
       "paragraphs": {
         "first": "Translated",
-        "third": "Translated <0>Translated</0>",
-        "second": "Translated <0>Translated</0>"
+        "second": "Translated <0>Translated</0>",
+        "third": "Translated <0>Translated</0>"
       }
     },
     "classify": {
@@ -373,15 +428,15 @@
       "heading": "Translated",
       "paragraphs": {
         "fifth": "Translated <0>Translated</0> <1>Translated</1>",
-        "fourth": "Translated <0>https://www.zooniverse.org/accounts/register</0>",
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "fourth": "Translated <0>https://www.zooniverse.org/accounts/register</0>",
+        "second": "Translated",
+        "third": "Translated"
       },
       "subheadings": {
         "first": "Translated",
-        "third": "Translated",
-        "second": "Translated"
+        "second": "Translated",
+        "third": "Translated"
       }
     },
     "title": "Translated"

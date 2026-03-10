@@ -15,7 +15,7 @@ const Point = types
       coordinates: types.array(types.number)
     }),
     properties: types.optional(types.model({
-      uncertainty_radius: types.maybe(types.number)
+      uncertainty_radius: types.maybeNull(types.number)
     }), {})
   })
   .preProcessSnapshot((snapshot) => {
@@ -120,12 +120,18 @@ const Point = types
     },
 
     getUncertaintyRadius({ feature, geoDrawingTask }) {
-      // Returns radius in map coordinate units
+      // Returns radius in map coordinate units (or null if explicitly disabled)
       const tool = self.getTool({ feature, geoDrawingTask })
       if (tool?.uncertainty_circle === true) {
-        return feature?.get?.('uncertainty_radius') ?? self.properties?.uncertainty_radius
+        // Check OL feature first, then MST properties
+        const olRadius = feature?.get?.('uncertainty_radius')
+        if (olRadius !== undefined) {
+          return olRadius  // Could be null (disabled), 0 (zero radius), or number
+        }
+        const mstRadius = self.properties?.uncertainty_radius
+        return mstRadius  // Could be null (disabled), 0 (zero radius), number, or undefined
       }
-      return null
+      return null  // Tool doesn't support uncertainty circles
     },
 
     getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution }) {

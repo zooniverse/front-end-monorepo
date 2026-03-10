@@ -1,10 +1,12 @@
 import asyncStates from '@zooniverse/async-states'
+import { Box } from 'grommet'
 import { observer } from 'mobx-react'
 import { func } from 'prop-types'
 import { useEffect } from 'react'
 
 import { useStores, useSubjectJSON } from '@hooks'
 import GeoMapViewer from './GeoMapViewer'
+import ReferenceData from './components/ReferenceData'
 
 function storeMapper(classifierStore) {
   const {
@@ -52,15 +54,13 @@ function GeoMapViewerContainer ({
     onReady,
     subject
   })
-  // Eventually, we will determine the geoJSON data from the subject's location, Caesar reductions, other sources, or a combination thereof.
-  // Requesting Caesar reductions might look like something like this:
-  // const { data: caesarData, error: caesarError, loading: caesarLoading } = useCaesarReductions({ subjectId: subject.id })
-  // For now, we are only loading geoJSON data from the subject JSON data, if applicable.
 
   let geoJSONData = null
+  let referenceData = null
   
   if (data && type?.name === 'GeoJSON') {
     geoJSONData = data
+    referenceData = data.reference_data
   }
 
   // Initialize the geoDrawing annotation with GeoJSON data
@@ -108,14 +108,17 @@ function GeoMapViewerContainer ({
   const geoDrawingTask = activeStepTasks.find(task => task.type === 'geoDrawing')
 
   return (
-    <GeoMapViewer
-      geoDrawingTask={geoDrawingTask}
-      geoJSON={geoJSONData}
-      subjectId={subject.id}
-      onFeaturesChange={handleFeaturesChange}
-      onMapExtentChange={handleMapExtentChange}
-      onSelectedFeatureChange={handleSelectedFeatureChange}
-    />
+    <Box fill>
+      {referenceData && <ReferenceData data={referenceData} />}
+      <GeoMapViewer
+        geoDrawingTask={geoDrawingTask}
+        geoJSON={geoJSONData}
+        subjectId={subject.id}
+        onFeaturesChange={handleFeaturesChange}
+        onMapExtentChange={handleMapExtentChange}
+        onSelectedFeatureChange={handleSelectedFeatureChange}
+      />
+    </Box>
   )
 }
 

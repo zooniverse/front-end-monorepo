@@ -52,6 +52,21 @@ describe('Model > Point', function () {
       expect(point.properties.uncertainty_radius).to.equal(50)
     })
 
+    it('should accept null uncertainty_radius', function () {
+      const snapshot = {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [10, 20]
+        },
+        properties: {
+          uncertainty_radius: null
+        }
+      }
+      const point = Point.create(snapshot)
+      expect(point.properties.uncertainty_radius).to.equal(null)
+    })
+
     it('should default to empty coordinates if missing', function () {
       const snapshot = {
         geometry: {}
@@ -165,6 +180,31 @@ describe('Model > Point', function () {
               color: '#ff0000',
               label: 'Test',
               uncertainty_circle: false
+            }
+          ]
+        })
+        const point = Point.create(basicSnapshot)
+        const radius = point.getUncertaintyRadius({ feature: mockFeature, geoDrawingTask })
+        expect(radius).to.equal(null)
+      })
+
+      it('should return null when uncertainty_radius is explicitly null', function () {
+        const mockFeature = {
+          get: (key) => {
+            if (key === 'uncertainty_radius') return null
+            if (key === 'toolIndex') return 0
+            return null
+          }
+        }
+        const geoDrawingTask = GeoDrawingTask.create({
+          taskKey: 'T0',
+          type: 'geoDrawing',
+          tools: [
+            {
+              type: 'Point',
+              color: '#ff0000',
+              label: 'Test',
+              uncertainty_circle: true
             }
           ]
         })

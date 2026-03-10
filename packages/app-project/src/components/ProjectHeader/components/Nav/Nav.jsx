@@ -53,7 +53,7 @@ function NavItem({ navLink }) {
       The link hrefPath will be ['', owner, project, section, ...rest].
       The section is always the fourth item in the array.
     */
-    isCurrentPage = routerPath[3] === hrefPath[3]
+    isCurrentPage = !!routerPath[3] && !!hrefPath[3] && routerPath[3] === hrefPath[3]
   }
 
   return (
