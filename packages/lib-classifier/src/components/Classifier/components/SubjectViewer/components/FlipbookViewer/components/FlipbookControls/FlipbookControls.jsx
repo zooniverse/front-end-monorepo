@@ -1,11 +1,11 @@
 import { Button, Box, Grid, Select, ThemeContext } from 'grommet'
 import {
-  Pause,
+  Pause as PauseIcon,
   Play as PlayIcon,
   FormNext as NextIcon,
   FormPrevious as PrevIcon,
   FormDown,
-  Video,
+  Video as VideoIcon,
 } from 'grommet-icons'
 import debounce  from 'lodash/debounce'
 import { bool, func, number } from 'prop-types'
@@ -47,12 +47,6 @@ const ImageThumbnailButton = styled(Button)`
   }
 `
 
-const VideoIcon = styled(Video)`
-  max-width: 80%;
-  fill: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
-  stroke: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
-`
-
 // For video files, just show a "play video" icon
 const VideoThumbnailButton = styled(Button)`
   display: flex;
@@ -65,8 +59,18 @@ const VideoThumbnailButton = styled(Button)`
   padding: 0;
   border: none;
   background: ${props => props.theme.dark ? props.theme.global.colors['dark-4'] : props.theme.global.colors['neutral-6']};
+
+  border: solid 1px ${props => props.theme.global.colors['light-5']};
   &[aria-selected=true] {
     border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
+  }
+
+  > svg {
+    max-width: 80%;
+    stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+  }
+  &[aria-selected=true] > svg {
+    stroke: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
 `
 
@@ -232,7 +236,10 @@ const FlipbookControls = ({
             <Button
               a11yTitle={t(playPauseLabel)}
               onClick={onPlayPause}
-              icon={playing ? <Pause size={smallScreenStyle ? '20px' : 'medium'} /> : <PlayIcon color={foreColors} size={smallScreenStyle ? '20px' : 'medium'} />}
+              icon={playing
+                ? <PauseIcon color={foreColors} size={smallScreenStyle ? '20px' : 'medium'} />
+                : <PlayIcon color={foreColors} size={smallScreenStyle ? '20px' : 'medium'} />
+              }
               plain
             />
             <SpeedSelect
