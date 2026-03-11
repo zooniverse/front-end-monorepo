@@ -257,7 +257,7 @@ const FlipbookControls = ({
           {/** Image Thumbnails */}
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
-              a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
+              a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
               icon={<PrevIcon color={foreColors} />}
               onClick={handlePrevious}
             />
@@ -323,7 +323,7 @@ const FlipbookControls = ({
                 })}
             </Box>
             <DirectionButton
-              a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel') : ''}
+              a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
               icon={<NextIcon color={foreColors} />}
               onClick={handleNext}
             />
