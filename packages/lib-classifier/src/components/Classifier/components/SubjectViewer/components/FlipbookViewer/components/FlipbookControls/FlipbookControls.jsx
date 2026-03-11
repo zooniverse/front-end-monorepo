@@ -30,6 +30,16 @@ const DirectionButton = styled(Button)`
     }
 `
 
+const NextIcon = styled(FormNext)`
+  fill: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+  stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+`
+
+const PrevIcon = styled(FormPrevious)`
+  fill: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+  stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+`
+
 // For image files, show a thumbnail of the image 
 const ImageThumbnailButton = styled(Button)`
   display: flex;
@@ -250,8 +260,7 @@ const FlipbookControls = ({
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
-              icon={<FormPrevious />}
-              label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+              icon={<PrevIcon />}
               onClick={handlePrevious}
             />
             <Box
@@ -317,8 +326,7 @@ const FlipbookControls = ({
             </Box>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel') : ''}
-              icon={<FormNext />}
-              label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+              icon={<NextIcon />}
               onClick={handleNext}
             />
           </Box>
