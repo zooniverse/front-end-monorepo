@@ -1,9 +1,9 @@
 import { Button, Box, Grid, Select, ThemeContext } from 'grommet'
 import {
-  CirclePlay,
   Pause,
-  FormNext,
-  FormPrevious,
+  Play as PlayIcon,
+  FormNext as NextIcon,
+  FormPrevious as PrevIcon,
   FormDown,
   Video,
 } from 'grommet-icons'
@@ -20,6 +20,7 @@ const SpeedSelect = styled(Select)`
   display: block;
   padding: 0 5px;
   text-align: right;
+  color: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
 `
 
 const DirectionButton = styled(Button)`
@@ -28,16 +29,6 @@ const DirectionButton = styled(Button)`
     & > div {
       flex-direction: column;
     }
-`
-
-const NextIcon = styled(FormNext)`
-  fill: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
-  stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
-`
-
-const PrevIcon = styled(FormPrevious)`
-  fill: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
-  stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
 `
 
 // For image files, show a thumbnail of the image 
@@ -79,7 +70,7 @@ const VideoThumbnailButton = styled(Button)`
   }
 `
 
-
+const foreColors = { dark: 'neutral-6', light: 'dark-5' }
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
 const DEFAULT_HANDLER = () => true
@@ -241,7 +232,7 @@ const FlipbookControls = ({
             <Button
               a11yTitle={t(playPauseLabel)}
               onClick={onPlayPause}
-              icon={playing ? <Pause size={smallScreenStyle ? '20px' : 'medium'} /> : <CirclePlay size={smallScreenStyle ? '20px' : 'medium'} />}
+              icon={playing ? <Pause size={smallScreenStyle ? '20px' : 'medium'} /> : <PlayIcon color={foreColors} size={smallScreenStyle ? '20px' : 'medium'} />}
               plain
             />
             <SpeedSelect
@@ -251,7 +242,7 @@ const FlipbookControls = ({
               onChange={handlePlaybackSpeed}
               plain
               size={smallScreenStyle ? 'small' : '16px'}
-              icon={<FormDown size={smallScreenStyle ? 'small' : '16px'} />}
+              icon={<FormDown color={foreColors} size={smallScreenStyle ? 'small' : '16px'} />}
               focusIndicator
             />
           </Box>
@@ -260,7 +251,7 @@ const FlipbookControls = ({
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
-              icon={<PrevIcon />}
+              icon={<PrevIcon color={foreColors} />}
               onClick={handlePrevious}
             />
             <Box
@@ -326,7 +317,7 @@ const FlipbookControls = ({
             </Box>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel') : ''}
-              icon={<NextIcon />}
+              icon={<NextIcon color={foreColors} />}
               onClick={handleNext}
             />
           </Box>
