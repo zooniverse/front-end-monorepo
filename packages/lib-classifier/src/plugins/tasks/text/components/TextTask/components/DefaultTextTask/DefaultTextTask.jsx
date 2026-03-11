@@ -34,16 +34,14 @@ function DefaultTextTask ({
     https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
   */
   useLayoutEffect(() => {
-    const scrollHeight = textAreaRef.current
-      ? textAreaRef.current.scrollHeight
-      : 0
-    const clientHeight = textAreaRef.current
-      ? textAreaRef.current.clientHeight
-      : 0
- 
-    if (scrollHeight > clientHeight) {
-      textAreaRef.current.style.height = `${scrollHeight}px`
-    }
+    const textarea = textAreaRef.current
+    if (!textarea) return
+
+    // Reset height to let the browser recalculate the correct scrollHeight,
+    // so the textarea can both grow and shrink with its content.
+    textarea.style.height = 'auto'
+    const scrollHeight = textarea.scrollHeight
+    textarea.style.height = `${scrollHeight}px`
   }, [value])
 
   function onChange () {
