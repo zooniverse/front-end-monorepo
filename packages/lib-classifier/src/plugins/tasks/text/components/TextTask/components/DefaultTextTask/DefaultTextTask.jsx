@@ -11,8 +11,9 @@ const StyledText = styled(Text)`
   margin: 0 0 10px 0;
 `
 
+const textareaPadding = 7
 const StyledTextArea = styled(TextArea)`
-  padding: 7px;
+  padding: ${textareaPadding}px;
 `
 
 function DefaultTextTask ({
@@ -39,7 +40,7 @@ function DefaultTextTask ({
     // so the textarea can both grow and shrink with its content.
     textarea.style.height = 'auto'
     const scrollHeight = textarea.scrollHeight
-    textarea.style.height = `${scrollHeight}px`
+    textarea.style.height = `${scrollHeight + textareaPadding}px`
   }, [value])
 
   function onChange () {
