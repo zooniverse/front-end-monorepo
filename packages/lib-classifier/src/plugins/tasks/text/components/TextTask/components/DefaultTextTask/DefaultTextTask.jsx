@@ -26,9 +26,7 @@ function DefaultTextTask ({
   const textAreaRef = useRef()
   /*
     When the text content (annotation value) changes, recalculate the <textarea>'s height,
-    otherwise, the <textarea> becomes a scrollable container.
-
-    This only works as content is expanding, not if content is backspaced. In the future,
+    otherwise, the <textarea> becomes a scrollable container. In the future,
     this resize can be improved with the CSS property `field-sizing` once supported.
 
     https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
