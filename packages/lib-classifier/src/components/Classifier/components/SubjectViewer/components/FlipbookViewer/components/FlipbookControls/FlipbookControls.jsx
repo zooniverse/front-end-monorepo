@@ -5,7 +5,7 @@ import {
   FormNext,
   FormPrevious,
   FormDown,
-  Video as VideoIcon,
+  Video,
 } from 'grommet-icons'
 import debounce  from 'lodash/debounce'
 import { bool, func, number } from 'prop-types'
@@ -42,8 +42,14 @@ const ImageThumbnailButton = styled(Button)`
   background-position: center;
   ${props => css`background-image: url(${props.thumbnailerUrl});`}
   &[aria-selected=true] {
-    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+    border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
+`
+
+const VideoIcon = styled(Video)`
+  max-width: 80%;
+  fill: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
+  stroke: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
 `
 
 // For video files, just show a "play video" icon
@@ -57,11 +63,12 @@ const VideoThumbnailButton = styled(Button)`
   overflow: hidden;
   padding: 0;
   border: none;
-  background: ${props => props.theme.dark ? props.theme.global.colors['dark-2'] : props.theme.global.colors['light-2']};
+  background: ${props => props.theme.dark ? props.theme.global.colors['dark-4'] : props.theme.global.colors['neutral-6']};
   &[aria-selected=true] {
-    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+    border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
 `
+
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
@@ -302,7 +309,7 @@ const FlipbookControls = ({
                         tabIndex={tabIndex}
                         thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
                       >
-                        <VideoIcon color='brand' size='small' />
+                        <VideoIcon size='20px' />
                       </VideoThumbnailButton>
                     )
                   }
