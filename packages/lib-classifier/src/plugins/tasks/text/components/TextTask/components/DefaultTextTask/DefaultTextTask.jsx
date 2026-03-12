@@ -13,7 +13,7 @@ const StyledText = styled(Text)`
 
 const textareaPadding = 7
 const StyledTextArea = styled(TextArea)`
-  padding: ${textareaPadding}px;
+  padding: ${textareaPadding}px ${textareaPadding}px 0 ${textareaPadding}px; // ensures correct vertical alignment of font and no vertical scrollbars
 `
 
 function DefaultTextTask ({
@@ -40,7 +40,7 @@ function DefaultTextTask ({
     // so the textarea can both grow and shrink with its content.
     textarea.style.height = 'auto'
     const scrollHeight = textarea.scrollHeight
-    textarea.style.height = `${scrollHeight + textareaPadding}px`
+    textarea.style.height = `${scrollHeight + textareaPadding}px` // ensures correct vertical alignment of font and no vertical scrollbars
   }, [value])
 
   function onChange () {
