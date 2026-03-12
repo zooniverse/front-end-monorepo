@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, TextArea } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
@@ -11,8 +11,9 @@ const StyledText = styled(Text)`
   margin: 0 0 10px 0;
 `
 
+const textareaPadding = 7
 const StyledTextArea = styled(TextArea)`
-  padding: 7px;
+  padding: ${textareaPadding}px;
 `
 
 function DefaultTextTask ({
@@ -24,34 +25,26 @@ function DefaultTextTask ({
   updateAnnotation = () => true
 }) {
   const textAreaRef = useRef()
-  const [rows, setRows] = useState(1)
-
-  /* When navigating between steps, resize on mount */
-  useEffect(() => {
-    handleResize()
-  }, [])
-
   /*
-    On value change, get the <textarea>'s scrollHeight divided by height of one line
-    rounded down to the nearest integar. Without this function, <textarea>'s becomes a
-    scrollable container.
-
-    This only works as content is expanding, not if content is backspaced. In the future,
+    When the text content (annotation value) changes, recalculate the <textarea>'s height,
+    otherwise, the <textarea> becomes a scrollable container. In the future,
     this resize can be improved with the CSS property `field-sizing` once supported.
+
+    https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
   */
-  function handleResize() {
-    const LINEHEIGHT = 23 // ~1rem + some vertical padding
-    const oldRows = rows
-    let newRows = textAreaRef.current ? Math.floor(textAreaRef.current.scrollHeight / LINEHEIGHT) : oldRows
+  useLayoutEffect(() => {
+    const textarea = textAreaRef.current
+    if (!textarea) return
 
-    if (newRows !== oldRows) {
-      setRows(newRows)
-    }
-  }
+    // Reset height to let the browser recalculate the correct scrollHeight,
+    // so the textarea can both grow and shrink with its content.
+    textarea.style.height = 'auto'
+    const scrollHeight = textarea.scrollHeight
+    textarea.style.height = `${scrollHeight + textareaPadding}px`
+  }, [value])
 
-  function onChange() {
+  function onChange () {
     updateAnnotation(textAreaRef)
-    handleResize()
   }
 
   const components = {
@@ -81,7 +74,7 @@ function DefaultTextTask ({
           id={`${task.taskKey}-${task.type}`}
           value={value}
           onChange={onChange}
-          rows={rows}
+          rows={1}
         />
       </label>
       <TextTagButtons
