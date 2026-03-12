@@ -48,6 +48,7 @@ const ImageThumbnailButton = styled(Button)`
 `
 
 // For video files, just show a "play video" icon
+// Note about that &:hover style: ImageThumbnailButtons seem to automatically have the hover style applied. Grommet Buttons with icons/content don't seem to have the hover style automatically applied, for some reason?
 const VideoThumbnailButton = styled(Button)`
   display: flex;
   ${props => css`height: ${props.thumbnailDimension};`}
@@ -59,6 +60,10 @@ const VideoThumbnailButton = styled(Button)`
   padding: 0;
   border: none;
   background: ${props => props.theme.dark ? props.theme.global.colors['dark-4'] : props.theme.global.colors['neutral-6']};
+
+  &:hover:not([aria-selected=true]) {
+    box-shadow: 0px 0px 0px 2px ${props => props.theme.global.colors['brand']};
+  }
 
   border: solid 1px ${props => props.theme.global.colors['light-5']};
   &[aria-selected=true] {
