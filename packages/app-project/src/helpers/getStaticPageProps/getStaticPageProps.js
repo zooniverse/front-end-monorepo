@@ -3,6 +3,7 @@ import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import notFoundError from '@helpers/notFoundError'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchOrganization from '@helpers/fetchOrganization'
+import fetchLinkedOrganizations from '@helpers/fetchLinkedOrganizations'
 import fetchProjectData from '@helpers/fetchProjectData'
 import fetchSubject from '@helpers/fetchSubject'
 import fetchTranslations from '@helpers/fetchTranslations'
@@ -90,9 +91,10 @@ export default async function getStaticPageProps({ locale, params }) {
   }
 
   /*
-    Fetch the organization linked to the project
+    Fetch the organizations linked to the project
   */
 
+  /*
   if (project.links.organization) {
     const organization = await fetchOrganization(project.links.organization, locale, env)
     if (organization) {
@@ -106,6 +108,12 @@ export default async function getStaticPageProps({ locale, params }) {
       console.log('+++ props.organizations', props.organizations)
     }
   }
+  */
+
+  const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
+  applySnapshot(store.organizations, linkedOrganizations)
+  props.organizations = getSnapshot(store.organizations)
+  console.log('+++ props.organizations', props.organizations)
 
   /*
     Fetch the subject
