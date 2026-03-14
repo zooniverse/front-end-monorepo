@@ -98,6 +98,12 @@ export default async function getStaticPageProps({ locale, params }) {
     if (organization) {
       applySnapshot(store.organization, organization)
       props.organization = getSnapshot(store.organization)
+
+      // WIP
+      const linkedOrganizations = organization ? [organization] : []
+      applySnapshot(store.organizations, linkedOrganizations)
+      props.organizations = getSnapshot(store.organizations)
+      console.log('+++ props.organizations', props.organizations)
     }
   }
 
