@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 
-function OrganizationLink({
+function OrganizationsLink({
   organizations = []
 }) {
   const { t } = useTranslation('components')
@@ -34,11 +34,11 @@ function OrganizationLink({
   )
 }
 
-OrganizationLink.propTypes = {
+OrganizationsLink.propTypes = {
   organizations: arrayOf(shape({
     slug: string,
     title: string
   }))
 }
 
-export default OrganizationLink
+export default OrganizationsLink
