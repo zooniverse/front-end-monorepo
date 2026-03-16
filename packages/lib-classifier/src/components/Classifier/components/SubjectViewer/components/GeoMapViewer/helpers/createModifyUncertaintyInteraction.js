@@ -1,6 +1,40 @@
 import PointerInteraction from 'ol/interaction/Pointer'
+import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
+
+export const POINT_CENTER_HIT_RADIUS_PIXELS = 10
+
+export function isPixelNearPointCenter({
+  pixel,
+  pointPixel,
+  radius = POINT_CENTER_HIT_RADIUS_PIXELS
+}) {
+  if (!Array.isArray(pixel) || !Array.isArray(pointPixel)) return false
+
+  const deltaX = pixel[0] - pointPixel[0]
+  const deltaY = pixel[1] - pointPixel[1]
+
+  return (deltaX * deltaX) + (deltaY * deltaY) <= radius * radius
+}
+
+export function shouldStartDragHandleInteraction({
+  pixel,
+  pointPixel,
+  handlePixel,
+  dragHandleTolerance = 15,
+  pointRadius = POINT_CENTER_HIT_RADIUS_PIXELS
+}) {
+  if (isPixelNearPointCenter({ pixel, pointPixel, radius: pointRadius })) {
+    return false
+  }
+
+  return isPixelNearDragHandle({
+    pixel,
+    handlePixel,
+    tolerance: dragHandleTolerance
+  })
+}
 
 function createModifyUncertaintyInteraction({
   geoDrawingTask,
@@ -43,6 +77,15 @@ function createModifyUncertaintyInteraction({
       })
       if (radius === null) continue
 
+      const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
+      const pointPixel = Array.isArray(pointCoordinates)
+        ? map.getPixelFromCoordinate(pointCoordinates)
+        : null
+
+      if (isPixelNearPointCenter({ pixel, pointPixel })) {
+        return null
+      }
+
       // Get the drag handle coordinates
       const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({ 
         feature: olFeature, 
@@ -50,9 +93,14 @@ function createModifyUncertaintyInteraction({
       })
       if (!dragHandleCoordinates) continue
 
-      // Check if click is near the drag handle
+      // Check if click is near the full resize handle, not just its anchor point.
       const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-      if (getPixelDistance(pixel, dragHandlePixel) < dragHandleTolerance) {
+      if (shouldStartDragHandleInteraction({
+        pixel,
+        pointPixel,
+        handlePixel: dragHandlePixel,
+        dragHandleTolerance
+      })) {
         return olFeature
       }
     }
