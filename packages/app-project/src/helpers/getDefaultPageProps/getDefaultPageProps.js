@@ -15,7 +15,8 @@ export default async function getDefaultPageProps({ locale, params }) {
     title,
     workflowID,
     workflows,
-    organization,
+    organization,  // TODO: REMOVE
+    organizations,
     subject
   } = staticProps
   const host = HOSTS[environment] || 'https://localhost:3000'
@@ -23,7 +24,8 @@ export default async function getDefaultPageProps({ locale, params }) {
     snapshot for store hydration in the browser
   */
   const initialState = {
-    project
+    project,
+    organizations
   }
 
   const props = {
@@ -40,6 +42,7 @@ export default async function getDefaultPageProps({ locale, params }) {
     props.workflowID = workflowID
   }
 
+  // TODO: REMOVE
   if (organization) {
     props.initialState.organization = organization
   }
