@@ -31,7 +31,7 @@ async function fetchLinkedOrganizations (project, locale, env) {
 
   if (!organizationIDs) return []
 
-  const organizations = fetchOrganizationData(organizationIDs, env)
+  const organizations = await fetchOrganizationData(organizationIDs, env)
 
   // TODO: add translation strings
 
