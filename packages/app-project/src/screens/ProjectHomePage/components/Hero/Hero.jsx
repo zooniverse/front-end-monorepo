@@ -7,7 +7,7 @@ import styled, { useTheme } from 'styled-components'
 import Background from './components/Background'
 import Introduction from './components/Introduction'
 import NotApproved from './components/NotApproved/NotApproved'
-import OrganizationLink from './components/OrganizationLink'
+import OrganizationsLink from './components/OrganizationsLink'
 import WorkflowSelector from '@shared/components/WorkflowSelector'
 
 const StyledGrid = styled(Grid)`
@@ -27,22 +27,24 @@ const Relative = styled(Box)`
 
 function useStores() {
   const { store } = useContext(MobXProviderContext)
-  const { organization, project } = store
+  const { organizations, project } = store
 
   const hideNotLaunchApprovedBanner =
     project?.launch_approved ||
     project?.experimental_tools?.includes('hideNotLaunchApprovedBanner')
 
   return {
-    organization,
+    organizations,
     hideNotLaunchApprovedBanner
   }
 }
 
 function Hero({ workflows = [] }) {
-  const { organization, hideNotLaunchApprovedBanner } = useStores()
+  const { organizations, hideNotLaunchApprovedBanner } = useStores()
   const size = useContext(ResponsiveContext)
   const theme = useTheme()
+
+  console.log('+++ 🟢 organizations', organizations.map(org=>org.toJSON()))
 
   return (
     <StyledGrid>
@@ -66,12 +68,9 @@ function Hero({ workflows = [] }) {
         elevation={theme?.dark ? 'xlarge' : 'none'}
       >
         <Introduction />
-        {organization.id ? (
-          <OrganizationLink
-            slug={organization.slug}
-            title={organization.title}
-          />
-        ) : null}
+        <OrganizationsLink
+          organizations={organizations}
+        />
         <WorkflowSelector workflows={workflows} />
       </Relative>
     </StyledGrid>
