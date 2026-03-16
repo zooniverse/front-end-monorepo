@@ -81,9 +81,9 @@ export default async function getStaticPageProps({ locale, params }) {
   const props = {
     project: {
       ...project,
-      strings
+      strings,
     },
-    workflows
+    workflows,
   }
 
   if (workflowID) {
@@ -94,26 +94,20 @@ export default async function getStaticPageProps({ locale, params }) {
     Fetch the organizations linked to the project
   */
 
-  /*
+  // TODO: REMOVE
+  // ----
   if (project.links.organization) {
     const organization = await fetchOrganization(project.links.organization, locale, env)
     if (organization) {
       applySnapshot(store.organization, organization)
       props.organization = getSnapshot(store.organization)
-
-      // WIP
-      const linkedOrganizations = organization ? [organization] : []
-      applySnapshot(store.organizations, linkedOrganizations)
-      props.organizations = getSnapshot(store.organizations)
-      console.log('+++ props.organizations', props.organizations)
     }
   }
-  */
+  // ----
 
   const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
   applySnapshot(store.organizations, linkedOrganizations)
   props.organizations = getSnapshot(store.organizations)
-  console.log('+++ props.organizations', props.organizations)
 
   /*
     Fetch the subject
