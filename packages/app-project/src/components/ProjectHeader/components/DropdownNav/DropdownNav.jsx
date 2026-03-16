@@ -2,13 +2,18 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
-import { bool, object, oneOfType, string } from 'prop-types'
+import { arrayOf, bool, object, oneOfType, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
 import { useProjectNavigation } from '../../hooks'
+
+const StyledOrganizationHeading = styled(SpacedText)`
+  padding: 10px 20px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+`
 
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;
@@ -47,12 +52,13 @@ function DropdownNav({
   adminMode = false,
   className,
   margin = defaultMargin,
-  organizationSlug = '',
-  organizationTitle = ''
+  organizations = [],
 }) {
   const { t } = useTranslation('components')
   const navLinks = useProjectNavigation(adminMode)
   const [ isOpen, setIsOpen ] = useState(false)
+
+  const hasOrganizations = organizations.length > 0
 
   function onClose() {
     setIsOpen(false)
@@ -97,24 +103,27 @@ function DropdownNav({
       elevation='medium'
     >
       <Box as='ul' pad='0'>
-      {navLinks?.map(navLink => (
+        {navLinks?.map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
         ))}
-        {organizationTitle ? (
-          <Box as='li' key={organizationSlug}>
-            <StyledAnchor
-              href={`/organizations/${organizationSlug}`}
-              label={
-                <Box pad='none'>
-                  <SpacedText color='white' size='xsmall'>
-                    {t('ProjectHeader.organization')}
-                  </SpacedText>
-                  <SpacedText color='white' weight='bold'>
-                    {organizationTitle}
-                  </SpacedText>
-                </Box>
-              }
-            />
+        {hasOrganizations ? (
+          <Box as='li'>
+            <Box pad='none'>
+              <StyledOrganizationHeading color='white' size='xsmall'>
+                {t('ProjectHeader.organization')}
+              </StyledOrganizationHeading>
+              {organizations.map(org => 
+                <StyledAnchor
+                  key={org.slug}
+                  href={`/organizations/${org.slug}`}
+                  label={
+                    <SpacedText color='white' weight='bold'>
+                      {org.title}
+                    </SpacedText>
+                  }
+                />
+              )}
+            </Box>
           </Box>
         ) : null}
       </Box>
@@ -156,10 +165,12 @@ DropdownNav.propTypes = {
   className: string,
   /** Margin for the dropdown button (Grommet t-shirt size, CSS length or Grommet margin object.) */
   margin: oneOfType([string, object]),
-  /** Organization slug */
-  organizationSlug: string,
-  /** Organization title */
-  organizationTitle: string
+  organizations: arrayOf(shape({
+    /** Organization slug */
+    slug: string,
+    /** Organization title */
+    title: string,
+  })),
 }
 
 export default DropdownNav
