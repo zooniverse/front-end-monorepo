@@ -4,6 +4,7 @@ import Style from 'ol/style/Style'
 import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Circle from 'ol/style/Circle'
+import { getDragHandleIcon } from './dragHandle'
 
 const DEFAULT_COLOR = '#007bff'
 
@@ -49,10 +50,13 @@ const Point = types
 
     getDragHandleCoordinates({ feature, geoDrawingTask }) {
       const radius = self.getUncertaintyRadius({ feature, geoDrawingTask })
-      if (radius === null || radius === undefined) return undefined
+      if (radius === null || radius === undefined) {
+        return undefined
+      }
       const center = self.getCenterCoordinates({ feature })
-      if (!Array.isArray(center) || center.length < 2) return undefined
-      // Drag handle at right edge of uncertainty circle
+      if (!Array.isArray(center) || center.length < 2) {
+        return undefined
+      }
       return [center[0] + radius, center[1]]
     },
 
@@ -77,18 +81,12 @@ const Point = types
       const strokeWidth = isSelected ? 3 : 2
       const strokeColor = isSelected ? 'white' : color
 
-      const styles = [
-        new Style({
-          image: new Circle({
-            radius: pointRadius,
-            fill: new Fill({ color }),
-            stroke: new Stroke({ color: strokeColor, width: strokeWidth })
-          })
-        })
-      ]
+      const styles = []
 
       const uncertaintyRadiusPixels = self.getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution })
-      if (uncertaintyRadiusPixels) {
+      const hasVisibleUncertaintyHandle = uncertaintyRadiusPixels !== undefined
+
+      if (hasVisibleUncertaintyHandle && uncertaintyRadiusPixels > 0) {
         styles.push(
           new Style({
             image: new Circle({
@@ -98,23 +96,30 @@ const Point = types
           })
         )
 
-        // Add drag handle on the right edge of uncertainty circle when selected
-        if (isSelected) {
-          const dragHandleCoordinates = self.getDragHandleCoordinates({ feature, geoDrawingTask })
-          if (dragHandleCoordinates) {
-            styles.push(
-              new Style({
-                geometry: new OLPoint(dragHandleCoordinates),
-                image: new Circle({
-                  radius: 6,
-                  fill: new Fill({ color }),
-                  stroke: new Stroke({ color: 'white', width: 2 })
-                })
-              })
-            )
-          }
+      }
+
+      if (isSelected && hasVisibleUncertaintyHandle) {
+        const dragHandleCoordinates = self.getDragHandleCoordinates({ feature, geoDrawingTask })
+        if (dragHandleCoordinates) {
+          styles.push(
+            new Style({
+              geometry: new OLPoint(dragHandleCoordinates),
+              image: getDragHandleIcon(color)
+            })
+          )
         }
       }
+
+      // Draw the point last so it stays above uncertainty overlays and handles.
+      styles.push(
+        new Style({
+          image: new Circle({
+            radius: pointRadius,
+            fill: new Fill({ color }),
+            stroke: new Stroke({ color: strokeColor, width: strokeWidth })
+          })
+        })
+      )
 
       return styles
     },
