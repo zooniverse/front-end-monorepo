@@ -15,7 +15,6 @@ export default async function getDefaultPageProps({ locale, params }) {
     title,
     workflowID,
     workflows,
-    organization,  // TODO: REMOVE
     organizations,
     subject
   } = staticProps
@@ -40,11 +39,6 @@ export default async function getDefaultPageProps({ locale, params }) {
 
   if (workflowID) {
     props.workflowID = workflowID
-  }
-
-  // TODO: REMOVE
-  if (organization) {
-    props.initialState.organization = organization
   }
 
   if (subject) {
