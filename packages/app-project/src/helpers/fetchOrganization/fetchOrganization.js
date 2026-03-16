@@ -1,3 +1,5 @@
+// TODO: REMOVE
+
 import { panoptes } from '@zooniverse/panoptes-js'
 
 import fetchTranslations from '@helpers/fetchTranslations'
