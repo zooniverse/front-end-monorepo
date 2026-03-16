@@ -44,8 +44,6 @@ function Hero({ workflows = [] }) {
   const size = useContext(ResponsiveContext)
   const theme = useTheme()
 
-  console.log('+++ 🟢 organizations', organizations.map(org=>org.toJSON()))
-
   return (
     <StyledGrid>
       <Relative>
