@@ -1,1 +1,1 @@
-export { default } from './OrganizationLink'
+export { default } from './OrganizationsLink'
