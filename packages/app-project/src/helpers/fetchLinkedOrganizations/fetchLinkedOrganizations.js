@@ -27,33 +27,31 @@ async function fetchLinkedOrganizations (project, locale, env) {
     ? project.links.organizations.join(',')
     : project.links.organization
 
-  console.log('+++ organizationIDs: ', organizationIDs)
-
   if (!organizationIDs) return []
 
-  const organizations = await fetchOrganizationData(organizationIDs, env)
+  let organizations = await fetchOrganizationData(organizationIDs, env)
 
-  // TODO: add translation strings
+  const translationsFetches = organizations.map(org => {
+    return fetchTranslations({
+      translated_id: org.id,
+      translated_type: 'organization',
+      fallback: org?.primary_language,
+      language: locale,
+      env
+    })
+  })
+  const translations = await Promise.allSettled(translationsFetches)
 
-  return organizations;
-
-  /*
-  const organization = await fetchOrganizationData(organizationID, env)
-  if (!organization) return null
-
-  const translation = await fetchTranslations({
-    translated_id: organizationID,
-    translated_type: 'organization',
-    fallback: organization?.primary_language,
-    language: locale,
-    env
+  organizations = organizations.map((org, index) => {
+    return {
+      ...org,
+      strings: translations?.[index]?.value?.strings || {}
+    }
   })
 
-  return {
-    ...organization,
-    strings: translation?.strings || null
-  }
-  */
+  console.log('+++ translations', translations)
+  console.log('+++ organizations: ', organizations)
+  return organizations;
 }
 
 export default fetchLinkedOrganizations
