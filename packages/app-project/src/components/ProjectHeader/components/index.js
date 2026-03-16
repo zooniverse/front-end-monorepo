@@ -4,7 +4,6 @@ export { default as Background } from './Background'
 export { default as DropdownNav } from './DropdownNav'
 export { default as LocaleSwitcher } from './LocaleSwitcher'
 export { default as Nav } from './Nav'
-export { default as OrganizationLink } from './OrganizationLink'  // TODO: REMOVE
 export { default as OrganizationsLink } from './OrganizationsLink'
 export { default as ProjectTitle } from './ProjectTitle'
 export { default as UnderReviewLabel } from './UnderReviewLabel'
