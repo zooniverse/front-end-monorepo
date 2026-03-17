@@ -4,30 +4,17 @@ import fetchTranslations from '@helpers/fetchTranslations'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 
-// Fetches Organization Resources from Panoptes.
-// Called by fetchLinkedOrganizations.
+// Fetches Organization Resources (along with their linked avatar data) from
+// Panoptes. Called by fetchLinkedOrganizations.
 //
 // Inputs:
 // - organizationIDs: string of organization IDs, e.g. "123" or "123,456,789"
 // - env: app environment string, e.g. "production"
 //
 // Output:
-// - Array of translation objects, e.g.:
-//   [{
-//     status: 'fulfilled',
-//     value: {
-//       id: '2462',
-//       translated_id: 17,
-//       translated_type: 'Organization',
-//       language: 'en',
-//       strings: [Object],
-//       string_versions: {},
-//       href: '/translations/2462',
-//       created_at: '2018-04-12T17:29:16.434Z',
-//       updated_at: '2025-03-17T14:21:39.341Z',
-//       links: [Object]
-//     }
-//   }]
+// - Object containing...
+// - .organizations: array of Organization objects.
+// - .linked: array of linked resources. (Mainly "avatar" data.)
 //
 // Notes:
 // - ⚠️ WARNING: if a Project belongs to large number of Organizations, this
@@ -38,10 +25,14 @@ async function fetchOrganizationsData(organizationIDs, env) {
     const query = {
       env,
       id: organizationIDs,
-      listed: true
+      listed: true,
+      include: 'avatar'
     }
     const response = await panoptes.get('/organizations', query, { ...headers }, host)
-    return response.body.organizations
+    return {
+      organizations: response.body.organizations,
+      linked: response.body.linked
+    }
   } catch (error) {
     logToSentry(error)
     console.log('Error loading organizations:', error)
@@ -49,7 +40,8 @@ async function fetchOrganizationsData(organizationIDs, env) {
   }
 }
 
-// Fetches all Organizations data (AND their translations) belonging to a Project.
+// Fetches all Organizations data (plus their avatar data, plus their
+// translations) belonging to a Project.
 //
 // Input:
 // - project: project resource.
@@ -64,6 +56,10 @@ async function fetchOrganizationsData(organizationIDs, env) {
 //     description: 'beep boop',
 //     slug: 'zookeeper/galaxy-zoo',
 //     ...
+//     avatar: {
+//       src: 'example.jpg'
+//       ...
+//     },
 //     strings: {
 //       display_name: 'Galaxy Zoo',
 //       description: 'beep boop',
@@ -85,7 +81,7 @@ async function fetchLinkedOrganizations (project, locale, env) {
     ? project.links.organizations.join(',')
     : project.links.organization
   if (!organizationIDs) return []
-  let organizations = await fetchOrganizationsData(organizationIDs, env)
+  let { organizations, linked } = await fetchOrganizationsData(organizationIDs, env)
 
   // Fetch translations for each organization.
   const translationsFetches = organizations.map(org => {
@@ -99,10 +95,11 @@ async function fetchLinkedOrganizations (project, locale, env) {
   })
   const translations = await Promise.allSettled(translationsFetches)  // Use Promise.allSettled so missing translations don't crash the other valid ones.
 
-  // Add all that translation data into the Organizations.  
+  // Add all those avatars and translation data to their Organizations.  
   organizations = organizations.map((org, index) => {
     return {
       ...org,
+      avatar: linked?.avatars?.[index] || {},
       strings: translations?.[index]?.value?.strings || {}
     }
   })
