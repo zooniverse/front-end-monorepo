@@ -3,6 +3,7 @@ import { arrayOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 import { SpacedText } from '@zooniverse/react-components'
+import OrganizationAvatar from '../OrganizationAvatar'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -19,13 +20,6 @@ const StyledSpacedText = styled(SpacedText)`
   Link styles
 */
 const StyledAnchor = styled(Anchor)`
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
-
-  &:hover {
-    text-decoration: none;
-    border-bottom: 3px solid white;
-  }
 `
 
 function OrganizationsLink({
@@ -57,12 +51,9 @@ function OrganizationsLink({
           key={org.slug}
           href={`/organizations/${org.slug}`}
         >
-          <StyledSpacedText
-            color='white'
-            weight='bold'
-          >
-            {org.title}
-          </StyledSpacedText>
+          <OrganizationAvatar
+            organization={org}
+          />
         </StyledAnchor>
       )}
     </StyledBox>
