@@ -134,8 +134,7 @@ function DropdownNav({
                   label={
                     <OrganizationLabel
                       color='white'
-                      size='16px'
-                      weight='semibold'
+                      weight='bold'
                     >
                       {org.title}
                     </OrganizationLabel>
