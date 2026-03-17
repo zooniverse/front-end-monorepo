@@ -1,6 +1,7 @@
 import { shape, string } from 'prop-types'
 import { observer } from 'mobx-react'
 import styled, { css } from 'styled-components'
+import { Tooltip } from '@zooniverse/react-components'
 
 const StyledAvatar = styled.img`
   border-radius: 100%;
@@ -22,10 +23,15 @@ function OrganizationAvatar({
   }
 
   // TODO: maybe add a better description for alt, e.g. "Organization Avatar for XYZ". See <Avatar> component. Requires translations, though.
-  const alt = organization.display_name || ''
+  const title = organization.title || ''
   const src = organization.avatar?.src || FALLBACK_AVATAR_SRC
   return (
-    <StyledAvatar alt={alt} src={src} width={width} {...rest} />
+    <Tooltip
+      label={title}
+      placement='bottom'
+    >
+      <StyledAvatar alt={title} src={src} width={width} {...rest} />
+    </Tooltip>
   )
 }
 
