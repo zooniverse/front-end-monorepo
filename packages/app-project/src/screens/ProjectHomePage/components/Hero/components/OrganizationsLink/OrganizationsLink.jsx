@@ -4,10 +4,9 @@ import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-const StyledAnchor = styled(Anchor)`
+const OrganizationLabel = styled(SpacedText)`
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  margin: 4px 0;
 `
 
 function OrganizationsLink({
@@ -26,17 +25,18 @@ function OrganizationsLink({
         {t('ProjectHeader.organization')}
       </SpacedText>
       {organizations.map(org =>
-        <StyledAnchor
+        <Anchor
           key={org.slug}
           href={`/organizations/${org.slug}`}
+          margin={{ vertical: '4px' }}
         >
-          <SpacedText
+          <OrganizationLabel
             size='16px'
             weight='semibold'
           >
             {org.title}
-          </SpacedText>
-        </StyledAnchor>
+          </OrganizationLabel>
+        </Anchor>
       )}
     </Box>
   )

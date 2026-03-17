@@ -25,6 +25,21 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
+const OrganizationAnchor = styled(Anchor)`
+  padding: 4px 20px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+  &:focus,
+  &:hover {
+    ${props => css`background: ${props.theme.global.colors['neutral-1']};`}
+    text-decoration: none;
+  }
+`
+
+const OrganizationLabel = styled(SpacedText)`
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+`
+
 // `tabindex="-1"` is for the button's open state.
 const StyledDropButton = styled(DropButton)`
   padding: 10px 10px 10px 15px;
@@ -102,24 +117,28 @@ function DropdownNav({
       background='brand'
       elevation='medium'
     >
-      <Box as='ul' pad='0'>
+      <Box as='ul' pad='0' align='center'>
         {navLinks?.map(navLink => (
           <NavItem key={navLink.href} navLink={navLink} />
         ))}
         {hasOrganizations ? (
           <Box as='li'>
-            <Box pad='none'>
+            <Box pad='none' align='center'>
               <StyledOrganizationHeading color='white' size='xsmall'>
                 {t('ProjectHeader.organization')}
               </StyledOrganizationHeading>
               {organizations.map(org => 
-                <StyledAnchor
+                <OrganizationAnchor
                   key={org.slug}
                   href={`/organizations/${org.slug}`}
                   label={
-                    <SpacedText color='white' weight='bold'>
+                    <OrganizationLabel
+                      color='white'
+                      size='16px'
+                      weight='semibold'
+                    >
                       {org.title}
-                    </SpacedText>
+                    </OrganizationLabel>
                   }
                 />
               )}
