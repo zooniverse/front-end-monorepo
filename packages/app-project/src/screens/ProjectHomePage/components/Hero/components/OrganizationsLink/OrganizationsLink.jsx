@@ -2,6 +2,13 @@ import { Anchor, Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
 import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
+import styled from 'styled-components'
+
+const StyledAnchor = styled(Anchor)`
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  margin: 4px 0;
+`
 
 function OrganizationsLink({
   organizations = []
@@ -19,16 +26,17 @@ function OrganizationsLink({
         {t('ProjectHeader.organization')}
       </SpacedText>
       {organizations.map(org =>
-        <Anchor
+        <StyledAnchor
           key={org.slug}
           href={`/organizations/${org.slug}`}
         >
           <SpacedText
-            weight='bold'
+            size='16px'
+            weight='semibold'
           >
             {org.title}
           </SpacedText>
-        </Anchor>
+        </StyledAnchor>
       )}
     </Box>
   )
