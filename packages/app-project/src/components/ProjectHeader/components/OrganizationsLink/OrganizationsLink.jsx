@@ -14,12 +14,14 @@ const StyledBox = styled(Box)`
 */
 const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+  margin-right: 10px;
 `
 
 /**
   Link styles
 */
 const StyledAnchor = styled(Anchor)`
+  margin-left: -4px;
 `
 
 function OrganizationsLink({
@@ -31,10 +33,10 @@ function OrganizationsLink({
 
   return (
     <StyledBox
-      align='baseline'
+      align='center'
       alignSelf='end'
       direction='row'
-      gap='xsmall'
+      gap='none'
       pad={{
         horizontal: 'medium',
         top: 'medium'
