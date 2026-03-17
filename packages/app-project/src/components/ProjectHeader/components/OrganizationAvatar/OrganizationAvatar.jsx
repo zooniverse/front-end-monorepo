@@ -10,7 +10,7 @@ const StyledAvatar = styled.img`
   ${props => css`width: ${props.width};`}
 `
 
-const FALLBACK_AVATAR_SRC = ''
+const FALLBACK_AVATAR_SRC = 'https://static.zooniverse.org/fem-assets/simple-avatar.jpg'
 
 function OrganizationAvatar({
   organization,
