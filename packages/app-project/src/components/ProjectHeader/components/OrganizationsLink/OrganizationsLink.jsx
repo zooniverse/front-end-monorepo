@@ -21,7 +21,14 @@ const StyledSpacedText = styled(SpacedText)`
   Link styles
 */
 const StyledAnchor = styled(Anchor)`
-  margin-left: -4px;
+  border-radius: 100%;
+  margin-left: -7px;
+  border: 1.5px solid transparent;
+  &:focus,
+  &:hover {
+    border: 1.5px solid ${props => props.theme.global.colors['neutral-1']};
+    box-shadow: 0px 0px 8px 2px ${props => props.theme.global.colors['accent-1']};
+  }
 `
 
 function OrganizationsLink({
