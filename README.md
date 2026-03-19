@@ -54,7 +54,7 @@ pnpm bootstrap
 
 ### With Node and pnpm
 
-Alternatively, you can install Node and pnpm and build the monorepo packages.
+You can install Node and pnpm and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
@@ -66,7 +66,7 @@ The `bootstrap` script will install the dependencies and build any local package
 
 ### With Docker
 
-You can run the code locally in Docker, which avoids needing to install Node or pnpm.
+Alternatively, you can run the code locally in Docker, which avoids needing to install Node or pnpm.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
