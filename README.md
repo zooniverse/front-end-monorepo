@@ -7,17 +7,19 @@
 
 **Table of Contents**
 
-- [Requirements](#requirements)
 - [Monowhat?](#monowhat)
+- [Requirements](#requirements)
 - [Getting started](#getting-started)
-- [Helpful Guides](#helpful-guides)
 - [Packages](#packages)
-- [Helpers](#helpers)
 - [Conventions](#conventions)
- - [NPM](#npm)
- - [Packages directory](#packages-directory)
 - [Deployment](#deployment)
 - [License](#license)
+
+## Monowhat?
+
+Learn more about this codebase in its [Wiki](https://github.com/zooniverse/front-end-monorepo/wiki).
+
+This monorepo is managed with pnpm Workspaces. Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allow us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Requirements
 
@@ -27,12 +29,6 @@
 - pnpm
 
 Node, git, and pnpm can be installed through [homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of homebrew
-
-## Monowhat?
-
-Learn more about this codebase in its [Wiki](https://github.com/zooniverse/front-end-monorepo/wiki).
-
-This monorepo is managed with pnpm Workspaces. Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allow us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Getting started
 
@@ -56,7 +52,19 @@ Run the bootstrap script to build all the libraries and apps. You can use `boots
 pnpm bootstrap
 ```
 
-### Docker
+### With Node and pnpm
+
+Alternatively, you can install Node and pnpm and build the monorepo packages.
+
+```sh
+git clone git@github.com:zooniverse/front-end-monorepo.git
+cd front-end-monorepo
+pnpm bootstrap
+```
+
+The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
+
+### With Docker
 
 You can run the code locally in Docker, which avoids needing to install Node or pnpm.
 
@@ -91,18 +99,6 @@ docker compose down
 ```
 
 Tip: If you're an occasional Docker Desktop user, remember to `docker image prune` or `docker system prune`.
-
-### With Node and pnpm
-
-Alternatively, you can install Node and pnpm and build the monorepo packages.
-
-```sh
-git clone git@github.com:zooniverse/front-end-monorepo.git
-cd front-end-monorepo
-pnpm bootstrap
-```
-
-The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
 
 ## Packages
 
