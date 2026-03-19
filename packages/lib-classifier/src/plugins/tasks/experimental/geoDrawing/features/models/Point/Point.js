@@ -99,11 +99,20 @@ const Point = types
       }
 
       if (isSelected && hasVisibleUncertaintyHandle) {
-        const dragHandleCoordinates = self.getDragHandleCoordinates({ feature, geoDrawingTask })
-        if (dragHandleCoordinates) {
+        const center = self.getCenterCoordinates({ feature })
+        const radius = self.getUncertaintyRadius({ feature, geoDrawingTask })
+        if (Array.isArray(center) && center.length >= 2 && radius !== null && radius !== undefined) {
+          // Ensure the arrow starts at least at the point's visual edge + 2px gap.
+          // When uncertainty radius is large, use the circle edge.
+          // When uncertainty radius is 0 (or very small), snap to point edge.
+          const minOffsetPixels = pointRadius + 2
+          const radiusPixels = resolution ? radius / resolution : 0
+          const effectivePixels = Math.max(radiusPixels, minOffsetPixels)
+          const effectiveRadius = effectivePixels * resolution
+
           styles.push(
             new Style({
-              geometry: new OLPoint(dragHandleCoordinates),
+              geometry: new OLPoint([center[0] + effectiveRadius, center[1]]),
               image: getDragHandleIcon(color)
             })
           )

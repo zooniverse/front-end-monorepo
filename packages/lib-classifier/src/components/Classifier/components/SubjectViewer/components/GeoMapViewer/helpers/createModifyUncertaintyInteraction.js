@@ -86,15 +86,20 @@ function createModifyUncertaintyInteraction({
         return null
       }
 
-      // Get the drag handle coordinates
-      const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({ 
-        feature: olFeature, 
-        geoDrawingTask 
-      })
-      if (!dragHandleCoordinates) continue
+      // Compute effective drag handle position — must match Point.js getStyles logic.
+      // When uncertainty radius is smaller than the point dot, snap to point edge.
+      const center = mstFeature.getCenterCoordinates?.({ feature: olFeature })
+      if (!Array.isArray(center) || center.length < 2) continue
 
-      // Check if click is near the full resize handle, not just its anchor point.
-      const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
+      const resolution = map.getView().getResolution()
+      const selectedPointRadius = 8 // matches Point.js isSelected=true pointRadius
+      const minOffsetPixels = selectedPointRadius + 2
+      const radiusPixels = resolution ? radius / resolution : 0
+      const effectivePixels = Math.max(radiusPixels, minOffsetPixels)
+      const effectiveRadius = effectivePixels * resolution
+      const handleCoords = [center[0] + effectiveRadius, center[1]]
+
+      const dragHandlePixel = map.getPixelFromCoordinate(handleCoords)
       if (shouldStartDragHandleInteraction({
         pixel,
         pointPixel,
@@ -129,7 +134,7 @@ function createModifyUncertaintyInteraction({
       // Update cursor
       const viewport = map.getViewport()
       if (viewport) {
-        viewport.style.cursor = 'ew-resize'
+        viewport.style.cursor = 'e-resize'
       }
 
       // Return true to start drag sequence
@@ -210,7 +215,7 @@ function createModifyUncertaintyInteraction({
     const selectedFeature = checkDragHandleClick(event.pixel, map)
 
     if (selectedFeature) {
-      viewport.style.cursor = 'ew-resize'
+      viewport.style.cursor = 'e-resize'
     } else {
       viewport.style.cursor = ''
     }
