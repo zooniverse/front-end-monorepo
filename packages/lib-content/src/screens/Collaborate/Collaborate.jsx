@@ -10,7 +10,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
-import { Supporters, SelectedCollaborators } from './Logos'
+import { Supporters, SelectedCollaborators, SelectedTools } from './Logos'
 
 function Collaborate() {
   const { t } = useTranslation()
@@ -83,6 +83,12 @@ function Collaborate() {
             {t('Collaborate.subheadings.third')}
           </SpacedHeading>
           <SelectedCollaborators />
+
+          {/** Selected Tools */}
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
+            {t('Collaborate.subheadings.tools')}
+          </SpacedHeading>
+          <SelectedTools />
 
           <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
             {t('Collaborate.subheadings.fourth')}
