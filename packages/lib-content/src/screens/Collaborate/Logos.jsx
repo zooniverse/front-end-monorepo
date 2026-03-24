@@ -1,4 +1,4 @@
-import { Box, Grid, Image, ResponsiveContext } from 'grommet'
+import { Anchor, Box, Grid, Image, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 
 const LogoImage = ({ src = '', alt = '' }) => {
@@ -85,7 +85,7 @@ export function SelectedCollaborators() {
   return (
     <Box
       background={{ light: 'transparent', dark: 'white' }}
-      margin={{ top: 'small', bottom: 'large' }}
+      margin={{ top: 'small', bottom: 'xlarge' }}
       pad='xsmall'
     >
       <Grid
@@ -165,6 +165,59 @@ export function SelectedCollaborators() {
           src='https://static.zooniverse.org/fem-assets/collaborate/crick.png'
           alt='The Francis Crick Institute'
         />
+      </Grid>
+    </Box>
+  )
+}
+
+export function SelectedTools() {
+  const size = useContext(ResponsiveContext)
+  const gap = size !== 'small' ? { column: '40px', row: '30px' } : '15px'
+
+  return (
+    <Box
+      gap={size !== 'small' ? '40px' : '15px'}
+      margin={{ top: 'small', bottom: 'large' }}
+      pad='xsmall'
+      background={{ light: 'transparent', dark: 'white' }}
+    >
+      <Grid columns={['1fr 1fr 1fr']} rows='auto' gap={gap}>
+        <Anchor href='https://lokalise.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/lokalise.png'
+            alt='Lokalise'
+          />
+        </Anchor>
+        <Anchor href='https://www.browserstack.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/browserstack.png'
+            alt='BrowserStack'
+          />
+        </Anchor>
+        <Anchor href='https://newrelic.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/new-relic.png'
+            alt='NewRelic'
+          />
+        </Anchor>
+        <Anchor href='https://www.microsoft.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/microsoft.jpg'
+            alt='Microsoft'
+          />
+        </Anchor>
+        <Anchor href='https://sentry.io'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/sentry.png'
+            alt='Sentry'
+          />
+        </Anchor>
+        <Anchor href='https://github.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/github.png'
+            alt='Github'
+          />
+        </Anchor>
       </Grid>
     </Box>
   )
