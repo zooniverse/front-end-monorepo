@@ -208,7 +208,7 @@ export function SelectedTools() {
         </Anchor>
         <Anchor href='https://sentry.io'>
           <LogoImage
-            src='https://static.zooniverse.org/fem-assets/collaborate/lokalise.png'
+            src='https://static.zooniverse.org/fem-assets/collaborate/sentry.png'
             alt='Sentry'
           />
         </Anchor>
