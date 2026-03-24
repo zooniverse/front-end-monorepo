@@ -212,6 +212,12 @@ export function SelectedTools() {
             alt='Sentry'
           />
         </Anchor>
+        <Anchor href='https://github.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/github.png'
+            alt='Github'
+          />
+        </Anchor>
       </Grid>
     </Box>
   )

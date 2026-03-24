@@ -79,7 +79,7 @@ function Collaborate() {
           <Supporters />
 
           {/** Selected Collaborators */}
-          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='collaboraters'>
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='collaborators'>
             {t('Collaborate.subheadings.third')}
           </SpacedHeading>
           <SelectedCollaborators />
