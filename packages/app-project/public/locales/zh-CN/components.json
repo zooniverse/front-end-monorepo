@@ -86,7 +86,6 @@
     "completedSubjects": "已完成主体",
     "percentComplete": "完成百分比",
     "subjects": "主体",
-    "subtitle": "跟踪您和其他志愿者在这个项目上所取得的进展。",
     "text": "每一次点击都很重要！加入 {{projectName}} 的社区来完成此项目，并帮助研究人员得出重要结果。点击“查看更多统计数据”以了解更多统计信息。",
     "title": "{{projectName}} 统计数据",
     "viewMoreStats": "查看更多统计数据",

@@ -16,7 +16,7 @@ function useStore() {
   }
 }
 
-const ProjectStatisticsContainer = ({ className }) => {
+const ProjectStatisticsContainer = ({ className, hideLink }) => {
   const {
     classifications,
     completedSubjects,
@@ -29,7 +29,7 @@ const ProjectStatisticsContainer = ({ className }) => {
   const router = useRouter()
   const owner = router?.query?.owner
   const project = router?.query?.project
-  const linkProps = {
+  const linkProps = hideLink ? null : {
     externalLink: true, // A project stats page uses PFE
     href: `/projects/${owner}/${project}/stats`
   }
