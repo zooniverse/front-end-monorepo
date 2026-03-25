@@ -10,7 +10,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
-import { Supporters, SelectedCollaborators } from './Logos'
+import { Supporters, SelectedCollaborators, SelectedTools } from './Logos'
 
 function Collaborate() {
   const { t } = useTranslation()
@@ -73,18 +73,24 @@ function Collaborate() {
           </Paragraph>
 
           {/** Our Supporters */}
-          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='supporters'>
             {t('Collaborate.subheadings.second')}
           </SpacedHeading>
           <Supporters />
 
           {/** Selected Collaborators */}
-          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='collaborators'>
             {t('Collaborate.subheadings.third')}
           </SpacedHeading>
           <SelectedCollaborators />
 
-          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
+          {/** Selected Tools */}
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='tools'>
+            {t('Collaborate.subheadings.tools')}
+          </SpacedHeading>
+          <SelectedTools />
+
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='call-for-projects'>
             {t('Collaborate.subheadings.fourth')}
           </SpacedHeading>
           <Paragraph>{t('Collaborate.paragraphs.sixth')}</Paragraph>
@@ -102,7 +108,7 @@ function Collaborate() {
             />
           </Paragraph>
 
-          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill>
+          <SpacedHeading level={3} size='1.5rem' textAlign='center' fill id='corporate-opportunities'>
             {t('Collaborate.subheadings.fifth')}
           </SpacedHeading>
           <Paragraph>
