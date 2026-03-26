@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Meta, { Default, NoSubject } from './FlipbookViewer.stories'
+import Meta, { Default, WithImagesAndVideos, NoSubject } from './FlipbookViewer.stories'
 import { composeStory } from '@storybook/react'
 import userEvent from '@testing-library/user-event'
 
@@ -17,13 +17,13 @@ describe('Component > FlipbookViewer', function () {
       const { getAllByRole } = render(<DefaultStory />)
       const thumbnailButtons = getAllByRole('tab')
       const { border } = window.getComputedStyle(thumbnailButtons[0])
-      expect(border).to.equal('2px solid rgb(240, 178, 0)') // neutral-2 in theme
+      expect(border).to.equal('2px solid rgb(0, 93, 105)') // neutral-1 in theme (darkTeal)
     })
 
     it('should have previous and next buttons', function () {
-      const { getByText } = render(<DefaultStory />)
-      const nextButton = getByText('Next')
-      const prevButton = getByText('Previous')
+      const { getByLabelText } = render(<DefaultStory />)
+      const nextButton = getByLabelText('Next')
+      const prevButton = getByLabelText('Previous')
       expect(nextButton).to.exist
       expect(prevButton).to.exist
     })
@@ -34,7 +34,7 @@ describe('Component > FlipbookViewer', function () {
       const { getAllByRole } = render(<DefaultStory />)
       const thumbnailButtons = getAllByRole('tab')
       const buttonStyle = window.getComputedStyle(thumbnailButtons[0])
-      expect(buttonStyle.border).to.equal('2px solid rgb(240, 178, 0)') // neutral-2 in theme
+      expect(buttonStyle.border).to.equal('2px solid rgb(0, 93, 105)') // neutral-1 in theme (darkTeal)
 
       await user.pointer({
         keys: '[MouseLeft]',
@@ -42,7 +42,7 @@ describe('Component > FlipbookViewer', function () {
       })
 
       const newButtonStyle = window.getComputedStyle(thumbnailButtons[1])
-      expect(newButtonStyle.border).to.equal('2px solid rgb(240, 178, 0)')
+      expect(newButtonStyle.border).to.equal('2px solid rgb(0, 93, 105)')
     })
 
     it('should handle using arrow keys on the tablist', async function () {
@@ -57,6 +57,16 @@ describe('Component > FlipbookViewer', function () {
 
       expect(thumbnailButtons[0].tabIndex).to.equal(-1)
       expect(thumbnailButtons[1].tabIndex).to.equal(0)
+    })
+  })
+
+  describe('with an image+video subject', function () {
+    const ImageAndVideoStory = composeStory(WithImagesAndVideos, Meta)
+
+    it('should render the correct number of thumbnnails', function () {
+      const { getAllByRole } = render(<ImageAndVideoStory />)
+      const thumbnailButtons = getAllByRole('tab')
+      expect(thumbnailButtons).to.have.length(5)
     })
   })
 
