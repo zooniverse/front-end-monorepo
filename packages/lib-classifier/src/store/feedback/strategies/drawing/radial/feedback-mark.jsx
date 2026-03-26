@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { bool, number, shape } from 'prop-types'
 
 function FeedbackMark ({ rule }) {
   const color = (rule.success) ? 'green' : 'red'
@@ -16,10 +16,11 @@ function FeedbackMark ({ rule }) {
 }
 
 FeedbackMark.propTypes = {
-  rule: PropTypes.shape({
-    x: PropTypes.string,
-    y: PropTypes.string,
-    tolerance: PropTypes.string
+  rule: shape({
+    x: number,
+    y: number,
+    success: bool,
+    tolerance: number
   }).isRequired
 }
 
