@@ -1,5 +1,5 @@
 import { useHasMounted } from '@zooniverse/react-components/hooks'
-import { arrayOf, bool, number, shape, string } from 'prop-types'
+import { arrayOf, bool, node, number, shape, string } from 'prop-types'
 import { useRef } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -10,6 +10,7 @@ import SVGImage from '../SVGComponents/SVGImage'
 
 function SingleImageCanvas({
   enableInteractionLayer = false,
+  feedbackMarks = [],
   frame = 0,
   imgRef,
   invert = false,
@@ -61,6 +62,7 @@ function SingleImageCanvas({
                   width={naturalWidth}
                 />
               )}
+              {feedbackMarks}
             </g>
           </g>
         </svg>
@@ -70,6 +72,7 @@ function SingleImageCanvas({
 
 SingleImageCanvas.propTypes = {
   enableInteractionLayer: bool,
+  feedbackMarks: arrayOf(node),
   frame: number,
   imgRef: shape({
     current: shape({
