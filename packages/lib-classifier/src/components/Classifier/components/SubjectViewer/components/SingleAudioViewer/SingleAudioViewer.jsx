@@ -16,7 +16,7 @@ function SingleAudioViewer({
   const audioLocation = subject ? subject.locations.find(l => l.type === 'audio') : null
 
   const handleCanPlay = () => {
-    onReady({ target: { clientHeight: 54, clientWidth: 0, naturalHeight: 54, naturalWidth: 0 } })
+    onReady()
   }
 
   const handleError = (e) => {
