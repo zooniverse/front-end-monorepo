@@ -24,6 +24,7 @@ function storeMapper(classifierStore) {
   const {
     activeTool,
     activeToolIndex,
+    deleteMark,
     hiddenMarkIds,
     marks,
     setActiveMark,
@@ -39,6 +40,7 @@ function storeMapper(classifierStore) {
     activeTool,
     activeToolIndex,
     annotation,
+    deleteMark,
     disabled,
     hiddenMarkIds,
     marks,
@@ -55,6 +57,7 @@ export function InteractionLayerContainer({
   activeTool,
   activeToolIndex,
   annotation,
+  deleteMark, 
   disabled = false,
   frame = 0,
   height,
@@ -84,6 +87,7 @@ export function InteractionLayerContainer({
           activeTool={activeTool}
           activeToolIndex={activeToolIndex}
           annotation={annotation}
+          deleteMark={deleteMark}
           disabled={disabled}
           duration={duration}
           frame={frame}
@@ -107,6 +111,7 @@ export function InteractionLayerContainer({
 InteractionLayerContainer.propTypes = {
   activeMark: PropTypes.object,
   activeTool: PropTypes.object,
+  deleteMark: PropTypes.func,
   disabled: PropTypes.bool,
   duration: PropTypes.number,
   /** Index of the Frame. Always inherits from SingleImageViewer, which inherits from the Viewer */

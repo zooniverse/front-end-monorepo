@@ -36,8 +36,6 @@ function DrawingToolMarks({
     const isActive = mark.id === activeMark?.id
 
     function deleteMark() {
-      activeMark.setSubTaskVisibility(false)
-      tool.deleteMark(mark)
       onDelete(mark)
     }
 
