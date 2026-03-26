@@ -6,16 +6,22 @@ describe('Component > SingleAudioViewerContainer', function () {
   const { Default, NoSubject } = composeStories(stories)
 
   describe('with an audio subject', function () {
-    it('should render an audio html element', function () {
+    it('should render a hidden audio element', function () {
       const { container } = render(<Default />)
       const audioElement = container.querySelector('audio')
       expect(audioElement).to.exist
     })
 
-    it('should set controls on the audio element', function () {
+    it('should render custom audio controls', function () {
       const { container } = render(<Default />)
-      const audioElement = container.querySelector('audio')
-      expect(audioElement.controls).to.equal(true)
+      const controls = container.querySelector('[data-testid="audio subject viewer custom controls"]')
+      expect(controls).to.exist
+    })
+
+    it('should have a play button', function () {
+      render(<Default />)
+      const playButton = screen.getByLabelText('Play audio')
+      expect(playButton).to.exist
     })
   })
 

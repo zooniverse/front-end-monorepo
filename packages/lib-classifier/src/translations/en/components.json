@@ -238,6 +238,15 @@
       "phase": "phase",
       "phaseFocus": "phase focus"
     },
+    "AudioController": {
+      "closeVolume": "Close Volume Slider",
+      "openVolume": "Open Volume Slider",
+      "pause": "Pause audio",
+      "play": "Play audio",
+      "playbackSpeed": "Audio playback speed selection",
+      "scrubber": "Audio player scrubber",
+      "volumeSlider": "Volume Slider"
+    },
     "VideoController": {
       "closeVolume": "Close Volume Slider",
       "fullscreen": "Show Video Fullscreen",
