@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import { useRouter } from 'next/router'
-import { bool } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
@@ -71,8 +70,8 @@ function NavItem({ navLink }) {
 }
 
 /* /about and /classify are internal routes in this Next.js app. The rest are not. */
-function Nav({ adminMode = false }) {
-  const navLinks = useProjectNavigation(adminMode)
+function Nav() {
+  const navLinks = useProjectNavigation()
   const { t } = useTranslation('components')
   return (
     <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
@@ -85,9 +84,5 @@ function Nav({ adminMode = false }) {
   )
 }
 
-Nav.propTypes = {
-  /** Zooniverse admin mode */
-  adminMode: bool
-}
 
 export default Nav
