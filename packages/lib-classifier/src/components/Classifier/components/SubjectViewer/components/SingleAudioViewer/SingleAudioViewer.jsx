@@ -2,22 +2,8 @@ import { arrayOf, func, number, shape, string } from 'prop-types'
 import { Box } from 'grommet'
 import { useRef, useState } from 'react'
 import { useTranslation } from '@translations/i18n'
-import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
 import AudioController from './components/AudioController'
-
-const SubjectArea = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  max-height: 25rem;
-  background-color: ${props =>
-    props.theme.dark
-      ? props.theme.global.colors['dark-1']
-      : '#FFFFFF'};
-`
 
 function AudioPlaceholderIcon () {
   return (
@@ -138,10 +124,17 @@ function SingleAudioViewer({
 
   return (
     <Box width='100%'>
-      {/* Subject area: placeholder icon on dark background */}
-      <SubjectArea>
+      {/* Subject area: placeholder icon */}
+      <Box
+        align='center'
+        background={{ light: 'white', dark: 'dark-1' }}
+        justify='center'
+        width='100%'
+        height={{ max: '25rem' }}
+        style={{ aspectRatio: '1 / 1' }}
+      >
         <AudioPlaceholderIcon />
-      </SubjectArea>
+      </Box>
 
       {/* Hidden audio element */}
       <audio
