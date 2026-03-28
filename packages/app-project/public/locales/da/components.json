@@ -86,7 +86,6 @@
     "completedSubjects": "Afsluttede emner",
     "percentComplete": "Procent færdigt",
     "subjects": "Emner",
-    "subtitle": "Hold styr på de fremskridt, som du og dine medfrivillige har gjort på dette projekt.",
     "text": "Hvert klik tæller! Bliv en del af fællesskabet omkring {{projectName}} for at fuldføre dette projekt og hjælpe forskerne med at skabe vigtige resultater. Klik på \"Vis flere statistikker\" for at se endnu flere statistikker.",
     "title": "Statistikker for {{projectName}}",
     "viewMoreStats": "Vis flere statistikker",

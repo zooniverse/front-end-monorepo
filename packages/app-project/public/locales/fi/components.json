@@ -86,7 +86,6 @@
     "completedSubjects": "Suoritetut aiheet",
     "percentComplete": "Prosenttia valmiina",
     "subjects": "Aiheet",
-    "subtitle": "Seuraa edistymistä, jota sinä ja muut vapaaehtoiset ovat tehneet tässä projektissa.",
     "text": "Jokaisella napsautuksella on väliä! Liity projektin {{projectName}} yhteisöön toteuttaaksesi projektin ja auttaaksesi tutkijoita tuottamaan tärkeitä tuloksia. Napsauta \"Näytä enemmän tilastoja\" nähdäksesi lisää.",
     "title": "Kohteen {{projectName}} tilastot",
     "viewMoreStats": "Näytä enemmän tilastoja",
