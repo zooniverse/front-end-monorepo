@@ -5,7 +5,7 @@ import { Grommet } from 'grommet'
 
 import formatTimeStamp from '@helpers/formatTimeStamp'
 import AudioController from './AudioController'
-import controlsTheme from './theme'
+import controlsTheme from '../../../../helpers/mediaControlsTheme'
 
 describe('Component > AudioController', function () {
   let onPlayPauseSpy, onSpeedChangeSpy

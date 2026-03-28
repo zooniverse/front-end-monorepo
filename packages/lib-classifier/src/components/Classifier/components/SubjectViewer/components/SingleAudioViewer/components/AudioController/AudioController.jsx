@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState } from 'react'
-import { bool, func, number, string } from 'prop-types'
+import { bool, func, number, object, shape, string } from 'prop-types'
 import {
   Box,
   Button,
@@ -11,17 +11,17 @@ import {
   ThemeContext
 } from 'grommet'
 import {
-  CirclePlay,
   FormDown,
+  Pause,
+  Play,
   Volume,
   VolumeLow,
-  VolumeMute,
-  Pause
+  VolumeMute
 } from 'grommet-icons'
 import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
-import controlsTheme from './theme'
+import controlsTheme from '../../../../helpers/mediaControlsTheme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
 const iconSize = '1rem'
@@ -122,17 +122,13 @@ const AudioController = ({
       e.stopPropagation()
       if (played === 0) return
       const newPlayed = played <= 0.05 ? 0 : played - 0.05
-      if (audioRef?.current) {
-        audioRef.current.currentTime = newPlayed * duration
-      }
+      handleSeekChange({ target: { value: newPlayed } })
     } else if (e.code === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
       if (played === 1) return
       const newPlayed = played >= 0.95 ? 1 : played + 0.05
-      if (audioRef?.current) {
-        audioRef.current.currentTime = newPlayed * duration
-      }
+      handleSeekChange({ target: { value: newPlayed } })
     }
   }
 
@@ -188,7 +184,7 @@ const AudioController = ({
                 isPlaying ? (
                   <Pause size={iconSize} color={color} />
                 ) : (
-                  <CirclePlay size={iconSize} color={color} />
+                  <Play size={iconSize} color={color} />
                 )
               }
               plain
@@ -211,10 +207,10 @@ const AudioController = ({
             <Box
               direction='row'
               align='center'
-              width={{ min: '3.7rem', max: '3.7rem'}}
-              margin={{ horizontal: size === 'small' ? '10px' : '20px' }}
+              flex={false}
+              margin={{ horizontal: size === 'small' ? '5px' : '10px' }}
             >
-              <Text size='0.75rem' color={color}>
+              <Text size='0.75rem' color={color} style={{ whiteSpace: 'nowrap' }}>
                 <time dateTime={`P${Math.round(secondsPlayed)}S`}>
                   {formatTimeStamp(secondsPlayed)}
                 </time>
@@ -279,6 +275,7 @@ const AudioController = ({
 }
 
 AudioController.propTypes = {
+  audioRef: shape({ current: object }),
   duration: number,
   isPlaying: bool,
   handleSeekChange: func,

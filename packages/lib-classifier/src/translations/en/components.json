@@ -223,6 +223,9 @@
         "switchToSeparateFrames": "Switch to separate frames view"
       }
     },
+    "SingleAudioViewerContainer": {
+      "error": "There was an error loading the subject."
+    },
     "SingleVideoViewerContainer": {
       "error": "There was an error loading the subject."
     },
