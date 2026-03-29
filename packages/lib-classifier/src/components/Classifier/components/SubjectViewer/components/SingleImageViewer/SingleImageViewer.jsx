@@ -8,6 +8,7 @@ import ZoomControlButton from '../ZoomControlButton'
 import ZoomHelperOverlay from './components/ZoomHelperOverlay'
 import VisXZoom from '../SVGComponents/VisXZoom'
 import SingleImageCanvas from './SingleImageCanvas'
+import ControlsLayer from '../ControlsLayer'
 
 // For positioning ZoomHelperOverlay on top of StyledSVG (the subject)
 const Relative = styled(Box)`
@@ -97,6 +98,7 @@ function SingleImageViewer({
         {showZoomHelper && (
           <ZoomHelperOverlay fadingOut={fadingOut} />
         )}
+        <ControlsLayer enableInteractionLayer={enableInteractionLayer} />
         <StyledSVG
           aria-labelledby={title?.id}
           aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
