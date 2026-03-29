@@ -28,7 +28,7 @@ function SingleAudioViewer({
   }
 
   return (
-    <Box pad={{ vertical: 'small' }} width='100%'>
+    <Box width='100%'>
       <audio
         controls
         controlsList='nodownload'
