@@ -8,15 +8,12 @@ import { withStores } from '@helpers'
 
 function storeMapper(classifierStore) {
   const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
-  const { activeStepTasks } = classifierStore.workflowSteps
   const { move } = classifierStore.subjectViewer
   const {
     multi_image_clone_markers: multiImageCloneMarkers
   } = classifierStore.workflows?.active?.configuration
 
-  const [activeInteractionTask] = activeStepTasks.filter(
-    (task) => task.type === 'drawing' || task.type === 'transcription'
-  )
+  const { activeInteractionTask } = classifierStore.workflowSteps
   const annotation = activeStepAnnotations?.find(
     annotation => annotation.taskType === 'drawing' || annotation.taskType === 'transcription'
   )

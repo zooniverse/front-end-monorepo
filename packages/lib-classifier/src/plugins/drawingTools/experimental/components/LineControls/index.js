@@ -1,1 +1,1 @@
-export { default } from './LineControls'
+export { default } from './LineControlsContainer'
