@@ -10,6 +10,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../../../InteractionLayer'
 import locationValidator from '../../../../helpers/locationValidator'
 import VideoController from '../VideoController'
+import ControlsLayer from '../../../ControlsLayer'
 
 const SubjectContainer = styled.div`
   position: relative;
@@ -219,6 +220,10 @@ function VideoWithDrawing({
                 }
               }
             }}
+          />
+          { /* VideoWithDrawing only rendered if enableInteractionLayer = true */}
+          <ControlsLayer 
+            enableInteractionLayer={true}
           />
           {enableDrawing && (
             <DrawingLayer>

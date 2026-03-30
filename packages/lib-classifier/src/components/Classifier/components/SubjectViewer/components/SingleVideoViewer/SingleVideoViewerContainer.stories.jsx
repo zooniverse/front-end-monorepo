@@ -34,6 +34,19 @@ const portraitVideo = Factory.build('subject', {
   ]
 })
 
+const drawingTools = [
+  {
+    color: '#000000',
+    label: 'Mock Ellipse Tool',
+    type: 'ellipse'
+  },
+  {
+    color: '#FF0000',
+    label: 'Mock Freehand Line Tool',
+    type: 'freehandLine'
+  }
+]
+
 const drawingWorkflow = WorkflowFactory.build({
   display_name: 'Video Drawing Task',
   first_task: 'T0',
@@ -41,13 +54,7 @@ const drawingWorkflow = WorkflowFactory.build({
     T0: {
       help: '',
       instruction: 'Draw on the video',
-      tools: [
-        {
-          color: '#000000',
-          label: 'Mock Tool',
-          type: 'ellipse'
-        }
-      ],
+      tools: drawingTools,
       type: 'drawing'
     }
   }
@@ -78,6 +85,12 @@ const limitSubjectHeightStore = mockStore({
   workflow: limitedHeightWorkflow
 })
 
+function setDrawingTool(toolType = 'ellipse') {
+  const [drawingTask] = drawingStore.workflowSteps.activeStepTasks
+  const toolIndex = drawingTools.findIndex(tool => tool.type === toolType)
+  drawingTask.setActiveTool(toolIndex === -1 ? 0 : toolIndex)
+}
+
 export default {
   title: 'Subject Viewers / SingleVideoViewer',
   component: SingleVideoViewerContainer
@@ -96,7 +109,8 @@ export const Default = () => {
   )
 }
 
-export const WithDrawing = () => {
+export const WithDrawing = (args) => {
+  setDrawingTool(args.toolType)
   return (
     <Provider classifierStore={drawingStore}>
       <Box width='large'>
@@ -107,6 +121,16 @@ export const WithDrawing = () => {
       </Box>
     </Provider>
   )
+}
+
+WithDrawing.argTypes = {
+  toolType: {
+    control: 'radio',
+    options: [
+      'ellipse',
+      'freehandLine'
+    ]
+  }
 }
 
 export const WithDrawingNoSound = () => {
