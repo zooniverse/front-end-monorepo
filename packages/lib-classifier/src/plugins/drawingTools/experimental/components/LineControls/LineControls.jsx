@@ -21,11 +21,14 @@ const StyledGroup = styled.g`
   pointer-events: all !important;
 `
 
+/* z-index = 1 required to ensure LineControls are above DrawingLayer in VideoWithDrawing */
+
 const StyledSVG = styled.svg`
   position: absolute;
   top: ${INSET};
   left: ${props => props.$position === 'l' ? INSET : 'auto' };
   right: ${props => props.$position === 'r' ? INSET : 'auto' };
+  z-index: 1;
 `
 
 const LineControls = forwardRef(function LineControls({
