@@ -19,7 +19,7 @@ describe('Component > GeoMapViewer', function () {
       await waitFor(() => {
         expect(screen.getByTestId('geo-map-container')).to.exist
       })
-      expect(screen.queryByRole('button', { name: 'Recenter map to features' })).to.not.exist
+      expect(screen.queryByRole('button', { name: 'Recenter to features' })).to.not.exist
     })
 
     it('should not show the reset button when geoJSON is undefined', async function () {
@@ -27,7 +27,7 @@ describe('Component > GeoMapViewer', function () {
       await waitFor(() => {
         expect(screen.getByTestId('geo-map-container')).to.exist
       })
-      expect(screen.queryByRole('button', { name: 'Reset features on map' })).to.not.exist
+      expect(screen.queryByRole('button', { name: 'Reset to original position' })).to.not.exist
     })
   })
 
@@ -55,7 +55,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: 'Recenter map to features' })).to.exist
+        expect(screen.getByRole('button', { name: 'Recenter to features' })).to.exist
       })
     })
 
@@ -63,7 +63,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: 'Reset features on map' })).to.exist
+        expect(screen.getByRole('button', { name: 'Reset to original position' })).to.exist
       })
     })
 
