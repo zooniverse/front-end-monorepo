@@ -21,6 +21,8 @@ import { unByKey } from 'ol/Observable'
 // local imports
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
+import ZoomInButton from './components/ZoomInButton'
+import ZoomOutButton from './components/ZoomOutButton'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
@@ -42,6 +44,8 @@ const MapContainer = styled.div`
   min-height: 400px;
   width: 100%;
 `
+
+const ZOOM_ANIMATION_DURATION_MS = 250
 
 // Helper function to fit view to features extent
 function fitViewToFeatures(map, features) {
@@ -79,6 +83,8 @@ function GeoMapViewer({
     dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
     featureProjection: 'EPSG:3857' // map display projection in Web Mercator
   }
+
+  const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
 
   // Create the map once on mount with all layers and interactions
   // Interactions are created here and reused on data updates to avoid stacking event listeners
@@ -118,12 +124,10 @@ function GeoMapViewer({
         center: [0, 0],
         zoom: 0,
       }),
-      controls: defaultControls().extend([
+      controls: defaultControls({ zoom: false }).extend([
         new ScaleLine()
       ])
     })
-
-    const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
 
     // Helper to compute style with current resolution
     function handleFeatureStyle({ feature, isSelected = false }) {
@@ -390,17 +394,53 @@ function GeoMapViewer({
     }
   }
 
+  // Handler to zoom the map view in by one level
+  function handleZoomIn() {
+    const map = mapRef.current
+    if (!map) return
+
+    const view = map.getView()
+    const currentZoom = view.getZoom() ?? 0
+    const targetZoom = view.getConstrainedZoom(currentZoom + 1)
+    view.cancelAnimations()
+    view.animate({
+      zoom: targetZoom,
+      duration: ZOOM_ANIMATION_DURATION_MS
+    })
+  }
+
+  // Handler to zoom the map view out by one level
+  function handleZoomOut() {
+    const map = mapRef.current
+    if (!map) return
+
+    const view = map.getView()
+    const currentZoom = view.getZoom() ?? 0
+    const targetZoom = view.getConstrainedZoom(currentZoom - 1)
+    view.cancelAnimations()
+    view.animate({
+      zoom: targetZoom,
+      duration: ZOOM_ANIMATION_DURATION_MS
+    })
+  }
+
   return (
     <StyledBox
       forwardedAs='section'
       fill
     >
-      {geoJSON && (
-        <ControlsBox>
-          <RecenterButton onClick={handleRecenter} />
-          <ResetButton onClick={handleReset} />
-        </ControlsBox>
-      )}
+      <ControlsBox>
+        <ZoomInButton onClick={handleZoomIn} />
+        <ZoomOutButton onClick={handleZoomOut} />
+        {geoJSON && (
+          <>
+            <RecenterButton onClick={handleRecenter} />
+            {hasGeoDrawingTask && (
+              <ResetButton onClick={handleReset} />
+            )}
+          </>
+        )}
+      </ControlsBox>
       <MapContainer
         ref={mapContainerRef}
         className='map-container'
