@@ -33,9 +33,10 @@ const StyledBox = styled(Box)`
 `
 
 const ControlsBox = styled(Box)`
+  gap: 15px;
   position: absolute;
-  top: 70px;
-  left: 10px;
+  top: 23px;
+  right: 20px;
   z-index: 1;
 `
 
