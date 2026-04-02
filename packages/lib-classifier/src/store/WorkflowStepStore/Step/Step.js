@@ -42,6 +42,10 @@ const baseStep = types
       return isValid
     },
 
+    get hasUnsupportedTasks() {
+      return self.taskKeys.length !== self.tasks.length
+    },
+
     get isThereBranching () {
       // We return the first single choice task
       // It doesn't make sense to have more than one single choice task in a step
