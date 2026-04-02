@@ -62,6 +62,9 @@ const Subject = types
           viewer = subjectViewers.volumetric
       
         if (!viewer && counts.total === 1) {
+          if (counts.audio) {
+            viewer = subjectViewers.singleAudio
+          }
           if (counts.images) {
             viewer = subjectViewers.singleImage
           }

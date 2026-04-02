@@ -7,17 +7,19 @@
 
 **Table of Contents**
 
-- [Requirements](#requirements)
 - [Monowhat?](#monowhat)
+- [Requirements](#requirements)
 - [Getting started](#getting-started)
-- [Helpful Guides](#helpful-guides)
 - [Packages](#packages)
-- [Helpers](#helpers)
 - [Conventions](#conventions)
- - [NPM](#npm)
- - [Packages directory](#packages-directory)
 - [Deployment](#deployment)
 - [License](#license)
+
+## Monowhat?
+
+Learn more about this codebase in its [Wiki](https://github.com/zooniverse/front-end-monorepo/wiki).
+
+This monorepo is managed with pnpm Workspaces. Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allow us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Requirements
 
@@ -27,12 +29,6 @@
 - pnpm
 
 Node, git, and pnpm can be installed through [homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of homebrew
-
-## Monowhat?
-
-This monorepo is managed with pnpm Workspaces
-
-Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Getting started
 
@@ -56,9 +52,21 @@ Run the bootstrap script to build all the libraries and apps. You can use `boots
 pnpm bootstrap
 ```
 
-### Docker
+### With Node and pnpm
 
-You can run the code locally in Docker, which avoids needing to install Node or pnpm.
+You can install Node and pnpm and build the monorepo packages.
+
+```sh
+git clone git@github.com:zooniverse/front-end-monorepo.git
+cd front-end-monorepo
+pnpm bootstrap
+```
+
+The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
+
+### With Docker
+
+Alternatively, you can run the code locally in Docker, which avoids needing to install Node or pnpm.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
@@ -92,18 +100,6 @@ docker compose down
 
 Tip: If you're an occasional Docker Desktop user, remember to `docker image prune` or `docker system prune`.
 
-### With Node and pnpm
-
-Alternatively, you can install Node and pnpm and build the monorepo packages.
-
-```sh
-git clone git@github.com:zooniverse/front-end-monorepo.git
-cd front-end-monorepo
-pnpm bootstrap
-```
-
-The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
-
 ## Packages
 
 See each package's folder for more specific documentation.
@@ -112,10 +108,14 @@ See each package's folder for more specific documentation.
 |---|---|---|
 | **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
 | **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
-| **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a project (anything at `/projects/owner/display_name`) |
+| **@zooniverse/content** | `packages/lib-content` | Library of components used in content pages such as About Zooniverse, Get Involved, Policies, and signed-out Homepage |
+| **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a Zooniverse project (anything at `/projects/owner/display_name`) |
+| **@zooniverse/fe-root** | `packages/app-root` | Server-side rendered application for all Zooniverse routes other than those in app-project |
 | **@zooniverse/grommet-theme** | `packages/lib-grommet-theme` | The style definitions for a Zooniverse theme to use with Grommet |
 | **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API javascript client. Functional HTTP request helpers built on top of superagent |
 | **@zooniverse/react-components** | `packages/lib-react-components` | A set of Zooniverse-specific React components, built using Grommet |
+| **@zooniverse/subject-viewers** | `packages/lib-subject-viewers` | A library of subject viewer UI components. For now, this library contains only the VolumetricViewer.
+| **@zooniverse/user** | `packages/lib-user` | A library for the Zooniverse user stats, user group stats, and user-related components of the home page.
 
 ## Conventions
 
@@ -131,11 +131,9 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 ## Deployment
 
-Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images).
+Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to `main`. This is used for manual end-to-end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the NextJS app. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
-Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to `main`. This is used for manual end-to-end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
-
-Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on `main`. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
+Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on `main`. This can either be done using the git CLI or using the `lita deploy` command on slack.
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
 
@@ -143,7 +141,7 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 FEM's storybook can be viewed at [https://zooniverse.github.io/front-end-monorepo/](https://zooniverse.github.io/front-end-monorepo/).
 
-To deploy the latest version FEM's storybook, make sure you have pulled the latest production version and run `pnpm bootstrap` then `pnpm deploy-storybook`.
+To deploy the latest version FEM's storybook, make sure you have pulled the latest production version and run `pnpm bootstrap` then `pnpm deploy-storybook`. This command is included when using `lita deploy` for FEM in Slack.
 
 ### Environment variables
 

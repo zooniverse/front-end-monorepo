@@ -73,6 +73,40 @@ export const UncertaintyCircle = {
   }
 }
 
+export const UncertaintyCircleZeroRadius = {
+  args: {
+    geoDrawingTask: GeoDrawingTask.create({
+      taskKey: 'T0',
+      tools: [
+        {
+          type: 'Point',
+          color: '#235dff',
+          label: 'A point at the Four Corners Monument',
+          uncertainty_circle: true
+        }
+      ],
+      type: 'geoDrawing'
+    }),
+    geoJSON: {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-109.0451723, 36.9989766]
+
+          },
+          properties: {
+            name: 'Four Corners Monument',
+            uncertainty_radius: 0
+          }
+        }
+      ]
+    }
+  }
+}
+
 export const MultiplePoints = {
   args: {
     geoDrawingTask: GeoDrawingTask.create({
