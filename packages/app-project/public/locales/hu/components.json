@@ -86,7 +86,6 @@
     "completedSubjects": "Befejezett témák",
     "percentComplete": "Készültségi szint százalékban",
     "subjects": "Témák",
-    "subtitle": "Kövesse nyomon, hogy Ön és a többi önkéntes milyen előrehaladást ért el a projekttel kapcsolatban.",
     "text": "Minden kattintás számít! Csatlakozzon a(z) {{projectName}} közösségéhez a projekt teljesítéséhez, és segítsen a kutatóknak, hogy fontos eredményeket érhessenek el. A „További statisztikák” megtekintése gombra kattintva még több statisztikát tekinthet meg.",
     "title": "{{projectName}} statisztikák",
     "viewMoreStats": "További statisztikák megtekintése",

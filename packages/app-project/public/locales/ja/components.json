@@ -86,7 +86,6 @@
     "completedSubjects": "完了したサブジェクト",
     "percentComplete": "進捗率",
     "subjects": "サブジェクト",
-    "subtitle": "あなたと仲間のボランティアがこのプロジェクトで行った進捗を追跡します。",
     "text": "すべてのクリックがカウントされます。 {{projectName}}のコミュニティに参加して、このプロジェクトを完了させ、研究者が重要な結果を生み出すのを手伝ってください。",
     "title": "{{projectName}} 統計",
     "viewMoreStats": "さらに詳しい統計を見る",

@@ -86,7 +86,6 @@
     "completedSubjects": "Các chủ đề đã hoàn thành",
     "percentComplete": "Phần trăm hoàn thành",
     "subjects": "Chủ đề",
-    "subtitle": "Theo dõi tiến độ mà bạn và các tình nguyện viên khác đã đạt được trong dự án này.",
     "text": "Mỗi cú nhấp chuột đều quan trọng! Tham gia cộng đồng của {{projectName}} để hoàn thành dự án này và giúp các nhà nghiên cứu tạo ra những kết quả quan trọng. Nhấp vào \"Xem thêm thống kê\" để xem thêm các thống kê khác.",
     "title": "Thống kê {{projectName}}",
     "viewMoreStats": "Xem thêm thống kê",

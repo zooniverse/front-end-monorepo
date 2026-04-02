@@ -86,7 +86,6 @@
     "completedSubjects": "Sujets terminés",
     "percentComplete": "Pourcentage d'achèvement",
     "subjects": "Sujets",
-    "subtitle": "Gardez une trace des progrès que vous et vos collègues bénévoles avez accomplis sur ce projet.",
     "text": "Chaque clic compte! Rejoignez la communauté de {{projectName}} pour mener à bien ce projet et aider les chercheurs à produire des résultats importants. Cliquez sur \"Afficher plus de statistiques\" pour voir encore plus de statistiques.",
     "title": "Statistiques de {{projectName}}",
     "viewMoreStats": "Afficher plus de statistiques",
