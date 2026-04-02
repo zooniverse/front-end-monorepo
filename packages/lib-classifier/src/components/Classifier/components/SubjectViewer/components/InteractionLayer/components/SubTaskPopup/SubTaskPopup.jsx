@@ -56,11 +56,8 @@ function SubTaskPopup({
   const tasks = (activeMark?.tasks) ? activeMark.tasks : []
 
   function deleteMark() {
-    const { tool } = activeMark
     setConfirm('closed')
-    setSubTaskVisibility(false)
-    tool.deleteMark(activeMark)
-    onDelete()
+    onDelete(activeMark)
   }
 
   function close(event) {
