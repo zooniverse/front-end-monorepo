@@ -118,8 +118,8 @@ export default function useSubjectImageOrVideo({ src, type = 'image', frame = 0,
 
   function onMediaError (err) {
     setLoading(false)
-    setError(error)
-    onError(error)
+    setError(err)
+    onError(err)
   }
 
   return { media, type, mediaElementRef, loading, error }
