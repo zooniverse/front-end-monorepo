@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useCallback, useState } from 'react'
-import { useStores, useSubjectImage } from '@hooks'
+import { useStores, useSubjectImageOrVideo } from '@hooks'
 import { defaultKeyMappings } from '../../../../../../../../hooks/useKeyZoom'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
 import {
@@ -15,6 +15,8 @@ import {
 } from '../../../../../ImageToolbar/components'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_WIDTH = 800
+const DEFAULT_HEIGHT = 600
 
 function storeMapper(classifierStore) {
   return {
@@ -32,16 +34,17 @@ const SeparateFrame = ({
   onReady = DEFAULT_HANDLER,
   subject
 }) => {
-  const { img, error, loading, subjectImage } = useSubjectImage({
-    frame,
+  const mediaType = subject?.locations?.[frame]?.type
+  const { media, mediaElementRef, loading, error } = useSubjectImageOrVideo({
     src: frameUrl,
+    type: mediaType,
+    frame,
+    onReady,
     onError,
-    onReady
   })
-  const {
-    naturalHeight = 600,
-    naturalWidth = 800
-  } = img
+
+  const mediaWidth = media?.naturalWidth || media?.videoWidth || DEFAULT_WIDTH
+  const mediaHeight = media?.naturalHeight || media?.videoHeight || DEFAULT_HEIGHT
 
   /** Image Viewer state */
   const [invert, setInvert] = useState(false)
@@ -133,60 +136,83 @@ const SeparateFrame = ({
     separateFrameEnableMove()
   }
 
-  return (
-    <Box direction='row'>
-      <SingleImageViewer
-        enableInteractionLayer={enableInteractionLayer}
-        enableRotation={enableRotation}
-        frame={frame}
-        imgRef={subjectImage}
-        invert={invert}
-        limitSubjectHeight={limitSubjectHeight}
-        move={separateFrameMove}
-        naturalHeight={naturalHeight}
-        naturalWidth={naturalWidth}
-        onKeyDown={onKeyZoom}
-        rotation={rotation}
-        setOnPan={handleSetOnPan}
-        setOnZoom={handleSetOnZoom}
-        src={img.src}
-        subject={subject}
-      />
-      <Box
-        background={{
-          dark: 'dark-3',
-          light: 'white'
-        }}
-        border={{
-          color: {
-            dark: 'dark-1',
-            light: 'light-3'
-          },
-          side: 'all'
-        }}
-        direction='column'
-        height='fit-content'
-        pad='8px'
-        style={{ width: '3rem' }}
-      >
-        {hasAnnotateTask &&
-          <AnnotateButton
-            separateFrameAnnotate={separateFrameAnnotate}
-            separateFrameEnableAnnotate={separateFrameEnableAnnotate}
-          />
-        }
-        <MoveButton
-          separateFrameMove={separateFrameMove}
-          separateFrameEnableMove={separateFrameEnableMove}
+  if (mediaType === 'image') {
+    return (
+      <Box direction='row'>
+        <SingleImageViewer
+          enableInteractionLayer={enableInteractionLayer}
+          enableRotation={enableRotation}
+          frame={frame}
+          imgRef={mediaElementRef}
+          invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
+          move={separateFrameMove}
+          naturalHeight={mediaHeight}
+          naturalWidth={mediaWidth}
+          onKeyDown={onKeyZoom}
+          rotation={rotation}
+          setOnPan={handleSetOnPan}
+          setOnZoom={handleSetOnZoom}
+          src={frameUrl}
+          subject={subject}
         />
-        <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
-        <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
-        <RotateButton separateFrameRotate={separateFrameRotate} />
-        <ResetButton separateFrameResetView={separateFrameResetView} />
-        <InvertButton separateFrameInvert={separateFrameInvert} />
+        <Box
+          background={{
+            dark: 'dark-3',
+            light: 'white'
+          }}
+          border={{
+            color: {
+              dark: 'dark-1',
+              light: 'light-3'
+            },
+            side: 'all'
+          }}
+          direction='column'
+          height='fit-content'
+          pad='8px'
+          style={{ width: '3rem' }}
+        >
+          {hasAnnotateTask &&
+            <AnnotateButton
+              separateFrameAnnotate={separateFrameAnnotate}
+              separateFrameEnableAnnotate={separateFrameEnableAnnotate}
+            />
+          }
+          <MoveButton
+            separateFrameMove={separateFrameMove}
+            separateFrameEnableMove={separateFrameEnableMove}
+          />
+          <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
+          <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
+          <RotateButton separateFrameRotate={separateFrameRotate} />
+          <ResetButton separateFrameResetView={separateFrameResetView} />
+          <InvertButton separateFrameInvert={separateFrameInvert} />
+        </Box>
       </Box>
-    </Box>
-  )
+    )
+  }
+
+  if (mediaType === 'video') {
+    return (
+      <Box>
+        <video
+          autoPlay={false}
+          controls={true}
+          ref={mediaElementRef}
+          src={frameUrl}
+          width={mediaWidth}
+          height={mediaHeight}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      </Box>
+    )
+  }
+
+  return null
 }
 
 SeparateFrame.propTypes = {
@@ -200,7 +226,7 @@ SeparateFrame.propTypes = {
   frameUrl: PropTypes.string,
   /** Passed from Workflow Store per workflow configuration */
   limitSubjectHeight: PropTypes.bool,
-  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
+  /** Passed from SubjectViewer and called if the media-fetching hook fails. */
   onError: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
