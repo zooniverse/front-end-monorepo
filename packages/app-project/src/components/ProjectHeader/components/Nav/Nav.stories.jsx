@@ -137,9 +137,10 @@ export function AdminMode(props) {
     }
   }
   applySnapshot(AdminMode.store, snapshot)
+  AdminMode.store.user.setAdminMode(true)
   return (
     <Provider store={AdminMode.store}>
-      <Nav {...props} adminMode />
+      <Nav {...props} />
     </Provider>
   )
 }
