@@ -10,7 +10,7 @@ export default {
   component: SeparateFramesViewer
 }
 
-const mockSubject = SubjectFactory.build({
+const mockSubjectImagesOnly = SubjectFactory.build({
   locations: [
     {
       'image/jpeg':
@@ -31,6 +31,31 @@ const mockSubject = SubjectFactory.build({
   ]
 })
 
+const mockSubjectImagesAndVideos = SubjectFactory.build({
+  locations: [
+    {
+      'video/mp4':
+        'https://panoptes-uploads.zooniverse.org/subject_location/49fa80c5-bb6a-4d03-8ebe-fb2ac585ed8c.mp4'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/0ff3f805-e224-4a98-8781-25e1fc536967.jpeg'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/f62b8d72-c9ab-4ed9-ba4c-1b663ba81703.jpeg'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/6421dcb5-97cb-4bf2-9161-363ac81c0116.jpeg'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/e6570f19-7bd9-4cd3-b821-54fe31689b1e.jpeg'
+    }
+  ]
+})
+
 const workflowWithOneColumn = WorkflowFactory.build({
   configuration: {
     invert_subject: true,
@@ -38,19 +63,37 @@ const workflowWithOneColumn = WorkflowFactory.build({
   }
 })
 
-const storeWithOneColumn = mockStore({
-  subject: mockSubject,
+const storeWithOneColumnImagesOnly = mockStore({
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithOneColumn
 })
-storeWithOneColumn.subjectViewer.setSeparateFramesView(true)
-storeWithOneColumn.subjectViewer.enableRotation(true)
+storeWithOneColumnImagesOnly.subjectViewer.setSeparateFramesView(true)
+storeWithOneColumnImagesOnly.subjectViewer.enableRotation(true)
 
-export const OneColumn = () => {
+export const OneColumnImagesOnly = () => {
   return (
-    <Provider classifierStore={storeWithOneColumn}>
+    <Provider classifierStore={storeWithOneColumnImagesOnly}>
       <SeparateFramesViewer
         loadingState={asyncStates.success}
-        subject={storeWithOneColumn.subjects.active}
+        subject={storeWithOneColumnImagesOnly.subjects.active}
+      />
+    </Provider>
+  )
+}
+
+const storeWithOneColumnImagesAndVideos = mockStore({
+  subject: mockSubjectImagesAndVideos,
+  workflow: workflowWithOneColumn
+})
+storeWithOneColumnImagesAndVideos.subjectViewer.setSeparateFramesView(true)
+storeWithOneColumnImagesAndVideos.subjectViewer.enableRotation(true)
+
+export const OneColumnImagesAndVideos = () => {
+  return (
+    <Provider classifierStore={storeWithOneColumnImagesAndVideos}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithOneColumnImagesAndVideos.subjects.active}
       />
     </Provider>
   )
@@ -64,7 +107,7 @@ const workflowWithOneRow = WorkflowFactory.build({
 })
 
 const storeWithOneRow = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithOneRow
 })
 storeWithOneRow.subjectViewer.setSeparateFramesView(true)
@@ -89,7 +132,7 @@ const workflowWithTwoColGrid = WorkflowFactory.build({
 })
 
 const storeWithTwoColGrid = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithTwoColGrid
 })
 storeWithTwoColGrid.subjectViewer.setSeparateFramesView(true)
@@ -114,7 +157,7 @@ const workflowWithThreeColGrid = WorkflowFactory.build({
 })
 
 const storeWithThreeColGrid = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithThreeColGrid
 })
 storeWithThreeColGrid.subjectViewer.setSeparateFramesView(true)

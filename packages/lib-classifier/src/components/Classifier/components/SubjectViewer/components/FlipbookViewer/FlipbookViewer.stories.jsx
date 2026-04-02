@@ -11,7 +11,7 @@ export default {
   component: FlipbookViewerContainer
 }
 
-const mockSubject = SubjectFactory.build({
+const mockSubjectImagesOnly = SubjectFactory.build({
   locations: [
     {
       'image/jpeg':
@@ -32,8 +32,33 @@ const mockSubject = SubjectFactory.build({
   ]
 })
 
+const mockSubjectImagesAndVideos = SubjectFactory.build({
+  locations: [
+    {
+      'video/mp4':
+        'https://panoptes-uploads.zooniverse.org/subject_location/49fa80c5-bb6a-4d03-8ebe-fb2ac585ed8c.mp4'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/0ff3f805-e224-4a98-8781-25e1fc536967.jpeg'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/f62b8d72-c9ab-4ed9-ba4c-1b663ba81703.jpeg'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/6421dcb5-97cb-4bf2-9161-363ac81c0116.jpeg'
+    },
+    {
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/e6570f19-7bd9-4cd3-b821-54fe31689b1e.jpeg'
+    }
+  ]
+})
+
 const store = mockStore({
-  subject: mockSubject
+  subject: mockSubjectImagesOnly
 })
 
 export const Default = () => {
@@ -43,6 +68,23 @@ export const Default = () => {
         <FlipbookViewerContainer
           loadingState={asyncStates.success}
           subject={store.subjects.active}
+        />
+      </Box>
+    </Provider>
+  )
+}
+
+const storeWithImagesAndVideos = mockStore({
+  subject: mockSubjectImagesAndVideos
+})
+
+export const WithImagesAndVideos = () => {
+  return (
+    <Provider classifierStore={storeWithImagesAndVideos}>
+      <Box width='large'>
+        <FlipbookViewerContainer
+          loadingState={asyncStates.success}
+          subject={storeWithImagesAndVideos.subjects.active}
         />
       </Box>
     </Provider>
@@ -110,7 +152,7 @@ const workflowWithFiveIterations = WorkflowFactory.build({
 })
 
 const storeWithFiveIterationWorkflow = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithFiveIterations
 })
 
@@ -134,7 +176,7 @@ const workflowWithInfiniteIterations = WorkflowFactory.build({
 })
 
 const storeWithInfiniteIterationWorkflow = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithInfiniteIterations
 })
 
@@ -159,7 +201,7 @@ const workflowWithAutoplay = WorkflowFactory.build({
 })
 
 const storeWithAutoplayWorkflow = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithAutoplay
 })
 
@@ -182,7 +224,7 @@ const workflowWithSwitchToSeparateFrames = WorkflowFactory.build({
   }
 })
 const storeWithSwitchToSeparateFrames = mockStore({
-  subject: mockSubject,
+  subject: mockSubjectImagesOnly,
   workflow: workflowWithSwitchToSeparateFrames
 })
 

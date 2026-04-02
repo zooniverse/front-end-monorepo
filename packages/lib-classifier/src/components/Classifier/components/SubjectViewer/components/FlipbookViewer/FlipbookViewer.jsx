@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { useKeyZoom, useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImageOrVideo } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
 
@@ -10,6 +10,8 @@ import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import FlipbookControls from './components/FlipbookControls'
 
 const DEFAULT_HANDLER = () => true
+const DEFAULT_WIDTH = 800
+const DEFAULT_HEIGHT = 600
 
 const FlipbookViewer = ({
   defaultFrame = 0,
@@ -37,16 +39,34 @@ const FlipbookViewer = ({
     }
   }, [])
 
-  const defaultLocationUrl = subject?.locations[defaultFrame]?.url
-  const { img, error, loading, subjectImage } = useSubjectImage({
-    src: defaultLocationUrl,
+  // Determine the size of the "subject frame".
+  // This is determined by the size of the first image or video file in the
+  // Subject, so e.g. if the first image is 800x200, then all other images will
+  // fit into a 800x200 frame.
+  // --------------------------------
+  const defaultMediaType = subject?.locations[defaultFrame]?.type
+  const defaultMediaUrl = subject?.locations[defaultFrame]?.url
+  const { media, mediaElementRef } = useSubjectImageOrVideo({
+    src: defaultMediaUrl,
+    type: defaultMediaType,
+    frame: defaultFrame,
+    onReady,
     onError,
-    onReady
   })
-  const {
-    naturalHeight = 600,
-    naturalWidth = 800
-  } = img
+
+  const viewerWidth = media?.naturalWidth || media?.videoWidth || DEFAULT_WIDTH
+  const viewerHeight = media?.naturalHeight || media?.videoHeight || DEFAULT_HEIGHT
+  // --------------------------------
+
+  // Now, get the ACTUAL image or video (from the currently-selected frame)
+  // that we want to display.
+  // Believe it or not, all that hullabaloo above 👆 with the "default media" is
+  // only for the sake of determining a consistent viewer width/height for
+  // all media files. 
+  // --------------------------------
+  const currentMediaType = subject?.locations[currentFrame]?.type
+  const currentMediaUrl = subject?.locations[currentFrame]?.url
+  // --------------------------------
 
   const onPlayPause = () => {
     setPlaying(!playing)
@@ -54,27 +74,41 @@ const FlipbookViewer = ({
 
   const { onKeyZoom } = useKeyZoom({ customKeyMappings: { ' ': onPlayPause } })
 
-  const imageLocationUrl = subject?.locations[currentFrame]?.url
-
   return (
     <Box>
-      <SingleImageViewer
-        enableInteractionLayer={enableInteractionLayer}
-        enableRotation={enableRotation}
-        frame={currentFrame}
-        imgRef={subjectImage}
-        invert={invert}
-        limitSubjectHeight={limitSubjectHeight}
-        move={move}
-        naturalHeight={naturalHeight}
-        naturalWidth={naturalWidth}
-        onKeyDown={onKeyZoom}
-        rotation={rotation}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
-        src={imageLocationUrl}
-        subject={subject}
-      />
+      {currentMediaType === 'image' && (
+        <SingleImageViewer
+          enableInteractionLayer={enableInteractionLayer}
+          enableRotation={enableRotation}
+          frame={currentFrame}
+          imgRef={mediaElementRef}
+          invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
+          move={move}
+          naturalHeight={viewerHeight}
+          naturalWidth={viewerWidth}
+          onKeyDown={onKeyZoom}
+          rotation={rotation}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          src={currentMediaUrl}
+          subject={subject}
+        />
+      )}
+      {currentMediaType === 'video' && (
+        <video
+          autoPlay={false}
+          controls={true}
+          ref={mediaElementRef}
+          src={currentMediaUrl}
+          width={viewerWidth}
+          height={viewerHeight}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      )}
       <FlipbookControls
         currentFrame={currentFrame}
         locations={subject.locations}
@@ -102,7 +136,7 @@ FlipbookViewer.propTypes = {
   limitSubjectHeight: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
+  /** Passed from SubjectViewer and called if media-fetching hook fails. */
   onError: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
