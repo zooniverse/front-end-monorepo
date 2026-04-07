@@ -82,6 +82,7 @@ async function fetchLinkedOrganizations (project, locale, env) {
     : project.links.organization
   if (!organizationIDs) return []
   let { organizations, linked } = await fetchOrganizationsData(organizationIDs, env)
+  if (!organizations) organizations = []
 
   // Fetch translations for each organization.
   const translationsFetches = organizations.map(org => {
