@@ -1,25 +1,25 @@
 import { IconActionButton } from '@zooniverse/react-components'
-import { Location } from 'grommet-icons'
+import { ZoomOut } from 'grommet-icons'
 import { func } from 'prop-types'
 
 import { useTranslation } from '@translations/i18n'
 
-function RecenterButton({ onClick }) {
+function ZoomOutButton({ onClick }) {
   const { t } = useTranslation('components')
-  const label = t('SubjectViewer.GeoMapViewer.RecenterButton.ariaLabel')
-  
+  const label = t('ImageToolbar.ZoomOutButton.ariaLabel')
+
   return (
     <IconActionButton
       a11yTitle={label}
-      icon={<Location color='dark-5' size='18px' />}
+      icon={<ZoomOut color='dark-5' size='18px' />}
       onClick={onClick}
       title={label}
     />
   )
 }
 
-RecenterButton.propTypes = {
+ZoomOutButton.propTypes = {
   onClick: func.isRequired
 }
 
-export default RecenterButton
+export default ZoomOutButton
