@@ -81,7 +81,7 @@ const Subject = types
 
         if (!viewer && counts.total > 1) {
           // This is a subject pattern for the flipbook - Note that projects that want to use the multiFrame viewer should specify in workflow config
-          if (counts.total === counts.images) {
+          if (counts.total === (counts.images + counts.videos)) {
             viewer = subjectViewers.flipbook
           }
           // This is a subject pattern for the image and text viewer

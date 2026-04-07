@@ -17,9 +17,18 @@ const StyledText = styled(Text)`
     margin-top: 0;
   }
 `
+const Label = styled.label`
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: .875rem;
+  `
 
 function SimpleDropdownTask({
   annotation,
+  // Noting from https://github.com/zooniverse/front-end-monorepo/issues/7160#issuecomment-3951010034
+  // autoFocus introduces accessibility and usability problems. It's set to false by default and
+  // it's up to developers to enable it only when doing so would not cause accessibility problems.
+  autoFocus = false,
   className = '',
   disabled = false,
   task,
@@ -58,7 +67,7 @@ function SimpleDropdownTask({
     const exp = new RegExp(escapedText, 'i');
     setFilteredOptions(optionsToDisplay.filter((o) => exp.test(o)));
   }
-  
+
   // onBlur() is called on focus (weird Grommet behavior)
   // Therefore, we clear our search value whenever we "focus" the input
   function onBlur() {
@@ -69,8 +78,12 @@ function SimpleDropdownTask({
     <Box
       className={className}
     >
-      <StyledText as='legend' size='small'>
-        <Markdownz>
+      <StyledText
+        as={Label}
+        size='small'
+        htmlFor={`${task.taskKey}-select`}
+      >
+        <Markdownz inline>
           {task.instruction}
         </Markdownz>
       </StyledText>
@@ -78,8 +91,10 @@ function SimpleDropdownTask({
         gap='xsmall'
       >
         <Select
+          autoFocus={autoFocus}
           disabled={disabled}
           icon={<Down size='small' />}
+          id={`${task.taskKey}-select`}
           labelKey='text'
           onChange={onChange}
           onSearch={onSearch}
@@ -99,6 +114,7 @@ SimpleDropdownTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.object
   }).isRequired,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
@@ -107,6 +123,8 @@ SimpleDropdownTask.propTypes = {
     instruction: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.string),
     required: PropTypes.bool,
+    strings: PropTypes.objectOf(PropTypes.string),
+    taskKey: PropTypes.string,
   }).isRequired,
 }
 
