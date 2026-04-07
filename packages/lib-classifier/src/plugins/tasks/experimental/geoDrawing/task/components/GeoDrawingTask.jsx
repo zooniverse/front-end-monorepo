@@ -139,7 +139,7 @@ function GeoDrawingTask({
       {task.tools.map((tool, index) => {
         const checked = task.activeToolIndex === index
         const currentRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
-        const showUncertaintySlider = tool.uncertainty_circle && currentRadius !== null
+        const showUncertaintySlider = task.activeFeature && task.activeOlFeature && tool.uncertainty_circle && currentRadius !== null
         
         return (
           <ToolLabel key={`${task.taskKey}_${index}`}>
