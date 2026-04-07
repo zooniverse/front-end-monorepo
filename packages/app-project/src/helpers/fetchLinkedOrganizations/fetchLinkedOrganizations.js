@@ -36,7 +36,10 @@ async function fetchOrganizationsData(organizationIDs, env) {
   } catch (error) {
     logToSentry(error)
     console.log('Error loading organizations:', error)
-    return []
+    return {
+      organizations: [],
+      linked: []
+    }
   }
 }
 
@@ -82,7 +85,6 @@ async function fetchLinkedOrganizations (project, locale, env) {
     : project.links.organization
   if (!organizationIDs) return []
   let { organizations, linked } = await fetchOrganizationsData(organizationIDs, env)
-  if (!organizations) organizations = []
 
   // Fetch translations for each organization.
   const translationsFetches = organizations.map(org => {
