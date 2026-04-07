@@ -58,6 +58,19 @@ function fitViewToFeatures(map, features) {
   })
 }
 
+function selectFirstFeature(selectInteraction, newFeatures) {
+  if (!selectInteraction || newFeatures.length === 0) return
+
+  selectInteraction.getFeatures().clear()
+  selectInteraction.getFeatures().push(newFeatures[0])
+
+  selectInteraction.dispatchEvent({
+    type: 'select',
+    selected: [newFeatures[0]],
+    deselected: []
+  })
+}
+
 function GeoMapViewer({
   geoDrawingTask,
   geoJSON = undefined,
@@ -263,20 +276,8 @@ function GeoMapViewer({
       // Fit the view to the features extent
       if (features.getFeatures().length) {
         fitViewToFeatures(map, features)
-        
-        // Automatically select the first feature
-        const select = selectRef.current
-        if (select && newFeatures.length > 0) {
-          select.getFeatures().clear()
-          select.getFeatures().push(newFeatures[0])
-          
-          // Trigger select event to update task state
-          select.dispatchEvent({
-            type: 'select',
-            selected: [newFeatures[0]],
-            deselected: []
-          })
-        }
+
+        selectFirstFeature(selectRef.current, newFeatures)
       }
     }
 
@@ -392,6 +393,7 @@ function GeoMapViewer({
     // Fit the view to the features extent
     if (features.getFeatures().length) {
       fitViewToFeatures(map, features)
+      selectFirstFeature(selectRef.current, newFeatures)
     }
   }
 

@@ -115,6 +115,45 @@ if (!loading && error) {
 return <img ref={subjectImage} alt="This is an example of a subject image" src={img.src} />
 ```
 
+## useSubjectImageOrVideo
+
+A custom hook that fetches an image OR a video from a URL. Similar to
+useSubjectImage(), except in this case used when your Subject might contain both
+image files and video files.
+
+Usage:
+```jsx
+const { media, mediaElementRef, loading, error } = useSubjectImageOrVideo({ src, type, frame, onReady, onError })
+
+if (loading) {
+  return <p>Loading</p>
+} else if (!loading && error) {
+  return <p>ERROR</p>
+}
+
+if (type === 'image') {
+  return (
+    <img
+      ref={mediaElementRef}
+      src={media.src}
+      width={media.naturalWidth}
+      height={media.naturalHeight}
+    />
+  )
+} else if (type === 'video') {
+  return (
+    <video
+      ref={mediaElementRef}
+      src={media.src}
+      width={media.videoWidth}
+      height={media.videoHeight}
+    />
+  )
+}
+```
+
+Additional documentation available in [useSubjectImageOrVideo.js](./useSubjectImageOrVideo.js)
+
 ## useSubjectJSON
 
 A custom hook that fetches JSON data from a URL, with a ref to the viewer's DOM node for sizing etc.
