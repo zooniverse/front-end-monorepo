@@ -10,6 +10,6 @@ const ORGANIZATIONS = [{
 describe('Component > Hero > OrganizationsLink', function () {
   it('should render links to the organization pages', function () {
     render(<OrganizationsLink organizations={ORGANIZATIONS} />)
-    expect(screen.getByRole('link', { name: TITLE })).toBeDefined()
+    expect(screen.getByRole('link', { name: ORGANIZATIONS.title })).toBeDefined()
   })
 })
