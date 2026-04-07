@@ -57,24 +57,22 @@ export function Supporters() {
           alt='National Science Foundation'
         />
         <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/microsoft.jpg'
+          alt='Microsoft'
+        />
+        <LogoImage
           src='https://static.zooniverse.org/fem-assets/collaborate/neh.jpeg'
           alt='National Endowment for the Humanities'
         />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/simons.jpg'
+          alt='Simons Foundation'
+        />
+        <LogoImage
+          src='https://static.zooniverse.org/fem-assets/collaborate/noaa.png'
+          alt='National Oceanic and Atmospheric Administration (NOAA)'
+        />
       </Grid>
-      <Box direction='row' justify='center' gap='40px'>
-        <Box width='28%'>
-          <LogoImage
-            src='https://static.zooniverse.org/fem-assets/collaborate/noaa.png'
-            alt='National Oceanic and Atmospheric Administration (NOAA)'
-          />
-        </Box>
-        <Box width='28%'>
-          <LogoImage
-            src='https://static.zooniverse.org/fem-assets/collaborate/simons.jpg'
-            alt='Simons Foundation'
-          />
-        </Box>
-      </Box>
     </Box>
   )
 }
@@ -194,28 +192,22 @@ export function SelectedTools() {
             alt='BrowserStack'
           />
         </Anchor>
+        <Anchor href='https://github.com'>
+          <LogoImage
+            src='https://static.zooniverse.org/fem-assets/collaborate/github.png'
+            alt='Github'
+          />
+        </Anchor>
         <Anchor href='https://newrelic.com'>
           <LogoImage
             src='https://static.zooniverse.org/fem-assets/collaborate/new-relic.png'
             alt='NewRelic'
           />
         </Anchor>
-        <Anchor href='https://www.microsoft.com'>
-          <LogoImage
-            src='https://static.zooniverse.org/fem-assets/collaborate/microsoft.jpg'
-            alt='Microsoft'
-          />
-        </Anchor>
         <Anchor href='https://sentry.io'>
           <LogoImage
             src='https://static.zooniverse.org/fem-assets/collaborate/sentry.png'
             alt='Sentry'
-          />
-        </Anchor>
-        <Anchor href='https://github.com'>
-          <LogoImage
-            src='https://static.zooniverse.org/fem-assets/collaborate/github.png'
-            alt='Github'
           />
         </Anchor>
       </Grid>

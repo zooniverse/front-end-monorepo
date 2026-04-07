@@ -5,6 +5,10 @@ function createLocationCounts ({ locations }) {
     .map(location => Object.keys(location)[0])
 
   try {
+    const audio = mimeTypes
+      .filter(mimeType => mimeType.startsWith('audio') && validateMimeType(mimeType))
+      .length
+
     const images = mimeTypes
       .filter(mimeType => mimeType.startsWith('image') && validateMimeType(mimeType))
       .length
@@ -22,6 +26,7 @@ function createLocationCounts ({ locations }) {
       .length
 
     return {
+      audio,
       images,
       json,
       videos,
