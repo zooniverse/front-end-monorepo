@@ -233,3 +233,74 @@ export const MultiplePointsUncertaintyCircles = {
     }
   }
 }
+
+export const MultiplePointsUncertaintyCircleStyles = {
+  args: {
+    geoDrawingTask: GeoDrawingTask.create({
+      taskKey: 'T0',
+      tools: [
+        {
+          type: 'Point',
+          color: '#235dff',
+          label: 'Sydney Beaches uncertainty circle comparison',
+          uncertainty_circle: true
+        }
+      ],
+      type: 'geoDrawing'
+    }),
+    geoJSON: {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [151.2768, -33.89155]
+          },
+          properties: {
+            name: 'Bondi Beach',
+            uncertainty_radius: 350,
+            uncertainty_style: 'crosshatch'
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [151.25808, -33.92041]
+          },
+          properties: {
+            name: 'Coogee Beach',
+            uncertainty_radius: 350,
+            uncertainty_style: 'wideDiagonal'
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [151.257, -33.94881]
+          },
+          properties: {
+            name: 'Maroubra Beach',
+            uncertainty_radius: 350,
+            uncertainty_style: 'narrowDiagonal'
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [151.28849, -33.79645]
+          },
+          properties: {
+            name: 'Manly Beach',
+            uncertainty_radius: 350,
+            uncertainty_opacity: 0.075,
+            uncertainty_style: 'opacityOnly'
+          }
+        }
+      ]
+    }
+  }
+}
