@@ -54,7 +54,7 @@ function SocialAnchors() {
       gap={size === 'small' || size === 'large' ? '50px' : 'medium'}
     >
       <SocialAnchor service='facebook' />
-      <SocialAnchor service='twitter' />
+      <SocialAnchor service='X' />
       <SocialAnchor service='bluesky' />
       <SocialAnchor service='instagram' />
     </Box>
