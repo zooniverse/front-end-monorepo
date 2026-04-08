@@ -30,6 +30,7 @@ const locales = [
   'ru', // Russian
   'sw', // Swahili
   'sv', // Swedish
+  'ta', // Tamil
   'te', // Telugu
   'test', // Test Language
   'tr', // Turkish
