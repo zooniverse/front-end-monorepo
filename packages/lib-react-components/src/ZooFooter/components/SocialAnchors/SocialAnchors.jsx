@@ -26,14 +26,14 @@ const hrefs = {
   bluesky: 'https://bsky.app/profile/zooniverse.bsky.social',
   facebook: 'https://www.facebook.com/therealzooniverse',
   instagram: 'https://www.instagram.com/the.zooniverse/',
-  twitter: 'https://x.com/the_zooniverse'
+  X: 'https://x.com/the_zooniverse'
 }
 
 const icons = {
   bluesky: <BlueSkyIcon size='25px' />,
   facebook: <FacebookOption size='25px' />,
   instagram: <Instagram size='25px' />,
-  twitter: <X size='25px' />
+  X: <X size='25px' />
 }
 
 function SocialAnchor({ service }) {
