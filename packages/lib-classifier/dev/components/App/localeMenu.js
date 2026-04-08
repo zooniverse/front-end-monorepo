@@ -29,6 +29,7 @@ export default {
   ru: 'русский', // Russian
   sw: 'Kiswahili', // Swahili
   sv: 'Svenska', // Swedish
+  ta: 'தமிழ்', // Tamil
   te: 'తెలుగు', // Telugu
   test: 'Test Language',
   tr: 'Türkçe', // Turkish
