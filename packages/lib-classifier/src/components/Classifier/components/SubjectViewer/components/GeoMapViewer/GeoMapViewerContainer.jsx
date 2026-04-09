@@ -7,9 +7,16 @@ import { useEffect } from 'react'
 import { useStores, useSubjectJSON } from '@hooks'
 import GeoMapViewer from './GeoMapViewer'
 import ReferenceData from './components/ReferenceData'
+import {
+  DEFAULT_DATA_PROJECTION,
+  DEFAULT_FEATURE_PROJECTION
+} from './helpers/mapContext'
 
 function storeMapper(classifierStore) {
   const {
+    classifications: {
+      active: classification
+    },
     subjects: {
       active: subject
     },
@@ -25,6 +32,7 @@ function storeMapper(classifierStore) {
 
   return {
     activeStepTasks,
+    classificationMetadata: classification?.metadata,
     latest,
     loadingState,
     subject
@@ -39,6 +47,7 @@ function GeoMapViewerContainer ({
 }) {
   const {
     activeStepTasks,
+    classificationMetadata,
     latest,
     loadingState,
     subject
@@ -63,8 +72,24 @@ function GeoMapViewerContainer ({
     referenceData = data.reference_data
   }
 
+  // workflow configuration settings could take precedent over the default projections here, but for now just use the defaults
+  const dataProjection = DEFAULT_DATA_PROJECTION
+  const featureProjection = DEFAULT_FEATURE_PROJECTION
+
+  // Initialize the classification metadata with map context when the subject JSON and metadata are both available
+  useEffect(function initializeClassificationMetadataMapContext() {
+    if (classificationMetadata && geoJSONData) {
+      classificationMetadata.update({
+        mapContext: {
+          dataProjection,
+          featureProjection
+        }
+      })
+    }
+  }, [classificationMetadata, dataProjection, featureProjection, geoJSONData])
+
   // Initialize the geoDrawing annotation with GeoJSON data
-  useEffect(() => {
+  useEffect(function initializeGeoDrawingAnnotation() {
     const geoAnnotation = latest?.annotations?.find(annotation => annotation?.taskType === 'geoDrawing')
     if (geoAnnotation && geoJSONData && !geoAnnotation.value) {
       geoAnnotation.update(geoJSONData)
@@ -111,6 +136,8 @@ function GeoMapViewerContainer ({
     <Box fill>
       {referenceData && <ReferenceData data={referenceData} />}
       <GeoMapViewer
+        dataProjection={dataProjection}
+        featureProjection={featureProjection}
         geoDrawingTask={geoDrawingTask}
         geoJSON={geoJSONData}
         subjectId={subject.id}

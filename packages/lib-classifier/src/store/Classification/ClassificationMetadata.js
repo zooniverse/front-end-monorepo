@@ -5,6 +5,10 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
   feedback: types.frozen({}),
   finishedAt: types.maybe(types.string),
+  mapContext: types.maybe(types.frozen({
+    dataProjection: types.string,
+    featureProjection: types.string
+  })),
   revision: types.frozen(process.env.COMMIT_ID),
   session: types.maybe(types.string),
   source: types.enumeration(['api', 'sugar']),

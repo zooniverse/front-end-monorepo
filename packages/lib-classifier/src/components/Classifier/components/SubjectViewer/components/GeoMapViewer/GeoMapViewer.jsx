@@ -27,6 +27,10 @@ import getFeatureStyle from './helpers/getFeatureStyle'
 import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import asMSTFeature from './helpers/asMSTFeature'
+import {
+  DEFAULT_DATA_PROJECTION,
+  DEFAULT_FEATURE_PROJECTION
+} from './helpers/mapContext'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -72,6 +76,8 @@ function selectFirstFeature(selectInteraction, newFeatures) {
 }
 
 function GeoMapViewer({
+  dataProjection = DEFAULT_DATA_PROJECTION,
+  featureProjection = DEFAULT_FEATURE_PROJECTION,
   geoDrawingTask,
   geoJSON = undefined,
   onFeaturesChange = undefined,
@@ -94,8 +100,8 @@ function GeoMapViewer({
 
   // Shared options for reading GeoJSON and projecting to the map view
   const geoJSONReadOptions = {
-    dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
-    featureProjection: 'EPSG:3857' // map display projection in Web Mercator
+    dataProjection,
+    featureProjection
   }
 
   const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
@@ -335,10 +341,7 @@ function GeoMapViewer({
 
     function serializeAndNotify() {
       const olFeatures = featuresSource.getFeatures()
-      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, {
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'
-      })
+      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, geoJSONReadOptions)
 
       const sanitizedFeatures = featureCollection.features?.map((feature) => ({
         ...feature,
@@ -454,6 +457,8 @@ function GeoMapViewer({
 }
 
 GeoMapViewer.propTypes = {
+  dataProjection: string,
+  featureProjection: string,
   geoDrawingTask: shape({
     tools: arrayOf(shape({
       type: string.isRequired,

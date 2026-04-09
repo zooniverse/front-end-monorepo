@@ -62,6 +62,21 @@ describe('Model > ClassificationMetadata', function () {
       expect(snapshot.session).to.equal('test session')
     })
 
+    it('should store map context metadata', function () {
+      model.update({
+        mapContext: {
+          dataProjection: 'EPSG:4326',
+          featureProjection: 'EPSG:3857'
+        }
+      })
+      snapshot = getSnapshot(model)
+
+      expect(snapshot.mapContext).to.deep.equal({
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      })
+    })
+
     it('should ignore unknown keys', function () {
       expect(snapshot.unknownKey).to.equal(undefined)
     })
