@@ -99,7 +99,10 @@ function SingleImageViewer({
         {showZoomHelper && (
           <ZoomHelperOverlay fadingOut={fadingOut} />
         )}
-        <ControlsLayer enableInteractionLayer={enableInteractionLayer} />
+        <ControlsLayer 
+          enableInteractionLayer={enableInteractionLayer} 
+          frame={frame}
+        />
         <StyledSVG
           aria-labelledby={title?.id}
           aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}

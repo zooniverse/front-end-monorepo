@@ -15,8 +15,8 @@ describe('Component > ControlsLayer', () => {
   })
 
   it('should render line controls when enableInteractionLayer = true', () => {
-    render(<ControlsLayer enableInteractionLayer={true} />);
-    expect(LineControls).to.have.been.calledOnce
+    render(<ControlsLayer enableInteractionLayer={true} frame={1} />)
+    expect(LineControls).to.have.been.calledWith({ frame: 1 })
   })
 
   it('should render nothing when enableInteractionLayer = false', () => {
