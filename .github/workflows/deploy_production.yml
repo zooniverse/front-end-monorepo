@@ -63,6 +63,8 @@ jobs:
     uses: zooniverse/ci-cd/.github/workflows/purge_cache.yaml@main
     with:
       fdname: 'www-zooniverse-org-standard'
+      domain: 'www.zooniverse.org'
+      endpoint: 'main-route'
       path: '/*'
     secrets:
       creds: ${{ secrets.AZURE_STATIC_SITES }}
