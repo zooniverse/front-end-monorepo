@@ -7,6 +7,8 @@ import Circle from 'ol/style/Circle'
 import { getDragHandleIcon } from './dragHandle'
 
 const DEFAULT_COLOR = '#007bff'
+const DEFAULT_UNCERTAINTY_OPACITY = 0.18
+const DEFAULT_UNCERTAINTY_BACKGROUND_OPACITY = 0.06
 
 const uncertaintyPatternCache = new Map()
 
@@ -18,9 +20,7 @@ const Point = types
       coordinates: types.array(types.number)
     }),
     properties: types.optional(types.model({
-      uncertainty_radius: types.maybeNull(types.number),
-      uncertainty_opacity: types.optional(types.number, 0.18),
-      uncertainty_style: types.optional(types.string, 'crosshatch')
+      uncertainty_radius: types.maybeNull(types.number)
     }), {})
   })
   .preProcessSnapshot((snapshot) => {
@@ -72,194 +72,62 @@ const Point = types
       return indexedTool || tools.find(tool => tool.type === 'Point')
     },
 
-    getUncertaintyStyle({ feature }) {
-      const olStyle = feature?.get?.('uncertainty_style')
-      if (olStyle) return olStyle
-
-      return self.properties?.uncertainty_style || 'crosshatch'
-    },
-
-    getUncertaintyOpacity({ feature }) {
-      const olOpacity = feature?.get?.('uncertainty_opacity')
-      if (typeof olOpacity === 'number') return olOpacity
-
-      if (typeof self.properties?.uncertainty_opacity === 'number') {
-        return self.properties.uncertainty_opacity
-      }
-
-      return 0.18
-    },
-
     getUncertaintyCircleStyle({ color, feature, radius }) {
       if (!radius || radius <= 0) return undefined
 
-      const opacity = self.getUncertaintyOpacity({ feature })
-      const uncertaintyStyle = self.getUncertaintyStyle({ feature })
+      const lineOpacity = DEFAULT_UNCERTAINTY_OPACITY
+      const backgroundOpacity = DEFAULT_UNCERTAINTY_BACKGROUND_OPACITY
+      const directions = ['ascending']
+      const lineWidth = 3
+      const spacing = 14
+      const cacheKey = JSON.stringify({ color, lineWidth, lineOpacity, backgroundOpacity, spacing, directions })
 
-      switch (uncertaintyStyle) {
-        case 'opacityOnly': {
-          const fillColor = `${color}${Math.round(opacity * 255).toString(16).padStart(2, '0')}`
+      let fillPattern = uncertaintyPatternCache.get(cacheKey)
 
-          return new Style({
-            image: new Circle({
-              radius,
-              fill: new Fill({ color: fillColor }),
-              stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-            })
-          })
-        }
+      if (!fillPattern) {
+        const canvas = document.createElement('canvas')
+        const tileSize = Math.max(spacing * 2, 12)
+        const context = canvas.getContext('2d')
 
-        case 'crosshatch':
-        default: {
-          const directions = ['ascending', 'descending']
-          const lineWidth = 1
-          const spacing = 16
-          const cacheKey = JSON.stringify({ color, lineWidth, opacity, spacing, directions })
+        canvas.width = tileSize
+        canvas.height = tileSize
 
-          let fillPattern = uncertaintyPatternCache.get(cacheKey)
+        context.clearRect(0, 0, tileSize, tileSize)
+        context.globalAlpha = backgroundOpacity
+        context.fillStyle = color
+        context.fillRect(0, 0, tileSize, tileSize)
 
-          if (!fillPattern) {
-            const canvas = document.createElement('canvas')
-            const tileSize = Math.max(spacing * 2, 12)
-            const context = canvas.getContext('2d')
+        context.strokeStyle = color
+        context.lineWidth = lineWidth
+        context.globalAlpha = lineOpacity
 
-            canvas.width = tileSize
-            canvas.height = tileSize
+        directions.forEach((direction) => {
+          for (let offset = -tileSize; offset <= tileSize * 2; offset += spacing) {
+            context.beginPath()
 
-            context.clearRect(0, 0, tileSize, tileSize)
-            context.strokeStyle = color
-            context.lineWidth = lineWidth
-            context.globalAlpha = opacity
+            if (direction === 'descending') {
+              context.moveTo(offset, 0)
+              context.lineTo(offset - tileSize, tileSize)
+            } else {
+              context.moveTo(offset, 0)
+              context.lineTo(offset + tileSize, tileSize)
+            }
 
-            directions.forEach((direction) => {
-              for (let offset = -tileSize; offset <= tileSize * 2; offset += spacing) {
-                context.beginPath()
-
-                if (direction === 'descending') {
-                  context.moveTo(offset, 0)
-                  context.lineTo(offset - tileSize, tileSize)
-                } else {
-                  context.moveTo(offset, 0)
-                  context.lineTo(offset + tileSize, tileSize)
-                }
-
-                context.stroke()
-              }
-            })
-
-            fillPattern = context.createPattern(canvas, 'repeat')
-            uncertaintyPatternCache.set(cacheKey, fillPattern)
+            context.stroke()
           }
+        })
 
-          return new Style({
-            image: new Circle({
-              radius,
-              fill: new Fill({ color: fillPattern }),
-              stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-            })
-          })
-        }
-
-        case 'wideDiagonal': {
-          const directions = ['ascending']
-          const lineWidth = 3
-          const spacing = 14
-          const cacheKey = JSON.stringify({ color, lineWidth, opacity, spacing, directions })
-
-          let fillPattern = uncertaintyPatternCache.get(cacheKey)
-
-          if (!fillPattern) {
-            const canvas = document.createElement('canvas')
-            const tileSize = Math.max(spacing * 2, 12)
-            const context = canvas.getContext('2d')
-
-            canvas.width = tileSize
-            canvas.height = tileSize
-
-            context.clearRect(0, 0, tileSize, tileSize)
-            context.strokeStyle = color
-            context.lineWidth = lineWidth
-            context.globalAlpha = opacity
-
-            directions.forEach((direction) => {
-              for (let offset = -tileSize; offset <= tileSize * 2; offset += spacing) {
-                context.beginPath()
-
-                if (direction === 'descending') {
-                  context.moveTo(offset, 0)
-                  context.lineTo(offset - tileSize, tileSize)
-                } else {
-                  context.moveTo(offset, 0)
-                  context.lineTo(offset + tileSize, tileSize)
-                }
-
-                context.stroke()
-              }
-            })
-
-            fillPattern = context.createPattern(canvas, 'repeat')
-            uncertaintyPatternCache.set(cacheKey, fillPattern)
-          }
-
-          return new Style({
-            image: new Circle({
-              radius,
-              fill: new Fill({ color: fillPattern }),
-              stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-            })
-          })
-        }
-
-        case 'narrowDiagonal': {
-          const directions = ['ascending']
-          const lineWidth = 1
-          const spacing = 8
-          const cacheKey = JSON.stringify({ color, lineWidth, opacity, spacing, directions })
-
-          let fillPattern = uncertaintyPatternCache.get(cacheKey)
-
-          if (!fillPattern) {
-            const canvas = document.createElement('canvas')
-            const tileSize = Math.max(spacing * 2, 12)
-            const context = canvas.getContext('2d')
-
-            canvas.width = tileSize
-            canvas.height = tileSize
-
-            context.clearRect(0, 0, tileSize, tileSize)
-            context.strokeStyle = color
-            context.lineWidth = lineWidth
-            context.globalAlpha = opacity
-
-            directions.forEach((direction) => {
-              for (let offset = -tileSize; offset <= tileSize * 2; offset += spacing) {
-                context.beginPath()
-
-                if (direction === 'descending') {
-                  context.moveTo(offset, 0)
-                  context.lineTo(offset - tileSize, tileSize)
-                } else {
-                  context.moveTo(offset, 0)
-                  context.lineTo(offset + tileSize, tileSize)
-                }
-
-                context.stroke()
-              }
-            })
-
-            fillPattern = context.createPattern(canvas, 'repeat')
-            uncertaintyPatternCache.set(cacheKey, fillPattern)
-          }
-
-          return new Style({
-            image: new Circle({
-              radius,
-              fill: new Fill({ color: fillPattern }),
-              stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-            })
-          })
-        }
+        fillPattern = context.createPattern(canvas, 'repeat')
+        uncertaintyPatternCache.set(cacheKey, fillPattern)
       }
+
+      return new Style({
+        image: new Circle({
+          radius,
+          fill: new Fill({ color: fillPattern }),
+          stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
+        })
+      })
     },
 
     getStyles({
