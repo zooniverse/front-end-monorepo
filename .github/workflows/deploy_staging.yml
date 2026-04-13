@@ -62,7 +62,9 @@ jobs:
     needs: [build_and_push_image, deploy_staging]
     uses: zooniverse/ci-cd/.github/workflows/purge_cache.yaml@main
     with:
-      fdname: 'frontend-preview-zooniverse-org'
+      fdname: 'frontend-preview-zooniverse-org-standard'
+      domain: 'frontend.preview.zooniverse.org'
+      endpoint: 'main-route'
       path: '/*'
     secrets:
       creds: ${{ secrets.AZURE_STATIC_SITES }}
