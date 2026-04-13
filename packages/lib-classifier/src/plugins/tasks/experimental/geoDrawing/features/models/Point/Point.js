@@ -148,10 +148,12 @@ const Point = types
       const uncertaintyRadiusPixels = self.getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution })
       const hasVisibleUncertaintyHandle = uncertaintyRadiusPixels !== undefined
 
+      // Draw uncertainty circle if enabled and radius is greater than zero
       if (hasVisibleUncertaintyHandle && uncertaintyRadiusPixels > 0) {
         styles.push(self.getUncertaintyCircleStyle({ color, feature, radius: uncertaintyRadiusPixels }))
       }
 
+      // Draw the drag handle if uncertainty circle is enabled, even if radius is zero
       if (isSelected && hasVisibleUncertaintyHandle) {
         const dragHandleCoordinates = self.getDragHandleCoordinates({ feature, geoDrawingTask })
         if (dragHandleCoordinates) {
