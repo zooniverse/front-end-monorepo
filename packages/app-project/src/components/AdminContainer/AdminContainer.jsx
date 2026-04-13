@@ -2,15 +2,13 @@ import { AdminCheckbox } from '@zooniverse/react-components'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 
-function useAdminUser() {
-  const stores = useContext(MobXProviderContext)
-  return stores?.store.user.isAdmin
-}
+function AdminContainer() {
+  const { store } = useContext(MobXProviderContext)
+  const { isAdmin, adminMode, toggleAdminMode } = store?.user ?? {}
 
-function AdminContainer({ checked, onChange }) {
-  const isAdmin = useAdminUser()
-
-  return isAdmin ? <AdminCheckbox onChange={onChange} checked={checked} /> : null
+  return isAdmin
+    ? <AdminCheckbox onChange={toggleAdminMode} checked={adminMode} />
+    : null
 }
 
 export default observer(AdminContainer)
