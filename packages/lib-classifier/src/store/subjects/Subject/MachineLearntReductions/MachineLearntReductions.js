@@ -23,8 +23,14 @@ const MachineLearntReductions = types
           let { data } = reduction.data   // Caesar expects data attribute to be an object
 
           data.forEach(datum => {
-            if (datum.stepKey === stepKey) {
-              caesarMarks.push(datum)
+            const mark = {
+              stepKey: 'S0',
+              taskIndex: 0,
+              toolIndex: 0,
+              ...datum
+            }
+            if (mark.stepKey === stepKey) {
+              caesarMarks.push(mark)
             }
           })
         })

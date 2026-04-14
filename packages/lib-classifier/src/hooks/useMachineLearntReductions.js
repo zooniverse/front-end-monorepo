@@ -33,12 +33,13 @@ export default function useMachineLearntReductions() {
     
     if (caesarMarks) {
       caesarMarks.forEach(caesarMark => {
-        const { stepKey, taskIndex, taskKey, taskType, toolType, ...newMark } = caesarMark
+        const { stepKey, taskKey, taskType, toolType, taskIndex, toolIndex, ...newMark } = caesarMark
         newMark.id = newMark.markId;
         delete newMark.markId;
 
-        // we only get access to one task at a time in a step
-        step?.tasks[0].tools[newMark.toolIndex]?.createMark(newMark)
+        const resolvedTaskIndex = taskIndex ?? 0
+        const resolvedToolIndex = toolIndex ?? 0
+        step?.tasks[resolvedTaskIndex]?.tools[resolvedToolIndex]?.createMark(newMark)
       })
     }
 
