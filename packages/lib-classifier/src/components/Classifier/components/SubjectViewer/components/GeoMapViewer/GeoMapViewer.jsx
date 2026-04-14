@@ -19,14 +19,16 @@ import VectorSource from 'ol/source/Vector'
 import { unByKey } from 'ol/Observable'
 
 // local imports
+import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
-import getFeatureStyle from './helpers/getFeatureStyle'
-import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
-import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import asMSTFeature from './helpers/asMSTFeature'
+import createModifyUncertaintyInteraction, { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/createModifyUncertaintyInteraction'
+import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
+import getFeatureStyle from './helpers/getFeatureStyle'
+import getPixelDistance from './helpers/getPixelDistance'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -215,15 +217,70 @@ function GeoMapViewer({
       map.addInteraction(moveToClick)
       moveToClickRef.current = moveToClick
       
-      // Add pointer cursor on feature hover
+      // Add cursor states that match the active interactions.
       const handlePointerMove = (event) => {
-        const hit = map.hasFeatureAtPixel(event.pixel, {
-          layerFilter: (layer) => layer === featuresLayer
-        })
         const element = map.getTargetElement()
-        if (element) {
-          element.style.cursor = hit ? 'pointer' : ''
+        if (!element) return
+
+        let cursor = ''
+        const selectedFeature = select.getFeatures().item(0)
+
+        if (selectedFeature) {
+          const mstFeature = asMSTFeature(selectedFeature)
+          const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
+
+          if (mstFeature && Array.isArray(pointCoordinates)) {
+            const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
+            const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
+              feature: selectedFeature,
+              geoDrawingTask
+            })
+
+            if (dragHandleCoordinates) {
+              const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
+              if (isPixelNearDragHandle({
+                pixel: event.pixel,
+                handlePixel: dragHandlePixel,
+                tolerance: 15
+              })) {
+                cursor = 'ew-resize'
+              }
+            }
+
+            if (!cursor && isPixelNearPointCenter({
+              pixel: event.pixel,
+              pointPixel,
+              radius: POINT_CENTER_HIT_RADIUS_PIXELS
+            })) {
+              cursor = 'grab'
+            }
+
+            if (!cursor) {
+              const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
+                feature: selectedFeature,
+                geoDrawingTask,
+                resolution: map.getView().getResolution()
+              })
+
+              if (
+                typeof uncertaintyRadiusPixels === 'number'
+                && uncertaintyRadiusPixels > 0
+                && getPixelDistance(event.pixel, pointPixel) <= uncertaintyRadiusPixels
+              ) {
+                cursor = 'grab'
+              }
+            }
+          }
         }
+
+        if (!cursor) {
+          const hit = map.hasFeatureAtPixel(event.pixel, {
+            layerFilter: (layer) => layer === featuresLayer
+          })
+          cursor = hit ? 'pointer' : ''
+        }
+
+        element.style.cursor = cursor
       }
       map.on('pointermove', handlePointerMove)
       pointerMoveHandlerRef.current = handlePointerMove

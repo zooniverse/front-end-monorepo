@@ -72,7 +72,7 @@ const Point = types
       return indexedTool || tools.find(tool => tool.type === 'Point')
     },
 
-    getUncertaintyCircleStyle({ color, feature, radius }) {
+    getUncertaintyCircleStyle({ color, radius }) {
       if (!radius || radius <= 0) return undefined
 
       const lineOpacity = DEFAULT_UNCERTAINTY_OPACITY
@@ -150,7 +150,7 @@ const Point = types
 
       // Draw uncertainty circle if enabled and radius is greater than zero
       if (hasVisibleUncertaintyHandle && uncertaintyRadiusPixels > 0) {
-        styles.push(self.getUncertaintyCircleStyle({ color, feature, radius: uncertaintyRadiusPixels }))
+        styles.push(self.getUncertaintyCircleStyle({ color, radius: uncertaintyRadiusPixels }))
       }
 
       // Draw the drag handle if uncertainty circle is enabled, even if radius is zero
