@@ -9,17 +9,11 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
-/**
-  Link text styles
-*/
 const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
   margin-right: 10px;
 `
 
-/**
-  Link styles
-*/
 const StyledAnchor = styled(Anchor)`
   border-radius: 100%;
   margin-left: -7px;

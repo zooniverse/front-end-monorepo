@@ -19,6 +19,9 @@ import logToSentry from '@helpers/logger/logToSentry.js'
 // Notes:
 // - ⚠️ WARNING: if a Project belongs to large number of Organizations, this
 //   function will MISS fetching some of them, due to Panoptes paging limits.
+//   Please see the Panoptes documentation at https://zooniverse.github.io/panoptes/#organizations
+//   for more details; the default page_size (maximum returned Organizations)
+//   is 20.
 async function fetchOrganizationsData(organizationIDs, env) {
   const { headers, host } = getServerSideAPIHost(env)
   try {
