@@ -5,7 +5,7 @@ import FeedbackMark from "@store/feedback/strategies/drawing/radial/feedback-mar
 
 import SingleImageViewerContainer from "../../SubjectViewer/components/SingleImageViewer/SingleImageViewerContainer";
 
-const FEEDBACK_COLORS = {
+export const FEEDBACK_COLORS = {
   failure: "#f56F5D",
   success: "#4EAF79",
 };
