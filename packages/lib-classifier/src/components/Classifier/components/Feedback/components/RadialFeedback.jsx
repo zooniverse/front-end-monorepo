@@ -6,8 +6,8 @@ import FeedbackMark from "@store/feedback/strategies/drawing/radial/feedback-mar
 import SingleImageViewerContainer from "../../SubjectViewer/components/SingleImageViewer/SingleImageViewerContainer";
 
 const FEEDBACK_COLORS = {
-  failure: "#C23D2A",
-  success: "#1B7F46",
+  failure: "#f56F5D",
+  success: "#4EAF79",
 };
 
 const ALLOWED_TOOL_TYPES = ["point", "ellipse", "circle"]
