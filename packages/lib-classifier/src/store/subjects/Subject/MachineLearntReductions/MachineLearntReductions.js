@@ -24,10 +24,10 @@ const MachineLearntReductions = types
 
           data.forEach(datum => {
             const mark = {
-              stepKey: 'S0',
-              taskIndex: 0,
-              toolIndex: 0,
-              ...datum
+              ...datum,
+              stepKey: datum.stepKey ?? 'S0',
+              taskIndex: datum.taskIndex ?? 0,
+              toolIndex: datum.toolIndex ?? 0,
             }
             if (mark.stepKey === stepKey) {
               caesarMarks.push(mark)
