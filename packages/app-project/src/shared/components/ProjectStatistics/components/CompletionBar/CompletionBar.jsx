@@ -15,24 +15,24 @@ const Bar = styled(Box)`
 
 const StyledText = styled(SpacedText)`
   position: absolute;
-  left: ${props => (props.$completeness < 0.3 ? '100%' : 'auto')};
-  right: ${props => (props.$completeness < 0.3 ? 'auto' : '0')};
+  left: ${props => (props.$completeness < 0.2 ? '100%' : 'auto')};
+  right: ${props => (props.$completeness < 0.2 ? 'auto' : '0')};
   top: 50%;
   transform: translateY(-50%);
 `
 
 function CompletionBar({ completeness = 0 }) {
   return (
-    <ContainerBox height='40px' width='100%' background='brand'>
+    <ContainerBox height='60px' width='100%' background='brand'>
       <Bar
-        height='40px'
+        height='60px'
         background='neutral-1'
         width={`${Math.round(completeness * 100)}%`}
       >
         <StyledText
-          margin={{ horizontal: '10px' }}
-          size='1.2rem'
-          color='white'
+          margin={{ horizontal: '15px' }}
+          size='1.125rem'
+          color={completeness < 0.2 ? 'black' : 'white'}
           $completeness={completeness}
         >
           {Math.round(completeness * 100)}%

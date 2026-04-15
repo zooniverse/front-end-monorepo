@@ -11,9 +11,11 @@ const MainGrid = styled.div`
   display: grid;
   grid-template-rows: auto auto;
 
-  @media (min-width: 678px) { // Grommet small breakpoint
+  @media (min-width: 678px) {
+    // Grommet small breakpoint
     grid-template-rows: 1fr;
     grid-template-columns: 50% auto;
+    column-gap: 10px;
   }
 `
 
@@ -23,8 +25,10 @@ const NumbersGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 12px;
 
-  @media (max-width: 679px) { // Grommet small breakpoint
+  @media (max-width: 679px) {
+    // Grommet small breakpoint
     margin-top: 20px;
+    column-gap: 0;
   }
 `
 
@@ -54,16 +58,21 @@ function ProjectStatistics({
     >
       <MainGrid>
         <Box>
-          <StyledParagraph
-            size='medium'
-            margin={{ vertical: '20px' }}
-          >
+          <StyledParagraph size='medium'>
             {t('ProjectStatistics.text', { projectName })}
           </StyledParagraph>
           <CompletionBar completeness={completeness} />
-          <Text margin={{ top: 'xsmall' }} size='0.625rem' >
-            {t('ProjectStatistics.percentComplete')}
-          </Text>
+          <Box
+            direction='row'
+            justify='between'
+            align='center'
+            pad={{ top: 'xsmall' }}
+          >
+            <Text size='0.75rem'>Project launched</Text>
+            <Text size='0.625rem'>
+              {t('ProjectStatistics.percentComplete')}
+            </Text>
+          </Box>
         </Box>
         <NumbersGrid>
           <Stat value={volunteers} label={t('ProjectStatistics.volunteers')} />
