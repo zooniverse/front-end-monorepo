@@ -1,10 +1,11 @@
 import { Button, Box, Grid, Select, ThemeContext } from 'grommet'
 import {
-  CirclePlay,
-  Pause,
-  FormNext,
-  FormPrevious,
-  FormDown
+  Pause as PauseIcon,
+  Play as PlayIcon,
+  FormNext as NextIcon,
+  FormPrevious as PrevIcon,
+  FormDown,
+  Video as VideoIcon,
 } from 'grommet-icons'
 import debounce  from 'lodash/debounce'
 import { bool, func, number } from 'prop-types'
@@ -19,6 +20,7 @@ const SpeedSelect = styled(Select)`
   display: block;
   padding: 0 5px;
   text-align: right;
+  color: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
 `
 
 const DirectionButton = styled(Button)`
@@ -29,7 +31,8 @@ const DirectionButton = styled(Button)`
     }
 `
 
-const ThumbnailButton = styled(Button)`
+// For image files, show a thumbnail of the image 
+const ImageThumbnailButton = styled(Button)`
   display: flex;
   ${props => css`height: ${props.thumbnailDimension};`}
   ${props => css`width: ${props.thumbnailDimension};`}
@@ -40,10 +43,43 @@ const ThumbnailButton = styled(Button)`
   background-position: center;
   ${props => css`background-image: url(${props.thumbnailerUrl});`}
   &[aria-selected=true] {
-    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+    border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
 `
 
+// For video files, just show a "play video" icon
+// Note about that &:hover style: ImageThumbnailButtons seem to automatically have the hover style applied. Grommet Buttons with icons/content don't seem to have the hover style automatically applied, for some reason?
+const VideoThumbnailButton = styled(Button)`
+  display: flex;
+  ${props => css`height: ${props.thumbnailDimension};`}
+  ${props => css`width: ${props.thumbnailDimension};`}
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  background: ${props => props.theme.dark ? props.theme.global.colors['dark-4'] : props.theme.global.colors['neutral-6']};
+
+  &:hover:not([aria-selected=true]) {
+    box-shadow: 0px 0px 0px 2px ${props => props.theme.global.colors['brand']};
+  }
+
+  border: solid 1px ${props => props.theme.global.colors['light-5']};
+  &[aria-selected=true] {
+    border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
+  }
+
+  > svg {
+    max-width: 80%;
+    stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+  }
+  &[aria-selected=true] > svg {
+    stroke: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
+  }
+`
+
+const foreColors = { dark: 'neutral-6', light: 'dark-5' }
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
 const DEFAULT_HANDLER = () => true
@@ -205,7 +241,10 @@ const FlipbookControls = ({
             <Button
               a11yTitle={t(playPauseLabel)}
               onClick={onPlayPause}
-              icon={playing ? <Pause size={smallScreenStyle ? '20px' : 'medium'} /> : <CirclePlay size={smallScreenStyle ? '20px' : 'medium'} />}
+              icon={playing
+                ? <PauseIcon color={foreColors} size={smallScreenStyle ? '20px' : 'medium'} />
+                : <PlayIcon color={foreColors} size={smallScreenStyle ? '20px' : 'medium'} />
+              }
               plain
             />
             <SpeedSelect
@@ -215,7 +254,7 @@ const FlipbookControls = ({
               onChange={handlePlaybackSpeed}
               plain
               size={smallScreenStyle ? 'small' : '16px'}
-              icon={<FormDown size={smallScreenStyle ? 'small' : '16px'} />}
+              icon={<FormDown color={foreColors} size={smallScreenStyle ? 'small' : '16px'} />}
               focusIndicator
             />
           </Box>
@@ -223,9 +262,8 @@ const FlipbookControls = ({
           {/** Image Thumbnails */}
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
-              a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
-              icon={<FormPrevious />}
-              label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+              a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+              icon={<PrevIcon color={foreColors} />}
               onClick={handlePrevious}
             />
             <Box
@@ -237,38 +275,61 @@ const FlipbookControls = ({
             >
               {locations?.length &&
                 locations.map((location, index) => {
-                  const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${location.url.slice(
-                    7,
-                    location.url.length
-                  )}`
-                  // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
-
+                  const mediaType = location.type
                   const activeFrame = currentFrame === index
                   const tabIndex = activeFrame ? 0 : -1
 
-                  return (
-                    <ThumbnailButton
-                      key={`${location.url}-${index}`}
-                      id={`thumbnail-${index}`}
-                      aria-controls='flipbook-tab-panel'
-                      aria-label={`${t(
-                        'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
-                      )} ${index + 1}`}
-                      aria-selected={activeFrame ? 'true' : 'false'}
-                      onClick={() => handleThumbnailClick(index)}
-                      onKeyDown={handleKeyDown}
-                      role='tab'
-                      tabIndex={tabIndex}
-                      thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
-                      thumbnailerUrl={thumbnailerUrl}
-                    />
-                  )
+                  if (mediaType === 'image') {
+                    const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${location.url.slice(
+                      7,
+                      location.url.length
+                    )}`
+                    // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
+
+                    return (
+                      <ImageThumbnailButton
+                        key={`${location.url}-${index}`}
+                        id={`thumbnail-${index}`}
+                        aria-controls='flipbook-tab-panel'
+                        aria-label={`${t(
+                          'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
+                        )} ${index + 1}`}
+                        aria-selected={activeFrame ? 'true' : 'false'}
+                        onClick={() => handleThumbnailClick(index)}
+                        onKeyDown={handleKeyDown}
+                        role='tab'
+                        tabIndex={tabIndex}
+                        thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
+                        thumbnailerUrl={thumbnailerUrl}
+                      />
+                    )
+                  }
+
+                  if (mediaType === 'video') {
+                    return (
+                      <VideoThumbnailButton
+                        key={`${location.url}-${index}`}
+                        id={`thumbnail-${index}`}
+                        aria-controls='flipbook-tab-panel'
+                        aria-label={`${t(
+                          'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
+                        )} ${index + 1}`}
+                        aria-selected={activeFrame ? 'true' : 'false'}
+                        onClick={() => handleThumbnailClick(index)}
+                        onKeyDown={handleKeyDown}
+                        role='tab'
+                        tabIndex={tabIndex}
+                        thumbnailDimension={smallScreenStyle ? '30px' : '40px'}
+                      >
+                        <VideoIcon size='20px' />
+                      </VideoThumbnailButton>
+                    )
+                  }
                 })}
             </Box>
             <DirectionButton
-              a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel') : ''}
-              icon={<FormNext />}
-              label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+              a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+              icon={<NextIcon color={foreColors} />}
               onClick={handleNext}
             />
           </Box>

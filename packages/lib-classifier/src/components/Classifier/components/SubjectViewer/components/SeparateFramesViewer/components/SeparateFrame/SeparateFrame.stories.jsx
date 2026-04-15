@@ -10,7 +10,8 @@ export default {
   args: {
     frameUrl:
       'https://panoptes-uploads.zooniverse.org/subject_location/1e54b552-4608-4701-9db9-b8342b81278a.jpeg',
-    limitSubjectHeight: false
+    mediaType: 'image',
+    limitSubjectHeight: false,
   }
 }
 
@@ -26,13 +27,20 @@ const store = mockStore({
 store.subjectViewer.setSeparateFramesView(true)
 store.subjectViewer.enableRotation(true)
 
-export const Default = ({ frameUrl, limitSubjectHeight }) => {
+export const Default = ({ frameUrl, mediaType, limitSubjectHeight }) => {
   return (
     <Provider classifierStore={store}>
       <SeparateFrame
+        frame={0}
         frameUrl={frameUrl}
         limitSubjectHeight={limitSubjectHeight}
-        subject={{ id: '1' }}
+        subject={{
+          id: '1',
+          locations: [{
+            url: frameUrl,
+            type: mediaType,
+          }]
+        }}
       />
     </Provider>
   )

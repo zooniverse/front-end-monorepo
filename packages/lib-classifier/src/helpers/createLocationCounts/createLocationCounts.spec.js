@@ -28,6 +28,10 @@ const mockLocations6 = [
   { 'text/plain': 'http://foobar.com/text1.txt' }
 ]
 
+const mockLocations7 = [
+  { 'audio/mpeg': 'http://foobar.com/audio1.mp3' }
+]
+
 function mockSubject (locations) {
   return { locations }
 }
@@ -65,6 +69,12 @@ describe('Helpers > createLocationCounts', function () {
       const result6 = createLocationCounts(mockSubject(mockLocations6))
 
       expect(result6.text).to.equal(1)
+    })
+
+    it('should return the number of audio files', function () {
+      const result7 = createLocationCounts(mockSubject(mockLocations7))
+
+      expect(result7.audio).to.equal(1)
     })
   })
 

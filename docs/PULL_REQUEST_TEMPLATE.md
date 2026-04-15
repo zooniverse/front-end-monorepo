@@ -13,18 +13,18 @@ _Helpful explanations that will make your reviewer happy:_
 - Which storybook stories should be reviewed?
 - Are there plans for follow up PR’s to further fix this bug or develop this feature?
 
-# Checklist
+## Checklist
 _PR Creator - Please cater the checklist to fit the review needed for your code changes._
 _PR Reviewer - Use the checklist during your review. Each point should be checkmarked or discussed before PR approval._
 
-## General
+### General
 - [ ] Tests are passing locally and on Github
 - [ ] Documentation is up to date and changelog has been updated if appropriate
 - [ ] You can `pnpm panic && pnpm bootstrap`
 - [ ] FEM works in all major desktop browsers: Firefox, Chrome, Edge, Safari (Use Browserstack account as needed)
 - [ ] FEM works in a mobile browser
 
-## General UX
+### General UX
 Example Staging Project: [i-fancy-cats](https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats)
 - [ ] All pages of a FEM project load: Home Page, Classify Page, and About Pages
 - [ ] Can submit a classification
@@ -35,23 +35,23 @@ Example Staging Project: [i-fancy-cats](https://local.zooniverse.org:3000/projec
   - It is passing accessibility checks in the storybook
 
 
-## Bug Fix
+### Bug Fix
 - [ ] The PR creator has listed user actions to use when testing if bug is fixed
 - [ ] The bug is fixed
 - [ ] Unit tests are added or updated
 
-## New Feature
+### New Feature
 - [ ] The PR creator has listed user actions to use when testing the new feature
 - [ ] Unit tests are included for the new feature
 - [ ] A storybook story has been created or updated
   - Example of SlideTutorial [component](https://github.com/zooniverse/front-end-monorepo/blob/main/packages/lib-classifier/src/components/Classifier/components/SlideTutorial/SlideTutorial.js) with docgen comments, and its [story](https://zooniverse.github.io/front-end-monorepo/@zooniverse/classifier/index.html?path=/docs/other-slidetutorial--default)
 
-## Refactoring
+### Refactoring
 - [ ] The PR creator has described the reason for refactoring
 - [ ] The refactored component(s) continue to work as expected
 
-## Maintenance
+### Maintenance
 - [ ] If not from dependabot, the PR creator has described the update (major, minor, or patch version, changelog)
 
-## Post-merge
+### Post-merge
 - [ ] This PR adds translations keys to English dictionary(s). See guidance for pulling new keys to Lokalise [here](https://github.com/zooniverse/how-to-zooniverse/blob/master/Translations/lokalise.md#lokalise-and-fem).

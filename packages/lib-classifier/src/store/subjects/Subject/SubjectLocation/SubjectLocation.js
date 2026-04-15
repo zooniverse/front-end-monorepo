@@ -4,7 +4,7 @@ const fileExtensions = {
   'application/json': ['.json'],
   'audio/mp3': ['.mp3'],
   'audio/m4a': ['.m4a'],
-  'audio/mpeg': ['.mp3'],
+  'audio/mpeg': ['.mp3', '.mpga'],
   'image/png': ['.png'],
   'image/jpeg': ['.jpg', '.jpeg'],
   'image/gif': ['.gif'],

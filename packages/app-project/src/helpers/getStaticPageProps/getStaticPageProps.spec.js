@@ -41,7 +41,7 @@ describe('Helpers > getStaticPageProps', function () {
     slug: 'test-owner/test-project-with-organization',
     links: {
       active_workflows: ['1'],
-      organization: '1',
+      organizations: ['1'],
       workflows: ['1', '2']
     }
   }
@@ -52,13 +52,14 @@ describe('Helpers > getStaticPageProps', function () {
     slug: 'test-owner/test-project-with-not-listed-organization',
     links: {
       active_workflows: ['1'],
-      organization: '2',
+      organizations: ['2'],
       workflows: ['1', '2']
     }
   }
 
   const ORGANIZATION = {
     id: '1',
+    avatar: {},
     display_name: 'Test Organization',
     listed: true,
     primary_language: 'en',
@@ -330,7 +331,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project\'s organization', async function () {
-        expect(props.organization).to.deep.equal({ ...ORGANIZATION, strings: { display_name: 'Foo' } })
+        expect(props.organizations).to.deep.equal([{ ...ORGANIZATION, strings: { display_name: 'Foo' } }])
       })
     })
 
@@ -348,7 +349,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organization).toBeUndefined()
+        expect(props.organizations).toEqual([])
       })
     })
 
@@ -498,7 +499,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project\'s organization', async function () {
-        expect(props.organization).to.deep.equal({ ...ORGANIZATION, strings: { display_name: 'Foo' } })
+        expect(props.organizations).to.deep.equal([{ ...ORGANIZATION, strings: { display_name: 'Foo' } }])
       })
     })
 
@@ -516,7 +517,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organization).toBeUndefined()
+        expect(props.organizations).toEqual([])
       })
     })
 

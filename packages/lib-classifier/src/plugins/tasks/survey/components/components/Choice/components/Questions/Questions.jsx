@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import InputGroup from './components/InputGroup'
+import styled from 'styled-components'
 
+const Fieldset = styled.fieldset`
+  appearance: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+`
 export default function Questions({
   answers = {},
   hasFocus = false,
@@ -37,11 +44,11 @@ export default function Questions({
         }))
 
         return (
-          <Box
+          <Fieldset
             key={questionId}
           >
             <SpacedHeading
-              id={`${questionId}-label`}
+              as='legend'
               color={{ dark: 'neutral-6', light: 'dark-5' }}
               margin={{
                 top: 'none',
@@ -52,7 +59,6 @@ export default function Questions({
               {strings.get(`questions.${questionId}.label`)}
             </SpacedHeading>
             <InputGroup
-              labelledBy={`${questionId}-label`}
               handleAnswer={handleAnswer}
               hasFocus={hasFocus && index === 0}
               options={options}
@@ -60,7 +66,7 @@ export default function Questions({
               questionAnswer={answers[questionId]}
               type={inputType}
             />
-          </Box>
+          </Fieldset>
         )
       })}
     </Box>
@@ -89,5 +95,8 @@ Questions.propTypes = {
     multiple: PropTypes.bool,
     required: PropTypes.bool
   }),
-  setAnswers: PropTypes.func
+  setAnswers: PropTypes.func,
+  strings: PropTypes.shape({
+    get: PropTypes.func
+  })
 }
