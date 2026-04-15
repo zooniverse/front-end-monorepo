@@ -166,7 +166,7 @@ const Point = types
         }
       }
 
-      // Draw the point last so it stays above uncertainty overlays and handles.
+      // Draw the center point last so it stays above uncertainty overlays and handles.
       styles.push(
         new Style({
           image: new Circle({

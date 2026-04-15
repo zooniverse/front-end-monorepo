@@ -15,6 +15,7 @@ function createMoveToClickInteraction({
     featureCoordinate: null,
     selectedFeature: null,
     clickedOnFeature: false,
+    clickedInUncertaintyCircle: false,
     draggingFeature: false,
     dragThreshold: 3, // pixels - must move less than this to be considered a "click"
     disabledSelect: false
@@ -52,7 +53,19 @@ function createMoveToClickInteraction({
     })
   }
 
-  function isPointerInsideSelectedFeature({ pixel, map, olFeature, mstFeature }) {
+  function isPointerInsideSelectedFeature({ pixel, map, olFeature }) {
+    const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
+    if (!Array.isArray(pointCoordinates)) return false
+
+    const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
+    return isPixelNearPointCenter({
+      pixel,
+      pointPixel,
+      radius: POINT_CENTER_HIT_RADIUS_PIXELS
+    })
+  }
+
+  function isPointerInUncertaintyCircleOnly({ pixel, map, olFeature, mstFeature }) {
     const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
     if (!Array.isArray(pointCoordinates)) return false
 
@@ -62,7 +75,7 @@ function createMoveToClickInteraction({
       pointPixel,
       radius: POINT_CENTER_HIT_RADIUS_PIXELS
     })) {
-      return true
+      return false
     }
 
     const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
@@ -76,6 +89,32 @@ function createMoveToClickInteraction({
       && uncertaintyRadiusPixels > 0
       && getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels
     )
+  }
+
+  function teleportFeatureTo(coordinate) {
+    const geometry = state.selectedFeature.getGeometry()
+    if (!geometry || typeof geometry.setCoordinates !== 'function') return
+
+    geometry.setCoordinates(coordinate)
+    state.selectedFeature.changed()
+
+    if (geoDrawingTask.setActiveFeatureGeometry) {
+      geoDrawingTask.setActiveFeatureGeometry(geometry)
+    }
+
+    if (selectInteraction) {
+      selectInteraction.getFeatures().clear()
+      selectInteraction.getFeatures().push(state.selectedFeature)
+
+      geoDrawingTask?.setActiveOlFeature?.(state.selectedFeature)
+      geoDrawingTask?.setActiveFeature?.(asMSTFeature(state.selectedFeature))
+
+      selectInteraction.dispatchEvent({
+        type: 'select',
+        selected: [state.selectedFeature],
+        deselected: []
+      })
+    }
   }
 
   /**
@@ -113,12 +152,31 @@ function createMoveToClickInteraction({
       return false
     }
 
-    const clickedInsideSelectedFeature = mstFeature
-      ? isPointerInsideSelectedFeature({
+    const clickedInUncertaintyCircleOnly = mstFeature
+      ? isPointerInUncertaintyCircleOnly({
         pixel: event.pixel,
         map,
         olFeature: state.selectedFeature,
         mstFeature
+      })
+      : false
+
+    if (clickedInUncertaintyCircleOnly) {
+      // Capture the event so we can detect a click (no drag) vs a drag (map pan).
+      // Setting clickedOnFeature=true prevents the empty-space teleport path in handleUpEvent.
+      // draggingFeature stays false so stopDown() returns false, letting DragPan handle drags.
+      state.clickedOnFeature = true
+      state.clickedInUncertaintyCircle = true
+      state.disabledSelect = true
+      selectInteraction.setActive(false)
+      return true
+    }
+
+    const clickedInsideSelectedFeature = mstFeature
+      ? isPointerInsideSelectedFeature({
+        pixel: event.pixel,
+        map,
+        olFeature: state.selectedFeature
       })
       : false
 
@@ -170,7 +228,8 @@ function createMoveToClickInteraction({
   }
 
   /**
-   * Handle pointer up - move feature if it was a click on empty space
+   * Handle pointer up - teleport feature on click within uncertainty circle or empty space;
+   * move feature if dragged from center point.
    */
   function handleUpEvent(event) {
     const map = this.getMap()
@@ -181,6 +240,7 @@ function createMoveToClickInteraction({
       state.featureCoordinate = null
       state.selectedFeature = null
       state.clickedOnFeature = false
+      state.clickedInUncertaintyCircle = false
       state.draggingFeature = false
       if (state.disabledSelect) scheduleSelectReenable()
       return false
@@ -190,32 +250,8 @@ function createMoveToClickInteraction({
     const dragDistance = getPixelDistance(state.downPixel, upPixel)
     const wasClick = dragDistance < state.dragThreshold
 
-    if (wasClick && !state.clickedOnFeature) {
-      const clickedCoordinate = map.getCoordinateFromPixel(upPixel)
-      const geometry = state.selectedFeature.getGeometry()
-
-      if (geometry && typeof geometry.setCoordinates === 'function') {
-        geometry.setCoordinates(clickedCoordinate)
-        state.selectedFeature.changed()
-
-        if (geoDrawingTask.setActiveFeatureGeometry) {
-          geoDrawingTask.setActiveFeatureGeometry(geometry)
-        }
-
-        if (selectInteraction) {
-          selectInteraction.getFeatures().clear()
-          selectInteraction.getFeatures().push(state.selectedFeature)
-
-          geoDrawingTask?.setActiveOlFeature?.(state.selectedFeature)
-          geoDrawingTask?.setActiveFeature?.(asMSTFeature(state.selectedFeature))
-
-          selectInteraction.dispatchEvent({
-            type: 'select',
-            selected: [state.selectedFeature],
-            deselected: []
-          })
-        }
-      }
+    if (wasClick && (state.clickedInUncertaintyCircle || !state.clickedOnFeature)) {
+      teleportFeatureTo(map.getCoordinateFromPixel(upPixel))
     }
 
     state.downPixel = null
@@ -223,6 +259,7 @@ function createMoveToClickInteraction({
     state.featureCoordinate = null
     state.selectedFeature = null
     state.clickedOnFeature = false
+    state.clickedInUncertaintyCircle = false
     state.draggingFeature = false
     if (state.disabledSelect) scheduleSelectReenable()
 

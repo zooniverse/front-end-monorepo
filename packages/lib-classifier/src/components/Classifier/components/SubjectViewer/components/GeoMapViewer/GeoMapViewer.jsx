@@ -188,9 +188,29 @@ function GeoMapViewer({
         isSelected: select.getFeatures().getArray().includes(feature)
       }))
 
-      // Create translate interaction
+      // Create translate interaction restricted to the center point hit area.
+      // Without a condition, OL's Translate uses its own hit detection against the
+      // feature's rendered style (which includes the uncertainty circle), causing
+      // drags anywhere inside the circle to move the feature. The condition limits
+      // translation to pointerdown events within POINT_CENTER_HIT_RADIUS_PIXELS of
+      // the feature center.
       const translate = new Translate({
-        features: select.getFeatures()
+        features: select.getFeatures(),
+        condition: (mapBrowserEvent) => {
+          const selectedFeatures = select.getFeatures().getArray()
+          if (selectedFeatures.length === 0) return false
+
+          const selectedFeature = selectedFeatures[0]
+          const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
+          if (!Array.isArray(pointCoordinates)) return false
+
+          const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
+          return isPixelNearPointCenter({
+            pixel: mapBrowserEvent.pixel,
+            pointPixel,
+            radius: POINT_CENTER_HIT_RADIUS_PIXELS
+          })
+        }
       })
 
       // Add select and translate interactions to the map
@@ -218,8 +238,11 @@ function GeoMapViewer({
       moveToClickRef.current = moveToClick
       
       // Add cursor states that match the active interactions.
+      // Note: we target the viewport element (not the outer target element) so that
+      // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
+      // which Translate sets on the viewport via classList.
       const handlePointerMove = (event) => {
-        const element = map.getTargetElement()
+        const element = map.getViewport()
         if (!element) return
 
         let cursor = ''
@@ -267,7 +290,7 @@ function GeoMapViewer({
                 && uncertaintyRadiusPixels > 0
                 && getPixelDistance(event.pixel, pointPixel) <= uncertaintyRadiusPixels
               ) {
-                cursor = 'grab'
+                cursor = 'default'
               }
             }
           }
