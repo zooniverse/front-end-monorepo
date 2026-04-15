@@ -10,29 +10,33 @@ const FEEDBACK_COLORS = {
   success: "#1B7F46",
 };
 
+const ALLOWED_TOOL_TYPES = ["point", "ellipse", "circle"]
+
 function toNumber(value) {
   const parsedValue = Number(value);
 
   return Number.isFinite(parsedValue) ? parsedValue : null;
 }
 
-function hasXYCoords(marking) {
-  return Number.isFinite(marking?.x) && Number.isFinite(marking?.y);
+function isAllowedType(marking) {
+  return ALLOWED_TOOL_TYPES.includes(marking?.toolType);
 }
 
 function isSuccessfulMark(marking, applicableRules = []) {
+  const x = marking.x || marking.x_center
+  const y = marking.y || marking.y_center
   return applicableRules.some((rule) => {
     return rule.successfulClassifications?.some((successfulClassification) => {
       return (
-        successfulClassification.x === marking.x &&
-        successfulClassification.y === marking.y
+        successfulClassification.x === x &&
+        successfulClassification.y === y
       );
     });
   });
 }
 
 function getAnnotationMarks(annotations = [], frame = 0, applicableRules = []) {
-  const pointMarks = [];
+  const annotationMarks = [];
 
   annotations.forEach((annotation) => {
     if (annotation.taskType !== "drawing") {
@@ -40,18 +44,21 @@ function getAnnotationMarks(annotations = [], frame = 0, applicableRules = []) {
     }
     const marks = annotation.value
       // Only consider marks that have x and y coordinates.
-      .filter((marking) => hasXYCoords(marking))
+      .filter((marking) => isAllowedType(marking))
       // Add a colour to each mark based on success/failure.
       .map((marking) => {
         const color = isSuccessfulMark(marking, applicableRules)
           ? FEEDBACK_COLORS.success
           : FEEDBACK_COLORS.failure;
+        const toolComponent = marking.toolComponent
+        const x = marking.x || marking.x_center
+        const y = marking.y || marking.y_center
 
-        return { ...marking, color };
+        return { ...marking, color, toolComponent, x, y };
       });
-    pointMarks.push(...marks);
+    annotationMarks.push(...marks);
   });
-  return pointMarks;
+  return annotationMarks;
 }
 
 function getRuleMarks(applicableRules = []) {
@@ -126,14 +133,15 @@ export default function RadialFeedback() {
     loadingState,
   } = useStores(storeMapper);
 
+  if (applicableRules.some(rule => rule.hideSubjectViewer)) {
+    return null
+  }
+
   const annotationMarks = getAnnotationMarks(
     annotations,
     frame,
     applicableRules
   );
-  if (applicableRules.some(rule => rule.hideSubjectViewer)) {
-    return null
-  }
   const ruleMarks = getRuleMarks(applicableRules);
   const feedbackMarks = [
     ...annotationMarks.map((marking) => (
