@@ -2,6 +2,7 @@ import { Box, Paragraph, Text } from 'grommet'
 import { number, object, string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 import CompletionBar from './components/CompletionBar'
 import ContentBox from '../ContentBox'
@@ -37,17 +38,31 @@ const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
 `
 
+const dateStringOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}
+
 function ProjectStatistics({
   className,
   classifications,
   completedSubjects,
   completeness,
+  launchDate = null,
   linkProps,
   projectName,
   subjects,
   volunteers
 }) {
   const { t } = useTranslation('components')
+  const { locale } = useRouter()
+  const sanitizedLocale = locale === 'test' ? 'en': locale
+
+  const date = launchDate ? new Date(launchDate).toLocaleDateString(
+    sanitizedLocale,
+    dateStringOptions
+  ) : null
 
   return (
     <ContentBox
@@ -68,7 +83,11 @@ function ProjectStatistics({
             align='center'
             pad={{ top: 'xsmall' }}
           >
-            <Text size='0.75rem'>Project launched</Text>
+            <Text size='0.75rem'>
+              {launchDate === null
+                ? t('ProjectStatistics.notLaunched')
+                : t('ProjectStatistics.launched', { date })}
+            </Text>
             <Text size='0.625rem'>
               {t('ProjectStatistics.percentComplete')}
             </Text>
@@ -96,6 +115,7 @@ ProjectStatistics.propTypes = {
   classifications: number.isRequired,
   completedSubjects: number.isRequired,
   completeness: number,
+  launchDate: string,
   linkProps: object.isRequired,
   projectName: string,
   subjects: number.isRequired,

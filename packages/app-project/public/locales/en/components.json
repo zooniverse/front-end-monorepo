@@ -82,9 +82,10 @@
     }
   },
   "ProjectStatistics": {
-    "byTheNumbers": "By the numbers",
     "classifications": "Classifications",
     "completedSubjects": "Completed subjects",
+    "launched": "Project launched {{date}}",
+    "notLaunched": "Project not launched",
     "percentComplete": "Percent complete",
     "subjects": "Subjects",
     "text": "Every click counts! Join {{projectName}}'s community to complete this project and help researchers produce important results.",

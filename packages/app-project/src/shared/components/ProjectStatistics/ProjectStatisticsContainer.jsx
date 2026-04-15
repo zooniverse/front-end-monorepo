@@ -10,6 +10,7 @@ function useStore() {
     classifications: store?.project?.classifications_count,
     completedSubjects: store?.project?.retired_subjects_count,
     completeness: store?.project?.completeness,
+    launchDate: store?.project?.launch_date,
     projectName: store?.project?.display_name,
     subjects: store?.project?.subjects_count,
     volunteers: store?.project?.classifiers_count
@@ -21,6 +22,7 @@ const ProjectStatisticsContainer = ({ className, hideLink }) => {
     classifications,
     completedSubjects,
     completeness,
+    launchDate,
     projectName,
     subjects,
     volunteers
@@ -40,6 +42,7 @@ const ProjectStatisticsContainer = ({ className, hideLink }) => {
       classifications={classifications}
       completedSubjects={completedSubjects}
       completeness={completeness}
+      launchDate={launchDate}
       linkProps={linkProps}
       projectName={projectName}
       subjects={subjects}
