@@ -168,6 +168,9 @@
       "chartLabel": "Bar chart"
     },
     "GeoMapViewer": {
+      "MeasureButton": {
+        "ariaLabel": "Measure distance"
+      },
       "RecenterButton": {
         "ariaLabel": "Recenter to features"
       },
