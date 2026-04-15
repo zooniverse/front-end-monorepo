@@ -137,6 +137,9 @@ export default function RadialFeedback() {
     frame,
     applicableRules
   );
+  if (applicableRules.some(rule => rule.hideSubjectViewer)) {
+    return null
+  }
   const ruleMarks = getRuleMarks(applicableRules);
   const feedbackMarks = [
     ...annotationMarks.map((marking) => (
