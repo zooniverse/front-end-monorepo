@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+
 import Meta, { Default } from './ProjectStatistics.stories'
 
 /* Note that this UI is animated, so we cannot look for values in AnimatedNumber
@@ -7,9 +9,24 @@ components via unit test environment */
 
 describe('Component > ProjectStatisticsContainer', function () {
   const DefaultStory = composeStory(Default, Meta)
+  const mockRouter = {
+    asPath: '/zooniverse/snapshot-serengeti/stats',
+    basePath: '/projects',
+    locale: 'en',
+    push() {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
 
   beforeEach(function () {
-    render(<DefaultStory />)
+    render(
+      <RouterContext.Provider value={mockRouter}>
+        <DefaultStory />
+      </RouterContext.Provider>
+    )
   })
 
   it('should render a volunteers stat', async function () {
