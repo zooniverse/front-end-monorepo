@@ -10,12 +10,6 @@ const FEEDBACK_COLORS = {
   success: "#1B7F46",
 };
 
-const FEEDBACK_MARK = {
-  tool: {
-    size: "small",
-  },
-};
-
 function toNumber(value) {
   const parsedValue = Number(value);
 
@@ -95,7 +89,7 @@ function AnnotationFeedback({ marking }) {
       stroke={marking.color}
       transform={`translate(${marking.x}, ${marking.y})`}
     >
-      <MarkComponent mark={FEEDBACK_MARK} />
+      <MarkComponent mark={marking} />
     </g>
   );
 }
