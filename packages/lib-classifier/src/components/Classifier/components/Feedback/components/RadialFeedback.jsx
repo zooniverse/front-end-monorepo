@@ -1,6 +1,4 @@
-import { number, shape, string } from "prop-types";
-
-import { Point } from "@plugins/drawingTools/components";
+import { node, number, shape, string } from "prop-types";
 
 import { useStores } from "@hooks";
 import FeedbackMark from "@store/feedback/strategies/drawing/radial/feedback-mark";
@@ -12,7 +10,7 @@ const FEEDBACK_COLORS = {
   success: "#1B7F46",
 };
 
-const FEEDBACK_POINT_MARK = {
+const FEEDBACK_MARK = {
   tool: {
     size: "small",
   },
@@ -24,7 +22,7 @@ function toNumber(value) {
   return Number.isFinite(parsedValue) ? parsedValue : null;
 }
 
-function isPointMark(marking) {
+function hasXYCoords(marking) {
   return Number.isFinite(marking?.x) && Number.isFinite(marking?.y);
 }
 
@@ -47,13 +45,8 @@ function getAnnotationMarks(annotations = [], frame = 0, applicableRules = []) {
       return;
     }
     const marks = annotation.value
-      // Only consider point marks that match the current frame.
-      .filter((marking) => {
-        const matchingFrame =
-          marking.frame === undefined || marking.frame === frame;
-
-        return matchingFrame && isPointMark(marking);
-      })
+      // Only consider marks that have x and y coordinates.
+      .filter((marking) => hasXYCoords(marking))
       // Add a colour to each mark based on success/failure.
       .map((marking) => {
         const color = isSuccessfulMark(marking, applicableRules)
@@ -88,24 +81,31 @@ function getRuleMarks(applicableRules = []) {
     })
     .filter(Boolean);
 }
-function FeedbackPoint({ point }) {
+function AnnotationFeedback({ marking }) {
+  const MarkComponent = marking.toolComponent
+
+  if (!MarkComponent) {
+    return null;
+  }
+
   return (
     <g
       fill="transparent"
       pointerEvents="none"
-      stroke={point.color}
-      transform={`translate(${point.x}, ${point.y})`}
+      stroke={marking.color}
+      transform={`translate(${marking.x}, ${marking.y})`}
     >
-      <Point mark={FEEDBACK_POINT_MARK} />
+      <MarkComponent mark={FEEDBACK_MARK} />
     </g>
   );
 }
 
-FeedbackPoint.propTypes = {
-  point: shape({
+AnnotationFeedback.propTypes = {
+  marking: shape({
     x: number.isRequired,
     y: number.isRequired,
     color: string.isRequired,
+    toolComponent: node.isRequired,
   }).isRequired,
 };
 
@@ -140,7 +140,7 @@ export default function RadialFeedback() {
   const ruleMarks = getRuleMarks(applicableRules);
   const feedbackMarks = [
     ...annotationMarks.map((marking) => (
-      <FeedbackPoint key={marking.id} point={marking} />
+      <AnnotationFeedback key={marking.id} marking={marking} />
     )),
     ...ruleMarks.map((ruleMark) => (
       <FeedbackMark key={`rule-${ruleMark.id}`} rule={ruleMark} />
