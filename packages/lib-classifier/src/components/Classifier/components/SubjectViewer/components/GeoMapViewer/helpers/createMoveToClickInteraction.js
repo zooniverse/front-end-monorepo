@@ -25,36 +25,12 @@ function createMoveToClickInteraction({
   }
 
   function resetPointerState() {
-    state.downCoordiante = null
+    state.downCoordinate = null
     state.downPixel = null
     state.downTimestamp = null
     state.selectedFeature = null
     state.clickedOnFeature = false
-  }
-
-  function moveSelectedFeature(selectedFeature, clickedCoordinate) {
-    const geometry = selectedFeature?.getGeometry?.()
-
-    geometry.setCoordinates(clickedCoordinate)
-    selectedFeature.changed()
-
-    if (geoDrawingTask?.setActiveFeatureGeometry) {
-      geoDrawingTask.setActiveFeatureGeometry(geometry)
-    }
-
-    if (selectInteraction) {
-      selectInteraction.getFeatures().clear()
-      selectInteraction.getFeatures().push(selectedFeature)
-
-      geoDrawingTask?.setActiveOlFeature?.(selectedFeature)
-      geoDrawingTask?.setActiveFeature?.(asMSTFeature(selectedFeature))
-
-      selectInteraction.dispatchEvent({
-        type: 'select',
-        selected: [selectedFeature],
-        deselected: []
-      })
-    }
+    state.clickedInUncertaintyCircle = false
   }
 
   /**
