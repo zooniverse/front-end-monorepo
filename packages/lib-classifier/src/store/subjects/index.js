@@ -1,3 +1,4 @@
+export { default as AudioSpectrogramSubject } from './AudioSpectrogramSubject'
 export { default as ImageSubject } from './ImageSubject'
 export { default as ImageAndTextSubject } from './ImageAndTextSubject'
 export { default as ImageAndVideoSubject } from './ImageAndVideoSubject'

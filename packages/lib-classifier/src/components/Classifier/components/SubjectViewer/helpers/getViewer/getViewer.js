@@ -1,3 +1,4 @@
+import AudioSpectrogramViewer from '../../components/AudioSpectrogramViewer'
 import DataImageViewer from '../../components/DataImageViewer'
 import FlipbookViewer from '../../components/FlipbookViewer'
 import SingleAudioViewer from '../../components/SingleAudioViewer'
@@ -12,6 +13,7 @@ import SubjectGroupViewer from '../../components/SubjectGroupViewer'
 import VolumetricViewer from '../../components/VolumetricViewer/VolumetricViewerWrapper'
 
 const viewers = {
+  audioSpectrogram: AudioSpectrogramViewer,
   dataImage: DataImageViewer,
   flipbook: FlipbookViewer,
   singleAudio: SingleAudioViewer,
