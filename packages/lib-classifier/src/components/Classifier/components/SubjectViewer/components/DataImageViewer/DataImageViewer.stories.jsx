@@ -18,23 +18,20 @@ const simpleSubject = Factory.build('subject', {
   ]
 })
 
-// Multi Image Subject contains 1 JSON file and 4 images file
+// Multi Image Subject contains 1 JSON file and 3 images file
 const multiImageSubject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/main/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/17a17a16-ed3d-40a8-b775-e65db6c4b852.json',
     },
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/1e54b552-4608-4701-9db9-b8342b81278a.jpeg'
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/71cca7c9-4ba1-48c6-a2b1-4f32f9a89ec6.jpeg'
     },
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/098f3fb6-5021-410a-82a2-477a28b2bcd6.jpeg'
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/0943b4a1-175f-4cf0-beaf-1a02cff05fed.jpeg'
     },
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/8fcb18b0-de80-42cd-ba2a-4871da30c74f.jpeg'
-    },
-    {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/85d8d82a-c88d-493c-b3db-7cd9f2ca5ad8.jpeg'
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/67b54e54-8ca9-4cb7-a4fb-2417b5bfc82a.jpeg'
     }
   ]
 })
