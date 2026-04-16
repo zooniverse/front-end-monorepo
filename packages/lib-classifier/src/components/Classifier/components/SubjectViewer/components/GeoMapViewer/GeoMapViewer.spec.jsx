@@ -27,7 +27,7 @@ describe('Component > GeoMapViewer', function () {
       await waitFor(() => {
         expect(screen.getByTestId('geo-map-container')).to.exist
       })
-      expect(screen.queryByRole('button', { name: 'Reset to original position' })).to.not.exist
+      expect(screen.queryByRole('button', { name: 'Reset features to original position' })).to.not.exist
     })
   })
 
@@ -63,7 +63,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: 'Reset to original position' })).to.exist
+        expect(screen.getByRole('button', { name: 'Reset features to original position' })).to.exist
       })
     })
 

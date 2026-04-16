@@ -31,7 +31,7 @@ const drawStyle = new Style({
 })
 
 function formatLength(line) {
-  return `${Math.round(getLength(line) * 100) / 100} m`
+  return `${(Math.round(getLength(line) * 100) / 100).toLocaleString()} m`
 }
 
 function createOverlayElement(className) {
