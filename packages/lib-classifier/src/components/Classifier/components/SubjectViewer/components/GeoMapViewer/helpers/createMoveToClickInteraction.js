@@ -2,6 +2,8 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
 
+export const MOVE_TO_CLICK_HOLD_DELAY = 250
+
 function createMoveToClickInteraction({
   selectInteraction,
   geoDrawingTask,
@@ -9,10 +11,43 @@ function createMoveToClickInteraction({
 }) {
   const state = {
     downPixel: null,
+    downTimestamp: null,
     selectedFeature: null,
     clickedOnFeature: false,
     dragThreshold: 3, // pixels - must move less than this to be considered a "click"
     disabledSelect: false
+  }
+
+  function resetPointerState() {
+    state.downPixel = null
+    state.downTimestamp = null
+    state.selectedFeature = null
+    state.clickedOnFeature = false
+  }
+
+  function moveSelectedFeature(selectedFeature, clickedCoordinate) {
+    const geometry = selectedFeature?.getGeometry?.()
+
+    geometry.setCoordinates(clickedCoordinate)
+    selectedFeature.changed()
+
+    if (geoDrawingTask?.setActiveFeatureGeometry) {
+      geoDrawingTask.setActiveFeatureGeometry(geometry)
+    }
+
+    if (selectInteraction) {
+      selectInteraction.getFeatures().clear()
+      selectInteraction.getFeatures().push(selectedFeature)
+
+      geoDrawingTask?.setActiveOlFeature?.(selectedFeature)
+      geoDrawingTask?.setActiveFeature?.(asMSTFeature(selectedFeature))
+
+      selectInteraction.dispatchEvent({
+        type: 'select',
+        selected: [selectedFeature],
+        deselected: []
+      })
+    }
   }
 
   /**
@@ -48,6 +83,7 @@ function createMoveToClickInteraction({
 
     // Record state
     state.downPixel = event.pixel
+    state.downTimestamp = Date.now()
     state.selectedFeature = selectedFeatures[0]
     state.clickedOnFeature = hasFeatureAtPixel(event.pixel, map)
 
@@ -75,9 +111,7 @@ function createMoveToClickInteraction({
     
     // If we don't have required state, bail
     if (!map || !state.downPixel || !state.selectedFeature) {
-      state.downPixel = null
-      state.selectedFeature = null
-      state.clickedOnFeature = false
+      resetPointerState()
       if (state.disabledSelect) scheduleSelectReenable()
       return false
     }
@@ -86,47 +120,24 @@ function createMoveToClickInteraction({
     const upPixel = event.pixel
     const dragDistance = getPixelDistance(state.downPixel, upPixel)
     const wasClick = dragDistance < state.dragThreshold
+    const holdDuration = Date.now() - state.downTimestamp
+    const heldLongEnough = holdDuration >= MOVE_TO_CLICK_HOLD_DELAY
 
     // Only move feature if:
     // 1. It was a click (not a drag)
     // 2. The click was on empty space (not on the feature itself)
-    if (wasClick && !state.clickedOnFeature) {
+    // 3. The pointer was held long enough to count as a deliberate move
+    if (wasClick && !state.clickedOnFeature && heldLongEnough) {
       const clickedCoordinate = map.getCoordinateFromPixel(upPixel)
-      const geometry = state.selectedFeature.getGeometry()
-
-      if (geometry && typeof geometry.setCoordinates === 'function') {
-        // Move the feature
-        geometry.setCoordinates(clickedCoordinate)
-        state.selectedFeature.changed()
-
-        // Update MST model if available
-        if (geoDrawingTask.setActiveFeatureGeometry) {
-          geoDrawingTask.setActiveFeatureGeometry(geometry)
-        }
-
-        // Keep the feature selected (Select may have deselected it)
-        if (selectInteraction) {
-          selectInteraction.getFeatures().clear()
-          selectInteraction.getFeatures().push(state.selectedFeature)
-
-          geoDrawingTask?.setActiveOlFeature?.(state.selectedFeature)
-          geoDrawingTask?.setActiveFeature?.(asMSTFeature(state.selectedFeature))
-
-          // Dispatch select event to notify listeners
-          selectInteraction.dispatchEvent({
-            type: 'select',
-            selected: [state.selectedFeature],
-            deselected: []
-          })
-        }
-      }
+      moveSelectedFeature(state.selectedFeature, clickedCoordinate)
     }
 
     // Reset state
-    state.downPixel = null
-    state.selectedFeature = null
-    state.clickedOnFeature = false
-    if (state.disabledSelect) scheduleSelectReenable()
+    resetPointerState()
+
+    if (state.disabledSelect) {
+      scheduleSelectReenable()
+    }
 
     return false
   }
