@@ -80,12 +80,10 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     setAllowPanZoom('')
   }
 
-  // Most of the time, we expect scatterplot JSON files to have a 'data' member
-  // which contains the chart data, e.g.:
-  // { data: [
-  //   { seriesData: [ { x: 66.8, y: 22.1, y_error: 0.16 }, ... ] }
-  // ]}
-  const data = jsonData.data
+  // Scatterplot-compatible JSON files come in few different formats. Some store
+  // their chart data in the 'data' member/node, others store their chart data
+  // at the root level.
+  const data = jsonData.data ? jsonData.data : jsonData
 
   // If our subject contains multiple images, we need to package them into a
   // pseudo Subject so the FlipbookViewer can load 'em.
