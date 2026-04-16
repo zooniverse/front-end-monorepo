@@ -124,7 +124,7 @@ function AnnotationFeedback({ marking }) {
 
   return (
     <g
-      fill="transparent"
+      fill="rgba(0, 0, 0, 0.5)"
       pointerEvents="none"
       stroke={color}
       transform={`translate(${mark.x}, ${mark.y})`}
