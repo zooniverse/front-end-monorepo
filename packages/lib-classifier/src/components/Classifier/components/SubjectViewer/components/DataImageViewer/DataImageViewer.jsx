@@ -39,7 +39,7 @@ const DEFAULT_THEME = {
 }
 const DataImageViewer = forwardRef(function DataImageViewer({
   allowPanZoom = '',
-  imageLocation = null,
+  imageLocations = [],
   jsonData = JSON_DATA,
   loadingState,
   parentWidth,
@@ -118,10 +118,10 @@ const DataImageViewer = forwardRef(function DataImageViewer({
         border={(zoomEnabled.image) && { color: 'brand', size: 'xsmall' }}
         gridArea='image'
       >
-        {imageLocation &&
+        {imageLocations?.length === 1 &&
           <SingleImageViewer
             enableInteractionLayer={false}
-            imageLocation={imageLocation}
+            imageLocation={imageLocations[0]}
             loadingState={loadingState}
             setOnPan={zoomEnabled.image ? setOnPan : DEFAULT_HANDLER}
             setOnZoom={zoomEnabled.image ? setOnZoom : DEFAULT_HANDLER}
@@ -136,7 +136,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
 DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,
   enableRotation: PropTypes.func,
-  imageLocation: PropTypes.object,
+  imageLocations: PropTypes.arrayOf(PropTypes.object),
   jsonData: PropTypes.shape({
     data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object
