@@ -1,9 +1,9 @@
-import { node, number, shape, string } from "prop-types";
+import { node, number, shape, string } from 'prop-types'
 
-import { useStores } from "@hooks";
-import FeedbackMark from "@store/feedback/strategies/drawing/radial/feedback-mark";
+import { useStores } from '@hooks'
+import FeedbackMark from '@store/feedback/strategies/drawing/radial/feedback-mark'
 
-import SingleImageViewerContainer from "../../SubjectViewer/components/SingleImageViewer/SingleImageViewerContainer";
+import SingleImageViewerContainer from '../../SubjectViewer/components/SingleImageViewer/SingleImageViewerContainer'
 
 export const FEEDBACK_COLORS = {
   failure: "#f56F5D",
@@ -26,17 +26,39 @@ function isSuccessfulMark(marking, applicableRules = []) {
   const x = marking.x || marking.x_center
   const y = marking.y || marking.y_center
   return applicableRules.some((rule) => {
-    return rule.successfulClassifications?.some((successfulClassification) => {
-      return (
-        successfulClassification.x === x &&
-        successfulClassification.y === y
-      );
-    });
+    return rule.successfulClassifications?.includes(marking)
   });
 }
 
-function getAnnotationMarks(annotations = [], frame = 0, applicableRules = []) {
-  const annotationMarks = [];
+/**
+ * Filters annotations for drawing task annotations and adds feedback colour
+ * based on whether the mark matches any successful classifications in the applicable rules.
+ * @typedef {Object} Annotation - A user's annotation on the subject, which may contain one or more marks.
+ * @property {string} taskType - The type of annotation, e.g. 'drawing'.
+ * @property {Object[]} value - An array of marks made by the user. Each mark may have different properties depending on the tool used.
+ * 
+ * @typedef {Object} Rule - A feedback rule that can be applied to a classification.
+ * @property {string} id - Unique identifier for the rule.
+ * @property {boolean} success - Whether the rule indicates a successful classification.
+ * @property {Object[]} successfulClassifications - An array of coordinates that are considered successful classifications for this rule.
+ * @property {string} tolerance - The allowed distance from the successful classifications for a mark to be considered successful.
+ * @property {string} x - The x-coordinate for the center of the radial feedback.
+ * @property {string} y - The y-coordinate for the center of the radial feedback.
+ * @property {boolean} [hideSubjectViewer] - Optional flag to indicate whether the subject viewer should be hidden when this rule is applicable.
+ * 
+ * @typedef {Object} Marking - An individual mark made by the user, which may have different properties depending on the tool used.
+ * 
+ * @typedef {Object} AnnotatedMark - An individual mark with feedback colour and tool component for rendering.
+ * @property {string} id - Unique identifier for the mark.
+ * @property {Marking} mark - The original marking made by the user.
+ * @property {string} color - The feedback colour for this mark, determined by whether it matches a successful classification in the applicable rules.
+ * 
+ * @param {Annotation[]} annotations
+ * @param {Rule[]} applicableRules 
+ * @returns {AnnotatedMark[]} An array of mark objects with feedback colours.
+ */
+function getAnnotatedMarks(annotations = [], applicableRules = []) {
+  const annotatedMarks = [];
 
   annotations.forEach((annotation) => {
     if (annotation.taskType !== "drawing") {
@@ -50,15 +72,16 @@ function getAnnotationMarks(annotations = [], frame = 0, applicableRules = []) {
         const color = isSuccessfulMark(marking, applicableRules)
           ? FEEDBACK_COLORS.success
           : FEEDBACK_COLORS.failure;
-        const toolComponent = marking.toolComponent
-        const x = marking.x || marking.x_center
-        const y = marking.y || marking.y_center
 
-        return { ...marking, color, toolComponent, x, y };
+        return {
+          id: marking.id,
+          mark: marking,
+          color,
+        };
       });
-    annotationMarks.push(...marks);
+    annotatedMarks.push(...marks);
   });
-  return annotationMarks;
+  return annotatedMarks;
 }
 
 function getRuleMarks(applicableRules = []) {
@@ -82,8 +105,18 @@ function getRuleMarks(applicableRules = []) {
     })
     .filter(Boolean);
 }
+
+/**
+ * Render a mark's tool component (`Point`, `Circle`, etc.) with a stroke colour based on feedback success or failure.
+ * @param {props}
+ * @param {AnnotatedMark} props.marking - An individual mark with feedback colour and tool component for rendering.
+ * @param {string} props.marking.color - The feedback colour for this mark.
+ * @param {Object} props.marking.mark - The original drawn mark.
+ * @returns {JSX.Element|null} A feedback mark to be rendered on the subject viewer, or null if the tool component is not found.
+ */
 function AnnotationFeedback({ marking }) {
-  const MarkComponent = marking.toolComponent
+  const { mark, color } = marking;
+  const MarkComponent = mark.toolComponent
 
   if (!MarkComponent) {
     return null;
@@ -93,20 +126,23 @@ function AnnotationFeedback({ marking }) {
     <g
       fill="transparent"
       pointerEvents="none"
-      stroke={marking.color}
-      transform={`translate(${marking.x}, ${marking.y})`}
+      stroke={color}
+      transform={`translate(${mark.x}, ${mark.y})`}
     >
-      <MarkComponent mark={marking} />
+      <MarkComponent mark={mark} />
     </g>
   );
 }
 
 AnnotationFeedback.propTypes = {
   marking: shape({
-    x: number.isRequired,
-    y: number.isRequired,
     color: string.isRequired,
-    toolComponent: node.isRequired,
+    mark: shape({
+      x: number.isRequired,
+      y: number.isRequired,
+      toolComponent: node.isRequired,
+      toolType: string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
@@ -114,13 +150,12 @@ function storeMapper(classifierStore) {
   const {
     classifications: { currentAnnotations: annotations },
     feedback: { applicableRules },
-    subjectViewer: { frame, loadingState },
+    subjectViewer: { loadingState },
   } = classifierStore;
 
   return {
     annotations,
     applicableRules,
-    frame,
     loadingState,
   };
 }
@@ -129,7 +164,6 @@ export default function RadialFeedback() {
   const {
     annotations = [],
     applicableRules = [],
-    frame = 0,
     loadingState,
   } = useStores(storeMapper);
 
@@ -137,14 +171,13 @@ export default function RadialFeedback() {
     return null
   }
 
-  const annotationMarks = getAnnotationMarks(
+  const annotatedMarks = getAnnotatedMarks(
     annotations,
-    frame,
     applicableRules
   );
   const ruleMarks = getRuleMarks(applicableRules);
   const feedbackMarks = [
-    ...annotationMarks.map((marking) => (
+    ...annotatedMarks.map((marking) => (
       <AnnotationFeedback key={marking.id} marking={marking} />
     )),
     ...ruleMarks.map((ruleMark) => (

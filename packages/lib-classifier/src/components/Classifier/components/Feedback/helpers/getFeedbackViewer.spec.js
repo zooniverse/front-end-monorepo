@@ -49,7 +49,7 @@ describe('Helpers > getFeedbackViewer', function () {
   })
 
   it('should return null if multiple strategies', function () {
-    const multipleStratRules = [ ...graph2dRangeRules ]
+    const multipleStratRules = graph2dRangeRules.map(rule => ({ ...rule }))
     multipleStratRules[0].strategy = 'column'
     expect(getFeedbackViewer(multipleStratRules)).to.equal(null)
   })

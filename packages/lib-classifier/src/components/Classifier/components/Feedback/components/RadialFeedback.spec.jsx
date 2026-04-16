@@ -27,17 +27,18 @@ describe('Component > RadialFeedback', function () {
   }
 
   it('should render radial rule circles and overlay points for matching annotations', function () {
+    const annotationValue = [
+      { id: 'mark-1', frame: 1, x: 22, y: 31, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
+      { id: 'mark-2', frame: 1, x: 120, y: 151, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
+      { id: 'mark-3', frame: 0, x: 999, y: 999, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
+      { id: 'mark-4', frame: 1, width: 20, x: 50, y: 50, tool: { size: 'large' }, toolType: 'point', toolComponent: Point }
+    ]
     const classifierStore = {
       classifications: {
         currentAnnotations: [
           {
             taskType: 'drawing',
-            value: [
-              { id: 'mark-1', frame: 1, x: 22, y: 31, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
-              { id: 'mark-2', frame: 1, x: 120, y: 151, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
-              { id: 'mark-3', frame: 0, x: 999, y: 999, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
-              { id: 'mark-4', frame: 1, width: 20, x: 50, y: 50, tool: { size: 'large' }, toolType: 'point', toolComponent: Point }
-            ]
+            value: annotationValue
           }
         ]
       },
@@ -46,7 +47,7 @@ describe('Component > RadialFeedback', function () {
           {
             id: 'success-rule',
             success: true,
-            successfulClassifications: [{ x: 22, y: 31 }],
+            successfulClassifications: [annotationValue[0]],
             tolerance: '15',
             x: '20',
             y: '30'

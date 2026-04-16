@@ -17,10 +17,10 @@ function FeedbackMark ({ rule }) {
 
 FeedbackMark.propTypes = {
   rule: shape({
-    x: number,
-    y: number,
-    success: bool,
-    tolerance: number
+    x: number.isRequired,
+    y: number.isRequired,
+    success: bool.isRequired,
+    tolerance: number.isRequired
   }).isRequired
 }
 
