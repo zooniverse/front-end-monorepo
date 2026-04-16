@@ -60,6 +60,7 @@ function fitViewToFeatures(map, features) {
   })
 }
 
+// Helper to select the first feature in a list, used after loading new features, resetting, etc.
 function selectFirstFeature(selectInteraction, newFeatures) {
   if (!selectInteraction || newFeatures.length === 0) return
 
@@ -84,7 +85,6 @@ function GeoMapViewer({
   const mapContainerRef = useRef()
   const mapRef = useRef()
   const featuresRef = useRef()
-  const featuresLayerRef = useRef() // needed for interaction setup
   const geoJSONFormatRef = useRef()
   
   // Interaction refs: created once and reused to avoid re-stacking on data updates
@@ -100,6 +100,7 @@ function GeoMapViewer({
     featureProjection: 'EPSG:3857' // map display projection in Web Mercator
   }
 
+  // Determine if we have an active drawing task with tools, to enable interactions and show reset features button
   const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
 
   // Create the map once on mount with all layers and interactions
@@ -128,7 +129,6 @@ function GeoMapViewer({
     const featuresLayer = new VectorLayer({
       source: featuresSource
     })
-    featuresLayerRef.current = featuresLayer
 
     const map = new Map({
       target: mapContainerRef.current,
@@ -228,15 +228,30 @@ function GeoMapViewer({
       map.addInteraction(modifyUncertainty)
       modifyUncertaintyRef.current = modifyUncertainty
 
+      // Track whether a point is actively being dragged to switch grab → grabbing.
+      // Center-point drags are captured by moveToClick (not Translate), so we use
+      // onDragStart/onDragEnd callbacks to update the cursor immediately on press.
+      let isDraggingPoint = false
+
       // Create and add move-to-click interaction
       const moveToClick = createMoveToClickInteraction({
         selectInteraction: select,
         geoDrawingTask,
-        featuresLayer
+        featuresLayer,
+        onDragStart: () => {
+          isDraggingPoint = true
+          const viewport = map.getViewport()
+          if (viewport) viewport.style.cursor = 'grabbing'
+        },
+        onDragEnd: () => {
+          isDraggingPoint = false
+          const viewport = map.getViewport()
+          if (viewport) viewport.style.cursor = 'grab'
+        }
       })
       map.addInteraction(moveToClick)
       moveToClickRef.current = moveToClick
-      
+
       // Add cursor states that match the active interactions.
       // Note: we target the viewport element (not the outer target element) so that
       // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
@@ -259,7 +274,17 @@ function GeoMapViewer({
               geoDrawingTask
             })
 
-            if (dragHandleCoordinates) {
+            // If we're near the feature center, grab/grabbing takes priority
+            if (isPixelNearPointCenter({
+              pixel: event.pixel,
+              pointPixel,
+              radius: POINT_CENTER_HIT_RADIUS_PIXELS
+            })) {
+              cursor = isDraggingPoint ? 'grabbing' : 'grab'
+            }
+
+            // If we're near the drag handle, show the resize cursor
+            if (!cursor && dragHandleCoordinates) {
               const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
               if (isPixelNearDragHandle({
                 pixel: event.pixel,
@@ -270,14 +295,7 @@ function GeoMapViewer({
               }
             }
 
-            if (!cursor && isPixelNearPointCenter({
-              pixel: event.pixel,
-              pointPixel,
-              radius: POINT_CENTER_HIT_RADIUS_PIXELS
-            })) {
-              cursor = 'grab'
-            }
-
+            // If the feature has an uncertainty radius, show the default cursor when hovering over it
             if (!cursor) {
               const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
                 feature: selectedFeature,
@@ -297,10 +315,25 @@ function GeoMapViewer({
         }
 
         if (!cursor) {
-          const hit = map.hasFeatureAtPixel(event.pixel, {
-            layerFilter: (layer) => layer === featuresLayer
-          })
-          cursor = hit ? 'pointer' : ''
+          if (selectedFeature) {
+            // When a feature is selected, only show pointer over another feature's center point (which is selectable)
+            let hoveringOtherCenter = false
+            featuresLayer.getSource().forEachFeature((feature) => {
+              if (feature === selectedFeature || hoveringOtherCenter) return
+              const coords = feature.getGeometry()?.getCoordinates?.()
+              if (!Array.isArray(coords)) return
+              const featurePixel = map.getPixelFromCoordinate(coords)
+              if (isPixelNearPointCenter({ pixel: event.pixel, pointPixel: featurePixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS })) {
+                hoveringOtherCenter = true
+              }
+            })
+            cursor = hoveringOtherCenter ? 'pointer' : 'default'
+          } else {
+            const hit = map.hasFeatureAtPixel(event.pixel, {
+              layerFilter: (layer) => layer === featuresLayer
+            })
+            cursor = hit ? 'pointer' : 'default'
+          }
         }
 
         element.style.cursor = cursor
@@ -323,7 +356,6 @@ function GeoMapViewer({
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
-      featuresLayerRef.current = undefined
       geoJSONFormatRef.current = undefined
       selectRef.current = undefined
       translateRef.current = undefined

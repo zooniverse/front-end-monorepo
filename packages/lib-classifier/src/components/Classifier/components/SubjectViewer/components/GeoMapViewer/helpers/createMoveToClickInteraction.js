@@ -9,7 +9,9 @@ export const MOVE_TO_CLICK_HOLD_DELAY = 250
 function createMoveToClickInteraction({
   selectInteraction,
   geoDrawingTask,
-  featuresLayer
+  featuresLayer,
+  onDragStart = undefined,
+  onDragEnd = undefined
 }) {
   const state = {
     downCoordinate: null,
@@ -31,22 +33,6 @@ function createMoveToClickInteraction({
     state.selectedFeature = null
     state.clickedOnFeature = false
     state.clickedInUncertaintyCircle = false
-  }
-
-  /**
-   * Check if there's a feature at the given pixel location
-   */
-  function hasFeatureAtPixel(pixel, map) {
-    let hasFeature = false
-    map.forEachFeatureAtPixel(
-      pixel,
-      () => {
-        hasFeature = true
-        return true // stop iteration
-      },
-      { layers: [featuresLayer] }
-    )
-    return hasFeature
   }
 
   function isPointerOnResizeHandle({ pixel, map, olFeature, mstFeature }) {
@@ -193,16 +179,29 @@ function createMoveToClickInteraction({
       })
       : false
 
-    state.clickedOnFeature = clickedInsideSelectedFeature || hasFeatureAtPixel(event.pixel, map)
+    state.clickedOnFeature = clickedInsideSelectedFeature
 
     if (clickedInsideSelectedFeature) {
       state.draggingFeature = true
       state.disabledSelect = true
       selectInteraction.setActive(false)
+      onDragStart?.()
       return true
     }
 
-    if (state.clickedOnFeature) {
+    // If clicking on a different feature's center point, let Select handle it (it will select that feature)
+    let clickedOtherFeatureCenter = false
+    featuresLayer.getSource().forEachFeature((feature) => {
+      if (feature === state.selectedFeature || clickedOtherFeatureCenter) return
+      const coords = feature.getGeometry()?.getCoordinates?.()
+      if (!Array.isArray(coords)) return
+      const featurePixel = map.getPixelFromCoordinate(coords)
+      if (isPixelNearPointCenter({ pixel: event.pixel, pointPixel: featurePixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS })) {
+        clickedOtherFeatureCenter = true
+      }
+    })
+
+    if (clickedOtherFeatureCenter) {
       return false
     }
 
@@ -263,11 +262,17 @@ function createMoveToClickInteraction({
       teleportFeatureTo(map.getCoordinateFromPixel(upPixel))
     }
 
+    const wasDragging = state.draggingFeature
+
     // Reset state
     resetPointerState()
 
     if (state.disabledSelect) {
       scheduleSelectReenable()
+    }
+
+    if (wasDragging) {
+      onDragEnd?.()
     }
 
     return false
