@@ -1,5 +1,7 @@
+import AudioSpectrogramViewer from '../../components/AudioSpectrogramViewer'
 import DataImageViewer from '../../components/DataImageViewer'
 import FlipbookViewer from '../../components/FlipbookViewer'
+import SingleAudioViewer from '../../components/SingleAudioViewer'
 import GeoMapViewer from '../../components/GeoMapViewer'
 import JSONDataViewer from '../../components/JSONDataViewer'
 import ImageAndTextViewer from '../../components/ImageAndTextViewer'
@@ -11,8 +13,10 @@ import SubjectGroupViewer from '../../components/SubjectGroupViewer'
 import VolumetricViewer from '../../components/VolumetricViewer/VolumetricViewerWrapper'
 
 const viewers = {
+  audioSpectrogram: AudioSpectrogramViewer,
   dataImage: DataImageViewer,
   flipbook: FlipbookViewer,
+  singleAudio: SingleAudioViewer,
   geoMap: GeoMapViewer,
   jsonData: JSONDataViewer,
   imageAndText: ImageAndTextViewer,

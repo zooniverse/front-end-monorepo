@@ -18,6 +18,11 @@ const mockRouter = {
   }
 }
 
+const ORGANIZATIONS = [{
+  slug: 'zooniverse/test-organization',
+  title: 'Test Organization'
+}]
+
 function NextRouterStory(Story) {
   return (
     <RouterContext.Provider value={mockRouter}>
@@ -172,8 +177,7 @@ export function WithOrganizationLink(props) {
   return (
     <Provider store={WithOrganizationLink.store}>
       <DropdownNav
-        organizationSlug='zooniverse/snapshot-safari'
-        organizationTitle='Snapshot Safari'
+        organizations={ORGANIZATIONS}
         {...props}
       />
     </Provider>

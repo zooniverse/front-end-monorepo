@@ -1,9 +1,8 @@
-import { Revert } from 'grommet-icons'
+import { IconActionButton } from '@zooniverse/react-components'
+import { Update } from 'grommet-icons'
 import { func } from 'prop-types'
 
 import { useTranslation } from '@translations/i18n'
-
-import ControlButton from '../ControlButton'
 
 function ResetButton({ onClick }) {
   const { t } = useTranslation('components')
@@ -17,9 +16,9 @@ function ResetButton({ onClick }) {
   }
   
   return (
-    <ControlButton
+    <IconActionButton
       a11yTitle={label}
-      icon={<Revert color='dark-5' size='small' />}
+      icon={<Update color='dark-5' size='18px' />}
       onClick={handleClick}
       title={label}
     />

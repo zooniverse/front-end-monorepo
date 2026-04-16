@@ -43,12 +43,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v6
 
-    - uses: azure/login@v2
+    - uses: azure/login@v3
       with:
         creds: ${{ secrets.AZURE_AKS }}
 
     - name: Set the target AKS cluster
-      uses: Azure/aks-set-context@v4
+      uses: Azure/aks-set-context@v5
       with:
         cluster-name: microservices
         resource-group: kubernetes
@@ -62,7 +62,9 @@ jobs:
     needs: [build_and_push_image, deploy_production]
     uses: zooniverse/ci-cd/.github/workflows/purge_cache.yaml@main
     with:
-      fdname: 'www-zooniverse-org'
+      fdname: 'www-zooniverse-org-standard'
+      domain: 'www.zooniverse.org'
+      endpoint: 'main-route'
       path: '/*'
     secrets:
       creds: ${{ secrets.AZURE_STATIC_SITES }}

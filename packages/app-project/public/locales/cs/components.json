@@ -81,12 +81,10 @@
     "talk": "Diskutujte"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "Podle čísel",
     "classifications": "Klasifikace",
     "completedSubjects": "Dokončené předměty",
     "percentComplete": "Procento dokončení",
     "subjects": "Témata",
-    "subtitle": "Sledujte pokrok, kterého jste vy a vaši dobrovolníci v tomto projektu dosáhli.",
     "text": "Každé kliknutí se počítá! Připojte se k {{projectName}} a pomozte výzkumníkům dosáhnout důležitých výsledků. Kliknutím na \"Zobrazit další statistiky\" si můžete prohlédnout ještě více statistik.",
     "title": "Statistiky {{projectName}}",
     "viewMoreStats": "Zobrazit další statistiky",

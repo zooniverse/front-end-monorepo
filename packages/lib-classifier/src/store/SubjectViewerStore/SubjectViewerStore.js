@@ -43,7 +43,7 @@ const SubjectViewer = types
     get disableImageToolbar () {
       const subject = tryReference(() => getRoot(self).subjects?.active)
       const frameType = subject?.locations[self.frame].type
-      if (frameType === 'text' || frameType === 'video') {
+      if (frameType === 'text' || frameType === 'video' || frameType === 'audio') {
         return true
       }
       return false

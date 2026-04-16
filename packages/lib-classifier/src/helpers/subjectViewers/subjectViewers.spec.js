@@ -2,7 +2,9 @@ import subjectViewers from './subjectViewers'
 
 describe('Helpers > subjectViewers', function () {
   const viewers = [
+    'audioSpectrogram',
     'dataImage',
+    'singleAudio',
     'flipbook',
     'geoMap',
     'jsonData',

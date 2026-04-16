@@ -1,7 +1,17 @@
 const subjectViewers = {}
 
+Object.defineProperty(subjectViewers, 'audioSpectrogram', {
+  value: 'audioSpectrogram',
+  enumerable: true
+})
+
 Object.defineProperty(subjectViewers, 'dataImage', {
   value: 'dataImage',
+  enumerable: true
+})
+
+Object.defineProperty(subjectViewers, 'singleAudio', {
+  value: 'singleAudio',
   enumerable: true
 })
 
