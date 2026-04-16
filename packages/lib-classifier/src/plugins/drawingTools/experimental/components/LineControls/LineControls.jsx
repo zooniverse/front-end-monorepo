@@ -14,21 +14,27 @@ const CENTER_X = OUTER_RADIUS + 1
 const CENTER_Y = OUTER_RADIUS + 1
 const WIDTH = 2 * CENTER_X
 const HEIGHT = 2 * CENTER_Y
-const INSET = '30px'
 
 const StyledGroup = styled.g`
   cursor: pointer;
   pointer-events: all !important;
 `
 
-/* z-index = 1 required to ensure LineControls are above DrawingLayer in VideoWithDrawing */
+/* LineControls need to be rendered with ancestors providing position: relative
+ * and container-type: inline-size
+*/
 
 const StyledSVG = styled.svg`
+  --inset: 30px;
+
+  @container (max-width: 480px) {
+    --inset: 15px;
+  }
+
   position: absolute;
-  top: ${INSET};
-  left: ${props => props.$position === 'l' ? INSET : 'auto' };
-  right: ${props => props.$position === 'r' ? INSET : 'auto' };
-  z-index: 1;
+  top: var(--inset);
+  left: ${props => props.$position === 'l' ? 'var(--inset)' : 'auto' };
+  right: ${props => props.$position === 'r' ? 'var(--inset)' : 'auto' };
 `
 
 const LineControls = forwardRef(function LineControls({

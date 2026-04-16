@@ -9,6 +9,7 @@ export default {
 
 const StyledDiv = styled.div`
   position: relative;
+  container-type: inline-size;
 `
 
 const mark = {

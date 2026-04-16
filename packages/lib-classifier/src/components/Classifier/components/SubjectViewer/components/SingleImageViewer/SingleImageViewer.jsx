@@ -13,6 +13,7 @@ import ControlsLayer from '../ControlsLayer'
 // For positioning ZoomHelperOverlay on top of StyledSVG (the subject)
 const Relative = styled(Box)`
   position: relative;
+  container-type: inline-size;
 `
 
 const StyledSVG = styled.svg`
@@ -99,8 +100,8 @@ function SingleImageViewer({
         {showZoomHelper && (
           <ZoomHelperOverlay fadingOut={fadingOut} />
         )}
-        <ControlsLayer 
-          enableInteractionLayer={enableInteractionLayer} 
+        <ControlsLayer
+          enableInteractionLayer={enableInteractionLayer}
           frame={frame}
         />
         <StyledSVG
