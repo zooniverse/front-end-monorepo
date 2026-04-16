@@ -6,6 +6,7 @@ import {
   Grid
 } from 'grommet'
 import { withParentSize } from '@visx/responsive'
+import FlipbookViewer from '../FlipbookViewer'
 import ScatterPlotViewer from '../ScatterPlotViewer'
 import SingleImageViewer from '../SingleImageViewer'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
@@ -84,6 +85,11 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     SuperWASP Black Hole Hunters use jsonData.data.x and jsonData.data.y
   */
   const data = jsonData.data ? jsonData.data : jsonData
+
+  const pseudoSubjectForMultipleImages = imageLocations?.length > 1
+    ? { locations: imageLocations } 
+    : null
+
   return (
     <Grid
       areas={areas}
@@ -127,7 +133,15 @@ const DataImageViewer = forwardRef(function DataImageViewer({
             setOnZoom={zoomEnabled.image ? setOnZoom : DEFAULT_HANDLER}
             zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
             zooming={zoomEnabled.image}
-          />}
+          />
+        }
+        {imageLocations?.length > 1 &&
+          <FlipbookViewer
+            enableInteractionLayer={false}
+            subject={pseudoSubjectForMultipleImages}
+            loadingState={loadingState}
+          />
+        }
       </Box>
     </Grid>
   )
