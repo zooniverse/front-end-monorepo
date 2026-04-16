@@ -80,13 +80,16 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     setAllowPanZoom('')
   }
 
-  /*
-    PH-TESS light curves use jsonData.x and jsonData.y.
-    SuperWASP Black Hole Hunters use jsonData.data.x and jsonData.data.y
-  */
-  const data = jsonData.data ? jsonData.data : jsonData
+  // Most of the time, we expect scatterplot JSON files to have a 'data' member
+  // which contains the chart data, e.g.:
+  // { data: [
+  //   { seriesData: [ { x: 66.8, y: 22.1, y_error: 0.16 }, ... ] }
+  // ]}
+  const data = jsonData.data
 
-  const pseudoSubjectForMultipleImages = imageLocations?.length > 1
+  // If our subject contains multiple images, we need to package them into a
+  // pseudo Subject so the FlipbookViewer can load 'em.
+  const multiImagePseudoSubject = imageLocations?.length > 1
     ? { locations: imageLocations } 
     : null
 
@@ -138,7 +141,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
         {imageLocations?.length > 1 &&
           <FlipbookViewer
             enableInteractionLayer={false}
-            subject={pseudoSubjectForMultipleImages}
+            subject={multiImagePseudoSubject}
             loadingState={loadingState}
           />
         }
