@@ -23,8 +23,6 @@ function isAllowedType(marking) {
 }
 
 function isSuccessfulMark(marking, applicableRules = []) {
-  const x = marking.x || marking.x_center
-  const y = marking.y || marking.y_center
   return applicableRules.some((rule) => {
     return rule.successfulClassifications?.includes(marking)
   });
