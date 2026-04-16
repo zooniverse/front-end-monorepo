@@ -91,6 +91,11 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     ? { locations: imageLocations } 
     : null
 
+  
+  // Also, if our subject contains multiple images, justify the position of the
+  // FlipbookViewer so it looks better.
+  const justifyImageSection = imageLocations?.length > 1 ? 'center' : undefined
+
   return (
     <Grid
       areas={areas}
@@ -124,6 +129,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
         background={imageViewerBackground}
         border={(zoomEnabled.image) && { color: 'brand', size: 'xsmall' }}
         gridArea='image'
+        justify={justifyImageSection}
       >
         {imageLocations?.length === 1 &&
           <SingleImageViewer
