@@ -35,18 +35,28 @@ function isSuccessfulMark(marking, applicableRules = []) {
  * based on whether the mark matches any successful classifications in the applicable rules.
  * @typedef {Object} Annotation - A user's annotation on the subject, which may contain one or more marks.
  * @property {string} taskType - The type of annotation, e.g. 'drawing'.
- * @property {Object[]} value - An array of marks made by the user. Each mark may have different properties depending on the tool used.
+ * @property {Marking[]} value - An array of marks made by the user. Each mark may have different properties depending on the tool used.
  * 
  * @typedef {Object} Rule - A feedback rule that can be applied to a classification.
  * @property {string} id - Unique identifier for the rule.
  * @property {boolean} success - Whether the rule indicates a successful classification.
- * @property {Object[]} successfulClassifications - An array of coordinates that are considered successful classifications for this rule.
+ * @property {Marking[]} successfulClassifications - An array of marks that are considered successful classifications for this rule.
  * @property {string} tolerance - The allowed distance from the successful classifications for a mark to be considered successful.
  * @property {string} x - The x-coordinate for the center of the radial feedback.
  * @property {string} y - The y-coordinate for the center of the radial feedback.
  * @property {boolean} [hideSubjectViewer] - Optional flag to indicate whether the subject viewer should be hidden when this rule is applicable.
  * 
  * @typedef {Object} Marking - An individual mark made by the user, which may have different properties depending on the tool used.
+ * @property {string} id - Unique identifier for the mark.
+ * @property {string} toolType - The type of drawing tool used to make the mark, e.g. 'point', 'ellipse', 'circle'.
+ * @property {number} x - The x-coordinate of the mark (for point tools).
+ * @property {number} y - The y-coordinate of the mark (for point tools).
+ * @property {number} x_center - The x-coordinate of the center of the mark (for shape tools like circle and ellipse).
+ * @property {number} y_center - The y-coordinate of the center of the mark (for shape tools like circle and ellipse).
+ * @property {number} r - The radius of the mark (for circle tools).
+ * @property {number} rx - The x-radius of the mark (for ellipse tools).
+ * @property {number} ry - The y-radius of the mark (for ellipse tools).
+ * @property {React.Component} toolComponent - The React component used to render this mark.
  * 
  * @typedef {Object} AnnotatedMark - An individual mark with feedback colour and tool component for rendering.
  * @property {string} id - Unique identifier for the mark.
@@ -111,7 +121,7 @@ function getRuleMarks(applicableRules = []) {
  * @param {props}
  * @param {AnnotatedMark} props.marking - An individual mark with feedback colour and tool component for rendering.
  * @param {string} props.marking.color - The feedback colour for this mark.
- * @param {Object} props.marking.mark - The original drawn mark.
+ * @param {Marking} props.marking.mark - The original drawn mark.
  * @returns {JSX.Element|null} A feedback mark to be rendered on the subject viewer, or null if the tool component is not found.
  */
 function AnnotationFeedback({ marking }) {
