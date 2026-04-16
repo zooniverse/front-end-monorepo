@@ -4,14 +4,17 @@ import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
 import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './createModifyUncertaintyInteraction'
 
+export const MOVE_TO_CLICK_HOLD_DELAY = 250
+
 function createMoveToClickInteraction({
   selectInteraction,
   geoDrawingTask,
   featuresLayer
 }) {
   const state = {
-    downPixel: null,
     downCoordinate: null,
+    downPixel: null,
+    downTimestamp: null,
     featureCoordinate: null,
     selectedFeature: null,
     clickedOnFeature: false,
@@ -19,6 +22,39 @@ function createMoveToClickInteraction({
     draggingFeature: false,
     dragThreshold: 3, // pixels - must move less than this to be considered a "click"
     disabledSelect: false
+  }
+
+  function resetPointerState() {
+    state.downCoordiante = null
+    state.downPixel = null
+    state.downTimestamp = null
+    state.selectedFeature = null
+    state.clickedOnFeature = false
+  }
+
+  function moveSelectedFeature(selectedFeature, clickedCoordinate) {
+    const geometry = selectedFeature?.getGeometry?.()
+
+    geometry.setCoordinates(clickedCoordinate)
+    selectedFeature.changed()
+
+    if (geoDrawingTask?.setActiveFeatureGeometry) {
+      geoDrawingTask.setActiveFeatureGeometry(geometry)
+    }
+
+    if (selectInteraction) {
+      selectInteraction.getFeatures().clear()
+      selectInteraction.getFeatures().push(selectedFeature)
+
+      geoDrawingTask?.setActiveOlFeature?.(selectedFeature)
+      geoDrawingTask?.setActiveFeature?.(asMSTFeature(selectedFeature))
+
+      selectInteraction.dispatchEvent({
+        type: 'select',
+        selected: [selectedFeature],
+        deselected: []
+      })
+    }
   }
 
   /**
@@ -133,6 +169,7 @@ function createMoveToClickInteraction({
 
     state.downPixel = event.pixel
     state.downCoordinate = map.getCoordinateFromPixel(event.pixel)
+    state.downTimestamp = Date.now()
     state.selectedFeature = selectedFeatures[0]
     state.featureCoordinate = state.selectedFeature.getGeometry()?.getCoordinates?.()
     state.draggingFeature = false
@@ -235,13 +272,7 @@ function createMoveToClickInteraction({
     const map = this.getMap()
 
     if (!map || !state.downPixel || !state.selectedFeature) {
-      state.downPixel = null
-      state.downCoordinate = null
-      state.featureCoordinate = null
-      state.selectedFeature = null
-      state.clickedOnFeature = false
-      state.clickedInUncertaintyCircle = false
-      state.draggingFeature = false
+      resetPointerState()
       if (state.disabledSelect) scheduleSelectReenable()
       return false
     }
@@ -249,19 +280,19 @@ function createMoveToClickInteraction({
     const upPixel = event.pixel
     const dragDistance = getPixelDistance(state.downPixel, upPixel)
     const wasClick = dragDistance < state.dragThreshold
+    const holdDuration = Date.now() - state.downTimestamp
+    const heldLongEnough = holdDuration >= MOVE_TO_CLICK_HOLD_DELAY
 
-    if (wasClick && (state.clickedInUncertaintyCircle || !state.clickedOnFeature)) {
+    if (wasClick && (state.clickedInUncertaintyCircle || !state.clickedOnFeature) && heldLongEnough) {
       teleportFeatureTo(map.getCoordinateFromPixel(upPixel))
     }
 
-    state.downPixel = null
-    state.downCoordinate = null
-    state.featureCoordinate = null
-    state.selectedFeature = null
-    state.clickedOnFeature = false
-    state.clickedInUncertaintyCircle = false
-    state.draggingFeature = false
-    if (state.disabledSelect) scheduleSelectReenable()
+    // Reset state
+    resetPointerState()
+
+    if (state.disabledSelect) {
+      scheduleSelectReenable()
+    }
 
     return false
   }
