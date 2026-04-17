@@ -1,7 +1,9 @@
 import Graph2dRangeFeedback from '../components/Graph2dRangeFeedback'
+import RadialFeedback from '../components/RadialFeedback'
 
 const viewers = {
-  graph2drange: Graph2dRangeFeedback
+  graph2drange: Graph2dRangeFeedback,
+  radial: RadialFeedback
 }
 
 function getFeedbackViewer (applicableRules) {
