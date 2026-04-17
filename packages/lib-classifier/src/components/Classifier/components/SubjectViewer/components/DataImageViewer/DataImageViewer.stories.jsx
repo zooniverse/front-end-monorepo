@@ -22,16 +22,16 @@ const simpleSubject = Factory.build('subject', {
 const multiImageSubject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/17a17a16-ed3d-40a8-b775-e65db6c4b852.json',
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/0e939261-5e70-4be2-b168-8c4b34321fb3.json',
     },
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/71cca7c9-4ba1-48c6-a2b1-4f32f9a89ec6.jpeg'
+      'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/a704707d-9afe-4451-b505-d99b5cd2e2dc.png'
     },
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/0943b4a1-175f-4cf0-beaf-1a02cff05fed.jpeg'
+      'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/fbc390b4-054e-449f-b068-0aa54df9bb9d.png'
     },
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/67b54e54-8ca9-4cb7-a4fb-2417b5bfc82a.jpeg'
+      'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/46d7d9ec-79ec-4ecc-8e71-9fa2a240a3b7.png'
     }
   ]
 })
