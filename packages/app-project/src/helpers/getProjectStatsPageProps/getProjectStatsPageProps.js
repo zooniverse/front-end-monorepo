@@ -14,8 +14,12 @@ const HOSTS = {
   staging: 'https://frontend.preview.zooniverse.org'
 }
 
+/*
+    Needed for <HeadContainer />
+  */
+const host = HOSTS[environment] || 'https://localhost:3000'
+
 export default async function getProjectStatsPageProps({ locale, params }) {
-  let notFound = false
   /*
     Create a temporary store. We'll take a snapshot of this later, to pass as a page prop.
   */
@@ -31,10 +35,13 @@ export default async function getProjectStatsPageProps({ locale, params }) {
   if (params.owner && params.project) {
     const projectSlug = `${params.owner}/${params.project}`
     const project = await fetchProjectData(projectSlug, { env })
+
+    // If no project id matched, return "props" from notFoundError() which triggers a 404.
     if (!project.id) {
-      notFound = notFoundError(
+      const { props } = notFoundError(
         `Project ${params.owner}/${params.project} was not found`
       )
+      return props
     }
 
     applySnapshot(store.project, project)
@@ -83,16 +90,11 @@ export default async function getProjectStatsPageProps({ locale, params }) {
   applySnapshot(store.organizations, linkedOrganizations)
 
   /*
-    Needed for <HeadContainer />
-  */
-  const host = HOSTS[environment] || 'https://localhost:3000'
-
-  /*
     Snapshot for store hydration in the browser via _app.jsx
   */
   const initialState = {
     ...projectData,
-    organizations: linkedOrganizations,
+    organizations: linkedOrganizations
   }
 
   /* pageProps */
@@ -102,5 +104,5 @@ export default async function getProjectStatsPageProps({ locale, params }) {
     workflows
   }
 
-  return { notFound, props }
+  return { notFound: false, props }
 }
