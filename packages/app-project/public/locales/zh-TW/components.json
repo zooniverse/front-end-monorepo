@@ -81,12 +81,10 @@
     "talk": "討論"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "按數字",
     "classifications": "分類紀錄",
     "completedSubjects": "已完成題目",
     "percentComplete": "完成百分比",
     "subjects": "題目",
-    "subtitle": "隨時掌握您和其他志願者在此專案上的進度。",
     "text": "每次點按皆計數！加入 {{projectName}} 的社群，完成此專案，協助研究人員產出重要成果。點按「檢視更多統計資料」來查看更多統計資料。",
     "title": "{{projectName}} 統計資料",
     "viewMoreStats": "檢視更多統計資料",
