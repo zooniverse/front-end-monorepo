@@ -309,8 +309,6 @@ function GeoMapViewer({
           return
         }
 
-        if (element) {
-          element.style.cursor = hit ? 'pointer' : ''
         const element = map.getViewport()
         if (!element) return
 
@@ -458,36 +456,33 @@ function GeoMapViewer({
     return undefined
   }, [isMeasureModeActive])
 
-  // Update feature data when geoJSON changes
-  // This effect only updates the vector source; map and interactions remain unchanged
-  useEffect(function updateFeatures() {
+  // Shared helper: clear the vector source, optionally load new GeoJSON, fit view and select first feature.
+  // Used by both the updateFeatures effect (on geoJSON prop change) and handleReset.
+  function loadFeaturesFromGeoJSON(geojsonData) {
     const map = mapRef.current
     const features = featuresRef.current
-    // if the map or features source is not ready yet, do nothing
-    if (!map || !features) return undefined
-
-    // get or create the GeoJSON format reader
-    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
-    geoJSONFormatRef.current = geoJSONFormat
+    if (!map || !features) return
 
     measureInteractionRef.current?.clear()
-
-    // clear existing features
     features.clear()
 
-    if (geoJSON) {
-      // read and add new features from the provided GeoJSON
-      const newFeatures = geoJSONFormat.readFeatures(geoJSON, geoJSONReadOptions)
+    if (geojsonData) {
+      const geoJSONFormat = geoJSONFormatRef.current
+      const newFeatures = geoJSONFormat.readFeatures(geojsonData, geoJSONReadOptions)
       features.addFeatures(newFeatures)
 
-      // Fit the view to the features extent
       if (features.getFeatures().length) {
         fitViewToFeatures(map, features)
-
         selectFirstFeature(selectRef.current, newFeatures)
       }
     }
+  }
 
+  // Update feature data when geoJSON changes
+  // This effect only updates the vector source; map and interactions remain unchanged
+  useEffect(function updateFeatures() {
+    if (!mapRef.current || !featuresRef.current) return undefined
+    loadFeaturesFromGeoJSON(geoJSON)
     return undefined
   }, [geoJSON])
 
@@ -583,28 +578,9 @@ function GeoMapViewer({
 
   // Handler to reset features to the original geoJSON
   function handleReset() {
-    const map = mapRef.current
-    const features = featuresRef.current
-    if (!map || !features || !geoJSON) return
-
+    if (!mapRef.current || !featuresRef.current || !geoJSON) return
     setIsMeasureModeActive(false)
-
-    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
-    geoJSONFormatRef.current = geoJSONFormat
-    measureInteractionRef.current?.clear()
-
-    // clear existing features
-    features.clear()
-
-    // read and add features from the provided geoJSON
-    const newFeatures = geoJSONFormat.readFeatures(geoJSON, geoJSONReadOptions)
-    features.addFeatures(newFeatures)
-
-    // Fit the view to the features extent
-    if (features.getFeatures().length) {
-      fitViewToFeatures(map, features)
-      selectFirstFeature(selectRef.current, newFeatures)
-    }
+    loadFeaturesFromGeoJSON(geoJSON)
   }
 
   // Handler to zoom the map view in by one level
