@@ -60,6 +60,7 @@ function GeoDrawingTask({
   disabled = false,
   task
 }) {
+  const unit = task.unit || 'meters'
   const { setActiveTool } = task
   const [, setGeometryUpdate] = useState({})
 
@@ -114,8 +115,12 @@ function GeoDrawingTask({
               const lon = coords[0] ? (Math.round(coords[0] * 100) / 100).toFixed(2) : 'N/A'
               const lat = coords[1] ? (Math.round(coords[1] * 100) / 100).toFixed(2) : 'N/A'
               const radius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
-              const radiusDisplay = radius === null ? 'N/A' : `${radius.toLocaleString() ?? 0}m`
-              
+              let radiusDisplay = 'N/A'
+              if (radius !== null && radius !== undefined) {
+                const { factor, label } = UNIT_CONVERSIONS[unit] ?? UNIT_CONVERSIONS.meters
+                const value = Math.round(radius * factor * 100) / 100
+                radiusDisplay = `${value.toLocaleString()}${label}`
+              }
               return (
                 <>
                   <Text size='xsmall'>
@@ -162,7 +167,7 @@ function GeoDrawingTask({
               {showUncertaintySlider && (
                 <RangeContainer>
                   <Text size='small'>
-                    Adjust the uncertainty circle radius:
+                    Adjust the uncertainty circle radius ({UNIT_CONVERSIONS[unit]?.label ?? 'm'}):
                   </Text>
                   <RangeInput
                     disabled={disabled || !checked || !task.activeFeature || !task.activeOlFeature}

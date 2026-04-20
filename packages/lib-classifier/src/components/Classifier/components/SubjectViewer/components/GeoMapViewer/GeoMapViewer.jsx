@@ -446,7 +446,10 @@ function GeoMapViewer({
     const olUnits = UNIT_OPTION_TO_SCALE_LINE_UNITS[selectedUnit] ?? 'metric'
     scaleLineRef.current?.setUnits(olUnits)
     measureInteractionRef.current?.setUnit(selectedUnit)
-  }, [selectedUnit])
+    if (geoDrawingTask?.setUnit) {
+      geoDrawingTask.setUnit(selectedUnit)
+    }
+  }, [selectedUnit, geoDrawingTask])
 
   useEffect(function syncMeasureMode() {
     isMeasureModeActiveRef.current = isMeasureModeActive
