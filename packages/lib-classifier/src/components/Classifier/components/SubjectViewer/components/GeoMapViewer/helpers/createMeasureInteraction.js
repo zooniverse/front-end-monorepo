@@ -9,6 +9,7 @@ import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Style from 'ol/style/Style'
 import Overlay from 'ol/Overlay'
+import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
 const drawStyle = new Style({
   fill: new Fill({
@@ -29,15 +30,6 @@ const drawStyle = new Style({
     width: 2
   })
 })
-
-const UNIT_CONVERSIONS = {
-  meters: { factor: 1, label: 'm' },
-  kilometers: { factor: 0.001, label: 'km' },
-  feet: { factor: 3.28084, label: 'ft' },
-  miles: { factor: 0.000621371, label: 'mi' },
-  'nautical miles': { factor: 0.000539957, label: 'nmi' },
-  degrees: { factor: 1, label: 'm' }
-}
 
 function formatLength(line, unit = 'meters') {
   const meters = getLength(line)

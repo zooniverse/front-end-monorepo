@@ -6,6 +6,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import { transform } from 'ol/proj'
+import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
 const StyledText = styled(Text)`
   margin: 0;
