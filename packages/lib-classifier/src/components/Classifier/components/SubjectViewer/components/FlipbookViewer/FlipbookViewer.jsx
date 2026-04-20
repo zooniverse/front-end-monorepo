@@ -1,6 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 
 import { useKeyZoom, useSubjectImageOrVideo } from '@hooks'
 
@@ -12,6 +13,10 @@ import FlipbookControls from './components/FlipbookControls'
 const DEFAULT_HANDLER = () => true
 const DEFAULT_WIDTH = 800
 const DEFAULT_HEIGHT = 600
+
+const StyledVideo = styled.video`
+  ${props => props.invert && css`filter: invert(1)`}
+`
 
 const FlipbookViewer = ({
   defaultFrame = 0,
@@ -98,9 +103,10 @@ const FlipbookViewer = ({
         />
       )}
       {currentMediaType === 'video' && (
-        <video
+        <StyledVideo
           autoPlay={false}
           controls={true}
+          invert={invert}
           ref={mediaElementRef}
           src={currentMediaUrl}
           width={viewerWidth}
