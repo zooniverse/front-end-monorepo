@@ -1,0 +1,171 @@
+{
+  "AdminCheckbox": {
+    "label": "Mode administrador"
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "El nom d'usuari o la contrasenya són incorrectes",
+      "forgot": "Has oblidat la contrasenya?",
+      "heading": "Benvingut\/da de nou!",
+      "instruction": "Ens alegra que hagis tornat! Inicia sessió per continuar on ho vas deixar.",
+      "login": "Nom d’usuari o adreça electrònica",
+      "password": "Contrasenya",
+      "placeholder": "p. ex. ZooniverseFan123",
+      "signIn": "Inicia sessió"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "M’agradaria ajudar a provar nous projectes i rebre un correu electrònic quan estiguin disponibles (opcional)",
+      "email": "Adreça electrònica (obligatori)",
+      "emailConfirm": "Confirma l’adreça electrònica (obligatori)",
+      "emailConfirmError": "Les adreces electròniques no coincideixen. Torna-ho a provar.",
+      "emailConflict": "Ja existeix un compte amb aquesta adreça",
+      "emailListSignUp": "Accepto rebre correus electrònics de tant en tant (opcional)",
+      "emailPlaceholder": "p. ex. zoofan31@gmail.com",
+      "forgot": "Has oblidat la contrasenya?",
+      "heading": "Benvingut\/da de nou!",
+      "instruction": "Si us plau, crea un compte per començar a fer recerca real.",
+      "password": "Contrasenya (obligatori)",
+      "passwordConfirm": "Confirma la contrasenya (obligatori)",
+      "passwordConfirmError": "Les contrasenyes no coincideixen. Torna-ho a provar.",
+      "privacyAgreement": "Acceptes la nostra política de privacitat (obligatori)",
+      "privacyAgreementError": "És obligatori acceptar la política de privacitat.",
+      "privacyLink": "Llegeix la nostra política de privacitat",
+      "realName": "Nom real (opcional)",
+      "realNameHelp": "Ho utilitzarem per donar-te crèdit en articles científics, pòsters, etc.",
+      "realNamePatternHelp": "Introdueix un nom, no una adreça electrònica",
+      "realNamePlaceholder": "p. ex. Maggie Smith",
+      "register": "Registra't",
+      "registering": "Registrant…",
+      "underageConsent": "Confirmo que soc el pare, mare o tutor legal i dono permís perquè el meu fill o filla es registri proporcionant la meva adreça electrònica com a adreça de contacte principal. Tant jo com el meu fill o filla entenem i acceptem la política de privacitat (obligatori)",
+      "underageEmail": "Adreça electrònica del pare, mare o tutor legal (obligatori)",
+      "underageEmailSignUp": "Si hi estàs d’acord, t’enviarem periòdicament correus electrònics per promocionar nous projectes de recerca o altra informació relacionada amb la nostra recerca. No utilitzarem la teva informació de contacte amb finalitats comercials. (opcional)",
+      "underageNotRealName": "Utilitzaràs aquest nom per iniciar sessió. Es mostrarà públicament. No facis servir el teu nom real.",
+      "underageWithParent": "Si tens menys de 16 anys, marca aquesta casella per confirmar que has completat el formulari amb el teu pare, mare o tutor legal.",
+      "username": "Nom d'usuari (obligatori)",
+      "usernameConflict": "Aquest nom d’usuari ja està en ús",
+      "usernameHelp": "Això es mostrarà públicament als fòrums, etc.",
+      "usernamePatternHelp": "Els noms d'usuari només poden contenir lletres, números, '.', '-' i '_'",
+      "usernamePlaceholder": "p. ex. ZooniverseFan123"
+    },
+    "title": "Inicia sessió o crea un compte nou."
+  },
+  "CloseButton": {
+    "close": "Tanca"
+  },
+  "FavouritesButton": {
+    "add": "Afegeix als preferits",
+    "remove": "Afegit als preferits"
+  },
+  "Loader": {
+    "loading": "Carregant"
+  },
+  "ProjectCard": {
+    "classifications": "Classificacions",
+    "finished": "Finalitzat",
+    "paused": "En pausa",
+    "state": "Estat"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Sobre",
+      "acknowledgements": "Agraïments",
+      "contact": "Contacte",
+      "faq": "PMF",
+      "publications": "Publicacions",
+      "resources": "Recursos",
+      "team": "Equip"
+    },
+    "buildLabels": {
+      "bestPractices": "Bones pràctiques",
+      "buildAProject": "Crea un projecte",
+      "glossary": "Glossari",
+      "policies": "Polítiques",
+      "tutorial": "Tutorial"
+    },
+    "getInvolvedLabels": {
+      "callForProjects": "Crida de projectes",
+      "collaborate": "Col·laborar",
+      "collections": "Col·leccions",
+      "donate": "Donar",
+      "educate": "Educar",
+      "education": "Educació",
+      "getInvolved": "Implica't",
+      "volunteer": "Voluntari"
+    },
+    "newsLabels": {
+      "blog": "Bloc",
+      "dailyZooniverse": "Zooniverse diari",
+      "news": "Notícies"
+    },
+    "policyLabels": {
+      "jobs": "Feines",
+      "privacyPolicy": "Política de privacitat",
+      "security": "Seguretat",
+      "systemStatus": "Estat del sistema"
+    },
+    "projectLabels": {
+      "arts": "Arts",
+      "biology": "Biologia",
+      "climate": "Clima",
+      "history": "Història",
+      "language": "Llengua",
+      "literature": "Literatura",
+      "medicine": "Medicina",
+      "nature": "Natura",
+      "physics": "Física",
+      "projects": "Projectes",
+      "social": "Ciències socials",
+      "space": "Espai"
+    },
+    "tagLine": "Recerca impulsada per persones",
+    "talkLabels": {
+      "announcements": "Anuncis",
+      "data": "Processament de dades",
+      "projectBuilding": "Creació de projectes",
+      "talk": "Parlem",
+      "troubleshooting": "Resolució de problemes"
+    },
+    "zooniversePolicies": "Polítiques de Zooniverse"
+  },
+  "ZooHeader": {
+    "SignedInUserNavigation": {
+      "ariaLabel": "Compte d'usuari",
+      "navListLabels": {
+        "messages_one": "Missatges ({{count}})",
+        "messages_other": "Missatges ({{count}})",
+        "messages_zero": "Missatges",
+        "notifications_one": "Notificacions ({{count}})",
+        "notifications_other": "Notificacions ({{count}})",
+        "notifications_zero": "Notificacions"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registra't",
+      "signIn": "Inicia sessió"
+    },
+    "ThemeModeToggle": {
+      "switchToDark": "Canvia al tema fosc",
+      "switchToLight": "Canvia a tema clar"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Col·leccions",
+        "favorites": "Preferits",
+        "profile": "Perfil",
+        "settings": "Configuració",
+        "signOut": "Tanca la sessió"
+      }
+    },
+    "ariaLabel": "Lloc web",
+    "mainHeaderNavListLabels": {
+      "about": "Quant a",
+      "build": "Construeix",
+      "getInvolved": "Implica't",
+      "projects": "Projectes",
+      "talk": "Parlem"
+    }
+  },
+  "ZooniverseLogo": {
+    "title": "Logotip de Zooniverse"
+  }
+}
