@@ -18,6 +18,7 @@ const FlipbookViewer = ({
   enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
+  frame = 0,
   invert = false,
   limitSubjectHeight = false,
   move = false,
@@ -25,11 +26,12 @@ const FlipbookViewer = ({
   onReady = DEFAULT_HANDLER,
   playIterations,
   rotation = 0,
+  setFrame = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
   subject
 }) => {
-  const [currentFrame, setCurrentFrame] = useState(defaultFrame)
+  // const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
 
   useEffect(() => {
@@ -64,8 +66,8 @@ const FlipbookViewer = ({
   // only for the sake of determining a consistent viewer width/height for
   // all media files. 
   // --------------------------------
-  const currentMediaType = subject?.locations[currentFrame]?.type
-  const currentMediaUrl = subject?.locations[currentFrame]?.url
+  const currentMediaType = subject?.locations[frame]?.type
+  const currentMediaUrl = subject?.locations[frame]?.url
   // --------------------------------
 
   const onPlayPause = () => {
@@ -80,7 +82,7 @@ const FlipbookViewer = ({
         <SingleImageViewer
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
-          frame={currentFrame}
+          frame={frame}
           imgRef={mediaElementRef}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
@@ -110,9 +112,9 @@ const FlipbookViewer = ({
         />
       )}
       <FlipbookControls
-        currentFrame={currentFrame}
+        currentFrame={frame}
         locations={subject.locations}
-        onFrameChange={setCurrentFrame}
+        onFrameChange={setFrame}
         onPlayPause={onPlayPause}
         playing={playing}
         playIterations={playIterations}
@@ -122,12 +124,14 @@ const FlipbookViewer = ({
 }
 
 FlipbookViewer.propTypes = {
-  /** Fetched from metadata.default_frame or initialized to zero */
+  /** Fetched from metadata.default_frame or initialized to zero ⚠️ WARNING: not actually implemented as of Apr 2026 */
   defaultFrame: PropTypes.number,
   /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Passed from the subject viewer store. Determins the current frame of the Subject */
+  frame: PropTypes.number,
   /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
   flipbookAutoplay: PropTypes.bool,
   /** Passed from Subject Viewer Store */
@@ -144,6 +148,8 @@ FlipbookViewer.propTypes = {
   playIterations: PropTypes.number,
   /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
   rotation: PropTypes.number,
+  /** Passed from the Subject Viewer Store */
+  setFrame: PropTypes.func,
   /** Passed from the Subject Viewer Store */
   setOnPan: PropTypes.func,
   /** Passed from the Subject Viewer Store */
