@@ -30,8 +30,20 @@ const drawStyle = new Style({
   })
 })
 
-function formatLength(line) {
-  return `${(Math.round(getLength(line) * 100) / 100).toLocaleString()} m`
+const UNIT_CONVERSIONS = {
+  meters: { factor: 1, label: 'm' },
+  kilometers: { factor: 0.001, label: 'km' },
+  feet: { factor: 3.28084, label: 'ft' },
+  miles: { factor: 0.000621371, label: 'mi' },
+  'nautical miles': { factor: 0.000539957, label: 'nmi' },
+  degrees: { factor: 1, label: 'm' }
+}
+
+function formatLength(line, unit = 'meters') {
+  const meters = getLength(line)
+  const { factor, label } = UNIT_CONVERSIONS[unit] ?? UNIT_CONVERSIONS.meters
+  const value = Math.round(meters * factor * 100) / 100
+  return `${value.toLocaleString()} ${label}`
 }
 
 function createOverlayElement(className) {
@@ -70,7 +82,8 @@ function createMeasureInteraction({ map, messages = {} }) {
     measureTooltipElement: null,
     sketch: null,
     sketchListenerKey: null,
-    staticTooltipEntries: []
+    staticTooltipEntries: [],
+    unit: 'meters'
   }
 
   map.addLayer(layer)
@@ -217,19 +230,21 @@ function createMeasureInteraction({ map, messages = {} }) {
         return
       }
 
-      state.measureTooltipElement.innerHTML = formatLength(geometry)
+      state.measureTooltipElement.innerHTML = formatLength(geometry, state.unit)
       state.measureTooltipElement.classList.remove('hidden')
       state.measureTooltip.setPosition(geometry.getLastCoordinate())
     })
   })
 
-  draw.on('drawend', function handleDrawEnd() {
+  draw.on('drawend', function handleDrawEnd(event) {
     if (state.measureTooltip && state.measureTooltipElement) {
       state.measureTooltipElement.className = 'ol-measure-tooltip ol-measure-tooltip-static'
       state.measureTooltip.setOffset([0, -7])
+      const completedGeometry = event.feature?.getGeometry()?.clone()
       state.staticTooltipEntries.push({
         overlay: state.measureTooltip,
-        element: state.measureTooltipElement
+        element: state.measureTooltipElement,
+        geometry: completedGeometry
       })
     }
 
@@ -269,6 +284,14 @@ function createMeasureInteraction({ map, messages = {} }) {
       }
 
       deactivateMeasurement()
+    },
+    setUnit(unit) {
+      state.unit = unit
+      state.staticTooltipEntries.forEach(function updateStaticTooltip({ element, geometry }) {
+        if (element && geometry) {
+          element.innerHTML = formatLength(geometry, unit)
+        }
+      })
     }
   }
 }

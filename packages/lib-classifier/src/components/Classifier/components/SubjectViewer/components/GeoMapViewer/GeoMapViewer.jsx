@@ -445,6 +445,7 @@ function GeoMapViewer({
   useEffect(function syncScaleLineUnits() {
     const olUnits = UNIT_OPTION_TO_SCALE_LINE_UNITS[selectedUnit] ?? 'metric'
     scaleLineRef.current?.setUnits(olUnits)
+    measureInteractionRef.current?.setUnit(selectedUnit)
   }, [selectedUnit])
 
   useEffect(function syncMeasureMode() {
