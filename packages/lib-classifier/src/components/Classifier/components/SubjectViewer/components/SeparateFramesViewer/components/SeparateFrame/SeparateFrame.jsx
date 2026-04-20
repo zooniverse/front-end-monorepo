@@ -183,10 +183,10 @@ const SeparateFrame = ({
             separateFrameMove={separateFrameMove}
             separateFrameEnableMove={separateFrameEnableMove}
           />
-          <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
-          <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
-          <RotateButton separateFrameRotate={separateFrameRotate} />
-          <ResetButton separateFrameResetView={separateFrameResetView} />
+          <ZoomInButton overrideDisabled={false} separateFrameZoomIn={separateFrameZoomIn} />
+          <ZoomOutButton overrideDisabled={false} separateFrameZoomOut={separateFrameZoomOut} />
+          <RotateButton overrideDisabled={false} separateFrameRotate={separateFrameRotate} />
+          <ResetButton overrideDisabled={false} separateFrameResetView={separateFrameResetView} />
           <InvertButton separateFrameInvert={separateFrameInvert} />
         </Box>
       </Box>
