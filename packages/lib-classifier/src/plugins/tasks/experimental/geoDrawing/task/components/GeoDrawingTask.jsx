@@ -6,6 +6,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import { transform } from 'ol/proj'
+import { useTranslation } from '@translations/i18n'
 import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
 const StyledText = styled(Text)`
@@ -63,6 +64,7 @@ function GeoDrawingTask({
 }) {
   const unit = task.unit || 'meters'
   const { setActiveTool } = task
+  const { t } = useTranslation('plugins')
   const [, setGeometryUpdate] = useState({})
 
   // Calculate dynamic max radius based on map extent
@@ -104,7 +106,7 @@ function GeoDrawingTask({
       {task.activeFeature && task.activeOlFeature && (
         <ToolCard pad='small'>
           <Text size='small' weight='bold'>
-            Selected feature:
+            {t('GeoDrawingTask.selectedFeature')}
           </Text>
           <Box pad={{ top: 'xsmall' }} gap='xsmall'>
             {(() => {
@@ -125,14 +127,14 @@ function GeoDrawingTask({
               return (
                 <>
                   <Text size='xsmall'>
-                    Latitude: {lat}°
+                    {t('GeoDrawingTask.latitude', { lat })}
                   </Text>
                   <Text size='xsmall'>
-                    Longitude: {lon}°
+                    {t('GeoDrawingTask.longitude', { lon })}
                   </Text>
                   {radius !== null && (
                     <Text size='xsmall'>
-                      Uncertainty radius: {radiusDisplay}
+                      {t('GeoDrawingTask.uncertaintyRadius', { radius: radiusDisplay })}
                     </Text>
                   )}
                 </>
@@ -168,7 +170,7 @@ function GeoDrawingTask({
               {showUncertaintySlider && (
                 <RangeContainer>
                   <Text size='small'>
-                    Adjust the uncertainty circle radius ({UNIT_CONVERSIONS[unit]?.label ?? 'm'}):
+                    {t('GeoDrawingTask.adjustRadius', { unit: UNIT_CONVERSIONS[unit]?.label ?? 'm' })}
                   </Text>
                   <RangeInput
                     disabled={disabled || !checked || !task.activeFeature || !task.activeOlFeature}
