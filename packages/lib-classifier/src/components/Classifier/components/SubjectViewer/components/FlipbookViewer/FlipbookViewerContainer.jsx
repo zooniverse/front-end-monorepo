@@ -11,11 +11,12 @@ import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 function storeMapper(store) {
   const {
     enableRotation,
-    frame: defaultFrame,
+    frame,
     invert,
     move,
     rotation,
     separateFramesView,
+    setFrame,
     setOnPan,
     setOnZoom
   } = store.subjectViewer
@@ -27,15 +28,16 @@ function storeMapper(store) {
   } = store.workflows?.active?.configuration
 
   return {
-    defaultFrame,
     enableRotation,
     flipbookAutoplay,
+    frame,
     invert,
     limitSubjectHeight,
     move,
     playIterations,
     rotation,
     separateFramesView,
+    setFrame,
     setOnPan,
     setOnZoom
   }
@@ -55,17 +57,18 @@ function FlipbookViewerContainer({
   zooming = true
 }) {
   const {
-    defaultFrame,
     enableRotation,
     flipbookAutoplay,
+    frame,
     invert,
     limitSubjectHeight,
     move,
     playIterations,
     rotation,
     separateFramesView,
-    setOnZoom: storeSetOnZoom,
-    setOnPan: storeSetOnPan,
+    setFrame,
+    setOnPan,
+    setOnZoom
   } = useStores(storeMapper)
 
   const effectiveSetOnPan = propSetOnPan || storeSetOnPan
@@ -97,7 +100,7 @@ function FlipbookViewerContainer({
         />
       ) : (
         <FlipbookViewer
-          defaultFrame={defaultFrame}
+          frame={frame}
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
           flipbookAutoplay={flipbookAutoplay}
@@ -110,6 +113,7 @@ function FlipbookViewerContainer({
           rotation={rotation}
           setOnPan={effectiveSetOnPan}
           setOnZoom={effectiveSetOnZoom}
+          setFrame={setFrame}
           subject={subject}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
