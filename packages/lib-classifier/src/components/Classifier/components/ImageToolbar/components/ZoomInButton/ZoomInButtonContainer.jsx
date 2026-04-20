@@ -17,10 +17,11 @@ function storeMapper(classifierStore) {
   }
 }
 
-function ZoomInButtonContainer({ separateFrameZoomIn }) {
+function ZoomInButtonContainer({ overrideDisabled, separateFrameZoomIn }) {
   const { disabled, zoomIn } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
   const zoomCallback = separateFrameZoomIn || zoomIn
+  const _disabled = overrideDisabled ?? disabled
 
   function onClick() {
     // Stop the zoom callback
@@ -47,7 +48,7 @@ function ZoomInButtonContainer({ separateFrameZoomIn }) {
 
   return (
     <ZoomInButton
-      disabled={disabled}
+      disabled={_disabled}
       onClick={onClick}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
@@ -58,6 +59,8 @@ function ZoomInButtonContainer({ separateFrameZoomIn }) {
 export default observer(ZoomInButtonContainer)
 
 ZoomInButtonContainer.propTypes = {
+  /** Overrides the 'disabled' value, which is usually determined by the Subject Viewer Store's disableImageToolbar */
+  overrideDisabled: PropTypes.bool,
   /** Used when separate frames of a subject each have their own ImageToolbar */
   separateFrameZoomIn: PropTypes.func
 }
