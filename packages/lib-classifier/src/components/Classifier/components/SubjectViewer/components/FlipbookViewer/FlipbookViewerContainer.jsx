@@ -81,6 +81,15 @@ function FlipbookViewerContainer({
     return <div>Something went wrong.</div>
   }
 
+  // Figure out the default frame for this Subject, which is usually 0 but can
+  // be overridden by Subject metadata.
+  // This code matches SubjectViewerStore.js's resetSubject()
+  let defaultFrame = 0
+  if (subject?.metadata?.default_frame > 0) {
+    // To the research teams who set the default_frame value, the first item in a list is "1". Hence, we need to change that to Array index "0".
+    defaultFrame = parseInt(subject.metadata.default_frame - 1)
+  }
+
   return (
     <>
       {separateFramesView ? (
@@ -93,6 +102,7 @@ function FlipbookViewerContainer({
         />
       ) : (
         <FlipbookViewer
+          defaultFrame={defaultFrame}
           frame={frame}
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
