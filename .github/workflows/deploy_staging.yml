@@ -57,6 +57,10 @@ jobs:
       run: |
         sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-staging.tmpl | kubectl apply -f -
 
+    - name: Block until rollout is complete
+      run: |
+        kubectl rollout status deployment/zooniverse-org-root-staging --timeout=10m
+
   purge_staging_cache:
     name: Purge cache path
     needs: [build_and_push_image, deploy_staging]
