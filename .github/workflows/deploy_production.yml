@@ -60,6 +60,7 @@ jobs:
     - name: Block until rollout is complete
       run: |
         kubectl rollout status deployment/zooniverse-org-root-production --timeout=10m
+        kubectl rollout status deployment/zooniverse-org-project-production --timeout=10m
 
   purge_cache:
     name: Purge AFD cache
