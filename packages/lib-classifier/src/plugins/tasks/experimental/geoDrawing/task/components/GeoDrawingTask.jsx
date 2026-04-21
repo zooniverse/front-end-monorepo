@@ -1,5 +1,5 @@
 import { Markdownz } from '@zooniverse/react-components'
-import { Box, RangeInput, Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import { Location } from 'grommet-icons'
 import { observer } from 'mobx-react'
 import { transform } from 'ol/proj'
@@ -7,10 +7,10 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 
-import { useTranslation } from '@translations/i18n'
 import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
 import FeatureCard from './components/FeatureCard'
+import RadiusSlider from './components/RadiusSlider'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -55,19 +55,12 @@ const ToolIcon = styled(Location)`
   flex-shrink: 0;
 `
 
-const RangeContainer = styled(Box)`
-  border-top: 1px solid ${props => props.theme.global.colors['light-3']};
-  margin-top: 8px;
-  padding-top: 8px;
-`
-
 function GeoDrawingTask({
   disabled = false,
   task
 }) {
   const unit = task.unit || 'meters'
   const { setActiveTool } = task
-  const { t } = useTranslation('plugins')
   const [, setGeometryUpdate] = useState({})
 
   // Calculate dynamic max radius based on map extent
@@ -150,19 +143,15 @@ function GeoDrawingTask({
                 </Text>
               </ToolHeader>
               {showUncertaintySlider && (
-                <RangeContainer>
-                  <Text size='small'>
-                    {t('GeoDrawingTask.adjustRadius', { unit: UNIT_CONVERSIONS[unit]?.label ?? 'm' })}
-                  </Text>
-                  <RangeInput
-                    disabled={disabled || !checked || !task.activeFeature || !task.activeOlFeature}
-                    value={task.activeFeature?.properties?.uncertainty_radius ?? task.activeOlFeature?.get?.('uncertainty_radius') ?? 0}
-                    min={0}
-                    max={maxRadius}
-                    step={1}
-                    onChange={(event) => task.setActiveFeatureUncertaintyRadius?.(Math.round(Number(event.target.value)))}
-                  />
-                </RangeContainer>
+                <RadiusSlider
+                  disabled={!checked || disabled}
+                  maxRadius={maxRadius}
+                  onChange={function handleRadiusChange(value) {
+                    task.setActiveFeatureUncertaintyRadius?.(value)
+                  }}
+                  unitLabel={UNIT_CONVERSIONS[unit]?.label ?? 'm'}
+                  value={currentRadius ?? 0}
+                />
               )}
             </ToolCard>
           </ToolLabel>
