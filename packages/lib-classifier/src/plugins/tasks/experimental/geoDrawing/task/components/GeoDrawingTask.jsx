@@ -2,12 +2,15 @@ import { Markdownz } from '@zooniverse/react-components'
 import { Box, RangeInput, Text } from 'grommet'
 import { Location } from 'grommet-icons'
 import { observer } from 'mobx-react'
+import { transform } from 'ol/proj'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import { transform } from 'ol/proj'
+
 import { useTranslation } from '@translations/i18n'
 import UNIT_CONVERSIONS from '@helpers/unitConversions'
+
+import FeatureCard from './components/FeatureCard'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -69,14 +72,14 @@ function GeoDrawingTask({
 
   // Calculate dynamic max radius based on map extent
   // Memoized to avoid recalculation when other task properties change, like task.activeOlFeature
-  const maxRadius = useMemo(() => {
+  const maxRadius = useMemo(function calculateMaxRadius() {
     if (!task.mapExtentMeters) return 100000 // fallback before map initializes
     const { widthMeters, heightMeters } = task.mapExtentMeters
     const minDimension = Math.min(widthMeters, heightMeters)
     return Math.round(minDimension / 2) // half of the lesser dimension
   }, [task.mapExtentMeters])
 
-  useEffect(() => {
+  useEffect(function subscribeToFeatureChanges() {
     if (!task.activeOlFeature) return undefined
 
     const feature = task.activeOlFeature
@@ -86,7 +89,7 @@ function GeoDrawingTask({
     }
 
     feature.on('change', handleFeatureChange)
-    return () => {
+    return function unsubscribeFromFeatureChanges() {
       feature.un('change', handleFeatureChange)
     }
   }, [task.activeOlFeature])
@@ -97,6 +100,17 @@ function GeoDrawingTask({
     }
   }
 
+  const activeCoords = task.activeOlFeature
+    ? transform(
+        task.activeOlFeature?.getGeometry?.()?.getCoordinates?.() ?? [],
+        'EPSG:3857',
+        'EPSG:4326'
+      )
+    : []
+  const featureLon = activeCoords[0] ? (Math.round(activeCoords[0] * 100) / 100).toFixed(2) : 'N/A'
+  const featureLat = activeCoords[1] ? (Math.round(activeCoords[1] * 100) / 100).toFixed(2) : 'N/A'
+  const featureRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius ?? null
+
   return (
     <Box>
       <StyledText as='legend' size='small'>
@@ -104,44 +118,12 @@ function GeoDrawingTask({
       </StyledText>
       
       {task.activeFeature && task.activeOlFeature && (
-        <ToolCard pad='small'>
-          <Text size='small' weight='bold'>
-            {t('GeoDrawingTask.selectedFeature')}
-          </Text>
-          <Box pad={{ top: 'xsmall' }} gap='xsmall'>
-            {(() => {
-              const coords = transform(
-                task.activeOlFeature?.getGeometry?.()?.getCoordinates?.() ?? [],
-                'EPSG:3857',
-                'EPSG:4326'
-              )
-              const lon = coords[0] ? (Math.round(coords[0] * 100) / 100).toFixed(2) : 'N/A'
-              const lat = coords[1] ? (Math.round(coords[1] * 100) / 100).toFixed(2) : 'N/A'
-              const radius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
-              let radiusDisplay = 'N/A'
-              if (radius !== null && radius !== undefined) {
-                const { factor, label } = UNIT_CONVERSIONS[unit] ?? UNIT_CONVERSIONS.meters
-                const value = Math.round(radius * factor * 100) / 100
-                radiusDisplay = `${value.toLocaleString()}${label}`
-              }
-              return (
-                <>
-                  <Text size='xsmall'>
-                    {t('GeoDrawingTask.latitude', { lat })}
-                  </Text>
-                  <Text size='xsmall'>
-                    {t('GeoDrawingTask.longitude', { lon })}
-                  </Text>
-                  {radius !== null && (
-                    <Text size='xsmall'>
-                      {t('GeoDrawingTask.uncertaintyRadius', { radius: radiusDisplay })}
-                    </Text>
-                  )}
-                </>
-              )
-            })()}
-          </Box>
-        </ToolCard>
+        <FeatureCard
+          lat={featureLat}
+          lon={featureLon}
+          radius={featureRadius}
+          unit={unit}
+        />
       )}
 
       {task.tools.map((tool, index) => {
