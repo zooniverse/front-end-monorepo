@@ -16,15 +16,12 @@ import Workflow from './Workflow'
 function Workflows({ workflows = [] }) {
   const { t } = useTranslation('screens')
 
-  console.log('WORKFLOW', workflows[0])
-
   return (
-    <ContentBox title={t('ProjectStats.workflows.title')}>
+    <ContentBox title={t('ProjectStats.workflows.title')} titleLevel={3}>
       {workflows.map(workflow => (
         <Workflow
           key={workflow.id}
-          displayName={workflow.displayName}
-          completeness={workflow.completeness}
+          workflow={workflow}
         />
       ))}
     </ContentBox>
