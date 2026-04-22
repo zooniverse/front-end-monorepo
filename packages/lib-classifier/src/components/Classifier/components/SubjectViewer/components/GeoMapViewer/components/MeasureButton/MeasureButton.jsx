@@ -1,8 +1,8 @@
 import { IconActionButton } from '@zooniverse/react-components'
-import { Compare } from 'grommet-icons'
 import { bool, func } from 'prop-types'
 
 import { useTranslation } from '@translations/i18n'
+import MeasureIcon from './MeasureIcon'
 
 function MeasureButton({ active = false, onClick }) {
   const { t } = useTranslation('components')
@@ -12,7 +12,7 @@ function MeasureButton({ active = false, onClick }) {
     <IconActionButton
       a11yTitle={label}
       active={active}
-      icon={<Compare color='dark-5' size='18px' />}
+      icon={<MeasureIcon />}
       onClick={onClick}
       title={label}
     />
