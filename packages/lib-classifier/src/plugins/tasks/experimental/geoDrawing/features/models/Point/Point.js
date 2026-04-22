@@ -7,6 +7,10 @@ import Circle from 'ol/style/Circle'
 import { getDragHandleIcon } from './dragHandle'
 
 const DEFAULT_COLOR = '#007bff'
+const DEFAULT_UNCERTAINTY_OPACITY = 0.18
+const DEFAULT_UNCERTAINTY_BACKGROUND_OPACITY = 0.06
+
+const uncertaintyPatternCache = new Map()
 
 const Point = types
   .model('Point', {
@@ -68,6 +72,64 @@ const Point = types
       return indexedTool || tools.find(tool => tool.type === 'Point')
     },
 
+    getUncertaintyCircleStyle({ color, radius }) {
+      if (!radius || radius <= 0) return undefined
+
+      const lineOpacity = DEFAULT_UNCERTAINTY_OPACITY
+      const backgroundOpacity = DEFAULT_UNCERTAINTY_BACKGROUND_OPACITY
+      const directions = ['ascending']
+      const lineWidth = 3
+      const spacing = 14
+      const cacheKey = JSON.stringify({ color, lineWidth, lineOpacity, backgroundOpacity, spacing, directions })
+
+      let fillPattern = uncertaintyPatternCache.get(cacheKey)
+
+      if (!fillPattern) {
+        const canvas = document.createElement('canvas')
+        const tileSize = Math.max(spacing * 2, 12)
+        const context = canvas.getContext('2d')
+
+        canvas.width = tileSize
+        canvas.height = tileSize
+
+        context.clearRect(0, 0, tileSize, tileSize)
+        context.globalAlpha = backgroundOpacity
+        context.fillStyle = color
+        context.fillRect(0, 0, tileSize, tileSize)
+
+        context.strokeStyle = color
+        context.lineWidth = lineWidth
+        context.globalAlpha = lineOpacity
+
+        directions.forEach((direction) => {
+          for (let offset = -tileSize; offset <= tileSize * 2; offset += spacing) {
+            context.beginPath()
+
+            if (direction === 'descending') {
+              context.moveTo(offset, 0)
+              context.lineTo(offset - tileSize, tileSize)
+            } else {
+              context.moveTo(offset, 0)
+              context.lineTo(offset + tileSize, tileSize)
+            }
+
+            context.stroke()
+          }
+        })
+
+        fillPattern = context.createPattern(canvas, 'repeat')
+        uncertaintyPatternCache.set(cacheKey, fillPattern)
+      }
+
+      return new Style({
+        image: new Circle({
+          radius,
+          fill: new Fill({ color: fillPattern }),
+          stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
+        })
+      })
+    },
+
     getStyles({
       feature,
       geoDrawingTask,
@@ -86,18 +148,12 @@ const Point = types
       const uncertaintyRadiusPixels = self.getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution })
       const hasVisibleUncertaintyHandle = uncertaintyRadiusPixels !== undefined
 
+      // Draw uncertainty circle if enabled and radius is greater than zero
       if (hasVisibleUncertaintyHandle && uncertaintyRadiusPixels > 0) {
-        styles.push(
-          new Style({
-            image: new Circle({
-              radius: uncertaintyRadiusPixels,
-              stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-            })
-          })
-        )
-
+        styles.push(self.getUncertaintyCircleStyle({ color, radius: uncertaintyRadiusPixels }))
       }
 
+      // Draw the drag handle if uncertainty circle is enabled, even if radius is zero
       if (isSelected && hasVisibleUncertaintyHandle) {
         const dragHandleCoordinates = self.getDragHandleCoordinates({ feature, geoDrawingTask })
         if (dragHandleCoordinates) {
@@ -110,7 +166,7 @@ const Point = types
         }
       }
 
-      // Draw the point last so it stays above uncertainty overlays and handles.
+      // Draw the center point last so it stays above uncertainty overlays and handles.
       styles.push(
         new Style({
           image: new Circle({

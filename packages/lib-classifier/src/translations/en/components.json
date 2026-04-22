@@ -168,12 +168,19 @@
       "chartLabel": "Bar chart"
     },
     "GeoMapViewer": {
+      "MeasureButton": {
+        "ariaLabel": "Measure distance"
+      },
+      "MeasureInteraction": {
+        "clickToContinue": "Click to continue measuring",
+        "clickToStart": "Click to start measuring"
+      },
       "RecenterButton": {
         "ariaLabel": "Recenter to features"
       },
       "ReferenceData": "Reference Data",
       "ResetButton": {
-        "ariaLabel": "Reset to original position",
+        "ariaLabel": "Reset features to original position",
         "confirm": "Are you sure you want to reset the features on the map to their original positions?"
       }
     },

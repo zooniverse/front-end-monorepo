@@ -9,7 +9,7 @@ describe('Component > ResetButton', function () {
 	it('should show the reset button with accessible name', function () {
 		render(<DefaultStory />)
 		expect(
-			screen.getByRole('button', { name: 'Reset to original position' })
+			screen.getByRole('button', { name: 'Reset features to original position' })
 		).to.exist
 	})
 })
