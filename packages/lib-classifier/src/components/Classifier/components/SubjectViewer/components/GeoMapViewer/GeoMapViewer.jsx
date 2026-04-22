@@ -1,7 +1,7 @@
 // dependencies
 import { Box } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import throttle from 'lodash/throttle'
 
@@ -19,12 +19,15 @@ import VectorSource from 'ol/source/Vector'
 import { unByKey } from 'ol/Observable'
 
 // local imports
+import { useTranslation } from '@translations/i18n'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
+import MeasureButton from './components/MeasureButton'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import asMSTFeature from './helpers/asMSTFeature'
+import createMeasureInteraction from './helpers/createMeasureInteraction'
 import createModifyUncertaintyInteraction, { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import getFeatureStyle from './helpers/getFeatureStyle'
@@ -32,6 +35,25 @@ import getPixelDistance from './helpers/getPixelDistance'
 
 const StyledBox = styled(Box)`
   position: relative;
+
+  .ol-measure-tooltip {
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    color: white;
+    cursor: default;
+    font-size: 12px;
+    padding: 4px 8px;
+    user-select: none;
+  }
+
+  .ol-measure-tooltip.hidden {
+    display: none;
+  }
+
+  .ol-measure-tooltip-static {
+    background: #ffcc33;
+    color: #000;
+  }
 `
 
 const ControlsBox = styled(Box)`
@@ -74,6 +96,21 @@ function selectFirstFeature(selectInteraction, newFeatures) {
   })
 }
 
+function clearSelectedFeature(selectInteraction) {
+  if (!selectInteraction) return
+
+  const deselected = [...selectInteraction.getFeatures().getArray()]
+
+  if (deselected.length === 0) return
+
+  selectInteraction.getFeatures().clear()
+  selectInteraction.dispatchEvent({
+    type: 'select',
+    selected: [],
+    deselected
+  })
+}
+
 function GeoMapViewer({
   geoDrawingTask,
   geoJSON = undefined,
@@ -81,17 +118,22 @@ function GeoMapViewer({
   onMapExtentChange = undefined,
   onSelectedFeatureChange = undefined
 }) {
+  const [isMeasureModeActive, setIsMeasureModeActive] = useState(false)
+  const { t } = useTranslation('components')
+
   // Map and layer refs: created once on mount, reused across feature updates
   const mapContainerRef = useRef()
   const mapRef = useRef()
   const featuresRef = useRef()
   const geoJSONFormatRef = useRef()
+  const isMeasureModeActiveRef = useRef(false)
   
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const selectRef = useRef()
   const translateRef = useRef()
   const modifyUncertaintyRef = useRef()
   const moveToClickRef = useRef()
+  const measureInteractionRef = useRef()
   const pointerMoveHandlerRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
@@ -257,6 +299,16 @@ function GeoMapViewer({
       // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
       // which Translate sets on the viewport via classList.
       const handlePointerMove = (event) => {
+        if (isMeasureModeActiveRef.current) {
+          const element = map.getTargetElement()
+
+          if (element) {
+            element.style.cursor = ''
+          }
+
+          return
+        }
+
         const element = map.getViewport()
         if (!element) return
 
@@ -345,6 +397,15 @@ function GeoMapViewer({
       featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
     }
 
+    const measureInteraction = createMeasureInteraction({
+      map,
+      messages: {
+        clickToContinue: t('SubjectViewer.GeoMapViewer.MeasureInteraction.clickToContinue'),
+        clickToStart: t('SubjectViewer.GeoMapViewer.MeasureInteraction.clickToStart')
+      }
+    })
+    measureInteractionRef.current = measureInteraction
+
     mapRef.current = map
 
     return () => {
@@ -352,6 +413,7 @@ function GeoMapViewer({
       if (translateRef.current) map.removeInteraction(translateRef.current)
       if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
       if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
+      measureInteractionRef.current?.destroy()
       if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
       map.setTarget(undefined)
       mapRef.current = undefined
@@ -361,38 +423,66 @@ function GeoMapViewer({
       translateRef.current = undefined
       modifyUncertaintyRef.current = undefined
       moveToClickRef.current = undefined
+      measureInteractionRef.current = undefined
       pointerMoveHandlerRef.current = undefined
     }
   }, [])
 
-  // Update feature data when geoJSON changes
-  // This effect only updates the vector source; map and interactions remain unchanged
-  useEffect(function updateFeatures() {
+  useEffect(function syncMeasureMode() {
+    isMeasureModeActiveRef.current = isMeasureModeActive
+
+    measureInteractionRef.current?.setActive(isMeasureModeActive)
+
+    if (isMeasureModeActive) {
+      clearSelectedFeature(selectRef.current)
+    }
+
+    selectRef.current?.setActive(!isMeasureModeActive)
+    translateRef.current?.setActive(!isMeasureModeActive)
+    modifyUncertaintyRef.current?.setActive(!isMeasureModeActive)
+    moveToClickRef.current?.setActive(!isMeasureModeActive)
+
+    if (!isMeasureModeActive) {
+      const features = featuresRef.current?.getFeatures() ?? []
+      selectFirstFeature(selectRef.current, features)
+    }
+
+    const mapElement = mapRef.current?.getTargetElement()
+
+    if (mapElement && isMeasureModeActive) {
+      mapElement.style.cursor = ''
+    }
+
+    return undefined
+  }, [isMeasureModeActive])
+
+  // Shared helper: clear the vector source, optionally load new GeoJSON, fit view and select first feature.
+  // Used by both the updateFeatures effect (on geoJSON prop change) and handleReset.
+  function loadFeaturesFromGeoJSON(geojsonData) {
     const map = mapRef.current
     const features = featuresRef.current
-    // if the map or features source is not ready yet, do nothing
-    if (!map || !features) return undefined
+    if (!map || !features) return
 
-    // get or create the GeoJSON format reader
-    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
-    geoJSONFormatRef.current = geoJSONFormat
-
-    // clear existing features
+    measureInteractionRef.current?.clear()
     features.clear()
 
-    if (geoJSON) {
-      // read and add new features from the provided GeoJSON
-      const newFeatures = geoJSONFormat.readFeatures(geoJSON, geoJSONReadOptions)
+    if (geojsonData) {
+      const geoJSONFormat = geoJSONFormatRef.current
+      const newFeatures = geoJSONFormat.readFeatures(geojsonData, geoJSONReadOptions)
       features.addFeatures(newFeatures)
 
-      // Fit the view to the features extent
       if (features.getFeatures().length) {
         fitViewToFeatures(map, features)
-
         selectFirstFeature(selectRef.current, newFeatures)
       }
     }
+  }
 
+  // Update feature data when geoJSON changes
+  // This effect only updates the vector source; map and interactions remain unchanged
+  useEffect(function updateFeatures() {
+    if (!mapRef.current || !featuresRef.current) return undefined
+    loadFeaturesFromGeoJSON(geoJSON)
     return undefined
   }, [geoJSON])
 
@@ -488,25 +578,9 @@ function GeoMapViewer({
 
   // Handler to reset features to the original geoJSON
   function handleReset() {
-    const map = mapRef.current
-    const features = featuresRef.current
-    if (!map || !features || !geoJSON) return
-
-    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
-    geoJSONFormatRef.current = geoJSONFormat
-
-    // clear existing features
-    features.clear()
-
-    // read and add features from the provided geoJSON
-    const newFeatures = geoJSONFormat.readFeatures(geoJSON, geoJSONReadOptions)
-    features.addFeatures(newFeatures)
-
-    // Fit the view to the features extent
-    if (features.getFeatures().length) {
-      fitViewToFeatures(map, features)
-      selectFirstFeature(selectRef.current, newFeatures)
-    }
+    if (!mapRef.current || !featuresRef.current || !geoJSON) return
+    setIsMeasureModeActive(false)
+    loadFeaturesFromGeoJSON(geoJSON)
   }
 
   // Handler to zoom the map view in by one level
@@ -539,6 +613,10 @@ function GeoMapViewer({
     })
   }
 
+  function handleToggleMeasureMode() {
+    setIsMeasureModeActive((active) => !active)
+  }
+
   return (
     <StyledBox
       forwardedAs='section'
@@ -547,6 +625,10 @@ function GeoMapViewer({
       <ControlsBox>
         <ZoomInButton onClick={handleZoomIn} />
         <ZoomOutButton onClick={handleZoomOut} />
+        <MeasureButton
+          active={isMeasureModeActive}
+          onClick={handleToggleMeasureMode}
+        />
         {geoJSON && (
           <>
             <RecenterButton onClick={handleRecenter} />
