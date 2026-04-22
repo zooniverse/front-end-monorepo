@@ -10,17 +10,19 @@ function useStore() {
     classifications: store?.project?.classifications_count,
     completedSubjects: store?.project?.retired_subjects_count,
     completeness: store?.project?.completeness,
+    launchDate: store?.project?.launch_date,
     projectName: store?.project?.display_name,
     subjects: store?.project?.subjects_count,
     volunteers: store?.project?.classifiers_count
   }
 }
 
-const ProjectStatisticsContainer = ({ className }) => {
+const ProjectStatisticsContainer = ({ className, hideLink }) => {
   const {
     classifications,
     completedSubjects,
     completeness,
+    launchDate,
     projectName,
     subjects,
     volunteers
@@ -29,7 +31,7 @@ const ProjectStatisticsContainer = ({ className }) => {
   const router = useRouter()
   const owner = router?.query?.owner
   const project = router?.query?.project
-  const linkProps = {
+  const linkProps = hideLink ? null : {
     externalLink: true, // A project stats page uses PFE
     href: `/projects/${owner}/${project}/stats`
   }
@@ -40,6 +42,7 @@ const ProjectStatisticsContainer = ({ className }) => {
       classifications={classifications}
       completedSubjects={completedSubjects}
       completeness={completeness}
+      launchDate={launchDate}
       linkProps={linkProps}
       projectName={projectName}
       subjects={subjects}
