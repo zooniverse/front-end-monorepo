@@ -57,8 +57,13 @@ jobs:
       run: |
         sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-production.tmpl | kubectl apply -f -
 
+    - name: Block until rollout is complete
+      run: |
+        kubectl rollout status deployment/zooniverse-org-root-production --timeout=10m
+        kubectl rollout status deployment/zooniverse-org-project-production --timeout=10m
+
   purge_cache:
-    name: Purge cached file
+    name: Purge AFD cache
     needs: [build_and_push_image, deploy_production]
     uses: zooniverse/ci-cd/.github/workflows/purge_cache.yaml@main
     with:
