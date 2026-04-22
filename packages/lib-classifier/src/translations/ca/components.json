@@ -1,0 +1,287 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Ja has vist aquest objecte",
+      "tooltipText": [
+        "Ja has vist i classificat aquest objecte, de manera que les classificacions posteriors no s’utilitzaran en la seva anàlisi.",
+        "Si estàs buscant ajuda, prova de seleccionar un flux de treball diferent o contribuir en un projecte diferent."
+      ]
+    },
+    "Banner": {
+      "next": "Següent",
+      "previous": "Anterior",
+      "whyAmISeeingThis": "Per què veig això?"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Cancel·la",
+      "confirm": "D’acord",
+      "inProgress": "En tornar, s’esborrarà el teu treball de la tasca actual."
+    },
+    "RetiredBanner": {
+      "bannerText": "Acabat: aquest objecte s’ha retirat",
+      "tooltipText": [
+        "Aquest objecte ja té prou classificacions, de manera que les teves no s’utilitzaran en la seva anàlisi.",
+        "Si estàs buscant ajuda, prova de seleccionar un flux de treball diferent o contribuir en un projecte diferent."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Ja s'ha vist",
+      "bannerText": "{{setName}}: objecte {{number}}\/{{total}}",
+      "finished": "Acabat",
+      "tooltipText": [
+        "Aquest projecte permet als voluntaris veure els objectes en ordre seqüencial.",
+        "El número et mostra la posició de l’objecte dins del conjunt total."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Acabat: ho has vist tot",
+      "tooltipText": [
+        "Ja has classificat tot en aquest flux de treball, de manera que les classificacions posteriors no s’utilitzaran en la seva anàlisi.",
+        "Si estàs buscant ajuda, prova de seleccionar un flux de treball diferent o contribuir en un projecte diferent."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Aquest flux de treball s’ha acabat",
+      "tooltipText": [
+        "S’han completat tots els objectes en aquest flux de treball, de manera que les classificacions posteriors no s’utilitzaran en la seva anàlisi.",
+        "Si estàs buscant ajuda, prova de seleccionar un flux de treball diferent o contribuir en un projecte diferent."
+      ]
+    }
+  },
+  "DrawingTools": {
+    "RotateHandle": "Nansa per rotar l’anotació\/marca dibuixada."
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Continua classificant",
+    "label": "Comentaris"
+  },
+  "FieldGuide": {
+    "FieldGuideButton": {
+      "buttonLabel": "Guia de camp"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Torna a la llista d’elements de la guia de camp"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Selecciona {{title}}"
+    },
+    "title": "Guia de camp"
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Anota"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Mostra l’objecte a mida normal",
+        "fullscreen": "Mostra l’objecte en mode de pantalla completa"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Inverteix el tema"
+    },
+    "MoveButton": {
+      "ariaLabel": "Mou l’objecte"
+    },
+    "ResetButton": {
+      "ariaLabel": "Restableix la vista de l’objecte"
+    },
+    "RotateButton": {
+      "ariaLabel": "Gira l’objecte"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Apropa el zoom a l’objecte"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Allunya el zoom de l’objecte"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Afegeix a col·leccions"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Amaga les marques anteriors",
+      "show": "Mostra les marques anteriors"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Amaga totes les marques",
+      "show": "Mostra totes les marques",
+      "showUser": "Mostra les teves marques"
+    },
+    "MetadataButton": {
+      "label": "Informació del tema"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Etiqueta",
+        "value": "Valor"
+      },
+      "title": "Metadades del tema"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "QuickTalk": {
+    "aria": {
+      "closeButton": "Tanca el panell de comentaris",
+      "goToTalk": "Tanca el panell de comentaris",
+      "mainPanel": "Panell de comentaris QuickTalk",
+      "openButton": "Aquest tema té {{count}} comentari(s). Feu clic per desplegar.",
+      "panelContent": "Comentaris del debat del tema",
+      "panelHeading": "Debat del tema"
+    },
+    "errors": {
+      "failPostComment": "No s’han pogut afegir comentaris a la discussió existent.",
+      "failPostDiscussion": "No s’han pogut afegir comentaris a la nova discussió.",
+      "noBoard": "Encara no s’ha configurat un tauler de comentaris per a aquest tema en aquest projecte.",
+      "noText": "No es pot publicar un comentari buit.",
+      "noUser": "Usuari no connectat."
+    },
+    "loginToPost": "Si us plau, inicieu la sessió per publicar un comentari.",
+    "status": {
+      "initialized": "Deixa una nota sobre aquest tema\\n",
+      "loading": "Publicant el comentari...",
+      "success": "Comentari publicat!"
+    },
+    "subjectHasNoComments": "Aquest tema encara no té cap comentari."
+  },
+  "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Ves al pas {{index}}",
+      "next": "Ves al pas següent",
+      "previous": "Ves al pas anterior"
+    },
+    "alt": "Pas del tutorial {{activeStep}}",
+    "error": "No s’ha pogut carregar el pas del tutorial.",
+    "getStarted": "Comença",
+    "heading": "{{projectDisplayName}} Tutorial"
+  },
+  "StepNavigation": {
+    "go": "Ves al pas següent {{index}}",
+    "next": "Ves al pas anterior",
+    "previous": "Ves al pas anterior"
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Gràfic de barres"
+    },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Icona per al visor de text"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Tanca sense desar",
+        "keepWorking": "Continua treballant"
+      },
+      "SaveButton": {
+        "save": "Desa i tanca"
+      },
+      "SubTaskPopup": {
+        "notRender": "No s’ha pogut mostrar el component de la tasca.",
+        "required": "Aquesta tasca és obligatòria."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "transcripció agregada",
+          "explanation": "Aquestes {{count}} transcripcions han estat enviades per voluntaris anteriors i no es poden modificar.",
+          "noAggregation": "No hi ha agregació disponible",
+          "title": "Transcripcions anteriors",
+          "transcriptionsUnavailable": "Transcripcions no disponibles"
+        },
+        "complete": "Transcripció completada",
+        "transcribed": "Té transcripcions"
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Següent",
+        "previousFrameLabel": "Anterior",
+        "thumbnailAltText": "Miniatura de la imatge"
+      }
+    },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Elimina la selecció {{index}}"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Canvia a la vista de llibre fullejable",
+        "switchToSeparateFrames": "Canvia a la vista de fotogrames separats"
+      }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "S’ha produït un error en carregar l’element."
+    },
+    "VariableStarViewer": {
+      "controls": "controls",
+      "figCaption": "Diagrama HR",
+      "flip": "Inverteix",
+      "focus": "Enfoca",
+      "highlight": "Ressalta",
+      "imageTitle": "Diagrama HR: lluminositat vs temperatura",
+      "label": "Filtre {{id}}",
+      "periodMultiple": "Múltiple del període",
+      "phase": "Fase",
+      "phaseFocus": "Focus de fase"
+    },
+    "VideoController": {
+      "closeVolume": "Tanca el control de volum",
+      "fullscreen": "Mostra el vídeo a pantalla completa",
+      "openVolume": "Obre el control de volum",
+      "pause": "Pausa el vídeo",
+      "play": "Reprodueix el vídeo",
+      "playbackSpeed": "Selecció de la velocitat de reproducció del vídeo",
+      "scrubber": "Control de desplaçament del reproductor de vídeo",
+      "volumeSlider": "Control de volum"
+    },
+    "ZoomControlButton": {
+      "disable": "desactiva el zoom",
+      "enable": "activa el zoom"
+    },
+    "loading": "Carregant un element",
+    "zoomHelp": "Fes servir CTRL + la roda del ratolí per fer zoom"
+  },
+  "TaskArea": {
+    "DisabledTaskPopup": {
+      "body": "Aquest tema ja té prou classificacions, així que qualsevol classificació addicional enviada no s’utilitzarà en la seva anàlisi. Encara podeu consultar aquest tema com a referència.",
+      "options": {
+        "dismiss": "Descarta",
+        "next": "Següent tema disponible",
+        "select": "Tria un tema nou"
+      },
+      "title": "Acabat"
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Enrere"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Fet i comenta",
+        "newTab": "en una pestanya nova"
+      },
+      "DoneButton": {
+        "done": "Fet"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Mode de demostració",
+        "label": "Opcions d'expert"
+      },
+      "NextButton": {
+        "next": "Següent"
+      },
+      "TaskHelp": {
+        "close": "Tanca",
+        "label": "Necessites ajuda amb aquesta tasca?"
+      },
+      "demoMode": "En mode de demostració, les classificacions no es desaran. Utilitzeu-ho per a demostracions ràpides i inexactes de la interfície de classificació.",
+      "error": "Alguna cosa ha fallat",
+      "loading": "Carregant",
+      "renderFallback": "No s’ha pogut mostrar el component de la tasca."
+    },
+    "task": "Tasca",
+    "tutorial": "Tutorial"
+  }
+}

@@ -38,6 +38,7 @@ function InteractionLayer({
   activeTool,
   activeToolIndex = 0,
   annotation,
+  deleteMark,
   disabled = false,
   frame = 0,
   height,
@@ -164,12 +165,12 @@ function InteractionLayer({
       <TranscribedLines />
       <SubTaskPopup
         activeMark={activeMark}
-        onDelete={inactivateMark}
+        onDelete={deleteMark}
       />
       <DrawingToolMarks
         activeMark={activeMark}
         marks={marks}
-        onDelete={inactivateMark}
+        onDelete={deleteMark}
         onDeselectMark={inactivateMark}
         onFinish={onFinish}
         onSelectMark={onSelectMark}
@@ -193,6 +194,8 @@ InteractionLayer.propTypes = {
     taskType: PropTypes.string,
     value: PropTypes.array
   }).isRequired,
+  /** Delete mark */
+  deleteMark: PropTypes.func,
   /** Disable creating new marks. */
   disabled: PropTypes.bool,
   /** Index of the Frame. Initially inherits from parent Viewer or overwritten in Viewer with SubjectViewerStore */

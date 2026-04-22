@@ -41,6 +41,7 @@ export default async function fetchProjectData(slug, params) {
       'experimental_tools',
       'id',
       'launch_approved',
+      'launch_date',
       'links',
       'live',
       'primary_language',

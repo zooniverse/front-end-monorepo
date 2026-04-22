@@ -81,12 +81,10 @@
     "talk": "Bicarakan"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "Menurut angka",
     "classifications": "Klasifikasi",
     "completedSubjects": "Subjek yang sudah selesai",
     "percentComplete": "Persen selesai",
     "subjects": "Subjek",
-    "subtitle": "Terus pantau kemajuan Anda dan para sukarelawan lain di proyek ini.",
     "text": "Setiap klik berarti! Bergabung di komunitas {{projectName}} untuk menyelesaikan proyek ini dan membantu peneliti mendapatkan hasil yang penting. Klik \"Lihat lebih banyak status\" untuk melihat lebih banyak status.",
     "title": "Statistik {{projectName}}",
     "viewMoreStats": "Lihat lebih banyak status",

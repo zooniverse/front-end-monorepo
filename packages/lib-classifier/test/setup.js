@@ -65,6 +65,15 @@ window.HTMLElement.prototype.releasePointerCapture = vi.fn(pointerId => {
   pointers.delete(pointerId)
 })
 
+/* Mock getScreenCTM for draggable components and drawing tools */
+window.SVGElement.prototype.getScreenCTM = vi.fn()
+
+/* 
+* Pointer events not fully implemented in jsdom 26.1
+* Pointer events added in https://github.com/jsdom/jsdom/pull/3862
+*/
+window.PointerEvent = MouseEvent
+
 // For survey task's Chooser.jsx
 window.Element.prototype.scrollIntoView = () => true
 
