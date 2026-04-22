@@ -194,34 +194,12 @@ function createModifyUncertaintyInteraction({
     return true
   }
 
-  /**
-   * Handle pointer move - update cursor when hovering over drag handle
-   */
-  function handleMoveEvent(event) {
-    const map = this.getMap()
-    if (!map) return
-
-    // Don't change cursor while dragging
-    if (state.isDragging) return
-
-    const viewport = map.getViewport()
-    if (!viewport) return
-
-    const selectedFeature = checkDragHandleClick(event.pixel, map)
-
-    if (selectedFeature) {
-      viewport.style.cursor = 'ew-resize'
-    } else {
-      viewport.style.cursor = ''
-    }
-  }
-
-  // Create the custom uncertainty circle PointerInteraction with handlers
+  // Create the custom uncertainty circle PointerInteraction with handlers.
+  // Cursor hover state is managed centrally by GeoMapViewer.
   const interaction = new PointerInteraction({
     handleDownEvent,
     handleDragEvent,
-    handleUpEvent,
-    handleMoveEvent
+    handleUpEvent
   })
 
   return interaction
