@@ -81,12 +81,10 @@
     "talk": "Talk"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "Po brojevima",
     "classifications": "Klasifikacije",
     "completedSubjects": "Dovršeni predmetni elementi",
     "percentComplete": "Postotak dovršenosti",
     "subjects": "Predmetni elementi",
-    "subtitle": "Pratite napredak koji ste vi i vaši kolege volonteri postigli na ovom projektu.",
     "text": "Svaki klik je važan! Pridružite se zajednici projekta {{projectName}} kako biste dovršili ovaj projekt i pomogli istraživačima da ostvare važne rezultate. Kliknite na \"Prikaži više statističkih podataka\" za prikaz dodatnih statističkih podataka.",
     "title": "Statistika projekta {{projectName}}",
     "viewMoreStats": "Prikaži više statističkih podataka",

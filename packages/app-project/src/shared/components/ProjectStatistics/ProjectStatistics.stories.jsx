@@ -26,6 +26,7 @@ OneHundred.args = {
   classifications: 5699743,
   completedSubjects: 69532,
   completeness: 1,
+  launchDate: '2015-05-24T00:00:00.000Z',
   subjects: 1000000,
   volunteers: 6943
 }
@@ -35,6 +36,7 @@ Zero.args = {
   classifications: 0,
   completedSubjects: 0,
   completeness: 0,
+  launchDate: '2015-05-24T00:00:00.000Z',
   subjects: 0,
   volunteers: 0
 }

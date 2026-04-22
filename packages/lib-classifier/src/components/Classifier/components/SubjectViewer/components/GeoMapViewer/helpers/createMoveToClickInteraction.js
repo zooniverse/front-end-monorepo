@@ -30,6 +30,7 @@ function createMoveToClickInteraction({
     state.downCoordinate = null
     state.downPixel = null
     state.downTimestamp = null
+    state.draggingFeature = false
     state.selectedFeature = null
     state.clickedOnFeature = false
     state.clickedInUncertaintyCircle = false
@@ -210,6 +211,11 @@ function createMoveToClickInteraction({
     return true
   }
 
+  /** 
+   * In the OpenLayers PointerInteraction, stopDown determines if the down event is propagated to other interactions.
+   * We return true to stop down events from propagating to DragPan.
+   * We return false to allow DragPan to handle the event, which lets the user drag the map.
+   */
   function stopDown() {
     return state.draggingFeature
   }

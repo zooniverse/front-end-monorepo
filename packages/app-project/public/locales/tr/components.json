@@ -81,12 +81,10 @@
     "talk": "Sohbet"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "Sayılara göre",
     "classifications": "Sınıflandırmalar",
     "completedSubjects": "Tamamlanan Konular",
     "percentComplete": "Tamamlanan yüzde",
     "subjects": "Konular",
-    "subtitle": "Sizin ve gönüllü arkadaşlarınızın bu projede kaydettiği ilerlemeyi takip edin.",
     "text": "Her tıklama önemlidir! Bu projeyi tamamlamak ve araştırmacıların önemli sonuçlar üretmesine yardımcı olmak için {{projectName}} topluluğuna katılın.",
     "title": "{{projectName}} İstatistikleri",
     "viewMoreStats": "Daha fazla istatistik görüntüleyin",
