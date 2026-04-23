@@ -11,11 +11,12 @@ import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 function storeMapper(store) {
   const {
     enableRotation,
-    frame: defaultFrame,
+    frame,
     invert,
     move,
     rotation,
     separateFramesView,
+    setFrame,
     setOnPan,
     setOnZoom
   } = store.subjectViewer
@@ -27,15 +28,16 @@ function storeMapper(store) {
   } = store.workflows?.active?.configuration
 
   return {
-    defaultFrame,
     enableRotation,
     flipbookAutoplay,
+    frame,
     invert,
     limitSubjectHeight,
     move,
     playIterations,
     rotation,
     separateFramesView,
+    setFrame,
     setOnPan,
     setOnZoom
   }
@@ -51,15 +53,16 @@ function FlipbookViewerContainer({
   subject
 }) {
   const {
-    defaultFrame,
     enableRotation,
     flipbookAutoplay,
+    frame,
     invert,
     limitSubjectHeight,
     move,
     playIterations,
     rotation,
     separateFramesView,
+    setFrame,
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
@@ -78,6 +81,15 @@ function FlipbookViewerContainer({
     return <div>Something went wrong.</div>
   }
 
+  // Figure out the default frame for this Subject, which is usually 0 but can
+  // be overridden by Subject metadata.
+  // This code matches SubjectViewerStore.js's resetSubject()
+  let defaultFrame = 0
+  if (subject?.metadata?.default_frame > 0) {
+    // To the research teams who set the default_frame value, the first item in a list is "1". Hence, we need to change that to Array index "0".
+    defaultFrame = parseInt(subject.metadata.default_frame - 1)
+  }
+
   return (
     <>
       {separateFramesView ? (
@@ -91,6 +103,7 @@ function FlipbookViewerContainer({
       ) : (
         <FlipbookViewer
           defaultFrame={defaultFrame}
+          frame={frame}
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
           flipbookAutoplay={flipbookAutoplay}
@@ -101,6 +114,7 @@ function FlipbookViewerContainer({
           onReady={onReady}
           playIterations={playIterations}
           rotation={rotation}
+          setFrame={setFrame}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           subject={subject}
