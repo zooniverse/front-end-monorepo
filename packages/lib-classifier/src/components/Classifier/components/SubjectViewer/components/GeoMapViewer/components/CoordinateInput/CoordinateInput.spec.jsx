@@ -1,5 +1,6 @@
 import { composeStory } from '@storybook/react'
 import { fireEvent, render, screen } from '@testing-library/react'
+import sinon from 'sinon'
 
 import Meta, { Default } from './CoordinateInput.stories'
 
@@ -33,7 +34,7 @@ describe('Component > CoordinateInput', function () {
   })
 
   it('should submit valid coordinates and not show an error', function () {
-    const onGoSubmit = vi.fn()
+    const onGoSubmit = sinon.spy()
     render(<DefaultStory onGoSubmit={onGoSubmit} />)
 
     fireEvent.change(screen.getByRole('textbox', { name: 'Coordinates' }), {
@@ -41,12 +42,12 @@ describe('Component > CoordinateInput', function () {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Go' }))
 
-    expect(onGoSubmit).toHaveBeenCalledWith('44.97652856591023, -93.22485302862626')
+    expect(onGoSubmit).to.have.been.calledOnceWith('44.97652856591023, -93.22485302862626')
     expect(screen.queryByText('Coordinates must be in "latitude, longitude" format.')).to.equal(null)
   })
 
   it('should submit valid coordinates on Enter key', function () {
-    const onGoSubmit = vi.fn()
+    const onGoSubmit = sinon.spy()
     render(<DefaultStory onGoSubmit={onGoSubmit} />)
 
     const coordinateInput = screen.getByRole('textbox', { name: 'Coordinates' })
@@ -55,6 +56,6 @@ describe('Component > CoordinateInput', function () {
     })
     fireEvent.keyDown(coordinateInput, { key: 'Enter', code: 'Enter' })
 
-    expect(onGoSubmit).toHaveBeenCalledWith('44.97652856591023, -93.22485302862626')
+    expect(onGoSubmit).to.have.been.calledOnceWith('44.97652856591023, -93.22485302862626')
   })
 })

@@ -2,8 +2,9 @@ import { Box, Button, Text, TextInput } from 'grommet'
 import { func } from 'prop-types'
 import { useState } from 'react'
 
+import { useTranslation } from '@translations/i18n'
+
 const DEFAULT_HANDLER = () => true
-const INVALID_COORDINATES_ERROR = 'Coordinates must be in "latitude, longitude" format.'
 
 function isValidCoordinatesFormat(value) {
   const parts = value.split(',').map((part) => part.trim())
@@ -18,6 +19,11 @@ function isValidCoordinatesFormat(value) {
 function CoordinateInput({
   onGoSubmit = DEFAULT_HANDLER
 }) {
+  const { t } = useTranslation('components')
+  const label = t('SubjectViewer.GeoMapViewer.CoordinateInput.label')
+  const submitLabel = t('SubjectViewer.GeoMapViewer.CoordinateInput.submit')
+  const invalidCoordinatesError = t('SubjectViewer.GeoMapViewer.CoordinateInput.error.invalidFormat')
+
   const [coordinates, setCoordinates] = useState('')
   const [error, setError] = useState('')
 
@@ -27,7 +33,7 @@ function CoordinateInput({
     if (!trimmedCoordinates) return
 
     if (!isValidCoordinatesFormat(trimmedCoordinates)) {
-      setError(INVALID_COORDINATES_ERROR)
+      setError(invalidCoordinatesError)
       return
     }
 
@@ -53,11 +59,11 @@ function CoordinateInput({
     <Box>
       <Box direction='row' align='center' gap='small'>
         <Text as='label' htmlFor='coordinate-input' size='small'>
-          Coordinates
+          {label}
         </Text>
         <TextInput
           id='coordinate-input'
-          aria-label='Coordinates'
+          aria-label={label}
           width='small'
           value={coordinates}
           onChange={handleCoordinatesChange}
@@ -65,7 +71,7 @@ function CoordinateInput({
         />
         <Button
           type='button'
-          label='Go'
+          label={submitLabel}
           onClick={handleGoSubmit}
         />
       </Box>
