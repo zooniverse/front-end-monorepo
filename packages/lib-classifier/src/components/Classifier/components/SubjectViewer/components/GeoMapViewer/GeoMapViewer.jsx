@@ -642,6 +642,9 @@ function GeoMapViewer({
         ref={mapContainerRef}
         className='map-container'
         data-testid='geo-map-container'
+        tabIndex={0}
+        role='region'
+        aria-label='OpenLayers Map'
       />
     </StyledBox>
   )
