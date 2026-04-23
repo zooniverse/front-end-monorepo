@@ -25,8 +25,7 @@ const Classification = types
       self.annotations.forEach(annotation => {
         annotations = annotations.concat(annotation.toSnapshot())
       })
-      snapshot = Object.assign({}, snapshot, { annotations })
-      return snapshot
+      return { ...snapshot, annotations }
     },
 
     // Use this to retrieve previous drawing or transcription task annotations.
@@ -38,7 +37,7 @@ const Classification = types
     }
   }))
   .preProcessSnapshot(snapshot => {
-    let newSnapshot = Object.assign({}, snapshot)
+    let newSnapshot = { ...snapshot }
     // generate classification IDs, if not present
     newSnapshot.id = snapshot.id || cuid()
     // convert any annotations arrays to a map
@@ -53,7 +52,7 @@ const Classification = types
     return newSnapshot
   })
   .postProcessSnapshot(snapshot => {
-    const newSnapshot = Object.assign({}, snapshot)
+    const newSnapshot = { ...snapshot }
     // convert annotations to an array
     newSnapshot.annotations = Object.values(snapshot.annotations)
     return newSnapshot
