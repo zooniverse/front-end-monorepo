@@ -53,7 +53,7 @@
       }
     }
   },
-  "Classify" :{
+  "Classify": {
     "ClassifierWrapper": {
       "ErrorMessage": {
         "title": "There was an error in the classifier :("
@@ -74,6 +74,11 @@
       "lastSeven": "Last 7 Days",
       "link": "See more",
       "title": "Your Stats"
+    }
+  },
+  "ProjectStats": {
+    "workflows": {
+      "title": "Workflows"
     }
   },
   "Talk": {
