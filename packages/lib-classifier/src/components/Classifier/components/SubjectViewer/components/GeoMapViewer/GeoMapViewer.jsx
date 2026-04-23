@@ -17,10 +17,12 @@ import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 import { unByKey } from 'ol/Observable'
+import { transform } from 'ol/proj'
 
 // local imports
 import { useTranslation } from '@translations/i18n'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
+import CoordinateInput from './components/CoordinateInput'
 import MeasureButton from './components/MeasureButton'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
@@ -89,7 +91,7 @@ function fitViewToFeatures(map, features) {
   view.fit(features.getExtent(), {
     padding: [32, 32, 32, 32],
     maxZoom: 12,
-    duration: 250
+    duration: ZOOM_ANIMATION_DURATION_MS
   })
 }
 
@@ -531,7 +533,7 @@ function GeoMapViewer({
     updateExtent()
 
     // Update on view changes (throttled)
-    const throttledUpdate = throttle(updateExtent, 250)
+    const throttledUpdate = throttle(updateExtent, ZOOM_ANIMATION_DURATION_MS)
     const key = map.on('moveend', throttledUpdate)
 
     return () => {
@@ -560,10 +562,7 @@ function GeoMapViewer({
 
     function serializeAndNotify() {
       const olFeatures = featuresSource.getFeatures()
-      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, {
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'
-      })
+      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, geoJSONReadOptions)
 
       const sanitizedFeatures = featureCollection.features?.map((feature) => ({
         ...feature,
@@ -644,6 +643,34 @@ function GeoMapViewer({
     setSelectedUnit(unit)
   }
 
+  // Handler to navigate map to entered coordinates
+  function handleCoordinateGo(coordinateString) {
+    const map = mapRef.current
+    if (!map) return
+
+    // Parse latitude, longitude from the input string
+    // Expecting format: "44.97652856591023, -93.22485302862626"
+    const parts = coordinateString.split(',').map((part) => part.trim())
+
+    const latitude = parseFloat(parts[0])
+    const longitude = parseFloat(parts[1])
+
+    // Transform from data projection to map projection
+    const transformedCoords = transform(
+      [longitude, latitude],
+      geoJSONReadOptions.dataProjection,
+      geoJSONReadOptions.featureProjection
+    )
+
+    // Animate map to the coordinates
+    const view = map.getView()
+    view.animate({
+      center: transformedCoords,
+      zoom: 14,
+      duration: ZOOM_ANIMATION_DURATION_MS
+    })
+  }
+
   return (
     <StyledBox
       forwardedAs='section'
@@ -670,10 +697,20 @@ function GeoMapViewer({
         className='map-container'
         data-testid='geo-map-container'
       />
-      <UnitSelect
-        value={selectedUnit}
-        onChange={handleUnitChange}
-      />
+      <Box
+        direction='row'
+        align='center'
+        gap='small'
+        margin={{ top: 'xsmall' }}
+      >
+        <UnitSelect
+          value={selectedUnit}
+          onChange={handleUnitChange}
+        />
+        <CoordinateInput
+          onGoSubmit={handleCoordinateGo}
+        />
+      </Box>
     </StyledBox>
   )
 }
