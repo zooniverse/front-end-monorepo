@@ -9,6 +9,7 @@ import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import Style from 'ol/style/Style'
 import Overlay from 'ol/Overlay'
+
 import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
 const drawStyle = new Style({
