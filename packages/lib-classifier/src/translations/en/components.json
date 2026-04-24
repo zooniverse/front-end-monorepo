@@ -168,6 +168,13 @@
       "chartLabel": "Bar chart"
     },
     "GeoMapViewer": {
+      "CoordinateInput": {
+        "error": {
+          "invalidFormat": "Coordinates must be in \"latitude, longitude\" format."
+        },
+        "label": "Coordinates",
+        "submit": "Go"
+      },
       "MeasureButton": {
         "ariaLabel": "Measure distance"
       },
