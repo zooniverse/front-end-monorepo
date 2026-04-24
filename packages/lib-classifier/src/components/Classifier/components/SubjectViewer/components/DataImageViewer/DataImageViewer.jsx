@@ -6,6 +6,7 @@ import {
   Grid
 } from 'grommet'
 import { withParentSize } from '@visx/responsive'
+import FlipbookViewer from '../FlipbookViewer'
 import ScatterPlotViewer from '../ScatterPlotViewer'
 import SingleImageViewer from '../SingleImageViewer'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
@@ -39,7 +40,7 @@ const DEFAULT_THEME = {
 }
 const DataImageViewer = forwardRef(function DataImageViewer({
   allowPanZoom = '',
-  imageLocation = null,
+  imageLocations = [],
   jsonData = JSON_DATA,
   loadingState,
   parentWidth,
@@ -79,11 +80,22 @@ const DataImageViewer = forwardRef(function DataImageViewer({
     setAllowPanZoom('')
   }
 
-  /*
-    PH-TESS light curves use jsonData.x and jsonData.y.
-    SuperWASP Black Hole Hunters use jsonData.data.x and jsonData.data.y
-  */
+  // Scatterplot-compatible JSON files come in few different formats. Some store
+  // their chart data in the 'data' member/node, others store their chart data
+  // at the root level.
   const data = jsonData.data ? jsonData.data : jsonData
+
+  // If our subject contains multiple images, we need to package them into a
+  // pseudo Subject so the FlipbookViewer can load 'em.
+  const multiImagePseudoSubject = imageLocations?.length > 1
+    ? { locations: imageLocations } 
+    : null
+
+  
+  // Also, if our subject contains multiple images, justify the position of the
+  // FlipbookViewer so it looks better.
+  const justifyImageSection = imageLocations?.length > 1 ? 'center' : undefined
+
   return (
     <Grid
       areas={areas}
@@ -117,17 +129,26 @@ const DataImageViewer = forwardRef(function DataImageViewer({
         background={imageViewerBackground}
         border={(zoomEnabled.image) && { color: 'brand', size: 'xsmall' }}
         gridArea='image'
+        justify={justifyImageSection}
       >
-        {imageLocation &&
+        {imageLocations?.length === 1 &&
           <SingleImageViewer
             enableInteractionLayer={false}
-            imageLocation={imageLocation}
+            imageLocation={imageLocations[0]}
             loadingState={loadingState}
             setOnPan={zoomEnabled.image ? setOnPan : DEFAULT_HANDLER}
             setOnZoom={zoomEnabled.image ? setOnZoom : DEFAULT_HANDLER}
             zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
             zooming={zoomEnabled.image}
-          />}
+          />
+        }
+        {imageLocations?.length > 1 &&
+          <FlipbookViewer
+            enableInteractionLayer={false}
+            subject={multiImagePseudoSubject}
+            loadingState={loadingState}
+          />
+        }
       </Box>
     </Grid>
   )
@@ -136,7 +157,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
 DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,
   enableRotation: PropTypes.func,
-  imageLocation: PropTypes.object,
+  imageLocations: PropTypes.arrayOf(PropTypes.object),
   jsonData: PropTypes.shape({
     data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object

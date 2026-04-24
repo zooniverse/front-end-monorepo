@@ -10,19 +10,12 @@ export default function useDataImageSubject({
     data: [],
     chartOptions: {}
   }
-  let imageLocation = null
 
   if (data && !loading) {
     jsonData = data
   }
 
-  const locations = subject.locations.filter(location => location.type === 'image')
-  if (locations?.length > 0) {
-    // Presumably 2 image locations will be found
-    // The first will be the fallback to display something in Talk
-    // Even if there's only one, this is fine
-    imageLocation = locations.reverse()[0]
-  }
+  const imageLocations = subject.locations.filter(location => location.type === 'image')
 
-  return { imageLocation, jsonData, loading, viewer }
+  return { imageLocations, jsonData, loading, viewer }
 }
