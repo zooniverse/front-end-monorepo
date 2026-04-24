@@ -5,7 +5,7 @@ import { useTranslation } from '@translations/i18n'
 
 export const UNIT_OPTIONS = ['meters', 'kilometers', 'feet', 'miles', 'nautical miles', 'degrees']
 
-function UnitSelect({ onChange, value = 'meter' }) {
+function UnitSelect({ onChange, value = 'meters' }) {
   const { t } = useTranslation('components')
   const label = t('SubjectViewer.GeoMapViewer.UnitSelect.label')
 
