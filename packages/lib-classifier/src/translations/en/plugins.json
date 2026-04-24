@@ -6,6 +6,13 @@
     "spliceDrag": "Click and drag from the open point to the close point",
     "splicePoint": "Double click anywhere on the line to create a splice point"
   },
+  "GeoDrawingTask": {
+    "adjustRadius": "Adjust the uncertainty circle radius ({{unit}}):",
+    "latitude": "Latitude: {{lat}}°",
+    "longitude": "Longitude: {{lon}}°",
+    "selectedFeature": "Selected feature:",
+    "uncertaintyRadius": "Uncertainty radius: {{radius}}"
+  },
   "HighlighterTask": {
     "delete": "Delete",
     "noLabels": "No labels for the Highlighter Task",
