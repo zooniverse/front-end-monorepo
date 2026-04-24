@@ -229,16 +229,22 @@ export default function ClassifierContainer({
   try {
     return (
       <Provider classifierStore={classifierStore}>
-      {!allowedWorkflowID && userHasLoaded ?
-        <Paragraph>This workflow does not exist or you do not have permission to view it.</Paragraph>
+        {!workflowID ? // If the workflow ID isn't specified, it's usually because the user is at the root /classify path.
+          <Paragraph>No workflow selected.</Paragraph>
+
+        : !allowedWorkflowID && userHasLoaded ?
+          <Paragraph>This workflow does not exist or you do not have permission to view it.</Paragraph>
+
         : classifierIsReady ?
-           <Classifier
-              onError={onError}
-              showTutorial={showTutorial}
-              subjectSetID={subjectSetID}
-              subjectID={subjectID}
-              workflowSnapshot={workflowSnapshot}
-            /> :
+          <Classifier
+            onError={onError}
+            showTutorial={showTutorial}
+            subjectSetID={subjectSetID}
+            subjectID={subjectID}
+            workflowSnapshot={workflowSnapshot}
+          />
+
+        :
           <Paragraph>Loading the Classifier</Paragraph>
         }
       </Provider>
