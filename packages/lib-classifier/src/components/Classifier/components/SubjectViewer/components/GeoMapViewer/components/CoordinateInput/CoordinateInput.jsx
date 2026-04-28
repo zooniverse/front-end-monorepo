@@ -1,8 +1,11 @@
-import { Box, Button, Text, TextInput } from 'grommet'
+import { SpacedText } from '@zooniverse/react-components'
+import { Box, Button, Text, TextInput, ThemeContext } from 'grommet'
 import { func } from 'prop-types'
 import { useState } from 'react'
 
 import { useTranslation } from '@translations/i18n'
+
+import coordinateInputTheme from './coordinateInputTheme'
 
 const DEFAULT_HANDLER = () => true
 
@@ -21,6 +24,7 @@ function CoordinateInput({
 }) {
   const { t } = useTranslation('components')
   const label = t('SubjectViewer.GeoMapViewer.CoordinateInput.label')
+  const placeholder = t('SubjectViewer.GeoMapViewer.CoordinateInput.placeholder')
   const submitLabel = t('SubjectViewer.GeoMapViewer.CoordinateInput.submit')
   const invalidCoordinatesError = t('SubjectViewer.GeoMapViewer.CoordinateInput.error.invalidFormat')
 
@@ -56,34 +60,46 @@ function CoordinateInput({
   }
 
   return (
-    <Box>
-      <Box direction='row' align='center' gap='small'>
-        <Text as='label' htmlFor='coordinate-input' size='small'>
-          {label}
-        </Text>
-        <TextInput
-          id='coordinate-input'
-          aria-label={label}
-          width='small'
-          value={coordinates}
-          onChange={handleCoordinatesChange}
-          onKeyDown={handleCoordinatesKeyDown}
-        />
-        <Button
-          type='button'
-          label={submitLabel}
-          onClick={handleGoSubmit}
-        />
-      </Box>
-      {error && (
-        <Text
-          size='small'
-          color='status-critical'
+    <ThemeContext.Extend value={coordinateInputTheme}>
+      <Box>
+        <Box
+          direction='row'
+          align='center'
+          gap='xsmall'
         >
-          {error}
-        </Text>
-      )}
-    </Box>
+          <SpacedText
+            forwardedAs='label'
+            htmlFor='coordinate-input'
+            size='1rem'
+            weight='bold'
+          >
+            {label}
+          </SpacedText>
+          <TextInput
+            id='coordinate-input'
+            aria-label={label}
+            onChange={handleCoordinatesChange}
+            onKeyDown={handleCoordinatesKeyDown}
+            placeholder={<Text>{placeholder}</Text>}
+            size='small'
+            value={coordinates}
+          />
+          <Button
+            type='button'
+            label={<Text size='1rem'>{submitLabel}</Text>}
+            onClick={handleGoSubmit}
+          />
+        </Box>
+        {error && (
+          <Text
+            color='status-critical'
+            size='small'
+          >
+            {error}
+          </Text>
+        )}
+      </Box>
+    </ThemeContext.Extend>
   )
 }
 
