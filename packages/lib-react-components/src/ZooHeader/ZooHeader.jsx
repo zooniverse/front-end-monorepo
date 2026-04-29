@@ -24,6 +24,16 @@ export const StyledHeader = styled(Box)`
   }
 `
 
+const Relative = styled(Box)`
+  position: relative;
+`
+
+const Absolute = styled(Box)`
+  position: absolute;
+  left: 0;
+  top: 0;
+`
+
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
   border-top: 2px solid transparent; // to help align-items center in nav
@@ -66,10 +76,7 @@ export default function ZooHeader({
   // This resize detector could be refactored to use CSS container queries. The legacy
   // version of ZooHeader was intitially built with detecting client side viewport width
   // to define isNarrow as a props passed to the nav menus.
-  const {
-    width: headerWidth,
-    ref: headerRef
-  } = useResizeDetector({
+  const { width: headerWidth, ref: headerRef } = useResizeDetector({
     handleHeight: false,
     refreshMode: 'debounce',
     refreshRate: 100
@@ -79,16 +86,30 @@ export default function ZooHeader({
   // For the institutional logos. This resize cannot use CSS container queries because the container
   // in this case doesn't have a defined width. It adapts to however much space is left in between
   // the nav menus, and that's incompatible with a CSS container query.
-  const {
-    width: logosContainerWidth,
-    ref: logosContainerRef
-  } = useResizeDetector({
+  const { width: leftNavWidth, ref: leftNavRef } = useResizeDetector({
     handleHeight: false,
     refreshMode: 'debounce',
     refreshRate: 100
   })
-  const showLogosInline = logosContainerWidth > logosBreakpoint
 
+  const { width: logosContainerWidth, ref: logosContainerRef } =
+    useResizeDetector({
+      handleHeight: false,
+      refreshMode: 'debounce',
+      refreshRate: 100
+    })
+
+  // Show the institute logos inline with the navbar *if* the width of the left-hand nav does not
+  // cross into the justified-center <InstituteLogos /> which always have a width of 262px. The width
+  // of the left-hand nav varies with language or user preferences like browser font size, but we always
+  // want the logos centered relative to the user's screen width.
+  const minHeaderWidthAllowed = (leftNavWidth + 30) * 2 + logosBreakpoint
+  const showLogosInline =
+    headerWidth > navBreakpoint &&
+    headerWidth > minHeaderWidthAllowed &&
+    logosContainerWidth > logosBreakpoint
+
+  // Form the link URLs
   const host = getHost()
   const adminNavLinkLabel = 'Admin'
   const adminNavLinkURL = `${host}/admin`
@@ -116,12 +137,25 @@ export default function ZooHeader({
           <InstituteLogos />
         </Box>
       )}
-      <Box direction='row' pad={{ vertical: '10px', horizontal: 'medium' }}>
+      <Relative
+        direction='row'
+        pad={{
+          vertical: showLogosInline ? '20px' : '10px',
+          horizontal: 'medium'
+        }}
+      >
+        {showLogosInline && (
+          <Absolute fill align='center' direction='row' justify='center'>
+            <InstituteLogos />
+          </Absolute>
+        )}
         <Box
           as='nav'
           align='center'
           aria-label={t('ZooHeader.ariaLabel')}
           direction='row'
+          ref={leftNavRef}
+          style={{ zIndex: 1 }}
         >
           <StyledLogoAnchor href='http://www.zooniverse.org'>
             <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
@@ -135,19 +169,13 @@ export default function ZooHeader({
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />
         </Box>
-        <Box
-          flex
-          direction='row'
-          justify='center'
-          ref={logosContainerRef}
-        >
-          {showLogosInline && <InstituteLogos />}
-        </Box>
+        <Box flex direction='row' justify='center' ref={logosContainerRef} />
         <Box
           aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
           as='nav'
           direction='row'
           align='center'
+          style={{ zIndex: 1 }}
         >
           {hasMounted && (
             <UserNavigation
@@ -173,7 +201,7 @@ export default function ZooHeader({
             />
           )}
         </Box>
-      </Box>
+      </Relative>
     </StyledHeader>
   )
 }
