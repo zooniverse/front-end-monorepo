@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Changed
 - Upgrade to Storybook v9
+- Remove `breakpoint` and `isNarrow` as props from ZooHeader in favor of defining `isNarrow` consistently in ZooHeader.
+- Add the institute logos to the ZooHeader (Adler, UMN, Oxford).
 
 ## Fixed
 
