@@ -15,7 +15,7 @@ import UserNavigation from './components/UserNavigation/UserNavigation'
 import ZooniverseLogo from '../ZooniverseLogo/ZooniverseLogo'
 
 export const StyledHeader = styled(Box)`
-  color: #b2b2b2;
+  color: #a6a7a9; // light-5
   font-size: 1em;
 
   // hide the header when printing, added for the user stats certificate, but applies generally
@@ -27,7 +27,7 @@ export const StyledHeader = styled(Box)`
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
   border-top: 2px solid transparent; // to help align-items center in nav
-  color: #b2b2b2;
+  color: #a6a7a9; // light-5
   margin-right: 30px;
 
   &:hover,
@@ -68,9 +68,9 @@ export default function ZooHeader({
   // to define isNarrow as a props passed to the nav menus.
   const {
     width: headerWidth,
-    height: headerHeight,
     ref: headerRef
   } = useResizeDetector({
+    handleHeight: false,
     refreshMode: 'debounce',
     refreshRate: 100
   })
@@ -81,9 +81,9 @@ export default function ZooHeader({
   // the nav menus, and that's incompatible with a CSS container query.
   const {
     width: logosContainerWidth,
-    height: logosContainerHeight,
     ref: logosContainerRef
   } = useResizeDetector({
+    handleHeight: false,
     refreshMode: 'debounce',
     refreshRate: 100
   })
