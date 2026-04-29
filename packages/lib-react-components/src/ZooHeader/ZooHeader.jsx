@@ -74,8 +74,8 @@ export default function ZooHeader({
   const hasMounted = useHasMounted()
 
   // This resize detector could be refactored to use CSS container queries. The legacy
-  // version of ZooHeader was intitially built with detecting client side viewport width
-  // to define isNarrow as a props passed to the nav menus.
+  // version of ZooHeader was initially built with detecting client side viewport width
+  // to define isNarrow as a prop passed to the nav menus.
   const { width: headerWidth, ref: headerRef } = useResizeDetector({
     handleHeight: false,
     refreshMode: 'debounce',
