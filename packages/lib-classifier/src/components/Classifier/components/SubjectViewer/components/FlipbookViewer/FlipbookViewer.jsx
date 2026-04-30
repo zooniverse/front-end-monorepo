@@ -148,15 +148,17 @@ FlipbookViewer.propTypes = {
   playIterations: PropTypes.number,
   /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
   rotation: PropTypes.number,
-  /** Passed from the Subject Viewer Store */
+  /** Usually passed from the Subject Viewer Store. Can be overridden, such as when the FlipbookViewer is used in the DataImageViewer.  */
   setOnPan: PropTypes.func,
-  /** Passed from the Subject Viewer Store */
+  /** Usually passed from the Subject Viewer Store. Can be overridden, such as when the FlipbookViewer is used in the DataImageViewer. */
   setOnZoom: PropTypes.func,
   /** Required. Passed from SubjectViewer component */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }).isRequired,
+  /** OPTIONAL: only supply zoomControlFn and zooming if you want to allow users to manually enable/disable zoom & pan functionality. (As of Apr 2026, only used by DataImageViewer.) */
   zoomControlFn: PropTypes.func,
+  /** OPTIONAL: see zoomControlFn. */
   zooming: PropTypes.bool,
 }
 
