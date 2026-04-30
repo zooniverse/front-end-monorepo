@@ -1,11 +1,21 @@
 import { composeStory } from '@storybook/react'
 import { render, waitFor } from '@testing-library/react'
+import { vi } from 'vitest'
+
+import { dataSeries } from '@test/fixtures/jsonSubjectData'
 import Meta, {
   Default,
   ErrorBars,
   KeplerLightCurve,
   SelectionFeedback
 } from './ScatterPlotViewer.stories'
+
+vi.mock('@hooks', async (importOriginal) => {
+  const actual = await importOriginal()
+  return { ...actual, useSubjectJSON: vi.fn() }
+})
+
+import { useSubjectJSON } from '@hooks'
 
 describe('Component > ScatterPlotViewer', function () {
   describe('default plot', function () {
@@ -91,6 +101,13 @@ describe('Component > ScatterPlotViewer', function () {
 
   describe('with data selection feedback', function () {
     beforeEach(async function () {
+      useSubjectJSON.mockReturnValue({
+        loading: false,
+        data: dataSeries,
+        error: null,
+        type: { name: 'DataSeriesPlot' },
+        viewer: { current: null }
+      })
       const MockScatterPlotViewer = composeStory(SelectionFeedback, Meta)
       render(<MockScatterPlotViewer initialHeight={500} initialWidth={500} />)
     })

@@ -1,4 +1,7 @@
+import nock from 'nock'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+
+nock.disableNetConnect()
 
 global.after = afterAll
 global.before = beforeAll
