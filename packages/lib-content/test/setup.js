@@ -1,9 +1,12 @@
 import { JSDOM } from 'jsdom'
+import nock from 'nock'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { setProjectAnnotations } from '@storybook/react'
 
 import preview from '../.storybook/preview'
 setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
+
+nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})
 const { window } = jsdom

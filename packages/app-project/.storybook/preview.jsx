@@ -14,7 +14,7 @@ initialize({
   serviceWorker: {
     url: './mockServiceWorker.js'
   },
-  onUnhandledRequest: 'bypass'
+  onUnhandledRequest: 'error'
 })
 
 const decorators = [
