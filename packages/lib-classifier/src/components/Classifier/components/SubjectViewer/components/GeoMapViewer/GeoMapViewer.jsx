@@ -644,10 +644,9 @@ function GeoMapViewer({
       <MapContainer
         ref={mapContainerRef}
         aria-label={mapLabel}
-        className='map-container'
-        data-testid='geo-map-container'
-        tabIndex={0}
         role='region'
+        className='map-container'
+        tabIndex={0}
       />
     </StyledBox>
   )
