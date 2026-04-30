@@ -1,5 +1,4 @@
 import { Box } from 'grommet'
-import { string } from 'prop-types'
 import { useTheme } from 'styled-components'
 
 function InstituteLogos() {
@@ -29,10 +28,6 @@ function InstituteLogos() {
       />
     </Box>
   )
-}
-
-InstituteLogos.propTypes = {
-  size: string
 }
 
 export default InstituteLogos

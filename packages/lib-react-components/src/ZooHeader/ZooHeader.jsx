@@ -52,7 +52,7 @@ export const StyledLogoAnchor = styled(Anchor)`
 `
 
 const defaultHandler = () => true
-const navBreakpoint = 960 // legacy best guess for when the nav menus should collapse to hamburger style
+const navBreakpoint = 990 // best guess for when the nav menus should collapse to hamburger style
 const logosBreakpoint = 262 // 40px horizontal padding + 40px total gap + 182px total width of logos
 
 export default function ZooHeader({
