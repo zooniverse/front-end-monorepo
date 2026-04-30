@@ -1,32 +1,135 @@
 import { useTranslation } from 'next-i18next'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, number, shape, string } from 'prop-types'
+import { Box, Button, Heading, Text, Tip } from 'grommet'
+import { useRouter } from 'next/router'
+import styled from 'styled-components'
+import { CircleInformation } from 'grommet-icons'
 
 import ContentBox from '@shared/components/ContentBox'
-import Workflow from './Workflow'
 
-/*
-  Need to fetch:
-  - subjects retired / total subjects:
-      workflow.retired_set_member_subjects_count / workflow.subjects_count
-  - retirement limit: workflow.retirement.criteria or workflow.retirement.options.count
-  - calculate ETC or ToC
-  - Also grab workflow.classifications_count for the top page header
-*/
+const WorkflowContainer = styled(Box)`
+  flex-direction: row;
+  gap: 15px;
+  padding: 20px 20px 30px;
+  align-items: center;
+
+  @media (width < 769px) {
+    padding: 10px 15px 15px;
+    gap: 10px;
+  }
+`
+
+const WorkflowNameContainer = styled(Box)`
+  width: 50%;
+
+  & > h4 {
+    font-size: 1rem;
+    line-height: 1.2;
+
+    @media (width < 769px) {
+      font-size: 0.875rem;
+    }
+  }
+`
+
+const StatsContainerBox = styled(Box)`
+  flex-direction: row;
+  width: 50%;
+  justify-content: flex-end;
+  align-content: center;
+  gap: 20px;
+
+  @media (width < 769px) {
+    flex-direction: column;
+    gap: 0;
+
+    & > span {
+      font-size: 0.75rem;
+    }
+  }
+`
 
 function Workflows({ workflows = [] }) {
   const { t } = useTranslation('screens')
 
-  console.log('WORKFLOW', workflows[0])
+  const router = useRouter()
+  const { locale } = router
+  const localeCode = locale === 'test' ? 'en' : locale
+  const nf = new Intl.NumberFormat(localeCode, {
+    style: 'unit',
+    unit: 'day',
+    unitDisplay: 'long'
+  })
 
   return (
-    <ContentBox title={t('ProjectStats.workflows.title')}>
-      {workflows.map(workflow => (
-        <Workflow
-          key={workflow.id}
-          displayName={workflow.displayName}
-          completeness={workflow.completeness}
-        />
-      ))}
+    <ContentBox title={t('ProjectStats.workflows.title')} titleLevel={3}>
+      <Box gap='15px'>
+        {workflows?.map(workflow => (
+          <Box border={{ color: 'light-5' }} key={workflow.id}>
+            <Box height='10px' width='100%'>
+              <Box
+                height='10px'
+                background={
+                  workflow?.completeness === 1 ? '#D47811' : 'neutral-2'
+                }
+                width={`${Math.round(workflow?.completeness * 100)}%`}
+              />
+            </Box>
+            <WorkflowContainer>
+              <WorkflowNameContainer>
+                <Heading
+                  level={4}
+                  margin='none'
+                  weight={600}
+                  fill
+                  color={{ light: 'dark-4', dark: 'white' }}
+                >
+                  {workflow?.displayName}
+                </Heading>
+              </WorkflowNameContainer>
+              <StatsContainerBox>
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
+                  {t('ProjectStats.workflows.percentComplete', {
+                    percent: Math.round(workflow?.completeness * 100)
+                  })}
+                </Text>
+                {workflow?.completeness === 1 ? null : (
+                  <Box direction='row' gap='3px'>
+                    <Tip
+                      content={
+                        <Text color='white'>{t('ProjectStats.workflows.tip')}</Text>
+                      }
+                      plain
+                      dropProps={{
+                        align: { top: 'bottom' },
+                        background: 'dark-4',
+                        round: '5px',
+                        pad: '5px',
+                      }}
+                    >
+                      <Button plain icon={<CircleInformation size='0.75rem' />} />
+                    </Tip>
+                    <Text color={{ light: 'dark-4', dark: 'white' }}>
+                      ETC: {nf.format(workflow?.etc)}
+                    </Text>
+                  </Box>
+                )}
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
+                  {t('ProjectStats.workflows.subjectsRetired', {
+                    retired: workflow?.retired_set_member_subjects_count,
+                    total: workflow?.subjects_count
+                  })}
+                </Text>
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
+                  {t('ProjectStats.workflows.retireLimit', {
+                    number: workflow?.retirement?.options?.count
+                  })}
+                </Text>
+              </StatsContainerBox>
+            </WorkflowContainer>
+          </Box>
+        ))}
+      </Box>
     </ContentBox>
   )
 }
@@ -36,7 +139,18 @@ export default Workflows
 Workflows.propTypes = {
   workflows: arrayOf(
     shape({
-      id: string.isRequired
+      completeness: number, // 0 to 1
+      displayName: string,
+      etc: number,
+      id: string.isRequired,
+      retirement: shape({
+        criteria: string,
+        options: shape({
+          count: number
+        })
+      }),
+      retired_set_member_subjects_count: number,
+      subjects_count: number
     })
   )
 }
