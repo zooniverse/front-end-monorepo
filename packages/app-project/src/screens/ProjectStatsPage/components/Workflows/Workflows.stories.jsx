@@ -5,6 +5,7 @@ import Workflows from './Workflows'
 const mockWorkflowOne = {
   completeness: 0.5,
   displayName: 'This is a test workflow',
+  etc: 50,
   retirement: {
     criteria: '',
     options: {
@@ -28,5 +29,5 @@ export default {
 
 export const Default = {}
 Default.args = {
-  workflows: mockWorkflowOne
+  workflows: [mockWorkflowOne]
 }

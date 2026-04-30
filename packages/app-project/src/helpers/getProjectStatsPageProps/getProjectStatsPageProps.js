@@ -15,8 +15,8 @@ const HOSTS = {
 }
 
 /*
-    Needed for <HeadContainer />
-  */
+  Needed for <HeadContainer />
+*/
 const host = HOSTS[environment] || 'https://localhost:3000'
 
 export default async function getProjectStatsPageProps({ locale, params }) {
