@@ -2,8 +2,51 @@ import { useTranslation } from 'next-i18next'
 import { arrayOf, number, shape, string } from 'prop-types'
 import { Box, Heading, Text } from 'grommet'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
+
+const WorkflowContainer = styled(Box)`
+  flex-direction: row;
+  gap: 15px;
+  padding: 20px 20px 30px;
+  align-items: center;
+
+  @media (width < 769px) {
+    padding: 10px 15px 15px;
+    gap: 10px;
+  }
+`
+
+const WorkflowNameContainer = styled(Box)`
+  width: 50%;
+
+  & > h4 {
+    font-size: 1rem;
+    line-height: 1.2;
+
+    @media (width < 769px) {
+      font-size: 0.875rem;
+    }
+  }
+`
+
+const StatsContainerBox = styled(Box)`
+  flex-direction: row;
+  width: 50%;
+  justify-content: flex-end;
+  align-content: center;
+  gap: 20px;
+
+  @media (width < 769px) {
+    flex-direction: column;
+    gap: 0;
+
+    & > span {
+      font-size: 0.75rem;
+    }
+  }
+`
 
 function Workflows({ workflows = [] }) {
   const { t } = useTranslation('screens')
@@ -31,35 +74,40 @@ function Workflows({ workflows = [] }) {
                 width={`${Math.round(workflow?.completeness * 100)}%`}
               />
             </Box>
-            <Box
-              pad={{ bottom: '40px', horizontal: '20px', top: '30px' }}
-              direction='row'
-              justify='between'
-              align='center'
-            >
-              <Heading level={4} size='1rem' margin='none' weight={600}>
-                {workflow?.displayName}
-              </Heading>
-              <Box direction='row' gap='20px'>
-                <Text>
+            <WorkflowContainer>
+              <WorkflowNameContainer>
+                <Heading
+                  level={4}
+                  margin='none'
+                  weight={600}
+                  fill
+                  color={{ light: 'dark-4', dark: 'white' }}
+                >
+                  {workflow?.displayName}
+                </Heading>
+              </WorkflowNameContainer>
+              <StatsContainerBox>
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
                   {t('ProjectStats.workflows.percentComplete', {
                     percent: Math.round(workflow?.completeness * 100)
                   })}
                 </Text>
-                <Text>ETC: {nf.format(workflow?.etc)}</Text>
-                <Text>
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
+                  ETC: {nf.format(workflow?.etc)}
+                </Text>
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
                   {t('ProjectStats.workflows.subjectsRetired', {
                     retired: workflow?.retired_set_member_subjects_count,
                     total: workflow?.subjects_count
                   })}
                 </Text>
-                <Text>
+                <Text color={{ light: 'dark-4', dark: 'white' }}>
                   {t('ProjectStats.workflows.retireLimit', {
                     number: workflow?.retirement?.options?.count
                   })}
                 </Text>
-              </Box>
-            </Box>
+              </StatsContainerBox>
+            </WorkflowContainer>
           </Box>
         ))}
       </Box>

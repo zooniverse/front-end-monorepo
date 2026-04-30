@@ -5,7 +5,7 @@ import Workflows from './Workflows'
 const mockWorkflows = [
   {
     completeness: 0,
-    displayName: 'Look this workflow is brand new!',
+    displayName: 'Look this workflow is brand new! It has a really long name compared to most other workflows on the Zooniverse website.',
     etc: 5098,
     retirement: {
       criteria: '',
@@ -45,7 +45,7 @@ const mockWorkflows = [
 ]
 
 export default {
-  title: 'Project App / Screens / Project Stats',
+  title: 'Project App / Screens / Project Stats / Workflows',
   component: Workflows,
   decorators: [
     Story => (
