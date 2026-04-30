@@ -12,8 +12,7 @@ function storeMapper(classifierStore) {
       completeClassification
     },
     workflowSteps: {
-      active: step,
-      hasUnsupportedTasks
+      active: step
     }
   } = classifierStore
 
@@ -38,7 +37,6 @@ function storeMapper(classifierStore) {
     }
 
     return {
-      hasUnsupportedTasks,
       hasNextStep,
       onClick
     }
@@ -48,10 +46,8 @@ function storeMapper(classifierStore) {
 }
 
 function DoneButtonConnector(props) {
-  const { hasUnsupportedTasks, hasNextStep, onClick } = useStores(storeMapper)
-  const isDisabled = hasUnsupportedTasks || props.disabled
-
-  return hasNextStep ? null : <DoneButton {...props} disabled={isDisabled} onClick={onClick} />
+  const { hasNextStep, onClick } = useStores(storeMapper)
+  return hasNextStep ? null : <DoneButton onClick={onClick} {...props} />
 }
 
 export default observer(DoneButtonConnector)
