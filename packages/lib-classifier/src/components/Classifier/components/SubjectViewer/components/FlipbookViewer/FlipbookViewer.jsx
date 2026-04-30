@@ -27,7 +27,9 @@ const FlipbookViewer = ({
   rotation = 0,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
-  subject
+  subject,
+  zoomControlFn = null,
+  zooming = true
 }) => {
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
@@ -93,6 +95,8 @@ const FlipbookViewer = ({
           setOnZoom={setOnZoom}
           src={currentMediaUrl}
           subject={subject}
+          zoomControlFn={zoomControlFn}
+          zooming={zooming}
         />
       )}
       {currentMediaType === 'video' && (
@@ -151,7 +155,9 @@ FlipbookViewer.propTypes = {
   /** Required. Passed from SubjectViewer component */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  }).isRequired,
+  zoomControlFn: PropTypes.func,
+  zooming: PropTypes.bool,
 }
 
 export default FlipbookViewer

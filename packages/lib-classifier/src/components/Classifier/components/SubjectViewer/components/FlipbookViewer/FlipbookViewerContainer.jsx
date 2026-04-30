@@ -48,7 +48,9 @@ function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  subject
+  subject,
+  zoomControlFn = null,
+  zooming = true
 }) {
   const {
     defaultFrame,
@@ -104,6 +106,8 @@ function FlipbookViewerContainer({
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           subject={subject}
+          zoomControlFn={zoomControlFn}
+          zooming={zooming}
         />
       )}
     </>
@@ -122,7 +126,9 @@ FlipbookViewerContainer.propTypes = {
   /** Required. Passed from mobx store via SubjectViewer. */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  }).isRequired,
+  zoomControlFn: PropTypes.func,
+  zooming: PropTypes.bool
 }
 
 export default observer(FlipbookViewerContainer)

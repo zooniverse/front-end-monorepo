@@ -147,6 +147,8 @@ const DataImageViewer = forwardRef(function DataImageViewer({
             enableInteractionLayer={false}
             subject={multiImagePseudoSubject}
             loadingState={loadingState}
+            zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
+            zooming={zoomEnabled.image}
           />
         }
       </Box>
