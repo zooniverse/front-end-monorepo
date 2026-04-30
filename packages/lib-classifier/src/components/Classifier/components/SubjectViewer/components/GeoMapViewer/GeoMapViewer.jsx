@@ -648,7 +648,6 @@ function GeoMapViewer({
         data-testid='geo-map-container'
         tabIndex={0}
         role='region'
-        aria-label='Interactive map'
       />
     </StyledBox>
   )
