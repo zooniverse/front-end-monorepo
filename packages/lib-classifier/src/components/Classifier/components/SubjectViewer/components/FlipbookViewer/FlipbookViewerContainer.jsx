@@ -48,6 +48,8 @@ function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
+  setOnPan: propSetOnPan = null,
+  setOnZoom: propSetOnZoom = null,
   subject,
   zoomControlFn = null,
   zooming = true
@@ -62,9 +64,12 @@ function FlipbookViewerContainer({
     playIterations,
     rotation,
     separateFramesView,
-    setOnPan,
-    setOnZoom
+    setOnZoom: storeSetOnZoom,
+    setOnPan: storeSetOnPan,
   } = useStores(storeMapper)
+
+  const effectiveSetOnPan = propSetOnPan || storeSetOnPan
+  const effectiveSetOnZoom = propSetOnZoom || storeSetOnZoom
 
   useEffect(function preloadImages() {
     subject?.locations?.forEach(({ type, url }) => {
@@ -103,8 +108,8 @@ function FlipbookViewerContainer({
           onReady={onReady}
           playIterations={playIterations}
           rotation={rotation}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
+          setOnPan={effectiveSetOnPan}
+          setOnZoom={effectiveSetOnZoom}
           subject={subject}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
@@ -123,6 +128,8 @@ FlipbookViewerContainer.propTypes = {
   onError: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   /** Required. Passed from mobx store via SubjectViewer. */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
