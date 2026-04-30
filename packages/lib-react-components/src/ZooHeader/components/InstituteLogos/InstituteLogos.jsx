@@ -8,23 +8,13 @@ function InstituteLogos() {
   const minnSrc = theme.dark ? 'https://static.zooniverse.org/fem-assets/minnesota-dark.png' : 'https://static.zooniverse.org/fem-assets/minnesota.png'
 
   return (
-    <Box
-      direction='row'
-      height='45px'
-      gap='20px'
-      margin={{ horizontal: '20px' }}
-    >
-      <img
-        alt='The Adler Planetarium'
-        src={adlerSrc}
-      />
-      <img
-        alt='University of Minnesota'
-        src={minnSrc}
-      />
+    <Box direction='row' gap='20px'>
+      <img alt='The Adler Planetarium' src={adlerSrc} height='45px' />
+      <img alt='University of Minnesota' src={minnSrc} height='45px' />
       <img
         alt='University of Oxford'
         src='https://static.zooniverse.org/fem-assets/oxford.jpg'
+        height='45px'
       />
     </Box>
   )
