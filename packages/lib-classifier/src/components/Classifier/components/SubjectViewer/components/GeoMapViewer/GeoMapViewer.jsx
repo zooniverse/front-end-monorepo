@@ -407,7 +407,7 @@ function GeoMapViewer({
         data-testid='geo-map-container'
         tabIndex={0}
         role='region'
-        aria-label='OpenLayers Map'
+        aria-label='Interactive map'
       />
     </StyledBox>
   )
