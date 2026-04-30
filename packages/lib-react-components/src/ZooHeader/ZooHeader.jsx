@@ -3,17 +3,19 @@ import { Anchor, Box } from 'grommet'
 import { bool, func, number, shape, string } from 'prop-types'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
+
 import { getHost } from './helpers'
 import { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
+import InstituteLogos from './components/InstituteLogos/InstituteLogos'
 import MainNavList from './components/MainNavList/MainNavList'
 import NarrowMainNavMenu from './components/NarrowMainNavMenu/NarrowMainNavMenu'
 import UserNavigation from './components/UserNavigation/UserNavigation'
 import ZooniverseLogo from '../ZooniverseLogo/ZooniverseLogo'
 
 export const StyledHeader = styled(Box)`
-  color: #b2b2b2;
+  color: #a6a7a9; // light-5
   font-size: 1em;
 
   // hide the header when printing, added for the user stats certificate, but applies generally
@@ -22,10 +24,20 @@ export const StyledHeader = styled(Box)`
   }
 `
 
+const Relative = styled(Box)`
+  position: relative;
+`
+
+const Absolute = styled(Box)`
+  position: absolute;
+  left: 0;
+  top: 0;
+`
+
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
   border-top: 2px solid transparent; // to help align-items center in nav
-  color: #b2b2b2;
+  color: #a6a7a9; // light-5
   margin-right: 30px;
 
   &:hover,
@@ -40,11 +52,11 @@ export const StyledLogoAnchor = styled(Anchor)`
 `
 
 const defaultHandler = () => true
+const navBreakpoint = 990 // best guess for when the nav menus should collapse to hamburger style
+const logosBreakpoint = 262 // 40px horizontal padding + 40px total gap + 182px total width of logos
 
 export default function ZooHeader({
-  breakpoint = 960,
   adminMode = false,
-  isNarrow = false,
   onThemeChange = defaultHandler,
   register = defaultHandler,
   showThemeToggle = false,
@@ -56,14 +68,48 @@ export default function ZooHeader({
   user = {},
   ...props
 }) {
-  const hasMounted = useHasMounted()
   const { t } = useTranslation()
-  const { width, height, ref } = useResizeDetector({
+
+  // Hide the user nav menus until component is mounted and can detect a signed-in user
+  const hasMounted = useHasMounted()
+
+  // This resize detector could be refactored to use CSS container queries. The legacy
+  // version of ZooHeader was initially built with detecting client side viewport width
+  // to define isNarrow as a prop passed to the nav menus.
+  const { width: headerWidth, ref: headerRef } = useResizeDetector({
+    handleHeight: false,
     refreshMode: 'debounce',
     refreshRate: 100
   })
-  isNarrow = isNarrow || width <= breakpoint
+  const isNarrow = headerWidth <= navBreakpoint
 
+  // For the institutional logos. This resize cannot use CSS container queries because the container
+  // in this case doesn't have a defined width. It adapts to however much space is left in between
+  // the nav menus, and that's incompatible with a CSS container query.
+  const { width: leftNavWidth, ref: leftNavRef } = useResizeDetector({
+    handleHeight: false,
+    refreshMode: 'debounce',
+    refreshRate: 100
+  })
+
+  const { width: logosContainerWidth, ref: logosContainerRef } =
+    useResizeDetector({
+      handleHeight: false,
+      refreshMode: 'debounce',
+      refreshRate: 100
+    })
+
+  // Show the institute logos inline with the navbar *if* the width of the left-hand nav does not
+  // cross into the justified-center <InstituteLogos /> which always have a width of 262px. The width
+  // of the left-hand nav varies with language or user preferences like browser font size, but we always
+  // want the logos centered relative to the user's screen width.
+  const minHeaderWidthAllowed = (leftNavWidth + 30) * 2 + logosBreakpoint
+  const showLogosInline =
+    headerWidth > navBreakpoint &&
+    headerWidth > minHeaderWidthAllowed &&
+    logosContainerWidth > logosBreakpoint
+
+  // Form the link URLs
   const host = getHost()
   const adminNavLinkLabel = 'Admin'
   const adminNavLinkURL = `${host}/admin`
@@ -85,70 +131,83 @@ export default function ZooHeader({
   ]
 
   return (
-    <StyledHeader
-      ref={ref}
-      background='black'
-      direction='row'
-      justify='between'
-      pad={{ vertical: '20px', horizontal: 'medium' }}
-      responsive
-      {...props}
-    >
-      <Box
-        as='nav'
-        align='center'
-        aria-label={t('ZooHeader.ariaLabel')}
+    <StyledHeader ref={headerRef} background='black' {...props}>
+      {!showLogosInline && (
+        <Box direction='row' justify='center' pad={{ top: '10px' }}>
+          <InstituteLogos />
+        </Box>
+      )}
+      <Relative
         direction='row'
+        pad={{
+          vertical: showLogosInline ? '20px' : '10px',
+          horizontal: 'medium'
+        }}
       >
-        <StyledLogoAnchor href='http://www.zooniverse.org'>
-          <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
-        </StyledLogoAnchor>
-        <MainNavList
-          adminNavLinkLabel={adminNavLinkLabel}
-          adminNavLinkURL={adminNavLinkURL}
-          adminMode={user?.admin && adminMode}
-          isNarrow={isNarrow}
-          mainHeaderNavListLabels={mainHeaderNavListLabels}
-          mainHeaderNavListURLs={mainHeaderNavListURLs}
-        />
-      </Box>
-      <Box
-        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
-        as='nav'
-        direction='row'
-        align='center'
-      >
-        {hasMounted && (
-          <UserNavigation
-            isNarrow={isNarrow}
-            onThemeChange={onThemeChange}
-            register={register}
-            showThemeToggle={showThemeToggle}
-            signIn={signIn}
-            signOut={signOut}
-            themeMode={themeMode}
-            unreadMessages={unreadMessages}
-            unreadNotifications={unreadNotifications}
-            user={user}
-          />
+        {showLogosInline && (
+          <Absolute fill align='center' direction='row' justify='center'>
+            <InstituteLogos />
+          </Absolute>
         )}
-        {isNarrow && (
-          <NarrowMainNavMenu
+        <Box
+          as='nav'
+          align='center'
+          aria-label={t('ZooHeader.ariaLabel')}
+          direction='row'
+          ref={leftNavRef}
+          style={{ zIndex: 1 }}
+        >
+          <StyledLogoAnchor href='http://www.zooniverse.org'>
+            <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
+          </StyledLogoAnchor>
+          <MainNavList
             adminNavLinkLabel={adminNavLinkLabel}
             adminNavLinkURL={adminNavLinkURL}
             adminMode={user?.admin && adminMode}
+            isNarrow={isNarrow}
             mainHeaderNavListLabels={mainHeaderNavListLabels}
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />
-        )}
-      </Box>
+        </Box>
+        <Box flex direction='row' justify='center' ref={logosContainerRef} />
+        <Box
+          aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
+          as='nav'
+          direction='row'
+          align='center'
+          style={{ zIndex: 1 }}
+        >
+          {hasMounted && (
+            <UserNavigation
+              isNarrow={isNarrow}
+              onThemeChange={onThemeChange}
+              register={register}
+              showThemeToggle={showThemeToggle}
+              signIn={signIn}
+              signOut={signOut}
+              themeMode={themeMode}
+              unreadMessages={unreadMessages}
+              unreadNotifications={unreadNotifications}
+              user={user}
+            />
+          )}
+          {isNarrow && (
+            <NarrowMainNavMenu
+              adminNavLinkLabel={adminNavLinkLabel}
+              adminNavLinkURL={adminNavLinkURL}
+              adminMode={user?.admin && adminMode}
+              mainHeaderNavListLabels={mainHeaderNavListLabels}
+              mainHeaderNavListURLs={mainHeaderNavListURLs}
+            />
+          )}
+        </Box>
+      </Relative>
     </StyledHeader>
   )
 }
 
 ZooHeader.propTypes = {
   adminMode: bool,
-  isNarrow: bool,
   onThemeChange: func,
   register: func,
   showThemeToggle: bool,
