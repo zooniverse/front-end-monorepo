@@ -48,6 +48,10 @@ const WorkflowStepStore = types
       return false
     },
 
+    get hasUnsupportedTasks() {
+      return Array.from(self.steps.values()).some(step => step.hasUnsupportedTasks)
+    },
+
     findTasksByType (type) {
       const tasksByType = Array.from(self.steps).map(([stepKey, step]) => {
         if (step?.tasks && step.tasks.length > 0) {

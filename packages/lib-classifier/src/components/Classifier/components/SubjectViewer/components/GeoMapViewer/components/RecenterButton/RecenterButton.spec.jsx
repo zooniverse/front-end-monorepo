@@ -8,6 +8,6 @@ const DefaultStory = composeStory(Default, Meta)
 describe('Component > RecenterButton', function () {
   it('should show the recenter button with accessible name', function () {
     render(<DefaultStory />)
-    expect(screen.getByRole('button', { name: 'Recenter map to features' })).to.exist
+    expect(screen.getByRole('button', { name: 'Recenter to features' })).to.exist
   })
 })

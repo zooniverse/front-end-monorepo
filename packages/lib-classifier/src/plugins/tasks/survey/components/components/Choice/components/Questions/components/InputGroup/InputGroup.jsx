@@ -7,7 +7,6 @@ const DEFAULT_HANDLER = () => false
 
 export default function InputGroup (props) {
   const {
-    labelledBy,
     handleAnswer = DEFAULT_HANDLER,
     hasFocus = false,
     options = [],
@@ -59,7 +58,6 @@ export default function InputGroup (props) {
 
   return (
     <Box
-      aria-labelledby={labelledBy}
       direction='row'
       wrap
     >

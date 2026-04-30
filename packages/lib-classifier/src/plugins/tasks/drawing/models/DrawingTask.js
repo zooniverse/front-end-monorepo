@@ -105,6 +105,12 @@ export const Drawing = types.model('Drawing', {
         }
       },
 
+      deleteMark(mark) {
+        mark.subTaskVisibility = false
+        mark.tool.deleteMark(mark)
+        self.setActiveMark(undefined)
+      },
+
       setToolTaskStrings(stringsSnapshot) {
         const stringEntries = Object.entries(stringsSnapshot)
         self.tools.forEach((tool, toolIndex) => {

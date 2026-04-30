@@ -10,7 +10,7 @@ import {
   Background,
   DropdownNav,
   LocaleSwitcher,
-  OrganizationLink,
+  OrganizationsLink,
   Nav,
   ProjectTitle,
   UnderReviewLabel
@@ -32,8 +32,7 @@ function ProjectHeader({
   const {
     availableLocales,
     inBeta,
-    organizationTitle,
-    organizationSlug,
+    organizations,
     title
   } = useStores()
   const hasTranslations = availableLocales?.length > 1
@@ -46,13 +45,14 @@ function ProjectHeader({
   /** Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
   const maxTitleWidth = (hasTranslations && width >= 1200) ? '560px' : '600px'
 
+  const hasOrganizations = organizations.length > 0
+
   return (
     <StyledBox ref={ref} className={className}>
       <Background />
-      {(organizationTitle && !useDropdownNav) ? (
-        <OrganizationLink
-          slug={organizationSlug}
-          title={organizationTitle}
+      {(hasOrganizations && !useDropdownNav) ? (
+        <OrganizationsLink
+          organizations={organizations}
         />
       ) : null}
       <StyledBox
@@ -62,7 +62,7 @@ function ProjectHeader({
         pad={{
           bottom: 'medium',
           horizontal: 'medium',
-          top: (organizationTitle && !useDropdownNav) ? 'none' : 'medium'
+          top: (hasOrganizations && !useDropdownNav) ? 'none' : 'medium'
         }}
       >
         <Box direction={direction} gap='small'>
@@ -97,8 +97,7 @@ function ProjectHeader({
           <DropdownNav
             adminMode={adminMode}
             margin={ isNarrow ? { top: 'xsmall' } : { top : '0' }}
-            organizationSlug={organizationSlug}
-            organizationTitle={organizationTitle}
+            organizations={organizations}
           />
         ) : (
           <Nav adminMode={adminMode} />

@@ -81,12 +81,10 @@
     "talk": "Forum"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "In numeri",
     "classifications": "Contributi",
     "completedSubjects": "Oggetti completati",
     "percentComplete": "Percentuale completata",
     "subjects": "Oggetti",
-    "subtitle": "Monitora i tuoi progressi e quelli degli altri volontari in questo progetto.",
     "text": "Ogni clic conta! Entra nella community di {{projectName}} per completare questo progetto e aiutare i ricercatori a ottenere risultati importanti. Premi \"Mostra altre statistiche\" per vedere ancora più statistiche.",
     "title": "Statistiche {{projectName}}",
     "viewMoreStats": "Mostra altre statistiche",

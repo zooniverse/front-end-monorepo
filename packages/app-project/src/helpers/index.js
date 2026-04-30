@@ -1,6 +1,6 @@
 export { default as addQueryParams } from './addQueryParams'
 export { default as fetchDiscussions } from './fetchDiscussions'
-export { default as fetchOrganization } from './fetchOrganization'
+export { default as fetchLinkedOrganizations } from './fetchLinkedOrganizations'
 export { default as fetchProjectData } from './fetchProjectData'
 export { default as fetchProjectPage } from './fetchProjectPage'
 export { default as fetchSubject } from './fetchSubject'

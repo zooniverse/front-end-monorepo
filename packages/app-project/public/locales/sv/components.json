@@ -81,12 +81,10 @@
     "talk": "Prata"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "I siffror",
     "classifications": "Klassificeringar",
     "completedSubjects": "Avslutade ämnen",
     "percentComplete": "Andel klart (procent)",
     "subjects": "Ämnen",
-    "subtitle": "Håll koll på hur långt du och andra frivilliga har kommit med projektet.",
     "text": "Varje klick räknas! Gå med i {{projectName}}-communityt för att göra klart projektet och hjälpa forskarna att få fram viktiga resultat.",
     "title": "{{projectName}} statistik",
     "viewMoreStats": "Visa fler statistikuppgifter",

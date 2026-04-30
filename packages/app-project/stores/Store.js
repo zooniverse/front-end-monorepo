@@ -10,7 +10,7 @@ import User from './User'
 
 const Store = types
   .model('Store', {
-    organization: types.optional(Organization, {}),
+    organizations: types.array(Organization),
     project: types.optional(Project, {}),
     ui: types.optional(UI, {}),
     user: types.optional(User, {})

@@ -15,7 +15,7 @@ import { ProjectAboutPage } from './ProjectAboutPage'
 
 describe('Component > ProjectAboutPage & Connector', function () {
   const mockStore = {
-    organization: {},
+    organizations: [],
     project: {
       about_pages: [
         {

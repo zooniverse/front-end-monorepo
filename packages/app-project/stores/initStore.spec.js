@@ -120,22 +120,22 @@ describe('Stores > initStore', function () {
   describe('with an organization', function () {
     it('should contain an organization store', function () {
       const store = initStore()
-      expect(store.organization).toBeDefined()
+      expect(store.organizations).toBeDefined()
     })
 
     it('should apply a snapshot when provided', function () {
       const snapshot = {
-        organization: {
+        organizations: [{
           id: '67890',
           slug: 'test-user/test-org',
           strings: {
             title: 'Test Organization'
           }
-        }
+        }]
       }
       const store = initStore(true, snapshot)
-      expect(store.organization.slug).to.equal('test-user/test-org')
-      expect(store.organization.title).to.equal('Test Organization')
+      expect(store.organizations[0].slug).to.equal('test-user/test-org')
+      expect(store.organizations[0].title).to.equal('Test Organization')
     })
   })
 })

@@ -3,6 +3,7 @@
 const localeMenu = {
   ar: 'العربية', // Arabic
   bn: 'বাংলা', // Bengali
+  ca: 'Català', // Catalan
   cs: 'Čeština', // Czech
   da: 'Dansk', // Danish
   de: 'Deutsch', // German
@@ -29,6 +30,7 @@ const localeMenu = {
   ru: 'русский', // Russian
   sw: 'Kiswahili', // Swahili
   sv: 'Svenska', // Swedish
+  ta: 'தமிழ்', // Tamil
   te: 'తెలుగు', // Telugu
   test: 'Test Language',
   tr: 'Türkçe', // Turkish

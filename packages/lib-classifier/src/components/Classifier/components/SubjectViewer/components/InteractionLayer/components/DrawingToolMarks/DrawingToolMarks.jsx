@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
-import { LineControls } from '@plugins/drawingTools/experimental/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import { isInBounds } from '../../helpers/isInBounds.js'
@@ -36,8 +35,6 @@ function DrawingToolMarks({
     const isActive = mark.id === activeMark?.id
 
     function deleteMark() {
-      activeMark.setSubTaskVisibility(false)
-      tool.deleteMark(mark)
       onDelete(mark)
     }
 
@@ -98,12 +95,6 @@ function DrawingToolMarks({
             />
           )}
         </Mark>
-        {isActive && mark.tool.type == 'freehandLine' && (
-          <LineControls
-            mark={mark}
-            onDelete={deleteMark}
-          />
-        )}
       </g>
     )
   })

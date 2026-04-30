@@ -10,6 +10,7 @@ const namespaces = ['components', 'plugins']
 const supportedLngs = [
   'ar', // Arabic
   'bn', // Bengali
+  'ca', // Catalan
   'cs', // Czech
   'da', // Danish
   'de', // German

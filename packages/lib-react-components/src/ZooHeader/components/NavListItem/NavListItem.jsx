@@ -16,7 +16,7 @@ export const StyledNavListItem = styled(Anchor)`
   }
 `
 
-function NavListItem ({ className, color = '#B2B2B2', label, margin, url }) {
+function NavListItem ({ className, color = 'light-5', label, margin, url }) {
   return (
     <StyledNavListItem className={className} color={color} href={url} margin={margin} >
       <SpacedText

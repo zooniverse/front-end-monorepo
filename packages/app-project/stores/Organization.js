@@ -7,6 +7,7 @@ const TranslationStrings = types.map(types.maybeNull(types.string))
 const Organization = types
   .model('Organization', {
     id: types.maybeNull(numberString),
+    avatar: types.frozen({}),
     display_name: types.optional(types.string, ''),
     listed: types.optional(types.boolean, false),
     primary_language: types.optional(types.string, 'en'),

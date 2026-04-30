@@ -81,12 +81,10 @@
     "talk": "토크"
   },
   "ProjectStatistics": {
-    "byTheNumbers": "숫자별",
     "classifications": "기여",
     "completedSubjects": "완료된 대상",
     "percentComplete": "완료 비율",
     "subjects": "대상",
-    "subtitle": "자신과 동료 참여자들이 이 프로젝트에 기여한 진행 상황을 계속 추적하세요.",
     "text": "모든 클릭은 의미가 있습니다! {{projectName}}의 커뮤니티에 참가하여 이 프로젝트를 완료하고 연구자들이 중요한 결과를 낼 수 있게 도와주세요. '더 많은 통계 보기'를 클릭하면 더 많은 통계치를 볼 수 있습니다.",
     "title": "{{projectName}} 통계",
     "viewMoreStats": "더 많은 통계 보기",

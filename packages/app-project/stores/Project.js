@@ -20,6 +20,7 @@ const Project = types
     experimental_tools: types.frozen([]),
     id: types.maybeNull(numberString),
     launch_approved: types.optional(types.boolean, false),
+    launch_date: types.maybeNull(types.string),
     links: types.maybeNull(types.frozen({})),
     live: types.optional(types.boolean, false),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),

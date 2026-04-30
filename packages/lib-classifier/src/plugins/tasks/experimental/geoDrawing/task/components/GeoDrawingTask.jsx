@@ -114,7 +114,7 @@ function GeoDrawingTask({
               const lon = coords[0] ? (Math.round(coords[0] * 100) / 100).toFixed(2) : 'N/A'
               const lat = coords[1] ? (Math.round(coords[1] * 100) / 100).toFixed(2) : 'N/A'
               const radius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
-              const radiusDisplay = radius === null ? 'N/A' : `${radius ?? 0}m`
+              const radiusDisplay = radius === null ? 'N/A' : `${radius.toLocaleString() ?? 0}m`
               
               return (
                 <>
@@ -139,7 +139,7 @@ function GeoDrawingTask({
       {task.tools.map((tool, index) => {
         const checked = task.activeToolIndex === index
         const currentRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
-        const showUncertaintySlider = tool.uncertainty_circle && currentRadius !== null
+        const showUncertaintySlider = task.activeFeature && task.activeOlFeature && tool.uncertainty_circle && currentRadius !== null
         
         return (
           <ToolLabel key={`${task.taskKey}_${index}`}>

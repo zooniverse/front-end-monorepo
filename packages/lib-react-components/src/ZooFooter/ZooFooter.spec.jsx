@@ -16,7 +16,7 @@ describe('<ZooFooter />', function () {
 
   const SOCIAL_LINKS = [
     'facebook',
-    'twitter',
+    'X',
     'instagram'
   ]
 

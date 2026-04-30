@@ -2,48 +2,48 @@ import Store from './Store'
 import placeholderEnv from './helpers/placeholderEnv'
 
 describe('Stores > Organization', function () {
-  let organizationStore
+  let organizationsStore
   let rootStore
 
   it('should exist', function () {
     rootStore = Store.create({
-      organization: {
+      organizations: [{
         strings: {
           title: 'some text'
         }
-      }
+      }]
     }, placeholderEnv)
-    organizationStore = rootStore.organization
-    expect(organizationStore).toBeDefined()
+    organizationsStore = rootStore.organizations
+    expect(organizationsStore).toBeDefined()
   })
 
   describe('default model properties', function () {
     before(function () {
       rootStore = Store.create({
-        organization: {
+        organizations: [{
           strings: {
             title: 'some text'
           }
-        }
+        }]
       }, placeholderEnv)
-      organizationStore = rootStore.organization
+      organizationsStore = rootStore.organizations
     })
 
     after(function () {
       rootStore = null
-      organizationStore = null
+      organizationsStore = null
     })
 
     it('should have an `id` property', function () {
-      expect(organizationStore.id).to.equal(null)
+      expect(organizationsStore[0].id).to.equal(null)
     })
 
     it('should have a `slug` property', function () {
-      expect(organizationStore.slug).to.equal('')
+      expect(organizationsStore[0].slug).to.equal('')
     })
 
     it('should have a `title` property', function () {
-      expect(organizationStore.title).to.be.a('string')
+      expect(organizationsStore[0].title).to.be.a('string')
     })
   })
 })

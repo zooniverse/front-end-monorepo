@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { bool, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, node, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
@@ -8,10 +8,12 @@ import ZoomControlButton from '../ZoomControlButton'
 import ZoomHelperOverlay from './components/ZoomHelperOverlay'
 import VisXZoom from '../SVGComponents/VisXZoom'
 import SingleImageCanvas from './SingleImageCanvas'
+import ControlsLayer from '../ControlsLayer'
 
 // For positioning ZoomHelperOverlay on top of StyledSVG (the subject)
 const Relative = styled(Box)`
   position: relative;
+  container-type: inline-size;
 `
 
 const StyledSVG = styled.svg`
@@ -35,6 +37,7 @@ function SingleImageViewer({
   allowsScrolling = true,
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
+  feedbackMarks = [],
   frame = 0,
   imgRef,
   invert = false,
@@ -97,6 +100,10 @@ function SingleImageViewer({
         {showZoomHelper && (
           <ZoomHelperOverlay fadingOut={fadingOut} />
         )}
+        <ControlsLayer
+          enableInteractionLayer={enableInteractionLayer}
+          frame={frame}
+        />
         <StyledSVG
           aria-labelledby={title?.id}
           aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
@@ -127,6 +134,7 @@ function SingleImageViewer({
               <SingleImageCanvas
                 {...zoomProps}
                 enableInteractionLayer={enableInteractionLayer}
+                feedbackMarks={feedbackMarks}
                 frame={frame}
                 imgRef={imgRef}
                 invert={invert}
@@ -148,6 +156,7 @@ function SingleImageViewer({
 SingleImageViewer.propTypes = {
   allowsScrolling: bool,
   enableRotation: func,
+  feedbackMarks: arrayOf(node),
   limitSubjectHeight: bool,
   panning: bool,
   setOnPan: func,

@@ -6,14 +6,14 @@ import Router from 'next/router'
 import Store from '@stores/Store'
 import Hero from './'
 
-const ORGANIZATION = {
+const ORGANIZATIONS = [{
   id: '1',
   listed: true,
   slug: 'brbcornell/nest-quest-go',
   strings: {
     title: 'Nest Quest Go'
   }
-}
+}]
 
 const PROJECT = {
   background: {
@@ -101,7 +101,7 @@ export function Default() {
 }
 
 const snapshotWithOrganization = {
-  organization: ORGANIZATION,
+  organizations: ORGANIZATIONS,
   project: PROJECT,
   user: USER
 }

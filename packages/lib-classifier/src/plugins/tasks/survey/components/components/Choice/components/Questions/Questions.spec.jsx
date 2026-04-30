@@ -8,6 +8,20 @@ describe('Component > Questions', function () {
   const mockTask = SurveyTask.TaskModel.create(task)
   const questionIds = ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT']
 
+  it('should use questions as accessible names', function () {
+    render(
+      <Questions
+        questionIds={questionIds}
+        questions={mockTask.questions}
+        strings={mockTask.strings}
+      />
+    )
+    questionIds.forEach(questionId => {
+      const questionLabel = mockTask.strings.get(`questions.${questionId}.label`)
+      expect(screen.getByRole('group', { name: questionLabel })).to.exist
+    })
+  })
+
   it('should show the appropriate inputs', function () {
     // "HWMN" has 12 radio inputs, "WHTBHVRSDS" has 5 checkbox inputs, and "RTHRNNGPRSNT" has 2 radio inputs
 
