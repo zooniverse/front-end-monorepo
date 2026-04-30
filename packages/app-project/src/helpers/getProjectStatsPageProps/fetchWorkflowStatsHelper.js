@@ -141,7 +141,8 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
     promiseResult => promiseResult.value || promiseResult.reason
   )
 
-  return workflowsWithETC
+  // Sort into array of ascending completeness
+  return workflowsWithETC.toSorted((a, b) => a.completeness - b.completeness)
 }
 
 export default fetchWorkflowStatsHelper

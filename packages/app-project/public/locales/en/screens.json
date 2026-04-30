@@ -78,6 +78,9 @@
   },
   "ProjectStats": {
     "workflows": {
+      "percentComplete": "{{percent}}% complete",
+      "subjectsRetired": "Subjects retired: {{retired}}/{{total}}",
+      "retireLimit": "Retirement limit: {{number}}",
       "title": "Workflows"
     }
   },
