@@ -1,8 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { arrayOf, number, shape, string } from 'prop-types'
-import { Box, Heading, Text } from 'grommet'
+import { Box, Button, Heading, Text, Tip } from 'grommet'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { CircleInformation } from 'grommet-icons'
 
 import ContentBox from '@shared/components/ContentBox'
 
@@ -92,9 +93,27 @@ function Workflows({ workflows = [] }) {
                     percent: Math.round(workflow?.completeness * 100)
                   })}
                 </Text>
-                <Text color={{ light: 'dark-4', dark: 'white' }}>
-                  ETC: {nf.format(workflow?.etc)}
-                </Text>
+                {workflow?.completeness === 1 ? null : (
+                  <Box direction='row' gap='3px'>
+                    <Tip
+                      content={
+                        <Text color='white'>{t('ProjectStats.workflows.tip')}</Text>
+                      }
+                      plain
+                      dropProps={{
+                        align: { top: 'bottom' },
+                        background: 'dark-4',
+                        round: '5px',
+                        pad: '5px',
+                      }}
+                    >
+                      <Button plain icon={<CircleInformation size='0.75rem' />} />
+                    </Tip>
+                    <Text color={{ light: 'dark-4', dark: 'white' }}>
+                      ETC: {nf.format(workflow?.etc)}
+                    </Text>
+                  </Box>
+                )}
                 <Text color={{ light: 'dark-4', dark: 'white' }}>
                   {t('ProjectStats.workflows.subjectsRetired', {
                     retired: workflow?.retired_set_member_subjects_count,

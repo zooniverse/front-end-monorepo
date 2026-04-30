@@ -45,9 +45,21 @@ the response combines count all together per day, and we need separation to calc
 async function fetchWorkflowClassificationStats(workflowID, env) {
   const host = statsHost(env)
 
+  const today = new Date()
+
+  // Subtract one day because today's stats bucket is still accumulating
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+  const endDate = yesterday.toISOString().substring(0, 10)
+
+  // Get date of two weeks ago
+  const twoWeeksAgo = new Date(today)
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14)
+  const startDate = twoWeeksAgo.toISOString().substring(0, 10)
+
   try {
     const statsResponse = await fetch(
-      `${host}/classifications?period=day&workflow_id=${workflowID}`
+      `${host}/classifications?period=day&workflow_id=${workflowID}&start_date=${startDate}&end_date=${endDate}`
     )
     const data = await statsResponse.json()
     return data
@@ -59,8 +71,7 @@ async function fetchWorkflowClassificationStats(workflowID, env) {
 
 /**
  * Calculating estimated time to completion (ETC). See original PFE file https://github.com/zooniverse/Panoptes-Front-End/blob/ed9c64d698e0f846bd3b998383dbe785f6247594/app/pages/project/stats/stats.jsx#L231
- * Returns estimate number of days based on ERAS query.
- * Doesn't count the last bin returned from ERAS since the current day is not over yet.
+ * Returns estimate number of days based on ERAS query excluding the current day because it's not over yet.
  */
 function calcDaysToCompletion(erasData, workflow) {
   if (workflow.completeness === 1) return 0
@@ -74,24 +85,21 @@ function calcDaysToCompletion(erasData, workflow) {
   const dataLength = erasData.length // number of days the workflow has stats for
 
   if (dataLength > 1) {
-    let classificationCountsArray
-    let numDaysOfStats
-    if (dataLength > 15) {
-      classificationCountsArray = erasData.slice(
-        dataLength - 15,
-        dataLength - 1
-      ).map(statObject => statObject.count)
-      numDaysOfStats = 14
-    } else {
-      classificationCountsArray = erasData.slice(0, dataLength - 1).map(statObject => statObject.count)
-      numDaysOfStats = dataLength - 1
-    }
+    const classificationCountsArray = erasData.map(
+      statObject => statObject.count
+    )
     // Sum the classifications per day the workflow has been live (up to 14 days)
-    const rate = classificationCountsArray.reduce((a, b) => (a + b))
+    const rate = classificationCountsArray.reduce((a, b) => a + b)
 
     // Estimate number of days needed to achieve the classification counts to retire remaining subjects
-    numDays = Math.max(0, Math.ceil(numDaysOfStats * (totalCount - workflow.classifications_count) / rate))
+    numDays = Math.max(
+      0,
+      Math.ceil(
+        (dataLength * (totalCount - workflow.classifications_count)) / rate
+      )
+    )
   }
+
   return numDays
 }
 

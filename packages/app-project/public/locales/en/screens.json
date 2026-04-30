@@ -81,6 +81,7 @@
       "percentComplete": "{{percent}}% complete",
       "subjectsRetired": "Subjects retired: {{retired}}/{{total}}",
       "retireLimit": "Retirement limit: {{number}}",
+      "tip": "Estimated time to completion is based on the classification rate for the past 14 days and may be incorrect or unavailable for some workflows.",
       "title": "Workflows"
     }
   },
