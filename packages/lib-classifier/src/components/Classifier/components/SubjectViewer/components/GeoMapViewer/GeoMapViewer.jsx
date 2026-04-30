@@ -617,6 +617,9 @@ function GeoMapViewer({
     setIsMeasureModeActive((active) => !active)
   }
 
+
+  const mapLabel = t('SubjectViewer.GeoMapViewer.mapLabel')
+
   return (
     <StyledBox
       forwardedAs='section'
@@ -640,6 +643,7 @@ function GeoMapViewer({
       </ControlsBox>
       <MapContainer
         ref={mapContainerRef}
+        aria-label={mapLabel}
         className='map-container'
         data-testid='geo-map-container'
       />
