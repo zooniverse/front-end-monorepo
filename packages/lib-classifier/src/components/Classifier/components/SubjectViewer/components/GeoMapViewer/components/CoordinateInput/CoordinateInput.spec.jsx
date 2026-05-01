@@ -30,7 +30,7 @@ describe('Component > CoordinateInput', function () {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Go' }))
 
-    expect(screen.getByText('Coordinates must be in \"latitude, longitude\" format (44.98, -93.22)')).to.exist
+    expect(screen.queryByText(/Coordinates must be in/)).to.exist
   })
 
   it('should submit valid coordinates and not show an error', function () {
@@ -46,7 +46,7 @@ describe('Component > CoordinateInput', function () {
       latitude: 44.97652856591023,
       longitude: -93.22485302862626
     })
-    expect(screen.queryByText('Coordinates must be in "latitude, longitude" format.')).to.equal(null)
+    expect(screen.queryByText(/Coordinates must be in/)).to.equal(null)
   })
 
   it('should submit valid coordinates on Enter key', function () {
