@@ -12,11 +12,16 @@ const DEFAULT_HANDLER = () => true
 function isValidCoordinatesFormat(value) {
   const parts = value.split(',').map((part) => part.trim())
   if (parts.length !== 2) return false
+  if (parts.some(p => p === '')) return false
 
   const latitude = Number(parts[0])
   const longitude = Number(parts[1])
 
-  return Number.isFinite(latitude) && Number.isFinite(longitude)
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return false
+  if (latitude < -90 || latitude > 90) return false
+  if (longitude < -180 || longitude > 180) return false
+
+  return true
 }
 
 function CoordinateInput({
