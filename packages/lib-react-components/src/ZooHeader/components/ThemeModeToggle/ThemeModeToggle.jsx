@@ -30,9 +30,9 @@ export default function ThemeModeToggle({ themeMode, onThemeChange }) {
       aria-label={label}
       icon={
         themeMode === 'dark' ? (
-          <Moon color='#b2b2b2' />
+          <Moon color='light-5' />
         ) : (
-          <Sun color='#b2b2b2' />
+          <Sun color='light-5' />
         )
       }
       margin={{ right: 'small' }}
