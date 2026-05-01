@@ -81,8 +81,7 @@ const UNIT_OPTION_TO_SCALE_LINE_UNITS = {
   kilometers: 'metric',
   feet: 'imperial',
   miles: 'imperial',
-  'nautical miles': 'nautical',
-  degrees: 'degrees'
+  'nautical miles': 'nautical'
 }
 
 // Helper function to fit view to features extent
@@ -696,6 +695,9 @@ function GeoMapViewer({
         ref={mapContainerRef}
         className='map-container'
         data-testid='geo-map-container'
+        tabIndex={0}
+        role='region'
+        aria-label='Interactive map'
       />
       <Box
         direction='row'

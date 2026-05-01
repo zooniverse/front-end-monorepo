@@ -7,7 +7,7 @@ import { useTranslation } from '@translations/i18n'
 
 import unitSelectTheme from './unitSelectTheme'
 
-export const UNIT_OPTIONS = ['meters', 'kilometers', 'feet', 'miles', 'nautical miles', 'degrees']
+export const UNIT_OPTIONS = ['meters', 'kilometers', 'feet', 'miles', 'nautical miles']
 
 function UnitSelect({ onChange, value = 'meters' }) {
   const { t } = useTranslation('components')
