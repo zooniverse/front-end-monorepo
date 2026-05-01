@@ -42,7 +42,10 @@ describe('Component > CoordinateInput', function () {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Go' }))
 
-    expect(onGoSubmit).to.have.been.calledOnceWith('44.97652856591023, -93.22485302862626')
+    expect(onGoSubmit).to.have.been.calledOnceWith({
+      latitude: 44.97652856591023,
+      longitude: -93.22485302862626
+    })
     expect(screen.queryByText('Coordinates must be in "latitude, longitude" format.')).to.equal(null)
   })
 
@@ -56,6 +59,9 @@ describe('Component > CoordinateInput', function () {
     })
     fireEvent.keyDown(coordinateInput, { key: 'Enter', code: 'Enter' })
 
-    expect(onGoSubmit).to.have.been.calledOnceWith('44.97652856591023, -93.22485302862626')
+    expect(onGoSubmit).to.have.been.calledOnceWith({
+      latitude: 44.97652856591023,
+      longitude: -93.22485302862626
+    })
   })
 })

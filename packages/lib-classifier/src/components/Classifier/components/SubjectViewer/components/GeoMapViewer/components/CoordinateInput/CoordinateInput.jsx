@@ -9,19 +9,19 @@ import coordinateInputTheme from './coordinateInputTheme'
 
 const DEFAULT_HANDLER = () => true
 
-function isValidCoordinatesFormat(value) {
+function parseCoordinates(value) {
   const parts = value.split(',').map((part) => part.trim())
-  if (parts.length !== 2) return false
-  if (parts.some(p => p === '')) return false
+  if (parts.length !== 2) return null
+  if (parts.some((part) => part === '')) return null
 
   const latitude = Number(parts[0])
   const longitude = Number(parts[1])
 
-  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return false
-  if (latitude < -90 || latitude > 90) return false
-  if (longitude < -180 || longitude > 180) return false
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null
+  if (latitude < -90 || latitude > 90) return null
+  if (longitude < -180 || longitude > 180) return null
 
-  return true
+  return { latitude, longitude }
 }
 
 function CoordinateInput({
@@ -41,13 +41,15 @@ function CoordinateInput({
 
     if (!trimmedCoordinates) return
 
-    if (!isValidCoordinatesFormat(trimmedCoordinates)) {
+    const parsedCoordinates = parseCoordinates(trimmedCoordinates)
+
+    if (!parsedCoordinates) {
       setError(invalidCoordinatesError)
       return
     }
 
     setError('')
-    onGoSubmit(trimmedCoordinates)
+    onGoSubmit(parsedCoordinates)
   }
 
   function handleCoordinatesChange(event) {

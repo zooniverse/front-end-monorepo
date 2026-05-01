@@ -643,16 +643,9 @@ function GeoMapViewer({
   }
 
   // Handler to navigate map to entered coordinates
-  function handleCoordinateGo(coordinateString) {
+  function handleCoordinateGo({ latitude, longitude }) {
     const map = mapRef.current
     if (!map) return
-
-    // Parse latitude, longitude from the input string
-    // Expecting format: "44.97652856591023, -93.22485302862626"
-    const parts = coordinateString.split(',').map((part) => part.trim())
-
-    const latitude = parseFloat(parts[0])
-    const longitude = parseFloat(parts[1])
 
     // Transform from data projection to map projection
     const transformedCoords = transform(
