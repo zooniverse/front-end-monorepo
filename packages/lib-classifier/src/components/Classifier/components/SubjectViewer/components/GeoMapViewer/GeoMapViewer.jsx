@@ -656,9 +656,12 @@ function GeoMapViewer({
 
     // Animate map to the coordinates
     const view = map.getView()
+    const currentZoom = view.getZoom() ?? 0
+    const targetZoom = Math.max(currentZoom, 14) // don't zoom out if already zoomed in
+    view.cancelAnimations()
     view.animate({
       center: transformedCoords,
-      zoom: 14,
+      zoom: targetZoom,
       duration: ZOOM_ANIMATION_DURATION_MS
     })
   }
