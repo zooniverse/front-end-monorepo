@@ -7,8 +7,7 @@ const UNIT_CONVERSIONS = {
   kilometers: { factor: 0.001, label: 'km' },
   feet: { factor: 3.28084, label: 'ft' },
   miles: { factor: 0.000621371, label: 'mi' },
-  'nautical miles': { factor: 0.000539957, label: 'nmi' },
-  degrees: { factor: 1, label: 'm' }
+  'nautical miles': { factor: 0.000539957, label: 'nmi' }
 }
 
 export default UNIT_CONVERSIONS

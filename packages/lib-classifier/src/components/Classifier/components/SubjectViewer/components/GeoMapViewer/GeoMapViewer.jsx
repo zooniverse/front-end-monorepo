@@ -79,8 +79,7 @@ const UNIT_OPTION_TO_SCALE_LINE_UNITS = {
   kilometers: 'metric',
   feet: 'imperial',
   miles: 'imperial',
-  'nautical miles': 'nautical',
-  degrees: 'degrees'
+  'nautical miles': 'nautical'
 }
 
 // Helper function to fit view to features extent
