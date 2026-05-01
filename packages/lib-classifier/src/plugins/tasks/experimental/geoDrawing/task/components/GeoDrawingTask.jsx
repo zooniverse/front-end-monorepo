@@ -1,11 +1,16 @@
 import { Markdownz } from '@zooniverse/react-components'
-import { Box, RangeInput, Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import { Location } from 'grommet-icons'
 import { observer } from 'mobx-react'
+import { transform } from 'ol/proj'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import { transform } from 'ol/proj'
+
+import UNIT_CONVERSIONS from '@helpers/unitConversions'
+
+import FeatureCard from './components/FeatureCard'
+import RadiusSlider from './components/RadiusSlider'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -50,29 +55,24 @@ const ToolIcon = styled(Location)`
   flex-shrink: 0;
 `
 
-const RangeContainer = styled(Box)`
-  border-top: 1px solid ${props => props.theme.global.colors['light-3']};
-  margin-top: 8px;
-  padding-top: 8px;
-`
-
 function GeoDrawingTask({
   disabled = false,
   task
 }) {
+  const unit = task.unit || 'meters'
   const { setActiveTool } = task
   const [, setGeometryUpdate] = useState({})
 
   // Calculate dynamic max radius based on map extent
   // Memoized to avoid recalculation when other task properties change, like task.activeOlFeature
-  const maxRadius = useMemo(() => {
+  const maxRadius = useMemo(function calculateMaxRadius() {
     if (!task.mapExtentMeters) return 100000 // fallback before map initializes
     const { widthMeters, heightMeters } = task.mapExtentMeters
     const minDimension = Math.min(widthMeters, heightMeters)
     return Math.round(minDimension / 2) // half of the lesser dimension
   }, [task.mapExtentMeters])
 
-  useEffect(() => {
+  useEffect(function subscribeToFeatureChanges() {
     if (!task.activeOlFeature) return undefined
 
     const feature = task.activeOlFeature
@@ -82,7 +82,7 @@ function GeoDrawingTask({
     }
 
     feature.on('change', handleFeatureChange)
-    return () => {
+    return function unsubscribeFromFeatureChanges() {
       feature.un('change', handleFeatureChange)
     }
   }, [task.activeOlFeature])
@@ -93,6 +93,17 @@ function GeoDrawingTask({
     }
   }
 
+  const activeCoords = task.activeOlFeature
+    ? transform(
+        task.activeOlFeature?.getGeometry?.()?.getCoordinates?.() ?? [],
+        'EPSG:3857',
+        'EPSG:4326'
+      )
+    : []
+  const featureLon = activeCoords[0] ? (Math.round(activeCoords[0] * 100) / 100).toFixed(2) : 'N/A'
+  const featureLat = activeCoords[1] ? (Math.round(activeCoords[1] * 100) / 100).toFixed(2) : 'N/A'
+  const featureRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius ?? null
+
   return (
     <Box>
       <StyledText as='legend' size='small'>
@@ -100,40 +111,12 @@ function GeoDrawingTask({
       </StyledText>
       
       {task.activeFeature && task.activeOlFeature && (
-        <ToolCard pad='small'>
-          <Text size='small' weight='bold'>
-            Selected feature:
-          </Text>
-          <Box pad={{ top: 'xsmall' }} gap='xsmall'>
-            {(() => {
-              const coords = transform(
-                task.activeOlFeature?.getGeometry?.()?.getCoordinates?.() ?? [],
-                'EPSG:3857',
-                'EPSG:4326'
-              )
-              const lon = coords[0] ? (Math.round(coords[0] * 100) / 100).toFixed(2) : 'N/A'
-              const lat = coords[1] ? (Math.round(coords[1] * 100) / 100).toFixed(2) : 'N/A'
-              const radius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
-              const radiusDisplay = radius === null ? 'N/A' : `${radius.toLocaleString() ?? 0}m`
-              
-              return (
-                <>
-                  <Text size='xsmall'>
-                    Latitude: {lat}°
-                  </Text>
-                  <Text size='xsmall'>
-                    Longitude: {lon}°
-                  </Text>
-                  {radius !== null && (
-                    <Text size='xsmall'>
-                      Uncertainty radius: {radiusDisplay}
-                    </Text>
-                  )}
-                </>
-              )
-            })()}
-          </Box>
-        </ToolCard>
+        <FeatureCard
+          lat={featureLat}
+          lon={featureLon}
+          radius={featureRadius}
+          unit={unit}
+        />
       )}
 
       {task.tools.map((tool, index) => {
@@ -160,19 +143,15 @@ function GeoDrawingTask({
                 </Text>
               </ToolHeader>
               {showUncertaintySlider && (
-                <RangeContainer>
-                  <Text size='small'>
-                    Adjust the uncertainty circle radius:
-                  </Text>
-                  <RangeInput
-                    disabled={disabled || !checked || !task.activeFeature || !task.activeOlFeature}
-                    value={task.activeFeature?.properties?.uncertainty_radius ?? task.activeOlFeature?.get?.('uncertainty_radius') ?? 0}
-                    min={0}
-                    max={maxRadius}
-                    step={1}
-                    onChange={(event) => task.setActiveFeatureUncertaintyRadius?.(Math.round(Number(event.target.value)))}
-                  />
-                </RangeContainer>
+                <RadiusSlider
+                  disabled={!checked || disabled}
+                  maxRadius={maxRadius}
+                  onChange={function handleRadiusChange(value) {
+                    task.setActiveFeatureUncertaintyRadius?.(value)
+                  }}
+                  unitLabel={UNIT_CONVERSIONS[unit]?.label ?? 'm'}
+                  value={currentRadius ?? 0}
+                />
               )}
             </ToolCard>
           </ToolLabel>
