@@ -71,7 +71,7 @@ export default function UserNavigation({
 
   const notificationLabel = isNarrow ? (
     <Icon
-      icon={unreadNotifications ? <StyledNotificationIcon /> : <Notification />}
+      icon={unreadNotifications ? <StyledNotificationIcon /> : <Notification color='light-5' />}
       size='0.8rem'
       title={notificationLabelString}
     />
@@ -81,7 +81,7 @@ export default function UserNavigation({
 
   const messagesLabel = isNarrow ? (
     <Icon
-      icon={unreadMessages ? <StyledMailIcon /> : <MailOption />}
+      icon={unreadMessages ? <StyledMailIcon /> : <MailOption color='light-5' />}
       size={unreadMessages ? '0.9rem' : '0.8rem'}
       title={messagesLabelString}
     />
@@ -113,14 +113,14 @@ export default function UserNavigation({
       {Object.keys(user).length > 0 && signOut && (
         <>
           <NavListItem
-            color={unreadNotifications ? 'accent-1' : '#B2B2B2'}
+            color={unreadNotifications ? 'accent-1' : 'light-5'}
             label={notificationLabel}
             margin={{ right: 'small' }}
             unread={unreadNotifications}
             url={`${host}/notifications`}
           />
           <NavListItem
-            color={unreadMessages ? 'accent-1' : '#B2B2B2'}
+            color={unreadMessages ? 'accent-1' : 'light-5'}
             label={messagesLabel}
             margin={{ right: 'small' }}
             unread={unreadMessages}

@@ -42,7 +42,7 @@ export default function UserMenu({ signOut, user }) {
     <NarrowMenu aria-label={user.display_name} items={userMenuNavListItems}>
       <Box align='center' as='span' direction='row'>
         <SpacedText
-          color='#b2b2b2'
+          color='light-5'
           lang='en'
           margin={{ right: 'xsmall' }}
           size='xsmall'
@@ -50,7 +50,7 @@ export default function UserMenu({ signOut, user }) {
         >
           {user.display_name}
         </SpacedText>
-        <StyledFormDown color='#b2b2b2' />
+        <StyledFormDown color='light-5' />
       </Box>
     </NarrowMenu>
   )

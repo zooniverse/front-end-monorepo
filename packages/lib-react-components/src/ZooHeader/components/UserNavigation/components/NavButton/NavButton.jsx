@@ -15,7 +15,7 @@ const StyledNavButton = styled(Button)`
 function NavButton ({ label = '', onClick, ...props }) {
   return (
     <StyledNavButton
-      label={<SpacedText color="#B2B2B2" weight="bold" size="xsmall">{label}</SpacedText>}
+      label={<SpacedText color="light-5" weight="bold" size="xsmall">{label}</SpacedText>}
       plain={true}
       onClick={onClick}
       {...props}
