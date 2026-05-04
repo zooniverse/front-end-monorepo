@@ -48,11 +48,21 @@ export const WithGeoDrawingLineStringTask = {
     max_vertices: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Maximum vertices allowed. Once reached, the line auto-finishes. Leave blank for no limit.'
+    },
+    min_lines: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Minimum number of lines a volunteer must draw with this tool for the task to report complete. Leave blank for 0 (no minimum).'
+    },
+    max_lines: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Maximum number of lines a volunteer can draw with this tool. Once reached, Draw deactivates. Leave blank for no limit.'
     }
   },
   args: {
     min_vertices: undefined,
     max_vertices: undefined,
+    min_lines: undefined,
+    max_lines: undefined,
     geoJSON: {
       type: 'FeatureCollection',
       bbox: [-91.05, 47.96, -90.97, 48.01],
@@ -75,7 +85,7 @@ export const WithGeoDrawingLineStringTask = {
       }
     }
   },
-  render: ({ min_vertices, max_vertices, ...rest }) => {
+  render: ({ min_vertices, max_vertices, min_lines, max_lines, ...rest }) => {
     const tool = {
       type: 'LineString',
       label: 'Dam crest',
@@ -83,6 +93,8 @@ export const WithGeoDrawingLineStringTask = {
     }
     if (min_vertices !== undefined && min_vertices !== '') tool.min_vertices = min_vertices
     if (max_vertices !== undefined && max_vertices !== '') tool.max_vertices = max_vertices
+    if (min_lines !== undefined && min_lines !== '') tool.min_lines = min_lines
+    if (max_lines !== undefined && max_lines !== '') tool.max_lines = max_lines
 
     const geoDrawingTask = GeoDrawingTask.create({
       taskKey: 'T0',

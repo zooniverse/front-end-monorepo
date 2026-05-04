@@ -28,6 +28,12 @@ export function buildSketchStyleFn({ map, featuresLayer, getIsDrawing }) {
   }
 }
 
+function countLineStringFeatures(source) {
+  return source.getFeatures().filter((feature) => (
+    feature.getGeometry?.()?.getType?.() === 'LineString'
+  )).length
+}
+
 function createGeoLineStringInteraction({
   map,
   source,
@@ -56,6 +62,8 @@ function createGeoLineStringInteraction({
       return p && Math.hypot(p[0] - event.pixel[0], p[1] - event.pixel[1]) <= FEATURE_HIT_TOLERANCE_PX
     })
   }
+
+  const featureCountMax = activeTool?.type === 'LineString' ? activeTool.max_lines : undefined
 
   const draw = new Draw({
     source,
@@ -103,21 +111,36 @@ function createGeoLineStringInteraction({
         })
       })
     }
+
+    // OL Draw fires drawend BEFORE source.addFeature, so the new line isn't
+    // counted yet. +1 accounts for it.
+    if (typeof featureCountMax === 'number' && countLineStringFeatures(source) + 1 >= featureCountMax) {
+      draw.setActive(false)
+    }
   })
 
   const drawAbortKey = draw.on('drawabort', function handleDrawAbort() {
     isDrawing = false
   })
 
+  function isCapped() {
+    return typeof featureCountMax === 'number' && countLineStringFeatures(source) >= featureCountMax
+  }
+
   return {
     isDrawing() {
       return isDrawing
     },
+    isCapped,
     abortDrawing() {
       draw.abortDrawing?.()
       isDrawing = false
     },
     setActive(active) {
+      if (active && isCapped()) {
+        draw.setActive(false)
+        return
+      }
       draw.setActive(active)
       if (!active) isDrawing = false
     },

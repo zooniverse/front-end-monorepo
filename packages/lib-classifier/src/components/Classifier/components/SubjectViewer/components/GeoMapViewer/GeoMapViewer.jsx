@@ -447,6 +447,7 @@ function GeoMapViewer({
               isSketching: lineStringDrawRef.current?.isDrawing() ?? false,
               isOnSelectedVertex,
               isOnAnotherFeature,
+              isAtMaxLines: lineStringDrawRef.current?.isCapped() ?? false,
               isDragging: latestEvent.dragging
             })
             return

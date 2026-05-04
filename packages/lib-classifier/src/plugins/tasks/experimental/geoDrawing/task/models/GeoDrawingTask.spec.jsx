@@ -100,6 +100,59 @@ describe('Model > GeoDrawingTask', function () {
     })
   })
 
+  describe('Views > isComplete (per-tool min_lines)', function () {
+    const lineStringTaskSnapshot = {
+      strings: { instruction: 'Draw a line.' },
+      taskKey: 'T0',
+      tools: [
+        { label: 'Dam crest', type: 'LineString', min_lines: 1, max_lines: 5, min_vertices: 2, max_vertices: 10 }
+      ],
+      type: 'geoDrawing'
+    }
+
+    it('returns false when annotation has no LineString features and tool.min_lines is 1', function () {
+      const task = GeoDrawingTask.create(lineStringTaskSnapshot)
+      const annotation = task.defaultAnnotation()
+      annotation.update({ type: 'FeatureCollection', features: [] })
+      expect(task.isComplete(annotation)).to.equal(false)
+    })
+
+    it('returns true when annotation has at least tool.min_lines LineString features', function () {
+      const task = GeoDrawingTask.create(lineStringTaskSnapshot)
+      const annotation = task.defaultAnnotation()
+      annotation.update({
+        type: 'FeatureCollection',
+        features: [
+          { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] } }
+        ]
+      })
+      expect(task.isComplete(annotation)).to.equal(true)
+    })
+
+    it('does not enforce per-tool min_lines when tool.min_lines is 0', function () {
+      const task = GeoDrawingTask.create({
+        ...lineStringTaskSnapshot,
+        tools: [{ label: 'Dam crest', type: 'LineString' }] // defaults: min_lines = 0
+      })
+      const annotation = task.defaultAnnotation()
+      annotation.update({ type: 'FeatureCollection', features: [] })
+      expect(task.isComplete(annotation)).to.equal(true)
+    })
+
+    it('counts only features matching the tool type', function () {
+      const task = GeoDrawingTask.create(lineStringTaskSnapshot)
+      const annotation = task.defaultAnnotation()
+      // Only Points; no LineStrings, so the task is incomplete despite features.length > 0
+      annotation.update({
+        type: 'FeatureCollection',
+        features: [
+          { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } }
+        ]
+      })
+      expect(task.isComplete(annotation)).to.equal(false)
+    })
+  })
+
   describe('Actions > setMapExtent', function () {
     let task
 
