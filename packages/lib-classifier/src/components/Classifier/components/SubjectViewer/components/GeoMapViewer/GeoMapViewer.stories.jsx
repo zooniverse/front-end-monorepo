@@ -40,19 +40,19 @@ export const WithGeoDrawingTask = {
 }
 
 export const WithGeoDrawingLineStringTask = {
+  argTypes: {
+    min_vertices: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Minimum vertices required before the line can be finished. Leave blank for OL\'s default (2).'
+    },
+    max_vertices: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Maximum vertices allowed. Once reached, the line auto-finishes. Leave blank for no limit.'
+    }
+  },
   args: {
-    geoDrawingTask: GeoDrawingTask.create({
-      taskKey: 'T0',
-      activeToolIndex: 0,
-      tools: [
-        {
-          type: 'LineString',
-          label: 'Dam crest',
-          color: '#00aa55',
-        },
-      ],
-      type: 'geoDrawing',
-    }),
+    min_vertices: undefined,
+    max_vertices: undefined,
     geoJSON: {
       type: 'FeatureCollection',
       bbox: [-91.05, 47.96, -90.97, 48.01],
@@ -75,6 +75,23 @@ export const WithGeoDrawingLineStringTask = {
       }
     }
   },
+  render: ({ min_vertices, max_vertices, ...rest }) => {
+    const tool = {
+      type: 'LineString',
+      label: 'Dam crest',
+      color: '#00aa55'
+    }
+    if (min_vertices !== undefined && min_vertices !== '') tool.min_vertices = min_vertices
+    if (max_vertices !== undefined && max_vertices !== '') tool.max_vertices = max_vertices
+
+    const geoDrawingTask = GeoDrawingTask.create({
+      taskKey: 'T0',
+      activeToolIndex: 0,
+      tools: [tool],
+      type: 'geoDrawing'
+    })
+    return <GeoMapViewer {...rest} geoDrawingTask={geoDrawingTask} />
+  }
 }
 
 export const WithoutGeoDrawingTask = {
