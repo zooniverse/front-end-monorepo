@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 import { GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
-import useScale from '../../../../../hooks/useScale'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 
 const Circle = ({ fill, r, transform, ...props }) => (
   <g transform={transform}>
@@ -28,7 +28,7 @@ const TranscriptionLineMark = forwardRef(({
   onHandleDrag,
 }, ref) => {
   const HANDLE_RADIUS = window?.innerWidth < 900 ? 3 : 5
-  const scale = useScale()
+  const { scale } = useSVGContext()
   const {
     finished,
     x1,

@@ -1,3 +1,19 @@
+import { render } from '@testing-library/react'
+import DragHandle from './DragHandle'
+
+describe('Drawing tools > DragHandle', () => {
+  it('should render without crashing', function () {
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <DragHandle x={50} y={-120} />
+      </svg>
+    )
+
+    const dragHandle = document.querySelector('g[transform]')
+    expect(dragHandle).to.exist
+  })
+})
+
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
 describe.skip('Drawing Tools > Drag Handle', function () {})
