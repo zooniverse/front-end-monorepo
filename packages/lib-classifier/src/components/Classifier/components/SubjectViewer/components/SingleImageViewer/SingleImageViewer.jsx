@@ -3,6 +3,7 @@ import { arrayOf, bool, func, node, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
+import { useResizeDetector } from 'react-resize-detector'
 
 import ZoomControlButton from '../ZoomControlButton'
 import ZoomHelperOverlay from './components/ZoomHelperOverlay'
@@ -60,6 +61,9 @@ function SingleImageViewer({
   const [showZoomHelper, setShowZoomHelper] = useState(false)
   const [fadingOut, setFadingOut] = useState(false)
 
+  // Set up resize detector for calculation of scale in SVGContext
+  const {width: svgWidth, ref: svgRef} = useResizeDetector()
+
   useEffect(function onMount() {
     enableRotation()
   }, [])
@@ -105,6 +109,7 @@ function SingleImageViewer({
           frame={frame}
         />
         <StyledSVG
+          ref={svgRef}
           aria-labelledby={title?.id}
           aria-describedby={allowsScrolling ? 'scrolling-info' : undefined}
           $maxHeight={maxHeight}
@@ -144,6 +149,7 @@ function SingleImageViewer({
                 rotation={rotation}
                 src={src}
                 subject={subject}
+                svgWidth={svgWidth}
               />
             )}
           </VisXZoom>
