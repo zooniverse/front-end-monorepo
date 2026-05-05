@@ -52,8 +52,8 @@ export function getDataExtent (data, bufferPercentage = 0) {
     extentX = extent(xValues)
     extentY = extent(yValues)
   } else {
-    extentX = data.x
-    extentY = data.y
+    extentX = extent(data.x)
+    extentY = extent(data.y)
   }
 
   // Increase the maximum, and decrease the minimum, by a certain buffer value.
