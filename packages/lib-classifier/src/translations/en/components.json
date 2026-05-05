@@ -169,6 +169,14 @@
     },
     "GeoMapViewer": {
       "mapLabel": "Interactive map",
+      "CoordinateInput": {
+        "error": {
+          "invalidFormat": "Coordinates must be in \"latitude, longitude\" format (44.98, -93.22)"
+        },
+        "label": "Coordinates",
+        "placeholder": "latitude, longitude",
+        "submit": "Go"
+      },
       "MeasureButton": {
         "ariaLabel": "Measure distance"
       },
@@ -183,6 +191,9 @@
       "ResetButton": {
         "ariaLabel": "Reset features to original position",
         "confirm": "Are you sure you want to reset the features on the map to their original positions?"
+      },
+      "UnitSelect": {
+        "label": "Units"
       }
     },
     "ImageAndTextViewer": {

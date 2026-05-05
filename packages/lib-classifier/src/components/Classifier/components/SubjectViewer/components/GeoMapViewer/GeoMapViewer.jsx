@@ -17,13 +17,16 @@ import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 import { unByKey } from 'ol/Observable'
+import { transform } from 'ol/proj'
 
 // local imports
 import { useTranslation } from '@translations/i18n'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
+import CoordinateInput from './components/CoordinateInput'
 import MeasureButton from './components/MeasureButton'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
+import UnitSelect from './components/UnitSelect'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import asMSTFeature from './helpers/asMSTFeature'
@@ -72,13 +75,22 @@ const MapContainer = styled.div`
 
 const ZOOM_ANIMATION_DURATION_MS = 250
 
+// Maps UnitSelect display options to OpenLayers ScaleLine unit strings
+const UNIT_OPTION_TO_SCALE_LINE_UNITS = {
+  meters: 'metric',
+  kilometers: 'metric',
+  feet: 'imperial',
+  miles: 'imperial',
+  'nautical miles': 'nautical'
+}
+
 // Helper function to fit view to features extent
 function fitViewToFeatures(map, features) {
   const view = map.getView()
   view.fit(features.getExtent(), {
     padding: [32, 32, 32, 32],
     maxZoom: 12,
-    duration: 250
+    duration: ZOOM_ANIMATION_DURATION_MS
   })
 }
 
@@ -119,6 +131,7 @@ function GeoMapViewer({
   onSelectedFeatureChange = undefined
 }) {
   const [isMeasureModeActive, setIsMeasureModeActive] = useState(false)
+  const [selectedUnit, setSelectedUnit] = useState('meters')
   const { t } = useTranslation('components')
 
   // Map and layer refs: created once on mount, reused across feature updates
@@ -129,6 +142,7 @@ function GeoMapViewer({
   const isMeasureModeActiveRef = useRef(false)
   
   // Interaction refs: created once and reused to avoid re-stacking on data updates
+  const scaleLineRef = useRef()
   const selectRef = useRef()
   const translateRef = useRef()
   const modifyUncertaintyRef = useRef()
@@ -183,7 +197,7 @@ function GeoMapViewer({
         zoom: 0,
       }),
       controls: defaultControls({ zoom: false }).extend([
-        new ScaleLine()
+        (() => { const sl = new ScaleLine(); scaleLineRef.current = sl; return sl })()
       ])
     })
 
@@ -419,6 +433,7 @@ function GeoMapViewer({
       mapRef.current = undefined
       featuresRef.current = undefined
       geoJSONFormatRef.current = undefined
+      scaleLineRef.current = undefined
       selectRef.current = undefined
       translateRef.current = undefined
       modifyUncertaintyRef.current = undefined
@@ -427,6 +442,15 @@ function GeoMapViewer({
       pointerMoveHandlerRef.current = undefined
     }
   }, [])
+
+  useEffect(function syncScaleLineUnits() {
+    const olUnits = UNIT_OPTION_TO_SCALE_LINE_UNITS[selectedUnit] ?? 'metric'
+    scaleLineRef.current?.setUnits(olUnits)
+    measureInteractionRef.current?.setUnit(selectedUnit)
+    if (geoDrawingTask?.setUnit) {
+      geoDrawingTask.setUnit(selectedUnit)
+    }
+  }, [selectedUnit, geoDrawingTask])
 
   useEffect(function syncMeasureMode() {
     isMeasureModeActiveRef.current = isMeasureModeActive
@@ -508,7 +532,7 @@ function GeoMapViewer({
     updateExtent()
 
     // Update on view changes (throttled)
-    const throttledUpdate = throttle(updateExtent, 250)
+    const throttledUpdate = throttle(updateExtent, ZOOM_ANIMATION_DURATION_MS)
     const key = map.on('moveend', throttledUpdate)
 
     return () => {
@@ -537,10 +561,7 @@ function GeoMapViewer({
 
     function serializeAndNotify() {
       const olFeatures = featuresSource.getFeatures()
-      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, {
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'
-      })
+      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, geoJSONReadOptions)
 
       const sanitizedFeatures = featureCollection.features?.map((feature) => ({
         ...feature,
@@ -617,8 +638,38 @@ function GeoMapViewer({
     setIsMeasureModeActive((active) => !active)
   }
 
+<<<<<<< geomap-arialabel
 
   const mapLabel = t('SubjectViewer.GeoMapViewer.mapLabel')
+=======
+  function handleUnitChange(unit) {
+    setSelectedUnit(unit)
+  }
+
+  // Handler to navigate map to entered coordinates
+  function handleCoordinateGo({ latitude, longitude }) {
+    const map = mapRef.current
+    if (!map) return
+
+    // Transform from data projection to map projection
+    const transformedCoords = transform(
+      [longitude, latitude],
+      geoJSONReadOptions.dataProjection,
+      geoJSONReadOptions.featureProjection
+    )
+
+    // Animate map to the coordinates
+    const view = map.getView()
+    const currentZoom = view.getZoom() ?? 0
+    const targetZoom = Math.max(currentZoom, 14) // don't zoom out if already zoomed in
+    view.cancelAnimations()
+    view.animate({
+      center: transformedCoords,
+      zoom: targetZoom,
+      duration: ZOOM_ANIMATION_DURATION_MS
+    })
+  }
+>>>>>>> main
 
   return (
     <StyledBox
@@ -648,6 +699,20 @@ function GeoMapViewer({
         className='map-container'
         tabIndex={0}
       />
+      <Box
+        direction='row'
+        align='center'
+        gap='small'
+        margin={{ top: 'xsmall' }}
+      >
+        <UnitSelect
+          value={selectedUnit}
+          onChange={handleUnitChange}
+        />
+        <CoordinateInput
+          onGoSubmit={handleCoordinateGo}
+        />
+      </Box>
     </StyledBox>
   )
 }

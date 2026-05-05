@@ -10,6 +10,8 @@ import Stroke from 'ol/style/Stroke'
 import Style from 'ol/style/Style'
 import Overlay from 'ol/Overlay'
 
+import UNIT_CONVERSIONS from '@helpers/unitConversions'
+
 const drawStyle = new Style({
   fill: new Fill({
     color: 'rgba(255, 255, 255, 0.2)'
@@ -30,8 +32,11 @@ const drawStyle = new Style({
   })
 })
 
-function formatLength(line) {
-  return `${(Math.round(getLength(line) * 100) / 100).toLocaleString()} m`
+function formatLength(line, unit = 'meters') {
+  const meters = getLength(line)
+  const { factor, label } = UNIT_CONVERSIONS[unit] ?? UNIT_CONVERSIONS.meters
+  const value = Math.round(meters * factor * 100) / 100
+  return `${value.toLocaleString()} ${label}`
 }
 
 function createOverlayElement(className) {
@@ -70,7 +75,8 @@ function createMeasureInteraction({ map, messages = {} }) {
     measureTooltipElement: null,
     sketch: null,
     sketchListenerKey: null,
-    staticTooltipEntries: []
+    staticTooltipEntries: [],
+    unit: 'meters'
   }
 
   map.addLayer(layer)
@@ -217,19 +223,21 @@ function createMeasureInteraction({ map, messages = {} }) {
         return
       }
 
-      state.measureTooltipElement.innerHTML = formatLength(geometry)
+      state.measureTooltipElement.innerHTML = formatLength(geometry, state.unit)
       state.measureTooltipElement.classList.remove('hidden')
       state.measureTooltip.setPosition(geometry.getLastCoordinate())
     })
   })
 
-  draw.on('drawend', function handleDrawEnd() {
+  draw.on('drawend', function handleDrawEnd(event) {
     if (state.measureTooltip && state.measureTooltipElement) {
       state.measureTooltipElement.className = 'ol-measure-tooltip ol-measure-tooltip-static'
       state.measureTooltip.setOffset([0, -7])
+      const completedGeometry = event.feature?.getGeometry()?.clone()
       state.staticTooltipEntries.push({
         overlay: state.measureTooltip,
-        element: state.measureTooltipElement
+        element: state.measureTooltipElement,
+        geometry: completedGeometry
       })
     }
 
@@ -269,6 +277,14 @@ function createMeasureInteraction({ map, messages = {} }) {
       }
 
       deactivateMeasurement()
+    },
+    setUnit(unit) {
+      state.unit = unit
+      state.staticTooltipEntries.forEach(function updateStaticTooltip({ element, geometry }) {
+        if (element && geometry) {
+          element.innerHTML = formatLength(geometry, unit)
+        }
+      })
     }
   }
 }

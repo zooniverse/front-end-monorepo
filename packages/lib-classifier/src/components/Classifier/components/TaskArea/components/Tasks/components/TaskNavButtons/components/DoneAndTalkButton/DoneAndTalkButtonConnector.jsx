@@ -11,7 +11,6 @@ function storeMapper(classifierStore) {
       active: subject
     },
     workflowSteps: {
-      hasUnsupportedTasks,
       shouldWeShowDoneAndTalkButton
     }
   } = classifierStore
@@ -27,7 +26,6 @@ function storeMapper(classifierStore) {
     }
 
     return {
-      hasUnsupportedTasks,
       onClick,
       talkURL: subject.talkURL,
       visible
@@ -38,10 +36,9 @@ function storeMapper(classifierStore) {
 }
 
 function DoneAndTalkConnector(props) {
-  const { hasUnsupportedTasks, onClick, talkURL, visible } = useStores(storeMapper)
-  const isDisabled = hasUnsupportedTasks || props.disabled
+  const { onClick, talkURL, visible } = useStores(storeMapper)
 
-  return visible ? <DoneAndTalkButton {...props} disabled={isDisabled} onClick={onClick} talkURL={talkURL} /> : null
+  return visible ? <DoneAndTalkButton onClick={onClick} {...props} talkURL={talkURL} /> : null
 }
 
 export default observer(DoneAndTalkConnector)
