@@ -17,7 +17,8 @@ const GeoDrawing = types
     annotation: types.safeReference(GeoDrawingAnnotation),
     required: types.maybe(types.union(types.string, types.boolean)),
     tools: types.array(GenericTool),
-    type: types.literal('geoDrawing')
+    type: types.literal('geoDrawing'),
+    unit: types.optional(types.string, 'meters')
   })
   .volatile(() => ({
     activeOlFeature: null,
@@ -93,6 +94,10 @@ const GeoDrawing = types
         self.mapExtentMeters = extentInfo
       },
 
+      setUnit(newUnit) {
+        self.unit = newUnit
+      },
+
       reset() {
         // model state
         self.activeFeature = null
@@ -100,6 +105,7 @@ const GeoDrawing = types
         // volatile state
         self.activeOlFeature = null
         self.mapExtentMeters = null
+        self.unit = 'meters'
       }
     })
   })
