@@ -638,10 +638,6 @@ function GeoMapViewer({
     setIsMeasureModeActive((active) => !active)
   }
 
-<<<<<<< geomap-arialabel
-
-  const mapLabel = t('SubjectViewer.GeoMapViewer.mapLabel')
-=======
   function handleUnitChange(unit) {
     setSelectedUnit(unit)
   }
@@ -669,7 +665,8 @@ function GeoMapViewer({
       duration: ZOOM_ANIMATION_DURATION_MS
     })
   }
->>>>>>> main
+
+  const mapLabel = t('SubjectViewer.GeoMapViewer.mapLabel')
 
   return (
     <StyledBox
