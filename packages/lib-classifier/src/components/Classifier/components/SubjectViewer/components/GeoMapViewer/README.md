@@ -8,33 +8,58 @@ The GeoMapViewer is a variant of the Subject Viewer that displays geographic dat
 - **Feature Rendering**: Displays GeoJSON features with customizable styling based on feature properties
 - **Feature Selection**: Click to select features for editing or annotation
 - **Feature Translation**: Drag selected features to reposition them on the map
-- **Uncertainty Modification**: Adjust uncertainty circles around point features
-- **Move to Click**: Move selected features to a new location via click interaction
-- **Reference Data Display**: Shows contextual information (e.g., location metadata) above the map
-- **Map Controls**: Recenter and reset buttons for easy map navigation
+- **Zoom Controls**: Zoom in/out buttons and scroll wheel zooming
+- **Distance Measurement**: Toggle measurement mode to draw polylines on the map with live distance tooltips
+- **Unit Selection**: Choose the display unit (meters, kilometers, feet, miles, nautical miles) for both the scale line and measurement tool
+- **Coordinate Navigation**: Enter a latitude/longitude to pan and zoom the map to that location
+- **Map Controls**: Recenter (fit view to all features) and reset (restore original GeoJSON) buttons
 
 ## Components
 
 ### GeoMapViewerContainer
 
 The container component that:
-- Fetches and parses subject JSON data
-- Extracts GeoJSON and reference data from the subject
-- Updates the classification annotation with modified features
-- Handles callbacks for GeoDrawing task component
+- Fetches and parses subject JSON data via `useSubjectJSON` (expects `type.name === 'GeoJSON'`)
+- Extracts GeoJSON and `reference_data` from the parsed subject file
+- Seeds the `geoDrawing` annotation with the initial GeoJSON data on mount (if the annotation has no value yet)
+- Passes `handleFeaturesChange`, `handleSelectedFeatureChange`, and `handleMapExtentChange` callbacks to `GeoMapViewer`, which update the `geoDrawing` annotation and task in the classifier store
+- Renders `<ReferenceData>` above the map when reference data is present
+- Returns `null` while loading; renders an error message on fetch failure
 
 ### GeoMapViewer
 
 The main map component that:
-- Renders an OpenLayers map with default OSM base layer
-- Displays GeoJSON features on a vector layer
-- Manages map interactions (select, translate, modify)
-- Tracks and reports map extent changes
-- Provides recenter and reset controls
+- Creates the OpenLayers map **once on mount** with an OSM tile layer, a vector features layer, a `ScaleLine` control, and — when a `geoDrawing` task is active — `Select`, `Translate`, `ModifyUncertainty`, and `MoveToClick` interactions
+- Syncs the `ScaleLine` units and measure interaction when `selectedUnit` state changes
+- Toggles measure mode on/off, pausing all other interactions during measurement and re-selecting the first feature on exit
+- Reloads the vector source when the `geoJSON` prop changes, fits the view, and selects the first feature
+- Reports map extent info (`widthMeters`, `heightMeters`, `resolution`) on `moveend` (throttled) via `onMapExtentChange`
+- Serializes all OL features to a GeoJSON `FeatureCollection` on every add/change/remove and calls `onFeaturesChange`
+- Manages cursor states for point center, drag handle (ew-resize), uncertainty circle, and hover
 
 ### ReferenceData
 
-A component that displays contextual reference data about the geographic location being viewed. It appears above the map when reference data is provided in the GeoJSON.
+A component that displays contextual reference data about the geographic location being viewed. It appears above the map when reference data is provided in the GeoJSON. Returns `null` when `data` is falsy or empty.
+
+### RecenterButton
+
+Fits the map view to the extent of all loaded features. Only rendered when `geoJSON` is present. Requires an `onClick` prop.
+
+### ResetButton
+
+Reloads all map features from the original GeoJSON. Only rendered when both `geoJSON` and a `geoDrawingTask` are present. Wraps `onClick` in a `window.confirm()` guard — the reset only proceeds if the user confirms. Requires an `onClick` prop.
+
+### UnitSelect
+
+Dropdown for selecting the measurement unit for the scale line and measure tool. Exports a `UNIT_OPTIONS` constant.
+
+Available options: `meters`, `kilometers`, `feet`, `miles`, `nautical miles`.
+
+### CoordinateInput
+
+Labeled text input and "Go" button to navigate the map to an entered latitude/longitude coordinate. Validates that input is two comma-separated numeric values within `[-90, 90]` (latitude) and `[-180, 180]` (longitude). Displays an inline error message on invalid input.
+
+`onGoSubmit` is called with `{ latitude, longitude }` on valid submission.
 
 ## External Setup: Workflows and Subjects
 
@@ -105,10 +130,10 @@ This information appears in a styled section above the map with labels and value
 
 When a `geoDrawing` task is active:
 
-1. **Select**: Click a feature to select it
-2. **Translate**: Drag a selected feature to move it
-3. **Modify Uncertainty**: Adjust uncertainty circles on point features
-4. **Move to Click**: Use task-specific tools to move features to clicked locations
+1. **Select**: Click a feature to select it (restricted to features layer)
+2. **Translate**: Drag a selected feature to move it (restricted to a hit radius around the point center)
+3. **Modify Uncertainty**: Drag the uncertainty circle's drag handle to resize the uncertainty radius
+4. **Move to Click**: Move the selected point feature to a new location via a map click
 
 Without a `geoDrawing` task, features are displayed in read-only mode with static styling.
 
