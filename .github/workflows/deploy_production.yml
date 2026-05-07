@@ -69,7 +69,7 @@ jobs:
     with:
       fdname: 'www-zooniverse-org-standard'
       domain: 'www.zooniverse.org'
-      endpoint: 'main-route'
+      endpoint: 'www-zooniverse-org'
       path: '/*'
     secrets:
       creds: ${{ secrets.AZURE_STATIC_SITES }}
