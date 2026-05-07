@@ -69,7 +69,7 @@ jobs:
     with:
       fdname: 'frontend-preview-zooniverse-org-standard'
       domain: 'frontend.preview.zooniverse.org'
-      endpoint: 'main-route'
+      endpoint: 'frontend-preview-zooniverse-org'
       path: '/*'
     secrets:
       creds: ${{ secrets.AZURE_STATIC_SITES }}
