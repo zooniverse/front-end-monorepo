@@ -14,6 +14,18 @@ import NarrowMainNavMenu from './components/NarrowMainNavMenu/NarrowMainNavMenu'
 import UserNavigation from './components/UserNavigation/UserNavigation'
 import ZooniverseLogo from '../ZooniverseLogo/ZooniverseLogo'
 
+const defaultHandler = () => true
+
+// Best guess for when the nav menus should collapse to hamburger style so as not to overlap horiztonally
+// This could be refactored to use CSS and rem units. The legacy version of ZooHeader was initially built
+// with detecting client side viewport width to define isNarrow as a prop passed to the nav menus.
+const narrowNavBreakpoint = 990
+
+// Best guess for max screen width when a user is signed-in, has admin mode enabled, or viewing a locale with longer than average words like German
+// while still accounting for rem if someone has changed their browser font size. This resize cannot use CSS container queries because the space in
+// between the two navs in ZooHeader doesn't have a defined width and that's incompatible with a CSS container query.
+const logosBreakpoint = '80rem'
+
 export const StyledHeader = styled(Box)`
   color: #a6a7a9; // light-5
   font-size: 1em;
@@ -24,14 +36,29 @@ export const StyledHeader = styled(Box)`
   }
 `
 
+const TopLogosContainer = styled(Box)`
+  @media (width >= ${logosBreakpoint}) {
+    display: none;
+  }
+`
+
 const Relative = styled(Box)`
   position: relative;
+  padding-block: 20px;
+
+  @media (width < ${narrowNavBreakpoint}px) {
+    padding-block: 10px;
+  }
 `
 
 const Absolute = styled(Box)`
   position: absolute;
   left: 0;
   top: 0;
+
+  @media (width < ${logosBreakpoint}) {
+    display: none;
+  }
 `
 
 export const StyledLogoAnchor = styled(Anchor)`
@@ -51,10 +78,6 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
-const defaultHandler = () => true
-const navBreakpoint = 990 // best guess for when the nav menus should collapse to hamburger style
-const logosBreakpoint = 262 // 40px horizontal padding + 40px total gap + 182px total width of logos
-
 export default function ZooHeader({
   adminMode = false,
   onThemeChange = defaultHandler,
@@ -73,41 +96,13 @@ export default function ZooHeader({
   // Hide the user nav menus until component is mounted and can detect a signed-in user
   const hasMounted = useHasMounted()
 
-  // This resize detector could be refactored to use CSS container queries. The legacy
-  // version of ZooHeader was initially built with detecting client side viewport width
-  // to define isNarrow as a prop passed to the nav menus.
+  // Calculate isNarrow
   const { width: headerWidth, ref: headerRef } = useResizeDetector({
     handleHeight: false,
     refreshMode: 'debounce',
     refreshRate: 100
   })
-  const isNarrow = headerWidth <= navBreakpoint
-
-  // For the institutional logos. This resize cannot use CSS container queries because the container
-  // in this case doesn't have a defined width. It adapts to however much space is left in between
-  // the nav menus, and that's incompatible with a CSS container query.
-  const { width: leftNavWidth, ref: leftNavRef } = useResizeDetector({
-    handleHeight: false,
-    refreshMode: 'debounce',
-    refreshRate: 100
-  })
-
-  const { width: logosContainerWidth, ref: logosContainerRef } =
-    useResizeDetector({
-      handleHeight: false,
-      refreshMode: 'debounce',
-      refreshRate: 100
-    })
-
-  // Show the institute logos inline with the navbar *if* the width of the left-hand nav does not
-  // cross into the justified-center <InstituteLogos /> which always have a width of 262px. The width
-  // of the left-hand nav varies with language or user preferences like browser font size, but we always
-  // want the logos centered relative to the user's screen width.
-  const minHeaderWidthAllowed = (leftNavWidth + 30) * 2 + logosBreakpoint
-  const showLogosInline =
-    headerWidth > navBreakpoint &&
-    headerWidth > minHeaderWidthAllowed &&
-    logosContainerWidth > logosBreakpoint
+  const isNarrow = headerWidth <= narrowNavBreakpoint
 
   // Form the link URLs
   const host = getHost()
@@ -132,29 +127,24 @@ export default function ZooHeader({
 
   return (
     <StyledHeader ref={headerRef} background='black' {...props}>
-      {!showLogosInline && (
-        <Box direction='row' justify='center' pad={{ top: '10px' }}>
-          <InstituteLogos />
-        </Box>
-      )}
+      <TopLogosContainer direction='row' justify='center' pad={{ top: '10px' }}>
+        <InstituteLogos />
+      </TopLogosContainer>
       <Relative
         direction='row'
         pad={{
-          vertical: showLogosInline ? '20px' : '10px',
           horizontal: 'medium'
         }}
+        justify='between'
       >
-        {showLogosInline && (
-          <Absolute fill align='center' direction='row' justify='center'>
-            <InstituteLogos />
-          </Absolute>
-        )}
+        <Absolute fill align='center' direction='row' justify='center'>
+          <InstituteLogos />
+        </Absolute>
         <Box
           as='nav'
           align='center'
           aria-label={t('ZooHeader.ariaLabel')}
           direction='row'
-          ref={leftNavRef}
           style={{ zIndex: 1 }}
         >
           <StyledLogoAnchor href='http://www.zooniverse.org'>
@@ -169,7 +159,6 @@ export default function ZooHeader({
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />
         </Box>
-        <Box flex direction='row' justify='center' ref={logosContainerRef} />
         <Box
           aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
           as='nav'
