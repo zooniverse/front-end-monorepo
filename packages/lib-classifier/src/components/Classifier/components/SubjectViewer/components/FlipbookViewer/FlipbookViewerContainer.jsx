@@ -48,10 +48,10 @@ function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  setOnPan: propSetOnPan = null,
-  setOnZoom: propSetOnZoom = null,
+  setOnPan: propSetOnPan = undefined,
+  setOnZoom: propSetOnZoom = undefined,
   subject,
-  zoomControlFn = null,
+  zoomControlFn = undefined,
   zooming = true
 }) {
   const {

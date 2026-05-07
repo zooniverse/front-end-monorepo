@@ -28,7 +28,7 @@ const FlipbookViewer = ({
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
   subject,
-  zoomControlFn = null,
+  zoomControlFn = undefined,
   zooming = true
 }) => {
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
