@@ -1,5 +1,13 @@
+/*
+This library contains utility functions for working with chart data.
+
+If you make any changes here, please ensure they are mirrored on:
+- packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/ScatterPlotViewer/helpers/utils.js
+- packages/lib-react-components/src/Media/components/Data/components/DataSeriesPlot/helpers/utils.js
+ */
+
 import { scaleLinear } from '@visx/scale'
-import { extent } from '@visx/vendor/d3-array'
+import { extent } from '@visx/vendor/d3-array'  // lib-classifier uses 'd3-array', lib-react-components uses '@visx/vendor/d3-array'. For some reason.
 import { flatten, zipWith } from 'lodash'
 
 function isThisMultipleDataSeries (data) {
@@ -20,7 +28,24 @@ export function getDataPoints (data) {
   }
 }
 
-export function getDataExtent (data) {
+/*
+Gets the minimum & maximum X & Y values for a data series.
+
+- Input:
+  - data: data series OR multiple data series with x & y values, e.g.
+    - dataExample1 = { x: [1, 2... 9], y: [1, 4... 81] }
+    - dataExample2 = [{ seriesData: [{x:1,y:1}, {x:2,y:4}, ... {x:9,y:81}] }]
+  - bufferPercentage: adds a buffer to the minimum and maximum values.
+    - A buffer is useful when presenting data on a chart, so the data points at
+      the actual max/min values don't "stick" to the edge of the chart.
+- Output: object with 2 arrays with 2x items, e.g. { x: [1, 9], y: [1, 81] }
+
+WARNING: will completely bork if data contains 0 points.
+ */
+export function getDataExtent (data, bufferPercentage = 0) {
+  let extentX = []  // minX, and maxX.
+  let extentY = []  // minY, and maxY.
+
   if (isThisMultipleDataSeries(data)) {
     const xValues = flatten(data.map((series) => {
       return series.seriesData.map((dataItem) => {
@@ -32,16 +57,24 @@ export function getDataExtent (data) {
         return dataItem.y
       })
     }))
-
-    return {
-      x: extent(xValues),
-      y: extent(yValues)
-    }
+    extentX = extent(xValues)
+    extentY = extent(yValues)
   } else {
-    return {
-      x: extent(data.x),
-      y: extent(data.y)
-    }
+    extentX = extent(data.x)
+    extentY = extent(data.y)
+  }
+
+  // Increase the maximum, and decrease the minimum, by a certain buffer value.
+  if (bufferPercentage > 0 && extentX.length >= 2 && extentY.length >= 2) {
+    const bufferX = Math.abs(extentX[1] - extentX[0]) * bufferPercentage
+    const bufferY = Math.abs(extentY[1] - extentY[0]) * bufferPercentage
+    extentX = [ extentX[0] - bufferX, extentX[1] + bufferX ]
+    extentY = [ extentY[0] - bufferY, extentY[1] + bufferY ]
+  }
+
+  return {
+    x: extentX,
+    y: extentY,
   }
 }
 
@@ -99,8 +132,8 @@ export function yMax ({ tickDirection, parentHeight, margin, padding }) {
   return yMax[tickDirection]
 }
 
-export function transformXScale (data, transformMatrix, rangeParameters) {
-  const dataExtent = getDataExtent(data)
+export function transformXScale (data, transformMatrix, rangeParameters, bufferPercentage) {
+  const dataExtent = getDataExtent(data, bufferPercentage)
   const xRange = (rangeParameters.invertAxes.x) ?
     [xMax(rangeParameters), xMin(rangeParameters)] :
     [xMin(rangeParameters), xMax(rangeParameters)]
@@ -119,8 +152,8 @@ export function transformXScale (data, transformMatrix, rangeParameters) {
   })
 }
 
-export function transformYScale (data, transformMatrix, rangeParameters) {
-  const dataExtent = getDataExtent(data)
+export function transformYScale (data, transformMatrix, rangeParameters, bufferPercentage) {
+  const dataExtent = getDataExtent(data, bufferPercentage)
   const yRange = (rangeParameters.invertAxes.y) ?
     [yMin(rangeParameters), yMax(rangeParameters)] :
     [yMax(rangeParameters), yMin(rangeParameters)]
