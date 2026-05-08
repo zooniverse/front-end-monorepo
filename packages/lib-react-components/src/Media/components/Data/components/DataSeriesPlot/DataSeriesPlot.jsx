@@ -49,6 +49,10 @@ const CHART_OPTIONS = {
   padding: PADDING
 }
 
+// Adds a 5% buffer around the data points, so the points with min/max don't
+// get "stuck" at the edges of the chart. 
+const BUFFER_PERCENTAGE_FOR_DATA_EXTENT = 0.05
+
 function DataSeriesPoint({
   GlyphComponent,
   dataPointSize = 10,
@@ -160,9 +164,9 @@ function DataSeriesPlot({
   }
 
   const sortedDataPoints = getDataPoints(data)
-  const xScaleTransformed = transformXScale(data, transformMatrix, rangeParameters)
+  const xScaleTransformed = transformXScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
-  const yScaleTransformed = transformYScale(data, transformMatrix, rangeParameters)
+  const yScaleTransformed = transformYScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
   const clipPathId = cuid()
   const plotHeight = parentHeight - margin.bottom - margin.top
