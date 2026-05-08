@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react';
-import i18n from '../../translations/i18n'
+import i18n, { useTranslation } from '../../translations/i18n'
 import {
   env,
   panoptes as panoptesClient,
@@ -60,6 +60,7 @@ export default function ClassifierContainer({
 }) {
   const storeEnvironment = { authClient, client }
   const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
+  const { t } = useTranslation('components')
 
   /*
     A user must have one of the following roles to view an inactive workflow. Or have admin mode enabled.
@@ -230,10 +231,10 @@ export default function ClassifierContainer({
     return (
       <Provider classifierStore={classifierStore}>
         {!workflowID ? // If the workflow ID isn't specified, it's usually because the user is at the root /classify path.
-          <Paragraph>No workflow selected.</Paragraph>
+          <Paragraph>{t('Classifier.status.noWorkflowSelected')}</Paragraph>
 
         : !allowedWorkflowID && userHasLoaded ?
-          <Paragraph>This workflow does not exist or you do not have permission to view it.</Paragraph>
+          <Paragraph>{t('Classifier.status.workflowDoesNotExist')}</Paragraph>
 
         : classifierIsReady ?
           <Classifier
@@ -245,7 +246,7 @@ export default function ClassifierContainer({
           />
 
         :
-          <Paragraph>Loading the Classifier</Paragraph>
+          <Paragraph>{t('Classifier.status.loading')}</Paragraph>
         }
       </Provider>
     )
