@@ -168,6 +168,7 @@
       "chartLabel": "Bar chart"
     },
     "GeoMapViewer": {
+      "mapLabel": "Interactive map",
       "CoordinateInput": {
         "error": {
           "invalidFormat": "Coordinates must be in \"latitude, longitude\" format (44.98, -93.22)"
