@@ -666,6 +666,8 @@ function GeoMapViewer({
     })
   }
 
+  const mapLabel = t('SubjectViewer.GeoMapViewer.mapLabel')
+
   return (
     <StyledBox
       forwardedAs='section'
@@ -689,11 +691,10 @@ function GeoMapViewer({
       </ControlsBox>
       <MapContainer
         ref={mapContainerRef}
-        className='map-container'
-        data-testid='geo-map-container'
-        tabIndex={0}
+        aria-label={mapLabel}
         role='region'
-        aria-label='Interactive map'
+        className='map-container'
+        tabIndex={0}
       />
       <Box
         direction='row'
