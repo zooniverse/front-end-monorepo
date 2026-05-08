@@ -1,5 +1,13 @@
+/*
+This library contains utility functions for working with chart data.
+
+If you make any changes here, please ensure they are mirrored on:
+- packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/ScatterPlotViewer/helpers/utils.js
+- packages/lib-react-components/src/Media/components/Data/components/DataSeriesPlot/helpers/utils.js
+ */
+
 import { scaleLinear } from '@visx/scale'
-import { extent } from 'd3-array'
+import { extent } from 'd3-array'  // lib-classifier uses 'd3-array', lib-react-components uses '@visx/vendor/d3-array'. For some reason.
 import { flatten, zipWith } from 'lodash'
 
 function isThisMultipleDataSeries (data) {
