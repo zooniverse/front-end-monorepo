@@ -30,6 +30,7 @@ import UnitSelect from './components/UnitSelect'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import asMSTFeature from './helpers/asMSTFeature'
+import createGeoLineStringInteraction from './helpers/createGeoLineStringInteraction'
 import createMeasureInteraction from './helpers/createMeasureInteraction'
 import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
@@ -154,6 +155,7 @@ function GeoMapViewer({
   const modifyUncertaintyRef = useRef()
   const moveToClickRef = useRef()
   const measureInteractionRef = useRef()
+  const lineStringDrawRef = useRef()
   const pointerMoveHandlerRef = useRef()
 
   // Shared options for reading GeoJSON and projecting to the map view
@@ -369,6 +371,13 @@ function GeoMapViewer({
       map.addInteraction(moveToClick)
       moveToClickRef.current = moveToClick
 
+      lineStringDrawRef.current = createGeoLineStringInteraction({
+        map,
+        source: featuresSource,
+        geoDrawingTask,
+        selectInteraction: select
+      })
+
       // Add cursor states that match the active interactions.
       // Note: we target the viewport element (not the outer target element) so that
       // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
@@ -509,6 +518,7 @@ function GeoMapViewer({
       if (translateRef.current) map.removeInteraction(translateRef.current)
       if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
       if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
+      lineStringDrawRef.current?.destroy()
       measureInteractionRef.current?.destroy()
       if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
       if (pointerMoveRafId !== null) cancelAnimationFrame(pointerMoveRafId)
@@ -522,6 +532,7 @@ function GeoMapViewer({
       modifyUncertaintyRef.current = undefined
       moveToClickRef.current = undefined
       measureInteractionRef.current = undefined
+      lineStringDrawRef.current = undefined
       pointerMoveHandlerRef.current = undefined
     }
   }, [])
@@ -534,6 +545,30 @@ function GeoMapViewer({
       geoDrawingTask.setUnit(selectedUnit)
     }
   }, [selectedUnit, geoDrawingTask])
+
+  const activeToolType = geoDrawingTask?.activeTool?.type
+  useEffect(function syncDrawingToolMode() {
+    const isLineStringDrawing = activeToolType === 'LineString'
+
+    lineStringDrawRef.current?.setActive(isLineStringDrawing)
+
+    if (isLineStringDrawing) {
+      clearSelectedFeature(selectRef.current)
+      selectRef.current?.setActive(false)
+      translateRef.current?.setActive(false)
+      modifyUncertaintyRef.current?.setActive(false)
+      moveToClickRef.current?.setActive(false)
+    } else {
+      if (!isMeasureModeActiveRef.current) {
+        selectRef.current?.setActive(true)
+        translateRef.current?.setActive(true)
+        modifyUncertaintyRef.current?.setActive(true)
+        moveToClickRef.current?.setActive(true)
+      }
+    }
+
+    return undefined
+  }, [activeToolType])
 
   useEffect(function syncMeasureMode() {
     isMeasureModeActiveRef.current = isMeasureModeActive
