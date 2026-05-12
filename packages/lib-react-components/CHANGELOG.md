@@ -5,17 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.16.0] 2026-05-06
+
+### Added
+- Catalan language dictionaries.
+- Support GeoJSON subjects in the Media component.
 
 ## Changed
-- Upgrade to Storybook v9
+- Upgrade to Storybook v9.
+- Change commands defined in package.json to use `pnpm` instead of `yarn`.
 - Remove `breakpoint` and `isNarrow` as props from ZooHeader in favor of defining `isNarrow` consistently in ZooHeader.
-- Add the institute logos to the ZooHeader (Adler, UMN, Oxford).
+- Add the institute logos to the ZooHeader and ZooFooter (Adler, UMN, Oxford).
 - Use a color from lib-grommet-theme for ZooHeader's font color.
 
 ## Fixed
 
 - `Markdownz`: Support `:---:` column formatting syntax in tables.
+- Set max height to 90% on AuthModal to account for mobile screens.
 
 ## [1.15.0] 2025-09-15
 
