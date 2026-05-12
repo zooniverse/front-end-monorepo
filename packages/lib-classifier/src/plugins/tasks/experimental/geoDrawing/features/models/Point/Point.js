@@ -88,7 +88,7 @@ const Point = types
       if (!fillPattern) {
         const canvas = document.createElement('canvas')
         const tileSize = Math.max(spacing * 2, 12)
-        const context = canvas.getContext('2d')
+        const context = canvas.getContext('2d', { willReadFrequently: true })
 
         canvas.width = tileSize
         canvas.height = tileSize
