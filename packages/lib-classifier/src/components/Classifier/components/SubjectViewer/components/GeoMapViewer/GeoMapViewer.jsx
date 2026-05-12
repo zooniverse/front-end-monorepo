@@ -31,10 +31,11 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import asMSTFeature from './helpers/asMSTFeature'
 import createMeasureInteraction from './helpers/createMeasureInteraction'
-import createModifyUncertaintyInteraction, { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/createModifyUncertaintyInteraction'
+import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import getPixelDistance from './helpers/getPixelDistance'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/hitTesting'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -321,6 +322,44 @@ function GeoMapViewer({
       let lastHitCheckPixel = null
       let lastHitCheckResult = false
 
+      function isPointerOverFeature(pixel) {
+        let isOverFeature = false
+
+        featuresLayer.getSource().forEachFeature((feature) => {
+          if (isOverFeature) return
+
+          const coords = feature.getGeometry()?.getCoordinates?.()
+          if (!Array.isArray(coords)) return
+
+          const pointPixel = map.getPixelFromCoordinate(coords)
+          if (isPixelNearPointCenter({
+            pixel,
+            pointPixel,
+            radius: POINT_CENTER_HIT_RADIUS_PIXELS
+          })) {
+            isOverFeature = true
+            return
+          }
+
+          const mstFeature = asMSTFeature(feature)
+          const uncertaintyRadiusPixels = mstFeature?.getUncertaintyRadiusPixels?.({
+            feature,
+            geoDrawingTask,
+            resolution: map.getView().getResolution()
+          })
+
+          if (
+            typeof uncertaintyRadiusPixels === 'number'
+            && uncertaintyRadiusPixels > 0
+            && getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels
+          ) {
+            isOverFeature = true
+          }
+        })
+
+        return isOverFeature
+      }
+
       function applyCursor(element, cursor) {
         if (lastAppliedCursor === cursor) return
         element.style.cursor = cursor
@@ -425,9 +464,7 @@ function GeoMapViewer({
               const elapsedEnough = (now - lastHitCheckTs) >= POINTER_MOVE_HIT_CHECK_INTERVAL_MS
 
               if (movedEnough || elapsedEnough) {
-                lastHitCheckResult = map.hasFeatureAtPixel(latestEvent.pixel, {
-                  layerFilter: (layer) => layer === featuresLayer
-                })
+                lastHitCheckResult = isPointerOverFeature(latestEvent.pixel)
                 lastHitCheckTs = now
                 lastHitCheckPixel = [...latestEvent.pixel]
               }

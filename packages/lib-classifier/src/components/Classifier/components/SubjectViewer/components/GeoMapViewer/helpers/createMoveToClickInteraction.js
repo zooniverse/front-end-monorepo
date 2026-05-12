@@ -2,7 +2,7 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
-import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './createModifyUncertaintyInteraction'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './hitTesting'
 
 export const MOVE_TO_CLICK_HOLD_DELAY = 250
 
