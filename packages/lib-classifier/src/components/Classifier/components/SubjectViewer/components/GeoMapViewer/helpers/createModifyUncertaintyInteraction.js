@@ -25,7 +25,6 @@ function shouldStartDragHandleInteraction({
 function createModifyUncertaintyInteraction({
   geoDrawingTask,
   selectInteraction,
-  translateInteraction,
   dragHandleTolerance = 15, // pixels
   minRadius = 0 // meters
 }) {
@@ -107,11 +106,6 @@ function createModifyUncertaintyInteraction({
       state.draggedFeature = selectedFeature
       state.isDragging = true
 
-      // Disable Translate interaction while dragging uncertainty drag handle
-      if (translateInteraction) {
-        translateInteraction.setActive(false)
-      }
-
       // Update cursor
       const viewport = map.getViewport()
       if (viewport) {
@@ -160,11 +154,6 @@ function createModifyUncertaintyInteraction({
     if (state.isDragging) {
       state.isDragging = false
       state.draggedFeature = null
-
-      // Re-enable Translate interaction
-      if (translateInteraction) {
-        translateInteraction.setActive(true)
-      }
 
       // Reset cursor
       const map = this.getMap()

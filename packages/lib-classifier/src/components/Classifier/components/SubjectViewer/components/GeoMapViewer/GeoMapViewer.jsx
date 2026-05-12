@@ -11,7 +11,7 @@ import { defaults as defaultControls } from 'ol/control/defaults'
 import ScaleLine from 'ol/control/ScaleLine'
 import { click } from 'ol/events/condition'
 import GeoJSON from 'ol/format/GeoJSON'
-import { Translate, Select } from 'ol/interaction'
+import { Select } from 'ol/interaction'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import OSM from 'ol/source/OSM'
@@ -147,7 +147,6 @@ function GeoMapViewer({
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const scaleLineRef = useRef()
   const selectRef = useRef()
-  const translateRef = useRef()
   const modifyUncertaintyRef = useRef()
   const moveToClickRef = useRef()
   const measureInteractionRef = useRef()
@@ -248,49 +247,19 @@ function GeoMapViewer({
         isSelected: select.getFeatures().getArray().includes(feature)
       }))
 
-      // Create translate interaction restricted to the center point hit area.
-      // Without a condition, OL's Translate uses its own hit detection against the
-      // feature's rendered style (which includes the uncertainty circle), causing
-      // drags anywhere inside the circle to move the feature. The condition limits
-      // translation to pointerdown events within POINT_CENTER_HIT_RADIUS_PIXELS of
-      // the feature center.
-      const translate = new Translate({
-        features: select.getFeatures(),
-        condition: (mapBrowserEvent) => {
-          const selectedFeatures = select.getFeatures().getArray()
-          if (selectedFeatures.length === 0) return false
-
-          const selectedFeature = selectedFeatures[0]
-          const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
-          if (!Array.isArray(pointCoordinates)) return false
-
-          const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
-          return isPixelNearPointCenter({
-            pixel: mapBrowserEvent.pixel,
-            pointPixel,
-            radius: POINT_CENTER_HIT_RADIUS_PIXELS
-          })
-        }
-      })
-
-      // Add select and translate interactions to the map
+      // Add select interaction to the map.
       map.addInteraction(select)
-      map.addInteraction(translate)
       selectRef.current = select
-      translateRef.current = translate
 
       // Create and add uncertainty circle modification interaction
       const modifyUncertainty = createModifyUncertaintyInteraction({
         geoDrawingTask,
-        selectInteraction: select,
-        translateInteraction: translate
+        selectInteraction: select
       })
       map.addInteraction(modifyUncertainty)
       modifyUncertaintyRef.current = modifyUncertainty
 
-      // Track whether a point is actively being dragged to switch grab → grabbing.
-      // Center-point drags are captured by moveToClick (not Translate), so we use
-      // onDragStart/onDragEnd callbacks to update the cursor immediately on press.
+      // Track whether a point is actively being dragged to switch grab -> grabbing.
       let isDraggingPoint = false
 
       // Create and add move-to-click interaction
@@ -313,9 +282,7 @@ function GeoMapViewer({
       moveToClickRef.current = moveToClick
 
       // Add cursor states that match the active interactions.
-      // Note: we target the viewport element (not the outer target element) so that
-      // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
-      // which Translate sets on the viewport via classList.
+      // Note: we target the viewport element (not the outer target element).
       let latestPointerMoveEvent = null
       let lastAppliedCursor = ''
       let lastHitCheckTs = 0
@@ -496,7 +463,6 @@ function GeoMapViewer({
 
     return () => {
       if (selectRef.current) map.removeInteraction(selectRef.current)
-      if (translateRef.current) map.removeInteraction(translateRef.current)
       if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
       if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
       measureInteractionRef.current?.destroy()
@@ -508,7 +474,6 @@ function GeoMapViewer({
       geoJSONFormatRef.current = undefined
       scaleLineRef.current = undefined
       selectRef.current = undefined
-      translateRef.current = undefined
       modifyUncertaintyRef.current = undefined
       moveToClickRef.current = undefined
       measureInteractionRef.current = undefined
@@ -535,7 +500,6 @@ function GeoMapViewer({
     }
 
     selectRef.current?.setActive(!isMeasureModeActive)
-    translateRef.current?.setActive(!isMeasureModeActive)
     modifyUncertaintyRef.current?.setActive(!isMeasureModeActive)
     moveToClickRef.current?.setActive(!isMeasureModeActive)
 
