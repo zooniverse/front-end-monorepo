@@ -139,9 +139,23 @@ function createModifyUncertaintyInteraction({
     const coordinate = map.getCoordinateFromPixel(event.pixel)
     const centerCoordinates = state.draggedFeature.getGeometry().getCoordinates()
 
+    // After a cross-dateline drag, centerCoordinates is in the canonical world range but
+    // getCoordinateFromPixel returns a coordinate in the world copy the user is viewing.
+    // Normalize the drag coordinate to the nearest world copy of the center so that
+    // getPixelDistance always computes the short (correct) distance, not the ~40M-m cross-world distance.
+    const extent = map.getView().getProjection().getExtent()
+    const worldWidth = extent ? extent[2] - extent[0] : 0
+    let dragX = coordinate[0]
+    if (worldWidth > 0) {
+      const rawDelta = coordinate[0] - centerCoordinates[0]
+      const wrappedDelta = ((rawDelta + worldWidth / 2) % worldWidth + worldWidth) % worldWidth - worldWidth / 2
+      dragX = centerCoordinates[0] + wrappedDelta
+    }
+    const normalizedCoordinate = [dragX, coordinate[1]]
+
     // Calculate new radius in meters
     const newRadius = Math.round(
-      Math.max(minRadius, getPixelDistance(centerCoordinates, coordinate))
+      Math.max(minRadius, getPixelDistance(centerCoordinates, normalizedCoordinate))
     )
 
     // Update uncertainty radius through GeoDrawingTask to keep MST activeFeature and slider in sync
