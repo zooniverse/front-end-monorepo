@@ -2,15 +2,17 @@ import { Button, Box, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
 import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
+import { CloseButton } from '@zooniverse/react-components'
 
 import { useTotalClassificationCount } from '../Stats/hooks.js'
 
-const CloseButton = styled(Button)`
-
+const StyledCloseButton = styled(CloseButton)`
+  position: absolute;
+  top: 1em;
+  right: 1em;
 `
 
 const Container = styled(Box)`
-  border: 1px dashed #f0c080;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -21,8 +23,10 @@ const Content = styled(Box)`
   background: white;
   border-radius: 1em;
   box-shadow: 2px 2px 2px #808080;
+  gap: 0.5em;
   max-width: 800px;
   margin: 0 auto 1em auto;
+  position: relative;
 `
 
 /*
@@ -59,15 +63,12 @@ export default function BillionClassificationsCountdown() {
   
   return (
     <Container>
-      <CloseButton
-        onClick={onCloseButtonClick}
-      >
-        X
-      </CloseButton>
       <Content
-        gap='xsmall'
-        pad='medium'
+        pad={{ vertical: 'medium', horizontal: 'large' }}
       >
+        <StyledCloseButton
+          closeFn={onCloseButtonClick}
+        />
         <Text
           size='xlarge'
           textAlign='center'
