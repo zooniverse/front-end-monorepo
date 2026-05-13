@@ -62,8 +62,11 @@ export default function BillionClassificationsCountdown() {
   if (hideCountdown) return null
   
   return (
-    <Container>
+    <Container
+      className='billion-classifications-countdown-container'
+    >
       <Content
+        className='billion-classifications-countdown-content'
         pad={{ vertical: 'medium', horizontal: 'large' }}
       >
         <StyledCloseButton
