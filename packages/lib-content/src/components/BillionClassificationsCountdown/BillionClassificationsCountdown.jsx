@@ -1,8 +1,26 @@
 import { Box, ResponsiveContext, Text } from 'grommet'
 import { useContext } from 'react'
 import { useTranslation } from '@translations/i18n'
+import styled from 'styled-components'
 
 import { useTotalClassificationCount } from '../Stats/hooks.js'
+
+const Container = styled(Box)`
+  border: 1px dashed #f0c080;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+`
+
+const Content = styled(Box)`
+  background: white;
+  border-radius: 1em;
+  padding: 1em;
+  max-width: 800px;
+  margin: 0 auto 10px auto;
+`
+
 
 /*
   We have to manually add some legacy (static) stats to the UI.
@@ -28,8 +46,23 @@ export default function BillionClassificationsCountdown() {
   if (error || isLoading) return null
   
   return (
-    <Box gap='medium'>
-      <Text>Classifications to go: {classificationsToGo}</Text>
-    </Box>
+    <Container>
+      <Content>
+        <Text textAlign='center'>
+          {(classificationsToGo > 0)
+            ? "We're approaching 1 billion classifications!"
+            : "We've reached 1 billion classifications on the Zooniverse! Thank you!"
+          }
+        </Text>
+        <Text
+          textAlign='center'
+        >
+          {(classificationsToGo > 0)
+            ? `Classifications to go: ${classificationsToGo?.toLocaleString()}`
+            : `Classifications: ${totalClassifications?.toLocaleString()}`
+          }
+        </Text>
+      </Content>
+    </Container>
   )
 }
