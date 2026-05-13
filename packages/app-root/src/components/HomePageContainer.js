@@ -5,7 +5,7 @@ import { Box } from 'grommet'
 import { PanoptesAuthContext } from '../contexts'
 import { DefaultHome } from '@zooniverse/content'
 import { UserHome } from '@zooniverse/user'
-import { Loader } from '@zooniverse/react-components'
+import { Loader, BillionClassificationsCountdown } from '@zooniverse/react-components'
 
 export default function HomePageContainer({
   dailyZooPosts = [],
@@ -35,6 +35,7 @@ export default function HomePageContainer({
           )}
         </Box>
       )}
+      <BillionClassificationsCountdown />
     </>
   )
 }

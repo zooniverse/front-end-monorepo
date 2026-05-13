@@ -17,6 +17,7 @@ const Container = styled(Box)`
   bottom: 0;
   left: 0;
   width: 100%;
+  z-index: 600;
 `
 
 const Content = styled(Box)`
