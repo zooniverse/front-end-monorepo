@@ -1,9 +1,13 @@
-import { Box, ResponsiveContext, Text } from 'grommet'
-import { useContext } from 'react'
+import { Button, Box, ResponsiveContext, Text } from 'grommet'
+import { useContext, useState } from 'react'
 import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
 
 import { useTotalClassificationCount } from '../Stats/hooks.js'
+
+const CloseButton = styled(Button)`
+
+`
 
 const Container = styled(Box)`
   border: 1px dashed #f0c080;
@@ -37,15 +41,29 @@ export default function BillionClassificationsCountdown() {
   const size = useContext(ResponsiveContext)
   const numberFontSize = size !== 'small' ? '5rem' : '2.5rem'
 
+  const previouslyClosed = window?.sessionStorage?.getItem('hideBillionClassificationsCountdown') || false
+  const [ hideCountdown, setHideCountdown ] = useState(previouslyClosed)
+
+  function onCloseButtonClick () {
+    setHideCountdown(true)
+    window?.sessionStorage?.setItem('hideBillionClassificationsCountdown', true)
+  }
+
   const { data: classifications, error, isLoading } = useTotalClassificationCount()
   const totalClassifications = classifications + PREPANOPTES_COUNT
 
   const classificationsToGo = TARGET_CLASSIFICATIONS - totalClassifications
 
   if (error || isLoading) return null
+  if (hideCountdown) return null
   
   return (
     <Container>
+      <CloseButton
+        onClick={onCloseButtonClick}
+      >
+        X
+      </CloseButton>
       <Content
         gap='xsmall'
         pad='medium'
