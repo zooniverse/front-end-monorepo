@@ -35,7 +35,7 @@ import createModifyUncertaintyInteraction from './helpers/createModifyUncertaint
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import getPixelDistance from './helpers/getPixelDistance'
-import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/hitTesting'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './helpers/hitTesting'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -264,12 +264,13 @@ function GeoMapViewer({
           const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
           if (!Array.isArray(pointCoordinates)) return false
 
-          const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
-          return isPixelNearPointCenter({
-            pixel: mapBrowserEvent.pixel,
-            pointPixel,
-            radius: POINT_CENTER_HIT_RADIUS_PIXELS
-          })
+          return getFeaturePixelsAcrossWorldCopies(map, pointCoordinates).some(
+            pointPixel => isPixelNearPointCenter({
+              pixel: mapBrowserEvent.pixel,
+              pointPixel,
+              radius: POINT_CENTER_HIT_RADIUS_PIXELS
+            })
+          )
         }
       })
 
@@ -313,12 +314,13 @@ function GeoMapViewer({
           const coords = feature.getGeometry()?.getCoordinates?.()
           if (!Array.isArray(coords)) return
 
-          const pointPixel = map.getPixelFromCoordinate(coords)
-          if (isPixelNearPointCenter({
+          const pointPixels = getFeaturePixelsAcrossWorldCopies(map, coords)
+
+          if (pointPixels.some(pointPixel => isPixelNearPointCenter({
             pixel,
             pointPixel,
             radius: POINT_CENTER_HIT_RADIUS_PIXELS
-          })) {
+          }))) {
             isOverFeature = true
             return
           }
@@ -333,7 +335,7 @@ function GeoMapViewer({
           if (
             typeof uncertaintyRadiusPixels === 'number'
             && uncertaintyRadiusPixels > 0
-            && getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels
+            && pointPixels.some(pointPixel => getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels)
           ) {
             isOverFeature = true
           }
@@ -397,27 +399,27 @@ function GeoMapViewer({
             const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
 
             if (mstFeature && Array.isArray(pointCoordinates)) {
-              const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
+              const pointPixels = getFeaturePixelsAcrossWorldCopies(map, pointCoordinates)
               const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
                 feature: selectedFeature,
                 geoDrawingTask
               })
 
-              if (isPixelNearPointCenter({
+              if (pointPixels.some(pointPixel => isPixelNearPointCenter({
                 pixel: latestEvent.pixel,
                 pointPixel,
                 radius: POINT_CENTER_HIT_RADIUS_PIXELS
-              })) {
+              }))) {
                 cursor = isDraggingPoint ? 'grabbing' : 'grab'
               }
 
               if (!cursor && dragHandleCoordinates) {
-                const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-                if (isPixelNearDragHandle({
+                const dragHandlePixels = getFeaturePixelsAcrossWorldCopies(map, dragHandleCoordinates)
+                if (dragHandlePixels.some(handlePixel => isPixelNearDragHandle({
                   pixel: latestEvent.pixel,
-                  handlePixel: dragHandlePixel,
+                  handlePixel,
                   tolerance: 15
-                })) {
+                }))) {
                   cursor = 'ew-resize'
                 }
               }
@@ -432,7 +434,7 @@ function GeoMapViewer({
                 if (
                   typeof uncertaintyRadiusPixels === 'number'
                   && uncertaintyRadiusPixels > 0
-                  && getPixelDistance(latestEvent.pixel, pointPixel) <= uncertaintyRadiusPixels
+                  && pointPixels.some(pointPixel => getPixelDistance(latestEvent.pixel, pointPixel) <= uncertaintyRadiusPixels)
                 ) {
                   cursor = 'default'
                 }
@@ -448,12 +450,13 @@ function GeoMapViewer({
                 if (feature === selectedFeature || hoveringOtherCenter) return
                 const coords = feature.getGeometry()?.getCoordinates?.()
                 if (!Array.isArray(coords)) return
-                const featurePixel = map.getPixelFromCoordinate(coords)
-                if (isPixelNearPointCenter({
-                  pixel: latestEvent.pixel,
-                  pointPixel: featurePixel,
-                  radius: POINT_CENTER_HIT_RADIUS_PIXELS
-                })) {
+                if (getFeaturePixelsAcrossWorldCopies(map, coords).some(
+                  featurePixel => isPixelNearPointCenter({
+                    pixel: latestEvent.pixel,
+                    pointPixel: featurePixel,
+                    radius: POINT_CENTER_HIT_RADIUS_PIXELS
+                  })
+                )) {
                   hoveringOtherCenter = true
                 }
               })

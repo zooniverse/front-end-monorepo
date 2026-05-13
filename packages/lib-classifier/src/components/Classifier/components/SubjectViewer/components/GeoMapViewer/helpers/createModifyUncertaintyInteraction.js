@@ -2,7 +2,7 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
-import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './hitTesting'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './hitTesting'
 
 function shouldStartDragHandleInteraction({
   pixel,
@@ -64,29 +64,29 @@ function createModifyUncertaintyInteraction({
       if (radius === null) continue
 
       const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
-      const pointPixel = Array.isArray(pointCoordinates)
-        ? map.getPixelFromCoordinate(pointCoordinates)
-        : null
+      const pointPixels = Array.isArray(pointCoordinates)
+        ? getFeaturePixelsAcrossWorldCopies(map, pointCoordinates)
+        : []
 
-      if (isPixelNearPointCenter({ pixel, pointPixel })) {
+      if (pointPixels.some(pointPixel => isPixelNearPointCenter({ pixel, pointPixel }))) {
         return null
       }
 
       // Get the drag handle coordinates
-      const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({ 
-        feature: olFeature, 
-        geoDrawingTask 
+      const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
+        feature: olFeature,
+        geoDrawingTask
       })
       if (!dragHandleCoordinates) continue
 
-      // Check if click is near the full resize handle, not just its anchor point.
-      const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-      if (shouldStartDragHandleInteraction({
+      // Check if click is near the full resize handle across all world copies.
+      const dragHandlePixels = getFeaturePixelsAcrossWorldCopies(map, dragHandleCoordinates)
+      if (dragHandlePixels.some(handlePixel => shouldStartDragHandleInteraction({
         pixel,
-        pointPixel,
-        handlePixel: dragHandlePixel,
+        pointPixel: pointPixels[0] ?? null,
+        handlePixel,
         dragHandleTolerance
-      })) {
+      }))) {
         return olFeature
       }
     }
