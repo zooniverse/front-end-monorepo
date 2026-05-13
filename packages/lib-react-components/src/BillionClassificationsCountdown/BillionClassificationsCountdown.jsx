@@ -19,9 +19,9 @@ const Container = styled(Box)`
 `
 
 const Content = styled(Box)`
-  background: white;
+  background: #e0ffff;
   border-radius: 1em;
-  box-shadow: 2px 2px 2px #808080;
+  box-shadow: 0px 1px 3px #808080;
   gap: 0.5em;
   max-width: 800px;
   margin: 0 auto 1em auto;
