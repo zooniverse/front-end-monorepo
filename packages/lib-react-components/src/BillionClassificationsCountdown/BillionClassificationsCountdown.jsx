@@ -1,5 +1,5 @@
-import { Button, Box, ResponsiveContext, Text } from 'grommet'
-import { useContext, useState } from 'react'
+import { Button, Box, Text } from 'grommet'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { CloseButton } from '@zooniverse/react-components'
 
@@ -39,16 +39,18 @@ const OUROBOROS_USER_COUNT = 114576 // volunteers
 
 const TARGET_CLASSIFICATIONS = 1000000000
 
-export default function BillionClassificationsCountdown() {
-  const size = useContext(ResponsiveContext)
-  const numberFontSize = size !== 'small' ? '5rem' : '2.5rem'
+// Perform this dance or else app-root will, on pre-render, declare
+// "window is not defined" any time we try to use the window variable.
+let storage = null
+if (typeof window !== 'undefined') { storage = window?.sessionStorage }
 
-  const previouslyClosed = window?.sessionStorage?.getItem('hideBillionClassificationsCountdown') || false
-  const [ hideCountdown, setHideCountdown ] = useState(previouslyClosed)
+export default function BillionClassificationsCountdown() {
+  const previouslyClosed = storage?.getItem('hideBillionClassificationsCountdown') || false
+  const [ hideCountdown, setHideCountdown ] = useState(false)
 
   function onCloseButtonClick () {
     setHideCountdown(true)
-    window?.sessionStorage?.setItem('hideBillionClassificationsCountdown', true)
+    storage?.setItem('hideBillionClassificationsCountdown', true)
   }
 
   const { data: classifications, error, isLoading } = useTotalClassificationCount()
