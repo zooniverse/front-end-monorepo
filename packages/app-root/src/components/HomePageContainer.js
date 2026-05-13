@@ -35,7 +35,7 @@ export default function HomePageContainer({
           )}
         </Box>
       )}
-      <BillionClassificationsCountdown />
+      <BillionClassificationsCountdown /> {/* Special Event: Countdown to 1 Billion Classifications. Remove after Jul 2026. */}
     </>
   )
 }
