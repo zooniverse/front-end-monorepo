@@ -1,6 +1,5 @@
 import { Button, Box, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
-import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
 import { CloseButton } from '@zooniverse/react-components'
 
@@ -41,7 +40,6 @@ const OUROBOROS_USER_COUNT = 114576 // volunteers
 const TARGET_CLASSIFICATIONS = 1000000000
 
 export default function BillionClassificationsCountdown() {
-  const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
   const numberFontSize = size !== 'small' ? '5rem' : '2.5rem'
 
