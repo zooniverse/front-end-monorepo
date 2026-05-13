@@ -10,9 +10,11 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../../../InteractionLayer'
 import locationValidator from '../../../../helpers/locationValidator'
 import VideoController from '../VideoController'
+import ControlsLayer from '../../../ControlsLayer'
 
 const SubjectContainer = styled.div`
   position: relative;
+  container-type: inline-size;
 
   video {
     filter: invert(${props => props.$invert ? 1 : 0});
@@ -247,6 +249,10 @@ function VideoWithDrawing({
               </Box>
             </DrawingLayer>
           )}
+          { /* VideoWithDrawing only rendered if enableInteractionLayer = true */}
+          <ControlsLayer
+            enableInteractionLayer={true}
+          />
         </SubjectContainer>
       ) : (
         <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>

@@ -1,24 +1,41 @@
-import { forwardRef, useState, useContext } from 'react'
+import { forwardRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
-import SVGContext from '../../../shared/SVGContext'
 import { useTranslation } from '@translations/i18n'
 import { Pan, Radial, Redo, Trash, Undo, Checkmark, Close } from 'grommet-icons'
+
+const DELETE_CANCEL_COLOR = '#E45950'
+const DELETE_CONFIRM_COLOR = '#1ED359'
+const STROKE_WIDTH = 0.5
+const OUTER_RADIUS = 40
+const INNER_RADIUS = 20
+const CENTER_X = OUTER_RADIUS + 1
+const CENTER_Y = OUTER_RADIUS + 1
+const WIDTH = 2 * CENTER_X
+const HEIGHT = 2 * CENTER_Y
 
 const StyledGroup = styled.g`
   cursor: pointer;
   pointer-events: all !important;
 `
-const DEFAULT_TRANSFORM_MATRIX = {
-  scaleX: 1,
-  scaleY: 1,
-  skewX: 0,
-  skewY: 0,
-  translateX: 0,
-  translateY: 0
-}
-const LINE_CONTROL_INSET = 70
+
+/* LineControls need to be rendered with ancestors providing position: relative
+ * and container-type: inline-size
+*/
+
+const StyledSVG = styled.svg`
+  --inset: 30px;
+
+  @container (max-width: 480px) {
+    --inset: 15px;
+  }
+
+  position: absolute;
+  top: var(--inset);
+  left: ${props => props.$position === 'l' ? 'var(--inset)' : 'auto' };
+  right: ${props => props.$position === 'r' ? 'var(--inset)' : 'auto' };
+`
 
 const LineControls = forwardRef(function LineControls({
   mark,
@@ -27,30 +44,13 @@ const LineControls = forwardRef(function LineControls({
 },
   ref
 ) {
-  let [activePosition, setActivePosition] = useState('tl')
-  let [showDeleteButtons, setShowDeleteButtons] = useState(false)
+  const [position, setPosition] = useState('l')
+  const [showDeleteButtons, setShowDeleteButtons] = useState(false)
   const { t } = useTranslation('plugins')
-
-  const { canvas, rotate, transformMatrix = DEFAULT_TRANSFORM_MATRIX } = useContext(SVGContext)
-  const { scaleX, scaleY, translateX, translateY } = transformMatrix
 
   const FILL_COLOR = theme.dark ? '#333333' : '#ffffff'
   const STROKE_COLOR = theme.dark ? '#ffffff' : '#000000'
-  const DELETE_CANCEL_COLOR = '#E45950'
-  const DELETE_CONFIRM_COLOR = '#1ED359'
-  const STROKE_WIDTH = 0.5 / scaleX
-  const OUTER_RADIUS = 40 / scaleX
-  const INNER_RADIUS = 20 / scaleX
-
-  const { width, height } = canvas?.getBBox() || { width: 0, height: 0 }
-  const xLeft = (LINE_CONTROL_INSET - translateX) / scaleX
-  const xRight = (width - translateX - LINE_CONTROL_INSET) / scaleX
-  const y = (LINE_CONTROL_INSET - translateY) / scaleY
-
-  const p = (activePosition === 'tl')
-    ? { x: xLeft, y }
-    : { x: xRight, y }
-
+  
   function onEnterOrSpace(ev, func) {
     if (ev.keyCode === 13 || ev.keyCode === 32) {
       ev.preventDefault()
@@ -70,7 +70,7 @@ const LineControls = forwardRef(function LineControls({
   function deleteMarkConfirm(event) {
     event.preventDefault()
     event.stopPropagation()
-    return onDelete(event)
+    return onDelete(mark)
   }
 
   function undo(event) {
@@ -79,20 +79,24 @@ const LineControls = forwardRef(function LineControls({
     return mark.undo()
   }
 
+  function togglePosition() {
+    setPosition(position === 'l' ? 'r' : 'l')
+  }
+
   const deleteButtons = [
     {
       label: t('LineControls.deleteCancel'),
       action: deleteMarkCancel,
       icon: {
         type: Close,
-        size: (16 / scaleX),
-        x: p.x - (27 / scaleX),
-        y: p.y - (8 / scaleY),
+        size: 16,
+        x: CENTER_X - 27,
+        y: CENTER_Y - 8,
         color: DELETE_CANCEL_COLOR
       },
-      path: `M ${p.x} ${p.y + OUTER_RADIUS}
-        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${p.x} ${p.y - OUTER_RADIUS}
-        L ${p.x} ${p.y}
+      path: `M ${CENTER_X} ${CENTER_Y + OUTER_RADIUS}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${CENTER_X} ${CENTER_Y - OUTER_RADIUS}
+        L ${CENTER_X} ${CENTER_Y}
         Z`
     },
     {
@@ -100,13 +104,13 @@ const LineControls = forwardRef(function LineControls({
       action: deleteMarkConfirm,
       icon: {
         type: Checkmark,
-        size: (18 / scaleX),
-        x: p.x + (12 / scaleX),
-        y: p.y - (10 / scaleY),
+        size: 18,
+        x: CENTER_X + 12,
+        y: CENTER_Y - 10,
         color: DELETE_CONFIRM_COLOR
       },
-      path: `M ${p.x} ${p.y + OUTER_RADIUS}
-        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${p.x} ${p.y - OUTER_RADIUS}
+      path: `M ${CENTER_X} ${CENTER_Y + OUTER_RADIUS}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${CENTER_X} ${CENTER_Y - OUTER_RADIUS}
         Z`
     }
   ]
@@ -117,15 +121,15 @@ const LineControls = forwardRef(function LineControls({
       action: undo,
       icon: {
         type: Undo,
-        size: (10 / scaleX),
-        x: p.x - (27 / scaleX),
-        y: p.y - (27 / scaleY),
+        size: 10,
+        x: CENTER_X - 27,
+        y: CENTER_Y - 27,
         color: STROKE_COLOR
       },
-      path: `M ${p.x - OUTER_RADIUS} ${p.y}
-        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${p.x} ${p.y - OUTER_RADIUS}
-        L ${p.x} ${p.y - INNER_RADIUS}
-        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${p.x - INNER_RADIUS} ${p.y}
+      path: `M ${CENTER_X - OUTER_RADIUS} ${CENTER_Y}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${CENTER_X} ${CENTER_Y - OUTER_RADIUS}
+        L ${CENTER_X} ${CENTER_Y - INNER_RADIUS}
+        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${CENTER_X - INNER_RADIUS} ${CENTER_Y}
         Z`
     },
     {
@@ -133,15 +137,15 @@ const LineControls = forwardRef(function LineControls({
       action: mark.redo,
       icon: {
         type: Redo,
-        size: (10 / scaleX),
-        x: p.x + (17 / scaleX),
-        y: p.y - (27 / scaleY),
+        size: 10,
+        x: CENTER_X + 17,
+        y: CENTER_Y - 27,
         color: STROKE_COLOR
       },
-      path: `M ${p.x + OUTER_RADIUS} ${p.y}
-        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${p.x} ${p.y - OUTER_RADIUS}
-        L ${p.x} ${p.y - INNER_RADIUS}
-        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 1 ${p.x + INNER_RADIUS} ${p.y}
+      path: `M ${CENTER_X + OUTER_RADIUS} ${CENTER_Y}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${CENTER_X} ${CENTER_Y - OUTER_RADIUS}
+        L ${CENTER_X} ${CENTER_Y - INNER_RADIUS}
+        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 1 ${CENTER_X + INNER_RADIUS} ${CENTER_Y}
         Z`
     },
     {
@@ -149,15 +153,15 @@ const LineControls = forwardRef(function LineControls({
       action: mark.close,
       icon: {
         type: Radial,
-        size: (10 / scaleX),
-        x: p.x - (27 / scaleX),
-        y: p.y + (17 / scaleY),
+        size: 10,
+        x: CENTER_X - 27,
+        y: CENTER_Y + 17,
         color: STROKE_COLOR
       },
-      path: `M ${p.x - OUTER_RADIUS} ${p.y}
-        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${p.x} ${p.y + OUTER_RADIUS}
-        L ${p.x} ${p.y + INNER_RADIUS}
-        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 1 ${p.x - INNER_RADIUS} ${p.y}
+      path: `M ${CENTER_X - OUTER_RADIUS} ${CENTER_Y}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${CENTER_X} ${CENTER_Y + OUTER_RADIUS}
+        L ${CENTER_X} ${CENTER_Y + INNER_RADIUS}
+        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 1 ${CENTER_X - INNER_RADIUS} ${CENTER_Y}
         Z`
     },
     {
@@ -165,32 +169,30 @@ const LineControls = forwardRef(function LineControls({
       action: deleteMark,
       icon: {
         type: Trash,
-        size: (10 / scaleX),
-        x: p.x + (17 / scaleX),
-        y: p.y + (17 / scaleY),
+        size: 10,
+        x: CENTER_X + 17,
+        y: CENTER_Y + 17,
         color: STROKE_COLOR
       },
-      path: `M ${p.x + OUTER_RADIUS} ${p.y}
-        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${p.x} ${p.y + OUTER_RADIUS}
-        L ${p.x} ${p.y + INNER_RADIUS}
-        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${p.x + INNER_RADIUS} ${p.y}
+      path: `M ${CENTER_X + OUTER_RADIUS} ${CENTER_Y}
+        A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${CENTER_X} ${CENTER_Y + OUTER_RADIUS}
+        L ${CENTER_X} ${CENTER_Y + INNER_RADIUS}
+        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${CENTER_X + INNER_RADIUS} ${CENTER_Y}
         Z`
     },
     {
       label: t('LineControls.move'),
-      action: () => {
-        setActivePosition((activePosition == 'tl') ? 'tr' : 'tl')
-      },
+      action: togglePosition,
       icon: {
         type: Pan,
-        size: (20 / scaleX),
-        x: p.x - (10 / scaleX),
-        y: p.y - (10 / scaleY),
+        size: 20,
+        x: CENTER_X - 10,
+        y: CENTER_Y - 10,
         color: STROKE_COLOR
       },
-      path: `M ${p.x - INNER_RADIUS} ${p.y}
-        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${p.x + INNER_RADIUS} ${p.y}
-        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${p.x - INNER_RADIUS} ${p.y}
+      path: `M ${CENTER_X - INNER_RADIUS} ${CENTER_Y}
+        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${CENTER_X + INNER_RADIUS} ${CENTER_Y}
+        A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${CENTER_X - INNER_RADIUS} ${CENTER_Y}
         Z`
     },
   ]
@@ -198,57 +200,63 @@ const LineControls = forwardRef(function LineControls({
   const buttons = (showDeleteButtons) ? deleteButtons : defaultButtons
 
   return (
-    <StyledGroup
-      ref={ref}
-      role='group'
-      aria-label={t('lineControls.lineControls')}
-      focusable='false'
-      fill={FILL_COLOR}
-      transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
+    <StyledSVG 
+      width={`${WIDTH}`} 
+      height={`${HEIGHT}`} 
+      $position={position}
+      viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
     >
-      {buttons.map(({ label, path, action, icon }, index) => {
-        const IconComponent = icon.type
-        return <g focusable='false' key={index}>
-          <Tooltip label={label}>
-            <path
-              role='button'
-              aria-label={label}
-              focusable='true'
-              tabIndex='0'
+      <StyledGroup
+        ref={ref}
+        role='group'
+        aria-label={t('LineControls.lineControls')}
+        focusable='false'
+        fill={FILL_COLOR}
+      >
+        {buttons.map(({ label, path, action, icon }, index) => {
+          const IconComponent = icon.type
+          return <g focusable='false' key={index}>
+            <Tooltip label={label}>
+              <path
+                role='button'
+                aria-label={label}
+                focusable='true'
+                tabIndex='0'
 
-              d={path}
-              stroke={STROKE_COLOR}
-              strokeWidth={STROKE_WIDTH}
-              onPointerDown={action}
-              onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
-            ></path>
-          </Tooltip>
-          <svg
-            height={icon.size}
-            width={icon.size}
-            x={icon.x}
-            y={icon.y}
-          >
-            <IconComponent
-              color={icon.color}
-              size={`${icon.size}px`}
-              focusable='false'
-              pointerEvents='none'
-            />
-          </svg>
-        </g>
-      })}
-
-    </StyledGroup>
+                d={path}
+                stroke={STROKE_COLOR}
+                strokeWidth={STROKE_WIDTH}
+                onPointerDown={action}
+                onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
+              ></path>
+            </Tooltip>
+            <svg
+              height={icon.size}
+              width={icon.size}
+              x={icon.x}
+              y={icon.y}
+            >
+              <IconComponent
+                color={icon.color}
+                size={`${icon.size}px`}
+                focusable='false'
+                pointerEvents='none'
+              />
+            </svg>
+          </g>
+        })}
+      </StyledGroup>
+    </StyledSVG>
   )
 })
 
 LineControls.propTypes = {
   mark: PropTypes.shape({
-    id: PropTypes.string,
-    setSubTaskVisibility: PropTypes.func
+    close: PropTypes.func,
+    redo: PropTypes.func,
+    undo: PropTypes.func
   }),
-  onDelete: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 export default withTheme(LineControls)

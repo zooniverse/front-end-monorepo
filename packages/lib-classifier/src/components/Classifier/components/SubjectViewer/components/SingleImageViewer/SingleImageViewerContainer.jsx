@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
-import { bool, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, node, shape, string } from 'prop-types'
 
 import { useKeyZoom, useStores, useSubjectImage } from '@hooks'
 
@@ -51,6 +51,7 @@ function SingleImageViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
+  feedbackMarks = [],
   setOnPan: propSetOnPan = null,
   setOnZoom: propSetOnZoom = null,
   title = undefined,
@@ -111,6 +112,7 @@ function SingleImageViewerContainer({
       <SingleImageViewer
         enableInteractionLayer={enableInteractionLayer}
         enableRotation={enableRotation}
+        feedbackMarks={feedbackMarks}
         frame={frame}
         imgRef={subjectImage}
         invert={invert}
@@ -136,6 +138,7 @@ function SingleImageViewerContainer({
 
 SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: bool,
+  feedbackMarks: arrayOf(node),
   imageLocation: shape({
     url: string
   }),

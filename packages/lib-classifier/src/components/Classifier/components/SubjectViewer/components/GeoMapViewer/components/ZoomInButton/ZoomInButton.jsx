@@ -11,7 +11,7 @@ function ZoomInButton({ onClick }) {
   return (
     <IconActionButton
       a11yTitle={label}
-      icon={<ZoomIn color='dark-5' size='18px' />}
+      icon={<ZoomIn size='18px' />}
       onClick={onClick}
       title={label}
     />

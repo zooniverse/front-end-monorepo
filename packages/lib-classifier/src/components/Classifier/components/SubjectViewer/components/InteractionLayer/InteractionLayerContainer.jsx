@@ -8,15 +8,12 @@ import { withStores } from '@helpers'
 
 function storeMapper(classifierStore) {
   const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
-  const { activeStepTasks } = classifierStore.workflowSteps
   const { move } = classifierStore.subjectViewer
   const {
     multi_image_clone_markers: multiImageCloneMarkers
   } = classifierStore.workflows?.active?.configuration
 
-  const [activeInteractionTask] = activeStepTasks.filter(
-    (task) => task.type === 'drawing' || task.type === 'transcription'
-  )
+  const { activeInteractionTask } = classifierStore.workflowSteps
   const annotation = activeStepAnnotations?.find(
     annotation => annotation.taskType === 'drawing' || annotation.taskType === 'transcription'
   )
@@ -24,6 +21,7 @@ function storeMapper(classifierStore) {
   const {
     activeTool,
     activeToolIndex,
+    deleteMark,
     hiddenMarkIds,
     marks,
     setActiveMark,
@@ -39,6 +37,7 @@ function storeMapper(classifierStore) {
     activeTool,
     activeToolIndex,
     annotation,
+    deleteMark,
     disabled,
     hiddenMarkIds,
     marks,
@@ -55,6 +54,7 @@ export function InteractionLayerContainer({
   activeTool,
   activeToolIndex,
   annotation,
+  deleteMark, 
   disabled = false,
   frame = 0,
   height,
@@ -84,6 +84,7 @@ export function InteractionLayerContainer({
           activeTool={activeTool}
           activeToolIndex={activeToolIndex}
           annotation={annotation}
+          deleteMark={deleteMark}
           disabled={disabled}
           duration={duration}
           frame={frame}
@@ -107,6 +108,7 @@ export function InteractionLayerContainer({
 InteractionLayerContainer.propTypes = {
   activeMark: PropTypes.object,
   activeTool: PropTypes.object,
+  deleteMark: PropTypes.func,
   disabled: PropTypes.bool,
   duration: PropTypes.number,
   /** Index of the Frame. Always inherits from SingleImageViewer, which inherits from the Viewer */

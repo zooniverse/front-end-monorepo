@@ -10,14 +10,14 @@ describe('Component > GeoMapViewer', function () {
     it('should show the map container', async function () {
       render(<DefaultStory />)
       await waitFor(() => {
-        expect(screen.getByTestId('geo-map-container')).to.exist
+        expect(screen.getByRole('region', { name: 'Interactive map' })).to.exist
       })
     })
 
     it('should not show the recenter button when geoJSON is undefined', async function () {
       render(<DefaultStory />)
       await waitFor(() => {
-        expect(screen.getByTestId('geo-map-container')).to.exist
+        expect(screen.getByRole('region', { name: 'Interactive map' })).to.exist
       })
       expect(screen.queryByRole('button', { name: 'Recenter to features' })).to.not.exist
     })
@@ -25,9 +25,9 @@ describe('Component > GeoMapViewer', function () {
     it('should not show the reset button when geoJSON is undefined', async function () {
       render(<DefaultStory />)
       await waitFor(() => {
-        expect(screen.getByTestId('geo-map-container')).to.exist
+        expect(screen.getByRole('region', { name: 'Interactive map' })).to.exist
       })
-      expect(screen.queryByRole('button', { name: 'Reset to original position' })).to.not.exist
+      expect(screen.queryByRole('button', { name: 'Reset features to original position' })).to.not.exist
     })
   })
 
@@ -36,7 +36,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByTestId('geo-map-container')).to.exist
+        expect(screen.getByRole('region', { name: 'Interactive map' })).to.exist
       })
     })
 
@@ -44,7 +44,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        const mapContainer = screen.getByTestId('geo-map-container')
+        const mapContainer = screen.getByRole('region', { name: 'Interactive map' })
         // OpenLayers creates viewport div when layers are added
         const viewport = mapContainer.querySelector('.ol-viewport')
         expect(viewport).to.exist
@@ -63,7 +63,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: 'Reset to original position' })).to.exist
+        expect(screen.getByRole('button', { name: 'Reset features to original position' })).to.exist
       })
     })
 
@@ -71,12 +71,12 @@ describe('Component > GeoMapViewer', function () {
       const { unmount } = render(<WithGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByTestId('geo-map-container')).to.exist
+        expect(screen.getByRole('region', { name: 'Interactive map' })).to.exist
       })
 
       unmount()
       
-      expect(screen.queryByTestId('geo-map-container')).to.not.exist
+      expect(screen.queryByRole('region', { name: 'Interactive map' })).to.not.exist
     })
   })
 
@@ -86,7 +86,7 @@ describe('Component > GeoMapViewer', function () {
       render(<WithoutGeoDrawingTaskStory />)
       
       await waitFor(() => {
-        expect(screen.getByTestId('geo-map-container')).to.exist
+        expect(screen.getByRole('region', { name: 'Interactive map' })).to.exist
       })
 
       expect(screen.getByRole('button', { name: 'Recenter to features' })).to.exist

@@ -18,7 +18,7 @@ function ResetButton({ onClick }) {
   return (
     <IconActionButton
       a11yTitle={label}
-      icon={<Update color='dark-5' size='18px' />}
+      icon={<Update size='18px' />}
       onClick={handleClick}
       title={label}
     />

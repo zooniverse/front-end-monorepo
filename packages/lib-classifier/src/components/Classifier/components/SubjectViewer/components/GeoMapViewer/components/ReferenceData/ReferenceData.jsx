@@ -16,7 +16,6 @@ function ReferenceData({ data }) {
       a11yTitle={t('SubjectViewer.GeoMapViewer.ReferenceData')}
       as='section'
       flex={false}
-      margin={{ bottom: 'medium' }}
       pad={{ horizontal: 'small', vertical: 'xsmall' }}
       tabIndex={0}
     >
@@ -28,8 +27,15 @@ function ReferenceData({ data }) {
       </SpacedText>
       <Box gap='xsmall'>
         {Object.entries(data).map(([key, value]) => (
-          <Text key={key}>
-            <Text weight='bold'>{key}:</Text> {value}
+          <Text
+            key={key}
+            size='1rem'
+          >
+            <Text
+              size='1rem'
+              weight='bold'
+            >
+              {key}:</Text> {value}
           </Text>
         ))}
       </Box>

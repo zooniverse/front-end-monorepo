@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "Fes clic i arrossega des del punt inicial fins al punt final o fes doble clic a qualsevol punt de la línia per crear un punt de tall",
+    "closePoint": "Fes clic a qualsevol punt de la línia per establir el punt final",
+    "inactive": "Feu clic per editar aquesta línia",
+    "spliceDrag": "Fes clic i arrossega des del punt inicial fins al punt final",
+    "splicePoint": "Fes doble clic a qualsevol punt de la línia per crear un punt de tall"
+  },
+  "HighlighterTask": {
+    "delete": "Elimina",
+    "noLabels": "No hi ha etiquetes per a la tasca de ressaltador",
+    "status": "{{count}} Marcat"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} dibuixats",
+    "max": "{{count}} de {{max}} dibuixats com a màxim",
+    "maxAndMin": "Calen {{count}} de {{min}} dibuixats, {{max}} com a màxim",
+    "min": "Calen {{count}} de {{min}} dibuixats"
+  },
+  "LineControls": {
+    "close": "Tanca",
+    "delete": "Elimina",
+    "deleteCancel": "Cancel·la l’eliminació",
+    "deleteConfirm": "Confirma l'eliminació",
+    "lineControls": "Controls de línia",
+    "move": "Mou",
+    "redo": "Refer",
+    "undo": "Desfer"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Introdueix alguna cosa",
+    "otherLabel": "Una altra...",
+    "selectPlaceholder": "Tria una resposta"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Esborra els filtres",
+      "closeFilters": "Tanca els filtres",
+      "filter": "Filtre",
+      "removeFilter": "Elimina {{valueLabel}} filtre",
+      "showing": "Mostrant {{showing}} de {{total}}"
+    },
+    "Choice": {
+      "cancel": "Cancel·la",
+      "identify": "Identifica",
+      "lessInfo": "Menys informació",
+      "moreInfo": "Més informació",
+      "notThis": "Això no"
+    },
+    "ChoiceButton": {
+      "identified": "identificat",
+      "openSubmenu": "Obre el submenú per a {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "Cancel·la",
+      "confused": "Sovint confós amb",
+      "itsThis": "Crec que és això"
+    },
+    "DeleteButton": {
+      "delete": "Elimina la selecció {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Restableix"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Modificadors de text"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transcripció creada",
+    "editing": "Edició de la transcripció"
+  }
+}

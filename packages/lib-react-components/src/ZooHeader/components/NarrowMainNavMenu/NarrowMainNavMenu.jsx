@@ -36,7 +36,7 @@ export default function NarrowMainNavMenu({
     <NarrowMenu
       icon={false}
       items={menuListItems}
-      label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation'/>}
+      label={<StyledMenuIcon color='light-5' text='Main Navigation'/>}
     />
   )
 }

@@ -11,7 +11,7 @@ function ZoomOutButton({ onClick }) {
   return (
     <IconActionButton
       a11yTitle={label}
-      icon={<ZoomOut color='dark-5' size='18px' />}
+      icon={<ZoomOut size='18px' />}
       onClick={onClick}
       title={label}
     />

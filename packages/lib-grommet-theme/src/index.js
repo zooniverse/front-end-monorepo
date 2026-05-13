@@ -5,38 +5,38 @@ import deepFreeze from 'deep-freeze'
 const brand = '#00979d'
 
 // dark colors
-const darkBlack = '#2D2D2D'
-const lightBlack = '#272727'
-const darkestGrey = '#333333'
-const darkerGrey = '#404040'
-const darkGrey = '#5C5C5C'
-const lightDarkGrey = '#666666'
+const darkBlack = '#2D2D2D' // dark-1
+const lightBlack = '#272727' // dark-2
+const darkestGrey = '#333333' // dark-3
+const darkerGrey = '#404040' // dark-4
+const darkGrey = '#5C5C5C' // dark-5
+const lightDarkGrey = '#666666' // dark-6
 
 // light colors
-const lightestGrey = '#eff2f5'
-const lighterGrey = '#ebebeb'
-const lightGrey = '#e2e5e9'
-const grey = '#CBCCCB'
-const midGrey = '#a6a7a9'
-const moreMiddleGrey = '#979797'
+const lightestGrey = '#eff2f5' // light-1
+const lighterGrey = '#ebebeb' // light-2
+const lightGrey = '#e2e5e9' // light-3
+const grey = '#CBCCCB' // light-4
+const midGrey = '#a6a7a9' // light-5
+const moreMiddleGrey = '#979797' // light-6
 
 // status
-const tomato = '#E45950'
-const pink = '#FFB6AA'
-const darkGold = '#CC9200'
-const green = '#1ED359'
+const tomato = '#E45950' // neutral-4
+const pink = '#FFB6AA' // accent-4
+const darkGold = '#CC9200' // status-warning
+const green = '#1ED359' // neutral-3
 
 // accent colors
-const lightTeal = '#addde0'
-const lightGold = '#f6d885'
-const mint = '#B8E986'
+const lightTeal = '#addde0' // accent-1
+const lightGold = '#f6d885' // accent-2
+const mint = '#B8E986' // accent-3
 
 // neutral colors
-const darkTeal = '#005D69'
-const gold = '#f0b200'
-const blue = '#43BBFD'
-const white = '#ffffff'
-const black = '#000000'
+const darkTeal = '#005D69' // neutral-1
+const gold = '#f0b200' // neutral-2
+const blue = '#43BBFD' // neutral-5
+const white = '#ffffff' // neutral-6
+const black = '#000000' // neutral-7
 
 const accentColors = [
   lightTeal, // accent-1
@@ -56,12 +56,12 @@ const neutralColors = [
 ]
 
 const statusColors = {
-  critical: tomato,
-  error: pink,
+  critical: tomato, // neutral-4
+  error: pink, // accent-4
   warning: darkGold,
-  ok: green,
-  unknown: grey,
-  disabled: grey
+  ok: green, // neutral-3
+  unknown: grey, // light-4
+  disabled: grey // light-4
 }
 
 const darkColors = [
@@ -123,8 +123,8 @@ const colors = {
   placeholder: 'dark-5',
   statusColors,
   text: {
-    dark: lightGrey,
-    light: darkGrey
+    dark: lightGrey, // light-3
+    light: darkGrey // dark-5
   }
 }
 

@@ -433,6 +433,49 @@ describe('Model > DrawingTask', function () {
     })
   })
 
+  describe('deleteMark', function () {
+    let annotation
+    let line1
+    let point1
+    let point2
+    let task
+
+    before(function () {
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      annotation = task.defaultAnnotation()
+      types.model('MockStore', {
+        annotation: DrawingTask.AnnotationModel,
+        task: DrawingTask.TaskModel
+      })
+        .create({
+          annotation,
+          task
+        })
+      point1 = task.tools[0].createMark({ id: 'point1' })
+      point2 = task.tools[0].createMark({ id: 'point2' })
+      line1 = task.tools[1].createMark({ id: 'line1' })
+      annotation.update(task.marks)
+      
+      task.deleteMark(line1)
+    })
+
+    it('should reset the subtask visiblity', function () {
+      expect(line1.subTaskVisibility).to.equal(false)
+    })
+
+    it('should remove the mark', function () {
+      expect(task.marks).to.deep.equal([point1, point2])
+    })
+
+    it('should update the annotation', function () {
+      expect(annotation.value).to.deep.equal([point1, point2])
+    })
+
+    it('should clear the active mark', function () {
+      expect(task.activeMark).to.equal(undefined)
+    })
+  })
+
   describe('validation', function () {
     let task
 
