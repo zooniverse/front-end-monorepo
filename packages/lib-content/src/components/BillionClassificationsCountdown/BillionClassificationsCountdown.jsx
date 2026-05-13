@@ -16,11 +16,10 @@ const Container = styled(Box)`
 const Content = styled(Box)`
   background: white;
   border-radius: 1em;
-  padding: 1em;
+  box-shadow: 2px 2px 2px #808080;
   max-width: 800px;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 1em auto;
 `
-
 
 /*
   We have to manually add some legacy (static) stats to the UI.
@@ -47,14 +46,21 @@ export default function BillionClassificationsCountdown() {
   
   return (
     <Container>
-      <Content>
-        <Text textAlign='center'>
+      <Content
+        gap='xsmall'
+        pad='medium'
+      >
+        <Text
+          size='xlarge'
+          textAlign='center'
+        >
           {(classificationsToGo > 0)
             ? "We're approaching 1 billion classifications!"
             : "We've reached 1 billion classifications on the Zooniverse! Thank you!"
           }
         </Text>
         <Text
+          size='large'
           textAlign='center'
         >
           {(classificationsToGo > 0)
