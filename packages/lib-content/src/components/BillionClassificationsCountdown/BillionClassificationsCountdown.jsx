@@ -4,7 +4,7 @@ import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
 import { CloseButton } from '@zooniverse/react-components'
 
-import { useTotalClassificationCount } from '../Stats/hooks.js'
+import { useTotalClassificationCount } from './hooks.js'
 
 const StyledCloseButton = styled(CloseButton)`
   position: absolute;

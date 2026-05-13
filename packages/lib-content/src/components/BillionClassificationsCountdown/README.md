@@ -2,6 +2,8 @@
 
 The Billion Classifications Countdown component is intended to be a **temporary** addition to the FEM home page, to celebrate the billion classifications milestone.
 
+This component is based on packages/lib-content/src/components/Stats/
+
 Features:
 
 - Displays number of classifications to reach 1,000,000,000.
