@@ -44,7 +44,7 @@ const TARGET_CLASSIFICATIONS = 1000000000
 let storage = null
 if (typeof window !== 'undefined') { storage = window?.sessionStorage }
 
-export default function BillionClassificationsCountdown() {
+export default function BillionClassificationsCountdown () {
   const previouslyClosed = storage?.getItem('hideBillionClassificationsCountdown') || false
   const [ hideCountdown, setHideCountdown ] = useState(false)
 

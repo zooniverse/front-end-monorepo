@@ -6,6 +6,7 @@ import AnimatedNumber from '@zooniverse/react-components/AnimatedNumber'
 import { useTranslation } from '@translations/i18n'
 
 import { useTotalClassificationCount, useTotalVolunteerCount } from './hooks.js'
+import BillionsCoundown from './components/BillionsCountdown.jsx'
 
 const ClassificationsLabel = styled(Box)`
   background: linear-gradient(
@@ -53,7 +54,7 @@ export default function Stats() {
   const size = useContext(ResponsiveContext)
   const numberFontSize = size !== 'small' ? '5rem' : '2.5rem'
 
-  const { data: classifications } = useTotalClassificationCount()
+  const { data: classifications, error: classificationsError, isLoading: classificationsLoading } = useTotalClassificationCount()
 
   const { data: volunteers } = useTotalVolunteerCount()
 
@@ -90,6 +91,11 @@ export default function Stats() {
           </SpacedText>
         </VolunteersLabel>
       </Stat>
+      <BillionsCoundown
+        error={classificationsError}
+        isLoading={classificationsLoading}
+        totalClassifications={totalClassifications}
+      />
     </Box>
   )
 }
