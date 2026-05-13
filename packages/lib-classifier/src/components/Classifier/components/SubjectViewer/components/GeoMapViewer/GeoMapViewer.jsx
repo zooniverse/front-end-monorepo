@@ -31,10 +31,11 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import asMSTFeature from './helpers/asMSTFeature'
 import createMeasureInteraction from './helpers/createMeasureInteraction'
-import createModifyUncertaintyInteraction, { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/createModifyUncertaintyInteraction'
+import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import getPixelDistance from './helpers/getPixelDistance'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './helpers/hitTesting'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -74,6 +75,8 @@ const MapContainer = styled.div`
 `
 
 const ZOOM_ANIMATION_DURATION_MS = 250
+const POINTER_MOVE_HIT_CHECK_INTERVAL_MS = 80
+const POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS = 4
 
 // Maps UnitSelect display options to OpenLayers ScaleLine unit strings
 const UNIT_OPTION_TO_SCALE_LINE_UNITS = {
@@ -169,6 +172,7 @@ function GeoMapViewer({
     // create a GeoJSON format reader
     const geoJSONFormat = new GeoJSON()
     geoJSONFormatRef.current = geoJSONFormat
+    let pointerMoveRafId = null
 
     const baseLayer = new TileLayer({
       // preload tiles for 1 level of zooming
@@ -284,10 +288,59 @@ function GeoMapViewer({
       map.addInteraction(modifyUncertainty)
       modifyUncertaintyRef.current = modifyUncertainty
 
-      // Track whether a point is actively being dragged to switch grab → grabbing.
+      // Track whether a point is actively being dragged to switch grab -> grabbing.
       // Center-point drags are captured by moveToClick (not Translate), so we use
       // onDragStart/onDragEnd callbacks to update the cursor immediately on press.
       let isDraggingPoint = false
+      let latestPointerMoveEvent = null
+      let lastAppliedCursor = ''
+      let lastHitCheckTs = 0
+      let lastHitCheckPixel = null
+      let lastHitCheckResult = false
+
+      function applyCursor(element, cursor) {
+        if (lastAppliedCursor === cursor) return
+        element.style.cursor = cursor
+        lastAppliedCursor = cursor
+      }
+
+      function isPointerOverFeature(pixel) {
+        let isOverFeature = false
+
+        featuresLayer.getSource().forEachFeature((feature) => {
+          if (isOverFeature) return
+
+          const coords = feature.getGeometry()?.getCoordinates?.()
+          if (!Array.isArray(coords)) return
+
+          const pointPixel = map.getPixelFromCoordinate(coords)
+          if (isPixelNearPointCenter({
+            pixel,
+            pointPixel,
+            radius: POINT_CENTER_HIT_RADIUS_PIXELS
+          })) {
+            isOverFeature = true
+            return
+          }
+
+          const mstFeature = asMSTFeature(feature)
+          const uncertaintyRadiusPixels = mstFeature?.getUncertaintyRadiusPixels?.({
+            feature,
+            geoDrawingTask,
+            resolution: map.getView().getResolution()
+          })
+
+          if (
+            typeof uncertaintyRadiusPixels === 'number'
+            && uncertaintyRadiusPixels > 0
+            && getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels
+          ) {
+            isOverFeature = true
+          }
+        })
+
+        return isOverFeature
+      }
 
       // Create and add move-to-click interaction
       const moveToClick = createMoveToClickInteraction({
@@ -313,96 +366,116 @@ function GeoMapViewer({
       // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
       // which Translate sets on the viewport via classList.
       const handlePointerMove = (event) => {
-        if (isMeasureModeActiveRef.current) {
-          const element = map.getTargetElement()
+        latestPointerMoveEvent = event
 
-          if (element) {
-            element.style.cursor = ''
+        if (pointerMoveRafId !== null) return
+
+        pointerMoveRafId = requestAnimationFrame(() => {
+          pointerMoveRafId = null
+
+          const latestEvent = latestPointerMoveEvent
+          if (!latestEvent) return
+
+          if (isMeasureModeActiveRef.current) {
+            const targetElement = map.getTargetElement()
+
+            if (targetElement) {
+              applyCursor(targetElement, '')
+            }
+
+            return
           }
 
-          return
-        }
+          const element = map.getViewport()
+          if (!element) return
 
-        const element = map.getViewport()
-        if (!element) return
+          let cursor = ''
+          const selectedFeature = select.getFeatures().item(0)
 
-        let cursor = ''
-        const selectedFeature = select.getFeatures().item(0)
+          if (selectedFeature) {
+            const mstFeature = asMSTFeature(selectedFeature)
+            const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
 
-        if (selectedFeature) {
-          const mstFeature = asMSTFeature(selectedFeature)
-          const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
-
-          if (mstFeature && Array.isArray(pointCoordinates)) {
-            const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
-            const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
-              feature: selectedFeature,
-              geoDrawingTask
-            })
-
-            // If we're near the feature center, grab/grabbing takes priority
-            if (isPixelNearPointCenter({
-              pixel: event.pixel,
-              pointPixel,
-              radius: POINT_CENTER_HIT_RADIUS_PIXELS
-            })) {
-              cursor = isDraggingPoint ? 'grabbing' : 'grab'
-            }
-
-            // If we're near the drag handle, show the resize cursor
-            if (!cursor && dragHandleCoordinates) {
-              const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-              if (isPixelNearDragHandle({
-                pixel: event.pixel,
-                handlePixel: dragHandlePixel,
-                tolerance: 15
-              })) {
-                cursor = 'ew-resize'
-              }
-            }
-
-            // If the feature has an uncertainty radius, show the default cursor when hovering over it
-            if (!cursor) {
-              const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
+            if (mstFeature && Array.isArray(pointCoordinates)) {
+              const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
+              const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
                 feature: selectedFeature,
-                geoDrawingTask,
-                resolution: map.getView().getResolution()
+                geoDrawingTask
               })
 
-              if (
-                typeof uncertaintyRadiusPixels === 'number'
-                && uncertaintyRadiusPixels > 0
-                && getPixelDistance(event.pixel, pointPixel) <= uncertaintyRadiusPixels
-              ) {
-                cursor = 'default'
+              if (isPixelNearPointCenter({
+                pixel: latestEvent.pixel,
+                pointPixel,
+                radius: POINT_CENTER_HIT_RADIUS_PIXELS
+              })) {
+                cursor = isDraggingPoint ? 'grabbing' : 'grab'
+              }
+
+              if (!cursor && dragHandleCoordinates) {
+                const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
+                if (isPixelNearDragHandle({
+                  pixel: latestEvent.pixel,
+                  handlePixel: dragHandlePixel,
+                  tolerance: 15
+                })) {
+                  cursor = 'ew-resize'
+                }
+              }
+
+              if (!cursor) {
+                const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
+                  feature: selectedFeature,
+                  geoDrawingTask,
+                  resolution: map.getView().getResolution()
+                })
+
+                if (
+                  typeof uncertaintyRadiusPixels === 'number'
+                  && uncertaintyRadiusPixels > 0
+                  && getPixelDistance(latestEvent.pixel, pointPixel) <= uncertaintyRadiusPixels
+                ) {
+                  cursor = 'default'
+                }
               }
             }
           }
-        }
 
-        if (!cursor) {
-          if (selectedFeature) {
-            // When a feature is selected, only show pointer over another feature's center point (which is selectable)
-            let hoveringOtherCenter = false
-            featuresLayer.getSource().forEachFeature((feature) => {
-              if (feature === selectedFeature || hoveringOtherCenter) return
-              const coords = feature.getGeometry()?.getCoordinates?.()
-              if (!Array.isArray(coords)) return
-              const featurePixel = map.getPixelFromCoordinate(coords)
-              if (isPixelNearPointCenter({ pixel: event.pixel, pointPixel: featurePixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS })) {
-                hoveringOtherCenter = true
+          if (!cursor) {
+            if (selectedFeature) {
+              // When a feature is selected, only show pointer over another feature's center point (which is selectable)
+              let hoveringOtherCenter = false
+              featuresLayer.getSource().forEachFeature((feature) => {
+                if (feature === selectedFeature || hoveringOtherCenter) return
+                const coords = feature.getGeometry()?.getCoordinates?.()
+                if (!Array.isArray(coords)) return
+                const featurePixel = map.getPixelFromCoordinate(coords)
+                if (isPixelNearPointCenter({
+                  pixel: latestEvent.pixel,
+                  pointPixel: featurePixel,
+                  radius: POINT_CENTER_HIT_RADIUS_PIXELS
+                })) {
+                  hoveringOtherCenter = true
+                }
+              })
+              cursor = hoveringOtherCenter ? 'pointer' : 'default'
+            } else {
+              const now = performance.now()
+              const movedEnough = !lastHitCheckPixel
+                || getPixelDistance(latestEvent.pixel, lastHitCheckPixel) >= POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS
+              const elapsedEnough = (now - lastHitCheckTs) >= POINTER_MOVE_HIT_CHECK_INTERVAL_MS
+
+              if (movedEnough || elapsedEnough) {
+                lastHitCheckResult = isPointerOverFeature(latestEvent.pixel)
+                lastHitCheckTs = now
+                lastHitCheckPixel = [...latestEvent.pixel]
               }
-            })
-            cursor = hoveringOtherCenter ? 'pointer' : 'default'
-          } else {
-            const hit = map.hasFeatureAtPixel(event.pixel, {
-              layerFilter: (layer) => layer === featuresLayer
-            })
-            cursor = hit ? 'pointer' : 'default'
-          }
-        }
 
-        element.style.cursor = cursor
+              cursor = lastHitCheckResult ? 'pointer' : 'default'
+            }
+          }
+
+          applyCursor(element, cursor)
+        })
       }
       map.on('pointermove', handlePointerMove)
       pointerMoveHandlerRef.current = handlePointerMove
@@ -429,6 +502,7 @@ function GeoMapViewer({
       if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
       measureInteractionRef.current?.destroy()
       if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
+      if (pointerMoveRafId !== null) cancelAnimationFrame(pointerMoveRafId)
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined

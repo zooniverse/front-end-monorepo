@@ -2,7 +2,7 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
-import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './createModifyUncertaintyInteraction'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './hitTesting'
 
 export const MOVE_TO_CLICK_HOLD_DELAY = 250
 
@@ -37,6 +37,16 @@ function createMoveToClickInteraction({
   }
 
   function isPointerOnResizeHandle({ pixel, map, olFeature, mstFeature }) {
+    const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
+      feature: olFeature,
+      geoDrawingTask,
+      resolution: map.getView().getResolution()
+    })
+
+    if (!(typeof uncertaintyRadiusPixels === 'number' && uncertaintyRadiusPixels > 0)) {
+      return false
+    }
+
     const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
       feature: olFeature,
       geoDrawingTask
@@ -138,6 +148,26 @@ function createMoveToClickInteraction({
     state.draggingFeature = false
 
     const mstFeature = asMSTFeature(state.selectedFeature)
+    const clickedInsideSelectedFeature = mstFeature
+      ? isPointerInsideSelectedFeature({
+        pixel: event.pixel,
+        map,
+        olFeature: state.selectedFeature
+      })
+      : false
+
+    state.clickedOnFeature = clickedInsideSelectedFeature
+
+    // Prioritize center-point dragging over uncertainty-handle checks.
+    // At far zoom, tiny uncertainty circles can place the handle near center.
+    if (clickedInsideSelectedFeature) {
+      state.draggingFeature = true
+      state.disabledSelect = true
+      selectInteraction.setActive(false)
+      onDragStart?.()
+      return true
+    }
+
     const clickedOnResizeHandle = mstFeature
       ? isPointerOnResizeHandle({
         pixel: event.pixel,
@@ -169,24 +199,6 @@ function createMoveToClickInteraction({
       state.clickedInUncertaintyCircle = true
       state.disabledSelect = true
       selectInteraction.setActive(false)
-      return true
-    }
-
-    const clickedInsideSelectedFeature = mstFeature
-      ? isPointerInsideSelectedFeature({
-        pixel: event.pixel,
-        map,
-        olFeature: state.selectedFeature
-      })
-      : false
-
-    state.clickedOnFeature = clickedInsideSelectedFeature
-
-    if (clickedInsideSelectedFeature) {
-      state.draggingFeature = true
-      state.disabledSelect = true
-      selectInteraction.setActive(false)
-      onDragStart?.()
       return true
     }
 
