@@ -69,6 +69,11 @@ export const WithGeoDrawingLineStringTask = {
         }
       ]
     },
+    onFeaturesChange: (featureCollection) => {
+      if (typeof window !== 'undefined') {
+        window.__geoFeatureCount = featureCollection?.features?.length ?? 0
+      }
+    }
   },
 }
 
