@@ -7,6 +7,7 @@ import { useContext } from 'react'
 
 import getDateRangeLabel from './getDateRangeLabel'
 import getCompleteData from './getCompleteData'
+import { getInterval } from '../../helpers/getDateInterval'
 
 const X_AXIS_FREQUENCY = {
   everyOther: 'everyOther',
@@ -16,22 +17,6 @@ const X_AXIS_FREQUENCY = {
 const mockDateRange = {
   startDate: '2023-05-27',
   endDate: '2023-06-02'
-}
-
-function getInterval(differenceInDays) {
-  if (differenceInDays <= 31) {
-    return 'day'
-  }
-
-  if (differenceInDays <= 183) {
-    return 'week'
-  }
-
-  if (differenceInDays <= 1460) {
-    return 'month'
-  }
-
-  return 'year'
 }
 
 const StyledDataChart = styled(DataChart)`
@@ -74,7 +59,8 @@ function BarChart({
   const typeLabel = TYPE_LABEL[type]
 
   const { startDate, endDate } = dateRange || {}
-  const differenceInDays = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+  const differenceInDays =
+    (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
   const period = getInterval(differenceInDays)
 
   const dateInterval = {
@@ -198,9 +184,9 @@ function BarChart({
           property: 'count',
           label: typeLabel,
           render: number => {
-              return (
-                <Text data-testid='countLabel'>{number.toLocaleString()}</Text>
-              )
+            return (
+              <Text data-testid='countLabel'>{number.toLocaleString()}</Text>
+            )
           }
         }
       ]}

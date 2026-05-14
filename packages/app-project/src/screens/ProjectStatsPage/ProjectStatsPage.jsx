@@ -1,31 +1,24 @@
-import { useTranslation } from 'next-i18next'
 import { arrayOf, shape, string } from 'prop-types'
 
+import ChartContainer from './components/ChartContainer/ChartContainer'
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import Workflows from './components/Workflows/Workflows'
 
-function ProjectStatsPage({ projectDisplayName, projectId, workflows }) {
-  const { t } = useTranslation('screens')
+function ProjectStatsPage({ workflows }) {
 
   return (
     <StandardLayout>
+      <ChartContainer />
       <ProjectStatistics />
       <Workflows workflows={workflows} />
     </StandardLayout>
   )
 }
 
-ProjectStatsPage.propTypes = {
-  projectDisplayName: string,
-  projectId: string
-}
-
 export default ProjectStatsPage
 
-Workflows.propTypes = {
-  projectDisplayName: string,
-  projectId: string,
+ProjectStatsPage.propTypes = {
   workflows: arrayOf(
     shape({
       id: string.isRequired

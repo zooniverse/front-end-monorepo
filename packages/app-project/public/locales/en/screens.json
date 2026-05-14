@@ -78,7 +78,17 @@
   },
   "ProjectStats": {
     "BarChart": {
-      "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}"
+      "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
+      "dateRange": {
+        "allTime": "All Time",
+        "custom": "Custom",
+        "lastSevenDays": "Last 7 Days",
+        "lastThirtyDays": "Last 30 Days",
+        "lastThreeMonths": "Last 3 Months",
+        "lastTwelveMonths": "Last 12 Months",
+        "thisMonth": "This Month",
+        "thisYear": "This Year"
+      }
     },
     "classifications": "classifications",
     "comments": "comments",
