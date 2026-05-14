@@ -63,6 +63,9 @@ export default function Stats() {
 
   return (
     <Box gap='medium'>
+      {/* Special Event: Countdown to 1 Billion Classifications. Remove after Jul 2026. */}
+      <a id='zooniverse-billion'></a>
+
       <Stat className='classifications' round='8px'>
         <Text
           color='neutral-2'
