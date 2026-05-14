@@ -9,7 +9,7 @@ function ProjectStatsPage({ workflows }) {
 
   return (
     <StandardLayout>
-      <ChartContainer />
+      <ChartContainer workflows={workflows} />
       <ProjectStatistics />
       <Workflows workflows={workflows} />
     </StandardLayout>

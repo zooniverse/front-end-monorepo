@@ -4,7 +4,7 @@ import useSWR from 'swr'
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  revalidateOnFocus: true,
+  revalidateOnFocus: false,
   revalidateOnReconnect: true,
   refreshInterval: 0
 }
@@ -35,7 +35,8 @@ async function fetchStats({
   }
 }
 
-export default function useProjectStats(query) {
-  const key = { endpoint: '/classifications', query }
+export default function useProjectStats(query, type) {
+  const endpoint = type === 'count' ? '/classifications' : '/comments'
+  const key = { endpoint, query }
   return useSWR(key, fetchStats, SWROptions)
 }

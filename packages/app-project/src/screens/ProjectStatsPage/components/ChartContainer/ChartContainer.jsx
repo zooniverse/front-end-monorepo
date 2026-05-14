@@ -1,14 +1,31 @@
 import { useQueryState } from 'nuqs'
+import { arrayOf, shape, string } from 'prop-types'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box } from 'grommet'
+import {
+  Box,
+  Heading,
+  Select,
+  ResponsiveContext,
+  Text,
+  ThemeContext
+} from 'grommet'
+import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
+import StyledTab from './StyledTab'
+import selectTheme from './selectTheme'
+
 import { getDateInterval } from '../../helpers/getDateInterval'
 import validateDateRangeParams from '../../helpers/validateDateRangeParams'
 import useProjectStats from '../../helpers/useProjectStats'
+
+const StyledSelect = styled(Select)`
+  text-align: center;
+  text-transform: uppercase;
+`
 
 function getStatsDateString(date) {
   if (date instanceof Date) {
@@ -28,11 +45,14 @@ function useStores() {
   }
 }
 
-function ChartContainer() {
+function ChartContainer({ workflows }) {
   const { t } = useTranslation('screens')
+  const size = useContext(ResponsiveContext)
   const { launchDate, projectDisplayName, projectId } = useStores()
 
   const today = new Date()
+  const todayUTC = getStatsDateString(today)
+
   const dateRangeOptions = [
     {
       label: t('ProjectStats.BarChart.dateRange.lastSevenDays').toUpperCase(),
@@ -80,7 +100,7 @@ function ChartContainer() {
     },
     {
       label: t('ProjectStats.BarChart.dateRange.allTime').toUpperCase(),
-      value: launchDate
+      value: getStatsDateString(launchDate)
     }
   ]
 
@@ -99,25 +119,38 @@ function ChartContainer() {
   //   })
   // }
 
-  const defaultStartDate = dateRangeOptions[0].value
-
-  const [startDate, setStartDate] = useQueryState('startDate', {
-    defaultValue: defaultStartDate
+  const allWorkflowsOption = { value: null, label: 'All Workflows'}
+  const workflowOptions = workflows.map(workflow => {
+    return {
+      value: workflow.id,
+      label: workflow.displayName.toUpperCase()
+    }
   })
-  const [endDate, setEndDate] = useQueryState('endDate') // if not provided to ERAS, defaults to today?
-  const [type, setType] = useQueryState('type', { defaultValue: 'count' })
-  const [workflow, setWorkflow] = useQueryState('workflow')
+  workflowOptions.push(allWorkflowsOption)
 
+  // NUQS
+  const [startDate, setStartDate] = useQueryState('startDate', {
+    defaultValue: dateRangeOptions[0].value // last7Days
+  })
+  const [endDate, setEndDate] = useQueryState('endDate', {
+    defaultValue: todayUTC
+  })
+  const [type, setType] = useQueryState('type', { defaultValue: 'count' })
+  const [workflow, setWorkflow] = useQueryState('workflow_id')
+
+  // Chart logic
   const { dateRangeMessage } = validateDateRangeParams({ endDate, startDate })
 
-  const dateInterval = getDateInterval({ endDate, startDate })
-
-  // For the dropdown
-  const todayUTC = getStatsDateString(today)
   let selectedDateRangeOption = dateRangeOptions.find(
     option => endDate === todayUTC && option.value === startDate
   )
 
+  const selectedWorkflowOption = workflowOptions.find(
+    option => workflow === option.value
+  )
+
+  // ERAS Query
+  const dateInterval = getDateInterval({ endDate, startDate })
   const erasQuery = {
     end_date: endDate ? endDate : undefined,
     period: dateInterval.period,
@@ -131,14 +164,99 @@ function ChartContainer() {
     Object.entries(erasQuery).filter(([_, value]) => value !== undefined)
   )
 
-  const { data, error, isLoading, isValidating } = useProjectStats(filteredQuery)
+  const { data, error, isLoading, isValidating } = useProjectStats(
+    filteredQuery,
+    type
+  )
 
-  // Sample data { total_count: 87654, data: [{ period, count }]}
+  function handleDateRangeSelect(option) {
+    // if (option.value === 'custom') {
+    //   setShowCalendar(true)
+    //   return
+    // }
+
+    setEndDate(todayUTC)
+    setStartDate(option.value)
+  }
+
+  function handleWorkflowSelect(option) {
+    setWorkflow(option.value)
+  }
+
+  function handleTypeChange(value) {
+    if (value === 'comments') {
+      setType('comments')
+      setWorkflow(null)
+    } else {
+      setType('count')
+    }
+  }
+
+  // console.log(type, isLoading, isValidating)
 
   return (
     <ContentBox>
-      {projectDisplayName}
-      <Box height='medium'>
+      <Heading level={2}>{projectDisplayName} Statistics</Heading>
+      <Box
+        role='tablist'
+        direction='row'
+        fill={size === 'small' ? 'horizontal' : false}
+        gap='medium'
+      >
+        <StyledTab
+          role='tab'
+          aria-expanded={type === 'count'}
+          aria-selected={type === 'count'}
+          active={type === 'count'}
+          label={t('ProjectStats.classifications')}
+          onClick={() => handleTypeChange('count')}
+          plain
+          fill={size === 'small' ? 'horizontal' : false}
+        />
+        <StyledTab
+          role='tab'
+          aria-expanded={type === 'comments'}
+          aria-selected={type === 'comments'}
+          active={type === 'comments'}
+          label={t('ProjectStats.comments')}
+          onClick={() => handleTypeChange('comments')}
+          plain
+          fill={size === 'small' ? 'horizontal' : false}
+        />
+      </Box>
+      <ThemeContext.Extend value={selectTheme}>
+        <Box
+          basis='1/2'
+          direction='row'
+          fill={size === 'small' ? 'horizontal' : false}
+          gap='20px'
+          justify={size === 'small' ? 'evenly' : 'end'}
+        >
+          <StyledSelect
+            name='workflow-select'
+            aria-label={t('ProjectStats.selectWorkflow')}
+            labelKey='label'
+            onChange={({ option }) => handleWorkflowSelect(option)}
+            options={workflowOptions}
+            value={selectedWorkflowOption?.label}
+            valueKey={{ key: 'label', reduce: true }}
+            size='medium'
+            disabled={type === 'comments'}
+          />
+          <StyledSelect
+            name='date-range-select'
+            aria-label={t('ProjectStats.selectDateRange')}
+            labelKey='label'
+            onChange={({ option }) => handleDateRangeSelect(option)}
+            options={dateRangeOptions}
+            value={selectedDateRangeOption?.label}
+            valueKey={{ key: 'label', reduce: true }}
+            size='medium'
+          />
+        </Box>
+      </ThemeContext.Extend>
+      <Box height='medium' margin={{ vertical: '20px' }}>
+        {dateRangeMessage?.length ? <Text>{dateRangeMessage}</Text> : null}
         <BarChart
           data={data?.data}
           dateRange={{ startDate, endDate }}
@@ -150,3 +268,11 @@ function ChartContainer() {
 }
 
 export default observer(ChartContainer)
+
+ChartContainer.propTypes = {
+  workflows: arrayOf(
+    shape({
+      id: string.isRequired
+    })
+  )
+}

@@ -88,7 +88,9 @@
         "lastTwelveMonths": "Last 12 Months",
         "thisMonth": "This Month",
         "thisYear": "This Year"
-      }
+      },
+      "selectDateRange": "Select date range",
+      "selectWorkflow": "Select workflow"
     },
     "classifications": "classifications",
     "comments": "comments",
