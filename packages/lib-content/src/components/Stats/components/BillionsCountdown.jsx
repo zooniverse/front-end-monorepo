@@ -33,15 +33,14 @@ export default function BillionsCountdown ({
           : "We've reached 1 billion classifications on the Zooniverse! Thank you!"
         }
       </Text>
+      {(classificationsToGo > 0) && (
       <Text
         size='large'
         textAlign='center'
       >
-        {(classificationsToGo > 0)
-          ? `Classifications to go: ${classificationsToGo?.toLocaleString()}`
-          : `Classifications: ${totalClassifications?.toLocaleString()}`
-        }
+        Classifications to go: {classificationsToGo?.toLocaleString()}
       </Text>
+      )}
     </Content>
   )
 }
