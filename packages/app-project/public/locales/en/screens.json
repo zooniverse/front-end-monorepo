@@ -92,6 +92,8 @@
       "selectDateRange": "Select date range",
       "selectWorkflow": "Select workflow"
     },
+    "calendarBtn": "Done",
+    "calendarTitle": "Custom Date Range",
     "classifications": "classifications",
     "comments": "comments",
     "workflows": {

@@ -18,56 +18,48 @@ export default function getDateRangeLabel(dateInterval, locale) {
     return {
       countLabel: displayNames.of('day'),
       time: 60,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', weekday: 'short' }
     }
   } else if (differenceInDays <= 30 && !sameMonth) {
     return {
       countLabel: displayNames.of('day'),
       time: 60,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     }
   } else if (differenceInDays <= 31 && sameMonth) {
     return {
       countLabel: displayNames.of('day'),
       time: 60,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', day: 'numeric' }
     }
   } else if (differenceInDays <= 183) {
     return {
       countLabel: displayNames.of('weekOfYear'),
       time: 3600,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     }
   } else if (differenceInDays <= 365 && sameYear) {
     return {
       countLabel: displayNames.of('month'),
       time: 3600,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', month: 'short' }
     }
   } else if (differenceInDays <= 365) {
     return {
       countLabel: displayNames.of('month'),
       time: 3600,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', month: 'short', year: 'numeric' }
     }
   } else if (differenceInDays <= 1460) {
     return {
       countLabel: displayNames.of('month'),
       time: 3600,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', month: 'short', year: 'numeric' }
     }
   } else {
     return {
       countLabel: displayNames.of('year'),
       time: 3600,
-      // commentsLabel: '',
       tLDS: { timeZone: 'UTC', year: 'numeric' }
     }
   }
