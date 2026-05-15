@@ -13,6 +13,7 @@ import {
   ThemeContext
 } from 'grommet'
 import styled from 'styled-components'
+import { useSearchParams } from 'next/navigation'
 
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
@@ -62,12 +63,20 @@ function ChartContainer({ workflows }) {
   })
   workflowOptions.push({ value: null, label: 'All Workflows' })
 
-  /* NUQS */
+  /* NUQS Handling */
+  const searchParams = useSearchParams()
+
+  // This seems redundant with nuqs enabled, but if a user visits this page
+  // with searchParams already in place, the first render and data fetch
+  // must match those initial search params. If absent, only then set the default last7Days
+  const startDateParam = searchParams.get('start_date')
+  const endDateParam = searchParams.get('end_date')
+
   const [startDate, setStartDate] = useQueryState('start_date', {
-    defaultValue: dateRangeOptions[0].value // last7Days
+    defaultValue: startDateParam ? startDateParam : dateRangeOptions[0].value // last7Days
   })
   const [endDate, setEndDate] = useQueryState('end_date', {
-    defaultValue: todayUTC
+    defaultValue: endDateParam ? endDateParam : todayUTC
   })
   const [type, setType] = useQueryState('type', { defaultValue: 'count' })
   const [workflow, setWorkflow] = useQueryState('workflow_id')
