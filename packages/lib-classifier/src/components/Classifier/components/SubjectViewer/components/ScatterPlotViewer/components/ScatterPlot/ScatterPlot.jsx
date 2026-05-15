@@ -149,6 +149,17 @@ export default function ScatterPlot({
     })
   }
 
+  // If the data series specifies a size for its data points, use that.
+  // Otherwise, use the general data point size provided to the ScatterPlot.
+  function getSeriesDataPointSize(series) {
+    
+    // TEMP  // DEBUG  // TEST
+    if (series?.seriesOptions?.glyph === 'circle') return 250
+    if (series?.seriesOptions?.glyph === 'triangle') return 500
+
+    return dataPointSize
+  }
+
   return (
     <Chart
       className='scatterPlot'
@@ -183,7 +194,7 @@ export default function ScatterPlot({
           <ScatterPlotSeries
             key={`series-${seriesIndex}`}
             color={color}
-            dataPointSize={dataPointSize}
+            dataPointSize={getSeriesDataPointSize(series)}
             highlightedSeries={highlightedSeries}
             series={series}
             seriesIndex={seriesIndex}
