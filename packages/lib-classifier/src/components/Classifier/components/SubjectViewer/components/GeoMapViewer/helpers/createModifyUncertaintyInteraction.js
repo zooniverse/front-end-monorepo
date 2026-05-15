@@ -2,23 +2,9 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './hitTesting'
 
-export const POINT_CENTER_HIT_RADIUS_PIXELS = 10
-
-export function isPixelNearPointCenter({
-  pixel,
-  pointPixel,
-  radius = POINT_CENTER_HIT_RADIUS_PIXELS
-}) {
-  if (!Array.isArray(pixel) || !Array.isArray(pointPixel)) return false
-
-  const deltaX = pixel[0] - pointPixel[0]
-  const deltaY = pixel[1] - pointPixel[1]
-
-  return (deltaX * deltaX) + (deltaY * deltaY) <= radius * radius
-}
-
-export function shouldStartDragHandleInteraction({
+function shouldStartDragHandleInteraction({
   pixel,
   pointPixel,
   handlePixel,
