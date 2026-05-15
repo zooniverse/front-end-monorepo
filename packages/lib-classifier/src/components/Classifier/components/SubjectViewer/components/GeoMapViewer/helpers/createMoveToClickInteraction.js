@@ -1,10 +1,27 @@
 import PointerInteraction from 'ol/interaction/Pointer'
+import { get as getProjection } from 'ol/proj'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
-import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS } from './hitTesting'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './hitTesting'
 
 export const MOVE_TO_CLICK_HOLD_DELAY = 250
+
+/**
+ * Wrap an X coordinate back into the projection's world extent so that features
+ * dragged past the dateline remain visible and renderable by OpenLayers.
+ * Derives the extent from the projection's own definition, so it works correctly
+ * for any projection that declares a world extent (e.g. EPSG:3857, EPSG:4326).
+ * Returns x unchanged if the projection has no defined world extent.
+ */
+function normalizeCoordinateToWorld(x, projectionCode) {
+  const proj = getProjection(projectionCode)
+  const extent = proj?.getExtent()
+  if (!extent) return x
+  const minX = extent[0]
+  const worldWidth = extent[2] - extent[0]
+  return ((((x - minX) % worldWidth) + worldWidth) % worldWidth) + minX
+}
 
 function createMoveToClickInteraction({
   selectInteraction,
@@ -54,36 +71,27 @@ function createMoveToClickInteraction({
 
     if (!dragHandleCoordinates) return false
 
-    const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-    return isPixelNearDragHandle({
-      pixel,
-      handlePixel: dragHandlePixel,
-      tolerance: 15
-    })
+    return getFeaturePixelsAcrossWorldCopies(map, dragHandleCoordinates).some(
+      handlePixel => isPixelNearDragHandle({ pixel, handlePixel, tolerance: 15 })
+    )
   }
 
   function isPointerInsideSelectedFeature({ pixel, map, olFeature }) {
     const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
     if (!Array.isArray(pointCoordinates)) return false
 
-    const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
-    return isPixelNearPointCenter({
-      pixel,
-      pointPixel,
-      radius: POINT_CENTER_HIT_RADIUS_PIXELS
-    })
+    return getFeaturePixelsAcrossWorldCopies(map, pointCoordinates).some(
+      pointPixel => isPixelNearPointCenter({ pixel, pointPixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS })
+    )
   }
 
   function isPointerInUncertaintyCircleOnly({ pixel, map, olFeature, mstFeature }) {
     const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
     if (!Array.isArray(pointCoordinates)) return false
 
-    const pointPixel = map.getPixelFromCoordinate(pointCoordinates)
-    if (isPixelNearPointCenter({
-      pixel,
-      pointPixel,
-      radius: POINT_CENTER_HIT_RADIUS_PIXELS
-    })) {
+    const pointPixels = getFeaturePixelsAcrossWorldCopies(map, pointCoordinates)
+
+    if (pointPixels.some(pointPixel => isPixelNearPointCenter({ pixel, pointPixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS }))) {
       return false
     }
 
@@ -96,15 +104,16 @@ function createMoveToClickInteraction({
     return (
       typeof uncertaintyRadiusPixels === 'number'
       && uncertaintyRadiusPixels > 0
-      && getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels
+      && pointPixels.some(pointPixel => getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels)
     )
   }
 
-  function teleportFeatureTo(coordinate) {
+  function teleportFeatureTo(coordinate, projectionCode) {
     const geometry = state.selectedFeature.getGeometry()
     if (!geometry || typeof geometry.setCoordinates !== 'function') return
 
-    geometry.setCoordinates(coordinate)
+    const wrappedCoordinate = [normalizeCoordinateToWorld(coordinate[0], projectionCode), coordinate[1]]
+    geometry.setCoordinates(wrappedCoordinate)
     state.selectedFeature.changed()
 
     if (geoDrawingTask.setActiveFeatureGeometry) {
@@ -208,8 +217,9 @@ function createMoveToClickInteraction({
       if (feature === state.selectedFeature || clickedOtherFeatureCenter) return
       const coords = feature.getGeometry()?.getCoordinates?.()
       if (!Array.isArray(coords)) return
-      const featurePixel = map.getPixelFromCoordinate(coords)
-      if (isPixelNearPointCenter({ pixel: event.pixel, pointPixel: featurePixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS })) {
+      if (getFeaturePixelsAcrossWorldCopies(map, coords).some(
+        featurePixel => isPixelNearPointCenter({ pixel: event.pixel, pointPixel: featurePixel, radius: POINT_CENTER_HIT_RADIUS_PIXELS })
+      )) {
         clickedOtherFeatureCenter = true
       }
     })
@@ -245,8 +255,9 @@ function createMoveToClickInteraction({
     const geometry = state.selectedFeature.getGeometry()
 
     if (geometry && typeof geometry.setCoordinates === 'function') {
+      const projectionCode = map.getView().getProjection().getCode()
       geometry.setCoordinates([
-        state.featureCoordinate[0] + deltaX,
+        normalizeCoordinateToWorld(state.featureCoordinate[0] + deltaX, projectionCode),
         state.featureCoordinate[1] + deltaY
       ])
       state.selectedFeature.changed()
@@ -277,7 +288,7 @@ function createMoveToClickInteraction({
     const heldLongEnough = holdDuration >= MOVE_TO_CLICK_HOLD_DELAY
 
     if (wasClick && (state.clickedInUncertaintyCircle || !state.clickedOnFeature) && heldLongEnough) {
-      teleportFeatureTo(map.getCoordinateFromPixel(upPixel))
+      teleportFeatureTo(map.getCoordinateFromPixel(upPixel), map.getView().getProjection().getCode())
     }
 
     const wasDragging = state.draggingFeature
