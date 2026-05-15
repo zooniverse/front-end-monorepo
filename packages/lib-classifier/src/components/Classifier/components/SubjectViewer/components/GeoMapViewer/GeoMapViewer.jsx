@@ -74,8 +74,11 @@ const MapContainer = styled.div`
   width: 100%;
 `
 
+// Zoom animation duration in milliseconds
 const ZOOM_ANIMATION_DURATION_MS = 250
+// Minimum time between hit checks on pointermove, to throttle expensive hit testing
 const POINTER_MOVE_HIT_CHECK_INTERVAL_MS = 80
+// Minimum pixel distance the pointer must move to trigger a new hit test on pointermove, to throttle expensive hit testing
 const POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS = 4
 
 // Maps UnitSelect display options to OpenLayers ScaleLine unit strings
@@ -172,8 +175,7 @@ function GeoMapViewer({
     // create a GeoJSON format reader
     const geoJSONFormat = new GeoJSON()
     geoJSONFormatRef.current = geoJSONFormat
-    let pointerMoveRafId = null
-
+    
     const baseLayer = new TileLayer({
       // preload tiles for 1 level of zooming
       preload: 1,
@@ -204,6 +206,10 @@ function GeoMapViewer({
         (() => { const sl = new ScaleLine(); scaleLineRef.current = sl; return sl })()
       ])
     })
+
+    // track the latest pointermove event for hit testing, 
+    // and throttle hit testing to improve performance during fast mouse moves and zoom/pan animations
+    let pointerMoveRafId = null
 
     // Helper to compute style with current resolution
     function handleFeatureStyle({ feature, isSelected = false }) {
