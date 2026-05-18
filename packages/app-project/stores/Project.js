@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { getRoot, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import numberString from './types/numberString'
 
@@ -12,7 +12,6 @@ const Project = types
     background: types.frozen({}),
     beta_approved: types.optional(types.boolean, false),
     beta_requested: types.optional(types.boolean, false),
-    classifications_count: types.optional(types.number, 0),
     classifiers_count: types.optional(types.number, 0),
     configuration: types.frozen({}),
     completeness: types.optional(types.number, 0),
