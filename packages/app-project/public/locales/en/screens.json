@@ -79,6 +79,7 @@
   "ProjectStats": {
     "BarChart": {
       "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
+      "allWorkflows": "All Workflows",
       "dateRange": {
         "allTime": "All Time",
         "custom": "Custom",
@@ -96,6 +97,7 @@
     "calendarTitle": "Custom Date Range",
     "count": "Classifications",
     "comments": "Comments",
+    "heading": "{{projectName}} Statistics",
     "workflows": {
       "percentComplete": "{{percent}}% complete",
       "subjectsRetired": "Subjects retired: {{retired}}/{{total}}",

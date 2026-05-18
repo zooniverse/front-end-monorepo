@@ -10,9 +10,9 @@ const StyledTab = styled(Button)`
   text-transform: uppercase;
 
   ${props => props.active && css`
-    border-bottom: 4px solid ${props.theme.global.colors['neutral-1']};
+    border-bottom: 4px solid ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
     font-weight: 700;
-    color: ${props => props.theme.dark ? props.theme.global.colors.white : props.theme.global.colors.black};
+    color: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   `}
 
   ${props => !props.active && css`

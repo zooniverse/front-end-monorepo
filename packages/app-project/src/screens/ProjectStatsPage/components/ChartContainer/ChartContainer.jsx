@@ -4,7 +4,7 @@ import { observer, MobXProviderContext } from 'mobx-react'
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Heading, Select, ResponsiveContext, Text, ThemeContext } from 'grommet'
+import { Box, Heading, Select, ResponsiveContext, ThemeContext } from 'grommet'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
 
@@ -15,12 +15,20 @@ import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
 import StyledTab from './StyledTab'
 import selectTheme from './selectTheme'
+import Avatar from '@components/ProjectHeader/components/Avatar/Avatar'
 
 import { getDateInterval } from '../../helpers/getDateInterval'
 import getDateRangeSelectOptions from '../../helpers/getDateRangeOptions'
 import getStatsDateString from '../../helpers/getStatsDateString'
 import validateDateRangeParams from '../../helpers/validateDateRangeParams'
 import useProjectStats from '../../helpers/useProjectStats'
+
+const StyledHeading = styled(Heading)`
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+  align-items: center;
+`
 
 const StyledSelect = styled(Select)`
   text-align: center;
@@ -29,7 +37,6 @@ const StyledSelect = styled(Select)`
 
 const Relative = styled(Box)`
   position: relative;
-  border: red solid 1px;
 `
 
 function useStores() {
@@ -61,7 +68,7 @@ function ChartContainer({ workflows }) {
       label: workflow.displayName.toUpperCase()
     }
   })
-  workflowOptions.push({ value: null, label: 'All Workflows' })
+  workflowOptions.unshift({ value: null, label: t('ProjectStats.BarChart.allWorkflows') })
 
   /* NUQS Handling */
   const searchParams = useSearchParams()
@@ -135,7 +142,6 @@ function ChartContainer({ workflows }) {
   const { data, error, isLoading, isValidating } = useProjectStats(filteredQuery, type)
   const loadingOrValidating = isLoading || isValidating
 
-
   /* Custom Calendar visibility */
   const [showCalendar, setShowCalendar] = useState(false)
 
@@ -173,8 +179,20 @@ function ChartContainer({ workflows }) {
         showCalendar={showCalendar}
       />
       <ContentBox>
-        <Box direction='row' justify='between'>
-          <Heading level={2}>{projectDisplayName} Statistics</Heading>
+        <Box
+          direction={size !== 'small' ? 'row' : 'column'}
+          justify='between'
+          align='center'
+          gap='medium'
+        >
+          <StyledHeading
+            level={2}
+            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            size={size !== 'small' ? '2rem' : '1.5rem'}
+          >
+            <Avatar width='50px' height='50x' />
+            {t('ProjectStats.heading', { projectName: projectDisplayName })}
+          </StyledHeading>
           <Box align='center'>
             <SpacedText
               color={{ dark: 'neutral-6', light: 'dark-4' }}
@@ -195,63 +213,65 @@ function ChartContainer({ workflows }) {
           </Box>
         </Box>
         <Box
-          role='tablist'
-          direction='row'
-          fill={size === 'small' ? 'horizontal' : false}
+          direction={size !== 'small' ? 'row' : 'column'}
+          justify='between'
+          pad={{ vertical: 'medium' }}
           gap='medium'
         >
-          <StyledTab
-            role='tab'
-            aria-expanded={type === 'count'}
-            aria-selected={type === 'count'}
-            active={type === 'count'}
-            label={t('ProjectStats.count')}
-            onClick={() => handleTypeChange('count')}
-            plain
-            fill={size === 'small' ? 'horizontal' : false}
-          />
-          <StyledTab
-            role='tab'
-            aria-expanded={type === 'comments'}
-            aria-selected={type === 'comments'}
-            active={type === 'comments'}
-            label={t('ProjectStats.comments')}
-            onClick={() => handleTypeChange('comments')}
-            plain
-            fill={size === 'small' ? 'horizontal' : false}
-          />
-        </Box>
-        <ThemeContext.Extend value={selectTheme}>
-          <Box
-            basis='1/2'
-            direction='row'
-            fill={size === 'small' ? 'horizontal' : false}
-            gap='20px'
-            justify={size === 'small' ? 'evenly' : 'end'}
-          >
-            <StyledSelect
-              name='workflow-select'
-              aria-label={t('ProjectStats.selectWorkflow')}
-              labelKey='label'
-              onChange={({ option }) => handleWorkflowSelect(option)}
-              options={workflowOptions}
-              value={selectedWorkflowOption?.label}
-              valueKey={{ key: 'label', reduce: true }}
-              size='medium'
-              disabled={type === 'comments'}
+          <Box role='tablist' direction='row' gap='medium'>
+            <StyledTab
+              role='tab'
+              aria-expanded={type === 'count'}
+              aria-selected={type === 'count'}
+              active={type === 'count'}
+              label={t('ProjectStats.count')}
+              onClick={() => handleTypeChange('count')}
+              plain
+              fill={size === 'small' ? 'horizontal' : false}
             />
-            <StyledSelect
-              name='date-range-select'
-              aria-label={t('ProjectStats.selectDateRange')}
-              labelKey='label'
-              onChange={({ option }) => handleDateRangeSelect(option)}
-              options={dateRangeOptions}
-              value={selectedDateRangeOption?.label}
-              valueKey={{ key: 'label', reduce: true }}
-              size='medium'
+            <StyledTab
+              role='tab'
+              aria-expanded={type === 'comments'}
+              aria-selected={type === 'comments'}
+              active={type === 'comments'}
+              label={t('ProjectStats.comments')}
+              onClick={() => handleTypeChange('comments')}
+              plain
+              fill={size === 'small' ? 'horizontal' : false}
             />
           </Box>
-        </ThemeContext.Extend>
+          <ThemeContext.Extend value={selectTheme}>
+            <Box
+              basis='1/2'
+              direction='row'
+              fill={size === 'small' ? 'horizontal' : false}
+              gap='20px'
+              justify={size === 'small' ? 'evenly' : 'end'}
+            >
+              <StyledSelect
+                name='workflow-select'
+                aria-label={t('ProjectStats.selectWorkflow')}
+                labelKey='label'
+                onChange={({ option }) => handleWorkflowSelect(option)}
+                options={workflowOptions}
+                value={selectedWorkflowOption?.label}
+                valueKey={{ key: 'label', reduce: true }}
+                size='medium'
+                disabled={type === 'comments'}
+              />
+              <StyledSelect
+                name='date-range-select'
+                aria-label={t('ProjectStats.selectDateRange')}
+                labelKey='label'
+                onChange={({ option }) => handleDateRangeSelect(option)}
+                options={dateRangeOptions}
+                value={selectedDateRangeOption?.label}
+                valueKey={{ key: 'label', reduce: true }}
+                size='medium'
+              />
+            </Box>
+          </ThemeContext.Extend>
+        </Box>
         <Relative height='medium' margin={{ bottom: 'medium' }}>
           {loadingOrValidating ? (
             <LoadingPlaceholder />

@@ -23,23 +23,6 @@ const StyledDataChart = styled(DataChart)`
   .hidden-period-label {
     display: none;
   }
-
-  // The only way to get to the x-axis bounding div
-  &.styled-grommet-barchart > :first-child {
-    // Align the x-axis visual label to the first date label
-    div:first-of-type > span {
-      position: relative;
-
-      &::after {
-        content: 'Date range (UTC)'; // Should find how to translate this
-        position: absolute;
-        top: calc(100% + 5px);
-        left: 0;
-        font-size: 0.75rem;
-        width: max-content;
-      }
-    }
-  }
 `
 
 function BarChart({
@@ -53,7 +36,7 @@ function BarChart({
 
   // labels for number of classifications or number of Talk comments
   const TYPE_LABEL = {
-    count: t('ProjectStats.classifications'),
+    count: t('ProjectStats.count'),
     comments: t('ProjectStats.comments')
   }
   const typeLabel = TYPE_LABEL[type]
