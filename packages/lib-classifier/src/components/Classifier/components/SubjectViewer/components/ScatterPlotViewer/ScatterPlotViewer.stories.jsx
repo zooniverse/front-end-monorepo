@@ -11,6 +11,7 @@ import {
   keplerMockDataWithOptions,
   randomSingleSeriesData
 } from './helpers/mockData'
+import scatterPlotJSONWithVaryingDataSeries from './helpers/mockScatterPlotJSONWithVaryingDataSeries'
 import { Factory } from 'rosie'
 // import readme from './README.md'
 
@@ -96,6 +97,23 @@ export function NarrowView() {
   return (
     <Box height='medium' width='large'>
       <ScatterPlotViewer data={data} xAxisLabel='x-axis' yAxisLabel='y-axis' />
+    </Box>
+  )
+}
+
+/*
+This story demonstrates how a Scatter Plot Subject can have different data
+series (groups of data points). Each series features different colour/size/etc
+properties. 
+ */
+export function WithVaryingDataSeriesProperties(props) {
+  console.log('+++ 🟠 data', scatterPlotJSONWithVaryingDataSeries)
+  return (
+    <Box height='medium' width='large'>
+      <ScatterPlotViewer
+        {...props}
+        data={scatterPlotJSONWithVaryingDataSeries.data}
+      />
     </Box>
   )
 }
