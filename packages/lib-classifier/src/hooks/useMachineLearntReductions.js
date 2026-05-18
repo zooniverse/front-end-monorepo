@@ -22,13 +22,14 @@ export default function useMachineLearntReductions() {
   if (loaded
     && getType(caesarReductions).name === 'MachineLearntReductions'
     && activeSubject.caesarReductionsLoadedForStep[stepIndex] !== true) {
-    
+
     // step.tasks is only the CURRENT TASK
     // Test project with 3 steps means we need to run this 3 times to check for reductions on each step
     // This is likely due to the potentially recursive nature of step navigation
 
     const caesarMarks = caesarReductions.findCurrentTaskMarks({
-      stepKey: step.stepKey
+      stepKey: step.stepKey,
+      workflow
     })
     
     if (caesarMarks) {

@@ -12,7 +12,7 @@ const MachineLearntReductions = types
   })
   .views(self => {
     return {
-      findCurrentTaskMarks({ stepKey }) {
+      findCurrentTaskMarks({ stepKey, workflow }) {
         if (stepKey === undefined) {
           return
         }
@@ -25,7 +25,8 @@ const MachineLearntReductions = types
           data.forEach(datum => {
             const mark = {
               ...datum,
-              stepKey: datum.stepKey ?? 'S0',
+              // Stepless Caesar data attaches to the workflow's first step. See PR #7319.
+              stepKey: datum.stepKey ?? workflow?.steps?.[0]?.[0],
               taskIndex: datum.taskIndex ?? 0,
               toolIndex: datum.toolIndex ?? 0,
             }
