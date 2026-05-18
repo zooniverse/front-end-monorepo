@@ -94,8 +94,8 @@
     },
     "calendarBtn": "Done",
     "calendarTitle": "Custom Date Range",
-    "classifications": "classifications",
-    "comments": "comments",
+    "count": "Classifications",
+    "comments": "Comments",
     "workflows": {
       "percentComplete": "{{percent}}% complete",
       "subjectsRetired": "Subjects retired: {{retired}}/{{total}}",

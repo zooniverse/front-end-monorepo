@@ -20,6 +20,7 @@ import BarChart from '../BarChart/BarChart'
 import CustomCalendar from './CustomCalendar'
 import StyledTab from './StyledTab'
 import selectTheme from './selectTheme'
+import Stat from '@shared/components/ProjectStatistics/components/Stat'
 
 import { getDateInterval } from '../../helpers/getDateInterval'
 import getDateRangeSelectOptions from '../../helpers/getDateRangeOptions'
@@ -167,7 +168,7 @@ function ChartContainer({ workflows }) {
     }
   }
 
-  // console.log(type, isLoading, isValidating)
+  console.log(isLoading, isValidating)
 
   return (
     <>
@@ -180,7 +181,26 @@ function ChartContainer({ workflows }) {
         showCalendar={showCalendar}
       />
       <ContentBox>
-        <Heading level={2}>{projectDisplayName} Statistics</Heading>
+        <Box direction='row' justify='between'>
+          <Heading level={2}>{projectDisplayName} Statistics</Heading>
+          <Box align='center'>
+            <SpacedText
+              color={{ dark: 'neutral-6', light: 'dark-4' }}
+              uppercase={false}
+              size='1rem'
+            >
+              {t(`ProjectStats.${type}`)}
+            </SpacedText>
+            <SpacedText
+              color={{ dark: 'accent-1', light: 'neutral-1' }}
+              size='xxlarge'
+            >
+              {isLoading || isValidating ? null : (
+                <span>{data?.['total_count']}</span>
+              )}
+            </SpacedText>
+          </Box>
+        </Box>
         <Box
           role='tablist'
           direction='row'
@@ -192,7 +212,7 @@ function ChartContainer({ workflows }) {
             aria-expanded={type === 'count'}
             aria-selected={type === 'count'}
             active={type === 'count'}
-            label={t('ProjectStats.classifications')}
+            label={t('ProjectStats.count')}
             onClick={() => handleTypeChange('count')}
             plain
             fill={size === 'small' ? 'horizontal' : false}
