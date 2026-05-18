@@ -4,8 +4,7 @@
       "seriesOptions": {
         "color": "#f2b90d",
         "glyph": "diamond", 
-        "label": "cos()",
-        "pointSize": 100
+        "label": "cos()"
       },
       "seriesData": [
         {
@@ -95,7 +94,7 @@
         "color": "#0d7ff2",
         "glyph": "square", 
         "label": "sin()",
-        "pointSize": 100
+        "pointSize": "large"
       },
       "seriesData": [
         {
@@ -185,7 +184,7 @@
         "color": "#f20df2",
         "glyph": "star", 
         "label": "modified sin()",
-        "pointSize": 250
+        "pointSize": 200
       },
       "seriesData": [
         {

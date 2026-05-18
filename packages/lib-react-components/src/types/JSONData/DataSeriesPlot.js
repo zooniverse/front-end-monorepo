@@ -43,7 +43,9 @@ const DataPoint = types.model('DataPoint', {
 const SeriesOptions = types.model('SeriesOptions', {
   glyph: types.maybe(types.enumeration(['circle', 'cross', 'diamond', 'square', 'star', 'triangle', 'wye'])),
   label: types.string,
-  color: types.maybe(types.string)
+  color: types.maybe(types.string),
+  pointSize: types.maybe(types.union(types.number, types.enumeration(['small', 'medium', 'large'])))  // Determines the visual size of each data point.
+  // NOTE: point Size may not actually be used in lib-react-components/DataSeriesPlot. It's added mostly for parity with lib-classifier/DataSeriesPlot
 })
 
 const DataSeries = types.model('DataSeries', {

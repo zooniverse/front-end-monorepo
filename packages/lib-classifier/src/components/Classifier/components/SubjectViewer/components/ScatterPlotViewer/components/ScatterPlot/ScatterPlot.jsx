@@ -151,11 +151,22 @@ export default function ScatterPlot({
 
   // If the data series specifies a size for its data points, use that.
   // Otherwise, use the general data point size provided to the ScatterPlot.
+  // Valid values for the (optional) seriesOptions.pointSize are: (any positive
+  // number), "small", "medium", and "large".
   function getSeriesDataPointSize(series) {
-    
-    // TEMP  // DEBUG  // TEST
-    if (series?.seriesOptions?.glyph === 'circle') return 250
-    if (series?.seriesOptions?.glyph === 'triangle') return 500
+
+    // Note: there's no specific reason why we're mapping "small" to default
+    // size x1, "medium" to default size x2, etc. It just looks good from
+    // visual testing.
+    if (series?.seriesOptions?.pointSize === 'small') {
+      return dataPointSize
+    } else if (series?.seriesOptions?.pointSize === 'medium') {
+      return dataPointSize * 2
+    } else if (series?.seriesOptions?.pointSize === 'large') {
+      return dataPointSize * 4
+    } else if (Number.isFinite(series?.seriesOptions?.pointSize) && series?.seriesOptions?.pointSize > 0) {
+      return series?.seriesOptions?.pointSize
+    }
 
     return dataPointSize
   }
