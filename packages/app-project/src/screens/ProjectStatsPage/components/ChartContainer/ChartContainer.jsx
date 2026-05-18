@@ -1,26 +1,20 @@
 import { useQueryState } from 'nuqs'
 import { arrayOf, shape, string } from 'prop-types'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { Loader } from '@zooniverse/react-components'
+import { Loader, SpacedText } from '@zooniverse/react-components'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import {
-  Box,
-  Heading,
-  Select,
-  ResponsiveContext,
-  Text,
-  ThemeContext
-} from 'grommet'
+import { Box, Heading, Select, ResponsiveContext, Text, ThemeContext } from 'grommet'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
 
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
 import CustomCalendar from './CustomCalendar'
+import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
+import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
 import StyledTab from './StyledTab'
 import selectTheme from './selectTheme'
-import Stat from '@shared/components/ProjectStatistics/components/Stat'
 
 import { getDateInterval } from '../../helpers/getDateInterval'
 import getDateRangeSelectOptions from '../../helpers/getDateRangeOptions'
@@ -31,6 +25,11 @@ import useProjectStats from '../../helpers/useProjectStats'
 const StyledSelect = styled(Select)`
   text-align: center;
   text-transform: uppercase;
+`
+
+const Relative = styled(Box)`
+  position: relative;
+  border: red solid 1px;
 `
 
 function useStores() {
@@ -89,9 +88,7 @@ function ChartContainer({ workflows }) {
     option => endDate === todayUTC && option.value === startDate
   )
 
-  const selectedWorkflowOption = workflowOptions.find(
-    option => workflow === option.value
-  )
+  const selectedWorkflowOption = workflowOptions.find(option => workflow === option.value)
 
   // Handle label for a custom selected date range
   const formatOptions = {
@@ -101,14 +98,12 @@ function ChartContainer({ workflows }) {
     timeZone: 'UTC'
   }
   if (!selectedDateRangeOption && !dateRangeMessage) {
-    const formattedStartDate = new Intl.DateTimeFormat(
-      locale,
-      formatOptions
-    ).format(new Date(startDate))
-    const formattedEndDate = new Intl.DateTimeFormat(
-      locale,
-      formatOptions
-    ).format(new Date(endDate))
+    const formattedStartDate = new Intl.DateTimeFormat(locale, formatOptions).format(
+      new Date(startDate)
+    )
+    const formattedEndDate = new Intl.DateTimeFormat(locale, formatOptions).format(
+      new Date(endDate)
+    )
     const customDateRangeOption = {
       label: `${formattedStartDate} - ${formattedEndDate}`,
       value: 'custom'
@@ -137,10 +132,9 @@ function ChartContainer({ workflows }) {
     Object.entries(erasQuery).filter(([_, value]) => value !== undefined)
   )
 
-  const { data, error, isLoading, isValidating } = useProjectStats(
-    filteredQuery,
-    type
-  )
+  const { data, error, isLoading, isValidating } = useProjectStats(filteredQuery, type)
+  const loadingOrValidating = isLoading || isValidating
+
 
   /* Custom Calendar visibility */
   const [showCalendar, setShowCalendar] = useState(false)
@@ -168,8 +162,6 @@ function ChartContainer({ workflows }) {
     }
   }
 
-  console.log(isLoading, isValidating)
-
   return (
     <>
       <CustomCalendar
@@ -191,11 +183,12 @@ function ChartContainer({ workflows }) {
             >
               {t(`ProjectStats.${type}`)}
             </SpacedText>
-            <SpacedText
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              size='xxlarge'
-            >
-              {isLoading || isValidating ? null : (
+            <SpacedText color={{ dark: 'accent-1', light: 'neutral-1' }} size='xxlarge'>
+              {loadingOrValidating ? (
+                <Loader height='2.5rem' width='2rem' />
+              ) : dateRangeMessage || error?.message ? (
+                <Box height='2.5rem' />
+              ) : (
                 <span>{data?.['total_count']}</span>
               )}
             </SpacedText>
@@ -259,14 +252,14 @@ function ChartContainer({ workflows }) {
             />
           </Box>
         </ThemeContext.Extend>
-        {dateRangeMessage?.length ? <Text>{dateRangeMessage}</Text> : null}
-        <Box height='medium' margin={{ vertical: '20px' }}>
-          <BarChart
-            data={data?.data}
-            dateRange={{ startDate, endDate }}
-            type={type}
-          />
-        </Box>
+        <Relative height='medium' margin={{ bottom: 'medium' }}>
+          {loadingOrValidating ? (
+            <LoadingPlaceholder />
+          ) : dateRangeMessage || error?.message ? (
+            <ErrorPlaceholder message={dateRangeMessage || error?.message} />
+          ) : null}
+          <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
+        </Relative>
       </ContentBox>
     </>
   )
