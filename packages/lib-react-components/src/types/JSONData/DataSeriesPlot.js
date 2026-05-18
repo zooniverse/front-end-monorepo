@@ -45,7 +45,10 @@ const SeriesOptions = types.model('SeriesOptions', {
   label: types.string,
   color: types.maybe(types.string),
   pointSize: types.maybe(types.union(types.number, types.enumeration(['small', 'medium', 'large'])))  // Determines the visual size of each data point.
-  // NOTE: point Size may not actually be used in lib-react-components/DataSeriesPlot. It's added mostly for parity with lib-classifier/DataSeriesPlot
+  // NOTE: point size is NOT actually used in lib-react-components/DataSeriesPlot.
+  // It's added mostly for parity with lib-classifier/DataSeriesPlot.
+  // The reason for ignoring pointSize here is that larger data point sizes
+  // would just crowd the visual space on the smaller Media component.
 })
 
 const DataSeries = types.model('DataSeries', {
