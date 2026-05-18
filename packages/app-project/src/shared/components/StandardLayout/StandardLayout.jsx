@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-import { useAdminMode } from '@hooks'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import { AdminContainer, Announcements, ProjectHeader } from '@components'
 import PageHeader from '../../../components/PageHeader/PageHeader'
 
@@ -41,7 +41,7 @@ export function HeaderComponents({ adminMode }) {
 
 function StandardLayout({ children, page = '' }) {
   const { inBeta } = useStores()
-  const { adminMode } = useAdminMode()
+  const { adminMode } = useContext(PanoptesAuthContext)
   const router = useRouter()
   const locale = router?.locale
 

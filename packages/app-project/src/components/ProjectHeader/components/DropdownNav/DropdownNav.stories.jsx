@@ -3,6 +3,7 @@ import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import DropdownNav from './DropdownNav'
 import initStore from '@stores'
 
@@ -142,10 +143,11 @@ export function AdminMode(props) {
     }
   }
   applySnapshot(AdminMode.store, snapshot)
-  AdminMode.store.user.setAdminMode(true)
   return (
     <Provider store={AdminMode.store}>
-      <DropdownNav {...props} />
+      <PanoptesAuthContext.Provider value={{ adminMode: true, toggleAdmin: () => {}, user: { admin: true } }}>
+        <DropdownNav {...props} />
+      </PanoptesAuthContext.Provider>
     </Provider>
   )
 }
