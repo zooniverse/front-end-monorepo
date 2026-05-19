@@ -2,23 +2,9 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
 import getPixelDistance from './getPixelDistance'
+import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './hitTesting'
 
-export const POINT_CENTER_HIT_RADIUS_PIXELS = 10
-
-export function isPixelNearPointCenter({
-  pixel,
-  pointPixel,
-  radius = POINT_CENTER_HIT_RADIUS_PIXELS
-}) {
-  if (!Array.isArray(pixel) || !Array.isArray(pointPixel)) return false
-
-  const deltaX = pixel[0] - pointPixel[0]
-  const deltaY = pixel[1] - pointPixel[1]
-
-  return (deltaX * deltaX) + (deltaY * deltaY) <= radius * radius
-}
-
-export function shouldStartDragHandleInteraction({
+function shouldStartDragHandleInteraction({
   pixel,
   pointPixel,
   handlePixel,
@@ -78,29 +64,29 @@ function createModifyUncertaintyInteraction({
       if (radius === null) continue
 
       const pointCoordinates = olFeature.getGeometry()?.getCoordinates?.()
-      const pointPixel = Array.isArray(pointCoordinates)
-        ? map.getPixelFromCoordinate(pointCoordinates)
-        : null
+      const pointPixels = Array.isArray(pointCoordinates)
+        ? getFeaturePixelsAcrossWorldCopies(map, pointCoordinates)
+        : []
 
-      if (isPixelNearPointCenter({ pixel, pointPixel })) {
+      if (pointPixels.some(pointPixel => isPixelNearPointCenter({ pixel, pointPixel }))) {
         return null
       }
 
       // Get the drag handle coordinates
-      const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({ 
-        feature: olFeature, 
-        geoDrawingTask 
+      const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
+        feature: olFeature,
+        geoDrawingTask
       })
       if (!dragHandleCoordinates) continue
 
-      // Check if click is near the full resize handle, not just its anchor point.
-      const dragHandlePixel = map.getPixelFromCoordinate(dragHandleCoordinates)
-      if (shouldStartDragHandleInteraction({
+      // Check if click is near the full resize handle across all world copies.
+      const dragHandlePixels = getFeaturePixelsAcrossWorldCopies(map, dragHandleCoordinates)
+      if (dragHandlePixels.some(handlePixel => shouldStartDragHandleInteraction({
         pixel,
-        pointPixel,
-        handlePixel: dragHandlePixel,
+        pointPixel: pointPixels[0] ?? null,
+        handlePixel,
         dragHandleTolerance
-      })) {
+      }))) {
         return olFeature
       }
     }
@@ -153,9 +139,23 @@ function createModifyUncertaintyInteraction({
     const coordinate = map.getCoordinateFromPixel(event.pixel)
     const centerCoordinates = state.draggedFeature.getGeometry().getCoordinates()
 
+    // After a cross-dateline drag, centerCoordinates is in the canonical world range but
+    // getCoordinateFromPixel returns a coordinate in the world copy the user is viewing.
+    // Normalize the drag coordinate to the nearest world copy of the center so that
+    // getPixelDistance always computes the short (correct) distance, not the ~40M-m cross-world distance.
+    const extent = map.getView().getProjection().getExtent()
+    const worldWidth = extent ? extent[2] - extent[0] : 0
+    let dragX = coordinate[0]
+    if (worldWidth > 0) {
+      const rawDelta = coordinate[0] - centerCoordinates[0]
+      const wrappedDelta = ((rawDelta + worldWidth / 2) % worldWidth + worldWidth) % worldWidth - worldWidth / 2
+      dragX = centerCoordinates[0] + wrappedDelta
+    }
+    const normalizedCoordinate = [dragX, coordinate[1]]
+
     // Calculate new radius in meters
     const newRadius = Math.round(
-      Math.max(minRadius, getPixelDistance(centerCoordinates, coordinate))
+      Math.max(minRadius, getPixelDistance(centerCoordinates, normalizedCoordinate))
     )
 
     // Update uncertainty radius through GeoDrawingTask to keep MST activeFeature and slider in sync

@@ -175,10 +175,6 @@ export default function RadialFeedback() {
     loadingState,
   } = useStores(storeMapper);
 
-  if (applicableRules.some(rule => rule.hideSubjectViewer)) {
-    return null
-  }
-
   const annotatedMarks = getAnnotatedMarks(
     annotations,
     applicableRules

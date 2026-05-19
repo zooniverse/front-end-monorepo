@@ -31,10 +31,12 @@ function Role({ role }) {
   } else if (['admin', 'scientist', 'owner'].includes(role.name)) {
     roleName = t('About.TeamMember.researcher')
     roleColor = 'neutral-2'
+  } else if (role.section !== 'zooniverse' && role.name === 'team') { // Talk API /roles and Panoptes /project_roles return different role names
+    roleName = t('About.TeamMember.tester')
   } else {
     roleName = t(`About.TeamMember.${role.name}`)
   }
-  
+
   return(
     <StyledRole
       key={role.id}

@@ -48,7 +48,11 @@ function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  subject
+  setOnPan: propSetOnPan = undefined,
+  setOnZoom: propSetOnZoom = undefined,
+  subject,
+  zoomControlFn = undefined,
+  zooming = true
 }) {
   const {
     defaultFrame,
@@ -60,9 +64,12 @@ function FlipbookViewerContainer({
     playIterations,
     rotation,
     separateFramesView,
-    setOnPan,
-    setOnZoom
+    setOnZoom: storeSetOnZoom,
+    setOnPan: storeSetOnPan,
   } = useStores(storeMapper)
+
+  const effectiveSetOnPan = propSetOnPan || storeSetOnPan
+  const effectiveSetOnZoom = propSetOnZoom || storeSetOnZoom
 
   useEffect(function preloadImages() {
     subject?.locations?.forEach(({ type, url }) => {
@@ -101,9 +108,11 @@ function FlipbookViewerContainer({
           onReady={onReady}
           playIterations={playIterations}
           rotation={rotation}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
+          setOnPan={effectiveSetOnPan}
+          setOnZoom={effectiveSetOnZoom}
           subject={subject}
+          zoomControlFn={zoomControlFn}
+          zooming={zooming}
         />
       )}
     </>
@@ -119,10 +128,18 @@ FlipbookViewerContainer.propTypes = {
   onError: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
+  /** OPTIONAL: only supply this function if you want to override the setOnPan function from the store. (As of Apr 2026, only used by DataImageViewer.) */
+  setOnPan: PropTypes.func,
+  /** OPTIONAL: only supply this function if you want to override the setOnZoom function from the store. (As of Apr 2026, only used by DataImageViewer.) */
+  setOnZoom: PropTypes.func,
   /** Required. Passed from mobx store via SubjectViewer. */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  }).isRequired,
+  /** OPTIONAL: only supply zoomControlFn and zooming if you want to allow users to manually enable/disable zoom & pan functionality. (As of Apr 2026, only used by DataImageViewer.) */
+  zoomControlFn: PropTypes.func,
+  /** OPTIONAL: see zoomControlFn. */
+  zooming: PropTypes.bool
 }
 
 export default observer(FlipbookViewerContainer)
