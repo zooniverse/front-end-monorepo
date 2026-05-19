@@ -2,6 +2,7 @@ import { Button, Box, Text } from 'grommet'
 import styled from 'styled-components'
 
 const Container = styled(Box)`
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 1em;
   box-shadow: 0px 2px 20px 5px #00000033;
   overflow: hidden;
@@ -9,7 +10,7 @@ const Container = styled(Box)`
 `
 
 const BackgroundDeco1 = styled(Box)`
-  background: url('https://panoptes-uploads.zooniverse.org/project_attached_image/3369c5fa-8d4a-4538-8f92-0c1c799235d9.jpeg') rgba(255, 0, 255, 0.1);
+  background: url('https://panoptes-uploads.zooniverse.org/project_attached_image/3369c5fa-8d4a-4538-8f92-0c1c799235d9.jpeg');
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
