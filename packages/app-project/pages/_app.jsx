@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import { NuqsAdapter } from 'nuqs/adapters/next/pages'
 // import OpenLayers CSS for lib-classifier GeoMapViewer component styling
 import 'ol/ol.css'
 
@@ -112,7 +113,9 @@ function MyApp({ Component, pageProps }) {
               themeMode={themeMode}
             >
               <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
-              <Component {...pageProps} />
+              <NuqsAdapter>
+                <Component {...pageProps} />
+              </NuqsAdapter>
             </Grommet>
           </ThemeModeContext.Provider>
         </Provider>

@@ -1,1 +1,1 @@
-export { default } from './ProjectStatsPageConnector'
+export { default } from './ProjectStatsPage'
