@@ -1,6 +1,6 @@
 # addQueryParams
 
-A client-side helper function to add the current URL query parameters to a string, for generating links.
+A client-side helper function to add app-wide URL query parameters to a string, for generating links (only `env` or `demo`).
 
 ## Arguments
 
