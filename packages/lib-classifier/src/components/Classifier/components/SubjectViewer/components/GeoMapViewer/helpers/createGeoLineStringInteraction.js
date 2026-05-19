@@ -40,6 +40,9 @@ function createGeoLineStringInteraction({
   })
 
   return {
+    abortDrawing() {
+      draw.abortDrawing?.()
+    },
     setActive(active) {
       draw.setActive(active)
     },

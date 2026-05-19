@@ -34,6 +34,7 @@ import createGeoLineStringInteraction from './helpers/createGeoLineStringInterac
 import createMeasureInteraction from './helpers/createMeasureInteraction'
 import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
+import getDrawingModeUpdates from './helpers/getDrawingModeUpdates'
 import getFeatureStyle from './helpers/getFeatureStyle'
 import getPixelDistance from './helpers/getPixelDistance'
 import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './helpers/hitTesting'
@@ -147,6 +148,7 @@ function GeoMapViewer({
   const featuresRef = useRef()
   const geoJSONFormatRef = useRef()
   const isMeasureModeActiveRef = useRef(false)
+  const isDrawModeActiveRef = useRef(false)
   
   // Interaction refs: created once and reused to avoid re-stacking on data updates
   const scaleLineRef = useRef()
@@ -406,6 +408,11 @@ function GeoMapViewer({
           const element = map.getViewport()
           if (!element) return
 
+          if (isDrawModeActiveRef.current) {
+            element.style.cursor = latestEvent.dragging ? '' : 'crosshair'
+            return
+          }
+
           let cursor = ''
           const selectedFeature = select.getFeatures().item(0)
 
@@ -547,28 +554,33 @@ function GeoMapViewer({
   }, [selectedUnit, geoDrawingTask])
 
   const activeToolType = geoDrawingTask?.activeTool?.type
+  useEffect(function exitMeasureOnDrawingToolSelect() {
+    if (activeToolType === 'LineString' && isMeasureModeActiveRef.current) {
+      measureInteractionRef.current?.clear()
+      setIsMeasureModeActive(false)
+    }
+  }, [activeToolType])
+
   useEffect(function syncDrawingToolMode() {
-    const isLineStringDrawing = activeToolType === 'LineString'
+    const updates = getDrawingModeUpdates(activeToolType, isMeasureModeActive)
+    isDrawModeActiveRef.current = updates.lineStringDraw
 
-    lineStringDrawRef.current?.setActive(isLineStringDrawing)
+    lineStringDrawRef.current?.setActive(updates.lineStringDraw)
 
-    if (isLineStringDrawing) {
+    if (updates.clearSelection) {
       clearSelectedFeature(selectRef.current)
-      selectRef.current?.setActive(false)
-      translateRef.current?.setActive(false)
-      modifyUncertaintyRef.current?.setActive(false)
-      moveToClickRef.current?.setActive(false)
-    } else {
-      if (!isMeasureModeActiveRef.current) {
-        selectRef.current?.setActive(true)
-        translateRef.current?.setActive(true)
-        modifyUncertaintyRef.current?.setActive(true)
-        moveToClickRef.current?.setActive(true)
-      }
+    }
+
+    if (updates.featureInteractions !== 'skip') {
+      const isEnabled = updates.featureInteractions === 'enable'
+      selectRef.current?.setActive(isEnabled)
+      translateRef.current?.setActive(isEnabled)
+      modifyUncertaintyRef.current?.setActive(isEnabled)
+      moveToClickRef.current?.setActive(isEnabled)
     }
 
     return undefined
-  }, [activeToolType])
+  }, [activeToolType, isMeasureModeActive])
 
   useEffect(function syncMeasureMode() {
     isMeasureModeActiveRef.current = isMeasureModeActive
@@ -753,7 +765,13 @@ function GeoMapViewer({
   }
 
   function handleToggleMeasureMode() {
-    setIsMeasureModeActive((active) => !active)
+    setIsMeasureModeActive((active) => {
+      const next = !active
+      if (next) {
+        lineStringDrawRef.current?.abortDrawing()
+      }
+      return next
+    })
   }
 
   function handleUnitChange(unit) {
