@@ -1,3 +1,4 @@
+import { unByKey } from 'ol/Observable'
 import Draw from 'ol/interaction/Draw'
 
 function createGeoLineStringInteraction({
@@ -44,7 +45,7 @@ function createGeoLineStringInteraction({
     },
     destroy() {
       if (drawEndKey) {
-        draw.un('drawend', drawEndKey.listener)
+        unByKey(drawEndKey)
       }
       draw.setActive(false)
       map.removeInteraction(draw)
