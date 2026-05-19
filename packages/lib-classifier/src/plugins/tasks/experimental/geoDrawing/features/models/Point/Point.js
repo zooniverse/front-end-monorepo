@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 import { Point as OLPoint } from 'ol/geom'
+import { Circle as OLCircleGeometry } from 'ol/geom'
 import Style from 'ol/style/Style'
 import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
@@ -47,7 +48,7 @@ const Point = types
       // OL feature geometry is primary (source of truth for map state)
       const olCenter = feature?.getGeometry?.()?.getCoordinates?.()
       if (Array.isArray(olCenter) && olCenter.length >= 2) return olCenter
-      
+
       // MST model geometry as fallback (used at initialization)
       return self.geometry.coordinates
     },
@@ -72,8 +73,8 @@ const Point = types
       return indexedTool || tools.find(tool => tool.type === 'Point')
     },
 
-    getUncertaintyCircleStyle({ color, radius }) {
-      if (!radius || radius <= 0) return undefined
+    getUncertaintyCircleStyle({ color, center, radius }) {
+      if (!radius || radius <= 0 || !Array.isArray(center) || center.length < 2) return undefined
 
       const lineOpacity = DEFAULT_UNCERTAINTY_OPACITY
       const backgroundOpacity = DEFAULT_UNCERTAINTY_BACKGROUND_OPACITY
@@ -87,7 +88,7 @@ const Point = types
       if (!fillPattern) {
         const canvas = document.createElement('canvas')
         const tileSize = Math.max(spacing * 2, 12)
-        const context = canvas.getContext('2d')
+        const context = canvas.getContext('2d', { willReadFrequently: true })
 
         canvas.width = tileSize
         canvas.height = tileSize
@@ -122,11 +123,9 @@ const Point = types
       }
 
       return new Style({
-        image: new Circle({
-          radius,
-          fill: new Fill({ color: fillPattern }),
-          stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
-        })
+        geometry: new OLCircleGeometry(center, radius),
+        fill: new Fill({ color: fillPattern }),
+        stroke: new Stroke({ color, width: 2, lineDash: [5, 10] })
       })
     },
 
@@ -145,12 +144,18 @@ const Point = types
 
       const styles = []
 
+      const centerCoordinates = self.getCenterCoordinates({ feature })
+      const uncertaintyRadiusCoords = self.getUncertaintyRadius({ feature, geoDrawingTask })
       const uncertaintyRadiusPixels = self.getUncertaintyRadiusPixels({ feature, geoDrawingTask, resolution })
       const hasVisibleUncertaintyHandle = uncertaintyRadiusPixels !== undefined
 
       // Draw uncertainty circle if enabled and radius is greater than zero
-      if (hasVisibleUncertaintyHandle && uncertaintyRadiusPixels > 0) {
-        styles.push(self.getUncertaintyCircleStyle({ color, radius: uncertaintyRadiusPixels }))
+      if (typeof uncertaintyRadiusCoords === 'number' && uncertaintyRadiusCoords > 0) {
+        styles.push(self.getUncertaintyCircleStyle({
+          color,
+          center: centerCoordinates,
+          radius: uncertaintyRadiusCoords
+        }))
       }
 
       // Draw the drag handle if uncertainty circle is enabled, even if radius is zero
