@@ -2,7 +2,7 @@ import { useQueryState } from 'nuqs'
 import { arrayOf, shape, string } from 'prop-types'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { Loader, SpacedText } from '@zooniverse/react-components'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Heading, Select, ResponsiveContext, ThemeContext } from 'grommet'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation'
 
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
-import CustomCalendar from './CustomCalendar'
+import CustomDateRange from './CustomDateRange'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
 import StyledTab from './StyledTab'
@@ -55,6 +55,7 @@ function useStores() {
   const stores = useContext(MobXProviderContext)
   const { project } = stores.store
   return {
+    createdAtDate: project?.created_at,
     launchDate: project?.launch_date,
     projectDisplayName: project?.display_name,
     projectId: project?.id
@@ -64,15 +65,17 @@ function useStores() {
 function ChartContainer({ workflows }) {
   const { i18n, t } = useTranslation('screens')
   const locale = i18n.language === 'test' ? 'en' : i18n.language
-
-  const { launchDate, projectDisplayName, projectId } = useStores()
-
   const size = useContext(ResponsiveContext)
+
+  const { createdAtDate, launchDate, projectDisplayName, projectId } = useStores()
+
+  // The custom date range UI needs bounds and the "All Time" option is calculated from this
+  const displayedLaunchDate = launchDate ? launchDate : createdAtDate
 
   const today = new Date()
   const todayUTC = getStatsDateString(today)
 
-  const dateRangeOptions = getDateRangeSelectOptions(launchDate, t)
+  const dateRangeOptions = getDateRangeSelectOptions(displayedLaunchDate, t)
 
   const workflowOptions = workflows.map(workflow => {
     return {
@@ -82,23 +85,53 @@ function ChartContainer({ workflows }) {
   })
   workflowOptions.unshift({ value: null, label: t('ProjectStats.BarChart.allWorkflows') })
 
-  /* NUQS Handling */
+  /* NUQS Handling  */
+  const [startDate, setStartDate] = useQueryState('start_date')
+  const [endDate, setEndDate] = useQueryState('end_date')
+  const [type, setType] = useQueryState('type')
+  const [workflow, setWorkflow] = useQueryState('workflow_id')
+
+  /*
+    If this page is rendered with query params already in the URL, we must use those
+    instead of defaults. This page is dynamically rendered with getServerSideProps so searchParams
+    are available via useSearchParams() right away. In the future, this strategy can be refactored
+    to use server-side data fetching in the App Router via searchParams like how the /projects page
+    does in app-root.
+  */
   const searchParams = useSearchParams()
 
-  // This seems redundant with nuqs enabled, but if a user visits this page
-  // with searchParams already in place, the first render and data fetch
-  // must match those initial search params. If absent, only then set the default last7Days
-  const startDateParam = searchParams.get('start_date')
-  const endDateParam = searchParams.get('end_date')
+  useEffect(function onMount() {
+    // check if there's already a date range in the URL
+    const startDateParam = searchParams.get('start_date')
+    const endDateParam = searchParams.get('end_date')
 
-  const [startDate, setStartDate] = useQueryState('start_date', {
-    defaultValue: startDateParam ? startDateParam : dateRangeOptions[0].value // last7Days
-  })
-  const [endDate, setEndDate] = useQueryState('end_date', {
-    defaultValue: endDateParam ? endDateParam : todayUTC
-  })
-  const [type, setType] = useQueryState('type', { defaultValue: 'count' })
-  const [workflow, setWorkflow] = useQueryState('workflow_id')
+    if (startDateParam) {
+      setStartDate(startDateParam)
+    } else {
+      setStartDate(dateRangeOptions?.[0].value) // Last 7 Days
+    }
+
+    if (endDateParam) {
+      setEndDate(endDateParam)
+    } else {
+      setEndDate(todayUTC)
+    }
+
+    // check if there's a workflow_id
+    const workflowIdParam = searchParams.get('workflow_id')
+    if (workflowIdParam) {
+      setWorkflow(workflowIdParam)
+    }
+
+    // check if there's a type
+    const typeParam = searchParams.get('type')
+    if (typeParam) {
+      setType(typeParam)
+    } else {
+      setType('count')
+    }
+  }, [])
+
 
   /* BarChart Logic */
   const { dateRangeMessage } = validateDateRangeParams({ endDate, startDate })
@@ -155,9 +188,6 @@ function ChartContainer({ workflows }) {
   const loadingOrValidating = isLoading || isValidating
   const errorMessage = dateRangeMessage || error?.message
 
-  /* Custom Calendar visibility */
-  const [showCalendar, setShowCalendar] = useState(false)
-
   /* Select handler functions */
   function handleDateRangeSelect(option) {
     if (option.value === 'custom') {
@@ -181,17 +211,21 @@ function ChartContainer({ workflows }) {
     }
   }
 
+  /* Custom Date Range modal visibility */
+  const [showCalendar, setShowCalendar] = useState(false)
+
   const smallScreen = size === 'small'
 
   return (
     <>
-      <CustomCalendar
-        defaultStartDate={dateRangeOptions[0].value}
-        launchDate={launchDate}
+      <CustomDateRange
+        endDate={endDate}
+        launchDate={displayedLaunchDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
         setShowCalendar={setShowCalendar}
         showCalendar={showCalendar}
+        startDate={startDate}
       />
       <ContentBox fill border={{ size: smallScreen ? '0' : 'thin' }}>
         <Box

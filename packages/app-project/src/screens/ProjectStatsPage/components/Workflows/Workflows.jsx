@@ -67,7 +67,7 @@ function Workflows({ workflows = [] }) {
   const { i18n, t } = useTranslation('screens')
   const size = useContext(ResponsiveContext)
 
-  const localeCode = i18n.locale === 'test' ? 'en' : i18n.locale
+  const localeCode = i18n.language === 'test' ? 'en' : i18n.language
   const nf = new Intl.NumberFormat(localeCode, {
     style: 'unit',
     unit: 'day',
@@ -86,7 +86,7 @@ function Workflows({ workflows = [] }) {
           <SpacedText weight={700} width='100%' textAlign='center'>{t('ProjectStats.workflows.empty')}</SpacedText>
         </Box>: null}
         {workflows?.map(workflow => (
-          <Box border={{ color: 'light-5' }} key={workflow.id}>
+          <Box border={{ color: 'light-5', size: '0.5px' }} key={workflow.id}>
             <Box height='10px' width='100%'>
               <Box
                 height='10px'
