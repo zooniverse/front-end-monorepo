@@ -1,9 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { arrayOf, number, shape, string } from 'prop-types'
-import { Box, Button, Heading, Text, Tip } from 'grommet'
-import { useRouter } from 'next/router'
+import { Box, Button, Heading, ResponsiveContext, Text, Tip } from 'grommet'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { CircleInformation } from 'grommet-icons'
+import { SpacedText } from '@zooniverse/react-components'
 
 import ContentBox from '@shared/components/ContentBox'
 
@@ -13,7 +14,7 @@ const WorkflowContainer = styled(Box)`
   padding: 20px 20px 30px;
   align-items: center;
 
-  @media (width < 769px) {
+  @media (width < 64rem) {
     padding: 10px 15px 15px;
     gap: 10px;
   }
@@ -21,6 +22,14 @@ const WorkflowContainer = styled(Box)`
 
 const WorkflowNameContainer = styled(Box)`
   width: 50%;
+
+  @media (width < 64rem) {
+    width: 60%;
+  }
+
+  @media (width < 769px) {
+    width: 45%;
+  }
 
   & > h4 {
     font-size: 1rem;
@@ -39,22 +48,26 @@ const StatsContainerBox = styled(Box)`
   align-content: center;
   gap: 20px;
 
-  @media (width < 769px) {
+  @media (width < 64rem) {
+    width: 40%;
     flex-direction: column;
     gap: 0;
 
-    & > span {
+    .span {
       font-size: 0.75rem;
     }
+  }
+
+  @media (width < 769px) {
+    width: 55%;
   }
 `
 
 function Workflows({ workflows = [] }) {
-  const { t } = useTranslation('screens')
+  const { i18n, t } = useTranslation('screens')
+  const size = useContext(ResponsiveContext)
 
-  const router = useRouter()
-  const { locale } = router
-  const localeCode = locale === 'test' ? 'en' : locale
+  const localeCode = i18n.locale === 'test' ? 'en' : i18n.locale
   const nf = new Intl.NumberFormat(localeCode, {
     style: 'unit',
     unit: 'day',
@@ -62,16 +75,22 @@ function Workflows({ workflows = [] }) {
   })
 
   return (
-    <ContentBox title={t('ProjectStats.workflows.title')} titleLevel={3}>
+    <ContentBox
+      title={t('ProjectStats.workflows.title')}
+      titleLevel={3}
+      fill
+      border={{ size: size === 'small' ? '0' : 'thin' }}
+    >
       <Box gap='15px'>
+        {workflows.length === 0 ? <Box width='100%' pad={{ vertical: 'large'}}>
+          <SpacedText weight={700} width='100%' textAlign='center'>{t('ProjectStats.workflows.empty')}</SpacedText>
+        </Box>: null}
         {workflows?.map(workflow => (
           <Box border={{ color: 'light-5' }} key={workflow.id}>
             <Box height='10px' width='100%'>
               <Box
                 height='10px'
-                background={
-                  workflow?.completeness === 1 ? '#D47811' : 'neutral-2'
-                }
+                background={workflow?.completeness === 1 ? '#D47811' : 'neutral-2'}
                 width={`${Math.round(workflow?.completeness * 100)}%`}
               />
             </Box>
@@ -96,15 +115,13 @@ function Workflows({ workflows = [] }) {
                 {workflow?.completeness === 1 ? null : (
                   <Box direction='row' gap='3px'>
                     <Tip
-                      content={
-                        <Text color='white'>{t('ProjectStats.workflows.tip')}</Text>
-                      }
+                      content={<Text color='white'>{t('ProjectStats.workflows.tip')}</Text>}
                       plain
                       dropProps={{
                         align: { top: 'bottom' },
                         background: 'dark-4',
                         round: '5px',
-                        pad: '5px',
+                        pad: '5px'
                       }}
                     >
                       <Button plain icon={<CircleInformation size='0.75rem' />} />

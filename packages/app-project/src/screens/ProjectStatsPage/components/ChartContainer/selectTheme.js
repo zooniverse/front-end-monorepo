@@ -1,3 +1,5 @@
+/* Similar to lib-user */
+
 const selectTheme = {
   global: {
     control: {
@@ -21,10 +23,14 @@ const selectTheme = {
         font-weight: 700;
         border: none;
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
-        width: clamp(180px, 50%, 215px);
+        width: 215px;
 
         &:focus:not(:focus-visible) {
           box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        @media (width < 500px) {
+          width: 100%; // when stacked instead of inline together
         }
       `,
       open: {
@@ -51,7 +57,7 @@ const selectTheme = {
     options: {
       container: {
         align: 'center',
-        width: '215px'
+        width: '100%'
       },
       text: {
         textAlign: 'center',
