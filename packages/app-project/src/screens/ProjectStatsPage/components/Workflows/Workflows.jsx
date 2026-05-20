@@ -21,7 +21,7 @@ const WorkflowContainer = styled(Box)`
 `
 
 const WorkflowNameContainer = styled(Box)`
-  width: 50%;
+  width: 45%;
 
   @media (width < 64rem) {
     width: 60%;
@@ -43,10 +43,10 @@ const WorkflowNameContainer = styled(Box)`
 
 const StatsContainerBox = styled(Box)`
   flex-direction: row;
-  width: 50%;
+  width: 55%;
   justify-content: flex-end;
   align-content: center;
-  gap: 20px;
+  gap: 15px;
 
   @media (width < 64rem) {
     width: 40%;
@@ -133,8 +133,8 @@ function Workflows({ workflows = [] }) {
                 )}
                 <Text color={{ light: 'dark-4', dark: 'white' }}>
                   {t('ProjectStats.workflows.subjectsRetired', {
-                    retired: workflow?.retired_set_member_subjects_count,
-                    total: workflow?.subjects_count
+                    retired: workflow?.retired_set_member_subjects_count.toLocaleString(),
+                    total: workflow?.subjects_count.toLocaleString()
                   })}
                 </Text>
                 <Text color={{ light: 'dark-4', dark: 'white' }}>

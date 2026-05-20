@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import ProjectStatistics from './ProjectStatistics'
+import addQueryParams from '@helpers/addQueryParams'
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
@@ -33,7 +34,7 @@ const ProjectStatisticsContainer = ({ className, hideLink = false, titleLevel = 
   const project = router?.query?.project
   const linkProps = {
     externalLink: true, // A project stats page uses PFE
-    href: `/projects/${owner}/${project}/stats`
+    href: addQueryParams(`/projects/${owner}/${project}/stats`)
   }
 
   return (

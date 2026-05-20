@@ -4,14 +4,13 @@ import { observer, MobXProviderContext } from 'mobx-react'
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Heading, Select, ResponsiveContext, ThemeContext } from 'grommet'
+import { Box, Heading, Select, ResponsiveContext, Text, ThemeContext } from 'grommet'
 import styled from 'styled-components'
 import { useSearchParams } from 'next/navigation'
 
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
 import CustomDateRange from './CustomDateRange'
-import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
 import StyledTab from './StyledTab'
 import selectTheme from './selectTheme'
@@ -131,7 +130,6 @@ function ChartContainer({ workflows }) {
       setType('count')
     }
   }, [])
-
 
   /* BarChart Logic */
   const { dateRangeMessage } = validateDateRangeParams({ endDate, startDate })
@@ -320,12 +318,18 @@ function ChartContainer({ workflows }) {
             </StyledBox>
           </ThemeContext.Extend>
         </Box>
+        {loadingOrValidating ? <LoadingPlaceholder /> : null}
+        {!loadingOrValidating && errorMessage?.length ? (
+          <Box fill align='center' pad='medium'>
+            <Text>{errorMessage}</Text>
+          </Box>
+        ) : null}
         <Relative height='medium' margin={{ vertical: 'medium' }}>
-          {loadingOrValidating ? <LoadingPlaceholder /> : null}
-          {!loadingOrValidating && errorMessage?.length ? (
-            <ErrorPlaceholder message={errorMessage} />
-          ) : null}
-          <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
+          <BarChart
+            data={data?.data}
+            dateRange={{ startDate, endDate }}
+            type={type}
+          />
         </Relative>
       </ContentBox>
     </>

@@ -120,6 +120,7 @@ function BarChart({
           property: 'period',
           label: dateRangeLabel.countLabel,
           render: (period, datum, datumIndex) => {
+            if (!period) return
             const date = new Date(period)
 
             if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
