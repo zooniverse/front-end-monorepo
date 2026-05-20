@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import ProjectStatistics from './ProjectStatistics'
+import addQueryParams from '@helpers/addQueryParams'
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
@@ -17,7 +18,7 @@ function useStore() {
   }
 }
 
-const ProjectStatisticsContainer = ({ className, hideLink }) => {
+const ProjectStatisticsContainer = ({ className, hideLink = false, titleLevel = 2 }) => {
   const {
     classifications,
     completedSubjects,
@@ -31,7 +32,7 @@ const ProjectStatisticsContainer = ({ className, hideLink }) => {
   const router = useRouter()
   const owner = router?.query?.owner
   const project = router?.query?.project
-  const linkProps = hideLink ? null : {
+  const linkProps = {
     externalLink: true, // A project stats page uses PFE
     href: `/projects/${owner}/${project}/stats`
   }
@@ -42,10 +43,12 @@ const ProjectStatisticsContainer = ({ className, hideLink }) => {
       classifications={classifications}
       completedSubjects={completedSubjects}
       completeness={completeness}
+      hideLink={hideLink}
       launchDate={launchDate}
       linkProps={linkProps}
       projectName={projectName}
       subjects={subjects}
+      titleLevel={titleLevel}
       volunteers={volunteers}
     />
   )
