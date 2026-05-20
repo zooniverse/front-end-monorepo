@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation'
 
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
-import CustomCalendar from './CustomCalendar'
+import CustomDateRange from './CustomDateRange'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
 import StyledTab from './StyledTab'
@@ -211,20 +211,21 @@ function ChartContainer({ workflows }) {
     }
   }
 
-  /* Custom Calendar visibility */
+  /* Custom Date Range modal visibility */
   const [showCalendar, setShowCalendar] = useState(false)
 
   const smallScreen = size === 'small'
 
   return (
     <>
-      <CustomCalendar
-        defaultStartDate={dateRangeOptions?.[0].value}
+      <CustomDateRange
+        endDate={endDate}
         launchDate={displayedLaunchDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
         setShowCalendar={setShowCalendar}
         showCalendar={showCalendar}
+        startDate={startDate}
       />
       <ContentBox fill border={{ size: smallScreen ? '0' : 'thin' }}>
         <Box

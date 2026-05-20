@@ -93,11 +93,12 @@
       "selectDateRange": "Select date range",
       "selectWorkflow": "Select workflow"
     },
-    "calendarBtn": "Done",
     "calendarTitle": "Custom Date Range",
     "count": "Classifications",
     "comments": "Comments",
+    "endDate": "End Date",
     "heading": "{{projectName}} Statistics",
+    "startDate": "Start Date",
     "workflows": {
       "empty": "No associated workflows",
       "percentComplete": "{{percent}}% complete",
