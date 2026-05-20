@@ -147,7 +147,8 @@ function ChartContainer({ workflows }) {
     day: 'numeric',
     timeZone: 'UTC'
   }
-  if (!selectedDateRangeOption && !dateRangeMessage) {
+
+  if (!selectedDateRangeOption && !dateRangeMessage && endDate && startDate) {
     const formattedStartDate = new Intl.DateTimeFormat(locale, formatOptions).format(
       new Date(startDate)
     )
@@ -216,7 +217,8 @@ function ChartContainer({ workflows }) {
 
   return (
     <>
-      <CustomDateRange
+      {/* Only render these <input> if ChartContainer has mounted */}
+      {startDate && endDate ? <CustomDateRange
         endDate={endDate}
         launchDate={displayedLaunchDate}
         setStartDate={setStartDate}
@@ -224,7 +226,7 @@ function ChartContainer({ workflows }) {
         setShowCalendar={setShowCalendar}
         showCalendar={showCalendar}
         startDate={startDate}
-      />
+      /> : null}
       <ContentBox fill border={{ size: smallScreen ? '0' : 'thin' }}>
         <Box
           direction={size !== 'small' ? 'row' : 'column'}
@@ -242,13 +244,15 @@ function ChartContainer({ workflows }) {
             {t('ProjectStats.heading', { projectName: projectDisplayName })}
           </StyledHeading>
           <Box align='center'>
-            <SpacedText
-              color={{ dark: 'neutral-6', light: 'dark-4' }}
-              uppercase={false}
-              size='1rem'
-            >
-              {t(`ProjectStats.${type}`)}
-            </SpacedText>
+            {type ? (
+              <SpacedText
+                color={{ dark: 'neutral-6', light: 'dark-4' }}
+                uppercase={false}
+                size='1rem'
+              >
+                {t(`ProjectStats.${type}`)}
+              </SpacedText>
+            ) : null}
             <SpacedText color={{ dark: 'accent-1', light: 'neutral-1' }} size='xxlarge'>
               {loadingOrValidating ? (
                 <Loader height='2.5rem' width='2rem' />
@@ -318,18 +322,14 @@ function ChartContainer({ workflows }) {
             </StyledBox>
           </ThemeContext.Extend>
         </Box>
-        {loadingOrValidating ? <LoadingPlaceholder /> : null}
         {!loadingOrValidating && errorMessage?.length ? (
           <Box fill align='center' pad='medium'>
             <Text>{errorMessage}</Text>
           </Box>
         ) : null}
         <Relative height='medium' margin={{ vertical: 'medium' }}>
-          <BarChart
-            data={data?.data}
-            dateRange={{ startDate, endDate }}
-            type={type}
-          />
+          {loadingOrValidating ? <LoadingPlaceholder /> : null}
+          <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
         </Relative>
       </ContentBox>
     </>

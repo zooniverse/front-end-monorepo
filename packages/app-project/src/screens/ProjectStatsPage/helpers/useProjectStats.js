@@ -38,6 +38,6 @@ async function fetchStats({
 
 export default function useProjectStats(query, type) {
   const endpoint = type === 'count' ? '/classifications' : '/comments'
-  const key = { endpoint, query }
+  const key = type ? { endpoint, query } : null
   return useSWR(key, fetchStats, SWROptions)
 }

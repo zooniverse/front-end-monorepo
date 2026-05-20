@@ -66,6 +66,7 @@ function BarChart({
   // set chart options based on data length and type
   const chartOptions = {
     color: gradient,
+    detail: false,
     property: 'count',
     type: 'bar'
   }
@@ -109,7 +110,7 @@ function BarChart({
       }}
       chart={chartOptions}
       data={completeData}
-      detail={!!completeData?.length}
+      detail={!!completeData?.length > 0}
       guide={{
         y: {
           granularity: 'fine'
