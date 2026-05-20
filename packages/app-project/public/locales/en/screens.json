@@ -94,6 +94,7 @@
       "selectWorkflow": "Select workflow"
     },
     "calendarTitle": "Custom Date Range",
+    "calendarBtn": "Done",
     "count": "Classifications",
     "comments": "Comments",
     "endDate": "End Date",

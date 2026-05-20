@@ -120,7 +120,7 @@ function BarChart({
           property: 'period',
           label: dateRangeLabel.countLabel,
           render: (period, datum, datumIndex) => {
-            if (!period) return
+            if (!period) return '' // sometimes BarChart renders <Detail /> when `period` isn't defined. Haven't been able to replicate the bug consistently ¯\_(ツ)_/¯
             const date = new Date(period)
 
             if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
