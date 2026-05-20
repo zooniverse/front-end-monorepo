@@ -51,8 +51,8 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0
       grommet:
-        specifier: ~2.47.0
-        version: 2.47.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        specifier: ~2.54.0
+        version: 2.54.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       grommet-icons:
         specifier: ~4.12.0
         version: 4.12.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
@@ -205,8 +205,8 @@ importers:
         specifier: ~5.2.0
         version: 5.2.0
       grommet:
-        specifier: ~2.47.0
-        version: 2.47.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        specifier: ~2.54.0
+        version: 2.54.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       grommet-icons:
         specifier: ~4.12.0
         version: 4.12.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
@@ -444,8 +444,8 @@ importers:
         specifier: ~7.37.2
         version: 7.37.5(eslint@8.57.1)
       grommet:
-        specifier: ~2.47.0
-        version: 2.47.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        specifier: ~2.54.0
+        version: 2.54.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       grommet-icons:
         specifier: ~4.12.0
         version: 4.12.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
@@ -784,8 +784,8 @@ importers:
         specifier: ~1.6.0
         version: 1.6.0
       grommet:
-        specifier: ~2.47.0
-        version: 2.47.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        specifier: ~2.54.0
+        version: 2.54.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       grommet-icons:
         specifier: ~4.12.0
         version: 4.12.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
@@ -5533,8 +5533,23 @@ packages:
       react-dom: ^16.6.0 || ^17.0.0 || ^18.0.0
       styled-components: '>= 5.x'
 
+  grommet-icons@4.14.0:
+    resolution: {integrity: sha512-Y1XxECsP24nU5y1Xs+Xyz6Q4jduzzMUBOb6Dno9YfxZFgxw1ie3+Wwui04+3I6xf036NQJpEI/O8mfMgBaLWXg==}
+    peerDependencies:
+      react: ^16.6.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.6.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      styled-components: '>= 5.x'
+
   grommet@2.47.0:
     resolution: {integrity: sha512-JQYh2JdSgpv2XoOK5N/5BHynEswUrukXFBiSPqfVFAiTfXRccrQD3zMdtYaLNbTuHh7LYeE+jrwjujJVjQb+hw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      react: ^16.6.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.6.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      styled-components: ^5.1.0 || ^6.0.0
+
+  grommet@2.54.0:
+    resolution: {integrity: sha512-SiaOcpu3cWefRKAeE+Ml1h94Xl/B5ccEF3QO54LcFMuQZLLGaG+tPIEbpqRkSKA+E+HbSr6rI/dY2izhNbyqmQ==}
     engines: {node: '>= 16'}
     peerDependencies:
       react: ^16.6.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -14360,10 +14375,26 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
       styled-components: 6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
+  grommet-icons@4.14.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)):
+    dependencies:
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      styled-components: 6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+
   grommet@2.47.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)):
     dependencies:
       '@emotion/is-prop-valid': 1.4.0
       grommet-icons: 4.12.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+      markdown-to-jsx: 7.4.4(react@19.2.0)
+      prop-types: 15.8.1
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      styled-components: 6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+
+  grommet@2.54.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)):
+    dependencies:
+      '@emotion/is-prop-valid': 1.4.0
+      grommet-icons: 4.14.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       markdown-to-jsx: 7.4.4(react@19.2.0)
       prop-types: 15.8.1
       react: 19.2.0
