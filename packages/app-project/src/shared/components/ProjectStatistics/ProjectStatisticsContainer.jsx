@@ -34,7 +34,7 @@ const ProjectStatisticsContainer = ({ className, hideLink = false, titleLevel = 
   const project = router?.query?.project
   const linkProps = {
     externalLink: true, // A project stats page uses PFE
-    href: addQueryParams(`/projects/${owner}/${project}/stats`)
+    href: `/projects/${owner}/${project}/stats`
   }
 
   return (
