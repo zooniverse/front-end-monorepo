@@ -11,6 +11,7 @@ import { useSearchParams } from 'next/navigation'
 import ContentBox from '@shared/components/ContentBox'
 import BarChart from '../BarChart/BarChart'
 import CustomDateRange from './CustomDateRange'
+import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
 import StyledTab from './StyledTab'
 import selectTheme from './selectTheme'
@@ -218,15 +219,17 @@ function ChartContainer({ workflows }) {
   return (
     <>
       {/* Only render these <input> if ChartContainer has mounted */}
-      {startDate && endDate ? <CustomDateRange
-        endDate={endDate}
-        launchDate={displayedLaunchDate}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        setShowCalendar={setShowCalendar}
-        showCalendar={showCalendar}
-        startDate={startDate}
-      /> : null}
+      {startDate && endDate ? (
+        <CustomDateRange
+          endDate={endDate}
+          launchDate={displayedLaunchDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setShowCalendar={setShowCalendar}
+          showCalendar={showCalendar}
+          startDate={startDate}
+        />
+      ) : null}
       <ContentBox fill border={{ size: smallScreen ? '0' : 'thin' }}>
         <Box
           direction={size !== 'small' ? 'row' : 'column'}
@@ -329,7 +332,16 @@ function ChartContainer({ workflows }) {
         ) : null}
         <Relative height='medium' margin={{ vertical: 'medium' }}>
           {loadingOrValidating ? <LoadingPlaceholder /> : null}
-          <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
+          {/*
+            We want to show the previousData via useProjectStats() SWR while loading or validating,
+            but Grommet's DataChart > Detail component will randomly error sometimes when refreshing
+            the data because Grommet `detail` uses `series.render` method. Crashes the page if it can't
+            find the expected `period`.
+          */}
+          {data?.data.length > 0 ? (
+            <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
+          ) : null}
+          {!loadingOrValidating && data?.data.length === 0 ? <EmptyPlaceholder /> : null}
         </Relative>
       </ContentBox>
     </>
