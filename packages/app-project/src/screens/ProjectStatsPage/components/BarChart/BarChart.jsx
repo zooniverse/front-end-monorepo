@@ -109,7 +109,7 @@ function BarChart({
       }}
       chart={chartOptions}
       data={completeData}
-      // detail={!!completeData?.length}
+      detail={!!completeData?.length}
       guide={{
         y: {
           granularity: 'fine'
