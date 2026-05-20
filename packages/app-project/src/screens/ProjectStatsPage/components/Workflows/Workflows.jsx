@@ -67,7 +67,7 @@ function Workflows({ workflows = [] }) {
   const { i18n, t } = useTranslation('screens')
   const size = useContext(ResponsiveContext)
 
-  const localeCode = i18n.locale === 'test' ? 'en' : i18n.locale
+  const localeCode = i18n.language === 'test' ? 'en' : i18n.language
   const nf = new Intl.NumberFormat(localeCode, {
     style: 'unit',
     unit: 'day',

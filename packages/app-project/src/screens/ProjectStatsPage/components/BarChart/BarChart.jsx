@@ -14,11 +14,6 @@ const X_AXIS_FREQUENCY = {
   everyFourth: 'everyFourth'
 }
 
-const mockDateRange = {
-  startDate: '2023-05-27',
-  endDate: '2023-06-02'
-}
-
 const StyledDataChart = styled(DataChart)`
   .hidden-period-label {
     display: none;
@@ -26,8 +21,8 @@ const StyledDataChart = styled(DataChart)`
 `
 
 function BarChart({
-  data = [], // response from ERAS query or Talk API (?) for comments
-  dateRange = mockDateRange, // useQueryState()
+  data = [], // response from ERAS query
+  dateRange,
   type = 'count' // or 'comments'
 }) {
   const { i18n, t } = useTranslation('screens')
@@ -42,8 +37,7 @@ function BarChart({
   const typeLabel = TYPE_LABEL[type]
 
   const { startDate, endDate } = dateRange || {}
-  const differenceInDays =
-    (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+  const differenceInDays = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
   const period = getInterval(differenceInDays)
 
   const dateInterval = {
@@ -128,29 +122,15 @@ function BarChart({
           render: (period, datum, datumIndex) => {
             const date = new Date(period)
 
-            if (
-              xAxisFrequency === X_AXIS_FREQUENCY.everyOther &&
-              datum?.index % 2 !== 0
-            ) {
+            if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
               return (
-                <Text
-                  className='hidden-period-label'
-                  data-testid='periodLabel'
-                  textAlign='center'
-                >
+                <Text className='hidden-period-label' data-testid='periodLabel' textAlign='center'>
                   {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
                 </Text>
               )
-            } else if (
-              xAxisFrequency === X_AXIS_FREQUENCY.everyFourth &&
-              datum?.index % 4 !== 0
-            ) {
+            } else if (xAxisFrequency === X_AXIS_FREQUENCY.everyFourth && datum?.index % 4 !== 0) {
               return (
-                <Text
-                  className='hidden-period-label'
-                  data-testid='periodLabel'
-                  textAlign='center'
-                >
+                <Text className='hidden-period-label' data-testid='periodLabel' textAlign='center'>
                   {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
                 </Text>
               )
@@ -167,9 +147,7 @@ function BarChart({
           property: 'count',
           label: typeLabel,
           render: number => {
-            return (
-              <Text data-testid='countLabel'>{number.toLocaleString()}</Text>
-            )
+            return <Text data-testid='countLabel'>{number.toLocaleString()}</Text>
           }
         }
       ]}
