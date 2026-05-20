@@ -4,6 +4,7 @@ import { Box, Button, Heading, ResponsiveContext, Text, Tip } from 'grommet'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { CircleInformation } from 'grommet-icons'
+import { SpacedText } from '@zooniverse/react-components'
 
 import ContentBox from '@shared/components/ContentBox'
 
@@ -81,6 +82,9 @@ function Workflows({ workflows = [] }) {
       border={{ size: size === 'small' ? '0' : 'thin' }}
     >
       <Box gap='15px'>
+        {workflows.length === 0 ? <Box width='100%' pad={{ vertical: 'large'}}>
+          <SpacedText weight={700} width='100%' textAlign='center'>{t('ProjectStats.workflows.empty')}</SpacedText>
+        </Box>: null}
         {workflows?.map(workflow => (
           <Box border={{ color: 'light-5' }} key={workflow.id}>
             <Box height='10px' width='100%'>
