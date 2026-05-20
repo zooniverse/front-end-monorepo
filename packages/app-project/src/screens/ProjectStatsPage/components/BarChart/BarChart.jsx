@@ -138,7 +138,7 @@ function BarChart({
                   data-testid='periodLabel'
                   textAlign='center'
                 >
-                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                  {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
                 </Text>
               )
             } else if (
@@ -151,13 +151,13 @@ function BarChart({
                   data-testid='periodLabel'
                   textAlign='center'
                 >
-                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                  {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
                 </Text>
               )
             } else {
               return (
                 <Text data-testid='periodLabel' textAlign='center'>
-                  {date.toLocaleDateString('en-US', dateRangeLabel.tLDS)}
+                  {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
                 </Text>
               )
             }
