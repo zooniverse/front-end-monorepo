@@ -66,6 +66,7 @@ function BarChart({
   // set chart options based on data length and type
   const chartOptions = {
     color: gradient,
+    detail: false,
     property: 'count',
     type: 'bar'
   }
@@ -109,7 +110,7 @@ function BarChart({
       }}
       chart={chartOptions}
       data={completeData}
-      detail={!!completeData?.length}
+      detail={!!completeData?.length > 0} // only show detail on hover if completeData if available
       guide={{
         y: {
           granularity: 'fine'
@@ -120,7 +121,6 @@ function BarChart({
           property: 'period',
           label: dateRangeLabel.countLabel,
           render: (period, datum, datumIndex) => {
-            if (!period) return '' // sometimes BarChart renders <Detail /> when `period` isn't defined. Haven't been able to replicate the bug consistently ¯\_(ツ)_/¯
             const date = new Date(period)
 
             if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {

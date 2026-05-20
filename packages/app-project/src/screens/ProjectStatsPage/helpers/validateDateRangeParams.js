@@ -22,6 +22,11 @@ function validateDate({ date, dateKey }) {
 }
 
 export default function validateDateRangeParams({ endDate, startDate }) {
+  // If chartContainer is rendered with query params already in the URL,
+  // we have to use those instead of defaults. endDate and startDate are null
+  // until the component mounts.
+  if (endDate === null && startDate === null) return ''
+
   const { date: validEndDate, message: endDateMessage } = validateDate({ date: endDate, dateKey: 'end_date' })
   const { date: validStartDate, message: startDateMessage } = validateDate({ date: startDate, dateKey: 'start_date' })
 

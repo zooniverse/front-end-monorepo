@@ -90,6 +90,7 @@
         "thisMonth": "This Month",
         "thisYear": "This Year"
       },
+      "empty": "No data. Change the workflow or the date range.",
       "selectDateRange": "Select date range",
       "selectWorkflow": "Select workflow"
     },
