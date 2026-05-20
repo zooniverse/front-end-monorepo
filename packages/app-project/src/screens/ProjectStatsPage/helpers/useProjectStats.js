@@ -2,10 +2,11 @@ import { env } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
 const SWROptions = {
+  keepPreviousData: true, // Show previous data with a placeholder overtop when isLoading or isValidating
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: false,
-  revalidateOnReconnect: true,
+  revalidateOnReconnect: false,
   refreshInterval: 0
 }
 

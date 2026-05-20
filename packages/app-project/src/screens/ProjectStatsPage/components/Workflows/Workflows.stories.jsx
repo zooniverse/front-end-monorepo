@@ -60,3 +60,8 @@ export const Default = {}
 Default.args = {
   workflows: mockWorkflows
 }
+
+export const Empty = {}
+Empty.args = {
+  workflows: []
+}

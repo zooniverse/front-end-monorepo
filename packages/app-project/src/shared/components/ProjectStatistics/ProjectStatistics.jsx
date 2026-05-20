@@ -1,5 +1,5 @@
 import { Box, Paragraph, Text } from 'grommet'
-import { number, object, string } from 'prop-types'
+import { bool, number, object, string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -15,8 +15,8 @@ const MainGrid = styled.div`
   @media (min-width: 678px) {
     // Grommet small breakpoint
     grid-template-rows: 1fr;
-    grid-template-columns: 50% auto;
-    column-gap: 10px;
+    grid-template-columns: min(678px, 50%) min(550px, 50%);
+    justify-content: space-between;
   }
 `
 
@@ -24,18 +24,12 @@ const NumbersGrid = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 12px;
+  row-gap: 12px;
 
   @media (max-width: 679px) {
     // Grommet small breakpoint
     margin-top: 20px;
-    column-gap: 0;
   }
-`
-
-const StyledParagraph = styled(Paragraph)`
-  line-height: 22px;
-  max-width: 100%;
 `
 
 const dateStringOptions = {
@@ -49,10 +43,12 @@ function ProjectStatistics({
   classifications,
   completedSubjects,
   completeness,
+  hideLink = false,
   launchDate = null,
   linkProps,
   projectName,
   subjects,
+  titleLevel = 2,
   volunteers
 }) {
   const { t } = useTranslation('components')
@@ -67,15 +63,16 @@ function ProjectStatistics({
   return (
     <ContentBox
       className={className}
-      linkLabel={t('ProjectStatistics.viewMoreStats')}
-      linkProps={linkProps}
+      titleLevel={titleLevel}
+      linkLabel={hideLink ?  null: t('ProjectStatistics.viewMoreStats')}
+      linkProps={hideLink ? null : linkProps}
       title={t('ProjectStatistics.title', { projectName })}
     >
       <MainGrid>
         <Box>
-          <StyledParagraph size='medium'>
+          <Paragraph margin={{ top: 'none'}}>
             {t('ProjectStatistics.text', { projectName })}
-          </StyledParagraph>
+          </Paragraph>
           <CompletionBar completeness={completeness} />
           <Box
             direction='row'
@@ -115,10 +112,12 @@ ProjectStatistics.propTypes = {
   classifications: number.isRequired,
   completedSubjects: number.isRequired,
   completeness: number,
+  hideLink: bool,
   launchDate: string,
   linkProps: object.isRequired,
   projectName: string,
   subjects: number.isRequired,
+  titleLevel: number,
   volunteers: number.isRequired
 }
 

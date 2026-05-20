@@ -39,6 +39,18 @@ const Relative = styled(Box)`
   position: relative;
 `
 
+// for stacked or inline Selects
+const StyledBox = styled(Box)`
+  flex-direction: row;
+  column-gap: 20px;
+
+  @media (width < 500px) {
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+`
+
 function useStores() {
   const stores = useContext(MobXProviderContext)
   const { project } = stores.store
@@ -128,7 +140,7 @@ function ChartContainer({ workflows }) {
   const dateInterval = getDateInterval({ endDate, startDate })
   const erasQuery = {
     end_date: endDate ? endDate : undefined,
-    period: dateInterval.period,
+    period: dateInterval?.period,
     project_id: workflow ? undefined : projectId,
     start_date: startDate ? startDate : undefined,
     workflow_id: workflow || undefined
@@ -141,6 +153,7 @@ function ChartContainer({ workflows }) {
 
   const { data, error, isLoading, isValidating } = useProjectStats(filteredQuery, type)
   const loadingOrValidating = isLoading || isValidating
+  const errorMessage = dateRangeMessage || error?.message
 
   /* Custom Calendar visibility */
   const [showCalendar, setShowCalendar] = useState(false)
@@ -168,6 +181,8 @@ function ChartContainer({ workflows }) {
     }
   }
 
+  const smallScreen = size === 'small'
+
   return (
     <>
       <CustomCalendar
@@ -178,7 +193,7 @@ function ChartContainer({ workflows }) {
         setShowCalendar={setShowCalendar}
         showCalendar={showCalendar}
       />
-      <ContentBox>
+      <ContentBox fill border={{ size: smallScreen ? '0' : 'thin' }}>
         <Box
           direction={size !== 'small' ? 'row' : 'column'}
           justify='between'
@@ -189,6 +204,7 @@ function ChartContainer({ workflows }) {
             level={2}
             color={{ light: 'neutral-1', dark: 'accent-1' }}
             size={size !== 'small' ? '2rem' : '1.5rem'}
+            margin='none'
           >
             <Avatar width='50px' height='50x' />
             {t('ProjectStats.heading', { projectName: projectDisplayName })}
@@ -207,7 +223,7 @@ function ChartContainer({ workflows }) {
               ) : dateRangeMessage || error?.message ? (
                 <Box height='2.5rem' />
               ) : (
-                <span>{data?.['total_count']}</span>
+                <span>{data?.['total_count'].toLocaleString(locale)}</span>
               )}
             </SpacedText>
           </Box>
@@ -241,11 +257,9 @@ function ChartContainer({ workflows }) {
             />
           </Box>
           <ThemeContext.Extend value={selectTheme}>
-            <Box
-              basis='1/2'
-              direction='row'
+            <StyledBox
+              basis='1/2' // required so it doesn't overlap the StyledTabs
               fill={size === 'small' ? 'horizontal' : false}
-              gap='20px'
               justify={size === 'small' ? 'evenly' : 'end'}
             >
               <StyledSelect
@@ -269,14 +283,13 @@ function ChartContainer({ workflows }) {
                 valueKey={{ key: 'label', reduce: true }}
                 size='medium'
               />
-            </Box>
+            </StyledBox>
           </ThemeContext.Extend>
         </Box>
-        <Relative height='medium' margin={{ bottom: 'medium' }}>
-          {loadingOrValidating ? (
-            <LoadingPlaceholder />
-          ) : dateRangeMessage || error?.message ? (
-            <ErrorPlaceholder message={dateRangeMessage || error?.message} />
+        <Relative height='medium' margin={{ vertical: 'medium' }}>
+          {loadingOrValidating ? <LoadingPlaceholder /> : null}
+          {!loadingOrValidating && errorMessage?.length ? (
+            <ErrorPlaceholder message={errorMessage} />
           ) : null}
           <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
         </Relative>

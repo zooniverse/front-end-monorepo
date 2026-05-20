@@ -99,6 +99,7 @@
     "comments": "Comments",
     "heading": "{{projectName}} Statistics",
     "workflows": {
+      "empty": "No associated workflows",
       "percentComplete": "{{percent}}% complete",
       "subjectsRetired": "Subjects retired: {{retired}}/{{total}}",
       "retireLimit": "Retirement limit: {{number}}",
