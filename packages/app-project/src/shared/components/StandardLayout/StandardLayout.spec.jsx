@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { within } from '@testing-library/dom'
-import { render, screen } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
@@ -9,6 +9,7 @@ import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtim
 import nock from 'nock'
 
 import initStore from '@stores'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import StandardLayout, { adminBorderImage } from './StandardLayout'
 
 describe('Component > StandardLayout', function () {
@@ -33,12 +34,24 @@ describe('Component > StandardLayout', function () {
     const store = initStore(true)
     applySnapshot(store, snapshot)
 
+    const user = snapshot?.user?.loadingState === asyncStates.loading
+      ? undefined
+      : snapshot?.user
+    const adminMode = !!(user?.admin && window.localStorage.getItem('adminFlag'))
+    const authContext = {
+      adminMode,
+      toggleAdmin: () => {},
+      user
+    }
+
     return function Wrapper({ children }) {
       return (
         <RouterContext.Provider value={mockRouter}>
           <Grommet theme={zooTheme}>
             <Provider store={store}>
-              {children}
+              <PanoptesAuthContext.Provider value={authContext}>
+                {children}
+              </PanoptesAuthContext.Provider>
             </Provider>
           </Grommet>
         </RouterContext.Provider>
@@ -69,10 +82,14 @@ describe('Component > StandardLayout', function () {
         }
       }
     }
-    render(<StandardLayout />, { wrapper: withStore(snapshot)})
-    zooHeader = screen.getByRole('banner')
-    zooFooter = screen.getByRole('contentinfo')
+    const { container } = render(<StandardLayout />, { wrapper: withStore(snapshot)})
+    zooHeader = within(container).getByRole('banner')
+    zooFooter = within(container).getByRole('contentinfo')
     adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
+  })
+
+  afterEach(function () {
+    cleanup()
   })
 
   after(function () {
@@ -109,8 +126,8 @@ describe('Component > StandardLayout', function () {
           }
         }
       }
-      render(<StandardLayout />, { wrapper: withStore(snapshot)})
-      projectPage = screen.getByTestId('project-page')
+      const { container } = render(<StandardLayout />, { wrapper: withStore(snapshot)})
+      projectPage = within(container).getByTestId('project-page')
     })
 
     it('should have a teal border', function () {
@@ -138,8 +155,8 @@ describe('Component > StandardLayout', function () {
           }
         }
       }
-      render(<StandardLayout />, { wrapper: withStore(snapshot)})
-      projectPage = screen.getByTestId('project-page')
+      const { container } = render(<StandardLayout />, { wrapper: withStore(snapshot)})
+      projectPage = within(container).getByTestId('project-page')
     })
 
     it('should not have a teal border', function () {
@@ -170,9 +187,9 @@ describe('Component > StandardLayout', function () {
           login: 'zooVolunteer'
         }
       }
-      render(<StandardLayout />, { wrapper: withStore(snapshot)})
-      zooHeader = screen.getByRole('banner')
-      zooFooter = screen.getByRole('contentinfo')
+      const { container } = render(<StandardLayout />, { wrapper: withStore(snapshot)})
+      zooHeader = within(container).getByRole('banner')
+      zooFooter = within(container).getByRole('contentinfo')
       adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
     })
 
@@ -203,10 +220,10 @@ describe('Component > StandardLayout', function () {
           }
         }
         window.localStorage.setItem('adminFlag', true)
-        render(<StandardLayout />, { wrapper: withStore(snapshot)})
-        projectPage = screen.getByTestId('project-page')
-        zooHeader = screen.getByRole('banner')
-        zooFooter = screen.getByRole('contentinfo')
+        const { container } = render(<StandardLayout />, { wrapper: withStore(snapshot)})
+        projectPage = within(container).getByTestId('project-page')
+        zooHeader = within(container).getByRole('banner')
+        zooFooter = within(container).getByRole('contentinfo')
         adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
       })
 
@@ -252,10 +269,10 @@ describe('Component > StandardLayout', function () {
           }
         }
         window.localStorage.setItem('adminFlag', true)
-        render(<StandardLayout />, { wrapper: withStore(snapshot)})
-        projectPage = screen.getByTestId('project-page')
-        zooHeader = screen.getByRole('banner')
-        zooFooter = screen.getByRole('contentinfo')
+        const { container } = render(<StandardLayout />, { wrapper: withStore(snapshot)})
+        projectPage = within(container).getByTestId('project-page')
+        zooHeader = within(container).getByRole('banner')
+        zooFooter = within(container).getByRole('contentinfo')
         adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
       })
 
@@ -293,9 +310,9 @@ describe('Component > StandardLayout', function () {
         },
         user: {}
       }
-      render(<StandardLayout page='home' />, { wrapper: withStore(snapshot)})
-      projectPage = screen.getByTestId('project-page')
-      zooHeader = screen.queryByRole('banner') // banner role is the <header> element
+      const { container } = render(<StandardLayout page='home' />, { wrapper: withStore(snapshot)})
+      projectPage = within(container).getByTestId('project-page')
+      zooHeader = within(container).queryByRole('banner') // banner role is the <header> element
     })
 
     it('should not render the header components', function () {
