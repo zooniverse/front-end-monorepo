@@ -79,7 +79,7 @@ export default function BillionsCountdown ({
   error,
   isLoading = true,
 }) {
-  const classificationsToGo = TARGET_CLASSIFICATIONS - totalClassifications - 100000000
+  const classificationsToGo = TARGET_CLASSIFICATIONS - totalClassifications
 
   // Set a timer that changes the message every
   const [ messageIndex, setMessageIndex ] = useState(Math.floor(Math.random() * MESSAGES.length))
