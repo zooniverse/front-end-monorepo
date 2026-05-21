@@ -3,7 +3,7 @@ import { Button, Box, Text } from 'grommet'
 import styled from 'styled-components'
 
 const Container = styled(Box)`
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 1);
   border-radius: 1em;
   box-shadow: 0px 2px 20px 5px #00000033;
   overflow: hidden;
@@ -40,13 +40,18 @@ const WhiteText = styled(Text)`
   text-transform: uppercase;
 `
 
-const TealText = styled(Text)`
+const UpperTealText = styled(Text)`
   color: #005D69;
   text-align: center;
   text-shadow: 0px 0px 8px #ffffff;
-  text-transform: uppercase;
+     letter-spacing: 4.8px;
+    text-transform: uppercase;
 `
-
+const LowerTealText = styled(Text)`
+  color: #005D69;
+  text-align: center;
+  text-shadow: 0px 0px 8px #ffffff;
+`
 const BlackText = styled(Text)`
   color: #404040;
   text-align: center;
@@ -67,9 +72,9 @@ const TARGET_CLASSIFICATIONS = 1000000000
 const MESSAGES = [
   'discovering gravitational waves',
   'mapping the universe',
-  'discovering the universe\'s hidden black holes',
+  'discovering hidden black holes',
   'digitizing historical documents',
-  'rediscovering extinct animals'
+ 
 ]
 
 const MESSAGE_TIMER = 6000
@@ -130,14 +135,14 @@ export default function BillionsCountdown ({
               aria-label='1 billion'
               src='https://panoptes-uploads.zooniverse.org/project_attached_image/bd65e25b-2e31-4a44-a864-4e5d2bc66d78.png'
             />
-            <TealText size='24px'>
+            <UpperTealText size='24px'>
               classifications
             </TealText>
             <HR />
             <BlackText size='20px'>
               every classification on Zooniverse brings us one step closer to
             </BlackText>
-            <TealText size='37px' margin={{ top: '20px' }}>
+            <LowerTealText size='32px' margin={{ top: '20px' }}>
               {message}
             </TealText>
           </Content>
