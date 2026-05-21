@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react'
 import { Button, Box, Text } from 'grommet'
 import styled from 'styled-components'
 
@@ -63,12 +64,36 @@ const HR = styled('div')`
 
 const TARGET_CLASSIFICATIONS = 1000000000
 
+const MESSAGES = [
+  'discovering gravitational waves',
+  'mapping the universe',
+  'discovering the universe\'s hidden black holes',
+  'digitizing historical documents',
+  'rediscovering extinct animals'
+]
+
+const MESSAGE_TIMER = 6000
+
 export default function BillionsCountdown ({
   totalClassifications = 0,
   error,
   isLoading = true,
 }) {
-  const classificationsToGo = TARGET_CLASSIFICATIONS - totalClassifications
+  const classificationsToGo = TARGET_CLASSIFICATIONS - totalClassifications - 100000000
+
+  // Set a timer that changes the message every
+  const [ messageIndex, setMessageIndex ] = useState(Math.floor(Math.random() * MESSAGES.length))
+  const message = MESSAGES[messageIndex]
+  const timerId = useRef(null)
+
+  function nextMessage () {
+    setMessageIndex((messageIndex + 1) % MESSAGES.length)
+  }
+
+  useEffect(function onLoadOnce () {
+    timerId.current = setInterval(nextMessage, MESSAGE_TIMER)
+    return () => { clearInterval(timerId.current) }
+  }, [])
 
   if (error || isLoading) return null
   
@@ -111,7 +136,7 @@ export default function BillionsCountdown ({
               every classification on Zooniverse brings us one step closer to
             </BlackText>
             <TealText size='37px' margin={{ top: '20px' }}>
-              discovering gravitational waves
+              {message}
             </TealText>
           </Content>
         </BackgroundDeco2>
