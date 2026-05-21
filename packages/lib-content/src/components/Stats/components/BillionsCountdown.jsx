@@ -106,13 +106,15 @@ export default function BillionsCountdown ({
             padding={{ vertical: '0', horizontal: 'large' }}
           >
             <Box margin={{ top: '20px' }}>
-              {(classificationsToGo > 0) && (
+              {(classificationsToGo > 0) ? (
               <WhiteText
                 size='72px'
                 textAlign='center'
               >
                 {classificationsToGo?.toLocaleString()}
               </WhiteText>
+              ) : (
+              <Box height='80px'>&nbsp;</Box>
               )}
             </Box>
             <WhiteText
