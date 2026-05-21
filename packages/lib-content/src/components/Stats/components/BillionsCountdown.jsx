@@ -138,14 +138,14 @@ export default function BillionsCountdown ({
             />
             <UpperTealText size='24px'>
               classifications
-            </TealText>
+            </UpperTealText>
             <HR />
             <BlackText size='20px'>
               every classification on Zooniverse brings us one step closer to
             </BlackText>
             <LowerTealText size='32px' margin={{ top: '20px' }}>
               {message}
-            </TealText>
+            </LowerTealText>
           </Content>
         </BackgroundDeco2>
       </BackgroundDeco1>
