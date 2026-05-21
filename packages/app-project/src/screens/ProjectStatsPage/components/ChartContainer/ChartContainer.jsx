@@ -338,10 +338,10 @@ function ChartContainer({ workflows }) {
             the data because Grommet `detail` uses `series.render` method. Crashes the page if it can't
             find the expected `period`.
           */}
-          {data?.data.length > 0 ? (
+          {data?.data?.length > 0 ? (
             <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
           ) : null}
-          {!loadingOrValidating && data?.data.length === 0 ? <EmptyPlaceholder /> : null}
+          {!loadingOrValidating && data?.data?.length === 0 ? <EmptyPlaceholder /> : null}
         </Relative>
       </ContentBox>
     </>
