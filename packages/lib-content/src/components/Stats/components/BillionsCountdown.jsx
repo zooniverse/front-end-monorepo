@@ -73,8 +73,7 @@ const MESSAGES = [
   'discovering gravitational waves',
   'mapping the universe',
   'discovering hidden black holes',
-  'digitizing historical documents',
- 
+  'digitizing historical documents'
 ]
 
 const MESSAGE_TIMER = 6000
@@ -87,12 +86,14 @@ export default function BillionsCountdown ({
   const classificationsToGo = TARGET_CLASSIFICATIONS - totalClassifications
 
   // Set a timer that changes the message every
-  const [ messageIndex, setMessageIndex ] = useState(Math.floor(Math.random() * MESSAGES.length))
-  const message = MESSAGES[messageIndex]
+  const messageIndex = useRef(Math.floor(Math.random() * MESSAGES.length))
+  const [ message, setMessage ] = useState(MESSAGES[messageIndex.current])
   const timerId = useRef(null)
 
   function nextMessage () {
-    setMessageIndex((messageIndex + 1) % MESSAGES.length)
+    const newIndex = (messageIndex.current + 1) % MESSAGES.length 
+    setMessage(MESSAGES[newIndex])
+    messageIndex.current= newIndex
   }
 
   useEffect(function onLoadOnce () {
