@@ -100,14 +100,17 @@ function SubjectCard({
   const { t } = useTranslation()
   const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
 
+  // layout
   const width = cardWidth(size)
   const cardHeight = width + METATOOLS_HEIGHT
   const previewHeight = width
+  const metaToolsSectionGap = metaToolsGap(size)
+
+  // subject properties
   const { locations } = subject
   const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
   const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
   const subjectTalkUrl = `${window.location.origin}${subjectTalkHref}`
-  const metaToolsSectionGap = metaToolsGap(size)
 
   return (
     <StyledSubjectCard
