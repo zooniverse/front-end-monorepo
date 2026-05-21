@@ -91,6 +91,9 @@
     "copied": "URL copied to clipboard",
     "share": "Share"
   },
+  "SubjectCard": {
+    "subjectId": "Subject {{id}}"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "About",

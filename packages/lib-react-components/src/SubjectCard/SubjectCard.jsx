@@ -3,6 +3,7 @@ import { CircleInformation } from 'grommet-icons'
 import { bool, node, oneOf, shape, string, arrayOf, objectOf } from 'prop-types'
 import styled from 'styled-components'
 
+import { useTranslation } from '../translations/i18n'
 import Media from '../Media'
 import IconActionButton from '../IconActionButton'
 import FavoritesIconButton from '../FavoritesIconButton'
@@ -50,7 +51,7 @@ const StyledTitle = styled(Box)`
 
 const StyledTitleText = styled.span`
   color: ${props => props.theme.global.colors.white};
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: 0.8px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
@@ -96,6 +97,9 @@ function SubjectCard({
   subject = DEFAULT_SUBJECT,
   userId
 }) {
+  const { t } = useTranslation()
+  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+
   const width = cardWidth(size)
   const cardHeight = width + METATOOLS_HEIGHT
   const previewHeight = width
@@ -112,7 +116,7 @@ function SubjectCard({
       width={`${width}px`}
     >
       <StyledImageLink
-        a11yTitle={`Subject ${subject.id}`}
+        a11yTitle={subjectIdTitle}
         href={subjectTalkHref}
       >
         <StyledPreview
@@ -138,7 +142,7 @@ function SubjectCard({
 
           {mediaSrc ? (
             <Media
-              alt={`subject ${subject.id}`}
+              alt={subjectIdTitle}
               controls={false}
               fit='contain'
               placeholder={placeholder}
@@ -155,7 +159,7 @@ function SubjectCard({
             pad={{ horizontal: 'small', vertical: 'medium' }}
           >
             <StyledTitleText>
-              {`Subject ${subject.id}`}
+              {subjectIdTitle}
             </StyledTitleText>
           </StyledTitle>
         </StyledPreview>
