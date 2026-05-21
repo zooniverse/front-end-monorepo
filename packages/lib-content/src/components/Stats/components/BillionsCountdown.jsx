@@ -101,7 +101,6 @@ export default function BillionsCountdown ({
     <Container className='billions-countdown-container'>
       <BackgroundDeco1 className='billions-countdown-deco-1'>
         <BackgroundDeco2 className='billions-countdown-deco-1'>
-          <a id='zooniverse-1-billion'></a>
           <Content
             className='billions-countdown-content'
             padding={{ vertical: '0', horizontal: 'large' }}
