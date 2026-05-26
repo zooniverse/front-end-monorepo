@@ -246,15 +246,17 @@ function ChartContainer({ workflows }) {
           align='center'
           gap='medium'
         >
-          <StyledHeading
-            level={2}
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-            size={size !== 'small' ? '2rem' : '1.5rem'}
-            margin='none'
-          >
-            <Avatar width='50px' height='50x' />
-            {t('ProjectStats.heading', { projectName: projectDisplayName })}
-          </StyledHeading>
+          <Box direction='row' align='center' gap='20px'>
+            {size === 'large' ? <Avatar width='50px' height='50x' /> : null}
+            <StyledHeading
+              level={2}
+              color={{ light: 'neutral-1', dark: 'accent-1' }}
+              size={size !== 'small' ? '2rem' : '1.5rem'}
+              margin='none'
+            >
+              {t('ProjectStats.heading', { projectName: projectDisplayName })}
+            </StyledHeading>
+          </Box>
           <Box align='center'>
             {type ? (
               <SpacedText
