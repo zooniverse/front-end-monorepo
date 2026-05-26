@@ -73,6 +73,14 @@ const DEFAULT_COMMENT = {
   user_login: ''
 }
 
+function addCommentQueryParam(href, comment) {
+  const hrefWithCommonParams = addQueryParams(href) // handles app-wide query params like env
+  const query = new URLSearchParams(hrefWithCommonParams)
+  return (query?.size) ?
+    `${hrefWithCommonParams}&comment=${comment}` :
+    `${hrefWithCommonParams}?comment=${comment}`
+}
+
 function TalkComment({
   avatar = '',
   comment = DEFAULT_COMMENT,
@@ -80,12 +88,12 @@ function TalkComment({
   roles = undefined
 }) {
   const { t } = useTranslation('screens')
-  
+
   const localeDate = new Date(comment.created_at).toLocaleString(undefined, {
     dateStyle: 'medium',
     timeStyle: 'short'
   })
-  
+
   let upvoted = false
   let upvotes = 0
   if (comment?.upvotes) {
@@ -119,7 +127,7 @@ function TalkComment({
               {t('Talk.Comment.userDisplayNamePossessive', { userDisplayName: comment.reply_user_display_name })}
             </Anchor>
             <Anchor
-              href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.reply_id}`)}
+              href={addCommentQueryParam(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}`, comment.reply_id)}
               size='0.75rem'
               weight='500'
             >
@@ -184,7 +192,7 @@ function TalkComment({
           <StyledLink
             a11yTitle={t('Talk.Comment.goToComment')}
             gap='xsmall'
-            href={addQueryParams(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}?comment=${comment.id}`)}
+            href={addCommentQueryParam(`/projects/${comment.project_slug}/talk/${comment.board_id}/${comment.discussion_id}`, comment.id)}
             icon={<Share size='14.667px' />}
             label={<StyledLinkLabel>{t('Talk.Comment.goToComment').toUpperCase()}</StyledLinkLabel>}
           />

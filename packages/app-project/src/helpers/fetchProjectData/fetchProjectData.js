@@ -35,6 +35,7 @@ export default async function fetchProjectData(slug, params) {
       'beta_approved',
       'beta_requested',
       'classifiers_count',
+      'created_at',
       'completeness',
       'configuration',
       'experimental_tools',

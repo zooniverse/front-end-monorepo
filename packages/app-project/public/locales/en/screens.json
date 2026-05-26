@@ -53,7 +53,7 @@
       }
     }
   },
-  "Classify" :{
+  "Classify": {
     "ClassifierWrapper": {
       "ErrorMessage": {
         "title": "There was an error in the classifier :("
@@ -74,6 +74,40 @@
       "lastSeven": "Last 7 Days",
       "link": "See more",
       "title": "Your Stats"
+    }
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
+      "allWorkflows": "All Workflows",
+      "dateRange": {
+        "allTime": "All Time",
+        "custom": "Custom",
+        "lastSevenDays": "Last 7 Days",
+        "lastThirtyDays": "Last 30 Days",
+        "lastThreeMonths": "Last 3 Months",
+        "lastTwelveMonths": "Last 12 Months",
+        "thisMonth": "This Month",
+        "thisYear": "This Year"
+      },
+      "empty": "No data. Change the workflow or the date range.",
+      "selectDateRange": "Select date range",
+      "selectWorkflow": "Select workflow"
+    },
+    "calendarTitle": "Custom Date Range",
+    "calendarBtn": "Done",
+    "count": "Classifications",
+    "comments": "Comments",
+    "endDate": "End Date",
+    "heading": "{{projectName}} Statistics",
+    "startDate": "Start Date",
+    "workflows": {
+      "empty": "No associated workflows",
+      "percentComplete": "{{percent}}% complete",
+      "subjectsRetired": "Subjects retired: {{retired}}/{{total}}",
+      "retireLimit": "Retirement limit: {{number}}",
+      "tip": "Estimated time to completion is based on the classification rate for the past 14 days and may be incorrect or unavailable for some workflows.",
+      "title": "Workflows"
     }
   },
   "Talk": {

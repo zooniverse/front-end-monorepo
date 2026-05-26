@@ -15,6 +15,7 @@ const Project = types
     classifiers_count: types.optional(types.number, 0),
     configuration: types.frozen({}),
     completeness: types.optional(types.number, 0),
+    created_at: types.optional(types.string, ''),
     error: types.frozen({}),
     experimental_tools: types.frozen([]),
     id: types.maybeNull(numberString),

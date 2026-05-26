@@ -39,7 +39,7 @@ async function fetchSingleWorkflow(workflowID, env) {
   }
 }
 
-async function fetchDisplayNames(language, workflows, env) {
+export async function fetchDisplayNames(language, workflows, env) {
   const { headers, host } = getServerSideAPIHost(env)
   let displayNames = {}
   try {
@@ -112,7 +112,7 @@ async function fetchWorkflowsHelper(
   if (incompleteWorkflows?.length) {
     returnedWorkflows = incompleteWorkflows
   }
-    
+
   // If `complete: false` returns zero workflows, fetch all active workflows regardless of completeness
   // so volunteers can still view the Classify page for a finished project or project out of data
   if (!incompleteWorkflows?.length) {

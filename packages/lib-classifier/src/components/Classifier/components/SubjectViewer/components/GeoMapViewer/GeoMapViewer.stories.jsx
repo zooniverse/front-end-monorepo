@@ -39,6 +39,39 @@ export const WithGeoDrawingTask = {
   },
 }
 
+export const WithGeoDrawingLineStringTask = {
+  args: {
+    geoDrawingTask: GeoDrawingTask.create({
+      taskKey: 'T0',
+      activeToolIndex: 0,
+      tools: [
+        {
+          type: 'LineString',
+          label: 'Dam crest',
+          color: '#00aa55',
+        },
+      ],
+      type: 'geoDrawing',
+    }),
+    geoJSON: {
+      type: 'FeatureCollection',
+      bbox: [-91.05, 47.96, -90.97, 48.01],
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-91.0125, 47.9847]
+          },
+          properties: {
+            name: 'Knife Lake center pin (test seed)'
+          }
+        }
+      ]
+    },
+  },
+}
+
 export const WithoutGeoDrawingTask = {
   args: {
     geoJSON: {
