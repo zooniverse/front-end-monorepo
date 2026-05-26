@@ -105,27 +105,29 @@ function ChartContainer({ workflows }) {
     const startDateParam = searchParams.get('start_date')
     const endDateParam = searchParams.get('end_date')
 
-    if (startDateParam) {
+    // date should be in the format 'YYYY-MM-DD'
+    if (startDateParam && /^\d{4}-\d{2}-\d{2}$/.test(startDateParam)) {
       setStartDate(startDateParam)
     } else {
       setStartDate(getStatsDateString(displayedLaunchDate)) // All Time
     }
 
-    if (endDateParam) {
+    // date should be in the format 'YYYY-MM-DD'
+    if (endDateParam && /^\d{4}-\d{2}-\d{2}$/.test(endDateParam)) {
       setEndDate(endDateParam)
     } else {
       setEndDate(todayUTC)
     }
 
-    // check if there's a workflow_id
+    // check if there's a workflow_id and that it's valid
     const workflowIdParam = searchParams.get('workflow_id')
-    if (workflowIdParam) {
+    if (workflowIdParam && !!workflows.find(workflow => workflow.id === workflowIdParam)) {
       setWorkflow(workflowIdParam)
     }
 
     // check if there's a type
     const typeParam = searchParams.get('type')
-    if (typeParam) {
+    if (typeParam && (type === 'count' || type === 'comments')) {
       setType(typeParam)
     } else {
       setType('count')

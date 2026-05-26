@@ -90,7 +90,7 @@
     "notLaunched": "Project not launched",
     "percentComplete": "Percent complete",
     "subjects": "Subjects",
-    "text": "Active stats provide information about currently active workflows.",
+    "text": "Active stats provide information about currently active workflows and subjects.",
     "title": "{{projectName}} Statistics",
     "viewMoreStats": "View more stats",
     "volunteers": "Volunteers"
