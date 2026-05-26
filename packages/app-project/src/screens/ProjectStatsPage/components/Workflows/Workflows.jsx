@@ -133,8 +133,8 @@ function Workflows({ workflows = [] }) {
                 )}
                 <Text color={{ light: 'dark-4', dark: 'white' }}>
                   {t('ProjectStats.workflows.subjectsRetired', {
-                    retired: workflow?.retired_set_member_subjects_count.toLocaleString(),
-                    total: workflow?.subjects_count.toLocaleString()
+                    retired: workflow?.retired_set_member_subjects_count.toLocaleString(localeCode),
+                    total: workflow?.subjects_count.toLocaleString(localeCode)
                   })}
                 </Text>
                 <Text color={{ light: 'dark-4', dark: 'white' }}>

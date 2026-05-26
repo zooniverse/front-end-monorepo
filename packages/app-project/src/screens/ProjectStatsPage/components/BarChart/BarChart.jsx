@@ -148,7 +148,7 @@ function BarChart({
           property: 'count',
           label: typeLabel,
           render: number => {
-            return <Text data-testid='countLabel'>{number.toLocaleString()}</Text>
+            return <Text data-testid='countLabel'>{number.toLocaleString(locale)}</Text>
           }
         }
       ]}

@@ -16,49 +16,49 @@ export default function getDateRangeLabel(dateInterval, locale) {
 
   if (differenceInDays <= 7) {
     return {
-      countLabel: displayNames.of('day'),
+      countLabel: displayNames.of('day').charAt(0).toLocaleUpperCase(locale) + displayNames.of('day').slice(1),
       time: 60,
       tLDS: { timeZone: 'UTC', weekday: 'short' }
     }
   } else if (differenceInDays <= 30 && !sameMonth) {
     return {
-      countLabel: displayNames.of('day'),
+      countLabel: displayNames.of('day').charAt(0).toLocaleUpperCase(locale) + displayNames.of('day').slice(1),
       time: 60,
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     }
   } else if (differenceInDays <= 31 && sameMonth) {
     return {
-      countLabel: displayNames.of('day'),
+      countLabel: displayNames.of('day').charAt(0).toLocaleUpperCase(locale) + displayNames.of('day').slice(1),
       time: 60,
       tLDS: { timeZone: 'UTC', day: 'numeric' }
     }
   } else if (differenceInDays <= 183) {
     return {
-      countLabel: displayNames.of('weekOfYear'),
+      countLabel: displayNames.of('weekOfYear').charAt(0).toLocaleUpperCase(locale) + displayNames.of('weekOfYear').slice(1),
       time: 3600,
       tLDS: { timeZone: 'UTC', month: 'numeric', day: 'numeric' }
     }
   } else if (differenceInDays <= 365 && sameYear) {
     return {
-      countLabel: displayNames.of('month'),
+      countLabel: displayNames.of('month').charAt(0).toLocaleUpperCase(locale) + displayNames.of('month').slice(1),
       time: 3600,
       tLDS: { timeZone: 'UTC', month: 'short' }
     }
   } else if (differenceInDays <= 365) {
     return {
-      countLabel: displayNames.of('month'),
+      countLabel: displayNames.of('month').charAt(0).toLocaleUpperCase(locale) + displayNames.of('month').slice(1),
       time: 3600,
       tLDS: { timeZone: 'UTC', month: 'short', year: 'numeric' }
     }
   } else if (differenceInDays <= 1460) {
     return {
-      countLabel: displayNames.of('month'),
+      countLabel: displayNames.of('month').charAt(0).toLocaleUpperCase(locale) + displayNames.of('month').slice(1),
       time: 3600,
       tLDS: { timeZone: 'UTC', month: 'short', year: 'numeric' }
     }
   } else {
     return {
-      countLabel: displayNames.of('year'),
+      countLabel: displayNames.of('year').charAt(0).toLocaleUpperCase(locale) + displayNames.of('year').slice(1),
       time: 3600,
       tLDS: { timeZone: 'UTC', year: 'numeric' }
     }
