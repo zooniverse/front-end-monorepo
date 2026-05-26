@@ -82,13 +82,15 @@
     }
   },
   "ProjectStatistics": {
+    "active": "Active Stats",
+    "allTime": "All Time Stats",
     "classifications": "Classifications",
     "completedSubjects": "Completed subjects",
     "launched": "Project launched {{date}}",
     "notLaunched": "Project not launched",
     "percentComplete": "Percent complete",
     "subjects": "Subjects",
-    "text": "Every click counts! Join {{projectName}}'s community to complete this project and help researchers produce important results.",
+    "text": "Active stats provide information about currently active workflows.",
     "title": "{{projectName}} Statistics",
     "viewMoreStats": "View more stats",
     "volunteers": "Volunteers"

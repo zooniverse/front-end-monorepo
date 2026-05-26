@@ -33,8 +33,8 @@ describe('Component > ProjectStatisticsContainer', function () {
     expect(screen.getByText('ProjectStatistics.volunteers')).toBeDefined()
   })
 
-  it('should render a classifications stat', function () {
-    expect(screen.getByText('ProjectStatistics.classifications')).toBeDefined()
+  it('should render two classifications stats', function () {
+    expect(screen.getAllByText('ProjectStatistics.classifications').length).to.equal(2)
   })
 
   it('should render a subjects stat', function () {
