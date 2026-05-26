@@ -107,7 +107,6 @@ series (groups of data points). Each series features different colour/size/etc
 properties. 
  */
 export function WithVaryingDataSeriesProperties(props) {
-  console.log('+++ 🟠 data', scatterPlotJSONWithVaryingDataSeries)
   return (
     <Box height='medium' width='large'>
       <ScatterPlotViewer
