@@ -18,10 +18,10 @@ function ProjectStatsPage({ workflows }) {
           pad={size === 'small' ? 'none' : 'medium'}
           gap={size === 'small' ? 'none' : 'medium'}
           margin={{ bottom: 'large' }}
-          width={{ max: '85rem' }}
+          width={{ width: '100%', max: '85rem' }}
         >
           <ChartContainer workflows={workflows} />
-          <ProjectStatistics hideLink titleLevel={3} />
+          <ProjectStatistics hideLink />
           <Workflows workflows={workflows} />
         </Box>
       </ProjectAboutPageLayout>
