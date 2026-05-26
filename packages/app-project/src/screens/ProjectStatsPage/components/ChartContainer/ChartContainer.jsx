@@ -216,6 +216,15 @@ function ChartContainer({ workflows }) {
 
   const smallScreen = size === 'small'
 
+  /*
+    We show the previousData via useProjectStats() SWR while loading or validating,
+    but Grommet's DataChart > Detail component will randomly error sometimes when revalidating
+    the data because Grommet `detail` uses `series.render` method. Trying to prevent a page
+    crash here by double checking everything in `renderBarChart`.
+  */
+  const renderBarChart = data?.data?.length > 0 && !!endDate && !!startDate && !!type
+  const chartDateRange = { startDate, endDate }
+
   return (
     <>
       {/* Only render these <input> if ChartContainer has mounted */}
@@ -332,16 +341,10 @@ function ChartContainer({ workflows }) {
         ) : null}
         <Relative height='medium' margin={{ vertical: 'medium' }}>
           {loadingOrValidating ? <LoadingPlaceholder /> : null}
-          {/*
-            We want to show the previousData via useProjectStats() SWR while loading or validating,
-            but Grommet's DataChart > Detail component will randomly error sometimes when refreshing
-            the data because Grommet `detail` uses `series.render` method. Crashes the page if it can't
-            find the expected `period`.
-          */}
-          {data?.data.length > 0 ? (
-            <BarChart data={data?.data} dateRange={{ startDate, endDate }} type={type} />
+          {renderBarChart ? (
+            <BarChart data={data?.data} dateRange={chartDateRange} type={type} />
           ) : null}
-          {!loadingOrValidating && data?.data.length === 0 ? <EmptyPlaceholder /> : null}
+          {!loadingOrValidating && data?.data?.length === 0 ? <EmptyPlaceholder /> : null}
         </Relative>
       </ContentBox>
     </>
