@@ -34,6 +34,7 @@ export default async function fetchProjectData(slug, params) {
     const properties = [
       'beta_approved',
       'beta_requested',
+      'classifications_count',
       'classifiers_count',
       'created_at',
       'completeness',

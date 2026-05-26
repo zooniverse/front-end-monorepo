@@ -23,11 +23,15 @@ function statsHost(env) {
   }
 }
 
-async function fetchStats({ endpoint, projectId }) {
+async function fetchStats({ endpoint, projectId, displayedLaunchDate }) {
   const host = statsHost(env)
 
   try {
-    const response = await fetch(`${host}${endpoint}?project_id=${projectId}`)
+    const today = new Date()
+    const todayUTC = today.toISOString().substring(0, 10)
+    const response = await fetch(
+      `${host}${endpoint}?project_id=${projectId}&end_date=${todayUTC}&start_date=${displayedLaunchDate}`
+    )
     const data = await response.json()
     return data
   } catch (error) {
@@ -36,36 +40,50 @@ async function fetchStats({ endpoint, projectId }) {
   }
 }
 
-function useClassificationsCount(projectId) {
-  const key = { endpoint: '/classifications', projectId }
+function useClassificationsCount(projectId, displayedLaunchDate) {
+  const key = projectId ? { endpoint: '/classifications', projectId, displayedLaunchDate } : null
   return useSWR(key, fetchStats, SWROptions)
 }
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
-  const { data: erasData } = useClassificationsCount(store?.project?.id)
 
   return {
-    classifications: erasData?.total_count,
+    classifications: store?.project?.classifications_count,
     completedSubjects: store?.project?.retired_subjects_count,
     completeness: store?.project?.completeness,
+    createdAtDate: store?.project?.created_at,
     launchDate: store?.project?.launch_date,
+    projectId: store?.project?.id,
     projectName: store?.project?.display_name,
     subjects: store?.project?.subjects_count,
     volunteers: store?.project?.classifiers_count
   }
 }
 
-const ProjectStatisticsContainer = ({ className, hideLink = false, titleLevel = 2 }) => {
+const ProjectStatisticsContainer = ({ className, hideLink = false }) => {
   const {
     classifications,
     completedSubjects,
     completeness,
+    createdAtDate,
     launchDate,
+    projectId,
     projectName,
     subjects,
     volunteers
   } = useStore()
+
+  // Match the "All Time" data range option in ProjectStatsPage > ChartContainer
+  const displayedLaunchDate = launchDate ? launchDate.substring(0, 10) : createdAtDate.substring(0, 10)
+
+  const {
+    data: erasData,
+    isLoading,
+    isValidating,
+    error: erasError
+  } = useClassificationsCount(projectId, displayedLaunchDate)
+  const erasIsLoadingOrValidating = isLoading || isValidating // the Stat will just read as 0 for now
 
   const router = useRouter()
   const owner = router?.query?.owner
@@ -81,12 +99,12 @@ const ProjectStatisticsContainer = ({ className, hideLink = false, titleLevel = 
       classifications={classifications}
       completedSubjects={completedSubjects}
       completeness={completeness}
+      erasTotal={erasData?.total_count}
       hideLink={hideLink}
       launchDate={launchDate}
       linkProps={linkProps}
       projectName={projectName}
       subjects={subjects}
-      titleLevel={titleLevel}
       volunteers={volunteers}
     />
   )

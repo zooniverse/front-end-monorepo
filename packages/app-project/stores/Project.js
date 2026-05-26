@@ -13,6 +13,7 @@ const Project = types
     beta_approved: types.optional(types.boolean, false),
     beta_requested: types.optional(types.boolean, false),
     classifiers_count: types.optional(types.number, 0),
+    classifications_count: types.optional(types.number, 0),
     configuration: types.frozen({}),
     completeness: types.optional(types.number, 0),
     created_at: types.optional(types.string, ''),
