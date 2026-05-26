@@ -108,7 +108,7 @@ function ChartContainer({ workflows }) {
     if (startDateParam) {
       setStartDate(startDateParam)
     } else {
-      setStartDate(dateRangeOptions?.[0].value) // Last 7 Days
+      setStartDate(getStatsDateString(displayedLaunchDate)) // All Time
     }
 
     if (endDateParam) {
