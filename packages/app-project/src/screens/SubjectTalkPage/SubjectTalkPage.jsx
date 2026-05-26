@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next'
 import { shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-import ContentBox from '@shared/components/ContentBox'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import AncillaryData from './components/AncillaryData'
@@ -39,7 +38,7 @@ const StyledHeading = styled(Heading)`
 export const ContainerGrid = styled(Grid)`
   position: relative;
   grid-gap: 30px;
-  grid-template-areas: 
+  grid-template-areas:
     'viewer search'
     'viewer talkData';
   grid-template-columns: auto 600px;
@@ -124,8 +123,6 @@ function SubjectTalkPage({
           {subject?.attached_media?.length > 0 ? (
             <AncillaryData media={subject?.attached_media} />
           ) : null}
-          {/* <FeaturedCollections /> */}
-          {/* <RelatedSubjects /> */}
         </Box>
       </StyledBox>
     </StandardLayout>
@@ -134,6 +131,7 @@ function SubjectTalkPage({
 
 SubjectTalkPage.propTypes = {
   login: string,
+  projectDisplayName: string,
   projectId: string,
   projectSlug: string,
   subject: shape({
