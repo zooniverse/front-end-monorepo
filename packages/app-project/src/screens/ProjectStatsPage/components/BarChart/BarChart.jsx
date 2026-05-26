@@ -8,6 +8,7 @@ import { useContext } from 'react'
 import getDateRangeLabel from './getDateRangeLabel'
 import getCompleteData from './getCompleteData'
 import { getInterval } from '../../helpers/getDateInterval'
+import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary'
 
 const X_AXIS_FREQUENCY = {
   everyOther: 'everyOther',
@@ -96,64 +97,77 @@ function BarChart({
   }
 
   return (
-    <StyledDataChart
-      a11yTitle={t('ProjectStats.BarChart.a11y', {
-        typeLabel,
-        countLabel: dateRangeLabel.countLabel,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate
-      })}
-      className='styled-grommet-barchart'
-      axis={{
-        x: { granularity: 'fine', property: 'period' },
-        y: { granularity: 'fine', property: 'count' }
-      }}
-      chart={chartOptions}
-      data={completeData}
-      detail={!!completeData?.length > 0} // only show detail on hover if completeData if available
-      guide={{
-        y: {
-          granularity: 'fine'
-        }
-      }}
-      series={[
-        {
-          property: 'period',
-          label: dateRangeLabel.countLabel,
-          render: (period, datum, datumIndex) => {
-            const date = new Date(period)
+    <ErrorBoundary fallback={<Text>Something went wrong. Refresh or try again later.</Text>}>
+      <StyledDataChart
+        a11yTitle={t('ProjectStats.BarChart.a11y', {
+          typeLabel,
+          countLabel: dateRangeLabel.countLabel,
+          startDate: dateRange.startDate,
+          endDate: dateRange.endDate
+        })}
+        className='styled-grommet-barchart'
+        axis={{
+          x: { granularity: 'fine', property: 'period' },
+          y: { granularity: 'fine', property: 'count' }
+        }}
+        chart={chartOptions}
+        data={completeData}
+        detail={!!completeData?.length > 0} // only show detail on hover if completeData if available
+        guide={{
+          y: {
+            granularity: 'fine'
+          }
+        }}
+        series={[
+          {
+            property: 'period',
+            label: dateRangeLabel.countLabel,
+            render: (period, datum, datumIndex) => {
+              const date = new Date(period)
 
-            if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
-              return (
-                <Text className='hidden-period-label' data-testid='periodLabel' textAlign='center'>
-                  {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
-                </Text>
-              )
-            } else if (xAxisFrequency === X_AXIS_FREQUENCY.everyFourth && datum?.index % 4 !== 0) {
-              return (
-                <Text className='hidden-period-label' data-testid='periodLabel' textAlign='center'>
-                  {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
-                </Text>
-              )
-            } else {
-              return (
-                <Text data-testid='periodLabel' textAlign='center'>
-                  {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
-                </Text>
-              )
+              if (xAxisFrequency === X_AXIS_FREQUENCY.everyOther && datum?.index % 2 !== 0) {
+                return (
+                  <Text
+                    className='hidden-period-label'
+                    data-testid='periodLabel'
+                    textAlign='center'
+                  >
+                    {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
+                  </Text>
+                )
+              } else if (
+                xAxisFrequency === X_AXIS_FREQUENCY.everyFourth &&
+                datum?.index % 4 !== 0
+              ) {
+                return (
+                  <Text
+                    className='hidden-period-label'
+                    data-testid='periodLabel'
+                    textAlign='center'
+                  >
+                    {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
+                  </Text>
+                )
+              } else {
+                return (
+                  <Text data-testid='periodLabel' textAlign='center'>
+                    {date.toLocaleDateString(locale, dateRangeLabel.tLDS)}
+                  </Text>
+                )
+              }
+            }
+          },
+          {
+            property: 'count',
+            label: typeLabel,
+            render: number => {
+              return <Text data-testid='countLabel'>{number.toLocaleString(locale)}</Text>
             }
           }
-        },
-        {
-          property: 'count',
-          label: typeLabel,
-          render: number => {
-            return <Text data-testid='countLabel'>{number.toLocaleString(locale)}</Text>
-          }
-        }
-      ]}
-      size='fill'
-    />
+        ]}
+        size='fill'
+      />
+    </ErrorBoundary>
   )
 }
 
