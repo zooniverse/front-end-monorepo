@@ -9,26 +9,40 @@ import { fetchDisplayNames } from '../fetchWorkflowsHelper/fetchWorkflowsHelper'
  * this page along with a few extra stats properties per workflow resource.
  */
 
-async function fetchWorkflowData(workflows, env) {
+async function fetchWorkflowData(workflowIDs, env) {
   const { headers, host } = getServerSideAPIHost(env)
-  try {
-    const query = {
-      env,
-      fields:
-        'classifications_count,completeness,configuration,display_name,grouped,prioritized,retirement,retired_set_member_subjects_count,subjects_count',
-      id: workflows.join(',')
+  let workflowsAccumulator = []
+
+  async function getWorkflows(page = 1) {
+    try {
+      const query = {
+        env,
+        fields:
+          'classifications_count,completeness,configuration,display_name,grouped,prioritized,retirement,retired_set_member_subjects_count,subjects_count',
+        id: workflowIDs.join(','),
+        page
+      }
+      const response = await panoptes.get('/workflows', query, { ...headers }, host)
+
+      const { meta, workflows } = response?.body || {}
+
+      if (workflows?.length) {
+        workflowsAccumulator = workflowsAccumulator.concat(workflows)
+      }
+
+      if (meta?.workflows?.next_page) {
+        return getWorkflows(meta.workflows.next_page)
+      }
+
+      return workflowsAccumulator
+    } catch (error) {
+      logToSentry(error)
+      throw error
     }
-    const response = await panoptes.get(
-      '/workflows',
-      query,
-      { ...headers },
-      host
-    )
-    return response.body.workflows
-  } catch (error) {
-    logToSentry(error)
-    throw error
   }
+
+  await getWorkflows(1)
+  return workflowsAccumulator
 }
 
 function statsHost(env) {
@@ -85,18 +99,14 @@ function calcDaysToCompletion(erasData, workflow) {
   const dataLength = erasData.length // number of days the workflow has stats for
 
   if (dataLength > 1) {
-    const classificationCountsArray = erasData.map(
-      statObject => statObject.count
-    )
+    const classificationCountsArray = erasData.map(statObject => statObject.count)
     // Sum the classifications per day the workflow has been live (up to 14 days)
     const rate = classificationCountsArray.reduce((a, b) => a + b)
 
     // Estimate number of days needed to achieve the classification counts to retire remaining subjects
     numDays = Math.max(
       0,
-      Math.ceil(
-        (dataLength * (totalCount - workflow.classifications_count)) / rate
-      )
+      Math.ceil((dataLength * (totalCount - workflow.classifications_count)) / rate)
     )
   }
 
@@ -105,6 +115,8 @@ function calcDaysToCompletion(erasData, workflow) {
 
 async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
   const workflows = await fetchWorkflowData(workflowIDs, env)
+
+  // Workflows can be hidden via "show on stats page" checkbox in the project builder
   const filteredWorkflows = workflows.filter(
     workflow => workflow.configuration?.stats_hidden !== true
   )
@@ -127,14 +139,10 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
   // Get the estimated time to completion per workflow and attach it the workflow object
   // maybe could combine with Promise.allSettled above
   const awaitedWorkflows = workflowsWithDisplayNames.map(async workflow => {
-    const workflowERASData = await fetchWorkflowClassificationStats(
-      workflow.id,
-      env
-    )
+    const workflowERASData = await fetchWorkflowClassificationStats(workflow.id, env)
 
     if (workflowERASData?.data) {
-      const workflowETC =
-        calcDaysToCompletion(workflowERASData.data, workflow) || null
+      const workflowETC = calcDaysToCompletion(workflowERASData.data, workflow) || null
       const workflowWithETC = {
         ...workflow,
         etc: workflowETC
