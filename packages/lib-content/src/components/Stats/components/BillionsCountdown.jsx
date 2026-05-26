@@ -119,7 +119,9 @@ const MESSAGES = [
   'discovering gravitational waves',
   'mapping the universe',
   'discovering hidden black holes',
-  'digitizing historical documents'
+  'digitizing historical documents',
+  'everglades restoration',
+  'Mapping humanitarian need'
 ]
 
 const MESSAGE_TIMER = 6000
