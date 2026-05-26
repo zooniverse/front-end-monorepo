@@ -7,7 +7,6 @@ import { useContext } from 'react'
 
 import getDateRangeLabel from './getDateRangeLabel'
 import getCompleteData from './getCompleteData'
-import { getInterval } from '../../helpers/getDateInterval'
 import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary'
 
 const X_AXIS_FREQUENCY = {
@@ -23,7 +22,7 @@ const StyledDataChart = styled(DataChart)`
 
 function BarChart({
   data = [], // response from ERAS query
-  dateRange,
+  dateInterval,
   type = 'count' // or 'comments'
 }) {
   const { i18n, t } = useTranslation('screens')
@@ -36,16 +35,6 @@ function BarChart({
     comments: t('ProjectStats.comments')
   }
   const typeLabel = TYPE_LABEL[type]
-
-  const { startDate, endDate } = dateRange || {}
-  const differenceInDays = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
-  const period = getInterval(differenceInDays)
-
-  const dateInterval = {
-    end_date: endDate,
-    period,
-    start_date: startDate
-  }
 
   // getCompleteData returns an array of objects with a period and count property including any without stats with a count of 0
   const completeData = getCompleteData(data, dateInterval)
@@ -102,8 +91,8 @@ function BarChart({
         a11yTitle={t('ProjectStats.BarChart.a11y', {
           typeLabel,
           countLabel: dateRangeLabel.countLabel,
-          startDate: dateRange.startDate,
-          endDate: dateRange.endDate
+          startDate: dateInterval?.['start_date'],
+          endDate: dateInterval?.['end_date']
         })}
         className='styled-grommet-barchart'
         axis={{

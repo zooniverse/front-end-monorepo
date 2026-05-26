@@ -219,7 +219,6 @@ function ChartContainer({ workflows }) {
   const smallScreen = size === 'small'
 
   const renderBarChart = data?.data?.length > 0 && !!endDate && !!startDate && !!type && !loadingOrValidating
-  const chartDateRange = { startDate, endDate }
 
   return (
     <>
@@ -340,7 +339,7 @@ function ChartContainer({ workflows }) {
         <Relative height='medium' margin={{ vertical: 'medium' }}>
           {loadingOrValidating ? <LoadingPlaceholder /> : null}
           {renderBarChart ? (
-            <BarChart data={data?.data} dateRange={chartDateRange} type={type} />
+            <BarChart data={data?.data} dateInterval={dateInterval} type={type} />
           ) : null}
           {!loadingOrValidating && data?.data?.length === 0 ? <EmptyPlaceholder /> : null}
         </Relative>
