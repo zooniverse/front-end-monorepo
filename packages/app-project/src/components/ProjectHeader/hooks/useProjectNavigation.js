@@ -1,20 +1,32 @@
 import { useTranslation } from 'next-i18next'
 
 import { useHasLabAccess, useStores } from '.'
+import PFE_SLUGS from '../../../helpers/slugList'
 
 export default function useProjectNavigation(adminMode) {
   const { isAdmin, isLoggedIn, defaultWorkflow, projectId, slug, userId } = useStores()
   const hasLabAccess = useHasLabAccess(projectId, userId)
   const { t } = useTranslation('components')
-  const classifyHref = defaultWorkflow ? `/${slug}/classify/workflow/${defaultWorkflow}` : `/${slug}/classify`
+  const classifyHref = defaultWorkflow
+    ? `/${slug}/classify/workflow/${defaultWorkflow}`
+    : `/${slug}/classify`
+
+  const slugArr = slug.split('/')
+  const owner = slugArr?.[0]
+  const projectName = slugArr?.[1]
+
+  const isPFEProject = PFE_SLUGS.includes(`${owner}/${projectName}`)
+
   const links = [
     {
-      href: `/${slug}/about/research`,
-      text: t('ProjectHeader.about')
+      href: isPFEProject ? `https://www.zooniverse.org/projects/${slug}/about/research` : `/${slug}/about/research`,
+      text: t('ProjectHeader.about'),
+      externalLink: isPFEProject
     },
     {
-      href: classifyHref,
-      text: t('ProjectHeader.classify')
+      href: isPFEProject ? `https://www.zooniverse.org/projects/${slug}/classify` : classifyHref,
+      text: t('ProjectHeader.classify'),
+      externalLink: isPFEProject
     },
     {
       href: `/projects/${slug}/talk`,

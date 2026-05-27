@@ -50,6 +50,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
       },
       description: 'This is a description',
       inBeta: false,
+      slug: 'owner/project-name',
       strings: {
         display_name: 'Display Name'
       }
