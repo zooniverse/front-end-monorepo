@@ -37,19 +37,41 @@ function createGeoLineStringInteraction({
 }) {
   let isDrawing = false
 
+  const activeTool = geoDrawingTask?.activeTool
+  const minPoints = activeTool?.type === 'LineString' ? activeTool.min_vertices : undefined
+  const maxPoints = activeTool?.type === 'LineString' ? activeTool.max_vertices : undefined
+  const effectiveMin = typeof minPoints === 'number' ? minPoints : 2
+
+  // Block clicks that land on an already-placed vertex until min_vertices is
+  // reached, so double/triple-clicking can't stack duplicates. After min,
+  // allow them so OL's native double-click-to-finish can still close the line.
+  function isDuplicateVertexClick(event) {
+    const sketch = draw.getOverlay().getSource().getFeatures()
+      .find(f => f.getGeometry()?.getType() === 'LineString')
+    if (!sketch) return false
+    const fixed = sketch.getGeometry().getCoordinates().slice(0, -1)
+    if (fixed.length >= effectiveMin) return false
+    return fixed.some(coord => {
+      const p = map.getPixelFromCoordinate(coord)
+      return p && Math.hypot(p[0] - event.pixel[0], p[1] - event.pixel[1]) <= FEATURE_HIT_TOLERANCE_PX
+    })
+  }
+
   const draw = new Draw({
     source,
     type: 'LineString',
     condition: (event) => {
       if (!primaryAction(event)) return false
-      if (isDrawing) return true
+      if (isDrawing) return !isDuplicateVertexClick(event)
       if (!featuresLayer) return true
       return !map.hasFeatureAtPixel(event.pixel, {
         layerFilter: (layer) => layer === featuresLayer,
         hitTolerance: FEATURE_HIT_TOLERANCE_PX
       })
     },
-    style: buildSketchStyleFn({ map, featuresLayer, getIsDrawing: () => isDrawing })
+    style: buildSketchStyleFn({ map, featuresLayer, getIsDrawing: () => isDrawing }),
+    ...(typeof minPoints === 'number' ? { minPoints } : {}),
+    ...(typeof maxPoints === 'number' ? { maxPoints } : {})
   })
 
   map.addInteraction(draw)
