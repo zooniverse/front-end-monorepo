@@ -24,7 +24,7 @@ export default function useProjectNavigation(adminMode) {
       externalLink: isPFEProject
     },
     {
-      href: isPFEProject ? `https://www.zooniverse.org/projects${classifyHref}` : classifyHref,
+      href: isPFEProject ? `https://www.zooniverse.org/projects/${slug}/classify` : classifyHref,
       text: t('ProjectHeader.classify'),
       externalLink: isPFEProject
     },

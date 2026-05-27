@@ -37,7 +37,7 @@ function ProjectTitle({ textAlign = 'start', title = '' }) {
   const isPFEProject = PFE_SLUGS.includes(`${owner}/${projectName}`)
 
   const linkProps = {
-    href: addQueryParams(`/${slug}`)
+    href: isPFEProject ? `https://www.zooniverse.org/projects/${slug}` : addQueryParams(`/${slug}`)
   }
 
   const isCurrentPage = router?.isReady && router?.asPath === linkProps.href
