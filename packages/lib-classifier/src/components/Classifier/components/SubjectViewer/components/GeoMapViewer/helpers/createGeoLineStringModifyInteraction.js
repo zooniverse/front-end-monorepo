@@ -1,3 +1,4 @@
+import { primaryAction } from 'ol/events/condition'
 import Modify from 'ol/interaction/Modify'
 
 export function hasLineStringFeature(features) {
@@ -15,7 +16,7 @@ function createGeoLineStringModifyInteraction({
   const modify = new Modify({
     features: selectInteraction.getFeatures(),
     pixelTolerance: 10,
-    condition: () => hasLineStringFeature(selectInteraction.getFeatures().getArray())
+    condition: (event) => primaryAction(event) && hasLineStringFeature(selectInteraction.getFeatures().getArray())
   })
 
   const startKey = modify.on('modifystart', () => { isModifying = true })
