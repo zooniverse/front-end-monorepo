@@ -38,7 +38,8 @@ function DataSeriesControls ({
 const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
   const {
     zoomControlFn,
-    zooming = false
+    zooming = false,
+    showDataSeriesControls = true
   } = props
 
   // Defines a list of index values in props.data that we DON'T want to show on
@@ -80,7 +81,7 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
           {zoomControlFn && (
             <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />
           )}
-          {isMultiSeriesData && (
+          {isMultiSeriesData && showDataSeriesControls && (
             <DataSeriesControls
               fullData={fullData}
               indexesToHide={indexesToHide}
