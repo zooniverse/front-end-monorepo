@@ -110,7 +110,8 @@ function SubjectCard({
   const { locations, metadata } = subject
   const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
   const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
-  const subjectTalkUrl = `${window.location.origin}${subjectTalkHref}`
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
   return (
     <StyledSubjectCard
