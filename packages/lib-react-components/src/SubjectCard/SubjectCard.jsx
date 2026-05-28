@@ -1,11 +1,10 @@
 import { Anchor, Box } from 'grommet'
-import { CircleInformation } from 'grommet-icons'
-import { bool, node, oneOf, shape, string, arrayOf, objectOf } from 'prop-types'
+import { node, oneOf, shape, string, arrayOf, objectOf, object } from 'prop-types'
 import styled from 'styled-components'
 
 import { useTranslation } from '../translations/i18n'
 import Media from '../Media'
-import IconActionButton from '../IconActionButton'
+import MetadataIconButton from '../MetadataIconButton'
 import FavoritesIconButton from '../FavoritesIconButton'
 import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
@@ -85,7 +84,8 @@ function metaToolsGap(size) {
 
 const DEFAULT_SUBJECT = {
   id: '',
-  locations: []
+  locations: [],
+  metadata: {}
 }
 
 function SubjectCard({
@@ -107,7 +107,7 @@ function SubjectCard({
   const metaToolsSectionGap = metaToolsGap(size)
 
   // subject properties
-  const { locations } = subject
+  const { locations, metadata } = subject
   const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
   const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
   const subjectTalkUrl = `${window.location.origin}${subjectTalkHref}`
@@ -178,11 +178,7 @@ function SubjectCard({
         justify='center'
         round={{ corner: 'bottom', size: '8px' }}
       >
-        <IconActionButton
-          a11yTitle='Subject metadata'
-          icon={<CircleInformation />}
-          onClick={() => alert(`Subject ${subject.id} metadata`)}
-        />
+        <MetadataIconButton metadata={metadata} />
         <FavoritesIconButton
           disabled={!login}
           login={login}
@@ -210,7 +206,8 @@ SubjectCard.propTypes = {
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
     id: string,
-    locations: arrayOf(objectOf(string))
+    locations: arrayOf(objectOf(string)),
+    metadata: object
   }),
   userId: string
 }

@@ -2,6 +2,14 @@ import { Box } from 'grommet'
 
 import SubjectCard from './SubjectCard'
 
+const DEFAULT_METADATA = {
+  id: 1,
+  href: 'https://zooniverse.org',
+  '#hidden': 'hidden value',
+  '!onlyTalk': 'only talk value',
+  foo: null
+}
+
 // Beluga Bits subject, landscape, dark
 const BELUGA_BITS_SUBJECT = {
   id: '70429104',
@@ -10,7 +18,8 @@ const BELUGA_BITS_SUBJECT = {
     {
       'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/b723502e-5ca4-40ed-8b8b-5aaaacf7b88d.png'
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
 
 // Radio Meteor Zoo subject, landscape, dark
@@ -21,8 +30,9 @@ const RADIO_METEOR_ZOO_SUBJECT = {
     {
       'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/2ffdc5bd-c039-4596-b407-af231c00da5a.png'
     }
-  ]
-}  
+  ],
+  metadata: DEFAULT_METADATA
+}
 
 // Penguin Watch subject, landscape, busy
 const PENGUIN_WATCH_SUBJECT = {
@@ -32,7 +42,8 @@ const PENGUIN_WATCH_SUBJECT = {
     {
       'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/c6d3dd9b-4285-4ddb-90ae-08f9558dcae9.jpeg'
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
 
 // Print subject, portrait, light
@@ -43,7 +54,8 @@ const PRINT_SUBJECT = {
     {
       "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/b2cc2d44-a18b-498a-b60a-bba7541c8822.jpeg"
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
 
 // Planet Four subject, square, dark
@@ -54,7 +66,8 @@ const PLANET_FOUR_SUBJECT = {
     {
       'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/2714fc7f-e8da-449f-b6e0-9d464009dcb9.jpeg'
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
 
 // Wildwatch Kenya subject, landscape, busy
@@ -65,7 +78,8 @@ const WILDWATCH_KENYA_SUBJECT = {
     {
       'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/2f27096b-572c-44ea-b287-cdc355e90c54.jpeg'
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
 
 // Dark Energy Explorers subject, portrait, busy
@@ -76,7 +90,8 @@ const DARK_ENERGY_EXPLORERS_SUBJECT = {
     {
       'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/6022e144-5e70-4973-a9c2-8630a0999c91.png'
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
   
 // Galaxy Zoo subject, square, dark  
@@ -87,7 +102,8 @@ const GALAXY_ZOO_SUBJECT = {
     {
       'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/61281301-f2f2-413b-9314-c163423ac5f7.png'
     }
-  ]
+  ],
+  metadata: DEFAULT_METADATA
 }
 
 function StoryRow({
