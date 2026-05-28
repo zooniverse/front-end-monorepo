@@ -42,11 +42,12 @@ const GeoDrawing = types
       if (self.required && !annotation?.isComplete) return false
 
       const features = annotation?.value?.features ?? []
-      for (const tool of self.tools) {
-        const minLines = tool.min_lines
+      for (let toolIndex = 0; toolIndex < self.tools.length; toolIndex++) {
+        const tool = self.tools[toolIndex]
+        const minLines = tool.min
         if (typeof minLines === 'number' && minLines > 0) {
           const matchingCount = features.filter((feature) => (
-            feature?.geometry?.type === tool.type
+            feature?.properties?.toolIndex === toolIndex
           )).length
           if (matchingCount < minLines) return false
         }

@@ -84,12 +84,15 @@ describe('helpers > createGeoLineStringInteraction', function () {
     interaction.destroy()
   })
 
-  it('refuses to activate when source already holds activeTool.max_lines LineStrings', function () {
-    // Pre-populate source with 2 LineStrings; tool max_lines is 2.
-    source.addFeature(new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) }))
-    source.addFeature(new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) }))
+  it('refuses to activate when source already holds activeTool.max LineStrings for the active tool', function () {
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 0)
+    const f2 = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    f2.set('toolIndex', 0)
+    source.addFeature(f1)
+    source.addFeature(f2)
 
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max_lines: 2 } }
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 2 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
 
     interaction.setActive(true)
@@ -99,16 +102,14 @@ describe('helpers > createGeoLineStringInteraction', function () {
     interaction.destroy()
   })
 
-  it('deactivates after drawend brings the count to activeTool.max_lines', function () {
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max_lines: 1 } }
+  it('deactivates after drawend brings the count to activeTool.max', function () {
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 1 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
     interaction.setActive(true)
 
     const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
     expect(drawInteraction.getActive()).to.equal(true)
 
-    // OL Draw fires drawend BEFORE adding the feature to source. The handler
-    // must count the in-flight feature, not just what's already in source.
     const feature = new Feature({ geometry: new LineStringGeom([[0, 0], [10, 10]]) })
     drawInteraction.dispatchEvent({ type: 'drawend', feature })
 
@@ -116,15 +117,15 @@ describe('helpers > createGeoLineStringInteraction', function () {
     interaction.destroy()
   })
 
-  it('keeps Draw active when the in-flight feature does not yet hit activeTool.max_lines', function () {
-    // Pre-populate source with 1 LineString; tool max_lines is 3.
-    source.addFeature(new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) }))
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max_lines: 3 } }
+  it('keeps Draw active when the in-flight feature does not yet hit activeTool.max', function () {
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 0)
+    source.addFeature(f1)
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 3 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
     interaction.setActive(true)
 
     const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
-    // Finish a second line (source still holds 1; this would make 2). 2 < 3 so Draw stays active.
     const feature = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
     drawInteraction.dispatchEvent({ type: 'drawend', feature })
 
@@ -132,22 +133,41 @@ describe('helpers > createGeoLineStringInteraction', function () {
     interaction.destroy()
   })
 
-  it('exposes isCapped() reflecting whether the source has hit activeTool.max_lines', function () {
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max_lines: 2 } }
+  it('exposes isCapped() reflecting whether the active tool has hit its max', function () {
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 2 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
 
     expect(interaction.isCapped()).to.equal(false)
-    source.addFeature(new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) }))
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 0)
+    source.addFeature(f1)
     expect(interaction.isCapped()).to.equal(false)
-    source.addFeature(new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) }))
+    const f2 = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    f2.set('toolIndex', 0)
+    source.addFeature(f2)
     expect(interaction.isCapped()).to.equal(true)
     interaction.destroy()
   })
 
-  it('isCapped() returns false when no max_lines is configured', function () {
+  it('isCapped() returns false when no max is configured', function () {
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask, selectInteraction })
     source.addFeature(new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) }))
     source.addFeature(new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) }))
+    expect(interaction.isCapped()).to.equal(false)
+    interaction.destroy()
+  })
+
+  it('isCapped() considers only the active tool — features tagged for another tool do not count', function () {
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 1)
+    const f2 = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    f2.set('toolIndex', 1)
+    source.addFeature(f1)
+    source.addFeature(f2)
+
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 2 } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+
     expect(interaction.isCapped()).to.equal(false)
     interaction.destroy()
   })

@@ -43,26 +43,26 @@ export const WithGeoDrawingLineStringTask = {
   argTypes: {
     min_vertices: {
       control: { type: 'number', min: 0, step: 1 },
-      description: 'Minimum vertices required before the line can be finished. Leave blank for OL\'s default (2).'
+      description: 'Tool 0 (red): minimum vertices required before the line can be finished. Leave blank for OL\'s default (2).'
     },
     max_vertices: {
       control: { type: 'number', min: 0, step: 1 },
-      description: 'Maximum vertices allowed. Once reached, the line auto-finishes. Leave blank for no limit.'
+      description: 'Tool 0 (red): maximum vertices allowed. Once reached, the line auto-finishes. Leave blank for no limit.'
     },
-    min_lines: {
+    min: {
       control: { type: 'number', min: 0, step: 1 },
-      description: 'Minimum number of lines a volunteer must draw with this tool for the task to report complete. Leave blank for 0 (no minimum).'
+      description: 'Tool 0 (red): minimum number of lines a volunteer must draw with this tool for the task to report complete. Leave blank for 0 (no minimum).'
     },
-    max_lines: {
+    max: {
       control: { type: 'number', min: 0, step: 1 },
-      description: 'Maximum number of lines a volunteer can draw with this tool. Once reached, Draw deactivates. Leave blank for no limit.'
+      description: 'Tool 0 (red): maximum number of lines a volunteer can draw with this tool. Once reached, Draw deactivates. Leave blank for no limit.'
     }
   },
   args: {
     min_vertices: undefined,
     max_vertices: undefined,
-    min_lines: undefined,
-    max_lines: undefined,
+    min: undefined,
+    max: undefined,
     geoJSON: {
       type: 'FeatureCollection',
       bbox: [-91.05, 47.96, -90.97, 48.01],
@@ -85,21 +85,27 @@ export const WithGeoDrawingLineStringTask = {
       }
     }
   },
-  render: ({ min_vertices, max_vertices, min_lines, max_lines, ...rest }) => {
-    const tool = {
+  render: ({ min_vertices, max_vertices, min, max, ...rest }) => {
+    const redTool = {
       type: 'LineString',
-      label: 'Dam crest',
-      color: '#00aa55'
+      label: 'Segmented Line',
+      color: '#E65252'
     }
-    if (min_vertices !== undefined && min_vertices !== '') tool.min_vertices = min_vertices
-    if (max_vertices !== undefined && max_vertices !== '') tool.max_vertices = max_vertices
-    if (min_lines !== undefined && min_lines !== '') tool.min_lines = min_lines
-    if (max_lines !== undefined && max_lines !== '') tool.max_lines = max_lines
+    if (min_vertices !== undefined && min_vertices !== '') redTool.min_vertices = min_vertices
+    if (max_vertices !== undefined && max_vertices !== '') redTool.max_vertices = max_vertices
+    if (min !== undefined && min !== '') redTool.min = min
+    if (max !== undefined && max !== '') redTool.max = max
+
+    const orangeTool = {
+      type: 'LineString',
+      label: 'Segmented Line 2',
+      color: '#F1AE45'
+    }
 
     const geoDrawingTask = GeoDrawingTask.create({
       taskKey: 'T0',
       activeToolIndex: 0,
-      tools: [tool],
+      tools: [redTool, orangeTool],
       type: 'geoDrawing'
     })
     return <GeoMapViewer {...rest} geoDrawingTask={geoDrawingTask} />

@@ -1,8 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-// Panoptes returns workflow config values as strings (e.g. min_vertices: '3').
-// Coerce to a finite number; fall back to the supplied fallback (or undefined)
-// when the snapshot is blank or non-numeric so OL Draw uses its own defaults.
+// Panoptes serves workflow config as strings (e.g. min_vertices: '3'); coerce to a finite number.
 function coerceCount(snapshot, fallback) {
   if (snapshot === undefined || snapshot === null || snapshot === '') return fallback
   const n = typeof snapshot === 'number' ? snapshot : Number(snapshot)
@@ -49,9 +47,9 @@ const LineStringTool = types
   .model('LineStringTool', {
     color: types.optional(types.string, ''),
     label: types.optional(types.string, ''),
-    max_lines: MaxLineCount,
+    max: MaxLineCount,
     max_vertices: MaxVertexCount,
-    min_lines: MinLineCount,
+    min: MinLineCount,
     min_vertices: MinVertexCount,
     type: types.literal('LineString')
   })

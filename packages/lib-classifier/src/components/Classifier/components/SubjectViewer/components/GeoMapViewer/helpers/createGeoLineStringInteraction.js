@@ -28,10 +28,12 @@ export function buildSketchStyleFn({ map, featuresLayer, getIsDrawing }) {
   }
 }
 
-function countLineStringFeatures(source) {
-  return source.getFeatures().filter((feature) => (
-    feature.getGeometry?.()?.getType?.() === 'LineString'
-  )).length
+function countLineStringFeaturesForTool(source, toolIndex) {
+  return source.getFeatures().filter((feature) => {
+    if (feature.getGeometry?.()?.getType?.() !== 'LineString') return false
+    if (typeof toolIndex !== 'number') return true
+    return feature.get?.('toolIndex') === toolIndex
+  }).length
 }
 
 function createGeoLineStringInteraction({
@@ -44,13 +46,12 @@ function createGeoLineStringInteraction({
   let isDrawing = false
 
   const activeTool = geoDrawingTask?.activeTool
+  const activeToolIndex = geoDrawingTask?.activeToolIndex
   const minPoints = activeTool?.type === 'LineString' ? activeTool.min_vertices : undefined
   const maxPoints = activeTool?.type === 'LineString' ? activeTool.max_vertices : undefined
+  const featureCountMax = activeTool?.type === 'LineString' ? activeTool.max : undefined
   const effectiveMin = typeof minPoints === 'number' ? minPoints : 2
 
-  // Block clicks that land on an already-placed vertex until min_vertices is
-  // reached, so double/triple-clicking can't stack duplicates. After min,
-  // allow them so OL's native double-click-to-finish can still close the line.
   function isDuplicateVertexClick(event) {
     const sketch = draw.getOverlay().getSource().getFeatures()
       .find(f => f.getGeometry()?.getType() === 'LineString')
@@ -62,8 +63,6 @@ function createGeoLineStringInteraction({
       return p && Math.hypot(p[0] - event.pixel[0], p[1] - event.pixel[1]) <= FEATURE_HIT_TOLERANCE_PX
     })
   }
-
-  const featureCountMax = activeTool?.type === 'LineString' ? activeTool.max_lines : undefined
 
   const draw = new Draw({
     source,
@@ -95,9 +94,8 @@ function createGeoLineStringInteraction({
     const feature = event.feature
     if (!feature) return
 
-    const toolIndex = geoDrawingTask?.activeToolIndex
-    if (typeof toolIndex === 'number') {
-      feature.set('toolIndex', toolIndex)
+    if (typeof activeToolIndex === 'number') {
+      feature.set('toolIndex', activeToolIndex)
     }
 
     if (selectInteraction) {
@@ -112,9 +110,8 @@ function createGeoLineStringInteraction({
       })
     }
 
-    // OL Draw fires drawend BEFORE source.addFeature, so the new line isn't
-    // counted yet. +1 accounts for it.
-    if (typeof featureCountMax === 'number' && countLineStringFeatures(source) + 1 >= featureCountMax) {
+    // drawend fires before source.addFeature, so include the in-flight feature.
+    if (typeof featureCountMax === 'number' && countLineStringFeaturesForTool(source, activeToolIndex) + 1 >= featureCountMax) {
       draw.setActive(false)
     }
   })
@@ -124,7 +121,7 @@ function createGeoLineStringInteraction({
   })
 
   function isCapped() {
-    return typeof featureCountMax === 'number' && countLineStringFeatures(source) >= featureCountMax
+    return typeof featureCountMax === 'number' && countLineStringFeaturesForTool(source, activeToolIndex) >= featureCountMax
   }
 
   return {

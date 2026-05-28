@@ -55,6 +55,23 @@ const ToolIcon = styled(Location)`
   flex-shrink: 0;
 `
 
+function formatLineStringBounds(tool) {
+  if (tool?.type !== 'LineString') return null
+  const min = tool.min ?? 0
+  const max = tool.max
+  const minVertices = tool.min_vertices ?? 2
+  const maxVertices = tool.max_vertices
+  const hasConfiguredBounds = min > 0 || max != null || minVertices > 2 || maxVertices != null
+  if (!hasConfiguredBounds) return null
+  const linesText = max == null
+    ? `${min}+ lines`
+    : (min === max ? `${min} lines` : `${min}-${max} lines`)
+  const pointsText = maxVertices == null
+    ? `${minVertices}+ points per line`
+    : (minVertices === maxVertices ? `${minVertices} points per line` : `${minVertices}-${maxVertices} points per line`)
+  return `${linesText}, ${pointsText}`
+}
+
 function GeoDrawingTask({
   disabled = false,
   task
@@ -123,7 +140,8 @@ function GeoDrawingTask({
         const checked = task.activeToolIndex === index
         const currentRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
         const showUncertaintySlider = task.activeFeature && task.activeOlFeature && tool.uncertainty_circle && currentRadius !== null
-        
+        const boundsText = formatLineStringBounds(tool)
+
         return (
           <ToolLabel key={`${task.taskKey}_${index}`}>
             <HiddenInput
@@ -142,6 +160,11 @@ function GeoDrawingTask({
                   {task.strings.get(`tools.${index}.label`)}
                 </Text>
               </ToolHeader>
+              {boundsText && (
+                <Text size='xsmall' color='text-weak'>
+                  {boundsText}
+                </Text>
+              )}
               {showUncertaintySlider && (
                 <RadiusSlider
                   disabled={!checked || disabled}

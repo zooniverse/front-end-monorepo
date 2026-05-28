@@ -100,24 +100,46 @@ describe('Model > GeoDrawingTask', function () {
     })
   })
 
-  describe('Views > isComplete (per-tool min_lines)', function () {
+  describe('Views > isComplete (per-tool min)', function () {
     const lineStringTaskSnapshot = {
       strings: { instruction: 'Draw a line.' },
       taskKey: 'T0',
       tools: [
-        { label: 'Dam crest', type: 'LineString', min_lines: 1, max_lines: 5, min_vertices: 2, max_vertices: 10 }
+        { label: 'Dam crest', type: 'LineString', min: 1, max: 5, min_vertices: 2, max_vertices: 10 }
       ],
       type: 'geoDrawing'
     }
 
-    it('returns false when annotation has no LineString features and tool.min_lines is 1', function () {
+    it('returns false when annotation has no LineString features and tool.min is 1', function () {
       const task = GeoDrawingTask.create(lineStringTaskSnapshot)
       const annotation = task.defaultAnnotation()
       annotation.update({ type: 'FeatureCollection', features: [] })
       expect(task.isComplete(annotation)).to.equal(false)
     })
 
-    it('returns true when annotation has at least tool.min_lines LineString features', function () {
+    it('returns true when annotation has at least tool.min LineString features tagged for that tool', function () {
+      const task = GeoDrawingTask.create(lineStringTaskSnapshot)
+      const annotation = task.defaultAnnotation()
+      annotation.update({
+        type: 'FeatureCollection',
+        features: [
+          { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] }, properties: { toolIndex: 0 } }
+        ]
+      })
+      expect(task.isComplete(annotation)).to.equal(true)
+    })
+
+    it('does not enforce per-tool min when tool.min is 0', function () {
+      const task = GeoDrawingTask.create({
+        ...lineStringTaskSnapshot,
+        tools: [{ label: 'Dam crest', type: 'LineString' }] // defaults: min = 0
+      })
+      const annotation = task.defaultAnnotation()
+      annotation.update({ type: 'FeatureCollection', features: [] })
+      expect(task.isComplete(annotation)).to.equal(true)
+    })
+
+    it('returns false when features lack properties.toolIndex even if tool count would otherwise be met', function () {
       const task = GeoDrawingTask.create(lineStringTaskSnapshot)
       const annotation = task.defaultAnnotation()
       annotation.update({
@@ -126,30 +148,66 @@ describe('Model > GeoDrawingTask', function () {
           { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] } }
         ]
       })
-      expect(task.isComplete(annotation)).to.equal(true)
-    })
-
-    it('does not enforce per-tool min_lines when tool.min_lines is 0', function () {
-      const task = GeoDrawingTask.create({
-        ...lineStringTaskSnapshot,
-        tools: [{ label: 'Dam crest', type: 'LineString' }] // defaults: min_lines = 0
-      })
-      const annotation = task.defaultAnnotation()
-      annotation.update({ type: 'FeatureCollection', features: [] })
-      expect(task.isComplete(annotation)).to.equal(true)
-    })
-
-    it('counts only features matching the tool type', function () {
-      const task = GeoDrawingTask.create(lineStringTaskSnapshot)
-      const annotation = task.defaultAnnotation()
-      // Only Points; no LineStrings, so the task is incomplete despite features.length > 0
-      annotation.update({
-        type: 'FeatureCollection',
-        features: [
-          { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } }
-        ]
-      })
       expect(task.isComplete(annotation)).to.equal(false)
+    })
+
+    describe('with multiple LineString tools', function () {
+      const twoToolSnapshot = {
+        strings: { instruction: 'Draw both kinds of lines.' },
+        taskKey: 'T0',
+        tools: [
+          { label: 'Red lines', type: 'LineString', color: '#E65252', min: 1, max: 3 },
+          { label: 'Orange lines', type: 'LineString', color: '#F1AE45' }
+        ],
+        type: 'geoDrawing'
+      }
+
+      it('returns false when only tool[1] features exist and tool[0] requires a minimum', function () {
+        const task = GeoDrawingTask.create(twoToolSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] }, properties: { toolIndex: 1 } }
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(false)
+      })
+
+      it('returns true when tool[0] features satisfy its min, regardless of tool[1] count', function () {
+        const task = GeoDrawingTask.create(twoToolSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] }, properties: { toolIndex: 0 } },
+            { type: 'Feature', geometry: { type: 'LineString', coordinates: [[2, 2], [3, 3]] }, properties: { toolIndex: 1 } }
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
+
+      it('counts only the features whose toolIndex matches the tool being checked', function () {
+        const taskSnapshot = {
+          ...twoToolSnapshot,
+          tools: [
+            { label: 'Red lines', type: 'LineString', color: '#E65252', min: 2 },
+            { label: 'Orange lines', type: 'LineString', color: '#F1AE45' }
+          ]
+        }
+        const task = GeoDrawingTask.create(taskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] }, properties: { toolIndex: 0 } },
+            { type: 'Feature', geometry: { type: 'LineString', coordinates: [[2, 2], [3, 3]] }, properties: { toolIndex: 1 } },
+            { type: 'Feature', geometry: { type: 'LineString', coordinates: [[4, 4], [5, 5]] }, properties: { toolIndex: 1 } }
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(false)
+      })
+
     })
   })
 

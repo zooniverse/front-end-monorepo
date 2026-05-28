@@ -32,14 +32,14 @@ describe('Model > LineStringTool', function () {
     expect(tool.max_vertices).to.equal(undefined)
   })
 
-  it('should default min_lines to 0', function () {
+  it('should default min to 0', function () {
     const tool = LineStringTool.create({ type: 'LineString' })
-    expect(tool.min_lines).to.equal(0)
+    expect(tool.min).to.equal(0)
   })
 
-  it('should default max_lines to undefined (no upper bound)', function () {
+  it('should default max to undefined (no upper bound)', function () {
     const tool = LineStringTool.create({ type: 'LineString' })
-    expect(tool.max_lines).to.equal(undefined)
+    expect(tool.max).to.equal(undefined)
   })
 
   describe('with defined properties', function () {
@@ -49,8 +49,8 @@ describe('Model > LineStringTool', function () {
       color: '#00ff00',
       min_vertices: 3,
       max_vertices: 10,
-      min_lines: 1,
-      max_lines: 5
+      min: 1,
+      max: 5
     }
 
     it('should have a color property', function () {
@@ -73,14 +73,14 @@ describe('Model > LineStringTool', function () {
       expect(tool.max_vertices).to.equal(10)
     })
 
-    it('should accept min_lines', function () {
+    it('should accept min', function () {
       const tool = LineStringTool.create(lineStringToolSnapshot)
-      expect(tool.min_lines).to.equal(1)
+      expect(tool.min).to.equal(1)
     })
 
-    it('should accept max_lines', function () {
+    it('should accept max', function () {
       const tool = LineStringTool.create(lineStringToolSnapshot)
-      expect(tool.max_lines).to.equal(5)
+      expect(tool.max).to.equal(5)
     })
   })
 
@@ -112,29 +112,29 @@ describe('Model > LineStringTool', function () {
   })
 
   describe('with line-count bounds as strings (Panoptes JSON)', function () {
-    it('should coerce string min_lines to a number', function () {
-      const tool = LineStringTool.create({ type: 'LineString', min_lines: '3' })
-      expect(tool.min_lines).to.equal(3)
+    it('should coerce string min to a number', function () {
+      const tool = LineStringTool.create({ type: 'LineString', min: '3' })
+      expect(tool.min).to.equal(3)
     })
 
-    it('should coerce string max_lines to a number', function () {
-      const tool = LineStringTool.create({ type: 'LineString', max_lines: '5' })
-      expect(tool.max_lines).to.equal(5)
+    it('should coerce string max to a number', function () {
+      const tool = LineStringTool.create({ type: 'LineString', max: '5' })
+      expect(tool.max).to.equal(5)
     })
 
-    it('should fall back to undefined when max_lines is empty string', function () {
-      const tool = LineStringTool.create({ type: 'LineString', max_lines: '' })
-      expect(tool.max_lines).to.equal(undefined)
+    it('should fall back to undefined when max is empty string', function () {
+      const tool = LineStringTool.create({ type: 'LineString', max: '' })
+      expect(tool.max).to.equal(undefined)
     })
 
-    it('should fall back to the default min_lines when min_lines is empty string', function () {
-      const tool = LineStringTool.create({ type: 'LineString', min_lines: '' })
-      expect(tool.min_lines).to.equal(0)
+    it('should fall back to the default min when min is empty string', function () {
+      const tool = LineStringTool.create({ type: 'LineString', min: '' })
+      expect(tool.min).to.equal(0)
     })
 
-    it('should fall back to undefined when max_lines is non-numeric', function () {
-      const tool = LineStringTool.create({ type: 'LineString', max_lines: 'abc' })
-      expect(tool.max_lines).to.equal(undefined)
+    it('should fall back to undefined when max is non-numeric', function () {
+      const tool = LineStringTool.create({ type: 'LineString', max: 'abc' })
+      expect(tool.max).to.equal(undefined)
     })
   })
 })
