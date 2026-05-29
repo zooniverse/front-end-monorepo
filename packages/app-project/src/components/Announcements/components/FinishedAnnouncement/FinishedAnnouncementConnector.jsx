@@ -9,20 +9,20 @@ import PFE_SLUGS from '../../../../helpers/slugList'
 function useStores() {
   const { store } = useContext(MobXProviderContext)
 
-  const { baseUrl, hasResultsPage, isComplete } = store.project
+  const { hasResultsPage, isComplete } = store.project
 
   return {
-    baseUrl,
     hasResultsPage,
-    isVisible: isComplete
+    isVisible: isComplete,
+    slug: store?.project?.slug
   }
 }
 
 function FinishedAnnouncementConnector() {
   const { t } = useTranslation('components')
-  const { baseUrl = '', hasResultsPage = true, isVisible = false } = useStores()
+  const { hasResultsPage = true, isVisible = false, slug } = useStores()
 
-  const slugArr = baseUrl.split('/')
+  const slugArr = slug?.split('/')
   const owner = slugArr?.[0]
   const projectName = slugArr?.[1]
 
@@ -30,7 +30,7 @@ function FinishedAnnouncementConnector() {
 
   const announcement = t('Announcements.FinishedAnnouncement.announcement')
   const link = {
-    href: isPFEProject ? `https://www.zooniverse.org/projects${baseUrl}/about/results` : `${baseUrl}/about/results`,
+    href: isPFEProject ? `https://www.zooniverse.org/projects/${slug}/about/results` : `/${slug}/about/results`,
     text: t('Announcements.FinishedAnnouncement.seeResults'),
     externalLink: isPFEProject
   }
