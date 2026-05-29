@@ -2,6 +2,7 @@ import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import initStore from '@stores'
 import ProjectHeader from './ProjectHeader'
 
@@ -40,20 +41,19 @@ export default {
   decorators: [NextRouterStory]
 }
 
-export function NotLoggedIn({ adminMode, className, project }) {
+export function NotLoggedIn({ className, project }) {
   const snapshot = {
     project
   }
   applySnapshot(NotLoggedIn.store, snapshot)
   return (
     <Provider store={NotLoggedIn.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 NotLoggedIn.store = initStore(true)
 NotLoggedIn.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -75,7 +75,7 @@ NotLoggedIn.args = {
   }
 }
 
-export function LoggedIn({ adminMode, className, project }) {
+export function LoggedIn({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -87,13 +87,12 @@ export function LoggedIn({ adminMode, className, project }) {
   applySnapshot(LoggedIn.store, snapshot)
   return (
     <Provider store={LoggedIn.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 LoggedIn.store = initStore(true)
 LoggedIn.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -115,7 +114,7 @@ LoggedIn.args = {
   }
 }
 
-export function InBeta({ adminMode, className, project }) {
+export function InBeta({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -133,7 +132,6 @@ export function InBeta({ adminMode, className, project }) {
 }
 InBeta.store = initStore(true)
 InBeta.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -157,7 +155,7 @@ InBeta.args = {
   }
 }
 
-export function LaunchApproved({ adminMode, className, project }) {
+export function LaunchApproved({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -175,7 +173,6 @@ export function LaunchApproved({ adminMode, className, project }) {
 }
 LaunchApproved.store = initStore(true)
 LaunchApproved.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -199,7 +196,7 @@ LaunchApproved.args = {
   }
 }
 
-export function AdminMode({ adminMode, className, project }) {
+export function AdminMode({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -211,13 +208,14 @@ export function AdminMode({ adminMode, className, project }) {
   applySnapshot(AdminMode.store, snapshot)
   return (
     <Provider store={AdminMode.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <PanoptesAuthContext.Provider value={{ adminMode: true, toggleAdmin: () => {}, user: { admin: true } }}>
+        <ProjectHeader className={className} />
+      </PanoptesAuthContext.Provider>
     </Provider>
   )
 }
 AdminMode.store = initStore(true)
 AdminMode.args = {
-  adminMode: true,
   className: '',
   project: {
     avatar: {
@@ -239,7 +237,7 @@ AdminMode.args = {
   }
 }
 
-export function DefaultWorkflow({ adminMode, className, project }) {
+export function DefaultWorkflow({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -251,13 +249,12 @@ export function DefaultWorkflow({ adminMode, className, project }) {
   applySnapshot(DefaultWorkflow.store, snapshot)
   return (
     <Provider store={DefaultWorkflow.store}>
-      <ProjectHeader adminMode={adminMode} className={className} />
+      <ProjectHeader className={className} />
     </Provider>
   )
 }
 DefaultWorkflow.store = initStore(true)
 DefaultWorkflow.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -279,7 +276,7 @@ DefaultWorkflow.args = {
   }
 }
 
-export function MultipleLanguages({ adminMode, className, project }) {
+export function MultipleLanguages({ className, project }) {
   const snapshot = {
     project,
     user: {
@@ -299,7 +296,6 @@ export function MultipleLanguages({ adminMode, className, project }) {
 }
 MultipleLanguages.store = initStore(true)
 MultipleLanguages.args = {
-  adminMode: false,
   className: '',
   project: {
     avatar: {
@@ -337,7 +333,6 @@ export function OrganizationLink({ organizations, project }) {
 }
 OrganizationLink.store = initStore(true)
 OrganizationLink.args = {
-  adminMode: false,
   className: '',
   organizations: ORGANIZATIONS,
   project: {

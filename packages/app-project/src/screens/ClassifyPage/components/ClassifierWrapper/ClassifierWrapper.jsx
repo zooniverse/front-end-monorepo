@@ -2,12 +2,12 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
-import { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import { Loader } from '@zooniverse/react-components'
 
-import { useAdminMode } from '@hooks'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import addQueryParams from '@helpers/addQueryParams'
 import logToSentry from '@helpers/logger/logToSentry'
 import ErrorMessage from './components/ErrorMessage'
@@ -47,7 +47,7 @@ export default function ClassifierWrapper({
   userID,
   workflowID
 }) {
-  const { adminMode } = useAdminMode()
+  const { adminMode } = useContext(PanoptesAuthContext)
   const nextRouter = useRouter()
   router = router || nextRouter
   const locale = router?.locale
