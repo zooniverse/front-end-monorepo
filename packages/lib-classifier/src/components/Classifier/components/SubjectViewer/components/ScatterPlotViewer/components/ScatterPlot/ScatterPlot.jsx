@@ -46,6 +46,10 @@ const TRANSFORM_MATRIX = {
   translateY: 0
 }
 
+// Adds a 5% buffer around the data points, so the points with min/max don't
+// get "stuck" at the edges of the chart. 
+const BUFFER_PERCENTAGE_FOR_DATA_EXTENT = 0.05
+
 export default function ScatterPlot({
   axisColor = '',
   backgroundColor = '',
@@ -107,9 +111,9 @@ export default function ScatterPlot({
   }
 
   const dataPoints = getDataPoints(data)
-  const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
+  const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
-  const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
+  const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
   const sortedDataPoints = sortDataPointsByHighlight(dataPoints, highlightedSeries)
 
