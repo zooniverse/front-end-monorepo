@@ -114,25 +114,27 @@ function calcDaysToCompletion(erasData, workflow) {
 }
 
 async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workflowOrder) {
-  // order is specified by the project owner in the project builder. If no order specified it's [].
+  /*
+    Workflow order is specified by the project owner in the project builder. If no order specified it's [].
+    Note that the LevelingUpButtons also sort / filter active workflows in that UI.
+    This helper function only reads the workflow order determined in the project builder.
+    Have the project owner order the workflows in the project builder as they'd like.
+  */
 
   // include only the active workflow ids
-  let workflowIDsInOrder = workflowOrder.map(orderID => {
-    if (workflowIDs.find(activeID => activeID === orderID)) {
-      return orderID
+  let workflowIDsInOrder = []
+  workflowOrder.forEach(id => {
+    if (workflowIDs.includes(id)) {
+      workflowIDsInOrder.push(id)
     }
   })
 
   // Append any active workflow ids that exist but do not appear in the order
   workflowIDs.forEach(id => {
-    if (workflowOrder.indexOf(id) === -1) {
+    if (!workflowOrder.includes(id)) {
       workflowIDsInOrder.push(id)
     }
   })
-
-  // Note that the LevelingUpButtons also sort / filter active workflows in that UI.
-  // This helper function only reads the workflow order determined in the project builder.
-  // Have the project owner order the workflows in the project builder as they'd like.
 
   // Fetch workflow data from Panoptes API
   const workflows = await fetchWorkflowData(workflowIDsInOrder, env)
