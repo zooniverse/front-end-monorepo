@@ -92,7 +92,7 @@ describe('helpers > createGeoLineStringInteraction', function () {
     source.addFeature(f1)
     source.addFeature(f2)
 
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 2 } }
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 2 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
 
     interaction.setActive(true)
@@ -103,7 +103,7 @@ describe('helpers > createGeoLineStringInteraction', function () {
   })
 
   it('deactivates after drawend brings the count to activeTool.max', function () {
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 1 } }
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 1 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
     interaction.setActive(true)
 
@@ -121,7 +121,7 @@ describe('helpers > createGeoLineStringInteraction', function () {
     const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
     f1.set('toolIndex', 0)
     source.addFeature(f1)
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 3 } }
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 3 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
     interaction.setActive(true)
 
@@ -134,7 +134,7 @@ describe('helpers > createGeoLineStringInteraction', function () {
   })
 
   it('exposes isCapped() reflecting whether the active tool has hit its max', function () {
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 2 } }
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 2 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
 
     expect(interaction.isCapped()).to.equal(false)
@@ -165,7 +165,7 @@ describe('helpers > createGeoLineStringInteraction', function () {
     source.addFeature(f1)
     source.addFeature(f2)
 
-    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'LineString', max: 2 } }
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 2 } }
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
 
     expect(interaction.isCapped()).to.equal(false)

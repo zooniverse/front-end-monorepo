@@ -105,7 +105,7 @@ describe('Model > GeoDrawingTask', function () {
       strings: { instruction: 'Draw a line.' },
       taskKey: 'T0',
       tools: [
-        { label: 'Dam crest', type: 'LineString', min: 1, max: 5, min_vertices: 2, max_vertices: 10 }
+        { label: 'Dam crest', type: 'SegmentedLine', min: 1, max: 5, min_vertices: 2, max_vertices: 10 }
       ],
       type: 'geoDrawing'
     }
@@ -132,7 +132,7 @@ describe('Model > GeoDrawingTask', function () {
     it('does not enforce per-tool min when tool.min is 0', function () {
       const task = GeoDrawingTask.create({
         ...lineStringTaskSnapshot,
-        tools: [{ label: 'Dam crest', type: 'LineString' }] // defaults: min = 0
+        tools: [{ label: 'Dam crest', type: 'SegmentedLine' }] // defaults: min = 0
       })
       const annotation = task.defaultAnnotation()
       annotation.update({ type: 'FeatureCollection', features: [] })
@@ -151,13 +151,13 @@ describe('Model > GeoDrawingTask', function () {
       expect(task.isComplete(annotation)).to.equal(false)
     })
 
-    describe('with multiple LineString tools', function () {
+    describe('with multiple SegmentedLine tools', function () {
       const twoToolSnapshot = {
         strings: { instruction: 'Draw both kinds of lines.' },
         taskKey: 'T0',
         tools: [
-          { label: 'Red lines', type: 'LineString', color: '#E65252', min: 1, max: 3 },
-          { label: 'Orange lines', type: 'LineString', color: '#F1AE45' }
+          { label: 'Red lines', type: 'SegmentedLine', color: '#E65252', min: 1, max: 3 },
+          { label: 'Orange lines', type: 'SegmentedLine', color: '#F1AE45' }
         ],
         type: 'geoDrawing'
       }
@@ -191,8 +191,8 @@ describe('Model > GeoDrawingTask', function () {
         const taskSnapshot = {
           ...twoToolSnapshot,
           tools: [
-            { label: 'Red lines', type: 'LineString', color: '#E65252', min: 2 },
-            { label: 'Orange lines', type: 'LineString', color: '#F1AE45' }
+            { label: 'Red lines', type: 'SegmentedLine', color: '#E65252', min: 2 },
+            { label: 'Orange lines', type: 'SegmentedLine', color: '#F1AE45' }
           ]
         }
         const task = GeoDrawingTask.create(taskSnapshot)

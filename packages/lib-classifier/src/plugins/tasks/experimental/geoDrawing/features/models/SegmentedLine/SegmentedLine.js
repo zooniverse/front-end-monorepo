@@ -7,8 +7,8 @@ import Circle from 'ol/style/Circle'
 
 const DEFAULT_COLOR = '#007bff'
 
-const LineString = types
-  .model('LineString', {
+const SegmentedLine = types
+  .model('SegmentedLine', {
     type: types.literal('Feature'),
     geometry: types.model({
       type: types.literal('LineString'),
@@ -47,7 +47,7 @@ const LineString = types
       if (!tools) return undefined
       const toolIndex = feature?.get?.('toolIndex')
       const indexedTool = typeof toolIndex === 'number' ? tools[toolIndex] : undefined
-      return indexedTool || tools.find(tool => tool.type === 'LineString')
+      return indexedTool || tools.find(tool => tool.type === 'SegmentedLine')
     },
 
     getStyles({
@@ -87,4 +87,4 @@ const LineString = types
     }
   }))
 
-export default LineString
+export default SegmentedLine

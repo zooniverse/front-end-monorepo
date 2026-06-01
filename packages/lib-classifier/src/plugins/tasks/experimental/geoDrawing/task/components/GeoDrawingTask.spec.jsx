@@ -14,7 +14,7 @@ function buildLineStringTask(toolOverrides = {}) {
     },
     taskKey: 'T0',
     tools: [
-      { color: '#E65252', label: 'Segmented Line', type: 'LineString', ...toolOverrides }
+      { color: '#E65252', label: 'Segmented Line', type: 'SegmentedLine', ...toolOverrides }
     ],
     type: 'geoDrawing'
   })
@@ -116,8 +116,8 @@ describe('Component > GeoDrawingTask', function () {
         },
         taskKey: 'T0',
         tools: [
-          { color: '#E65252', label: 'Segmented Line', type: 'LineString', min: 1, max: 3, min_vertices: 3, max_vertices: 10 },
-          { color: '#F1AE45', label: 'Segmented Line 2', type: 'LineString' }
+          { color: '#E65252', label: 'Segmented Line', type: 'SegmentedLine', min: 1, max: 3, min_vertices: 3, max_vertices: 10 },
+          { color: '#F1AE45', label: 'Segmented Line 2', type: 'SegmentedLine' }
         ],
         type: 'geoDrawing'
       })

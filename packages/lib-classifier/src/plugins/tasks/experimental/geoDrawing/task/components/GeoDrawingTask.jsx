@@ -56,7 +56,7 @@ const ToolIcon = styled(Location)`
 `
 
 function formatLineStringBounds(tool) {
-  if (tool?.type !== 'LineString') return null
+  if (tool?.type !== 'SegmentedLine') return null
   const min = tool.min ?? 0
   const max = tool.max
   const minVertices = tool.min_vertices ?? 2

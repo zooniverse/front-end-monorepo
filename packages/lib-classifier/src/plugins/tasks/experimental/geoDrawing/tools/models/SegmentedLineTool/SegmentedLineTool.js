@@ -43,15 +43,15 @@ const MaxLineCount = types.snapshotProcessor(
   }
 )
 
-const LineStringTool = types
-  .model('LineStringTool', {
+const SegmentedLineTool = types
+  .model('SegmentedLineTool', {
     color: types.optional(types.string, ''),
     label: types.optional(types.string, ''),
     max: MaxLineCount,
     max_vertices: MaxVertexCount,
     min: MinLineCount,
     min_vertices: MinVertexCount,
-    type: types.literal('LineString')
+    type: types.literal('SegmentedLine')
   })
 
-export default LineStringTool
+export default SegmentedLineTool

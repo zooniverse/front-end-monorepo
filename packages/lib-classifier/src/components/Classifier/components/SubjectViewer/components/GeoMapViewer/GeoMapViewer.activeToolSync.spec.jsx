@@ -51,8 +51,8 @@ describe('Component > GeoMapViewer — activeToolIndex sync (observer wrap + per
       },
       taskKey: 'T0',
       tools: [
-        { color: '#E65252', label: 'Segmented Line', type: 'LineString', min: 1, max: 3, min_vertices: 3 },
-        { color: '#F1AE45', label: 'Segmented Line 2', type: 'LineString' }
+        { color: '#E65252', label: 'Segmented Line', type: 'SegmentedLine', min: 1, max: 3, min_vertices: 3 },
+        { color: '#F1AE45', label: 'Segmented Line 2', type: 'SegmentedLine' }
       ],
       type: 'geoDrawing'
     })

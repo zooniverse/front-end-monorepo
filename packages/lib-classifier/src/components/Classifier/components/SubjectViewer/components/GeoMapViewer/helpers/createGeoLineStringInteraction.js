@@ -47,9 +47,9 @@ function createGeoLineStringInteraction({
 
   const activeTool = geoDrawingTask?.activeTool
   const activeToolIndex = geoDrawingTask?.activeToolIndex
-  const minPoints = activeTool?.type === 'LineString' ? activeTool.min_vertices : undefined
-  const maxPoints = activeTool?.type === 'LineString' ? activeTool.max_vertices : undefined
-  const featureCountMax = activeTool?.type === 'LineString' ? activeTool.max : undefined
+  const minPoints = activeTool?.type === 'SegmentedLine' ? activeTool.min_vertices : undefined
+  const maxPoints = activeTool?.type === 'SegmentedLine' ? activeTool.max_vertices : undefined
+  const featureCountMax = activeTool?.type === 'SegmentedLine' ? activeTool.max : undefined
   const effectiveMin = typeof minPoints === 'number' ? minPoints : 2
 
   function isDuplicateVertexClick(event) {

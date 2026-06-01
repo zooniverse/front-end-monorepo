@@ -1,2 +1,2 @@
-export { default as LineString } from './LineString'
+export { default as SegmentedLine } from './SegmentedLine'
 export { default as Point } from './Point'

@@ -612,7 +612,7 @@ function GeoMapViewer({
   const activeToolType = geoDrawingTask?.activeTool?.type
   const activeToolIndex = geoDrawingTask?.activeToolIndex
   useEffect(function exitMeasureOnDrawingToolSelect() {
-    if (activeToolType === 'LineString' && isMeasureModeActiveRef.current) {
+    if (activeToolType === 'SegmentedLine' && isMeasureModeActiveRef.current) {
       measureInteractionRef.current?.clear()
       setIsMeasureModeActive(false)
     }
@@ -621,7 +621,7 @@ function GeoMapViewer({
   // OL Draw fixes minPoints/maxPoints at construction, so recreate per active tool.
   useEffect(function manageLineStringDraw() {
     if (!mapRef.current || !featuresRef.current) return undefined
-    if (activeToolType !== 'LineString' || !geoDrawingTask) return undefined
+    if (activeToolType !== 'SegmentedLine' || !geoDrawingTask) return undefined
 
     const interaction = createGeoLineStringInteraction({
       map: mapRef.current,

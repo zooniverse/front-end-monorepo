@@ -87,7 +87,7 @@ export const WithGeoDrawingLineStringTask = {
   },
   render: ({ min_vertices, max_vertices, min, max, ...rest }) => {
     const redTool = {
-      type: 'LineString',
+      type: 'SegmentedLine',
       label: 'Segmented Line',
       color: '#E65252'
     }
@@ -97,7 +97,7 @@ export const WithGeoDrawingLineStringTask = {
     if (max !== undefined && max !== '') redTool.max = max
 
     const orangeTool = {
-      type: 'LineString',
+      type: 'SegmentedLine',
       label: 'Segmented Line 2',
       color: '#F1AE45'
     }
