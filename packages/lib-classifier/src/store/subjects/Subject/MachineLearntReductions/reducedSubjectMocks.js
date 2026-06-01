@@ -118,3 +118,39 @@ export const reducedSubjectMocks = [
     y_center: 295
   }
 ]
+
+// Mark on a different step/task/tool to test multi-index routing
+export const multiIndexMock = {
+  stepKey: 'S1',
+  taskIndex: 1,
+  taskKey: 'T1',
+  taskType: 'drawing',
+  toolIndex: 2,
+  toolType: 'point',
+  frame: 0,
+  markId: 'multiIdx1',
+  x: 100,
+  y: 200
+}
+
+// Marks with no stepKey/taskIndex/toolIndex to test defaulting behavior
+export const minimalKeysMocks = [
+  // point with no routing keys at all
+  {
+    toolType: 'point',
+    frame: 0,
+    markId: 'minimal1',
+    x: 50,
+    y: 75
+  },
+  // circle with only stepKey, missing taskIndex and toolIndex
+  {
+    stepKey: 'S0',
+    toolType: 'circle',
+    frame: 0,
+    markId: 'minimal2',
+    r: 50,
+    x_center: 200,
+    y_center: 200
+  }
+]

@@ -12,7 +12,7 @@ const MachineLearntReductions = types
   })
   .views(self => {
     return {
-      findCurrentTaskMarks({ stepKey }) {
+      findCurrentTaskMarks({ stepKey, workflow }) {
         if (stepKey === undefined) {
           return
         }
@@ -23,8 +23,15 @@ const MachineLearntReductions = types
           let { data } = reduction.data   // Caesar expects data attribute to be an object
 
           data.forEach(datum => {
-            if (datum.stepKey === stepKey) {
-              caesarMarks.push(datum)
+            const mark = {
+              ...datum,
+              // Stepless Caesar data attaches to the workflow's first step. See PR #7319.
+              stepKey: datum.stepKey ?? workflow?.steps?.[0]?.[0],
+              taskIndex: datum.taskIndex ?? 0,
+              toolIndex: datum.toolIndex ?? 0,
+            }
+            if (mark.stepKey === stepKey) {
+              caesarMarks.push(mark)
             }
           })
         })
