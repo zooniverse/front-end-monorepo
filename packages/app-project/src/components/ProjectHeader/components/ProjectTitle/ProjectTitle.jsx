@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { useStores } from '../../hooks'
 
 import addQueryParams from '@helpers/addQueryParams'
+import PFE_SLUGS from '../../../../helpers/slugList'
 
 const StyledHeading = styled(Heading)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
@@ -28,8 +29,15 @@ const StyledAnchor = styled(Anchor)`
 function ProjectTitle({ textAlign = 'start', title = '' }) {
   const router = useRouter()
   const { slug } = useStores()
+
+  const slugArr = slug.split('/')
+  const owner = slugArr?.[0]
+  const projectName = slugArr?.[1]
+
+  const isPFEProject = PFE_SLUGS.includes(`${owner}/${projectName}`)
+
   const linkProps = {
-    href: addQueryParams(`/${slug}`)
+    href: isPFEProject ? `https://www.zooniverse.org/projects/${slug}` : addQueryParams(`/${slug}`)
   }
 
   const isCurrentPage = router?.isReady && router?.asPath === linkProps.href
@@ -42,7 +50,7 @@ function ProjectTitle({ textAlign = 'start', title = '' }) {
     )
   } else {
     return (
-      <StyledAnchor forwardedAs={Link} {...linkProps}>
+      <StyledAnchor forwardedAs={isPFEProject? Anchor : Link} {...linkProps}>
         <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
           {title}
         </StyledHeading>

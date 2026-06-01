@@ -35,10 +35,6 @@ const Project = types
   })
 
   .views(self => ({
-    get baseUrl() {
-      return `/${self.slug}`
-    },
-
     get defaultWorkflow() {
       const activeWorkflows = self.links['active_workflows']
       let singleActiveWorkflow

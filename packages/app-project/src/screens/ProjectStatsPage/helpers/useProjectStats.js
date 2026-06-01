@@ -2,7 +2,8 @@ import { env } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
 const SWROptions = {
-  keepPreviousData: true, // Show previous data with a placeholder overtop when isLoading or isValidating
+  // keepPreviousData: true, // Ideally we'd be able to use this for the UX, but because BarChart calculates compeleteData
+  // based on endDate and startDate, those props change before previousData resolves to data, and causes mismatches in Grommet's DataChart :(
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: false,
