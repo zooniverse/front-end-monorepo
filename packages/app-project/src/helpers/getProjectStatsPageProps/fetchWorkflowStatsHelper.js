@@ -114,30 +114,8 @@ function calcDaysToCompletion(erasData, workflow) {
 }
 
 async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workflowOrder) {
-  /*
-    Workflow order is specified by the project owner in the project builder. If no order specified it's [].
-    Note that the LevelingUpButtons also sort / filter active workflows in that UI.
-    This helper function only reads the workflow order determined in the project builder.
-    Have the project owner order the workflows in the project builder as they'd like.
-  */
-
-  // include only the active workflow ids
-  let workflowIDsInOrder = []
-  workflowOrder.forEach(id => {
-    if (workflowIDs.includes(id)) {
-      workflowIDsInOrder.push(id)
-    }
-  })
-
-  // Append any active workflow ids that exist but do not appear in the order
-  workflowIDs.forEach(id => {
-    if (!workflowOrder.includes(id)) {
-      workflowIDsInOrder.push(id)
-    }
-  })
-
   // Fetch workflow data from Panoptes API
-  const workflows = await fetchWorkflowData(workflowIDsInOrder, env)
+  const workflows = await fetchWorkflowData(workflowIDs, env)
 
   // Workflows can be hidden via "show on stats page" checkbox in the project builder
   const filteredWorkflows = workflows.filter(
@@ -180,7 +158,29 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workf
     promiseResult => promiseResult.value || promiseResult.reason
   )
 
-  return workflowsWithETC
+  /*
+    workflowOrder is specified by the project owner in the project builder. If no order specified it's [].
+    We must read that order after fetching workflow data from panoptes API, bc the fetchDisplayNames() function
+    uses a map strategy. No order guaranteed there.
+  */
+
+  const workflowsByID = {}
+  workflowsWithETC.forEach(workflow => {
+    workflowsByID[workflow.id] = workflow
+  })
+
+  const workflowsInOrder = workflowOrder
+    .map(workflowID => workflowsByID[workflowID])
+    .filter(Boolean)
+
+  // Append any workflows that exist but do not appear in the order.
+  workflowsWithETC.forEach(workflow => {
+    if (workflowsInOrder.indexOf(workflow) === -1) {
+      workflowsInOrder.push(workflow)
+    }
+  })
+
+  return workflowsInOrder
 }
 
 export default fetchWorkflowStatsHelper
