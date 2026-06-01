@@ -113,8 +113,29 @@ function calcDaysToCompletion(erasData, workflow) {
   return numDays
 }
 
-async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
-  const workflows = await fetchWorkflowData(workflowIDs, env)
+async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workflowOrder) {
+  // order is specified by the project owner in the project builder. If no order specified it's [].
+
+  // include only the active workflow ids
+  let workflowIDsInOrder = workflowOrder.map(orderID => {
+    if (workflowIDs.find(activeID => activeID === orderID)) {
+      return orderID
+    }
+  })
+
+  // Append any active workflow ids that exist but do not appear in the order
+  workflowIDs.forEach(id => {
+    if (workflowOrder.indexOf(id) === -1) {
+      workflowIDsInOrder.push(id)
+    }
+  })
+
+  // Note that the LevelingUpButtons also sort / filter active workflows in that UI.
+  // This helper function only reads the workflow order determined in the project builder.
+  // Have the project owner order the workflows in the project builder as they'd like.
+
+  // Fetch workflow data from Panoptes API
+  const workflows = await fetchWorkflowData(workflowIDsInOrder, env)
 
   // Workflows can be hidden via "show on stats page" checkbox in the project builder
   const filteredWorkflows = workflows.filter(
@@ -157,8 +178,7 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
     promiseResult => promiseResult.value || promiseResult.reason
   )
 
-  // Sort into array of ascending completeness
-  return workflowsWithETC.toSorted((a, b) => a.completeness - b.completeness)
+  return workflowsWithETC
 }
 
 export default fetchWorkflowStatsHelper
