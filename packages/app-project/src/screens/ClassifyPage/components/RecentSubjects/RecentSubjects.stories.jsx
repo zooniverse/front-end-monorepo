@@ -114,3 +114,15 @@ export function OneSubject({ isLoggedIn }) {
     </Provider>
   )
 }
+
+export function NoSubjects({ isLoggedIn }) {
+  return (
+    <Provider store={CollectionsStoreMock}>
+      <RecentSubjects
+        isLoggedIn={isLoggedIn}
+        recents={[]}
+        slug='zooniverse/snapshot-serengeti'
+      />
+    </Provider>
+  )
+}
