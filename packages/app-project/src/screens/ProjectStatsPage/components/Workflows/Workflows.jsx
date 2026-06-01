@@ -10,56 +10,68 @@ import ContentBox from '@shared/components/ContentBox'
 
 const WorkflowContainer = styled(Box)`
   flex-direction: row;
-  gap: 15px;
-  padding: 20px 20px 30px;
+  gap: 10px;
+  padding: 20px 15px;
   align-items: center;
 
   @media (width < 64rem) {
-    padding: 10px 15px 15px;
-    gap: 10px;
+    padding: 10px 15px;
+  }
+
+  @media (width < 500px) {
+    flex-direction: column;
   }
 `
 
 const WorkflowNameContainer = styled(Box)`
-  width: 45%;
+  width: 50%;
 
   @media (width < 64rem) {
     width: 60%;
   }
 
   @media (width < 769px) {
-    width: 45%;
+    width: 50%;
+  }
+
+  @media (width < 500px) {
+    width: 100%;
   }
 
   & > h4 {
     font-size: 1rem;
     line-height: 1.2;
-
-    @media (width < 769px) {
-      font-size: 0.875rem;
-    }
   }
 `
 
 const StatsContainerBox = styled(Box)`
-  flex-direction: row;
-  width: 55%;
-  justify-content: flex-end;
-  align-content: center;
-  gap: 15px;
+  flex-direction: column;
+  width: 50%;
+  gap: 10px;
 
   @media (width < 64rem) {
     width: 40%;
     flex-direction: column;
     gap: 0;
-
-    .span {
-      font-size: 0.75rem;
-    }
   }
 
   @media (width < 769px) {
-    width: 55%;
+    width: 50%;
+  }
+
+  @media (width < 500px) {
+    width: 100%;
+  }
+`
+
+const StatsBox = styled(Box)`
+  flex-direction: row;
+  gap: 12px;
+  justify-content: flex-end;
+
+  @media (width < 64rem) {
+    flex-direction: column;
+    gap: 3px;
   }
 `
 
@@ -82,9 +94,13 @@ function Workflows({ workflows = [] }) {
       border={{ size: size === 'small' ? '0' : 'thin' }}
     >
       <Box gap='15px'>
-        {workflows.length === 0 ? <Box width='100%' pad={{ vertical: 'large'}}>
-          <SpacedText weight={700} width='100%' textAlign='center'>{t('ProjectStats.workflows.empty')}</SpacedText>
-        </Box>: null}
+        {workflows.length === 0 ? (
+          <Box width='100%' pad={{ vertical: 'large' }}>
+            <SpacedText weight={700} width='100%' textAlign='center'>
+              {t('ProjectStats.workflows.empty')}
+            </SpacedText>
+          </Box>
+        ) : null}
         {workflows?.map(workflow => (
           <Box border={{ color: 'light-5', size: '0.5px' }} key={workflow.id}>
             <Box height='10px' width='100%'>
@@ -107,41 +123,69 @@ function Workflows({ workflows = [] }) {
                 </Heading>
               </WorkflowNameContainer>
               <StatsContainerBox>
-                <Text color={{ light: 'dark-4', dark: 'white' }}>
-                  {t('ProjectStats.workflows.percentComplete', {
-                    percent: Math.round(workflow?.completeness * 100)
-                  })}
-                </Text>
-                {workflow?.completeness === 1 ? null : (
-                  <Box direction='row' gap='3px'>
-                    <Tip
-                      content={<Text color='white'>{t('ProjectStats.workflows.tip')}</Text>}
-                      plain
-                      dropProps={{
-                        align: { top: 'bottom' },
-                        background: 'dark-4',
-                        round: '5px',
-                        pad: '5px'
-                      }}
-                    >
-                      <Button plain icon={<CircleInformation size='0.75rem' />} />
-                    </Tip>
-                    <Text color={{ light: 'dark-4', dark: 'white' }}>
-                      ETC: {nf.format(workflow?.etc)}
+                <StatsBox>
+                  <Text color={{ light: 'dark-4', dark: 'white' }} size='1rem'>
+                    {t('ProjectStats.workflows.percentComplete', {
+                      percent: Math.round(workflow?.completeness * 100)
+                    })}
+                  </Text>
+                  <Text color={{ light: 'dark-4', dark: 'white' }} size='1rem'>
+                    {t('ProjectStats.workflows.subjectsRetired', {
+                      retired:
+                        workflow?.retired_set_member_subjects_count.toLocaleString(localeCode),
+                      total: workflow?.subjects_count.toLocaleString(localeCode)
+                    })}
+                  </Text>
+                  {/*
+                  Only show the ETC if retirement is based on classification count per subject (and the workflow isn't complete).
+                  Other options are 'never_retire' such as in Leveling Up workflows.
+                */}
+                  {workflow?.completeness !== 1 &&
+                  workflow?.retirement?.criteria === 'classification_count' ? (
+                    <Box direction='row' gap='3px'>
+                      <Tip
+                        content={<Text color='white'>{t('ProjectStats.workflows.tip')}</Text>}
+                        plain
+                        dropProps={{
+                          align: { top: 'bottom' },
+                          background: 'dark-4',
+                          round: '5px',
+                          pad: '5px'
+                        }}
+                      >
+                        <Button plain icon={<CircleInformation size='0.75rem' />} />
+                      </Tip>
+                      <Text color={{ light: 'dark-4', dark: 'white' }} size='1rem'>
+                        ETC: {nf.format(workflow?.etc)}
+                      </Text>
+                    </Box>
+                  ) : null}
+                </StatsBox>
+                <StatsBox>
+                  {/*
+                  stats_completeness_type is changed per workflow in the project builder "Completeness Statistic".
+                  If a workflow is configured as such, show the number of classifications needed to retire all subject
+                  in the workflow, aka "complete" it.
+                */}
+                  {workflow?.configuration?.stats_completeness_type === 'classification' &&
+                  workflow?.completeness !== 1 ? (
+                    <Text color={{ light: 'dark-4', dark: 'white' }} size='1rem'>
+                      {t('ProjectStats.count')}: {workflow.classifications_count}/
+                      {workflow.subjects_count * workflow.retirement?.options?.count}
                     </Text>
-                  </Box>
-                )}
-                <Text color={{ light: 'dark-4', dark: 'white' }}>
-                  {t('ProjectStats.workflows.subjectsRetired', {
-                    retired: workflow?.retired_set_member_subjects_count.toLocaleString(localeCode),
-                    total: workflow?.subjects_count.toLocaleString(localeCode)
-                  })}
-                </Text>
-                <Text color={{ light: 'dark-4', dark: 'white' }}>
-                  {t('ProjectStats.workflows.retireLimit', {
-                    number: workflow?.retirement?.options?.count
-                  })}
-                </Text>
+                  ) : null}
+                  {/*
+                  Only show the retirement limit if retirement is based on classification count per subject.
+                  Other options are 'never_retire' such as in Leveling Up workflows.
+                */}
+                  {workflow?.retirement?.criteria === 'classification_count' ? (
+                    <Text color={{ light: 'dark-4', dark: 'white' }} size='1rem'>
+                      {t('ProjectStats.workflows.retireLimit', {
+                        number: workflow?.retirement?.options?.count
+                      })}
+                    </Text>
+                  ) : null}
+                </StatsBox>
               </StatsContainerBox>
             </WorkflowContainer>
           </Box>
