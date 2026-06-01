@@ -14,7 +14,7 @@ The Scatter Plot Viewer...
 ## Props
 
 - `data` _(object)_ Required. This should be set by the data property in the location JSON of the subject. See the section on [JSON file](#JSON_file) for more information on the allowed data formats for the data series.
-- `dataPointSize` _(number)_ Default: `25`. The size of the SVG glyph icon. Not available to configure via the subject location JSON's `chartOptions` property.
+- `dataPointSize` _(number)_ Default: `25`. The _default_ size of the SVG glyph icon. ~~Not available to configure via the subject location JSON's `chartOptions` property.~~ (Advanced note: the size of data points on _individual data series_ can be configured via `seriesOptions.pointSize`. See below. 👇)
 - `invertAxes` _(object)_ Default: `{ x: false, y: false }`. Booleans to set whether or not the x-axis or y-axis is inverted.
 - `margin` _(object)_ Default: `{ bottom: 60, left: 60, right: 10, top: 10 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space outside of the axes lines. This is configurable via the subject location JSON's `chartOptions` property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. Bottom and left margin should be greater since that is where the x-axis and y-axis are positioned for the chart.
 - `padding` _(object)_ Default: `{ bottom: 0, left: 0, right: 0, top: 0 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space inside of the axes lines. This is configurable via the subject location JSON's `chartOptions` property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. This defaults to 0 because the default `tickDirection` of the axes is `'outer'` and no extra space is required for labels inside of the axes. This will need to be defined with values if the `tickDirection` is changed to `'inner'`.
@@ -88,7 +88,12 @@ The JSON file can take two different shapes depending on if the data is a single
 
 The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point.
 
-Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
+Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series.
+
+- An optional string `color` for can defined using either a variable name from the colors available from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series.
+- An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
+- An optional `pointSize` value can be defined to customise the visual size of the data points on the chart. The possible values are: any positive number, `"small"`, `"medium"`, or `"large"`. If the point size isn't defined, the series' data points will use the default point size. (See `props.dataPointSize`, above.)
+- ❓ An unknown `period` option can also be added, but as of time of writing (2026.05.19) we're not sure what this actually does. TODO: investigate and document this.
 
 The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis. The multiple series shape can also be used for a single series and is required if you need to use error bars:
 
@@ -131,7 +136,8 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
       "seriesOptions": {
         "color": "accent-1",
         "glyph": "circle",
-        "label": "Filter 1"
+        "label": "Filter 1",
+        "pointSize": "large"
       }
     }, {
       "seriesData": [
