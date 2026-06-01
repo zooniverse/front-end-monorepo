@@ -1,16 +1,15 @@
 import { AdminCheckbox } from '@zooniverse/react-components'
-import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 
-function useAdminUser() {
-  const stores = useContext(MobXProviderContext)
-  return stores?.store.user.isAdmin
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
+
+function AdminContainer() {
+  const { user, adminMode, toggleAdmin } = useContext(PanoptesAuthContext)
+  const isAdmin = !!user?.admin
+
+  return isAdmin
+    ? <AdminCheckbox onChange={toggleAdmin} checked={adminMode} />
+    : null
 }
 
-function AdminContainer({ checked, onChange }) {
-  const isAdmin = useAdminUser()
-
-  return isAdmin ? <AdminCheckbox onChange={onChange} checked={checked} /> : null
-}
-
-export default observer(AdminContainer)
+export default AdminContainer

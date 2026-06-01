@@ -6,9 +6,10 @@ function toMSTFeature(olFeature) {
   const geometryType = geometry?.getType?.()
   const GeoFeatureModel = geometryType ? features[geometryType] : undefined
   if (!GeoFeatureModel?.create) return null
+  const { geometry: _olGeometry, ...properties } = olFeature.getProperties?.() || {}
   return GeoFeatureModel.create({
     geometry,
-    properties: olFeature.getProperties?.()
+    properties
   })
 }
 

@@ -1,14 +1,17 @@
-import { MobXProviderContext } from 'mobx-react'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import usePanoptesUser from './usePanoptesUser.js'
 
 const isBrowser = typeof window !== 'undefined'
 const localStorage = isBrowser ? window.localStorage : null
+const storedAdminFlag = !!localStorage?.getItem('adminFlag')
 
 export default function useAdminMode() {
-  const { store } = useContext(MobXProviderContext)
-  const [adminState, setAdminState] = useState(false)
-  const userIsAdmin = store?.user.isAdmin
-  const userIsLoaded = store?.user.isLoaded
+  const user = usePanoptesUser()
+  const [adminState, setAdminState] = useState(storedAdminFlag)
+  const userIsLoaded = user !== undefined
+  const userIsLoggedIn = !!user?.id
+  const userIsAdmin = userIsLoggedIn && user?.admin
   const adminMode = userIsLoaded && userIsAdmin && adminState
 
   useEffect(function onUserChange() {
@@ -23,14 +26,14 @@ export default function useAdminMode() {
   }, [userIsAdmin, userIsLoaded])
 
   function toggleAdmin() {
-    let newAdminState = !adminState
+    const newAdminState = !adminState
     setAdminState(newAdminState)
     if (newAdminState) {
-      localStorage?.setItem('adminFlag', true)
+      localStorage?.setItem('adminFlag', 'true')
     } else {
       localStorage?.removeItem('adminFlag')
     }
   }
-  
+
   return { adminMode, toggleAdmin }
 }
