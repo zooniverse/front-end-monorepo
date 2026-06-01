@@ -1,28 +1,14 @@
-// dependencies
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
 import { arrayOf, func, shape, string } from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import throttle from 'lodash/throttle'
-
-// OpenLayers imports
-import { Map, View } from 'ol'
-import { defaults as defaultControls } from 'ol/control/defaults'
-import ScaleLine from 'ol/control/ScaleLine'
-import { singleClick } from 'ol/events/condition'
 import GeoJSON from 'ol/format/GeoJSON'
-import { Translate, Select } from 'ol/interaction'
-import TileLayer from 'ol/layer/Tile'
-import VectorLayer from 'ol/layer/Vector'
-import OSM from 'ol/source/OSM'
-import VectorSource from 'ol/source/Vector'
+import throttle from 'lodash/throttle'
 import { unByKey } from 'ol/Observable'
 import { transform } from 'ol/proj'
 
-// local imports
 import { useTranslation } from '@translations/i18n'
-import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import CoordinateInput from './components/CoordinateInput'
 import MeasureButton from './components/MeasureButton'
 import RecenterButton from './components/RecenterButton'
@@ -30,17 +16,15 @@ import ResetButton from './components/ResetButton'
 import UnitSelect from './components/UnitSelect'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
-import asMSTFeature from './helpers/asMSTFeature'
-import createGeoLineStringInteraction, { FEATURE_HIT_TOLERANCE_PX } from './helpers/createGeoLineStringInteraction'
-import createGeoLineStringModifyInteraction from './helpers/createGeoLineStringModifyInteraction'
-import createMeasureInteraction from './helpers/createMeasureInteraction'
-import createModifyUncertaintyInteraction from './helpers/createModifyUncertaintyInteraction'
-import createMoveToClickInteraction from './helpers/createMoveToClickInteraction'
-import getDrawModeCursor from './helpers/getDrawModeCursor'
-import getFeatureStyle from './helpers/getFeatureStyle'
-import getInteractionStates from './helpers/getInteractionStates'
-import getPixelDistance from './helpers/getPixelDistance'
-import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './helpers/hitTesting'
+import { GEOJSON_READ_OPTIONS, ZOOM_ANIMATION_DURATION_MS } from './helpers/constants'
+import loadGeoJSON from './helpers/loadGeoJSON'
+import { fitViewToFeatures } from './helpers/mapSelection'
+
+import useMapCursor from './hooks/useMapCursor'
+import useMapInteractions from './hooks/useMapInteractions'
+import useMapSelection from './hooks/useMapSelection'
+import useOLMap from './hooks/useOLMap'
+import useSelectionLayer from './hooks/useSelectionLayer'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -55,14 +39,8 @@ const StyledBox = styled(Box)`
     user-select: none;
   }
 
-  .ol-measure-tooltip.hidden {
-    display: none;
-  }
-
-  .ol-measure-tooltip-static {
-    background: #ffcc33;
-    color: #000;
-  }
+  .ol-measure-tooltip.hidden { display: none; }
+  .ol-measure-tooltip-static { background: #ffcc33; color: #000; }
 `
 
 const ControlsBox = styled(Box)`
@@ -79,59 +57,12 @@ const MapContainer = styled.div`
   width: 100%;
 `
 
-// Zoom animation duration in milliseconds
-const ZOOM_ANIMATION_DURATION_MS = 250
-// Minimum time between hit checks on pointermove, to throttle expensive hit testing
-const POINTER_MOVE_HIT_CHECK_INTERVAL_MS = 80
-// Minimum pixel distance the pointer must move to trigger a new hit test on pointermove, to throttle expensive hit testing
-const POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS = 4
-
-// Maps UnitSelect display options to OpenLayers ScaleLine unit strings
-const UNIT_OPTION_TO_SCALE_LINE_UNITS = {
-  meters: 'metric',
-  kilometers: 'metric',
-  feet: 'imperial',
-  miles: 'imperial',
-  'nautical miles': 'nautical'
-}
-
-// Helper function to fit view to features extent
-function fitViewToFeatures(map, features) {
-  const view = map.getView()
-  view.fit(features.getExtent(), {
-    padding: [32, 32, 32, 32],
-    maxZoom: 12,
-    duration: ZOOM_ANIMATION_DURATION_MS
-  })
-}
-
-// Helper to select the first feature in a list, used after loading new features, resetting, etc.
-function selectFirstFeature(selectInteraction, newFeatures) {
-  if (!selectInteraction || newFeatures.length === 0) return
-
-  selectInteraction.getFeatures().clear()
-  selectInteraction.getFeatures().push(newFeatures[0])
-
-  selectInteraction.dispatchEvent({
-    type: 'select',
-    selected: [newFeatures[0]],
-    deselected: []
-  })
-}
-
-function clearSelectedFeature(selectInteraction) {
-  if (!selectInteraction) return
-
-  const deselected = [...selectInteraction.getFeatures().getArray()]
-
-  if (deselected.length === 0) return
-
-  selectInteraction.getFeatures().clear()
-  selectInteraction.dispatchEvent({
-    type: 'select',
-    selected: [],
-    deselected
-  })
+function sanitizeProperties(properties = {}) {
+  return Object.fromEntries(
+    Object.entries(properties).filter(([key, value]) => (
+      key !== 'geometry' && typeof value !== 'function' && value !== undefined
+    ))
+  )
 }
 
 function GeoMapViewer({
@@ -145,761 +76,165 @@ function GeoMapViewer({
   const [selectedUnit, setSelectedUnit] = useState('meters')
   const { t } = useTranslation('components')
 
-  // Map and layer refs: created once on mount, reused across feature updates
-  const mapContainerRef = useRef()
-  const mapRef = useRef()
-  const featuresRef = useRef()
-  const featuresLayerRef = useRef()
-  const geoJSONFormatRef = useRef()
-  const isMeasureModeActiveRef = useRef(false)
-  const isDrawModeActiveRef = useRef(false)
-  
-  // Interaction refs: created once and reused to avoid re-stacking on data updates
-  const scaleLineRef = useRef()
-  const selectRef = useRef()
-  const translateRef = useRef()
-  const modifyUncertaintyRef = useRef()
-  const moveToClickRef = useRef()
-  const measureInteractionRef = useRef()
-  const lineStringDrawRef = useRef()
-  const lineStringModifyRef = useRef()
-  const pointerMoveHandlerRef = useRef()
-  const pointerDownHandlerRef = useRef()
+  const containerRef = useRef()
 
-  // Shared options for reading GeoJSON and projecting to the map view
-  const geoJSONReadOptions = {
-    dataProjection: 'EPSG:4326', // incoming GeoJSON coords in WGS 84
-    featureProjection: 'EPSG:3857' // map display projection in Web Mercator
-  }
-
-  // Determine if we have an active drawing task with tools, to enable interactions and show reset features button
-  const hasGeoDrawingTask = geoDrawingTask && geoDrawingTask.tools.length > 0
-
-  // Create the map once on mount with all layers and interactions
-  // Interactions are created here and reused on data updates to avoid stacking event listeners
-  useEffect(function createMapOnce() {
-    // if the map is already created, do nothing
-    // or if the map container ref is not set yet, do nothing
-    if (mapRef.current || !mapContainerRef.current) return undefined
-
-    // create a GeoJSON format reader
-    const geoJSONFormat = new GeoJSON()
-    geoJSONFormatRef.current = geoJSONFormat
-    
-    const baseLayer = new TileLayer({
-      // preload tiles for 1 level of zooming
-      preload: 1,
-      // use OpenStreetMap as the base layer
-      source: new OSM(),
-    })
-
-    // create a vector source and layer for the GeoJSON features
-    const featuresSource = new VectorSource({
-      features: []
-    })
-    featuresRef.current = featuresSource
-    const featuresLayer = new VectorLayer({
-      source: featuresSource
-    })
-    featuresLayerRef.current = featuresLayer
-
-    const map = new Map({
-      target: mapContainerRef.current,
-      layers: [
-        baseLayer,
-        featuresLayer
-      ],
-      view: new View({
-        center: [0, 0],
-        zoom: 0,
-      }),
-      controls: defaultControls({ zoom: false }).extend([
-        (() => { const sl = new ScaleLine(); scaleLineRef.current = sl; return sl })()
-      ])
-    })
-
-    // track the latest pointermove event for hit testing, 
-    // and throttle hit testing to improve performance during fast mouse moves and zoom/pan animations
-    let pointerMoveRafId = null
-
-    // Helper to compute style with current resolution
-    function handleFeatureStyle({ feature, isSelected = false }) {
-      return getFeatureStyle({
-        feature,
-        geoDrawingTask: hasGeoDrawingTask ? geoDrawingTask : null,
-        isSelected,
-        resolution: map.getView().getResolution()
-      })
-    }
-
-    if (hasGeoDrawingTask) {
-      // Create select interaction first so it's available to style function
-      const select = new Select({
-        condition: singleClick,
-        hitTolerance: FEATURE_HIT_TOLERANCE_PX,
-        layers: [featuresLayer],
-        style: (feature) => handleFeatureStyle({ feature, isSelected: true })
-      })
-
-      // Sync active feature selection
-      select.on('select', (event) => {
-        const selected = event.selected?.[0]
-        const mstFeature = selected ? asMSTFeature(selected) : null
-
-        if (onSelectedFeatureChange) {
-          onSelectedFeatureChange(selected ? { mstFeature, olFeature: selected } : null)
-          return
-        }
-
-        if (selected) {
-          geoDrawingTask?.setActiveFeature?.(mstFeature)
-          geoDrawingTask?.setActiveOlFeature?.(selected)
-        } else {
-          geoDrawingTask?.clearActiveFeature?.()
-          geoDrawingTask?.clearActiveOlFeature?.()
-        }
-      })
-
-      // Set the style function after map and select are created
-      featuresLayer.setStyle((feature) => handleFeatureStyle({
-        feature,
-        isSelected: select.getFeatures().getArray().includes(feature)
-      }))
-
-      // Create translate interaction restricted to the center point hit area.
-      // Without a condition, OL's Translate uses its own hit detection against the
-      // feature's rendered style (which includes the uncertainty circle), causing
-      // drags anywhere inside the circle to move the feature. The condition limits
-      // translation to pointerdown events within POINT_CENTER_HIT_RADIUS_PIXELS of
-      // the feature center.
-      const translate = new Translate({
-        features: select.getFeatures(),
-        condition: (mapBrowserEvent) => {
-          const selectedFeatures = select.getFeatures().getArray()
-          if (selectedFeatures.length === 0) return false
-
-          const selectedFeature = selectedFeatures[0]
-          const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
-          if (!Array.isArray(pointCoordinates)) return false
-
-          return getFeaturePixelsAcrossWorldCopies(map, pointCoordinates).some(
-            pointPixel => isPixelNearPointCenter({
-              pixel: mapBrowserEvent.pixel,
-              pointPixel,
-              radius: POINT_CENTER_HIT_RADIUS_PIXELS
-            })
-          )
-        }
-      })
-
-      // Add select and translate interactions to the map
-      map.addInteraction(select)
-      map.addInteraction(translate)
-      selectRef.current = select
-      translateRef.current = translate
-
-      // Create and add uncertainty circle modification interaction
-      const modifyUncertainty = createModifyUncertaintyInteraction({
-        geoDrawingTask,
-        selectInteraction: select,
-        translateInteraction: translate
-      })
-      map.addInteraction(modifyUncertainty)
-      modifyUncertaintyRef.current = modifyUncertainty
-
-      // Track whether a point is actively being dragged to switch grab -> grabbing.
-      // Center-point drags are captured by moveToClick (not Translate), so we use
-      // onDragStart/onDragEnd callbacks to update the cursor immediately on press.
-      let isDraggingPoint = false
-      let latestPointerMoveEvent = null
-      let lastAppliedCursor = ''
-      let lastHitCheckTs = 0
-      let lastHitCheckPixel = null
-      let lastHitCheckResult = false
-
-      function applyCursor(element, cursor) {
-        if (lastAppliedCursor === cursor) return
-        element.style.cursor = cursor
-        lastAppliedCursor = cursor
-      }
-
-      function isPointerOverFeature(pixel) {
-        let isOverFeature = false
-
-        featuresLayer.getSource().forEachFeature((feature) => {
-          if (isOverFeature) return
-
-          const coords = feature.getGeometry()?.getCoordinates?.()
-          if (!Array.isArray(coords)) return
-
-          const pointPixels = getFeaturePixelsAcrossWorldCopies(map, coords)
-
-          if (pointPixels.some(pointPixel => isPixelNearPointCenter({
-            pixel,
-            pointPixel,
-            radius: POINT_CENTER_HIT_RADIUS_PIXELS
-          }))) {
-            isOverFeature = true
-            return
-          }
-
-          const mstFeature = asMSTFeature(feature)
-          const uncertaintyRadiusPixels = mstFeature?.getUncertaintyRadiusPixels?.({
-            feature,
-            geoDrawingTask,
-            resolution: map.getView().getResolution()
-          })
-
-          if (
-            typeof uncertaintyRadiusPixels === 'number'
-            && uncertaintyRadiusPixels > 0
-            && pointPixels.some(pointPixel => getPixelDistance(pixel, pointPixel) <= uncertaintyRadiusPixels)
-          ) {
-            isOverFeature = true
-          }
-        })
-
-        return isOverFeature
-      }
-
-      // Create and add move-to-click interaction
-      const moveToClick = createMoveToClickInteraction({
-        selectInteraction: select,
-        geoDrawingTask,
-        featuresLayer,
-        onDragStart: () => {
-          isDraggingPoint = true
-          const viewport = map.getViewport()
-          if (viewport) viewport.style.cursor = 'grabbing'
-        },
-        onDragEnd: () => {
-          isDraggingPoint = false
-          const viewport = map.getViewport()
-          if (viewport) viewport.style.cursor = 'grab'
-        }
-      })
-      map.addInteraction(moveToClick)
-      moveToClickRef.current = moveToClick
-
-      lineStringModifyRef.current = createGeoLineStringModifyInteraction({
-        map,
-        selectInteraction: select,
-        onModifyEnd: () => {
-          const viewport = map.getViewport()
-          if (viewport) viewport.style.cursor = 'grab'
-        }
-      })
-
-      // Add cursor states that match the active interactions.
-      // Note: we target the viewport element (not the outer target element) so that
-      // our inline style.cursor overrides OL's class-based cursor (ol-grab, ol-grabbing)
-      // which Translate sets on the viewport via classList.
-      const handlePointerMove = (event) => {
-        latestPointerMoveEvent = event
-
-        if (pointerMoveRafId !== null) return
-
-        pointerMoveRafId = requestAnimationFrame(() => {
-          pointerMoveRafId = null
-
-          const latestEvent = latestPointerMoveEvent
-          if (!latestEvent) return
-
-          if (isMeasureModeActiveRef.current) {
-            const targetElement = map.getTargetElement()
-
-            if (targetElement) {
-              applyCursor(targetElement, '')
-            }
-
-            return
-          }
-
-          const element = map.getViewport()
-          if (!element) return
-
-          if (isDrawModeActiveRef.current) {
-            const selectedFeature = select.getFeatures().item(0)
-            const selectedGeometry = selectedFeature?.getGeometry?.()
-            const selectedLineStringCoords = selectedGeometry?.getType?.() === 'LineString'
-              ? selectedGeometry.getCoordinates?.() || []
-              : []
-            const isOnSelectedVertex = selectedLineStringCoords.some((coord) => (
-              getPixelDistance(latestEvent.pixel, map.getPixelFromCoordinate(coord)) <= 10
-            ))
-
-            let isOnAnotherFeature = false
-            map.forEachFeatureAtPixel(latestEvent.pixel, (feature) => {
-              if (feature !== selectedFeature) {
-                isOnAnotherFeature = true
-                return true
-              }
-              return false
-            }, { layerFilter: (layer) => layer === featuresLayer, hitTolerance: FEATURE_HIT_TOLERANCE_PX })
-
-            element.style.cursor = getDrawModeCursor({
-              isModifying: lineStringModifyRef.current?.isModifying() ?? false,
-              isSketching: lineStringDrawRef.current?.isDrawing() ?? false,
-              isOnSelectedVertex,
-              isOnAnotherFeature,
-              isAtMaxLines: lineStringDrawRef.current?.isCapped() ?? false,
-              isDragging: latestEvent.dragging
-            })
-            return
-          }
-
-          let cursor = ''
-          const selectedFeature = select.getFeatures().item(0)
-
-          if (selectedFeature) {
-            const mstFeature = asMSTFeature(selectedFeature)
-            const pointCoordinates = selectedFeature.getGeometry()?.getCoordinates?.()
-
-            if (mstFeature && Array.isArray(pointCoordinates)) {
-              const pointPixels = getFeaturePixelsAcrossWorldCopies(map, pointCoordinates)
-              const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
-                feature: selectedFeature,
-                geoDrawingTask
-              })
-
-              if (pointPixels.some(pointPixel => isPixelNearPointCenter({
-                pixel: latestEvent.pixel,
-                pointPixel,
-                radius: POINT_CENTER_HIT_RADIUS_PIXELS
-              }))) {
-                cursor = isDraggingPoint ? 'grabbing' : 'grab'
-              }
-
-              if (!cursor && dragHandleCoordinates) {
-                const dragHandlePixels = getFeaturePixelsAcrossWorldCopies(map, dragHandleCoordinates)
-                if (dragHandlePixels.some(handlePixel => isPixelNearDragHandle({
-                  pixel: latestEvent.pixel,
-                  handlePixel,
-                  tolerance: 15
-                }))) {
-                  cursor = 'ew-resize'
-                }
-              }
-
-              if (!cursor) {
-                const uncertaintyRadiusPixels = mstFeature.getUncertaintyRadiusPixels?.({
-                  feature: selectedFeature,
-                  geoDrawingTask,
-                  resolution: map.getView().getResolution()
-                })
-
-                if (
-                  typeof uncertaintyRadiusPixels === 'number'
-                  && uncertaintyRadiusPixels > 0
-                  && pointPixels.some(pointPixel => getPixelDistance(latestEvent.pixel, pointPixel) <= uncertaintyRadiusPixels)
-                ) {
-                  cursor = 'default'
-                }
-              }
-            }
-          }
-
-          if (!cursor) {
-            if (selectedFeature) {
-              // When a feature is selected, only show pointer over another feature's center point (which is selectable)
-              let hoveringOtherCenter = false
-              featuresLayer.getSource().forEachFeature((feature) => {
-                if (feature === selectedFeature || hoveringOtherCenter) return
-                const coords = feature.getGeometry()?.getCoordinates?.()
-                if (!Array.isArray(coords)) return
-                if (getFeaturePixelsAcrossWorldCopies(map, coords).some(
-                  featurePixel => isPixelNearPointCenter({
-                    pixel: latestEvent.pixel,
-                    pointPixel: featurePixel,
-                    radius: POINT_CENTER_HIT_RADIUS_PIXELS
-                  })
-                )) {
-                  hoveringOtherCenter = true
-                }
-              })
-              cursor = hoveringOtherCenter ? 'pointer' : 'default'
-            } else {
-              const now = performance.now()
-              const movedEnough = !lastHitCheckPixel
-                || getPixelDistance(latestEvent.pixel, lastHitCheckPixel) >= POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS
-              const elapsedEnough = (now - lastHitCheckTs) >= POINTER_MOVE_HIT_CHECK_INTERVAL_MS
-
-              if (movedEnough || elapsedEnough) {
-                lastHitCheckResult = isPointerOverFeature(latestEvent.pixel)
-                lastHitCheckTs = now
-                lastHitCheckPixel = [...latestEvent.pixel]
-              }
-
-              cursor = lastHitCheckResult ? 'pointer' : 'default'
-            }
-          }
-
-          applyCursor(element, cursor)
-        })
-      }
-      map.on('pointermove', handlePointerMove)
-      pointerMoveHandlerRef.current = handlePointerMove
-
-      const handlePointerDown = (event) => {
-        if (!isDrawModeActiveRef.current) return
-        const selectedFeature = select.getFeatures().item(0)
-        const selectedGeometry = selectedFeature?.getGeometry?.()
-        if (selectedGeometry?.getType?.() !== 'LineString') return
-        const coords = selectedGeometry.getCoordinates?.() || []
-        const nearVertex = coords.some((coord) => {
-          const vertexPixel = map.getPixelFromCoordinate(coord)
-          return getPixelDistance(event.pixel, vertexPixel) <= 10
-        })
-        if (nearVertex) {
-          const viewport = map.getViewport()
-          if (viewport) viewport.style.cursor = 'grabbing'
-        }
-      }
-      map.on('pointerdown', handlePointerDown)
-      pointerDownHandlerRef.current = handlePointerDown
-    } else {
-      // No task: disable feature interactions; render static styles
-      featuresLayer.setStyle((feature) => handleFeatureStyle({ feature, isSelected: false }))
-    }
-
-    const measureInteraction = createMeasureInteraction({
-      map,
-      messages: {
-        clickToContinue: t('SubjectViewer.GeoMapViewer.MeasureInteraction.clickToContinue'),
-        clickToStart: t('SubjectViewer.GeoMapViewer.MeasureInteraction.clickToStart')
-      }
-    })
-    measureInteractionRef.current = measureInteraction
-
-    mapRef.current = map
-
-    return () => {
-      if (selectRef.current) map.removeInteraction(selectRef.current)
-      if (translateRef.current) map.removeInteraction(translateRef.current)
-      if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
-      if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
-      lineStringModifyRef.current?.destroy()
-      measureInteractionRef.current?.destroy()
-      if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
-      if (pointerMoveRafId !== null) cancelAnimationFrame(pointerMoveRafId)
-      if (pointerDownHandlerRef.current) map.un('pointerdown', pointerDownHandlerRef.current)
-      map.setTarget(undefined)
-      mapRef.current = undefined
-      featuresRef.current = undefined
-      featuresLayerRef.current = undefined
-      geoJSONFormatRef.current = undefined
-      scaleLineRef.current = undefined
-      selectRef.current = undefined
-      translateRef.current = undefined
-      modifyUncertaintyRef.current = undefined
-      moveToClickRef.current = undefined
-      measureInteractionRef.current = undefined
-      lineStringModifyRef.current = undefined
-      pointerMoveHandlerRef.current = undefined
-      pointerDownHandlerRef.current = undefined
-    }
-  }, [])
-
-  useEffect(function syncScaleLineUnits() {
-    const olUnits = UNIT_OPTION_TO_SCALE_LINE_UNITS[selectedUnit] ?? 'metric'
-    scaleLineRef.current?.setUnits(olUnits)
-    measureInteractionRef.current?.setUnit(selectedUnit)
-    if (geoDrawingTask?.setUnit) {
-      geoDrawingTask.setUnit(selectedUnit)
-    }
-  }, [selectedUnit, geoDrawingTask])
-
+  const hasGeoDrawingTask = !!(geoDrawingTask && geoDrawingTask.tools.length > 0)
   const activeToolType = geoDrawingTask?.activeTool?.type
-  const activeToolIndex = geoDrawingTask?.activeToolIndex
-  useEffect(function exitMeasureOnDrawingToolSelect() {
-    if (activeToolType === 'SegmentedLine' && isMeasureModeActiveRef.current) {
-      measureInteractionRef.current?.clear()
-      setIsMeasureModeActive(false)
+
+  const { map, source, layer, scaleLine } = useOLMap(containerRef)
+
+  const { select, translate } = useMapSelection({
+    map,
+    source,
+    layer,
+    geoDrawingTask,
+    hasGeoDrawingTask,
+    isMeasureModeActive,
+    onSelectedFeatureChange
+  })
+
+  const { draw, modify, moveToClick, measure } = useMapInteractions({
+    map,
+    source,
+    layer,
+    scaleLine,
+    select,
+    translate,
+    geoDrawingTask,
+    hasGeoDrawingTask,
+    isMeasureModeActive,
+    setIsMeasureModeActive,
+    selectedUnit,
+    containerRef,
+    t
+  })
+
+  useSelectionLayer({
+    map,
+    source,
+    layer,
+    select,
+    geoDrawingTask,
+    hasGeoDrawingTask,
+    ariaLabel: t('SubjectViewer.GeoMapViewer.DeleteOverlay.ariaLabel')
+  })
+
+  useMapCursor({
+    map,
+    layer,
+    select,
+    draw,
+    modify,
+    moveToClick,
+    geoDrawingTask,
+    hasGeoDrawingTask,
+    activeToolType,
+    isMeasureModeActive
+  })
+
+  useEffect(() => {
+    loadGeoJSON({ map, source, select, measure, data: geoJSON })
+  }, [map, source, select, measure, geoJSON])
+
+  useEffect(() => {
+    if (!source || !onFeaturesChange) return undefined
+    const format = new GeoJSON()
+    function emit() {
+      const collection = format.writeFeaturesObject(source.getFeatures(), GEOJSON_READ_OPTIONS)
+      onFeaturesChange({
+        type: 'FeatureCollection',
+        features: collection.features?.map((feature) => ({
+          ...feature,
+          properties: sanitizeProperties(feature.properties || {})
+        })) || []
+      })
     }
-  }, [activeToolType])
+    const keys = [
+      source.on('addfeature', emit),
+      source.on('removefeature', emit),
+      source.on('changefeature', emit)
+    ]
+    return () => keys.forEach(unByKey)
+  }, [source, onFeaturesChange])
 
-  // OL Draw fixes minPoints/maxPoints at construction, so recreate per active tool.
-  useEffect(function manageLineStringDraw() {
-    if (!mapRef.current || !featuresRef.current) return undefined
-    if (activeToolType !== 'SegmentedLine' || !geoDrawingTask) return undefined
-
-    const interaction = createGeoLineStringInteraction({
-      map: mapRef.current,
-      source: featuresRef.current,
-      featuresLayer: featuresLayerRef.current,
-      geoDrawingTask,
-      selectInteraction: selectRef.current
-    })
-    lineStringDrawRef.current = interaction
-
-    return function cleanupDraw() {
-      interaction.destroy()
-      if (lineStringDrawRef.current === interaction) {
-        lineStringDrawRef.current = undefined
-      }
-    }
-  }, [activeToolType, activeToolIndex, geoDrawingTask])
-
-  useEffect(function syncInteractions() {
-    const states = getInteractionStates({ activeToolType, isMeasureModeActive })
-    isDrawModeActiveRef.current = states.lineStringDraw
-    isMeasureModeActiveRef.current = isMeasureModeActive
-
-    measureInteractionRef.current?.setActive(states.measure)
-    lineStringDrawRef.current?.setActive(states.lineStringDraw)
-    lineStringModifyRef.current?.setActive(states.lineStringModify)
-    selectRef.current?.setActive(states.select)
-    translateRef.current?.setActive(states.translate)
-    modifyUncertaintyRef.current?.setActive(states.modifyUncertainty)
-    moveToClickRef.current?.setActive(states.moveToClick)
-  }, [activeToolType, activeToolIndex, isMeasureModeActive])
-
-  useEffect(function syncMeasureSelection() {
-    if (isMeasureModeActive) {
-      clearSelectedFeature(selectRef.current)
-      const mapElement = mapRef.current?.getTargetElement()
-      if (mapElement) mapElement.style.cursor = ''
-    } else {
-      const features = featuresRef.current?.getFeatures() ?? []
-      selectFirstFeature(selectRef.current, features)
-    }
-  }, [isMeasureModeActive])
-
-  // Shared helper: clear the vector source, optionally load new GeoJSON, fit view and select first feature.
-  // Used by both the updateFeatures effect (on geoJSON prop change) and handleReset.
-  function loadFeaturesFromGeoJSON(geojsonData) {
-    const map = mapRef.current
-    const features = featuresRef.current
-    if (!map || !features) return
-
-    measureInteractionRef.current?.clear()
-    features.clear()
-
-    if (geojsonData) {
-      const geoJSONFormat = geoJSONFormatRef.current
-      const newFeatures = geoJSONFormat.readFeatures(geojsonData, geoJSONReadOptions)
-      features.addFeatures(newFeatures)
-
-      if (features.getFeatures().length) {
-        fitViewToFeatures(map, features)
-        selectFirstFeature(selectRef.current, newFeatures)
-      }
-    }
-  }
-
-  // Update feature data when geoJSON changes
-  // This effect only updates the vector source; map and interactions remain unchanged
-  useEffect(function updateFeatures() {
-    if (!mapRef.current || !featuresRef.current) return undefined
-    loadFeaturesFromGeoJSON(geoJSON)
-    return undefined
-  }, [geoJSON])
-
-  // Track map extent changes and notify the task
-  useEffect(function trackMapExtent() {
-    const map = mapRef.current
+  useEffect(() => {
     if (!map || !onMapExtentChange) return undefined
-
-    function updateExtent() {
+    function emit() {
       const view = map.getView()
       const extent = view.calculateExtent()
-      const widthMeters = extent[2] - extent[0]
-      const heightMeters = extent[3] - extent[1]
-      
       onMapExtentChange({
-        widthMeters,
-        heightMeters,
+        widthMeters: extent[2] - extent[0],
+        heightMeters: extent[3] - extent[1],
         resolution: view.getResolution()
       })
     }
-
-    // Initial calculation
-    updateExtent()
-
-    // Update on view changes (throttled)
-    const throttledUpdate = throttle(updateExtent, ZOOM_ANIMATION_DURATION_MS)
-    const key = map.on('moveend', throttledUpdate)
-
+    emit()
+    const throttled = throttle(emit, ZOOM_ANIMATION_DURATION_MS)
+    const key = map.on('moveend', throttled)
     return () => {
       unByKey(key)
-      throttledUpdate.cancel()
+      throttled.cancel()
     }
-  }, [onMapExtentChange])
+  }, [map, onMapExtentChange])
 
-  // Listen for feature changes and persist as a sanitized FeatureCollection
-  useEffect(function attachFeatureListeners() {
-    if (!onFeaturesChange) return undefined
+  const handleRecenter = useCallback(() => {
+    if (!map || !source || source.getFeatures().length === 0) return
+    fitViewToFeatures(map, source, ZOOM_ANIMATION_DURATION_MS)
+  }, [map, source])
 
-    const featuresSource = featuresRef.current
-    if (!featuresSource) return undefined
-
-    const geoJSONFormat = geoJSONFormatRef.current || new GeoJSON()
-    geoJSONFormatRef.current = geoJSONFormat
-
-    function sanitizeProperties(properties = {}) {
-      return Object.fromEntries(
-        Object.entries(properties).filter(([key, value]) => (
-          key !== 'geometry' && typeof value !== 'function' && value !== undefined
-        ))
-      )
-    }
-
-    function serializeAndNotify() {
-      const olFeatures = featuresSource.getFeatures()
-      const featureCollection = geoJSONFormat.writeFeaturesObject(olFeatures, geoJSONReadOptions)
-
-      const sanitizedFeatures = featureCollection.features?.map((feature) => ({
-        ...feature,
-        properties: sanitizeProperties(feature.properties || {})
-      })) || []
-
-      onFeaturesChange({
-        type: 'FeatureCollection',
-        features: sanitizedFeatures
-      })
-    }
-
-    const keys = [
-      featuresSource.on('addfeature', serializeAndNotify),
-      featuresSource.on('removefeature', serializeAndNotify),
-      featuresSource.on('changefeature', serializeAndNotify)
-    ]
-
-    return () => {
-      keys.forEach((key) => unByKey(key))
-    }
-  }, [onFeaturesChange])
-  
-  // Handler to recenter the map to fit all features
-  function handleRecenter() {
-    const map = mapRef.current
-    const features = featuresRef.current
-    if (!map || !features) return
-
-    const featuresList = features.getFeatures()
-    if (featuresList.length > 0) {
-      fitViewToFeatures(map, features)
-    }
-  }
-
-  // Handler to reset features to the original geoJSON
-  function handleReset() {
-    if (!mapRef.current || !featuresRef.current || !geoJSON) return
+  const handleReset = useCallback(() => {
+    if (!map || !source || !geoJSON) return
     setIsMeasureModeActive(false)
-    loadFeaturesFromGeoJSON(geoJSON)
-  }
+    loadGeoJSON({ map, source, select, measure, data: geoJSON })
+  }, [map, source, select, measure, geoJSON])
 
-  // Handler to zoom the map view in by one level
-  function handleZoomIn() {
-    const map = mapRef.current
+  const handleZoom = useCallback((delta) => {
     if (!map) return
-
     const view = map.getView()
-    const currentZoom = view.getZoom() ?? 0
-    const targetZoom = view.getConstrainedZoom(currentZoom + 1)
+    const target = view.getConstrainedZoom((view.getZoom() ?? 0) + delta)
     view.cancelAnimations()
-    view.animate({
-      zoom: targetZoom,
-      duration: ZOOM_ANIMATION_DURATION_MS
-    })
-  }
+    view.animate({ zoom: target, duration: ZOOM_ANIMATION_DURATION_MS })
+  }, [map])
 
-  // Handler to zoom the map view out by one level
-  function handleZoomOut() {
-    const map = mapRef.current
-    if (!map) return
-
-    const view = map.getView()
-    const currentZoom = view.getZoom() ?? 0
-    const targetZoom = view.getConstrainedZoom(currentZoom - 1)
-    view.cancelAnimations()
-    view.animate({
-      zoom: targetZoom,
-      duration: ZOOM_ANIMATION_DURATION_MS
-    })
-  }
-
-  function handleToggleMeasureMode() {
+  const handleToggleMeasureMode = useCallback(() => {
     setIsMeasureModeActive((active) => {
-      const next = !active
-      if (next) {
-        lineStringDrawRef.current?.abortDrawing()
-      }
-      return next
+      if (!active) draw?.abortDrawing()
+      return !active
     })
-  }
+  }, [draw])
 
-  function handleUnitChange(unit) {
-    setSelectedUnit(unit)
-  }
-
-  // Handler to navigate map to entered coordinates
-  function handleCoordinateGo({ latitude, longitude }) {
-    const map = mapRef.current
+  const handleCoordinateGo = useCallback(({ latitude, longitude }) => {
     if (!map) return
-
-    // Transform from data projection to map projection
-    const transformedCoords = transform(
-      [longitude, latitude],
-      geoJSONReadOptions.dataProjection,
-      geoJSONReadOptions.featureProjection
-    )
-
-    // Animate map to the coordinates
+    const coords = transform([longitude, latitude], GEOJSON_READ_OPTIONS.dataProjection, GEOJSON_READ_OPTIONS.featureProjection)
     const view = map.getView()
-    const currentZoom = view.getZoom() ?? 0
-    const targetZoom = Math.max(currentZoom, 14) // don't zoom out if already zoomed in
+    const target = Math.max(view.getZoom() ?? 0, 14)
     view.cancelAnimations()
-    view.animate({
-      center: transformedCoords,
-      zoom: targetZoom,
-      duration: ZOOM_ANIMATION_DURATION_MS
-    })
-  }
-
-  const mapLabel = t('SubjectViewer.GeoMapViewer.mapLabel')
+    view.animate({ center: coords, zoom: target, duration: ZOOM_ANIMATION_DURATION_MS })
+  }, [map])
 
   return (
-    <StyledBox
-      forwardedAs='section'
-      fill
-    >
+    <StyledBox forwardedAs='section' fill>
       <ControlsBox>
-        <ZoomInButton onClick={handleZoomIn} />
-        <ZoomOutButton onClick={handleZoomOut} />
-        <MeasureButton
-          active={isMeasureModeActive}
-          onClick={handleToggleMeasureMode}
-        />
+        <ZoomInButton onClick={() => handleZoom(1)} />
+        <ZoomOutButton onClick={() => handleZoom(-1)} />
+        <MeasureButton active={isMeasureModeActive} onClick={handleToggleMeasureMode} />
         {geoJSON && (
           <>
             <RecenterButton onClick={handleRecenter} />
-            {hasGeoDrawingTask && (
-              <ResetButton onClick={handleReset} />
-            )}
+            {hasGeoDrawingTask && <ResetButton onClick={handleReset} />}
           </>
         )}
       </ControlsBox>
       <MapContainer
-        ref={mapContainerRef}
-        aria-label={mapLabel}
+        ref={containerRef}
+        aria-label={t('SubjectViewer.GeoMapViewer.mapLabel')}
         role='region'
         className='map-container'
         tabIndex={0}
       />
-      <Box
-        direction='row'
-        align='center'
-        gap='small'
-        margin={{ top: 'xsmall' }}
-      >
-        <UnitSelect
-          value={selectedUnit}
-          onChange={handleUnitChange}
-        />
-        <CoordinateInput
-          onGoSubmit={handleCoordinateGo}
-        />
+      <Box direction='row' align='center' gap='small' margin={{ top: 'xsmall' }}>
+        <UnitSelect value={selectedUnit} onChange={setSelectedUnit} />
+        <CoordinateInput onGoSubmit={handleCoordinateGo} />
       </Box>
     </StyledBox>
   )
@@ -907,12 +242,8 @@ function GeoMapViewer({
 
 GeoMapViewer.propTypes = {
   geoDrawingTask: shape({
-    tools: arrayOf(shape({
-      type: string.isRequired,
-      label: string,
-      color: string,
-    })),
-    type: string.isRequired,
+    tools: arrayOf(shape({ type: string.isRequired, label: string, color: string })),
+    type: string.isRequired
   }),
   geoJSON: shape({}),
   onFeaturesChange: func,

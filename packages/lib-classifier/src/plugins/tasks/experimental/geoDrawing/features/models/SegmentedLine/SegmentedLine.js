@@ -50,36 +50,21 @@ const SegmentedLine = types
       return indexedTool || tools.find(tool => tool.type === 'SegmentedLine')
     },
 
-    getStyles({
-      feature,
-      geoDrawingTask,
-      isSelected = false
-    }) {
+    getStyles({ feature, geoDrawingTask, isSelected = false }) {
       const tool = self.getTool({ feature, geoDrawingTask })
       const color = tool?.color || DEFAULT_COLOR
-
-      const strokeWidth = isSelected ? 4 : 3
-      const styles = []
-
-      styles.push(
-        new Style({
-          stroke: new Stroke({ color, width: strokeWidth })
-        })
-      )
+      const styles = [new Style({ stroke: new Stroke({ color, width: isSelected ? 4 : 3 }) })]
 
       if (isSelected) {
-        const coordinates = self.getCoordinates({ feature })
-        coordinates.forEach((coord) => {
-          styles.push(
-            new Style({
-              geometry: new OLPoint(coord),
-              image: new Circle({
-                radius: 5,
-                fill: new Fill({ color: 'white' }),
-                stroke: new Stroke({ color, width: 2 })
-              })
+        self.getCoordinates({ feature }).forEach((coord) => {
+          styles.push(new Style({
+            geometry: new OLPoint(coord),
+            image: new Circle({
+              radius: 5,
+              fill: new Fill({ color: 'white' }),
+              stroke: new Stroke({ color, width: 2 })
             })
-          )
+          }))
         })
       }
 
