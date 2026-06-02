@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 import { isInBounds } from '../../helpers/isInBounds.js'
 /**
  * Render selectable, editable marks for the current drawing task.
@@ -22,7 +22,7 @@ function DrawingToolMarks({
   pointerEvents = 'painted',
   played,
 }) {
-  const { canvas } = useContext(SVGContext)
+  const { canvas } = useSVGContext()
 
   return marks.map((mark, index) => {
     /*

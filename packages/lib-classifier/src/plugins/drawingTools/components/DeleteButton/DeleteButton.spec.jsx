@@ -1,5 +1,29 @@
 import { render, screen } from '@testing-library/react'
+import sinon from 'sinon'
 import { DeleteButton } from './DeleteButton'
+
+// simple render test - can be removed when 7018 is resolved
+
+describe('Drawing tools > DeleteButton', () => {
+  it('should render without crashing', function () {
+    const mark = {
+      deleteButtonPosition: sinon.stub().returns({ x: 30, y: 20 })
+    }
+
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <DeleteButton label='Delete' mark={mark} />
+      </svg>
+    )
+
+    const deleteButton = screen.getByRole('button', {
+      name: /delete/i
+    })
+
+    expect(deleteButton).to.exist
+  })
+})
+
 // import { Point } from '@plugins/drawingTools/models/marks'
 
 // Must be skipped because the above import isn't handled as expected in Vitest's env

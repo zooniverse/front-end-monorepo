@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
 import { useTranslation } from '@translations/i18n'
 
-import useScale from '../../../hooks/useScale'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 
 const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
@@ -73,7 +73,7 @@ function pointsToPath(points) {
 
 const DEFAULT_HANDLER = () => true
 function FreehandLine({ active = false, mark, onFinish = DEFAULT_HANDLER }) {
-  const scale = useScale()
+  const { scale } = useSVGContext()
   // If the user decides to cancel a splice
   if (active === false) {
     mark.inactive()

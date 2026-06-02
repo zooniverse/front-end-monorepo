@@ -1,21 +1,24 @@
-// Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
+import { render, screen } from '@testing-library/react'
+import TranscriptionLineMark from './TranscriptionLineMark'
 
-describe.skip('Experimental Drawing Tools > TranscriptionLineMark', function () {})
+describe('Drawing tools > TranscriptionLineMark', () => {
+  it('should render without crashing', function () {
+    const mark = {
+      finished: false,
+      x1: 100,
+      y1: 200,
+      x2: 300,
+      y2: 400,
+      length: 200 * Math.sqrt(2)
+    }
 
-// import { TranscriptionLine as TranscriptionLineMarkModel } from '../../../../models/marks'
-// import { TranscriptionLineMark } from './TranscriptionLineMark'
-
-// describe('Component > TranscriptionLineMark', function () {
-//   it('should render without crashing', function () {
-//     const mark = TranscriptionLineMarkModel.create({
-//       id: 'line1',
-//       toolType: 'transcriptionLine',
-//       x1: 100,
-//       y1: 200,
-//       x2: 300,
-//       y2: 400
-//     })
-//     const wrapper = shallow(<TranscriptionLineMark mark={mark} />)
-//     expect(wrapper).to.be.ok()
-//   })
-// })
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <TranscriptionLineMark active color='red' mark={mark} />
+      </svg>
+    )
+    
+    const transcriptionLineMark = document.querySelector('g')
+    expect(transcriptionLineMark).to.exist
+  })
+})
