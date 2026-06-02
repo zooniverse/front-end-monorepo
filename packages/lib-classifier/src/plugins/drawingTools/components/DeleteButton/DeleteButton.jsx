@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled, { css, withTheme } from 'styled-components'
 
-import useScale from '../../hooks/useScale'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 
 const StyledGroup = styled('g')`
   &:focus {
@@ -29,7 +29,7 @@ function DeleteButton ({
   rotate = 0, 
   theme = DEFAULT_THEME
 }) {
-  const scale = useScale()
+  const { scale } = useSVGContext()
   const focusColor = theme.global.colors[theme.global.colors.focus]
   const RADIUS = (window?.innerWidth < 900) ? 5 : 8
   const STROKE_COLOR = 'white'
