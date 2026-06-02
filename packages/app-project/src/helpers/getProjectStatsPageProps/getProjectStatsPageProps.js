@@ -76,10 +76,13 @@ export default async function getProjectStatsPageProps({ locale, params }) {
   /*
     Fetch the active project workflows and their basic stats.
   */
+
+  const workflowOrder = project.configuration?.workflow_order || []
   const workflows = await fetchWorkflowStatsHelper(
     language,
     project.links.active_workflows,
-    env
+    env,
+    workflowOrder
   )
 
   /*
