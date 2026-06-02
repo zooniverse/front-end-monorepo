@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 
-import useScale from '../../hooks/useScale'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 
 // TODO update per tool size prop
 
@@ -22,8 +22,8 @@ const DEFAULT_MARK = {
   }
 }
 
-function Point({ active = false, mark = {DEFAULT_MARK}, onFinish }) {
-  const scale = useScale()
+function Point({ active = false, mark = DEFAULT_MARK, onFinish }) {
+  const { scale } = useSVGContext()
   const { size } = mark.tool
   const crosshairSpace = CROSSHAIR_SPACE
   const crosshairWidth = CROSSHAIR_WIDTH

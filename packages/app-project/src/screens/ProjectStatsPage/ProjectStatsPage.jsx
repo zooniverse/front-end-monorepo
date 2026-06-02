@@ -21,8 +21,8 @@ function ProjectStatsPage({ workflows }) {
           width={{ width: '100%', max: '85rem' }}
         >
           <ChartContainer workflows={workflows} />
-          <ProjectStatistics hideLink />
           <Workflows workflows={workflows} />
+          <ProjectStatistics hideLink />
         </Box>
       </ProjectAboutPageLayout>
     </StandardLayout>
