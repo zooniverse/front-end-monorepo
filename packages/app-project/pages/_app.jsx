@@ -5,13 +5,15 @@ import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import { NuqsAdapter } from 'nuqs/adapters/next/pages'
 // import OpenLayers CSS for lib-classifier GeoMapViewer component styling
 import 'ol/ol.css'
 
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
-import { usePanoptesUser, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
+import { useAdminMode, usePanoptesUser, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
 import initStore from '@stores'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
 
 const GlobalStyle = createGlobalStyle`
@@ -62,6 +64,8 @@ function MyApp({ Component, pageProps }) {
 
   const userKey = store.user?.id || 'no-user'
   const user = usePanoptesUser(userKey)
+  const { adminMode, toggleAdmin } = useAdminMode()
+  const authContext = { adminMode, toggleAdmin, user }
   const project = store.project
   const favourites = useUserFavourites({ user, project })
   useSugarProject(project)
@@ -102,19 +106,23 @@ function MyApp({ Component, pageProps }) {
       <>
         <GlobalStyle />
         <Provider store={store}>
-          <ThemeModeContext.Provider value={themeContext}>
-            <Grommet
-              background={{
-                dark: 'dark-1',
-                light: 'light-1'
-              }}
-              theme={zooTheme}
-              themeMode={themeMode}
-            >
-              <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
-              <Component {...pageProps} />
-            </Grommet>
-          </ThemeModeContext.Provider>
+          <PanoptesAuthContext.Provider value={authContext}>
+            <ThemeModeContext.Provider value={themeContext}>
+              <Grommet
+                background={{
+                  dark: 'dark-1',
+                  light: 'light-1'
+                }}
+                theme={zooTheme}
+                themeMode={themeMode}
+              >
+                <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
+                <NuqsAdapter>
+                  <Component {...pageProps} />
+                </NuqsAdapter>
+              </Grommet>
+            </ThemeModeContext.Provider>
+          </PanoptesAuthContext.Provider>
         </Provider>
       </>
     )

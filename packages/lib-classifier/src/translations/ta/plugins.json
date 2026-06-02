@@ -1,0 +1,75 @@
+{
+  "FreehandLine": {
+    "active": "இணைப்புப் புள்ளியை உருவாக்க, திறந்த புள்ளியிலிருந்து மூடும் புள்ளி வரை கிளிக் செய்து இழுக்கவும் அல்லது கோட்டின் மீது எங்கு வேண்டுமானாலும் இருமுறை கிளிக் செய்யவும்.",
+    "closePoint": "முடிவுப் புள்ளியை அமைக்க, கோட்டின் எந்தப் பகுதியிலும் சொடுக்கவும்.",
+    "inactive": "இந்த வரியைத் திருத்த கிளிக் செய்யவும்",
+    "spliceDrag": "திறந்த புள்ளியிலிருந்து மூடிய புள்ளி வரை கிளிக் செய்து இழுக்கவும்.",
+    "splicePoint": "இணைப்புப் புள்ளியை உருவாக்க, கோட்டின் எந்தப் பகுதியிலும் இருமுறை சொடுக்கவும்."
+  },
+  "HighlighterTask": {
+    "delete": "நீக்கு",
+    "noLabels": "ஹைலைட்டர் பணிக்கு லேபிள்கள் இல்லை",
+    "status": "{{count}} குறிக்கப்பட்டது"
+  },
+  "InputStatus": {
+    "drawn": "{{count}} வரையப்பட்டது",
+    "max": "{{count}} இன் {{max}} அதிகபட்சமாக வரையப்பட்டது",
+    "maxAndMin": "{{count}} இன் {{min}} தேவைப்படும், {{max}} அதிகபட்சமாக வரையப்பட்டது",
+    "min": "{{count}} இன் {{min}} தேவைப்படும் வரைபடம்"
+  },
+  "LineControls": {
+    "close": "மூடு",
+    "delete": "நீக்கு",
+    "deleteCancel": "நீக்குவதை ரத்து செய்",
+    "deleteConfirm": "நீக்குவதை உறுதிப்படுத்து",
+    "lineControls": "வரி கட்டுப்பாடுகள்",
+    "move": "நகர்த்தவும்",
+    "redo": "மீண்டும் செய்",
+    "undo": "செயல்தவிர்"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "ஏதாவது உள்ளிடவும்",
+    "otherLabel": "மற்றவை...",
+    "selectPlaceholder": "ஒரு பதிலைத் தேர்ந்தெடுக்கவும்"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "வடிப்பான்களை அழிக்கவும்",
+      "closeFilters": "வடிப்பான்களை மூடுக",
+      "filter": "வடிகட்டி",
+      "removeFilter": "அகற்று {{valueLabel}} வடிகட்டி",
+      "showing": "காண்பிக்கப்படுகிறது {{showing}} இன் {{total}}"
+    },
+    "Choice": {
+      "cancel": "ரத்துசெய்",
+      "identify": "அடையாளம் காணுங்கள்",
+      "lessInfo": "குறைவான தகவல்கள்",
+      "moreInfo": "மேலும் தகவல்",
+      "notThis": "இது இல்லை"
+    },
+    "ChoiceButton": {
+      "identified": "பணியமர்த்தப்பட்ட",
+      "openSubmenu": "இதற்கான துணை மெனுவைத் திறக்கவும் {{choiceLabel}}"
+    },
+    "ConfusedWith": {
+      "cancel": "ரத்துசெய்",
+      "confused": "சில நேரங்களில் குழப்பம்",
+      "itsThis": "இதுதான் என்று நினைக்கிறேன்."
+    },
+    "DeleteButton": {
+      "delete": "தேர்வை நீக்கு {{choiceLabel}}"
+    }
+  },
+  "TextFromSubjectTask": {
+    "reset": "மீட்டமை"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "உரை மாற்றிகள்"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "உருவாக்கப்பட்ட ஒளிப்படக்கலை",
+    "editing": "படியெடுத்தல் திருத்தம்"
+  }
+}

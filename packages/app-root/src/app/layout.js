@@ -21,7 +21,8 @@ export const metadata = {
     creator: '@the_zooniverse'
   },
   other: {
-    'zooniverse:deployed_commit': process.env.COMMIT_ID
+    'zooniverse:deployed_commit': process.env.COMMIT_ID,
+    'zooniverse:deployed_app': 'fe-root'
   }
 }
 

@@ -48,6 +48,13 @@
       ]
     }
   },
+  "Classifier": {
+    "status": {
+      "loading": "Loading the Classifier",
+      "noWorkflowSelected": "No workflow selected.",
+      "workflowDoesNotExist": "This workflow does not exist or you do not have permission to view it."
+    }
+  },
   "DrawingTools": {
     "RotateHandle": "Handle for rotating drawn annotation\/mark."
   },
@@ -168,6 +175,7 @@
       "chartLabel": "Bar chart"
     },
     "GeoMapViewer": {
+      "mapLabel": "Interactive map",
       "CoordinateInput": {
         "error": {
           "invalidFormat": "Coordinates must be in \"latitude, longitude\" format (44.98, -93.22)"

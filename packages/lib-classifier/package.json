@@ -86,7 +86,7 @@
     "@vitejs/plugin-react": "~4.4.1",
     "@zooniverse/grommet-theme": "~4.0.0",
     "@zooniverse/panoptes-js": "~1.0.0",
-    "@zooniverse/react-components": "~1.15.0",
+    "@zooniverse/react-components": "~1.16.0",
     "@zooniverse/standard": "~2.0.0",
     "babel-loader": "~10.0.0",
     "babel-plugin-module-resolver": "~5.0.0",
@@ -120,7 +120,7 @@
     "vitest": "~3.1.3",
     "webpack": "~5.104.1",
     "webpack-cli": "~6.0.1",
-    "webpack-dev-server": "~5.2.0"
+    "webpack-dev-server": "~5.2.4"
   },
   "engines": {
     "node": ">=20.5"
