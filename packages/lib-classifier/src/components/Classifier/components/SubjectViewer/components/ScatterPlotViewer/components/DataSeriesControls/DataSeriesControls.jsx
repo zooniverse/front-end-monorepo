@@ -1,5 +1,7 @@
 import { Box, CheckBox } from 'grommet'
 
+const DEFAULT_HANDLER = () => {}
+
 export default function DataSeriesControls ({
   fullData,
   indexesToHide = [],
