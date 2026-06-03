@@ -1,7 +1,7 @@
-import LineString from './LineString'
+import SegmentedLine from './SegmentedLine'
 import GeoDrawingTask from '../../../task/models/GeoDrawingTask'
 
-describe('Model > LineString', function () {
+describe('Model > SegmentedLine', function () {
   const basicSnapshot = {
     type: 'Feature',
     geometry: {
@@ -12,7 +12,7 @@ describe('Model > LineString', function () {
   }
 
   it('should exist', function () {
-    const lineString = LineString.create(basicSnapshot)
+    const lineString = SegmentedLine.create(basicSnapshot)
     expect(lineString).to.exist
     expect(lineString).to.be.an('object')
   })
@@ -27,7 +27,7 @@ describe('Model > LineString', function () {
         },
         properties: { name: 'Test line' }
       }
-      const lineString = LineString.create(snapshot)
+      const lineString = SegmentedLine.create(snapshot)
       expect(lineString.geometry.type).to.equal('LineString')
       expect(lineString.geometry.coordinates).to.deep.equal([[10, 20], [11, 21], [12, 22]])
       expect(lineString.properties.name).to.equal('Test line')
@@ -41,7 +41,7 @@ describe('Model > LineString', function () {
       const snapshot = {
         geometry: mockOLGeometry
       }
-      const lineString = LineString.create(snapshot)
+      const lineString = SegmentedLine.create(snapshot)
       expect(lineString.geometry.type).to.equal('LineString')
       expect(lineString.geometry.coordinates).to.deep.equal([[5, 15], [6, 16]])
     })
@@ -50,7 +50,7 @@ describe('Model > LineString', function () {
       const snapshot = {
         geometry: {}
       }
-      const lineString = LineString.create(snapshot)
+      const lineString = SegmentedLine.create(snapshot)
       expect(lineString.geometry.coordinates).to.deep.equal([])
     })
 
@@ -60,7 +60,7 @@ describe('Model > LineString', function () {
           coordinates: [[1, 2], [3, 4]]
         }
       }
-      const lineString = LineString.create(snapshot)
+      const lineString = SegmentedLine.create(snapshot)
       expect(lineString.geometry.type).to.equal('LineString')
     })
   })
@@ -73,14 +73,14 @@ describe('Model > LineString', function () {
             getCoordinates: () => [[10, 20], [11, 21]]
           })
         }
-        const lineString = LineString.create(basicSnapshot)
+        const lineString = SegmentedLine.create(basicSnapshot)
         const coords = lineString.getCoordinates({ feature: mockFeature })
         expect(coords).to.deep.equal([[10, 20], [11, 21]])
       })
 
       it('should return model coordinates as fallback', function () {
         const mockFeature = {}
-        const lineString = LineString.create(basicSnapshot)
+        const lineString = SegmentedLine.create(basicSnapshot)
         const coords = lineString.getCoordinates({ feature: mockFeature })
         expect(coords).to.deep.equal([[2.29, 48.85], [2.30, 48.86], [2.31, 48.87]])
       })
@@ -96,28 +96,28 @@ describe('Model > LineString', function () {
           type: 'geoDrawing',
           tools: [
             { type: 'Point', label: 'Point' },
-            { type: 'LineString', color: '#00ff00', label: 'Dam crest' }
+            { type: 'SegmentedLine', color: '#00ff00', label: 'Dam crest' }
           ]
         })
-        const lineString = LineString.create(basicSnapshot)
+        const lineString = SegmentedLine.create(basicSnapshot)
         const tool = lineString.getTool({ feature: mockFeature, geoDrawingTask })
-        expect(tool?.type).to.equal('LineString')
+        expect(tool?.type).to.equal('SegmentedLine')
         expect(tool?.label).to.equal('Dam crest')
       })
 
-      it('should fall back to first LineString tool when no toolIndex', function () {
+      it('should fall back to first SegmentedLine tool when no toolIndex', function () {
         const mockFeature = { get: () => null }
         const geoDrawingTask = GeoDrawingTask.create({
           taskKey: 'T0',
           type: 'geoDrawing',
           tools: [
             { type: 'Point', label: 'Point' },
-            { type: 'LineString', color: '#00ff00', label: 'Dam crest' }
+            { type: 'SegmentedLine', color: '#00ff00', label: 'Dam crest' }
           ]
         })
-        const lineString = LineString.create(basicSnapshot)
+        const lineString = SegmentedLine.create(basicSnapshot)
         const tool = lineString.getTool({ feature: mockFeature, geoDrawingTask })
-        expect(tool?.type).to.equal('LineString')
+        expect(tool?.type).to.equal('SegmentedLine')
       })
     })
 
@@ -132,12 +132,12 @@ describe('Model > LineString', function () {
         taskKey: 'T0',
         type: 'geoDrawing',
         tools: [
-          { type: 'LineString', color: '#00ff00', label: 'Dam crest' }
+          { type: 'SegmentedLine', color: '#00ff00', label: 'Dam crest' }
         ]
       })
 
       it('should return at least one stroke style when not selected', function () {
-        const lineString = LineString.create(basicSnapshot)
+        const lineString = SegmentedLine.create(basicSnapshot)
         const styles = lineString.getStyles({ feature: mockFeature, geoDrawingTask, isSelected: false })
         expect(styles).to.be.an('array')
         expect(styles.length).to.equal(1)
@@ -145,7 +145,7 @@ describe('Model > LineString', function () {
       })
 
       it('should add per-vertex circle styles when selected', function () {
-        const lineString = LineString.create(basicSnapshot)
+        const lineString = SegmentedLine.create(basicSnapshot)
         const styles = lineString.getStyles({ feature: mockFeature, geoDrawingTask, isSelected: true })
         expect(styles.length).to.equal(3)
         expect(styles[0].getStroke()).to.exist

@@ -36,6 +36,24 @@ const GeoDrawing = types
         taskType: self.type,
         value: null
       })
+    },
+
+    isComplete(annotation) {
+      if (self.required && !annotation?.isComplete) return false
+
+      const features = annotation?.value?.features ?? []
+      for (let toolIndex = 0; toolIndex < self.tools.length; toolIndex++) {
+        const tool = self.tools[toolIndex]
+        const minLines = tool.min
+        if (typeof minLines === 'number' && minLines > 0) {
+          const matchingCount = features.filter((feature) => (
+            feature?.properties?.toolIndex === toolIndex
+          )).length
+          if (matchingCount < minLines) return false
+        }
+      }
+
+      return true
     }
   }))
   .actions(self => {
