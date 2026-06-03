@@ -3,33 +3,36 @@ import { Box, CheckBox } from 'grommet'
 const DEFAULT_HANDLER = () => {}
 
 export default function DataSeriesControls ({
-  fullData,
-  indexesToHide = [],
-  theme,
-  toggleIndex = DEFAULT_HANDLER
+  data,
+  highlightedSeries,  // Either undefined, or an array of strings
+  toggleHighlightedSeries = DEFAULT_HANDLER,
 }) {
-  if (!fullData) return null
+  if (!data) return null
 
   function onCheckboxChange (event) {
-    const index = parseInt(event?.currentTarget?.dataset?.index)
-    if (!Number.isNaN(index)) toggleIndex(index)
+    toggleHighlightedSeries(event.currentTarget?.dataset.label)
   }
 
   return (
     <Box className='ScatterPlotViewer-DataSeriesControls'>
-      {fullData?.map((dataSeries, index) => {
+      {data?.map((dataSeries, index) => {
 
-        const checked = !indexesToHide.includes(index)
-        const label = dataSeries.seriesOptions?.label?.trim() || `series ${index+1}`
+        const label = dataSeries.seriesOptions?.label
+        const labelToDisplay = label?.trim() || `series ${index+1}`  // TODO: use translations
+        
+        // Checkbox is checked if highlightedSeries is undefined (which means
+        // _everything_ is checked), or if label is included in the
+        // highlightedSeries array. 
+        const checked = !highlightedSeries || highlightedSeries.includes(label)
 
         return (
           <CheckBox
             key={`data-series-${index}`}
             checked={checked}
-            label={label}
+            label={labelToDisplay}
             name='scatterplot-data-series'
             onChange={onCheckboxChange}
-            data-index={index}
+            data-label={label}
           />
         )
       })}

@@ -34,6 +34,20 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
     highlightedSeries: highlightedSeries ?? localHighlightedSeries,  // If highlightedSeries was provided by an external component, use that. If not, use the locally-managed value.
   }
 
+  // Adds/removes a label from the LOCAL highlightedSeries array.
+  // Triggered by DataSeriesControls.
+  // If we're using the highlightedSeries provided by an external component,
+  // then that external component should manage adding/removing labels. 
+  function toggleHighlightedSeries (label) {
+    if (!localHighlightedSeries) return 
+    
+    if (localHighlightedSeries.includes(label)) {
+      setLocalHighlightedSeries(localHighlightedSeries.filter(s => s !== label))
+    } else {
+      setLocalHighlightedSeries([ ...localHighlightedSeries, label ])
+    }
+  }
+
   return (
     <ParentSize>
       {(parent) => (
@@ -43,7 +57,9 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
           )}
           {isMultiSeriesData && showDataSeriesControls && (
             <DataSeriesControls
-              fullData={data}
+              data={data}
+              highlightedSeries={newProps.highlightedSeries}
+              toggleHighlightedSeries={toggleHighlightedSeries}
             />
           )}
           <Plot
