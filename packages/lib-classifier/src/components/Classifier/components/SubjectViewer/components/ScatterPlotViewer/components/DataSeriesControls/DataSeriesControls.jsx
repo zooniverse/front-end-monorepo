@@ -1,12 +1,28 @@
 import { Box, CheckBox } from 'grommet'
+import { withTheme } from 'styled-components'
+import Label from '../../../VariableStarViewer/components/Controls/components/Label'  // This can be organised this better. Perhaps make this a shared component?
 
 const DEFAULT_HANDLER = () => {}
 
-export default function DataSeriesControls ({
+function DataSeriesControls ({
   data,
   highlightedSeries,  // Either undefined, or an array of strings
+  theme: {
+    global: {
+      colors = {
+        drawingTools: {}
+      }
+    }
+  } = {
+    global: {
+      colors: {
+        drawingTools: {}
+      }
+    }
+  },
   toggleHighlightedSeries = DEFAULT_HANDLER,
 }) {
+
   if (!data) return null
 
   function onCheckboxChange (event) {
@@ -29,7 +45,16 @@ export default function DataSeriesControls ({
           <CheckBox
             key={`data-series-${index}`}
             checked={checked}
-            label={labelToDisplay}
+            label={
+              <Label
+                colors={colors}
+                checked={checked}
+                label={labelToDisplay}
+                seriesIndex={index}
+                seriesOptions={dataSeries.seriesOptions}
+                highlightedSeries={highlightedSeries}
+              />
+            }
             name='scatterplot-data-series'
             onChange={onCheckboxChange}
             data-label={label}
@@ -39,3 +64,5 @@ export default function DataSeriesControls ({
     </Box>
   )
 }
+
+export default withTheme(DataSeriesControls)
