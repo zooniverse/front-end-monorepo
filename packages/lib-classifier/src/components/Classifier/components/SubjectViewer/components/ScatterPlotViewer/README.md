@@ -90,7 +90,7 @@ The JSON file can take two different shapes depending on if the data is a single
 
 The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point.
 
-Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series.
+Each series supports a set of options under `seriesOptions`, and at minimum a string `label` is required for each series. (Each label must be unique.)
 
 - An optional string `color` for can defined using either a variable name from the colors available from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/main/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series.
 - An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
