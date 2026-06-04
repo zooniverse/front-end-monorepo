@@ -30,7 +30,13 @@ function DataSeriesControls ({
   }
 
   return (
-    <Box className='ScatterPlotViewer-DataSeriesControls'>
+    <Box
+      className='ScatterPlotViewer-DataSeriesControls'
+      direction='row'
+      gap='large'
+      justify='center'
+      wrap={true}
+    >
       {data?.map((dataSeries, index) => {
 
         const label = dataSeries.seriesOptions?.label
