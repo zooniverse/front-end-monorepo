@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { ParentSize } from '@visx/responsive'
@@ -26,6 +26,12 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
   const defaultLocalHighlightedSeries = isMultiSeriesData ? data.map(s => s.seriesOptions?.label).filter(Boolean) : undefined
   const [ localHighlightedSeries, setLocalHighlightedSeries ] = useState(defaultLocalHighlightedSeries)
 
+  // When new data comes in, reset the local highlighted series.
+  useEffect(function onNewData() {
+    const defaultLocalHighlightedSeries = isMultiSeriesData ? data.map(s => s.seriesOptions?.label).filter(Boolean) : undefined
+    setLocalHighlightedSeries(defaultLocalHighlightedSeries)
+  }, [data])
+  
   // Is zooming enabled for this scatter plot?
   const Plot = (zooming) ? ZoomingScatterPlot : ScatterPlot
 
