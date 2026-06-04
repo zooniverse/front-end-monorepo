@@ -49,28 +49,30 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
   }
 
   return (
-    <ParentSize>
-      {(parent) => (
-        <>
-          {zoomControlFn && (
-            <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />
-          )}
-          <Plot
-            forwardedRef={ref}
-            parentHeight={parent.height}
-            parentWidth={parent.width}
-            {...newProps}
-          />
-          {isMultiSeriesData && showDataSeriesControls && (
-            <DataSeriesControls
-              data={data}
-              highlightedSeries={newProps.highlightedSeries}
-              toggleHighlightedSeries={toggleHighlightedSeries}
+    <>
+      <ParentSize>
+        {(parent) => (
+          <>
+            {zoomControlFn && (
+              <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />
+            )}
+            <Plot
+              forwardedRef={ref}
+              parentHeight={parent.height}
+              parentWidth={parent.width}
+              {...newProps}
             />
-          )}
-        </>
+          </>
+        )}
+      </ParentSize>
+      {isMultiSeriesData && showDataSeriesControls && (
+        <DataSeriesControls
+          data={data}
+          highlightedSeries={newProps.highlightedSeries}
+          toggleHighlightedSeries={toggleHighlightedSeries}
+        />
       )}
-    </ParentSize>
+    </>
   )
 })
 
