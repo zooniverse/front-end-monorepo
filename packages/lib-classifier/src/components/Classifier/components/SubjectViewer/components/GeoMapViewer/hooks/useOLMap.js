@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { Map, View } from 'ol'
 import { defaults as defaultControls } from 'ol/control/defaults'
 import ScaleLine from 'ol/control/ScaleLine'
-import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
-import OSM from 'ol/source/OSM'
 import VectorSource from 'ol/source/Vector'
 
-export default function useOLMap(containerRef) {
+import createTileLayer from '../helpers/createTileLayer'
+
+export default function useOLMap(containerRef, tileLayers = []) {
   const [state, setState] = useState({ map: null, source: null, layer: null, scaleLine: null })
 
   useEffect(() => {
@@ -16,12 +16,15 @@ export default function useOLMap(containerRef) {
     const source = new VectorSource({ features: [] })
     const layer = new VectorLayer({ source })
     const scaleLine = new ScaleLine()
+
+    const descriptors = tileLayers.length > 0 ? tileLayers : [{ type: 'osm' }]
+    const baseTileLayers = descriptors.map(createTileLayer)
+    const defaultLayerIndex = Math.max(0, descriptors.findIndex(descriptor => descriptor?.default))
+    baseTileLayers.forEach((tileLayer, index) => tileLayer.setVisible(index === defaultLayerIndex))
+
     const map = new Map({
       target: containerRef.current,
-      layers: [
-        new TileLayer({ preload: 1, source: new OSM() }),
-        layer
-      ],
+      layers: [...baseTileLayers, layer],
       view: new View({ center: [0, 0], zoom: 0 }),
       controls: defaultControls({ zoom: false }).extend([scaleLine])
     })
@@ -32,7 +35,7 @@ export default function useOLMap(containerRef) {
       map.setTarget(undefined)
       setState({ map: null, source: null, layer: null, scaleLine: null })
     }
-  }, [containerRef])
+  }, [containerRef, tileLayers])
 
   return state
 }

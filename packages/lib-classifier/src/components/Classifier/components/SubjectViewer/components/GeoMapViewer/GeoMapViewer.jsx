@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import GeoJSON from 'ol/format/GeoJSON'
@@ -65,12 +65,16 @@ function sanitizeProperties(properties = {}) {
   )
 }
 
+const EMPTY_TILE_LAYERS = []
+
 function GeoMapViewer({
   geoDrawingTask,
   geoJSON = undefined,
   onFeaturesChange = undefined,
   onMapExtentChange = undefined,
-  onSelectedFeatureChange = undefined
+  onMapReady = undefined,
+  onSelectedFeatureChange = undefined,
+  tileLayers = EMPTY_TILE_LAYERS
 }) {
   const [isMeasureModeActive, setIsMeasureModeActive] = useState(false)
   const [selectedUnit, setSelectedUnit] = useState('meters')
@@ -81,7 +85,7 @@ function GeoMapViewer({
   const hasGeoDrawingTask = !!(geoDrawingTask && geoDrawingTask.tools.length > 0)
   const activeToolType = geoDrawingTask?.activeTool?.type
 
-  const { map, source, layer, scaleLine } = useOLMap(containerRef)
+  const { map, source, layer, scaleLine } = useOLMap(containerRef, tileLayers)
 
   const { select, translate } = useMapSelection({
     map,
@@ -131,6 +135,10 @@ function GeoMapViewer({
     activeToolType,
     isMeasureModeActive
   })
+
+  useEffect(() => {
+    if (map && onMapReady) onMapReady(map)
+  }, [map, onMapReady])
 
   useEffect(() => {
     loadGeoJSON({ map, source, select, measure, data: geoJSON })
@@ -248,7 +256,18 @@ GeoMapViewer.propTypes = {
   geoJSON: shape({}),
   onFeaturesChange: func,
   onMapExtentChange: func,
-  onSelectedFeatureChange: func
+  onMapReady: func,
+  onSelectedFeatureChange: func,
+  tileLayers: arrayOf(shape({
+    type: string.isRequired,
+    label: string,
+    url: string,
+    params: shape({}),
+    attributions: string,
+    format: string,
+    projection: string,
+    default: bool
+  }))
 }
 
 export default observer(GeoMapViewer)

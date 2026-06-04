@@ -5,6 +5,8 @@ import GeoTIFF from 'ol/source/GeoTIFF'
 import TileWMS from 'ol/source/TileWMS'
 import XYZ from 'ol/source/XYZ'
 
+import './registerProjections'
+
 const DEFAULT_WMS_FORMAT = 'image/png'
 
 function createTileLayer (descriptor) {
