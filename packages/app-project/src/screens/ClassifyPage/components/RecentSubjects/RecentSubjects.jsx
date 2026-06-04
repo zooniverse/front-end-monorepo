@@ -37,38 +37,53 @@ function RecentSubjects({
 }) {
   const { t } = useTranslation('screens')
   const height = size === 1 ? '40vw' : '200px'
+  const isEmpty = recents?.length === 0
   const displayedRecents = recents.slice(0, size)
   const placeholders = [...Array(size - displayedRecents.length)]
+  const gridColumns = isEmpty ? ['1fr'] : [`repeat(${size}, 1fr)`]
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title')}>
       <Grid
         alignContent='stretch'
-        columns={[`repeat(${size}, 1fr)`]}
+        columns={gridColumns}
         gap='small'
+        height={isEmpty ? height : undefined}
       >
-        {displayedRecents.map(recent => {
-          const subject = {
-            favorite: recent.favorite,
-            id: recent.subjectId,
-            locations: recent.locations,
-            toggleFavourite: recent.toggleFavourite
-          }
-          return (
-            <SubjectPreview
-              height={height}
-              key={recent.subjectId}
-              isLoggedIn={isLoggedIn}
-              placeholder={<Placeholder height={height} />}
-              subject={subject}
-              slug={slug}
-              width={'100%'}
-            />
-          )
-        })}
-        {placeholders.map((placeholder, i) => (
-          <Placeholder key={i} height={height} />
-        ))}
+        {isEmpty ? (
+          <Box
+            align='center'
+            justify='center'
+            fill
+          >
+            {t('Classify.RecentSubjects.noSubjects')}
+          </Box>
+        ) : (
+          <>
+            {displayedRecents.map(recent => {
+              const subject = {
+                favorite: recent.favorite,
+                id: recent.subjectId,
+                locations: recent.locations,
+                toggleFavourite: recent.toggleFavourite
+              }
+              return (
+                <SubjectPreview
+                  height={height}
+                  key={recent.subjectId}
+                  isLoggedIn={isLoggedIn}
+                  placeholder={<Placeholder height={height} />}
+                  subject={subject}
+                  slug={slug}
+                  width={'100%'}
+                />
+              )
+            })}
+            {placeholders.map((placeholder, i) => (
+              <Placeholder key={i} height={height} />
+            ))}
+          </>
+        )}
       </Grid>
     </ContentBox>
   )

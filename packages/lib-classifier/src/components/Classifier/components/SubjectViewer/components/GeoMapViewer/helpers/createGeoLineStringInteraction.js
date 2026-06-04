@@ -28,6 +28,14 @@ export function buildSketchStyleFn({ map, featuresLayer, getIsDrawing }) {
   }
 }
 
+function countLineStringFeaturesForTool(source, toolIndex) {
+  return source.getFeatures().filter((feature) => {
+    if (feature.getGeometry?.()?.getType?.() !== 'LineString') return false
+    if (typeof toolIndex !== 'number') return true
+    return feature.get?.('toolIndex') === toolIndex
+  }).length
+}
+
 function createGeoLineStringInteraction({
   map,
   source,
@@ -38,13 +46,12 @@ function createGeoLineStringInteraction({
   let isDrawing = false
 
   const activeTool = geoDrawingTask?.activeTool
-  const minPoints = activeTool?.type === 'LineString' ? activeTool.min_vertices : undefined
-  const maxPoints = activeTool?.type === 'LineString' ? activeTool.max_vertices : undefined
+  const activeToolIndex = geoDrawingTask?.activeToolIndex
+  const minPoints = activeTool?.type === 'SegmentedLine' ? activeTool.min_vertices : undefined
+  const maxPoints = activeTool?.type === 'SegmentedLine' ? activeTool.max_vertices : undefined
+  const featureCountMax = activeTool?.type === 'SegmentedLine' ? activeTool.max : undefined
   const effectiveMin = typeof minPoints === 'number' ? minPoints : 2
 
-  // Block clicks that land on an already-placed vertex until min_vertices is
-  // reached, so double/triple-clicking can't stack duplicates. After min,
-  // allow them so OL's native double-click-to-finish can still close the line.
   function isDuplicateVertexClick(event) {
     const sketch = draw.getOverlay().getSource().getFeatures()
       .find(f => f.getGeometry()?.getType() === 'LineString')
@@ -87,9 +94,8 @@ function createGeoLineStringInteraction({
     const feature = event.feature
     if (!feature) return
 
-    const toolIndex = geoDrawingTask?.activeToolIndex
-    if (typeof toolIndex === 'number') {
-      feature.set('toolIndex', toolIndex)
+    if (typeof activeToolIndex === 'number') {
+      feature.set('toolIndex', activeToolIndex)
     }
 
     if (selectInteraction) {
@@ -103,21 +109,35 @@ function createGeoLineStringInteraction({
         })
       })
     }
+
+    // drawend fires before source.addFeature, so include the in-flight feature.
+    if (typeof featureCountMax === 'number' && countLineStringFeaturesForTool(source, activeToolIndex) + 1 >= featureCountMax) {
+      draw.setActive(false)
+    }
   })
 
   const drawAbortKey = draw.on('drawabort', function handleDrawAbort() {
     isDrawing = false
   })
 
+  function isCapped() {
+    return typeof featureCountMax === 'number' && countLineStringFeaturesForTool(source, activeToolIndex) >= featureCountMax
+  }
+
   return {
     isDrawing() {
       return isDrawing
     },
+    isCapped,
     abortDrawing() {
       draw.abortDrawing?.()
       isDrawing = false
     },
     setActive(active) {
+      if (active && isCapped()) {
+        draw.setActive(false)
+        return
+      }
       draw.setActive(active)
       if (!active) isDrawing = false
     },

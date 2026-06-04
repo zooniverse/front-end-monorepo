@@ -1,5 +1,6 @@
 // dependencies
 import { Box } from 'grommet'
+import { observer } from 'mobx-react'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
@@ -148,6 +149,7 @@ function GeoMapViewer({
   const mapContainerRef = useRef()
   const mapRef = useRef()
   const featuresRef = useRef()
+  const featuresLayerRef = useRef()
   const geoJSONFormatRef = useRef()
   const isMeasureModeActiveRef = useRef(false)
   const isDrawModeActiveRef = useRef(false)
@@ -199,6 +201,7 @@ function GeoMapViewer({
     const featuresLayer = new VectorLayer({
       source: featuresSource
     })
+    featuresLayerRef.current = featuresLayer
 
     const map = new Map({
       target: mapContainerRef.current,
@@ -378,14 +381,6 @@ function GeoMapViewer({
       map.addInteraction(moveToClick)
       moveToClickRef.current = moveToClick
 
-      lineStringDrawRef.current = createGeoLineStringInteraction({
-        map,
-        source: featuresSource,
-        featuresLayer,
-        geoDrawingTask,
-        selectInteraction: select
-      })
-
       lineStringModifyRef.current = createGeoLineStringModifyInteraction({
         map,
         selectInteraction: select,
@@ -447,6 +442,7 @@ function GeoMapViewer({
               isSketching: lineStringDrawRef.current?.isDrawing() ?? false,
               isOnSelectedVertex,
               isOnAnotherFeature,
+              isAtMaxLines: lineStringDrawRef.current?.isCapped() ?? false,
               isDragging: latestEvent.dragging
             })
             return
@@ -582,7 +578,6 @@ function GeoMapViewer({
       if (translateRef.current) map.removeInteraction(translateRef.current)
       if (modifyUncertaintyRef.current) map.removeInteraction(modifyUncertaintyRef.current)
       if (moveToClickRef.current) map.removeInteraction(moveToClickRef.current)
-      lineStringDrawRef.current?.destroy()
       lineStringModifyRef.current?.destroy()
       measureInteractionRef.current?.destroy()
       if (pointerMoveHandlerRef.current) map.un('pointermove', pointerMoveHandlerRef.current)
@@ -591,6 +586,7 @@ function GeoMapViewer({
       map.setTarget(undefined)
       mapRef.current = undefined
       featuresRef.current = undefined
+      featuresLayerRef.current = undefined
       geoJSONFormatRef.current = undefined
       scaleLineRef.current = undefined
       selectRef.current = undefined
@@ -598,7 +594,6 @@ function GeoMapViewer({
       modifyUncertaintyRef.current = undefined
       moveToClickRef.current = undefined
       measureInteractionRef.current = undefined
-      lineStringDrawRef.current = undefined
       lineStringModifyRef.current = undefined
       pointerMoveHandlerRef.current = undefined
       pointerDownHandlerRef.current = undefined
@@ -615,12 +610,35 @@ function GeoMapViewer({
   }, [selectedUnit, geoDrawingTask])
 
   const activeToolType = geoDrawingTask?.activeTool?.type
+  const activeToolIndex = geoDrawingTask?.activeToolIndex
   useEffect(function exitMeasureOnDrawingToolSelect() {
-    if (activeToolType === 'LineString' && isMeasureModeActiveRef.current) {
+    if (activeToolType === 'SegmentedLine' && isMeasureModeActiveRef.current) {
       measureInteractionRef.current?.clear()
       setIsMeasureModeActive(false)
     }
   }, [activeToolType])
+
+  // OL Draw fixes minPoints/maxPoints at construction, so recreate per active tool.
+  useEffect(function manageLineStringDraw() {
+    if (!mapRef.current || !featuresRef.current) return undefined
+    if (activeToolType !== 'SegmentedLine' || !geoDrawingTask) return undefined
+
+    const interaction = createGeoLineStringInteraction({
+      map: mapRef.current,
+      source: featuresRef.current,
+      featuresLayer: featuresLayerRef.current,
+      geoDrawingTask,
+      selectInteraction: selectRef.current
+    })
+    lineStringDrawRef.current = interaction
+
+    return function cleanupDraw() {
+      interaction.destroy()
+      if (lineStringDrawRef.current === interaction) {
+        lineStringDrawRef.current = undefined
+      }
+    }
+  }, [activeToolType, activeToolIndex, geoDrawingTask])
 
   useEffect(function syncInteractions() {
     const states = getInteractionStates({ activeToolType, isMeasureModeActive })
@@ -634,7 +652,7 @@ function GeoMapViewer({
     translateRef.current?.setActive(states.translate)
     modifyUncertaintyRef.current?.setActive(states.modifyUncertainty)
     moveToClickRef.current?.setActive(states.moveToClick)
-  }, [activeToolType, isMeasureModeActive])
+  }, [activeToolType, activeToolIndex, isMeasureModeActive])
 
   useEffect(function syncMeasureSelection() {
     if (isMeasureModeActive) {
@@ -902,4 +920,4 @@ GeoMapViewer.propTypes = {
   onSelectedFeatureChange: func
 }
 
-export default GeoMapViewer
+export default observer(GeoMapViewer)
