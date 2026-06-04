@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types'
+import { Box } from 'grommet'
 import { ParentSize } from '@visx/responsive'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
@@ -50,21 +51,31 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
 
   return (
     <>
-      <ParentSize>
-        {(parent) => (
-          <>
-            {zoomControlFn && (
-              <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />
-            )}
+      {/* This ScatterPlotViewer-chart container exists to set the intended size
+      for <ParentSize>, which feeds into <Plot>'s width and height. The variable
+      height is there to accommodate the presence of <DataSeriesControls>. */}
+      <Box 
+        className='ScatterPlotViewer-chart'
+        style={{
+          width: '100%',
+          height: (isMultiSeriesData && showDataSeriesControls) ? '90%' : '100%',
+        }}
+      >
+        {zoomControlFn && (
+          <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />
+        )}
+        <ParentSize>
+          {(parent) => (
             <Plot
               forwardedRef={ref}
               parentHeight={parent.height}
               parentWidth={parent.width}
               {...newProps}
             />
-          </>
-        )}
-      </ParentSize>
+          )}
+        </ParentSize>
+      </Box>
+
       {isMultiSeriesData && showDataSeriesControls && (
         <DataSeriesControls
           data={data}
