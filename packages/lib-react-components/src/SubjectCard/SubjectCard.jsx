@@ -37,16 +37,23 @@ const StyledBackground = styled(Box)`
   inset: 0;
   position: absolute;
   transform: scale(1.08);
+  z-index: 0;
+`
+
+const StyledForegroundMedia = styled(Media)`
+  position: relative;
+  z-index: 1;
 `
 
 const StyledTitle = styled(Box)`
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 99.737%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
   bottom: 0;
   height: 72px;
   left: 0;
   position: absolute;
   right: 0;
   text-align: center;
+  z-index: 2;
 `
 
 const StyledTitleText = styled.span`
@@ -146,7 +153,7 @@ function SubjectCard({
           </StyledBackground>
 
           {mediaSrc ? (
-            <Media
+            <StyledForegroundMedia
               alt={subjectIdTitle}
               controls={false}
               fit='contain'
