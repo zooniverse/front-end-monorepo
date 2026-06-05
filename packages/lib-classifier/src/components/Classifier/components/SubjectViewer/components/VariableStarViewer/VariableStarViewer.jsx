@@ -186,6 +186,7 @@ const VariableStarViewer = forwardRef((props, ref) => {
               }}
               setOnPan={setOnPan}
               setOnZoom={setOnZoom}
+              showDataSeriesControls={false}
               xAxisLabel={scatterPlot?.chartOptions.xAxisLabel}
               xAxisNumTicks={4}
               yAxisLabel={scatterPlot?.chartOptions.yAxisLabel}
