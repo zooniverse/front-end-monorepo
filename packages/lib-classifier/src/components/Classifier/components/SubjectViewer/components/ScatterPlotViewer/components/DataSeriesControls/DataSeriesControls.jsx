@@ -1,6 +1,7 @@
 import { Box, CheckBox } from 'grommet'
 import { withTheme } from 'styled-components'
 import Label from '../../../VariableStarViewer/components/Controls/components/Label'  // This can be organised this better. Perhaps make this a shared component?
+import { useTranslation } from 'next-i18next'
 
 const DEFAULT_HANDLER = () => {}
 
@@ -22,6 +23,7 @@ function DataSeriesControls ({
   },
   toggleHighlightedSeries = DEFAULT_HANDLER,
 }) {
+  const { t } = useTranslation('components')
 
   if (!data) return null
 
@@ -40,7 +42,7 @@ function DataSeriesControls ({
       {data?.map((dataSeries, index) => {
 
         const label = dataSeries.seriesOptions?.label
-        const labelToDisplay = label?.trim() || `series ${index+1}`  // TODO: use translations
+        const labelToDisplay = label?.trim() || t('SubjectViewer.ScatterPlotViewer.DataSeriesControls.label', { id: index + 1 })
         
         // Checkbox is checked if highlightedSeries is undefined (which means
         // _everything_ is checked), or if label is included in the
