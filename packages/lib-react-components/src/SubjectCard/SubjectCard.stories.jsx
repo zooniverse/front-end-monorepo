@@ -46,13 +46,13 @@ const PRINT_SUBJECT = {
   ]
 }
 
-// Planet Four subject, square, dark
-const PLANET_FOUR_SUBJECT = {
+// Iguanas from Above, square
+const IGUANAS_FROM_ABOVE_SUBJECT = {
   id: '83746800',
   links: { project: '5110' },
   locations: [
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/2714fc7f-e8da-449f-b6e0-9d464009dcb9.jpeg'
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/91a4df56-4cd8-429f-9193-d2d8481f74e5.jpeg'
     }
   ]
 }
@@ -157,7 +157,7 @@ export const LoggedInPortraitBusy = {
 }
 
 export const LoggedInSquare = {
-  render: () => <StoryRow login={'TestUser'} subject={PLANET_FOUR_SUBJECT} />
+  render: () => <StoryRow login={'TestUser'} subject={IGUANAS_FROM_ABOVE_SUBJECT} />
 }
 
 export const LoggedInSquareDark = {
