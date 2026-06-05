@@ -13,7 +13,7 @@ import {
 
 describe('Component > ZoomingScatterPlot', function() {
   const mockData = [{
-    seriesData: [{ x: 1, y: 6 }, { x: 10, y: 1 }],
+    seriesData: [{ x: 1, y: 1 }, { x: 2, y: 4 }, { x: 3, y: 9 }, { x: 4, y: 16 }, , { x: 5, y: 25 }],
     seriesOptions: {
       label: 'My data'
     }

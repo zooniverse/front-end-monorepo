@@ -89,26 +89,26 @@ function ProjectStatistics({
       <MainGrid>
         <AllTimeBox>
           <AllTimeHeading level={3}>{t('ProjectStatistics.allTime')}</AllTimeHeading>
-          <Box gap='medium' height='100%' justify='center' margin={{ left: '-30px'}}>
+          <Box gap='small' height='100%' justify='center' margin={{ left: '-30px' }}>
             <Stat value={volunteers} label={t('ProjectStatistics.volunteers')} />
             <Stat value={erasTotal} label={t('ProjectStatistics.classifications')} />
+            <Text size='0.8rem'>
+              {launchDate === null
+                ? t('ProjectStatistics.notLaunched')
+                : t('ProjectStatistics.launched', { date })}
+            </Text>
           </Box>
         </AllTimeBox>
         <Box>
           <SpacedHeading level={3} margin='none'>
             {t('ProjectStatistics.active')}
           </SpacedHeading>
-          <Paragraph margin={{ top: 'none' }}>
+          <Paragraph margin={{ top: 'none', bottom: '10px' }}>
             {t('ProjectStatistics.text', { projectName })}
           </Paragraph>
           <CompletionBar completeness={completeness} />
-          <Box direction='row' justify='between' align='center' pad={{ top: 'xsmall' }}>
-            <Text size='0.75rem'>
-              {launchDate === null
-                ? t('ProjectStatistics.notLaunched')
-                : t('ProjectStatistics.launched', { date })}
-            </Text>
-            <Text size='0.625rem'>{t('ProjectStatistics.percentComplete')}</Text>
+          <Box direction='row' justify='end' align='center' pad={{ top: '5px' }}>
+            <Text size='0.75rem'>{t('ProjectStatistics.percentComplete')}</Text>
           </Box>
           <NumbersGrid>
             <Stat value={classifications} label={t('ProjectStatistics.classifications')} />

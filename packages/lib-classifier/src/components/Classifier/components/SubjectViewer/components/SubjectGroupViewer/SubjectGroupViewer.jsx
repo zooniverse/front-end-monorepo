@@ -1,7 +1,8 @@
 import { array, arrayOf, bool, func, number, object, oneOf, shape, string } from 'prop-types'
-import { forwardRef, useRef } from 'react'
+import { forwardRef } from 'react'
 import styled, { css } from 'styled-components'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+
+import SVGCanvas from '../SVGComponents/SVGCanvas'
 import SGVGridCell from './components/SGVGridCell'
 
 const DEFAULT_CELL_STYLE = {}
@@ -86,62 +87,61 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer({
   isCurrentTaskValidForAnnotation = false,
 }, ref) {
 
-  const transformLayer = useRef()
-  const canvas = transformLayer.current
   // Extract cell indices for cellAnnotated prop
   const annotatedValues = annotation?.value ? annotation.value.map(cell => cell.index) : []
 
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
+
+  // SVGContext scale is not used by consumers here, so we leave set at 1
+  // See implementation in VideoWithDrawing.jsx if needed
   
   return (
-    <SVGContext.Provider value={{ canvas }}>
-      <Container
+    <Container
+      gridMaxWidth={gridMaxWidth}
+      gridMaxHeight={gridMaxHeight}
+    >
+      <SVG
+        ref={ref}
+        focusable
+        onKeyDown={onKeyDown}
+        tabIndex={0}
+        viewBox={`0 0 ${width} ${height}`}
         gridMaxWidth={gridMaxWidth}
         gridMaxHeight={gridMaxHeight}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <SVG
-          ref={ref}
-          focusable
-          onKeyDown={onKeyDown}
-          tabIndex={0}
-          viewBox={`0 0 ${width} ${height}`}
-          gridMaxWidth={gridMaxWidth}
-          gridMaxHeight={gridMaxHeight}
-          xmlns="http://www.w3.org/2000/svg"
+        <SVGCanvas
+          scale={1} 
         >
-          <g
-            ref={transformLayer}
-          >
-            {images.map((image, index) => (
-              <SGVGridCell
-                key={`sgv-grid-cell-${index}`}
-                
-                image={image}
-                index={index}
-                subjectId={subjectIds[index]}
-                
-                dragMove={dragMove}
-                
-                cellWidth={cellWidth}
-                cellHeight={cellHeight}
-                cellStyle={cellStyle}
-                gridRows={gridRows}
-                gridColumns={gridColumns}
-                
-                panX={panX}
-                panY={panY}
-                zoom={zoom}
+          {images.map((image, index) => (
+            <SGVGridCell
+              key={`sgv-grid-cell-${index}`}
+              
+              image={image}
+              index={index}
+              subjectId={subjectIds[index]}
+              
+              dragMove={dragMove}
+              
+              cellWidth={cellWidth}
+              cellHeight={cellHeight}
+              cellStyle={cellStyle}
+              gridRows={gridRows}
+              gridColumns={gridColumns}
+              
+              panX={panX}
+              panY={panY}
+              zoom={zoom}
 
-                annotation={annotation}
-                annotationMode={annotationMode}
-                cellAnnotated={annotatedValues.includes(index)}
-                currentTask={currentTask}
-              />
-            ))}
-          </g>
-        </SVG>
-      </Container>
-    </SVGContext.Provider>
+              annotation={annotation}
+              annotationMode={annotationMode}
+              cellAnnotated={annotatedValues.includes(index)}
+              currentTask={currentTask}
+            />
+          ))}
+        </SVGCanvas>
+      </SVG>
+    </Container>
   )
 })
 

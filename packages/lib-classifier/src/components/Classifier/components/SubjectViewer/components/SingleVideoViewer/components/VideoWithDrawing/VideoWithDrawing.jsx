@@ -5,12 +5,14 @@ import { useState, useRef } from 'react'
 import { useTranslation } from '@translations/i18n'
 import asyncStates from '@zooniverse/async-states'
 import ReactPlayer from 'react-player'
+import { useResizeDetector } from 'react-resize-detector'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import { getViewportScale } from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../../../InteractionLayer'
 import locationValidator from '../../../../helpers/locationValidator'
 import VideoController from '../VideoController'
 import ControlsLayer from '../../../ControlsLayer'
+import SVGCanvas from '../../../SVGComponents/SVGCanvas'
 
 const SubjectContainer = styled.div`
   position: relative;
@@ -67,9 +69,8 @@ function VideoWithDrawing({
 
   const playerRef = useRef()
 
-  // For drawing tools
-  const interactionLayerSVG = useRef()
-  const transformLayer = useRef()
+  // Set up resize detector for calculation of scale in SVGContext
+  const {width: svgWidth, ref: svgRef} = useResizeDetector()
 
   const { t } = useTranslation('components')
 
@@ -184,10 +185,10 @@ function VideoWithDrawing({
   const sanitizedSpeed = Number(videoSpeed.slice(0, -1))
 
   // For drawing tools
-  const canvas = transformLayer?.current
-  const interactionLayerScale = clientWidth / videoWidth
   const svgStyle = {}
   svgStyle.touchAction = 'pinch-zoom'
+
+  const viewportScale = getViewportScale(svgWidth, videoWidth)
 
   return (
     <>
@@ -225,27 +226,27 @@ function VideoWithDrawing({
           {enableDrawing && (
             <DrawingLayer>
               <Box overflow='hidden'>
-                <SVGContext.Provider value={{ canvas }}>
-                  <svg
-                    ref={interactionLayerSVG}
-                    focusable
-                    onKeyDown={onKeyDown}
-                    style={svgStyle}
-                    tabIndex={0}
-                    viewBox={`0 0 ${videoWidth} ${videoHeight}`}
-                    xmlns='http://www.w3.org/2000/svg'
+                <svg
+                  ref={svgRef}
+                  focusable
+                  onKeyDown={onKeyDown}
+                  style={svgStyle}
+                  tabIndex={0}
+                  viewBox={`0 0 ${videoWidth} ${videoHeight}`}
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <SVGCanvas
+                    scale={viewportScale}
+                    transform=''
                   >
-                    <g ref={transformLayer} transform=''>
-                      <InteractionLayer
-                        scale={interactionLayerScale}
-                        duration={duration}
-                        height={videoHeight}
-                        played={played}
-                        width={videoWidth}
-                      />
-                    </g>
-                  </svg>
-                </SVGContext.Provider>
+                    <InteractionLayer
+                      duration={duration}
+                      height={videoHeight}
+                      played={played}
+                      width={videoWidth}
+                    />
+                  </SVGCanvas>
+                </svg>
               </Box>
             </DrawingLayer>
           )}

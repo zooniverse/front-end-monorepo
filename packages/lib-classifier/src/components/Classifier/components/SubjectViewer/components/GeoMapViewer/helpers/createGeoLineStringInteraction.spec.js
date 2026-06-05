@@ -84,6 +84,94 @@ describe('helpers > createGeoLineStringInteraction', function () {
     interaction.destroy()
   })
 
+  it('refuses to activate when source already holds activeTool.max LineStrings for the active tool', function () {
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 0)
+    const f2 = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    f2.set('toolIndex', 0)
+    source.addFeature(f1)
+    source.addFeature(f2)
+
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 2 } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+
+    interaction.setActive(true)
+
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+    expect(drawInteraction.getActive()).to.equal(false)
+    interaction.destroy()
+  })
+
+  it('deactivates after drawend brings the count to activeTool.max', function () {
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 1 } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+    interaction.setActive(true)
+
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+    expect(drawInteraction.getActive()).to.equal(true)
+
+    const feature = new Feature({ geometry: new LineStringGeom([[0, 0], [10, 10]]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(drawInteraction.getActive()).to.equal(false)
+    interaction.destroy()
+  })
+
+  it('keeps Draw active when the in-flight feature does not yet hit activeTool.max', function () {
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 0)
+    source.addFeature(f1)
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 3 } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+    interaction.setActive(true)
+
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+    const feature = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(drawInteraction.getActive()).to.equal(true)
+    interaction.destroy()
+  })
+
+  it('exposes isCapped() reflecting whether the active tool has hit its max', function () {
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 2 } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+
+    expect(interaction.isCapped()).to.equal(false)
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 0)
+    source.addFeature(f1)
+    expect(interaction.isCapped()).to.equal(false)
+    const f2 = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    f2.set('toolIndex', 0)
+    source.addFeature(f2)
+    expect(interaction.isCapped()).to.equal(true)
+    interaction.destroy()
+  })
+
+  it('isCapped() returns false when no max is configured', function () {
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask, selectInteraction })
+    source.addFeature(new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) }))
+    source.addFeature(new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) }))
+    expect(interaction.isCapped()).to.equal(false)
+    interaction.destroy()
+  })
+
+  it('isCapped() considers only the active tool — features tagged for another tool do not count', function () {
+    const f1 = new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) })
+    f1.set('toolIndex', 1)
+    const f2 = new Feature({ geometry: new LineStringGeom([[2, 2], [3, 3]]) })
+    f2.set('toolIndex', 1)
+    source.addFeature(f1)
+    source.addFeature(f2)
+
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'SegmentedLine', max: 2 } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+
+    expect(interaction.isCapped()).to.equal(false)
+    interaction.destroy()
+  })
+
   it('destroy() removes the Draw from the map', function () {
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask, selectInteraction })
     expect(map.getInteractions().getArray().some(i => i.constructor.name === 'Draw')).to.equal(true)

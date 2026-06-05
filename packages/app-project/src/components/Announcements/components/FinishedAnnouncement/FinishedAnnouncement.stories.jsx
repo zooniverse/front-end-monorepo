@@ -2,10 +2,9 @@ import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
 import FinishedAnnouncementConnector from './FinishedAnnouncementConnector'
-// import readme from './README.md'
 
 const mockedRouter = {
-  asPath: '/zookeeper/galaxy-zoo/about/team',
+  asPath: '/projects/zookeeper/galaxy-zoo/about/team',
   basePath: '/projects',
   query: {
     owner: 'zookeeper',
@@ -23,9 +22,9 @@ function NextRouterStory(Story) {
 
 const mockStore = {
   project: {
-    baseUrl: '/projects/zookeeper/galaxy-zoo',
     hasResultsPage: true,
-    isComplete: true
+    isComplete: true,
+    slug: 'zookeeper/galaxy-zoo'
   }
 }
 
@@ -33,13 +32,6 @@ export default {
   title: 'Project App / Screens / Project Home / Announcements / FinishedAnnouncement',
   component: FinishedAnnouncementConnector,
   decorators: [NextRouterStory]
-  // parameters: {
-  //   docs: {
-  //     description: {
-  //       component: readme
-  //     }
-  //   }
-  // }
 }
 
 export const Default = () => (
@@ -50,9 +42,9 @@ export const Default = () => (
 
 const mockStoreNoResults = {
   project: {
-    baseUrl: '/projects/zookeeper/galaxy-zoo',
     hasResultsPage: false,
-    isComplete: true
+    isComplete: true,
+    slug: 'zookeeper/galaxy-zoo'
   }
 }
 

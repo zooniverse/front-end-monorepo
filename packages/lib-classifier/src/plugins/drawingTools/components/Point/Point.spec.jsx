@@ -1,3 +1,19 @@
+import { render } from '@testing-library/react'
+import Point from './Point'
+
+describe('Drawing tools > Point', () => {
+  it('should render without crashing', function () {
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Point active />
+      </svg>
+    )
+
+    const point = document.querySelector('g[transform]')
+    expect(point).to.exist
+  })
+})
+
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
 describe.skip('Point tool', function () {})

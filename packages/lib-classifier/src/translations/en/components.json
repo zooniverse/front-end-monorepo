@@ -48,6 +48,13 @@
       ]
     }
   },
+  "Classifier": {
+    "status": {
+      "loading": "Loading the Classifier",
+      "noWorkflowSelected": "No workflow selected.",
+      "workflowDoesNotExist": "This workflow does not exist or you do not have permission to view it."
+    }
+  },
   "DrawingTools": {
     "RotateHandle": "Handle for rotating drawn annotation\/mark."
   },

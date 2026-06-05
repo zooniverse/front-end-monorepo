@@ -1,12 +1,9 @@
-import { useHasMounted } from '@zooniverse/react-components/hooks'
 import { arrayOf, bool, node, number, shape, string } from 'prop-types'
-import { useRef } from 'react'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-
+import { getViewportScale } from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
-
 import SVGImage from '../SVGComponents/SVGImage'
+import SVGCanvas from '../SVGComponents/SVGCanvas'
 
 function SingleImageCanvas({
   enableInteractionLayer = false,
@@ -20,53 +17,45 @@ function SingleImageCanvas({
   rotation = 0,
   src,
   subject,
+  svgWidth,
   transform, // per VisXZoom
   transformMatrix,
 }) {
-  const canvasLayer = useRef()
-  const hasMounted = useHasMounted()
-
   const rotationTransform = rotation ? `rotate(${rotation} ${naturalWidth / 2} ${naturalHeight / 2})` : ''
+  const zoomScale = transformMatrix ? transformMatrix.scaleX : 1 
+  const viewportScale = getViewportScale(svgWidth, naturalWidth)
 
   return (
-      <SVGContext.Provider
-        value={{
-          canvas: canvasLayer.current,
-          rotate: rotation,
-          transformMatrix
-        }}
+    <svg>
+      <g
+        data-testid='single-image-canvas-visxzoom-transform-group'
+        transform={transform}
       >
-        <svg>
-          <g
-            data-testid='single-image-canvas-visxzoom-transform-group'
-            transform={transform}
-          >
-            <g
-              ref={canvasLayer}
-              data-testid='single-image-canvas-rotation-transform-group'
-              transform={rotationTransform}
-            >
-              <SVGImage
-                ref={imgRef}
-                invert={invert}
-                naturalHeight={naturalHeight}
-                naturalWidth={naturalWidth}
-                src={src}
-                subjectID={subject?.id}
-              />
-              {hasMounted && enableInteractionLayer && (
-                <InteractionLayer
-                  frame={frame}
-                  height={naturalHeight}
-                  move={move}
-                  width={naturalWidth}
-                />
-              )}
-              {feedbackMarks}
-            </g>
-          </g>
-        </svg>
-      </SVGContext.Provider>
+        <SVGCanvas
+          scale={zoomScale * viewportScale}
+          data-testid='single-image-canvas-rotation-transform-group'
+          transform={rotationTransform}
+        >
+          <SVGImage
+            ref={imgRef}
+            invert={invert}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            src={src}
+            subjectID={subject?.id}
+          />
+          {enableInteractionLayer && (
+            <InteractionLayer
+              frame={frame}
+              height={naturalHeight}
+              move={move}
+              width={naturalWidth}
+            />
+          )}
+          {feedbackMarks}
+        </SVGCanvas>
+      </g>
+    </svg>
   )
 }
 
@@ -92,6 +81,7 @@ SingleImageCanvas.propTypes = {
       url: string
     }))
   }),
+  svgWidth: number,
   transform: string,
   transformMatrix: shape({
     scaleX: number,

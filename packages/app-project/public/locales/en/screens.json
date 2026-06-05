@@ -60,7 +60,8 @@
       }
     },
     "RecentSubjects": {
-      "title": "Your recent classifications"
+      "title": "Your recent classifications",
+      "noSubjects": "The most recent subjects you've classified are shown here."
     },
     "WorkflowAssignmentModal": {
       "cancel": "No, thanks",
