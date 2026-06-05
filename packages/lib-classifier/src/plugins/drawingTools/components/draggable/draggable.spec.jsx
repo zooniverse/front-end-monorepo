@@ -2,7 +2,6 @@ import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { forwardRef } from 'react'
 import sinon from 'sinon'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import draggable from './draggable'
 
 describe('draggable', function () {
@@ -13,30 +12,16 @@ describe('draggable', function () {
   const onStart = sinon.stub()
   const onMove = sinon.stub()
   const onEnd = sinon.stub()
-  const mockSVGEvent = {
-    matrixTransform: sinon.stub().callsFake(() => ({
-      x: 100,
-      y: 200
-    }))
-  }
-  const mockSVG = {
-    createSVGPoint: sinon.stub().callsFake(() => mockSVGEvent),
-    getScreenCTM: sinon.stub().callsFake(() => ({
-      inverse: sinon.stub()
-    }))
-  }
 
   beforeEach(function () {
     render(
-      <SVGContext.Provider value={{ svg: mockSVG }}>
-        <svg>
-          <Draggable
-            dragStart={onStart}
-            dragMove={onMove}
-            dragEnd={onEnd}
-          />
-        </svg>
-      </SVGContext.Provider>
+      <svg>
+        <Draggable
+          dragStart={onStart}
+          dragMove={onMove}
+          dragEnd={onEnd}
+        />
+      </svg>
     )
   })
 

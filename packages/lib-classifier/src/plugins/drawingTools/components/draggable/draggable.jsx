@@ -1,5 +1,5 @@
 import { forwardRef, useContext, useRef, useState } from 'react';
-import SVGContext from '../../shared/SVGContext'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 
 function createPoint(event) {
   const { clientX, clientY } = event
@@ -52,7 +52,7 @@ function draggable(WrappedComponent) {
     onPointerUp,
     ...rest
   }, ref) {
-    const { canvas } = useContext(SVGContext)
+    const { canvas } = useSVGContext()
     const wrappedComponent = ref || useRef()
     const [dragging, setDragging] = useState(false)
     const coords = useRef(initialCoords)

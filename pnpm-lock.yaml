@@ -349,6 +349,9 @@ importers:
       react-player:
         specifier: ~2.13.0
         version: 2.13.0(react@19.2.0)
+      react-resize-detector:
+        specifier: ~9.1.0
+        version: 9.1.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       styled-components:
         specifier: 6.x.x
         version: 6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)

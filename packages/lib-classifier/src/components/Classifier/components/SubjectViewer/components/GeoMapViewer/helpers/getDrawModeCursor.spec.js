@@ -22,6 +22,18 @@ describe('helpers > getDrawModeCursor', function () {
     expect(getDrawModeCursor({ isOnAnotherFeature: true })).to.equal('pointer')
   })
 
+  it('returns not-allowed when the line-count cap is reached on empty map space', function () {
+    expect(getDrawModeCursor({ isAtMaxLines: true })).to.equal('not-allowed')
+    expect(getDrawModeCursor({ isAtMaxLines: true, isDragging: true })).to.equal('')
+  })
+
+  it('keeps grab/pointer/grabbing precedence ahead of isAtMaxLines so existing lines stay editable', function () {
+    expect(getDrawModeCursor({ isAtMaxLines: true, isOnSelectedVertex: true })).to.equal('grab')
+    expect(getDrawModeCursor({ isAtMaxLines: true, isOnSelectedVertex: true, isDragging: true })).to.equal('grabbing')
+    expect(getDrawModeCursor({ isAtMaxLines: true, isOnAnotherFeature: true })).to.equal('pointer')
+    expect(getDrawModeCursor({ isAtMaxLines: true, isModifying: true })).to.equal('grabbing')
+  })
+
   it('defaults to crosshair on empty map, empty when DragPan-style dragging', function () {
     expect(getDrawModeCursor()).to.equal('crosshair')
     expect(getDrawModeCursor({ isDragging: true })).to.equal('')

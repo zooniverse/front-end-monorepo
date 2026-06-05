@@ -3,6 +3,7 @@ import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import notFoundError from '@helpers/notFoundError'
 import fetchLinkedOrganizations from '@helpers/fetchLinkedOrganizations'
 import fetchProjectData from '@helpers/fetchProjectData'
+import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowStatsHelper from './fetchWorkflowStatsHelper'
 import initStore from '@stores'
@@ -44,6 +45,9 @@ export default async function getProjectStatsPageProps({ locale, params }) {
       return props
     }
 
+    // This is necessary because the FinishedAnnouncement banner looks to see if a project contains Results page content
+    project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
+
     applySnapshot(store.project, project)
   }
 
@@ -72,10 +76,13 @@ export default async function getProjectStatsPageProps({ locale, params }) {
   /*
     Fetch the active project workflows and their basic stats.
   */
+
+  const workflowOrder = project.configuration?.workflow_order || []
   const workflows = await fetchWorkflowStatsHelper(
     language,
     project.links.active_workflows,
-    env
+    env,
+    workflowOrder
   )
 
   /*

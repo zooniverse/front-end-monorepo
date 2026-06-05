@@ -1,16 +1,10 @@
 import { createContext } from 'react'
 
-const DEFAULT_TRANSFORM_MATRIX = {
-  scaleX: 1,
-  scaleY: 1,
-  skewX: 0,
-  skewY: 0,
-  translateX: 0,
-  translateY: 0
+export function getViewportScale(svgWidth, viewBoxWidth) {
+  // return 1 if either width is undefined / null / zero
+  return (svgWidth && viewBoxWidth) ? svgWidth / viewBoxWidth : 1
 }
-/**
- * Canvas context for drawing tools.
- */
+
 const SVGContext = createContext({
   /**
    * The drawing canvas node from the DOM.
@@ -19,24 +13,12 @@ const SVGContext = createContext({
    */
   canvas: null,
   /**
-   * The rotation of the canvas.
+   * The overall scale factor for the canvas
+   * Useful for emulating `vector-effect:non-scaling-size` by inverting the scale.
    * @type {number}
-   * @default 0
+   * @default 1
    */
-  rotate: 0,
-  /**
-   * The transformation matrix of the canvas.
-   * @typedef {Object} TransformMatrix
-   * @property {number} scaleX - The scale factor in the X direction.
-   * @property {number} scaleY - The scale factor in the Y direction.
-   * @property {number} skewX - The skew factor in the X direction.
-   * @property {number} skewY - The skew factor in the Y direction.
-   * @property {number} translateX - The translation in the X direction.
-   * @property {number} translateY - The translation in the Y direction.
-   * @type {TransformMatrix}
-   * @default
-   */
-  transformMatrix: DEFAULT_TRANSFORM_MATRIX,
+  scale: 1
 })
 
 export default SVGContext

@@ -1,5 +1,5 @@
 function getInteractionStates({ activeToolType, isMeasureModeActive }) {
-  const isDrawing = activeToolType === 'LineString' && !isMeasureModeActive
+  const isDrawing = activeToolType === 'SegmentedLine' && !isMeasureModeActive
 
   return {
     measure: isMeasureModeActive,

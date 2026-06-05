@@ -113,7 +113,8 @@ function calcDaysToCompletion(erasData, workflow) {
   return numDays
 }
 
-async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
+async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workflowOrder) {
+  // Fetch workflow data from Panoptes API
   const workflows = await fetchWorkflowData(workflowIDs, env)
 
   // Workflows can be hidden via "show on stats page" checkbox in the project builder
@@ -157,8 +158,29 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env) {
     promiseResult => promiseResult.value || promiseResult.reason
   )
 
-  // Sort into array of ascending completeness
-  return workflowsWithETC.toSorted((a, b) => a.completeness - b.completeness)
+  /*
+    workflowOrder is specified by the project owner in the project builder. If no order specified it's [].
+    We must read that order after fetching workflow data from panoptes API, bc the fetchDisplayNames() function
+    uses a map strategy. No order guaranteed there.
+  */
+
+  const workflowsByID = {}
+  workflowsWithETC.forEach(workflow => {
+    workflowsByID[workflow.id] = workflow
+  })
+
+  const workflowsInOrder = workflowOrder
+    .map(workflowID => workflowsByID[workflowID])
+    .filter(Boolean)
+
+  // Append any workflows that exist but do not appear in the order.
+  workflowsWithETC.forEach(workflow => {
+    if (workflowsInOrder.indexOf(workflow) === -1) {
+      workflowsInOrder.push(workflow)
+    }
+  })
+
+  return workflowsInOrder
 }
 
 export default fetchWorkflowStatsHelper
