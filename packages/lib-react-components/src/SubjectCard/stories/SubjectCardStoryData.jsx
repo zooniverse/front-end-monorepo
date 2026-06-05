@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 
-import SubjectCard from './SubjectCard'
+import SubjectCard from '../SubjectCard'
 
 const DEFAULT_METADATA = {
   id: 1,
@@ -10,8 +10,7 @@ const DEFAULT_METADATA = {
   foo: null
 }
 
-// Beluga Bits subject, landscape, dark
-const BELUGA_BITS_SUBJECT = {
+export const BELUGA_BITS_SUBJECT = {
   id: '70429104',
   links: { project: '3606' },
   locations: [
@@ -22,8 +21,7 @@ const BELUGA_BITS_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
-// Radio Meteor Zoo subject, landscape, dark
-const RADIO_METEOR_ZOO_SUBJECT = {
+export const RADIO_METEOR_ZOO_SUBJECT = {
   id: '75219502',
   links: { project: '2471' },
   locations: [
@@ -34,8 +32,7 @@ const RADIO_METEOR_ZOO_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
-// Penguin Watch subject, landscape, busy
-const PENGUIN_WATCH_SUBJECT = {
+export const PENGUIN_WATCH_SUBJECT = {
   id: '78454341',
   links: { project: '6263' },
   locations: [
@@ -46,20 +43,18 @@ const PENGUIN_WATCH_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
-// Print subject, portrait, light
-const PRINT_SUBJECT = {
+export const PRINT_SUBJECT = {
   id: '115968754',
   links: { project: '17426' },
   locations: [
     {
-      "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/b2cc2d44-a18b-498a-b60a-bba7541c8822.jpeg"
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/b2cc2d44-a18b-498a-b60a-bba7541c8822.jpeg'
     }
   ],
   metadata: DEFAULT_METADATA
 }
 
-// Iguanas from Above, square
-const IGUANAS_FROM_ABOVE_SUBJECT = {
+export const IGUANAS_FROM_ABOVE_SUBJECT = {
   id: '83746800',
   links: { project: '5110' },
   locations: [
@@ -70,8 +65,7 @@ const IGUANAS_FROM_ABOVE_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
-// Wildwatch Kenya subject, landscape, busy
-const WILDWATCH_KENYA_SUBJECT = {
+export const WILDWATCH_KENYA_SUBJECT = {
   id: '86525036',
   links: { project: '2789' },
   locations: [
@@ -82,8 +76,7 @@ const WILDWATCH_KENYA_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
-// Dark Energy Explorers subject, portrait, busy
-const DARK_ENERGY_EXPLORERS_SUBJECT = {
+export const DARK_ENERGY_EXPLORERS_SUBJECT = {
   id: '119223066',
   links: { project: '7332' },
   locations: [
@@ -93,9 +86,8 @@ const DARK_ENERGY_EXPLORERS_SUBJECT = {
   ],
   metadata: DEFAULT_METADATA
 }
-  
-// Galaxy Zoo subject, square, dark  
-const GALAXY_ZOO_SUBJECT = {
+
+export const GALAXY_ZOO_SUBJECT = {
   id: '119560411',
   links: { project: '5733' },
   locations: [
@@ -106,7 +98,87 @@ const GALAXY_ZOO_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
-function StoryRow({
+export const FLORIDA_KEYS_SUBJECT = {
+  id: '120994401',
+  links: { project: '24617' },
+  locations: [
+    {
+      'video/mp4': 'https://panoptes-uploads.zooniverse.org/subject_location/bc64e5d1-669f-4fc5-ad5d-c2b075c67161.mp4'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export const WOODPECKER_CAVITY_CAM_SUBJECT = {
+  id: '84034748',
+  links: { project: '12767' },
+  locations: [
+    {
+      'video/mp4': 'https://panoptes-uploads.zooniverse.org/subject_location/6d83e7bd-14d1-41cb-8245-8d70a4d3921a.mp4'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export const BLACK_HOLE_HUNTERS_SUBJECT = {
+  id: '95577274',
+  links: { project: '14770' },
+  locations: [
+    {
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/2e940452-4692-4d7a-b432-e85226652919.json'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export const MIND_MAPPER_SUBJECT = {
+  id: '113452377',
+  links: { project: '25108' },
+  locations: [
+    {
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/336a43be-0625-48e5-9015-596596622e0e.json'
+    }
+  ],
+  metadata: {
+    ...DEFAULT_METADATA,
+    'metadata:volumetric': 'true'
+  }
+}
+
+export const NOTES_FROM_NATURE_GEOJSON_SUBJECT = {
+  id: '118377532',
+  links: { project: '31997' },
+  locations: [
+    {
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/43bf8fb0-c365-4762-86bf-691c4400fdaf.json'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export const FROG_FIND_SUBJECT = {
+  id: '85811604',
+  links: { project: '15424' },
+  locations: [
+    {
+      'audio/mpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/e588bae3-5ed8-49e5-a8f4-97b70b46332b.mpga'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export const NOTES_FROM_NATURE_TEXT_SUBJECT = {
+  id: '88727951',
+  links: { project: '9485' },
+  locations: [
+    {
+      'text/plain': 'https://panoptes-uploads.zooniverse.org/subject_location/f864319c-420e-48fb-99a2-0ca8207a4b95.txt'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export function StoryRow({
   login,
   subject
 }) {
@@ -141,41 +213,4 @@ function StoryRow({
       />
     </Box>
   )
-}
-
-export default {
-  title: 'Components / SubjectCard',
-  component: SubjectCard
-}
-
-export const LoggedOutLandscape = {
-  render: () => <StoryRow subject={BELUGA_BITS_SUBJECT} />
-}
-
-export const LoggedOutLandscapeBusy = {
-  render: () => <StoryRow subject={WILDWATCH_KENYA_SUBJECT} />
-}
-
-export const LoggedInLandscape = {
-  render: () => <StoryRow login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
-
-export const LoggedInLandscapeBusy = {
-  render: () => <StoryRow login={'TestUser'} subject={PENGUIN_WATCH_SUBJECT} />
-}
-
-export const LoggedInPortrait = {
-  render: () => <StoryRow login={'TestUser'} subject={PRINT_SUBJECT} />
-}
-
-export const LoggedInPortraitBusy = {
-  render: () => <StoryRow login={'TestUser'} subject={DARK_ENERGY_EXPLORERS_SUBJECT} />
-}
-
-export const LoggedInSquare = {
-  render: () => <StoryRow login={'TestUser'} subject={IGUANAS_FROM_ABOVE_SUBJECT} />
-}
-
-export const LoggedInSquareDark = {
-  render: () => <StoryRow login={'TestUser'} subject={GALAXY_ZOO_SUBJECT} />
 }
