@@ -89,8 +89,8 @@ const ProjectStatisticsContainer = ({ className, hideLink = false }) => {
   const owner = router?.query?.owner
   const project = router?.query?.project
   const linkProps = {
-    externalLink: true, // A project stats page uses PFE
-    href: `/projects/${owner}/${project}/stats`
+    externalLink: false,
+    href: `/${owner}/${project}/stats`
   }
 
   return (
