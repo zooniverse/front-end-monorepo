@@ -30,7 +30,7 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
   useEffect(function onNewData() {
     const defaultLocalHighlightedSeries = isMultiSeriesData ? data.map(s => s.seriesOptions?.label).filter(Boolean) : undefined
     setLocalHighlightedSeries(defaultLocalHighlightedSeries)
-  }, [data])
+  }, [data, isMultiSeriesData])
   
   // Is zooming enabled for this scatter plot?
   const Plot = (zooming) ? ZoomingScatterPlot : ScatterPlot
