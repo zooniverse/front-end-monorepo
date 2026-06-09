@@ -1,11 +1,13 @@
 import { Notification } from 'grommet'
 import { ShareOption } from 'grommet-icons'
+import { string } from 'prop-types'
 import { useState } from 'react'
 
 import { useTranslation } from '../translations/i18n'
 import IconActionButton from '../IconActionButton'
 
 function ShareIconButton({
+  shareUrl = null,
   ...props
 }) {
   const [visible, setVisible] = useState(false)
@@ -13,7 +15,7 @@ function ShareIconButton({
   const { t } = useTranslation()
 
   async function writeClipboardText() {
-    const url = window.location.href
+    const url = shareUrl || window.location.href
     
     try {
       await navigator.clipboard.writeText(url)
@@ -49,6 +51,10 @@ function ShareIconButton({
       )}
     </>
   )
+}
+
+ShareIconButton.propTypes = {
+  shareUrl: string
 }
 
 export default ShareIconButton

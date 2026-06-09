@@ -67,6 +67,14 @@
       "addButton": "Add to Collection"
     }
   },
+  "MetadataIconButton": {
+    "metadata": "Metadata",
+    "modalTitle": "Metadata",
+    "table": {
+      "label": "Label",
+      "value": "Value"
+    }
+  },
   "FavouritesButton": {
     "add": "Add to favorites",
     "remove": "Added to favorites"
@@ -90,6 +98,9 @@
   "ShareIconButton": {
     "copied": "URL copied to clipboard",
     "share": "Share"
+  },
+  "SubjectCard": {
+    "subjectId": "Subject {{id}}"
   },
   "ZooFooter": {
     "aboutLabels": {

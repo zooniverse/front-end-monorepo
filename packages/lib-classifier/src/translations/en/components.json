@@ -184,6 +184,9 @@
         "placeholder": "latitude, longitude",
         "submit": "Go"
       },
+      "DeleteOverlay": {
+        "ariaLabel": "Delete selected feature"
+      },
       "MeasureButton": {
         "ariaLabel": "Measure distance"
       },
