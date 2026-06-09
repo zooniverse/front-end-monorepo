@@ -67,6 +67,14 @@
       "addButton": "Add to Collection"
     }
   },
+  "MetadataIconButton": {
+    "metadata": "Metadata",
+    "modalTitle": "Metadata",
+    "table": {
+      "label": "Label",
+      "value": "Value"
+    }
+  },
   "FavouritesButton": {
     "add": "Add to favorites",
     "remove": "Added to favorites"
