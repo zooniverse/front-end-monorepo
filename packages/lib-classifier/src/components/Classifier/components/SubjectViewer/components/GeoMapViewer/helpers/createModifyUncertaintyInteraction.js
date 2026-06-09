@@ -23,6 +23,7 @@ function shouldStartDragHandleInteraction({
 }
 
 function createModifyUncertaintyInteraction({
+  map,
   geoDrawingTask,
   selectInteraction,
   translateInteraction,
@@ -34,7 +35,7 @@ function createModifyUncertaintyInteraction({
     isDragging: false
   }
 
-  // Cache MST feature creation to avoid repeated creation on pointermove
+  // Avoid rebuilding MST features on every pointermove.
   const mstFeatureCache = new WeakMap()
 
   function getCachedMSTFeature(olFeature) {
@@ -44,9 +45,6 @@ function createModifyUncertaintyInteraction({
     return mstFeatureCache.get(olFeature)
   }
 
-  /**
-   * Check if pointer is near the uncertainty circle drag handle of any selected feature
-   */
   function checkDragHandleClick(pixel, map) {
     if (!selectInteraction) return null
 
@@ -56,10 +54,9 @@ function createModifyUncertaintyInteraction({
       const mstFeature = getCachedMSTFeature(olFeature)
       if (!mstFeature) continue
 
-      // Check if this feature has an uncertainty circle
-      const radius = mstFeature.getUncertaintyRadius?.({ 
-        feature: olFeature, 
-        geoDrawingTask 
+      const radius = mstFeature.getUncertaintyRadius?.({
+        feature: olFeature,
+        geoDrawingTask
       })
       if (radius === null) continue
 
@@ -72,14 +69,12 @@ function createModifyUncertaintyInteraction({
         return null
       }
 
-      // Get the drag handle coordinates
       const dragHandleCoordinates = mstFeature.getDragHandleCoordinates?.({
         feature: olFeature,
         geoDrawingTask
       })
       if (!dragHandleCoordinates) continue
 
-      // Check if click is near the full resize handle across all world copies.
       const dragHandlePixels = getFeaturePixelsAcrossWorldCopies(map, dragHandleCoordinates)
       if (dragHandlePixels.some(handlePixel => shouldStartDragHandleInteraction({
         pixel,
@@ -94,9 +89,6 @@ function createModifyUncertaintyInteraction({
     return null
   }
 
-  /**
-   * Handle pointer down - detect if clicking near drag handle
-   */
   function handleDownEvent(event) {
     const map = this.getMap()
     if (!map) return false
@@ -107,27 +99,21 @@ function createModifyUncertaintyInteraction({
       state.draggedFeature = selectedFeature
       state.isDragging = true
 
-      // Disable Translate interaction while dragging uncertainty drag handle
       if (translateInteraction) {
         translateInteraction.setActive(false)
       }
 
-      // Update cursor
       const viewport = map.getViewport()
       if (viewport) {
         viewport.style.cursor = 'ew-resize'
       }
 
-      // Return true to start drag sequence
       return true
     }
 
     return false
   }
 
-  /**
-   * Handle drag - update radius based on distance from center
-   */
   function handleDragEvent(event) {
     if (!state.isDragging || !state.draggedFeature) {
       return
@@ -139,10 +125,7 @@ function createModifyUncertaintyInteraction({
     const coordinate = map.getCoordinateFromPixel(event.pixel)
     const centerCoordinates = state.draggedFeature.getGeometry().getCoordinates()
 
-    // After a cross-dateline drag, centerCoordinates is in the canonical world range but
-    // getCoordinateFromPixel returns a coordinate in the world copy the user is viewing.
-    // Normalize the drag coordinate to the nearest world copy of the center so that
-    // getPixelDistance always computes the short (correct) distance, not the ~40M-m cross-world distance.
+    // Wrap drag X to nearest world copy of the center so cross-dateline radii stay short.
     const extent = map.getView().getProjection().getExtent()
     const worldWidth = extent ? extent[2] - extent[0] : 0
     let dragX = coordinate[0]
@@ -153,12 +136,11 @@ function createModifyUncertaintyInteraction({
     }
     const normalizedCoordinate = [dragX, coordinate[1]]
 
-    // Calculate new radius in meters
     const newRadius = Math.round(
       Math.max(minRadius, getPixelDistance(centerCoordinates, normalizedCoordinate))
     )
 
-    // Update uncertainty radius through GeoDrawingTask to keep MST activeFeature and slider in sync
+    // Route through GeoDrawingTask so MST activeFeature + slider stay in sync.
     if (geoDrawingTask?.setActiveFeatureUncertaintyRadius) {
       geoDrawingTask.setActiveFeatureUncertaintyRadius(newRadius)
     } else {
@@ -167,42 +149,44 @@ function createModifyUncertaintyInteraction({
     }
   }
 
-  /**
-   * Handle pointer up - finish dragging
-   */
   function handleUpEvent(event) {
     if (state.isDragging) {
       state.isDragging = false
       state.draggedFeature = null
 
-      // Re-enable Translate interaction
       if (translateInteraction) {
         translateInteraction.setActive(true)
       }
 
-      // Reset cursor
       const map = this.getMap()
       const viewport = map?.getViewport()
       if (viewport) {
         viewport.style.cursor = ''
       }
 
-      // Return false to prevent the event from deselecting the feature
+      // Returning false prevents OL from deselecting the feature on up.
       return false
     }
 
     return true
   }
 
-  // Create the custom uncertainty circle PointerInteraction with handlers.
-  // Cursor hover state is managed centrally by GeoMapViewer.
   const interaction = new PointerInteraction({
     handleDownEvent,
     handleDragEvent,
     handleUpEvent
   })
 
-  return interaction
+  if (map) map.addInteraction(interaction)
+
+  return {
+    setActive(active) {
+      interaction.setActive(active)
+    },
+    destroy() {
+      if (map) map.removeInteraction(interaction)
+    }
+  }
 }
 
 export default createModifyUncertaintyInteraction

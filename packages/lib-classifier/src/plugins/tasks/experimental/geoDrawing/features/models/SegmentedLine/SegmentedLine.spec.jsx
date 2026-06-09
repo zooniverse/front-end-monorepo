@@ -152,6 +152,7 @@ describe('Model > SegmentedLine', function () {
         expect(styles[1].getImage()).to.exist
         expect(styles[2].getImage()).to.exist
       })
+
     })
   })
 })

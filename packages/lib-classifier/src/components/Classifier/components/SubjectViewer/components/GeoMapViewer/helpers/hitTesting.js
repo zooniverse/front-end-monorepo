@@ -13,11 +13,7 @@ export function isPixelNearPointCenter({
   return (deltaX * deltaX) + (deltaY * deltaY) <= radius * radius
 }
 
-/**
- * Returns all pixel positions for a coordinate, including ±worldWidth offsets.
- * After coordinate normalization a feature's canonical X may not match the world copy the user is viewing, 
- * so every copy that could be on screen must be checked.
- */
+// After normalization a canonical X may not match the on-screen world copy; return all candidates.
 export function getFeaturePixelsAcrossWorldCopies(map, coord) {
   const extent = map.getView().getProjection().getExtent()
   const worldWidth = extent ? extent[2] - extent[0] : 0

@@ -84,6 +84,17 @@ function createGeoLineStringInteraction({
   map.addInteraction(draw)
   draw.setActive(false)
 
+  // Remember the caller's desired active state so cap-recovery (delete) can re-enable Draw.
+  let lastRequestedActive = false
+
+  function syncActive() {
+    const target = lastRequestedActive && !isCapped()
+    if (draw.getActive() !== target) draw.setActive(target)
+  }
+
+  const sourceAddKey = source.on('addfeature', syncActive)
+  const sourceRemoveKey = source.on('removefeature', syncActive)
+
   const drawStartKey = draw.on('drawstart', function handleDrawStart() {
     isDrawing = true
   })
@@ -134,17 +145,16 @@ function createGeoLineStringInteraction({
       isDrawing = false
     },
     setActive(active) {
-      if (active && isCapped()) {
-        draw.setActive(false)
-        return
-      }
-      draw.setActive(active)
+      lastRequestedActive = active
+      syncActive()
       if (!active) isDrawing = false
     },
     destroy() {
       if (drawStartKey) unByKey(drawStartKey)
       if (drawEndKey) unByKey(drawEndKey)
       if (drawAbortKey) unByKey(drawAbortKey)
+      if (sourceAddKey) unByKey(sourceAddKey)
+      if (sourceRemoveKey) unByKey(sourceRemoveKey)
       draw.setActive(false)
       isDrawing = false
       map.removeInteraction(draw)
