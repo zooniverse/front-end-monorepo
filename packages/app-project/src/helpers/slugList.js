@@ -83,6 +83,7 @@ const PFE_SLUGS = [
   'zooniverse/measuring-the-anzacs', // Classrooms
   'zooniverse/zooniverse-in-schools', // Classrooms
   // Audio + Spectrogram Projects
+  'ceaeay/seabird-sounds',
   'creisdorf/fire-and-birds',
   'creisdorf/savanna-spy-sound',
   'cslab-upm/sky-sounds',
