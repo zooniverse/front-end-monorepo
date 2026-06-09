@@ -3,7 +3,7 @@ import { Box, RadioButton } from 'grommet'
 import { withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
-import Label from '../Label'
+import Label from '../../../../../ScatterPlotViewer/components/Label'
 
 const DEFAULT_HANDLER = () => false
 

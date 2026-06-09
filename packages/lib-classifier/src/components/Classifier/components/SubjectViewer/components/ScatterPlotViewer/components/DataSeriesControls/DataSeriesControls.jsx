@@ -1,6 +1,6 @@
 import { Box, CheckBox } from 'grommet'
 import { withTheme } from 'styled-components'
-import Label from '../../../VariableStarViewer/components/Controls/components/Label'  // This can be organised this better. Perhaps make this a shared component?
+import Label from '../Label'
 import { useTranslation } from 'next-i18next'
 
 const DEFAULT_HANDLER = () => {}

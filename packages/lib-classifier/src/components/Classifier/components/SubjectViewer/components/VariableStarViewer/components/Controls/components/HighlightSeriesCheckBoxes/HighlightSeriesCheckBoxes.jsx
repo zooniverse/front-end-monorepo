@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Box, CheckBox } from 'grommet'
 import { withTheme } from 'styled-components'
-import Label from '../Label'
+import Label from '../../../../../ScatterPlotViewer/components/Label'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 const DEFAULT_HANDLER = () => false
