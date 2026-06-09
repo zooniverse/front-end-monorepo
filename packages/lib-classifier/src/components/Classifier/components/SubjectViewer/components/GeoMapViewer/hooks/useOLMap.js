@@ -27,11 +27,9 @@ export default function useOLMap(containerRef) {
     })
 
     setState({ map, source, layer, scaleLine })
-    if (typeof window !== 'undefined') window.__olMap = map
 
     return () => {
       map.setTarget(undefined)
-      if (typeof window !== 'undefined' && window.__olMap === map) delete window.__olMap
       setState({ map: null, source: null, layer: null, scaleLine: null })
     }
   }, [containerRef])
