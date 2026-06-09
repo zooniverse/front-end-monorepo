@@ -94,6 +94,10 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
 })
 
 ScatterPlotViewer.propTypes = {
+  data: PropTypes.object,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.string),  // Either undefined, or an array of strings
+  showDataSeriesControls: PropTypes.bool,
+  zoomControlFn: PropTypes.func,
   zooming: PropTypes.bool
 }
 

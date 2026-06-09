@@ -1,4 +1,5 @@
 import { Box, CheckBox } from 'grommet'
+import PropTypes from 'prop-types'
 import Label from '../Label'
 import { useTranslation } from 'next-i18next'
 
@@ -56,6 +57,12 @@ function DataSeriesControls ({
       })}
     </Box>
   )
+}
+
+DataSeriesControls.propTypes = {
+  data: PropTypes.object,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.string),  // Either undefined, or an array of strings
+  toggleHighlightedSeries: PropTypes.func,
 }
 
 export default DataSeriesControls

@@ -67,7 +67,6 @@ function Label ({
 }
 
 Label.propTypes = {
-  colors: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   seriesOptions: PropTypes.object,
