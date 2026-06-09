@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
@@ -22,8 +22,18 @@ const StyledLabel = styled.span`
   }
 `
 
-function Label (props) {  
-  const { colors, label, seriesIndex, seriesOptions = {}, highlightedSeries } = props
+function Label ({
+  label,
+  seriesIndex,
+  seriesOptions = {},
+  highlightedSeries
+}) {  
+  const {
+    global: {
+      colors = {}
+    }
+  } = useTheme()
+
   const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions })
   const Glyph = getDataSeriesSymbol({ seriesOptions, seriesIndex })
   const color = getDataSeriesColor({

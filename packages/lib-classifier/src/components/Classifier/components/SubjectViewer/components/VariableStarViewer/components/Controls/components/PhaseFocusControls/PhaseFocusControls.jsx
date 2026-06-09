@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { Box, RadioButton } from 'grommet'
-import { withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 import Label from '../../../../../ScatterPlotViewer/components/Label'
@@ -13,11 +12,6 @@ function PhaseFocusControls(props) {
     highlightedSeries,
     phaseFocusedSeries,
     setSeriesPhaseFocus = DEFAULT_HANDLER,
-    theme: {
-      global: {
-        colors = { drawingTools: {} }
-      }
-    } = { global: { colors: { drawingTools: {} } } }
   } = props
 
   const { t } = useTranslation('components')
@@ -35,7 +29,6 @@ function PhaseFocusControls(props) {
             key={`${label}-${seriesIndex}`}
             label={
               <Label
-                colors={colors}
                 highlightedSeries={highlightedSeries}
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
@@ -61,8 +54,7 @@ PhaseFocusControls.propTypes = {
   })).isRequired,
   phaseFocusedSeries: PropTypes.number.isRequired,
   setSeriesPhaseFocus: PropTypes.func,
-  theme: PropTypes.object
 }
 
-export default withTheme(PhaseFocusControls)
+export default PhaseFocusControls
 export { PhaseFocusControls }

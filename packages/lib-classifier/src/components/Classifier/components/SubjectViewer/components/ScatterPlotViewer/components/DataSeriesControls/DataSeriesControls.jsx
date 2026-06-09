@@ -1,5 +1,4 @@
 import { Box, CheckBox } from 'grommet'
-import { withTheme } from 'styled-components'
 import Label from '../Label'
 import { useTranslation } from 'next-i18next'
 
@@ -8,19 +7,6 @@ const DEFAULT_HANDLER = () => {}
 function DataSeriesControls ({
   data,
   highlightedSeries,  // Either undefined, or an array of strings
-  theme: {
-    global: {
-      colors = {
-        drawingTools: {}
-      }
-    }
-  } = {
-    global: {
-      colors: {
-        drawingTools: {}
-      }
-    }
-  },
   toggleHighlightedSeries = DEFAULT_HANDLER,
 }) {
   const { t } = useTranslation('components')
@@ -55,7 +41,6 @@ function DataSeriesControls ({
             checked={checked}
             label={
               <Label
-                colors={colors}
                 checked={checked}
                 label={labelToDisplay}
                 seriesIndex={index}
@@ -73,4 +58,4 @@ function DataSeriesControls ({
   )
 }
 
-export default withTheme(DataSeriesControls)
+export default DataSeriesControls
