@@ -8,7 +8,8 @@ If you make any changes here, please ensure they are mirrored on:
 
 import { scaleLinear } from '@visx/scale'
 import { extent } from '@visx/vendor/d3-array'  // lib-classifier uses 'd3-array', lib-react-components uses '@visx/vendor/d3-array'. For some reason.
-import { flatten, zipWith } from 'lodash'
+import flatten from 'lodash/flatten'
+import zipWith from 'lodash/zipWith'
 
 function isThisMultipleDataSeries (data) {
   return Array.isArray(data)

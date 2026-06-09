@@ -242,6 +242,9 @@
       }
     },
     "ScatterPlotViewer": {
+      "DataSeriesControls": {
+        "label": "Series {{id}}"
+      },
       "Selection": {
         "delete": "Delete selection {{index}}"
       }

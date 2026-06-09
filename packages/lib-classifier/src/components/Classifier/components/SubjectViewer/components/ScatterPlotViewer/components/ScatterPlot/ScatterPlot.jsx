@@ -245,8 +245,6 @@ export default function ScatterPlot({
   )
 }
 
-
-
 ScatterPlot.propTypes = {
   axisColor: PropTypes.string,
   backgroundColor: PropTypes.string,
