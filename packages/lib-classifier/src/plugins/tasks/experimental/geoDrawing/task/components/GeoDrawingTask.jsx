@@ -9,8 +9,10 @@ import styled, { css } from 'styled-components'
 
 import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
+import InputStatus from '@plugins/tasks/components/InputStatus'
 import FeatureCard from './components/FeatureCard'
 import RadiusSlider from './components/RadiusSlider'
+import SegmentedLineIcon from './components/SegmentedLineIcon'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -55,21 +57,13 @@ const ToolIcon = styled(Location)`
   flex-shrink: 0;
 `
 
-function formatLineStringBounds(tool) {
-  if (tool?.type !== 'SegmentedLine') return null
-  const min = tool.min ?? 0
-  const max = tool.max
-  const minVertices = tool.min_vertices ?? 2
-  const maxVertices = tool.max_vertices
-  const hasConfiguredBounds = min > 0 || max != null || minVertices > 2 || maxVertices != null
-  if (!hasConfiguredBounds) return null
-  const linesText = max == null
-    ? `${min}+ lines`
-    : (min === max ? `${min} lines` : `${min}-${max} lines`)
-  const pointsText = maxVertices == null
-    ? `${minVertices}+ points per line`
-    : (minVertices === maxVertices ? `${minVertices} points per line` : `${minVertices}-${maxVertices} points per line`)
-  return `${linesText}, ${pointsText}`
+const SegmentedLineToolIcon = styled(SegmentedLineIcon)`
+  flex-shrink: 0;
+`
+
+const TOOL_ICONS = {
+  SegmentedLine: SegmentedLineToolIcon,
+  Point: ToolIcon
 }
 
 function GeoDrawingTask({
@@ -140,7 +134,8 @@ function GeoDrawingTask({
         const checked = task.activeToolIndex === index
         const currentRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
         const showUncertaintySlider = task.activeFeature && task.activeOlFeature && tool.uncertainty_circle && currentRadius !== null
-        const boundsText = formatLineStringBounds(tool)
+        const drawnCount = task.drawnCountForTool(index)
+        const ToolTypeIcon = TOOL_ICONS[tool.type] || ToolIcon
 
         return (
           <ToolLabel key={`${task.taskKey}_${index}`}>
@@ -155,16 +150,12 @@ function GeoDrawingTask({
             />
             <ToolCard pad='small' checked={checked}>
               <ToolHeader>
-                <ToolIcon color={tool.color} />
+                <ToolTypeIcon color={tool.color} />
                 <Text size='small'>
                   {task.strings.get(`tools.${index}.label`)}
                 </Text>
+                <InputStatus count={drawnCount} tool={tool} />
               </ToolHeader>
-              {boundsText && (
-                <Text size='xsmall' color='text-weak'>
-                  {boundsText}
-                </Text>
-              )}
               {showUncertaintySlider && (
                 <RadiusSlider
                   disabled={!checked || disabled}
