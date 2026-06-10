@@ -8,7 +8,9 @@ import { useStores, useSubjectJSON } from '@hooks'
 import GeoMapViewer from './GeoMapViewer'
 import ReferenceData from './components/ReferenceData'
 
-function storeMapper(classifierStore) {
+const EMPTY_TILE_LAYERS = []
+
+export function storeMapper(classifierStore) {
   const {
     subjects: {
       active: subject
@@ -21,13 +23,16 @@ function storeMapper(classifierStore) {
     }
   } = classifierStore
 
+  const tileLayers = classifierStore.workflows?.active?.configuration?.subject_viewer_config?.tile_layers || EMPTY_TILE_LAYERS
+
   const latest = subject?.stepHistory.latest
 
   return {
     activeStepTasks,
     latest,
     loadingState,
-    subject
+    subject,
+    tileLayers
   }
 }
 
@@ -41,7 +46,8 @@ function GeoMapViewerContainer ({
     activeStepTasks,
     latest,
     loadingState,
-    subject
+    subject,
+    tileLayers
   } = useStores(storeMapper)
   const {
     data,
@@ -114,6 +120,7 @@ function GeoMapViewerContainer ({
         geoDrawingTask={geoDrawingTask}
         geoJSON={geoJSONData}
         subjectId={subject.id}
+        tileLayers={tileLayers}
         onFeaturesChange={handleFeaturesChange}
         onMapExtentChange={handleMapExtentChange}
         onSelectedFeatureChange={handleSelectedFeatureChange}
