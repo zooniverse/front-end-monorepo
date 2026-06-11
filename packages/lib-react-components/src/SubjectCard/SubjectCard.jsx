@@ -1,4 +1,5 @@
 import { Anchor, Box } from 'grommet'
+import { Video } from 'grommet-icons'
 import mime from 'mime/lite'
 import { node, oneOf, shape, string, arrayOf, objectOf, object } from 'prop-types'
 import styled from 'styled-components'
@@ -13,6 +14,7 @@ import ShareIconButton from '../ShareIconButton'
 const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
+  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.25);
   overflow: hidden;
   position: relative;
 `
@@ -141,20 +143,20 @@ function SubjectCard({
           width={`${width}px`}
         >
           {mediaSrc && showBackground ? (
-          <StyledBackground>
-                <Media
-                  alt=''
-                  controls={false}
-                  fit='cover'
-                  height={previewHeight}
-                  placeholder={placeholder}
-                  src={mediaSrc}
-                  width={width}
-                  aria-hidden='true'
-                  tabIndex={-1}
-                />
+            <StyledBackground>
+              <Media
+                alt=''
+                controls={false}
+                fit='cover'
+                height={previewHeight}
+                placeholder={placeholder}
+                src={mediaSrc}
+                width={width}
+                aria-hidden='true'
+                tabIndex={-1}
+              />
             </StyledBackground>
-              ) : null}
+          ) : null}
 
           {mediaSrc ? (
             <StyledForegroundMedia
@@ -171,9 +173,16 @@ function SubjectCard({
           <StyledTitle
             align='center'
             direction='row'
+            gap='xsmall'
             justify='center'
             pad={{ horizontal: 'small', vertical: 'medium' }}
           >
+            {mediaType === 'video' ? (
+              <Video
+                color='white'
+                size='1rem'
+              />
+            ) : null}
             <StyledTitleText>
               {subjectIdTitle}
             </StyledTitleText>
