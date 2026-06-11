@@ -1,4 +1,5 @@
 import { storeMapper } from './GeoMapViewerContainer'
+import WorkflowConfiguration from '@store/WorkflowStore/Workflow/WorkflowConfiguration'
 
 function buildStore (overrides = {}) {
   return {
@@ -55,6 +56,13 @@ describe('Component > GeoMapViewerContainer > storeMapper', function () {
         }
       }
     }))
+    expect(result.tileLayers).to.deep.equal([])
+  })
+
+  it('coerces tileLayers to an array when a real WorkflowConfiguration omits subject_viewer_config', function () {
+    const configuration = WorkflowConfiguration.create({ subject_viewer: 'geoMap' })
+    const result = storeMapper(buildStore({ workflows: { active: { configuration } } }))
+    expect(Array.isArray(result.tileLayers)).to.equal(true)
     expect(result.tileLayers).to.deep.equal([])
   })
 

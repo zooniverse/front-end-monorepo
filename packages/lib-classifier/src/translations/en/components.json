@@ -187,6 +187,10 @@
       "DeleteOverlay": {
         "ariaLabel": "Delete selected feature"
       },
+      "LayerControl": {
+        "label": "Map layer",
+        "fallbackLabel": "Layer"
+      },
       "MeasureButton": {
         "ariaLabel": "Measure distance"
       },

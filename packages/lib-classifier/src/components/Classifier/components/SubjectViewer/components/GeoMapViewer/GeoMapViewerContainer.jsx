@@ -23,7 +23,8 @@ export function storeMapper(classifierStore) {
     }
   } = classifierStore
 
-  const tileLayers = classifierStore.workflows?.active?.configuration?.subject_viewer_config?.tile_layers || EMPTY_TILE_LAYERS
+  const configuredTileLayers = classifierStore.workflows?.active?.configuration?.subject_viewer_config?.tile_layers
+  const tileLayers = Array.isArray(configuredTileLayers) ? configuredTileLayers : EMPTY_TILE_LAYERS
 
   const latest = subject?.stepHistory.latest
 
