@@ -122,6 +122,16 @@ describe('Component > LayerControl', function () {
       expect(captured).to.equal(1) // wraps to last index
     })
 
+    it('moves focus to the newly active tab on ArrowDown', async function () {
+      const user = userEvent.setup()
+      render(<TwoLayersStory />)
+      const activeTab = screen.getByRole('tab', { name: 'OpenStreetMap' })
+      const nextTab = screen.getByRole('tab', { name: '2023 imagery' })
+      activeTab.focus()
+      await user.keyboard('{ArrowDown}')
+      expect(document.activeElement).to.equal(nextTab)
+    })
+
     it('renders many layers as tabs', function () {
       render(<FiveLayersStory />)
       const tablist = screen.getByRole('tablist')

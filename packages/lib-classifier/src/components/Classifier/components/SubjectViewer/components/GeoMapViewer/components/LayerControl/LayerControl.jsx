@@ -39,15 +39,18 @@ function LayerControl ({ layers = [], activeIndex = 0, onChange }) {
   function cycle (delta) {
     const next = (activeIndex + delta + layers.length) % layers.length
     onChange?.(next)
+    return next
   }
 
   function handleKeyDown (event) {
     if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
       event.preventDefault()
-      cycle(1)
+      const next = cycle(1)
+      event.currentTarget?.querySelectorAll('[role="tab"]')?.[next]?.focus()
     } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
       event.preventDefault()
-      cycle(-1)
+      const next = cycle(-1)
+      event.currentTarget?.querySelectorAll('[role="tab"]')?.[next]?.focus()
     }
   }
 
