@@ -2,7 +2,7 @@ import { Box, Grid, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 import { arrayOf, shape, string } from 'prop-types'
 
-import { useAdminMode } from '@hooks'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
 import AboutProject from './components/AboutProject'
@@ -12,7 +12,7 @@ import StandardLayout, { HeaderComponents } from '@shared/components/StandardLay
 import ZooniverseTalk from './components/ZooniverseTalk'
 
 function ProjectHomePage({ workflows = [] }) {
-  const { adminMode } = useAdminMode()
+  const { adminMode } = useContext(PanoptesAuthContext)
   const size = useContext(ResponsiveContext)
   const mobileLayout = size === 'small'
 

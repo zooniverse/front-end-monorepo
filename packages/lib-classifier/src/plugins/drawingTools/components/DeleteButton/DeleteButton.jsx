@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled, { css, withTheme } from 'styled-components'
 
-import useScale from '../../hooks/useScale'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
+import DeleteIcon from './DeleteIcon'
 
 const StyledGroup = styled('g')`
   &:focus {
@@ -15,52 +16,27 @@ const StyledGroup = styled('g')`
 `
 
 const DEFAULT_HANDLER = () => false
-const DEFAULT_THEME = {
-  global: {
-    colors: {}
-  }
-}
+const DEFAULT_THEME = { global: { colors: {} } }
 
-function DeleteButton ({ 
-  label, 
-  mark, 
-  onDelete = DEFAULT_HANDLER, 
-  onDeselect = DEFAULT_HANDLER, 
-  rotate = 0, 
+function DeleteButton({
+  label,
+  mark,
+  onDelete = DEFAULT_HANDLER,
+  onDeselect = DEFAULT_HANDLER,
+  rotate = 0,
   theme = DEFAULT_THEME
 }) {
-  const scale = useScale()
+  const { scale } = useSVGContext()
   const focusColor = theme.global.colors[theme.global.colors.focus]
-  const RADIUS = (window?.innerWidth < 900) ? 5 : 8
-  const STROKE_COLOR = 'white'
-  const FILL_COLOR = 'black'
-  const STROKE_WIDTH = 1.5
-  const CROSS_PATH = `
-    M ${-1 * RADIUS * 0.7} 0
-    L ${RADIUS * 0.7} 0
-    M 0 ${-1 * RADIUS * 0.7}
-    L 0 ${RADIUS * 0.7}
-  `
+  const radius = (window?.innerWidth < 900) ? 5 : 8
   const { x, y } = mark.deleteButtonPosition(scale)
-  const transform = `
-    translate(${x}, ${y})
-    rotate(${rotate})
-    scale(${1 / scale})
-  `
-  
-  function onKeyDown (event) {
-    switch (event.key) {
-      case 'Enter':
-      case ' ': {
-        return onPointerDown(event)
-      }
-      default: {
-        return true
-      }
-    }
+
+  function onKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') return onPointerDown(event)
+    return true
   }
 
-  function onPointerDown (event) {
+  function onPointerDown(event) {
     event.preventDefault()
     event.stopPropagation()
     onDelete()
@@ -76,19 +52,10 @@ function DeleteButton ({
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
       role='button'
-      stroke={STROKE_COLOR}
-      strokeWidth={STROKE_WIDTH}
       tabIndex='-1'
-      transform={transform}
+      transform={`translate(${x}, ${y}) rotate(${rotate}) scale(${1 / scale})`}
     >
-      <circle
-        fill={FILL_COLOR}
-        r={RADIUS}
-      />
-      <path
-        d={CROSS_PATH}
-        transform='rotate(45)'
-      />
+      <DeleteIcon radius={radius} />
     </StyledGroup>
   )
 }

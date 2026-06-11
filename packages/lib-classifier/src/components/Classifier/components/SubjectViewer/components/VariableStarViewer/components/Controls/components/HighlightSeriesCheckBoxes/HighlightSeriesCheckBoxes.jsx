@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { Box, CheckBox } from 'grommet'
-import { withTheme } from 'styled-components'
-import Label from '../Label'
+import Label from '../../../../../ScatterPlotViewer/components/Label'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 const DEFAULT_HANDLER = () => false
@@ -11,19 +10,6 @@ function HighlightSeriesCheckBoxes (props) {
     data,
     highlightedSeries,
     setSeriesHighlight = DEFAULT_HANDLER,
-    theme: {
-      global: {
-        colors = {
-          drawingTools: {}
-        }
-      }
-    } = {
-      global: {
-        colors: {
-          drawingTools: {}
-        }
-      }
-    }
   } = props
 
   return (
@@ -39,7 +25,6 @@ function HighlightSeriesCheckBoxes (props) {
             key={`${label}-${seriesIndex}`}
             label={
               <Label
-                colors={colors}
                 checked={checked}
                 label={label}
                 seriesIndex={seriesIndex}
@@ -65,8 +50,7 @@ HighlightSeriesCheckBoxes.propTypes = {
   })).isRequired,
   highlightedSeries: PropTypes.arrayOf(PropTypes.string).isRequired,
   setSeriesHighlight: PropTypes.func,
-  theme: PropTypes.object
 }
 
-export default withTheme(HighlightSeriesCheckBoxes)
+export default HighlightSeriesCheckBoxes
 export { HighlightSeriesCheckBoxes }

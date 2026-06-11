@@ -9,6 +9,6 @@ describe('Component > FinishedAnnouncementConnector', function () {
     render(<DefaultStory />)
     const link = await screen.findByRole('link', { name: 'Announcements.FinishedAnnouncement.seeResults' })
     expect(link).toBeDefined()
-    expect(link?.getAttribute('href')).to.equal('/projects/zookeeper/galaxy-zoo/about/results')
+    expect(link?.getAttribute('href')).to.equal('/zookeeper/galaxy-zoo/about/results')
   })
 })

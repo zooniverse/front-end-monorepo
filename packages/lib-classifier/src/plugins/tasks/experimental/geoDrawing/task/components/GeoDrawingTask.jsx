@@ -9,8 +9,10 @@ import styled, { css } from 'styled-components'
 
 import UNIT_CONVERSIONS from '@helpers/unitConversions'
 
+import InputStatus from '@plugins/tasks/components/InputStatus'
 import FeatureCard from './components/FeatureCard'
 import RadiusSlider from './components/RadiusSlider'
+import SegmentedLineIcon from './components/SegmentedLineIcon'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -54,6 +56,15 @@ const ToolHeader = styled(Box)`
 const ToolIcon = styled(Location)`
   flex-shrink: 0;
 `
+
+const SegmentedLineToolIcon = styled(SegmentedLineIcon)`
+  flex-shrink: 0;
+`
+
+const TOOL_ICONS = {
+  SegmentedLine: SegmentedLineToolIcon,
+  Point: ToolIcon
+}
 
 function GeoDrawingTask({
   disabled = false,
@@ -123,7 +134,9 @@ function GeoDrawingTask({
         const checked = task.activeToolIndex === index
         const currentRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius
         const showUncertaintySlider = task.activeFeature && task.activeOlFeature && tool.uncertainty_circle && currentRadius !== null
-        
+        const drawnCount = task.drawnCountForTool(index)
+        const ToolTypeIcon = TOOL_ICONS[tool.type] || ToolIcon
+
         return (
           <ToolLabel key={`${task.taskKey}_${index}`}>
             <HiddenInput
@@ -137,10 +150,11 @@ function GeoDrawingTask({
             />
             <ToolCard pad='small' checked={checked}>
               <ToolHeader>
-                <ToolIcon color={tool.color} />
+                <ToolTypeIcon color={tool.color} />
                 <Text size='small'>
                   {task.strings.get(`tools.${index}.label`)}
                 </Text>
+                <InputStatus count={drawnCount} tool={tool} />
               </ToolHeader>
               {showUncertaintySlider && (
                 <RadiusSlider

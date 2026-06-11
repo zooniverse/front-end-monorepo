@@ -45,6 +45,7 @@ const SeriesOptions = types.model('SeriesOptions', {
   glyph: types.maybe(types.enumeration(['circle', 'cross', 'diamond', 'square', 'star', 'triangle', 'wye'])),
   label: types.string,
   color: types.maybe(types.string),
+  pointSize: types.maybe(types.union(types.number, types.enumeration(['small', 'medium', 'large']))),  // Determines the visual size of each data point.
   period: types.maybe(types.number)
 })
 

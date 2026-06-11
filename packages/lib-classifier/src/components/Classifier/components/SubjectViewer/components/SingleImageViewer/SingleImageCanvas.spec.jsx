@@ -18,6 +18,7 @@ describe('Component > SingleImageCanvas', function () {
         rotation={0}
         src={SUBJECT_IMAGE_URL}
         subject={{ id: '1234', locations: [{ url: SUBJECT_IMAGE_URL }] }}
+        svgWidth={120}
         transform=''
         transformMatrix={{ scaleX: 1, translateX: 0, translateY: 0 }}
       />
@@ -38,6 +39,7 @@ describe('Component > SingleImageCanvas', function () {
         rotation={45}
         src={SUBJECT_IMAGE_URL}
         subject={{ id: '1234', locations: [{ url: SUBJECT_IMAGE_URL }] }}
+        svgWidth={120}
         transform=''
         transformMatrix={{ scaleX: 1, translateX: 0, translateY: 0 }}
       />
@@ -58,6 +60,7 @@ describe('Component > SingleImageCanvas', function () {
         naturalWidth={100}
         rotation={0}
         src={SUBJECT_IMAGE_URL}
+        svgWidth={120}
         subject={{ id: '1234', locations: [{ url: SUBJECT_IMAGE_URL }] }}
         transform='matrix(2 0 0 2 0 0)'
         transformMatrix={{ scaleX: 2, translateX: 0, translateY: 0 }}

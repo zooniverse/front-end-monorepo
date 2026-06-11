@@ -1,5 +1,6 @@
 import { composeStory } from '@storybook/react'
 import { render, screen, waitFor } from '@testing-library/react'
+import TileLayer from 'ol/layer/Tile'
 import Meta, { Default, WithGeoDrawingTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
 
 const DefaultStory = composeStory(Default, Meta)
@@ -77,6 +78,50 @@ describe('Component > GeoMapViewer', function () {
       unmount()
       
       expect(screen.queryByRole('region', { name: 'Interactive map' })).to.not.exist
+    })
+  })
+
+  describe('configured tile layers', function () {
+    const twoLayers = [
+      { type: 'osm', label: 'OpenStreetMap' },
+      { type: 'wms', label: 'imagery', url: 'https://example.org/wms', params: { LAYERS: 'foo' } }
+    ]
+
+    function baseLayers (map) {
+      // basemap tile layers are TileLayers; the feature + selection layers are VectorLayers
+      return map.getLayers().getArray().filter(layer => layer instanceof TileLayer)
+    }
+
+    it('falls back to a single OSM base layer when no tile_layers are configured', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(baseLayers(map)).to.have.lengthOf(1)
+    })
+
+    it('builds one base tile layer per configured descriptor', async function () {
+      let map = null
+      render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(baseLayers(map)).to.have.lengthOf(2)
+    })
+
+    it('shows only the first configured layer by default', async function () {
+      let map = null
+      render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([true, false])
+    })
+
+    it('shows the layer marked default instead of the first', async function () {
+      const withDefault = [
+        { type: 'osm', label: 'OpenStreetMap' },
+        { type: 'wms', label: 'imagery', url: 'https://example.org/wms', params: { LAYERS: 'foo' }, default: true }
+      ]
+      let map = null
+      render(<DefaultStory tileLayers={withDefault} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([false, true])
     })
   })
 

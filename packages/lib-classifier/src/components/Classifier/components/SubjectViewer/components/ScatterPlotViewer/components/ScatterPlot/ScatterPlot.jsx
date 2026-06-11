@@ -46,6 +46,10 @@ const TRANSFORM_MATRIX = {
   translateY: 0
 }
 
+// Adds a 5% buffer around the data points, so the points with min/max don't
+// get "stuck" at the edges of the chart. 
+const BUFFER_PERCENTAGE_FOR_DATA_EXTENT = 0.05
+
 export default function ScatterPlot({
   axisColor = '',
   backgroundColor = '',
@@ -107,9 +111,9 @@ export default function ScatterPlot({
   }
 
   const dataPoints = getDataPoints(data)
-  const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
+  const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
-  const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
+  const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
   const sortedDataPoints = sortDataPointsByHighlight(dataPoints, highlightedSeries)
 
@@ -143,6 +147,28 @@ export default function ScatterPlot({
       const width = xScaleTransformed(0) - xScaleTransformed(-xAxisWidth)
       return { fill, left, width }
     })
+  }
+
+  // If the data series specifies a size for its data points, use that.
+  // Otherwise, use the general data point size provided to the ScatterPlot.
+  // Valid values for the (optional) seriesOptions.pointSize are: (any positive
+  // number), "small", "medium", and "large".
+  function getSeriesDataPointSize(series) {
+
+    // Note: there's no specific reason why we're mapping "small" to default
+    // size x1, "medium" to default size x2, etc. It just looks good from
+    // visual testing.
+    if (series?.seriesOptions?.pointSize === 'small') {
+      return dataPointSize
+    } else if (series?.seriesOptions?.pointSize === 'medium') {
+      return dataPointSize * 2
+    } else if (series?.seriesOptions?.pointSize === 'large') {
+      return dataPointSize * 4
+    } else if (Number.isFinite(series?.seriesOptions?.pointSize) && series?.seriesOptions?.pointSize > 0) {
+      return series?.seriesOptions?.pointSize
+    }
+
+    return dataPointSize
   }
 
   return (
@@ -179,7 +205,7 @@ export default function ScatterPlot({
           <ScatterPlotSeries
             key={`series-${seriesIndex}`}
             color={color}
-            dataPointSize={dataPointSize}
+            dataPointSize={getSeriesDataPointSize(series)}
             highlightedSeries={highlightedSeries}
             series={series}
             seriesIndex={seriesIndex}
@@ -218,8 +244,6 @@ export default function ScatterPlot({
     </Chart>
   )
 }
-
-
 
 ScatterPlot.propTypes = {
   axisColor: PropTypes.string,

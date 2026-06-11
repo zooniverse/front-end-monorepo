@@ -83,6 +83,78 @@ describe('Model > Workflow', function () {
     })
   })
 
+  describe('with subject_viewer_config.tile_layers', function () {
+    const tileLayers = [
+      { type: 'osm', label: 'OpenStreetMap' },
+      {
+        type: 'wms',
+        label: '2023 imagery',
+        url: 'https://imageserver.gisdata.mn.gov/cgi-bin/wms',
+        params: { LAYERS: 'fsa2023' },
+        attributions: 'MnGeo'
+      },
+      {
+        type: 'xyz',
+        label: 'Custom XYZ tiles',
+        url: 'https://tiles.example.com/{z}/{x}/{y}.png'
+      }
+    ]
+
+    it('should round-trip a populated tile_layers array on a geoMap workflow', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            tile_layers: tileLayers
+          }
+        },
+        display_name: 'A test geoMap workflow with configured tile layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.tile_layers).to.deep.equal(tileLayers)
+    })
+
+    it('should accept an empty tile_layers array', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            tile_layers: []
+          }
+        },
+        display_name: 'A test geoMap workflow with no configured tile layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.tile_layers).to.deep.equal([])
+    })
+
+    it('should be valid when tile_layers is omitted entirely (back-compat)', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            zoomConfiguration: {
+              direction: 'both',
+              minZoom: 1,
+              maxZoom: 10,
+              zoomInValue: 1.2,
+              zoomOutValue: 0.8
+            }
+          }
+        },
+        display_name: 'A test geoMap workflow without tile_layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.tile_layers).to.equal(undefined)
+    })
+  })
+
   describe('workflow steps', function () {
     let step
     const task = MultipleChoiceTaskFactory.build({ taskKey: 'T1' })

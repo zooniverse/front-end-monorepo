@@ -6,6 +6,7 @@ export default {
   args: {
     classifications: 10,
     completedSubjects: 20,
+    erasTotal: 100,
     linkProps: {
       externalLink: true,
       href: `/projects/mockOwner/mockProject/stats`
@@ -23,9 +24,10 @@ Default.args = {
 
 export const OneHundred = {}
 OneHundred.args = {
-  classifications: 5699743,
+  classifications: 569971,
   completedSubjects: 69532,
   completeness: 1,
+  erasTotal: 15875742,
   launchDate: '2015-05-24T00:00:00.000Z',
   subjects: 1000000,
   volunteers: 6943
@@ -36,6 +38,7 @@ Zero.args = {
   classifications: 0,
   completedSubjects: 0,
   completeness: 0,
+  erasTotal: 0,
   launchDate: '2015-05-24T00:00:00.000Z',
   subjects: 0,
   volunteers: 0

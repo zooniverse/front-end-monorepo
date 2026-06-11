@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { types } from 'mobx-state-tree'
+import { getRoot, types } from 'mobx-state-tree'
 import Task from '../../../../models/Task'
 import GeoDrawingAnnotation from './GeoDrawingAnnotation'
 import * as features from '../../features/models'
@@ -29,6 +29,15 @@ const GeoDrawing = types
       return self.tools[self.activeToolIndex]
     },
 
+    get drawnFeatures () {
+      const annotation = getRoot(self)?.classifications?.annotation?.(self)
+      return annotation?.value?.features ?? []
+    },
+
+    drawnCountForTool (toolIndex) {
+      return self.drawnFeatures.filter(feature => feature?.properties?.toolIndex === toolIndex).length
+    },
+
     defaultAnnotation(id = cuid()) {
       return GeoDrawingAnnotation.create({
         id,
@@ -36,6 +45,24 @@ const GeoDrawing = types
         taskType: self.type,
         value: null
       })
+    },
+
+    isComplete(annotation) {
+      if (self.required && !annotation?.isComplete) return false
+
+      const features = annotation?.value?.features ?? []
+      for (let toolIndex = 0; toolIndex < self.tools.length; toolIndex++) {
+        const tool = self.tools[toolIndex]
+        const minLines = tool.min
+        if (typeof minLines === 'number' && minLines > 0) {
+          const matchingCount = features.filter((feature) => (
+            feature?.properties?.toolIndex === toolIndex
+          )).length
+          if (matchingCount < minLines) return false
+        }
+      }
+
+      return true
     }
   }))
   .actions(self => {

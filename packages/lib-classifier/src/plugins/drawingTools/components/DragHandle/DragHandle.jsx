@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import draggable from '../draggable'
 import { STROKE_WIDTH } from '../Mark/Mark';
 
-import useScale from '../../hooks/useScale'
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
 
 const StyledCircle = styled('circle')`
   stroke-width: 2;
@@ -30,7 +30,7 @@ function DragHandleWithRef(
   },
   ref
 ) {
-  const scale = useScale()
+  const { scale } = useSVGContext()
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
   const styleProps = {
     fill: dragging && invisibleWhenDragging ? 'transparent' : fill,
