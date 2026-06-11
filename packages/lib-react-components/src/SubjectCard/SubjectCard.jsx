@@ -1,4 +1,5 @@
 import { Anchor, Box } from 'grommet'
+import mime from 'mime/lite'
 import { node, oneOf, shape, string, arrayOf, objectOf, object } from 'prop-types'
 import styled from 'styled-components'
 
@@ -116,6 +117,9 @@ function SubjectCard({
   // subject properties
   const { locations, metadata } = subject
   const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
+  const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
+  const [ mediaType ] = mimeType ? mimeType.split('/') : []
+  const showBackground = mediaType === 'image' || mediaType === 'video'
   const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`
@@ -136,8 +140,8 @@ function SubjectCard({
           round={{ corner: 'top', size: '8px' }}
           width={`${width}px`}
         >
+          {mediaSrc && showBackground ? (
           <StyledBackground>
-              {mediaSrc ? (
                 <Media
                   alt=''
                   controls={false}
@@ -149,8 +153,8 @@ function SubjectCard({
                   aria-hidden='true'
                   tabIndex={-1}
                 />
+            </StyledBackground>
               ) : null}
-          </StyledBackground>
 
           {mediaSrc ? (
             <StyledForegroundMedia
