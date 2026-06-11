@@ -1,3 +1,6 @@
+import { useEffect, useMemo, useState } from 'react'
+import { fromLonLat } from 'ol/proj'
+
 import GeoMapViewer from './GeoMapViewer'
 
 import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/task/models/GeoDrawingTask'
@@ -9,6 +12,66 @@ export default {
 
 export const Default = {
   args: {},
+}
+
+const MULTI_LAYERS = [
+  { type: 'osm', label: 'OpenStreetMap' },
+  {
+    type: 'xyz',
+    label: 'OpenTopoMap',
+    url: 'https://a.tile.opentopomap.org/{z}/{x}/{y}.png',
+    attributions: '© OpenTopoMap (CC-BY-SA)'
+  },
+  {
+    type: 'wms',
+    label: 'MnGeo 2023 imagery',
+    url: 'https://imageserver.gisdata.mn.gov/cgi-bin/wms?',
+    params: { LAYERS: 'fsa2023' },
+    format: 'image/jpeg',
+    attributions: 'MnGeo'
+  },
+  {
+    type: 'cog',
+    label: 'NAIP 2023 (COG)',
+    url: 'https://naipeuwest.blob.core.windows.net/naip/v002/mn/2023/mn_030cm_2023/48091/m_4809149_se_15_030_20230830_20240228.tif',
+    attributions: 'USDA NAIP'
+  }
+]
+
+const LAYER_LABELS = MULTI_LAYERS.reduce((labels, layer) => ({ ...labels, [layer.type]: layer.label }), {})
+
+const COG_CENTER = [-91.906, 48.156]
+
+function MultiLayerStory({ visibleLayer }) {
+  const [map, setMap] = useState(null)
+  const tileLayers = useMemo(
+    () => MULTI_LAYERS.map(layer => ({ ...layer, default: layer.type === visibleLayer })),
+    [visibleLayer]
+  )
+
+  useEffect(() => {
+    if (!map) return
+    map.getView().setCenter(fromLonLat(COG_CENTER))
+    map.getView().setZoom(14)
+  }, [map, visibleLayer])
+
+  return (
+    <GeoMapViewer onMapReady={setMap} tileLayers={tileLayers} />
+  )
+}
+
+export const WithMultipleLayers = {
+  args: { visibleLayer: 'osm' },
+  argTypes: {
+    visibleLayer: {
+      name: 'Visible layer',
+      description: 'Which configured basemap is shown (preview of layer switching)',
+      control: 'select',
+      options: MULTI_LAYERS.map(layer => layer.type),
+      labels: LAYER_LABELS
+    }
+  },
+  render: ({ visibleLayer }) => <MultiLayerStory visibleLayer={visibleLayer} />,
 }
 
 export const WithGeoDrawingTask = {

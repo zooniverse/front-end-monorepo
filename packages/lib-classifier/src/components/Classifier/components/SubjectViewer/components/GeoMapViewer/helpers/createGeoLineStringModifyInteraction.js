@@ -9,14 +9,29 @@ export function hasLineStringFeature(features) {
 function createGeoLineStringModifyInteraction({
   map,
   selectInteraction,
-  onModifyEnd
+  onModifyEnd,
+  getMaxVertices
 }) {
   let isModifying = false
+
+  function getSelectedLineStringVertexCount() {
+    const feature = selectInteraction.getFeatures().getArray()
+      .find((f) => f.getGeometry?.()?.getType?.() === 'LineString')
+    if (!feature) return null
+    return feature.getGeometry().getCoordinates().length
+  }
 
   const modify = new Modify({
     features: selectInteraction.getFeatures(),
     pixelTolerance: 10,
-    condition: (event) => primaryAction(event) && hasLineStringFeature(selectInteraction.getFeatures().getArray())
+    condition: (event) => primaryAction(event) && hasLineStringFeature(selectInteraction.getFeatures().getArray()),
+    insertVertexCondition: () => {
+      const max = typeof getMaxVertices === 'function' ? getMaxVertices() : undefined
+      if (typeof max !== 'number') return true
+      const count = getSelectedLineStringVertexCount()
+      if (count === null) return true
+      return count < max
+    }
   })
 
   const startKey = modify.on('modifystart', () => { isModifying = true })

@@ -1,6 +1,9 @@
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
-describe.skip('VariableStarViewer > Controls > Label', function ()  {})
+describe.skip('ScatterPlotViewer > Controls > Label', function ()  {})
+
+// NOTE: <Label> was previously part of VariableStarViewer, but has been moved to the ScatterPlotViewer.
+// describe.skip('VariableStarViewer > Controls > Label', function ()  {})
 
 // import zooTheme from '@zooniverse/grommet-theme'
 // import { SpacedText } from '@zooniverse/react-components'

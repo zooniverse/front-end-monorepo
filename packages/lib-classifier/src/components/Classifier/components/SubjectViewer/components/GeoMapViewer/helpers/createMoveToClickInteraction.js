@@ -7,13 +7,7 @@ import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixel
 
 export const MOVE_TO_CLICK_HOLD_DELAY = 250
 
-/**
- * Wrap an X coordinate back into the projection's world extent so that features
- * dragged past the dateline remain visible and renderable by OpenLayers.
- * Derives the extent from the projection's own definition, so it works correctly
- * for any projection that declares a world extent (e.g. EPSG:3857, EPSG:4326).
- * Returns x unchanged if the projection has no defined world extent.
- */
+// Wrap X back into the projection's world extent so cross-dateline drags stay renderable.
 function normalizeCoordinateToWorld(x, projectionCode) {
   const proj = getProjection(projectionCode)
   const extent = proj?.getExtent()
@@ -24,11 +18,10 @@ function normalizeCoordinateToWorld(x, projectionCode) {
 }
 
 function createMoveToClickInteraction({
+  map,
   selectInteraction,
   geoDrawingTask,
-  featuresLayer,
-  onDragStart = undefined,
-  onDragEnd = undefined
+  featuresLayer
 }) {
   const state = {
     downCoordinate: null,
@@ -135,9 +128,6 @@ function createMoveToClickInteraction({
     }
   }
 
-  /**
-   * Handle pointer down - record state for potential click-to-move
-   */
   function handleDownEvent(event) {
     const map = this.getMap()
     if (!map || !selectInteraction || !geoDrawingTask) {
@@ -167,13 +157,13 @@ function createMoveToClickInteraction({
 
     state.clickedOnFeature = clickedInsideSelectedFeature
 
-    // Prioritize center-point dragging over uncertainty-handle checks.
-    // At far zoom, tiny uncertainty circles can place the handle near center.
+    // At far zoom, tiny uncertainty circles can place the handle near center; check center first.
     if (clickedInsideSelectedFeature) {
       state.draggingFeature = true
       state.disabledSelect = true
       selectInteraction.setActive(false)
-      onDragStart?.()
+      const viewport = map.getViewport()
+      if (viewport) viewport.style.cursor = 'grabbing'
       return true
     }
 
@@ -201,9 +191,7 @@ function createMoveToClickInteraction({
       : false
 
     if (clickedInUncertaintyCircleOnly) {
-      // Capture the event so we can detect a click (no drag) vs a drag (map pan).
-      // Setting clickedOnFeature=true prevents the empty-space teleport path in handleUpEvent.
-      // draggingFeature stays false so stopDown() returns false, letting DragPan handle drags.
+      // Capture without draggingFeature so DragPan still handles map drags via stopDown=false.
       state.clickedOnFeature = true
       state.clickedInUncertaintyCircle = true
       state.disabledSelect = true
@@ -211,7 +199,6 @@ function createMoveToClickInteraction({
       return true
     }
 
-    // If clicking on a different feature's center point, let Select handle it (it will select that feature)
     let clickedOtherFeatureCenter = false
     featuresLayer.getSource().forEachFeature((feature) => {
       if (feature === state.selectedFeature || clickedOtherFeatureCenter) return
@@ -233,11 +220,7 @@ function createMoveToClickInteraction({
     return true
   }
 
-  /** 
-   * In the OpenLayers PointerInteraction, stopDown determines if the down event is propagated to other interactions.
-   * We return true to stop down events from propagating to DragPan.
-   * We return false to allow DragPan to handle the event, which lets the user drag the map.
-   */
+  // OL PointerInteraction stopDown: true blocks DragPan, false lets it run.
   function stopDown() {
     return state.draggingFeature
   }
@@ -268,10 +251,6 @@ function createMoveToClickInteraction({
     }
   }
 
-  /**
-   * Handle pointer up - teleport feature on click within uncertainty circle or empty space;
-   * move feature if dragged from center point.
-   */
   function handleUpEvent(event) {
     const map = this.getMap()
 
@@ -293,7 +272,6 @@ function createMoveToClickInteraction({
 
     const wasDragging = state.draggingFeature
 
-    // Reset state
     resetPointerState()
 
     if (state.disabledSelect) {
@@ -301,7 +279,8 @@ function createMoveToClickInteraction({
     }
 
     if (wasDragging) {
-      onDragEnd?.()
+      const viewport = map.getViewport()
+      if (viewport) viewport.style.cursor = 'grab'
     }
 
     return false
@@ -316,7 +295,6 @@ function createMoveToClickInteraction({
     }, 0)
   }
 
-  // Create and return the interaction
   const interaction = new PointerInteraction({
     handleDownEvent,
     handleDragEvent,
@@ -324,7 +302,19 @@ function createMoveToClickInteraction({
     stopDown
   })
 
-  return interaction
+  if (map) map.addInteraction(interaction)
+
+  return {
+    isDragging() {
+      return state.draggingFeature
+    },
+    setActive(active) {
+      interaction.setActive(active)
+    },
+    destroy() {
+      if (map) map.removeInteraction(interaction)
+    }
+  }
 }
 
 export default createMoveToClickInteraction

@@ -1,4 +1,4 @@
-# Helper > getDataSeriesColor
+# Helper > isDataSeriesHighlighted
 
 This is a helper utility function used by the data as a subject viewers `ScatterPlotViewer` and the `VariableStarViewer` to help determine if the data series is highlighted, meaning if it has a fill color applied to it and has a black stroke. Defaults to returning true to make sure that data series have fill colors.
 
