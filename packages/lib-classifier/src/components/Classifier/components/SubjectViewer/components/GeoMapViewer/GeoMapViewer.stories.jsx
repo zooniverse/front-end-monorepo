@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fromLonLat } from 'ol/proj'
 
 import GeoMapViewer from './GeoMapViewer'
@@ -38,40 +38,22 @@ const MULTI_LAYERS = [
   }
 ]
 
-const LAYER_LABELS = MULTI_LAYERS.reduce((labels, layer) => ({ ...labels, [layer.type]: layer.label }), {})
-
 const COG_CENTER = [-91.906, 48.156]
 
-function MultiLayerStory({ visibleLayer }) {
+function MultiLayerStory(props) {
   const [map, setMap] = useState(null)
-  const tileLayers = useMemo(
-    () => MULTI_LAYERS.map(layer => ({ ...layer, default: layer.type === visibleLayer })),
-    [visibleLayer]
-  )
 
   useEffect(() => {
     if (!map) return
     map.getView().setCenter(fromLonLat(COG_CENTER))
     map.getView().setZoom(14)
-  }, [map, visibleLayer])
+  }, [map])
 
-  return (
-    <GeoMapViewer onMapReady={setMap} tileLayers={tileLayers} />
-  )
+  return <GeoMapViewer {...props} onMapReady={setMap} tileLayers={MULTI_LAYERS} />
 }
 
 export const WithMultipleLayers = {
-  args: { visibleLayer: 'osm' },
-  argTypes: {
-    visibleLayer: {
-      name: 'Visible layer',
-      description: 'Which configured basemap is shown (preview of layer switching)',
-      control: 'select',
-      options: MULTI_LAYERS.map(layer => layer.type),
-      labels: LAYER_LABELS
-    }
-  },
-  render: ({ visibleLayer }) => <MultiLayerStory visibleLayer={visibleLayer} />,
+  render: () => <MultiLayerStory />,
 }
 
 export const WithGeoDrawingTask = {

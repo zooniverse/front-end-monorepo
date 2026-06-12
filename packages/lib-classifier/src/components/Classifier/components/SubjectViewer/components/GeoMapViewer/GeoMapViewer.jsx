@@ -10,6 +10,7 @@ import { transform } from 'ol/proj'
 
 import { useTranslation } from '@translations/i18n'
 import CoordinateInput from './components/CoordinateInput'
+import LayerControl from './components/LayerControl'
 import MeasureButton from './components/MeasureButton'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
@@ -78,6 +79,10 @@ function GeoMapViewer({
 }) {
   const [isMeasureModeActive, setIsMeasureModeActive] = useState(false)
   const [selectedUnit, setSelectedUnit] = useState('meters')
+  const [currentLayerIndex, setCurrentLayerIndex] = useState(() => {
+    const index = tileLayers.findIndex(tileLayer => tileLayer?.default)
+    return index >= 0 ? index : 0
+  })
   const { t } = useTranslation('components')
 
   const containerRef = useRef()
@@ -85,7 +90,7 @@ function GeoMapViewer({
   const hasGeoDrawingTask = !!(geoDrawingTask && geoDrawingTask.tools.length > 0)
   const activeToolType = geoDrawingTask?.activeTool?.type
 
-  const { map, source, layer, scaleLine } = useOLMap(containerRef, tileLayers)
+  const { map, source, layer, scaleLine, baseLayers } = useOLMap(containerRef, tileLayers)
 
   const { select, translate } = useMapSelection({
     map,
@@ -139,6 +144,11 @@ function GeoMapViewer({
   useEffect(() => {
     if (map && onMapReady) onMapReady(map)
   }, [map, onMapReady])
+
+  useEffect(() => {
+    if (!baseLayers.length) return
+    baseLayers.forEach((tileLayer, index) => tileLayer.setVisible(index === currentLayerIndex))
+  }, [baseLayers, currentLayerIndex])
 
   useEffect(() => {
     loadGeoJSON({ map, source, select, measure, data: geoJSON })
@@ -222,10 +232,15 @@ function GeoMapViewer({
 
   return (
     <StyledBox forwardedAs='section' fill>
-      <ControlsBox>
+      <ControlsBox align='end'>
         <ZoomInButton onClick={() => handleZoom(1)} />
         <ZoomOutButton onClick={() => handleZoom(-1)} />
         <MeasureButton active={isMeasureModeActive} onClick={handleToggleMeasureMode} />
+        <LayerControl
+          layers={tileLayers}
+          activeIndex={currentLayerIndex}
+          onChange={setCurrentLayerIndex}
+        />
         {geoJSON && (
           <>
             <RecenterButton onClick={handleRecenter} />
