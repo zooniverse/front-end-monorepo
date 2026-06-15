@@ -36,9 +36,7 @@ function ImageAndTextViewerContainer ({
 
   if (loadingState !== asyncStates.initialized) {
     return (
-      <Box
-        fill='horizontal'
-      >
+      <Box>
         {(type === 'text')
           ? (
             <SingleTextViewer

@@ -20,7 +20,8 @@ const DirectionButton = styled(Button)`
     }
 `
 
-const ThumbnailButton = styled(Button)`
+// For image files, show a thumbnail of the image
+const ImageThumbnailButton = styled(Button)`
   display: flex;
   ${props => css`height: ${props.thumbnailDimension};`}
   ${props => css`width: ${props.thumbnailDimension};`}
@@ -31,11 +32,12 @@ const ThumbnailButton = styled(Button)`
   background-position: center;
   ${props => css`background-image: url(${props.thumbnailerUrl});`}
   &[aria-selected=true] {
-    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+    border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
 `
 
-const TextButton = styled(Button)`
+// For text files, show a "text" icon
+const TextThumbnailButton = styled(Button)`
   align-items: center;
   border: solid 1px ${props => props.theme.global.colors['light-3']};
   display: flex;
@@ -43,14 +45,27 @@ const TextButton = styled(Button)`
   padding: 0;
   ${props => css`height: ${props.thumbnailDimension};`}
   ${props => css`width: ${props.thumbnailDimension};`}
-  &:hover {
+  border: solid 1px ${props => props.theme.global.colors['light-5']};
+
+  &[aria-selected=true] {
+    border: solid 2px ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
+  }
+
+  &:hover:not([aria-selected=true]) {
     box-shadow: 0px 0px 0px 2px ${props => props.theme.global.colors['brand']};
   }
-  &[aria-selected=true] {
-    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+
+  > svg {
+    max-width: 80%;
+    stroke: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['dark-5']};
+  }
+
+  &[aria-selected=true] > svg {
+    stroke: ${props => props.theme.dark ? props.theme.global.colors['accent-1'] : props.theme.global.colors['neutral-1']};
   }
 `
 
+const foreColors = { dark: 'neutral-6', light: 'dark-5' }
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
 const ImageAndTextControls = ({
@@ -151,9 +166,8 @@ const ImageAndTextControls = ({
         >
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
-              a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
-              icon={<FormPrevious />}
-              label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+              a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+              icon={<FormPrevious color={foreColors} />}
               onClick={handlePrevious}
             />
             <Box
@@ -175,7 +189,7 @@ const ImageAndTextControls = ({
                       url.length
                     )}`
                     return (
-                      <ThumbnailButton
+                      <ImageThumbnailButton
                         key={`${url}-${index}`}
                         id={`thumbnail-${index}`}
                         aria-controls='image-and-text-tab-panel'
@@ -193,7 +207,7 @@ const ImageAndTextControls = ({
                     )
                   } else {
                     return (
-                      <TextButton
+                      <TextThumbnailButton
                         key={`${url}-${index}`}
                         id={`thumbnail-${index}`}
                         aria-controls='image-and-text-tab-panel'
@@ -213,9 +227,8 @@ const ImageAndTextControls = ({
                 })}
             </Box>
             <DirectionButton
-              a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel') : ''}
-              icon={<FormNext />}
-              label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+              a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+              icon={<FormNext color={foreColors} />}
               onClick={handleNext}
             />
           </Box>
