@@ -1,16 +1,17 @@
-import { Button, Box, ThemeContext } from 'grommet'
+import { Button, Box, Grid, ThemeContext } from 'grommet'
 import {
   DocumentText,
   FormNext,
   FormPrevious
 } from 'grommet-icons'
-import PropTypes from 'prop-types'
+import { arrayOf, bool, func, number } from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
-import styled, { withTheme, css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
+import ViewModeButton from '../../../../SubjectViewer/components/SeparateFramesViewer/components/ViewModeButton/ViewModeButton'
 
 const DirectionButton = styled(Button)`
   border: none;
@@ -70,6 +71,7 @@ const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
 const ImageAndTextControls = ({
   currentFrame = 0,
+  enableSwitchView = false,
   locations = [],
   onFrameChange = () => true
 }) => {
@@ -159,11 +161,12 @@ const ImageAndTextControls = ({
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Box background={backgrounds} ref={controlsContainer}>
-        <Box
-          fill
+        <Grid
+          columns={['25px', 'flex', '25px']}
           pad={smallScreenStyle ? { horizontal: '10px', vertical: '5px' } : { horizontal: '20px', vertical: '10px' }}
           gap={smallScreenStyle ? 'xsmall' : 'small'}
         >
+          <Box />
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
               a11yTitle={t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
@@ -232,16 +235,20 @@ const ImageAndTextControls = ({
               onClick={handleNext}
             />
           </Box>
-        </Box>
+          <Box fill justify='center'>
+          {enableSwitchView && <ViewModeButton smallScreenStyle={smallScreenStyle} />}
+          </Box>
+        </Grid>
       </Box>
     </ThemeContext.Extend>
   )
 }
 
 ImageAndTextControls.propTypes = {
-  currentFrame: PropTypes.number,
-  locations: PropTypes.arrayOf(locationValidator).isRequired,
-  onFrameChange: PropTypes.func
+  currentFrame: number,
+  enableSwitchView: bool,
+  locations: arrayOf(locationValidator).isRequired,
+  onFrameChange: func
 }
 
-export default withTheme(ImageAndTextControls)
+export default ImageAndTextControls
