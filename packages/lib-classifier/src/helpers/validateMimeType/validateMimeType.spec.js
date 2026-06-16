@@ -9,6 +9,7 @@ const validMimeTypes = [
   'audio/mp3',
   'audio/m4a',
   'audio/mpeg',
+  'audio/wav',
   'video/mp4',
   'video/mpeg',
   'video/x-m4v'
@@ -19,7 +20,6 @@ const invalidMimeTypes = [
   'application/javascript',
   'application/xml',
   'audio/aac',
-  'audio/wav',
   'image/bmp',
   'image/tiff',
   'text/css',
