@@ -1,5 +1,4 @@
 import { Anchor, Box } from 'grommet'
-import { Video } from 'grommet-icons'
 import mime from 'mime/lite'
 import { node, oneOf, shape, string, arrayOf, objectOf, object } from 'prop-types'
 import styled from 'styled-components'
@@ -177,12 +176,6 @@ function SubjectCard({
             justify='center'
             pad={{ horizontal: 'small', vertical: 'medium' }}
           >
-            {mediaType === 'video' ? (
-              <Video
-                color='white'
-                size='1rem'
-              />
-            ) : null}
             <StyledTitleText>
               {subjectIdTitle}
             </StyledTitleText>
