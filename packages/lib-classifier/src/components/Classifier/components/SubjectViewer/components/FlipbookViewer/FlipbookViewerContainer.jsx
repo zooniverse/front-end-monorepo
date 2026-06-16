@@ -67,8 +67,8 @@ function FlipbookViewerContainer({
     rotation,
     separateFramesView,
     setFrame,
-    setOnPan,
-    setOnZoom
+    setOnPan: storeSetOnPan,
+    setOnZoom: storeSetOnZoom
   } = useStores(storeMapper)
 
   const effectiveSetOnPan = propSetOnPan || storeSetOnPan
