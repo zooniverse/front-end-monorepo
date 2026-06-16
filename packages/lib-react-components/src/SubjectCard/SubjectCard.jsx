@@ -38,7 +38,7 @@ const StyledBackground = styled(Box)`
   filter: blur(12px);
   inset: 0;
   position: absolute;
-  transform: scale(1.08);
+  transform: scale(1.2); // scale up the background to hide edges created by the blur
   z-index: 0;
 `
 
