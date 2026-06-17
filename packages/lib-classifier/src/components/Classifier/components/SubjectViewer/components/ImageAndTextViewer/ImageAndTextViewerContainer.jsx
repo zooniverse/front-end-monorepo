@@ -55,7 +55,8 @@ function ImageAndTextViewerContainer({
           <Box>
             {type === 'text' ? (
               <SingleTextViewer
-                height={dimensions[0]?.clientHeight ?? ''}
+                frame={frame} // Needed so onReady is called with the correct frame index, otherwise SingleTextViewerContainer assumes frame = 0 unless its connector is refactored to read it from the store.
+                height={dimensions[0]?.clientHeight ? `${dimensions[0]?.clientHeight}px` : ''}
                 onError={onError}
                 onReady={onReady}
               />
