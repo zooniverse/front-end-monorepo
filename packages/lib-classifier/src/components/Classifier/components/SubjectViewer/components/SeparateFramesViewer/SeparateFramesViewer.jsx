@@ -8,6 +8,7 @@ import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import SeparateFrame from './components/SeparateFrame/SeparateFrame'
 import ViewModeButton from './components/ViewModeButton/ViewModeButton'
+import SingleTextViewer from '../SingleTextViewer'
 
 function storeMapper(store) {
   const {
@@ -32,10 +33,7 @@ function SeparateFramesViewer({
   onReady = DEFAULT_HANDLER,
   subject
 }) {
-  const {
-    limitSubjectHeight,
-    multiImageLayout
-  } = useStores(storeMapper)
+  const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
 
   const [forceColLayout, setForceColLayout] = useState(false)
   const [numFramesHorizontally, setNumFramesHorizontally] = useState(1)
@@ -85,19 +83,28 @@ function SeparateFramesViewer({
         columns={forceColLayout ? 'auto' : [`repeat(${numFramesHorizontally}, 1fr)`]}
         rows='auto'
       >
-        {subject.locations?.map((location, index) => (
-          <SeparateFrame
-            key={location.url}
-            enableInteractionLayer={enableInteractionLayer}
-            enableRotation={enableRotation}
-            frame={index}
-            frameUrl={location.url}
-            limitSubjectHeight={limitSubjectHeight}
-            onError={onError}
-            onReady={onReady}
-            subject={subject}
-          />
-        ))}
+        {subject.locations?.map((location, index) =>
+          location?.type === 'text' ? (
+            <SingleTextViewer
+              key={location.url}
+              frame={index}
+              onError={onError}
+              onReady={onReady}
+            />
+          ) : (
+            <SeparateFrame
+              key={location.url}
+              enableInteractionLayer={enableInteractionLayer}
+              enableRotation={enableRotation}
+              frame={index}
+              frameUrl={location.url}
+              limitSubjectHeight={limitSubjectHeight}
+              onError={onError}
+              onReady={onReady}
+              subject={subject}
+            />
+          )
+        )}
       </Grid>
       <Box justify='center' pad='xsmall'>
         <ViewModeButton />
