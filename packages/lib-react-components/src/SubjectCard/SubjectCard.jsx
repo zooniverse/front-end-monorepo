@@ -1,4 +1,5 @@
 import { Anchor, Box } from 'grommet'
+import mime from 'mime/lite'
 import { node, oneOf, shape, string, arrayOf, objectOf, object } from 'prop-types'
 import styled from 'styled-components'
 
@@ -12,6 +13,7 @@ import ShareIconButton from '../ShareIconButton'
 const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
+  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.25);
   overflow: hidden;
   position: relative;
 `
@@ -35,7 +37,7 @@ const StyledBackground = styled(Box)`
   filter: blur(12px);
   inset: 0;
   position: absolute;
-  transform: scale(1.08);
+  transform: scale(1.2); // scale up the background to hide edges created by the blur
   z-index: 0;
 `
 
@@ -116,6 +118,9 @@ function SubjectCard({
   // subject properties
   const { locations, metadata } = subject
   const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
+  const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
+  const [ mediaType ] = mimeType ? mimeType.split('/') : []
+  const showBackground = mediaType === 'image' || mediaType === 'video'
   const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`
@@ -136,21 +141,21 @@ function SubjectCard({
           round={{ corner: 'top', size: '8px' }}
           width={`${width}px`}
         >
-          <StyledBackground>
-              {mediaSrc ? (
-                <Media
-                  alt=''
-                  controls={false}
-                  fit='cover'
-                  height={previewHeight}
-                  placeholder={placeholder}
-                  src={mediaSrc}
-                  width={width}
-                  aria-hidden='true'
-                  tabIndex={-1}
-                />
-              ) : null}
-          </StyledBackground>
+          {mediaSrc && showBackground ? (
+            <StyledBackground>
+              <Media
+                alt=''
+                controls={false}
+                fit='cover'
+                height={previewHeight}
+                placeholder={placeholder}
+                src={mediaSrc}
+                width={width}
+                aria-hidden='true'
+                tabIndex={-1}
+              />
+            </StyledBackground>
+          ) : null}
 
           {mediaSrc ? (
             <StyledForegroundMedia
@@ -167,6 +172,7 @@ function SubjectCard({
           <StyledTitle
             align='center'
             direction='row'
+            gap='xsmall'
             justify='center'
             pad={{ horizontal: 'small', vertical: 'medium' }}
           >
