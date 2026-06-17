@@ -1,6 +1,6 @@
 import { arrayOf, func, shape } from 'prop-types'
 import { Box } from 'grommet'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
@@ -19,7 +19,6 @@ const ProgressMarker = styled.div`
   background: rgba(66, 133, 244, 0.9);
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
   pointer-events: none;
-  transition: left 0.1s linear;
   z-index: 1;
 `
 
@@ -32,7 +31,10 @@ function AudioSpectrogramViewer({
 }) {
   const { t } = useTranslation('components')
   const audioRef = useRef(null)
+  const rafRef = useRef(null)
   const [played, setPlayed] = useState(0)
+
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), [])
 
   const audioLocation = subject ? subject.locations.find(l => l.type === 'audio') : null
   const imageLocation = subject ? subject.locations.find(l => l.type === 'image') : null
@@ -41,31 +43,35 @@ function AudioSpectrogramViewer({
     return <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
   }
 
-  const handleImageLoad = (e) => {
+  function handleImageLoad(e) {
     const { naturalHeight, naturalWidth, clientHeight, clientWidth } = e.target
     onReady({ target: { clientHeight, clientWidth, naturalHeight, naturalWidth } })
   }
 
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const duration = audioRef.current.duration
-      if (isFinite(duration) && duration > 0) {
-        setPlayed(audioRef.current.currentTime / duration)
-      }
-    }
+  function syncMarker() {
+    const audio = audioRef.current
+    if (audio?.duration > 0) setPlayed(audio.currentTime / audio.duration)
   }
 
-  const handleEnded = () => {
-    setPlayed(0)
+  function tick() {
+    syncMarker()
+    rafRef.current = audioRef.current?.paused ? null : requestAnimationFrame(tick)
   }
 
-  const handleError = (e) => {
-    onError(e)
+  function handlePlay() {
+    cancelAnimationFrame(rafRef.current)
+    syncMarker()
+    rafRef.current = requestAnimationFrame(tick)
+  }
+
+  function handleStop() {
+    cancelAnimationFrame(rafRef.current)
+    rafRef.current = null
+    syncMarker()
   }
 
   return (
     <Box width='100%'>
-      {/* Spectrogram image with progress marker overlay */}
       <SpectrogramContainer>
         <img
           alt='Spectrogram'
@@ -78,15 +84,15 @@ function AudioSpectrogramViewer({
           style={{ left: `${played * 100}%` }}
         />
       </SpectrogramContainer>
-
-      {/* Native audio controls */}
       <audio
         ref={audioRef}
         controls
         controlsList='nodownload'
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={handleEnded}
-        onError={handleError}
+        onPlay={handlePlay}
+        onPause={handleStop}
+        onEnded={handleStop}
+        onSeeked={syncMarker}
+        onError={onError}
         preload='auto'
         src={audioLocation.url}
         style={{ width: '100%' }}

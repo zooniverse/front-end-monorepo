@@ -60,7 +60,7 @@ const Subject = types
         // Volumetric Viewer is set at the Project level
         if (!viewer && self.project?.isVolumetricViewer)
           viewer = subjectViewers.volumetric
-      
+
         if (!viewer && counts.total === 1) {
           if (counts.audio) {
             viewer = subjectViewers.singleAudio
@@ -84,15 +84,15 @@ const Subject = types
           if (counts.total === 2 && counts.audio === 1 && counts.images === 1) {
             viewer = subjectViewers.audioSpectrogram
           }
-          // This is a subject pattern for the flipbook - Note that projects that want to use the multiFrame viewer should specify in workflow config
-          if (counts.total === (counts.images + counts.videos)) {
-            viewer = subjectViewers.flipbook
-          }
           // This is a subject pattern for the image and text viewer
           // Note that workflows with subjects that have the same subject pattern that want to use a different viewer (i.e. light curve viewer)
           // should specify which viewer in the workflow configuration
-          if (counts.total === 2 && counts.images === 1 && counts.text === 1) {
+          if (counts.images >= 1 && counts.text >= 1 && counts.total === (counts.images + counts.text)) {
             viewer = subjectViewers.imageAndText
+          }
+          // This is a subject pattern for the flipbook - Note that projects that want to use the multiFrame viewer should specify in workflow config
+          if (counts.total === (counts.images + counts.videos)) {
+            viewer = subjectViewers.flipbook
           }
         }
       }

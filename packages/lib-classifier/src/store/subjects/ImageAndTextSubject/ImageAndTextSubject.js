@@ -8,7 +8,7 @@ const ImageAndTextSubject = types
     Subject.named('ImageAndTextSubject'),
     subject => {
       const counts = createLocationCounts(subject)
-      return counts.total === 2 && counts.images === 1 && counts.text === 1
+      return counts.images >= 1 && counts.text >= 1 && counts.total === counts.images + counts.text
     })
 
 export default ImageAndTextSubject

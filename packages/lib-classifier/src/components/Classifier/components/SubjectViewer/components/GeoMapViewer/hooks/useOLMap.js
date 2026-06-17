@@ -8,7 +8,7 @@ import VectorSource from 'ol/source/Vector'
 import createTileLayer from '../helpers/createTileLayer'
 
 export default function useOLMap(containerRef, tileLayers = []) {
-  const [state, setState] = useState({ map: null, source: null, layer: null, scaleLine: null })
+  const [state, setState] = useState({ map: null, source: null, layer: null, scaleLine: null, baseLayers: [] })
 
   useEffect(() => {
     if (!containerRef.current) return undefined
@@ -29,11 +29,11 @@ export default function useOLMap(containerRef, tileLayers = []) {
       controls: defaultControls({ zoom: false }).extend([scaleLine])
     })
 
-    setState({ map, source, layer, scaleLine })
+    setState({ map, source, layer, scaleLine, baseLayers: baseTileLayers })
 
     return () => {
       map.setTarget(undefined)
-      setState({ map: null, source: null, layer: null, scaleLine: null })
+      setState({ map: null, source: null, layer: null, scaleLine: null, baseLayers: [] })
     }
   }, [containerRef, tileLayers])
 
