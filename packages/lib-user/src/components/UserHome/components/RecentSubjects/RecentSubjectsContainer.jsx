@@ -17,6 +17,7 @@ async function fetchUserRecents({ userId }) {
   try {
     const query = {
       include: 'subject',
+      page_size: 10,
       sort: '-created_at'
     }
     const response = await panoptes.get(`/users/${userId}/recents`, query)
@@ -61,8 +62,7 @@ function RecentSubjectsContainer({ authUser }) {
       projectSlug: projectSlugsById.get(recent.links?.project),
       subject: subjectsById.get(recent.links?.subject)
     }))
-    .filter(recent => recent?.projectSlug)
-    .slice(0, 10)
+    .filter(recent => recent?.projectSlug && recent?.subject)
 
   const error = recentsError || projectsError
   const isLoading = recentsLoading || projectsLoading
