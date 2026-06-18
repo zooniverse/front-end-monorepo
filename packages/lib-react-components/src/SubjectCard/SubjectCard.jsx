@@ -106,6 +106,7 @@ function SubjectCard({
 }) {
   const { t } = useTranslation()
   const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
 
   // layout
   const width = cardWidth(size)
@@ -132,7 +133,7 @@ function SubjectCard({
       width={`${width}px`}
     >
       <StyledImageLink
-        a11yTitle={subjectIdTitle}
+        a11yTitle={linkTitle}
         href={subjectTalkHref}
       >
         <StyledPreview

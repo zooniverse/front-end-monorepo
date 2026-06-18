@@ -100,6 +100,7 @@
     "share": "Share"
   },
   "SubjectCard": {
+    "linkTitle": "Subject {{id}} Talk page",
     "subjectId": "Subject {{id}}"
   },
   "ZooFooter": {
