@@ -13,8 +13,6 @@ import ShareIconButton from '../ShareIconButton'
 const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
-  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.25);
-  overflow: hidden;
   position: relative;
 `
 
@@ -127,6 +125,7 @@ function SubjectCard({
 
   return (
     <StyledSubjectCard
+      elevation='small'
       flex={false}
       height={`${cardHeight}px`}
       round='8px'
