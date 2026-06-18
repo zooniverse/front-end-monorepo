@@ -16,10 +16,14 @@ const SWROptions = {
 async function fetchUserRecents({ userId }) {
   try {
     const query = {
+      include: 'subject',
       sort: '-created_at'
     }
     const response = await panoptes.get(`/users/${userId}/recents`, query)
-    return response.body?.recents
+    return {
+      recents: response.body?.recents,
+      subjects: response.body?.linked?.subjects
+    }
   } catch (error) {
     console.error(error)
     throw error
@@ -31,7 +35,10 @@ function RecentSubjectsContainer({ authUser }) {
     name: 'user-recent-classifications',
     userId: authUser.id
   }
-  const { data: recents, isLoading: recentsLoading, error: recentsError } = useSWR(cacheKey, fetchUserRecents, SWROptions)
+  const { data: recentData, isLoading: recentsLoading, error: recentsError } = useSWR(cacheKey, fetchUserRecents, SWROptions)
+
+  const recents = recentData?.recents
+  const linkedSubjects = recentData?.subjects
 
   const recentProjectIds = [...new Set(recents?.map(recent => recent.links?.project))]
 
@@ -44,39 +51,37 @@ function RecentSubjectsContainer({ authUser }) {
     id: recentProjectIds?.join(',')
   })
 
-  // Attach project slug to each recent
-  let recentsWithProjectSlugs
-  if (projects?.length) {
-    recentsWithProjectSlugs = recents
-      .map(recent => {
-        const matchedProjectObj = projects.find(
-          project => project.id === recent.links?.project
-        )
+  // Attach project slug and linked subject resource to each recent.
+  const projectSlugsById = new Map(projects?.map(project => [project.id, project.slug]))
+  const subjectsById = new Map(linkedSubjects?.map(subject => [subject.id, subject]))
 
-        if (matchedProjectObj) {
-          recent.projectSlug = matchedProjectObj.slug
-        }
-        return recent
-      })
-      .filter(recent => recent?.projectSlug)
-      .slice(0, 10)
-  }
+  const recentsWithProjectSlugAndSubject = recents
+    ?.map(recent => ({
+      ...recent,
+      projectSlug: projectSlugsById.get(recent.links?.project),
+      subject: subjectsById.get(recent.links?.subject)
+    }))
+    .filter(recent => recent?.projectSlug)
+    .slice(0, 10)
 
   const error = recentsError || projectsError
   const isLoading = recentsLoading || projectsLoading
 
   return (
     <RecentSubjects
-      isLoading={isLoading}
-      recents={recentsWithProjectSlugs}
       error={error}
+      isLoading={isLoading}
+      login={authUser?.login}
+      recents={recentsWithProjectSlugAndSubject}
+      userId={authUser?.id}
     />
   )
 }
 
 RecentSubjectsContainer.propTypes = {
   authUser: shape({
-    id: string
+    id: string,
+    login: string
   })
 }
 
