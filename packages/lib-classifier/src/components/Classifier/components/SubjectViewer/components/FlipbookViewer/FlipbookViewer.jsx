@@ -45,11 +45,8 @@ const FlipbookViewer = ({
   // Also, Subject Viewer Store's resetSubject() ensures that the first `frame`
   // fed to the FlipbookViewer will either be 0, or the default_frame as set by
   // subject.metadata. As a result, the defaultFrame prop of FlipbookViewer is
-  // now ONLY used to determine the dimensions of the "subject frame". (i.e. to
-  // keep all images & videos displayed in a consistent width & height)
-  // Future devs, it should be fairly safe to that defaultFrame prop to a say
-  // const REFERENCE_FRAME = 0 ; it only matters that all frames are displayed
-  // in a consistent size.
+  // now mainly used to determine the dimensions of the "subject frame". (i.e.
+  // to keep all images & videos displayed in a consistent width & height)
 
   const [playing, setPlaying] = useState(false)
 
@@ -146,7 +143,7 @@ const FlipbookViewer = ({
 }
 
 FlipbookViewer.propTypes = {
-  /** Fetched from metadata.default_frame or initialized to zero. ONLY used to determine size of "subject frame" */
+  /** Fetched from metadata.default_frame or initialized to zero. Mainly used to determine size of "subject frame" */
   defaultFrame: PropTypes.number,
   /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
