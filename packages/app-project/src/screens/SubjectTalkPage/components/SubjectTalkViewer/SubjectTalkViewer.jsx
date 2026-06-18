@@ -19,15 +19,19 @@ const StyledMedia = styled(Media)`
 `
 
 function processSubjectLocations(rawLocations) {
-  return rawLocations.map(location => {
-    const [mimeType, url] = Object.entries(location)[0];
-    const [type] = mimeType.split('/');
-    return {
-      mimeType: mimeType,
-      type: type,
-      url: url
-    }
+  const locations = []
+  let firstImageIndex = -1
+  let audioUrl = null
+
+  rawLocations.forEach((location, index) => {
+    const [mimeType, url] = Object.entries(location)[0]
+    const [type] = mimeType.split('/')
+    locations.push({ mimeType, type, url })
+    if (type === 'image' && firstImageIndex === -1) firstImageIndex = index
+    if (type === 'audio') audioUrl = url
   })
+
+  return { locations, firstImageIndex, audioUrl }
 }
 
 function SubjectTalkViewer({
@@ -37,22 +41,18 @@ function SubjectTalkViewer({
     subject,
     userId
   }) {
-  const [frame, setFrame] = useState(0)
-  const [flipbookSpeed, setFlipbookSpeed] = useState(1)
+  const { locations, firstImageIndex, audioUrl } = processSubjectLocations(subject?.locations)
+  const defaultFrame = firstImageIndex >= 0 ? firstImageIndex : 0
+
+  const [frame, setFrame] = useState(defaultFrame)
   const [invert, setInvert] = useState(false)
-  const [playing, setPlaying] = useState(false)
 
   const { t } = useTranslation('screens')
-  
+
   const subjectId = subject?.id
-  const processedLocations = processSubjectLocations(subject?.locations)
 
   function onInvert() {
     setInvert(!invert)
-  }
-
-  function onPlayPause() {
-    setPlaying(!playing)
   }
 
   return (
@@ -88,19 +88,20 @@ function SubjectTalkViewer({
           />
         }
         subject={subject}
-        src={processedLocations?.[frame]?.url}
+        src={locations?.[frame]?.url}
       />
       <Box flex={false}>
-        {subject?.locations?.length > 1 ? (
-          <FlipbookControls
-            currentFrame={frame}
-            flipbookSpeed={flipbookSpeed}
-            locations={processedLocations}
+        {audioUrl ? (
+          <Box pad='xsmall'>
+            <audio controls preload='metadata' src={audioUrl} style={{ width: '100%' }}>
+              <track kind='captions' />
+            </audio>
+          </Box>
+        ) : locations.length > 1 ? (
+          <FlipbookControlsWrapper
+            locations={locations}
+            frame={frame}
             onFrameChange={setFrame}
-            onPlayPause={onPlayPause}
-            playing={playing}
-            playIterations={1}
-            setFlipbookSpeed={setFlipbookSpeed}
           />
         ) : null}
         <MetaTools
@@ -115,6 +116,25 @@ function SubjectTalkViewer({
         />
       </Box>
     </Box>
+  )
+}
+
+/** Isolates flipbook playback state from SubjectTalkViewer */
+function FlipbookControlsWrapper({ locations, frame, onFrameChange }) {
+  const [flipbookSpeed, setFlipbookSpeed] = useState(1)
+  const [playing, setPlaying] = useState(false)
+
+  return (
+    <FlipbookControls
+      currentFrame={frame}
+      flipbookSpeed={flipbookSpeed}
+      locations={locations}
+      onFrameChange={onFrameChange}
+      onPlayPause={() => setPlaying(p => !p)}
+      playing={playing}
+      playIterations={1}
+      setFlipbookSpeed={setFlipbookSpeed}
+    />
   )
 }
 
