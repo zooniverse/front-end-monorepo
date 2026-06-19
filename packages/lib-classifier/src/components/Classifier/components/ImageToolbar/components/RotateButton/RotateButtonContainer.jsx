@@ -21,10 +21,11 @@ function storeMapper (classifierStore) {
   }
 }
 
-function RotateButtonContainer({ separateFrameRotate }) {
+function RotateButtonContainer({ overrideDisabled, separateFrameRotate }) {
   const { disabled, rotate, show } = useStores(storeMapper)
 
   const rotateCallback = separateFrameRotate || rotate
+  const _disabled = overrideDisabled ?? disabled
 
   if (!show) {
     return null
@@ -32,13 +33,15 @@ function RotateButtonContainer({ separateFrameRotate }) {
 
   return (
     <RotateButton
-      disabled={disabled}
+      disabled={_disabled}
       onClick={rotateCallback}
     />
   )
 }
 
 RotateButtonContainer.propTypes = {
+  /** Overrides the 'disabled' value, which is usually determined by the Subject Viewer Store's disableImageToolbar */
+  overrideDisabled: PropTypes.bool,
   /** Used when separate frames of a subject each have their own ImageToolbar */
   separateFrameRotate: PropTypes.func
 }
