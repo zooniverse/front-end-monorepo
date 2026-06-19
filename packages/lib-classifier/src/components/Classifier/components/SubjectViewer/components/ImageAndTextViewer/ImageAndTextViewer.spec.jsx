@@ -41,13 +41,13 @@ describe('ImageAndTextViewer', function () {
       const thumbnailButtons = document.querySelectorAll('[role=tab]')
       const { border } = window.getComputedStyle(thumbnailButtons[0])
 
-      expect(border).to.equal('2px solid rgb(240, 178, 0)') // neutral-2 in theme
+      expect(border).to.equal('2px solid rgb(0, 93, 105)') // neutral-2 in theme
     })
 
     it('should have previous and next buttons', function () {
       render(<DefaultStory />)
-      const nextButton = screen.getByText('Next')
-      const prevButton = screen.getByText('Previous')
+      const nextButton = screen.getByLabelText('Next')
+      const prevButton = screen.getByLabelText('Previous')
 
       expect(nextButton).to.exist
       expect(prevButton).to.exist
@@ -69,7 +69,7 @@ describe('ImageAndTextViewer', function () {
       const thumbnailButtons = document.querySelectorAll('[role=tab]')
       const buttonStyle = window.getComputedStyle(thumbnailButtons[0])
 
-      expect(buttonStyle.border).to.equal('2px solid rgb(240, 178, 0)') // neutral-2 in theme
+      expect(buttonStyle.border).to.equal('2px solid rgb(0, 93, 105)') // neutral-2 in theme
 
       await user.pointer({
         keys: '[MouseLeft]',
@@ -77,7 +77,7 @@ describe('ImageAndTextViewer', function () {
       })
       const newButtonStyle = window.getComputedStyle(thumbnailButtons[1])
 
-      expect(newButtonStyle.border).to.equal('2px solid rgb(240, 178, 0)')
+      expect(newButtonStyle.border).to.equal('2px solid rgb(0, 93, 105)')
     })
 
     it('should handle using arrow keys on the tablist', async function () {

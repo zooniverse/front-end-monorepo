@@ -195,8 +195,8 @@ function DataSeriesPlot({
           fill={(dark) ? colors['light-3'] : colors['neutral-6']}
           height={plotHeight}
           left={leftPosition}
-          stroke={(dark) ? colors['light-5'] : colors['dark-5']}
-          strokeWidth={1}
+          stroke='none'
+          strokeWidth={0}
           top={topPosition}
           width={plotWidth}
         />

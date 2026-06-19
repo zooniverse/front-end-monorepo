@@ -42,7 +42,7 @@ export default function Audio({
     >
       <audio aria-label={alt} controls={controls} preload='metadata'>
         <source src={src} />
-        <Anchor href={src} label={alt} />
+        {controls ? <Anchor href={src} label={alt} /> : null}
       </audio>
     </StyledBox>
   )
