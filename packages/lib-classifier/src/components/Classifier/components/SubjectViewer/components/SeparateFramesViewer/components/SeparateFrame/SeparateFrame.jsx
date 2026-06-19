@@ -199,6 +199,7 @@ const SeparateFrame = ({
         <video
           autoPlay={false}
           controls={true}
+          preload='metadata'
           ref={mediaElementRef}
           src={frameUrl}
           width={mediaWidth}

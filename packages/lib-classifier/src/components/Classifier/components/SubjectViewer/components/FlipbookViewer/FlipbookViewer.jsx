@@ -120,6 +120,7 @@ const FlipbookViewer = ({
           autoPlay={false}
           controls={true}
           invert={invert}
+          preload='metadata'
           ref={mediaElementRef}
           src={currentMediaUrl}
           width={viewerWidth}
