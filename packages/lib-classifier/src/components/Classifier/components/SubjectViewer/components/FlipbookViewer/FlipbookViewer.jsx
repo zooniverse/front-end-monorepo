@@ -38,17 +38,27 @@ const FlipbookViewer = ({
   zoomControlFn = undefined,
   zooming = true
 }) => {
-  // Prior to Apr 2026, FlipbookViewer used to store the "current frame" value
-  // in local state, but this caused issues with the image toolbar which
-  // expected synced with the Subject Viewer Store's "current frame".
-  
-  // Also, Subject Viewer Store's resetSubject() ensures that the first `frame`
-  // fed to the FlipbookViewer will either be 0, or the default_frame as set by
+  // Subject Viewer Store's resetSubject() ensures that the first `frame` fed to
+  // the FlipbookViewer will either be 0, or the default_frame as set by
   // subject.metadata. As a result, the defaultFrame prop of FlipbookViewer is
   // now mainly used to determine the dimensions of the "subject frame". (i.e.
   // to keep all images & videos displayed in a consistent width & height)
 
   const [playing, setPlaying] = useState(false)
+
+  // The "current frame" variable changes between using local state or global
+  // state (store) depending on whether the Flipbook is playing through all its
+  // items.
+  // - we use the global state to correctly sync the current Subject with the
+  //   rest of the Classifier, notably the Image Toolbar.
+  // - we use local state for performance reasons, to prevent the global store
+  //   updating too often.
+  // - note that this means when the Flipbook is playing, the rest of Classifier
+  //   is "desynced" (notably, the ImageToolbar's won't update, e.g. the Rotate
+  //   buttons won't disable when the current frame has a video file.)
+  const [localFrame, setLocalFrame] = useState(frame)
+  const effectiveFrame = (playing) ? localFrame : frame 
+  const effectiveSetFrame = (playing) ? setLocalFrame : setFrame
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -82,11 +92,17 @@ const FlipbookViewer = ({
   // only for the sake of determining a consistent viewer width/height for
   // all media files. 
   // --------------------------------
-  const currentMediaType = subject?.locations[frame]?.type
-  const currentMediaUrl = subject?.locations[frame]?.url
+  const currentMediaType = subject?.locations[effectiveFrame]?.type
+  const currentMediaUrl = subject?.locations[effectiveFrame]?.url
   // --------------------------------
 
   const onPlayPause = () => {
+    // If we're currently playing and going to pause, tell the global store's current frame to catch up to the local current frame.
+    if (playing) { setFrame(localFrame) }
+    // If we're currently paused and going to play, tell the local store's current frame to sync with the global state.
+    else { setLocalFrame(frame) }
+
+    // Toggle between Play/Pause.
     setPlaying(!playing)
   }
 
@@ -98,7 +114,7 @@ const FlipbookViewer = ({
         <SingleImageViewer
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
-          frame={frame}
+          frame={effectiveFrame}
           imgRef={mediaElementRef}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
@@ -132,9 +148,9 @@ const FlipbookViewer = ({
         />
       )}
       <FlipbookControls
-        currentFrame={frame}
+        currentFrame={effectiveFrame}
         locations={subject.locations}
-        onFrameChange={setFrame}
+        onFrameChange={effectiveSetFrame}
         onPlayPause={onPlayPause}
         playing={playing}
         playIterations={playIterations}
