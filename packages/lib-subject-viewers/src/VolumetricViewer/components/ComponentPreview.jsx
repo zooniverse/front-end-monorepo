@@ -7,7 +7,6 @@ const StyledBox = styled(Box)`
   background-color: #000000;
   position: relative;
   width: 100%;
-  margin-top: -50px;
 `
 
 export const ComponentPreview = ({ models }) => {
