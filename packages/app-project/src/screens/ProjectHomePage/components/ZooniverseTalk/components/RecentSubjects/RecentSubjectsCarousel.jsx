@@ -1,14 +1,15 @@
+import { SubjectCard } from '@zooniverse/react-components'
 import { arrayOf, shape, string } from 'prop-types'
-import { Carousel } from 'grommet'
-import SubjectThumbnail from './components/SubjectThumbnail'
+import { Box, Carousel } from 'grommet'
 
-function RecentSubjectsCarousel ({
+function RecentSubjectsCarousel({
   className,
-  href,
-  subjects = []
+  login,
+  projectId,
+  projectSlug,
+  subjects = [],
+  userId
 }) {
-  const height = 500
-  const width = 700
   return (
     <Carousel
       className={className}
@@ -16,13 +17,21 @@ function RecentSubjectsCarousel ({
       fill
     >
       {subjects.map(subject => (
-        <SubjectThumbnail
+        <Box
           key={subject.id}
-          height={height}
-          href={href}
-          subject={subject}
-          width={width}
-        />
+          align='center'
+          justify='center'
+          pad='small'
+        >
+          <SubjectCard
+            login={login}
+            projectId={projectId}
+            projectSlug={projectSlug}
+            size='small'
+            subject={subject}
+            userId={userId}
+          />
+        </Box>
       ))}
     </Carousel>
   )
@@ -31,12 +40,18 @@ function RecentSubjectsCarousel ({
 RecentSubjectsCarousel.propTypes = {
   /** CSS class. */
   className: string,
-  /** Base href for subject links */
-  href: string.isRequired,
+  /** Current user login. */
+  login: string,
+  /** Project ID */
+  projectId: string,
+  /** Project slug */
+  projectSlug: string.isRequired,
   /** Recent subjects from the Talk API. */
   subjects: arrayOf(shape({
     id: string
-  })).isRequired
+  })).isRequired,
+  /** Current user ID */
+  userId: string
 }
 
 export default RecentSubjectsCarousel
