@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { bool } from 'prop-types'
+import { bool, string } from 'prop-types'
 import { useContext } from 'react'
 import useSWR from 'swr'
 import { useTranslation } from 'next-i18next'
@@ -21,23 +21,25 @@ function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
   const store = mockStore || stores.store
   const { id: projectId, slug } = store?.project
+  const { id: userId, login } = store?.user
 
   return {
+    login,
     projectId,
-    slug
+    projectSlug: slug,
+    userId
   }
 }
 
-function RecentSubjectsContainer({ carousel = false, mockStore }) {
+function RecentSubjectsContainer({ size = 'small', mockStore }) {
   const { t } = useTranslation('screens')
-  const { projectId, slug } = useStores(mockStore)
+  const { login, projectId, projectSlug, userId } = useStores(mockStore)
   const cacheKey = {
     name: 'project-talk-recent-subjects',
     projectId
   }
   const { data: subjects, error, isLoading } = useSWR(cacheKey, fetchRecentSubjects, SWROptions)
-  const href = `/projects/${slug}/talk`
-  const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
+  const Component = size === 'small' ? RecentSubjectsCarousel : RecentSubjects
 
   return (
     <>
@@ -49,14 +51,22 @@ function RecentSubjectsContainer({ carousel = false, mockStore }) {
           {t('Home.ZooniverseTalk.RecentSubjects.noSubjects')}
         </MessageBox>
       ) : (
-        <ThumbnailComponent href={href} subjects={subjects} />
+        <Component
+          login={login}
+          projectId={projectId}
+          projectSlug={projectSlug}
+          size={size}
+          subjects={subjects}
+          userId={userId}
+        />
       )}
     </>
   )
 }
 
 RecentSubjectsContainer.propTypes = {
-  carousel: bool
+  size: string,
+  mockStore: bool
 }
 
 export default observer(RecentSubjectsContainer)

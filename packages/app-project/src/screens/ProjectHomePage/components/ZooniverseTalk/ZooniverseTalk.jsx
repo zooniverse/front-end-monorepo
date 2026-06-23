@@ -41,7 +41,7 @@ function ZooniverseTalk ({ className = undefined }) {
           <JoinInButton />
         </Box>
         <Box fill='horizontal'>
-          <RecentSubjects carousel={size === 'small'} />
+          <RecentSubjects size={size} />
         </Box>
       </Grid>
     </ContentBox>
