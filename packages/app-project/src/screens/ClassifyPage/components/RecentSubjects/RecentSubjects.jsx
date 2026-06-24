@@ -1,23 +1,9 @@
 import { SubjectCard } from '@zooniverse/react-components'
 import { Box, Grid } from 'grommet'
-import { array, bool, number, string } from 'prop-types'
+import { array, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
 import ContentBox from '@shared/components/ContentBox'
-
-const isServer = typeof window === 'undefined'
-
-function Placeholder({ size }) {
-  if (isServer) {
-    return null
-  }
-
-  return (
-    <SubjectCard
-      size={size}
-    />
-  )
-}
 
 function RecentSubjects({
   login = undefined,
@@ -31,7 +17,6 @@ function RecentSubjects({
   const isEmpty = recents?.length === 0
   const count = size === 'small' ? 1 : 3
   const displayedRecents = recents.slice(0, count)
-  const placeholders = [...Array(count - displayedRecents.length)]
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title')}>
@@ -58,12 +43,6 @@ function RecentSubjects({
                 size={size}
                 subject={recent.subject}
                 userId={userId}
-              />
-            ))}
-            {placeholders.map((placeholder, i) => (
-              <Placeholder
-                key={i}
-                size={size}
               />
             ))}
           </Grid>

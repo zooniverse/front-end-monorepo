@@ -28,20 +28,6 @@ export function Plain({ login, projectId, userId }) {
   )
 }
 
-export function Placeholder({ login, projectId, userId }) {
-  return (
-    <Provider store={CollectionsStoreMock}>
-      <RecentSubjects
-        login={login}
-        projectId={projectId}
-        recents={RecentsMock.slice(1)}
-        slug='zooniverse/snapshot-serengeti'
-        userId={userId}
-      />
-    </Provider>
-  )
-}
-
 export function NarrowScreens({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
