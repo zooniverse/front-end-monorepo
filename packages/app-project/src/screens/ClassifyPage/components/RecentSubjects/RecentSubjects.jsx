@@ -1,9 +1,9 @@
+import { SubjectCard } from '@zooniverse/react-components'
 import { Box, Grid } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
 import ContentBox from '@shared/components/ContentBox'
-import SubjectPreview from '@shared/components/SubjectPreview'
 
 const isServer = typeof window === 'undefined'
 
@@ -31,9 +31,12 @@ function Placeholder({ height }) {
 
 function RecentSubjects({
   isLoggedIn = false,
+  login = undefined,
+  projectId = undefined,
   recents = [],
   size = 3,
-  slug
+  slug,
+  userId = undefined
 }) {
   const { t } = useTranslation('screens')
   const height = size === 1 ? '40vw' : '200px'
@@ -60,25 +63,17 @@ function RecentSubjects({
           </Box>
         ) : (
           <>
-            {displayedRecents.map(recent => {
-              const subject = {
-                favorite: recent.favorite,
-                id: recent.subjectId,
-                locations: recent.locations,
-                toggleFavourite: recent.toggleFavourite
-              }
-              return (
-                <SubjectPreview
-                  height={height}
-                  key={recent.subjectId}
-                  isLoggedIn={isLoggedIn}
-                  placeholder={<Placeholder height={height} />}
-                  subject={subject}
-                  slug={slug}
-                  width={'100%'}
-                />
-              )
-            })}
+            {displayedRecents.map(recent => (
+              <SubjectCard
+                key={recent.subjectId}
+                login={login}
+                projectId={projectId}
+                projectSlug={slug}
+                size={size === 1 ? 'large' : 'medium'}
+                subject={recent.subject}
+                userId={userId}
+              />
+            ))}
             {placeholders.map((placeholder, i) => (
               <Placeholder key={i} height={height} />
             ))}
@@ -92,14 +87,18 @@ function RecentSubjects({
 RecentSubjects.propTypes = {
   /** Is the volunteer logged in, for favourites and collections. */
   isLoggedIn: bool,
-  /** The project name. */
-  projectName: string,
+  /** Current user login. */
+  login: string,
+  /** Project ID */
+  projectId: string,
   /** Recent classification subjects from Panoptes. */
   recents: array,
   /** The number of previews to show. */
   size: number,
   /** Project URL slug for links. */
-  slug: string.isRequired
+  slug: string.isRequired,
+  /** Current user ID */
+  userId: string
 }
 
 export default RecentSubjects
