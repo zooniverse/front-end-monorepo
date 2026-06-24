@@ -5,6 +5,8 @@ import asyncStates from '@zooniverse/async-states'
 
 import User from '@stores/User'
 
+const PAGE_SIZE = 10
+
 export const Recent = types
   .model('Recent', {
     favorite: types.optional(types.boolean, false),
@@ -44,7 +46,7 @@ const Recents = types
           const authorization = `Bearer ${token}`
           const query = {
             include: 'subject',
-            page_size: 10,
+            page_size: PAGE_SIZE,
             project_id: project.id,
             sort: '-created_at'
           }
@@ -67,9 +69,9 @@ const Recents = types
 
       add ({ subjectId, favorite = false, locations, subject = null }) {
         self.recents.unshift(Recent.create({ subjectId, favorite, locations, subject }))
-        // Keep only the 3 most recent items
-        if (self.recents.length > 3) {
-          self.recents.splice(3)
+        // Keep only the PAGE_SIZE most recent items
+        if (self.recents.length > PAGE_SIZE) {
+          self.recents.splice(PAGE_SIZE)
         }
       }
     }

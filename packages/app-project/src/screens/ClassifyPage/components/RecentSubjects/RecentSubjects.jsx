@@ -15,8 +15,6 @@ function RecentSubjects({
 }) {
   const { t } = useTranslation('screens')
   const isEmpty = recents?.length === 0
-  const count = size === 'small' ? 1 : 3
-  const displayedRecents = recents.slice(0, count)
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title')}>
@@ -29,23 +27,26 @@ function RecentSubjects({
           {t('Classify.RecentSubjects.noSubjects')}
         </Box>
       ) : (
-          <Grid
-            alignContent='stretch'
-            columns={[`repeat(${count}, 1fr)`]}
-            gap='small'
-          >
-            {displayedRecents.map(recent => (
-              <SubjectCard
-                key={recent.subjectId}
-                login={login}
-                projectId={projectId}
-                projectSlug={slug}
-                size={size}
-                subject={recent.subject}
-                userId={userId}
-              />
-            ))}
-          </Grid>
+        <Box
+          direction='row'
+          gap='small'
+          pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+          overflow={{ horizontal: 'auto' }}
+          tabIndex={0}
+          margin='0'
+        >
+          {recents.map(recent => (
+            <SubjectCard
+              key={recent.subjectId}
+              login={login}
+              projectId={projectId}
+              projectSlug={slug}
+              size={size}
+              subject={recent.subject}
+              userId={userId}
+            />
+          ))}
+        </Box>
       )}
     </ContentBox>
   )
