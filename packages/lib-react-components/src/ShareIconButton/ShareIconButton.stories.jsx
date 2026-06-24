@@ -14,10 +14,14 @@ export default {
   ]
 }
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    shareUrl: 'https://www.zooniverse.org'
+  }
+}
 
 export const Disabled = {
   args: {
-    disabled: true
+    shareUrl: undefined
   }
 }

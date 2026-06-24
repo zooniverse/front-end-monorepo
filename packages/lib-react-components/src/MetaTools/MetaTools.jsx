@@ -18,6 +18,7 @@ function MetaTools({
   onInvert = null,
   projectId,
   projectSlug,
+  shareUrl,
   subjectId,
   userId,
   ...rest
@@ -48,7 +49,9 @@ function MetaTools({
         subjectId={subjectId}
         userId={userId}
       />
-      <ShareIconButton />
+      <ShareIconButton
+        shareUrl={shareUrl}
+      />
       {onInvert ? (
         <InvertIconButton
           checked={invert}
@@ -71,6 +74,7 @@ MetaTools.propTypes = {
   onInvert: func,
   projectId: string,
   projectSlug: string,
+  shareUrl: string,
   subjectId: string,
   userId: string
 }

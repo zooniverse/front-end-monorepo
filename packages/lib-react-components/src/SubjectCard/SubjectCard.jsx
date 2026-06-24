@@ -120,9 +120,9 @@ function SubjectCard({
   const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
   const [ mediaType ] = mimeType ? mimeType.split('/') : []
   const showBackground = mediaType === 'image' || mediaType === 'video'
-  const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject?.id}`
+  const subjectTalkHref = (projectSlug && subject?.id) ? `/projects/${projectSlug}/talk/subjects/${subject?.id}` : undefined
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  const subjectTalkUrl = `${origin}${subjectTalkHref}`
+  const subjectTalkUrl = subjectTalkHref ? `${origin}${subjectTalkHref}` : undefined
 
   return (
     <StyledSubjectCard

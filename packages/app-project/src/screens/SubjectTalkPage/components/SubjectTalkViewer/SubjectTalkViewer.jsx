@@ -110,6 +110,7 @@ function SubjectTalkViewer({
           onInvert={onInvert}
           projectId={projectId}
           projectSlug={projectSlug}
+          shareUrl={window?.location?.href}
           subjectId={subjectId}
           userId={userId}
         />
