@@ -65,8 +65,12 @@ const Recents = types
         }
       }),
 
-      add ({ subjectId, favorite = false, locations }) {
-        self.recents.unshift(Recent.create({ subjectId, favorite, locations }))
+      add ({ subjectId, favorite = false, locations, subject = null }) {
+        self.recents.unshift(Recent.create({ subjectId, favorite, locations, subject }))
+        // Keep only the 3 most recent items
+        if (self.recents.length > 3) {
+          self.recents.splice(3)
+        }
       }
     }
   })

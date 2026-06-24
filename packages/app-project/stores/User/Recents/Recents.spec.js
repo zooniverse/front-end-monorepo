@@ -80,6 +80,7 @@ describe('Stores > Recents', function () {
       const endpoint = '/users/123/recents'
       const query = {
         include: 'subject',
+        page_size: 10,
         project_id: '2',
         sort: '-created_at'
       }
