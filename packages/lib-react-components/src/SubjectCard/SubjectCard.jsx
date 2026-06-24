@@ -105,8 +105,8 @@ function SubjectCard({
   userId
 }) {
   const { t } = useTranslation()
-  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
-  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
+  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject?.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject?.id })
 
   // layout
   const width = cardWidth(size)
@@ -120,7 +120,7 @@ function SubjectCard({
   const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
   const [ mediaType ] = mimeType ? mimeType.split('/') : []
   const showBackground = mediaType === 'image' || mediaType === 'video'
-  const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
+  const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject?.id}`
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
@@ -198,12 +198,12 @@ function SubjectCard({
           login={login}
           projectId={projectId}
           projectSlug={projectSlug}
-          subjectId={subject.id}
+          subjectId={subject?.id}
         />
         <CollectIconButton
           disabled={!login}
           projectId={projectId}
-          subjectId={subject.id}
+          subjectId={subject?.id}
           userId={userId}
         />
         <ShareIconButton shareUrl={subjectTalkUrl} />
