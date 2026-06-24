@@ -123,7 +123,7 @@ function ClassifyPage({
           <Box as='aside' gap='medium' width='min(100%, 90rem)'>
             <StatsAndRecentsGrid gap={size === 'small' ? 'small' : 'medium'}>
               <YourProjectStatsContainer />
-              <RecentSubjects size={size === 'small' ? 1 : 3} />
+              <RecentSubjects size={size} />
             </StatsAndRecentsGrid>
             <ProjectStatistics />
             <ConnectWithProject />

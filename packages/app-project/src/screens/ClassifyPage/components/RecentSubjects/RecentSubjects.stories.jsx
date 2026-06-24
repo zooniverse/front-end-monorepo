@@ -8,18 +8,16 @@ export default {
   title: 'Project App / Screens / Classify / Recent Subjects',
   component: RecentSubjects,
   args: {
-    isLoggedIn: true,
     login: 'testuser',
     projectId: '2000',
     userId: '1326053'
   }
 }
 
-export function Plain({ isLoggedIn, login, projectId, userId }) {
+export function Plain({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={RecentsMock}
@@ -30,11 +28,10 @@ export function Plain({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function Placeholder({ isLoggedIn, login, projectId, userId }) {
+export function Placeholder({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={RecentsMock.slice(1)}
@@ -45,15 +42,14 @@ export function Placeholder({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function NarrowScreens({ isLoggedIn, login, projectId, userId }) {
+export function NarrowScreens({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={RecentsMock}
-        size={1}
+        size='small'
         slug='zooniverse/snapshot-serengeti'
         userId={userId}
       />
@@ -67,11 +63,10 @@ NarrowScreens.parameters = {
   }
 }
 
-export function Transcription({ isLoggedIn, login, projectId, userId }) {
+export function Transcription({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={PortraitSubjectsMock}
@@ -82,11 +77,10 @@ export function Transcription({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function Video({ isLoggedIn, login, projectId, userId }) {
+export function Video({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={VideoSubjectsMock}
@@ -97,11 +91,10 @@ export function Video({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function Data({ isLoggedIn, login, projectId, userId }) {
+export function Data({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={DataSubjectsMock}
@@ -112,11 +105,10 @@ export function Data({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function Text({ isLoggedIn, login, projectId, userId }) {
+export function Text({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={TextSubjectsMock}
@@ -127,11 +119,10 @@ export function Text({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function OneSubject({ isLoggedIn, login, projectId, userId }) {
+export function OneSubject({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={RecentsMock.slice(0, 1)}
@@ -142,11 +133,10 @@ export function OneSubject({ isLoggedIn, login, projectId, userId }) {
   )
 }
 
-export function NoSubjects({ isLoggedIn, login, projectId, userId }) {
+export function NoSubjects({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
         login={login}
         projectId={projectId}
         recents={[]}
