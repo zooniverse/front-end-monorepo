@@ -64,6 +64,28 @@ export const DataSubjectsMock = [
         type: ['application/json']
       }
     }
+  },
+  {
+    subjectId: '69808999',
+    locations: [
+      {
+        'application/json':
+          'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json'
+      }
+    ],
+    subject: {
+      id: '69808999',
+      locations: [
+        {
+          'application/json':
+            'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json'
+        }
+      ],
+      metadata: {
+        title: 'Subject 69808999',
+        type: ['application/json']
+      }
+    }
   }
 ]
 
@@ -130,6 +152,28 @@ export const PortraitSubjectsMock = [
       ],
       metadata: {
         title: 'Subject 789',
+        type: ['image/jpeg']
+      }
+    }
+  },
+  {
+    subjectId: '1000',
+    locations: [
+      {
+        'image/jpeg':
+          'https://panoptes-uploads.zooniverse.org/production/subject_location/fb2c57e2-96f7-49b1-9bd4-9bdc73d847f8.jpeg'
+      }
+    ],
+    subject: {
+      id: '1000',
+      locations: [
+        {
+          'image/jpeg':
+            'https://panoptes-uploads.zooniverse.org/production/subject_location/fb2c57e2-96f7-49b1-9bd4-9bdc73d847f8.jpeg'
+        }
+      ],
+      metadata: {
+        title: 'Subject 1000',
         type: ['image/jpeg']
       }
     }
@@ -202,6 +246,28 @@ export const RecentsMock = [
         type: ['image/jpeg']
       }
     }
+  },
+  {
+    subjectId: '1001',
+    locations: [
+      {
+        'image/jpeg':
+          'https://panoptes-uploads.zooniverse.org/subject_location/6fb5eebf-f0e7-4c45-8a47-5750c9e2a0bc.jpeg'
+      }
+    ],
+    subject: {
+      id: '1001',
+      locations: [
+        {
+          'image/jpeg':
+            'https://panoptes-uploads.zooniverse.org/subject_location/6fb5eebf-f0e7-4c45-8a47-5750c9e2a0bc.jpeg'
+        }
+      ],
+      metadata: {
+        title: 'Subject 1001',
+        type: ['image/jpeg']
+      }
+    }
   }
 ]
 
@@ -271,6 +337,28 @@ export const TextSubjectsMock = [
         type: ['text/plain']
       }
     }
+  },
+  {
+    subjectId: '1002',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+      }
+    ],
+    subject: {
+      id: '1002',
+      locations: [
+        {
+          'text/plain':
+            'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+        }
+      ],
+      metadata: {
+        title: 'Subject 1002',
+        type: ['text/plain']
+      }
+    }
   }
 ]
 
@@ -337,6 +425,28 @@ export const VideoSubjectsMock = [
       ],
       metadata: {
         title: 'Subject 789',
+        type: ['video/mp4']
+      }
+    }
+  },
+  {
+    subjectId: '1003',
+    locations: [
+      {
+        'video/mp4':
+          'https://panoptes-uploads.zooniverse.org/production/subject_location/279b23de-b1e8-4a1c-90c4-2d25bbee787d.mp4'
+      }
+    ],
+    subject: {
+      id: '1003',
+      locations: [
+        {
+          'video/mp4':
+            'https://panoptes-uploads.zooniverse.org/production/subject_location/279b23de-b1e8-4a1c-90c4-2d25bbee787d.mp4'
+        }
+      ],
+      metadata: {
+        title: 'Subject 1003',
         type: ['video/mp4']
       }
     }

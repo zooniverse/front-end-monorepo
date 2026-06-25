@@ -28,27 +28,6 @@ export function Plain({ login, projectId, userId }) {
   )
 }
 
-export function NarrowScreens({ login, projectId, userId }) {
-  return (
-    <Provider store={CollectionsStoreMock}>
-      <RecentSubjects
-        login={login}
-        projectId={projectId}
-        recents={RecentsMock}
-        size='small'
-        slug='zooniverse/snapshot-serengeti'
-        userId={userId}
-      />
-    </Provider>
-  )
-}
-
-NarrowScreens.parameters = {
-  viewport: {
-    defaultViewport: 'iphone5'
-  }
-}
-
 export function Transcription({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>

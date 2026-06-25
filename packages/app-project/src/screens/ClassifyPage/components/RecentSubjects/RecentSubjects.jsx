@@ -1,15 +1,24 @@
 import { SubjectCard } from '@zooniverse/react-components'
-import { Box, Grid } from 'grommet'
-import { array, string } from 'prop-types'
+import { Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
+import { array, string } from 'prop-types'
+import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
+
+const StyledBox = styled(Box)`
+  list-style: none;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: start;
+  }
+`
 
 function RecentSubjects({
   login = undefined,
   projectId = undefined,
   recents = [],
-  size = 'medium',
   slug,
   userId = undefined
 }) {
@@ -17,7 +26,10 @@ function RecentSubjects({
   const isEmpty = recents?.length === 0
 
   return (
-    <ContentBox title={t('Classify.RecentSubjects.title')}>
+    <ContentBox
+      title={t('Classify.RecentSubjects.title')}
+      titleId='recent-subjects'
+    >
       {isEmpty ? (
         <Box
           align='center'
@@ -27,26 +39,30 @@ function RecentSubjects({
           {t('Classify.RecentSubjects.noSubjects')}
         </Box>
       ) : (
-        <Box
+        <StyledBox
+          aria-labelledby='recent-subjects'
+          forwardedAs='ul'
           direction='row'
           gap='small'
+          justify='between'
           pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
           overflow={{ horizontal: 'auto' }}
           tabIndex={0}
           margin='0'
         >
           {recents.map(recent => (
-            <SubjectCard
-              key={recent.subjectId}
-              login={login}
-              projectId={projectId}
-              projectSlug={slug}
-              size={size}
-              subject={recent.subject}
-              userId={userId}
-            />
+            <li key={recent?.subjectId}>
+              <SubjectCard
+                login={login}
+                projectId={projectId}
+                projectSlug={slug}
+                size='medium'
+                subject={recent.subject}
+                userId={userId}
+              />
+            </li>
           ))}
-        </Box>
+        </StyledBox>
       )}
     </ContentBox>
   )
@@ -59,8 +75,6 @@ RecentSubjects.propTypes = {
   projectId: string,
   /** Recent classification subjects from Panoptes. */
   recents: array,
-  /** ResponsiveContext size */
-  size: string,
   /** Project URL slug for links. */
   slug: string.isRequired,
   /** Current user ID */
