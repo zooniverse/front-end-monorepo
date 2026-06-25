@@ -5,7 +5,6 @@ import useSWR from 'swr'
 import { useTranslation } from 'next-i18next'
 
 import RecentSubjects from './RecentSubjects'
-import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
 
@@ -31,7 +30,7 @@ function useStores(mockStore) {
   }
 }
 
-function RecentSubjectsContainer({ size = 'small', mockStore }) {
+function RecentSubjectsContainer({ mockStore }) {
   const { t } = useTranslation('screens')
   const { login, projectId, projectSlug, userId } = useStores(mockStore)
   const cacheKey = {
@@ -39,7 +38,6 @@ function RecentSubjectsContainer({ size = 'small', mockStore }) {
     projectId
   }
   const { data: subjects, error, isLoading } = useSWR(cacheKey, fetchRecentSubjects, SWROptions)
-  const Component = size === 'small' ? RecentSubjectsCarousel : RecentSubjects
 
   return (
     <>
@@ -51,11 +49,10 @@ function RecentSubjectsContainer({ size = 'small', mockStore }) {
           {t('Home.ZooniverseTalk.RecentSubjects.noSubjects')}
         </MessageBox>
       ) : (
-        <Component
+        <RecentSubjects
           login={login}
           projectId={projectId}
           projectSlug={projectSlug}
-          size={size}
           subjects={subjects}
           userId={userId}
         />

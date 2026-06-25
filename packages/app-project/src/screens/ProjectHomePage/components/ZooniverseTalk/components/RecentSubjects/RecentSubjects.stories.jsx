@@ -1,7 +1,6 @@
 import { Box } from 'grommet'
 
 import RecentSubjects from './RecentSubjects'
-import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 
 const SUBJECTS = [
   {
@@ -228,26 +227,6 @@ export function Plain() {
       userId='1'
     />
   )
-}
-
-export function CarouselView() {
-  return (
-    <Box>
-      <RecentSubjectsCarousel
-        login='zootester'
-        projectId='123'
-        projectSlug='zooniverse/snapshot-serengeti'
-        subjects={SUBJECTS}
-        userId='1'
-      />
-    </Box>
-  )
-}
-
-CarouselView.parameters = {
-  viewport: {
-    defaultViewport: 'iphone5'
-  }
 }
 
 export function Transcription() {
