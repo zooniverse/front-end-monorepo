@@ -41,7 +41,7 @@ function ZooniverseTalk ({ className = undefined }) {
           <JoinInButton />
         </Box>
         <Box fill='horizontal'>
-          <RecentSubjects size={size} />
+          <RecentSubjects />
         </Box>
       </Grid>
     </ContentBox>
