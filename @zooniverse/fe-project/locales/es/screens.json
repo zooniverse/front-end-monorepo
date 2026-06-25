@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Educación",
+        "faq": "Preguntas Frecuentes",
+        "research": "Investigación",
+        "results": "Resultados",
+        "team": "El Equipo"
+      }
+    },
+    "PageNav": {
+      "title": "Acerca del proyecto"
+    },
+    "SidebarHeading": "Acerca de",
+    "TeamMember": {
+      "collaborator": "Colaborador",
+      "expert": "Experto",
+      "moderator": "Moderador",
+      "museum": "Museo",
+      "owner": "Propietario",
+      "researcher": "Investigador",
+      "tester": "Evaluador",
+      "translator": "Traductor"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Se ha producido un error en el clasificador :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Comenta un objeto en Hablemos o añádelo a tus Favoritos o a una colección.",
+      "title": "Tus clasificaciones recientes"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, gracias",
+      "confirm": "¡Ir al siguiente nivel!",
+      "content": "¡Felicitaciones! Has desbloqueado la próxima secuencia de trabajo. Si prefieres seguir en la secuencia actual, puedes escoger permanecer.",
+      "dismiss": "No volver a mostrar de nuevo esta sesión",
+      "title": "Nuevo flujo de trabajo disponible"
+    },
+    "YourStats": {
+      "allTime": "Todos los tiempos",
+      "lastSeven": "Últimos 7 días",
+      "link": "Ver más",
+      "title": "Estadísticas"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Acerca de {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Aprende más"
+      },
+      "NotApproved": {
+        "paragraph": "Este proyecto ha sido construido usando Zooniverse Project Builder, pero todavía no es un proyecto oficial de Zooniverse. Las preguntas y asuntos relacionados con este proyecto dirigidos al equipo de Zooniverse podrían no recibir respuesta."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Conéctate con el equipo de investigación en Hablemos para saber más sobre este proyecto.",
+      "noMessageButton": "Ir a Hablemos",
+      "title": "Mensaje del investigador"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Se ha producido un error al cargar los objetos :(",
+        "noSubjects": "Parece que nadie ha comentado un objeto todavía. Ve a Hablemos y ¡sé el primero en comentar!",
+        "subjectLabel": "Objeto {{id}}"
+      },
+      "button": "Unirse",
+      "message": "Charla con el equipo de investigación y con otros voluntarios.",
+      "title": "Hablemos"
+    }
+  }
+}
