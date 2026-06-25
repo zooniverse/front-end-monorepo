@@ -15,8 +15,10 @@ function ShareIconButton({
   const { t } = useTranslation()
 
   async function writeClipboardText() {
+    const url = shareUrl || window.location.href
+
     try {
-      await navigator.clipboard.writeText(shareUrl)
+      await navigator.clipboard.writeText(url)
     } catch (error) {
       console.error(error.message)
     }
@@ -35,7 +37,6 @@ function ShareIconButton({
     <>
       <IconActionButton
         a11yTitle={t('ShareIconButton.share')}
-        disabled={!shareUrl || !navigator.clipboard}
         icon={<ShareOption />}
         onClick={onOpen}
         {...props}
