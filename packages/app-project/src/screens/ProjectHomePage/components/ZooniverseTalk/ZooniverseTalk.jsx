@@ -23,7 +23,12 @@ function ZooniverseTalk ({ className = undefined }) {
         fill
         gap='large'
       >
-        <Box width='full' gap='small' justify='between'>
+        <Box
+          width='full'
+          gap='small'
+          justify='between'
+          pad={size === 'small' ? null : { vertical: 'xxsmall' }}
+        >
           <Box gap='small'>
             <WidgetHeading>
               <Box direction='row' gap='xsmall' align='center'>

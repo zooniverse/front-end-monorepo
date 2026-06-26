@@ -8,7 +8,7 @@ const StyledBox = styled(Box)`
   scroll-snap-type: x mandatory;
 
   li {
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 `
 
@@ -25,7 +25,7 @@ function RecentSubjects({
       direction='row'
       gap='small'
       justify='between'
-      pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+      pad='xxsmall'
       overflow={{ horizontal: 'auto' }}
       tabIndex={0}
       margin='0'
