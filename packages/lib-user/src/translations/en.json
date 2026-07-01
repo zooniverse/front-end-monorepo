@@ -179,9 +179,6 @@
     "RecentSubjects": {
       "error": "There was an error fetching recent classifications",
       "noSubjects": "The most recent subjects you've classified are shown here."
-    },
-    "SubjectCard": {
-      "subject": "Subject"
     }
   }
 }

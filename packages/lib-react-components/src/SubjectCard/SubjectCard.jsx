@@ -13,8 +13,6 @@ import ShareIconButton from '../ShareIconButton'
 const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
-  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.25);
-  overflow: hidden;
   position: relative;
 `
 
@@ -108,6 +106,7 @@ function SubjectCard({
 }) {
   const { t } = useTranslation()
   const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
 
   // layout
   const width = cardWidth(size)
@@ -127,13 +126,14 @@ function SubjectCard({
 
   return (
     <StyledSubjectCard
+      elevation='small'
       flex={false}
       height={`${cardHeight}px`}
       round='8px'
       width={`${width}px`}
     >
       <StyledImageLink
-        a11yTitle={subjectIdTitle}
+        a11yTitle={linkTitle}
         href={subjectTalkHref}
       >
         <StyledPreview

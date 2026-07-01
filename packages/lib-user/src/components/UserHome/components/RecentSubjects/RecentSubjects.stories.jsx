@@ -8,7 +8,9 @@ export default {
 
 export const Default = {
   args: {
-    recents: mockRecents
+    login: 'testuser',
+    recents: mockRecents,
+    userId: '1234'
   }
 }
 
