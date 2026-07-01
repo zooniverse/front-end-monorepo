@@ -18,11 +18,9 @@ export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
-  // This is a stopgap until we can use container queries via styled-components v6
-  // or the RecentSubjects components gets a total redesign into a horizontal scrolling region
 const StatsAndRecentsGrid = styled(Grid)`
   width: 100%;
-  grid-template-columns: minmax(auto, 280px) auto;
+  grid-template-columns: minmax(280px, auto) minmax(auto, 60rem);
 
   @media (width < 1000px) {
     grid-template-columns: auto;
