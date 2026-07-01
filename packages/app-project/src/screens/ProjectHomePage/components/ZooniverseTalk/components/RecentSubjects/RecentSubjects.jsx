@@ -1,44 +1,64 @@
+import { SubjectCard } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import { Grid } from 'grommet'
-import SubjectThumbnail from './components/SubjectThumbnail'
+import styled from 'styled-components'
 
-// TODO: Use the subject viewers from the classifier
-function RecentSubjects ({
-  className,
-  href,
-  subjects = []
+const StyledBox = styled(Box)`
+  list-style: none;
+  scroll-snap-type: x mandatory;
+
+  li {
+    scroll-snap-align: center;
+  }
+`
+
+function RecentSubjects({
+  login,
+  projectId,
+  projectSlug,
+  subjects = [],
+  userId
 }) {
-  const height = 200
-  const width = 270
   return (
-    <Grid
-      className={className}
-      columns={['1fr', '1fr', '1fr']}
-      fill
+    <StyledBox
+      forwardedAs='ul'
+      direction='row'
       gap='small'
+      justify='between'
+      pad='xxsmall'
+      overflow={{ horizontal: 'auto' }}
+      tabIndex={0}
+      margin='0'
     >
       {subjects.map(subject => (
-        <SubjectThumbnail
-          key={subject.id}
-          height={height}
-          href={href}
-          subject={subject}
-          width={width}
-        />
+        <li key={subject.id}>
+          <SubjectCard
+            login={login}
+            projectId={projectId}
+            projectSlug={projectSlug}
+            size='medium'
+            subject={subject}
+            userId={userId}
+          />
+        </li>
       ))}
-    </Grid>
+    </StyledBox>
   )
 }
 
 RecentSubjects.propTypes = {
-  /** CSS class. */
-  className: string,
-  /** Base href for subject links */
-  href: string.isRequired,
+  /** Current user login. */
+  login: string,
+  /** Project ID */
+  projectId: string,
+  /** Project slug */
+  projectSlug: string.isRequired,
   /** Recent subjects from the Talk API. */
   subjects: arrayOf(shape({
     id: string
-  }))
+  })),
+  /** Current user ID */
+  userId: string
 }
 
 export default RecentSubjects

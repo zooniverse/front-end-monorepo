@@ -7,7 +7,7 @@ function getSubjectIdsFromTalkData (comments) {
   return flow(
     map(comment => comment.focus_id),
     uniq,
-    slice(0, 3)
+    slice(0, 4)
   )(comments)
 }
 
