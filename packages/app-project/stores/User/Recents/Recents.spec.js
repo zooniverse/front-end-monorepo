@@ -26,7 +26,21 @@ describe('Stores > Recents', function () {
               subject: '345'
             }
           }
-        ]
+        ],
+        linked: {
+          subjects: [
+            {
+              id: '345',
+              locations: [
+                { 'image/jpeg': 'subject.jpeg' }
+              ],
+              metadata: {
+                title: 'Subject 345',
+                type: ['image/jpeg']
+              }
+            }
+          ]
+        }
       }
     }
     rootStore = initStore(true, { project })
@@ -65,6 +79,8 @@ describe('Stores > Recents', function () {
       const authorization = 'Bearer '
       const endpoint = '/users/123/recents'
       const query = {
+        include: 'subject',
+        page_size: 10,
         project_id: '2',
         sort: '-created_at'
       }
@@ -78,6 +94,8 @@ describe('Stores > Recents', function () {
       expect(recents[0].locations).to.eql([
         { 'image/jpeg': 'subject.jpeg' }
       ])
+      expect(recents[0].subject).toBeDefined()
+      expect(recents[0].subject.id).to.equal('345')
     })
 
     describe('adding a subject', function () {

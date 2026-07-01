@@ -5,11 +5,14 @@ import asyncStates from '@zooniverse/async-states'
 
 import User from '@stores/User'
 
+const PAGE_SIZE = 4
+
 export const Recent = types
   .model('Recent', {
     favorite: types.optional(types.boolean, false),
     subjectId: types.string,
-    locations: types.frozen({})
+    locations: types.frozen({}),
+    subject: types.optional(types.frozen(), null)
   })
   .actions(self => {
     function toggleFavourite () {
@@ -42,14 +45,19 @@ const Recents = types
           const token = yield auth.checkBearerToken()
           const authorization = `Bearer ${token}`
           const query = {
+            include: 'subject',
+            page_size: PAGE_SIZE,
             project_id: project.id,
             sort: '-created_at'
           }
           const response = yield client.panoptes.get(`/users/${user.id}/recents`, query, { authorization })
           const { recents } = response.body
+          const linkedSubjects = response.body?.linked?.subjects || []
+          const subjectsById = new Map(linkedSubjects.map(subject => [subject.id, subject]))
           self.recents = recents.map(recent => ({
             subjectId: recent.links.subject,
-            locations: recent.locations
+            locations: recent.locations,
+            subject: subjectsById.get(recent.links.subject)
           }))
           self.loadingState = asyncStates.success
         } catch (error) {
@@ -59,8 +67,12 @@ const Recents = types
         }
       }),
 
-      add ({ subjectId, favorite = false, locations }) {
-        self.recents.unshift(Recent.create({ subjectId, favorite, locations }))
+      add ({ subjectId, favorite = false, locations, subject = null }) {
+        self.recents.unshift(Recent.create({ subjectId, favorite, locations, subject }))
+        // Keep only the PAGE_SIZE most recent items
+        if (self.recents.length > PAGE_SIZE) {
+          self.recents.splice(PAGE_SIZE)
+        }
       }
     }
   })

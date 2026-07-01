@@ -105,8 +105,8 @@ function SubjectCard({
   userId
 }) {
   const { t } = useTranslation()
-  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
-  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
+  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject?.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject?.id })
 
   // layout
   const width = cardWidth(size)
@@ -120,9 +120,9 @@ function SubjectCard({
   const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
   const [ mediaType ] = mimeType ? mimeType.split('/') : []
   const showBackground = mediaType === 'image' || mediaType === 'video'
-  const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
+  const subjectTalkHref = (projectSlug && subject?.id) ? `/projects/${projectSlug}/talk/subjects/${subject.id}` : undefined
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  const subjectTalkUrl = `${origin}${subjectTalkHref}`
+  const subjectTalkUrl = subjectTalkHref ? `${origin}${subjectTalkHref}` : undefined
 
   return (
     <StyledSubjectCard
@@ -141,14 +141,13 @@ function SubjectCard({
           round={{ corner: 'top', size: '8px' }}
           width={`${width}px`}
         >
-          {mediaSrc && showBackground ? (
+          {(mediaSrc && showBackground) ? (
             <StyledBackground>
               <Media
                 alt=''
                 controls={false}
                 fit='cover'
                 height={previewHeight}
-                placeholder={placeholder}
                 src={mediaSrc}
                 width={width}
                 aria-hidden='true'
@@ -198,12 +197,12 @@ function SubjectCard({
           login={login}
           projectId={projectId}
           projectSlug={projectSlug}
-          subjectId={subject.id}
+          subjectId={subject?.id}
         />
         <CollectIconButton
           disabled={!login}
           projectId={projectId}
-          subjectId={subject.id}
+          subjectId={subject?.id}
           userId={userId}
         />
         <ShareIconButton shareUrl={subjectTalkUrl} />
