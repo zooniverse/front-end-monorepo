@@ -1,5 +1,6 @@
 import { Box, Video as GrommetVideo } from 'grommet'
 import styled, { css } from 'styled-components'
+import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 const StyledBox = styled(Box)`
@@ -13,11 +14,13 @@ export default function Video({
   fit = defaultProps.fit,
   flex = defaultProps.flex,
   height,
+  origin = defaultProps.origin,
   src = defaultProps.src,
   width,
   ...rest
 }) {
   const controlsOption = (controls) ? 'below' : false
+  const poster = getThumbnailSrc({ height, origin, src, width })
 
   const cssHeight = height > 0 ? `${height}px` : height
   const cssWidth = width > 0 ? `${width}px` : width
@@ -40,8 +43,9 @@ export default function Video({
         a11yTitle={alt}
         controls={controlsOption}
         fit={fit}
-        preload='metadata'
-        src={src} 
+        poster={poster}
+        preload={poster ? 'none' : 'metadata'}
+        src={src}
       />
     </StyledBox>
   )

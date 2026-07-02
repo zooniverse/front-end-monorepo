@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 
 import Video from './Video'
+import getThumbnailSrc from '../../helpers/getThumbnailSrc'
+import { defaultProps } from '../../helpers/mediaPropTypes'
 
 const videoSrc = 'https://static.zooniverse.org/fem-assets/home-video.mp4'
 
@@ -9,6 +11,13 @@ describe('Video', function () {
     render(<Video src={videoSrc} />)
     const videoElement = document.querySelector('video')
     expect(videoElement).toBeTruthy()
+  })
+
+  it('should set the video poster to the thumbnailer src', function () {
+    render(<Video src={videoSrc} />)
+    const videoElement = document.querySelector('video')
+    const expectedPoster = getThumbnailSrc({ origin: defaultProps.origin, src: videoSrc })
+    expect(videoElement.getAttribute('poster')).to.equal(expectedPoster)
   })
 
   it('should show the video controls', function () {
