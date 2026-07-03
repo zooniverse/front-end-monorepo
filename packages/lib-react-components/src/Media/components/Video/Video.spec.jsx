@@ -13,8 +13,8 @@ describe('Video', function () {
     expect(videoElement).toBeTruthy()
   })
 
-  it('should set the video poster to the thumbnailer src', function () {
-    render(<Video src={videoSrc} />)
+  it('should set the video poster to the thumbnailer src when showPoster is true', function () {
+    render(<Video src={videoSrc} showPoster />)
     const videoElement = document.querySelector('video')
     const expectedPoster = getThumbnailSrc({ origin: defaultProps.origin, src: videoSrc })
     expect(videoElement.getAttribute('poster')).to.equal(expectedPoster)

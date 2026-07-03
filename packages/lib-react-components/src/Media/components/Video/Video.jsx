@@ -15,12 +15,17 @@ export default function Video({
   flex = defaultProps.flex,
   height,
   origin = defaultProps.origin,
+  showPoster = defaultProps.poster,
   src = defaultProps.src,
   width,
   ...rest
 }) {
   const controlsOption = (controls) ? 'below' : false
-  const poster = getThumbnailSrc({ height, origin, src, width })
+  
+  let posterSrc = null
+  if (showPoster) {
+    posterSrc = getThumbnailSrc({ height, origin, src, width })
+  }
 
   const cssHeight = height > 0 ? `${height}px` : height
   const cssWidth = width > 0 ? `${width}px` : width
@@ -43,8 +48,8 @@ export default function Video({
         a11yTitle={alt}
         controls={controlsOption}
         fit={fit}
-        poster={poster}
-        preload={poster ? 'none' : 'metadata'}
+        poster={posterSrc}
+        preload={showPoster ? 'none' : 'metadata'}
         src={src}
       />
     </StyledBox>
