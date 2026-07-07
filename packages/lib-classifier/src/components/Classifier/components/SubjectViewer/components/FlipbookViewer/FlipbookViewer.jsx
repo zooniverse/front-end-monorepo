@@ -119,7 +119,7 @@ const FlipbookViewer = ({
         <StyledVideo
           autoPlay={false}
           controls={true}
-          invert={invert}
+          $invert={invert}
           preload='metadata'
           ref={mediaElementRef}
           src={currentMediaUrl}
