@@ -6,7 +6,7 @@ import { Box } from 'grommet'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 
 import { Trans, useTranslation } from '@translations/i18n'
-import ContainerBox from '@components/PageLayout/ContainerBox'
+import OtherLayout from '@components/PageLayout/OtherLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
@@ -17,7 +17,7 @@ function Unsubscribe() {
   const { t } = useTranslation()
 
   return (
-    <ContainerBox>
+    <OtherLayout>
       <MobileHeading level={1} size='1.5rem'>
         Unsubscribe
       </MobileHeading>
@@ -32,7 +32,7 @@ function Unsubscribe() {
           </StyledHeading>
         </MaxWidthContent>
       </Box>
-    </ContainerBox>
+    </OtherLayout>
   )
 }
 
