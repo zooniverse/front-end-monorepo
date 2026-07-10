@@ -6,7 +6,13 @@ import NavLink from './components/NavLink/NavLink'
 
 const AboutHeaderBreakpoint = '36rem'
 
+// Styled Zooniverse Logo
+// The margin-top & bottom are used to ensure a consistent header height if
+// there are no links.
 const StyledLogo = styled(ZooniverseLogotype)`
+  margin-top: 1em;
+  margin-bottom: 1em;
+
   @media (width < ${AboutHeaderBreakpoint}) {
     display: none;
   }
