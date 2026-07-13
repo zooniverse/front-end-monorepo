@@ -2,6 +2,16 @@ import { Box, Button as GrommetButton, Text, Tip } from 'grommet'
 import { bool, func, node, object, oneOfType, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
+const getPressedStateSelector = (pressedWhenChecked) => {
+  if (pressedWhenChecked) {
+    return `&:active:not(:disabled),
+  &[aria-pressed='true'],
+  &[aria-checked='true']`
+  }
+  return `&:active:not(:disabled),
+  &[aria-pressed='true']`
+}
+
 const StyledButton = styled(GrommetButton)`
   align-items: center;
   aspect-ratio: 1;
@@ -62,9 +72,7 @@ const StyledButton = styled(GrommetButton)`
     outline: none;
   }
 
-  &:active:not(:disabled),
-  &[aria-pressed='true'],
-  &[aria-checked='true'] {
+  ${props => getPressedStateSelector(props.$pressedWhenChecked)} {
     background-color: ${props => props.theme.global.colors['neutral-1']};
 
     > svg {
@@ -116,6 +124,7 @@ function IconActionButton({
   onPointerOut = DEFAULT_HANDLER,
   onPointerOver = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER,
+  pressedWhenChecked = true,
   role,
   ...props
 }) {
@@ -148,6 +157,7 @@ function IconActionButton({
         icon={icon}
         plain
         role={role}
+        $pressedWhenChecked={pressedWhenChecked}
         {...eventHandlers}
         {...props}
       />
@@ -176,6 +186,7 @@ IconActionButton.propTypes = {
   onPointerOut: func,
   onPointerOver: func,
   onPointerUp: func,
+  pressedWhenChecked: bool,
   role: string,
   theme: shape({
     dark: bool
