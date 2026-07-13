@@ -32,6 +32,7 @@ function FavoritesIconButton({
       aria-checked={checked}
       disabled={disabled}
       icon={<StyledFavorite $isFavorite={checked} />}
+      pressedWhenChecked={false}
       role='checkbox'
       onClick={toggleFavorite}
     />
