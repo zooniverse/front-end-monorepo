@@ -22,7 +22,7 @@ function Unsubscribe ({
     <OtherLayout>
       <Box
         align='center'
-        className='Unsubscribe'
+        className='Unsubscribe-Page'
         pad={{ horizontal: 'medium', top: 'large', bottom: 'large' }}
       >
         <MaxWidthContent
