@@ -5,4 +5,14 @@ export default {
   component: Unsubscribe
 }
 
-export const Default = {}
+export const Default = {
+  args: {
+    processed: false
+  }
+}
+
+export const AfterRedirectFromPanoptes = {
+  args: {
+    processed: true
+  }
+}

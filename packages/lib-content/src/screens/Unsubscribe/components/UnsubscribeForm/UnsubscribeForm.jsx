@@ -1,6 +1,7 @@
 import { Anchor, Box, Button, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
+import { bool } from 'prop-types'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -36,34 +37,58 @@ const ProcessedStateHeading = styled(Heading)`
   }
 `
 
-function UnsubscribeForm () {
-
+function UnsubscribeForm ({
+  processed = false,  // If processed is true, it means user was sent here from the Panoptes /unsubscribe route. Immediately show the "Unsubscribe successful!" message.
+}) {
   const { t } = useTranslation()
 
-  return (
-    <ProcessedStateBox
-      align='center'
-      className='UnsubscribeForm'
-    >
-      <ProcessedStateHeading
-        level={1}
+
+  if (processed) {
+    // Once process is complete (either via this UnsubscribeForm, or from a
+    // redirect from the Panoptes /unsubscribe route, show the "Unsubscribe
+    // successful!" message.
+
+    return (
+      <ProcessedStateBox
+        align='center'
+        className='UnsubscribeForm'
       >
-        {t('Unsubscribe.processed.header')}
-      </ProcessedStateHeading>
-      <Paragraph>
-        <Trans
-          i18nKey='Unsubscribe.processed.body'
-          t={t}
-          components={[
-            <Anchor
-              key='email-preferences'
-              href='/setting/email'
-            />
-          ]}
-        />
-      </Paragraph>
-    </ProcessedStateBox>
-  )
+        <ProcessedStateHeading
+          level={1}
+        >
+          {t('Unsubscribe.processed.header')}
+        </ProcessedStateHeading>
+        <Paragraph>
+          <Trans
+            i18nKey='Unsubscribe.processed.body'
+            t={t}
+            components={[
+              <Anchor
+                key='email-preferences'
+                href='/setting/email'
+              />
+            ]}
+          />
+        </Paragraph>
+      </ProcessedStateBox>
+    )
+
+  } else {
+    // Otherwise, show the form for unsubscribing.
+
+    return (
+      <Box
+        align='center'
+        className='UnsubscribeForm'
+      >
+        TODO: add form.
+      </Box>
+    )
+  }
+}
+
+UnsubscribeForm.propTypes = {
+  processed: bool
 }
 
 export default UnsubscribeForm
