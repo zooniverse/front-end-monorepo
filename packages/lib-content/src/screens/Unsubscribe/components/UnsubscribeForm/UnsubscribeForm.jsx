@@ -11,6 +11,29 @@ const ProcessedStateBox = styled(Box)`
     ? 'background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(239, 242, 245, 0.4) 100%);'
     : 'background: linear-gradient(180deg, rgba(51, 51, 51, 0) 0%, rgba(51, 51, 51, 0.4) 100%);'
   }
+  gap: 20px;
+  padding: 60px 80px;
+
+  @media (width <= 678px) {
+    padding: 60px 20px;
+  }
+
+  h1, p {
+    letter-spacing: 5%;
+    line-height: 120%;
+
+    a {
+      font-weight: normal;
+      text-decoration: underline;
+    }
+  }
+`
+
+const ProcessedStateHeading = styled(Heading)`
+  ${props => !props.theme.dark
+    ? 'color: #000000;'
+    : 'color: #ffffff;'
+  }
 `
 
 function UnsubscribeForm () {
@@ -21,13 +44,12 @@ function UnsubscribeForm () {
     <ProcessedStateBox
       align='center'
       className='UnsubscribeForm'
-      pad={{ horizontal: '20px', vertical: '60px' }}
     >
-      <Heading
+      <ProcessedStateHeading
         level={1}
       >
         {t('Unsubscribe.processed.header')}
-      </Heading>
+      </ProcessedStateHeading>
       <Paragraph>
         <Trans
           i18nKey='Unsubscribe.processed.body'

@@ -411,7 +411,7 @@
     },
     "processed": {
       "header": "Unsubscribe successful",
-      "body": "If you change your mind, visit your account settings to <0>update your email preferences.</0>"
+      "body": "If you change your mind, visit your account settings to <0>update your email preferences</0>."
     }
 
   },
