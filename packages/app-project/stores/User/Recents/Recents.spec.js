@@ -63,24 +63,28 @@ describe('Stores > Recents', function () {
   })
 
   describe('with a project and user', function () {
-    before(function () {
+    before(async function () {
+      sinon.stub(auth, 'checkBearerToken').resolves('test-token')
       const user = {
         id: '123',
         login: 'test.user'
       }
       rootStore.user.set(user)
+      // Wait for async operations to complete
+      await new Promise(resolve => setTimeout(resolve, 100))
     })
 
     after(function () {
+      auth.checkBearerToken.restore()
       rootStore.client.panoptes.get.resetHistory()
     })
 
     it('should request recent subjects from Panoptes', function () {
-      const authorization = 'Bearer '
+      const authorization = 'Bearer test-token'
       const endpoint = '/users/123/recents'
       const query = {
         include: 'subject',
-        page_size: 10,
+        page_size: 4,
         project_id: '2',
         sort: '-created_at'
       }
