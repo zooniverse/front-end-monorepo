@@ -1,6 +1,6 @@
 import { Anchor, Box } from 'grommet'
 import mime from 'mime/lite'
-import { node, oneOf, shape, string, arrayOf, objectOf, object } from 'prop-types'
+import { arrayOf, bool, node, object, objectOf, oneOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { useTranslation } from '../translations/i18n'
@@ -96,6 +96,7 @@ const DEFAULT_SUBJECT = {
 }
 
 function SubjectCard({
+  interactive = false,
   login,
   placeholder,
   projectId,
@@ -168,17 +169,19 @@ function SubjectCard({
             />
           ) : null}
 
-          <StyledTitle
-            align='center'
-            direction='row'
-            gap='xsmall'
-            justify='center'
-            pad={{ horizontal: 'small', vertical: 'medium' }}
-          >
-            <StyledTitleText>
-              {subjectIdTitle}
-            </StyledTitleText>
-          </StyledTitle>
+          {interactive ? null : (
+            <StyledTitle
+              align='center'
+              direction='row'
+              gap='xsmall'
+              justify='center'
+              pad={{ horizontal: 'small', vertical: 'medium' }}
+            >
+              <StyledTitleText>
+                {subjectIdTitle}
+              </StyledTitleText>
+            </StyledTitle>
+          )}
         </StyledPreview>
       </StyledImageLink>
 
@@ -212,6 +215,7 @@ function SubjectCard({
 }
 
 SubjectCard.propTypes = {
+  interactive: bool,
   login: string,
   placeholder: node,
   projectId: string,
