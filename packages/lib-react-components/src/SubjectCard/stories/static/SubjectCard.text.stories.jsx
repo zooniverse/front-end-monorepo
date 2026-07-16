@@ -1,11 +1,11 @@
-import SubjectCard from '../SubjectCard'
+import SubjectCard from '../../SubjectCard'
 import {
   NOTES_FROM_NATURE_TEXT_SUBJECT,
   StoryRow
-} from './SubjectCardStoryData'
+} from '../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Text',
+  title: 'Components / SubjectCard / Static / Text',
   component: SubjectCard
 }
 

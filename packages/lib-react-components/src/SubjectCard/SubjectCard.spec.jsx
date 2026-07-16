@@ -1,7 +1,7 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import Meta, { LoggedInLandscape } from './stories/SubjectCard.image.stories'
+import Meta, { LoggedInLandscape } from './stories/static/SubjectCard.image.stories'
 
 describe('SubjectCard', function() {
   const DefaultStory = composeStory(LoggedInLandscape, Meta)

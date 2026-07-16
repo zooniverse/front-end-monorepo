@@ -133,7 +133,7 @@ function SubjectCard({
       round='8px'
       width={`${width}px`}
     >
-      <StyledImageLink
+      <StyledMediaLink
         a11yTitle={linkTitle}
         href={subjectTalkHref}
       >
@@ -183,8 +183,7 @@ function SubjectCard({
             </StyledTitle>
           )}
         </StyledPreview>
-      </StyledImageLink>
-
+      </StyledMediaLink>
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
