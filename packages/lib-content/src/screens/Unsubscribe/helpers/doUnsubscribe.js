@@ -29,7 +29,7 @@ export default async function doUnsubscribe ({ email }) {
   try {
     await auth.unsubscribeEmail({ email })
     return true
-  } catch (err) {
+  } catch (error) {
     console.error(err)
     return false
   }

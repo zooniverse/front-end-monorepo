@@ -4,6 +4,7 @@ import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, PrimaryButton } from '@zooniverse/react-components'
+import doUnsubscribe from '../../helpers/doUnsubscribe'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -49,6 +50,7 @@ function UnsubscribeForm ({
 }) {
   const { t } = useTranslation()
   const [isBusy, setIsBusy] = useState(false)
+  const [isError, setIsError] = useState(false)
   const [isComplete, setIsComplete] = useState(processed)
   const inputEmail = useRef()
 
@@ -60,6 +62,8 @@ function UnsubscribeForm ({
     setIsBusy(true)
 
     const email = inputEmail.current?.value || ''
+
+    const success = await doUnsubscribe(email)
 
     console.log('+++ email', email)
   }

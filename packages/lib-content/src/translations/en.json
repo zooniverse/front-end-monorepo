@@ -406,7 +406,7 @@
       "inputEmail": "Email address",
       "submit": "Submit",
       "errors": {
-        "invalidEmail": "Invalid email address"
+        "general": "Something went wrong. Please check the email address and try again."
       }
     },
     "processed": {
