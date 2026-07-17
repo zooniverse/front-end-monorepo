@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Anchor, Box, Button, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
-import { PrimaryButton } from '@zooniverse/react-components'
+import { Loader, PrimaryButton } from '@zooniverse/react-components'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -48,14 +48,23 @@ function UnsubscribeForm ({
   processed = false,  // If processed is true, it means user was sent here from the Panoptes /unsubscribe route. Immediately show the "Unsubscribe successful!" message.
 }) {
   const { t } = useTranslation()
-  const [email, setEmail] = useState('')
-  const [isBusy, setIsBusy] = useState(false) 
+  const [isBusy, setIsBusy] = useState(false)
+  const [isComplete, setIsComplete] = useState(processed)
+  const inputEmail = useRef()
 
-  function onSubmit () {
-    console.log('+++')
+  function onInputChange (event) { setEmail(event.currentTarget.value) }
+
+  // This only triggers if the email is valid.
+  // Email validation is performed via native HTML form controls.
+  async function onSubmit () {
+    setIsBusy(true)
+
+    const email = inputEmail.current?.value || ''
+
+    console.log('+++ email', email)
   }
 
-  if (processed) {
+  if (isComplete) {
     // Once process is complete (either via this UnsubscribeForm, or from a
     // redirect from the Panoptes /unsubscribe route, show the "Unsubscribe
     // successful!" message.
@@ -109,13 +118,19 @@ function UnsubscribeForm ({
           style={{ gap: '1em' }}
         >
           <TextInput
+            aria-label={t('Unsubscribe.form.inputEmail')}
+            disabled={isBusy}
+            ref={inputEmail}
+            required
             type='email'
           />
           <PrimaryButton
+            disabled={isBusy}
             label={t('Unsubscribe.form.submit')}
             type='submit'
           />
         </ReadyStateInputBox>
+        {isBusy && <Loader />}
       </ReadyStateForm>
     )
   }
