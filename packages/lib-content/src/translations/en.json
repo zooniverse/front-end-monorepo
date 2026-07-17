@@ -403,7 +403,7 @@
         "p1": "We get it - no one likes to keep receiving email they don't want.",
         "p2": "Just enter your email address here and we'll unsubscribe you from all our email lists."
       },
-      "submit": "",
+      "submit": "Submit",
       "errors": {
         "invalidEmail": "Invalid email address"
       }

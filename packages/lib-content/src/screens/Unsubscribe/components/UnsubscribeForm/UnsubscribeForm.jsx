@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Anchor, Box, Button, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
+import { PrimaryButton } from '@zooniverse/react-components'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -35,11 +37,23 @@ const ProcessedStateHeading = styled(Heading)`
   }
 `
 
+const ReadyStateForm = styled(Form)`
+`
+
+const ReadyStateInputBox = styled(Box)`
+  gap: 2em;
+`
+
 function UnsubscribeForm ({
   processed = false,  // If processed is true, it means user was sent here from the Panoptes /unsubscribe route. Immediately show the "Unsubscribe successful!" message.
 }) {
   const { t } = useTranslation()
+  const [email, setEmail] = useState('')
+  const [isBusy, setIsBusy] = useState(false) 
 
+  function onSubmit () {
+    console.log('+++')
+  }
 
   if (processed) {
     // Once process is complete (either via this UnsubscribeForm, or from a
@@ -75,12 +89,34 @@ function UnsubscribeForm ({
     // Otherwise, show the form for unsubscribing.
 
     return (
-      <Box
-        align='center'
+      <ReadyStateForm
         className='UnsubscribeForm'
+        onSubmit={onSubmit}
       >
-        TODO: add form.
-      </Box>
+        <Heading
+          level={1}
+        >
+          {t('Unsubscribe.form.header')}
+        </Heading>
+        <Paragraph>
+          {t('Unsubscribe.form.body.p1')}
+        </Paragraph>
+        <Paragraph>
+          {t('Unsubscribe.form.body.p2')}
+        </Paragraph>
+        <ReadyStateInputBox
+          align='center'
+          style={{ gap: '1em' }}
+        >
+          <TextInput
+            type='email'
+          />
+          <PrimaryButton
+            label={t('Unsubscribe.form.submit')}
+            type='submit'
+          />
+        </ReadyStateInputBox>
+      </ReadyStateForm>
     )
   }
 }
