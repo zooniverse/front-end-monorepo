@@ -65,7 +65,7 @@ function UnsubscribeForm ({
 
     // Do the submit!
     const email = inputEmail.current?.value || ''
-    const success = await doUnsubscribe(email)
+    const success = await doUnsubscribe({ email })
 
     // Successful?
     setIsBusy(false)
