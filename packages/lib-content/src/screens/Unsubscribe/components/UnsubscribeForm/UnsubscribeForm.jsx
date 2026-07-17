@@ -59,13 +59,18 @@ function UnsubscribeForm ({
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
   async function onSubmit () {
+    // Prepare to submit!
     setIsBusy(true)
+    setIsError(false)
 
+    // Do the submit!
     const email = inputEmail.current?.value || ''
-
     const success = await doUnsubscribe(email)
 
-    console.log('+++ email', email)
+    // Successful?
+    setIsBusy(false)
+    setIsError(!success)
+    setIsComplete(success)
   }
 
   if (isComplete) {
@@ -119,7 +124,6 @@ function UnsubscribeForm ({
         </Paragraph>
         <ReadyStateInputBox
           align='center'
-          style={{ gap: '1em' }}
         >
           <TextInput
             aria-label={t('Unsubscribe.form.inputEmail')}
@@ -133,8 +137,17 @@ function UnsubscribeForm ({
             label={t('Unsubscribe.form.submit')}
             type='submit'
           />
+          
+          {/*TODO: style these properly*/}
+          {isBusy && <Loader />}
+          {isError &&
+            <Paragraph>
+              {t('Unsubscribe.form.errors.general')}
+            </Paragraph>
+          }
+
         </ReadyStateInputBox>
-        {isBusy && <Loader />}
+
       </ReadyStateForm>
     )
   }
