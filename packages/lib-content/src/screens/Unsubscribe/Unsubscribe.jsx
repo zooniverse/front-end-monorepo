@@ -3,7 +3,7 @@
 // https://nextjs.org/docs/app/api-reference/directives/use-client
 
 import { Box } from 'grommet'
-import UnsubscribeFrom from './components/UnsubscribeForm/UnsubscribeForm'
+import UnsubscribeForm from './components/UnsubscribeForm/UnsubscribeForm'
 import OtherLayout from '@components/PageLayout/OtherLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { bool } from 'prop-types'
@@ -31,7 +31,7 @@ function Unsubscribe ({
         <MaxWidthContent
           color={{ light: 'black', dark: 'white' }}
         >
-          <UnsubscribeFrom
+          <UnsubscribeForm
             processed={_processed}
           />
         </MaxWidthContent>
