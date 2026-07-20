@@ -11,6 +11,7 @@ import ShareIconButton from '../ShareIconButton'
 import StaticMedia from './components/StaticMedia'
 import InteractiveMedia from './components/InteractiveMedia'
 
+const INTERACTIVE_WIDTH = 300
 const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
@@ -74,7 +75,7 @@ function SubjectCard({
   const linkTitle = t('SubjectCard.linkTitle', { id: subject?.id })
 
   // layout
-  const width = cardWidth(size)
+  const width = interactive ? INTERACTIVE_WIDTH : cardWidth(size)
   const cardHeight = width + METATOOLS_HEIGHT
   const previewHeight = width
   const metaToolsSectionGap = metaToolsGap(size)

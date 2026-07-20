@@ -45,6 +45,7 @@ function StaticMedia({
 	mediaSrc,
 	placeholder,
 	previewHeight,
+	showTitle = true,
 	showBackground,
 	subjectIdTitle,
 	width
@@ -82,17 +83,19 @@ function StaticMedia({
 				/>
 			) : null}
 
-			<StyledTitle
-				align='center'
-				direction='row'
-				gap='xsmall'
-				justify='center'
-				pad={{ horizontal: 'small', vertical: 'medium' }}
-			>
-				<StyledTitleText>
-					{subjectIdTitle}
-				</StyledTitleText>
-			</StyledTitle>
+			{showTitle ? (
+				<StyledTitle
+					align='center'
+					direction='row'
+					gap='xsmall'
+					justify='center'
+					pad={{ horizontal: 'small', vertical: 'medium' }}
+				>
+					<StyledTitleText>
+						{subjectIdTitle}
+					</StyledTitleText>
+				</StyledTitle>
+			) : null}
 		</StyledPreview>
 	)
 }
@@ -101,6 +104,7 @@ StaticMedia.propTypes = {
 	mediaSrc: string,
 	placeholder: node,
 	previewHeight: number.isRequired,
+	showTitle: bool,
 	showBackground: bool,
 	subjectIdTitle: string.isRequired,
 	width: number.isRequired
