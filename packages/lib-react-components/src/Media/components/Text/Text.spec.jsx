@@ -46,9 +46,14 @@ describe('Text', function () {
         </Grommet>
       )
       const textSection = document.querySelector('section')
+      const text = document.querySelector('pre')
       const { maxHeight, maxWidth } = window.getComputedStyle(textSection)
+      const { height, marginTop, minHeight } = window.getComputedStyle(text)
       expect(maxHeight).to.equal('300px')
       expect(maxWidth).to.equal('370px')
+      expect(height).to.equal('100%')
+      expect(marginTop).to.equal('0px')
+      expect(minHeight).to.equal('0')
     })
 
     it('should have a 200px maxHeight by default', function () {
