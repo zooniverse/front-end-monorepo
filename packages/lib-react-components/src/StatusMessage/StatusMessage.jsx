@@ -71,6 +71,7 @@ function StatusMessage ({
       aria-atomic={true}
       className={`statusMessage state-${cssState}`}
       role='status'
+      align='center'
       type={_type}
 
       height={_height}
