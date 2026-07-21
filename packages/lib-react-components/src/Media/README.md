@@ -11,6 +11,7 @@ The Media component dynamically renders an appropriate child media component bas
 - origin: _(string)_ The origin for the Zooniverse thumbnail service. Defaults to `'https://thumbnails.zooniverse.org'`
 - placeholder: _(node)_ React component or HTML to render as a child of the placeholder container while the image is loading
 - showPoster: _(bool)_ whether to show a poster thumbnail for video media. Defaults to false. When true, preload is set to `'none'`; when false, preload is set to `'metadata'`.
+  - NOTE: poster thumbnails are generated using the Zooniverse thumbnail service, and ensures the preview images downloaded are very small (compared to downloading the video metadata). This will only work if the video files are hosted on the Zooniverse, however - see the [Zooniverse thumbnailer repo](https://github.com/zooniverse/thumbnailer) for acceptable file hosts. If the video is hosted elsewhere, the poster will not be generated and the default video behavior will be used.
 - src: _(string)_ the source of the media. Required.
   - NOTE: MIME type and the corresponding child media component is determined by this string. If a MIME type can't be guessed, consider specifying a `defaultMimeType`
 - width: _(number)_ width in CSS pixels.

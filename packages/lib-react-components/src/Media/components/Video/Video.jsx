@@ -8,6 +8,22 @@ const StyledBox = styled(Box)`
   ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
 `
 
+const THUMBNAILER_SUPPORTED_HOSTS = [
+  'panoptes-uploads-staging.zooniverse.org',
+  'panoptes-uploads.zooniverse.org'
+]
+
+function canGeneratePosterFromSrc(src) {
+  if (!src) return false
+
+  try {
+    const parsedUrl = new URL(src)
+    return THUMBNAILER_SUPPORTED_HOSTS.includes(parsedUrl.hostname)
+  } catch {
+    return false
+  }
+}
+
 export default function Video({
   alt = defaultProps.alt,
   controls = defaultProps.controls,
@@ -21,10 +37,13 @@ export default function Video({
   ...rest
 }) {
   const controlsOption = (controls) ? 'below' : false
-  
+  const shouldShowPoster = showPoster && canGeneratePosterFromSrc(src)
+
   let posterSrc = null
-  if (showPoster) {
-    posterSrc = getThumbnailSrc({ height, origin, src, width })
+  if (shouldShowPoster) {
+    const posterWidth = width > 0 ? width : 999
+    const posterHeight = height > 0 ? height : posterWidth
+    posterSrc = getThumbnailSrc({ height: posterHeight, origin, src, width: posterWidth })
   }
 
   const cssHeight = height > 0 ? `${height}px` : height
@@ -49,7 +68,7 @@ export default function Video({
         controls={controlsOption}
         fit={fit}
         poster={posterSrc}
-        preload={showPoster ? 'none' : 'metadata'}
+        preload={shouldShowPoster ? 'none' : 'metadata'}
         src={src}
       />
     </StyledBox>
