@@ -4,11 +4,12 @@ import { useTranslation } from '../translations/i18n'
 import styled, { css } from 'styled-components'
 
 const StatusMessageContainer = styled(Box)`
-  border: 1px solid red;
+  border-radius: 4px;
+
   ${props => (props.theme.dark)
     ? css`
       color: ${props.theme.global.colors['neutral-6']};
-      background: ${props.theme.global.colors['dark-4']};
+      background: ${props.theme.global.colors['dark-6']};
     `
     : css`
       color: ${props.theme.global.colors['dark-4']};
@@ -24,7 +25,17 @@ const StatusMessageContainer = styled(Box)`
     overflow: hidden;
   }
 
-  &.state-success, &.state-error, &.state-alert {}
+  &.state-success {
+    border-left: 6px solid ${props => props.theme.global.colors['highlighterTool']['green']};
+  }
+
+  &.state-error {
+    border-left: 6px solid ${props => props.theme.global.colors['neutral-4']};
+  }
+
+  &.state-warning {
+    border-left: 6px solid ${props => props.theme.global.colors['drawingTools']['orange']};
+  }
 
 `
 
@@ -32,10 +43,10 @@ function StatusMessage ({
   text = '',
   type = '',
 
-  height = undefined,
   width = undefined,
+  height = undefined,
   margin = '',
-  pad = '',
+  padding = { vertical: 'xsmall', horizontal: 'medium' },
 
   ...rest
 }) {
@@ -52,10 +63,8 @@ function StatusMessage ({
   const _width = isHidden ? undefined : width
   const _height = isHidden ? undefined : height
   const _margin = isHidden ? undefined : margin
-  const _pad = isHidden ? undefined : pad
+  const _pad = isHidden ? undefined : padding
   const cssState = isHidden ? 'nothing' : _type
-
-  console.log('+++ type: ', _type, text?.length, type)
 
   return (
     <StatusMessageContainer

@@ -1,8 +1,17 @@
+import { Box } from 'grommet'
 import StatusMessage from './StatusMessage'
 
 export default {
   title: 'Components / Status Message',
-  component: StatusMessage
+  component: StatusMessage,
+  decorators: [(Component) => (
+    <Box
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      width='600px'
+    >
+      <Component />
+    </Box>
+  )]
 }
 
 export const Default = {
@@ -10,7 +19,6 @@ export const Default = {
     text: 'Change of state!',
     type: 'success',
     width: '',
-    pad: '',
     margin: '10px',
   },
   argTypes: {
@@ -22,9 +30,6 @@ export const Default = {
       control: { type: 'select' },
     },
     width: {
-      control: { type: 'text' },
-    },
-    pad: {
       control: { type: 'text' },
     },
     margin: {
