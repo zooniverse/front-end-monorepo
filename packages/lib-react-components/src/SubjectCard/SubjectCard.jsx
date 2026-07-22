@@ -106,8 +106,8 @@ function SubjectCard({
   userId
 }) {
   const { t } = useTranslation()
-  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject?.id })
-  const linkTitle = t('SubjectCard.linkTitle', { id: subject?.id })
+  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
 
   // layout
   const width = cardWidth(size)
@@ -123,7 +123,7 @@ function SubjectCard({
   const showBackground = mediaType === 'image' || mediaType === 'video'
   const subjectTalkHref = addQueryParams(`/projects/${projectSlug}/talk/subjects/${subject.id}`)
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  const subjectTalkUrl = subjectTalkHref ? `${origin}${subjectTalkHref}` : undefined
+  const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
   return (
     <StyledSubjectCard
@@ -198,12 +198,12 @@ function SubjectCard({
           login={login}
           projectId={projectId}
           projectSlug={projectSlug}
-          subjectId={subject?.id}
+          subjectId={subject.id}
         />
         <CollectIconButton
           disabled={!login}
           projectId={projectId}
-          subjectId={subject?.id}
+          subjectId={subject.id}
           userId={userId}
         />
         <ShareIconButton shareUrl={subjectTalkUrl} />
@@ -219,7 +219,7 @@ SubjectCard.propTypes = {
   projectSlug: string.isRequired,
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
-    id: string,
+    id: string.isRequired,
     locations: arrayOf(objectOf(string)),
     metadata: object
   }),
