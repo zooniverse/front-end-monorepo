@@ -24,6 +24,7 @@ function RecentSubjects({
 }) {
   const { t } = useTranslation('screens')
   const isEmpty = recents?.length === 0
+  const justify = recents?.length < 4 ? 'start' : 'between'
 
   return (
     <ContentBox
@@ -44,7 +45,7 @@ function RecentSubjects({
           forwardedAs='ul'
           direction='row'
           gap='small'
-          justify='between'
+          justify={justify}
           pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
           overflow={{ horizontal: 'auto' }}
           tabIndex={0}
