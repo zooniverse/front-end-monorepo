@@ -8,7 +8,7 @@ Behaviours:
 
 - There are two points of entry to this page.
 - (1) When a user receives a newsletter from the Zooniverse, there's an "Unsubscribe" link that goes to https://panoptes.zooniverse.org/unsubscribe?token=BEEPBOOP
-  - That Panoptes /unsubscribe path performs the un-subscribption action, then immediately redirects users.
+  - That Panoptes /unsubscribe path performs the un-subscription action, then immediately redirects users.
   - Users are redirected to this page with a query param, https://www.zooniverse.org/unsubscribe?processed=true
   - With the `?processed=true` param, they'll see an "Unsubscribe Successful" message with no further actions available.
 - (2) User can go directly the URL
