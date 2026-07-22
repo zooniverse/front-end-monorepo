@@ -1,6 +1,4 @@
 'use client'
-// TODO: 👆 is this correct? Or should this be in the UnsubscribeForm subcomponent? 🤔
-// https://nextjs.org/docs/app/api-reference/directives/use-client
 
 import { Box } from 'grommet'
 import UnsubscribeForm from './components/UnsubscribeForm/UnsubscribeForm'
