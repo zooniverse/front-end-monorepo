@@ -9,6 +9,7 @@ import MetadataIconButton from '../MetadataIconButton'
 import FavoritesIconButton from '../FavoritesIconButton'
 import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
+import addQueryParams from './helpers/addQueryParams'
 
 const METATOOLS_HEIGHT = 45
 
@@ -120,7 +121,7 @@ function SubjectCard({
   const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
   const [ mediaType ] = mimeType ? mimeType.split('/') : []
   const showBackground = mediaType === 'image' || mediaType === 'video'
-  const subjectTalkHref = (projectSlug && subject?.id) ? `/projects/${projectSlug}/talk/subjects/${subject.id}` : undefined
+  const subjectTalkHref = addQueryParams(`/projects/${projectSlug}/talk/subjects/${subject.id}`)
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = subjectTalkHref ? `${origin}${subjectTalkHref}` : undefined
 
