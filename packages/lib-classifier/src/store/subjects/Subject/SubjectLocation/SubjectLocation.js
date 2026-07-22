@@ -5,6 +5,7 @@ const fileExtensions = {
   'audio/mp3': ['.mp3'],
   'audio/m4a': ['.m4a'],
   'audio/mpeg': ['.mp3', '.mpga'],
+  'audio/wav': ['.wav'], // Only for marywestwood/the-cricket-wing. Not a recommended audio file type due to size.
   'image/png': ['.png'],
   'image/jpeg': ['.jpg', '.jpeg'],
   'image/gif': ['.gif'],

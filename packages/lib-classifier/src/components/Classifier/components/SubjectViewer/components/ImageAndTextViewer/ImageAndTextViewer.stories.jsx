@@ -49,12 +49,34 @@ const textLocationFirstSubjectSnapshot = SubjectFactory.build({
   ]
 })
 
+const twoImagesOneTextMedia = SubjectFactory.build({
+  id: '5678',
+  locations: [
+    {
+      'image/png':
+        'https://panoptes-uploads.zooniverse.org/subject_location/80a5c359-71ae-4dc1-b3ac-49329a6da2c9.png'
+    },
+        {
+      'image/png':
+        'https://panoptes-uploads.zooniverse.org/subject_location/bca62260-9543-49d6-8535-86140f4ea6ff.png'
+    },
+    {
+      'text/plain':
+        'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt'
+    }
+  ]
+})
+
 const store = mockStore({
   subject: subjectSnapshot
 })
 
 const storeWithSubjectTextLocationFirst = mockStore({
   subject: textLocationFirstSubjectSnapshot
+})
+
+const storeWithMoreThanTwoLocations = mockStore({
+  subject: twoImagesOneTextMedia
 })
 
 export function Default({ loadingState }) {
@@ -70,6 +92,16 @@ export function Default({ loadingState }) {
 export function TextLocationFirst({ loadingState }) {
   return (
     <Provider classifierStore={storeWithSubjectTextLocationFirst}>
+      <Box width='large'>
+        <ImageAndTextViewerConnector loadingState={loadingState} />
+      </Box>
+    </Provider>
+  )
+}
+
+export function MoreThanTwoLocations({ loadingState }) {
+  return (
+    <Provider classifierStore={storeWithMoreThanTwoLocations}>
       <Box width='large'>
         <ImageAndTextViewerConnector loadingState={loadingState} />
       </Box>
