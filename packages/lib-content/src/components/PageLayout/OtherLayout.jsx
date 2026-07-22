@@ -1,9 +1,22 @@
 import { Box, ThemeContext } from 'grommet'
 import { useTranslation } from '@translations/i18n'
-import { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 
+import { ZooniverseLogotype } from '@zooniverse/react-components'
 import ContainerBox from './ContainerBox'
-import AboutHeader from '../AboutHeader/AboutHeader'
+
+const HeaderBreakpoint = '36rem'
+const DecorativePseudoHeader = styled(Box)`
+  min-height: 2em;
+`
+const StyledLogo = styled(ZooniverseLogotype)`
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  @media (width < ${HeaderBreakpoint}) {
+    display: none;
+  }
+`
 
 const customTheme = {
   paragraph: {
@@ -16,15 +29,22 @@ const customTheme = {
 }
 
 function OtherLayout({ children }) {
-  const { t } = useTranslation()
-
-  const navTitle = t('AboutHeader.title.other')
-
-  const links = []
+  // Note: the the Decorative Pseudo-Header looks visually similar to the
+  // AboutLayout's AboutHeader (used on About pages), except the DPH isn't a
+  // <header> element and has no <nav> elements. It's purely decorative.
+  // The Zooniverse logo disappears in narrow views, but a strip of teal remains
+  // visible on the page.
 
   return (
     <>
-      <AboutHeader links={links} navTitle={navTitle} />
+      <DecorativePseudoHeader
+        direction='row'
+        background='neutral-1'
+        justify='end'
+        pad={{ horizontal: 'medium' }}
+      >
+        <StyledLogo id='zooniverse-logo-other-page' color='white' />
+      </DecorativePseudoHeader>
       <main>
         <ThemeContext.Extend value={customTheme}>
           <Box
