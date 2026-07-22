@@ -1,105 +1,85 @@
-import { Box, Grid } from 'grommet'
-import { array, bool, number, string } from 'prop-types'
+import { SubjectCard } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 import { useTranslation } from 'next-i18next'
+import { array, string } from 'prop-types'
+import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
-import SubjectPreview from '@shared/components/SubjectPreview'
 
-const isServer = typeof window === 'undefined'
+const StyledBox = styled(Box)`
+  list-style: none;
+  scroll-snap-type: x mandatory;
 
-function Placeholder({ height }) {
-  if (isServer) {
-    return null
+  li {
+    scroll-snap-align: start;
   }
-
-  return (
-    <Box
-      align='center'
-      justify='center'
-      height={height}
-      width='100%'
-      round='8px'
-      margin='xsmall'
-      background={{
-        image: `url(https://static.zooniverse.org/fem-assets/subject-placeholder.jpg)`,
-        size: 'cover',
-        position: 'center'
-      }}
-    />
-  )
-}
+`
 
 function RecentSubjects({
-  isLoggedIn = false,
+  login = undefined,
+  projectId = undefined,
   recents = [],
-  size = 3,
-  slug
+  slug,
+  userId = undefined
 }) {
   const { t } = useTranslation('screens')
-  const height = size === 1 ? '40vw' : '200px'
   const isEmpty = recents?.length === 0
-  const displayedRecents = recents.slice(0, size)
-  const placeholders = [...Array(size - displayedRecents.length)]
-  const gridColumns = isEmpty ? ['1fr'] : [`repeat(${size}, 1fr)`]
+  const justify = recents?.length < 4 ? 'start' : 'between'
 
   return (
-    <ContentBox title={t('Classify.RecentSubjects.title')}>
-      <Grid
-        alignContent='stretch'
-        columns={gridColumns}
-        gap='small'
-        height={isEmpty ? height : undefined}
-      >
-        {isEmpty ? (
-          <Box
-            align='center'
-            justify='center'
-            fill
-          >
-            {t('Classify.RecentSubjects.noSubjects')}
-          </Box>
-        ) : (
-          <>
-            {displayedRecents.map(recent => {
-              const subject = {
-                favorite: recent.favorite,
-                id: recent.subjectId,
-                locations: recent.locations,
-                toggleFavourite: recent.toggleFavourite
-              }
-              return (
-                <SubjectPreview
-                  height={height}
-                  key={recent.subjectId}
-                  isLoggedIn={isLoggedIn}
-                  placeholder={<Placeholder height={height} />}
-                  subject={subject}
-                  slug={slug}
-                  width={'100%'}
-                />
-              )
-            })}
-            {placeholders.map((placeholder, i) => (
-              <Placeholder key={i} height={height} />
-            ))}
-          </>
-        )}
-      </Grid>
+    <ContentBox
+      title={t('Classify.RecentSubjects.title')}
+      titleId='recent-subjects'
+    >
+      {isEmpty ? (
+        <Box
+          align='center'
+          justify='center'
+          fill
+        >
+          {t('Classify.RecentSubjects.noSubjects')}
+        </Box>
+      ) : (
+        <StyledBox
+          aria-labelledby='recent-subjects'
+          forwardedAs='ul'
+          direction='row'
+          gap='small'
+          justify={justify}
+          pad={{ horizontal: 'xxsmall', bottom: 'xsmall', top: 'xxsmall' }}
+          overflow={{ horizontal: 'auto' }}
+          tabIndex={0}
+          margin='0'
+        >
+          {recents.map(recent => (
+            <li key={recent?.subjectId}>
+              <SubjectCard
+                login={login}
+                projectId={projectId}
+                projectSlug={slug}
+                size='medium'
+                subject={recent.subject}
+                userId={userId}
+              />
+            </li>
+          ))}
+        </StyledBox>
+      )}
     </ContentBox>
   )
 }
 
 RecentSubjects.propTypes = {
-  /** Is the volunteer logged in, for favourites and collections. */
-  isLoggedIn: bool,
-  /** The project name. */
-  projectName: string,
+  /** Current user login. */
+  login: string,
+  /** Project ID */
+  projectId: string,
   /** Recent classification subjects from Panoptes. */
   recents: array,
-  /** The number of previews to show. */
-  size: number,
   /** Project URL slug for links. */
-  slug: string.isRequired
+  slug: string.isRequired,
+  /** Current user ID */
+  userId: string
 }
 
 export default RecentSubjects

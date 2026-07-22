@@ -142,14 +142,13 @@ function SubjectCard({
           round={{ corner: 'top', size: '8px' }}
           width={`${width}px`}
         >
-          {mediaSrc && showBackground ? (
+          {(mediaSrc && showBackground) ? (
             <StyledBackground>
               <Media
                 alt=''
                 controls={false}
                 fit='cover'
                 height={previewHeight}
-                placeholder={placeholder}
                 src={mediaSrc}
                 width={width}
                 aria-hidden='true'
@@ -220,7 +219,7 @@ SubjectCard.propTypes = {
   projectSlug: string.isRequired,
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
-    id: string,
+    id: string.isRequired,
     locations: arrayOf(objectOf(string)),
     metadata: object
   }),
