@@ -8,6 +8,18 @@ Comes in three varieties:
 - ❗️ Error
 - ⚠️ Warning
 
+## Props
+
+Main properties:
+
+- `text` (string or node): the text to display. If no text is provided, nothing is displayed.
+- `type` (string): one of "success", "error", or "warning". (Or "" (empty string) if you want to specify "no type".) Type determines the icon and colour of the status message. If no type is provided, nothing is displayed.
+
+Optional properties:
+
+- `width`, `height`, `margin`, `pad`: standard Grommet dimension/layout props can be used, but maybe don't?
+- Other Grommet Box-compatible props will be passed into the Status Message's container.
+
 ## Accessibility
 
 - A Status Message uses `role="status"`, which by definition makes it a "live region".
