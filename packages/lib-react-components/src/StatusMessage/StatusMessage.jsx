@@ -85,6 +85,7 @@ function StatusMessage ({
       direction='row'
       role='status'
       align='center'
+      justify='center'
       type={_type}
 
       height={_height}
