@@ -20,8 +20,6 @@ const ProcessedStateBox = styled(Box)`
   }
 
   h1, p {
-    letter-spacing: 5%;
-    line-height: 120%;
 
     a {
       font-weight: normal;
