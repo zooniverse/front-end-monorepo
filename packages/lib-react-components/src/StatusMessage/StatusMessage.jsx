@@ -1,4 +1,4 @@
-import { string } from 'prop-types'
+import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { useTranslation } from '../translations/i18n'
 import styled, { css } from 'styled-components'
@@ -149,9 +149,19 @@ function StatusMessage ({
 }
 
 StatusMessage.propTypes = {
-  text: string,  // TODO: also accept object
-  type: string,
-  // TODO: add other params
+  text: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),  // Either pass in a string, or another React/HTML ocomponent
+  type: PropTypes.oneOf(['success', 'error', 'warning', '']),
+
+  // Grommet-style layout values
+  width: PropTypes.string,
+  height: PropTypes.string,
+  margin: PropTypes.string,
+  padding: PropTypes.string,
+
+  // Also accepts other Box-compatible attributes.
 }
 
 export default StatusMessage
