@@ -57,12 +57,13 @@ function RecentSubjectsContainer({ authUser }) {
   const subjectsById = new Map(linkedSubjects?.map(subject => [subject.id, subject]))
 
   const recentsWithProjectSlugAndSubject = recents
-    ?.map(recent => ({
-      ...recent,
-      projectSlug: projectSlugsById.get(recent.links?.project),
-      subject: subjectsById.get(recent.links?.subject)
-    }))
-    .filter(recent => recent?.projectSlug && recent?.subject)
+  ?.map(recent => ({
+    ...recent,
+    projectId: recent.links?.project,
+    projectSlug: projectSlugsById.get(recent.links?.project),
+    subject: subjectsById.get(recent.links?.subject)
+  }))
+  .filter(recent => recent?.projectSlug && recent?.subject)
 
   const error = recentsError || projectsError
   const isLoading = recentsLoading || projectsLoading
