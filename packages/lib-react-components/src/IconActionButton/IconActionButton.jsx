@@ -40,7 +40,8 @@ const StyledButton = styled(GrommetButton)`
 
   &:disabled {
     cursor: not-allowed;
-    background-color: ${props => props.theme.global.colors['light-4']};
+    background-color: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
+    opacity: .4;
 
     > svg {
       fill: ${props => props.theme.global.colors['light-5']};

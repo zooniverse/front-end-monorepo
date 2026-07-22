@@ -149,6 +149,8 @@ function SubjectCard({
                 controls={false}
                 fit='cover'
                 height={previewHeight}
+                placeholder={placeholder}
+                showPoster={true}
                 src={mediaSrc}
                 width={width}
                 aria-hidden='true'
@@ -163,6 +165,7 @@ function SubjectCard({
               controls={false}
               fit='contain'
               placeholder={placeholder}
+              showPoster={true}
               height={previewHeight}
               src={mediaSrc}
               width={width}
