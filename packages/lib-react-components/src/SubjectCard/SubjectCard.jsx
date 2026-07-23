@@ -1,4 +1,5 @@
 import { Anchor, Box } from 'grommet'
+import mime from 'mime/lite'
 import { arrayOf, bool, node, object, objectOf, oneOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
