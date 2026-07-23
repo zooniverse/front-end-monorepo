@@ -19,12 +19,14 @@ function RecentSubjects({
   subjects = [],
   userId
 }) {
+  const justify = subjects.length < 4 ? 'start' : 'between'
+
   return (
     <StyledBox
       forwardedAs='ul'
       direction='row'
       gap='small'
-      justify='between'
+      justify={justify}
       pad='xxsmall'
       overflow={{ horizontal: 'auto' }}
       tabIndex={0}

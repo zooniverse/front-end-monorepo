@@ -7,6 +7,7 @@ import MetadataIconButton from '../MetadataIconButton'
 import FavoritesIconButton from '../FavoritesIconButton'
 import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
+import addQueryParams from './helpers/addQueryParams'
 
 import StaticMedia from './components/StaticMedia'
 import InteractiveMedia from './components/InteractiveMedia'
@@ -81,8 +82,12 @@ function SubjectCard({
   const metaToolsSectionGap = metaToolsGap(size)
 
   // subject properties
-  const { metadata } = subject
-  const subjectTalkHref = (projectSlug && subject?.id) ? `/projects/${projectSlug}/talk/subjects/${subject.id}` : undefined
+  const { locations, metadata } = subject
+  const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
+  const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
+  const [ mediaType ] = mimeType ? mimeType.split('/') : []
+  const showBackground = mediaType === 'image' || mediaType === 'video'
+  const subjectTalkHref = addQueryParams(`/projects/${projectSlug}/talk/subjects/${subject.id}`)
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = subjectTalkHref ? `${origin}${subjectTalkHref}` : undefined
 
@@ -153,7 +158,7 @@ SubjectCard.propTypes = {
   projectSlug: string.isRequired,
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
-    id: string,
+    id: string.isRequired,
     locations: arrayOf(objectOf(string)),
     metadata: object
   }),
