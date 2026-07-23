@@ -73,8 +73,8 @@ function SubjectCard({
   userId
 }) {
   const { t } = useTranslation()
-  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject?.id })
-  const linkTitle = t('SubjectCard.linkTitle', { id: subject?.id })
+  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
 
   // layout
   const width = interactive ? INTERACTIVE_WIDTH : cardWidth(size)
