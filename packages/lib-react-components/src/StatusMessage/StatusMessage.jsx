@@ -32,7 +32,7 @@ const StatusMessageContainer = styled(Box)`
 
     > svg {
       flex: 0 0 auto;
-      fill: ${props => props.theme.global.colors['neutral-3']};
+      stroke: ${props => props.theme.global.colors['neutral-3']};
     }
   }
 
