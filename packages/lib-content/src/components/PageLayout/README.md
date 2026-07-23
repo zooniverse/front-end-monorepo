@@ -24,4 +24,3 @@ Adds the `<AboutHeader>` which has nav links to the "Get Involved" pages, and pl
 
 Container for uncategorised, ungrouped pages, e.g. Unsubscribe.
 
-Adds the `<AboutHeader>` which has NO nav links to any other page, and places content in the ContainerBox with a _max width_ of 90rem.
