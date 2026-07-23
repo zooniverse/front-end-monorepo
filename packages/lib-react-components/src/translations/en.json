@@ -99,6 +99,13 @@
     "copied": "URL copied to clipboard",
     "share": "Share"
   },
+  "StatusMessage": {
+    "icons": {
+      "success": "Success",
+      "error": "Error",
+      "warning": "Warning"
+    }
+  },
   "SubjectCard": {
     "linkTitle": "Subject {{id}} Talk page",
     "subjectId": "Subject {{id}}"
