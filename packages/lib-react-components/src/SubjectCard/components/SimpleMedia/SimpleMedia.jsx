@@ -41,7 +41,7 @@ const StyledTitleText = styled.span`
 	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 `
 
-function StaticMedia({
+function SimpleMedia({
 	mediaSrc,
 	placeholder,
 	previewHeight,
@@ -100,7 +100,7 @@ function StaticMedia({
 	)
 }
 
-StaticMedia.propTypes = {
+SimpleMedia.propTypes = {
 	mediaSrc: string,
 	placeholder: node,
 	previewHeight: number.isRequired,
@@ -110,4 +110,4 @@ StaticMedia.propTypes = {
 	width: number.isRequired
 }
 
-export default StaticMedia
+export default SimpleMedia

@@ -10,7 +10,7 @@ import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
 import addQueryParams from './helpers/addQueryParams'
 
-import StaticMedia from './components/StaticMedia'
+import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
 
 const INTERACTIVE_WIDTH = 300
@@ -113,7 +113,7 @@ function SubjectCard({
             width={width}
           />
         ) : (
-          <StaticMedia
+          <SimpleMedia
             placeholder={placeholder}
             previewHeight={previewHeight}
             subject={subject}

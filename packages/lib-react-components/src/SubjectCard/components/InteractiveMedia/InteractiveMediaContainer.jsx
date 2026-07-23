@@ -15,7 +15,7 @@ function InteractiveMediaContainer({
   const mediaSrc = hasSingleLocation && locations[0] ? Object.values(locations[0])[0] : null
   const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
   const mediaType = mimeType ? mimeType.split('/')[0] : null
-  const supportsStaticPreview = hasSingleLocation && [
+  const supportsSimplePreview = hasSingleLocation && [
     'application',
     'image',
     'text'
@@ -24,7 +24,7 @@ function InteractiveMediaContainer({
 
   return (
     <InteractiveMedia
-      mediaSrc={supportsStaticPreview ? mediaSrc : null}
+      mediaSrc={supportsSimplePreview ? mediaSrc : null}
       placeholder={placeholder}
       previewHeight={previewHeight}
       showBackground={showBackground}

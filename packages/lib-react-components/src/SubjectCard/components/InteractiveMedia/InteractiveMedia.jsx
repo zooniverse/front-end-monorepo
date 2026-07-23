@@ -1,6 +1,6 @@
 import { bool, node, number, string } from 'prop-types'
 
-import StaticMedia from '../StaticMedia/StaticMedia'
+import SimpleMedia from '../SimpleMedia/SimpleMedia'
 
 function InteractiveMedia({
   mediaSrc,
@@ -13,7 +13,7 @@ function InteractiveMedia({
   if (!mediaSrc) return null
 
   return (
-    <StaticMedia
+    <SimpleMedia
       mediaSrc={mediaSrc}
       placeholder={placeholder}
       previewHeight={previewHeight}
