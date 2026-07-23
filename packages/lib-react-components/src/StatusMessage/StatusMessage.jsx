@@ -30,6 +30,7 @@ const StatusMessageContainer = styled(Box)`
     border-left: 6px solid ${props => props.theme.global.colors['highlighterTool']['green']};
 
     > svg {
+      flex: 0 0 auto;
       fill: ${props => props.theme.global.colors['highlighterTool']['green']};
     }
   }
@@ -38,6 +39,7 @@ const StatusMessageContainer = styled(Box)`
     border-left: 6px solid ${props => props.theme.global.colors['neutral-4']};
 
     > svg {
+      flex: 0 0 auto;
       stroke: ${props => props.theme.global.colors['neutral-4']};
     }
   }
@@ -46,6 +48,7 @@ const StatusMessageContainer = styled(Box)`
     border-left: 6px solid ${props => props.theme.global.colors['drawingTools']['orange']};
 
     > svg {
+      flex: 0 0 auto;
       stroke: ${props => props.theme.global.colors['drawingTools']['orange']};
     }
   }
@@ -59,7 +62,7 @@ function StatusMessage ({
   width = undefined,
   height = undefined,
   margin = '',
-  padding = { vertical: 'xsmall', horizontal: 'medium' },
+  padding = { vertical: '10px', horizontal: 'medium' },
 
   ...rest
 }) {
@@ -115,8 +118,14 @@ StatusMessage.propTypes = {
   // Grommet-style layout values
   width: PropTypes.string,
   height: PropTypes.string,
-  margin: PropTypes.string,
-  padding: PropTypes.string,
+  margin: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  padding: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
 
   // Also accepts other Box-compatible attributes.
 }
