@@ -2,13 +2,14 @@ import SubjectCard from '../../SubjectCard'
 import {
   BELUGA_BITS_SUBJECT,
   DARK_ENERGY_EXPLORERS_SUBJECT,
+  GALAXY_ZOO_SUBJECT,
   IGUANAS_FROM_ABOVE_SUBJECT,
-  PRINT_SUBJECT,
-  PENGUIN_WATCH_SUBJECT,
-  RADIO_METEOR_ZOO_SUBJECT,
   InteractiveStory,
+  PENGUIN_WATCH_SUBJECT,
+  PRINT_SUBJECT,
+  RADIO_METEOR_ZOO_SUBJECT,
+  SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   WILDWATCH_KENYA_SUBJECT,
-  GALAXY_ZOO_SUBJECT
 } from '../SubjectCardStoryData'
 
 const meta = {
@@ -48,4 +49,8 @@ export const LoggedInSquare = {
 
 export const LoggedInSquareDark = {
   render: () => <InteractiveStory login={'TestUser'} subject={GALAXY_ZOO_SUBJECT} />
+}
+
+export const LoggedInMultiImage = {
+  render: () => <InteractiveStory login={'TestUser'} subject={SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT} />
 }
