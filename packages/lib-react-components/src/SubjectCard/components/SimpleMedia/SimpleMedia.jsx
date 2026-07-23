@@ -64,6 +64,7 @@ function SimpleMedia({
 						controls={false}
 						fit='cover'
 						height={previewHeight}
+						showPoster={true}
 						src={mediaSrc}
 						tabIndex={-1}
 						width={width}
@@ -78,6 +79,7 @@ function SimpleMedia({
 					fit='contain'
 					height={previewHeight}
 					placeholder={placeholder}
+					showPoster={true}
 					src={mediaSrc}
 					width={width}
 				/>

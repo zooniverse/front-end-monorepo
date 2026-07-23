@@ -90,7 +90,7 @@ function SubjectCard({
   const showBackground = mediaType === 'image' || mediaType === 'video'
   const subjectTalkHref = addQueryParams(`/projects/${projectSlug}/talk/subjects/${subject.id}`)
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  const subjectTalkUrl = subjectTalkHref ? `${origin}${subjectTalkHref}` : undefined
+  const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
   return (
     <StyledSubjectCard
@@ -137,12 +137,12 @@ function SubjectCard({
           login={login}
           projectId={projectId}
           projectSlug={projectSlug}
-          subjectId={subject?.id}
+          subjectId={subject.id}
         />
         <CollectIconButton
           disabled={!login}
           projectId={projectId}
-          subjectId={subject?.id}
+          subjectId={subject.id}
           userId={userId}
         />
         <ShareIconButton shareUrl={subjectTalkUrl} />
