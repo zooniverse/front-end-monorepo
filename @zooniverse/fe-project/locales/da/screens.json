@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Undervisning",
+        "faq": "Hyppige spørgsmål",
+        "research": "Forskning",
+        "results": "Resultater",
+        "team": "Teamet"
+      }
+    },
+    "PageNav": {
+      "title": "Om projektet"
+    },
+    "SidebarHeading": "Om",
+    "TeamMember": {
+      "collaborator": "Samarbejdspartner",
+      "expert": "Ekspert",
+      "moderator": "Moderator",
+      "museum": "Museum",
+      "owner": "Ejer",
+      "researcher": "Forsker",
+      "tester": "Tester",
+      "translator": "Oversætter"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Der opstod en fejl i klassificeringen :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Debattér et emne under Snak, eller føj det til dine favoritter eller en samling.",
+      "title": "Dine seneste klassifikationer"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nej tak",
+      "confirm": "Tag mig med til den næste arbejdsgang!",
+      "content": "Tillykke! Fordi du klarer dig så godt, har du nu adgang til en anden arbejdsgang. Hvis du foretrækker at blive i den nuværende arbejdsgang, kan du vælge at blive.",
+      "dismiss": "Vis ikke dette igen i denne session",
+      "title": "Ny tilgængelig arbejdsgang"
+    },
+    "YourStats": {
+      "allTime": "Al tid",
+      "lastSeven": "Sidste 7 dage",
+      "link": "Se flere",
+      "title": "Dine statistikker"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Om {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Få mere at vide"
+      },
+      "NotApproved": {
+        "paragraph": "Dette projekt er oprettet ved hjælp af Zooniverse Project Builder, men er endnu ikke et officielt Zooniverse-projekt. Forespørgsler og problemer vedrørende dette projekt, der rettes til Zooniverse-teamet, vil muligvis ikke blive besvaret."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Kontakt forskerholdet under Snak for at få blive klogere på dette projekt!",
+      "noMessageButton": "Gå til Snak",
+      "title": "Besked fra forskeren"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Der opstod en fejl under indlæsning af emnerne :(",
+        "noSubjects": "Det ser ud til, at ingen har kommenteret et emne endnu. Gå til Snak, og bliv den første!",
+        "subjectLabel": "Emne: {{id}}"
+      },
+      "button": "Vær med",
+      "message": "Chat med forskerholdet og andre frivillige!",
+      "title": "Zooniverse-snak"
+    }
+  }
+}

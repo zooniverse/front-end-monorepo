@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Pfunzo",
+        "faq": "FAQ",
+        "research": "Ṱhoḓisiso",
+        "results": "Mvelelo",
+        "team": "Thimu"
+      }
+    },
+    "PageNav": {
+      "title": "Nga ha phurojeke"
+    },
+    "SidebarHeading": "Nga ha",
+    "TeamMember": {
+      "collaborator": "Mushumisani",
+      "expert": "Muḓivhi",
+      "moderator": "Mulanguli",
+      "museum": "Muziamu",
+      "owner": "Muṋe",
+      "researcher": "Muṱoḓisisi",
+      "tester": "Mulingi",
+      "translator": "Muṱalutshedzeli"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Ho vha na vhukhakhi kha mukhethekanyi :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Haseledzani thero kha Talk, kana ni i engedze kha Zwine na Zwi Funesa kana kha bugu ine na i khuvhanganyo.",
+      "title": "U khethekanywa haṋu ha zwenezwino"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Hai, ndo livhuwa",
+      "confirm": "Ni nnyise kha mushumo u tevhelaho!",
+      "content": "Ri a ni fhululedza! Ngauri ni khou ita zwavhuḓi, zwino ni nga swikelela iṅwe nḓila ya mushumo. Arali ni tshi takalela u dzula na mushumo wa zwino, ni nga khetha u dzula.",
+      "dismiss": "Ni songo dovha na sumbedza hezwi kha ino sesheni",
+      "title": "Nḓila Ntswa ya Mushumo I Hone"
+    },
+    "YourStats": {
+      "allTime": "Tshifhinga tshoṱhe",
+      "lastSeven": "Maḓuvha a 7 o fhelaho",
+      "link": "Vhonani zwinzhi",
+      "title": "Mbalombalo dzaṋu"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Nga ha{{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Gudani zwinzhi"
+      },
+      "NotApproved": {
+        "paragraph": "Projeke iyi yo itwa hu tshi shumiswa Muthomi wa Phurojeke ya Zooniverse fhedzi a i athu vha phurojeke ya Zooniverse ya tshiofisi. Mbudziso na mafhungo a elanaho na mushumo uyu o livhiswaho kha Tshigwada tsha Zooniverse a nga kha ḓi sa wana phindulo."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Kha vha kwamane na tshigwada tsha ṱhoḓisiso kha Talk u itela u guda zwo engedzeaho nga ha heyi phurojeke!",
+      "noMessageButton": "Iyani kha Talk",
+      "title": "Mulaedza u bvaho kha muṱoḓisisi"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Ho vha na vhukhakhi ha u ḓadza thero :(",
+        "noSubjects": "Zwi vhonala unga ahuna muthu we a khomentha kha thero. Iyani kha Talk ni vhe wa u thoma!",
+        "subjectLabel": "Thero{{id}}"
+      },
+      "button": "Dzhenani",
+      "message": "Kha vha ambe na tshigwada tsha vhaṱoḓisisi na vhaṅwe vhashumi vha u ḓifunela!",
+      "title": "Talk ya Zooniverse"
+    }
+  }
+}
