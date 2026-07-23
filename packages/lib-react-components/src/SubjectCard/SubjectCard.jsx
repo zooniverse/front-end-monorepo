@@ -9,12 +9,11 @@ import MetadataIconButton from '../MetadataIconButton'
 import FavoritesIconButton from '../FavoritesIconButton'
 import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
+import addQueryParams from './helpers/addQueryParams'
 
 const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
-  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.25);
-  overflow: hidden;
   position: relative;
 `
 
@@ -108,6 +107,7 @@ function SubjectCard({
 }) {
   const { t } = useTranslation()
   const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
 
   // layout
   const width = cardWidth(size)
@@ -121,19 +121,20 @@ function SubjectCard({
   const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
   const [ mediaType ] = mimeType ? mimeType.split('/') : []
   const showBackground = mediaType === 'image' || mediaType === 'video'
-  const subjectTalkHref = `/projects/${projectSlug}/talk/subjects/${subject.id}`
+  const subjectTalkHref = addQueryParams(`/projects/${projectSlug}/talk/subjects/${subject.id}`)
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
   return (
     <StyledSubjectCard
+      elevation='small'
       flex={false}
       height={`${cardHeight}px`}
       round='8px'
       width={`${width}px`}
     >
       <StyledImageLink
-        a11yTitle={subjectIdTitle}
+        a11yTitle={linkTitle}
         href={subjectTalkHref}
       >
         <StyledPreview
@@ -141,7 +142,7 @@ function SubjectCard({
           round={{ corner: 'top', size: '8px' }}
           width={`${width}px`}
         >
-          {mediaSrc && showBackground ? (
+          {(mediaSrc && showBackground) ? (
             <StyledBackground>
               <Media
                 alt=''
@@ -221,7 +222,7 @@ SubjectCard.propTypes = {
   projectSlug: string.isRequired,
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
-    id: string,
+    id: string.isRequired,
     locations: arrayOf(objectOf(string)),
     metadata: object
   }),

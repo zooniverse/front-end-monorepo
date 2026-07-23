@@ -1,9 +1,9 @@
 import PreDisplay from '../../../PreDisplay'
 
-function JSONViewer({ jsonData }) {
+function JSONViewer({ alt, jsonData }) {
   const formattedJSON = JSON.stringify(jsonData, null, 2)
 
-  return <PreDisplay content={formattedJSON} />
+  return <PreDisplay a11yTitle={alt} content={formattedJSON} />
 }
 
 export default JSONViewer

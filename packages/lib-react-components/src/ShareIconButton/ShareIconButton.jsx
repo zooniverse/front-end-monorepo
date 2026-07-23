@@ -16,7 +16,7 @@ function ShareIconButton({
 
   async function writeClipboardText() {
     const url = shareUrl || window.location.href
-    
+
     try {
       await navigator.clipboard.writeText(url)
     } catch (error) {

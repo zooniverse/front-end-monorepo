@@ -2,25 +2,26 @@ import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { Loader, SpacedText } from '@zooniverse/react-components'
+import { Loader, SpacedText, SubjectCard } from '@zooniverse/react-components'
 import { useTranslation, Trans } from '@translations/i18n'
 
 import { ContentBox } from '@components/shared'
-import SubjectCard from '../SubjectCard/SubjectCard'
 
 const StyledBox = styled(Box)`
   list-style: none;
   scroll-snap-type: x mandatory;
 
   li {
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 `
 
 function RecentSubjects({
+  error = undefined,
   isLoading = false,
+  login = undefined,
   recents = [],
-  error = undefined
+  userId = undefined,
 }) {
   const { t } = useTranslation()
   const size = useContext(ResponsiveContext)
@@ -78,10 +79,12 @@ function RecentSubjects({
               return (
                 <li key={recent?.id}>
                   <SubjectCard
-                    size={size}
-                    subjectID={recent?.links.subject}
-                    mediaSrc={subjectMedia?.[0]}
+                    login={login}
+                    projectId={recent?.projectId}
                     projectSlug={recent?.projectSlug}
+                    size={size}
+                    subject={recent.subject}
+                    userId={userId}
                   />
                 </li>
               )
@@ -96,10 +99,12 @@ export default RecentSubjects
 
 RecentSubjects.propTypes = {
   isLoading: bool,
+  login: string,
   recents: arrayOf(
     shape({
       id: string,
       slug: string
     })
-  )
+  ),
+  userId: string
 }
