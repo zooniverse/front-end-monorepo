@@ -1,5 +1,4 @@
 import { Anchor, Box } from 'grommet'
-import mime from 'mime/lite'
 import { arrayOf, bool, node, object, objectOf, oneOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
@@ -83,11 +82,7 @@ function SubjectCard({
   const metaToolsSectionGap = metaToolsGap(size)
 
   // subject properties
-  const { locations, metadata } = subject
-  const mediaSrc = locations?.[0] ? Object.values(locations[0])[0] : null
-  const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
-  const [ mediaType ] = mimeType ? mimeType.split('/') : []
-  const showBackground = mediaType === 'image' || mediaType === 'video'
+  const { metadata } = subject
   const subjectTalkHref = addQueryParams(`/projects/${projectSlug}/talk/subjects/${subject.id}`)
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`

@@ -28,11 +28,27 @@ function InteractiveMedia({
   width
 }) {
   const sourceList = getSourceList(subject)
+  const hasMultipleSources = sourceList.length > 1
   const mediaSrc = sourceList.length === 1 ? sourceList[0] : null
   const mediaType = getMediaType(mediaSrc)
   const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(mediaType)
   const showBackground = mediaType === 'image'
-  const resolvedPreviewHeight = mediaSrc ? previewHeight : previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
+  const resolvedPreviewHeight = hasMultipleSources
+    ? previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
+    : previewHeight
+
+  if (hasMultipleSources) {
+    return (
+      <MultiMedia
+        mediaSources={sourceList}
+        placeholder={placeholder}
+        previewHeight={resolvedPreviewHeight}
+        showBackground={showBackground}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+      />
+    )
+  }
 
   if (supportsSimplePreview) {
     return (
@@ -47,17 +63,8 @@ function InteractiveMedia({
       />
     )
   }
-  
-  return (
-    <MultiMedia
-      mediaSources={sourceList}
-      placeholder={placeholder}
-      previewHeight={resolvedPreviewHeight}
-      showBackground={showBackground}
-      subjectIdTitle={subjectIdTitle}
-      width={width}
-    />
-  )
+
+  return null
 }
 
 InteractiveMedia.propTypes = {
