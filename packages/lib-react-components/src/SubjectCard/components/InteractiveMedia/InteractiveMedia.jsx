@@ -1,99 +1,71 @@
-import { bool, node, number, arrayOf, string } from 'prop-types'
-import { useEffect, useMemo, useState } from 'react'
+import mime from 'mime/lite'
+import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
 
-import SimpleMedia from '../SimpleMedia'
-import FlipbookControls from './components/FlipbookControls'
+import SimpleMedia from '../SimpleMedia/SimpleMedia'
+import MultiMedia from './components/MultiMedia'
+import { MULTI_MEDIA_CONTROLS_HEIGHT } from './components/MultiMedia'
 
-const FLIPBOOK_INTERVAL = 500
+const SIMPLE_PREVIEW_MEDIA_TYPES = [
+  'application',
+  'image',
+  'text'
+]
+
+function getMediaType(source) {
+  const mimeType = mime.getType(source)
+  return mimeType?.split('/')[0]
+}
+
+function getSourceList(subject) {
+  return (subject?.locations || []).map(location => Object.values(location)[0]).filter(Boolean)
+}
 
 function InteractiveMedia({
-  mediaSources = [],
-  mediaSrc,
   placeholder,
   previewHeight,
-  showBackground,
+  subject,
   subjectIdTitle,
   width
 }) {
-  const hasFlipbook = mediaSources.length > 1
-  const [currentFrame, setCurrentFrame] = useState(0)
-  const [playing, setPlaying] = useState(false)
+  const sourceList = getSourceList(subject)
+  const mediaSrc = sourceList.length === 1 ? sourceList[0] : null
+  const mediaType = getMediaType(mediaSrc)
+  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(mediaType)
+  const showBackground = mediaType === 'image'
+  const resolvedPreviewHeight = mediaSrc ? previewHeight : previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
 
-  const currentMediaSrc = useMemo(() => {
-    if (hasFlipbook) {
-      return mediaSources[currentFrame]
-    }
-
-    return mediaSrc
-  }, [currentFrame, hasFlipbook, mediaSources, mediaSrc])
-
-  useEffect(() => {
-    setCurrentFrame(0)
-    setPlaying(false)
-  }, [mediaSources])
-
-  useEffect(() => {
-    if (!playing || !hasFlipbook) {
-      return undefined
-    }
-
-    const timer = window.setTimeout(() => {
-      setCurrentFrame(previousFrame => {
-        if (previousFrame < mediaSources.length - 1) {
-          return previousFrame + 1
-        }
-
-        return 0
-      })
-    }, FLIPBOOK_INTERVAL)
-
-    return () => {
-      window.clearTimeout(timer)
-    }
-  }, [currentFrame, hasFlipbook, mediaSources.length, playing])
-
-  if (!currentMediaSrc) return null
-
-  function handleFrameChange(frameIndex) {
-    setPlaying(false)
-    setCurrentFrame(frameIndex)
-  }
-
-  function handlePlayPause() {
-    setPlaying(previousPlaying => !previousPlaying)
-  }
-
-  return (
-    <>
+  if (supportsSimplePreview) {
+    return (
       <SimpleMedia
-        mediaSrc={currentMediaSrc}
+        mediaSrc={mediaSrc}
         placeholder={placeholder}
-        previewHeight={previewHeight}
+        previewHeight={resolvedPreviewHeight}
         showBackground={showBackground}
         showTitle={false}
         subjectIdTitle={subjectIdTitle}
         width={width}
       />
-
-      {hasFlipbook ? (
-        <FlipbookControls
-          currentFrame={currentFrame}
-          imageSources={mediaSources}
-          onFrameChange={handleFrameChange}
-          onPlayPause={handlePlayPause}
-          playing={playing}
-        />
-      ) : null}
-    </>
+    )
+  }
+  
+  return (
+    <MultiMedia
+      mediaSources={sourceList}
+      placeholder={placeholder}
+      previewHeight={resolvedPreviewHeight}
+      showBackground={showBackground}
+      subjectIdTitle={subjectIdTitle}
+      width={width}
+    />
   )
 }
 
 InteractiveMedia.propTypes = {
-  mediaSources: arrayOf(string),
-  mediaSrc: string,
   placeholder: node,
   previewHeight: number.isRequired,
-  showBackground: bool,
+  subject: shape({
+    locations: arrayOf(objectOf(string))
+  }),
   subjectIdTitle: string.isRequired,
   width: number.isRequired
 }
