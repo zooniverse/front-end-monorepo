@@ -10,7 +10,7 @@ const StatusMessageContainer = styled(Box)`
   ${props => (props.theme.dark)
     ? css`
       color: ${props.theme.global.colors['neutral-6']};
-      background: ${props.theme.global.colors['dark-6']};
+      background: ${props.theme.global.colors['dark-4']};
     `
     : css`
       color: ${props.theme.global.colors['dark-4']};
@@ -27,11 +27,11 @@ const StatusMessageContainer = styled(Box)`
   }
 
   &.state-success {
-    border-left: 6px solid ${props => props.theme.global.colors['highlighterTool']['green']};
+    border-left: 6px solid ${props => props.theme.global.colors['neutral-3']};
 
     > svg {
       flex: 0 0 auto;
-      fill: ${props => props.theme.global.colors['highlighterTool']['green']};
+      fill: ${props => props.theme.global.colors['neutral-3']};
     }
   }
 
@@ -45,11 +45,11 @@ const StatusMessageContainer = styled(Box)`
   }
 
   &.state-warning {
-    border-left: 6px solid ${props => props.theme.global.colors['drawingTools']['orange']};
+    border-left: 6px solid ${props => props.theme.global.colors['status-warning']};
 
     > svg {
       flex: 0 0 auto;
-      stroke: ${props => props.theme.global.colors['drawingTools']['orange']};
+      stroke: ${props => props.theme.global.colors['status-warning']};
     }
   }
 
