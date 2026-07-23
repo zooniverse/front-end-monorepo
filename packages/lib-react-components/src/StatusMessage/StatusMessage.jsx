@@ -5,6 +5,7 @@ import StatusIcon from './components/StatusIcon'
 
 const StatusMessageContainer = styled(Box)`
   border-radius: 4px;
+  font-size: 16px;
   gap: 0.75em;
 
   ${props => (props.theme.dark)
