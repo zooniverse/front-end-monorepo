@@ -32,17 +32,26 @@ function StatusIcon ({
   switch (type) {
     case 'success':
       return (
-        <SuccessIcon size={size} />
+        <SuccessIcon
+          aria-label={t('StatusMessage.icons.success')}
+          size={size}
+        />
       )
 
     case 'error':
       return (
-        <ErrorIcon size={size} />
+        <ErrorIcon
+          aria-label={t('StatusMessage.icons.error')}
+          size={size}
+        />
       )
 
     case 'warning':
       return (
-        <WarningIcon size={size} />
+        <WarningIcon
+          aria-label={t('StatusMessage.icons.warning')}
+          size={size}
+        />
       )
   }
 
