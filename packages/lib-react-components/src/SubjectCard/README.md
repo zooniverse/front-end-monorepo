@@ -10,6 +10,7 @@ A preview card for subjects.
 
 ## Props
 
+- `interactive` (boolean): Whether the card has interactive media or not.
 - `login` (string): The login of the current user for enabling favorite action.
 - `placeholder` (node): Placeholder passed to `Media`.
 - `projectId` (string): Project ID used for favoriting and collecting the subject.
