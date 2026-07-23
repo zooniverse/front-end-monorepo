@@ -3,6 +3,8 @@ import { Pause as PauseIcon, Play as PlayIcon } from 'grommet-icons'
 import { arrayOf, bool, func, number, string } from 'prop-types'
 import styled from 'styled-components'
 
+import { useTranslation } from '../../../../../translations/i18n'
+
 const THUMBNAIL_SIZE = 30
 
 const Toolbar = styled(Box)`
@@ -11,19 +13,22 @@ const Toolbar = styled(Box)`
 
 const FrameList = styled(Box)`
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: thin;
 `
 
 const FrameButton = styled(Button)`
-  border: none;
+  border: 1.5px solid transparent;
+  box-sizing: border-box;
   border-radius: 2px;
+  flex: 0 0 auto;
   height: ${THUMBNAIL_SIZE}px;
   min-width: ${THUMBNAIL_SIZE}px;
   padding: 0;
   width: ${THUMBNAIL_SIZE}px;
 
   ${props => props.$selected ? `
-    border: 1.5px solid ${props.theme.global.colors.brand};
+    border-color: ${props.theme.global.colors.brand};
     box-shadow: 0 0 4px ${props.theme.global.colors['accent-1']};
   ` : ''}
 `
@@ -58,6 +63,8 @@ function FlipbookControls({
   onPlayPause,
   playing
 }) {
+  const { t } = useTranslation()
+
   function handlePlayPause(event) {
     event.preventDefault()
     event.stopPropagation()
@@ -79,14 +86,16 @@ function FlipbookControls({
       pad={{ horizontal: '5px' }}
     >
       <Button
-        a11yTitle={playing ? 'Pause flipbook' : 'Play flipbook'}
+        a11yTitle={playing
+          ? t('SubjectCard.FlipbookControls.pause')
+          : t('SubjectCard.FlipbookControls.play')}
         icon={playing ? <PauseIcon size='16px' /> : <PlayIcon size='16px' />}
         onClick={handlePlayPause}
         plain
       />
 
       <FrameList
-        aria-label='Flipbook frames'
+        aria-label={t('SubjectCard.FlipbookControls.frames')}
         align='center'
         direction='row'
         gap='10px'
@@ -99,8 +108,8 @@ function FlipbookControls({
             <FrameButton
               key={`${source}-${index}`}
               $selected={selected}
-              a11yTitle={`View frame ${index + 1}`}
-              aria-label={`View frame ${index + 1}`}
+              a11yTitle={t('SubjectCard.FlipbookControls.viewFrame', { frame: index + 1 })}
+              aria-label={t('SubjectCard.FlipbookControls.viewFrame', { frame: index + 1 })}
               aria-selected={selected}
               onClick={event => handleFrameClick(event, index)}
               role='tab'
