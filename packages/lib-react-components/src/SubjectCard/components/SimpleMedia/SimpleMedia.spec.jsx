@@ -1,13 +1,13 @@
 import { composeStory } from '@storybook/react'
 import { render } from '@testing-library/react'
 
-import ImageMeta, { LoggedInLandscape } from '../../stories/static/SubjectCard.image.stories'
-import VideoMeta, { FloridaKeys } from '../../stories/static/SubjectCard.video.stories'
-import AudioMeta, { FrogFind } from '../../stories/static/SubjectCard.audio.stories'
-import ApplicationMeta, { NotesFromNatureGeoJSON } from '../../stories/static/SubjectCard.application.stories'
-import TextMeta, { NotesFromNature } from '../../stories/static/SubjectCard.text.stories'
+import ImageMeta, { LoggedInLandscape } from '../../stories/Simple/SubjectCard.image.stories'
+import VideoMeta, { FloridaKeys } from '../../stories/Simple/SubjectCard.video.stories'
+import AudioMeta, { FrogFind } from '../../stories/Simple/SubjectCard.audio.stories'
+import ApplicationMeta, { NotesFromNatureGeoJSON } from '../../stories/Simple/SubjectCard.application.stories'
+import TextMeta, { NotesFromNature } from '../../stories/Simple/SubjectCard.text.stories'
 
-describe('StaticMedia', function () {
+describe('SimpleMedia', function () {
   it('renders image media', function () {
     const Story = composeStory(LoggedInLandscape, ImageMeta)
 

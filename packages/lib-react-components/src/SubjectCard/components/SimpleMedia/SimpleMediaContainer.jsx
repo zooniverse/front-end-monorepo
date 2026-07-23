@@ -1,9 +1,9 @@
 import mime from 'mime/lite'
 import { node, number, shape, string, arrayOf, objectOf } from 'prop-types'
 
-import StaticMedia from './StaticMedia'
+import SimpleMedia from './SimpleMedia'
 
-function StaticMediaContainer({
+function SimpleMediaContainer({
 	placeholder,
 	previewHeight,
 	subject,
@@ -17,7 +17,7 @@ function StaticMediaContainer({
 	const showBackground = mediaType === 'image' || mediaType === 'video'
 
 	return (
-		<StaticMedia
+		<SimpleMedia
 			mediaSrc={mediaSrc}
 			placeholder={placeholder}
 			previewHeight={previewHeight}
@@ -28,7 +28,7 @@ function StaticMediaContainer({
 	)
 }
 
-StaticMediaContainer.propTypes = {
+SimpleMediaContainer.propTypes = {
 	placeholder: node,
 	previewHeight: number.isRequired,
 	subject: shape({
@@ -38,4 +38,4 @@ StaticMediaContainer.propTypes = {
 	width: number.isRequired
 }
 
-export default StaticMediaContainer
+export default SimpleMediaContainer

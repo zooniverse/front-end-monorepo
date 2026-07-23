@@ -6,7 +6,7 @@ import {
 } from '../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Static / Video',
+  title: 'Components / SubjectCard / Simple / Video',
   component: SubjectCard
 }
 

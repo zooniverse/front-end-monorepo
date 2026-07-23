@@ -10,7 +10,15 @@ vi.mock('../ShareIconButton', function() {
   }
 })
 
-import Meta, { LoggedInLandscape } from './stories/static/SubjectCard.image.stories'
+vi.mock('../ShareIconButton', function() {
+  return {
+    default: function MockShareIconButton({ shareUrl }) {
+      return <button aria-label='Share' data-share-url={shareUrl} type='button' />
+    }
+  }
+})
+
+import Meta, { LoggedInLandscape } from './stories/Simple/SubjectCard.image.stories'
 
 describe('SubjectCard', function() {
   const DefaultStory = composeStory(LoggedInLandscape, Meta)

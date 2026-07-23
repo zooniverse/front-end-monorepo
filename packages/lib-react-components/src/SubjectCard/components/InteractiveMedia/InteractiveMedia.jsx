@@ -1,7 +1,7 @@
 import { bool, node, number, arrayOf, string } from 'prop-types'
 import { useEffect, useMemo, useState } from 'react'
 
-import StaticMedia from '../StaticMedia/StaticMedia'
+import SimpleMedia from '../SimpleMedia'
 import FlipbookControls from './components/FlipbookControls'
 
 const FLIPBOOK_INTERVAL = 500
@@ -65,7 +65,7 @@ function InteractiveMedia({
 
   return (
     <>
-      <StaticMedia
+      <SimpleMedia
         mediaSrc={currentMediaSrc}
         placeholder={placeholder}
         previewHeight={previewHeight}

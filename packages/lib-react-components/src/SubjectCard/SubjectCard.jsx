@@ -10,7 +10,7 @@ import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
 import addQueryParams from './helpers/addQueryParams'
 
-import StaticMedia from './components/StaticMedia'
+import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
 
 const INTERACTIVE_WIDTH = 300
@@ -73,8 +73,8 @@ function SubjectCard({
   userId
 }) {
   const { t } = useTranslation()
-  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject?.id })
-  const linkTitle = t('SubjectCard.linkTitle', { id: subject?.id })
+  const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
 
   // layout
   const width = interactive ? INTERACTIVE_WIDTH : cardWidth(size)
@@ -113,7 +113,7 @@ function SubjectCard({
             width={width}
           />
         ) : (
-          <StaticMedia
+          <SimpleMedia
             placeholder={placeholder}
             previewHeight={previewHeight}
             subject={subject}
