@@ -178,6 +178,44 @@ export const NOTES_FROM_NATURE_TEXT_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
+export const SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT = {
+  id: '121787506',
+  links: { project: '31959' },
+  locations: [
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/e0d9ca1b-778e-426c-ba96-eeb5bf4fce35.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/909abfce-2a23-49ff-8ab0-f386d045e917.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/0edc85fe-dd12-4f35-a73c-de5f0e18af08.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/2d9e24c6-d8cc-417e-bb06-871dbbf5948d.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/5abd63db-4180-4899-aca5-9ef79a01bd77.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/8f00b8f2-d90f-426e-98c3-e60967125fe4.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/cdb96c0c-bcf4-4ffb-93b0-fa6db9533da9.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/c9963b08-3c91-42db-b894-dde0dd53ab23.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/df06afff-52f6-4ceb-92dd-bdd6cbddc20e.jpeg'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/c4565b17-4afe-4a2f-be8c-6497ec25feee.jpeg'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
 export function StoryRow({
   login,
   subject
