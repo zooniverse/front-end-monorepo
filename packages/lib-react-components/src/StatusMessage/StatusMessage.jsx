@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { element, object, oneOf, oneOfType, string } from 'prop-types'
 import { Box } from 'grommet'
 import styled, { css } from 'styled-components'
 import StatusIcon from './components/StatusIcon'
@@ -110,22 +110,22 @@ function StatusMessage ({
 }
 
 StatusMessage.propTypes = {
-  text: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
+  text: oneOfType([
+    string,
+    element,
   ]),  // Either pass in a string, or another React/HTML ocomponent
-  type: PropTypes.oneOf(['success', 'error', 'warning', '']),
+  type: oneOf(['success', 'error', 'warning', '']),
 
   // Grommet-style layout values
-  width: PropTypes.string,
-  height: PropTypes.string,
-  margin: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
+  width: string,
+  height: string,
+  margin: oneOfType([
+    string,
+    object,
   ]),
-  padding: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
+  padding: oneOfType([
+    string,
+    object,
   ]),
 
   // Also accepts other Box-compatible attributes.
