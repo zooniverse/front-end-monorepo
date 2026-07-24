@@ -1,6 +1,7 @@
 import { Box, Button } from 'grommet'
 import { Pause as PauseIcon, Play as PlayIcon } from 'grommet-icons'
 import { arrayOf, bool, func, number, string } from 'prop-types'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { useTranslation } from '../../../../../translations/i18n'
@@ -64,6 +65,17 @@ function FlipbookControls({
   playing
 }) {
   const { t } = useTranslation()
+  const selectedButtonRef = useRef(null)
+
+  // Scroll the selected frame button into view when it changes
+  useEffect(() => {
+    selectedButtonRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    })
+    selectedButtonRef.current?.focus()
+  }, [currentFrame])
 
   function handlePlayPause(event) {
     event.preventDefault()
@@ -75,6 +87,34 @@ function FlipbookControls({
     event.preventDefault()
     event.stopPropagation()
     onFrameChange(frameIndex)
+  }
+
+  function handleKeyDown(event, frameIndex) {
+    const { key } = event
+    let newFrameIndex = frameIndex
+
+    switch (key) {
+      case 'ArrowLeft':
+        event.preventDefault()
+        newFrameIndex = frameIndex > 0 ? frameIndex - 1 : imageSources.length - 1
+        break
+      case 'ArrowRight':
+        event.preventDefault()
+        newFrameIndex = frameIndex < imageSources.length - 1 ? frameIndex + 1 : 0
+        break
+      case 'Home':
+        event.preventDefault()
+        newFrameIndex = 0
+        break
+      case 'End':
+        event.preventDefault()
+        newFrameIndex = imageSources.length - 1
+        break
+      default:
+        return
+    }
+
+    onFrameChange(newFrameIndex)
   }
 
   return (
@@ -106,12 +146,14 @@ function FlipbookControls({
 
           return (
             <FrameButton
+              ref={selected ? selectedButtonRef : null}
               key={`${source}-${index}`}
               $selected={selected}
               a11yTitle={t('SubjectCard.FlipbookControls.viewFrame', { frame: index + 1 })}
               aria-label={t('SubjectCard.FlipbookControls.viewFrame', { frame: index + 1 })}
               aria-selected={selected}
               onClick={event => handleFrameClick(event, index)}
+              onKeyDown={event => handleKeyDown(event, index)}
               role='tab'
               tabIndex={selected ? 0 : -1}
             >
