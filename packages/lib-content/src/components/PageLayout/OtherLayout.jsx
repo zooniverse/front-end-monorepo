@@ -12,10 +12,6 @@ const DecorativePseudoHeader = styled(Box)`
 const StyledLogo = styled(ZooniverseLogotype)`
   margin-top: 1em;
   margin-bottom: 1em;
-
-  @media (width < ${HeaderBreakpoint}) {
-    display: none;
-  }
 `
 
 const customTheme = {
@@ -32,8 +28,6 @@ function OtherLayout({ children }) {
   // Note: the the Decorative Pseudo-Header looks visually similar to the
   // AboutLayout's AboutHeader (used on About pages), except the DPH isn't a
   // <header> element and has no <nav> elements. It's purely decorative.
-  // The Zooniverse logo disappears in narrow views, but a strip of teal remains
-  // visible on the page.
 
   return (
     <>

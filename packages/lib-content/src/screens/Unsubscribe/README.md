@@ -20,3 +20,10 @@ Security:
 
 - We don't confirm if an email exists or not.
 
+## Dev Notes
+
+If you're testing the Unsubscribe Page on localhost, note that the form submission only works with app-root on staging.
+
+1. On app-root's local.zooniverse.org:3000/unsubscribe, the form will actually hit Panoptes Staging when submitting a email address, and **should** work as expected.
+2. On app-root, if you use ?env=production, the form will try to hit Panoptes Production, but the action will always fail with a CORS error.
+3. On lib-content's Storybook, the form will try to hit Panoptes Staging when submitting an email address, but the action will always fail with a CORS error.

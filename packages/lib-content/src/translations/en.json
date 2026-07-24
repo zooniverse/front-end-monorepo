@@ -403,9 +403,10 @@
         "p1": "We get it - no one likes to keep receiving email they don't want.",
         "p2": "Just enter your email address here and we'll unsubscribe you from all our email lists."
       },
-      "submit": "",
+      "inputEmail": "Email address",
+      "submit": "Submit",
       "errors": {
-        "invalidEmail": "Invalid email address"
+        "general": "Something went wrong. Please check the email address and try again."
       }
     },
     "processed": {

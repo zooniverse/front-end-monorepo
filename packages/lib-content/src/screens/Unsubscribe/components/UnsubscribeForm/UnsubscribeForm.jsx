@@ -1,7 +1,10 @@
+import { useRef, useState } from 'react'
 import { Anchor, Box, Button, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
+import { Loader, PrimaryButton } from '@zooniverse/react-components'
+import doUnsubscribe from '../../helpers/doUnsubscribe'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -35,13 +38,42 @@ const ProcessedStateHeading = styled(Heading)`
   }
 `
 
+const ReadyStateForm = styled(Form)`
+`
+
+const ReadyStateInputBox = styled(Box)`
+  gap: 2em;
+`
+
 function UnsubscribeForm ({
   processed = false,  // If processed is true, it means user was sent here from the Panoptes /unsubscribe route. Immediately show the "Unsubscribe successful!" message.
 }) {
   const { t } = useTranslation()
+  const [isBusy, setIsBusy] = useState(false)
+  const [isError, setIsError] = useState(false)
+  const [isComplete, setIsComplete] = useState(processed)
+  const inputEmail = useRef()
 
+  function onInputChange (event) { setEmail(event.currentTarget.value) }
 
-  if (processed) {
+  // This only triggers if the email is valid.
+  // Email validation is performed via native HTML form controls.
+  async function onSubmit () {
+    // Prepare to submit!
+    setIsBusy(true)
+    setIsError(false)
+
+    // Do the submit!
+    const email = inputEmail.current?.value || ''
+    const success = await doUnsubscribe({ email })
+
+    // Successful?
+    setIsBusy(false)
+    setIsError(!success)
+    setIsComplete(success)
+  }
+
+  if (isComplete) {
     // Once process is complete (either via this UnsubscribeForm, or from a
     // redirect from the Panoptes /unsubscribe route, show the "Unsubscribe
     // successful!" message.
@@ -75,12 +107,48 @@ function UnsubscribeForm ({
     // Otherwise, show the form for unsubscribing.
 
     return (
-      <Box
-        align='center'
+      <ReadyStateForm
         className='UnsubscribeForm'
+        onSubmit={onSubmit}
       >
-        TODO: add form.
-      </Box>
+        <Heading
+          level={1}
+        >
+          {t('Unsubscribe.form.header')}
+        </Heading>
+        <Paragraph>
+          {t('Unsubscribe.form.body.p1')}
+        </Paragraph>
+        <Paragraph>
+          {t('Unsubscribe.form.body.p2')}
+        </Paragraph>
+        <ReadyStateInputBox
+          align='center'
+        >
+          <TextInput
+            aria-label={t('Unsubscribe.form.inputEmail')}
+            disabled={isBusy}
+            ref={inputEmail}
+            required
+            type='email'
+          />
+          <PrimaryButton
+            disabled={isBusy}
+            label={t('Unsubscribe.form.submit')}
+            type='submit'
+          />
+          
+          {/*TODO: style these properly*/}
+          {isBusy && <Loader />}
+          {isError &&
+            <Paragraph>
+              {t('Unsubscribe.form.errors.general')}
+            </Paragraph>
+          }
+
+        </ReadyStateInputBox>
+
+      </ReadyStateForm>
     )
   }
 }
