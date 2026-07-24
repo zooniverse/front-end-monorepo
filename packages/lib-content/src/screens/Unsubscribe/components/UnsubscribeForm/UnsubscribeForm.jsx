@@ -73,84 +73,90 @@ function UnsubscribeForm ({
     setIsComplete(success)
   }
 
-  if (isComplete) {
-    // Once process is complete (either via this UnsubscribeForm, or from a
-    // redirect from the Panoptes /unsubscribe route, show the "Unsubscribe
-    // successful!" message.
+  return (
+    <Box className='UnsubscribeForm'>
 
-    return (
-      <ProcessedStateBox
-        align='center'
-        className='UnsubscribeForm'
-      >
-        <ProcessedStateHeading
-          level={1}
-        >
-          {t('Unsubscribe.processed.header')}
-        </ProcessedStateHeading>
-        <Paragraph>
-          <Trans
-            i18nKey='Unsubscribe.processed.body'
-            t={t}
-            components={[
-              <Anchor
-                key='email-preferences'
-                href='/setting/email'
+      {/* Accessibility note: since the form's "Success Message" is its own standalone component (i.e. ProcessedStateBox), we use aria-live to announce when the input form has transitioned to the "success message" component. */}
+      <Box aria-live="polite" margin={{ bottom: '2em'}}>
+
+        {isComplete ? (
+
+          // Once process is complete (either via this UnsubscribeForm, or from a
+          // redirect from the Panoptes /unsubscribe route, show the "Unsubscribe
+          // successful!" message.
+
+          <ProcessedStateBox
+            align='center'
+          >
+            <ProcessedStateHeading
+              level={1}
+            >
+              {t('Unsubscribe.processed.header')}
+            </ProcessedStateHeading>
+            <Paragraph>
+              <Trans
+                i18nKey='Unsubscribe.processed.body'
+                t={t}
+                components={[
+                  <Anchor
+                    key='email-preferences'
+                    href='/setting/email'
+                  />
+                ]}
               />
-            ]}
-          />
-        </Paragraph>
-      </ProcessedStateBox>
-    )
+            </Paragraph>
+          </ProcessedStateBox>
 
-  } else {
-    // Otherwise, show the form for unsubscribing.
+        ) : (
 
-    return (
-      <ReadyStateForm
-        className='UnsubscribeForm'
-        onSubmit={onSubmit}
-      >
-        <Heading
-          level={1}
-        >
-          {t('Unsubscribe.form.header')}
-        </Heading>
-        <Paragraph>
-          {t('Unsubscribe.form.body.p1')}
-        </Paragraph>
-        <Paragraph>
-          {t('Unsubscribe.form.body.p2')}
-        </Paragraph>
-        <ReadyStateInputBox
-          align='center'
-        >
-          <TextInput
-            aria-label={t('Unsubscribe.form.inputEmail')}
-            disabled={isBusy}
-            ref={inputEmail}
-            required
-            type='email'
-          />
-          <PrimaryButton
-            disabled={isBusy}
-            label={t('Unsubscribe.form.submit')}
-            type='submit'
-          />
-          
-          {/*TODO: style these properly*/}
-          {isBusy && <Loader />}
+          // Otherwise, show the form for unsubscribing.
 
-          <StatusMessage
-            type={isError && 'error'}
-            text={isError && t('Unsubscribe.form.errors.general')}
-          />
-          
-        </ReadyStateInputBox>
+          <ReadyStateForm
+            className='UnsubscribeForm'
+            onSubmit={onSubmit}
+          >
+            <Heading
+              level={1}
+            >
+              {t('Unsubscribe.form.header')}
+            </Heading>
+            <Paragraph>
+              {t('Unsubscribe.form.body.p1')}
+            </Paragraph>
+            <Paragraph>
+              {t('Unsubscribe.form.body.p2')}
+            </Paragraph>
+            <ReadyStateInputBox
+              align='center'
+            >
+              <TextInput
+                aria-label={t('Unsubscribe.form.inputEmail')}
+                disabled={isBusy}
+                ref={inputEmail}
+                required
+                type='email'
+              />
+              <PrimaryButton
+                disabled={isBusy}
+                label={t('Unsubscribe.form.submit')}
+                type='submit'
+              />
+              
+              {/*TODO: style these properly*/}
+              {isBusy && <Loader />}
+              
+            </ReadyStateInputBox>
+          </ReadyStateForm>
+        )}
+      </Box>
 
-      </ReadyStateForm>
-    )
-  }
+      {/* The status message is used ONLY for error messages. It sits outside the ReadyStateForm's <form> to avoid nested live regions. (StatusMessage has role=status, while ReadyStateForm sits inside an aria-live=polite.) */}
+      <StatusMessage
+        type={!isComplete && isError && 'error'}
+        text={!isComplete && isError && t('Unsubscribe.form.errors.general')}
+      />
+    </Box>
+  )
 }
 
 UnsubscribeForm.propTypes = {
