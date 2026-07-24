@@ -4,6 +4,7 @@ import { arrayOf, bool, func, number, string } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import IconActionButton from '../../../../../IconActionButton'
 import { useTranslation } from '../../../../../translations/i18n'
 
 const THUMBNAIL_SIZE = 30
@@ -122,16 +123,16 @@ function FlipbookControls({
       align='center'
       background={{ dark: 'dark-3', light: 'white' }}
       direction='row'
-      gap='xsmall'
+      gap='xxsmall'
       pad={{ horizontal: '5px' }}
     >
-      <Button
+      <IconActionButton
         a11yTitle={playing
           ? t('SubjectCard.FlipbookControls.pause')
           : t('SubjectCard.FlipbookControls.play')}
+        active={playing}
         icon={playing ? <PauseIcon size='16px' /> : <PlayIcon size='16px' />}
         onClick={handlePlayPause}
-        plain
       />
 
       <FrameList
