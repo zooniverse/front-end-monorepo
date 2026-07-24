@@ -3,7 +3,7 @@ import { Anchor, Box, Button, Form, FormField, Heading, Paragraph, TextInput } f
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
-import { Loader, PrimaryButton } from '@zooniverse/react-components'
+import { Loader, PrimaryButton, StatusMessage } from '@zooniverse/react-components'
 import doUnsubscribe from '../../helpers/doUnsubscribe'
 
 const ProcessedStateBox = styled(Box)`
@@ -140,12 +140,12 @@ function UnsubscribeForm ({
           
           {/*TODO: style these properly*/}
           {isBusy && <Loader />}
-          {isError &&
-            <Paragraph>
-              {t('Unsubscribe.form.errors.general')}
-            </Paragraph>
-          }
 
+          <StatusMessage
+            type={isError && 'error'}
+            text={isError && t('Unsubscribe.form.errors.general')}
+          />
+          
         </ReadyStateInputBox>
 
       </ReadyStateForm>
