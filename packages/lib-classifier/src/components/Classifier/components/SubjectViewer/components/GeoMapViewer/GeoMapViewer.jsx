@@ -89,6 +89,8 @@ function GeoMapViewer({
 
   const hasGeoDrawingTask = !!(geoDrawingTask && geoDrawingTask.tools.length > 0)
   const activeToolType = geoDrawingTask?.activeTool?.type
+  // Subject features are only auto-selected in move-only workflows (no creatable point tool).
+  const autoSelect = !geoDrawingTask?.tools?.some(tool => tool.canCreate)
 
   const { map, source, layer, scaleLine, baseLayers } = useOLMap(containerRef, tileLayers)
 
@@ -102,7 +104,7 @@ function GeoMapViewer({
     onSelectedFeatureChange
   })
 
-  const { draw, modify, moveToClick, measure } = useMapInteractions({
+  const { draw, modify, moveToClick, pointDraw, measure } = useMapInteractions({
     map,
     source,
     layer,
@@ -135,6 +137,7 @@ function GeoMapViewer({
     draw,
     modify,
     moveToClick,
+    pointDraw,
     geoDrawingTask,
     hasGeoDrawingTask,
     activeToolType,
@@ -151,8 +154,8 @@ function GeoMapViewer({
   }, [baseLayers, currentLayerIndex])
 
   useEffect(() => {
-    loadGeoJSON({ map, source, select, measure, data: geoJSON })
-  }, [map, source, select, measure, geoJSON])
+    loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+  }, [map, source, select, measure, geoJSON, autoSelect])
 
   useEffect(() => {
     if (!source || !onFeaturesChange) return undefined
@@ -203,8 +206,8 @@ function GeoMapViewer({
   const handleReset = useCallback(() => {
     if (!map || !source || !geoJSON) return
     setIsMeasureModeActive(false)
-    loadGeoJSON({ map, source, select, measure, data: geoJSON })
-  }, [map, source, select, measure, geoJSON])
+    loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+  }, [map, source, select, measure, geoJSON, autoSelect])
 
   const handleZoom = useCallback((delta) => {
     if (!map) return

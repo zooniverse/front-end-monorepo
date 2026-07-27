@@ -157,6 +157,69 @@ export const WithGeoDrawingLineStringTask = {
   }
 }
 
+export const WithGeoDrawingPointCreationTask = {
+  argTypes: {
+    min: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Minimum number of points a volunteer must create for the task to report complete. 0 = no minimum.'
+    },
+    max: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Maximum number of points a volunteer can create. 0 or blank = creation disabled (move-only).'
+    },
+    seedSubjectPoint: {
+      control: 'boolean',
+      description: 'Include a point in the subject GeoJSON (auto-drawn, excluded from min/max counts).'
+    }
+  },
+  args: {
+    min: 1,
+    max: 3,
+    seedSubjectPoint: false,
+    onFeaturesChange: (featureCollection) => {
+      if (typeof window !== 'undefined') {
+        window.__geoFeatureCount = featureCollection?.features?.length ?? 0
+        window.__geoFeatures = featureCollection?.features ?? []
+      }
+    }
+  },
+  render: ({ min, max, seedSubjectPoint, ...rest }) => {
+    const pointTool = {
+      type: 'Point',
+      label: 'Point',
+      color: '#E65252'
+    }
+    if (min !== undefined && min !== '') pointTool.min = min
+    if (max !== undefined && max !== '') pointTool.max = max
+
+    const geoDrawingTask = GeoDrawingTask.create({
+      taskKey: 'T0',
+      activeToolIndex: 0,
+      tools: [pointTool],
+      type: 'geoDrawing'
+    })
+
+    const geoJSON = {
+      type: 'FeatureCollection',
+      features: seedSubjectPoint
+        ? [
+            {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [-91.0125, 47.9847]
+              },
+              properties: {
+                name: 'Knife Lake center pin (test seed)'
+              }
+            }
+          ]
+        : []
+    }
+    return <GeoMapViewer {...rest} geoDrawingTask={geoDrawingTask} geoJSON={geoJSON} />
+  }
+}
+
 export const WithoutGeoDrawingTask = {
   args: {
     geoJSON: {
