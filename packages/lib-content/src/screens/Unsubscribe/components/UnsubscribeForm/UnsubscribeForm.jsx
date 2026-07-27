@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
-import { Anchor, Box, Button, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
+import { Anchor, Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
-import { Loader, PrimaryButton, StatusMessage } from '@zooniverse/react-components'
+import { Loader, StatusMessage } from '@zooniverse/react-components'
 import doUnsubscribe from '../../helpers/doUnsubscribe'
+import CustomPrimaryButton from '../CustomPrimaryButton/CustomPrimaryButton.jsx'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -136,7 +137,7 @@ function UnsubscribeForm ({
                 required
                 type='email'
               />
-              <PrimaryButton
+              <CustomPrimaryButton
                 disabled={isBusy}
                 label={t('Unsubscribe.form.submit')}
                 type='submit'
