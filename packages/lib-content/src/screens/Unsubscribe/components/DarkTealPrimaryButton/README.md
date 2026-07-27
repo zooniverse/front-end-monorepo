@@ -1,4 +1,4 @@
-# Custom Primary Button
+# Dark Teal Primary Button
 
 This is a custom dark teal Primary Button for the Unsubscribe Form.
 

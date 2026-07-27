@@ -4,7 +4,7 @@ import { isValidElement } from 'react'
 
 import darkTealTheme from './darkTeal'
 
-function CustomPrimaryButton ({
+function DarkTealPrimaryButton ({
   as = '',
   disabled = false,
   href = null,
@@ -32,7 +32,7 @@ function CustomPrimaryButton ({
   )
 }
 
-CustomPrimaryButton.propTypes = {
+DarkTealPrimaryButton.propTypes = {
   /** (string): The DOM tag or react component to use for the Grommet button element. */
   as: string,
   /** (bool): Applied to button element */
@@ -45,4 +45,4 @@ CustomPrimaryButton.propTypes = {
   onClick: func
 }
 
-export default CustomPrimaryButton
+export default DarkTealPrimaryButton

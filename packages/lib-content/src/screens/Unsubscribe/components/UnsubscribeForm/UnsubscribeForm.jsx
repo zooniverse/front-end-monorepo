@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import doUnsubscribe from '../../helpers/doUnsubscribe'
-import CustomPrimaryButton from '../CustomPrimaryButton/CustomPrimaryButton.jsx'
+import DarkTealPrimaryButton from '../DarkTealPrimaryButton/DarkTealPrimaryButton.jsx'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -137,7 +137,7 @@ function UnsubscribeForm ({
                 required
                 type='email'
               />
-              <CustomPrimaryButton
+              <DarkTealPrimaryButton
                 disabled={isBusy}
                 label={t('Unsubscribe.form.submit')}
                 type='submit'
