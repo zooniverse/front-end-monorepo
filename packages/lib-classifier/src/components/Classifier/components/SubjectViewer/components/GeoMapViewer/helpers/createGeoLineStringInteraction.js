@@ -3,6 +3,9 @@ import { unByKey } from 'ol/Observable'
 import Draw from 'ol/interaction/Draw'
 import { createEditingStyle } from 'ol/style/Style'
 
+import { isWithinSubjectExtent } from './extentConstraint'
+import isLineStringFeature from './isLineStringFeature'
+
 export const FEATURE_HIT_TOLERANCE_PX = 8
 
 const DEFAULT_DRAW_STYLES = createEditingStyle()
@@ -12,9 +15,10 @@ export function buildSketchStyleFn({ map, featuresLayer, getIsDrawing }) {
     const geometry = feature?.getGeometry?.()
     const geometryType = geometry?.getType?.()
     if (!geometryType) return DEFAULT_DRAW_STYLES.Point
-    if (geometryType === 'Point' && !getIsDrawing() && featuresLayer) {
+    if (geometryType === 'Point') {
       const coord = geometry.getCoordinates?.()
-      if (coord) {
+      if (coord && !isWithinSubjectExtent(map, coord)) return null
+      if (!getIsDrawing() && featuresLayer && coord) {
         const pixel = map.getPixelFromCoordinate(coord)
         if (pixel && map.hasFeatureAtPixel(pixel, {
           layerFilter: (layer) => layer === featuresLayer,
@@ -30,7 +34,7 @@ export function buildSketchStyleFn({ map, featuresLayer, getIsDrawing }) {
 
 function countLineStringFeaturesForTool(source, toolIndex) {
   return source.getFeatures().filter((feature) => {
-    if (feature.getGeometry?.()?.getType?.() !== 'LineString') return false
+    if (!isLineStringFeature(feature)) return false
     if (typeof toolIndex !== 'number') return true
     return feature.get?.('toolIndex') === toolIndex
   }).length
@@ -69,6 +73,7 @@ function createGeoLineStringInteraction({
     type: 'LineString',
     condition: (event) => {
       if (!primaryAction(event)) return false
+      if (!isWithinSubjectExtent(map, event.coordinate)) return false
       if (isDrawing) return !isDuplicateVertexClick(event)
       if (!featuresLayer) return true
       return !map.hasFeatureAtPixel(event.pixel, {

@@ -13,8 +13,8 @@ export function clearSelectedFeature(select) {
   select.dispatchEvent({ type: 'select', selected: [], deselected })
 }
 
-export function fitViewToFeatures(map, features, duration) {
-  map.getView().fit(features.getExtent(), {
+export function fitViewToExtent(map, extent, duration) {
+  map.getView().fit(extent, {
     padding: [32, 32, 32, 32],
     maxZoom: 12,
     duration

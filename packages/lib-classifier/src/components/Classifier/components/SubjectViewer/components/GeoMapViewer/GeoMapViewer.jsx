@@ -19,7 +19,7 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import { GEOJSON_READ_OPTIONS, ZOOM_ANIMATION_DURATION_MS } from './helpers/constants'
 import loadGeoJSON from './helpers/loadGeoJSON'
-import { fitViewToFeatures } from './helpers/mapSelection'
+import { fitViewToExtent } from './helpers/mapSelection'
 
 import useMapCursor from './hooks/useMapCursor'
 import useMapInteractions from './hooks/useMapInteractions'
@@ -197,7 +197,7 @@ function GeoMapViewer({
 
   const handleRecenter = useCallback(() => {
     if (!map || !source || source.getFeatures().length === 0) return
-    fitViewToFeatures(map, source, ZOOM_ANIMATION_DURATION_MS)
+    fitViewToExtent(map, map.get('subjectExtent') || source.getExtent(), ZOOM_ANIMATION_DURATION_MS)
   }, [map, source])
 
   const handleReset = useCallback(() => {
