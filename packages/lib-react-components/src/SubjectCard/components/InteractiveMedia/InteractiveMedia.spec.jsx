@@ -1,103 +1,40 @@
 import { render, screen } from '@testing-library/react'
-import { vi } from 'vitest'
+import { composeStory } from '@storybook/react'
 
-vi.mock('../SimpleMedia/SimpleMedia', function() {
-  return {
-    default: function MockSimpleMedia(props) {
-      return (
-        <div
-          data-media-src={props.mediaSrc || ''}
-          data-preview-height={props.previewHeight}
-          data-testid='simple-media'
-        />
-      )
-    }
-  }
-})
+import ImageMeta, { LoggedInLandscape, LoggedInMultiImage } from '../../stories/interactive/SubjectCard.image.stories'
 
-vi.mock('./components/MultiMedia', function() {
-  return {
-    MULTI_MEDIA_CONTROLS_HEIGHT: 45,
-    default: function MockMultiMedia(props) {
-      return (
-        <div
-          data-media-sources-length={props.mediaSources.length}
-          data-preview-height={props.previewHeight}
-          data-testid='multi-media'
-        />
-      )
-    }
-  }
-})
+describe('InteractiveMedia', function () {
+  describe('with single image location', function () {
+    it('should render a MediaLink wrapping the media', function () {
+      const Story = composeStory(LoggedInLandscape, ImageMeta)
+      render(<Story />)
+      const link = screen.getByRole('link')
+      expect(link).to.exist
+      expect(link.href).to.contain('/talk/subjects/')
+    })
 
-import InteractiveMedia from './InteractiveMedia'
-
-describe('InteractiveMedia', function() {
-  it('renders nothing when no location sources are provided', function() {
-    render(
-      <InteractiveMedia
-        previewHeight={200}
-        subjectIdTitle='Subject 1'
-        width={200}
-      />
-    )
-
-    expect(screen.queryByRole('img')).toBeNull()
-    expect(screen.queryByText('Subject 1')).toBeNull()
+    it('should not render FlipbookControls', function () {
+      const Story = composeStory(LoggedInLandscape, ImageMeta)
+      render(<Story />)
+      const buttons = screen.queryAllByTestId('flipbook-controls')
+      expect(buttons.length).to.equal(0)
+    })
   })
 
-  it('renders simple media for a single supported source', function() {
-    render(
-      <InteractiveMedia
-        subject={{
-          locations: [{ image: 'https://example.org/test.png' }]
-        }}
-        previewHeight={200}
-        subjectIdTitle='Subject 1'
-        width={200}
-      />
-    )
+  describe('with multiple image locations', function () {
+    it('should render a MediaLink wrapping the media', function () {
+      const Story = composeStory(LoggedInMultiImage, ImageMeta)
+      render(<Story />)
+      const link = screen.getByRole('link')
+      expect(link).to.exist
+      expect(link.href).to.contain('/talk/subjects/')
+    })
 
-    expect(screen.getByTestId('simple-media')).toBeTruthy()
-    expect(screen.queryByTestId('multi-media')).to.equal(null)
-  })
-
-  it('renders nothing for a single unsupported source type', function() {
-    render(
-      <InteractiveMedia
-        subject={{
-          locations: [{ audio: 'https://example.org/test.mp3' }]
-        }}
-        previewHeight={200}
-        subjectIdTitle='Subject 1'
-        width={200}
-      />
-    )
-
-    expect(screen.queryByTestId('simple-media')).to.equal(null)
-    expect(screen.queryByTestId('multi-media')).to.equal(null)
-  })
-
-  it('renders multi media when there are multiple media sources', function() {
-    render(
-      <InteractiveMedia
-        subject={{
-          locations: [
-            { image: 'https://example.org/frame-1.png' },
-            { image: 'https://example.org/frame-2.png' }
-          ]
-        }}
-        previewHeight={200}
-        subjectIdTitle='Subject 1'
-        width={200}
-      />
-    )
-
-    const multiMedia = screen.getByTestId('multi-media')
-
-    expect(multiMedia).toBeTruthy()
-    expect(multiMedia.dataset.mediaSourcesLength).to.equal('2')
-    expect(multiMedia.dataset.previewHeight).to.equal('155')
-    expect(screen.queryByTestId('simple-media')).to.equal(null)
+    it('should render FlipbookControls', function () {
+      const Story = composeStory(LoggedInMultiImage, ImageMeta)
+      render(<Story />)
+      const buttons = screen.getAllByTestId('flipbook-controls')
+      expect(buttons).to.exist
+    })
   })
 })

@@ -69,7 +69,6 @@ function InteractiveMedia({
           showTitle={false}
           subjectIdTitle={subjectIdTitle}
           width={width}
-          url={url}
         />
       </MediaLink>
     )

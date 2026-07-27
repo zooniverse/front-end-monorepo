@@ -68,7 +68,6 @@ function MultiMedia({
 				title={linkTitle}
 			>
 				<SimpleMedia
-					linkTitle={linkTitle}
 					mediaSrc={currentMediaSrc}
 					placeholder={placeholder}
 					previewHeight={previewHeight}
@@ -76,7 +75,6 @@ function MultiMedia({
 					showTitle={false}
 					subjectIdTitle={subjectIdTitle}
 					width={width}
-					url={url}
 				/>
 			</MediaLink>
 			<FlipbookControls

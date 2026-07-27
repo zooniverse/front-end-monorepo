@@ -120,6 +120,7 @@ function FlipbookControls({
 
   return (
     <Toolbar
+      data-testid='flipbook-controls'
       align='center'
       background={{ dark: 'dark-3', light: 'white' }}
       direction='row'

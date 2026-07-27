@@ -61,6 +61,7 @@ window.IntersectionObserver = IntersectionObserver
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
 window.matchMedia = () => mockMediaMatcher
+window.Element.prototype.scrollIntoView = () => true
 
 global.window = window
 global.document = window.document
